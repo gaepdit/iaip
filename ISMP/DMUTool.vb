@@ -8735,9 +8735,6 @@ Public Class DMUTool
 
             cmd.ExecuteNonQuery()
 
-            'test change please ignore 
-
-
 
         Catch ex As Exception
             MsgBox(ex.ToString())
