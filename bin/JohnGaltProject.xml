@@ -1,0 +1,564 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+JohnGaltProject
+</name>
+</assembly>
+<members>
+<member name="T:JohnGaltProject.dsIAIP.ESSCHEMADataTable">
+	<summary>
+Represents the strongly named DataTable class.
+</summary>
+</member><member name="T:JohnGaltProject.dsIAIP.FSADDPAIDDataTable">
+	<summary>
+Represents the strongly named DataTable class.
+</summary>
+</member><member name="T:JohnGaltProject.dsIAIP.FSCALCULATIONSDataTable">
+	<summary>
+Represents the strongly named DataTable class.
+</summary>
+</member><member name="T:JohnGaltProject.dsIAIP.FSPAYANDSUBMITDataTable">
+	<summary>
+Represents the strongly named DataTable class.
+</summary>
+</member><member name="T:JohnGaltProject.dsIAIP.FEEREPORTDataTable">
+	<summary>
+Represents the strongly named DataTable class.
+</summary>
+</member><member name="T:JohnGaltProject.dsIAIP.FEESDUEDataTable">
+	<summary>
+Represents the strongly named DataTable class.
+</summary>
+</member><member name="T:JohnGaltProject.dsIAIP.FEESNONRESPONDENTDataTable">
+	<summary>
+Represents the strongly named DataTable class.
+</summary>
+</member><member name="T:JohnGaltProject.dsIAIP.FEEVARIANCEDataTable">
+	<summary>
+Represents the strongly named DataTable class.
+</summary>
+</member><member name="T:JohnGaltProject.dsIAIP.VW_AUDIT_REPORTDataTable">
+	<summary>
+Represents the strongly named DataTable class.
+</summary>
+</member><member name="T:JohnGaltProject.dsIAIP.VW_BANKRUPTDataTable">
+	<summary>
+Represents the strongly named DataTable class.
+</summary>
+</member><member name="T:JohnGaltProject.dsIAIP.VW_CLASS_CHANGEDDataTable">
+	<summary>
+Represents the strongly named DataTable class.
+</summary>
+</member><member name="T:JohnGaltProject.dsIAIP.VW_FACILITY_BALANCEDataTable">
+	<summary>
+Represents the strongly named DataTable class.
+</summary>
+</member><member name="T:JohnGaltProject.dsIAIP.VW_FACILITY_FEEDataTable">
+	<summary>
+Represents the strongly named DataTable class.
+</summary>
+</member><member name="T:JohnGaltProject.dsIAIP.VW_FACILITY_INFODataTable">
+	<summary>
+Represents the strongly named DataTable class.
+</summary>
+</member><member name="T:JohnGaltProject.dsIAIP.VW_FEES_BY_AIRSDataTable">
+	<summary>
+Represents the strongly named DataTable class.
+</summary>
+</member><member name="T:JohnGaltProject.dsIAIP.VW_NO_OPERATEDataTable">
+	<summary>
+Represents the strongly named DataTable class.
+</summary>
+</member><member name="T:JohnGaltProject.dsIAIP.VW_NONRESPONDENTDataTable">
+	<summary>
+Represents the strongly named DataTable class.
+</summary>
+</member><member name="T:JohnGaltProject.dsIAIP.VW_NSPS_STATUSDataTable">
+	<summary>
+Represents the strongly named DataTable class.
+</summary>
+</member><member name="T:JohnGaltProject.dsIAIP.VW_TITLE_V_RENEWALSDataTable">
+	<summary>
+Represents the strongly named DataTable class.
+</summary>
+</member><member name="T:JohnGaltProject.dsIAIP.VW_TOTAL_FEEDataTable">
+	<summary>
+Represents the strongly named DataTable class.
+</summary>
+</member><member name="T:JohnGaltProject.dsIAIP.VW_TOTAL_PAYMENTDataTable">
+	<summary>
+Represents the strongly named DataTable class.
+</summary>
+</member><member name="T:JohnGaltProject.dsIAIP.VW_TRAINING_REGDataTable">
+	<summary>
+Represents the strongly named DataTable class.
+</summary>
+</member><member name="T:JohnGaltProject.dsIAIP.ESSCHEMARow">
+	<summary>
+Represents strongly named DataRow class.
+</summary>
+</member><member name="T:JohnGaltProject.dsIAIP.FSADDPAIDRow">
+	<summary>
+Represents strongly named DataRow class.
+</summary>
+</member><member name="T:JohnGaltProject.dsIAIP.FSCALCULATIONSRow">
+	<summary>
+Represents strongly named DataRow class.
+</summary>
+</member><member name="T:JohnGaltProject.dsIAIP.FSPAYANDSUBMITRow">
+	<summary>
+Represents strongly named DataRow class.
+</summary>
+</member><member name="T:JohnGaltProject.dsIAIP.FEEREPORTRow">
+	<summary>
+Represents strongly named DataRow class.
+</summary>
+</member><member name="T:JohnGaltProject.dsIAIP.FEESDUERow">
+	<summary>
+Represents strongly named DataRow class.
+</summary>
+</member><member name="T:JohnGaltProject.dsIAIP.FEESNONRESPONDENTRow">
+	<summary>
+Represents strongly named DataRow class.
+</summary>
+</member><member name="T:JohnGaltProject.dsIAIP.FEEVARIANCERow">
+	<summary>
+Represents strongly named DataRow class.
+</summary>
+</member><member name="T:JohnGaltProject.dsIAIP.VW_AUDIT_REPORTRow">
+	<summary>
+Represents strongly named DataRow class.
+</summary>
+</member><member name="T:JohnGaltProject.dsIAIP.VW_BANKRUPTRow">
+	<summary>
+Represents strongly named DataRow class.
+</summary>
+</member><member name="T:JohnGaltProject.dsIAIP.VW_CLASS_CHANGEDRow">
+	<summary>
+Represents strongly named DataRow class.
+</summary>
+</member><member name="T:JohnGaltProject.dsIAIP.VW_FACILITY_BALANCERow">
+	<summary>
+Represents strongly named DataRow class.
+</summary>
+</member><member name="T:JohnGaltProject.dsIAIP.VW_FACILITY_FEERow">
+	<summary>
+Represents strongly named DataRow class.
+</summary>
+</member><member name="T:JohnGaltProject.dsIAIP.VW_FACILITY_INFORow">
+	<summary>
+Represents strongly named DataRow class.
+</summary>
+</member><member name="T:JohnGaltProject.dsIAIP.VW_FEES_BY_AIRSRow">
+	<summary>
+Represents strongly named DataRow class.
+</summary>
+</member><member name="T:JohnGaltProject.dsIAIP.VW_NO_OPERATERow">
+	<summary>
+Represents strongly named DataRow class.
+</summary>
+</member><member name="T:JohnGaltProject.dsIAIP.VW_NONRESPONDENTRow">
+	<summary>
+Represents strongly named DataRow class.
+</summary>
+</member><member name="T:JohnGaltProject.dsIAIP.VW_NSPS_STATUSRow">
+	<summary>
+Represents strongly named DataRow class.
+</summary>
+</member><member name="T:JohnGaltProject.dsIAIP.VW_TITLE_V_RENEWALSRow">
+	<summary>
+Represents strongly named DataRow class.
+</summary>
+</member><member name="T:JohnGaltProject.dsIAIP.VW_TOTAL_FEERow">
+	<summary>
+Represents strongly named DataRow class.
+</summary>
+</member><member name="T:JohnGaltProject.dsIAIP.VW_TOTAL_PAYMENTRow">
+	<summary>
+Represents strongly named DataRow class.
+</summary>
+</member><member name="T:JohnGaltProject.dsIAIP.VW_TRAINING_REGRow">
+	<summary>
+Represents strongly named DataRow class.
+</summary>
+</member><member name="T:JohnGaltProject.dsIAIP.ESSCHEMARowChangeEvent">
+	<summary>
+Row event argument class
+</summary>
+</member><member name="T:JohnGaltProject.dsIAIP.FSADDPAIDRowChangeEvent">
+	<summary>
+Row event argument class
+</summary>
+</member><member name="T:JohnGaltProject.dsIAIP.FSCALCULATIONSRowChangeEvent">
+	<summary>
+Row event argument class
+</summary>
+</member><member name="T:JohnGaltProject.dsIAIP.FSPAYANDSUBMITRowChangeEvent">
+	<summary>
+Row event argument class
+</summary>
+</member><member name="T:JohnGaltProject.dsIAIP.FEEREPORTRowChangeEvent">
+	<summary>
+Row event argument class
+</summary>
+</member><member name="T:JohnGaltProject.dsIAIP.FEESDUERowChangeEvent">
+	<summary>
+Row event argument class
+</summary>
+</member><member name="T:JohnGaltProject.dsIAIP.FEESNONRESPONDENTRowChangeEvent">
+	<summary>
+Row event argument class
+</summary>
+</member><member name="T:JohnGaltProject.dsIAIP.FEEVARIANCERowChangeEvent">
+	<summary>
+Row event argument class
+</summary>
+</member><member name="T:JohnGaltProject.dsIAIP.VW_AUDIT_REPORTRowChangeEvent">
+	<summary>
+Row event argument class
+</summary>
+</member><member name="T:JohnGaltProject.dsIAIP.VW_BANKRUPTRowChangeEvent">
+	<summary>
+Row event argument class
+</summary>
+</member><member name="T:JohnGaltProject.dsIAIP.VW_CLASS_CHANGEDRowChangeEvent">
+	<summary>
+Row event argument class
+</summary>
+</member><member name="T:JohnGaltProject.dsIAIP.VW_FACILITY_BALANCERowChangeEvent">
+	<summary>
+Row event argument class
+</summary>
+</member><member name="T:JohnGaltProject.dsIAIP.VW_FACILITY_FEERowChangeEvent">
+	<summary>
+Row event argument class
+</summary>
+</member><member name="T:JohnGaltProject.dsIAIP.VW_FACILITY_INFORowChangeEvent">
+	<summary>
+Row event argument class
+</summary>
+</member><member name="T:JohnGaltProject.dsIAIP.VW_FEES_BY_AIRSRowChangeEvent">
+	<summary>
+Row event argument class
+</summary>
+</member><member name="T:JohnGaltProject.dsIAIP.VW_NO_OPERATERowChangeEvent">
+	<summary>
+Row event argument class
+</summary>
+</member><member name="T:JohnGaltProject.dsIAIP.VW_NONRESPONDENTRowChangeEvent">
+	<summary>
+Row event argument class
+</summary>
+</member><member name="T:JohnGaltProject.dsIAIP.VW_NSPS_STATUSRowChangeEvent">
+	<summary>
+Row event argument class
+</summary>
+</member><member name="T:JohnGaltProject.dsIAIP.VW_TITLE_V_RENEWALSRowChangeEvent">
+	<summary>
+Row event argument class
+</summary>
+</member><member name="T:JohnGaltProject.dsIAIP.VW_TOTAL_FEERowChangeEvent">
+	<summary>
+Row event argument class
+</summary>
+</member><member name="T:JohnGaltProject.dsIAIP.VW_TOTAL_PAYMENTRowChangeEvent">
+	<summary>
+Row event argument class
+</summary>
+</member><member name="T:JohnGaltProject.dsIAIP.VW_TRAINING_REGRowChangeEvent">
+	<summary>
+Row event argument class
+</summary>
+</member><member name="T:JohnGaltProject.dsIAIP">
+	<summary>
+Represents a strongly typed in-memory cache of data.
+</summary>
+</member><member name="T:JohnGaltProject.dsIAIPTableAdapters.ESSCHEMATableAdapter">
+	<summary>
+Represents the connection and commands used to retrieve and save data.
+</summary>
+</member><member name="T:JohnGaltProject.dsIAIPTableAdapters.FSADDPAIDTableAdapter">
+	<summary>
+Represents the connection and commands used to retrieve and save data.
+</summary>
+</member><member name="T:JohnGaltProject.dsIAIPTableAdapters.FSCALCULATIONSTableAdapter">
+	<summary>
+Represents the connection and commands used to retrieve and save data.
+</summary>
+</member><member name="T:JohnGaltProject.dsIAIPTableAdapters.FSPAYANDSUBMITTableAdapter">
+	<summary>
+Represents the connection and commands used to retrieve and save data.
+</summary>
+</member><member name="T:JohnGaltProject.dsIAIPTableAdapters.FEEREPORTTableAdapter">
+	<summary>
+Represents the connection and commands used to retrieve and save data.
+</summary>
+</member><member name="T:JohnGaltProject.dsIAIPTableAdapters.FEESDUETableAdapter">
+	<summary>
+Represents the connection and commands used to retrieve and save data.
+</summary>
+</member><member name="T:JohnGaltProject.dsIAIPTableAdapters.FEESNONRESPONDENTTableAdapter">
+	<summary>
+Represents the connection and commands used to retrieve and save data.
+</summary>
+</member><member name="T:JohnGaltProject.dsIAIPTableAdapters.FEEVARIANCETableAdapter">
+	<summary>
+Represents the connection and commands used to retrieve and save data.
+</summary>
+</member><member name="T:JohnGaltProject.dsIAIPTableAdapters.VW_AUDIT_REPORTTableAdapter">
+	<summary>
+Represents the connection and commands used to retrieve and save data.
+</summary>
+</member><member name="T:JohnGaltProject.dsIAIPTableAdapters.VW_BANKRUPTTableAdapter">
+	<summary>
+Represents the connection and commands used to retrieve and save data.
+</summary>
+</member><member name="T:JohnGaltProject.dsIAIPTableAdapters.VW_CLASS_CHANGEDTableAdapter">
+	<summary>
+Represents the connection and commands used to retrieve and save data.
+</summary>
+</member><member name="T:JohnGaltProject.dsIAIPTableAdapters.VW_FACILITY_BALANCETableAdapter">
+	<summary>
+Represents the connection and commands used to retrieve and save data.
+</summary>
+</member><member name="T:JohnGaltProject.dsIAIPTableAdapters.VW_FACILITY_FEETableAdapter">
+	<summary>
+Represents the connection and commands used to retrieve and save data.
+</summary>
+</member><member name="T:JohnGaltProject.dsIAIPTableAdapters.VW_FACILITY_INFOTableAdapter">
+	<summary>
+Represents the connection and commands used to retrieve and save data.
+</summary>
+</member><member name="T:JohnGaltProject.dsIAIPTableAdapters.VW_FEES_BY_AIRSTableAdapter">
+	<summary>
+Represents the connection and commands used to retrieve and save data.
+</summary>
+</member><member name="T:JohnGaltProject.dsIAIPTableAdapters.VW_NO_OPERATETableAdapter">
+	<summary>
+Represents the connection and commands used to retrieve and save data.
+</summary>
+</member><member name="T:JohnGaltProject.dsIAIPTableAdapters.VW_NONRESPONDENTTableAdapter">
+	<summary>
+Represents the connection and commands used to retrieve and save data.
+</summary>
+</member><member name="T:JohnGaltProject.dsIAIPTableAdapters.VW_NSPS_STATUSTableAdapter">
+	<summary>
+Represents the connection and commands used to retrieve and save data.
+</summary>
+</member><member name="T:JohnGaltProject.dsIAIPTableAdapters.VW_TITLE_V_RENEWALSTableAdapter">
+	<summary>
+Represents the connection and commands used to retrieve and save data.
+</summary>
+</member><member name="T:JohnGaltProject.dsIAIPTableAdapters.VW_TOTAL_FEETableAdapter">
+	<summary>
+Represents the connection and commands used to retrieve and save data.
+</summary>
+</member><member name="T:JohnGaltProject.dsIAIPTableAdapters.VW_TOTAL_PAYMENTTableAdapter">
+	<summary>
+Represents the connection and commands used to retrieve and save data.
+</summary>
+</member><member name="T:JohnGaltProject.dsIAIPTableAdapters.VW_TRAINING_REGTableAdapter">
+	<summary>
+Represents the connection and commands used to retrieve and save data.
+</summary>
+</member><member name="M:JohnGaltProject.dsIAIPTableAdapters.TableAdapterManager.UpdateUpdatedRows(JohnGaltProject.dsIAIP,System.Collections.Generic.List{System.Data.DataRow},System.Collections.Generic.List{System.Data.DataRow})">
+	<summary>
+Update rows in top-down order.
+</summary>
+</member><member name="M:JohnGaltProject.dsIAIPTableAdapters.TableAdapterManager.UpdateInsertedRows(JohnGaltProject.dsIAIP,System.Collections.Generic.List{System.Data.DataRow})">
+	<summary>
+Insert rows in top-down order.
+</summary>
+</member><member name="M:JohnGaltProject.dsIAIPTableAdapters.TableAdapterManager.UpdateDeletedRows(JohnGaltProject.dsIAIP,System.Collections.Generic.List{System.Data.DataRow})">
+	<summary>
+Delete rows in bottom-up order.
+</summary>
+</member><member name="M:JohnGaltProject.dsIAIPTableAdapters.TableAdapterManager.GetRealUpdatedRows(System.Data.DataRow[],System.Collections.Generic.List{System.Data.DataRow})">
+	<summary>
+Remove inserted rows that become updated rows after calling TableAdapter.Update(inserted rows) first
+</summary>
+</member><member name="M:JohnGaltProject.dsIAIPTableAdapters.TableAdapterManager.UpdateAll(JohnGaltProject.dsIAIP)">
+	<summary>
+Update all changes to the dataset.
+</summary>
+</member><member name="T:JohnGaltProject.dsIAIPTableAdapters.TableAdapterManager.UpdateOrderOption">
+	<summary>
+Update Order Option
+</summary>
+</member><member name="T:JohnGaltProject.dsIAIPTableAdapters.TableAdapterManager.SelfReferenceComparer">
+	<summary>
+Used to sort self-referenced table's rows
+</summary>
+</member><member name="T:JohnGaltProject.dsIAIPTableAdapters.TableAdapterManager">
+	<summary>
+TableAdapterManager is used to coordinate TableAdapters in the dataset to enable Hierarchical Update scenarios
+</summary>
+</member><member name="T:JohnGaltProject.dsInventoryReport.InventoryReportDataTable">
+	<summary>
+Represents the strongly named DataTable class.
+</summary>
+</member><member name="T:JohnGaltProject.dsInventoryReport.InventoryReportRow">
+	<summary>
+Represents strongly named DataRow class.
+</summary>
+</member><member name="T:JohnGaltProject.dsInventoryReport.InventoryReportRowChangeEvent">
+	<summary>
+Row event argument class
+</summary>
+</member><member name="T:JohnGaltProject.dsInventoryReport">
+	<summary>
+Represents a strongly typed in-memory cache of data.
+</summary>
+</member><member name="T:JohnGaltProject.dsIAIP2.VW_FACILITY_CLASS_COUNTSDataTable">
+	<summary>
+Represents the strongly named DataTable class.
+</summary>
+</member><member name="T:JohnGaltProject.dsIAIP2.VW_FACILITY_CLASS_COUNTSRow">
+	<summary>
+Represents strongly named DataRow class.
+</summary>
+</member><member name="T:JohnGaltProject.dsIAIP2.VW_FACILITY_CLASS_COUNTSRowChangeEvent">
+	<summary>
+Row event argument class
+</summary>
+</member><member name="T:JohnGaltProject.dsIAIP2">
+	<summary>
+Represents a strongly typed in-memory cache of data.
+</summary>
+</member><member name="T:JohnGaltProject.dsIAIP2TableAdapters.VW_FACILITY_CLASS_COUNTSTableAdapter">
+	<summary>
+Represents the connection and commands used to retrieve and save data.
+</summary>
+</member><member name="M:JohnGaltProject.dsIAIP2TableAdapters.TableAdapterManager.UpdateUpdatedRows(JohnGaltProject.dsIAIP2,System.Collections.Generic.List{System.Data.DataRow},System.Collections.Generic.List{System.Data.DataRow})">
+	<summary>
+Update rows in top-down order.
+</summary>
+</member><member name="M:JohnGaltProject.dsIAIP2TableAdapters.TableAdapterManager.UpdateInsertedRows(JohnGaltProject.dsIAIP2,System.Collections.Generic.List{System.Data.DataRow})">
+	<summary>
+Insert rows in top-down order.
+</summary>
+</member><member name="M:JohnGaltProject.dsIAIP2TableAdapters.TableAdapterManager.UpdateDeletedRows(JohnGaltProject.dsIAIP2,System.Collections.Generic.List{System.Data.DataRow})">
+	<summary>
+Delete rows in bottom-up order.
+</summary>
+</member><member name="M:JohnGaltProject.dsIAIP2TableAdapters.TableAdapterManager.GetRealUpdatedRows(System.Data.DataRow[],System.Collections.Generic.List{System.Data.DataRow})">
+	<summary>
+Remove inserted rows that become updated rows after calling TableAdapter.Update(inserted rows) first
+</summary>
+</member><member name="M:JohnGaltProject.dsIAIP2TableAdapters.TableAdapterManager.UpdateAll(JohnGaltProject.dsIAIP2)">
+	<summary>
+Update all changes to the dataset.
+</summary>
+</member><member name="T:JohnGaltProject.dsIAIP2TableAdapters.TableAdapterManager.UpdateOrderOption">
+	<summary>
+Update Order Option
+</summary>
+</member><member name="T:JohnGaltProject.dsIAIP2TableAdapters.TableAdapterManager.SelfReferenceComparer">
+	<summary>
+Used to sort self-referenced table's rows
+</summary>
+</member><member name="T:JohnGaltProject.dsIAIP2TableAdapters.TableAdapterManager">
+	<summary>
+TableAdapterManager is used to coordinate TableAdapters in the dataset to enable Hierarchical Update scenarios
+</summary>
+</member><member name="P:JohnGaltProject.My.Resources.Resources.ResourceManager">
+	<summary>
+  Returns the cached ResourceManager instance used by this class.
+</summary>
+</member><member name="P:JohnGaltProject.My.Resources.Resources.Culture">
+	<summary>
+  Overrides the current thread's CurrentUICulture property for all
+  resource lookups using this strongly typed resource class.
+</summary>
+</member><member name="T:JohnGaltProject.My.Resources.Resources">
+	<summary>
+  A strongly-typed resource class, for looking up localized strings, etc.
+</summary>
+</member><member name="T:JohnGaltProject.dsIAIP10.ESSCHEMADataTable">
+	<summary>
+Represents the strongly named DataTable class.
+</summary>
+</member><member name="T:JohnGaltProject.dsIAIP10.VW_TITLE_V_RENEWALSDataTable">
+	<summary>
+Represents the strongly named DataTable class.
+</summary>
+</member><member name="T:JohnGaltProject.dsIAIP10.VW_NSPS_STATUSDataTable">
+	<summary>
+Represents the strongly named DataTable class.
+</summary>
+</member><member name="T:JohnGaltProject.dsIAIP10.ESSCHEMARow">
+	<summary>
+Represents strongly named DataRow class.
+</summary>
+</member><member name="T:JohnGaltProject.dsIAIP10.VW_TITLE_V_RENEWALSRow">
+	<summary>
+Represents strongly named DataRow class.
+</summary>
+</member><member name="T:JohnGaltProject.dsIAIP10.VW_NSPS_STATUSRow">
+	<summary>
+Represents strongly named DataRow class.
+</summary>
+</member><member name="T:JohnGaltProject.dsIAIP10.ESSCHEMARowChangeEvent">
+	<summary>
+Row event argument class
+</summary>
+</member><member name="T:JohnGaltProject.dsIAIP10.VW_TITLE_V_RENEWALSRowChangeEvent">
+	<summary>
+Row event argument class
+</summary>
+</member><member name="T:JohnGaltProject.dsIAIP10.VW_NSPS_STATUSRowChangeEvent">
+	<summary>
+Row event argument class
+</summary>
+</member><member name="T:JohnGaltProject.dsIAIP10">
+	<summary>
+Represents a strongly typed in-memory cache of data.
+</summary>
+</member><member name="T:JohnGaltProject.dsIAIP10TableAdapters.ESSCHEMATableAdapter">
+	<summary>
+Represents the connection and commands used to retrieve and save data.
+</summary>
+</member><member name="T:JohnGaltProject.dsIAIP10TableAdapters.VW_TITLE_V_RENEWALSTableAdapter">
+	<summary>
+Represents the connection and commands used to retrieve and save data.
+</summary>
+</member><member name="T:JohnGaltProject.dsIAIP10TableAdapters.VW_NSPS_STATUSTableAdapter">
+	<summary>
+Represents the connection and commands used to retrieve and save data.
+</summary>
+</member><member name="M:JohnGaltProject.dsIAIP10TableAdapters.TableAdapterManager.UpdateUpdatedRows(JohnGaltProject.dsIAIP10,System.Collections.Generic.List{System.Data.DataRow},System.Collections.Generic.List{System.Data.DataRow})">
+	<summary>
+Update rows in top-down order.
+</summary>
+</member><member name="M:JohnGaltProject.dsIAIP10TableAdapters.TableAdapterManager.UpdateInsertedRows(JohnGaltProject.dsIAIP10,System.Collections.Generic.List{System.Data.DataRow})">
+	<summary>
+Insert rows in top-down order.
+</summary>
+</member><member name="M:JohnGaltProject.dsIAIP10TableAdapters.TableAdapterManager.UpdateDeletedRows(JohnGaltProject.dsIAIP10,System.Collections.Generic.List{System.Data.DataRow})">
+	<summary>
+Delete rows in bottom-up order.
+</summary>
+</member><member name="M:JohnGaltProject.dsIAIP10TableAdapters.TableAdapterManager.GetRealUpdatedRows(System.Data.DataRow[],System.Collections.Generic.List{System.Data.DataRow})">
+	<summary>
+Remove inserted rows that become updated rows after calling TableAdapter.Update(inserted rows) first
+</summary>
+</member><member name="M:JohnGaltProject.dsIAIP10TableAdapters.TableAdapterManager.UpdateAll(JohnGaltProject.dsIAIP10)">
+	<summary>
+Update all changes to the dataset.
+</summary>
+</member><member name="T:JohnGaltProject.dsIAIP10TableAdapters.TableAdapterManager.UpdateOrderOption">
+	<summary>
+Update Order Option
+</summary>
+</member><member name="T:JohnGaltProject.dsIAIP10TableAdapters.TableAdapterManager.SelfReferenceComparer">
+	<summary>
+Used to sort self-referenced table's rows
+</summary>
+</member><member name="T:JohnGaltProject.dsIAIP10TableAdapters.TableAdapterManager">
+	<summary>
+TableAdapterManager is used to coordinate TableAdapters in the dataset to enable Hierarchical Update scenarios
+</summary>
+</member>
+</members>
+</doc>

@@ -1,0 +1,2224 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+  <PropertyGroup>
+    <ProjectType>Local</ProjectType>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{B92680E9-391D-4109-993E-53E5B6946E93}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ApplicationIcon>gaSeal.ico</ApplicationIcon>
+    <AssemblyKeyContainerName>
+    </AssemblyKeyContainerName>
+    <AssemblyName>JohnGaltProject</AssemblyName>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyMode>None</AssemblyOriginatorKeyMode>
+    <DefaultClientScript>JScript</DefaultClientScript>
+    <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
+    <DefaultTargetSchema>IE50</DefaultTargetSchema>
+    <DelaySign>false</DelaySign>
+    <OutputType>WinExe</OutputType>
+    <OptionCompare>Binary</OptionCompare>
+    <OptionExplicit>On</OptionExplicit>
+    <OptionStrict>Off</OptionStrict>
+    <RootNamespace>JohnGaltProject</RootNamespace>
+    <StartupObject>JohnGaltProject.My.MyApplication</StartupObject>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <MyType>WindowsForms</MyType>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <TargetZone>LocalIntranet</TargetZone>
+    <GenerateManifests>true</GenerateManifests>
+    <ManifestCertificateThumbprint>7411FF0FFCD06CC890D4FF8763CC5CE14205C142</ManifestCertificateThumbprint>
+    <ManifestKeyFile>JohnGaltProject_TemporaryKey.pfx</ManifestKeyFile>
+    <SignManifests>true</SignManifests>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <OldToolsVersion>2.0</OldToolsVersion>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <PublishUrl>C:\APB\Deploy\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>2</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <BootstrapperComponentsLocation>Relative</BootstrapperComponentsLocation>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\</OutputPath>
+    <DocumentationFile>JohnGaltProject.xml</DocumentationFile>
+    <BaseAddress>285212672</BaseAddress>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>
+    </DefineConstants>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <DebugSymbols>true</DebugSymbols>
+    <Optimize>false</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>1</WarningLevel>
+    <NoWarn>42016,42017,42018,42019,42032</NoWarn>
+    <DebugType>full</DebugType>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\</OutputPath>
+    <DocumentationFile>JohnGaltProject.xml</DocumentationFile>
+    <BaseAddress>285212672</BaseAddress>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>
+    </DefineConstants>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <DebugSymbols>false</DebugSymbols>
+    <Optimize>true</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>1</WarningLevel>
+    <NoWarn>42016,42017,42018,42019,42032</NoWarn>
+    <DebugType>none</DebugType>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=10.5.3700.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.Data.AdoDotNetInterop, Version=10.5.3700.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.Enterprise.Framework, Version=10.5.3700.0, Culture=neutral, PublicKeyToken=692fbea5521e1304" />
+    <Reference Include="CrystalDecisions.Enterprise.InfoStore, Version=10.5.3700.0, Culture=neutral, PublicKeyToken=692fbea5521e1304" />
+    <Reference Include="CrystalDecisions.ReportSource, Version=10.5.3700.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.Shared, Version=10.5.3700.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.Windows.Forms, Version=10.5.3700.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.ReportViewer.Common, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    <Reference Include="Microsoft.ReportViewer.WinForms, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    <Reference Include="Office">
+      <Name>office</Name>
+    </Reference>
+    <Reference Include="Oracle.DataAccess, Version=2.112.1.0, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=x86" />
+    <Reference Include="PresentationCore">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="PresentationFramework">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System">
+      <Name>System</Name>
+    </Reference>
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data">
+      <Name>System.Data</Name>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.OracleClient" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web">
+      <Name>System.Web</Name>
+    </Reference>
+    <Reference Include="System.Web.Extensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Web.Services">
+      <Name>System.Web.Services</Name>
+    </Reference>
+    <Reference Include="System.Windows.Forms">
+      <Name>System.Windows.Forms</Name>
+    </Reference>
+    <Reference Include="System.Xml">
+      <Name>System.XML</Name>
+    </Reference>
+    <Reference Include="UIAutomationProvider">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsFormsIntegration">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <COMReference Include="Excel">
+      <Guid>{00020813-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>3</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+    </COMReference>
+    <COMReference Include="Office1">
+      <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>1</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+    </COMReference>
+    <COMReference Include="stdole">
+      <Guid>{00020430-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+    </COMReference>
+    <COMReference Include="VBIDE">
+      <Guid>{0002E157-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>5</VersionMajor>
+      <VersionMinor>3</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+    </COMReference>
+    <COMReference Include="Word">
+      <Guid>{00020905-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>8</VersionMajor>
+      <VersionMinor>1</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="Oracle.DataAccess" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Data" />
+    <Import Include="System.Diagnostics" />
+    <Import Include="System.Drawing" />
+    <Import Include="System.Linq" />
+    <Import Include="System.Windows.Forms" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="ClassDiagram2.cd" />
+    <None Include="DataSet\dsIAIP10.xsc">
+      <DependentUpon>dsIAIP10.xsd</DependentUpon>
+    </None>
+    <None Include="DataSet\dsIAIP10.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsIAIP10.Designer.vb</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DataSet\dsIAIP10.xss">
+      <DependentUpon>dsIAIP10.xsd</DependentUpon>
+    </None>
+    <None Include="DataSet\dsIAIP.xsc">
+      <DependentUpon>dsIAIP.xsd</DependentUpon>
+    </None>
+    <None Include="DataSet\dsIAIP.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsIAIP.Designer.vb</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DataSet\dsIAIP.xss">
+      <DependentUpon>dsIAIP.xsd</DependentUpon>
+    </None>
+    <None Include="DataSet\dsIAIP2.xsc">
+      <DependentUpon>dsIAIP2.xsd</DependentUpon>
+    </None>
+    <None Include="DataSet\dsIAIP2.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsIAIP2.Designer.vb</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DataSet\dsIAIP2.xss">
+      <DependentUpon>dsIAIP2.xsd</DependentUpon>
+    </None>
+    <None Include="DataSet\dsInventoryReport.xsc">
+      <DependentUpon>dsInventoryReport.xsd</DependentUpon>
+    </None>
+    <None Include="DataSet\dsInventoryReport.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsInventoryReport.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="DataSet\dsInventoryReport.xss">
+      <DependentUpon>dsInventoryReport.xsd</DependentUpon>
+    </None>
+    <None Include="JohnGaltProject_TemporaryKey.pfx" />
+    <None Include="My Project\Settings.settings">
+      <CustomToolNamespace>My</CustomToolNamespace>
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+    </None>
+    <BaseApplicationManifest Include="My Project\app.manifest" />
+    <Compile Include="ApplicationEvents.vb" />
+    <Compile Include="AssemblyInfo.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Clases\CodeFile.vb" />
+    <Compile Include="Clases\DataReaderAdapter.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Clases\email.vb" />
+    <Compile Include="Clases\ListViewItemComparer.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Clases\MRFunctions.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DataSet\dsInventoryReport.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dsInventoryReport.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DataSet\dsInventoryReport.vb">
+      <DependentUpon>dsInventoryReport.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DBLineCount.vb" />
+    <Compile Include="DevelopmentForms\DEVEditContacts.Designer.vb">
+      <DependentUpon>DEVEditContacts.vb</DependentUpon>
+    </Compile>
+    <Compile Include="DevelopmentForms\DEVEditContacts.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DevelopmentForms\DEVFacilitySummary.Designer.vb">
+      <DependentUpon>DEVFacilitySummary.vb</DependentUpon>
+    </Compile>
+    <Compile Include="DevelopmentForms\DEVFacilitySummary.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DevelopmentForms\DEVFeeStatistics.Designer.vb">
+      <DependentUpon>DEVFeeStatistics.vb</DependentUpon>
+    </Compile>
+    <Compile Include="DevelopmentForms\DEVFeeStatistics.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DevelopmentForms\DMU_TITLEV_PROJECT.Designer.vb">
+      <DependentUpon>DMU_TITLEV_PROJECT.vb</DependentUpon>
+    </Compile>
+    <Compile Include="DevelopmentForms\DMU_TITLEV_PROJECT.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DevelopmentForms\IAIPPhoneList.Designer.vb">
+      <DependentUpon>IAIPPhoneList.vb</DependentUpon>
+    </Compile>
+    <Compile Include="DevelopmentForms\IAIPPhoneList.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DevelopmentForms\IAIP_EIS_Log.Designer.vb">
+      <DependentUpon>IAIP_EIS_Log.vb</DependentUpon>
+    </Compile>
+    <Compile Include="DevelopmentForms\IAIP_EIS_Log.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DevelopmentForms\SSCPEnforcementAudit.Designer.vb">
+      <DependentUpon>SSCPEnforcementAudit.vb</DependentUpon>
+    </Compile>
+    <Compile Include="DevelopmentForms\SSCPEnforcementAudit.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DevelopmentForms\SSCPManagerProfile.Designer.vb">
+      <DependentUpon>SSCPManagerProfile.vb</DependentUpon>
+    </Compile>
+    <Compile Include="DevelopmentForms\SSCPManagerProfile.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DataSet\dsIAIP10.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dsIAIP10.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DataSet\dsIAIP.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dsIAIP.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DataSet\dsIAIP2.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dsIAIP2.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="IAIP-Crystal Reports\Oracle 10.1\crFS_Invoice.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>crFS_Invoice.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="IAIP-Crystal Reports\Oracle 10.1\APB\CRBasicPrint.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CRBasicPrint.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="IAIP-Crystal Reports\Oracle 10.1\APB\SubReports\CRAirProgramCodes.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CRAirProgramCodes.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="IAIP-Crystal Reports\Oracle 10.1\APB\SubReports\CRContact.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CRContact.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="IAIP-Crystal Reports\Oracle 10.1\APB\CRFullPrint.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CRFullPrint.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="IAIP-Crystal Reports\Oracle 10.1\APB\SubReports\CREnforcement.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CREnforcement.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="IAIP-Crystal Reports\Oracle 10.1\APB\SubReports\CRFCEPrint.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CRFCEPrint.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="IAIP-Crystal Reports\Oracle 10.1\APB\SubReports\CRISMPFull.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CRISMPFull.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="IAIP-Crystal Reports\Oracle 10.1\APB\SubReports\CRSSCPPrint.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CRSSCPPrint.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="IAIP-Crystal Reports\Oracle 10.1\APB\SubReports\CRSSPPFull.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CRSSPPFull.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="IAIP-Crystal Reports\Oracle 10.1\APB\SubReports\CRStateContacts.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CRStateContacts.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="IAIP-Crystal Reports\Oracle 10.1\APB\SubReports\CRWebContacts.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CRWebContacts.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="IAIP-Crystal Reports\Oracle 10.1\crAPBPrintOut.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>crAPBPrintOut.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="IAIP-Crystal Reports\Oracle 10.1\crAPBPrintOut2.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>crAPBPrintOut2.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="IAIP-Crystal Reports\Oracle 10.1\DepositQA11.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DepositQA11.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="IAIP-Crystal Reports\Oracle 10.1\DMU\crESinfoByAirsNumber10.vb">
+      <DependentUpon>crESinfoByAirsNumber10.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="IAIP-Crystal Reports\Oracle 10.1\crFeeInvoice.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>crFeeInvoice.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="IAIP-Crystal Reports\Oracle 10.1\crFeeReport.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>crFeeReport.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="IAIP-Crystal Reports\Oracle 10.1\FeeInvoice.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FeeInvoice.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="IAIP-Crystal Reports\Oracle 10.1\PASP\AuditReport10.vb">
+      <DependentUpon>AuditReport10.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="IAIP-Crystal Reports\Oracle 10.1\PASP\Bankrupt10.vb">
+      <DependentUpon>Bankrupt10.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="IAIP-Crystal Reports\Oracle 10.1\PASP\ClassChanged10.vb">
+      <DependentUpon>ClassChanged10.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="IAIP-Crystal Reports\Oracle 10.1\PASP\CRInventoryReport.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CRInventoryReport.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="IAIP-Crystal Reports\Oracle 10.1\PASP\DepositData10.vb">
+      <DependentUpon>DepositData10.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="IAIP-Crystal Reports\Oracle 10.1\PASP\DepositDataQA10.vb">
+      <DependentUpon>DepositDataQA10.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="IAIP-Crystal Reports\Oracle 10.1\PASP\DepositNumberQA10.vb">
+      <DependentUpon>DepositNumberQA10.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="IAIP-Crystal Reports\Oracle 10.1\PASP\DepositQA10.vb">
+      <DependentUpon>DepositQA10.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="IAIP-Crystal Reports\Oracle 10.1\PASP\FacilityBalance10.vb">
+      <DependentUpon>FacilityBalance10.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="IAIP-Crystal Reports\Oracle 10.1\PASP\FacilityBalancewithZero10.vb">
+      <DependentUpon>FacilityBalancewithZero10.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="IAIP-Crystal Reports\Oracle 10.1\PASP\FacilityClassification10.vb">
+      <DependentUpon>FacilityClassification10.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="IAIP-Crystal Reports\Oracle 10.1\PASP\FacilityComments10.vb">
+      <DependentUpon>FacilityComments10.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="IAIP-Crystal Reports\Oracle 10.1\PASP\FacilityFee10.vb">
+      <DependentUpon>FacilityFee10.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="IAIP-Crystal Reports\Oracle 10.1\PASP\FacilityFeeDraft10.vb">
+      <DependentUpon>FacilityFeeDraft10.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="IAIP-Crystal Reports\Oracle 10.1\PASP\FacilityInfo10.vb">
+      <DependentUpon>FacilityInfo10.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="IAIP-Crystal Reports\Oracle 10.1\PASP\feeByYear10.vb">
+      <DependentUpon>feeByYear10.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="IAIP-Crystal Reports\Oracle 10.1\PASP\FeesByAirs10.vb">
+      <DependentUpon>FeesByAirs10.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="IAIP-Crystal Reports\Oracle 10.1\PASP\NonRespondent10.vb">
+      <DependentUpon>NonRespondent10.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="IAIP-Crystal Reports\Oracle 10.1\PASP\NoOperate10.vb">
+      <DependentUpon>NoOperate10.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="IAIP-Crystal Reports\Oracle 10.1\PASP\NoResponse10.vb">
+      <DependentUpon>NoResponse10.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="IAIP-Crystal Reports\Oracle 10.1\PASP\NoSubmit10.vb">
+      <DependentUpon>NoSubmit10.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="IAIP-Crystal Reports\Oracle 10.1\PASP\NSPSStatus10.vb">
+      <DependentUpon>NSPSStatus10.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="IAIP-Crystal Reports\Oracle 10.1\PASP\NSPSStatus1_10.vb">
+      <DependentUpon>NSPSStatus1_10.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="IAIP-Crystal Reports\Oracle 10.1\PASP\NSPSStatus2_10.vb">
+      <DependentUpon>NSPSStatus2_10.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="IAIP-Crystal Reports\Oracle 10.1\PASP\TotalFee10.vb">
+      <DependentUpon>TotalFee10.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="IAIP-Crystal Reports\Oracle 10.1\PASP\TotalPayment10.vb">
+      <DependentUpon>TotalPayment10.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="IAIP-Crystal Reports\Oracle 10.1\PASP\TrainingReg10.vb">
+      <DependentUpon>TrainingReg10.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="IAIP-Crystal Reports\Oracle 10.1\PASP\Variance10.vb">
+      <DependentUpon>Variance10.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="IAIP-Crystal Reports\Oracle 10.1\SmokeSchool\crPassFailNoShow.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>crPassFailNoShow.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="IAIP-Crystal Reports\Oracle 10.1\SmokeSchool\crRoster.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>crRoster.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="IAIP-Crystal Reports\Oracle 10.1\SSPP\crSSPPConfirmationLetter.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>crSSPPConfirmationLetter.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="IAIP-Crystal Reports\Oracle 10.1\SSPP\CRTitleVRenewal10.vb">
+      <DependentUpon>CRTitleVRenewal10.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="IAIP-Crystal Reports\Oracle 9.2\APB\crAPBPhoneList.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>crAPBPhoneList.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="IAIP-Crystal Reports\Oracle 9.2\APB\crOrganizationChart.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>crOrganizationChart.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="IAIP-Crystal Reports\Oracle 9.2\DMU\crESDataViewer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>crESDataViewer.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="IAIP-Crystal Reports\Oracle 9.2\PASP\AuditReport1.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AuditReport.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ISMP\DMU\DMUDeveloperTools.Designer.vb">
+      <DependentUpon>DMUDeveloperTools.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ISMP\DMU\DMUDeveloperTools.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ISMP\DMU\DMUStaffTools.Designer.vb">
+      <DependentUpon>DMUStaffTools.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ISMP\DMU\DMUStaffTools.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ISMP\DMU\DMUTitleVTools.Designer.vb">
+      <DependentUpon>DMUTitleVTools.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ISMP\DMU\DMUTitleVTools.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ISMP\SMU\ISMPConfidentialData.Designer.vb">
+      <DependentUpon>ISMPConfidentialData.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ISMP\SMU\ISMPConfidentialData.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ISMP\SMU\SubPages\ISMPStaffReports.Designer.vb">
+      <DependentUpon>ISMPStaffReports.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ISMP\SMU\SubPages\ISMPStaffReports.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DevelopmentForms\PASPFeeAuditLog.Designer.vb">
+      <DependentUpon>PASPFeeAuditLog.vb</DependentUpon>
+    </Compile>
+    <Compile Include="DevelopmentForms\PASPFeeAuditLog.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MASP\MASPRegistrationTool.Designer.vb">
+      <DependentUpon>MASPRegistrationTool.vb</DependentUpon>
+    </Compile>
+    <Compile Include="MASP\MASPRegistrationTool.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PASP\PASPDepositsAmendments.Designer.vb">
+      <DependentUpon>PASPDepositsAmendments.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PASP\PASPDepositsAmendments.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PASP\PASPFacilityFee.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PASP\PASPFeeDeposits.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PASP\PASPFeeManagement.Designer.vb">
+      <DependentUpon>PASPFeeManagement.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PASP\PASPFeeManagement.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PASP\PASPFeeReports.Designer.vb">
+      <DependentUpon>PASPFeeReports.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PASP\PASPFeeReports.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PASP\PASPFeesLog.Designer.vb">
+      <DependentUpon>PASPFeesLog.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PASP\PASPFeesLog.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PASP\PASPFeeTools.Designer.vb">
+      <DependentUpon>PASPFeeTools.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PASP\PASPFeeTools.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PASP\PASPFeeVarianceCheck.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PASP\PASPInventory.Designer.vb">
+      <DependentUpon>PASPInventory.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PASP\PASPInventory.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PASP\PASPMailoutAndStats.Designer.vb">
+      <DependentUpon>PASPMailoutAndStats.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PASP\PASPMailoutAndStats.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PASP\PASPModifications.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PASP\PASPWebApplicationUser.Designer.vb">
+      <DependentUpon>PASPWebApplicationUser.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PASP\PASPWebApplicationUser.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SmokeSchool\ISMPSmokeSchool.Designer.vb">
+      <DependentUpon>ISMPSmokeSchool.vb</DependentUpon>
+    </Compile>
+    <Compile Include="SmokeSchool\ISMPSmokeSchool.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ISMP\SMU\ISMPTestReports.Designer.vb">
+      <DependentUpon>ISMPTestReports.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ISMP\SMU\ISMPTestReports.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ISMP\SMU\ISMPMonitoringLog.Designer.vb">
+      <DependentUpon>ISMPMonitoringLog.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ISMP\SMU\ISMPMonitoringLog.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ISMP\SMU\ISMPNotificationLog.Designer.vb">
+      <DependentUpon>ISMPNotificationLog.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ISMP\SMU\ISMPNotificationLog.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SmokeSchool\PassFailNoShow.Designer.vb">
+      <DependentUpon>PassFailNoShow.vb</DependentUpon>
+    </Compile>
+    <Compile Include="SmokeSchool\PassFailNoShow.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SmokeSchool\Roster.designer.vb">
+      <DependentUpon>Roster.vb</DependentUpon>
+    </Compile>
+    <Compile Include="SmokeSchool\Roster.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="My Project\Settings.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="SSCP\SSCPAdministrator.Designer.vb">
+      <DependentUpon>SSCPAdministrator.vb</DependentUpon>
+    </Compile>
+    <Compile Include="SSCP\SSCPAdministrator.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SSCP\SSCPComplianceLog.Designer.vb">
+      <DependentUpon>SSCPComplianceLog.vb</DependentUpon>
+    </Compile>
+    <Compile Include="SSCP\SSCPComplianceLog.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SSCP\SSCPInspectionTool.Designer.vb">
+      <DependentUpon>SSCPInspectionTool.vb</DependentUpon>
+    </Compile>
+    <Compile Include="SSCP\SSCPInspectionTool.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SSPP\Sub Forms\SSPP_FeeContact.Designer.vb">
+      <DependentUpon>SSPP_FeeContact.vb</DependentUpon>
+    </Compile>
+    <Compile Include="SSPP\Sub Forms\SSPP_FeeContact.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Universial Forms\IAIPAFSCompare.Designer.vb">
+      <DependentUpon>IAIPAFSCompare.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Universial Forms\IAIPAFSCompare.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Universial Forms\IAIPLookUpTables.Designer.vb">
+      <DependentUpon>IAIPLookUpTables.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Universial Forms\IAIPLookUpTables.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Universial Forms\IAIPFeeAuditTool.Designer.vb">
+      <DependentUpon>IAIPFeeAuditTool.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Universial Forms\IAIPFeeAuditTool.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Universial Forms\IAIPQueryGenerator.Designer.vb">
+      <DependentUpon>IAIPQueryGenerator.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Universial Forms\IAIPQueryGenerator.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ISMP\SMU\ISMPTestFirmComments.Designer.vb">
+      <DependentUpon>ISMPTestFirmComments.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ISMP\SMU\ISMPTestFirmComments.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="IAIP-Crystal Reports\Oracle 9.2\DMU\crESinfoByAirsNumber.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>crESinfoByAirsNumber.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="IAIP-Crystal Reports\Oracle 9.2\ISMP\Copy of CROneStackThreeRuns.vb">
+      <DependentUpon>CROneStackTwoRuns.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="IAIP-Crystal Reports\Oracle 9.2\ISMP\CRFlare.vb">
+      <DependentUpon>CRFlare.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="IAIP-Crystal Reports\Oracle 9.2\ISMP\CRGasConcentration.vb">
+      <DependentUpon>CRGasConcentration.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="IAIP-Crystal Reports\Oracle 9.2\ISMP\CRLoadingRack.vb">
+      <DependentUpon>CRLoadingRack.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="IAIP-Crystal Reports\Oracle 9.2\ISMP\CRMemorandumPTE.vb">
+      <DependentUpon>CRMemorandumPTE.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="IAIP-Crystal Reports\Oracle 9.2\ISMP\CRMemorandumStandard.vb">
+      <DependentUpon>CRMemorandumStandard.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="IAIP-Crystal Reports\Oracle 9.2\ISMP\CRMemorandumToFile.vb">
+      <DependentUpon>CRMemorandumToFile.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="IAIP-Crystal Reports\Oracle 9.2\ISMP\CRMethod22.vb">
+      <DependentUpon>CRMethod22.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="IAIP-Crystal Reports\Oracle 9.2\ISMP\CRMethod9Multi.vb">
+      <DependentUpon>CRMethod9Multi.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="IAIP-Crystal Reports\Oracle 9.2\ISMP\CRMethod9Single.vb">
+      <DependentUpon>CRMethod9Single.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="IAIP-Crystal Reports\Oracle 9.2\ISMP\CROneStackFourRuns.vb">
+      <DependentUpon>CROneStackFourRuns.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="IAIP-Crystal Reports\Oracle 9.2\ISMP\CROneStackThreeRuns.vb">
+      <DependentUpon>CROneStackThreeRuns.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="IAIP-Crystal Reports\Oracle 9.2\ISMP\CROneStackTwoRuns.vb">
+      <DependentUpon>CROneStackTwoRuns.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="IAIP-Crystal Reports\Oracle 9.2\ISMP\CRPondTreatment.vb">
+      <DependentUpon>CRPondTreatment.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="IAIP-Crystal Reports\Oracle 9.2\ISMP\CRRata.vb">
+      <DependentUpon>CRRata.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="IAIP-Crystal Reports\Oracle 9.2\ISMP\CRTwoStackDRE.vb">
+      <DependentUpon>CRTwoStackDRE.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="IAIP-Crystal Reports\Oracle 9.2\ISMP\CRTwoStackStandard.vb">
+      <DependentUpon>CRTwoStackStandard.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="IAIP-Crystal Reports\Oracle 9.2\PASP\Bankrupt.vb">
+      <DependentUpon>Bankrupt.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="IAIP-Crystal Reports\Oracle 9.2\PASP\ClassChanged.vb">
+      <DependentUpon>ClassChanged.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="IAIP-Crystal Reports\Oracle 9.2\PASP\DepositData.vb">
+      <SubType>Component</SubType>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DepositData.rpt</DependentUpon>
+    </Compile>
+    <Compile Include="IAIP-Crystal Reports\Oracle 9.2\PASP\DepositDataQA.vb">
+      <DependentUpon>DepositDataQA.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="IAIP-Crystal Reports\Oracle 9.2\PASP\DepositNumberQA.vb">
+      <DependentUpon>DepositNumberQA.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="IAIP-Crystal Reports\Oracle 9.2\PASP\DepositQA.vb">
+      <DependentUpon>DepositQA.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="IAIP-Crystal Reports\Oracle 9.2\PASP\FacilityBalance.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FacilityBalance.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="IAIP-Crystal Reports\Oracle 9.2\PASP\FacilityBalancewithZero.vb">
+      <SubType>Component</SubType>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FacilityBalancewithZero.rpt</DependentUpon>
+    </Compile>
+    <Compile Include="IAIP-Crystal Reports\Oracle 9.2\PASP\FacilityClassification.vb">
+      <DependentUpon>FacilityClassification.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="IAIP-Crystal Reports\Oracle 9.2\PASP\FacilityComments.vb">
+      <DependentUpon>FacilityComments.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="IAIP-Crystal Reports\Oracle 9.2\PASP\FacilityFee.vb">
+      <DependentUpon>FacilityFee.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="IAIP-Crystal Reports\Oracle 9.2\PASP\FacilityFeeDraft.vb">
+      <DependentUpon>FacilityFeeDraft.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="IAIP-Crystal Reports\Oracle 9.2\PASP\FacilityInfo.vb">
+      <DependentUpon>FacilityInfo.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="IAIP-Crystal Reports\Oracle 9.2\PASP\feeByYear.vb">
+      <DependentUpon>feeByYear.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="IAIP-Crystal Reports\Oracle 9.2\PASP\FeesByAirs.vb">
+      <DependentUpon>FeesByAirs.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="IAIP-Crystal Reports\Oracle 9.2\PASP\NonRespondent.vb">
+      <DependentUpon>NonRespondent.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="IAIP-Crystal Reports\Oracle 9.2\PASP\NoOperate.vb">
+      <DependentUpon>NoOperate.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="IAIP-Crystal Reports\Oracle 9.2\PASP\NoResponse.vb">
+      <DependentUpon>NoResponse.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="IAIP-Crystal Reports\Oracle 9.2\PASP\NoSubmit.vb">
+      <DependentUpon>NoSubmit.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="IAIP-Crystal Reports\Oracle 9.2\PASP\NSPSStatus.vb">
+      <DependentUpon>NSPSStatus.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="IAIP-Crystal Reports\Oracle 9.2\PASP\NSPSStatus1.vb">
+      <DependentUpon>NSPSStatus1.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="IAIP-Crystal Reports\Oracle 9.2\PASP\NSPSStatus2.vb">
+      <DependentUpon>NSPSStatus2.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="IAIP-Crystal Reports\Oracle 9.2\PASP\TotalFee.vb">
+      <DependentUpon>TotalFee.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="IAIP-Crystal Reports\Oracle 9.2\PASP\TotalPayment.vb">
+      <DependentUpon>TotalPayment.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="IAIP-Crystal Reports\Oracle 9.2\PASP\TrainingReg.vb">
+      <SubType>Component</SubType>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TrainingReg.rpt</DependentUpon>
+    </Compile>
+    <Compile Include="IAIP-Crystal Reports\Oracle 9.2\PASP\Variance.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Variance.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="IAIP-Crystal Reports\Oracle 9.2\SSCP\CRFCE.vb">
+      <DependentUpon>CRFCE.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="IAIP-Crystal Reports\Oracle 9.2\SSCP\CRFCE2.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CRFCE2.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="IAIP-Crystal Reports\Oracle 9.2\SSPP\CDSPrintOut.vb">
+      <DependentUpon>CDSPrintOut.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="IAIP-Crystal Reports\Oracle 9.2\SSPP\CRTitleVRenewal.vb">
+      <SubType>Component</SubType>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CRTitleVRenewal.rpt</DependentUpon>
+    </Compile>
+    <Compile Include="IAIP-Crystal Reports\Oracle 9.2\SSPP\SSPPPublicNotice.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SSPPPublicNotice.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ISMP\DMUTool.Designer.vb">
+      <DependentUpon>DMUTool.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ISMP\DMUTool.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ISMP\SMU\ISMPDataManagementTools.Designer.vb">
+      <DependentUpon>ISMPDataManagementTools.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ISMP\SMU\ISMPDataManagementTools.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ISMP\SMU\ISMPTestReportAdministrative.Designer.vb">
+      <DependentUpon>ISMPTestReportAdministrative.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ISMP\SMU\ISMPTestReportAdministrative.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ISMP\SMU\ISMPManagersTools.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ISMP\SMU\ISMPMemo.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ISMP\SMU\ISMPReferenceNumber.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ISMP\SMU\ISMPTestMemoViewer.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ISMP\SMU\SubPages\ISMPAddPollutants.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ISMP\SMU\SubPages\ISMPAddTestingFirms.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ISMP\SMU\SubPages\ISMPClosePrint.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ISMP\SMU\SubPages\ISMPExcelFiles.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ISMP\SMU\SubPages\ISMPFacilityInfo.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="My Project\Application.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Application.myapp</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="SSCP\SSCPEmissionSummaryTool.Designer.vb">
+      <DependentUpon>SSCPEmissionSummaryTool.vb</DependentUpon>
+    </Compile>
+    <Compile Include="SSCP\SSCPEmissionSummaryTool.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SSCP\SSCPManagersTools.Designer.vb">
+      <DependentUpon>SSCPManagersTools.vb</DependentUpon>
+    </Compile>
+    <Compile Include="SSCP\SSCPManagersTools.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SSCP\SSCPEngineerInspectionTool.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SSCP\SSCPEvents.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SSCP\SSCPFCEWork.Designer.vb">
+      <DependentUpon>SSCPFCEWork.vb</DependentUpon>
+    </Compile>
+    <Compile Include="SSCP\SSCPFCEWork.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SSCP\SubPages\SSCPEnforcementChecklist.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SSCP\SubPages\SSCPEnforcementSelector.Designer.vb">
+      <DependentUpon>SSCPEnforcementSelector.vb</DependentUpon>
+    </Compile>
+    <Compile Include="SSCP\SubPages\SSCPEnforcementSelector.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SSCP\SubPages\SSCPFacAssignment.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SSCP\SubPages\SSCPFCESelectorTool.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SSCP\SubPages\SSCPInformationRequest.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SSCP\SubPages\SSCPInspectionScheduleLink.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SSCP\SubPages\SSCPLetterTemplates.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SSCP\SubPages\SSCPWorkEntry.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SSPP\SSPPPublicNoticiesAndAdvisories.Designer.vb">
+      <DependentUpon>SSPPPublicNoticiesAndAdvisories.vb</DependentUpon>
+    </Compile>
+    <Compile Include="SSPP\SSPPPublicNoticiesAndAdvisories.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SSPP\SSPPApplicationLog.Designer.vb">
+      <DependentUpon>SSPPApplicationLog.vb</DependentUpon>
+    </Compile>
+    <Compile Include="SSPP\SSPPApplicationLog.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SSPP\SSPPApplicationTrackingLog.Designer.vb">
+      <DependentUpon>SSPPApplicationTrackingLog.vb</DependentUpon>
+    </Compile>
+    <Compile Include="SSPP\SSPPApplicationTrackingLog.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SSPP\SSPPStatisticalTools.Designer.vb">
+      <DependentUpon>SSPPStatisticalTools.vb</DependentUpon>
+    </Compile>
+    <Compile Include="SSPP\SSPPStatisticalTools.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SSPP\Sub Forms\SSPPAttainmentStatus.Designer.vb">
+      <DependentUpon>SSPPAttainmentStatus.vb</DependentUpon>
+    </Compile>
+    <Compile Include="SSPP\Sub Forms\SSPPAttainmentStatus.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubMain\subMain.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DevelopmentForms\AFSValidator.Designer.vb">
+      <DependentUpon>AFSValidator.vb</DependentUpon>
+    </Compile>
+    <Compile Include="DevelopmentForms\AFSValidator.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Universial Forms\IAIPFacilitySummary.Designer.vb">
+      <DependentUpon>IAIPFacilitySummary.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Universial Forms\IAIPFacilitySummary.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Universial Forms\IAIPDistrictSourceTool.Designer.vb">
+      <DependentUpon>IAIPDistrictSourceTool.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Universial Forms\IAIPDistrictSourceTool.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Universial Forms\IAIPNavigation.Designer.vb">
+      <DependentUpon>IAIPNavigation.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Universial Forms\IAIPNavigation.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Universial Forms\IAIPDevelopmentTeam.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Universial Forms\IAIPPermitUploader.Designer.vb">
+      <DependentUpon>IAIPPermitUploader.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Universial Forms\IAIPPermitUploader.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Universial Forms\IAIPPrintOut.Designer.vb">
+      <DependentUpon>IAIPPrintOut.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Universial Forms\IAIPPrintOut.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Universial Forms\IAIPLogIn.Designer.vb">
+      <DependentUpon>IAIPLogIn.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Universial Forms\IAIPLogIn.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Universial Forms\IAIPUserAdminTool.Designer.vb">
+      <DependentUpon>IAIPUserAdminTool.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Universial Forms\IAIPUserAdminTool.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Universial Forms\Sub Forms\IAIPFacilityCreator.Designer.vb">
+      <DependentUpon>IAIPFacilityCreator.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Universial Forms\Sub Forms\IAIPFacilityCreator.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Universial Forms\Sub Forms\IAIPEditAirProgramPollutants.Designer.vb">
+      <DependentUpon>IAIPEditAirProgramPollutants.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Universial Forms\Sub Forms\IAIPEditAirProgramPollutants.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Universial Forms\Sub Forms\IAIPEditFacilityLocation.Designer.vb">
+      <DependentUpon>IAIPEditFacilityLocation.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Universial Forms\Sub Forms\IAIPEditFacilityLocation.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Universial Forms\Sub Forms\IAIPEditHeaderData.Designer.vb">
+      <DependentUpon>IAIPEditHeaderData.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Universial Forms\Sub Forms\IAIPEditHeaderData.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Universial Forms\Sub Forms\IAIPEditSubParts.Designer.vb">
+      <DependentUpon>IAIPEditSubParts.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Universial Forms\Sub Forms\IAIPEditSubParts.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Universial Forms\Sub Forms\IAIPEditContacts.Designer.vb">
+      <DependentUpon>IAIPEditContacts.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Universial Forms\Sub Forms\IAIPEditContacts.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Universial Forms\Sub Forms\IAIPFacilityLookUpTool.Designer.vb">
+      <DependentUpon>IAIPFacilityLookUpTool.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Universial Forms\Sub Forms\IAIPFacilityLookUpTool.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Universial Forms\Sub Forms\IAIPFacilitySummaryPrint.Designer.vb">
+      <DependentUpon>IAIPFacilitySummaryPrint.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Universial Forms\Sub Forms\IAIPFacilitySummaryPrint.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Universial Forms\Sub Forms\IAIPListTool.Designer.vb">
+      <DependentUpon>IAIPListTool.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Universial Forms\Sub Forms\IAIPListTool.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Universial Forms\Sub Forms\IAIPProfileUpdate.Designer.vb">
+      <DependentUpon>IAIPProfileUpdate.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Universial Forms\Sub Forms\IAIPProfileUpdate.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <EmbeddedResource Include="DevelopmentForms\DEVEditContacts.resx">
+      <DependentUpon>DEVEditContacts.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DevelopmentForms\DEVFacilitySummary.resx">
+      <DependentUpon>DEVFacilitySummary.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DevelopmentForms\DEVFeeStatistics.resx">
+      <DependentUpon>DEVFeeStatistics.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DevelopmentForms\DMU_TITLEV_PROJECT.resx">
+      <DependentUpon>DMU_TITLEV_PROJECT.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DevelopmentForms\IAIPPhoneList.resx">
+      <DependentUpon>IAIPPhoneList.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DevelopmentForms\IAIP_EIS_Log.resx">
+      <DependentUpon>IAIP_EIS_Log.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DevelopmentForms\SSCPEnforcementAudit.resx">
+      <DependentUpon>SSCPEnforcementAudit.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DevelopmentForms\SSCPManagerProfile.resx">
+      <DependentUpon>SSCPManagerProfile.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IAIP-Crystal Reports\Oracle 10.1\crFS_Invoice.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>crFS_Invoice.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IAIP-Crystal Reports\Oracle 10.1\APB\CRBasicPrint.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>CRBasicPrint.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IAIP-Crystal Reports\Oracle 10.1\APB\SubReports\CRAirProgramCodes.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>CRAirProgramCodes.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IAIP-Crystal Reports\Oracle 10.1\APB\SubReports\CRContact.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>CRContact.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IAIP-Crystal Reports\Oracle 10.1\APB\CRFullPrint.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>CRFullPrint.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IAIP-Crystal Reports\Oracle 10.1\APB\SubReports\CREnforcement.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>CREnforcement.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IAIP-Crystal Reports\Oracle 10.1\APB\SubReports\CRFCEPrint.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>CRFCEPrint.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IAIP-Crystal Reports\Oracle 10.1\APB\SubReports\CRISMPFull.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>CRISMPFull.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IAIP-Crystal Reports\Oracle 10.1\APB\SubReports\CRSSCPPrint.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>CRSSCPPrint.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IAIP-Crystal Reports\Oracle 10.1\APB\SubReports\CRSSPPFull.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>CRSSPPFull.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IAIP-Crystal Reports\Oracle 10.1\APB\SubReports\CRStateContacts.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>CRStateContacts.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IAIP-Crystal Reports\Oracle 10.1\APB\SubReports\CRWebContacts.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>CRWebContacts.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IAIP-Crystal Reports\Oracle 10.1\crAPBPrintOut.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>crAPBPrintOut.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IAIP-Crystal Reports\Oracle 10.1\crAPBPrintOut2.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>crAPBPrintOut2.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IAIP-Crystal Reports\Oracle 10.1\DepositQA11.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>DepositQA11.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IAIP-Crystal Reports\Oracle 10.1\DMU\crESinfoByAirsNumber10.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>crESinfoByAirsNumber10.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IAIP-Crystal Reports\Oracle 10.1\crFeeInvoice.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>crFeeInvoice.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IAIP-Crystal Reports\Oracle 10.1\crFeeReport.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>crFeeReport.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IAIP-Crystal Reports\Oracle 10.1\FeeInvoice.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>FeeInvoice.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IAIP-Crystal Reports\Oracle 10.1\PASP\AuditReport10.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>AuditReport10.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IAIP-Crystal Reports\Oracle 10.1\PASP\Bankrupt10.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Bankrupt10.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IAIP-Crystal Reports\Oracle 10.1\PASP\ClassChanged10.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>ClassChanged10.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IAIP-Crystal Reports\Oracle 10.1\PASP\CRInventoryReport.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>CRInventoryReport.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IAIP-Crystal Reports\Oracle 10.1\PASP\DepositData10.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>DepositData10.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IAIP-Crystal Reports\Oracle 10.1\PASP\DepositDataQA10.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>DepositDataQA10.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IAIP-Crystal Reports\Oracle 10.1\PASP\DepositNumberQA10.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>DepositNumberQA10.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IAIP-Crystal Reports\Oracle 10.1\PASP\DepositQA10.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>DepositQA10.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IAIP-Crystal Reports\Oracle 10.1\PASP\FacilityBalance10.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>FacilityBalance10.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IAIP-Crystal Reports\Oracle 10.1\PASP\FacilityBalancewithZero10.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>FacilityBalancewithZero10.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IAIP-Crystal Reports\Oracle 10.1\PASP\FacilityClassification10.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>FacilityClassification10.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IAIP-Crystal Reports\Oracle 10.1\PASP\FacilityComments10.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>FacilityComments10.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IAIP-Crystal Reports\Oracle 10.1\PASP\FacilityFee10.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>FacilityFee10.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IAIP-Crystal Reports\Oracle 10.1\PASP\FacilityFeeDraft10.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>FacilityFeeDraft10.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IAIP-Crystal Reports\Oracle 10.1\PASP\FacilityInfo10.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>FacilityInfo10.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IAIP-Crystal Reports\Oracle 10.1\PASP\feeByYear10.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>feeByYear10.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IAIP-Crystal Reports\Oracle 10.1\PASP\FeesByAirs10.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>FeesByAirs10.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IAIP-Crystal Reports\Oracle 10.1\PASP\NonRespondent10.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>NonRespondent10.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IAIP-Crystal Reports\Oracle 10.1\PASP\NoOperate10.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>NoOperate10.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IAIP-Crystal Reports\Oracle 10.1\PASP\NoResponse10.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>NoResponse10.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IAIP-Crystal Reports\Oracle 10.1\PASP\NoSubmit10.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>NoSubmit10.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IAIP-Crystal Reports\Oracle 10.1\PASP\NSPSStatus10.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>NSPSStatus10.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IAIP-Crystal Reports\Oracle 10.1\PASP\NSPSStatus1_10.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>NSPSStatus1_10.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IAIP-Crystal Reports\Oracle 10.1\PASP\NSPSStatus2_10.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>NSPSStatus2_10.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IAIP-Crystal Reports\Oracle 10.1\PASP\TotalFee10.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>TotalFee10.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IAIP-Crystal Reports\Oracle 10.1\PASP\TotalPayment10.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>TotalPayment10.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IAIP-Crystal Reports\Oracle 10.1\PASP\TrainingReg10.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>TrainingReg10.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IAIP-Crystal Reports\Oracle 10.1\PASP\Variance10.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Variance10.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IAIP-Crystal Reports\Oracle 10.1\SmokeSchool\crPassFailNoShow.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>crPassFailNoShow.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IAIP-Crystal Reports\Oracle 10.1\SmokeSchool\crRoster.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>crRoster.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IAIP-Crystal Reports\Oracle 10.1\SSPP\crSSPPConfirmationLetter.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>crSSPPConfirmationLetter.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IAIP-Crystal Reports\Oracle 10.1\SSPP\CRTitleVRenewal10.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>CRTitleVRenewal10.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IAIP-Crystal Reports\Oracle 9.2\APB\crAPBPhoneList.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>crAPBPhoneList.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IAIP-Crystal Reports\Oracle 9.2\APB\crOrganizationChart.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>crOrganizationChart.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IAIP-Crystal Reports\Oracle 9.2\DMU\crESDataViewer.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>crESDataViewer.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ISMP\DMU\DMUDeveloperTools.resx">
+      <DependentUpon>DMUDeveloperTools.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ISMP\DMU\DMUStaffTools.resx">
+      <DependentUpon>DMUStaffTools.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ISMP\DMU\DMUTitleVTools.resx">
+      <DependentUpon>DMUTitleVTools.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ISMP\SMU\ISMPConfidentialData.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ISMPConfidentialData.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ISMP\SMU\SubPages\ISMPStaffReports.resx">
+      <DependentUpon>ISMPStaffReports.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DevelopmentForms\PASPFeeAuditLog.resx">
+      <DependentUpon>PASPFeeAuditLog.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MASP\MASPRegistrationTool.resx">
+      <DependentUpon>MASPRegistrationTool.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PASP\PASPDepositsAmendments.resx">
+      <DependentUpon>PASPDepositsAmendments.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PASP\PASPFacilityFee.resx">
+      <DependentUpon>PASPFacilityFee.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PASP\PASPFeeDeposits.resx">
+      <DependentUpon>PASPFeeDeposits.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PASP\PASPFeeManagement.resx">
+      <DependentUpon>PASPFeeManagement.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PASP\PASPFeeReports.resx">
+      <DependentUpon>PASPFeeReports.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PASP\PASPFeesLog.resx">
+      <DependentUpon>PASPFeesLog.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PASP\PASPFeeTools.resx">
+      <DependentUpon>PASPFeeTools.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PASP\PASPFeeVarianceCheck.resx">
+      <DependentUpon>PASPFeeVarianceCheck.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PASP\PASPInventory.resx">
+      <DependentUpon>PASPInventory.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PASP\PASPMailoutAndStats.resx">
+      <DependentUpon>PASPMailoutAndStats.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PASP\PASPModifications.resx">
+      <DependentUpon>PASPModifications.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PASP\PASPWebApplicationUser.resx">
+      <DependentUpon>PASPWebApplicationUser.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SmokeSchool\ISMPSmokeSchool.resx">
+      <DependentUpon>ISMPSmokeSchool.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ISMP\SMU\ISMPTestReports.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ISMPTestReports.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ISMP\SMU\ISMPMonitoringLog.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ISMPMonitoringLog.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ISMP\SMU\ISMPNotificationLog.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ISMPNotificationLog.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SmokeSchool\PassFailNoShow.resx">
+      <DependentUpon>PassFailNoShow.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SmokeSchool\Roster.resx">
+      <DependentUpon>Roster.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SSCP\SSCPAdministrator.resx">
+      <DependentUpon>SSCPAdministrator.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SSCP\SSCPComplianceLog.resx">
+      <DependentUpon>SSCPComplianceLog.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SSCP\SSCPInspectionTool.resx">
+      <DependentUpon>SSCPInspectionTool.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SSPP\Sub Forms\SSPP_FeeContact.resx">
+      <DependentUpon>SSPP_FeeContact.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Universial Forms\IAIPAFSCompare.resx">
+      <DependentUpon>IAIPAFSCompare.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Universial Forms\IAIPLookUpTables.resx">
+      <DependentUpon>IAIPLookUpTables.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Universial Forms\IAIPFeeAuditTool.resx">
+      <DependentUpon>IAIPFeeAuditTool.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Universial Forms\IAIPQueryGenerator.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>IAIPQueryGenerator.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ISMP\SMU\ISMPTestFirmComments.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ISMPTestFirmComments.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IAIP-Crystal Reports\Oracle 9.2\DMU\crESinfoByAirsNumber.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>crESinfoByAirsNumber.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IAIP-Crystal Reports\Oracle 9.2\ISMP\CRFlare.resx">
+      <DependentUpon>CRFlare.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IAIP-Crystal Reports\Oracle 9.2\ISMP\CRFlare.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>CRFlare.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IAIP-Crystal Reports\Oracle 9.2\ISMP\CRGasConcentration.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>CRGasConcentration.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IAIP-Crystal Reports\Oracle 9.2\ISMP\CRLoadingRack.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>CRLoadingRack.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IAIP-Crystal Reports\Oracle 9.2\ISMP\CRMemorandumPTE.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>CRMemorandumPTE.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IAIP-Crystal Reports\Oracle 9.2\ISMP\CRMemorandumStandard.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>CRMemorandumStandard.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IAIP-Crystal Reports\Oracle 9.2\ISMP\CRMemorandumToFile.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>CRMemorandumToFile.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IAIP-Crystal Reports\Oracle 9.2\ISMP\CRMethod22.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>CRMethod22.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IAIP-Crystal Reports\Oracle 9.2\ISMP\CRMethod9Multi.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>CRMethod9Multi.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IAIP-Crystal Reports\Oracle 9.2\ISMP\CRMethod9Single.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>CRMethod9Single.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IAIP-Crystal Reports\Oracle 9.2\ISMP\CROneStackFourRuns.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>CROneStackFourRuns.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IAIP-Crystal Reports\Oracle 9.2\ISMP\CROneStackThreeRuns.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>CROneStackThreeRuns.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IAIP-Crystal Reports\Oracle 9.2\ISMP\CROneStackTwoRuns.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>CROneStackTwoRuns.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IAIP-Crystal Reports\Oracle 9.2\ISMP\CRPondTreatment.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>CRPondTreatment.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IAIP-Crystal Reports\Oracle 9.2\ISMP\CRRata.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>CRRata.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IAIP-Crystal Reports\Oracle 9.2\ISMP\CRTwoStackDRE.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>CRTwoStackDRE.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IAIP-Crystal Reports\Oracle 9.2\ISMP\CRTwoStackStandard.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>CRTwoStackStandard.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IAIP-Crystal Reports\Oracle 9.2\PASP\AuditReport.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>AuditReport1.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IAIP-Crystal Reports\Oracle 9.2\PASP\Bankrupt.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Bankrupt.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IAIP-Crystal Reports\Oracle 9.2\PASP\ClassChanged.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>ClassChanged.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IAIP-Crystal Reports\Oracle 9.2\PASP\DepositData.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>DepositData.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IAIP-Crystal Reports\Oracle 9.2\PASP\DepositDataQA.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>DepositDataQA.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IAIP-Crystal Reports\Oracle 9.2\PASP\DepositNumberQA.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>DepositNumberQA.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IAIP-Crystal Reports\Oracle 9.2\PASP\DepositQA.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>DepositQA.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IAIP-Crystal Reports\Oracle 9.2\PASP\FacilityBalance.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>FacilityBalance.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IAIP-Crystal Reports\Oracle 9.2\PASP\FacilityBalancewithZero.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>FacilityBalancewithZero.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IAIP-Crystal Reports\Oracle 9.2\PASP\FacilityClassification.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>FacilityClassification.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IAIP-Crystal Reports\Oracle 9.2\PASP\FacilityComments.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>FacilityComments.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IAIP-Crystal Reports\Oracle 9.2\PASP\FacilityFee.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>FacilityFee.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IAIP-Crystal Reports\Oracle 9.2\PASP\FacilityFeeDraft.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>FacilityFeeDraft.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IAIP-Crystal Reports\Oracle 9.2\PASP\FacilityInfo.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>FacilityInfo.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IAIP-Crystal Reports\Oracle 9.2\PASP\feeByYear.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>feeByYear.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IAIP-Crystal Reports\Oracle 9.2\PASP\FeesByAirs.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>FeesByAirs.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IAIP-Crystal Reports\Oracle 9.2\PASP\NonRespondent.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>NonRespondent.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IAIP-Crystal Reports\Oracle 9.2\PASP\NoOperate.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>NoOperate.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IAIP-Crystal Reports\Oracle 9.2\PASP\NoResponse.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>NoResponse.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IAIP-Crystal Reports\Oracle 9.2\PASP\NoSubmit.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>NoSubmit.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IAIP-Crystal Reports\Oracle 9.2\PASP\NSPSStatus.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>NSPSStatus.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IAIP-Crystal Reports\Oracle 9.2\PASP\NSPSStatus1.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>NSPSStatus1.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IAIP-Crystal Reports\Oracle 9.2\PASP\NSPSStatus2.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>NSPSStatus2.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IAIP-Crystal Reports\Oracle 9.2\PASP\TotalFee.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>TotalFee.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IAIP-Crystal Reports\Oracle 9.2\PASP\TotalPayment.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>TotalPayment.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IAIP-Crystal Reports\Oracle 9.2\PASP\TrainingReg.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>TrainingReg.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IAIP-Crystal Reports\Oracle 9.2\PASP\Variance.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Variance.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IAIP-Crystal Reports\Oracle 9.2\SSCP\CRFCE.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>CRFCE.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IAIP-Crystal Reports\Oracle 9.2\SSCP\CRFCE2.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>CRFCE2.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IAIP-Crystal Reports\Oracle 9.2\SSPP\CDSPrintOut.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>CDSPrintOut.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IAIP-Crystal Reports\Oracle 9.2\SSPP\CRTitleVRenewal.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>CRTitleVRenewal.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IAIP-Crystal Reports\Oracle 9.2\SSPP\SSPPPublicNotice.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>SSPPPublicNotice.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ISMP\DMUTool.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>DMUTool.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ISMP\SMU\ISMPDataManagementTools.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ISMPDataManagementTools.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ISMP\SMU\ISMPTestReportAdministrative.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ISMPTestReportAdministrative.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ISMP\SMU\ISMPManagersTools.resx">
+      <DependentUpon>ISMPManagersTools.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ISMP\SMU\ISMPMemo.resx">
+      <DependentUpon>ISMPMemo.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ISMP\SMU\ISMPReferenceNumber.resx">
+      <DependentUpon>ISMPReferenceNumber.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ISMP\SMU\ISMPTestMemoViewer.resx">
+      <DependentUpon>ISMPTestMemoViewer.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ISMP\SMU\SubPages\ISMPAddPollutants.resx">
+      <DependentUpon>ISMPAddPollutants.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ISMP\SMU\SubPages\ISMPAddTestingFirms.resx">
+      <DependentUpon>ISMPAddTestingFirms.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ISMP\SMU\SubPages\ISMPClosePrint.resx">
+      <DependentUpon>ISMPClosePrint.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ISMP\SMU\SubPages\ISMPExcelFiles.resx">
+      <DependentUpon>ISMPExcelFiles.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ISMP\SMU\SubPages\ISMPFacilityInfo.resx">
+      <DependentUpon>ISMPFacilityInfo.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="My Project\Resources.resx">
+      <SubType>Designer</SubType>
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SSCP\SSCPEmissionSummaryTool.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>SSCPEmissionSummaryTool.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SSCP\SSCPManagersTools.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>SSCPManagersTools.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SSCP\SSCPEngineerInspectionTool.resx">
+      <DependentUpon>SSCPEngineerInspectionTool.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SSCP\SSCPEvents.resx">
+      <DependentUpon>SSCPEvents.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SSCP\SSCPFCEWork.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>SSCPFCEWork.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SSCP\SubPages\SSCPEnforcementChecklist.resx">
+      <DependentUpon>SSCPEnforcementChecklist.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SSCP\SubPages\SSCPEnforcementSelector.resx">
+      <DependentUpon>SSCPEnforcementSelector.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SSCP\SubPages\SSCPFacAssignment.resx">
+      <DependentUpon>SSCPFacAssignment.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SSCP\SubPages\SSCPFCESelectorTool.resx">
+      <DependentUpon>SSCPFCESelectorTool.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SSCP\SubPages\SSCPInformationRequest.resx">
+      <DependentUpon>SSCPInformationRequest.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SSCP\SubPages\SSCPInspectionScheduleLink.resx">
+      <DependentUpon>SSCPInspectionScheduleLink.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SSCP\SubPages\SSCPLetterTemplates.resx">
+      <DependentUpon>SSCPLetterTemplates.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SSCP\SubPages\SSCPWorkEntry.resx">
+      <DependentUpon>SSCPWorkEntry.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SSPP\SSPPPublicNoticiesAndAdvisories.resx">
+      <DependentUpon>SSPPPublicNoticiesAndAdvisories.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SSPP\SSPPApplicationLog.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>SSPPApplicationLog.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SSPP\SSPPApplicationTrackingLog.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>SSPPApplicationTrackingLog.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SSPP\SSPPStatisticalTools.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>SSPPStatisticalTools.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SSPP\Sub Forms\SSPPAttainmentStatus.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>SSPPAttainmentStatus.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DevelopmentForms\AFSValidator.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>AFSValidator.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Universial Forms\IAIPFacilitySummary.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>IAIPFacilitySummary.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Universial Forms\IAIPDistrictSourceTool.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>IAIPDistrictSourceTool.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Universial Forms\IAIPNavigation.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>IAIPNavigation.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Universial Forms\IAIPDevelopmentTeam.resx">
+      <DependentUpon>IAIPDevelopmentTeam.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Universial Forms\IAIPPermitUploader.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>IAIPPermitUploader.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Universial Forms\IAIPPrintOut.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>IAIPPrintOut.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Universial Forms\IAIPLogIn.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>IAIPLogIn.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Universial Forms\IAIPUserAdminTool.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>IAIPUserAdminTool.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Universial Forms\Sub Forms\IAIPFacilityCreator.resx">
+      <DependentUpon>IAIPFacilityCreator.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Universial Forms\Sub Forms\IAIPEditAirProgramPollutants.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>IAIPEditAirProgramPollutants.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Universial Forms\Sub Forms\IAIPEditFacilityLocation.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>IAIPEditFacilityLocation.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Universial Forms\Sub Forms\IAIPEditHeaderData.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>IAIPEditHeaderData.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Universial Forms\Sub Forms\IAIPEditSubParts.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>IAIPEditSubParts.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Universial Forms\Sub Forms\IAIPEditContacts.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>IAIPEditContacts.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Universial Forms\Sub Forms\IAIPFacilityLookUpTool.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>IAIPFacilityLookUpTool.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Universial Forms\Sub Forms\IAIPFacilitySummaryPrint.resx">
+      <DependentUpon>IAIPFacilitySummaryPrint.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Universial Forms\Sub Forms\IAIPListTool.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>IAIPListTool.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Universial Forms\Sub Forms\IAIPProfileUpdate.resx">
+      <DependentUpon>IAIPProfileUpdate.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{967B4E0D-AD0C-4609-AB67-0FA40C0206D8}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="gaSeal.ico" />
+    <Content Include="My Project\Application.myapp">
+      <Generator>MyApplicationCodeGenerator</Generator>
+      <LastGenOutput>Application.Designer.vb</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="BusinessObjects.CrystalReports.10.5">
+      <Visible>False</Visible>
+      <ProductName>Crystal Reports Basic for Visual Studio 2008 %28x86, x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.ReportViewer.8.0">
+      <Visible>False</Visible>
+      <ProductName>Microsoft Visual Studio 2008 Report Viewer</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="bin\" />
+    <Folder Include="IAIP-Crystal Reports\Oracle 10.1\ISMP\" />
+    <Folder Include="IAIP-Crystal Reports\Oracle 10.1\SSCP\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>
