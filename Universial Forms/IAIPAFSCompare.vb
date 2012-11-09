@@ -1353,7 +1353,7 @@ Public Class IAIPAFSCompare
                                         IAIPAirCode = dr.Item("AirCode")
                                     End If
                                     If IsDBNull(dr.Item("strOperationalStatus")) Then
-                                        IAIPAirCode = IAIPAirCode
+                                        'IAIPAirCode = IAIPAirCode
                                     Else
                                         IAIPAirCode = IAIPAirCode & " - " & dr.Item("strOperationalStatus")
                                     End If
@@ -1401,7 +1401,7 @@ Public Class IAIPAFSCompare
                                     IAIPAirCode = dr.Item("AirCode")
                                 End If
                                 If IsDBNull(dr.Item("strOperationalStatus")) Then
-                                    IAIPAirCode = IAIPAirCode
+                                    'IAIPAirCode = IAIPAirCode
                                 Else
                                     IAIPAirCode = IAIPAirCode & " - " & dr.Item("strOperationalStatus")
                                 End If
@@ -1492,7 +1492,7 @@ Public Class IAIPAFSCompare
                                         IAIPAirCode = dr.Item("AirCode")
                                     End If
                                     If IsDBNull(dr.Item("strOperationalStatus")) Then
-                                        IAIPAirCode = IAIPAirCode
+                                        'IAIPAirCode = IAIPAirCode
                                     Else
                                         IAIPAirCode = IAIPAirCode & " - " & dr.Item("strOperationalStatus")
                                     End If
@@ -4095,7 +4095,7 @@ Public Class IAIPAFSCompare
                                                 IAIPKeyActionNumber = dr.Item("strAFSKeyActionNumber")
                                             End If
                                             If IsDBNull(dr.Item("LinkingEvent")) Then
-                                                IAIPActionNumber163 = IAIPActionNumber163
+                                                'IAIPActionNumber163 = IAIPActionNumber163
                                             Else
                                                 '  IAIPActionNumber163 = dr.Item("LinkingEvent")
                                             End If

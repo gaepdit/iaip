@@ -1,12 +1,12 @@
-﻿Imports System.DateTime
+﻿'Imports System.DateTime
 Imports System.Data.OracleClient
 Imports System.Windows.Forms
-Imports Microsoft.Office.Core
-Imports System.IO
+'Imports Microsoft.Office.Core
+'Imports System.IO
 Imports System
 Imports System.Data
-Imports System.Text
-Imports System.Data.SqlClient
+'Imports System.Text
+'Imports System.Data.SqlClient
 
 Public Class ISMPStaffReports
     Dim SQL, SQL2, SQL3 As String

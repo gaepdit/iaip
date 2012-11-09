@@ -2270,37 +2270,37 @@ Public Class IAIPFeeAuditTool
             dr = cmd.ExecuteReader
             While dr.Read
                 If IsDBNull(dr.Item("strStatus_08")) Then
-                    Status_08 = Status_08
+                    'Status_08 = Status_08
                 Else
                     Status_08 = "NonPayer"
                 End If
                 If IsDBNull(dr.Item("strStatus_07")) Then
-                    Status_07 = Status_07
+                    ' Status_07 = Status_07
                 Else
                     Status_07 = "NonPayer"
                 End If
                 If IsDBNull(dr.Item("strStatus_06")) Then
-                    Status_06 = Status_06
+                    'Status_06 = Status_06
                 Else
                     Status_06 = "NonPayer"
                 End If
                 If IsDBNull(dr.Item("strStatus_05")) Then
-                    Status_05 = Status_05
+                    ' Status_05 = Status_05
                 Else
                     Status_05 = "NonPayer"
                 End If
                 If IsDBNull(dr.Item("strStatus_04")) Then
-                    Status_04 = Status_04
+                    ' Status_04 = Status_04
                 Else
                     Status_04 = "NonPayer"
                 End If
                 If IsDBNull(dr.Item("strStatus_03")) Then
-                    Status_03 = Status_03
+                    ' Status_03 = Status_03
                 Else
                     Status_03 = "NonPayer"
                 End If
                 If IsDBNull(dr.Item("strStatus_02")) Then
-                    Status_02 = Status_02
+                    'Status_02 = Status_02
                 Else
                     Status_02 = "NonPayer"
                 End If
@@ -3939,12 +3939,12 @@ Public Class IAIPFeeAuditTool
                 SQLLine = " strFacilityName_Edit = '" & Replace(txtEditFacilityName.Text, "'", "''") & "' , "
             End If
             If txtEditFacilityAddress.Text = "Facility Address" Then
-                SQLLine = SQLLine
+                '   SQLLine = SQLLine
             Else
                 SQLLine = SQLLine & " strFacilityStreet_Edit = '" & Replace(txtEditFacilityAddress.Text, "'", "''") & "' , "
             End If
             If txtEditFacilityCity.Text = "Facility City" Then
-                SQLLine = SQLLine
+                ' SQLLine = SQLLine
             Else
                 SQLLine = SQLLine & " strFacilityCity_Edit = '" & Replace(txtEditFacilityCity.Text, "'", "''") & "' , "
             End If
@@ -3954,7 +3954,7 @@ Public Class IAIPFeeAuditTool
             SQLLine = SQLLine & " strFacilityClass_Edit = '" & Replace(txtEditSourceClass.Text, "'", "''") & "' , "
 
             If rdbTVYes.Checked = False And rdbTVNo.Checked = False Then
-                SQLLine = SQLLine
+                ' SQLLine = SQLLine
             Else
                 If rdbTVYes.Checked = True Then
                     SQLLine = SQLLine & " strTVStatus_Edit = 'Yes' , "
@@ -3963,7 +3963,7 @@ Public Class IAIPFeeAuditTool
                 End If
             End If
             If rdbNSPSYes.Checked = False And rdbNSPSNo.Checked = False Then
-                SQLLine = SQLLine
+                '    SQLLine = SQLLine
             Else
                 If rdbNSPSYes.Checked = True Then
                     SQLLine = SQLLine & " strNSPSStatus_Edit = 'Yes' , "
@@ -3994,14 +3994,6 @@ Public Class IAIPFeeAuditTool
     End Sub
     Private Sub btnEditContactInfo_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEditContactInfo.Click
         Try
-            Dim ContactName As String = ""
-            Dim ContactTitle As String = ""
-            Dim ContactCompany As String = ""
-            Dim ConatctAddress As String = ""
-            Dim ContactCity As String = ""
-            Dim ContactState As String = ""
-            Dim ContactZipCode As String = ""
-            Dim ContactPhoneNumber As String = ""
             Dim SQLLine As String = ""
 
             If txtNonRespondersID.Text = "" Then
@@ -4015,27 +4007,27 @@ Public Class IAIPFeeAuditTool
                 SQLLine = " strContactFirstName_Edit = '" & Replace(txtEditContactFirstName.Text, "'", "''") & "' , "
             End If
             If txtEditContactLastName.Text = "Contact Last Name" Then
-                SQLLine = SQLLine
+                '     SQLLine = SQLLine
             Else
                 SQLLine = SQLLine & " strContactLastName_Edit = '" & Replace(txtEditContactLastName.Text, "'", "''") & "' , "
             End If
             If txtEditContactTitle.Text = "Contact Title" Then
-                SQLLine = SQLLine
+                '   SQLLine = SQLLine
             Else
                 SQLLine = SQLLine & " strContactTitle_Edit = '" & Replace(txtEditContactTitle.Text, "'", "''") & "' , "
             End If
             If txtEditContactCompany.Text = "Contact Company" Then
-                SQLLine = SQLLine
+                '   SQLLine = SQLLine
             Else
                 SQLLine = SQLLine & " strContactCompany_Edit = '" & Replace(txtEditContactCompany.Text, "'", "''") & "' , "
             End If
             If txtEditContactAddress.Text = "Contact Address" Then
-                SQLLine = SQLLine
+                '  SQLLine = SQLLine
             Else
                 SQLLine = SQLLine & " strContactAddress_Edit = '" & Replace(txtEditContactAddress.Text, "'", "''") & "' , "
             End If
             If txtEditContactCity.Text = "Contact City" Then
-                SQLLine = SQLLine
+                '    SQLLine = SQLLine
             Else
                 SQLLine = SQLLine & " strContactCity_Edit = '" & Replace(txtEditContactCity.Text, "'", "''") & "' , "
             End If
@@ -4050,12 +4042,12 @@ Public Class IAIPFeeAuditTool
             SQLLine = SQLLine & " strContactZipCode_Edit = '" & Replace(mtbEditContactZipCode.Text, "'", "''") & "' , "
             'End If
             If txtEditContactPhoneNumber.Text = "Contact Phone Number" Then
-                SQLLine = SQLLine
+                '   SQLLine = SQLLine
             Else
                 SQLLine = SQLLine & " strContactPhoneNumber_Edit = '" & txtEditContactPhoneNumber.Text & "' , "
             End If
             If txtEditContactEmailAddress.Text = "Contact Email Address" Then
-                SQLLine = SQLLine
+                '    SQLLine = SQLLine
             Else
                 Dim myInput As String = txtEditContactEmailAddress.Text.Trim()
                 Dim pattern As String = "^[\w-]+(?:\.[\w-]+)*@(?:[\w-]+\.)+[a-zA-Z]{2,7}$"
@@ -4318,33 +4310,33 @@ Public Class IAIPFeeAuditTool
                 SQLLine = " strFacilityName_08_Edit = '" & Replace(txtEditFacilityName_CY2008.Text, "'", "''") & "' , "
             End If
             If txtEditFacilityAddress_CY2008.Text = "Facility Address" Or txtEditFacilityAddress_CY2008.Text = "" Then
-                SQLLine = SQLLine
+                'SQLLine = SQLLine
             Else
                 SQLLine = SQLLine & " strFacilityStreet_08_Edit = '" & Replace(txtEditFacilityAddress_CY2008.Text, "'", "''") & "' , "
             End If
             If txtEditFacilityCity_CY2008.Text = "Facility City" Or txtEditFacilityCity_CY2008.Text = "" Then
-                SQLLine = SQLLine
+                ' SQLLine = SQLLine
             Else
                 SQLLine = SQLLine & " strFacilityCity_08_Edit = '" & Replace(txtEditFacilityCity_CY2008.Text, "'", "''") & "' , "
             End If
             If mtbEditZipCode_CY2008.Text = "" Then
-                SQLLine = SQLLine
+                'SQLLine = SQLLine
             Else
                 SQLLine = SQLLine & " strFacilityZipCode_08_Edit = '" & Replace(mtbEditZipCode_CY2008.Text, "'", "''") & "' , "
             End If
 
             If cboOperatingStatus_CY2008.Text = "" Then
-                SQLLine = SQLLine
+                'SQLLine = SQLLine
             Else
                 SQLLine = SQLLine & " strOperatingStatus_08_Edit = '" & Replace(cboOperatingStatus_CY2008.Text, "'", "''") & "' , "
             End If
             If txtEditSourceClass_CY2008.Text = "" Then
-                SQLLine = SQLLine
+                ' SQLLine = SQLLine
             Else
                 SQLLine = SQLLine & " strClassification_08_Edit = '" & Replace(txtEditSourceClass_CY2008.Text, "'", "''") & "' , "
             End If
             If rdbTVYes_CY2008.Checked = False And rdbTVNo_CY2008.Checked = False Then
-                SQLLine = SQLLine
+                'SQLLine = SQLLine
             Else
                 If rdbTVYes_CY2008.Checked = True Then
                     SQLLine = SQLLine & " strTVStatus_08_Edit = 'Yes' , "
@@ -4353,7 +4345,7 @@ Public Class IAIPFeeAuditTool
                 End If
             End If
             If rdbNSPSYes_CY2008.Checked = False And rdbNSPSNo_CY2008.Checked = False Then
-                SQLLine = SQLLine
+               ' SQLLine = SQLLine
             Else
                 If rdbNSPSYes_CY2008.Checked = True Then
                     SQLLine = SQLLine & " strNSPSStatus_08_Edit = 'Yes' , "
@@ -4383,14 +4375,6 @@ Public Class IAIPFeeAuditTool
     End Sub
     Private Sub btnEditContactInfo_CY2008_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEditContactInfo_CY2008.Click
         Try
-            Dim ContactName As String = ""
-            Dim ContactTitle As String = ""
-            Dim ContactCompany As String = ""
-            Dim ConatctAddress As String = ""
-            Dim ContactCity As String = ""
-            Dim ContactState As String = ""
-            Dim ContactZipCode As String = ""
-            Dim ContactPhoneNumber As String = ""
             Dim SQLLine As String = ""
 
             If txtNonRespondersID.Text = "" Then
@@ -4404,32 +4388,32 @@ Public Class IAIPFeeAuditTool
                 SQLLine = " strContactFirstName_08_Edit = '" & Replace(txtEditContactFirstName_CY2008.Text, "'", "''") & "' , "
             End If
             If txtEditContactLastName_CY2008.Text = "Contact Last Name" Or txtEditContactLastName_CY2008.Text = "" Then
-                SQLLine = SQLLine
+                '   SQLLine = SQLLine
             Else
                 SQLLine = SQLLine & " strContactLastName_08_Edit = '" & Replace(txtEditContactLastName_CY2008.Text, "'", "''") & "' , "
             End If
             If txtEditContactCompany_CY2008.Text = "Contact Company" Or txtEditContactCompany_CY2008.Text = "" Then
-                SQLLine = SQLLine
+                ' SQLLine = SQLLine
             Else
                 SQLLine = SQLLine & " strContactCompany_08_Edit = '" & Replace(txtEditContactCompany_CY2008.Text, "'", "''") & "' , "
             End If
             If txtEditContactAddress_CY2008.Text = "Contact Address" Or txtEditContactAddress_CY2008.Text = "" Then
-                SQLLine = SQLLine
+                ' SQLLine = SQLLine
             Else
                 SQLLine = SQLLine & " strContactAddress_08_Edit = '" & Replace(txtEditContactAddress_CY2008.Text, "'", "''") & "' , "
             End If
             If txtEditContactCity_CY2008.Text = "Contact City" Or txtEditContactCity_CY2008.Text = "" Then
-                SQLLine = SQLLine
+                '  SQLLine = SQLLine
             Else
                 SQLLine = SQLLine & " strContactCity_08_Edit = '" & Replace(txtEditContactCity_CY2008.Text, "'", "''") & "' , "
             End If
             If txtEditContactState_CY2008.Text = "" Then
-                SQLLine = SQLLine
+                '  SQLLine = SQLLine
             Else
                 SQLLine = SQLLine & " strContactState_08_Edit = '" & Replace(txtEditContactState_CY2008.Text, "'", "''") & "' , "
             End If
             If mtbEditContactZipCode_CY2008.Text = "" Then
-                SQLLine = SQLLine
+              '  SQLLine = SQLLine
             Else
                 SQLLine = SQLLine & " strContactZipCode_08_Edit = '" & Replace(mtbEditContactZipCode_CY2008.Text, "'", "''") & "' , "
             End If
@@ -4566,33 +4550,33 @@ Public Class IAIPFeeAuditTool
                 SQLLine = " strFacilityName_07_Edit = '" & Replace(txtEditFacilityName_CY2007.Text, "'", "''") & "' , "
             End If
             If txtEditFacilityAddress_CY2007.Text = "Facility Address" Or txtEditFacilityAddress_CY2007.Text = "" Then
-                SQLLine = SQLLine
+                ' SQLLine = SQLLine
             Else
                 SQLLine = SQLLine & " strFacilityStreet_07_Edit = '" & Replace(txtEditFacilityAddress_CY2007.Text, "'", "''") & "' , "
             End If
             If txtEditFacilityCity_CY2007.Text = "Facility City" Or txtEditFacilityCity_CY2007.Text = "" Then
-                SQLLine = SQLLine
+                'SQLLine = SQLLine
             Else
                 SQLLine = SQLLine & " strFacilityCity_07_Edit = '" & Replace(txtEditFacilityCity_CY2007.Text, "'", "''") & "' , "
             End If
             If mtbEditZipCode_CY2007.Text = "" Then
-                SQLLine = SQLLine
+                '  SQLLine = SQLLine
             Else
                 SQLLine = SQLLine & " strFacilityZipCode_07_Edit = '" & Replace(mtbEditZipCode_CY2007.Text, "'", "''") & "' , "
             End If
 
             If cboOperatingStatus_CY2007.Text = "" Then
-                SQLLine = SQLLine
+                '   SQLLine = SQLLine
             Else
                 SQLLine = SQLLine & " strOperatingStatus_07_Edit = '" & Replace(cboOperatingStatus_CY2007.Text, "'", "''") & "' , "
             End If
             If txtEditSourceClass_CY2007.Text = "" Then
-                SQLLine = SQLLine
+                ' SQLLine = SQLLine
             Else
                 SQLLine = SQLLine & " strClassification_07_Edit = '" & Replace(txtEditSourceClass_CY2007.Text, "'", "''") & "' , "
             End If
             If rdbTVYes_CY2007.Checked = False And rdbTVNo_CY2007.Checked = False Then
-                SQLLine = SQLLine
+                ' SQLLine = SQLLine
             Else
                 If rdbTVYes_CY2007.Checked = True Then
                     SQLLine = SQLLine & " strTVStatus_07_Edit = 'Yes' , "
@@ -4601,7 +4585,7 @@ Public Class IAIPFeeAuditTool
                 End If
             End If
             If rdbNSPSYes_CY2007.Checked = False And rdbNSPSNo_CY2007.Checked = False Then
-                SQLLine = SQLLine
+                '  SQLLine = SQLLine
             Else
                 If rdbNSPSYes_CY2007.Checked = True Then
                     SQLLine = SQLLine & " strNSPSStatus_07_Edit = 'Yes' , "
@@ -4632,14 +4616,6 @@ Public Class IAIPFeeAuditTool
     End Sub
     Private Sub btnEditContactInfo_CY2007_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEditContactInfo_CY2007.Click
         Try
-            Dim ContactName As String = ""
-            Dim ContactTitle As String = ""
-            Dim ContactCompany As String = ""
-            Dim ConatctAddress As String = ""
-            Dim ContactCity As String = ""
-            Dim ContactState As String = ""
-            Dim ContactZipCode As String = ""
-            Dim ContactPhoneNumber As String = ""
             Dim SQLLine As String = ""
 
             If txtNonRespondersID.Text = "" Then
@@ -4653,32 +4629,32 @@ Public Class IAIPFeeAuditTool
                 SQLLine = " strContactFirstName_07_Edit = '" & Replace(txtEditContactFirstName_CY2007.Text, "'", "''") & "' , "
             End If
             If txtEditContactLastName_CY2007.Text = "Contact Last Name" Or txtEditContactLastName_CY2007.Text = "" Then
-                SQLLine = SQLLine
+                ' SQLLine = SQLLine
             Else
                 SQLLine = SQLLine & " strContactLastName_07_Edit = '" & Replace(txtEditContactLastName_CY2007.Text, "'", "''") & "' , "
             End If
             If txtEditContactCompany_CY2007.Text = "Contact Company" Or txtEditContactCompany_CY2007.Text = "" Then
-                SQLLine = SQLLine
+                '  SQLLine = SQLLine
             Else
                 SQLLine = SQLLine & " strContactCompany_07_Edit = '" & Replace(txtEditContactCompany_CY2007.Text, "'", "''") & "' , "
             End If
             If txtEditContactAddress_CY2007.Text = "Contact Address" Or txtEditContactAddress_CY2007.Text = "" Then
-                SQLLine = SQLLine
+                ' SQLLine = SQLLine
             Else
                 SQLLine = SQLLine & " strContactAddress_07_Edit = '" & Replace(txtEditContactAddress_CY2007.Text, "'", "''") & "' , "
             End If
             If txtEditContactCity_CY2007.Text = "Contact City" Or txtEditContactCity_CY2007.Text = "" Then
-                SQLLine = SQLLine
+                ' SQLLine = SQLLine
             Else
                 SQLLine = SQLLine & " strContactCity_07_Edit = '" & Replace(txtEditContactCity_CY2007.Text, "'", "''") & "' , "
             End If
             If txtEditContactState_CY2007.Text = "" Then
-                SQLLine = SQLLine
+                'SQLLine = SQLLine
             Else
                 SQLLine = SQLLine & " strContactState_07_Edit = '" & Replace(txtEditContactState_CY2007.Text, "'", "''") & "' , "
             End If
             If mtbEditContactZipCode_CY2007.Text = "" Then
-                SQLLine = SQLLine
+                ' SQLLine = SQLLine
             Else
                 SQLLine = SQLLine & " strContactZipCode_07_Edit = '" & Replace(mtbEditContactZipCode_CY2007.Text, "'", "''") & "' , "
             End If
@@ -4817,33 +4793,33 @@ Public Class IAIPFeeAuditTool
                 SQLLine = " strFacilityName_06_Edit = '" & Replace(txtEditFacilityName_CY2006.Text, "'", "''") & "' , "
             End If
             If txtEditFacilityAddress_CY2006.Text = "Facility Address" Or txtEditFacilityAddress_CY2006.Text = "" Then
-                SQLLine = SQLLine
+                'SQLLine = SQLLine
             Else
                 SQLLine = SQLLine & " strFacilityStreet_06_Edit = '" & Replace(txtEditFacilityAddress_CY2006.Text, "'", "''") & "' , "
             End If
             If txtEditFacilityCity_CY2006.Text = "Facility City" Or txtEditFacilityCity_CY2006.Text = "" Then
-                SQLLine = SQLLine
+                'SQLLine = SQLLine
             Else
                 SQLLine = SQLLine & " strFacilityCity_06_Edit = '" & Replace(txtEditFacilityCity_CY2006.Text, "'", "''") & "' , "
             End If
             If mtbEditZipCode_CY2006.Text = "" Then
-                SQLLine = SQLLine
+                'SQLLine = SQLLine
             Else
                 SQLLine = SQLLine & " strFacilityZipCode_06_Edit = '" & Replace(mtbEditZipCode_CY2006.Text, "'", "''") & "' , "
             End If
 
             If cboOperatingStatus_CY2006.Text = "" Then
-                SQLLine = SQLLine
+                'SQLLine = SQLLine
             Else
                 SQLLine = SQLLine & " strOperatingStatus_06_Edit = '" & Replace(cboOperatingStatus_CY2006.Text, "'", "''") & "' , "
             End If
             If txtEditSourceClass_CY2006.Text = "" Then
-                SQLLine = SQLLine
+                'SQLLine = SQLLine
             Else
                 SQLLine = SQLLine & " strClassification_06_Edit = '" & Replace(txtEditSourceClass_CY2006.Text, "'", "''") & "' , "
             End If
             If rdbTVYes_CY2006.Checked = False And rdbTVNo_CY2006.Checked = False Then
-                SQLLine = SQLLine
+                'SQLLine = SQLLine
             Else
                 If rdbTVYes_CY2006.Checked = True Then
                     SQLLine = SQLLine & " strTVStatus_06_Edit = 'Yes' , "
@@ -4852,7 +4828,7 @@ Public Class IAIPFeeAuditTool
                 End If
             End If
             If rdbNSPSYes_CY2006.Checked = False And rdbNSPSNo_CY2006.Checked = False Then
-                SQLLine = SQLLine
+                'SQLLine = SQLLine
             Else
                 If rdbNSPSYes_CY2006.Checked = True Then
                     SQLLine = SQLLine & " strNSPSStatus_06_Edit = 'Yes' , "
@@ -4882,14 +4858,6 @@ Public Class IAIPFeeAuditTool
     End Sub
     Private Sub btnEditContactInfo_CY2006_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEditContactInfo_CY2006.Click
         Try
-            Dim ContactName As String = ""
-            Dim ContactTitle As String = ""
-            Dim ContactCompany As String = ""
-            Dim ConatctAddress As String = ""
-            Dim ContactCity As String = ""
-            Dim ContactState As String = ""
-            Dim ContactZipCode As String = ""
-            Dim ContactPhoneNumber As String = ""
             Dim SQLLine As String = ""
 
             If txtNonRespondersID.Text = "" Then
@@ -4903,32 +4871,32 @@ Public Class IAIPFeeAuditTool
                 SQLLine = " strContactFirstName_06_Edit = '" & Replace(txtEditContactFirstName_CY2006.Text, "'", "''") & "' , "
             End If
             If txtEditContactLastName_CY2006.Text = "Contact Last Name" Or txtEditContactLastName_CY2006.Text = "" Then
-                SQLLine = SQLLine
+                '  SQLLine = SQLLine
             Else
                 SQLLine = SQLLine & " strContactLastName_06_Edit = '" & Replace(txtEditContactLastName_CY2006.Text, "'", "''") & "' , "
             End If
             If txtEditContactCompany_CY2006.Text = "Contact Company" Or txtEditContactCompany_CY2006.Text = "" Then
-                SQLLine = SQLLine
+                ' SQLLine = SQLLine
             Else
                 SQLLine = SQLLine & " strContactCompany_06_Edit = '" & Replace(txtEditContactCompany_CY2006.Text, "'", "''") & "' , "
             End If
             If txtEditContactAddress_CY2006.Text = "Contact Address" Or txtEditContactAddress_CY2006.Text = "" Then
-                SQLLine = SQLLine
+                ' SQLLine = SQLLine
             Else
                 SQLLine = SQLLine & " strContactAddress_06_Edit = '" & Replace(txtEditContactAddress_CY2006.Text, "'", "''") & "' , "
             End If
             If txtEditContactCity_CY2006.Text = "Contact City" Or txtEditContactCity_CY2006.Text = "" Then
-                SQLLine = SQLLine
+                ' SQLLine = SQLLine
             Else
                 SQLLine = SQLLine & " strContactCity_06_Edit = '" & Replace(txtEditContactCity_CY2006.Text, "'", "''") & "' , "
             End If
             If txtEditContactState_CY2006.Text = "" Then
-                SQLLine = SQLLine
+                ' SQLLine = SQLLine
             Else
                 SQLLine = SQLLine & " strContactState_06_Edit = '" & Replace(txtEditContactState_CY2006.Text, "'", "''") & "' , "
             End If
             If mtbEditContactZipCode_CY2006.Text = "" Then
-                SQLLine = SQLLine
+               ' SQLLine = SQLLine
             Else
                 SQLLine = SQLLine & " strContactZipCode_06_Edit = '" & Replace(mtbEditContactZipCode_CY2006.Text, "'", "''") & "' , "
             End If
@@ -8052,7 +8020,6 @@ SQLLine & _
     Private Sub btnGetEmailAddresses_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnGetEmailAddresses.Click
         Try
             Dim i As Integer
-            Dim AIRSNumber As String = ""
             Dim SQLLine As String = ""
 
             For i = 0 To dgvFeeAuditReport.RowCount - 1
@@ -8086,7 +8053,6 @@ SQLLine & _
             da.Fill(ds, "Emails")
             dgvFeeAuditReport.DataSource = ds
             dgvFeeAuditReport.DataMember = "Emails"
-
 
             dgvFeeAuditReport.RowHeadersVisible = False
             dgvFeeAuditReport.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke

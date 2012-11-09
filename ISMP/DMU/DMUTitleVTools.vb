@@ -1,8 +1,8 @@
-﻿Imports System.DateTime
+﻿'Imports System.DateTime
 Imports System.Data.OracleClient
-Imports System.IO
+'Imports System.IO
 Imports System.Data.OleDb
-Imports System.Data.Odbc
+'Imports System.Data.Odbc
 
 Public Class DMUTitleVTools
     Dim dsWebPublisher As DataSet
@@ -370,12 +370,13 @@ Public Class DMUTitleVTools
 
             End If
             If AccountArray(131, 3) = "1" Or AccountArray(131, 4) = "1" Then
-                If SystemInformation.PrimaryMonitorSize.Width > 1200 Then
-                    '  TitleVTools.Width = (SystemInformation.PrimaryMonitorSize.Width - 400)
-                    TitleVTools.Width = 800
-                Else
-                    TitleVTools.Width = 800
-                End If
+                TitleVTools.Width = 800
+                'If SystemInformation.PrimaryMonitorSize.Width > 1200 Then
+                '    '  TitleVTools.Width = (SystemInformation.PrimaryMonitorSize.Width - 400)
+                '    TitleVTools.Width = 800
+                'Else
+                '    TitleVTools.Width = 800
+                'End If
                 TitleVTools.Height = 600
             End If
         Catch ex As Exception
@@ -1463,7 +1464,7 @@ Public Class DMUTitleVTools
                             Case "AA"
                                 AppType = "Administrative Amendment"
                             Case Else
-                                AppType = AppType
+                                'AppType = AppType
                         End Select
                         If IsDBNull(dr.Item("datPNExpires")) Then
                             PNExpires = ""
@@ -1522,7 +1523,7 @@ Public Class DMUTitleVTools
                                 Case "AA"
                                     AppType = "Administrative Amendment"
                                 Case Else
-                                    AppType = AppType
+                                    'AppType = AppType
                             End Select
                             AppLine = AppLine & "TV-" & AppNumber & "/" & AppType & ", "
                         End While
@@ -1681,7 +1682,7 @@ Public Class DMUTitleVTools
                             Case "AA"
                                 AppType = "Administrative Amendment"
                             Case Else
-                                AppType = AppType
+                                'AppType = AppType
                         End Select
                     End While
                     dr.Close()
@@ -1735,7 +1736,7 @@ Public Class DMUTitleVTools
                                 Case "AA"
                                     AppType = "Administrative Amendment"
                                 Case Else
-                                    AppType = AppType
+                                    'AppType = AppType
                             End Select
                             AppLine = AppLine & "TV-" & AppNumber & "/" & AppType & ", "
                         End While
@@ -2110,7 +2111,7 @@ Public Class DMUTitleVTools
                             Case "AA"
                                 AppType = "Administrative Amendment"
                             Case Else
-                                AppType = AppType
+                                'AppType = AppType
                         End Select
                     End While
                     dr.Close()
@@ -2164,7 +2165,7 @@ Public Class DMUTitleVTools
                                 Case "AA"
                                     AppType = "Administrative Amendment"
                                 Case Else
-                                    AppType = AppType
+                                    'AppType = AppType
                             End Select
                             AppLine = AppLine & "TV-" & AppNumber & "/" & AppType & ", "
                         End While
@@ -2317,7 +2318,7 @@ Public Class DMUTitleVTools
                             Case "AA"
                                 AppType = "Administrative Amendment"
                             Case Else
-                                AppType = AppType
+                                'AppType = AppType
                         End Select
                     End While
                     dr.Close()
@@ -2371,7 +2372,7 @@ Public Class DMUTitleVTools
                                 Case "AA"
                                     AppType = "Administrative Amendment"
                                 Case Else
-                                    AppType = AppType
+                                    'AppType = AppType
                             End Select
                             AppLine = AppLine & "TV-" & AppNumber & "/" & AppType & ", "
                         End While
@@ -2743,7 +2744,7 @@ Public Class DMUTitleVTools
                             Case "AA"
                                 AppType = "Administrative Amendment"
                             Case Else
-                                AppType = AppType
+                                'AppType = AppType
                         End Select
                     End While
                     dr.Close()
@@ -2797,7 +2798,7 @@ Public Class DMUTitleVTools
                                 Case "AA"
                                     AppType = "Administrative Amendment"
                                 Case Else
-                                    AppType = AppType
+                                    'AppType = AppType
                             End Select
                             AppLine = AppLine & "TV-" & AppNumber & "/" & AppType & ", "
                         End While

@@ -436,6 +436,18 @@ Me.Panel21 = New System.Windows.Forms.Panel
 Me.btnViewEISStats = New System.Windows.Forms.Button
 Me.Label74 = New System.Windows.Forms.Label
 Me.cboEISStatisticsYear = New System.Windows.Forms.ComboBox
+Me.TPEISTrackingTool = New System.Windows.Forms.TabPage
+Me.GroupBox4 = New System.Windows.Forms.GroupBox
+Me.dgvFITrackingNumber = New System.Windows.Forms.DataGridView
+Me.Panel27 = New System.Windows.Forms.Panel
+Me.btnLoadLogFIError = New System.Windows.Forms.Button
+Me.mtbAIRSNumberFI = New System.Windows.Forms.MaskedTextBox
+Me.Label301 = New System.Windows.Forms.Label
+Me.mtbEISYearFI = New System.Windows.Forms.MaskedTextBox
+Me.Label300 = New System.Windows.Forms.Label
+Me.Label298 = New System.Windows.Forms.Label
+Me.btnFISearch = New System.Windows.Forms.Button
+Me.txtFITrackingSearch = New System.Windows.Forms.TextBox
 Me.TPESTools = New System.Windows.Forms.TabPage
 Me.TabControl2 = New System.Windows.Forms.TabControl
 Me.TabPage3 = New System.Windows.Forms.TabPage
@@ -977,6 +989,9 @@ Me.Label179 = New System.Windows.Forms.Label
 Me.TSDMUStaffTools = New System.Windows.Forms.ToolStrip
 Me.tsbBack = New System.Windows.Forms.ToolStripButton
 Me.Label1 = New System.Windows.Forms.Label
+Me.Label299 = New System.Windows.Forms.Label
+Me.btnPointTrackingSearch = New System.Windows.Forms.Button
+Me.txtPointTrackingSearch = New System.Windows.Forms.TextBox
 Me.StatusStrip1.SuspendLayout
 Me.TCDMUTools.SuspendLayout
 Me.TPEISLog.SuspendLayout
@@ -1014,6 +1029,10 @@ Me.GroupBox3.SuspendLayout
 Me.Panel26.SuspendLayout
 CType(Me.dgvEISYear,System.ComponentModel.ISupportInitialize).BeginInit
 Me.Panel21.SuspendLayout
+Me.TPEISTrackingTool.SuspendLayout
+Me.GroupBox4.SuspendLayout
+CType(Me.dgvFITrackingNumber,System.ComponentModel.ISupportInitialize).BeginInit
+Me.Panel27.SuspendLayout
 Me.TPESTools.SuspendLayout
 Me.TabControl2.SuspendLayout
 Me.TabPage3.SuspendLayout
@@ -1238,6 +1257,7 @@ Me.Image_List_All.Images.SetKeyName(84, "")
 '
 Me.TCDMUTools.Controls.Add(Me.TPEISLog)
 Me.TCDMUTools.Controls.Add(Me.TPEISStatistics)
+Me.TCDMUTools.Controls.Add(Me.TPEISTrackingTool)
 Me.TCDMUTools.Controls.Add(Me.TPESTools)
 Me.TCDMUTools.Controls.Add(Me.TPFeeTools)
 Me.TCDMUTools.Controls.Add(Me.TabEISTool)
@@ -5086,6 +5106,130 @@ Me.cboEISStatisticsYear.Location = New System.Drawing.Point(86, 12)
 Me.cboEISStatisticsYear.Name = "cboEISStatisticsYear"
 Me.cboEISStatisticsYear.Size = New System.Drawing.Size(97, 21)
 Me.cboEISStatisticsYear.TabIndex = 8
+'
+'TPEISTrackingTool
+'
+Me.TPEISTrackingTool.Controls.Add(Me.GroupBox4)
+Me.TPEISTrackingTool.Location = New System.Drawing.Point(4, 22)
+Me.TPEISTrackingTool.Name = "TPEISTrackingTool"
+Me.TPEISTrackingTool.Size = New System.Drawing.Size(1008, 640)
+Me.TPEISTrackingTool.TabIndex = 15
+Me.TPEISTrackingTool.Text = "EIS Tracking Search Tool"
+Me.TPEISTrackingTool.UseVisualStyleBackColor = true
+'
+'GroupBox4
+'
+Me.GroupBox4.Controls.Add(Me.dgvFITrackingNumber)
+Me.GroupBox4.Controls.Add(Me.Panel27)
+Me.GroupBox4.Dock = System.Windows.Forms.DockStyle.Fill
+Me.GroupBox4.Location = New System.Drawing.Point(0, 0)
+Me.GroupBox4.Name = "GroupBox4"
+Me.GroupBox4.Size = New System.Drawing.Size(1008, 640)
+Me.GroupBox4.TabIndex = 1
+Me.GroupBox4.TabStop = false
+Me.GroupBox4.Text = "FI and Point Tracking Number"
+'
+'dgvFITrackingNumber
+'
+Me.dgvFITrackingNumber.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+Me.dgvFITrackingNumber.Dock = System.Windows.Forms.DockStyle.Fill
+Me.dgvFITrackingNumber.Location = New System.Drawing.Point(3, 141)
+Me.dgvFITrackingNumber.Name = "dgvFITrackingNumber"
+Me.dgvFITrackingNumber.Size = New System.Drawing.Size(1002, 496)
+Me.dgvFITrackingNumber.TabIndex = 3
+'
+'Panel27
+'
+Me.Panel27.Controls.Add(Me.Label299)
+Me.Panel27.Controls.Add(Me.btnPointTrackingSearch)
+Me.Panel27.Controls.Add(Me.txtPointTrackingSearch)
+Me.Panel27.Controls.Add(Me.btnLoadLogFIError)
+Me.Panel27.Controls.Add(Me.mtbAIRSNumberFI)
+Me.Panel27.Controls.Add(Me.Label301)
+Me.Panel27.Controls.Add(Me.mtbEISYearFI)
+Me.Panel27.Controls.Add(Me.Label300)
+Me.Panel27.Controls.Add(Me.Label298)
+Me.Panel27.Controls.Add(Me.btnFISearch)
+Me.Panel27.Controls.Add(Me.txtFITrackingSearch)
+Me.Panel27.Dock = System.Windows.Forms.DockStyle.Top
+Me.Panel27.Location = New System.Drawing.Point(3, 16)
+Me.Panel27.Name = "Panel27"
+Me.Panel27.Size = New System.Drawing.Size(1002, 125)
+Me.Panel27.TabIndex = 4
+'
+'btnLoadLogFIError
+'
+Me.btnLoadLogFIError.Location = New System.Drawing.Point(727, 39)
+Me.btnLoadLogFIError.Name = "btnLoadLogFIError"
+Me.btnLoadLogFIError.Size = New System.Drawing.Size(95, 23)
+Me.btnLoadLogFIError.TabIndex = 109
+Me.btnLoadLogFIError.Text = "Load Log Data"
+Me.btnLoadLogFIError.UseVisualStyleBackColor = true
+'
+'mtbAIRSNumberFI
+'
+Me.mtbAIRSNumberFI.CutCopyMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals
+Me.mtbAIRSNumberFI.Location = New System.Drawing.Point(634, 40)
+Me.mtbAIRSNumberFI.Mask = "000-00000"
+Me.mtbAIRSNumberFI.Name = "mtbAIRSNumberFI"
+Me.mtbAIRSNumberFI.ReadOnly = true
+Me.mtbAIRSNumberFI.Size = New System.Drawing.Size(78, 20)
+Me.mtbAIRSNumberFI.TabIndex = 6
+'
+'Label301
+'
+Me.Label301.AutoSize = true
+Me.Label301.Location = New System.Drawing.Point(585, 44)
+Me.Label301.Name = "Label301"
+Me.Label301.Size = New System.Drawing.Size(42, 13)
+Me.Label301.TabIndex = 5
+Me.Label301.Text = "AIRS #"
+'
+'mtbEISYearFI
+'
+Me.mtbEISYearFI.CutCopyMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals
+Me.mtbEISYearFI.Location = New System.Drawing.Point(540, 40)
+Me.mtbEISYearFI.Mask = "0000"
+Me.mtbEISYearFI.Name = "mtbEISYearFI"
+Me.mtbEISYearFI.ReadOnly = true
+Me.mtbEISYearFI.Size = New System.Drawing.Size(36, 20)
+Me.mtbEISYearFI.TabIndex = 4
+'
+'Label300
+'
+Me.Label300.AutoSize = true
+Me.Label300.Location = New System.Drawing.Point(490, 44)
+Me.Label300.Name = "Label300"
+Me.Label300.Size = New System.Drawing.Size(49, 13)
+Me.Label300.TabIndex = 3
+Me.Label300.Text = "EIS Year"
+'
+'Label298
+'
+Me.Label298.AutoSize = true
+Me.Label298.Location = New System.Drawing.Point(7, 22)
+Me.Label298.Name = "Label298"
+Me.Label298.Size = New System.Drawing.Size(183, 13)
+Me.Label298.TabIndex = 0
+Me.Label298.Text = "Search by partial FI Tracking Number"
+'
+'btnFISearch
+'
+Me.btnFISearch.AutoSize = true
+Me.btnFISearch.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+Me.btnFISearch.Location = New System.Drawing.Point(153, 42)
+Me.btnFISearch.Name = "btnFISearch"
+Me.btnFISearch.Size = New System.Drawing.Size(51, 23)
+Me.btnFISearch.TabIndex = 2
+Me.btnFISearch.Text = "Search"
+Me.btnFISearch.UseVisualStyleBackColor = true
+'
+'txtFITrackingSearch
+'
+Me.txtFITrackingSearch.Location = New System.Drawing.Point(31, 43)
+Me.txtFITrackingSearch.Name = "txtFITrackingSearch"
+Me.txtFITrackingSearch.Size = New System.Drawing.Size(100, 20)
+Me.txtFITrackingSearch.TabIndex = 1
 '
 'TPESTools
 '
@@ -10531,6 +10675,33 @@ Me.Label1.Name = "Label1"
 Me.Label1.Size = New System.Drawing.Size(0, 13)
 Me.Label1.TabIndex = 258
 '
+'Label299
+'
+Me.Label299.AutoSize = true
+Me.Label299.Location = New System.Drawing.Point(235, 22)
+Me.Label299.Name = "Label299"
+Me.Label299.Size = New System.Drawing.Size(198, 13)
+Me.Label299.TabIndex = 110
+Me.Label299.Text = "Search by partial Point Tracking Number"
+'
+'btnPointTrackingSearch
+'
+Me.btnPointTrackingSearch.AutoSize = true
+Me.btnPointTrackingSearch.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+Me.btnPointTrackingSearch.Location = New System.Drawing.Point(381, 42)
+Me.btnPointTrackingSearch.Name = "btnPointTrackingSearch"
+Me.btnPointTrackingSearch.Size = New System.Drawing.Size(51, 23)
+Me.btnPointTrackingSearch.TabIndex = 112
+Me.btnPointTrackingSearch.Text = "Search"
+Me.btnPointTrackingSearch.UseVisualStyleBackColor = true
+'
+'txtPointTrackingSearch
+'
+Me.txtPointTrackingSearch.Location = New System.Drawing.Point(275, 42)
+Me.txtPointTrackingSearch.Name = "txtPointTrackingSearch"
+Me.txtPointTrackingSearch.Size = New System.Drawing.Size(100, 20)
+Me.txtPointTrackingSearch.TabIndex = 111
+'
 'DMUStaffTools
 '
 Me.AutoScaleDimensions = New System.Drawing.SizeF(6!, 13!)
@@ -10602,6 +10773,11 @@ Me.Panel26.PerformLayout
 CType(Me.dgvEISYear,System.ComponentModel.ISupportInitialize).EndInit
 Me.Panel21.ResumeLayout(false)
 Me.Panel21.PerformLayout
+Me.TPEISTrackingTool.ResumeLayout(false)
+Me.GroupBox4.ResumeLayout(false)
+CType(Me.dgvFITrackingNumber,System.ComponentModel.ISupportInitialize).EndInit
+Me.Panel27.ResumeLayout(false)
+Me.Panel27.PerformLayout
 Me.TPESTools.ResumeLayout(false)
 Me.TabControl2.ResumeLayout(false)
 Me.TabPage3.ResumeLayout(false)
@@ -11642,4 +11818,19 @@ End Sub
     Friend WithEvents llbEISStatsSubmittedBeganwithoutErrors As System.Windows.Forms.LinkLabel
     Friend WithEvents llbEISStatsSubmittedBeganwithEIErrors As System.Windows.Forms.LinkLabel
     Friend WithEvents llbEISStatsSubmittedBeganwithBothErrors As System.Windows.Forms.LinkLabel
+    Friend WithEvents TPEISTrackingTool As System.Windows.Forms.TabPage
+    Friend WithEvents GroupBox4 As System.Windows.Forms.GroupBox
+    Friend WithEvents dgvFITrackingNumber As System.Windows.Forms.DataGridView
+    Friend WithEvents txtFITrackingSearch As System.Windows.Forms.TextBox
+    Friend WithEvents btnFISearch As System.Windows.Forms.Button
+    Friend WithEvents Label298 As System.Windows.Forms.Label
+    Friend WithEvents Panel27 As System.Windows.Forms.Panel
+    Friend WithEvents mtbAIRSNumberFI As System.Windows.Forms.MaskedTextBox
+    Friend WithEvents Label301 As System.Windows.Forms.Label
+    Friend WithEvents mtbEISYearFI As System.Windows.Forms.MaskedTextBox
+    Friend WithEvents Label300 As System.Windows.Forms.Label
+    Friend WithEvents btnLoadLogFIError As System.Windows.Forms.Button
+    Friend WithEvents Label299 As System.Windows.Forms.Label
+    Friend WithEvents btnPointTrackingSearch As System.Windows.Forms.Button
+    Friend WithEvents txtPointTrackingSearch As System.Windows.Forms.TextBox
 End Class

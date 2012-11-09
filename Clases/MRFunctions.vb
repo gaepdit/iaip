@@ -1,14 +1,13 @@
 Imports System
-Imports System.IO
-Imports System.Xml
+'Imports System.IO
+'Imports System.Xml
 Imports System.Text
 Imports System.Security.Cryptography
 Imports System.Data
-Imports System.Data.OracleClient
+'Imports System.Data.OracleClient
 Imports System.Drawing
-Imports System.Net.Mail
-
-Imports System.Security
+'Imports System.Net.Mail
+'Imports System.Security
 Imports System.Drawing.Drawing2D
 Imports System.Text.RegularExpressions
 

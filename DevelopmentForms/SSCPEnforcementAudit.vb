@@ -1417,13 +1417,13 @@ Public Class SSCPEnforcementAudit
             Dim AIRSNumber As String = ""
             Dim EnforcementNumber As String = ""
             Dim TrackingNumber As String = ""
-            Dim EnforcementType As String = ""
+            'Dim EnforcementType As String = ""
             Dim FacName As String = ""
             Dim FacAddress As String = ""
             Dim FacCounty As String = ""
             Dim Classification As String = ""
             Dim AirProgramCode As String = ""
-            Dim AirPrograms As String = ""
+            'Dim AirPrograms As String = ""
 
             If txtAIRSNumber.Text <> "" Then
                 AIRSNumber = txtAIRSNumber.Text
@@ -1465,12 +1465,12 @@ Public Class SSCPEnforcementAudit
                     FacAddress = dr.Item("strFacilityStreet1")
                 End If
                 If IsDBNull(dr.Item("strFacilityCity")) Then
-                    FacAddress = FacAddress
+                    'FacAddress = FacAddress
                 Else
                     FacAddress = FacAddress & vbCrLf & dr.Item("strFacilityCity") & ", GA "
                 End If
                 If IsDBNull(dr.Item("strFacilityZipCode")) Then
-                    FacAddress = FacAddress
+                    'FacAddress = FacAddress
                 Else
                     If dr.Item("strFacilityZipCode").ToString.Length > 5 Then
                         FacAddress = FacAddress & Mid(dr.Item("strFacilityZipCode"), 1, 5) & "-" & Mid(dr.Item("strFacilityZipCode"), 6)
@@ -4190,7 +4190,7 @@ Public Class SSCPEnforcementAudit
         Dim FileName As String
         Dim path As New SaveFileDialog
         Dim DestFilePath As String = "N/A"
-        Dim OutPutFile As String = ""
+        'Dim OutPutFile As String = ""
         Dim PDFCheck As String = "False"
 
         If txtEnforcementNumber.Text <> "" And txtEnforcementNumber.Text <> "N/A" Then

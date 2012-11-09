@@ -238,11 +238,12 @@ Public Class ISMPTestFirmComments
             If cboTestingFirm.SelectedIndex < 1 Then
                 MsgBox("Please Select a Testing Firm before saving comments.", MsgBoxStyle.Exclamation, "ISMP Test Firm Comments")
             Else
-                If cboCommentNumber.Text <> "" Then
-                    CommentID = ""    'cboCommentNumber.Text
-                Else
-                    CommentID = ""
-                End If
+                CommentID = ""
+                'If cboCommentNumber.Text <> "" Then
+                '    CommentID = ""    'cboCommentNumber.Text
+                'Else
+                '    CommentID = ""
+                'End If
                 TestFirmKey = cboTestingFirm.SelectedValue
                 If txtAIRSNumber.Text <> "" Then
                     AIRSNum = "0413" & txtAIRSNumber.Text

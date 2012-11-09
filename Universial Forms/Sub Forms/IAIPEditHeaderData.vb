@@ -579,7 +579,7 @@ Public Class IAIPEditHeaderData
                     StateProgramCodes = Mid(StateProgramCodes, 1, 1) & "0" & Mid(StateProgramCodes, 3)
                 End If
                 If StateProgramCodes <> dsHeaderData.Tables("Current").Rows(0).Item(15).ToString Then
-                    StateProgramCodes = StateProgramCodes
+                    'StateProgramCodes = StateProgramCodes
                 Else
                     StateProgramCodes = ""
                 End If
@@ -613,7 +613,7 @@ Public Class IAIPEditHeaderData
                         AttainmentStatus = Mid(AttainmentStatus, 1, 3) & "0" & Mid(AttainmentStatus, 5)
                 End Select
                 If AttainmentStatus <> dsHeaderData.Tables("Current").Rows(0).Item(6).ToString Then
-                    AttainmentStatus = AttainmentStatus
+                    'AttainmentStatus = AttainmentStatus
                 Else
                     AttainmentStatus = ""
                 End If
@@ -1622,7 +1622,7 @@ Public Class IAIPEditHeaderData
                 AirProgramCode = AirProgramCode & "0"
 
                 If AirProgramCode <> dsHeaderData.Tables("Current").Rows(0).Item(3).ToString Then
-                    AirProgramCode = AirProgramCode
+                    'AirProgramCode = AirProgramCode
                 Else
                     AirProgramCode = ""
                 End If

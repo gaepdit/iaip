@@ -967,65 +967,75 @@ Public Class IAIPEditContacts
                         Case "5"
                             Select Case Mid(txtContactKey.Text, 14, 1)
                                 Case "0"
-                                    If clbContactKey.Items.Count <> 10 Then
-                                        clbContactKey.SetItemCheckState(0, CheckState.Checked)
-                                    Else
-                                        clbContactKey.SetItemCheckState(0, CheckState.Checked)
-                                    End If
+                                    clbContactKey.SetItemCheckState(0, CheckState.Checked)
+                                    'If clbContactKey.Items.Count <> 10 Then
+                                    '    clbContactKey.SetItemCheckState(0, CheckState.Checked)
+                                    'Else
+                                    '    clbContactKey.SetItemCheckState(0, CheckState.Checked)
+                                    'End If
                                 Case "1"
-                                    If clbContactKey.Items.Count <> 10 Then
-                                        clbContactKey.SetItemCheckState(1, CheckState.Checked)
-                                    Else
-                                        clbContactKey.SetItemCheckState(1, CheckState.Checked)
-                                    End If
+                                    clbContactKey.SetItemCheckState(1, CheckState.Checked)
+                                    'If clbContactKey.Items.Count <> 10 Then
+                                    '    clbContactKey.SetItemCheckState(1, CheckState.Checked)
+                                    'Else
+                                    '    clbContactKey.SetItemCheckState(1, CheckState.Checked)
+                                    'End If
                                 Case "2"
-                                    If clbContactKey.Items.Count <> 10 Then
-                                        clbContactKey.SetItemCheckState(2, CheckState.Checked)
-                                    Else
-                                        clbContactKey.SetItemCheckState(2, CheckState.Checked)
-                                    End If
+                                    clbContactKey.SetItemCheckState(2, CheckState.Checked)
+                                    'If clbContactKey.Items.Count <> 10 Then
+                                    '    clbContactKey.SetItemCheckState(2, CheckState.Checked)
+                                    'Else
+                                    '    clbContactKey.SetItemCheckState(2, CheckState.Checked)
+                                    'End If
                                 Case "3"
-                                    If clbContactKey.Items.Count <> 10 Then
-                                        clbContactKey.SetItemCheckState(3, CheckState.Checked)
-                                    Else
-                                        clbContactKey.SetItemCheckState(3, CheckState.Checked)
-                                    End If
+                                    clbContactKey.SetItemCheckState(3, CheckState.Checked)
+                                    'If clbContactKey.Items.Count <> 10 Then
+                                    '    clbContactKey.SetItemCheckState(3, CheckState.Checked)
+                                    'Else
+                                    '    clbContactKey.SetItemCheckState(3, CheckState.Checked)
+                                    'End If
                                 Case "4"
-                                    If clbContactKey.Items.Count <> 10 Then
-                                        clbContactKey.SetItemCheckState(4, CheckState.Checked)
-                                    Else
-                                        clbContactKey.SetItemCheckState(4, CheckState.Checked)
-                                    End If
+                                    clbContactKey.SetItemCheckState(4, CheckState.Checked)
+                                    'If clbContactKey.Items.Count <> 10 Then
+                                    '    clbContactKey.SetItemCheckState(4, CheckState.Checked)
+                                    'Else
+                                    '    clbContactKey.SetItemCheckState(4, CheckState.Checked)
+                                    'End If
                                 Case "5"
-                                    If clbContactKey.Items.Count <> 10 Then
-                                        clbContactKey.SetItemCheckState(5, CheckState.Checked)
-                                    Else
-                                        clbContactKey.SetItemCheckState(5, CheckState.Checked)
-                                    End If
+                                    clbContactKey.SetItemCheckState(5, CheckState.Checked)
+                                    'If clbContactKey.Items.Count <> 10 Then
+                                    '    clbContactKey.SetItemCheckState(5, CheckState.Checked)
+                                    'Else
+                                    '    clbContactKey.SetItemCheckState(5, CheckState.Checked)
+                                    'End If
                                 Case "6"
-                                    If clbContactKey.Items.Count <> 10 Then
-                                        clbContactKey.SetItemCheckState(6, CheckState.Checked)
-                                    Else
-                                        clbContactKey.SetItemCheckState(6, CheckState.Checked)
-                                    End If
+                                    clbContactKey.SetItemCheckState(6, CheckState.Checked)
+                                    'If clbContactKey.Items.Count <> 10 Then
+                                    '    clbContactKey.SetItemCheckState(6, CheckState.Checked)
+                                    'Else
+                                    '    clbContactKey.SetItemCheckState(6, CheckState.Checked)
+                                    'End If
                                 Case "7"
-                                    If clbContactKey.Items.Count <> 10 Then
-                                        clbContactKey.SetItemCheckState(7, CheckState.Checked)
-                                    Else
-                                        clbContactKey.SetItemCheckState(7, CheckState.Checked)
-                                    End If
+                                    clbContactKey.SetItemCheckState(7, CheckState.Checked)
+                                    'If clbContactKey.Items.Count <> 10 Then
+                                    '    clbContactKey.SetItemCheckState(7, CheckState.Checked)
+                                    'Else
+                                    '    clbContactKey.SetItemCheckState(7, CheckState.Checked)
+                                    'End If
                                 Case "8"
-                                    If clbContactKey.Items.Count <> 10 Then
-                                        clbContactKey.SetItemCheckState(8, CheckState.Checked)
-                                    Else
-                                        clbContactKey.SetItemCheckState(8, CheckState.Checked)
-                                    End If
+                                    clbContactKey.SetItemCheckState(8, CheckState.Checked)
+                                    'If clbContactKey.Items.Count <> 10 Then
+                                    '    clbContactKey.SetItemCheckState(8, CheckState.Checked)
+                                    'Else
+                                    '    clbContactKey.SetItemCheckState(8, CheckState.Checked)
+                                    'End If
                                 Case "9"
-                                    If clbContactKey.Items.Count <> 10 Then
-                                        clbContactKey.SetItemCheckState(9, CheckState.Checked)
-                                    Else
-                                        clbContactKey.SetItemCheckState(9, CheckState.Checked)
-                                    End If
+                                    clbContactKey.SetItemCheckState(9, CheckState.Checked)
+                                    'If clbContactKey.Items.Count <> 10 Then
+                                    '    clbContactKey.SetItemCheckState(9, CheckState.Checked)
+                                    'Else
+                                    '    clbContactKey.SetItemCheckState(9, CheckState.Checked)
+                                    'End If
                             End Select
                         Case "6"
                             Select Case Mid(txtContactKey.Text, 14, 1)

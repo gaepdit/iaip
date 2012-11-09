@@ -633,7 +633,7 @@ Public Class ISMPAddPollutants
                     Case 4
                         PollutantCode = "0" & PollutantCode
                     Case Else
-                        PollutantCode = PollutantCode
+                        'PollutantCode = PollutantCode
                 End Select
 
                 SQL = "Select strPollutantCode " & _
@@ -663,7 +663,7 @@ Public Class ISMPAddPollutants
                 Case 4
                     PollutantCode = "0" & PollutantCode
                 Case Else
-                    PollutantCode = PollutantCode
+                    'PollutantCode = PollutantCode
             End Select
             txtPollutantCode.Text = PollutantCode
 

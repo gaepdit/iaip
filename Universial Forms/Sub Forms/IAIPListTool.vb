@@ -142,7 +142,7 @@ Public Class IAIPListTool
                     If drDSRow("strBranchDesc") = dtBranch.Rows(i).Item(1) Then
                         temp = "No"
                     Else
-                        temp = temp
+                        'temp = temp
                     End If
                 Next
                 If temp = "Add" Then
@@ -596,7 +596,7 @@ Public Class IAIPListTool
                             If drDSRow("strProgramDesc") = dtProgram.Rows(i).Item(1) Then
                                 temp = "No"
                             Else
-                                temp = temp
+                                'temp = temp
                             End If
                         Next
                         If temp = "Add" Then
@@ -647,7 +647,7 @@ Public Class IAIPListTool
                             If drDSRow("strUnitDesc") = dtUnit.Rows(i).Item(1) Then
                                 temp = "No"
                             Else
-                                temp = temp
+                                'temp = temp
                             End If
                         Next
                         If temp = "Add" Then

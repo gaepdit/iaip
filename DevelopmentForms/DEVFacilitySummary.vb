@@ -172,15 +172,18 @@ Public Class DEVFacilitySummary
                                     mmiSSCPNewWork.Visible = True
                                     mmiSSCPFCE.Visible = True
                                 Else
-                                    If AccountArray(10, 3) = "1" Then 'Distirct Liason 
-                                        mmiSSCPAssignEngineer.Visible = False
-                                        mmiSSCPNewWork.Visible = True
-                                        mmiSSCPFCE.Visible = True
-                                    Else
-                                        mmiSSCPAssignEngineer.Visible = False
-                                        mmiSSCPNewWork.Visible = True
-                                        mmiSSCPFCE.Visible = True
-                                    End If
+                                    mmiSSCPAssignEngineer.Visible = False
+                                    mmiSSCPNewWork.Visible = True
+                                    mmiSSCPFCE.Visible = True
+                                    'If AccountArray(10, 3) = "1" Then 'Distirct Liason 
+                                    '    mmiSSCPAssignEngineer.Visible = False
+                                    '    mmiSSCPNewWork.Visible = True
+                                    '    mmiSSCPFCE.Visible = True
+                                    'Else
+                                    '    mmiSSCPAssignEngineer.Visible = False
+                                    '    mmiSSCPNewWork.Visible = True
+                                    '    mmiSSCPFCE.Visible = True
+                                    'End If
                                 End If
                             End If
                         Case "5" 'SSPP 
@@ -1455,7 +1458,7 @@ Public Class DEVFacilitySummary
             dr = cmd.ExecuteReader
             While dr.Read
                 If IsDBNull(dr.Item("PollutantStatus")) Then
-                    PollutantStatus = PollutantStatus
+                    'PollutantStatus = PollutantStatus
                 Else
                     PollutantStatus = PollutantStatus & dr.Item("PollutantStatus")
                 End If
@@ -3341,8 +3344,8 @@ Public Class DEVFacilitySummary
             Dim col, row As Integer
             Dim x As String
             Dim y As String
-            Dim a As Integer
-            Dim b As Integer
+            'Dim a As Integer
+            'Dim b As Integer
             Dim c As Integer
             Dim d As Integer
             Dim startRow As Integer = 1
@@ -3397,8 +3400,8 @@ Public Class DEVFacilitySummary
                     ExcelApp.Cells(startRow, col + 1).value = y
                 Next
 
-                a = dgvEU.ColumnCount - 1
-                b = dgvEU.RowCount - 1
+                'a = dgvEU.ColumnCount - 1
+                'b = dgvEU.RowCount - 1
 
                 'For col = 0 To dgvEU.RowCount - 1
                 '    For row = 0 To dgvEU.ColumnCount - 1
@@ -3439,8 +3442,8 @@ Public Class DEVFacilitySummary
                     ExcelApp.Cells(startRow, col + 1).value = y
                 Next
 
-                a = dgvER.ColumnCount - 1
-                b = dgvER.RowCount - 1
+                'a = dgvER.ColumnCount - 1
+                'b = dgvER.RowCount - 1
 
                 startRow = startRow + 1
                 d = dgvER.RowCount - 2
@@ -3480,8 +3483,8 @@ Public Class DEVFacilitySummary
                     ExcelApp.Cells(startRow, col + 1).value = y
                 Next
 
-                a = dgvEP.ColumnCount - 1
-                b = dgvEP.RowCount - 1
+                'a = dgvEP.ColumnCount - 1
+                'b = dgvEP.RowCount - 1
 
                 startRow = startRow + 1
                 d = dgvEP.RowCount - 2
@@ -3521,8 +3524,8 @@ Public Class DEVFacilitySummary
                     ExcelApp.Cells(startRow, col + 1).value = y
                 Next
 
-                a = dgvEM.ColumnCount - 1
-                b = dgvEM.RowCount - 1
+                'a = dgvEM.ColumnCount - 1
+                'b = dgvEM.RowCount - 1
 
                 startRow = startRow + 1
                 d = dgvEM.RowCount - 2

@@ -1,6 +1,6 @@
-﻿Imports System.DateTime
+﻿'Imports System.DateTime
 Imports System.Data.OracleClient
-Imports System.IO
+'Imports System.IO
 
 Public Class DMUDeveloperTools
     Dim dsStaff As DataSet
@@ -330,7 +330,7 @@ Public Class DMUDeveloperTools
 
         Dim UpdateCode As String
         Dim AIRSNumber As String
-        Dim UserAFSCode As String
+        'Dim UserAFSCode As String
         Dim FacilityName As String
         Dim FacilityStreet As String
         Dim FacilityCity As String
@@ -397,7 +397,7 @@ Public Class DMUDeveloperTools
                         AIRSNumber = Mid(dr.Item("strAIRSNumber"), 3)
                     End If
                     If AIRSNumber <> "N/A" Then
-                        UserAFSCode = "G62"
+                        'UserAFSCode = "G62"
                         If IsDBNull(dr.Item("StrFacilityname")) Then
                             FacilityName = "N/A"
                         Else
@@ -454,7 +454,7 @@ Public Class DMUDeveloperTools
                             FacilityContactPerson = dr.Item("strContactFirstName")
                         End If
                         If IsDBNull(dr.Item("strContactLastName")) Then
-                            FacilityContactPerson = FacilityContactPerson
+                            'FacilityContactPerson = FacilityContactPerson
                         Else
                             If FacilityContactPerson <> "" Then
                                 FacilityContactPerson = FacilityContactPerson & " " & dr.Item("strContactLastName")
@@ -1183,7 +1183,7 @@ Public Class DMUDeveloperTools
                             FacilityContactPerson = dr.Item("strContactFirstName")
                         End If
                         If IsDBNull(dr.Item("strContactLastName")) Then
-                            FacilityContactPerson = FacilityContactPerson
+                            'FacilityContactPerson = FacilityContactPerson
                         Else
                             If FacilityContactPerson <> "" Then
                                 FacilityContactPerson = FacilityContactPerson & " " & dr.Item("strContactLastName")
@@ -1390,9 +1390,9 @@ Public Class DMUDeveloperTools
         Dim ActionType As String = ""
         Dim ResultsCode As String = ""
         Dim ActionComments As String = ""
-        Dim ActionComments2 As String = ""
-        Dim ActionComments3 As String = ""
-        Dim ActionComments4 As String = ""
+        'Dim ActionComments2 As String = ""
+        'Dim ActionComments3 As String = ""
+        'Dim ActionComments4 As String = ""
         Dim DateAcheived As String = ""
         Dim DateExpire As String = ""
         Dim SubmitPermit As String = ""
@@ -1535,7 +1535,7 @@ Public Class DMUDeveloperTools
                             Case "4"
                                 ActionNumber = "0" & ActionNumber
                             Case "5"
-                                ActionNumber = ActionNumber
+                                'ActionNumber = ActionNumber
                             Case Else
                                 ActionNumber = "00001"
                         End Select
@@ -1797,7 +1797,7 @@ Public Class DMUDeveloperTools
                             Case "4"
                                 ActionNumber = "0" & ActionNumber
                             Case "5"
-                                ActionNumber = ActionNumber
+                                'ActionNumber = ActionNumber
                             Case Else
                                 ActionNumber = "00001"
                         End Select
@@ -2034,7 +2034,7 @@ Public Class DMUDeveloperTools
                     Case "4"
                         ActionNumber = "0" & ActionNumber
                     Case "5"
-                        ActionNumber = ActionNumber
+                        'ActionNumber = ActionNumber
                     Case Else
                         ActionNumber = "00001"
                 End Select
@@ -3314,7 +3314,7 @@ Public Class DMUDeveloperTools
                     If HPV = "NOV" Then
                         ActionType = "VZ"
                     Else
-                        ActionType = ActionType
+                        'ActionType = ActionType
                     End If
                 End If
                 If IsDBNull(dr.Item("DiscoveryDate")) Then
@@ -3430,7 +3430,7 @@ Public Class DMUDeveloperTools
                         Case "4"
                             ActionNumber = "0" & ActionNumber
                         Case "5"
-                            ActionNumber = ActionNumber
+                            'ActionNumber = ActionNumber
                         Case Else
                             ActionNumber = "00001"
                     End Select
@@ -3451,7 +3451,7 @@ Public Class DMUDeveloperTools
                         Case "4"
                             KeyActionNumber = "0" & KeyActionNumber
                         Case "5"
-                            KeyActionNumber = KeyActionNumber
+                            'KeyActionNumber = KeyActionNumber
                         Case Else
                             KeyActionNumber = "00001"
                     End Select
@@ -3528,7 +3528,7 @@ Public Class DMUDeveloperTools
                     Case 4
                         LinkedEvent = "0" & LinkedEvent
                     Case 5
-                        LinkedEvent = LinkedEvent
+                        'LinkedEvent = LinkedEvent
                     Case Else
                         LinkedEvent = "     "
                 End Select
@@ -3738,7 +3738,7 @@ Public Class DMUDeveloperTools
                     If HPV = "NOV" Then
                         ActionType = "VZ"
                     Else
-                        ActionType = ActionType
+                       ' ActionType = ActionType
                     End If
                 End If
                 If IsDBNull(dr.Item("DiscoveryDate")) Then
@@ -3853,7 +3853,7 @@ Public Class DMUDeveloperTools
                     Case "4"
                         ActionNumber = "0" & ActionNumber
                     Case "5"
-                        ActionNumber = ActionNumber
+                        'ActionNumber = ActionNumber
                     Case Else
                         ActionNumber = "00001"
                 End Select
@@ -3874,7 +3874,7 @@ Public Class DMUDeveloperTools
                     Case "4"
                         KeyActionNumber = "0" & KeyActionNumber
                     Case "5"
-                        KeyActionNumber = KeyActionNumber
+                        'KeyActionNumber = KeyActionNumber
                     Case Else
                         KeyActionNumber = "00001"
                 End Select
@@ -3950,7 +3950,7 @@ Public Class DMUDeveloperTools
                     Case 4
                         LinkedEvent = "0" & LinkedEvent
                     Case 5
-                        LinkedEvent = LinkedEvent
+                        'LinkedEvent = LinkedEvent
                     Case Else
                         LinkedEvent = "     "
                 End Select
@@ -4119,7 +4119,7 @@ Public Class DMUDeveloperTools
                     Case "4"
                         ActionNumber = "0" & ActionNumber
                     Case "5"
-                        ActionNumber = ActionNumber
+                        ' ActionNumber = ActionNumber
                     Case Else
                         ActionNumber = "00001"
                 End Select
@@ -4435,7 +4435,7 @@ Public Class DMUDeveloperTools
                         If AirProgramCode.Length <> 15 Then
                             AirProgramCode = "100000000000000"
                         Else
-                            AirProgramCode = AirProgramCode
+                            'AirProgramCode = AirProgramCode
                         End If
                         If mtbCDSSICCode.Text <> "" Then
                             SICCode = mtbCDSSICCode.Text
@@ -20396,7 +20396,7 @@ Public Class DMUDeveloperTools
                         FacilityContactPerson = dr.Item("strContactFirstName")
                     End If
                     If IsDBNull(dr.Item("strContactLastName")) Then
-                        FacilityContactPerson = FacilityContactPerson
+                        'FacilityContactPerson = FacilityContactPerson
                     Else
                         If FacilityContactPerson <> "" Then
                             FacilityContactPerson = FacilityContactPerson & " " & dr.Item("strContactLastName")

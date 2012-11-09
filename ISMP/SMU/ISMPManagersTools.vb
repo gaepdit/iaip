@@ -1,12 +1,12 @@
-Imports System.DateTime
+'Imports System.DateTime
 Imports System.Data.OracleClient
 Imports System.Windows.Forms
-Imports Microsoft.Office.Core
+'Imports Microsoft.Office.Core
 Imports System.IO
 Imports System
 Imports System.Data
-Imports System.Text
-Imports System.Data.SqlClient
+'Imports System.Text
+'Imports System.Data.SqlClient
 
 Public Class ISMPManagersTools
     Inherits System.Windows.Forms.Form
@@ -14,7 +14,7 @@ Public Class ISMPManagersTools
     Dim panel1 As New StatusBarPanel
     Dim panel2 As New StatusBarPanel
     Dim panel3 As New StatusBarPanel
-    Dim Paneltemp1 As String
+    'Dim Paneltemp1 As String
     Dim SQL, SQL2, SQL3 As String
     Dim SQL4, SQL5, SQL6 As String
     Dim cmd, cmd2, cmd3 As OracleCommand
@@ -6926,7 +6926,7 @@ Public Class ISMPManagersTools
                     If AssignDate = "04-Jul-1776" Then
                         AssignDate = OracleDate
                     Else
-                        AssignDate = AssignDate
+                        'AssignDate = AssignDate
                     End If
 
                     SQL = "Update " & connNameSpace & ".ISMPReportInformation set " & _
@@ -12211,7 +12211,7 @@ Public Class ISMPManagersTools
                                     Case 4
                                         temp = "0" & temp
                                     Case 5
-                                        temp = temp
+                                        'temp = temp
                                     Case Else
                                         temp = Mid(temp, 1, 5)
                                 End Select
@@ -12255,7 +12255,7 @@ Public Class ISMPManagersTools
                                 Case 4
                                     temp = "0" & temp
                                 Case 5
-                                    temp = temp
+                                    'temp = temp
                                 Case Else
                                     temp = Mid(temp, 1, 5)
                             End Select

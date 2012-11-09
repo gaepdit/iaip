@@ -1,9 +1,9 @@
 Imports System.Data.OracleClient
 Imports System.IO
 Imports Microsoft.Win32
-Imports System.Security
-Imports System.Security.Cryptography
-Imports System.Drawing.Drawing2D
+'Imports System.Security
+'Imports System.Security.Cryptography
+'Imports System.Drawing.Drawing2D
 
 Public Class IAIPLogIn
     Dim Paneltemp1 As String
@@ -77,7 +77,7 @@ Public Class IAIPLogIn
 
             End If
 
-            Dim Profile_Code As String = ""
+            'Dim Profile_Code As String = ""
             Dim DefaultsText As String = ""
             temp = "SSCPProfile-313000000200000-eliforPPCSS"
             If File.Exists("C:\APB\Defaults.txt") Then
@@ -87,13 +87,13 @@ Public Class IAIPLogIn
                 Loop Until reader.Peek = -1
                 reader.Close()
 
-                If DefaultsText.IndexOf("SSCPProfile-") <> -1 Then
-                    Profile_Code = Mid(DefaultsText, ((DefaultsText.IndexOf("SSCPProfile-")) + 13), ((DefaultsText.IndexOf("-eliforPPCSS")) - (DefaultsText.IndexOf("SSCPProfile-") + 12)))
-                Else
-                    Profile_Code = ""
-                End If
+                'If DefaultsText.IndexOf("SSCPProfile-") <> -1 Then
+                '    Profile_Code = Mid(DefaultsText, ((DefaultsText.IndexOf("SSCPProfile-")) + 13), ((DefaultsText.IndexOf("-eliforPPCSS")) - (DefaultsText.IndexOf("SSCPProfile-") + 12)))
+                'Else
+                '    Profile_Code = ""
+                'End If
             Else
-                Profile_Code = ""
+                'Profile_Code = ""
             End If
 
         Catch ex As Exception
@@ -111,7 +111,7 @@ Public Class IAIPLogIn
         'Dim Version As FileVersionInfo = FileVersionInfo.GetVersionInfo("C:\APB\johngaltproject.exe")
         Dim VersionNumber As String = ""
         Dim ProductNumber As String = ""
-        Dim ver As String = 0.0
+        'Dim ver As String = 0.0
 
         Try
 
@@ -224,7 +224,7 @@ Public Class IAIPLogIn
             Dim PhoneNumber As String = ""
             Dim EmailAddress As String = ""
             Dim ValidateLogInInfo As String = ""
-            Dim FirstName As String = ""
+            'Dim FirstName As String = ""
             Dim LastName As String = ""
 
             If versionCheck = "Update" Then
@@ -303,11 +303,11 @@ Public Class IAIPLogIn
                         Else
                             EmailAddress = dr.Item("strEmailAddress")
                         End If
-                        If IsDBNull(dr.Item("strFirstName")) Then
-                            FirstName = ""
-                        Else
-                            FirstName = dr.Item("strFirstName")
-                        End If
+                        'If IsDBNull(dr.Item("strFirstName")) Then
+                        '    FirstName = ""
+                        'Else
+                        '    FirstName = dr.Item("strFirstName")
+                        'End If
                         If IsDBNull(dr.Item("strLastName")) Then
                             LastName = ""
                         Else

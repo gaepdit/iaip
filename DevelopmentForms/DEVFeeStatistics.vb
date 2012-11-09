@@ -2210,7 +2210,7 @@ Public Class DEVFeeStatistics
                     dr2 = cmd.ExecuteReader
                     While dr2.Read
                         If IsDBNull(dr2.Item("strApplicationTypeDesc")) Then
-                            LastApp = LastApp
+                            'LastApp = LastApp
                         Else
                             LastApp = LastApp & " - " & dr2.Item("strApplicationTypeDesc")
                         End If
@@ -2343,7 +2343,7 @@ Public Class DEVFeeStatistics
                                 LastCompliance = dr2.Item("strTrackingNumber")
                             End If
                             If IsDBNull(dr2.Item("strActivityName")) Then
-                                LastCompliance = LastCompliance
+                                'LastCompliance = LastCompliance
                             Else
                                 LastCompliance = LastCompliance & " - " & dr2.Item("strActivityName")
                             End If

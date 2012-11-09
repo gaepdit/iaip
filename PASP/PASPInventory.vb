@@ -1,5 +1,5 @@
 ﻿Imports System.Data.OracleClient
-Imports CrystalDecisions.Shared
+'Imports CrystalDecisions.Shared
 Imports CrystalDecisions.CrystalReports.Engine
 
 Public Class PASPInventory
@@ -4137,7 +4137,7 @@ Public Class PASPInventory
         Try
             'Dim ExcelApp As New Excel.Application
             Dim ExcelApp As New Microsoft.Office.Interop.Excel.Application
-            Dim ExcelDoc As Microsoft.Office.Interop.Excel.Workbook
+            'Dim ExcelDoc As Microsoft.Office.Interop.Excel.Workbook
             Dim i, j As Integer
 
             If ExcelApp.Visible = False Then

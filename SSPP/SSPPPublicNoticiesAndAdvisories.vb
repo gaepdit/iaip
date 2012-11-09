@@ -1407,13 +1407,13 @@ Public Class SSPPPublicNoticiesAndAdvisories
             If FileMonth.Length = 1 Then
                 FileMonth = "0" & FileMonth
             Else
-                FileMonth = FileMonth
+                ' FileMonth = FileMonth
             End If
 
             If FileYear.Length > 3 Then
                 FileYear = Mid(FileYear, 3)
             Else
-                FileYear = FileYear
+                ' FileYear = FileYear
             End If
 
             If FileWeek > 0 And FileWeek < 8 Then
@@ -1526,9 +1526,9 @@ Public Class SSPPPublicNoticiesAndAdvisories
     Sub UpdateLetter()
         Try
             Dim FileName As String = ""
-            Dim path As New SaveFileDialog
+            'Dim path As New SaveFileDialog
             Dim DestFilePath As String = "C:\APB\temp.rtf"
-            Dim OutPutFile As String = ""
+            'Dim OutPutFile As String = ""
             Dim ReviewingManager As String = ""
             Dim ReviewedDate As String = ""
             Dim PublishingStaff As String = ""
@@ -1553,7 +1553,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
                 recExist = dr.Read
 
                 If recExist = True Then
-                    FileName = FileName
+                    ' FileName = FileName
                     If IsDBNull(dr.Item("strReviewingManager")) Then
                         ReviewingManager = ""
                     Else
@@ -1575,7 +1575,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
                         PublishedDate = Format(dr.Item("datPublishedDate"), "dd-MMM-yyyy")
                     End If
                 Else
-                    FileName = FileName
+                    'FileName = FileName
                     ReviewingManager = UserGCode
                     ReviewedDate = OracleDate
                     PublishingStaff = UserGCode
@@ -2046,9 +2046,9 @@ Public Class SSPPPublicNoticiesAndAdvisories
     Private Sub btnSavePAPNChanges_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSavePAPNChanges.Click
         Try
             Dim FileName As String = ""
-            Dim path As New SaveFileDialog
+            'Dim path As New SaveFileDialog
             Dim DestFilePath As String = "C:\APB\temp.rtf"
-            Dim OutPutFile As String = ""
+            'Dim OutPutFile As String = ""
             Dim ReviewingManager As String = ""
             Dim ReviewedDate As String = ""
             Dim PublishingStaff As String = ""
@@ -2073,7 +2073,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
                 recExist = dr.Read
 
                 If recExist = True Then
-                    FileName = FileName
+                    ' FileName = FileName
                     If IsDBNull(dr.Item("strReviewingManager")) Then
                         ReviewingManager = UserGCode
                     Else
@@ -2100,7 +2100,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
                         CommentsDate = Format(dr.Item("datCommentsDate"), "dd-MMM-yyyy")
                     End If
                 Else
-                    FileName = FileName
+                    'FileName = FileName
                     ReviewingManager = UserGCode
                     ReviewedDate = OracleDate
                     PublishingStaff = UserGCode

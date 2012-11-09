@@ -1420,13 +1420,14 @@ Public Class SSCPFCEWork
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = True Then
-                    If dr.Item("strFCEStatus") = "True" Then
-                        rdbFCEComplete.Checked = True
-                        'rdbFCEIncomplete.Checked = False
-                    Else
-                        rdbFCEComplete.Checked = True
-                        'rdbFCEIncomplete.Checked = True
-                    End If
+                    'If dr.Item("strFCEStatus") = "True" Then
+                    '    rdbFCEComplete.Checked = True
+                    '    'rdbFCEIncomplete.Checked = False
+                    'Else
+                    '    rdbFCEComplete.Checked = True
+                    '    'rdbFCEIncomplete.Checked = True
+                    'End If
+                    rdbFCEComplete.Checked = True
                     If IsDBNull(dr.Item("datFCECompleted")) Then
                         DTPFCECompleteDate.Text = OracleDate
                     Else

@@ -209,7 +209,7 @@ Public Class SSPPStatisticalTools
             Dim FirstDay As String = ""
             Dim LastDay As String = ""
             Dim MedianTime As String = 0
-            Dim PercentileTime As String = 0
+            'Dim PercentileTime As String = 0
             Dim n As Integer = 0
             Dim MedianArray(n) As Decimal
             Dim EngineerLine As String = ""
@@ -6111,20 +6111,19 @@ Public Class SSPPStatisticalTools
     End Sub
     Private Sub llbViewEPA5a_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbViewEPA5a.LinkClicked
         Try
-
-            Dim StartDate As String
+            ' Dim StartDate As String
             Dim EndDate As String
 
             If cboEPAYear.Text <> "" Then
                 If rdbJanuaryReport.Checked = True Then
-                    StartDate = "31-Dec-" & (CDate("31-Dec-" & cboEPAYear.Text).AddMonths(-12).Year).ToString
+                    'StartDate = "31-Dec-" & (CDate("31-Dec-" & cboEPAYear.Text).AddMonths(-12).Year).ToString
                     EndDate = "01-Jul-" & cboEPAYear.Text
                 Else
-                    StartDate = "30-Jun-" & cboEPAYear.Text
+                    ' StartDate = "30-Jun-" & cboEPAYear.Text
                     EndDate = "01-Jan-" & (CDate("01-Jan-" & cboEPAYear.Text).AddMonths(12).Year).ToString
                 End If
             Else
-                StartDate = "31-Dec-" & (Now.AddMonths(-12).Year).ToString
+                'StartDate = "31-Dec-" & (Now.AddMonths(-12).Year).ToString
                 EndDate = "01-Jul-" & Now.Year.ToString
             End If
 
@@ -6200,20 +6199,19 @@ Public Class SSPPStatisticalTools
     End Sub
     Private Sub llbViewEPA6a_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbViewEPA6a.LinkClicked
         Try
-
-            Dim StartDate As String
+            'Dim StartDate As String
             Dim EndDate As String
 
             If cboEPAYear.Text <> "" Then
                 If rdbJanuaryReport.Checked = True Then
-                    StartDate = "31-Dec-" & (CDate("31-Dec-" & cboEPAYear.Text).AddMonths(-12).Year).ToString
+                    'StartDate = "31-Dec-" & (CDate("31-Dec-" & cboEPAYear.Text).AddMonths(-12).Year).ToString
                     EndDate = "01-Jul-" & cboEPAYear.Text
                 Else
-                    StartDate = "30-Jun-" & cboEPAYear.Text
+                    'StartDate = "30-Jun-" & cboEPAYear.Text
                     EndDate = "01-Jan-" & (CDate("01-Jan-" & cboEPAYear.Text).AddMonths(12).Year).ToString
                 End If
             Else
-                StartDate = "31-Dec-" & (Now.AddMonths(-12).Year).ToString
+                'StartDate = "31-Dec-" & (Now.AddMonths(-12).Year).ToString
                 EndDate = "01-Jul-" & Now.Year.ToString
             End If
 
@@ -6290,21 +6288,19 @@ Public Class SSPPStatisticalTools
     End Sub
     Private Sub llbViewEPA6b_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbViewEPA6b.LinkClicked
         Try
-
-
-            Dim StartDate As String
+            'Dim StartDate As String
             Dim EndDate As String
 
             If cboEPAYear.Text <> "" Then
                 If rdbJanuaryReport.Checked = True Then
-                    StartDate = "31-Dec-" & (CDate("31-Dec-" & cboEPAYear.Text).AddMonths(-12).Year).ToString
+                    'StartDate = "31-Dec-" & (CDate("31-Dec-" & cboEPAYear.Text).AddMonths(-12).Year).ToString
                     EndDate = "01-Jul-" & cboEPAYear.Text
                 Else
-                    StartDate = "30-Jun-" & cboEPAYear.Text
+                    'StartDate = "30-Jun-" & cboEPAYear.Text
                     EndDate = "01-Jan-" & (CDate("01-Jan-" & cboEPAYear.Text).AddMonths(12).Year).ToString
                 End If
             Else
-                StartDate = "31-Dec-" & (Now.AddMonths(-12).Year).ToString
+                'StartDate = "31-Dec-" & (Now.AddMonths(-12).Year).ToString
                 EndDate = "01-Jul-" & Now.Year.ToString
             End If
 
@@ -6384,21 +6380,19 @@ Public Class SSPPStatisticalTools
 
     Private Sub llbViewEPA6c_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbViewEPA6c.LinkClicked
         Try
-
-
-            Dim StartDate As String
+            'Dim StartDate As String
             Dim EndDate As String
 
             If cboEPAYear.Text <> "" Then
                 If rdbJanuaryReport.Checked = True Then
-                    StartDate = "31-Dec-" & (CDate("31-Dec-" & cboEPAYear.Text).AddMonths(-12).Year).ToString
+                    'StartDate = "31-Dec-" & (CDate("31-Dec-" & cboEPAYear.Text).AddMonths(-12).Year).ToString
                     EndDate = "01-Jul-" & cboEPAYear.Text
                 Else
-                    StartDate = "30-Jun-" & cboEPAYear.Text
+                    ' StartDate = "30-Jun-" & cboEPAYear.Text
                     EndDate = "01-Jan-" & (CDate("01-Jan-" & cboEPAYear.Text).AddMonths(12).Year).ToString
                 End If
             Else
-                StartDate = "31-Dec-" & (Now.AddMonths(-12).Year).ToString
+                'StartDate = "31-Dec-" & (Now.AddMonths(-12).Year).ToString
                 EndDate = "01-Jul-" & Now.Year.ToString
             End If
 
@@ -6781,20 +6775,19 @@ Public Class SSPPStatisticalTools
     End Sub
     Private Sub llbViewEPA8a_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbViewEPA8a.LinkClicked
         Try
-
-            Dim StartDate As String
+            'Dim StartDate As String
             Dim EndDate As String
 
             If cboEPAYear.Text <> "" Then
                 If rdbJanuaryReport.Checked = True Then
-                    StartDate = "31-Dec-" & (CDate("31-Dec-" & cboEPAYear.Text).AddMonths(-12).Year).ToString
+                    'StartDate = "31-Dec-" & (CDate("31-Dec-" & cboEPAYear.Text).AddMonths(-12).Year).ToString
                     EndDate = "01-Jul-" & cboEPAYear.Text
                 Else
-                    StartDate = "30-Jun-" & cboEPAYear.Text
+                    'StartDate = "30-Jun-" & cboEPAYear.Text
                     EndDate = "01-Jan-" & (CDate("01-Jan-" & cboEPAYear.Text).AddMonths(12).Year).ToString
                 End If
             Else
-                StartDate = "31-Dec-" & (Now.AddMonths(-12).Year).ToString
+                'StartDate = "31-Dec-" & (Now.AddMonths(-12).Year).ToString
                 EndDate = "01-Jul-" & Now.Year.ToString
             End If
 

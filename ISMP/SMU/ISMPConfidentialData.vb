@@ -1,6 +1,5 @@
 Imports System.Data.OracleClient
-
-Imports System.IO
+'Imports System.IO
 
 Public Class ISMPConfidentialData
     Dim SQL As String
@@ -4595,7 +4594,7 @@ Public Class ISMPConfidentialData
                 If ConfidentialData.Contains("1") Then
                     ConfidentialData = "1" & Mid(ConfidentialData, 2)
                 Else
-                    ConfidentialData = ConfidentialData
+                    'ConfidentialData = ConfidentialData
                 End If
                 SQL = "Update " & connNameSpace & ".ISMPReportInformation set " & _
                 "strConfidentialData = '" & Replace(ConfidentialData, "'", "''") & "' " & _

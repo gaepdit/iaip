@@ -1,6 +1,6 @@
 Imports System.Data.OracleClient
 Imports System.Data.OleDb
-Imports System.Data.Odbc
+'Imports System.Data.Odbc
 
 Public Class DMUTool
     Dim SQL As String
@@ -369,48 +369,48 @@ Public Class DMUTool
     End Sub
     Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
         Try
-            Dim temp2 As String
             Exit Sub
 
-            SQL = "Select strApplicationNumber, datPermitIssued " & _
-            "from AIRBranch.SSPPApplicationTracking, airbranch.apbpermits " & _
-            "where AIRBranch.SSPPApplicationTracking.strApplicationNumber = substr(airbranch.APBPermits.strFileName, 4) " & _
-            "and datFinalOnWeb is null "
+            'Dim temp2 As String
+            'SQL = "Select strApplicationNumber, datPermitIssued " & _
+            '"from AIRBranch.SSPPApplicationTracking, airbranch.apbpermits " & _
+            '"where AIRBranch.SSPPApplicationTracking.strApplicationNumber = substr(airbranch.APBPermits.strFileName, 4) " & _
+            '"and datFinalOnWeb is null "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                temp = ""
-                temp2 = ""
-                If IsDBNull(dr.Item("datPermitIssued")) Then
-                    temp = ""
-                    temp2 = ""
-                Else
-                    temp = dr.Item("datPermitIssued")
-                    temp2 = dr.Item("strApplicatioNNumber")
-                End If
+            'cmd = New OracleCommand(SQL, conn)
+            'If conn.State = ConnectionState.Closed Then
+            '    conn.Open()
+            'End If
+            'dr = cmd.ExecuteReader
+            'While dr.Read
+            '    temp = ""
+            '    temp2 = ""
+            '    If IsDBNull(dr.Item("datPermitIssued")) Then
+            '        temp = ""
+            '        temp2 = ""
+            '    Else
+            '        temp = dr.Item("datPermitIssued")
+            '        temp2 = dr.Item("strApplicatioNNumber")
+            '    End If
 
-                If temp2 <> "" Then
-                    temp = Format(CDate(temp), "dd-MMM-yyyy")
-                    SQL = "Update AIRBranch.SSPPApplicationTracking set " & _
-                    "datFinalOnWeb = '" & temp & "' " & _
-                    "where strApplicationNumber = '" & temp2 & "' "
+            '    If temp2 <> "" Then
+            '        temp = Format(CDate(temp), "dd-MMM-yyyy")
+            '        SQL = "Update AIRBranch.SSPPApplicationTracking set " & _
+            '        "datFinalOnWeb = '" & temp & "' " & _
+            '        "where strApplicationNumber = '" & temp2 & "' "
 
-                    cmd2 = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
-                    End If
-                    dr2 = cmd2.ExecuteReader
-                    dr2.Close()
-                End If
+            '        cmd2 = New OracleCommand(SQL, conn)
+            '        If conn.State = ConnectionState.Closed Then
+            '            conn.Open()
+            '        End If
+            '        dr2 = cmd2.ExecuteReader
+            '        dr2.Close()
+            '    End If
 
 
 
-            End While
-            dr.Close()
+            'End While
+            'dr.Close()
 
 
         Catch ex As Exception
@@ -903,7 +903,7 @@ Public Class DMUTool
             Dim GATVdr As Object = ""
 
             Dim AIRSNumber As String = ""
-            Dim AppNumber As String = ""
+            'Dim AppNumber As String = ""
             Dim ContactName As String = ""
             Dim ContactFirstName As String = ""
             Dim ContactLastName As String = ""
@@ -975,11 +975,11 @@ Public Class DMUTool
                 GATVdr = GATVcmd.ExecuteReader
 
                 While GATVdr.Read
-                    If IsDBNull(GATVdr.item("ApplicationNumber")) Then
-                        AppNumber = ""
-                    Else
-                        AppNumber = GATVdr.item("ApplicationNumber")
-                    End If
+                    'If IsDBNull(GATVdr.item("ApplicationNumber")) Then
+                    '    AppNumber = ""
+                    'Else
+                    '    AppNumber = GATVdr.item("ApplicationNumber")
+                    'End If
                     If IsDBNull(GATVdr.Item("ContactName")) Then
                         ContactName = ""
                     Else
@@ -1117,7 +1117,7 @@ Public Class DMUTool
         Try
             Dim numKey As Integer = 1
             Dim AIRSnumber As String = ""
-            Dim intyear As String = ""
+            'Dim intyear As String = ""
             Dim numSSCPEngineer As String = ""
             Dim numSSCPUnit As String = ""
             Dim strInspectionRequired As String = ""
@@ -3360,8 +3360,8 @@ Public Class DMUTool
             Dim Class1 As String = ""
             Dim NSPS1 As String = ""
             Dim ShutDate As String = ""
-            Dim VarianceCheck As String = ""
-            Dim VarianceComments As String = ""
+            'Dim VarianceCheck As String = ""
+            'Dim VarianceComments As String = ""
             Dim AdminFee As String = ""
 
             SQL = "Select * " & _
@@ -3498,16 +3498,16 @@ Public Class DMUTool
                 Else
                     ShutDate = Format(dr.Item("ShutDate"), "dd-MMM-yyyy")
                 End If
-                If IsDBNull(dr.Item("VarianceCheck")) Then
-                    VarianceCheck = ""
-                Else
-                    VarianceCheck = dr.Item("VarianceCheck")
-                End If
-                If IsDBNull(dr.Item("VarianceComments")) Then
-                    VarianceComments = ""
-                Else
-                    VarianceComments = dr.Item("VarianceComments")
-                End If
+                'If IsDBNull(dr.Item("VarianceCheck")) Then
+                '    VarianceCheck = ""
+                'Else
+                '    VarianceCheck = dr.Item("VarianceCheck")
+                'End If
+                'If IsDBNull(dr.Item("VarianceComments")) Then
+                '    VarianceComments = ""
+                'Else
+                '    VarianceComments = dr.Item("VarianceComments")
+                'End If
                 If IsDBNull(dr.Item("numAdminFee")) Then
                     AdminFee = ""
                 Else
@@ -3857,7 +3857,7 @@ Public Class DMUTool
             Dim BatchNo As String = ""
             Dim EntryPerson As String = ""
             Dim Comments As String = ""
-            Dim PayId As String = ""
+            'Dim PayId As String = ""
             Dim InvoiceNo As String = ""
             Dim InvoiceIDCounter As Integer = 19999
             
@@ -3995,7 +3995,7 @@ Public Class DMUTool
             dr.Close()
 
             Dim Confirmation As String = ""
-            Dim DateConfirmation As String = ""
+            'Dim DateConfirmation As String = ""
             Dim ConfirmUser As String = ""
 
             SQL = "select * " & _
@@ -4013,11 +4013,11 @@ Public Class DMUTool
                 Else
                     Confirmation = dr.Item("strConfirmation")
                 End If
-                If IsDBNull(dr.Item("datConfirmation")) Then
-                    DateConfirmation = ""
-                Else
-                    DateConfirmation = Format(dr.Item("datConfirmation"), "dd-MMM-yyyy")
-                End If
+                'If IsDBNull(dr.Item("datConfirmation")) Then
+                '    DateConfirmation = ""
+                'Else
+                '    DateConfirmation = Format(dr.Item("datConfirmation"), "dd-MMM-yyyy")
+                'End If
                 If IsDBNull(dr.Item("numUserID")) Then
                     ConfirmUser = ""
                 Else
@@ -4054,7 +4054,7 @@ Public Class DMUTool
             Dim FacilityName As String = ""
             Dim CompanyName As String = ""
             Dim FacilityAddress As String = ""
-            Dim OperationalStatus As String = ""
+            'Dim OperationalStatus As String = ""
             Dim ShutDownDate As String = ""
             Dim strClass As String = ""
             Dim APCPart70 As String = ""
@@ -4174,11 +4174,11 @@ Public Class DMUTool
                         ContactEmail = ""
                     End If
                 End If
-                If IsDBNull(dr.Item("strOperationalStatus")) Then
-                    OperationalStatus = ""
-                Else
-                    OperationalStatus = dr.Item("strOperationalStatus")
-                End If
+                'If IsDBNull(dr.Item("strOperationalStatus")) Then
+                '    OperationalStatus = ""
+                'Else
+                '    OperationalStatus = dr.Item("strOperationalStatus")
+                'End If
                 If IsDBNull(dr.Item("datShutdownDate")) Then
                     ShutDownDate = ""
                 Else
@@ -4596,8 +4596,8 @@ Public Class DMUTool
             Dim Class1 As String = ""
             Dim NSPS1 As String = ""
             Dim ShutDate As String = ""
-            Dim VarianceCheck As String = ""
-            Dim VarianceComments As String = ""
+            'Dim VarianceCheck As String = ""
+            'Dim VarianceComments As String = ""
             Dim AdminFee As String = ""
             Dim ContactFirstName As String = ""
             Dim ContactLastName As String = ""
@@ -4625,16 +4625,16 @@ Public Class DMUTool
             Dim BatchNo As String = ""
             Dim EntryPerson As String = ""
             Dim Comments As String = ""
-            Dim PayId As String = ""
+            'Dim PayId As String = ""
             Dim InvoiceNo As String = ""
             Dim InvoiceIDCounter As Integer = 3318
             Dim Confirmation As String = ""
-            Dim DateConfirmation As String = ""
+            'Dim DateConfirmation As String = ""
             Dim ConfirmUser As String = ""
             Dim FacilityName As String = ""
             Dim CompanyName As String = ""
             Dim FacilityAddress As String = ""
-            Dim OperationalStatus As String = ""
+            'Dim OperationalStatus As String = ""
             Dim ShutDownDate As String = ""
             Dim strClass As String = ""
             Dim APCPart70 As String = ""
@@ -4644,15 +4644,15 @@ Public Class DMUTool
             Dim FacilityState As String = ""
             Dim FacilityZipCode As String = ""
 
-            Dim Enrolled As String = ""
-            Dim InitialEnrollment As String = ""
-            Dim Enrollment As String = ""
-            Dim InitialMailout As String = ""
-            Dim MailOutSent As String = ""
-            Dim DatMailoutSent As String = ""
-            Dim datSubmittal As String = ""
-            Dim CurrentStatus As String = ""
-            Dim StatusDate As String = ""
+            'Dim Enrolled As String = ""
+            'Dim InitialEnrollment As String = ""
+            'Dim Enrollment As String = ""
+            'Dim InitialMailout As String = ""
+            'Dim MailOutSent As String = ""
+            'Dim DatMailoutSent As String = ""
+            'Dim datSubmittal As String = ""
+            'Dim CurrentStatus As String = ""
+            'Dim StatusDate As String = ""
 
             SQL = "select min(invoiceID) as InvoiceID " & _
             "from AIRBranch.FS_FeeInvoice "
@@ -4832,16 +4832,16 @@ Public Class DMUTool
                         Else
                             ShutDate = Format(dr.Item("ShutDate"), "dd-MMM-yyyy")
                         End If
-                        If IsDBNull(dr.Item("VarianceCheck")) Then
-                            VarianceCheck = ""
-                        Else
-                            VarianceCheck = dr.Item("VarianceCheck")
-                        End If
-                        If IsDBNull(dr.Item("VarianceComments")) Then
-                            VarianceComments = ""
-                        Else
-                            VarianceComments = dr.Item("VarianceComments")
-                        End If
+                        'If IsDBNull(dr.Item("VarianceCheck")) Then
+                        '    VarianceCheck = ""
+                        'Else
+                        '    VarianceCheck = dr.Item("VarianceCheck")
+                        'End If
+                        'If IsDBNull(dr.Item("VarianceComments")) Then
+                        '    VarianceComments = ""
+                        'Else
+                        '    VarianceComments = dr.Item("VarianceComments")
+                        'End If
                         If IsDBNull(dr.Item("numAdminFee")) Then
                             AdminFee = ""
                         Else
@@ -5308,11 +5308,11 @@ Public Class DMUTool
                         Else
                             Confirmation = dr.Item("strConfirmation")
                         End If
-                        If IsDBNull(dr.Item("datConfirmation")) Then
-                            DateConfirmation = ""
-                        Else
-                            DateConfirmation = Format(dr.Item("datConfirmation"), "dd-MMM-yyyy")
-                        End If
+                        'If IsDBNull(dr.Item("datConfirmation")) Then
+                        '    DateConfirmation = ""
+                        'Else
+                        '    DateConfirmation = Format(dr.Item("datConfirmation"), "dd-MMM-yyyy")
+                        'End If
                         If IsDBNull(dr.Item("numUserID")) Then
                             ConfirmUser = ""
                         Else
@@ -5456,11 +5456,11 @@ Public Class DMUTool
                                 ContactEmail = ""
                             End If
                         End If
-                        If IsDBNull(dr.Item("strOperationalStatus")) Then
-                            OperationalStatus = ""
-                        Else
-                            OperationalStatus = dr.Item("strOperationalStatus")
-                        End If
+                        'If IsDBNull(dr.Item("strOperationalStatus")) Then
+                        '    OperationalStatus = ""
+                        'Else
+                        '    OperationalStatus = dr.Item("strOperationalStatus")
+                        'End If
                         If IsDBNull(dr.Item("datShutdownDate")) Then
                             ShutDownDate = ""
                         Else
@@ -5688,33 +5688,33 @@ Public Class DMUTool
         Try
             Dim AIRSNumber As String = ""
             Dim FeeYear As String = ""
-            Dim DateSubmit As String = ""
-            Dim SyntheticMinor As String = ""
-            Dim SMFee As String = ""
-            Dim Part70 As String = ""
-            Dim Part70Fee As String = ""
-            Dim VOCTons As String = ""
-            Dim PMTons As String = ""
-            Dim SO2Tons As String = ""
-            Dim NOXTons As String = ""
-            Dim CalculatedFee As String = ""
-            Dim FeeRate As String = ""
-            Dim NSPS As String = ""
-            Dim NSPSFee As String = ""
-            Dim NSPSExempt As String = ""
-            Dim NSPSExemptReason As String = ""
-            Dim AdminFee As String = ""
-            Dim TotalFee As String = ""
-            Dim Classification As String = ""
-            Dim Operate As String = ""
-            Dim ShutDown As String = ""
-            Dim OfficialName As String = ""
-            Dim OfficialTitle As String = ""
-            Dim PaymentPlan As String = ""
-            Dim Active As String = ""
-            Dim UpdateUser As String = ""
-            Dim UpdateDateTime As String = ""
-            Dim TransactionID As String = ""
+            'Dim DateSubmit As String = ""
+            'Dim SyntheticMinor As String = ""
+            'Dim SMFee As String = ""
+            'Dim Part70 As String = ""
+            'Dim Part70Fee As String = ""
+            'Dim VOCTons As String = ""
+            'Dim PMTons As String = ""
+            'Dim SO2Tons As String = ""
+            'Dim NOXTons As String = ""
+            'Dim CalculatedFee As String = ""
+            'Dim FeeRate As String = ""
+            'Dim NSPS As String = ""
+            'Dim NSPSFee As String = ""
+            'Dim NSPSExempt As String = ""
+            'Dim NSPSExemptReason As String = ""
+            'Dim AdminFee As String = ""
+            'Dim TotalFee As String = ""
+            'Dim Classification As String = ""
+            'Dim Operate As String = ""
+            'Dim ShutDown As String = ""
+            'Dim OfficialName As String = ""
+            'Dim OfficialTitle As String = ""
+            'Dim PaymentPlan As String = ""
+            'Dim Active As String = ""
+            'Dim UpdateUser As String = ""
+            'Dim UpdateDateTime As String = ""
+            'Dim TransactionID As String = ""
             Dim Comment As String = ""
             Dim NewFeeYear As String = ""
             Dim InvoiceID As String = ""
@@ -6185,36 +6185,36 @@ Public Class DMUTool
             Dim InitialMailout As String = ""
             Dim MailoutSent As String = ""
             Dim DateMailoutSent As String = ""
-            Dim submittal As String = ""
-            Dim DateSubmittal As String = ""
+            'Dim submittal As String = ""
+            'Dim DateSubmittal As String = ""
             Dim currentstatus As String = ""
             Dim statusDate As String = ""
             Dim comment As String = ""
 
-            Dim SyntheticMinor As String = ""
-            Dim SMFee As String = ""
-            Dim Part70 As String = ""
+            'Dim SyntheticMinor As String = ""
+            'Dim SMFee As String = ""
+            'Dim Part70 As String = ""
             Dim Part70Fee As String = ""
-            Dim VOCTons As String = ""
-            Dim PMTons As String = ""
-            Dim SO2Tons As String = ""
-            Dim NOXTons As String = ""
-            Dim CalculatedFee As String = ""
-            Dim FeeRate As String = ""
-            Dim NSPS As String = ""
-            Dim NSPSExempt As String = ""
-            Dim NSPSExemptReason As String = ""
-            Dim AdminFee As String = ""
-            Dim TotalFee As String = ""
+            'Dim VOCTons As String = ""
+            'Dim PMTons As String = ""
+            'Dim SO2Tons As String = ""
+            'Dim NOXTons As String = ""
+            'Dim CalculatedFee As String = ""
+            'Dim FeeRate As String = ""
+            'Dim NSPS As String = ""
+            'Dim NSPSExempt As String = ""
+            'Dim NSPSExemptReason As String = ""
+            'Dim AdminFee As String = ""
+            'Dim TotalFee As String = ""
             Dim Class1 As String = ""
             Dim Operate As String = ""
-            Dim ShutDown As String = ""
-            Dim OfficialName As String = ""
-            Dim OfficialTitle As String = ""
-            Dim PaymentPlan As String = ""
-            Dim ConfirmNumber As String = ""
-            Dim ConfirmUser As String = ""
-            Dim Comment_Feedata As String = ""
+            'Dim ShutDown As String = ""
+            'Dim OfficialName As String = ""
+            'Dim OfficialTitle As String = ""
+            'Dim PaymentPlan As String = ""
+            'Dim ConfirmNumber As String = ""
+            'Dim ConfirmUser As String = ""
+            'Dim Comment_Feedata As String = ""
 
             Dim FirstName As String = ""
             Dim LastName As String = ""
@@ -6228,7 +6228,7 @@ Public Class DMUTool
             Dim ContactZipCode As String = ""
             Dim GECOEmail As String = ""
             Dim OperationalStatus As String = ""
-            Dim Class_Mailout As String = ""
+            'Dim Class_Mailout As String = ""
             Dim NSPS_MailOut As String = ""
             Dim Part70_Mailout As String = ""
             Dim ShutDownDate As String = ""
@@ -6344,13 +6344,13 @@ Public Class DMUTool
                     Else
                         ShutDownDate = Format(dr.Item("datShutDownDate"), "dd-MMM-yyyy")
                     End If
-                    ShutDown = ShutDownDate
+                    'ShutDown = ShutDownDate
                     If IsDBNull(dr.Item("strClass")) Then
                         Class1 = ""
                     Else
                         Class1 = dr.Item("strClass")
                     End If
-                    Class_Mailout = Class1
+                    'Class_Mailout = Class1
                     If IsDBNull(dr.Item("strAPCPart70")) Then
                         Part70Fee = ""
                     Else
@@ -6372,7 +6372,7 @@ Public Class DMUTool
                     Else
                         NSPS_MailOut = "0"
                     End If
-                    NSPS = NSPS_MailOut
+                    'NSPS = NSPS_MailOut
                     If IsDBNull(dr.Item("strFacilityStreet")) Then
                         FacilityAddress1 = ""
                     Else
@@ -6468,11 +6468,11 @@ Public Class DMUTool
             Dim PayDate As String = ""
             Dim CheckNo As String = ""
             Dim DepositNo As String = ""
-            Dim PayType As String = ""
+            'Dim PayType As String = ""
             Dim BatchNo As String = ""
             Dim EntryPerson As String = ""
             Dim Comments As String = ""
-            Dim PayID As String = ""
+            'Dim PayID As String = ""
             Dim InvoiceNo As String = ""
             Dim InvoiceID As String = ""
             Dim count As Integer
@@ -6529,11 +6529,7 @@ Public Class DMUTool
                 Else
                     DepositNo = dr.Item("strDepositNo")
                 End If
-                If IsDBNull(dr.Item("strPayType")) Then
-                    PayType = "1"
-                Else
-                    PayType = "1"
-                End If
+                'PayType = "1"
                 If IsDBNull(dr.Item("strBatchNO")) Then
                     BatchNo = ""
                 Else
@@ -8309,7 +8305,7 @@ Public Class DMUTool
     Private Sub Button21_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button21.Click
         Try
             Dim AIRSNumber As String = ""
-            Dim coCompany As String = ""
+            'Dim coCompany As String = ""
             Dim Firstname As String = ""
             Dim Lastname As String = ""
             Dim Address1 As String = ""
@@ -8356,7 +8352,7 @@ Public Class DMUTool
                     End If
                     dr2 = cmd.ExecuteReader
                     While dr2.Read
-                        coCompany = ""
+                        'coCompany = ""
                         Firstname = ""
                         Lastname = ""
                         Address1 = ""
@@ -8367,11 +8363,11 @@ Public Class DMUTool
                         contactprefix = ""
                         email = ""
 
-                        If IsDBNull(dr2.Item("strContactCompanyname")) Then
-                            coCompany = "N/A"
-                        Else
-                            coCompany = dr2.Item("strContactCompanyname")
-                        End If
+                        'If IsDBNull(dr2.Item("strContactCompanyname")) Then
+                        '    coCompany = "N/A"
+                        'Else
+                        '    coCompany = dr2.Item("strContactCompanyname")
+                        'End If
 
                         If IsDBNull(dr2.Item("strContactFirstname")) Then
                             Firstname = "N/A"
@@ -8457,7 +8453,7 @@ Public Class DMUTool
     Private Sub Button22_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button22.Click
         Try
             Dim AIRSNumber As String = ""
-            Dim coCompany As String = ""
+            'Dim coCompany As String = ""
             Dim Firstname As String = ""
             Dim Lastname As String = ""
             Dim Address1 As String = ""
@@ -8489,7 +8485,7 @@ Public Class DMUTool
 
             dr = cmd.ExecuteReader
             While dr.Read
-                coCompany = ""
+                'coCompany = ""
                 Firstname = ""
                 Lastname = ""
                 Address1 = ""
@@ -8508,11 +8504,11 @@ Public Class DMUTool
 
                 If AIRSNumber <> "" Then
 
-                    If IsDBNull(dr.Item("strContactCompanyname")) Then
-                        coCompany = "N/A"
-                    Else
-                        coCompany = dr.Item("strContactCompanyname")
-                    End If
+                    'If IsDBNull(dr.Item("strContactCompanyname")) Then
+                    '    coCompany = "N/A"
+                    'Else
+                    '    coCompany = dr.Item("strContactCompanyname")
+                    'End If
 
                     If IsDBNull(dr.Item("strContactFirstname")) Then
                         Firstname = "N/A"

@@ -1,10 +1,6 @@
 Imports System.Data.OracleClient
 
 Imports System.IO
-Imports System.Security
-Imports System.Security.Cryptography
-Imports System.Drawing.Drawing2D
-
 
 Public Class IAIPNavigation
     Dim Paneltemp1 As String
@@ -2106,7 +2102,6 @@ Public Class IAIPNavigation
                 If recExist = True Then
 
                     Dim RefNum As String = ""
-                    Dim DocType As String = ""
 
                     SQL = "Select " & _
                     "" & connNameSpace & ".ISMPReportInformation.strReferenceNumber, " & connNameSpace & ".ISMPDocumentType.strDocumentType " & _
@@ -2124,10 +2119,8 @@ Public Class IAIPNavigation
                     recExist = dr.Read
                     If recExist = True Then
                         RefNum = dr.Item("strReferenceNumber")
-                        DocType = dr.Item("strDocumentType")
                     Else
                         RefNum = ""
-                        DocType = ""
                     End If
                     dr.Close()
                     If RefNum <> "" Then

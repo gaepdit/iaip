@@ -1,4 +1,4 @@
-Imports System.DateTime
+'Imports System.DateTime
 Imports System.Data.OracleClient
 
 
@@ -755,11 +755,12 @@ Public Class SSPPApplicationLog
                     End If
                     dr.Close()
                 Else
-                    If AccountArray(3, 2) = "1" Then
-                        cboEngineer.SelectedValue = UserGCode
-                    Else
-                        cboEngineer.SelectedValue = UserGCode
-                    End If
+                    cboEngineer.SelectedValue = UserGCode
+                    'If AccountArray(3, 2) = "1" Then
+                    '    cboEngineer.SelectedValue = UserGCode
+                    'Else
+                    '    cboEngineer.SelectedValue = UserGCode
+                    'End If
                     'If cboEngineer.SelectedIndex < 0 Then
                     '    cboEngineer.SelectedIndex = 0
                     'End If

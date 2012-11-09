@@ -1,5 +1,5 @@
 Imports System.Data.OracleClient
-Imports System.Runtime.InteropServices
+'Imports System.Runtime.InteropServices
 
 Public Class ISMPMemo
     Inherits System.Windows.Forms.Form

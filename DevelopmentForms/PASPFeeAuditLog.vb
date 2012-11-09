@@ -1,5 +1,5 @@
 ﻿Imports System.Data.OracleClient
-Imports CrystalDecisions.Shared
+'Imports CrystalDecisions.Shared
 Imports CrystalDecisions.CrystalReports.Engine
 
 
@@ -4284,7 +4284,7 @@ Public Class PASPFeeAuditLog
             dr = cmd.ExecuteReader
             While dr.Read
                 If IsDBNull(dr.Item("NSPSReasonCode")) Then
-                    NSPStemp = NSPStemp
+                    'NSPStemp = NSPStemp
                 Else
                     NSPStemp = NSPStemp & dr.Item("NSPSReasonCode")
                     If IsDBNull(dr.Item("DisplayOrder")) Then

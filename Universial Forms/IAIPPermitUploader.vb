@@ -1,11 +1,9 @@
 Imports System.Data.OracleClient
-
 Imports System.IO
 Imports System
 Imports System.Data
-Imports System.Text
-Imports Microsoft.Office
-
+'Imports System.Text
+'Imports Microsoft.Office
 
 Public Class IAIPPermitUploader
     Dim SQL As String

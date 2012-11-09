@@ -7019,28 +7019,31 @@ Public Class SSCPEvents
 
 
             If StartDate <= CDate(DTPACCPostmarked.Value) And CDate(DTPACCPostmarked.Value) <= Enddate Then
-                If rdbACCPostmarkYes.Checked = True Then
-                    wrnACCDatePostmarked.Visible = False
-                Else
-                    wrnACCDatePostmarked.Visible = False
-                    'wrnACCDatePostmarked.Visible = True
-                End If
+                wrnACCDatePostmarked.Visible = False
+                'If rdbACCPostmarkYes.Checked = True Then
+                '    wrnACCDatePostmarked.Visible = False
+                'Else
+                '    wrnACCDatePostmarked.Visible = False
+                '    'wrnACCDatePostmarked.Visible = True
+                'End If
             Else
                 If DTPACCPostmarked.Value > Enddate Then
-                    If rdbACCPostmarkYes.Checked = True Then
-                        wrnACCDatePostmarked.Visible = False
-                    Else
-                        wrnACCDatePostmarked.Visible = False
-                        'wrnACCDatePostmarked.Visible = True
-                    End If
+                    wrnACCDatePostmarked.Visible = False
+                    'If rdbACCPostmarkYes.Checked = True Then
+                    '    wrnACCDatePostmarked.Visible = False
+                    'Else
+                    '    wrnACCDatePostmarked.Visible = False
+                    '    'wrnACCDatePostmarked.Visible = True
+                    'End If
                 Else
                     If DTPACCPostmarked.Value <= StartDate Then
-                        If rdbACCPostmarkYes.Checked = True Then
-                            wrnACCDatePostmarked.Visible = False
-                        Else
-                            wrnACCDatePostmarked.Visible = False
-                            'wrnACCDatePostmarked.Visible = True
-                        End If
+                        wrnACCDatePostmarked.Visible = False
+                        'If rdbACCPostmarkYes.Checked = True Then
+                        '    wrnACCDatePostmarked.Visible = False
+                        'Else
+                        '    wrnACCDatePostmarked.Visible = False
+                        '    'wrnACCDatePostmarked.Visible = True
+                        'End If
                     End If
                 End If
             End If

@@ -692,7 +692,7 @@ Public Class IAIPEditAirProgramPollutants
                 If Pollutant <> "" Then
                     PollutantList = PollutantList & AirProgram & Pollutant & ","
                 Else
-                    PollutantList = PollutantList
+                    'PollutantList = PollutantList
                 End If
             Next
 

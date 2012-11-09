@@ -8,7 +8,7 @@ Public Class SSCPEnforcementChecklist
     Dim panel2 As New StatusBarPanel
     Dim panel3 As New StatusBarPanel
     Dim Paneltemp1 As String
-    Dim SQL, SQL2, SQL3, SQL4 As String
+    Dim SQL As String
     Dim cmd, cmd2 As OracleCommand
     Dim dr, dr2 As OracleDataReader
     Dim recExist As Boolean
@@ -1203,7 +1203,7 @@ Public Class SSCPEnforcementChecklist
                     SQLLine = "And (" & SQLLine & ") "
                 End If
             Else
-                SQLLine = SQLLine
+                'SQLLine = SQLLine
             End If
         End If
 

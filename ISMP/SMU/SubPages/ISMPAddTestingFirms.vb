@@ -880,7 +880,7 @@ Public Class ISMPAddTestingFirms
                     Case 4
                         TestingFirmKey = "0" & TestingFirmKey
                     Case Else
-                        TestingFirmKey = TestingFirmKey
+                        ' TestingFirmKey = TestingFirmKey
                 End Select
 
                 SQL = "Select strTestingfirmKey " & _
@@ -910,7 +910,7 @@ Public Class ISMPAddTestingFirms
                 Case 4
                     TestingFirmKey = "0" & TestingFirmKey
                 Case Else
-                    TestingFirmKey = TestingFirmKey
+                    'TestingFirmKey = TestingFirmKey
             End Select
             txtTestingFirmKey.Text = TestingFirmKey
 

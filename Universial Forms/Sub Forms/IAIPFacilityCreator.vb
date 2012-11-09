@@ -1,4 +1,4 @@
-Imports System.DateTime
+'Imports System.DateTime
 Imports System.Data.OracleClient
 
 
@@ -530,7 +530,7 @@ Public Class IAIPFacilityCreator
             If AirProgramCode.Length <> 15 Then
                 AirProgramCode = "100000000000000"
             Else
-                AirProgramCode = AirProgramCode
+                'AirProgramCode = AirProgramCode
             End If
             If mtbCDSSICCode.Text = "" Then
                 SICCode = "9999"
@@ -2235,7 +2235,7 @@ Public Class IAIPFacilityCreator
             If AirProgramCode.Length <> 15 Then
                 AirProgramCode = "100000000000000"
             Else
-                AirProgramCode = AirProgramCode
+                'AirProgramCode = AirProgramCode
             End If
             If mtbCDSSICCode.Text <> "" Then
                 SICCode = mtbCDSSICCode.Text

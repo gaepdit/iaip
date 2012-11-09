@@ -9385,7 +9385,7 @@ Public Class ISMPDataManagementTools
     End Sub
     Sub ExporttoExcel()
         Dim ExcelApp As New Microsoft.Office.Interop.Excel.Application
-        Dim ExcelDoc As Microsoft.Office.Interop.Excel.Workbook
+        'Dim ExcelDoc As Microsoft.Office.Interop.Excel.Workbook
         'Dim ExcelApp As New Excel.Application
         Dim i As Integer
         Dim j As Integer
@@ -9963,7 +9963,7 @@ Public Class ISMPDataManagementTools
     Private Sub exportSI()
         Try
             Dim ExcelApp As New Microsoft.Office.Interop.Excel.Application
-            Dim ExcelDoc As Microsoft.Office.Interop.Excel.Workbook
+            'Dim ExcelDoc As Microsoft.Office.Interop.Excel.Workbook
             'Dim ExcelApp As Excel.Application = New Excel.ApplicationClass
             Dim col, row As Integer
             Dim x As String
@@ -14646,7 +14646,7 @@ Public Class ISMPDataManagementTools
     End Sub
     Sub ExportEItoExcel()
         Dim ExcelApp As New Microsoft.Office.Interop.Excel.Application
-        Dim ExcelDoc As Microsoft.Office.Interop.Excel.Workbook
+        'Dim ExcelDoc As Microsoft.Office.Interop.Excel.Workbook
         'Dim ExcelApp As New Excel.Application
         Dim i As Integer
         Dim j As Integer
@@ -32946,7 +32946,7 @@ Public Class ISMPDataManagementTools
     Private Sub btnExportAFSData_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnExportAFSData.Click
         Try
             Dim ExcelApp As New Microsoft.Office.Interop.Excel.Application
-            Dim ExcelDoc As Microsoft.Office.Interop.Excel.Workbook
+            'Dim ExcelDoc As Microsoft.Office.Interop.Excel.Workbook
             'Dim ExcelApp As New Excel.Application
             Dim i, j As Integer
 

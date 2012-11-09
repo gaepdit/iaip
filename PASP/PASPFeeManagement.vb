@@ -560,7 +560,7 @@ Public Class PASPFeeManagement
             dr = cmd.ExecuteReader
             While dr.Read
                 If IsDBNull(dr.Item("NSPSReasonCode")) Then
-                    NSPStemp = NSPStemp
+                    'NSPStemp = NSPStemp
                 Else
                     NSPStemp = NSPStemp & dr.Item("NSPSReasonCode")
                     If IsDBNull(dr.Item("DisplayOrder")) Then
@@ -784,7 +784,7 @@ Public Class PASPFeeManagement
             dr = cmd.ExecuteReader
             While dr.Read
                 If IsDBNull(dr.Item("NSPSReasonCode")) Then
-                    ExistingID = ExistingID
+                    'ExistingID = ExistingID
                 Else
                     ExistingID = ExistingID & "(" & dr.Item("NSPSReasonCode") & ")"
                 End If

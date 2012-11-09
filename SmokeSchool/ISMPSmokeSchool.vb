@@ -1,5 +1,5 @@
 ﻿Imports System.Data.OracleClient
-Imports System.Data.OleDb
+'Imports System.Data.OleDb
 'Imports Excel
 
 Public Class ISMPSmokeSchool
@@ -4367,8 +4367,8 @@ Public Class ISMPSmokeSchool
             Dim col, row As Integer
             Dim x As String
             Dim y As String
-            Dim a As Integer
-            Dim b As Integer
+            'Dim a As Integer
+            'Dim b As Integer
             Dim c As Integer
             Dim d As Integer
             Dim startRow As Integer = 1
@@ -4392,8 +4392,8 @@ Public Class ISMPSmokeSchool
                     ExcelApp.Cells(startRow, col + 1).value = y
                 Next
 
-                a = dgvRes.ColumnCount - 1
-                b = dgvRes.RowCount - 1
+                'a = dgvRes.ColumnCount - 1
+                'b = dgvRes.RowCount - 1
 
                 'For col = 0 To dgvEU.RowCount - 1
                 '    For row = 0 To dgvEU.ColumnCount - 1
@@ -4738,8 +4738,8 @@ Public Class ISMPSmokeSchool
             Dim col, row As Integer
             Dim x As String
             Dim y As String
-            Dim a As Integer
-            Dim b As Integer
+            'Dim a As Integer
+            'Dim b As Integer
             Dim c As Integer
             Dim d As Integer
             Dim startRow As Integer = 1
@@ -4763,8 +4763,8 @@ Public Class ISMPSmokeSchool
                     ExcelApp.Cells(startRow, col + 1).value = y
                 Next
 
-                a = dgvScore3.ColumnCount - 1
-                b = dgvScore3.RowCount - 1
+                'a = dgvScore3.ColumnCount - 1
+                'b = dgvScore3.RowCount - 1
 
                 startRow = startRow + 1
                 d = dgvScore3.RowCount - 2
@@ -5009,7 +5009,7 @@ Public Class ISMPSmokeSchool
                     Case 3
                         CertTemp = "0" & CertTemp
                     Case Else
-                        CertTemp = CertTemp
+                        'CertTemp = CertTemp
                 End Select
 
                 CertNo = cboTermYear.Text & CertTemp & "SAV"
@@ -5053,7 +5053,7 @@ Public Class ISMPSmokeSchool
                     Case 3
                         CertTemp = "0" & CertTemp
                     Case Else
-                        CertTemp = CertTemp
+                        'CertTemp = CertTemp
                 End Select
 
                 CertNo = cboTermYear.Text & CertTemp & "TIF"
@@ -5097,7 +5097,7 @@ Public Class ISMPSmokeSchool
                     Case 3
                         CertTemp = "0" & CertTemp
                     Case Else
-                        CertTemp = CertTemp
+                        'CertTemp = CertTemp
                 End Select
 
                 CertNo = cboTermYear.Text & CertTemp & "ATL"
@@ -5141,7 +5141,7 @@ Public Class ISMPSmokeSchool
                     Case 3
                         CertTemp = "0" & CertTemp
                     Case Else
-                        CertTemp = CertTemp
+                        'CertTemp = CertTemp
                 End Select
 
                 CertNo = cboTermYear.Text & CertTemp & "SV"

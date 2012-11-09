@@ -1,5 +1,4 @@
 ﻿Imports System
-Imports System.Security
 Imports System.Data.OracleClient
 
 Module CodeFile
@@ -1090,8 +1089,6 @@ Module CodeFile
             Else
                 If PassCodeRequired = False Then
                     PassCode = "1"
-                Else
-                    PassCode = PassCode
                 End If
             End If
             If LogInRequired = True Then

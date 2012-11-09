@@ -9,9 +9,9 @@ Public Class ISMPFacilityInfo
     Dim panel3 As New StatusBarPanel
     Dim Paneltemp1 As String
     Dim SQL, SQL2 As String
-    Dim cmd, cmd2 As OracleCommand
-    Dim dr, dr2 As OracleDataReader
-    Dim recExist As Boolean
+    ' Dim cmd, cmd2 As OracleCommand
+    ' Dim dr, dr2 As OracleDataReader
+    ' Dim recExist As Boolean
     Dim dsPollutant As DataSet
     Dim daPollutant As OracleDataAdapter
     Dim dsTestingFirms As DataSet

@@ -1,15 +1,15 @@
-Imports System.DateTime
+'Imports System.DateTime
 Imports System.Data.OracleClient
 Imports System.Security.Cryptography
 Imports System.Text
 Imports System
-Imports System.Security
-Imports System.Drawing.Drawing2D
+'Imports System.Security
+'Imports System.Drawing.Drawing2D
 Imports System.IO
-Imports System.Xml
+'Imports System.Xml
 Imports System.Data
-Imports System.Data.OleDb
-Imports System.Data.Odbc
+'Imports System.Data.OleDb
+'Imports System.Data.Odbc
 
 Module submain
     Public connNameSpace As String = "AIRBranch"

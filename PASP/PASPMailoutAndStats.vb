@@ -173,7 +173,7 @@ Public Class DEVMailoutAndStats
     Sub ExporttoExcel2()
         Try
             Dim ExcelApp As New Microsoft.Office.Interop.Excel.Application
-            Dim ExcelDoc As Microsoft.Office.Interop.Excel.Workbook
+            'Dim ExcelDoc As Microsoft.Office.Interop.Excel.Workbook
             'Dim ExcelApp As New Excel.Application
             Dim i As Integer
             Dim j As Integer
@@ -6986,7 +6986,7 @@ Public Class DEVMailoutAndStats
                     dr2 = cmd.ExecuteReader
                     While dr2.Read
                         If IsDBNull(dr2.Item("strApplicationTypeDesc")) Then
-                            LastApp = LastApp
+                            'LastApp = LastApp
                         Else
                             LastApp = LastApp & " - " & dr2.Item("strApplicationTypeDesc")
                         End If
@@ -7119,7 +7119,7 @@ Public Class DEVMailoutAndStats
                                 LastCompliance = dr2.Item("strTrackingNumber")
                             End If
                             If IsDBNull(dr2.Item("strActivityName")) Then
-                                LastCompliance = LastCompliance
+                                'LastCompliance = LastCompliance
                             Else
                                 LastCompliance = LastCompliance & " - " & dr2.Item("strActivityName")
                             End If
@@ -8025,7 +8025,7 @@ Public Class DEVMailoutAndStats
     Private Sub btnExportFeeReport_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnExportFeeReport.Click
         'Dim ExcelApp As New Excel.Application
         Dim ExcelApp As New Microsoft.Office.Interop.Excel.Application
-        Dim ExcelDoc As Microsoft.Office.Interop.Excel.Workbook
+        'Dim ExcelDoc As Microsoft.Office.Interop.Excel.Workbook
         Dim i, j As Integer
 
         Try
@@ -8086,16 +8086,19 @@ Public Class DEVMailoutAndStats
     End Sub
     Private Sub btnLoadNSPSTool_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnLoadNSPSTool.Click
         Try
-            If pnlNSPSExemptions.Enabled = False Then
-                ' pnlNSPSExemptions.Enabled = True
-                LoadNSPSExemptions()
-                LoadNSPSExemptionYear()
-                LoadSelectedNSPSExemptions()
-            Else
-                LoadNSPSExemptions()
-                LoadNSPSExemptionYear()
-                LoadSelectedNSPSExemptions()
-            End If
+            'If pnlNSPSExemptions.Enabled = False Then
+            '    ' pnlNSPSExemptions.Enabled = True
+            '    LoadNSPSExemptions()
+            '    LoadNSPSExemptionYear()
+            '    LoadSelectedNSPSExemptions()
+            'Else
+            '    LoadNSPSExemptions()
+            '    LoadNSPSExemptionYear()
+            '    LoadSelectedNSPSExemptions()
+            'End If
+            LoadNSPSExemptions()
+            LoadNSPSExemptionYear()
+            LoadSelectedNSPSExemptions()
 
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -8350,7 +8353,7 @@ Public Class DEVMailoutAndStats
             dr = cmd.ExecuteReader
             While dr.Read
                 If IsDBNull(dr.Item("ReasonID")) Then
-                    NSPStemp = NSPStemp
+                    'NSPStemp = NSPStemp
                 Else
                     NSPStemp = NSPStemp & dr.Item("ReasonID")
                     If IsDBNull(dr.Item("DisplayOrder")) Then
@@ -8546,7 +8549,7 @@ Public Class DEVMailoutAndStats
             dr = cmd.ExecuteReader
             While dr.Read
                 If IsDBNull(dr.Item("ReasonID")) Then
-                    ExistingID = ExistingID
+                    'ExistingID = ExistingID
                 Else
                     ExistingID = ExistingID & "(" & dr.Item("ReasonID") & ")"
                 End If

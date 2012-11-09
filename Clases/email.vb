@@ -13,17 +13,13 @@
 ' Last Modified: Andrew Bowden
 ' Last Modified on: 24th May 2006
 ' Last Modification: Added all of these lovely comments, so I guess you must be happy!
-
 'use this on the page event to send email.
 'Dim etest As email
 'etest = New email
 'etest.sendEmail(EmailAddress, Subject, Body)
 'btnEmailAcknowledgmentLetter.Enabled = False
 'MessageBox.Show("Email has been sent.")
-
-
 Imports System
-Imports System.Security
 
 Public Class email
     Private objMessages As Object

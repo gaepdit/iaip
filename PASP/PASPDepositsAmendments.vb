@@ -904,11 +904,12 @@ Public Class PASPDepositsAmendments
                 Else
                     cboAmendmentsPayType.Text = dr.Item("strPaymentType")
                 End If
-                If IsDBNull(dr.Item("intSubmittal")) Then
-                    txtSubmittal.Text = "1"
-                Else
-                    txtSubmittal.Text = "1"
-                End If
+                txtSubmittal.Text = "1"
+                'If IsDBNull(dr.Item("intSubmittal")) Then
+                '    txtSubmittal.Text = "1"
+                'Else
+                '    txtSubmittal.Text = "1"
+                'End If
                 If IsDBNull(dr.Item("strOfficialName")) Then
                     txtOfficalName.Clear()
                 Else

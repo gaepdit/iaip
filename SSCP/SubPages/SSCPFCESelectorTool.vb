@@ -430,10 +430,10 @@ Public Class SSCPFCESelectorTool
 
     End Sub
     Sub OpenFCETool()
-        Dim Street As String = ""
-        Dim City As String = ""
-        Dim County As String = ""
-        Dim Classification As String = ""
+        'Dim Street As String = ""
+        'Dim City As String = ""
+        'Dim County As String = ""
+        'Dim Classification As String = ""
         Dim AIRProgramCode As String = ""
 
         Try
@@ -449,8 +449,8 @@ Public Class SSCPFCESelectorTool
             cmd = New OracleCommand(SQL, conn)
             dr = cmd.ExecuteReader
             While dr.Read
-                Street = dr.Item("strFacilityStreet1")
-                City = dr.Item("strFacilityCity")
+                'Street = dr.Item("strFacilityStreet1")
+                'City = dr.Item("strFacilityCity")
             End While
 
             SQL = "Select strAIRProgramCodes, strClass " & _
@@ -461,21 +461,21 @@ Public Class SSCPFCESelectorTool
             dr = cmd.ExecuteReader
             While dr.Read
                 AIRProgramCode = dr.Item("strAIRProgramCodes")
-                Classification = dr.Item("strClass")
+                'Classification = dr.Item("strClass")
             End While
 
-            SQL = "Select strCountyName " & _
-            "from " & connNameSpace & ".LookUpCountyInformation " & _
-            "where strCountyCode = '" & Mid(txtAIRSNumber.Text, 1, 3) & "' "
+            'SQL = "Select strCountyName " & _
+            '"from " & connNameSpace & ".LookUpCountyInformation " & _
+            '"where strCountyCode = '" & Mid(txtAIRSNumber.Text, 1, 3) & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            dr = cmd.ExecuteReader
-            While dr.Read
-                County = dr.Item("strCountyName")
-            End While
+            'cmd = New OracleCommand(SQL, conn)
+            'dr = cmd.ExecuteReader
+            'While dr.Read
+            '    County = dr.Item("strCountyName")
+            'End While
 
             AddAirProgramCodes(AIRProgramCode)
-            AIRProgramCode = AIRProgramCode
+            'AIRProgramCode = AIRProgramCode
 
             If txtAIRSNumber.Text.Length <> 8 Then
                 MsgBox("Please Enter a valid AIRS Number.", MsgBoxStyle.Information, "Facility Summary Warning")

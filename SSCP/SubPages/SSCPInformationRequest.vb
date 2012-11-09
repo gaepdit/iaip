@@ -1832,7 +1832,7 @@ Public Class SSCPInformationRequest
             End If
 
             If EmailLink <> "" Then
-                EmailLink = EmailLink
+                '   EmailLink = EmailLink
                 System.Diagnostics.Process.Start(EmailLink)
             End If
 

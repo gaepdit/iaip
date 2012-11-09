@@ -1,8 +1,8 @@
 ﻿Imports System
-Imports System.Security
+'Imports System.Security
 Imports System.Data.OracleClient
-Imports System.IO
-Imports System.Net.Mail
+'Imports System.IO
+'Imports System.Net.Mail
 
 Public Class SSCPAdministrator
     Dim ds As DataSet
@@ -424,7 +424,7 @@ Public Class SSCPAdministrator
     Sub ExportToExcel()
         Try
             Dim ExcelApp As New Microsoft.Office.Interop.Excel.Application
-            Dim ExcelDoc As Microsoft.Office.Interop.Excel.Workbook
+            'Dim ExcelDoc As Microsoft.Office.Interop.Excel.Workbook
             'Dim ExcelApp As New Excel.Application
             Dim i, j As Integer
 

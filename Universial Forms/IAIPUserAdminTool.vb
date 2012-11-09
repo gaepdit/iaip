@@ -249,7 +249,7 @@ Public Class IAIPUserAdminTool
                     If drDSRow("strBranchDesc") = dtBranch.Rows(i).Item(1) Then
                         temp = "No"
                     Else
-                        temp = temp
+                        'temp = temp
                     End If
                 Next
                 If temp = "Add" Then
@@ -319,7 +319,7 @@ Public Class IAIPUserAdminTool
                             If drDSRow("strProgramDesc") = dtProgram.Rows(i).Item(1) Then
                                 temp = "No"
                             Else
-                                temp = temp
+                                'temp = temp
                             End If
                         Next
                         If temp = "Add" Then
@@ -371,7 +371,7 @@ Public Class IAIPUserAdminTool
                             If drDSRow("strProgramDesc") = dtProgram.Rows(i).Item(1) Then
                                 temp = "No"
                             Else
-                                temp = temp
+                                'temp = temp
                             End If
                         Next
                         If temp = "Add" Then
@@ -420,7 +420,7 @@ Public Class IAIPUserAdminTool
                         If drDSRow("strProgramDesc") = dtUnit.Rows(i).Item(1) Then
                             temp = "No"
                         Else
-                            temp = temp
+                            'temp = temp
                         End If
                     Next
                     If temp = "Add" Then
@@ -491,7 +491,7 @@ Public Class IAIPUserAdminTool
                             If drDSRow("strUnitDesc") = dtUnit.Rows(i).Item(1) Then
                                 temp = "No"
                             Else
-                                temp = temp
+                                'temp = temp
                             End If
                         Next
                         If temp = "Add" Then
@@ -542,7 +542,7 @@ Public Class IAIPUserAdminTool
                             If drDSRow("strUnitDesc") = dtUnit.Rows(i).Item(1) Then
                                 temp = "No"
                             Else
-                                temp = temp
+                                'temp = temp
                             End If
                         Next
                         If temp = "Add" Then
@@ -592,7 +592,7 @@ Public Class IAIPUserAdminTool
                         If drDSRow("strUnitDesc") = dtUnit.Rows(i).Item(1) Then
                             temp = "No"
                         Else
-                            temp = temp
+                            'temp = temp
                         End If
                     Next
                     If temp = "Add" Then
@@ -661,7 +661,7 @@ Public Class IAIPUserAdminTool
                         If drDSRow("strAccountDesc") = dtAccount.Rows(i).Item(1) Then
                             temp = "No"
                         Else
-                            temp = temp
+                            'temp = temp
                         End If
                     Next
                     If temp = "Add" Then

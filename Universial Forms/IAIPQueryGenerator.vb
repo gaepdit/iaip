@@ -889,7 +889,7 @@ Public Class IAIPQueryGenerator
             If SQLOrder = " Order by " Then
                 SQLOrder = ""
             Else
-                SQLOrder = SQLOrder
+              '  SQLOrder = SQLOrder
             End If
 
             If chbAIRSNumber.Checked = True Then
@@ -930,7 +930,7 @@ Public Class IAIPQueryGenerator
                 SQLSelect = SQLSelect & " strFacilityName, "
 
                 If SQLFrom.IndexOf("" & connNameSpace & ".APBFacilityInformation") <> -1 Then
-                    SQLFrom = SQLFrom
+        '            SQLFrom = SQLFrom
                 Else
                     SQLFrom = SQLFrom & " " & connNameSpace & ".APBFacilityInformation, "
                 End If
@@ -970,7 +970,7 @@ Public Class IAIPQueryGenerator
                 SQLSelect = SQLSelect & " strFacilityStreet1, "
 
                 If SQLFrom.IndexOf("" & connNameSpace & ".APBFacilityInformation") <> -1 Then
-                    SQLFrom = SQLFrom
+                    '         SQLFrom = SQLFrom
                 Else
                     SQLFrom = SQLFrom & " " & connNameSpace & ".APBFacilityInformation, "
                 End If
@@ -1010,7 +1010,7 @@ Public Class IAIPQueryGenerator
                 "end strFacilityStreet2, "
 
                 If SQLFrom.IndexOf("" & connNameSpace & ".APBFacilityInformation") <> -1 Then
-                    SQLFrom = SQLFrom
+                    '       SQLFrom = SQLFrom
                 Else
                     SQLFrom = SQLFrom & " " & connNameSpace & ".APBFacilityInformation, "
                 End If
@@ -1046,7 +1046,7 @@ Public Class IAIPQueryGenerator
                 SQLSelect = SQLSelect & " strFacilityCity, "
 
                 If SQLFrom.IndexOf("" & connNameSpace & ".APBFacilityInformation") <> -1 Then
-                    SQLFrom = SQLFrom
+                    '     SQLFrom = SQLFrom
                 Else
                     SQLFrom = SQLFrom & " " & connNameSpace & ".APBFacilityInformation, "
                 End If
@@ -1086,7 +1086,7 @@ Public Class IAIPQueryGenerator
                 "end strFacilityZipCode, "
 
                 If SQLFrom.IndexOf("" & connNameSpace & ".APBFacilityInformation") <> -1 Then
-                    SQLFrom = SQLFrom
+                    ' SQLFrom = SQLFrom
                 Else
                     SQLFrom = SQLFrom & " " & connNameSpace & ".APBFacilityInformation, "
                 End If
@@ -1122,7 +1122,7 @@ Public Class IAIPQueryGenerator
                 SQLSelect = SQLSelect & " numFacilityLatitude, "
 
                 If SQLFrom.IndexOf("" & connNameSpace & ".APBFacilityInformation") <> -1 Then
-                    SQLFrom = SQLFrom
+                  '  SQLFrom = SQLFrom
                 Else
                     SQLFrom = SQLFrom & " " & connNameSpace & ".APBFacilityInformation, "
                 End If
@@ -1147,7 +1147,7 @@ Public Class IAIPQueryGenerator
                 SQLSelect = SQLSelect & " numFacilityLongitude, "
 
                 If SQLFrom.IndexOf("" & connNameSpace & ".APBFacilityInformation") <> -1 Then
-                    SQLFrom = SQLFrom
+                    ' SQLFrom = SQLFrom
                 Else
                     SQLFrom = SQLFrom & " " & connNameSpace & ".APBFacilityInformation, "
                 End If
@@ -1172,7 +1172,7 @@ Public Class IAIPQueryGenerator
                 SQLSelect = SQLSelect & " strCountyName, "
 
                 If SQLFrom.IndexOf("" & connNameSpace & ".LookUpCountyInformation") <> -1 Then
-                    SQLFrom = SQLFrom
+                    'SQLFrom = SQLFrom
                 Else
                     SQLFrom = SQLFrom & " " & connNameSpace & ".LookUpCountyInformation, "
                     SQLWhere = SQLWhere & " and substr(" & connNameSpace & ".APBFacilityInformation.strAIRSNumber, 5, 3) = " & connNameSpace & ".LookUpCountyInformation.strCountyCode "
@@ -1209,7 +1209,7 @@ Public Class IAIPQueryGenerator
                 SQLSelect = SQLSelect & " strDistrictName, "
 
                 If SQLFrom.IndexOf("" & connNameSpace & ".LookUPDistricts") <> -1 Then
-                    SQLFrom = SQLFrom
+                    ' SQLFrom = SQLFrom
                 Else
                     SQLFrom = SQLFrom & " " & connNameSpace & ".LookUPDistricts, " & connNameSpace & ".LookUpDistrictInformation, "
                     SQLWhere = SQLWhere & "and " & connNameSpace & ".LookUpDistrictInformation.strDistrictCode = " & connNameSpace & ".LookUPDistricts.strDistrictCode " & _
@@ -1247,7 +1247,7 @@ Public Class IAIPQueryGenerator
                 SQLSelect = SQLSelect & " strOperationalStatus, "
 
                 If SQLFrom.IndexOf("" & connNameSpace & ".APBHeaderData") <> -1 Then
-                    SQLFrom = SQLFrom
+                    '  SQLFrom = SQLFrom
                 Else
                     SQLFrom = SQLFrom & " " & connNameSpace & ".APBHeaderData, "
                     SQLWhere = SQLWhere & " and " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber "
@@ -1284,7 +1284,7 @@ Public Class IAIPQueryGenerator
                 SQLSelect = SQLSelect & " strClass, "
 
                 If SQLFrom.IndexOf("" & connNameSpace & ".APBHeaderData") <> -1 Then
-                    SQLFrom = SQLFrom
+                    ' SQLFrom = SQLFrom
                 Else
                     SQLFrom = SQLFrom & " " & connNameSpace & ".APBHeaderData, "
                     SQLWhere = SQLWhere & " and " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber "
@@ -1321,7 +1321,7 @@ Public Class IAIPQueryGenerator
                 SQLSelect = SQLSelect & " strSICCode, "
 
                 If SQLFrom.IndexOf("" & connNameSpace & ".APBHeaderData") <> -1 Then
-                    SQLFrom = SQLFrom
+                    '      SQLFrom = SQLFrom
                 Else
                     SQLFrom = SQLFrom & " " & connNameSpace & ".APBHeaderData, "
                     SQLWhere = SQLWhere & " and " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber "
@@ -1361,7 +1361,7 @@ Public Class IAIPQueryGenerator
                 "end datStartUpDate, "
 
                 If SQLFrom.IndexOf("" & connNameSpace & ".APBHeaderData") <> -1 Then
-                    SQLFrom = SQLFrom
+                    '      SQLFrom = SQLFrom
                 Else
                     SQLFrom = SQLFrom & " " & connNameSpace & ".APBHeaderData, "
                     SQLWhere = SQLWhere & " and " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber "
@@ -1411,7 +1411,7 @@ Public Class IAIPQueryGenerator
                 "end datShutDownDate, "
 
                 If SQLFrom.IndexOf("" & connNameSpace & ".APBHeaderData") <> -1 Then
-                    SQLFrom = SQLFrom
+                    '       SQLFrom = SQLFrom
                 Else
                     SQLFrom = SQLFrom & " " & connNameSpace & ".APBHeaderData, "
                     SQLWhere = SQLWhere & " and " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber "
@@ -1462,7 +1462,7 @@ Public Class IAIPQueryGenerator
                 SQLSelect = SQLSelect & " strCMSMember, "
 
                 If SQLFrom.IndexOf("" & connNameSpace & ".APBSupplamentalData") <> -1 Then
-                    SQLFrom = SQLFrom
+                    '      SQLFrom = SQLFrom
                 Else
                     SQLFrom = SQLFrom & " " & connNameSpace & ".APBSupplamentalData, "
                     SQLWhere = SQLWhere & " and " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".APBSupplamentalData.strAIRSNumber "
@@ -1503,7 +1503,7 @@ Public Class IAIPQueryGenerator
                 "end strPlantDescription, "
 
                 If SQLFrom.IndexOf("" & connNameSpace & ".APBHeaderData") <> -1 Then
-                    SQLFrom = SQLFrom
+                    '        SQLFrom = SQLFrom
                 Else
                     SQLFrom = SQLFrom & " " & connNameSpace & ".APBHeaderData, "
                     SQLWhere = SQLWhere & " and " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber "
@@ -1579,7 +1579,7 @@ Public Class IAIPQueryGenerator
                             "when substr(" & connNameSpace & ".APBHeaderData.strAttainmentStatus, 4, 1) = '0' then 'PM-2.5 No' " & _
                             "else '' end PMNo, "
                 If SQLFrom.IndexOf("" & connNameSpace & ".APBHeaderData") <> -1 Then
-                    SQLFrom = SQLFrom
+                    '     SQLFrom = SQLFrom
                 Else
                     SQLFrom = SQLFrom & " " & connNameSpace & ".APBHeaderData, "
                     SQLWhere = SQLWhere & " and " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber "
@@ -1591,7 +1591,7 @@ Public Class IAIPQueryGenerator
                 "when substr(" & connNameSpace & ".APBHeaderData.strAttainmentStatus, 2, 1) = '1' then '1-Hr Yes' " & _
                 "else '' end OneHrYes, "
                 If SQLFrom.IndexOf("" & connNameSpace & ".APBHeaderData") <> -1 Then
-                    SQLFrom = SQLFrom
+                    '      SQLFrom = SQLFrom
                 Else
                     SQLFrom = SQLFrom & " " & connNameSpace & ".APBHeaderData, "
                     SQLWhere = SQLWhere & " and " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber "
@@ -1609,7 +1609,7 @@ Public Class IAIPQueryGenerator
                 "when substr(" & connNameSpace & ".APBHeaderData.strAttainmentStatus, 2, 1) = '2' then '1-Hr Contribute' " & _
                             "else '' end OneHrContribute, "
                 If SQLFrom.IndexOf("" & connNameSpace & ".APBHeaderData") <> -1 Then
-                    SQLFrom = SQLFrom
+                    '        SQLFrom = SQLFrom
                 Else
                     SQLFrom = SQLFrom & " " & connNameSpace & ".APBHeaderData, "
                     SQLWhere = SQLWhere & " and " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber "
@@ -1627,7 +1627,7 @@ Public Class IAIPQueryGenerator
                 "when substr(" & connNameSpace & ".APBHeaderData.strAttainmentStatus, 2, 1) = '0' then '1-Hr No' " & _
                             "else '' end OneHrNo, "
                 If SQLFrom.IndexOf("" & connNameSpace & ".APBHeaderData") <> -1 Then
-                    SQLFrom = SQLFrom
+                    '        SQLFrom = SQLFrom
                 Else
                     SQLFrom = SQLFrom & " " & connNameSpace & ".APBHeaderData, "
                     SQLWhere = SQLWhere & " and " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber "
@@ -1645,7 +1645,7 @@ Public Class IAIPQueryGenerator
                 "when substr(" & connNameSpace & ".APBHeaderData.strAttainmentStatus, 3, 1) = '1' then '8-Hr Atlanta' " & _
                             "else '' end EightHrAtlanta, "
                 If SQLFrom.IndexOf("" & connNameSpace & ".APBHeaderData") <> -1 Then
-                    SQLFrom = SQLFrom
+                    '       SQLFrom = SQLFrom
                 Else
                     SQLFrom = SQLFrom & " " & connNameSpace & ".APBHeaderData, "
                     SQLWhere = SQLWhere & " and " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber "
@@ -1663,7 +1663,7 @@ Public Class IAIPQueryGenerator
                 "when substr(" & connNameSpace & ".APBHeaderData.strAttainmentStatus, 3, 1) = '2' then '8-Hr Macon' " & _
                             "else '' end EightHrMacon, "
                 If SQLFrom.IndexOf("" & connNameSpace & ".APBHeaderData") <> -1 Then
-                    SQLFrom = SQLFrom
+                    '        SQLFrom = SQLFrom
                 Else
                     SQLFrom = SQLFrom & " " & connNameSpace & ".APBHeaderData, "
                     SQLWhere = SQLWhere & " and " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber "
@@ -1681,7 +1681,7 @@ Public Class IAIPQueryGenerator
                 "when substr(" & connNameSpace & ".APBHeaderData.strAttainmentStatus, 3, 1) = '0' then '8-Hr No' " & _
                             "else '' end EightHrNo, "
                 If SQLFrom.IndexOf("" & connNameSpace & ".APBHeaderData") <> -1 Then
-                    SQLFrom = SQLFrom
+                    '         SQLFrom = SQLFrom
                 Else
                     SQLFrom = SQLFrom & " " & connNameSpace & ".APBHeaderData, "
                     SQLWhere = SQLWhere & " and " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber "
@@ -1699,7 +1699,7 @@ Public Class IAIPQueryGenerator
                 "when substr(" & connNameSpace & ".APBHeaderData.strAttainmentStatus, 4, 1) = '1' then 'PM-2.5 Atlanta' " & _
                             "else '' end PMAtlanta, "
                 If SQLFrom.IndexOf("" & connNameSpace & ".APBHeaderData") <> -1 Then
-                    SQLFrom = SQLFrom
+                    '         SQLFrom = SQLFrom
                 Else
                     SQLFrom = SQLFrom & " " & connNameSpace & ".APBHeaderData, "
                     SQLWhere = SQLWhere & " and " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber "
@@ -1717,7 +1717,7 @@ Public Class IAIPQueryGenerator
                 "when substr(" & connNameSpace & ".APBHeaderData.strAttainmentStatus, 4, 1) = '2' then 'PM-2.5 Chattanooga' " & _
                             "else '' end PMChattanooga, "
                 If SQLFrom.IndexOf("" & connNameSpace & ".APBHeaderData") <> -1 Then
-                    SQLFrom = SQLFrom
+                    '           SQLFrom = SQLFrom
                 Else
                     SQLFrom = SQLFrom & " " & connNameSpace & ".APBHeaderData, "
                     SQLWhere = SQLWhere & " and " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber "
@@ -1735,7 +1735,7 @@ Public Class IAIPQueryGenerator
                 "when substr(" & connNameSpace & ".APBHeaderData.strAttainmentStatus, 4, 1) = '3' then 'PM-2.5 Floyd' " & _
                             "else '' end PMFloyd, "
                 If SQLFrom.IndexOf("" & connNameSpace & ".APBHeaderData") <> -1 Then
-                    SQLFrom = SQLFrom
+                    '          SQLFrom = SQLFrom
                 Else
                     SQLFrom = SQLFrom & " " & connNameSpace & ".APBHeaderData, "
                     SQLWhere = SQLWhere & " and " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber "
@@ -1753,7 +1753,7 @@ Public Class IAIPQueryGenerator
                 "when substr(" & connNameSpace & ".APBHeaderData.strAttainmentStatus, 4, 1) = '4' then 'PM-2.5 Macon' " & _
                             "else '' end PMMacon, "
                 If SQLFrom.IndexOf("" & connNameSpace & ".APBHeaderData") <> -1 Then
-                    SQLFrom = SQLFrom
+                    '          SQLFrom = SQLFrom
                 Else
                     SQLFrom = SQLFrom & " " & connNameSpace & ".APBHeaderData, "
                     SQLWhere = SQLWhere & " and " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber "
@@ -1771,7 +1771,7 @@ Public Class IAIPQueryGenerator
                 "when substr(" & connNameSpace & ".APBHeaderData.strAttainmentStatus, 4, 1) = '0' then 'PM-2.5 No' " & _
                             "else '' end PMNo, "
                 If SQLFrom.IndexOf("" & connNameSpace & ".APBHeaderData") <> -1 Then
-                    SQLFrom = SQLFrom
+          '          SQLFrom = SQLFrom
                 Else
                     SQLFrom = SQLFrom & " " & connNameSpace & ".APBHeaderData, "
                     SQLWhere = SQLWhere & " and " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber "
@@ -1795,7 +1795,7 @@ Public Class IAIPQueryGenerator
                 "Else '' end HAP, "
 
                 If SQLFrom.IndexOf("" & connNameSpace & ".APBHeaderData") <> -1 Then
-                    SQLFrom = SQLFrom
+                   ' SQLFrom = SQLFrom
                 Else
                     SQLFrom = SQLFrom & " " & connNameSpace & ".APBHeaderData, "
                     SQLWhere = SQLWhere & " and " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber "
@@ -1809,7 +1809,7 @@ Public Class IAIPQueryGenerator
                 "Else '' end NSRPSD, "
 
                 If SQLFrom.IndexOf("" & connNameSpace & ".APBHeaderData") <> -1 Then
-                    SQLFrom = SQLFrom
+                    '   SQLFrom = SQLFrom
                 Else
                     SQLFrom = SQLFrom & " " & connNameSpace & ".APBHeaderData, "
                     SQLWhere = SQLWhere & " and " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber "
@@ -1829,7 +1829,7 @@ Public Class IAIPQueryGenerator
                 "Else '' end HAP, "
 
                 If SQLFrom.IndexOf("" & connNameSpace & ".APBHeaderData") <> -1 Then
-                    SQLFrom = SQLFrom
+                    '      SQLFrom = SQLFrom
                 Else
                     SQLFrom = SQLFrom & " " & connNameSpace & ".APBHeaderData, "
                     SQLWhere = SQLWhere & " and " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber "
@@ -1883,7 +1883,7 @@ Public Class IAIPQueryGenerator
                             "when substr(strAirProgramCodes, 13, 1) = '1' then 'V - Title V' " & _
                             "Else '' end APCV, "
                 If SQLFrom.IndexOf("" & connNameSpace & ".APBHeaderData") <> -1 Then
-                    SQLFrom = SQLFrom
+                    ' SQLFrom = SQLFrom
                 Else
                     SQLFrom = SQLFrom & " " & connNameSpace & ".APBHeaderData, "
                     SQLWhere = SQLWhere & " and " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber "
@@ -1894,7 +1894,7 @@ Public Class IAIPQueryGenerator
                 SQLSelect = SQLSelect & "case when substr(strAirProgramCodes, 1, 1) = '0' then '' when substr(strAirProgramCodes, 1, 1) = '1' then '0 - SIP' Else '' end APC0, "
 
                 If SQLFrom.IndexOf("" & connNameSpace & ".APBHeaderData") <> -1 Then
-                    SQLFrom = SQLFrom
+                    'SQLFrom = SQLFrom
                 Else
                     SQLFrom = SQLFrom & " " & connNameSpace & ".APBHeaderData, "
                     SQLWhere = SQLWhere & " and " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber "
@@ -1910,7 +1910,7 @@ Public Class IAIPQueryGenerator
                 SQLSelect = SQLSelect & "case when substr(strAirProgramCodes, 2, 1) = '0' then '' when substr(strAirProgramCodes, 2, 1) = '1' then '1 - Federal SIP' Else '' end APC1, "
 
                 If SQLFrom.IndexOf("" & connNameSpace & ".APBHeaderData") <> -1 Then
-                    SQLFrom = SQLFrom
+                    '  SQLFrom = SQLFrom
                 Else
                     SQLFrom = SQLFrom & " " & connNameSpace & ".APBHeaderData, "
                     SQLWhere = SQLWhere & " and " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber "
@@ -1926,7 +1926,7 @@ Public Class IAIPQueryGenerator
                 SQLSelect = SQLSelect & "case when substr(strAirProgramCodes, 3, 1) = '0' then '' when substr(strAirProgramCodes, 3, 1) = '1' then '3 - Non-Fed' Else '' end APC3, "
 
                 If SQLFrom.IndexOf("" & connNameSpace & ".APBHeaderData") <> -1 Then
-                    SQLFrom = SQLFrom
+                    '  SQLFrom = SQLFrom
                 Else
                     SQLFrom = SQLFrom & " " & connNameSpace & ".APBHeaderData, "
                     SQLWhere = SQLWhere & " and " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber "
@@ -1942,7 +1942,7 @@ Public Class IAIPQueryGenerator
                 SQLSelect = SQLSelect & "case when substr(strAirProgramCodes, 4, 1) = '0' then '' when substr(strAirProgramCodes, 4, 1) = '1' then '4 - CFC Tracking' Else '' end APC4, "
 
                 If SQLFrom.IndexOf("" & connNameSpace & ".APBHeaderData") <> -1 Then
-                    SQLFrom = SQLFrom
+                    '   SQLFrom = SQLFrom
                 Else
                     SQLFrom = SQLFrom & " " & connNameSpace & ".APBHeaderData, "
                     SQLWhere = SQLWhere & " and " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber "
@@ -1958,7 +1958,7 @@ Public Class IAIPQueryGenerator
                 SQLSelect = SQLSelect & "case when substr(strAirProgramCodes, 5, 1) = '0' then '' when substr(strAirProgramCodes, 5, 1) = '1' then '6 - PSD' Else '' end APC6, "
 
                 If SQLFrom.IndexOf("" & connNameSpace & ".APBHeaderData") <> -1 Then
-                    SQLFrom = SQLFrom
+                '    SQLFrom = SQLFrom
                 Else
                     SQLFrom = SQLFrom & " " & connNameSpace & ".APBHeaderData, "
                     SQLWhere = SQLWhere & " and " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber "
@@ -1974,7 +1974,7 @@ Public Class IAIPQueryGenerator
                 SQLSelect = SQLSelect & "case when substr(strAirProgramCodes, 6, 1) = '0' then '' when substr(strAirProgramCodes, 6, 1) = '1' then '7 - NSR' Else '' end APC7, "
 
                 If SQLFrom.IndexOf("" & connNameSpace & ".APBHeaderData") <> -1 Then
-                    SQLFrom = SQLFrom
+                    '  SQLFrom = SQLFrom
                 Else
                     SQLFrom = SQLFrom & " " & connNameSpace & ".APBHeaderData, "
                     SQLWhere = SQLWhere & " and " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber "
@@ -1990,7 +1990,7 @@ Public Class IAIPQueryGenerator
                 SQLSelect = SQLSelect & "case when substr(strAirProgramCodes, 7, 1) = '0' then '' when substr(strAirProgramCodes, 7, 1) = '1' then '8 - NESHAP' Else '' end APC8, "
 
                 If SQLFrom.IndexOf("" & connNameSpace & ".APBHeaderData") <> -1 Then
-                    SQLFrom = SQLFrom
+                    '  SQLFrom = SQLFrom
                 Else
                     SQLFrom = SQLFrom & " " & connNameSpace & ".APBHeaderData, "
                     SQLWhere = SQLWhere & " and " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber "
@@ -2006,7 +2006,7 @@ Public Class IAIPQueryGenerator
                 SQLSelect = SQLSelect & "case when substr(strAirProgramCodes, 8, 1) = '0' then '' when substr(strAirProgramCodes, 8, 1) = '1' then '9 - NSPS' Else '' end APC9, "
 
                 If SQLFrom.IndexOf("" & connNameSpace & ".APBHeaderData") <> -1 Then
-                    SQLFrom = SQLFrom
+                    '   SQLFrom = SQLFrom
                 Else
                     SQLFrom = SQLFrom & " " & connNameSpace & ".APBHeaderData, "
                     SQLWhere = SQLWhere & " and " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber "
@@ -2022,7 +2022,7 @@ Public Class IAIPQueryGenerator
                 SQLSelect = SQLSelect & "case when substr(strAirProgramCodes, 9, 1) = '0' then '' when substr(strAirProgramCodes, 9, 1) = '1' then 'A - Acid Percipitation' Else '' end APCA, "
 
                 If SQLFrom.IndexOf("" & connNameSpace & ".APBHeaderData") <> -1 Then
-                    SQLFrom = SQLFrom
+                    '   SQLFrom = SQLFrom
                 Else
                     SQLFrom = SQLFrom & " " & connNameSpace & ".APBHeaderData, "
                     SQLWhere = SQLWhere & " and " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber "
@@ -2038,7 +2038,7 @@ Public Class IAIPQueryGenerator
                 SQLSelect = SQLSelect & "case when substr(strAirProgramCodes, 10, 1) = '0' then '' when substr(strAirProgramCodes, 10, 1) = '1' then 'F - FESHOP' Else '' end APCF, "
 
                 If SQLFrom.IndexOf("" & connNameSpace & ".APBHeaderData") <> -1 Then
-                    SQLFrom = SQLFrom
+                    '    SQLFrom = SQLFrom
                 Else
                     SQLFrom = SQLFrom & " " & connNameSpace & ".APBHeaderData, "
                     SQLWhere = SQLWhere & " and " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber "
@@ -2054,7 +2054,7 @@ Public Class IAIPQueryGenerator
                 SQLSelect = SQLSelect & "case when substr(strAirProgramCodes, 11, 1) = '0' then '' when substr(strAirProgramCodes, 11, 1) = '1' then 'I - Native American' Else '' end APCI, "
 
                 If SQLFrom.IndexOf("" & connNameSpace & ".APBHeaderData") <> -1 Then
-                    SQLFrom = SQLFrom
+                    '    SQLFrom = SQLFrom
                 Else
                     SQLFrom = SQLFrom & " " & connNameSpace & ".APBHeaderData, "
                     SQLWhere = SQLWhere & " and " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber "
@@ -2070,7 +2070,7 @@ Public Class IAIPQueryGenerator
                 SQLSelect = SQLSelect & "case when substr(strAirProgramCodes, 12, 1) = '0' then '' when substr(strAirProgramCodes, 12, 1) = '1' then 'M - MACT' Else '' end APCM, "
 
                 If SQLFrom.IndexOf("" & connNameSpace & ".APBHeaderData") <> -1 Then
-                    SQLFrom = SQLFrom
+                    '      SQLFrom = SQLFrom
                 Else
                     SQLFrom = SQLFrom & " " & connNameSpace & ".APBHeaderData, "
                     SQLWhere = SQLWhere & " and " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber "
@@ -2086,7 +2086,7 @@ Public Class IAIPQueryGenerator
                 SQLSelect = SQLSelect & "case when substr(strAirProgramCodes, 13, 1) = '0' then '' when substr(strAirProgramCodes, 13, 1) = '1' then 'V - Title V' Else '' end APCV, "
 
                 If SQLFrom.IndexOf("" & connNameSpace & ".APBHeaderData") <> -1 Then
-                    SQLFrom = SQLFrom
+                    '  SQLFrom = SQLFrom
                 Else
                     SQLFrom = SQLFrom & " " & connNameSpace & ".APBHeaderData, "
                     SQLWhere = SQLWhere & " and " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber "
@@ -2112,7 +2112,7 @@ Public Class IAIPQueryGenerator
                 "when substr(strSubPartKey, 13, 1) = 'M' then strSubPart " & _
                 "End Part63, "
                 If SQLFrom.IndexOf("" & connNameSpace & ".APBSubPartData") <> -1 Then
-                    SQLFrom = SQLFrom
+                    ' SQLFrom = SQLFrom
                 Else
                     SQLFrom = SQLFrom & " " & connNameSpace & ".APBSubPartData, "
                     SQLWhere = SQLWhere & " and " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".APBSubPartData.strAIRSNumber " & _
@@ -2131,7 +2131,7 @@ Public Class IAIPQueryGenerator
                 "End GASIP, "
 
                 If SQLFrom.IndexOf("" & connNameSpace & ".APBSubPartData") <> -1 Then
-                    SQLFrom = SQLFrom
+                    ' SQLFrom = SQLFrom
                 Else
                     SQLFrom = SQLFrom & " " & connNameSpace & ".APBSubPartData, "
                     SQLWhere = SQLWhere & " and " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".APBSubPartData.strAIRSNumber " & _
@@ -2169,7 +2169,7 @@ Public Class IAIPQueryGenerator
                 "End Part61, "
 
                 If SQLFrom.IndexOf("" & connNameSpace & ".APBSubPartData") <> -1 Then
-                    SQLFrom = SQLFrom
+                    '   SQLFrom = SQLFrom
                 Else
                     SQLFrom = SQLFrom & " " & connNameSpace & ".APBSubPartData, "
                     SQLWhere = SQLWhere & " and " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".APBSubPartData.strAIRSNumber " & _
@@ -2212,7 +2212,7 @@ Public Class IAIPQueryGenerator
                 "End Part60, "
 
                 If SQLFrom.IndexOf("" & connNameSpace & ".APBSubPartData") <> -1 Then
-                    SQLFrom = SQLFrom
+                    '  SQLFrom = SQLFrom
                 Else
                     SQLFrom = SQLFrom & " " & connNameSpace & ".APBSubPartData, "
                     SQLWhere = SQLWhere & " and " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".APBSubPartData.strAIRSNumber " & _
@@ -2255,7 +2255,7 @@ Public Class IAIPQueryGenerator
                 "End Part63, "
 
                 If SQLFrom.IndexOf("" & connNameSpace & ".APBSubPartData") <> -1 Then
-                    SQLFrom = SQLFrom
+                   ' SQLFrom = SQLFrom
                 Else
                     SQLFrom = SQLFrom & " " & connNameSpace & ".APBSubPartData, "
                     SQLWhere = SQLWhere & " and " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".APBSubPartData.strAIRSNumber " & _
@@ -2333,7 +2333,7 @@ Public Class IAIPQueryGenerator
                 "" & connNameSpace & ".APBFacilityInformation.strFacilityStreet1, "
 
                 If SQLFrom.IndexOf("" & connNameSpace & ".APBFacilityInformation") <> -1 Then
-                    SQLFrom = SQLFrom
+                  '  SQLFrom = SQLFrom
                 Else
                     SQLFrom = SQLFrom & " " & connNameSpace & ".APBFacilityInformation, "
                     SQLWhere = SQLWhere & " and " & connNameSpace & ".APBMasterAIRS.strAIRSNumber = " & connNameSpace & ".APBFacilityInformation.strAIRSNumber "
@@ -2344,7 +2344,7 @@ Public Class IAIPQueryGenerator
                 "" & connNameSpace & ".APBFacilityInformation.strFacilityStreet2, "
 
                 If SQLFrom.IndexOf("" & connNameSpace & ".APBFacilityInformation") <> -1 Then
-                    SQLFrom = SQLFrom
+                    ' SQLFrom = SQLFrom
                 Else
                     SQLFrom = SQLFrom & " " & connNameSpace & ".APBFacilityInformation, "
                     SQLWhere = SQLWhere & " and " & connNameSpace & ".APBMasterAIRS.strAIRSNumber = " & connNameSpace & ".APBFacilityInformation.strAIRSNumber "
@@ -2356,7 +2356,7 @@ Public Class IAIPQueryGenerator
                 "" & connNameSpace & ".APBFacilityInformation.strFacilityCity, "
 
                 If SQLFrom.IndexOf("" & connNameSpace & ".APBFacilityInformation") <> -1 Then
-                    SQLFrom = SQLFrom
+                    ' SQLFrom = SQLFrom
                 Else
                     SQLFrom = SQLFrom & " " & connNameSpace & ".APBFacilityInformation, "
                     SQLWhere = SQLWhere & " and " & connNameSpace & ".APBMasterAIRS.strAIRSNumber = " & connNameSpace & ".APBFacilityInformation.strAIRSNumber "
@@ -2368,7 +2368,7 @@ Public Class IAIPQueryGenerator
                 "" & connNameSpace & ".APBFacilityInformation.strFacilityZipCode, "
 
                 If SQLFrom.IndexOf("" & connNameSpace & ".APBFacilityInformation") <> -1 Then
-                    SQLFrom = SQLFrom
+                    ' SQLFrom = SQLFrom
                 Else
                     SQLFrom = SQLFrom & " " & connNameSpace & ".APBFacilityInformation, "
                     SQLWhere = SQLWhere & " and " & connNameSpace & ".APBMasterAIRS.strAIRSNumber = " & connNameSpace & ".APBFacilityInformation.strAIRSNumber "
@@ -2380,7 +2380,7 @@ Public Class IAIPQueryGenerator
                 "" & connNameSpace & ".APBFacilityInformation.numFacilityLatitude, "
 
                 If SQLFrom.IndexOf("" & connNameSpace & ".APBFacilityInformation") <> -1 Then
-                    SQLFrom = SQLFrom
+                    ' SQLFrom = SQLFrom
                 Else
                     SQLFrom = SQLFrom & " " & connNameSpace & ".APBFacilityInformation, "
                     SQLWhere = SQLWhere & " and " & connNameSpace & ".APBMasterAIRS.strAIRSNumber = " & connNameSpace & ".APBFacilityInformation.strAIRSNumber "
@@ -2392,13 +2392,13 @@ Public Class IAIPQueryGenerator
                 "(strLastName||', '||strFirstName) as SSCPEngineer, "
 
                 If SQLFrom.IndexOf("" & connNameSpace & ".SSCPInspectionsRequired") <> -1 Then
-                    SQLFrom = SQLFrom
+                    '   SQLFrom = SQLFrom
                 Else
                     SQLFrom = SQLFrom & " " & connNameSpace & ".SSCPInspectionsRequired, "
                     SQLWhere = SQLWhere & " and " & connNameSpace & ".APBMasterAIRS.strAIRSnumber = " & connNameSpace & ".SSCPInspectionsRequired.strAIRSNumber "
                 End If
                 If SQLFrom.IndexOf("" & connNameSpace & ".EPDUserProflies") <> -1 Then
-                    SQLFrom = SQLFrom
+                    '  SQLFrom = SQLFrom
                 Else
                     SQLFrom = SQLFrom & " " & connNameSpace & ".EPDUserProfiles, "
                     SQLWhere = SQLWhere & " and " & connNameSpace & ".EPDUserProfiles.numUserID = " & connNameSpace & ".SSCPInspectionsRequired.numSSCPEngineer "
@@ -2410,7 +2410,7 @@ Public Class IAIPQueryGenerator
                 "" & connNameSpace & ".APBFacilityInformation.numFacilityLongitude, "
 
                 If SQLFrom.IndexOf("" & connNameSpace & ".APBFacilityInformation") <> -1 Then
-                    SQLFrom = SQLFrom
+                    ' SQLFrom = SQLFrom
                 Else
                     SQLFrom = SQLFrom & " " & connNameSpace & ".APBFacilityInformation, "
                     SQLWhere = SQLWhere & " and " & connNameSpace & ".APBMasterAIRS.strAIRSNumber = " & connNameSpace & ".APBFacilityInformation.strAIRSNumber "
@@ -2422,7 +2422,7 @@ Public Class IAIPQueryGenerator
                 "" & connNameSpace & ".LookUpCountyInformation.strCountyName, "
 
                 If SQLFrom.IndexOf("" & connNameSpace & ".LookUpCountyInformation") <> -1 Then
-                    SQLFrom = SQLFrom
+                    '  SQLFrom = SQLFrom
                 Else
                     SQLFrom = SQLFrom & " " & connNameSpace & ".LookUpCountyInformation, "
                     SQLWhere = SQLWhere & " and substr(" & connNameSpace & ".APBMasterAIRS.strAIRSNumber, 5, 3) = " & _
@@ -2435,7 +2435,7 @@ Public Class IAIPQueryGenerator
                 "" & connNameSpace & ".LookUpDistricts.strDistrictName, "
 
                 If SQLFrom.IndexOf("" & connNameSpace & ".LookUpDistricts") <> -1 Then
-                    SQLFrom = SQLFrom
+                    'SQLFrom = SQLFrom
                 Else
                     SQLFrom = SQLFrom & " " & connNameSpace & ".LookUpDistricts, " & connNameSpace & ".LookUpDistrictInformation, "
                     SQLWhere = SQLWhere & " and substr(" & connNameSpace & ".APBMasterAIRS.strAIRSNumber, 5, 3) = " & _
@@ -2449,7 +2449,7 @@ Public Class IAIPQueryGenerator
                 "" & connNameSpace & ".APBHeaderData.strOperationalStatus, "
 
                 If SQLFrom.IndexOf("" & connNameSpace & ".APBHeaderData") <> -1 Then
-                    SQLFrom = SQLFrom
+                    ' SQLFrom = SQLFrom
                 Else
                     SQLFrom = SQLFrom & " " & connNameSpace & ".APBHeaderData, "
                     SQLWhere = SQLWhere & " and " & connNameSpace & ".APBMasterAIRS.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber "
@@ -2461,7 +2461,7 @@ Public Class IAIPQueryGenerator
                 "" & connNameSpace & ".APBHeaderData.strClass, "
 
                 If SQLFrom.IndexOf("" & connNameSpace & ".APBHeaderData") <> -1 Then
-                    SQLFrom = SQLFrom
+                    ' SQLFrom = SQLFrom
                 Else
                     SQLFrom = SQLFrom & " " & connNameSpace & ".APBHeaderData, "
                     SQLWhere = SQLWhere & " and " & connNameSpace & ".APBMasterAIRS.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber "
@@ -2473,7 +2473,7 @@ Public Class IAIPQueryGenerator
                 "" & connNameSpace & ".APBHeaderData.strSICCode, "
 
                 If SQLFrom.IndexOf("" & connNameSpace & ".APBHeaderData") <> -1 Then
-                    SQLFrom = SQLFrom
+                    'SQLFrom = SQLFrom
                 Else
                     SQLFrom = SQLFrom & " " & connNameSpace & ".APBHeaderData, "
                     SQLWhere = SQLWhere & " and " & connNameSpace & ".APBMasterAIRS.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber "
@@ -2485,7 +2485,7 @@ Public Class IAIPQueryGenerator
                 "" & connNameSpace & ".APBHeaderData.strNAICSCode, "
 
                 If SQLFrom.IndexOf("" & connNameSpace & ".APBHeaderData") <> -1 Then
-                    SQLFrom = SQLFrom
+                    '   SQLFrom = SQLFrom
                 Else
                     SQLFrom = SQLFrom & " " & connNameSpace & ".APBHeaderData, "
                     SQLWhere = SQLWhere & " and " & connNameSpace & ".APBMasterAIRS.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber "
@@ -2497,7 +2497,7 @@ Public Class IAIPQueryGenerator
                 "" & connNameSpace & ".APBHeaderData.datStartUpDate, "
 
                 If SQLFrom.IndexOf("" & connNameSpace & ".APBHeaderData") <> -1 Then
-                    SQLFrom = SQLFrom
+                    '  SQLFrom = SQLFrom
                 Else
                     SQLFrom = SQLFrom & " " & connNameSpace & ".APBHeaderData, "
                     SQLWhere = SQLWhere & " and " & connNameSpace & ".APBMasterAIRS.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber "
@@ -2509,7 +2509,7 @@ Public Class IAIPQueryGenerator
                 "" & connNameSpace & ".APBHeaderData.datShutDownDate, "
 
                 If SQLFrom.IndexOf("" & connNameSpace & ".APBHeaderData") <> -1 Then
-                    SQLFrom = SQLFrom
+                    ' SQLFrom = SQLFrom
                 Else
                     SQLFrom = SQLFrom & " " & connNameSpace & ".APBHeaderData, "
                     SQLWhere = SQLWhere & " and " & connNameSpace & ".APBMasterAIRS.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber "
@@ -2521,7 +2521,7 @@ Public Class IAIPQueryGenerator
                 "" & connNameSpace & ".APBSupplamentalData.strCMSMember, "
 
                 If SQLFrom.IndexOf("" & connNameSpace & ".APBSupplamentalData") <> -1 Then
-                    SQLFrom = SQLFrom
+                    '   SQLFrom = SQLFrom
                 Else
                     SQLFrom = SQLFrom & " " & connNameSpace & ".APBSupplamentalData, "
                     SQLWhere = SQLWhere & " and " & connNameSpace & ".APBMasterAIRS.strAIRSNumber = " & connNameSpace & ".APBSupplamentalData.strAIRSNumber "
@@ -2533,7 +2533,7 @@ Public Class IAIPQueryGenerator
                 "" & connNameSpace & ".APBHeaderData.strPlantDescription, "
 
                 If SQLFrom.IndexOf("" & connNameSpace & ".APBHeaderData") <> -1 Then
-                    SQLFrom = SQLFrom
+                  '  SQLFrom = SQLFrom
                 Else
                     SQLFrom = SQLFrom & " " & connNameSpace & ".APBHeaderData, "
                     SQLWhere = SQLWhere & " and " & connNameSpace & ".APBMasterAIRS.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber "
@@ -2587,7 +2587,7 @@ Public Class IAIPQueryGenerator
                 "else '' end PMNo, "
 
                 If SQLFrom.IndexOf("" & connNameSpace & ".APBHeaderData") <> -1 Then
-                    SQLFrom = SQLFrom
+                 '   SQLFrom = SQLFrom
                 Else
                     SQLFrom = SQLFrom & " " & connNameSpace & ".APBHeaderData, "
                     SQLWhere = SQLWhere & " and " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber "
@@ -2600,7 +2600,7 @@ Public Class IAIPQueryGenerator
                     "Else '' end OneHrYes, "
 
                     If SQLFrom.IndexOf("" & connNameSpace & ".APBHeaderData") <> -1 Then
-                        SQLFrom = SQLFrom
+                        ' SQLFrom = SQLFrom
                     Else
                         SQLFrom = SQLFrom & " " & connNameSpace & ".APBHeaderData, "
                         SQLWhere = SQLWhere & " and " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber "
@@ -2614,7 +2614,7 @@ Public Class IAIPQueryGenerator
                     "Else '' End OneHrNo, "
 
                     If SQLFrom.IndexOf("" & connNameSpace & ".APBHeaderData") <> -1 Then
-                        SQLFrom = SQLFrom
+                        '  SQLFrom = SQLFrom
                     Else
                         SQLFrom = SQLFrom & " " & connNameSpace & ".APBHeaderData, "
                         SQLWhere = SQLWhere & " and " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber "
@@ -2628,7 +2628,7 @@ Public Class IAIPQueryGenerator
                     "Else '' end OneHrContribute, "
 
                     If SQLFrom.IndexOf("" & connNameSpace & ".APBHeaderData") <> -1 Then
-                        SQLFrom = SQLFrom
+                        '  SQLFrom = SQLFrom
                     Else
                         SQLFrom = SQLFrom & " " & connNameSpace & ".APBHeaderData, "
                         SQLWhere = SQLWhere & " and " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber "
@@ -2642,7 +2642,7 @@ Public Class IAIPQueryGenerator
                     "else '' end EightHrAtlanta, "
 
                     If SQLFrom.IndexOf("" & connNameSpace & ".APBHeaderData") <> -1 Then
-                        SQLFrom = SQLFrom
+                        '  SQLFrom = SQLFrom
                     Else
                         SQLFrom = SQLFrom & " " & connNameSpace & ".APBHeaderData, "
                         SQLWhere = SQLWhere & " and " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber "
@@ -2656,7 +2656,7 @@ Public Class IAIPQueryGenerator
                     "else '' end EightHrMacon, "
 
                     If SQLFrom.IndexOf("" & connNameSpace & ".APBHeaderData") <> -1 Then
-                        SQLFrom = SQLFrom
+                        '  SQLFrom = SQLFrom
                     Else
                         SQLFrom = SQLFrom & " " & connNameSpace & ".APBHeaderData, "
                         SQLWhere = SQLWhere & " and " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber "
@@ -2670,7 +2670,7 @@ Public Class IAIPQueryGenerator
                     "else '' end EightHrNo, "
 
                     If SQLFrom.IndexOf("" & connNameSpace & ".APBHeaderData") <> -1 Then
-                        SQLFrom = SQLFrom
+                      '  SQLFrom = SQLFrom
                     Else
                         SQLFrom = SQLFrom & " " & connNameSpace & ".APBHeaderData, "
                         SQLWhere = SQLWhere & " and " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber "
@@ -2684,7 +2684,7 @@ Public Class IAIPQueryGenerator
                     "else '' end PMAtlanta, "
 
                     If SQLFrom.IndexOf("" & connNameSpace & ".APBHeaderData") <> -1 Then
-                        SQLFrom = SQLFrom
+                        ' SQLFrom = SQLFrom
                     Else
                         SQLFrom = SQLFrom & " " & connNameSpace & ".APBHeaderData, "
                         SQLWhere = SQLWhere & " and " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber "
@@ -2698,7 +2698,7 @@ Public Class IAIPQueryGenerator
                     "else '' end PMChattanooga, "
 
                     If SQLFrom.IndexOf("" & connNameSpace & ".APBHeaderData") <> -1 Then
-                        SQLFrom = SQLFrom
+                        '   SQLFrom = SQLFrom
                     Else
                         SQLFrom = SQLFrom & " " & connNameSpace & ".APBHeaderData, "
                         SQLWhere = SQLWhere & " and " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber "
@@ -2712,7 +2712,7 @@ Public Class IAIPQueryGenerator
                     "else '' end PMFloyd, "
 
                     If SQLFrom.IndexOf("" & connNameSpace & ".APBHeaderData") <> -1 Then
-                        SQLFrom = SQLFrom
+                        '  SQLFrom = SQLFrom
                     Else
                         SQLFrom = SQLFrom & " " & connNameSpace & ".APBHeaderData, "
                         SQLWhere = SQLWhere & " and " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber "
@@ -2726,7 +2726,7 @@ Public Class IAIPQueryGenerator
                     "else '' end PMMacon, "
 
                     If SQLFrom.IndexOf("" & connNameSpace & ".APBHeaderData") <> -1 Then
-                        SQLFrom = SQLFrom
+                        '  SQLFrom = SQLFrom
                     Else
                         SQLFrom = SQLFrom & " " & connNameSpace & ".APBHeaderData, "
                         SQLWhere = SQLWhere & " and " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber "
@@ -2740,7 +2740,7 @@ Public Class IAIPQueryGenerator
                     "else '' end PMNo, "
 
                     If SQLFrom.IndexOf("" & connNameSpace & ".APBHeaderData") <> -1 Then
-                        SQLFrom = SQLFrom
+                        '  SQLFrom = SQLFrom
                     Else
                         SQLFrom = SQLFrom & " " & connNameSpace & ".APBHeaderData, "
                         SQLWhere = SQLWhere & " and " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber "
@@ -2758,7 +2758,7 @@ Public Class IAIPQueryGenerator
                 "Else '' end HAP, "
 
                 If SQLFrom.IndexOf("" & connNameSpace & ".APBHeaderData") <> -1 Then
-                    SQLFrom = SQLFrom
+                    '   SQLFrom = SQLFrom
                 Else
                     SQLFrom = SQLFrom & " " & connNameSpace & ".APBHeaderData, "
                     SQLWhere = SQLWhere & " and " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber "
@@ -2772,7 +2772,7 @@ Public Class IAIPQueryGenerator
                     "Else '' end NSRPSD, "
 
                     If SQLFrom.IndexOf("" & connNameSpace & ".APBHeaderData") <> -1 Then
-                        SQLFrom = SQLFrom
+                        '  SQLFrom = SQLFrom
                     Else
                         SQLFrom = SQLFrom & " " & connNameSpace & ".APBHeaderData, "
                         SQLWhere = SQLWhere & " and " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber "
@@ -2787,7 +2787,7 @@ Public Class IAIPQueryGenerator
                     "Else '' end HAP, "
 
                     If SQLFrom.IndexOf("" & connNameSpace & ".APBHeaderData") <> -1 Then
-                        SQLFrom = SQLFrom
+                        '   SQLFrom = SQLFrom
                     Else
                         SQLFrom = SQLFrom & " " & connNameSpace & ".APBHeaderData, "
                         SQLWhere = SQLWhere & " and " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber "
@@ -2839,7 +2839,7 @@ Public Class IAIPQueryGenerator
                 "Else '' end APCV, "
 
                 If SQLFrom.IndexOf("" & connNameSpace & ".APBHeaderData") <> -1 Then
-                    SQLFrom = SQLFrom
+                    ' SQLFrom = SQLFrom
                 Else
                     SQLFrom = SQLFrom & " " & connNameSpace & ".APBHeaderData, "
                     SQLWhere = SQLWhere & " and " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber "
@@ -2853,7 +2853,7 @@ Public Class IAIPQueryGenerator
                     "Else '' end APC0, "
 
                     If SQLFrom.IndexOf("" & connNameSpace & ".APBHeaderData") <> -1 Then
-                        SQLFrom = SQLFrom
+                        '    SQLFrom = SQLFrom
                     Else
                         SQLFrom = SQLFrom & " " & connNameSpace & ".APBHeaderData, "
                         SQLWhere = SQLWhere & " and " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber "
@@ -2867,7 +2867,7 @@ Public Class IAIPQueryGenerator
                     "Else '' end APC1, "
 
                     If SQLFrom.IndexOf("" & connNameSpace & ".APBHeaderData") <> -1 Then
-                        SQLFrom = SQLFrom
+                        '   SQLFrom = SQLFrom
                     Else
                         SQLFrom = SQLFrom & " " & connNameSpace & ".APBHeaderData, "
                         SQLWhere = SQLWhere & " and " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber "
@@ -2881,7 +2881,7 @@ Public Class IAIPQueryGenerator
                     "Else '' end APC3, "
 
                     If SQLFrom.IndexOf("" & connNameSpace & ".APBHeaderData") <> -1 Then
-                        SQLFrom = SQLFrom
+                        ' SQLFrom = SQLFrom
                     Else
                         SQLFrom = SQLFrom & " " & connNameSpace & ".APBHeaderData, "
                         SQLWhere = SQLWhere & " and " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber "
@@ -2895,7 +2895,7 @@ Public Class IAIPQueryGenerator
                     "Else '' end APC4, "
 
                     If SQLFrom.IndexOf("" & connNameSpace & ".APBHeaderData") <> -1 Then
-                        SQLFrom = SQLFrom
+                     '   SQLFrom = SQLFrom
                     Else
                         SQLFrom = SQLFrom & " " & connNameSpace & ".APBHeaderData, "
                         SQLWhere = SQLWhere & " and " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber "
@@ -2908,7 +2908,7 @@ Public Class IAIPQueryGenerator
                                     "Else '' end APC6, "
 
                     If SQLFrom.IndexOf("" & connNameSpace & ".APBHeaderData") <> -1 Then
-                        SQLFrom = SQLFrom
+                        '  SQLFrom = SQLFrom
                     Else
                         SQLFrom = SQLFrom & " " & connNameSpace & ".APBHeaderData, "
                         SQLWhere = SQLWhere & " and " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber "
@@ -2922,7 +2922,7 @@ Public Class IAIPQueryGenerator
                     "Else '' end APC7, "
 
                     If SQLFrom.IndexOf("" & connNameSpace & ".APBHeaderData") <> -1 Then
-                        SQLFrom = SQLFrom
+                        ' SQLFrom = SQLFrom
                     Else
                         SQLFrom = SQLFrom & " " & connNameSpace & ".APBHeaderData, "
                         SQLWhere = SQLWhere & " and " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber "
@@ -2936,7 +2936,7 @@ Public Class IAIPQueryGenerator
                     "Else '' end APC8, "
 
                     If SQLFrom.IndexOf("" & connNameSpace & ".APBHeaderData") <> -1 Then
-                        SQLFrom = SQLFrom
+                        '      SQLFrom = SQLFrom
                     Else
                         SQLFrom = SQLFrom & " " & connNameSpace & ".APBHeaderData, "
                         SQLWhere = SQLWhere & " and " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber "
@@ -2950,7 +2950,7 @@ Public Class IAIPQueryGenerator
                     "Else '' end APC9, "
 
                     If SQLFrom.IndexOf("" & connNameSpace & ".APBHeaderData") <> -1 Then
-                        SQLFrom = SQLFrom
+                        '      SQLFrom = SQLFrom
                     Else
                         SQLFrom = SQLFrom & " " & connNameSpace & ".APBHeaderData, "
                         SQLWhere = SQLWhere & " and " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber "
@@ -2964,7 +2964,7 @@ Public Class IAIPQueryGenerator
                     "Else '' end APCA, "
 
                     If SQLFrom.IndexOf("" & connNameSpace & ".APBHeaderData") <> -1 Then
-                        SQLFrom = SQLFrom
+                        '         SQLFrom = SQLFrom
                     Else
                         SQLFrom = SQLFrom & " " & connNameSpace & ".APBHeaderData, "
                         SQLWhere = SQLWhere & " and " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber "
@@ -2978,7 +2978,7 @@ Public Class IAIPQueryGenerator
                     "Else '' end APCF, "
 
                     If SQLFrom.IndexOf("" & connNameSpace & ".APBHeaderData") <> -1 Then
-                        SQLFrom = SQLFrom
+                        '      SQLFrom = SQLFrom
                     Else
                         SQLFrom = SQLFrom & " " & connNameSpace & ".APBHeaderData, "
                         SQLWhere = SQLWhere & " and " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber "
@@ -2992,7 +2992,7 @@ Public Class IAIPQueryGenerator
                     "Else '' end APCI, "
 
                     If SQLFrom.IndexOf("" & connNameSpace & ".APBHeaderData") <> -1 Then
-                        SQLFrom = SQLFrom
+                        '        SQLFrom = SQLFrom
                     Else
                         SQLFrom = SQLFrom & " " & connNameSpace & ".APBHeaderData, "
                         SQLWhere = SQLWhere & " and " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber "
@@ -3006,7 +3006,7 @@ Public Class IAIPQueryGenerator
                     "Else '' end APCM, "
 
                     If SQLFrom.IndexOf("" & connNameSpace & ".APBHeaderData") <> -1 Then
-                        SQLFrom = SQLFrom
+                     '   SQLFrom = SQLFrom
                     Else
                         SQLFrom = SQLFrom & " " & connNameSpace & ".APBHeaderData, "
                         SQLWhere = SQLWhere & " and " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber "
@@ -3020,7 +3020,7 @@ Public Class IAIPQueryGenerator
                     "Else '' end APCV, "
 
                     If SQLFrom.IndexOf("" & connNameSpace & ".APBHeaderData") <> -1 Then
-                        SQLFrom = SQLFrom
+                        '   SQLFrom = SQLFrom
                     Else
                         SQLFrom = SQLFrom & " " & connNameSpace & ".APBHeaderData, "
                         SQLWhere = SQLWhere & " and " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber "
@@ -3044,7 +3044,7 @@ Public Class IAIPQueryGenerator
                    "End Part63, "
 
                 If SQLFrom.IndexOf("" & connNameSpace & ".APBSubPartData") <> -1 Then
-                    SQLFrom = SQLFrom
+                    '      SQLFrom = SQLFrom
                 Else
                     SQLFrom = SQLFrom & " " & connNameSpace & ".APBSubPartData, "
                     SQLWhere = SQLWhere & _
@@ -3059,7 +3059,7 @@ Public Class IAIPQueryGenerator
                     "end GASIP, "
 
                     If SQLFrom.IndexOf("" & connNameSpace & ".APBSubPartData") <> -1 Then
-                        SQLFrom = SQLFrom
+                        '          SQLFrom = SQLFrom
                     Else
                         SQLFrom = SQLFrom & " " & connNameSpace & ".APBSubPartData, "
                         SQLWhere = SQLWhere & _
@@ -3074,7 +3074,7 @@ Public Class IAIPQueryGenerator
                     "end Part61, "
 
                     If SQLFrom.IndexOf("" & connNameSpace & ".APBSubPartData") <> -1 Then
-                        SQLFrom = SQLFrom
+                        '         SQLFrom = SQLFrom
                     Else
                         SQLFrom = SQLFrom & " " & connNameSpace & ".APBSubPartData, "
                         SQLWhere = SQLWhere & _
@@ -3089,7 +3089,7 @@ Public Class IAIPQueryGenerator
                     "end Part60, "
 
                     If SQLFrom.IndexOf("" & connNameSpace & ".APBSubPartData") <> -1 Then
-                        SQLFrom = SQLFrom
+                        '       SQLFrom = SQLFrom
                     Else
                         SQLFrom = SQLFrom & " " & connNameSpace & ".APBSubPartData, "
                         SQLWhere = SQLWhere & _
@@ -3104,7 +3104,7 @@ Public Class IAIPQueryGenerator
                     "end Part63, "
 
                     If SQLFrom.IndexOf("" & connNameSpace & ".APBSubPartData") <> -1 Then
-                        SQLFrom = SQLFrom
+                        '       SQLFrom = SQLFrom
                     Else
                         SQLFrom = SQLFrom & " " & connNameSpace & ".APBSubPartData, "
                         SQLWhere = SQLWhere & _
@@ -3119,7 +3119,7 @@ Public Class IAIPQueryGenerator
                 "LastFCE, "
 
                 If SQLFrom.IndexOf("" & connNameSpace & ".VW_SSCP_MT_FacilityAssignment") <> -1 Then
-                    SQLFrom = SQLFrom
+                    '   SQLFrom = SQLFrom
                 Else
                     SQLFrom = SQLFrom & " " & connNameSpace & ".VW_SSCP_MT_FacilityAssignment, "
                     SQLWhere = SQLWhere & " and " & connNameSpace & ".APBMasterAIRS.strAIRSNumber = " & connNameSpace & ".VW_SSCP_MT_FacilityAssignment.strAIRSNumber "
@@ -3131,14 +3131,14 @@ Public Class IAIPQueryGenerator
                 "strUnitDesc, "
 
                 If SQLFrom.IndexOf("" & connNameSpace & ".SSCPInspectionsRequired") <> -1 Then
-                    SQLFrom = SQLFrom
+                    '     SQLFrom = SQLFrom
                 Else
                     SQLFrom = SQLFrom & " " & connNameSpace & ".SSCPInspectionsRequired, "
                     SQLWhere = SQLWhere & " and " & connNameSpace & ".APBMasterAIRS.strAIRSNumber = " & connNameSpace & ".SSCPInspectionsRequired.strAIRSNumber (+)  " & _
                     " and intyear = (select max(intyear) from airbranch.SSCPInspectionsRequired)   "
                 End If
                 If SQLFrom.IndexOf("" & connNameSpace & ".LookUpEPDUnits") <> -1 Then
-                    SQLFrom = SQLFrom
+                 '   SQLFrom = SQLFrom
                 Else
                     SQLFrom = SQLFrom & " " & connNameSpace & ".LookUpEPDUnits, "
                     SQLWhere = SQLWhere & " and " & connNameSpace & ".SSCPInspectionsRequired.numSSCPUnit = " & connNameSpace & ".LookUpEPDUnits.nuMUnitCode (+) "
@@ -5304,15 +5304,13 @@ Public Class IAIPQueryGenerator
     End Sub
     Sub UpdateDefaultSearch()
         Dim DefaultsText As String = ""
-        Dim UpdatedText As String = ""
+        'Dim UpdatedText As String = ""
         Dim CheckBoxes As String = ""
         Dim SearchText As String = ""
         Dim BooleanText As String = ""
         Dim SearchOrder As String = ""
 
         Try
-
-
             CheckBoxes = ""
             SearchText = ""
             BooleanText = ""

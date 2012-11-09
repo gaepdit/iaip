@@ -1,9 +1,5 @@
-﻿Imports System.Data.OracleClient
-
-
+﻿'Imports System.Data.OracleClient
 Public Class IAIPFacilitySummaryPrint
-
-
 
     Private Sub IAIPFacilitySummaryPrint_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         Try
