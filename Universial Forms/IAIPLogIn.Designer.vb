@@ -326,9 +326,6 @@ Partial Class IAIPLogIn
         Me.Panel4.Spring = True
         Me.Panel4.Text = "x"
         '
-        'ToolTip1
-        '
-        '
         'llbIAIPPatch
         '
         Me.llbIAIPPatch.AutoSize = True

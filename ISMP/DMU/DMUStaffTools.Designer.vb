@@ -440,6 +440,9 @@ Me.TPEISTrackingTool = New System.Windows.Forms.TabPage
 Me.GroupBox4 = New System.Windows.Forms.GroupBox
 Me.dgvFITrackingNumber = New System.Windows.Forms.DataGridView
 Me.Panel27 = New System.Windows.Forms.Panel
+Me.Label302 = New System.Windows.Forms.Label
+Me.btnQACommentSearch = New System.Windows.Forms.Button
+Me.txtCommentSearch = New System.Windows.Forms.TextBox
 Me.Label299 = New System.Windows.Forms.Label
 Me.btnPointTrackingSearch = New System.Windows.Forms.Button
 Me.txtPointTrackingSearch = New System.Windows.Forms.TextBox
@@ -5140,6 +5143,9 @@ Me.dgvFITrackingNumber.TabIndex = 3
 '
 'Panel27
 '
+Me.Panel27.Controls.Add(Me.Label302)
+Me.Panel27.Controls.Add(Me.btnQACommentSearch)
+Me.Panel27.Controls.Add(Me.txtCommentSearch)
 Me.Panel27.Controls.Add(Me.Label299)
 Me.Panel27.Controls.Add(Me.btnPointTrackingSearch)
 Me.Panel27.Controls.Add(Me.txtPointTrackingSearch)
@@ -5156,6 +5162,33 @@ Me.Panel27.Location = New System.Drawing.Point(3, 16)
 Me.Panel27.Name = "Panel27"
 Me.Panel27.Size = New System.Drawing.Size(1002, 125)
 Me.Panel27.TabIndex = 4
+'
+'Label302
+'
+Me.Label302.AutoSize = true
+Me.Label302.Location = New System.Drawing.Point(7, 79)
+Me.Label302.Name = "Label302"
+Me.Label302.Size = New System.Drawing.Size(137, 13)
+Me.Label302.TabIndex = 113
+Me.Label302.Text = "Search by partial comments"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)
+'
+'btnQACommentSearch
+'
+Me.btnQACommentSearch.AutoSize = true
+Me.btnQACommentSearch.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+Me.btnQACommentSearch.Location = New System.Drawing.Point(153, 99)
+Me.btnQACommentSearch.Name = "btnQACommentSearch"
+Me.btnQACommentSearch.Size = New System.Drawing.Size(51, 23)
+Me.btnQACommentSearch.TabIndex = 115
+Me.btnQACommentSearch.Text = "Search"
+Me.btnQACommentSearch.UseVisualStyleBackColor = true
+'
+'txtCommentSearch
+'
+Me.txtCommentSearch.Location = New System.Drawing.Point(31, 100)
+Me.txtCommentSearch.Name = "txtCommentSearch"
+Me.txtCommentSearch.Size = New System.Drawing.Size(100, 20)
+Me.txtCommentSearch.TabIndex = 114
 '
 'Label299
 '
@@ -11833,4 +11866,7 @@ End Sub
     Friend WithEvents Label299 As System.Windows.Forms.Label
     Friend WithEvents btnPointTrackingSearch As System.Windows.Forms.Button
     Friend WithEvents txtPointTrackingSearch As System.Windows.Forms.TextBox
+    Friend WithEvents Label302 As System.Windows.Forms.Label
+    Friend WithEvents btnQACommentSearch As System.Windows.Forms.Button
+    Friend WithEvents txtCommentSearch As System.Windows.Forms.TextBox
 End Class

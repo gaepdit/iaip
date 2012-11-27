@@ -2203,7 +2203,7 @@ Partial Class DEVFacilitySummary
         Me.Label16.Name = "Label16"
         Me.Label16.Size = New System.Drawing.Size(160, 26)
         Me.Label16.TabIndex = 161
-        Me.Label16.Text = "* Admin fees are not included " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "      in the above Total Fees Due"
+        Me.Label16.Text = "* Admin fees are included " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "      in the above Total Fees Due"
         '
         'Label15
         '

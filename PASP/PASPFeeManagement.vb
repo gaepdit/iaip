@@ -2769,4 +2769,34 @@ Public Class PASPFeeManagement
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
+    Private Sub dgvFeeManagmentLists_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvFeeManagmentLists.MouseUp
+       
+        Try
+            Dim hti As DataGridView.HitTestInfo = dgvFeeManagmentLists.HitTest(e.X, e.Y)
+
+            If dgvFeeManagmentLists.RowCount > 0 And hti.RowIndex <> -1 Then
+
+
+                mtbCheckAIRSNumber.Text = dgvFeeManagmentLists(0, hti.RowIndex).Value.ToString
+
+
+                'txtDeleteNSPSExemptions.Clear()
+                'txtNSPSExemption.Clear()
+                'If IsDBNull(dgvExistingExemptions(0, hti.RowIndex).Value) Then
+                '    Exit Sub
+                'Else
+                '    txtDeleteNSPSExemptions.Text = dgvExistingExemptions(0, hti.RowIndex).Value
+                'End If
+                'If IsDBNull(dgvExistingExemptions(1, hti.RowIndex).Value) Then
+                '    txtNSPSExemption.Clear()
+                'Else
+                '    txtNSPSExemption.Text = dgvExistingExemptions(1, hti.RowIndex).Value
+                'End If
+            End If
+
+        Catch ex As Exception
+            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+        End Try
+    End Sub
 End Class

@@ -95,7 +95,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>pbJKf1ayTsw7M3IvO7dNEuoJ9Ek=</dsig:DigestValue>
+        <dsig:DigestValue>ghS2aIL3Om/ppmHD8JDpSiG9zHc=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -107,7 +107,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>2cwT2M4bPfZWHWw7sbPMAmgwXVc=</dsig:DigestValue>
+        <dsig:DigestValue>P0b7RIQIu1efjMNak2Zx6eeovMw=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -119,7 +119,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>zn+7s5CeME2HmC36jUNfLtSOe7s=</dsig:DigestValue>
+        <dsig:DigestValue>sL0oWpxtXOSqpmD8eFNSMdvNT4M=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -131,19 +131,19 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>rGaCk6YT2y8GMGtHg/D6j+gqy/E=</dsig:DigestValue>
+        <dsig:DigestValue>8dmOVVEb9DDWpcVGMjtF6peVYzs=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="JohnGaltProject.exe" size="18901504">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="JohnGaltProject.exe" size="18907648">
       <assemblyIdentity name="JohnGaltProject" version="2.6.1.8" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>6SAKSVDk2MUtSjBvQECOd8Xou0g=</dsig:DigestValue>
+        <dsig:DigestValue>Paowph3PspSpEbV8hzV9ZnTnT0w=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

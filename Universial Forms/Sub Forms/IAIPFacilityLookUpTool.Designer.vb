@@ -108,7 +108,7 @@ Partial Class IAIPFacilityLookUpTool
         Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripProgressBar1, Me.Panel1, Me.Panel2, Me.Panel3})
         Me.StatusStrip1.Location = New System.Drawing.Point(0, 423)
         Me.StatusStrip1.Name = "StatusStrip1"
-        Me.StatusStrip1.Size = New System.Drawing.Size(460, 22)
+        Me.StatusStrip1.Size = New System.Drawing.Size(857, 22)
         Me.StatusStrip1.TabIndex = 203
         Me.StatusStrip1.Text = "StatusStrip1"
         '
@@ -125,7 +125,7 @@ Partial Class IAIPFacilityLookUpTool
         Me.Panel1.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
         Me.Panel1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(335, 17)
+        Me.Panel1.Size = New System.Drawing.Size(732, 17)
         Me.Panel1.Spring = True
         '
         'Panel2
@@ -305,7 +305,7 @@ Partial Class IAIPFacilityLookUpTool
         Me.TBWork_Entry.Location = New System.Drawing.Point(0, 0)
         Me.TBWork_Entry.Name = "TBWork_Entry"
         Me.TBWork_Entry.ShowToolTips = True
-        Me.TBWork_Entry.Size = New System.Drawing.Size(460, 28)
+        Me.TBWork_Entry.Size = New System.Drawing.Size(857, 28)
         Me.TBWork_Entry.TabIndex = 204
         '
         'tbbClear
@@ -350,7 +350,7 @@ Partial Class IAIPFacilityLookUpTool
         Me.tcSearchOptions.Location = New System.Drawing.Point(0, 28)
         Me.tcSearchOptions.Name = "tcSearchOptions"
         Me.tcSearchOptions.SelectedIndex = 0
-        Me.tcSearchOptions.Size = New System.Drawing.Size(460, 104)
+        Me.tcSearchOptions.Size = New System.Drawing.Size(857, 104)
         Me.tcSearchOptions.TabIndex = 205
         '
         'tpFacilityName
@@ -361,7 +361,7 @@ Partial Class IAIPFacilityLookUpTool
         Me.tpFacilityName.Controls.Add(Me.Label69)
         Me.tpFacilityName.Location = New System.Drawing.Point(4, 22)
         Me.tpFacilityName.Name = "tpFacilityName"
-        Me.tpFacilityName.Size = New System.Drawing.Size(452, 78)
+        Me.tpFacilityName.Size = New System.Drawing.Size(849, 78)
         Me.tpFacilityName.TabIndex = 1
         Me.tpFacilityName.Text = "Facility Name Search"
         Me.tpFacilityName.UseVisualStyleBackColor = True
@@ -407,7 +407,7 @@ Partial Class IAIPFacilityLookUpTool
         Me.tpAIRSNumber.Controls.Add(Me.Label1)
         Me.tpAIRSNumber.Location = New System.Drawing.Point(4, 22)
         Me.tpAIRSNumber.Name = "tpAIRSNumber"
-        Me.tpAIRSNumber.Size = New System.Drawing.Size(452, 78)
+        Me.tpAIRSNumber.Size = New System.Drawing.Size(849, 78)
         Me.tpAIRSNumber.TabIndex = 0
         Me.tpAIRSNumber.Text = "AIRS Number Search"
         Me.tpAIRSNumber.UseVisualStyleBackColor = True
@@ -443,7 +443,7 @@ Partial Class IAIPFacilityLookUpTool
         Me.tpComplianceSearch.Controls.Add(Me.Label2)
         Me.tpComplianceSearch.Location = New System.Drawing.Point(4, 22)
         Me.tpComplianceSearch.Name = "tpComplianceSearch"
-        Me.tpComplianceSearch.Size = New System.Drawing.Size(452, 78)
+        Me.tpComplianceSearch.Size = New System.Drawing.Size(849, 78)
         Me.tpComplianceSearch.TabIndex = 8
         Me.tpComplianceSearch.Text = "Compliance Search"
         Me.tpComplianceSearch.UseVisualStyleBackColor = True
@@ -479,7 +479,7 @@ Partial Class IAIPFacilityLookUpTool
         Me.tpCity.Controls.Add(Me.Label64)
         Me.tpCity.Location = New System.Drawing.Point(4, 22)
         Me.tpCity.Name = "tpCity"
-        Me.tpCity.Size = New System.Drawing.Size(452, 78)
+        Me.tpCity.Size = New System.Drawing.Size(849, 78)
         Me.tpCity.TabIndex = 3
         Me.tpCity.Text = "City Search"
         Me.tpCity.UseVisualStyleBackColor = True
@@ -515,7 +515,7 @@ Partial Class IAIPFacilityLookUpTool
         Me.tpZipCode.Controls.Add(Me.Label65)
         Me.tpZipCode.Location = New System.Drawing.Point(4, 22)
         Me.tpZipCode.Name = "tpZipCode"
-        Me.tpZipCode.Size = New System.Drawing.Size(452, 78)
+        Me.tpZipCode.Size = New System.Drawing.Size(849, 78)
         Me.tpZipCode.TabIndex = 4
         Me.tpZipCode.Text = "Zip Code Search"
         Me.tpZipCode.UseVisualStyleBackColor = True
@@ -551,7 +551,7 @@ Partial Class IAIPFacilityLookUpTool
         Me.tpSIC.Controls.Add(Me.Label70)
         Me.tpSIC.Location = New System.Drawing.Point(4, 22)
         Me.tpSIC.Name = "tpSIC"
-        Me.tpSIC.Size = New System.Drawing.Size(452, 78)
+        Me.tpSIC.Size = New System.Drawing.Size(849, 78)
         Me.tpSIC.TabIndex = 6
         Me.tpSIC.Text = "SIC Code Search"
         Me.tpSIC.UseVisualStyleBackColor = True
@@ -587,7 +587,7 @@ Partial Class IAIPFacilityLookUpTool
         Me.tpCounty.Controls.Add(Me.Label63)
         Me.tpCounty.Location = New System.Drawing.Point(4, 22)
         Me.tpCounty.Name = "tpCounty"
-        Me.tpCounty.Size = New System.Drawing.Size(452, 78)
+        Me.tpCounty.Size = New System.Drawing.Size(849, 78)
         Me.tpCounty.TabIndex = 2
         Me.tpCounty.Text = "County Search"
         Me.tpCounty.UseVisualStyleBackColor = True
@@ -627,7 +627,7 @@ Partial Class IAIPFacilityLookUpTool
         Me.tpSubpart.Controls.Add(Me.Label3)
         Me.tpSubpart.Location = New System.Drawing.Point(4, 22)
         Me.tpSubpart.Name = "tpSubpart"
-        Me.tpSubpart.Size = New System.Drawing.Size(452, 78)
+        Me.tpSubpart.Size = New System.Drawing.Size(849, 78)
         Me.tpSubpart.TabIndex = 9
         Me.tpSubpart.Text = "Subpart "
         Me.tpSubpart.UseVisualStyleBackColor = True
@@ -711,7 +711,7 @@ Partial Class IAIPFacilityLookUpTool
         Me.dgvPossibleMatches.Location = New System.Drawing.Point(0, 198)
         Me.dgvPossibleMatches.Name = "dgvPossibleMatches"
         Me.dgvPossibleMatches.ReadOnly = True
-        Me.dgvPossibleMatches.Size = New System.Drawing.Size(460, 222)
+        Me.dgvPossibleMatches.Size = New System.Drawing.Size(857, 222)
         Me.dgvPossibleMatches.TabIndex = 218
         '
         'Label68
@@ -770,7 +770,7 @@ Partial Class IAIPFacilityLookUpTool
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(460, 445)
+        Me.ClientSize = New System.Drawing.Size(857, 445)
         Me.Controls.Add(Me.dgvPossibleMatches)
         Me.Controls.Add(Me.Label68)
         Me.Controls.Add(Me.txtFacilityName)

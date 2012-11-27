@@ -2009,8 +2009,10 @@ Public Class DEVFeeStatistics
 
                     For i = 0 To dgvDepositsAndPayments.ColumnCount - 1
                         For j = 0 To dgvDepositsAndPayments.RowCount - 1
+                           ' If dgvDepositsAndPayments.Item(i, j).Value Then
                             .Cells(j + 2, i + 1).numberformat = "@"
-                            .Cells(j + 2, i + 1).value = dgvDepositsAndPayments.Item(i, j).Value.ToString
+                            '.Cells(j + 2, i + 1).value = dgvDepositsAndPayments.Item(i, j).Value.ToString
+                            .Cells(j + 2, i + 1).value = dgvDepositsAndPayments.Item(i, j).Value
                         Next
                     Next
 
