@@ -995,6 +995,11 @@ Me.Label179 = New System.Windows.Forms.Label
 Me.TSDMUStaffTools = New System.Windows.Forms.ToolStrip
 Me.tsbBack = New System.Windows.Forms.ToolStripButton
 Me.Label1 = New System.Windows.Forms.Label
+Me.txtConfirNumber = New System.Windows.Forms.TextBox
+Me.Label303 = New System.Windows.Forms.Label
+Me.Label304 = New System.Windows.Forms.Label
+Me.btnAIRSNumberSearch = New System.Windows.Forms.Button
+Me.txtAIRSNumberSearch = New System.Windows.Forms.TextBox
 Me.StatusStrip1.SuspendLayout
 Me.TCDMUTools.SuspendLayout
 Me.TPEISLog.SuspendLayout
@@ -2991,6 +2996,8 @@ Me.Label233.Text = "Pre-Pop Year"
 '
 'Panel9
 '
+Me.Panel9.Controls.Add(Me.txtConfirNumber)
+Me.Panel9.Controls.Add(Me.Label303)
 Me.Panel9.Controls.Add(Me.txtEILogStatusCode)
 Me.Panel9.Controls.Add(Me.Label274)
 Me.Panel9.Controls.Add(Me.btnCopyAIRSNumber)
@@ -3264,17 +3271,17 @@ Me.txtEILogUpdatedBy.TabIndex = 455
 '
 'txtEILogComments
 '
-Me.txtEILogComments.Location = New System.Drawing.Point(294, 116)
+Me.txtEILogComments.Location = New System.Drawing.Point(294, 136)
 Me.txtEILogComments.Multiline = true
 Me.txtEILogComments.Name = "txtEILogComments"
 Me.txtEILogComments.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-Me.txtEILogComments.Size = New System.Drawing.Size(448, 48)
+Me.txtEILogComments.Size = New System.Drawing.Size(448, 21)
 Me.txtEILogComments.TabIndex = 442
 '
 'Label175
 '
 Me.Label175.AutoSize = true
-Me.Label175.Location = New System.Drawing.Point(232, 117)
+Me.Label175.Location = New System.Drawing.Point(232, 137)
 Me.Label175.Name = "Label175"
 Me.Label175.Size = New System.Drawing.Size(56, 13)
 Me.Label175.TabIndex = 441
@@ -5143,6 +5150,9 @@ Me.dgvFITrackingNumber.TabIndex = 3
 '
 'Panel27
 '
+Me.Panel27.Controls.Add(Me.Label304)
+Me.Panel27.Controls.Add(Me.btnAIRSNumberSearch)
+Me.Panel27.Controls.Add(Me.txtAIRSNumberSearch)
 Me.Panel27.Controls.Add(Me.Label302)
 Me.Panel27.Controls.Add(Me.btnQACommentSearch)
 Me.Panel27.Controls.Add(Me.txtCommentSearch)
@@ -10735,6 +10745,50 @@ Me.Label1.Name = "Label1"
 Me.Label1.Size = New System.Drawing.Size(0, 13)
 Me.Label1.TabIndex = 258
 '
+'txtConfirNumber
+'
+Me.txtConfirNumber.Location = New System.Drawing.Point(294, 110)
+Me.txtConfirNumber.Name = "txtConfirNumber"
+Me.txtConfirNumber.ReadOnly = true
+Me.txtConfirNumber.Size = New System.Drawing.Size(152, 20)
+Me.txtConfirNumber.TabIndex = 512
+'
+'Label303
+'
+Me.Label303.AutoSize = true
+Me.Label303.Location = New System.Drawing.Point(208, 113)
+Me.Label303.Name = "Label303"
+Me.Label303.Size = New System.Drawing.Size(75, 13)
+Me.Label303.TabIndex = 511
+Me.Label303.Text = "Confirmation #"
+'
+'Label304
+'
+Me.Label304.AutoSize = true
+Me.Label304.Location = New System.Drawing.Point(235, 79)
+Me.Label304.Name = "Label304"
+Me.Label304.Size = New System.Drawing.Size(154, 13)
+Me.Label304.TabIndex = 116
+Me.Label304.Text = "Search by partial AIRS Number"
+'
+'btnAIRSNumberSearch
+'
+Me.btnAIRSNumberSearch.AutoSize = true
+Me.btnAIRSNumberSearch.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+Me.btnAIRSNumberSearch.Location = New System.Drawing.Point(381, 99)
+Me.btnAIRSNumberSearch.Name = "btnAIRSNumberSearch"
+Me.btnAIRSNumberSearch.Size = New System.Drawing.Size(51, 23)
+Me.btnAIRSNumberSearch.TabIndex = 118
+Me.btnAIRSNumberSearch.Text = "Search"
+Me.btnAIRSNumberSearch.UseVisualStyleBackColor = true
+'
+'txtAIRSNumberSearch
+'
+Me.txtAIRSNumberSearch.Location = New System.Drawing.Point(275, 99)
+Me.txtAIRSNumberSearch.Name = "txtAIRSNumberSearch"
+Me.txtAIRSNumberSearch.Size = New System.Drawing.Size(100, 20)
+Me.txtAIRSNumberSearch.TabIndex = 117
+'
 'DMUStaffTools
 '
 Me.AutoScaleDimensions = New System.Drawing.SizeF(6!, 13!)
@@ -11869,4 +11923,9 @@ End Sub
     Friend WithEvents Label302 As System.Windows.Forms.Label
     Friend WithEvents btnQACommentSearch As System.Windows.Forms.Button
     Friend WithEvents txtCommentSearch As System.Windows.Forms.TextBox
+    Friend WithEvents txtConfirNumber As System.Windows.Forms.TextBox
+    Friend WithEvents Label303 As System.Windows.Forms.Label
+    Friend WithEvents Label304 As System.Windows.Forms.Label
+    Friend WithEvents btnAIRSNumberSearch As System.Windows.Forms.Button
+    Friend WithEvents txtAIRSNumberSearch As System.Windows.Forms.TextBox
 End Class

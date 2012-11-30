@@ -11303,11 +11303,11 @@ Public Class DMUStaffTools
                 'Else
 
                 'End If
-                'If IsDBNull(dr.Item("strConfirmationNumber")) Then
-
-                'Else
-
-                'End If
+                If IsDBNull(dr.Item("strConfirmationNumber")) Then
+                    txtConfirNumber.Clear()
+                Else
+                    txtConfirNumber.Text = dr.Item("strConfirmationNumber")
+                End If
                 If IsDBNull(dr.Item("strMailout")) Then
                     rdbEILogMailoutYes.Checked = False
                     rdbEILogMailoutNo.Checked = False
@@ -19888,12 +19888,72 @@ Public Class DMUStaffTools
                 dgvFITrackingNumber.Columns("strPointTrackingNumber").DisplayIndex = 4
                 dgvFITrackingNumber.Columns("strPointTrackingNumber").Width = 1000
                 'strComment
-
-
             End If
 
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+        End Try
+    End Sub
+
+    Private Sub btnAIRSNumberSearch_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAIRSNumberSearch.Click
+        Try
+            If txtAIRSNumberSearch.Text <> "" Then
+                SQL = "select " & _
+                "AIRBranch.EIS_QAAdmin.inventoryYear, AIRBranch.EIS_QAAdmin.FacilitySiteID, " & _
+                "strFacilitySiteName, " & _
+                "strPointTrackingNumber, strComment   " & _
+                "from AIRBranch.EIS_QAAdmin, AIRBranch.EIS_FacilitySite  " & _
+                "where AIRBranch.EIS_QAAdmin.FacilitySiteID = AIRBranch.EIS_FacilitySite.FacilitySiteID " & _
+                "and upper(EIS_QAAdmin.FacilitySiteID) like '%" & Replace(txtAIRSNumberSearch.Text.ToUpper, "'", "''") & "%' " & _
+                "and AIRBranch.EIS_QAAdmin.active = '1' "
+
+                ds = New DataSet
+                da = New OracleDataAdapter(SQL, conn)
+                If SQL <> "" Then
+                    If conn.State = ConnectionState.Closed Then
+                        conn.Open()
+                    End If
+                    da.Fill(ds, "QAAdmin")
+                End If
+
+                ds = New DataSet
+                da = New OracleDataAdapter(SQL, conn)
+                If conn.State = ConnectionState.Closed Then
+                    conn.Open()
+                End If
+                da.Fill(ds, "QAAdmin")
+                dgvFITrackingNumber.DataSource = ds
+                dgvFITrackingNumber.DataMember = "QAAdmin"
+
+                dgvFITrackingNumber.RowHeadersVisible = False
+                dgvFITrackingNumber.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
+                dgvFITrackingNumber.AllowUserToResizeColumns = True
+                dgvFITrackingNumber.AllowUserToAddRows = False
+                dgvFITrackingNumber.AllowUserToDeleteRows = False
+                dgvFITrackingNumber.AllowUserToOrderColumns = True
+                dgvFITrackingNumber.AllowUserToResizeRows = True
+                dgvFITrackingNumber.ColumnHeadersHeight = "35"
+                dgvFITrackingNumber.Columns("inventoryYear").HeaderText = "EIS Year"
+                dgvFITrackingNumber.Columns("inventoryYear").DisplayIndex = 0
+                dgvFITrackingNumber.Columns("inventoryYear").Width = 75
+                dgvFITrackingNumber.Columns("FacilitySiteID").HeaderText = "AIRS #"
+                dgvFITrackingNumber.Columns("FacilitySiteID").DisplayIndex = 1
+                dgvFITrackingNumber.Columns("FacilitySiteID").Width = 100
+                dgvFITrackingNumber.Columns("strFacilitySiteName").HeaderText = "Facility Name"
+                dgvFITrackingNumber.Columns("strFacilitySiteName").DisplayIndex = 2
+                dgvFITrackingNumber.Columns("strFacilitySiteName").Width = 150
+                dgvFITrackingNumber.Columns("strComment").HeaderText = "Comments"
+                dgvFITrackingNumber.Columns("strComment").DisplayIndex = 3
+                dgvFITrackingNumber.Columns("strComment").Width = 1000
+                dgvFITrackingNumber.Columns("strPointTrackingNumber").HeaderText = "Tracking Number"
+                dgvFITrackingNumber.Columns("strPointTrackingNumber").DisplayIndex = 4
+                dgvFITrackingNumber.Columns("strPointTrackingNumber").Width = 1000
+                'strComment
+
+
+            End If
+        Catch ex As Exception
+
         End Try
     End Sub
 End Class
