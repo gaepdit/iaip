@@ -1110,7 +1110,7 @@ Partial Class IAIPUserAdminTool
         Me.btnAll.Location = New System.Drawing.Point(667, 6)
         Me.btnAll.Name = "btnAll"
         Me.btnAll.Size = New System.Drawing.Size(58, 23)
-        Me.btnAll.TabIndex = 31
+        Me.btnAll.TabIndex = 22
         Me.btnAll.Text = "Show All"
         Me.btnAll.UseVisualStyleBackColor = True
         '
@@ -1120,7 +1120,7 @@ Partial Class IAIPUserAdminTool
         Me.btnReset.Location = New System.Drawing.Point(593, 6)
         Me.btnReset.Name = "btnReset"
         Me.btnReset.Size = New System.Drawing.Size(58, 23)
-        Me.btnReset.TabIndex = 30
+        Me.btnReset.TabIndex = 21
         Me.btnReset.Text = "Reset"
         Me.btnReset.UseVisualStyleBackColor = True
         '
@@ -1130,7 +1130,7 @@ Partial Class IAIPUserAdminTool
         Me.btnSearch.Location = New System.Drawing.Point(519, 6)
         Me.btnSearch.Name = "btnSearch"
         Me.btnSearch.Size = New System.Drawing.Size(58, 23)
-        Me.btnSearch.TabIndex = 29
+        Me.btnSearch.TabIndex = 20
         Me.btnSearch.Text = "Search"
         Me.btnSearch.UseVisualStyleBackColor = True
         '
@@ -1142,7 +1142,7 @@ Partial Class IAIPUserAdminTool
         Me.cboSearchUnit.Location = New System.Drawing.Point(543, 34)
         Me.cboSearchUnit.Name = "cboSearchUnit"
         Me.cboSearchUnit.Size = New System.Drawing.Size(225, 21)
-        Me.cboSearchUnit.TabIndex = 27
+        Me.cboSearchUnit.TabIndex = 19
         '
         'cboSearchProgram
         '
@@ -1152,7 +1152,7 @@ Partial Class IAIPUserAdminTool
         Me.cboSearchProgram.Location = New System.Drawing.Point(255, 34)
         Me.cboSearchProgram.Name = "cboSearchProgram"
         Me.cboSearchProgram.Size = New System.Drawing.Size(250, 21)
-        Me.cboSearchProgram.TabIndex = 26
+        Me.cboSearchProgram.TabIndex = 18
         '
         'cboSearchBranch
         '
@@ -1162,7 +1162,7 @@ Partial Class IAIPUserAdminTool
         Me.cboSearchBranch.Location = New System.Drawing.Point(55, 34)
         Me.cboSearchBranch.Name = "cboSearchBranch"
         Me.cboSearchBranch.Size = New System.Drawing.Size(150, 21)
-        Me.cboSearchBranch.TabIndex = 25
+        Me.cboSearchBranch.TabIndex = 17
         '
         'Label25
         '
@@ -1196,14 +1196,14 @@ Partial Class IAIPUserAdminTool
         Me.txtSearchLastName.Location = New System.Drawing.Point(231, 7)
         Me.txtSearchLastName.Name = "txtSearchLastName"
         Me.txtSearchLastName.Size = New System.Drawing.Size(100, 20)
-        Me.txtSearchLastName.TabIndex = 18
+        Me.txtSearchLastName.TabIndex = 15
         '
         'txtSearchFirstName
         '
         Me.txtSearchFirstName.Location = New System.Drawing.Point(405, 7)
         Me.txtSearchFirstName.Name = "txtSearchFirstName"
         Me.txtSearchFirstName.Size = New System.Drawing.Size(100, 20)
-        Me.txtSearchFirstName.TabIndex = 17
+        Me.txtSearchFirstName.TabIndex = 16
         '
         'Label23
         '

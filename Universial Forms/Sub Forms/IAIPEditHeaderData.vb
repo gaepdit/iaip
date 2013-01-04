@@ -1766,6 +1766,31 @@ Public Class IAIPEditHeaderData
                             dr = cmd.ExecuteReader
                             dr.Close()
 
+                            If OperationalStatus = "X" Then
+                                SQL = "Update airbranch.EIS_FacilitySite set " & _
+                                "strFacilitySiteStatusCode = 'PS', " & _
+                                "strFacilitySiteComment = 'Facility Shutdown by permitting action.', " & _
+                                "UpdateUSer = '" & UserName & "', " & _
+                                "updateDateTime = sysdate " & _
+                                "where facilitySiteID = '" & txtAirsNumber.Text & "' "
+                                cmd = New OracleCommand(SQL, conn)
+                                If conn.State = ConnectionState.Closed Then
+                                    conn.Open()
+                                End If
+                                cmd.ExecuteReader()
+                            End If
+
+                            SQL = "Update AIRBranch.EIS_FacilitySite set " & _
+                            "strFacilitySiteDescription = '" & Replace(txtPlantDescription.Text, "'", "''") & "' " & _
+                            "where facilitySiteID = '" & txtAirsNumber.Text & "' "
+
+                            cmd = New OracleCommand(SQL, conn)
+                            If conn.State = ConnectionState.Closed Then
+                                conn.Open()
+                            End If
+                            cmd.ExecuteReader()
+
+
                             LoadFacilityHeaderData()
                             MsgBox("Data Updated", MsgBoxStyle.Information, "Edit Header Data")
                         Else

@@ -364,6 +364,19 @@ Public Class IAIPEditFacilityLocation
 
                             End If
 
+                            SQL = "Update airbranch.EIS_FacilitySite set " & _
+                            "strFacilitySiteName = '" & Replace(txtFacilityName.Text, "'", "''") & "' " & _
+                            "strFacilitySiteComment = 'Facility Name updated.', " & _
+                            "UpdateUSer = '" & UserName & "', " & _
+                            "updateDateTime = sysdate " & _
+                            "where facilitySiteID = '" & txtAirsNumber.Text & "' "
+
+                            cmd = New OracleCommand(SQL, conn)
+                            If conn.State = ConnectionState.Closed Then
+                                conn.Open()
+                            End If
+                            cmd.ExecuteReader()
+
                             LoadFacilityInformation()
                             MsgBox("Data Updated", MsgBoxStyle.Information, "Edit Facility Location Data")
                         Else

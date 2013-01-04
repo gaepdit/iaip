@@ -2389,6 +2389,14 @@ Public Class DEVFacilitySummary
             "and strStateFacilityIdentifier = '" & mtbAIRSNumber.Text & "'  ) " & _
             "order by EIYear desc "
 
+            SQL = "Select " & _
+            "distinct(to_number(strInventoryYear)) as EIYear  " & _
+            "from AIRBranch.EISI  " & _
+            "where strInventoryYear < 2010   " & _
+            "and strStateFacilityIdentifier = '" & mtbAIRSNumber.Text & "'  " & _
+            "order by EIYear desc "
+
+
             cmd = New OracleCommand(SQL, conn)
             If conn.State = ConnectionState.Closed Then
                 conn.Open()

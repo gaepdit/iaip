@@ -547,7 +547,7 @@ Public Class ISMPMonitoringLog
 
             If Me.chbNotifications.Checked = True Then
                 SQLWhere = ""
-                SQL = "select " & _
+                SQL = "select distinct " & _
                "substr(" & connNameSpace & ".ISMPTEstNotification.strAIRSNumber, 5) as AIRSNumber, " & _
                "" & connNameSpace & ".APBFacilityInformation.strFacilityName,  " & _
                "strFacilityCity,  " & _

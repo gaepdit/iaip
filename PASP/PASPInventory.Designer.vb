@@ -174,6 +174,9 @@ Partial Class PASPInventory
         Me.TPGAITInventory = New System.Windows.Forms.TabPage
         Me.dgvGAITInventory = New System.Windows.Forms.DataGridView
         Me.Panel8 = New System.Windows.Forms.Panel
+        Me.Panel17 = New System.Windows.Forms.Panel
+        Me.rdbDeleted = New System.Windows.Forms.RadioButton
+        Me.rdbActive = New System.Windows.Forms.RadioButton
         Me.txtGAITComment = New System.Windows.Forms.TextBox
         Me.Label56 = New System.Windows.Forms.Label
         Me.GroupBox4 = New System.Windows.Forms.GroupBox
@@ -305,9 +308,6 @@ Partial Class PASPInventory
         Me.bgwInventory = New System.ComponentModel.BackgroundWorker
         Me.bgwTransactions = New System.ComponentModel.BackgroundWorker
         Me.bgwReports = New System.ComponentModel.BackgroundWorker
-        Me.Panel17 = New System.Windows.Forms.Panel
-        Me.rdbActive = New System.Windows.Forms.RadioButton
-        Me.rdbDeleted = New System.Windows.Forms.RadioButton
         Me.StatusStrip1.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
         Me.TCComputerInventory.SuspendLayout()
@@ -335,6 +335,7 @@ Partial Class PASPInventory
         Me.TPGAITInventory.SuspendLayout()
         CType(Me.dgvGAITInventory, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel8.SuspendLayout()
+        Me.Panel17.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
         Me.pnlGAITDateSearch.SuspendLayout()
         Me.Panel15.SuspendLayout()
@@ -351,13 +352,12 @@ Partial Class PASPInventory
         Me.gbGAITCategory.SuspendLayout()
         Me.Panel9.SuspendLayout()
         Me.Panel16.SuspendLayout()
-        Me.Panel17.SuspendLayout()
         Me.SuspendLayout()
         '
         'StatusStrip1
         '
         Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.pnl1, Me.pnl2, Me.pnl3})
-        Me.StatusStrip1.Location = New System.Drawing.Point(0, 744)
+        Me.StatusStrip1.Location = New System.Drawing.Point(0, 724)
         Me.StatusStrip1.Name = "StatusStrip1"
         Me.StatusStrip1.Size = New System.Drawing.Size(792, 22)
         Me.StatusStrip1.TabIndex = 10
@@ -431,7 +431,7 @@ Partial Class PASPInventory
         Me.TCComputerInventory.Location = New System.Drawing.Point(0, 24)
         Me.TCComputerInventory.Name = "TCComputerInventory"
         Me.TCComputerInventory.SelectedIndex = 0
-        Me.TCComputerInventory.Size = New System.Drawing.Size(792, 720)
+        Me.TCComputerInventory.Size = New System.Drawing.Size(792, 700)
         Me.TCComputerInventory.TabIndex = 11
         '
         'TPInvenotry
@@ -441,7 +441,7 @@ Partial Class PASPInventory
         Me.TPInvenotry.Location = New System.Drawing.Point(4, 22)
         Me.TPInvenotry.Name = "TPInvenotry"
         Me.TPInvenotry.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPInvenotry.Size = New System.Drawing.Size(784, 694)
+        Me.TPInvenotry.Size = New System.Drawing.Size(784, 674)
         Me.TPInvenotry.TabIndex = 0
         Me.TPInvenotry.Text = "Inventory"
         Me.TPInvenotry.UseVisualStyleBackColor = True
@@ -453,7 +453,7 @@ Partial Class PASPInventory
         Me.dgvInventory.Location = New System.Drawing.Point(3, 340)
         Me.dgvInventory.Name = "dgvInventory"
         Me.dgvInventory.ReadOnly = True
-        Me.dgvInventory.Size = New System.Drawing.Size(778, 351)
+        Me.dgvInventory.Size = New System.Drawing.Size(778, 331)
         Me.dgvInventory.TabIndex = 38
         '
         'Panel1
@@ -1947,6 +1947,39 @@ Partial Class PASPInventory
         Me.Panel8.Size = New System.Drawing.Size(784, 297)
         Me.Panel8.TabIndex = 0
         '
+        'Panel17
+        '
+        Me.Panel17.AutoSize = True
+        Me.Panel17.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.Panel17.Controls.Add(Me.rdbDeleted)
+        Me.Panel17.Controls.Add(Me.rdbActive)
+        Me.Panel17.Location = New System.Drawing.Point(500, 1)
+        Me.Panel17.Name = "Panel17"
+        Me.Panel17.Size = New System.Drawing.Size(129, 25)
+        Me.Panel17.TabIndex = 422
+        '
+        'rdbDeleted
+        '
+        Me.rdbDeleted.AutoSize = True
+        Me.rdbDeleted.Location = New System.Drawing.Point(64, 5)
+        Me.rdbDeleted.Name = "rdbDeleted"
+        Me.rdbDeleted.Size = New System.Drawing.Size(62, 17)
+        Me.rdbDeleted.TabIndex = 1
+        Me.rdbDeleted.TabStop = True
+        Me.rdbDeleted.Text = "Deleted"
+        Me.rdbDeleted.UseVisualStyleBackColor = True
+        '
+        'rdbActive
+        '
+        Me.rdbActive.AutoSize = True
+        Me.rdbActive.Location = New System.Drawing.Point(3, 5)
+        Me.rdbActive.Name = "rdbActive"
+        Me.rdbActive.Size = New System.Drawing.Size(55, 17)
+        Me.rdbActive.TabIndex = 0
+        Me.rdbActive.TabStop = True
+        Me.rdbActive.Text = "Active"
+        Me.rdbActive.UseVisualStyleBackColor = True
+        '
         'txtGAITComment
         '
         Me.txtGAITComment.Location = New System.Drawing.Point(318, 124)
@@ -3285,44 +3318,11 @@ Partial Class PASPInventory
         'bgwReports
         '
         '
-        'Panel17
-        '
-        Me.Panel17.AutoSize = True
-        Me.Panel17.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.Panel17.Controls.Add(Me.rdbDeleted)
-        Me.Panel17.Controls.Add(Me.rdbActive)
-        Me.Panel17.Location = New System.Drawing.Point(500, 1)
-        Me.Panel17.Name = "Panel17"
-        Me.Panel17.Size = New System.Drawing.Size(129, 25)
-        Me.Panel17.TabIndex = 422
-        '
-        'rdbActive
-        '
-        Me.rdbActive.AutoSize = True
-        Me.rdbActive.Location = New System.Drawing.Point(3, 5)
-        Me.rdbActive.Name = "rdbActive"
-        Me.rdbActive.Size = New System.Drawing.Size(55, 17)
-        Me.rdbActive.TabIndex = 0
-        Me.rdbActive.TabStop = True
-        Me.rdbActive.Text = "Active"
-        Me.rdbActive.UseVisualStyleBackColor = True
-        '
-        'rdbDeleted
-        '
-        Me.rdbDeleted.AutoSize = True
-        Me.rdbDeleted.Location = New System.Drawing.Point(64, 5)
-        Me.rdbDeleted.Name = "rdbDeleted"
-        Me.rdbDeleted.Size = New System.Drawing.Size(62, 17)
-        Me.rdbDeleted.TabIndex = 1
-        Me.rdbDeleted.TabStop = True
-        Me.rdbDeleted.Text = "Deleted"
-        Me.rdbDeleted.UseVisualStyleBackColor = True
-        '
         'PASPInventory
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(792, 766)
+        Me.ClientSize = New System.Drawing.Size(792, 746)
         Me.Controls.Add(Me.TCComputerInventory)
         Me.Controls.Add(Me.StatusStrip1)
         Me.Controls.Add(Me.MenuStrip1)
@@ -3370,6 +3370,8 @@ Partial Class PASPInventory
         CType(Me.dgvGAITInventory, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel8.ResumeLayout(False)
         Me.Panel8.PerformLayout()
+        Me.Panel17.ResumeLayout(False)
+        Me.Panel17.PerformLayout()
         Me.GroupBox4.ResumeLayout(False)
         Me.GroupBox4.PerformLayout()
         Me.pnlGAITDateSearch.ResumeLayout(False)
@@ -3400,8 +3402,6 @@ Partial Class PASPInventory
         Me.Panel9.PerformLayout()
         Me.Panel16.ResumeLayout(False)
         Me.Panel16.PerformLayout()
-        Me.Panel17.ResumeLayout(False)
-        Me.Panel17.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

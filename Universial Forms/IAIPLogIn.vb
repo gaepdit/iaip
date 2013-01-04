@@ -45,8 +45,8 @@ Public Class IAIPLogIn
                 'If File.Exists("C:\APB\Oracle.DataAccess.dll") Then
                 'Dim version As FileVersionInfo = FileVersionInfo.GetVersionInfo("C:\APB\Oracle.DataAccess.dll")
                 Oracledll = version.FileVersion.ToString
-                If Oracledll = "2.111.6.20" Then
-
+                'If Oracledll = "2.111.6.20" Or Oracledll = "4.112.30" Then
+                If Oracledll <> "9.2.0.401" Then
                     PRDconnLine = "Data Source = luke.dnr.state.ga.us:1521/PRD; User ID = AIRBranch_App_User; " & _
                              "Password = " & SimpleCrypt("зтбрт±м") & ";"
                     TESTconnLine = "Data Source = leia.dnr.state.ga.us:1521/TEST; User ID = AIRBRANCH_APP_USER; " & _

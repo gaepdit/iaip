@@ -227,6 +227,8 @@ Me.txtEISDeadlineComment = New System.Windows.Forms.TextBox
 Me.txtEILogPrePopYear = New System.Windows.Forms.TextBox
 Me.Label233 = New System.Windows.Forms.Label
 Me.Panel9 = New System.Windows.Forms.Panel
+Me.txtConfirNumber = New System.Windows.Forms.TextBox
+Me.Label303 = New System.Windows.Forms.Label
 Me.txtEILogStatusCode = New System.Windows.Forms.TextBox
 Me.Label274 = New System.Windows.Forms.Label
 Me.btnCopyAIRSNumber = New System.Windows.Forms.Button
@@ -440,6 +442,9 @@ Me.TPEISTrackingTool = New System.Windows.Forms.TabPage
 Me.GroupBox4 = New System.Windows.Forms.GroupBox
 Me.dgvFITrackingNumber = New System.Windows.Forms.DataGridView
 Me.Panel27 = New System.Windows.Forms.Panel
+Me.Label304 = New System.Windows.Forms.Label
+Me.btnAIRSNumberSearch = New System.Windows.Forms.Button
+Me.txtAIRSNumberSearch = New System.Windows.Forms.TextBox
 Me.Label302 = New System.Windows.Forms.Label
 Me.btnQACommentSearch = New System.Windows.Forms.Button
 Me.txtCommentSearch = New System.Windows.Forms.TextBox
@@ -995,11 +1000,6 @@ Me.Label179 = New System.Windows.Forms.Label
 Me.TSDMUStaffTools = New System.Windows.Forms.ToolStrip
 Me.tsbBack = New System.Windows.Forms.ToolStripButton
 Me.Label1 = New System.Windows.Forms.Label
-Me.txtConfirNumber = New System.Windows.Forms.TextBox
-Me.Label303 = New System.Windows.Forms.Label
-Me.Label304 = New System.Windows.Forms.Label
-Me.btnAIRSNumberSearch = New System.Windows.Forms.Button
-Me.txtAIRSNumberSearch = New System.Windows.Forms.TextBox
 Me.StatusStrip1.SuspendLayout
 Me.TCDMUTools.SuspendLayout
 Me.TPEISLog.SuspendLayout
@@ -3043,6 +3043,23 @@ Me.Panel9.Location = New System.Drawing.Point(0, 0)
 Me.Panel9.Name = "Panel9"
 Me.Panel9.Size = New System.Drawing.Size(1008, 169)
 Me.Panel9.TabIndex = 0
+'
+'txtConfirNumber
+'
+Me.txtConfirNumber.Location = New System.Drawing.Point(294, 110)
+Me.txtConfirNumber.Name = "txtConfirNumber"
+Me.txtConfirNumber.ReadOnly = true
+Me.txtConfirNumber.Size = New System.Drawing.Size(152, 20)
+Me.txtConfirNumber.TabIndex = 512
+'
+'Label303
+'
+Me.Label303.AutoSize = true
+Me.Label303.Location = New System.Drawing.Point(208, 113)
+Me.Label303.Name = "Label303"
+Me.Label303.Size = New System.Drawing.Size(75, 13)
+Me.Label303.TabIndex = 511
+Me.Label303.Text = "Confirmation #"
 '
 'txtEILogStatusCode
 '
@@ -5172,6 +5189,33 @@ Me.Panel27.Location = New System.Drawing.Point(3, 16)
 Me.Panel27.Name = "Panel27"
 Me.Panel27.Size = New System.Drawing.Size(1002, 125)
 Me.Panel27.TabIndex = 4
+'
+'Label304
+'
+Me.Label304.AutoSize = true
+Me.Label304.Location = New System.Drawing.Point(235, 79)
+Me.Label304.Name = "Label304"
+Me.Label304.Size = New System.Drawing.Size(154, 13)
+Me.Label304.TabIndex = 116
+Me.Label304.Text = "Search by partial AIRS Number"
+'
+'btnAIRSNumberSearch
+'
+Me.btnAIRSNumberSearch.AutoSize = true
+Me.btnAIRSNumberSearch.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+Me.btnAIRSNumberSearch.Location = New System.Drawing.Point(381, 99)
+Me.btnAIRSNumberSearch.Name = "btnAIRSNumberSearch"
+Me.btnAIRSNumberSearch.Size = New System.Drawing.Size(51, 23)
+Me.btnAIRSNumberSearch.TabIndex = 118
+Me.btnAIRSNumberSearch.Text = "Search"
+Me.btnAIRSNumberSearch.UseVisualStyleBackColor = true
+'
+'txtAIRSNumberSearch
+'
+Me.txtAIRSNumberSearch.Location = New System.Drawing.Point(275, 99)
+Me.txtAIRSNumberSearch.Name = "txtAIRSNumberSearch"
+Me.txtAIRSNumberSearch.Size = New System.Drawing.Size(100, 20)
+Me.txtAIRSNumberSearch.TabIndex = 117
 '
 'Label302
 '
@@ -10744,50 +10788,6 @@ Me.Label1.Location = New System.Drawing.Point(731, 132)
 Me.Label1.Name = "Label1"
 Me.Label1.Size = New System.Drawing.Size(0, 13)
 Me.Label1.TabIndex = 258
-'
-'txtConfirNumber
-'
-Me.txtConfirNumber.Location = New System.Drawing.Point(294, 110)
-Me.txtConfirNumber.Name = "txtConfirNumber"
-Me.txtConfirNumber.ReadOnly = true
-Me.txtConfirNumber.Size = New System.Drawing.Size(152, 20)
-Me.txtConfirNumber.TabIndex = 512
-'
-'Label303
-'
-Me.Label303.AutoSize = true
-Me.Label303.Location = New System.Drawing.Point(208, 113)
-Me.Label303.Name = "Label303"
-Me.Label303.Size = New System.Drawing.Size(75, 13)
-Me.Label303.TabIndex = 511
-Me.Label303.Text = "Confirmation #"
-'
-'Label304
-'
-Me.Label304.AutoSize = true
-Me.Label304.Location = New System.Drawing.Point(235, 79)
-Me.Label304.Name = "Label304"
-Me.Label304.Size = New System.Drawing.Size(154, 13)
-Me.Label304.TabIndex = 116
-Me.Label304.Text = "Search by partial AIRS Number"
-'
-'btnAIRSNumberSearch
-'
-Me.btnAIRSNumberSearch.AutoSize = true
-Me.btnAIRSNumberSearch.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-Me.btnAIRSNumberSearch.Location = New System.Drawing.Point(381, 99)
-Me.btnAIRSNumberSearch.Name = "btnAIRSNumberSearch"
-Me.btnAIRSNumberSearch.Size = New System.Drawing.Size(51, 23)
-Me.btnAIRSNumberSearch.TabIndex = 118
-Me.btnAIRSNumberSearch.Text = "Search"
-Me.btnAIRSNumberSearch.UseVisualStyleBackColor = true
-'
-'txtAIRSNumberSearch
-'
-Me.txtAIRSNumberSearch.Location = New System.Drawing.Point(275, 99)
-Me.txtAIRSNumberSearch.Name = "txtAIRSNumberSearch"
-Me.txtAIRSNumberSearch.Size = New System.Drawing.Size(100, 20)
-Me.txtAIRSNumberSearch.TabIndex = 117
 '
 'DMUStaffTools
 '

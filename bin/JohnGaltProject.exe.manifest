@@ -69,7 +69,7 @@
   </dependency>
   <dependency>
     <dependentAssembly dependencyType="preRequisite" allowDelayedBinding="true">
-      <assemblyIdentity name="Oracle.DataAccess" version="2.112.1.0" publicKeyToken="89B483F429C47342" language="neutral" processorArchitecture="x86" />
+      <assemblyIdentity name="Oracle.DataAccess" version="2.112.2.0" publicKeyToken="89B483F429C47342" language="neutral" processorArchitecture="x86" />
     </dependentAssembly>
   </dependency>
   <dependency>
@@ -95,7 +95,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>ghS2aIL3Om/ppmHD8JDpSiG9zHc=</dsig:DigestValue>
+        <dsig:DigestValue>UJneKEI93tC4Vm9AkvVZv+0OIG8=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -107,7 +107,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>P0b7RIQIu1efjMNak2Zx6eeovMw=</dsig:DigestValue>
+        <dsig:DigestValue>tK+gkruQfjnjBGswgI5FTe6D+Hg=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -119,7 +119,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>sL0oWpxtXOSqpmD8eFNSMdvNT4M=</dsig:DigestValue>
+        <dsig:DigestValue>XjLnpsTCEG+SiG3/UBG1XFGI690=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -131,19 +131,19 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>8dmOVVEb9DDWpcVGMjtF6peVYzs=</dsig:DigestValue>
+        <dsig:DigestValue>mL/GqzJ24GzNqF40heXAgKEQfpE=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="JohnGaltProject.exe" size="18911232">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="JohnGaltProject.exe" size="18922496">
       <assemblyIdentity name="JohnGaltProject" version="2.6.1.8" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>du27UrMyX4JT2FLnWrIkxs5/iQQ=</dsig:DigestValue>
+        <dsig:DigestValue>19VtQRoFCtfycb8vBh1pLJorciU=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

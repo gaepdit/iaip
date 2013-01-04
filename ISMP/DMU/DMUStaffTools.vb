@@ -304,7 +304,7 @@ Public Class DMUStaffTools
             "QAStatusCode, strDesc " & _
             "From AIRBranch.EISLK_QAStatus " & _
             "Where active = '1' " & _
-            "order by qastatuscode  "
+            "order by updateDateTime  "
 
             ds = New DataSet
 
@@ -8783,7 +8783,8 @@ Public Class DMUStaffTools
 
         Try
             SQL = "Select distinct  EISSTATUSCODE, STRDESC " & _
-            "from " & connNameSpace & ".EISLK_EISSTATUSCODE "
+            "from " & connNameSpace & ".EISLK_EISSTATUSCODE " & _
+            "order by EISSTATUSCODE "
 
             dscode = New DataSet
             dacode = New OracleDataAdapter(SQL, conn)
@@ -14147,7 +14148,7 @@ Public Class DMUStaffTools
     End Sub
 
 
-    Private Sub btnEISSummaryToExcel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
+    Private Sub btnEISSummaryToExcel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEISSummaryToExcel.Click
         Try
             'Dim ExcelApp As New Excel.Application
             Dim ExcelApp As New Microsoft.Office.Interop.Excel.Application
@@ -14175,12 +14176,12 @@ Public Class DMUStaffTools
 
                     For i = 0 To dgvEISStats.ColumnCount - 1
                         For j = 0 To dgvEISStats.RowCount - 1
-                            If IsDBNull(dgvEISStats.Item(i, j).Value.ToString) Then
+                            If IsDBNull(dgvEISStats.Item(i, j).Value) Then
                                 .Cells(j + 2, i + 1).numberformat = "@"
                                 .Cells(j + 2, i + 1).value = "  "
                             Else
                                 .Cells(j + 2, i + 1).numberformat = "@"
-                                .Cells(j + 2, i + 1).value = dgvEISStats.Item(i, j).Value.ToString
+                                .Cells(j + 2, i + 1).value = dgvEISStats.Item(i, j).Value
                             End If
 
                         Next
@@ -16122,10 +16123,12 @@ Public Class DMUStaffTools
            "case " & _
           "when strDMUResponsibleStaff is null then '-' " & _
            "else strDMUResponsibleStaff " & _
-            "end strDMUResponsibleStaff " & _
+            "end strDMUResponsibleStaff, " & _
+            "AIRBranch.EISLK_QAStatus.strDesc, datQAStatus " & _
            "from AIRbranch.EIS_Admin, airbranch.APBFacilityInformation, " & _
            "airbranch.EISLK_EISAccessCode, AIRBranch.EISLK_EISStatusCode,  " & _
-           "AIRbranch.EIS_Mailout, AIRbranch.EIS_QAAdmin " & _
+           "AIRbranch.EIS_Mailout, AIRbranch.EIS_QAAdmin,  " & _
+           "AIRBranch.EISLK_QAStatus " & _
            "where '0413'||airbranch.EIS_Admin.FacilitySiteId = airbranch.APBFacilityInformation.strAIRSNumber  " & _
            "and AIRBranch.EIS_Admin.EISAccessCode = AIRBranch.EISLK_EISAccessCode.EISAccessCode " & _
            "and AIRBranch.EIS_Admin.EISStatusCode = AIRBranch.EISLK_EISStatusCode.EISStatusCode " & _
@@ -16135,6 +16138,7 @@ Public Class DMUStaffTools
                       "and AIRbranch.EIS_Admin.inventoryyear = AIRBranch.EIS_Mailout.intinventoryyear (+) " & _
             "and AIRBranch.EIS_Admin.Active = '1' " & _
            "and AIRbranch.EIS_Admin.inventoryyear = '" & txtSelectedEISStatYear.Text & "'" & _
+           "and AIRBranch.EIS_QAAdmin.QAStatusCode = AIRBranch.EISLK_QAStatus.qastatuscode " & _
                      "and AIRbranch.EIS_Admin.strEnrollment = '1'  " & _
  "and AIRbranch.EIS_Admin.eisstatuscode >= 3  " & _
  "and (strOptOut = '0' ) " & _
@@ -16277,10 +16281,12 @@ Public Class DMUStaffTools
            "case " & _
           "when strDMUResponsibleStaff is null then '-' " & _
            "else strDMUResponsibleStaff " & _
-            "end strDMUResponsibleStaff " & _
+            "end strDMUResponsibleStaff, " & _
+            "AIRBranch.EISLK_QAStatus.strDesc, datQAStatus " & _
            "from AIRbranch.EIS_Admin, airbranch.APBFacilityInformation, " & _
            "airbranch.EISLK_EISAccessCode, AIRBranch.EISLK_EISStatusCode,  " & _
-           "AIRbranch.EIS_Mailout, AIRbranch.EIS_QAAdmin " & _
+          "AIRbranch.EIS_Mailout, AIRbranch.EIS_QAAdmin,  " & _
+           "AIRBranch.EISLK_QAStatus " & _
            "where '0413'||airbranch.EIS_Admin.FacilitySiteId = airbranch.APBFacilityInformation.strAIRSNumber  " & _
            "and AIRBranch.EIS_Admin.EISAccessCode = AIRBranch.EISLK_EISAccessCode.EISAccessCode " & _
            "and AIRBranch.EIS_Admin.EISStatusCode = AIRBranch.EISLK_EISStatusCode.EISStatusCode " & _
@@ -16288,6 +16294,7 @@ Public Class DMUStaffTools
 "and AIRBranch.EIS_Admin.inventoryyear = AIRBranch.EIS_QAAdmin.inventoryyear (+) " & _
            "and AIRbranch.EIS_Admin.FacilitySiteID = AIRBranch.EIS_Mailout.FacilitySiteID (+) " & _
                       "and AIRbranch.EIS_Admin.inventoryyear = AIRBranch.EIS_Mailout.intinventoryyear (+) " & _
+                           "and AIRBranch.EIS_QAAdmin.QAStatusCode = AIRBranch.EISLK_QAStatus.QAStatusCode " & _
             "and AIRBranch.EIS_Admin.Active = '1' " & _
            "and AIRbranch.EIS_Admin.inventoryyear = '" & txtSelectedEISStatYear.Text & "'" & _
                      "and AIRbranch.EIS_Admin.strEnrollment = '1'  " & _
@@ -16378,6 +16385,16 @@ Public Class DMUStaffTools
                 Else
                     dgvRow.Cells(12).Value = dr.Item("strDMUResponsibleStaff")
                 End If
+                If IsDBNull(dr.Item("strDesc")) Then
+                    dgvRow.Cells(14).Value = ""
+                Else
+                    dgvRow.Cells(14).Value = dr.Item("strDesc")
+                End If
+                If IsDBNull(dr.Item("datQAStatus")) Then
+                    dgvRow.Cells(15).Value = ""
+                Else
+                    dgvRow.Cells(15).Value = dr.Item("datQAStatus")
+                End If
                 dgvEISStats.Rows.Add(dgvRow)
             End While
             dr.Close()
@@ -16433,10 +16450,12 @@ Public Class DMUStaffTools
            "case " & _
           "when strDMUResponsibleStaff is null then '-' " & _
            "else strDMUResponsibleStaff " & _
-            "end strDMUResponsibleStaff " & _
+            "end strDMUResponsibleStaff, " & _
+            "AIRBranch.EISLK_QAStatus.strDesc, datQAStatus " & _
            "from AIRbranch.EIS_Admin, airbranch.APBFacilityInformation, " & _
            "airbranch.EISLK_EISAccessCode, AIRBranch.EISLK_EISStatusCode,  " & _
-           "AIRbranch.EIS_Mailout, AIRbranch.EIS_QAAdmin " & _
+           "AIRbranch.EIS_Mailout, AIRbranch.EIS_QAAdmin, " & _
+           "AIRBranch.EISLK_QAStatus " & _
            "where '0413'||airbranch.EIS_Admin.FacilitySiteId = airbranch.APBFacilityInformation.strAIRSNumber  " & _
            "and AIRBranch.EIS_Admin.EISAccessCode = AIRBranch.EISLK_EISAccessCode.EISAccessCode " & _
            "and AIRBranch.EIS_Admin.EISStatusCode = AIRBranch.EISLK_EISStatusCode.EISStatusCode " & _
@@ -16444,6 +16463,7 @@ Public Class DMUStaffTools
 "and AIRBranch.EIS_Admin.inventoryyear = AIRBranch.EIS_QAAdmin.inventoryyear (+) " & _
            "and AIRbranch.EIS_Admin.FacilitySiteID = AIRBranch.EIS_Mailout.FacilitySiteID (+) " & _
                       "and AIRbranch.EIS_Admin.inventoryyear = AIRBranch.EIS_Mailout.intinventoryyear (+) " & _
+                           "and AIRBranch.EIS_QAAdmin.QAStatusCode = AIRBranch.EISLK_QAStatus.QAStatusCode " & _
             "and AIRBranch.EIS_Admin.Active = '1' " & _
            "and AIRbranch.EIS_Admin.inventoryyear = '" & txtSelectedEISStatYear.Text & "'" & _
                      "and AIRbranch.EIS_Admin.strEnrollment = '1'  " & _
@@ -16534,6 +16554,16 @@ Public Class DMUStaffTools
                 Else
                     dgvRow.Cells(12).Value = dr.Item("strDMUResponsibleStaff")
                 End If
+                If IsDBNull(dr.Item("strDesc")) Then
+                    dgvRow.Cells(14).Value = ""
+                Else
+                    dgvRow.Cells(14).Value = dr.Item("strDesc")
+                End If
+                If IsDBNull(dr.Item("datQAStatus")) Then
+                    dgvRow.Cells(15).Value = ""
+                Else
+                    dgvRow.Cells(15).Value = dr.Item("datQAStatus")
+                End If
                 dgvEISStats.Rows.Add(dgvRow)
             End While
             dr.Close()
@@ -16588,10 +16618,12 @@ Public Class DMUStaffTools
            "case " & _
           "when strDMUResponsibleStaff is null then '-' " & _
            "else strDMUResponsibleStaff " & _
-            "end strDMUResponsibleStaff " & _
+            "end strDMUResponsibleStaff, " & _
+            "AIRBranch.EISLK_QAStatus.strDesc, datQAStatus " & _
            "from AIRbranch.EIS_Admin, airbranch.APBFacilityInformation, " & _
            "airbranch.EISLK_EISAccessCode, AIRBranch.EISLK_EISStatusCode,  " & _
-           "AIRbranch.EIS_Mailout, AIRbranch.EIS_QAAdmin " & _
+           "AIRbranch.EIS_Mailout, AIRbranch.EIS_QAAdmin, " & _
+           "AIRBranch.EISLK_QAStatus " & _
            "where '0413'||airbranch.EIS_Admin.FacilitySiteId = airbranch.APBFacilityInformation.strAIRSNumber  " & _
            "and AIRBranch.EIS_Admin.EISAccessCode = AIRBranch.EISLK_EISAccessCode.EISAccessCode " & _
            "and AIRBranch.EIS_Admin.EISStatusCode = AIRBranch.EISLK_EISStatusCode.EISStatusCode " & _
@@ -16599,6 +16631,7 @@ Public Class DMUStaffTools
 "and AIRBranch.EIS_Admin.inventoryyear = AIRBranch.EIS_QAAdmin.inventoryyear (+) " & _
            "and AIRbranch.EIS_Admin.FacilitySiteID = AIRBranch.EIS_Mailout.FacilitySiteID (+) " & _
                       "and AIRbranch.EIS_Admin.inventoryyear = AIRBranch.EIS_Mailout.intinventoryyear (+) " & _
+                           "and AIRBranch.EIS_QAAdmin.QAStatusCode = AIRBranch.EISLK_QAStatus.QAStatusCode " & _
             "and AIRBranch.EIS_Admin.Active = '1' " & _
            "and AIRbranch.EIS_Admin.inventoryyear = '" & txtSelectedEISStatYear.Text & "'" & _
                      "and AIRbranch.EIS_Admin.strEnrollment = '1'  " & _
@@ -16689,6 +16722,16 @@ Public Class DMUStaffTools
                 Else
                     dgvRow.Cells(12).Value = dr.Item("strDMUResponsibleStaff")
                 End If
+                If IsDBNull(dr.Item("strDesc")) Then
+                    dgvRow.Cells(14).Value = ""
+                Else
+                    dgvRow.Cells(14).Value = dr.Item("strDesc")
+                End If
+                If IsDBNull(dr.Item("datQAStatus")) Then
+                    dgvRow.Cells(15).Value = ""
+                Else
+                    dgvRow.Cells(15).Value = dr.Item("datQAStatus")
+                End If
                 dgvEISStats.Rows.Add(dgvRow)
             End While
             dr.Close()
@@ -16743,10 +16786,12 @@ Public Class DMUStaffTools
            "case " & _
           "when strDMUResponsibleStaff is null then '-' " & _
            "else strDMUResponsibleStaff " & _
-            "end strDMUResponsibleStaff " & _
+            "end strDMUResponsibleStaff, " & _
+            "AIRBranch.EISLK_QAStatus.strDesc, datQAStatus " & _
            "from AIRbranch.EIS_Admin, airbranch.APBFacilityInformation, " & _
            "airbranch.EISLK_EISAccessCode, AIRBranch.EISLK_EISStatusCode,  " & _
-           "AIRbranch.EIS_Mailout, AIRbranch.EIS_QAAdmin " & _
+           "AIRbranch.EIS_Mailout, AIRbranch.EIS_QAAdmin,  " & _
+           "AIRBranch.EISLK_QAStatus " & _
            "where '0413'||airbranch.EIS_Admin.FacilitySiteId = airbranch.APBFacilityInformation.strAIRSNumber  " & _
            "and AIRBranch.EIS_Admin.EISAccessCode = AIRBranch.EISLK_EISAccessCode.EISAccessCode " & _
            "and AIRBranch.EIS_Admin.EISStatusCode = AIRBranch.EISLK_EISStatusCode.EISStatusCode " & _
@@ -16754,6 +16799,7 @@ Public Class DMUStaffTools
 "and AIRBranch.EIS_Admin.inventoryyear = AIRBranch.EIS_QAAdmin.inventoryyear (+) " & _
            "and AIRbranch.EIS_Admin.FacilitySiteID = AIRBranch.EIS_Mailout.FacilitySiteID (+) " & _
                       "and AIRbranch.EIS_Admin.inventoryyear = AIRBranch.EIS_Mailout.intinventoryyear (+) " & _
+                      "and AIRBranch.EIS_QAAdmin.QAStatusCode = AIRBranch.EISLK_QAStatus.QAStatusCode " & _
             "and AIRBranch.EIS_Admin.Active = '1' " & _
            "and AIRbranch.EIS_Admin.inventoryyear = '" & txtSelectedEISStatYear.Text & "'" & _
                      "and AIRbranch.EIS_Admin.strEnrollment = '1'  " & _
@@ -16844,6 +16890,17 @@ Public Class DMUStaffTools
                 Else
                     dgvRow.Cells(12).Value = dr.Item("strDMUResponsibleStaff")
                 End If
+                If IsDBNull(dr.Item("strDesc")) Then
+                    dgvRow.Cells(14).Value = ""
+                Else
+                    dgvRow.Cells(14).Value = dr.Item("strDesc")
+                End If
+                If IsDBNull(dr.Item("datQAStatus")) Then
+                    dgvRow.Cells(15).Value = ""
+                Else
+                    dgvRow.Cells(15).Value = dr.Item("datQAStatus")
+                End If
+
                 dgvEISStats.Rows.Add(dgvRow)
             End While
             dr.Close()
@@ -19955,5 +20012,9 @@ Public Class DMUStaffTools
         Catch ex As Exception
 
         End Try
+    End Sub
+
+    Private Sub btnEISSummaryToExcel_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEISSummaryToExcel.Click
+
     End Sub
 End Class

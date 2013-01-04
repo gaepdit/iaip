@@ -8922,6 +8922,31 @@ Public Class SSPPApplicationTrackingLog
             dr = cmd.ExecuteReader
             dr.Close()
 
+            If OpStatus = "X" Then
+                SQL = "Update airbranch.EIS_FacilitySite set " & _
+                "strFacilitySiteStatusCode = 'PS', " & _
+                "strFacilitySiteComment = 'Facility Shutdown by permitting action.', " & _
+                "UpdateUSer = '" & UserName & "', " & _
+                "updateDateTime = sysdate " & _
+                "where facilitySiteID = '" & txtAIRSNumber.Text & "' "
+                cmd = New OracleCommand(SQL, conn)
+                If conn.State = ConnectionState.Closed Then
+                    conn.Open()
+                End If
+                cmd.ExecuteReader()
+            End If
+
+            SQL = "Update AIRBranch.EIS_FactilitySite set " & _
+            "strFacilitySiteName = '" & Replace(txtFacilityName.Text, "'", "''") & "', " & _
+            "strFacilitySiteDescription = '" & Replace(txtPlantDescription.Text, "'", "''") & "' " & _
+            "where facilitySiteID = '" & txtAIRSNumber.Text & "' "
+
+            cmd = New OracleCommand(SQL, conn)
+            If conn.State = ConnectionState.Closed Then
+                conn.Open()
+            End If
+            cmd.ExecuteReader()
+
             If AirProgramCodes <> "000000000000000" Then
                 If Mid(AirProgramCodes, 1, 1) = "1" Then
                     temp = "3"
