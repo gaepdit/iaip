@@ -2444,6 +2444,24 @@ Public Class IAIPQueryGenerator
                 End If
             End If
 
+            If chbDistrictResponsible.Checked = True Then
+                'SQLSelect = SQLSelect & _
+                '"AIRBranch.SSCPDistrictResponsible, "
+
+                If SQLFrom.IndexOf("AIRBranch.SSCPDistrictResponsible") <> -1 Then
+
+                Else
+                    SQLFrom = SQLFrom & " AIRBranch.SSCPDistrictResponsible, "
+                    SQLWhere = SQLWhere & " AND airbranch.APBMasterAIRS.strAIRSnumber = airbranch.SSCPDistrictResponsible.strAIRSNumber "
+                    If rdbDistrictResponsibleTrue.Checked = True Then
+                        SQLWhere = SQLWhere & " and SSCPDistrictResponsible.strDistrictResponsible = 'True' "
+                    Else
+                        SQLWhere = SQLWhere & " and SSCPDistrictResponsible.strDistrictResponsible = 'False' "
+                    End If
+                End If
+            End If
+
+
             If chbOperationStatus.Checked = True Then
                 SQLSelect = SQLSelect & _
                 "" & connNameSpace & ".APBHeaderData.strOperationalStatus, "
@@ -2533,7 +2551,7 @@ Public Class IAIPQueryGenerator
                 "" & connNameSpace & ".APBHeaderData.strPlantDescription, "
 
                 If SQLFrom.IndexOf("" & connNameSpace & ".APBHeaderData") <> -1 Then
-                  '  SQLFrom = SQLFrom
+                    '  SQLFrom = SQLFrom
                 Else
                     SQLFrom = SQLFrom & " " & connNameSpace & ".APBHeaderData, "
                     SQLWhere = SQLWhere & " and " & connNameSpace & ".APBMasterAIRS.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber "
@@ -2587,7 +2605,7 @@ Public Class IAIPQueryGenerator
                 "else '' end PMNo, "
 
                 If SQLFrom.IndexOf("" & connNameSpace & ".APBHeaderData") <> -1 Then
-                 '   SQLFrom = SQLFrom
+                    '   SQLFrom = SQLFrom
                 Else
                     SQLFrom = SQLFrom & " " & connNameSpace & ".APBHeaderData, "
                     SQLWhere = SQLWhere & " and " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber "
@@ -2670,7 +2688,7 @@ Public Class IAIPQueryGenerator
                     "else '' end EightHrNo, "
 
                     If SQLFrom.IndexOf("" & connNameSpace & ".APBHeaderData") <> -1 Then
-                      '  SQLFrom = SQLFrom
+                        '  SQLFrom = SQLFrom
                     Else
                         SQLFrom = SQLFrom & " " & connNameSpace & ".APBHeaderData, "
                         SQLWhere = SQLWhere & " and " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber "
@@ -2895,7 +2913,7 @@ Public Class IAIPQueryGenerator
                     "Else '' end APC4, "
 
                     If SQLFrom.IndexOf("" & connNameSpace & ".APBHeaderData") <> -1 Then
-                     '   SQLFrom = SQLFrom
+                        '   SQLFrom = SQLFrom
                     Else
                         SQLFrom = SQLFrom & " " & connNameSpace & ".APBHeaderData, "
                         SQLWhere = SQLWhere & " and " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber "
@@ -3006,7 +3024,7 @@ Public Class IAIPQueryGenerator
                     "Else '' end APCM, "
 
                     If SQLFrom.IndexOf("" & connNameSpace & ".APBHeaderData") <> -1 Then
-                     '   SQLFrom = SQLFrom
+                        '   SQLFrom = SQLFrom
                     Else
                         SQLFrom = SQLFrom & " " & connNameSpace & ".APBHeaderData, "
                         SQLWhere = SQLWhere & " and " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber "
@@ -3138,7 +3156,7 @@ Public Class IAIPQueryGenerator
                     " and intyear = (select max(intyear) from airbranch.SSCPInspectionsRequired)   "
                 End If
                 If SQLFrom.IndexOf("" & connNameSpace & ".LookUpEPDUnits") <> -1 Then
-                 '   SQLFrom = SQLFrom
+                    '   SQLFrom = SQLFrom
                 Else
                     SQLFrom = SQLFrom & " " & connNameSpace & ".LookUpEPDUnits, "
                     SQLWhere = SQLWhere & " and " & connNameSpace & ".SSCPInspectionsRequired.numSSCPUnit = " & connNameSpace & ".LookUpEPDUnits.nuMUnitCode (+) "

@@ -136,14 +136,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="JohnGaltProject.exe" size="18922496">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="JohnGaltProject.exe" size="18924544">
       <assemblyIdentity name="JohnGaltProject" version="2.6.1.8" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>19VtQRoFCtfycb8vBh1pLJorciU=</dsig:DigestValue>
+        <dsig:DigestValue>ITIK1QdquefVtAMKbNNhp2ZRCdg=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

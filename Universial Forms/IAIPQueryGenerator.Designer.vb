@@ -23,9 +23,9 @@ Partial Class IAIPQueryGenerator
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(IAIPQueryGenerator))
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip
         Me.mmiFile = New System.Windows.Forms.ToolStripMenuItem
         Me.mmiBack = New System.Windows.Forms.ToolStripMenuItem
@@ -416,6 +416,10 @@ Partial Class IAIPQueryGenerator
         Me.GBBasic = New System.Windows.Forms.GroupBox
         Me.txtSQLStatement = New System.Windows.Forms.TextBox
         Me.bgwQueryGenerator = New System.ComponentModel.BackgroundWorker
+        Me.chbDistrictResponsible = New System.Windows.Forms.CheckBox
+        Me.Panel76 = New System.Windows.Forms.Panel
+        Me.rdbDistrictResponsibleFalse = New System.Windows.Forms.RadioButton
+        Me.rdbDistrictResponsibleTrue = New System.Windows.Forms.RadioButton
         Me.MenuStrip1.SuspendLayout()
         Me.ToolStrip1.SuspendLayout()
         Me.Panel6.SuspendLayout()
@@ -502,6 +506,7 @@ Partial Class IAIPQueryGenerator
         Me.Panel69.SuspendLayout()
         Me.TPCannedReports.SuspendLayout()
         Me.GBBasic.SuspendLayout()
+        Me.Panel76.SuspendLayout()
         Me.SuspendLayout()
         '
         'MenuStrip1
@@ -881,35 +886,35 @@ Partial Class IAIPQueryGenerator
         '
         'dgvQueryGenerator
         '
-        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle4.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvQueryGenerator.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle4
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvQueryGenerator.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
         Me.dgvQueryGenerator.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle5.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvQueryGenerator.DefaultCellStyle = DataGridViewCellStyle5
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvQueryGenerator.DefaultCellStyle = DataGridViewCellStyle2
         Me.dgvQueryGenerator.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvQueryGenerator.Location = New System.Drawing.Point(0, 485)
         Me.dgvQueryGenerator.Name = "dgvQueryGenerator"
         Me.dgvQueryGenerator.ReadOnly = True
-        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle6.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvQueryGenerator.RowHeadersDefaultCellStyle = DataGridViewCellStyle6
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvQueryGenerator.RowHeadersDefaultCellStyle = DataGridViewCellStyle3
         Me.dgvQueryGenerator.Size = New System.Drawing.Size(796, 105)
         Me.dgvQueryGenerator.TabIndex = 13
         '
@@ -4058,6 +4063,8 @@ Partial Class IAIPQueryGenerator
         '
         'TPComplianceInfo
         '
+        Me.TPComplianceInfo.Controls.Add(Me.Panel76)
+        Me.TPComplianceInfo.Controls.Add(Me.chbDistrictResponsible)
         Me.TPComplianceInfo.Controls.Add(Me.DTPLastFCESearch2)
         Me.TPComplianceInfo.Controls.Add(Me.DTPLastFCESearch1)
         Me.TPComplianceInfo.Controls.Add(Me.txtLastFCEOrder)
@@ -4408,6 +4415,45 @@ Partial Class IAIPQueryGenerator
         'bgwQueryGenerator
         '
         '
+        'chbDistrictResponsible
+        '
+        Me.chbDistrictResponsible.AutoSize = True
+        Me.chbDistrictResponsible.Location = New System.Drawing.Point(8, 98)
+        Me.chbDistrictResponsible.Name = "chbDistrictResponsible"
+        Me.chbDistrictResponsible.Size = New System.Drawing.Size(119, 17)
+        Me.chbDistrictResponsible.TabIndex = 233
+        Me.chbDistrictResponsible.Text = "District Responsible"
+        '
+        'Panel76
+        '
+        Me.Panel76.AutoSize = True
+        Me.Panel76.Controls.Add(Me.rdbDistrictResponsibleFalse)
+        Me.Panel76.Controls.Add(Me.rdbDistrictResponsibleTrue)
+        Me.Panel76.Location = New System.Drawing.Point(608, 93)
+        Me.Panel76.Name = "Panel76"
+        Me.Panel76.Size = New System.Drawing.Size(77, 27)
+        Me.Panel76.TabIndex = 234
+        '
+        'rdbDistrictResponsibleFalse
+        '
+        Me.rdbDistrictResponsibleFalse.AutoSize = True
+        Me.rdbDistrictResponsibleFalse.Location = New System.Drawing.Point(37, 7)
+        Me.rdbDistrictResponsibleFalse.Name = "rdbDistrictResponsibleFalse"
+        Me.rdbDistrictResponsibleFalse.Size = New System.Drawing.Size(37, 17)
+        Me.rdbDistrictResponsibleFalse.TabIndex = 88
+        Me.rdbDistrictResponsibleFalse.Text = "<>"
+        '
+        'rdbDistrictResponsibleTrue
+        '
+        Me.rdbDistrictResponsibleTrue.AutoSize = True
+        Me.rdbDistrictResponsibleTrue.Checked = True
+        Me.rdbDistrictResponsibleTrue.Location = New System.Drawing.Point(7, 7)
+        Me.rdbDistrictResponsibleTrue.Name = "rdbDistrictResponsibleTrue"
+        Me.rdbDistrictResponsibleTrue.Size = New System.Drawing.Size(31, 17)
+        Me.rdbDistrictResponsibleTrue.TabIndex = 87
+        Me.rdbDistrictResponsibleTrue.TabStop = True
+        Me.rdbDistrictResponsibleTrue.Text = "="
+        '
         'IAIPQueryGenerator
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -4588,6 +4634,8 @@ Partial Class IAIPQueryGenerator
         Me.TPCannedReports.PerformLayout()
         Me.GBBasic.ResumeLayout(False)
         Me.GBBasic.PerformLayout()
+        Me.Panel76.ResumeLayout(False)
+        Me.Panel76.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -4982,4 +5030,8 @@ Partial Class IAIPQueryGenerator
     Friend WithEvents TPCannedReports As System.Windows.Forms.TabPage
     Friend WithEvents Label8 As System.Windows.Forms.Label
     Friend WithEvents btnRunPermitContact As System.Windows.Forms.Button
+    Friend WithEvents Panel76 As System.Windows.Forms.Panel
+    Friend WithEvents rdbDistrictResponsibleFalse As System.Windows.Forms.RadioButton
+    Friend WithEvents rdbDistrictResponsibleTrue As System.Windows.Forms.RadioButton
+    Friend WithEvents chbDistrictResponsible As System.Windows.Forms.CheckBox
 End Class

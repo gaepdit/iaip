@@ -11594,8 +11594,10 @@ Public Class DMUStaffTools
             End While
             dr.Close()
 
-            If cboEILogStatusCode.SelectedValue >= 4 Then
-                pnlQAProcess.Enabled = True
+            If cboEILogStatusCode.SelectedIndex <> -1 And cboEILogStatusCode.SelectedIndex <> 0 Then
+                If cboEILogStatusCode.SelectedValue >= 4 Then
+                    pnlQAProcess.Enabled = True
+                End If
             End If
 
         Catch ex As Exception
