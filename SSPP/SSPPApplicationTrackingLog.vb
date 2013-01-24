@@ -8936,17 +8936,6 @@ Public Class SSPPApplicationTrackingLog
                 cmd.ExecuteReader()
             End If
 
-            SQL = "Update AIRBranch.EIS_FactilitySite set " & _
-            "strFacilitySiteName = '" & Replace(txtFacilityName.Text, "'", "''") & "', " & _
-            "strFacilitySiteDescription = '" & Replace(txtPlantDescription.Text, "'", "''") & "' " & _
-            "where facilitySiteID = '" & txtAIRSNumber.Text & "' "
-
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
-            End If
-            cmd.ExecuteReader()
-
             If AirProgramCodes <> "000000000000000" Then
                 If Mid(AirProgramCodes, 1, 1) = "1" Then
                     temp = "3"
@@ -10115,6 +10104,25 @@ Public Class SSPPApplicationTrackingLog
                 End If
 
             End If
+
+            SQL = "Update AIRBranch.EIS_FacilitySite set " & _
+            "strFacilitySiteName = '" & Replace(txtFacilityName.Text, "'", "''") & "' " & _
+            "where facilitysiteid = '" & txtAIRSNumber.Text & "' "
+            cmd = New OracleCommand(SQL, conn)
+            If conn.State = ConnectionState.Closed Then
+                conn.Open()
+            End If
+            cmd.ExecuteReader()
+
+            SQL = "Update AIRBranch.EIS_Mailout set " & _
+            "strFacilityname = '" & Replace(txtFacilityName.Text, "'", "''") & "' " & _
+            "where facilitysiteID = '" & txtAIRSNumber.Text & "' " & _
+            "and intinventoryYear = (select to_char(sysdate, 'YYYY')-1 from dual ) "
+            cmd = New OracleCommand(SQL, conn)
+            If conn.State = ConnectionState.Closed Then
+                conn.Open()
+            End If
+            cmd.ExecuteReader()
 
         Catch ex As Exception
             ErrorReport(temp & vbCrLf & txtAIRSNumber.Text & vbCrLf & txtApplicationNumber.Text & ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)

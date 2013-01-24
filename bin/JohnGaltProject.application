@@ -1,17 +1,24 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <asmv1:assembly xsi:schemaLocation="urn:schemas-microsoft-com:asm.v1 assembly.adaptive.xsd" manifestVersion="1.0" xmlns:asmv3="urn:schemas-microsoft-com:asm.v3" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:co.v1="urn:schemas-microsoft-com:clickonce.v1" xmlns="urn:schemas-microsoft-com:asm.v2" xmlns:asmv1="urn:schemas-microsoft-com:asm.v1" xmlns:asmv2="urn:schemas-microsoft-com:asm.v2" xmlns:xrml="urn:mpeg:mpeg21:2003:01-REL-R-NS" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <assemblyIdentity name="JohnGaltProject.application" version="1.0.0.2" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" xmlns="urn:schemas-microsoft-com:asm.v1" />
-  <description asmv2:publisher="State of Georgia" asmv2:product="JohnGaltProject" xmlns="urn:schemas-microsoft-com:asm.v1" />
-  <deployment install="true" mapFileExtensions="true" />
+  <assemblyIdentity name="JohnGaltProject.application" version="1.0.0.2" publicKeyToken="0000000000000000" language="en-US" processorArchitecture="msil" xmlns="urn:schemas-microsoft-com:asm.v1" />
+  <description asmv2:publisher="Georgia EPD" co.v1:suiteName="Integrated Air Information Platform" asmv2:product="IAIP" xmlns="urn:schemas-microsoft-com:asm.v1" />
+  <deployment install="true" mapFileExtensions="true" co.v1:createDesktopShortcut="true">
+    <subscription>
+      <update>
+        <beforeApplicationStartup />
+      </update>
+    </subscription>
+    <deploymentProvider codebase="http://airpermit.dnr.state.ga.us/IAIP2/JohnGaltProject.application" />
+  </deployment>
   <dependency>
-    <dependentAssembly dependencyType="install" codebase="JohnGaltProject.exe.manifest" size="10186">
-      <assemblyIdentity name="JohnGaltProject.exe" version="1.0.0.2" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
+    <dependentAssembly dependencyType="install" codebase="JohnGaltProject.exe.manifest" size="13154">
+      <assemblyIdentity name="JohnGaltProject.exe" version="1.0.0.2" publicKeyToken="0000000000000000" language="en-US" processorArchitecture="msil" type="win32" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>5blpPOjc+oW1P6uBByaojs8/bwQ=</dsig:DigestValue>
+        <dsig:DigestValue>MJaNxqFI0Y/GHEgIUVSJBp7nuVQ=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

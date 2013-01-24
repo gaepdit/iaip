@@ -3906,37 +3906,37 @@ Public Class PASPFeeAuditLog
                 NOxTons = ""
             End If
             If txtEditFeeRate.Text <> "" Then
-                FeeRate = txtEditFeeRate.Text
+                FeeRate = Replace(Replace(txtEditFeeRate.Text, "$", ""), ",", "")
             Else
                 FeeRate = ""
             End If
             If txtEditCalculatedFee.Text <> "" Then
-                CalculatedFee = txtEditCalculatedFee.Text
+                CalculatedFee = Replace(Replace(txtEditCalculatedFee.Text, "$", ""), ",", "")
             Else
                 CalculatedFee = ""
             End If
             If txtEditPart70Fee.Text <> "" Then
-                Part70Fee = txtEditPart70Fee.Text
+                Part70Fee = Replace(Replace(txtEditPart70Fee.Text, "$", ""), ",", "")
             Else
                 Part70Fee = ""
             End If
             If txtEditSMFee.Text <> "" Then
-                SMFee = txtEditSMFee.Text
+                SMFee = Replace(Replace(txtEditSMFee.Text, "$", ""), ",", "")
             Else
                 SMFee = ""
             End If
             If txtEditNSPSFee.Text <> "" Then
-                NSPSFee = txtEditNSPSFee.Text
+                NSPSFee = Replace(Replace(txtEditNSPSFee.Text, "$", ""), ",", "")
             Else
                 NSPSFee = ""
             End If
             If txtEditAdminFee.Text <> "" Then
-                AdminFee = txtEditAdminFee.Text
+                AdminFee = Replace(Replace(txtEditAdminFee.Text, "$", ""), ",", "")
             Else
                 AdminFee = ""
             End If
             If txtEditTotalFees.Text <> "" Then
-                TotalFee = txtEditTotalFees.Text
+                TotalFee = Replace(Replace(txtEditTotalFees.Text, "$", ""), ",", "")
             Else
                 TotalFee = ""
             End If

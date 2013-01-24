@@ -25,7 +25,6 @@ Public Class SSCPFCEWork
     Dim dsStaff As DataSet
     Dim daStaff As OracleDataAdapter
 
-
     Private Sub SSCPFCE_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         Try
 
@@ -1842,7 +1841,6 @@ Public Class SSCPFCEWork
     End Sub
 
 #End Region
-
 #Region "Functions and Subs"
     Sub SaveFCE()
         Dim temp As String = ""
@@ -2280,7 +2278,6 @@ Public Class SSCPFCEWork
 
 
 #End Region
-
     Private Sub MenuItem5_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MenuItem5.Click
         Try
             Help.ShowHelp(Label10, "https://sites.google.com/a/dnr.state.ga.us/iaip-docs/")
@@ -2288,4 +2285,5 @@ Public Class SSCPFCEWork
         End Try
 
     End Sub
+
 End Class

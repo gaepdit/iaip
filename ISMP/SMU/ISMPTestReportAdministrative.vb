@@ -891,7 +891,6 @@ Public Class ISMPTestReportAdministrative
     End Sub
     Sub CloseTestReport()
         Try
-
             Dim AFSActionNumber As String = ""
             Dim UpdateCode As String
             Dim ComplianceStatus As String
@@ -1001,7 +1000,7 @@ Public Class ISMPTestReportAdministrative
                                     "strUpDateStatus, strModifingPerson, " & _
                                     "datModifingDate) " & _
                                     "values " & _
-                                    "('" & txtReferenceNumber.Text & "', '" & AFSActionNumber & "', " & _
+                                    "('" & RefNum & "', '" & AFSActionNumber & "', " & _
                                     "'A', '" & UserGCode & "', " & _
                                     "'" & OracleDate & "') "
 
