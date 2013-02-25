@@ -2009,10 +2009,8 @@ Public Class DEVFeeStatistics
 
                     For i = 0 To dgvDepositsAndPayments.ColumnCount - 1
                         For j = 0 To dgvDepositsAndPayments.RowCount - 1
-                           ' If dgvDepositsAndPayments.Item(i, j).Value Then
                             .Cells(j + 2, i + 1).numberformat = "@"
-                            '.Cells(j + 2, i + 1).value = dgvDepositsAndPayments.Item(i, j).Value.ToString
-                            .Cells(j + 2, i + 1).value = dgvDepositsAndPayments.Item(i, j).Value
+                            .Cells(j + 2, i + 1).value = dgvDepositsAndPayments.Item(i, j).Value.ToString
                         Next
                     Next
 
@@ -2212,7 +2210,7 @@ Public Class DEVFeeStatistics
                     dr2 = cmd.ExecuteReader
                     While dr2.Read
                         If IsDBNull(dr2.Item("strApplicationTypeDesc")) Then
-                            'LastApp = LastApp
+                            LastApp = LastApp
                         Else
                             LastApp = LastApp & " - " & dr2.Item("strApplicationTypeDesc")
                         End If
@@ -2345,7 +2343,7 @@ Public Class DEVFeeStatistics
                                 LastCompliance = dr2.Item("strTrackingNumber")
                             End If
                             If IsDBNull(dr2.Item("strActivityName")) Then
-                                'LastCompliance = LastCompliance
+                                LastCompliance = LastCompliance
                             Else
                                 LastCompliance = LastCompliance & " - " & dr2.Item("strActivityName")
                             End If
@@ -6495,7 +6493,7 @@ Public Class DEVFeeStatistics
             "and AIRBranch.FS_Admin.numFeeYear = AIRBranch.FS_Mailout.numFeeYear (+)  " & _
             "and AIRBranch.FS_Admin.numFeeYear = AIRBranch.FS_Transactions.numFeeYear (+)  " & _
             "and AIRBranch.FS_Admin.numcurrentstatus = airbranch.FSLK_Admin_Status.id  " & _
-            "and AIRBranch.FS_Admin.numFeeyear = '2011'    " & _
+            "and AIRBranch.FS_Admin.numFeeyear = '" & cboFeeStatYear.Text & "'    " & _
             "and AIRBranch.FS_Admin.Active = '1' GROUP BY substr(AIRBranch.FS_Admin.strAIRSNumber, 5), AIRBranch.APBFacilityInformation.strFacilityName, strIAIPDesc, AIRBranch.FS_Mailout.STRFIRSTNAME, AIRBranch.FS_Mailout.STRLASTNAME, AIRBranch.FS_Mailout.STRContactCONAME, AIRBranch.FS_Mailout.STRCONTACTADDRESS1, AIRBranch.FS_Mailout.STRCONTACTCITY, AIRBranch.FS_Mailout.STRCONTACTSTATE, AIRBranch.FS_Mailout.STRCONTACTZIPCODE, AIRBranch.APBFACILITYINFORMATION.STRFACILITYSTREET1, AIRBranch.APBFACILITYINFORMATION.STRFACILITYCITY, AIRBranch.APBFACILITYINFORMATION.STRFACILITYZIPCODE, AIRBranch.FS_Mailout.strGecoUserEmail, '', datShutDown, airbranch.FS_Admin.strComment,  FS_Mailout.strClass, case  " & _
             "when strOperate = '1' then 'Operating'  " & _
             "else 'Not Operating'  " & _

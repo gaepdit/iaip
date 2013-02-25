@@ -1,4 +1,5 @@
 ﻿Imports System
+Imports System.Security
 Imports System.Data.OracleClient
 
 Module CodeFile
@@ -1089,6 +1090,8 @@ Module CodeFile
             Else
                 If PassCodeRequired = False Then
                     PassCode = "1"
+                Else
+                    PassCode = PassCode
                 End If
             End If
             If LogInRequired = True Then
@@ -1352,6 +1355,31 @@ Module CodeFile
             SQL = "Select strNAICSCode " & _
             "from AIRBranch.EILookUpNAICS " & _
             "where strNAICSCode = '" & NAICSCode & "' "
+
+            cmd = New OracleCommand(SQL, conn)
+            If conn.State = ConnectionState.Closed Then
+                conn.Open()
+            End If
+
+            dr = cmd.ExecuteReader
+            recExist = dr.Read
+            If recExist = True Then
+                Return True
+            Else
+                Return False
+            End If
+            dr.Close()
+
+        Catch ex As Exception
+            ErrorReport(ex.ToString(), "CodeFile." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+        End Try
+    End Function
+    Function ValidateSIC(ByVal SICCode As String) As Boolean
+        Try
+            SQL = "Select strSICCode " & _
+            "from AIRBranch.LookUpSICCodes " & _
+            "where strSICCode = '" & SICCode & "' " & _
+            "and length(strSICCode) = 4 "
 
             cmd = New OracleCommand(SQL, conn)
             If conn.State = ConnectionState.Closed Then

@@ -6653,13 +6653,13 @@ Public Class SSPPApplicationTrackingLog
         Dim PNExpires As String = ""
 
         Try
-             
-
             If txtApplicationNumber.Text <> "" Then
                 If txtSICCode.Text <> "" And txtSICCode.Text <> "N/A" Then
                     SQL = "Select strSICCode " & _
                     "from " & connNameSpace & ".LookUPSICCodes " & _
-                    "where strSICCode = '" & txtSICCode.Text & "' "
+                    "where strSICCode = '" & txtSICCode.Text & "' " & _
+                    "and length(strSICCode) = 4 "
+
                     cmd = New OracleCommand(SQL, conn)
                     If conn.State = ConnectionState.Closed Then
                         conn.Open()
@@ -6668,9 +6668,8 @@ Public Class SSPPApplicationTrackingLog
                     recExist = dr.Read
                     dr.Close()
                     If recExist = True Then
-
                     Else
-                        MsgBox("ERROR" & vbCrLf & "The SIC Code is not valid and will be excluded from this record.", MsgBoxStyle.Exclamation, Me.Text)
+                        MsgBox("ERROR" & vbCrLf & "The SIC Code is not a valid 4 digit code and will be excluded from this record.", MsgBoxStyle.Exclamation, Me.Text)
                         txtSICCode.Text = ""
                     End If
                 End If
@@ -6682,7 +6681,6 @@ Public Class SSPPApplicationTrackingLog
                         Exit Sub
                     End If
                 End If
-                
 
                 SQL = "Select strApplicationNumber " & _
                 "from " & connNameSpace & ".SSPPApplicationMaster " & _
@@ -6741,7 +6739,7 @@ Public Class SSPPApplicationTrackingLog
                     dr.Read()
                     dr.Close()
                 Else
-                    
+
                 End If
 
                 If cboEngineer.Text <> "" Then
@@ -7079,12 +7077,12 @@ Public Class SSPPApplicationTrackingLog
                     conn.Open()
                 End If
                 Try
-                     
+
                     dr = cmd.ExecuteReader
                 Catch ex As Exception
                     MsgBox(ex.ToString())
                 End Try
-                 
+
                 dr.Read()
                 dr.Close()
 
@@ -7333,6 +7331,27 @@ Public Class SSPPApplicationTrackingLog
 
                 If DTPFinalAction.Checked = True And Me.chbClosedOut.Checked = True And txtAIRSNumber.Text.Length = 8 _
                    And IsNumeric(txtAIRSNumber.Text) = True Then
+
+                    SQL = "Select strSICCode " & _
+                    "from " & connNameSpace & ".LookUPSICCodes " & _
+                    "where strSICCode = '" & txtSICCode.Text & "' " & _
+                    "and length(strSICCode) = 4 "
+
+                    cmd = New OracleCommand(SQL, conn)
+                    If conn.State = ConnectionState.Closed Then
+                        conn.Open()
+                    End If
+                    dr = cmd.ExecuteReader
+                    recExist = dr.Read
+                    dr.Close()
+                    If recExist = True Then
+                    Else
+                        MsgBox("ERROR" & vbCrLf & "The SIC Code is not a valid 4 digit code." & vbCrLf & _
+                               "This application cannot be closed out until a valid 4 digit code is entered." & vbCrLf & _
+                               "THE DATA HAS BEEN SAVED BUT THIS RECORD HAS NOT BEEN CLOSED OUT.", MsgBoxStyle.Exclamation, Me.Text)
+                        chbClosedOut.Checked = False
+                        Exit Sub
+                    End If
 
                     If cboPermitAction.SelectedValue = "1" Or cboPermitAction.SelectedValue = "4" _
                               Or cboPermitAction.SelectedValue = "5" Or cboPermitAction.SelectedValue = "7" _
@@ -8922,20 +8941,6 @@ Public Class SSPPApplicationTrackingLog
             dr = cmd.ExecuteReader
             dr.Close()
 
-            If OpStatus = "X" Then
-                SQL = "Update airbranch.EIS_FacilitySite set " & _
-                "strFacilitySiteStatusCode = 'PS', " & _
-                "strFacilitySiteComment = 'Facility Shutdown by permitting action.', " & _
-                "UpdateUSer = '" & UserName & "', " & _
-                "updateDateTime = sysdate " & _
-                "where facilitySiteID = '" & txtAIRSNumber.Text & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
-                End If
-                cmd.ExecuteReader()
-            End If
-
             If AirProgramCodes <> "000000000000000" Then
                 If Mid(AirProgramCodes, 1, 1) = "1" Then
                     temp = "3"
@@ -10104,25 +10109,6 @@ Public Class SSPPApplicationTrackingLog
                 End If
 
             End If
-
-            SQL = "Update AIRBranch.EIS_FacilitySite set " & _
-            "strFacilitySiteName = '" & Replace(txtFacilityName.Text, "'", "''") & "' " & _
-            "where facilitysiteid = '" & txtAIRSNumber.Text & "' "
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
-            End If
-            cmd.ExecuteReader()
-
-            SQL = "Update AIRBranch.EIS_Mailout set " & _
-            "strFacilityname = '" & Replace(txtFacilityName.Text, "'", "''") & "' " & _
-            "where facilitysiteID = '" & txtAIRSNumber.Text & "' " & _
-            "and intinventoryYear = (select to_char(sysdate, 'YYYY')-1 from dual ) "
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
-            End If
-            cmd.ExecuteReader()
 
         Catch ex As Exception
             ErrorReport(temp & vbCrLf & txtAIRSNumber.Text & vbCrLf & txtApplicationNumber.Text & ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)

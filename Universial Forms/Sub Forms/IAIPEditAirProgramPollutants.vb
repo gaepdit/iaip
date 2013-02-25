@@ -625,7 +625,6 @@ Public Class IAIPEditAirProgramPollutants
                         MsgBox(ex.ToString())
                     End Try
 
-
                     If conn.State = ConnectionState.Open Then
                         'conn.close()
                     End If

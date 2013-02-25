@@ -1,5 +1,5 @@
 ﻿Imports System.Data.OracleClient
-'Imports CrystalDecisions.Shared
+Imports CrystalDecisions.Shared
 Imports CrystalDecisions.CrystalReports.Engine
 
 
@@ -3906,37 +3906,37 @@ Public Class PASPFeeAuditLog
                 NOxTons = ""
             End If
             If txtEditFeeRate.Text <> "" Then
-                FeeRate = Replace(Replace(txtEditFeeRate.Text, "$", ""), ",", "")
+                FeeRate = txtEditFeeRate.Text
             Else
                 FeeRate = ""
             End If
             If txtEditCalculatedFee.Text <> "" Then
-                CalculatedFee = Replace(Replace(txtEditCalculatedFee.Text, "$", ""), ",", "")
+                CalculatedFee = txtEditCalculatedFee.Text
             Else
                 CalculatedFee = ""
             End If
             If txtEditPart70Fee.Text <> "" Then
-                Part70Fee = Replace(Replace(txtEditPart70Fee.Text, "$", ""), ",", "")
+                Part70Fee = txtEditPart70Fee.Text
             Else
                 Part70Fee = ""
             End If
             If txtEditSMFee.Text <> "" Then
-                SMFee = Replace(Replace(txtEditSMFee.Text, "$", ""), ",", "")
+                SMFee = txtEditSMFee.Text
             Else
                 SMFee = ""
             End If
             If txtEditNSPSFee.Text <> "" Then
-                NSPSFee = Replace(Replace(txtEditNSPSFee.Text, "$", ""), ",", "")
+                NSPSFee = txtEditNSPSFee.Text
             Else
                 NSPSFee = ""
             End If
             If txtEditAdminFee.Text <> "" Then
-                AdminFee = Replace(Replace(txtEditAdminFee.Text, "$", ""), ",", "")
+                AdminFee = txtEditAdminFee.Text
             Else
                 AdminFee = ""
             End If
             If txtEditTotalFees.Text <> "" Then
-                TotalFee = Replace(Replace(txtEditTotalFees.Text, "$", ""), ",", "")
+                TotalFee = txtEditTotalFees.Text
             Else
                 TotalFee = ""
             End If
@@ -4284,7 +4284,7 @@ Public Class PASPFeeAuditLog
             dr = cmd.ExecuteReader
             While dr.Read
                 If IsDBNull(dr.Item("NSPSReasonCode")) Then
-                    'NSPStemp = NSPStemp
+                    NSPStemp = NSPStemp
                 Else
                     NSPStemp = NSPStemp & dr.Item("NSPSReasonCode")
                     If IsDBNull(dr.Item("DisplayOrder")) Then

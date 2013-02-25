@@ -1,6 +1,8 @@
-﻿'Imports System.DateTime
+﻿Imports System.DateTime
 Imports System.Data.OracleClient
-'Imports System.IO
+Imports System.IO
+Imports System.Data.OleDb
+Imports System.Text.RegularExpressions
 
 Public Class DMUDeveloperTools
     Dim dsStaff As DataSet
@@ -59,16 +61,22 @@ Public Class DMUDeveloperTools
             TCDMUTools.TabPages.Remove(TPErrorLog)
             TCDMUTools.TabPages.Remove(TPWebErrorLog)
             TCDMUTools.TabPages.Remove(TPUpdateDEVTest)
+            TCDMUTools.TabPages.Remove(TPATSTool)
+
+
+            TCDMUTools.TabPages.Add(TPAFSFileGenerator)
+            ' TCDMUTools.TabPages.Add(TPATSTool)
+            LoadOtherComboBoxes()
 
             'AFS Users
             If AccountArray(129, 1) = "1" Then
-                TCDMUTools.TabPages.Add(TPAFSFileGenerator)
-                TCDMUTools.TabPages.Add(TPAddNewFacility)
+                'TCDMUTools.TabPages.Add(TPAFSFileGenerator)
+                ''TCDMUTools.TabPages.Add(TPAddNewFacility)
+                TCDMUTools.TabPages.Add(TPATSTool)
+                'LoadOtherComboBoxes()
 
-                LoadOtherComboBoxes()
-
-                DevelopersTools.Width = 800
-                DevelopersTools.Height = 730
+                'DevelopersTools.Width = 800
+                'DevelopersTools.Height = 730
             End If
             'Web Publishers
             If AccountArray(129, 2) = "1" Then
@@ -90,7 +98,7 @@ Public Class DMUDeveloperTools
                     DevelopersTools.Width = 800
                 End If
                 DevelopersTools.Height = 1000
-                TCDMUTools.TabPages.Add(TPUpdateDEVTest)
+                '  TCDMUTools.TabPages.Add(TPUpdateDEVTest)
             End If
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -259,9 +267,10 @@ Public Class DMUDeveloperTools
             Dim cmdCB As OracleCommandBuilder
             Dim ds As DataSet
 
-            If txtAFSBatchFile.Text <> "" Then
-
-                SQL = "select " & connNameSpace & ".afsFileNumber.nextval from Dual"
+            If txtAFSBatchFile.Text = "" Then
+                txtAFSBatchFile.Text = "NO AFS DATA TO UPDATE."
+            Else
+                SQL = "select AIRBranch.afsFileNumber.nextval from Dual"
                 cmd = New OracleCommand(SQL, conn)
                 If conn.State = ConnectionState.Closed Then
                     conn.Open()
@@ -294,7 +303,7 @@ Public Class DMUDeveloperTools
                         fs.Close()
 
                         SQL = "Select * " & _
-                        "from " & connNameSpace & ".AFSBatchFiles " & _
+                        "from AIRBranch.AFSBatchFiles " & _
                         "where AFSFileName = '" & FileName & "' "
 
                         If conn.State = ConnectionState.Closed Then
@@ -330,7 +339,7 @@ Public Class DMUDeveloperTools
 
         Dim UpdateCode As String
         Dim AIRSNumber As String
-        'Dim UserAFSCode As String
+        Dim UserAFSCode As String
         Dim FacilityName As String
         Dim FacilityStreet As String
         Dim FacilityCity As String
@@ -357,23 +366,24 @@ Public Class DMUDeveloperTools
             'G36 is for Compliance Manager 
             'GM8 is for Monitoring Manager 
 
-            SQL = "Select " & connNameSpace & ".APBMasterAIRS.strAIRSNumber, " & _
+            SQL = "Select AIRBranch.APBMasterAIRS.strAIRSNumber, " & _
             "strFacilityName, strFacilityStreet1,   " & _
             "strFacilityCity, strFacilityzipCode,   " & _
             "strSICCode, strContactFirstName,   " & _
             "strContactLastName, strContactTitle,   " & _
             "strContactPhoneNumber1, strPlantDescription,   " & _
-            "" & connNameSpace & ".AFSFacilityData.strModifingPerson, strUpdateStatus,  " & _
+            "AIRBranch.AFSFacilityData.strModifingPerson, strUpdateStatus,  " & _
             "strCMSMember, strAIrProgramcodes " & _
-            "from " & connNameSpace & ".APBMasterAIRS, " & connNameSpace & ".APBFacilityInformation,  " & _
-            "" & connNameSpace & ".APBHeaderData, " & connNameSpace & ".APBContactInformation,  " & _
-            "" & connNameSpace & ".APBSupplamentalData, " & connNameSpace & ".AFSFacilityData  " & _
-            "where " & connNameSpace & ".APBMasterAIRS.strAIRSNumber = " & connNameSpace & ".AFSFacilityData.strAIRSNumber    " & _
-            "and " & connNameSpace & ".APBMasterAIRS.strAIRSNumber = " & connNameSpace & ".APBFacilityInformation.strAIRSnumber  " & _
-            "and " & connNameSpace & ".APBMasterAIRS.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber   " & _
-            "and " & connNameSpace & ".APBMasterAIRS.strAIRSNumber = " & connNameSpace & ".APBContactInformation.strAIRSNumber " & _
-            "and " & connNameSpace & ".APBMasterAIRS.strAIRSNumber = " & connNameSpace & ".APBSupplamentalData.strAIRSNumber   " & _
-            "and " & connNameSpace & ".APBContactInformation.strKEy = '30'  " & _
+            "from AIRBranch.APBMasterAIRS, AIRBranch.APBFacilityInformation,  " & _
+            "AIRBranch.APBHeaderData, AIRBranch.APBContactInformation,  " & _
+            "AIRBranch.APBSupplamentalData, AIRBranch.AFSFacilityData  " & _
+            "where AIRBranch.APBMasterAIRS.strAIRSNumber = AIRBranch.AFSFacilityData.strAIRSNumber    " & _
+            "and AIRBranch.APBMasterAIRS.strAIRSNumber = AIRBranch.APBFacilityInformation.strAIRSnumber  " & _
+            "and AIRBranch.APBMasterAIRS.strAIRSNumber = AIRBranch.APBHeaderData.strAIRSNumber   " & _
+            "and AIRBranch.APBMasterAIRS.strAIRSNumber = AIRBranch.APBContactInformation.strAIRSNumber " & _
+            "and AIRBranch.APBMasterAIRS.strAIRSNumber = AIRBranch.APBSupplamentalData.strAIRSNumber   " & _
+            "and AIRBranch.APBContactInformation.strKEy = '30'  " & _
+            "and strAIRProgramCodes not like '0000000000000%' " & _
             "and strUpDateStatus = 'A'  "
 
             cmd = New OracleCommand(SQL, conn)
@@ -397,7 +407,7 @@ Public Class DMUDeveloperTools
                         AIRSNumber = Mid(dr.Item("strAIRSNumber"), 3)
                     End If
                     If AIRSNumber <> "N/A" Then
-                        'UserAFSCode = "G62"
+                        UserAFSCode = "G62"
                         If IsDBNull(dr.Item("StrFacilityname")) Then
                             FacilityName = "N/A"
                         Else
@@ -454,7 +464,7 @@ Public Class DMUDeveloperTools
                             FacilityContactPerson = dr.Item("strContactFirstName")
                         End If
                         If IsDBNull(dr.Item("strContactLastName")) Then
-                            'FacilityContactPerson = FacilityContactPerson
+                            FacilityContactPerson = FacilityContactPerson
                         Else
                             If FacilityContactPerson <> "" Then
                                 FacilityContactPerson = FacilityContactPerson & " " & dr.Item("strContactLastName")
@@ -542,19 +552,20 @@ Public Class DMUDeveloperTools
                         SICCode = SICCode & "            " & Inspector & "      "
 
                         SQL2 = "Select " & _
-                        "" & connNameSpace & ".AFSAirPollutantData.strAIRPollutantKey, " & _
-                        "" & connNameSpace & ".AFSAirPollutantData.strPollutantKey, " & _
+                        "AIRBranch.AFSAirPollutantData.strAIRPollutantKey, " & _
+                        "AIRBranch.AFSAirPollutantData.strPollutantKey, " & _
                         "strComplianceStatus, strClass, " & _
-                        "" & connNameSpace & ".APBHeaderData.strAttainmentStatus, " & _
-                        "" & connNameSpace & ".APBAirProgramPollutants.strOperationalStatus " & _
-                        "from " & connNameSpace & ".APBAirProgramPollutants, " & connNameSpace & ".AFSAirPollutantData, " & _
-                        "" & connNameSpace & ".APBHeaderData, " & connNameSpace & ".LookUpCountyInformation " & _
-                        "where " & connNameSpace & ".APBAirProgramPollutants.strAIRSNumber = '" & dr.Item("strAIRSNumber") & "' " & _
-                        "and " & connNameSpace & ".APBHeaderData.strAIRSNumber = " & connNameSpace & ".APBAirProgramPollutants.strAIRSNumber " & _
-                        "and substr(" & connNameSpace & ".APBHeaderData.strAIRSNumber, 5, 3) = " & connNameSpace & ".LookUpCountyInformation.strCountyCode " & _
-                        "and " & connNameSpace & ".AFSAirPollutantData.strAirPollutantKey = " & connNameSpace & ".APBAirProgramPollutants.strAirPollutantKey " & _
-                        "and " & connNameSpace & ".AFSAirPollutantData.strPollutantKey = " & connNameSpace & ".APBAirProgramPollutants.strPollutantKey " & _
-                        "and " & connNameSpace & ".AFSAirPollutantData.strAIRSNumber  = '04" & AIRSNumber & "' "
+                        "AIRBranch.APBHeaderData.strAttainmentStatus, " & _
+                        "AIRBranch.APBAirProgramPollutants.strOperationalStatus " & _
+                        "from AIRBranch.APBAirProgramPollutants, AIRBranch.AFSAirPollutantData, " & _
+                        "AIRBranch.APBHeaderData, AIRBranch.LookUpCountyInformation " & _
+                        "where APBAirProgramPollutants.strAIRSNumber = '" & dr.Item("strAIRSNumber") & "' " & _
+                        "and APBHeaderData.strAIRSNumber = APBAirProgramPollutants.strAIRSNumber " & _
+                        "and substr(AIRBranch.APBHeaderData.strAIRSNumber, 5, 3) = LookUpCountyInformation.strCountyCode " & _
+                        "and AFSAirPollutantData.strAirPollutantKey = APBAirProgramPollutants.strAirPollutantKey " & _
+                        "and AFSAirPollutantData.strPollutantKey = APBAirProgramPollutants.strPollutantKey " & _
+                        "and AFSAirPollutantData.strAIRSNumber  = '04" & AIRSNumber & "' "
+
                         cmd2 = New OracleCommand(SQL2, conn)
                         If conn.State = ConnectionState.Closed Then
                             conn.Open()
@@ -636,7 +647,7 @@ Public Class DMUDeveloperTools
                         End While
                         dr2.Close()
 
-                        SQL2 = "Update " & connNameSpace & ".AFSAirPollutantData set " & _
+                        SQL2 = "Update AIRBranch.AFSAirPollutantData set " & _
                         "strUpDateStatus = 'N' " & _
                         "where strAIRSNumber = '" & dr.Item("strAIRSNumber") & "' "
 
@@ -689,26 +700,28 @@ Public Class DMUDeveloperTools
                         'This was the original separator for entries at 700 after Dec 2009 the separator moved to 90,000 - MFloyd 
                         ' AIRSNumber & "1617000     00 EPA ACTION >700      " & Format(Date.Today, "yyMMdd") & "                          NA" & vbCrLf
                     End If
+
+                    SQL = "Update AIRBranch.AFSFacilityData set " & _
+                    "strUpDateStatus = 'N' " & _
+                    "where strUpDateStatus = 'A' " & _
+                    "and strAIRSnumber = '04" & AIRSNumber & "' "
+
+                    cmd = New OracleCommand(SQL, conn)
+                    If conn.State = ConnectionState.Closed Then
+                        conn.Open()
+                    End If
+                    cmd.ExecuteNonQuery()
+
                 End If
             End While
             dr.Close()
 
-            SQL = "Update " & connNameSpace & ".AFSFacilityData set " & _
-            "strUpDateStatus = 'N' " & _
-            "where strUpDateStatus = 'A' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
-
-            txtAFSBatchFile.Text = BatchText
+            txtAFSBatchFile.Text = txtAFSBatchFile.Text & BatchText
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-          
+
         End Try
     End Sub
     Sub AddNewAirPollutants()
@@ -729,25 +742,25 @@ Public Class DMUDeveloperTools
         Dim SubpartData As String
 
         SQL = "Select " & _
-        "" & connNameSpace & ".AFSAirPollutantData.strAIRSNUmber, " & _
-        "" & connNameSpace & ".AFSAirPollutantData.strAIRPollutantKey, " & _
-        "" & connNameSpace & ".AFSAirPollutantData.strPollutantKey, " & _
-        "" & connNameSpace & ".APBAirProgramPollutants.strComplianceStatus, " & _
-        "" & connNameSpace & ".APBHeaderData.strClass, " & _
-        "" & connNameSpace & ".APBHeaderData.strAttainmentStatus, " & _
-        "" & connNameSpace & ".AFSAirPollutantData.strUpdatestatus, " & _
-        "" & connNameSpace & ".APBAirProgramPollutants.strOperationalStatus " & _
-        "from " & connNameSpace & ".APBAirProgramPollutants, " & connNameSpace & ".AFSAirPollutantData, " & _
-        "" & connNameSpace & ".APBHeaderData, " & connNameSpace & ".LookUpCountyInformation,  " & _
-        "" & connNameSpace & ".AFSFacilityData " & _
+        "AIRBranch.AFSAirPollutantData.strAIRSNUmber, " & _
+        "AIRBranch.AFSAirPollutantData.strAIRPollutantKey, " & _
+        "AIRBranch.AFSAirPollutantData.strPollutantKey, " & _
+        "AIRBranch.APBAirProgramPollutants.strComplianceStatus, " & _
+        "AIRBranch.APBHeaderData.strClass, " & _
+        "AIRBranch.APBHeaderData.strAttainmentStatus, " & _
+        "AIRBranch.AFSAirPollutantData.strUpdatestatus, " & _
+        "AIRBranch.APBAirProgramPollutants.strOperationalStatus " & _
+        "from AIRBranch.APBAirProgramPollutants, AIRBranch.AFSAirPollutantData, " & _
+        "AIRBranch.APBHeaderData, AIRBranch.LookUpCountyInformation,  " & _
+        "AIRBranch.AFSFacilityData " & _
         "where " & _
-        "" & connNameSpace & ".APBHeaderData.strAIRSNumber = " & connNameSpace & ".APBAirProgramPollutants.strAIRSNumber " & _
-        "and substr(" & connNameSpace & ".APBHeaderData.strAIRSNumber, 5, 3) = " & connNameSpace & ".LookUpCountyInformation.strCountyCode " & _
-        "and " & connNameSpace & ".AFSAirPollutantData.strAirPollutantKey = " & connNameSpace & ".APBAirProgramPollutants.strAirPollutantKey " & _
-        "and " & connNameSpace & ".AFSAirPollutantData.strPollutantKey = " & connNameSpace & ".APBAirProgramPollutants.strPollutantKey " & _
-        " and " & connNameSpace & ".AFSAirPollutantData.strAIRSNUmber = " & connNameSpace & ".AFSFacilityData.strAIRSNUmber " & _
-        "and " & connNameSpace & ".AFSAirPollutantData.strUpdateStatus <> 'N' " & _
-        " and " & connNameSpace & ".AFSFacilityData.strUpdateStatus <>  'H' "
+        "AIRBranch.APBHeaderData.strAIRSNumber = AIRBranch.APBAirProgramPollutants.strAIRSNumber " & _
+        "and substr(AIRBranch.APBHeaderData.strAIRSNumber, 5, 3) = AIRBranch.LookUpCountyInformation.strCountyCode " & _
+        "and AIRBranch.AFSAirPollutantData.strAirPollutantKey = AIRBranch.APBAirProgramPollutants.strAirPollutantKey " & _
+        "and AIRBranch.AFSAirPollutantData.strPollutantKey = AIRBranch.APBAirProgramPollutants.strPollutantKey " & _
+        " and AIRBranch.AFSAirPollutantData.strAIRSNUmber = AIRBranch.AFSFacilityData.strAIRSNUmber " & _
+        "and AIRBranch.AFSAirPollutantData.strUpdateStatus <> 'N' " & _
+        " and (AIRBranch.AFSFacilityData.strUpdateStatus = 'C' or AIRBranch.AFSFacilityData.strUpdateStatus = 'N') "
 
         Try
             cmd = New OracleCommand(SQL, conn)
@@ -852,16 +865,16 @@ Public Class DMUDeveloperTools
 
             SQL = "Select " & _
             "distinct(substr(strSubPartkey, 13, 1)) as subpart,  " & _
-            "" & connNameSpace & ".APBSubpartData.strAIRSnumber, " & _
-            "" & connNameSpace & ".AFSAirPollutantData.strUpdateStatus    " & _
-            "from " & connNameSpace & ".APBSubpartData, " & connNameSpace & ".AFSAirPollutantData,   " & _
-            "" & connNameSpace & ".AFSFacilityData " & _
-            "where " & connNameSpace & ".APBSubpartData.strSubpartKey = " & _
-                   "" & connNameSpace & ".AFSAirPollutantData.strAIRPollutantKey  " & _
-            " and " & connNameSpace & ".AFSAirPollutantData.strAIRSNUmber = " & _
-                   "" & connNameSpace & ".AFSFacilityData.strAIRSNUmber  " & _
-            "and " & connNameSpace & ".AFSAirPollutantData.strUpdateStatus <> 'N' " & _
-            " and " & connNameSpace & ".AFSFacilityData.strUpdateStatus <>  'H' "
+            "AIRBranch.APBSubpartData.strAIRSnumber, " & _
+            "AIRBranch.AFSAirPollutantData.strUpdateStatus    " & _
+            "from AIRBranch.APBSubpartData, AIRBranch.AFSAirPollutantData,   " & _
+            "AIRBranch.AFSFacilityData " & _
+            "where AIRBranch.APBSubpartData.strSubpartKey = " & _
+                   "AIRBranch.AFSAirPollutantData.strAIRPollutantKey  " & _
+            " and AIRBranch.AFSAirPollutantData.strAIRSNUmber = " & _
+                   "AIRBranch.AFSFacilityData.strAIRSNUmber  " & _
+            "and AIRBranch.AFSAirPollutantData.strUpdateStatus <> 'N' " & _
+            " and  (AIRBranch.AFSFacilityData.strUpdateStatus = 'C' or AIRBranch.AFSFacilityData.strUpdateStatus = 'N') "
 
             cmd = New OracleCommand(SQL, conn)
             If conn.State = ConnectionState.Closed Then
@@ -891,7 +904,7 @@ Public Class DMUDeveloperTools
                     Case "8"
                         SQL = "Select " & _
                         "strSubPart " & _
-                        "from " & connNameSpace & ".APBSubpartData " & _
+                        "from AIRBranch.APBSubpartData " & _
                         "where strSubpartKey = '04" & AIRSNumber & "8' "
 
                         cmd2 = New OracleCommand(SQL, conn)
@@ -935,7 +948,7 @@ Public Class DMUDeveloperTools
                     Case "9"
                         SQL = "Select " & _
                         "strSubPart " & _
-                        "from " & connNameSpace & ".APBSubpartData " & _
+                        "from AIRBranch.APBSubpartData " & _
                         "where strSubpartKey = '04" & AIRSNumber & "9' "
 
                         cmd2 = New OracleCommand(SQL, conn)
@@ -979,7 +992,7 @@ Public Class DMUDeveloperTools
                     Case "M"
                         SQL = "Select " & _
                          "strSubPart " & _
-                         "from " & connNameSpace & ".APBSubpartData " & _
+                         "from AIRBranch.APBSubpartData " & _
                          "where strSubpartKey = '04" & AIRSNumber & "M' "
 
                         cmd2 = New OracleCommand(SQL, conn)
@@ -1031,24 +1044,23 @@ Public Class DMUDeveloperTools
 
             End While
 
-            'SQL = "Update " & connNameSpace & ".AFSAirPollutantData set " & _
+            'SQL = "Update AIRBranch.AFSAirPollutantData set " & _
             '"strUpDateStatus = 'N' " & _
             '"where strUpDateStatus <> 'N' "
 
-            SQL = "Update " & connNameSpace & ".AFSAirPollutantData set " & _
-            "" & connNameSpace & ".AFSAirPollutantData.strUpDateStatus = 'N' " & _
-            "where " & connNameSpace & ".AFSAirPollutantData.strUpdateStatus <> 'N' " & _
-            "and exists (select * from " & connNameSpace & ".AFSFacilityData " & _
-            "where " & connNameSpace & ".AFSAirPollutantData.STRAIRSNUMBER = " & connNameSpace & ".AFSFacilityData.STRAIRSNUMBER " & _
-            "and " & connNameSpace & ".afsFacilityData.strUpdateStatus <> 'H' ) "
+            SQL = "Update AIRBranch.AFSAirPollutantData set " & _
+            "AIRBranch.AFSAirPollutantData.strUpDateStatus = 'N' " & _
+            "where AIRBranch.AFSAirPollutantData.strUpdateStatus <> 'N' " & _
+            "and exists (select * from AIRBranch.AFSFacilityData " & _
+            "where AIRBranch.AFSAirPollutantData.STRAIRSNUMBER = AIRBranch.AFSFacilityData.STRAIRSNUMBER " & _
+            "and   (AIRBranch.AFSFacilityData.strUpdateStatus = 'C' or AIRBranch.AFSFacilityData.strUpdateStatus = 'N')  ) "
 
             cmd = New OracleCommand(SQL, conn)
             If conn.State = ConnectionState.Closed Then
                 conn.Open()
             End If
 
-            dr = cmd.ExecuteReader
-            dr.Close()
+            cmd.ExecuteNonQuery()
 
             txtAFSBatchFile.Text = txtAFSBatchFile.Text & AirProgramPollutantLines
 
@@ -1084,23 +1096,23 @@ Public Class DMUDeveloperTools
         Dim CMSMember As String
         Dim temp As String = ""
 
-        SQL = "Select " & connNameSpace & ".APBMasterAIRS.strAIRSNumber, " & _
+        SQL = "Select AIRBranch.APBMasterAIRS.strAIRSNumber, " & _
         "strFacilityName, strFacilityStreet1,  " & _
         "strFacilityCity, strFacilityzipCode,  " & _
         "strSICCode, strContactFirstName,  " & _
         "strContactLastName, strContactTitle,  " & _
         "strContactPhoneNumber1, strPlantDescription,  " & _
-        "" & connNameSpace & ".AFSFacilityData.strModifingPerson, strUpdateStatus, " & _
+        "AIRBranch.AFSFacilityData.strModifingPerson, strUpdateStatus, " & _
         "strCMSMember " & _
-        "from " & connNameSpace & ".APBMasterAIRS, " & connNameSpace & ".APBFacilityInformation, " & _
-        "" & connNameSpace & ".APBHeaderData, " & connNameSpace & ".APBContactInformation, " & _
-        "" & connNameSpace & ".APBSupplamentalData, " & connNameSpace & ".AFSFacilityData " & _
-        "where " & connNameSpace & ".APBMasterAIRS.strAIRSNumber = " & connNameSpace & ".AFSFacilityData.strAIRSNumber   " & _
-        "and " & connNameSpace & ".APBMasterAIRS.strAIRSNumber = " & connNameSpace & ".APBFacilityInformation.strAIRSnumber " & _
-        "and " & connNameSpace & ".APBMasterAIRS.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber  " & _
-        "and " & connNameSpace & ".APBMasterAIRS.strAIRSNumber = " & connNameSpace & ".APBContactInformation.strAIRSNumber  " & _
-        "and " & connNameSpace & ".APBMasterAIRS.strAIRSNumber = " & connNameSpace & ".APBSupplamentalData.strAIRSNumber  " & _
-        "and " & connNameSpace & ".APBContactInformation.strKEy = '30' " & _
+        "from AIRBranch.APBMasterAIRS, AIRBranch.APBFacilityInformation, " & _
+        "AIRBranch.APBHeaderData, AIRBranch.APBContactInformation, " & _
+        "AIRBranch.APBSupplamentalData, AIRBranch.AFSFacilityData " & _
+        "where AIRBranch.APBMasterAIRS.strAIRSNumber = AIRBranch.AFSFacilityData.strAIRSNumber   " & _
+        "and AIRBranch.APBMasterAIRS.strAIRSNumber = AIRBranch.APBFacilityInformation.strAIRSnumber " & _
+        "and AIRBranch.APBMasterAIRS.strAIRSNumber = AIRBranch.APBHeaderData.strAIRSNumber  " & _
+        "and AIRBranch.APBMasterAIRS.strAIRSNumber = AIRBranch.APBContactInformation.strAIRSNumber  " & _
+        "and AIRBranch.APBMasterAIRS.strAIRSNumber = AIRBranch.APBSupplamentalData.strAIRSNumber  " & _
+        "and AIRBranch.APBContactInformation.strKEy = '30' " & _
         "and strUpDateStatus = 'C' "
 
         Try
@@ -1183,7 +1195,7 @@ Public Class DMUDeveloperTools
                             FacilityContactPerson = dr.Item("strContactFirstName")
                         End If
                         If IsDBNull(dr.Item("strContactLastName")) Then
-                            'FacilityContactPerson = FacilityContactPerson
+                            FacilityContactPerson = FacilityContactPerson
                         Else
                             If FacilityContactPerson <> "" Then
                                 FacilityContactPerson = FacilityContactPerson & " " & dr.Item("strContactLastName")
@@ -1275,15 +1287,15 @@ Public Class DMUDeveloperTools
                         End If
 
                         SQL2 = "Select " & _
-                        "" & connNameSpace & ".AFSAirPollutantData.strAIRPollutantKey, " & _
-                        "" & connNameSpace & ".AFSAirPollutantData.strPollutantKey, " & _
+                        "AIRBranch.AFSAirPollutantData.strAIRPollutantKey, " & _
+                        "AIRBranch.AFSAirPollutantData.strPollutantKey, " & _
                         "strComplianceStatus, strUpdateStatus, " & _
                         "strOperationalStatus " & _
-                        "from " & connNameSpace & ".APBAirProgramPollutants, " & connNameSpace & ".AFSAirPollutantData " & _
-                        "where " & connNameSpace & ".APBAirProgramPollutants.strAIRSNumber = '" & dr.Item("strAIRSNumber") & "' " & _
-                        "and " & connNameSpace & ".AFSAirPollutantData.strAirPollutantKey = " & connNameSpace & ".APBAirProgramPollutants.strAirPollutantKey " & _
-                        "and " & connNameSpace & ".AFSAirPollutantData.strPollutantKey = " & connNameSpace & ".APBAirProgramPollutants.strPollutantKey " & _
-                        "and strUpdateStatus <> 'N' "
+                        "from AIRBranch.APBAirProgramPollutants, AIRBranch.AFSAirPollutantData " & _
+                        "where AIRBranch.APBAirProgramPollutants.strAIRSNumber = '" & dr.Item("strAIRSNumber") & "' " & _
+                        "and AIRBranch.AFSAirPollutantData.strAirPollutantKey = AIRBranch.APBAirProgramPollutants.strAirPollutantKey " & _
+                        "and AIRBranch.AFSAirPollutantData.strPollutantKey = AIRBranch.APBAirProgramPollutants.strPollutantKey " & _
+                        "and strUpdateStatus <> 'N'  "
 
                         cmd2 = New OracleCommand(SQL2, conn)
                         If conn.State = ConnectionState.Closed Then
@@ -1329,7 +1341,7 @@ Public Class DMUDeveloperTools
                         End While
                         dr2.Close()
 
-                        SQL2 = "Update " & connNameSpace & ".AFSAirPollutantData set " & _
+                        SQL2 = "Update AIRBranch.AFSAirPollutantData set " & _
                         "strUpDateStatus = 'N' " & _
                         "where strAIRSNumber = '" & dr.Item("strAIRSNumber") & "' "
 
@@ -1354,7 +1366,7 @@ Public Class DMUDeveloperTools
             End While
             dr.Close()
 
-            SQL = "Update " & connNameSpace & ".AFSFacilityData set " & _
+            SQL = "Update AIRBranch.AFSFacilityData set " & _
             "strUpDateStatus = 'N' " & _
             "where strUpDateStatus = 'C' "
 
@@ -1362,17 +1374,16 @@ Public Class DMUDeveloperTools
             If conn.State = ConnectionState.Closed Then
                 conn.Open()
             End If
-            dr = cmd.ExecuteReader
-            dr.Close()
+            cmd.ExecuteNonQuery()
 
             txtAFSBatchFile.Text = txtAFSBatchFile.Text & BatchText
 
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-        
+
         End Try
-         
+
 
     End Sub
     Sub PermittingActions()
@@ -1382,6 +1393,7 @@ Public Class DMUDeveloperTools
         Dim len As Integer
         Dim i As Integer
 
+        Dim AppNum As String = ""
         Dim UpdateCode As String = ""
         Dim AIRSNumber As String = ""
         Dim AIRProgramCodes As String = ""
@@ -1390,9 +1402,9 @@ Public Class DMUDeveloperTools
         Dim ActionType As String = ""
         Dim ResultsCode As String = ""
         Dim ActionComments As String = ""
-        'Dim ActionComments2 As String = ""
-        'Dim ActionComments3 As String = ""
-        'Dim ActionComments4 As String = ""
+        Dim ActionComments2 As String = ""
+        Dim ActionComments3 As String = ""
+        Dim ActionComments4 As String = ""
         Dim DateAcheived As String = ""
         Dim DateExpire As String = ""
         Dim SubmitPermit As String = ""
@@ -1400,10 +1412,10 @@ Public Class DMUDeveloperTools
         Dim PermitNumber As String = ""
 
         SQL = "Select " & _
-        "" & connNameSpace & ".ssppapplicationmaster.strApplicationnumber, " & _
-        "strAFSActionNumber, strUpDateStatus,  " & _
-        "" & connNameSpace & ".SSPPApplicationMaster.strAIRSNumber, " & _
-        "" & connNameSpace & ".SSPPApplicationMaster.strStaffResponsible,  " & _
+        "ssppapplicationmaster.strApplicationnumber, " & _
+        "AFSSSPPRecords.strAFSActionNumber, AFSSSPPRecords.strUpDateStatus,  " & _
+        "SSPPApplicationMaster.strAIRSNumber, " & _
+        "SSPPApplicationMaster.strStaffResponsible,  " & _
         "Case " & _
         "    when strPermitType = '1' then '35' " & _
         "    when strPermitType = '4' then '33' " & _
@@ -1414,19 +1426,21 @@ Public Class DMUDeveloperTools
         "    when strPermitType = '13' then '33' " & _
         "    else '00' " & _
         "end as strActionType, " & _
-        "" & connNameSpace & ".SSPPApplicationData.strComments, " & _
-        "to_Char(" & connNameSpace & ".SSPPApplicationMaster.DatFinalizedDate, 'YYMMDD') as AchievedDate, " & _
-        "" & connNameSpace & ".SSPPApplicationData.strAirProgramCodes, " & _
-        "" & connNameSpace & ".SSPPApplicationData.strPermitNumber " & _
-        "from " & connNameSpace & ".AFSSSPPRecords, " & connNameSpace & ".SSPPApplicationMaster,  " & _
-        "" & connNameSpace & ".SSPPApplicationData " & _
-        "where strUpDateStatus <> 'N'  " & _
-        "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
-        "and " & connNameSpace & ".AFSSSPPRecords.strApplicationNumber = " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber " & _
+        "AIRBranch.SSPPApplicationData.strComments, " & _
+        "to_Char(AIRBranch.SSPPApplicationMaster.DatFinalizedDate, 'YYMMDD') as AchievedDate, " & _
+        "AIRBranch.SSPPApplicationData.strAirProgramCodes, " & _
+        "AIRBranch.SSPPApplicationData.strPermitNumber " & _
+        "from AIRBranch.AFSSSPPRecords, AIRBranch.SSPPApplicationMaster,  " & _
+        "AIRBranch.SSPPApplicationData, airbranch.AFSFacilityData " & _
+        "where AFSSSPPRecords.strUpDateStatus <> 'N'  " & _
+        " and SSPPApplicationMaster.strairsnumber =  AFSFacilityData.strairsnumber " & _
+        "and SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber  " & _
+        "and AFSSSPPRecords.strApplicationNumber = SSPPApplicationMaster.strApplicationNumber " & _
         "and (strPermitType = '1' or strPermitType = '4' or strPermitType = '5' " & _
         "or strPermitType = '7' or strPermitType = '10' or strPermitType = '12' " & _
         "or strPermitType = '13') " & _
-        "and " & connNameSpace & ".SSPPApplicationMaster.strAIRSNumber not like '%APL%' "
+        "and SSPPApplicationMaster.strAIRSNumber not like '%APL%' " & _
+        " and (AFSFacilityData.strUpdateStatus = 'C' or AFSFacilityData.strUpdateStatus = 'N') "
 
         Try
             cmd = New OracleCommand(SQL, conn)
@@ -1442,6 +1456,12 @@ Public Class DMUDeveloperTools
                     Else
                         UpdateCode = dr.Item("strUpDateStatus")
                     End If
+                    If IsDBNull(dr.Item("strApplicationnumber")) Then
+                        AppNum = ""
+                    Else
+                        AppNum = dr.Item("strApplicationnumber")
+                    End If
+
                     AIRProgramCodes = ""
                     If IsDBNull(dr.Item("strAIRProgramCodes")) Then
                         AIRProgramCodes = "0"
@@ -1535,14 +1555,14 @@ Public Class DMUDeveloperTools
                             Case "4"
                                 ActionNumber = "0" & ActionNumber
                             Case "5"
-                                'ActionNumber = ActionNumber
+                                ActionNumber = ActionNumber
                             Case Else
                                 ActionNumber = "00001"
                         End Select
                     End If
                     'strStaffResponsible
                     UserAFSCode = "G62"
-                   
+
                     len = UserAFSCode.Length
 
                     'This was changed when AFS went to 5-digit Action #
@@ -1659,18 +1679,18 @@ Public Class DMUDeveloperTools
                         BatchText = BatchText & Comments
                     End If
                 End If
+
+                SQL = "Update AIRBranch.AFSSSPPRecords set " & _
+                 "strUpDateStatus = 'N' " & _
+                 "where strUPDateStatus <> 'N' " & _
+                 "and strApplicationNumber = '" & AppNum & "' "
+
+                cmd = New OracleCommand(SQL, conn)
+                If conn.State = ConnectionState.Closed Then
+                    conn.Open()
+                End If
+                cmd.ExecuteNonQuery()
             End While
-            dr.Close()
-
-            SQL = "Update " & connNameSpace & ".AFSSSPPRecords set " & _
-            "strUpDateStatus = 'N' " & _
-            "where strUPDateStatus <> 'N' "
-
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
-            End If
-            dr = cmd.ExecuteReader
             dr.Close()
 
             txtAFSBatchFile.Text = txtAFSBatchFile.Text & BatchText
@@ -1678,10 +1698,8 @@ Public Class DMUDeveloperTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-          
-        End Try
-         
 
+        End Try
     End Sub
     Sub FCEActions()
         Dim BatchText As String = ""
@@ -1689,6 +1707,7 @@ Public Class DMUDeveloperTools
         Dim len As Integer
         Dim i As Integer
 
+        Dim FCENumber As String = ""
         Dim UpdateCode As String
         Dim AIRSNumber As String
         Dim AIRProgramCodes As String
@@ -1699,17 +1718,19 @@ Public Class DMUDeveloperTools
         Dim DateAcheived As String
         Dim SiteStatus As String
 
-        SQL = "Select strUpDateStatus, " & _
-        "" & connNameSpace & ".AFSSSCPFCERecords.strFCENumber, strAFSActionNumber, " & _
-        "" & connNameSpace & ".SSCPFCEMaster.strAIRSNumber, strAIRProgramCodes, " & _
+        SQL = "Select AFSSSCPFCERecords.strUpDateStatus, " & _
+        "AFSSSCPFCERecords.strFCENumber, AFSSSCPFCERecords.strAFSActionNumber, " & _
+        "SSCPFCEMaster.strAIRSNumber, strAIRProgramCodes, " & _
         "to_char(datFCECompleted, 'YYMMDD') as AchievedDate, strFCEStatus, " & _
         "strFCEComments, strSiteInspection " & _
-        "from " & connNameSpace & ".AFSSSCPFCERecords, " & connNameSpace & ".SSCPFCEMaster, " & _
-        "" & connNameSpace & ".SSCPFCE, " & connNameSpace & ".APBHeaderData " & _
-        "where strUpDateStatus <> 'N' " & _
-        "and " & connNameSpace & ".AFSSSCPFCERecords.strFCENumber = " & connNameSpace & ".SSCPFCEMaster.strFCENumber " & _
-        "and " & connNameSpace & ".SSCPFCE.strFCENumber = " & connNameSpace & ".AFSSSCPFCERecords.strFCENumber " & _
-        "and " & connNameSpace & ".APBHeaderData.strAIRSNumber = " & connNameSpace & ".SSCPFCEMaster.strAIRSNumber " 
+        "from AIRBranch.AFSSSCPFCERecords, AIRBranch.SSCPFCEMaster, " & _
+        "AIRBranch.SSCPFCE, AIRBranch.APBHeaderData, AIRBranch.AFSFacilityData  " & _
+        "where AFSSSCPFCERecords.strUpDateStatus <> 'N' " & _
+        "and APBHeaderData.strairsnumber = afsfacilitydata.strairsnumber " & _
+        "and AFSSSCPFCERecords.strFCENumber = SSCPFCEMaster.strFCENumber " & _
+        "and SSCPFCE.strFCENumber = AFSSSCPFCERecords.strFCENumber " & _
+        "and APBHeaderData.strAIRSNumber = SSCPFCEMaster.strAIRSNumber " & _
+        "and (AFSFacilityData.strUpdateStatus = 'C' or AFSFacilityData.strUpdateStatus = 'N') "
 
         Try
             cmd = New OracleCommand(SQL, conn)
@@ -1725,6 +1746,12 @@ Public Class DMUDeveloperTools
                     Else
                         UpdateCode = dr.Item("strUpDateStatus")
                     End If
+                    If IsDBNull(dr.Item("strFCENumber")) Then
+                        FCENumber = ""
+                    Else
+                        FCENumber = dr.Item("strFCENumber")
+                    End If
+
                     AIRProgramCodes = ""
                     If IsDBNull(dr.Item("strAIRProgramCodes")) Then
                         AIRProgramCodes = "0"
@@ -1797,7 +1824,7 @@ Public Class DMUDeveloperTools
                             Case "4"
                                 ActionNumber = "0" & ActionNumber
                             Case "5"
-                                'ActionNumber = ActionNumber
+                                ActionNumber = ActionNumber
                             Case Else
                                 ActionNumber = "00001"
                         End Select
@@ -1869,34 +1896,33 @@ Public Class DMUDeveloperTools
                         BatchText = BatchText & Comments
                     End If
                 End If
+
+                SQL = "Update AIRBranch.AFSSSCPFCERecords set " & _
+                  "strUpDateStatus = 'N' " & _
+                  "where strUPDateStatus <> 'N' " & _
+                  "and strFCENumber = '" & FCENumber & "' "
+
+                cmd = New OracleCommand(SQL, conn)
+                If conn.State = ConnectionState.Closed Then
+                    conn.Open()
+                End If
+                cmd.ExecuteNonQuery()
             End While
-
-            SQL = "Update " & connNameSpace & ".AFSSSCPFCERecords set " & _
-            "strUpDateStatus = 'N' " & _
-            "where strUPDateStatus <> 'N' "
-
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
 
             txtAFSBatchFile.Text = txtAFSBatchFile.Text & BatchText
 
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-          
-        End Try
-         
 
+        End Try
     End Sub
     Sub ComplianceActions()
         Dim BatchText As String = ""
         Dim len As Integer
         Dim i As Integer
 
+        Dim TrackingNumber As String = ""
         Dim UpdateCode As String
         Dim AIRSNumber As String
         Dim AIRProgramCodes As String
@@ -1909,7 +1935,7 @@ Public Class DMUDeveloperTools
 
         'changed acheived dates from completed to received or inspection dates based on conversation with LMusgrove, MFloyd 8/10/2010
         SQL = "Select " & _
-        "strUpDateStatus, " & connNameSpace & ".AFSSSCPRecords.strTrackingNumber,  " & _
+        "AFSSSCPRecords.strUpDateStatus, AFSSSCPRecords.strTrackingNumber,  " & _
         "strEventType,  " & _
         "strResponsibleStaff,  " & _
         "case " & _
@@ -1919,18 +1945,19 @@ Public Class DMUDeveloperTools
         "when strEventType = '05' then to_char(datReceivedDate, 'YYMMDD') " & _
         "else to_char(datCompleteDate, 'YYMMDD') " & _
         "end AchievedDate,   " & _
-        "" & connNameSpace & ".APBHeaderData.strAIRSNumber,  " & _
-        "strAIRProgramCodes, strAFSActionNumber,  " & _
+        "AIRBranch.APBHeaderData.strAIRSNumber,  " & _
+        "strAIRProgramCodes, AFSSSCPRecords.strAFSActionNumber,  " & _
         "strEnforcementNumber  " & _
-        "from " & connNameSpace & ".AFSSSCPRecords, " & connNameSpace & ".SSCPItemMaster,  " & _
-        "" & connNameSpace & ".APBHeaderData,  " & _
-        "" & connNameSpace & ".SSCP_AuditedEnforcement,  " & _
-        "" & connNameSpace & ".SSCPInspections " & _
-        "where strUpdateStatus <> 'N'  " & _
-        "and " & connNameSpace & ".SSCPItemMaster.strTrackingNumber = " & connNameSpace & ".AFSSSCPRecords.strTrackingNumber  " & _
-        "and " & connNameSpace & ".APBHeaderData.strAIRSNumber = " & connNameSpace & ".SSCPItemMaster.strAIRSNumber   " & _
-        "and " & connNameSpace & ".SSCPItemMaster.strTrackingNumber = " & connNameSpace & ".SSCP_AuditedEnforcement.strTrackingNumber (+)  " & _
-        " and " & connNameSpace & ".SSCPItemMaster.strTrackingNumber = " & connNameSpace & ".SSCPInspections.strTrackingNumber  (+) "
+        "from AIRBranch.AFSSSCPRecords, AIRBranch.SSCPItemMaster,  " & _
+        "AIRBranch.APBHeaderData, AIRBranch.SSCP_AuditedEnforcement, " & _
+        "AIRBranch.SSCPInspections, airbranch.AFSFacilityData " & _
+        "where AFSSSCPRecords.strUpdateStatus <> 'N'  " & _
+        "and APBHeaderData.strAIRSNumber = AFSFacilityData.strAIRSNumber " & _
+        "and AIRBranch.SSCPItemMaster.strTrackingNumber = AIRBranch.AFSSSCPRecords.strTrackingNumber  " & _
+        "and AIRBranch.APBHeaderData.strAIRSNumber = AIRBranch.SSCPItemMaster.strAIRSNumber   " & _
+        "and AIRBranch.SSCPItemMaster.strTrackingNumber = AIRBranch.SSCP_AuditedEnforcement.strTrackingNumber (+)  " & _
+        "and AIRBranch.SSCPItemMaster.strTrackingNumber = AIRBranch.SSCPInspections.strTrackingNumber  (+) " & _
+        "and (AFSFacilityData.strUpdateStatus = 'C' or AFSFacilityData.strUpdateStatus = 'N') "
 
         Try
             cmd = New OracleCommand(SQL, conn)
@@ -1946,6 +1973,12 @@ Public Class DMUDeveloperTools
                 Else
                     UpdateCode = dr.Item("strUpDateStatus")
                 End If
+                If IsDBNull(dr.Item("strTrackingNumber")) Then
+                    TrackingNumber = ""
+                Else
+                    TrackingNumber = dr.Item("strTrackingNumber")
+                End If
+
                 AIRProgramCodes = ""
                 If IsDBNull(dr.Item("strAIRProgramCodes")) Then
                     AIRProgramCodes = "0"
@@ -2034,7 +2067,7 @@ Public Class DMUDeveloperTools
                     Case "4"
                         ActionNumber = "0" & ActionNumber
                     Case "5"
-                        'ActionNumber = ActionNumber
+                        ActionNumber = ActionNumber
                     Case Else
                         ActionNumber = "00001"
                 End Select
@@ -2105,18 +2138,19 @@ Public Class DMUDeveloperTools
                         AIRSNumber & "161" & ActionNumber & AIRProgramCodes & "CS                      " & DateAcheived & "         " & UserAFSCode & UpdateCode & vbCrLf & _
                         AIRSNumber & "171  " & ActionNumber & "001C" & ActionComments & "NN" & UpdateCode & vbCrLf
                 End Select
+
+                SQL = "Update AIRBranch.AFSSSCPRecords set " & _
+                "strUpDateStatus = 'N' " & _
+                "where strUPDateStatus <> 'N' " & _
+                "and strTrackingNumber = '" & TrackingNumber & "' "
+
+                cmd = New OracleCommand(SQL, conn)
+                If conn.State = ConnectionState.Closed Then
+                    conn.Open()
+                End If
+                cmd.ExecuteNonQuery()
+
             End While
-            dr.Close()
-
-            SQL = "Update " & connNameSpace & ".AFSSSCPRecords set " & _
-            "strUpDateStatus = 'N' " & _
-            "where strUPDateStatus <> 'N' "
-
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
-            End If
-            dr = cmd.ExecuteReader
             dr.Close()
 
             txtAFSBatchFile.Text = txtAFSBatchFile.Text & BatchText
@@ -2126,8 +2160,6 @@ Public Class DMUDeveloperTools
         Finally
 
         End Try
-         
-
     End Sub
     Sub EnforcementActions()
         Dim BatchText As String = ""
@@ -2168,15 +2200,16 @@ Public Class DMUDeveloperTools
         Dim ModifingDate As String = ""
 
         Try
+            'Added Key action number to AFS Table if not already there. 
             SQL = "select " & _
-            "" & connNameSpace & ".SSCP_AuditedEnforcement.strEnforcementNumber, strAIRSNumber, " & _
+            "AIRBranch.SSCP_AuditedEnforcement.strEnforcementNumber, strAIRSNumber, " & _
             "strafskeyactionnumber, strModifingPerson, datModifingDate " & _
-            "from " & connNameSpace & ".SSCP_AuditedEnforcement " & _
+            "from AIRBranch.SSCP_AuditedEnforcement " & _
             "where strafskeyactionnumber is not null  " & _
             "and not exists (select * " & _
-            "from " & connNameSpace & ".afssscpenforcementrecords " & _
-            "where " & connNameSpace & ".sscp_auditedEnforcement.strenforcementnumber = " & _
-            "" & connNameSpace & ".afssscpenforcementrecords.strenforcementnumber )  "
+            "from AIRBranch.afssscpenforcementrecords " & _
+            "where AIRBranch.sscp_auditedEnforcement.strenforcementnumber = " & _
+            "AIRBranch.afssscpenforcementrecords.strenforcementnumber )  "
 
             cmd = New OracleCommand(SQL, conn)
             If conn.State = ConnectionState.Closed Then
@@ -2205,11 +2238,12 @@ Public Class DMUDeveloperTools
                     ModifingDate = Format(dr.Item("datModifingDate"), "dd-MMM-yyyy")
                 End If
 
-                SQL = "Insert into " & connNameSpace & ".AFSSSCPEnforcementRecords " & _
+                SQL = "Insert into AIRBranch.AFSSSCPEnforcementRecords " & _
                 "values " & _
                 "('" & EnforcementNumber & "', '" & AFSNumber & "', " & _
                 "'A', '" & ModifingPerson & "', " & _
                 "'" & ModifingDate & "') "
+
                 cmd = New OracleCommand(SQL, conn)
                 If conn.State = ConnectionState.Closed Then
                     conn.Open()
@@ -2218,16 +2252,18 @@ Public Class DMUDeveloperTools
             End While
             dr.Close()
 
+            'Updates Key Action Number (Would only happen if the already sent to AFS)  
             SQL = "select " & _
-            "" & connNameSpace & ".SSCP_AuditedEnforcement.strEnforcementNumber, strAIRSNumber,  " & _
+            "AIRBranch.SSCP_AuditedEnforcement.strEnforcementNumber, strAIRSNumber,  " & _
             "strafskeyactionnumber, strModifingPerson, datModifingDate " & _
-            "from " & connNameSpace & ".SSCP_AuditedEnforcement " & _
+            "from AIRBranch.SSCP_AuditedEnforcement " & _
             "where strafskeyactionnumber is not null " & _
-            "and exists (select * from " & connNameSpace & ".afssscpenforcementrecords " & _
-            "where " & connNameSpace & ".sscp_auditedEnforcement.strenforcementnumber = " & _
-            "" & connNameSpace & ".afssscpenforcementrecords.strenforcementnumber " & _
-            "and " & connNameSpace & ".sscp_auditedEnforcement.datModifingDate <> " & _
-            "" & connNameSpace & ".afssscpenforcementrecords.datModifingDate " & _
+            "and exists (select * from AIRBranch.afssscpenforcementrecords " & _
+            "where AIRBranch.sscp_auditedEnforcement.strenforcementnumber = " & _
+            "AIRBranch.afssscpenforcementrecords.strenforcementnumber " & _
+            "and to_Date(AIRBranch.sscp_auditedEnforcement.datModifingDate) <> " & _
+            "to_Date(AIRBranch.afssscpenforcementrecords.datModifingDate) " & _
+            "and strafskeyactionnumber = afssscpenforcementrecords.strAFSActionNumber " & _
             "and strUpdateStatus = 'N' ) "
 
             cmd = New OracleCommand(SQL, conn)
@@ -2256,12 +2292,14 @@ Public Class DMUDeveloperTools
                 Else
                     ModifingDate = Format(dr.Item("datModifingDate"), "dd-MMM-yyyy")
                 End If
-                SQL = "Update " & connNameSpace & ".AFSSSCPEnforcementRecords set " & _
+
+                SQL = "Update AIRBranch.AFSSSCPEnforcementRecords set " & _
                 "strUpdateStatus = 'C', " & _
                 "strModifingPerson = '" & ModifingPerson & "', " & _
                 "datModifingDate = '" & ModifingDate & "' " & _
                 "where strEnforcementNumber = '" & EnforcementNumber & "' " & _
                 "and strAfsActionNumber = '" & AFSNumber & "' "
+
                 cmd = New OracleCommand(SQL, conn)
                 If conn.State = ConnectionState.Closed Then
                     conn.Open()
@@ -2271,17 +2309,18 @@ Public Class DMUDeveloperTools
             End While
             dr.Close()
 
+            'Adds NOV Sent to AFS 
             SQL = "select " & _
-            "" & connNameSpace & ".SSCP_AuditedEnforcement.strEnforcementNumber, strAIRSNumber, " & _
+            "AIRBranch.SSCP_AuditedEnforcement.strEnforcementNumber, strAIRSNumber, " & _
             "strAFSNOVSentNumber, strModifingPerson, datModifingDate " & _
-            "from " & connNameSpace & ".SSCP_AuditedEnforcement " & _
+            "from AIRBranch.SSCP_AuditedEnforcement " & _
             "where strAFSNOVSentNumber is not null  " & _
             "and not exists (select * " & _
-            "from " & connNameSpace & ".afssscpenforcementrecords " & _
-            "where " & connNameSpace & ".sscp_auditedEnforcement.strenforcementnumber = " & _
-            "" & connNameSpace & ".afssscpenforcementrecords.strenforcementnumber " & _
-            "and " & connNameSpace & ".sscp_auditedEnforcement.strAFSNOVSentNumber = " & _
-            "" & connNameSpace & ".afssscpenforcementrecords.strAFSActionNumber)  "
+            "from AIRBranch.afssscpenforcementrecords " & _
+            "where AIRBranch.sscp_auditedEnforcement.strenforcementnumber = " & _
+            "AIRBranch.afssscpenforcementrecords.strenforcementnumber " & _
+            "and AIRBranch.sscp_auditedEnforcement.strAFSNOVSentNumber = " & _
+            "AIRBranch.afssscpenforcementrecords.strAFSActionNumber)  "
 
             cmd = New OracleCommand(SQL, conn)
             If conn.State = ConnectionState.Closed Then
@@ -2310,7 +2349,7 @@ Public Class DMUDeveloperTools
                     ModifingDate = Format(dr.Item("datModifingDate"), "dd-MMM-yyyy")
                 End If
 
-                SQL = "Insert into " & connNameSpace & ".AFSSSCPEnforcementRecords " & _
+                SQL = "Insert into AIRBranch.AFSSSCPEnforcementRecords " & _
                 "values " & _
                 "('" & EnforcementNumber & "', '" & AFSNumber & "', " & _
                 "'A', '" & ModifingPerson & "', " & _
@@ -2323,19 +2362,20 @@ Public Class DMUDeveloperTools
             End While
             dr.Close()
 
+            'Updates NOV Sent to AFS 
             SQL = "select " & _
-            "" & connNameSpace & ".SSCP_AuditedEnforcement.strEnforcementNumber, strAIRSNumber,  " & _
+            "AIRBranch.SSCP_AuditedEnforcement.strEnforcementNumber, strAIRSNumber,  " & _
             "strAFSNOVSentNumber, strModifingPerson, datModifingDate " & _
-            "from " & connNameSpace & ".SSCP_AuditedEnforcement " & _
+            "from AIRBranch.SSCP_AuditedEnforcement " & _
             "where strAFSNOVSentNumber is not null " & _
-            "and exists (select * from " & connNameSpace & ".afssscpenforcementrecords " & _
-            "where " & connNameSpace & ".sscp_auditedEnforcement.strenforcementnumber = " & _
-            "" & connNameSpace & ".afssscpenforcementrecords.strenforcementnumber " & _
-            "and " & connNameSpace & ".sscp_auditedEnforcement.datModifingDate <> " & _
-            "" & connNameSpace & ".afssscpenforcementrecords.datModifingDate " & _
+            "and exists (select * from AIRBranch.afssscpenforcementrecords " & _
+            "where AIRBranch.sscp_auditedEnforcement.strenforcementnumber = " & _
+            "AIRBranch.afssscpenforcementrecords.strenforcementnumber " & _
+            "and to_Date(AIRBranch.sscp_auditedEnforcement.datModifingDate) <> " & _
+            "to_Date(AIRBranch.afssscpenforcementrecords.datModifingDate) " & _
             "and strUpdateStatus = 'N' " & _
-            "and " & connNameSpace & ".sscp_auditedEnforcement.strAFSNOVSentNumber = " & _
-            "" & connNameSpace & ".afssscpenforcementrecords.strAFSActionNumber)  "
+            "and AIRBranch.sscp_auditedEnforcement.strAFSNOVSentNumber = " & _
+            "AIRBranch.afssscpenforcementrecords.strAFSActionNumber)  "
 
             cmd = New OracleCommand(SQL, conn)
             If conn.State = ConnectionState.Closed Then
@@ -2363,7 +2403,7 @@ Public Class DMUDeveloperTools
                 Else
                     ModifingDate = Format(dr.Item("datModifingDate"), "dd-MMM-yyyy")
                 End If
-                SQL = "Update " & connNameSpace & ".AFSSSCPEnforcementRecords set " & _
+                SQL = "Update AIRBranch.AFSSSCPEnforcementRecords set " & _
                 "strUpdateStatus = 'C', " & _
                 "strModifingPerson = '" & ModifingPerson & "', " & _
                 "datModifingDate = '" & ModifingDate & "' " & _
@@ -2378,17 +2418,18 @@ Public Class DMUDeveloperTools
             End While
             dr.Close()
 
+            'Adds NOV Resolved 
             SQL = "select " & _
-          "" & connNameSpace & ".SSCP_AuditedEnforcement.strEnforcementNumber, strAIRSNumber, " & _
+          "AIRBranch.SSCP_AuditedEnforcement.strEnforcementNumber, strAIRSNumber, " & _
           "strAFSNOVResolvedNumber, strModifingPerson, datModifingDate " & _
-          "from " & connNameSpace & ".SSCP_AuditedEnforcement " & _
+          "from AIRBranch.SSCP_AuditedEnforcement " & _
           "where strAFSNOVResolvedNumber is not null  " & _
           "and not exists (select * " & _
-          "from " & connNameSpace & ".afssscpenforcementrecords " & _
-          "where " & connNameSpace & ".sscp_auditedEnforcement.strenforcementnumber = " & _
-          "" & connNameSpace & ".afssscpenforcementrecords.strenforcementnumber " & _
-            "and " & connNameSpace & ".sscp_auditedEnforcement.strAFSNOVResolvedNumber = " & _
-            "" & connNameSpace & ".afssscpenforcementrecords.strAFSActionNumber)  "
+          "from AIRBranch.afssscpenforcementrecords " & _
+          "where AIRBranch.sscp_auditedEnforcement.strenforcementnumber = " & _
+          "AIRBranch.afssscpenforcementrecords.strenforcementnumber " & _
+            "and AIRBranch.sscp_auditedEnforcement.strAFSNOVResolvedNumber = " & _
+            "AIRBranch.afssscpenforcementrecords.strAFSActionNumber)  "
 
             cmd = New OracleCommand(SQL, conn)
             If conn.State = ConnectionState.Closed Then
@@ -2417,7 +2458,7 @@ Public Class DMUDeveloperTools
                     ModifingDate = Format(dr.Item("datModifingDate"), "dd-MMM-yyyy")
                 End If
 
-                SQL = "Insert into " & connNameSpace & ".AFSSSCPEnforcementRecords " & _
+                SQL = "Insert into AIRBranch.AFSSSCPEnforcementRecords " & _
                 "values " & _
                 "('" & EnforcementNumber & "', '" & AFSNumber & "', " & _
                 "'A', '" & ModifingPerson & "', " & _
@@ -2430,19 +2471,20 @@ Public Class DMUDeveloperTools
             End While
             dr.Close()
 
+            'Updates NOV Resolved 
             SQL = "select " & _
-            "" & connNameSpace & ".SSCP_AuditedEnforcement.strEnforcementNumber, strAIRSNumber,  " & _
+            "AIRBranch.SSCP_AuditedEnforcement.strEnforcementNumber, strAIRSNumber,  " & _
             "strAFSNOVResolvedNumber, strModifingPerson, datModifingDate " & _
-            "from " & connNameSpace & ".SSCP_AuditedEnforcement " & _
+            "from AIRBranch.SSCP_AuditedEnforcement " & _
             "where strAFSNOVResolvedNumber is not null " & _
-            "and exists (select * from " & connNameSpace & ".afssscpenforcementrecords " & _
-            "where " & connNameSpace & ".sscp_auditedEnforcement.strenforcementnumber = " & _
-            "" & connNameSpace & ".afssscpenforcementrecords.strenforcementnumber " & _
-            "and " & connNameSpace & ".sscp_auditedEnforcement.datModifingDate <> " & _
-            "" & connNameSpace & ".afssscpenforcementrecords.datModifingDate " & _
+            "and exists (select * from AIRBranch.afssscpenforcementrecords " & _
+            "where AIRBranch.sscp_auditedEnforcement.strenforcementnumber = " & _
+            "AIRBranch.afssscpenforcementrecords.strenforcementnumber " & _
+            "and to_Date(AIRBranch.sscp_auditedEnforcement.datModifingDate) <> " & _
+            "to_Date(AIRBranch.afssscpenforcementrecords.datModifingDate) " & _
             "and strUpdateStatus = 'N' " & _
-            "and " & connNameSpace & ".sscp_auditedEnforcement.strAFSNOVResolvedNumber = " & _
-            "" & connNameSpace & ".afssscpenforcementrecords.strAFSActionNumber)  "
+            "and AIRBranch.sscp_auditedEnforcement.strAFSNOVResolvedNumber = " & _
+            "AIRBranch.afssscpenforcementrecords.strAFSActionNumber)  "
 
             cmd = New OracleCommand(SQL, conn)
             If conn.State = ConnectionState.Closed Then
@@ -2470,7 +2512,7 @@ Public Class DMUDeveloperTools
                 Else
                     ModifingDate = Format(dr.Item("datModifingDate"), "dd-MMM-yyyy")
                 End If
-                SQL = "Update " & connNameSpace & ".AFSSSCPEnforcementRecords set " & _
+                SQL = "Update AIRBranch.AFSSSCPEnforcementRecords set " & _
                 "strUpdateStatus = 'C', " & _
                 "strModifingPerson = '" & ModifingPerson & "', " & _
                 "datModifingDate = '" & ModifingDate & "' " & _
@@ -2485,17 +2527,18 @@ Public Class DMUDeveloperTools
             End While
             dr.Close()
 
+            'Adds CO Proposed 
             SQL = "select " & _
-          "" & connNameSpace & ".SSCP_AuditedEnforcement.strEnforcementNumber, strAIRSNumber, " & _
+          "AIRBranch.SSCP_AuditedEnforcement.strEnforcementNumber, strAIRSNumber, " & _
           "strAFSCOProposedNumber, strModifingPerson, datModifingDate " & _
-          "from " & connNameSpace & ".SSCP_AuditedEnforcement " & _
+          "from AIRBranch.SSCP_AuditedEnforcement " & _
           "where strAFSCOProposedNumber is not null  " & _
           "and not exists (select * " & _
-          "from " & connNameSpace & ".afssscpenforcementrecords " & _
-          "where " & connNameSpace & ".sscp_auditedEnforcement.strenforcementnumber = " & _
-          "" & connNameSpace & ".afssscpenforcementrecords.strenforcementnumber " & _
-            "and " & connNameSpace & ".sscp_auditedEnforcement.strAFSCOProposedNumber = " & _
-            "" & connNameSpace & ".afssscpenforcementrecords.strAFSActionNumber)  "
+          "from AIRBranch.afssscpenforcementrecords " & _
+          "where AIRBranch.sscp_auditedEnforcement.strenforcementnumber = " & _
+          "AIRBranch.afssscpenforcementrecords.strenforcementnumber " & _
+            "and AIRBranch.sscp_auditedEnforcement.strAFSCOProposedNumber = " & _
+            "AIRBranch.afssscpenforcementrecords.strAFSActionNumber)  "
 
             cmd = New OracleCommand(SQL, conn)
             If conn.State = ConnectionState.Closed Then
@@ -2524,7 +2567,7 @@ Public Class DMUDeveloperTools
                     ModifingDate = Format(dr.Item("datModifingDate"), "dd-MMM-yyyy")
                 End If
 
-                SQL = "Insert into " & connNameSpace & ".AFSSSCPEnforcementRecords " & _
+                SQL = "Insert into AIRBranch.AFSSSCPEnforcementRecords " & _
                 "values " & _
                 "('" & EnforcementNumber & "', '" & AFSNumber & "', " & _
                 "'A', '" & ModifingPerson & "', " & _
@@ -2537,19 +2580,20 @@ Public Class DMUDeveloperTools
             End While
             dr.Close()
 
+            'Updates CO Proposed 
             SQL = "select " & _
-            "" & connNameSpace & ".SSCP_AuditedEnforcement.strEnforcementNumber, strAIRSNumber,  " & _
+            "AIRBranch.SSCP_AuditedEnforcement.strEnforcementNumber, strAIRSNumber,  " & _
             "strAFSCOProposedNumber, strModifingPerson, datModifingDate " & _
-            "from " & connNameSpace & ".SSCP_AuditedEnforcement " & _
+            "from AIRBranch.SSCP_AuditedEnforcement " & _
             "where strAFSCOProposedNumber is not null " & _
-            "and exists (select * from " & connNameSpace & ".afssscpenforcementrecords " & _
-            "where " & connNameSpace & ".sscp_auditedEnforcement.strenforcementnumber = " & _
-            "" & connNameSpace & ".afssscpenforcementrecords.strenforcementnumber " & _
-            "and " & connNameSpace & ".sscp_auditedEnforcement.datModifingDate <> " & _
-            "" & connNameSpace & ".afssscpenforcementrecords.datModifingDate " & _
+            "and exists (select * from AIRBranch.afssscpenforcementrecords " & _
+            "where AIRBranch.sscp_auditedEnforcement.strenforcementnumber = " & _
+            "AIRBranch.afssscpenforcementrecords.strenforcementnumber " & _
+            "and to_Date(AIRBranch.sscp_auditedEnforcement.datModifingDate) <> " & _
+            "to_Date(AIRBranch.afssscpenforcementrecords.datModifingDate) " & _
             "and strUpdateStatus = 'N' " & _
-            "and " & connNameSpace & ".sscp_auditedEnforcement.strAFSCOProposedNumber = " & _
-            "" & connNameSpace & ".afssscpenforcementrecords.strAFSActionNumber)  "
+            "and AIRBranch.sscp_auditedEnforcement.strAFSCOProposedNumber = " & _
+            "AIRBranch.afssscpenforcementrecords.strAFSActionNumber)  "
 
             cmd = New OracleCommand(SQL, conn)
             If conn.State = ConnectionState.Closed Then
@@ -2577,7 +2621,7 @@ Public Class DMUDeveloperTools
                 Else
                     ModifingDate = Format(dr.Item("datModifingDate"), "dd-MMM-yyyy")
                 End If
-                SQL = "Update " & connNameSpace & ".AFSSSCPEnforcementRecords set " & _
+                SQL = "Update AIRBranch.AFSSSCPEnforcementRecords set " & _
                 "strUpdateStatus = 'C', " & _
                 "strModifingPerson = '" & ModifingPerson & "', " & _
                 "datModifingDate = '" & ModifingDate & "' " & _
@@ -2592,17 +2636,18 @@ Public Class DMUDeveloperTools
             End While
             dr.Close()
 
+            'Addes CO Executed 
             SQL = "select " & _
-          "" & connNameSpace & ".SSCP_AuditedEnforcement.strEnforcementNumber, strAIRSNumber, " & _
+          "AIRBranch.SSCP_AuditedEnforcement.strEnforcementNumber, strAIRSNumber, " & _
           "strAFSCOExecutedNumber, strModifingPerson, datModifingDate " & _
-          "from " & connNameSpace & ".SSCP_AuditedEnforcement " & _
+          "from AIRBranch.SSCP_AuditedEnforcement " & _
           "where strAFSCOExecutedNumber is not null  " & _
           "and not exists (select * " & _
-          "from " & connNameSpace & ".afssscpenforcementrecords " & _
-          "where " & connNameSpace & ".sscp_auditedEnforcement.strenforcementnumber = " & _
-          "" & connNameSpace & ".afssscpenforcementrecords.strenforcementnumber " & _
-            "and " & connNameSpace & ".sscp_auditedEnforcement.strAFSCOExecutedNumber = " & _
-            "" & connNameSpace & ".afssscpenforcementrecords.strAFSActionNumber)  "
+          "from AIRBranch.afssscpenforcementrecords " & _
+          "where AIRBranch.sscp_auditedEnforcement.strenforcementnumber = " & _
+          "AIRBranch.afssscpenforcementrecords.strenforcementnumber " & _
+            "and AIRBranch.sscp_auditedEnforcement.strAFSCOExecutedNumber = " & _
+            "AIRBranch.afssscpenforcementrecords.strAFSActionNumber)  "
 
             cmd = New OracleCommand(SQL, conn)
             If conn.State = ConnectionState.Closed Then
@@ -2631,7 +2676,7 @@ Public Class DMUDeveloperTools
                     ModifingDate = Format(dr.Item("datModifingDate"), "dd-MMM-yyyy")
                 End If
 
-                SQL = "Insert into " & connNameSpace & ".AFSSSCPEnforcementRecords " & _
+                SQL = "Insert into AIRBranch.AFSSSCPEnforcementRecords " & _
                 "values " & _
                 "('" & EnforcementNumber & "', '" & AFSNumber & "', " & _
                 "'A', '" & ModifingPerson & "', " & _
@@ -2644,19 +2689,20 @@ Public Class DMUDeveloperTools
             End While
             dr.Close()
 
+            'Updates Co Executed 
             SQL = "select " & _
-            "" & connNameSpace & ".SSCP_AuditedEnforcement.strEnforcementNumber, strAIRSNumber,  " & _
+            "AIRBranch.SSCP_AuditedEnforcement.strEnforcementNumber, strAIRSNumber,  " & _
             "strAFSCOExecutedNumber, strModifingPerson, datModifingDate " & _
-            "from " & connNameSpace & ".SSCP_AuditedEnforcement " & _
+            "from AIRBranch.SSCP_AuditedEnforcement " & _
             "where strAFSCOExecutedNumber is not null " & _
-            "and exists (select * from " & connNameSpace & ".afssscpenforcementrecords " & _
-            "where " & connNameSpace & ".sscp_auditedEnforcement.strenforcementnumber = " & _
-            "" & connNameSpace & ".afssscpenforcementrecords.strenforcementnumber " & _
-            "and " & connNameSpace & ".sscp_auditedEnforcement.datModifingDate <> " & _
-            "" & connNameSpace & ".afssscpenforcementrecords.datModifingDate " & _
+            "and exists (select * from AIRBranch.afssscpenforcementrecords " & _
+            "where AIRBranch.sscp_auditedEnforcement.strenforcementnumber = " & _
+            "AIRBranch.afssscpenforcementrecords.strenforcementnumber " & _
+            "and to_Date(AIRBranch.sscp_auditedEnforcement.datModifingDate) <> " & _
+            "to_Date(AIRBranch.afssscpenforcementrecords.datModifingDate) " & _
             "and strUpdateStatus = 'N' " & _
-            "and " & connNameSpace & ".sscp_auditedEnforcement.strAFSCOExecutedNumber = " & _
-            "" & connNameSpace & ".afssscpenforcementrecords.strAFSActionNumber)  "
+            "and AIRBranch.sscp_auditedEnforcement.strAFSCOExecutedNumber = " & _
+            "AIRBranch.afssscpenforcementrecords.strAFSActionNumber)  "
 
             cmd = New OracleCommand(SQL, conn)
             If conn.State = ConnectionState.Closed Then
@@ -2684,7 +2730,7 @@ Public Class DMUDeveloperTools
                 Else
                     ModifingDate = Format(dr.Item("datModifingDate"), "dd-MMM-yyyy")
                 End If
-                SQL = "Update " & connNameSpace & ".AFSSSCPEnforcementRecords set " & _
+                SQL = "Update AIRBranch.AFSSSCPEnforcementRecords set " & _
                 "strUpdateStatus = 'C', " & _
                 "strModifingPerson = '" & ModifingPerson & "', " & _
                 "datModifingDate = '" & ModifingDate & "' " & _
@@ -2699,17 +2745,18 @@ Public Class DMUDeveloperTools
             End While
             dr.Close()
 
+            'Adds CO Resolved 
             SQL = "select " & _
-          "" & connNameSpace & ".SSCP_AuditedEnforcement.strEnforcementNumber, strAIRSNumber, " & _
+          "AIRBranch.SSCP_AuditedEnforcement.strEnforcementNumber, strAIRSNumber, " & _
           "strAFSCOResolvedNumber, strModifingPerson, datModifingDate " & _
-          "from " & connNameSpace & ".SSCP_AuditedEnforcement " & _
+          "from AIRBranch.SSCP_AuditedEnforcement " & _
           "where strAFSCOResolvedNumber is not null  " & _
           "and not exists (select * " & _
-          "from " & connNameSpace & ".afssscpenforcementrecords " & _
-          "where " & connNameSpace & ".sscp_auditedEnforcement.strenforcementnumber = " & _
-          "" & connNameSpace & ".afssscpenforcementrecords.strenforcementnumber " & _
-            "and " & connNameSpace & ".sscp_auditedEnforcement.strAFSCOResolvedNumber = " & _
-            "" & connNameSpace & ".afssscpenforcementrecords.strAFSActionNumber)  "
+          "from AIRBranch.afssscpenforcementrecords " & _
+          "where AIRBranch.sscp_auditedEnforcement.strenforcementnumber = " & _
+          "AIRBranch.afssscpenforcementrecords.strenforcementnumber " & _
+            "and AIRBranch.sscp_auditedEnforcement.strAFSCOResolvedNumber = " & _
+            "AIRBranch.afssscpenforcementrecords.strAFSActionNumber)  "
 
             cmd = New OracleCommand(SQL, conn)
             If conn.State = ConnectionState.Closed Then
@@ -2738,7 +2785,7 @@ Public Class DMUDeveloperTools
                     ModifingDate = Format(dr.Item("datModifingDate"), "dd-MMM-yyyy")
                 End If
 
-                SQL = "Insert into " & connNameSpace & ".AFSSSCPEnforcementRecords " & _
+                SQL = "Insert into AIRBranch.AFSSSCPEnforcementRecords " & _
                 "values " & _
                 "('" & EnforcementNumber & "', '" & AFSNumber & "', " & _
                 "'A', '" & ModifingPerson & "', " & _
@@ -2751,19 +2798,20 @@ Public Class DMUDeveloperTools
             End While
             dr.Close()
 
+            'Updates CO Resolved 
             SQL = "select " & _
-            "" & connNameSpace & ".SSCP_AuditedEnforcement.strEnforcementNumber, strAIRSNumber,  " & _
+            "AIRBranch.SSCP_AuditedEnforcement.strEnforcementNumber, strAIRSNumber,  " & _
             "strAFSCOResolvedNumber, strModifingPerson, datModifingDate " & _
-            "from " & connNameSpace & ".SSCP_AuditedEnforcement " & _
+            "from AIRBranch.SSCP_AuditedEnforcement " & _
             "where strAFSCOResolvedNumber is not null " & _
-            "and exists (select * from " & connNameSpace & ".afssscpenforcementrecords " & _
-            "where " & connNameSpace & ".sscp_auditedEnforcement.strenforcementnumber = " & _
-            "" & connNameSpace & ".afssscpenforcementrecords.strenforcementnumber " & _
-            "and " & connNameSpace & ".sscp_auditedEnforcement.datModifingDate <> " & _
-            "" & connNameSpace & ".afssscpenforcementrecords.datModifingDate " & _
+            "and exists (select * from AIRBranch.afssscpenforcementrecords " & _
+            "where AIRBranch.sscp_auditedEnforcement.strenforcementnumber = " & _
+            "AIRBranch.afssscpenforcementrecords.strenforcementnumber " & _
+            "and to_Date(AIRBranch.sscp_auditedEnforcement.datModifingDate) <> " & _
+            "to_Date(AIRBranch.afssscpenforcementrecords.datModifingDate) " & _
             "and strUpdateStatus = 'N' " & _
-            "and " & connNameSpace & ".sscp_auditedEnforcement.strAFSCOResolvedNumber = " & _
-            "" & connNameSpace & ".afssscpenforcementrecords.strAFSActionNumber)  "
+            "and AIRBranch.sscp_auditedEnforcement.strAFSCOResolvedNumber = " & _
+            "AIRBranch.afssscpenforcementrecords.strAFSActionNumber)  "
 
             cmd = New OracleCommand(SQL, conn)
             If conn.State = ConnectionState.Closed Then
@@ -2791,7 +2839,7 @@ Public Class DMUDeveloperTools
                 Else
                     ModifingDate = Format(dr.Item("datModifingDate"), "dd-MMM-yyyy")
                 End If
-                SQL = "Update " & connNameSpace & ".AFSSSCPEnforcementRecords set " & _
+                SQL = "Update AIRBranch.AFSSSCPEnforcementRecords set " & _
                 "strUpdateStatus = 'C', " & _
                 "strModifingPerson = '" & ModifingPerson & "', " & _
                 "datModifingDate = '" & ModifingDate & "' " & _
@@ -2806,17 +2854,18 @@ Public Class DMUDeveloperTools
             End While
             dr.Close()
 
+            'Adds AO to AG 
             SQL = "select " & _
-          "" & connNameSpace & ".SSCP_AuditedEnforcement.strEnforcementNumber, strAIRSNumber, " & _
+          "AIRBranch.SSCP_AuditedEnforcement.strEnforcementNumber, strAIRSNumber, " & _
           "strAFSAOtoAGNumber, strModifingPerson, datModifingDate " & _
-          "from " & connNameSpace & ".SSCP_AuditedEnforcement " & _
+          "from AIRBranch.SSCP_AuditedEnforcement " & _
           "where strAFSAOtoAGNumber is not null  " & _
           "and not exists (select * " & _
-          "from " & connNameSpace & ".afssscpenforcementrecords " & _
-          "where " & connNameSpace & ".sscp_auditedEnforcement.strenforcementnumber = " & _
-          "" & connNameSpace & ".afssscpenforcementrecords.strenforcementnumber " & _
-            "and " & connNameSpace & ".sscp_auditedEnforcement.strAFSAOtoAGNumber = " & _
-            "" & connNameSpace & ".afssscpenforcementrecords.strAFSActionNumber)  "
+          "from AIRBranch.afssscpenforcementrecords " & _
+          "where AIRBranch.sscp_auditedEnforcement.strenforcementnumber = " & _
+          "AIRBranch.afssscpenforcementrecords.strenforcementnumber " & _
+            "and AIRBranch.sscp_auditedEnforcement.strAFSAOtoAGNumber = " & _
+            "AIRBranch.afssscpenforcementrecords.strAFSActionNumber)  "
 
             cmd = New OracleCommand(SQL, conn)
             If conn.State = ConnectionState.Closed Then
@@ -2845,7 +2894,7 @@ Public Class DMUDeveloperTools
                     ModifingDate = Format(dr.Item("datModifingDate"), "dd-MMM-yyyy")
                 End If
 
-                SQL = "Insert into " & connNameSpace & ".AFSSSCPEnforcementRecords " & _
+                SQL = "Insert into AIRBranch.AFSSSCPEnforcementRecords " & _
                 "values " & _
                 "('" & EnforcementNumber & "', '" & AFSNumber & "', " & _
                 "'A', '" & ModifingPerson & "', " & _
@@ -2858,19 +2907,20 @@ Public Class DMUDeveloperTools
             End While
             dr.Close()
 
+            'Updates AO to AG 
             SQL = "select " & _
-            "" & connNameSpace & ".SSCP_AuditedEnforcement.strEnforcementNumber, strAIRSNumber,  " & _
+            "AIRBranch.SSCP_AuditedEnforcement.strEnforcementNumber, strAIRSNumber,  " & _
             "strAFSAOtoAGNumber, strModifingPerson, datModifingDate " & _
-            "from " & connNameSpace & ".SSCP_AuditedEnforcement " & _
+            "from AIRBranch.SSCP_AuditedEnforcement " & _
             "where strAFSAOtoAGNumber is not null " & _
-            "and exists (select * from " & connNameSpace & ".afssscpenforcementrecords " & _
-            "where " & connNameSpace & ".sscp_auditedEnforcement.strenforcementnumber = " & _
-            "" & connNameSpace & ".afssscpenforcementrecords.strenforcementnumber " & _
-            "and " & connNameSpace & ".sscp_auditedEnforcement.datModifingDate <> " & _
-            "" & connNameSpace & ".afssscpenforcementrecords.datModifingDate " & _
+            "and exists (select * from AIRBranch.afssscpenforcementrecords " & _
+            "where AIRBranch.sscp_auditedEnforcement.strenforcementnumber = " & _
+            "AIRBranch.afssscpenforcementrecords.strenforcementnumber " & _
+            "and to_Date(AIRBranch.sscp_auditedEnforcement.datModifingDate) <> " & _
+            "to_Date(AIRBranch.afssscpenforcementrecords.datModifingDate) " & _
             "and strUpdateStatus = 'N' " & _
-            "and " & connNameSpace & ".sscp_auditedEnforcement.strAFSAOtoAGNumber = " & _
-            "" & connNameSpace & ".afssscpenforcementrecords.strAFSActionNumber)  "
+            "and AIRBranch.sscp_auditedEnforcement.strAFSAOtoAGNumber = " & _
+            "AIRBranch.afssscpenforcementrecords.strAFSActionNumber)  "
 
             cmd = New OracleCommand(SQL, conn)
             If conn.State = ConnectionState.Closed Then
@@ -2898,7 +2948,7 @@ Public Class DMUDeveloperTools
                 Else
                     ModifingDate = Format(dr.Item("datModifingDate"), "dd-MMM-yyyy")
                 End If
-                SQL = "Update " & connNameSpace & ".AFSSSCPEnforcementRecords set " & _
+                SQL = "Update AIRBranch.AFSSSCPEnforcementRecords set " & _
                 "strUpdateStatus = 'C', " & _
                 "strModifingPerson = '" & ModifingPerson & "', " & _
                 "datModifingDate = '" & ModifingDate & "' " & _
@@ -2913,17 +2963,18 @@ Public Class DMUDeveloperTools
             End While
             dr.Close()
 
+            'Adds Civil Order (AO) 
             SQL = "select " & _
-          "" & connNameSpace & ".SSCP_AuditedEnforcement.strEnforcementNumber, strAIRSNumber, " & _
+          "AIRBranch.SSCP_AuditedEnforcement.strEnforcementNumber, strAIRSNumber, " & _
           "strAFSCivilCOurtNumber, strModifingPerson, datModifingDate " & _
-          "from " & connNameSpace & ".SSCP_AuditedEnforcement " & _
+          "from AIRBranch.SSCP_AuditedEnforcement " & _
           "where strAFSCivilCOurtNumber is not null  " & _
           "and not exists (select * " & _
-          "from " & connNameSpace & ".afssscpenforcementrecords " & _
-          "where " & connNameSpace & ".sscp_auditedEnforcement.strenforcementnumber = " & _
-          "" & connNameSpace & ".afssscpenforcementrecords.strenforcementnumber " & _
-            "and " & connNameSpace & ".sscp_auditedEnforcement.strAFSCivilCOurtNumber = " & _
-            "" & connNameSpace & ".afssscpenforcementrecords.strAFSActionNumber)  "
+          "from AIRBranch.afssscpenforcementrecords " & _
+          "where AIRBranch.sscp_auditedEnforcement.strenforcementnumber = " & _
+          "AIRBranch.afssscpenforcementrecords.strenforcementnumber " & _
+            "and AIRBranch.sscp_auditedEnforcement.strAFSCivilCOurtNumber = " & _
+            "AIRBranch.afssscpenforcementrecords.strAFSActionNumber)  "
 
             cmd = New OracleCommand(SQL, conn)
             If conn.State = ConnectionState.Closed Then
@@ -2952,7 +3003,7 @@ Public Class DMUDeveloperTools
                     ModifingDate = Format(dr.Item("datModifingDate"), "dd-MMM-yyyy")
                 End If
 
-                SQL = "Insert into " & connNameSpace & ".AFSSSCPEnforcementRecords " & _
+                SQL = "Insert into AIRBranch.AFSSSCPEnforcementRecords " & _
                 "values " & _
                 "('" & EnforcementNumber & "', '" & AFSNumber & "', " & _
                 "'A', '" & ModifingPerson & "', " & _
@@ -2965,19 +3016,20 @@ Public Class DMUDeveloperTools
             End While
             dr.Close()
 
+            'Updates Civil Order (AO)  
             SQL = "select " & _
-            "" & connNameSpace & ".SSCP_AuditedEnforcement.strEnforcementNumber, strAIRSNumber,  " & _
+            "AIRBranch.SSCP_AuditedEnforcement.strEnforcementNumber, strAIRSNumber,  " & _
             "strAFSCivilCOurtNumber, strModifingPerson, datModifingDate " & _
-            "from " & connNameSpace & ".SSCP_AuditedEnforcement " & _
+            "from AIRBranch.SSCP_AuditedEnforcement " & _
             "where strAFSCivilCOurtNumber is not null " & _
-            "and exists (select * from " & connNameSpace & ".afssscpenforcementrecords " & _
-            "where " & connNameSpace & ".sscp_auditedEnforcement.strenforcementnumber = " & _
-            "" & connNameSpace & ".afssscpenforcementrecords.strenforcementnumber " & _
-            "and " & connNameSpace & ".sscp_auditedEnforcement.datModifingDate <> " & _
-            "" & connNameSpace & ".afssscpenforcementrecords.datModifingDate " & _
+            "and exists (select * from AIRBranch.afssscpenforcementrecords " & _
+            "where AIRBranch.sscp_auditedEnforcement.strenforcementnumber = " & _
+            "AIRBranch.afssscpenforcementrecords.strenforcementnumber " & _
+            "and to_Date(AIRBranch.sscp_auditedEnforcement.datModifingDate) <> " & _
+            "to_Date(AIRBranch.afssscpenforcementrecords.datModifingDate) " & _
             "and strUpdateStatus = 'N' " & _
-            "and " & connNameSpace & ".sscp_auditedEnforcement.strAFSCivilCOurtNumber = " & _
-            "" & connNameSpace & ".afssscpenforcementrecords.strAFSActionNumber)  "
+            "and AIRBranch.sscp_auditedEnforcement.strAFSCivilCOurtNumber = " & _
+            "AIRBranch.afssscpenforcementrecords.strAFSActionNumber)  "
 
             cmd = New OracleCommand(SQL, conn)
             If conn.State = ConnectionState.Closed Then
@@ -3005,7 +3057,7 @@ Public Class DMUDeveloperTools
                 Else
                     ModifingDate = Format(dr.Item("datModifingDate"), "dd-MMM-yyyy")
                 End If
-                SQL = "Update " & connNameSpace & ".AFSSSCPEnforcementRecords set " & _
+                SQL = "Update AIRBranch.AFSSSCPEnforcementRecords set " & _
                 "strUpdateStatus = 'C', " & _
                 "strModifingPerson = '" & ModifingPerson & "', " & _
                 "datModifingDate = '" & ModifingDate & "' " & _
@@ -3020,17 +3072,18 @@ Public Class DMUDeveloperTools
             End While
             dr.Close()
 
+            'Adds AO Resolved 
             SQL = "select " & _
-            "" & connNameSpace & ".SSCP_AuditedEnforcement.strEnforcementNumber, strAIRSNumber, " & _
+            "AIRBranch.SSCP_AuditedEnforcement.strEnforcementNumber, strAIRSNumber, " & _
             "strAFSAOResolvedNumber, strModifingPerson, datModifingDate " & _
-            "from " & connNameSpace & ".SSCP_AuditedEnforcement " & _
+            "from AIRBranch.SSCP_AuditedEnforcement " & _
             "where strAFSAOResolvedNumber is not null  " & _
             "and not exists (select * " & _
-            "from " & connNameSpace & ".afssscpenforcementrecords " & _
-            "where " & connNameSpace & ".sscp_auditedEnforcement.strenforcementnumber = " & _
-            "" & connNameSpace & ".afssscpenforcementrecords.strenforcementnumber " & _
-            "and " & connNameSpace & ".sscp_auditedEnforcement.strAFSAOResolvedNumber = " & _
-            "" & connNameSpace & ".afssscpenforcementrecords.strAFSActionNumber)  "
+            "from AIRBranch.afssscpenforcementrecords " & _
+            "where AIRBranch.sscp_auditedEnforcement.strenforcementnumber = " & _
+            "AIRBranch.afssscpenforcementrecords.strenforcementnumber " & _
+            "and AIRBranch.sscp_auditedEnforcement.strAFSAOResolvedNumber = " & _
+            "AIRBranch.afssscpenforcementrecords.strAFSActionNumber)  "
 
             cmd = New OracleCommand(SQL, conn)
             If conn.State = ConnectionState.Closed Then
@@ -3059,7 +3112,7 @@ Public Class DMUDeveloperTools
                     ModifingDate = Format(dr.Item("datModifingDate"), "dd-MMM-yyyy")
                 End If
 
-                SQL = "Insert into " & connNameSpace & ".AFSSSCPEnforcementRecords " & _
+                SQL = "Insert into AIRBranch.AFSSSCPEnforcementRecords " & _
                 "values " & _
                 "('" & EnforcementNumber & "', '" & AFSNumber & "', " & _
                 "'A', '" & ModifingPerson & "', " & _
@@ -3072,19 +3125,20 @@ Public Class DMUDeveloperTools
             End While
             dr.Close()
 
+            'Updates AO Resolved 
             SQL = "select " & _
-            "" & connNameSpace & ".SSCP_AuditedEnforcement.strEnforcementNumber, strAIRSNumber,  " & _
+            "AIRBranch.SSCP_AuditedEnforcement.strEnforcementNumber, strAIRSNumber,  " & _
             "strAFSAOResolvedNumber, strModifingPerson, datModifingDate " & _
-            "from " & connNameSpace & ".SSCP_AuditedEnforcement " & _
+            "from AIRBranch.SSCP_AuditedEnforcement " & _
             "where strAFSAOResolvedNumber is not null " & _
-            "and exists (select * from " & connNameSpace & ".afssscpenforcementrecords " & _
-            "where " & connNameSpace & ".sscp_auditedEnforcement.strenforcementnumber = " & _
-            "" & connNameSpace & ".afssscpenforcementrecords.strenforcementnumber " & _
-            "and " & connNameSpace & ".sscp_auditedEnforcement.datModifingDate <> " & _
-            "" & connNameSpace & ".afssscpenforcementrecords.datModifingDate " & _
+            "and exists (select * from AIRBranch.afssscpenforcementrecords " & _
+            "where AIRBranch.sscp_auditedEnforcement.strenforcementnumber = " & _
+            "AIRBranch.afssscpenforcementrecords.strenforcementnumber " & _
+            "and to_Date(AIRBranch.sscp_auditedEnforcement.datModifingDate) <> " & _
+            "to_Date(AIRBranch.afssscpenforcementrecords.datModifingDate) " & _
             "and strUpdateStatus = 'N' " & _
-            "and " & connNameSpace & ".sscp_auditedEnforcement.strAFSAOResolvedNumber = " & _
-            "" & connNameSpace & ".afssscpenforcementrecords.strAFSActionNumber)  "
+            "and AIRBranch.sscp_auditedEnforcement.strAFSAOResolvedNumber = " & _
+            "AIRBranch.afssscpenforcementrecords.strAFSActionNumber)  "
 
             cmd = New OracleCommand(SQL, conn)
             If conn.State = ConnectionState.Closed Then
@@ -3112,7 +3166,7 @@ Public Class DMUDeveloperTools
                 Else
                     ModifingDate = Format(dr.Item("datModifingDate"), "dd-MMM-yyyy")
                 End If
-                SQL = "Update " & connNameSpace & ".AFSSSCPEnforcementRecords set " & _
+                SQL = "Update AIRBranch.AFSSSCPEnforcementRecords set " & _
                 "strUpdateStatus = 'C', " & _
                 "strModifingPerson = '" & ModifingPerson & "', " & _
                 "datModifingDate = '" & ModifingDate & "' " & _
@@ -3126,57 +3180,6 @@ Public Class DMUDeveloperTools
 
             End While
             dr.Close()
-
-            'SQL = "Select   " & _
-            '"" & connNameSpace & ".AFSSSCPEnforcementRecords.strUpDateStatus,   " & _
-            '"" & connNameSpace & ".AFSSSCPEnforcementRecords.strEnforcementNumber,    " & _
-            '"strStaffResponsible,    " & _
-            '"to_Char(datDiscoveryDate, 'YYMMDD') as DiscoveryDate,    " & _
-            '"to_char(datDayZero, 'YYMMDD') as DayZero,    " & _
-            '"to_char(datEnforcementFinalized, 'YYMMDD') as AchievedDate,    " & _
-            '"to_char(datNOVSent, 'YYMMDD') as NOVSent,    " & _
-            '"to_char(datNFALetterSent, 'YYMMDD') as NFALetterSent,    " & _
-            '"to_char(datCOProposed, 'YYMMDD') as COProposed,    " & _
-            '"to_char(datCOExecuted, 'YYMMDD') as COExecuted,    " & _
-            '"to_Char(datCOResolved, 'YYMMDD') as COResolved,    " & _
-            '"to_char(datAOExecuted, 'YYMMDD') as AOExecuted,    " & _
-            '"to_char(datAOAppealed, 'YYMMDD') as AOAppealed,    " & _
-            '"to_char(datAOResolved, 'YYMMDD') as AOResolved,    " & _
-            '"to_char(SSCPEnforcement.datModifingDate, 'YYMMDD') as StipulatedDate,    " & _
-            '"strCOPenaltyAmount,    " & _
-            '"" & connNameSpace & ".SSCPENforcementStipulated.strStipulatedPenalty,    " & _
-            '"" & connNameSpace & ".APBHeaderData.strAIRSNumber, strAIRProgramCodes,    " & _
-            '"" & connNameSpace & ".AFSSSCPEnforcementRecords.strAFSActionNumber,    " & _
-            '"strAFSKeyActionNumber,  " & connNameSpace & ".sscpEnforcementItems.strTrackingNumber,    " & _
-            '"case    " & _
-            '"when " & connNameSpace & ".AFSSSCPEnforcementRecords.strAFSActionNumber = strAFSKeyActionNumber then '04'    " & _
-            ' "when " & connNameSpace & ".AFSSSCPEnforcementRecords.strAFSActionNumber = strAFSNOVSentNumber then '56'    " & _
-            '"when " & connNameSpace & ".AFSSSCPEnforcementRecords.strAFSActionNumber = strAFSNOVResolvedNumber then 'AW'    " & _
-            '"when " & connNameSpace & ".AFSSSCPEnforcementRecords.strAFSActionNumber = strAFSCOProposedNumber then '57'    " & _
-            '"when " & connNameSpace & ".AFSSSCPEnforcementRecords.strAFSActionNumber = strAFSCOExecutedNumber then 'X1'    " & _
-            '"when " & connNameSpace & ".AFSSSCPEnforcementRecords.strAFSActionNumber = strAFSCOResolvedNumber then 'AS'    " & _
-            '"when " & connNameSpace & ".AFSSSCPEnforcementRecords.strAFSActionNumber = strAFSStipulatedPenaltyNumber then 'Z4'   " & _
-            '"when " & connNameSpace & ".AFSSSCPEnforcementRecords.strAFSActionNumber = strAFSAOtoAGNumber then '60'    " & _
-            '"when " & connNameSpace & ".AFSSSCPEnforcementRecords.strAFSActionNumber = strAFSCivilCourtNumber then '64'    " & _
-            '"when " & connNameSpace & ".AFSSSCPEnforcementRecords.strAFSActionNumber = strAFSAOResolvedNumber then 'AS'    " & _
-            '"Else 'ERROR'     " & _
-            '"End as ActionType,    " & _
-            '"strPollutants, strHPV,  " & _
-            '"" & connNameSpace & ".AFSSSCPRecords.strAFSActionNumber as LinkingEvent  " & _
-            '"from  " & connNameSpace & ".AFSSSCPEnforcementRecords,    " & _
-            '"" & connNameSpace & ".SSCPEnforcementItems,  " & connNameSpace & ".SSCPEnforcement,    " & _
-            '"" & connNameSpace & ".APBHeaderData,  " & connNameSpace & ".SSCPENforcementStipulated,    " & _
-            '"" & connNameSpace & ".SSCPItemMaster,  " & _
-            '"" & connNameSpace & ".AFSSSCPRecords    " & _
-            '"where " & connNameSpace & ".AFSSSCPEnforcementRecords.strUpdateStatus <> 'N'    " & _
-            '"and  " & connNameSpace & ".SSCPEnforcement.strEnforcementNumber =  " & connNameSpace & ".AFSSSCPEnforcementRecords.strEnforcementNumber    " & _
-            '"and  " & connNameSpace & ".APBHeaderData.strAIRSNumber =  " & connNameSpace & ".SSCPEnforcementItems.strAIRSNumber    " & _
-            '"and  " & connNameSpace & ".SSCPEnforcementItems.strEnforcementNumber =  " & connNameSpace & ".SSCPEnforcement.strEnforcementNumber    " & _
-            '"and  " & connNameSpace & ".SSCPEnforcementItems.strEnforcementNumber =  " & connNameSpace & ".SSCPENforcementStipulated.strEnforcementNumber (+)    " & _
-            '"and  " & connNameSpace & ".sscpEnforcementItems.strTrackingNumber =  " & connNameSpace & ".SSCPItemMaster.strTrackingNumber (+)   " & _
-            '"and strEventType <> '03' " & _
-            '"and " & connNameSpace & ".sscpEnforcementItems.strTrackingNumber = " & connNameSpace & ".AFSSSCPRecords.strTrackingNumber (+) " & _
-            '"Order by strAFSActionNumber ASC "
 
             SQL = "Select distinct " & _
             "AIRBranch.AFSSSCPEnforcementRecords.strUpDateStatus,    " & _
@@ -3218,16 +3221,16 @@ Public Class DMUDeveloperTools
             "AIRBranch.SSCP_AuditedEnforcement,   " & _
             "AIRBranch.APBHeaderData,  AIRBranch.SSCPENforcementStipulated,     " & _
             "AIRBranch.SSCPItemMaster,   " & _
-            "AIRBranch.AFSSSCPRecords     " & _
-            "where AIRBranch.AFSSSCPEnforcementRecords.strUpdateStatus <> 'N'     " & _
-            "and  AIRBranch.SSCP_AuditedEnforcement.strEnforcementNumber =  " & _
-            "AIRBranch.AFSSSCPEnforcementRecords.strEnforcementNumber     " & _
-            "and  AIRBranch.APBHeaderData.strAIRSNumber =  AIRBranch.SSCP_AuditedEnforcement.strAIRSNumber         " & _
-            "and  AIRBranch.SSCP_AuditedEnforcement.strEnforcementNumber =  " & _
-            "AIRBranch.SSCPENforcementStipulated.strEnforcementNumber (+)     " & _
-            "and  AIRBranch.SSCP_AuditedEnforcement.strTrackingNumber =  AIRBranch.SSCPItemMaster.strTrackingNumber (+)    " & _
+            "AIRBranch.AFSSSCPRecords, AIRBranch.AFSFacilityData " & _
+            "where AFSSSCPEnforcementRecords.strUpdateStatus <> 'N'     " & _
+            "and APBHeaderData.strAIRSNumber = AFSFacilityData.strAIRSNumber   " & _
+            "and  SSCP_AuditedEnforcement.strEnforcementNumber = AFSSSCPEnforcementRecords.strEnforcementNumber  " & _
+            "and  APBHeaderData.strAIRSNumber = SSCP_AuditedEnforcement.strAIRSNumber         " & _
+            "and  SSCP_AuditedEnforcement.strEnforcementNumber = SSCPENforcementStipulated.strEnforcementNumber (+)     " & _
+            "and  SSCP_AuditedEnforcement.strTrackingNumber = SSCPItemMaster.strTrackingNumber (+)    " & _
             "and strEventType <> '03'  " & _
-            "and AIRBranch.SSCP_AuditedEnforcement.strTrackingNumber = AIRBranch.AFSSSCPRecords.strTrackingNumber (+)  " & _
+            "and SSCP_AuditedEnforcement.strTrackingNumber = AFSSSCPRecords.strTrackingNumber (+)  " & _
+            "and  (AFSFacilityData.strUpdateStatus = 'C' or AFSFacilityData.strUpdateStatus = 'N') " & _
             "Order by strAIRSNumber, strAFSActionNumber ASC  "
 
             cmd = New OracleCommand(SQL, conn)
@@ -3242,6 +3245,11 @@ Public Class DMUDeveloperTools
                     UpdateCode = "A"
                 Else
                     UpdateCode = dr.Item("strUpDateStatus")
+                End If
+                If IsDBNull(dr.Item("strEnforcementNumber")) Then
+                    EnforcementNumber = ""
+                Else
+                    EnforcementNumber = dr.Item("strEnforcementNumber")
                 End If
                 AIRProgramCodes = ""
                 If IsDBNull(dr.Item("strAIRProgramCodes")) Then
@@ -3314,7 +3322,7 @@ Public Class DMUDeveloperTools
                     If HPV = "NOV" Then
                         ActionType = "VZ"
                     Else
-                        'ActionType = ActionType
+                        ActionType = ActionType
                     End If
                 End If
                 If IsDBNull(dr.Item("DiscoveryDate")) Then
@@ -3377,11 +3385,10 @@ Public Class DMUDeveloperTools
                 Else
                     PenaltyAmount = Replace(dr.Item("strCOPenaltyAmount"), "$", "")
                     PenaltyAmount = Replace(PenaltyAmount, ",", "")
-                     If PenaltyAmount.Contains(".") Then
+                    If PenaltyAmount.Contains(".") Then
                         PenaltyAmount = Mid(PenaltyAmount, 1, (PenaltyAmount.IndexOf(".")))
                     End If
                 End If
-
                 If PenaltyAmount.Length > 7 Then
                     PenaltyAmount = CSng(PenaltyAmount)
                 End If
@@ -3430,7 +3437,7 @@ Public Class DMUDeveloperTools
                         Case "4"
                             ActionNumber = "0" & ActionNumber
                         Case "5"
-                            'ActionNumber = ActionNumber
+                            ActionNumber = ActionNumber
                         Case Else
                             ActionNumber = "00001"
                     End Select
@@ -3451,7 +3458,7 @@ Public Class DMUDeveloperTools
                         Case "4"
                             KeyActionNumber = "0" & KeyActionNumber
                         Case "5"
-                            'KeyActionNumber = KeyActionNumber
+                            KeyActionNumber = KeyActionNumber
                         Case Else
                             KeyActionNumber = "00001"
                     End Select
@@ -3528,7 +3535,7 @@ Public Class DMUDeveloperTools
                     Case 4
                         LinkedEvent = "0" & LinkedEvent
                     Case 5
-                        'LinkedEvent = LinkedEvent
+                        LinkedEvent = LinkedEvent
                     Case Else
                         LinkedEvent = "     "
                 End Select
@@ -3594,12 +3601,23 @@ Public Class DMUDeveloperTools
                             AIRSNumber & "163" & ActionNumber & KeyActionNumber & "                                                        " & UpdateCode & vbCrLf
                     End Select
                 End If
+
+                SQL = "Update AIRBranch.AFSSSCPEnforcementRecords set " & _
+                "strUpDateStatus = 'N' " & _
+                "where strUPDateStatus <> 'N' " & _
+                "and strEnforcementNumber = '" & EnforcementNumber & "' "
+
+                cmd = New OracleCommand(SQL, conn)
+                If conn.State = ConnectionState.Closed Then
+                    conn.Open()
+                End If
+                cmd.ExecuteNonQuery()
             End While
             dr.Close()
 
             SQL = "Select   distinct " & _
-            "" & connNameSpace & ".afssscpenforcementrecords.strUpDateStatus,   " & _
-            "" & connNameSpace & ".AFSSSCPEnforcementRecords.strEnforcementNumber,   " & _
+            "AIRBranch.afssscpenforcementrecords.strUpDateStatus,   " & _
+            "AIRBranch.AFSSSCPEnforcementRecords.strEnforcementNumber,   " & _
             "numStaffResponsible,    " & _
             "to_Char(datDiscoveryDate, 'YYMMDD') as DiscoveryDate,    " & _
             "to_char(datDayZero, 'YYMMDD') as DayZero,    " & _
@@ -3614,44 +3632,46 @@ Public Class DMUDeveloperTools
             "to_char(datAOResolved, 'YYMMDD') as AOResolved,    " & _
             "to_char(SSCP_AuditedEnforcement.datModifingDate, 'YYMMDD') as StipulatedDate,    " & _
             "strCOPenaltyAmount,    " & _
-            "" & connNameSpace & ".SSCPENforcementStipulated.strStipulatedPenalty,    " & _
-            "" & connNameSpace & ".APBHeaderData.strAIRSNumber, strAIRProgramCodes,    " & _
-            "" & connNameSpace & ".afssscpenforcementrecords.strAFSActionNumber,    " & _
-            "strAFSKeyActionNumber, " & connNameSpace & ".SSCP_AuditedEnforcement.strTrackingNumber,    " & _
+            "AIRBranch.SSCPENforcementStipulated.strStipulatedPenalty,    " & _
+            "AIRBranch.APBHeaderData.strAIRSNumber, strAIRProgramCodes,    " & _
+            "AIRBranch.afssscpenforcementrecords.strAFSActionNumber,    " & _
+            "strAFSKeyActionNumber, AIRBranch.SSCP_AuditedEnforcement.strTrackingNumber,    " & _
             "case    " & _
-            "when " & connNameSpace & ".afssscpenforcementrecords.strAFSActionNumber = strAFSKeyActionNumber then '04'    " & _
-            "when " & connNameSpace & ".afssscpenforcementrecords.strAFSActionNumber = strAFSNOVSentNumber then '56'    " & _
-            "when " & connNameSpace & ".afssscpenforcementrecords.strAFSActionNumber = strAFSNOVResolvedNumber then 'AW'    " & _
-            "when " & connNameSpace & ".afssscpenforcementrecords.strAFSActionNumber = strAFSCOProposedNumber then '57'    " & _
-            "when " & connNameSpace & ".afssscpenforcementrecords.strAFSActionNumber = strAFSCOExecutedNumber then 'X1'    " & _
-            "when " & connNameSpace & ".afssscpenforcementrecords.strAFSActionNumber = strAFSCOResolvedNumber then 'AS'    " & _
-            "when " & connNameSpace & ".afssscpenforcementrecords.strAFSActionNumber = strAFSStipulatedPenaltyNumber then 'Z4'  " & _
-            "when " & connNameSpace & ".afssscpenforcementrecords.strAFSActionNumber = strAFSAOtoAGNumber then '60'    " & _
-            "when " & connNameSpace & ".afssscpenforcementrecords.strAFSActionNumber = strAFSCivilCourtNumber then '64'    " & _
-            "when " & connNameSpace & ".afssscpenforcementrecords.strAFSActionNumber = strAFSAOResolvedNumber then 'AS'    " & _
+            "when AIRBranch.afssscpenforcementrecords.strAFSActionNumber = strAFSKeyActionNumber then '04'    " & _
+            "when AIRBranch.afssscpenforcementrecords.strAFSActionNumber = strAFSNOVSentNumber then '56'    " & _
+            "when AIRBranch.afssscpenforcementrecords.strAFSActionNumber = strAFSNOVResolvedNumber then 'AW'    " & _
+            "when AIRBranch.afssscpenforcementrecords.strAFSActionNumber = strAFSCOProposedNumber then '57'    " & _
+            "when AIRBranch.afssscpenforcementrecords.strAFSActionNumber = strAFSCOExecutedNumber then 'X1'    " & _
+            "when AIRBranch.afssscpenforcementrecords.strAFSActionNumber = strAFSCOResolvedNumber then 'AS'    " & _
+            "when AIRBranch.afssscpenforcementrecords.strAFSActionNumber = strAFSStipulatedPenaltyNumber then 'Z4'  " & _
+            "when AIRBranch.afssscpenforcementrecords.strAFSActionNumber = strAFSAOtoAGNumber then '60'    " & _
+            "when AIRBranch.afssscpenforcementrecords.strAFSActionNumber = strAFSCivilCourtNumber then '64'    " & _
+            "when AIRBranch.afssscpenforcementrecords.strAFSActionNumber = strAFSAOResolvedNumber then 'AS'    " & _
             "Else 'ERROR'     " & _
             "End as ActionType,    " & _
             "strPollutants, strHPV,   " & _
-            "" & connNameSpace & ".afsismprecords.strafsactionnumber as LinkingEvent   " & _
-            "from " & connNameSpace & ".AFSSSCPEnforcementRecords,    " & _
-            "" & connNameSpace & ".SSCP_AuditedEnforcement,     " & _
-            "" & connNameSpace & ".APBHeaderData, " & connNameSpace & ".SSCPENforcementStipulated,    " & _
-            "" & connNameSpace & ".SSCPItemMaster,   " & _
-            "" & connNameSpace & ".sscptestreports,   " & _
-            "" & connNameSpace & ".AFSISMPRecords   " & _
-            "where " & connNameSpace & ".afssscpenforcementrecords.strUpdateStatus <> 'N'    " & _
-            "and " & connNameSpace & ".SSCP_AuditedEnforcement.strEnforcementNumber = " & _
-            "" & connNameSpace & ".AFSSSCPEnforcementRecords.strEnforcementNumber    " & _
-            "and " & connNameSpace & ".APBHeaderData.strAIRSNumber = " & connNameSpace & ".SSCP_AuditedEnforcement.strAIRSNumber    " & _
-            "and " & connNameSpace & ".SSCP_AuditedEnforcement.strEnforcementNumber = " & _
-            "" & connNameSpace & ".SSCPENforcementStipulated.strEnforcementNumber (+)    " & _
-            "and " & connNameSpace & ".SSCP_AuditedEnforcement.strTrackingNumber = " & _
-            "" & connNameSpace & ".SSCPItemMaster.strTrackingNumber (+)   " & _
-            "and " & connNameSpace & ".SSCP_AuditedEnforcement.strTrackingNumber = " & _
-            "" & connNameSpace & ".SSCPTestReports.strTrackingNumber (+)  " & _
-            "and " & connNameSpace & ".sscptestReports.strReferenceNumber  = " & _
-            "" & connNameSpace & ".AFSISMPRecords.strReferenceNumber  (+)  " & _
+            "AIRBranch.afsismprecords.strafsactionnumber as LinkingEvent   " & _
+            "from AIRBranch.AFSSSCPEnforcementRecords,    " & _
+            "AIRBranch.SSCP_AuditedEnforcement,     " & _
+            "AIRBranch.APBHeaderData, AIRBranch.SSCPENforcementStipulated,    " & _
+            "AIRBranch.SSCPItemMaster,   " & _
+            "AIRBranch.sscptestreports,   " & _
+            "AIRBranch.AFSISMPRecords, AIRBranch.AFSFacilityData   " & _
+            "where AIRBranch.afssscpenforcementrecords.strUpdateStatus <> 'N'    " & _
+            "and apbheaderdata.strAIRSnumber = AFSFacilityData.strAIRSNumber  " & _
+            "and AIRBranch.SSCP_AuditedEnforcement.strEnforcementNumber = " & _
+            "AIRBranch.AFSSSCPEnforcementRecords.strEnforcementNumber    " & _
+            "and AIRBranch.APBHeaderData.strAIRSNumber = AIRBranch.SSCP_AuditedEnforcement.strAIRSNumber    " & _
+            "and AIRBranch.SSCP_AuditedEnforcement.strEnforcementNumber = " & _
+            "AIRBranch.SSCPENforcementStipulated.strEnforcementNumber (+)    " & _
+            "and AIRBranch.SSCP_AuditedEnforcement.strTrackingNumber = " & _
+            "AIRBranch.SSCPItemMaster.strTrackingNumber (+)   " & _
+            "and AIRBranch.SSCP_AuditedEnforcement.strTrackingNumber = " & _
+            "AIRBranch.SSCPTestReports.strTrackingNumber (+)  " & _
+            "and AIRBranch.sscptestReports.strReferenceNumber  = " & _
+            "AIRBranch.AFSISMPRecords.strReferenceNumber  (+)  " & _
             "and (strEventType = '03' or strEventType is null) " & _
+            "and  (AFSFacilityData.strUpdateStatus = 'C' or AFSFacilityData.strUpdateStatus = 'N') " & _
             "order by strairsnumber, discoverydate "
 
             cmd = New OracleCommand(SQL, conn)
@@ -3662,6 +3682,12 @@ Public Class DMUDeveloperTools
             dr = cmd.ExecuteReader
             While dr.Read
                 AIRSNumber = Mid(dr.Item("strAIRSNumber"), 3)
+                If IsDBNull(dr.Item("strEnforcementNumber")) Then
+                    EnforcementNumber = ""
+                Else
+                    EnforcementNumber = dr.Item("strEnforcementNumber")
+                End If
+
                 If IsDBNull(dr.Item("strUpDatestatus")) Then
                     UpdateCode = "A"
                 Else
@@ -3738,7 +3764,7 @@ Public Class DMUDeveloperTools
                     If HPV = "NOV" Then
                         ActionType = "VZ"
                     Else
-                       ' ActionType = ActionType
+                        ActionType = ActionType
                     End If
                 End If
                 If IsDBNull(dr.Item("DiscoveryDate")) Then
@@ -3853,7 +3879,7 @@ Public Class DMUDeveloperTools
                     Case "4"
                         ActionNumber = "0" & ActionNumber
                     Case "5"
-                        'ActionNumber = ActionNumber
+                        ActionNumber = ActionNumber
                     Case Else
                         ActionNumber = "00001"
                 End Select
@@ -3874,7 +3900,7 @@ Public Class DMUDeveloperTools
                     Case "4"
                         KeyActionNumber = "0" & KeyActionNumber
                     Case "5"
-                        'KeyActionNumber = KeyActionNumber
+                        KeyActionNumber = KeyActionNumber
                     Case Else
                         KeyActionNumber = "00001"
                 End Select
@@ -3950,7 +3976,7 @@ Public Class DMUDeveloperTools
                     Case 4
                         LinkedEvent = "0" & LinkedEvent
                     Case 5
-                        'LinkedEvent = LinkedEvent
+                        LinkedEvent = LinkedEvent
                     Case Else
                         LinkedEvent = "     "
                 End Select
@@ -4031,18 +4057,17 @@ Public Class DMUDeveloperTools
                         AIRSNumber & "163" & ActionNumber & KeyActionNumber & "                                                        " & UpdateCode & _
                            vbCrLf
                 End Select
+                SQL = "Update AIRBranch.AFSSSCPEnforcementRecords set " & _
+               "strUpDateStatus = 'N' " & _
+               "where strUPDateStatus <> 'N' " & _
+               "and strEnforcementNumber = '" & EnforcementNumber & "' "
+
+                cmd = New OracleCommand(SQL, conn)
+                If conn.State = ConnectionState.Closed Then
+                    conn.Open()
+                End If
+                cmd.ExecuteNonQuery()
             End While
-            dr.Close()
-
-            SQL = "Update " & connNameSpace & ".AFSSSCPEnforcementRecords set " & _
-            "strUpDateStatus = 'N' " & _
-            "where strUPDateStatus <> 'N' "
-
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
-            End If
-            dr = cmd.ExecuteReader
             dr.Close()
 
             txtAFSBatchFile.Text = txtAFSBatchFile.Text & BatchText
@@ -4052,8 +4077,6 @@ Public Class DMUDeveloperTools
         Finally
 
         End Try
-         
-
     End Sub
     Sub ISMPActions()
         Dim BatchText As String = ""
@@ -4071,8 +4094,10 @@ Public Class DMUDeveloperTools
         Dim ReferenceNumber As String = ""
         Dim CommentLine As String = ""
 
-        SQL = "Select " & connNameSpace & ".AFSISMPRecords.strReferenceNumber, " & _
-        "strAfsActionNumber, substr(" & connNameSpace & ".ISMPMaster.strAIRSNumber, 3) as AIRSNumber,  " & _
+        SQL = "Select " & _
+        "AFSISMPRecords.strReferenceNumber, " & _
+        "AFSISMPRecords.strAfsActionNumber, " & _
+        "substr(AIRBranch.ISMPMaster.strAIRSNumber, 3) as AIRSNumber,  " & _
         "strAIRProgramCodes,  " & _
         "case  " & _
         "	when strWitnessingEngineer = '0' then 'TR'  " & _
@@ -4086,17 +4111,19 @@ Public Class DMUDeveloperTools
         "	when strComplianceStatus = '05' then 'FF'  " & _
         "End as ResultsCode,  " & _
         "to_char(datTestDateEnd, 'YYMMDD') as DateAchieved, " & _
-        "strReviewingEngineer, strUpdateStatus, strPollutant, " & _
+        "strReviewingEngineer, AFSISMPRecords.strUpdateStatus, strPollutant, " & _
         "mmoCommentArea, strafscode  " & _
-        "from " & connNameSpace & ".AFSISMPRecords, " & connNameSpace & ".ISMPMaster, " & _
-        "" & connNameSpace & ".ISMPReportInformation, " & connNameSpace & ".APBHeaderData, " & _
-        "" & connNameSpace & ".LookUPPollutants  " & _
-        "where " & connNameSpace & ".ISMPMaster.strReferenceNumber = " & connNameSpace & ".AFSISMPRecords.strReferenceNumber  " & _
-        "and " & connNameSpace & ".ISMPMaster.strReferenceNumber = " & connNameSpace & ".ISMPReportInformation.strReferenceNumber  " & _
-        "and " & connNameSpace & ".ISMPMaster.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSnumber " & _
-        "and " & connNameSpace & ".LookUPPollutants.strPollutantcode = " & connNameSpace & ".ISMPReportInformation.strPollutant " & _
+        "from AIRBranch.AFSISMPRecords, AIRBranch.ISMPMaster, " & _
+        "AIRBranch.ISMPReportInformation, AIRBranch.APBHeaderData, " & _
+        "AIRBranch.LookUPPollutants, AIRBranch.AFSFacilityData  " & _
+        "where AIRBranch.ISMPMaster.strReferenceNumber = AIRBranch.AFSISMPRecords.strReferenceNumber  " & _
+        "and ISMPMaster.strAIRSnumber = AFSFacilityData.strAIRSnumber  " & _
+        "and AIRBranch.ISMPMaster.strReferenceNumber = AIRBranch.ISMPReportInformation.strReferenceNumber  " & _
+        "and AIRBranch.ISMPMaster.strAIRSNumber = AIRBranch.APBHeaderData.strAIRSnumber " & _
+        "and AIRBranch.LookUPPollutants.strPollutantcode = AIRBranch.ISMPReportInformation.strPollutant " & _
         "and strComplianceStatus <> '02' " & _
-        "and strUpdateStatus <> 'N'"
+        "and AFSISMPRecords.strUpdateStatus <> 'N' " & _
+        "and (AFSFacilityData.strUpdateStatus = 'C' or AFSFacilityData.strUpdateStatus = 'N')  "
 
         Try
             cmd = New OracleCommand(SQL, conn)
@@ -4119,14 +4146,14 @@ Public Class DMUDeveloperTools
                     Case "4"
                         ActionNumber = "0" & ActionNumber
                     Case "5"
-                        ' ActionNumber = ActionNumber
+                        ActionNumber = ActionNumber
                     Case Else
                         ActionNumber = "00001"
                 End Select
 
                 ActionType = dr.Item("ActionType")
                 ResultsCode = dr.Item("resultsCode")
-               
+
                 DateAchieved = dr.Item("DateAchieved")
                 AirProgramCodes = ""
 
@@ -4189,7 +4216,7 @@ Public Class DMUDeveloperTools
                 For i = len To 23
                     ActionType = ActionType & " "
                 Next
-              
+
                 len = Staff.Length
                 For i = len To 4
                     Staff = Staff & " "
@@ -4247,36 +4274,34 @@ Public Class DMUDeveloperTools
                         AIRSNumber & "171  " & ActionNumber & "001C" & CommentLine & "  " & UpdateStatus & vbCrLf
                     Case Else
                 End Select
+
+                SQL = "Update AIRBranch.AFSISMPRecords set " & _
+                "strUpDateStatus = 'N' " & _
+                "where strUPDateStatus <> 'N' " & _
+                "and strReferenceNumber = '" & referenceNumber & "' "
+
+                cmd = New OracleCommand(SQL, conn)
+                If conn.State = ConnectionState.Closed Then
+                    conn.Open()
+                End If
+                cmd.ExecuteNonQuery()
             End While
-
-            SQL = "Update " & connNameSpace & ".AFSISMPRecords set " & _
-            "strUpDateStatus = 'N' " & _
-            "where strUPDateStatus <> 'N' "
-
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
 
             txtAFSBatchFile.Text = txtAFSBatchFile.Text & BatchText
 
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-         
-        End Try
-         
 
+        End Try
     End Sub
     Sub FindRegion(ByVal Region As String, ByVal AIRSNumber As String)
         Try
-            
+
             If Len(AIRSNumber) = 12 And IsNumeric(AIRSNumber) Then
-                SQL = "Select (" & connNameSpace & ".LookUPDistricts.strDistrictcode|| '-'||strDistrictName) as District " & _
-                "from " & connNameSpace & ".LookUPDistricts, " & connNameSpace & ".LookUPDistrictInformation " & _
-                "where " & connNameSpace & ".LookUPDistricts.strDistrictCode = " & connNameSpace & ".LookUPDistrictInformation.strDistrictCode " & _
+                SQL = "Select (AIRBranch.LookUPDistricts.strDistrictcode|| '-'||strDistrictName) as District " & _
+                "from AIRBranch.LookUPDistricts, AIRBranch.LookUPDistrictInformation " & _
+                "where AIRBranch.LookUPDistricts.strDistrictCode = AIRBranch.LookUPDistrictInformation.strDistrictCode " & _
                 "and strDistrictCounty = '" & Mid(AIRSNumber, 5, 3) & "' "
 
                 cmd = New OracleCommand(SQL, conn)
@@ -4301,9 +4326,9 @@ Public Class DMUDeveloperTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-       
+
         End Try
-         
+
 
     End Sub
     Sub CreateNewFacility()
@@ -4339,7 +4364,7 @@ Public Class DMUDeveloperTools
                 AIRSNumber = txtCDSAIRSNumber.Text
 
                 SQL = "Select strAIRSNumber " & _
-                "from " & connNameSpace & ".APBMasterAIRS " & _
+                "from AIRBranch.APBMasterAIRS " & _
                 "where strAIRSNumber = '" & AIRSNumber & "' "
 
                 cmd = New OracleCommand(SQL, conn)
@@ -4435,7 +4460,7 @@ Public Class DMUDeveloperTools
                         If AirProgramCode.Length <> 15 Then
                             AirProgramCode = "100000000000000"
                         Else
-                            'AirProgramCode = AirProgramCode
+                            AirProgramCode = AirProgramCode
                         End If
                         If mtbCDSSICCode.Text <> "" Then
                             SICCode = mtbCDSSICCode.Text
@@ -4506,7 +4531,7 @@ Public Class DMUDeveloperTools
                             MailingZipCode = "00000"
                         End If
 
-                        SQL = "Insert into " & connNameSpace & ".APBMasterAIRS " & _
+                        SQL = "Insert into AIRBranch.APBMasterAIRS " & _
                         "(strAIRSNumber, strModifingPerson, " & _
                         "datModifingDate) " & _
                         "values " & _
@@ -4520,7 +4545,7 @@ Public Class DMUDeveloperTools
                         dr = cmd.ExecuteReader
                         dr.Close()
 
-                        SQL = "Insert into " & connNameSpace & ".APBFacilityInformation " & _
+                        SQL = "Insert into AIRBranch.APBFacilityInformation " & _
                         "(strAIRSNumber, strFacilityName, " & _
                         "strFacilityStreet1, strFacilityStreet2, " & _
                         "strFacilityCity, strFacilityState, " & _
@@ -4548,7 +4573,7 @@ Public Class DMUDeveloperTools
 
                         SQL = "select " & _
                         "strNonAttainment " & _
-                        "from " & connNameSpace & ".LookUpCountyInformation " & _
+                        "from AIRBranch.LookUpCountyInformation " & _
                         "where strCountyCode = '" & Mid(AIRSNumber, 5, 3) & "' "
 
                         cmd = New OracleCommand(SQL, conn)
@@ -4565,7 +4590,7 @@ Public Class DMUDeveloperTools
                         End While
                         dr.Close()
 
-                        SQL = "Insert into " & connNameSpace & ".APBHeaderData " & _
+                        SQL = "Insert into AIRBranch.APBHeaderData " & _
                         "(strAIRSNumber, strOperationalStatus, " & _
                         "strClass, " & _
                         "strAIRProgramCodes, strSICCode, " & _
@@ -4590,7 +4615,7 @@ Public Class DMUDeveloperTools
                         dr = cmd.ExecuteReader
                         dr.Close()
 
-                        SQL = "Insert into " & connNameSpace & ".APBSupplamentalData " & _
+                        SQL = "Insert into AIRBranch.APBSupplamentalData " & _
                         "(strAIRSNumber, datSSCPTestReportDue, " & _
                         "strModifingPerson, DatModifingDate, " & _
                         "strDistrictOffice, strCMSMember, " & _
@@ -4609,7 +4634,7 @@ Public Class DMUDeveloperTools
                         dr = cmd.ExecuteReader
                         dr.Close()
 
-                        SQL = "insert into " & connNameSpace & ".APBContactInformation " & _
+                        SQL = "insert into AIRBranch.APBContactInformation " & _
                         "(strContactKey, strAIRSNumber, strKey, " & _
                         "strContactFirstName, strContactLastName, " & _
                         "strContactPrefix, strContactSuffix, " & _
@@ -4641,7 +4666,7 @@ Public Class DMUDeveloperTools
                         dr.Close()
 
                         If chbCDS_1.Checked = True Then
-                            SQL = "Insert into " & connNameSpace & ".APBAirProgramPollutants " & _
+                            SQL = "Insert into AIRBranch.APBAirProgramPollutants " & _
                             "(strAIRSNumber, strAIRPollutantKey, " & _
                             "strPollutantKey, strComplianceStatus, " & _
                             "strModifingPerson, datModifingDate) " & _
@@ -4659,7 +4684,7 @@ Public Class DMUDeveloperTools
                             dr.Close()
                         End If
                         If chbCDS_2.Checked = True Then
-                            SQL = "Insert into " & connNameSpace & ".APBAirProgramPollutants " & _
+                            SQL = "Insert into AIRBranch.APBAirProgramPollutants " & _
                             "(strAIRSNumber, strAIRPollutantKey, " & _
                             "strPollutantKey, strComplianceStatus, " & _
                             "strModifingPerson, datModifingDate) " & _
@@ -4677,7 +4702,7 @@ Public Class DMUDeveloperTools
                             dr.Close()
                         End If
                         If chbCDS_3.Checked = True Then
-                            SQL = "Insert into " & connNameSpace & ".APBAirProgramPollutants " & _
+                            SQL = "Insert into AIRBranch.APBAirProgramPollutants " & _
                             "(strAIRSNumber, strAIRPollutantKey, " & _
                             "strPollutantKey, strComplianceStatus, " & _
                             "strModifingPerson, datModifingDate) " & _
@@ -4695,7 +4720,7 @@ Public Class DMUDeveloperTools
                             dr.Close()
                         End If
                         If chbCDS_4.Checked = True Then
-                            SQL = "Insert into " & connNameSpace & ".APBAirProgramPollutants " & _
+                            SQL = "Insert into AIRBranch.APBAirProgramPollutants " & _
                             "(strAIRSNumber, strAIRPollutantKey, " & _
                             "strPollutantKey, strComplianceStatus, " & _
                             "strModifingPerson, datModifingDate) " & _
@@ -4713,7 +4738,7 @@ Public Class DMUDeveloperTools
                             dr.Close()
                         End If
                         If chbCDS_5.Checked = True Then
-                            SQL = "Insert into " & connNameSpace & ".APBAirProgramPollutants " & _
+                            SQL = "Insert into AIRBranch.APBAirProgramPollutants " & _
                             "(strAIRSNumber, strAIRPollutantKey, " & _
                             "strPollutantKey, strComplianceStatus, " & _
                             "strModifingPerson, datModifingDate) " & _
@@ -4731,7 +4756,7 @@ Public Class DMUDeveloperTools
                             dr.Close()
                         End If
                         If chbCDS_6.Checked = True Then
-                            SQL = "Insert into " & connNameSpace & ".APBAirProgramPollutants " & _
+                            SQL = "Insert into AIRBranch.APBAirProgramPollutants " & _
                             "(strAIRSNumber, strAIRPollutantKey, " & _
                             "strPollutantKey, strComplianceStatus, " & _
                             "strModifingPerson, datModifingDate) " & _
@@ -4749,7 +4774,7 @@ Public Class DMUDeveloperTools
                             dr.Close()
                         End If
                         If chbCDS_7.Checked = True Then
-                            SQL = "Insert into " & connNameSpace & ".APBAirProgramPollutants " & _
+                            SQL = "Insert into AIRBranch.APBAirProgramPollutants " & _
                             "(strAIRSNumber, strAIRPollutantKey, " & _
                             "strPollutantKey, strComplianceStatus, " & _
                             "strModifingPerson, datModifingDate) " & _
@@ -4767,7 +4792,7 @@ Public Class DMUDeveloperTools
                             dr.Close()
                         End If
                         If chbCDS_8.Checked = True Then
-                            SQL = "Insert into " & connNameSpace & ".APBAirProgramPollutants " & _
+                            SQL = "Insert into AIRBranch.APBAirProgramPollutants " & _
                             "(strAIRSNumber, strAIRPollutantKey, " & _
                             "strPollutantKey, strComplianceStatus, " & _
                             "strModifingPerson, datModifingDate) " & _
@@ -4785,7 +4810,7 @@ Public Class DMUDeveloperTools
                             dr.Close()
                         End If
                         If chbCDS_9.Checked = True Then
-                            SQL = "Insert into " & connNameSpace & ".APBAirProgramPollutants " & _
+                            SQL = "Insert into AIRBranch.APBAirProgramPollutants " & _
                             "(strAIRSNumber, strAIRPollutantKey, " & _
                             "strPollutantKey, strComplianceStatus, " & _
                             "strModifingPerson, datModifingDate) " & _
@@ -4803,7 +4828,7 @@ Public Class DMUDeveloperTools
                             dr.Close()
                         End If
                         If chbCDS_10.Checked = True Then
-                            SQL = "Insert into " & connNameSpace & ".APBAirProgramPollutants " & _
+                            SQL = "Insert into AIRBranch.APBAirProgramPollutants " & _
                             "(strAIRSNumber, strAIRPollutantKey, " & _
                             "strPollutantKey, strComplianceStatus, " & _
                             "strModifingPerson, datModifingDate) " & _
@@ -4821,7 +4846,7 @@ Public Class DMUDeveloperTools
                             dr.Close()
                         End If
                         If chbCDS_11.Checked = True Then
-                            SQL = "Insert into " & connNameSpace & ".APBAirProgramPollutants " & _
+                            SQL = "Insert into AIRBranch.APBAirProgramPollutants " & _
                             "(strAIRSNumber, strAIRPollutantKey, " & _
                             "strPollutantKey, strComplianceStatus, " & _
                             "strModifingPerson, datModifingDate) " & _
@@ -4839,7 +4864,7 @@ Public Class DMUDeveloperTools
                             dr.Close()
                         End If
                         If chbCDS_12.Checked = True Then
-                            SQL = "Insert into " & connNameSpace & ".APBAirProgramPollutants " & _
+                            SQL = "Insert into AIRBranch.APBAirProgramPollutants " & _
                             "(strAIRSNumber, strAIRPollutantKey, " & _
                             "strPollutantKey, strComplianceStatus, " & _
                             "strModifingPerson, datModifingDate) " & _
@@ -4857,7 +4882,7 @@ Public Class DMUDeveloperTools
                             dr.Close()
                         End If
                         If chbCDS_13.Checked = True Then
-                            SQL = "Insert into " & connNameSpace & ".APBAirProgramPollutants " & _
+                            SQL = "Insert into AIRBranch.APBAirProgramPollutants " & _
                             "(strAIRSNumber, strAIRPollutantKey, " & _
                             "strPollutantKey, strComplianceStatus, " & _
                             "strModifingPerson, datModifingDate) " & _
@@ -4875,7 +4900,7 @@ Public Class DMUDeveloperTools
                             dr.Close()
                         End If
 
-                        SQL = "Insert into " & connNameSpace & ".SSCPDistrictResponsible " & _
+                        SQL = "Insert into AIRBranch.SSCPDistrictResponsible " & _
                         "values " & _
                         "('" & AIRSNumber & "', 'False', " & _
                         "'1', sysdate) "
@@ -4886,14 +4911,14 @@ Public Class DMUDeveloperTools
                         dr = cmd.ExecuteReader
                         dr.Close()
 
-                        ' SQL = "insert into " & connNameSpace & ".SSCPFacilityAssignment " & _
+                        ' SQL = "insert into AIRBranch.SSCPFacilityAssignment " & _
                         '"values " & _
                         '"('" & AIRSNumber & "', '', '', '', '') "
 
-                        SQL = "Insert into " & connNameSpace & ".SSCPInspectionsRequired " & _
+                        SQL = "Insert into AIRBranch.SSCPInspectionsRequired " & _
                         "(numKey, strAIRSnumber, intyear) " & _
                         "values " & _
-                        "((Select max(numkey) + 1 from " & connNameSpace & ".SSCPInspectionsRequired), " & _
+                        "((Select max(numkey) + 1 from AIRBranch.SSCPInspectionsRequired), " & _
                         "'" & AIRSNumber & "', '" & Now.Year.ToString & "') "
 
                         cmd = New OracleCommand(SQL, conn)
@@ -4920,15 +4945,15 @@ Public Class DMUDeveloperTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-          
+
         End Try
-         
+
 
     End Sub
 #Region "Clears"
     Sub ClearCreateFacility()
         Try
-            
+
             txtCDSAIRSNumber.Text = "0413"
             txtCDSFacilityName.Text = ""
             txtCDSStreetAddress.Clear()
@@ -4967,9 +4992,9 @@ Public Class DMUDeveloperTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-           
+
         End Try
-         
+
     End Sub
 
 #End Region
@@ -4981,10 +5006,10 @@ Public Class DMUDeveloperTools
             "strErrorLocation, strErrorMessage,  " & _
             "to_char(datErrorDate, 'DD-Mon-YYYY') as ErrorDate,  " & _
             "strSolution  " & _
-            "from " & connNameSpace & ".IAIPErrorLog, " & connNameSpace & ".EPDUserProfiles  " & _
-            "where " & connNameSpace & ".IAIPErrorLog.strUser = " & connNameSpace & ".EPDUserProfiles.numUserID " 
+            "from AIRBranch.IAIPErrorLog, AIRBranch.EPDUserProfiles  " & _
+            "where AIRBranch.IAIPErrorLog.strUser = AIRBranch.EPDUserProfiles.numUserID "
 
-             
+
             If rdbViewAllErrors.Checked = True Then
                 SQL = SQL
             End If
@@ -5055,21 +5080,21 @@ Public Class DMUDeveloperTools
     End Sub
     Sub LoadWegErrorLog()
         Try
-            
+
 
             SQL = "Select " & _
             "strIPAddress, strAgent, strPage, " & _
             "strTime, " & _
             "strDetails, numError, " & _
             "strSolution " & _
-            "from " & connNameSpace & ".LogErrors "
+            "from AIRBranch.LogErrors "
 
 
             SQL = "select numError, " & _
             "strIPAddress, strUserEmail, " & _
             "strErrorPage, dateTimeStamp, " & _
             "strErrorMsg, strSolution " & _
-            "From " & connNameSpace & ".OLAPERRORLog "
+            "From AIRBranch.OLAPERRORLog "
 
             If rdbAllWebErrors.Checked = True Then
                 SQL = SQL
@@ -5099,12 +5124,10 @@ Public Class DMUDeveloperTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-         
+
         End Try
-         
+
     End Sub
-    
- 
 
 #End Region
     Private Sub DEVDataManagementTools_Closing(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
@@ -5294,22 +5317,32 @@ Public Class DMUDeveloperTools
     End Sub
     Private Sub btnGenerateBatchFile_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnGenerateBatchFile.Click
         Try
+            txtAFSBatchFile.Clear()
             GenerateBatchFile()
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-          
+
         End Try
-         
     End Sub
     Private Sub btnClearAFSFileGenerator_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnClearAFSFileGenerator.Click
         Try
-            
             txtAFSBatchFile.Clear()
+
+            rdbGenerateStandardFile.Checked = True
+            rdbGenerateStandardFile.Checked = False
+
+            pnlStandardFile.Enabled = False
+            pnlAIRSSpecific.Enabled = False
+            pnlSubParts.Enabled = False
+            pnlBasicRefresh.Enabled = False
+
+
+            mtbAFSAirsNumber.Clear()
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-         
+
         End Try
          
     End Sub
@@ -20206,6 +20239,8 @@ Public Class DMUDeveloperTools
 
     Private Sub btnForceBasicRefresh_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnForceBasicRefresh.Click
         Try
+
+            txtAFSBatchFile.Clear()
             GenerateRefresh("A")
             GenerateRefresh("C")
 
@@ -20217,7 +20252,9 @@ Public Class DMUDeveloperTools
             Dim cmdCB As OracleCommandBuilder
             Dim ds As DataSet
 
-            If txtAFSBatchFile.Text <> "" Then
+            If txtAFSBatchFile.Text = "" Then
+                txtAFSBatchFile.Text = "NO AFS DATA TO UPDATE."
+            Else
                 SQL = "select " & connNameSpace & ".afsFileNumber.nextval from Dual"
                 cmd = New OracleCommand(SQL, conn)
                 If conn.State = ConnectionState.Closed Then
@@ -20396,7 +20433,7 @@ Public Class DMUDeveloperTools
                         FacilityContactPerson = dr.Item("strContactFirstName")
                     End If
                     If IsDBNull(dr.Item("strContactLastName")) Then
-                        'FacilityContactPerson = FacilityContactPerson
+                        FacilityContactPerson = FacilityContactPerson
                     Else
                         If FacilityContactPerson <> "" Then
                             FacilityContactPerson = FacilityContactPerson & " " & dr.Item("strContactLastName")
@@ -20717,7 +20754,7 @@ Public Class DMUDeveloperTools
             Dim SubpartData As String = ""
             Dim Len As Integer
             Dim UpdateCode As String = ""
-
+            txtAFSBatchFile.Clear()
             txtAFSBatchFile.Text = ""
             Subpart = ""
             SubpartData = ""
@@ -21093,8 +21130,9 @@ Public Class DMUDeveloperTools
             Dim cmdCB As OracleCommandBuilder
             Dim ds As DataSet
 
-            If txtAFSBatchFile.Text <> "" Then
-
+            If txtAFSBatchFile.Text = "" Then
+                txtAFSBatchFile.Text = "NO AFS DATA TO UPDATE."
+            Else
                 SQL = "select " & connNameSpace & ".afsFileNumber.nextval from Dual"
                 cmd = New OracleCommand(SQL, conn)
                 If conn.State = ConnectionState.Closed Then
@@ -21152,6 +21190,971 @@ Public Class DMUDeveloperTools
             End If
 
 
+
+        Catch ex As Exception
+            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+        End Try
+    End Sub
+
+    Private Sub btnPopulateStaffList_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnPopulateStaffList.Click
+        Try
+            ''''DO NOT DELETE THIS CODE IT WORKS WELL AS A TEMPLATE''' 
+            ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+            'Dim cn As OleDbConnection = New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\APB\EPDStaff2.xlsx; " & _
+            '     "Extended Properties='Excel 12.0;HDR=Yes;IMEX=1'")
+            'Dim cm As OleDbCommand
+            'Dim droledb As OleDbDataReader
+
+            'cn.Open()
+            'Dim query As String = "Select strFirstName, strLastName from [StaffList$] "
+            'cm = New OleDbCommand(query, cn)
+            'droledb = cm.ExecuteReader
+            'While droledb.Read
+            '    MsgBox(droledb.Item("strFirstName") & " " & droledb.Item("strLastName"))
+            'End While
+            'dr.Close()
+            'cn.Close()
+
+            Dim StaffFirstName As String = ""
+            Dim StaffLastName As String = ""
+            Dim oledbconn As OleDbConnection
+            Dim oledbdr As OleDbDataReader
+            Dim oledbcmd As OleDbCommand
+            Dim i As Integer = 0
+
+            oledbconn = New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\ATS\EPDStaff2.xlsx; " & _
+                "Extended Properties='Excel 12.0;HDR=Yes;IMEX=1'")
+            oledbconn.Open()
+
+            SQL = "Select strFirstname, strLastname from [StaffList$] "
+            oledbcmd = New OleDbCommand(SQL, oledbconn)
+
+            oledbdr = oledbcmd.ExecuteReader
+            While oledbdr.Read
+                StaffFirstName = ""
+                StaffLastName = ""
+
+                If IsDBNull(oledbdr.Item("strFirstName")) Then
+                    StaffFirstName = ""
+                Else
+                    StaffFirstName = oledbdr.Item("strFirstName")
+                End If
+                If IsDBNull(oledbdr.Item("strLastName")) Then
+                    StaffLastName = ""
+                Else
+                    StaffLastName = oledbdr.Item("strLastName")
+                End If
+
+                SQL = "Insert into airbranch.ATS_StaffProfiles " & _
+                "(NUMSTAFFID, STREMPLOYEEID, " & _
+                "STRFIRSTNAME, STRLASTNAME, " & _
+                "STREMAILADDRESS, STRPHONENUMBER, " & _
+                "TIER1, TIER2, " & _
+                "TIER3, TIER4, " & _
+                "NUMOFFICELOCATION, STROFFICENUMBER, " & _
+                "COMMENTS, ACTIVE, " & _
+                "UPDATEUSER, UPDATEDATETIME, " & _
+                "CREATEDATETIME) " & _
+                "(select " & _
+                "(select case when max(numStaffID) is null then 1 " & _
+                "else (max(numStaffID) + 1) End StaffID from AIRBranch.ATS_StaffProfiles), " & _
+                "'', " & _
+                "'" & Replace(StaffFirstName, "'", "''") & "', '" & Replace(StaffLastName, "'", "''") & "', " & _
+                "'', '', " & _
+                "'', '', '', '', " & _
+                "'', '', " & _
+                "'Initial Population', '1', " & _
+                "'1-Floyd, Michael', sysdate, " & _
+                "sysdate " & _
+                "from dual " & _
+                "where not exists (select * from AIRBranch.ATS_StaffProfiles " & _
+                "where Upper(strFirstName) = '" & Replace(StaffFirstName.ToUpper, "'", "''") & "' " & _
+                "and Upper(strLastName) = '" & Replace(StaffLastName.ToUpper, "'", "''") & "' and rownum = 1 )) "
+
+                cmd = New OracleCommand(SQL, conn)
+                If conn.State = ConnectionState.Closed Then
+                    conn.Open()
+                End If
+                i = i + cmd.ExecuteNonQuery
+            End While
+            oledbdr.Close()
+            oledbconn.Close()
+
+            MsgBox(i.ToString & " Staff Added", MsgBoxStyle.Information, Me.Text)
+
+            i = 0
+            Dim EmailAddress As String = ""
+            Dim OfficePhone As String = ""
+            Dim Dept As String = ""
+            Dim title As String = ""
+
+            oledbconn = New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\ATS\GWExportList2.xlsx; " & _
+             "Extended Properties='Excel 12.0;HDR=Yes;IMEX=1'")
+            oledbconn.Open()
+
+            SQL = "Select strFirstname, strLastname, strEmailAddress, numOfficePhone, " & _
+            "strDept, strTitle from [Sheet1$] "
+            oledbcmd = New OleDbCommand(SQL, oledbconn)
+
+            oledbdr = oledbcmd.ExecuteReader
+            While oledbdr.Read
+                If IsDBNull(oledbdr.Item("strFirstName")) Then
+                    StaffFirstName = ""
+                Else
+                    StaffFirstName = oledbdr.Item("strFirstName")
+                End If
+                If IsDBNull(oledbdr.Item("strLastName")) Then
+                    StaffLastName = ""
+                Else
+                    StaffLastName = oledbdr.Item("strLastName")
+                End If
+                If IsDBNull(oledbdr.Item("strEmailAddress")) Then
+                    EmailAddress = ""
+                Else
+                    EmailAddress = oledbdr.Item("strEmailAddress")
+                End If
+                If IsDBNull(oledbdr.Item("numOfficePhone")) Then
+                    OfficePhone = ""
+                Else
+                    OfficePhone = Regex.Replace(oledbdr.Item("numOfficePhone"), "[^0-9]", "")
+                End If
+                If IsDBNull(oledbdr.Item("strDept")) Then
+                    Dept = ""
+                Else
+                    Dept = oledbdr.Item("strDept")
+                End If
+                If IsDBNull(oledbdr.Item("strTitle")) Then
+                    title = ""
+                Else
+                    title = oledbdr.Item("strTitle")
+                End If
+
+                If StaffFirstName <> "" And StaffLastName <> "" Then
+                    SQL = "Update airbranch.ATS_StaffProfiles set " & _
+                    "strEmailAddress = '" & Replace(EmailAddress, "'", "''") & "', " & _
+                    "strPhoneNumber = '" & Replace(OfficePhone, "'", "''") & "', " & _
+                    "comments = comments|| '-" & Replace(Dept, "'", "''") & " - " & Replace(title, "'", "''") & "' " & _
+                    "where upper(strFirstName) like '" & Replace(StaffFirstName.ToUpper, "'", "''") & "%' " & _
+                    "and upper(strLastname) like '" & Replace(StaffLastName.ToUpper, "'", "''") & "%' "
+
+                    cmd = New OracleCommand(SQL, conn)
+                    If conn.State = ConnectionState.Closed Then
+                        conn.Open()
+                    End If
+                    i = i + cmd.ExecuteNonQuery
+                End If
+
+            End While
+            oledbdr.Close()
+            oledbconn.Close()
+
+            MsgBox(i.ToString & " Staff Updated", MsgBoxStyle.Information, Me.Text)
+
+
+            Exit Sub
+
+
+        Catch ex As Exception
+            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+        End Try
+    End Sub
+    Private Sub btnFillComputerAssets_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnFillComputerAssets.Click
+        Try
+            Dim oledbconn As OleDbConnection
+            Dim oledbdr As OleDbDataReader
+            Dim oledbcmd As OleDbCommand
+            Dim i As Integer = 0
+
+            Dim AssetTag, Category, Manufacturer, Model As String
+            Dim ModelNumber, Quality, SerialNumber, AgencyTag As String
+            Dim GETSSite, DateDeployed, SecondDate, DateSurplused, Comments, StaffAssigned As String
+            Dim FirstName, LastName As String
+
+            oledbconn = New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\ATS\DNRAssetSheet2.xlsx; " & _
+                "Extended Properties='Excel 12.0;HDR=Yes;IMEX=1'")
+            oledbconn.Open()
+
+            SQL = "Select Asset_Tag, Category, Manufacturer, Model, Model_Number, Quality, " & _
+            "Serial_Number, Agency_Tag, GETS_Site, Date_Deployed, Second_Date, Date_Surplused, Comments, Staff_Assigned " & _
+            "from [ComputerAsset$] "
+
+            SQL = "Select * from [ComputerAsset$] where Asset_Tag is not null "
+            oledbcmd = New OleDbCommand(SQL, oledbconn)
+
+            oledbdr = oledbcmd.ExecuteReader
+            While oledbdr.Read
+                If IsDBNull(oledbdr.Item("Asset_Tag")) Then
+                    AssetTag = ""
+                Else
+                    AssetTag = oledbdr.Item("Asset_Tag")
+                End If
+                If IsDBNull(oledbdr.Item("Category")) Then
+                    Category = ""
+                Else
+                    Category = oledbdr.Item("Category")
+                End If
+                If IsDBNull(oledbdr.Item("Manufacturer")) Then
+                    Manufacturer = ""
+                Else
+                    Manufacturer = oledbdr.Item("Manufacturer")
+                End If
+                If IsDBNull(oledbdr.Item("Model")) Then
+                    Model = ""
+                Else
+                    Model = oledbdr.Item("Model")
+                End If
+                If IsDBNull(oledbdr.Item("Model_Number")) Then
+                    ModelNumber = ""
+                Else
+                    ModelNumber = oledbdr.Item("Model_Number")
+                End If
+                If IsDBNull(oledbdr.Item("Quality")) Then
+                    Quality = ""
+                Else
+                    Quality = oledbdr.Item("Quality")
+                End If
+                If IsDBNull(oledbdr.Item("Serial_Number")) Then
+                    SerialNumber = ""
+                Else
+                    SerialNumber = oledbdr.Item("Serial_Number")
+                End If
+                If IsDBNull(oledbdr.Item("Agency_Tag")) Then
+                    AgencyTag = ""
+                Else
+                    AgencyTag = oledbdr.Item("Agency_Tag")
+                End If
+                If IsDBNull(oledbdr.Item("GETS_Site")) Then
+                    GETSSite = ""
+                Else
+                    GETSSite = oledbdr.Item("GETS_Site")
+                End If
+                If IsDBNull(oledbdr.Item("Date_Deployed")) Then
+                    DateDeployed = ""
+                Else
+                    DateDeployed = oledbdr.Item("Date_Deployed")
+                End If
+                If IsDBNull(oledbdr.Item("Second_Date")) Then
+                    SecondDate = ""
+                Else
+                    SecondDate = oledbdr.Item("Second_Date")
+                End If
+                If IsDBNull(oledbdr.Item("Date_Surplused")) Then
+                    DateSurplused = ""
+                Else
+                    DateSurplused = oledbdr.Item("Date_Surplused")
+                End If
+                If IsDBNull(oledbdr.Item("Comments")) Then
+                    Comments = ""
+                Else
+                    Comments = oledbdr.Item("Comments")
+                End If
+                If IsDBNull(oledbdr.Item("Staff_Assigned")) Then
+                    StaffAssigned = ""
+                Else
+                    StaffAssigned = oledbdr.Item("Staff_Assigned")
+                End If
+
+                SQL = "Insert into AIRBranch.ATS_ComputerAssets " & _
+                   "(numComputerAssetID, " & _
+                   "strAssetTag, " & _
+                   "numCategoryId, numManufacturerID, " & _
+                   "numModelID, numModelNumberID, " & _
+                   "numQualityID, strSerialNumber, " & _
+                   "strComputerName, strDNRAssetID, " & _
+                   "numGETSSite, datDeployedDate, " & _
+                   "NUMoTHERTYPE, " & _
+                   "DATOTHERDATE, datSurplusDate, " & _
+                   "strComment, " & _
+                   "Active, UpdateUser, " & _
+                   "UpdateDateTime, CreateDateTime) " & _
+                   "(Select  " & _
+                   "(select case when max(numComputerAssetId) is null then 1 " & _
+                   "else (max(numComputerAssetID) + 1) End AssetID from AIRBranch.ATS_ComputerAssets), " & _
+                   "'" & Replace(AssetTag, "'", "''") & "', " & _
+                   "(Select numID from airbranch.LK_ComputerCategory " & _
+                   "       where Upper(strDesc) = '" & Replace(Category.ToUpper, "'", "''") & "' and rownum = 1 ),  " & _
+                   "(select numId from AIRBranch.LK_ComputerManufacturer " & _
+                   "        where Upper(strDesc) = '" & Replace(Manufacturer.ToUpper, "'", "''") & "' and rownum = 1), " & _
+                   "(select numID from AIRBranch.LK_ComputerModel " & _
+                   "        where upper(strDesc) = '" & Replace(Model.ToUpper, "'", "''") & "' and rownum = 1), " & _
+                   "(select numID from AIRBranch.LK_ComputerModelNumber " & _
+                   "       where upper(strDesc) = '" & Replace(ModelNumber.ToUpper, "'", "''") & "' and rownum = 1), " & _
+                   "(select numID from AIRBranch.LK_ComputerQuality " & _
+                   "       where upper(strDesc) = '" & Replace(Quality.ToUpper, "'", "''") & "' and rownum = 1), " & _
+                   "'" & Replace(SerialNumber, "'", "''") & "', " & _
+                   "'', '" & Replace(AgencyTag, "'", "''") & "', " & _
+                   "'" & GETSSite & "', '" & DateDeployed & "', " & _
+                   "'3', " & _
+                   "'" & SecondDate & "', '" & DateSurplused & "', " & _
+                   "'" & Replace(StaffAssigned & " - " & Comments, "'", "''") & "', " & _
+                   "'1', '1-Floyd, Michael', " & _
+                   "sysdate, sysdate " & _
+                   "from dual " & _
+                   "where not exists (select * from AIRBranch.ATS_ComputerAssets " & _
+                   "where strAssetTag = '" & AssetTag & "')) "
+
+                cmd = New OracleCommand(SQL, conn)
+                If conn.State = ConnectionState.Closed Then
+                    conn.Open()
+                End If
+                i = i + cmd.ExecuteNonQuery
+
+                If StaffAssigned <> "" Then
+                    LastName = Mid(StaffAssigned, 1, (InStr(StaffAssigned, ",") - 1))
+                    FirstName = Replace(StaffAssigned, (LastName & ", "), "")
+
+                    SQL = "Insert into AIRBranch.ATS_StaffAssets " & _
+                       "(numID, StaffID, " & _
+                       "AssetID, AssetType, " & _
+                       "DatInitial, DATTERMINATE, " & _
+                       "Comments, Active, " & _
+                       "UpdateUser, UpdateDateTime, " & _
+                       "CreateDateTime) " & _
+                       "(Select " & _
+                       "AIRBranch.SEQ_ATSSTAFFASSET_ID.nextval, " & _
+                       "(select case when numStaffID is null then null else numStaffID end Staffid " & _
+                       "from airbranch.ATS_StaffProfiles " & _
+                       "where upper(strFirstName) like '" & FirstName.ToUpper & "%' " & _
+                       "and upper(strLastName) Like '" & LastName.ToUpper & "%' and rownum = 1), " & _
+                       "(Select numComputerAssetID from Airbranch.ATS_ComputerAssets " & _
+                       "where strAssetTag = '" & Replace(AssetTag, "'", "''") & "' " & _
+                       "and datDeployedDate = '" & DateDeployed & "' " & _
+                       "and datOtherDate = '" & SecondDate & "' and rownum = 1), " & _
+                       "'ComputerAsset', " & _
+                       "'" & DateDeployed & "', '', " & _
+                       "'Inital Data Transfer', " & _
+                       "'1', '1-Floyd, Michael', " & _
+                       "sysdate, sysdate " & _
+                       "from dual " & _
+                       "where not exists (select * from AIRBranch.ATS_StaffAssets " & _
+                       "where ASSETID = (Select numComputerAssetID from Airbranch.ATS_ComputerAssets " & _
+                       "where strAssetTag = '" & Replace(AssetTag, "'", "''") & "' " & _
+                       "and datDeployedDate = '" & DateDeployed & "' " & _
+                       "and datOtherDate = '" & SecondDate & "' and rownum = 1) and assetType = 'ComputerAsset')) "
+
+                    cmd = New OracleCommand(SQL, conn)
+                    If conn.State = ConnectionState.Closed Then
+                        conn.Open()
+                    End If
+                    i = i + cmd.ExecuteNonQuery
+                End If
+
+            End While
+            oledbdr.Close()
+            oledbconn.Close()
+
+            MsgBox(i.ToString & " Computers Added", MsgBoxStyle.Information, Me.Text)
+        Catch ex As Exception
+            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+        End Try
+    End Sub
+    Private Sub btnPopulatePrinterAssets_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnPopulatePrinterAssets.Click
+        Try
+            Dim oledbconn As OleDbConnection
+            Dim oledbdr As OleDbDataReader
+            Dim oledbcmd As OleDbCommand
+            Dim i As Integer = 0
+
+            Dim AssetTag, Category, Manufacturer, Model As String
+            Dim ModelNumber, PrinterName, IPAddress, SerialNumber As String
+            Dim GETSSite, DateDeployed, SecondDate, DateSurplused, Comments, StaffAssigned As String
+            Dim FirstName, LastName As String
+
+            oledbconn = New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\ATS\DNRAssetSheet2.xlsx; " & _
+                "Extended Properties='Excel 12.0;HDR=Yes;IMEX=1'")
+            oledbconn.Open()
+
+            SQL = "Select " & _
+            "Asset_Tag, Category, Manufacturer, Model, Model_Number, Printer_Name , " & _
+            "IP_Address, Serial_Number, GETS_Site, Date_Deployed, Second_Date, Date_Surplused, " & _
+            "Comments, Staff_Assigned " & _
+            "from [PrinterAsset$] "
+
+            SQL = "Select * from [PrinterAsset$] where Asset_Tag is not null "
+            oledbcmd = New OleDbCommand(SQL, oledbconn)
+
+            oledbdr = oledbcmd.ExecuteReader
+            While oledbdr.Read
+                If IsDBNull(oledbdr.Item("Asset_Tag")) Then
+                    AssetTag = ""
+                Else
+                    AssetTag = oledbdr.Item("Asset_Tag")
+                End If
+                If IsDBNull(oledbdr.Item("Category")) Then
+                    Category = ""
+                Else
+                    Category = oledbdr.Item("Category")
+                End If
+                If IsDBNull(oledbdr.Item("Manufacturer")) Then
+                    Manufacturer = ""
+                Else
+                    Manufacturer = oledbdr.Item("Manufacturer")
+                End If
+                If IsDBNull(oledbdr.Item("Model")) Then
+                    Model = ""
+                Else
+                    Model = oledbdr.Item("Model")
+                End If
+                If IsDBNull(oledbdr.Item("Model_Number")) Then
+                    ModelNumber = ""
+                Else
+                    ModelNumber = oledbdr.Item("Model_Number")
+                End If
+                If IsDBNull(oledbdr.Item("Printer_Name")) Then
+                    PrinterName = ""
+                Else
+                    PrinterName = oledbdr.Item("Printer_Name")
+                End If
+                If IsDBNull(oledbdr.Item("IP_Address")) Then
+                    IPAddress = ""
+                Else
+                    IPAddress = oledbdr.Item("IP_Address")
+                End If
+                If IsDBNull(oledbdr.Item("Serial_Number")) Then
+                    SerialNumber = ""
+                Else
+                    SerialNumber = oledbdr.Item("Serial_Number")
+                End If
+                If IsDBNull(oledbdr.Item("GETS_Site")) Then
+                    GETSSite = ""
+                Else
+                    GETSSite = oledbdr.Item("GETS_Site")
+                End If
+                If IsDBNull(oledbdr.Item("Date_Deployed")) Then
+                    DateDeployed = ""
+                Else
+                    DateDeployed = oledbdr.Item("Date_Deployed")
+                End If
+                If IsDBNull(oledbdr.Item("Second_Date")) Then
+                    SecondDate = ""
+                Else
+                    SecondDate = oledbdr.Item("Second_Date")
+                End If
+                If IsDBNull(oledbdr.Item("Date_Surplused")) Then
+                    DateSurplused = ""
+                Else
+                    DateSurplused = oledbdr.Item("Date_Surplused")
+                End If
+                If IsDBNull(oledbdr.Item("Comments")) Then
+                    Comments = ""
+                Else
+                    Comments = oledbdr.Item("Comments")
+                End If
+                If IsDBNull(oledbdr.Item("Staff_Assigned")) Then
+                    StaffAssigned = ""
+                Else
+                    StaffAssigned = oledbdr.Item("Staff_Assigned")
+                End If
+
+                SQL = "Insert into AIRBranch.ATS_PrinterAssets " & _
+                   "(numPrinterAssetID, " & _
+                   "strAssetTag, " & _
+                   "numCategoryId, numManufacturerID, " & _
+                   "numModelID, numModelNumberID, " & _
+                   "strSerialNumber, strPrinterName, " & _
+                   "numGETSSite, strIPAddress, " & _
+                   "datDeployedDate, " & _
+                   "NUMoTHERTYPE, " & _
+                   "DATOTHERDATE, datSurplusDate, " & _
+                   "strComment, " & _
+                   "Active, UpdateUser, " & _
+                   "UpdateDateTime, CreateDateTime) " & _
+                   "(Select  " & _
+                   "(select case when max(numPrinterAssetId) is null then 1 " & _
+                   "else (max(numPrinterAssetID) + 1) End AssetID from AIRBranch.ATS_PrinterAssets), " & _
+                   "'" & Replace(AssetTag, "'", "''") & "', " & _
+                   "(Select numID from airbranch.LK_PrinterCategory " & _
+                   "       where Upper(strDesc) = '" & Replace(Category.ToUpper, "'", "''") & "'),  " & _
+                   "(select numId from AIRBranch.LK_PrinterManufacturer " & _
+                   "        where Upper(strDesc) = '" & Replace(Manufacturer.ToUpper, "'", "''") & "'), " & _
+                   "(select numID from AIRBranch.LK_PrinterModel " & _
+                   "        where upper(strDesc) = '" & Replace(Model.ToUpper, "'", "''") & "'), " & _
+                   "(select numID from AIRBranch.LK_PrinterModelNumber " & _
+                   "       where upper(strDesc) = '" & Replace(ModelNumber.ToUpper, "'", "''") & "'), " & _
+                   "'" & Replace(SerialNumber, "'", "''") & "', '" & Replace(PrinterName, "'", "''") & "', " & _
+                   "'" & GETSSite & "', '" & Replace(IPAddress, "'", "''") & "', " & _
+                   "'" & DateDeployed & "', " & _
+                   "'3', " & _
+                   "'" & SecondDate & "', '" & DateSurplused & "', " & _
+                   "'" & Replace(StaffAssigned & " - " & Comments, "'", "''") & "', " & _
+                   "'1', '1-Floyd, Michael', " & _
+                   "sysdate, sysdate " & _
+                   "from dual " & _
+                   "where not exists (select * from AIRBranch.ATS_PrinterAssets " & _
+                   "where strAssetTag = '" & AssetTag & "')) "
+
+                'cmd = New OracleCommand(SQL, conn)
+                'If conn.State = ConnectionState.Closed Then
+                '    conn.Open()
+                'End If
+                'i = i + cmd.ExecuteNonQuery
+
+                If StaffAssigned <> "" Then
+                    LastName = Mid(StaffAssigned, 1, (InStr(StaffAssigned, ",") - 1))
+                    FirstName = Replace(StaffAssigned, (LastName & ", "), "")
+
+                    SQL = "Insert into AIRBranch.ATS_StaffAssets " & _
+                       "(numID, StaffID, " & _
+                       "AssetID, AssetType, " & _
+                       "DatInitial, DATTERMINATE, " & _
+                       "Comments, Active, " & _
+                       "UpdateUser, UpdateDateTime, " & _
+                       "CreateDateTime) " & _
+                       "(Select " & _
+                       "AIRBranch.SEQ_ATSSTAFFASSET_ID.nextval, " & _
+                       "(select case when numStaffID is null then null else numStaffID end Staffid " & _
+                       "from airbranch.ATS_StaffProfiles " & _
+                       "where upper(strFirstName) like '" & FirstName.ToUpper & "%' " & _
+                       "and upper(strLastName) Like '" & LastName.ToUpper & "%' and rownum = 1), " & _
+                       "(Select numPrinterAssetID from Airbranch.ATS_PrinterAssets " & _
+                       "where strAssetTag = '" & Replace(AssetTag, "'", "''") & "' " & _
+                       "and rownum = 1), " & _
+                       "'PrinterAsset', " & _
+                       "'" & DateDeployed & "', '', " & _
+                       "'Inital Data Transfer', " & _
+                       "'1', '1-Floyd, Michael', " & _
+                       "sysdate, sysdate " & _
+                       "from dual " & _
+                       "where not exists (select * from AIRBranch.ATS_StaffAssets " & _
+                       "where ASSETID = (Select numPrinterAssetID from Airbranch.ATS_PrinterAssets " & _
+                       "where strAssetTag = '" & Replace(AssetTag, "'", "''") & "' " & _
+                       "and rownum = 1) and assetType = 'PrinterAsset')) "
+
+                    cmd = New OracleCommand(SQL, conn)
+                    If conn.State = ConnectionState.Closed Then
+                        conn.Open()
+                    End If
+                    i = i + cmd.ExecuteNonQuery
+                End If
+            End While
+            oledbdr.Close()
+            oledbconn.Close()
+
+            MsgBox(i.ToString & " Printers Added", MsgBoxStyle.Information, Me.Text)
+
+        Catch ex As Exception
+            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+        End Try
+    End Sub
+    Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
+        Try
+            Dim Firstname, LastName, EmailAddress, Phone, OfficeNum, EmpStatus As String
+            Dim i As Integer = 0
+
+            SQL = "select " & _
+            "EPDUSerProfiles.strFirstName, " & _
+            "EPDUSerProfiles.strLastName, " & _
+            "EPDUSerProfiles.strEmailAddress, EPDUSerProfiles.strPhone, " & _
+            "'1', '', '', '', " & _
+            "'1', EPDUSerProfiles.strOffice, '', " & _
+            "EPDUSerProfiles.numEmployeeStatus, 'Floyd, Michael', " & _
+            "sysdate, sysdate " & _
+            "from AIRBranch.EPDUSerProfiles " & _
+            "where not exists (select * from airbranch.ATS_StaffProfiles " & _
+            "where upper(ats_staffProfiles.strLastname)  like upper(EPDUSerProfiles.strLastName)||'%' " & _
+            "and upper(ats_staffProfiles.strFirstname) like Upper(EPDUSerProfiles.strFirstName)||'%' ) "
+
+            cmd = New OracleCommand(SQL, conn)
+            If conn.State = ConnectionState.Closed Then
+                conn.Open()
+            End If
+            dr = cmd.ExecuteReader
+            While dr.Read
+                If IsDBNull(dr.Item("strFirstName")) Then
+                    Firstname = ""
+                Else
+                    Firstname = dr.Item("strFirstName")
+                End If
+                If IsDBNull(dr.Item("strLastName")) Then
+                    LastName = ""
+                Else
+                    LastName = dr.Item("strLastName")
+                End If
+                If IsDBNull(dr.Item("strEmailAddress")) Then
+                    EmailAddress = ""
+                Else
+                    EmailAddress = dr.Item("strEmailAddress")
+                End If
+                If IsDBNull(dr.Item("strPhone")) Then
+                    Phone = ""
+                Else
+                    Phone = dr.Item("strPhone")
+                End If
+                If IsDBNull(dr.Item("strOffice")) Then
+                    OfficeNum = ""
+                Else
+                    OfficeNum = dr.Item("strOffice")
+                End If
+                If IsDBNull(dr.Item("numEmployeeStatus")) Then
+                    EmpStatus = ""
+                Else
+                    EmpStatus = dr.Item("numEmployeeStatus")
+                End If
+
+                SQL = "Insert into airbranch.ATS_StaffProfiles " & _
+                "(NUMSTAFFID, STREMPLOYEEID, " & _
+                "STRFIRSTNAME, STRLASTNAME, " & _
+                "STREMAILADDRESS, STRPHONENUMBER, " & _
+                "TIER1, TIER2, " & _
+                "TIER3, TIER4, " & _
+                "NUMOFFICELOCATION, STROFFICENUMBER, " & _
+                "COMMENTS, ACTIVE, " & _
+                "UPDATEUSER, UPDATEDATETIME, " & _
+                "CREATEDATETIME) " & _
+                "(select " & _
+                "(select case when max(numStaffID) is null then 1 " & _
+                "else (max(numStaffID) + 1) End StaffID from AIRBranch.ATS_StaffProfiles), " & _
+                "'', " & _
+                "'" & Replace(Firstname, "'", "''") & "', '" & Replace(LastName, "'", "''") & "', " & _
+                "'" & Replace(EmailAddress, "'", "''") & "', '" & Replace(Phone, "'", "''") & "', " & _
+                "'', '', '', '', " & _
+                "'', '" & Replace(OfficeNum, "'", "''") & "', " & _
+                "'Initial Population', '" & EmpStatus & "', " & _
+                "'1-Floyd, Michael', sysdate, " & _
+                "sysdate " & _
+                "from dual " & _
+                "where not exists (select * from AIRBranch.ATS_StaffProfiles " & _
+                "where Upper(strFirstName) = '" & Replace(Firstname.ToUpper, "'", "''") & "' " & _
+                "and Upper(strLastName) = '" & Replace(LastName.ToUpper, "'", "''") & "')) "
+
+                cmd = New OracleCommand(SQL, conn)
+                If conn.State = ConnectionState.Closed Then
+                    conn.Open()
+                End If
+                i = i + cmd.ExecuteNonQuery
+
+            End While
+            dr.Close()
+
+
+        Catch ex As Exception
+
+        End Try
+    End Sub
+
+    Private Sub mtbAFSAirsNumber_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles mtbAFSAirsNumber.TextChanged
+        Try
+            If mtbAFSAirsNumber.Text.Length = 8 Then
+                btnAIRSSpecificRefresh.Enabled = True
+            Else
+                btnAIRSSpecificRefresh.Enabled = False
+            End If
+        Catch ex As Exception
+            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+        End Try
+    End Sub
+
+    Private Sub btnAIRSSpecificRefresh_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAIRSSpecificRefresh.Click
+        Try
+            txtAFSBatchFile.Clear()
+            SQL = "Update AIRBranch.AFSAirPollutantData set " & _
+            "strUpdateStatus = 'A' " & _
+            "where strAIRSnumber = '0413" & mtbAFSAirsNumber.Text & "' " & _
+            "and (strUpdateStatus <> 'D' and strUpdateStatus <> 'H') "
+
+            cmd = New OracleCommand(SQL, conn)
+            If conn.State = ConnectionState.Closed Then
+                conn.Open()
+            End If
+            cmd.ExecuteNonQuery()
+
+            SQL = "Update AIRBranch.AFSFacilityData set " & _
+           "strUpdateStatus = 'A' " & _
+           "where strAIRSnumber = '0413" & mtbAFSAirsNumber.Text & "' " & _
+           "and (strUpdateStatus <> 'D' and strUpdateStatus <> 'H') "
+
+            cmd = New OracleCommand(SQL, conn)
+            If conn.State = ConnectionState.Closed Then
+                conn.Open()
+            End If
+            cmd.ExecuteNonQuery()
+
+            SQL = "Update airbranch.AFSISMPRecords " & _
+             "set strUpdateStatus = 'A' " & _
+             "where exists (select * from airbranch.ISMPMaster " & _
+             "where ISMPMaster.STRREFERENCENUMBER = AFSISMPRecords.STRREFERENCENUMBER " & _
+             "and strAIRSnumber = '0413" & mtbAFSAirsNumber.Text & "' " & _
+             "and (strUpdateStatus <> 'D' and strUpdateStatus <> 'H'))"
+
+            cmd = New OracleCommand(SQL, conn)
+            If conn.State = ConnectionState.Closed Then
+                conn.Open()
+            End If
+            cmd.ExecuteNonQuery()
+
+            SQL = "Update airbranch.AFSSSCPEnforcementRecords " & _
+           "set strUpdateStatus = 'A' " & _
+           "where exists (select * from airbranch.SSCP_AuditedEnforcement " & _
+           "where SSCP_AuditedEnforcement.STRENFORCEMENTNUMBER = AFSSSCPEnforcementRecords.STRENFORCEMENTNUMBER " & _
+           "and strAIRSnumber = '0413" & mtbAFSAirsNumber.Text & "' " & _
+           "and (strUpdateStatus <> 'D' and strUpdateStatus <> 'H'))"
+
+            cmd = New OracleCommand(SQL, conn)
+            If conn.State = ConnectionState.Closed Then
+                conn.Open()
+            End If
+            cmd.ExecuteNonQuery()
+
+            SQL = "Update airbranch.AFSSSCPFCERecords " & _
+            "set strUpdateStatus = 'A' " & _
+            "where exists (select * from airbranch.SSCPFCEMaster " & _
+            "where SSCPFCEMaster.STRFCENUMBER = AFSSSCPFCERecords.STRFCENUMBER " & _
+            "and strAIRSnumber = '0413" & mtbAFSAirsNumber.Text & "' " & _
+            "and (strUpdateStatus <> 'D' and strUpdateStatus <> 'H'))"
+
+            cmd = New OracleCommand(SQL, conn)
+            If conn.State = ConnectionState.Closed Then
+                conn.Open()
+            End If
+            cmd.ExecuteNonQuery()
+
+            SQL = "Update airbranch.AFSSSCPRecords " & _
+            "set strUpdateStatus = 'A' " & _
+            "where exists (select * from airbranch.SSCPItemMaster " & _
+            "where SSCPItemMaster.strTrackingNumber = AFSSSCPRecords.strTrackingNumber " & _
+            "and strAIRSnumber = '0413" & mtbAFSAirsNumber.Text & "' " & _
+            "and (strUpdateStatus <> 'D' and strUpdateStatus <> 'H'))"
+
+
+            cmd = New OracleCommand(SQL, conn)
+            If conn.State = ConnectionState.Closed Then
+                conn.Open()
+            End If
+            cmd.ExecuteNonQuery()
+
+            SQL = "Update airbranch.AFSSSPPRecords " & _
+            "set strUpdateStatus = 'A' " & _
+            "where exists (select * from airbranch.SSPPApplicationMaster " & _
+            "where SSPPApplicationMaster.strApplicationNumber = AFSSSPPRecords.strApplicationNumber " & _
+            "and strAIRSnumber = '0413" & mtbAFSAirsNumber.Text & "' " & _
+            "and (strUpdateStatus <> 'D' and strUpdateStatus <> 'H'))"
+
+            cmd = New OracleCommand(SQL, conn)
+            If conn.State = ConnectionState.Closed Then
+                conn.Open()
+            End If
+            cmd.ExecuteNonQuery()
+
+            GenerateNewFacilities()
+            AddNewAirPollutants()
+            GenerateFacilityChanges()
+            PermittingActions()
+            ISMPActions()
+            ComplianceActions()
+            FCEActions()
+            EnforcementActions()
+
+            SQL = "Update AIRBranch.AFSAirPollutantData set " & _
+            "strUpdateStatus = 'C' " & _
+            "where strAIRSnumber = '0413" & mtbAFSAirsNumber.Text & "' " & _
+            "and (strUpdateStatus <> 'D' and strUpdateStatus <> 'H') "
+
+            cmd = New OracleCommand(SQL, conn)
+            If conn.State = ConnectionState.Closed Then
+                conn.Open()
+            End If
+            cmd.ExecuteNonQuery()
+
+            SQL = "Update AIRBranch.AFSFacilityData set " & _
+          "strUpdateStatus = 'C' " & _
+          "where strAIRSnumber = '0413" & mtbAFSAirsNumber.Text & "' " & _
+          "and (strUpdateStatus <> 'D' and strUpdateStatus <> 'H') "
+
+            cmd = New OracleCommand(SQL, conn)
+            If conn.State = ConnectionState.Closed Then
+                conn.Open()
+            End If
+            cmd.ExecuteNonQuery()
+
+            SQL = "Update airbranch.AFSISMPRecords " & _
+                "set strUpdateStatus = 'C' " & _
+                "where exists (select * from airbranch.ISMPMaster " & _
+                "where ISMPMaster.STRREFERENCENUMBER = AFSISMPRecords.STRREFERENCENUMBER " & _
+                "and strAIRSnumber = '0413" & mtbAFSAirsNumber.Text & "' " & _
+                "and (strUpdateStatus <> 'D' and strUpdateStatus <> 'H'))"
+
+            cmd = New OracleCommand(SQL, conn)
+            If conn.State = ConnectionState.Closed Then
+                conn.Open()
+            End If
+            cmd.ExecuteNonQuery()
+
+            SQL = "Update airbranch.AFSSSCPEnforcementRecords " & _
+           "set strUpdateStatus = 'C' " & _
+           "where exists (select * from airbranch.SSCP_AuditedEnforcement " & _
+           "where SSCP_AuditedEnforcement.STRENFORCEMENTNUMBER = AFSSSCPEnforcementRecords.STRENFORCEMENTNUMBER " & _
+           "and strAIRSnumber = '0413" & mtbAFSAirsNumber.Text & "' " & _
+           "and (strUpdateStatus <> 'D' and strUpdateStatus <> 'H'))"
+
+            cmd = New OracleCommand(SQL, conn)
+            If conn.State = ConnectionState.Closed Then
+                conn.Open()
+            End If
+            cmd.ExecuteNonQuery()
+
+            SQL = "Update airbranch.AFSSSCPFCERecords " & _
+            "set strUpdateStatus = 'C' " & _
+            "where exists (select * from airbranch.SSCPFCEMaster " & _
+            "where SSCPFCEMaster.STRFCENUMBER = AFSSSCPFCERecords.STRFCENUMBER " & _
+            "and strAIRSnumber = '0413" & mtbAFSAirsNumber.Text & "' " & _
+            "and (strUpdateStatus <> 'D' and strUpdateStatus <> 'H'))"
+
+            cmd = New OracleCommand(SQL, conn)
+            If conn.State = ConnectionState.Closed Then
+                conn.Open()
+            End If
+            cmd.ExecuteNonQuery()
+
+            SQL = "Update airbranch.AFSSSCPRecords " & _
+            "set strUpdateStatus = 'C' " & _
+            "where exists (select * from airbranch.SSCPItemMaster " & _
+            "where SSCPItemMaster.strTrackingNumber = AFSSSCPRecords.strTrackingNumber " & _
+            "and strAIRSnumber = '0413" & mtbAFSAirsNumber.Text & "' " & _
+            "and (strUpdateStatus <> 'D' and strUpdateStatus <> 'H'))"
+
+
+            cmd = New OracleCommand(SQL, conn)
+            If conn.State = ConnectionState.Closed Then
+                conn.Open()
+            End If
+            cmd.ExecuteNonQuery()
+
+            SQL = "Update airbranch.AFSSSPPRecords " & _
+            "set strUpdateStatus = 'C' " & _
+            "where exists (select * from airbranch.SSPPApplicationMaster " & _
+            "where SSPPApplicationMaster.strApplicationNumber = AFSSSPPRecords.strApplicationNumber " & _
+            "and strAIRSnumber = '0413" & mtbAFSAirsNumber.Text & "' " & _
+            "and (strUpdateStatus <> 'D' and strUpdateStatus <> 'H'))"
+
+            cmd = New OracleCommand(SQL, conn)
+            If conn.State = ConnectionState.Closed Then
+                conn.Open()
+            End If
+            cmd.ExecuteNonQuery()
+
+            GenerateNewFacilities()
+            AddNewAirPollutants()
+            GenerateFacilityChanges()
+            PermittingActions()
+            ISMPActions()
+            ComplianceActions()
+            FCEActions()
+            EnforcementActions()
+
+            Dim FileName As String = ""
+            Dim path As New SaveFileDialog
+            Dim DestFilePath As String = "N/A"
+            Dim OutPutFile As String = ""
+            Dim da As OracleDataAdapter
+            Dim cmdCB As OracleCommandBuilder
+            Dim ds As DataSet
+
+            If txtAFSBatchFile.Text = "" Then
+                txtAFSBatchFile.Text = "NO AFS DATA TO UPDATE."
+            Else
+                SQL = "select " & connNameSpace & ".afsFileNumber.nextval from Dual"
+                cmd = New OracleCommand(SQL, conn)
+                If conn.State = ConnectionState.Closed Then
+                    conn.Open()
+                End If
+                dr = cmd.ExecuteReader
+                While dr.Read
+                    FileName = "GA" & dr.Item(0)
+                End While
+                dr.Close()
+
+                If FileName <> "" Then
+                    path.InitialDirectory = "S:\ISMP\DMU\Production\APB IAIP\Batches"
+                    path.FileName = FileName
+                    path.Filter = "AFS Data (.txt)|.txt"
+                    path.FilterIndex = 1
+                    path.DefaultExt = ".txt"
+
+                    If path.ShowDialog = Windows.Forms.DialogResult.OK Then
+                        DestFilePath = path.FileName.ToString
+                    Else
+                        DestFilePath = "N/A"
+                    End If
+
+                    If DestFilePath <> "N/A" Then
+                        Dim Encoder As New System.Text.ASCIIEncoding
+                        Dim bytedata As Byte() = Encoder.GetBytes(txtAFSBatchFile.Text)
+
+                        Dim fs As New System.IO.FileStream(DestFilePath, IO.FileMode.Create, IO.FileAccess.Write)
+                        fs.Write(bytedata, 0, bytedata.Length)
+                        fs.Close()
+
+                        SQL = "Select * " & _
+                        "from " & connNameSpace & ".AFSBatchFiles " & _
+                        "where AFSFileName = '" & FileName & "' "
+
+                        If conn.State = ConnectionState.Closed Then
+                            conn.Open()
+                        End If
+                        da = New OracleDataAdapter(SQL, conn)
+                        cmdCB = New OracleCommandBuilder(da)
+                        ds = New DataSet("AFSData")
+                        da.MissingSchemaAction = MissingSchemaAction.AddWithKey
+
+                        da.Fill(ds, "AFSData")
+                        Dim row As DataRow = ds.Tables("AFSData").NewRow()
+                        row("AFSFileName") = FileName
+                        row("AFSBatchFile") = bytedata
+                        row("strStaffResponsible") = UserGCode
+                        row("DatModifingDate") = OracleDate
+                        ds.Tables("AFSData").Rows.Add(row)
+                        da.Update(ds, "AFSData")
+                    End If
+                End If
+            End If
+
+        Catch ex As Exception
+            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+        End Try
+    End Sub
+
+    Private Sub rdbGenerateStandardFile_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles rdbGenerateStandardFile.CheckedChanged
+        Try
+            pnlStandardFile.Enabled = True
+            pnlAIRSSpecific.Enabled = False
+            pnlSubParts.Enabled = False
+            pnlBasicRefresh.Enabled = False
+
+        Catch ex As Exception
+            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+        End Try
+    End Sub
+
+    Private Sub rdbAIRSSpecific_CheckedChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles rdbAIRSSpecific.CheckedChanged
+        Try
+            pnlStandardFile.Enabled = False
+            pnlAIRSSpecific.Enabled = True
+            pnlSubParts.Enabled = False
+            pnlBasicRefresh.Enabled = False
+
+        Catch ex As Exception
+            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+        End Try
+    End Sub
+
+    Private Sub rdbUpdateAllSubparts_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles rdbUpdateAllSubparts.CheckedChanged
+        Try
+            pnlStandardFile.Enabled = False
+            pnlAIRSSpecific.Enabled = False
+            pnlSubParts.Enabled = True
+            pnlBasicRefresh.Enabled = False
+
+        Catch ex As Exception
+            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+        End Try
+    End Sub
+
+    Private Sub rdbBasicData_CheckedChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles rdbBasicData.CheckedChanged
+        Try
+            pnlStandardFile.Enabled = False
+            pnlAIRSSpecific.Enabled = False
+            pnlSubParts.Enabled = False
+            pnlBasicRefresh.Enabled = True
 
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)

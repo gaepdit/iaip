@@ -1,6 +1,6 @@
-﻿'Imports System.DateTime
+﻿Imports System.DateTime
 Imports System.Data.OracleClient
-'Imports System.IO
+Imports System.IO
 
 Public Class DMUStaffTools
     Dim daStaff As OracleDataAdapter
@@ -304,7 +304,7 @@ Public Class DMUStaffTools
             "QAStatusCode, strDesc " & _
             "From AIRBranch.EISLK_QAStatus " & _
             "Where active = '1' " & _
-            "order by updateDateTime  "
+            "order by UpdateDateTime  "
 
             ds = New DataSet
 
@@ -599,9 +599,9 @@ Public Class DMUStaffTools
                 drNewRow("struseremail") = drDSRow("struseremail")
                 dtAIRS.Rows.Add(drNewRow)
             Next
-            'Dim temp As String
+            Dim temp As String
 
-            'temp = dtAIRS.Rows.Count
+            temp = dtAIRS.Rows.Count
 
             With cboUserEmail
                 .DataSource = dtAIRS
@@ -1157,7 +1157,7 @@ Public Class DMUStaffTools
     End Sub
     Sub ExporttoExcel()
         Dim ExcelApp As New Microsoft.Office.Interop.Excel.Application
-        ' Dim ExcelDoc As Microsoft.Office.Interop.Excel.Workbook
+        '   Dim ExcelDoc As Microsoft.Office.Interop.Excel.Workbook
         'Dim ExcelApp As New Excel.Application
         Dim i As Integer
         Dim j As Integer
@@ -1735,13 +1735,13 @@ Public Class DMUStaffTools
     Private Sub exportSI()
         Try
             Dim ExcelApp As New Microsoft.Office.Interop.Excel.Application
-            'Dim ExcelDoc As Microsoft.Office.Interop.Excel.Workbook
+            Dim ExcelDoc As Microsoft.Office.Interop.Excel.Workbook
             'Dim ExcelApp As Excel.Application = New Excel.ApplicationClass
             Dim col, row As Integer
             Dim x As String
             Dim y As String
-            'Dim a As Integer
-            'Dim b As Integer
+            Dim a As Integer
+            Dim b As Integer
             Dim c As Integer
             Dim d As Integer
             Dim startRow As Integer = 1
@@ -1802,8 +1802,8 @@ Public Class DMUStaffTools
                     ExcelApp.Cells(startRow, col + 1).value = y
                 Next
 
-                'a = dgvEU.ColumnCount - 1
-                'b = dgvEU.RowCount - 1
+                a = dgvEU.ColumnCount - 1
+                b = dgvEU.RowCount - 1
 
                 'For col = 0 To dgvEU.RowCount - 1
                 '    For row = 0 To dgvEU.ColumnCount - 1
@@ -1846,8 +1846,8 @@ Public Class DMUStaffTools
                     ExcelApp.Cells(startRow, col + 1).value = y
                 Next
 
-                'a = dgvER.ColumnCount - 1
-                'b = dgvER.RowCount - 1
+                a = dgvER.ColumnCount - 1
+                b = dgvER.RowCount - 1
 
                 startRow = startRow + 1
                 d = dgvER.RowCount - 2
@@ -1891,8 +1891,8 @@ Public Class DMUStaffTools
                     ExcelApp.Cells(startRow, col + 1).value = y
                 Next
 
-                'a = dgvEP.ColumnCount - 1
-                'b = dgvEP.RowCount - 1
+                a = dgvEP.ColumnCount - 1
+                b = dgvEP.RowCount - 1
 
                 startRow = startRow + 1
                 d = dgvEP.RowCount - 2
@@ -1935,8 +1935,8 @@ Public Class DMUStaffTools
                     ExcelApp.Cells(startRow, col + 1).value = y
                 Next
 
-                'a = dgvEM.ColumnCount - 1
-                'b = dgvEM.RowCount - 1
+                a = dgvEM.ColumnCount - 1
+                b = dgvEM.RowCount - 1
 
                 startRow = startRow + 1
                 d = dgvEM.RowCount - 2
@@ -2629,7 +2629,7 @@ Public Class DMUStaffTools
     End Sub
     Sub ExportEStoExcel()
         Dim ExcelApp As New Microsoft.Office.Interop.Excel.Application
-        'Dim ExcelDoc As Microsoft.Office.Interop.Excel.Workbook
+        Dim ExcelDoc As Microsoft.Office.Interop.Excel.Workbook
         ' Dim ExcelApp As New Excel.Application
         Dim i As Integer
         Dim j As Integer
@@ -3576,7 +3576,7 @@ Public Class DMUStaffTools
         Dim AirsNo As String = txtESAIRSNo2.Text
         Dim ESYear As String = txtESYear.Text
         Dim airsYear As String = AirsNo & ESYear
-        'Dim dr As OracleDataReader
+        Dim dr As OracleDataReader
         Dim ESFacilityName As String = txtESFacilityName.Text
         Dim ESPrefix As String = txtESprefix.Text
         Dim ESFirstName As String = txtESFirstName.Text
@@ -3949,7 +3949,7 @@ Public Class DMUStaffTools
         Dim FACILITYNAME As String = " "
         Dim CONTACTCOMPANYNAME As String = " "
         Dim CONTACTADDRESS1 As String = " "
-        'Dim CONTACTADDRESS2 As String = " "
+        Dim CONTACTADDRESS2 As String = " "
         Dim CONTACTCITY As String = " "
         Dim CONTACTSTATE As String = " "
         Dim CONTACTZIPCODE As String = " "
@@ -4492,10 +4492,10 @@ Public Class DMUStaffTools
         Dim mailoutNonresponderscount As Integer
         Dim extraNonresponderscount As Integer
 
-        'Dim year As Integer = CInt(cboEIYear2.SelectedItem)
+        Dim year As Integer = CInt(cboEIYear2.SelectedItem)
         txtEIYear.Text = cboEIYear2.SelectedItem
         Dim EIYear As String = txtEIYear.Text
-        'Dim deadline As String = "30-Sep-2007"
+        Dim deadline As String = "30-Sep-2007"
         Try
             Try
 
@@ -5709,7 +5709,7 @@ Public Class DMUStaffTools
         Dim FACILITYNAME As String = " "
         Dim CONTACTCOMPANYNAME As String = " "
         Dim CONTACTADDRESS1 As String = " "
-        'Dim CONTACTADDRESS2 As String = " "
+        Dim CONTACTADDRESS2 As String = " "
         Dim CONTACTCITY As String = " "
         Dim CONTACTSTATE As String = " "
         Dim CONTACTZIPCODE As String = " "
@@ -6044,7 +6044,7 @@ Public Class DMUStaffTools
     End Sub
     Sub ExportEItoExcel()
         Dim ExcelApp As New Microsoft.Office.Interop.Excel.Application
-        'Dim ExcelDoc As Microsoft.Office.Interop.Excel.Workbook
+        Dim ExcelDoc As Microsoft.Office.Interop.Excel.Workbook
         'Dim ExcelApp As New Excel.Application
         Dim i As Integer
         Dim j As Integer
@@ -7329,7 +7329,7 @@ Public Class DMUStaffTools
     Private Sub btncheckEnrollment_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btncheckEnrollment.Click
         Dim AirsNo As String = "0413" & txtEIairsNumber.Text
         Dim EIYear As Integer = txtaddEIYear.Text
-        ' Dim airsYear As String = AirsNo & EIYear
+        Dim airsYear As String = AirsNo & EIYear
 
         Try
             SQL = "Select * " & _
@@ -7609,7 +7609,7 @@ Public Class DMUStaffTools
     Private Sub btnCheckESstatus_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCheckESstatus.Click
         Dim AirsNo As String = "0413" & txtESairNumber.Text
         Dim ESYear As Integer = txtESYearforFacility.Text
-        ' Dim airsYear As String = AirsNo & ESYear
+        Dim airsYear As String = AirsNo & ESYear
 
         Try
             SQL = "Select strAIRSYear as RowCount " & _
@@ -8036,7 +8036,7 @@ Public Class DMUStaffTools
     End Sub
     Private Sub btnAddNewEIType_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAddNewEIType.Click
         Dim EItype2 As String = txtNewEIType.Text
-        'Dim EItypeYear As String = lblEITypeYear.Text
+        Dim EItypeYear As String = lblEITypeYear.Text
         Dim temp As String
 
         Try
@@ -8239,7 +8239,7 @@ Public Class DMUStaffTools
         Dim facilitySiteID As String = txtaddEISAirsno.Text
         Dim airsno As String = "0413" & facilitySiteID
         Dim facilityName As String
-        'Dim facilityLocation As String
+        Dim facilityLocation As String
         Dim facilityLocationCity As String
         Dim facilityLocastionZipcode As String
         Dim faciltyMailingAddress As String
@@ -8288,7 +8288,7 @@ Public Class DMUStaffTools
                 facilityMailingCity = dr("STRFACILITYCITY")
                 facilityMailingState = dr("STRFACILITYSTATE")
                 faciityMailingZipcode = dr("STRFACILITYZIPCODE")
-                'facilityLocation = dr("STRFACILITYSTREET1")
+                facilityLocation = dr("STRFACILITYSTREET1")
                 facilityLongitude = dr("NUMFACILITYLONGITUDE")
                 facilityLatitude = dr("NUMFACILITYLATITUDE")
                 HorizontalCollectionCode = dr("STRHORIZONTALCOLLECTIONCODE")
@@ -8783,8 +8783,7 @@ Public Class DMUStaffTools
 
         Try
             SQL = "Select distinct  EISSTATUSCODE, STRDESC " & _
-            "from " & connNameSpace & ".EISLK_EISSTATUSCODE " & _
-            "order by EISSTATUSCODE "
+            "from " & connNameSpace & ".EISLK_EISSTATUSCODE "
 
             dscode = New DataSet
             dacode = New OracleDataAdapter(SQL, conn)
@@ -8807,8 +8806,8 @@ Public Class DMUStaffTools
                 DrNewRow("STRDESC") = drDSRow("STRDESC")
                 dtCode.Rows.Add(DrNewRow)
             Next
-            'Dim temp As String
-            'temp = dtCode.Rows.Count
+            Dim temp As String
+            temp = dtCode.Rows.Count
 
             With cboEILogStatusCode
                 .DataSource = dtCode
@@ -8974,8 +8973,8 @@ Public Class DMUStaffTools
                 DrNewRow("strdesc") = drDSRow("strdesc")
                 dtCode.Rows.Add(DrNewRow)
             Next
-            'Dim temp As String
-            'temp = dtCode.Rows.Count
+            Dim temp As String
+            temp = dtCode.Rows.Count
 
             With cboEISAccessCode
                 .DataSource = dtCode
@@ -9020,7 +9019,7 @@ Public Class DMUStaffTools
     Sub EISMailoutenrollment()
         Dim facilitySiteID As String
         Dim EISYear As Integer = CInt(cboEISMailoutEnrollmentYear.SelectedItem)
-        'Dim UpdateUser As String = UserGCode
+        Dim UpdateUser As String = UserGCode
         Dim active As String
         Dim enrollment As String
         Dim EISAccessCode As String
@@ -9209,11 +9208,11 @@ Public Class DMUStaffTools
     Sub GenerateEISMailOutList()
         Dim FacilitySiteID As String
         Dim airsNumber As String = "0413" & FacilitySiteID
-        'Dim airsYear As String
+        Dim airsYear As String
         Dim FACILITYNAME As String = " "
         Dim CONTACTCOMPANYNAME As String = " "
         Dim CONTACTADDRESS1 As String = " "
-        'Dim CONTACTADDRESS2 As String = " "
+        Dim CONTACTADDRESS2 As String = " "
         Dim CONTACTCITY As String = " "
         Dim CONTACTSTATE As String = " "
         Dim CONTACTZIPCODE As String = " "
@@ -9221,6 +9220,7 @@ Public Class DMUStaffTools
         Dim CONTACTLASTNAME As String = " "
         Dim CONTACTEMAIL As String = " "
         Dim EISYear As String = cboEISMailoutEnrollmentYear.SelectedItem
+
         Dim OperationalStatus As String = " "
         Dim FacilityClass As String = " "
         Dim UpdateUser As String = UserGCode
@@ -9271,7 +9271,7 @@ Public Class DMUStaffTools
                         While dr.Read
                             airsNumber = dr("strAirsNumber")
                             FacilitySiteID = Mid(airsNumber, 5, 8)
-                            ' airsYear = airsNumber & EISYear
+                            airsYear = airsNumber & EISYear
                             EISYear = cboEISMailoutEnrollmentYear.SelectedItem
                             If IsDBNull(dr("STRFACILITYNAME")) Then
                                 FACILITYNAME = " "
@@ -9594,7 +9594,7 @@ Public Class DMUStaffTools
 
     Sub ExportEIStoExcel()
         Dim ExcelApp As New Microsoft.Office.Interop.Excel.Application
-        'Dim ExcelDoc As Microsoft.Office.Interop.Excel.Workbook
+        Dim ExcelDoc As Microsoft.Office.Interop.Excel.Workbook
         'Dim ExcelApp As New Excel.Application
         Dim i As Integer
         Dim j As Integer
@@ -9825,7 +9825,7 @@ Public Class DMUStaffTools
     End Sub
     Private Sub btnaddNewEISType_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnaddNewEISType.Click
         Dim EIStype2 As String = txtNewEISType.Text
-        'Dim EIStypeYear As String = "2010"
+        Dim EIStypeYear As String = "2010"
         Dim temp As String
 
         Try
@@ -11304,11 +11304,11 @@ Public Class DMUStaffTools
                 'Else
 
                 'End If
-                If IsDBNull(dr.Item("strConfirmationNumber")) Then
-                    txtConfirNumber.Clear()
-                Else
-                    txtConfirNumber.Text = dr.Item("strConfirmationNumber")
-                End If
+                'If IsDBNull(dr.Item("strConfirmationNumber")) Then
+
+                'Else
+
+                'End If
                 If IsDBNull(dr.Item("strMailout")) Then
                     rdbEILogMailoutYes.Checked = False
                     rdbEILogMailoutNo.Checked = False
@@ -11594,10 +11594,8 @@ Public Class DMUStaffTools
             End While
             dr.Close()
 
-            If cboEILogStatusCode.SelectedIndex <> -1 And cboEILogStatusCode.SelectedIndex <> 0 Then
-                If cboEILogStatusCode.SelectedValue >= 4 Then
-                    pnlQAProcess.Enabled = True
-                End If
+            If cboEILogStatusCode.SelectedValue >= 4 Then
+                pnlQAProcess.Enabled = True
             End If
 
         Catch ex As Exception
@@ -14150,7 +14148,7 @@ Public Class DMUStaffTools
     End Sub
 
 
-    Private Sub btnEISSummaryToExcel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEISSummaryToExcel.Click
+    Private Sub btnEISSummaryToExcel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         Try
             'Dim ExcelApp As New Excel.Application
             Dim ExcelApp As New Microsoft.Office.Interop.Excel.Application
@@ -14178,12 +14176,12 @@ Public Class DMUStaffTools
 
                     For i = 0 To dgvEISStats.ColumnCount - 1
                         For j = 0 To dgvEISStats.RowCount - 1
-                            If IsDBNull(dgvEISStats.Item(i, j).Value) Then
+                            If IsDBNull(dgvEISStats.Item(i, j).Value.ToString) Then
                                 .Cells(j + 2, i + 1).numberformat = "@"
                                 .Cells(j + 2, i + 1).value = "  "
                             Else
                                 .Cells(j + 2, i + 1).numberformat = "@"
-                                .Cells(j + 2, i + 1).value = dgvEISStats.Item(i, j).Value
+                                .Cells(j + 2, i + 1).value = dgvEISStats.Item(i, j).Value.ToString
                             End If
 
                         Next
@@ -15233,12 +15231,11 @@ Public Class DMUStaffTools
             If rdbEILogEnrolledYes.Checked = True Then
                 Enrollment = "1"
             Else
-                Enrollment = "0"
-                'If rdbEILogEnrolledNo.Checked = True Then
-
-                'Else
-                '    Enrollment = "0"
-                'End If
+                If rdbEILogEnrolledNo.Checked = True Then
+                    Enrollment = "0"
+                Else
+                    Enrollment = "0"
+                End If
             End If
             If rdbEILogOpOutYes.Checked = True Then
                 OptOut = "1"
@@ -15466,12 +15463,12 @@ Public Class DMUStaffTools
 
     Private Sub btnEILogAddNewFacility_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEILogAddNewFacility.Click
         Try
-            'Dim EISAccess As String = " "
-            'Dim OptOut As String = ""
-            'Dim EISStatus As String = ""
-            'Dim Enrollment As String = ""
-            'Dim Mailout As String = ""
-            'Dim ActiveStatus As String = ""
+            Dim EISAccess As String = " "
+            Dim OptOut As String = ""
+            Dim EISStatus As String = ""
+            Dim Enrollment As String = ""
+            Dim Mailout As String = ""
+            Dim ActiveStatus As String = ""
 
             If conn.State = ConnectionState.Closed Then
                 conn.Open()
@@ -15744,7 +15741,7 @@ Public Class DMUStaffTools
             Dim FacilityName As String = ""
             Dim MailingAddress As String = ""
             Dim City As String = ""
-           ' Dim State As String = ""
+            Dim State As String = ""
             Dim PostalCode As String = ""
 
             If txtEIModifyFacilityName.Text <> "" Then
@@ -16125,12 +16122,10 @@ Public Class DMUStaffTools
            "case " & _
           "when strDMUResponsibleStaff is null then '-' " & _
            "else strDMUResponsibleStaff " & _
-            "end strDMUResponsibleStaff, " & _
-            "AIRBranch.EISLK_QAStatus.strDesc, datQAStatus " & _
+            "end strDMUResponsibleStaff " & _
            "from AIRbranch.EIS_Admin, airbranch.APBFacilityInformation, " & _
            "airbranch.EISLK_EISAccessCode, AIRBranch.EISLK_EISStatusCode,  " & _
-           "AIRbranch.EIS_Mailout, AIRbranch.EIS_QAAdmin,  " & _
-           "AIRBranch.EISLK_QAStatus " & _
+           "AIRbranch.EIS_Mailout, AIRbranch.EIS_QAAdmin " & _
            "where '0413'||airbranch.EIS_Admin.FacilitySiteId = airbranch.APBFacilityInformation.strAIRSNumber  " & _
            "and AIRBranch.EIS_Admin.EISAccessCode = AIRBranch.EISLK_EISAccessCode.EISAccessCode " & _
            "and AIRBranch.EIS_Admin.EISStatusCode = AIRBranch.EISLK_EISStatusCode.EISStatusCode " & _
@@ -16140,7 +16135,6 @@ Public Class DMUStaffTools
                       "and AIRbranch.EIS_Admin.inventoryyear = AIRBranch.EIS_Mailout.intinventoryyear (+) " & _
             "and AIRBranch.EIS_Admin.Active = '1' " & _
            "and AIRbranch.EIS_Admin.inventoryyear = '" & txtSelectedEISStatYear.Text & "'" & _
-           "and AIRBranch.EIS_QAAdmin.QAStatusCode = AIRBranch.EISLK_QAStatus.qastatuscode " & _
                      "and AIRbranch.EIS_Admin.strEnrollment = '1'  " & _
  "and AIRbranch.EIS_Admin.eisstatuscode >= 3  " & _
  "and (strOptOut = '0' ) " & _
@@ -16283,12 +16277,10 @@ Public Class DMUStaffTools
            "case " & _
           "when strDMUResponsibleStaff is null then '-' " & _
            "else strDMUResponsibleStaff " & _
-            "end strDMUResponsibleStaff, " & _
-            "AIRBranch.EISLK_QAStatus.strDesc, datQAStatus " & _
+            "end strDMUResponsibleStaff " & _
            "from AIRbranch.EIS_Admin, airbranch.APBFacilityInformation, " & _
            "airbranch.EISLK_EISAccessCode, AIRBranch.EISLK_EISStatusCode,  " & _
-          "AIRbranch.EIS_Mailout, AIRbranch.EIS_QAAdmin,  " & _
-           "AIRBranch.EISLK_QAStatus " & _
+           "AIRbranch.EIS_Mailout, AIRbranch.EIS_QAAdmin " & _
            "where '0413'||airbranch.EIS_Admin.FacilitySiteId = airbranch.APBFacilityInformation.strAIRSNumber  " & _
            "and AIRBranch.EIS_Admin.EISAccessCode = AIRBranch.EISLK_EISAccessCode.EISAccessCode " & _
            "and AIRBranch.EIS_Admin.EISStatusCode = AIRBranch.EISLK_EISStatusCode.EISStatusCode " & _
@@ -16296,7 +16288,6 @@ Public Class DMUStaffTools
 "and AIRBranch.EIS_Admin.inventoryyear = AIRBranch.EIS_QAAdmin.inventoryyear (+) " & _
            "and AIRbranch.EIS_Admin.FacilitySiteID = AIRBranch.EIS_Mailout.FacilitySiteID (+) " & _
                       "and AIRbranch.EIS_Admin.inventoryyear = AIRBranch.EIS_Mailout.intinventoryyear (+) " & _
-                           "and AIRBranch.EIS_QAAdmin.QAStatusCode = AIRBranch.EISLK_QAStatus.QAStatusCode " & _
             "and AIRBranch.EIS_Admin.Active = '1' " & _
            "and AIRbranch.EIS_Admin.inventoryyear = '" & txtSelectedEISStatYear.Text & "'" & _
                      "and AIRbranch.EIS_Admin.strEnrollment = '1'  " & _
@@ -16387,16 +16378,6 @@ Public Class DMUStaffTools
                 Else
                     dgvRow.Cells(12).Value = dr.Item("strDMUResponsibleStaff")
                 End If
-                If IsDBNull(dr.Item("strDesc")) Then
-                    dgvRow.Cells(14).Value = ""
-                Else
-                    dgvRow.Cells(14).Value = dr.Item("strDesc")
-                End If
-                If IsDBNull(dr.Item("datQAStatus")) Then
-                    dgvRow.Cells(15).Value = ""
-                Else
-                    dgvRow.Cells(15).Value = dr.Item("datQAStatus")
-                End If
                 dgvEISStats.Rows.Add(dgvRow)
             End While
             dr.Close()
@@ -16452,12 +16433,10 @@ Public Class DMUStaffTools
            "case " & _
           "when strDMUResponsibleStaff is null then '-' " & _
            "else strDMUResponsibleStaff " & _
-            "end strDMUResponsibleStaff, " & _
-            "AIRBranch.EISLK_QAStatus.strDesc, datQAStatus " & _
+            "end strDMUResponsibleStaff " & _
            "from AIRbranch.EIS_Admin, airbranch.APBFacilityInformation, " & _
            "airbranch.EISLK_EISAccessCode, AIRBranch.EISLK_EISStatusCode,  " & _
-           "AIRbranch.EIS_Mailout, AIRbranch.EIS_QAAdmin, " & _
-           "AIRBranch.EISLK_QAStatus " & _
+           "AIRbranch.EIS_Mailout, AIRbranch.EIS_QAAdmin " & _
            "where '0413'||airbranch.EIS_Admin.FacilitySiteId = airbranch.APBFacilityInformation.strAIRSNumber  " & _
            "and AIRBranch.EIS_Admin.EISAccessCode = AIRBranch.EISLK_EISAccessCode.EISAccessCode " & _
            "and AIRBranch.EIS_Admin.EISStatusCode = AIRBranch.EISLK_EISStatusCode.EISStatusCode " & _
@@ -16465,7 +16444,6 @@ Public Class DMUStaffTools
 "and AIRBranch.EIS_Admin.inventoryyear = AIRBranch.EIS_QAAdmin.inventoryyear (+) " & _
            "and AIRbranch.EIS_Admin.FacilitySiteID = AIRBranch.EIS_Mailout.FacilitySiteID (+) " & _
                       "and AIRbranch.EIS_Admin.inventoryyear = AIRBranch.EIS_Mailout.intinventoryyear (+) " & _
-                           "and AIRBranch.EIS_QAAdmin.QAStatusCode = AIRBranch.EISLK_QAStatus.QAStatusCode " & _
             "and AIRBranch.EIS_Admin.Active = '1' " & _
            "and AIRbranch.EIS_Admin.inventoryyear = '" & txtSelectedEISStatYear.Text & "'" & _
                      "and AIRbranch.EIS_Admin.strEnrollment = '1'  " & _
@@ -16556,16 +16534,6 @@ Public Class DMUStaffTools
                 Else
                     dgvRow.Cells(12).Value = dr.Item("strDMUResponsibleStaff")
                 End If
-                If IsDBNull(dr.Item("strDesc")) Then
-                    dgvRow.Cells(14).Value = ""
-                Else
-                    dgvRow.Cells(14).Value = dr.Item("strDesc")
-                End If
-                If IsDBNull(dr.Item("datQAStatus")) Then
-                    dgvRow.Cells(15).Value = ""
-                Else
-                    dgvRow.Cells(15).Value = dr.Item("datQAStatus")
-                End If
                 dgvEISStats.Rows.Add(dgvRow)
             End While
             dr.Close()
@@ -16620,12 +16588,10 @@ Public Class DMUStaffTools
            "case " & _
           "when strDMUResponsibleStaff is null then '-' " & _
            "else strDMUResponsibleStaff " & _
-            "end strDMUResponsibleStaff, " & _
-            "AIRBranch.EISLK_QAStatus.strDesc, datQAStatus " & _
+            "end strDMUResponsibleStaff " & _
            "from AIRbranch.EIS_Admin, airbranch.APBFacilityInformation, " & _
            "airbranch.EISLK_EISAccessCode, AIRBranch.EISLK_EISStatusCode,  " & _
-           "AIRbranch.EIS_Mailout, AIRbranch.EIS_QAAdmin, " & _
-           "AIRBranch.EISLK_QAStatus " & _
+           "AIRbranch.EIS_Mailout, AIRbranch.EIS_QAAdmin " & _
            "where '0413'||airbranch.EIS_Admin.FacilitySiteId = airbranch.APBFacilityInformation.strAIRSNumber  " & _
            "and AIRBranch.EIS_Admin.EISAccessCode = AIRBranch.EISLK_EISAccessCode.EISAccessCode " & _
            "and AIRBranch.EIS_Admin.EISStatusCode = AIRBranch.EISLK_EISStatusCode.EISStatusCode " & _
@@ -16633,7 +16599,6 @@ Public Class DMUStaffTools
 "and AIRBranch.EIS_Admin.inventoryyear = AIRBranch.EIS_QAAdmin.inventoryyear (+) " & _
            "and AIRbranch.EIS_Admin.FacilitySiteID = AIRBranch.EIS_Mailout.FacilitySiteID (+) " & _
                       "and AIRbranch.EIS_Admin.inventoryyear = AIRBranch.EIS_Mailout.intinventoryyear (+) " & _
-                           "and AIRBranch.EIS_QAAdmin.QAStatusCode = AIRBranch.EISLK_QAStatus.QAStatusCode " & _
             "and AIRBranch.EIS_Admin.Active = '1' " & _
            "and AIRbranch.EIS_Admin.inventoryyear = '" & txtSelectedEISStatYear.Text & "'" & _
                      "and AIRbranch.EIS_Admin.strEnrollment = '1'  " & _
@@ -16724,16 +16689,6 @@ Public Class DMUStaffTools
                 Else
                     dgvRow.Cells(12).Value = dr.Item("strDMUResponsibleStaff")
                 End If
-                If IsDBNull(dr.Item("strDesc")) Then
-                    dgvRow.Cells(14).Value = ""
-                Else
-                    dgvRow.Cells(14).Value = dr.Item("strDesc")
-                End If
-                If IsDBNull(dr.Item("datQAStatus")) Then
-                    dgvRow.Cells(15).Value = ""
-                Else
-                    dgvRow.Cells(15).Value = dr.Item("datQAStatus")
-                End If
                 dgvEISStats.Rows.Add(dgvRow)
             End While
             dr.Close()
@@ -16788,12 +16743,10 @@ Public Class DMUStaffTools
            "case " & _
           "when strDMUResponsibleStaff is null then '-' " & _
            "else strDMUResponsibleStaff " & _
-            "end strDMUResponsibleStaff, " & _
-            "AIRBranch.EISLK_QAStatus.strDesc, datQAStatus " & _
+            "end strDMUResponsibleStaff " & _
            "from AIRbranch.EIS_Admin, airbranch.APBFacilityInformation, " & _
            "airbranch.EISLK_EISAccessCode, AIRBranch.EISLK_EISStatusCode,  " & _
-           "AIRbranch.EIS_Mailout, AIRbranch.EIS_QAAdmin,  " & _
-           "AIRBranch.EISLK_QAStatus " & _
+           "AIRbranch.EIS_Mailout, AIRbranch.EIS_QAAdmin " & _
            "where '0413'||airbranch.EIS_Admin.FacilitySiteId = airbranch.APBFacilityInformation.strAIRSNumber  " & _
            "and AIRBranch.EIS_Admin.EISAccessCode = AIRBranch.EISLK_EISAccessCode.EISAccessCode " & _
            "and AIRBranch.EIS_Admin.EISStatusCode = AIRBranch.EISLK_EISStatusCode.EISStatusCode " & _
@@ -16801,7 +16754,6 @@ Public Class DMUStaffTools
 "and AIRBranch.EIS_Admin.inventoryyear = AIRBranch.EIS_QAAdmin.inventoryyear (+) " & _
            "and AIRbranch.EIS_Admin.FacilitySiteID = AIRBranch.EIS_Mailout.FacilitySiteID (+) " & _
                       "and AIRbranch.EIS_Admin.inventoryyear = AIRBranch.EIS_Mailout.intinventoryyear (+) " & _
-                      "and AIRBranch.EIS_QAAdmin.QAStatusCode = AIRBranch.EISLK_QAStatus.QAStatusCode " & _
             "and AIRBranch.EIS_Admin.Active = '1' " & _
            "and AIRbranch.EIS_Admin.inventoryyear = '" & txtSelectedEISStatYear.Text & "'" & _
                      "and AIRbranch.EIS_Admin.strEnrollment = '1'  " & _
@@ -16892,17 +16844,6 @@ Public Class DMUStaffTools
                 Else
                     dgvRow.Cells(12).Value = dr.Item("strDMUResponsibleStaff")
                 End If
-                If IsDBNull(dr.Item("strDesc")) Then
-                    dgvRow.Cells(14).Value = ""
-                Else
-                    dgvRow.Cells(14).Value = dr.Item("strDesc")
-                End If
-                If IsDBNull(dr.Item("datQAStatus")) Then
-                    dgvRow.Cells(15).Value = ""
-                Else
-                    dgvRow.Cells(15).Value = dr.Item("datQAStatus")
-                End If
-
                 dgvEISStats.Rows.Add(dgvRow)
             End While
             dr.Close()
@@ -18468,10 +18409,6 @@ Public Class DMUStaffTools
                 MsgBox("Please enter a valid AIRS # into the EIS AIRS #", MsgBoxStyle.Exclamation, Me.Text)
                 Exit Sub
             End If
-
-            LoadEISData()
-            Exit Sub
-
             txtEILogSelectedYear.Text = cboEILogYear.Text
             txtEILogSelectedAIRSNumber.Text = mtbEILogAIRSNumber.Text
 
@@ -18803,350 +18740,12 @@ Public Class DMUStaffTools
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub LoadEISData()
-        Try
-            txtEILogSelectedYear.Text = cboEILogYear.Text
-            txtEILogSelectedAIRSNumber.Text = mtbEILogAIRSNumber.Text
-
-            LoadAdminData()
-
-            SQL = "select  " & _
-            "strFacilitySiteName " & _
-            "from " & connNameSpace & ".EIS_FacilitySite " & _
-            "where FacilitySiteId = '" & txtEILogSelectedAIRSNumber.Text & "' "
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                If IsDBNull(dr.Item("strFacilitySiteName")) Then
-                    txtEIModifyFacilityName.Clear()
-                    txtEILogFacilityName.Clear()
-                Else
-                    txtEIModifyFacilityName.Text = dr.Item("strFacilitySiteName")
-                    txtEILogFacilityName.Text = dr.Item("strFacilitySiteName")
-                End If
-            End While
-            dr.Close()
-
-            SQL = "select  " & _
-            "* " & _
-            "from " & connNameSpace & ".EIS_FacilitySiteAddress " & _
-            "where FacilitySiteId = '" & txtEILogSelectedAIRSNumber.Text & "' "
-
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                If IsDBNull(dr.Item("strLocationAddressText")) Then
-                    txtEIModifyLocation.Clear()
-                Else
-                    txtEIModifyLocation.Text = dr.Item("strLocationAddressText")
-                End If
-                If IsDBNull(dr.Item("strLocalityName")) Then
-                    txtEIModifyCity.Clear()
-                Else
-                    txtEIModifyCity.Text = dr.Item("strLocalityName")
-                End If
-                If IsDBNull(dr.Item("strLocationAddressPostalCode")) Then
-                    mtbEIModifyZipCode.Clear()
-                Else
-                    mtbEIModifyZipCode.Text = dr.Item("strLocationAddressPostalCode")
-                End If
-            End While
-            dr.Close()
-
-            SQL = "select  " & _
-            "* " & _
-            "from " & connNameSpace & ".EIS_FacilityGeoCoord " & _
-            "where FacilitySiteId = '" & txtEILogSelectedAIRSNumber.Text & "' "
-
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                If IsDBNull(dr.Item("numLatitudeMeasure")) Then
-                    mtbEIModifyLatitude.Clear()
-                Else
-                    mtbEIModifyLatitude.Text = dr.Item("numLatitudeMeasure")
-                End If
-                If IsDBNull(dr.Item("numLongitudeMeasure")) Then
-                    mtbEIModifyLongitude.Clear()
-                Else
-                    mtbEIModifyLongitude.Text = dr.Item("numLongitudeMeasure")
-                End If
-            End While
-            dr.Close()
-
-            SQL = "select * " & _
-            "from " & connNameSpace & ".APBFacilityInformation " & _
-            "where strAIRSNumber = '0413" & txtEILogSelectedAIRSNumber.Text & "' "
-
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                If IsDBNull(dr.Item("strFacilityName")) Then
-                    txtEIModifyIAIPFacilityName.Clear()
-                Else
-                    txtEIModifyIAIPFacilityName.Text = dr.Item("strFacilityName")
-                End If
-                If IsDBNull(dr.Item("strFacilityStreet1")) Then
-                    txtEIModifyIAIPLocation.Clear()
-                Else
-                    txtEIModifyIAIPLocation.Text = dr.Item("strFacilityStreet1")
-                End If
-                If IsDBNull(dr.Item("strFacilityCity")) Then
-                    txtEIModifyIAIPCity.Clear()
-                Else
-                    txtEIModifyIAIPCity.Text = dr.Item("strFacilityCity")
-                End If
-                If IsDBNull(dr.Item("strFacilityZipCode")) Then
-                    mtbEIModifyIAIPZipCode.Clear()
-                Else
-                    mtbEIModifyIAIPZipCode.Text = dr.Item("strFacilityZipCode")
-                End If
-                If IsDBNull(dr.Item("numFacilityLongitude")) Then
-                    mtbEIModifyIAIPLongitude.Clear()
-                Else
-                    mtbEIModifyIAIPLongitude.Text = dr.Item("numFacilityLongitude")
-                End If
-                If IsDBNull(dr.Item("numFacilityLatitude")) Then
-                    mtbEIModifyIAIPLatitude.Clear()
-                Else
-                    mtbEIModifyIAIPLatitude.Text = dr.Item("numFacilityLatitude")
-                End If
-            End While
-            dr.Close()
-
-            SQL = "Select * " & _
-            "from " & connNameSpace & ".EIS_Mailout " & _
-            "where intInventoryYear = '" & txtEILogSelectedYear.Text & "' " & _
-            "and FacilitySiteID = '" & txtEILogSelectedAIRSNumber.Text & "' "
-
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                If IsDBNull(dr.Item("strFacilityName")) Then
-                    txtEISMailoutFacilityName.Clear()
-                Else
-                    txtEISMailoutFacilityName.Text = dr.Item("strFacilityName")
-                End If
-                If IsDBNull(dr.Item("strContactCompanyName")) Then
-                    txtEISMailoutCompanyName.Clear()
-                Else
-                    txtEISMailoutCompanyName.Text = dr.Item("strContactCompanyName")
-                End If
-                If IsDBNull(dr.Item("strContactAddress1")) Then
-                    txtEISMailoutAddress.Clear()
-                Else
-                    txtEISMailoutAddress.Text = dr.Item("strContactAddress1")
-                End If
-                If IsDBNull(dr.Item("strContactAddress2")) Then
-                    txtEISMailoutAddress2.Clear()
-                Else
-                    txtEISMailoutAddress2.Text = dr.Item("strContactAddress2")
-                End If
-                If IsDBNull(dr.Item("strContactCity")) Then
-                    txtEISMailoutCity.Clear()
-                Else
-                    txtEISMailoutCity.Text = dr.Item("strContactCity")
-                End If
-                If IsDBNull(dr.Item("strContactState")) Then
-                    txtEISMailoutState.Clear()
-                Else
-                    txtEISMailoutState.Text = dr.Item("strContactState")
-                End If
-                If IsDBNull(dr.Item("strContactZipCode")) Then
-                    txtEISMailoutZipCode.Clear()
-                Else
-                    txtEISMailoutZipCode.Text = dr.Item("strContactZipCode")
-                End If
-                If IsDBNull(dr.Item("strContactFirstName")) Then
-                    txtEISMailoutFirstName.Clear()
-                Else
-                    txtEISMailoutFirstName.Text = dr.Item("strContactFirstName")
-                End If
-                If IsDBNull(dr.Item("strContactLastName")) Then
-                    txtEISMailoutLastName.Clear()
-                Else
-                    txtEISMailoutLastName.Text = dr.Item("strContactLastName")
-                End If
-                If IsDBNull(dr.Item("strContactPrefix")) Then
-                    txtEISMailoutPrefix.Clear()
-                Else
-                    txtEISMailoutPrefix.Text = dr.Item("strContactPrefix")
-                End If
-                If IsDBNull(dr.Item("strContactEmail")) Then
-                    txtEISMailoutEmail.Clear()
-                Else
-                    txtEISMailoutEmail.Text = dr.Item("strContactEmail")
-                End If
-                If IsDBNull(dr.Item("strComment")) Then
-                    txtEISMailoutComments.Clear()
-                Else
-                    txtEISMailoutComments.Text = dr.Item("strComment")
-                End If
-                If IsDBNull(dr.Item("UpdateUser")) Then
-                    txtEISMailoutUpdateUser.Clear()
-                Else
-                    txtEISMailoutUpdateUser.Text = dr.Item("UpdateUser")
-                End If
-                If IsDBNull(dr.Item("UpdateDateTime")) Then
-                    txtEISMailoutUpdateDateTime.Clear()
-                Else
-                    txtEISMailoutUpdateDateTime.Text = dr.Item("UpdateDateTime")
-                End If
-                If IsDBNull(dr.Item("CreateDateTime")) Then
-                    txtEISMailoutCreateDateTime.Clear()
-                Else
-                    txtEISMailoutCreateDateTime.Text = dr.Item("CreateDateTime")
-                End If
-            End While
-            dr.Close()
-
-            SQL = "select " & _
-            "strContactFirstName, strContactLastName, " & _
-            "strContactPrefix, strContactSuffix, " & _
-            "strContactTitle, strContactPhoneNumber1, " & _
-            "strContactPhoneNumber2, strContactFaxNumber, " & _
-            "strContactEmail, strContactCompanyName, " & _
-            "strContactAddress1, strContactAddress2, " & _
-            "strContactCity, strContactState, " & _
-            "strContactZipCode, strContactDescription, " & _
-            "datModifingDate, (strLastName||', '||strFirstName) as ModifingPerson " & _
-            "from " & connNameSpace & ".APBContactInformation, " & connNameSpace & ".EPDUserProfiles " & _
-            "where " & connNameSpace & ".APBContactInformation.strModifingPerson = " & _
-            "" & connNameSpace & ".EPDUserProfiles.numUserID  " & _
-            "and strContactKey = '0413" & txtEILogSelectedAIRSNumber.Text & "41' "
-
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                If IsDBNull(dr.Item("strContactFirstName")) Then
-                    txtEISContactFirstName.Clear()
-                Else
-                    txtEISContactFirstName.Text = dr.Item("strContactFirstName")
-                End If
-                If IsDBNull(dr.Item("strContactLastName")) Then
-                    txtEISContactLastName.Clear()
-                Else
-                    txtEISContactLastName.Text = dr.Item("strContactLastName")
-                End If
-                If IsDBNull(dr.Item("strContactPrefix")) Then
-                    txtEISContactPrefix.Clear()
-                Else
-                    txtEISContactPrefix.Text = dr.Item("strContactPrefix")
-                End If
-                If IsDBNull(dr.Item("strContactSuffix")) Then
-                    txtEISContactSuffix.Clear()
-                Else
-                    txtEISContactSuffix.Text = dr.Item("strContactSuffix")
-                End If
-                If IsDBNull(dr.Item("strContactTitle")) Then
-                    txtEISContactTitle.Clear()
-                Else
-                    txtEISContactTitle.Text = dr.Item("strContactTitle")
-                End If
-                If IsDBNull(dr.Item("strContactPhoneNumber1")) Then
-                    txtEISContactPhone.Clear()
-                Else
-                    txtEISContactPhone.Text = dr.Item("strContactPhoneNumber1")
-                End If
-                If IsDBNull(dr.Item("strContactPhoneNumber2")) Then
-                    txtEISContactPhone2.Clear()
-                Else
-                    txtEISContactPhone2.Text = dr.Item("strContactPhoneNumber2")
-                End If
-                If IsDBNull(dr.Item("strContactFaxNumber")) Then
-                    txtEISContactFax.Clear()
-                Else
-                    txtEISContactFax.Text = dr.Item("strContactFaxNumber")
-                End If
-                If IsDBNull(dr.Item("strContactEmail")) Then
-                    txtEISContactEmail.Clear()
-                Else
-                    txtEISContactEmail.Text = dr.Item("strContactEmail")
-                End If
-                If IsDBNull(dr.Item("strContactCompanyName")) Then
-                    txtEISContactCompanyName.Clear()
-                Else
-                    txtEISContactCompanyName.Text = dr.Item("strContactCompanyName")
-                End If
-                If IsDBNull(dr.Item("strContactAddress1")) Then
-                    txtEISContactAddress.Clear()
-                Else
-                    txtEISContactAddress.Text = dr.Item("strContactAddress1")
-                End If
-                If IsDBNull(dr.Item("strContactAddress2")) Then
-                    txtEISContactAddress2.Clear()
-                Else
-                    txtEISContactAddress2.Text = dr.Item("strContactAddress2")
-                End If
-                If IsDBNull(dr.Item("strContactCity")) Then
-                    txtEISContactCity.Clear()
-                Else
-                    txtEISContactCity.Text = dr.Item("strContactCity")
-                End If
-                If IsDBNull(dr.Item("strContactState")) Then
-                    txtEISContactState.Clear()
-                Else
-                    txtEISContactState.Text = dr.Item("strContactState")
-                End If
-                If IsDBNull(dr.Item("strContactZipCode")) Then
-                    txtEISContactZipCode.Clear()
-                Else
-                    txtEISContactZipCode.Text = dr.Item("strContactZipCode")
-                End If
-                If IsDBNull(dr.Item("strContactDescription")) Then
-                    txtEISContactDescription.Clear()
-                Else
-                    txtEISContactDescription.Text = dr.Item("strContactDescription")
-                End If
-                If IsDBNull(dr.Item("ModifingPerson")) Then
-                    txtEISContactUpdateUser.Clear()
-                Else
-                    txtEISContactUpdateUser.Text = dr.Item("ModifingPerson")
-                End If
-                If IsDBNull(dr.Item("datModifingDate")) Then
-                    txtEISContactUpdateDateTime.Clear()
-                Else
-                    txtEISContactUpdateDateTime.Text = dr.Item("datModifingDate")
-                End If
-
-            End While
-            dr.Close()
-
-            LoadQASpecificData()
-
-        Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
+ 
     Private Sub btnLoadEISLog_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnLoadEISLog.Click
         Try
             If mtbEISLogAIRSNumber.Text <> "" And cboEISStatisticsYear.Text.Length = 4 Then
                 mtbEILogAIRSNumber.Text = mtbEISLogAIRSNumber.Text
                 cboEILogYear.Text = cboEISStatisticsYear.Text
-
-                LoadEISData()
-                TCDMUTools.SelectedIndex = 0
-
-
-                Exit Sub
 
                 txtEILogSelectedYear.Text = cboEILogYear.Text
                 txtEILogSelectedAIRSNumber.Text = mtbEILogAIRSNumber.Text
@@ -19735,288 +19334,7 @@ Public Class DMUStaffTools
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnFISearch_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnFISearch.Click
-        Try
-            If txtFITrackingSearch.Text <> "" Then
-                SQL = "select " & _
-                "AIRBranch.EIS_QAAdmin.inventoryYear, AIRBranch.EIS_QAAdmin.FacilitySiteID, " & _
-                "strFacilitySiteName, " & _
-                "strFITrackingNumber " & _
-                "from AIRBranch.EIS_QAAdmin, AIRBranch.EIS_FacilitySite  " & _
-                "where AIRBranch.EIS_QAAdmin.FacilitySiteID = AIRBranch.EIS_FacilitySite.FacilitySiteID " & _
-                "and upper(strFITrackingNumber) like '%" & Replace(txtFITrackingSearch.Text.ToUpper, "'", "''") & "%' " & _
-                "and AIRBranch.EIS_QAAdmin.active = '1' "
 
-                ds = New DataSet
-                da = New OracleDataAdapter(SQL, conn)
-                If SQL <> "" Then
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
-                    End If
-                    da.Fill(ds, "QAAdmin")
-                End If
-
-                ds = New DataSet
-                da = New OracleDataAdapter(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
-                End If
-                da.Fill(ds, "QAAdmin")
-                dgvFITrackingNumber.DataSource = ds
-                dgvFITrackingNumber.DataMember = "QAAdmin"
-
-                dgvFITrackingNumber.RowHeadersVisible = False
-                dgvFITrackingNumber.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-                dgvFITrackingNumber.AllowUserToResizeColumns = True
-                dgvFITrackingNumber.AllowUserToAddRows = False
-                dgvFITrackingNumber.AllowUserToDeleteRows = False
-                dgvFITrackingNumber.AllowUserToOrderColumns = True
-                dgvFITrackingNumber.AllowUserToResizeRows = True
-                dgvFITrackingNumber.ColumnHeadersHeight = "35"
-                dgvFITrackingNumber.Columns("inventoryYear").HeaderText = "EIS Year"
-                dgvFITrackingNumber.Columns("inventoryYear").DisplayIndex = 0
-                dgvFITrackingNumber.Columns("inventoryYear").Width = 75
-                dgvFITrackingNumber.Columns("FacilitySiteID").HeaderText = "AIRS #"
-                dgvFITrackingNumber.Columns("FacilitySiteID").DisplayIndex = 1
-                dgvFITrackingNumber.Columns("FacilitySiteID").Width = 100
-                dgvFITrackingNumber.Columns("strFacilitySiteName").HeaderText = "Facility Name"
-                dgvFITrackingNumber.Columns("strFacilitySiteName").DisplayIndex = 2
-                dgvFITrackingNumber.Columns("strFacilitySiteName").Width = 150
-                dgvFITrackingNumber.Columns("strFITrackingNumber").HeaderText = "Tracking Number"
-                dgvFITrackingNumber.Columns("strFITrackingNumber").DisplayIndex = 3
-                dgvFITrackingNumber.Columns("strFITrackingNumber").Width = 1000
-
-            End If
-        Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-
-    Private Sub btnLoadLogFIError_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnLoadLogFIError.Click
-        Try
-
-            mtbEILogAIRSNumber.Text = mtbAIRSNumberFI.Text
-            cboEILogYear.Text = mtbEISYearFI.Text
-
-            LoadEISData()
-            TCDMUTools.SelectedIndex = 0
-
-        Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-
-   
-
-    Private Sub dgvFITrackingNumber_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvFITrackingNumber.MouseUp
-        Try
-            Dim CurrentTabPage As TabPage = TCEISStats.SelectedTab
-            Dim hti As DataGridView.HitTestInfo = dgvFITrackingNumber.HitTest(e.X, e.Y)
-            Dim i As Integer = 0
-
-            If dgvFITrackingNumber.RowCount > 0 And hti.RowIndex <> -1 Then
-                If IsDBNull(dgvFITrackingNumber(0, hti.RowIndex).Value) Then
-                    mtbEISYearFI.Clear()
-                Else
-                    mtbEISYearFI.Text = dgvFITrackingNumber(0, hti.RowIndex).Value
-                End If
-                If IsDBNull(dgvFITrackingNumber(1, hti.RowIndex).Value) Then
-                    mtbAIRSNumberFI.Clear()
-                 Else
-                    mtbAIRSNumberFI.Text = dgvFITrackingNumber(1, hti.RowIndex).Value
-                End If
-            Else
-                mtbEISYearFI.Clear()
-                mtbAIRSNumberFI.Clear()
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-
-    Private Sub btnPointTrackingSearch_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnPointTrackingSearch.Click
-        Try
-            If txtPointTrackingSearch.Text <> "" Then
-                SQL = "select " & _
-                "AIRBranch.EIS_QAAdmin.inventoryYear, AIRBranch.EIS_QAAdmin.FacilitySiteID, " & _
-                "strFacilitySiteName, " & _
-                "strPointTrackingNumber " & _
-                "from AIRBranch.EIS_QAAdmin, AIRBranch.EIS_FacilitySite  " & _
-                "where AIRBranch.EIS_QAAdmin.FacilitySiteID = AIRBranch.EIS_FacilitySite.FacilitySiteID " & _
-                "and upper(strPointTrackingNumber) like '%" & Replace(txtPointTrackingSearch.Text.ToUpper, "'", "''") & "%' " & _
-                "and AIRBranch.EIS_QAAdmin.active = '1' "
-
-                ds = New DataSet
-                da = New OracleDataAdapter(SQL, conn)
-                If SQL <> "" Then
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
-                    End If
-                    da.Fill(ds, "QAAdmin")
-                End If
-
-                ds = New DataSet
-                da = New OracleDataAdapter(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
-                End If
-                da.Fill(ds, "QAAdmin")
-                dgvFITrackingNumber.DataSource = ds
-                dgvFITrackingNumber.DataMember = "QAAdmin"
-
-                dgvFITrackingNumber.RowHeadersVisible = False
-                dgvFITrackingNumber.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-                dgvFITrackingNumber.AllowUserToResizeColumns = True
-                dgvFITrackingNumber.AllowUserToAddRows = False
-                dgvFITrackingNumber.AllowUserToDeleteRows = False
-                dgvFITrackingNumber.AllowUserToOrderColumns = True
-                dgvFITrackingNumber.AllowUserToResizeRows = True
-                dgvFITrackingNumber.ColumnHeadersHeight = "35"
-                dgvFITrackingNumber.Columns("inventoryYear").HeaderText = "EIS Year"
-                dgvFITrackingNumber.Columns("inventoryYear").DisplayIndex = 0
-                dgvFITrackingNumber.Columns("inventoryYear").Width = 75
-                dgvFITrackingNumber.Columns("FacilitySiteID").HeaderText = "AIRS #"
-                dgvFITrackingNumber.Columns("FacilitySiteID").DisplayIndex = 1
-                dgvFITrackingNumber.Columns("FacilitySiteID").Width = 100
-                dgvFITrackingNumber.Columns("strFacilitySiteName").HeaderText = "Facility Name"
-                dgvFITrackingNumber.Columns("strFacilitySiteName").DisplayIndex = 2
-                dgvFITrackingNumber.Columns("strFacilitySiteName").Width = 150
-                dgvFITrackingNumber.Columns("strPointTrackingNumber").HeaderText = "Tracking Number"
-                dgvFITrackingNumber.Columns("strPointTrackingNumber").DisplayIndex = 3
-                dgvFITrackingNumber.Columns("strPointTrackingNumber").Width = 1000
-
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-
-    Private Sub btnQACommentSearch_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnQACommentSearch.Click
-        Try
-            If txtCommentSearch.Text <> "" Then
-                SQL = "select " & _
-                "AIRBranch.EIS_QAAdmin.inventoryYear, AIRBranch.EIS_QAAdmin.FacilitySiteID, " & _
-                "strFacilitySiteName, " & _
-                "strPointTrackingNumber, strComment   " & _
-                "from AIRBranch.EIS_QAAdmin, AIRBranch.EIS_FacilitySite  " & _
-                "where AIRBranch.EIS_QAAdmin.FacilitySiteID = AIRBranch.EIS_FacilitySite.FacilitySiteID " & _
-                "and upper(strComment) like '%" & Replace(txtCommentSearch.Text.ToUpper, "'", "''") & "%' " & _
-                "and AIRBranch.EIS_QAAdmin.active = '1' "
-
-                ds = New DataSet
-                da = New OracleDataAdapter(SQL, conn)
-                If SQL <> "" Then
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
-                    End If
-                    da.Fill(ds, "QAAdmin")
-                End If
-
-                ds = New DataSet
-                da = New OracleDataAdapter(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
-                End If
-                da.Fill(ds, "QAAdmin")
-                dgvFITrackingNumber.DataSource = ds
-                dgvFITrackingNumber.DataMember = "QAAdmin"
-
-                dgvFITrackingNumber.RowHeadersVisible = False
-                dgvFITrackingNumber.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-                dgvFITrackingNumber.AllowUserToResizeColumns = True
-                dgvFITrackingNumber.AllowUserToAddRows = False
-                dgvFITrackingNumber.AllowUserToDeleteRows = False
-                dgvFITrackingNumber.AllowUserToOrderColumns = True
-                dgvFITrackingNumber.AllowUserToResizeRows = True
-                dgvFITrackingNumber.ColumnHeadersHeight = "35"
-                dgvFITrackingNumber.Columns("inventoryYear").HeaderText = "EIS Year"
-                dgvFITrackingNumber.Columns("inventoryYear").DisplayIndex = 0
-                dgvFITrackingNumber.Columns("inventoryYear").Width = 75
-                dgvFITrackingNumber.Columns("FacilitySiteID").HeaderText = "AIRS #"
-                dgvFITrackingNumber.Columns("FacilitySiteID").DisplayIndex = 1
-                dgvFITrackingNumber.Columns("FacilitySiteID").Width = 100
-                dgvFITrackingNumber.Columns("strFacilitySiteName").HeaderText = "Facility Name"
-                dgvFITrackingNumber.Columns("strFacilitySiteName").DisplayIndex = 2
-                dgvFITrackingNumber.Columns("strFacilitySiteName").Width = 150
-                dgvFITrackingNumber.Columns("strComment").HeaderText = "Comments"
-                dgvFITrackingNumber.Columns("strComment").DisplayIndex = 3
-                dgvFITrackingNumber.Columns("strComment").Width = 1000
-                dgvFITrackingNumber.Columns("strPointTrackingNumber").HeaderText = "Tracking Number"
-                dgvFITrackingNumber.Columns("strPointTrackingNumber").DisplayIndex = 4
-                dgvFITrackingNumber.Columns("strPointTrackingNumber").Width = 1000
-                'strComment
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-
-    Private Sub btnAIRSNumberSearch_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAIRSNumberSearch.Click
-        Try
-            If txtAIRSNumberSearch.Text <> "" Then
-                SQL = "select " & _
-                "AIRBranch.EIS_QAAdmin.inventoryYear, AIRBranch.EIS_QAAdmin.FacilitySiteID, " & _
-                "strFacilitySiteName, " & _
-                "strPointTrackingNumber, strComment   " & _
-                "from AIRBranch.EIS_QAAdmin, AIRBranch.EIS_FacilitySite  " & _
-                "where AIRBranch.EIS_QAAdmin.FacilitySiteID = AIRBranch.EIS_FacilitySite.FacilitySiteID " & _
-                "and upper(EIS_QAAdmin.FacilitySiteID) like '%" & Replace(txtAIRSNumberSearch.Text.ToUpper, "'", "''") & "%' " & _
-                "and AIRBranch.EIS_QAAdmin.active = '1' "
-
-                ds = New DataSet
-                da = New OracleDataAdapter(SQL, conn)
-                If SQL <> "" Then
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
-                    End If
-                    da.Fill(ds, "QAAdmin")
-                End If
-
-                ds = New DataSet
-                da = New OracleDataAdapter(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
-                End If
-                da.Fill(ds, "QAAdmin")
-                dgvFITrackingNumber.DataSource = ds
-                dgvFITrackingNumber.DataMember = "QAAdmin"
-
-                dgvFITrackingNumber.RowHeadersVisible = False
-                dgvFITrackingNumber.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-                dgvFITrackingNumber.AllowUserToResizeColumns = True
-                dgvFITrackingNumber.AllowUserToAddRows = False
-                dgvFITrackingNumber.AllowUserToDeleteRows = False
-                dgvFITrackingNumber.AllowUserToOrderColumns = True
-                dgvFITrackingNumber.AllowUserToResizeRows = True
-                dgvFITrackingNumber.ColumnHeadersHeight = "35"
-                dgvFITrackingNumber.Columns("inventoryYear").HeaderText = "EIS Year"
-                dgvFITrackingNumber.Columns("inventoryYear").DisplayIndex = 0
-                dgvFITrackingNumber.Columns("inventoryYear").Width = 75
-                dgvFITrackingNumber.Columns("FacilitySiteID").HeaderText = "AIRS #"
-                dgvFITrackingNumber.Columns("FacilitySiteID").DisplayIndex = 1
-                dgvFITrackingNumber.Columns("FacilitySiteID").Width = 100
-                dgvFITrackingNumber.Columns("strFacilitySiteName").HeaderText = "Facility Name"
-                dgvFITrackingNumber.Columns("strFacilitySiteName").DisplayIndex = 2
-                dgvFITrackingNumber.Columns("strFacilitySiteName").Width = 150
-                dgvFITrackingNumber.Columns("strComment").HeaderText = "Comments"
-                dgvFITrackingNumber.Columns("strComment").DisplayIndex = 3
-                dgvFITrackingNumber.Columns("strComment").Width = 1000
-                dgvFITrackingNumber.Columns("strPointTrackingNumber").HeaderText = "Tracking Number"
-                dgvFITrackingNumber.Columns("strPointTrackingNumber").DisplayIndex = 4
-                dgvFITrackingNumber.Columns("strPointTrackingNumber").Width = 1000
-                'strComment
-
-
-            End If
-        Catch ex As Exception
-
-        End Try
-    End Sub
-
-    Private Sub btnEISSummaryToExcel_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEISSummaryToExcel.Click
-
-    End Sub
+  
+    
 End Class

@@ -1,5 +1,5 @@
 Imports System.Data.OracleClient
-
+Imports Microsoft.Reporting.WinForms
 
 Public Class SSCPFCEWork
     Dim SQL, SQL2 As String
@@ -24,6 +24,7 @@ Public Class SSCPFCEWork
     Dim daPerformanceTest As OracleDataAdapter
     Dim dsStaff As DataSet
     Dim daStaff As OracleDataAdapter
+
 
     Private Sub SSCPFCE_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         Try
@@ -59,6 +60,7 @@ Public Class SSCPFCEWork
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
+        '   Me.rvFCE.RefreshReport()
     End Sub
 #Region "Page Load Subs"
     Sub LoadHeaderData()
@@ -1419,14 +1421,13 @@ Public Class SSCPFCEWork
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = True Then
-                    'If dr.Item("strFCEStatus") = "True" Then
-                    '    rdbFCEComplete.Checked = True
-                    '    'rdbFCEIncomplete.Checked = False
-                    'Else
-                    '    rdbFCEComplete.Checked = True
-                    '    'rdbFCEIncomplete.Checked = True
-                    'End If
-                    rdbFCEComplete.Checked = True
+                    If dr.Item("strFCEStatus") = "True" Then
+                        rdbFCEComplete.Checked = True
+                        'rdbFCEIncomplete.Checked = False
+                    Else
+                        rdbFCEComplete.Checked = True
+                        'rdbFCEIncomplete.Checked = True
+                    End If
                     If IsDBNull(dr.Item("datFCECompleted")) Then
                         DTPFCECompleteDate.Text = OracleDate
                     Else
@@ -1841,6 +1842,7 @@ Public Class SSCPFCEWork
     End Sub
 
 #End Region
+
 #Region "Functions and Subs"
     Sub SaveFCE()
         Dim temp As String = ""
@@ -2278,6 +2280,7 @@ Public Class SSCPFCEWork
 
 
 #End Region
+
     Private Sub MenuItem5_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MenuItem5.Click
         Try
             Help.ShowHelp(Label10, "https://sites.google.com/a/dnr.state.ga.us/iaip-docs/")
@@ -2286,4 +2289,46 @@ Public Class SSCPFCEWork
 
     End Sub
 
+    Private Sub btnPrintTest_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnPrintTest.Click
+        Try
+            'Dim rds As New ReportDataSource
+            'Dim dsFCEPrint_VW_FCE_ACCDATA As New DataSet
+            'Dim da As OracleDataAdapter
+
+            'SQL = "Select * from AIRBranch.VW_FCE_ACCData " & _
+            '"where AIRSNumber = '" & txtAirsNumber.Text & "' "
+
+            'da = New OracleDataAdapter(SQL, conn)
+            'If conn.State = ConnectionState.Closed Then
+            '    conn.Open()
+            'End If
+
+            'da.Fill(dsFCEPrint_VW_FCE_ACCDATA, "dsFCEPrint_VW_FCE_ACCDATA")
+            'rds = New ReportDataSource("dsFCEPrint_VW_FCE_ACCDATA", dsFCEPrint_VW_FCE_ACCDATA.Tables("dsFCEPrint_VW_FCE_ACCDATA"))
+            'rds = New ReportDataSource("FullComplianceEvaluations", dsFCEPrint_VW_FCE_ACCDATA.Tables("VW_FCE_ACCDATA"))
+            'rvFCE.LocalReport.DataSources.Clear()
+            'rvFCE.LocalReport.DataSources.Add(rds)
+            'Me.rvFCE.RefreshReport()
+
+            'dsFCEPrint_VW_FCE_ACCDATA
+
+            'SQL = "Select * from AIRBranch.VW_ATS_ComputerAsset_RP order by Tier1Name, Tier2Name, Tier3name, Tier4Name "
+            'da = New OracleDataAdapter(SQL, conn)
+            'If conn.State = ConnectionState.Closed Then
+            '    conn.Open()
+            'End If
+
+            'da.Fill(VW_ATS_COMPUTERASSETS_RP, "VW_ATS_COMPUTERASSET_RP")
+            'rds = New ReportDataSource("VW_ATS_COMPUTERASSETS_RP", VW_ATS_COMPUTERASSETS_RP.Tables("VW_ATS_COMPUTERASSET_RP"))
+            'rvAssetReports.LocalReport.DataSources.Clear()
+            'rvAssetReports.LocalReport.DataSources.Add(rds)
+
+            'Me.rvAssetReports.RefreshReport()
+
+
+
+        Catch ex As Exception
+
+        End Try
+    End Sub
 End Class

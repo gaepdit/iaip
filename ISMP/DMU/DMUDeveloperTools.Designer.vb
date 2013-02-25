@@ -36,30 +36,40 @@ Partial Class DMUDeveloperTools
         Me.bgwTransfer = New System.ComponentModel.BackgroundWorker
         Me.Image_List_All = New System.Windows.Forms.ImageList(Me.components)
         Me.TCDMUTools = New System.Windows.Forms.TabControl
-        Me.TPWebErrorLog = New System.Windows.Forms.TabPage
-        Me.GroupBox4 = New System.Windows.Forms.GroupBox
-        Me.Panel5 = New System.Windows.Forms.Panel
-        Me.Label95 = New System.Windows.Forms.Label
-        Me.Label96 = New System.Windows.Forms.Label
-        Me.txtWebErrorNumber = New System.Windows.Forms.TextBox
-        Me.txtIPAddress = New System.Windows.Forms.TextBox
-        Me.btnSaveWebErrorSolution = New System.Windows.Forms.Button
-        Me.txtWebErrorCount = New System.Windows.Forms.TextBox
-        Me.Label91 = New System.Windows.Forms.Label
-        Me.btnFilterWebErrors = New System.Windows.Forms.Button
-        Me.Label90 = New System.Windows.Forms.Label
-        Me.rdbResolvedWebErrors = New System.Windows.Forms.RadioButton
-        Me.Label88 = New System.Windows.Forms.Label
-        Me.rdbUnresolvedWebErrors = New System.Windows.Forms.RadioButton
-        Me.Label71 = New System.Windows.Forms.Label
-        Me.rdbAllWebErrors = New System.Windows.Forms.RadioButton
-        Me.Label1 = New System.Windows.Forms.Label
-        Me.txtWebErrorSolution = New System.Windows.Forms.TextBox
-        Me.txtWebErrorUser = New System.Windows.Forms.TextBox
-        Me.txtWebErrorMessage = New System.Windows.Forms.TextBox
-        Me.txtWebErrorLocation = New System.Windows.Forms.TextBox
-        Me.txtWebErrorDate = New System.Windows.Forms.TextBox
-        Me.dgrWebErrorList = New System.Windows.Forms.DataGrid
+        Me.TPAFSFileGenerator = New System.Windows.Forms.TabPage
+        Me.txtAFSBatchFile = New System.Windows.Forms.TextBox
+        Me.PanelBatchOrder = New System.Windows.Forms.Panel
+        Me.pnlBasicRefresh = New System.Windows.Forms.Panel
+        Me.btnForceBasicRefresh = New System.Windows.Forms.Button
+        Me.Label11 = New System.Windows.Forms.Label
+        Me.pnlSubParts = New System.Windows.Forms.Panel
+        Me.btnUpdateAllSubParts = New System.Windows.Forms.Button
+        Me.Label6 = New System.Windows.Forms.Label
+        Me.pnlAIRSSpecific = New System.Windows.Forms.Panel
+        Me.btnAIRSSpecificRefresh = New System.Windows.Forms.Button
+        Me.mtbAFSAirsNumber = New System.Windows.Forms.MaskedTextBox
+        Me.Label12 = New System.Windows.Forms.Label
+        Me.pnlStandardFile = New System.Windows.Forms.Panel
+        Me.btnGenerateBatchFile = New System.Windows.Forms.Button
+        Me.Label55 = New System.Windows.Forms.Label
+        Me.Label3 = New System.Windows.Forms.Label
+        Me.Label41 = New System.Windows.Forms.Label
+        Me.Label2 = New System.Windows.Forms.Label
+        Me.Label59 = New System.Windows.Forms.Label
+        Me.Label58 = New System.Windows.Forms.Label
+        Me.Label38 = New System.Windows.Forms.Label
+        Me.Label29 = New System.Windows.Forms.Label
+        Me.Panel8 = New System.Windows.Forms.Panel
+        Me.rdbBasicData = New System.Windows.Forms.RadioButton
+        Me.rdbUpdateAllSubparts = New System.Windows.Forms.RadioButton
+        Me.rdbAIRSSpecific = New System.Windows.Forms.RadioButton
+        Me.rdbGenerateStandardFile = New System.Windows.Forms.RadioButton
+        Me.btnClearAFSFileGenerator = New System.Windows.Forms.Button
+        Me.TPATSTool = New System.Windows.Forms.TabPage
+        Me.Button1 = New System.Windows.Forms.Button
+        Me.btnPopulatePrinterAssets = New System.Windows.Forms.Button
+        Me.btnFillComputerAssets = New System.Windows.Forms.Button
+        Me.btnPopulateStaffList = New System.Windows.Forms.Button
         Me.TPErrorLog = New System.Windows.Forms.TabPage
         Me.GroupBox3 = New System.Windows.Forms.GroupBox
         Me.Panel4 = New System.Windows.Forms.Panel
@@ -87,103 +97,30 @@ Partial Class DMUDeveloperTools
         Me.txtErrorUser = New System.Windows.Forms.TextBox
         Me.txtErrorLocation = New System.Windows.Forms.TextBox
         Me.dgvErrorList = New System.Windows.Forms.DataGridView
-        Me.TPAddNewFacility = New System.Windows.Forms.TabPage
-        Me.txtApplicationNumber = New System.Windows.Forms.TextBox
-        Me.btnPreLoadNewFacility = New System.Windows.Forms.Button
-        Me.btnDeleteAIRSNumber = New System.Windows.Forms.Button
-        Me.txtDeleteAIRSNumber = New System.Windows.Forms.TextBox
-        Me.btnClearAddNewFacility = New System.Windows.Forms.Button
-        Me.GBContactInformation = New System.Windows.Forms.GroupBox
-        Me.mtbContactNumberExtension = New System.Windows.Forms.MaskedTextBox
-        Me.txtContactPedigree = New System.Windows.Forms.TextBox
-        Me.txtContactSocialTitle = New System.Windows.Forms.TextBox
-        Me.Label33 = New System.Windows.Forms.Label
-        Me.Label34 = New System.Windows.Forms.Label
-        Me.txtContactLastName = New System.Windows.Forms.TextBox
-        Me.Label35 = New System.Windows.Forms.Label
-        Me.txtContactFirstName = New System.Windows.Forms.TextBox
-        Me.Label36 = New System.Windows.Forms.Label
-        Me.mtbContactPhoneNumber = New System.Windows.Forms.MaskedTextBox
-        Me.Label23 = New System.Windows.Forms.Label
-        Me.Label22 = New System.Windows.Forms.Label
-        Me.Label30 = New System.Windows.Forms.Label
-        Me.txtContactTitle = New System.Windows.Forms.TextBox
-        Me.GBAirProgramCodes = New System.Windows.Forms.GroupBox
-        Me.chbCDS_14 = New System.Windows.Forms.CheckBox
-        Me.chbCDS_7 = New System.Windows.Forms.CheckBox
-        Me.chbCDS_4 = New System.Windows.Forms.CheckBox
-        Me.chbCDS_13 = New System.Windows.Forms.CheckBox
-        Me.chbCDS_3 = New System.Windows.Forms.CheckBox
-        Me.chbCDS_12 = New System.Windows.Forms.CheckBox
-        Me.chbCDS_9 = New System.Windows.Forms.CheckBox
-        Me.chbCDS_10 = New System.Windows.Forms.CheckBox
-        Me.chbCDS_2 = New System.Windows.Forms.CheckBox
-        Me.chbCDS_6 = New System.Windows.Forms.CheckBox
-        Me.chbCDS_1 = New System.Windows.Forms.CheckBox
-        Me.chbCDS_5 = New System.Windows.Forms.CheckBox
-        Me.chbCDS_11 = New System.Windows.Forms.CheckBox
-        Me.chbCDS_8 = New System.Windows.Forms.CheckBox
-        Me.Label37 = New System.Windows.Forms.Label
-        Me.GBHeaderData = New System.Windows.Forms.GroupBox
-        Me.mtbCDSSICCode = New System.Windows.Forms.MaskedTextBox
-        Me.txtCDSRegionCode = New System.Windows.Forms.TextBox
-        Me.Label21 = New System.Windows.Forms.Label
-        Me.cboCDSOperationalStatus = New System.Windows.Forms.ComboBox
-        Me.Label51 = New System.Windows.Forms.Label
-        Me.cboCDSClassCode = New System.Windows.Forms.ComboBox
-        Me.Label49 = New System.Windows.Forms.Label
-        Me.Label42 = New System.Windows.Forms.Label
-        Me.Label63 = New System.Windows.Forms.Label
-        Me.txtFacilityDescription = New System.Windows.Forms.TextBox
-        Me.GBMailingLocation = New System.Windows.Forms.GroupBox
-        Me.mtbMailingZipCode = New System.Windows.Forms.MaskedTextBox
-        Me.txtMailingState = New System.Windows.Forms.TextBox
-        Me.Label18 = New System.Windows.Forms.Label
-        Me.Label19 = New System.Windows.Forms.Label
-        Me.Label20 = New System.Windows.Forms.Label
-        Me.txtMailingCity = New System.Windows.Forms.TextBox
-        Me.Label24 = New System.Windows.Forms.Label
-        Me.txtMailingAddress = New System.Windows.Forms.TextBox
-        Me.GBFacilityInformation = New System.Windows.Forms.GroupBox
-        Me.mtbFacilityLongitude = New System.Windows.Forms.MaskedTextBox
-        Me.mtbFacilityLatitude = New System.Windows.Forms.MaskedTextBox
-        Me.mtbCDSZipCode = New System.Windows.Forms.MaskedTextBox
-        Me.Label103 = New System.Windows.Forms.Label
-        Me.Label102 = New System.Windows.Forms.Label
-        Me.txtCDSStreetAddress = New System.Windows.Forms.TextBox
-        Me.Label5 = New System.Windows.Forms.Label
-        Me.Label9 = New System.Windows.Forms.Label
-        Me.txtCDSFacilityName = New System.Windows.Forms.TextBox
-        Me.Label7 = New System.Windows.Forms.Label
-        Me.txtCDSCity = New System.Windows.Forms.TextBox
-        Me.Label8 = New System.Windows.Forms.Label
-        Me.Label10 = New System.Windows.Forms.Label
-        Me.txtCDSState = New System.Windows.Forms.TextBox
-        Me.Label27 = New System.Windows.Forms.Label
-        Me.Label28 = New System.Windows.Forms.Label
-        Me.llbContactInformation = New System.Windows.Forms.LinkLabel
-        Me.llbAirProgramCodes = New System.Windows.Forms.LinkLabel
-        Me.llbHeaderData = New System.Windows.Forms.LinkLabel
-        Me.llbMailingLocation = New System.Windows.Forms.LinkLabel
-        Me.llbFacilityInformation = New System.Windows.Forms.LinkLabel
-        Me.btnNewFacility = New System.Windows.Forms.Button
-        Me.Label4 = New System.Windows.Forms.Label
-        Me.txtCDSAIRSNumber = New System.Windows.Forms.TextBox
-        Me.TPAFSFileGenerator = New System.Windows.Forms.TabPage
-        Me.txtAFSBatchFile = New System.Windows.Forms.TextBox
-        Me.PanelBatchOrder = New System.Windows.Forms.Panel
-        Me.btnUpdateAllSubParts = New System.Windows.Forms.Button
-        Me.btnForceBasicRefresh = New System.Windows.Forms.Button
-        Me.btnClearAFSFileGenerator = New System.Windows.Forms.Button
-        Me.Label29 = New System.Windows.Forms.Label
-        Me.Label38 = New System.Windows.Forms.Label
-        Me.Label58 = New System.Windows.Forms.Label
-        Me.Label59 = New System.Windows.Forms.Label
-        Me.btnGenerateBatchFile = New System.Windows.Forms.Button
-        Me.Label2 = New System.Windows.Forms.Label
-        Me.Label41 = New System.Windows.Forms.Label
-        Me.Label3 = New System.Windows.Forms.Label
-        Me.Label55 = New System.Windows.Forms.Label
+        Me.TPWebErrorLog = New System.Windows.Forms.TabPage
+        Me.GroupBox4 = New System.Windows.Forms.GroupBox
+        Me.Panel5 = New System.Windows.Forms.Panel
+        Me.Label95 = New System.Windows.Forms.Label
+        Me.Label96 = New System.Windows.Forms.Label
+        Me.txtWebErrorNumber = New System.Windows.Forms.TextBox
+        Me.txtIPAddress = New System.Windows.Forms.TextBox
+        Me.btnSaveWebErrorSolution = New System.Windows.Forms.Button
+        Me.txtWebErrorCount = New System.Windows.Forms.TextBox
+        Me.Label91 = New System.Windows.Forms.Label
+        Me.btnFilterWebErrors = New System.Windows.Forms.Button
+        Me.Label90 = New System.Windows.Forms.Label
+        Me.rdbResolvedWebErrors = New System.Windows.Forms.RadioButton
+        Me.Label88 = New System.Windows.Forms.Label
+        Me.rdbUnresolvedWebErrors = New System.Windows.Forms.RadioButton
+        Me.Label71 = New System.Windows.Forms.Label
+        Me.rdbAllWebErrors = New System.Windows.Forms.RadioButton
+        Me.Label1 = New System.Windows.Forms.Label
+        Me.txtWebErrorSolution = New System.Windows.Forms.TextBox
+        Me.txtWebErrorUser = New System.Windows.Forms.TextBox
+        Me.txtWebErrorMessage = New System.Windows.Forms.TextBox
+        Me.txtWebErrorLocation = New System.Windows.Forms.TextBox
+        Me.txtWebErrorDate = New System.Windows.Forms.TextBox
+        Me.dgrWebErrorList = New System.Windows.Forms.DataGrid
         Me.TPUpdateDEVTest = New System.Windows.Forms.TabPage
         Me.TCTables = New System.Windows.Forms.TabControl
         Me.TPAllTables = New System.Windows.Forms.TabPage
@@ -333,27 +270,109 @@ Partial Class DMUDeveloperTools
         Me.Panel20 = New System.Windows.Forms.Panel
         Me.rdbTESTTransfer = New System.Windows.Forms.RadioButton
         Me.rdbDEVTransfer = New System.Windows.Forms.RadioButton
+        Me.TPAddNewFacility = New System.Windows.Forms.TabPage
+        Me.txtApplicationNumber = New System.Windows.Forms.TextBox
+        Me.btnPreLoadNewFacility = New System.Windows.Forms.Button
+        Me.btnDeleteAIRSNumber = New System.Windows.Forms.Button
+        Me.txtDeleteAIRSNumber = New System.Windows.Forms.TextBox
+        Me.btnClearAddNewFacility = New System.Windows.Forms.Button
+        Me.GBContactInformation = New System.Windows.Forms.GroupBox
+        Me.mtbContactNumberExtension = New System.Windows.Forms.MaskedTextBox
+        Me.txtContactPedigree = New System.Windows.Forms.TextBox
+        Me.txtContactSocialTitle = New System.Windows.Forms.TextBox
+        Me.Label33 = New System.Windows.Forms.Label
+        Me.Label34 = New System.Windows.Forms.Label
+        Me.txtContactLastName = New System.Windows.Forms.TextBox
+        Me.Label35 = New System.Windows.Forms.Label
+        Me.txtContactFirstName = New System.Windows.Forms.TextBox
+        Me.Label36 = New System.Windows.Forms.Label
+        Me.mtbContactPhoneNumber = New System.Windows.Forms.MaskedTextBox
+        Me.Label23 = New System.Windows.Forms.Label
+        Me.Label22 = New System.Windows.Forms.Label
+        Me.Label30 = New System.Windows.Forms.Label
+        Me.txtContactTitle = New System.Windows.Forms.TextBox
+        Me.GBAirProgramCodes = New System.Windows.Forms.GroupBox
+        Me.chbCDS_14 = New System.Windows.Forms.CheckBox
+        Me.chbCDS_7 = New System.Windows.Forms.CheckBox
+        Me.chbCDS_4 = New System.Windows.Forms.CheckBox
+        Me.chbCDS_13 = New System.Windows.Forms.CheckBox
+        Me.chbCDS_3 = New System.Windows.Forms.CheckBox
+        Me.chbCDS_12 = New System.Windows.Forms.CheckBox
+        Me.chbCDS_9 = New System.Windows.Forms.CheckBox
+        Me.chbCDS_10 = New System.Windows.Forms.CheckBox
+        Me.chbCDS_2 = New System.Windows.Forms.CheckBox
+        Me.chbCDS_6 = New System.Windows.Forms.CheckBox
+        Me.chbCDS_1 = New System.Windows.Forms.CheckBox
+        Me.chbCDS_5 = New System.Windows.Forms.CheckBox
+        Me.chbCDS_11 = New System.Windows.Forms.CheckBox
+        Me.chbCDS_8 = New System.Windows.Forms.CheckBox
+        Me.Label37 = New System.Windows.Forms.Label
+        Me.GBHeaderData = New System.Windows.Forms.GroupBox
+        Me.mtbCDSSICCode = New System.Windows.Forms.MaskedTextBox
+        Me.txtCDSRegionCode = New System.Windows.Forms.TextBox
+        Me.Label21 = New System.Windows.Forms.Label
+        Me.cboCDSOperationalStatus = New System.Windows.Forms.ComboBox
+        Me.Label51 = New System.Windows.Forms.Label
+        Me.cboCDSClassCode = New System.Windows.Forms.ComboBox
+        Me.Label49 = New System.Windows.Forms.Label
+        Me.Label42 = New System.Windows.Forms.Label
+        Me.Label63 = New System.Windows.Forms.Label
+        Me.txtFacilityDescription = New System.Windows.Forms.TextBox
+        Me.GBMailingLocation = New System.Windows.Forms.GroupBox
+        Me.mtbMailingZipCode = New System.Windows.Forms.MaskedTextBox
+        Me.txtMailingState = New System.Windows.Forms.TextBox
+        Me.Label18 = New System.Windows.Forms.Label
+        Me.Label19 = New System.Windows.Forms.Label
+        Me.Label20 = New System.Windows.Forms.Label
+        Me.txtMailingCity = New System.Windows.Forms.TextBox
+        Me.Label24 = New System.Windows.Forms.Label
+        Me.txtMailingAddress = New System.Windows.Forms.TextBox
+        Me.GBFacilityInformation = New System.Windows.Forms.GroupBox
+        Me.mtbFacilityLongitude = New System.Windows.Forms.MaskedTextBox
+        Me.mtbFacilityLatitude = New System.Windows.Forms.MaskedTextBox
+        Me.mtbCDSZipCode = New System.Windows.Forms.MaskedTextBox
+        Me.Label103 = New System.Windows.Forms.Label
+        Me.Label102 = New System.Windows.Forms.Label
+        Me.txtCDSStreetAddress = New System.Windows.Forms.TextBox
+        Me.Label5 = New System.Windows.Forms.Label
+        Me.Label9 = New System.Windows.Forms.Label
+        Me.txtCDSFacilityName = New System.Windows.Forms.TextBox
+        Me.Label7 = New System.Windows.Forms.Label
+        Me.txtCDSCity = New System.Windows.Forms.TextBox
+        Me.Label8 = New System.Windows.Forms.Label
+        Me.Label10 = New System.Windows.Forms.Label
+        Me.txtCDSState = New System.Windows.Forms.TextBox
+        Me.Label27 = New System.Windows.Forms.Label
+        Me.Label28 = New System.Windows.Forms.Label
+        Me.llbContactInformation = New System.Windows.Forms.LinkLabel
+        Me.llbAirProgramCodes = New System.Windows.Forms.LinkLabel
+        Me.llbHeaderData = New System.Windows.Forms.LinkLabel
+        Me.llbMailingLocation = New System.Windows.Forms.LinkLabel
+        Me.llbFacilityInformation = New System.Windows.Forms.LinkLabel
+        Me.btnNewFacility = New System.Windows.Forms.Button
+        Me.Label4 = New System.Windows.Forms.Label
+        Me.txtCDSAIRSNumber = New System.Windows.Forms.TextBox
         Me.TSDMUStaffTools = New System.Windows.Forms.ToolStrip
         Me.tsbBack = New System.Windows.Forms.ToolStripButton
         Me.StatusStrip1.SuspendLayout()
         Me.TCDMUTools.SuspendLayout()
-        Me.TPWebErrorLog.SuspendLayout()
-        Me.GroupBox4.SuspendLayout()
-        Me.Panel5.SuspendLayout()
-        CType(Me.dgrWebErrorList, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.TPAFSFileGenerator.SuspendLayout()
+        Me.PanelBatchOrder.SuspendLayout()
+        Me.pnlBasicRefresh.SuspendLayout()
+        Me.pnlSubParts.SuspendLayout()
+        Me.pnlAIRSSpecific.SuspendLayout()
+        Me.pnlStandardFile.SuspendLayout()
+        Me.Panel8.SuspendLayout()
+        Me.TPATSTool.SuspendLayout()
         Me.TPErrorLog.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
         Me.Panel4.SuspendLayout()
         Me.Panel6.SuspendLayout()
         CType(Me.dgvErrorList, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.TPAddNewFacility.SuspendLayout()
-        Me.GBContactInformation.SuspendLayout()
-        Me.GBAirProgramCodes.SuspendLayout()
-        Me.GBHeaderData.SuspendLayout()
-        Me.GBMailingLocation.SuspendLayout()
-        Me.GBFacilityInformation.SuspendLayout()
-        Me.TPAFSFileGenerator.SuspendLayout()
-        Me.PanelBatchOrder.SuspendLayout()
+        Me.TPWebErrorLog.SuspendLayout()
+        Me.GroupBox4.SuspendLayout()
+        Me.Panel5.SuspendLayout()
+        CType(Me.dgrWebErrorList, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TPUpdateDEVTest.SuspendLayout()
         Me.TCTables.SuspendLayout()
         Me.TPAllTables.SuspendLayout()
@@ -368,6 +387,12 @@ Partial Class DMUDeveloperTools
         Me.Panel19.SuspendLayout()
         Me.PanelSources.SuspendLayout()
         Me.Panel20.SuspendLayout()
+        Me.TPAddNewFacility.SuspendLayout()
+        Me.GBContactInformation.SuspendLayout()
+        Me.GBAirProgramCodes.SuspendLayout()
+        Me.GBHeaderData.SuspendLayout()
+        Me.GBMailingLocation.SuspendLayout()
+        Me.GBFacilityInformation.SuspendLayout()
         Me.TSDMUStaffTools.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -529,11 +554,12 @@ Partial Class DMUDeveloperTools
         '
         'TCDMUTools
         '
-        Me.TCDMUTools.Controls.Add(Me.TPWebErrorLog)
-        Me.TCDMUTools.Controls.Add(Me.TPErrorLog)
-        Me.TCDMUTools.Controls.Add(Me.TPAddNewFacility)
         Me.TCDMUTools.Controls.Add(Me.TPAFSFileGenerator)
+        Me.TCDMUTools.Controls.Add(Me.TPATSTool)
+        Me.TCDMUTools.Controls.Add(Me.TPErrorLog)
+        Me.TCDMUTools.Controls.Add(Me.TPWebErrorLog)
         Me.TCDMUTools.Controls.Add(Me.TPUpdateDEVTest)
+        Me.TCDMUTools.Controls.Add(Me.TPAddNewFacility)
         Me.TCDMUTools.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TCDMUTools.Location = New System.Drawing.Point(0, 25)
         Me.TCDMUTools.Name = "TCDMUTools"
@@ -541,242 +567,358 @@ Partial Class DMUDeveloperTools
         Me.TCDMUTools.Size = New System.Drawing.Size(792, 640)
         Me.TCDMUTools.TabIndex = 256
         '
-        'TPWebErrorLog
+        'TPAFSFileGenerator
         '
-        Me.TPWebErrorLog.Controls.Add(Me.GroupBox4)
-        Me.TPWebErrorLog.Controls.Add(Me.dgrWebErrorList)
-        Me.TPWebErrorLog.Location = New System.Drawing.Point(4, 22)
-        Me.TPWebErrorLog.Name = "TPWebErrorLog"
-        Me.TPWebErrorLog.Size = New System.Drawing.Size(784, 614)
-        Me.TPWebErrorLog.TabIndex = 8
-        Me.TPWebErrorLog.Text = "Web Site Error Log"
-        Me.TPWebErrorLog.UseVisualStyleBackColor = True
+        Me.TPAFSFileGenerator.Controls.Add(Me.txtAFSBatchFile)
+        Me.TPAFSFileGenerator.Controls.Add(Me.PanelBatchOrder)
+        Me.TPAFSFileGenerator.Location = New System.Drawing.Point(4, 22)
+        Me.TPAFSFileGenerator.Name = "TPAFSFileGenerator"
+        Me.TPAFSFileGenerator.Size = New System.Drawing.Size(784, 614)
+        Me.TPAFSFileGenerator.TabIndex = 1
+        Me.TPAFSFileGenerator.Text = "AFS File Generator"
+        Me.TPAFSFileGenerator.UseVisualStyleBackColor = True
         '
-        'GroupBox4
+        'txtAFSBatchFile
         '
-        Me.GroupBox4.Controls.Add(Me.Panel5)
-        Me.GroupBox4.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.GroupBox4.Location = New System.Drawing.Point(0, 241)
-        Me.GroupBox4.Name = "GroupBox4"
-        Me.GroupBox4.Size = New System.Drawing.Size(784, 373)
-        Me.GroupBox4.TabIndex = 3
-        Me.GroupBox4.TabStop = False
-        Me.GroupBox4.Text = "Web Error Log"
+        Me.txtAFSBatchFile.AcceptsReturn = True
+        Me.txtAFSBatchFile.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.txtAFSBatchFile.Location = New System.Drawing.Point(0, 257)
+        Me.txtAFSBatchFile.Multiline = True
+        Me.txtAFSBatchFile.Name = "txtAFSBatchFile"
+        Me.txtAFSBatchFile.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
+        Me.txtAFSBatchFile.Size = New System.Drawing.Size(784, 357)
+        Me.txtAFSBatchFile.TabIndex = 11
         '
-        'Panel5
+        'PanelBatchOrder
         '
-        Me.Panel5.AutoScroll = True
-        Me.Panel5.Controls.Add(Me.Label95)
-        Me.Panel5.Controls.Add(Me.Label96)
-        Me.Panel5.Controls.Add(Me.txtWebErrorNumber)
-        Me.Panel5.Controls.Add(Me.txtIPAddress)
-        Me.Panel5.Controls.Add(Me.btnSaveWebErrorSolution)
-        Me.Panel5.Controls.Add(Me.txtWebErrorCount)
-        Me.Panel5.Controls.Add(Me.Label91)
-        Me.Panel5.Controls.Add(Me.btnFilterWebErrors)
-        Me.Panel5.Controls.Add(Me.Label90)
-        Me.Panel5.Controls.Add(Me.rdbResolvedWebErrors)
-        Me.Panel5.Controls.Add(Me.Label88)
-        Me.Panel5.Controls.Add(Me.rdbUnresolvedWebErrors)
-        Me.Panel5.Controls.Add(Me.Label71)
-        Me.Panel5.Controls.Add(Me.rdbAllWebErrors)
-        Me.Panel5.Controls.Add(Me.Label1)
-        Me.Panel5.Controls.Add(Me.txtWebErrorSolution)
-        Me.Panel5.Controls.Add(Me.txtWebErrorUser)
-        Me.Panel5.Controls.Add(Me.txtWebErrorMessage)
-        Me.Panel5.Controls.Add(Me.txtWebErrorLocation)
-        Me.Panel5.Controls.Add(Me.txtWebErrorDate)
-        Me.Panel5.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Panel5.Location = New System.Drawing.Point(3, 16)
-        Me.Panel5.Name = "Panel5"
-        Me.Panel5.Size = New System.Drawing.Size(778, 354)
-        Me.Panel5.TabIndex = 20
+        Me.PanelBatchOrder.Controls.Add(Me.pnlBasicRefresh)
+        Me.PanelBatchOrder.Controls.Add(Me.pnlSubParts)
+        Me.PanelBatchOrder.Controls.Add(Me.pnlAIRSSpecific)
+        Me.PanelBatchOrder.Controls.Add(Me.pnlStandardFile)
+        Me.PanelBatchOrder.Controls.Add(Me.Panel8)
+        Me.PanelBatchOrder.Dock = System.Windows.Forms.DockStyle.Top
+        Me.PanelBatchOrder.Location = New System.Drawing.Point(0, 0)
+        Me.PanelBatchOrder.Name = "PanelBatchOrder"
+        Me.PanelBatchOrder.Size = New System.Drawing.Size(784, 257)
+        Me.PanelBatchOrder.TabIndex = 10
         '
-        'Label95
+        'pnlBasicRefresh
         '
-        Me.Label95.AutoSize = True
-        Me.Label95.Location = New System.Drawing.Point(8, 11)
-        Me.Label95.Name = "Label95"
-        Me.Label95.Size = New System.Drawing.Size(69, 13)
-        Me.Label95.TabIndex = 0
-        Me.Label95.Text = "Error Number"
+        Me.pnlBasicRefresh.Controls.Add(Me.btnForceBasicRefresh)
+        Me.pnlBasicRefresh.Controls.Add(Me.Label11)
+        Me.pnlBasicRefresh.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.pnlBasicRefresh.Enabled = False
+        Me.pnlBasicRefresh.Location = New System.Drawing.Point(296, 160)
+        Me.pnlBasicRefresh.Name = "pnlBasicRefresh"
+        Me.pnlBasicRefresh.Size = New System.Drawing.Size(488, 97)
+        Me.pnlBasicRefresh.TabIndex = 21
         '
-        'Label96
+        'btnForceBasicRefresh
         '
-        Me.Label96.AutoSize = True
-        Me.Label96.Location = New System.Drawing.Point(368, 11)
-        Me.Label96.Name = "Label96"
-        Me.Label96.Size = New System.Drawing.Size(58, 13)
-        Me.Label96.TabIndex = 19
-        Me.Label96.Text = "IP Address"
+        Me.btnForceBasicRefresh.AutoSize = True
+        Me.btnForceBasicRefresh.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.btnForceBasicRefresh.Location = New System.Drawing.Point(3, 8)
+        Me.btnForceBasicRefresh.Name = "btnForceBasicRefresh"
+        Me.btnForceBasicRefresh.Size = New System.Drawing.Size(113, 23)
+        Me.btnForceBasicRefresh.TabIndex = 10
+        Me.btnForceBasicRefresh.Text = "Force Basic Refresh"
         '
-        'txtWebErrorNumber
+        'Label11
         '
-        Me.txtWebErrorNumber.Location = New System.Drawing.Point(88, 9)
-        Me.txtWebErrorNumber.Name = "txtWebErrorNumber"
-        Me.txtWebErrorNumber.ReadOnly = True
-        Me.txtWebErrorNumber.Size = New System.Drawing.Size(60, 20)
-        Me.txtWebErrorNumber.TabIndex = 1
+        Me.Label11.AutoSize = True
+        Me.Label11.Location = New System.Drawing.Point(10, 34)
+        Me.Label11.Name = "Label11"
+        Me.Label11.Size = New System.Drawing.Size(175, 13)
+        Me.Label11.TabIndex = 13
+        Me.Label11.Text = "This will force an add of all facilities."
         '
-        'txtIPAddress
+        'pnlSubParts
         '
-        Me.txtIPAddress.Location = New System.Drawing.Point(441, 9)
-        Me.txtIPAddress.Name = "txtIPAddress"
-        Me.txtIPAddress.ReadOnly = True
-        Me.txtIPAddress.Size = New System.Drawing.Size(140, 20)
-        Me.txtIPAddress.TabIndex = 18
+        Me.pnlSubParts.Controls.Add(Me.btnUpdateAllSubParts)
+        Me.pnlSubParts.Controls.Add(Me.Label6)
+        Me.pnlSubParts.Dock = System.Windows.Forms.DockStyle.Top
+        Me.pnlSubParts.Enabled = False
+        Me.pnlSubParts.Location = New System.Drawing.Point(296, 98)
+        Me.pnlSubParts.Name = "pnlSubParts"
+        Me.pnlSubParts.Size = New System.Drawing.Size(488, 62)
+        Me.pnlSubParts.TabIndex = 20
         '
-        'btnSaveWebErrorSolution
+        'btnUpdateAllSubParts
         '
-        Me.btnSaveWebErrorSolution.Location = New System.Drawing.Point(8, 191)
-        Me.btnSaveWebErrorSolution.Name = "btnSaveWebErrorSolution"
-        Me.btnSaveWebErrorSolution.Size = New System.Drawing.Size(62, 20)
-        Me.btnSaveWebErrorSolution.TabIndex = 2
-        Me.btnSaveWebErrorSolution.Text = "Save"
+        Me.btnUpdateAllSubParts.AutoSize = True
+        Me.btnUpdateAllSubParts.Location = New System.Drawing.Point(3, 5)
+        Me.btnUpdateAllSubParts.Name = "btnUpdateAllSubParts"
+        Me.btnUpdateAllSubParts.Size = New System.Drawing.Size(112, 23)
+        Me.btnUpdateAllSubParts.TabIndex = 11
+        Me.btnUpdateAllSubParts.Text = "Update All SubParts"
+        Me.btnUpdateAllSubParts.UseVisualStyleBackColor = True
         '
-        'txtWebErrorCount
+        'Label6
         '
-        Me.txtWebErrorCount.Location = New System.Drawing.Point(614, 7)
-        Me.txtWebErrorCount.Name = "txtWebErrorCount"
-        Me.txtWebErrorCount.ReadOnly = True
-        Me.txtWebErrorCount.Size = New System.Drawing.Size(34, 20)
-        Me.txtWebErrorCount.TabIndex = 17
-        Me.txtWebErrorCount.Text = "0"
+        Me.Label6.AutoSize = True
+        Me.Label6.Location = New System.Drawing.Point(10, 31)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(252, 13)
+        Me.Label6.TabIndex = 12
+        Me.Label6.Text = "This will add and update all SubParts for all Facilities"
         '
-        'Label91
+        'pnlAIRSSpecific
         '
-        Me.Label91.AutoSize = True
-        Me.Label91.Location = New System.Drawing.Point(168, 11)
-        Me.Label91.Name = "Label91"
-        Me.Label91.Size = New System.Drawing.Size(29, 13)
-        Me.Label91.TabIndex = 3
-        Me.Label91.Text = "User"
+        Me.pnlAIRSSpecific.Controls.Add(Me.btnAIRSSpecificRefresh)
+        Me.pnlAIRSSpecific.Controls.Add(Me.mtbAFSAirsNumber)
+        Me.pnlAIRSSpecific.Controls.Add(Me.Label12)
+        Me.pnlAIRSSpecific.Dock = System.Windows.Forms.DockStyle.Top
+        Me.pnlAIRSSpecific.Enabled = False
+        Me.pnlAIRSSpecific.Location = New System.Drawing.Point(296, 40)
+        Me.pnlAIRSSpecific.Name = "pnlAIRSSpecific"
+        Me.pnlAIRSSpecific.Size = New System.Drawing.Size(488, 58)
+        Me.pnlAIRSSpecific.TabIndex = 19
         '
-        'btnFilterWebErrors
+        'btnAIRSSpecificRefresh
         '
-        Me.btnFilterWebErrors.Location = New System.Drawing.Point(154, 240)
-        Me.btnFilterWebErrors.Name = "btnFilterWebErrors"
-        Me.btnFilterWebErrors.Size = New System.Drawing.Size(63, 20)
-        Me.btnFilterWebErrors.TabIndex = 16
-        Me.btnFilterWebErrors.Text = "Filter"
+        Me.btnAIRSSpecificRefresh.AutoSize = True
+        Me.btnAIRSSpecificRefresh.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.btnAIRSSpecificRefresh.Enabled = False
+        Me.btnAIRSSpecificRefresh.Location = New System.Drawing.Point(83, 7)
+        Me.btnAIRSSpecificRefresh.Name = "btnAIRSSpecificRefresh"
+        Me.btnAIRSSpecificRefresh.Size = New System.Drawing.Size(123, 23)
+        Me.btnAIRSSpecificRefresh.TabIndex = 15
+        Me.btnAIRSSpecificRefresh.Text = "AIRS Specific Refresh"
         '
-        'Label90
+        'mtbAFSAirsNumber
         '
-        Me.Label90.AutoSize = True
-        Me.Label90.Location = New System.Drawing.Point(8, 33)
-        Me.Label90.Name = "Label90"
-        Me.Label90.Size = New System.Drawing.Size(76, 13)
-        Me.Label90.TabIndex = 4
-        Me.Label90.Text = "Error Location "
+        Me.mtbAFSAirsNumber.Location = New System.Drawing.Point(7, 9)
+        Me.mtbAFSAirsNumber.Mask = "000-00000"
+        Me.mtbAFSAirsNumber.Name = "mtbAFSAirsNumber"
+        Me.mtbAFSAirsNumber.Size = New System.Drawing.Size(70, 20)
+        Me.mtbAFSAirsNumber.TabIndex = 14
+        Me.mtbAFSAirsNumber.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals
         '
-        'rdbResolvedWebErrors
+        'Label12
         '
-        Me.rdbResolvedWebErrors.AutoSize = True
-        Me.rdbResolvedWebErrors.Location = New System.Drawing.Point(14, 281)
-        Me.rdbResolvedWebErrors.Name = "rdbResolvedWebErrors"
-        Me.rdbResolvedWebErrors.Size = New System.Drawing.Size(121, 17)
-        Me.rdbResolvedWebErrors.TabIndex = 15
-        Me.rdbResolvedWebErrors.Text = "View Resolved Error"
+        Me.Label12.AutoSize = True
+        Me.Label12.Location = New System.Drawing.Point(9, 33)
+        Me.Label12.Name = "Label12"
+        Me.Label12.Size = New System.Drawing.Size(254, 13)
+        Me.Label12.TabIndex = 16
+        Me.Label12.Text = "This will add and update all of a Facilities Information"
         '
-        'Label88
+        'pnlStandardFile
         '
-        Me.Label88.AutoSize = True
-        Me.Label88.Location = New System.Drawing.Point(8, 59)
-        Me.Label88.Name = "Label88"
-        Me.Label88.Size = New System.Drawing.Size(75, 13)
-        Me.Label88.TabIndex = 5
-        Me.Label88.Text = "Error Message"
+        Me.pnlStandardFile.Controls.Add(Me.btnGenerateBatchFile)
+        Me.pnlStandardFile.Controls.Add(Me.Label55)
+        Me.pnlStandardFile.Controls.Add(Me.Label3)
+        Me.pnlStandardFile.Controls.Add(Me.Label41)
+        Me.pnlStandardFile.Controls.Add(Me.Label2)
+        Me.pnlStandardFile.Controls.Add(Me.Label59)
+        Me.pnlStandardFile.Controls.Add(Me.Label58)
+        Me.pnlStandardFile.Controls.Add(Me.Label38)
+        Me.pnlStandardFile.Controls.Add(Me.Label29)
+        Me.pnlStandardFile.Dock = System.Windows.Forms.DockStyle.Left
+        Me.pnlStandardFile.Enabled = False
+        Me.pnlStandardFile.Location = New System.Drawing.Point(0, 40)
+        Me.pnlStandardFile.Name = "pnlStandardFile"
+        Me.pnlStandardFile.Size = New System.Drawing.Size(296, 217)
+        Me.pnlStandardFile.TabIndex = 17
         '
-        'rdbUnresolvedWebErrors
+        'btnGenerateBatchFile
         '
-        Me.rdbUnresolvedWebErrors.AutoSize = True
-        Me.rdbUnresolvedWebErrors.Location = New System.Drawing.Point(14, 260)
-        Me.rdbUnresolvedWebErrors.Name = "rdbUnresolvedWebErrors"
-        Me.rdbUnresolvedWebErrors.Size = New System.Drawing.Size(135, 17)
-        Me.rdbUnresolvedWebErrors.TabIndex = 14
-        Me.rdbUnresolvedWebErrors.Text = "View Unresolved Errors"
+        Me.btnGenerateBatchFile.Location = New System.Drawing.Point(3, 13)
+        Me.btnGenerateBatchFile.Name = "btnGenerateBatchFile"
+        Me.btnGenerateBatchFile.Size = New System.Drawing.Size(88, 23)
+        Me.btnGenerateBatchFile.TabIndex = 0
+        Me.btnGenerateBatchFile.Text = "Generate File"
         '
-        'Label71
+        'Label55
         '
-        Me.Label71.AutoSize = True
-        Me.Label71.Location = New System.Drawing.Point(8, 170)
-        Me.Label71.Name = "Label71"
-        Me.Label71.Size = New System.Drawing.Size(73, 13)
-        Me.Label71.TabIndex = 6
-        Me.Label71.Text = "Error Solution "
+        Me.Label55.AutoSize = True
+        Me.Label55.Location = New System.Drawing.Point(139, 117)
+        Me.Label55.Name = "Label55"
+        Me.Label55.Size = New System.Drawing.Size(112, 13)
+        Me.Label55.TabIndex = 5
+        Me.Label55.Text = "4) Compliance Actions"
         '
-        'rdbAllWebErrors
+        'Label3
         '
-        Me.rdbAllWebErrors.AutoSize = True
-        Me.rdbAllWebErrors.Location = New System.Drawing.Point(14, 240)
-        Me.rdbAllWebErrors.Name = "rdbAllWebErrors"
-        Me.rdbAllWebErrors.Size = New System.Drawing.Size(92, 17)
-        Me.rdbAllWebErrors.TabIndex = 13
-        Me.rdbAllWebErrors.Text = "View All Errors"
+        Me.Label3.AutoSize = True
+        Me.Label3.Location = New System.Drawing.Point(123, 16)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(102, 13)
+        Me.Label3.TabIndex = 1
+        Me.Label3.Text = "Batch File Hierarchy"
         '
-        'Label1
+        'Label41
         '
-        Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(381, 33)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(55, 13)
-        Me.Label1.TabIndex = 7
-        Me.Label1.Text = "Error Date"
+        Me.Label41.AutoSize = True
+        Me.Label41.Location = New System.Drawing.Point(139, 93)
+        Me.Label41.Name = "Label41"
+        Me.Label41.Size = New System.Drawing.Size(103, 13)
+        Me.Label41.TabIndex = 4
+        Me.Label41.Text = "3) Permitting Actions"
         '
-        'txtWebErrorSolution
+        'Label2
         '
-        Me.txtWebErrorSolution.AcceptsReturn = True
-        Me.txtWebErrorSolution.Location = New System.Drawing.Point(88, 170)
-        Me.txtWebErrorSolution.Multiline = True
-        Me.txtWebErrorSolution.Name = "txtWebErrorSolution"
-        Me.txtWebErrorSolution.Size = New System.Drawing.Size(546, 56)
-        Me.txtWebErrorSolution.TabIndex = 12
+        Me.Label2.AutoSize = True
+        Me.Label2.Location = New System.Drawing.Point(139, 45)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(84, 13)
+        Me.Label2.TabIndex = 2
+        Me.Label2.Text = "1) New Facilities"
         '
-        'txtWebErrorUser
+        'Label59
         '
-        Me.txtWebErrorUser.Location = New System.Drawing.Point(201, 9)
-        Me.txtWebErrorUser.Name = "txtWebErrorUser"
-        Me.txtWebErrorUser.ReadOnly = True
-        Me.txtWebErrorUser.Size = New System.Drawing.Size(153, 20)
-        Me.txtWebErrorUser.TabIndex = 8
+        Me.Label59.AutoSize = True
+        Me.Label59.Location = New System.Drawing.Point(139, 189)
+        Me.Label59.Name = "Label59"
+        Me.Label59.Size = New System.Drawing.Size(109, 13)
+        Me.Label59.TabIndex = 7
+        Me.Label59.Text = "7) ISMP Test Reports"
         '
-        'txtWebErrorMessage
+        'Label58
         '
-        Me.txtWebErrorMessage.AcceptsReturn = True
-        Me.txtWebErrorMessage.Location = New System.Drawing.Point(88, 59)
-        Me.txtWebErrorMessage.Multiline = True
-        Me.txtWebErrorMessage.Name = "txtWebErrorMessage"
-        Me.txtWebErrorMessage.ReadOnly = True
-        Me.txtWebErrorMessage.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.txtWebErrorMessage.Size = New System.Drawing.Size(553, 104)
-        Me.txtWebErrorMessage.TabIndex = 11
+        Me.Label58.AutoSize = True
+        Me.Label58.Location = New System.Drawing.Point(139, 165)
+        Me.Label58.Name = "Label58"
+        Me.Label58.Size = New System.Drawing.Size(117, 13)
+        Me.Label58.TabIndex = 6
+        Me.Label58.Text = "6) Enforcement Actions"
         '
-        'txtWebErrorLocation
+        'Label38
         '
-        Me.txtWebErrorLocation.Location = New System.Drawing.Point(88, 32)
-        Me.txtWebErrorLocation.Name = "txtWebErrorLocation"
-        Me.txtWebErrorLocation.ReadOnly = True
-        Me.txtWebErrorLocation.Size = New System.Drawing.Size(266, 20)
-        Me.txtWebErrorLocation.TabIndex = 9
+        Me.Label38.AutoSize = True
+        Me.Label38.Location = New System.Drawing.Point(139, 69)
+        Me.Label38.Name = "Label38"
+        Me.Label38.Size = New System.Drawing.Size(137, 13)
+        Me.Label38.TabIndex = 3
+        Me.Label38.Text = "2) Changes to Header Data"
         '
-        'txtWebErrorDate
+        'Label29
         '
-        Me.txtWebErrorDate.Location = New System.Drawing.Point(468, 32)
-        Me.txtWebErrorDate.Name = "txtWebErrorDate"
-        Me.txtWebErrorDate.ReadOnly = True
-        Me.txtWebErrorDate.Size = New System.Drawing.Size(106, 20)
-        Me.txtWebErrorDate.TabIndex = 10
+        Me.Label29.AutoSize = True
+        Me.Label29.Location = New System.Drawing.Point(139, 141)
+        Me.Label29.Name = "Label29"
+        Me.Label29.Size = New System.Drawing.Size(151, 13)
+        Me.Label29.TabIndex = 8
+        Me.Label29.Text = "5) Full Compliance Evaluations"
         '
-        'dgrWebErrorList
+        'Panel8
         '
-        Me.dgrWebErrorList.DataMember = ""
-        Me.dgrWebErrorList.Dock = System.Windows.Forms.DockStyle.Top
-        Me.dgrWebErrorList.HeaderForeColor = System.Drawing.SystemColors.ControlText
-        Me.dgrWebErrorList.Location = New System.Drawing.Point(0, 0)
-        Me.dgrWebErrorList.Name = "dgrWebErrorList"
-        Me.dgrWebErrorList.ReadOnly = True
-        Me.dgrWebErrorList.Size = New System.Drawing.Size(784, 241)
-        Me.dgrWebErrorList.TabIndex = 2
+        Me.Panel8.Controls.Add(Me.rdbBasicData)
+        Me.Panel8.Controls.Add(Me.rdbUpdateAllSubparts)
+        Me.Panel8.Controls.Add(Me.rdbAIRSSpecific)
+        Me.Panel8.Controls.Add(Me.rdbGenerateStandardFile)
+        Me.Panel8.Controls.Add(Me.btnClearAFSFileGenerator)
+        Me.Panel8.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Panel8.Location = New System.Drawing.Point(0, 0)
+        Me.Panel8.Name = "Panel8"
+        Me.Panel8.Size = New System.Drawing.Size(784, 40)
+        Me.Panel8.TabIndex = 18
+        '
+        'rdbBasicData
+        '
+        Me.rdbBasicData.AutoSize = True
+        Me.rdbBasicData.Location = New System.Drawing.Point(488, 11)
+        Me.rdbBasicData.Name = "rdbBasicData"
+        Me.rdbBasicData.Size = New System.Drawing.Size(169, 17)
+        Me.rdbBasicData.TabIndex = 13
+        Me.rdbBasicData.TabStop = True
+        Me.rdbBasicData.Text = "Force Refresh of all basic data"
+        Me.rdbBasicData.UseVisualStyleBackColor = True
+        '
+        'rdbUpdateAllSubparts
+        '
+        Me.rdbUpdateAllSubparts.AutoSize = True
+        Me.rdbUpdateAllSubparts.Location = New System.Drawing.Point(363, 11)
+        Me.rdbUpdateAllSubparts.Name = "rdbUpdateAllSubparts"
+        Me.rdbUpdateAllSubparts.Size = New System.Drawing.Size(119, 17)
+        Me.rdbUpdateAllSubparts.TabIndex = 12
+        Me.rdbUpdateAllSubparts.TabStop = True
+        Me.rdbUpdateAllSubparts.Text = "Update All Subparts"
+        Me.rdbUpdateAllSubparts.UseVisualStyleBackColor = True
+        '
+        'rdbAIRSSpecific
+        '
+        Me.rdbAIRSSpecific.AutoSize = True
+        Me.rdbAIRSSpecific.Location = New System.Drawing.Point(266, 11)
+        Me.rdbAIRSSpecific.Name = "rdbAIRSSpecific"
+        Me.rdbAIRSSpecific.Size = New System.Drawing.Size(91, 17)
+        Me.rdbAIRSSpecific.TabIndex = 11
+        Me.rdbAIRSSpecific.TabStop = True
+        Me.rdbAIRSSpecific.Text = "AIRS Specific"
+        Me.rdbAIRSSpecific.UseVisualStyleBackColor = True
+        '
+        'rdbGenerateStandardFile
+        '
+        Me.rdbGenerateStandardFile.AutoSize = True
+        Me.rdbGenerateStandardFile.Location = New System.Drawing.Point(126, 11)
+        Me.rdbGenerateStandardFile.Name = "rdbGenerateStandardFile"
+        Me.rdbGenerateStandardFile.Size = New System.Drawing.Size(134, 17)
+        Me.rdbGenerateStandardFile.TabIndex = 10
+        Me.rdbGenerateStandardFile.TabStop = True
+        Me.rdbGenerateStandardFile.Text = "Generate Standard File"
+        Me.rdbGenerateStandardFile.UseVisualStyleBackColor = True
+        '
+        'btnClearAFSFileGenerator
+        '
+        Me.btnClearAFSFileGenerator.Location = New System.Drawing.Point(11, 8)
+        Me.btnClearAFSFileGenerator.Name = "btnClearAFSFileGenerator"
+        Me.btnClearAFSFileGenerator.Size = New System.Drawing.Size(87, 23)
+        Me.btnClearAFSFileGenerator.TabIndex = 9
+        Me.btnClearAFSFileGenerator.Text = "Clear Form"
+        '
+        'TPATSTool
+        '
+        Me.TPATSTool.Controls.Add(Me.Button1)
+        Me.TPATSTool.Controls.Add(Me.btnPopulatePrinterAssets)
+        Me.TPATSTool.Controls.Add(Me.btnFillComputerAssets)
+        Me.TPATSTool.Controls.Add(Me.btnPopulateStaffList)
+        Me.TPATSTool.Location = New System.Drawing.Point(4, 22)
+        Me.TPATSTool.Name = "TPATSTool"
+        Me.TPATSTool.Padding = New System.Windows.Forms.Padding(3)
+        Me.TPATSTool.Size = New System.Drawing.Size(784, 614)
+        Me.TPATSTool.TabIndex = 13
+        Me.TPATSTool.Text = "ATS Tool (temp)"
+        Me.TPATSTool.UseVisualStyleBackColor = True
+        '
+        'Button1
+        '
+        Me.Button1.AutoSize = True
+        Me.Button1.Location = New System.Drawing.Point(227, 33)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(159, 23)
+        Me.Button1.TabIndex = 3
+        Me.Button1.Text = "Populate Staff Tools from IAIP"
+        Me.Button1.UseVisualStyleBackColor = True
+        '
+        'btnPopulatePrinterAssets
+        '
+        Me.btnPopulatePrinterAssets.AutoSize = True
+        Me.btnPopulatePrinterAssets.Location = New System.Drawing.Point(30, 113)
+        Me.btnPopulatePrinterAssets.Name = "btnPopulatePrinterAssets"
+        Me.btnPopulatePrinterAssets.Size = New System.Drawing.Size(141, 23)
+        Me.btnPopulatePrinterAssets.TabIndex = 2
+        Me.btnPopulatePrinterAssets.Text = "Populate Printer Assets"
+        Me.btnPopulatePrinterAssets.UseVisualStyleBackColor = True
+        '
+        'btnFillComputerAssets
+        '
+        Me.btnFillComputerAssets.AutoSize = True
+        Me.btnFillComputerAssets.Location = New System.Drawing.Point(30, 74)
+        Me.btnFillComputerAssets.Name = "btnFillComputerAssets"
+        Me.btnFillComputerAssets.Size = New System.Drawing.Size(141, 23)
+        Me.btnFillComputerAssets.TabIndex = 1
+        Me.btnFillComputerAssets.Text = "Populate Computer Assets"
+        Me.btnFillComputerAssets.UseVisualStyleBackColor = True
+        '
+        'btnPopulateStaffList
+        '
+        Me.btnPopulateStaffList.AutoSize = True
+        Me.btnPopulateStaffList.Location = New System.Drawing.Point(30, 33)
+        Me.btnPopulateStaffList.Name = "btnPopulateStaffList"
+        Me.btnPopulateStaffList.Size = New System.Drawing.Size(113, 23)
+        Me.btnPopulateStaffList.TabIndex = 0
+        Me.btnPopulateStaffList.Text = "Populate Staff Tools"
+        Me.btnPopulateStaffList.UseVisualStyleBackColor = True
         '
         'TPErrorLog
         '
@@ -1051,963 +1193,242 @@ Partial Class DMUDeveloperTools
         Me.dgvErrorList.Size = New System.Drawing.Size(784, 242)
         Me.dgvErrorList.TabIndex = 21
         '
-        'TPAddNewFacility
-        '
-        Me.TPAddNewFacility.Controls.Add(Me.txtApplicationNumber)
-        Me.TPAddNewFacility.Controls.Add(Me.btnPreLoadNewFacility)
-        Me.TPAddNewFacility.Controls.Add(Me.btnDeleteAIRSNumber)
-        Me.TPAddNewFacility.Controls.Add(Me.txtDeleteAIRSNumber)
-        Me.TPAddNewFacility.Controls.Add(Me.btnClearAddNewFacility)
-        Me.TPAddNewFacility.Controls.Add(Me.GBContactInformation)
-        Me.TPAddNewFacility.Controls.Add(Me.GBAirProgramCodes)
-        Me.TPAddNewFacility.Controls.Add(Me.GBHeaderData)
-        Me.TPAddNewFacility.Controls.Add(Me.GBMailingLocation)
-        Me.TPAddNewFacility.Controls.Add(Me.GBFacilityInformation)
-        Me.TPAddNewFacility.Controls.Add(Me.llbContactInformation)
-        Me.TPAddNewFacility.Controls.Add(Me.llbAirProgramCodes)
-        Me.TPAddNewFacility.Controls.Add(Me.llbHeaderData)
-        Me.TPAddNewFacility.Controls.Add(Me.llbMailingLocation)
-        Me.TPAddNewFacility.Controls.Add(Me.llbFacilityInformation)
-        Me.TPAddNewFacility.Controls.Add(Me.btnNewFacility)
-        Me.TPAddNewFacility.Controls.Add(Me.Label4)
-        Me.TPAddNewFacility.Controls.Add(Me.txtCDSAIRSNumber)
-        Me.TPAddNewFacility.Location = New System.Drawing.Point(4, 22)
-        Me.TPAddNewFacility.Name = "TPAddNewFacility"
-        Me.TPAddNewFacility.Size = New System.Drawing.Size(784, 614)
-        Me.TPAddNewFacility.TabIndex = 2
-        Me.TPAddNewFacility.Text = "Add New Facility"
-        Me.TPAddNewFacility.UseVisualStyleBackColor = True
-        '
-        'txtApplicationNumber
-        '
-        Me.txtApplicationNumber.Location = New System.Drawing.Point(16, 419)
-        Me.txtApplicationNumber.Name = "txtApplicationNumber"
-        Me.txtApplicationNumber.Size = New System.Drawing.Size(100, 20)
-        Me.txtApplicationNumber.TabIndex = 69
-        Me.txtApplicationNumber.Text = "App No."
-        '
-        'btnPreLoadNewFacility
-        '
-        Me.btnPreLoadNewFacility.Location = New System.Drawing.Point(16, 390)
-        Me.btnPreLoadNewFacility.Name = "btnPreLoadNewFacility"
-        Me.btnPreLoadNewFacility.Size = New System.Drawing.Size(75, 23)
-        Me.btnPreLoadNewFacility.TabIndex = 68
-        Me.btnPreLoadNewFacility.Text = "PreLoad"
-        Me.btnPreLoadNewFacility.UseVisualStyleBackColor = True
-        Me.btnPreLoadNewFacility.Visible = False
-        '
-        'btnDeleteAIRSNumber
-        '
-        Me.btnDeleteAIRSNumber.Location = New System.Drawing.Point(13, 335)
-        Me.btnDeleteAIRSNumber.Name = "btnDeleteAIRSNumber"
-        Me.btnDeleteAIRSNumber.Size = New System.Drawing.Size(75, 23)
-        Me.btnDeleteAIRSNumber.TabIndex = 67
-        Me.btnDeleteAIRSNumber.Text = "Delete AIRS Number"
-        Me.btnDeleteAIRSNumber.UseVisualStyleBackColor = True
-        Me.btnDeleteAIRSNumber.Visible = False
-        '
-        'txtDeleteAIRSNumber
-        '
-        Me.txtDeleteAIRSNumber.Location = New System.Drawing.Point(13, 309)
-        Me.txtDeleteAIRSNumber.Name = "txtDeleteAIRSNumber"
-        Me.txtDeleteAIRSNumber.Size = New System.Drawing.Size(100, 20)
-        Me.txtDeleteAIRSNumber.TabIndex = 66
-        '
-        'btnClearAddNewFacility
-        '
-        Me.btnClearAddNewFacility.Location = New System.Drawing.Point(13, 263)
-        Me.btnClearAddNewFacility.Name = "btnClearAddNewFacility"
-        Me.btnClearAddNewFacility.Size = New System.Drawing.Size(112, 24)
-        Me.btnClearAddNewFacility.TabIndex = 65
-        Me.btnClearAddNewFacility.Text = "Clear Form"
-        '
-        'GBContactInformation
-        '
-        Me.GBContactInformation.Controls.Add(Me.mtbContactNumberExtension)
-        Me.GBContactInformation.Controls.Add(Me.txtContactPedigree)
-        Me.GBContactInformation.Controls.Add(Me.txtContactSocialTitle)
-        Me.GBContactInformation.Controls.Add(Me.Label33)
-        Me.GBContactInformation.Controls.Add(Me.Label34)
-        Me.GBContactInformation.Controls.Add(Me.txtContactLastName)
-        Me.GBContactInformation.Controls.Add(Me.Label35)
-        Me.GBContactInformation.Controls.Add(Me.txtContactFirstName)
-        Me.GBContactInformation.Controls.Add(Me.Label36)
-        Me.GBContactInformation.Controls.Add(Me.mtbContactPhoneNumber)
-        Me.GBContactInformation.Controls.Add(Me.Label23)
-        Me.GBContactInformation.Controls.Add(Me.Label22)
-        Me.GBContactInformation.Controls.Add(Me.Label30)
-        Me.GBContactInformation.Controls.Add(Me.txtContactTitle)
-        Me.GBContactInformation.Location = New System.Drawing.Point(187, 582)
-        Me.GBContactInformation.Name = "GBContactInformation"
-        Me.GBContactInformation.Size = New System.Drawing.Size(466, 157)
-        Me.GBContactInformation.TabIndex = 64
-        Me.GBContactInformation.TabStop = False
-        Me.GBContactInformation.Text = "Contact Information"
-        Me.GBContactInformation.Visible = False
-        '
-        'mtbContactNumberExtension
-        '
-        Me.mtbContactNumberExtension.Location = New System.Drawing.Point(248, 118)
-        Me.mtbContactNumberExtension.Mask = "000000"
-        Me.mtbContactNumberExtension.Name = "mtbContactNumberExtension"
-        Me.mtbContactNumberExtension.Size = New System.Drawing.Size(46, 20)
-        Me.mtbContactNumberExtension.TabIndex = 372
-        '
-        'txtContactPedigree
-        '
-        Me.txtContactPedigree.Location = New System.Drawing.Point(75, 91)
-        Me.txtContactPedigree.Name = "txtContactPedigree"
-        Me.txtContactPedigree.Size = New System.Drawing.Size(72, 20)
-        Me.txtContactPedigree.TabIndex = 4
-        '
-        'txtContactSocialTitle
-        '
-        Me.txtContactSocialTitle.Location = New System.Drawing.Point(76, 16)
-        Me.txtContactSocialTitle.Name = "txtContactSocialTitle"
-        Me.txtContactSocialTitle.Size = New System.Drawing.Size(72, 20)
-        Me.txtContactSocialTitle.TabIndex = 1
-        '
-        'Label33
-        '
-        Me.Label33.AutoSize = True
-        Me.Label33.Location = New System.Drawing.Point(14, 20)
-        Me.Label33.Name = "Label33"
-        Me.Label33.Size = New System.Drawing.Size(59, 13)
-        Me.Label33.TabIndex = 371
-        Me.Label33.Text = "Social Title"
-        '
-        'Label34
-        '
-        Me.Label34.AutoSize = True
-        Me.Label34.Location = New System.Drawing.Point(14, 95)
-        Me.Label34.Name = "Label34"
-        Me.Label34.Size = New System.Drawing.Size(49, 13)
-        Me.Label34.TabIndex = 370
-        Me.Label34.Text = "Pedigree"
-        '
-        'txtContactLastName
-        '
-        Me.txtContactLastName.Location = New System.Drawing.Point(75, 66)
-        Me.txtContactLastName.Name = "txtContactLastName"
-        Me.txtContactLastName.Size = New System.Drawing.Size(151, 20)
-        Me.txtContactLastName.TabIndex = 3
-        '
-        'Label35
-        '
-        Me.Label35.AutoSize = True
-        Me.Label35.Location = New System.Drawing.Point(14, 70)
-        Me.Label35.Name = "Label35"
-        Me.Label35.Size = New System.Drawing.Size(58, 13)
-        Me.Label35.TabIndex = 369
-        Me.Label35.Text = "Last Name"
-        '
-        'txtContactFirstName
-        '
-        Me.txtContactFirstName.Location = New System.Drawing.Point(76, 41)
-        Me.txtContactFirstName.Name = "txtContactFirstName"
-        Me.txtContactFirstName.Size = New System.Drawing.Size(151, 20)
-        Me.txtContactFirstName.TabIndex = 2
-        '
-        'Label36
-        '
-        Me.Label36.AutoSize = True
-        Me.Label36.Location = New System.Drawing.Point(14, 45)
-        Me.Label36.Name = "Label36"
-        Me.Label36.Size = New System.Drawing.Size(57, 13)
-        Me.Label36.TabIndex = 368
-        Me.Label36.Text = "First Name"
-        '
-        'mtbContactPhoneNumber
-        '
-        Me.mtbContactPhoneNumber.Location = New System.Drawing.Point(102, 118)
-        Me.mtbContactPhoneNumber.Mask = "(999) 000-0000"
-        Me.mtbContactPhoneNumber.Name = "mtbContactPhoneNumber"
-        Me.mtbContactPhoneNumber.Size = New System.Drawing.Size(100, 20)
-        Me.mtbContactPhoneNumber.TabIndex = 6
-        '
-        'Label23
-        '
-        Me.Label23.AutoSize = True
-        Me.Label23.Location = New System.Drawing.Point(220, 122)
-        Me.Label23.Name = "Label23"
-        Me.Label23.Size = New System.Drawing.Size(24, 13)
-        Me.Label23.TabIndex = 133
-        Me.Label23.Text = "ext."
-        '
-        'Label22
-        '
-        Me.Label22.AutoSize = True
-        Me.Label22.Location = New System.Drawing.Point(14, 122)
-        Me.Label22.Name = "Label22"
-        Me.Label22.Size = New System.Drawing.Size(78, 13)
-        Me.Label22.TabIndex = 130
-        Me.Label22.Text = "Phone Number"
-        '
-        'Label30
-        '
-        Me.Label30.AutoSize = True
-        Me.Label30.Location = New System.Drawing.Point(237, 20)
-        Me.Label30.Name = "Label30"
-        Me.Label30.Size = New System.Drawing.Size(27, 13)
-        Me.Label30.TabIndex = 128
-        Me.Label30.Text = "Title"
-        '
-        'txtContactTitle
-        '
-        Me.txtContactTitle.Location = New System.Drawing.Point(273, 16)
-        Me.txtContactTitle.Name = "txtContactTitle"
-        Me.txtContactTitle.Size = New System.Drawing.Size(180, 20)
-        Me.txtContactTitle.TabIndex = 5
-        '
-        'GBAirProgramCodes
-        '
-        Me.GBAirProgramCodes.Controls.Add(Me.chbCDS_14)
-        Me.GBAirProgramCodes.Controls.Add(Me.chbCDS_7)
-        Me.GBAirProgramCodes.Controls.Add(Me.chbCDS_4)
-        Me.GBAirProgramCodes.Controls.Add(Me.chbCDS_13)
-        Me.GBAirProgramCodes.Controls.Add(Me.chbCDS_3)
-        Me.GBAirProgramCodes.Controls.Add(Me.chbCDS_12)
-        Me.GBAirProgramCodes.Controls.Add(Me.chbCDS_9)
-        Me.GBAirProgramCodes.Controls.Add(Me.chbCDS_10)
-        Me.GBAirProgramCodes.Controls.Add(Me.chbCDS_2)
-        Me.GBAirProgramCodes.Controls.Add(Me.chbCDS_6)
-        Me.GBAirProgramCodes.Controls.Add(Me.chbCDS_1)
-        Me.GBAirProgramCodes.Controls.Add(Me.chbCDS_5)
-        Me.GBAirProgramCodes.Controls.Add(Me.chbCDS_11)
-        Me.GBAirProgramCodes.Controls.Add(Me.chbCDS_8)
-        Me.GBAirProgramCodes.Controls.Add(Me.Label37)
-        Me.GBAirProgramCodes.Location = New System.Drawing.Point(187, 488)
-        Me.GBAirProgramCodes.Name = "GBAirProgramCodes"
-        Me.GBAirProgramCodes.Size = New System.Drawing.Size(466, 104)
-        Me.GBAirProgramCodes.TabIndex = 63
-        Me.GBAirProgramCodes.TabStop = False
-        Me.GBAirProgramCodes.Text = "Air Program Codes && Pollutants"
-        Me.GBAirProgramCodes.Visible = False
-        '
-        'chbCDS_14
-        '
-        Me.chbCDS_14.AutoSize = True
-        Me.chbCDS_14.Location = New System.Drawing.Point(327, 51)
-        Me.chbCDS_14.Name = "chbCDS_14"
-        Me.chbCDS_14.Size = New System.Drawing.Size(128, 17)
-        Me.chbCDS_14.TabIndex = 158
-        Me.chbCDS_14.Text = "G - Green House Gas"
-        '
-        'chbCDS_7
-        '
-        Me.chbCDS_7.AutoSize = True
-        Me.chbCDS_7.Location = New System.Drawing.Point(127, 66)
-        Me.chbCDS_7.Name = "chbCDS_7"
-        Me.chbCDS_7.Size = New System.Drawing.Size(85, 17)
-        Me.chbCDS_7.TabIndex = 7
-        Me.chbCDS_7.Text = "8 - NESHAP"
-        '
-        'chbCDS_4
-        '
-        Me.chbCDS_4.AutoSize = True
-        Me.chbCDS_4.Location = New System.Drawing.Point(20, 82)
-        Me.chbCDS_4.Name = "chbCDS_4"
-        Me.chbCDS_4.Size = New System.Drawing.Size(106, 17)
-        Me.chbCDS_4.TabIndex = 4
-        Me.chbCDS_4.Text = "4 - CFC Tracking"
-        '
-        'chbCDS_13
-        '
-        Me.chbCDS_13.AutoSize = True
-        Me.chbCDS_13.Location = New System.Drawing.Point(327, 35)
-        Me.chbCDS_13.Name = "chbCDS_13"
-        Me.chbCDS_13.Size = New System.Drawing.Size(72, 17)
-        Me.chbCDS_13.TabIndex = 13
-        Me.chbCDS_13.Text = "V - Title V"
-        '
-        'chbCDS_3
-        '
-        Me.chbCDS_3.AutoSize = True
-        Me.chbCDS_3.Location = New System.Drawing.Point(20, 66)
-        Me.chbCDS_3.Name = "chbCDS_3"
-        Me.chbCDS_3.Size = New System.Drawing.Size(85, 17)
-        Me.chbCDS_3.TabIndex = 3
-        Me.chbCDS_3.Text = "3 - Non Fed."
-        '
-        'chbCDS_12
-        '
-        Me.chbCDS_12.AutoSize = True
-        Me.chbCDS_12.Location = New System.Drawing.Point(213, 82)
-        Me.chbCDS_12.Name = "chbCDS_12"
-        Me.chbCDS_12.Size = New System.Drawing.Size(74, 17)
-        Me.chbCDS_12.TabIndex = 12
-        Me.chbCDS_12.Text = "M - MACT"
-        '
-        'chbCDS_9
-        '
-        Me.chbCDS_9.AutoSize = True
-        Me.chbCDS_9.Location = New System.Drawing.Point(213, 35)
-        Me.chbCDS_9.Name = "chbCDS_9"
-        Me.chbCDS_9.Size = New System.Drawing.Size(79, 17)
-        Me.chbCDS_9.TabIndex = 9
-        Me.chbCDS_9.Text = "F - FESOP "
-        '
-        'chbCDS_10
-        '
-        Me.chbCDS_10.AutoSize = True
-        Me.chbCDS_10.Location = New System.Drawing.Point(213, 50)
-        Me.chbCDS_10.Name = "chbCDS_10"
-        Me.chbCDS_10.Size = New System.Drawing.Size(99, 17)
-        Me.chbCDS_10.TabIndex = 10
-        Me.chbCDS_10.Text = "A - Acid Precip."
-        '
-        'chbCDS_2
-        '
-        Me.chbCDS_2.AutoSize = True
-        Me.chbCDS_2.Location = New System.Drawing.Point(20, 50)
-        Me.chbCDS_2.Name = "chbCDS_2"
-        Me.chbCDS_2.Size = New System.Drawing.Size(82, 17)
-        Me.chbCDS_2.TabIndex = 2
-        Me.chbCDS_2.Text = "1 - Fed. SIP"
-        '
-        'chbCDS_6
-        '
-        Me.chbCDS_6.AutoSize = True
-        Me.chbCDS_6.Location = New System.Drawing.Point(127, 50)
-        Me.chbCDS_6.Name = "chbCDS_6"
-        Me.chbCDS_6.Size = New System.Drawing.Size(64, 17)
-        Me.chbCDS_6.TabIndex = 6
-        Me.chbCDS_6.Text = "7 - NSR"
-        '
-        'chbCDS_1
-        '
-        Me.chbCDS_1.AutoSize = True
-        Me.chbCDS_1.Location = New System.Drawing.Point(20, 35)
-        Me.chbCDS_1.Name = "chbCDS_1"
-        Me.chbCDS_1.Size = New System.Drawing.Size(58, 17)
-        Me.chbCDS_1.TabIndex = 1
-        Me.chbCDS_1.Text = "0 - SIP"
-        '
-        'chbCDS_5
-        '
-        Me.chbCDS_5.AutoSize = True
-        Me.chbCDS_5.Location = New System.Drawing.Point(127, 35)
-        Me.chbCDS_5.Name = "chbCDS_5"
-        Me.chbCDS_5.Size = New System.Drawing.Size(63, 17)
-        Me.chbCDS_5.TabIndex = 5
-        Me.chbCDS_5.Text = "6 - PSD"
-        '
-        'chbCDS_11
-        '
-        Me.chbCDS_11.AutoSize = True
-        Me.chbCDS_11.Location = New System.Drawing.Point(213, 66)
-        Me.chbCDS_11.Name = "chbCDS_11"
-        Me.chbCDS_11.Size = New System.Drawing.Size(116, 17)
-        Me.chbCDS_11.TabIndex = 11
-        Me.chbCDS_11.Text = "I - Native American"
-        '
-        'chbCDS_8
-        '
-        Me.chbCDS_8.AutoSize = True
-        Me.chbCDS_8.Location = New System.Drawing.Point(127, 82)
-        Me.chbCDS_8.Name = "chbCDS_8"
-        Me.chbCDS_8.Size = New System.Drawing.Size(70, 17)
-        Me.chbCDS_8.TabIndex = 8
-        Me.chbCDS_8.Text = "9 - NSPS"
-        '
-        'Label37
-        '
-        Me.Label37.AutoSize = True
-        Me.Label37.Location = New System.Drawing.Point(16, 16)
-        Me.Label37.Name = "Label37"
-        Me.Label37.Size = New System.Drawing.Size(106, 13)
-        Me.Label37.TabIndex = 157
-        Me.Label37.Text = "(Select All that apply)"
-        '
-        'GBHeaderData
-        '
-        Me.GBHeaderData.Controls.Add(Me.mtbCDSSICCode)
-        Me.GBHeaderData.Controls.Add(Me.txtCDSRegionCode)
-        Me.GBHeaderData.Controls.Add(Me.Label21)
-        Me.GBHeaderData.Controls.Add(Me.cboCDSOperationalStatus)
-        Me.GBHeaderData.Controls.Add(Me.Label51)
-        Me.GBHeaderData.Controls.Add(Me.cboCDSClassCode)
-        Me.GBHeaderData.Controls.Add(Me.Label49)
-        Me.GBHeaderData.Controls.Add(Me.Label42)
-        Me.GBHeaderData.Controls.Add(Me.Label63)
-        Me.GBHeaderData.Controls.Add(Me.txtFacilityDescription)
-        Me.GBHeaderData.Location = New System.Drawing.Point(186, 351)
-        Me.GBHeaderData.Name = "GBHeaderData"
-        Me.GBHeaderData.Size = New System.Drawing.Size(466, 131)
-        Me.GBHeaderData.TabIndex = 62
-        Me.GBHeaderData.TabStop = False
-        Me.GBHeaderData.Text = "Header Data"
-        Me.GBHeaderData.Visible = False
-        '
-        'mtbCDSSICCode
-        '
-        Me.mtbCDSSICCode.Location = New System.Drawing.Point(104, 47)
-        Me.mtbCDSSICCode.Mask = "0000"
-        Me.mtbCDSSICCode.Name = "mtbCDSSICCode"
-        Me.mtbCDSSICCode.Size = New System.Drawing.Size(76, 20)
-        Me.mtbCDSSICCode.TabIndex = 169
-        '
-        'txtCDSRegionCode
-        '
-        Me.txtCDSRegionCode.Location = New System.Drawing.Point(104, 16)
-        Me.txtCDSRegionCode.MaxLength = 4
-        Me.txtCDSRegionCode.Name = "txtCDSRegionCode"
-        Me.txtCDSRegionCode.ReadOnly = True
-        Me.txtCDSRegionCode.Size = New System.Drawing.Size(76, 20)
-        Me.txtCDSRegionCode.TabIndex = 9
-        '
-        'Label21
-        '
-        Me.Label21.AutoSize = True
-        Me.Label21.Location = New System.Drawing.Point(27, 18)
-        Me.Label21.Name = "Label21"
-        Me.Label21.Size = New System.Drawing.Size(69, 13)
-        Me.Label21.TabIndex = 167
-        Me.Label21.Text = "Region Code"
-        '
-        'cboCDSOperationalStatus
-        '
-        Me.cboCDSOperationalStatus.Location = New System.Drawing.Point(300, 16)
-        Me.cboCDSOperationalStatus.Name = "cboCDSOperationalStatus"
-        Me.cboCDSOperationalStatus.Size = New System.Drawing.Size(153, 21)
-        Me.cboCDSOperationalStatus.TabIndex = 1
-        '
-        'Label51
-        '
-        Me.Label51.AutoSize = True
-        Me.Label51.Location = New System.Drawing.Point(200, 18)
-        Me.Label51.Name = "Label51"
-        Me.Label51.Size = New System.Drawing.Size(94, 26)
-        Me.Label51.TabIndex = 168
-        Me.Label51.Text = "Operational Status" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "(Use X only)"
-        '
-        'cboCDSClassCode
-        '
-        Me.cboCDSClassCode.Location = New System.Drawing.Point(300, 47)
-        Me.cboCDSClassCode.Name = "cboCDSClassCode"
-        Me.cboCDSClassCode.Size = New System.Drawing.Size(153, 21)
-        Me.cboCDSClassCode.TabIndex = 3
-        '
-        'Label49
-        '
-        Me.Label49.AutoSize = True
-        Me.Label49.Location = New System.Drawing.Point(193, 49)
-        Me.Label49.Name = "Label49"
-        Me.Label49.Size = New System.Drawing.Size(95, 13)
-        Me.Label49.TabIndex = 164
-        Me.Label49.Text = "Facility Class Code"
-        '
-        'Label42
-        '
-        Me.Label42.AutoSize = True
-        Me.Label42.Location = New System.Drawing.Point(44, 47)
-        Me.Label42.Name = "Label42"
-        Me.Label42.Size = New System.Drawing.Size(52, 13)
-        Me.Label42.TabIndex = 161
-        Me.Label42.Text = "SIC Code"
-        '
-        'Label63
-        '
-        Me.Label63.AutoSize = True
-        Me.Label63.Location = New System.Drawing.Point(8, 72)
-        Me.Label63.Name = "Label63"
-        Me.Label63.Size = New System.Drawing.Size(87, 13)
-        Me.Label63.TabIndex = 8
-        Me.Label63.Text = "Plant Description"
-        '
-        'txtFacilityDescription
-        '
-        Me.txtFacilityDescription.Location = New System.Drawing.Point(24, 88)
-        Me.txtFacilityDescription.MaxLength = 4000
-        Me.txtFacilityDescription.Name = "txtFacilityDescription"
-        Me.txtFacilityDescription.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.txtFacilityDescription.Size = New System.Drawing.Size(429, 20)
-        Me.txtFacilityDescription.TabIndex = 4
-        '
-        'GBMailingLocation
-        '
-        Me.GBMailingLocation.Controls.Add(Me.mtbMailingZipCode)
-        Me.GBMailingLocation.Controls.Add(Me.txtMailingState)
-        Me.GBMailingLocation.Controls.Add(Me.Label18)
-        Me.GBMailingLocation.Controls.Add(Me.Label19)
-        Me.GBMailingLocation.Controls.Add(Me.Label20)
-        Me.GBMailingLocation.Controls.Add(Me.txtMailingCity)
-        Me.GBMailingLocation.Controls.Add(Me.Label24)
-        Me.GBMailingLocation.Controls.Add(Me.txtMailingAddress)
-        Me.GBMailingLocation.Location = New System.Drawing.Point(187, 243)
-        Me.GBMailingLocation.Name = "GBMailingLocation"
-        Me.GBMailingLocation.Size = New System.Drawing.Size(465, 104)
-        Me.GBMailingLocation.TabIndex = 61
-        Me.GBMailingLocation.TabStop = False
-        Me.GBMailingLocation.Text = "Mailing Location"
-        Me.GBMailingLocation.Visible = False
-        '
-        'mtbMailingZipCode
-        '
-        Me.mtbMailingZipCode.Location = New System.Drawing.Point(104, 66)
-        Me.mtbMailingZipCode.Mask = "00000-9999"
-        Me.mtbMailingZipCode.Name = "mtbMailingZipCode"
-        Me.mtbMailingZipCode.Size = New System.Drawing.Size(72, 20)
-        Me.mtbMailingZipCode.TabIndex = 3
-        '
-        'txtMailingState
-        '
-        Me.txtMailingState.Location = New System.Drawing.Point(312, 40)
-        Me.txtMailingState.MaxLength = 2
-        Me.txtMailingState.Name = "txtMailingState"
-        Me.txtMailingState.Size = New System.Drawing.Size(24, 20)
-        Me.txtMailingState.TabIndex = 3
-        Me.txtMailingState.Text = "GA"
-        '
-        'Label18
-        '
-        Me.Label18.AutoSize = True
-        Me.Label18.Location = New System.Drawing.Point(38, 66)
-        Me.Label18.Name = "Label18"
-        Me.Label18.Size = New System.Drawing.Size(58, 13)
-        Me.Label18.TabIndex = 162
-        Me.Label18.Text = "Mailing Zip"
-        '
-        'Label19
-        '
-        Me.Label19.AutoSize = True
-        Me.Label19.Location = New System.Drawing.Point(272, 42)
-        Me.Label19.Name = "Label19"
-        Me.Label19.Size = New System.Drawing.Size(32, 13)
-        Me.Label19.TabIndex = 161
-        Me.Label19.Text = "State"
-        '
-        'Label20
-        '
-        Me.Label20.AutoSize = True
-        Me.Label20.Location = New System.Drawing.Point(34, 42)
-        Me.Label20.Name = "Label20"
-        Me.Label20.Size = New System.Drawing.Size(60, 13)
-        Me.Label20.TabIndex = 160
-        Me.Label20.Text = "Mailing City"
-        '
-        'txtMailingCity
-        '
-        Me.txtMailingCity.Location = New System.Drawing.Point(104, 40)
-        Me.txtMailingCity.Name = "txtMailingCity"
-        Me.txtMailingCity.Size = New System.Drawing.Size(160, 20)
-        Me.txtMailingCity.TabIndex = 2
-        '
-        'Label24
-        '
-        Me.Label24.AutoSize = True
-        Me.Label24.Location = New System.Drawing.Point(12, 18)
-        Me.Label24.Name = "Label24"
-        Me.Label24.Size = New System.Drawing.Size(81, 13)
-        Me.Label24.TabIndex = 159
-        Me.Label24.Text = "Mailing Address"
-        '
-        'txtMailingAddress
-        '
-        Me.txtMailingAddress.Location = New System.Drawing.Point(104, 16)
-        Me.txtMailingAddress.Name = "txtMailingAddress"
-        Me.txtMailingAddress.Size = New System.Drawing.Size(352, 20)
-        Me.txtMailingAddress.TabIndex = 1
-        '
-        'GBFacilityInformation
-        '
-        Me.GBFacilityInformation.Controls.Add(Me.mtbFacilityLongitude)
-        Me.GBFacilityInformation.Controls.Add(Me.mtbFacilityLatitude)
-        Me.GBFacilityInformation.Controls.Add(Me.mtbCDSZipCode)
-        Me.GBFacilityInformation.Controls.Add(Me.Label103)
-        Me.GBFacilityInformation.Controls.Add(Me.Label102)
-        Me.GBFacilityInformation.Controls.Add(Me.txtCDSStreetAddress)
-        Me.GBFacilityInformation.Controls.Add(Me.Label5)
-        Me.GBFacilityInformation.Controls.Add(Me.Label9)
-        Me.GBFacilityInformation.Controls.Add(Me.txtCDSFacilityName)
-        Me.GBFacilityInformation.Controls.Add(Me.Label7)
-        Me.GBFacilityInformation.Controls.Add(Me.txtCDSCity)
-        Me.GBFacilityInformation.Controls.Add(Me.Label8)
-        Me.GBFacilityInformation.Controls.Add(Me.Label10)
-        Me.GBFacilityInformation.Controls.Add(Me.txtCDSState)
-        Me.GBFacilityInformation.Controls.Add(Me.Label27)
-        Me.GBFacilityInformation.Controls.Add(Me.Label28)
-        Me.GBFacilityInformation.Location = New System.Drawing.Point(187, 0)
-        Me.GBFacilityInformation.Name = "GBFacilityInformation"
-        Me.GBFacilityInformation.Size = New System.Drawing.Size(466, 243)
-        Me.GBFacilityInformation.TabIndex = 60
-        Me.GBFacilityInformation.TabStop = False
-        Me.GBFacilityInformation.Text = "Facility Information"
-        Me.GBFacilityInformation.Visible = False
-        '
-        'mtbFacilityLongitude
-        '
-        Me.mtbFacilityLongitude.Location = New System.Drawing.Point(330, 135)
-        Me.mtbFacilityLongitude.Mask = "-00.000000"
-        Me.mtbFacilityLongitude.Name = "mtbFacilityLongitude"
-        Me.mtbFacilityLongitude.Size = New System.Drawing.Size(69, 20)
-        Me.mtbFacilityLongitude.TabIndex = 175
-        '
-        'mtbFacilityLatitude
-        '
-        Me.mtbFacilityLatitude.Location = New System.Drawing.Point(104, 131)
-        Me.mtbFacilityLatitude.Mask = "00.000000"
-        Me.mtbFacilityLatitude.Name = "mtbFacilityLatitude"
-        Me.mtbFacilityLatitude.Size = New System.Drawing.Size(72, 20)
-        Me.mtbFacilityLatitude.TabIndex = 174
-        '
-        'mtbCDSZipCode
-        '
-        Me.mtbCDSZipCode.Location = New System.Drawing.Point(104, 95)
-        Me.mtbCDSZipCode.Mask = "00000-9999"
-        Me.mtbCDSZipCode.Name = "mtbCDSZipCode"
-        Me.mtbCDSZipCode.Size = New System.Drawing.Size(72, 20)
-        Me.mtbCDSZipCode.TabIndex = 4
-        '
-        'Label103
-        '
-        Me.Label103.AutoSize = True
-        Me.Label103.Location = New System.Drawing.Point(294, 158)
-        Me.Label103.Name = "Label103"
-        Me.Label103.Size = New System.Drawing.Size(159, 13)
-        Me.Label103.TabIndex = 173
-        Me.Label103.Text = "(Range = 80.84111 -- 85.60444)"
-        '
-        'Label102
-        '
-        Me.Label102.AutoSize = True
-        Me.Label102.Location = New System.Drawing.Point(80, 158)
-        Me.Label102.Name = "Label102"
-        Me.Label102.Size = New System.Drawing.Size(147, 13)
-        Me.Label102.TabIndex = 171
-        Me.Label102.Text = "(Range = 30.3555 -- 35.0000)"
-        '
-        'txtCDSStreetAddress
-        '
-        Me.txtCDSStreetAddress.Location = New System.Drawing.Point(104, 48)
-        Me.txtCDSStreetAddress.MaxLength = 100
-        Me.txtCDSStreetAddress.Name = "txtCDSStreetAddress"
-        Me.txtCDSStreetAddress.Size = New System.Drawing.Size(349, 20)
-        Me.txtCDSStreetAddress.TabIndex = 2
-        '
-        'Label5
-        '
-        Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(272, 74)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(32, 13)
-        Me.Label5.TabIndex = 48
-        Me.Label5.Text = "State"
-        '
-        'Label9
-        '
-        Me.Label9.AutoSize = True
-        Me.Label9.Location = New System.Drawing.Point(24, 26)
-        Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(70, 13)
-        Me.Label9.TabIndex = 39
-        Me.Label9.Text = "Facility Name"
-        '
-        'txtCDSFacilityName
-        '
-        Me.txtCDSFacilityName.Location = New System.Drawing.Point(104, 24)
-        Me.txtCDSFacilityName.MaxLength = 100
-        Me.txtCDSFacilityName.Name = "txtCDSFacilityName"
-        Me.txtCDSFacilityName.Size = New System.Drawing.Size(349, 20)
-        Me.txtCDSFacilityName.TabIndex = 1
-        '
-        'Label7
-        '
-        Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(73, 74)
-        Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(24, 13)
-        Me.Label7.TabIndex = 43
-        Me.Label7.Text = "City"
-        '
-        'txtCDSCity
-        '
-        Me.txtCDSCity.Location = New System.Drawing.Point(104, 72)
-        Me.txtCDSCity.MaxLength = 50
-        Me.txtCDSCity.Name = "txtCDSCity"
-        Me.txtCDSCity.Size = New System.Drawing.Size(160, 20)
-        Me.txtCDSCity.TabIndex = 3
-        '
-        'Label8
-        '
-        Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(18, 50)
-        Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(76, 13)
-        Me.Label8.TabIndex = 41
-        Me.Label8.Text = "Street Address"
-        '
-        'Label10
-        '
-        Me.Label10.AutoSize = True
-        Me.Label10.Location = New System.Drawing.Point(47, 98)
-        Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(50, 13)
-        Me.Label10.TabIndex = 45
-        Me.Label10.Text = "Zip Code"
-        '
-        'txtCDSState
-        '
-        Me.txtCDSState.Location = New System.Drawing.Point(312, 72)
-        Me.txtCDSState.MaxLength = 4
-        Me.txtCDSState.Name = "txtCDSState"
-        Me.txtCDSState.ReadOnly = True
-        Me.txtCDSState.Size = New System.Drawing.Size(24, 20)
-        Me.txtCDSState.TabIndex = 7
-        Me.txtCDSState.TabStop = False
-        Me.txtCDSState.Text = "GA"
-        '
-        'Label27
-        '
-        Me.Label27.AutoSize = True
-        Me.Label27.Location = New System.Drawing.Point(270, 138)
-        Me.Label27.Name = "Label27"
-        Me.Label27.Size = New System.Drawing.Size(54, 13)
-        Me.Label27.TabIndex = 156
-        Me.Label27.Text = "Longitude"
-        '
-        'Label28
-        '
-        Me.Label28.AutoSize = True
-        Me.Label28.Location = New System.Drawing.Point(47, 138)
-        Me.Label28.Name = "Label28"
-        Me.Label28.Size = New System.Drawing.Size(45, 13)
-        Me.Label28.TabIndex = 155
-        Me.Label28.Text = "Latitude"
-        '
-        'llbContactInformation
-        '
-        Me.llbContactInformation.AutoSize = True
-        Me.llbContactInformation.Enabled = False
-        Me.llbContactInformation.Location = New System.Drawing.Point(13, 180)
-        Me.llbContactInformation.Name = "llbContactInformation"
-        Me.llbContactInformation.Size = New System.Drawing.Size(99, 13)
-        Me.llbContactInformation.TabIndex = 57
-        Me.llbContactInformation.TabStop = True
-        Me.llbContactInformation.Text = "Contact Information"
-        '
-        'llbAirProgramCodes
-        '
-        Me.llbAirProgramCodes.AutoSize = True
-        Me.llbAirProgramCodes.Enabled = False
-        Me.llbAirProgramCodes.Location = New System.Drawing.Point(13, 146)
-        Me.llbAirProgramCodes.Name = "llbAirProgramCodes"
-        Me.llbAirProgramCodes.Size = New System.Drawing.Size(152, 13)
-        Me.llbAirProgramCodes.TabIndex = 56
-        Me.llbAirProgramCodes.TabStop = True
-        Me.llbAirProgramCodes.Text = "Air Program Codes && Pollutants"
-        '
-        'llbHeaderData
-        '
-        Me.llbHeaderData.AutoSize = True
-        Me.llbHeaderData.Enabled = False
-        Me.llbHeaderData.Location = New System.Drawing.Point(13, 111)
-        Me.llbHeaderData.Name = "llbHeaderData"
-        Me.llbHeaderData.Size = New System.Drawing.Size(68, 13)
-        Me.llbHeaderData.TabIndex = 55
-        Me.llbHeaderData.TabStop = True
-        Me.llbHeaderData.Text = "Header Data"
-        '
-        'llbMailingLocation
-        '
-        Me.llbMailingLocation.AutoSize = True
-        Me.llbMailingLocation.Enabled = False
-        Me.llbMailingLocation.Location = New System.Drawing.Point(13, 76)
-        Me.llbMailingLocation.Name = "llbMailingLocation"
-        Me.llbMailingLocation.Size = New System.Drawing.Size(84, 13)
-        Me.llbMailingLocation.TabIndex = 54
-        Me.llbMailingLocation.TabStop = True
-        Me.llbMailingLocation.Text = "Mailing Location"
-        '
-        'llbFacilityInformation
-        '
-        Me.llbFacilityInformation.AutoSize = True
-        Me.llbFacilityInformation.Enabled = False
-        Me.llbFacilityInformation.Location = New System.Drawing.Point(13, 42)
-        Me.llbFacilityInformation.Name = "llbFacilityInformation"
-        Me.llbFacilityInformation.Size = New System.Drawing.Size(94, 13)
-        Me.llbFacilityInformation.TabIndex = 53
-        Me.llbFacilityInformation.TabStop = True
-        Me.llbFacilityInformation.Text = "Facility Information"
-        '
-        'btnNewFacility
-        '
-        Me.btnNewFacility.Enabled = False
-        Me.btnNewFacility.Location = New System.Drawing.Point(13, 215)
-        Me.btnNewFacility.Name = "btnNewFacility"
-        Me.btnNewFacility.Size = New System.Drawing.Size(112, 23)
-        Me.btnNewFacility.TabIndex = 58
-        Me.btnNewFacility.Text = "Create New Facility"
-        Me.btnNewFacility.Visible = False
-        '
-        'Label4
-        '
-        Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(7, 7)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(75, 13)
-        Me.Label4.TabIndex = 59
-        Me.Label4.Text = "AIRS Number:"
-        '
-        'txtCDSAIRSNumber
-        '
-        Me.txtCDSAIRSNumber.Location = New System.Drawing.Point(87, 7)
-        Me.txtCDSAIRSNumber.MaxLength = 12
-        Me.txtCDSAIRSNumber.Name = "txtCDSAIRSNumber"
-        Me.txtCDSAIRSNumber.Size = New System.Drawing.Size(88, 20)
-        Me.txtCDSAIRSNumber.TabIndex = 52
-        Me.txtCDSAIRSNumber.Text = "0413"
-        '
-        'TPAFSFileGenerator
-        '
-        Me.TPAFSFileGenerator.Controls.Add(Me.txtAFSBatchFile)
-        Me.TPAFSFileGenerator.Controls.Add(Me.PanelBatchOrder)
-        Me.TPAFSFileGenerator.Location = New System.Drawing.Point(4, 22)
-        Me.TPAFSFileGenerator.Name = "TPAFSFileGenerator"
-        Me.TPAFSFileGenerator.Size = New System.Drawing.Size(784, 614)
-        Me.TPAFSFileGenerator.TabIndex = 1
-        Me.TPAFSFileGenerator.Text = "AFS File Generator"
-        Me.TPAFSFileGenerator.UseVisualStyleBackColor = True
-        '
-        'txtAFSBatchFile
-        '
-        Me.txtAFSBatchFile.AcceptsReturn = True
-        Me.txtAFSBatchFile.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.txtAFSBatchFile.Location = New System.Drawing.Point(0, 257)
-        Me.txtAFSBatchFile.Multiline = True
-        Me.txtAFSBatchFile.Name = "txtAFSBatchFile"
-        Me.txtAFSBatchFile.ReadOnly = True
-        Me.txtAFSBatchFile.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.txtAFSBatchFile.Size = New System.Drawing.Size(784, 357)
-        Me.txtAFSBatchFile.TabIndex = 11
-        '
-        'PanelBatchOrder
-        '
-        Me.PanelBatchOrder.Controls.Add(Me.btnUpdateAllSubParts)
-        Me.PanelBatchOrder.Controls.Add(Me.btnForceBasicRefresh)
-        Me.PanelBatchOrder.Controls.Add(Me.btnClearAFSFileGenerator)
-        Me.PanelBatchOrder.Controls.Add(Me.Label29)
-        Me.PanelBatchOrder.Controls.Add(Me.Label38)
-        Me.PanelBatchOrder.Controls.Add(Me.Label58)
-        Me.PanelBatchOrder.Controls.Add(Me.Label59)
-        Me.PanelBatchOrder.Controls.Add(Me.btnGenerateBatchFile)
-        Me.PanelBatchOrder.Controls.Add(Me.Label2)
-        Me.PanelBatchOrder.Controls.Add(Me.Label41)
-        Me.PanelBatchOrder.Controls.Add(Me.Label3)
-        Me.PanelBatchOrder.Controls.Add(Me.Label55)
-        Me.PanelBatchOrder.Dock = System.Windows.Forms.DockStyle.Top
-        Me.PanelBatchOrder.Location = New System.Drawing.Point(0, 0)
-        Me.PanelBatchOrder.Name = "PanelBatchOrder"
-        Me.PanelBatchOrder.Size = New System.Drawing.Size(784, 257)
-        Me.PanelBatchOrder.TabIndex = 10
-        '
-        'btnUpdateAllSubParts
-        '
-        Me.btnUpdateAllSubParts.AutoSize = True
-        Me.btnUpdateAllSubParts.Location = New System.Drawing.Point(577, 11)
-        Me.btnUpdateAllSubParts.Name = "btnUpdateAllSubParts"
-        Me.btnUpdateAllSubParts.Size = New System.Drawing.Size(112, 23)
-        Me.btnUpdateAllSubParts.TabIndex = 11
-        Me.btnUpdateAllSubParts.Text = "Update All SubParts"
-        Me.btnUpdateAllSubParts.UseVisualStyleBackColor = True
-        '
-        'btnForceBasicRefresh
-        '
-        Me.btnForceBasicRefresh.AutoSize = True
-        Me.btnForceBasicRefresh.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnForceBasicRefresh.Location = New System.Drawing.Point(359, 8)
-        Me.btnForceBasicRefresh.Name = "btnForceBasicRefresh"
-        Me.btnForceBasicRefresh.Size = New System.Drawing.Size(113, 23)
-        Me.btnForceBasicRefresh.TabIndex = 10
-        Me.btnForceBasicRefresh.Text = "Force Basic Refresh"
-        '
-        'btnClearAFSFileGenerator
-        '
-        Me.btnClearAFSFileGenerator.Location = New System.Drawing.Point(7, 97)
-        Me.btnClearAFSFileGenerator.Name = "btnClearAFSFileGenerator"
-        Me.btnClearAFSFileGenerator.Size = New System.Drawing.Size(87, 23)
-        Me.btnClearAFSFileGenerator.TabIndex = 9
-        Me.btnClearAFSFileGenerator.Text = "Clear Form"
-        '
-        'Label29
-        '
-        Me.Label29.AutoSize = True
-        Me.Label29.Location = New System.Drawing.Point(144, 136)
-        Me.Label29.Name = "Label29"
-        Me.Label29.Size = New System.Drawing.Size(151, 13)
-        Me.Label29.TabIndex = 8
-        Me.Label29.Text = "5) Full Compliance Evaluations"
-        '
-        'Label38
-        '
-        Me.Label38.AutoSize = True
-        Me.Label38.Location = New System.Drawing.Point(144, 64)
-        Me.Label38.Name = "Label38"
-        Me.Label38.Size = New System.Drawing.Size(137, 13)
-        Me.Label38.TabIndex = 3
-        Me.Label38.Text = "2) Changes to Header Data"
-        '
-        'Label58
-        '
-        Me.Label58.AutoSize = True
-        Me.Label58.Location = New System.Drawing.Point(144, 160)
-        Me.Label58.Name = "Label58"
-        Me.Label58.Size = New System.Drawing.Size(117, 13)
-        Me.Label58.TabIndex = 6
-        Me.Label58.Text = "6) Enforcement Actions"
-        '
-        'Label59
-        '
-        Me.Label59.AutoSize = True
-        Me.Label59.Location = New System.Drawing.Point(144, 184)
-        Me.Label59.Name = "Label59"
-        Me.Label59.Size = New System.Drawing.Size(109, 13)
-        Me.Label59.TabIndex = 7
-        Me.Label59.Text = "7) ISMP Test Reports"
-        '
-        'btnGenerateBatchFile
-        '
-        Me.btnGenerateBatchFile.Location = New System.Drawing.Point(8, 8)
-        Me.btnGenerateBatchFile.Name = "btnGenerateBatchFile"
-        Me.btnGenerateBatchFile.Size = New System.Drawing.Size(88, 23)
-        Me.btnGenerateBatchFile.TabIndex = 0
-        Me.btnGenerateBatchFile.Text = "Generate File"
-        '
-        'Label2
-        '
-        Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(144, 40)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(84, 13)
-        Me.Label2.TabIndex = 2
-        Me.Label2.Text = "1) New Facilities"
-        '
-        'Label41
-        '
-        Me.Label41.AutoSize = True
-        Me.Label41.Location = New System.Drawing.Point(144, 88)
-        Me.Label41.Name = "Label41"
-        Me.Label41.Size = New System.Drawing.Size(103, 13)
-        Me.Label41.TabIndex = 4
-        Me.Label41.Text = "3) Permitting Actions"
-        '
-        'Label3
-        '
-        Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(128, 11)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(102, 13)
-        Me.Label3.TabIndex = 1
-        Me.Label3.Text = "Batch File Hierarchy"
-        '
-        'Label55
-        '
-        Me.Label55.AutoSize = True
-        Me.Label55.Location = New System.Drawing.Point(144, 112)
-        Me.Label55.Name = "Label55"
-        Me.Label55.Size = New System.Drawing.Size(112, 13)
-        Me.Label55.TabIndex = 5
-        Me.Label55.Text = "4) Compliance Actions"
+        'TPWebErrorLog
+        '
+        Me.TPWebErrorLog.Controls.Add(Me.GroupBox4)
+        Me.TPWebErrorLog.Controls.Add(Me.dgrWebErrorList)
+        Me.TPWebErrorLog.Location = New System.Drawing.Point(4, 22)
+        Me.TPWebErrorLog.Name = "TPWebErrorLog"
+        Me.TPWebErrorLog.Size = New System.Drawing.Size(784, 614)
+        Me.TPWebErrorLog.TabIndex = 8
+        Me.TPWebErrorLog.Text = "Web Site Error Log"
+        Me.TPWebErrorLog.UseVisualStyleBackColor = True
+        '
+        'GroupBox4
+        '
+        Me.GroupBox4.Controls.Add(Me.Panel5)
+        Me.GroupBox4.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.GroupBox4.Location = New System.Drawing.Point(0, 241)
+        Me.GroupBox4.Name = "GroupBox4"
+        Me.GroupBox4.Size = New System.Drawing.Size(784, 373)
+        Me.GroupBox4.TabIndex = 3
+        Me.GroupBox4.TabStop = False
+        Me.GroupBox4.Text = "Web Error Log"
+        '
+        'Panel5
+        '
+        Me.Panel5.AutoScroll = True
+        Me.Panel5.Controls.Add(Me.Label95)
+        Me.Panel5.Controls.Add(Me.Label96)
+        Me.Panel5.Controls.Add(Me.txtWebErrorNumber)
+        Me.Panel5.Controls.Add(Me.txtIPAddress)
+        Me.Panel5.Controls.Add(Me.btnSaveWebErrorSolution)
+        Me.Panel5.Controls.Add(Me.txtWebErrorCount)
+        Me.Panel5.Controls.Add(Me.Label91)
+        Me.Panel5.Controls.Add(Me.btnFilterWebErrors)
+        Me.Panel5.Controls.Add(Me.Label90)
+        Me.Panel5.Controls.Add(Me.rdbResolvedWebErrors)
+        Me.Panel5.Controls.Add(Me.Label88)
+        Me.Panel5.Controls.Add(Me.rdbUnresolvedWebErrors)
+        Me.Panel5.Controls.Add(Me.Label71)
+        Me.Panel5.Controls.Add(Me.rdbAllWebErrors)
+        Me.Panel5.Controls.Add(Me.Label1)
+        Me.Panel5.Controls.Add(Me.txtWebErrorSolution)
+        Me.Panel5.Controls.Add(Me.txtWebErrorUser)
+        Me.Panel5.Controls.Add(Me.txtWebErrorMessage)
+        Me.Panel5.Controls.Add(Me.txtWebErrorLocation)
+        Me.Panel5.Controls.Add(Me.txtWebErrorDate)
+        Me.Panel5.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Panel5.Location = New System.Drawing.Point(3, 16)
+        Me.Panel5.Name = "Panel5"
+        Me.Panel5.Size = New System.Drawing.Size(778, 354)
+        Me.Panel5.TabIndex = 20
+        '
+        'Label95
+        '
+        Me.Label95.AutoSize = True
+        Me.Label95.Location = New System.Drawing.Point(8, 11)
+        Me.Label95.Name = "Label95"
+        Me.Label95.Size = New System.Drawing.Size(69, 13)
+        Me.Label95.TabIndex = 0
+        Me.Label95.Text = "Error Number"
+        '
+        'Label96
+        '
+        Me.Label96.AutoSize = True
+        Me.Label96.Location = New System.Drawing.Point(368, 11)
+        Me.Label96.Name = "Label96"
+        Me.Label96.Size = New System.Drawing.Size(58, 13)
+        Me.Label96.TabIndex = 19
+        Me.Label96.Text = "IP Address"
+        '
+        'txtWebErrorNumber
+        '
+        Me.txtWebErrorNumber.Location = New System.Drawing.Point(88, 9)
+        Me.txtWebErrorNumber.Name = "txtWebErrorNumber"
+        Me.txtWebErrorNumber.ReadOnly = True
+        Me.txtWebErrorNumber.Size = New System.Drawing.Size(60, 20)
+        Me.txtWebErrorNumber.TabIndex = 1
+        '
+        'txtIPAddress
+        '
+        Me.txtIPAddress.Location = New System.Drawing.Point(441, 9)
+        Me.txtIPAddress.Name = "txtIPAddress"
+        Me.txtIPAddress.ReadOnly = True
+        Me.txtIPAddress.Size = New System.Drawing.Size(140, 20)
+        Me.txtIPAddress.TabIndex = 18
+        '
+        'btnSaveWebErrorSolution
+        '
+        Me.btnSaveWebErrorSolution.Location = New System.Drawing.Point(8, 191)
+        Me.btnSaveWebErrorSolution.Name = "btnSaveWebErrorSolution"
+        Me.btnSaveWebErrorSolution.Size = New System.Drawing.Size(62, 20)
+        Me.btnSaveWebErrorSolution.TabIndex = 2
+        Me.btnSaveWebErrorSolution.Text = "Save"
+        '
+        'txtWebErrorCount
+        '
+        Me.txtWebErrorCount.Location = New System.Drawing.Point(614, 7)
+        Me.txtWebErrorCount.Name = "txtWebErrorCount"
+        Me.txtWebErrorCount.ReadOnly = True
+        Me.txtWebErrorCount.Size = New System.Drawing.Size(34, 20)
+        Me.txtWebErrorCount.TabIndex = 17
+        Me.txtWebErrorCount.Text = "0"
+        '
+        'Label91
+        '
+        Me.Label91.AutoSize = True
+        Me.Label91.Location = New System.Drawing.Point(168, 11)
+        Me.Label91.Name = "Label91"
+        Me.Label91.Size = New System.Drawing.Size(29, 13)
+        Me.Label91.TabIndex = 3
+        Me.Label91.Text = "User"
+        '
+        'btnFilterWebErrors
+        '
+        Me.btnFilterWebErrors.Location = New System.Drawing.Point(154, 240)
+        Me.btnFilterWebErrors.Name = "btnFilterWebErrors"
+        Me.btnFilterWebErrors.Size = New System.Drawing.Size(63, 20)
+        Me.btnFilterWebErrors.TabIndex = 16
+        Me.btnFilterWebErrors.Text = "Filter"
+        '
+        'Label90
+        '
+        Me.Label90.AutoSize = True
+        Me.Label90.Location = New System.Drawing.Point(8, 33)
+        Me.Label90.Name = "Label90"
+        Me.Label90.Size = New System.Drawing.Size(76, 13)
+        Me.Label90.TabIndex = 4
+        Me.Label90.Text = "Error Location "
+        '
+        'rdbResolvedWebErrors
+        '
+        Me.rdbResolvedWebErrors.AutoSize = True
+        Me.rdbResolvedWebErrors.Location = New System.Drawing.Point(14, 281)
+        Me.rdbResolvedWebErrors.Name = "rdbResolvedWebErrors"
+        Me.rdbResolvedWebErrors.Size = New System.Drawing.Size(121, 17)
+        Me.rdbResolvedWebErrors.TabIndex = 15
+        Me.rdbResolvedWebErrors.Text = "View Resolved Error"
+        '
+        'Label88
+        '
+        Me.Label88.AutoSize = True
+        Me.Label88.Location = New System.Drawing.Point(8, 59)
+        Me.Label88.Name = "Label88"
+        Me.Label88.Size = New System.Drawing.Size(75, 13)
+        Me.Label88.TabIndex = 5
+        Me.Label88.Text = "Error Message"
+        '
+        'rdbUnresolvedWebErrors
+        '
+        Me.rdbUnresolvedWebErrors.AutoSize = True
+        Me.rdbUnresolvedWebErrors.Location = New System.Drawing.Point(14, 260)
+        Me.rdbUnresolvedWebErrors.Name = "rdbUnresolvedWebErrors"
+        Me.rdbUnresolvedWebErrors.Size = New System.Drawing.Size(135, 17)
+        Me.rdbUnresolvedWebErrors.TabIndex = 14
+        Me.rdbUnresolvedWebErrors.Text = "View Unresolved Errors"
+        '
+        'Label71
+        '
+        Me.Label71.AutoSize = True
+        Me.Label71.Location = New System.Drawing.Point(8, 170)
+        Me.Label71.Name = "Label71"
+        Me.Label71.Size = New System.Drawing.Size(73, 13)
+        Me.Label71.TabIndex = 6
+        Me.Label71.Text = "Error Solution "
+        '
+        'rdbAllWebErrors
+        '
+        Me.rdbAllWebErrors.AutoSize = True
+        Me.rdbAllWebErrors.Location = New System.Drawing.Point(14, 240)
+        Me.rdbAllWebErrors.Name = "rdbAllWebErrors"
+        Me.rdbAllWebErrors.Size = New System.Drawing.Size(92, 17)
+        Me.rdbAllWebErrors.TabIndex = 13
+        Me.rdbAllWebErrors.Text = "View All Errors"
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Location = New System.Drawing.Point(381, 33)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(55, 13)
+        Me.Label1.TabIndex = 7
+        Me.Label1.Text = "Error Date"
+        '
+        'txtWebErrorSolution
+        '
+        Me.txtWebErrorSolution.AcceptsReturn = True
+        Me.txtWebErrorSolution.Location = New System.Drawing.Point(88, 170)
+        Me.txtWebErrorSolution.Multiline = True
+        Me.txtWebErrorSolution.Name = "txtWebErrorSolution"
+        Me.txtWebErrorSolution.Size = New System.Drawing.Size(546, 56)
+        Me.txtWebErrorSolution.TabIndex = 12
+        '
+        'txtWebErrorUser
+        '
+        Me.txtWebErrorUser.Location = New System.Drawing.Point(201, 9)
+        Me.txtWebErrorUser.Name = "txtWebErrorUser"
+        Me.txtWebErrorUser.ReadOnly = True
+        Me.txtWebErrorUser.Size = New System.Drawing.Size(153, 20)
+        Me.txtWebErrorUser.TabIndex = 8
+        '
+        'txtWebErrorMessage
+        '
+        Me.txtWebErrorMessage.AcceptsReturn = True
+        Me.txtWebErrorMessage.Location = New System.Drawing.Point(88, 59)
+        Me.txtWebErrorMessage.Multiline = True
+        Me.txtWebErrorMessage.Name = "txtWebErrorMessage"
+        Me.txtWebErrorMessage.ReadOnly = True
+        Me.txtWebErrorMessage.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
+        Me.txtWebErrorMessage.Size = New System.Drawing.Size(553, 104)
+        Me.txtWebErrorMessage.TabIndex = 11
+        '
+        'txtWebErrorLocation
+        '
+        Me.txtWebErrorLocation.Location = New System.Drawing.Point(88, 32)
+        Me.txtWebErrorLocation.Name = "txtWebErrorLocation"
+        Me.txtWebErrorLocation.ReadOnly = True
+        Me.txtWebErrorLocation.Size = New System.Drawing.Size(266, 20)
+        Me.txtWebErrorLocation.TabIndex = 9
+        '
+        'txtWebErrorDate
+        '
+        Me.txtWebErrorDate.Location = New System.Drawing.Point(468, 32)
+        Me.txtWebErrorDate.Name = "txtWebErrorDate"
+        Me.txtWebErrorDate.ReadOnly = True
+        Me.txtWebErrorDate.Size = New System.Drawing.Size(106, 20)
+        Me.txtWebErrorDate.TabIndex = 10
+        '
+        'dgrWebErrorList
+        '
+        Me.dgrWebErrorList.DataMember = ""
+        Me.dgrWebErrorList.Dock = System.Windows.Forms.DockStyle.Top
+        Me.dgrWebErrorList.HeaderForeColor = System.Drawing.SystemColors.ControlText
+        Me.dgrWebErrorList.Location = New System.Drawing.Point(0, 0)
+        Me.dgrWebErrorList.Name = "dgrWebErrorList"
+        Me.dgrWebErrorList.ReadOnly = True
+        Me.dgrWebErrorList.Size = New System.Drawing.Size(784, 241)
+        Me.dgrWebErrorList.TabIndex = 2
         '
         'TPUpdateDEVTest
         '
@@ -3635,6 +3056,813 @@ Partial Class DMUDeveloperTools
         Me.rdbDEVTransfer.Text = "PRD --> DEV"
         Me.rdbDEVTransfer.UseVisualStyleBackColor = True
         '
+        'TPAddNewFacility
+        '
+        Me.TPAddNewFacility.Controls.Add(Me.txtApplicationNumber)
+        Me.TPAddNewFacility.Controls.Add(Me.btnPreLoadNewFacility)
+        Me.TPAddNewFacility.Controls.Add(Me.btnDeleteAIRSNumber)
+        Me.TPAddNewFacility.Controls.Add(Me.txtDeleteAIRSNumber)
+        Me.TPAddNewFacility.Controls.Add(Me.btnClearAddNewFacility)
+        Me.TPAddNewFacility.Controls.Add(Me.GBContactInformation)
+        Me.TPAddNewFacility.Controls.Add(Me.GBAirProgramCodes)
+        Me.TPAddNewFacility.Controls.Add(Me.GBHeaderData)
+        Me.TPAddNewFacility.Controls.Add(Me.GBMailingLocation)
+        Me.TPAddNewFacility.Controls.Add(Me.GBFacilityInformation)
+        Me.TPAddNewFacility.Controls.Add(Me.llbContactInformation)
+        Me.TPAddNewFacility.Controls.Add(Me.llbAirProgramCodes)
+        Me.TPAddNewFacility.Controls.Add(Me.llbHeaderData)
+        Me.TPAddNewFacility.Controls.Add(Me.llbMailingLocation)
+        Me.TPAddNewFacility.Controls.Add(Me.llbFacilityInformation)
+        Me.TPAddNewFacility.Controls.Add(Me.btnNewFacility)
+        Me.TPAddNewFacility.Controls.Add(Me.Label4)
+        Me.TPAddNewFacility.Controls.Add(Me.txtCDSAIRSNumber)
+        Me.TPAddNewFacility.Location = New System.Drawing.Point(4, 22)
+        Me.TPAddNewFacility.Name = "TPAddNewFacility"
+        Me.TPAddNewFacility.Size = New System.Drawing.Size(784, 614)
+        Me.TPAddNewFacility.TabIndex = 2
+        Me.TPAddNewFacility.Text = "Add New Facility"
+        Me.TPAddNewFacility.UseVisualStyleBackColor = True
+        '
+        'txtApplicationNumber
+        '
+        Me.txtApplicationNumber.Location = New System.Drawing.Point(16, 419)
+        Me.txtApplicationNumber.Name = "txtApplicationNumber"
+        Me.txtApplicationNumber.Size = New System.Drawing.Size(100, 20)
+        Me.txtApplicationNumber.TabIndex = 69
+        Me.txtApplicationNumber.Text = "App No."
+        '
+        'btnPreLoadNewFacility
+        '
+        Me.btnPreLoadNewFacility.Location = New System.Drawing.Point(16, 390)
+        Me.btnPreLoadNewFacility.Name = "btnPreLoadNewFacility"
+        Me.btnPreLoadNewFacility.Size = New System.Drawing.Size(75, 23)
+        Me.btnPreLoadNewFacility.TabIndex = 68
+        Me.btnPreLoadNewFacility.Text = "PreLoad"
+        Me.btnPreLoadNewFacility.UseVisualStyleBackColor = True
+        Me.btnPreLoadNewFacility.Visible = False
+        '
+        'btnDeleteAIRSNumber
+        '
+        Me.btnDeleteAIRSNumber.Location = New System.Drawing.Point(13, 335)
+        Me.btnDeleteAIRSNumber.Name = "btnDeleteAIRSNumber"
+        Me.btnDeleteAIRSNumber.Size = New System.Drawing.Size(75, 23)
+        Me.btnDeleteAIRSNumber.TabIndex = 67
+        Me.btnDeleteAIRSNumber.Text = "Delete AIRS Number"
+        Me.btnDeleteAIRSNumber.UseVisualStyleBackColor = True
+        Me.btnDeleteAIRSNumber.Visible = False
+        '
+        'txtDeleteAIRSNumber
+        '
+        Me.txtDeleteAIRSNumber.Location = New System.Drawing.Point(13, 309)
+        Me.txtDeleteAIRSNumber.Name = "txtDeleteAIRSNumber"
+        Me.txtDeleteAIRSNumber.Size = New System.Drawing.Size(100, 20)
+        Me.txtDeleteAIRSNumber.TabIndex = 66
+        '
+        'btnClearAddNewFacility
+        '
+        Me.btnClearAddNewFacility.Location = New System.Drawing.Point(13, 263)
+        Me.btnClearAddNewFacility.Name = "btnClearAddNewFacility"
+        Me.btnClearAddNewFacility.Size = New System.Drawing.Size(112, 24)
+        Me.btnClearAddNewFacility.TabIndex = 65
+        Me.btnClearAddNewFacility.Text = "Clear Form"
+        '
+        'GBContactInformation
+        '
+        Me.GBContactInformation.Controls.Add(Me.mtbContactNumberExtension)
+        Me.GBContactInformation.Controls.Add(Me.txtContactPedigree)
+        Me.GBContactInformation.Controls.Add(Me.txtContactSocialTitle)
+        Me.GBContactInformation.Controls.Add(Me.Label33)
+        Me.GBContactInformation.Controls.Add(Me.Label34)
+        Me.GBContactInformation.Controls.Add(Me.txtContactLastName)
+        Me.GBContactInformation.Controls.Add(Me.Label35)
+        Me.GBContactInformation.Controls.Add(Me.txtContactFirstName)
+        Me.GBContactInformation.Controls.Add(Me.Label36)
+        Me.GBContactInformation.Controls.Add(Me.mtbContactPhoneNumber)
+        Me.GBContactInformation.Controls.Add(Me.Label23)
+        Me.GBContactInformation.Controls.Add(Me.Label22)
+        Me.GBContactInformation.Controls.Add(Me.Label30)
+        Me.GBContactInformation.Controls.Add(Me.txtContactTitle)
+        Me.GBContactInformation.Location = New System.Drawing.Point(187, 582)
+        Me.GBContactInformation.Name = "GBContactInformation"
+        Me.GBContactInformation.Size = New System.Drawing.Size(466, 157)
+        Me.GBContactInformation.TabIndex = 64
+        Me.GBContactInformation.TabStop = False
+        Me.GBContactInformation.Text = "Contact Information"
+        Me.GBContactInformation.Visible = False
+        '
+        'mtbContactNumberExtension
+        '
+        Me.mtbContactNumberExtension.Location = New System.Drawing.Point(248, 118)
+        Me.mtbContactNumberExtension.Mask = "000000"
+        Me.mtbContactNumberExtension.Name = "mtbContactNumberExtension"
+        Me.mtbContactNumberExtension.Size = New System.Drawing.Size(46, 20)
+        Me.mtbContactNumberExtension.TabIndex = 372
+        '
+        'txtContactPedigree
+        '
+        Me.txtContactPedigree.Location = New System.Drawing.Point(75, 91)
+        Me.txtContactPedigree.Name = "txtContactPedigree"
+        Me.txtContactPedigree.Size = New System.Drawing.Size(72, 20)
+        Me.txtContactPedigree.TabIndex = 4
+        '
+        'txtContactSocialTitle
+        '
+        Me.txtContactSocialTitle.Location = New System.Drawing.Point(76, 16)
+        Me.txtContactSocialTitle.Name = "txtContactSocialTitle"
+        Me.txtContactSocialTitle.Size = New System.Drawing.Size(72, 20)
+        Me.txtContactSocialTitle.TabIndex = 1
+        '
+        'Label33
+        '
+        Me.Label33.AutoSize = True
+        Me.Label33.Location = New System.Drawing.Point(14, 20)
+        Me.Label33.Name = "Label33"
+        Me.Label33.Size = New System.Drawing.Size(59, 13)
+        Me.Label33.TabIndex = 371
+        Me.Label33.Text = "Social Title"
+        '
+        'Label34
+        '
+        Me.Label34.AutoSize = True
+        Me.Label34.Location = New System.Drawing.Point(14, 95)
+        Me.Label34.Name = "Label34"
+        Me.Label34.Size = New System.Drawing.Size(49, 13)
+        Me.Label34.TabIndex = 370
+        Me.Label34.Text = "Pedigree"
+        '
+        'txtContactLastName
+        '
+        Me.txtContactLastName.Location = New System.Drawing.Point(75, 66)
+        Me.txtContactLastName.Name = "txtContactLastName"
+        Me.txtContactLastName.Size = New System.Drawing.Size(151, 20)
+        Me.txtContactLastName.TabIndex = 3
+        '
+        'Label35
+        '
+        Me.Label35.AutoSize = True
+        Me.Label35.Location = New System.Drawing.Point(14, 70)
+        Me.Label35.Name = "Label35"
+        Me.Label35.Size = New System.Drawing.Size(58, 13)
+        Me.Label35.TabIndex = 369
+        Me.Label35.Text = "Last Name"
+        '
+        'txtContactFirstName
+        '
+        Me.txtContactFirstName.Location = New System.Drawing.Point(76, 41)
+        Me.txtContactFirstName.Name = "txtContactFirstName"
+        Me.txtContactFirstName.Size = New System.Drawing.Size(151, 20)
+        Me.txtContactFirstName.TabIndex = 2
+        '
+        'Label36
+        '
+        Me.Label36.AutoSize = True
+        Me.Label36.Location = New System.Drawing.Point(14, 45)
+        Me.Label36.Name = "Label36"
+        Me.Label36.Size = New System.Drawing.Size(57, 13)
+        Me.Label36.TabIndex = 368
+        Me.Label36.Text = "First Name"
+        '
+        'mtbContactPhoneNumber
+        '
+        Me.mtbContactPhoneNumber.Location = New System.Drawing.Point(102, 118)
+        Me.mtbContactPhoneNumber.Mask = "(999) 000-0000"
+        Me.mtbContactPhoneNumber.Name = "mtbContactPhoneNumber"
+        Me.mtbContactPhoneNumber.Size = New System.Drawing.Size(100, 20)
+        Me.mtbContactPhoneNumber.TabIndex = 6
+        '
+        'Label23
+        '
+        Me.Label23.AutoSize = True
+        Me.Label23.Location = New System.Drawing.Point(220, 122)
+        Me.Label23.Name = "Label23"
+        Me.Label23.Size = New System.Drawing.Size(24, 13)
+        Me.Label23.TabIndex = 133
+        Me.Label23.Text = "ext."
+        '
+        'Label22
+        '
+        Me.Label22.AutoSize = True
+        Me.Label22.Location = New System.Drawing.Point(14, 122)
+        Me.Label22.Name = "Label22"
+        Me.Label22.Size = New System.Drawing.Size(78, 13)
+        Me.Label22.TabIndex = 130
+        Me.Label22.Text = "Phone Number"
+        '
+        'Label30
+        '
+        Me.Label30.AutoSize = True
+        Me.Label30.Location = New System.Drawing.Point(237, 20)
+        Me.Label30.Name = "Label30"
+        Me.Label30.Size = New System.Drawing.Size(27, 13)
+        Me.Label30.TabIndex = 128
+        Me.Label30.Text = "Title"
+        '
+        'txtContactTitle
+        '
+        Me.txtContactTitle.Location = New System.Drawing.Point(273, 16)
+        Me.txtContactTitle.Name = "txtContactTitle"
+        Me.txtContactTitle.Size = New System.Drawing.Size(180, 20)
+        Me.txtContactTitle.TabIndex = 5
+        '
+        'GBAirProgramCodes
+        '
+        Me.GBAirProgramCodes.Controls.Add(Me.chbCDS_14)
+        Me.GBAirProgramCodes.Controls.Add(Me.chbCDS_7)
+        Me.GBAirProgramCodes.Controls.Add(Me.chbCDS_4)
+        Me.GBAirProgramCodes.Controls.Add(Me.chbCDS_13)
+        Me.GBAirProgramCodes.Controls.Add(Me.chbCDS_3)
+        Me.GBAirProgramCodes.Controls.Add(Me.chbCDS_12)
+        Me.GBAirProgramCodes.Controls.Add(Me.chbCDS_9)
+        Me.GBAirProgramCodes.Controls.Add(Me.chbCDS_10)
+        Me.GBAirProgramCodes.Controls.Add(Me.chbCDS_2)
+        Me.GBAirProgramCodes.Controls.Add(Me.chbCDS_6)
+        Me.GBAirProgramCodes.Controls.Add(Me.chbCDS_1)
+        Me.GBAirProgramCodes.Controls.Add(Me.chbCDS_5)
+        Me.GBAirProgramCodes.Controls.Add(Me.chbCDS_11)
+        Me.GBAirProgramCodes.Controls.Add(Me.chbCDS_8)
+        Me.GBAirProgramCodes.Controls.Add(Me.Label37)
+        Me.GBAirProgramCodes.Location = New System.Drawing.Point(187, 488)
+        Me.GBAirProgramCodes.Name = "GBAirProgramCodes"
+        Me.GBAirProgramCodes.Size = New System.Drawing.Size(466, 104)
+        Me.GBAirProgramCodes.TabIndex = 63
+        Me.GBAirProgramCodes.TabStop = False
+        Me.GBAirProgramCodes.Text = "Air Program Codes && Pollutants"
+        Me.GBAirProgramCodes.Visible = False
+        '
+        'chbCDS_14
+        '
+        Me.chbCDS_14.AutoSize = True
+        Me.chbCDS_14.Location = New System.Drawing.Point(327, 51)
+        Me.chbCDS_14.Name = "chbCDS_14"
+        Me.chbCDS_14.Size = New System.Drawing.Size(128, 17)
+        Me.chbCDS_14.TabIndex = 158
+        Me.chbCDS_14.Text = "G - Green House Gas"
+        '
+        'chbCDS_7
+        '
+        Me.chbCDS_7.AutoSize = True
+        Me.chbCDS_7.Location = New System.Drawing.Point(127, 66)
+        Me.chbCDS_7.Name = "chbCDS_7"
+        Me.chbCDS_7.Size = New System.Drawing.Size(85, 17)
+        Me.chbCDS_7.TabIndex = 7
+        Me.chbCDS_7.Text = "8 - NESHAP"
+        '
+        'chbCDS_4
+        '
+        Me.chbCDS_4.AutoSize = True
+        Me.chbCDS_4.Location = New System.Drawing.Point(20, 82)
+        Me.chbCDS_4.Name = "chbCDS_4"
+        Me.chbCDS_4.Size = New System.Drawing.Size(106, 17)
+        Me.chbCDS_4.TabIndex = 4
+        Me.chbCDS_4.Text = "4 - CFC Tracking"
+        '
+        'chbCDS_13
+        '
+        Me.chbCDS_13.AutoSize = True
+        Me.chbCDS_13.Location = New System.Drawing.Point(327, 35)
+        Me.chbCDS_13.Name = "chbCDS_13"
+        Me.chbCDS_13.Size = New System.Drawing.Size(72, 17)
+        Me.chbCDS_13.TabIndex = 13
+        Me.chbCDS_13.Text = "V - Title V"
+        '
+        'chbCDS_3
+        '
+        Me.chbCDS_3.AutoSize = True
+        Me.chbCDS_3.Location = New System.Drawing.Point(20, 66)
+        Me.chbCDS_3.Name = "chbCDS_3"
+        Me.chbCDS_3.Size = New System.Drawing.Size(85, 17)
+        Me.chbCDS_3.TabIndex = 3
+        Me.chbCDS_3.Text = "3 - Non Fed."
+        '
+        'chbCDS_12
+        '
+        Me.chbCDS_12.AutoSize = True
+        Me.chbCDS_12.Location = New System.Drawing.Point(213, 82)
+        Me.chbCDS_12.Name = "chbCDS_12"
+        Me.chbCDS_12.Size = New System.Drawing.Size(74, 17)
+        Me.chbCDS_12.TabIndex = 12
+        Me.chbCDS_12.Text = "M - MACT"
+        '
+        'chbCDS_9
+        '
+        Me.chbCDS_9.AutoSize = True
+        Me.chbCDS_9.Location = New System.Drawing.Point(213, 35)
+        Me.chbCDS_9.Name = "chbCDS_9"
+        Me.chbCDS_9.Size = New System.Drawing.Size(79, 17)
+        Me.chbCDS_9.TabIndex = 9
+        Me.chbCDS_9.Text = "F - FESOP "
+        '
+        'chbCDS_10
+        '
+        Me.chbCDS_10.AutoSize = True
+        Me.chbCDS_10.Location = New System.Drawing.Point(213, 50)
+        Me.chbCDS_10.Name = "chbCDS_10"
+        Me.chbCDS_10.Size = New System.Drawing.Size(99, 17)
+        Me.chbCDS_10.TabIndex = 10
+        Me.chbCDS_10.Text = "A - Acid Precip."
+        '
+        'chbCDS_2
+        '
+        Me.chbCDS_2.AutoSize = True
+        Me.chbCDS_2.Location = New System.Drawing.Point(20, 50)
+        Me.chbCDS_2.Name = "chbCDS_2"
+        Me.chbCDS_2.Size = New System.Drawing.Size(82, 17)
+        Me.chbCDS_2.TabIndex = 2
+        Me.chbCDS_2.Text = "1 - Fed. SIP"
+        '
+        'chbCDS_6
+        '
+        Me.chbCDS_6.AutoSize = True
+        Me.chbCDS_6.Location = New System.Drawing.Point(127, 50)
+        Me.chbCDS_6.Name = "chbCDS_6"
+        Me.chbCDS_6.Size = New System.Drawing.Size(64, 17)
+        Me.chbCDS_6.TabIndex = 6
+        Me.chbCDS_6.Text = "7 - NSR"
+        '
+        'chbCDS_1
+        '
+        Me.chbCDS_1.AutoSize = True
+        Me.chbCDS_1.Location = New System.Drawing.Point(20, 35)
+        Me.chbCDS_1.Name = "chbCDS_1"
+        Me.chbCDS_1.Size = New System.Drawing.Size(58, 17)
+        Me.chbCDS_1.TabIndex = 1
+        Me.chbCDS_1.Text = "0 - SIP"
+        '
+        'chbCDS_5
+        '
+        Me.chbCDS_5.AutoSize = True
+        Me.chbCDS_5.Location = New System.Drawing.Point(127, 35)
+        Me.chbCDS_5.Name = "chbCDS_5"
+        Me.chbCDS_5.Size = New System.Drawing.Size(63, 17)
+        Me.chbCDS_5.TabIndex = 5
+        Me.chbCDS_5.Text = "6 - PSD"
+        '
+        'chbCDS_11
+        '
+        Me.chbCDS_11.AutoSize = True
+        Me.chbCDS_11.Location = New System.Drawing.Point(213, 66)
+        Me.chbCDS_11.Name = "chbCDS_11"
+        Me.chbCDS_11.Size = New System.Drawing.Size(116, 17)
+        Me.chbCDS_11.TabIndex = 11
+        Me.chbCDS_11.Text = "I - Native American"
+        '
+        'chbCDS_8
+        '
+        Me.chbCDS_8.AutoSize = True
+        Me.chbCDS_8.Location = New System.Drawing.Point(127, 82)
+        Me.chbCDS_8.Name = "chbCDS_8"
+        Me.chbCDS_8.Size = New System.Drawing.Size(70, 17)
+        Me.chbCDS_8.TabIndex = 8
+        Me.chbCDS_8.Text = "9 - NSPS"
+        '
+        'Label37
+        '
+        Me.Label37.AutoSize = True
+        Me.Label37.Location = New System.Drawing.Point(16, 16)
+        Me.Label37.Name = "Label37"
+        Me.Label37.Size = New System.Drawing.Size(106, 13)
+        Me.Label37.TabIndex = 157
+        Me.Label37.Text = "(Select All that apply)"
+        '
+        'GBHeaderData
+        '
+        Me.GBHeaderData.Controls.Add(Me.mtbCDSSICCode)
+        Me.GBHeaderData.Controls.Add(Me.txtCDSRegionCode)
+        Me.GBHeaderData.Controls.Add(Me.Label21)
+        Me.GBHeaderData.Controls.Add(Me.cboCDSOperationalStatus)
+        Me.GBHeaderData.Controls.Add(Me.Label51)
+        Me.GBHeaderData.Controls.Add(Me.cboCDSClassCode)
+        Me.GBHeaderData.Controls.Add(Me.Label49)
+        Me.GBHeaderData.Controls.Add(Me.Label42)
+        Me.GBHeaderData.Controls.Add(Me.Label63)
+        Me.GBHeaderData.Controls.Add(Me.txtFacilityDescription)
+        Me.GBHeaderData.Location = New System.Drawing.Point(186, 351)
+        Me.GBHeaderData.Name = "GBHeaderData"
+        Me.GBHeaderData.Size = New System.Drawing.Size(466, 131)
+        Me.GBHeaderData.TabIndex = 62
+        Me.GBHeaderData.TabStop = False
+        Me.GBHeaderData.Text = "Header Data"
+        Me.GBHeaderData.Visible = False
+        '
+        'mtbCDSSICCode
+        '
+        Me.mtbCDSSICCode.Location = New System.Drawing.Point(104, 47)
+        Me.mtbCDSSICCode.Mask = "0000"
+        Me.mtbCDSSICCode.Name = "mtbCDSSICCode"
+        Me.mtbCDSSICCode.Size = New System.Drawing.Size(76, 20)
+        Me.mtbCDSSICCode.TabIndex = 169
+        '
+        'txtCDSRegionCode
+        '
+        Me.txtCDSRegionCode.Location = New System.Drawing.Point(104, 16)
+        Me.txtCDSRegionCode.MaxLength = 4
+        Me.txtCDSRegionCode.Name = "txtCDSRegionCode"
+        Me.txtCDSRegionCode.ReadOnly = True
+        Me.txtCDSRegionCode.Size = New System.Drawing.Size(76, 20)
+        Me.txtCDSRegionCode.TabIndex = 9
+        '
+        'Label21
+        '
+        Me.Label21.AutoSize = True
+        Me.Label21.Location = New System.Drawing.Point(27, 18)
+        Me.Label21.Name = "Label21"
+        Me.Label21.Size = New System.Drawing.Size(69, 13)
+        Me.Label21.TabIndex = 167
+        Me.Label21.Text = "Region Code"
+        '
+        'cboCDSOperationalStatus
+        '
+        Me.cboCDSOperationalStatus.Location = New System.Drawing.Point(300, 16)
+        Me.cboCDSOperationalStatus.Name = "cboCDSOperationalStatus"
+        Me.cboCDSOperationalStatus.Size = New System.Drawing.Size(153, 21)
+        Me.cboCDSOperationalStatus.TabIndex = 1
+        '
+        'Label51
+        '
+        Me.Label51.AutoSize = True
+        Me.Label51.Location = New System.Drawing.Point(200, 18)
+        Me.Label51.Name = "Label51"
+        Me.Label51.Size = New System.Drawing.Size(94, 26)
+        Me.Label51.TabIndex = 168
+        Me.Label51.Text = "Operational Status" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "(Use X only)"
+        '
+        'cboCDSClassCode
+        '
+        Me.cboCDSClassCode.Location = New System.Drawing.Point(300, 47)
+        Me.cboCDSClassCode.Name = "cboCDSClassCode"
+        Me.cboCDSClassCode.Size = New System.Drawing.Size(153, 21)
+        Me.cboCDSClassCode.TabIndex = 3
+        '
+        'Label49
+        '
+        Me.Label49.AutoSize = True
+        Me.Label49.Location = New System.Drawing.Point(193, 49)
+        Me.Label49.Name = "Label49"
+        Me.Label49.Size = New System.Drawing.Size(95, 13)
+        Me.Label49.TabIndex = 164
+        Me.Label49.Text = "Facility Class Code"
+        '
+        'Label42
+        '
+        Me.Label42.AutoSize = True
+        Me.Label42.Location = New System.Drawing.Point(44, 47)
+        Me.Label42.Name = "Label42"
+        Me.Label42.Size = New System.Drawing.Size(52, 13)
+        Me.Label42.TabIndex = 161
+        Me.Label42.Text = "SIC Code"
+        '
+        'Label63
+        '
+        Me.Label63.AutoSize = True
+        Me.Label63.Location = New System.Drawing.Point(8, 72)
+        Me.Label63.Name = "Label63"
+        Me.Label63.Size = New System.Drawing.Size(87, 13)
+        Me.Label63.TabIndex = 8
+        Me.Label63.Text = "Plant Description"
+        '
+        'txtFacilityDescription
+        '
+        Me.txtFacilityDescription.Location = New System.Drawing.Point(24, 88)
+        Me.txtFacilityDescription.MaxLength = 4000
+        Me.txtFacilityDescription.Name = "txtFacilityDescription"
+        Me.txtFacilityDescription.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
+        Me.txtFacilityDescription.Size = New System.Drawing.Size(429, 20)
+        Me.txtFacilityDescription.TabIndex = 4
+        '
+        'GBMailingLocation
+        '
+        Me.GBMailingLocation.Controls.Add(Me.mtbMailingZipCode)
+        Me.GBMailingLocation.Controls.Add(Me.txtMailingState)
+        Me.GBMailingLocation.Controls.Add(Me.Label18)
+        Me.GBMailingLocation.Controls.Add(Me.Label19)
+        Me.GBMailingLocation.Controls.Add(Me.Label20)
+        Me.GBMailingLocation.Controls.Add(Me.txtMailingCity)
+        Me.GBMailingLocation.Controls.Add(Me.Label24)
+        Me.GBMailingLocation.Controls.Add(Me.txtMailingAddress)
+        Me.GBMailingLocation.Location = New System.Drawing.Point(187, 243)
+        Me.GBMailingLocation.Name = "GBMailingLocation"
+        Me.GBMailingLocation.Size = New System.Drawing.Size(465, 104)
+        Me.GBMailingLocation.TabIndex = 61
+        Me.GBMailingLocation.TabStop = False
+        Me.GBMailingLocation.Text = "Mailing Location"
+        Me.GBMailingLocation.Visible = False
+        '
+        'mtbMailingZipCode
+        '
+        Me.mtbMailingZipCode.Location = New System.Drawing.Point(104, 66)
+        Me.mtbMailingZipCode.Mask = "00000-9999"
+        Me.mtbMailingZipCode.Name = "mtbMailingZipCode"
+        Me.mtbMailingZipCode.Size = New System.Drawing.Size(72, 20)
+        Me.mtbMailingZipCode.TabIndex = 3
+        '
+        'txtMailingState
+        '
+        Me.txtMailingState.Location = New System.Drawing.Point(312, 40)
+        Me.txtMailingState.MaxLength = 2
+        Me.txtMailingState.Name = "txtMailingState"
+        Me.txtMailingState.Size = New System.Drawing.Size(24, 20)
+        Me.txtMailingState.TabIndex = 3
+        Me.txtMailingState.Text = "GA"
+        '
+        'Label18
+        '
+        Me.Label18.AutoSize = True
+        Me.Label18.Location = New System.Drawing.Point(38, 66)
+        Me.Label18.Name = "Label18"
+        Me.Label18.Size = New System.Drawing.Size(58, 13)
+        Me.Label18.TabIndex = 162
+        Me.Label18.Text = "Mailing Zip"
+        '
+        'Label19
+        '
+        Me.Label19.AutoSize = True
+        Me.Label19.Location = New System.Drawing.Point(272, 42)
+        Me.Label19.Name = "Label19"
+        Me.Label19.Size = New System.Drawing.Size(32, 13)
+        Me.Label19.TabIndex = 161
+        Me.Label19.Text = "State"
+        '
+        'Label20
+        '
+        Me.Label20.AutoSize = True
+        Me.Label20.Location = New System.Drawing.Point(34, 42)
+        Me.Label20.Name = "Label20"
+        Me.Label20.Size = New System.Drawing.Size(60, 13)
+        Me.Label20.TabIndex = 160
+        Me.Label20.Text = "Mailing City"
+        '
+        'txtMailingCity
+        '
+        Me.txtMailingCity.Location = New System.Drawing.Point(104, 40)
+        Me.txtMailingCity.Name = "txtMailingCity"
+        Me.txtMailingCity.Size = New System.Drawing.Size(160, 20)
+        Me.txtMailingCity.TabIndex = 2
+        '
+        'Label24
+        '
+        Me.Label24.AutoSize = True
+        Me.Label24.Location = New System.Drawing.Point(12, 18)
+        Me.Label24.Name = "Label24"
+        Me.Label24.Size = New System.Drawing.Size(81, 13)
+        Me.Label24.TabIndex = 159
+        Me.Label24.Text = "Mailing Address"
+        '
+        'txtMailingAddress
+        '
+        Me.txtMailingAddress.Location = New System.Drawing.Point(104, 16)
+        Me.txtMailingAddress.Name = "txtMailingAddress"
+        Me.txtMailingAddress.Size = New System.Drawing.Size(352, 20)
+        Me.txtMailingAddress.TabIndex = 1
+        '
+        'GBFacilityInformation
+        '
+        Me.GBFacilityInformation.Controls.Add(Me.mtbFacilityLongitude)
+        Me.GBFacilityInformation.Controls.Add(Me.mtbFacilityLatitude)
+        Me.GBFacilityInformation.Controls.Add(Me.mtbCDSZipCode)
+        Me.GBFacilityInformation.Controls.Add(Me.Label103)
+        Me.GBFacilityInformation.Controls.Add(Me.Label102)
+        Me.GBFacilityInformation.Controls.Add(Me.txtCDSStreetAddress)
+        Me.GBFacilityInformation.Controls.Add(Me.Label5)
+        Me.GBFacilityInformation.Controls.Add(Me.Label9)
+        Me.GBFacilityInformation.Controls.Add(Me.txtCDSFacilityName)
+        Me.GBFacilityInformation.Controls.Add(Me.Label7)
+        Me.GBFacilityInformation.Controls.Add(Me.txtCDSCity)
+        Me.GBFacilityInformation.Controls.Add(Me.Label8)
+        Me.GBFacilityInformation.Controls.Add(Me.Label10)
+        Me.GBFacilityInformation.Controls.Add(Me.txtCDSState)
+        Me.GBFacilityInformation.Controls.Add(Me.Label27)
+        Me.GBFacilityInformation.Controls.Add(Me.Label28)
+        Me.GBFacilityInformation.Location = New System.Drawing.Point(187, 0)
+        Me.GBFacilityInformation.Name = "GBFacilityInformation"
+        Me.GBFacilityInformation.Size = New System.Drawing.Size(466, 243)
+        Me.GBFacilityInformation.TabIndex = 60
+        Me.GBFacilityInformation.TabStop = False
+        Me.GBFacilityInformation.Text = "Facility Information"
+        Me.GBFacilityInformation.Visible = False
+        '
+        'mtbFacilityLongitude
+        '
+        Me.mtbFacilityLongitude.Location = New System.Drawing.Point(330, 135)
+        Me.mtbFacilityLongitude.Mask = "-00.000000"
+        Me.mtbFacilityLongitude.Name = "mtbFacilityLongitude"
+        Me.mtbFacilityLongitude.Size = New System.Drawing.Size(69, 20)
+        Me.mtbFacilityLongitude.TabIndex = 175
+        '
+        'mtbFacilityLatitude
+        '
+        Me.mtbFacilityLatitude.Location = New System.Drawing.Point(104, 131)
+        Me.mtbFacilityLatitude.Mask = "00.000000"
+        Me.mtbFacilityLatitude.Name = "mtbFacilityLatitude"
+        Me.mtbFacilityLatitude.Size = New System.Drawing.Size(72, 20)
+        Me.mtbFacilityLatitude.TabIndex = 174
+        '
+        'mtbCDSZipCode
+        '
+        Me.mtbCDSZipCode.Location = New System.Drawing.Point(104, 95)
+        Me.mtbCDSZipCode.Mask = "00000-9999"
+        Me.mtbCDSZipCode.Name = "mtbCDSZipCode"
+        Me.mtbCDSZipCode.Size = New System.Drawing.Size(72, 20)
+        Me.mtbCDSZipCode.TabIndex = 4
+        '
+        'Label103
+        '
+        Me.Label103.AutoSize = True
+        Me.Label103.Location = New System.Drawing.Point(294, 158)
+        Me.Label103.Name = "Label103"
+        Me.Label103.Size = New System.Drawing.Size(159, 13)
+        Me.Label103.TabIndex = 173
+        Me.Label103.Text = "(Range = 80.84111 -- 85.60444)"
+        '
+        'Label102
+        '
+        Me.Label102.AutoSize = True
+        Me.Label102.Location = New System.Drawing.Point(80, 158)
+        Me.Label102.Name = "Label102"
+        Me.Label102.Size = New System.Drawing.Size(147, 13)
+        Me.Label102.TabIndex = 171
+        Me.Label102.Text = "(Range = 30.3555 -- 35.0000)"
+        '
+        'txtCDSStreetAddress
+        '
+        Me.txtCDSStreetAddress.Location = New System.Drawing.Point(104, 48)
+        Me.txtCDSStreetAddress.MaxLength = 100
+        Me.txtCDSStreetAddress.Name = "txtCDSStreetAddress"
+        Me.txtCDSStreetAddress.Size = New System.Drawing.Size(349, 20)
+        Me.txtCDSStreetAddress.TabIndex = 2
+        '
+        'Label5
+        '
+        Me.Label5.AutoSize = True
+        Me.Label5.Location = New System.Drawing.Point(272, 74)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(32, 13)
+        Me.Label5.TabIndex = 48
+        Me.Label5.Text = "State"
+        '
+        'Label9
+        '
+        Me.Label9.AutoSize = True
+        Me.Label9.Location = New System.Drawing.Point(24, 26)
+        Me.Label9.Name = "Label9"
+        Me.Label9.Size = New System.Drawing.Size(70, 13)
+        Me.Label9.TabIndex = 39
+        Me.Label9.Text = "Facility Name"
+        '
+        'txtCDSFacilityName
+        '
+        Me.txtCDSFacilityName.Location = New System.Drawing.Point(104, 24)
+        Me.txtCDSFacilityName.MaxLength = 100
+        Me.txtCDSFacilityName.Name = "txtCDSFacilityName"
+        Me.txtCDSFacilityName.Size = New System.Drawing.Size(349, 20)
+        Me.txtCDSFacilityName.TabIndex = 1
+        '
+        'Label7
+        '
+        Me.Label7.AutoSize = True
+        Me.Label7.Location = New System.Drawing.Point(73, 74)
+        Me.Label7.Name = "Label7"
+        Me.Label7.Size = New System.Drawing.Size(24, 13)
+        Me.Label7.TabIndex = 43
+        Me.Label7.Text = "City"
+        '
+        'txtCDSCity
+        '
+        Me.txtCDSCity.Location = New System.Drawing.Point(104, 72)
+        Me.txtCDSCity.MaxLength = 50
+        Me.txtCDSCity.Name = "txtCDSCity"
+        Me.txtCDSCity.Size = New System.Drawing.Size(160, 20)
+        Me.txtCDSCity.TabIndex = 3
+        '
+        'Label8
+        '
+        Me.Label8.AutoSize = True
+        Me.Label8.Location = New System.Drawing.Point(18, 50)
+        Me.Label8.Name = "Label8"
+        Me.Label8.Size = New System.Drawing.Size(76, 13)
+        Me.Label8.TabIndex = 41
+        Me.Label8.Text = "Street Address"
+        '
+        'Label10
+        '
+        Me.Label10.AutoSize = True
+        Me.Label10.Location = New System.Drawing.Point(47, 98)
+        Me.Label10.Name = "Label10"
+        Me.Label10.Size = New System.Drawing.Size(50, 13)
+        Me.Label10.TabIndex = 45
+        Me.Label10.Text = "Zip Code"
+        '
+        'txtCDSState
+        '
+        Me.txtCDSState.Location = New System.Drawing.Point(312, 72)
+        Me.txtCDSState.MaxLength = 4
+        Me.txtCDSState.Name = "txtCDSState"
+        Me.txtCDSState.ReadOnly = True
+        Me.txtCDSState.Size = New System.Drawing.Size(24, 20)
+        Me.txtCDSState.TabIndex = 7
+        Me.txtCDSState.TabStop = False
+        Me.txtCDSState.Text = "GA"
+        '
+        'Label27
+        '
+        Me.Label27.AutoSize = True
+        Me.Label27.Location = New System.Drawing.Point(270, 138)
+        Me.Label27.Name = "Label27"
+        Me.Label27.Size = New System.Drawing.Size(54, 13)
+        Me.Label27.TabIndex = 156
+        Me.Label27.Text = "Longitude"
+        '
+        'Label28
+        '
+        Me.Label28.AutoSize = True
+        Me.Label28.Location = New System.Drawing.Point(47, 138)
+        Me.Label28.Name = "Label28"
+        Me.Label28.Size = New System.Drawing.Size(45, 13)
+        Me.Label28.TabIndex = 155
+        Me.Label28.Text = "Latitude"
+        '
+        'llbContactInformation
+        '
+        Me.llbContactInformation.AutoSize = True
+        Me.llbContactInformation.Enabled = False
+        Me.llbContactInformation.Location = New System.Drawing.Point(13, 180)
+        Me.llbContactInformation.Name = "llbContactInformation"
+        Me.llbContactInformation.Size = New System.Drawing.Size(99, 13)
+        Me.llbContactInformation.TabIndex = 57
+        Me.llbContactInformation.TabStop = True
+        Me.llbContactInformation.Text = "Contact Information"
+        '
+        'llbAirProgramCodes
+        '
+        Me.llbAirProgramCodes.AutoSize = True
+        Me.llbAirProgramCodes.Enabled = False
+        Me.llbAirProgramCodes.Location = New System.Drawing.Point(13, 146)
+        Me.llbAirProgramCodes.Name = "llbAirProgramCodes"
+        Me.llbAirProgramCodes.Size = New System.Drawing.Size(152, 13)
+        Me.llbAirProgramCodes.TabIndex = 56
+        Me.llbAirProgramCodes.TabStop = True
+        Me.llbAirProgramCodes.Text = "Air Program Codes && Pollutants"
+        '
+        'llbHeaderData
+        '
+        Me.llbHeaderData.AutoSize = True
+        Me.llbHeaderData.Enabled = False
+        Me.llbHeaderData.Location = New System.Drawing.Point(13, 111)
+        Me.llbHeaderData.Name = "llbHeaderData"
+        Me.llbHeaderData.Size = New System.Drawing.Size(68, 13)
+        Me.llbHeaderData.TabIndex = 55
+        Me.llbHeaderData.TabStop = True
+        Me.llbHeaderData.Text = "Header Data"
+        '
+        'llbMailingLocation
+        '
+        Me.llbMailingLocation.AutoSize = True
+        Me.llbMailingLocation.Enabled = False
+        Me.llbMailingLocation.Location = New System.Drawing.Point(13, 76)
+        Me.llbMailingLocation.Name = "llbMailingLocation"
+        Me.llbMailingLocation.Size = New System.Drawing.Size(84, 13)
+        Me.llbMailingLocation.TabIndex = 54
+        Me.llbMailingLocation.TabStop = True
+        Me.llbMailingLocation.Text = "Mailing Location"
+        '
+        'llbFacilityInformation
+        '
+        Me.llbFacilityInformation.AutoSize = True
+        Me.llbFacilityInformation.Enabled = False
+        Me.llbFacilityInformation.Location = New System.Drawing.Point(13, 42)
+        Me.llbFacilityInformation.Name = "llbFacilityInformation"
+        Me.llbFacilityInformation.Size = New System.Drawing.Size(94, 13)
+        Me.llbFacilityInformation.TabIndex = 53
+        Me.llbFacilityInformation.TabStop = True
+        Me.llbFacilityInformation.Text = "Facility Information"
+        '
+        'btnNewFacility
+        '
+        Me.btnNewFacility.Enabled = False
+        Me.btnNewFacility.Location = New System.Drawing.Point(13, 215)
+        Me.btnNewFacility.Name = "btnNewFacility"
+        Me.btnNewFacility.Size = New System.Drawing.Size(112, 23)
+        Me.btnNewFacility.TabIndex = 58
+        Me.btnNewFacility.Text = "Create New Facility"
+        Me.btnNewFacility.Visible = False
+        '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.Location = New System.Drawing.Point(7, 7)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(75, 13)
+        Me.Label4.TabIndex = 59
+        Me.Label4.Text = "AIRS Number:"
+        '
+        'txtCDSAIRSNumber
+        '
+        Me.txtCDSAIRSNumber.Location = New System.Drawing.Point(87, 7)
+        Me.txtCDSAIRSNumber.MaxLength = 12
+        Me.txtCDSAIRSNumber.Name = "txtCDSAIRSNumber"
+        Me.txtCDSAIRSNumber.Size = New System.Drawing.Size(88, 20)
+        Me.txtCDSAIRSNumber.TabIndex = 52
+        Me.txtCDSAIRSNumber.Text = "0413"
+        '
         'TSDMUStaffTools
         '
         Me.TSDMUStaffTools.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsbBack})
@@ -3664,15 +3892,25 @@ Partial Class DMUDeveloperTools
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Menu = Me.MainMenu1
         Me.Name = "DMUDeveloperTools"
-        Me.Text = "DMU Developer"
+        Me.Text = "AFS Tools"
         Me.StatusStrip1.ResumeLayout(False)
         Me.StatusStrip1.PerformLayout()
         Me.TCDMUTools.ResumeLayout(False)
-        Me.TPWebErrorLog.ResumeLayout(False)
-        Me.GroupBox4.ResumeLayout(False)
-        Me.Panel5.ResumeLayout(False)
-        Me.Panel5.PerformLayout()
-        CType(Me.dgrWebErrorList, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.TPAFSFileGenerator.ResumeLayout(False)
+        Me.TPAFSFileGenerator.PerformLayout()
+        Me.PanelBatchOrder.ResumeLayout(False)
+        Me.pnlBasicRefresh.ResumeLayout(False)
+        Me.pnlBasicRefresh.PerformLayout()
+        Me.pnlSubParts.ResumeLayout(False)
+        Me.pnlSubParts.PerformLayout()
+        Me.pnlAIRSSpecific.ResumeLayout(False)
+        Me.pnlAIRSSpecific.PerformLayout()
+        Me.pnlStandardFile.ResumeLayout(False)
+        Me.pnlStandardFile.PerformLayout()
+        Me.Panel8.ResumeLayout(False)
+        Me.Panel8.PerformLayout()
+        Me.TPATSTool.ResumeLayout(False)
+        Me.TPATSTool.PerformLayout()
         Me.TPErrorLog.ResumeLayout(False)
         Me.GroupBox3.ResumeLayout(False)
         Me.GroupBox3.PerformLayout()
@@ -3681,22 +3919,11 @@ Partial Class DMUDeveloperTools
         Me.Panel6.ResumeLayout(False)
         Me.Panel6.PerformLayout()
         CType(Me.dgvErrorList, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.TPAddNewFacility.ResumeLayout(False)
-        Me.TPAddNewFacility.PerformLayout()
-        Me.GBContactInformation.ResumeLayout(False)
-        Me.GBContactInformation.PerformLayout()
-        Me.GBAirProgramCodes.ResumeLayout(False)
-        Me.GBAirProgramCodes.PerformLayout()
-        Me.GBHeaderData.ResumeLayout(False)
-        Me.GBHeaderData.PerformLayout()
-        Me.GBMailingLocation.ResumeLayout(False)
-        Me.GBMailingLocation.PerformLayout()
-        Me.GBFacilityInformation.ResumeLayout(False)
-        Me.GBFacilityInformation.PerformLayout()
-        Me.TPAFSFileGenerator.ResumeLayout(False)
-        Me.TPAFSFileGenerator.PerformLayout()
-        Me.PanelBatchOrder.ResumeLayout(False)
-        Me.PanelBatchOrder.PerformLayout()
+        Me.TPWebErrorLog.ResumeLayout(False)
+        Me.GroupBox4.ResumeLayout(False)
+        Me.Panel5.ResumeLayout(False)
+        Me.Panel5.PerformLayout()
+        CType(Me.dgrWebErrorList, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TPUpdateDEVTest.ResumeLayout(False)
         Me.TPUpdateDEVTest.PerformLayout()
         Me.TCTables.ResumeLayout(False)
@@ -3723,6 +3950,18 @@ Partial Class DMUDeveloperTools
         Me.PanelSources.PerformLayout()
         Me.Panel20.ResumeLayout(False)
         Me.Panel20.PerformLayout()
+        Me.TPAddNewFacility.ResumeLayout(False)
+        Me.TPAddNewFacility.PerformLayout()
+        Me.GBContactInformation.ResumeLayout(False)
+        Me.GBContactInformation.PerformLayout()
+        Me.GBAirProgramCodes.ResumeLayout(False)
+        Me.GBAirProgramCodes.PerformLayout()
+        Me.GBHeaderData.ResumeLayout(False)
+        Me.GBHeaderData.PerformLayout()
+        Me.GBMailingLocation.ResumeLayout(False)
+        Me.GBMailingLocation.PerformLayout()
+        Me.GBFacilityInformation.ResumeLayout(False)
+        Me.GBFacilityInformation.PerformLayout()
         Me.TSDMUStaffTools.ResumeLayout(False)
         Me.TSDMUStaffTools.PerformLayout()
         Me.ResumeLayout(False)
@@ -4040,4 +4279,23 @@ Partial Class DMUDeveloperTools
     Friend WithEvents btnExporttoExcel As System.Windows.Forms.Button
     Friend WithEvents dgvErrorList As System.Windows.Forms.DataGridView
     Friend WithEvents btnUpdateAllSubParts As System.Windows.Forms.Button
+    Friend WithEvents TPATSTool As System.Windows.Forms.TabPage
+    Friend WithEvents btnPopulateStaffList As System.Windows.Forms.Button
+    Friend WithEvents btnFillComputerAssets As System.Windows.Forms.Button
+    Friend WithEvents btnPopulatePrinterAssets As System.Windows.Forms.Button
+    Friend WithEvents Button1 As System.Windows.Forms.Button
+    Friend WithEvents mtbAFSAirsNumber As System.Windows.Forms.MaskedTextBox
+    Friend WithEvents Label11 As System.Windows.Forms.Label
+    Friend WithEvents Label6 As System.Windows.Forms.Label
+    Friend WithEvents btnAIRSSpecificRefresh As System.Windows.Forms.Button
+    Friend WithEvents Label12 As System.Windows.Forms.Label
+    Friend WithEvents pnlStandardFile As System.Windows.Forms.Panel
+    Friend WithEvents pnlBasicRefresh As System.Windows.Forms.Panel
+    Friend WithEvents pnlSubParts As System.Windows.Forms.Panel
+    Friend WithEvents pnlAIRSSpecific As System.Windows.Forms.Panel
+    Friend WithEvents Panel8 As System.Windows.Forms.Panel
+    Friend WithEvents rdbUpdateAllSubparts As System.Windows.Forms.RadioButton
+    Friend WithEvents rdbAIRSSpecific As System.Windows.Forms.RadioButton
+    Friend WithEvents rdbGenerateStandardFile As System.Windows.Forms.RadioButton
+    Friend WithEvents rdbBasicData As System.Windows.Forms.RadioButton
 End Class

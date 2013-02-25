@@ -15699,8 +15699,6 @@ Public Class IAIPPrintOut
         Dim spValue As CrystalDecisions.Shared.ParameterDiscreteValue
 
         Try
-             
-
             'Do this just once at the start
             ParameterFields = New CrystalDecisions.Shared.ParameterFields
 

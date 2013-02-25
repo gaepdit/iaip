@@ -5207,7 +5207,7 @@ Partial Class SSPPApplicationTrackingLog
         'lblSSCPReview
         '
         Me.lblSSCPReview.AutoSize = True
-        Me.lblSSCPReview.Location = New System.Drawing.Point(7, 19)
+        Me.lblSSCPReview.Location = New System.Drawing.Point(4, 18)
         Me.lblSSCPReview.Name = "lblSSCPReview"
         Me.lblSSCPReview.Size = New System.Drawing.Size(120, 13)
         Me.lblSSCPReview.TabIndex = 343
@@ -5235,18 +5235,17 @@ Partial Class SSPPApplicationTrackingLog
         '
         'Panel5
         '
-        Me.Panel5.AutoSize = True
         Me.Panel5.Controls.Add(Me.rdbSSCPNo)
         Me.Panel5.Controls.Add(Me.rdbSSCPYes)
         Me.Panel5.Location = New System.Drawing.Point(292, 62)
         Me.Panel5.Name = "Panel5"
-        Me.Panel5.Size = New System.Drawing.Size(88, 19)
+        Me.Panel5.Size = New System.Drawing.Size(88, 16)
         Me.Panel5.TabIndex = 307
         '
         'rdbSSCPNo
         '
         Me.rdbSSCPNo.Enabled = False
-        Me.rdbSSCPNo.Location = New System.Drawing.Point(44, 0)
+        Me.rdbSSCPNo.Location = New System.Drawing.Point(45, 0)
         Me.rdbSSCPNo.Name = "rdbSSCPNo"
         Me.rdbSSCPNo.Size = New System.Drawing.Size(40, 16)
         Me.rdbSSCPNo.TabIndex = 50
@@ -5277,7 +5276,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.DTPSSCPReview.Enabled = False
         Me.DTPSSCPReview.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.DTPSSCPReview.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DTPSSCPReview.Location = New System.Drawing.Point(133, 13)
+        Me.DTPSSCPReview.Location = New System.Drawing.Point(130, 13)
         Me.DTPSSCPReview.Name = "DTPSSCPReview"
         Me.DTPSSCPReview.ShowCheckBox = True
         Me.DTPSSCPReview.Size = New System.Drawing.Size(129, 22)
@@ -5331,7 +5330,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.cboISMPUnits.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cboISMPUnits.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cboISMPUnits.Enabled = False
-        Me.cboISMPUnits.Location = New System.Drawing.Point(545, 9)
+        Me.cboISMPUnits.Location = New System.Drawing.Point(517, 8)
         Me.cboISMPUnits.Name = "cboISMPUnits"
         Me.cboISMPUnits.Size = New System.Drawing.Size(160, 21)
         Me.cboISMPUnits.TabIndex = 46
@@ -5339,7 +5338,7 @@ Partial Class SSPPApplicationTrackingLog
         'Label37
         '
         Me.Label37.AutoSize = True
-        Me.Label37.Location = New System.Drawing.Point(505, 13)
+        Me.Label37.Location = New System.Drawing.Point(477, 12)
         Me.Label37.Name = "Label37"
         Me.Label37.Size = New System.Drawing.Size(36, 13)
         Me.Label37.TabIndex = 335
@@ -5364,16 +5363,16 @@ Partial Class SSPPApplicationTrackingLog
         Me.Label36.AutoSize = True
         Me.Label36.Location = New System.Drawing.Point(270, 12)
         Me.Label36.Name = "Label36"
-        Me.Label36.Size = New System.Drawing.Size(65, 13)
+        Me.Label36.Size = New System.Drawing.Size(38, 13)
         Me.Label36.TabIndex = 334
-        Me.Label36.Text = "Compliance:"
+        Me.Label36.Text = "SSCP:"
         '
         'cboSSCPUnits
         '
         Me.cboSSCPUnits.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cboSSCPUnits.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cboSSCPUnits.Enabled = False
-        Me.cboSSCPUnits.Location = New System.Drawing.Point(336, 10)
+        Me.cboSSCPUnits.Location = New System.Drawing.Point(310, 8)
         Me.cboSSCPUnits.Name = "cboSSCPUnits"
         Me.cboSSCPUnits.Size = New System.Drawing.Size(160, 21)
         Me.cboSSCPUnits.TabIndex = 45

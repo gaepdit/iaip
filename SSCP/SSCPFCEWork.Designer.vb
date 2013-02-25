@@ -88,6 +88,7 @@ Partial Class SSCPFCEWork
         Me.txtEnforcement = New System.Windows.Forms.TextBox
         Me.Label16 = New System.Windows.Forms.Label
         Me.GroupBox2 = New System.Windows.Forms.GroupBox
+        Me.btnPrintTest = New System.Windows.Forms.Button
         Me.GroupBox1 = New System.Windows.Forms.GroupBox
         Me.rdbFCENoOnsite = New System.Windows.Forms.RadioButton
         Me.rdbFCEOnSite = New System.Windows.Forms.RadioButton
@@ -114,6 +115,9 @@ Partial Class SSCPFCEWork
         Me.Panel4 = New System.Windows.Forms.Panel
         Me.Panel6 = New System.Windows.Forms.Panel
         Me.Panel5 = New System.Windows.Forms.Panel
+        Me.TabControl1 = New System.Windows.Forms.TabControl
+        Me.TabPage1 = New System.Windows.Forms.TabPage
+        Me.TabPage2 = New System.Windows.Forms.TabPage
         Me.StatusStrip1.SuspendLayout()
         Me.TCFCEData.SuspendLayout()
         Me.TPInspections.SuspendLayout()
@@ -144,14 +148,16 @@ Partial Class SSCPFCEWork
         Me.Panel4.SuspendLayout()
         Me.Panel6.SuspendLayout()
         Me.Panel5.SuspendLayout()
+        Me.TabControl1.SuspendLayout()
+        Me.TabPage1.SuspendLayout()
         Me.SuspendLayout()
         '
         'StatusStrip1
         '
         Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripProgressBar1, Me.Panel1, Me.Panel2, Me.Panel3})
-        Me.StatusStrip1.Location = New System.Drawing.Point(0, 543)
+        Me.StatusStrip1.Location = New System.Drawing.Point(0, 620)
         Me.StatusStrip1.Name = "StatusStrip1"
-        Me.StatusStrip1.Size = New System.Drawing.Size(792, 22)
+        Me.StatusStrip1.Size = New System.Drawing.Size(877, 22)
         Me.StatusStrip1.TabIndex = 201
         Me.StatusStrip1.Text = "StatusStrip1"
         '
@@ -168,7 +174,7 @@ Partial Class SSCPFCEWork
         Me.Panel1.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
         Me.Panel1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(667, 17)
+        Me.Panel1.Size = New System.Drawing.Size(752, 17)
         Me.Panel1.Spring = True
         Me.Panel1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
@@ -334,7 +340,7 @@ Partial Class SSCPFCEWork
         Me.TBFCE.Location = New System.Drawing.Point(0, 0)
         Me.TBFCE.Name = "TBFCE"
         Me.TBFCE.ShowToolTips = True
-        Me.TBFCE.Size = New System.Drawing.Size(792, 28)
+        Me.TBFCE.Size = New System.Drawing.Size(877, 28)
         Me.TBFCE.TabIndex = 202
         '
         'TbbSave
@@ -384,7 +390,6 @@ Partial Class SSCPFCEWork
         Me.TCFCEData.Controls.Add(Me.TPISMPSummaryReports)
         Me.TCFCEData.Controls.Add(Me.TPPerformanceTests)
         Me.TCFCEData.Controls.Add(Me.TPEnforcement)
-        Me.TCFCEData.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TCFCEData.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TCFCEData.HotTrack = True
         Me.TCFCEData.Location = New System.Drawing.Point(0, 31)
@@ -844,6 +849,7 @@ Partial Class SSCPFCEWork
         '
         'GroupBox2
         '
+        Me.GroupBox2.Controls.Add(Me.btnPrintTest)
         Me.GroupBox2.Controls.Add(Me.GroupBox1)
         Me.GroupBox2.Controls.Add(Me.cboReviewer)
         Me.GroupBox2.Controls.Add(Me.txtFCENumber)
@@ -856,12 +862,22 @@ Partial Class SSCPFCEWork
         Me.GroupBox2.Controls.Add(Me.Label9)
         Me.GroupBox2.Controls.Add(Me.cboFCEYear)
         Me.GroupBox2.Dock = System.Windows.Forms.DockStyle.Top
-        Me.GroupBox2.Location = New System.Drawing.Point(0, 128)
+        Me.GroupBox2.Location = New System.Drawing.Point(3, 103)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(792, 168)
+        Me.GroupBox2.Size = New System.Drawing.Size(863, 168)
         Me.GroupBox2.TabIndex = 237
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Final Compliance Status"
+        '
+        'btnPrintTest
+        '
+        Me.btnPrintTest.Location = New System.Drawing.Point(782, 137)
+        Me.btnPrintTest.Name = "btnPrintTest"
+        Me.btnPrintTest.Size = New System.Drawing.Size(75, 23)
+        Me.btnPrintTest.TabIndex = 243
+        Me.btnPrintTest.Text = "Print Test"
+        Me.btnPrintTest.UseVisualStyleBackColor = True
+        Me.btnPrintTest.Visible = False
         '
         'GroupBox1
         '
@@ -1073,7 +1089,7 @@ Partial Class SSCPFCEWork
         Me.txtFacilityInformation.Name = "txtFacilityInformation"
         Me.txtFacilityInformation.ReadOnly = True
         Me.txtFacilityInformation.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.txtFacilityInformation.Size = New System.Drawing.Size(671, 83)
+        Me.txtFacilityInformation.Size = New System.Drawing.Size(742, 83)
         Me.txtFacilityInformation.TabIndex = 236
         '
         'labReferenceNumber
@@ -1091,9 +1107,9 @@ Partial Class SSCPFCEWork
         Me.Panel4.Controls.Add(Me.TCFCEData)
         Me.Panel4.Controls.Add(Me.Panel6)
         Me.Panel4.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Panel4.Location = New System.Drawing.Point(0, 296)
+        Me.Panel4.Location = New System.Drawing.Point(3, 271)
         Me.Panel4.Name = "Panel4"
-        Me.Panel4.Size = New System.Drawing.Size(792, 247)
+        Me.Panel4.Size = New System.Drawing.Size(863, 292)
         Me.Panel4.TabIndex = 241
         '
         'Panel6
@@ -1106,7 +1122,7 @@ Partial Class SSCPFCEWork
         Me.Panel6.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel6.Location = New System.Drawing.Point(0, 0)
         Me.Panel6.Name = "Panel6"
-        Me.Panel6.Size = New System.Drawing.Size(792, 31)
+        Me.Panel6.Size = New System.Drawing.Size(863, 31)
         Me.Panel6.TabIndex = 239
         '
         'Panel5
@@ -1114,19 +1130,51 @@ Partial Class SSCPFCEWork
         Me.Panel5.Controls.Add(Me.txtFacilityInformation)
         Me.Panel5.Controls.Add(Me.labReferenceNumber)
         Me.Panel5.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Panel5.Location = New System.Drawing.Point(0, 28)
+        Me.Panel5.Location = New System.Drawing.Point(3, 3)
         Me.Panel5.Name = "Panel5"
-        Me.Panel5.Size = New System.Drawing.Size(792, 100)
+        Me.Panel5.Size = New System.Drawing.Size(863, 100)
         Me.Panel5.TabIndex = 242
+        '
+        'TabControl1
+        '
+        Me.TabControl1.Controls.Add(Me.TabPage1)
+        Me.TabControl1.Controls.Add(Me.TabPage2)
+        Me.TabControl1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TabControl1.Location = New System.Drawing.Point(0, 28)
+        Me.TabControl1.Name = "TabControl1"
+        Me.TabControl1.SelectedIndex = 0
+        Me.TabControl1.Size = New System.Drawing.Size(877, 592)
+        Me.TabControl1.TabIndex = 243
+        '
+        'TabPage1
+        '
+        Me.TabPage1.Controls.Add(Me.Panel4)
+        Me.TabPage1.Controls.Add(Me.GroupBox2)
+        Me.TabPage1.Controls.Add(Me.Panel5)
+        Me.TabPage1.Location = New System.Drawing.Point(4, 22)
+        Me.TabPage1.Name = "TabPage1"
+        Me.TabPage1.Padding = New System.Windows.Forms.Padding(3)
+        Me.TabPage1.Size = New System.Drawing.Size(869, 566)
+        Me.TabPage1.TabIndex = 0
+        Me.TabPage1.Text = "FCE Data"
+        Me.TabPage1.UseVisualStyleBackColor = True
+        '
+        'TabPage2
+        '
+        Me.TabPage2.Location = New System.Drawing.Point(4, 22)
+        Me.TabPage2.Name = "TabPage2"
+        Me.TabPage2.Padding = New System.Windows.Forms.Padding(3)
+        Me.TabPage2.Size = New System.Drawing.Size(869, 566)
+        Me.TabPage2.TabIndex = 1
+        Me.TabPage2.Text = "FCE Print out"
+        Me.TabPage2.UseVisualStyleBackColor = True
         '
         'SSCPFCEWork
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(792, 565)
-        Me.Controls.Add(Me.Panel4)
-        Me.Controls.Add(Me.GroupBox2)
-        Me.Controls.Add(Me.Panel5)
+        Me.ClientSize = New System.Drawing.Size(877, 642)
+        Me.Controls.Add(Me.TabControl1)
         Me.Controls.Add(Me.txtOrigin)
         Me.Controls.Add(Me.txtAirsNumber)
         Me.Controls.Add(Me.TBFCE)
@@ -1177,6 +1225,8 @@ Partial Class SSCPFCEWork
         Me.Panel6.PerformLayout()
         Me.Panel5.ResumeLayout(False)
         Me.Panel5.PerformLayout()
+        Me.TabControl1.ResumeLayout(False)
+        Me.TabPage1.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1274,4 +1324,8 @@ Partial Class SSCPFCEWork
     Friend WithEvents Panel4 As System.Windows.Forms.Panel
     Friend WithEvents Panel5 As System.Windows.Forms.Panel
     Friend WithEvents Panel6 As System.Windows.Forms.Panel
+    Friend WithEvents TabControl1 As System.Windows.Forms.TabControl
+    Friend WithEvents TabPage1 As System.Windows.Forms.TabPage
+    Friend WithEvents TabPage2 As System.Windows.Forms.TabPage
+    Friend WithEvents btnPrintTest As System.Windows.Forms.Button
 End Class

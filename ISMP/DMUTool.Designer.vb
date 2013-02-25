@@ -76,6 +76,7 @@ Partial Class DMUTool
         Me.btnDeleteEnforcement = New System.Windows.Forms.Button
         Me.btnClearSQL = New System.Windows.Forms.Button
         Me.btnRunSQL = New System.Windows.Forms.Button
+        Me.mtbVersionNumber = New System.Windows.Forms.MaskedTextBox
         Me.ToolStrip1.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
         Me.SCDMUTool.Panel1.SuspendLayout()
@@ -150,6 +151,7 @@ Partial Class DMUTool
         '
         'SCDMUTool.Panel2
         '
+        Me.SCDMUTool.Panel2.Controls.Add(Me.mtbVersionNumber)
         Me.SCDMUTool.Panel2.Controls.Add(Me.Label4)
         Me.SCDMUTool.Panel2.Controls.Add(Me.txtEISYear)
         Me.SCDMUTool.Panel2.Controls.Add(Me.Label3)
@@ -584,7 +586,7 @@ Partial Class DMUTool
         '
         'txtVersionNumber
         '
-        Me.txtVersionNumber.Location = New System.Drawing.Point(412, 107)
+        Me.txtVersionNumber.Location = New System.Drawing.Point(413, 83)
         Me.txtVersionNumber.Name = "txtVersionNumber"
         Me.txtVersionNumber.Size = New System.Drawing.Size(100, 20)
         Me.txtVersionNumber.TabIndex = 12
@@ -646,6 +648,14 @@ Partial Class DMUTool
         Me.btnRunSQL.TabIndex = 0
         Me.btnRunSQL.Text = "Run SQL "
         Me.btnRunSQL.UseVisualStyleBackColor = True
+        '
+        'mtbVersionNumber
+        '
+        Me.mtbVersionNumber.Location = New System.Drawing.Point(413, 108)
+        Me.mtbVersionNumber.Mask = "0.0.0.0"
+        Me.mtbVersionNumber.Name = "mtbVersionNumber"
+        Me.mtbVersionNumber.Size = New System.Drawing.Size(46, 20)
+        Me.mtbVersionNumber.TabIndex = 51
         '
         'DMUTool
         '
@@ -724,4 +734,5 @@ Partial Class DMUTool
     Friend WithEvents txtEISYear As System.Windows.Forms.TextBox
     Friend WithEvents Label3 As System.Windows.Forms.Label
     Friend WithEvents txtEISAIRSNumber As System.Windows.Forms.TextBox
+    Friend WithEvents mtbVersionNumber As System.Windows.Forms.MaskedTextBox
 End Class

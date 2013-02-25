@@ -1,5 +1,5 @@
 ﻿'This class was written by Michael Floyd for EPD on the 7th of October 2009
-'As you can see below this code is taken from a web site example
+'As you can see below by written I mean I copied that dudes code
 'I liked his comments and keep them for future reference
 ' This class was written by Andrew Bowden for CIM on the 24th of May 2006
 ' This class is pretty specific, it is designed to send an email!  It is also pretty stolen
@@ -13,13 +13,17 @@
 ' Last Modified: Andrew Bowden
 ' Last Modified on: 24th May 2006
 ' Last Modification: Added all of these lovely comments, so I guess you must be happy!
+
 'use this on the page event to send email.
 'Dim etest As email
 'etest = New email
 'etest.sendEmail(EmailAddress, Subject, Body)
 'btnEmailAcknowledgmentLetter.Enabled = False
 'MessageBox.Show("Email has been sent.")
+
+
 Imports System
+Imports System.Security
 
 Public Class email
     Private objMessages As Object

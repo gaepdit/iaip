@@ -352,7 +352,7 @@ Public Class DMUTool
     Private Sub btnUpdateVersionNumber_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnUpdateVersionNumber.Click
         Try
             SQL = "Update " & connNameSpace & ".APBMasterApp set " & _
-            "strVersionNumber = '" & Replace(txtVersionNumber.Text, "'", "''") & "' " & _
+            "strVersionNumber = '" & Replace(mtbVersionNumber.Text, "'", "''") & "' " & _
             "where strApplicationName = 'IAIP' "
 
             cmd = New OracleCommand(SQL, conn)

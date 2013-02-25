@@ -1691,13 +1691,66 @@ Public Class SSCPEmissionSummaryTool
                     "eisi.strinventoryyear = dtSumPollutant.strinventoryyear ) dt " & _
                     "group by dt.strairsnumber, dt.strfacilityname) " & _
                     "order by AIRSNumber) "
+
+                    ds = New DataSet
+                    da = New OracleDataAdapter(SQL, conn)
+                    If conn.State = ConnectionState.Closed Then
+                        conn.Open()
+                    End If
+                    da.Fill(ds, "EISummary")
+                    dgvEIResults.DataSource = ds
+                    dgvEIResults.DataMember = "EISummary"
+
+                    dgvEIResults.RowHeadersVisible = False
+                    dgvEIResults.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
+                    dgvEIResults.AllowUserToResizeColumns = True
+                    dgvEIResults.AllowUserToAddRows = False
+                    dgvEIResults.AllowUserToDeleteRows = False
+                    dgvEIResults.AllowUserToOrderColumns = True
+                    dgvEIResults.AllowUserToResizeRows = True
+
+                    dgvEIResults.Columns("EIRows").HeaderText = "#"
+                    dgvEIResults.Columns("EIRows").DisplayIndex = 0
+                    dgvEIResults.Columns("EIRows").Width = 25
+                    dgvEIResults.Columns("EIRows").Visible = False
+                    dgvEIResults.Columns("AIRSNumber").HeaderText = "Airs No."
+                    dgvEIResults.Columns("AIRSNumber").DisplayIndex = 1
+                    dgvEIResults.Columns("AIRSNumber").Width = 75
+                    dgvEIResults.Columns("FacilityName").HeaderText = "Facility Name"
+                    dgvEIResults.Columns("FacilityName").DisplayIndex = 2
+                    dgvEIResults.Columns("FacilityName").Width = 225
+                    dgvEIResults.Columns("SO2").HeaderText = "Sulfur Dioxide"
+                    dgvEIResults.Columns("SO2").DisplayIndex = 3
+                    dgvEIResults.Columns("NOX").HeaderText = "Nitrogen Oxides"
+                    dgvEIResults.Columns("NOX").DisplayIndex = 4
+                    dgvEIResults.Columns("VOC").HeaderText = "Volatile Organic Compounds"
+                    dgvEIResults.Columns("VOC").DisplayIndex = 5
+                    dgvEIResults.Columns("CO").HeaderText = "Carbon Monoxide"
+                    dgvEIResults.Columns("CO").DisplayIndex = 6
+                    dgvEIResults.Columns("NH3").HeaderText = "Ammonia "
+                    dgvEIResults.Columns("NH3").DisplayIndex = 7
+                    dgvEIResults.Columns("Lead").HeaderText = "Lead"
+                    dgvEIResults.Columns("Lead").DisplayIndex = 8
+                    dgvEIResults.Columns("PMPRI").HeaderText = "PM Primary - old EI"
+                    dgvEIResults.Columns("PMPRI").DisplayIndex = 9
+                    dgvEIResults.Columns("PM10PRI").HeaderText = "Primary PM10 (Includes Filterables + Condensibles)"
+                    dgvEIResults.Columns("PM10PRI").DisplayIndex = 10
+                    'dgvEIResults.Columns("PM10FIL").HeaderText = "Filterable PM10"
+                    'dgvEIResults.Columns("PM10FIL").DisplayIndex = 10
+                    dgvEIResults.Columns("PM25PRI").HeaderText = "Primary PM 2.5 (Includes Filterables + Condensibles)"
+                    dgvEIResults.Columns("PM25PRI").DisplayIndex = 11
+                    dgvEIResults.Columns("PMFIL").HeaderText = "Filterable PM 2.5"
+                    dgvEIResults.Columns("PMFIL").DisplayIndex = 12
+                    'dgvEIResults.Columns("PMCON").HeaderText = "Condensible PM (All less than 1 micron)"
+                    'dgvEIResults.Columns("PMCON").DisplayIndex = 14
+
                 Else
                     SQL = "select " & _
                     " rownum as EIRows, " & _
                     "ViewList.FacilitySiteID as AIRSNumber, " & _
                     "strFacilityName as FacilityName, " & _
                     "SO2, NOX, VOC,  CO, NH3, LEAD, " & _
-                    "PMFIL, PM10FIL, '' as PMPRI,  PM10PRI, PM25PRI, PMCON " & _
+                    "PMFIL, PM10FIL, PM10PRI, PM25PRI, PMCON " & _
                     "from " & _
                     "(select distinct (FacilitySiteID ) as FacilitySiteID " & _
                     "from airbranch.VW_EIS_RPEMISSIONS " & _
@@ -1759,63 +1812,64 @@ Public Class SSCPEmissionSummaryTool
                     "and ViewList.facilitysiteid  = SO2Sum.facilitysiteid (+)  " & _
                     "and ViewList.facilitysiteid  = COSum.facilitysiteid (+)  " & _
                     "and ViewList.facilitysiteid  = NOXSum.facilitysiteid (+) "
+
+                    ds = New DataSet
+                    da = New OracleDataAdapter(SQL, conn)
+                    If conn.State = ConnectionState.Closed Then
+                        conn.Open()
+                    End If
+                    da.Fill(ds, "EISummary")
+                    dgvEIResults.DataSource = ds
+                    dgvEIResults.DataMember = "EISummary"
+
+                    dgvEIResults.RowHeadersVisible = False
+                    dgvEIResults.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
+                    dgvEIResults.AllowUserToResizeColumns = True
+                    dgvEIResults.AllowUserToAddRows = False
+                    dgvEIResults.AllowUserToDeleteRows = False
+                    dgvEIResults.AllowUserToOrderColumns = True
+                    dgvEIResults.AllowUserToResizeRows = True
+
+                    dgvEIResults.Columns("EIRows").HeaderText = "#"
+                    dgvEIResults.Columns("EIRows").DisplayIndex = 0
+                    dgvEIResults.Columns("EIRows").Width = 25
+                    dgvEIResults.Columns("EIRows").Visible = False
+                    dgvEIResults.Columns("AIRSNumber").HeaderText = "Airs No."
+                    dgvEIResults.Columns("AIRSNumber").DisplayIndex = 1
+                    dgvEIResults.Columns("AIRSNumber").Width = 75
+                    dgvEIResults.Columns("FacilityName").HeaderText = "Facility Name"
+                    dgvEIResults.Columns("FacilityName").DisplayIndex = 2
+                    dgvEIResults.Columns("FacilityName").Width = 225
+                    dgvEIResults.Columns("SO2").HeaderText = "Sulfur Dioxide"
+                    dgvEIResults.Columns("SO2").DisplayIndex = 3
+                    dgvEIResults.Columns("NOX").HeaderText = "Nitrogen Oxides"
+                    dgvEIResults.Columns("NOX").DisplayIndex = 4
+                    dgvEIResults.Columns("VOC").HeaderText = "Volatile Organic Compounds"
+                    dgvEIResults.Columns("VOC").DisplayIndex = 5
+                    dgvEIResults.Columns("CO").HeaderText = "Carbon Monoxide"
+                    dgvEIResults.Columns("CO").DisplayIndex = 6
+                    dgvEIResults.Columns("NH3").HeaderText = "Ammonia "
+                    dgvEIResults.Columns("NH3").DisplayIndex = 7
+                    dgvEIResults.Columns("Lead").HeaderText = "Lead"
+                    dgvEIResults.Columns("Lead").DisplayIndex = 8
+                    dgvEIResults.Columns("PMCON").HeaderText = "Condensible PM"
+                    dgvEIResults.Columns("PMCON").DisplayIndex = 9
+                    dgvEIResults.Columns("PM10PRI").HeaderText = "Primary PM10 (Includes Filterables + Condensibles)"
+                    dgvEIResults.Columns("PM10PRI").DisplayIndex = 10
+                    dgvEIResults.Columns("PM10FIL").HeaderText = "Filterable PM10"
+                    dgvEIResults.Columns("PM10FIL").DisplayIndex = 11
+                    dgvEIResults.Columns("PM25PRI").HeaderText = "Primary PM 2.5 (Includes Filterables + Condensibles)"
+                    dgvEIResults.Columns("PM25PRI").DisplayIndex = 12
+                    dgvEIResults.Columns("PMFIL").HeaderText = "Filterable PM 2.5"
+                    dgvEIResults.Columns("PMFIL").DisplayIndex = 13
+
                 End If
-
-                ds = New DataSet
-                da = New OracleDataAdapter(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
-                End If
-                da.Fill(ds, "EISummary")
-                dgvEIResults.DataSource = ds
-                dgvEIResults.DataMember = "EISummary"
-
-                dgvEIResults.RowHeadersVisible = False
-                dgvEIResults.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-                dgvEIResults.AllowUserToResizeColumns = True
-                dgvEIResults.AllowUserToAddRows = False
-                dgvEIResults.AllowUserToDeleteRows = False
-                dgvEIResults.AllowUserToOrderColumns = True
-                dgvEIResults.AllowUserToResizeRows = True
-
-                dgvEIResults.Columns("EIRows").HeaderText = "#"
-                dgvEIResults.Columns("EIRows").DisplayIndex = 0
-                dgvEIResults.Columns("EIRows").Width = 25
-                dgvEIResults.Columns("EIRows").Visible = False
-                dgvEIResults.Columns("AIRSNumber").HeaderText = "Airs No."
-                dgvEIResults.Columns("AIRSNumber").DisplayIndex = 1
-                dgvEIResults.Columns("AIRSNumber").Width = 75
-                dgvEIResults.Columns("FacilityName").HeaderText = "Facility Name"
-                dgvEIResults.Columns("FacilityName").DisplayIndex = 2
-                dgvEIResults.Columns("FacilityName").Width = 225
-                dgvEIResults.Columns("SO2").HeaderText = "Sulfur Dioxide"
-                dgvEIResults.Columns("SO2").DisplayIndex = 3
-                dgvEIResults.Columns("NOX").HeaderText = "Nitrogen Oxides"
-                dgvEIResults.Columns("NOX").DisplayIndex = 4
-                dgvEIResults.Columns("VOC").HeaderText = "Volatile Organic Compounds"
-                dgvEIResults.Columns("VOC").DisplayIndex = 5
-                dgvEIResults.Columns("CO").HeaderText = "Carbon Monoxide"
-                dgvEIResults.Columns("CO").DisplayIndex = 6
-                dgvEIResults.Columns("NH3").HeaderText = "Ammonia "
-                dgvEIResults.Columns("NH3").DisplayIndex = 7
-                dgvEIResults.Columns("Lead").HeaderText = "Lead"
-                dgvEIResults.Columns("Lead").DisplayIndex = 8
-                dgvEIResults.Columns("PMFIL").HeaderText = "PM Filterable"
-                dgvEIResults.Columns("PMFIL").DisplayIndex = 9
-                dgvEIResults.Columns("PM10FIL").HeaderText = "Filterable PM10"
-                dgvEIResults.Columns("PM10FIL").DisplayIndex = 10
-                dgvEIResults.Columns("PMPRI").HeaderText = "PM Primary - old EI"
-                dgvEIResults.Columns("PMPRI").DisplayIndex = 11
-                dgvEIResults.Columns("PM10PRI").HeaderText = "Primary PM10 (Includes Filterables + Condensibles)"
-                dgvEIResults.Columns("PM10PRI").DisplayIndex = 12
-                dgvEIResults.Columns("PM25PRI").HeaderText = "PM 2.5 Primary"
-                dgvEIResults.Columns("PM25PRI").DisplayIndex = 13
-                dgvEIResults.Columns("PMCON").HeaderText = "Condensible PM (All less than 1 micron)"
-                dgvEIResults.Columns("PMCON").DisplayIndex = 14
-
 
 
             End If
+            Exit Sub
+
+
             'Original SQL statement from Brian Gregory 
             SQL = "select substr(strairsnumber,5,8) as AIRSNumber, strfacilityname as FacilityName, SO2, NOX, PMPRI, PMFIL, PM10PRI, PM25PRI, VOC, " & _
             "CO, NH3, Lead " & _

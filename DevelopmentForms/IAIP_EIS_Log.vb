@@ -1,6 +1,6 @@
-﻿'Imports System.DateTime
+﻿Imports System.DateTime
 Imports System.Data.OracleClient
-'Imports System.IO
+Imports System.IO
 
 Public Class IAIP_EIS_Log
     Dim daStaff As OracleDataAdapter
@@ -4248,12 +4248,12 @@ Public Class IAIP_EIS_Log
     End Sub
     Private Sub btnEILogAddNewFacility_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEILogAddNewFacility.Click
         Try
-            'Dim EISAccess As String = " "
-            'Dim OptOut As String = ""
-            'Dim EISStatus As String = ""
-            'Dim Enrollment As String = ""
-            'Dim Mailout As String = ""
-            ' Dim ActiveStatus As String = ""
+            Dim EISAccess As String = " "
+            Dim OptOut As String = ""
+            Dim EISStatus As String = ""
+            Dim Enrollment As String = ""
+            Dim Mailout As String = ""
+            Dim ActiveStatus As String = ""
 
             If conn.State = ConnectionState.Closed Then
                 conn.Open()

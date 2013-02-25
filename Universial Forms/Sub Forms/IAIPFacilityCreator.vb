@@ -1,4 +1,4 @@
-'Imports System.DateTime
+Imports System.DateTime
 Imports System.Data.OracleClient
 
 
@@ -401,6 +401,11 @@ Public Class IAIPFacilityCreator
                   "No Data saved.", MsgBoxStyle.Information, Me.Name)
                 Exit Sub
             End If
+            If ValidateSIC(mtbCDSSICCode.Text) = False Then
+                MsgBox("The SIC Code is not a valid 4 digit code." & _
+                "No Data saved.", MsgBoxStyle.Information, Me.Name)
+                Exit Sub
+            End If
 
             SQL = "Insert into " & connNameSpace & ".APBMasterAIRS " & _
             "values " & _
@@ -445,7 +450,6 @@ Public Class IAIPFacilityCreator
             Else
                 FacilityName = txtCDSFacilityName.Text
             End If
-
             If txtCDSStreetAddress.Text <> "" Then
                 FacilityStreet = txtCDSStreetAddress.Text
             Else
@@ -530,10 +534,13 @@ Public Class IAIPFacilityCreator
             If AirProgramCode.Length <> 15 Then
                 AirProgramCode = "100000000000000"
             Else
-                'AirProgramCode = AirProgramCode
+                AirProgramCode = AirProgramCode
             End If
-            If mtbCDSSICCode.Text = "" Then
+            If mtbCDSSICCode.Text = "" Or mtbCDSSICCode.Text.Length < 4 Then
                 SICCode = "9999"
+                MsgBox("The Standard Industrial Classification (SIC) Code must be a valid 4 digit entry." & vbCrLf & _
+                       "It has been set to 9999 - unknown so that the data can be saved." & _
+                       vbCrLf, MsgBoxStyle.Information, Me.Text)
             Else
                 SICCode = mtbCDSSICCode.Text
             End If
@@ -2235,7 +2242,7 @@ Public Class IAIPFacilityCreator
             If AirProgramCode.Length <> 15 Then
                 AirProgramCode = "100000000000000"
             Else
-                'AirProgramCode = AirProgramCode
+                AirProgramCode = AirProgramCode
             End If
             If mtbCDSSICCode.Text <> "" Then
                 SICCode = mtbCDSSICCode.Text

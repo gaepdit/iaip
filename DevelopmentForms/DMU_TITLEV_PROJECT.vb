@@ -1,8 +1,9 @@
-﻿'Imports System.DateTime
+﻿Imports System.DateTime
 Imports System.Data.OracleClient
-'Imports System.IO
+Imports System.IO
 Imports System.Data.OleDb
-'Imports System.Data.Odbc
+Imports System.Data.Odbc
+
 
 Public Class DMU_TITLEV_PROJECT
     Public GATVConn As Object
@@ -2285,7 +2286,7 @@ Public Class DMU_TITLEV_PROJECT
                 End If
                 If IsDBNull(GATVdr.item("InstallationDate")) Then
                     InstallationDate = ""
-                    'Installation = Installation
+                    Installation = Installation
                 Else
                     InstallationDate = GATVdr.item("InstallationDate")
                     Installation = Installation & "Original Installation text from old system - " & GATVdr.item("InstallationDate")
@@ -2580,7 +2581,7 @@ Public Class DMU_TITLEV_PROJECT
                 End If
                 If IsDBNull(GATVdr.item("InstallationDate")) Then
                     InstallationDate = ""
-                    'Installation = Installation
+                    Installation = Installation
                 Else
                     InstallationDate = GATVdr.item("InstallationDate")
                     Installation = Installation & "Original Installation text from old system - " & GATVdr.item("InstallationDate")
@@ -2872,7 +2873,7 @@ Public Class DMU_TITLEV_PROJECT
                 End If
                 If IsDBNull(GATVdr.item("InstallationDate")) Then
                     InstallationDate = ""
-                    'Installation = Installation
+                    Installation = Installation
                 Else
                     InstallationDate = GATVdr.item("InstallationDate")
                     Installation = Installation & "Original Installation text from old system - " & GATVdr.item("InstallationDate")
@@ -3156,7 +3157,7 @@ Public Class DMU_TITLEV_PROJECT
                 End If
                 If IsDBNull(GATVdr.item("InstallationDate")) Then
                     InstallationDate = ""
-                    'Installation = Installation
+                    Installation = Installation
                 Else
                     InstallationDate = GATVdr.item("InstallationDate")
                     Installation = Installation & "Original Installation text from old system - " & GATVdr.item("InstallationDate")
@@ -3435,7 +3436,7 @@ Public Class DMU_TITLEV_PROJECT
                 End If
                 If IsDBNull(GATVdr.item("InstallationDate")) Then
                     InstallationDate = ""
-                    'Installation = Installation
+                    Installation = Installation
                 Else
                     InstallationDate = GATVdr.item("InstallationDate")
                     Installation = Installation & "Original Installation text from old system - " & GATVdr.item("InstallationDate")
@@ -3741,7 +3742,7 @@ Public Class DMU_TITLEV_PROJECT
                 End If
                 If IsDBNull(GATVdr.item("InstallationDate")) Then
                     InstallationDate = ""
-                    'Installation = Installation
+                    Installation = Installation
                 Else
                     InstallationDate = GATVdr.item("InstallationDate")
                     Installation = Installation & "Original Installation text from old system - " & GATVdr.item("InstallationDate")
@@ -4214,7 +4215,7 @@ Public Class DMU_TITLEV_PROJECT
                 End If
                 If IsDBNull(GATVdr.item("InstallationDate")) Then
                     InstallationDate = ""
-                    'Installation = Installation
+                    Installation = Installation
                 Else
                     InstallationDate = GATVdr.item("InstallationDate")
                     Installation = Installation & "Original Installation text from old system - " & GATVdr.item("InstallationDate")
@@ -4553,7 +4554,7 @@ Public Class DMU_TITLEV_PROJECT
                 End If
                 If IsDBNull(GATVdr.item("InstallationDate")) Then
                     InstallationDate = ""
-                    'Installation = Installation
+                    Installation = Installation
                 Else
                     InstallationDate = GATVdr.item("InstallationDate")
                     Installation = Installation & "Original Installation text from old system - " & GATVdr.item("InstallationDate")
@@ -4811,12 +4812,12 @@ Public Class DMU_TITLEV_PROJECT
                 End If
 
                 If IsNumeric(NUMCONSTRUCTIONYEAR) And NUMCONSTRUCTIONYEAR.Length = 4 Then
-                    'NUMCONSTRUCTIONYEAR = NUMCONSTRUCTIONYEAR
+                    NUMCONSTRUCTIONYEAR = NUMCONSTRUCTIONYEAR
                 Else
                     If NUMCONSTRUCTIONYEAR.Length > 4 Then
                         NUMCONSTRUCTIONYEAR = Mid(NUMCONSTRUCTIONYEAR, NUMCONSTRUCTIONYEAR.Length - 3)
                         If IsNumeric(NUMCONSTRUCTIONYEAR) Then
-                            'NUMCONSTRUCTIONYEAR = NUMCONSTRUCTIONYEAR
+                            NUMCONSTRUCTIONYEAR = NUMCONSTRUCTIONYEAR
                         Else
                             NUMCONSTRUCTIONYEAR = "1776"
                         End If
@@ -4832,12 +4833,12 @@ Public Class DMU_TITLEV_PROJECT
                 End If
 
                 If IsNumeric(NUMYEARWASTEFIRSTRECEIVED) And NUMYEARWASTEFIRSTRECEIVED.Length = 4 Then
-                    'NUMYEARWASTEFIRSTRECEIVED = NUMYEARWASTEFIRSTRECEIVED
+                    NUMYEARWASTEFIRSTRECEIVED = NUMYEARWASTEFIRSTRECEIVED
                 Else
                     If NUMYEARWASTEFIRSTRECEIVED.Length > 4 Then
                         NUMYEARWASTEFIRSTRECEIVED = Mid(NUMYEARWASTEFIRSTRECEIVED, NUMYEARWASTEFIRSTRECEIVED.Length - 4)
                         If IsNumeric(NUMYEARWASTEFIRSTRECEIVED) Then
-                            'NUMYEARWASTEFIRSTRECEIVED = NUMYEARWASTEFIRSTRECEIVED
+                            NUMYEARWASTEFIRSTRECEIVED = NUMYEARWASTEFIRSTRECEIVED
                         Else
                             NUMYEARWASTEFIRSTRECEIVED = NUMCONSTRUCTIONYEAR
                         End If
@@ -5379,7 +5380,7 @@ Public Class DMU_TITLEV_PROJECT
                 End If
                 If IsDBNull(GATVdr.item("InstallationDate")) Then
                     InstallationDate = ""
-                    'Installation = Installation
+                    Installation = Installation
                 Else
                     InstallationDate = GATVdr.item("InstallationDate")
                     Installation = Installation & "Original Installation text from old system - " & GATVdr.item("InstallationDate")
@@ -5627,12 +5628,12 @@ Public Class DMU_TITLEV_PROJECT
                 Else
                     EUType = GATVdr.item("EquipmentType")
                 End If
-                EUType = "19"
-                'If EUType = "Miscellaneous" Then
-                '    EUType = "19"
-                'Else
-                '    EUType = "19"
-                'End If
+
+                If EUType = "Miscellaneous" Then
+                    EUType = "19"
+                Else
+                    EUType = "19"
+                End If
                 If IsDBNull(GATVdr.item("Manufacturer")) Then
                     Manufacturer = ""
                 Else
@@ -5661,7 +5662,7 @@ Public Class DMU_TITLEV_PROJECT
                 End If
                 If IsDBNull(GATVdr.item("InstallationDate")) Then
                     InstallationDate = ""
-                    'Installation = Installation
+                    Installation = Installation
                 Else
                     InstallationDate = GATVdr.item("InstallationDate")
                     Installation = Installation & "Original Installation text from old system - " & GATVdr.item("InstallationDate")
@@ -5921,7 +5922,7 @@ Public Class DMU_TITLEV_PROJECT
                 End If
                 If IsDBNull(GATVdr.item("InstallationDate")) Then
                     InstallationDate = ""
-                    'Installation = Installation
+                    Installation = Installation
                 Else
                     InstallationDate = GATVdr.item("InstallationDate")
                     Installation = Installation & "Original Installation text from old system - " & GATVdr.item("InstallationDate")
@@ -6194,7 +6195,7 @@ Public Class DMU_TITLEV_PROJECT
                 End If
                 If IsDBNull(GATVdr.item("InstallationDate")) Then
                     InstallationDate = ""
-                    'Installation = Installation
+                    Installation = Installation
                 Else
                     InstallationDate = GATVdr.item("InstallationDate")
                     Installation = Installation & "Original Installation text from old system - " & GATVdr.item("InstallationDate")
@@ -6680,7 +6681,7 @@ Public Class DMU_TITLEV_PROJECT
                 End If
                 If IsDBNull(GATVdr.item("InstallationDate")) Then
                     InstallationDate = ""
-                    'Installation = Installation
+                    Installation = Installation
                 Else
                     InstallationDate = GATVdr.item("InstallationDate")
                     Installation = Installation & "Original Installation text from old system - " & GATVdr.item("InstallationDate")
@@ -6990,7 +6991,7 @@ Public Class DMU_TITLEV_PROJECT
                 End If
                 If IsDBNull(GATVdr.item("InstallationDate")) Then
                     InstallationDate = ""
-                    'Installation = Installation
+                    Installation = Installation
                 Else
                     InstallationDate = GATVdr.item("InstallationDate")
                     Installation = Installation & "Original Installation text from old system - " & GATVdr.item("InstallationDate")
@@ -7265,7 +7266,7 @@ Public Class DMU_TITLEV_PROJECT
                 End If
                 If IsDBNull(GATVdr.item("InstallationDate")) Then
                     InstallationDate = ""
-                    'Installation = Installation
+                    Installation = Installation
                 Else
                     InstallationDate = GATVdr.item("InstallationDate")
                     Installation = Installation & "Original Installation text from old system - " & GATVdr.item("InstallationDate")
@@ -7606,7 +7607,7 @@ Public Class DMU_TITLEV_PROJECT
                 End If
                 If IsDBNull(GATVdr.item("InstallationDate")) Then
                     InstallationDate = ""
-                    'Installation = Installation
+                    Installation = Installation
                 Else
                     InstallationDate = GATVdr.item("InstallationDate")
                     Installation = Installation & "Original Installation text from old system - " & GATVdr.item("InstallationDate")
@@ -8140,7 +8141,7 @@ Public Class DMU_TITLEV_PROJECT
                 End If
                 If IsDBNull(GATVdr.item("InstallationDate")) Then
                     InstallationDate = ""
-                    'Installation = Installation
+                    Installation = Installation
                 Else
                     InstallationDate = GATVdr.item("InstallationDate")
                     Installation = Installation & "Original Installation text from old system - " & GATVdr.item("InstallationDate")
@@ -8487,7 +8488,7 @@ Public Class DMU_TITLEV_PROJECT
                 End If
                 If IsDBNull(GATVdr.item("InstallationDate")) Then
                     InstallationDate = ""
-                    'Installation = Installation
+                    Installation = Installation
                 Else
                     InstallationDate = GATVdr.item("InstallationDate")
                     Installation = Installation & "Original Installation text from old system - " & GATVdr.item("InstallationDate")
@@ -10151,7 +10152,7 @@ Public Class DMU_TITLEV_PROJECT
                 End If
                 If IsDBNull(GATVdr.item("InstallationDate")) Then
                     DATINSTALLATION = ""
-                    'STRINSTALLATION = STRINSTALLATION
+                    STRINSTALLATION = STRINSTALLATION
                 Else
                     DATINSTALLATION = GATVdr.item("InstallationDate")
                     STRINSTALLATION = STRINSTALLATION & "Original Installation text from old system - " & GATVdr.item("InstallationDate")
@@ -10610,7 +10611,7 @@ Public Class DMU_TITLEV_PROJECT
                 End If
                 If IsDBNull(GATVdr.item("InstallationDate")) Then
                     DATINSTALLATION = ""
-                    'STRINSTALLATION = STRINSTALLATION
+                    STRINSTALLATION = STRINSTALLATION
                 Else
                     DATINSTALLATION = GATVdr.item("InstallationDate")
                     STRINSTALLATION = STRINSTALLATION & "Original Installation text from old system - " & GATVdr.item("InstallationDate")
@@ -10979,7 +10980,7 @@ Public Class DMU_TITLEV_PROJECT
                 End If
                 If IsDBNull(GATVdr.item("InstallationDate")) Then
                     DATINSTALLATION = ""
-                    'STRINSTALLATION = STRINSTALLATION
+                    STRINSTALLATION = STRINSTALLATION
                 Else
                     DATINSTALLATION = GATVdr.item("InstallationDate")
                     STRINSTALLATION = STRINSTALLATION & "Original Installation text from old system - " & GATVdr.item("InstallationDate")
@@ -11309,7 +11310,7 @@ Public Class DMU_TITLEV_PROJECT
                 End If
                 If IsDBNull(GATVdr.item("InstallationDate")) Then
                     DATINSTALLATION = ""
-                    'STRINSTALLATION = STRINSTALLATION
+                    STRINSTALLATION = STRINSTALLATION
                 Else
                     DATINSTALLATION = GATVdr.item("InstallationDate")
                     STRINSTALLATION = STRINSTALLATION & "Original Installation text from old system - " & GATVdr.item("InstallationDate")
@@ -11679,7 +11680,7 @@ Public Class DMU_TITLEV_PROJECT
                 End If
                 If IsDBNull(GATVdr.item("InstallationDate")) Then
                     DATINSTALLATION = ""
-                    'STRINSTALLATION = STRINSTALLATION
+                    STRINSTALLATION = STRINSTALLATION
                 Else
                     DATINSTALLATION = GATVdr.item("InstallationDate")
                     STRINSTALLATION = STRINSTALLATION & "Original Installation text from old system - " & GATVdr.item("InstallationDate")
@@ -12086,7 +12087,7 @@ Public Class DMU_TITLEV_PROJECT
                 End If
                 If IsDBNull(GATVdr.item("InstallationDate")) Then
                     DATINSTALLATION = ""
-                    'STRINSTALLATION = STRINSTALLATION
+                    STRINSTALLATION = STRINSTALLATION
                 Else
                     DATINSTALLATION = GATVdr.item("InstallationDate")
                     STRINSTALLATION = STRINSTALLATION & "Original Installation text from old system - " & GATVdr.item("InstallationDate")
@@ -12392,7 +12393,7 @@ Public Class DMU_TITLEV_PROJECT
                 End If
                 If IsDBNull(GATVdr.item("InstallationDate")) Then
                     DATINSTALLATION = ""
-                    'STRINSTALLATION = STRINSTALLATION
+                    STRINSTALLATION = STRINSTALLATION
                 Else
                     DATINSTALLATION = GATVdr.item("InstallationDate")
                     STRINSTALLATION = STRINSTALLATION & "Original Installation text from old system - " & GATVdr.item("InstallationDate")
@@ -12800,7 +12801,7 @@ Public Class DMU_TITLEV_PROJECT
                 End If
                 If IsDBNull(GATVdr.item("InstallationDate")) Then
                     DATINSTALLATION = ""
-                    'STRINSTALLATION = STRINSTALLATION
+                    STRINSTALLATION = STRINSTALLATION
                 Else
                     DATINSTALLATION = GATVdr.item("InstallationDate")
                     STRINSTALLATION = STRINSTALLATION & "Original Installation text from old system - " & GATVdr.item("InstallationDate")
@@ -13206,7 +13207,7 @@ Public Class DMU_TITLEV_PROJECT
                 End If
                 If IsDBNull(GATVdr.item("InstallationDate")) Then
                     DATINSTALLATION = ""
-                    'STRINSTALLATION = STRINSTALLATION
+                    STRINSTALLATION = STRINSTALLATION
                 Else
                     DATINSTALLATION = GATVdr.item("InstallationDate")
                     STRINSTALLATION = STRINSTALLATION & "Original Installation text from old system - " & GATVdr.item("InstallationDate")

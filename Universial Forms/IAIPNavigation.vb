@@ -1,6 +1,10 @@
 Imports System.Data.OracleClient
 
 Imports System.IO
+Imports System.Security
+Imports System.Security.Cryptography
+Imports System.Drawing.Drawing2D
+
 
 Public Class IAIPNavigation
     Dim Paneltemp1 As String
@@ -2102,6 +2106,7 @@ Public Class IAIPNavigation
                 If recExist = True Then
 
                     Dim RefNum As String = ""
+                    Dim DocType As String = ""
 
                     SQL = "Select " & _
                     "" & connNameSpace & ".ISMPReportInformation.strReferenceNumber, " & connNameSpace & ".ISMPDocumentType.strDocumentType " & _
@@ -2119,8 +2124,10 @@ Public Class IAIPNavigation
                     recExist = dr.Read
                     If recExist = True Then
                         RefNum = dr.Item("strReferenceNumber")
+                        DocType = dr.Item("strDocumentType")
                     Else
                         RefNum = ""
+                        DocType = ""
                     End If
                     dr.Close()
                     If RefNum <> "" Then
@@ -2492,7 +2499,7 @@ Public Class IAIPNavigation
                     End If
                     SmokeSchool.Show()
                     SmokeSchool.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
-                Case "Developer Tools"
+                Case "AFS Tools"
                     If DevelopersTools Is Nothing Then
                         If DevelopersTools Is Nothing Then DevelopersTools = New DMUDeveloperTools
                     Else
@@ -3680,7 +3687,7 @@ Public Class IAIPNavigation
             Else
                 If AccountArray(129, 0) = "129" Then
                     If AccountArray(129, 1) = "1" Or AccountArray(129, 2) = "1" Or AccountArray(129, 3) = "1" Or AccountArray(129, 4) = "1" Then
-                        btnNav29.Text = "Developer Tools"
+                        btnNav29.Text = "AFS Tools"
                         btnNav29.Visible = True
                     End If
                 End If

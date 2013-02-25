@@ -668,7 +668,7 @@ Public Class SSCPComplianceLog
             "group by " & connNameSpace & ".SSCPINSPECTIONSREQUIRED.STRAIRSNUMBER) MAXRESULTS " & _
             "where " & connNameSpace & ".SSCPINSPECTIONSREQUIRED.STRAIRSNUMBER = MAXRESULTS.STRAIRSNUMBER " & _
             "and " & connNameSpace & ".SSCPINSPECTIONSREQUIRED.INTYEAR = MAXRESULTS.MAXYEAR ) RESPONSIBLESTAFF " & _
-            "where Alldata.AIRSNumber = REsponsibleStaff.AIRSNumber (+) "
+            "where Alldata.AIRSNumber = REsponsibleStaff.AIRSNumber "
 
             If chbAllWork.Checked <> True Then
                 If chbACCs.Checked = True Then

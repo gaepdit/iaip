@@ -1,4 +1,4 @@
-﻿'Imports System.Data.OracleClient
+﻿Imports System.Data.OracleClient
 
 Imports System.IO
 
@@ -563,7 +563,7 @@ Public Class SSCPManagerProfile
                     SQL_Key = SQL_Key & 0
             End Select
 
-            'SQL_Key = SQL_Key
+            SQL_Key = SQL_Key
 
             Dim DefaultsText As String = ""
             DefaultsText = ""

@@ -172,18 +172,15 @@ Public Class DEVFacilitySummary
                                     mmiSSCPNewWork.Visible = True
                                     mmiSSCPFCE.Visible = True
                                 Else
-                                    mmiSSCPAssignEngineer.Visible = False
-                                    mmiSSCPNewWork.Visible = True
-                                    mmiSSCPFCE.Visible = True
-                                    'If AccountArray(10, 3) = "1" Then 'Distirct Liason 
-                                    '    mmiSSCPAssignEngineer.Visible = False
-                                    '    mmiSSCPNewWork.Visible = True
-                                    '    mmiSSCPFCE.Visible = True
-                                    'Else
-                                    '    mmiSSCPAssignEngineer.Visible = False
-                                    '    mmiSSCPNewWork.Visible = True
-                                    '    mmiSSCPFCE.Visible = True
-                                    'End If
+                                    If AccountArray(10, 3) = "1" Then 'Distirct Liason 
+                                        mmiSSCPAssignEngineer.Visible = False
+                                        mmiSSCPNewWork.Visible = True
+                                        mmiSSCPFCE.Visible = True
+                                    Else
+                                        mmiSSCPAssignEngineer.Visible = False
+                                        mmiSSCPNewWork.Visible = True
+                                        mmiSSCPFCE.Visible = True
+                                    End If
                                 End If
                             End If
                         Case "5" 'SSPP 
@@ -1458,7 +1455,7 @@ Public Class DEVFacilitySummary
             dr = cmd.ExecuteReader
             While dr.Read
                 If IsDBNull(dr.Item("PollutantStatus")) Then
-                    'PollutantStatus = PollutantStatus
+                    PollutantStatus = PollutantStatus
                 Else
                     PollutantStatus = PollutantStatus & dr.Item("PollutantStatus")
                 End If
@@ -2388,14 +2385,6 @@ Public Class DEVFacilitySummary
             "where strInventoryYear < 2010   " & _
             "and strStateFacilityIdentifier = '" & mtbAIRSNumber.Text & "'  ) " & _
             "order by EIYear desc "
-
-            SQL = "Select " & _
-            "distinct(to_number(strInventoryYear)) as EIYear  " & _
-            "from AIRBranch.EISI  " & _
-            "where strInventoryYear < 2010   " & _
-            "and strStateFacilityIdentifier = '" & mtbAIRSNumber.Text & "'  " & _
-            "order by EIYear desc "
-
 
             cmd = New OracleCommand(SQL, conn)
             If conn.State = ConnectionState.Closed Then
@@ -3352,8 +3341,8 @@ Public Class DEVFacilitySummary
             Dim col, row As Integer
             Dim x As String
             Dim y As String
-            'Dim a As Integer
-            'Dim b As Integer
+            Dim a As Integer
+            Dim b As Integer
             Dim c As Integer
             Dim d As Integer
             Dim startRow As Integer = 1
@@ -3408,8 +3397,8 @@ Public Class DEVFacilitySummary
                     ExcelApp.Cells(startRow, col + 1).value = y
                 Next
 
-                'a = dgvEU.ColumnCount - 1
-                'b = dgvEU.RowCount - 1
+                a = dgvEU.ColumnCount - 1
+                b = dgvEU.RowCount - 1
 
                 'For col = 0 To dgvEU.RowCount - 1
                 '    For row = 0 To dgvEU.ColumnCount - 1
@@ -3450,8 +3439,8 @@ Public Class DEVFacilitySummary
                     ExcelApp.Cells(startRow, col + 1).value = y
                 Next
 
-                'a = dgvER.ColumnCount - 1
-                'b = dgvER.RowCount - 1
+                a = dgvER.ColumnCount - 1
+                b = dgvER.RowCount - 1
 
                 startRow = startRow + 1
                 d = dgvER.RowCount - 2
@@ -3491,8 +3480,8 @@ Public Class DEVFacilitySummary
                     ExcelApp.Cells(startRow, col + 1).value = y
                 Next
 
-                'a = dgvEP.ColumnCount - 1
-                'b = dgvEP.RowCount - 1
+                a = dgvEP.ColumnCount - 1
+                b = dgvEP.RowCount - 1
 
                 startRow = startRow + 1
                 d = dgvEP.RowCount - 2
@@ -3532,8 +3521,8 @@ Public Class DEVFacilitySummary
                     ExcelApp.Cells(startRow, col + 1).value = y
                 Next
 
-                'a = dgvEM.ColumnCount - 1
-                'b = dgvEM.RowCount - 1
+                a = dgvEM.ColumnCount - 1
+                b = dgvEM.RowCount - 1
 
                 startRow = startRow + 1
                 d = dgvEM.RowCount - 2
@@ -5035,36 +5024,36 @@ Public Class DEVFacilitySummary
     End Sub
     Private Sub btnEditContacts_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEditContacts.Click
         Try
-            'If NavigationScreen.pnl4.Text = "TESTING ENVIRONMENT" Then
-            '    If EditContacts2 Is Nothing Then
-            '        If EditContacts2 Is Nothing Then EditContacts2 = New DEVEditContacts
-            '        EditContacts2.mtbAIRSNumber.Text = mtbAIRSNumber.Text
-            '        EditContacts2.mtbSearchAIRS.Text = mtbAIRSNumber.Text
-            '        EditContacts2.Show()
-            '    Else
-            '        EditContacts2.Dispose()
-            '        EditContacts2 = DEVEditContacts
-            '        If EditContacts2 Is Nothing Then EditContacts2 = DEVEditContacts
-            '        EditContacts2.mtbAIRSNumber.Text = mtbAIRSNumber.Text
-            '        EditContacts2.mtbSearchAIRS.Text = mtbAIRSNumber.Text
-            '        EditContacts2.Show()
-            '    End If
-            '    EditContacts2.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
-            '    EditContacts2.SearchContacts()
-            'Else
-            If EditContacts Is Nothing Then
-                If EditContacts Is Nothing Then EditContacts = New IAIPEditContacts
-                EditContacts.txtAIRSNumber.Text = mtbAIRSNumber.Text
-                EditContacts.Show()
+            If NavigationScreen.pnl4.Text = "TESTING ENVIRONMENT" Then
+                If EditContacts2 Is Nothing Then
+                    If EditContacts2 Is Nothing Then EditContacts2 = New DEVEditContacts
+                    EditContacts2.mtbAIRSNumber.Text = mtbAIRSNumber.Text
+                    EditContacts2.mtbSearchAIRS.Text = mtbAIRSNumber.Text
+                    EditContacts2.Show()
+                Else
+                    EditContacts2.Dispose()
+                    EditContacts2 = DEVEditContacts
+                    If EditContacts2 Is Nothing Then EditContacts2 = DEVEditContacts
+                    EditContacts2.mtbAIRSNumber.Text = mtbAIRSNumber.Text
+                    EditContacts2.mtbSearchAIRS.Text = mtbAIRSNumber.Text
+                    EditContacts2.Show()
+                End If
+                EditContacts2.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+                EditContacts2.SearchContacts()
             Else
-                EditContacts.Dispose()
-                EditContacts = IAIPEditContacts
-                If EditContacts Is Nothing Then EditContacts = IAIPEditContacts
-                EditContacts.txtAIRSNumber.Text = mtbAIRSNumber.Text
-                EditContacts.Show()
+                If EditContacts Is Nothing Then
+                    If EditContacts Is Nothing Then EditContacts = New IAIPEditContacts
+                    EditContacts.txtAIRSNumber.Text = mtbAIRSNumber.Text
+                    EditContacts.Show()
+                Else
+                    EditContacts.Dispose()
+                    EditContacts = IAIPEditContacts
+                    If EditContacts Is Nothing Then EditContacts = IAIPEditContacts
+                    EditContacts.txtAIRSNumber.Text = mtbAIRSNumber.Text
+                    EditContacts.Show()
+                End If
+                EditContacts.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
             End If
-            EditContacts.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
-            'End If
 
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
