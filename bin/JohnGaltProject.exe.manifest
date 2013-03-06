@@ -4,7 +4,7 @@
   <description asmv2:iconFile="gaSeal.ico" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <application />
   <entryPoint>
-    <assemblyIdentity name="JohnGaltProject" version="2.6.1.8" language="neutral" processorArchitecture="msil" />
+    <assemblyIdentity name="JohnGaltProject" version="2.6.1.9" language="neutral" processorArchitecture="msil" />
     <commandLine file="JohnGaltProject.exe" parameters="" />
   </entryPoint>
   <trustInfo>
@@ -121,14 +121,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="JohnGaltProject.exe" size="19066880">
-      <assemblyIdentity name="JohnGaltProject" version="2.6.1.8" language="neutral" processorArchitecture="msil" />
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="JohnGaltProject.exe" size="19127808">
+      <assemblyIdentity name="JohnGaltProject" version="2.6.1.9" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>HLx1sMPUrRFCPE2ixrPXp2Q7+z0=</dsig:DigestValue>
+        <dsig:DigestValue>pXoqDmu9U2tQ3clyA5DEFs9Tkcc=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

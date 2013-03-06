@@ -118,6 +118,7 @@ Partial Class SSCPFCEWork
         Me.TabControl1 = New System.Windows.Forms.TabControl
         Me.TabPage1 = New System.Windows.Forms.TabPage
         Me.TabPage2 = New System.Windows.Forms.TabPage
+        Me.CRViewer = New CrystalDecisions.Windows.Forms.CrystalReportViewer
         Me.StatusStrip1.SuspendLayout()
         Me.TCFCEData.SuspendLayout()
         Me.TPInspections.SuspendLayout()
@@ -150,6 +151,7 @@ Partial Class SSCPFCEWork
         Me.Panel5.SuspendLayout()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
+        Me.TabPage2.SuspendLayout()
         Me.SuspendLayout()
         '
         'StatusStrip1
@@ -1161,6 +1163,7 @@ Partial Class SSCPFCEWork
         '
         'TabPage2
         '
+        Me.TabPage2.Controls.Add(Me.CRViewer)
         Me.TabPage2.Location = New System.Drawing.Point(4, 22)
         Me.TabPage2.Name = "TabPage2"
         Me.TabPage2.Padding = New System.Windows.Forms.Padding(3)
@@ -1168,6 +1171,21 @@ Partial Class SSCPFCEWork
         Me.TabPage2.TabIndex = 1
         Me.TabPage2.Text = "FCE Print out"
         Me.TabPage2.UseVisualStyleBackColor = True
+        '
+        'CRViewer
+        '
+        Me.CRViewer.ActiveViewIndex = -1
+        Me.CRViewer.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.CRViewer.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.CRViewer.Location = New System.Drawing.Point(3, 3)
+        Me.CRViewer.Margin = New System.Windows.Forms.Padding(2)
+        Me.CRViewer.Name = "CRViewer"
+        Me.CRViewer.SelectionFormula = ""
+        Me.CRViewer.ShowGroupTreeButton = False
+        Me.CRViewer.ShowRefreshButton = False
+        Me.CRViewer.Size = New System.Drawing.Size(863, 560)
+        Me.CRViewer.TabIndex = 250
+        Me.CRViewer.ViewTimeSelectionFormula = ""
         '
         'SSCPFCEWork
         '
@@ -1227,6 +1245,7 @@ Partial Class SSCPFCEWork
         Me.Panel5.PerformLayout()
         Me.TabControl1.ResumeLayout(False)
         Me.TabPage1.ResumeLayout(False)
+        Me.TabPage2.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1328,4 +1347,5 @@ Partial Class SSCPFCEWork
     Friend WithEvents TabPage1 As System.Windows.Forms.TabPage
     Friend WithEvents TabPage2 As System.Windows.Forms.TabPage
     Friend WithEvents btnPrintTest As System.Windows.Forms.Button
+    Friend WithEvents CRViewer As CrystalDecisions.Windows.Forms.CrystalReportViewer
 End Class

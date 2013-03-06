@@ -49,8 +49,8 @@ Public Class IAIPLogIn
                 If Oracledll <> "9.2.0.401" Then
                     PRDconnLine = "Data Source = luke.dnr.state.ga.us:1521/PRD; User ID = AIRBranch_App_User; " & _
                              "Password = " & SimpleCrypt("ÁÚ·Ú±Ï") & ";"
-                    TESTconnLine = "Data Source = leia.dnr.state.ga.us:1521/TEST; User ID = AIRBRANCH_APP_USER; " & _
-                             "Password = " & SimpleCrypt("¡…“¡––’”≈“∞≥") & ";"
+                    'TESTconnLine = "Data Source = leia.dnr.state.ga.us:1521/TEST; User ID = AIRBRANCH_APP_USER; " & _
+                    '         "Password = " & SimpleCrypt("¡…“¡––’”≈“∞≥") & ";"
                     'DEVconnLine = "Data Source = leia.dnr.state.ga.us:2483/DEV; User ID = AirBranch; " & _
                     '         "Password = " & SimpleCrypt("ÛÌÔÁ·ÏÂÚÙ") & ";"
                     DEVconnLine = "Data Source = leia.dnr.state.ga.us:1521/DEV; User ID = AirBranch; " & _

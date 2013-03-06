@@ -25,6 +25,7 @@ Public Class DMUDeveloperTools
             LoadPermissions()
             rdbDEVTransfer.Text = conn.DataSource.ToString & " --> DEV "
             rdbTESTTransfer.Text = conn.DataSource.ToString & " --> TEST "
+            lblCurrentVersion.Text = "Current Version: " & String.Format("Version: {0}", My.Application.Info.Version.ToString)
 
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -3587,9 +3588,9 @@ Public Class DMUDeveloperTools
                             BatchText = BatchText & _
                             AIRSNumber & "161" & ActionNumber & AIRProgramCodes & "Z4                      " & StipulatedDate & "01" & StipulatedPenalty & UserAFSCode & "            N" & UpdateCode & vbCrLf & _
                             AIRSNumber & "163" & ActionNumber & KeyActionNumber & "                                                        " & UpdateCode & vbCrLf
-                        Case "60"   'AO to AG
+                        Case "60"   'AO to AG  3/4/2013 changed 60 to NO to both address and resolve action
                             BatchText = BatchText & _
-                            AIRSNumber & "161" & ActionNumber & AIRProgramCodes & "60                      " & AOExecuted & "  0000000" & UserAFSCode & "            N" & UpdateCode & vbCrLf & _
+                            AIRSNumber & "161" & ActionNumber & AIRProgramCodes & "NO                      " & AOExecuted & "  0000000" & UserAFSCode & "            N" & UpdateCode & vbCrLf & _
                             AIRSNumber & "163" & ActionNumber & KeyActionNumber & "                                                        " & UpdateCode & vbCrLf
                         Case "64"   'Civil Court
                             BatchText = BatchText & _
@@ -4038,9 +4039,9 @@ Public Class DMUDeveloperTools
                            vbCrLf & _
                         AIRSNumber & "163" & ActionNumber & KeyActionNumber & "                                                        " & UpdateCode & _
                            vbCrLf
-                    Case "60"   'AO to AG
+                    Case "60"   'AO to AG 3/4/2013 changed 60 to NO to both address and resolve action
                         BatchText = BatchText & _
-                        AIRSNumber & "161" & ActionNumber & AIRProgramCodes & "60                      " & AOExecuted & "  0000000" & UserAFSCode & "            N" & UpdateCode & _
+                        AIRSNumber & "161" & ActionNumber & AIRProgramCodes & "NO                      " & AOExecuted & "  0000000" & UserAFSCode & "            N" & UpdateCode & _
                            vbCrLf & _
                         AIRSNumber & "163" & ActionNumber & KeyActionNumber & "                                                        " & UpdateCode & _
                            vbCrLf
@@ -22158,6 +22159,25 @@ Public Class DMUDeveloperTools
 
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+        End Try
+    End Sub
+
+    Private Sub btnUpdateVersionNumber_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnUpdateVersionNumber.Click
+        Try
+            SQL = "Update " & connNameSpace & ".APBMasterApp set " & _
+            "strVersionNumber = '" & Replace(mtbVersionNumber.Text, "'", "''") & "' " & _
+            "where strApplicationName = 'IAIP' "
+
+            cmd = New OracleCommand(SQL, conn)
+            If conn.State = ConnectionState.Closed Then
+                conn.Open()
+            End If
+            dr = cmd.ExecuteReader
+            dr.Close()
+            MsgBox("Version Number Updated.", MsgBoxStyle.Information, Me.Name)
+
+        Catch ex As Exception
+            ErrorReport(ex.ToString(), Me.Name & ".btnUpdateVersionNumber_Click")
         End Try
     End Sub
 End Class

@@ -248,17 +248,6 @@
     <None Include="DataSet\dsInventoryReport.xss">
       <DependentUpon>dsInventoryReport.xsd</DependentUpon>
     </None>
-    <None Include="dsFCEPrint.xsc">
-      <DependentUpon>dsFCEPrint.xsd</DependentUpon>
-    </None>
-    <None Include="dsFCEPrint.xsd">
-      <SubType>Designer</SubType>
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>dsFCEPrint.Designer.vb</LastGenOutput>
-    </None>
-    <None Include="dsFCEPrint.xss">
-      <DependentUpon>dsFCEPrint.xsd</DependentUpon>
-    </None>
     <None Include="JohnGaltProject_TemporaryKey.pfx" />
     <None Include="My Project\Settings.settings">
       <CustomToolNamespace>My</CustomToolNamespace>
@@ -353,15 +342,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>dsIAIP2.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="dsFCEPrint.Designer.vb">
-      <DependentUpon>dsFCEPrint.xsd</DependentUpon>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-    </Compile>
-    <Compile Include="dsFCEPrint.vb">
-      <DependentUpon>dsFCEPrint.xsd</DependentUpon>
-      <SubType>code</SubType>
     </Compile>
     <Compile Include="IAIP-Crystal Reports\Oracle 10.1\crFS_Invoice.vb">
       <AutoGen>True</AutoGen>
@@ -656,6 +636,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>crRoster.rpt</DependentUpon>
       <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="IAIP-Crystal Reports\Oracle 10.1\SSCP\CRFCE3.vb">
+      <DependentUpon>CRFCE3.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="IAIP-Crystal Reports\Oracle 10.1\SSPP\crSSPPConfirmationLetter.vb">
       <AutoGen>True</AutoGen>
@@ -1656,6 +1642,10 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>crRoster.vb</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="IAIP-Crystal Reports\Oracle 10.1\SSCP\CRFCE3.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>CRFCE3.vb</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="IAIP-Crystal Reports\Oracle 10.1\SSPP\crSSPPConfirmationLetter.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>crSSPPConfirmationLetter.vb</LastGenOutput>
@@ -2252,7 +2242,6 @@
   <ItemGroup>
     <Folder Include="bin\" />
     <Folder Include="IAIP-Crystal Reports\Oracle 10.1\ISMP\" />
-    <Folder Include="IAIP-Crystal Reports\Oracle 10.1\SSCP\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
   <PropertyGroup>

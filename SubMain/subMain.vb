@@ -174,9 +174,8 @@ Module submain
 #Region "AFS"
 
 #End Region
-
+ 
 #Region "Public Subs"
-
 
     Sub ErrorReport(ByVal ErrorMessage As String, ByVal ErrorLocation As String)
         Dim SQL As String

@@ -732,7 +732,7 @@ Public Class IAIPPermitUploader
                             pdf = txtTVDraftPDF.Text
                         End If
                     End If
-                    If doc <> "" Or pdf <> "" Then
+                    If doc <> "" Or docx <> "" Or pdf <> "" Then
                         UploadFile("VD-" & MasterApp, doc, docx, pdf, docOnFile)
                     End If
                 End If
@@ -763,7 +763,7 @@ Public Class IAIPPermitUploader
                             pdf = txtTVPublicNoticePDF.Text
                         End If
                     End If
-                    If doc <> "" Or pdf <> "" Then
+                    If doc <> "" Or docx <> "" Or pdf <> "" Then
                         UploadFile("VP-" & MasterApp, doc, docx, pdf, docOnFile)
                     End If
                 End If
@@ -794,7 +794,7 @@ Public Class IAIPPermitUploader
                             pdf = txtTVFinalPDF.Text
                         End If
                     End If
-                    If doc <> "" Or pdf <> "" Then
+                    If doc <> "" Or docx <> "" Or pdf <> "" Then
                         UploadFile("VF-" & MasterApp, doc, docx, pdf, docOnFile)
                     End If
 
@@ -849,7 +849,7 @@ Public Class IAIPPermitUploader
                             pdf = txtPSDAppSummaryPDF.Text
                         End If
                     End If
-                    If doc <> "" Or pdf <> "" Then
+                    If doc <> "" Or docx <> "" Or pdf <> "" Then
                         UploadFile("PA-" & MasterApp, doc, docx, pdf, docOnFile)
                     End If
                 End If
@@ -880,7 +880,7 @@ Public Class IAIPPermitUploader
                             pdf = txtPSDPrelimDetPDF.Text
                         End If
                     End If
-                    If doc <> "" Or pdf <> "" Then
+                    If doc <> "" Or docx <> "" Or pdf <> "" Then
                         UploadFile("PP-" & MasterApp, doc, docx, pdf, docOnFile)
                     End If
                 End If
@@ -911,7 +911,7 @@ Public Class IAIPPermitUploader
                             pdf = txtPSDNarrativePDF.Text
                         End If
                     End If
-                    If doc <> "" Or pdf <> "" Then
+                    If doc <> "" Or docx <> "" Or pdf <> "" Then
                         UploadFile("PT-" & MasterApp, doc, docx, pdf, docOnFile)
                     End If
                 End If
@@ -942,7 +942,7 @@ Public Class IAIPPermitUploader
                             pdf = txtPSDDraftPermitPDF.Text
                         End If
                     End If
-                    If doc <> "" Or pdf <> "" Then
+                    If doc <> "" Or docx <> "" Or pdf <> "" Then
                         UploadFile("PD-" & MasterApp, doc, docx, pdf, docOnFile)
                     End If
                 End If
@@ -973,7 +973,7 @@ Public Class IAIPPermitUploader
                             pdf = txtPSDPublicNoticePDF.Text
                         End If
                     End If
-                    If doc <> "" Or pdf <> "" Then
+                    If doc <> "" Or docx <> "" Or pdf <> "" Then
                         UploadFile("PN-" & MasterApp, doc, docx, pdf, docOnFile)
                     End If
                 End If
@@ -1004,7 +1004,7 @@ Public Class IAIPPermitUploader
                             pdf = txtPSDHearingNoticePDF.Text
                         End If
                     End If
-                    If doc <> "" Or pdf <> "" Then
+                    If doc <> "" Or docx <> "" Or pdf <> "" Then
                         UploadFile("PH-" & MasterApp, doc, docx, pdf, docOnFile)
                     End If
                 End If
@@ -1035,7 +1035,7 @@ Public Class IAIPPermitUploader
                             pdf = txtPSDFinalDetPDF.Text
                         End If
                     End If
-                    If doc <> "" Or pdf <> "" Then
+                    If doc <> "" Or docx <> "" Or pdf <> "" Then
                         UploadFile("PF-" & MasterApp, doc, docx, pdf, docOnFile)
                     End If
                 End If
@@ -1066,7 +1066,7 @@ Public Class IAIPPermitUploader
                             pdf = txtPSDFinalPermitPDF.Text
                         End If
                     End If
-                    If doc <> "" Or pdf <> "" Then
+                    If doc <> "" Or docx <> "" Or pdf <> "" Then
                         UploadFile("PI-" & MasterApp, doc, docx, pdf, docOnFile)
                     End If
 
@@ -1121,7 +1121,7 @@ Public Class IAIPPermitUploader
                             pdf = txtOtherNarrativePDF.Text
                         End If
                     End If
-                    If doc <> "" Or pdf <> "" Then
+                    If doc <> "" Or docx <> "" Or pdf <> "" Then
                         UploadFile("ON-" & MasterApp, doc, docx, pdf, docOnFile)
                     End If
                 End If
@@ -1152,7 +1152,7 @@ Public Class IAIPPermitUploader
                             pdf = txtOtherPermitPDF.Text
                         End If
                     End If
-                    If doc <> "" Or pdf <> "" Then
+                    If doc <> "" Or docx <> "" Or pdf <> "" Then
                         UploadFile("OP-" & MasterApp, doc, docx, pdf, docOnFile)
 
                         SQL = "Select datFinalOnWeb " & _

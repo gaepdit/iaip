@@ -357,6 +357,9 @@ Me.txtEISMailout = New System.Windows.Forms.TextBox
 Me.Label253 = New System.Windows.Forms.Label
 Me.Label241 = New System.Windows.Forms.Label
 Me.TPEISStatMailout = New System.Windows.Forms.TabPage
+Me.btnRemoveAllMailout = New System.Windows.Forms.Button
+Me.btnGenerateMailout = New System.Windows.Forms.Button
+Me.btnViewMailoutData = New System.Windows.Forms.Button
 Me.btnAddtoEISMailout = New System.Windows.Forms.Button
 Me.llbSearchForFacility = New System.Windows.Forms.LinkLabel
 Me.txtEISStatsMailoutCreateDate = New System.Windows.Forms.TextBox
@@ -396,6 +399,9 @@ Me.Label265 = New System.Windows.Forms.Label
 Me.txtEISStatsMailoutAIRSNumber = New System.Windows.Forms.TextBox
 Me.Label266 = New System.Windows.Forms.Label
 Me.TPEISEnrollment = New System.Windows.Forms.TabPage
+Me.btnRemoveEISEnrolled = New System.Windows.Forms.Button
+Me.btnEISEnrollMailoutList = New System.Windows.Forms.Button
+Me.btnViewEISEnrolled = New System.Windows.Forms.Button
 Me.txtEISStatsEnrollmentYear = New System.Windows.Forms.TextBox
 Me.Label275 = New System.Windows.Forms.Label
 Me.llbEISStatsViewEnrollment = New System.Windows.Forms.LinkLabel
@@ -4300,6 +4306,9 @@ Me.Label241.Text = "Emission Inventory Summary of Year "
 '
 'TPEISStatMailout
 '
+Me.TPEISStatMailout.Controls.Add(Me.btnRemoveAllMailout)
+Me.TPEISStatMailout.Controls.Add(Me.btnGenerateMailout)
+Me.TPEISStatMailout.Controls.Add(Me.btnViewMailoutData)
 Me.TPEISStatMailout.Controls.Add(Me.btnAddtoEISMailout)
 Me.TPEISStatMailout.Controls.Add(Me.llbSearchForFacility)
 Me.TPEISStatMailout.Controls.Add(Me.txtEISStatsMailoutCreateDate)
@@ -4346,13 +4355,44 @@ Me.TPEISStatMailout.TabIndex = 1
 Me.TPEISStatMailout.Text = "Mailout"
 Me.TPEISStatMailout.UseVisualStyleBackColor = true
 '
+'btnRemoveAllMailout
+'
+Me.btnRemoveAllMailout.AutoSize = true
+Me.btnRemoveAllMailout.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+Me.btnRemoveAllMailout.Location = New System.Drawing.Point(309, 38)
+Me.btnRemoveAllMailout.Name = "btnRemoveAllMailout"
+Me.btnRemoveAllMailout.Size = New System.Drawing.Size(108, 23)
+Me.btnRemoveAllMailout.TabIndex = 74
+Me.btnRemoveAllMailout.Text = "Remove All Mailout"
+Me.btnRemoveAllMailout.UseVisualStyleBackColor = true
+'
+'btnGenerateMailout
+'
+Me.btnGenerateMailout.AutoSize = true
+Me.btnGenerateMailout.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+Me.btnGenerateMailout.Location = New System.Drawing.Point(205, 38)
+Me.btnGenerateMailout.Name = "btnGenerateMailout"
+Me.btnGenerateMailout.Size = New System.Drawing.Size(98, 23)
+Me.btnGenerateMailout.TabIndex = 73
+Me.btnGenerateMailout.Text = "Generate Mailout"
+Me.btnGenerateMailout.UseVisualStyleBackColor = true
+'
+'btnViewMailoutData
+'
+Me.btnViewMailoutData.AutoSize = true
+Me.btnViewMailoutData.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+Me.btnViewMailoutData.Location = New System.Drawing.Point(106, 38)
+Me.btnViewMailoutData.Name = "btnViewMailoutData"
+Me.btnViewMailoutData.Size = New System.Drawing.Size(77, 23)
+Me.btnViewMailoutData.TabIndex = 72
+Me.btnViewMailoutData.Text = "View Mailout"
+Me.btnViewMailoutData.UseVisualStyleBackColor = true
+'
 'btnAddtoEISMailout
 '
-Me.btnAddtoEISMailout.AutoSize = true
-Me.btnAddtoEISMailout.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-Me.btnAddtoEISMailout.Location = New System.Drawing.Point(302, 9)
+Me.btnAddtoEISMailout.Location = New System.Drawing.Point(395, 9)
 Me.btnAddtoEISMailout.Name = "btnAddtoEISMailout"
-Me.btnAddtoEISMailout.Size = New System.Drawing.Size(130, 23)
+Me.btnAddtoEISMailout.Size = New System.Drawing.Size(19, 23)
 Me.btnAddtoEISMailout.TabIndex = 71
 Me.btnAddtoEISMailout.Text = "Add selected to Maillout"
 Me.btnAddtoEISMailout.UseVisualStyleBackColor = true
@@ -4361,7 +4401,7 @@ Me.btnAddtoEISMailout.Visible = false
 'llbSearchForFacility
 '
 Me.llbSearchForFacility.AutoSize = true
-Me.llbSearchForFacility.Location = New System.Drawing.Point(225, 52)
+Me.llbSearchForFacility.Location = New System.Drawing.Point(225, 73)
 Me.llbSearchForFacility.Name = "llbSearchForFacility"
 Me.llbSearchForFacility.Size = New System.Drawing.Size(91, 13)
 Me.llbSearchForFacility.TabIndex = 70
@@ -4370,7 +4410,7 @@ Me.llbSearchForFacility.Text = "Search for Facility"
 '
 'txtEISStatsMailoutCreateDate
 '
-Me.txtEISStatsMailoutCreateDate.Location = New System.Drawing.Point(106, 463)
+Me.txtEISStatsMailoutCreateDate.Location = New System.Drawing.Point(106, 484)
 Me.txtEISStatsMailoutCreateDate.Name = "txtEISStatsMailoutCreateDate"
 Me.txtEISStatsMailoutCreateDate.ReadOnly = true
 Me.txtEISStatsMailoutCreateDate.Size = New System.Drawing.Size(221, 20)
@@ -4379,7 +4419,7 @@ Me.txtEISStatsMailoutCreateDate.TabIndex = 68
 'Label271
 '
 Me.Label271.AutoSize = true
-Me.Label271.Location = New System.Drawing.Point(6, 467)
+Me.Label271.Location = New System.Drawing.Point(6, 488)
 Me.Label271.Name = "Label271"
 Me.Label271.Size = New System.Drawing.Size(67, 13)
 Me.Label271.TabIndex = 69
@@ -4387,7 +4427,7 @@ Me.Label271.Text = "Create Date:"
 '
 'txtEISStatsMailoutUpdateDate
 '
-Me.txtEISStatsMailoutUpdateDate.Location = New System.Drawing.Point(106, 437)
+Me.txtEISStatsMailoutUpdateDate.Location = New System.Drawing.Point(106, 458)
 Me.txtEISStatsMailoutUpdateDate.Name = "txtEISStatsMailoutUpdateDate"
 Me.txtEISStatsMailoutUpdateDate.ReadOnly = true
 Me.txtEISStatsMailoutUpdateDate.Size = New System.Drawing.Size(221, 20)
@@ -4396,7 +4436,7 @@ Me.txtEISStatsMailoutUpdateDate.TabIndex = 66
 'Label270
 '
 Me.Label270.AutoSize = true
-Me.Label270.Location = New System.Drawing.Point(6, 441)
+Me.Label270.Location = New System.Drawing.Point(6, 462)
 Me.Label270.Name = "Label270"
 Me.Label270.Size = New System.Drawing.Size(71, 13)
 Me.Label270.TabIndex = 67
@@ -4404,7 +4444,7 @@ Me.Label270.Text = "Update Time:"
 '
 'txtEISStatsMailoutUpdateUser
 '
-Me.txtEISStatsMailoutUpdateUser.Location = New System.Drawing.Point(106, 411)
+Me.txtEISStatsMailoutUpdateUser.Location = New System.Drawing.Point(106, 432)
 Me.txtEISStatsMailoutUpdateUser.Name = "txtEISStatsMailoutUpdateUser"
 Me.txtEISStatsMailoutUpdateUser.ReadOnly = true
 Me.txtEISStatsMailoutUpdateUser.Size = New System.Drawing.Size(221, 20)
@@ -4413,7 +4453,7 @@ Me.txtEISStatsMailoutUpdateUser.TabIndex = 64
 'Label269
 '
 Me.Label269.AutoSize = true
-Me.Label269.Location = New System.Drawing.Point(6, 415)
+Me.Label269.Location = New System.Drawing.Point(6, 436)
 Me.Label269.Name = "Label269"
 Me.Label269.Size = New System.Drawing.Size(70, 13)
 Me.Label269.TabIndex = 65
@@ -4421,7 +4461,7 @@ Me.Label269.Text = "Update User:"
 '
 'txtEISStatsMailoutComments
 '
-Me.txtEISStatsMailoutComments.Location = New System.Drawing.Point(106, 361)
+Me.txtEISStatsMailoutComments.Location = New System.Drawing.Point(106, 382)
 Me.txtEISStatsMailoutComments.Multiline = true
 Me.txtEISStatsMailoutComments.Name = "txtEISStatsMailoutComments"
 Me.txtEISStatsMailoutComments.Size = New System.Drawing.Size(221, 44)
@@ -4430,7 +4470,7 @@ Me.txtEISStatsMailoutComments.TabIndex = 62
 'Label268
 '
 Me.Label268.AutoSize = true
-Me.Label268.Location = New System.Drawing.Point(6, 361)
+Me.Label268.Location = New System.Drawing.Point(6, 382)
 Me.Label268.Name = "Label268"
 Me.Label268.Size = New System.Drawing.Size(59, 13)
 Me.Label268.TabIndex = 63
@@ -4457,7 +4497,7 @@ Me.Label267.Text = "Mailout list for Year "
 '
 'txtEISStatsMailoutAddress1
 '
-Me.txtEISStatsMailoutAddress1.Location = New System.Drawing.Point(106, 205)
+Me.txtEISStatsMailoutAddress1.Location = New System.Drawing.Point(106, 225)
 Me.txtEISStatsMailoutAddress1.Name = "txtEISStatsMailoutAddress1"
 Me.txtEISStatsMailoutAddress1.Size = New System.Drawing.Size(221, 20)
 Me.txtEISStatsMailoutAddress1.TabIndex = 42
@@ -4465,7 +4505,7 @@ Me.txtEISStatsMailoutAddress1.TabIndex = 42
 'Label255
 '
 Me.Label255.AutoSize = true
-Me.Label255.Location = New System.Drawing.Point(6, 209)
+Me.Label255.Location = New System.Drawing.Point(6, 230)
 Me.Label255.Name = "Label255"
 Me.Label255.Size = New System.Drawing.Size(104, 13)
 Me.Label255.TabIndex = 53
@@ -4473,7 +4513,7 @@ Me.Label255.Text = "Company Address1: "
 '
 'btnEISStatsDelete
 '
-Me.btnEISStatsDelete.Location = New System.Drawing.Point(241, 500)
+Me.btnEISStatsDelete.Location = New System.Drawing.Point(241, 521)
 Me.btnEISStatsDelete.Name = "btnEISStatsDelete"
 Me.btnEISStatsDelete.Size = New System.Drawing.Size(75, 23)
 Me.btnEISStatsDelete.TabIndex = 52
@@ -4483,7 +4523,7 @@ Me.btnEISStatsDelete.UseVisualStyleBackColor = true
 'btnSaveEISStatMailout
 '
 Me.btnSaveEISStatMailout.AutoSize = true
-Me.btnSaveEISStatMailout.Location = New System.Drawing.Point(103, 500)
+Me.btnSaveEISStatMailout.Location = New System.Drawing.Point(103, 521)
 Me.btnSaveEISStatMailout.Name = "btnSaveEISStatMailout"
 Me.btnSaveEISStatMailout.Size = New System.Drawing.Size(115, 23)
 Me.btnSaveEISStatMailout.TabIndex = 51
@@ -4492,7 +4532,7 @@ Me.btnSaveEISStatMailout.UseVisualStyleBackColor = true
 '
 'txtEISStatsMailoutEmailAddress
 '
-Me.txtEISStatsMailoutEmailAddress.Location = New System.Drawing.Point(106, 335)
+Me.txtEISStatsMailoutEmailAddress.Location = New System.Drawing.Point(106, 355)
 Me.txtEISStatsMailoutEmailAddress.Name = "txtEISStatsMailoutEmailAddress"
 Me.txtEISStatsMailoutEmailAddress.Size = New System.Drawing.Size(221, 20)
 Me.txtEISStatsMailoutEmailAddress.TabIndex = 49
@@ -4500,7 +4540,7 @@ Me.txtEISStatsMailoutEmailAddress.TabIndex = 49
 'Label256
 '
 Me.Label256.AutoSize = true
-Me.Label256.Location = New System.Drawing.Point(6, 339)
+Me.Label256.Location = New System.Drawing.Point(6, 360)
 Me.Label256.Name = "Label256"
 Me.Label256.Size = New System.Drawing.Size(79, 13)
 Me.Label256.TabIndex = 58
@@ -4508,7 +4548,7 @@ Me.Label256.Text = "Email Address: "
 '
 'txtEISStatsMailoutZipCode
 '
-Me.txtEISStatsMailoutZipCode.Location = New System.Drawing.Point(106, 309)
+Me.txtEISStatsMailoutZipCode.Location = New System.Drawing.Point(106, 329)
 Me.txtEISStatsMailoutZipCode.Name = "txtEISStatsMailoutZipCode"
 Me.txtEISStatsMailoutZipCode.Size = New System.Drawing.Size(147, 20)
 Me.txtEISStatsMailoutZipCode.TabIndex = 48
@@ -4516,7 +4556,7 @@ Me.txtEISStatsMailoutZipCode.TabIndex = 48
 'Label257
 '
 Me.Label257.AutoSize = true
-Me.Label257.Location = New System.Drawing.Point(6, 313)
+Me.Label257.Location = New System.Drawing.Point(6, 334)
 Me.Label257.Name = "Label257"
 Me.Label257.Size = New System.Drawing.Size(56, 13)
 Me.Label257.TabIndex = 57
@@ -4524,7 +4564,7 @@ Me.Label257.Text = "Zip Code: "
 '
 'txtEISStatsMailoutState
 '
-Me.txtEISStatsMailoutState.Location = New System.Drawing.Point(106, 283)
+Me.txtEISStatsMailoutState.Location = New System.Drawing.Point(106, 303)
 Me.txtEISStatsMailoutState.Name = "txtEISStatsMailoutState"
 Me.txtEISStatsMailoutState.Size = New System.Drawing.Size(147, 20)
 Me.txtEISStatsMailoutState.TabIndex = 46
@@ -4532,7 +4572,7 @@ Me.txtEISStatsMailoutState.TabIndex = 46
 'Label258
 '
 Me.Label258.AutoSize = true
-Me.Label258.Location = New System.Drawing.Point(6, 287)
+Me.Label258.Location = New System.Drawing.Point(6, 308)
 Me.Label258.Name = "Label258"
 Me.Label258.Size = New System.Drawing.Size(82, 13)
 Me.Label258.TabIndex = 56
@@ -4540,7 +4580,7 @@ Me.Label258.Text = "Company State:"
 '
 'txtEISStatsMailoutCity
 '
-Me.txtEISStatsMailoutCity.Location = New System.Drawing.Point(106, 257)
+Me.txtEISStatsMailoutCity.Location = New System.Drawing.Point(106, 277)
 Me.txtEISStatsMailoutCity.Name = "txtEISStatsMailoutCity"
 Me.txtEISStatsMailoutCity.Size = New System.Drawing.Size(147, 20)
 Me.txtEISStatsMailoutCity.TabIndex = 44
@@ -4548,7 +4588,7 @@ Me.txtEISStatsMailoutCity.TabIndex = 44
 'Label259
 '
 Me.Label259.AutoSize = true
-Me.Label259.Location = New System.Drawing.Point(6, 261)
+Me.Label259.Location = New System.Drawing.Point(6, 282)
 Me.Label259.Name = "Label259"
 Me.Label259.Size = New System.Drawing.Size(74, 13)
 Me.Label259.TabIndex = 55
@@ -4556,7 +4596,7 @@ Me.Label259.Text = "Company City:"
 '
 'txtEISStatsMailoutAddress2
 '
-Me.txtEISStatsMailoutAddress2.Location = New System.Drawing.Point(106, 231)
+Me.txtEISStatsMailoutAddress2.Location = New System.Drawing.Point(106, 251)
 Me.txtEISStatsMailoutAddress2.Name = "txtEISStatsMailoutAddress2"
 Me.txtEISStatsMailoutAddress2.Size = New System.Drawing.Size(221, 20)
 Me.txtEISStatsMailoutAddress2.TabIndex = 43
@@ -4564,7 +4604,7 @@ Me.txtEISStatsMailoutAddress2.TabIndex = 43
 'Label260
 '
 Me.Label260.AutoSize = true
-Me.Label260.Location = New System.Drawing.Point(6, 235)
+Me.Label260.Location = New System.Drawing.Point(6, 256)
 Me.Label260.Name = "Label260"
 Me.Label260.Size = New System.Drawing.Size(104, 13)
 Me.Label260.TabIndex = 54
@@ -4572,7 +4612,7 @@ Me.Label260.Text = "Company Address2: "
 '
 'txtEISStatsMailoutCompanyName
 '
-Me.txtEISStatsMailoutCompanyName.Location = New System.Drawing.Point(106, 179)
+Me.txtEISStatsMailoutCompanyName.Location = New System.Drawing.Point(106, 199)
 Me.txtEISStatsMailoutCompanyName.Name = "txtEISStatsMailoutCompanyName"
 Me.txtEISStatsMailoutCompanyName.Size = New System.Drawing.Size(221, 20)
 Me.txtEISStatsMailoutCompanyName.TabIndex = 40
@@ -4580,7 +4620,7 @@ Me.txtEISStatsMailoutCompanyName.TabIndex = 40
 'Label261
 '
 Me.Label261.AutoSize = true
-Me.Label261.Location = New System.Drawing.Point(6, 183)
+Me.Label261.Location = New System.Drawing.Point(6, 204)
 Me.Label261.Name = "Label261"
 Me.Label261.Size = New System.Drawing.Size(88, 13)
 Me.Label261.TabIndex = 50
@@ -4588,7 +4628,7 @@ Me.Label261.Text = "Company Name: "
 '
 'txtEISStatsMailoutLastName
 '
-Me.txtEISStatsMailoutLastName.Location = New System.Drawing.Point(106, 153)
+Me.txtEISStatsMailoutLastName.Location = New System.Drawing.Point(106, 173)
 Me.txtEISStatsMailoutLastName.Name = "txtEISStatsMailoutLastName"
 Me.txtEISStatsMailoutLastName.Size = New System.Drawing.Size(147, 20)
 Me.txtEISStatsMailoutLastName.TabIndex = 39
@@ -4596,7 +4636,7 @@ Me.txtEISStatsMailoutLastName.TabIndex = 39
 'Label262
 '
 Me.Label262.AutoSize = true
-Me.Label262.Location = New System.Drawing.Point(6, 157)
+Me.Label262.Location = New System.Drawing.Point(6, 178)
 Me.Label262.Name = "Label262"
 Me.Label262.Size = New System.Drawing.Size(64, 13)
 Me.Label262.TabIndex = 47
@@ -4604,7 +4644,7 @@ Me.Label262.Text = "Last Name: "
 '
 'txtEISStatsMailoutFirstName
 '
-Me.txtEISStatsMailoutFirstName.Location = New System.Drawing.Point(106, 127)
+Me.txtEISStatsMailoutFirstName.Location = New System.Drawing.Point(106, 147)
 Me.txtEISStatsMailoutFirstName.Name = "txtEISStatsMailoutFirstName"
 Me.txtEISStatsMailoutFirstName.Size = New System.Drawing.Size(147, 20)
 Me.txtEISStatsMailoutFirstName.TabIndex = 37
@@ -4612,7 +4652,7 @@ Me.txtEISStatsMailoutFirstName.TabIndex = 37
 'Label263
 '
 Me.Label263.AutoSize = true
-Me.Label263.Location = New System.Drawing.Point(6, 131)
+Me.Label263.Location = New System.Drawing.Point(6, 152)
 Me.Label263.Name = "Label263"
 Me.Label263.Size = New System.Drawing.Size(63, 13)
 Me.Label263.TabIndex = 45
@@ -4620,7 +4660,7 @@ Me.Label263.Text = "First Name: "
 '
 'txtEISStatsMailoutPrefix
 '
-Me.txtEISStatsMailoutPrefix.Location = New System.Drawing.Point(106, 101)
+Me.txtEISStatsMailoutPrefix.Location = New System.Drawing.Point(106, 121)
 Me.txtEISStatsMailoutPrefix.Name = "txtEISStatsMailoutPrefix"
 Me.txtEISStatsMailoutPrefix.Size = New System.Drawing.Size(110, 20)
 Me.txtEISStatsMailoutPrefix.TabIndex = 36
@@ -4628,7 +4668,7 @@ Me.txtEISStatsMailoutPrefix.TabIndex = 36
 'Label264
 '
 Me.Label264.AutoSize = true
-Me.Label264.Location = New System.Drawing.Point(6, 105)
+Me.Label264.Location = New System.Drawing.Point(6, 126)
 Me.Label264.Name = "Label264"
 Me.Label264.Size = New System.Drawing.Size(39, 13)
 Me.Label264.TabIndex = 41
@@ -4636,7 +4676,7 @@ Me.Label264.Text = "Prefix: "
 '
 'txtEISStatsMailoutFacilityName
 '
-Me.txtEISStatsMailoutFacilityName.Location = New System.Drawing.Point(106, 75)
+Me.txtEISStatsMailoutFacilityName.Location = New System.Drawing.Point(106, 95)
 Me.txtEISStatsMailoutFacilityName.Name = "txtEISStatsMailoutFacilityName"
 Me.txtEISStatsMailoutFacilityName.Size = New System.Drawing.Size(221, 20)
 Me.txtEISStatsMailoutFacilityName.TabIndex = 35
@@ -4644,7 +4684,7 @@ Me.txtEISStatsMailoutFacilityName.TabIndex = 35
 'Label265
 '
 Me.Label265.AutoSize = true
-Me.Label265.Location = New System.Drawing.Point(6, 75)
+Me.Label265.Location = New System.Drawing.Point(6, 96)
 Me.Label265.Name = "Label265"
 Me.Label265.Size = New System.Drawing.Size(76, 13)
 Me.Label265.TabIndex = 38
@@ -4652,7 +4692,7 @@ Me.Label265.Text = "Facility Name: "
 '
 'txtEISStatsMailoutAIRSNumber
 '
-Me.txtEISStatsMailoutAIRSNumber.Location = New System.Drawing.Point(106, 49)
+Me.txtEISStatsMailoutAIRSNumber.Location = New System.Drawing.Point(106, 69)
 Me.txtEISStatsMailoutAIRSNumber.Name = "txtEISStatsMailoutAIRSNumber"
 Me.txtEISStatsMailoutAIRSNumber.Size = New System.Drawing.Size(110, 20)
 Me.txtEISStatsMailoutAIRSNumber.TabIndex = 33
@@ -4660,7 +4700,7 @@ Me.txtEISStatsMailoutAIRSNumber.TabIndex = 33
 'Label266
 '
 Me.Label266.AutoSize = true
-Me.Label266.Location = New System.Drawing.Point(6, 53)
+Me.Label266.Location = New System.Drawing.Point(6, 74)
 Me.Label266.Name = "Label266"
 Me.Label266.Size = New System.Drawing.Size(50, 13)
 Me.Label266.TabIndex = 34
@@ -4668,6 +4708,9 @@ Me.Label266.Text = "Airs No.: "
 '
 'TPEISEnrollment
 '
+Me.TPEISEnrollment.Controls.Add(Me.btnRemoveEISEnrolled)
+Me.TPEISEnrollment.Controls.Add(Me.btnEISEnrollMailoutList)
+Me.TPEISEnrollment.Controls.Add(Me.btnViewEISEnrolled)
 Me.TPEISEnrollment.Controls.Add(Me.txtEISStatsEnrollmentYear)
 Me.TPEISEnrollment.Controls.Add(Me.Label275)
 Me.TPEISEnrollment.Controls.Add(Me.llbEISStatsViewEnrollment)
@@ -4679,6 +4722,39 @@ Me.TPEISEnrollment.Size = New System.Drawing.Size(438, 570)
 Me.TPEISEnrollment.TabIndex = 4
 Me.TPEISEnrollment.Text = "Enrollment"
 Me.TPEISEnrollment.UseVisualStyleBackColor = true
+'
+'btnRemoveEISEnrolled
+'
+Me.btnRemoveEISEnrolled.AutoSize = true
+Me.btnRemoveEISEnrolled.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+Me.btnRemoveEISEnrolled.Location = New System.Drawing.Point(14, 211)
+Me.btnRemoveEISEnrolled.Name = "btnRemoveEISEnrolled"
+Me.btnRemoveEISEnrolled.Size = New System.Drawing.Size(118, 23)
+Me.btnRemoveEISEnrolled.TabIndex = 75
+Me.btnRemoveEISEnrolled.Text = "Removed All Enrolled"
+Me.btnRemoveEISEnrolled.UseVisualStyleBackColor = true
+'
+'btnEISEnrollMailoutList
+'
+Me.btnEISEnrollMailoutList.AutoSize = true
+Me.btnEISEnrollMailoutList.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+Me.btnEISEnrollMailoutList.Location = New System.Drawing.Point(14, 170)
+Me.btnEISEnrollMailoutList.Name = "btnEISEnrollMailoutList"
+Me.btnEISEnrollMailoutList.Size = New System.Drawing.Size(99, 23)
+Me.btnEISEnrollMailoutList.TabIndex = 74
+Me.btnEISEnrollMailoutList.Text = "Enroll Mailout List"
+Me.btnEISEnrollMailoutList.UseVisualStyleBackColor = true
+'
+'btnViewEISEnrolled
+'
+Me.btnViewEISEnrolled.AutoSize = true
+Me.btnViewEISEnrolled.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+Me.btnViewEISEnrolled.Location = New System.Drawing.Point(14, 132)
+Me.btnViewEISEnrolled.Name = "btnViewEISEnrolled"
+Me.btnViewEISEnrolled.Size = New System.Drawing.Size(81, 23)
+Me.btnViewEISEnrolled.TabIndex = 73
+Me.btnViewEISEnrolled.Text = "View Enrolled"
+Me.btnViewEISEnrolled.UseVisualStyleBackColor = true
 '
 'txtEISStatsEnrollmentYear
 '
@@ -11642,4 +11718,10 @@ End Sub
     Friend WithEvents llbEISStatsSubmittedBeganwithoutErrors As System.Windows.Forms.LinkLabel
     Friend WithEvents llbEISStatsSubmittedBeganwithEIErrors As System.Windows.Forms.LinkLabel
     Friend WithEvents llbEISStatsSubmittedBeganwithBothErrors As System.Windows.Forms.LinkLabel
+    Friend WithEvents btnGenerateMailout As System.Windows.Forms.Button
+    Friend WithEvents btnViewMailoutData As System.Windows.Forms.Button
+    Friend WithEvents btnRemoveAllMailout As System.Windows.Forms.Button
+    Friend WithEvents btnRemoveEISEnrolled As System.Windows.Forms.Button
+    Friend WithEvents btnEISEnrollMailoutList As System.Windows.Forms.Button
+    Friend WithEvents btnViewEISEnrolled As System.Windows.Forms.Button
 End Class

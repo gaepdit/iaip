@@ -709,6 +709,8 @@ Me.Panel101 = New System.Windows.Forms.Panel
 Me.dgvFeeAuditReport = New System.Windows.Forms.DataGridView
 Me.Panel100 = New System.Windows.Forms.Panel
 Me.GroupBox3 = New System.Windows.Forms.GroupBox
+Me.txtOpenAudits = New System.Windows.Forms.TextBox
+Me.Label116 = New System.Windows.Forms.Label
 Me.txtClosedOutAudits = New System.Windows.Forms.TextBox
 Me.Label102 = New System.Windows.Forms.Label
 Me.txtPossibleNOV = New System.Windows.Forms.TextBox
@@ -750,8 +752,6 @@ Me.txtNonRespondersID = New System.Windows.Forms.TextBox
 Me.btnSearchForData = New System.Windows.Forms.Button
 Me.Label1 = New System.Windows.Forms.Label
 Me.mtbAIRSNumber = New System.Windows.Forms.MaskedTextBox
-Me.txtOpenAudits = New System.Windows.Forms.TextBox
-Me.Label116 = New System.Windows.Forms.Label
 Me.StatusStrip1.SuspendLayout
 Me.MenuStrip1.SuspendLayout
 Me.TCNonResponders.SuspendLayout
@@ -909,7 +909,7 @@ Me.SuspendLayout
 'StatusStrip1
 '
 Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.pnl1, Me.pnl2, Me.pnl3})
-Me.StatusStrip1.Location = New System.Drawing.Point(0, 744)
+Me.StatusStrip1.Location = New System.Drawing.Point(0, 724)
 Me.StatusStrip1.Name = "StatusStrip1"
 Me.StatusStrip1.Size = New System.Drawing.Size(792, 22)
 Me.StatusStrip1.TabIndex = 8
@@ -981,7 +981,7 @@ Me.TCNonResponders.Dock = System.Windows.Forms.DockStyle.Fill
 Me.TCNonResponders.Location = New System.Drawing.Point(0, 63)
 Me.TCNonResponders.Name = "TCNonResponders"
 Me.TCNonResponders.SelectedIndex = 0
-Me.TCNonResponders.Size = New System.Drawing.Size(792, 681)
+Me.TCNonResponders.Size = New System.Drawing.Size(792, 661)
 Me.TCNonResponders.TabIndex = 9
 '
 'TPTrackingData
@@ -990,7 +990,7 @@ Me.TPTrackingData.Controls.Add(Me.Panel5)
 Me.TPTrackingData.Location = New System.Drawing.Point(4, 22)
 Me.TPTrackingData.Name = "TPTrackingData"
 Me.TPTrackingData.Padding = New System.Windows.Forms.Padding(3)
-Me.TPTrackingData.Size = New System.Drawing.Size(784, 655)
+Me.TPTrackingData.Size = New System.Drawing.Size(784, 635)
 Me.TPTrackingData.TabIndex = 1
 Me.TPTrackingData.Text = "Tracking Data"
 Me.TPTrackingData.UseVisualStyleBackColor = true
@@ -1001,7 +1001,7 @@ Me.Panel5.Controls.Add(Me.TCFeeAuditTracking)
 Me.Panel5.Dock = System.Windows.Forms.DockStyle.Fill
 Me.Panel5.Location = New System.Drawing.Point(3, 3)
 Me.Panel5.Name = "Panel5"
-Me.Panel5.Size = New System.Drawing.Size(778, 649)
+Me.Panel5.Size = New System.Drawing.Size(778, 629)
 Me.Panel5.TabIndex = 0
 '
 'TCFeeAuditTracking
@@ -1018,7 +1018,7 @@ Me.TCFeeAuditTracking.Dock = System.Windows.Forms.DockStyle.Fill
 Me.TCFeeAuditTracking.Location = New System.Drawing.Point(0, 0)
 Me.TCFeeAuditTracking.Name = "TCFeeAuditTracking"
 Me.TCFeeAuditTracking.SelectedIndex = 0
-Me.TCFeeAuditTracking.Size = New System.Drawing.Size(778, 649)
+Me.TCFeeAuditTracking.Size = New System.Drawing.Size(778, 629)
 Me.TCFeeAuditTracking.TabIndex = 0
 '
 'TP_Tracking_CY2008
@@ -1028,7 +1028,7 @@ Me.TP_Tracking_CY2008.Controls.Add(Me.Panel48)
 Me.TP_Tracking_CY2008.Location = New System.Drawing.Point(4, 22)
 Me.TP_Tracking_CY2008.Name = "TP_Tracking_CY2008"
 Me.TP_Tracking_CY2008.Padding = New System.Windows.Forms.Padding(3)
-Me.TP_Tracking_CY2008.Size = New System.Drawing.Size(770, 623)
+Me.TP_Tracking_CY2008.Size = New System.Drawing.Size(770, 603)
 Me.TP_Tracking_CY2008.TabIndex = 0
 Me.TP_Tracking_CY2008.Text = "CY2008"
 Me.TP_Tracking_CY2008.UseVisualStyleBackColor = true
@@ -1070,7 +1070,7 @@ Me.Panel6.Controls.Add(Me.Label12)
 Me.Panel6.Dock = System.Windows.Forms.DockStyle.Fill
 Me.Panel6.Location = New System.Drawing.Point(3, 35)
 Me.Panel6.Name = "Panel6"
-Me.Panel6.Size = New System.Drawing.Size(764, 585)
+Me.Panel6.Size = New System.Drawing.Size(764, 565)
 Me.Panel6.TabIndex = 1
 '
 'Label34
@@ -8079,6 +8079,23 @@ Me.GroupBox3.TabIndex = 10
 Me.GroupBox3.TabStop = false
 Me.GroupBox3.Text = "Stats"
 '
+'txtOpenAudits
+'
+Me.txtOpenAudits.Location = New System.Drawing.Point(328, 16)
+Me.txtOpenAudits.Name = "txtOpenAudits"
+Me.txtOpenAudits.ReadOnly = true
+Me.txtOpenAudits.Size = New System.Drawing.Size(41, 20)
+Me.txtOpenAudits.TabIndex = 12
+'
+'Label116
+'
+Me.Label116.AutoSize = true
+Me.Label116.Location = New System.Drawing.Point(219, 20)
+Me.Label116.Name = "Label116"
+Me.Label116.Size = New System.Drawing.Size(79, 13)
+Me.Label116.TabIndex = 11
+Me.Label116.Text = "All Open Audits"
+'
 'txtClosedOutAudits
 '
 Me.txtClosedOutAudits.Location = New System.Drawing.Point(328, 38)
@@ -8498,28 +8515,11 @@ Me.mtbAIRSNumber.Size = New System.Drawing.Size(67, 20)
 Me.mtbAIRSNumber.TabIndex = 0
 Me.mtbAIRSNumber.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals
 '
-'txtOpenAudits
-'
-Me.txtOpenAudits.Location = New System.Drawing.Point(328, 16)
-Me.txtOpenAudits.Name = "txtOpenAudits"
-Me.txtOpenAudits.ReadOnly = true
-Me.txtOpenAudits.Size = New System.Drawing.Size(41, 20)
-Me.txtOpenAudits.TabIndex = 12
-'
-'Label116
-'
-Me.Label116.AutoSize = true
-Me.Label116.Location = New System.Drawing.Point(219, 20)
-Me.Label116.Name = "Label116"
-Me.Label116.Size = New System.Drawing.Size(79, 13)
-Me.Label116.TabIndex = 11
-Me.Label116.Text = "All Open Audits"
-'
 'IAIPFeeAuditTool
 '
 Me.AutoScaleDimensions = New System.Drawing.SizeF(6!, 13!)
 Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-Me.ClientSize = New System.Drawing.Size(792, 766)
+Me.ClientSize = New System.Drawing.Size(792, 746)
 Me.Controls.Add(Me.TCNonResponders)
 Me.Controls.Add(Me.StatusStrip1)
 Me.Controls.Add(Me.pnlTop1)

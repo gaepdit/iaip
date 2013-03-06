@@ -70,7 +70,7 @@ Public Class IAIPNavigation
             ProgressBar.PerformStep()
             If WorkProgram <> "---" Then
                 SQL2 = "Select strProgramDesc " & _
-                "from " & connNameSpace & ".LookUpEPDPrograms " & _
+                "from AIRBranch.LookUpEPDPrograms " & _
                 "where numProgramCode = '" & WorkProgram & "' "
                 cmd2 = New OracleCommand(SQL2, conn)
                 If conn.State = ConnectionState.Closed Then
@@ -446,27 +446,27 @@ Public Class IAIPNavigation
                         Case "3" 'ISMP
                             If WorkUnit = "---" Then 'Program Manager
                                 UserGridStyle = "LoadISMPTestReports"
-                                SQL = "Select " & connNameSpace & ".VW_ISMPTestReportViewer.*, strPreComplianceStatus   " & _
-                                "from  " & connNameSpace & ".VW_ISMPTestReportViewer, " & connNameSpace & ".ISMPReportInformation " & _
-                                "where " & connNameSpace & ".VW_ISMPTestReportViewer.strReferenceNumber = " & _
-                                  "" & connNameSpace & ".ISMPReportInformation.strReferenceNumber  " & _
+                                SQL = "Select AIRBranch.VW_ISMPTestReportViewer.*, strPreComplianceStatus   " & _
+                                "from  AIRBranch.VW_ISMPTestReportViewer, AIRBranch.ISMPReportInformation " & _
+                                "where AIRBranch.VW_ISMPTestReportViewer.strReferenceNumber = " & _
+                                  "AIRBranch.ISMPReportInformation.strReferenceNumber  " & _
                                 "and  Status = 'Open' "
                             Else
                                 If AccountArray(17, 2) = "1" Then  'Unit Manager
                                     UserGridStyle = "LoadISMPTestReports"
-                                    SQL = "select " & connNameSpace & ".VW_ISMPTestReportViewer.*, strPreComplianceStatus   " & _
-                                    "from " & connNameSpace & ".VW_ISMPTestReportViewer, " & connNameSpace & ".ISMPReportInformation " & _
-                                    "where " & connNameSpace & ".VW_ISMPTestReportViewer.strReferenceNumber = " & _
-                                     "" & connNameSpace & ".ISMPReportInformation.strReferenceNumber  " & _
+                                    SQL = "select AIRBranch.VW_ISMPTestReportViewer.*, strPreComplianceStatus   " & _
+                                    "from AIRBranch.VW_ISMPTestReportViewer, AIRBranch.ISMPReportInformation " & _
+                                    "where AIRBranch.VW_ISMPTestReportViewer.strReferenceNumber = " & _
+                                     "AIRBranch.ISMPReportInformation.strReferenceNumber  " & _
                                     "and status = 'Open' " & _
                                     "and strUserUnit = " & _
                                     "(select strUnitDesc from AIRBranch.LookUpEPDUnits where numUnitCode = '" & UserUnit & "') "
                                 Else
                                     UserGridStyle = "LoadISMPTestReports"
-                                    SQL = "Select " & connNameSpace & ".VW_ISMPTestReportViewer.*, strPreComplianceStatus   " & _
-                                    "from  " & connNameSpace & ".VW_ISMPTestReportViewer, " & connNameSpace & ".ISMPReportInformation " & _
-                                    "where " & connNameSpace & ".VW_ISMPTestReportViewer.strReferenceNumber = " & _
-                                     "" & connNameSpace & ".ISMPReportInformation.strReferenceNumber  " & _
+                                    SQL = "Select AIRBranch.VW_ISMPTestReportViewer.*, strPreComplianceStatus   " & _
+                                    "from  AIRBranch.VW_ISMPTestReportViewer, AIRBranch.ISMPReportInformation " & _
+                                    "where AIRBranch.VW_ISMPTestReportViewer.strReferenceNumber = " & _
+                                     "AIRBranch.ISMPReportInformation.strReferenceNumber  " & _
                                     "and Status = 'Open' " & _
                                     "and ReviewingEngineer = '" & pnl2.Text & "' "
                                 End If
@@ -475,8 +475,8 @@ Public Class IAIPNavigation
                             If WorkUnit = "---" Then 'Program Manager
                                 UserGridStyle = "LoadSSCPOpenWork"
                                 SQL = "Select " & _
-                                "distinct(to_number(" & connNameSpace & ".sscp_AuditedEnforcement.strEnforcementNumber)) as strEnforcementNumber,  " & _
-                                "substr(" & connNameSpace & ".sscp_AuditedEnforcement.strAIRSNumber, 5) as AIRSNumber,   " & _
+                                "distinct(to_number(AIRBranch.sscp_AuditedEnforcement.strEnforcementNumber)) as strEnforcementNumber,  " & _
+                                "substr(AIRBranch.sscp_AuditedEnforcement.strAIRSNumber, 5) as AIRSNumber,   " & _
                                 "case   " & _
                                 "when datEnforcementFinalized is Not Null then '4 - Closed Out'   " & _
                                 "when strAFSKeyActionNumber is Not Null then '3 - Submitted to EPA'   " & _
@@ -496,14 +496,14 @@ Public Class IAIPNavigation
                                 "End as Status,    " & _
                                 "strFacilityName,    " & _
                                 "(strLastName||', '||strFirstName) as Staff     " & _
-                                "from " & connNameSpace & ".sscp_AuditedEnforcement,     " & _
-                                "" & connNameSpace & ".APBFacilityInformation, " & connNameSpace & ".EPDUserProfiles,    " & _
+                                "from AIRBranch.sscp_AuditedEnforcement,     " & _
+                                "AIRBranch.APBFacilityInformation, AIRBranch.EPDUserProfiles,    " & _
                                 "(select numUserID  " & _
-                                "from " & connNameSpace & ".EPDUserProfiles where numUnit is null) UnitStaff " & _
-                                "Where  " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".sscp_AuditedEnforcement.strAIRSNumber    " & _
+                                "from AIRBranch.EPDUserProfiles where numUnit is null) UnitStaff " & _
+                                "Where  AIRBranch.APBFacilityInformation.strAIRSNumber = AIRBranch.sscp_AuditedEnforcement.strAIRSNumber    " & _
                                 "and (strStatus IS Null or strStatus = 'UC')    " & _
                                 "and datEnforcementFinalized is NULL   " & _
-                                "and " & connNameSpace & ".EPDUserProfiles.numUserID = " & connNameSpace & ".sscp_AuditedEnforcement.numStaffResponsible    " & _
+                                "and AIRBranch.EPDUserProfiles.numUserID = AIRBranch.sscp_AuditedEnforcement.numStaffResponsible    " & _
                                 "order by strENforcementNumber DESC   "
                             Else
                                 If AccountArray(22, 3) = "1" Then 'Unit Manager
@@ -585,8 +585,8 @@ Public Class IAIPNavigation
                                         "order by strENforcementNumber DESC   "
                                     Else
                                         UserGridStyle = "LoadSSCPOpenWork"
-                                        SQL = "Select to_number(" & connNameSpace & ".SSCP_AuditedEnforcement.strEnforcementNumber) as strEnforcementNumber,  " & _
-                                     "substr(" & connNameSpace & ".SSCP_AuditedEnforcement.strAIRSNumber, 5) as AIRSNumber,  " & _
+                                        SQL = "Select to_number(AIRBranch.SSCP_AuditedEnforcement.strEnforcementNumber) as strEnforcementNumber,  " & _
+                                     "substr(AIRBranch.SSCP_AuditedEnforcement.strAIRSNumber, 5) as AIRSNumber,  " & _
                                      "case  " & _
                                      "when datEnforcementFinalized is Not Null then '4 - Closed Out'  " & _
                                      "when strAFSKeyActionNumber is Not Null then '3 - Submitted to EPA'  " & _
@@ -608,17 +608,17 @@ Public Class IAIPNavigation
                                      " 	when datEnforcementFinalized is NUll then 'Open'  " & _
                                      "Else 'Open'  " & _
                                      "End as Status,  " & _
-                                     "" & connNameSpace & ".APBFacilityInformation.strFacilityName,  " & _
+                                     "AIRBranch.APBFacilityInformation.strFacilityName,  " & _
                                      "(strLastName||', '||strFirstName) as Staff  " & _
-                                     "from " & connNameSpace & ".SSCP_AuditedEnforcement,   " & _
-                                     "" & connNameSpace & ".APBFacilityInformation, " & connNameSpace & ".EPDuserProfiles,  " & _
-                                     "" & connNameSpace & ".VW_SSCPINSPECTION_LIST " & _
-                                     "Where " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".SSCP_AuditedEnforcement.strAIRSNumber  " & _
-                                     "and " & connNameSpace & ".SSCP_AuditedEnforcement.strAIRSnumber = '0413'||" & connNameSpace & ".VW_SSCPINSPECTION_LIST.AIRSNumber  " & _
+                                     "from AIRBranch.SSCP_AuditedEnforcement,   " & _
+                                     "AIRBranch.APBFacilityInformation, AIRBranch.EPDuserProfiles,  " & _
+                                     "AIRBranch.VW_SSCPINSPECTION_LIST " & _
+                                     "Where AIRBranch.APBFacilityInformation.strAIRSNumber = AIRBranch.SSCP_AuditedEnforcement.strAIRSNumber  " & _
+                                     "and AIRBranch.SSCP_AuditedEnforcement.strAIRSnumber = '0413'||AIRBranch.VW_SSCPINSPECTION_LIST.AIRSNumber  " & _
                                      "and (numStaffResponsible = '" & UserGCode & "' or numSSCPEngineer = '" & UserGCode & "')  " & _
                                      "and (strStatus IS Null or strStatus = 'UC')  " & _
                                      "and datEnforcementFinalized is Null  " & _
-                                     "and " & connNameSpace & ".EPDuserProfiles.numUserID = numStaffResponsible  " & _
+                                     "and AIRBranch.EPDuserProfiles.numUserID = numStaffResponsible  " & _
                                      "order by strENforcementNumber DESC  "
 
                                     End If
@@ -711,11 +711,11 @@ Public Class IAIPNavigation
                                 If AccountArray(24, 3) = "1" Then 'Unit Manager
                                     UserGridStyle = "LoadSSPPOpenWork"
                                     SQL = "Select " & _
-                                     "distinct(to_Number(" & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber)) as strApplicationNumber,  " & _
+                                     "distinct(to_Number(AIRBranch.SSPPApplicationMaster.strApplicationNumber)) as strApplicationNumber,  " & _
                                      "case  " & _
-                                    " 	when " & connNameSpace & ".SSPPApplicationMaster.strAIRSNumber is Null then ' '  " & _
-                                    " 	when " & connNameSpace & ".SSPPApplicationMaster.strAIRSNumber = '0413' then ' '  " & _
-                                     "else substr(" & connNameSpace & ".SSPPApplicationMaster.strAIRSNumber, 5)  " & _
+                                    " 	when AIRBranch.SSPPApplicationMaster.strAIRSNumber is Null then ' '  " & _
+                                    " 	when AIRBranch.SSPPApplicationMaster.strAIRSNumber = '0413' then ' '  " & _
+                                     "else substr(AIRBranch.SSPPApplicationMaster.strAIRSNumber, 5)  " & _
                                      "end as strAIRSNumber,  " & _
                                      "case  " & _
                                      "	when strApplicationTypeDesc IS Null then ' '  " & _
@@ -754,8 +754,8 @@ Public Class IAIPNavigation
                                      "else to_char(datAssignedToEngineer, 'RRRR-MM-dd')     " & _
                                      "end as StatusDate,   " & _
                                      "case   " & _
-                                     "	when " & connNameSpace & ".SSPPApplicationData.strFacilityName is Null then ' '   " & _
-                                     "else " & connNameSpace & ".SSPPApplicationData.strFacilityName   " & _
+                                     "	when AIRBranch.SSPPApplicationData.strFacilityName is Null then ' '   " & _
+                                     "else AIRBranch.SSPPApplicationData.strFacilityName   " & _
                                      "end as strFacilityName,   " & _
                                      "case  " & _
                                      "when datPermitIssued is Not Null OR datFinalizedDate IS NOT NULL then '11 - Closed Out'  " & _
@@ -776,17 +776,17 @@ Public Class IAIPNavigation
                                      "	when strPermitTypeDescription is Null then ''  " & _
                                      "else strPermitTypeDescription  " & _
                                      "End as strPermitType  " & _
-                                     "from " & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".SSPPApplicationTracking,  " & _
-                                     "" & connNameSpace & ".SSPPApplicationData,  " & _
-                                     "" & connNameSpace & ".LookUpApplicationTypes, " & connNameSpace & ".LookUPPermitTypes,  " & _
-                                     "" & connNameSpace & ".EPDUserProfiles " & _
-                                     "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationData.strApplicationNumber (+)   " & _
-                                     "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber (+)  " & _
+                                     "from AIRBranch.SSPPApplicationMaster, AIRBranch.SSPPApplicationTracking,  " & _
+                                     "AIRBranch.SSPPApplicationData,  " & _
+                                     "AIRBranch.LookUpApplicationTypes, AIRBranch.LookUPPermitTypes,  " & _
+                                     "AIRBranch.EPDUserProfiles " & _
+                                     "where AIRBranch.SSPPApplicationMaster.strApplicationNumber = AIRBranch.SSPPApplicationData.strApplicationNumber (+)   " & _
+                                     "and AIRBranch.SSPPApplicationMaster.strApplicationNumber = AIRBranch.SSPPApplicationTracking.strApplicationNumber (+)  " & _
                                      "and strApplicationType = strApplicationTypeCode (+)  " & _
                                      "and strPermitType = strPermitTypeCode (+)  " & _
-                                     "and " & connNameSpace & ".EPDUserProfiles.numUserID = " & connNameSpace & ".SSPPApplicationMaster.strStaffResponsible  " & _
+                                     "and AIRBranch.EPDUserProfiles.numUserID = AIRBranch.SSPPApplicationMaster.strStaffResponsible  " & _
                                      "and datFinalizedDate is NULL  " & _
-                                     "and (" & connNameSpace & ".EPDUserProfiles.numUnit = '" & UserUnit & "'   " & _
+                                     "and (AIRBranch.EPDUserProfiles.numUnit = '" & UserUnit & "'   " & _
                                      "or (APBUnit = '" & UserUnit & "'))  "
 
                                 Else
@@ -872,11 +872,11 @@ Public Class IAIPNavigation
                                     Else
                                         UserGridStyle = "LoadSSPPOpenWork"
                                         SQL = "Select " & _
-                                        "distinct(to_Number(" & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber)) as strApplicationNumber,   " & _
+                                        "distinct(to_Number(AIRBranch.SSPPApplicationMaster.strApplicationNumber)) as strApplicationNumber,   " & _
                                         "case   " & _
-                                        " 	when " & connNameSpace & ".SSPPApplicationMaster.strAIRSNumber is Null then ' '   " & _
-                                        " 	when " & connNameSpace & ".SSPPApplicationMaster.strAIRSNumber = '0413' then ' '   " & _
-                                        " else substr(" & connNameSpace & ".SSPPApplicationMaster.strAIRSNumber, 5)   " & _
+                                        " 	when AIRBranch.SSPPApplicationMaster.strAIRSNumber is Null then ' '   " & _
+                                        " 	when AIRBranch.SSPPApplicationMaster.strAIRSNumber = '0413' then ' '   " & _
+                                        " else substr(AIRBranch.SSPPApplicationMaster.strAIRSNumber, 5)   " & _
                                         "end as strAIRSNumber,   " & _
                                         "   case   " & _
                                         " 	when strApplicationTypeDesc IS Null then ' '   " & _
@@ -915,8 +915,8 @@ Public Class IAIPNavigation
                                         "else to_char(datAssignedToEngineer, 'RRRR-MM-dd')      " & _
                                         "end as StatusDate,    " & _
                                         "case    " & _
-                                        "	when " & connNameSpace & ".SSPPApplicationData.strFacilityName is Null then ' '    " & _
-                                        "else " & connNameSpace & ".SSPPApplicationData.strFacilityName    " & _
+                                        "	when AIRBranch.SSPPApplicationData.strFacilityName is Null then ' '    " & _
+                                        "else AIRBranch.SSPPApplicationData.strFacilityName    " & _
                                         "end as strFacilityName,    " & _
                                         "case   " & _
                                         "when datPermitIssued is Not Null OR datFinalizedDate IS NOT NULL then '11 - Closed Out'   " & _
@@ -937,15 +937,15 @@ Public Class IAIPNavigation
                                         " 	when strPermitTypeDescription is Null then ''   " & _
                                         "else strPermitTypeDescription   " & _
                                         "End as strPermitType   " & _
-                                        "from " & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".SSPPApplicationTracking,   " & _
-                                        "" & connNameSpace & ".SSPPApplicationData,   " & _
-                                        "" & connNameSpace & ".LookUpApplicationTypes, " & connNameSpace & ".LookUPPermitTypes,   " & _
-                                        "" & connNameSpace & ".EPDUserProfiles  " & _
-                                 "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationData.strApplicationNumber (+)    " & _
-                                 "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber (+)   " & _
+                                        "from AIRBranch.SSPPApplicationMaster, AIRBranch.SSPPApplicationTracking,   " & _
+                                        "AIRBranch.SSPPApplicationData,   " & _
+                                        "AIRBranch.LookUpApplicationTypes, AIRBranch.LookUPPermitTypes,   " & _
+                                        "AIRBranch.EPDUserProfiles  " & _
+                                 "where AIRBranch.SSPPApplicationMaster.strApplicationNumber = AIRBranch.SSPPApplicationData.strApplicationNumber (+)    " & _
+                                 "and AIRBranch.SSPPApplicationMaster.strApplicationNumber = AIRBranch.SSPPApplicationTracking.strApplicationNumber (+)   " & _
                                         "and strApplicationType = strApplicationTypeCode (+)   " & _
                                         "and strPermitType = strPermitTypeCode (+)   " & _
-                                        "and " & connNameSpace & ".EPDUserProfiles.numUserID = " & connNameSpace & ".SSPPApplicationMaster.strStaffResponsible   " & _
+                                        "and AIRBranch.EPDUserProfiles.numUserID = AIRBranch.SSPPApplicationMaster.strStaffResponsible   " & _
                                         "and datFinalizedDate is NULL   " & _
                                         "and numUserID = ('" & UserGCode & "') "
                                     End If
@@ -965,8 +965,8 @@ Public Class IAIPNavigation
                     If WorkUnit = "---" Then 'Program Manager
                         UserGridStyle = "LoadSSCPOpenWork"
                         SQL = "Select " & _
-                        "distinct(to_number(" & connNameSpace & ".sscp_AuditedEnforcement.strEnforcementNumber)) as strEnforcementNumber,  " & _
-                        "substr(" & connNameSpace & ".sscp_AuditedEnforcement.strAIRSNumber, 5) as AIRSNumber,   " & _
+                        "distinct(to_number(AIRBranch.sscp_AuditedEnforcement.strEnforcementNumber)) as strEnforcementNumber,  " & _
+                        "substr(AIRBranch.sscp_AuditedEnforcement.strAIRSNumber, 5) as AIRSNumber,   " & _
                         "case   " & _
                         "when datEnforcementFinalized is Not Null then '4 - Closed Out'   " & _
                         "when strAFSKeyActionNumber is Not Null then '3 - Submitted to EPA'   " & _
@@ -986,14 +986,14 @@ Public Class IAIPNavigation
                         "End as Status,    " & _
                         "strFacilityName,    " & _
                         "(strLastName||', '||strFirstName) as Staff     " & _
-                        "from " & connNameSpace & ".sscp_AuditedEnforcement,     " & _
-                        "" & connNameSpace & ".APBFacilityInformation, " & connNameSpace & ".EPDUserProfiles,    " & _
+                        "from AIRBranch.sscp_AuditedEnforcement,     " & _
+                        "AIRBranch.APBFacilityInformation, AIRBranch.EPDUserProfiles,    " & _
                         "(select numUserID  " & _
-                        "from " & connNameSpace & ".EPDUserProfiles where numUnit is null) UnitStaff " & _
-                        "Where  " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".sscp_AuditedEnforcement.strAIRSNumber    " & _
+                        "from AIRBranch.EPDUserProfiles where numUnit is null) UnitStaff " & _
+                        "Where  AIRBranch.APBFacilityInformation.strAIRSNumber = AIRBranch.sscp_AuditedEnforcement.strAIRSNumber    " & _
                         "and (strStatus IS Null or strStatus = 'UC')    " & _
                         "and datEnforcementFinalized is NULL   " & _
-                        "and " & connNameSpace & ".EPDUserProfiles.numUserID = " & connNameSpace & ".sscp_AuditedEnforcement.numStaffResponsible    " & _
+                        "and AIRBranch.EPDUserProfiles.numUserID = AIRBranch.sscp_AuditedEnforcement.numStaffResponsible    " & _
                         "order by strENforcementNumber DESC   "
                     Else
                         If AccountArray(22, 3) = "1" Then 'Unit Manager
@@ -1075,8 +1075,8 @@ Public Class IAIPNavigation
                                 "order by strENforcementNumber DESC   "
                             Else
                                 UserGridStyle = "LoadSSCPOpenWork"
-                                SQL = "Select to_number(" & connNameSpace & ".SSCP_AuditedEnforcement.strEnforcementNumber) as strEnforcementNumber,  " & _
-                             "substr(" & connNameSpace & ".SSCP_AuditedEnforcement.strAIRSNumber, 5) as AIRSNumber,  " & _
+                                SQL = "Select to_number(AIRBranch.SSCP_AuditedEnforcement.strEnforcementNumber) as strEnforcementNumber,  " & _
+                             "substr(AIRBranch.SSCP_AuditedEnforcement.strAIRSNumber, 5) as AIRSNumber,  " & _
                              "case  " & _
                              "when datEnforcementFinalized is Not Null then '4 - Closed Out'  " & _
                              "when strAFSKeyActionNumber is Not Null then '3 - Submitted to EPA'  " & _
@@ -1098,17 +1098,17 @@ Public Class IAIPNavigation
                              " 	when datEnforcementFinalized is NUll then 'Open'  " & _
                              "Else 'Open'  " & _
                              "End as Status,  " & _
-                             "" & connNameSpace & ".APBFacilityInformation.strFacilityName,  " & _
+                             "AIRBranch.APBFacilityInformation.strFacilityName,  " & _
                              "(strLastName||', '||strFirstName) as Staff  " & _
-                             "from " & connNameSpace & ".SSCP_AuditedEnforcement,   " & _
-                             "" & connNameSpace & ".APBFacilityInformation, " & connNameSpace & ".EPDuserProfiles,  " & _
-                             "" & connNameSpace & ".VW_SSCPINSPECTION_LIST " & _
-                             "Where " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".SSCP_AuditedEnforcement.strAIRSNumber  " & _
-                             "and " & connNameSpace & ".SSCP_AuditedEnforcement.strAIRSnumber = '0413'||" & connNameSpace & ".VW_SSCPINSPECTION_LIST.AIRSNumber  " & _
+                             "from AIRBranch.SSCP_AuditedEnforcement,   " & _
+                             "AIRBranch.APBFacilityInformation, AIRBranch.EPDuserProfiles,  " & _
+                             "AIRBranch.VW_SSCPINSPECTION_LIST " & _
+                             "Where AIRBranch.APBFacilityInformation.strAIRSNumber = AIRBranch.SSCP_AuditedEnforcement.strAIRSNumber  " & _
+                             "and AIRBranch.SSCP_AuditedEnforcement.strAIRSnumber = '0413'||AIRBranch.VW_SSCPINSPECTION_LIST.AIRSNumber  " & _
                              "and (numStaffResponsible = '" & UserGCode & "' or numSSCPEngineer = '" & UserGCode & "')  " & _
                              "and (strStatus IS Null or strStatus = 'UC')  " & _
                              "and datEnforcementFinalized is Null  " & _
-                             "and " & connNameSpace & ".EPDuserProfiles.numUserID = numStaffResponsible  " & _
+                             "and AIRBranch.EPDuserProfiles.numUserID = numStaffResponsible  " & _
                              "order by strENforcementNumber DESC  "
 
                             End If
@@ -1121,8 +1121,8 @@ Public Class IAIPNavigation
                     '    Case "7", "8", "9", "10", "11", "12", "13", "14", "15" 'Distirct 
                     '        If WorkUnit = "---" Then 'Program Manager 
                     '            UserGridStyle = "LoadSSCPOpenWork"
-                    '            SQL = "Select to_number(" & connNameSpace & ".SSCP_AuditedEnforcement.strEnforcementNumber) as strEnforcementNumber, " & _
-                    '              "substr(" & connNameSpace & ".SSCP_AuditedEnforcement.strAIRSNumber, 5) as AIRSNumber, " & _
+                    '            SQL = "Select to_number(AIRBranch.SSCP_AuditedEnforcement.strEnforcementNumber) as strEnforcementNumber, " & _
+                    '              "substr(AIRBranch.SSCP_AuditedEnforcement.strAIRSNumber, 5) as AIRSNumber, " & _
                     '              "case " & _
                     '              "    when datEnforcementFinalized is Not Null then '4 - Closed Out' " & _
                     '              "    when strAFSKeyActionNumber is Not Null then '3 - Submitted to EPA' " & _
@@ -1146,16 +1146,16 @@ Public Class IAIPNavigation
                     '              "End as Status, " & _
                     '              "strFacilityName, " & _
                     '              "(strLastName||', '||strFirstName) as Staff " & _
-                    '              "from " & connNameSpace & ".SSCP_AuditedEnforcement, " & _
-                    '              "" & connNameSpace & ".APBFacilityInformation, " & connNameSpace & ".EPDUserProfiles, " & _
-                    '              "(select numUserID from " & connNameSpace & ".EPDUserProfiles " & _
+                    '              "from AIRBranch.SSCP_AuditedEnforcement, " & _
+                    '              "AIRBranch.APBFacilityInformation, AIRBranch.EPDUserProfiles, " & _
+                    '              "(select numUserID from AIRBranch.EPDUserProfiles " & _
                     '              "where strLastName = 'District' or (numBranch = '1' and numProgram = '4' and numUnit is null) " & _
                     '              "group by numUserID) UnitStaff " & _
-                    '              "Where  " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".SSCP_AuditedEnforcement.strAIRSNumber " & _
+                    '              "Where  AIRBranch.APBFacilityInformation.strAIRSNumber = AIRBranch.SSCP_AuditedEnforcement.strAIRSNumber " & _
                     '              "and (strStatus IS Null or strStatus = 'UC') " & _
                     '              "and numStaffResponsible = UnitStaff.numUserID " & _
                     '              "and datEnforcementFinalized is NULL " & _
-                    '              "and " & connNameSpace & ".EPDUserProfiles.numUserID = " & connNameSpace & ".SSCP_AuditedEnforcement.numStaffResponsible " & _
+                    '              "and AIRBranch.EPDUserProfiles.numUserID = AIRBranch.SSCP_AuditedEnforcement.numStaffResponsible " & _
                     '              "order by strENforcementNumber DESC "
                     '        Else
                     '            UserGridStyle = "LoadSSCPOpenWork"
@@ -1231,50 +1231,50 @@ Public Class IAIPNavigation
                             If WorkUnit = "---" Then 'Program Manager
                                 UserGridStyle = "LoadSecondaryWork2"
                                 SQL = "Select " & _
-                                "to_number(" & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber) as strApplicationNumber,    " & _
+                                "to_number(AIRBranch.SSPPApplicationMaster.strApplicationNumber) as strApplicationNumber,    " & _
                                 "substr(strAIRSNumber, 5) as AIRSNumber,    " & _
                                 "to_char(datreviewsubmitted, 'dd-Mon-yyyy') as ReviewSubmitted,    " & _
                                 "(strLastName||', ' ||strFirstName) as StaffResponsible,    " & _
                                 "strFacilityName     " & _
-                                "from " & connNameSpace & ".SSPPApplicationMaster,    " & _
-                                "" & connNameSpace & ".SSPPApplicationData, " & connNameSpace & ".EPDUserProfiles,     " & _
-                                "" & connNameSpace & ".SSPPApplicationTracking   " & _
-                                "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationData.strApplicationNumber   " & _
-                                "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber   " & _
-                                "and " & connNameSpace & ".EPDUserProfiles.numUserID = " & connNameSpace & ".SSPPApplicationMaster.strStaffResponsible   " & _
+                                "from AIRBranch.SSPPApplicationMaster,    " & _
+                                "AIRBranch.SSPPApplicationData, AIRBranch.EPDUserProfiles,     " & _
+                                "AIRBranch.SSPPApplicationTracking   " & _
+                                "where AIRBranch.SSPPApplicationMaster.strApplicationNumber = AIRBranch.SSPPApplicationData.strApplicationNumber   " & _
+                                "and AIRBranch.SSPPApplicationMaster.strApplicationNumber = AIRBranch.SSPPApplicationTracking.strApplicationNumber   " & _
+                                "and AIRBranch.EPDUserProfiles.numUserID = AIRBranch.SSPPApplicationMaster.strStaffResponsible   " & _
                                 "and strISMPReviewer is NULL   " & _
                                 "and datFinalizedDate is Null  "
                             Else
                                 If AccountArray(17, 3) = "1" Then  'Unit Manager
                                     UserGridStyle = "LoadSecondaryWork2"
                                     SQL = "Select " & _
-                                    "to_number(" & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber) as strApplicationNumber,    " & _
+                                    "to_number(AIRBranch.SSPPApplicationMaster.strApplicationNumber) as strApplicationNumber,    " & _
                                     "substr(strAIRSNumber, 5) as AIRSNumber,    " & _
                                     "to_char(datreviewsubmitted, 'dd-Mon-yyyy') as ReviewSubmitted,    " & _
                                     "(strLastName||', '||strFirstName) as StaffResponsible,    " & _
                                     "strFacilityName     " & _
-                                    "from " & connNameSpace & ".SSPPApplicationMaster,    " & _
-                                    "" & connNameSpace & ".SSPPApplicationData, " & connNameSpace & ".EPDUserProfiles,     " & _
-                                    "" & connNameSpace & ".SSPPApplicationTracking   " & _
-                                    "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationData.strApplicationNumber   " & _
-                                    "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber   " & _
-                                    "and " & connNameSpace & ".EPDUserProfiles.numUserID = " & connNameSpace & ".SSPPApplicationMaster.strStaffResponsible   " & _
+                                    "from AIRBranch.SSPPApplicationMaster,    " & _
+                                    "AIRBranch.SSPPApplicationData, AIRBranch.EPDUserProfiles,     " & _
+                                    "AIRBranch.SSPPApplicationTracking   " & _
+                                    "where AIRBranch.SSPPApplicationMaster.strApplicationNumber = AIRBranch.SSPPApplicationData.strApplicationNumber   " & _
+                                    "and AIRBranch.SSPPApplicationMaster.strApplicationNumber = AIRBranch.SSPPApplicationTracking.strApplicationNumber   " & _
+                                    "and AIRBranch.EPDUserProfiles.numUserID = AIRBranch.SSPPApplicationMaster.strStaffResponsible   " & _
                                     "and strISMPReviewer is NULL   " & _
                                     "and datFinalizedDate is Null  "
                                 Else
                                     UserGridStyle = "LoadSecondaryWork2"
                                     SQL = "Select  " & _
-                                   "to_number(" & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber) as strApplicationNumber,    " & _
+                                   "to_number(AIRBranch.SSPPApplicationMaster.strApplicationNumber) as strApplicationNumber,    " & _
                                    "substr(strAIRSNumber, 5) as AIRSNumber,    " & _
                                    "to_char(datreviewsubmitted, 'dd-Mon-yyyy') as ReviewSubmitted,    " & _
                                    "(strLastName||', '||strFirstName) as StaffResponsible,    " & _
                                    "strFacilityName     " & _
-                                   "from " & connNameSpace & ".SSPPApplicationMaster,    " & _
-                                   "" & connNameSpace & ".SSPPApplicationData, " & connNameSpace & ".EPDUserProfiles,     " & _
-                                   "" & connNameSpace & ".SSPPApplicationTracking   " & _
-                                   "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationData.strApplicationNumber   " & _
-                                   "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber   " & _
-                                   "and " & connNameSpace & ".EPDUserProfiles.numUserID = " & connNameSpace & ".SSPPApplicationMaster.strStaffResponsible   " & _
+                                   "from AIRBranch.SSPPApplicationMaster,    " & _
+                                   "AIRBranch.SSPPApplicationData, AIRBranch.EPDUserProfiles,     " & _
+                                   "AIRBranch.SSPPApplicationTracking   " & _
+                                   "where AIRBranch.SSPPApplicationMaster.strApplicationNumber = AIRBranch.SSPPApplicationData.strApplicationNumber   " & _
+                                   "and AIRBranch.SSPPApplicationMaster.strApplicationNumber = AIRBranch.SSPPApplicationTracking.strApplicationNumber   " & _
+                                   "and AIRBranch.EPDUserProfiles.numUserID = AIRBranch.SSPPApplicationMaster.strStaffResponsible   " & _
                                    "and strISMPReviewer is NULL   " & _
                                    "and datFinalizedDate is Null  "
                                 End If
@@ -1283,67 +1283,67 @@ Public Class IAIPNavigation
                             If WorkUnit = "---" Then 'Program Manager
                                 UserGridStyle = "LoadSecondaryWork2"
                                 SQL = "Select  " & _
-                                 "to_number(" & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber) as strApplicationNumber,    " & _
+                                 "to_number(AIRBranch.SSPPApplicationMaster.strApplicationNumber) as strApplicationNumber,    " & _
                                  "substr(strAIRSNumber, 5) as AIRSNumber,    " & _
                                  "to_char(datreviewsubmitted, 'dd-Mon-yyyy') as ReviewSubmitted,    " & _
                                  "(strLastName||', '||strFirstName) as StaffResponsible,    " & _
                                  "strFacilityName     " & _
-                                 "from " & connNameSpace & ".SSPPApplicationMaster,    " & _
-                                 "" & connNameSpace & ".SSPPApplicationData, " & connNameSpace & ".EPDUserProfiles,   " & _
-                                 "" & connNameSpace & ".SSPPApplicationTracking   " & _
-                                 "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber   " & _
-                                 "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationData.strApplicationNumber   " & _
-                                 "and " & connNameSpace & ".EPDUserProfiles.numUserID = " & connNameSpace & ".SSPPApplicationMaster.strStaffResponsible   " & _
+                                 "from AIRBranch.SSPPApplicationMaster,    " & _
+                                 "AIRBranch.SSPPApplicationData, AIRBranch.EPDUserProfiles,   " & _
+                                 "AIRBranch.SSPPApplicationTracking   " & _
+                                 "where AIRBranch.SSPPApplicationMaster.strApplicationNumber = AIRBranch.SSPPApplicationTracking.strApplicationNumber   " & _
+                                 "and AIRBranch.SSPPApplicationMaster.strApplicationNumber = AIRBranch.SSPPApplicationData.strApplicationNumber   " & _
+                                 "and AIRBranch.EPDUserProfiles.numUserID = AIRBranch.SSPPApplicationMaster.strStaffResponsible   " & _
                                  "and strSSCPReviewer is NULL   " & _
                                  "and datFinalizedDate is Null"
                             Else
                                 If AccountArray(22, 3) = "1" Then 'Unit Manager
                                     UserGridStyle = "LoadSecondaryWork2"
                                     SQL = "Select " & _
-                                    "to_number(" & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber) as strApplicationNumber,  " & _
+                                    "to_number(AIRBranch.SSPPApplicationMaster.strApplicationNumber) as strApplicationNumber,  " & _
                                     "substr(strAIRSNumber, 5) as AIRSNumber,  " & _
                                     "to_char(datreviewsubmitted, 'dd-Mon-yyyy') as ReviewSubmitted,  " & _
                                     "(strLastName||', '||strFirstName) as StaffResponsible,  " & _
                                     "strFacilityName   " & _
-                                    "from " & connNameSpace & ".SSPPApplicationMaster,  " & _
-                                    "" & connNameSpace & ".SSPPApplicationData, " & connNameSpace & ".EPDUserProfiles,   " & _
-                                    "" & connNameSpace & ".SSPPApplicationTracking " & _
-                                    "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationData.strApplicationNumber " & _
-                                    "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber " & _
-                                    "and " & connNameSpace & ".EPDUserProfiles.numUserId = " & connNameSpace & ".SSPPApplicationMaster.strStaffResponsible " & _
+                                    "from AIRBranch.SSPPApplicationMaster,  " & _
+                                    "AIRBranch.SSPPApplicationData, AIRBranch.EPDUserProfiles,   " & _
+                                    "AIRBranch.SSPPApplicationTracking " & _
+                                    "where AIRBranch.SSPPApplicationMaster.strApplicationNumber = AIRBranch.SSPPApplicationData.strApplicationNumber " & _
+                                    "and AIRBranch.SSPPApplicationMaster.strApplicationNumber = AIRBranch.SSPPApplicationTracking.strApplicationNumber " & _
+                                    "and AIRBranch.EPDUserProfiles.numUserId = AIRBranch.SSPPApplicationMaster.strStaffResponsible " & _
                                     "and strSSCPReviewer is NULL " & _
                                     "and datFinalizedDate is Null "
                                 Else
                                     If AccountArray(10, 3) = "1" Then 'District Liason
                                         UserGridStyle = "LoadSecondaryWork2"
                                         SQL = "Select " & _
-                                        "to_number(" & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber) as strApplicationNumber,  " & _
+                                        "to_number(AIRBranch.SSPPApplicationMaster.strApplicationNumber) as strApplicationNumber,  " & _
                                         "substr(strAIRSNumber, 5) as AIRSNumber,  " & _
                                         "to_char(datreviewsubmitted, 'dd-Mon-yyyy') as ReviewSubmitted,  " & _
                                         "(strLastName||', '||strFirstName) as StaffResponsible,  " & _
                                         "strFacilityName   " & _
-                                        "from " & connNameSpace & ".SSPPApplicationMaster,  " & _
-                                        "" & connNameSpace & ".SSPPApplicationData, " & connNameSpace & ".EPDUserProfiles,   " & _
-                                        "" & connNameSpace & ".SSPPApplicationTracking " & _
-                                        "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationData.strApplicationNumber " & _
-                                        "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber " & _
-                                        "and " & connNameSpace & ".EPDUserProfiles.numUserID = " & connNameSpace & ".SSPPApplicationMaster.strStaffResponsible " & _
+                                        "from AIRBranch.SSPPApplicationMaster,  " & _
+                                        "AIRBranch.SSPPApplicationData, AIRBranch.EPDUserProfiles,   " & _
+                                        "AIRBranch.SSPPApplicationTracking " & _
+                                        "where AIRBranch.SSPPApplicationMaster.strApplicationNumber = AIRBranch.SSPPApplicationData.strApplicationNumber " & _
+                                        "and AIRBranch.SSPPApplicationMaster.strApplicationNumber = AIRBranch.SSPPApplicationTracking.strApplicationNumber " & _
+                                        "and AIRBranch.EPDUserProfiles.numUserID = AIRBranch.SSPPApplicationMaster.strStaffResponsible " & _
                                         "and strSSCPReviewer is NULL " & _
                                         "and datFinalizedDate is Null "
                                     Else
                                         UserGridStyle = "LoadSecondaryWork2"
                                         SQL = "Select " & _
-                                        "to_number(" & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber) as strApplicationNumber,  " & _
+                                        "to_number(AIRBranch.SSPPApplicationMaster.strApplicationNumber) as strApplicationNumber,  " & _
                                         "substr(strAIRSNumber, 5) as AIRSNumber,  " & _
                                         "to_char(datreviewsubmitted, 'dd-Mon-yyyy') as ReviewSubmitted,  " & _
                                         "(strLastName||', '||strFirstName) as StaffResponsible,  " & _
                                         "strFacilityName   " & _
-                                        "from " & connNameSpace & ".SSPPApplicationMaster,  " & _
-                                        "" & connNameSpace & ".SSPPApplicationData, " & connNameSpace & ".EPDUserProfiles, " & _
-                                        "" & connNameSpace & ".SSPPApplicationTracking " & _
-                                        "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber " & _
-                                        "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationData.strApplicationNumber " & _
-                                        "and " & connNameSpace & ".EPDUserProfiles.numUserID = " & connNameSpace & ".SSPPApplicationMaster.strStaffResponsible " & _
+                                        "from AIRBranch.SSPPApplicationMaster,  " & _
+                                        "AIRBranch.SSPPApplicationData, AIRBranch.EPDUserProfiles, " & _
+                                        "AIRBranch.SSPPApplicationTracking " & _
+                                        "where AIRBranch.SSPPApplicationMaster.strApplicationNumber = AIRBranch.SSPPApplicationTracking.strApplicationNumber " & _
+                                        "and AIRBranch.SSPPApplicationMaster.strApplicationNumber = AIRBranch.SSPPApplicationData.strApplicationNumber " & _
+                                        "and AIRBranch.EPDUserProfiles.numUserID = AIRBranch.SSPPApplicationMaster.strStaffResponsible " & _
                                         "and strSSCPReviewer is NULL " & _
                                         "and datFinalizedDate is Null "
                                     End If
@@ -1359,17 +1359,17 @@ Public Class IAIPNavigation
                                     If AccountArray(9, 3) = "1" Then 'Administrative 2
                                         UserGridStyle = "LoadSecondaryWork2"
                                         SQL = "Select " & _
-                                        "to_number(" & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber) as strApplicationNumber,  " & _
+                                        "to_number(AIRBranch.SSPPApplicationMaster.strApplicationNumber) as strApplicationNumber,  " & _
                                         "substr(strAIRSNumber, 5) as AIRSNumber,  " & _
                                         "to_char(datreviewsubmitted, 'dd-Mon-yyyy') as ReviewSubmitted,  " & _
                                         "(strLastName||', '||strFirstName) as StaffResponsible,  " & _
                                         "strFacilityName   " & _
-                                        "from " & connNameSpace & ".SSPPApplicationMaster, " & _
-                                        "" & connNameSpace & ".SSPPApplicationData, " & connNameSpace & ".EPDUserProfiles, " & _
-                                        "" & connNameSpace & ".SSPPApplicationTracking " & _
-                                        "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber " & _
-                                        "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationData.strApplicationNumber " & _
-                                        "and " & connNameSpace & ".EPDUserProfiles.numUserID = " & connNameSpace & ".SSPPApplicationMaster.strStaffResponsible " & _
+                                        "from AIRBranch.SSPPApplicationMaster, " & _
+                                        "AIRBranch.SSPPApplicationData, AIRBranch.EPDUserProfiles, " & _
+                                        "AIRBranch.SSPPApplicationTracking " & _
+                                        "where AIRBranch.SSPPApplicationMaster.strApplicationNumber = AIRBranch.SSPPApplicationTracking.strApplicationNumber " & _
+                                        "and AIRBranch.SSPPApplicationMaster.strApplicationNumber = AIRBranch.SSPPApplicationData.strApplicationNumber " & _
+                                        "and AIRBranch.EPDUserProfiles.numUserID = AIRBranch.SSPPApplicationMaster.strStaffResponsible " & _
                                         "and strSSCPReviewer is NULL " & _
                                         "and datFinalizedDate is Null "
                                     Else
@@ -1392,37 +1392,37 @@ Public Class IAIPNavigation
                             If WorkUnit = "---" Then 'Program Manager 
                                 UserGridStyle = "LoadSSCPTertiaryWork"
                                 SQL = "select " & _
-                                "to_number(" & connNameSpace & ".SSCPItemMaster.strTrackingNumber) as strTrackingNumber,  " & _
-                                "substr(" & connNameSpace & ".SSCPItemMaster.strAIRSNumber, 5) as AIRSNumber,  " & _
+                                "to_number(AIRBranch.SSCPItemMaster.strTrackingNumber) as strTrackingNumber,  " & _
+                                "substr(AIRBranch.SSCPItemMaster.strAIRSNumber, 5) as AIRSNumber,  " & _
                                 "(strLastName||', '||strFirstName) as Staff,  " & _
                                 "strResponsibleStaff, " & _
                                 "to_char(datReceivedDate, 'dd-Mon-yyyy') as DateReceived,  " & _
                                 "strFacilityName, StrActivityName    " & _
-                                "from " & connNameSpace & ".SSCPItemMaster, " & connNameSpace & ".EPDUserProfiles,  " & _
-                                "" & connNameSpace & ".APBFacilityInformation, " & connNameSpace & ".LookUPComplianceActivities,  " & _
-                                "(select numUserID from " & connNameSpace & ".EPDUserProfiles " & _
+                                "from AIRBranch.SSCPItemMaster, AIRBranch.EPDUserProfiles,  " & _
+                                "AIRBranch.APBFacilityInformation, AIRBranch.LookUPComplianceActivities,  " & _
+                                "(select numUserID from AIRBranch.EPDUserProfiles " & _
                                 "where strLastName = 'District' " & _
                                 "group by numUserID) UnitStaff    " & _
-                                "where " & connNameSpace & ".EPDUserProfiles.numUserID = " & connNameSpace & ".SSCPItemMaster.strResponsibleStaff  " & _
-                                "and " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".SSCPItemMaster.strAIRSNumber  " & _
-                                "and " & connNameSpace & ".LookUPComplianceActivities.strActivityType = " & connNameSpace & ".SSCPItemMaster.strEventType " & _
+                                "where AIRBranch.EPDUserProfiles.numUserID = AIRBranch.SSCPItemMaster.strResponsibleStaff  " & _
+                                "and AIRBranch.APBFacilityInformation.strAIRSNumber = AIRBranch.SSCPItemMaster.strAIRSNumber  " & _
+                                "and AIRBranch.LookUPComplianceActivities.strActivityType = AIRBranch.SSCPItemMaster.strEventType " & _
                                 "and DatCompleteDate is Null   " & _
                                 "and strResponsibleStaff = UnitStaff.numUserID " & _
                                 "and strDelete is Null "
                             Else
                                 UserGridStyle = "LoadSSCPTertiaryWork"
                                 SQL = "Select " & _
-                                  "to_number(" & connNameSpace & ".SSCPItemMaster.strTrackingNumber) as strTrackingNumber,  " & _
-                                  "substr(" & connNameSpace & ".SSCPItemMaster.strAIRSNumber, 5) as AIRSNumber,  " & _
+                                  "to_number(AIRBranch.SSCPItemMaster.strTrackingNumber) as strTrackingNumber,  " & _
+                                  "substr(AIRBranch.SSCPItemMaster.strAIRSNumber, 5) as AIRSNumber,  " & _
                                   "(strLastName||', '||strFirstName) as Staff,  " & _
                                   "strResponsibleStaff, " & _
                                   "to_char(datReceivedDate, 'dd-Mon-yyyy') as DateReceived, " & _
                                   "strFacilityName, StrActivityName    " & _
-                                  "from " & connNameSpace & ".SSCPItemMaster, " & connNameSpace & ".EPDUserProfiles,  " & _
-                                  "" & connNameSpace & ".APBFacilityInformation, " & connNameSpace & ".LookUPComplianceActivities   " & _
-                                  "where " & connNameSpace & ".EPDUserProfiles.numUserID = " & connNameSpace & ".SSCPItemMaster.strResponsibleStaff  " & _
-                                  "and " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".SSCPItemMaster.strAIRSNumber  " & _
-                                  "and " & connNameSpace & ".LookUPComplianceActivities.strActivityType = " & connNameSpace & ".SSCPItemMaster.strEventType  " & _
+                                  "from AIRBranch.SSCPItemMaster, AIRBranch.EPDUserProfiles,  " & _
+                                  "AIRBranch.APBFacilityInformation, AIRBranch.LookUPComplianceActivities   " & _
+                                  "where AIRBranch.EPDUserProfiles.numUserID = AIRBranch.SSCPItemMaster.strResponsibleStaff  " & _
+                                  "and AIRBranch.APBFacilityInformation.strAIRSNumber = AIRBranch.SSCPItemMaster.strAIRSNumber  " & _
+                                  "and AIRBranch.LookUPComplianceActivities.strActivityType = AIRBranch.SSCPItemMaster.strEventType  " & _
                                   "and strResponsibleStaff = '" & UserGCode & "'  " & _
                                   "and DatCompleteDate is Null  " & _
                                    "and strDelete is Null "
@@ -1461,158 +1461,158 @@ Public Class IAIPNavigation
                             If WorkUnit = "---" Then 'Program Manager
                                 UserGridStyle = "LoadISMPTertiaryWork"
                                 SQL = "select  " & _
-                                 "" & connNameSpace & ".ISMPTestNotification.strTestLogNumber as TestNumber,    " & _
+                                 "AIRBranch.ISMPTestNotification.strTestLogNumber as TestNumber,    " & _
                                  "case    " & _
                                  "when strReferenceNumber is null then ''    " & _
                                  "else strReferenceNumber    " & _
                                  "end RefNum,    " & _
                                  "case  " & _
-                                 "when " & connNameSpace & ".ISMPTestNOtification.strAIRSNumber is Null then ''  " & _
-                                 "else " & connNameSpace & ".APBFacilityInformation.strFacilityName    " & _
+                                 "when AIRBranch.ISMPTestNOtification.strAIRSNumber is Null then ''  " & _
+                                 "else AIRBranch.APBFacilityInformation.strFacilityName    " & _
                                  "End FacilityName,  " & _
-                                 "substr(" & connNameSpace & ".ISMPTestNOtification.strAIRSNumber, 5) as AIRSNumber,  " & _
+                                 "substr(AIRBranch.ISMPTestNOtification.strAIRSNumber, 5) as AIRSNumber,  " & _
                                  "strEmissionUnit,   " & _
                                  "to_char(datProposedStartDate, 'dd-Mon-yyyy') as ProposedStartDate,  " & _
                                  "case  " & _
                                  "when strFirstName is Null then ''  " & _
                                  "else(strLastName||', '||strFirstName)   " & _
                                  "END StaffResponsible  " & _
-                                 "from " & connNameSpace & ".ismptestnotification, " & connNameSpace & ".APBFacilityinformation,  " & _
-                                 "" & connNameSpace & ".EPDUserProfiles, " & connNameSpace & ".ISMPTestLogLink  " & _
-                                 "where " & connNameSpace & ".ismptestnotification.strairsnumber = " & connNameSpace & ".apbfacilityinformation.strairsnumber (+)    " & _
-                                 "and " & connNameSpace & ".ismptestnotification.strstaffresponsible = " & connNameSpace & ".EPDUserProfiles.numUserID (+)  " & _
-                                 "and " & connNameSpace & ".ISMPTestnotification.strTestLogNumber = " & connNameSpace & ".ISMPTestLogLink.strTestLogNumber (+)   " & _
+                                 "from AIRBranch.ismptestnotification, AIRBranch.APBFacilityinformation,  " & _
+                                 "AIRBranch.EPDUserProfiles, AIRBranch.ISMPTestLogLink  " & _
+                                 "where AIRBranch.ismptestnotification.strairsnumber = AIRBranch.apbfacilityinformation.strairsnumber (+)    " & _
+                                 "and AIRBranch.ismptestnotification.strstaffresponsible = AIRBranch.EPDUserProfiles.numUserID (+)  " & _
+                                 "and AIRBranch.ISMPTestnotification.strTestLogNumber = AIRBranch.ISMPTestLogLink.strTestLogNumber (+)   " & _
                                  "and datProposedStartDate > (sysdate - 180)    " & _
                                  "and strReferenceNumber is null    " & _
                                  "union    " & _
                                  "select    " & _
-                                 "" & connNameSpace & ".ISMPTestNotification.strTestLogNumber as TestNumber,  " & _
-                                 "" & connNameSpace & ".ISMpReportInformation.strReferenceNumber as RefNum,    " & _
+                                 "AIRBranch.ISMPTestNotification.strTestLogNumber as TestNumber,  " & _
+                                 "AIRBranch.ISMpReportInformation.strReferenceNumber as RefNum,    " & _
                                  "case  " & _
-                                 "when " & connNameSpace & ".ISMPTestNOtification.strAIRSNumber is Null then ''  " & _
-                                 "else " & connNameSpace & ".APBFacilityInformation.strFacilityName    " & _
+                                 "when AIRBranch.ISMPTestNOtification.strAIRSNumber is Null then ''  " & _
+                                 "else AIRBranch.APBFacilityInformation.strFacilityName    " & _
                                  "End FacilityName,  " & _
-                                 "substr(" & connNameSpace & ".ISMPTestNOtification.strAIRSNumber, 5) as AIRSNumber,  " & _
+                                 "substr(AIRBranch.ISMPTestNOtification.strAIRSNumber, 5) as AIRSNumber,  " & _
                                  "strEmissionUnit,   " & _
                                  "to_char(datProposedStartDate, 'dd-Mon-yyyy') as ProposedStartDate,  " & _
                                  "case  " & _
                                  "when strFirstName is Null then ''  " & _
                                  "else(strLastName||', '||strFirstName)   " & _
                                  "END StaffResponsible  " & _
-                                 "from " & connNameSpace & ".ismptestnotification, " & connNameSpace & ".APBFacilityinformation,  " & _
-                                 "" & connNameSpace & ".EPDUserProfiles, " & connNameSpace & ".ISMPTestLogLink,    " & _
-                                 "" & connNameSpace & ".ISMPReportInformation    " & _
-                                 "where " & connNameSpace & ".ismptestnotification.strairsnumber = " & connNameSpace & ".apbfacilityinformation.strairsnumber (+)    " & _
-                                 "and " & connNameSpace & ".ismptestnotification.strstaffresponsible = " & connNameSpace & ".EPDUserProfiles.numUserID (+)  " & _
-                                 "and " & connNameSpace & ".ISMPTestNotification.strTestLogNumber = " & connNameSpace & ".ISMPTestLogLink.strTestLogNumber (+)    " & _
-                                 "and " & connNameSpace & ".ISMPTestLogLink.strReferencenumber = " & connNameSpace & ".ISMPReportInformation.strReferenceNumber (+)    " & _
+                                 "from AIRBranch.ismptestnotification, AIRBranch.APBFacilityinformation,  " & _
+                                 "AIRBranch.EPDUserProfiles, AIRBranch.ISMPTestLogLink,    " & _
+                                 "AIRBranch.ISMPReportInformation    " & _
+                                 "where AIRBranch.ismptestnotification.strairsnumber = AIRBranch.apbfacilityinformation.strairsnumber (+)    " & _
+                                 "and AIRBranch.ismptestnotification.strstaffresponsible = AIRBranch.EPDUserProfiles.numUserID (+)  " & _
+                                 "and AIRBranch.ISMPTestNotification.strTestLogNumber = AIRBranch.ISMPTestLogLink.strTestLogNumber (+)    " & _
+                                 "and AIRBranch.ISMPTestLogLink.strReferencenumber = AIRBranch.ISMPReportInformation.strReferenceNumber (+)    " & _
                                  "and datProposedStartDate > (sysdate - 180)    " & _
-                                 "and " & connNameSpace & ".ISMPTestLogLink.strReferenceNumber is not null    " & _
+                                 "and AIRBranch.ISMPTestLogLink.strReferenceNumber is not null    " & _
                                  "and strClosed = 'False'  "
                             Else
                                 If AccountArray(17, 3) = "1" Then  'Unit Manager
                                     UserGridStyle = "LoadISMPTertiaryWork"
                                     SQL = "select " & _
-                                    "" & connNameSpace & ".ISMPTestNotification.strTestLogNumber as TestNumber,  " & _
+                                    "AIRBranch.ISMPTestNotification.strTestLogNumber as TestNumber,  " & _
                                     "case  " & _
                                     "when strReferenceNumber is null then ''  " & _
                                     "else strReferenceNumber  " & _
                                     "end RefNum,  " & _
                                     "case   " & _
-                                    "when " & connNameSpace & ".ISMPTestNOtification.strAIRSNumber is Null then ''   " & _
-                                    "else " & connNameSpace & ".APBFacilityInformation.strFacilityName  " & _
+                                    "when AIRBranch.ISMPTestNOtification.strAIRSNumber is Null then ''   " & _
+                                    "else AIRBranch.APBFacilityInformation.strFacilityName  " & _
                                     "End FacilityName,   " & _
-                                    "substr(" & connNameSpace & ".ISMPTestNOtification.strAIRSNumber, 5) as AIRSNumber,   " & _
+                                    "substr(AIRBranch.ISMPTestNOtification.strAIRSNumber, 5) as AIRSNumber,   " & _
                                     "strEmissionUnit,    " & _
                                     "to_char(datProposedStartDate, 'dd-Mon-yyyy') as ProposedStartDate,   " & _
                                     "case   " & _
                                     "when strFirstName is Null then ''   " & _
                                     "else(strLastName||', '||strFirstName) " & _
                                     "END StaffResponsible   " & _
-                                    "from " & connNameSpace & ".ismptestnotification, " & connNameSpace & ".APBFacilityinformation,   " & _
-                                    "" & connNameSpace & ".EPDUserProfiles, " & connNameSpace & ".ISMPTestLogLink   " & _
-                                    "where " & connNameSpace & ".ismptestnotification.strairsnumber = " & connNameSpace & ".apbfacilityinformation.strairsnumber (+)  " & _
-                                    "and " & connNameSpace & ".ismptestnotification.strstaffresponsible = " & connNameSpace & ".EPDUserProfiles.numUserID (+)   " & _
-                                    "and " & connNameSpace & ".ISMPTestnotification.strTestLogNumber = " & connNameSpace & ".ISMPTestLogLink.strTestLogNumber (+) " & _
+                                    "from AIRBranch.ismptestnotification, AIRBranch.APBFacilityinformation,   " & _
+                                    "AIRBranch.EPDUserProfiles, AIRBranch.ISMPTestLogLink   " & _
+                                    "where AIRBranch.ismptestnotification.strairsnumber = AIRBranch.apbfacilityinformation.strairsnumber (+)  " & _
+                                    "and AIRBranch.ismptestnotification.strstaffresponsible = AIRBranch.EPDUserProfiles.numUserID (+)   " & _
+                                    "and AIRBranch.ISMPTestnotification.strTestLogNumber = AIRBranch.ISMPTestLogLink.strTestLogNumber (+) " & _
                                     "and datProposedStartDate > (sysdate - 180)  " & _
                                     "and strReferenceNumber is null  " & _
                                     "union  " & _
                                     "select  " & _
-                                    "" & connNameSpace & ".ISMPTestNotification.strTestLogNumber as TestNumber,   " & _
-                                    "" & connNameSpace & ".ISMpReportInformation.strReferenceNumber as RefNum,  " & _
+                                    "AIRBranch.ISMPTestNotification.strTestLogNumber as TestNumber,   " & _
+                                    "AIRBranch.ISMpReportInformation.strReferenceNumber as RefNum,  " & _
                                     "case   " & _
-                                    "when " & connNameSpace & ".ISMPTestNOtification.strAIRSNumber is Null then ''   " & _
-                                    "else " & connNameSpace & ".APBFacilityInformation.strFacilityName  " & _
+                                    "when AIRBranch.ISMPTestNOtification.strAIRSNumber is Null then ''   " & _
+                                    "else AIRBranch.APBFacilityInformation.strFacilityName  " & _
                                     "End FacilityName,   " & _
-                                    "substr(" & connNameSpace & ".ISMPTestNOtification.strAIRSNumber, 5) as AIRSNumber,   " & _
+                                    "substr(AIRBranch.ISMPTestNOtification.strAIRSNumber, 5) as AIRSNumber,   " & _
                                     "strEmissionUnit,    " & _
                                     "to_char(datProposedStartDate, 'dd-Mon-yyyy') as ProposedStartDate,   " & _
                                     "case   " & _
                                     "when strFirstName is Null then ''   " & _
                                     "else(strLastName||', '||strFirstName) " & _
                                     "END StaffResponsible   " & _
-                                    "from " & connNameSpace & ".ismptestnotification, " & connNameSpace & ".APBFacilityinformation,   " & _
-                                    "" & connNameSpace & ".EPDUserProfiles, " & connNameSpace & ".ISMPTestLogLink,  " & _
-                                    "" & connNameSpace & ".ISMPReportInformation  " & _
-                                    "where " & connNameSpace & ".ismptestnotification.strairsnumber = " & connNameSpace & ".apbfacilityinformation.strairsnumber (+)  " & _
-                                    "and " & connNameSpace & ".ismptestnotification.strstaffresponsible = " & connNameSpace & ".EPDUserProfiles.numUserID (+)   " & _
-                                    "and " & connNameSpace & ".ISMPTestNotification.strTestLogNumber = " & connNameSpace & ".ISMPTestLogLink.strTestLogNumber (+)  " & _
-                                    "and " & connNameSpace & ".ISMPTestLogLink.strReferencenumber = " & connNameSpace & ".ISMPReportInformation.strReferenceNumber (+)  " & _
+                                    "from AIRBranch.ismptestnotification, AIRBranch.APBFacilityinformation,   " & _
+                                    "AIRBranch.EPDUserProfiles, AIRBranch.ISMPTestLogLink,  " & _
+                                    "AIRBranch.ISMPReportInformation  " & _
+                                    "where AIRBranch.ismptestnotification.strairsnumber = AIRBranch.apbfacilityinformation.strairsnumber (+)  " & _
+                                    "and AIRBranch.ismptestnotification.strstaffresponsible = AIRBranch.EPDUserProfiles.numUserID (+)   " & _
+                                    "and AIRBranch.ISMPTestNotification.strTestLogNumber = AIRBranch.ISMPTestLogLink.strTestLogNumber (+)  " & _
+                                    "and AIRBranch.ISMPTestLogLink.strReferencenumber = AIRBranch.ISMPReportInformation.strReferenceNumber (+)  " & _
                                     "and datProposedStartDate > (sysdate - 180)  " & _
-                                    "and " & connNameSpace & ".ISMPTestLogLink.strReferenceNumber is not null  " & _
+                                    "and AIRBranch.ISMPTestLogLink.strReferenceNumber is not null  " & _
                                     "and strClosed = 'False' "
                                 Else
                                     UserGridStyle = "LoadISMPTertiaryWork"
                                     SQL = "select " & _
-                                    "" & connNameSpace & ".ISMPTestNotification.strTestLogNumber as TestNumber,  " & _
+                                    "AIRBranch.ISMPTestNotification.strTestLogNumber as TestNumber,  " & _
                                     "case  " & _
                                     "when strReferenceNumber is null then ''  " & _
                                     "else strReferenceNumber  " & _
                                     "end RefNum,  " & _
                                     "case   " & _
-                                    "when " & connNameSpace & ".ISMPTestNOtification.strAIRSNumber is Null then ''   " & _
-                                    "else " & connNameSpace & ".APBFacilityInformation.strFacilityName  " & _
+                                    "when AIRBranch.ISMPTestNOtification.strAIRSNumber is Null then ''   " & _
+                                    "else AIRBranch.APBFacilityInformation.strFacilityName  " & _
                                     "End FacilityName,   " & _
-                                    "substr(" & connNameSpace & ".ISMPTestNOtification.strAIRSNumber, 5) as AIRSNumber,   " & _
+                                    "substr(AIRBranch.ISMPTestNOtification.strAIRSNumber, 5) as AIRSNumber,   " & _
                                     "strEmissionUnit,    " & _
                                     "to_char(datProposedStartDate, 'dd-Mon-yyyy') as ProposedStartDate,   " & _
                                     "case   " & _
                                     "when strFirstName is Null then ''   " & _
                                     "else(strLastName||', '||strFirstName) " & _
                                     "END StaffResponsible   " & _
-                                    "from " & connNameSpace & ".ismptestnotification, " & connNameSpace & ".APBFacilityinformation,   " & _
-                                    "" & connNameSpace & ".EPDUserProfiles, " & connNameSpace & ".ISMPTestLogLink   " & _
-                                    "where " & connNameSpace & ".ismptestnotification.strairsnumber = " & connNameSpace & ".apbfacilityinformation.strairsnumber (+)  " & _
-                                    "and " & connNameSpace & ".ismptestnotification.strstaffresponsible = " & connNameSpace & ".EPDUserProfiles.numUserID (+)   " & _
-                                    "and " & connNameSpace & ".ISMPTestnotification.strTestLogNumber = " & connNameSpace & ".ISMPTestLogLink.strTestLogNumber (+) " & _
+                                    "from AIRBranch.ismptestnotification, AIRBranch.APBFacilityinformation,   " & _
+                                    "AIRBranch.EPDUserProfiles, AIRBranch.ISMPTestLogLink   " & _
+                                    "where AIRBranch.ismptestnotification.strairsnumber = AIRBranch.apbfacilityinformation.strairsnumber (+)  " & _
+                                    "and AIRBranch.ismptestnotification.strstaffresponsible = AIRBranch.EPDUserProfiles.numUserID (+)   " & _
+                                    "and AIRBranch.ISMPTestnotification.strTestLogNumber = AIRBranch.ISMPTestLogLink.strTestLogNumber (+) " & _
                                     "and datProposedStartDate > (sysdate - 180)  " & _
                                     "and strStaffResponsible = '" & UserGCode & "' " & _
                                     "and strReferenceNumber is null  " & _
                                     "union  " & _
                                     "select  " & _
-                                    "" & connNameSpace & ".ISMPTestNotification.strTestLogNumber as TestNumber,   " & _
-                                    "" & connNameSpace & ".ISMpReportInformation.strReferenceNumber as RefNum,  " & _
+                                    "AIRBranch.ISMPTestNotification.strTestLogNumber as TestNumber,   " & _
+                                    "AIRBranch.ISMpReportInformation.strReferenceNumber as RefNum,  " & _
                                     "case   " & _
-                                    "when " & connNameSpace & ".ISMPTestNOtification.strAIRSNumber is Null then ''   " & _
-                                    "else " & connNameSpace & ".APBFacilityInformation.strFacilityName  " & _
+                                    "when AIRBranch.ISMPTestNOtification.strAIRSNumber is Null then ''   " & _
+                                    "else AIRBranch.APBFacilityInformation.strFacilityName  " & _
                                     "End FacilityName,   " & _
-                                    "substr(" & connNameSpace & ".ISMPTestNOtification.strAIRSNumber, 5) as AIRSNumber,   " & _
+                                    "substr(AIRBranch.ISMPTestNOtification.strAIRSNumber, 5) as AIRSNumber,   " & _
                                     "strEmissionUnit,    " & _
                                     "to_char(datProposedStartDate, 'dd-Mon-yyyy') as ProposedStartDate,   " & _
                                     "case   " & _
                                     "when strFirstName is Null then ''   " & _
                                     "else(strLastName||', '||strFirstName) " & _
                                     "END StaffResponsible   " & _
-                                    "from " & connNameSpace & ".ismptestnotification, " & connNameSpace & ".APBFacilityinformation,   " & _
-                                    "" & connNameSpace & ".EPDUserProfiles, " & connNameSpace & ".ISMPTestLogLink,  " & _
-                                    "" & connNameSpace & ".ISMPReportInformation  " & _
-                                    "where " & connNameSpace & ".ismptestnotification.strairsnumber = " & connNameSpace & ".apbfacilityinformation.strairsnumber (+)  " & _
-                                    "and " & connNameSpace & ".ismptestnotification.strstaffresponsible = " & connNameSpace & ".EPDUserProfiles.numUserID (+)   " & _
-                                    "and " & connNameSpace & ".ISMPTestNotification.strTestLogNumber = " & connNameSpace & ".ISMPTestLogLink.strTestLogNumber (+)  " & _
-                                    "and " & connNameSpace & ".ISMPTestLogLink.strReferencenumber = " & connNameSpace & ".ISMPReportInformation.strReferenceNumber (+)  " & _
+                                    "from AIRBranch.ismptestnotification, AIRBranch.APBFacilityinformation,   " & _
+                                    "AIRBranch.EPDUserProfiles, AIRBranch.ISMPTestLogLink,  " & _
+                                    "AIRBranch.ISMPReportInformation  " & _
+                                    "where AIRBranch.ismptestnotification.strairsnumber = AIRBranch.apbfacilityinformation.strairsnumber (+)  " & _
+                                    "and AIRBranch.ismptestnotification.strstaffresponsible = AIRBranch.EPDUserProfiles.numUserID (+)   " & _
+                                    "and AIRBranch.ISMPTestNotification.strTestLogNumber = AIRBranch.ISMPTestLogLink.strTestLogNumber (+)  " & _
+                                    "and AIRBranch.ISMPTestLogLink.strReferencenumber = AIRBranch.ISMPReportInformation.strReferenceNumber (+)  " & _
                                     "and datProposedStartDate > (sysdate - 180)  " & _
                                     "and strStaffResponsible = '" & UserGCode & "' " & _
-                                    "and " & connNameSpace & ".ISMPTestLogLink.strReferenceNumber is not null  " & _
+                                    "and AIRBranch.ISMPTestLogLink.strReferenceNumber is not null  " & _
                                     "and strClosed = 'False' "
                                 End If
                             End If
@@ -1620,36 +1620,36 @@ Public Class IAIPNavigation
                             If WorkUnit = "---" Then 'Program Manager
                                 UserGridStyle = "LoadSSCPTertiaryWork"
                                 SQL = "select " & _
-                                "to_number(" & connNameSpace & ".SSCPItemMaster.strTrackingNumber) as strTrackingNumber,  " & _
-                                "substr(" & connNameSpace & ".SSCPItemMaster.strAIRSNumber, 5) as AIRSNumber,  " & _
+                                "to_number(AIRBranch.SSCPItemMaster.strTrackingNumber) as strTrackingNumber,  " & _
+                                "substr(AIRBranch.SSCPItemMaster.strAIRSNumber, 5) as AIRSNumber,  " & _
                                 "(strLastName||', '||strFirstName) as Staff,  " & _
                                 "strResponsibleStaff, " & _
                                 "to_char(datReceivedDate, 'dd-Mon-yyyy') as DateReceived,  " & _
                                 "strFacilityName, StrActivityName    " & _
-                                "from " & connNameSpace & ".SSCPItemMaster, " & connNameSpace & ".EPDUserProfiles,  " & _
-                                "" & connNameSpace & ".APBFacilityInformation, " & connNameSpace & ".LookUPComplianceActivities " & _
-                                "where " & connNameSpace & ".EPDUserProfiles.numUserID = " & connNameSpace & ".SSCPItemMaster.strResponsibleStaff  " & _
-                                "and " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".SSCPItemMaster.strAIRSNumber  " & _
-                                "and " & connNameSpace & ".LookUPComplianceActivities.strActivityType = " & connNameSpace & ".SSCPItemMaster.strEventType " & _
+                                "from AIRBranch.SSCPItemMaster, AIRBranch.EPDUserProfiles,  " & _
+                                "AIRBranch.APBFacilityInformation, AIRBranch.LookUPComplianceActivities " & _
+                                "where AIRBranch.EPDUserProfiles.numUserID = AIRBranch.SSCPItemMaster.strResponsibleStaff  " & _
+                                "and AIRBranch.APBFacilityInformation.strAIRSNumber = AIRBranch.SSCPItemMaster.strAIRSNumber  " & _
+                                "and AIRBranch.LookUPComplianceActivities.strActivityType = AIRBranch.SSCPItemMaster.strEventType " & _
                                 "and DatCompleteDate is Null   " & _
                                 "and strDelete is Null "
                             Else
                                 If AccountArray(22, 3) = "1" Then 'Unit Manager
                                     UserGridStyle = "LoadSSCPTertiaryWork"
                                     SQL = "select " & _
-                                    "to_number(" & connNameSpace & ".SSCPItemMaster.strTrackingNumber) as strTrackingNumber,  " & _
-                                    "substr(" & connNameSpace & ".SSCPItemMaster.strAIRSNumber, 5) as AIRSNumber,  " & _
+                                    "to_number(AIRBranch.SSCPItemMaster.strTrackingNumber) as strTrackingNumber,  " & _
+                                    "substr(AIRBranch.SSCPItemMaster.strAIRSNumber, 5) as AIRSNumber,  " & _
                                     "(strLastName||', '||strFirstName) as Staff,  " & _
                                     "strResponsibleStaff, " & _
                                     "to_char(datReceivedDate, 'dd-Mon-yyyy') as DateReceived,  " & _
                                     "strFacilityName, StrActivityName    " & _
-                                    "from " & connNameSpace & ".SSCPItemMaster, " & connNameSpace & ".EPDUserProfiles,  " & _
-                                    "" & connNameSpace & ".APBFacilityInformation, " & connNameSpace & ".LookUPComplianceActivities,  " & _
-                                    "(select numUserID from " & connNameSpace & ".EPDUserProfiles where numUnit = '" & UserUnit & "')  " & _
+                                    "from AIRBranch.SSCPItemMaster, AIRBranch.EPDUserProfiles,  " & _
+                                    "AIRBranch.APBFacilityInformation, AIRBranch.LookUPComplianceActivities,  " & _
+                                    "(select numUserID from AIRBranch.EPDUserProfiles where numUnit = '" & UserUnit & "')  " & _
                                     "UnitStaff    " & _
-                                    "where " & connNameSpace & ".EPDUserProfiles.numUserID = " & connNameSpace & ".SSCPItemMaster.strResponsibleStaff  " & _
-                                    "and " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".SSCPItemMaster.strAIRSNumber  " & _
-                                    "and " & connNameSpace & ".LookUPComplianceActivities.strActivityType = " & connNameSpace & ".SSCPItemMaster.strEventType " & _
+                                    "where AIRBranch.EPDUserProfiles.numUserID = AIRBranch.SSCPItemMaster.strResponsibleStaff  " & _
+                                    "and AIRBranch.APBFacilityInformation.strAIRSNumber = AIRBranch.SSCPItemMaster.strAIRSNumber  " & _
+                                    "and AIRBranch.LookUPComplianceActivities.strActivityType = AIRBranch.SSCPItemMaster.strEventType " & _
                                     "and DatCompleteDate is Null   " & _
                                     "and strResponsibleStaff = UnitStaff.numUserID " & _
                                     "and strDelete is Null "
@@ -1657,57 +1657,57 @@ Public Class IAIPNavigation
                                     If AccountArray(10, 3) = "1" Then 'District Liason
                                         UserGridStyle = "LoadSSCPTertiaryWork"
                                         SQL = "select " & _
-                                        "to_number(" & connNameSpace & ".SSCPItemMaster.strTrackingNumber) as strTrackingNumber,  " & _
-                                        "substr(" & connNameSpace & ".SSCPItemMaster.strAIRSNumber, 5) as AIRSNumber,  " & _
+                                        "to_number(AIRBranch.SSCPItemMaster.strTrackingNumber) as strTrackingNumber,  " & _
+                                        "substr(AIRBranch.SSCPItemMaster.strAIRSNumber, 5) as AIRSNumber,  " & _
                                         "(strLastName||', '||strFirstName) as Staff,  " & _
                                         "strResponsibleStaff, " & _
                                         "to_char(datReceivedDate, 'dd-Mon-yyyy') as DateReceived,  " & _
                                         "strFacilityName, StrActivityName    " & _
-                                        "from " & connNameSpace & ".SSCPItemMaster, " & connNameSpace & ".EPDUserProfiles,  " & _
-                                        "" & connNameSpace & ".APBFacilityInformation, " & connNameSpace & ".LookUPComplianceActivities,  " & _
-                                        "(select numUserID from " & connNameSpace & ".EPDUSerProfiles " & _
+                                        "from AIRBranch.SSCPItemMaster, AIRBranch.EPDUserProfiles,  " & _
+                                        "AIRBranch.APBFacilityInformation, AIRBranch.LookUPComplianceActivities,  " & _
+                                        "(select numUserID from AIRBranch.EPDUSerProfiles " & _
                                         "where strLastName = 'District' or (numBranch = '1' and numProgram = '4' and numUnit is null) " & _
                                         "group by numUserID) UnitStaff    " & _
-                                        "where " & connNameSpace & ".EPDUserProfiles.numUserID = " & connNameSpace & ".SSCPItemMaster.strResponsibleStaff  " & _
-                                        "and " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".SSCPItemMaster.strAIRSNumber  " & _
-                                        "and " & connNameSpace & ".LookUPComplianceActivities.strActivityType = " & connNameSpace & ".SSCPItemMaster.strEventType " & _
+                                        "where AIRBranch.EPDUserProfiles.numUserID = AIRBranch.SSCPItemMaster.strResponsibleStaff  " & _
+                                        "and AIRBranch.APBFacilityInformation.strAIRSNumber = AIRBranch.SSCPItemMaster.strAIRSNumber  " & _
+                                        "and AIRBranch.LookUPComplianceActivities.strActivityType = AIRBranch.SSCPItemMaster.strEventType " & _
                                         "and DatCompleteDate is Null   " & _
                                         "and strResponsibleStaff = UnitStaff.numUserID " & _
                                         "and strDelete is Null "
                                     Else
                                         UserGridStyle = "LoadSSCPTertiaryWork"
                                         'SQL = "Select " & _
-                                        '"to_number(" & connNameSpace & ".SSCPItemMaster.strTrackingNumber) as strTrackingNumber,  " & _
-                                        '"substr(" & connNameSpace & ".SSCPItemMaster.strAIRSNumber, 5) as AIRSNumber,  " & _
+                                        '"to_number(AIRBranch.SSCPItemMaster.strTrackingNumber) as strTrackingNumber,  " & _
+                                        '"substr(AIRBranch.SSCPItemMaster.strAIRSNumber, 5) as AIRSNumber,  " & _
                                         '"(strLastName||', '||strFirstName) as Staff,  " & _
                                         '"strResponsibleStaff, " & _
                                         '"to_char(datReceivedDate, 'dd-Mon-yyyy') as DateReceived, " & _
                                         '"strFacilityName, StrActivityName    " & _
-                                        '"from " & connNameSpace & ".SSCPItemMaster, " & connNameSpace & ".EPDUserProfiles,  " & _
-                                        '"" & connNameSpace & ".APBFacilityInformation, " & connNameSpace & ".LookUPComplianceActivities,   " & _
+                                        '"from AIRBranch.SSCPItemMaster, AIRBranch.EPDUserProfiles,  " & _
+                                        '"AIRBranch.APBFacilityInformation, AIRBranch.LookUPComplianceActivities,   " & _
                                         '"AIRBranch.SSCPFacilityAssignment " & _
-                                        '"where " & connNameSpace & ".EPDUserProfiles.numUserID = " & connNameSpace & ".SSCPItemMaster.strResponsibleStaff  " & _
-                                        '"and " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".SSCPItemMaster.strAIRSNumber  " & _
-                                        '"and " & connNameSpace & ".LookUPComplianceActivities.strActivityType = " & connNameSpace & ".SSCPItemMaster.strEventType  " & _
-                                        '" and " & connNameSpace & ".SSCPItemMaster.strAIRSnumber = " & connNameSpace & ".SSCPFacilityAssignment.strAIRSNumber  " & _
+                                        '"where AIRBranch.EPDUserProfiles.numUserID = AIRBranch.SSCPItemMaster.strResponsibleStaff  " & _
+                                        '"and AIRBranch.APBFacilityInformation.strAIRSNumber = AIRBranch.SSCPItemMaster.strAIRSNumber  " & _
+                                        '"and AIRBranch.LookUPComplianceActivities.strActivityType = AIRBranch.SSCPItemMaster.strEventType  " & _
+                                        '" and AIRBranch.SSCPItemMaster.strAIRSnumber = AIRBranch.SSCPFacilityAssignment.strAIRSNumber  " & _
                                         '"and (strResponsibleStaff = '" & UserGCode & "' or strSSCPEngineer = '" & UserGCode & "') " & _
                                         '"and DatCompleteDate is Null  " & _
                                         ' "and strDelete is Null "
 
                                         SQL = "Select " & _
-                                       "to_number(" & connNameSpace & ".SSCPItemMaster.strTrackingNumber) as strTrackingNumber,  " & _
-                                       "substr(" & connNameSpace & ".SSCPItemMaster.strAIRSNumber, 5) as AIRSNumber,  " & _
+                                       "to_number(AIRBranch.SSCPItemMaster.strTrackingNumber) as strTrackingNumber,  " & _
+                                       "substr(AIRBranch.SSCPItemMaster.strAIRSNumber, 5) as AIRSNumber,  " & _
                                        "(strLastName||', '||strFirstName) as Staff,  " & _
                                        "strResponsibleStaff, " & _
                                        "to_char(datReceivedDate, 'dd-Mon-yyyy') as DateReceived, " & _
                                        "AIRBranch.APBFacilityInformation.strFacilityName, StrActivityName    " & _
-                                       "from " & connNameSpace & ".SSCPItemMaster, " & connNameSpace & ".EPDUserProfiles,  " & _
-                                       "" & connNameSpace & ".APBFacilityInformation, " & connNameSpace & ".LookUPComplianceActivities,   " & _
+                                       "from AIRBranch.SSCPItemMaster, AIRBranch.EPDUserProfiles,  " & _
+                                       "AIRBranch.APBFacilityInformation, AIRBranch.LookUPComplianceActivities,   " & _
                                        "AIRBranch.VW_SSCPInspection_List " & _
-                                       "where " & connNameSpace & ".EPDUserProfiles.numUserID = " & connNameSpace & ".SSCPItemMaster.strResponsibleStaff  " & _
-                                       "and " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".SSCPItemMaster.strAIRSNumber  " & _
-                                       "and " & connNameSpace & ".LookUPComplianceActivities.strActivityType = " & connNameSpace & ".SSCPItemMaster.strEventType  " & _
-                                       " and " & connNameSpace & ".SSCPItemMaster.strAIRSnumber = '0413'||" & connNameSpace & ".VW_SSCPInspection_List.AIRSNumber  " & _
+                                       "where AIRBranch.EPDUserProfiles.numUserID = AIRBranch.SSCPItemMaster.strResponsibleStaff  " & _
+                                       "and AIRBranch.APBFacilityInformation.strAIRSNumber = AIRBranch.SSCPItemMaster.strAIRSNumber  " & _
+                                       "and AIRBranch.LookUPComplianceActivities.strActivityType = AIRBranch.SSCPItemMaster.strEventType  " & _
+                                       " and AIRBranch.SSCPItemMaster.strAIRSnumber = '0413'||AIRBranch.VW_SSCPInspection_List.AIRSNumber  " & _
                                        "and (strResponsibleStaff = '" & UserGCode & "' or numSSCPEngineer = '" & UserGCode & "') " & _
                                        "and DatCompleteDate is Null  " & _
                                         "and strDelete is Null "
@@ -1786,97 +1786,97 @@ Public Class IAIPNavigation
                         Case "4" 'SSCP
                             If WorkUnit = "---" Then 'Program Manager
                                 UserGridStyle = "LoadSSCPQuaternaryWork"
-                                SQL = "select distinct(substr(" & connNameSpace & ".APBHeaderData.strAIRSNumber, 5)) as AIRSnumber, " & _
+                                SQL = "select distinct(substr(AIRBranch.APBHeaderData.strAIRSNumber, 5)) as AIRSnumber, " & _
                                "strFacilityName " & _
-                               "from " & connNameSpace & ".APBHeaderData, " & connNameSpace & ".APBFacilityInformation  " & _
+                               "from AIRBranch.APBHeaderData, AIRBranch.APBFacilityInformation  " & _
                                "where (Not exists (select * " & _
-                               "from " & connNameSpace & ".APBSubpartData " & _
-                               "where " & connNameSpace & ".APBHeaderData.strAIRSnumber = " & connNameSpace & ".APBSubpartData.strAIRSnumber " & _
+                               "from AIRBranch.APBSubpartData " & _
+                               "where AIRBranch.APBHeaderData.strAIRSnumber = AIRBranch.APBSubpartData.strAIRSnumber " & _
                                "and substr(strSubPartKey, 13, 1) = 'M') " & _
                                "and subStr(strAirProgramCodes, 12, 1) = '1' " & _
                                "or Not exists (select * " & _
-                               "from " & connNameSpace & ".APBSubpartData " & _
-                               "where " & connNameSpace & ".APBHeaderData.strAIRSnumber = " & connNameSpace & ".APBSubpartData.strAIRSnumber " & _
+                               "from AIRBranch.APBSubpartData " & _
+                               "where AIRBranch.APBHeaderData.strAIRSnumber = AIRBranch.APBSubpartData.strAIRSnumber " & _
                                "and substr(strSubPartKey, 13, 1) = '9') " & _
                                "and subStr(strAirProgramCodes, 8, 1) = '1' " & _
                                "or Not exists (select * " & _
-                               "from " & connNameSpace & ".APBSubpartData " & _
-                               "where " & connNameSpace & ".APBHeaderData.strAIRSnumber = " & connNameSpace & ".APBSubpartData.strAIRSnumber " & _
+                               "from AIRBranch.APBSubpartData " & _
+                               "where AIRBranch.APBHeaderData.strAIRSnumber = AIRBranch.APBSubpartData.strAIRSnumber " & _
                                "and substr(strSubPartKey, 13, 1) = '8') " & _
                                "and subStr(strAirProgramCodes, 7, 1) = '1' ) " & _
-                               "and " & connNameSpace & ".APBHeaderData.strAIRSnumber = " & connNameSpace & ".APBFacilityInformation.strAIRsnumber " & _
-                               "and " & connNameSpace & ".APBHeaderData.strOperationalStatus <> 'X' " & _
+                               "and AIRBranch.APBHeaderData.strAIRSnumber = AIRBranch.APBFacilityInformation.strAIRsnumber " & _
+                               "and AIRBranch.APBHeaderData.strOperationalStatus <> 'X' " & _
                                "order by AIRSNumber "
                             Else
                                 If AccountArray(22, 3) = "1" Then 'Unit Manager
                                     UserGridStyle = "LoadSSCPQuaternaryWork"
-                                    SQL = "select distinct(substr(" & connNameSpace & ".APBHeaderData.strAIRSNumber, 5)) as AIRSnumber, " & _
+                                    SQL = "select distinct(substr(AIRBranch.APBHeaderData.strAIRSNumber, 5)) as AIRSnumber, " & _
                                     "strFacilityName " & _
-                                    "from " & connNameSpace & ".APBHeaderData, " & connNameSpace & ".APBFacilityInformation  " & _
+                                    "from AIRBranch.APBHeaderData, AIRBranch.APBFacilityInformation  " & _
                                     "where (Not exists (select * " & _
-                                    "from " & connNameSpace & ".APBSubpartData " & _
-                                    "where " & connNameSpace & ".APBHeaderData.strAIRSnumber = " & connNameSpace & ".APBSubpartData.strAIRSnumber " & _
+                                    "from AIRBranch.APBSubpartData " & _
+                                    "where AIRBranch.APBHeaderData.strAIRSnumber = AIRBranch.APBSubpartData.strAIRSnumber " & _
                                     "and substr(strSubPartKey, 13, 1) = 'M') " & _
                                     "and subStr(strAirProgramCodes, 12, 1) = '1' " & _
                                     "or Not exists (select * " & _
-                                    "from " & connNameSpace & ".APBSubpartData " & _
-                                    "where " & connNameSpace & ".APBHeaderData.strAIRSnumber = " & connNameSpace & ".APBSubpartData.strAIRSnumber " & _
+                                    "from AIRBranch.APBSubpartData " & _
+                                    "where AIRBranch.APBHeaderData.strAIRSnumber = AIRBranch.APBSubpartData.strAIRSnumber " & _
                                     "and substr(strSubPartKey, 13, 1) = '9') " & _
                                     "and subStr(strAirProgramCodes, 8, 1) = '1' " & _
                                     "or Not exists (select * " & _
-                                    "from " & connNameSpace & ".APBSubpartData " & _
-                                    "where " & connNameSpace & ".APBHeaderData.strAIRSnumber = " & connNameSpace & ".APBSubpartData.strAIRSnumber " & _
+                                    "from AIRBranch.APBSubpartData " & _
+                                    "where AIRBranch.APBHeaderData.strAIRSnumber = AIRBranch.APBSubpartData.strAIRSnumber " & _
                                     "and substr(strSubPartKey, 13, 1) = '8') " & _
                                     "and subStr(strAirProgramCodes, 7, 1) = '1' ) " & _
-                                    "and " & connNameSpace & ".APBHeaderData.strAIRSnumber = " & connNameSpace & ".APBFacilityInformation.strAIRsnumber " & _
-                                    "and " & connNameSpace & ".APBHeaderData.strOperationalStatus <> 'X' " & _
+                                    "and AIRBranch.APBHeaderData.strAIRSnumber = AIRBranch.APBFacilityInformation.strAIRsnumber " & _
+                                    "and AIRBranch.APBHeaderData.strOperationalStatus <> 'X' " & _
                                     "order by AIRSNumber "
                                 Else
                                     If AccountArray(10, 3) = "1" Then 'District Liason
                                         UserGridStyle = "LoadSSCPQuaternaryWork"
-                                        SQL = "select distinct(substr(" & connNameSpace & ".APBHeaderData.strAIRSNumber, 5)) as AIRSnumber, " & _
+                                        SQL = "select distinct(substr(AIRBranch.APBHeaderData.strAIRSNumber, 5)) as AIRSnumber, " & _
                                          "strFacilityName " & _
-                                         "from " & connNameSpace & ".APBHeaderData, " & connNameSpace & ".APBFacilityInformation  " & _
+                                         "from AIRBranch.APBHeaderData, AIRBranch.APBFacilityInformation  " & _
                                          "where (Not exists (select * " & _
-                                         "from " & connNameSpace & ".APBSubpartData " & _
-                                         "where " & connNameSpace & ".APBHeaderData.strAIRSnumber = " & connNameSpace & ".APBSubpartData.strAIRSnumber " & _
+                                         "from AIRBranch.APBSubpartData " & _
+                                         "where AIRBranch.APBHeaderData.strAIRSnumber = AIRBranch.APBSubpartData.strAIRSnumber " & _
                                          "and substr(strSubPartKey, 13, 1) = 'M') " & _
                                          "and subStr(strAirProgramCodes, 12, 1) = '1' " & _
                                          "or Not exists (select * " & _
-                                         "from " & connNameSpace & ".APBSubpartData " & _
-                                         "where " & connNameSpace & ".APBHeaderData.strAIRSnumber = " & connNameSpace & ".APBSubpartData.strAIRSnumber " & _
+                                         "from AIRBranch.APBSubpartData " & _
+                                         "where AIRBranch.APBHeaderData.strAIRSnumber = AIRBranch.APBSubpartData.strAIRSnumber " & _
                                          "and substr(strSubPartKey, 13, 1) = '9') " & _
                                          "and subStr(strAirProgramCodes, 8, 1) = '1' " & _
                                          "or Not exists (select * " & _
-                                         "from " & connNameSpace & ".APBSubpartData " & _
-                                         "where " & connNameSpace & ".APBHeaderData.strAIRSnumber = " & connNameSpace & ".APBSubpartData.strAIRSnumber " & _
+                                         "from AIRBranch.APBSubpartData " & _
+                                         "where AIRBranch.APBHeaderData.strAIRSnumber = AIRBranch.APBSubpartData.strAIRSnumber " & _
                                          "and substr(strSubPartKey, 13, 1) = '8') " & _
                                          "and subStr(strAirProgramCodes, 7, 1) = '1' ) " & _
-                                         "and " & connNameSpace & ".APBHeaderData.strAIRSnumber = " & connNameSpace & ".APBFacilityInformation.strAIRsnumber " & _
-                                         "and " & connNameSpace & ".APBHeaderData.strOperationalStatus <> 'X' " & _
+                                         "and AIRBranch.APBHeaderData.strAIRSnumber = AIRBranch.APBFacilityInformation.strAIRsnumber " & _
+                                         "and AIRBranch.APBHeaderData.strOperationalStatus <> 'X' " & _
                                          "order by AIRSNumber "
                                     Else
                                         UserGridStyle = "LoadSSCPQuaternaryWork"
-                                        SQL = "select distinct(substr(" & connNameSpace & ".APBHeaderData.strAIRSNumber, 5)) as AIRSnumber, " & _
+                                        SQL = "select distinct(substr(AIRBranch.APBHeaderData.strAIRSNumber, 5)) as AIRSnumber, " & _
                                         "strFacilityName " & _
-                                        "from " & connNameSpace & ".APBHeaderData, " & connNameSpace & ".APBFacilityInformation  " & _
+                                        "from AIRBranch.APBHeaderData, AIRBranch.APBFacilityInformation  " & _
                                         "where (Not exists (select * " & _
-                                        "from " & connNameSpace & ".APBSubpartData " & _
-                                        "where " & connNameSpace & ".APBHeaderData.strAIRSnumber = " & connNameSpace & ".APBSubpartData.strAIRSnumber " & _
+                                        "from AIRBranch.APBSubpartData " & _
+                                        "where AIRBranch.APBHeaderData.strAIRSnumber = AIRBranch.APBSubpartData.strAIRSnumber " & _
                                         "and substr(strSubPartKey, 13, 1) = 'M') " & _
                                         "and subStr(strAirProgramCodes, 12, 1) = '1' " & _
                                         "or Not exists (select * " & _
-                                        "from " & connNameSpace & ".APBSubpartData " & _
-                                        "where " & connNameSpace & ".APBHeaderData.strAIRSnumber = " & connNameSpace & ".APBSubpartData.strAIRSnumber " & _
+                                        "from AIRBranch.APBSubpartData " & _
+                                        "where AIRBranch.APBHeaderData.strAIRSnumber = AIRBranch.APBSubpartData.strAIRSnumber " & _
                                         "and substr(strSubPartKey, 13, 1) = '9') " & _
                                         "and subStr(strAirProgramCodes, 8, 1) = '1' " & _
                                         "or Not exists (select * " & _
-                                        "from " & connNameSpace & ".APBSubpartData " & _
-                                        "where " & connNameSpace & ".APBHeaderData.strAIRSnumber = " & connNameSpace & ".APBSubpartData.strAIRSnumber " & _
+                                        "from AIRBranch.APBSubpartData " & _
+                                        "where AIRBranch.APBHeaderData.strAIRSnumber = AIRBranch.APBSubpartData.strAIRSnumber " & _
                                         "and substr(strSubPartKey, 13, 1) = '8') " & _
                                         "and subStr(strAirProgramCodes, 7, 1) = '1' ) " & _
-                                        "and " & connNameSpace & ".APBHeaderData.strAIRSnumber = " & connNameSpace & ".APBFacilityInformation.strAIRsnumber " & _
-                                        "and " & connNameSpace & ".APBHeaderData.strOperationalStatus <> 'X' " & _
+                                        "and AIRBranch.APBHeaderData.strAIRSnumber = AIRBranch.APBFacilityInformation.strAIRsnumber " & _
+                                        "and AIRBranch.APBHeaderData.strOperationalStatus <> 'X' " & _
                                         "order by AIRSNumber "
                                     End If
                                 End If
@@ -1936,7 +1936,7 @@ Public Class IAIPNavigation
 
             If txtApplicationNumber.Text <> "" Then
                 SQL = "select strApplicationNumber " & _
-                "from " & connNameSpace & ".SSPPApplicationMaster " & _
+                "from AIRBranch.SSPPApplicationMaster " & _
                 "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
                 cmd = New OracleCommand(SQL, conn)
                 If conn.State = ConnectionState.Closed Then
@@ -1975,9 +1975,9 @@ Public Class IAIPNavigation
         Try
 
             'If txtReferenceNumber.Text <> "" Then
-            '    SQL = "select " & connNameSpace & ".ISMPDocumentType.strDocumentType " & _
-            '     "from " & connNameSpace & ".ISMPDocumentType, " & connNameSpace & ".ISMPReportInformation " & _
-            '     "where " & connNameSpace & ".ISMPReportInformation.strDocumentType = " & connNameSpace & ".ISMPDocumentType.strKey and " & _
+            '    SQL = "select AIRBranch.ISMPDocumentType.strDocumentType " & _
+            '     "from AIRBranch.ISMPDocumentType, AIRBranch.ISMPReportInformation " & _
+            '     "where AIRBranch.ISMPReportInformation.strDocumentType = AIRBranch.ISMPDocumentType.strKey and " & _
             '     "strReferenceNumber = '" & txtReferenceNumber.Text & "'"
             '    Dim cmd As New OracleCommand(SQL, conn)
             '    If conn.State = ConnectionState.Closed Then
@@ -1997,9 +1997,9 @@ Public Class IAIPNavigation
             'End If
             If txtReferenceNumber.Text <> "" And txtReferenceNumber.Text.Length <= 9 Then
                 If UserProgram = "3" Then
-                    SQL = "select " & connNameSpace & ".ISMPDocumentType.strDocumentType " & _
-                    "from " & connNameSpace & ".ISMPDocumentType, " & connNameSpace & ".ISMPReportInformation " & _
-                    "where " & connNameSpace & ".ISMPReportInformation.strDocumentType = " & connNameSpace & ".ISMPDocumentType.strKey and " & _
+                    SQL = "select AIRBranch.ISMPDocumentType.strDocumentType " & _
+                    "from AIRBranch.ISMPDocumentType, AIRBranch.ISMPReportInformation " & _
+                    "where AIRBranch.ISMPReportInformation.strDocumentType = AIRBranch.ISMPDocumentType.strKey and " & _
                     "strReferenceNumber = '" & txtReferenceNumber.Text & "'"
                     cmd = New OracleCommand(SQL, conn)
                     If conn.State = ConnectionState.Closed Then
@@ -2016,7 +2016,7 @@ Public Class IAIPNavigation
                     End If
                 Else
                     SQL = "Select strClosed " & _
-                    "from " & connNameSpace & ".ISMPReportInformation " & _
+                    "from AIRBranch.ISMPReportInformation " & _
                     "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
                     cmd = New OracleCommand(SQL, conn)
                     If conn.State = ConnectionState.Closed Then
@@ -2048,7 +2048,7 @@ Public Class IAIPNavigation
         Try
             If txtEnforcementNumber.Text <> "" Then
                 SQL = "Select strEnforcementNumber " & _
-                "from " & connNameSpace & ".SSCP_AuditedEnforcement " & _
+                "from AIRBranch.SSCP_AuditedEnforcement " & _
                 "where strEnforcementNumber = '" & txtEnforcementNumber.Text & "' "
 
                 cmd = New OracleCommand(SQL, conn)
@@ -2094,7 +2094,7 @@ Public Class IAIPNavigation
             If txtTrackingNumber.Text <> "" And IsNumeric(txtTrackingNumber.Text) Then
                 SQL = "Select " & _
                 "strTrackingNumber " & _
-                "from " & connNameSpace & ".SSCPItemMaster " & _
+                "from AIRBranch.SSCPItemMaster " & _
                 "where strTrackingNumber = '" & txtTrackingNumber.Text & "' "
                 cmd = New OracleCommand(SQL, conn)
                 If conn.State = ConnectionState.Closed Then
@@ -2109,11 +2109,11 @@ Public Class IAIPNavigation
                     Dim DocType As String = ""
 
                     SQL = "Select " & _
-                    "" & connNameSpace & ".ISMPReportInformation.strReferenceNumber, " & connNameSpace & ".ISMPDocumentType.strDocumentType " & _
-                    "from " & connNameSpace & ".SSCPTestReports, " & connNameSpace & ".ISMPDocumentType, " & _
-                    "" & connNameSpace & ".ISMPReportInformation " & _
-                    "where " & connNameSpace & ".SSCPTestReports.strReferenceNumber = " & connNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
-                    "and " & connNameSpace & ".ISMPReportInformation.strDocumentType = " & connNameSpace & ".ISMPDocumentType.strKey " & _
+                    "AIRBranch.ISMPReportInformation.strReferenceNumber, AIRBranch.ISMPDocumentType.strDocumentType " & _
+                    "from AIRBranch.SSCPTestReports, AIRBranch.ISMPDocumentType, " & _
+                    "AIRBranch.ISMPReportInformation " & _
+                    "where AIRBranch.SSCPTestReports.strReferenceNumber = AIRBranch.ISMPReportInformation.strReferenceNumber " & _
+                    "and AIRBranch.ISMPReportInformation.strDocumentType = AIRBranch.ISMPDocumentType.strKey " & _
                     "and strTrackingNumber = '" & txtTrackingNumber.Text & "' "
 
                     cmd = New OracleCommand(SQL, conn)
@@ -2167,8 +2167,10 @@ Public Class IAIPNavigation
 
             If txtAIRSNumber.Text <> "" And txtAIRSNumber.Text.Length = 8 Then
                 SQL = "Select strAIRSNumber " & _
-                "from " & connNameSpace & ".APBMasterAIRS " & _
+                "from AIRBranch.APBMasterAIRS " & _
                 "where strAIRSnumber = '0413" & txtAIRSNumber.Text & "' "
+
+
                 cmd = New OracleCommand(SQL, conn)
                 If conn.State = ConnectionState.Closed Then
                     conn.Open()
@@ -3337,7 +3339,7 @@ Public Class IAIPNavigation
                 Do While AccountTemp <> ""
                     SQL = "Select " & _
                     "strFormAccess " & _
-                    "From " & connNameSpace & ".LookUpIAIPAccounts " & _
+                    "From AIRBranch.LookUpIAIPAccounts " & _
                     "where numAccountCode = '" & Mid(AccountTemp, 2, (AccountTemp.IndexOf(")") - 1)) & "' "
 
                     cmd = New OracleCommand(SQL, conn)
@@ -7953,22 +7955,22 @@ Public Class IAIPNavigation
 
                 Case "Compliance Work"
                     SQL = "Select " & _
-                          "to_number(" & connNameSpace & ".SSCPItemMaster.strTrackingNumber) as strTrackingNumber,  " & _
-                          "substr(" & connNameSpace & ".SSCPItemMaster.strAIRSNumber, 5) as AIRSNumber,  " & _
+                          "to_number(AIRBranch.SSCPItemMaster.strTrackingNumber) as strTrackingNumber,  " & _
+                          "substr(AIRBranch.SSCPItemMaster.strAIRSNumber, 5) as AIRSNumber,  " & _
                           "(strLastName||', '||strFirstName) as Staff,  " & _
                           "strResponsibleStaff, " & _
                           "to_char(datReceivedDate, 'dd-Mon-yyyy') as DateReceived, " & _
                           "AIRBranch.APBFacilityInformation.strFacilityName, StrActivityName    " & _
-                          "from " & connNameSpace & ".SSCPItemMaster, " & connNameSpace & ".EPDUserProfiles,  " & _
-                          "" & connNameSpace & ".APBFacilityInformation, " & connNameSpace & ".LookUPComplianceActivities,   " & _
+                          "from AIRBranch.SSCPItemMaster, AIRBranch.EPDUserProfiles,  " & _
+                          "AIRBranch.APBFacilityInformation, AIRBranch.LookUPComplianceActivities,   " & _
                           "AIRBranch.VW_SSCPInspection_List " & _
-                          "where " & connNameSpace & ".EPDUserProfiles.numUserID = " & _
+                          "where AIRBranch.EPDUserProfiles.numUserID = " & _
                           connNameSpace & ".SSCPItemMaster.strResponsibleStaff  " & _
-                          "and " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & _
+                          "and AIRBranch.APBFacilityInformation.strAIRSNumber = " & _
                           connNameSpace & ".SSCPItemMaster.strAIRSNumber  " & _
-                          "and " & connNameSpace & ".LookUPComplianceActivities.strActivityType = " & _
+                          "and AIRBranch.LookUPComplianceActivities.strActivityType = " & _
                           connNameSpace & ".SSCPItemMaster.strEventType  " & _
-                          " and " & connNameSpace & ".SSCPItemMaster.strAIRSnumber = '0413'||" & _
+                          " and AIRBranch.SSCPItemMaster.strAIRSnumber = '0413'||" & _
                           connNameSpace & ".VW_SSCPInspection_List.AIRSNumber  " & _
                           "and (strResponsibleStaff = '" & UserGCode & "' or numSSCPEngineer = '" & UserGCode & "') " & _
                           "and DatCompleteDate is Null  " & _
@@ -7976,22 +7978,22 @@ Public Class IAIPNavigation
 
                     If rdbStaffView.Checked = True Then
                         SQL = "Select " & _
-                        "to_number(" & connNameSpace & ".SSCPItemMaster.strTrackingNumber) as strTrackingNumber,  " & _
-                        "substr(" & connNameSpace & ".SSCPItemMaster.strAIRSNumber, 5) as AIRSNumber,  " & _
+                        "to_number(AIRBranch.SSCPItemMaster.strTrackingNumber) as strTrackingNumber,  " & _
+                        "substr(AIRBranch.SSCPItemMaster.strAIRSNumber, 5) as AIRSNumber,  " & _
                         "(strLastName||', '||strFirstName) as Staff,  " & _
                         "strResponsibleStaff, " & _
                         "to_char(datReceivedDate, 'dd-Mon-yyyy') as DateReceived, " & _
                         "AIRBranch.APBFacilityInformation.strFacilityName, StrActivityName    " & _
-                        "from " & connNameSpace & ".SSCPItemMaster, " & connNameSpace & ".EPDUserProfiles,  " & _
-                        "" & connNameSpace & ".APBFacilityInformation, " & connNameSpace & ".LookUPComplianceActivities,   " & _
+                        "from AIRBranch.SSCPItemMaster, AIRBranch.EPDUserProfiles,  " & _
+                        "AIRBranch.APBFacilityInformation, AIRBranch.LookUPComplianceActivities,   " & _
                         "AIRBranch.VW_SSCPInspection_List " & _
-                        "where " & connNameSpace & ".EPDUserProfiles.numUserID = " & _
+                        "where AIRBranch.EPDUserProfiles.numUserID = " & _
                         connNameSpace & ".SSCPItemMaster.strResponsibleStaff  " & _
-                        "and " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & _
+                        "and AIRBranch.APBFacilityInformation.strAIRSNumber = " & _
                         connNameSpace & ".SSCPItemMaster.strAIRSNumber  " & _
-                        "and " & connNameSpace & ".LookUPComplianceActivities.strActivityType = " & _
+                        "and AIRBranch.LookUPComplianceActivities.strActivityType = " & _
                         connNameSpace & ".SSCPItemMaster.strEventType  " & _
-                        " and " & connNameSpace & ".SSCPItemMaster.strAIRSnumber = '0413'||" & _
+                        " and AIRBranch.SSCPItemMaster.strAIRSnumber = '0413'||" & _
                         connNameSpace & ".VW_SSCPInspection_List.AIRSNumber  " & _
                         "and (strResponsibleStaff = '" & UserGCode & "' or numSSCPEngineer = '" & UserGCode & "') " & _
                         "and DatCompleteDate is Null  " & _
@@ -8000,42 +8002,42 @@ Public Class IAIPNavigation
                     If rdbUCView.Checked = True Then
                         If UserProgram <> "5" Then
                             SQL = "select " & _
-                            "to_number(" & connNameSpace & ".SSCPItemMaster.strTrackingNumber) as strTrackingNumber,  " & _
-                            "substr(" & connNameSpace & ".SSCPItemMaster.strAIRSNumber, 5) as AIRSNumber,  " & _
+                            "to_number(AIRBranch.SSCPItemMaster.strTrackingNumber) as strTrackingNumber,  " & _
+                            "substr(AIRBranch.SSCPItemMaster.strAIRSNumber, 5) as AIRSNumber,  " & _
                             "(strLastName||', '||strFirstName) as Staff,  " & _
                             "strResponsibleStaff, " & _
                             "to_char(datReceivedDate, 'dd-Mon-yyyy') as DateReceived,  " & _
                             "strFacilityName, StrActivityName    " & _
-                            "from " & connNameSpace & ".SSCPItemMaster, " & connNameSpace & ".EPDUserProfiles,  " & _
-                            "" & connNameSpace & ".APBFacilityInformation, " & connNameSpace & ".LookUPComplianceActivities,  " & _
-                            "(select numUserID from " & connNameSpace & ".EPDUserProfiles where numProgram = '" & UserProgram & "')  " & _
+                            "from AIRBranch.SSCPItemMaster, AIRBranch.EPDUserProfiles,  " & _
+                            "AIRBranch.APBFacilityInformation, AIRBranch.LookUPComplianceActivities,  " & _
+                            "(select numUserID from AIRBranch.EPDUserProfiles where numProgram = '" & UserProgram & "')  " & _
                             "UnitStaff    " & _
-                            "where " & connNameSpace & ".EPDUserProfiles.numUserID = " & _
+                            "where AIRBranch.EPDUserProfiles.numUserID = " & _
                             connNameSpace & ".SSCPItemMaster.strResponsibleStaff  " & _
-                            "and " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & _
+                            "and AIRBranch.APBFacilityInformation.strAIRSNumber = " & _
                             connNameSpace & ".SSCPItemMaster.strAIRSNumber  " & _
-                            "and " & connNameSpace & ".LookUPComplianceActivities.strActivityType = " & _
+                            "and AIRBranch.LookUPComplianceActivities.strActivityType = " & _
                             connNameSpace & ".SSCPItemMaster.strEventType " & _
                             "and DatCompleteDate is Null   " & _
                             "and strResponsibleStaff = UnitStaff.numUserID " & _
                             "and strDelete is Null "
                         Else
                             SQL = "select " & _
-                             "to_number(" & connNameSpace & ".SSCPItemMaster.strTrackingNumber) as strTrackingNumber,  " & _
-                             "substr(" & connNameSpace & ".SSCPItemMaster.strAIRSNumber, 5) as AIRSNumber,  " & _
+                             "to_number(AIRBranch.SSCPItemMaster.strTrackingNumber) as strTrackingNumber,  " & _
+                             "substr(AIRBranch.SSCPItemMaster.strAIRSNumber, 5) as AIRSNumber,  " & _
                              "(strLastName||', '||strFirstName) as Staff,  " & _
                              "strResponsibleStaff, " & _
                              "to_char(datReceivedDate, 'dd-Mon-yyyy') as DateReceived,  " & _
                              "strFacilityName, StrActivityName    " & _
-                             "from " & connNameSpace & ".SSCPItemMaster, " & connNameSpace & ".EPDUserProfiles,  " & _
-                             "" & connNameSpace & ".APBFacilityInformation, " & connNameSpace & ".LookUPComplianceActivities,  " & _
-                             "(select numUserID from " & connNameSpace & ".EPDUserProfiles where numUnit = '" & UserUnit & "')  " & _
+                             "from AIRBranch.SSCPItemMaster, AIRBranch.EPDUserProfiles,  " & _
+                             "AIRBranch.APBFacilityInformation, AIRBranch.LookUPComplianceActivities,  " & _
+                             "(select numUserID from AIRBranch.EPDUserProfiles where numUnit = '" & UserUnit & "')  " & _
                              "UnitStaff    " & _
-                             "where " & connNameSpace & ".EPDUserProfiles.numUserID = " & _
+                             "where AIRBranch.EPDUserProfiles.numUserID = " & _
                              connNameSpace & ".SSCPItemMaster.strResponsibleStaff  " & _
-                             "and " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & _
+                             "and AIRBranch.APBFacilityInformation.strAIRSNumber = " & _
                              connNameSpace & ".SSCPItemMaster.strAIRSNumber  " & _
-                             "and " & connNameSpace & ".LookUPComplianceActivities.strActivityType = " & _
+                             "and AIRBranch.LookUPComplianceActivities.strActivityType = " & _
                              connNameSpace & ".SSCPItemMaster.strEventType " & _
                              "and DatCompleteDate is Null   " & _
                              "and strResponsibleStaff = UnitStaff.numUserID " & _
@@ -8045,19 +8047,19 @@ Public Class IAIPNavigation
                     End If
                     If rdbPMView.Checked = True Then
                         SQL = "select " & _
-                       "to_number(" & connNameSpace & ".SSCPItemMaster.strTrackingNumber) as strTrackingNumber,  " & _
-                       "substr(" & connNameSpace & ".SSCPItemMaster.strAIRSNumber, 5) as AIRSNumber,  " & _
+                       "to_number(AIRBranch.SSCPItemMaster.strTrackingNumber) as strTrackingNumber,  " & _
+                       "substr(AIRBranch.SSCPItemMaster.strAIRSNumber, 5) as AIRSNumber,  " & _
                        "(strLastName||', '||strFirstName) as Staff,  " & _
                        "strResponsibleStaff, " & _
                        "to_char(datReceivedDate, 'dd-Mon-yyyy') as DateReceived,  " & _
                        "strFacilityName, StrActivityName    " & _
-                       "from " & connNameSpace & ".SSCPItemMaster, " & connNameSpace & ".EPDUserProfiles,  " & _
-                       "" & connNameSpace & ".APBFacilityInformation, " & connNameSpace & ".LookUPComplianceActivities " & _
-                       "where " & connNameSpace & ".EPDUserProfiles.numUserID = " & _
+                       "from AIRBranch.SSCPItemMaster, AIRBranch.EPDUserProfiles,  " & _
+                       "AIRBranch.APBFacilityInformation, AIRBranch.LookUPComplianceActivities " & _
+                       "where AIRBranch.EPDUserProfiles.numUserID = " & _
                                 connNameSpace & ".SSCPItemMaster.strResponsibleStaff  " & _
-                       "and " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & _
+                       "and AIRBranch.APBFacilityInformation.strAIRSNumber = " & _
                        connNameSpace & ".SSCPItemMaster.strAIRSNumber  " & _
-                       "and " & connNameSpace & ".LookUPComplianceActivities.strActivityType = " & _
+                       "and AIRBranch.LookUPComplianceActivities.strActivityType = " & _
                        connNameSpace & ".SSCPItemMaster.strEventType " & _
                        "and DatCompleteDate is Null   " & _
                        "and strDelete is Null "
@@ -8117,7 +8119,7 @@ Public Class IAIPNavigation
                     StartCMSS = Format(CDate(OracleDate).AddDays(-1825), "yyyy-MM-dd")
 
                     SQL = "Select * " & _
-                    "from " & connNameSpace & ".VW_SSCP_CMSWarning " & _
+                    "from AIRBranch.VW_SSCP_CMSWarning " & _
                     "where AIRSNumber is not Null " & _
                     " and strCMSMember is not null " & _
                     " and ((strCMSMember = 'A' and lastFCE < '" & StartCMSA & "') " & _
@@ -8170,8 +8172,8 @@ Public Class IAIPNavigation
 
                 Case "Enforcement"
                     SQL = "Select " & _
-                    "to_number(" & connNameSpace & ".SSCP_AuditedEnforcement.strEnforcementNumber) as strEnforcementNumber,  " & _
-                    "substr(" & connNameSpace & ".SSCP_AuditedEnforcement.strAIRSNumber, 5) as AIRSNumber,  " & _
+                    "to_number(AIRBranch.SSCP_AuditedEnforcement.strEnforcementNumber) as strEnforcementNumber,  " & _
+                    "substr(AIRBranch.SSCP_AuditedEnforcement.strAIRSNumber, 5) as AIRSNumber,  " & _
                     "case  " & _
                     "when datEnforcementFinalized is Not Null then '4 - Closed Out'  " & _
                     "when strAFSKeyActionNumber is Not Null then '3 - Submitted to EPA'  " & _
@@ -8193,24 +8195,24 @@ Public Class IAIPNavigation
                     " 	when datEnforcementFinalized is NUll then 'Open'  " & _
                     "Else 'Open'  " & _
                     "End as Status,  " & _
-                    "" & connNameSpace & ".APBFacilityInformation.strFacilityName,  " & _
+                    "AIRBranch.APBFacilityInformation.strFacilityName,  " & _
                     "(strLastName||', '||strFirstName) as Staff  " & _
-                    "from " & connNameSpace & ".SSCP_AuditedEnforcement,   " & _
-                    "" & connNameSpace & ".APBFacilityInformation, " & connNameSpace & ".EPDuserProfiles,  " & _
-                    "" & connNameSpace & ".VW_SSCPINSPECTION_LIST " & _
-                    "Where " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & _
+                    "from AIRBranch.SSCP_AuditedEnforcement,   " & _
+                    "AIRBranch.APBFacilityInformation, AIRBranch.EPDuserProfiles,  " & _
+                    "AIRBranch.VW_SSCPINSPECTION_LIST " & _
+                    "Where AIRBranch.APBFacilityInformation.strAIRSNumber = " & _
                     connNameSpace & ".SSCP_AuditedEnforcement.strAIRSNumber  " & _
-                    "and " & connNameSpace & ".SSCP_AuditedEnforcement.strAIRSnumber = " & _
-                    "'0413'||" & connNameSpace & ".VW_SSCPINSPECTION_LIST.AIRSNumber  " & _
+                    "and AIRBranch.SSCP_AuditedEnforcement.strAIRSnumber = " & _
+                    "'0413'||AIRBranch.VW_SSCPINSPECTION_LIST.AIRSNumber  " & _
                     "and (strStatus IS Null or strStatus = 'UC')  " & _
                     "and datEnforcementFinalized is Null  " & _
-                    "and " & connNameSpace & ".EPDuserProfiles.numUserID = numStaffResponsible  " & _
+                    "and AIRBranch.EPDuserProfiles.numUserID = numStaffResponsible  " & _
                     "and (numStaffResponsible = '" & UserGCode & "' or numSSCPEngineer = '" & UserGCode & "') "
 
                     If rdbStaffView.Checked = True Then
                         SQL = "Select " & _
-                      "to_number(" & connNameSpace & ".SSCP_AuditedEnforcement.strEnforcementNumber) as strEnforcementNumber,  " & _
-                      "substr(" & connNameSpace & ".SSCP_AuditedEnforcement.strAIRSNumber, 5) as AIRSNumber,  " & _
+                      "to_number(AIRBranch.SSCP_AuditedEnforcement.strEnforcementNumber) as strEnforcementNumber,  " & _
+                      "substr(AIRBranch.SSCP_AuditedEnforcement.strAIRSNumber, 5) as AIRSNumber,  " & _
                       "case  " & _
                       "when datEnforcementFinalized is Not Null then '4 - Closed Out'  " & _
                       "when strAFSKeyActionNumber is Not Null then '3 - Submitted to EPA'  " & _
@@ -8232,24 +8234,24 @@ Public Class IAIPNavigation
                       " 	when datEnforcementFinalized is NUll then 'Open'  " & _
                       "Else 'Open'  " & _
                       "End as Status,  " & _
-                      "" & connNameSpace & ".APBFacilityInformation.strFacilityName,  " & _
+                      "AIRBranch.APBFacilityInformation.strFacilityName,  " & _
                       "(strLastName||', '||strFirstName) as Staff  " & _
-                      "from " & connNameSpace & ".SSCP_AuditedEnforcement,   " & _
-                      "" & connNameSpace & ".APBFacilityInformation, " & connNameSpace & ".EPDuserProfiles,  " & _
-                      "" & connNameSpace & ".VW_SSCPINSPECTION_LIST " & _
-                      "Where " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & _
+                      "from AIRBranch.SSCP_AuditedEnforcement,   " & _
+                      "AIRBranch.APBFacilityInformation, AIRBranch.EPDuserProfiles,  " & _
+                      "AIRBranch.VW_SSCPINSPECTION_LIST " & _
+                      "Where AIRBranch.APBFacilityInformation.strAIRSNumber = " & _
                       connNameSpace & ".SSCP_AuditedEnforcement.strAIRSNumber  " & _
-                      "and " & connNameSpace & ".SSCP_AuditedEnforcement.strAIRSnumber = " & _
-                      "'0413'||" & connNameSpace & ".VW_SSCPINSPECTION_LIST.AIRSNumber  " & _
+                      "and AIRBranch.SSCP_AuditedEnforcement.strAIRSnumber = " & _
+                      "'0413'||AIRBranch.VW_SSCPINSPECTION_LIST.AIRSNumber  " & _
                       "and (strStatus IS Null or strStatus = 'UC')  " & _
                       "and datEnforcementFinalized is Null  " & _
-                      "and " & connNameSpace & ".EPDuserProfiles.numUserID = numStaffResponsible  " & _
+                      "and AIRBranch.EPDuserProfiles.numUserID = numStaffResponsible  " & _
                       "and (numStaffResponsible = '" & UserGCode & "' or numSSCPEngineer = '" & UserGCode & "') "
                     End If
                     If rdbUCView.Checked = True Then
                         SQL = "Select " & _
-                    "to_number(" & connNameSpace & ".SSCP_AuditedEnforcement.strEnforcementNumber) as strEnforcementNumber,  " & _
-                    "substr(" & connNameSpace & ".SSCP_AuditedEnforcement.strAIRSNumber, 5) as AIRSNumber,  " & _
+                    "to_number(AIRBranch.SSCP_AuditedEnforcement.strEnforcementNumber) as strEnforcementNumber,  " & _
+                    "substr(AIRBranch.SSCP_AuditedEnforcement.strAIRSNumber, 5) as AIRSNumber,  " & _
                     "case  " & _
                     "when datEnforcementFinalized is Not Null then '4 - Closed Out'  " & _
                     "when strAFSKeyActionNumber is Not Null then '3 - Submitted to EPA'  " & _
@@ -8271,18 +8273,18 @@ Public Class IAIPNavigation
                     " 	when datEnforcementFinalized is NUll then 'Open'  " & _
                     "Else 'Open'  " & _
                     "End as Status,  " & _
-                    "" & connNameSpace & ".APBFacilityInformation.strFacilityName,  " & _
+                    "AIRBranch.APBFacilityInformation.strFacilityName,  " & _
                     "(strLastName||', '||strFirstName) as Staff  " & _
-                    "from " & connNameSpace & ".SSCP_AuditedEnforcement,   " & _
-                    "" & connNameSpace & ".APBFacilityInformation, " & connNameSpace & ".EPDuserProfiles,  " & _
-                    "" & connNameSpace & ".VW_SSCPINSPECTION_LIST " & _
-                    "Where " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & _
+                    "from AIRBranch.SSCP_AuditedEnforcement,   " & _
+                    "AIRBranch.APBFacilityInformation, AIRBranch.EPDuserProfiles,  " & _
+                    "AIRBranch.VW_SSCPINSPECTION_LIST " & _
+                    "Where AIRBranch.APBFacilityInformation.strAIRSNumber = " & _
                     connNameSpace & ".SSCP_AuditedEnforcement.strAIRSNumber  " & _
-                    "and " & connNameSpace & ".SSCP_AuditedEnforcement.strAIRSnumber = " & _
-                    "'0413'||" & connNameSpace & ".VW_SSCPINSPECTION_LIST.AIRSNumber  " & _
+                    "and AIRBranch.SSCP_AuditedEnforcement.strAIRSnumber = " & _
+                    "'0413'||AIRBranch.VW_SSCPINSPECTION_LIST.AIRSNumber  " & _
                     "and (strStatus IS Null or strStatus = 'UC')  " & _
                     "and datEnforcementFinalized is Null  " & _
-                    "and " & connNameSpace & ".EPDuserProfiles.numUserID = numStaffResponsible  "
+                    "and AIRBranch.EPDuserProfiles.numUserID = numStaffResponsible  "
 
                         If UserProgram = "4" Then
                             SQL = SQL & " and numUnit = '" & UserUnit & "' "
@@ -8293,8 +8295,8 @@ Public Class IAIPNavigation
                     End If
                     If rdbPMView.Checked = True Then
                         SQL = "Select " & _
-                   "to_number(" & connNameSpace & ".SSCP_AuditedEnforcement.strEnforcementNumber) as strEnforcementNumber,  " & _
-                   "substr(" & connNameSpace & ".SSCP_AuditedEnforcement.strAIRSNumber, 5) as AIRSNumber,  " & _
+                   "to_number(AIRBranch.SSCP_AuditedEnforcement.strEnforcementNumber) as strEnforcementNumber,  " & _
+                   "substr(AIRBranch.SSCP_AuditedEnforcement.strAIRSNumber, 5) as AIRSNumber,  " & _
                    "case  " & _
                    "when datEnforcementFinalized is Not Null then '4 - Closed Out'  " & _
                    "when strAFSKeyActionNumber is Not Null then '3 - Submitted to EPA'  " & _
@@ -8316,18 +8318,18 @@ Public Class IAIPNavigation
                    " 	when datEnforcementFinalized is NUll then 'Open'  " & _
                    "Else 'Open'  " & _
                    "End as Status,  " & _
-                   "" & connNameSpace & ".APBFacilityInformation.strFacilityName,  " & _
+                   "AIRBranch.APBFacilityInformation.strFacilityName,  " & _
                    "(strLastName||', '||strFirstName) as Staff  " & _
-                   "from " & connNameSpace & ".SSCP_AuditedEnforcement,   " & _
-                   "" & connNameSpace & ".APBFacilityInformation, " & connNameSpace & ".EPDuserProfiles,  " & _
-                   "" & connNameSpace & ".VW_SSCPINSPECTION_LIST " & _
-                   "Where " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & _
+                   "from AIRBranch.SSCP_AuditedEnforcement,   " & _
+                   "AIRBranch.APBFacilityInformation, AIRBranch.EPDuserProfiles,  " & _
+                   "AIRBranch.VW_SSCPINSPECTION_LIST " & _
+                   "Where AIRBranch.APBFacilityInformation.strAIRSNumber = " & _
                    connNameSpace & ".SSCP_AuditedEnforcement.strAIRSNumber  " & _
-                   "and " & connNameSpace & ".SSCP_AuditedEnforcement.strAIRSnumber = " & _
-                   "'0413'||" & connNameSpace & ".VW_SSCPINSPECTION_LIST.AIRSNumber  " & _
+                   "and AIRBranch.SSCP_AuditedEnforcement.strAIRSnumber = " & _
+                   "'0413'||AIRBranch.VW_SSCPINSPECTION_LIST.AIRSNumber  " & _
                    "and (strStatus IS Null or strStatus = 'UC')  " & _
                    "and datEnforcementFinalized is Null  " & _
-                   "and " & connNameSpace & ".EPDuserProfiles.numUserID = numStaffResponsible  "
+                   "and AIRBranch.EPDuserProfiles.numUserID = numStaffResponsible  "
                     End If
                     SQL = SQL & "order by strENforcementNumber DESC  "
 
@@ -8371,27 +8373,27 @@ Public Class IAIPNavigation
 
 
                 Case "Facilities with Subparts"
-                    SQL = "select distinct(substr(" & connNameSpace & ".APBHeaderData.strAIRSNumber, 5)) as AIRSnumber, " & _
+                    SQL = "select distinct(substr(AIRBranch.APBHeaderData.strAIRSNumber, 5)) as AIRSnumber, " & _
                    "strFacilityName " & _
-                   "from " & connNameSpace & ".APBHeaderData, " & connNameSpace & ".APBFacilityInformation  " & _
+                   "from AIRBranch.APBHeaderData, AIRBranch.APBFacilityInformation  " & _
                    "where ( exists (select * " & _
-                   "from " & connNameSpace & ".APBSubpartData " & _
-                   "where " & connNameSpace & ".APBHeaderData.strAIRSnumber = " & connNameSpace & ".APBSubpartData.strAIRSnumber " & _
+                   "from AIRBranch.APBSubpartData " & _
+                   "where AIRBranch.APBHeaderData.strAIRSnumber = AIRBranch.APBSubpartData.strAIRSnumber " & _
                    "and substr(strSubPartKey, 13, 1) = 'M') " & _
                    "and subStr(strAirProgramCodes, 12, 1) = '1' " & _
                    "or  exists (select * " & _
-                   "from " & connNameSpace & ".APBSubpartData " & _
-                   "where " & connNameSpace & ".APBHeaderData.strAIRSnumber = " & connNameSpace & ".APBSubpartData.strAIRSnumber " & _
+                   "from AIRBranch.APBSubpartData " & _
+                   "where AIRBranch.APBHeaderData.strAIRSnumber = AIRBranch.APBSubpartData.strAIRSnumber " & _
                    "and substr(strSubPartKey, 13, 1) = '9') " & _
                    "and subStr(strAirProgramCodes, 8, 1) = '1' " & _
                    "or  exists (select * " & _
-                   "from " & connNameSpace & ".APBSubpartData " & _
-                   "where " & connNameSpace & ".APBHeaderData.strAIRSnumber = " & connNameSpace & ".APBSubpartData.strAIRSnumber " & _
+                   "from AIRBranch.APBSubpartData " & _
+                   "where AIRBranch.APBHeaderData.strAIRSnumber = AIRBranch.APBSubpartData.strAIRSnumber " & _
                    "and substr(strSubPartKey, 13, 1) = '8') " & _
                    "and subStr(strAirProgramCodes, 7, 1) = '1' ) " & _
-                   "and " & connNameSpace & ".APBHeaderData.strAIRSnumber = " & _
+                   "and AIRBranch.APBHeaderData.strAIRSnumber = " & _
                    connNameSpace & ".APBFacilityInformation.strAIRsnumber " & _
-                   "and " & connNameSpace & ".APBHeaderData.strOperationalStatus <> 'X' " & _
+                   "and AIRBranch.APBHeaderData.strOperationalStatus <> 'X' " & _
                    "order by AIRSNumber "
 
                     dsOpenWork = New DataSet
@@ -8420,27 +8422,27 @@ Public Class IAIPNavigation
                     dgvWorkViewer.Columns("strFacilityName").DisplayIndex = 1
 
                 Case "Facilities missing Subparts"
-                    SQL = "select distinct(substr(" & connNameSpace & ".APBHeaderData.strAIRSNumber, 5)) as AIRSnumber, " & _
+                    SQL = "select distinct(substr(AIRBranch.APBHeaderData.strAIRSNumber, 5)) as AIRSnumber, " & _
                     "strFacilityName " & _
-                    "from " & connNameSpace & ".APBHeaderData, " & connNameSpace & ".APBFacilityInformation  " & _
+                    "from AIRBranch.APBHeaderData, AIRBranch.APBFacilityInformation  " & _
                     "where (Not exists (select * " & _
-                    "from " & connNameSpace & ".APBSubpartData " & _
-                    "where " & connNameSpace & ".APBHeaderData.strAIRSnumber = " & connNameSpace & ".APBSubpartData.strAIRSnumber " & _
+                    "from AIRBranch.APBSubpartData " & _
+                    "where AIRBranch.APBHeaderData.strAIRSnumber = AIRBranch.APBSubpartData.strAIRSnumber " & _
                     "and substr(strSubPartKey, 13, 1) = 'M') " & _
                     "and subStr(strAirProgramCodes, 12, 1) = '1' " & _
                     "or Not exists (select * " & _
-                    "from " & connNameSpace & ".APBSubpartData " & _
-                    "where " & connNameSpace & ".APBHeaderData.strAIRSnumber = " & connNameSpace & ".APBSubpartData.strAIRSnumber " & _
+                    "from AIRBranch.APBSubpartData " & _
+                    "where AIRBranch.APBHeaderData.strAIRSnumber = AIRBranch.APBSubpartData.strAIRSnumber " & _
                     "and substr(strSubPartKey, 13, 1) = '9') " & _
                     "and subStr(strAirProgramCodes, 8, 1) = '1' " & _
                     "or Not exists (select * " & _
-                    "from " & connNameSpace & ".APBSubpartData " & _
-                    "where " & connNameSpace & ".APBHeaderData.strAIRSnumber = " & connNameSpace & ".APBSubpartData.strAIRSnumber " & _
+                    "from AIRBranch.APBSubpartData " & _
+                    "where AIRBranch.APBHeaderData.strAIRSnumber = AIRBranch.APBSubpartData.strAIRSnumber " & _
                     "and substr(strSubPartKey, 13, 1) = '8') " & _
                     "and subStr(strAirProgramCodes, 7, 1) = '1' ) " & _
-                    "and " & connNameSpace & ".APBHeaderData.strAIRSnumber = " & _
+                    "and AIRBranch.APBHeaderData.strAIRSnumber = " & _
                     connNameSpace & ".APBFacilityInformation.strAIRsnumber " & _
-                    "and " & connNameSpace & ".APBHeaderData.strOperationalStatus <> 'X' " & _
+                    "and AIRBranch.APBHeaderData.strOperationalStatus <> 'X' " & _
                     "order by AIRSNumber "
 
                     dsOpenWork = New DataSet
@@ -8469,36 +8471,36 @@ Public Class IAIPNavigation
                     dgvWorkViewer.Columns("strFacilityName").DisplayIndex = 1
 
                 Case "Monitoring Test Reports"
-                    SQL = "Select " & connNameSpace & ".VW_ISMPTestReportViewer.*, strPreComplianceStatus   " & _
-                          "from  " & connNameSpace & ".VW_ISMPTestReportViewer, " & connNameSpace & ".ISMPReportInformation " & _
-                          "where " & connNameSpace & ".VW_ISMPTestReportViewer.strReferenceNumber = " & _
-                          "" & connNameSpace & ".ISMPReportInformation.strReferenceNumber  " & _
+                    SQL = "Select AIRBranch.VW_ISMPTestReportViewer.*, strPreComplianceStatus   " & _
+                          "from  AIRBranch.VW_ISMPTestReportViewer, AIRBranch.ISMPReportInformation " & _
+                          "where AIRBranch.VW_ISMPTestReportViewer.strReferenceNumber = " & _
+                          "AIRBranch.ISMPReportInformation.strReferenceNumber  " & _
                           "and  Status = 'Open' " & _
                           " and ReviewingEngineer = '" & pnl2.Text & "' "
 
 
                     If rdbStaffView.Checked = True Then
-                        SQL = "Select " & connNameSpace & ".VW_ISMPTestReportViewer.*, strPreComplianceStatus   " & _
-                        "from  " & connNameSpace & ".VW_ISMPTestReportViewer, " & connNameSpace & ".ISMPReportInformation " & _
-                        "where " & connNameSpace & ".VW_ISMPTestReportViewer.strReferenceNumber = " & _
-                        "" & connNameSpace & ".ISMPReportInformation.strReferenceNumber  " & _
+                        SQL = "Select AIRBranch.VW_ISMPTestReportViewer.*, strPreComplianceStatus   " & _
+                        "from  AIRBranch.VW_ISMPTestReportViewer, AIRBranch.ISMPReportInformation " & _
+                        "where AIRBranch.VW_ISMPTestReportViewer.strReferenceNumber = " & _
+                        "AIRBranch.ISMPReportInformation.strReferenceNumber  " & _
                         "and  Status = 'Open' " & _
                         " and ReviewingEngineer = '" & pnl2.Text & "' "
                     End If
                     If rdbUCView.Checked = True Then
-                        SQL = "Select " & connNameSpace & ".VW_ISMPTestReportViewer.*, strPreComplianceStatus   " & _
-                        "from  " & connNameSpace & ".VW_ISMPTestReportViewer, " & connNameSpace & ".ISMPReportInformation " & _
-                        "where " & connNameSpace & ".VW_ISMPTestReportViewer.strReferenceNumber = " & _
-                        "" & connNameSpace & ".ISMPReportInformation.strReferenceNumber  " & _
+                        SQL = "Select AIRBranch.VW_ISMPTestReportViewer.*, strPreComplianceStatus   " & _
+                        "from  AIRBranch.VW_ISMPTestReportViewer, AIRBranch.ISMPReportInformation " & _
+                        "where AIRBranch.VW_ISMPTestReportViewer.strReferenceNumber = " & _
+                        "AIRBranch.ISMPReportInformation.strReferenceNumber  " & _
                         "and  Status = 'Open' " & _
                         "and strUserUnit = " & _
                           "(select strUnitDesc from AIRBranch.LookUpEPDUnits where numUnitCode = '" & UserUnit & "') "
                     End If
                     If rdbPMView.CheckAlign = True Or UserUnit = "---" Then
-                        SQL = "Select " & connNameSpace & ".VW_ISMPTestReportViewer.*, strPreComplianceStatus   " & _
-                        "from  " & connNameSpace & ".VW_ISMPTestReportViewer, " & connNameSpace & ".ISMPReportInformation " & _
-                        "where " & connNameSpace & ".VW_ISMPTestReportViewer.strReferenceNumber = " & _
-                        "" & connNameSpace & ".ISMPReportInformation.strReferenceNumber  " & _
+                        SQL = "Select AIRBranch.VW_ISMPTestReportViewer.*, strPreComplianceStatus   " & _
+                        "from  AIRBranch.VW_ISMPTestReportViewer, AIRBranch.ISMPReportInformation " & _
+                        "where AIRBranch.VW_ISMPTestReportViewer.strReferenceNumber = " & _
+                        "AIRBranch.ISMPReportInformation.strReferenceNumber  " & _
                         "and  Status = 'Open' "
                     End If
 
@@ -8567,60 +8569,60 @@ Public Class IAIPNavigation
 
                 Case "Monitoring Test Notifications"
                     SQL = "select  " & _
-                    "" & connNameSpace & ".ISMPTestNotification.strTestLogNumber as TestNumber,    " & _
+                    "AIRBranch.ISMPTestNotification.strTestLogNumber as TestNumber,    " & _
                     "case    " & _
                     "when strReferenceNumber is null then ''    " & _
                     "else strReferenceNumber    " & _
                     "end RefNum,    " & _
                     "case  " & _
-                    "when " & connNameSpace & ".ISMPTestNOtification.strAIRSNumber is Null then ''  " & _
-                    "else " & connNameSpace & ".APBFacilityInformation.strFacilityName    " & _
+                    "when AIRBranch.ISMPTestNOtification.strAIRSNumber is Null then ''  " & _
+                    "else AIRBranch.APBFacilityInformation.strFacilityName    " & _
                     "End FacilityName,  " & _
-                    "substr(" & connNameSpace & ".ISMPTestNOtification.strAIRSNumber, 5) as AIRSNumber,  " & _
+                    "substr(AIRBranch.ISMPTestNOtification.strAIRSNumber, 5) as AIRSNumber,  " & _
                     "strEmissionUnit,   " & _
                     "to_char(datProposedStartDate, 'dd-Mon-yyyy') as ProposedStartDate,  " & _
                     "case  " & _
                     "when strFirstName is Null then ''  " & _
                     "else(strLastName||', '||strFirstName)   " & _
                     "END StaffResponsible  " & _
-                    "from " & connNameSpace & ".ismptestnotification, " & connNameSpace & ".APBFacilityinformation,  " & _
-                    "" & connNameSpace & ".EPDUserProfiles, " & connNameSpace & ".ISMPTestLogLink  " & _
-                    "where " & connNameSpace & ".ismptestnotification.strairsnumber = " & _
+                    "from AIRBranch.ismptestnotification, AIRBranch.APBFacilityinformation,  " & _
+                    "AIRBranch.EPDUserProfiles, AIRBranch.ISMPTestLogLink  " & _
+                    "where AIRBranch.ismptestnotification.strairsnumber = " & _
                     connNameSpace & ".apbfacilityinformation.strairsnumber (+)    " & _
-                    "and " & connNameSpace & ".ismptestnotification.strstaffresponsible = " & _
+                    "and AIRBranch.ismptestnotification.strstaffresponsible = " & _
                     connNameSpace & ".EPDUserProfiles.numUserID (+)  " & _
-                    "and " & connNameSpace & ".ISMPTestnotification.strTestLogNumber = " & _
+                    "and AIRBranch.ISMPTestnotification.strTestLogNumber = " & _
                     connNameSpace & ".ISMPTestLogLink.strTestLogNumber (+)   " & _
                     "and datProposedStartDate > (sysdate - 180)    " & _
                     "and strReferenceNumber is null    " & _
                     "union    " & _
                     "select    " & _
-                    "" & connNameSpace & ".ISMPTestNotification.strTestLogNumber as TestNumber,  " & _
-                    "" & connNameSpace & ".ISMpReportInformation.strReferenceNumber as RefNum,    " & _
+                    "AIRBranch.ISMPTestNotification.strTestLogNumber as TestNumber,  " & _
+                    "AIRBranch.ISMpReportInformation.strReferenceNumber as RefNum,    " & _
                     "case  " & _
-                    "when " & connNameSpace & ".ISMPTestNOtification.strAIRSNumber is Null then ''  " & _
-                    "else " & connNameSpace & ".APBFacilityInformation.strFacilityName    " & _
+                    "when AIRBranch.ISMPTestNOtification.strAIRSNumber is Null then ''  " & _
+                    "else AIRBranch.APBFacilityInformation.strFacilityName    " & _
                     "End FacilityName,  " & _
-                    "substr(" & connNameSpace & ".ISMPTestNOtification.strAIRSNumber, 5) as AIRSNumber,  " & _
+                    "substr(AIRBranch.ISMPTestNOtification.strAIRSNumber, 5) as AIRSNumber,  " & _
                     "strEmissionUnit,   " & _
                     "to_char(datProposedStartDate, 'dd-Mon-yyyy') as ProposedStartDate,  " & _
                     "case  " & _
                     "when strFirstName is Null then ''  " & _
                     "else(strLastName||', '||strFirstName)   " & _
                     "END StaffResponsible  " & _
-                    "from " & connNameSpace & ".ismptestnotification, " & connNameSpace & ".APBFacilityinformation,  " & _
-                    "" & connNameSpace & ".EPDUserProfiles, " & connNameSpace & ".ISMPTestLogLink,    " & _
-                    "" & connNameSpace & ".ISMPReportInformation    " & _
-                    "where " & connNameSpace & ".ismptestnotification.strairsnumber = " & _
+                    "from AIRBranch.ismptestnotification, AIRBranch.APBFacilityinformation,  " & _
+                    "AIRBranch.EPDUserProfiles, AIRBranch.ISMPTestLogLink,    " & _
+                    "AIRBranch.ISMPReportInformation    " & _
+                    "where AIRBranch.ismptestnotification.strairsnumber = " & _
                     connNameSpace & ".apbfacilityinformation.strairsnumber (+)    " & _
-                    "and " & connNameSpace & ".ismptestnotification.strstaffresponsible = " & _
+                    "and AIRBranch.ismptestnotification.strstaffresponsible = " & _
                     connNameSpace & ".EPDUserProfiles.numUserID (+)  " & _
-                    "and " & connNameSpace & ".ISMPTestNotification.strTestLogNumber = " & _
+                    "and AIRBranch.ISMPTestNotification.strTestLogNumber = " & _
                     connNameSpace & ".ISMPTestLogLink.strTestLogNumber (+)    " & _
-                    "and " & connNameSpace & ".ISMPTestLogLink.strReferencenumber = " & _
+                    "and AIRBranch.ISMPTestLogLink.strReferencenumber = " & _
                     connNameSpace & ".ISMPReportInformation.strReferenceNumber (+)    " & _
                     "and datProposedStartDate > (sysdate - 180)    " & _
-                    "and " & connNameSpace & ".ISMPTestLogLink.strReferenceNumber is not null    " & _
+                    "and AIRBranch.ISMPTestLogLink.strReferenceNumber is not null    " & _
                     "and strClosed = 'False'  "
 
                     If rdbStaffView.Checked = True Then
@@ -9037,6 +9039,16 @@ Public Class IAIPNavigation
             txtDataGridCount.Text = dgvWorkViewer.RowCount.ToString
 
 
+        Catch ex As Exception
+            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+        End Try
+    End Sub
+
+    Private Sub txtAIRSNumber_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txtAIRSNumber.KeyPress
+        Try
+            If e.KeyChar = Microsoft.VisualBasic.ChrW(13) And txtAIRSNumber.Text.Length = 8 Then
+                OpenFacilitySummary()
+            End If
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
