@@ -19736,8 +19736,9 @@ Public Class DMUStaffTools
             End If
 
             SQL = "Update AIRBranch.EIS_Admin set " & _
-            "strEnrollment = '1' " & _
-            "where active = '1' & " & _
+            "strEnrollment = '1' , " & _
+            "EISSTATUSCODE= '1' " & _
+            "where active = '1' " & _
             "and InventoryYear = '" & txtEISStatsEnrollmentYear.Text & "' " & _
             "and strMailout = '1' "
             cmd = New OracleCommand(SQL, conn)
