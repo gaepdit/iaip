@@ -260,15 +260,15 @@
     <Compile Include="AssemblyInfo.vb">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Clases\CodeFile.vb" />
-    <Compile Include="Clases\DataReaderAdapter.vb">
+    <Compile Include="Classes\CodeFile.vb" />
+    <Compile Include="Classes\DataReaderAdapter.vb">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Clases\email.vb" />
-    <Compile Include="Clases\ListViewItemComparer.vb">
+    <Compile Include="Classes\email.vb" />
+    <Compile Include="Classes\ListViewItemComparer.vb">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Clases\MRFunctions.vb">
+    <Compile Include="Classes\MRFunctions.vb">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="DataSet\dsInventoryReport.Designer.vb">
@@ -640,8 +640,8 @@
     <Compile Include="IAIP-Crystal Reports\Oracle 10.1\SSCP\CRFCE3.vb">
       <DependentUpon>CRFCE3.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
-      <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="IAIP-Crystal Reports\Oracle 10.1\SSPP\crSSPPConfirmationLetter.vb">
       <AutoGen>True</AutoGen>
@@ -846,28 +846,28 @@
     <Compile Include="SSPP\Sub Forms\SSPP_FeeContact.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Universial Forms\IAIPAFSCompare.Designer.vb">
+    <Compile Include="Universal Forms\IAIPAFSCompare.Designer.vb">
       <DependentUpon>IAIPAFSCompare.vb</DependentUpon>
     </Compile>
-    <Compile Include="Universial Forms\IAIPAFSCompare.vb">
+    <Compile Include="Universal Forms\IAIPAFSCompare.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Universial Forms\IAIPLookUpTables.Designer.vb">
+    <Compile Include="Universal Forms\IAIPLookUpTables.Designer.vb">
       <DependentUpon>IAIPLookUpTables.vb</DependentUpon>
     </Compile>
-    <Compile Include="Universial Forms\IAIPLookUpTables.vb">
+    <Compile Include="Universal Forms\IAIPLookUpTables.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Universial Forms\IAIPFeeAuditTool.Designer.vb">
+    <Compile Include="Universal Forms\IAIPFeeAuditTool.Designer.vb">
       <DependentUpon>IAIPFeeAuditTool.vb</DependentUpon>
     </Compile>
-    <Compile Include="Universial Forms\IAIPFeeAuditTool.vb">
+    <Compile Include="Universal Forms\IAIPFeeAuditTool.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Universial Forms\IAIPQueryGenerator.Designer.vb">
+    <Compile Include="Universal Forms\IAIPQueryGenerator.Designer.vb">
       <DependentUpon>IAIPQueryGenerator.vb</DependentUpon>
     </Compile>
-    <Compile Include="Universial Forms\IAIPQueryGenerator.vb">
+    <Compile Include="Universal Forms\IAIPQueryGenerator.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="ISMP\SMU\ISMPTestFirmComments.Designer.vb">
@@ -1314,109 +1314,109 @@
     <Compile Include="DevelopmentForms\AFSValidator.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Universial Forms\IAIPFacilitySummary.Designer.vb">
+    <Compile Include="Universal Forms\IAIPFacilitySummary.Designer.vb">
       <DependentUpon>IAIPFacilitySummary.vb</DependentUpon>
     </Compile>
-    <Compile Include="Universial Forms\IAIPFacilitySummary.vb">
+    <Compile Include="Universal Forms\IAIPFacilitySummary.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Universial Forms\IAIPDistrictSourceTool.Designer.vb">
+    <Compile Include="Universal Forms\IAIPDistrictSourceTool.Designer.vb">
       <DependentUpon>IAIPDistrictSourceTool.vb</DependentUpon>
     </Compile>
-    <Compile Include="Universial Forms\IAIPDistrictSourceTool.vb">
+    <Compile Include="Universal Forms\IAIPDistrictSourceTool.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Universial Forms\IAIPNavigation.Designer.vb">
+    <Compile Include="Universal Forms\IAIPNavigation.Designer.vb">
       <DependentUpon>IAIPNavigation.vb</DependentUpon>
     </Compile>
-    <Compile Include="Universial Forms\IAIPNavigation.vb">
+    <Compile Include="Universal Forms\IAIPNavigation.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Universial Forms\IAIPDevelopmentTeam.vb">
+    <Compile Include="Universal Forms\IAIPDevelopmentTeam.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Universial Forms\IAIPPermitUploader.Designer.vb">
+    <Compile Include="Universal Forms\IAIPPermitUploader.Designer.vb">
       <DependentUpon>IAIPPermitUploader.vb</DependentUpon>
     </Compile>
-    <Compile Include="Universial Forms\IAIPPermitUploader.vb">
+    <Compile Include="Universal Forms\IAIPPermitUploader.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Universial Forms\IAIPPrintOut.Designer.vb">
+    <Compile Include="Universal Forms\IAIPPrintOut.Designer.vb">
       <DependentUpon>IAIPPrintOut.vb</DependentUpon>
     </Compile>
-    <Compile Include="Universial Forms\IAIPPrintOut.vb">
+    <Compile Include="Universal Forms\IAIPPrintOut.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Universial Forms\IAIPLogIn.Designer.vb">
+    <Compile Include="Universal Forms\IAIPLogIn.Designer.vb">
       <DependentUpon>IAIPLogIn.vb</DependentUpon>
     </Compile>
-    <Compile Include="Universial Forms\IAIPLogIn.vb">
+    <Compile Include="Universal Forms\IAIPLogIn.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Universial Forms\IAIPUserAdminTool.Designer.vb">
+    <Compile Include="Universal Forms\IAIPUserAdminTool.Designer.vb">
       <DependentUpon>IAIPUserAdminTool.vb</DependentUpon>
     </Compile>
-    <Compile Include="Universial Forms\IAIPUserAdminTool.vb">
+    <Compile Include="Universal Forms\IAIPUserAdminTool.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Universial Forms\Sub Forms\IAIPFacilityCreator.Designer.vb">
+    <Compile Include="Universal Forms\Sub Forms\IAIPFacilityCreator.Designer.vb">
       <DependentUpon>IAIPFacilityCreator.vb</DependentUpon>
     </Compile>
-    <Compile Include="Universial Forms\Sub Forms\IAIPFacilityCreator.vb">
+    <Compile Include="Universal Forms\Sub Forms\IAIPFacilityCreator.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Universial Forms\Sub Forms\IAIPEditAirProgramPollutants.Designer.vb">
+    <Compile Include="Universal Forms\Sub Forms\IAIPEditAirProgramPollutants.Designer.vb">
       <DependentUpon>IAIPEditAirProgramPollutants.vb</DependentUpon>
     </Compile>
-    <Compile Include="Universial Forms\Sub Forms\IAIPEditAirProgramPollutants.vb">
+    <Compile Include="Universal Forms\Sub Forms\IAIPEditAirProgramPollutants.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Universial Forms\Sub Forms\IAIPEditFacilityLocation.Designer.vb">
+    <Compile Include="Universal Forms\Sub Forms\IAIPEditFacilityLocation.Designer.vb">
       <DependentUpon>IAIPEditFacilityLocation.vb</DependentUpon>
     </Compile>
-    <Compile Include="Universial Forms\Sub Forms\IAIPEditFacilityLocation.vb">
+    <Compile Include="Universal Forms\Sub Forms\IAIPEditFacilityLocation.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Universial Forms\Sub Forms\IAIPEditHeaderData.Designer.vb">
+    <Compile Include="Universal Forms\Sub Forms\IAIPEditHeaderData.Designer.vb">
       <DependentUpon>IAIPEditHeaderData.vb</DependentUpon>
     </Compile>
-    <Compile Include="Universial Forms\Sub Forms\IAIPEditHeaderData.vb">
+    <Compile Include="Universal Forms\Sub Forms\IAIPEditHeaderData.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Universial Forms\Sub Forms\IAIPEditSubParts.Designer.vb">
+    <Compile Include="Universal Forms\Sub Forms\IAIPEditSubParts.Designer.vb">
       <DependentUpon>IAIPEditSubParts.vb</DependentUpon>
     </Compile>
-    <Compile Include="Universial Forms\Sub Forms\IAIPEditSubParts.vb">
+    <Compile Include="Universal Forms\Sub Forms\IAIPEditSubParts.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Universial Forms\Sub Forms\IAIPEditContacts.Designer.vb">
+    <Compile Include="Universal Forms\Sub Forms\IAIPEditContacts.Designer.vb">
       <DependentUpon>IAIPEditContacts.vb</DependentUpon>
     </Compile>
-    <Compile Include="Universial Forms\Sub Forms\IAIPEditContacts.vb">
+    <Compile Include="Universal Forms\Sub Forms\IAIPEditContacts.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Universial Forms\Sub Forms\IAIPFacilityLookUpTool.Designer.vb">
+    <Compile Include="Universal Forms\Sub Forms\IAIPFacilityLookUpTool.Designer.vb">
       <DependentUpon>IAIPFacilityLookUpTool.vb</DependentUpon>
     </Compile>
-    <Compile Include="Universial Forms\Sub Forms\IAIPFacilityLookUpTool.vb">
+    <Compile Include="Universal Forms\Sub Forms\IAIPFacilityLookUpTool.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Universial Forms\Sub Forms\IAIPFacilitySummaryPrint.Designer.vb">
+    <Compile Include="Universal Forms\Sub Forms\IAIPFacilitySummaryPrint.Designer.vb">
       <DependentUpon>IAIPFacilitySummaryPrint.vb</DependentUpon>
     </Compile>
-    <Compile Include="Universial Forms\Sub Forms\IAIPFacilitySummaryPrint.vb">
+    <Compile Include="Universal Forms\Sub Forms\IAIPFacilitySummaryPrint.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Universial Forms\Sub Forms\IAIPListTool.Designer.vb">
+    <Compile Include="Universal Forms\Sub Forms\IAIPListTool.Designer.vb">
       <DependentUpon>IAIPListTool.vb</DependentUpon>
     </Compile>
-    <Compile Include="Universial Forms\Sub Forms\IAIPListTool.vb">
+    <Compile Include="Universal Forms\Sub Forms\IAIPListTool.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Universial Forms\Sub Forms\IAIPProfileUpdate.Designer.vb">
+    <Compile Include="Universal Forms\Sub Forms\IAIPProfileUpdate.Designer.vb">
       <DependentUpon>IAIPProfileUpdate.vb</DependentUpon>
     </Compile>
-    <Compile Include="Universial Forms\Sub Forms\IAIPProfileUpdate.vb">
+    <Compile Include="Universal Forms\Sub Forms\IAIPProfileUpdate.vb">
       <SubType>Form</SubType>
     </Compile>
     <EmbeddedResource Include="DevelopmentForms\DEVEditContacts.resx">
@@ -1764,17 +1764,17 @@
     <EmbeddedResource Include="SSPP\Sub Forms\SSPP_FeeContact.resx">
       <DependentUpon>SSPP_FeeContact.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Universial Forms\IAIPAFSCompare.resx">
+    <EmbeddedResource Include="Universal Forms\IAIPAFSCompare.resx">
       <DependentUpon>IAIPAFSCompare.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Universial Forms\IAIPLookUpTables.resx">
+    <EmbeddedResource Include="Universal Forms\IAIPLookUpTables.resx">
       <DependentUpon>IAIPLookUpTables.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Universial Forms\IAIPFeeAuditTool.resx">
+    <EmbeddedResource Include="Universal Forms\IAIPFeeAuditTool.resx">
       <DependentUpon>IAIPFeeAuditTool.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Universial Forms\IAIPQueryGenerator.resx">
+    <EmbeddedResource Include="Universal Forms\IAIPQueryGenerator.resx">
       <SubType>Designer</SubType>
       <DependentUpon>IAIPQueryGenerator.vb</DependentUpon>
     </EmbeddedResource>
@@ -2112,75 +2112,75 @@
       <SubType>Designer</SubType>
       <DependentUpon>AFSValidator.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Universial Forms\IAIPFacilitySummary.resx">
+    <EmbeddedResource Include="Universal Forms\IAIPFacilitySummary.resx">
       <SubType>Designer</SubType>
       <DependentUpon>IAIPFacilitySummary.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Universial Forms\IAIPDistrictSourceTool.resx">
+    <EmbeddedResource Include="Universal Forms\IAIPDistrictSourceTool.resx">
       <SubType>Designer</SubType>
       <DependentUpon>IAIPDistrictSourceTool.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Universial Forms\IAIPNavigation.resx">
+    <EmbeddedResource Include="Universal Forms\IAIPNavigation.resx">
       <SubType>Designer</SubType>
       <DependentUpon>IAIPNavigation.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Universial Forms\IAIPDevelopmentTeam.resx">
+    <EmbeddedResource Include="Universal Forms\IAIPDevelopmentTeam.resx">
       <DependentUpon>IAIPDevelopmentTeam.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Universial Forms\IAIPPermitUploader.resx">
+    <EmbeddedResource Include="Universal Forms\IAIPPermitUploader.resx">
       <SubType>Designer</SubType>
       <DependentUpon>IAIPPermitUploader.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Universial Forms\IAIPPrintOut.resx">
+    <EmbeddedResource Include="Universal Forms\IAIPPrintOut.resx">
       <SubType>Designer</SubType>
       <DependentUpon>IAIPPrintOut.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Universial Forms\IAIPLogIn.resx">
+    <EmbeddedResource Include="Universal Forms\IAIPLogIn.resx">
       <SubType>Designer</SubType>
       <DependentUpon>IAIPLogIn.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Universial Forms\IAIPUserAdminTool.resx">
+    <EmbeddedResource Include="Universal Forms\IAIPUserAdminTool.resx">
       <SubType>Designer</SubType>
       <DependentUpon>IAIPUserAdminTool.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Universial Forms\Sub Forms\IAIPFacilityCreator.resx">
+    <EmbeddedResource Include="Universal Forms\Sub Forms\IAIPFacilityCreator.resx">
       <DependentUpon>IAIPFacilityCreator.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Universial Forms\Sub Forms\IAIPEditAirProgramPollutants.resx">
+    <EmbeddedResource Include="Universal Forms\Sub Forms\IAIPEditAirProgramPollutants.resx">
       <SubType>Designer</SubType>
       <DependentUpon>IAIPEditAirProgramPollutants.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Universial Forms\Sub Forms\IAIPEditFacilityLocation.resx">
+    <EmbeddedResource Include="Universal Forms\Sub Forms\IAIPEditFacilityLocation.resx">
       <SubType>Designer</SubType>
       <DependentUpon>IAIPEditFacilityLocation.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Universial Forms\Sub Forms\IAIPEditHeaderData.resx">
+    <EmbeddedResource Include="Universal Forms\Sub Forms\IAIPEditHeaderData.resx">
       <SubType>Designer</SubType>
       <DependentUpon>IAIPEditHeaderData.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Universial Forms\Sub Forms\IAIPEditSubParts.resx">
+    <EmbeddedResource Include="Universal Forms\Sub Forms\IAIPEditSubParts.resx">
       <SubType>Designer</SubType>
       <DependentUpon>IAIPEditSubParts.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Universial Forms\Sub Forms\IAIPEditContacts.resx">
+    <EmbeddedResource Include="Universal Forms\Sub Forms\IAIPEditContacts.resx">
       <SubType>Designer</SubType>
       <DependentUpon>IAIPEditContacts.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Universial Forms\Sub Forms\IAIPFacilityLookUpTool.resx">
+    <EmbeddedResource Include="Universal Forms\Sub Forms\IAIPFacilityLookUpTool.resx">
       <SubType>Designer</SubType>
       <DependentUpon>IAIPFacilityLookUpTool.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Universial Forms\Sub Forms\IAIPFacilitySummaryPrint.resx">
+    <EmbeddedResource Include="Universal Forms\Sub Forms\IAIPFacilitySummaryPrint.resx">
       <DependentUpon>IAIPFacilitySummaryPrint.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Universial Forms\Sub Forms\IAIPListTool.resx">
+    <EmbeddedResource Include="Universal Forms\Sub Forms\IAIPListTool.resx">
       <SubType>Designer</SubType>
       <DependentUpon>IAIPListTool.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Universial Forms\Sub Forms\IAIPProfileUpdate.resx">
+    <EmbeddedResource Include="Universal Forms\Sub Forms\IAIPProfileUpdate.resx">
       <DependentUpon>IAIPProfileUpdate.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>

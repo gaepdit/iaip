@@ -1,0 +1,106 @@
+# TNSNAMES.ORA Network Configuration File: C:\Oracle\Ora81\NETWORK\ADMIN\tnsnames.ora
+#
+#
+#  Revised 7-13-2006 to change WRIS from IP address to make more portable
+#  Changed Service Names back to SIDs for backward compatibility with older versions.
+#  Warning:  Some SQLNet.ORA files will also need to be replaced
+#  Tested with Oracle clients .... 
+#  9.2.0.1.0 client verified with WRIS, PRD8 by W.Boyd 7/13/06 and with  SQLNET file replaced 7/13/06
+#  10.2.0.1.0 verified with PRD8 by S. Ramireddy 7/13/06
+#  7.3.4 verified with WRIS, PRD8 by N. Yi 7/13/06 after commenting out "World" SQLNet Commands.
+#  8.0.6.0.0 verified with WRIS, PRD8 by N. Yi 7/14/06
+#  10.1 InstantClient with WRIS, PRD8 by W. Boyd 7/14/06
+#  Revised 2/2/2007 Ahall - added tnsnames entries for new database instances and for fail-over
+#			    removed DEV8 and WRISTEST
+#  DPLS is to be used only for the old DPLS data on the Compaq - 2/15/2007 AHall
+#  WRIS.world is necessary for Terminal Manager to work - 2/15/2007 ahall
+#
+#  W. Boyd
+#
+#  For ISMP/DMU purposes removed excess Network Aliases on 4/12/07.
+#  B. Gregory
+
+
+
+
+DEV =
+  (DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = leia.dnr.state.ga.us)(PORT = 1521))
+      (ADDRESS = (PROTOCOL = TCP)(HOST = leia.dnr.state.ga.us)(PORT = 2483))
+    )
+    (CONNECT_DATA =
+      (SID = DEV)
+    )
+  )
+
+TEST =
+  (DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = leia.dnr.state.ga.us)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SID = TEST)
+    )
+  )
+
+PRD =
+  (DESCRIPTION_LIST =
+    (FAILOVER = TRUE)
+    (LOAD_BALANCE = FALSE)
+    (DESCRIPTION =
+    (ADDRESS = (PROTOCOL = TCP)(HOST = luke.dnr.state.ga.us)(PORT = 1521))
+      (CONNECT_DATA =
+        (SID =PRD)
+        (SERVER = DEDICATED)
+      )
+    )
+  (DESCRIPTION =
+    (ADDRESS = (PROTOCOL = TCP)(HOST = leia.dnr.state.ga.us)(PORT = 1521))
+      (CONNECT_DATA =
+        (SID =PRD)  		
+        (SERVER = DEDICATED)
+      )
+    )
+  (DESCRIPTION =			
+    (ADDRESS = (PROTOCOL = TCP)(HOST = grievous.dnr.state.ga.us)(PORT = 1521))
+      (CONNECT_DATA =
+        (SID =PRD)  	
+        (SERVER = DEDICATED)
+      )
+    )
+   )
+
+PRD8 =
+  (DESCRIPTION_LIST =
+    (FAILOVER = TRUE)
+    (LOAD_BALANCE = FALSE)
+    (DESCRIPTION =
+     (ADDRESS = (PROTOCOL = TCP)(HOST = psd3.dnr.state.ga.us)(PORT = 1521))
+        (CONNECT_DATA =
+        (SID = PRD8)
+		(SERVER = DEDICATED)
+      )
+    )
+   (DESCRIPTION =
+    (ADDRESS = (PROTOCOL = TCP)(HOST = luke.dnr.state.ga.us)(PORT = 1521))
+      (CONNECT_DATA =
+        (SID =PRD)
+        (SERVER = DEDICATED)
+      )
+    )
+  (DESCRIPTION =
+    (ADDRESS = (PROTOCOL = TCP)(HOST = leia.dnr.state.ga.us)(PORT = 1521))
+      (CONNECT_DATA =
+        (SID =PRD)  		
+        (SERVER = DEDICATED)
+      )
+    )
+  (DESCRIPTION =			
+    (ADDRESS = (PROTOCOL = TCP)(HOST = grievous.dnr.state.ga.us)(PORT = 1521))
+      (CONNECT_DATA =
+        (SID =PRD)  	
+        (SERVER = DEDICATED)
+      )
+    )
+   )
