@@ -203,7 +203,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="ClassDiagram2.cd" />
     <None Include="DataSet\dsIAIP10.xsc">
       <DependentUpon>dsIAIP10.xsd</DependentUpon>
     </None>

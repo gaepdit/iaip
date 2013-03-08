@@ -973,7 +973,7 @@ Partial Class IAIPNavigation
         Me.pnl1.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
         Me.pnl1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
         Me.pnl1.Name = "pnl1"
-        Me.pnl1.Size = New System.Drawing.Size(403, 17)
+        Me.pnl1.Size = New System.Drawing.Size(391, 17)
         Me.pnl1.Spring = True
         Me.pnl1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
@@ -985,7 +985,7 @@ Partial Class IAIPNavigation
         Me.pnl2.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
         Me.pnl2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
         Me.pnl2.Name = "pnl2"
-        Me.pnl2.Size = New System.Drawing.Size(38, 17)
+        Me.pnl2.Size = New System.Drawing.Size(40, 17)
         Me.pnl2.Text = "Name"
         '
         'pnl3
@@ -996,7 +996,7 @@ Partial Class IAIPNavigation
         Me.pnl3.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
         Me.pnl3.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
         Me.pnl3.Name = "pnl3"
-        Me.pnl3.Size = New System.Drawing.Size(34, 17)
+        Me.pnl3.Size = New System.Drawing.Size(35, 17)
         Me.pnl3.Text = "Date"
         '
         'pnl4
@@ -1007,7 +1007,7 @@ Partial Class IAIPNavigation
         Me.pnl4.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
         Me.pnl4.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
         Me.pnl4.Name = "pnl4"
-        Me.pnl4.Size = New System.Drawing.Size(71, 17)
+        Me.pnl4.Size = New System.Drawing.Size(76, 17)
         Me.pnl4.Text = "Environment"
         '
         'pnl5
@@ -1018,7 +1018,7 @@ Partial Class IAIPNavigation
         Me.pnl5.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
         Me.pnl5.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
         Me.pnl5.Name = "pnl5"
-        Me.pnl5.Size = New System.Drawing.Size(36, 17)
+        Me.pnl5.Size = New System.Drawing.Size(40, 17)
         Me.pnl5.Text = "Blank"
         '
         'llbTrackingNumber
