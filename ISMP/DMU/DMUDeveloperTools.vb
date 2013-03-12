@@ -66,7 +66,7 @@ Public Class DMUDeveloperTools
 
 
             TCDMUTools.TabPages.Add(TPAFSFileGenerator)
-            TCDMUTools.TabPages.Add(TPATSTool)
+            'TCDMUTools.TabPages.Add(TPATSTool)
             LoadOtherComboBoxes()
 
             'AFS Users
