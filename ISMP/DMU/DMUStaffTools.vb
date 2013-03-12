@@ -15891,14 +15891,14 @@ Public Class DMUStaffTools
             "strContactAddress1 = '" & Replace(txtEISMailoutEditAdress.Text, "'", "''") & "', " & _
             "strContactAddress2 = '" & Replace(txtEISMailoutEditAddress2.Text, "'", "''") & "', " & _
             "strContactCity = '" & Replace(txtEISMailoutEditCity.Text, "'", "''") & "', " & _
-            "strContactState = ' " & Replace(txtEISMailoutEditState.Text, "'", "''") & "', " & _
+            "strContactState = '" & Replace(txtEISMailoutEditState.Text, "'", "''") & "', " & _
             "strContactZipCode = '" & Replace(txtEISMailoutEditZipCode.Text, "'", "''") & "', " & _
             "strContactFirstName = '" & Replace(txtEISMailoutEditFirstName.Text, "'", "''") & "', " & _
             "strContactLastName = '" & Replace(txtEISMailoutEditLastName.Text, "'", "''") & "', " & _
             "strContactPrefix = '" & Replace(txtEISMailoutEditPrefix.Text, "'", "''") & "', " & _
             "strContactEmail = '" & Replace(txtEISMailoutEditEmailAddress.Text, "'", "''") & "', " & _
             "strComment = '" & Replace(txtEISMailoutEditComments.Text, "'", "''") & "' " & _
-            "where strFacilitySiteid = '" & txtEILogSelectedAIRSNumber.Text & "' " & _
+            "where FacilitySiteid = '" & txtEILogSelectedAIRSNumber.Text & "' " & _
             "and intInventoryYear = '" & txtEILogSelectedYear.Text & "' "
 
             cmd = New OracleCommand(SQL, conn)
