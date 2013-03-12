@@ -56,7 +56,7 @@ Module submain
     Public t As New System.Timers.Timer(14400000)
     Public t2 As New System.Timers.Timer(300000)
 
-#Region "Universial Screens"
+#Region "Universal Screens"
     Public APB110 As IAIPLogIn
 
     Public NavigationScreen As IAIPNavigation
@@ -341,10 +341,11 @@ Module submain
     End Sub
 
 #End Region
-#Region "Encrytpion Script"
+#Region "Encryption Script"
     Public Function SimpleCrypt(ByVal Text As String) As String
         ' Encrypts/decrypts the passed string using
         ' a simple ASCII value-swapping algorithm
+        ' DWW comment: You've got to be kidding me. ROT128? We're using an encryption scheme used by Julius Caesar?
         Dim strTempChar As String = ""
         Dim i As Integer
 
