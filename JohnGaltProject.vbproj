@@ -715,10 +715,10 @@
     <Compile Include="ISMP\SMU\SubPages\ISMPStaffReports.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DevelopmentForms\PASPFeeAuditLog.Designer.vb">
+    <Compile Include="PASP\PASPFeeAuditLog.Designer.vb">
       <DependentUpon>PASPFeeAuditLog.vb</DependentUpon>
     </Compile>
-    <Compile Include="DevelopmentForms\PASPFeeAuditLog.vb">
+    <Compile Include="PASP\PASPFeeAuditLog.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="MASP\MASPRegistrationTool.Designer.vb">
@@ -1692,7 +1692,7 @@
     <EmbeddedResource Include="ISMP\SMU\SubPages\ISMPStaffReports.resx">
       <DependentUpon>ISMPStaffReports.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DevelopmentForms\PASPFeeAuditLog.resx">
+    <EmbeddedResource Include="PASP\PASPFeeAuditLog.resx">
       <DependentUpon>PASPFeeAuditLog.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MASP\MASPRegistrationTool.resx">
