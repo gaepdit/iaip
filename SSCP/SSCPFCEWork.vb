@@ -1494,7 +1494,7 @@ Public Class SSCPFCEWork
                     SaveFCE()
                 Case 1
                     LoadSSCPFCEReport()
-                    'Print()
+                    Print()
                 Case 2
                     Clear()
                 Case 3
@@ -2487,15 +2487,40 @@ Public Class SSCPFCEWork
                 FCEInspections = ""
 
                 'FCE Inspections
+
+                'SQL = "Select " & _
+                '"STRAIRSNUMBER, STRTRACKINGNUMBER, " & _
+                '"INSPECTIONDATE, INSFOLLOWUP, " & _
+                '"INSPECTIONGUIDE, INSPECTINGSTAFF, " & _
+                '"STRINSPECTIONCOMMENTS " & _
+                '"from AIRBranch.VW_FCE_InspectionData " & _
+                '"where strAIRSNumber  = '0413" & txtAirsNumber.Text & "'  " & _
+                '"and Inspectiondate between '" & FiveYearDate & "' and '" & DTPFCECompleteDate.Text & "' " & _
+                '"order by INSPECTIONDATE desc "
+
                 SQL = "Select " & _
-                "STRAIRSNUMBER, STRTRACKINGNUMBER, " & _
-                "INSPECTIONDATE, INSFOLLOWUP, " & _
-                "INSPECTIONGUIDE, INSPECTINGSTAFF, " & _
-                "STRINSPECTIONCOMMENTS " & _
-                "from AIRBranch.VW_FCE_InspectionData " & _
-                "where strAIRSNumber  = '0413" & txtAirsNumber.Text & "'  " & _
-                "and Inspectiondate between '" & FiveYearDate & "' and '" & DTPFCECompleteDate.Text & "' " & _
-                "order by INSPECTIONDATE desc "
+               "tblVW_FCE_INSPECTIONDATA.strTrackingNumber, tblVW_FCE_INSPECTIONDATA.strAIRSNumber, " & _
+               "TO_CHAR(tblVW_FCE_INSPECTIONDATA.datInspectionDate, 'dd-Mon-yyyy') AS STRINSPECTIONDATE, " & _
+               "tblVW_FCE_INSPECTIONDATA.STRINSPFOLLOWUP, tblVW_FCE_INSPECTIONDATA.STRINSPECTINGSTAFF, " & _
+               "tblVW_FCE_INSPECTIONDATA.STRINSPECTIONCOMMENTS, tblVW_FCE_INSPECTIONDATA.STRINSPECTIONREASON " & _
+               "from (SELECT AIRBRANCH.SSCPITEMMASTER.STRTRACKINGNUMBER, " & _
+               "AIRBRANCH.SSCPITEMMASTER.STRAIRSNUMBER, " & _
+               "AIRBRANCH.SSCPINSPECTIONS.DATINSPECTIONDATESTART AS DATINSPECTIONDATE, " & _
+               "CASE WHEN AIRBRANCH.SSCPINSPECTIONS.STRINSPECTIONFOLLOWUP = 'False' " & _
+               "THEN 'No' ELSE 'Yes' END STRINSPFOLLOWUP, " & _
+               "(AIRBRANCH.EPDUSERPROFILES.STRLASTNAME || ', ' " & _
+               "|| AIRBRANCH.EPDUSERPROFILES.STRFIRSTNAME) AS STRINSPECTINGSTAFF, " & _
+               "AIRBRANCH.SSCPINSPECTIONS.STRINSPECTIONCOMMENTS, " & _
+               "AIRBRANCH.SSCPINSPECTIONS.STRINSPECTIONREASON " & _
+               "FROM AIRBRANCH.SSCPITEMMASTER INNER JOIN AIRBRANCH.SSCPINSPECTIONS " & _
+               "ON AIRBRANCH.SSCPITEMMASTER.STRTRACKINGNUMBER = AIRBRANCH.SSCPINSPECTIONS.STRTRACKINGNUMBER " & _
+               "LEFT JOIN AIRBRANCH.EPDUSERPROFILES " & _
+               "ON AIRBRANCH.EPDUSERPROFILES.NUMUSERID = AIRBRANCH.SSCPITEMMASTER.STRRESPONSIBLESTAFF) " & _
+               "tblVW_FCE_INSPECTIONDATA " & _
+               "where tblVW_FCE_INSPECTIONDATA.strAIRSNumber  = '0413" & txtAirsNumber.Text & "' " & _
+               "and tblVW_FCE_INSPECTIONDATA.datInspectionDate between '" & FiveYearDate & "' and '" & DTPFCECompleteDate.Text & "' " & _
+               "order by datInspectionDate desc "
+
 
                 cmd = New OracleCommand(SQL, conn)
 
@@ -2517,11 +2542,11 @@ Public Class SSCPFCEWork
                     dr = cmd.ExecuteReader
                     While dr.Read
                         FCEInspections = FCEInspections & "GA EPD Tracking Number:  " & vbTab & dr.Item("strTrackingNumber") & vbCrLf & _
-                             "Staff Responsible:       " & vbTab & vbTab & dr.Item("InspectingStaff") & vbCrLf & _
-                             "Inspection Date:         " & vbTab & vbTab & dr.Item("INSPECTIONDATE") & vbCrLf & _
-                             "Facility Guide:          " & vbTab & vbTab & dr.Item("INSPECTIONGUIDE") & vbCrLf & _
-                             "Follow Up Action Taken:  " & vbTab & dr.Item("INSFOLLOWUP") & vbCrLf & _
-                             "Comments:                " & vbCrLf & vbTab & vbTab & vbTab & dr.Item("STRINSPECTIONCOMMENTS") & _
+                             "Staff Responsible:       " & vbTab & vbTab & dr.Item("STRINSPECTINGSTAFF") & vbCrLf & _
+                             "Inspection Date:         " & vbTab & vbTab & dr.Item("STRINSPECTIONDATE") & vbCrLf & _
+                             "Reason for Inspection:          " & vbTab & vbTab & dr.Item("STRINSPECTIONREASON") & vbCrLf & _
+                             "Follow Up Action Taken:  " & vbTab & dr.Item("STRINSPFOLLOWUP") & vbCrLf & _
+                             "Comments:                " & vbCrLf & dr.Item("STRINSPECTIONCOMMENTS") & _
                              vbCrLf & vbCrLf
 
                     End While
