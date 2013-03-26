@@ -55,6 +55,8 @@ Public Class SSCPFCEWork
                 TBFCE.Buttons.Remove(TbbSave)
             End If
 
+            TabControlFCE.TabPages.Remove(TabPageFCEPrint)
+
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -1494,7 +1496,7 @@ Public Class SSCPFCEWork
                     SaveFCE()
                 Case 1
                     LoadSSCPFCEReport()
-                    Print()
+                    'Print()
                 Case 2
                     Clear()
                 Case 3
@@ -2409,6 +2411,9 @@ Public Class SSCPFCEWork
             dr = cmd.ExecuteReader
             recExist = dr.Read
             If recExist = True Then
+                ' Show the printout tab
+                TabControlFCE.TabPages.Add(TabPageFCEPrint)
+
                 If IsDBNull(dr.Item("strFCEYear")) Then
                     FiscalYear = "N/A"
                 Else
@@ -3102,8 +3107,10 @@ Public Class SSCPFCEWork
 
                 'Display the Report
                 CRViewer.ReportSource = rpt
+                TabControlFCE.SelectedTab = TabPageFCEPrint
 
             Else
+                TabControlFCE.TabPages.Remove(TabPageFCEPrint)
                 MsgBox("Unable to Print at this time.", MsgBoxStyle.Information, "Print Out")
                 PrintOut.Close()
             End If

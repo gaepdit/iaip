@@ -115,9 +115,9 @@ Partial Class SSCPFCEWork
         Me.Panel4 = New System.Windows.Forms.Panel
         Me.Panel6 = New System.Windows.Forms.Panel
         Me.Panel5 = New System.Windows.Forms.Panel
-        Me.TabControl1 = New System.Windows.Forms.TabControl
-        Me.TabPage1 = New System.Windows.Forms.TabPage
-        Me.TabPage2 = New System.Windows.Forms.TabPage
+        Me.TabControlFCE = New System.Windows.Forms.TabControl
+        Me.TabPageFCEData = New System.Windows.Forms.TabPage
+        Me.TabPageFCEPrint = New System.Windows.Forms.TabPage
         Me.CRViewer = New CrystalDecisions.Windows.Forms.CrystalReportViewer
         Me.StatusStrip1.SuspendLayout()
         Me.TCFCEData.SuspendLayout()
@@ -149,9 +149,9 @@ Partial Class SSCPFCEWork
         Me.Panel4.SuspendLayout()
         Me.Panel6.SuspendLayout()
         Me.Panel5.SuspendLayout()
-        Me.TabControl1.SuspendLayout()
-        Me.TabPage1.SuspendLayout()
-        Me.TabPage2.SuspendLayout()
+        Me.TabControlFCE.SuspendLayout()
+        Me.TabPageFCEData.SuspendLayout()
+        Me.TabPageFCEPrint.SuspendLayout()
         Me.SuspendLayout()
         '
         'StatusStrip1
@@ -1137,40 +1137,40 @@ Partial Class SSCPFCEWork
         Me.Panel5.Size = New System.Drawing.Size(863, 100)
         Me.Panel5.TabIndex = 242
         '
-        'TabControl1
+        'TabControlFCE
         '
-        Me.TabControl1.Controls.Add(Me.TabPage1)
-        Me.TabControl1.Controls.Add(Me.TabPage2)
-        Me.TabControl1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TabControl1.Location = New System.Drawing.Point(0, 28)
-        Me.TabControl1.Name = "TabControl1"
-        Me.TabControl1.SelectedIndex = 0
-        Me.TabControl1.Size = New System.Drawing.Size(877, 592)
-        Me.TabControl1.TabIndex = 243
+        Me.TabControlFCE.Controls.Add(Me.TabPageFCEData)
+        Me.TabControlFCE.Controls.Add(Me.TabPageFCEPrint)
+        Me.TabControlFCE.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TabControlFCE.Location = New System.Drawing.Point(0, 28)
+        Me.TabControlFCE.Name = "TabControlFCE"
+        Me.TabControlFCE.SelectedIndex = 0
+        Me.TabControlFCE.Size = New System.Drawing.Size(877, 592)
+        Me.TabControlFCE.TabIndex = 243
         '
-        'TabPage1
+        'TabPageFCEData
         '
-        Me.TabPage1.Controls.Add(Me.Panel4)
-        Me.TabPage1.Controls.Add(Me.GroupBox2)
-        Me.TabPage1.Controls.Add(Me.Panel5)
-        Me.TabPage1.Location = New System.Drawing.Point(4, 22)
-        Me.TabPage1.Name = "TabPage1"
-        Me.TabPage1.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage1.Size = New System.Drawing.Size(869, 566)
-        Me.TabPage1.TabIndex = 0
-        Me.TabPage1.Text = "FCE Data"
-        Me.TabPage1.UseVisualStyleBackColor = True
+        Me.TabPageFCEData.Controls.Add(Me.Panel4)
+        Me.TabPageFCEData.Controls.Add(Me.GroupBox2)
+        Me.TabPageFCEData.Controls.Add(Me.Panel5)
+        Me.TabPageFCEData.Location = New System.Drawing.Point(4, 22)
+        Me.TabPageFCEData.Name = "TabPageFCEData"
+        Me.TabPageFCEData.Padding = New System.Windows.Forms.Padding(3)
+        Me.TabPageFCEData.Size = New System.Drawing.Size(869, 566)
+        Me.TabPageFCEData.TabIndex = 0
+        Me.TabPageFCEData.Text = "FCE Data"
+        Me.TabPageFCEData.UseVisualStyleBackColor = True
         '
-        'TabPage2
+        'TabPageFCEPrint
         '
-        Me.TabPage2.Controls.Add(Me.CRViewer)
-        Me.TabPage2.Location = New System.Drawing.Point(4, 22)
-        Me.TabPage2.Name = "TabPage2"
-        Me.TabPage2.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage2.Size = New System.Drawing.Size(869, 566)
-        Me.TabPage2.TabIndex = 1
-        Me.TabPage2.Text = "FCE Print out"
-        Me.TabPage2.UseVisualStyleBackColor = True
+        Me.TabPageFCEPrint.Controls.Add(Me.CRViewer)
+        Me.TabPageFCEPrint.Location = New System.Drawing.Point(4, 22)
+        Me.TabPageFCEPrint.Name = "TabPageFCEPrint"
+        Me.TabPageFCEPrint.Padding = New System.Windows.Forms.Padding(3)
+        Me.TabPageFCEPrint.Size = New System.Drawing.Size(869, 566)
+        Me.TabPageFCEPrint.TabIndex = 1
+        Me.TabPageFCEPrint.Text = "FCE Printout"
+        Me.TabPageFCEPrint.UseVisualStyleBackColor = True
         '
         'CRViewer
         '
@@ -1192,7 +1192,7 @@ Partial Class SSCPFCEWork
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(877, 642)
-        Me.Controls.Add(Me.TabControl1)
+        Me.Controls.Add(Me.TabControlFCE)
         Me.Controls.Add(Me.txtOrigin)
         Me.Controls.Add(Me.txtAirsNumber)
         Me.Controls.Add(Me.TBFCE)
@@ -1243,9 +1243,9 @@ Partial Class SSCPFCEWork
         Me.Panel6.PerformLayout()
         Me.Panel5.ResumeLayout(False)
         Me.Panel5.PerformLayout()
-        Me.TabControl1.ResumeLayout(False)
-        Me.TabPage1.ResumeLayout(False)
-        Me.TabPage2.ResumeLayout(False)
+        Me.TabControlFCE.ResumeLayout(False)
+        Me.TabPageFCEData.ResumeLayout(False)
+        Me.TabPageFCEPrint.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1343,9 +1343,10 @@ Partial Class SSCPFCEWork
     Friend WithEvents Panel4 As System.Windows.Forms.Panel
     Friend WithEvents Panel5 As System.Windows.Forms.Panel
     Friend WithEvents Panel6 As System.Windows.Forms.Panel
-    Friend WithEvents TabControl1 As System.Windows.Forms.TabControl
-    Friend WithEvents TabPage1 As System.Windows.Forms.TabPage
+    Friend WithEvents TabControlFCE As System.Windows.Forms.TabControl
+    Friend WithEvents TabPageFCEData As System.Windows.Forms.TabPage
     Friend WithEvents TabPage2 As System.Windows.Forms.TabPage
     Friend WithEvents btnPrintTest As System.Windows.Forms.Button
     Friend WithEvents CRViewer As CrystalDecisions.Windows.Forms.CrystalReportViewer
+    Friend WithEvents TabPageFCEPrint As System.Windows.Forms.TabPage
 End Class
