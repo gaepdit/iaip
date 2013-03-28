@@ -6079,15 +6079,15 @@ Public Class IAIPFacilitySummary
                 MsgBox("Enter a valid AIRS # first", MsgBoxStyle.Information, "Facility Summary")
                 Exit Sub
             End If
+
             If FacilityPrintOut Is Nothing Then
-                If FacilityPrintOut Is Nothing Then FacilityPrintOut = New IAIPFacilitySummaryPrint
-                FacilityPrintOut.Show()
             Else
                 FacilityPrintOut.Dispose()
-                FacilityPrintOut = New IAIPFacilitySummaryPrint
-                If FacilityPrintOut Is Nothing Then FacilityPrintOut = New IAIPFacilitySummaryPrint
-                FacilityPrintOut.Show()
             End If
+
+            FacilityPrintOut = New IAIPFacilitySummaryPrint
+            FacilityPrintOut.Show()
+
             FacilityPrintOut.mtbAIRSNumber.Text = mtbAIRSNumber.Text
             FacilityPrintOut.txtFacilityName.Text = txtFacilityName.Text
 
