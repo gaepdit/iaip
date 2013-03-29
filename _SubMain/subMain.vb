@@ -11,25 +11,32 @@ Imports System.Data
 Imports System.Data.OleDb
 Imports System.Data.Odbc
 
-Module submain
-    Public connNameSpace As String = "AIRBranch"
-    Public PRDconnLine As String = "Data Source = PRD; User ID = AIRBranch_App_User; Password = " & SimpleCrypt("ÁÚ·Ú±Ï") & ";"
+Module subMain
+#Region "DB Connection Strings"
+    Friend Const connNameSpace As String = "AIRBRANCH"
+
+    Friend Const PRDconnLine As String = "Data Source = PRD; User ID = AIRBRANCH_APP_USER; Password = " & SimpleCrypt("ÁÚ·Ú±Ï") & ";"
     Public TESTconnLine As String = "Data Source = TEST; User ID = AIRBRANCH_APP_USER; Password = " & SimpleCrypt("¡…“¡––’”≈“∞≥") & ";"
-    Public DEVconnLine As String = "Data Source = DEV; User ID = AirBranch; Password = " & SimpleCrypt("ÛÌÔÁ·ÏÂÚÙ") & ";"
+    Public DEVconnLine As String = "Data Source = DEV; User ID = AIRBRANCH; Password = " & SimpleCrypt("ÛÌÔÁ·ÏÂÚÙ") & ";"
+
     Public TVProject As String = "Data Source = airtvproject; User ID = airtvproject; Password = airproject;"
-    Public TVApplicaiton As String = "Data Source = airtvapplication; User ID = airtvapplication; Password = airapp;"
+    Public TVApplication As String = "Data Source = airtvapplication; User ID = airtvapplication; Password = airapp;"
+
     Public PRDCRLogIn As String = "AirBranch_App_User"
     Public PRDCRPassWord As String = SimpleCrypt("ÁÚ·Ú±Ï")
+
     Public TESTCRLogIn As String = "AirBranch_App_User"
     Public TESTCRPassWord As String = SimpleCrypt("¡…“¡––’”≈“∞≥")
+
     Public DEVCRLogIn As String = "AirBranch"
     Public DEVCRPassWord As String = SimpleCrypt("ÛÌÔÁ·ÏÂÚÙ")
+#End Region
 
     Public conn As New OracleConnection(PRDconnLine)
     Public connTVProject As New OracleConnection("Data Source= leia.dnr.state.ga.us:1521/DEV; " & _
         "User ID = AirTVProject; Password= airproject;")
-    Public connTVApplicaiton As New OracleConnection("Data Source = leia.dnr.state.ga.us:1521/DEV; " & _
-        "User ID = AirTVApplication; Password = airapp;")
+    Public connTVApplication As New OracleConnection("Data Source = leia.dnr.state.ga.us:1521/DEV; " & _
+                                                     "User ID = AirTVApplication; Password = airapp;")
 
     Public CRLogIn As String = PRDCRLogIn
     Public CRPassWord As String = PRDCRPassWord
@@ -174,7 +181,7 @@ Module submain
 #Region "AFS"
 
 #End Region
- 
+
 #Region "Public Subs"
 
     Sub ErrorReport(ByVal ErrorMessage As String, ByVal ErrorLocation As String)
