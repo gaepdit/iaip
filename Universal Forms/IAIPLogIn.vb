@@ -615,7 +615,7 @@ Public Class IAIPLogIn
             txtUserID.BackColor = Color.Tomato
             txtUserPassword.BackColor = Color.Tomato
             btnEnter.BackColor = Color.Tomato
-            connNameSpace = "AIRBRANCH"
+            'connNameSpace = "AIRBRANCH"
             conn = New OracleConnection(DEVconnLine)
             CRLogIn = DEVCRLogIn
             CRPassWord = DEVCRPassWord
@@ -624,7 +624,7 @@ Public Class IAIPLogIn
             txtUserID.BackColor = Color.White
             txtUserPassword.BackColor = Color.White
             btnEnter.BackColor = Color.White
-            connNameSpace = "AIRBranch"
+            'connNameSpace = "AIRBranch"
             conn = New OracleConnection(PRDconnLine)
             CRLogIn = PRDCRLogIn
             CRPassWord = PRDCRPassWord
@@ -661,7 +661,7 @@ Public Class IAIPLogIn
             txtUserID.BackColor = Color.Black
             txtUserPassword.BackColor = Color.Black
             btnEnter.BackColor = Color.Bisque
-            connNameSpace = "AIRBRANCH"
+            'connNameSpace = "AIRBRANCH"
             conn = New OracleConnection(PRDconnLine)
             CRLogIn = PRDCRLogIn
             CRPassWord = PRDCRPassWord
@@ -670,7 +670,7 @@ Public Class IAIPLogIn
             txtUserID.BackColor = Color.White
             txtUserPassword.BackColor = Color.White
             btnEnter.BackColor = Color.White
-            connNameSpace = "AIRBranch"
+            'connNameSpace = "AIRBranch"
             conn = New OracleConnection(PRDconnLine)
             CRLogIn = PRDCRLogIn
             CRPassWord = PRDCRPassWord
