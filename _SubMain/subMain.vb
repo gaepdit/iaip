@@ -15,7 +15,7 @@ Module subMain
 #Region "DB Connection Strings"
     Friend Const connNameSpace As String = "AIRBRANCH"
 
-    Friend Const PRDconnLine As String = "Data Source = PRD; User ID = AIRBRANCH_APP_USER; Password = " & SimpleCrypt("зтбрт±м") & ";"
+    Friend PRDconnLine As String = "Data Source = PRD; User ID = AIRBRANCH_APP_USER; Password = " & SimpleCrypt("зтбрт±м") & ";"
     Public TESTconnLine As String = "Data Source = TEST; User ID = AIRBRANCH_APP_USER; Password = " & SimpleCrypt("БЙТБРРХУЕТ°і") & ";"
     Public DEVconnLine As String = "Data Source = DEV; User ID = AIRBRANCH; Password = " & SimpleCrypt("унпзбметф") & ";"
 
