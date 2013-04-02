@@ -5215,15 +5215,15 @@ Public Class SSCPManagersTools
     Private Sub llbCMSOpenFacilitySummary_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbCMSOpenFacilitySummary.LinkClicked
         Try
 
-            If FacilitySummary2 Is Nothing Then
-                If FacilitySummary2 Is Nothing Then FacilitySummary2 = New DEVFacilitySummary
+            If FacilitySummary Is Nothing Then
+                If FacilitySummary Is Nothing Then FacilitySummary = New IAIPFacilitySummary
             Else
-                FacilitySummary2.Show()
+                FacilitySummary.Show()
             End If
-            FacilitySummary2.Show()
-            FacilitySummary2.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
-            FacilitySummary2.mtbAIRSNumber.Text = txtCMSAIRSNumber.Text
-            FacilitySummary2.LoadInitialData()
+            FacilitySummary.Show()
+            FacilitySummary.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+            FacilitySummary.mtbAIRSNumber.Text = txtCMSAIRSNumber.Text
+            FacilitySummary.LoadInitialData()
 
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -5233,16 +5233,16 @@ Public Class SSCPManagersTools
     Private Sub llbCMSOpenFacilitySummary2_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbCMSOpenFacilitySummary2.LinkClicked
         Try
 
-            If FacilitySummary2 Is Nothing Then
-                If FacilitySummary2 Is Nothing Then FacilitySummary2 = New DEVFacilitySummary
+            If FacilitySummary Is Nothing Then
+                If FacilitySummary Is Nothing Then FacilitySummary = New IAIPFacilitySummary
             Else
-                FacilitySummary2.Show()
+                FacilitySummary.Show()
             End If
-            FacilitySummary2.Show()
-            FacilitySummary2.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
-            FacilitySummary2.mtbAIRSNumber.Text = txtCMSAIRSNumber2.Text
-            FacilitySummary2.LoadInitialData()
-            FacilitySummary2.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+            FacilitySummary.Show()
+            FacilitySummary.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+            FacilitySummary.mtbAIRSNumber.Text = txtCMSAIRSNumber2.Text
+            FacilitySummary.LoadInitialData()
+            FacilitySummary.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
 
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -7075,18 +7075,18 @@ Public Class SSCPManagersTools
                 recExist = dr.Read
                 dr.Close()
                 If recExist = True Then
-                    If FacilitySummary2 Is Nothing Then
-                        FacilitySummary2 = Nothing
-                        If FacilitySummary2 Is Nothing Then FacilitySummary2 = New DEVFacilitySummary
-                        FacilitySummary2.mtbAIRSNumber.Text = txtRecordNumber.Text
-                        FacilitySummary2.Show()
+                    If FacilitySummary Is Nothing Then
+                        FacilitySummary = Nothing
+                        If FacilitySummary Is Nothing Then FacilitySummary = New IAIPFacilitySummary
+                        FacilitySummary.mtbAIRSNumber.Text = txtRecordNumber.Text
+                        FacilitySummary.Show()
                     Else
-                        FacilitySummary2.mtbAIRSNumber.Text = txtRecordNumber.Text
-                        FacilitySummary2.Show()
+                        FacilitySummary.mtbAIRSNumber.Text = txtRecordNumber.Text
+                        FacilitySummary.Show()
                     End If
-                    FacilitySummary2.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+                    FacilitySummary.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
 
-                    FacilitySummary2.LoadInitialData()
+                    FacilitySummary.LoadInitialData()
                 Else
                     MsgBox("AIRS Number is not in the system.", MsgBoxStyle.Information, "SSCP Managers Tools")
                 End If

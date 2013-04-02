@@ -2180,17 +2180,17 @@ Public Class IAIPNavigation
                 recExist = dr.Read
                 dr.Close()
                 If recExist = True Then
-                    If FacilitySummary2 Is Nothing Then
-                        FacilitySummary2 = Nothing
-                        If FacilitySummary2 Is Nothing Then FacilitySummary2 = New DEVFacilitySummary
-                        FacilitySummary2.mtbAIRSNumber.Text = txtAIRSNumber.Text
-                        FacilitySummary2.Show()
+                    If FacilitySummary Is Nothing Then
+                        FacilitySummary = Nothing
+                        If FacilitySummary Is Nothing Then FacilitySummary = New IAIPFacilitySummary
+                        FacilitySummary.mtbAIRSNumber.Text = txtAIRSNumber.Text
+                        FacilitySummary.Show()
                     Else
-                        FacilitySummary2.mtbAIRSNumber.Text = txtAIRSNumber.Text
-                        FacilitySummary2.Show()
+                        FacilitySummary.mtbAIRSNumber.Text = txtAIRSNumber.Text
+                        FacilitySummary.Show()
                     End If
-                    FacilitySummary2.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
-                    FacilitySummary2.LoadInitialData()
+                    FacilitySummary.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+                    FacilitySummary.LoadInitialData()
 
                 Else
                     MsgBox("AIRS Number is not in the system.", MsgBoxStyle.Information, "Navigation Screen")
@@ -2209,13 +2209,13 @@ Public Class IAIPNavigation
         Try
             Select Case Source
                 Case "Facility Summary" '1
-                    If FacilitySummary2 Is Nothing Then
-                        If FacilitySummary2 Is Nothing Then FacilitySummary2 = New DEVFacilitySummary
+                    If FacilitySummary Is Nothing Then
+                        If FacilitySummary Is Nothing Then FacilitySummary = New IAIPFacilitySummary
                     Else
-                        FacilitySummary2.Show()
+                        FacilitySummary.Show()
                     End If
-                    FacilitySummary2.Show()
-                    FacilitySummary2.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+                    FacilitySummary.Show()
+                    FacilitySummary.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                 Case "DMU Tools" '2
                     'If ISMPDMU Is Nothing Then
                     '    If ISMPDMU Is Nothing Then ISMPDMU = New ISMPDataManagementTools
@@ -2336,7 +2336,7 @@ Public Class IAIPNavigation
                     End If
                     FeesReports.Show()
                     FeesReports.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
-                   
+
                 Case "APB Branch Tools" '13
                     If PrintOut Is Nothing Then
                         If PrintOut Is Nothing Then PrintOut = New IAIPPrintOut

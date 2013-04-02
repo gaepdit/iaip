@@ -562,14 +562,7 @@ Public Class SSCPWorkEnTry
                 End If
 
                 panel1.Text = "Saving New Compliance Event..."
-
-                panel1.Text = "Refreshing Faciltiy Summary Screen..."
-                'FacilitySummary2.llbViewAll.Enabled = False
-
-                'FacilitySummary2.bgwFacilityWideData.WorkerReportsProgress = True
-                'FacilitySummary2.bgwFacilityWideData.WorkerSupportsCancellation = True
-                'FacilitySummary2.bgwFacilityWideData.RunWorkerAsync()
-
+                panel1.Text = "Refreshing Facility Summary Screen..."
                 panel1.Text = Paneltemp1
                 MsgBox("Done")
 

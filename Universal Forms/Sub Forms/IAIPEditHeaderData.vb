@@ -1742,7 +1742,7 @@ Public Class IAIPEditHeaderData
                             dr = cmd.ExecuteReader
                             dr.Close()
 
-                            If FacilitySummary2 Is Nothing Then
+                            If FacilitySummary Is Nothing Then
                             Else
 
                             End If

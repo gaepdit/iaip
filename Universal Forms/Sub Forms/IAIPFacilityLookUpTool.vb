@@ -384,10 +384,10 @@ Public Class IAIPFacilityLookUpTool
                 ISMPManagers.ValueFromFacilityLookUp = txtAIRSNumber.Text
                 ISMPManagers.ValueFromFacilityLookUp2 = txtFacilityName.Text
             End If
-            If Not FacilitySummary2 Is Nothing Then
+            If Not FacilitySummary Is Nothing Then
                 temp = 4
-                FacilitySummary2.ValueFromFacilityLookUp = txtAIRSNumber.Text
-                FacilitySummary2.LoadInitialData()
+                FacilitySummary.ValueFromFacilityLookUp = txtAIRSNumber.Text
+                FacilitySummary.LoadInitialData()
             End If
             If Not SSCPFCESelector Is Nothing Then
                 temp = 7

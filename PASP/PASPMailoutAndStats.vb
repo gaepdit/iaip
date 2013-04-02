@@ -7860,18 +7860,18 @@ Public Class DEVMailoutAndStats
     Private Sub btnFeeFacilitySummary_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnFeeFacilitySummary.Click
         Try
             If txtFeeAIRSNumber.Text <> "" Then
-                If FacilitySummary2 Is Nothing Then
-                    FacilitySummary2 = Nothing
-                    If FacilitySummary2 Is Nothing Then FacilitySummary2 = New DEVFacilitySummary
-                    FacilitySummary2.mtbAIRSNumber.Text = txtFeeAIRSNumber.Text
-                    FacilitySummary2.Show()
+                If FacilitySummary Is Nothing Then
+                    FacilitySummary = Nothing
+                    If FacilitySummary Is Nothing Then FacilitySummary = New IAIPFacilitySummary
+                    FacilitySummary.mtbAIRSNumber.Text = txtFeeAIRSNumber.Text
+                    FacilitySummary.Show()
                 Else
-                    FacilitySummary2.mtbAIRSNumber.Text = txtFeeAIRSNumber.Text
-                    FacilitySummary2.Show()
+                    FacilitySummary.mtbAIRSNumber.Text = txtFeeAIRSNumber.Text
+                    FacilitySummary.Show()
                 End If
-                FacilitySummary2.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+                FacilitySummary.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
 
-                FacilitySummary2.LoadInitialData()
+                FacilitySummary.LoadInitialData()
             End If
 
         Catch ex As Exception

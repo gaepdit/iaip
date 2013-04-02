@@ -241,12 +241,6 @@
     <Compile Include="DevelopmentForms\DEVEditContacts.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DevelopmentForms\DEVFacilitySummary.Designer.vb">
-      <DependentUpon>DEVFacilitySummary.vb</DependentUpon>
-    </Compile>
-    <Compile Include="DevelopmentForms\DEVFacilitySummary.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="DevelopmentForms\DEVFeeStatistics.Designer.vb">
       <DependentUpon>DEVFeeStatistics.vb</DependentUpon>
     </Compile>
@@ -297,6 +291,12 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>dsIAIP2.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="IAIP-Crystal Reports\FacilityBasicPrint.vb">
+      <SubType>Component</SubType>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FacilityBasicPrint.rpt</DependentUpon>
     </Compile>
     <Compile Include="IAIP-Crystal Reports\Oracle 10.1\crFS_Invoice.vb">
       <AutoGen>True</AutoGen>
@@ -632,6 +632,12 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>AuditReport.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="IAIP-Crystal Reports\SubReports\Letterhead.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Letterhead.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="ISMP\DMU\DMUDeveloperTools.Designer.vb">
@@ -1377,9 +1383,6 @@
     <EmbeddedResource Include="DevelopmentForms\DEVEditContacts.resx">
       <DependentUpon>DEVEditContacts.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DevelopmentForms\DEVFacilitySummary.resx">
-      <DependentUpon>DEVFacilitySummary.vb</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="DevelopmentForms\DEVFeeStatistics.resx">
       <DependentUpon>DEVFeeStatistics.vb</DependentUpon>
     </EmbeddedResource>
@@ -1401,6 +1404,10 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="FCE_ACC.rdlc" />
+    <EmbeddedResource Include="IAIP-Crystal Reports\FacilityBasicPrint.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>FacilityBasicPrint.vb</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="IAIP-Crystal Reports\Oracle 10.1\crFS_Invoice.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>crFS_Invoice.vb</LastGenOutput>
@@ -1620,6 +1627,10 @@
     <EmbeddedResource Include="IAIP-Crystal Reports\Oracle 9.2\DMU\crESDataViewer.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>crESDataViewer.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IAIP-Crystal Reports\SubReports\Letterhead.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Letterhead.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="IAIP-Reports\FullComplianceEvaluations.rdlc" />
     <EmbeddedResource Include="ISMP\DMU\DMUDeveloperTools.resx">

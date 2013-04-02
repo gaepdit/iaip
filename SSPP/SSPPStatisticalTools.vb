@@ -2219,18 +2219,18 @@ Public Class SSPPStatisticalTools
                     recExist = dr.Read
                     dr.Close()
                     If recExist = True Then
-                        If FacilitySummary2 Is Nothing Then
-                            FacilitySummary2 = Nothing
-                            If FacilitySummary2 Is Nothing Then FacilitySummary2 = New DEVFacilitySummary
-                            FacilitySummary2.mtbAIRSNumber.Text = txtRecordNumber.Text
-                            FacilitySummary2.Show()
+                        If FacilitySummary Is Nothing Then
+                            FacilitySummary = Nothing
+                            If FacilitySummary Is Nothing Then FacilitySummary = New IAIPFacilitySummary
+                            FacilitySummary.mtbAIRSNumber.Text = txtRecordNumber.Text
+                            FacilitySummary.Show()
                         Else
-                            FacilitySummary2.mtbAIRSNumber.Text = txtRecordNumber.Text
-                            FacilitySummary2.Show()
+                            FacilitySummary.mtbAIRSNumber.Text = txtRecordNumber.Text
+                            FacilitySummary.Show()
                         End If
-                        FacilitySummary2.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+                        FacilitySummary.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
 
-                        FacilitySummary2.LoadInitialData()
+                        FacilitySummary.LoadInitialData()
 
                     End If
                 Else

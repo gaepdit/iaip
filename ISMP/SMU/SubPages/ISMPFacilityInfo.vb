@@ -1024,7 +1024,7 @@ Public Class ISMPFacilityInfo
                             End Try
                             ' 
 
-                            If FacilitySummary2 Is Nothing Then
+                            If FacilitySummary Is Nothing Then
                             Else
                                 panel1.Text = "Refreshing Faciltiy Summary Screen..."
                                 '   FacilitySummary.LoadISMPDataGrid()

@@ -700,8 +700,8 @@ Public Class SSCPFacAssignment
             cmd = New OracleCommand(SQL, conn)
             dr = cmd.ExecuteReader
 
-            panel1.Text = "Refreshing Faciltiy Summary Screen..."
-            IAIPFacilitySummary.LoadStateContactInformation()
+            panel1.Text = "Refreshing Facility Summary Screen..."
+            'xIAIPFacilitySummary.LoadStateContactInformation()
             panel1.Text = Paneltemp1
             MsgBox("Done")
 

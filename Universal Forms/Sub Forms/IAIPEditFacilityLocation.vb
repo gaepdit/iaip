@@ -359,7 +359,7 @@ Public Class IAIPEditFacilityLocation
                                 dr.Close()
                             End If
 
-                            If FacilitySummary2 Is Nothing Then
+                            If FacilitySummary Is Nothing Then
                             Else
 
                             End If

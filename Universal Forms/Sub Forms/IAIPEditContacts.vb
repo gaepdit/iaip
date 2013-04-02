@@ -1810,7 +1810,7 @@ Public Class IAIPEditContacts
             End If
 
             LoadContactsDataset("PageLoad")
-            If FacilitySummary2 Is Nothing Then
+            If FacilitySummary Is Nothing Then
             Else
                 '  IAIPFacilitySummary.LoadContactInformation()
             End If
@@ -1846,7 +1846,7 @@ Public Class IAIPEditContacts
 
                 LoadContactsDataset("PageLoad")
 
-                If FacilitySummary2 Is Nothing Then
+                If FacilitySummary Is Nothing Then
                 Else
                     ' IAIPFacilitySummary.LoadContactInformation()
                 End If
