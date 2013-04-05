@@ -744,8 +744,8 @@ Public Class IAIPLogIn
     End Sub
     Private Sub mmiOnlineHelp_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiOnlineHelp.Click
         Try
-            'Help.ShowHelp(Label1, "https://sites.google.com/a/dnr.state.ga.us/iaip-docs/")
-            Help.ShowHelp(Label1, "https://sites.google.com/a/dnr.state.ga.us/iaip-docs/")
+            'Help.ShowHelp(Label1, HELP_URL)
+            Help.ShowHelp(Label1, HELP_URL)
 
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)

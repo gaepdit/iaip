@@ -138,7 +138,7 @@ Public Class DEVFeeStatistics
  
     Private Sub HelpToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles HelpToolStripMenuItem.Click
         Try
-            Help.ShowHelp(Label102, "https://sites.google.com/a/dnr.state.ga.us/iaip-docs/")
+            Help.ShowHelp(Label102, HELP_URL)
         Catch ex As Exception
         End Try
 

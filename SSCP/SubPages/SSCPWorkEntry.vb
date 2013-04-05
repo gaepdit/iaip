@@ -715,7 +715,7 @@ Public Class SSCPWorkEnTry
 
     Private Sub MenuItem5_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MenuItem5.Click
         Try
-            Help.ShowHelp(Label1, "https://sites.google.com/a/dnr.state.ga.us/iaip-docs/")
+            Help.ShowHelp(Label1, HELP_URL)
         Catch ex As Exception
         End Try
 

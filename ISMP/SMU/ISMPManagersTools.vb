@@ -9150,11 +9150,6 @@ Public Class ISMPManagersTools
         End Try
 
     End Sub
-    'Private Declare Function SendMessage Lib "user32" Alias _
-    '"SendMessageA" (ByVal hwnd As IntPtr, ByVal wMsg As _
-    'Integer, ByVal wParam As Integer, ByRef lParam As _
-    'Integer) As Integer
-    'Private Const EM_SETTABSTOPS As Integer = &HCB
     Sub GetOutOfComplianceReport()
         Dim Report As String
         Dim CompanyName As String
@@ -12297,7 +12292,7 @@ Public Class ISMPManagersTools
 
     Private Sub MmiHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiHelp.Click
         Try
-            Help.ShowHelp(Label1, "https://sites.google.com/a/dnr.state.ga.us/iaip-docs/")
+            Help.ShowHelp(Label1, HELP_URL)
         Catch ex As Exception
         End Try
 

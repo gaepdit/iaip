@@ -12,6 +12,8 @@ Imports System.Data.OleDb
 Imports System.Data.Odbc
 
 Module subMain
+    Friend Const HELP_URL As String = "https://sites.google.com/site/iaipdocs/"
+
 #Region "DB Connection Strings"
     Friend Const connNameSpace As String = "AIRBRANCH"
 
@@ -30,7 +32,6 @@ Module subMain
 
     Public DEVCRLogIn As String = "AirBranch"
     Public DEVCRPassWord As String = SimpleCrypt("óíïçáìåòô")
-#End Region
 
     Public conn As New OracleConnection(PRDconnLine)
     Public connTVProject As New OracleConnection("Data Source= leia.dnr.state.ga.us:1521/DEV; " & _
@@ -40,6 +41,8 @@ Module subMain
 
     Public CRLogIn As String = PRDCRLogIn
     Public CRPassWord As String = PRDCRPassWord
+#End Region
+
     Public OracleDate As String = Format(Date.Today, "dd-MMM-yyyy")
     Public UserGCode As String
     Public Permissions As String
@@ -181,9 +184,9 @@ Module subMain
 
 #End Region
 
-#Region "Public Subs"
+#Region "Public Procedures"
 
-    Sub ErrorReport(ByVal ErrorMessage As String, ByVal ErrorLocation As String)
+    Public Sub ErrorReport(ByVal ErrorMessage As String, ByVal ErrorLocation As String)
         Dim SQL As String
         Dim cmd As OracleCommand
         Dim dr As OracleDataReader
@@ -348,6 +351,7 @@ Module subMain
 
 #End Region
 #Region "Encryption Script"
+
     Public Function SimpleCrypt(ByVal Text As String) As String
         ' Encrypts/decrypts the passed string using
         ' a simple ASCII value-swapping algorithm
@@ -426,10 +430,8 @@ Module subMain
         End Function
     End Class
 
-
-
-
 #End Region
+
     Public Declare Function SendMessage Lib "user32" Alias _
        "SendMessageA" (ByVal hwnd As IntPtr, ByVal wMsg As _
        Integer, ByVal wParam As Integer, ByRef lParam As _

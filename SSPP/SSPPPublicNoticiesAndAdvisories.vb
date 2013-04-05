@@ -2169,7 +2169,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
 
     Private Sub mmiHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiHelp.Click
         Try
-            Help.ShowHelp(Label1, "https://sites.google.com/a/dnr.state.ga.us/iaip-docs/")
+            Help.ShowHelp(Label1, HELP_URL)
         Catch ex As Exception
         End Try
 
