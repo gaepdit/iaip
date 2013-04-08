@@ -78,11 +78,11 @@ Public Class ISMPDataManagementTools
             If AppNum = "Load" Then
                 SQLLine = ""
             Else
-                SQLLine = " and " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = '" & AppNum & "' "
+                SQLLine = " and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = '" & AppNum & "' "
             End If
 
             SQL = "select " & _
-            "to_Number(" & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber) as ApplicationNumber, " & _
+            "to_Number(" & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber) as ApplicationNumber, " & _
             "case " & _
             "When datDraftIssued is Null then ' ' " & _
             "ELSE to_char(datDraftIssued, 'RRRR-MM-dd') " & _
@@ -107,11 +107,11 @@ Public Class ISMPDataManagementTools
             "Else to_char(datFinalizedDate, 'RRRR-MM-dd') " & _
             "End datFinalizedDate, " & _
             "strApplicationTypeDesc " & _
-            "from " & connNameSpace & ".SSPPApplicationTracking, " & connNameSpace & ".SSPPApplicationData, " & _
-            "" & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".LookUpApplicationTypes " & _
-            "where " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber = " & connNameSpace & ".SSPPApplicationData.strApplicationNumber " & _
-            "and " & connNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode = strApplicationType " & _
-            "and " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber = " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber " & _
+            "from " & DBNameSpace & ".SSPPApplicationTracking, " & DBNameSpace & ".SSPPApplicationData, " & _
+            "" & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".LookUpApplicationTypes " & _
+            "where " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber " & _
+            "and " & DBNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode = strApplicationType " & _
+            "and " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber " & _
             "and (datDraftIssued is Not Null or datPermitIssued is Not Null or datEPAStatesNotified is Not Null) " & _
             "and datFinalOnWeb is Null " & _
             "and datFinalizedDate is Null " & _
@@ -120,7 +120,7 @@ Public Class ISMPDataManagementTools
             " or strApplicationType = '20' or strApplicationType = '22' or strApplicationType = '21')" & SQLLine
 
             SQL = "SELECT " & _
-            "TO_NUMBER(" & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber) AS ApplicationNumber,  " & _
+            "TO_NUMBER(" & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber) AS ApplicationNumber,  " & _
             "CASE  " & _
             "   WHEN datDraftIssued IS NULL THEN ' '  " & _
             "   ELSE TO_CHAR(datDraftIssued, 'RRRR-MM-dd') " & _
@@ -145,11 +145,11 @@ Public Class ISMPDataManagementTools
             "   ELSE TO_CHAR(datFinalizedDate, 'RRRR-MM-dd') " & _
             "END datFinalizedDate,  " & _
             "strApplicationTypeDesc  " & _
-            "from " & connNameSpace & ".SSPPApplicationTracking, " & connNameSpace & ".SSPPApplicationData,  " & _
-            "" & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".LookUpApplicationTypes " & _
-            "WHERE " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber = " & connNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
-            "AND " & connNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode = strApplicationType  " & _
-            "AND " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber = " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber " & _
+            "from " & DBNameSpace & ".SSPPApplicationTracking, " & DBNameSpace & ".SSPPApplicationData,  " & _
+            "" & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".LookUpApplicationTypes " & _
+            "WHERE " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
+            "AND " & DBNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode = strApplicationType  " & _
+            "AND " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber " & _
             "AND ( " & _
             "(strApplicationType = '14' OR strApplicationType = '16' OR strApplicationType = '17') " & _
             "AND (datDraftOnWeb IS NULL OR datPNExpires IS NULL " & _
@@ -292,7 +292,7 @@ Public Class ISMPDataManagementTools
             If txtWebPublisherApplicationNumber.Text <> "" Then
                 SQL = "Select " & _
                 "strMasterApplication, strApplicationNumber " & _
-                "from " & connNameSpace & ".SSPPApplicationLinking " & _
+                "from " & DBNameSpace & ".SSPPApplicationLinking " & _
                 "where strApplicationNumber = '" & txtWebPublisherApplicationNumber.Text & "' "
 
                 cmd = New OracleCommand(SQL, conn)
@@ -312,7 +312,7 @@ Public Class ISMPDataManagementTools
                 If MasterApplication <> "" Then
                     SQL = "Select " & _
                     "strMasterApplication, strApplicationNumber " & _
-                    "from " & connNameSpace & ".SSPPApplicationLinking " & _
+                    "from " & DBNameSpace & ".SSPPApplicationLinking " & _
                     "where strMasterApplication = '" & MasterApplication & "' " & _
                     "order by strApplicationNumber "
 
@@ -639,7 +639,7 @@ Public Class ISMPDataManagementTools
         Try
             SQL = "Select " & _
             "distinct intESYear " & _
-            "from " & connNameSpace & ".esschema " & _
+            "from " & DBNameSpace & ".esschema " & _
             "order by intESYear desc"
 
             cmd = New OracleCommand(SQL, conn)
@@ -675,7 +675,7 @@ Public Class ISMPDataManagementTools
         
 
             SQL = "Select distinct STRESYEAR " & _
-                  "from " & connNameSpace & ".esmailout " & _
+                  "from " & DBNameSpace & ".esmailout " & _
                   "order by STRESYEAR desc"
             Dim cmd As New OracleCommand(SQL, conn)
 
@@ -712,11 +712,11 @@ Public Class ISMPDataManagementTools
             "datEPAStatesNotifiedAppRec, " & _
             "datExperationDate, datPNExpires, " & _
             "strApplicationType " & _
-            "from " & connNameSpace & ".SSPPApplicationTracking, " & connNameSpace & ".SSPPApplicationData, " & _
-            "" & connNameSpace & ".SSPPApplicationMaster " & _
-            "where " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber = " & connNameSpace & ".SSPPApplicationData.strApplicationNumber " & _
-            "and " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber = " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber  " & _
-            "and " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber = '" & txtWebPublisherApplicationNumber.Text & "' "
+            "from " & DBNameSpace & ".SSPPApplicationTracking, " & DBNameSpace & ".SSPPApplicationData, " & _
+            "" & DBNameSpace & ".SSPPApplicationMaster " & _
+            "where " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber " & _
+            "and " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber  " & _
+            "and " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber = '" & txtWebPublisherApplicationNumber.Text & "' "
 
             cmd = New OracleCommand(SQL, conn)
             If conn.State = ConnectionState.Closed Then
@@ -878,7 +878,7 @@ Public Class ISMPDataManagementTools
             End If
 
             If txtWebPublisherApplicationNumber.Text <> "" Then
-                SQL = "Update " & connNameSpace & ".SSPPApplicationTracking set " & _
+                SQL = "Update " & DBNameSpace & ".SSPPApplicationTracking set " & _
                 "datDraftOnWeb = '" & DraftOnWeb & "', " & _
                 "datEPAStatesNotified = '" & EPAStatesNotified & "', " & _
                 "datFinalOnWeb = '" & FinalOnWeb & "', " & _
@@ -895,7 +895,7 @@ Public Class ISMPDataManagementTools
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL = "Update " & connNameSpace & ".SSPPApplicationData set " & _
+                SQL = "Update " & DBNameSpace & ".SSPPApplicationData set " & _
                 "strTargeted = '" & TargetedComments & "' " & _
                 "where strApplicationNumber = '" & txtWebPublisherApplicationNumber.Text & "' "
                 cmd = New OracleCommand(SQL, conn)
@@ -916,7 +916,7 @@ Public Class ISMPDataManagementTools
                             LinkedApplication = ""
                         End If
                         If LinkedApplication <> "" Then
-                            SQL = "Update " & connNameSpace & ".SSPPApplicationTracking set " & _
+                            SQL = "Update " & DBNameSpace & ".SSPPApplicationTracking set " & _
                             "datDraftOnWeb = '" & DraftOnWeb & "', " & _
                             "datEPAStatesNotified = '" & EPAStatesNotified & "', " & _
                             "datFinalOnWeb = '" & FinalOnWeb & "', " & _
@@ -935,7 +935,7 @@ Public Class ISMPDataManagementTools
                             dr.Read()
                             dr.Close()
 
-                            SQL = "Update " & connNameSpace & ".SSPPApplicationData set " & _
+                            SQL = "Update " & DBNameSpace & ".SSPPApplicationData set " & _
                             "strTargeted = '" & TargetedComments & "' " & _
                             "where strApplicationNumber = '" & LinkedApplication & "' "
 
@@ -985,7 +985,7 @@ Public Class ISMPDataManagementTools
 
             If txtAFSBatchFile.Text <> "" Then
 
-                SQL = "select " & connNameSpace & ".afsFileNumber.nextval from Dual"
+                SQL = "select " & DBNameSpace & ".afsFileNumber.nextval from Dual"
                 cmd = New OracleCommand(SQL, conn)
                 If conn.State = ConnectionState.Closed Then
                     conn.Open()
@@ -1018,7 +1018,7 @@ Public Class ISMPDataManagementTools
                         fs.Close()
 
                         SQL = "Select * " & _
-                        "from " & connNameSpace & ".AFSBatchFiles " & _
+                        "from " & DBNameSpace & ".AFSBatchFiles " & _
                         "where AFSFileName = '" & FileName & "' "
 
                         If conn.State = ConnectionState.Closed Then
@@ -1083,23 +1083,23 @@ Public Class ISMPDataManagementTools
             'G36 is for Compliance Manager 
             'GM8 is for Monitoring Manager 
 
-            SQL = "Select " & connNameSpace & ".APBMasterAIRS.strAIRSNumber, " & _
+            SQL = "Select " & DBNameSpace & ".APBMasterAIRS.strAIRSNumber, " & _
             "strFacilityName, strFacilityStreet1,   " & _
             "strFacilityCity, strFacilityzipCode,   " & _
             "strSICCode, strContactFirstName,   " & _
             "strContactLastName, strContactTitle,   " & _
             "strContactPhoneNumber1, strPlantDescription,   " & _
-            "" & connNameSpace & ".AFSFacilityData.strModifingPerson, strUpdateStatus,  " & _
+            "" & DBNameSpace & ".AFSFacilityData.strModifingPerson, strUpdateStatus,  " & _
             "strCMSMember  " & _
-            "from " & connNameSpace & ".APBMasterAIRS, " & connNameSpace & ".APBFacilityInformation,  " & _
-            "" & connNameSpace & ".APBHeaderData, " & connNameSpace & ".APBContactInformation,  " & _
-            "" & connNameSpace & ".APBSupplamentalData, " & connNameSpace & ".AFSFacilityData  " & _
-            "where " & connNameSpace & ".APBMasterAIRS.strAIRSNumber = " & connNameSpace & ".AFSFacilityData.strAIRSNumber    " & _
-            "and " & connNameSpace & ".APBMasterAIRS.strAIRSNumber = " & connNameSpace & ".APBFacilityInformation.strAIRSnumber  " & _
-            "and " & connNameSpace & ".APBMasterAIRS.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber   " & _
-            "and " & connNameSpace & ".APBMasterAIRS.strAIRSNumber = " & connNameSpace & ".APBContactInformation.strAIRSNumber " & _
-            "and " & connNameSpace & ".APBMasterAIRS.strAIRSNumber = " & connNameSpace & ".APBSupplamentalData.strAIRSNumber   " & _
-            "and " & connNameSpace & ".APBContactInformation.strKEy = '30'  " & _
+            "from " & DBNameSpace & ".APBMasterAIRS, " & DBNameSpace & ".APBFacilityInformation,  " & _
+            "" & DBNameSpace & ".APBHeaderData, " & DBNameSpace & ".APBContactInformation,  " & _
+            "" & DBNameSpace & ".APBSupplamentalData, " & DBNameSpace & ".AFSFacilityData  " & _
+            "where " & DBNameSpace & ".APBMasterAIRS.strAIRSNumber = " & DBNameSpace & ".AFSFacilityData.strAIRSNumber    " & _
+            "and " & DBNameSpace & ".APBMasterAIRS.strAIRSNumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSnumber  " & _
+            "and " & DBNameSpace & ".APBMasterAIRS.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber   " & _
+            "and " & DBNameSpace & ".APBMasterAIRS.strAIRSNumber = " & DBNameSpace & ".APBContactInformation.strAIRSNumber " & _
+            "and " & DBNameSpace & ".APBMasterAIRS.strAIRSNumber = " & DBNameSpace & ".APBSupplamentalData.strAIRSNumber   " & _
+            "and " & DBNameSpace & ".APBContactInformation.strKEy = '30'  " & _
             "and strUpDateStatus = 'A'  "
 
             cmd = New OracleCommand(SQL, conn)
@@ -1268,19 +1268,19 @@ Public Class ISMPDataManagementTools
                         SICCode = SICCode & "            " & Inspector & "      "
 
                         SQL2 = "Select " & _
-                        "" & connNameSpace & ".AFSAirPollutantData.strAIRPollutantKey, " & _
-                        "" & connNameSpace & ".AFSAirPollutantData.strPollutantKey, " & _
+                        "" & DBNameSpace & ".AFSAirPollutantData.strAIRPollutantKey, " & _
+                        "" & DBNameSpace & ".AFSAirPollutantData.strPollutantKey, " & _
                         "strComplianceStatus, strClass, " & _
-                        "" & connNameSpace & ".APBHeaderData.strAttainmentStatus, " & _
-                        "" & connNameSpace & ".APBAirProgramPollutants.strOperationalStatus " & _
-                        "from " & connNameSpace & ".APBAirProgramPollutants, " & connNameSpace & ".AFSAirPollutantData, " & _
-                        "" & connNameSpace & ".APBHeaderData, " & connNameSpace & ".LookUpCountyInformation " & _
-                        "where " & connNameSpace & ".APBAirProgramPollutants.strAIRSNumber = '" & dr.Item("strAIRSNumber") & "' " & _
-                        "and " & connNameSpace & ".APBHeaderData.strAIRSNumber = " & connNameSpace & ".APBAirProgramPollutants.strAIRSNumber " & _
-                        "and substr(" & connNameSpace & ".APBHeaderData.strAIRSNumber, 5, 3) = " & connNameSpace & ".LookUpCountyInformation.strCountyCode " & _
-                        "and " & connNameSpace & ".AFSAirPollutantData.strAirPollutantKey = " & connNameSpace & ".APBAirProgramPollutants.strAirPollutantKey " & _
-                        "and " & connNameSpace & ".AFSAirPollutantData.strPollutantKey = " & connNameSpace & ".APBAirProgramPollutants.strPollutantKey " & _
-                        "and " & connNameSpace & ".AFSAirPollutantData.strAIRSNumber  = '04" & AIRSNumber & "' "
+                        "" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, " & _
+                        "" & DBNameSpace & ".APBAirProgramPollutants.strOperationalStatus " & _
+                        "from " & DBNameSpace & ".APBAirProgramPollutants, " & DBNameSpace & ".AFSAirPollutantData, " & _
+                        "" & DBNameSpace & ".APBHeaderData, " & DBNameSpace & ".LookUpCountyInformation " & _
+                        "where " & DBNameSpace & ".APBAirProgramPollutants.strAIRSNumber = '" & dr.Item("strAIRSNumber") & "' " & _
+                        "and " & DBNameSpace & ".APBHeaderData.strAIRSNumber = " & DBNameSpace & ".APBAirProgramPollutants.strAIRSNumber " & _
+                        "and substr(" & DBNameSpace & ".APBHeaderData.strAIRSNumber, 5, 3) = " & DBNameSpace & ".LookUpCountyInformation.strCountyCode " & _
+                        "and " & DBNameSpace & ".AFSAirPollutantData.strAirPollutantKey = " & DBNameSpace & ".APBAirProgramPollutants.strAirPollutantKey " & _
+                        "and " & DBNameSpace & ".AFSAirPollutantData.strPollutantKey = " & DBNameSpace & ".APBAirProgramPollutants.strPollutantKey " & _
+                        "and " & DBNameSpace & ".AFSAirPollutantData.strAIRSNumber  = '04" & AIRSNumber & "' "
 
                         cmd2 = New OracleCommand(SQL2, conn)
                         If conn.State = ConnectionState.Closed Then
@@ -1359,7 +1359,7 @@ Public Class ISMPDataManagementTools
                         End While
                         dr2.Close()
 
-                        SQL2 = "Update " & connNameSpace & ".AFSAirPollutantData set " & _
+                        SQL2 = "Update " & DBNameSpace & ".AFSAirPollutantData set " & _
                         "strUpDateStatus = 'N' " & _
                         "where strAIRSNumber = '" & dr.Item("strAIRSNumber") & "' "
 
@@ -1386,7 +1386,7 @@ Public Class ISMPDataManagementTools
             End While
             dr.Close()
 
-            SQL = "Update " & connNameSpace & ".AFSFacilityData set " & _
+            SQL = "Update " & DBNameSpace & ".AFSFacilityData set " & _
             "strUpDateStatus = 'N' " & _
             "where strUpDateStatus = 'A' "
 
@@ -1424,20 +1424,20 @@ Public Class ISMPDataManagementTools
         Dim SubpartData As String
 
         SQL = "Select " & _
-        "" & connNameSpace & ".AFSAirPollutantData.strAIRSNUmber, " & _
-        "" & connNameSpace & ".AFSAirPollutantData.strAIRPollutantKey, " & _
-        "" & connNameSpace & ".AFSAirPollutantData.strPollutantKey, " & _
+        "" & DBNameSpace & ".AFSAirPollutantData.strAIRSNUmber, " & _
+        "" & DBNameSpace & ".AFSAirPollutantData.strAIRPollutantKey, " & _
+        "" & DBNameSpace & ".AFSAirPollutantData.strPollutantKey, " & _
         "strComplianceStatus, strClass, " & _
-        "" & connNameSpace & ".APBHeaderData.strAttainmentStatus, " & _
+        "" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, " & _
         "strUpdatestatus, " & _
-        "" & connNameSpace & ".APBAirProgramPollutants.strOperationalStatus " & _
-        "from " & connNameSpace & ".APBAirProgramPollutants, " & connNameSpace & ".AFSAirPollutantData, " & _
-        "" & connNameSpace & ".APBHeaderData, " & connNameSpace & ".LookUpCountyInformation  " & _
+        "" & DBNameSpace & ".APBAirProgramPollutants.strOperationalStatus " & _
+        "from " & DBNameSpace & ".APBAirProgramPollutants, " & DBNameSpace & ".AFSAirPollutantData, " & _
+        "" & DBNameSpace & ".APBHeaderData, " & DBNameSpace & ".LookUpCountyInformation  " & _
         "where " & _
-        "" & connNameSpace & ".APBHeaderData.strAIRSNumber = " & connNameSpace & ".APBAirProgramPollutants.strAIRSNumber " & _
-        "and substr(" & connNameSpace & ".APBHeaderData.strAIRSNumber, 5, 3) = " & connNameSpace & ".LookUpCountyInformation.strCountyCode " & _
-        "and " & connNameSpace & ".AFSAirPollutantData.strAirPollutantKey = " & connNameSpace & ".APBAirProgramPollutants.strAirPollutantKey " & _
-        "and " & connNameSpace & ".AFSAirPollutantData.strPollutantKey = " & connNameSpace & ".APBAirProgramPollutants.strPollutantKey " & _
+        "" & DBNameSpace & ".APBHeaderData.strAIRSNumber = " & DBNameSpace & ".APBAirProgramPollutants.strAIRSNumber " & _
+        "and substr(" & DBNameSpace & ".APBHeaderData.strAIRSNumber, 5, 3) = " & DBNameSpace & ".LookUpCountyInformation.strCountyCode " & _
+        "and " & DBNameSpace & ".AFSAirPollutantData.strAirPollutantKey = " & DBNameSpace & ".APBAirProgramPollutants.strAirPollutantKey " & _
+        "and " & DBNameSpace & ".AFSAirPollutantData.strPollutantKey = " & DBNameSpace & ".APBAirProgramPollutants.strPollutantKey " & _
         "and strUpdateStatus <> 'N' "
 
         Try
@@ -1539,9 +1539,9 @@ Public Class ISMPDataManagementTools
 
             SQL = "Select " & _
             "distinct(substr(strSubPartkey, 13, 1)) as subpart,  " & _
-            "" & connNameSpace & ".APBSubpartData.strAIRSnumber, strUpdateStatus    " & _
-            "from " & connNameSpace & ".APBSubpartData, " & connNameSpace & ".AFSAirPollutantData   " & _
-            "where " & connNameSpace & ".APBSubpartData.strSubpartKey = " & connNameSpace & ".AFSAirPollutantData.strAIRPollutantKey  " & _
+            "" & DBNameSpace & ".APBSubpartData.strAIRSnumber, strUpdateStatus    " & _
+            "from " & DBNameSpace & ".APBSubpartData, " & DBNameSpace & ".AFSAirPollutantData   " & _
+            "where " & DBNameSpace & ".APBSubpartData.strSubpartKey = " & DBNameSpace & ".AFSAirPollutantData.strAIRPollutantKey  " & _
             "and strUpdateStatus <> 'N' "
 
             cmd = New OracleCommand(SQL, conn)
@@ -1572,7 +1572,7 @@ Public Class ISMPDataManagementTools
                     Case "8"
                         SQL = "Select " & _
                         "strSubPart " & _
-                        "from " & connNameSpace & ".APBSubpartData " & _
+                        "from " & DBNameSpace & ".APBSubpartData " & _
                         "where strSubpartKey = '04" & AIRSNumber & "8' "
 
                         cmd2 = New OracleCommand(SQL, conn)
@@ -1616,7 +1616,7 @@ Public Class ISMPDataManagementTools
                     Case "9"
                         SQL = "Select " & _
                         "strSubPart " & _
-                        "from " & connNameSpace & ".APBSubpartData " & _
+                        "from " & DBNameSpace & ".APBSubpartData " & _
                         "where strSubpartKey = '04" & AIRSNumber & "9' "
 
                         cmd2 = New OracleCommand(SQL, conn)
@@ -1660,7 +1660,7 @@ Public Class ISMPDataManagementTools
                     Case "M"
                         SQL = "Select " & _
                          "strSubPart " & _
-                         "from " & connNameSpace & ".APBSubpartData " & _
+                         "from " & DBNameSpace & ".APBSubpartData " & _
                          "where strSubpartKey = '04" & AIRSNumber & "M' "
 
                         cmd2 = New OracleCommand(SQL, conn)
@@ -1712,7 +1712,7 @@ Public Class ISMPDataManagementTools
 
             End While
 
-            SQL = "Update " & connNameSpace & ".AFSAirPollutantData set " & _
+            SQL = "Update " & DBNameSpace & ".AFSAirPollutantData set " & _
             "strUpDateStatus = 'N' " & _
             "where strUpDateStatus <> 'N' "
 
@@ -1759,23 +1759,23 @@ Public Class ISMPDataManagementTools
         Dim CMSMember As String
         Dim temp As String = ""
 
-        SQL = "Select " & connNameSpace & ".APBMasterAIRS.strAIRSNumber, " & _
+        SQL = "Select " & DBNameSpace & ".APBMasterAIRS.strAIRSNumber, " & _
         "strFacilityName, strFacilityStreet1,  " & _
         "strFacilityCity, strFacilityzipCode,  " & _
         "strSICCode, strContactFirstName,  " & _
         "strContactLastName, strContactTitle,  " & _
         "strContactPhoneNumber1, strPlantDescription,  " & _
-        "" & connNameSpace & ".AFSFacilityData.strModifingPerson, strUpdateStatus, " & _
+        "" & DBNameSpace & ".AFSFacilityData.strModifingPerson, strUpdateStatus, " & _
         "strCMSMember " & _
-        "from " & connNameSpace & ".APBMasterAIRS, " & connNameSpace & ".APBFacilityInformation, " & _
-        "" & connNameSpace & ".APBHeaderData, " & connNameSpace & ".APBContactInformation, " & _
-        "" & connNameSpace & ".APBSupplamentalData, " & connNameSpace & ".AFSFacilityData " & _
-        "where " & connNameSpace & ".APBMasterAIRS.strAIRSNumber = " & connNameSpace & ".AFSFacilityData.strAIRSNumber   " & _
-        "and " & connNameSpace & ".APBMasterAIRS.strAIRSNumber = " & connNameSpace & ".APBFacilityInformation.strAIRSnumber " & _
-        "and " & connNameSpace & ".APBMasterAIRS.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber  " & _
-        "and " & connNameSpace & ".APBMasterAIRS.strAIRSNumber = " & connNameSpace & ".APBContactInformation.strAIRSNumber  " & _
-        "and " & connNameSpace & ".APBMasterAIRS.strAIRSNumber = " & connNameSpace & ".APBSupplamentalData.strAIRSNumber  " & _
-        "and " & connNameSpace & ".APBContactInformation.strKEy = '30' " & _
+        "from " & DBNameSpace & ".APBMasterAIRS, " & DBNameSpace & ".APBFacilityInformation, " & _
+        "" & DBNameSpace & ".APBHeaderData, " & DBNameSpace & ".APBContactInformation, " & _
+        "" & DBNameSpace & ".APBSupplamentalData, " & DBNameSpace & ".AFSFacilityData " & _
+        "where " & DBNameSpace & ".APBMasterAIRS.strAIRSNumber = " & DBNameSpace & ".AFSFacilityData.strAIRSNumber   " & _
+        "and " & DBNameSpace & ".APBMasterAIRS.strAIRSNumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSnumber " & _
+        "and " & DBNameSpace & ".APBMasterAIRS.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber  " & _
+        "and " & DBNameSpace & ".APBMasterAIRS.strAIRSNumber = " & DBNameSpace & ".APBContactInformation.strAIRSNumber  " & _
+        "and " & DBNameSpace & ".APBMasterAIRS.strAIRSNumber = " & DBNameSpace & ".APBSupplamentalData.strAIRSNumber  " & _
+        "and " & DBNameSpace & ".APBContactInformation.strKEy = '30' " & _
         "and strUpDateStatus = 'C' "
 
         Try
@@ -1950,14 +1950,14 @@ Public Class ISMPDataManagementTools
                         End If
 
                         SQL2 = "Select " & _
-                        "" & connNameSpace & ".AFSAirPollutantData.strAIRPollutantKey, " & _
-                        "" & connNameSpace & ".AFSAirPollutantData.strPollutantKey, " & _
+                        "" & DBNameSpace & ".AFSAirPollutantData.strAIRPollutantKey, " & _
+                        "" & DBNameSpace & ".AFSAirPollutantData.strPollutantKey, " & _
                         "strComplianceStatus, strUpdateStatus, " & _
                         "strOperationalStatus " & _
-                        "from " & connNameSpace & ".APBAirProgramPollutants, " & connNameSpace & ".AFSAirPollutantData " & _
-                        "where " & connNameSpace & ".APBAirProgramPollutants.strAIRSNumber = '" & dr.Item("strAIRSNumber") & "' " & _
-                        "and " & connNameSpace & ".AFSAirPollutantData.strAirPollutantKey = " & connNameSpace & ".APBAirProgramPollutants.strAirPollutantKey " & _
-                        "and " & connNameSpace & ".AFSAirPollutantData.strPollutantKey = " & connNameSpace & ".APBAirProgramPollutants.strPollutantKey " & _
+                        "from " & DBNameSpace & ".APBAirProgramPollutants, " & DBNameSpace & ".AFSAirPollutantData " & _
+                        "where " & DBNameSpace & ".APBAirProgramPollutants.strAIRSNumber = '" & dr.Item("strAIRSNumber") & "' " & _
+                        "and " & DBNameSpace & ".AFSAirPollutantData.strAirPollutantKey = " & DBNameSpace & ".APBAirProgramPollutants.strAirPollutantKey " & _
+                        "and " & DBNameSpace & ".AFSAirPollutantData.strPollutantKey = " & DBNameSpace & ".APBAirProgramPollutants.strPollutantKey " & _
                         "and strUpdateStatus <> 'N' "
 
                         cmd2 = New OracleCommand(SQL2, conn)
@@ -2004,7 +2004,7 @@ Public Class ISMPDataManagementTools
                         End While
                         dr2.Close()
 
-                        SQL2 = "Update " & connNameSpace & ".AFSAirPollutantData set " & _
+                        SQL2 = "Update " & DBNameSpace & ".AFSAirPollutantData set " & _
                         "strUpDateStatus = 'N' " & _
                         "where strAIRSNumber = '" & dr.Item("strAIRSNumber") & "' "
 
@@ -2029,7 +2029,7 @@ Public Class ISMPDataManagementTools
             End While
             dr.Close()
 
-            SQL = "Update " & connNameSpace & ".AFSFacilityData set " & _
+            SQL = "Update " & DBNameSpace & ".AFSFacilityData set " & _
             "strUpDateStatus = 'N' " & _
             "where strUpDateStatus = 'C' "
 
@@ -2075,10 +2075,10 @@ Public Class ISMPDataManagementTools
         Dim PermitNumber As String = ""
 
         SQL = "Select " & _
-        "" & connNameSpace & ".ssppapplicationmaster.strApplicationnumber, " & _
+        "" & DBNameSpace & ".ssppapplicationmaster.strApplicationnumber, " & _
         "strAFSActionNumber, strUpDateStatus,  " & _
-        "" & connNameSpace & ".SSPPApplicationMaster.strAIRSNumber, " & _
-        "" & connNameSpace & ".SSPPApplicationMaster.strStaffResponsible,  " & _
+        "" & DBNameSpace & ".SSPPApplicationMaster.strAIRSNumber, " & _
+        "" & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible,  " & _
         "Case " & _
         "    when strPermitType = '1' then '35' " & _
         "    when strPermitType = '4' then '33' " & _
@@ -2089,19 +2089,19 @@ Public Class ISMPDataManagementTools
         "    when strPermitType = '13' then '33' " & _
         "    else '00' " & _
         "end as strActionType, " & _
-        "" & connNameSpace & ".SSPPApplicationData.strComments, " & _
-        "to_Char(" & connNameSpace & ".SSPPApplicationMaster.DatFinalizedDate, 'YYMMDD') as AchievedDate, " & _
-        "" & connNameSpace & ".SSPPApplicationData.strAirProgramCodes, " & _
-        "" & connNameSpace & ".SSPPApplicationData.strPermitNumber " & _
-        "from " & connNameSpace & ".AFSSSPPRecords, " & connNameSpace & ".SSPPApplicationMaster,  " & _
-        "" & connNameSpace & ".SSPPApplicationData " & _
+        "" & DBNameSpace & ".SSPPApplicationData.strComments, " & _
+        "to_Char(" & DBNameSpace & ".SSPPApplicationMaster.DatFinalizedDate, 'YYMMDD') as AchievedDate, " & _
+        "" & DBNameSpace & ".SSPPApplicationData.strAirProgramCodes, " & _
+        "" & DBNameSpace & ".SSPPApplicationData.strPermitNumber " & _
+        "from " & DBNameSpace & ".AFSSSPPRecords, " & DBNameSpace & ".SSPPApplicationMaster,  " & _
+        "" & DBNameSpace & ".SSPPApplicationData " & _
         "where strUpDateStatus <> 'N'  " & _
-        "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
-        "and " & connNameSpace & ".AFSSSPPRecords.strApplicationNumber = " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber " & _
+        "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
+        "and " & DBNameSpace & ".AFSSSPPRecords.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber " & _
         "and (strPermitType = '1' or strPermitType = '4' or strPermitType = '5' " & _
         "or strPermitType = '7' or strPermitType = '10' or strPermitType = '12' " & _
         "or strPermitType = '13') " & _
-        "and " & connNameSpace & ".SSPPApplicationMaster.strAIRSNumber not like '0413APL%' "
+        "and " & DBNameSpace & ".SSPPApplicationMaster.strAIRSNumber not like '0413APL%' "
 
         Try
             cmd = New OracleCommand(SQL, conn)
@@ -2301,7 +2301,7 @@ Public Class ISMPDataManagementTools
             End While
             dr.Close()
 
-            SQL = "Update " & connNameSpace & ".AFSSSPPRecords set " & _
+            SQL = "Update " & DBNameSpace & ".AFSSSPPRecords set " & _
             "strUpDateStatus = 'N' " & _
             "where strUPDateStatus <> 'N' "
 
@@ -2339,16 +2339,16 @@ Public Class ISMPDataManagementTools
         Dim SiteStatus As String
 
         SQL = "Select strUpDateStatus, " & _
-        "" & connNameSpace & ".AFSSSCPFCERecords.strFCENumber, strAFSActionNumber, " & _
-        "" & connNameSpace & ".SSCPFCEMaster.strAIRSNumber, strAIRProgramCodes, " & _
+        "" & DBNameSpace & ".AFSSSCPFCERecords.strFCENumber, strAFSActionNumber, " & _
+        "" & DBNameSpace & ".SSCPFCEMaster.strAIRSNumber, strAIRProgramCodes, " & _
         "to_char(datFCECompleted, 'YYMMDD') as AchievedDate, strFCEStatus, " & _
         "strFCEComments, strSiteInspection " & _
-        "from " & connNameSpace & ".AFSSSCPFCERecords, " & connNameSpace & ".SSCPFCEMaster, " & _
-        "" & connNameSpace & ".SSCPFCE, " & connNameSpace & ".APBHeaderData " & _
+        "from " & DBNameSpace & ".AFSSSCPFCERecords, " & DBNameSpace & ".SSCPFCEMaster, " & _
+        "" & DBNameSpace & ".SSCPFCE, " & DBNameSpace & ".APBHeaderData " & _
         "where strUpDateStatus <> 'N' " & _
-        "and " & connNameSpace & ".AFSSSCPFCERecords.strFCENumber = " & connNameSpace & ".SSCPFCEMaster.strFCENumber " & _
-        "and " & connNameSpace & ".SSCPFCE.strFCENumber = " & connNameSpace & ".AFSSSCPFCERecords.strFCENumber " & _
-        "and " & connNameSpace & ".APBHeaderData.strAIRSNumber = " & connNameSpace & ".SSCPFCEMaster.strAIRSNumber " 
+        "and " & DBNameSpace & ".AFSSSCPFCERecords.strFCENumber = " & DBNameSpace & ".SSCPFCEMaster.strFCENumber " & _
+        "and " & DBNameSpace & ".SSCPFCE.strFCENumber = " & DBNameSpace & ".AFSSSCPFCERecords.strFCENumber " & _
+        "and " & DBNameSpace & ".APBHeaderData.strAIRSNumber = " & DBNameSpace & ".SSCPFCEMaster.strAIRSNumber " 
 
         Try
             cmd = New OracleCommand(SQL, conn)
@@ -2481,7 +2481,7 @@ Public Class ISMPDataManagementTools
                 End If
             End While
 
-            SQL = "Update " & connNameSpace & ".AFSSSCPFCERecords set " & _
+            SQL = "Update " & DBNameSpace & ".AFSSSCPFCERecords set " & _
             "strUpDateStatus = 'N' " & _
             "where strUPDateStatus <> 'N' "
 
@@ -2518,20 +2518,20 @@ Public Class ISMPDataManagementTools
         Dim EnforcementNumber As String
 
         SQL = "Select " & _
-        "strUpDateStatus, " & connNameSpace & ".AFSSSCPRecords.strTrackingNumber,  " & _
+        "strUpDateStatus, " & DBNameSpace & ".AFSSSCPRecords.strTrackingNumber,  " & _
         "strEventType,  " & _
         "strResponsibleStaff,  " & _
         "to_char(datCompleteDate, 'YYMMDD') as AchievedDate,  " & _
-        "" & connNameSpace & ".APBHeaderData.strAIRSNumber,  " & _
+        "" & DBNameSpace & ".APBHeaderData.strAIRSNumber,  " & _
         "strAIRProgramCodes, strAFSActionNumber,  " & _
         "strEnforcementNumber  " & _
-        "from " & connNameSpace & ".AFSSSCPRecords, " & connNameSpace & ".SSCPItemMaster,  " & _
-        "" & connNameSpace & ".APBHeaderData,  " & _
-        "" & connNameSpace & ".SSCPEnforcementItems  " & _
+        "from " & DBNameSpace & ".AFSSSCPRecords, " & DBNameSpace & ".SSCPItemMaster,  " & _
+        "" & DBNameSpace & ".APBHeaderData,  " & _
+        "" & DBNameSpace & ".SSCPEnforcementItems  " & _
         "where strUpdateStatus <> 'N'  " & _
-        "and " & connNameSpace & ".SSCPItemMaster.strTrackingNumber = " & connNameSpace & ".AFSSSCPRecords.strTrackingNumber  " & _
-        "and " & connNameSpace & ".APBHeaderData.strAIRSNumber = " & connNameSpace & ".SSCPItemMaster.strAIRSNumber   " & _
-        "and " & connNameSpace & ".SSCPItemMaster.strTrackingNumber = " & connNameSpace & ".SSCPEnforcementItems.strTrackingNumber (+)  "
+        "and " & DBNameSpace & ".SSCPItemMaster.strTrackingNumber = " & DBNameSpace & ".AFSSSCPRecords.strTrackingNumber  " & _
+        "and " & DBNameSpace & ".APBHeaderData.strAIRSNumber = " & DBNameSpace & ".SSCPItemMaster.strAIRSNumber   " & _
+        "and " & DBNameSpace & ".SSCPItemMaster.strTrackingNumber = " & DBNameSpace & ".SSCPEnforcementItems.strTrackingNumber (+)  "
 
         Try
             
@@ -2680,7 +2680,7 @@ Public Class ISMPDataManagementTools
             dr.Close()
 
 
-            SQL = "Update " & connNameSpace & ".AFSSSCPRecords set " & _
+            SQL = "Update " & DBNameSpace & ".AFSSSCPRecords set " & _
             "strUpDateStatus = 'N' " & _
             "where strUPDateStatus <> 'N' "
 
@@ -2735,8 +2735,8 @@ Public Class ISMPDataManagementTools
 
         Try
             SQL = "Select   " & _
-            "" & connNameSpace & ".AFSSSCPEnforcementRecords.strUpDateStatus,   " & _
-            "" & connNameSpace & ".AFSSSCPEnforcementRecords.strEnforcementNumber,    " & _
+            "" & DBNameSpace & ".AFSSSCPEnforcementRecords.strUpDateStatus,   " & _
+            "" & DBNameSpace & ".AFSSSCPEnforcementRecords.strEnforcementNumber,    " & _
             "strStaffResponsible,    " & _
             "to_Char(datDiscoveryDate, 'YYMMDD') as DiscoveryDate,    " & _
             "to_char(datDayZero, 'YYMMDD') as DayZero,    " & _
@@ -2751,38 +2751,38 @@ Public Class ISMPDataManagementTools
             "to_char(datAOResolved, 'YYMMDD') as AOResolved,    " & _
             "to_char(SSCPEnforcement.datModifingDate, 'YYMMDD') as StipulatedDate,    " & _
             "strCOPenaltyAmount,    " & _
-            "" & connNameSpace & ".SSCPENforcementStipulated.strStipulatedPenalty,    " & _
-            "" & connNameSpace & ".APBHeaderData.strAIRSNumber, strAIRProgramCodes,    " & _
-            "" & connNameSpace & ".AFSSSCPEnforcementRecords.strAFSActionNumber,    " & _
-            "strAFSKeyActionNumber,  " & connNameSpace & ".sscpEnforcementItems.strTrackingNumber,    " & _
+            "" & DBNameSpace & ".SSCPENforcementStipulated.strStipulatedPenalty,    " & _
+            "" & DBNameSpace & ".APBHeaderData.strAIRSNumber, strAIRProgramCodes,    " & _
+            "" & DBNameSpace & ".AFSSSCPEnforcementRecords.strAFSActionNumber,    " & _
+            "strAFSKeyActionNumber,  " & DBNameSpace & ".sscpEnforcementItems.strTrackingNumber,    " & _
             "case    " & _
-            "when " & connNameSpace & ".AFSSSCPEnforcementRecords.strAFSActionNumber = strAFSKeyActionNumber then '04'    " & _
-             "when " & connNameSpace & ".AFSSSCPEnforcementRecords.strAFSActionNumber = strAFSNOVSentNumber then '56'    " & _
-            "when " & connNameSpace & ".AFSSSCPEnforcementRecords.strAFSActionNumber = strAFSNOVResolvedNumber then 'AW'    " & _
-            "when " & connNameSpace & ".AFSSSCPEnforcementRecords.strAFSActionNumber = strAFSCOProposedNumber then '57'    " & _
-            "when " & connNameSpace & ".AFSSSCPEnforcementRecords.strAFSActionNumber = strAFSCOExecutedNumber then 'X1'    " & _
-            "when " & connNameSpace & ".AFSSSCPEnforcementRecords.strAFSActionNumber = strAFSCOResolvedNumber then 'AS'    " & _
-            "when " & connNameSpace & ".AFSSSCPEnforcementRecords.strAFSActionNumber = strAFSStipulatedPenaltyNumber then 'Z4'   " & _
-            "when " & connNameSpace & ".AFSSSCPEnforcementRecords.strAFSActionNumber = strAFSAOtoAGNumber then '60'    " & _
-            "when " & connNameSpace & ".AFSSSCPEnforcementRecords.strAFSActionNumber = strAFSCivilCourtNumber then '64'    " & _
-            "when " & connNameSpace & ".AFSSSCPEnforcementRecords.strAFSActionNumber = strAFSAOResolvedNumber then 'AS'    " & _
+            "when " & DBNameSpace & ".AFSSSCPEnforcementRecords.strAFSActionNumber = strAFSKeyActionNumber then '04'    " & _
+             "when " & DBNameSpace & ".AFSSSCPEnforcementRecords.strAFSActionNumber = strAFSNOVSentNumber then '56'    " & _
+            "when " & DBNameSpace & ".AFSSSCPEnforcementRecords.strAFSActionNumber = strAFSNOVResolvedNumber then 'AW'    " & _
+            "when " & DBNameSpace & ".AFSSSCPEnforcementRecords.strAFSActionNumber = strAFSCOProposedNumber then '57'    " & _
+            "when " & DBNameSpace & ".AFSSSCPEnforcementRecords.strAFSActionNumber = strAFSCOExecutedNumber then 'X1'    " & _
+            "when " & DBNameSpace & ".AFSSSCPEnforcementRecords.strAFSActionNumber = strAFSCOResolvedNumber then 'AS'    " & _
+            "when " & DBNameSpace & ".AFSSSCPEnforcementRecords.strAFSActionNumber = strAFSStipulatedPenaltyNumber then 'Z4'   " & _
+            "when " & DBNameSpace & ".AFSSSCPEnforcementRecords.strAFSActionNumber = strAFSAOtoAGNumber then '60'    " & _
+            "when " & DBNameSpace & ".AFSSSCPEnforcementRecords.strAFSActionNumber = strAFSCivilCourtNumber then '64'    " & _
+            "when " & DBNameSpace & ".AFSSSCPEnforcementRecords.strAFSActionNumber = strAFSAOResolvedNumber then 'AS'    " & _
             "Else 'ERROR'     " & _
             "End as ActionType,    " & _
             "strPollutants, strHPV,  " & _
-            "" & connNameSpace & ".AFSSSCPRecords.strAFSActionNumber as LinkingEvent  " & _
-            "from  " & connNameSpace & ".AFSSSCPEnforcementRecords,    " & _
-            "" & connNameSpace & ".SSCPEnforcementItems,  " & connNameSpace & ".SSCPEnforcement,    " & _
-            "" & connNameSpace & ".APBHeaderData,  " & connNameSpace & ".SSCPENforcementStipulated,    " & _
-            "" & connNameSpace & ".SSCPItemMaster,  " & _
-            "" & connNameSpace & ".AFSSSCPRecords    " & _
-            "where " & connNameSpace & ".AFSSSCPEnforcementRecords.strUpdateStatus <> 'N'    " & _
-            "and  " & connNameSpace & ".SSCPEnforcement.strEnforcementNumber =  " & connNameSpace & ".AFSSSCPEnforcementRecords.strEnforcementNumber    " & _
-            "and  " & connNameSpace & ".APBHeaderData.strAIRSNumber =  " & connNameSpace & ".SSCPEnforcementItems.strAIRSNumber    " & _
-            "and  " & connNameSpace & ".SSCPEnforcementItems.strEnforcementNumber =  " & connNameSpace & ".SSCPEnforcement.strEnforcementNumber    " & _
-            "and  " & connNameSpace & ".SSCPEnforcementItems.strEnforcementNumber =  " & connNameSpace & ".SSCPENforcementStipulated.strEnforcementNumber (+)    " & _
-            "and  " & connNameSpace & ".sscpEnforcementItems.strTrackingNumber =  " & connNameSpace & ".SSCPItemMaster.strTrackingNumber (+)   " & _
+            "" & DBNameSpace & ".AFSSSCPRecords.strAFSActionNumber as LinkingEvent  " & _
+            "from  " & DBNameSpace & ".AFSSSCPEnforcementRecords,    " & _
+            "" & DBNameSpace & ".SSCPEnforcementItems,  " & DBNameSpace & ".SSCPEnforcement,    " & _
+            "" & DBNameSpace & ".APBHeaderData,  " & DBNameSpace & ".SSCPENforcementStipulated,    " & _
+            "" & DBNameSpace & ".SSCPItemMaster,  " & _
+            "" & DBNameSpace & ".AFSSSCPRecords    " & _
+            "where " & DBNameSpace & ".AFSSSCPEnforcementRecords.strUpdateStatus <> 'N'    " & _
+            "and  " & DBNameSpace & ".SSCPEnforcement.strEnforcementNumber =  " & DBNameSpace & ".AFSSSCPEnforcementRecords.strEnforcementNumber    " & _
+            "and  " & DBNameSpace & ".APBHeaderData.strAIRSNumber =  " & DBNameSpace & ".SSCPEnforcementItems.strAIRSNumber    " & _
+            "and  " & DBNameSpace & ".SSCPEnforcementItems.strEnforcementNumber =  " & DBNameSpace & ".SSCPEnforcement.strEnforcementNumber    " & _
+            "and  " & DBNameSpace & ".SSCPEnforcementItems.strEnforcementNumber =  " & DBNameSpace & ".SSCPENforcementStipulated.strEnforcementNumber (+)    " & _
+            "and  " & DBNameSpace & ".sscpEnforcementItems.strTrackingNumber =  " & DBNameSpace & ".SSCPItemMaster.strTrackingNumber (+)   " & _
             "and strEventType <> '03' " & _
-            "and " & connNameSpace & ".sscpEnforcementItems.strTrackingNumber = " & connNameSpace & ".AFSSSCPRecords.strTrackingNumber (+) " & _
+            "and " & DBNameSpace & ".sscpEnforcementItems.strTrackingNumber = " & DBNameSpace & ".AFSSSCPRecords.strTrackingNumber (+) " & _
             "Order by strAFSActionNumber ASC "
 
             cmd = New OracleCommand(SQL, conn)
@@ -3114,8 +3114,8 @@ Public Class ISMPDataManagementTools
             dr.Close()
 
             SQL = "Select  " & _
-            "" & connNameSpace & ".afssscpenforcementrecords.strUpDateStatus,  " & _
-            "" & connNameSpace & ".AFSSSCPEnforcementRecords.strEnforcementNumber,   " & _
+            "" & DBNameSpace & ".afssscpenforcementrecords.strUpDateStatus,  " & _
+            "" & DBNameSpace & ".AFSSSCPEnforcementRecords.strEnforcementNumber,   " & _
             "strStaffResponsible,   " & _
             "to_Char(datDiscoveryDate, 'YYMMDD') as DiscoveryDate,   " & _
             "to_char(datDayZero, 'YYMMDD') as DayZero,   " & _
@@ -3130,39 +3130,39 @@ Public Class ISMPDataManagementTools
             "to_char(datAOResolved, 'YYMMDD') as AOResolved,   " & _
             "to_char(SSCPEnforcement.datModifingDate, 'YYMMDD') as StipulatedDate,   " & _
             "strCOPenaltyAmount,   " & _
-            "" & connNameSpace & ".SSCPENforcementStipulated.strStipulatedPenalty,   " & _
-            "" & connNameSpace & ".APBHeaderData.strAIRSNumber, strAIRProgramCodes,   " & _
-            "" & connNameSpace & ".afssscpenforcementrecords.strAFSActionNumber,   " & _
-            "strAFSKeyActionNumber, " & connNameSpace & ".sscpEnforcementItems.strTrackingNumber,   " & _
+            "" & DBNameSpace & ".SSCPENforcementStipulated.strStipulatedPenalty,   " & _
+            "" & DBNameSpace & ".APBHeaderData.strAIRSNumber, strAIRProgramCodes,   " & _
+            "" & DBNameSpace & ".afssscpenforcementrecords.strAFSActionNumber,   " & _
+            "strAFSKeyActionNumber, " & DBNameSpace & ".sscpEnforcementItems.strTrackingNumber,   " & _
             "case   " & _
-            "when " & connNameSpace & ".afssscpenforcementrecords.strAFSActionNumber = strAFSKeyActionNumber then '04'   " & _
-            "when " & connNameSpace & ".afssscpenforcementrecords.strAFSActionNumber = strAFSNOVSentNumber then '56'   " & _
-            "when " & connNameSpace & ".afssscpenforcementrecords.strAFSActionNumber = strAFSNOVResolvedNumber then 'AW'   " & _
-            "when " & connNameSpace & ".afssscpenforcementrecords.strAFSActionNumber = strAFSCOProposedNumber then '57'   " & _
-            "when " & connNameSpace & ".afssscpenforcementrecords.strAFSActionNumber = strAFSCOExecutedNumber then 'X1'   " & _
-            "when " & connNameSpace & ".afssscpenforcementrecords.strAFSActionNumber = strAFSCOResolvedNumber then 'AS'   " & _
-            "when " & connNameSpace & ".afssscpenforcementrecords.strAFSActionNumber = strAFSStipulatedPenaltyNumber then 'Z4'   " & _
-            "when " & connNameSpace & ".afssscpenforcementrecords.strAFSActionNumber = strAFSAOtoAGNumber then '60'   " & _
-            "when " & connNameSpace & ".afssscpenforcementrecords.strAFSActionNumber = strAFSCivilCourtNumber then '64'   " & _
-            "when " & connNameSpace & ".afssscpenforcementrecords.strAFSActionNumber = strAFSAOResolvedNumber then 'AS'   " & _
+            "when " & DBNameSpace & ".afssscpenforcementrecords.strAFSActionNumber = strAFSKeyActionNumber then '04'   " & _
+            "when " & DBNameSpace & ".afssscpenforcementrecords.strAFSActionNumber = strAFSNOVSentNumber then '56'   " & _
+            "when " & DBNameSpace & ".afssscpenforcementrecords.strAFSActionNumber = strAFSNOVResolvedNumber then 'AW'   " & _
+            "when " & DBNameSpace & ".afssscpenforcementrecords.strAFSActionNumber = strAFSCOProposedNumber then '57'   " & _
+            "when " & DBNameSpace & ".afssscpenforcementrecords.strAFSActionNumber = strAFSCOExecutedNumber then 'X1'   " & _
+            "when " & DBNameSpace & ".afssscpenforcementrecords.strAFSActionNumber = strAFSCOResolvedNumber then 'AS'   " & _
+            "when " & DBNameSpace & ".afssscpenforcementrecords.strAFSActionNumber = strAFSStipulatedPenaltyNumber then 'Z4'   " & _
+            "when " & DBNameSpace & ".afssscpenforcementrecords.strAFSActionNumber = strAFSAOtoAGNumber then '60'   " & _
+            "when " & DBNameSpace & ".afssscpenforcementrecords.strAFSActionNumber = strAFSCivilCourtNumber then '64'   " & _
+            "when " & DBNameSpace & ".afssscpenforcementrecords.strAFSActionNumber = strAFSAOResolvedNumber then 'AS'   " & _
             "Else 'ERROR'    " & _
             "End as ActionType,   " & _
             "strPollutants, strHPV,  " & _
-            "" & connNameSpace & ".afsismprecords.strafsactionnumber as LinkingEvent  " & _
-            "from " & connNameSpace & ".AFSSSCPEnforcementRecords,   " & _
-            "" & connNameSpace & ".SSCPEnforcementItems, " & connNameSpace & ".SSCPEnforcement,   " & _
-            "" & connNameSpace & ".APBHeaderData, " & connNameSpace & ".SSCPENforcementStipulated,   " & _
-            "" & connNameSpace & ".SSCPItemMaster,  " & _
-            "" & connNameSpace & ".sscptestreports,  " & _
-            "" & connNameSpace & ".AFSISMPRecords  " & _
-            "where " & connNameSpace & ".afssscpenforcementrecords.strUpdateStatus <> 'N'   " & _
-            "and " & connNameSpace & ".SSCPEnforcement.strEnforcementNumber = " & connNameSpace & ".AFSSSCPEnforcementRecords.strEnforcementNumber   " & _
-            "and " & connNameSpace & ".APBHeaderData.strAIRSNumber = " & connNameSpace & ".SSCPEnforcementItems.strAIRSNumber   " & _
-            "and " & connNameSpace & ".SSCPEnforcementItems.strEnforcementNumber = " & connNameSpace & ".SSCPEnforcement.strEnforcementNumber   " & _
-            "and " & connNameSpace & ".SSCPEnforcementItems.strEnforcementNumber = " & connNameSpace & ".SSCPENforcementStipulated.strEnforcementNumber (+)   " & _
-            "and " & connNameSpace & ".sscpEnforcementItems.strTrackingNumber = " & connNameSpace & ".SSCPItemMaster.strTrackingNumber (+)  " & _
-            "and " & connNameSpace & ".SSCPEnforcementItems.strTrackingNumber = " & connNameSpace & ".SSCPTestReports.strTrackingNumber (+) " & _
-            "and " & connNameSpace & ".sscptestReports.strReferenceNumber  = " & connNameSpace & ".AFSISMPRecords.strReferenceNumber  (+) " & _
+            "" & DBNameSpace & ".afsismprecords.strafsactionnumber as LinkingEvent  " & _
+            "from " & DBNameSpace & ".AFSSSCPEnforcementRecords,   " & _
+            "" & DBNameSpace & ".SSCPEnforcementItems, " & DBNameSpace & ".SSCPEnforcement,   " & _
+            "" & DBNameSpace & ".APBHeaderData, " & DBNameSpace & ".SSCPENforcementStipulated,   " & _
+            "" & DBNameSpace & ".SSCPItemMaster,  " & _
+            "" & DBNameSpace & ".sscptestreports,  " & _
+            "" & DBNameSpace & ".AFSISMPRecords  " & _
+            "where " & DBNameSpace & ".afssscpenforcementrecords.strUpdateStatus <> 'N'   " & _
+            "and " & DBNameSpace & ".SSCPEnforcement.strEnforcementNumber = " & DBNameSpace & ".AFSSSCPEnforcementRecords.strEnforcementNumber   " & _
+            "and " & DBNameSpace & ".APBHeaderData.strAIRSNumber = " & DBNameSpace & ".SSCPEnforcementItems.strAIRSNumber   " & _
+            "and " & DBNameSpace & ".SSCPEnforcementItems.strEnforcementNumber = " & DBNameSpace & ".SSCPEnforcement.strEnforcementNumber   " & _
+            "and " & DBNameSpace & ".SSCPEnforcementItems.strEnforcementNumber = " & DBNameSpace & ".SSCPENforcementStipulated.strEnforcementNumber (+)   " & _
+            "and " & DBNameSpace & ".sscpEnforcementItems.strTrackingNumber = " & DBNameSpace & ".SSCPItemMaster.strTrackingNumber (+)  " & _
+            "and " & DBNameSpace & ".SSCPEnforcementItems.strTrackingNumber = " & DBNameSpace & ".SSCPTestReports.strTrackingNumber (+) " & _
+            "and " & DBNameSpace & ".sscptestReports.strReferenceNumber  = " & DBNameSpace & ".AFSISMPRecords.strReferenceNumber  (+) " & _
             "and strEventType = '03' "
 
             cmd = New OracleCommand(SQL, conn)
@@ -3505,7 +3505,7 @@ Public Class ISMPDataManagementTools
             End While
             dr.Close()
 
-            SQL = "Update " & connNameSpace & ".AFSSSCPEnforcementRecords set " & _
+            SQL = "Update " & DBNameSpace & ".AFSSSCPEnforcementRecords set " & _
             "strUpDateStatus = 'N' " & _
             "where strUPDateStatus <> 'N' "
 
@@ -3542,8 +3542,8 @@ Public Class ISMPDataManagementTools
         Dim ReferenceNumber As String = ""
         Dim CommentLine As String = ""
 
-        SQL = "Select " & connNameSpace & ".AFSISMPRecords.strReferenceNumber, " & _
-        "strAfsActionNumber, substr(" & connNameSpace & ".ISMPMaster.strAIRSNumber, 3) as AIRSNumber,  " & _
+        SQL = "Select " & DBNameSpace & ".AFSISMPRecords.strReferenceNumber, " & _
+        "strAfsActionNumber, substr(" & DBNameSpace & ".ISMPMaster.strAIRSNumber, 3) as AIRSNumber,  " & _
         "strAIRProgramCodes,  " & _
         "case  " & _
         "	when strWitnessingEngineer = '0' then 'TR'  " & _
@@ -3559,13 +3559,13 @@ Public Class ISMPDataManagementTools
         "to_char(datTestDateEnd, 'YYMMDD') as DateAchieved, " & _
         "strReviewingEngineer, strUpdateStatus, strPollutant, " & _
         "mmoCommentArea, strafscode  " & _
-        "from " & connNameSpace & ".AFSISMPRecords, " & connNameSpace & ".ISMPMaster, " & _
-        "" & connNameSpace & ".ISMPReportInformation, " & connNameSpace & ".APBHeaderData, " & _
-        "" & connNameSpace & ".LookUPPollutants  " & _
-        "where " & connNameSpace & ".ISMPMaster.strReferenceNumber = " & connNameSpace & ".AFSISMPRecords.strReferenceNumber  " & _
-        "and " & connNameSpace & ".ISMPMaster.strReferenceNumber = " & connNameSpace & ".ISMPReportInformation.strReferenceNumber  " & _
-        "and " & connNameSpace & ".ISMPMaster.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSnumber " & _
-        "and " & connNameSpace & ".LookUPPollutants.strPollutantcode = " & connNameSpace & ".ISMPReportInformation.strPollutant " & _
+        "from " & DBNameSpace & ".AFSISMPRecords, " & DBNameSpace & ".ISMPMaster, " & _
+        "" & DBNameSpace & ".ISMPReportInformation, " & DBNameSpace & ".APBHeaderData, " & _
+        "" & DBNameSpace & ".LookUPPollutants  " & _
+        "where " & DBNameSpace & ".ISMPMaster.strReferenceNumber = " & DBNameSpace & ".AFSISMPRecords.strReferenceNumber  " & _
+        "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber  " & _
+        "and " & DBNameSpace & ".ISMPMaster.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSnumber " & _
+        "and " & DBNameSpace & ".LookUPPollutants.strPollutantcode = " & DBNameSpace & ".ISMPReportInformation.strPollutant " & _
         "and strUpdateStatus <> 'N'"
 
         Try
@@ -3696,7 +3696,7 @@ Public Class ISMPDataManagementTools
 
             End While
 
-            SQL = "Update " & connNameSpace & ".AFSISMPRecords set " & _
+            SQL = "Update " & DBNameSpace & ".AFSISMPRecords set " & _
             "strUpDateStatus = 'N' " & _
             "where strUPDateStatus <> 'N' "
 
@@ -3721,9 +3721,9 @@ Public Class ISMPDataManagementTools
         Try
             
             If Len(AIRSNumber) = 12 And IsNumeric(AIRSNumber) Then
-                SQL = "Select (" & connNameSpace & ".LookUPDistricts.strDistrictcode|| '-'||strDistrictName) as District " & _
-                "from " & connNameSpace & ".LookUPDistricts, " & connNameSpace & ".LookUPDistrictInformation " & _
-                "where " & connNameSpace & ".LookUPDistricts.strDistrictCode = " & connNameSpace & ".LookUPDistrictInformation.strDistrictCode " & _
+                SQL = "Select (" & DBNameSpace & ".LookUPDistricts.strDistrictcode|| '-'||strDistrictName) as District " & _
+                "from " & DBNameSpace & ".LookUPDistricts, " & DBNameSpace & ".LookUPDistrictInformation " & _
+                "where " & DBNameSpace & ".LookUPDistricts.strDistrictCode = " & DBNameSpace & ".LookUPDistrictInformation.strDistrictCode " & _
                 "and strDistrictCounty = '" & Mid(AIRSNumber, 5, 3) & "' "
 
                 cmd = New OracleCommand(SQL, conn)
@@ -3787,7 +3787,7 @@ Public Class ISMPDataManagementTools
                 AIRSNumber = txtCDSAIRSNumber.Text
 
                 SQL = "Select strAIRSNumber " & _
-                "from " & connNameSpace & ".APBMasterAIRS " & _
+                "from " & DBNameSpace & ".APBMasterAIRS " & _
                 "where strAIRSNumber = '" & AIRSNumber & "' "
 
                 cmd = New OracleCommand(SQL, conn)
@@ -3953,7 +3953,7 @@ Public Class ISMPDataManagementTools
                             MailingZipCode = "00000"
                         End If
 
-                        SQL = "Insert into " & connNameSpace & ".APBMasterAIRS " & _
+                        SQL = "Insert into " & DBNameSpace & ".APBMasterAIRS " & _
                         "(strAIRSNumber, strModifingPerson, " & _
                         "datModifingDate) " & _
                         "values " & _
@@ -3967,7 +3967,7 @@ Public Class ISMPDataManagementTools
                         dr = cmd.ExecuteReader
                         dr.Close()
 
-                        SQL = "Insert into " & connNameSpace & ".APBFacilityInformation " & _
+                        SQL = "Insert into " & DBNameSpace & ".APBFacilityInformation " & _
                         "(strAIRSNumber, strFacilityName, " & _
                         "strFacilityStreet1, strFacilityStreet2, " & _
                         "strFacilityCity, strFacilityState, " & _
@@ -3995,7 +3995,7 @@ Public Class ISMPDataManagementTools
 
                         SQL = "select " & _
                         "strNonAttainment " & _
-                        "from " & connNameSpace & ".LookUpCountyInformation " & _
+                        "from " & DBNameSpace & ".LookUpCountyInformation " & _
                         "where strCountyCode = '" & Mid(AIRSNumber, 5, 3) & "' "
 
                         cmd = New OracleCommand(SQL, conn)
@@ -4013,7 +4013,7 @@ Public Class ISMPDataManagementTools
                         dr.Close()
 
 
-                        SQL = "Insert into " & connNameSpace & ".APBHeaderData " & _
+                        SQL = "Insert into " & DBNameSpace & ".APBHeaderData " & _
                         "(strAIRSNumber, strOperationalStatus, " & _
                         "strClass, " & _
                         "strAIRProgramCodes, strSICCode, " & _
@@ -4038,7 +4038,7 @@ Public Class ISMPDataManagementTools
                         dr = cmd.ExecuteReader
                         dr.Close()
 
-                        SQL = "Insert into " & connNameSpace & ".APBSupplamentalData " & _
+                        SQL = "Insert into " & DBNameSpace & ".APBSupplamentalData " & _
                         "(strAIRSNumber, datSSCPTestReportDue, " & _
                         "strModifingPerson, DatModifingDate, " & _
                         "strDistrictOffice, strCMSMember, " & _
@@ -4057,7 +4057,7 @@ Public Class ISMPDataManagementTools
                         dr = cmd.ExecuteReader
                         dr.Close()
 
-                        SQL = "insert into " & connNameSpace & ".APBContactInformation " & _
+                        SQL = "insert into " & DBNameSpace & ".APBContactInformation " & _
                         "(strContactKey, strAIRSNumber, strKey, " & _
                         "strContactFirstName, strContactLastName, " & _
                         "strContactPrefix, strContactSuffix, " & _
@@ -4089,7 +4089,7 @@ Public Class ISMPDataManagementTools
                         dr.Close()
 
                         If chbCDS_1.Checked = True Then
-                            SQL = "Insert into " & connNameSpace & ".APBAirProgramPollutants " & _
+                            SQL = "Insert into " & DBNameSpace & ".APBAirProgramPollutants " & _
                             "(strAIRSNumber, strAIRPollutantKey, " & _
                             "strPollutantKey, strComplianceStatus, " & _
                             "strModifingPerson, datModifingDate) " & _
@@ -4107,7 +4107,7 @@ Public Class ISMPDataManagementTools
                             dr.Close()
                         End If
                         If chbCDS_2.Checked = True Then
-                            SQL = "Insert into " & connNameSpace & ".APBAirProgramPollutants " & _
+                            SQL = "Insert into " & DBNameSpace & ".APBAirProgramPollutants " & _
                             "(strAIRSNumber, strAIRPollutantKey, " & _
                             "strPollutantKey, strComplianceStatus, " & _
                             "strModifingPerson, datModifingDate) " & _
@@ -4125,7 +4125,7 @@ Public Class ISMPDataManagementTools
                             dr.Close()
                         End If
                         If chbCDS_3.Checked = True Then
-                            SQL = "Insert into " & connNameSpace & ".APBAirProgramPollutants " & _
+                            SQL = "Insert into " & DBNameSpace & ".APBAirProgramPollutants " & _
                             "(strAIRSNumber, strAIRPollutantKey, " & _
                             "strPollutantKey, strComplianceStatus, " & _
                             "strModifingPerson, datModifingDate) " & _
@@ -4143,7 +4143,7 @@ Public Class ISMPDataManagementTools
                             dr.Close()
                         End If
                         If chbCDS_4.Checked = True Then
-                            SQL = "Insert into " & connNameSpace & ".APBAirProgramPollutants " & _
+                            SQL = "Insert into " & DBNameSpace & ".APBAirProgramPollutants " & _
                             "(strAIRSNumber, strAIRPollutantKey, " & _
                             "strPollutantKey, strComplianceStatus, " & _
                             "strModifingPerson, datModifingDate) " & _
@@ -4161,7 +4161,7 @@ Public Class ISMPDataManagementTools
                             dr.Close()
                         End If
                         If chbCDS_5.Checked = True Then
-                            SQL = "Insert into " & connNameSpace & ".APBAirProgramPollutants " & _
+                            SQL = "Insert into " & DBNameSpace & ".APBAirProgramPollutants " & _
                             "(strAIRSNumber, strAIRPollutantKey, " & _
                             "strPollutantKey, strComplianceStatus, " & _
                             "strModifingPerson, datModifingDate) " & _
@@ -4179,7 +4179,7 @@ Public Class ISMPDataManagementTools
                             dr.Close()
                         End If
                         If chbCDS_6.Checked = True Then
-                            SQL = "Insert into " & connNameSpace & ".APBAirProgramPollutants " & _
+                            SQL = "Insert into " & DBNameSpace & ".APBAirProgramPollutants " & _
                             "(strAIRSNumber, strAIRPollutantKey, " & _
                             "strPollutantKey, strComplianceStatus, " & _
                             "strModifingPerson, datModifingDate) " & _
@@ -4197,7 +4197,7 @@ Public Class ISMPDataManagementTools
                             dr.Close()
                         End If
                         If chbCDS_7.Checked = True Then
-                            SQL = "Insert into " & connNameSpace & ".APBAirProgramPollutants " & _
+                            SQL = "Insert into " & DBNameSpace & ".APBAirProgramPollutants " & _
                             "(strAIRSNumber, strAIRPollutantKey, " & _
                             "strPollutantKey, strComplianceStatus, " & _
                             "strModifingPerson, datModifingDate) " & _
@@ -4215,7 +4215,7 @@ Public Class ISMPDataManagementTools
                             dr.Close()
                         End If
                         If chbCDS_8.Checked = True Then
-                            SQL = "Insert into " & connNameSpace & ".APBAirProgramPollutants " & _
+                            SQL = "Insert into " & DBNameSpace & ".APBAirProgramPollutants " & _
                             "(strAIRSNumber, strAIRPollutantKey, " & _
                             "strPollutantKey, strComplianceStatus, " & _
                             "strModifingPerson, datModifingDate) " & _
@@ -4233,7 +4233,7 @@ Public Class ISMPDataManagementTools
                             dr.Close()
                         End If
                         If chbCDS_9.Checked = True Then
-                            SQL = "Insert into " & connNameSpace & ".APBAirProgramPollutants " & _
+                            SQL = "Insert into " & DBNameSpace & ".APBAirProgramPollutants " & _
                             "(strAIRSNumber, strAIRPollutantKey, " & _
                             "strPollutantKey, strComplianceStatus, " & _
                             "strModifingPerson, datModifingDate) " & _
@@ -4251,7 +4251,7 @@ Public Class ISMPDataManagementTools
                             dr.Close()
                         End If
                         If chbCDS_10.Checked = True Then
-                            SQL = "Insert into " & connNameSpace & ".APBAirProgramPollutants " & _
+                            SQL = "Insert into " & DBNameSpace & ".APBAirProgramPollutants " & _
                             "(strAIRSNumber, strAIRPollutantKey, " & _
                             "strPollutantKey, strComplianceStatus, " & _
                             "strModifingPerson, datModifingDate) " & _
@@ -4269,7 +4269,7 @@ Public Class ISMPDataManagementTools
                             dr.Close()
                         End If
                         If chbCDS_11.Checked = True Then
-                            SQL = "Insert into " & connNameSpace & ".APBAirProgramPollutants " & _
+                            SQL = "Insert into " & DBNameSpace & ".APBAirProgramPollutants " & _
                             "(strAIRSNumber, strAIRPollutantKey, " & _
                             "strPollutantKey, strComplianceStatus, " & _
                             "strModifingPerson, datModifingDate) " & _
@@ -4287,7 +4287,7 @@ Public Class ISMPDataManagementTools
                             dr.Close()
                         End If
                         If chbCDS_12.Checked = True Then
-                            SQL = "Insert into " & connNameSpace & ".APBAirProgramPollutants " & _
+                            SQL = "Insert into " & DBNameSpace & ".APBAirProgramPollutants " & _
                             "(strAIRSNumber, strAIRPollutantKey, " & _
                             "strPollutantKey, strComplianceStatus, " & _
                             "strModifingPerson, datModifingDate) " & _
@@ -4305,7 +4305,7 @@ Public Class ISMPDataManagementTools
                             dr.Close()
                         End If
                         If chbCDS_13.Checked = True Then
-                            SQL = "Insert into " & connNameSpace & ".APBAirProgramPollutants " & _
+                            SQL = "Insert into " & DBNameSpace & ".APBAirProgramPollutants " & _
                             "(strAIRSNumber, strAIRPollutantKey, " & _
                             "strPollutantKey, strComplianceStatus, " & _
                             "strModifingPerson, datModifingDate) " & _
@@ -4323,7 +4323,7 @@ Public Class ISMPDataManagementTools
                             dr.Close()
                         End If
 
-                        SQL = "Insert into " & connNameSpace & ".SSCPDistrictResponsible " & _
+                        SQL = "Insert into " & DBNameSpace & ".SSCPDistrictResponsible " & _
                         "values " & _
                         "('" & AIRSNumber & "', 'False', " & _
                         "'001', sysdate) "
@@ -4334,14 +4334,14 @@ Public Class ISMPDataManagementTools
                         dr = cmd.ExecuteReader
                         dr.Close()
 
-                        'SQL = "insert into " & connNameSpace & ".SSCPFacilityAssignment " & _
+                        'SQL = "insert into " & DBNameSpace & ".SSCPFacilityAssignment " & _
                         '"values " & _
                         '"('" & AIRSNumber & "', 'K', '9', '" & UserGCode & "', sysdate) "
 
-                        SQL = "Insert into " & connNameSpace & ".SSCPInspectionsRequired " & _
+                        SQL = "Insert into " & DBNameSpace & ".SSCPInspectionsRequired " & _
                         "(numKey, strAIRsnumber, intyear) " & _
                         "values " & _
-                        "((select max(numKey) + 1 from " & connNameSpace & ".SSCPInspectionsRequired), " & _
+                        "((select max(numKey) + 1 from " & DBNameSpace & ".SSCPInspectionsRequired), " & _
                         "'" & AIRSNumber & "', '" & Now.Year.ToString & "') "
 
                         cmd = New OracleCommand(SQL, conn)
@@ -4455,24 +4455,24 @@ Public Class ISMPDataManagementTools
             End If
 
             SQL = "select " & _
-            "" & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber, " & _
-            "substr(" & connNameSpace & ".APBFacilityInformation.strAIRSnumber, 5) as AIRSNumber,  " & _
-            "" & connNameSpace & ".APBFacilityInformation.strFacilityName,  " & _
+            "" & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber, " & _
+            "substr(" & DBNameSpace & ".APBFacilityInformation.strAIRSnumber, 5) as AIRSNumber,  " & _
+            "" & DBNameSpace & ".APBFacilityInformation.strFacilityName,  " & _
             "(substr(strPermitNumber, 1, 4)|| '-' || substr(strPermitNumber, 5, 3)  " & _
             "   || '-' || substr(strPermitNumber, 8, 4)|| '-' ||substr(strPermitNumber, 12, 1)  " & _
             "     || '-' ||substr(strPermitNumber, 13,2) || '-' ||substr(strPermitNumber, 15)) as PermitNumber,  " & _
             "to_char(datPermitIssued, 'dd-Mon-yyyy') as PermitIssued, " & _
             "to_char(datEffective, 'dd-Mon-yyyy') as EffectiveDate  " & _
-            "from " & connNameSpace & ".SSPPApplicationMaster,  " & _
-            "" & connNameSpace & ".SSPPApplicationData, " & connNameSpace & ".SSPPApplicationTracking,  " & _
-            "" & connNameSpace & ".APBHeaderData, " & connNameSpace & ".APBFacilityInformation  " & _
-            "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
-            "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-            "and " & connNameSpace & ".SSPPApplicationMaster.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber  " & _
-            "and " & connNameSpace & ".SSPPApplicationMaster.strAIRSnumber = " & connNameSpace & ".APBFacilityInformation.strAIRSNumber  " & _
+            "from " & DBNameSpace & ".SSPPApplicationMaster,  " & _
+            "" & DBNameSpace & ".SSPPApplicationData, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
+            "" & DBNameSpace & ".APBHeaderData, " & DBNameSpace & ".APBFacilityInformation  " & _
+            "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
+            "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
+            "and " & DBNameSpace & ".SSPPApplicationMaster.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber  " & _
+            "and " & DBNameSpace & ".SSPPApplicationMaster.strAIRSnumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber  " & _
             "and strPermitNumber Like '%V__0'  " & _
-            "and " & connNameSpace & ".APBHeaderData.strOperationalStatus <> 'X'  " & _
-            "and substr(" & connNameSpace & ".apbheaderdata.strairprogramcodes, 13, 1) = '1' " & _
+            "and " & DBNameSpace & ".APBHeaderData.strOperationalStatus <> 'X'  " & _
+            "and substr(" & DBNameSpace & ".apbheaderdata.strairprogramcodes, 13, 1) = '1' " & _
             "and (datPermitIssued between '" & Startdate & "' and '" & EndDate & "' " & _
             "   or datEffective between '" & Startdate & "' and '" & EndDate & "') " & _
             "and (strApplicationType = '14' or strApplicationType = '16' or strApplicationType = '27') "
@@ -4567,8 +4567,8 @@ Public Class ISMPDataManagementTools
             "strErrorLocation, strErrorMessage,  " & _
             "to_char(datErrorDate, 'DD-Mon-YYYY') as ErrorDate,  " & _
             "strSolution  " & _
-            "from " & connNameSpace & ".IAIPErrorLog, " & connNameSpace & ".EPDUserProfiles  " & _
-            "where " & connNameSpace & ".IAIPErrorLog.strUser = " & connNameSpace & ".EPDUserProfiles.numUserID "
+            "from " & DBNameSpace & ".IAIPErrorLog, " & DBNameSpace & ".EPDUserProfiles  " & _
+            "where " & DBNameSpace & ".IAIPErrorLog.strUser = " & DBNameSpace & ".EPDUserProfiles.numUserID "
 
             If rdbViewAllErrors.Checked = True Then
                 SQL = SQL
@@ -4611,14 +4611,14 @@ Public Class ISMPDataManagementTools
             "strTime, " & _
             "strDetails, numError, " & _
             "strSolution " & _
-            "from " & connNameSpace & ".LogErrors "
+            "from " & DBNameSpace & ".LogErrors "
 
 
             SQL = "select numError, " & _
             "strIPAddress, strUserEmail, " & _
             "strErrorPage, dateTimeStamp, " & _
             "strErrorMsg, strSolution " & _
-            "From " & connNameSpace & ".OLAPERRORLog "
+            "From " & DBNameSpace & ".OLAPERRORLog "
 
             If rdbAllWebErrors.Checked = True Then
                 SQL = SQL
@@ -4665,7 +4665,7 @@ Public Class ISMPDataManagementTools
                 "strFacilityName, strFacilityStreet1, " & _
                 "strFacilityCity, strFacilityState, " & _
                 "strFacilityZipCode " & _
-                "from " & connNameSpace & ".SSPPApplicationData " & _
+                "from " & DBNameSpace & ".SSPPApplicationData " & _
                 "Where strApplicationNumber = '" & txtWebPublisherApplicationNumber.Text & "' "
 
                 cmd = New OracleCommand(SQL, conn)
@@ -4728,18 +4728,18 @@ Public Class ISMPDataManagementTools
             clbTitleVEmailList.Items.Clear()
 
             SQL = "Select " & _
-            "" & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber, " & _
+            "" & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber, " & _
             "strFacilityName, strFacilityCity, " & _
             "strApplicationTypeDesc, " & _
             "(strLastName||', '||strFirstName) as StaffResponsible, " & _
             "strUnitDesc " & _
-            "from " & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".SSPPApplicationData, " & _
-            "" & connNameSpace & ".LookUpApplicationTypes, " & connNameSpace & ".EPDUserProfiles, " & _
-            "" & connNameSpace & ".LookUpEPDUnits " & _
-            "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationData.strApplicationNumber " & _
-            "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationType = " & connNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode " & _
-            "and " & connNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & connNameSpace & ".EPDUserProfiles.numUserID " & _
-            "and " & connNameSpace & ".EPDUserProfiles.numUnit = " & connNameSpace & ".LookUpEPDUnits.numUnitCode (+) " & _
+            "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationData, " & _
+            "" & DBNameSpace & ".LookUpApplicationTypes, " & DBNameSpace & ".EPDUserProfiles, " & _
+            "" & DBNameSpace & ".LookUpEPDUnits " & _
+            "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber " & _
+            "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationType = " & DBNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode " & _
+            "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
+            "and " & DBNameSpace & ".EPDUserProfiles.numUnit = " & DBNameSpace & ".LookUpEPDUnits.numUnitCode (+) " & _
             "and (strAppReceivedNotification is Null or strAppReceivedNotification = 'False') " & _
             "and (strApplicationType = '19'  or strApplicationType = '20' or strApplicationType = '21' " & _
             "or strApplicationType = '22') " & _
@@ -4830,24 +4830,24 @@ Public Class ISMPDataManagementTools
                 "following source(s): " & vbCrLf & vbCrLf
 
                 SQL = "Select " & _
-                "" & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
+                "" & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
                 "strFacilityName, strFacilityCity,  " & _
                 "strApplicationTypeDesc,  " & _
                 "strCountyName  " & _
-                "from " & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".SSPPApplicationData,  " & _
-                "" & connNameSpace & ".LookUpApplicationTypes, " & connNameSpace & ".LookUpCountyInformation   " & _
-                "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
-                "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationType = " & connNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode  " & _
+                "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationData,  " & _
+                "" & DBNameSpace & ".LookUpApplicationTypes, " & DBNameSpace & ".LookUpCountyInformation   " & _
+                "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
+                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationType = " & DBNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode  " & _
                 "and substr(strAIRSNumber, 5, 3) = strCountyCode  "
 
-                SQL2 = "Update " & connNameSpace & ".SSPPApplicationData set " & _
+                SQL2 = "Update " & DBNameSpace & ".SSPPApplicationData set " & _
                 "strAppReceivedNotification = 'True' where "
 
                 For Each strObject In clbTitleVEmailList.CheckedItems
                     temp = strObject
                     temp = Mid(temp, 1, (InStr(temp, " -", CompareMethod.Text) - 1))
-                    SQLLine = SQLLine & " " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = '" & temp & "' or "
-                    SQLLine2 = SQLLine2 & " " & connNameSpace & ".SSPPApplicationData.strApplicationNumber = '" & temp & "' or "
+                    SQLLine = SQLLine & " " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = '" & temp & "' or "
+                    SQLLine2 = SQLLine2 & " " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber = '" & temp & "' or "
                 Next
 
                 SQLLine = "And ( " & Mid(SQLLine, 1, (SQLLine.Length - 3)) & " ) "
@@ -4945,19 +4945,19 @@ Public Class ISMPDataManagementTools
             clbTitleVEmailList.Items.Clear()
 
             SQL = "Select " & _
-            "" & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber, " & _
+            "" & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber, " & _
             "strFacilityName, strFacilityCity, " & _
             "strApplicationTypeDesc, " & _
             "(strLastName||', '||strFirstName) as StaffResponsible, " & _
             "strUnitDesc " & _
-            "from " & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".SSPPApplicationData, " & _
-            "" & connNameSpace & ".LookUpApplicationTypes, " & connNameSpace & ".SSPPApplicationTracking, " & _
-            "" & connNameSpace & ".EPDUserProfiles, " & connNameSpace & ".LookUpEPDUnits " & _
-            "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationData.strApplicationNumber " & _
-            "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationType = " & connNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode " & _
-            "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber " & _
-            "and " & connNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & connNameSpace & ".EPDUserProfiles.numUserID " & _
-            "and " & connNameSpace & ".EPDUserProfiles.numUnit = " & connNameSpace & ".LookUpEPDUnits.numUnitCode (+) " & _
+            "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationData, " & _
+            "" & DBNameSpace & ".LookUpApplicationTypes, " & DBNameSpace & ".SSPPApplicationTracking, " & _
+            "" & DBNameSpace & ".EPDUserProfiles, " & DBNameSpace & ".LookUpEPDUnits " & _
+            "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber " & _
+            "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationType = " & DBNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode " & _
+            "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber " & _
+            "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
+            "and " & DBNameSpace & ".EPDUserProfiles.numUnit = " & DBNameSpace & ".LookUpEPDUnits.numUnitCode (+) " & _
             "and (strDraftOnWebNotification is Null or strDraftOnWebNotification = 'False') " & _
             "and (strApplicationType = '14'  or strApplicationType = '16' or strApplicationType = '21' " & _
             "or strApplicationType = '22') " & _
@@ -5028,7 +5028,7 @@ Public Class ISMPDataManagementTools
                 MasterApp = Mid(LinkedApps, 1, (InStr(LinkedApps, ",", CompareMethod.Text) - 1))
                 SQL = "select " & _
                 "strMasterApplication " & _
-                "from " & connNameSpace & ".SSPPApplicationLinking " & _
+                "from " & DBNameSpace & ".SSPPApplicationLinking " & _
                 "where strApplicationNumber = '" & MasterApp & "' "
 
                 temp = ""
@@ -5044,20 +5044,20 @@ Public Class ISMPDataManagementTools
 
                 If temp <> "" Then
                     SQL = "Select " & _
-                    "" & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
+                    "" & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
                     "strFacilityName, strFacilityCity,  " & _
                     "strApplicationTypeDesc,  " & _
                     "(strLastName||', '||strFirstName) as StaffResponsible,  " & _
                     "strUnitDesc  " & _
-                    "from " & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".SSPPApplicationData,  " & _
-                    "" & connNameSpace & ".LookUpApplicationTypes, " & connNameSpace & ".SSPPApplicationLinking, " & _
-                    "" & connNameSpace & ".EPDUserProfiles, " & connNameSpace & ".LookUpEPDUnits  " & _
-                    "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
-                    "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationType = " & connNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode   " & _
-                    "and " & connNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & connNameSpace & ".EPDUserProfiles.numUserID " & _
-                    "and " & connNameSpace & ".EPDUserProfiles.numUnit = " & connNameSpace & ".LookUpEPDUnits.numUnitCode (+) " & _
-                    "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationLinking.strApplicationNumber " & _
-                    "and " & connNameSpace & ".SSPPApplicationLinking.strMasterApplication = '" & temp & "' "
+                    "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationData,  " & _
+                    "" & DBNameSpace & ".LookUpApplicationTypes, " & DBNameSpace & ".SSPPApplicationLinking, " & _
+                    "" & DBNameSpace & ".EPDUserProfiles, " & DBNameSpace & ".LookUpEPDUnits  " & _
+                    "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
+                    "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationType = " & DBNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode   " & _
+                    "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
+                    "and " & DBNameSpace & ".EPDUserProfiles.numUnit = " & DBNameSpace & ".LookUpEPDUnits.numUnitCode (+) " & _
+                    "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationLinking.strApplicationNumber " & _
+                    "and " & DBNameSpace & ".SSPPApplicationLinking.strMasterApplication = '" & temp & "' "
 
                     cmd = New OracleCommand(SQL, conn)
                     If conn.State = ConnectionState.Closed Then
@@ -5147,7 +5147,7 @@ Public Class ISMPDataManagementTools
                 txtEmailLetter.Text = "In accordance with Georgia's Title V Implementation Agreement, attached are the public notices for the " & _
                 "draft/proposed permits and amendments for the following sources: " & vbCrLf & vbCrLf
 
-                SQL2 = "Update " & connNameSpace & ".SSPPApplicationData set " & _
+                SQL2 = "Update " & DBNameSpace & ".SSPPApplicationData set " & _
                 "strDraftOnWebNotification = 'True' where "
 
                 For Each strObject In clbTitleVEmailList.CheckedItems
@@ -5155,7 +5155,7 @@ Public Class ISMPDataManagementTools
                     temp = Mid(temp, 1, (InStr(temp, " -", CompareMethod.Text) - 1))
 
                     SQL = "Select strMasterApplication " & _
-                    "from " & connNameSpace & ".SSPPApplicationLinking " & _
+                    "from " & DBNameSpace & ".SSPPApplicationLinking " & _
                     "where strApplicationNumber = '" & temp & "' "
 
                     cmd = New OracleCommand(SQL, conn)
@@ -5172,16 +5172,16 @@ Public Class ISMPDataManagementTools
                     dr.Close()
 
                     SQL = "Select " & _
-                    "" & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber, " & _
+                    "" & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber, " & _
                     "strFacilityName, strFacilityCity,  " & _
                     "strApplicationTypeDesc, " & _
                     "strCountyName " & _
-                    "from " & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".SSPPApplicationData,  " & _
-                    "" & connNameSpace & ".LookUpCountyInformation, " & connNameSpace & ".LookUpApplicationTypes " & _
-                    "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
-                    "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationType = " & connNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode  " & _
+                    "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationData,  " & _
+                    "" & DBNameSpace & ".LookUpCountyInformation, " & DBNameSpace & ".LookUpApplicationTypes " & _
+                    "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
+                    "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationType = " & DBNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode  " & _
                     "and substr(strAIRSNumber, 5, 3) = strCountyCode " & _
-                    "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = '" & temp & "' "
+                    "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = '" & temp & "' "
 
                     cmd = New OracleCommand(SQL, conn)
                     If conn.State = ConnectionState.Closed Then
@@ -5245,12 +5245,12 @@ Public Class ISMPDataManagementTools
                         AppLine = ""
 
                         SQL = "select " & _
-                        "" & connNameSpace & ".SSPPApplicationLinking.strApplicationNumber, " & _
+                        "" & DBNameSpace & ".SSPPApplicationLinking.strApplicationNumber, " & _
                         "strApplicationTypeDesc " & _
-                        "from " & connNameSpace & ".SSPPApplicationLinking, " & connNameSpace & ".SSPPApplicationMaster, " & _
-                        "" & connNameSpace & ".LookUpApplicationTypes " & _
-                        "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationLinking.strApplicationNumber " & _
-                        "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationType = " & connNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode " & _
+                        "from " & DBNameSpace & ".SSPPApplicationLinking, " & DBNameSpace & ".SSPPApplicationMaster, " & _
+                        "" & DBNameSpace & ".LookUpApplicationTypes " & _
+                        "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationLinking.strApplicationNumber " & _
+                        "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationType = " & DBNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode " & _
                         "and strMasterApplication = '" & LinkedApp & "' "
                         cmd = New OracleCommand(SQL, conn)
                         If conn.State = ConnectionState.Closed Then
@@ -5302,7 +5302,7 @@ Public Class ISMPDataManagementTools
                         FacCity & " (" & County & " County), GA" & vbCrLf & _
                         AppLine & vbCrLf & vbCrLf
                     End If
-                    SQLLine2 = SQLLine2 & " " & connNameSpace & ".SSPPApplicationData.strApplicationNumber = '" & temp & "' or "
+                    SQLLine2 = SQLLine2 & " " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber = '" & temp & "' or "
                 Next
 
                 SQLLine2 = Mid(SQLLine2, 1, (SQLLine2.Length - 3))
@@ -5358,7 +5358,7 @@ Public Class ISMPDataManagementTools
                 txtEmailLetter.Text = "In accordance with 40 CFR 70.8(b)(1), attached are the public notices for the draft/proposed permits and " & _
                 "amendments for the following sources: " & vbCrLf & vbCrLf
 
-                SQL2 = "Update " & connNameSpace & ".SSPPApplicationData set " & _
+                SQL2 = "Update " & DBNameSpace & ".SSPPApplicationData set " & _
                 "strDraftOnWebNotification = 'True' where "
 
                 For Each strObject In clbTitleVEmailList.CheckedItems
@@ -5366,7 +5366,7 @@ Public Class ISMPDataManagementTools
                     temp = Mid(temp, 1, (InStr(temp, " -", CompareMethod.Text) - 1))
 
                     SQL = "Select strMasterApplication " & _
-                    "from " & connNameSpace & ".SSPPApplicationLinking " & _
+                    "from " & DBNameSpace & ".SSPPApplicationLinking " & _
                     "where strApplicationNumber = '" & temp & "' "
 
                     cmd = New OracleCommand(SQL, conn)
@@ -5383,16 +5383,16 @@ Public Class ISMPDataManagementTools
                     dr.Close()
 
                     SQL = "Select " & _
-                    "" & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber, " & _
+                    "" & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber, " & _
                     "strFacilityName, strFacilityCity,  " & _
                     "strApplicationTypeDesc, " & _
                     "strCountyName " & _
-                    "from " & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".SSPPApplicationData,  " & _
-                    "" & connNameSpace & ".LookUpCountyInformation, " & connNameSpace & ".LookUpApplicationTypes " & _
-                    "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
-                    "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationType = " & connNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode  " & _
+                    "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationData,  " & _
+                    "" & DBNameSpace & ".LookUpCountyInformation, " & DBNameSpace & ".LookUpApplicationTypes " & _
+                    "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
+                    "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationType = " & DBNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode  " & _
                     "and substr(strAIRSNumber, 5, 3) = strCountyCode " & _
-                    "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = '" & temp & "' "
+                    "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = '" & temp & "' "
 
                     cmd = New OracleCommand(SQL, conn)
                     If conn.State = ConnectionState.Closed Then
@@ -5456,12 +5456,12 @@ Public Class ISMPDataManagementTools
                         AppLine = ""
 
                         SQL = "select " & _
-                        "" & connNameSpace & ".SSPPApplicationLinking.strApplicationNumber, " & _
+                        "" & DBNameSpace & ".SSPPApplicationLinking.strApplicationNumber, " & _
                         "strApplicationTypeDesc " & _
-                        "from " & connNameSpace & ".SSPPApplicationLinking, " & connNameSpace & ".SSPPApplicationMaster, " & _
-                        "" & connNameSpace & ".LookUpApplicationTypes " & _
-                        "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationLinking.strApplicationNumber " & _
-                        "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationType = " & connNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode " & _
+                        "from " & DBNameSpace & ".SSPPApplicationLinking, " & DBNameSpace & ".SSPPApplicationMaster, " & _
+                        "" & DBNameSpace & ".LookUpApplicationTypes " & _
+                        "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationLinking.strApplicationNumber " & _
+                        "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationType = " & DBNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode " & _
                         "and strMasterApplication = '" & LinkedApp & "' "
                         cmd = New OracleCommand(SQL, conn)
                         If conn.State = ConnectionState.Closed Then
@@ -5513,7 +5513,7 @@ Public Class ISMPDataManagementTools
                         FacCity & " (" & County & " County), GA" & vbCrLf & _
                         AppLine & vbCrLf & vbCrLf
                     End If
-                    SQLLine2 = SQLLine2 & " " & connNameSpace & ".SSPPApplicationData.strApplicationNumber = '" & temp & "' or "
+                    SQLLine2 = SQLLine2 & " " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber = '" & temp & "' or "
                 Next
 
                 SQLLine2 = Mid(SQLLine2, 1, (SQLLine2.Length - 3))
@@ -5569,37 +5569,37 @@ Public Class ISMPDataManagementTools
 
             'This is the old code that was changed on May 13, 2009 
             SQL = "Select " & _
-            "" & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber, " & _
+            "" & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber, " & _
             "strFacilityName, strFacilityCity, " & _
             "strApplicationTypeDesc, " & _
             "(strLastName||', '||strFirstName) as StaffResponsible, " & _
             "strUnitDesc " & _
-            "from " & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".SSPPApplicationData, " & _
-            "" & connNameSpace & ".LookUpApplicationTypes, " & connNameSpace & ".EPDUserProfiles, " & _
-            "" & connNameSpace & ".LookUpEPDUnits " & _
-            "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationData.strApplicationNumber " & _
-            "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationType = " & connNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode " & _
-            "and " & connNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & connNameSpace & ".EPDUserProfiles.numUserID " & _
-            "and " & connNameSpace & ".EPDUserProfiles.numUnit = " & connNameSpace & ".LookUpEPDUnits.numUnitCode (+) " & _
+            "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationData, " & _
+            "" & DBNameSpace & ".LookUpApplicationTypes, " & DBNameSpace & ".EPDUserProfiles, " & _
+            "" & DBNameSpace & ".LookUpEPDUnits " & _
+            "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber " & _
+            "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationType = " & DBNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode " & _
+            "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
+            "and " & DBNameSpace & ".EPDUserProfiles.numUnit = " & DBNameSpace & ".LookUpEPDUnits.numUnitCode (+) " & _
             "and (strDraftOnWebNotification is Null or strDraftOnWebNotification = 'False') " & _
             "and (strApplicationType = '19'  or strApplicationType = '20') " & _
             "order by strFacilityName, strApplicationNumber DESC "
 
 
             SQL = "Select " & _
-            "" & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber, " & _
+            "" & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber, " & _
             "strFacilityName, strFacilityCity, " & _
             "strApplicationTypeDesc, " & _
             "(strLastName||', '||strFirstName) as StaffResponsible, " & _
             "strUnitDesc " & _
-            "from " & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".SSPPApplicationData, " & _
-            "" & connNameSpace & ".LookUpApplicationTypes, " & connNameSpace & ".EPDUserProfiles, " & _
-            "" & connNameSpace & ".LookUpEPDUnits, " & connNameSpace & ".SSPPApplicationTracking " & _
-            "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationData.strApplicationNumber " & _
-            "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationType = " & connNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode " & _
-            "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber " & _
-            "and " & connNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & connNameSpace & ".EPDUserProfiles.numUserID " & _
-            "and " & connNameSpace & ".EPDUserProfiles.numUnit = " & connNameSpace & ".LookUpEPDUnits.numUnitCode (+) " & _
+            "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationData, " & _
+            "" & DBNameSpace & ".LookUpApplicationTypes, " & DBNameSpace & ".EPDUserProfiles, " & _
+            "" & DBNameSpace & ".LookUpEPDUnits, " & DBNameSpace & ".SSPPApplicationTracking " & _
+            "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber " & _
+            "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationType = " & DBNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode " & _
+            "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber " & _
+            "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
+            "and " & DBNameSpace & ".EPDUserProfiles.numUnit = " & DBNameSpace & ".LookUpEPDUnits.numUnitCode (+) " & _
             "and datEPAStatesNotified is not Null " & _
             "and (strDraftOnWebNotification is Null or strDraftOnWebNotification = 'False') " & _
             "and (strApplicationType = '19'  or strApplicationType = '20') " & _
@@ -5668,7 +5668,7 @@ Public Class ISMPDataManagementTools
                 MasterApp = Mid(LinkedApps, 1, (InStr(LinkedApps, ",", CompareMethod.Text) - 1))
                 SQL = "select " & _
                 "strMasterApplication " & _
-                "from " & connNameSpace & ".SSPPApplicationLinking " & _
+                "from " & DBNameSpace & ".SSPPApplicationLinking " & _
                 "where strApplicationNumber = '" & MasterApp & "' "
 
                 temp = ""
@@ -5684,20 +5684,20 @@ Public Class ISMPDataManagementTools
 
                 If temp <> "" Then
                     SQL = "Select " & _
-                    "" & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
+                    "" & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
                     "strFacilityName, strFacilityCity,  " & _
                     "strApplicationTypeDesc,  " & _
                     "(strLastName||', '||strFirstName) as StaffResponsible,  " & _
                     "strUnitDesc  " & _
-                    "from " & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".SSPPApplicationData,  " & _
-                    "" & connNameSpace & ".LookUpApplicationTypes, " & connNameSpace & ".SSPPApplicationLinking, " & _
-                    "" & connNameSpace & ".EPDuserProfiles, " & connNameSpace & ".LookUPEPDunits " & _
-                    "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
-                    "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationType = " & connNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode   " & _
-                    "and " & connNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & connNameSpace & ".EPDUserProfiles.numUserID  " & _
-                    "and " & connNameSpace & ".EPDUserProfiles.numUnit = " & connNameSpace & ".LookUpEPDUnits.numUnitCode (+) " & _
-                    "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationLinking.strApplicationNumber " & _
-                    "and " & connNameSpace & ".SSPPApplicationLinking.strMasterApplication = '" & temp & "' "
+                    "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationData,  " & _
+                    "" & DBNameSpace & ".LookUpApplicationTypes, " & DBNameSpace & ".SSPPApplicationLinking, " & _
+                    "" & DBNameSpace & ".EPDuserProfiles, " & DBNameSpace & ".LookUPEPDunits " & _
+                    "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
+                    "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationType = " & DBNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode   " & _
+                    "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID  " & _
+                    "and " & DBNameSpace & ".EPDUserProfiles.numUnit = " & DBNameSpace & ".LookUpEPDUnits.numUnitCode (+) " & _
+                    "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationLinking.strApplicationNumber " & _
+                    "and " & DBNameSpace & ".SSPPApplicationLinking.strMasterApplication = '" & temp & "' "
 
                     cmd = New OracleCommand(SQL, conn)
                     If conn.State = ConnectionState.Closed Then
@@ -5787,7 +5787,7 @@ Public Class ISMPDataManagementTools
                 txtEmailLetter.Text = "In accordance with Georgia's Title V Implementation Agreement, attached is the proposed Part " & _
                 "70 permit modification and permit amendment narrative for the following: " & vbCrLf & vbCrLf
 
-                SQL2 = "Update " & connNameSpace & ".SSPPApplicationData set " & _
+                SQL2 = "Update " & DBNameSpace & ".SSPPApplicationData set " & _
                 "strDraftOnWebNotification = 'True' where "
 
                 For Each strObject In clbTitleVEmailList.CheckedItems
@@ -5795,7 +5795,7 @@ Public Class ISMPDataManagementTools
                     temp = Mid(temp, 1, (InStr(temp, " -", CompareMethod.Text) - 1))
 
                     SQL = "Select strMasterApplication " & _
-                    "from " & connNameSpace & ".SSPPApplicationLinking " & _
+                    "from " & DBNameSpace & ".SSPPApplicationLinking " & _
                     "where strApplicationNumber = '" & temp & "' "
 
                     cmd = New OracleCommand(SQL, conn)
@@ -5812,16 +5812,16 @@ Public Class ISMPDataManagementTools
                     dr.Close()
 
                     SQL = "Select " & _
-                    "" & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber, " & _
+                    "" & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber, " & _
                     "strFacilityName, strFacilityCity,  " & _
                     "strApplicationTypeDesc, " & _
                     "strCountyName " & _
-                    "from " & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".SSPPApplicationData,  " & _
-                    "" & connNameSpace & ".LookUpCountyInformation, " & connNameSpace & ".LookUpApplicationTypes " & _
-                    "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
-                    "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationType = " & connNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode  " & _
+                    "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationData,  " & _
+                    "" & DBNameSpace & ".LookUpCountyInformation, " & DBNameSpace & ".LookUpApplicationTypes " & _
+                    "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
+                    "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationType = " & DBNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode  " & _
                     "and substr(strAIRSNumber, 5, 3) = strCountyCode " & _
-                    "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = '" & temp & "' "
+                    "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = '" & temp & "' "
 
                     cmd = New OracleCommand(SQL, conn)
                     If conn.State = ConnectionState.Closed Then
@@ -5885,12 +5885,12 @@ Public Class ISMPDataManagementTools
                         AppLine = ""
 
                         SQL = "select " & _
-                        "" & connNameSpace & ".SSPPApplicationLinking.strApplicationNumber, " & _
+                        "" & DBNameSpace & ".SSPPApplicationLinking.strApplicationNumber, " & _
                         "strApplicationTypeDesc " & _
-                        "from " & connNameSpace & ".SSPPApplicationLinking, " & connNameSpace & ".SSPPApplicationMaster, " & _
-                        "" & connNameSpace & ".LookUpApplicationTypes " & _
-                        "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationLinking.strApplicationNumber " & _
-                        "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationType = " & connNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode " & _
+                        "from " & DBNameSpace & ".SSPPApplicationLinking, " & DBNameSpace & ".SSPPApplicationMaster, " & _
+                        "" & DBNameSpace & ".LookUpApplicationTypes " & _
+                        "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationLinking.strApplicationNumber " & _
+                        "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationType = " & DBNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode " & _
                         "and strMasterApplication = '" & LinkedApp & "' "
                         cmd = New OracleCommand(SQL, conn)
                         If conn.State = ConnectionState.Closed Then
@@ -5942,7 +5942,7 @@ Public Class ISMPDataManagementTools
                         FacCity & " (" & County & " County), GA" & vbCrLf & _
                         AppLine & vbCrLf & vbCrLf
                     End If
-                    SQLLine2 = SQLLine2 & " " & connNameSpace & ".SSPPApplicationData.strApplicationNumber = '" & temp & "' or "
+                    SQLLine2 = SQLLine2 & " " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber = '" & temp & "' or "
                 Next
 
                 SQLLine2 = Mid(SQLLine2, 1, (SQLLine2.Length - 3))
@@ -5994,7 +5994,7 @@ Public Class ISMPDataManagementTools
                 txtEmailLetter.Text = "In accordance with 40 CFR 70.8(b)(1), attached is the proposed Part 70 permit modification and  " & _
                 "permit amendment narrative for the following source: " & vbCrLf & vbCrLf
 
-                SQL2 = "Update " & connNameSpace & ".SSPPApplicationData set " & _
+                SQL2 = "Update " & DBNameSpace & ".SSPPApplicationData set " & _
                 "strDraftOnWebNotification = 'True' where "
 
                 For Each strObject In clbTitleVEmailList.CheckedItems
@@ -6002,7 +6002,7 @@ Public Class ISMPDataManagementTools
                     temp = Mid(temp, 1, (InStr(temp, " -", CompareMethod.Text) - 1))
 
                     SQL = "Select strMasterApplication " & _
-                    "from " & connNameSpace & ".SSPPApplicationLinking " & _
+                    "from " & DBNameSpace & ".SSPPApplicationLinking " & _
                     "where strApplicationNumber = '" & temp & "' "
 
                     cmd = New OracleCommand(SQL, conn)
@@ -6019,16 +6019,16 @@ Public Class ISMPDataManagementTools
                     dr.Close()
 
                     SQL = "Select " & _
-                    "" & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber, " & _
+                    "" & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber, " & _
                     "strFacilityName, strFacilityCity,  " & _
                     "strApplicationTypeDesc, " & _
                     "strCountyName " & _
-                    "from " & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".SSPPApplicationData,  " & _
-                    "" & connNameSpace & ".LookUpCountyInformation, " & connNameSpace & ".LookUpApplicationTypes " & _
-                    "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
-                    "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationType = " & connNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode  " & _
+                    "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationData,  " & _
+                    "" & DBNameSpace & ".LookUpCountyInformation, " & DBNameSpace & ".LookUpApplicationTypes " & _
+                    "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
+                    "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationType = " & DBNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode  " & _
                     "and substr(strAIRSNumber, 5, 3) = strCountyCode " & _
-                    "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = '" & temp & "' "
+                    "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = '" & temp & "' "
 
                     cmd = New OracleCommand(SQL, conn)
                     If conn.State = ConnectionState.Closed Then
@@ -6092,12 +6092,12 @@ Public Class ISMPDataManagementTools
                         AppLine = ""
 
                         SQL = "select " & _
-                        "" & connNameSpace & ".SSPPApplicationLinking.strApplicationNumber, " & _
+                        "" & DBNameSpace & ".SSPPApplicationLinking.strApplicationNumber, " & _
                         "strApplicationTypeDesc " & _
-                        "from " & connNameSpace & ".SSPPApplicationLinking, " & connNameSpace & ".SSPPApplicationMaster, " & _
-                        "" & connNameSpace & ".LookUpApplicationTypes " & _
-                        "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationLinking.strApplicationNumber " & _
-                        "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationType = " & connNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode " & _
+                        "from " & DBNameSpace & ".SSPPApplicationLinking, " & DBNameSpace & ".SSPPApplicationMaster, " & _
+                        "" & DBNameSpace & ".LookUpApplicationTypes " & _
+                        "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationLinking.strApplicationNumber " & _
+                        "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationType = " & DBNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode " & _
                         "and strMasterApplication = '" & LinkedApp & "' "
                         cmd = New OracleCommand(SQL, conn)
                         If conn.State = ConnectionState.Closed Then
@@ -6149,7 +6149,7 @@ Public Class ISMPDataManagementTools
                         FacCity & " (" & County & " County), GA" & vbCrLf & _
                         AppLine & vbCrLf & vbCrLf
                     End If
-                    SQLLine2 = SQLLine2 & " " & connNameSpace & ".SSPPApplicationData.strApplicationNumber = '" & temp & "' or "
+                    SQLLine2 = SQLLine2 & " " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber = '" & temp & "' or "
                 Next
 
                 SQLLine2 = Mid(SQLLine2, 1, (SQLLine2.Length - 3))
@@ -6196,19 +6196,19 @@ Public Class ISMPDataManagementTools
             clbTitleVEmailList.Items.Clear()
 
             SQL = "Select " & _
-            "" & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber, " & _
+            "" & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber, " & _
             "strFacilityName, strFacilityCity, " & _
             "strApplicationTypeDesc, " & _
             "(strLastName||', '||strFirstName) as StaffResponsible, " & _
             "strUnitDesc " & _
-            "from " & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".SSPPApplicationData, " & _
-            "" & connNameSpace & ".LookUpApplicationTypes, " & connNameSpace & ".SSPPApplicationTracking, " & _
-            "" & connNameSpace & ".EPDUserProfiles, " & connNameSpace & ".LookUpEPDUnits " & _
-            "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationData.strApplicationNumber " & _
-            "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationType = " & connNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode " & _
-            "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber " & _
-            "and " & connNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & connNameSpace & ".EPDuserProfiles.numUserID " & _
-            "and " & connNameSpace & ".EPDuserProfiles.numUnit = " & connNameSpace & ".LookUpEPDUnits.numUnitCode (+) " & _
+            "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationData, " & _
+            "" & DBNameSpace & ".LookUpApplicationTypes, " & DBNameSpace & ".SSPPApplicationTracking, " & _
+            "" & DBNameSpace & ".EPDUserProfiles, " & DBNameSpace & ".LookUpEPDUnits " & _
+            "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber " & _
+            "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationType = " & DBNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode " & _
+            "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber " & _
+            "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDuserProfiles.numUserID " & _
+            "and " & DBNameSpace & ".EPDuserProfiles.numUnit = " & DBNameSpace & ".LookUpEPDUnits.numUnitCode (+) " & _
             "and (strFinalOnWebNotification is Null or strFinalOnWebNotification = 'False') " & _
             "and (strApplicationType = '14'  or strApplicationType = '16' " & _
             "or strApplicationType = '19' or strApplicationType = '20' " & _
@@ -6281,7 +6281,7 @@ Public Class ISMPDataManagementTools
                 MasterApp = Mid(LinkedApps, 1, (InStr(LinkedApps, ",", CompareMethod.Text) - 1))
                 SQL = "select " & _
                 "strMasterApplication " & _
-                "from " & connNameSpace & ".SSPPApplicationLinking " & _
+                "from " & DBNameSpace & ".SSPPApplicationLinking " & _
                 "where strApplicationNumber = '" & MasterApp & "' "
 
                 temp = ""
@@ -6297,20 +6297,20 @@ Public Class ISMPDataManagementTools
 
                 If temp <> "" Then
                     SQL = "Select " & _
-                    "" & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
+                    "" & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
                     "strFacilityName, strFacilityCity,  " & _
                     "strApplicationTypeDesc,  " & _
                     "(strLastName||', '||strFirstName) as StaffResponsible,  " & _
                     "strUnitDesc  " & _
-                    "from " & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".SSPPApplicationData,  " & _
-                    "" & connNameSpace & ".LookUpApplicationTypes, " & connNameSpace & ".SSPPApplicationLinking, " & _
-                    "" & connNameSpace & ".EPDUserProfiles, " & connNameSpace & ".LookUpEPDUnits  " & _
-                    "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
-                    "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationType = " & connNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode   " & _
-                    "and " & connNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & connNameSpace & ".EPDuserPRofiles.numUserID  " & _
-                    "and " & connNameSpace & ".EPDUserProfiles.numUnit = " & connNameSpace & ".LookUpEPDunits.numUnitCode (+) " & _
-                    "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationLinking.strApplicationNumber " & _
-                    "and " & connNameSpace & ".SSPPApplicationLinking.strMasterApplication = '" & temp & "' "
+                    "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationData,  " & _
+                    "" & DBNameSpace & ".LookUpApplicationTypes, " & DBNameSpace & ".SSPPApplicationLinking, " & _
+                    "" & DBNameSpace & ".EPDUserProfiles, " & DBNameSpace & ".LookUpEPDUnits  " & _
+                    "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
+                    "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationType = " & DBNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode   " & _
+                    "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDuserPRofiles.numUserID  " & _
+                    "and " & DBNameSpace & ".EPDUserProfiles.numUnit = " & DBNameSpace & ".LookUpEPDunits.numUnitCode (+) " & _
+                    "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationLinking.strApplicationNumber " & _
+                    "and " & DBNameSpace & ".SSPPApplicationLinking.strMasterApplication = '" & temp & "' "
 
                     cmd = New OracleCommand(SQL, conn)
                     If conn.State = ConnectionState.Closed Then
@@ -6402,7 +6402,7 @@ Public Class ISMPDataManagementTools
                 txtEmailLetter.Text = "In accordance with condition V.A.1.a of Georgia's Title V Agreement, the final Part 70 " & _
                 "Permits were issued to the following sources:" & vbCrLf & vbCrLf
 
-                SQL2 = "Update " & connNameSpace & ".SSPPApplicationData set " & _
+                SQL2 = "Update " & DBNameSpace & ".SSPPApplicationData set " & _
                 "strFinalOnWebNotification = 'True' where "
 
                 For Each strObject In clbTitleVEmailList.CheckedItems
@@ -6410,7 +6410,7 @@ Public Class ISMPDataManagementTools
                     temp = Mid(temp, 1, (InStr(temp, " -", CompareMethod.Text) - 1))
 
                     SQL = "Select strMasterApplication " & _
-                    "from " & connNameSpace & ".SSPPApplicationLinking " & _
+                    "from " & DBNameSpace & ".SSPPApplicationLinking " & _
                     "where strApplicationNumber = '" & temp & "' "
                     cmd = New OracleCommand(SQL, conn)
                     If conn.State = ConnectionState.Closed Then
@@ -6426,19 +6426,19 @@ Public Class ISMPDataManagementTools
                     dr.Close()
 
                     SQL = "Select " & _
-                    "" & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber, " & _
+                    "" & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber, " & _
                     "strFacilityName, strFacilityCity,  " & _
                     "strCountyName, strPermitNumber,  " & _
                     "datPermitIssued, datEffective, " & _
                     "strApplicationTypeDesc " & _
-                    "from " & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".SSPPApplicationData,  " & _
-                    "" & connNameSpace & ".LookUpCountyInformation, " & connNameSpace & ".LookUpApplicationTypes, " & _
-                    "" & connNameSpace & ".SSPPApplicationTracking " & _
-                    "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
-                    "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationType = " & connNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode  " & _
-                    "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber (+) " & _
+                    "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationData,  " & _
+                    "" & DBNameSpace & ".LookUpCountyInformation, " & DBNameSpace & ".LookUpApplicationTypes, " & _
+                    "" & DBNameSpace & ".SSPPApplicationTracking " & _
+                    "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
+                    "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationType = " & DBNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode  " & _
+                    "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber (+) " & _
                     "and substr(strAIRSNumber, 5, 3) = strCountyCode " & _
-                    "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = '" & temp & "' "
+                    "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = '" & temp & "' "
 
                     cmd = New OracleCommand(SQL, conn)
                     If conn.State = ConnectionState.Closed Then
@@ -6518,12 +6518,12 @@ Public Class ISMPDataManagementTools
                         AppLine = ""
 
                         SQL = "select " & _
-                        "" & connNameSpace & ".SSPPApplicationLinking.strApplicationNumber, " & _
+                        "" & DBNameSpace & ".SSPPApplicationLinking.strApplicationNumber, " & _
                         "strApplicationTypeDesc " & _
-                        "from " & connNameSpace & ".SSPPApplicationLinking, " & connNameSpace & ".SSPPApplicationMaster, " & _
-                        "" & connNameSpace & ".LookUpApplicationTypes " & _
-                        "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationLinking.strApplicationNumber " & _
-                        "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationType = " & connNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode " & _
+                        "from " & DBNameSpace & ".SSPPApplicationLinking, " & DBNameSpace & ".SSPPApplicationMaster, " & _
+                        "" & DBNameSpace & ".LookUpApplicationTypes " & _
+                        "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationLinking.strApplicationNumber " & _
+                        "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationType = " & DBNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode " & _
                         "and strMasterApplication = '" & LinkedApp & "' "
                         cmd = New OracleCommand(SQL, conn)
                         If conn.State = ConnectionState.Closed Then
@@ -6576,7 +6576,7 @@ Public Class ISMPDataManagementTools
                         AppLine & vbCrLf & _
                         PermitNumber & vbCrLf & DateIssued & vbCrLf & vbCrLf
                     End If
-                    SQLLine2 = SQLLine2 & " " & connNameSpace & ".SSPPApplicationData.strApplicationNumber = '" & temp & "' or "
+                    SQLLine2 = SQLLine2 & " " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber = '" & temp & "' or "
                 Next
 
                 SQLLine2 = Mid(SQLLine2, 1, (SQLLine2.Length - 3))
@@ -6626,20 +6626,20 @@ Public Class ISMPDataManagementTools
             Select Case txtEmailType.Text
                 Case "AppReceived"
                     SQL = "Select " & _
-                   "" & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber, " & _
+                   "" & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber, " & _
                    "strFacilityName, strFacilityCity, " & _
                    "strApplicationTypeDesc, " & _
                    "(strLastName||', '||strFirstName) as StaffResponsible, " & _
                    "strUnitDesc " & _
-                   "from " & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".SSPPApplicationData, " & _
-                   "" & connNameSpace & ".LookUpApplicationTypes, " & connNameSpace & ".SSPPApplicationTracking, " & _
-                   "" & connNameSpace & ".EPDUserProfiles, " & connNameSpace & ".LookUpEPDUnits " & _
-                   "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationData.strApplicationNumber " & _
-                   "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationType = " & connNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode " & _
-                   "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber " & _
-                   "and " & connNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & connNameSpace & ".EPDUserProfiles.numUserID " & _
-                   "and " & connNameSpace & ".EPDUserProfiles.numUnit = " & connNameSpace & ".LookUpEPDUnits.numUnitCode (+) " & _
-                   "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = '" & txtApplicationNumberToAdd.Text & "' "
+                   "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationData, " & _
+                   "" & DBNameSpace & ".LookUpApplicationTypes, " & DBNameSpace & ".SSPPApplicationTracking, " & _
+                   "" & DBNameSpace & ".EPDUserProfiles, " & DBNameSpace & ".LookUpEPDUnits " & _
+                   "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber " & _
+                   "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationType = " & DBNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode " & _
+                   "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber " & _
+                   "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
+                   "and " & DBNameSpace & ".EPDUserProfiles.numUnit = " & DBNameSpace & ".LookUpEPDUnits.numUnitCode (+) " & _
+                   "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = '" & txtApplicationNumberToAdd.Text & "' "
 
                     cmd = New OracleCommand(SQL, conn)
                     If conn.State = ConnectionState.Closed Then
@@ -6703,20 +6703,20 @@ Public Class ISMPDataManagementTools
                     dr.Close()
                 Case "DraftOnWeb"
                     SQL = "Select " & _
-                   "" & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber, " & _
+                   "" & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber, " & _
                    "strFacilityName, strFacilityCity, " & _
                    "strApplicationTypeDesc, " & _
                    "(strLastName||', '||strFirstName) as StaffResponsible, " & _
                    "strUnitDesc " & _
-                   "from " & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".SSPPApplicationData, " & _
-                   "" & connNameSpace & ".LookUpApplicationTypes, " & connNameSpace & ".SSPPApplicationTracking, " & _
-                   "" & connNameSpace & ".EPDUserProfiles, " & connNameSpace & ".LookUpEPDUnits " & _
-                   "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationData.strApplicationNumber " & _
-                   "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationType = " & connNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode " & _
-                   "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber " & _
-                   "and " & connNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & connNameSpace & ".EPDUserProfiles.numUserID " & _
-                   "and " & connNameSpace & ".EPDUserProfiles.numUnit = " & connNameSpace & ".LookUpEPDUnits.numUnitCode (+) " & _
-                   "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = '" & txtApplicationNumberToAdd.Text & "' "
+                   "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationData, " & _
+                   "" & DBNameSpace & ".LookUpApplicationTypes, " & DBNameSpace & ".SSPPApplicationTracking, " & _
+                   "" & DBNameSpace & ".EPDUserProfiles, " & DBNameSpace & ".LookUpEPDUnits " & _
+                   "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber " & _
+                   "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationType = " & DBNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode " & _
+                   "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber " & _
+                   "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
+                   "and " & DBNameSpace & ".EPDUserProfiles.numUnit = " & DBNameSpace & ".LookUpEPDUnits.numUnitCode (+) " & _
+                   "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = '" & txtApplicationNumberToAdd.Text & "' "
 
 
                     cmd = New OracleCommand(SQL, conn)
@@ -6781,19 +6781,19 @@ Public Class ISMPDataManagementTools
                     dr.Close()
                 Case "MinorOnWeb"
                     SQL = "Select " & _
-                   "" & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber, " & _
+                   "" & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber, " & _
                    "strFacilityName, strFacilityCity, " & _
                    "strApplicationTypeDesc, " & _
                    "(strLastName||', '||strFirstName) as StaffResponsible, " & _
                    "strUnitDesc " & _
-                   "from " & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".SSPPApplicationData, " & _
-                   "" & connNameSpace & ".LookUpApplicationTypes,  " & _
-                   "" & connNameSpace & ".EPDUserProfiles, " & connNameSpace & ".LookUpEPDUnits " & _
-                   "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationData.strApplicationNumber " & _
-                   "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationType = " & connNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode " & _
-                   "and " & connNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & connNameSpace & ".EPDuserProfiles.numUserID " & _
-                   "and " & connNameSpace & ".EPDuserProfiles.numUnit = " & connNameSpace & ".LookUpEPDUnits.numUnitCode (+) " & _
-                   "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = '" & txtApplicationNumberToAdd.Text & "' "
+                   "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationData, " & _
+                   "" & DBNameSpace & ".LookUpApplicationTypes,  " & _
+                   "" & DBNameSpace & ".EPDUserProfiles, " & DBNameSpace & ".LookUpEPDUnits " & _
+                   "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber " & _
+                   "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationType = " & DBNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode " & _
+                   "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDuserProfiles.numUserID " & _
+                   "and " & DBNameSpace & ".EPDuserProfiles.numUnit = " & DBNameSpace & ".LookUpEPDUnits.numUnitCode (+) " & _
+                   "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = '" & txtApplicationNumberToAdd.Text & "' "
 
                     cmd = New OracleCommand(SQL, conn)
                     If conn.State = ConnectionState.Closed Then
@@ -6857,19 +6857,19 @@ Public Class ISMPDataManagementTools
                     dr.Close()
                 Case "FinalOnWeb"
                     SQL = "Select " & _
-                    "" & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber, " & _
+                    "" & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber, " & _
                     "strFacilityName, strFacilityCity, " & _
                     "strApplicationTypeDesc, " & _
                     "(strLastName||', '||strFirstName) as StaffResponsible, " & _
                     "strUnitDesc " & _
-                    "from " & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".SSPPApplicationData, " & _
-                    "" & connNameSpace & ".LookUpApplicationTypes, " & _
-                    "" & connNameSpace & ".EPDuserProfiles, " & connNameSpace & ".LookUpEPDUnits " & _
-                    "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationData.strApplicationNumber " & _
-                    "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationType = " & connNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode " & _
-                    "and " & connNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & connNameSpace & ".EPDuserProfiles.numUserID " & _
-                    "and " & connNameSpace & ".EPDUserProfiles.numUnit = " & connNameSpace & ".LookUpEPDUnits.numUnitCode (+) " & _
-                    "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = '" & txtApplicationNumberToAdd.Text & "' "
+                    "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationData, " & _
+                    "" & DBNameSpace & ".LookUpApplicationTypes, " & _
+                    "" & DBNameSpace & ".EPDuserProfiles, " & DBNameSpace & ".LookUpEPDUnits " & _
+                    "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber " & _
+                    "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationType = " & DBNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode " & _
+                    "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDuserProfiles.numUserID " & _
+                    "and " & DBNameSpace & ".EPDUserProfiles.numUnit = " & DBNameSpace & ".LookUpEPDUnits.numUnitCode (+) " & _
+                    "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = '" & txtApplicationNumberToAdd.Text & "' "
 
                     cmd = New OracleCommand(SQL, conn)
                     If conn.State = ConnectionState.Closed Then
@@ -7465,7 +7465,7 @@ Public Class ISMPDataManagementTools
 
             SQL = "Select DISTINCT substr(strairsnumber, 5) as strairsnumber, " _
             + "strfacilityname " _
-            + "from " & connNameSpace & ".APBFacilityInformation " _
+            + "from " & DBNameSpace & ".APBFacilityInformation " _
             + "Order by strAIRSNumber "
 
             ds = New DataSet
@@ -7514,7 +7514,7 @@ Public Class ISMPDataManagementTools
             
 
             SQL = "Select numuserid, struseremail " _
-            + "from " & connNameSpace & ".OlapUserLogin " _
+            + "from " & DBNameSpace & ".OlapUserLogin " _
             + "Order by struseremail "
 
             ds = New DataSet
@@ -7762,15 +7762,15 @@ Public Class ISMPDataManagementTools
                 dsWorkEntry.AcceptChanges()
             End If
 
-            SQL = "SELECT " & connNameSpace & ".OlapUserAccess.NumUserID as ID, " & connNameSpace & ".OlapUserLogin.numuserid, " & _
-                    "" & connNameSpace & ".OlapUserLogin.strUserEmail as Email, " & _
+            SQL = "SELECT " & DBNameSpace & ".OlapUserAccess.NumUserID as ID, " & DBNameSpace & ".OlapUserLogin.numuserid, " & _
+                    "" & DBNameSpace & ".OlapUserLogin.strUserEmail as Email, " & _
                     "Case When intAdminAccess = 0 Then 'False' When intAdminAccess = 1 Then 'True' End as intAdminAccess, " & _
                     "Case When intFeeAccess = 0 Then 'False' When intFeeAccess = 1 Then 'True' End as intFeeAccess, " & _
                     "Case When intEIAccess = 0 Then 'False' When intEIAccess = 1 Then 'True' End as intEIAccess, " & _
                     "Case When intESAccess = 0 Then 'False' When intESAccess = 1 Then 'True' End as intESAccess " & _
-                    "FROM " & connNameSpace & ".OlapUserAccess, " & connNameSpace & ".OlapUserLogin " & _
-                    "WHERE " & connNameSpace & ".OLAPUserAccess.NumUserId = " & connNameSpace & ".OlapUserLogin.NumUserID " & _
-                    "AND " & connNameSpace & ".OlapUserAccess.strAirsNumber = '0413" & airsno & "' order by email"
+                    "FROM " & DBNameSpace & ".OlapUserAccess, " & DBNameSpace & ".OlapUserLogin " & _
+                    "WHERE " & DBNameSpace & ".OLAPUserAccess.NumUserId = " & DBNameSpace & ".OlapUserLogin.NumUserID " & _
+                    "AND " & DBNameSpace & ".OlapUserAccess.strAirsNumber = '0413" & airsno & "' order by email"
 
             daWorkEnTry = New OracleDataAdapter(SQL, conn)
             If conn.State = ConnectionState.Closed Then
@@ -7817,8 +7817,8 @@ Public Class ISMPDataManagementTools
                     "Case When intFeeAccess = 0 Then 'False' When intFeeAccess = 1 Then 'True' End as intFeeAccess, " & _
                     "Case When intEIAccess = 0 Then 'False' When intEIAccess = 1 Then 'True' End as intEIAccess, " & _
                     "Case When intESAccess = 0 Then 'False' When intESAccess = 1 Then 'True' End as intESAccess " & _
-                    "FROM " & connNameSpace & ".OlapUserAccess, " & connNameSpace & ".OLAPUserLogIn  " & _
-                    "WHERE " & connNameSpace & ".OlapUserAccess.numUserId = " & connNameSpace & ".OLAPUserLogIn.numUserId " & _
+                    "FROM " & DBNameSpace & ".OlapUserAccess, " & DBNameSpace & ".OLAPUserLogIn  " & _
+                    "WHERE " & DBNameSpace & ".OlapUserAccess.numUserId = " & DBNameSpace & ".OLAPUserLogIn.numUserId " & _
                     "and  strUserEmail = upper('" & EmailLoc & "') " & _
                     "order by strfacilityname"
 
@@ -7854,7 +7854,7 @@ Public Class ISMPDataManagementTools
     Sub LoadUserInfo(ByVal UserData As String)
         Try
             SQL = "Select " & _
-            "" & connNameSpace & ".OLAPUserProfile.numUserID, " & _
+            "" & DBNameSpace & ".OLAPUserProfile.numUserID, " & _
             "strfirstname, strlastname, " & _
             "strtitle, strcompanyname, " & _
             "straddress, strcity, " & _
@@ -7862,8 +7862,8 @@ Public Class ISMPDataManagementTools
             "strphonenumber, strfaxnumber, " & _
             "datLastLogIn, strConfirm, " & _
             "strUserEmail " & _
-            "from " & connNameSpace & ".OlapUserProfile, " & connNameSpace & ".OLAPUserLogIn " & _
-            "where " & connNameSpace & ".OLAPUserProfile.numUserID = " & connNameSpace & ".OLAPUserLogIn.numuserid " & _
+            "from " & DBNameSpace & ".OlapUserProfile, " & DBNameSpace & ".OLAPUserLogIn " & _
+            "where " & DBNameSpace & ".OLAPUserProfile.numUserID = " & DBNameSpace & ".OLAPUserLogIn.numuserid " & _
             "and strUserEmail = upper('" & UserData & "') "
 
             cmd = New OracleCommand(SQL, conn)
@@ -8069,7 +8069,7 @@ Public Class ISMPDataManagementTools
         End If
 
         Try
-            Dim updateString As String = "UPDATE " & connNameSpace & ".OlapUserAccess " & _
+            Dim updateString As String = "UPDATE " & DBNameSpace & ".OlapUserAccess " & _
                       "SET intadminaccess = '" & admin & "', " & _
                       "intFeeAccess = '" & fee & "', " & _
                       "intEIAccess = '" & ei & "', " & _
@@ -8113,7 +8113,7 @@ Public Class ISMPDataManagementTools
         End If
 
         Try
-            Dim updateString As String = "UPDATE " & connNameSpace & ".OlapUserAccess " & _
+            Dim updateString As String = "UPDATE " & DBNameSpace & ".OlapUserAccess " & _
                       "SET intadminaccess = '" & admin & "', " & _
                       "intFeeAccess = '" & fee & "', " & _
                       "intEIAccess = '" & ei & "', " & _
@@ -8135,10 +8135,10 @@ Public Class ISMPDataManagementTools
     Private Sub btnAddFacilitytoUser_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAddFacilitytoUser.Click
         Try
             If txtWebUserID.Text <> "" And mtbFacilityToAdd.Text <> "" Then
-                Dim InsertString As String = "Insert into " & connNameSpace & ".OlapUserAccess " & _
+                Dim InsertString As String = "Insert into " & DBNameSpace & ".OlapUserAccess " & _
                 "(numUserId, strAirsNumber, strFacilityName) values( " & _
                 "'" & txtWebUserID.Text & "', '0413" & mtbFacilityToAdd.Text & "', " & _
-                "(select strFacilityName from " & connNameSpace & ".APBFacilityInformation where strAIRSnumber = '0413" & mtbFacilityToAdd.Text & "')) "
+                "(select strFacilityName from " & DBNameSpace & ".APBFacilityInformation where strAIRSnumber = '0413" & mtbFacilityToAdd.Text & "')) "
 
                 Dim cmd As New OracleCommand(InsertString, conn)
                 If conn.State = ConnectionState.Closed Then
@@ -8159,7 +8159,7 @@ Public Class ISMPDataManagementTools
     Private Sub btnDeleteFacilityUser_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDeleteFacilityUser.Click
         Try
             If txtWebUserID.Text <> "" And cboFacilityToDelete.Text <> "" Then
-                Dim deleteString As String = "DELETE " & connNameSpace & ".OlapUserAccess " & _
+                Dim deleteString As String = "DELETE " & DBNameSpace & ".OlapUserAccess " & _
                 "WHERE numUserID = '" & txtWebUserID.Text & "' " & _
                 "and strAirsNumber = '" & cboFacilityToDelete.SelectedValue & "' "
 
@@ -8180,7 +8180,7 @@ Public Class ISMPDataManagementTools
     Private Sub btnAddUser_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAddUser.Click
         Try
             Dim userID As Integer
-            Dim sql As String = "Select numUserId from " & connNameSpace & ".olapuserlogin " & _
+            Dim sql As String = "Select numUserId from " & DBNameSpace & ".olapuserlogin " & _
             "where struseremail = '" & Replace(UCase(txtEmail.Text), "'", "''") & "' "
             Dim cmd As New OracleCommand
             Dim dr As OracleDataReader
@@ -8197,7 +8197,7 @@ Public Class ISMPDataManagementTools
 
             If recexist = True Then 'Email address is registered
                 userID = dr.Item("numUserId")
-                Dim InsertString As String = "Insert into " & connNameSpace & ".OlapUserAccess " & _
+                Dim InsertString As String = "Insert into " & DBNameSpace & ".OlapUserAccess " & _
                 "(numUserId, strAirsNumber, strFacilityName) values( " & _
                 "'" & userID & "', '0413" & airsno & "', '" & Replace(lblFacilityName.Text, "'", "''") & "') "
 
@@ -8222,7 +8222,7 @@ Public Class ISMPDataManagementTools
     End Sub
     Private Sub btnDelete_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDelete.Click
         Try
-            Dim deleteString As String = "DELETE " & connNameSpace & ".OlapUserAccess " & _
+            Dim deleteString As String = "DELETE " & DBNameSpace & ".OlapUserAccess " & _
                                 "WHERE numUserID = '" & cboUsers.SelectedValue & "' " & _
                                 "and strAirsNumber = '0413" & airsno & "' "
 
@@ -8241,7 +8241,7 @@ Public Class ISMPDataManagementTools
     Private Sub btnActivateUser_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnActivateUser.Click
         Try
             SQL = "Select strUserEmail " & _
-            "from " & connNameSpace & ".OlapUserLogIn " & _
+            "from " & DBNameSpace & ".OlapUserLogIn " & _
             "where strUserEmail = '" & Replace(UCase(txtEmailAddress.Text), "'", "''") & "' "
 
             cmd = New OracleCommand(SQL, conn)
@@ -8252,7 +8252,7 @@ Public Class ISMPDataManagementTools
             recExist = dr.Read
             dr.Close()
             If recExist = True Then
-                Dim updateString As String = "UPDATE " & connNameSpace & ".OlapUserLogin " & _
+                Dim updateString As String = "UPDATE " & DBNameSpace & ".OlapUserLogin " & _
                           "SET strconfirm = to_char(sysdate, 'yyyy/mm/dd hh:mi:ss') " & _
                           "WHERE struseremail = '" & Replace(UCase(txtEmailAddress.Text), "'", "''") & "' "
                 cmd = New OracleCommand(updateString, conn)
@@ -8430,8 +8430,8 @@ Public Class ISMPDataManagementTools
                     "strErrorLocation, strErrorMessage,  " & _
                     "to_char(datErrorDate, 'DD-Mon-YYYY') as ErrorDate,  " & _
                     "strSolution  " & _
-                    "from " & connNameSpace & ".IAIPErrorLog, " & connNameSpace & ".EPDUserProfiles  " & _
-                    "where " & connNameSpace & ".IAIPErrorLog.strUser = " & connNameSpace & ".EPDUserProfiles.numUserID " & _
+                    "from " & DBNameSpace & ".IAIPErrorLog, " & DBNameSpace & ".EPDUserProfiles  " & _
+                    "where " & DBNameSpace & ".IAIPErrorLog.strUser = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
                     "and strErrorNumber = '" & txtErrorNumber.Text & "' "
                     cmd = New OracleCommand(SQL, conn)
                     If conn.State = ConnectionState.Closed Then
@@ -8484,7 +8484,7 @@ Public Class ISMPDataManagementTools
                 ErrorSolution = Mid(txtErrorSolution.Text, 1, 4000)
             End If
             If txtErrorNumber.Text <> "" Then
-                SQL = "Update " & connNameSpace & ".IAIPErrorLog set " & _
+                SQL = "Update " & DBNameSpace & ".IAIPErrorLog set " & _
                 "strSolution = '" & Replace(ErrorSolution, "'", "''") & "' " & _
                 "where strErrornumber = '" & txtErrorNumber.Text & "' "
                 cmd = New OracleCommand(SQL, conn)
@@ -8535,7 +8535,7 @@ Public Class ISMPDataManagementTools
                     "strIPAddress, strAgent, strPage, " & _
                     "strTime, strDetails, numError, " & _
                     "strSolution " & _
-                    "from " & connNameSpace & ".LogErrors " & _
+                    "from " & DBNameSpace & ".LogErrors " & _
                     "where NumError = " & txtWebErrorNumber.Text & " "
                     cmd = New OracleCommand(SQL, conn)
                     If conn.State = ConnectionState.Closed Then
@@ -8593,7 +8593,7 @@ Public Class ISMPDataManagementTools
                 ErrorSolution = Mid(txtWebErrorSolution.Text, 1, 4000)
             End If
             If txtErrorNumber.Text <> "" Then
-                SQL = "Update " & connNameSpace & ".LogErrors set " & _
+                SQL = "Update " & DBNameSpace & ".LogErrors set " & _
                 "strSolution = '" & Replace(ErrorSolution, "'", "''") & "' " & _
                 "where numError = '" & txtWebErrorNumber.Text & "' "
                 cmd = New OracleCommand(SQL, conn)
@@ -8922,7 +8922,7 @@ Public Class ISMPDataManagementTools
                     Longitude = "00.00000"
                 End If
 
-                SQL = "Update " & connNameSpace & ".APBFacilityInformation set " & _
+                SQL = "Update " & DBNameSpace & ".APBFacilityInformation set " & _
                 "numFacilityLongitude = " & Longitude & ", " & _
                 "numFacilityLatitude = " & Latitude & " " & _
                 "where strAIRSNumber = '0413" & txtLatLongAIRSNumber.Text & "' "
@@ -8976,9 +8976,9 @@ Public Class ISMPDataManagementTools
                  "strFacilityCity, strFacilityZipCode, " & _
                  "numFacilityLongitude, numFacilityLatitude, " & _
                  "strCountyName " & _
-                 "from " & connNameSpace & ".APBFacilityInformation, " & connNameSpace & ".LookUpCountyInformation " & _
-                 "where substr(" & connNameSpace & ".APBFacilityInformation.strAIRSNumber, 5, 3) = " & connNameSpace & ".LookUpCountyInformation.strCountyCode " & _
-                 "and " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = '0413" & txtLatLongAIRSNumber.Text & "' "
+                 "from " & DBNameSpace & ".APBFacilityInformation, " & DBNameSpace & ".LookUpCountyInformation " & _
+                 "where substr(" & DBNameSpace & ".APBFacilityInformation.strAIRSNumber, 5, 3) = " & DBNameSpace & ".LookUpCountyInformation.strCountyCode " & _
+                 "and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = '0413" & txtLatLongAIRSNumber.Text & "' "
 
                 cmd = New OracleCommand(SQL, conn)
                 If conn.State = ConnectionState.Closed Then
@@ -9111,7 +9111,7 @@ Public Class ISMPDataManagementTools
         Try
             If txtAirsNumber.Text <> "" Then
                 SQL = "Select strFacilityName " & _
-                "from " & connNameSpace & ".APBFacilityInformation " & _
+                "from " & DBNameSpace & ".APBFacilityInformation " & _
                 "where strAIRSNumber = '0413" & txtAirsNumber.Text & "' "
                 cmd = New OracleCommand(SQL, conn)
                 If conn.State = ConnectionState.Closed Then
@@ -9145,7 +9145,7 @@ Public Class ISMPDataManagementTools
     Private Sub btnGetData_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnGetData.Click
         Try
             If txtAirsNumber.Text <> "" Then
-                SQL = "Select * from " & connNameSpace & ".eiSI where strStateFacilityIdentifier = '" & txtAirsNumber.Text & "' "
+                SQL = "Select * from " & DBNameSpace & ".eiSI where strStateFacilityIdentifier = '" & txtAirsNumber.Text & "' "
 
                 cmd = New OracleCommand(SQL, conn)
                 If conn.State = ConnectionState.Closed Then
@@ -9198,107 +9198,107 @@ Public Class ISMPDataManagementTools
                     "when PMFILTable.TotalEmissions is Null then 0  " & _
                     "else PMFILTable.TotalEmissions  " & _
                     "end PMFIL " & _
-                    "from " & connNameSpace & ".EIEM,  " & _
+                    "from " & DBNameSpace & ".EIEM,  " & _
                     "(Select  " & _
-                    "" & connNameSpace & ".EIEM.strPollutantCode as PollutantCode,   " & _
-                    "sum(" & connNameSpace & ".EIEM.dblEmissionNumericValue) as TotalEmissions,  " & _
-                    "" & connNameSpace & ".EIEM.strInventoryYear,  " & _
+                    "" & DBNameSpace & ".EIEM.strPollutantCode as PollutantCode,   " & _
+                    "sum(" & DBNameSpace & ".EIEM.dblEmissionNumericValue) as TotalEmissions,  " & _
+                    "" & DBNameSpace & ".EIEM.strInventoryYear,  " & _
                     "strStateFacilityIdentifier  " & _
-                    "from " & connNameSpace & ".EIEM   " & _
-                    "where " & connNameSpace & ".EIEM.strStateFacilityIdentifier = '" & txtAirsNumber.Text & "'  " & _
+                    "from " & DBNameSpace & ".EIEM   " & _
+                    "where " & DBNameSpace & ".EIEM.strStateFacilityIdentifier = '" & txtAirsNumber.Text & "'  " & _
                     "and strPollutantCode = 'CO'  " & _
-                    "group by " & connNameSpace & ".EIEM.strPollutantCode,  " & _
-                    "" & connNameSpace & ".EIEM.strInventoryYear, strStateFacilityIdentifier) COTable,  " & _
+                    "group by " & DBNameSpace & ".EIEM.strPollutantCode,  " & _
+                    "" & DBNameSpace & ".EIEM.strInventoryYear, strStateFacilityIdentifier) COTable,  " & _
                     "(Select  " & _
-                    "" & connNameSpace & ".EIEM.strPollutantCode as PollutantCode,   " & _
-                    "sum(" & connNameSpace & ".EIEM.dblEmissionNumericValue) as TotalEmissions,  " & _
-                    "" & connNameSpace & ".EIEM.strInventoryYear,  " & _
+                    "" & DBNameSpace & ".EIEM.strPollutantCode as PollutantCode,   " & _
+                    "sum(" & DBNameSpace & ".EIEM.dblEmissionNumericValue) as TotalEmissions,  " & _
+                    "" & DBNameSpace & ".EIEM.strInventoryYear,  " & _
                     "strStateFacilityIdentifier  " & _
-                    "from " & connNameSpace & ".EIEM   " & _
-                    "where " & connNameSpace & ".EIEM.strStateFacilityIdentifier = '" & txtAirsNumber.Text & "'  " & _
+                    "from " & DBNameSpace & ".EIEM   " & _
+                    "where " & DBNameSpace & ".EIEM.strStateFacilityIdentifier = '" & txtAirsNumber.Text & "'  " & _
                     "and strPollutantCode = '7439921'  " & _
-                    "group by " & connNameSpace & ".EIEM.strPollutantCode,  " & _
-                    "" & connNameSpace & ".EIEM.strInventoryYear, strStateFacilityIdentifier) LeadTable,  " & _
+                    "group by " & DBNameSpace & ".EIEM.strPollutantCode,  " & _
+                    "" & DBNameSpace & ".EIEM.strInventoryYear, strStateFacilityIdentifier) LeadTable,  " & _
                     "(Select  " & _
-                    "" & connNameSpace & ".EIEM.strPollutantCode as PollutantCode,   " & _
-                    "sum(" & connNameSpace & ".EIEM.dblEmissionNumericValue) as TotalEmissions,  " & _
-                    "" & connNameSpace & ".EIEM.strInventoryYear,  " & _
+                    "" & DBNameSpace & ".EIEM.strPollutantCode as PollutantCode,   " & _
+                    "sum(" & DBNameSpace & ".EIEM.dblEmissionNumericValue) as TotalEmissions,  " & _
+                    "" & DBNameSpace & ".EIEM.strInventoryYear,  " & _
                     "strStateFacilityIdentifier  " & _
-                    "from " & connNameSpace & ".EIEM   " & _
-                    "where " & connNameSpace & ".EIEM.strStateFacilityIdentifier = '" & txtAirsNumber.Text & "'  " & _
+                    "from " & DBNameSpace & ".EIEM   " & _
+                    "where " & DBNameSpace & ".EIEM.strStateFacilityIdentifier = '" & txtAirsNumber.Text & "'  " & _
                     "and strPollutantCode = 'NH3'  " & _
-                    "group by " & connNameSpace & ".EIEM.strPollutantCode,  " & _
-                    "" & connNameSpace & ".EIEM.strInventoryYear, strStateFacilityIdentifier) NH3Table,  " & _
+                    "group by " & DBNameSpace & ".EIEM.strPollutantCode,  " & _
+                    "" & DBNameSpace & ".EIEM.strInventoryYear, strStateFacilityIdentifier) NH3Table,  " & _
                     "(Select  " & _
-                    "" & connNameSpace & ".EIEM.strPollutantCode as PollutantCode,   " & _
-                    "sum(" & connNameSpace & ".EIEM.dblEmissionNumericValue) as TotalEmissions,  " & _
-                    "" & connNameSpace & ".EIEM.strInventoryYear,  " & _
+                    "" & DBNameSpace & ".EIEM.strPollutantCode as PollutantCode,   " & _
+                    "sum(" & DBNameSpace & ".EIEM.dblEmissionNumericValue) as TotalEmissions,  " & _
+                    "" & DBNameSpace & ".EIEM.strInventoryYear,  " & _
                     "strStateFacilityIdentifier  " & _
-                    "from " & connNameSpace & ".EIEM   " & _
-                    "where " & connNameSpace & ".EIEM.strStateFacilityIdentifier = '" & txtAirsNumber.Text & "'  " & _
+                    "from " & DBNameSpace & ".EIEM   " & _
+                    "where " & DBNameSpace & ".EIEM.strStateFacilityIdentifier = '" & txtAirsNumber.Text & "'  " & _
                     "and strPollutantCode = 'NOX'  " & _
-                    "group by " & connNameSpace & ".EIEM.strPollutantCode,  " & _
-                    "" & connNameSpace & ".EIEM.strInventoryYear, strStateFacilityIdentifier) NOXTable,  " & _
+                    "group by " & DBNameSpace & ".EIEM.strPollutantCode,  " & _
+                    "" & DBNameSpace & ".EIEM.strInventoryYear, strStateFacilityIdentifier) NOXTable,  " & _
                     "(Select  " & _
-                    "" & connNameSpace & ".EIEM.strPollutantCode as PollutantCode,   " & _
-                    "sum(" & connNameSpace & ".EIEM.dblEmissionNumericValue) as TotalEmissions,  " & _
-                    "" & connNameSpace & ".EIEM.strInventoryYear,  " & _
+                    "" & DBNameSpace & ".EIEM.strPollutantCode as PollutantCode,   " & _
+                    "sum(" & DBNameSpace & ".EIEM.dblEmissionNumericValue) as TotalEmissions,  " & _
+                    "" & DBNameSpace & ".EIEM.strInventoryYear,  " & _
                     "strStateFacilityIdentifier  " & _
-                    "from " & connNameSpace & ".EIEM   " & _
-                    "where " & connNameSpace & ".EIEM.strStateFacilityIdentifier = '" & txtAirsNumber.Text & "'  " & _
+                    "from " & DBNameSpace & ".EIEM   " & _
+                    "where " & DBNameSpace & ".EIEM.strStateFacilityIdentifier = '" & txtAirsNumber.Text & "'  " & _
                     "and strPollutantCode = 'PM-PRI'  " & _
-                    "group by " & connNameSpace & ".EIEM.strPollutantCode,  " & _
-                    "" & connNameSpace & ".EIEM.strInventoryYear, strStateFacilityIdentifier) PMTable,  " & _
+                    "group by " & DBNameSpace & ".EIEM.strPollutantCode,  " & _
+                    "" & DBNameSpace & ".EIEM.strInventoryYear, strStateFacilityIdentifier) PMTable,  " & _
                     "(Select  " & _
-                    "" & connNameSpace & ".EIEM.strPollutantCode as PollutantCode,   " & _
-                    "sum(" & connNameSpace & ".EIEM.dblEmissionNumericValue) as TotalEmissions,  " & _
-                    "" & connNameSpace & ".EIEM.strInventoryYear,  " & _
+                    "" & DBNameSpace & ".EIEM.strPollutantCode as PollutantCode,   " & _
+                    "sum(" & DBNameSpace & ".EIEM.dblEmissionNumericValue) as TotalEmissions,  " & _
+                    "" & DBNameSpace & ".EIEM.strInventoryYear,  " & _
                     "strStateFacilityIdentifier  " & _
-                    "from " & connNameSpace & ".EIEM   " & _
-                    "where " & connNameSpace & ".EIEM.strStateFacilityIdentifier = '" & txtAirsNumber.Text & "'  " & _
+                    "from " & DBNameSpace & ".EIEM   " & _
+                    "where " & DBNameSpace & ".EIEM.strStateFacilityIdentifier = '" & txtAirsNumber.Text & "'  " & _
                     "and strPollutantCode = 'PM10-PMI'  " & _
-                    "group by " & connNameSpace & ".EIEM.strPollutantCode,  " & _
-                    "" & connNameSpace & ".EIEM.strInventoryYear, strStateFacilityIdentifier) PM10Table,  " & _
+                    "group by " & DBNameSpace & ".EIEM.strPollutantCode,  " & _
+                    "" & DBNameSpace & ".EIEM.strInventoryYear, strStateFacilityIdentifier) PM10Table,  " & _
                     "(Select  " & _
-                    "" & connNameSpace & ".EIEM.strPollutantCode as PollutantCode,   " & _
-                    "sum(" & connNameSpace & ".EIEM.dblEmissionNumericValue) as TotalEmissions,  " & _
-                    "" & connNameSpace & ".EIEM.strInventoryYear,  " & _
+                    "" & DBNameSpace & ".EIEM.strPollutantCode as PollutantCode,   " & _
+                    "sum(" & DBNameSpace & ".EIEM.dblEmissionNumericValue) as TotalEmissions,  " & _
+                    "" & DBNameSpace & ".EIEM.strInventoryYear,  " & _
                     "strStateFacilityIdentifier  " & _
-                    "from " & connNameSpace & ".EIEM   " & _
-                    "where " & connNameSpace & ".EIEM.strStateFacilityIdentifier = '" & txtAirsNumber.Text & "'  " & _
+                    "from " & DBNameSpace & ".EIEM   " & _
+                    "where " & DBNameSpace & ".EIEM.strStateFacilityIdentifier = '" & txtAirsNumber.Text & "'  " & _
                     "and strPollutantCode = 'PM25-PMI'  " & _
-                    "group by " & connNameSpace & ".EIEM.strPollutantCode,  " & _
-                    "" & connNameSpace & ".EIEM.strInventoryYear, strStateFacilityIdentifier) PM25Table,  " & _
+                    "group by " & DBNameSpace & ".EIEM.strPollutantCode,  " & _
+                    "" & DBNameSpace & ".EIEM.strInventoryYear, strStateFacilityIdentifier) PM25Table,  " & _
                     "(Select  " & _
-                    "" & connNameSpace & ".EIEM.strPollutantCode as PollutantCode,   " & _
-                    "sum(" & connNameSpace & ".EIEM.dblEmissionNumericValue) as TotalEmissions,  " & _
-                    "" & connNameSpace & ".EIEM.strInventoryYear,  " & _
+                    "" & DBNameSpace & ".EIEM.strPollutantCode as PollutantCode,   " & _
+                    "sum(" & DBNameSpace & ".EIEM.dblEmissionNumericValue) as TotalEmissions,  " & _
+                    "" & DBNameSpace & ".EIEM.strInventoryYear,  " & _
                     "strStateFacilityIdentifier  " & _
-                    "from " & connNameSpace & ".EIEM   " & _
-                    "where " & connNameSpace & ".EIEM.strStateFacilityIdentifier = '" & txtAirsNumber.Text & "'  " & _
+                    "from " & DBNameSpace & ".EIEM   " & _
+                    "where " & DBNameSpace & ".EIEM.strStateFacilityIdentifier = '" & txtAirsNumber.Text & "'  " & _
                     "and strPollutantCode = 'SO2'  " & _
-                    "group by " & connNameSpace & ".EIEM.strPollutantCode,  " & _
-                    "" & connNameSpace & ".EIEM.strInventoryYear, strStateFacilityIdentifier) SO2Table,  " & _
+                    "group by " & DBNameSpace & ".EIEM.strPollutantCode,  " & _
+                    "" & DBNameSpace & ".EIEM.strInventoryYear, strStateFacilityIdentifier) SO2Table,  " & _
                     "(Select  " & _
-                    "" & connNameSpace & ".EIEM.strPollutantCode as PollutantCode,   " & _
-                    "sum(" & connNameSpace & ".EIEM.dblEmissionNumericValue) as TotalEmissions,  " & _
-                    "" & connNameSpace & ".EIEM.strInventoryYear,  " & _
+                    "" & DBNameSpace & ".EIEM.strPollutantCode as PollutantCode,   " & _
+                    "sum(" & DBNameSpace & ".EIEM.dblEmissionNumericValue) as TotalEmissions,  " & _
+                    "" & DBNameSpace & ".EIEM.strInventoryYear,  " & _
                     "strStateFacilityIdentifier  " & _
-                    "from " & connNameSpace & ".EIEM   " & _
-                    "where " & connNameSpace & ".EIEM.strStateFacilityIdentifier = '" & txtAirsNumber.Text & "'  " & _
+                    "from " & DBNameSpace & ".EIEM   " & _
+                    "where " & DBNameSpace & ".EIEM.strStateFacilityIdentifier = '" & txtAirsNumber.Text & "'  " & _
                     "and strPollutantCode = 'VOC'  " & _
-                    "group by " & connNameSpace & ".EIEM.strPollutantCode,  " & _
-                    "" & connNameSpace & ".EIEM.strInventoryYear, strStateFacilityIdentifier) VOCTable,  " & _
+                    "group by " & DBNameSpace & ".EIEM.strPollutantCode,  " & _
+                    "" & DBNameSpace & ".EIEM.strInventoryYear, strStateFacilityIdentifier) VOCTable,  " & _
                     "(Select  " & _
-                    "" & connNameSpace & ".EIEM.strPollutantCode as PollutantCode,   " & _
-                    "sum(" & connNameSpace & ".EIEM.dblEmissionNumericValue) as TotalEmissions,  " & _
-                    "" & connNameSpace & ".EIEM.strInventoryYear,  " & _
+                    "" & DBNameSpace & ".EIEM.strPollutantCode as PollutantCode,   " & _
+                    "sum(" & DBNameSpace & ".EIEM.dblEmissionNumericValue) as TotalEmissions,  " & _
+                    "" & DBNameSpace & ".EIEM.strInventoryYear,  " & _
                     "strStateFacilityIdentifier  " & _
-                    "from " & connNameSpace & ".EIEM   " & _
-                    "where " & connNameSpace & ".EIEM.strStateFacilityIdentifier = '" & txtAirsNumber.Text & "'  " & _
+                    "from " & DBNameSpace & ".EIEM   " & _
+                    "where " & DBNameSpace & ".EIEM.strStateFacilityIdentifier = '" & txtAirsNumber.Text & "'  " & _
                     "and strPollutantCode = 'PM-FIL'  " & _
-                    "group by " & connNameSpace & ".EIEM.strPollutantCode,  " & _
-                    "" & connNameSpace & ".EIEM.strInventoryYear, strStateFacilityIdentifier) PMFILTable " & _
+                    "group by " & DBNameSpace & ".EIEM.strPollutantCode,  " & _
+                    "" & DBNameSpace & ".EIEM.strInventoryYear, strStateFacilityIdentifier) PMFILTable " & _
                     "where EIEM.strInventoryYear = COTable.strInventoryYear (+)   " & _
                     "and EIEM.strInventoryYear = LeadTable.strInventoryYear (+)   " & _
                     "and EIEM.strInventoryYear = NH3Table.strInventoryYear  (+)  " & _
@@ -9472,15 +9472,15 @@ Public Class ISMPDataManagementTools
                             "dblYCoordinate, " & _
                             "strHorizontalCollectionCode, " & _
                             "(Select STRHORIZCOLLECTIONMETHODDESC " & _
-                               "from " & connNameSpace & ".EILOOKUPHORIZCOLMETHOD " & _
-                               "where " & connNameSpace & ".EISI.STRHORIZONTALCOLLECTIONCODE = " & _
-                               "" & connNameSpace & ".EILOOKUPHORIZCOLMETHOD.STRHORIZCOLLECTIONMETHODCODE) as HMCdesc, " & _
+                               "from " & DBNameSpace & ".EILOOKUPHORIZCOLMETHOD " & _
+                               "where " & DBNameSpace & ".EISI.STRHORIZONTALCOLLECTIONCODE = " & _
+                               "" & DBNameSpace & ".EILOOKUPHORIZCOLMETHOD.STRHORIZCOLLECTIONMETHODCODE) as HMCdesc, " & _
                             "strHorizontalReferenceCode, " & _
                             "strHorizontalAccuracyMeasure, " & _
                             "(Select STRHORIZONTALREFERENCEDESC " & _
-                               "from " & connNameSpace & ".EILOOKUPHORIZREFDATUM " & _
-                               "where " & connNameSpace & ".EISI.STRHORIZONTALREFERENCECODE = " & _
-                               "" & connNameSpace & ".EILOOKUPHORIZREFDATUM.STRHORIZONTALREFERENCEDATUM) as HDRCdesc, " & _
+                               "from " & DBNameSpace & ".EILOOKUPHORIZREFDATUM " & _
+                               "where " & DBNameSpace & ".EISI.STRHORIZONTALREFERENCECODE = " & _
+                               "" & DBNameSpace & ".EILOOKUPHORIZREFDATUM.STRHORIZONTALREFERENCEDATUM) as HDRCdesc, " & _
                             "strContactPrefix, " & _
                             "strContactFirstName, " & _
                             "strContactLastName, " & _
@@ -9497,7 +9497,7 @@ Public Class ISMPDataManagementTools
                             "strSiteDescription, " & _
                             "strSICPrimary, " & _
                             "strNAICSPrimary " & _
-                     "from " & connNameSpace & ".eiSI where strAirsYear = '" & airsYear & "'"
+                     "from " & DBNameSpace & ".eiSI where strAirsYear = '" & airsYear & "'"
 
             Dim cmd As New OracleCommand(SQL, conn)
             cmd.CommandType = CommandType.Text
@@ -9579,17 +9579,17 @@ Public Class ISMPDataManagementTools
                          "sngDesignCapacity, " & _
                          "strDesignCapUnitNum, " & _
                          "(Select STRUNITDESCRIPTION " & _
-                               "from " & connNameSpace & ".EILOOKUPUNITCODES " & _
-                               "where " & connNameSpace & ".EIEU.strDesignCapUnitNum = " & _
-                               "" & connNameSpace & ".EILOOKUPUNITCODES.STRUNITCODE) as numDesc, " & _
+                               "from " & DBNameSpace & ".EILOOKUPUNITCODES " & _
+                               "where " & DBNameSpace & ".EIEU.strDesignCapUnitNum = " & _
+                               "" & DBNameSpace & ".EILOOKUPUNITCODES.STRUNITCODE) as numDesc, " & _
                          "strDesignCapUnitDenom, " & _
                          "(Select STRUNITDESCRIPTION " & _
-                               "from " & connNameSpace & ".EILOOKUPUNITCODES " & _
-                               "where " & connNameSpace & ".EIEU.strDesignCapUnitDenom = " & _
-                               "" & connNameSpace & ".EILOOKUPUNITCODES.STRUNITCODE) as denomDesc, " & _
+                               "from " & DBNameSpace & ".EILOOKUPUNITCODES " & _
+                               "where " & DBNameSpace & ".EIEU.strDesignCapUnitDenom = " & _
+                               "" & DBNameSpace & ".EILOOKUPUNITCODES.STRUNITCODE) as denomDesc, " & _
                          "sngMaxNameplateCapacity, " & _
                          "strEmissionUnitDesc " & _
-                    "from " & connNameSpace & ".eiEU where strAirsYear = '" & airsYear & "'"
+                    "from " & DBNameSpace & ".eiEU where strAirsYear = '" & airsYear & "'"
 
             Dim cmd As New OracleCommand(SQL, conn)
             cmd.CommandType = CommandType.Text
@@ -9649,9 +9649,9 @@ Public Class ISMPDataManagementTools
             SQL = "select strEmissionReleasePointID, " & _
                             "strEmissionReleaseType, " & _
                             "(Select STREMISSIONTYPEDESC " & _
-                               "from " & connNameSpace & ".EILOOKUPEMISSIONTYPES " & _
-                               "where " & connNameSpace & ".EIER.STREMISSIONRELEASETYPE = " & _
-                               "" & connNameSpace & ".EILOOKUPEMISSIONTYPES.STREMISSIONTYPECODE) as stackType, " & _
+                               "from " & DBNameSpace & ".EILOOKUPEMISSIONTYPES " & _
+                               "where " & DBNameSpace & ".EIER.STREMISSIONRELEASETYPE = " & _
+                               "" & DBNameSpace & ".EILOOKUPEMISSIONTYPES.STREMISSIONTYPECODE) as stackType, " & _
                             "sngStackHeight, " & _
                             "sngStackDiameter, " & _
                             "sngExitGasTemperature, " & _
@@ -9662,16 +9662,16 @@ Public Class ISMPDataManagementTools
                             "strEmissionReleasePtDesc, " & _
                             "strHorizontalCollectionCode, " & _
                             "(Select STRHORIZCOLLECTIONMETHODDESC " & _
-                               "from " & connNameSpace & ".EILOOKUPHORIZCOLMETHOD " & _
-                               "where " & connNameSpace & ".EIER.STRHORIZONTALCOLLECTIONCODE = " & _
-                               "" & connNameSpace & ".EILOOKUPHORIZCOLMETHOD.STRHORIZCOLLECTIONMETHODCODE) as HMCdesc, " & _
+                               "from " & DBNameSpace & ".EILOOKUPHORIZCOLMETHOD " & _
+                               "where " & DBNameSpace & ".EIER.STRHORIZONTALCOLLECTIONCODE = " & _
+                               "" & DBNameSpace & ".EILOOKUPHORIZCOLMETHOD.STRHORIZCOLLECTIONMETHODCODE) as HMCdesc, " & _
                             "strHorizontalAccuracyMeasure, " & _
                             "strHorizontalReferenceCode, " & _
                             "(Select STRHORIZONTALREFERENCEDESC " & _
-                               "from " & connNameSpace & ".EILOOKUPHORIZREFDATUM " & _
-                               "where " & connNameSpace & ".EIER.STRHORIZONTALREFERENCECODE = " & _
-                               "" & connNameSpace & ".EILOOKUPHORIZREFDATUM.STRHORIZONTALREFERENCEDATUM) as HDRCdesc " & _
-                            "from " & connNameSpace & ".eiER where strAirsYear = '" & airsYear & "'"
+                               "from " & DBNameSpace & ".EILOOKUPHORIZREFDATUM " & _
+                               "where " & DBNameSpace & ".EIER.STRHORIZONTALREFERENCECODE = " & _
+                               "" & DBNameSpace & ".EILOOKUPHORIZREFDATUM.STRHORIZONTALREFERENCEDATUM) as HDRCdesc " & _
+                            "from " & DBNameSpace & ".eiER where strAirsYear = '" & airsYear & "'"
 
             Dim cmd As New OracleCommand(SQL, conn)
             cmd.CommandType = CommandType.Text
@@ -9755,17 +9755,17 @@ Public Class ISMPDataManagementTools
                             "sngDailySummerProcessTPut, " & _
                             "strDailySummerProcessTPutNum, " & _
                             "(Select STRUNITDESCRIPTION " & _
-                               "from " & connNameSpace & ".EILOOKUPUNITCODES " & _
-                               "where " & connNameSpace & ".EIEP.strDailySummerProcessTPutNum = " & _
-                               "" & connNameSpace & ".EILOOKUPUNITCODES.STRUNITCODE) as DailySummerTputNumDesc, " & _
+                               "from " & DBNameSpace & ".EILOOKUPUNITCODES " & _
+                               "where " & DBNameSpace & ".EIEP.strDailySummerProcessTPutNum = " & _
+                               "" & DBNameSpace & ".EILOOKUPUNITCODES.STRUNITCODE) as DailySummerTputNumDesc, " & _
                             "sngActualThroughput, " & _
                             "strThroughputUnitNumerator, " & _
                             "(Select STRUNITDESCRIPTION " & _
-                               "from " & connNameSpace & ".EILOOKUPUNITCODES " & _
-                               "where " & connNameSpace & ".EIEP.strThroughputUnitNumerator = " & _
-                               "" & connNameSpace & ".EILOOKUPUNITCODES.STRUNITCODE) as TputNumDesc, " & _
+                               "from " & DBNameSpace & ".EILOOKUPUNITCODES " & _
+                               "where " & DBNameSpace & ".EIEP.strThroughputUnitNumerator = " & _
+                               "" & DBNameSpace & ".EILOOKUPUNITCODES.STRUNITCODE) as TputNumDesc, " & _
                             "strStartTime " & _
-                       "from " & connNameSpace & ".eiEP " & _
+                       "from " & DBNameSpace & ".eiEP " & _
                       "where strAirsYear = '" & airsYear & "'"
 
             Dim cmd As New OracleCommand(SQL, conn)
@@ -9844,50 +9844,50 @@ Public Class ISMPDataManagementTools
             SQL += "STRPROCESSID, "
             SQL += "strPollutantCode, "
             SQL += "(Select STRPOLLUTANTDESC "
-            SQL += "from " & connNameSpace & ".EILOOKUPPOLLUTANTCODES "
-            SQL += "where " & connNameSpace & ".EIEM.STRPOLLUTANTCODE = "
-            SQL += "" & connNameSpace & ".EILOOKUPPOLLUTANTCODES.STRPOLLUTANTCODE) as pollutantDesc, "
+            SQL += "from " & DBNameSpace & ".EILOOKUPPOLLUTANTCODES "
+            SQL += "where " & DBNameSpace & ".EIEM.STRPOLLUTANTCODE = "
+            SQL += "" & DBNameSpace & ".EILOOKUPPOLLUTANTCODES.STRPOLLUTANTCODE) as pollutantDesc, "
             SQL += "DBLEMISSIONNUMERICVALUE, "
             SQL += "STREMISSIONUNITNUMERATOR, "
             SQL += "(Select STRUNITDESCRIPTION "
-            SQL += "from " & connNameSpace & ".EILOOKUPUNITCODES "
-            SQL += "where " & connNameSpace & ".EIEM.STREMISSIONUNITNUMERATOR = "
-            SQL += "" & connNameSpace & ".EILOOKUPUNITCODES.STRUNITCODE) as EMISSIONUNITNUMERATORDesc, "
+            SQL += "from " & DBNameSpace & ".EILOOKUPUNITCODES "
+            SQL += "where " & DBNameSpace & ".EIEM.STREMISSIONUNITNUMERATOR = "
+            SQL += "" & DBNameSpace & ".EILOOKUPUNITCODES.STRUNITCODE) as EMISSIONUNITNUMERATORDesc, "
             SQL += "sngFactorNumericValue, "
             SQL += "strFactorUnitNumerator, "
             SQL += "(Select STRUNITDESCRIPTION "
-            SQL += "from " & connNameSpace & ".EILOOKUPUNITCODES "
-            SQL += "where " & connNameSpace & ".EIEM.strFactorUnitNumerator = "
-            SQL += "" & connNameSpace & ".EILOOKUPUNITCODES.STRUNITCODE) as FactorUnitNumeratorDesc, "
+            SQL += "from " & DBNameSpace & ".EILOOKUPUNITCODES "
+            SQL += "where " & DBNameSpace & ".EIEM.strFactorUnitNumerator = "
+            SQL += "" & DBNameSpace & ".EILOOKUPUNITCODES.STRUNITCODE) as FactorUnitNumeratorDesc, "
             SQL += "strFactorUnitDenominator, "
             SQL += "(Select STRUNITDESCRIPTION "
-            SQL += "from " & connNameSpace & ".EILOOKUPUNITCODES "
-            SQL += "where " & connNameSpace & ".EIEM.strFactorUnitDenominator = "
-            SQL += "" & connNameSpace & ".EILOOKUPUNITCODES.STRUNITCODE) as FactorUnitDenominatorDesc, "
+            SQL += "from " & DBNameSpace & ".EILOOKUPUNITCODES "
+            SQL += "where " & DBNameSpace & ".EIEM.strFactorUnitDenominator = "
+            SQL += "" & DBNameSpace & ".EILOOKUPUNITCODES.STRUNITCODE) as FactorUnitDenominatorDesc, "
             SQL += "strEmissionCalculationMetCode, "
             SQL += "(Select STREMISSIONCALCMETHODDESC "
-            SQL += "from " & connNameSpace & ".EILOOKUPEMISSIONCALCMETHOD "
-            SQL += "where " & connNameSpace & ".EIEM.strEmissionCalculationMetCode = "
-            SQL += "" & connNameSpace & ".EILOOKUPEMISSIONCALCMETHOD.STREMISSIONCALCMETHODCODE) as EMISSIONCALCMETHODDESC, "
+            SQL += "from " & DBNameSpace & ".EILOOKUPEMISSIONCALCMETHOD "
+            SQL += "where " & DBNameSpace & ".EIEM.strEmissionCalculationMetCode = "
+            SQL += "" & DBNameSpace & ".EILOOKUPEMISSIONCALCMETHOD.STREMISSIONCALCMETHODCODE) as EMISSIONCALCMETHODDESC, "
             SQL += "strControlStatus, "
             SQL += "strControlSystemDescription, "
             SQL += "strPrimaryDeviceTypeCode, "
             SQL += "(Select STRCONTROLDEVICEDesc "
-            SQL += "from " & connNameSpace & ".EILOOKUPCONTROLDEVICE "
-            SQL += "where " & connNameSpace & ".EIEM.strPrimaryDeviceTypeCode = "
-            SQL += "" & connNameSpace & ".EILOOKUPCONTROLDEVICE.STRCONTROLDEVICECODE) as PrimaryDeviceTypeDesc, "
+            SQL += "from " & DBNameSpace & ".EILOOKUPCONTROLDEVICE "
+            SQL += "where " & DBNameSpace & ".EIEM.strPrimaryDeviceTypeCode = "
+            SQL += "" & DBNameSpace & ".EILOOKUPCONTROLDEVICE.STRCONTROLDEVICECODE) as PrimaryDeviceTypeDesc, "
             SQL += "sngPrimaryPCTControlEffic, "
             SQL += "strSecondaryDeviceTypeCode, "
             SQL += "(Select STRCONTROLDEVICEDesc "
-            SQL += "from " & connNameSpace & ".EILOOKUPCONTROLDEVICE "
-            SQL += "where " & connNameSpace & ".EIEM.strSecondaryDeviceTypeCode = "
-            SQL += "" & connNameSpace & ".EILOOKUPCONTROLDEVICE.STRCONTROLDEVICECODE) as SecondaryDeviceTypeDesc, "
+            SQL += "from " & DBNameSpace & ".EILOOKUPCONTROLDEVICE "
+            SQL += "where " & DBNameSpace & ".EIEM.strSecondaryDeviceTypeCode = "
+            SQL += "" & DBNameSpace & ".EILOOKUPCONTROLDEVICE.STRCONTROLDEVICECODE) as SecondaryDeviceTypeDesc, "
             SQL += "sngPCTCaptureEfficiency, "
             SQL += "sngTotalCaptureControlEffic "
-            SQL += "from " & connNameSpace & ".eiEM "
+            SQL += "from " & DBNameSpace & ".eiEM "
             SQL += "where strAirsYear = '" & airsYear & "'"
 
-            'SQL = "Select * from " & connNameSpace & ".eiEM where strAirsYear = '" & airsYear & "'"
+            'SQL = "Select * from " & DBNameSpace & ".eiEM where strAirsYear = '" & airsYear & "'"
 
             Dim cmd As New OracleCommand(SQL, conn)
             cmd.CommandType = CommandType.Text
@@ -10208,7 +10208,7 @@ Public Class ISMPDataManagementTools
             cboEIYear.Items.Clear()
 
             SQL = "select distinct(strInventoryYear)  as EIYear " & _
-            "from " & connNameSpace & ".EISI " & _
+            "from " & DBNameSpace & ".EISI " & _
             "where strStateFacilityIdentifier = '" & txtAirsNumber.Text & "' " & _
             "order by EIYear desc "
 
@@ -10246,7 +10246,7 @@ Public Class ISMPDataManagementTools
         Try
 
             If Me.txtDeleteAIRSNumber.Text <> "" And txtDeleteAIRSNumber.Text.Length = 8 Then
-                SQL = "delete " & connNameSpace & ".afsairpollutantdata where strAIRSNumber = '0413" & txtDeleteAIRSNumber.Text & "' "
+                SQL = "delete " & DBNameSpace & ".afsairpollutantdata where strAIRSNumber = '0413" & txtDeleteAIRSNumber.Text & "' "
                 cmd = New OracleCommand(SQL, conn)
                 If conn.State = ConnectionState.Closed Then
                     conn.Open()
@@ -10254,14 +10254,14 @@ Public Class ISMPDataManagementTools
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL2 = "Insert into " & connNameSpace & ".AFSDeletions " & _
+                SQL2 = "Insert into " & DBNameSpace & ".AFSDeletions " & _
                 "values " & _
                 "(" & _
                 "(select " & _
                 "case when max(numCounter) is null then 1 " & _
                 "else max(numCounter) + 1 " & _
                 "end numCounter " & _
-                "from " & connNameSpace & ".AFSDeletions), " & _
+                "from " & DBNameSpace & ".AFSDeletions), " & _
                 "'0413" & txtDeleteAIRSNumber.Text & "', " & _
                 "'" & Replace(SQL, "'", "''") & "', 'True', " & _
                 "'" & OracleDate & "', '', " & _
@@ -10274,7 +10274,7 @@ Public Class ISMPDataManagementTools
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL = "delete " & connNameSpace & ".afsfacilitydata where strAirsnumber = '0413" & txtDeleteAIRSNumber.Text & "'"
+                SQL = "delete " & DBNameSpace & ".afsfacilitydata where strAirsnumber = '0413" & txtDeleteAIRSNumber.Text & "'"
                 cmd = New OracleCommand(SQL, conn)
                 If conn.State = ConnectionState.Closed Then
                     conn.Open()
@@ -10282,14 +10282,14 @@ Public Class ISMPDataManagementTools
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL2 = "Insert into " & connNameSpace & ".AFSDeletions " & _
+                SQL2 = "Insert into " & DBNameSpace & ".AFSDeletions " & _
                          "values " & _
                          "(" & _
                          "(select " & _
                          "case when max(numCounter) is null then 1 " & _
                          "else max(numCounter) + 1 " & _
                          "end numCounter " & _
-                         "from " & connNameSpace & ".AFSDeletions), " & _
+                         "from " & DBNameSpace & ".AFSDeletions), " & _
                          "'0413" & txtDeleteAIRSNumber.Text & "', " & _
                          "'" & Replace(SQL, "'", "''") & "', 'True', " & _
                          "'" & OracleDate & "', '', " & _
@@ -10302,7 +10302,7 @@ Public Class ISMPDataManagementTools
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL = "delete " & connNameSpace & ".apbairprogrampollutants where strAIRSNumber = '0413" & txtDeleteAIRSNumber.Text & "'"
+                SQL = "delete " & DBNameSpace & ".apbairprogrampollutants where strAIRSNumber = '0413" & txtDeleteAIRSNumber.Text & "'"
                 cmd = New OracleCommand(SQL, conn)
                 If conn.State = ConnectionState.Closed Then
                     conn.Open()
@@ -10310,14 +10310,14 @@ Public Class ISMPDataManagementTools
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL2 = "Insert into " & connNameSpace & ".AFSDeletions " & _
+                SQL2 = "Insert into " & DBNameSpace & ".AFSDeletions " & _
                          "values " & _
                          "(" & _
                          "(select " & _
                          "case when max(numCounter) is null then 1 " & _
                          "else max(numCounter) + 1 " & _
                          "end numCounter " & _
-                         "from " & connNameSpace & ".AFSDeletions), " & _
+                         "from " & DBNameSpace & ".AFSDeletions), " & _
                          "'0413" & txtDeleteAIRSNumber.Text & "', " & _
                          "'" & Replace(SQL, "'", "''") & "', 'True', " & _
                          "'" & OracleDate & "', '', " & _
@@ -10330,7 +10330,7 @@ Public Class ISMPDataManagementTools
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL = "delete " & connNameSpace & ".hb_apbairprogrampollutants where strairsnumber = '0413" & txtDeleteAIRSNumber.Text & "'"
+                SQL = "delete " & DBNameSpace & ".hb_apbairprogrampollutants where strairsnumber = '0413" & txtDeleteAIRSNumber.Text & "'"
                 cmd = New OracleCommand(SQL, conn)
                 If conn.State = ConnectionState.Closed Then
                     conn.Open()
@@ -10338,14 +10338,14 @@ Public Class ISMPDataManagementTools
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL2 = "Insert into " & connNameSpace & ".AFSDeletions " & _
+                SQL2 = "Insert into " & DBNameSpace & ".AFSDeletions " & _
                          "values " & _
                          "(" & _
                          "(select " & _
                          "case when max(numCounter) is null then 1 " & _
                          "else max(numCounter) + 1 " & _
                          "end numCounter " & _
-                         "from " & connNameSpace & ".AFSDeletions), " & _
+                         "from " & DBNameSpace & ".AFSDeletions), " & _
                          "'0413" & txtDeleteAIRSNumber.Text & "', " & _
                          "'" & Replace(SQL, "'", "''") & "', 'True', " & _
                          "'" & OracleDate & "', '', " & _
@@ -10358,7 +10358,7 @@ Public Class ISMPDataManagementTools
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL = "delete " & connNameSpace & ".apbcontactinformation where strairsnumber = '0413" & txtDeleteAIRSNumber.Text & "'"
+                SQL = "delete " & DBNameSpace & ".apbcontactinformation where strairsnumber = '0413" & txtDeleteAIRSNumber.Text & "'"
                 cmd = New OracleCommand(SQL, conn)
                 If conn.State = ConnectionState.Closed Then
                     conn.Open()
@@ -10366,14 +10366,14 @@ Public Class ISMPDataManagementTools
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL2 = "Insert into " & connNameSpace & ".AFSDeletions " & _
+                SQL2 = "Insert into " & DBNameSpace & ".AFSDeletions " & _
                          "values " & _
                          "(" & _
                          "(select " & _
                          "case when max(numCounter) is null then 1 " & _
                          "else max(numCounter) + 1 " & _
                          "end numCounter " & _
-                         "from " & connNameSpace & ".AFSDeletions), " & _
+                         "from " & DBNameSpace & ".AFSDeletions), " & _
                          "'0413" & txtDeleteAIRSNumber.Text & "', " & _
                          "'" & Replace(SQL, "'", "''") & "', 'True', " & _
                          "'" & OracleDate & "', '', " & _
@@ -10386,7 +10386,7 @@ Public Class ISMPDataManagementTools
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL = "delete " & connNameSpace & ".apbheaderdata where strairsnumber = '0413" & txtDeleteAIRSNumber.Text & "'"
+                SQL = "delete " & DBNameSpace & ".apbheaderdata where strairsnumber = '0413" & txtDeleteAIRSNumber.Text & "'"
                 cmd = New OracleCommand(SQL, conn)
                 If conn.State = ConnectionState.Closed Then
                     conn.Open()
@@ -10394,14 +10394,14 @@ Public Class ISMPDataManagementTools
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL2 = "Insert into " & connNameSpace & ".AFSDeletions " & _
+                SQL2 = "Insert into " & DBNameSpace & ".AFSDeletions " & _
                          "values " & _
                          "(" & _
                          "(select " & _
                          "case when max(numCounter) is null then 1 " & _
                          "else max(numCounter) + 1 " & _
                          "end numCounter " & _
-                         "from " & connNameSpace & ".AFSDeletions), " & _
+                         "from " & DBNameSpace & ".AFSDeletions), " & _
                          "'0413" & txtDeleteAIRSNumber.Text & "', " & _
                          "'" & Replace(SQL, "'", "''") & "', 'True', " & _
                          "'" & OracleDate & "', '', " & _
@@ -10414,7 +10414,7 @@ Public Class ISMPDataManagementTools
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL = "delete " & connNameSpace & ".HB_APBHeaderData where strAIRSNumber = '0413" & txtDeleteAIRSNumber.Text & "'"
+                SQL = "delete " & DBNameSpace & ".HB_APBHeaderData where strAIRSNumber = '0413" & txtDeleteAIRSNumber.Text & "'"
                 cmd = New OracleCommand(SQL, conn)
                 If conn.State = ConnectionState.Closed Then
                     conn.Open()
@@ -10422,14 +10422,14 @@ Public Class ISMPDataManagementTools
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL2 = "Insert into " & connNameSpace & ".AFSDeletions " & _
+                SQL2 = "Insert into " & DBNameSpace & ".AFSDeletions " & _
                          "values " & _
                          "(" & _
                          "(select " & _
                          "case when max(numCounter) is null then 1 " & _
                          "else max(numCounter) + 1 " & _
                          "end numCounter " & _
-                         "from " & connNameSpace & ".AFSDeletions), " & _
+                         "from " & DBNameSpace & ".AFSDeletions), " & _
                          "'0413" & txtDeleteAIRSNumber.Text & "', " & _
                          "'" & Replace(SQL, "'", "''") & "', 'True', " & _
                          "'" & OracleDate & "', '', " & _
@@ -10442,7 +10442,7 @@ Public Class ISMPDataManagementTools
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL = "delete " & connNameSpace & ".HB_APBFacilityInformation where strAIRSNumber = '0413" & txtDeleteAIRSNumber.Text & "'"
+                SQL = "delete " & DBNameSpace & ".HB_APBFacilityInformation where strAIRSNumber = '0413" & txtDeleteAIRSNumber.Text & "'"
                 cmd = New OracleCommand(SQL, conn)
                 If conn.State = ConnectionState.Closed Then
                     conn.Open()
@@ -10450,14 +10450,14 @@ Public Class ISMPDataManagementTools
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL2 = "Insert into " & connNameSpace & ".AFSDeletions " & _
+                SQL2 = "Insert into " & DBNameSpace & ".AFSDeletions " & _
                          "values " & _
                          "(" & _
                          "(select " & _
                          "case when max(numCounter) is null then 1 " & _
                          "else max(numCounter) + 1 " & _
                          "end numCounter " & _
-                         "from " & connNameSpace & ".AFSDeletions), " & _
+                         "from " & DBNameSpace & ".AFSDeletions), " & _
                          "'0413" & txtDeleteAIRSNumber.Text & "', " & _
                          "'" & Replace(SQL, "'", "''") & "', 'True', " & _
                          "'" & OracleDate & "', '', " & _
@@ -10470,7 +10470,7 @@ Public Class ISMPDataManagementTools
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL = "delete " & connNameSpace & ".APBFacilityInformation where strAIRSNumber = '0413" & txtDeleteAIRSNumber.Text & "'"
+                SQL = "delete " & DBNameSpace & ".APBFacilityInformation where strAIRSNumber = '0413" & txtDeleteAIRSNumber.Text & "'"
                 cmd = New OracleCommand(SQL, conn)
                 If conn.State = ConnectionState.Closed Then
                     conn.Open()
@@ -10478,14 +10478,14 @@ Public Class ISMPDataManagementTools
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL2 = "Insert into " & connNameSpace & ".AFSDeletions " & _
+                SQL2 = "Insert into " & DBNameSpace & ".AFSDeletions " & _
                          "values " & _
                          "(" & _
                          "(select " & _
                          "case when max(numCounter) is null then 1 " & _
                          "else max(numCounter) + 1 " & _
                          "end numCounter " & _
-                         "from " & connNameSpace & ".AFSDeletions), " & _
+                         "from " & DBNameSpace & ".AFSDeletions), " & _
                          "'0413" & txtDeleteAIRSNumber.Text & "', " & _
                          "'" & Replace(SQL, "'", "''") & "', 'True', " & _
                          "'" & OracleDate & "', '', " & _
@@ -10498,7 +10498,7 @@ Public Class ISMPDataManagementTools
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL = "delete " & connNameSpace & ".apbsupplamentaldata where strairsnumber = '0413" & txtDeleteAIRSNumber.Text & "'"
+                SQL = "delete " & DBNameSpace & ".apbsupplamentaldata where strairsnumber = '0413" & txtDeleteAIRSNumber.Text & "'"
                 cmd = New OracleCommand(SQL, conn)
                 If conn.State = ConnectionState.Closed Then
                     conn.Open()
@@ -10506,14 +10506,14 @@ Public Class ISMPDataManagementTools
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL2 = "Insert into " & connNameSpace & ".AFSDeletions " & _
+                SQL2 = "Insert into " & DBNameSpace & ".AFSDeletions " & _
                          "values " & _
                          "(" & _
                          "(select " & _
                          "case when max(numCounter) is null then 1 " & _
                          "else max(numCounter) + 1 " & _
                          "end numCounter " & _
-                         "from " & connNameSpace & ".AFSDeletions), " & _
+                         "from " & DBNameSpace & ".AFSDeletions), " & _
                          "'0413" & txtDeleteAIRSNumber.Text & "', " & _
                          "'" & Replace(SQL, "'", "''") & "', 'True', " & _
                          "'" & OracleDate & "', '', " & _
@@ -10526,8 +10526,8 @@ Public Class ISMPDataManagementTools
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                'SQL = "Delete " & connNameSpace & ".SSCPFacilityAssignment where strairsnumber = '0413" & txtDeleteAIRSNumber.Text & "' "
-                SQL = "Delete " & connNameSpace & ".SSCPInspectionsRequired where strAIRsnumber = '0413" & txtDeleteAIRSNumber.Text & "' "
+                'SQL = "Delete " & DBNameSpace & ".SSCPFacilityAssignment where strairsnumber = '0413" & txtDeleteAIRSNumber.Text & "' "
+                SQL = "Delete " & DBNameSpace & ".SSCPInspectionsRequired where strAIRsnumber = '0413" & txtDeleteAIRSNumber.Text & "' "
                 cmd = New OracleCommand(SQL, conn)
                 If conn.State = ConnectionState.Closed Then
                     conn.Open()
@@ -10535,14 +10535,14 @@ Public Class ISMPDataManagementTools
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL2 = "Insert into " & connNameSpace & ".AFSDeletions " & _
+                SQL2 = "Insert into " & DBNameSpace & ".AFSDeletions " & _
                          "values " & _
                          "(" & _
                          "(select " & _
                          "case when max(numCounter) is null then 1 " & _
                          "else max(numCounter) + 1 " & _
                          "end numCounter " & _
-                         "from " & connNameSpace & ".AFSDeletions), " & _
+                         "from " & DBNameSpace & ".AFSDeletions), " & _
                          "'0413" & txtDeleteAIRSNumber.Text & "', " & _
                          "'" & Replace(SQL, "'", "''") & "', 'True', " & _
                          "'" & OracleDate & "', '', " & _
@@ -10555,7 +10555,7 @@ Public Class ISMPDataManagementTools
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL = "Delete " & connNameSpace & ".SSCPDistrictResponsible where strairsnumber = '0413" & txtDeleteAIRSNumber.Text & "' "
+                SQL = "Delete " & DBNameSpace & ".SSCPDistrictResponsible where strairsnumber = '0413" & txtDeleteAIRSNumber.Text & "' "
                 cmd = New OracleCommand(SQL, conn)
                 If conn.State = ConnectionState.Closed Then
                     conn.Open()
@@ -10563,14 +10563,14 @@ Public Class ISMPDataManagementTools
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL2 = "Insert into " & connNameSpace & ".AFSDeletions " & _
+                SQL2 = "Insert into " & DBNameSpace & ".AFSDeletions " & _
                          "values " & _
                          "(" & _
                          "(select " & _
                          "case when max(numCounter) is null then 1 " & _
                          "else max(numCounter) + 1 " & _
                          "end numCounter " & _
-                         "from " & connNameSpace & ".AFSDeletions), " & _
+                         "from " & DBNameSpace & ".AFSDeletions), " & _
                          "'0413" & txtDeleteAIRSNumber.Text & "', " & _
                          "'" & Replace(SQL, "'", "''") & "', 'True', " & _
                          "'" & OracleDate & "', '', " & _
@@ -10583,7 +10583,7 @@ Public Class ISMPDataManagementTools
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL = "delete " & connNameSpace & ".apbmasterairs where strairsnumber = '0413" & txtDeleteAIRSNumber.Text & "' "
+                SQL = "delete " & DBNameSpace & ".apbmasterairs where strairsnumber = '0413" & txtDeleteAIRSNumber.Text & "' "
                 cmd = New OracleCommand(SQL, conn)
                 If conn.State = ConnectionState.Closed Then
                     conn.Open()
@@ -10591,14 +10591,14 @@ Public Class ISMPDataManagementTools
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL2 = "Insert into " & connNameSpace & ".AFSDeletions " & _
+                SQL2 = "Insert into " & DBNameSpace & ".AFSDeletions " & _
                          "values " & _
                          "(" & _
                          "(select " & _
                          "case when max(numCounter) is null then 1 " & _
                          "else max(numCounter) + 1 " & _
                          "end numCounter " & _
-                         "from " & connNameSpace & ".AFSDeletions), " & _
+                         "from " & DBNameSpace & ".AFSDeletions), " & _
                          "'0413" & txtDeleteAIRSNumber.Text & "', " & _
                          "'" & Replace(SQL, "'", "''") & "', 'True', " & _
                          "'" & OracleDate & "', '', " & _
@@ -10661,9 +10661,9 @@ Public Class ISMPDataManagementTools
         Try
             Try
                 SQL = "select count(*) as ESMailoutCount " & _
-                "from " & connNameSpace & ".esmailout, " & connNameSpace & ".ESSCHEMA " & _
-                "where " & connNameSpace & ".ESMAILOUT.STRAIRSYEAR = " & connNameSpace & ".ESSCHEMA.STRAIRSYEAR(+) " & _
-                "and " & connNameSpace & ".esmailout.STRESYEAR = '" & ESYear & "'"
+                "from " & DBNameSpace & ".esmailout, " & DBNameSpace & ".ESSCHEMA " & _
+                "where " & DBNameSpace & ".ESMAILOUT.STRAIRSYEAR = " & DBNameSpace & ".ESSCHEMA.STRAIRSYEAR(+) " & _
+                "and " & DBNameSpace & ".esmailout.STRESYEAR = '" & ESYear & "'"
 
                 cmd = New OracleCommand(SQL, conn)
                            If conn.State = ConnectionState.Closed Then
@@ -10677,10 +10677,10 @@ Public Class ISMPDataManagementTools
                 dr.Close()
 
                 SQL = "select count(*) as ResponseCount " & _
-                "from " & connNameSpace & ".esmailout, " & connNameSpace & ".ESSCHEMA " & _
-                "where " & connNameSpace & ".ESMAILOUT.STRAIRSYEAR = " & connNameSpace & ".ESSCHEMA.STRAIRSYEAR " & _
-                "and " & connNameSpace & ".ESSCHEMA.STROPTOUT is not NULL " & _
-                "and " & connNameSpace & ".esmailout.STRESYEAR = '" & ESYear & "'"
+                "from " & DBNameSpace & ".esmailout, " & DBNameSpace & ".ESSCHEMA " & _
+                "where " & DBNameSpace & ".ESMAILOUT.STRAIRSYEAR = " & DBNameSpace & ".ESSCHEMA.STRAIRSYEAR " & _
+                "and " & DBNameSpace & ".ESSCHEMA.STROPTOUT is not NULL " & _
+                "and " & DBNameSpace & ".esmailout.STRESYEAR = '" & ESYear & "'"
 
                 cmd = New OracleCommand(SQL, conn)
                            If conn.State = ConnectionState.Closed Then
@@ -10694,9 +10694,9 @@ Public Class ISMPDataManagementTools
                 dr.Close()
 
                 SQL = "select count(*) as TotaloptinCount " & _
-                "from " & connNameSpace & ".ESSchema " & _
-                "where " & connNameSpace & ".ESSchema.intESYEAR = '" & intESyear & "'" & _
-                " and " & connNameSpace & ".ESSchema.strOptOut = 'NO'"
+                "from " & DBNameSpace & ".ESSchema " & _
+                "where " & DBNameSpace & ".ESSchema.intESYEAR = '" & intESyear & "'" & _
+                " and " & DBNameSpace & ".ESSchema.strOptOut = 'NO'"
 
                 cmd = New OracleCommand(SQL, conn)
                 If conn.State = ConnectionState.Closed Then
@@ -10710,9 +10710,9 @@ Public Class ISMPDataManagementTools
                 dr.Close()
 
                 SQL = "select count(*) as TotaloptOutCount " & _
-                "from " & connNameSpace & ".ESSchema " & _
-                "where " & connNameSpace & ".ESSchema.intESYEAR = '" & intESyear & "' " & _
-                "and " & connNameSpace & ".ESSchema.strOptOut = 'YES'"
+                "from " & DBNameSpace & ".ESSchema " & _
+                "where " & DBNameSpace & ".ESSchema.intESYEAR = '" & intESyear & "' " & _
+                "and " & DBNameSpace & ".ESSchema.strOptOut = 'YES'"
 
                 cmd = New OracleCommand(SQL, conn)
 
@@ -10727,9 +10727,9 @@ Public Class ISMPDataManagementTools
                 dr.Close()
 
                 SQL = "select count(*) as TotalinincomplianceCount " & _
-                "from " & connNameSpace & ".ESSchema " & _
-                "where " & connNameSpace & ".ESSchema.intESYEAR = '" & intESyear & "'" & _
-                " and to_date(" & connNameSpace & ".ESSchema.STRDATEFIRSTCONFIRM) < = '" & deadline & "'"
+                "from " & DBNameSpace & ".ESSchema " & _
+                "where " & DBNameSpace & ".ESSchema.intESYEAR = '" & intESyear & "'" & _
+                " and to_date(" & DBNameSpace & ".ESSchema.STRDATEFIRSTCONFIRM) < = '" & deadline & "'"
 
                 cmd = New OracleCommand(SQL, conn)
                 If conn.State = ConnectionState.Closed Then
@@ -10742,9 +10742,9 @@ Public Class ISMPDataManagementTools
                 dr.Close()
 
                 SQL = "select count(*) as TotaloutofcomplianceCount " & _
-                "from " & connNameSpace & ".ESSchema " & _
-                "where " & connNameSpace & ".ESSchema.intESYEAR = '" & intESyear & "'" & _
-                " and to_date(" & connNameSpace & ".ESSchema.STRDATEFIRSTCONFIRM) > '" & deadline & "'"
+                "from " & DBNameSpace & ".ESSchema " & _
+                "where " & DBNameSpace & ".ESSchema.intESYEAR = '" & intESyear & "'" & _
+                " and to_date(" & DBNameSpace & ".ESSchema.STRDATEFIRSTCONFIRM) > '" & deadline & "'"
 
                 cmd = New OracleCommand(SQL, conn)
                 If conn.State = ConnectionState.Closed Then
@@ -10757,10 +10757,10 @@ Public Class ISMPDataManagementTools
                 dr.Close()
 
                 SQL = "select count(*) as MailOutOptInCount " & _
-                "from " & connNameSpace & ".ESSchema, " & connNameSpace & ".ESMailout " & _
-                "where " & connNameSpace & ".ESMAILOUT.strESYEAR = '" & ESYear & "' " & _
-                " and " & connNameSpace & ".ESMAILOUT.STRAIRSYEAR = " & connNameSpace & ".ESSCHEMA.STRAIRSYEAR(+) " & _
-                " and " & connNameSpace & ".ESSchema.strOptOut = 'NO'"
+                "from " & DBNameSpace & ".ESSchema, " & DBNameSpace & ".ESMailout " & _
+                "where " & DBNameSpace & ".ESMAILOUT.strESYEAR = '" & ESYear & "' " & _
+                " and " & DBNameSpace & ".ESMAILOUT.STRAIRSYEAR = " & DBNameSpace & ".ESSCHEMA.STRAIRSYEAR(+) " & _
+                " and " & DBNameSpace & ".ESSchema.strOptOut = 'NO'"
 
                 cmd = New OracleCommand(SQL, conn)
                 If conn.State = ConnectionState.Closed Then
@@ -10774,10 +10774,10 @@ Public Class ISMPDataManagementTools
                 dr.Close()
 
                 SQL = "select count(*) as MailOutOptOutCount " & _
-                "from " & connNameSpace & ".ESSchema, " & connNameSpace & ".ESMailout " & _
-                "where " & connNameSpace & ".ESMAILOUT.strESYEAR = '" & ESYear & "'" & _
-                " and " & connNameSpace & ".ESMAILOUT.STRAIRSYEAR = " & connNameSpace & ".ESSCHEMA.STRAIRSYEAR(+) " & _
-                " and " & connNameSpace & ".ESSchema.strOptOut = 'YES'"
+                "from " & DBNameSpace & ".ESSchema, " & DBNameSpace & ".ESMailout " & _
+                "where " & DBNameSpace & ".ESMAILOUT.strESYEAR = '" & ESYear & "'" & _
+                " and " & DBNameSpace & ".ESMAILOUT.STRAIRSYEAR = " & DBNameSpace & ".ESSCHEMA.STRAIRSYEAR(+) " & _
+                " and " & DBNameSpace & ".ESSchema.strOptOut = 'YES'"
 
                 cmd = New OracleCommand(SQL, conn)
                 If conn.State = ConnectionState.Closed Then
@@ -10796,9 +10796,9 @@ Public Class ISMPDataManagementTools
 
 
             SQL = "select count(*) as Nonresponsecount " & _
-             "from " & connNameSpace & ".ESSCHEMA " & _
-             "where " & connNameSpace & ".ESSCHEMA.intESYEAR = '" & ESYear & "'" & _
-             " and " & connNameSpace & ".ESSchema.strOptOut is NULL"
+             "from " & DBNameSpace & ".ESSCHEMA " & _
+             "where " & DBNameSpace & ".ESSCHEMA.intESYEAR = '" & ESYear & "'" & _
+             " and " & DBNameSpace & ".ESSchema.strOptOut is NULL"
 
             cmd = New OracleCommand(SQL, conn)
             If conn.State = ConnectionState.Closed Then
@@ -10812,10 +10812,10 @@ Public Class ISMPDataManagementTools
             dr.Close()
 
             SQL = "select count(*) as removedFacilitiescount " & _
-          "from " & connNameSpace & ".ESSchema , " & connNameSpace & ".esmailout " & _
-          "where " & connNameSpace & ".esMailOut.STRESYEAR = '" & ESYear & "'" & _
-            "and " & connNameSpace & ".esmailout.STRAIRSYEAR = " & connNameSpace & ".ESSchema.STRAIRSYEAR(+) " & _
-          " and " & connNameSpace & ".ESSchema.STRAIRSYEAR is NULL"
+          "from " & DBNameSpace & ".ESSchema , " & DBNameSpace & ".esmailout " & _
+          "where " & DBNameSpace & ".esMailOut.STRESYEAR = '" & ESYear & "'" & _
+            "and " & DBNameSpace & ".esmailout.STRAIRSYEAR = " & DBNameSpace & ".ESSchema.STRAIRSYEAR(+) " & _
+          " and " & DBNameSpace & ".ESSchema.STRAIRSYEAR is NULL"
 
             cmd = New OracleCommand(SQL, conn)
             If conn.State = ConnectionState.Closed Then
@@ -10829,12 +10829,12 @@ Public Class ISMPDataManagementTools
             dr.Close()
 
             SQL = "select count(*) as extraNonresponderscount " & _
-           "from " & connNameSpace & ".ESSchema " & _
-           " where  not exists (select * from " & connNameSpace & ".ESMAILOUT " & _
-                " where " & connNameSpace & ".ESSchema.STRAIRSNUMBER = " & connNameSpace & ".ESMAILOUT.STRAIRSNUMBER" & _
+           "from " & DBNameSpace & ".ESSchema " & _
+           " where  not exists (select * from " & DBNameSpace & ".ESMAILOUT " & _
+                " where " & DBNameSpace & ".ESSchema.STRAIRSNUMBER = " & DBNameSpace & ".ESMAILOUT.STRAIRSNUMBER" & _
                 " and ESSchema.INTESYEAR = ESMAILOUT.strESYEAR) " & _
-                " and " & connNameSpace & ".ESSchema.INTESYEAR = '" & ESYear & "' " & _
-                " and " & connNameSpace & ".ESSchema.STROPTOUT is null"
+                " and " & DBNameSpace & ".ESSchema.INTESYEAR = '" & ESYear & "' " & _
+                " and " & DBNameSpace & ".ESSchema.STROPTOUT is null"
 
             cmd = New OracleCommand(SQL, conn)
             If conn.State = ConnectionState.Closed Then
@@ -10848,10 +10848,10 @@ Public Class ISMPDataManagementTools
             dr.Close()
 
             SQL = "select count(*) as mailoutNonresponderscount " & _
-          "from  " & connNameSpace & ".esmailout, " & connNameSpace & ".ESSchema " & _
-            "where " & connNameSpace & ".esmailout.strESYEAR = '" & ESYear & "' " & _
-            "and " & connNameSpace & ".esmailout.STRAIRSYEAR = " & connNameSpace & ".ESSchema.STRAIRSYEAR(+) " & _
-            "and " & connNameSpace & ".ESSchema.strOptOut is NULL"
+          "from  " & DBNameSpace & ".esmailout, " & DBNameSpace & ".ESSchema " & _
+            "where " & DBNameSpace & ".esmailout.strESYEAR = '" & ESYear & "' " & _
+            "and " & DBNameSpace & ".esmailout.STRAIRSYEAR = " & DBNameSpace & ".ESSchema.STRAIRSYEAR(+) " & _
+            "and " & DBNameSpace & ".ESSchema.strOptOut is NULL"
 
             cmd = New OracleCommand(SQL, conn)
             If conn.State = ConnectionState.Closed Then
@@ -10865,15 +10865,15 @@ Public Class ISMPDataManagementTools
             dr.Close()
 
             SQL = "select count(*) as ExtraCount " & _
-            "from (Select " & connNameSpace & ".ESSCHEMA.STRAIRSYEAR AS SchemaAIRS, " & _
-            "" & connNameSpace & ".ESMAILOUT.STRAIRSYear AS MailoutAIRS " & _
-            "From " & connNameSpace & ".ESMailout, " & connNameSpace & ".ESSCHEMA" & _
-            " Where " & connNameSpace & ".ESMAILOUT.STRAIRSYEAR (+)= " & connNameSpace & ".ESSCHEMA.STRAIRSYEAR " & _
-            "AND " & connNameSpace & ".esschema.INTESYEAR= '" & intESyear & "' " & _
-            "AND " & connNameSpace & ".ESSCHEMA.STROPTOUT IS NOT NULL) " & _
+            "from (Select " & DBNameSpace & ".ESSCHEMA.STRAIRSYEAR AS SchemaAIRS, " & _
+            "" & DBNameSpace & ".ESMAILOUT.STRAIRSYear AS MailoutAIRS " & _
+            "From " & DBNameSpace & ".ESMailout, " & DBNameSpace & ".ESSCHEMA" & _
+            " Where " & DBNameSpace & ".ESMAILOUT.STRAIRSYEAR (+)= " & DBNameSpace & ".ESSCHEMA.STRAIRSYEAR " & _
+            "AND " & DBNameSpace & ".esschema.INTESYEAR= '" & intESyear & "' " & _
+            "AND " & DBNameSpace & ".ESSCHEMA.STROPTOUT IS NOT NULL) " & _
             "dt_NotInMailout, " & _
-            "" & connNameSpace & ".ESSCHEMA " & _
-            "Where " & connNameSpace & ".ESSCHEMA.STRAIRSYEAR = SchemaAIRS " & _
+            "" & DBNameSpace & ".ESSCHEMA " & _
+            "Where " & DBNameSpace & ".ESSCHEMA.STRAIRSYEAR = SchemaAIRS " & _
             "AND MailoutAIRS is NULL"
 
             cmd = New OracleCommand(SQL, conn)
@@ -10889,15 +10889,15 @@ Public Class ISMPDataManagementTools
             dr.Close()
 
             '   SQL = "select count(*) as ExtraCount2 " & _
-            '"from (Select " & connNameSpace & ".ESSCHEMA.STRAIRSYEAR AS SchemaAIRS, " & _
-            '"" & connNameSpace & ".ESMAILOUT.STRAIRSYear AS MailoutAIRS " & _
-            '"From " & connNameSpace & ".ESMailout, " & connNameSpace & ".ESSCHEMA" & _
-            '" Where " & connNameSpace & ".ESMAILOUT.STRAIRSYEAR (+)= " & connNameSpace & ".ESSCHEMA.STRAIRSYEAR " & _
-            '"AND " & connNameSpace & ".esschema.INTESYEAR= '" & intESyear & "' " & _
-            '"AND " & connNameSpace & ".ESSCHEMA.STROPTOUT IS NOT NULL) " & _
+            '"from (Select " & DBNameSpace & ".ESSCHEMA.STRAIRSYEAR AS SchemaAIRS, " & _
+            '"" & DBNameSpace & ".ESMAILOUT.STRAIRSYear AS MailoutAIRS " & _
+            '"From " & DBNameSpace & ".ESMailout, " & DBNameSpace & ".ESSCHEMA" & _
+            '" Where " & DBNameSpace & ".ESMAILOUT.STRAIRSYEAR (+)= " & DBNameSpace & ".ESSCHEMA.STRAIRSYEAR " & _
+            '"AND " & DBNameSpace & ".esschema.INTESYEAR= '" & intESyear & "' " & _
+            '"AND " & DBNameSpace & ".ESSCHEMA.STROPTOUT IS NOT NULL) " & _
             '"dt_NotInMailout, " & _
-            '"" & connNameSpace & ".ESSCHEMA " & _
-            '"Where " & connNameSpace & ".ESSCHEMA.STRAIRSYEAR = SchemaAIRS " & _
+            '"" & DBNameSpace & ".ESSCHEMA " & _
+            '"Where " & DBNameSpace & ".ESSCHEMA.STRAIRSYEAR = SchemaAIRS " & _
             '"AND MailoutAIRS is NULL"
 
             '   cmd = New OracleCommand(SQL, conn)
@@ -10912,17 +10912,17 @@ Public Class ISMPDataManagementTools
             '   dr.Close()
 
             SQL = "select count(*) as ExtraOptinCount " & _
-            "from (Select " & connNameSpace & ".ESSCHEMA.STRAIRSYEAR AS SchemaAIRS, " & _
-            "" & connNameSpace & ".ESMAILOUT.STRAIRSYear AS MailoutAIRS " & _
-            "From " & connNameSpace & ".ESMailout, " & connNameSpace & ".ESSCHEMA " & _
-            "Where " & connNameSpace & ".ESMAILOUT.STRAIRSYEAR (+)= " & connNameSpace & ".ESSCHEMA.STRAIRSYEAR " & _
-            "AND " & connNameSpace & ".esschema.INTESYEAR= '" & intESyear & "' " & _
-            "AND " & connNameSpace & ".ESSCHEMA.STROPTOUT IS NOT NULL) " & _
+            "from (Select " & DBNameSpace & ".ESSCHEMA.STRAIRSYEAR AS SchemaAIRS, " & _
+            "" & DBNameSpace & ".ESMAILOUT.STRAIRSYear AS MailoutAIRS " & _
+            "From " & DBNameSpace & ".ESMailout, " & DBNameSpace & ".ESSCHEMA " & _
+            "Where " & DBNameSpace & ".ESMAILOUT.STRAIRSYEAR (+)= " & DBNameSpace & ".ESSCHEMA.STRAIRSYEAR " & _
+            "AND " & DBNameSpace & ".esschema.INTESYEAR= '" & intESyear & "' " & _
+            "AND " & DBNameSpace & ".ESSCHEMA.STROPTOUT IS NOT NULL) " & _
             "dt_NotInMailout, " & _
-            "" & connNameSpace & ".ESSCHEMA " & _
-            "Where " & connNameSpace & ".ESSCHEMA.STRAIRSYEAR = SchemaAIRS " & _
+            "" & DBNameSpace & ".ESSCHEMA " & _
+            "Where " & DBNameSpace & ".ESSCHEMA.STRAIRSYEAR = SchemaAIRS " & _
             "AND MailoutAIRS is NULL " & _
-            "and " & connNameSpace & ".ESSCHEMA.STROPTOUT='NO'"
+            "and " & DBNameSpace & ".ESSCHEMA.STROPTOUT='NO'"
 
             cmd = New OracleCommand(SQL, conn)
 
@@ -10937,17 +10937,17 @@ Public Class ISMPDataManagementTools
             dr.Close()
 
             SQL = "select count(*) as ExtraOptOUTCount " & _
-            "from (Select " & connNameSpace & ".ESSCHEMA.STRAIRSYEAR AS SchemaAIRS, " & _
-            "" & connNameSpace & ".ESMAILOUT.STRAIRSYear AS MailoutAIRS " & _
-            "From " & connNameSpace & ".ESMailout, " & connNameSpace & ".ESSCHEMA " & _
-            "Where " & connNameSpace & ".ESMAILOUT.STRAIRSYEAR (+)= " & connNameSpace & ".ESSCHEMA.STRAIRSYEAR " & _
-            "AND " & connNameSpace & ".esschema.INTESYEAR= '" & intESyear & "' " & _
-            "AND " & connNameSpace & ".ESSCHEMA.STROPTOUT IS NOT NULL) " & _
+            "from (Select " & DBNameSpace & ".ESSCHEMA.STRAIRSYEAR AS SchemaAIRS, " & _
+            "" & DBNameSpace & ".ESMAILOUT.STRAIRSYear AS MailoutAIRS " & _
+            "From " & DBNameSpace & ".ESMailout, " & DBNameSpace & ".ESSCHEMA " & _
+            "Where " & DBNameSpace & ".ESMAILOUT.STRAIRSYEAR (+)= " & DBNameSpace & ".ESSCHEMA.STRAIRSYEAR " & _
+            "AND " & DBNameSpace & ".esschema.INTESYEAR= '" & intESyear & "' " & _
+            "AND " & DBNameSpace & ".ESSCHEMA.STROPTOUT IS NOT NULL) " & _
             "dt_NotInMailout, " & _
-            "" & connNameSpace & ".ESSCHEMA " & _
-            "Where " & connNameSpace & ".ESSCHEMA.STRAIRSYEAR = SchemaAIRS " & _
+            "" & DBNameSpace & ".ESSCHEMA " & _
+            "Where " & DBNameSpace & ".ESSCHEMA.STRAIRSYEAR = SchemaAIRS " & _
             "AND MailoutAIRS is NULL " & _
-            "and " & connNameSpace & ".ESSCHEMA.STROPTOUT='YES'"
+            "and " & DBNameSpace & ".ESSCHEMA.STROPTOUT='YES'"
 
             cmd = New OracleCommand(SQL, conn)
 
@@ -10962,9 +10962,9 @@ Public Class ISMPDataManagementTools
             dr.Close()
 
             SQL = "select count(*) as TotalResponsecount " & _
-            "from " & connNameSpace & ".ESSchema " & _
-            "where " & connNameSpace & ".ESSchema.intESYEAR = '" & intESyear & "'" & _
-            " and " & connNameSpace & ".ESSchema.strOptOut is not NULL"
+            "from " & DBNameSpace & ".ESSchema " & _
+            "where " & DBNameSpace & ".ESSchema.intESYEAR = '" & intESyear & "'" & _
+            " and " & DBNameSpace & ".ESSchema.strOptOut is not NULL"
 
             cmd = New OracleCommand(SQL, conn)
             If conn.State = ConnectionState.Open Then
@@ -10991,7 +10991,7 @@ Public Class ISMPDataManagementTools
 
         Try
             SQL = "SELECT * " & _
-                  "from " & connNameSpace & ".esMailOut " & _
+                  "from " & DBNameSpace & ".esMailOut " & _
                   "where STRAIRSNUMBER = '" & AirsNo & "' " & _
                   "and STRESYEAR = '" & ESyear & "'"
 
@@ -11074,7 +11074,7 @@ Public Class ISMPDataManagementTools
         Try
 
             SQL = "SELECT * " & _
-            "from " & connNameSpace & ".esschema " & _
+            "from " & DBNameSpace & ".esschema " & _
             "where STRAIRSNUMBER = '" & AirsNo & "' " & _
             "and INTESYEAR = '" & intESyear & "'"
 
@@ -11372,7 +11372,7 @@ Public Class ISMPDataManagementTools
             "STRCONTACTSTATE, " & _
             "STRCONTACTZIPCODE, " & _
             "STRCONTACTEMAIL " & _
-            "from " & connNameSpace & ".esMailOut " & _
+            "from " & DBNameSpace & ".esMailOut " & _
             "where STRESYEAR = '" & year & "' " & _
             "order by STRFACILITYNAME"
 
@@ -11431,17 +11431,17 @@ Public Class ISMPDataManagementTools
             Dim year As String = txtESYear.Text
             Dim intYear As Integer = Int(year)
 
-            SQL = "SELECT " & connNameSpace & ".esSchema.STRAIRSNUMBER, " & _
-            "" & connNameSpace & ".esSchema.STRFACILITYNAME, " & _
-            "" & connNameSpace & ".esSchema.STRDATEFIRSTCONFIRM, " & _
-            "" & connNameSpace & ".esSchema.DBLVOCEMISSION, " & _
-           "" & connNameSpace & ".esSchema.DBLNOXEMISSION, " & _
-            "" & connNameSpace & ".esSchema.STRCONFIRMATIONNBR " & _
-            "from " & connNameSpace & ".esSchema, " & connNameSpace & ".esmailout " & _
-            "where " & connNameSpace & ".esSchema.intESyear = '" & intYear & "' " & _
-            "and " & connNameSpace & ".esSchema.STROPTOUT = 'NO'" & _
-            "and " & connNameSpace & ".ESMAILOUT.STRAIRSYEAR (+)= " & connNameSpace & ".ESSCHEMA.STRAIRSYEAR " & _
-            "order by " & connNameSpace & ".esSchema.STRFACILITYNAME"
+            SQL = "SELECT " & DBNameSpace & ".esSchema.STRAIRSNUMBER, " & _
+            "" & DBNameSpace & ".esSchema.STRFACILITYNAME, " & _
+            "" & DBNameSpace & ".esSchema.STRDATEFIRSTCONFIRM, " & _
+            "" & DBNameSpace & ".esSchema.DBLVOCEMISSION, " & _
+           "" & DBNameSpace & ".esSchema.DBLNOXEMISSION, " & _
+            "" & DBNameSpace & ".esSchema.STRCONFIRMATIONNBR " & _
+            "from " & DBNameSpace & ".esSchema, " & DBNameSpace & ".esmailout " & _
+            "where " & DBNameSpace & ".esSchema.intESyear = '" & intYear & "' " & _
+            "and " & DBNameSpace & ".esSchema.STROPTOUT = 'NO'" & _
+            "and " & DBNameSpace & ".ESMAILOUT.STRAIRSYEAR (+)= " & DBNameSpace & ".ESSCHEMA.STRAIRSYEAR " & _
+            "order by " & DBNameSpace & ".esSchema.STRFACILITYNAME"
 
             dsViewCount = New DataSet
             daViewCount = New OracleDataAdapter(SQL, conn)
@@ -11490,15 +11490,15 @@ Public Class ISMPDataManagementTools
             Dim year As String = txtESYear.Text
             Dim intYear As Integer = Int(year)
 
-            SQL = "SELECT " & connNameSpace & ".esSchema.STRAIRSNUMBER, " & _
-            "" & connNameSpace & ".esSchema.STRFACILITYNAME, " & _
-            "" & connNameSpace & ".esSchema.STRDATEFIRSTCONFIRM, " & _
-            "" & connNameSpace & ".esSchema.STRCONFIRMATIONNBR " & _
-            "from " & connNameSpace & ".esSchema, " & connNameSpace & ".esmailout  " & _
-            "where " & connNameSpace & ".esSchema.intESyear = '" & intYear & "' " & _
-            "and " & connNameSpace & ".ESMAILOUT.STRAIRSYEAR (+)= " & connNameSpace & ".ESSCHEMA.STRAIRSYEAR " & _
-            "and " & connNameSpace & ".esSchema.STROPTOUT = 'YES'" & _
-            "order by " & connNameSpace & ".esSchema.STRFACILITYNAME"
+            SQL = "SELECT " & DBNameSpace & ".esSchema.STRAIRSNUMBER, " & _
+            "" & DBNameSpace & ".esSchema.STRFACILITYNAME, " & _
+            "" & DBNameSpace & ".esSchema.STRDATEFIRSTCONFIRM, " & _
+            "" & DBNameSpace & ".esSchema.STRCONFIRMATIONNBR " & _
+            "from " & DBNameSpace & ".esSchema, " & DBNameSpace & ".esmailout  " & _
+            "where " & DBNameSpace & ".esSchema.intESyear = '" & intYear & "' " & _
+            "and " & DBNameSpace & ".ESMAILOUT.STRAIRSYEAR (+)= " & DBNameSpace & ".ESSCHEMA.STRAIRSYEAR " & _
+            "and " & DBNameSpace & ".esSchema.STROPTOUT = 'YES'" & _
+            "order by " & DBNameSpace & ".esSchema.STRFACILITYNAME"
 
             dsViewCount = New DataSet
             daViewCount = New OracleDataAdapter(SQL, conn)
@@ -11545,23 +11545,23 @@ Public Class ISMPDataManagementTools
             deadline = "15-Jun-" & txtESYear.Text + 1
 
             SQL = "SELECT airbranch.esSchema.STRAIRSNUMBER, " & _
-            "" & connNameSpace & ".esSchema.STRFACILITYNAME, " & _
-            "" & connNameSpace & ".esSchema.STROPTOUT, " & _
-            "" & connNameSpace & ".esSchema.STRCONFIRMATIONNBR, " & _
-            "" & connNameSpace & ".esSchema.STRCONTACTFIRSTNAME, " & _
-            "" & connNameSpace & ".esSchema.STRCONTACTLASTNAME, " & _
-            "" & connNameSpace & ".esSchema.STRCONTACTCOMPANY, " & _
-            "" & connNameSpace & ".esSchema.STRCONTACTADDRESS1, " & _
-            "" & connNameSpace & ".esSchema.STRCONTACTCITY, " & _
-            "" & connNameSpace & ".esSchema.STRCONTACTSTATE, " & _
-            "" & connNameSpace & ".esSchema.STRCONTACTZIP, " & _
-            "" & connNameSpace & ".esSchema.STRCONTACTEMAIL, " & _
-            "" & connNameSpace & ".esSchema.STRCONTACTPHONENUMBER " & _
-            "from " & connNameSpace & ".esSchema " & _
+            "" & DBNameSpace & ".esSchema.STRFACILITYNAME, " & _
+            "" & DBNameSpace & ".esSchema.STROPTOUT, " & _
+            "" & DBNameSpace & ".esSchema.STRCONFIRMATIONNBR, " & _
+            "" & DBNameSpace & ".esSchema.STRCONTACTFIRSTNAME, " & _
+            "" & DBNameSpace & ".esSchema.STRCONTACTLASTNAME, " & _
+            "" & DBNameSpace & ".esSchema.STRCONTACTCOMPANY, " & _
+            "" & DBNameSpace & ".esSchema.STRCONTACTADDRESS1, " & _
+            "" & DBNameSpace & ".esSchema.STRCONTACTCITY, " & _
+            "" & DBNameSpace & ".esSchema.STRCONTACTSTATE, " & _
+            "" & DBNameSpace & ".esSchema.STRCONTACTZIP, " & _
+            "" & DBNameSpace & ".esSchema.STRCONTACTEMAIL, " & _
+            "" & DBNameSpace & ".esSchema.STRCONTACTPHONENUMBER " & _
+            "from " & DBNameSpace & ".esSchema " & _
             "where intESyear = '" & intYear & "' " & _
-            "and " & connNameSpace & ".esSchema.STRDATEFIRSTCONFIRM is not NULL " & _
-            "and to_date(" & connNameSpace & ".esSchema.STRDATEFIRSTCONFIRM) > '" & deadline & "' " & _
-            "order by " & connNameSpace & ".esSchema.STRFACILITYNAME"
+            "and " & DBNameSpace & ".esSchema.STRDATEFIRSTCONFIRM is not NULL " & _
+            "and to_date(" & DBNameSpace & ".esSchema.STRDATEFIRSTCONFIRM) > '" & deadline & "' " & _
+            "order by " & DBNameSpace & ".esSchema.STRFACILITYNAME"
 
             dsViewCount = New DataSet
             daViewCount = New OracleDataAdapter(SQL, conn)
@@ -11623,15 +11623,15 @@ Public Class ISMPDataManagementTools
             Dim intYear As Integer = Int(year)
             Dim deadline As String = "15-Jun-" & intYear + 1
 
-            SQL = "SELECT " & connNameSpace & ".esSchema.STRAIRSNUMBER, " & _
-            "" & connNameSpace & ".esSchema.STRFACILITYNAME, " & _
-            "" & connNameSpace & ".esSchema.STRDATEFIRSTCONFIRM, " & _
-            "" & connNameSpace & ".esSchema.STRCONFIRMATIONNBR " & _
-            "from " & connNameSpace & ".esSchema " & _
-            "where " & connNameSpace & ".esSchema.intESyear = '" & intYear & "' " & _
-             "and " & connNameSpace & ".esSchema.STRDATEFIRSTCONFIRM is not NULL " & _
-            "and to_date(" & connNameSpace & ".esSchema.STRDATEFIRSTCONFIRM) <= '" & deadline & "' " & _
-            "order by " & connNameSpace & ".esSchema.STRFACILITYNAME"
+            SQL = "SELECT " & DBNameSpace & ".esSchema.STRAIRSNUMBER, " & _
+            "" & DBNameSpace & ".esSchema.STRFACILITYNAME, " & _
+            "" & DBNameSpace & ".esSchema.STRDATEFIRSTCONFIRM, " & _
+            "" & DBNameSpace & ".esSchema.STRCONFIRMATIONNBR " & _
+            "from " & DBNameSpace & ".esSchema " & _
+            "where " & DBNameSpace & ".esSchema.intESyear = '" & intYear & "' " & _
+             "and " & DBNameSpace & ".esSchema.STRDATEFIRSTCONFIRM is not NULL " & _
+            "and to_date(" & DBNameSpace & ".esSchema.STRDATEFIRSTCONFIRM) <= '" & deadline & "' " & _
+            "order by " & DBNameSpace & ".esSchema.STRFACILITYNAME"
 
             dsViewCount = New DataSet
             daViewCount = New OracleDataAdapter(SQL, conn)
@@ -11684,7 +11684,7 @@ Public Class ISMPDataManagementTools
             "esMailOut.STRCONTACTSTATE, " & _
             "esMailOut.STRCONTACTZIPCODE, " & _
             "esMailOut.STRCONTACTEMAIL " & _
-            "from " & connNameSpace & ".esMailOut " & _
+            "from " & DBNameSpace & ".esMailOut " & _
             "where STRESYEAR = '" & year & "' " & _
             "order by STRFACILITYNAME"
 
@@ -11751,7 +11751,7 @@ Public Class ISMPDataManagementTools
             "else to_char(DBLNOXEMISSION) " & _
             "end DBLNOXEMISSION, " & _
             "esSchema.STRDATEFIRSTCONFIRM " & _
-            "from " & connNameSpace & ".esSchema " & _
+            "from " & DBNameSpace & ".esSchema " & _
             "where esSchema.intESyear = '" & year & "' " & _
             "order by esSchema.STRFACILITYNAME"
 
@@ -11799,13 +11799,13 @@ Public Class ISMPDataManagementTools
             
             Dim year As String = txtESYear.Text
 
-            SQL = "SELECT " & connNameSpace & ".esSchema.STRAIRSNUMBER, " & _
-            "" & connNameSpace & ".esSchema.STRFACILITYNAME " & _
-            "from " & connNameSpace & ".esMailOut, " & connNameSpace & ".ESSCHEMA " & _
-            "where " & connNameSpace & ".esSchema.INTESYEAR = '" & year & "'" & _
-            "and " & connNameSpace & ".esSchema.strOPTOUT is NULL " & _
-            "and " & connNameSpace & ".esmailout.STRAIRSYEAR = " & connNameSpace & ".ESSchema.STRAIRSYEAR(+) " & _
-            "order by " & connNameSpace & ".esMailOut.STRFACILITYNAME"
+            SQL = "SELECT " & DBNameSpace & ".esSchema.STRAIRSNUMBER, " & _
+            "" & DBNameSpace & ".esSchema.STRFACILITYNAME " & _
+            "from " & DBNameSpace & ".esMailOut, " & DBNameSpace & ".ESSCHEMA " & _
+            "where " & DBNameSpace & ".esSchema.INTESYEAR = '" & year & "'" & _
+            "and " & DBNameSpace & ".esSchema.strOPTOUT is NULL " & _
+            "and " & DBNameSpace & ".esmailout.STRAIRSYEAR = " & DBNameSpace & ".ESSchema.STRAIRSYEAR(+) " & _
+            "order by " & DBNameSpace & ".esMailOut.STRFACILITYNAME"
 
             dsViewCount = New DataSet
             daViewCount = New OracleDataAdapter(SQL, conn)
@@ -11845,22 +11845,22 @@ Public Class ISMPDataManagementTools
             Dim year As String = txtESYear.Text
             Dim intyear As Integer = Int(year)
 
-            SQL = "SELECT dt_NotInMailout.SchemaAIRS, " & connNameSpace & ".esSchema.STRAIRSNUMBER, " & _
-            "" & connNameSpace & ".esSchema.STRFACILITYNAME, " & _
-            "" & connNameSpace & ".esSchema.STRCONTACTFIRSTNAME, " & _
-            "" & connNameSpace & ".esSchema.STRCONTACTLASTNAME, " & _
-            "" & connNameSpace & ".esSchema.STRCONTACTCOMPANY, " & _
-            "" & connNameSpace & ".esSchema.STRCONTACTEMAIL, " & _
-            "" & connNameSpace & ".esSchema.STRCONTACTPHONENUMBER " & _
-            "from (Select " & connNameSpace & ".ESSCHEMA.STRAIRSNUMBER AS SchemaAIRS, " & _
-            "" & connNameSpace & ".ESMAILOUT.STRAIRSNUMBER AS MailoutAIRS" & _
-            " From " & connNameSpace & ".ESMailout, " & connNameSpace & ".ESSCHEMA" & _
-            " Where " & connNameSpace & ".ESMAILOUT.STRAIRSYEAR (+)= " & connNameSpace & ".ESSCHEMA.STRAIRSYEAR " & _
+            SQL = "SELECT dt_NotInMailout.SchemaAIRS, " & DBNameSpace & ".esSchema.STRAIRSNUMBER, " & _
+            "" & DBNameSpace & ".esSchema.STRFACILITYNAME, " & _
+            "" & DBNameSpace & ".esSchema.STRCONTACTFIRSTNAME, " & _
+            "" & DBNameSpace & ".esSchema.STRCONTACTLASTNAME, " & _
+            "" & DBNameSpace & ".esSchema.STRCONTACTCOMPANY, " & _
+            "" & DBNameSpace & ".esSchema.STRCONTACTEMAIL, " & _
+            "" & DBNameSpace & ".esSchema.STRCONTACTPHONENUMBER " & _
+            "from (Select " & DBNameSpace & ".ESSCHEMA.STRAIRSNUMBER AS SchemaAIRS, " & _
+            "" & DBNameSpace & ".ESMAILOUT.STRAIRSNUMBER AS MailoutAIRS" & _
+            " From " & DBNameSpace & ".ESMailout, " & DBNameSpace & ".ESSCHEMA" & _
+            " Where " & DBNameSpace & ".ESMAILOUT.STRAIRSYEAR (+)= " & DBNameSpace & ".ESSCHEMA.STRAIRSYEAR " & _
             "AND INTESYEAR=  '" & intyear & "' " & _
-            "AND " & connNameSpace & ".ESSCHEMA.STROPTOUT IS NOT NULL) " & _
+            "AND " & DBNameSpace & ".ESSCHEMA.STROPTOUT IS NOT NULL) " & _
             "dt_NotInMailout, " & _
-            "" & connNameSpace & ".ESSCHEMA " & _
-            "Where " & connNameSpace & ".ESSCHEMA.STRAIRSNUMBER = SchemaAIRS " & _
+            "" & DBNameSpace & ".ESSCHEMA " & _
+            "Where " & DBNameSpace & ".ESSCHEMA.STRAIRSNUMBER = SchemaAIRS " & _
             "AND MailoutAIRS is NULL"
 
             dsViewCount = New DataSet
@@ -11913,16 +11913,16 @@ Public Class ISMPDataManagementTools
             Dim year As String = txtESYear.Text
             Dim intYear As Integer = Int(year)
 
-            SQL = "SELECT " & connNameSpace & ".esSchema.STRAIRSNUMBER, " & _
-            "" & connNameSpace & ".esSchema.STRFACILITYNAME, " & _
-            "" & connNameSpace & ".esSchema.STRDATEFIRSTCONFIRM, " & _
-            "" & connNameSpace & ".esSchema.STRCONFIRMATIONNBR " & _
-            "from " & connNameSpace & ".esSchema, " & connNameSpace & ".esmailout " & _
-            "where " & connNameSpace & ".esSchema.intESyear = '" & intYear & "' " & _
-            "and " & connNameSpace & ".esSchema.STROPTOUT = 'NO'" & _
-            "and " & connNameSpace & ".ESMAILOUT.STRAIRSYEAR = " & connNameSpace & ".ESSCHEMA.STRAIRSYEAR(+) " & _
-            "and " & connNameSpace & ".esSchema.STRDATEFIRSTCONFIRM is not NULL " & _
-            "order by " & connNameSpace & ".esSchema.STRFACILITYNAME"
+            SQL = "SELECT " & DBNameSpace & ".esSchema.STRAIRSNUMBER, " & _
+            "" & DBNameSpace & ".esSchema.STRFACILITYNAME, " & _
+            "" & DBNameSpace & ".esSchema.STRDATEFIRSTCONFIRM, " & _
+            "" & DBNameSpace & ".esSchema.STRCONFIRMATIONNBR " & _
+            "from " & DBNameSpace & ".esSchema, " & DBNameSpace & ".esmailout " & _
+            "where " & DBNameSpace & ".esSchema.intESyear = '" & intYear & "' " & _
+            "and " & DBNameSpace & ".esSchema.STROPTOUT = 'NO'" & _
+            "and " & DBNameSpace & ".ESMAILOUT.STRAIRSYEAR = " & DBNameSpace & ".ESSCHEMA.STRAIRSYEAR(+) " & _
+            "and " & DBNameSpace & ".esSchema.STRDATEFIRSTCONFIRM is not NULL " & _
+            "order by " & DBNameSpace & ".esSchema.STRFACILITYNAME"
 
             dsViewCount = New DataSet
             daViewCount = New OracleDataAdapter(SQL, conn)
@@ -11965,16 +11965,16 @@ Public Class ISMPDataManagementTools
             Dim year As String = txtESYear.Text
             Dim intYear As Integer = Int(year)
 
-            SQL = "SELECT " & connNameSpace & ".esSchema.STRAIRSNUMBER, " & _
-            "" & connNameSpace & ".esSchema.STRFACILITYNAME, " & _
-            "" & connNameSpace & ".esSchema.STRDATEFIRSTCONFIRM, " & _
-            "" & connNameSpace & ".esSchema.STRCONFIRMATIONNBR " & _
-            "from " & connNameSpace & ".esSchema, " & connNameSpace & ".esmailout " & _
-            "where " & connNameSpace & ".esSchema.intESyear = '" & intYear & "' " & _
-            "and " & connNameSpace & ".esSchema.STROPTOUT = 'YES'" & _
-            " and " & connNameSpace & ".ESMAILOUT.STRAIRSYEAR = " & connNameSpace & ".ESSCHEMA.STRAIRSYEAR(+) " & _
-            "and " & connNameSpace & ".esSchema.STRDATEFIRSTCONFIRM is not NULL " & _
-            "order by " & connNameSpace & ".esSchema.STRFACILITYNAME"
+            SQL = "SELECT " & DBNameSpace & ".esSchema.STRAIRSNUMBER, " & _
+            "" & DBNameSpace & ".esSchema.STRFACILITYNAME, " & _
+            "" & DBNameSpace & ".esSchema.STRDATEFIRSTCONFIRM, " & _
+            "" & DBNameSpace & ".esSchema.STRCONFIRMATIONNBR " & _
+            "from " & DBNameSpace & ".esSchema, " & DBNameSpace & ".esmailout " & _
+            "where " & DBNameSpace & ".esSchema.intESyear = '" & intYear & "' " & _
+            "and " & DBNameSpace & ".esSchema.STROPTOUT = 'YES'" & _
+            " and " & DBNameSpace & ".ESMAILOUT.STRAIRSYEAR = " & DBNameSpace & ".ESSCHEMA.STRAIRSYEAR(+) " & _
+            "and " & DBNameSpace & ".esSchema.STRDATEFIRSTCONFIRM is not NULL " & _
+            "order by " & DBNameSpace & ".esSchema.STRFACILITYNAME"
 
             dsViewCount = New DataSet
             daViewCount = New OracleDataAdapter(SQL, conn)
@@ -12017,20 +12017,20 @@ Public Class ISMPDataManagementTools
             Dim year As String = txtESYear.Text
             Dim intYear As Integer = Int(year)
 
-            SQL = "SELECT " & connNameSpace & ".esSchema.STRAIRSNUMBER, " & _
-            "" & connNameSpace & ".esSchema.STRFACILITYNAME, " & _
-            "" & connNameSpace & ".esSchema.STRDATEFIRSTCONFIRM, " & _
-            "" & connNameSpace & ".esSchema.STRCONFIRMATIONNBR " & _
-            "from (select " & connNameSpace & ".esSchema.strairsyear as SchemaAIRS, " & _
-            "" & connNameSpace & ".esmailout.strairsyear as MailoutAIRS " & _
-            "From " & connNameSpace & ".ESMailout, " & connNameSpace & ".ESSCHEMA " & _
-            "where " & connNameSpace & ".ESMAILOUT.STRAIRSYEAR (+)= " & connNameSpace & ".ESSCHEMA.STRAIRSYEAR " & _
-            "and " & connNameSpace & ".esSchema.intESyear = '" & intYear & "' " & _
-            "and " & connNameSpace & ".ESSCHEMA.STROPTOUT IS NOT NULL) " & _
-            "dt_NotInMailout, " & connNameSpace & ".ESSCHEMA " & _
-            "Where " & connNameSpace & ".ESSCHEMA.STRAIRSYEAR = SchemaAIRS " & _
+            SQL = "SELECT " & DBNameSpace & ".esSchema.STRAIRSNUMBER, " & _
+            "" & DBNameSpace & ".esSchema.STRFACILITYNAME, " & _
+            "" & DBNameSpace & ".esSchema.STRDATEFIRSTCONFIRM, " & _
+            "" & DBNameSpace & ".esSchema.STRCONFIRMATIONNBR " & _
+            "from (select " & DBNameSpace & ".esSchema.strairsyear as SchemaAIRS, " & _
+            "" & DBNameSpace & ".esmailout.strairsyear as MailoutAIRS " & _
+            "From " & DBNameSpace & ".ESMailout, " & DBNameSpace & ".ESSCHEMA " & _
+            "where " & DBNameSpace & ".ESMAILOUT.STRAIRSYEAR (+)= " & DBNameSpace & ".ESSCHEMA.STRAIRSYEAR " & _
+            "and " & DBNameSpace & ".esSchema.intESyear = '" & intYear & "' " & _
+            "and " & DBNameSpace & ".ESSCHEMA.STROPTOUT IS NOT NULL) " & _
+            "dt_NotInMailout, " & DBNameSpace & ".ESSCHEMA " & _
+            "Where " & DBNameSpace & ".ESSCHEMA.STRAIRSYEAR = SchemaAIRS " & _
             "and MailoutAIRS is NULL " & _
-            "and " & connNameSpace & ".ESSCHEMA.STROPTOUT='YES'"
+            "and " & DBNameSpace & ".ESSCHEMA.STROPTOUT='YES'"
 
             dsViewCount = New DataSet
             daViewCount = New OracleDataAdapter(SQL, conn)
@@ -12073,20 +12073,20 @@ Public Class ISMPDataManagementTools
             Dim year As String = txtESYear.Text
             Dim intYear As Integer = Int(year)
 
-            SQL = "SELECT " & connNameSpace & ".esSchema.STRAIRSNUMBER, " & _
-            "" & connNameSpace & ".esSchema.STRFACILITYNAME, " & _
-            "" & connNameSpace & ".esSchema.STRDATEFIRSTCONFIRM, " & _
-            "" & connNameSpace & ".esSchema.STRCONFIRMATIONNBR " & _
-            "from (select " & connNameSpace & ".esSchema.strairsyear as SchemaAIRS, " & _
-            "" & connNameSpace & ".esmailout.strairsyear as MailoutAIRS " & _
-            "From " & connNameSpace & ".ESMailout, " & connNameSpace & ".ESSCHEMA " & _
-            "where " & connNameSpace & ".ESMAILOUT.STRAIRSYEAR (+)= " & connNameSpace & ".ESSCHEMA.STRAIRSYEAR " & _
-            "and " & connNameSpace & ".esSchema.intESyear = '" & intYear & "' " & _
-            "and " & connNameSpace & ".ESSCHEMA.STROPTOUT IS NOT NULL) " & _
-            "dt_NotInMailout, " & connNameSpace & ".ESSCHEMA " & _
-            "Where " & connNameSpace & ".ESSCHEMA.STRAIRSYEAR = SchemaAIRS " & _
+            SQL = "SELECT " & DBNameSpace & ".esSchema.STRAIRSNUMBER, " & _
+            "" & DBNameSpace & ".esSchema.STRFACILITYNAME, " & _
+            "" & DBNameSpace & ".esSchema.STRDATEFIRSTCONFIRM, " & _
+            "" & DBNameSpace & ".esSchema.STRCONFIRMATIONNBR " & _
+            "from (select " & DBNameSpace & ".esSchema.strairsyear as SchemaAIRS, " & _
+            "" & DBNameSpace & ".esmailout.strairsyear as MailoutAIRS " & _
+            "From " & DBNameSpace & ".ESMailout, " & DBNameSpace & ".ESSCHEMA " & _
+            "where " & DBNameSpace & ".ESMAILOUT.STRAIRSYEAR (+)= " & DBNameSpace & ".ESSCHEMA.STRAIRSYEAR " & _
+            "and " & DBNameSpace & ".esSchema.intESyear = '" & intYear & "' " & _
+            "and " & DBNameSpace & ".ESSCHEMA.STROPTOUT IS NOT NULL) " & _
+            "dt_NotInMailout, " & DBNameSpace & ".ESSCHEMA " & _
+            "Where " & DBNameSpace & ".ESSCHEMA.STRAIRSYEAR = SchemaAIRS " & _
             "and MailoutAIRS is NULL " & _
-            "and " & connNameSpace & ".ESSCHEMA.STROPTOUT='NO'"
+            "and " & DBNameSpace & ".ESSCHEMA.STROPTOUT='NO'"
 
 
             dsViewCount = New DataSet
@@ -12131,17 +12131,17 @@ Public Class ISMPDataManagementTools
             Dim year As String = txtESYear.Text
             Dim intYear As Integer = Int(year)
 
-            SQL = "SELECT " & connNameSpace & ".esSchema.STRAIRSNUMBER, " & _
-            "" & connNameSpace & ".esSchema.STRFACILITYNAME, " & _
-            "" & connNameSpace & ".esSchema.STRCONTACTFIRSTNAME, " & _
-            "" & connNameSpace & ".esSchema.STRCONTACTLASTNAME, " & _
-            "" & connNameSpace & ".esSchema.STRCONTACTCOMPANY, " & _
-            "" & connNameSpace & ".esSchema.STRCONTACTEMAIL, " & _
-            "" & connNameSpace & ".esSchema.STRCONTACTPHONENUMBER " & _
-            "from " & connNameSpace & ".esSchema " & _
-            "where " & connNameSpace & ".esSchema.intESyear = '" & intYear & "' " & _
-            "and " & connNameSpace & ".esSchema.STROPTOUT is not NULL " & _
-            "order by " & connNameSpace & ".esSchema.STRFACILITYNAME"
+            SQL = "SELECT " & DBNameSpace & ".esSchema.STRAIRSNUMBER, " & _
+            "" & DBNameSpace & ".esSchema.STRFACILITYNAME, " & _
+            "" & DBNameSpace & ".esSchema.STRCONTACTFIRSTNAME, " & _
+            "" & DBNameSpace & ".esSchema.STRCONTACTLASTNAME, " & _
+            "" & DBNameSpace & ".esSchema.STRCONTACTCOMPANY, " & _
+            "" & DBNameSpace & ".esSchema.STRCONTACTEMAIL, " & _
+            "" & DBNameSpace & ".esSchema.STRCONTACTPHONENUMBER " & _
+            "from " & DBNameSpace & ".esSchema " & _
+            "where " & DBNameSpace & ".esSchema.intESyear = '" & intYear & "' " & _
+            "and " & DBNameSpace & ".esSchema.STROPTOUT is not NULL " & _
+            "order by " & DBNameSpace & ".esSchema.STRFACILITYNAME"
 
             dsViewCount = New DataSet
             daViewCount = New OracleDataAdapter(SQL, conn)
@@ -12204,7 +12204,7 @@ Public Class ISMPDataManagementTools
         Dim ESContactEmail As String = txtcontactEmail.Text
 
         Try
-            SQL = "Insert into " & connNameSpace & ".ESMailOut(STRAIRSYEAR, " & _
+            SQL = "Insert into " & DBNameSpace & ".ESMailOut(STRAIRSYEAR, " & _
             "STRAIRSNUMBER, " & _
             "STRFACILITYNAME, " & _
             "STRCONTACTPREFIX, " & _
@@ -12265,7 +12265,7 @@ Public Class ISMPDataManagementTools
 
         Try
             SQL = "Select strAIRSYear " & _
-            "from " & connNameSpace & ".EsMailOut " & _
+            "from " & DBNameSpace & ".EsMailOut " & _
             "where STRAIRSYEAR = '" & airsYear & "' "
 
             cmd = New OracleCommand(SQL, conn)
@@ -12276,23 +12276,23 @@ Public Class ISMPDataManagementTools
             dr = cmd.ExecuteReader
             recExist = dr.Read
             If recExist = True Then
-                SQL = "update " & connNameSpace & ".ESMailOut set " & _
-                "" & connNameSpace & ".ESMailOut.STRCONTACTPREFIX = '" & ESPrefix & "', " & _
-                "" & connNameSpace & ".ESMailOut.STRCONTACTFIRSTNAME = '" & ESFirstName & "', " & _
-                "" & connNameSpace & ".ESMailOut.STRCONTACTLASTNAME = '" & ESLastName & "', " & _
-                "" & connNameSpace & ".ESMailOut.STRCONTACTCOMPANYNAME = '" & ESCompanyName & "', " & _
-                "" & connNameSpace & ".ESMailOut.STRCONTACTADDRESS1 = '" & ESContactAddress1 & "', " & _
-                "" & connNameSpace & ".ESMailOut.STRCONTACTADDRESS2 = '" & ESContactAddress2 & "', " & _
-                "" & connNameSpace & ".ESMailOut.STRCONTACTCITY = '" & ESContactCity & "', " & _
-                "" & connNameSpace & ".ESMailOut.STRCONTACTSTATE = '" & EScontactState & "', " & _
-                "" & connNameSpace & ".ESMailOut.STRCONTACTZIPCODE = '" & ESContactZip & "', " & _
-                "" & connNameSpace & ".ESMailOut.STRCONTACTEMAIL = '" & ESContactEmail & "'" & _
+                SQL = "update " & DBNameSpace & ".ESMailOut set " & _
+                "" & DBNameSpace & ".ESMailOut.STRCONTACTPREFIX = '" & ESPrefix & "', " & _
+                "" & DBNameSpace & ".ESMailOut.STRCONTACTFIRSTNAME = '" & ESFirstName & "', " & _
+                "" & DBNameSpace & ".ESMailOut.STRCONTACTLASTNAME = '" & ESLastName & "', " & _
+                "" & DBNameSpace & ".ESMailOut.STRCONTACTCOMPANYNAME = '" & ESCompanyName & "', " & _
+                "" & DBNameSpace & ".ESMailOut.STRCONTACTADDRESS1 = '" & ESContactAddress1 & "', " & _
+                "" & DBNameSpace & ".ESMailOut.STRCONTACTADDRESS2 = '" & ESContactAddress2 & "', " & _
+                "" & DBNameSpace & ".ESMailOut.STRCONTACTCITY = '" & ESContactCity & "', " & _
+                "" & DBNameSpace & ".ESMailOut.STRCONTACTSTATE = '" & EScontactState & "', " & _
+                "" & DBNameSpace & ".ESMailOut.STRCONTACTZIPCODE = '" & ESContactZip & "', " & _
+                "" & DBNameSpace & ".ESMailOut.STRCONTACTEMAIL = '" & ESContactEmail & "'" & _
                 "where ESMailOut.STRAIRSNUMBER = '" & AirsNo & "' "
 
                 MsgBox("your info is updated!")
 
             Else
-                SQL = "Insert into " & connNameSpace & ".ESMailOut " & _
+                SQL = "Insert into " & DBNameSpace & ".ESMailOut " & _
                 "(STRAIRSYEAR, " & _
                 "STRAIRSNUMBER, " & _
                 "STRFACILITYNAME, " & _
@@ -12346,9 +12346,9 @@ Public Class ISMPDataManagementTools
         Dim ESyear As String = txtESYear.Text
 
         Try
-            SQL = "delete from " & connNameSpace & ".ESMailOut " & _
-            "where " & connNameSpace & ".ESMailOut.STRAIRSNUMBER = '" & AirsNo & "' " & _
-            "and " & connNameSpace & ".ESMailOut.STRESYEAR = '" & ESyear & "'"
+            SQL = "delete from " & DBNameSpace & ".ESMailOut " & _
+            "where " & DBNameSpace & ".ESMailOut.STRAIRSNUMBER = '" & AirsNo & "' " & _
+            "and " & DBNameSpace & ".ESMailOut.STRESYEAR = '" & ESyear & "'"
 
             cmd = New OracleCommand(SQL, conn)
             If conn.State = ConnectionState.Closed Then
@@ -12451,7 +12451,7 @@ Public Class ISMPDataManagementTools
         Dim FirstDateConfimed As String = txtFirstConfirmedDate.Text
 
         Try
-            SQL = "update " & connNameSpace & ".esSchema " & _
+            SQL = "update " & DBNameSpace & ".esSchema " & _
             "set STRFACILITYADDRESS = '" & ESFacilityAddress & "', " & _
             "STRFACILITYCITY = '" & ESFacilityCity & "', " & _
             "STRFACILITYSTATE = '" & ESFacilityState & "', " & _
@@ -12579,7 +12579,7 @@ Public Class ISMPDataManagementTools
 
 
             SQL = "Select strAirsNumber " & _
-            "FROM " & connNameSpace & ".ESmailOut " & _
+            "FROM " & DBNameSpace & ".ESmailOut " & _
             "where strESyear = '" & ESYear & "'"
 
 
@@ -12599,8 +12599,8 @@ Public Class ISMPDataManagementTools
             Else
                 If cboMailoutYear.Text <> "" Then
                     If cboMailoutYear.Text.Length = 4 Then
-                        SQL = "Select dt_EScontact.STRairsnumber, " & connNameSpace & ".APBFacilityinformation.STRFACILITYNAME, " & _
-                        "" & connNameSpace & ".APBHEADERDATA.stroperationalstatus, " & connNameSpace & ".APBHEADERDATA.STRCLASS, " & _
+                        SQL = "Select dt_EScontact.STRairsnumber, " & DBNameSpace & ".APBFacilityinformation.STRFACILITYNAME, " & _
+                        "" & DBNameSpace & ".APBHEADERDATA.stroperationalstatus, " & DBNameSpace & ".APBHEADERDATA.STRCLASS, " & _
                         "(Case " & _
                         "When dt_ESContact.STRKEY='42' THEN dt_ESContact.STRContactLastName " & _
                         "When dt_ESContact.STRKEY Is Null THEN dt_PermitContact.STRContactLastName " & _
@@ -12646,67 +12646,67 @@ Public Class ISMPDataManagementTools
                         "dt_Contact.STRCONTACTPREFIX, dt_Contact.STRCONTACTADDRESS1, dt_Contact.STRCONTACTCITY,  " & _
                         "dt_Contact.STRCONTACTSTATE, dt_Contact.STRCONTACTZIPCODE " & _
                         "FROM " & _
-                        "(Select * FROM " & connNameSpace & ".APBHEADERDATA " & _
+                        "(Select * FROM " & DBNameSpace & ".APBHEADERDATA " & _
                         "where (stroperationalstatus = 'O' OR stroperationalstatus = 'P' oR stroperationalstatus = 'C') AND  " & _
                         "(STRCLASS = 'A')   " & _
-                        "AND (" & connNameSpace & ".apbheaderdata.STRAIRSNUMBER Like '____121%' " & _
-                        "or " & connNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____013%' " & _
-                        "or " & connNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____015%' " & _
-                        "or " & connNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____045%' " & _
-                        "or " & connNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____057%' " & _
-                        "or " & connNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____063%' " & _
-                        "or " & connNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____067%' " & _
-                        "or " & connNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____077%' " & _
-                        "or " & connNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____089%' " & _
-                        "or " & connNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____097%' " & _
-                        "or " & connNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____113%' " & _
-                        "or " & connNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____117%' " & _
-                        "or " & connNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____135%' " & _
-                        "or " & connNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____139%' " & _
-                        "or " & connNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____151%' " & _
-                        "or " & connNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____217%' " & _
-                        "or " & connNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____223%' " & _
-                        "or " & connNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____247%' " & _
-                        "or " & connNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____255%' " & _
-                        "or " & connNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____297%') " & _
+                        "AND (" & DBNameSpace & ".apbheaderdata.STRAIRSNUMBER Like '____121%' " & _
+                        "or " & DBNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____013%' " & _
+                        "or " & DBNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____015%' " & _
+                        "or " & DBNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____045%' " & _
+                        "or " & DBNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____057%' " & _
+                        "or " & DBNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____063%' " & _
+                        "or " & DBNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____067%' " & _
+                        "or " & DBNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____077%' " & _
+                        "or " & DBNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____089%' " & _
+                        "or " & DBNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____097%' " & _
+                        "or " & DBNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____113%' " & _
+                        "or " & DBNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____117%' " & _
+                        "or " & DBNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____135%' " & _
+                        "or " & DBNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____139%' " & _
+                        "or " & DBNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____151%' " & _
+                        "or " & DBNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____217%' " & _
+                        "or " & DBNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____223%' " & _
+                        "or " & DBNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____247%' " & _
+                        "or " & DBNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____255%' " & _
+                        "or " & DBNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____297%') " & _
                         " ) dt_ESList,      " & _
-                        "(Select * From " & connNameSpace & ".APBCONTACTINFORMATION where STRKEY=42) dt_Contact " & _
+                        "(Select * From " & DBNameSpace & ".APBCONTACTINFORMATION where STRKEY=42) dt_Contact " & _
                         "Where dt_ESList.STRAIRSNUMBEr = dt_Contact.STRAIRSNUMBER (+)) dt_ESContact, " & _
                         "(Select DISTINCT dt_eslist.STRAIRSNUMBER, dt_contact.STRKEY,  " & _
                         "dt_Contact.STRCONTACTLASTNAME, dt_Contact.STRCONTACTFIRSTNAME, " & _
                         "dt_Contact.STRContactCompanyName, dt_Contact.STRContactEmail, dt_Contact.STRCONTACTPREFIX,  " & _
                         "dt_Contact.STRCONTACTADDRESS1, dt_Contact.strcontactcity, dt_Contact.STRCONTACTSTATE, dt_Contact.STRCONTACTZIPCODE " & _
                         "FROM " & _
-                        "(Select * FROM " & connNameSpace & ".APBHEADERDATA " & _
+                        "(Select * FROM " & DBNameSpace & ".APBHEADERDATA " & _
                         "where (stroperationalstatus = 'O' OR stroperationalstatus = 'P' oR stroperationalstatus = 'C') AND  " & _
                         "(STRCLASS = 'A')   " & _
-                        "AND (" & connNameSpace & ".apbheaderdata.STRAIRSNUMBER Like '____121%'    " & _
-                        "or " & connNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____013%' " & _
-                        "or " & connNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____015%' " & _
-                        "or " & connNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____045%' " & _
-                        "or " & connNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____057%' " & _
-                        "or " & connNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____063%' " & _
-                        "or " & connNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____067%' " & _
-                        "or " & connNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____077%' " & _
-                        "or " & connNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____089%' " & _
-                        "or " & connNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____097%' " & _
-                        "or " & connNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____113%' " & _
-                        "or " & connNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____117%' " & _
-                        "or " & connNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____135%' " & _
-                        "or " & connNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____139%' " & _
-                        "or " & connNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____151%' " & _
-                        "or " & connNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____217%' " & _
-                        "or " & connNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____223%' " & _
-                        "or " & connNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____247%' " & _
-                        "or " & connNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____255%' " & _
-                        "or " & connNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____297%') " & _
+                        "AND (" & DBNameSpace & ".apbheaderdata.STRAIRSNUMBER Like '____121%'    " & _
+                        "or " & DBNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____013%' " & _
+                        "or " & DBNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____015%' " & _
+                        "or " & DBNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____045%' " & _
+                        "or " & DBNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____057%' " & _
+                        "or " & DBNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____063%' " & _
+                        "or " & DBNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____067%' " & _
+                        "or " & DBNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____077%' " & _
+                        "or " & DBNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____089%' " & _
+                        "or " & DBNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____097%' " & _
+                        "or " & DBNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____113%' " & _
+                        "or " & DBNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____117%' " & _
+                        "or " & DBNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____135%' " & _
+                        "or " & DBNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____139%' " & _
+                        "or " & DBNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____151%' " & _
+                        "or " & DBNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____217%' " & _
+                        "or " & DBNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____223%' " & _
+                        "or " & DBNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____247%' " & _
+                        "or " & DBNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____255%' " & _
+                        "or " & DBNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____297%') " & _
                         ")dt_ESList,  " & _
-                        "(Select * From " & connNameSpace & ".APBCONTACTINFORMATION where STRKEY=30) dt_Contact " & _
+                        "(Select * From " & DBNameSpace & ".APBCONTACTINFORMATION where STRKEY=30) dt_Contact " & _
                         "Where dt_ESList.STRAIRSNUMBEr = dt_Contact.STRAIRSNUMBER (+)) dt_PermitContact, " & _
-                        "" & connNameSpace & ".APBFACILITYINFORMATION, " & _
-                        "" & connNameSpace & ".APBHEADERDATA " & _
-                        "Where " & connNameSpace & ".APBFACILITYINFORMATION.STRAIRSNUMBER= dt_ESContact.STRAIRSNumber and  " & _
-                        "" & connNameSpace & ".APBHEADERDATA.STRAIRSNUMBER= dt_ESContact.STRAIRSNumber and  " & _
+                        "" & DBNameSpace & ".APBFACILITYINFORMATION, " & _
+                        "" & DBNameSpace & ".APBHEADERDATA " & _
+                        "Where " & DBNameSpace & ".APBFACILITYINFORMATION.STRAIRSNUMBER= dt_ESContact.STRAIRSNumber and  " & _
+                        "" & DBNameSpace & ".APBHEADERDATA.STRAIRSNUMBER= dt_ESContact.STRAIRSNumber and  " & _
                         "dt_ESContact.STRAIRSNumber  = dt_PermitContact.STRAIRSNUMBER (+) "
 
                         cmd = New OracleCommand(SQL, conn)
@@ -12776,7 +12776,7 @@ Public Class ISMPDataManagementTools
                                 CONTACTEMAIL = dr("STRCONTACTEMAIL")
                             End If
 
-                            SQL2 = "insert into " & connNameSpace & ".ESmailOut " & _
+                            SQL2 = "insert into " & DBNameSpace & ".ESmailOut " & _
                             "(strAirsYear, " & _
                             "strAirsNumber, " & _
                             "STRFACILITYNAME, " & _
@@ -12835,7 +12835,7 @@ Public Class ISMPDataManagementTools
                     "STRCONTACTSTATE, " & _
                     "STRCONTACTZIPCODE, " & _
                     "STRCONTACTEMAIL " & _
-                    "from " & connNameSpace & ".esMailOut " & _
+                    "from " & DBNameSpace & ".esMailOut " & _
                     "where STRESYEAR = '" & year & "' " & _
                     "order by STRFACILITYNAME"
 
@@ -12902,7 +12902,7 @@ Public Class ISMPDataManagementTools
             If ESyear = "Select a Mailout Year & Click Below" Then
                 MsgBox("You must select a Mailout Year")
             Else
-                SQL = "delete from " & connNameSpace & ".ESmailout " & _
+                SQL = "delete from " & DBNameSpace & ".ESmailout " & _
                 "where strESyear = '" & ESyear & "'"
 
                 cmd = New OracleCommand(SQL, conn)
@@ -12963,7 +12963,7 @@ Public Class ISMPDataManagementTools
             "STRCONTACTSTATE, " & _
             "STRCONTACTZIPCODE, " & _
             "STRCONTACTEMAIL " & _
-            "from " & connNameSpace & ".esMailOut " & _
+            "from " & DBNameSpace & ".esMailOut " & _
             "where STRESYEAR = '" & year & "' " & _
             "order by STRFACILITYNAME"
 
@@ -13026,7 +13026,7 @@ Public Class ISMPDataManagementTools
         Dim year As String
         Try
             SQL = "Select distinct STRINVENTORYYEAR " & _
-            "from " & connNameSpace & ".EISI " & _
+            "from " & DBNameSpace & ".EISI " & _
             "order by STRINVENTORYYEAR desc "
 
             cmd = New OracleCommand(SQL, conn)
@@ -13053,7 +13053,7 @@ Public Class ISMPDataManagementTools
         Dim EItype As String
         Try
             SQL = "Select distinct EITHRESHOLDS.STRTYPE " & _
-            "from " & connNameSpace & ".EITHRESHOLDS " & _
+            "from " & DBNameSpace & ".EITHRESHOLDS " & _
             "order by STRTYPE desc "
 
             cmd = New OracleCommand(SQL, conn)
@@ -13114,9 +13114,9 @@ Public Class ISMPDataManagementTools
             Try
 
                 SQL = "select count(*) as MailoutCount " & _
-                "from " & connNameSpace & ".eImailout, " & connNameSpace & ".EISI " & _
-                "where " & connNameSpace & ".eImailout.STRAIRSYEAR = " & connNameSpace & ".EISI.STRAIRSYEAR(+) " & _
-                "and " & connNameSpace & ".eImailout.STRINVENTORYYEAR = '" & EIYear & "'"
+                "from " & DBNameSpace & ".eImailout, " & DBNameSpace & ".EISI " & _
+                "where " & DBNameSpace & ".eImailout.STRAIRSYEAR = " & DBNameSpace & ".EISI.STRAIRSYEAR(+) " & _
+                "and " & DBNameSpace & ".eImailout.STRINVENTORYYEAR = '" & EIYear & "'"
 
                 cmd = New OracleCommand(SQL, conn)
                 If conn.State = ConnectionState.Closed Then
@@ -13129,10 +13129,10 @@ Public Class ISMPDataManagementTools
                 dr.Close()
 
                 SQL = "select count(*) as ResponseCount " & _
-                "from " & connNameSpace & ".eImailout, " & connNameSpace & ".EISI " & _
-                "where " & connNameSpace & ".eImailout.STRAIRSYEAR = " & connNameSpace & ".EISI.STRAIRSYEAR " & _
-                "and " & connNameSpace & ".EISI.STROPTOUT is not NULL " & _
-                "and " & connNameSpace & ".eImailout.STRINVENTORYYEAR = '" & EIYear & "'"
+                "from " & DBNameSpace & ".eImailout, " & DBNameSpace & ".EISI " & _
+                "where " & DBNameSpace & ".eImailout.STRAIRSYEAR = " & DBNameSpace & ".EISI.STRAIRSYEAR " & _
+                "and " & DBNameSpace & ".EISI.STROPTOUT is not NULL " & _
+                "and " & DBNameSpace & ".eImailout.STRINVENTORYYEAR = '" & EIYear & "'"
 
                 cmd = New OracleCommand(SQL, conn)
 
@@ -13146,10 +13146,10 @@ Public Class ISMPDataManagementTools
                 dr.Close()
 
                 SQL = "select count(*) as removedFacilitiescount " & _
-            "from  " & connNameSpace & ".eImailout, " & connNameSpace & ".EISI " & _
-            "where " & connNameSpace & ".eImailout.STRINVENTORYYEAR = '" & EIYear & "' " & _
-            "and " & connNameSpace & ".eImailout.STRAIRSYEAR = " & connNameSpace & ".EISI.STRAIRSYEAR(+) " & _
-            "and " & connNameSpace & ".EISI.STRAIRSYEAR is NULL"
+            "from  " & DBNameSpace & ".eImailout, " & DBNameSpace & ".EISI " & _
+            "where " & DBNameSpace & ".eImailout.STRINVENTORYYEAR = '" & EIYear & "' " & _
+            "and " & DBNameSpace & ".eImailout.STRAIRSYEAR = " & DBNameSpace & ".EISI.STRAIRSYEAR(+) " & _
+            "and " & DBNameSpace & ".EISI.STRAIRSYEAR is NULL"
 
                 cmd = New OracleCommand(SQL, conn)
 
@@ -13163,12 +13163,12 @@ Public Class ISMPDataManagementTools
                 dr.Close()
 
                 SQL = "select count(*) as extraNonresponderscount  " & _
-                "from " & connNameSpace & ".EISI " & _
-                " where  not exists (select * from " & connNameSpace & ".EIMAILOUT " & _
-                " where " & connNameSpace & ".EISI.STRAIRSNUMBER = " & connNameSpace & ".EIMAILOUT.STRAIRSNUMBER" & _
+                "from " & DBNameSpace & ".EISI " & _
+                " where  not exists (select * from " & DBNameSpace & ".EIMAILOUT " & _
+                " where " & DBNameSpace & ".EISI.STRAIRSNUMBER = " & DBNameSpace & ".EIMAILOUT.STRAIRSNUMBER" & _
                 " and EISI.STRINVENTORYYEAR = EIMAILOUT.STRINVENTORYYEAR) " & _
-                " and " & connNameSpace & ".EISI.STRINVENTORYYEAR = '" & EIYear & "' " & _
-                " and " & connNameSpace & ".EISI.STROPTOUT is null"
+                " and " & DBNameSpace & ".EISI.STRINVENTORYYEAR = '" & EIYear & "' " & _
+                " and " & DBNameSpace & ".EISI.STROPTOUT is null"
 
                 cmd = New OracleCommand(SQL, conn)
 
@@ -13182,9 +13182,9 @@ Public Class ISMPDataManagementTools
                 dr.Close()
 
                 SQL = "select count(*) as TotaloptinCount " & _
-                "from " & connNameSpace & ".EISI " & _
-                "where " & connNameSpace & ".EISI.STRINVENTORYYEAR = '" & EIYear & "'" & _
-                " and " & connNameSpace & ".EISI.strOptOut = 'NO'"
+                "from " & DBNameSpace & ".EISI " & _
+                "where " & DBNameSpace & ".EISI.STRINVENTORYYEAR = '" & EIYear & "'" & _
+                " and " & DBNameSpace & ".EISI.strOptOut = 'NO'"
 
                 cmd = New OracleCommand(SQL, conn)
                 If conn.State = ConnectionState.Closed Then
@@ -13197,9 +13197,9 @@ Public Class ISMPDataManagementTools
                 dr.Close()
 
                 SQL = "select count(*) as TotaloptOutCount " & _
-                "from " & connNameSpace & ".EISI " & _
-                "where " & connNameSpace & ".EISI.STRINVENTORYYEAR = '" & EIYear & "' " & _
-                "and " & connNameSpace & ".EISI.strOptOut = 'YES'"
+                "from " & DBNameSpace & ".EISI " & _
+                "where " & DBNameSpace & ".EISI.STRINVENTORYYEAR = '" & EIYear & "' " & _
+                "and " & DBNameSpace & ".EISI.strOptOut = 'YES'"
                 cmd = New OracleCommand(SQL, conn)
                 If conn.State = ConnectionState.Closed Then
                     conn.Open()
@@ -13211,11 +13211,11 @@ Public Class ISMPDataManagementTools
                 dr.Close()
 
                 SQL = "select count(*) as FinalizedCount " & _
-                "from " & connNameSpace & ".EISI, " & connNameSpace & ".eImailout " & _
-                "where " & connNameSpace & ".EISI.STRINVENTORYYEAR = '" & EIYear & "' " & _
-                "and " & connNameSpace & ".eImailout.STRAIRSYEAR = " & connNameSpace & ".EISI.STRAIRSYEAR(+) " & _
-                "and " & connNameSpace & ".EISI.strOptOut = 'NO' " & _
-                "and " & connNameSpace & ".EISI.STRFINALIZE is not null"
+                "from " & DBNameSpace & ".EISI, " & DBNameSpace & ".eImailout " & _
+                "where " & DBNameSpace & ".EISI.STRINVENTORYYEAR = '" & EIYear & "' " & _
+                "and " & DBNameSpace & ".eImailout.STRAIRSYEAR = " & DBNameSpace & ".EISI.STRAIRSYEAR(+) " & _
+                "and " & DBNameSpace & ".EISI.strOptOut = 'NO' " & _
+                "and " & DBNameSpace & ".EISI.STRFINALIZE is not null"
 
                 cmd = New OracleCommand(SQL, conn)
                 If conn.State = ConnectionState.Closed Then
@@ -13229,11 +13229,11 @@ Public Class ISMPDataManagementTools
                 dr.Close()
 
                 SQL = "select count(*) as inprocesscount " & _
-                "from " & connNameSpace & ".EISI, " & connNameSpace & ".eImailout  " & _
-                "where " & connNameSpace & ".EISI.STRINVENTORYYEAR = '" & EIYear & "' " & _
-                "and " & connNameSpace & ".eImailout.STRAIRSYEAR = " & connNameSpace & ".EISI.STRAIRSYEAR(+) " & _
-                "and " & connNameSpace & ".EISI.strOptOut = 'NO' " & _
-                "and " & connNameSpace & ".EISI.STRFINALIZE is null"
+                "from " & DBNameSpace & ".EISI, " & DBNameSpace & ".eImailout  " & _
+                "where " & DBNameSpace & ".EISI.STRINVENTORYYEAR = '" & EIYear & "' " & _
+                "and " & DBNameSpace & ".eImailout.STRAIRSYEAR = " & DBNameSpace & ".EISI.STRAIRSYEAR(+) " & _
+                "and " & DBNameSpace & ".EISI.strOptOut = 'NO' " & _
+                "and " & DBNameSpace & ".EISI.STRFINALIZE is null"
 
                 cmd = New OracleCommand(SQL, conn)
                 If conn.State = ConnectionState.Closed Then
@@ -13246,10 +13246,10 @@ Public Class ISMPDataManagementTools
                 dr.Close()
 
                 SQL = "select count(*) as MailOutOptInCount " & _
-                "from " & connNameSpace & ".EISI, " & connNameSpace & ".eImailout " & _
-                "where " & connNameSpace & ".eImailout.STRINVENTORYYEAR = '" & EIYear & "' " & _
-                "and " & connNameSpace & ".eImailout.STRAIRSYEAR = " & connNameSpace & ".EISI.STRAIRSYEAR(+) " & _
-                "and " & connNameSpace & ".EISI.strOptOut = 'NO'"
+                "from " & DBNameSpace & ".EISI, " & DBNameSpace & ".eImailout " & _
+                "where " & DBNameSpace & ".eImailout.STRINVENTORYYEAR = '" & EIYear & "' " & _
+                "and " & DBNameSpace & ".eImailout.STRAIRSYEAR = " & DBNameSpace & ".EISI.STRAIRSYEAR(+) " & _
+                "and " & DBNameSpace & ".EISI.strOptOut = 'NO'"
 
                 cmd = New OracleCommand(SQL, conn)
                 If conn.State = ConnectionState.Closed Then
@@ -13263,10 +13263,10 @@ Public Class ISMPDataManagementTools
                 dr.Close()
 
                 SQL = "select count(*) as MailOutOptOutCount " & _
-                "from " & connNameSpace & ".EISI, " & connNameSpace & ".eImailout " & _
-                "where " & connNameSpace & ".eImailout.STRINVENTORYYEAR = '" & EIYear & "' " & _
-                "and " & connNameSpace & ".eImailout.STRAIRSYEAR = " & connNameSpace & ".EISI.STRAIRSYEAR " & _
-                "and " & connNameSpace & ".EISI.strOptOut = 'YES'"
+                "from " & DBNameSpace & ".EISI, " & DBNameSpace & ".eImailout " & _
+                "where " & DBNameSpace & ".eImailout.STRINVENTORYYEAR = '" & EIYear & "' " & _
+                "and " & DBNameSpace & ".eImailout.STRAIRSYEAR = " & DBNameSpace & ".EISI.STRAIRSYEAR " & _
+                "and " & DBNameSpace & ".EISI.strOptOut = 'YES'"
 
                 cmd = New OracleCommand(SQL, conn)
                 If conn.State = ConnectionState.Closed Then
@@ -13284,10 +13284,10 @@ Public Class ISMPDataManagementTools
             End Try
 
             SQL = "select count(*) as mailoutNonresponderscount " & _
-            "from  " & connNameSpace & ".eImailout, " & connNameSpace & ".EISI " & _
-            "where " & connNameSpace & ".eImailout.STRINVENTORYYEAR = '" & EIYear & "' " & _
-            "and " & connNameSpace & ".eImailout.STRAIRSYEAR = " & connNameSpace & ".EISI.STRAIRSYEAR(+) " & _
-            "and " & connNameSpace & ".EISI.strOptOut is NULL"
+            "from  " & DBNameSpace & ".eImailout, " & DBNameSpace & ".EISI " & _
+            "where " & DBNameSpace & ".eImailout.STRINVENTORYYEAR = '" & EIYear & "' " & _
+            "and " & DBNameSpace & ".eImailout.STRAIRSYEAR = " & DBNameSpace & ".EISI.STRAIRSYEAR(+) " & _
+            "and " & DBNameSpace & ".EISI.strOptOut is NULL"
 
             cmd = New OracleCommand(SQL, conn)
             If conn.State = ConnectionState.Closed Then
@@ -13300,9 +13300,9 @@ Public Class ISMPDataManagementTools
             dr.Close()
 
             SQL = "select count(*) as Nonresponsecount " & _
-         "from  " & connNameSpace & ".EISI " & _
-         "where " & connNameSpace & ".EISI.STRINVENTORYYEAR = '" & EIYear & "' " & _
-         "and " & connNameSpace & ".EISI.strOptOut is NULL"
+         "from  " & DBNameSpace & ".EISI " & _
+         "where " & DBNameSpace & ".EISI.STRINVENTORYYEAR = '" & EIYear & "' " & _
+         "and " & DBNameSpace & ".EISI.strOptOut is NULL"
 
             cmd = New OracleCommand(SQL, conn)
             If conn.State = ConnectionState.Closed Then
@@ -13315,15 +13315,15 @@ Public Class ISMPDataManagementTools
             dr.Close()
 
             SQL = "select count(*) as ExtraCount " & _
-            "from (Select " & connNameSpace & ".EISI.STRAIRSYEAR AS SchemaAIRS, " & _
-            "" & connNameSpace & ".eImailout.STRAIRSYear AS MailoutAIRS " & _
-            "From " & connNameSpace & ".eImailout, " & connNameSpace & ".EISI  " & _
-            "Where " & connNameSpace & ".eImailout.STRAIRSYEAR (+) = " & connNameSpace & ".EISI.STRAIRSYEAR " & _
-            "AND " & connNameSpace & ".EISI.STRINVENTORYYEAR= '" & EIYear & "' " & _
-            "AND " & connNameSpace & ".EISI.STROPTOUT IS NOT NULL) " & _
+            "from (Select " & DBNameSpace & ".EISI.STRAIRSYEAR AS SchemaAIRS, " & _
+            "" & DBNameSpace & ".eImailout.STRAIRSYear AS MailoutAIRS " & _
+            "From " & DBNameSpace & ".eImailout, " & DBNameSpace & ".EISI  " & _
+            "Where " & DBNameSpace & ".eImailout.STRAIRSYEAR (+) = " & DBNameSpace & ".EISI.STRAIRSYEAR " & _
+            "AND " & DBNameSpace & ".EISI.STRINVENTORYYEAR= '" & EIYear & "' " & _
+            "AND " & DBNameSpace & ".EISI.STROPTOUT IS NOT NULL) " & _
             "dt_NotInMailout, " & _
-            "" & connNameSpace & ".EISI " & _
-            "Where " & connNameSpace & ".EISI.STRAIRSYEAR = SchemaAIRS " & _
+            "" & DBNameSpace & ".EISI " & _
+            "Where " & DBNameSpace & ".EISI.STRAIRSYEAR = SchemaAIRS " & _
             "AND MailoutAIRS is NULL"
 
             cmd = New OracleCommand(SQL, conn)
@@ -13338,17 +13338,17 @@ Public Class ISMPDataManagementTools
             dr.Close()
 
             SQL = "select count(*) as ExtraOptinCount " & _
-            "from (Select " & connNameSpace & ".EISI.STRAIRSYEAR AS SchemaAIRS, " & _
-            "" & connNameSpace & ".EIMAILOUT.STRAIRSYear AS MailoutAIRS " & _
-            "From " & connNameSpace & ".EIMailout, " & connNameSpace & ".EISI " & _
-            "Where " & connNameSpace & ".EIMAILOUT.STRAIRSYEAR (+)= " & connNameSpace & ".EISI.STRAIRSYEAR " & _
-            "AND " & connNameSpace & ".EISI.STRINVENTORYYEAR= '" & EIYear & "' " & _
-            "AND " & connNameSpace & ".EISI.STROPTOUT IS NOT NULL) " & _
+            "from (Select " & DBNameSpace & ".EISI.STRAIRSYEAR AS SchemaAIRS, " & _
+            "" & DBNameSpace & ".EIMAILOUT.STRAIRSYear AS MailoutAIRS " & _
+            "From " & DBNameSpace & ".EIMailout, " & DBNameSpace & ".EISI " & _
+            "Where " & DBNameSpace & ".EIMAILOUT.STRAIRSYEAR (+)= " & DBNameSpace & ".EISI.STRAIRSYEAR " & _
+            "AND " & DBNameSpace & ".EISI.STRINVENTORYYEAR= '" & EIYear & "' " & _
+            "AND " & DBNameSpace & ".EISI.STROPTOUT IS NOT NULL) " & _
             "dt_NotInMailout, " & _
-            "" & connNameSpace & ".EISI " & _
-            "Where " & connNameSpace & ".EISI.STRAIRSYEAR = SchemaAIRS " & _
+            "" & DBNameSpace & ".EISI " & _
+            "Where " & DBNameSpace & ".EISI.STRAIRSYEAR = SchemaAIRS " & _
             "AND MailoutAIRS is NULL " & _
-            "and " & connNameSpace & ".EISI.STROPTOUT='NO'"
+            "and " & DBNameSpace & ".EISI.STROPTOUT='NO'"
 
             cmd = New OracleCommand(SQL, conn)
             If conn.State = ConnectionState.Closed Then
@@ -13361,17 +13361,17 @@ Public Class ISMPDataManagementTools
             dr.Close()
 
             SQL = "select count(*) as ExtraOptOUTCount " & _
-            "from (Select " & connNameSpace & ".EISI.STRAIRSYEAR AS SchemaAIRS, " & _
-            "" & connNameSpace & ".EIMAILOUT.STRAIRSYear AS MailoutAIRS " & _
-            "From " & connNameSpace & ".EiMailout, " & connNameSpace & ".EISI " & _
-            " Where " & connNameSpace & ".EIMAILOUT.STRAIRSYEAR (+)= " & connNameSpace & ".EISI.STRAIRSYEAR " & _
-            "AND " & connNameSpace & ".EISI.STRINVENTORYYEAR= '" & EIYear & "' " & _
-            "AND " & connNameSpace & ".EISI.STROPTOUT IS NOT NULL) " & _
+            "from (Select " & DBNameSpace & ".EISI.STRAIRSYEAR AS SchemaAIRS, " & _
+            "" & DBNameSpace & ".EIMAILOUT.STRAIRSYear AS MailoutAIRS " & _
+            "From " & DBNameSpace & ".EiMailout, " & DBNameSpace & ".EISI " & _
+            " Where " & DBNameSpace & ".EIMAILOUT.STRAIRSYEAR (+)= " & DBNameSpace & ".EISI.STRAIRSYEAR " & _
+            "AND " & DBNameSpace & ".EISI.STRINVENTORYYEAR= '" & EIYear & "' " & _
+            "AND " & DBNameSpace & ".EISI.STROPTOUT IS NOT NULL) " & _
             "dt_NotInMailout, " & _
-            "" & connNameSpace & ".EISI " & _
-            "Where " & connNameSpace & ".EISI.STRAIRSYEAR = SchemaAIRS " & _
+            "" & DBNameSpace & ".EISI " & _
+            "Where " & DBNameSpace & ".EISI.STRAIRSYEAR = SchemaAIRS " & _
             "AND MailoutAIRS is NULL " & _
-            "and " & connNameSpace & ".EISI.STROPTOUT='YES'"
+            "and " & DBNameSpace & ".EISI.STROPTOUT='YES'"
 
             cmd = New OracleCommand(SQL, conn)
             If conn.State = ConnectionState.Closed Then
@@ -13385,8 +13385,8 @@ Public Class ISMPDataManagementTools
             dr.Close()
 
             SQL = "select count(*) as TotalResponsecount " & _
-            "from " & connNameSpace & ".EISI " & _
-            "where " & connNameSpace & ".EISI.STRINVENTORYYEAR = '" & EIYear & "' " & _
+            "from " & DBNameSpace & ".EISI " & _
+            "where " & DBNameSpace & ".EISI.STRINVENTORYYEAR = '" & EIYear & "' " & _
             "and EISI.strOptOut is not NULL"
 
             cmd = New OracleCommand(SQL, conn)
@@ -13414,7 +13414,7 @@ Public Class ISMPDataManagementTools
 
         Try
             SQL = "SELECT * " & _
-            "from " & connNameSpace & ".eIMailOut " & _
+            "from " & DBNameSpace & ".eIMailOut " & _
             "where STRAIRSNUMBER = '" & AirsNo & "' " & _
             "and STRINVENTORYYEAR = '" & EIyear & "'"
 
@@ -13526,7 +13526,7 @@ Public Class ISMPDataManagementTools
             "STRCONTACTSTATE, " & _
             "STRCONTACTZIPCODE, " & _
             "STRCONTACTEMAIL " & _
-            "from " & connNameSpace & ".eIMailOut " & _
+            "from " & DBNameSpace & ".eIMailOut " & _
             "where STRinventoryYEAR = '" & year & "' " & _
             "order by STRFACILITYNAME"
 
@@ -13583,12 +13583,12 @@ Public Class ISMPDataManagementTools
             
             Dim year As String = txtEIYear.Text()
 
-            SQL = "SELECT " & connNameSpace & ".eiMailOut.STRAIRSNUMBER, " & _
-            "" & connNameSpace & ".eiMailOut.STRFACILITYNAME " & _
-            "from  " & connNameSpace & ".EISI,  " & connNameSpace & ".eiMailOut " & _
-            "where " & connNameSpace & ".EISI.STRINVENTORYYEAR = '" & year & "' " & _
-            "and " & connNameSpace & ".EISI.strOptOut is NULL" & _
-            " order by " & connNameSpace & ".eiMailOut.STRFACILITYNAME"
+            SQL = "SELECT " & DBNameSpace & ".eiMailOut.STRAIRSNUMBER, " & _
+            "" & DBNameSpace & ".eiMailOut.STRFACILITYNAME " & _
+            "from  " & DBNameSpace & ".EISI,  " & DBNameSpace & ".eiMailOut " & _
+            "where " & DBNameSpace & ".EISI.STRINVENTORYYEAR = '" & year & "' " & _
+            "and " & DBNameSpace & ".EISI.strOptOut is NULL" & _
+            " order by " & DBNameSpace & ".eiMailOut.STRFACILITYNAME"
 
             dsViewCount = New DataSet
             daViewCount = New OracleDataAdapter(SQL, conn)
@@ -13631,11 +13631,11 @@ Public Class ISMPDataManagementTools
             "airbranch.EISI.STRFACILITYNAME, " & _
             "airbranch.EISI.STRFINALIZE, " & _
             "airbranch.EISI.STRCONFIRMATIONNUMBER " & _
-            "from " & connNameSpace & ".EISI, " & connNameSpace & ".eImailout " & _
-            "where " & connNameSpace & ".EISI.STRINVENTORYYEAR = '" & year & "' " & _
-            "and " & connNameSpace & ".EISI.STROPTOUT = 'NO'" & _
-            "and " & connNameSpace & ".eImailout.STRAIRSYEAR = " & connNameSpace & ".EISI.STRAIRSYEAR " & _
-            "order by " & connNameSpace & ".EISI.STRFACILITYNAME"
+            "from " & DBNameSpace & ".EISI, " & DBNameSpace & ".eImailout " & _
+            "where " & DBNameSpace & ".EISI.STRINVENTORYYEAR = '" & year & "' " & _
+            "and " & DBNameSpace & ".EISI.STROPTOUT = 'NO'" & _
+            "and " & DBNameSpace & ".eImailout.STRAIRSYEAR = " & DBNameSpace & ".EISI.STRAIRSYEAR " & _
+            "order by " & DBNameSpace & ".EISI.STRFACILITYNAME"
 
             dsViewCount = New DataSet
             daViewCount = New OracleDataAdapter(SQL, conn)
@@ -13677,15 +13677,15 @@ Public Class ISMPDataManagementTools
             
             Dim year As String = txtEIYear.Text
 
-            SQL = "SELECT " & connNameSpace & ".EISI.STRAIRSNUMBER, " & _
-            "" & connNameSpace & ".EISI.STRFACILITYNAME, " & _
-            "" & connNameSpace & ".EISI.STRFINALIZE, " & _
-            "" & connNameSpace & ".EISI.STRCONFIRMATIONNUMBER " & _
-            "from " & connNameSpace & ".EISI, " & connNameSpace & ".eImailout " & _
-            "where " & connNameSpace & ".EISI.STRINVENTORYYEAR = '" & year & "' " & _
-            "and " & connNameSpace & ".EISI.STROPTOUT = 'YES'" & _
-            "and " & connNameSpace & ".eImailout.STRAIRSYEAR = " & connNameSpace & ".EISI.STRAIRSYEAR " & _
-            "order by " & connNameSpace & ".EISI.STRFACILITYNAME"
+            SQL = "SELECT " & DBNameSpace & ".EISI.STRAIRSNUMBER, " & _
+            "" & DBNameSpace & ".EISI.STRFACILITYNAME, " & _
+            "" & DBNameSpace & ".EISI.STRFINALIZE, " & _
+            "" & DBNameSpace & ".EISI.STRCONFIRMATIONNUMBER " & _
+            "from " & DBNameSpace & ".EISI, " & DBNameSpace & ".eImailout " & _
+            "where " & DBNameSpace & ".EISI.STRINVENTORYYEAR = '" & year & "' " & _
+            "and " & DBNameSpace & ".EISI.STROPTOUT = 'YES'" & _
+            "and " & DBNameSpace & ".eImailout.STRAIRSYEAR = " & DBNameSpace & ".EISI.STRAIRSYEAR " & _
+            "order by " & DBNameSpace & ".EISI.STRFACILITYNAME"
 
             dsViewCount = New DataSet
             daViewCount = New OracleDataAdapter(SQL, conn)
@@ -13727,22 +13727,22 @@ Public Class ISMPDataManagementTools
             Dim year As String = txtEIYear.Text
 
 
-            SQL = "SELECT dt_NotInMailout.SchemaAIRS, " & connNameSpace & ".EISI.STRAIRSNUMBER, " & _
-            "" & connNameSpace & ".EISI.STRFACILITYNAME, " & _
-            "" & connNameSpace & ".EISI.STRCONTACTFIRSTNAME, " & _
-            "" & connNameSpace & ".EISI.STRCONTACTLASTNAME, " & _
-            "" & connNameSpace & ".EISI.STRCONTACTCOMPANYNAME, " & _
-            "" & connNameSpace & ".EISI.STRCONTACTEMAIL, " & _
-            "" & connNameSpace & ".EISI.STRCONTACTPHONENUMBER1 " & _
-            "from (Select " & connNameSpace & ".EISI.STRAIRSYEAR AS SchemaAIRS, " & _
-            "" & connNameSpace & ".EIMailout.STRAIRSYEAR AS MailoutAIRS" & _
-            " From " & connNameSpace & ".EIMailout, " & connNameSpace & ".EISI" & _
-            " Where " & connNameSpace & ".EIMailout.STRAIRSYEAR (+)= " & connNameSpace & ".EISI.STRAIRSYEAR " & _
-            "AND " & connNameSpace & ".EISI.STRINVENTORYYEAR=  '" & year & "' " & _
-            "AND " & connNameSpace & ".EISI.STROPTOUT IS NOT NULL) " & _
+            SQL = "SELECT dt_NotInMailout.SchemaAIRS, " & DBNameSpace & ".EISI.STRAIRSNUMBER, " & _
+            "" & DBNameSpace & ".EISI.STRFACILITYNAME, " & _
+            "" & DBNameSpace & ".EISI.STRCONTACTFIRSTNAME, " & _
+            "" & DBNameSpace & ".EISI.STRCONTACTLASTNAME, " & _
+            "" & DBNameSpace & ".EISI.STRCONTACTCOMPANYNAME, " & _
+            "" & DBNameSpace & ".EISI.STRCONTACTEMAIL, " & _
+            "" & DBNameSpace & ".EISI.STRCONTACTPHONENUMBER1 " & _
+            "from (Select " & DBNameSpace & ".EISI.STRAIRSYEAR AS SchemaAIRS, " & _
+            "" & DBNameSpace & ".EIMailout.STRAIRSYEAR AS MailoutAIRS" & _
+            " From " & DBNameSpace & ".EIMailout, " & DBNameSpace & ".EISI" & _
+            " Where " & DBNameSpace & ".EIMailout.STRAIRSYEAR (+)= " & DBNameSpace & ".EISI.STRAIRSYEAR " & _
+            "AND " & DBNameSpace & ".EISI.STRINVENTORYYEAR=  '" & year & "' " & _
+            "AND " & DBNameSpace & ".EISI.STROPTOUT IS NOT NULL) " & _
             "dt_NotInMailout, " & _
-            "" & connNameSpace & ".EISI " & _
-            "Where " & connNameSpace & ".EISI.STRAIRSYEAR = SchemaAIRS " & _
+            "" & DBNameSpace & ".EISI " & _
+            "Where " & DBNameSpace & ".EISI.STRAIRSYEAR = SchemaAIRS " & _
             "AND MailoutAIRS is NULL"
 
             dsViewCount = New DataSet
@@ -13795,20 +13795,20 @@ Public Class ISMPDataManagementTools
             
             Dim year As String = txtEIYear.Text
 
-            SQL = "SELECT " & connNameSpace & ".EISI.STRAIRSNUMBER, " & _
-            "" & connNameSpace & ".EISI.STRFACILITYNAME, " & _
-            "" & connNameSpace & ".EISI.strfinalize, " & _
-            "" & connNameSpace & ".EISI.STRCONFIRMATIONNumber " & _
-            "from (select " & connNameSpace & ".EISI.strairsyear as SchemaAIRS, " & _
-            "" & connNameSpace & ".eImailout.strairsyear as MailoutAIRS " & _
-            "From " & connNameSpace & ".EIMailout, " & connNameSpace & ".EISI " & _
-            "where " & connNameSpace & ".eImailout.STRAIRSYEAR (+)= " & connNameSpace & ".EISI.STRAIRSYEAR " & _
-            "and " & connNameSpace & ".EISI.STRINVENTORYYEAR = '" & year & "' " & _
-            "and " & connNameSpace & ".EISI.STROPTOUT IS NOT NULL) " & _
-            "dt_NotInMailout, " & connNameSpace & ".EISI " & _
-            "Where " & connNameSpace & ".EISI.STRAIRSYEAR = SchemaAIRS " & _
+            SQL = "SELECT " & DBNameSpace & ".EISI.STRAIRSNUMBER, " & _
+            "" & DBNameSpace & ".EISI.STRFACILITYNAME, " & _
+            "" & DBNameSpace & ".EISI.strfinalize, " & _
+            "" & DBNameSpace & ".EISI.STRCONFIRMATIONNumber " & _
+            "from (select " & DBNameSpace & ".EISI.strairsyear as SchemaAIRS, " & _
+            "" & DBNameSpace & ".eImailout.strairsyear as MailoutAIRS " & _
+            "From " & DBNameSpace & ".EIMailout, " & DBNameSpace & ".EISI " & _
+            "where " & DBNameSpace & ".eImailout.STRAIRSYEAR (+)= " & DBNameSpace & ".EISI.STRAIRSYEAR " & _
+            "and " & DBNameSpace & ".EISI.STRINVENTORYYEAR = '" & year & "' " & _
+            "and " & DBNameSpace & ".EISI.STROPTOUT IS NOT NULL) " & _
+            "dt_NotInMailout, " & DBNameSpace & ".EISI " & _
+            "Where " & DBNameSpace & ".EISI.STRAIRSYEAR = SchemaAIRS " & _
             "and MailoutAIRS is NULL " & _
-            "and " & connNameSpace & ".EISI.STROPTOUT='NO'"
+            "and " & DBNameSpace & ".EISI.STROPTOUT='NO'"
 
             dsViewCount = New DataSet
             daViewCount = New OracleDataAdapter(SQL, conn)
@@ -13850,20 +13850,20 @@ Public Class ISMPDataManagementTools
             
             Dim year As String = txtEIYear.Text
 
-            SQL = "SELECT " & connNameSpace & ".EISI.STRAIRSNUMBER, " & _
-            "" & connNameSpace & ".EISI.STRFACILITYNAME, " & _
-            "" & connNameSpace & ".EISI.strfinalize, " & _
-            "" & connNameSpace & ".EISI.STRCONFIRMATIONNumber " & _
-            "from (select " & connNameSpace & ".EISI.strairsyear as SchemaAIRS, " & _
-            "" & connNameSpace & ".eImailout.strairsyear as MailoutAIRS " & _
-            "From " & connNameSpace & ".EIMailout, " & connNameSpace & ".EISI " & _
-            "where " & connNameSpace & ".eImailout.STRAIRSYEAR (+) = " & connNameSpace & ".EISI.STRAIRSYEAR " & _
-            "and " & connNameSpace & ".EISI.STRINVENTORYYEAR = '" & year & "' " & _
-            "and " & connNameSpace & ".EISI.STROPTOUT IS NOT NULL) " & _
-            "dt_NotInMailout, " & connNameSpace & ".EISI " & _
-            "Where " & connNameSpace & ".EISI.STRAIRSYEAR = SchemaAIRS " & _
+            SQL = "SELECT " & DBNameSpace & ".EISI.STRAIRSNUMBER, " & _
+            "" & DBNameSpace & ".EISI.STRFACILITYNAME, " & _
+            "" & DBNameSpace & ".EISI.strfinalize, " & _
+            "" & DBNameSpace & ".EISI.STRCONFIRMATIONNumber " & _
+            "from (select " & DBNameSpace & ".EISI.strairsyear as SchemaAIRS, " & _
+            "" & DBNameSpace & ".eImailout.strairsyear as MailoutAIRS " & _
+            "From " & DBNameSpace & ".EIMailout, " & DBNameSpace & ".EISI " & _
+            "where " & DBNameSpace & ".eImailout.STRAIRSYEAR (+) = " & DBNameSpace & ".EISI.STRAIRSYEAR " & _
+            "and " & DBNameSpace & ".EISI.STRINVENTORYYEAR = '" & year & "' " & _
+            "and " & DBNameSpace & ".EISI.STROPTOUT IS NOT NULL) " & _
+            "dt_NotInMailout, " & DBNameSpace & ".EISI " & _
+            "Where " & DBNameSpace & ".EISI.STRAIRSYEAR = SchemaAIRS " & _
             "and MailoutAIRS is NULL " & _
-            "and " & connNameSpace & ".EISI.STROPTOUT='YES'"
+            "and " & DBNameSpace & ".EISI.STROPTOUT='YES'"
 
             dsViewCount = New DataSet
             daViewCount = New OracleDataAdapter(SQL, conn)
@@ -13906,17 +13906,17 @@ Public Class ISMPDataManagementTools
             
             Dim year As String = txtEIYear.Text
 
-            SQL = "SELECT " & connNameSpace & ".EISI.STRAIRSNUMBER, " & _
-            "" & connNameSpace & ".EISI.STRFACILITYNAME, " & _
-            "" & connNameSpace & ".EISI.STRCONTACTFIRSTNAME, " & _
-            "" & connNameSpace & ".EISI.STRCONTACTLASTNAME, " & _
-            "" & connNameSpace & ".EISI.STRCONTACTCOMPANYname, " & _
-            "" & connNameSpace & ".EISI.STRCONTACTEMAIL, " & _
-            "" & connNameSpace & ".EISI.STRCONTACTPHONENUMBER1 " & _
-            "from " & connNameSpace & ".EISI " & _
-            "where " & connNameSpace & ".EISI.strinventoryYear = '" & year & "' " & _
-            "and " & connNameSpace & ".EISI.STROPTOUT is not NULL " & _
-            "order by " & connNameSpace & ".EISI.STRFACILITYNAME"
+            SQL = "SELECT " & DBNameSpace & ".EISI.STRAIRSNUMBER, " & _
+            "" & DBNameSpace & ".EISI.STRFACILITYNAME, " & _
+            "" & DBNameSpace & ".EISI.STRCONTACTFIRSTNAME, " & _
+            "" & DBNameSpace & ".EISI.STRCONTACTLASTNAME, " & _
+            "" & DBNameSpace & ".EISI.STRCONTACTCOMPANYname, " & _
+            "" & DBNameSpace & ".EISI.STRCONTACTEMAIL, " & _
+            "" & DBNameSpace & ".EISI.STRCONTACTPHONENUMBER1 " & _
+            "from " & DBNameSpace & ".EISI " & _
+            "where " & DBNameSpace & ".EISI.strinventoryYear = '" & year & "' " & _
+            "and " & DBNameSpace & ".EISI.STROPTOUT is not NULL " & _
+            "order by " & DBNameSpace & ".EISI.STRFACILITYNAME"
 
             dsViewCount = New DataSet
             daViewCount = New OracleDataAdapter(SQL, conn)
@@ -13967,15 +13967,15 @@ Public Class ISMPDataManagementTools
             Dim year As String = txtEIYear.Text
             Dim intYear As Integer = Int(year)
 
-            SQL = "SELECT " & connNameSpace & ".EISI.STRAIRSNUMBER, " & _
-            "" & connNameSpace & ".EISI.STRFACILITYNAME, " & _
-            "" & connNameSpace & ".EISI.STRfinalize, " & _
-            "" & connNameSpace & ".EISI.STRCONFIRMATIONNumber " & _
-            "from " & connNameSpace & ".EISI, " & connNameSpace & ".eimailout " & _
-            "where " & connNameSpace & ".EISI.strinventoryyear = '" & intYear & "' " & _
-            "and " & connNameSpace & ".EISI.STROPTOUT = 'NO'" & _
-            "and " & connNameSpace & ".EIMAILOUT.STRAIRSYEAR (+)= " & connNameSpace & ".EISI.STRAIRSYEAR " & _
-            "order by " & connNameSpace & ".eisi.STRFACILITYNAME"
+            SQL = "SELECT " & DBNameSpace & ".EISI.STRAIRSNUMBER, " & _
+            "" & DBNameSpace & ".EISI.STRFACILITYNAME, " & _
+            "" & DBNameSpace & ".EISI.STRfinalize, " & _
+            "" & DBNameSpace & ".EISI.STRCONFIRMATIONNumber " & _
+            "from " & DBNameSpace & ".EISI, " & DBNameSpace & ".eimailout " & _
+            "where " & DBNameSpace & ".EISI.strinventoryyear = '" & intYear & "' " & _
+            "and " & DBNameSpace & ".EISI.STROPTOUT = 'NO'" & _
+            "and " & DBNameSpace & ".EIMAILOUT.STRAIRSYEAR (+)= " & DBNameSpace & ".EISI.STRAIRSYEAR " & _
+            "order by " & DBNameSpace & ".eisi.STRFACILITYNAME"
 
             dsViewCount = New DataSet
             daViewCount = New OracleDataAdapter(SQL, conn)
@@ -14019,15 +14019,15 @@ Public Class ISMPDataManagementTools
             Dim year As String = txtEIYear.Text
             Dim intYear As Integer = Int(year)
 
-            SQL = "SELECT " & connNameSpace & ".EISI.STRAIRSNUMBER, " & _
-            "" & connNameSpace & ".EISI.STRFACILITYNAME, " & _
-            "" & connNameSpace & ".EISI.STRfinalize, " & _
-            "" & connNameSpace & ".EISI.STRCONFIRMATIONNumber " & _
-            "from " & connNameSpace & ".EISI, " & connNameSpace & ".eimailout " & _
-            "where " & connNameSpace & ".EISI.strinventoryyear = '" & intYear & "' " & _
-            "and " & connNameSpace & ".EISI.STROPTOUT = 'YES'" & _
-            "and " & connNameSpace & ".EIMAILOUT.STRAIRSYEAR (+)= " & connNameSpace & ".EISI.STRAIRSYEAR " & _
-            "order by " & connNameSpace & ".eisi.STRFACILITYNAME"
+            SQL = "SELECT " & DBNameSpace & ".EISI.STRAIRSNUMBER, " & _
+            "" & DBNameSpace & ".EISI.STRFACILITYNAME, " & _
+            "" & DBNameSpace & ".EISI.STRfinalize, " & _
+            "" & DBNameSpace & ".EISI.STRCONFIRMATIONNumber " & _
+            "from " & DBNameSpace & ".EISI, " & DBNameSpace & ".eimailout " & _
+            "where " & DBNameSpace & ".EISI.strinventoryyear = '" & intYear & "' " & _
+            "and " & DBNameSpace & ".EISI.STROPTOUT = 'YES'" & _
+            "and " & DBNameSpace & ".EIMAILOUT.STRAIRSYEAR (+)= " & DBNameSpace & ".EISI.STRAIRSYEAR " & _
+            "order by " & DBNameSpace & ".eisi.STRFACILITYNAME"
 
             dsViewCount = New DataSet
             daViewCount = New OracleDataAdapter(SQL, conn)
@@ -14078,7 +14078,7 @@ Public Class ISMPDataManagementTools
             "STRCONTACTSTATE, " & _
             "STRCONTACTZIPCODE, " & _
             "STRCONTACTEMAIL " & _
-            "from " & connNameSpace & ".eIMailOut " & _
+            "from " & DBNameSpace & ".eIMailOut " & _
             "where strinventoryyear = '" & year & "' " & _
             "order by STRFACILITYNAME"
 
@@ -14209,7 +14209,7 @@ Public Class ISMPDataManagementTools
             End If
 
             SQL = "Select distinct STRINVENTORYYEAR " & _
-                      "from " & connNameSpace & ".EIMAILOUT  " & _
+                      "from " & DBNameSpace & ".EIMAILOUT  " & _
                       "order by STRINVENTORYYEAR desc"
             Dim cmd As New OracleCommand(SQL, conn)
 
@@ -14240,7 +14240,7 @@ Public Class ISMPDataManagementTools
             End If
 
             SQL = "Select distinct STRINVENTORYYEAR " & _
-                      "from " & connNameSpace & ".EIMAILOUT  " & _
+                      "from " & DBNameSpace & ".EIMAILOUT  " & _
                       "order by STRINVENTORYYEAR desc"
             Dim cmd As New OracleCommand(SQL, conn)
 
@@ -14269,7 +14269,7 @@ Public Class ISMPDataManagementTools
             End If
 
             SQL = "Select distinct ESMAILOUT.STRESYEAR " & _
-                      "from " & connNameSpace & ".ESMAILOUT  " & _
+                      "from " & DBNameSpace & ".ESMAILOUT  " & _
                       "order by STRESYEAR desc"
             Dim cmd As New OracleCommand(SQL, conn)
 
@@ -14330,7 +14330,7 @@ Public Class ISMPDataManagementTools
                 MsgBox("You must select a Mailout Year")
             Else
                 SQL = "Select strAirsNumber " & _
-                "FROM " & connNameSpace & ".EImailOut " & _
+                "FROM " & DBNameSpace & ".EImailOut " & _
                 "where STRINVENTORYYEAR = '" & EIYear & "'"
             End If
             cmd = New OracleCommand(SQL, conn)
@@ -14345,8 +14345,8 @@ Public Class ISMPDataManagementTools
             Else
                 If cboEIMailoutYear.Text <> "" Then
                     If cboEIMailoutYear.Text.Length = 4 Then
-                        SQL = "Select dt_EIcontact.STRairsnumber, " & connNameSpace & ".APBFacilityinformation.STRFACILITYNAME, " & _
-                        "" & connNameSpace & ".APBHEADERDATA.stroperationalstatus, " & connNameSpace & ".APBHEADERDATA.STRCLASS, " & _
+                        SQL = "Select dt_EIcontact.STRairsnumber, " & DBNameSpace & ".APBFacilityinformation.STRFACILITYNAME, " & _
+                        "" & DBNameSpace & ".APBHEADERDATA.stroperationalstatus, " & DBNameSpace & ".APBHEADERDATA.STRCLASS, " & _
                         "(Case " & _
                         "When dt_EIcontact.STRKEY='41' THEN dt_EIcontact.STRContactLastName " & _
                         "When dt_EIcontact.STRKEY Is Null THEN dt_PermitContact.STRContactLastName " & _
@@ -14392,27 +14392,27 @@ Public Class ISMPDataManagementTools
                         "dt_Contact.STRCONTACTPREFIX, dt_Contact.STRCONTACTADDRESS1, dt_Contact.STRCONTACTCITY,  " & _
                         "dt_Contact.STRCONTACTSTATE, dt_Contact.STRCONTACTZIPCODE " & _
                         "FROM " & _
-                        "(Select * FROM " & connNameSpace & ".APBHEADERDATA " & _
+                        "(Select * FROM " & DBNameSpace & ".APBHEADERDATA " & _
                         "where (stroperationalstatus = 'O' OR stroperationalstatus = 'P' oR stroperationalstatus = 'C') AND  " & _
                         "(STRCLASS = 'A')   " & _
                         ") dt_EIList,      " & _
-                        "(Select * From " & connNameSpace & ".APBCONTACTINFORMATION where STRKEY=41) dt_Contact " & _
+                        "(Select * From " & DBNameSpace & ".APBCONTACTINFORMATION where STRKEY=41) dt_Contact " & _
                         "Where dt_EIList.STRAIRSNUMBEr = dt_Contact.STRAIRSNUMBER (+)) dt_EIContact, " & _
                         "(Select DISTINCT dt_eIlist.STRAIRSNUMBER, dt_contact.STRKEY,  " & _
                         "dt_Contact.STRCONTACTLASTNAME, dt_Contact.STRCONTACTFIRSTNAME, " & _
                         "dt_Contact.STRContactCompanyName, dt_Contact.STRContactEmail, dt_Contact.STRCONTACTPREFIX,  " & _
                         "dt_Contact.STRCONTACTADDRESS1, dt_Contact.strcontactcity, dt_Contact.STRCONTACTSTATE, dt_Contact.STRCONTACTZIPCODE " & _
                         "FROM " & _
-                        "(Select * FROM " & connNameSpace & ".APBHEADERDATA " & _
+                        "(Select * FROM " & DBNameSpace & ".APBHEADERDATA " & _
                         "where (stroperationalstatus = 'O' OR stroperationalstatus = 'P' oR stroperationalstatus = 'C') AND  " & _
                         "(STRCLASS = 'A')   " & _
                         ") dt_EIList,      " & _
-                        "(Select * From " & connNameSpace & ".APBCONTACTINFORMATION where STRKEY=30) dt_Contact " & _
+                        "(Select * From " & DBNameSpace & ".APBCONTACTINFORMATION where STRKEY=30) dt_Contact " & _
                         "Where dt_EIList.STRAIRSNUMBEr = dt_Contact.STRAIRSNUMBER (+)) dt_PermitContact, " & _
-                        "" & connNameSpace & ".APBFACILITYINFORMATION, " & _
-                        "" & connNameSpace & ".APBHEADERDATA " & _
-                        "Where " & connNameSpace & ".APBFACILITYINFORMATION.STRAIRSNUMBER= dt_EIContact.STRAIRSNumber and  " & _
-                        "" & connNameSpace & ".APBHEADERDATA.STRAIRSNUMBER= dt_EIContact.STRAIRSNumber and  " & _
+                        "" & DBNameSpace & ".APBFACILITYINFORMATION, " & _
+                        "" & DBNameSpace & ".APBHEADERDATA " & _
+                        "Where " & DBNameSpace & ".APBFACILITYINFORMATION.STRAIRSNUMBER= dt_EIContact.STRAIRSNumber and  " & _
+                        "" & DBNameSpace & ".APBHEADERDATA.STRAIRSNUMBER= dt_EIContact.STRAIRSNumber and  " & _
                         "dt_EIContact.STRAIRSNumber  = dt_PermitContact.STRAIRSNUMBER (+) "
 
                         cmd = New OracleCommand(SQL, conn)
@@ -14481,7 +14481,7 @@ Public Class ISMPDataManagementTools
                                 CONTACTEMAIL = dr("STRCONTACTEMAIL")
                             End If
 
-                            SQL2 = "insert into " & connNameSpace & ".EImailOut " & _
+                            SQL2 = "insert into " & DBNameSpace & ".EImailOut " & _
                            "(strAirsYear, " & _
                            "strAirsNumber, " & _
                            "STRFACILITYNAME, " & _
@@ -14536,7 +14536,7 @@ Public Class ISMPDataManagementTools
                     "STRCONTACTSTATE, " & _
                     "STRCONTACTZIPCODE, " & _
                     "STRCONTACTEMAIL " & _
-                    "from " & connNameSpace & ".eIMailOut " & _
+                    "from " & DBNameSpace & ".eIMailOut " & _
                     "where STRINVENTORYYEAR = '" & year & "' " & _
                     "order by STRFACILITYNAME"
 
@@ -14615,8 +14615,8 @@ Public Class ISMPDataManagementTools
             If EIyear = "Select a Mailout Year & Click Below" Then
                 MsgBox("You must select a Mailout Year", MsgBoxStyle.Information, "EIMailout")
             Else
-                SQL = "delete from " & connNameSpace & ".EImailout " & _
-                "where " & connNameSpace & ".EImailout.STRINVENTORYYEAR = '" & EIyear & "'"
+                SQL = "delete from " & DBNameSpace & ".EImailout " & _
+                "where " & DBNameSpace & ".EImailout.STRINVENTORYYEAR = '" & EIyear & "'"
 
                 MsgBox("EI mail out is deleted!")
 
@@ -14724,7 +14724,7 @@ Public Class ISMPDataManagementTools
 
         Try
             SQL = "Select strAIRSYear " & _
-                  "from " & connNameSpace & ".EIMailout " & _
+                  "from " & DBNameSpace & ".EIMailout " & _
                   "where STRAIRSYEAR = '" & airsYear & "' "
             cmd = New OracleCommand(SQL, conn)
             If conn.State = ConnectionState.Closed Then
@@ -14735,36 +14735,36 @@ Public Class ISMPDataManagementTools
 
 
             If recExist = True Then
-                SQL = "update " & connNameSpace & ".EIMailOut set " & _
-                "" & connNameSpace & ".EIMailOut.STRCONTACTPREFIX = '" & EIPrefix & "', " & _
-                "" & connNameSpace & ".EIMailOut.STRCONTACTFIRSTNAME = '" & EIFirstName & "', " & _
-                "" & connNameSpace & ".EIMailOut.STRCONTACTLASTNAME = '" & EILastName & "', " & _
-                "" & connNameSpace & ".EIMailOut.STRCONTACTCOMPANYNAME = '" & EICompanyName & "', " & _
-                "" & connNameSpace & ".EIMailOut.STRCONTACTADDRESS1 = '" & EIContactAddress1 & "', " & _
-                "" & connNameSpace & ".EIMailOut.STRCONTACTADDRESS2 = '" & EIContactAddress2 & "', " & _
-                "" & connNameSpace & ".EIMailOut.STRCONTACTCITY = '" & EIContactCity & "', " & _
-                "" & connNameSpace & ".EIMailOut.STRCONTACTSTATE = '" & EIcontactState & "', " & _
-                "" & connNameSpace & ".EIMailOut.STRCONTACTZIPCODE = '" & EIContactZip & "', " & _
-                "" & connNameSpace & ".EIMailOut.STRCONTACTEMAIL = '" & EIContactEmail & "'" & _
-                "where " & connNameSpace & ".EIMailOut.STRAIRSYEAR = '" & airsYear & "' "
+                SQL = "update " & DBNameSpace & ".EIMailOut set " & _
+                "" & DBNameSpace & ".EIMailOut.STRCONTACTPREFIX = '" & EIPrefix & "', " & _
+                "" & DBNameSpace & ".EIMailOut.STRCONTACTFIRSTNAME = '" & EIFirstName & "', " & _
+                "" & DBNameSpace & ".EIMailOut.STRCONTACTLASTNAME = '" & EILastName & "', " & _
+                "" & DBNameSpace & ".EIMailOut.STRCONTACTCOMPANYNAME = '" & EICompanyName & "', " & _
+                "" & DBNameSpace & ".EIMailOut.STRCONTACTADDRESS1 = '" & EIContactAddress1 & "', " & _
+                "" & DBNameSpace & ".EIMailOut.STRCONTACTADDRESS2 = '" & EIContactAddress2 & "', " & _
+                "" & DBNameSpace & ".EIMailOut.STRCONTACTCITY = '" & EIContactCity & "', " & _
+                "" & DBNameSpace & ".EIMailOut.STRCONTACTSTATE = '" & EIcontactState & "', " & _
+                "" & DBNameSpace & ".EIMailOut.STRCONTACTZIPCODE = '" & EIContactZip & "', " & _
+                "" & DBNameSpace & ".EIMailOut.STRCONTACTEMAIL = '" & EIContactEmail & "'" & _
+                "where " & DBNameSpace & ".EIMailOut.STRAIRSYEAR = '" & airsYear & "' "
                 MsgBox("your info is updated")
             Else
 
-                SQL = "Insert into " & connNameSpace & ".EIMailOut" & _
-                "(" & connNameSpace & ".EIMailOut.STRAIRSYEAR, " & _
-              "" & connNameSpace & ".EIMailOut.STRAIRSNUMBER, " & _
-              "" & connNameSpace & ".EIMailOut.STRFACILITYNAME, " & _
-              "" & connNameSpace & ".EIMailOut.STRCONTACTPREFIX, " & _
-              "" & connNameSpace & ".EIMailOut.STRCONTACTFIRSTNAME, " & _
-              "" & connNameSpace & ".EIMailOut.STRCONTACTLASTNAME, " & _
-              "" & connNameSpace & ".EIMailOut.STRCONTACTCOMPANYNAME, " & _
-              "" & connNameSpace & ".EIMailOut.STRCONTACTADDRESS1, " & _
-              "" & connNameSpace & ".EIMailOut.STRCONTACTADDRESS2, " & _
-              "" & connNameSpace & ".EIMailOut.STRCONTACTCITY, " & _
-              "" & connNameSpace & ".EIMailOut.STRCONTACTSTATE, " & _
-              "" & connNameSpace & ".EIMailOut.STRCONTACTZIPCODE, " & _
-              "" & connNameSpace & ".EIMailOut.STRINVENTORYYEAR, " & _
-              "" & connNameSpace & ".EIMailOut.STRCONTACTEMAIL) " & _
+                SQL = "Insert into " & DBNameSpace & ".EIMailOut" & _
+                "(" & DBNameSpace & ".EIMailOut.STRAIRSYEAR, " & _
+              "" & DBNameSpace & ".EIMailOut.STRAIRSNUMBER, " & _
+              "" & DBNameSpace & ".EIMailOut.STRFACILITYNAME, " & _
+              "" & DBNameSpace & ".EIMailOut.STRCONTACTPREFIX, " & _
+              "" & DBNameSpace & ".EIMailOut.STRCONTACTFIRSTNAME, " & _
+              "" & DBNameSpace & ".EIMailOut.STRCONTACTLASTNAME, " & _
+              "" & DBNameSpace & ".EIMailOut.STRCONTACTCOMPANYNAME, " & _
+              "" & DBNameSpace & ".EIMailOut.STRCONTACTADDRESS1, " & _
+              "" & DBNameSpace & ".EIMailOut.STRCONTACTADDRESS2, " & _
+              "" & DBNameSpace & ".EIMailOut.STRCONTACTCITY, " & _
+              "" & DBNameSpace & ".EIMailOut.STRCONTACTSTATE, " & _
+              "" & DBNameSpace & ".EIMailOut.STRCONTACTZIPCODE, " & _
+              "" & DBNameSpace & ".EIMailOut.STRINVENTORYYEAR, " & _
+              "" & DBNameSpace & ".EIMailOut.STRCONTACTEMAIL) " & _
                 "values (" & _
                 "'" & Replace(airsYear, "'", "''") & "', " & _
                 "'" & Replace(AirsNo, "'", "''") & "', " & _
@@ -14816,9 +14816,9 @@ Public Class ISMPDataManagementTools
         Dim EIyear As String = txtEIYear.Text
 
         Try
-            SQL = "delete from " & connNameSpace & ".EIMailOut " & _
-          "where " & connNameSpace & ".EIMailOut.STRAIRSNUMBER = '" & AirsNo & "' " & _
-          " and " & connNameSpace & ".EIMailOut.STRINVENTORYYEAR = '" & EIyear & "'"
+            SQL = "delete from " & DBNameSpace & ".EIMailOut " & _
+          "where " & DBNameSpace & ".EIMailOut.STRAIRSNUMBER = '" & AirsNo & "' " & _
+          " and " & DBNameSpace & ".EIMailOut.STRINVENTORYYEAR = '" & EIyear & "'"
 
             cmd = New OracleCommand(SQL, conn)
             If conn.State = ConnectionState.Closed Then
@@ -14841,21 +14841,21 @@ Public Class ISMPDataManagementTools
             Dim year As String = txtEIYear.Text
             Dim intYear As Integer = Int(year)
 
-            SQL = "SELECT " & connNameSpace & ".EISI.STRAIRSNUMBER, " & _
-            "" & connNameSpace & ".EISI.STRFACILITYNAME, " & _
+            SQL = "SELECT " & DBNameSpace & ".EISI.STRAIRSNUMBER, " & _
+            "" & DBNameSpace & ".EISI.STRFACILITYNAME, " & _
             "case " & _
             "when substr(strFinalize, 2, 1) = '-' then '0'||substr(strFinalize, 1, 10) " & _
             "else substr(strFinalize, 1,11) " & _
             "end Finalize, " & _
-            "" & connNameSpace & ".EISI.STRfinalize, " & _
-            "" & connNameSpace & ".EISI.STRQADONE, " & _
-            "" & connNameSpace & ".EISI.STRCONFIRMATIONNumber " & _
-            "from " & connNameSpace & ".EISI, " & connNameSpace & ".eimailout " & _
-            "where " & connNameSpace & ".EISI.strinventoryyear = '" & intYear & "' " & _
-            "and " & connNameSpace & ".EISI.STROPTOUT = 'NO' " & _
-            "and " & connNameSpace & ".EISI.strfinalize is not NULL " & _
-            "and " & connNameSpace & ".EIMAILOUT.STRAIRSYEAR = " & connNameSpace & ".EISI.STRAIRSYEAR (+)" & _
-            "order by " & connNameSpace & ".eisi.STRFACILITYNAME"
+            "" & DBNameSpace & ".EISI.STRfinalize, " & _
+            "" & DBNameSpace & ".EISI.STRQADONE, " & _
+            "" & DBNameSpace & ".EISI.STRCONFIRMATIONNumber " & _
+            "from " & DBNameSpace & ".EISI, " & DBNameSpace & ".eimailout " & _
+            "where " & DBNameSpace & ".EISI.strinventoryyear = '" & intYear & "' " & _
+            "and " & DBNameSpace & ".EISI.STROPTOUT = 'NO' " & _
+            "and " & DBNameSpace & ".EISI.strfinalize is not NULL " & _
+            "and " & DBNameSpace & ".EIMAILOUT.STRAIRSYEAR = " & DBNameSpace & ".EISI.STRAIRSYEAR (+)" & _
+            "order by " & DBNameSpace & ".eisi.STRFACILITYNAME"
 
             dsViewCount = New DataSet
             daViewCount = New OracleDataAdapter(SQL, conn)
@@ -14902,15 +14902,15 @@ Public Class ISMPDataManagementTools
             
             Dim year As String = txtEIYear.Text
 
-            SQL = "SELECT " & connNameSpace & ".EISI.STRAIRSNUMBER, " & _
-            "" & connNameSpace & ".EISI.STRFACILITYNAME, " & _
-            "" & connNameSpace & ".EISI.STRDATELASTLOGIN " & _
-            "from " & connNameSpace & ".EISI, " & connNameSpace & ".eimailout " & _
-            "where " & connNameSpace & ".eImailout.STRINVENTORYYEAR = '" & year & "'" & _
-            "and " & connNameSpace & ".EISI.STROPTOUT = 'NO' " & _
-            "and " & connNameSpace & ".EISI.strfinalize is NULL " & _
-            "and " & connNameSpace & ".EIMAILOUT.STRAIRSYEAR (+)= " & connNameSpace & ".EISI.STRAIRSYEAR " & _
-            "order by " & connNameSpace & ".eisi.STRFACILITYNAME"
+            SQL = "SELECT " & DBNameSpace & ".EISI.STRAIRSNUMBER, " & _
+            "" & DBNameSpace & ".EISI.STRFACILITYNAME, " & _
+            "" & DBNameSpace & ".EISI.STRDATELASTLOGIN " & _
+            "from " & DBNameSpace & ".EISI, " & DBNameSpace & ".eimailout " & _
+            "where " & DBNameSpace & ".eImailout.STRINVENTORYYEAR = '" & year & "'" & _
+            "and " & DBNameSpace & ".EISI.STROPTOUT = 'NO' " & _
+            "and " & DBNameSpace & ".EISI.strfinalize is NULL " & _
+            "and " & DBNameSpace & ".EIMAILOUT.STRAIRSYEAR (+)= " & DBNameSpace & ".EISI.STRAIRSYEAR " & _
+            "order by " & DBNameSpace & ".eisi.STRFACILITYNAME"
 
             dsViewCount = New DataSet
             daViewCount = New OracleDataAdapter(SQL, conn)
@@ -14962,7 +14962,7 @@ Public Class ISMPDataManagementTools
             "STRCONTACTSTATE, " & _
             "STRCONTACTZIPCODE, " & _
             "STRCONTACTEMAIL " & _
-            "from " & connNameSpace & ".eIMailOut " & _
+            "from " & DBNameSpace & ".eIMailOut " & _
             "where STRINVENTORYYEAR = '" & year & "' " & _
             "order by STRFACILITYNAME"
 
@@ -16131,7 +16131,7 @@ Public Class ISMPDataManagementTools
     End Sub
     Sub TransferLookUpAPBManagement()
         SQL = "Select * " & _
-           "from " & connNameSpace & ".LOOKUPAPBMANAGEMENT "
+           "from " & DBNameSpace & ".LOOKUPAPBMANAGEMENT "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -16140,7 +16140,7 @@ Public Class ISMPDataManagementTools
         End If
         daTemp.Fill(dsTemp, "Temp")
 
-        SQL = "DELETE " & connNameSpace & ".LOOKUPAPBMANAGEMENT "
+        SQL = "DELETE " & DBNameSpace & ".LOOKUPAPBMANAGEMENT "
         cmd = New OracleCommand(SQL, transferConn)
         If transferConn.State = ConnectionState.Closed Then
             transferConn.Open()
@@ -16175,7 +16175,7 @@ Public Class ISMPDataManagementTools
                 temp5 = drDSRow("STRSSPPPROGRAMMANG")
             End If
 
-            SQL = "Insert into " & connNameSpace & ".LOOKUPAPBMANAGEMENT " & _
+            SQL = "Insert into " & DBNameSpace & ".LOOKUPAPBMANAGEMENT " & _
             "Values " & _
             "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
             "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "', " & _
@@ -16191,7 +16191,7 @@ Public Class ISMPDataManagementTools
     End Sub
     Sub TransferLookUpApplicationType()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".LOOKUPAPPLICATIONTYPES "
+        "from " & DBNameSpace & ".LOOKUPAPPLICATIONTYPES "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -16218,7 +16218,7 @@ Public Class ISMPDataManagementTools
             End If
 
             SQL = "SELECT COUNT(*) " & _
-            "FROM " & connNameSpace & ".LOOKUPAPPLICATIONTYPES " & _
+            "FROM " & DBNameSpace & ".LOOKUPAPPLICATIONTYPES " & _
             "WHERE STRAPPLICATIONTYPECODE = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -16227,12 +16227,12 @@ Public Class ISMPDataManagementTools
             dr = cmd.ExecuteReader
             recExist = dr.Read
             If recExist = False Or dr.Item(0) = 0 Then
-                SQL = "Insert into " & connNameSpace & ".LOOKUPAPPLICATIONTYPES " & _
+                SQL = "Insert into " & DBNameSpace & ".LOOKUPAPPLICATIONTYPES " & _
                 "Values " & _
                 "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                 "'" & Replace(temp3, "'", "''") & "') "
             Else
-                SQL = "UPDATE " & connNameSpace & ".LOOKUPAPPLICATIONTYPES SET " & _
+                SQL = "UPDATE " & DBNameSpace & ".LOOKUPAPPLICATIONTYPES SET " & _
                 "STRAPPLICATIONTYPECODE = '" & Replace(temp, "'", "''") & "', " & _
                 "STRAPPLICATIONTYPEDESC = '" & Replace(temp2, "'", "''") & "', " & _
                 "STRAPPLICATIONTYPEUSED = '" & Replace(temp3, "'", "''") & "' " & _
@@ -16250,7 +16250,7 @@ Public Class ISMPDataManagementTools
     End Sub
     Sub TransferLookUpComplianceActivities()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".LOOKUPCOMPLIANCEACTIVITIES "
+        "from " & DBNameSpace & ".LOOKUPCOMPLIANCEACTIVITIES "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -16277,7 +16277,7 @@ Public Class ISMPDataManagementTools
             End If
 
             SQL = "SELECT COUNT(*) " & _
-            "FROM " & connNameSpace & ".LOOKUPCOMPLIANCEACTIVITIES " & _
+            "FROM " & DBNameSpace & ".LOOKUPCOMPLIANCEACTIVITIES " & _
             "WHERE STRACTIVITYTYPE = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -16286,12 +16286,12 @@ Public Class ISMPDataManagementTools
             dr = cmd.ExecuteReader
             recExist = dr.Read
             If recExist = False Or dr.Item(0) = 0 Then
-                SQL = "Insert into " & connNameSpace & ".LOOKUPCOMPLIANCEACTIVITIES " & _
+                SQL = "Insert into " & DBNameSpace & ".LOOKUPCOMPLIANCEACTIVITIES " & _
                 "Values " & _
                 "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                 "'" & Replace(temp3, "'", "''") & "') "
             Else
-                SQL = "UPDATE " & connNameSpace & ".LOOKUPCOMPLIANCEACTIVITIES SET " & _
+                SQL = "UPDATE " & DBNameSpace & ".LOOKUPCOMPLIANCEACTIVITIES SET " & _
                 "STRACTIVITYTYPE = '" & Replace(temp, "'", "''") & "', " & _
                 "STRACTIVITYNAME = '" & Replace(temp2, "'", "''") & "', " & _
                 "STRACTIVITYDESCRIPTION = '" & Replace(temp3, "'", "''") & "' " & _
@@ -16309,7 +16309,7 @@ Public Class ISMPDataManagementTools
     End Sub
     Sub TransferLookUpComplianceStatus()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".LOOKUPCOMPLIANCESTATUS "
+        "from " & DBNameSpace & ".LOOKUPCOMPLIANCESTATUS "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -16331,7 +16331,7 @@ Public Class ISMPDataManagementTools
             End If
 
             SQL = "SELECT COUNT(*) " & _
-            "FROM " & connNameSpace & ".LOOKUPCOMPLIANCESTATUS " & _
+            "FROM " & DBNameSpace & ".LOOKUPCOMPLIANCESTATUS " & _
             "WHERE STRCOMPLIANCECODE = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -16340,12 +16340,12 @@ Public Class ISMPDataManagementTools
             dr = cmd.ExecuteReader
             recExist = dr.Read
             If recExist = False Or dr.Item(0) = 0 Then
-                SQL = "Insert into " & connNameSpace & ".LOOKUPCOMPLIANCESTATUS " & _
+                SQL = "Insert into " & DBNameSpace & ".LOOKUPCOMPLIANCESTATUS " & _
                 "Values " & _
                 "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                 "'" & Replace(temp3, "'", "''") & "') "
             Else
-                SQL = "UPDATE " & connNameSpace & ".LOOKUPCOMPLIANCESTATUS SET " & _
+                SQL = "UPDATE " & DBNameSpace & ".LOOKUPCOMPLIANCESTATUS SET " & _
                 "STRCOMPLIANCECODE = '" & Replace(temp, "'", "''") & "', " & _
                 "STRCOMPLIANCEDESC = '" & Replace(temp2, "'", "''") & "' " & _
                 "WHERE STRCOMPLIANCECODE = '" & Replace(temp, "'", "''") & "' "
@@ -16363,7 +16363,7 @@ Public Class ISMPDataManagementTools
     End Sub
     Sub TransferLookUpComplinaceUnits()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".LOOKUPCOMPLIANCEUNITS "
+        "from " & DBNameSpace & ".LOOKUPCOMPLIANCEUNITS "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -16390,7 +16390,7 @@ Public Class ISMPDataManagementTools
             End If
 
             SQL = "SELECT COUNT(*) " & _
-            "FROM " & connNameSpace & ".LOOKUPCOMPLIANCEUNITS " & _
+            "FROM " & DBNameSpace & ".LOOKUPCOMPLIANCEUNITS " & _
             "WHERE STRCOMPLIANCEUNIT = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -16399,12 +16399,12 @@ Public Class ISMPDataManagementTools
             dr = cmd.ExecuteReader
             recExist = dr.Read
             If recExist = False Or dr.Item(0) = 0 Then
-                SQL = "Insert into " & connNameSpace & ".LOOKUPCOMPLIANCEUNITS " & _
+                SQL = "Insert into " & DBNameSpace & ".LOOKUPCOMPLIANCEUNITS " & _
                 "Values " & _
                 "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                 "'" & Replace(temp3, "'", "''") & "') "
             Else
-                SQL = "UPDATE " & connNameSpace & ".LOOKUPCOMPLIANCEUNITS SET " & _
+                SQL = "UPDATE " & DBNameSpace & ".LOOKUPCOMPLIANCEUNITS SET " & _
                 "STRCOMPLIANCEUNIT = '" & Replace(temp, "'", "''") & "', " & _
                 "STRUNITTITLE = '" & Replace(temp2, "'", "''") & "', " & _
                 "STRUNITMANAGER = '" & Replace(temp3, "'", "''") & "' " & _
@@ -16422,7 +16422,7 @@ Public Class ISMPDataManagementTools
     End Sub
     Sub TransferLookUpCountyInformation()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".LOOKUPCOUNTYINFORMATION "
+        "from " & DBNameSpace & ".LOOKUPCOUNTYINFORMATION "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -16454,7 +16454,7 @@ Public Class ISMPDataManagementTools
             End If
 
             SQL = "SELECT COUNT(*) " & _
-            "FROM " & connNameSpace & ".LOOKUPCOUNTYINFORMATION " & _
+            "FROM " & DBNameSpace & ".LOOKUPCOUNTYINFORMATION " & _
             "WHERE STRCOUNTYCODE = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -16463,12 +16463,12 @@ Public Class ISMPDataManagementTools
             dr = cmd.ExecuteReader
             recExist = dr.Read
             If recExist = False Or dr.Item(0) = 0 Then
-                SQL = "Insert into " & connNameSpace & ".LOOKUPCOUNTYINFORMATION " & _
+                SQL = "Insert into " & DBNameSpace & ".LOOKUPCOUNTYINFORMATION " & _
                 "Values " & _
                 "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                 "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "') "
             Else
-                SQL = "UPDATE " & connNameSpace & ".LOOKUPCOUNTYINFORMATION SET " & _
+                SQL = "UPDATE " & DBNameSpace & ".LOOKUPCOUNTYINFORMATION SET " & _
                 "STRCOUNTYCODE = '" & Replace(temp, "'", "''") & "', " & _
                 "STRCOUNTYNAME = '" & Replace(temp2, "'", "''") & "', " & _
                 "STRATTAINMENTSTATUS = '" & Replace(temp3, "'", "''") & "', " & _
@@ -16489,7 +16489,7 @@ Public Class ISMPDataManagementTools
     End Sub
     Sub TransferLookUpDistrictInformation()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".LOOKUPDISTRICTINFORMATION "
+        "from " & DBNameSpace & ".LOOKUPDISTRICTINFORMATION "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -16511,7 +16511,7 @@ Public Class ISMPDataManagementTools
             End If
 
             SQL = "SELECT COUNT(*) " & _
-            "FROM " & connNameSpace & ".LOOKUPDISTRICTINFORMATION " & _
+            "FROM " & DBNameSpace & ".LOOKUPDISTRICTINFORMATION " & _
             "WHERE STRDISTRICTCOUNTY = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -16520,11 +16520,11 @@ Public Class ISMPDataManagementTools
             dr = cmd.ExecuteReader
             recExist = dr.Read
             If recExist = False Or dr.Item(0) = 0 Then
-                SQL = "Insert into " & connNameSpace & ".LOOKUPDISTRICTINFORMATION " & _
+                SQL = "Insert into " & DBNameSpace & ".LOOKUPDISTRICTINFORMATION " & _
                 "Values " & _
                 "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "') "
             Else
-                SQL = "UPDATE " & connNameSpace & ".LOOKUPDISTRICTINFORMATION SET " & _
+                SQL = "UPDATE " & DBNameSpace & ".LOOKUPDISTRICTINFORMATION SET " & _
                 "STRDISTRICTCOUNTY = '" & Replace(temp, "'", "''") & "', " & _
                 "STRDISTRICTCODE = '" & Replace(temp2, "'", "''") & "' " & _
                 "WHERE STRDISTRICTCOUNTY = '" & Replace(temp, "'", "''") & "' "
@@ -16541,7 +16541,7 @@ Public Class ISMPDataManagementTools
     End Sub
     Sub TransferLookUpDistrictOffice()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".LOOKUPDISTRICTOFFICE "
+        "from " & DBNameSpace & ".LOOKUPDISTRICTOFFICE "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -16563,7 +16563,7 @@ Public Class ISMPDataManagementTools
             End If
 
             SQL = "SELECT COUNT(*) " & _
-            "FROM " & connNameSpace & ".LOOKUPDISTRICTOFFICE " & _
+            "FROM " & DBNameSpace & ".LOOKUPDISTRICTOFFICE " & _
             "WHERE STRDISTRICTCODE = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -16572,11 +16572,11 @@ Public Class ISMPDataManagementTools
             dr = cmd.ExecuteReader
             recExist = dr.Read
             If recExist = False Or dr.Item(0) = 0 Then
-                SQL = "Insert into " & connNameSpace & ".LOOKUPDISTRICTOFFICE " & _
+                SQL = "Insert into " & DBNameSpace & ".LOOKUPDISTRICTOFFICE " & _
                 "Values " & _
                 "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "') "
             Else
-                SQL = "UPDATE " & connNameSpace & ".LOOKUPDISTRICTOFFICE SET " & _
+                SQL = "UPDATE " & DBNameSpace & ".LOOKUPDISTRICTOFFICE SET " & _
                 "STRDISTRICTCODE = '" & Replace(temp, "'", "''") & "', " & _
                 "STROFFICENAME = '" & Replace(temp2, "'", "''") & "' " & _
                 "WHERE STRDISTRICTCODE = '" & Replace(temp, "'", "''") & "' "
@@ -16594,7 +16594,7 @@ Public Class ISMPDataManagementTools
     End Sub
     Sub TransferLookUpDistricts()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".LOOKUPDISTRICTS "
+        "from " & DBNameSpace & ".LOOKUPDISTRICTS "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -16621,7 +16621,7 @@ Public Class ISMPDataManagementTools
             End If
 
             SQL = "SELECT COUNT(*) " & _
-            "FROM " & connNameSpace & ".LOOKUPDISTRICTS " & _
+            "FROM " & DBNameSpace & ".LOOKUPDISTRICTS " & _
             "WHERE STRDISTRICTCODE = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -16630,12 +16630,12 @@ Public Class ISMPDataManagementTools
             dr = cmd.ExecuteReader
             recExist = dr.Read
             If recExist = False Or dr.Item(0) = 0 Then
-                SQL = "Insert into " & connNameSpace & ".LOOKUPDISTRICTS " & _
+                SQL = "Insert into " & DBNameSpace & ".LOOKUPDISTRICTS " & _
                 "Values " & _
                 "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                 "'" & Replace(temp3, "'", "''") & "') "
             Else
-                SQL = "UPDATE " & connNameSpace & ".LOOKUPDISTRICTS SET " & _
+                SQL = "UPDATE " & DBNameSpace & ".LOOKUPDISTRICTS SET " & _
                 "STRDISTRICTCODE = '" & Replace(temp, "'", "''") & "', " & _
                 "STRDISTRICTNAME = '" & Replace(temp2, "'", "''") & "', " & _
                 "STRDISTRICTMANAGER = '" & Replace(temp3, "'", "''") & "' " & _
@@ -16653,7 +16653,7 @@ Public Class ISMPDataManagementTools
     End Sub
     Sub TransferLookUpEPDBranches()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".LOOKUPEPDBranches "
+        "from " & DBNameSpace & ".LOOKUPEPDBranches "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -16675,7 +16675,7 @@ Public Class ISMPDataManagementTools
             End If
 
             SQL = "SELECT COUNT(*) " & _
-            "FROM " & connNameSpace & ".LOOKUPEPDBranches " & _
+            "FROM " & DBNameSpace & ".LOOKUPEPDBranches " & _
             "WHERE numbranchCode = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -16684,11 +16684,11 @@ Public Class ISMPDataManagementTools
             dr = cmd.ExecuteReader
             recExist = dr.Read
             If recExist = False Or dr.Item(0) = 0 Then
-                SQL = "Insert into " & connNameSpace & ".LOOKUPEPDBranches " & _
+                SQL = "Insert into " & DBNameSpace & ".LOOKUPEPDBranches " & _
                 "Values " & _
                 "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "') "
             Else
-                SQL = "UPDATE " & connNameSpace & ".LOOKUPEPDBranches SET " & _
+                SQL = "UPDATE " & DBNameSpace & ".LOOKUPEPDBranches SET " & _
                 "numbranchCode = '" & Replace(temp, "'", "''") & "', " & _
                 "strBranchDESC = '" & Replace(temp2, "'", "''") & "' " & _
                 "WHERE numbranchCode = '" & Replace(temp, "'", "''") & "' "
@@ -16705,7 +16705,7 @@ Public Class ISMPDataManagementTools
     End Sub
     Sub TransferLookUpEPDPrograms()
         SQL = "Select * " & _
-              "from " & connNameSpace & ".LOOKUPEPDPrograms "
+              "from " & DBNameSpace & ".LOOKUPEPDPrograms "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -16732,7 +16732,7 @@ Public Class ISMPDataManagementTools
             End If
 
             SQL = "SELECT COUNT(*) " & _
-            "FROM " & connNameSpace & ".LOOKUPEPDPrograms " & _
+            "FROM " & DBNameSpace & ".LOOKUPEPDPrograms " & _
             "WHERE numProgramCode = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -16741,12 +16741,12 @@ Public Class ISMPDataManagementTools
             dr = cmd.ExecuteReader
             recExist = dr.Read
             If recExist = False Or dr.Item(0) = 0 Then
-                SQL = "Insert into " & connNameSpace & ".LOOKUPEPDPrograms " & _
+                SQL = "Insert into " & DBNameSpace & ".LOOKUPEPDPrograms " & _
                 "Values " & _
                 "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                 "'" & Replace(temp3, "'", "''") & "') "
             Else
-                SQL = "UPDATE " & connNameSpace & ".LOOKUPEPDPrograms SET " & _
+                SQL = "UPDATE " & DBNameSpace & ".LOOKUPEPDPrograms SET " & _
                 "numProgramCode = '" & Replace(temp, "'", "''") & "', " & _
                 "strProgramDesc = '" & Replace(temp2, "'", "''") & "', " & _
                 "numBranchCode = '" & Replace(temp3, "'", "''") & "' " & _
@@ -16764,7 +16764,7 @@ Public Class ISMPDataManagementTools
     End Sub
     Sub TransferLookUpEPDUnits()
         SQL = "Select * " & _
-                    "from " & connNameSpace & ".LookUpEPDUnits "
+                    "from " & DBNameSpace & ".LookUpEPDUnits "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -16791,7 +16791,7 @@ Public Class ISMPDataManagementTools
             End If
 
             SQL = "SELECT COUNT(*) " & _
-            "FROM " & connNameSpace & ".LookUpEPDUnits " & _
+            "FROM " & DBNameSpace & ".LookUpEPDUnits " & _
             "WHERE numUnitCode = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -16800,12 +16800,12 @@ Public Class ISMPDataManagementTools
             dr = cmd.ExecuteReader
             recExist = dr.Read
             If recExist = False Or dr.Item(0) = 0 Then
-                SQL = "Insert into " & connNameSpace & ".LookUpEPDUnits " & _
+                SQL = "Insert into " & DBNameSpace & ".LookUpEPDUnits " & _
                 "Values " & _
                 "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                 "'" & Replace(temp3, "'", "''") & "') "
             Else
-                SQL = "UPDATE " & connNameSpace & ".LookUpEPDUnits SET " & _
+                SQL = "UPDATE " & DBNameSpace & ".LookUpEPDUnits SET " & _
                 "numUnitCode = '" & Replace(temp, "'", "''") & "', " & _
                 "strUnitDesc = '" & Replace(temp2, "'", "''") & "', " & _
                 "numProgramCode = '" & Replace(temp3, "'", "''") & "' " & _
@@ -16823,7 +16823,7 @@ Public Class ISMPDataManagementTools
     End Sub
     Sub TransferLookUpHPVViolations()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".LOOKUPHPVVIOLATIONS "
+        "from " & DBNameSpace & ".LOOKUPHPVVIOLATIONS "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -16845,7 +16845,7 @@ Public Class ISMPDataManagementTools
             End If
 
             SQL = "SELECT COUNT(*) " & _
-            "FROM " & connNameSpace & ".LOOKUPHPVVIOLATIONS " & _
+            "FROM " & DBNameSpace & ".LOOKUPHPVVIOLATIONS " & _
             "WHERE STRHPVCODE = '" & Replace(temp, "'", "''") & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -16854,11 +16854,11 @@ Public Class ISMPDataManagementTools
             dr = cmd.ExecuteReader
             recExist = dr.Read
             If recExist = False Or dr.Item(0) = 0 Then
-                SQL = "Insert into " & connNameSpace & ".LOOKUPHPVVIOLATIONS " & _
+                SQL = "Insert into " & DBNameSpace & ".LOOKUPHPVVIOLATIONS " & _
                 "Values " & _
                 "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "') "
             Else
-                SQL = "UPDATE " & connNameSpace & ".LOOKUPHPVVIOLATIONS SET " & _
+                SQL = "UPDATE " & DBNameSpace & ".LOOKUPHPVVIOLATIONS SET " & _
                 "STRHPVVIOLATIONDESC = '" & Replace(temp, "'", "''") & "', " & _
                 "STRHPVCODE = '" & Replace(temp2, "'", "''") & "' " & _
                 "WHERE STRHPVCODE = '" & Replace(temp, "'", "''") & "' "
@@ -16876,7 +16876,7 @@ Public Class ISMPDataManagementTools
     End Sub
     Sub TransferLookUpIAIPAccounts()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".LookupIAIPAccounts "
+        "from " & DBNameSpace & ".LookupIAIPAccounts "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -16918,7 +16918,7 @@ Public Class ISMPDataManagementTools
             End If
 
             SQL = "SELECT COUNT(*) " & _
-            "FROM " & connNameSpace & ".LookupIAIPAccounts " & _
+            "FROM " & DBNameSpace & ".LookupIAIPAccounts " & _
             "WHERE numAccountCode = '" & Replace(temp, "'", "''") & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -16927,13 +16927,13 @@ Public Class ISMPDataManagementTools
             dr = cmd.ExecuteReader
             recExist = dr.Read
             If recExist = False Or dr.Item(0) = 0 Then
-                SQL = "Insert into " & connNameSpace & ".LookupIAIPAccounts " & _
+                SQL = "Insert into " & DBNameSpace & ".LookupIAIPAccounts " & _
                 "Values " & _
                 "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                 "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "', " & _
                 "'" & Replace(temp5, "'", "''") & "', '" & Replace(temp6, "'", "''") & "') "
             Else
-                SQL = "UPDATE " & connNameSpace & ".LookupIAIPAccounts SET " & _
+                SQL = "UPDATE " & DBNameSpace & ".LookupIAIPAccounts SET " & _
                 "numAccountCode = '" & Replace(temp, "'", "''") & "', " & _
                 "strAccountDesc = '" & Replace(temp2, "'", "''") & "', " & _
                 "numBranchCode = '" & Replace(temp3, "'", "''") & "', " & _
@@ -16954,7 +16954,7 @@ Public Class ISMPDataManagementTools
     End Sub
     Sub TransferLookUpIAIPForms()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".LookUpIAIPForms "
+        "from " & DBNameSpace & ".LookUpIAIPForms "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -16981,7 +16981,7 @@ Public Class ISMPDataManagementTools
             End If
 
             SQL = "SELECT COUNT(*) " & _
-            "FROM " & connNameSpace & ".LookUpIAIPForms " & _
+            "FROM " & DBNameSpace & ".LookUpIAIPForms " & _
             "WHERE numFormCode = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -16990,12 +16990,12 @@ Public Class ISMPDataManagementTools
             dr = cmd.ExecuteReader
             recExist = dr.Read
             If recExist = False Or dr.Item(0) = 0 Then
-                SQL = "Insert into " & connNameSpace & ".LookUpIAIPForms " & _
+                SQL = "Insert into " & DBNameSpace & ".LookUpIAIPForms " & _
                 "Values " & _
                 "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                 "'" & Replace(temp3, "'", "''") & "') "
             Else
-                SQL = "UPDATE " & connNameSpace & ".LookUpIAIPForms SET " & _
+                SQL = "UPDATE " & DBNameSpace & ".LookUpIAIPForms SET " & _
                 "numFormCode = '" & Replace(temp, "'", "''") & "', " & _
                 "strForm = '" & Replace(temp2, "'", "''") & "', " & _
                 "strFormDesc = '" & Replace(temp3, "'", "''") & "' " & _
@@ -17013,7 +17013,7 @@ Public Class ISMPDataManagementTools
     End Sub
     Sub TransferLookUPISMPComplianceStatus()
         SQL = "Select * " & _
-              "from " & connNameSpace & ".LookUpISMPComplianceStatus "
+              "from " & DBNameSpace & ".LookUpISMPComplianceStatus "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -17040,7 +17040,7 @@ Public Class ISMPDataManagementTools
             End If
 
             SQL = "SELECT COUNT(*) " & _
-            "FROM " & connNameSpace & ".LookUpISMPComplianceStatus " & _
+            "FROM " & DBNameSpace & ".LookUpISMPComplianceStatus " & _
             "WHERE strComplianceKey = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -17049,12 +17049,12 @@ Public Class ISMPDataManagementTools
             dr = cmd.ExecuteReader
             recExist = dr.Read
             If recExist = False Or dr.Item(0) = 0 Then
-                SQL = "Insert into " & connNameSpace & ".LookUpISMPComplianceStatus " & _
+                SQL = "Insert into " & DBNameSpace & ".LookUpISMPComplianceStatus " & _
                 "Values " & _
                 "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                 "'" & Replace(temp3, "'", "''") & "') "
             Else
-                SQL = "UPDATE " & connNameSpace & ".LookUpISMPComplianceStatus SET " & _
+                SQL = "UPDATE " & DBNameSpace & ".LookUpISMPComplianceStatus SET " & _
                 "strComplianceKey = '" & Replace(temp, "'", "''") & "', " & _
                 "strComplianceStatus = '" & Replace(temp2, "'", "''") & "', " & _
                 "strComplianceStatement = '" & Replace(temp3, "'", "''") & "' " & _
@@ -17072,7 +17072,7 @@ Public Class ISMPDataManagementTools
     End Sub
     Sub TransferLookUpISMPMethods()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".LOOKUPISMPMETHODS "
+        "from " & DBNameSpace & ".LOOKUPISMPMETHODS "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -17094,7 +17094,7 @@ Public Class ISMPDataManagementTools
             End If
 
             SQL = "SELECT COUNT(*) " & _
-            "FROM " & connNameSpace & ".LOOKUPISMPMETHODS " & _
+            "FROM " & DBNameSpace & ".LOOKUPISMPMETHODS " & _
             "WHERE STRMETHODCODE = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -17103,11 +17103,11 @@ Public Class ISMPDataManagementTools
             dr = cmd.ExecuteReader
             recExist = dr.Read
             If recExist = False Or dr.Item(0) = 0 Then
-                SQL = "Insert into " & connNameSpace & ".LOOKUPISMPMETHODS " & _
+                SQL = "Insert into " & DBNameSpace & ".LOOKUPISMPMETHODS " & _
                 "Values " & _
                 "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "') "
             Else
-                SQL = "UPDATE " & connNameSpace & ".LOOKUPISMPMETHODS SET " & _
+                SQL = "UPDATE " & DBNameSpace & ".LOOKUPISMPMETHODS SET " & _
                 "STRMETHODCODE = '" & Replace(temp, "'", "''") & "', " & _
                 "STRMETHODDESC = '" & Replace(temp2, "'", "''") & "' " & _
                 "WHERE STRMETHODCODE = '" & Replace(temp, "'", "''") & "' "
@@ -17124,7 +17124,7 @@ Public Class ISMPDataManagementTools
     End Sub
     Sub TransferLookUpMonitoringUnits()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".LOOKUPMONITORINGUNITS "
+        "from " & DBNameSpace & ".LOOKUPMONITORINGUNITS "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -17151,7 +17151,7 @@ Public Class ISMPDataManagementTools
             End If
 
             SQL = "SELECT COUNT(*) " & _
-            "FROM " & connNameSpace & ".LOOKUPMONITORINGUNITS " & _
+            "FROM " & DBNameSpace & ".LOOKUPMONITORINGUNITS " & _
             "WHERE STRMONITORINGUNIT = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -17160,12 +17160,12 @@ Public Class ISMPDataManagementTools
             dr = cmd.ExecuteReader
             recExist = dr.Read
             If recExist = False Or dr.Item(0) = 0 Then
-                SQL = "Insert into " & connNameSpace & ".LOOKUPMONITORINGUNITS " & _
+                SQL = "Insert into " & DBNameSpace & ".LOOKUPMONITORINGUNITS " & _
                 "Values " & _
                 "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                 "'" & Replace(temp3, "'", "''") & "') "
             Else
-                SQL = "UPDATE " & connNameSpace & ".LOOKUPMONITORINGUNITS SET " & _
+                SQL = "UPDATE " & DBNameSpace & ".LOOKUPMONITORINGUNITS SET " & _
                 "STRMONITORINGUNIT = '" & Replace(temp, "'", "''") & "', " & _
                 "STRUNITTITLE = '" & Replace(temp2, "'", "''") & "', " & _
                 "STRUNITMANAGER = '" & Replace(temp3, "'", "''") & "' " & _
@@ -17184,7 +17184,7 @@ Public Class ISMPDataManagementTools
     End Sub
     Sub TransferLookUpNonAttainment()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".LOOKUPNONATTAINMENT "
+        "from " & DBNameSpace & ".LOOKUPNONATTAINMENT "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -17206,7 +17206,7 @@ Public Class ISMPDataManagementTools
             End If
 
             SQL = "SELECT COUNT(*) " & _
-            "FROM " & connNameSpace & ".LOOKUPNONATTAINMENT " & _
+            "FROM " & DBNameSpace & ".LOOKUPNONATTAINMENT " & _
             "WHERE STRCOUNTYCODE = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -17215,11 +17215,11 @@ Public Class ISMPDataManagementTools
             dr = cmd.ExecuteReader
             recExist = dr.Read
             If recExist = False Or dr.Item(0) = 0 Then
-                SQL = "Insert into " & connNameSpace & ".LOOKUPNONATTAINMENT " & _
+                SQL = "Insert into " & DBNameSpace & ".LOOKUPNONATTAINMENT " & _
                 "Values " & _
                 "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "') "
             Else
-                SQL = "UPDATE " & connNameSpace & ".LOOKUPNONATTAINMENT SET " & _
+                SQL = "UPDATE " & DBNameSpace & ".LOOKUPNONATTAINMENT SET " & _
                 "STRCOUNTYCODE = '" & Replace(temp, "'", "''") & "', " & _
                 "STRATTAINMENTSTATUS = '" & Replace(temp2, "'", "''") & "' " & _
                 "WHERE STRCOUNTYCODE = '" & Replace(temp, "'", "''") & "' "
@@ -17237,7 +17237,7 @@ Public Class ISMPDataManagementTools
     End Sub
     Sub TransferLookUpPermittingUnits()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".LOOKUPPERMITTINGUNITS "
+        "from " & DBNameSpace & ".LOOKUPPERMITTINGUNITS "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -17264,7 +17264,7 @@ Public Class ISMPDataManagementTools
             End If
 
             SQL = "SELECT COUNT(*) " & _
-            "FROM " & connNameSpace & ".LOOKUPPERMITTINGUNITS " & _
+            "FROM " & DBNameSpace & ".LOOKUPPERMITTINGUNITS " & _
             "WHERE STRMONITORINGUNIT = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -17273,12 +17273,12 @@ Public Class ISMPDataManagementTools
             dr = cmd.ExecuteReader
             recExist = dr.Read
             If recExist = False Or dr.Item(0) = 0 Then
-                SQL = "Insert into " & connNameSpace & ".LOOKUPPERMITTINGUNITS " & _
+                SQL = "Insert into " & DBNameSpace & ".LOOKUPPERMITTINGUNITS " & _
                 "Values " & _
                 "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                 "'" & Replace(temp3, "'", "''") & "') "
             Else
-                SQL = "UPDATE " & connNameSpace & ".LOOKUPPERMITTINGUNITS SET " & _
+                SQL = "UPDATE " & DBNameSpace & ".LOOKUPPERMITTINGUNITS SET " & _
                 "STRMONITORINGUNIT = '" & Replace(temp, "'", "''") & "', " & _
                 "STRUNITTITLE = '" & Replace(temp2, "'", "''") & "', " & _
                 "STRUNITMANAGER = '" & Replace(temp3, "'", "''") & "' " & _
@@ -17296,7 +17296,7 @@ Public Class ISMPDataManagementTools
     End Sub
     Sub TransferLookUpPermitType()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".LOOKUPPERMITTYPES "
+        "from " & DBNameSpace & ".LOOKUPPERMITTYPES "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -17323,7 +17323,7 @@ Public Class ISMPDataManagementTools
             End If
 
             SQL = "SELECT COUNT(*) " & _
-            "FROM " & connNameSpace & ".LOOKUPPERMITTYPES " & _
+            "FROM " & DBNameSpace & ".LOOKUPPERMITTYPES " & _
             "WHERE STRPERMITTYPECODE = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -17332,12 +17332,12 @@ Public Class ISMPDataManagementTools
             dr = cmd.ExecuteReader
             recExist = dr.Read
             If recExist = False Or dr.Item(0) = 0 Then
-                SQL = "Insert into " & connNameSpace & ".LOOKUPPERMITTYPES " & _
+                SQL = "Insert into " & DBNameSpace & ".LOOKUPPERMITTYPES " & _
                 "Values " & _
                 "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                 "'" & Replace(temp3, "'", "''") & "') "
             Else
-                SQL = "UPDATE " & connNameSpace & ".LOOKUPPERMITTYPES SET " & _
+                SQL = "UPDATE " & DBNameSpace & ".LOOKUPPERMITTYPES SET " & _
                 "STRPERMITTYPECODE = '" & Replace(temp, "'", "''") & "', " & _
                 "STRPERMITTYPEDESCRIPTION = '" & Replace(temp2, "'", "''") & "', " & _
                 "STRTYPEUSED = '" & Replace(temp3, "'", "''") & "' " & _
@@ -17355,7 +17355,7 @@ Public Class ISMPDataManagementTools
     End Sub
     Sub TransferLookUpPollutants()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".LOOKUPPOLLUTANTS "
+        "from " & DBNameSpace & ".LOOKUPPOLLUTANTS "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -17382,7 +17382,7 @@ Public Class ISMPDataManagementTools
             End If
 
             SQL = "SELECT COUNT(*) " & _
-            "FROM " & connNameSpace & ".LOOKUPPOLLUTANTS " & _
+            "FROM " & DBNameSpace & ".LOOKUPPOLLUTANTS " & _
             "WHERE STRPOLLUTANTCODE = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -17391,12 +17391,12 @@ Public Class ISMPDataManagementTools
             dr = cmd.ExecuteReader
             recExist = dr.Read
             If recExist = False Or dr.Item(0) = 0 Then
-                SQL = "Insert into " & connNameSpace & ".LOOKUPPOLLUTANTS " & _
+                SQL = "Insert into " & DBNameSpace & ".LOOKUPPOLLUTANTS " & _
                 "Values " & _
                 "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                 "'" & Replace(temp3, "'", "''") & "') "
             Else
-                SQL = "UPDATE " & connNameSpace & ".LOOKUPPOLLUTANTS SET " & _
+                SQL = "UPDATE " & DBNameSpace & ".LOOKUPPOLLUTANTS SET " & _
                 "STRPOLLUTANTCODE = '" & Replace(temp, "'", "''") & "', " & _
                 "STRPOLLUTANTDESCRIPTION = '" & Replace(temp2, "'", "''") & "', " & _
                 "STRAFSCODE = '" & Replace(temp3, "'", "''") & "' " & _
@@ -17417,7 +17417,7 @@ Public Class ISMPDataManagementTools
     End Sub
     Sub TransferLookUpSICCodes()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".LOOKUPSICCODES "
+        "from " & DBNameSpace & ".LOOKUPSICCODES "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -17439,7 +17439,7 @@ Public Class ISMPDataManagementTools
             End If
 
             SQL = "SELECT COUNT(*) " & _
-            "FROM " & connNameSpace & ".LOOKUPSICCODES " & _
+            "FROM " & DBNameSpace & ".LOOKUPSICCODES " & _
             "WHERE STRSICCODE = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -17448,11 +17448,11 @@ Public Class ISMPDataManagementTools
             dr = cmd.ExecuteReader
             recExist = dr.Read
             If recExist = False Or dr.Item(0) = 0 Then
-                SQL = "Insert into " & connNameSpace & ".LOOKUPSICCODES " & _
+                SQL = "Insert into " & DBNameSpace & ".LOOKUPSICCODES " & _
                 "Values " & _
                 "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "') "
             Else
-                SQL = "UPDATE " & connNameSpace & ".LOOKUPSICCODES SET " & _
+                SQL = "UPDATE " & DBNameSpace & ".LOOKUPSICCODES SET " & _
                 "STRSICCODE = '" & Replace(temp, "'", "''") & "', " & _
                 "STRSICDESC = '" & Replace(temp2, "'", "''") & "' " & _
                 "WHERE STRSICCODE = '" & Replace(temp, "'", "''") & "' "
@@ -17470,7 +17470,7 @@ Public Class ISMPDataManagementTools
     End Sub
     Sub TransferLookUpSSCPNotifications()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".LOOKUPSSCPNOTIFICATIONS "
+        "from " & DBNameSpace & ".LOOKUPSSCPNOTIFICATIONS "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -17492,7 +17492,7 @@ Public Class ISMPDataManagementTools
             End If
 
             SQL = "SELECT COUNT(*) " & _
-            "FROM " & connNameSpace & ".LOOKUPSSCPNOTIFICATIONS " & _
+            "FROM " & DBNameSpace & ".LOOKUPSSCPNOTIFICATIONS " & _
             "WHERE STRNOTIFICATIONKEY = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -17501,11 +17501,11 @@ Public Class ISMPDataManagementTools
             dr = cmd.ExecuteReader
             recExist = dr.Read
             If recExist = False Or dr.Item(0) = 0 Then
-                SQL = "Insert into " & connNameSpace & ".LOOKUPSSCPNOTIFICATIONS " & _
+                SQL = "Insert into " & DBNameSpace & ".LOOKUPSSCPNOTIFICATIONS " & _
                 "Values " & _
                 "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "') "
             Else
-                SQL = "UPDATE " & connNameSpace & ".LOOKUPSSCPNOTIFICATIONS SET " & _
+                SQL = "UPDATE " & DBNameSpace & ".LOOKUPSSCPNOTIFICATIONS SET " & _
                 "STRNOTIFICATIONKEY = '" & Replace(temp, "'", "''") & "', " & _
                 "STRNOTIFICATIONDESC = '" & Replace(temp2, "'", "''") & "' " & _
                 "WHERE STRNOTIFICATIONKEY = '" & Replace(temp, "'", "''") & "' "
@@ -17522,7 +17522,7 @@ Public Class ISMPDataManagementTools
     End Sub
     Sub TransferLookUpStates()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".LOOKUPSTATES "
+        "from " & DBNameSpace & ".LOOKUPSTATES "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -17544,7 +17544,7 @@ Public Class ISMPDataManagementTools
             End If
 
             SQL = "SELECT COUNT(*) " & _
-            "FROM " & connNameSpace & ".LOOKUPSTATES " & _
+            "FROM " & DBNameSpace & ".LOOKUPSTATES " & _
             "WHERE STRABBREV = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -17553,11 +17553,11 @@ Public Class ISMPDataManagementTools
             dr = cmd.ExecuteReader
             recExist = dr.Read
             If recExist = False Or dr.Item(0) = 0 Then
-                SQL = "Insert into " & connNameSpace & ".LOOKUPSTATES " & _
+                SQL = "Insert into " & DBNameSpace & ".LOOKUPSTATES " & _
                 "Values " & _
                 "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "') "
             Else
-                SQL = "UPDATE " & connNameSpace & ".LOOKUPSTATES SET " & _
+                SQL = "UPDATE " & DBNameSpace & ".LOOKUPSTATES SET " & _
                 "STRSTATE = '" & Replace(temp, "'", "''") & "', " & _
                 "STRABBREV = '" & Replace(temp2, "'", "''") & "' " & _
                 "WHERE STRABBREV = '" & Replace(temp, "'", "''") & "' "
@@ -17574,7 +17574,7 @@ Public Class ISMPDataManagementTools
     End Sub
     Sub TransferLookUpSubPart60()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".LOOKUPSUBPART60 "
+        "from " & DBNameSpace & ".LOOKUPSUBPART60 "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -17596,7 +17596,7 @@ Public Class ISMPDataManagementTools
             End If
 
             SQL = "SELECT COUNT(*) " & _
-            "FROM " & connNameSpace & ".LOOKUPSUBPART60 " & _
+            "FROM " & DBNameSpace & ".LOOKUPSUBPART60 " & _
             "WHERE STRSUBPART = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -17605,11 +17605,11 @@ Public Class ISMPDataManagementTools
             dr = cmd.ExecuteReader
             recExist = dr.Read
             If recExist = False Or dr.Item(0) = 0 Then
-                SQL = "Insert into " & connNameSpace & ".LOOKUPSUBPART60 " & _
+                SQL = "Insert into " & DBNameSpace & ".LOOKUPSUBPART60 " & _
                 "Values " & _
                 "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "') "
             Else
-                SQL = "UPDATE " & connNameSpace & ".LOOKUPSUBPART60 SET " & _
+                SQL = "UPDATE " & DBNameSpace & ".LOOKUPSUBPART60 SET " & _
                 "STRSUBPART = '" & Replace(temp, "'", "''") & "', " & _
                 "STRDESCRIPTION = '" & Replace(temp2, "'", "''") & "' " & _
                 "WHERE STRSUBPART = '" & Replace(temp, "'", "''") & "' "
@@ -17626,7 +17626,7 @@ Public Class ISMPDataManagementTools
     End Sub
     Sub TransferLookUpSubPart61()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".LOOKUPSUBPART61 "
+        "from " & DBNameSpace & ".LOOKUPSUBPART61 "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -17648,7 +17648,7 @@ Public Class ISMPDataManagementTools
             End If
 
             SQL = "SELECT COUNT(*) " & _
-            "FROM " & connNameSpace & ".LOOKUPSUBPART61 " & _
+            "FROM " & DBNameSpace & ".LOOKUPSUBPART61 " & _
             "WHERE STRSUBPART = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -17657,11 +17657,11 @@ Public Class ISMPDataManagementTools
             dr = cmd.ExecuteReader
             recExist = dr.Read
             If recExist = False Or dr.Item(0) = 0 Then
-                SQL = "Insert into " & connNameSpace & ".LOOKUPSUBPART61 " & _
+                SQL = "Insert into " & DBNameSpace & ".LOOKUPSUBPART61 " & _
                 "Values " & _
                 "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "') "
             Else
-                SQL = "UPDATE " & connNameSpace & ".LOOKUPSUBPART61 SET " & _
+                SQL = "UPDATE " & DBNameSpace & ".LOOKUPSUBPART61 SET " & _
                 "STRSUBPART = '" & Replace(temp, "'", "''") & "', " & _
                 "STRDESCRIPTION = '" & Replace(temp2, "'", "''") & "' " & _
                 "WHERE STRSUBPART = '" & Replace(temp, "'", "''") & "' "
@@ -17678,7 +17678,7 @@ Public Class ISMPDataManagementTools
     End Sub
     Sub TransferLookUpSubPart63()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".LOOKUPSUBPART63 "
+        "from " & DBNameSpace & ".LOOKUPSUBPART63 "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -17700,7 +17700,7 @@ Public Class ISMPDataManagementTools
             End If
 
             SQL = "SELECT COUNT(*) " & _
-            "FROM " & connNameSpace & ".LOOKUPSUBPART63 " & _
+            "FROM " & DBNameSpace & ".LOOKUPSUBPART63 " & _
             "WHERE STRSUBPART = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -17709,11 +17709,11 @@ Public Class ISMPDataManagementTools
             dr = cmd.ExecuteReader
             recExist = dr.Read
             If recExist = False Or dr.Item(0) = 0 Then
-                SQL = "Insert into " & connNameSpace & ".LOOKUPSUBPART63 " & _
+                SQL = "Insert into " & DBNameSpace & ".LOOKUPSUBPART63 " & _
                 "Values " & _
                 "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "') "
             Else
-                SQL = "UPDATE " & connNameSpace & ".LOOKUPSUBPART63 SET " & _
+                SQL = "UPDATE " & DBNameSpace & ".LOOKUPSUBPART63 SET " & _
                 "STRSUBPART = '" & Replace(temp, "'", "''") & "', " & _
                 "STRDESCRIPTION = '" & Replace(temp2, "'", "''") & "' " & _
                 "WHERE STRSUBPART = '" & Replace(temp, "'", "''") & "' "
@@ -17730,7 +17730,7 @@ Public Class ISMPDataManagementTools
     End Sub
     Sub TransferLookUpSubPartSIP()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".LOOKUPSUBPARTSIP "
+        "from " & DBNameSpace & ".LOOKUPSUBPARTSIP "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -17752,7 +17752,7 @@ Public Class ISMPDataManagementTools
             End If
 
             SQL = "SELECT COUNT(*) " & _
-            "FROM " & connNameSpace & ".LOOKUPSUBPARTSIP " & _
+            "FROM " & DBNameSpace & ".LOOKUPSUBPARTSIP " & _
             "WHERE STRSUBPART = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -17761,11 +17761,11 @@ Public Class ISMPDataManagementTools
             dr = cmd.ExecuteReader
             recExist = dr.Read
             If recExist = False Or dr.Item(0) = 0 Then
-                SQL = "Insert into " & connNameSpace & ".LOOKUPSUBPARTSIP " & _
+                SQL = "Insert into " & DBNameSpace & ".LOOKUPSUBPARTSIP " & _
                 "Values " & _
                 "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "') "
             Else
-                SQL = "UPDATE " & connNameSpace & ".LOOKUPSUBPARTSIP SET " & _
+                SQL = "UPDATE " & DBNameSpace & ".LOOKUPSUBPARTSIP SET " & _
                 "STRSUBPART = '" & Replace(temp, "'", "''") & "', " & _
                 "STRDESCRIPTION = '" & Replace(temp2, "'", "''") & "' " & _
                 "WHERE STRSUBPART = '" & Replace(temp, "'", "''") & "' "
@@ -17782,7 +17782,7 @@ Public Class ISMPDataManagementTools
     End Sub
     Sub TransferLookUpTestingFirms()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".LOOKUPTESTINGFIRMS "
+        "from " & DBNameSpace & ".LOOKUPTESTINGFIRMS "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -17849,7 +17849,7 @@ Public Class ISMPDataManagementTools
             End If
 
             SQL = "SELECT COUNT(*) " & _
-            "FROM " & connNameSpace & ".LOOKUPTESTINGFIRMS " & _
+            "FROM " & DBNameSpace & ".LOOKUPTESTINGFIRMS " & _
             "WHERE STRTESTINGFIRMKEY = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -17858,7 +17858,7 @@ Public Class ISMPDataManagementTools
             dr = cmd.ExecuteReader
             recExist = dr.Read
             If recExist = False Or dr.Item(0) = 0 Then
-                SQL = "Insert into " & connNameSpace & ".LOOKUPTESTINGFIRMS " & _
+                SQL = "Insert into " & DBNameSpace & ".LOOKUPTESTINGFIRMS " & _
                 "Values " & _
                 "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                 "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "', " & _
@@ -17867,7 +17867,7 @@ Public Class ISMPDataManagementTools
                 "'" & Replace(temp9, "'", "''") & "', '" & Replace(temp10, "'", "''") & "', " & _
                 "'" & Replace(temp11, "'", "''") & "') "
             Else
-                SQL = "UPDATE " & connNameSpace & ".LOOKUPTESTINGFIRMS SET " & _
+                SQL = "UPDATE " & DBNameSpace & ".LOOKUPTESTINGFIRMS SET " & _
                 "STRTESTINGFIRMKEY = '" & Replace(temp, "'", "''") & "', " & _
                 "STRTESTINGFIRM = '" & Replace(temp2, "'", "''") & "', " & _
                 "STRFIRMADDRESS1 = '" & Replace(temp3, "'", "''") & "', " & _
@@ -17893,7 +17893,7 @@ Public Class ISMPDataManagementTools
     End Sub
     Sub TransferLookUpUnits()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".LOOKUPUNITS "
+        "from " & DBNameSpace & ".LOOKUPUNITS "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -17915,7 +17915,7 @@ Public Class ISMPDataManagementTools
             End If
 
             SQL = "SELECT COUNT(*) " & _
-            "FROM " & connNameSpace & ".LOOKUPUNITS " & _
+            "FROM " & DBNameSpace & ".LOOKUPUNITS " & _
             "WHERE STRUNITKEY = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -17924,11 +17924,11 @@ Public Class ISMPDataManagementTools
             dr = cmd.ExecuteReader
             recExist = dr.Read
             If recExist = False Or dr.Item(0) = 0 Then
-                SQL = "Insert into " & connNameSpace & ".LOOKUPUNITS " & _
+                SQL = "Insert into " & DBNameSpace & ".LOOKUPUNITS " & _
                 "Values " & _
                 "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "') "
             Else
-                SQL = "UPDATE " & connNameSpace & ".LOOKUPUNITS SET " & _
+                SQL = "UPDATE " & DBNameSpace & ".LOOKUPUNITS SET " & _
                 "STRUNITKEY = '" & Replace(temp, "'", "''") & "', " & _
                 "STRUNITDESCRIPTION = '" & Replace(temp2, "'", "''") & "' " & _
                 "WHERE STRUNITKEY = '" & Replace(temp, "'", "''") & "' "
@@ -17945,7 +17945,7 @@ Public Class ISMPDataManagementTools
     End Sub
     Sub TransferNSPSReason()
         SQL = "Select * " & _
-        "From " & connNameSpace & ".FSNSPSReason " & _
+        "From " & DBNameSpace & ".FSNSPSReason " & _
         "order by ReasonID "
 
         dsTemp = New DataSet
@@ -17968,7 +17968,7 @@ Public Class ISMPDataManagementTools
             End If
 
             SQL = "SELECT COUNT(*) " & _
-            "FROM " & connNameSpace & ".FSNSPSReason " & _
+            "FROM " & DBNameSpace & ".FSNSPSReason " & _
             "WHERE ReasonID = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -17977,11 +17977,11 @@ Public Class ISMPDataManagementTools
             dr = cmd.ExecuteReader
             recExist = dr.Read
             If recExist = False Or dr.Item(0) = 0 Then
-                SQL = "Insert into " & connNameSpace & ".FSNSPSReason " & _
+                SQL = "Insert into " & DBNameSpace & ".FSNSPSReason " & _
                 "Values " & _
                 "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "') "
             Else
-                SQL = "UPDATE " & connNameSpace & ".FSNSPSReason SET " & _
+                SQL = "UPDATE " & DBNameSpace & ".FSNSPSReason SET " & _
                 "Reason = '" & Replace(temp2, "'", "''") & "' " & _
                 "WHERE ReasonID = '" & Replace(temp, "'", "''") & "' "
             End If
@@ -17998,7 +17998,7 @@ Public Class ISMPDataManagementTools
     End Sub
     Sub TransferEDPUsers()
         SQL = "Select * " & _
-        "From " & connNameSpace & ".EPDUsers " & _
+        "From " & DBNameSpace & ".EPDUsers " & _
         "order by numUserID "
 
         dsTemp = New DataSet
@@ -18026,7 +18026,7 @@ Public Class ISMPDataManagementTools
             End If
 
             SQL = "SELECT COUNT(*) " & _
-            "FROM " & connNameSpace & ".EPDUsers " & _
+            "FROM " & DBNameSpace & ".EPDUsers " & _
             "WHERE numUserID = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -18035,12 +18035,12 @@ Public Class ISMPDataManagementTools
             dr = cmd.ExecuteReader
             recExist = dr.Read
             If recExist = False Or dr.Item(0) = 0 Then
-                SQL = "Insert into " & connNameSpace & ".EPDUsers " & _
+                SQL = "Insert into " & DBNameSpace & ".EPDUsers " & _
                 "Values " & _
                 "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                 "'" & Replace(temp3, "'", "''") & "') "
             Else
-                SQL = "UPDATE " & connNameSpace & ".EPDUsers SET " & _
+                SQL = "UPDATE " & DBNameSpace & ".EPDUsers SET " & _
                 "strUserName = '" & Replace(temp2, "'", "''") & "', " & _
                 "strPassword = '" & Replace(temp3, "'", "''") & "' " & _
                 "WHERE numUserID = '" & Replace(temp, "'", "''") & "' "
@@ -18057,7 +18057,7 @@ Public Class ISMPDataManagementTools
         Next
 
         SQL = "Select * " & _
-        "From " & connNameSpace & ".EPDUserProfiles " & _
+        "From " & DBNameSpace & ".EPDUserProfiles " & _
         "order by numUserID "
 
         dsTemp = New DataSet
@@ -18131,7 +18131,7 @@ Public Class ISMPDataManagementTools
             End If
 
             SQL = "SELECT COUNT(*) " & _
-            "FROM " & connNameSpace & ".EPDUserProfiles " & _
+            "FROM " & DBNameSpace & ".EPDUserProfiles " & _
             "WHERE numUserID = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -18140,7 +18140,7 @@ Public Class ISMPDataManagementTools
             dr = cmd.ExecuteReader
             recExist = dr.Read
             If recExist = False Or dr.Item(0) = 0 Then
-                SQL = "Insert into " & connNameSpace & ".EPDUserProfiles " & _
+                SQL = "Insert into " & DBNameSpace & ".EPDUserProfiles " & _
                 "Values " & _
                 "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                 "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "', " & _
@@ -18149,7 +18149,7 @@ Public Class ISMPDataManagementTools
                 "'" & Replace(temp9, "'", "''") & "', '" & Replace(temp10, "'", "''") & "', " & _
                 "'" & Replace(temp11, "'", "''") & "', '" & Replace(temp12, "'", "''") & "') "
             Else
-                SQL = "UPDATE " & connNameSpace & ".EPDUserProfiles SET " & _
+                SQL = "UPDATE " & DBNameSpace & ".EPDUserProfiles SET " & _
                 "strEmployeeID = '" & Replace(temp2, "'", "''") & "', " & _
                 "strLastName = '" & Replace(temp3, "'", "''") & "', " & _
                 "strFirstName = '" & Replace(temp4, "'", "''") & "', " & _
@@ -18178,7 +18178,7 @@ Public Class ISMPDataManagementTools
     End Sub
     Sub TransferEISI()
         SQL = "Select * " & _
-        "From " & connNameSpace & ".EISI " & _
+        "From " & DBNameSpace & ".EISI " & _
         "order by strAIRSYear "
 
         dsTemp = New DataSet
@@ -18446,7 +18446,7 @@ Public Class ISMPDataManagementTools
             End If
 
             SQL = "SELECT COUNT(*) " & _
-            "FROM " & connNameSpace & ".EISI " & _
+            "FROM " & DBNameSpace & ".EISI " & _
             "WHERE strAIRSYear = '" & temp44 & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -18455,7 +18455,7 @@ Public Class ISMPDataManagementTools
             dr = cmd.ExecuteReader
             recExist = dr.Read
             If recExist = False Or dr.Item(0) = 0 Then
-                SQL = "Insert into " & connNameSpace & ".EISI " & _
+                SQL = "Insert into " & DBNameSpace & ".EISI " & _
                 "Values " & _
                 "('" & Replace(temp2, "'", "''") & "', '" & Replace(temp3, "'", "''") & "', " & _
                 "'" & Replace(temp4, "'", "''") & "', '" & Replace(temp5, "'", "''") & "', " & _
@@ -18484,7 +18484,7 @@ Public Class ISMPDataManagementTools
                 "'" & Replace(temp49, "'", "''") & "', '" & Replace(temp50, "'", "''") & "', " & _
                 "'" & Replace(temp51, "'", "''") & "', '' ) "
             Else
-                SQL = "UPDATE " & connNameSpace & ".EISI SET " & _
+                SQL = "UPDATE " & DBNameSpace & ".EISI SET " & _
                 "strInventoryYear = '" & Replace(temp2, "'", "''") & "', " & _
                 "strStateCountyFIPS = '" & Replace(temp3, "'", "''") & "', " & _
                 "strStateFacilityIdentifier = '" & Replace(temp4, "'", "''") & "', " & _
@@ -18552,7 +18552,7 @@ Public Class ISMPDataManagementTools
     End Sub
     Sub TransferEIEU()
         SQL = "Select * " & _
-       "From " & connNameSpace & ".EIEU " & _
+       "From " & DBNameSpace & ".EIEU " & _
        "order by strAIRSYear "
 
         dsTemp = New DataSet
@@ -18645,7 +18645,7 @@ Public Class ISMPDataManagementTools
             End If
 
             SQL = "SELECT COUNT(*) " & _
-            "FROM " & connNameSpace & ".EIEU " & _
+            "FROM " & DBNameSpace & ".EIEU " & _
             "WHERE strAIRSYearEU = '" & temp10 & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -18654,7 +18654,7 @@ Public Class ISMPDataManagementTools
             dr = cmd.ExecuteReader
             recExist = dr.Read
             If recExist = False Or dr.Item(0) = 0 Then
-                SQL = "Insert into " & connNameSpace & ".EIEU " & _
+                SQL = "Insert into " & DBNameSpace & ".EIEU " & _
                 "Values " & _
                 "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                 "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "', " & _
@@ -18665,7 +18665,7 @@ Public Class ISMPDataManagementTools
                 "'" & Replace(temp13, "'", "''") & "', '" & Replace(temp14, "'", "''") & "', " & _
                 "'" & Replace(temp15, "'", "''") & "', '" & Replace(temp16, "'", "''") & "') "
             Else
-                SQL = "UPDATE " & connNameSpace & ".EIEU SET " & _
+                SQL = "UPDATE " & DBNameSpace & ".EIEU SET " & _
                 "strInventoryYear = '" & Replace(temp, "'", "''") & "', " & _
                 "strStateCountyFIPS = '" & Replace(temp2, "'", "''") & "', " & _
                 "strStateFacilityIdentifier = '" & Replace(temp3, "'", "''") & "', " & _
@@ -18698,7 +18698,7 @@ Public Class ISMPDataManagementTools
     End Sub
     Sub TransferEIER()
         SQL = "Select * " & _
-  "From " & connNameSpace & ".EIER " & _
+  "From " & DBNameSpace & ".EIER " & _
   "order by strAIRSYearERPointID "
 
         dsTemp = New DataSet
@@ -18811,7 +18811,7 @@ Public Class ISMPDataManagementTools
             End If
 
             SQL = "SELECT COUNT(*) " & _
-            "FROM " & connNameSpace & ".EIER " & _
+            "FROM " & DBNameSpace & ".EIER " & _
             "WHERE strAIRSYearERPointID = '" & temp17 & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -18820,7 +18820,7 @@ Public Class ISMPDataManagementTools
             dr = cmd.ExecuteReader
             recExist = dr.Read
             If recExist = False Or dr.Item(0) = 0 Then
-                SQL = "Insert into " & connNameSpace & ".EIER " & _
+                SQL = "Insert into " & DBNameSpace & ".EIER " & _
                 "Values " & _
                 "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                 "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "', " & _
@@ -18833,7 +18833,7 @@ Public Class ISMPDataManagementTools
                 "'" & Replace(temp17, "'", "''") & "', '" & Replace(temp18, "'", "''") & "', " & _
                 "'" & Replace(temp19, "'", "''") & "', '" & Replace(temp20, "'", "''") & "') "
             Else
-                SQL = "UPDATE " & connNameSpace & ".EIER SET " & _
+                SQL = "UPDATE " & DBNameSpace & ".EIER SET " & _
                 "strInventoryYear = '" & Replace(temp, "'", "''") & "', " & _
                 "strStateCountyFIPS = '" & Replace(temp2, "'", "''") & "', " & _
                 "strStateFacilityIdentifier = '" & Replace(temp3, "'", "''") & "', " & _
@@ -18869,7 +18869,7 @@ Public Class ISMPDataManagementTools
     End Sub
     Sub TransferEIEP()
         SQL = "Select * " & _
-"From " & connNameSpace & ".EIEP " & _
+"From " & DBNameSpace & ".EIEP " & _
 "order by strAIRSYearEUProcID "
 
         dsTemp = New DataSet
@@ -19042,7 +19042,7 @@ Public Class ISMPDataManagementTools
             End If
 
             SQL = "SELECT COUNT(*) " & _
-            "FROM " & connNameSpace & ".EIEP " & _
+            "FROM " & DBNameSpace & ".EIEP " & _
             "WHERE strAIRSYearEUProcID = '" & temp27 & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -19051,7 +19051,7 @@ Public Class ISMPDataManagementTools
             dr = cmd.ExecuteReader
             recExist = dr.Read
             If recExist = False Or dr.Item(0) = 0 Then
-                SQL = "Insert into " & connNameSpace & ".EIEP " & _
+                SQL = "Insert into " & DBNameSpace & ".EIEP " & _
                 "Values " & _
                 "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                 "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "', " & _
@@ -19070,7 +19070,7 @@ Public Class ISMPDataManagementTools
                 "'" & Replace(temp29, "'", "''") & "', '" & Replace(temp30, "'", "''") & "', " & _
                 "'" & Replace(temp31, "'", "''") & "', '" & Replace(temp32, "'", "''") & "') "
             Else
-                SQL = "UPDATE " & connNameSpace & ".EIEP SET " & _
+                SQL = "UPDATE " & DBNameSpace & ".EIEP SET " & _
                 "strInventoryYear = '" & Replace(temp, "'", "''") & "', " & _
                 "strStateCountyFIPS = '" & Replace(temp2, "'", "''") & "', " & _
                 "strStateFacilityIdentifier = '" & Replace(temp3, "'", "''") & "', " & _
@@ -19120,7 +19120,7 @@ Public Class ISMPDataManagementTools
     End Sub
     Sub TransferEIEM()
         SQL = "Select * " & _
-"From " & connNameSpace & ".EIEM " & _
+"From " & DBNameSpace & ".EIEM " & _
 "order by strAIRSYearEUEPEM "
 
         dsTemp = New DataSet
@@ -19268,7 +19268,7 @@ Public Class ISMPDataManagementTools
             End If
 
             SQL = "SELECT COUNT(*) " & _
-            "FROM " & connNameSpace & ".EIEM " & _
+            "FROM " & DBNameSpace & ".EIEM " & _
             "WHERE strAIRSYearEUEPEM = '" & temp27 & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -19277,7 +19277,7 @@ Public Class ISMPDataManagementTools
             dr = cmd.ExecuteReader
             recExist = dr.Read
             If recExist = False Or dr.Item(0) = 0 Then
-                SQL = "Insert into " & connNameSpace & ".EIEM " & _
+                SQL = "Insert into " & DBNameSpace & ".EIEM " & _
                 "Values " & _
                 "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                 "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "', " & _
@@ -19294,7 +19294,7 @@ Public Class ISMPDataManagementTools
                 "'" & Replace(temp25, "'", "''") & "', '" & Replace(temp26, "'", "''") & "', " & _
                 "'" & Replace(temp27, "'", "''") & "') "
             Else
-                SQL = "UPDATE " & connNameSpace & ".EIEM SET " & _
+                SQL = "UPDATE " & DBNameSpace & ".EIEM SET " & _
                 "strInventoryYear = '" & Replace(temp, "'", "''") & "', " & _
                 "strStateCountyFIPS = '" & Replace(temp2, "'", "''") & "', " & _
                 "strStateFacilityIdentifier = '" & Replace(temp3, "'", "''") & "', " & _
@@ -19433,7 +19433,7 @@ Public Class ISMPDataManagementTools
 
 
         SQL = "Select * " & _
-        "from " & connNameSpace & ".APBAIRPROGRAMPOLLUTANTS "
+        "from " & DBNameSpace & ".APBAIRPROGRAMPOLLUTANTS "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -19481,7 +19481,7 @@ Public Class ISMPDataManagementTools
 
             SQL = "Select " & _
             "strAIRSNumber " & _
-            "from " & connNameSpace & ".APBMasterAIRS " & _
+            "from " & DBNameSpace & ".APBMasterAIRS " & _
             "where strAIRSNumber = '" & temp & "'"
 
             cmd = New OracleCommand(SQL, transferConn)
@@ -19493,7 +19493,7 @@ Public Class ISMPDataManagementTools
             dr.Close()
             If recExist = True Then
                 SQL = "SELECT COUNT(*) " & _
-                "FROM " & connNameSpace & ".APBAIRPROGRAMPOLLUTANTS " & _
+                "FROM " & DBNameSpace & ".APBAIRPROGRAMPOLLUTANTS " & _
                 "WHERE STRAIRPOLLUTANTKEY = '" & temp2 & "' " & _
                 "AND STRPOLLUTANTKEY = '" & temp3 & "' "
 
@@ -19504,14 +19504,14 @@ Public Class ISMPDataManagementTools
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = False Or dr.Item(0) = 0 Then
-                    SQL = "Insert into " & connNameSpace & ".APBAIRPROGRAMPOLLUTANTS " & _
+                    SQL = "Insert into " & DBNameSpace & ".APBAIRPROGRAMPOLLUTANTS " & _
                     "Values " & _
                     "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                     "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "', " & _
                     "'" & Replace(temp5, "'", "''") & "', '" & Replace(temp6, "'", "''") & "', " & _
                     "'" & Replace(temp7, "'", "''") & "') "
                 Else
-                    SQL = "UPDATE " & connNameSpace & ".APBAIRPROGRAMPOLLUTANTS SET " & _
+                    SQL = "UPDATE " & DBNameSpace & ".APBAIRPROGRAMPOLLUTANTS SET " & _
                     "STRAIRSNUMBER = '" & Replace(temp, "'", "''") & "', " & _
                     "STRAIRPOLLUTANTKEY = '" & Replace(temp2, "'", "''") & "', " & _
                     "STRPOLLUTANTKEY = '" & Replace(temp3, "'", "''") & "', " & _
@@ -19629,7 +19629,7 @@ Public Class ISMPDataManagementTools
     End Sub
     Sub TransferAPBContactInformation()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".APBCONTACTINFORMATION "
+        "from " & DBNameSpace & ".APBCONTACTINFORMATION "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -19748,7 +19748,7 @@ Public Class ISMPDataManagementTools
 
             SQL = "Select " & _
             "strAIRSNumber " & _
-            "from " & connNameSpace & ".APBMasterAIRS " & _
+            "from " & DBNameSpace & ".APBMasterAIRS " & _
             "where strAIRSNumber = '" & temp2 & "'"
 
             cmd = New OracleCommand(SQL, transferConn)
@@ -19760,7 +19760,7 @@ Public Class ISMPDataManagementTools
             dr.Close()
             If recExist = True Then
                 SQL = "SELECT COUNT(*) " & _
-                "FROM " & connNameSpace & ".APBCONTACTINFORMATION " & _
+                "FROM " & DBNameSpace & ".APBCONTACTINFORMATION " & _
                 "WHERE STRCONTACTKEY = '" & temp & "' "
 
                 cmd = New OracleCommand(SQL, transferConn)
@@ -19770,7 +19770,7 @@ Public Class ISMPDataManagementTools
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = False Or dr.Item(0) = 0 Then
-                    SQL = "Insert into " & connNameSpace & ".APBCONTACTINFORMATION " & _
+                    SQL = "Insert into " & DBNameSpace & ".APBCONTACTINFORMATION " & _
                     "Values " & _
                     "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                     "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "', " & _
@@ -19784,7 +19784,7 @@ Public Class ISMPDataManagementTools
                     "'" & Replace(temp19, "'", "''") & "', '" & Replace(temp20, "'", "''") & "', " & _
                     "'" & Replace(temp21, "'", "''") & "') "
                 Else
-                    SQL = "UPDATE " & connNameSpace & ".APBCONTACTINFORMATION SET " & _
+                    SQL = "UPDATE " & DBNameSpace & ".APBCONTACTINFORMATION SET " & _
                     "STRCONTACTKEY = '" & Replace(temp, "'", "''") & "', " & _
                     "STRAIRSNUMBER = '" & Replace(temp2, "'", "''") & "', " & _
                     "STRKEY = '" & Replace(temp3, "'", "''") & "', " & _
@@ -19886,7 +19886,7 @@ Public Class ISMPDataManagementTools
         End If
 
         SQL = "Select * " & _
-        "from " & connNameSpace & ".APBFACILITYINFORMATION "
+        "from " & DBNameSpace & ".APBFACILITYINFORMATION "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -19979,7 +19979,7 @@ Public Class ISMPDataManagementTools
 
             SQL = "Select " & _
             "strAIRSNumber " & _
-            "from " & connNameSpace & ".APBMasterAIRS " & _
+            "from " & DBNameSpace & ".APBMasterAIRS " & _
             "where strAIRSNumber = '" & temp & "'"
 
             cmd = New OracleCommand(SQL, transferConn)
@@ -19991,7 +19991,7 @@ Public Class ISMPDataManagementTools
             dr.Close()
             If recExist = True Then
                 SQL = "SELECT COUNT(*) " & _
-                "FROM " & connNameSpace & ".APBFACILITYINFORMATION " & _
+                "FROM " & DBNameSpace & ".APBFACILITYINFORMATION " & _
                 "WHERE STRAIRSNUMBER = '" & temp & "' "
                 cmd = New OracleCommand(SQL, transferConn)
                 If transferConn.State = ConnectionState.Closed Then
@@ -20000,7 +20000,7 @@ Public Class ISMPDataManagementTools
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = False Or dr.Item(0) = 0 Then
-                    SQL = "Insert into " & connNameSpace & ".APBFACILITYINFORMATION " & _
+                    SQL = "Insert into " & DBNameSpace & ".APBFACILITYINFORMATION " & _
                     "Values " & _
                     "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                     "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "', " & _
@@ -20011,7 +20011,7 @@ Public Class ISMPDataManagementTools
                     "'" & Replace(temp13, "'", "''") & "', '" & Replace(temp14, "'", "''") & "', " & _
                     "'" & Replace(temp15, "'", "''") & "', '" & Replace(temp16, "'", "''") & "') "
                 Else
-                    SQL = "UPDATE " & connNameSpace & ".APBFACILITYINFORMATION SET " & _
+                    SQL = "UPDATE " & DBNameSpace & ".APBFACILITYINFORMATION SET " & _
                     "STRAIRSNUMBER = '" & Replace(temp, "'", "''") & "', " & _
                     "STRFACILITYNAME = '" & Replace(temp2, "'", "''") & "', " & _
                     "STRFACILITYSTREET1 = '" & Replace(temp3, "'", "''") & "', " & _
@@ -20199,7 +20199,7 @@ Public Class ISMPDataManagementTools
         End If
 
         SQL = "Select * " & _
-        "from " & connNameSpace & ".APBHEADERDATA "
+        "from " & DBNameSpace & ".APBHEADERDATA "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -20287,7 +20287,7 @@ Public Class ISMPDataManagementTools
 
             SQL = "Select " & _
             "strAIRSNumber " & _
-            "from " & connNameSpace & ".APBMasterAIRS " & _
+            "from " & DBNameSpace & ".APBMasterAIRS " & _
             "where strAIRSNumber = '" & temp & "'"
 
             cmd = New OracleCommand(SQL, transferConn)
@@ -20299,7 +20299,7 @@ Public Class ISMPDataManagementTools
             dr.Close()
             If recExist = True Then
                 SQL = "SELECT COUNT(*) " & _
-                "FROM " & connNameSpace & ".APBHEADERDATA " & _
+                "FROM " & DBNameSpace & ".APBHEADERDATA " & _
                 "WHERE STRAIRSNUMBER = '" & temp & "' "
                 cmd = New OracleCommand(SQL, transferConn)
                 If transferConn.State = ConnectionState.Closed Then
@@ -20308,7 +20308,7 @@ Public Class ISMPDataManagementTools
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = False Or dr.Item(0) = 0 Then
-                    SQL = "Insert into " & connNameSpace & ".APBHEADERDATA " & _
+                    SQL = "Insert into " & DBNameSpace & ".APBHEADERDATA " & _
                     "Values " & _
                     "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                     "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "', " & _
@@ -20319,7 +20319,7 @@ Public Class ISMPDataManagementTools
                     "'" & Replace(temp13, "'", "''") & "', '" & Replace(temp14, "'", "''") & "', " & _
                     "'" & Replace(temp15, "'", "''") & "') "
                 Else
-                    SQL = "UPDATE " & connNameSpace & ".APBHEADERDATA SET " & _
+                    SQL = "UPDATE " & DBNameSpace & ".APBHEADERDATA SET " & _
                     "STRAIRSNUMBER = '" & Replace(temp, "'", "''") & "', " & _
                     "STROPERATIONALSTATUS = '" & Replace(temp2, "'", "''") & "', " & _
                     "STRCLASS = '" & Replace(temp3, "'", "''") & "', " & _
@@ -20443,7 +20443,7 @@ Public Class ISMPDataManagementTools
     End Sub
     Sub TransferAPBMasterAIRS()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".APBMASTERAIRS "
+        "from " & DBNameSpace & ".APBMASTERAIRS "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -20470,7 +20470,7 @@ Public Class ISMPDataManagementTools
             End If
 
             SQL = "SELECT COUNT(*) " & _
-            "FROM " & connNameSpace & ".APBMASTERAIRS " & _
+            "FROM " & DBNameSpace & ".APBMASTERAIRS " & _
             "WHERE STRAIRSNUMBER = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -20479,12 +20479,12 @@ Public Class ISMPDataManagementTools
             dr = cmd.ExecuteReader
             recExist = dr.Read
             If recExist = False Or dr.Item(0) = 0 Then
-                SQL = "Insert into " & connNameSpace & ".APBMASTERAIRS " & _
+                SQL = "Insert into " & DBNameSpace & ".APBMASTERAIRS " & _
                 "Values " & _
                 "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                 "'" & Replace(temp3, "'", "''") & "') "
             Else
-                SQL = "UPDATE " & connNameSpace & ".APBMASTERAIRS SET " & _
+                SQL = "UPDATE " & DBNameSpace & ".APBMASTERAIRS SET " & _
                 "STRAIRSNUMBER = '" & Replace(temp, "'", "''") & "', " & _
                 "STRMODIFINGPERSON = '" & Replace(temp2, "'", "''") & "', " & _
                 "DATMODIFINGDATE = '" & Replace(temp3, "'", "''") & "' " & _
@@ -20502,7 +20502,7 @@ Public Class ISMPDataManagementTools
     End Sub
     Sub TransferAPBMasterAPP()
         SQL = "Select * " & _
-              "from " & connNameSpace & ".APBMasterAPP "
+              "from " & DBNameSpace & ".APBMasterAPP "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -20519,7 +20519,7 @@ Public Class ISMPDataManagementTools
             End If
 
             SQL = "SELECT COUNT(*) " & _
-            "FROM " & connNameSpace & ".APBMasterAPP " & _
+            "FROM " & DBNameSpace & ".APBMasterAPP " & _
             "WHERE strVersionNumber = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -20528,11 +20528,11 @@ Public Class ISMPDataManagementTools
             dr = cmd.ExecuteReader
             recExist = dr.Read
             If recExist = False Or dr.Item(0) = 0 Then
-                SQL = "Insert into " & connNameSpace & ".APBMasterAPP " & _
+                SQL = "Insert into " & DBNameSpace & ".APBMasterAPP " & _
                 "Values " & _
                 "('" & Replace(temp, "'", "''") & "') "
             Else
-                SQL = "UPDATE " & connNameSpace & ".APBMasterAPP SET " & _
+                SQL = "UPDATE " & DBNameSpace & ".APBMasterAPP SET " & _
                 "strVersionNumber = '" & Replace(temp, "'", "''") & "' " & _
                 "WHERE strVersionNumber = '" & temp & "' "
             End If
@@ -20555,7 +20555,7 @@ Public Class ISMPDataManagementTools
     Sub TransferAPBSubPartData()
 
         SQL = "Select * " & _
-        "from " & connNameSpace & ".APBSUBPARTDATA "
+        "from " & DBNameSpace & ".APBSUBPARTDATA "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -20592,7 +20592,7 @@ Public Class ISMPDataManagementTools
             End If
             SQL = "Select " & _
             "strAIRSNumber " & _
-            "from " & connNameSpace & ".APBMasterAIRS " & _
+            "from " & DBNameSpace & ".APBMasterAIRS " & _
             "where strAIRSNumber = '" & temp & "'"
 
             cmd = New OracleCommand(SQL, transferConn)
@@ -20604,7 +20604,7 @@ Public Class ISMPDataManagementTools
             dr.Close()
             If recExist = True Then
                 SQL = "SELECT COUNT(*) " & _
-                "FROM " & connNameSpace & ".APBSUBPARTDATA " & _
+                "FROM " & DBNameSpace & ".APBSUBPARTDATA " & _
                 "WHERE STRSUBPARTKEY = '" & temp2 & "' " & _
                 "AND STRSUBPART = '" & temp3 & "' "
 
@@ -20615,13 +20615,13 @@ Public Class ISMPDataManagementTools
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = False Or dr.Item(0) = 0 Then
-                    SQL = "Insert into " & connNameSpace & ".APBSUBPARTDATA " & _
+                    SQL = "Insert into " & DBNameSpace & ".APBSUBPARTDATA " & _
                     "Values " & _
                     "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                     "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "', " & _
                     "'" & Replace(temp5, "'", "''") & "') "
                 Else
-                    SQL = "UPDATE " & connNameSpace & ".APBSUBPARTDATA SET " & _
+                    SQL = "UPDATE " & DBNameSpace & ".APBSUBPARTDATA SET " & _
                     "STRAIRSNUMBER = '" & Replace(temp, "'", "''") & "', " & _
                     "STRSUBPARTKEY = '" & Replace(temp2, "'", "''") & "', " & _
                     "STRSUBPART = '" & Replace(temp3, "'", "''") & "', " & _
@@ -20676,7 +20676,7 @@ Public Class ISMPDataManagementTools
         End If
 
         SQL = "Select * " & _
-        "from " & connNameSpace & ".APBSUPPLAMENTALDATA "
+        "from " & DBNameSpace & ".APBSUPPLAMENTALDATA "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -20749,7 +20749,7 @@ Public Class ISMPDataManagementTools
 
             SQL = "Select " & _
            "strAIRSNumber " & _
-           "from " & connNameSpace & ".APBMasterAIRS " & _
+           "from " & DBNameSpace & ".APBMasterAIRS " & _
            "where strAIRSNumber = '" & temp & "'"
 
             cmd = New OracleCommand(SQL, transferConn)
@@ -20762,7 +20762,7 @@ Public Class ISMPDataManagementTools
             If recExist = True Then
 
                 SQL = "SELECT COUNT(*) " & _
-                "FROM " & connNameSpace & ".APBSUPPLAMENTALDATA " & _
+                "FROM " & DBNameSpace & ".APBSUPPLAMENTALDATA " & _
                 "WHERE STRAIRSNUMBER = '" & temp & "' "
                 cmd = New OracleCommand(SQL, transferConn)
                 If transferConn.State = ConnectionState.Closed Then
@@ -20771,7 +20771,7 @@ Public Class ISMPDataManagementTools
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = False Or dr.Item(0) = 0 Then
-                    SQL = "Insert into " & connNameSpace & ".APBSUPPLAMENTALDATA " & _
+                    SQL = "Insert into " & DBNameSpace & ".APBSUPPLAMENTALDATA " & _
                     "Values " & _
                     "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                     "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "', " & _
@@ -20780,7 +20780,7 @@ Public Class ISMPDataManagementTools
                     "'" & Replace(temp9, "'", "''") & "', '" & Replace(temp10, "'", "''") & "', " & _
                     "'" & Replace(temp11, "'", "''") & "', '" & Replace(temp12, "'", "''") & "') "
                 Else
-                    SQL = "UPDATE " & connNameSpace & ".APBSUPPLAMENTALDATA SET " & _
+                    SQL = "UPDATE " & DBNameSpace & ".APBSUPPLAMENTALDATA SET " & _
                     "STRAIRSNUMBER = '" & Replace(temp, "'", "''") & "', " & _
                     "DATSSCPTESTREPORTDUE = '" & Replace(temp2, "'", "''") & "', " & _
                     "STRMODIFINGPERSON = '" & Replace(temp3, "'", "''") & "', " & _
@@ -20848,7 +20848,7 @@ Public Class ISMPDataManagementTools
     End Sub
     Sub TransferHBAPBAirProgramPollutants()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".HB_APBAIRPROGRAMPOLLUTANTS "
+        "from " & DBNameSpace & ".HB_APBAIRPROGRAMPOLLUTANTS "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -20857,7 +20857,7 @@ Public Class ISMPDataManagementTools
         End If
         daTemp.Fill(dsTemp, "Temp")
 
-        SQL = "DELETE " & connNameSpace & ".HB_APBAIRPROGRAMPOLLUTANTS "
+        SQL = "DELETE " & DBNameSpace & ".HB_APBAIRPROGRAMPOLLUTANTS "
         cmd = New OracleCommand(SQL, transferConn)
         If transferConn.State = ConnectionState.Closed Then
             transferConn.Open()
@@ -20904,7 +20904,7 @@ Public Class ISMPDataManagementTools
 
             SQL = "Select " & _
             "strAIRSNumber " & _
-            "from " & connNameSpace & ".APBMasterAIRS " & _
+            "from " & DBNameSpace & ".APBMasterAIRS " & _
             "where strAIRSNumber = '" & temp2 & "'"
 
             cmd = New OracleCommand(SQL, transferConn)
@@ -20916,7 +20916,7 @@ Public Class ISMPDataManagementTools
             dr.Close()
             If recExist = True Then
                 SQL = "SELECT COUNT(*) " & _
-                "FROM " & connNameSpace & ".HB_APBAIRPROGRAMPOLLUTANTS " & _
+                "FROM " & DBNameSpace & ".HB_APBAIRPROGRAMPOLLUTANTS " & _
                 "WHERE STRKEY = '" & temp & "' "
                 cmd = New OracleCommand(SQL, transferConn)
                 If transferConn.State = ConnectionState.Closed Then
@@ -20925,14 +20925,14 @@ Public Class ISMPDataManagementTools
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = False Or dr.Item(0) = 0 Then
-                    SQL = "Insert into " & connNameSpace & ".HB_APBAIRPROGRAMPOLLUTANTS " & _
+                    SQL = "Insert into " & DBNameSpace & ".HB_APBAIRPROGRAMPOLLUTANTS " & _
                     "Values " & _
                     "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                     "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "', " & _
                     "'" & Replace(temp5, "'", "''") & "', '" & Replace(temp6, "'", "''") & "', " & _
                     "'" & Replace(temp7, "'", "''") & "') "
                 Else
-                    SQL = "UPDATE " & connNameSpace & ".HB_APBAIRPROGRAMPOLLUTANTS SET " & _
+                    SQL = "UPDATE " & DBNameSpace & ".HB_APBAIRPROGRAMPOLLUTANTS SET " & _
                     "STRKEY = '" & Replace(temp, "'", "''") & "', " & _
                     "STRAIRSNUMBER = '" & Replace(temp2, "'", "''") & "', " & _
                     "STRAIRPOLLUTANTKEY = '" & Replace(temp3, "'", "''") & "', " & _
@@ -20957,7 +20957,7 @@ Public Class ISMPDataManagementTools
     Sub TransferHBAPBFacilityINformation()
 
         SQL = "Select * " & _
-        "from " & connNameSpace & ".HB_APBFACILITYINFORMATION "
+        "from " & DBNameSpace & ".HB_APBFACILITYINFORMATION "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -20966,7 +20966,7 @@ Public Class ISMPDataManagementTools
         End If
         daTemp.Fill(dsTemp, "Temp")
 
-        SQL = "DELETE " & connNameSpace & ".HB_APBFACILITYINFORMATION "
+        SQL = "DELETE " & DBNameSpace & ".HB_APBFACILITYINFORMATION "
         cmd = New OracleCommand(SQL, transferConn)
         If transferConn.State = ConnectionState.Closed Then
             transferConn.Open()
@@ -21048,7 +21048,7 @@ Public Class ISMPDataManagementTools
 
             SQL = "Select " & _
            "strAIRSNumber " & _
-           "from " & connNameSpace & ".APBMasterAIRS " & _
+           "from " & DBNameSpace & ".APBMasterAIRS " & _
            "where strAIRSNumber = '" & temp2 & "'"
 
             cmd = New OracleCommand(SQL, transferConn)
@@ -21060,7 +21060,7 @@ Public Class ISMPDataManagementTools
             dr.Close()
             If recExist = True Then
                 SQL = "SELECT COUNT(*) " & _
-                "FROM " & connNameSpace & ".HB_APBFACILITYINFORMATION " & _
+                "FROM " & DBNameSpace & ".HB_APBFACILITYINFORMATION " & _
                 "WHERE STRKEY = '" & temp & "' "
                 cmd = New OracleCommand(SQL, transferConn)
                 If transferConn.State = ConnectionState.Closed Then
@@ -21069,7 +21069,7 @@ Public Class ISMPDataManagementTools
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = False Or dr.Item(0) = 0 Then
-                    SQL = "Insert into " & connNameSpace & ".HB_APBFACILITYINFORMATION " & _
+                    SQL = "Insert into " & DBNameSpace & ".HB_APBFACILITYINFORMATION " & _
                     "Values " & _
                     "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                     "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "', " & _
@@ -21079,7 +21079,7 @@ Public Class ISMPDataManagementTools
                     "'" & Replace(temp11, "'", "''") & "', '" & Replace(temp12, "'", "''") & "', " & _
                     "'" & Replace(temp13, "'", "''") & "', '" & Replace(temp14, "'", "''") & "') "
                 Else
-                    SQL = "UPDATE " & connNameSpace & ".HB_APBFACILITYINFORMATION SET " & _
+                    SQL = "UPDATE " & DBNameSpace & ".HB_APBFACILITYINFORMATION SET " & _
                     "STRKEY = '" & Replace(temp, "'", "''") & "', " & _
                     "STRAIRSNUMBER = '" & Replace(temp2, "'", "''") & "', " & _
                     "STRFACILITYNAME = '" & Replace(temp3, "'", "''") & "', " & _
@@ -21112,7 +21112,7 @@ Public Class ISMPDataManagementTools
     Sub TransferHBAPBHeaderData()
 
         SQL = "Select * " & _
-        "from " & connNameSpace & ".HB_APBHEADERDATA "
+        "from " & DBNameSpace & ".HB_APBHEADERDATA "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -21121,7 +21121,7 @@ Public Class ISMPDataManagementTools
         End If
         daTemp.Fill(dsTemp, "Temp")
 
-        SQL = "DELETE " & connNameSpace & ".HB_APBHEADERDATA "
+        SQL = "DELETE " & DBNameSpace & ".HB_APBHEADERDATA "
         cmd = New OracleCommand(SQL, transferConn)
         If transferConn.State = ConnectionState.Closed Then
             transferConn.Open()
@@ -21213,7 +21213,7 @@ Public Class ISMPDataManagementTools
 
             SQL = "Select " & _
            "strAIRSNumber " & _
-           "from " & connNameSpace & ".APBMasterAIRS " & _
+           "from " & DBNameSpace & ".APBMasterAIRS " & _
            "where strAIRSNumber = '" & temp2 & "'"
 
             cmd = New OracleCommand(SQL, transferConn)
@@ -21225,7 +21225,7 @@ Public Class ISMPDataManagementTools
             dr.Close()
             If recExist = True Then
                 SQL = "SELECT COUNT(*) " & _
-                "FROM " & connNameSpace & ".HB_APBHEADERDATA " & _
+                "FROM " & DBNameSpace & ".HB_APBHEADERDATA " & _
                 "WHERE STRKEY = '" & temp & "' "
                 cmd = New OracleCommand(SQL, transferConn)
                 If transferConn.State = ConnectionState.Closed Then
@@ -21234,7 +21234,7 @@ Public Class ISMPDataManagementTools
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = False Or dr.Item(0) = 0 Then
-                    SQL = "Insert into " & connNameSpace & ".HB_APBHEADERDATA " & _
+                    SQL = "Insert into " & DBNameSpace & ".HB_APBHEADERDATA " & _
                     "Values " & _
                     "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                     "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "', " & _
@@ -21245,7 +21245,7 @@ Public Class ISMPDataManagementTools
                     "'" & Replace(temp13, "'", "''") & "', '" & Replace(temp14, "'", "''") & "', " & _
                     "'" & Replace(temp15, "'", "''") & "', '" & Replace(temp16, "'", "''") & "') "
                 Else
-                    SQL = "UPDATE " & connNameSpace & ".HB_APBHEADERDATA SET " & _
+                    SQL = "UPDATE " & DBNameSpace & ".HB_APBHEADERDATA SET " & _
                     "STRKEY = '" & Replace(temp, "'", "''") & "', " & _
                     "STRAIRSNUMBER = '" & Replace(temp2, "'", "''") & "', " & _
                     "STROPERATIONALSTATUS = '" & Replace(temp3, "'", "''") & "', " & _
@@ -21278,7 +21278,7 @@ Public Class ISMPDataManagementTools
     End Sub
     Sub TransferISMPDocumentTypes()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".ISMPDocumentType "
+        "from " & DBNameSpace & ".ISMPDocumentType "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -21310,7 +21310,7 @@ Public Class ISMPDataManagementTools
             End If
 
             SQL = "SELECT COUNT(*) " & _
-            "FROM " & connNameSpace & ".ISMPDocumentType " & _
+            "FROM " & DBNameSpace & ".ISMPDocumentType " & _
             "WHERE strKey = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -21319,12 +21319,12 @@ Public Class ISMPDataManagementTools
             dr = cmd.ExecuteReader
             recExist = dr.Read
             If recExist = False Or dr.Item(0) = 0 Then
-                SQL = "Insert into " & connNameSpace & ".ISMPDocumentType " & _
+                SQL = "Insert into " & DBNameSpace & ".ISMPDocumentType " & _
                 "Values " & _
                 "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                 "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "') "
             Else
-                SQL = "UPDATE " & connNameSpace & ".ISMPDocumentType SET " & _
+                SQL = "UPDATE " & DBNameSpace & ".ISMPDocumentType SET " & _
                 "strKey = '" & Replace(temp, "'", "''") & "', " & _
                 "strDocumentType = '" & Replace(temp2, "'", "''") & "', " & _
                 "strTableName = '" & Replace(temp2, "'", "''") & "', " & _
@@ -21343,7 +21343,7 @@ Public Class ISMPDataManagementTools
     End Sub
     Sub TransferISMPFacilityAssignment()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".ISMPFacilityAssignment "
+        "from " & DBNameSpace & ".ISMPFacilityAssignment "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -21365,7 +21365,7 @@ Public Class ISMPDataManagementTools
             End If
 
             SQL = "SELECT COUNT(*) " & _
-            "FROM " & connNameSpace & ".ISMPFacilityAssignment " & _
+            "FROM " & DBNameSpace & ".ISMPFacilityAssignment " & _
             "WHERE strKey = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -21374,11 +21374,11 @@ Public Class ISMPDataManagementTools
             dr = cmd.ExecuteReader
             recExist = dr.Read
             If recExist = False Or dr.Item(0) = 0 Then
-                SQL = "Insert into " & connNameSpace & ".ISMPFacilityAssignment " & _
+                SQL = "Insert into " & DBNameSpace & ".ISMPFacilityAssignment " & _
                 "Values " & _
                 "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "') "
             Else
-                SQL = "UPDATE " & connNameSpace & ".ISMPFacilityAssignment SET " & _
+                SQL = "UPDATE " & DBNameSpace & ".ISMPFacilityAssignment SET " & _
                 "strAIRSNumber = '" & Replace(temp, "'", "''") & "', " & _
                 "strISMPUnit = '" & Replace(temp2, "'", "''") & "' " & _
                 "WHERE strAIRSNumber = '" & Replace(temp, "'", "''") & "' "
@@ -21395,7 +21395,7 @@ Public Class ISMPDataManagementTools
     End Sub
     Sub TransferISMPMaster()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".ISMPMaster "
+        "from " & DBNameSpace & ".ISMPMaster "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -21428,7 +21428,7 @@ Public Class ISMPDataManagementTools
 
             SQL = "Select " & _
             "strAIRSNumber " & _
-            "from " & connNameSpace & ".APBMasterAIRS " & _
+            "from " & DBNameSpace & ".APBMasterAIRS " & _
             "where strAIRSNumber = '" & temp2 & "'"
 
             cmd = New OracleCommand(SQL, transferConn)
@@ -21440,7 +21440,7 @@ Public Class ISMPDataManagementTools
             dr.Close()
             If recExist = True Then
                 SQL = "SELECT COUNT(*) " & _
-                "FROM " & connNameSpace & ".ISMPMaster " & _
+                "FROM " & DBNameSpace & ".ISMPMaster " & _
                 "WHERE STRUNIT = '" & temp & "' "
 
                 cmd = New OracleCommand(SQL, transferConn)
@@ -21450,12 +21450,12 @@ Public Class ISMPDataManagementTools
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = False Or dr.Item(0) = 0 Then
-                    SQL = "Insert into " & connNameSpace & ".ISMPMaster " & _
+                    SQL = "Insert into " & DBNameSpace & ".ISMPMaster " & _
                     "Values " & _
                     "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                     "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "') "
                 Else
-                    SQL = "UPDATE " & connNameSpace & ".ISMPMaster SET " & _
+                    SQL = "UPDATE " & DBNameSpace & ".ISMPMaster SET " & _
                     "strReferenceNumber = '" & Replace(temp, "'", "''") & "', " & _
                     "strAIRSnumber = '" & Replace(temp2, "'", "''") & "', " & _
                     "strModifingPerson = '" & Replace(temp3, "'", "''") & "', " & _
@@ -21476,7 +21476,7 @@ Public Class ISMPDataManagementTools
     End Sub
     Sub TransferISMPReferenceNumber()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".ISMPReferenceNumber "
+        "from " & DBNameSpace & ".ISMPReferenceNumber "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -21493,7 +21493,7 @@ Public Class ISMPDataManagementTools
             End If
 
             SQL = "SELECT COUNT(*) " & _
-            "FROM " & connNameSpace & ".ISMPReferenceNumber " & _
+            "FROM " & DBNameSpace & ".ISMPReferenceNumber " & _
             "WHERE strKey = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -21502,11 +21502,11 @@ Public Class ISMPDataManagementTools
             dr = cmd.ExecuteReader
             recExist = dr.Read
             If recExist = False Or dr.Item(0) = 0 Then
-                SQL = "Insert into " & connNameSpace & ".ISMPReferenceNumber " & _
+                SQL = "Insert into " & DBNameSpace & ".ISMPReferenceNumber " & _
                 "Values " & _
                 "('" & Replace(temp, "'", "''") & "') "
             Else
-                SQL = "UPDATE " & connNameSpace & ".ISMPReferenceNumber SET " & _
+                SQL = "UPDATE " & DBNameSpace & ".ISMPReferenceNumber SET " & _
                 "strReferenceNumber = '" & Replace(temp, "'", "''") & "' " & _
                 "WHERE strReferenceNumber = '" & Replace(temp, "'", "''") & "' "
             End If
@@ -21526,7 +21526,7 @@ Public Class ISMPDataManagementTools
     End Sub
     Sub TransferISMPReportFlare()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".ISMPReportFlare "
+        "from " & DBNameSpace & ".ISMPReportFlare "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -21703,7 +21703,7 @@ Public Class ISMPDataManagementTools
             End If
 
             SQL = "SELECT strReferenceNumber " & _
-            "FROM " & connNameSpace & ".ISMPReportInformation " & _
+            "FROM " & DBNameSpace & ".ISMPReportInformation " & _
             "WHERE strReferenceNumber = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -21714,7 +21714,7 @@ Public Class ISMPDataManagementTools
             dr.Close()
             If recExist = True Then
                 SQL = "SELECT COUNT(*) " & _
-                "FROM " & connNameSpace & ".ISMPReportFlare " & _
+                "FROM " & DBNameSpace & ".ISMPReportFlare " & _
                 "WHERE strReferenceNumber = '" & temp & "' "
                 cmd = New OracleCommand(SQL, transferConn)
                 If transferConn.State = ConnectionState.Closed Then
@@ -21723,7 +21723,7 @@ Public Class ISMPDataManagementTools
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = False Or dr.Item(0) = 0 Then
-                    SQL = "Insert into " & connNameSpace & ".ISMPReportFlare " & _
+                    SQL = "Insert into " & DBNameSpace & ".ISMPReportFlare " & _
                     "Values " & _
                     "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                     "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "', " & _
@@ -21743,7 +21743,7 @@ Public Class ISMPDataManagementTools
                     "'" & Replace(temp31, "'", "''") & "', '" & Replace(temp32, "'", "''") & "', " & _
                     "'" & Replace(temp33, "'", "''") & "') "
                 Else
-                    SQL = "UPDATE " & connNameSpace & ".ISMPReportFlare SET " & _
+                    SQL = "UPDATE " & DBNameSpace & ".ISMPReportFlare SET " & _
                     "strReferenceNumber = '" & Replace(temp, "'", "''") & "', " & _
                     "strMaxOperatingCapacity = '" & Replace(temp2, "'", "''") & "', " & _
                     "strMaxOperatingCapacityUnit = '" & Replace(temp3, "'", "''") & "', " & _
@@ -21792,7 +21792,7 @@ Public Class ISMPDataManagementTools
     End Sub
     Sub TransferISMPReportInformation()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".ISMPReportInformation "
+        "from " & DBNameSpace & ".ISMPReportInformation "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -21959,7 +21959,7 @@ Public Class ISMPDataManagementTools
             End If
 
             SQL = "SELECT strReferenceNumber " & _
-            "FROM " & connNameSpace & ".ISMPMaster " & _
+            "FROM " & DBNameSpace & ".ISMPMaster " & _
             "WHERE strReferenceNumber = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -21970,7 +21970,7 @@ Public Class ISMPDataManagementTools
             dr.Close()
             If recExist = True Then
                 SQL = "SELECT COUNT(*) " & _
-                "FROM " & connNameSpace & ".ISMPReportInformation " & _
+                "FROM " & DBNameSpace & ".ISMPReportInformation " & _
                 "WHERE strReferenceNumber = '" & temp & "' "
                 cmd = New OracleCommand(SQL, transferConn)
                 If transferConn.State = ConnectionState.Closed Then
@@ -21979,7 +21979,7 @@ Public Class ISMPDataManagementTools
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = False Or dr.Item(0) = 0 Then
-                    SQL = "Insert into " & connNameSpace & ".ISMPReportInformation " & _
+                    SQL = "Insert into " & DBNameSpace & ".ISMPReportInformation " & _
                     "Values " & _
                     "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                     "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "', " & _
@@ -21998,7 +21998,7 @@ Public Class ISMPDataManagementTools
                     "'" & Replace(temp29, "'", "''") & "', '" & Replace(temp30, "'", "''") & "', " & _
                     "'" & Replace(temp31, "'", "''") & "') "
                 Else
-                    SQL = "UPDATE " & connNameSpace & ".ISMPReportInformation SET " & _
+                    SQL = "UPDATE " & DBNameSpace & ".ISMPReportInformation SET " & _
                     "strReferenceNumber = '" & Replace(temp, "'", "''") & "', " & _
                     "strPollutant = '" & Replace(temp2, "'", "''") & "', " & _
                     "strEmissionSource = '" & Replace(temp3, "'", "''") & "', " & _
@@ -22045,7 +22045,7 @@ Public Class ISMPDataManagementTools
     End Sub
     Sub TransferISMPREportMemo()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".ISMPReportMemo "
+        "from " & DBNameSpace & ".ISMPReportMemo "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -22127,7 +22127,7 @@ Public Class ISMPDataManagementTools
             End If
 
             SQL = "SELECT strReferenceNumber " & _
-            "FROM " & connNameSpace & ".ISMPReportInformation " & _
+            "FROM " & DBNameSpace & ".ISMPReportInformation " & _
             "WHERE strReferenceNumber = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -22138,7 +22138,7 @@ Public Class ISMPDataManagementTools
             dr.Close()
             If recExist = True Then
                 SQL = "SELECT COUNT(*) " & _
-                "FROM " & connNameSpace & ".ISMPReportMemo " & _
+                "FROM " & DBNameSpace & ".ISMPReportMemo " & _
                 "WHERE strReferenceNumber = '" & temp & "' "
                 cmd = New OracleCommand(SQL, transferConn)
                 If transferConn.State = ConnectionState.Closed Then
@@ -22147,7 +22147,7 @@ Public Class ISMPDataManagementTools
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = False Or dr.Item(0) = 0 Then
-                    SQL = "Insert into " & connNameSpace & ".ISMPReportMemo " & _
+                    SQL = "Insert into " & DBNameSpace & ".ISMPReportMemo " & _
                     "Values " & _
                     "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                     "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "', " & _
@@ -22157,7 +22157,7 @@ Public Class ISMPDataManagementTools
                     "'" & Replace(temp11, "'", "''") & "', '" & Replace(temp12, "'", "''") & "', " & _
                     "'" & Replace(temp13, "'", "''") & "', '" & Replace(temp14, "'", "''") & "') "
                 Else
-                    SQL = "UPDATE " & connNameSpace & ".ISMPReportMemo SET " & _
+                    SQL = "UPDATE " & DBNameSpace & ".ISMPReportMemo SET " & _
                     "strReferenceNumber = '" & Replace(temp, "'", "''") & "', " & _
                     "strMemorandumField = '" & Replace(temp2, "'", "''") & "', " & _
                     "strMaxOperatingCapacity = '" & Replace(temp3, "'", "''") & "', " & _
@@ -22187,7 +22187,7 @@ Public Class ISMPDataManagementTools
     End Sub
     Sub TransferISMPReportOneStack()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".ISMPReportOneStack "
+        "from " & DBNameSpace & ".ISMPReportOneStack "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -22419,7 +22419,7 @@ Public Class ISMPDataManagementTools
             End If
 
             SQL = "SELECT strReferenceNumber " & _
-            "FROM " & connNameSpace & ".ISMPReportInformation " & _
+            "FROM " & DBNameSpace & ".ISMPReportInformation " & _
             "WHERE strReferenceNumber = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -22430,7 +22430,7 @@ Public Class ISMPDataManagementTools
             dr.Close()
             If recExist = True Then
                 SQL = "SELECT COUNT(*) " & _
-                "FROM " & connNameSpace & ".ISMPReportOneStack " & _
+                "FROM " & DBNameSpace & ".ISMPReportOneStack " & _
                 "WHERE strReferenceNumber = '" & temp & "' "
                 cmd = New OracleCommand(SQL, transferConn)
                 If transferConn.State = ConnectionState.Closed Then
@@ -22439,7 +22439,7 @@ Public Class ISMPDataManagementTools
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = False Or dr.Item(0) = 0 Then
-                    SQL = "Insert into " & connNameSpace & ".ISMPReportOneStack " & _
+                    SQL = "Insert into " & DBNameSpace & ".ISMPReportOneStack " & _
                     "Values " & _
                     "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                     "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "', " & _
@@ -22464,7 +22464,7 @@ Public Class ISMPDataManagementTools
                     "'" & Replace(temp41, "'", "''") & "', '" & Replace(temp42, "'", "''") & "', " & _
                     "'" & Replace(temp43, "'", "''") & "', '" & Replace(temp44, "'", "''") & "') "
                 Else
-                    SQL = "UPDATE " & connNameSpace & ".ISMPReportOneStack SET " & _
+                    SQL = "UPDATE " & DBNameSpace & ".ISMPReportOneStack SET " & _
                     "strReferenceNumber = '" & Replace(temp, "'", "''") & "', " & _
                     "strMaxOperatingCapacity = '" & Replace(temp2, "'", "''") & "', " & _
                     "strMaxOperatingCapacityUnit = '" & Replace(temp3, "'", "''") & "', " & _
@@ -22524,7 +22524,7 @@ Public Class ISMPDataManagementTools
     End Sub
     Sub TransferISMPREportOpacity()
         SQL = "Select * " & _
-              "from " & connNameSpace & ".ISMPReportOpacity "
+              "from " & DBNameSpace & ".ISMPReportOpacity "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -22696,7 +22696,7 @@ Public Class ISMPDataManagementTools
             End If
 
             SQL = "SELECT strReferenceNumber " & _
-            "FROM " & connNameSpace & ".ISMPReportInformation " & _
+            "FROM " & DBNameSpace & ".ISMPReportInformation " & _
             "WHERE strReferenceNumber = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -22707,7 +22707,7 @@ Public Class ISMPDataManagementTools
             dr.Close()
             If recExist = True Then
                 SQL = "SELECT COUNT(*) " & _
-                "FROM " & connNameSpace & ".ISMPReportOpacity " & _
+                "FROM " & DBNameSpace & ".ISMPReportOpacity " & _
                 "WHERE strReferenceNumber = '" & temp & "' "
                 cmd = New OracleCommand(SQL, transferConn)
                 If transferConn.State = ConnectionState.Closed Then
@@ -22716,7 +22716,7 @@ Public Class ISMPDataManagementTools
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = False Or dr.Item(0) = 0 Then
-                    SQL = "Insert into " & connNameSpace & ".ISMPReportOpacity " & _
+                    SQL = "Insert into " & DBNameSpace & ".ISMPReportOpacity " & _
                     "Values " & _
                     "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                     "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "', " & _
@@ -22735,7 +22735,7 @@ Public Class ISMPDataManagementTools
                     "'" & Replace(temp29, "'", "''") & "', '" & Replace(temp30, "'", "''") & "', " & _
                     "'" & Replace(temp31, "'", "''") & "', '" & Replace(temp32, "'", "''") & "') "
                 Else
-                    SQL = "UPDATE " & connNameSpace & ".ISMPReportOpacity SET " & _
+                    SQL = "UPDATE " & DBNameSpace & ".ISMPReportOpacity SET " & _
                     "strReferenceNumber = '" & Replace(temp, "'", "''") & "', " & _
                     "strMaxOperatingCapacity1A = '" & Replace(temp2, "'", "''") & "', " & _
                     "strMaxOperatingCapacity2A = '" & Replace(temp3, "'", "''") & "', " & _
@@ -22783,7 +22783,7 @@ Public Class ISMPDataManagementTools
     End Sub
     Sub TransferISMPREportPondAndGas()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".ISMPReportPondAndGas "
+        "from " & DBNameSpace & ".ISMPReportPondAndGas "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -22945,7 +22945,7 @@ Public Class ISMPDataManagementTools
             End If
 
             SQL = "SELECT strReferenceNumber " & _
-            "FROM " & connNameSpace & ".ISMPReportInformation " & _
+            "FROM " & DBNameSpace & ".ISMPReportInformation " & _
             "WHERE strReferenceNumber = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -22956,7 +22956,7 @@ Public Class ISMPDataManagementTools
             dr.Close()
             If recExist = True Then
                 SQL = "SELECT COUNT(*) " & _
-                "FROM " & connNameSpace & ".ISMPReportPondAndGas " & _
+                "FROM " & DBNameSpace & ".ISMPReportPondAndGas " & _
                 "WHERE strReferenceNumber = '" & temp & "' "
                 cmd = New OracleCommand(SQL, transferConn)
                 If transferConn.State = ConnectionState.Closed Then
@@ -22965,7 +22965,7 @@ Public Class ISMPDataManagementTools
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = False Or dr.Item(0) = 0 Then
-                    SQL = "Insert into " & connNameSpace & ".ISMPReportPondAndGas " & _
+                    SQL = "Insert into " & DBNameSpace & ".ISMPReportPondAndGas " & _
                     "Values " & _
                     "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                     "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "', " & _
@@ -22983,7 +22983,7 @@ Public Class ISMPDataManagementTools
                     "'" & Replace(temp27, "'", "''") & "', '" & Replace(temp28, "'", "''") & "', " & _
                     "'" & Replace(temp29, "'", "''") & "', '" & Replace(temp30, "'", "''") & "') "
                 Else
-                    SQL = "UPDATE " & connNameSpace & ".ISMPReportPondAndGas SET " & _
+                    SQL = "UPDATE " & DBNameSpace & ".ISMPReportPondAndGas SET " & _
                     "strReferenceNumber = '" & Replace(temp, "'", "''") & "', " & _
                     "strMaxOperatingCapacity = '" & Replace(temp2, "'", "''") & "', " & _
                     "strMaxOperatingCapacityUnit = '" & Replace(temp3, "'", "''") & "', " & _
@@ -23029,7 +23029,7 @@ Public Class ISMPDataManagementTools
     End Sub
     Sub TransferISMPReportRATA()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".ISMPReportRata "
+        "from " & DBNameSpace & ".ISMPReportRata "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -23206,7 +23206,7 @@ Public Class ISMPDataManagementTools
             End If
 
             SQL = "SELECT strReferenceNumber " & _
-            "FROM " & connNameSpace & ".ISMPReportInformation " & _
+            "FROM " & DBNameSpace & ".ISMPReportInformation " & _
             "WHERE strReferenceNumber = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -23217,7 +23217,7 @@ Public Class ISMPDataManagementTools
             dr.Close()
             If recExist = True Then
                 SQL = "SELECT COUNT(*) " & _
-                "FROM " & connNameSpace & ".ISMPReportRata " & _
+                "FROM " & DBNameSpace & ".ISMPReportRata " & _
                 "WHERE strReferenceNumber = '" & temp & "' "
                 cmd = New OracleCommand(SQL, transferConn)
                 If transferConn.State = ConnectionState.Closed Then
@@ -23226,7 +23226,7 @@ Public Class ISMPDataManagementTools
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = False Or dr.Item(0) = 0 Then
-                    SQL = "Insert into " & connNameSpace & ".ISMPReportRata " & _
+                    SQL = "Insert into " & DBNameSpace & ".ISMPReportRata " & _
                     "Values " & _
                     "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                     "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "', " & _
@@ -23246,7 +23246,7 @@ Public Class ISMPDataManagementTools
                     "'" & Replace(temp31, "'", "''") & "', '" & Replace(temp32, "'", "''") & "', " & _
                     "'" & Replace(temp33, "'", "''") & "') "
                 Else
-                    SQL = "UPDATE " & connNameSpace & ".ISMPReportRata SET " & _
+                    SQL = "UPDATE " & DBNameSpace & ".ISMPReportRata SET " & _
                     "strReferenceNumber = '" & Replace(temp, "'", "''") & "', " & _
                     "strDiluent = '" & Replace(temp2, "'", "''") & "', " & _
                     "strApplicableStandard = '" & Replace(temp3, "'", "''") & "', " & _
@@ -23295,7 +23295,7 @@ Public Class ISMPDataManagementTools
     End Sub
     Sub TransferISMPREportTwoStack()
         SQL = "Select * " & _
-      "from " & connNameSpace & ".ISMPReportTwoStack "
+      "from " & DBNameSpace & ".ISMPReportTwoStack "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -23644,7 +23644,7 @@ Public Class ISMPDataManagementTools
             End If
            
             SQL = "SELECT strReferenceNumber " & _
-            "FROM " & connNameSpace & ".ISMPReportInformation " & _
+            "FROM " & DBNameSpace & ".ISMPReportInformation " & _
             "WHERE strReferenceNumber = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -23655,7 +23655,7 @@ Public Class ISMPDataManagementTools
             dr.Close()
             If recExist = True Then
                 SQL = "SELECT COUNT(*) " & _
-                "FROM " & connNameSpace & ".ISMPReportTwoStack " & _
+                "FROM " & DBNameSpace & ".ISMPReportTwoStack " & _
                 "WHERE strReferenceNumber = '" & temp & "' "
                 cmd = New OracleCommand(SQL, transferConn)
                 If transferConn.State = ConnectionState.Closed Then
@@ -23664,7 +23664,7 @@ Public Class ISMPDataManagementTools
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = False Or dr.Item(0) = 0 Then
-                    SQL = "Insert into " & connNameSpace & ".ISMPReportTwoStack " & _
+                    SQL = "Insert into " & DBNameSpace & ".ISMPReportTwoStack " & _
                     "Values " & _
                     "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                     "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "', " & _
@@ -23701,7 +23701,7 @@ Public Class ISMPDataManagementTools
                     "'" & Replace(temp65, "'", "''") & "', '" & Replace(temp66, "'", "''") & "', " & _
                     "'" & Replace(temp67, "'", "''") & "') "
                 Else
-                    SQL = "UPDATE " & connNameSpace & ".ISMPReportTwoStack SET " & _
+                    SQL = "UPDATE " & DBNameSpace & ".ISMPReportTwoStack SET " & _
                     "strReferenceNumber = '" & Replace(temp, "'", "''") & "', " & _
                     "strMaxOperatingCapacity = '" & Replace(temp2, "'", "''") & "', " & _
                     "strMaxOperatingCapacityUnit = '" & Replace(temp3, "'", "''") & "', " & _
@@ -23784,7 +23784,7 @@ Public Class ISMPDataManagementTools
     End Sub
     Sub TransferISMPReportType()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".ISMPReportType "
+        "from " & DBNameSpace & ".ISMPReportType "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -23806,7 +23806,7 @@ Public Class ISMPDataManagementTools
             End If
 
             SQL = "SELECT COUNT(*) " & _
-            "FROM " & connNameSpace & ".ISMPReportType " & _
+            "FROM " & DBNameSpace & ".ISMPReportType " & _
             "WHERE strReferenceNumber = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -23815,11 +23815,11 @@ Public Class ISMPDataManagementTools
             dr = cmd.ExecuteReader
             recExist = dr.Read
             If recExist = False Or dr.Item(0) = 0 Then
-                SQL = "Insert into " & connNameSpace & ".ISMPReportType " & _
+                SQL = "Insert into " & DBNameSpace & ".ISMPReportType " & _
                 "Values " & _
                 "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "') "
             Else
-                SQL = "UPDATE " & connNameSpace & ".ISMPReportType SET " & _
+                SQL = "UPDATE " & DBNameSpace & ".ISMPReportType SET " & _
                 "strKey = '" & Replace(temp, "'", "''") & "', " & _
                 "strReportType = '" & Replace(temp2, "'", "''") & "' " & _
                 "WHERE strKey = '" & Replace(temp, "'", "''") & "' "
@@ -23836,7 +23836,7 @@ Public Class ISMPDataManagementTools
     End Sub
     Sub TransferISMPTestFirmComments()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".ISMPTestFirmComments "
+        "from " & DBNameSpace & ".ISMPTestFirmComments "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -23903,7 +23903,7 @@ Public Class ISMPDataManagementTools
             End If
 
             SQL = "SELECT COUNT(*) " & _
-            "FROM " & connNameSpace & ".ISMPTestFirmComments " & _
+            "FROM " & DBNameSpace & ".ISMPTestFirmComments " & _
             "WHERE strReferenceNumber = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -23912,7 +23912,7 @@ Public Class ISMPDataManagementTools
             dr = cmd.ExecuteReader
             recExist = dr.Read
             If recExist = False Or dr.Item(0) = 0 Then
-                SQL = "Insert into " & connNameSpace & ".ISMPTestFirmComments " & _
+                SQL = "Insert into " & DBNameSpace & ".ISMPTestFirmComments " & _
                 "Values " & _
                 "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                 "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "', " & _
@@ -23921,7 +23921,7 @@ Public Class ISMPDataManagementTools
                 "'" & Replace(temp9, "'", "''") & "', '" & Replace(temp10, "'", "''") & "', " & _
                 "'" & Replace(temp11, "'", "''") & "') "
             Else
-                SQL = "UPDATE " & connNameSpace & ".ISMPTestFirmComments SET " & _
+                SQL = "UPDATE " & DBNameSpace & ".ISMPTestFirmComments SET " & _
                 "strCommentsID = '" & Replace(temp, "'", "''") & "', " & _
                 "strTestingFirmKey = '" & Replace(temp2, "'", "''") & "', " & _
                 "strAIRSNumber = '" & Replace(temp3, "'", "''") & "', " & _
@@ -23947,7 +23947,7 @@ Public Class ISMPDataManagementTools
     End Sub
     Sub TransferISMPTestLogLink()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".ISMPTestLogLink "
+        "from " & DBNameSpace & ".ISMPTestLogLink "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -23969,7 +23969,7 @@ Public Class ISMPDataManagementTools
             End If
 
             SQL = "SELECT COUNT(*) " & _
-            "FROM " & connNameSpace & ".ISMPTestLogLink " & _
+            "FROM " & DBNameSpace & ".ISMPTestLogLink " & _
             "WHERE strReferenceNumber = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -23978,11 +23978,11 @@ Public Class ISMPDataManagementTools
             dr = cmd.ExecuteReader
             recExist = dr.Read
             If recExist = False Or dr.Item(0) = 0 Then
-                SQL = "Insert into " & connNameSpace & ".ISMPTestLogLink " & _
+                SQL = "Insert into " & DBNameSpace & ".ISMPTestLogLink " & _
                 "Values " & _
                 "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "') "
             Else
-                SQL = "UPDATE " & connNameSpace & ".ISMPTestLogLink SET " & _
+                SQL = "UPDATE " & DBNameSpace & ".ISMPTestLogLink SET " & _
                 "strReferenceNumber = '" & Replace(temp, "'", "''") & "', " & _
                 "strTestLogNumber = '" & Replace(temp2, "'", "''") & "' " & _
                 "WHERE strReferenceNumber = '" & Replace(temp, "'", "''") & "' "
@@ -23999,7 +23999,7 @@ Public Class ISMPDataManagementTools
     End Sub
     Sub TransferISMPTestLogNumber()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".ISMPTestLogNumber "
+        "from " & DBNameSpace & ".ISMPTestLogNumber "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -24016,7 +24016,7 @@ Public Class ISMPDataManagementTools
             End If
 
             SQL = "SELECT COUNT(*) " & _
-            "FROM " & connNameSpace & ".ISMPTestLogNumber " & _
+            "FROM " & DBNameSpace & ".ISMPTestLogNumber " & _
             "WHERE strReferenceNumber = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -24025,11 +24025,11 @@ Public Class ISMPDataManagementTools
             dr = cmd.ExecuteReader
             recExist = dr.Read
             If recExist = False Or dr.Item(0) = 0 Then
-                SQL = "Insert into " & connNameSpace & ".ISMPTestLogNumber " & _
+                SQL = "Insert into " & DBNameSpace & ".ISMPTestLogNumber " & _
                 "Values " & _
                 "('" & Replace(temp, "'", "''") & "') "
             Else
-                SQL = "UPDATE " & connNameSpace & ".ISMPTestLogNumber SET " & _
+                SQL = "UPDATE " & DBNameSpace & ".ISMPTestLogNumber SET " & _
                 "strTestLogNumber = '" & Replace(temp, "'", "''") & "' " & _
                 "WHERE strTestLogNumber = '" & Replace(temp, "'", "''") & "' "
             End If
@@ -24045,7 +24045,7 @@ Public Class ISMPDataManagementTools
     End Sub
     Sub TransferISMPTestNotification()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".ISMPTestNotification "
+        "from " & DBNameSpace & ".ISMPTestNotification "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -24169,7 +24169,7 @@ Public Class ISMPDataManagementTools
             End If
 
             SQL = "SELECT COUNT(*) " & _
-            "FROM " & connNameSpace & ".ISMPTestNotification " & _
+            "FROM " & DBNameSpace & ".ISMPTestNotification " & _
             "WHERE strReferenceNumber = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -24178,7 +24178,7 @@ Public Class ISMPDataManagementTools
             dr = cmd.ExecuteReader
             recExist = dr.Read
             If recExist = False Or dr.Item(0) = 0 Then
-                SQL = "Insert into " & connNameSpace & ".ISMPTestNotification " & _
+                SQL = "Insert into " & DBNameSpace & ".ISMPTestNotification " & _
                 "Values " & _
                 "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                 "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "', " & _
@@ -24192,7 +24192,7 @@ Public Class ISMPDataManagementTools
                 "'" & Replace(temp19, "'", "''") & "', '" & Replace(temp20, "'", "''") & "', " & _
                 "'" & Replace(temp21, "'", "''") & "', '" & Replace(temp22, "'", "''") & "') "
             Else
-                SQL = "UPDATE " & connNameSpace & ".ISMPTestNotification SET " & _
+                SQL = "UPDATE " & DBNameSpace & ".ISMPTestNotification SET " & _
                 "strTestLogNumber = '" & Replace(temp, "'", "''") & "', " & _
                 "strEmissionUnit = '" & Replace(temp2, "'", "''") & "', " & _
                 "datProposedStartDate = '" & Replace(temp3, "'", "''") & "', " & _
@@ -24229,7 +24229,7 @@ Public Class ISMPDataManagementTools
     End Sub
     Sub TransferISMPTestNotificationLog()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".ISMPTestNotificationLog "
+        "from " & DBNameSpace & ".ISMPTestNotificationLog "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -24292,7 +24292,7 @@ Public Class ISMPDataManagementTools
             End If
 
             SQL = "SELECT COUNT(*) " & _
-            "FROM " & connNameSpace & ".ISMPTestNotificationLog " & _
+            "FROM " & DBNameSpace & ".ISMPTestNotificationLog " & _
             "WHERE strReferenceNumber = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -24301,7 +24301,7 @@ Public Class ISMPDataManagementTools
             dr = cmd.ExecuteReader
             recExist = dr.Read
             If recExist = False Or dr.Item(0) = 0 Then
-                SQL = "Insert into " & connNameSpace & ".ISMPTestNotificationLog " & _
+                SQL = "Insert into " & DBNameSpace & ".ISMPTestNotificationLog " & _
                 "Values " & _
                 "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                 "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "', " & _
@@ -24309,7 +24309,7 @@ Public Class ISMPDataManagementTools
                 "'" & Replace(temp7, "'", "''") & "', '" & Replace(temp8, "'", "''") & "', " & _
                 "'" & Replace(temp9, "'", "''") & "', '" & Replace(temp10, "'", "''") & "') "
             Else
-                SQL = "UPDATE " & connNameSpace & ".ISMPTestNotificationLog SET " & _
+                SQL = "UPDATE " & DBNameSpace & ".ISMPTestNotificationLog SET " & _
                 "strTestLogNumber = '" & Replace(temp, "'", "''") & "', " & _
                 "strEngineer = '" & Replace(temp2, "'", "''") & "', " & _
                 "strUnit = '" & Replace(temp3, "'", "''") & "', " & _
@@ -24337,7 +24337,7 @@ Public Class ISMPDataManagementTools
     End Sub
     Sub TransferISMPTestREportMemo()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".ISMPTestReportMemo "
+        "from " & DBNameSpace & ".ISMPTestReportMemo "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -24359,7 +24359,7 @@ Public Class ISMPDataManagementTools
             End If
 
             SQL = "SELECT COUNT(*) " & _
-            "FROM " & connNameSpace & ".ISMPTestReportMemo " & _
+            "FROM " & DBNameSpace & ".ISMPTestReportMemo " & _
             "WHERE strReferenceNumber = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -24368,11 +24368,11 @@ Public Class ISMPDataManagementTools
             dr = cmd.ExecuteReader
             recExist = dr.Read
             If recExist = False Or dr.Item(0) = 0 Then
-                SQL = "Insert into " & connNameSpace & ".ISMPTestReportMemo " & _
+                SQL = "Insert into " & DBNameSpace & ".ISMPTestReportMemo " & _
                 "Values " & _
                 "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "') "
             Else
-                SQL = "UPDATE " & connNameSpace & ".ISMPTestReportMemo SET " & _
+                SQL = "UPDATE " & DBNameSpace & ".ISMPTestReportMemo SET " & _
                 "strReferenceNumber = '" & Replace(temp, "'", "''") & "', " & _
                 "strMemorandumField = '" & Replace(temp2, "'", "''") & "' " & _
                 "WHERE strReferenceNumber = '" & Replace(temp, "'", "''") & "' "
@@ -24389,7 +24389,7 @@ Public Class ISMPDataManagementTools
     End Sub
     Sub TransferISMPWitnessingEng()
         SQL = "Select * " & _
-              "from " & connNameSpace & ".ISMPWitnessingEng "
+              "from " & DBNameSpace & ".ISMPWitnessingEng "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -24411,7 +24411,7 @@ Public Class ISMPDataManagementTools
             End If
 
             SQL = "SELECT COUNT(*) " & _
-            "FROM " & connNameSpace & ".ISMPWitnessingEng " & _
+            "FROM " & DBNameSpace & ".ISMPWitnessingEng " & _
             "WHERE strReferenceNumber = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -24420,11 +24420,11 @@ Public Class ISMPDataManagementTools
             dr = cmd.ExecuteReader
             recExist = dr.Read
             If recExist = False Or dr.Item(0) = 0 Then
-                SQL = "Insert into " & connNameSpace & ".ISMPWitnessingEng " & _
+                SQL = "Insert into " & DBNameSpace & ".ISMPWitnessingEng " & _
                 "Values " & _
                 "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "') "
             Else
-                SQL = "UPDATE " & connNameSpace & ".ISMPWitnessingEng SET " & _
+                SQL = "UPDATE " & DBNameSpace & ".ISMPWitnessingEng SET " & _
                 "strReferenceNumber = '" & Replace(temp, "'", "''") & "', " & _
                 "strWitnessingEngineer = '" & Replace(temp2, "'", "''") & "' " & _
                 "WHERE strReferenceNumber = '" & Replace(temp, "'", "''") & "' "
@@ -24441,7 +24441,7 @@ Public Class ISMPDataManagementTools
     End Sub
     Sub TransferSSCPACCS()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".SSCPACCS "
+        "from " & DBNameSpace & ".SSCPACCS "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -24524,7 +24524,7 @@ Public Class ISMPDataManagementTools
             End If
 
             SQL = "SELECT strTrackingNumber " & _
-            "FROM " & connNameSpace & ".SSCPItemMaster " & _
+            "FROM " & DBNameSpace & ".SSCPItemMaster " & _
             "WHERE strTrackingNumber = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -24535,7 +24535,7 @@ Public Class ISMPDataManagementTools
             dr.Close()
             If recExist = True Then
                 SQL = "SELECT COUNT(*) " & _
-                "FROM " & connNameSpace & ".SSCPACCS " & _
+                "FROM " & DBNameSpace & ".SSCPACCS " & _
                 "WHERE strTrackingNumber = '" & temp & "' "
                 cmd = New OracleCommand(SQL, transferConn)
                 If transferConn.State = ConnectionState.Closed Then
@@ -24544,7 +24544,7 @@ Public Class ISMPDataManagementTools
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = False Or dr.Item(0) = 0 Then
-                    SQL = "Insert into " & connNameSpace & ".SSCPACCS " & _
+                    SQL = "Insert into " & DBNameSpace & ".SSCPACCS " & _
                     "Values " & _
                     "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                     "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "', " & _
@@ -24554,7 +24554,7 @@ Public Class ISMPDataManagementTools
                     "'" & Replace(temp11, "'", "''") & "', '" & Replace(temp12, "'", "''") & "', " & _
                     "'" & Replace(temp13, "'", "''") & "', '" & Replace(temp14, "'", "''") & "') "
                 Else
-                    SQL = "UPDATE " & connNameSpace & ".SSCPACCS SET " & _
+                    SQL = "UPDATE " & DBNameSpace & ".SSCPACCS SET " & _
                     "strTrackingNumber = '" & Replace(temp, "'", "''") & "', " & _
                     "strSubmittalNumber = '" & Replace(temp2, "'", "''") & "', " & _
                     "strPostMarkedOnTime = '" & Replace(temp3, "'", "''") & "', " & _
@@ -24584,7 +24584,7 @@ Public Class ISMPDataManagementTools
     End Sub
     Sub TransferSSCPACCSHistory()
         SQL = "Select * " & _
-      "from " & connNameSpace & ".SSCPACCSHistory "
+      "from " & DBNameSpace & ".SSCPACCSHistory "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -24667,7 +24667,7 @@ Public Class ISMPDataManagementTools
             End If
 
             SQL = "SELECT strTrackingNumber " & _
-            "FROM " & connNameSpace & ".SSCPItemMaster " & _
+            "FROM " & DBNameSpace & ".SSCPItemMaster " & _
             "WHERE strTrackingNumber = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -24678,7 +24678,7 @@ Public Class ISMPDataManagementTools
             dr.Close()
             If recExist = True Then
                 SQL = "SELECT COUNT(*) " & _
-                "FROM " & connNameSpace & ".SSCPACCSHistory " & _
+                "FROM " & DBNameSpace & ".SSCPACCSHistory " & _
                 "WHERE strTrackingNumber = '" & temp & "' "
                 cmd = New OracleCommand(SQL, transferConn)
                 If transferConn.State = ConnectionState.Closed Then
@@ -24687,7 +24687,7 @@ Public Class ISMPDataManagementTools
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = False Or dr.Item(0) = 0 Then
-                    SQL = "Insert into " & connNameSpace & ".SSCPACCSHistory " & _
+                    SQL = "Insert into " & DBNameSpace & ".SSCPACCSHistory " & _
                     "Values " & _
                     "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                     "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "', " & _
@@ -24697,7 +24697,7 @@ Public Class ISMPDataManagementTools
                     "'" & Replace(temp11, "'", "''") & "', '" & Replace(temp12, "'", "''") & "', " & _
                     "'" & Replace(temp13, "'", "''") & "', '" & Replace(temp14, "'", "''") & "') "
                 Else
-                    SQL = "UPDATE " & connNameSpace & ".SSCPACCSHistory SET " & _
+                    SQL = "UPDATE " & DBNameSpace & ".SSCPACCSHistory SET " & _
                     "strTrackingNumber = '" & Replace(temp, "'", "''") & "', " & _
                     "strSubmittalNumber = '" & Replace(temp2, "'", "''") & "', " & _
                     "strPostMarkedOnTime = '" & Replace(temp3, "'", "''") & "', " & _
@@ -24727,7 +24727,7 @@ Public Class ISMPDataManagementTools
     End Sub
     Sub TransferSSCPDistrictAssignment()
         SQL = "Select * " & _
-   "from " & connNameSpace & ".SSCPDistrictAssignment "
+   "from " & DBNameSpace & ".SSCPDistrictAssignment "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -24760,7 +24760,7 @@ Public Class ISMPDataManagementTools
             End If
          
             SQL = "SELECT strAIRSNumber " & _
-            "FROM " & connNameSpace & ".APBMasterAIRS " & _
+            "FROM " & DBNameSpace & ".APBMasterAIRS " & _
             "WHERE strAIRSNumber = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -24771,7 +24771,7 @@ Public Class ISMPDataManagementTools
             dr.Close()
             If recExist = True Then
                 SQL = "SELECT COUNT(*) " & _
-                "FROM " & connNameSpace & ".SSCPDistrictAssignment " & _
+                "FROM " & DBNameSpace & ".SSCPDistrictAssignment " & _
                 "WHERE strAIRSNumber = '" & temp & "' "
                 cmd = New OracleCommand(SQL, transferConn)
                 If transferConn.State = ConnectionState.Closed Then
@@ -24780,12 +24780,12 @@ Public Class ISMPDataManagementTools
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = False Or dr.Item(0) = 0 Then
-                    SQL = "Insert into " & connNameSpace & ".SSCPDistrictAssignment " & _
+                    SQL = "Insert into " & DBNameSpace & ".SSCPDistrictAssignment " & _
                     "Values " & _
                     "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                     "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "') "
                 Else
-                    SQL = "UPDATE " & connNameSpace & ".SSCPDistrictAssignment SET " & _
+                    SQL = "UPDATE " & DBNameSpace & ".SSCPDistrictAssignment SET " & _
                     "strAIRSNumber = '" & Replace(temp, "'", "''") & "', " & _
                     "strDistrictEngineer = '" & Replace(temp2, "'", "''") & "', " & _
                     "strDistrictAssigningManager = '" & Replace(temp3, "'", "''") & "', " & _
@@ -24805,7 +24805,7 @@ Public Class ISMPDataManagementTools
     End Sub
     Sub TransferSSCPDistrictResponsible()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".SSCPDistrictResponsible "
+        "from " & DBNameSpace & ".SSCPDistrictResponsible "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -24838,7 +24838,7 @@ Public Class ISMPDataManagementTools
             End If
           
             SQL = "SELECT strAIRSNumber " & _
-            "FROM " & connNameSpace & ".APBMasterAIRS " & _
+            "FROM " & DBNameSpace & ".APBMasterAIRS " & _
             "WHERE strAIRSNumber = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -24849,7 +24849,7 @@ Public Class ISMPDataManagementTools
             dr.Close()
             If recExist = True Then
                 SQL = "SELECT COUNT(*) " & _
-                "FROM " & connNameSpace & ".SSCPDistrictResponsible " & _
+                "FROM " & DBNameSpace & ".SSCPDistrictResponsible " & _
                 "WHERE strAIRSNumber = '" & temp & "' "
                 cmd = New OracleCommand(SQL, transferConn)
                 If transferConn.State = ConnectionState.Closed Then
@@ -24858,12 +24858,12 @@ Public Class ISMPDataManagementTools
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = False Or dr.Item(0) = 0 Then
-                    SQL = "Insert into " & connNameSpace & ".SSCPDistrictResponsible " & _
+                    SQL = "Insert into " & DBNameSpace & ".SSCPDistrictResponsible " & _
                     "Values " & _
                     "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                     "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "') "
                 Else
-                    SQL = "UPDATE " & connNameSpace & ".SSCPDistrictResponsible SET " & _
+                    SQL = "UPDATE " & DBNameSpace & ".SSCPDistrictResponsible SET " & _
                     "strAIRSNumber = '" & Replace(temp, "'", "''") & "', " & _
                     "strDistrictResponsible = '" & Replace(temp2, "'", "''") & "', " & _
                     "strAssigningManager = '" & Replace(temp3, "'", "''") & "', " & _
@@ -24883,7 +24883,7 @@ Public Class ISMPDataManagementTools
     End Sub
     Sub TransferSSCPEnforcement()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".SSCPEnforcement "
+        "from " & DBNameSpace & ".SSCPEnforcement "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -25149,7 +25149,7 @@ Public Class ISMPDataManagementTools
             End If
 
             SQL = "SELECT strEnforcementNumber " & _
-            "FROM " & connNameSpace & ".SSCPEnforcementItems " & _
+            "FROM " & DBNameSpace & ".SSCPEnforcementItems " & _
             "WHERE strEnforcementNumber = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -25160,7 +25160,7 @@ Public Class ISMPDataManagementTools
             dr.Close()
             If recExist = True Then
                 SQL = "SELECT COUNT(*) " & _
-                "FROM " & connNameSpace & ".SSCPEnforcement " & _
+                "FROM " & DBNameSpace & ".SSCPEnforcement " & _
                 "WHERE strEnforcementNumber = '" & temp & "' "
                 cmd = New OracleCommand(SQL, transferConn)
                 If transferConn.State = ConnectionState.Closed Then
@@ -25169,7 +25169,7 @@ Public Class ISMPDataManagementTools
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = False Or dr.Item(0) = 0 Then
-                    SQL = "Insert into " & connNameSpace & ".SSCPEnforcement " & _
+                    SQL = "Insert into " & DBNameSpace & ".SSCPEnforcement " & _
                     "Values " & _
                     "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                     "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "', " & _
@@ -25197,7 +25197,7 @@ Public Class ISMPDataManagementTools
                     "'" & Replace(temp47, "'", "''") & "', '" & Replace(temp48, "'", "''") & "', " & _
                     "'" & Replace(temp49, "'", "''") & "', '" & Replace(temp50, "'", "''") & "') "
                 Else
-                    SQL = "UPDATE " & connNameSpace & ".SSCPEnforcement SET " & _
+                    SQL = "UPDATE " & DBNameSpace & ".SSCPEnforcement SET " & _
                     "strEnforcementNumber = '" & Replace(temp, "'", "''") & "', " & _
                     "strActionType = '" & Replace(temp2, "'", "''") & "', " & _
                     "strGeneralComments = '" & Replace(temp3, "'", "''") & "', " & _
@@ -25263,7 +25263,7 @@ Public Class ISMPDataManagementTools
     End Sub
     Sub TransferSSCPEnforcementAOComments()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".SSCPEnforcementAOComments "
+        "from " & DBNameSpace & ".SSCPEnforcementAOComments "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -25291,7 +25291,7 @@ Public Class ISMPDataManagementTools
             End If
 
             SQL = "SELECT strEnforcementNumber " & _
-            "FROM " & connNameSpace & ".SSCPEnforcementItems " & _
+            "FROM " & DBNameSpace & ".SSCPEnforcementItems " & _
             "WHERE strEnforcementNumber = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -25302,7 +25302,7 @@ Public Class ISMPDataManagementTools
             dr.Close()
             If recExist = True Then
                 SQL = "SELECT COUNT(*) " & _
-                "FROM " & connNameSpace & ".SSCPEnforcementAOComments " & _
+                "FROM " & DBNameSpace & ".SSCPEnforcementAOComments " & _
                 "WHERE strEnforcementNumber = '" & temp & "' "
                 cmd = New OracleCommand(SQL, transferConn)
                 If transferConn.State = ConnectionState.Closed Then
@@ -25311,12 +25311,12 @@ Public Class ISMPDataManagementTools
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = False Or dr.Item(0) = 0 Then
-                    SQL = "Insert into " & connNameSpace & ".SSCPEnforcementAOComments " & _
+                    SQL = "Insert into " & DBNameSpace & ".SSCPEnforcementAOComments " & _
                     "Values " & _
                     "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                     "'" & Replace(temp3, "'", "''") & "') "
                 Else
-                    SQL = "UPDATE " & connNameSpace & ".SSCPEnforcementAOComments SET " & _
+                    SQL = "UPDATE " & DBNameSpace & ".SSCPEnforcementAOComments SET " & _
                     "strEnforcementNumber = '" & Replace(temp, "'", "''") & "', " & _
                     "strAOEntryNumber = '" & Replace(temp2, "'", "''") & "', " & _
                     "strAOComment = '" & Replace(temp3, "'", "''") & "' " & _
@@ -25335,7 +25335,7 @@ Public Class ISMPDataManagementTools
     End Sub
     Sub TransferSSCPEnforcementCOComments()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".SSCPEnforcementCOComments "
+        "from " & DBNameSpace & ".SSCPEnforcementCOComments "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -25363,7 +25363,7 @@ Public Class ISMPDataManagementTools
             End If
 
             SQL = "SELECT strEnforcementNumber " & _
-            "FROM " & connNameSpace & ".SSCPEnforcementItems " & _
+            "FROM " & DBNameSpace & ".SSCPEnforcementItems " & _
             "WHERE strEnforcementNumber = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -25374,7 +25374,7 @@ Public Class ISMPDataManagementTools
             dr.Close()
             If recExist = True Then
                 SQL = "SELECT COUNT(*) " & _
-                "FROM " & connNameSpace & ".SSCPEnforcementCOComments " & _
+                "FROM " & DBNameSpace & ".SSCPEnforcementCOComments " & _
                 "WHERE strEnforcementNumber = '" & temp & "' "
                 cmd = New OracleCommand(SQL, transferConn)
                 If transferConn.State = ConnectionState.Closed Then
@@ -25383,12 +25383,12 @@ Public Class ISMPDataManagementTools
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = False Or dr.Item(0) = 0 Then
-                    SQL = "Insert into " & connNameSpace & ".SSCPEnforcementCOComments " & _
+                    SQL = "Insert into " & DBNameSpace & ".SSCPEnforcementCOComments " & _
                     "Values " & _
                     "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                     "'" & Replace(temp3, "'", "''") & "') "
                 Else
-                    SQL = "UPDATE " & connNameSpace & ".SSCPEnforcementCOComments SET " & _
+                    SQL = "UPDATE " & DBNameSpace & ".SSCPEnforcementCOComments SET " & _
                     "strEnforcementNumber = '" & Replace(temp, "'", "''") & "', " & _
                     "strCOEntryNumber = '" & Replace(temp2, "'", "''") & "', " & _
                     "strCOComment = '" & Replace(temp3, "'", "''") & "' " & _
@@ -25407,7 +25407,7 @@ Public Class ISMPDataManagementTools
     End Sub
     Sub TransferSSCPEnforcementItems()
         SQL = "Select * " & _
-     "from " & connNameSpace & ".SSCPEnforcementItems "
+     "from " & DBNameSpace & ".SSCPEnforcementItems "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -25460,7 +25460,7 @@ Public Class ISMPDataManagementTools
             End If
 
             SQL = "SELECT strAIRSnumber " & _
-            "FROM " & connNameSpace & ".APBMasterAIRS " & _
+            "FROM " & DBNameSpace & ".APBMasterAIRS " & _
             "WHERE strAIRSNumber = '" & temp3 & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -25471,7 +25471,7 @@ Public Class ISMPDataManagementTools
             dr.Close()
             If recExist = True Then
                 SQL = "SELECT COUNT(*) " & _
-                "FROM " & connNameSpace & ".SSCPEnforcementItems " & _
+                "FROM " & DBNameSpace & ".SSCPEnforcementItems " & _
                 "WHERE strEnforcementNumber = '" & temp & "' "
                 cmd = New OracleCommand(SQL, transferConn)
                 If transferConn.State = ConnectionState.Closed Then
@@ -25480,14 +25480,14 @@ Public Class ISMPDataManagementTools
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = False Or dr.Item(0) = 0 Then
-                    SQL = "Insert into " & connNameSpace & ".SSCPEnforcementItems " & _
+                    SQL = "Insert into " & DBNameSpace & ".SSCPEnforcementItems " & _
                     "Values " & _
                     "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                     "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "', " & _
                     "'" & Replace(temp5, "'", "''") & "', '" & Replace(temp6, "'", "''") & "', " & _
                     "'" & Replace(temp7, "'", "''") & "', '" & Replace(temp8, "'", "''") & "') " 
                 Else
-                    SQL = "UPDATE " & connNameSpace & ".SSCPEnforcementItems SET " & _
+                    SQL = "UPDATE " & DBNameSpace & ".SSCPEnforcementItems SET " & _
                     "strEnforcementNumber = '" & Replace(temp, "'", "''") & "', " & _
                     "strTrackingNumber = '" & Replace(temp2, "'", "''") & "', " & _
                     "strAIRSNumber = '" & Replace(temp3, "'", "''") & "', " & _
@@ -25514,7 +25514,7 @@ Public Class ISMPDataManagementTools
     End Sub
     Sub TransferSSCPEnforceNOVComments()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".SSCPEnforcementNOVComments "
+        "from " & DBNameSpace & ".SSCPEnforcementNOVComments "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -25542,7 +25542,7 @@ Public Class ISMPDataManagementTools
             End If
 
             SQL = "SELECT strEnforcementNumber " & _
-            "FROM " & connNameSpace & ".SSCPEnforcementItems " & _
+            "FROM " & DBNameSpace & ".SSCPEnforcementItems " & _
             "WHERE strEnforcementNumber = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -25553,7 +25553,7 @@ Public Class ISMPDataManagementTools
             dr.Close()
             If recExist = True Then
                 SQL = "SELECT COUNT(*) " & _
-                "FROM " & connNameSpace & ".SSCPEnforcementNOVComments " & _
+                "FROM " & DBNameSpace & ".SSCPEnforcementNOVComments " & _
                 "WHERE strEnforcementNumber = '" & temp & "' "
                 cmd = New OracleCommand(SQL, transferConn)
                 If transferConn.State = ConnectionState.Closed Then
@@ -25562,12 +25562,12 @@ Public Class ISMPDataManagementTools
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = False Or dr.Item(0) = 0 Then
-                    SQL = "Insert into " & connNameSpace & ".SSCPEnforcementNOVComments " & _
+                    SQL = "Insert into " & DBNameSpace & ".SSCPEnforcementNOVComments " & _
                     "Values " & _
                     "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                     "'" & Replace(temp3, "'", "''") & "') "
                 Else
-                    SQL = "UPDATE " & connNameSpace & ".SSCPEnforcementNOVComments SET " & _
+                    SQL = "UPDATE " & DBNameSpace & ".SSCPEnforcementNOVComments SET " & _
                     "strEnforcementNumber = '" & Replace(temp, "'", "''") & "', " & _
                     "strNOVEntryNumber = '" & Replace(temp2, "'", "''") & "', " & _
                     "strNOVComment = '" & Replace(temp3, "'", "''") & "' " & _
@@ -25586,7 +25586,7 @@ Public Class ISMPDataManagementTools
     End Sub
     Sub TransferSSCPEnforcementStipulated()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".SSCPEnforcementStipulated "
+        "from " & DBNameSpace & ".SSCPEnforcementStipulated "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -25634,7 +25634,7 @@ Public Class ISMPDataManagementTools
             End If
 
             SQL = "SELECT strEnforcementNumber " & _
-            "FROM " & connNameSpace & ".SSCPEnforcementItems " & _
+            "FROM " & DBNameSpace & ".SSCPEnforcementItems " & _
             "WHERE strEnforcementNumber = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -25645,7 +25645,7 @@ Public Class ISMPDataManagementTools
             dr.Close()
             If recExist = True Then
                 SQL = "SELECT COUNT(*) " & _
-                "FROM " & connNameSpace & ".SSCPEnforcementStipulated " & _
+                "FROM " & DBNameSpace & ".SSCPEnforcementStipulated " & _
                 "WHERE strEnforcementNumber = '" & temp & "' " & _
                 "and strEnforcementKey = '" & temp2 & "' "
                 cmd = New OracleCommand(SQL, transferConn)
@@ -25655,14 +25655,14 @@ Public Class ISMPDataManagementTools
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = False Or dr.Item(0) = 0 Then
-                    SQL = "Insert into " & connNameSpace & ".SSCPEnforcementStipulated " & _
+                    SQL = "Insert into " & DBNameSpace & ".SSCPEnforcementStipulated " & _
                     "Values " & _
                     "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                     "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "', " & _
                     "'" & Replace(temp5, "'", "''") & "', '" & Replace(temp6, "'", "''") & "', " & _
                     "'" & Replace(temp7, "'", "''") & "') "
                 Else
-                    SQL = "UPDATE " & connNameSpace & ".SSCPEnforcementStipulated SET " & _
+                    SQL = "UPDATE " & DBNameSpace & ".SSCPEnforcementStipulated SET " & _
                     "strEnforcementNumber = '" & Replace(temp, "'", "''") & "', " & _
                     "strEnforcementKey = '" & Replace(temp2, "'", "''") & "', " & _
                     "strStipulatedPenalty = '" & Replace(temp3, "'", "''") & "', " & _
@@ -25686,7 +25686,7 @@ Public Class ISMPDataManagementTools
     End Sub
     Sub TransferSSCPFacilityAssignment()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".SSCPFacilityAssignment "
+        "from " & DBNameSpace & ".SSCPFacilityAssignment "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -25724,7 +25724,7 @@ Public Class ISMPDataManagementTools
             End If
 
             SQL = "SELECT strAIRSNumber " & _
-            "FROM " & connNameSpace & ".APBMasterAIRS " & _
+            "FROM " & DBNameSpace & ".APBMasterAIRS " & _
             "WHERE strAIRSNumber = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -25735,7 +25735,7 @@ Public Class ISMPDataManagementTools
             dr.Close()
             If recExist = True Then
                 SQL = "SELECT COUNT(*) " & _
-                "FROM " & connNameSpace & ".SSCPFacilityAssignment " & _
+                "FROM " & DBNameSpace & ".SSCPFacilityAssignment " & _
                 "WHERE strAIRSNumber = '" & temp & "' "
                 cmd = New OracleCommand(SQL, transferConn)
                 If transferConn.State = ConnectionState.Closed Then
@@ -25744,13 +25744,13 @@ Public Class ISMPDataManagementTools
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = False Or dr.Item(0) = 0 Then
-                    SQL = "Insert into " & connNameSpace & ".SSCPFacilityAssignment " & _
+                    SQL = "Insert into " & DBNameSpace & ".SSCPFacilityAssignment " & _
                     "Values " & _
                     "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                     "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "', " & _
                     "'" & Replace(temp5, "'", "''") & "') "
                 Else
-                    SQL = "UPDATE " & connNameSpace & ".SSCPFacilityAssignment SET " & _
+                    SQL = "UPDATE " & DBNameSpace & ".SSCPFacilityAssignment SET " & _
                     "strAIRSNumber = '" & Replace(temp, "'", "''") & "', " & _
                     "strSSCPUnit = '" & Replace(temp2, "'", "''") & "', " & _
                     "strSSCPEngineer = '" & Replace(temp3, "'", "''") & "', " & _
@@ -25771,7 +25771,7 @@ Public Class ISMPDataManagementTools
     End Sub
     Sub TransferSSCPFCE()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".SSCPFCE "
+        "from " & DBNameSpace & ".SSCPFCE "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -25829,7 +25829,7 @@ Public Class ISMPDataManagementTools
             End If
 
             SQL = "SELECT strFCENumber " & _
-            "FROM " & connNameSpace & ".SSCPFCEMaster " & _
+            "FROM " & DBNameSpace & ".SSCPFCEMaster " & _
             "WHERE strFCENumber = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -25840,7 +25840,7 @@ Public Class ISMPDataManagementTools
             dr.Close()
             If recExist = True Then
                 SQL = "SELECT COUNT(*) " & _
-                "FROM " & connNameSpace & ".SSCPFCE " & _
+                "FROM " & DBNameSpace & ".SSCPFCE " & _
                 "WHERE strFCENumber = '" & temp & "' "
                 cmd = New OracleCommand(SQL, transferConn)
                 If transferConn.State = ConnectionState.Closed Then
@@ -25849,7 +25849,7 @@ Public Class ISMPDataManagementTools
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = False Or dr.Item(0) = 0 Then
-                    SQL = "Insert into " & connNameSpace & ".SSCPFCE " & _
+                    SQL = "Insert into " & DBNameSpace & ".SSCPFCE " & _
                     "Values " & _
                     "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                     "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "', " & _
@@ -25857,7 +25857,7 @@ Public Class ISMPDataManagementTools
                     "'" & Replace(temp7, "'", "''") & "', '" & Replace(temp8, "'", "''") & "', " & _
                     "'" & Replace(temp9, "'", "''") & "') "
                 Else
-                    SQL = "UPDATE " & connNameSpace & ".SSCPFCE SET " & _
+                    SQL = "UPDATE " & DBNameSpace & ".SSCPFCE SET " & _
                     "strFCENumber = '" & Replace(temp, "'", "''") & "', " & _
                     "strFCEStatus = '" & Replace(temp2, "'", "''") & "', " & _
                     "strReviewer = '" & Replace(temp3, "'", "''") & "', " & _
@@ -25882,7 +25882,7 @@ Public Class ISMPDataManagementTools
     End Sub
     Sub TransferSSCPFCEMaster()
         SQL = "Select * " & _
-      "from " & connNameSpace & ".SSCPFCEMaster "
+      "from " & DBNameSpace & ".SSCPFCEMaster "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -25915,7 +25915,7 @@ Public Class ISMPDataManagementTools
             End If
 
             SQL = "SELECT strAIRSNumber " & _
-            "FROM " & connNameSpace & ".APBMasterAIRS " & _
+            "FROM " & DBNameSpace & ".APBMasterAIRS " & _
             "WHERE strAIRSNumber = '" & temp2 & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -25926,7 +25926,7 @@ Public Class ISMPDataManagementTools
             dr.Close()
             If recExist = True Then
                 SQL = "SELECT COUNT(*) " & _
-                "FROM " & connNameSpace & ".SSCPFCEMaster " & _
+                "FROM " & DBNameSpace & ".SSCPFCEMaster " & _
                 "WHERE strFCENumber = '" & temp & "' "
                 cmd = New OracleCommand(SQL, transferConn)
                 If transferConn.State = ConnectionState.Closed Then
@@ -25935,12 +25935,12 @@ Public Class ISMPDataManagementTools
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = False Or dr.Item(0) = 0 Then
-                    SQL = "Insert into " & connNameSpace & ".SSCPFCEMaster " & _
+                    SQL = "Insert into " & DBNameSpace & ".SSCPFCEMaster " & _
                     "Values " & _
                     "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                     "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "') "
                 Else
-                    SQL = "UPDATE " & connNameSpace & ".SSCPFCEMaster SET " & _
+                    SQL = "UPDATE " & DBNameSpace & ".SSCPFCEMaster SET " & _
                     "strFCENumber = '" & Replace(temp, "'", "''") & "', " & _
                     "strAIRSNumber = '" & Replace(temp2, "'", "''") & "', " & _
                     "strModifingPerson = '" & Replace(temp3, "'", "''") & "', " & _
@@ -25960,7 +25960,7 @@ Public Class ISMPDataManagementTools
     End Sub
     Sub TransferSSCPInspectionActivity()
         SQL = "Select * " & _
-      "from " & connNameSpace & ".SSCPInspectionActivity "
+      "from " & DBNameSpace & ".SSCPInspectionActivity "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -25998,7 +25998,7 @@ Public Class ISMPDataManagementTools
             End If
 
             SQL = "SELECT strAIRSNumber " & _
-            "FROM " & connNameSpace & ".APBMasterAIRS " & _
+            "FROM " & DBNameSpace & ".APBMasterAIRS " & _
             "WHERE strAIRSNumber = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -26009,7 +26009,7 @@ Public Class ISMPDataManagementTools
             dr.Close()
             If recExist = True Then
                 SQL = "SELECT COUNT(*) " & _
-                "FROM " & connNameSpace & ".SSCPInspectionActivity " & _
+                "FROM " & DBNameSpace & ".SSCPInspectionActivity " & _
                 "WHERE strAIRSNumber = '" & temp & "' "
                 cmd = New OracleCommand(SQL, transferConn)
                 If transferConn.State = ConnectionState.Closed Then
@@ -26018,13 +26018,13 @@ Public Class ISMPDataManagementTools
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = False Or dr.Item(0) = 0 Then
-                    SQL = "Insert into " & connNameSpace & ".SSCPInspectionActivity " & _
+                    SQL = "Insert into " & DBNameSpace & ".SSCPInspectionActivity " & _
                     "Values " & _
                     "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                     "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "', " & _
                     "'" & Replace(temp5, "'", "''") & "') "
                 Else
-                    SQL = "UPDATE " & connNameSpace & ".SSCPInspectionActivity SET " & _
+                    SQL = "UPDATE " & DBNameSpace & ".SSCPInspectionActivity SET " & _
                     "strAIRSnumber = '" & Replace(temp, "'", "''") & "', " & _
                     "datInspectionDateStart = '" & Replace(temp2, "'", "''") & "', " & _
                     "datInspectionDateEnd = '" & Replace(temp3, "'", "''") & "', " & _
@@ -26045,7 +26045,7 @@ Public Class ISMPDataManagementTools
     End Sub
     Sub TransferSSCPInspections()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".SSCPInspections "
+        "from " & DBNameSpace & ".SSCPInspections "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -26118,7 +26118,7 @@ Public Class ISMPDataManagementTools
             End If
 
             SQL = "SELECT strTrackingNumber " & _
-            "FROM " & connNameSpace & ".SSCPItemMaster " & _
+            "FROM " & DBNameSpace & ".SSCPItemMaster " & _
             "WHERE strTrackingNumber = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -26129,7 +26129,7 @@ Public Class ISMPDataManagementTools
             dr.Close()
             If recExist = True Then
                 SQL = "SELECT COUNT(*) " & _
-                "FROM " & connNameSpace & ".SSCPInspections " & _
+                "FROM " & DBNameSpace & ".SSCPInspections " & _
                 "WHERE strTrackingNumber = '" & temp & "' "
                 cmd = New OracleCommand(SQL, transferConn)
                 If transferConn.State = ConnectionState.Closed Then
@@ -26138,7 +26138,7 @@ Public Class ISMPDataManagementTools
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = False Or dr.Item(0) = 0 Then
-                    SQL = "Insert into " & connNameSpace & ".SSCPInspections " & _
+                    SQL = "Insert into " & DBNameSpace & ".SSCPInspections " & _
                     "Values " & _
                     "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                     "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "', " & _
@@ -26147,7 +26147,7 @@ Public Class ISMPDataManagementTools
                     "'" & Replace(temp9, "'", "''") & "', '" & Replace(temp10, "'", "''") & "', " & _
                     "'" & Replace(temp11, "'", "''") & "', '" & Replace(temp12, "'", "''") & "') "
                 Else
-                    SQL = "UPDATE " & connNameSpace & ".SSCPInspections SET " & _
+                    SQL = "UPDATE " & DBNameSpace & ".SSCPInspections SET " & _
                     "strTrackingNumber = '" & Replace(temp, "'", "''") & "', " & _
                     "datInspectionDateStart = '" & Replace(temp2, "'", "''") & "', " & _
                     "datInspectionDateEnd = '" & Replace(temp3, "'", "''") & "', " & _
@@ -26175,7 +26175,7 @@ Public Class ISMPDataManagementTools
     End Sub
     Sub TransferSSCPInspectionsRequired()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".SSCPInspectionsRequired "
+        "from " & DBNameSpace & ".SSCPInspectionsRequired "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -26208,7 +26208,7 @@ Public Class ISMPDataManagementTools
             End If
 
             SQL = "SELECT strAIRSNumber " & _
-            "FROM " & connNameSpace & ".APBMasterAIRS " & _
+            "FROM " & DBNameSpace & ".APBMasterAIRS " & _
             "WHERE strAIRSNumber = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -26219,7 +26219,7 @@ Public Class ISMPDataManagementTools
             dr.Close()
             If recExist = True Then
                 SQL = "SELECT COUNT(*) " & _
-                "FROM " & connNameSpace & ".SSCPInspectionsRequired " & _
+                "FROM " & DBNameSpace & ".SSCPInspectionsRequired " & _
                 "WHERE strAIRSNumber = '" & temp & "' "
                 cmd = New OracleCommand(SQL, transferConn)
                 If transferConn.State = ConnectionState.Closed Then
@@ -26228,12 +26228,12 @@ Public Class ISMPDataManagementTools
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = False Or dr.Item(0) = 0 Then
-                    SQL = "Insert into " & connNameSpace & ".SSCPInspectionsRequired " & _
+                    SQL = "Insert into " & DBNameSpace & ".SSCPInspectionsRequired " & _
                     "Values " & _
                     "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                     "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "') "
                 Else
-                    SQL = "UPDATE " & connNameSpace & ".SSCPInspectionsRequired SET " & _
+                    SQL = "UPDATE " & DBNameSpace & ".SSCPInspectionsRequired SET " & _
                     "strAIRSnumber = '" & Replace(temp, "'", "''") & "', " & _
                     "strInspectionRequired = '" & Replace(temp2, "'", "''") & "', " & _
                     "strAssigningManager = '" & Replace(temp3, "'", "''") & "', " & _
@@ -26253,7 +26253,7 @@ Public Class ISMPDataManagementTools
     End Sub
     Sub TransferSSCPInspectionTracking()
         SQL = "Select * " & _
-      "from " & connNameSpace & ".SSCPInspectionTracking "
+      "from " & DBNameSpace & ".SSCPInspectionTracking "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -26322,7 +26322,7 @@ Public Class ISMPDataManagementTools
             End If
 
             SQL = "SELECT strAIRSNumber " & _
-            "FROM " & connNameSpace & ".APBMasterAIRS " & _
+            "FROM " & DBNameSpace & ".APBMasterAIRS " & _
             "WHERE strAIRSNumber = '" & temp2 & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -26333,7 +26333,7 @@ Public Class ISMPDataManagementTools
             dr.Close()
             If recExist = True Then
                 SQL = "SELECT COUNT(*) " & _
-                "FROM " & connNameSpace & ".SSCPInspectionTracking " & _
+                "FROM " & DBNameSpace & ".SSCPInspectionTracking " & _
                 "WHERE strAIRSNumber = '" & temp & "' "
                 cmd = New OracleCommand(SQL, transferConn)
                 If transferConn.State = ConnectionState.Closed Then
@@ -26342,7 +26342,7 @@ Public Class ISMPDataManagementTools
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = False Or dr.Item(0) = 0 Then
-                    SQL = "Insert into " & connNameSpace & ".SSCPInspectionTracking " & _
+                    SQL = "Insert into " & DBNameSpace & ".SSCPInspectionTracking " & _
                     "Values " & _
                     "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                     "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "', " & _
@@ -26351,7 +26351,7 @@ Public Class ISMPDataManagementTools
                     "'" & Replace(temp9, "'", "''") & "', '" & Replace(temp10, "'", "''") & "', " & _
                     "'" & Replace(temp11, "'", "''") & "') "
                 Else
-                    SQL = "UPDATE " & connNameSpace & ".SSCPInspectionTracking SET " & _
+                    SQL = "UPDATE " & DBNameSpace & ".SSCPInspectionTracking SET " & _
                     "InspectionKey = '" & Replace(temp, "'", "''") & "', " & _
                     "strAIRSNumber = '" & Replace(temp2, "'", "''") & "', " & _
                     "strInspectingEngineer = '" & Replace(temp3, "'", "''") & "', " & _
@@ -26378,7 +26378,7 @@ Public Class ISMPDataManagementTools
     End Sub
     Sub TransferSSCPItemMaster()
         SQL = "Select * " & _
-    "from " & connNameSpace & ".SSCPItemMaster "
+    "from " & DBNameSpace & ".SSCPItemMaster "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -26447,7 +26447,7 @@ Public Class ISMPDataManagementTools
             End If
 
             SQL = "SELECT strAIRSNumber " & _
-            "FROM " & connNameSpace & ".APBMasterAIRS " & _
+            "FROM " & DBNameSpace & ".APBMasterAIRS " & _
             "WHERE strAIRSNumber = '" & temp2 & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -26458,7 +26458,7 @@ Public Class ISMPDataManagementTools
             dr.Close()
             If recExist = True Then
                 SQL = "SELECT COUNT(*) " & _
-                "FROM " & connNameSpace & ".SSCPItemMaster " & _
+                "FROM " & DBNameSpace & ".SSCPItemMaster " & _
                 "WHERE strTrackingNumber = '" & temp & "' "
                 cmd = New OracleCommand(SQL, transferConn)
                 If transferConn.State = ConnectionState.Closed Then
@@ -26467,7 +26467,7 @@ Public Class ISMPDataManagementTools
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = False Or dr.Item(0) = 0 Then
-                    SQL = "Insert into " & connNameSpace & ".SSCPItemMaster " & _
+                    SQL = "Insert into " & DBNameSpace & ".SSCPItemMaster " & _
                     "Values " & _
                     "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                     "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "', " & _
@@ -26476,7 +26476,7 @@ Public Class ISMPDataManagementTools
                     "'" & Replace(temp9, "'", "''") & "', '" & Replace(temp10, "'", "''") & "', " & _
                     "'" & Replace(temp11, "'", "''") & "') "
                 Else
-                    SQL = "UPDATE " & connNameSpace & ".SSCPItemMaster SET " & _
+                    SQL = "UPDATE " & DBNameSpace & ".SSCPItemMaster SET " & _
                     "strTrackingNumber = '" & Replace(temp, "'", "''") & "', " & _
                     "strAIRSNumber = '" & Replace(temp2, "'", "''") & "', " & _
                     "datReceivedDate = '" & Replace(temp3, "'", "''") & "', " & _
@@ -26503,7 +26503,7 @@ Public Class ISMPDataManagementTools
     End Sub
     Sub TransferSSCPNotifications()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".SSCPNotifications "
+        "from " & DBNameSpace & ".SSCPNotifications "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -26572,7 +26572,7 @@ Public Class ISMPDataManagementTools
             End If
 
             SQL = "SELECT strTrackingNumber " & _
-            "FROM " & connNameSpace & ".SSCPItemMaster " & _
+            "FROM " & DBNameSpace & ".SSCPItemMaster " & _
             "WHERE strTrackingNumber = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -26583,7 +26583,7 @@ Public Class ISMPDataManagementTools
             dr.Close()
             If recExist = True Then
                 SQL = "SELECT COUNT(*) " & _
-                "FROM " & connNameSpace & ".SSCPNotifications " & _
+                "FROM " & DBNameSpace & ".SSCPNotifications " & _
                 "WHERE strTrackingNumber = '" & temp & "' "
                 cmd = New OracleCommand(SQL, transferConn)
                 If transferConn.State = ConnectionState.Closed Then
@@ -26592,7 +26592,7 @@ Public Class ISMPDataManagementTools
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = False Or dr.Item(0) = 0 Then
-                    SQL = "Insert into " & connNameSpace & ".SSCPNotifications " & _
+                    SQL = "Insert into " & DBNameSpace & ".SSCPNotifications " & _
                     "Values " & _
                     "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                     "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "', " & _
@@ -26601,7 +26601,7 @@ Public Class ISMPDataManagementTools
                     "'" & Replace(temp9, "'", "''") & "', '" & Replace(temp10, "'", "''") & "', " & _
                     "'" & Replace(temp11, "'", "''") & "') "
                 Else
-                    SQL = "UPDATE " & connNameSpace & ".SSCPNotifications SET " & _
+                    SQL = "UPDATE " & DBNameSpace & ".SSCPNotifications SET " & _
                     "strTrackingNumber = '" & Replace(temp, "'", "''") & "', " & _
                     "datNotificationDue = '" & Replace(temp2, "'", "''") & "', " & _
                     "strNotificationDue = '" & Replace(temp3, "'", "''") & "', " & _
@@ -26628,7 +26628,7 @@ Public Class ISMPDataManagementTools
     End Sub
     Sub TransferSSCPReports()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".SSCPReports "
+        "from " & DBNameSpace & ".SSCPReports "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -26713,7 +26713,7 @@ Public Class ISMPDataManagementTools
             End If
 
             SQL = "SELECT strTrackingNumber " & _
-            "FROM " & connNameSpace & ".SSCPItemMaster " & _
+            "FROM " & DBNameSpace & ".SSCPItemMaster " & _
             "WHERE strTrackingNumber = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -26724,7 +26724,7 @@ Public Class ISMPDataManagementTools
             dr.Close()
             If recExist = True Then
                 SQL = "SELECT COUNT(*) " & _
-                "FROM " & connNameSpace & ".SSCPReports " & _
+                "FROM " & DBNameSpace & ".SSCPReports " & _
                 "WHERE strTrackingNumber = '" & temp & "' " & _
                 "and strSubmittalNumber = '" & temp14 & "' "
                 cmd = New OracleCommand(SQL, transferConn)
@@ -26734,7 +26734,7 @@ Public Class ISMPDataManagementTools
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = False Or dr.Item(0) = 0 Then
-                    SQL = "Insert into " & connNameSpace & ".SSCPReports " & _
+                    SQL = "Insert into " & DBNameSpace & ".SSCPReports " & _
                     "Values " & _
                     "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                     "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "', " & _
@@ -26744,7 +26744,7 @@ Public Class ISMPDataManagementTools
                     "'" & Replace(temp11, "'", "''") & "', '" & Replace(temp12, "'", "''") & "', " & _
                     "'" & Replace(temp13, "'", "''") & "', '" & Replace(temp14, "'", "''") & "') "
                 Else
-                    SQL = "UPDATE " & connNameSpace & ".SSCPReports SET " & _
+                    SQL = "UPDATE " & DBNameSpace & ".SSCPReports SET " & _
                     "strTrackingNumber = '" & Replace(temp, "'", "''") & "', " & _
                     "strReportPeriod = '" & Replace(temp2, "'", "''") & "', " & _
                     "datReportingPeriodStart = '" & Replace(temp3, "'", "''") & "', " & _
@@ -26775,7 +26775,7 @@ Public Class ISMPDataManagementTools
     End Sub
     Sub TransferSSCPReportsHistory()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".SSCPReportsHistory "
+        "from " & DBNameSpace & ".SSCPReportsHistory "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -26859,7 +26859,7 @@ Public Class ISMPDataManagementTools
             End If
 
             SQL = "SELECT strTrackingNumber " & _
-            "FROM " & connNameSpace & ".SSCPItemMaster " & _
+            "FROM " & DBNameSpace & ".SSCPItemMaster " & _
             "WHERE strTrackingNumber = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -26870,7 +26870,7 @@ Public Class ISMPDataManagementTools
             dr.Close()
             If recExist = True Then
                 SQL = "SELECT COUNT(*) " & _
-                "FROM " & connNameSpace & ".SSCPReportsHistory " & _
+                "FROM " & DBNameSpace & ".SSCPReportsHistory " & _
                 "WHERE strTrackingNumber = '" & temp & "' " & _
                 "and strSubmittalNumber = '" & temp14 & "' "
                 cmd = New OracleCommand(SQL, transferConn)
@@ -26880,7 +26880,7 @@ Public Class ISMPDataManagementTools
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = False Or dr.Item(0) = 0 Then
-                    SQL = "Insert into " & connNameSpace & ".SSCPReportsHistory " & _
+                    SQL = "Insert into " & DBNameSpace & ".SSCPReportsHistory " & _
                     "Values " & _
                     "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                     "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "', " & _
@@ -26890,7 +26890,7 @@ Public Class ISMPDataManagementTools
                     "'" & Replace(temp11, "'", "''") & "', '" & Replace(temp12, "'", "''") & "', " & _
                     "'" & Replace(temp13, "'", "''") & "', '" & Replace(temp14, "'", "''") & "') "
                 Else
-                    SQL = "UPDATE " & connNameSpace & ".SSCPReportsHistory SET " & _
+                    SQL = "UPDATE " & DBNameSpace & ".SSCPReportsHistory SET " & _
                     "strTrackingNumber = '" & Replace(temp, "'", "''") & "', " & _
                     "strSubmittalNumber = '" & Replace(temp2, "'", "''") & "', " & _
                     "strReportPeriod = '" & Replace(temp3, "'", "''") & "', " & _
@@ -26921,7 +26921,7 @@ Public Class ISMPDataManagementTools
     End Sub
     Sub TransferSSCPTestReports()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".SSCPTestReports "
+        "from " & DBNameSpace & ".SSCPTestReports "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -26970,7 +26970,7 @@ Public Class ISMPDataManagementTools
             End If
 
             SQL = "SELECT strTrackingNumber " & _
-            "FROM " & connNameSpace & ".SSCPItemMaster " & _
+            "FROM " & DBNameSpace & ".SSCPItemMaster " & _
             "WHERE strTrackingNumber = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -26981,7 +26981,7 @@ Public Class ISMPDataManagementTools
             dr.Close()
             If recExist = True Then
                 SQL = "SELECT COUNT(*) " & _
-                "FROM " & connNameSpace & ".SSCPTestReports " & _
+                "FROM " & DBNameSpace & ".SSCPTestReports " & _
                 "WHERE strTrackingNumber = '" & temp & "' " 
                 cmd = New OracleCommand(SQL, transferConn)
                 If transferConn.State = ConnectionState.Closed Then
@@ -26990,14 +26990,14 @@ Public Class ISMPDataManagementTools
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = False Or dr.Item(0) = 0 Then
-                    SQL = "Insert into " & connNameSpace & ".SSCPTestReports " & _
+                    SQL = "Insert into " & DBNameSpace & ".SSCPTestReports " & _
                     "Values " & _
                     "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                     "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "', " & _
                     "'" & Replace(temp5, "'", "''") & "', '" & Replace(temp6, "'", "''") & "', " & _
                     "'" & Replace(temp7, "'", "''") & "') "
                 Else
-                    SQL = "UPDATE " & connNameSpace & ".SSCPTestReports SET " & _
+                    SQL = "UPDATE " & DBNameSpace & ".SSCPTestReports SET " & _
                     "strTrackingNumber = '" & Replace(temp, "'", "''") & "', " & _
                     "strReferenceNumber = '" & Replace(temp2, "'", "''") & "', " & _
                     "datTestReportDue = '" & Replace(temp3, "'", "''") & "', " & _
@@ -27020,7 +27020,7 @@ Public Class ISMPDataManagementTools
     End Sub
     Sub TransferSSPPApplicationContact()
         SQL = "Select * " & _
-              "from " & connNameSpace & ".SSPPApplicationContact "
+              "from " & DBNameSpace & ".SSPPApplicationContact "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -27108,7 +27108,7 @@ Public Class ISMPDataManagementTools
             End If
 
             SQL = "SELECT strTrackingNumber " & _
-            "FROM " & connNameSpace & ".SSPPApplicationMaster " & _
+            "FROM " & DBNameSpace & ".SSPPApplicationMaster " & _
             "WHERE strApplicationNumber = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -27119,7 +27119,7 @@ Public Class ISMPDataManagementTools
             dr.Close()
             If recExist = True Then
                 SQL = "SELECT COUNT(*) " & _
-                "FROM " & connNameSpace & ".SSPPApplicationContact " & _
+                "FROM " & DBNameSpace & ".SSPPApplicationContact " & _
                 "WHERE strApplicationNumber = '" & temp & "' "
                 cmd = New OracleCommand(SQL, transferConn)
                 If transferConn.State = ConnectionState.Closed Then
@@ -27128,7 +27128,7 @@ Public Class ISMPDataManagementTools
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = False Or dr.Item(0) = 0 Then
-                    SQL = "Insert into " & connNameSpace & ".SSPPApplicationContact " & _
+                    SQL = "Insert into " & DBNameSpace & ".SSPPApplicationContact " & _
                     "Values " & _
                     "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                     "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "', " & _
@@ -27139,7 +27139,7 @@ Public Class ISMPDataManagementTools
                     "'" & Replace(temp13, "'", "''") & "', '" & Replace(temp14, "'", "''") & "', " & _
                     "'" & Replace(temp15, "'", "''") & "') "
                 Else
-                    SQL = "UPDATE " & connNameSpace & ".SSPPApplicationContact SET " & _
+                    SQL = "UPDATE " & DBNameSpace & ".SSPPApplicationContact SET " & _
                     "strApplicationNumber = '" & Replace(temp, "'", "''") & "', " & _
                     "strContactFirstName = '" & Replace(temp2, "'", "''") & "', " & _
                     "strContactLastName = '" & Replace(temp3, "'", "''") & "', " & _
@@ -27170,7 +27170,7 @@ Public Class ISMPDataManagementTools
     End Sub
     Sub TransferSSPPApplicationData()
         SQL = "Select * " & _
-            "from " & connNameSpace & ".SSPPApplicationData "
+            "from " & DBNameSpace & ".SSPPApplicationData "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -27363,7 +27363,7 @@ Public Class ISMPDataManagementTools
             End If
 
             SQL = "SELECT strTrackingNumber " & _
-            "FROM " & connNameSpace & ".SSPPApplicationMaster " & _
+            "FROM " & DBNameSpace & ".SSPPApplicationMaster " & _
             "WHERE strApplicationNumber = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -27374,7 +27374,7 @@ Public Class ISMPDataManagementTools
             dr.Close()
             If recExist = True Then
                 SQL = "SELECT COUNT(*) " & _
-                "FROM " & connNameSpace & ".SSPPApplicationData " & _
+                "FROM " & DBNameSpace & ".SSPPApplicationData " & _
                 "WHERE strApplicationNumber = '" & temp & "' "
                 cmd = New OracleCommand(SQL, transferConn)
                 If transferConn.State = ConnectionState.Closed Then
@@ -27383,7 +27383,7 @@ Public Class ISMPDataManagementTools
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = False Or dr.Item(0) = 0 Then
-                    SQL = "Insert into " & connNameSpace & ".SSPPApplicationData " & _
+                    SQL = "Insert into " & DBNameSpace & ".SSPPApplicationData " & _
                     "Values " & _
                     "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                     "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "', " & _
@@ -27404,7 +27404,7 @@ Public Class ISMPDataManagementTools
                     "'" & Replace(temp33, "'", "''") & "', '" & Replace(temp34, "'", "''") & "', " & _
                     "'" & Replace(temp35, "'", "''") & "', '" & Replace(temp36, "'", "''") & "') "
                 Else
-                    SQL = "UPDATE " & connNameSpace & ".SSPPApplicationData SET " & _
+                    SQL = "UPDATE " & DBNameSpace & ".SSPPApplicationData SET " & _
                     "strApplicationNumber = '" & Replace(temp, "'", "''") & "', " & _
                     "strFacilityName = '" & Replace(temp2, "'", "''") & "', " & _
                     "strFacilityStreet1 = '" & Replace(temp3, "'", "''") & "', " & _
@@ -27456,7 +27456,7 @@ Public Class ISMPDataManagementTools
     End Sub
     Sub TransferSSPPApplicationInformation()
         SQL = "Select * " & _
-            "from " & connNameSpace & ".SSPPApplicationInformation "
+            "from " & DBNameSpace & ".SSPPApplicationInformation "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -27509,7 +27509,7 @@ Public Class ISMPDataManagementTools
             End If
          
             SQL = "SELECT strTrackingNumber " & _
-            "FROM " & connNameSpace & ".SSPPApplicationMaster " & _
+            "FROM " & DBNameSpace & ".SSPPApplicationMaster " & _
             "WHERE strApplicationNumber = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -27520,7 +27520,7 @@ Public Class ISMPDataManagementTools
             dr.Close()
             If recExist = True Then
                 SQL = "SELECT COUNT(*) " & _
-                "FROM " & connNameSpace & ".SSPPApplicationInformation " & _
+                "FROM " & DBNameSpace & ".SSPPApplicationInformation " & _
                 "WHERE strApplicationNumber = '" & temp & "' " & _
                 "and strRequestKey = '" & temp2 & "' "
 
@@ -27531,14 +27531,14 @@ Public Class ISMPDataManagementTools
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = False Or dr.Item(0) = 0 Then
-                    SQL = "Insert into " & connNameSpace & ".SSPPApplicationInformation " & _
+                    SQL = "Insert into " & DBNameSpace & ".SSPPApplicationInformation " & _
                     "Values " & _
                     "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                     "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "', " & _
                     "'" & Replace(temp5, "'", "''") & "', '" & Replace(temp6, "'", "''") & "', " & _
                     "'" & Replace(temp7, "'", "''") & "', '" & Replace(temp8, "'", "''") & "') "
                 Else
-                    SQL = "UPDATE " & connNameSpace & ".SSPPApplicationInformation SET " & _
+                    SQL = "UPDATE " & DBNameSpace & ".SSPPApplicationInformation SET " & _
                     "strApplicationNumber = '" & Replace(temp, "'", "''") & "', " & _
                     "strRequestKey = '" & Replace(temp2, "'", "''") & "', " & _
                     "datInformationRequested = '" & Replace(temp3, "'", "''") & "', " & _
@@ -27563,7 +27563,7 @@ Public Class ISMPDataManagementTools
     End Sub
     Sub TransferSSPPApplicationLinking()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".SSPPApplicationLinking "
+        "from " & DBNameSpace & ".SSPPApplicationLinking "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -27585,7 +27585,7 @@ Public Class ISMPDataManagementTools
             End If
 
             SQL = "SELECT strTrackingNumber " & _
-            "FROM " & connNameSpace & ".SSPPApplicationMaster " & _
+            "FROM " & DBNameSpace & ".SSPPApplicationMaster " & _
             "WHERE strApplicationNumber = '" & temp2 & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -27596,7 +27596,7 @@ Public Class ISMPDataManagementTools
             dr.Close()
             If recExist = True Then
                 SQL = "SELECT COUNT(*) " & _
-                "FROM " & connNameSpace & ".SSPPApplicationLinking " & _
+                "FROM " & DBNameSpace & ".SSPPApplicationLinking " & _
                 "WHERE strApplicationNumber = '" & temp & "' "
                 cmd = New OracleCommand(SQL, transferConn)
                 If transferConn.State = ConnectionState.Closed Then
@@ -27605,11 +27605,11 @@ Public Class ISMPDataManagementTools
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = False Or dr.Item(0) = 0 Then
-                    SQL = "Insert into " & connNameSpace & ".SSPPApplicationLinking " & _
+                    SQL = "Insert into " & DBNameSpace & ".SSPPApplicationLinking " & _
                     "Values " & _
                     "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "') "
                 Else
-                    SQL = "UPDATE " & connNameSpace & ".SSPPApplicationLinking SET " & _
+                    SQL = "UPDATE " & DBNameSpace & ".SSPPApplicationLinking SET " & _
                     "strApplicationNumber = '" & Replace(temp, "'", "''") & "', " & _
                     "strMasterApplication = '" & Replace(temp2, "'", "''") & "' " & _
                     "WHERE strMasterApplication = '" & Replace(temp2, "'", "''") & "' "
@@ -27627,7 +27627,7 @@ Public Class ISMPDataManagementTools
     End Sub
     Sub TransferSSPPApplicationMaster()
         SQL = "Select * " & _
-            "from " & connNameSpace & ".SSPPApplicationMaster "
+            "from " & DBNameSpace & ".SSPPApplicationMaster "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -27685,7 +27685,7 @@ Public Class ISMPDataManagementTools
             End If
 
             SQL = "SELECT strTrackingNumber " & _
-            "FROM " & connNameSpace & ".APBMasterAIRS " & _
+            "FROM " & DBNameSpace & ".APBMasterAIRS " & _
             "WHERE strAIRSNumber = '" & temp2 & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -27696,7 +27696,7 @@ Public Class ISMPDataManagementTools
             dr.Close()
             If recExist = True Then
                 SQL = "SELECT COUNT(*) " & _
-                "FROM " & connNameSpace & ".SSPPApplicationMaster " & _
+                "FROM " & DBNameSpace & ".SSPPApplicationMaster " & _
                 "WHERE strApplicationNumber = '" & temp & "' "
                 cmd = New OracleCommand(SQL, transferConn)
                 If transferConn.State = ConnectionState.Closed Then
@@ -27705,7 +27705,7 @@ Public Class ISMPDataManagementTools
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = False Or dr.Item(0) = 0 Then
-                    SQL = "Insert into " & connNameSpace & ".SSPPApplicationMaster " & _
+                    SQL = "Insert into " & DBNameSpace & ".SSPPApplicationMaster " & _
                     "Values " & _
                     "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                     "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "', " & _
@@ -27713,7 +27713,7 @@ Public Class ISMPDataManagementTools
                     "'" & Replace(temp7, "'", "''") & "', '" & Replace(temp8, "'", "''") & "', " & _
                     "'" & Replace(temp9, "'", "''") & "') "
                 Else
-                    SQL = "UPDATE " & connNameSpace & ".SSPPApplicationMaster SET " & _
+                    SQL = "UPDATE " & DBNameSpace & ".SSPPApplicationMaster SET " & _
                     "strApplicationNumber = '" & Replace(temp, "'", "''") & "', " & _
                     "strAIRSNumber = '" & Replace(temp2, "'", "''") & "', " & _
                     "strStaffResponsible = '" & Replace(temp3, "'", "''") & "', " & _
@@ -27738,7 +27738,7 @@ Public Class ISMPDataManagementTools
     End Sub
     Sub TransferSSPPApplicationQuality()
         SQL = "Select * " & _
-            "from " & connNameSpace & ".SSPPApplicationQuality "
+            "from " & DBNameSpace & ".SSPPApplicationQuality "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -27786,7 +27786,7 @@ Public Class ISMPDataManagementTools
             End If
          
             SQL = "SELECT strTrackingNumber " & _
-            "FROM " & connNameSpace & ".SSPPApplicationMaster " & _
+            "FROM " & DBNameSpace & ".SSPPApplicationMaster " & _
             "WHERE strApplicationNumber = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -27797,7 +27797,7 @@ Public Class ISMPDataManagementTools
             dr.Close()
             If recExist = True Then
                 SQL = "SELECT COUNT(*) " & _
-                "FROM " & connNameSpace & ".SSPPApplicationQuality " & _
+                "FROM " & DBNameSpace & ".SSPPApplicationQuality " & _
                 "WHERE strApplicationNumber = '" & temp & "' "
                 cmd = New OracleCommand(SQL, transferConn)
                 If transferConn.State = ConnectionState.Closed Then
@@ -27806,14 +27806,14 @@ Public Class ISMPDataManagementTools
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = False Or dr.Item(0) = 0 Then
-                    SQL = "Insert into " & connNameSpace & ".SSPPApplicationQuality " & _
+                    SQL = "Insert into " & DBNameSpace & ".SSPPApplicationQuality " & _
                     "Values " & _
                     "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                     "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "', " & _
                     "'" & Replace(temp5, "'", "''") & "', '" & Replace(temp6, "'", "''") & "', " & _
                     "'" & Replace(temp7, "'", "''") & "') "
                 Else
-                    SQL = "UPDATE " & connNameSpace & ".SSPPApplicationQuality SET " & _
+                    SQL = "UPDATE " & DBNameSpace & ".SSPPApplicationQuality SET " & _
                     "strApplicationNumber = '" & Replace(temp, "'", "''") & "', " & _
                     "strDifficulty = '" & Replace(temp2, "'", "''") & "', " & _
                     "strGrammer = '" & Replace(temp3, "'", "''") & "', " & _
@@ -27836,7 +27836,7 @@ Public Class ISMPDataManagementTools
     End Sub
     Sub TransferSSPPApplicationTracking()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".SSPPApplicationTracking "
+        "from " & DBNameSpace & ".SSPPApplicationTracking "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -28019,7 +28019,7 @@ Public Class ISMPDataManagementTools
             End If
 
             SQL = "SELECT strTrackingNumber " & _
-            "FROM " & connNameSpace & ".SSPPApplicationMaster " & _
+            "FROM " & DBNameSpace & ".SSPPApplicationMaster " & _
             "WHERE strApplicationNumber = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -28030,7 +28030,7 @@ Public Class ISMPDataManagementTools
             dr.Close()
             If recExist = True Then
                 SQL = "SELECT COUNT(*) " & _
-                "FROM " & connNameSpace & ".SSPPApplicationContact " & _
+                "FROM " & DBNameSpace & ".SSPPApplicationContact " & _
                 "WHERE strApplicationNumber = '" & temp & "' " & _
                 "and strSubmittalNumber = '" & temp2 & "' "
                 cmd = New OracleCommand(SQL, transferConn)
@@ -28040,7 +28040,7 @@ Public Class ISMPDataManagementTools
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = False Or dr.Item(0) = 0 Then
-                    SQL = "Insert into " & connNameSpace & ".SSPPApplicationContact " & _
+                    SQL = "Insert into " & DBNameSpace & ".SSPPApplicationContact " & _
                     "Values " & _
                     "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                     "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "', " & _
@@ -28060,7 +28060,7 @@ Public Class ISMPDataManagementTools
                     "'" & Replace(temp31, "'", "''") & "', '" & Replace(temp32, "'", "''") & "', " & _
                     "'" & Replace(temp33, "'", "''") & "', '" & Replace(temp34, "'", "''") & "') "
                 Else
-                    SQL = "UPDATE " & connNameSpace & ".SSPPApplicationContact SET " & _
+                    SQL = "UPDATE " & DBNameSpace & ".SSPPApplicationContact SET " & _
                     "strApplicationNumber = '" & Replace(temp, "'", "''") & "', " & _
                     "strSubmittalNumber = '" & Replace(temp2, "'", "''") & "', " & _
                     "datApplicationStarted = '" & Replace(temp3, "'", "''") & "', " & _
@@ -28111,7 +28111,7 @@ Public Class ISMPDataManagementTools
     End Sub
     Sub TransferSSPPCDS()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".SSPPCDS "
+        "from " & DBNameSpace & ".SSPPCDS "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -28249,7 +28249,7 @@ Public Class ISMPDataManagementTools
             End If
 
             SQL = "SELECT strTrackingNumber " & _
-            "FROM " & connNameSpace & ".SSPPApplicationMaster " & _
+            "FROM " & DBNameSpace & ".SSPPApplicationMaster " & _
             "WHERE strApplicationNumber = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -28260,7 +28260,7 @@ Public Class ISMPDataManagementTools
             dr.Close()
             If recExist = True Then
                 SQL = "SELECT COUNT(*) " & _
-                "FROM " & connNameSpace & ".SSPPCDS " & _
+                "FROM " & DBNameSpace & ".SSPPCDS " & _
                 "WHERE strApplicationNumber = '" & temp & "' "
                 cmd = New OracleCommand(SQL, transferConn)
                 If transferConn.State = ConnectionState.Closed Then
@@ -28269,7 +28269,7 @@ Public Class ISMPDataManagementTools
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = False Or dr.Item(0) = 0 Then
-                    SQL = "Insert into " & connNameSpace & ".SSPPCDS " & _
+                    SQL = "Insert into " & DBNameSpace & ".SSPPCDS " & _
                     "Values " & _
                     "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                     "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "', " & _
@@ -28285,7 +28285,7 @@ Public Class ISMPDataManagementTools
                     "'" & Replace(temp23, "'", "''") & "', '" & Replace(temp24, "'", "''") & "', " & _
                     "'" & Replace(temp25, "'", "''") & "') "
                 Else
-                    SQL = "UPDATE " & connNameSpace & ".SSPPCDS SET " & _
+                    SQL = "UPDATE " & DBNameSpace & ".SSPPCDS SET " & _
                     "strApplicationNumber = '" & Replace(temp, "'", "''") & "', " & _
                     "strFacilityName = '" & Replace(temp2, "'", "''") & "', " & _
                     "strFacilityStreet1 = '" & Replace(temp3, "'", "''") & "', " & _
@@ -28329,7 +28329,7 @@ Public Class ISMPDataManagementTools
     End Sub
     Sub TransferAFSAirPollutantDate()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".AFSAirPollutantData "
+        "from " & DBNameSpace & ".AFSAirPollutantData "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -28372,7 +28372,7 @@ Public Class ISMPDataManagementTools
             End If
 
             SQL = "SELECT strTrackingNumber " & _
-            "FROM " & connNameSpace & ".APBAirProgramPollutants " & _
+            "FROM " & DBNameSpace & ".APBAirProgramPollutants " & _
             "WHERE strAirPollutantKey = '" & temp & "' " & _
             "and strPollutantKey = '" & temp2 & "' "
 
@@ -28385,7 +28385,7 @@ Public Class ISMPDataManagementTools
             dr.Close()
             If recExist = True Then
                 SQL = "SELECT COUNT(*) " & _
-                "FROM " & connNameSpace & ".AFSAirPollutantData " & _
+                "FROM " & DBNameSpace & ".AFSAirPollutantData " & _
                 "WHERE strAirPollutantKey = '" & temp & "' " & _
                 "and strPollutantKey = '" & temp2 & "' "
 
@@ -28396,13 +28396,13 @@ Public Class ISMPDataManagementTools
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = False Or dr.Item(0) = 0 Then
-                    SQL = "Insert into " & connNameSpace & ".AFSAirPollutantData " & _
+                    SQL = "Insert into " & DBNameSpace & ".AFSAirPollutantData " & _
                     "Values " & _
                     "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                     "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "', " & _
                     "'" & Replace(temp5, "'", "''") & "', '" & Replace(temp6, "'", "''") & "') "
                 Else
-                    SQL = "UPDATE " & connNameSpace & ".AFSAirPollutantData SET " & _
+                    SQL = "UPDATE " & DBNameSpace & ".AFSAirPollutantData SET " & _
                     "strAIRPollutantKey = '" & Replace(temp, "'", "''") & "', " & _
                     "strPollutantKey = '" & Replace(temp2, "'", "''") & "', " & _
                     "strAIRSNumber = '" & Replace(temp3, "'", "''") & "', " & _
@@ -28428,7 +28428,7 @@ Public Class ISMPDataManagementTools
     End Sub
     Sub TransferAFSFacilityData()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".AFSFacilityData "
+        "from " & DBNameSpace & ".AFSFacilityData "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -28461,7 +28461,7 @@ Public Class ISMPDataManagementTools
             End If
 
             SQL = "SELECT strAIRSNumber " & _
-            "FROM " & connNameSpace & ".ABPMasterAIRS " & _
+            "FROM " & DBNameSpace & ".ABPMasterAIRS " & _
             "WHERE strAIRSNumber = '" & temp & "' "
 
             cmd = New OracleCommand(SQL, transferConn)
@@ -28473,7 +28473,7 @@ Public Class ISMPDataManagementTools
             dr.Close()
             If recExist = True Then
                 SQL = "SELECT COUNT(*) " & _
-                "FROM " & connNameSpace & ".AFSFacilityData " & _
+                "FROM " & DBNameSpace & ".AFSFacilityData " & _
                 "WHERE strAIRSNumber = '" & temp & "' "
 
                 cmd = New OracleCommand(SQL, transferConn)
@@ -28483,12 +28483,12 @@ Public Class ISMPDataManagementTools
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = False Or dr.Item(0) = 0 Then
-                    SQL = "Insert into " & connNameSpace & ".AFSFacilityData " & _
+                    SQL = "Insert into " & DBNameSpace & ".AFSFacilityData " & _
                     "Values " & _
                     "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                     "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "') "
                 Else
-                    SQL = "UPDATE " & connNameSpace & ".AFSFacilityData SET " & _
+                    SQL = "UPDATE " & DBNameSpace & ".AFSFacilityData SET " & _
                     "strAIRSNumber = '" & Replace(temp, "'", "''") & "', " & _
                     "strUpdateStatus = '" & Replace(temp2, "'", "''") & "', " & _
                     "strModifingPerson = '" & Replace(temp3, "'", "''") & "', " & _
@@ -28508,7 +28508,7 @@ Public Class ISMPDataManagementTools
     End Sub
     Sub TransferAFSISMPRecords()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".AFSISMPRecords "
+        "from " & DBNameSpace & ".AFSISMPRecords "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -28546,7 +28546,7 @@ Public Class ISMPDataManagementTools
             End If
 
             SQL = "SELECT strReferenceNumber " & _
-            "FROM " & connNameSpace & ".ISMPMaster " & _
+            "FROM " & DBNameSpace & ".ISMPMaster " & _
             "WHERE strReferenceNumber = '" & temp & "' "
 
             cmd = New OracleCommand(SQL, transferConn)
@@ -28558,7 +28558,7 @@ Public Class ISMPDataManagementTools
             dr.Close()
             If recExist = True Then
                 SQL = "SELECT COUNT(*) " & _
-                "FROM " & connNameSpace & ".AFSISMPRecords " & _
+                "FROM " & DBNameSpace & ".AFSISMPRecords " & _
                 "WHERE strReferenceNumber = '" & temp & "' "
 
                 cmd = New OracleCommand(SQL, transferConn)
@@ -28568,13 +28568,13 @@ Public Class ISMPDataManagementTools
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = False Or dr.Item(0) = 0 Then
-                    SQL = "Insert into " & connNameSpace & ".AFSISMPRecords " & _
+                    SQL = "Insert into " & DBNameSpace & ".AFSISMPRecords " & _
                     "Values " & _
                     "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                     "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "', " & _
                     "'" & Replace(temp5, "'", "''") & "') "
                 Else
-                    SQL = "UPDATE " & connNameSpace & ".AFSISMPRecords SET " & _
+                    SQL = "UPDATE " & DBNameSpace & ".AFSISMPRecords SET " & _
                     "strReferenceNumber = '" & Replace(temp, "'", "''") & "', " & _
                     "strAFSActionNumber = '" & Replace(temp2, "'", "''") & "', " & _
                     "strUpDateStatus = '" & Replace(temp3, "'", "''") & "', " & _
@@ -28595,7 +28595,7 @@ Public Class ISMPDataManagementTools
     End Sub
     Sub TransferAFSSSCPEnforcementRecords()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".AFSSSCPEnforcementRecords "
+        "from " & DBNameSpace & ".AFSSSCPEnforcementRecords "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -28633,7 +28633,7 @@ Public Class ISMPDataManagementTools
             End If
 
             SQL = "SELECT strEnforcementNumber " & _
-            "FROM " & connNameSpace & ".SSCPEnforcementItems " & _
+            "FROM " & DBNameSpace & ".SSCPEnforcementItems " & _
             "WHERE strEnforcementNumber = '" & temp & "' "
 
             cmd = New OracleCommand(SQL, transferConn)
@@ -28645,7 +28645,7 @@ Public Class ISMPDataManagementTools
             dr.Close()
             If recExist = True Then
                 SQL = "SELECT COUNT(*) " & _
-                "FROM " & connNameSpace & ".AFSSSCPEnforcementRecords " & _
+                "FROM " & DBNameSpace & ".AFSSSCPEnforcementRecords " & _
                 "WHERE strEnforcementNumber = '" & temp & "' "
 
                 cmd = New OracleCommand(SQL, transferConn)
@@ -28655,13 +28655,13 @@ Public Class ISMPDataManagementTools
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = False Or dr.Item(0) = 0 Then
-                    SQL = "Insert into " & connNameSpace & ".AFSSSCPEnforcementRecords " & _
+                    SQL = "Insert into " & DBNameSpace & ".AFSSSCPEnforcementRecords " & _
                     "Values " & _
                     "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                     "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "', " & _
                     "'" & Replace(temp5, "'", "''") & "') "
                 Else
-                    SQL = "UPDATE " & connNameSpace & ".AFSSSCPEnforcementRecords SET " & _
+                    SQL = "UPDATE " & DBNameSpace & ".AFSSSCPEnforcementRecords SET " & _
                     "strEnforcementNumber = '" & Replace(temp, "'", "''") & "', " & _
                     "strAFSActionNumber = '" & Replace(temp2, "'", "''") & "', " & _
                     "strUpDateStatus = '" & Replace(temp3, "'", "''") & "', " & _
@@ -28682,7 +28682,7 @@ Public Class ISMPDataManagementTools
     End Sub
     Sub TransferAFSSSCPFCERecords()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".AFSSSCPFCERecords "
+        "from " & DBNameSpace & ".AFSSSCPFCERecords "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -28720,7 +28720,7 @@ Public Class ISMPDataManagementTools
             End If
 
             SQL = "SELECT strFCENumber " & _
-            "FROM " & connNameSpace & ".SSCPFCEMaster " & _
+            "FROM " & DBNameSpace & ".SSCPFCEMaster " & _
             "WHERE strFCENumber = '" & temp & "' "
 
             cmd = New OracleCommand(SQL, transferConn)
@@ -28732,7 +28732,7 @@ Public Class ISMPDataManagementTools
             dr.Close()
             If recExist = True Then
                 SQL = "SELECT COUNT(*) " & _
-                "FROM " & connNameSpace & ".AFSSSCPFCERecords " & _
+                "FROM " & DBNameSpace & ".AFSSSCPFCERecords " & _
                 "WHERE strFCENumber = '" & temp & "' "
 
                 cmd = New OracleCommand(SQL, transferConn)
@@ -28742,13 +28742,13 @@ Public Class ISMPDataManagementTools
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = False Or dr.Item(0) = 0 Then
-                    SQL = "Insert into " & connNameSpace & ".AFSSSCPFCERecords " & _
+                    SQL = "Insert into " & DBNameSpace & ".AFSSSCPFCERecords " & _
                     "Values " & _
                     "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                     "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "', " & _
                     "'" & Replace(temp5, "'", "''") & "') "
                 Else
-                    SQL = "UPDATE " & connNameSpace & ".AFSSSCPFCERecords SET " & _
+                    SQL = "UPDATE " & DBNameSpace & ".AFSSSCPFCERecords SET " & _
                     "strFCENumber = '" & Replace(temp, "'", "''") & "', " & _
                     "strAFSActionNumber = '" & Replace(temp2, "'", "''") & "', " & _
                     "strUpDateStatus = '" & Replace(temp3, "'", "''") & "', " & _
@@ -28769,7 +28769,7 @@ Public Class ISMPDataManagementTools
     End Sub
     Sub TransferAFSSSCPRecords()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".AFSSSCPRecords "
+        "from " & DBNameSpace & ".AFSSSCPRecords "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -28807,7 +28807,7 @@ Public Class ISMPDataManagementTools
             End If
 
             SQL = "SELECT strTrackingNumber " & _
-            "FROM " & connNameSpace & ".SSCPItemMaster " & _
+            "FROM " & DBNameSpace & ".SSCPItemMaster " & _
             "WHERE strTrackingNumber = '" & temp & "' "
 
             cmd = New OracleCommand(SQL, transferConn)
@@ -28819,7 +28819,7 @@ Public Class ISMPDataManagementTools
             dr.Close()
             If recExist = True Then
                 SQL = "SELECT COUNT(*) " & _
-                "FROM " & connNameSpace & ".AFSSSCPRecords " & _
+                "FROM " & DBNameSpace & ".AFSSSCPRecords " & _
                 "WHERE strTrackingNumber = '" & temp & "' "
 
                 cmd = New OracleCommand(SQL, transferConn)
@@ -28829,13 +28829,13 @@ Public Class ISMPDataManagementTools
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = False Or dr.Item(0) = 0 Then
-                    SQL = "Insert into " & connNameSpace & ".AFSSSCPRecords " & _
+                    SQL = "Insert into " & DBNameSpace & ".AFSSSCPRecords " & _
                     "Values " & _
                     "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                     "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "', " & _
                     "'" & Replace(temp5, "'", "''") & "') "
                 Else
-                    SQL = "UPDATE " & connNameSpace & ".AFSSSCPRecords SET " & _
+                    SQL = "UPDATE " & DBNameSpace & ".AFSSSCPRecords SET " & _
                     "strTrackingNumber = '" & Replace(temp, "'", "''") & "', " & _
                     "strAFSActionNumber = '" & Replace(temp2, "'", "''") & "', " & _
                     "strUpDateStatus = '" & Replace(temp3, "'", "''") & "', " & _
@@ -28856,7 +28856,7 @@ Public Class ISMPDataManagementTools
     End Sub
     Sub TransferAFSSSPPRecords()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".AFSSSPPRecords "
+        "from " & DBNameSpace & ".AFSSSPPRecords "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -28894,7 +28894,7 @@ Public Class ISMPDataManagementTools
             End If
 
             SQL = "SELECT strApplicationNumber " & _
-            "FROM " & connNameSpace & ".SSPPApplicationMaster " & _
+            "FROM " & DBNameSpace & ".SSPPApplicationMaster " & _
             "WHERE strApplicationNumber = '" & temp & "' "
 
             cmd = New OracleCommand(SQL, transferConn)
@@ -28906,7 +28906,7 @@ Public Class ISMPDataManagementTools
             dr.Close()
             If recExist = True Then
                 SQL = "SELECT COUNT(*) " & _
-                "FROM " & connNameSpace & ".AFSSSPPRecords " & _
+                "FROM " & DBNameSpace & ".AFSSSPPRecords " & _
                 "WHERE strTrackingNumber = '" & temp & "' "
 
                 cmd = New OracleCommand(SQL, transferConn)
@@ -28916,13 +28916,13 @@ Public Class ISMPDataManagementTools
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = False Or dr.Item(0) = 0 Then
-                    SQL = "Insert into " & connNameSpace & ".AFSSSPPRecords " & _
+                    SQL = "Insert into " & DBNameSpace & ".AFSSSPPRecords " & _
                     "Values " & _
                     "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                     "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "', " & _
                     "'" & Replace(temp5, "'", "''") & "') "
                 Else
-                    SQL = "UPDATE " & connNameSpace & ".AFSSSPPRecords SET " & _
+                    SQL = "UPDATE " & DBNameSpace & ".AFSSSPPRecords SET " & _
                     "strApplicationNumber = '" & Replace(temp, "'", "''") & "', " & _
                     "strAFSActionNumber = '" & Replace(temp2, "'", "''") & "', " & _
                     "strUpDateStatus = '" & Replace(temp3, "'", "''") & "', " & _
@@ -29250,7 +29250,7 @@ Public Class ISMPDataManagementTools
                                     IAIPFacilityName = "NULL"
 
                                     SQL = "Select upper(strFacilityName) as strFacilityName " & _
-                                    "from " & connNameSpace & ".APBFacilityInformation " & _
+                                    "from " & DBNameSpace & ".APBFacilityInformation " & _
                                     "where strAIRSNumber = '0413" & AIRSNumber & "' "
                                     cmd = New OracleCommand(SQL, conn)
                                     If conn.State = ConnectionState.Closed Then
@@ -29277,7 +29277,7 @@ Public Class ISMPDataManagementTools
                                     IAIPFacilityAddress = "NULL"
 
                                     SQL = "Select upper(strFacilityStreet1) as strFacilityStreet1 " & _
-                                    "from " & connNameSpace & ".APBFacilityInformation " & _
+                                    "from " & DBNameSpace & ".APBFacilityInformation " & _
                                     "where strAIRSNumber = '0413" & AIRSNumber & "' "
                                     cmd = New OracleCommand(SQL, conn)
                                     If conn.State = ConnectionState.Closed Then
@@ -29311,9 +29311,9 @@ Public Class ISMPDataManagementTools
                                     "Upper(strFacilityCity) as strFacilityCity, " & _
                                     "Upper(strFacilityZipCode) as strFacilityZipCode, " & _
                                     "upper(strSICCode) as strSICCode " & _
-                                    "from " & connNameSpace & ".APBFacilityInformation, " & connNameSpace & ".APBHeaderData " & _
-                                    "where " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber " & _
-                                    "and " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = '0413" & AIRSNumber & "' "
+                                    "from " & DBNameSpace & ".APBFacilityInformation, " & DBNameSpace & ".APBHeaderData " & _
+                                    "where " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber " & _
+                                    "and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = '0413" & AIRSNumber & "' "
                                     cmd = New OracleCommand(SQL, conn)
                                     If conn.State = ConnectionState.Closed Then
                                         conn.Open()
@@ -29372,9 +29372,9 @@ Public Class ISMPDataManagementTools
                                     "upper(strContactFirstName||' '||strContactLastName) as strContactName,  " & _
                                     "strContactPhoneNumber1,  " & _
                                     "upper(strPlantDescription) as strPlantDescription  " & _
-                                    "from " & connNameSpace & ".APBContactInformation, " & connNameSpace & ".APBHeaderData  " & _
-                                    "where " & connNameSpace & ".apbcontactinformation.strAIRSNumber = " & connNameSpace & ".apbheaderdata.strairsnumber  " & _
-                                    "and " & connNameSpace & ".APBHeaderData.strairsnumber = '0413" & AIRSNumber & "'  " & _
+                                    "from " & DBNameSpace & ".APBContactInformation, " & DBNameSpace & ".APBHeaderData  " & _
+                                    "where " & DBNameSpace & ".apbcontactinformation.strAIRSNumber = " & DBNameSpace & ".apbheaderdata.strairsnumber  " & _
+                                    "and " & DBNameSpace & ".APBHeaderData.strairsnumber = '0413" & AIRSNumber & "'  " & _
                                     "and strkey = '30'"
 
                                     cmd = New OracleCommand(SQL, conn)
@@ -29439,91 +29439,91 @@ Public Class ISMPDataManagementTools
                                             IAIPAirProgramCode = "0"
                                             SQL = "select " & _
                                             "strOperationalStatus  " & _
-                                            "from " & connNameSpace & ".APBHeaderData  " & _
+                                            "from " & DBNameSpace & ".APBHeaderData  " & _
                                             "where strAIRSNumber = '0413" & AIRSNumber & "' " & _
                                             "and substr(strAirProgramCodes, 1, 1) = '1' "
                                         Case "1"
                                             IAIPAirProgramCode = "1"
                                             SQL = "select " & _
                                             "strOperationalStatus  " & _
-                                            "from " & connNameSpace & ".APBHeaderData  " & _
+                                            "from " & DBNameSpace & ".APBHeaderData  " & _
                                             "where strAIRSNumber = '0413" & AIRSNumber & "' " & _
                                             "and substr(strAirProgramCodes, 2, 1) = '1' "
                                         Case "3"
                                             IAIPAirProgramCode = "3"
                                             SQL = "select " & _
                                             "strOperationalStatus  " & _
-                                            "from " & connNameSpace & ".APBHeaderData  " & _
+                                            "from " & DBNameSpace & ".APBHeaderData  " & _
                                             "where strAIRSNumber = '0413" & AIRSNumber & "' " & _
                                             "and substr(strAirProgramCodes, 3, 1) = '1' "
                                         Case "4"
                                             IAIPAirProgramCode = "4"
                                             SQL = "select " & _
                                             "strOperationalStatus  " & _
-                                            "from " & connNameSpace & ".APBHeaderData  " & _
+                                            "from " & DBNameSpace & ".APBHeaderData  " & _
                                             "where strAIRSNumber = '0413" & AIRSNumber & "' " & _
                                             "and substr(strAirProgramCodes, 4, 1) = '1' "
                                         Case "6"
                                             IAIPAirProgramCode = "6"
                                             SQL = "select " & _
                                             "strOperationalStatus  " & _
-                                            "from " & connNameSpace & ".APBHeaderData  " & _
+                                            "from " & DBNameSpace & ".APBHeaderData  " & _
                                             "where strAIRSNumber = '0413" & AIRSNumber & "' " & _
                                             "and substr(strAirProgramCodes, 5, 1) = '1' "
                                         Case "7"
                                             IAIPAirProgramCode = "7"
                                             SQL = "select " & _
                                             "strOperationalStatus  " & _
-                                            "from " & connNameSpace & ".APBHeaderData  " & _
+                                            "from " & DBNameSpace & ".APBHeaderData  " & _
                                             "where strAIRSNumber = '0413" & AIRSNumber & "' " & _
                                             "and substr(strAirProgramCodes, 6, 1) = '1' "
                                         Case "8"
                                             IAIPAirProgramCode = "8"
                                             SQL = "select " & _
                                             "strOperationalStatus  " & _
-                                            "from " & connNameSpace & ".APBHeaderData  " & _
+                                            "from " & DBNameSpace & ".APBHeaderData  " & _
                                             "where strAIRSNumber = '0413" & AIRSNumber & "' " & _
                                             "and substr(strAirProgramCodes, 7, 1) = '1' "
                                         Case "9"
                                             IAIPAirProgramCode = "9"
                                             SQL = "select " & _
                                             "strOperationalStatus  " & _
-                                            "from " & connNameSpace & ".APBHeaderData  " & _
+                                            "from " & DBNameSpace & ".APBHeaderData  " & _
                                             "where strAIRSNumber = '0413" & AIRSNumber & "' " & _
                                             "and substr(strAirProgramCodes, 8, 1) = '1' "
                                         Case "A"
                                             IAIPAirProgramCode = "A"
                                             SQL = "select " & _
                                             "strOperationalStatus  " & _
-                                            "from " & connNameSpace & ".APBHeaderData  " & _
+                                            "from " & DBNameSpace & ".APBHeaderData  " & _
                                             "where strAIRSNumber = '0413" & AIRSNumber & "' " & _
                                             "and substr(strAirProgramCodes, 9, 1) = '1' "
                                         Case "F"
                                             IAIPAirProgramCode = "F"
                                             SQL = "select " & _
                                             "strOperationalStatus  " & _
-                                            "from " & connNameSpace & ".APBHeaderData  " & _
+                                            "from " & DBNameSpace & ".APBHeaderData  " & _
                                             "where strAIRSNumber = '0413" & AIRSNumber & "' " & _
                                             "and substr(strAirProgramCodes, 10, 1) = '1' "
                                         Case "I"
                                             IAIPAirProgramCode = "I"
                                             SQL = "select " & _
                                             "strOperationalStatus  " & _
-                                            "from " & connNameSpace & ".APBHeaderData  " & _
+                                            "from " & DBNameSpace & ".APBHeaderData  " & _
                                             "where strAIRSNumber = '0413" & AIRSNumber & "' " & _
                                             "and substr(strAirProgramCodes, 11, 1) = '1' "
                                         Case "M"
                                             IAIPAirProgramCode = "M"
                                             SQL = "select " & _
                                             "strOperationalStatus  " & _
-                                            "from " & connNameSpace & ".APBHeaderData  " & _
+                                            "from " & DBNameSpace & ".APBHeaderData  " & _
                                             "where strAIRSNumber = '0413" & AIRSNumber & "' " & _
                                             "and substr(strAirProgramCodes, 12, 1) = '1' "
                                         Case "V"
                                             IAIPAirProgramCode = "V"
                                             SQL = "select " & _
                                             "strOperationalStatus  " & _
-                                            "from " & connNameSpace & ".APBHeaderData  " & _
+                                            "from " & DBNameSpace & ".APBHeaderData  " & _
                                             "where strAIRSNumber = '0413" & AIRSNumber & "' " & _
                                             "and substr(strAirProgramCodes, 13, 1) = '1' "
                                         Case Else
@@ -29574,7 +29574,7 @@ Public Class ISMPDataManagementTools
                                             IAIPAirProgramCode = "0"
                                             SQL = "select " & _
                                             "distinct(strAIRSNumber) as subPartTest " & _
-                                            "from " & connNameSpace & ".APBSubPartData  " & _
+                                            "from " & DBNameSpace & ".APBSubPartData  " & _
                                             "where strsubpartkey = '0413" & AIRSNumber & "0' " & _
                                             "and (strSubPart = '" & SubPart1 & "' or strsubpart = '" & SubPart2 & "' " & _
                                             "or strsubpart = '" & SubPart3 & "' or strsubpart = '" & SubPart4 & "' " & _
@@ -29585,7 +29585,7 @@ Public Class ISMPDataManagementTools
                                             IAIPAirProgramCode = "1"
                                             SQL = "select " & _
                                             "distinct(strAIRSNumber) as subPartTest " & _
-                                            "from " & connNameSpace & ".APBSubPartData  " & _
+                                            "from " & DBNameSpace & ".APBSubPartData  " & _
                                             "where strsubpartkey = '0413" & AIRSNumber & "1' " & _
                                             "and (strSubPart = '" & SubPart1 & "' or strsubpart = '" & SubPart2 & "' " & _
                                             "or strsubpart = '" & SubPart3 & "' or strsubpart = '" & SubPart4 & "' " & _
@@ -29596,7 +29596,7 @@ Public Class ISMPDataManagementTools
                                             IAIPAirProgramCode = "3"
                                             SQL = "select " & _
                                             "distinct(strAIRSNumber) as subPartTest " & _
-                                            "from " & connNameSpace & ".APBSubPartData  " & _
+                                            "from " & DBNameSpace & ".APBSubPartData  " & _
                                             "where strsubpartkey = '0413" & AIRSNumber & "3' " & _
                                             "and (strSubPart = '" & SubPart1 & "' or strsubpart = '" & SubPart2 & "' " & _
                                             "or strsubpart = '" & SubPart3 & "' or strsubpart = '" & SubPart4 & "' " & _
@@ -29607,7 +29607,7 @@ Public Class ISMPDataManagementTools
                                             IAIPAirProgramCode = "4"
                                             SQL = "select " & _
                                             "distinct(strAIRSNumber) as subPartTest " & _
-                                            "from " & connNameSpace & ".APBSubPartData  " & _
+                                            "from " & DBNameSpace & ".APBSubPartData  " & _
                                             "where strsubpartkey = '0413" & AIRSNumber & "4' " & _
                                             "and (strSubPart = '" & SubPart1 & "' or strsubpart = '" & SubPart2 & "' " & _
                                             "or strsubpart = '" & SubPart3 & "' or strsubpart = '" & SubPart4 & "' " & _
@@ -29618,7 +29618,7 @@ Public Class ISMPDataManagementTools
                                             IAIPAirProgramCode = "6"
                                             SQL = "select " & _
                                             "distinct(strAIRSNumber) as subPartTest " & _
-                                            "from " & connNameSpace & ".APBSubPartData  " & _
+                                            "from " & DBNameSpace & ".APBSubPartData  " & _
                                             "where strsubpartkey = '0413" & AIRSNumber & "6' " & _
                                             "and (strSubPart = '" & SubPart1 & "' or strsubpart = '" & SubPart2 & "' " & _
                                             "or strsubpart = '" & SubPart3 & "' or strsubpart = '" & SubPart4 & "' " & _
@@ -29629,7 +29629,7 @@ Public Class ISMPDataManagementTools
                                             IAIPAirProgramCode = "7"
                                             SQL = "select " & _
                                             "distinct(strAIRSNumber) as subPartTest " & _
-                                            "from " & connNameSpace & ".APBSubPartData  " & _
+                                            "from " & DBNameSpace & ".APBSubPartData  " & _
                                             "where strsubpartkey = '0413" & AIRSNumber & "7' " & _
                                             "and (strSubPart = '" & SubPart1 & "' or strsubpart = '" & SubPart2 & "' " & _
                                             "or strsubpart = '" & SubPart3 & "' or strsubpart = '" & SubPart4 & "' " & _
@@ -29640,7 +29640,7 @@ Public Class ISMPDataManagementTools
                                             IAIPAirProgramCode = "8"
                                             SQL = "select " & _
                                             "distinct(strAIRSNumber) as subPartTest " & _
-                                            "from " & connNameSpace & ".APBSubPartData  " & _
+                                            "from " & DBNameSpace & ".APBSubPartData  " & _
                                             "where strsubpartkey = '0413" & AIRSNumber & "8' " & _
                                             "and (strSubPart = '" & SubPart1 & "' or strsubpart = '" & SubPart2 & "' " & _
                                             "or strsubpart = '" & SubPart3 & "' or strsubpart = '" & SubPart4 & "' " & _
@@ -29651,7 +29651,7 @@ Public Class ISMPDataManagementTools
                                             IAIPAirProgramCode = "9"
                                             SQL = "select " & _
                                             "distinct(strAIRSNumber) as subPartTest " & _
-                                            "from " & connNameSpace & ".APBSubPartData  " & _
+                                            "from " & DBNameSpace & ".APBSubPartData  " & _
                                             "where strsubpartkey = '0413" & AIRSNumber & "9' " & _
                                             "and (strSubPart = '" & SubPart1 & "' or strsubpart = '" & SubPart2 & "' " & _
                                             "or strsubpart = '" & SubPart3 & "' or strsubpart = '" & SubPart4 & "' " & _
@@ -29662,7 +29662,7 @@ Public Class ISMPDataManagementTools
                                             IAIPAirProgramCode = "A"
                                             SQL = "select " & _
                                             "distinct(strAIRSNumber) as subPartTest " & _
-                                            "from " & connNameSpace & ".APBSubPartData  " & _
+                                            "from " & DBNameSpace & ".APBSubPartData  " & _
                                             "where strsubpartkey = '0413" & AIRSNumber & "A' " & _
                                             "and (strSubPart = '" & SubPart1 & "' or strsubpart = '" & SubPart2 & "' " & _
                                             "or strsubpart = '" & SubPart3 & "' or strsubpart = '" & SubPart4 & "' " & _
@@ -29673,7 +29673,7 @@ Public Class ISMPDataManagementTools
                                             IAIPAirProgramCode = "F"
                                             SQL = "select " & _
                                             "distinct(strAIRSNumber) as subPartTest " & _
-                                            "from " & connNameSpace & ".APBSubPartData  " & _
+                                            "from " & DBNameSpace & ".APBSubPartData  " & _
                                             "where strsubpartkey = '0413" & AIRSNumber & "F' " & _
                                             "and (strSubPart = '" & SubPart1 & "' or strsubpart = '" & SubPart2 & "' " & _
                                             "or strsubpart = '" & SubPart3 & "' or strsubpart = '" & SubPart4 & "' " & _
@@ -29684,7 +29684,7 @@ Public Class ISMPDataManagementTools
                                             IAIPAirProgramCode = "I"
                                             SQL = "select " & _
                                             "distinct(strAIRSNumber) as subPartTest " & _
-                                            "from " & connNameSpace & ".APBSubPartData  " & _
+                                            "from " & DBNameSpace & ".APBSubPartData  " & _
                                             "where strsubpartkey = '0413" & AIRSNumber & "I' " & _
                                             "and (strSubPart = '" & SubPart1 & "' or strsubpart = '" & SubPart2 & "' " & _
                                             "or strsubpart = '" & SubPart3 & "' or strsubpart = '" & SubPart4 & "' " & _
@@ -29695,7 +29695,7 @@ Public Class ISMPDataManagementTools
                                             IAIPAirProgramCode = "M"
                                             SQL = "select " & _
                                             "distinct(strAIRSNumber) as subPartTest " & _
-                                            "from " & connNameSpace & ".APBSubPartData  " & _
+                                            "from " & DBNameSpace & ".APBSubPartData  " & _
                                             "where strsubpartkey = '0413" & AIRSNumber & "M' " & _
                                             "and (strSubPart = '" & SubPart1 & "' or strsubpart = '" & SubPart2 & "' " & _
                                             "or strsubpart = '" & SubPart3 & "' or strsubpart = '" & SubPart4 & "' " & _
@@ -29706,7 +29706,7 @@ Public Class ISMPDataManagementTools
                                             IAIPAirProgramCode = "V"
                                             SQL = "select " & _
                                             "distinct(strAIRSNumber) as subPartTest " & _
-                                            "from " & connNameSpace & ".APBSubPartData  " & _
+                                            "from " & DBNameSpace & ".APBSubPartData  " & _
                                             "where strsubpartkey = '0413" & AIRSNumber & "V' " & _
                                             "and (strSubPart = '" & SubPart1 & "' or strsubpart = '" & SubPart2 & "' " & _
                                             "or strsubpart = '" & SubPart3 & "' or strsubpart = '" & SubPart4 & "' " & _
@@ -29765,91 +29765,91 @@ Public Class ISMPDataManagementTools
                                             IAIPAirProgramCode = "0"
                                             SQL = "Select " & _
                                             "strPollutantKey, strComplianceStatus " & _
-                                            "from " & connNameSpace & ".APBAirProgramPollutants " & _
+                                            "from " & DBNameSpace & ".APBAirProgramPollutants " & _
                                             "where strAirPollutantKey = '0413" & AIRSNumber & "0' " & _
                                             "and strPollutantKey = '" & Pollutant & "' "
                                         Case "1"
                                             IAIPAirProgramCode = "1"
                                             SQL = "Select " & _
                                             "strPollutantKey, strComplianceStatus " & _
-                                            "from " & connNameSpace & ".APBAirProgramPollutants " & _
+                                            "from " & DBNameSpace & ".APBAirProgramPollutants " & _
                                             "where strAirPollutantKey = '0413" & AIRSNumber & "1' " & _
                                             "and strPollutantKey = '" & Pollutant & "' "
                                         Case "3"
                                             IAIPAirProgramCode = "3"
                                             SQL = "Select " & _
                                             "strPollutantKey, strComplianceStatus " & _
-                                            "from " & connNameSpace & ".APBAirProgramPollutants " & _
+                                            "from " & DBNameSpace & ".APBAirProgramPollutants " & _
                                             "where strAirPollutantKey = '0413" & AIRSNumber & "3' " & _
                                             "and strPollutantKey = '" & Pollutant & "' "
                                         Case "4"
                                             IAIPAirProgramCode = "4"
                                             SQL = "Select " & _
                                             "strPollutantKey, strComplianceStatus " & _
-                                            "from " & connNameSpace & ".APBAirProgramPollutants " & _
+                                            "from " & DBNameSpace & ".APBAirProgramPollutants " & _
                                             "where strAirPollutantKey = '0413" & AIRSNumber & "4' " & _
                                             "and strPollutantKey = '" & Pollutant & "' "
                                         Case "6"
                                             IAIPAirProgramCode = "6"
                                             SQL = "Select " & _
                                             "strPollutantKey, strComplianceStatus " & _
-                                            "from " & connNameSpace & ".APBAirProgramPollutants " & _
+                                            "from " & DBNameSpace & ".APBAirProgramPollutants " & _
                                             "where strAirPollutantKey = '0413" & AIRSNumber & "6' " & _
                                             "and strPollutantKey = '" & Pollutant & "' "
                                         Case "7"
                                             IAIPAirProgramCode = "7"
                                             SQL = "Select " & _
                                             "strPollutantKey, strComplianceStatus " & _
-                                            "from " & connNameSpace & ".APBAirProgramPollutants " & _
+                                            "from " & DBNameSpace & ".APBAirProgramPollutants " & _
                                             "where strAirPollutantKey = '0413" & AIRSNumber & "7' " & _
                                             "and strPollutantKey = '" & Pollutant & "' "
                                         Case "8"
                                             IAIPAirProgramCode = "8"
                                             SQL = "Select " & _
                                             "strPollutantKey, strComplianceStatus " & _
-                                            "from " & connNameSpace & ".APBAirProgramPollutants " & _
+                                            "from " & DBNameSpace & ".APBAirProgramPollutants " & _
                                             "where strAirPollutantKey = '0413" & AIRSNumber & "8' " & _
                                             "and strPollutantKey = '" & Pollutant & "' "
                                         Case "9"
                                             IAIPAirProgramCode = "9"
                                             SQL = "Select " & _
                                             "strPollutantKey, strComplianceStatus " & _
-                                            "from " & connNameSpace & ".APBAirProgramPollutants " & _
+                                            "from " & DBNameSpace & ".APBAirProgramPollutants " & _
                                             "where strAirPollutantKey = '0413" & AIRSNumber & "9' " & _
                                             "and strPollutantKey = '" & Pollutant & "' "
                                         Case "A"
                                             IAIPAirProgramCode = "A"
                                             SQL = "Select " & _
                                             "strPollutantKey, strComplianceStatus " & _
-                                            "from " & connNameSpace & ".APBAirProgramPollutants " & _
+                                            "from " & DBNameSpace & ".APBAirProgramPollutants " & _
                                             "where strAirPollutantKey = '0413" & AIRSNumber & "A' " & _
                                             "and strPollutantKey = '" & Pollutant & "' "
                                         Case "F"
                                             IAIPAirProgramCode = "F"
                                             SQL = "Select " & _
                                             "strPollutantKey, strComplianceStatus " & _
-                                            "from " & connNameSpace & ".APBAirProgramPollutants " & _
+                                            "from " & DBNameSpace & ".APBAirProgramPollutants " & _
                                             "where strAirPollutantKey = '0413" & AIRSNumber & "F' " & _
                                             "and strPollutantKey = '" & Pollutant & "' "
                                         Case "I"
                                             IAIPAirProgramCode = "I"
                                             SQL = "Select " & _
                                             "strPollutantKey, strComplianceStatus " & _
-                                            "from " & connNameSpace & ".APBAirProgramPollutants " & _
+                                            "from " & DBNameSpace & ".APBAirProgramPollutants " & _
                                             "where strAirPollutantKey = '0413" & AIRSNumber & "I' " & _
                                             "and strPollutantKey = '" & Pollutant & "' "
                                         Case "M"
                                             IAIPAirProgramCode = "M"
                                             SQL = "Select " & _
                                             "strPollutantKey, strComplianceStatus " & _
-                                            "from " & connNameSpace & ".APBAirProgramPollutants " & _
+                                            "from " & DBNameSpace & ".APBAirProgramPollutants " & _
                                             "where strAirPollutantKey = '0413" & AIRSNumber & "M' " & _
                                             "and strPollutantKey = '" & Pollutant & "' "
                                         Case "V"
                                             IAIPAirProgramCode = "V"
                                             SQL = "Select " & _
                                             "strPollutantKey, strComplianceStatus " & _
-                                            "from " & connNameSpace & ".APBAirProgramPollutants " & _
+                                            "from " & DBNameSpace & ".APBAirProgramPollutants " & _
                                             "where strAirPollutantKey = '0413" & AIRSNumber & "V' " & _
                                             "and strPollutantKey = '" & Pollutant & "' "
                                         Case Else
@@ -29880,7 +29880,7 @@ Public Class ISMPDataManagementTools
                                         SQL = "Select " & _
                                         "strClass, strAttainmentStatus, " & _
                                         "strSICCode " & _
-                                        "from " & connNameSpace & ".APBHeaderData " & _
+                                        "from " & DBNameSpace & ".APBHeaderData " & _
                                         "where strAIRSNumber = '0413" & AIRSNumber & "' "
 
                                         cmd = New OracleCommand(SQL, conn)
@@ -29988,13 +29988,13 @@ Public Class ISMPDataManagementTools
                                             "end ResultCode, " & _
                                             "'0000000' as PenaltyAmount, " & _
                                             "'  ' as Pollutant " & _
-                                            "from " & connNameSpace & ".AFSSSCPFCERecords, " & connNameSpace & ".SSCPFCEMaster, " & _
-                                            "" & connNameSpace & ".APBHeaderData, " & connNameSpace & ".SSCPFCE  " & _
-                                            "where " & connNameSpace & ".AFSSSCPFCERecords.strFCENumber = " & connNameSpace & ".SSCPFCEMaster.StrFCENumber " & _
-                                            "and " & connNameSpace & ".SSCPFCEMaster.strFCENumber = " & connNameSpace & ".SSCPFCE.strFCENumber " & _
-                                            "and " & connNameSpace & ".SSCPFCEMaster.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber " & _
+                                            "from " & DBNameSpace & ".AFSSSCPFCERecords, " & DBNameSpace & ".SSCPFCEMaster, " & _
+                                            "" & DBNameSpace & ".APBHeaderData, " & DBNameSpace & ".SSCPFCE  " & _
+                                            "where " & DBNameSpace & ".AFSSSCPFCERecords.strFCENumber = " & DBNameSpace & ".SSCPFCEMaster.StrFCENumber " & _
+                                            "and " & DBNameSpace & ".SSCPFCEMaster.strFCENumber = " & DBNameSpace & ".SSCPFCE.strFCENumber " & _
+                                            "and " & DBNameSpace & ".SSCPFCEMaster.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber " & _
                                             "and strSiteInspection = 'True' " & _
-                                            "and " & connNameSpace & ".SSCPFCEMaster.strAIRSNumber = '0413" & AIRSNumber & "' " & _
+                                            "and " & DBNameSpace & ".SSCPFCEMaster.strAIRSNumber = '0413" & AIRSNumber & "' " & _
                                             "and strAFSActionNumber  = '" & ActionNumber & "' "
                                         Case "FF"
                                             SQL = "select " & _
@@ -30008,13 +30008,13 @@ Public Class ISMPDataManagementTools
                                             "end ResultCode, " & _
                                             "'0000000' as PenaltyAmount, " & _
                                             "'  ' as Pollutant " & _
-                                            "from " & connNameSpace & ".AFSSSCPFCERecords, " & connNameSpace & ".SSCPFCEMaster, " & _
-                                            "" & connNameSpace & ".APBHeaderData, " & connNameSpace & ".SSCPFCE  " & _
-                                            "where " & connNameSpace & ".AFSSSCPFCERecords.strFCENumber = " & connNameSpace & ".SSCPFCEMaster.StrFCENumber " & _
-                                            "and " & connNameSpace & ".SSCPFCEMaster.strFCENumber = " & connNameSpace & ".SSCPFCE.strFCENumber " & _
-                                            "and " & connNameSpace & ".SSCPFCEMaster.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber " & _
+                                            "from " & DBNameSpace & ".AFSSSCPFCERecords, " & DBNameSpace & ".SSCPFCEMaster, " & _
+                                            "" & DBNameSpace & ".APBHeaderData, " & DBNameSpace & ".SSCPFCE  " & _
+                                            "where " & DBNameSpace & ".AFSSSCPFCERecords.strFCENumber = " & DBNameSpace & ".SSCPFCEMaster.StrFCENumber " & _
+                                            "and " & DBNameSpace & ".SSCPFCEMaster.strFCENumber = " & DBNameSpace & ".SSCPFCE.strFCENumber " & _
+                                            "and " & DBNameSpace & ".SSCPFCEMaster.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber " & _
                                             "and strSiteInspection <> 'True' " & _
-                                            "and " & connNameSpace & ".SSCPFCEMaster.strAIRSNumber = '0413" & AIRSNumber & "' " & _
+                                            "and " & DBNameSpace & ".SSCPFCEMaster.strAIRSNumber = '0413" & AIRSNumber & "' " & _
                                             "and strAFSActionNumber  = '" & ActionNumber & "' "
                                         Case "37"
                                             SQL = "select " & _
@@ -30025,11 +30025,11 @@ Public Class ISMPDataManagementTools
                                             "'01' as ResultCode, " & _
                                             "'0000000' as PenaltyAmount, " & _
                                             "'  ' as Pollutant " & _
-                                            "from " & connNameSpace & ".AFSSSCPRecords, " & connNameSpace & ".SSCPItemMaster, " & _
-                                            "" & connNameSpace & ".APBHeaderData " & _
-                                            "where " & connNameSpace & ".AFSSSCPRecords.strTrackingNumber = " & connNameSpace & ".SSCPItemMaster.strTrackingNumber " & _
-                                            "and " & connNameSpace & ".SSCPItemMaster.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber " & _
-                                            "and " & connNameSpace & ".SSCPItemMaster.strAIRSNumber = '0413" & AIRSNumber & "' " & _
+                                            "from " & DBNameSpace & ".AFSSSCPRecords, " & DBNameSpace & ".SSCPItemMaster, " & _
+                                            "" & DBNameSpace & ".APBHeaderData " & _
+                                            "where " & DBNameSpace & ".AFSSSCPRecords.strTrackingNumber = " & DBNameSpace & ".SSCPItemMaster.strTrackingNumber " & _
+                                            "and " & DBNameSpace & ".SSCPItemMaster.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber " & _
+                                            "and " & DBNameSpace & ".SSCPItemMaster.strAIRSNumber = '0413" & AIRSNumber & "' " & _
                                             "and strAFSActionNumber  = '" & ActionNumber & "' "
                                         Case "27"
                                             SQL = "select " & _
@@ -30040,11 +30040,11 @@ Public Class ISMPDataManagementTools
                                             "'01' as ResultCode, " & _
                                             "'0000000' as PenaltyAmount, " & _
                                             "'  ' as Pollutant " & _
-                                            "from " & connNameSpace & ".AFSSSCPRecords, " & connNameSpace & ".SSCPItemMaster, " & _
-                                            "" & connNameSpace & ".APBHeaderData " & _
-                                            "where " & connNameSpace & ".AFSSSCPRecords.strTrackingNumber = " & connNameSpace & ".SSCPItemMaster.strTrackingNumber " & _
-                                            "and " & connNameSpace & ".SSCPItemMaster.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber " & _
-                                            "and " & connNameSpace & ".SSCPItemMaster.strAIRSNumber = '0413" & AIRSNumber & "' " & _
+                                            "from " & DBNameSpace & ".AFSSSCPRecords, " & DBNameSpace & ".SSCPItemMaster, " & _
+                                            "" & DBNameSpace & ".APBHeaderData " & _
+                                            "where " & DBNameSpace & ".AFSSSCPRecords.strTrackingNumber = " & DBNameSpace & ".SSCPItemMaster.strTrackingNumber " & _
+                                            "and " & DBNameSpace & ".SSCPItemMaster.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber " & _
+                                            "and " & DBNameSpace & ".SSCPItemMaster.strAIRSNumber = '0413" & AIRSNumber & "' " & _
                                             "and strAFSActionNumber  = '" & ActionNumber & "' "
                                         Case "SR"
                                             SQL = "select " & _
@@ -30059,12 +30059,12 @@ Public Class ISMPDataManagementTools
                                             "end ResultCode, " & _
                                             "'0000000' as PenaltyAmount, " & _
                                             "'  ' as Pollutant " & _
-                                            "from " & connNameSpace & ".AFSSSCPRecords, " & connNameSpace & ".SSCPItemMaster, " & _
-                                            "" & connNameSpace & ".APBHeaderData, " & connNameSpace & ".SSCPEnforcementItems " & _
-                                            "where " & connNameSpace & ".AFSSSCPRecords.strTrackingNumber = " & connNameSpace & ".SSCPItemMaster.strTrackingNumber " & _
-                                            "and " & connNameSpace & ".SSCPItemMaster.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber " & _
-                                            "and " & connNameSpace & ".SSCPItemMaster.strTrackingNumber = " & connNameSpace & ".SSCPEnforcementItems.strTrackingNumber (+) " & _
-                                            "and " & connNameSpace & ".SSCPItemMaster.strAIRSNumber = '0413" & AIRSNumber & "' " & _
+                                            "from " & DBNameSpace & ".AFSSSCPRecords, " & DBNameSpace & ".SSCPItemMaster, " & _
+                                            "" & DBNameSpace & ".APBHeaderData, " & DBNameSpace & ".SSCPEnforcementItems " & _
+                                            "where " & DBNameSpace & ".AFSSSCPRecords.strTrackingNumber = " & DBNameSpace & ".SSCPItemMaster.strTrackingNumber " & _
+                                            "and " & DBNameSpace & ".SSCPItemMaster.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber " & _
+                                            "and " & DBNameSpace & ".SSCPItemMaster.strTrackingNumber = " & DBNameSpace & ".SSCPEnforcementItems.strTrackingNumber (+) " & _
+                                            "and " & DBNameSpace & ".SSCPItemMaster.strAIRSNumber = '0413" & AIRSNumber & "' " & _
                                             "and strAFSActionNumber  = '" & ActionNumber & "' "
                                         Case "CS"
                                             SQL = "select " & _
@@ -30075,11 +30075,11 @@ Public Class ISMPDataManagementTools
                                             "'  ' as ResultCode, " & _
                                             "'       ' as PenaltyAmount, " & _
                                             "'  ' as Pollutant " & _
-                                            "from " & connNameSpace & ".AFSSSCPRecords, " & connNameSpace & ".SSCPItemMaster, " & _
-                                            "" & connNameSpace & ".APBHeaderData " & _
-                                            "where " & connNameSpace & ".AFSSSCPRecords.strTrackingNumber = " & connNameSpace & ".SSCPItemMaster.strTrackingNumber " & _
-                                            "and " & connNameSpace & ".SSCPItemMaster.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber " & _
-                                            "and " & connNameSpace & ".SSCPItemMaster.strAIRSNumber = '0413" & AIRSNumber & "' " & _
+                                            "from " & DBNameSpace & ".AFSSSCPRecords, " & DBNameSpace & ".SSCPItemMaster, " & _
+                                            "" & DBNameSpace & ".APBHeaderData " & _
+                                            "where " & DBNameSpace & ".AFSSSCPRecords.strTrackingNumber = " & DBNameSpace & ".SSCPItemMaster.strTrackingNumber " & _
+                                            "and " & DBNameSpace & ".SSCPItemMaster.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber " & _
+                                            "and " & DBNameSpace & ".SSCPItemMaster.strAIRSNumber = '0413" & AIRSNumber & "' " & _
                                             "and strAFSActionNumber  = '" & ActionNumber & "' "
                                         Case "04"
                                             SQL = "select " & _
@@ -30090,14 +30090,14 @@ Public Class ISMPDataManagementTools
                                             "'01' as ResultCode, " & _
                                             "'0000000' as PenaltyAmount, " & _
                                             "'  ' as Pollutant " & _
-                                            "from " & connNameSpace & ".AFSSSCPEnforcementRecords, " & connNameSpace & ".SSCPEnforcementItems, " & _
-                                            "" & connNameSpace & ".APBHeaderData, " & connNameSpace & ".SSCPEnforcement " & _
-                                            "where " & connNameSpace & ".AFSSSCPEnforcementRecords.strEnforcementNumber = " _
-                                                             & connNameSpace & ".SSCPEnforcementItems.strEnforcementNumber " & _
-                                            "and " & connNameSpace & ".SSCPEnforcementItems.strEnforcementNumber = " _
-                                                             & connNameSpace & ".SSCPEnforcement.strEnforcementNumber  " & _
-                                            "and " & connNameSpace & ".SSCPEnforcementItems.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber " & _
-                                            "and " & connNameSpace & ".APBHeaderData.strAIRSNumber = '0413" & AIRSNumber & "' " & _
+                                            "from " & DBNameSpace & ".AFSSSCPEnforcementRecords, " & DBNameSpace & ".SSCPEnforcementItems, " & _
+                                            "" & DBNameSpace & ".APBHeaderData, " & DBNameSpace & ".SSCPEnforcement " & _
+                                            "where " & DBNameSpace & ".AFSSSCPEnforcementRecords.strEnforcementNumber = " _
+                                                             & DBNameSpace & ".SSCPEnforcementItems.strEnforcementNumber " & _
+                                            "and " & DBNameSpace & ".SSCPEnforcementItems.strEnforcementNumber = " _
+                                                             & DBNameSpace & ".SSCPEnforcement.strEnforcementNumber  " & _
+                                            "and " & DBNameSpace & ".SSCPEnforcementItems.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber " & _
+                                            "and " & DBNameSpace & ".APBHeaderData.strAIRSNumber = '0413" & AIRSNumber & "' " & _
                                             "and strAFSActionNumber = '" & ActionNumber & "' "
                                         Case "VZ"
                                             SQL = "select " & _
@@ -30108,14 +30108,14 @@ Public Class ISMPDataManagementTools
                                             "'01' as ResultCode, " & _
                                             "'0000000' as PenaltyAmount, " & _
                                             "'  ' as Pollutant " & _
-                                            "from " & connNameSpace & ".AFSSSCPEnforcementRecords, " & connNameSpace & ".SSCPEnforcementItems, " & _
-                                            "" & connNameSpace & ".APBHeaderData, " & connNameSpace & ".SSCPEnforcement " & _
-                                            "where " & connNameSpace & ".AFSSSCPEnforcementRecords.strEnforcementNumber = " _
-                                                             & connNameSpace & ".SSCPEnforcementItems.strEnforcementNumber " & _
-                                            "and " & connNameSpace & ".SSCPEnforcementItems.strEnforcementNumber = " _
-                                                             & connNameSpace & ".SSCPEnforcement.strEnforcementNumber  " & _
-                                            "and " & connNameSpace & ".SSCPEnforcementItems.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber " & _
-                                            "and " & connNameSpace & ".APBHeaderData.strAIRSNumber = '0413" & AIRSNumber & "' " & _
+                                            "from " & DBNameSpace & ".AFSSSCPEnforcementRecords, " & DBNameSpace & ".SSCPEnforcementItems, " & _
+                                            "" & DBNameSpace & ".APBHeaderData, " & DBNameSpace & ".SSCPEnforcement " & _
+                                            "where " & DBNameSpace & ".AFSSSCPEnforcementRecords.strEnforcementNumber = " _
+                                                             & DBNameSpace & ".SSCPEnforcementItems.strEnforcementNumber " & _
+                                            "and " & DBNameSpace & ".SSCPEnforcementItems.strEnforcementNumber = " _
+                                                             & DBNameSpace & ".SSCPEnforcement.strEnforcementNumber  " & _
+                                            "and " & DBNameSpace & ".SSCPEnforcementItems.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber " & _
+                                            "and " & DBNameSpace & ".APBHeaderData.strAIRSNumber = '0413" & AIRSNumber & "' " & _
                                             "and strAFSActionNumber = '" & ActionNumber & "' "
                                         Case "56"
                                             SQL = "select " & _
@@ -30126,14 +30126,14 @@ Public Class ISMPDataManagementTools
                                             "'  ' as ResultCode, " & _
                                             "'0000000' as PenaltyAmount, " & _
                                             "'  ' as Pollutant " & _
-                                            "from " & connNameSpace & ".AFSSSCPEnforcementRecords, " & connNameSpace & ".SSCPEnforcementItems, " & _
-                                            "" & connNameSpace & ".APBHeaderData, " & connNameSpace & ".SSCPEnforcement " & _
-                                            "where " & connNameSpace & ".AFSSSCPEnforcementRecords.strEnforcementNumber = " _
-                                                             & connNameSpace & ".SSCPEnforcementItems.strEnforcementNumber " & _
-                                            "and " & connNameSpace & ".SSCPEnforcementItems.strEnforcementNumber = " _
-                                                             & connNameSpace & ".SSCPEnforcement.strEnforcementNumber  " & _
-                                            "and " & connNameSpace & ".SSCPEnforcementItems.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber " & _
-                                            "and " & connNameSpace & ".APBHeaderData.strAIRSNumber = '0413" & AIRSNumber & "' " & _
+                                            "from " & DBNameSpace & ".AFSSSCPEnforcementRecords, " & DBNameSpace & ".SSCPEnforcementItems, " & _
+                                            "" & DBNameSpace & ".APBHeaderData, " & DBNameSpace & ".SSCPEnforcement " & _
+                                            "where " & DBNameSpace & ".AFSSSCPEnforcementRecords.strEnforcementNumber = " _
+                                                             & DBNameSpace & ".SSCPEnforcementItems.strEnforcementNumber " & _
+                                            "and " & DBNameSpace & ".SSCPEnforcementItems.strEnforcementNumber = " _
+                                                             & DBNameSpace & ".SSCPEnforcement.strEnforcementNumber  " & _
+                                            "and " & DBNameSpace & ".SSCPEnforcementItems.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber " & _
+                                            "and " & DBNameSpace & ".APBHeaderData.strAIRSNumber = '0413" & AIRSNumber & "' " & _
                                             "and strAFSActionNumber = '" & ActionNumber & "' "
                                         Case "AW"
                                             SQL = "select " & _
@@ -30144,14 +30144,14 @@ Public Class ISMPDataManagementTools
                                             "'  ' as ResultCode, " & _
                                             "'0000000' as PenaltyAmount, " & _
                                             "'  ' as Pollutant " & _
-                                            "from " & connNameSpace & ".AFSSSCPEnforcementRecords, " & connNameSpace & ".SSCPEnforcementItems, " & _
-                                            "" & connNameSpace & ".APBHeaderData, " & connNameSpace & ".SSCPEnforcement " & _
-                                            "where " & connNameSpace & ".AFSSSCPEnforcementRecords.strEnforcementNumber = " _
-                                                             & connNameSpace & ".SSCPEnforcementItems.strEnforcementNumber " & _
-                                            "and " & connNameSpace & ".SSCPEnforcementItems.strEnforcementNumber = " _
-                                                             & connNameSpace & ".SSCPEnforcement.strEnforcementNumber  " & _
-                                            "and " & connNameSpace & ".SSCPEnforcementItems.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber " & _
-                                            "and " & connNameSpace & ".APBHeaderData.strAIRSNumber = '0413" & AIRSNumber & "' " & _
+                                            "from " & DBNameSpace & ".AFSSSCPEnforcementRecords, " & DBNameSpace & ".SSCPEnforcementItems, " & _
+                                            "" & DBNameSpace & ".APBHeaderData, " & DBNameSpace & ".SSCPEnforcement " & _
+                                            "where " & DBNameSpace & ".AFSSSCPEnforcementRecords.strEnforcementNumber = " _
+                                                             & DBNameSpace & ".SSCPEnforcementItems.strEnforcementNumber " & _
+                                            "and " & DBNameSpace & ".SSCPEnforcementItems.strEnforcementNumber = " _
+                                                             & DBNameSpace & ".SSCPEnforcement.strEnforcementNumber  " & _
+                                            "and " & DBNameSpace & ".SSCPEnforcementItems.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber " & _
+                                            "and " & DBNameSpace & ".APBHeaderData.strAIRSNumber = '0413" & AIRSNumber & "' " & _
                                             "and strAFSActionNumber = '" & ActionNumber & "' "
                                         Case "57"
                                             SQL = "select " & _
@@ -30162,14 +30162,14 @@ Public Class ISMPDataManagementTools
                                             "'  ' as ResultCode, " & _
                                             "'0000000' as PenaltyAmount, " & _
                                             "'  ' as Pollutant " & _
-                                            "from " & connNameSpace & ".AFSSSCPEnforcementRecords, " & connNameSpace & ".SSCPEnforcementItems, " & _
-                                            "" & connNameSpace & ".APBHeaderData, " & connNameSpace & ".SSCPEnforcement " & _
-                                            "where " & connNameSpace & ".AFSSSCPEnforcementRecords.strEnforcementNumber = " _
-                                                             & connNameSpace & ".SSCPEnforcementItems.strEnforcementNumber " & _
-                                            "and " & connNameSpace & ".SSCPEnforcementItems.strEnforcementNumber = " _
-                                                             & connNameSpace & ".SSCPEnforcement.strEnforcementNumber  " & _
-                                            "and " & connNameSpace & ".SSCPEnforcementItems.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber " & _
-                                            "and " & connNameSpace & ".APBHeaderData.strAIRSNumber = '0413" & AIRSNumber & "' " & _
+                                            "from " & DBNameSpace & ".AFSSSCPEnforcementRecords, " & DBNameSpace & ".SSCPEnforcementItems, " & _
+                                            "" & DBNameSpace & ".APBHeaderData, " & DBNameSpace & ".SSCPEnforcement " & _
+                                            "where " & DBNameSpace & ".AFSSSCPEnforcementRecords.strEnforcementNumber = " _
+                                                             & DBNameSpace & ".SSCPEnforcementItems.strEnforcementNumber " & _
+                                            "and " & DBNameSpace & ".SSCPEnforcementItems.strEnforcementNumber = " _
+                                                             & DBNameSpace & ".SSCPEnforcement.strEnforcementNumber  " & _
+                                            "and " & DBNameSpace & ".SSCPEnforcementItems.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber " & _
+                                            "and " & DBNameSpace & ".APBHeaderData.strAIRSNumber = '0413" & AIRSNumber & "' " & _
                                             "and strAFSActionNumber = '" & ActionNumber & "' "
                                         Case "X1"
                                             SQL = "select " & _
@@ -30180,14 +30180,14 @@ Public Class ISMPDataManagementTools
                                             "'01' as ResultCode, " & _
                                             "strCOPenaltyAmount as PenaltyAmount, " & _
                                             "'  ' as Pollutant " & _
-                                            "from " & connNameSpace & ".AFSSSCPEnforcementRecords, " & connNameSpace & ".SSCPEnforcementItems, " & _
-                                            "" & connNameSpace & ".APBHeaderData, " & connNameSpace & ".SSCPEnforcement " & _
-                                            "where " & connNameSpace & ".AFSSSCPEnforcementRecords.strEnforcementNumber = " _
-                                                             & connNameSpace & ".SSCPEnforcementItems.strEnforcementNumber " & _
-                                            "and " & connNameSpace & ".SSCPEnforcementItems.strEnforcementNumber = " _
-                                                             & connNameSpace & ".SSCPEnforcement.strEnforcementNumber  " & _
-                                            "and " & connNameSpace & ".SSCPEnforcementItems.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber " & _
-                                            "and " & connNameSpace & ".APBHeaderData.strAIRSNumber = '0413" & AIRSNumber & "' " & _
+                                            "from " & DBNameSpace & ".AFSSSCPEnforcementRecords, " & DBNameSpace & ".SSCPEnforcementItems, " & _
+                                            "" & DBNameSpace & ".APBHeaderData, " & DBNameSpace & ".SSCPEnforcement " & _
+                                            "where " & DBNameSpace & ".AFSSSCPEnforcementRecords.strEnforcementNumber = " _
+                                                             & DBNameSpace & ".SSCPEnforcementItems.strEnforcementNumber " & _
+                                            "and " & DBNameSpace & ".SSCPEnforcementItems.strEnforcementNumber = " _
+                                                             & DBNameSpace & ".SSCPEnforcement.strEnforcementNumber  " & _
+                                            "and " & DBNameSpace & ".SSCPEnforcementItems.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber " & _
+                                            "and " & DBNameSpace & ".APBHeaderData.strAIRSNumber = '0413" & AIRSNumber & "' " & _
                                             "and strAFSActionNumber = '" & ActionNumber & "' "
                                         Case "AS"
                                             SQL = "select " & _
@@ -30198,35 +30198,35 @@ Public Class ISMPDataManagementTools
                                             "'  ' as ResultCode, " & _
                                             "'0000000' as PenaltyAmount, " & _
                                             "'  ' as Pollutant " & _
-                                            "from " & connNameSpace & ".AFSSSCPEnforcementRecords, " & connNameSpace & ".SSCPEnforcementItems, " & _
-                                            "" & connNameSpace & ".APBHeaderData, " & connNameSpace & ".SSCPEnforcement " & _
-                                            "where " & connNameSpace & ".AFSSSCPEnforcementRecords.strEnforcementNumber = " _
-                                                             & connNameSpace & ".SSCPEnforcementItems.strEnforcementNumber " & _
-                                            "and " & connNameSpace & ".SSCPEnforcementItems.strEnforcementNumber = " _
-                                                             & connNameSpace & ".SSCPEnforcement.strEnforcementNumber  " & _
-                                            "and " & connNameSpace & ".SSCPEnforcementItems.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber " & _
-                                            "and " & connNameSpace & ".APBHeaderData.strAIRSNumber = '0413" & AIRSNumber & "' " & _
+                                            "from " & DBNameSpace & ".AFSSSCPEnforcementRecords, " & DBNameSpace & ".SSCPEnforcementItems, " & _
+                                            "" & DBNameSpace & ".APBHeaderData, " & DBNameSpace & ".SSCPEnforcement " & _
+                                            "where " & DBNameSpace & ".AFSSSCPEnforcementRecords.strEnforcementNumber = " _
+                                                             & DBNameSpace & ".SSCPEnforcementItems.strEnforcementNumber " & _
+                                            "and " & DBNameSpace & ".SSCPEnforcementItems.strEnforcementNumber = " _
+                                                             & DBNameSpace & ".SSCPEnforcement.strEnforcementNumber  " & _
+                                            "and " & DBNameSpace & ".SSCPEnforcementItems.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber " & _
+                                            "and " & DBNameSpace & ".APBHeaderData.strAIRSNumber = '0413" & AIRSNumber & "' " & _
                                             "and strAFSActionNumber = '" & ActionNumber & "' "
                                         Case "Z4"
                                             SQL = "select " & _
                                             "strAIRProgramCodes, " & _
                                             "strAFSActionNumber, " & _
                                             "'000000' as DateScheduled, " & _
-                                            "" & connNameSpace & ".SSCPEnforcementStipulated.datModifingDate as datCompleteDate, " & _
+                                            "" & DBNameSpace & ".SSCPEnforcementStipulated.datModifingDate as datCompleteDate, " & _
                                             "'01' as ResultCode, " & _
-                                            "" & connNameSpace & ".SSCPEnforcementStipulated.strStipulatedPenalty as PenaltyAmount, " & _
+                                            "" & DBNameSpace & ".SSCPEnforcementStipulated.strStipulatedPenalty as PenaltyAmount, " & _
                                             "'  ' as Pollutant " & _
-                                            "from " & connNameSpace & ".AFSSSCPEnforcementRecords, " & connNameSpace & ".SSCPEnforcementItems, " & _
-                                            "" & connNameSpace & ".APBHeaderData, " & connNameSpace & ".SSCPEnforcement, " & _
-                                            "" & connNameSpace & ".SSCPEnforcementStipulated " & _
-                                            "where " & connNameSpace & ".AFSSSCPEnforcementRecords.strEnforcementNumber = " _
-                                                             & connNameSpace & ".SSCPEnforcementItems.strEnforcementNumber " & _
-                                            "and " & connNameSpace & ".SSCPEnforcementItems.strEnforcementNumber = " _
-                                                             & connNameSpace & ".SSCPEnforcement.strEnforcementNumber  " & _
-                                            "and " & connNameSpace & ".SSCPEnforcementItems.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber " & _
-                                            "and " & connNameSpace & ".SSCPEnforcementITems.strEnforcementNumber = " _
-                                                             & connNameSpace & ".SSCPEnforcementStipulated.strEnforcementNumber " & _
-                                            "and " & connNameSpace & ".APBHeaderData.strAIRSNumber = '0413" & AIRSNumber & "' " & _
+                                            "from " & DBNameSpace & ".AFSSSCPEnforcementRecords, " & DBNameSpace & ".SSCPEnforcementItems, " & _
+                                            "" & DBNameSpace & ".APBHeaderData, " & DBNameSpace & ".SSCPEnforcement, " & _
+                                            "" & DBNameSpace & ".SSCPEnforcementStipulated " & _
+                                            "where " & DBNameSpace & ".AFSSSCPEnforcementRecords.strEnforcementNumber = " _
+                                                             & DBNameSpace & ".SSCPEnforcementItems.strEnforcementNumber " & _
+                                            "and " & DBNameSpace & ".SSCPEnforcementItems.strEnforcementNumber = " _
+                                                             & DBNameSpace & ".SSCPEnforcement.strEnforcementNumber  " & _
+                                            "and " & DBNameSpace & ".SSCPEnforcementItems.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber " & _
+                                            "and " & DBNameSpace & ".SSCPEnforcementITems.strEnforcementNumber = " _
+                                                             & DBNameSpace & ".SSCPEnforcementStipulated.strEnforcementNumber " & _
+                                            "and " & DBNameSpace & ".APBHeaderData.strAIRSNumber = '0413" & AIRSNumber & "' " & _
                                             "and strAFSActionNumber = '" & ActionNumber & "' "
                                         Case "60"
                                             SQL = "select " & _
@@ -30237,14 +30237,14 @@ Public Class ISMPDataManagementTools
                                             "'  ' as ResultCode, " & _
                                             "'0000000' as PenaltyAmount, " & _
                                             "'  ' as Pollutant " & _
-                                            "from " & connNameSpace & ".AFSSSCPEnforcementRecords, " & connNameSpace & ".SSCPEnforcementItems, " & _
-                                            "" & connNameSpace & ".APBHeaderData, " & connNameSpace & ".SSCPEnforcement " & _
-                                            "where " & connNameSpace & ".AFSSSCPEnforcementRecords.strEnforcementNumber = " _
-                                                             & connNameSpace & ".SSCPEnforcementItems.strEnforcementNumber " & _
-                                            "and " & connNameSpace & ".SSCPEnforcementItems.strEnforcementNumber = " _
-                                                             & connNameSpace & ".SSCPEnforcement.strEnforcementNumber  " & _
-                                            "and " & connNameSpace & ".SSCPEnforcementItems.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber " & _
-                                            "and " & connNameSpace & ".APBHeaderData.strAIRSNumber = '0413" & AIRSNumber & "' " & _
+                                            "from " & DBNameSpace & ".AFSSSCPEnforcementRecords, " & DBNameSpace & ".SSCPEnforcementItems, " & _
+                                            "" & DBNameSpace & ".APBHeaderData, " & DBNameSpace & ".SSCPEnforcement " & _
+                                            "where " & DBNameSpace & ".AFSSSCPEnforcementRecords.strEnforcementNumber = " _
+                                                             & DBNameSpace & ".SSCPEnforcementItems.strEnforcementNumber " & _
+                                            "and " & DBNameSpace & ".SSCPEnforcementItems.strEnforcementNumber = " _
+                                                             & DBNameSpace & ".SSCPEnforcement.strEnforcementNumber  " & _
+                                            "and " & DBNameSpace & ".SSCPEnforcementItems.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber " & _
+                                            "and " & DBNameSpace & ".APBHeaderData.strAIRSNumber = '0413" & AIRSNumber & "' " & _
                                             "and strAFSActionNumber = '" & ActionNumber & "' "
                                         Case "64"
                                             SQL = "select " & _
@@ -30255,14 +30255,14 @@ Public Class ISMPDataManagementTools
                                             "'  ' as ResultCode, " & _
                                             "'0000000' as PenaltyAmount, " & _
                                             "'  ' as Pollutant " & _
-                                            "from " & connNameSpace & ".AFSSSCPEnforcementRecords, " & connNameSpace & ".SSCPEnforcementItems, " & _
-                                            "" & connNameSpace & ".APBHeaderData, " & connNameSpace & ".SSCPEnforcement " & _
-                                            "where " & connNameSpace & ".AFSSSCPEnforcementRecords.strEnforcementNumber = " _
-                                                             & connNameSpace & ".SSCPEnforcementItems.strEnforcementNumber " & _
-                                            "and " & connNameSpace & ".SSCPEnforcementItems.strEnforcementNumber = " _
-                                                             & connNameSpace & ".SSCPEnforcement.strEnforcementNumber  " & _
-                                            "and " & connNameSpace & ".SSCPEnforcementItems.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber " & _
-                                            "and " & connNameSpace & ".APBHeaderData.strAIRSNumber = '0413" & AIRSNumber & "' " & _
+                                            "from " & DBNameSpace & ".AFSSSCPEnforcementRecords, " & DBNameSpace & ".SSCPEnforcementItems, " & _
+                                            "" & DBNameSpace & ".APBHeaderData, " & DBNameSpace & ".SSCPEnforcement " & _
+                                            "where " & DBNameSpace & ".AFSSSCPEnforcementRecords.strEnforcementNumber = " _
+                                                             & DBNameSpace & ".SSCPEnforcementItems.strEnforcementNumber " & _
+                                            "and " & DBNameSpace & ".SSCPEnforcementItems.strEnforcementNumber = " _
+                                                             & DBNameSpace & ".SSCPEnforcement.strEnforcementNumber  " & _
+                                            "and " & DBNameSpace & ".SSCPEnforcementItems.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber " & _
+                                            "and " & DBNameSpace & ".APBHeaderData.strAIRSNumber = '0413" & AIRSNumber & "' " & _
                                             "and strAFSActionNumber = '" & ActionNumber & "' "
                                         Case "XX"
                                             SQL = "select " & _
@@ -30273,14 +30273,14 @@ Public Class ISMPDataManagementTools
                                             "'  ' as ResultCode, " & _
                                             "'0000000' as PenaltyAmount, " & _
                                             "'  ' as Pollutant " & _
-                                            "from " & connNameSpace & ".AFSSSCPEnforcementRecords, " & connNameSpace & ".SSCPEnforcementItems, " & _
-                                            "" & connNameSpace & ".APBHeaderData, " & connNameSpace & ".SSCPEnforcement " & _
-                                            "where " & connNameSpace & ".AFSSSCPEnforcementRecords.strEnforcementNumber = " _
-                                                             & connNameSpace & ".SSCPEnforcementItems.strEnforcementNumber " & _
-                                            "and " & connNameSpace & ".SSCPEnforcementItems.strEnforcementNumber = " _
-                                                             & connNameSpace & ".SSCPEnforcement.strEnforcementNumber  " & _
-                                            "and " & connNameSpace & ".SSCPEnforcementItems.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber " & _
-                                            "and " & connNameSpace & ".APBHeaderData.strAIRSNumber = '0413" & AIRSNumber & "' " & _
+                                            "from " & DBNameSpace & ".AFSSSCPEnforcementRecords, " & DBNameSpace & ".SSCPEnforcementItems, " & _
+                                            "" & DBNameSpace & ".APBHeaderData, " & DBNameSpace & ".SSCPEnforcement " & _
+                                            "where " & DBNameSpace & ".AFSSSCPEnforcementRecords.strEnforcementNumber = " _
+                                                             & DBNameSpace & ".SSCPEnforcementItems.strEnforcementNumber " & _
+                                            "and " & DBNameSpace & ".SSCPEnforcementItems.strEnforcementNumber = " _
+                                                             & DBNameSpace & ".SSCPEnforcement.strEnforcementNumber  " & _
+                                            "and " & DBNameSpace & ".SSCPEnforcementItems.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber " & _
+                                            "and " & DBNameSpace & ".APBHeaderData.strAIRSNumber = '0413" & AIRSNumber & "' " & _
                                             "and strAFSActionNumber = '" & ActionNumber & "' "
                                         Case "TR"
                                             SQL = "select " & _
@@ -30305,14 +30305,14 @@ Public Class ISMPDataManagementTools
                                             "when strAFSCode = 'True' then strPollutantCode " & _
                                             "else '     ' " & _
                                             "end Pollutant  " & _
-                                            "from " & connNameSpace & ".AFSISMPRecords, " & connNameSpace & ".ISMPMaster, " & _
-                                            "" & connNameSpace & ".ISMPReportInformation, " & connNameSpace & ".APBHeaderData, " & _
-                                            "" & connNameSpace & ".LookUpPollutants " & _
-                                            "where " & connNameSpace & ".AFSISMPRecords.strReferenceNumber = " & connNameSpace & ".ISMPMaster.strReferenceNumber " & _
-                                            "and " & connNameSpace & ".ISMPMaster.strReferenceNumber = " & connNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
-                                            "and " & connNameSpace & ".ISMPMaster.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber " & _
-                                            "and " & connNameSpace & ".ISMPReportInformation.strPollutant = " & connNameSpace & ".LookUpPollutants.strPollutantCode " & _
-                                            "and " & connNameSpace & ".ISMPMaster.strAIRSnumber = '0413" & AIRSNumber & "' " & _
+                                            "from " & DBNameSpace & ".AFSISMPRecords, " & DBNameSpace & ".ISMPMaster, " & _
+                                            "" & DBNameSpace & ".ISMPReportInformation, " & DBNameSpace & ".APBHeaderData, " & _
+                                            "" & DBNameSpace & ".LookUpPollutants " & _
+                                            "where " & DBNameSpace & ".AFSISMPRecords.strReferenceNumber = " & DBNameSpace & ".ISMPMaster.strReferenceNumber " & _
+                                            "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
+                                            "and " & DBNameSpace & ".ISMPMaster.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber " & _
+                                            "and " & DBNameSpace & ".ISMPReportInformation.strPollutant = " & DBNameSpace & ".LookUpPollutants.strPollutantCode " & _
+                                            "and " & DBNameSpace & ".ISMPMaster.strAIRSnumber = '0413" & AIRSNumber & "' " & _
                                             "and strAFSActionNumber = '" & ActionNumber & "' "
                                         Case "23"
                                             SQL = "select " & _
@@ -30337,14 +30337,14 @@ Public Class ISMPDataManagementTools
                                             "when strAFSCode = 'True' then strPollutantCode " & _
                                             "else '     ' " & _
                                             "end Pollutant  " & _
-                                            "from " & connNameSpace & ".AFSISMPRecords, " & connNameSpace & ".ISMPMaster, " & _
-                                            "" & connNameSpace & ".ISMPReportInformation, " & connNameSpace & ".APBHeaderData, " & _
-                                            "" & connNameSpace & ".LookUpPollutants " & _
-                                            "where " & connNameSpace & ".AFSISMPRecords.strReferenceNumber = " & connNameSpace & ".ISMPMaster.strReferenceNumber " & _
-                                            "and " & connNameSpace & ".ISMPMaster.strReferenceNumber = " & connNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
-                                            "and " & connNameSpace & ".ISMPMaster.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber " & _
-                                            "and " & connNameSpace & ".ISMPReportInformation.strPollutant = " & connNameSpace & ".LookUpPollutants.strPollutantCode " & _
-                                            "and " & connNameSpace & ".ISMPMaster.strAIRSnumber = '0413" & AIRSNumber & "' " & _
+                                            "from " & DBNameSpace & ".AFSISMPRecords, " & DBNameSpace & ".ISMPMaster, " & _
+                                            "" & DBNameSpace & ".ISMPReportInformation, " & DBNameSpace & ".APBHeaderData, " & _
+                                            "" & DBNameSpace & ".LookUpPollutants " & _
+                                            "where " & DBNameSpace & ".AFSISMPRecords.strReferenceNumber = " & DBNameSpace & ".ISMPMaster.strReferenceNumber " & _
+                                            "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
+                                            "and " & DBNameSpace & ".ISMPMaster.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber " & _
+                                            "and " & DBNameSpace & ".ISMPReportInformation.strPollutant = " & DBNameSpace & ".LookUpPollutants.strPollutantCode " & _
+                                            "and " & DBNameSpace & ".ISMPMaster.strAIRSnumber = '0413" & AIRSNumber & "' " & _
                                             "and strAFSActionNumber = '" & ActionNumber & "' "
                                         Case Else
                                             SQL = ""
@@ -30463,26 +30463,26 @@ Public Class ISMPDataManagementTools
                                     IAIPPollutant163 = "NULL"
 
                                     SQL = "Select  " & _
-                                    "" & connNameSpace & ".AFSSSCPEnforcementRecords.strEnforcementNumber,    " & _
-                                    "" & connNameSpace & ".APBHeaderData.strAIRSNumber,    " & _
-                                    "" & connNameSpace & ".AFSSSCPEnforcementRecords.strAFSActionNumber,    " & _
+                                    "" & DBNameSpace & ".AFSSSCPEnforcementRecords.strEnforcementNumber,    " & _
+                                    "" & DBNameSpace & ".APBHeaderData.strAIRSNumber,    " & _
+                                    "" & DBNameSpace & ".AFSSSCPEnforcementRecords.strAFSActionNumber,    " & _
                                     "strAFSKeyActionNumber,  " & _
                                     "strPollutants,   " & _
-                                    "" & connNameSpace & ".AFSSSCPRecords.strAFSActionNumber as LinkingEvent  " & _
-                                    "from  " & connNameSpace & ".AFSSSCPEnforcementRecords,    " & _
-                                    "" & connNameSpace & ".SSCPEnforcementItems,  " & connNameSpace & ".SSCPEnforcement,    " & _
-                                    "" & connNameSpace & ".APBHeaderData,  " & connNameSpace & ".SSCPENforcementStipulated, " & _
-                                    "" & connNameSpace & ".SSCPItemMaster, " & connNameSpace & ".AFSSSCPRecords    " & _
-                                    "where " & connNameSpace & ".SSCPEnforcement.strEnforcementNumber =  " _
-                                             & connNameSpace & ".AFSSSCPEnforcementRecords.strEnforcementNumber    " & _
-                                    "and  " & connNameSpace & ".APBHeaderData.strAIRSNumber =  " & connNameSpace & ".SSCPEnforcementItems.strAIRSNumber    " & _
-                                    "and  " & connNameSpace & ".SSCPEnforcementItems.strEnforcementNumber =  " & connNameSpace & ".SSCPEnforcement.strEnforcementNumber    " & _
-                                    "and  " & connNameSpace & ".SSCPEnforcementItems.strEnforcementNumber =  " _
-                                            & connNameSpace & ".SSCPENforcementStipulated.strEnforcementNumber (+)    " & _
-                                    "and  " & connNameSpace & ".sscpEnforcementItems.strTrackingNumber =  " & connNameSpace & ".SSCPItemMaster.strTrackingNumber (+)   " & _
-                                    "and " & connNameSpace & ".sscpEnforcementItems.strTrackingNumber = " & connNameSpace & ".AFSSSCPRecords.strTrackingNumber (+) " & _
-                                    "and " & connNameSpace & ".APBHeaderData.strAIRSNumber = '0413" & AIRSNumber & "' " & _
-                                    "and " & connNameSpace & ".AFSSSCPEnforcementRecords.strAFSActionNumber = '" & ActionNumber163 & "' " & _
+                                    "" & DBNameSpace & ".AFSSSCPRecords.strAFSActionNumber as LinkingEvent  " & _
+                                    "from  " & DBNameSpace & ".AFSSSCPEnforcementRecords,    " & _
+                                    "" & DBNameSpace & ".SSCPEnforcementItems,  " & DBNameSpace & ".SSCPEnforcement,    " & _
+                                    "" & DBNameSpace & ".APBHeaderData,  " & DBNameSpace & ".SSCPENforcementStipulated, " & _
+                                    "" & DBNameSpace & ".SSCPItemMaster, " & DBNameSpace & ".AFSSSCPRecords    " & _
+                                    "where " & DBNameSpace & ".SSCPEnforcement.strEnforcementNumber =  " _
+                                             & DBNameSpace & ".AFSSSCPEnforcementRecords.strEnforcementNumber    " & _
+                                    "and  " & DBNameSpace & ".APBHeaderData.strAIRSNumber =  " & DBNameSpace & ".SSCPEnforcementItems.strAIRSNumber    " & _
+                                    "and  " & DBNameSpace & ".SSCPEnforcementItems.strEnforcementNumber =  " & DBNameSpace & ".SSCPEnforcement.strEnforcementNumber    " & _
+                                    "and  " & DBNameSpace & ".SSCPEnforcementItems.strEnforcementNumber =  " _
+                                            & DBNameSpace & ".SSCPENforcementStipulated.strEnforcementNumber (+)    " & _
+                                    "and  " & DBNameSpace & ".sscpEnforcementItems.strTrackingNumber =  " & DBNameSpace & ".SSCPItemMaster.strTrackingNumber (+)   " & _
+                                    "and " & DBNameSpace & ".sscpEnforcementItems.strTrackingNumber = " & DBNameSpace & ".AFSSSCPRecords.strTrackingNumber (+) " & _
+                                    "and " & DBNameSpace & ".APBHeaderData.strAIRSNumber = '0413" & AIRSNumber & "' " & _
+                                    "and " & DBNameSpace & ".AFSSSCPEnforcementRecords.strAFSActionNumber = '" & ActionNumber163 & "' " & _
                                     "and strAFSKeyActionNumber = '" & KeyActionNumber & "' " 
 
                                     cmd = New OracleCommand(SQL, conn)
@@ -30546,19 +30546,19 @@ Public Class ISMPDataManagementTools
                                     ViolationType = "NULL"
 
                                     SQL = "Select " & _
-                                    "" & connNameSpace & ".AFSSSCPEnforcementRecords.strEnforcementNumber,    " & _
-                                    "" & connNameSpace & ".APBHeaderData.strAIRSNumber,    " & _
-                                    "" & connNameSpace & ".AFSSSCPEnforcementRecords.strAFSActionNumber,    " & _
+                                    "" & DBNameSpace & ".AFSSSCPEnforcementRecords.strEnforcementNumber,    " & _
+                                    "" & DBNameSpace & ".APBHeaderData.strAIRSNumber,    " & _
+                                    "" & DBNameSpace & ".AFSSSCPEnforcementRecords.strAFSActionNumber,    " & _
                                     "strAFSKeyActionNumber, " & _
                                     "strHPV " & _
-                                    "from  " & connNameSpace & ".AFSSSCPEnforcementRecords,    " & _
-                                    "" & connNameSpace & ".SSCPEnforcementItems,  " & connNameSpace & ".SSCPEnforcement,    " & _
-                                    "" & connNameSpace & ".APBHeaderData " & _
-                                    "where " & connNameSpace & ".SSCPEnforcement.strEnforcementNumber =  " & connNameSpace & ".AFSSSCPEnforcementRecords.strEnforcementNumber    " & _
-                                    "and  " & connNameSpace & ".APBHeaderData.strAIRSNumber =  " & connNameSpace & ".SSCPEnforcementItems.strAIRSNumber    " & _
-                                    "and  " & connNameSpace & ".SSCPEnforcementItems.strEnforcementNumber =  " & connNameSpace & ".SSCPEnforcement.strEnforcementNumber    " & _
-                                    "and " & connNameSpace & ".APBHeaderData.strAIRSNumber = '041312100816' " & _
-                                    "and " & connNameSpace & ".AFSSSCPEnforcementRecords.strAFSActionNumber = '007' " & _
+                                    "from  " & DBNameSpace & ".AFSSSCPEnforcementRecords,    " & _
+                                    "" & DBNameSpace & ".SSCPEnforcementItems,  " & DBNameSpace & ".SSCPEnforcement,    " & _
+                                    "" & DBNameSpace & ".APBHeaderData " & _
+                                    "where " & DBNameSpace & ".SSCPEnforcement.strEnforcementNumber =  " & DBNameSpace & ".AFSSSCPEnforcementRecords.strEnforcementNumber    " & _
+                                    "and  " & DBNameSpace & ".APBHeaderData.strAIRSNumber =  " & DBNameSpace & ".SSCPEnforcementItems.strAIRSNumber    " & _
+                                    "and  " & DBNameSpace & ".SSCPEnforcementItems.strEnforcementNumber =  " & DBNameSpace & ".SSCPEnforcement.strEnforcementNumber    " & _
+                                    "and " & DBNameSpace & ".APBHeaderData.strAIRSNumber = '041312100816' " & _
+                                    "and " & DBNameSpace & ".AFSSSCPEnforcementRecords.strAFSActionNumber = '007' " & _
                                     "and strAFSKeyActionNumber = '007' "
 
                                     cmd = New OracleCommand(SQL, conn)
@@ -30611,7 +30611,7 @@ Public Class ISMPDataManagementTools
 
                                         SQL = "Select " & _
                                         "strCMSMember " & _
-                                        "from " & connNameSpace & ".APBSupplamentalData " & _
+                                        "from " & DBNameSpace & ".APBSupplamentalData " & _
                                         "where strAIRSNumber = '0413" & AIRSNumber & "' "
                                         cmd = New OracleCommand(SQL, conn)
                                         If conn.State = ConnectionState.Closed Then
@@ -31011,7 +31011,7 @@ Public Class ISMPDataManagementTools
                                     IAIPFacilityName = "NULL"
 
                                     SQL = "Select upper(strFacilityName) as strFacilityName " & _
-                                    "from " & connNameSpace & ".APBFacilityInformation " & _
+                                    "from " & DBNameSpace & ".APBFacilityInformation " & _
                                     "where strAIRSNumber = '0413" & AIRSNumber & "' "
                                     cmd = New OracleCommand(SQL, conn)
                                     If conn.State = ConnectionState.Closed Then
@@ -31052,7 +31052,7 @@ Public Class ISMPDataManagementTools
                         SQL = "Select " & _
                         "substr(strAIRSNumber, 5) as strAIRSNumber, " & _
                         "upper(strFacilityName) as strFacilityName " & _
-                        "from " & connNameSpace & ".APBFacilityInformation " & _
+                        "from " & DBNameSpace & ".APBFacilityInformation " & _
                         "order by strAIRSNumber "
 
                         ds = New DataSet
@@ -31288,7 +31288,7 @@ Public Class ISMPDataManagementTools
                                         IAIPFacilityName = "NULL"
 
                                         SQL = "Select upper(strFacilityName) as strFacilityName " & _
-                                        "from " & connNameSpace & ".APBFacilityInformation " & _
+                                        "from " & DBNameSpace & ".APBFacilityInformation " & _
                                         "where strAIRSNumber = '0413" & AIRSNumber & "' "
                                         cmd = New OracleCommand(SQL, conn)
                                         If conn.State = ConnectionState.Closed Then
@@ -31315,7 +31315,7 @@ Public Class ISMPDataManagementTools
                                         IAIPFacilityAddress = "NULL"
 
                                         SQL = "Select upper(strFacilityStreet1) as strFacilityStreet1 " & _
-                                        "from " & connNameSpace & ".APBFacilityInformation " & _
+                                        "from " & DBNameSpace & ".APBFacilityInformation " & _
                                         "where strAIRSNumber = '0413" & AIRSNumber & "' "
                                         cmd = New OracleCommand(SQL, conn)
                                         If conn.State = ConnectionState.Closed Then
@@ -31349,9 +31349,9 @@ Public Class ISMPDataManagementTools
                                         "Upper(strFacilityCity) as strFacilityCity, " & _
                                         "Upper(strFacilityZipCode) as strFacilityZipCode, " & _
                                         "upper(strSICCode) as strSICCode " & _
-                                        "from " & connNameSpace & ".APBFacilityInformation, " & connNameSpace & ".APBHeaderData " & _
-                                        "where " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber " & _
-                                        "and " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = '0413" & AIRSNumber & "' "
+                                        "from " & DBNameSpace & ".APBFacilityInformation, " & DBNameSpace & ".APBHeaderData " & _
+                                        "where " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber " & _
+                                        "and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = '0413" & AIRSNumber & "' "
                                         cmd = New OracleCommand(SQL, conn)
                                         If conn.State = ConnectionState.Closed Then
                                             conn.Open()
@@ -31410,9 +31410,9 @@ Public Class ISMPDataManagementTools
                                         "upper(strContactFirstName||' '||strContactLastName) as strContactName,  " & _
                                         "strContactPhoneNumber1,  " & _
                                         "upper(strPlantDescription) as strPlantDescription  " & _
-                                        "from " & connNameSpace & ".APBContactInformation, " & connNameSpace & ".APBHeaderData  " & _
-                                        "where " & connNameSpace & ".apbcontactinformation.strAIRSNumber = " & connNameSpace & ".apbheaderdata.strairsnumber  " & _
-                                        "and " & connNameSpace & ".APBHeaderData.strairsnumber = '0413" & AIRSNumber & "'  " & _
+                                        "from " & DBNameSpace & ".APBContactInformation, " & DBNameSpace & ".APBHeaderData  " & _
+                                        "where " & DBNameSpace & ".apbcontactinformation.strAIRSNumber = " & DBNameSpace & ".apbheaderdata.strairsnumber  " & _
+                                        "and " & DBNameSpace & ".APBHeaderData.strairsnumber = '0413" & AIRSNumber & "'  " & _
                                         "and strkey = '30'"
 
                                         cmd = New OracleCommand(SQL, conn)
@@ -31477,91 +31477,91 @@ Public Class ISMPDataManagementTools
                                                 IAIPAirProgramCode = "0"
                                                 SQL = "select " & _
                                                 "strOperationalStatus  " & _
-                                                "from " & connNameSpace & ".APBHeaderData  " & _
+                                                "from " & DBNameSpace & ".APBHeaderData  " & _
                                                 "where strAIRSNumber = '0413" & AIRSNumber & "' " & _
                                                 "and substr(strAirProgramCodes, 1, 1) = '1' "
                                             Case "1"
                                                 IAIPAirProgramCode = "1"
                                                 SQL = "select " & _
                                                 "strOperationalStatus  " & _
-                                                "from " & connNameSpace & ".APBHeaderData  " & _
+                                                "from " & DBNameSpace & ".APBHeaderData  " & _
                                                 "where strAIRSNumber = '0413" & AIRSNumber & "' " & _
                                                 "and substr(strAirProgramCodes, 2, 1) = '1' "
                                             Case "3"
                                                 IAIPAirProgramCode = "3"
                                                 SQL = "select " & _
                                                 "strOperationalStatus  " & _
-                                                "from " & connNameSpace & ".APBHeaderData  " & _
+                                                "from " & DBNameSpace & ".APBHeaderData  " & _
                                                 "where strAIRSNumber = '0413" & AIRSNumber & "' " & _
                                                 "and substr(strAirProgramCodes, 3, 1) = '1' "
                                             Case "4"
                                                 IAIPAirProgramCode = "4"
                                                 SQL = "select " & _
                                                 "strOperationalStatus  " & _
-                                                "from " & connNameSpace & ".APBHeaderData  " & _
+                                                "from " & DBNameSpace & ".APBHeaderData  " & _
                                                 "where strAIRSNumber = '0413" & AIRSNumber & "' " & _
                                                 "and substr(strAirProgramCodes, 4, 1) = '1' "
                                             Case "6"
                                                 IAIPAirProgramCode = "6"
                                                 SQL = "select " & _
                                                 "strOperationalStatus  " & _
-                                                "from " & connNameSpace & ".APBHeaderData  " & _
+                                                "from " & DBNameSpace & ".APBHeaderData  " & _
                                                 "where strAIRSNumber = '0413" & AIRSNumber & "' " & _
                                                 "and substr(strAirProgramCodes, 5, 1) = '1' "
                                             Case "7"
                                                 IAIPAirProgramCode = "7"
                                                 SQL = "select " & _
                                                 "strOperationalStatus  " & _
-                                                "from " & connNameSpace & ".APBHeaderData  " & _
+                                                "from " & DBNameSpace & ".APBHeaderData  " & _
                                                 "where strAIRSNumber = '0413" & AIRSNumber & "' " & _
                                                 "and substr(strAirProgramCodes, 6, 1) = '1' "
                                             Case "8"
                                                 IAIPAirProgramCode = "8"
                                                 SQL = "select " & _
                                                 "strOperationalStatus  " & _
-                                                "from " & connNameSpace & ".APBHeaderData  " & _
+                                                "from " & DBNameSpace & ".APBHeaderData  " & _
                                                 "where strAIRSNumber = '0413" & AIRSNumber & "' " & _
                                                 "and substr(strAirProgramCodes, 7, 1) = '1' "
                                             Case "9"
                                                 IAIPAirProgramCode = "9"
                                                 SQL = "select " & _
                                                 "strOperationalStatus  " & _
-                                                "from " & connNameSpace & ".APBHeaderData  " & _
+                                                "from " & DBNameSpace & ".APBHeaderData  " & _
                                                 "where strAIRSNumber = '0413" & AIRSNumber & "' " & _
                                                 "and substr(strAirProgramCodes, 8, 1) = '1' "
                                             Case "A"
                                                 IAIPAirProgramCode = "A"
                                                 SQL = "select " & _
                                                 "strOperationalStatus  " & _
-                                                "from " & connNameSpace & ".APBHeaderData  " & _
+                                                "from " & DBNameSpace & ".APBHeaderData  " & _
                                                 "where strAIRSNumber = '0413" & AIRSNumber & "' " & _
                                                 "and substr(strAirProgramCodes, 9, 1) = '1' "
                                             Case "F"
                                                 IAIPAirProgramCode = "F"
                                                 SQL = "select " & _
                                                 "strOperationalStatus  " & _
-                                                "from " & connNameSpace & ".APBHeaderData  " & _
+                                                "from " & DBNameSpace & ".APBHeaderData  " & _
                                                 "where strAIRSNumber = '0413" & AIRSNumber & "' " & _
                                                 "and substr(strAirProgramCodes, 10, 1) = '1' "
                                             Case "I"
                                                 IAIPAirProgramCode = "I"
                                                 SQL = "select " & _
                                                 "strOperationalStatus  " & _
-                                                "from " & connNameSpace & ".APBHeaderData  " & _
+                                                "from " & DBNameSpace & ".APBHeaderData  " & _
                                                 "where strAIRSNumber = '0413" & AIRSNumber & "' " & _
                                                 "and substr(strAirProgramCodes, 11, 1) = '1' "
                                             Case "M"
                                                 IAIPAirProgramCode = "M"
                                                 SQL = "select " & _
                                                 "strOperationalStatus  " & _
-                                                "from " & connNameSpace & ".APBHeaderData  " & _
+                                                "from " & DBNameSpace & ".APBHeaderData  " & _
                                                 "where strAIRSNumber = '0413" & AIRSNumber & "' " & _
                                                 "and substr(strAirProgramCodes, 12, 1) = '1' "
                                             Case "V"
                                                 IAIPAirProgramCode = "V"
                                                 SQL = "select " & _
                                                 "strOperationalStatus  " & _
-                                                "from " & connNameSpace & ".APBHeaderData  " & _
+                                                "from " & DBNameSpace & ".APBHeaderData  " & _
                                                 "where strAIRSNumber = '0413" & AIRSNumber & "' " & _
                                                 "and substr(strAirProgramCodes, 13, 1) = '1' "
                                             Case Else
@@ -31612,7 +31612,7 @@ Public Class ISMPDataManagementTools
                                                 IAIPAirProgramCode = "0"
                                                 SQL = "select " & _
                                                 "distinct(strAIRSNumber) as subPartTest " & _
-                                                "from " & connNameSpace & ".APBSubPartData  " & _
+                                                "from " & DBNameSpace & ".APBSubPartData  " & _
                                                 "where strsubpartkey = '0413" & AIRSNumber & "0' " & _
                                                 "and (strSubPart = '" & SubPart1 & "' or strsubpart = '" & SubPart2 & "' " & _
                                                 "or strsubpart = '" & SubPart3 & "' or strsubpart = '" & SubPart4 & "' " & _
@@ -31623,7 +31623,7 @@ Public Class ISMPDataManagementTools
                                                 IAIPAirProgramCode = "1"
                                                 SQL = "select " & _
                                                 "distinct(strAIRSNumber) as subPartTest " & _
-                                                "from " & connNameSpace & ".APBSubPartData  " & _
+                                                "from " & DBNameSpace & ".APBSubPartData  " & _
                                                 "where strsubpartkey = '0413" & AIRSNumber & "1' " & _
                                                 "and (strSubPart = '" & SubPart1 & "' or strsubpart = '" & SubPart2 & "' " & _
                                                 "or strsubpart = '" & SubPart3 & "' or strsubpart = '" & SubPart4 & "' " & _
@@ -31634,7 +31634,7 @@ Public Class ISMPDataManagementTools
                                                 IAIPAirProgramCode = "3"
                                                 SQL = "select " & _
                                                 "distinct(strAIRSNumber) as subPartTest " & _
-                                                "from " & connNameSpace & ".APBSubPartData  " & _
+                                                "from " & DBNameSpace & ".APBSubPartData  " & _
                                                 "where strsubpartkey = '0413" & AIRSNumber & "3' " & _
                                                 "and (strSubPart = '" & SubPart1 & "' or strsubpart = '" & SubPart2 & "' " & _
                                                 "or strsubpart = '" & SubPart3 & "' or strsubpart = '" & SubPart4 & "' " & _
@@ -31645,7 +31645,7 @@ Public Class ISMPDataManagementTools
                                                 IAIPAirProgramCode = "4"
                                                 SQL = "select " & _
                                                 "distinct(strAIRSNumber) as subPartTest " & _
-                                                "from " & connNameSpace & ".APBSubPartData  " & _
+                                                "from " & DBNameSpace & ".APBSubPartData  " & _
                                                 "where strsubpartkey = '0413" & AIRSNumber & "4' " & _
                                                 "and (strSubPart = '" & SubPart1 & "' or strsubpart = '" & SubPart2 & "' " & _
                                                 "or strsubpart = '" & SubPart3 & "' or strsubpart = '" & SubPart4 & "' " & _
@@ -31656,7 +31656,7 @@ Public Class ISMPDataManagementTools
                                                 IAIPAirProgramCode = "6"
                                                 SQL = "select " & _
                                                 "distinct(strAIRSNumber) as subPartTest " & _
-                                                "from " & connNameSpace & ".APBSubPartData  " & _
+                                                "from " & DBNameSpace & ".APBSubPartData  " & _
                                                 "where strsubpartkey = '0413" & AIRSNumber & "6' " & _
                                                 "and (strSubPart = '" & SubPart1 & "' or strsubpart = '" & SubPart2 & "' " & _
                                                 "or strsubpart = '" & SubPart3 & "' or strsubpart = '" & SubPart4 & "' " & _
@@ -31667,7 +31667,7 @@ Public Class ISMPDataManagementTools
                                                 IAIPAirProgramCode = "7"
                                                 SQL = "select " & _
                                                 "distinct(strAIRSNumber) as subPartTest " & _
-                                                "from " & connNameSpace & ".APBSubPartData  " & _
+                                                "from " & DBNameSpace & ".APBSubPartData  " & _
                                                 "where strsubpartkey = '0413" & AIRSNumber & "7' " & _
                                                 "and (strSubPart = '" & SubPart1 & "' or strsubpart = '" & SubPart2 & "' " & _
                                                 "or strsubpart = '" & SubPart3 & "' or strsubpart = '" & SubPart4 & "' " & _
@@ -31678,7 +31678,7 @@ Public Class ISMPDataManagementTools
                                                 IAIPAirProgramCode = "8"
                                                 SQL = "select " & _
                                                 "distinct(strAIRSNumber) as subPartTest " & _
-                                                "from " & connNameSpace & ".APBSubPartData  " & _
+                                                "from " & DBNameSpace & ".APBSubPartData  " & _
                                                 "where strsubpartkey = '0413" & AIRSNumber & "8' " & _
                                                 "and (strSubPart = '" & SubPart1 & "' or strsubpart = '" & SubPart2 & "' " & _
                                                 "or strsubpart = '" & SubPart3 & "' or strsubpart = '" & SubPart4 & "' " & _
@@ -31689,7 +31689,7 @@ Public Class ISMPDataManagementTools
                                                 IAIPAirProgramCode = "9"
                                                 SQL = "select " & _
                                                 "distinct(strAIRSNumber) as subPartTest " & _
-                                                "from " & connNameSpace & ".APBSubPartData  " & _
+                                                "from " & DBNameSpace & ".APBSubPartData  " & _
                                                 "where strsubpartkey = '0413" & AIRSNumber & "9' " & _
                                                 "and (strSubPart = '" & SubPart1 & "' or strsubpart = '" & SubPart2 & "' " & _
                                                 "or strsubpart = '" & SubPart3 & "' or strsubpart = '" & SubPart4 & "' " & _
@@ -31700,7 +31700,7 @@ Public Class ISMPDataManagementTools
                                                 IAIPAirProgramCode = "A"
                                                 SQL = "select " & _
                                                 "distinct(strAIRSNumber) as subPartTest " & _
-                                                "from " & connNameSpace & ".APBSubPartData  " & _
+                                                "from " & DBNameSpace & ".APBSubPartData  " & _
                                                 "where strsubpartkey = '0413" & AIRSNumber & "A' " & _
                                                 "and (strSubPart = '" & SubPart1 & "' or strsubpart = '" & SubPart2 & "' " & _
                                                 "or strsubpart = '" & SubPart3 & "' or strsubpart = '" & SubPart4 & "' " & _
@@ -31711,7 +31711,7 @@ Public Class ISMPDataManagementTools
                                                 IAIPAirProgramCode = "F"
                                                 SQL = "select " & _
                                                 "distinct(strAIRSNumber) as subPartTest " & _
-                                                "from " & connNameSpace & ".APBSubPartData  " & _
+                                                "from " & DBNameSpace & ".APBSubPartData  " & _
                                                 "where strsubpartkey = '0413" & AIRSNumber & "F' " & _
                                                 "and (strSubPart = '" & SubPart1 & "' or strsubpart = '" & SubPart2 & "' " & _
                                                 "or strsubpart = '" & SubPart3 & "' or strsubpart = '" & SubPart4 & "' " & _
@@ -31722,7 +31722,7 @@ Public Class ISMPDataManagementTools
                                                 IAIPAirProgramCode = "I"
                                                 SQL = "select " & _
                                                 "distinct(strAIRSNumber) as subPartTest " & _
-                                                "from " & connNameSpace & ".APBSubPartData  " & _
+                                                "from " & DBNameSpace & ".APBSubPartData  " & _
                                                 "where strsubpartkey = '0413" & AIRSNumber & "I' " & _
                                                 "and (strSubPart = '" & SubPart1 & "' or strsubpart = '" & SubPart2 & "' " & _
                                                 "or strsubpart = '" & SubPart3 & "' or strsubpart = '" & SubPart4 & "' " & _
@@ -31733,7 +31733,7 @@ Public Class ISMPDataManagementTools
                                                 IAIPAirProgramCode = "M"
                                                 SQL = "select " & _
                                                 "distinct(strAIRSNumber) as subPartTest " & _
-                                                "from " & connNameSpace & ".APBSubPartData  " & _
+                                                "from " & DBNameSpace & ".APBSubPartData  " & _
                                                 "where strsubpartkey = '0413" & AIRSNumber & "M' " & _
                                                 "and (strSubPart = '" & SubPart1 & "' or strsubpart = '" & SubPart2 & "' " & _
                                                 "or strsubpart = '" & SubPart3 & "' or strsubpart = '" & SubPart4 & "' " & _
@@ -31744,7 +31744,7 @@ Public Class ISMPDataManagementTools
                                                 IAIPAirProgramCode = "V"
                                                 SQL = "select " & _
                                                 "distinct(strAIRSNumber) as subPartTest " & _
-                                                "from " & connNameSpace & ".APBSubPartData  " & _
+                                                "from " & DBNameSpace & ".APBSubPartData  " & _
                                                 "where strsubpartkey = '0413" & AIRSNumber & "V' " & _
                                                 "and (strSubPart = '" & SubPart1 & "' or strsubpart = '" & SubPart2 & "' " & _
                                                 "or strsubpart = '" & SubPart3 & "' or strsubpart = '" & SubPart4 & "' " & _
@@ -31803,91 +31803,91 @@ Public Class ISMPDataManagementTools
                                                 IAIPAirProgramCode = "0"
                                                 SQL = "Select " & _
                                                 "strPollutantKey, strComplianceStatus " & _
-                                                "from " & connNameSpace & ".APBAirProgramPollutants " & _
+                                                "from " & DBNameSpace & ".APBAirProgramPollutants " & _
                                                 "where strAirPollutantKey = '0413" & AIRSNumber & "0' " & _
                                                 "and strPollutantKey = '" & Pollutant & "' "
                                             Case "1"
                                                 IAIPAirProgramCode = "1"
                                                 SQL = "Select " & _
                                                 "strPollutantKey, strComplianceStatus " & _
-                                                "from " & connNameSpace & ".APBAirProgramPollutants " & _
+                                                "from " & DBNameSpace & ".APBAirProgramPollutants " & _
                                                 "where strAirPollutantKey = '0413" & AIRSNumber & "1' " & _
                                                 "and strPollutantKey = '" & Pollutant & "' "
                                             Case "3"
                                                 IAIPAirProgramCode = "3"
                                                 SQL = "Select " & _
                                                 "strPollutantKey, strComplianceStatus " & _
-                                                "from " & connNameSpace & ".APBAirProgramPollutants " & _
+                                                "from " & DBNameSpace & ".APBAirProgramPollutants " & _
                                                 "where strAirPollutantKey = '0413" & AIRSNumber & "3' " & _
                                                 "and strPollutantKey = '" & Pollutant & "' "
                                             Case "4"
                                                 IAIPAirProgramCode = "4"
                                                 SQL = "Select " & _
                                                 "strPollutantKey, strComplianceStatus " & _
-                                                "from " & connNameSpace & ".APBAirProgramPollutants " & _
+                                                "from " & DBNameSpace & ".APBAirProgramPollutants " & _
                                                 "where strAirPollutantKey = '0413" & AIRSNumber & "4' " & _
                                                 "and strPollutantKey = '" & Pollutant & "' "
                                             Case "6"
                                                 IAIPAirProgramCode = "6"
                                                 SQL = "Select " & _
                                                 "strPollutantKey, strComplianceStatus " & _
-                                                "from " & connNameSpace & ".APBAirProgramPollutants " & _
+                                                "from " & DBNameSpace & ".APBAirProgramPollutants " & _
                                                 "where strAirPollutantKey = '0413" & AIRSNumber & "6' " & _
                                                 "and strPollutantKey = '" & Pollutant & "' "
                                             Case "7"
                                                 IAIPAirProgramCode = "7"
                                                 SQL = "Select " & _
                                                 "strPollutantKey, strComplianceStatus " & _
-                                                "from " & connNameSpace & ".APBAirProgramPollutants " & _
+                                                "from " & DBNameSpace & ".APBAirProgramPollutants " & _
                                                 "where strAirPollutantKey = '0413" & AIRSNumber & "7' " & _
                                                 "and strPollutantKey = '" & Pollutant & "' "
                                             Case "8"
                                                 IAIPAirProgramCode = "8"
                                                 SQL = "Select " & _
                                                 "strPollutantKey, strComplianceStatus " & _
-                                                "from " & connNameSpace & ".APBAirProgramPollutants " & _
+                                                "from " & DBNameSpace & ".APBAirProgramPollutants " & _
                                                 "where strAirPollutantKey = '0413" & AIRSNumber & "8' " & _
                                                 "and strPollutantKey = '" & Pollutant & "' "
                                             Case "9"
                                                 IAIPAirProgramCode = "9"
                                                 SQL = "Select " & _
                                                 "strPollutantKey, strComplianceStatus " & _
-                                                "from " & connNameSpace & ".APBAirProgramPollutants " & _
+                                                "from " & DBNameSpace & ".APBAirProgramPollutants " & _
                                                 "where strAirPollutantKey = '0413" & AIRSNumber & "9' " & _
                                                 "and strPollutantKey = '" & Pollutant & "' "
                                             Case "A"
                                                 IAIPAirProgramCode = "A"
                                                 SQL = "Select " & _
                                                 "strPollutantKey, strComplianceStatus " & _
-                                                "from " & connNameSpace & ".APBAirProgramPollutants " & _
+                                                "from " & DBNameSpace & ".APBAirProgramPollutants " & _
                                                 "where strAirPollutantKey = '0413" & AIRSNumber & "A' " & _
                                                 "and strPollutantKey = '" & Pollutant & "' "
                                             Case "F"
                                                 IAIPAirProgramCode = "F"
                                                 SQL = "Select " & _
                                                 "strPollutantKey, strComplianceStatus " & _
-                                                "from " & connNameSpace & ".APBAirProgramPollutants " & _
+                                                "from " & DBNameSpace & ".APBAirProgramPollutants " & _
                                                 "where strAirPollutantKey = '0413" & AIRSNumber & "F' " & _
                                                 "and strPollutantKey = '" & Pollutant & "' "
                                             Case "I"
                                                 IAIPAirProgramCode = "I"
                                                 SQL = "Select " & _
                                                 "strPollutantKey, strComplianceStatus " & _
-                                                "from " & connNameSpace & ".APBAirProgramPollutants " & _
+                                                "from " & DBNameSpace & ".APBAirProgramPollutants " & _
                                                 "where strAirPollutantKey = '0413" & AIRSNumber & "I' " & _
                                                 "and strPollutantKey = '" & Pollutant & "' "
                                             Case "M"
                                                 IAIPAirProgramCode = "M"
                                                 SQL = "Select " & _
                                                 "strPollutantKey, strComplianceStatus " & _
-                                                "from " & connNameSpace & ".APBAirProgramPollutants " & _
+                                                "from " & DBNameSpace & ".APBAirProgramPollutants " & _
                                                 "where strAirPollutantKey = '0413" & AIRSNumber & "M' " & _
                                                 "and strPollutantKey = '" & Pollutant & "' "
                                             Case "V"
                                                 IAIPAirProgramCode = "V"
                                                 SQL = "Select " & _
                                                 "strPollutantKey, strComplianceStatus " & _
-                                                "from " & connNameSpace & ".APBAirProgramPollutants " & _
+                                                "from " & DBNameSpace & ".APBAirProgramPollutants " & _
                                                 "where strAirPollutantKey = '0413" & AIRSNumber & "V' " & _
                                                 "and strPollutantKey = '" & Pollutant & "' "
                                             Case Else
@@ -31918,7 +31918,7 @@ Public Class ISMPDataManagementTools
                                             SQL = "Select " & _
                                             "strClass, strAttainmentStatus, " & _
                                             "strSICCode " & _
-                                            "from " & connNameSpace & ".APBHeaderData " & _
+                                            "from " & DBNameSpace & ".APBHeaderData " & _
                                             "where strAIRSNumber = '0413" & AIRSNumber & "' "
 
                                             cmd = New OracleCommand(SQL, conn)
@@ -32026,13 +32026,13 @@ Public Class ISMPDataManagementTools
                                                 "end ResultCode, " & _
                                                 "'0000000' as PenaltyAmount, " & _
                                                 "'  ' as Pollutant " & _
-                                                "from " & connNameSpace & ".AFSSSCPFCERecords, " & connNameSpace & ".SSCPFCEMaster, " & _
-                                                "" & connNameSpace & ".APBHeaderData, " & connNameSpace & ".SSCPFCE  " & _
-                                                "where " & connNameSpace & ".AFSSSCPFCERecords.strFCENumber = " & connNameSpace & ".SSCPFCEMaster.StrFCENumber " & _
-                                                "and " & connNameSpace & ".SSCPFCEMaster.strFCENumber = " & connNameSpace & ".SSCPFCE.strFCENumber " & _
-                                                "and " & connNameSpace & ".SSCPFCEMaster.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber " & _
+                                                "from " & DBNameSpace & ".AFSSSCPFCERecords, " & DBNameSpace & ".SSCPFCEMaster, " & _
+                                                "" & DBNameSpace & ".APBHeaderData, " & DBNameSpace & ".SSCPFCE  " & _
+                                                "where " & DBNameSpace & ".AFSSSCPFCERecords.strFCENumber = " & DBNameSpace & ".SSCPFCEMaster.StrFCENumber " & _
+                                                "and " & DBNameSpace & ".SSCPFCEMaster.strFCENumber = " & DBNameSpace & ".SSCPFCE.strFCENumber " & _
+                                                "and " & DBNameSpace & ".SSCPFCEMaster.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber " & _
                                                 "and strSiteInspection = 'True' " & _
-                                                "and " & connNameSpace & ".SSCPFCEMaster.strAIRSNumber = '0413" & AIRSNumber & "' " & _
+                                                "and " & DBNameSpace & ".SSCPFCEMaster.strAIRSNumber = '0413" & AIRSNumber & "' " & _
                                                 "and strAFSActionNumber  = '" & ActionNumber & "' "
                                             Case "FF"
                                                 SQL = "select " & _
@@ -32046,13 +32046,13 @@ Public Class ISMPDataManagementTools
                                                 "end ResultCode, " & _
                                                 "'0000000' as PenaltyAmount, " & _
                                                 "'  ' as Pollutant " & _
-                                                "from " & connNameSpace & ".AFSSSCPFCERecords, " & connNameSpace & ".SSCPFCEMaster, " & _
-                                                "" & connNameSpace & ".APBHeaderData, " & connNameSpace & ".SSCPFCE  " & _
-                                                "where " & connNameSpace & ".AFSSSCPFCERecords.strFCENumber = " & connNameSpace & ".SSCPFCEMaster.StrFCENumber " & _
-                                                "and " & connNameSpace & ".SSCPFCEMaster.strFCENumber = " & connNameSpace & ".SSCPFCE.strFCENumber " & _
-                                                "and " & connNameSpace & ".SSCPFCEMaster.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber " & _
+                                                "from " & DBNameSpace & ".AFSSSCPFCERecords, " & DBNameSpace & ".SSCPFCEMaster, " & _
+                                                "" & DBNameSpace & ".APBHeaderData, " & DBNameSpace & ".SSCPFCE  " & _
+                                                "where " & DBNameSpace & ".AFSSSCPFCERecords.strFCENumber = " & DBNameSpace & ".SSCPFCEMaster.StrFCENumber " & _
+                                                "and " & DBNameSpace & ".SSCPFCEMaster.strFCENumber = " & DBNameSpace & ".SSCPFCE.strFCENumber " & _
+                                                "and " & DBNameSpace & ".SSCPFCEMaster.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber " & _
                                                 "and strSiteInspection <> 'True' " & _
-                                                "and " & connNameSpace & ".SSCPFCEMaster.strAIRSNumber = '0413" & AIRSNumber & "' " & _
+                                                "and " & DBNameSpace & ".SSCPFCEMaster.strAIRSNumber = '0413" & AIRSNumber & "' " & _
                                                 "and strAFSActionNumber  = '" & ActionNumber & "' "
                                             Case "37"
                                                 SQL = "select " & _
@@ -32063,11 +32063,11 @@ Public Class ISMPDataManagementTools
                                                 "'01' as ResultCode, " & _
                                                 "'0000000' as PenaltyAmount, " & _
                                                 "'  ' as Pollutant " & _
-                                                "from " & connNameSpace & ".AFSSSCPRecords, " & connNameSpace & ".SSCPItemMaster, " & _
-                                                "" & connNameSpace & ".APBHeaderData " & _
-                                                "where " & connNameSpace & ".AFSSSCPRecords.strTrackingNumber = " & connNameSpace & ".SSCPItemMaster.strTrackingNumber " & _
-                                                "and " & connNameSpace & ".SSCPItemMaster.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber " & _
-                                                "and " & connNameSpace & ".SSCPItemMaster.strAIRSNumber = '0413" & AIRSNumber & "' " & _
+                                                "from " & DBNameSpace & ".AFSSSCPRecords, " & DBNameSpace & ".SSCPItemMaster, " & _
+                                                "" & DBNameSpace & ".APBHeaderData " & _
+                                                "where " & DBNameSpace & ".AFSSSCPRecords.strTrackingNumber = " & DBNameSpace & ".SSCPItemMaster.strTrackingNumber " & _
+                                                "and " & DBNameSpace & ".SSCPItemMaster.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber " & _
+                                                "and " & DBNameSpace & ".SSCPItemMaster.strAIRSNumber = '0413" & AIRSNumber & "' " & _
                                                 "and strAFSActionNumber  = '" & ActionNumber & "' "
                                             Case "27"
                                                 SQL = "select " & _
@@ -32078,11 +32078,11 @@ Public Class ISMPDataManagementTools
                                                 "'01' as ResultCode, " & _
                                                 "'0000000' as PenaltyAmount, " & _
                                                 "'  ' as Pollutant " & _
-                                                "from " & connNameSpace & ".AFSSSCPRecords, " & connNameSpace & ".SSCPItemMaster, " & _
-                                                "" & connNameSpace & ".APBHeaderData " & _
-                                                "where " & connNameSpace & ".AFSSSCPRecords.strTrackingNumber = " & connNameSpace & ".SSCPItemMaster.strTrackingNumber " & _
-                                                "and " & connNameSpace & ".SSCPItemMaster.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber " & _
-                                                "and " & connNameSpace & ".SSCPItemMaster.strAIRSNumber = '0413" & AIRSNumber & "' " & _
+                                                "from " & DBNameSpace & ".AFSSSCPRecords, " & DBNameSpace & ".SSCPItemMaster, " & _
+                                                "" & DBNameSpace & ".APBHeaderData " & _
+                                                "where " & DBNameSpace & ".AFSSSCPRecords.strTrackingNumber = " & DBNameSpace & ".SSCPItemMaster.strTrackingNumber " & _
+                                                "and " & DBNameSpace & ".SSCPItemMaster.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber " & _
+                                                "and " & DBNameSpace & ".SSCPItemMaster.strAIRSNumber = '0413" & AIRSNumber & "' " & _
                                                 "and strAFSActionNumber  = '" & ActionNumber & "' "
                                             Case "SR"
                                                 SQL = "select " & _
@@ -32097,12 +32097,12 @@ Public Class ISMPDataManagementTools
                                                 "end ResultCode, " & _
                                                 "'0000000' as PenaltyAmount, " & _
                                                 "'  ' as Pollutant " & _
-                                                "from " & connNameSpace & ".AFSSSCPRecords, " & connNameSpace & ".SSCPItemMaster, " & _
-                                                "" & connNameSpace & ".APBHeaderData, " & connNameSpace & ".SSCPEnforcementItems " & _
-                                                "where " & connNameSpace & ".AFSSSCPRecords.strTrackingNumber = " & connNameSpace & ".SSCPItemMaster.strTrackingNumber " & _
-                                                "and " & connNameSpace & ".SSCPItemMaster.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber " & _
-                                                "and " & connNameSpace & ".SSCPItemMaster.strTrackingNumber = " & connNameSpace & ".SSCPEnforcementItems.strTrackingNumber (+) " & _
-                                                "and " & connNameSpace & ".SSCPItemMaster.strAIRSNumber = '0413" & AIRSNumber & "' " & _
+                                                "from " & DBNameSpace & ".AFSSSCPRecords, " & DBNameSpace & ".SSCPItemMaster, " & _
+                                                "" & DBNameSpace & ".APBHeaderData, " & DBNameSpace & ".SSCPEnforcementItems " & _
+                                                "where " & DBNameSpace & ".AFSSSCPRecords.strTrackingNumber = " & DBNameSpace & ".SSCPItemMaster.strTrackingNumber " & _
+                                                "and " & DBNameSpace & ".SSCPItemMaster.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber " & _
+                                                "and " & DBNameSpace & ".SSCPItemMaster.strTrackingNumber = " & DBNameSpace & ".SSCPEnforcementItems.strTrackingNumber (+) " & _
+                                                "and " & DBNameSpace & ".SSCPItemMaster.strAIRSNumber = '0413" & AIRSNumber & "' " & _
                                                 "and strAFSActionNumber  = '" & ActionNumber & "' "
                                             Case "CS"
                                                 SQL = "select " & _
@@ -32113,11 +32113,11 @@ Public Class ISMPDataManagementTools
                                                 "'  ' as ResultCode, " & _
                                                 "'       ' as PenaltyAmount, " & _
                                                 "'  ' as Pollutant " & _
-                                                "from " & connNameSpace & ".AFSSSCPRecords, " & connNameSpace & ".SSCPItemMaster, " & _
-                                                "" & connNameSpace & ".APBHeaderData " & _
-                                                "where " & connNameSpace & ".AFSSSCPRecords.strTrackingNumber = " & connNameSpace & ".SSCPItemMaster.strTrackingNumber " & _
-                                                "and " & connNameSpace & ".SSCPItemMaster.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber " & _
-                                                "and " & connNameSpace & ".SSCPItemMaster.strAIRSNumber = '0413" & AIRSNumber & "' " & _
+                                                "from " & DBNameSpace & ".AFSSSCPRecords, " & DBNameSpace & ".SSCPItemMaster, " & _
+                                                "" & DBNameSpace & ".APBHeaderData " & _
+                                                "where " & DBNameSpace & ".AFSSSCPRecords.strTrackingNumber = " & DBNameSpace & ".SSCPItemMaster.strTrackingNumber " & _
+                                                "and " & DBNameSpace & ".SSCPItemMaster.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber " & _
+                                                "and " & DBNameSpace & ".SSCPItemMaster.strAIRSNumber = '0413" & AIRSNumber & "' " & _
                                                 "and strAFSActionNumber  = '" & ActionNumber & "' "
                                             Case "04"
                                                 SQL = "select " & _
@@ -32128,14 +32128,14 @@ Public Class ISMPDataManagementTools
                                                 "'01' as ResultCode, " & _
                                                 "'0000000' as PenaltyAmount, " & _
                                                 "'  ' as Pollutant " & _
-                                                "from " & connNameSpace & ".AFSSSCPEnforcementRecords, " & connNameSpace & ".SSCPEnforcementItems, " & _
-                                                "" & connNameSpace & ".APBHeaderData, " & connNameSpace & ".SSCPEnforcement " & _
-                                                "where " & connNameSpace & ".AFSSSCPEnforcementRecords.strEnforcementNumber = " _
-                                                                 & connNameSpace & ".SSCPEnforcementItems.strEnforcementNumber " & _
-                                                "and " & connNameSpace & ".SSCPEnforcementItems.strEnforcementNumber = " _
-                                                                 & connNameSpace & ".SSCPEnforcement.strEnforcementNumber  " & _
-                                                "and " & connNameSpace & ".SSCPEnforcementItems.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber " & _
-                                                "and " & connNameSpace & ".APBHeaderData.strAIRSNumber = '0413" & AIRSNumber & "' " & _
+                                                "from " & DBNameSpace & ".AFSSSCPEnforcementRecords, " & DBNameSpace & ".SSCPEnforcementItems, " & _
+                                                "" & DBNameSpace & ".APBHeaderData, " & DBNameSpace & ".SSCPEnforcement " & _
+                                                "where " & DBNameSpace & ".AFSSSCPEnforcementRecords.strEnforcementNumber = " _
+                                                                 & DBNameSpace & ".SSCPEnforcementItems.strEnforcementNumber " & _
+                                                "and " & DBNameSpace & ".SSCPEnforcementItems.strEnforcementNumber = " _
+                                                                 & DBNameSpace & ".SSCPEnforcement.strEnforcementNumber  " & _
+                                                "and " & DBNameSpace & ".SSCPEnforcementItems.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber " & _
+                                                "and " & DBNameSpace & ".APBHeaderData.strAIRSNumber = '0413" & AIRSNumber & "' " & _
                                                 "and strAFSActionNumber = '" & ActionNumber & "' "
                                             Case "VZ"
                                                 SQL = "select " & _
@@ -32146,14 +32146,14 @@ Public Class ISMPDataManagementTools
                                                 "'01' as ResultCode, " & _
                                                 "'0000000' as PenaltyAmount, " & _
                                                 "'  ' as Pollutant " & _
-                                                "from " & connNameSpace & ".AFSSSCPEnforcementRecords, " & connNameSpace & ".SSCPEnforcementItems, " & _
-                                                "" & connNameSpace & ".APBHeaderData, " & connNameSpace & ".SSCPEnforcement " & _
-                                                "where " & connNameSpace & ".AFSSSCPEnforcementRecords.strEnforcementNumber = " _
-                                                                 & connNameSpace & ".SSCPEnforcementItems.strEnforcementNumber " & _
-                                                "and " & connNameSpace & ".SSCPEnforcementItems.strEnforcementNumber = " _
-                                                                 & connNameSpace & ".SSCPEnforcement.strEnforcementNumber  " & _
-                                                "and " & connNameSpace & ".SSCPEnforcementItems.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber " & _
-                                                "and " & connNameSpace & ".APBHeaderData.strAIRSNumber = '0413" & AIRSNumber & "' " & _
+                                                "from " & DBNameSpace & ".AFSSSCPEnforcementRecords, " & DBNameSpace & ".SSCPEnforcementItems, " & _
+                                                "" & DBNameSpace & ".APBHeaderData, " & DBNameSpace & ".SSCPEnforcement " & _
+                                                "where " & DBNameSpace & ".AFSSSCPEnforcementRecords.strEnforcementNumber = " _
+                                                                 & DBNameSpace & ".SSCPEnforcementItems.strEnforcementNumber " & _
+                                                "and " & DBNameSpace & ".SSCPEnforcementItems.strEnforcementNumber = " _
+                                                                 & DBNameSpace & ".SSCPEnforcement.strEnforcementNumber  " & _
+                                                "and " & DBNameSpace & ".SSCPEnforcementItems.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber " & _
+                                                "and " & DBNameSpace & ".APBHeaderData.strAIRSNumber = '0413" & AIRSNumber & "' " & _
                                                 "and strAFSActionNumber = '" & ActionNumber & "' "
                                             Case "56"
                                                 SQL = "select " & _
@@ -32164,14 +32164,14 @@ Public Class ISMPDataManagementTools
                                                 "'  ' as ResultCode, " & _
                                                 "'0000000' as PenaltyAmount, " & _
                                                 "'  ' as Pollutant " & _
-                                                "from " & connNameSpace & ".AFSSSCPEnforcementRecords, " & connNameSpace & ".SSCPEnforcementItems, " & _
-                                                "" & connNameSpace & ".APBHeaderData, " & connNameSpace & ".SSCPEnforcement " & _
-                                                "where " & connNameSpace & ".AFSSSCPEnforcementRecords.strEnforcementNumber = " _
-                                                                 & connNameSpace & ".SSCPEnforcementItems.strEnforcementNumber " & _
-                                                "and " & connNameSpace & ".SSCPEnforcementItems.strEnforcementNumber = " _
-                                                                 & connNameSpace & ".SSCPEnforcement.strEnforcementNumber  " & _
-                                                "and " & connNameSpace & ".SSCPEnforcementItems.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber " & _
-                                                "and " & connNameSpace & ".APBHeaderData.strAIRSNumber = '0413" & AIRSNumber & "' " & _
+                                                "from " & DBNameSpace & ".AFSSSCPEnforcementRecords, " & DBNameSpace & ".SSCPEnforcementItems, " & _
+                                                "" & DBNameSpace & ".APBHeaderData, " & DBNameSpace & ".SSCPEnforcement " & _
+                                                "where " & DBNameSpace & ".AFSSSCPEnforcementRecords.strEnforcementNumber = " _
+                                                                 & DBNameSpace & ".SSCPEnforcementItems.strEnforcementNumber " & _
+                                                "and " & DBNameSpace & ".SSCPEnforcementItems.strEnforcementNumber = " _
+                                                                 & DBNameSpace & ".SSCPEnforcement.strEnforcementNumber  " & _
+                                                "and " & DBNameSpace & ".SSCPEnforcementItems.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber " & _
+                                                "and " & DBNameSpace & ".APBHeaderData.strAIRSNumber = '0413" & AIRSNumber & "' " & _
                                                 "and strAFSActionNumber = '" & ActionNumber & "' "
                                             Case "AW"
                                                 SQL = "select " & _
@@ -32182,14 +32182,14 @@ Public Class ISMPDataManagementTools
                                                 "'  ' as ResultCode, " & _
                                                 "'0000000' as PenaltyAmount, " & _
                                                 "'  ' as Pollutant " & _
-                                                "from " & connNameSpace & ".AFSSSCPEnforcementRecords, " & connNameSpace & ".SSCPEnforcementItems, " & _
-                                                "" & connNameSpace & ".APBHeaderData, " & connNameSpace & ".SSCPEnforcement " & _
-                                                "where " & connNameSpace & ".AFSSSCPEnforcementRecords.strEnforcementNumber = " _
-                                                                 & connNameSpace & ".SSCPEnforcementItems.strEnforcementNumber " & _
-                                                "and " & connNameSpace & ".SSCPEnforcementItems.strEnforcementNumber = " _
-                                                                 & connNameSpace & ".SSCPEnforcement.strEnforcementNumber  " & _
-                                                "and " & connNameSpace & ".SSCPEnforcementItems.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber " & _
-                                                "and " & connNameSpace & ".APBHeaderData.strAIRSNumber = '0413" & AIRSNumber & "' " & _
+                                                "from " & DBNameSpace & ".AFSSSCPEnforcementRecords, " & DBNameSpace & ".SSCPEnforcementItems, " & _
+                                                "" & DBNameSpace & ".APBHeaderData, " & DBNameSpace & ".SSCPEnforcement " & _
+                                                "where " & DBNameSpace & ".AFSSSCPEnforcementRecords.strEnforcementNumber = " _
+                                                                 & DBNameSpace & ".SSCPEnforcementItems.strEnforcementNumber " & _
+                                                "and " & DBNameSpace & ".SSCPEnforcementItems.strEnforcementNumber = " _
+                                                                 & DBNameSpace & ".SSCPEnforcement.strEnforcementNumber  " & _
+                                                "and " & DBNameSpace & ".SSCPEnforcementItems.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber " & _
+                                                "and " & DBNameSpace & ".APBHeaderData.strAIRSNumber = '0413" & AIRSNumber & "' " & _
                                                 "and strAFSActionNumber = '" & ActionNumber & "' "
                                             Case "57"
                                                 SQL = "select " & _
@@ -32200,14 +32200,14 @@ Public Class ISMPDataManagementTools
                                                 "'  ' as ResultCode, " & _
                                                 "'0000000' as PenaltyAmount, " & _
                                                 "'  ' as Pollutant " & _
-                                                "from " & connNameSpace & ".AFSSSCPEnforcementRecords, " & connNameSpace & ".SSCPEnforcementItems, " & _
-                                                "" & connNameSpace & ".APBHeaderData, " & connNameSpace & ".SSCPEnforcement " & _
-                                                "where " & connNameSpace & ".AFSSSCPEnforcementRecords.strEnforcementNumber = " _
-                                                                 & connNameSpace & ".SSCPEnforcementItems.strEnforcementNumber " & _
-                                                "and " & connNameSpace & ".SSCPEnforcementItems.strEnforcementNumber = " _
-                                                                 & connNameSpace & ".SSCPEnforcement.strEnforcementNumber  " & _
-                                                "and " & connNameSpace & ".SSCPEnforcementItems.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber " & _
-                                                "and " & connNameSpace & ".APBHeaderData.strAIRSNumber = '0413" & AIRSNumber & "' " & _
+                                                "from " & DBNameSpace & ".AFSSSCPEnforcementRecords, " & DBNameSpace & ".SSCPEnforcementItems, " & _
+                                                "" & DBNameSpace & ".APBHeaderData, " & DBNameSpace & ".SSCPEnforcement " & _
+                                                "where " & DBNameSpace & ".AFSSSCPEnforcementRecords.strEnforcementNumber = " _
+                                                                 & DBNameSpace & ".SSCPEnforcementItems.strEnforcementNumber " & _
+                                                "and " & DBNameSpace & ".SSCPEnforcementItems.strEnforcementNumber = " _
+                                                                 & DBNameSpace & ".SSCPEnforcement.strEnforcementNumber  " & _
+                                                "and " & DBNameSpace & ".SSCPEnforcementItems.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber " & _
+                                                "and " & DBNameSpace & ".APBHeaderData.strAIRSNumber = '0413" & AIRSNumber & "' " & _
                                                 "and strAFSActionNumber = '" & ActionNumber & "' "
                                             Case "X1"
                                                 SQL = "select " & _
@@ -32218,14 +32218,14 @@ Public Class ISMPDataManagementTools
                                                 "'01' as ResultCode, " & _
                                                 "strCOPenaltyAmount as PenaltyAmount, " & _
                                                 "'  ' as Pollutant " & _
-                                                "from " & connNameSpace & ".AFSSSCPEnforcementRecords, " & connNameSpace & ".SSCPEnforcementItems, " & _
-                                                "" & connNameSpace & ".APBHeaderData, " & connNameSpace & ".SSCPEnforcement " & _
-                                                "where " & connNameSpace & ".AFSSSCPEnforcementRecords.strEnforcementNumber = " _
-                                                                 & connNameSpace & ".SSCPEnforcementItems.strEnforcementNumber " & _
-                                                "and " & connNameSpace & ".SSCPEnforcementItems.strEnforcementNumber = " _
-                                                                 & connNameSpace & ".SSCPEnforcement.strEnforcementNumber  " & _
-                                                "and " & connNameSpace & ".SSCPEnforcementItems.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber " & _
-                                                "and " & connNameSpace & ".APBHeaderData.strAIRSNumber = '0413" & AIRSNumber & "' " & _
+                                                "from " & DBNameSpace & ".AFSSSCPEnforcementRecords, " & DBNameSpace & ".SSCPEnforcementItems, " & _
+                                                "" & DBNameSpace & ".APBHeaderData, " & DBNameSpace & ".SSCPEnforcement " & _
+                                                "where " & DBNameSpace & ".AFSSSCPEnforcementRecords.strEnforcementNumber = " _
+                                                                 & DBNameSpace & ".SSCPEnforcementItems.strEnforcementNumber " & _
+                                                "and " & DBNameSpace & ".SSCPEnforcementItems.strEnforcementNumber = " _
+                                                                 & DBNameSpace & ".SSCPEnforcement.strEnforcementNumber  " & _
+                                                "and " & DBNameSpace & ".SSCPEnforcementItems.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber " & _
+                                                "and " & DBNameSpace & ".APBHeaderData.strAIRSNumber = '0413" & AIRSNumber & "' " & _
                                                 "and strAFSActionNumber = '" & ActionNumber & "' "
                                             Case "AS"
                                                 SQL = "select " & _
@@ -32236,35 +32236,35 @@ Public Class ISMPDataManagementTools
                                                 "'  ' as ResultCode, " & _
                                                 "'0000000' as PenaltyAmount, " & _
                                                 "'  ' as Pollutant " & _
-                                                "from " & connNameSpace & ".AFSSSCPEnforcementRecords, " & connNameSpace & ".SSCPEnforcementItems, " & _
-                                                "" & connNameSpace & ".APBHeaderData, " & connNameSpace & ".SSCPEnforcement " & _
-                                                "where " & connNameSpace & ".AFSSSCPEnforcementRecords.strEnforcementNumber = " _
-                                                                 & connNameSpace & ".SSCPEnforcementItems.strEnforcementNumber " & _
-                                                "and " & connNameSpace & ".SSCPEnforcementItems.strEnforcementNumber = " _
-                                                                 & connNameSpace & ".SSCPEnforcement.strEnforcementNumber  " & _
-                                                "and " & connNameSpace & ".SSCPEnforcementItems.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber " & _
-                                                "and " & connNameSpace & ".APBHeaderData.strAIRSNumber = '0413" & AIRSNumber & "' " & _
+                                                "from " & DBNameSpace & ".AFSSSCPEnforcementRecords, " & DBNameSpace & ".SSCPEnforcementItems, " & _
+                                                "" & DBNameSpace & ".APBHeaderData, " & DBNameSpace & ".SSCPEnforcement " & _
+                                                "where " & DBNameSpace & ".AFSSSCPEnforcementRecords.strEnforcementNumber = " _
+                                                                 & DBNameSpace & ".SSCPEnforcementItems.strEnforcementNumber " & _
+                                                "and " & DBNameSpace & ".SSCPEnforcementItems.strEnforcementNumber = " _
+                                                                 & DBNameSpace & ".SSCPEnforcement.strEnforcementNumber  " & _
+                                                "and " & DBNameSpace & ".SSCPEnforcementItems.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber " & _
+                                                "and " & DBNameSpace & ".APBHeaderData.strAIRSNumber = '0413" & AIRSNumber & "' " & _
                                                 "and strAFSActionNumber = '" & ActionNumber & "' "
                                             Case "Z4"
                                                 SQL = "select " & _
                                                 "strAIRProgramCodes, " & _
                                                 "strAFSActionNumber, " & _
                                                 "'000000' as DateScheduled, " & _
-                                                "" & connNameSpace & ".SSCPEnforcementStipulated.datModifingDate as datCompleteDate, " & _
+                                                "" & DBNameSpace & ".SSCPEnforcementStipulated.datModifingDate as datCompleteDate, " & _
                                                 "'01' as ResultCode, " & _
-                                                "" & connNameSpace & ".SSCPEnforcementStipulated.strStipulatedPenalty as PenaltyAmount, " & _
+                                                "" & DBNameSpace & ".SSCPEnforcementStipulated.strStipulatedPenalty as PenaltyAmount, " & _
                                                 "'  ' as Pollutant " & _
-                                                "from " & connNameSpace & ".AFSSSCPEnforcementRecords, " & connNameSpace & ".SSCPEnforcementItems, " & _
-                                                "" & connNameSpace & ".APBHeaderData, " & connNameSpace & ".SSCPEnforcement, " & _
-                                                "" & connNameSpace & ".SSCPEnforcementStipulated " & _
-                                                "where " & connNameSpace & ".AFSSSCPEnforcementRecords.strEnforcementNumber = " _
-                                                                 & connNameSpace & ".SSCPEnforcementItems.strEnforcementNumber " & _
-                                                "and " & connNameSpace & ".SSCPEnforcementItems.strEnforcementNumber = " _
-                                                                 & connNameSpace & ".SSCPEnforcement.strEnforcementNumber  " & _
-                                                "and " & connNameSpace & ".SSCPEnforcementItems.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber " & _
-                                                "and " & connNameSpace & ".SSCPEnforcementITems.strEnforcementNumber = " _
-                                                                 & connNameSpace & ".SSCPEnforcementStipulated.strEnforcementNumber " & _
-                                                "and " & connNameSpace & ".APBHeaderData.strAIRSNumber = '0413" & AIRSNumber & "' " & _
+                                                "from " & DBNameSpace & ".AFSSSCPEnforcementRecords, " & DBNameSpace & ".SSCPEnforcementItems, " & _
+                                                "" & DBNameSpace & ".APBHeaderData, " & DBNameSpace & ".SSCPEnforcement, " & _
+                                                "" & DBNameSpace & ".SSCPEnforcementStipulated " & _
+                                                "where " & DBNameSpace & ".AFSSSCPEnforcementRecords.strEnforcementNumber = " _
+                                                                 & DBNameSpace & ".SSCPEnforcementItems.strEnforcementNumber " & _
+                                                "and " & DBNameSpace & ".SSCPEnforcementItems.strEnforcementNumber = " _
+                                                                 & DBNameSpace & ".SSCPEnforcement.strEnforcementNumber  " & _
+                                                "and " & DBNameSpace & ".SSCPEnforcementItems.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber " & _
+                                                "and " & DBNameSpace & ".SSCPEnforcementITems.strEnforcementNumber = " _
+                                                                 & DBNameSpace & ".SSCPEnforcementStipulated.strEnforcementNumber " & _
+                                                "and " & DBNameSpace & ".APBHeaderData.strAIRSNumber = '0413" & AIRSNumber & "' " & _
                                                 "and strAFSActionNumber = '" & ActionNumber & "' "
                                             Case "60"
                                                 SQL = "select " & _
@@ -32275,14 +32275,14 @@ Public Class ISMPDataManagementTools
                                                 "'  ' as ResultCode, " & _
                                                 "'0000000' as PenaltyAmount, " & _
                                                 "'  ' as Pollutant " & _
-                                                "from " & connNameSpace & ".AFSSSCPEnforcementRecords, " & connNameSpace & ".SSCPEnforcementItems, " & _
-                                                "" & connNameSpace & ".APBHeaderData, " & connNameSpace & ".SSCPEnforcement " & _
-                                                "where " & connNameSpace & ".AFSSSCPEnforcementRecords.strEnforcementNumber = " _
-                                                                 & connNameSpace & ".SSCPEnforcementItems.strEnforcementNumber " & _
-                                                "and " & connNameSpace & ".SSCPEnforcementItems.strEnforcementNumber = " _
-                                                                 & connNameSpace & ".SSCPEnforcement.strEnforcementNumber  " & _
-                                                "and " & connNameSpace & ".SSCPEnforcementItems.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber " & _
-                                                "and " & connNameSpace & ".APBHeaderData.strAIRSNumber = '0413" & AIRSNumber & "' " & _
+                                                "from " & DBNameSpace & ".AFSSSCPEnforcementRecords, " & DBNameSpace & ".SSCPEnforcementItems, " & _
+                                                "" & DBNameSpace & ".APBHeaderData, " & DBNameSpace & ".SSCPEnforcement " & _
+                                                "where " & DBNameSpace & ".AFSSSCPEnforcementRecords.strEnforcementNumber = " _
+                                                                 & DBNameSpace & ".SSCPEnforcementItems.strEnforcementNumber " & _
+                                                "and " & DBNameSpace & ".SSCPEnforcementItems.strEnforcementNumber = " _
+                                                                 & DBNameSpace & ".SSCPEnforcement.strEnforcementNumber  " & _
+                                                "and " & DBNameSpace & ".SSCPEnforcementItems.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber " & _
+                                                "and " & DBNameSpace & ".APBHeaderData.strAIRSNumber = '0413" & AIRSNumber & "' " & _
                                                 "and strAFSActionNumber = '" & ActionNumber & "' "
                                             Case "64"
                                                 SQL = "select " & _
@@ -32293,14 +32293,14 @@ Public Class ISMPDataManagementTools
                                                 "'  ' as ResultCode, " & _
                                                 "'0000000' as PenaltyAmount, " & _
                                                 "'  ' as Pollutant " & _
-                                                "from " & connNameSpace & ".AFSSSCPEnforcementRecords, " & connNameSpace & ".SSCPEnforcementItems, " & _
-                                                "" & connNameSpace & ".APBHeaderData, " & connNameSpace & ".SSCPEnforcement " & _
-                                                "where " & connNameSpace & ".AFSSSCPEnforcementRecords.strEnforcementNumber = " _
-                                                                 & connNameSpace & ".SSCPEnforcementItems.strEnforcementNumber " & _
-                                                "and " & connNameSpace & ".SSCPEnforcementItems.strEnforcementNumber = " _
-                                                                 & connNameSpace & ".SSCPEnforcement.strEnforcementNumber  " & _
-                                                "and " & connNameSpace & ".SSCPEnforcementItems.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber " & _
-                                                "and " & connNameSpace & ".APBHeaderData.strAIRSNumber = '0413" & AIRSNumber & "' " & _
+                                                "from " & DBNameSpace & ".AFSSSCPEnforcementRecords, " & DBNameSpace & ".SSCPEnforcementItems, " & _
+                                                "" & DBNameSpace & ".APBHeaderData, " & DBNameSpace & ".SSCPEnforcement " & _
+                                                "where " & DBNameSpace & ".AFSSSCPEnforcementRecords.strEnforcementNumber = " _
+                                                                 & DBNameSpace & ".SSCPEnforcementItems.strEnforcementNumber " & _
+                                                "and " & DBNameSpace & ".SSCPEnforcementItems.strEnforcementNumber = " _
+                                                                 & DBNameSpace & ".SSCPEnforcement.strEnforcementNumber  " & _
+                                                "and " & DBNameSpace & ".SSCPEnforcementItems.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber " & _
+                                                "and " & DBNameSpace & ".APBHeaderData.strAIRSNumber = '0413" & AIRSNumber & "' " & _
                                                 "and strAFSActionNumber = '" & ActionNumber & "' "
                                             Case "XX"
                                                 SQL = "select " & _
@@ -32311,14 +32311,14 @@ Public Class ISMPDataManagementTools
                                                 "'  ' as ResultCode, " & _
                                                 "'0000000' as PenaltyAmount, " & _
                                                 "'  ' as Pollutant " & _
-                                                "from " & connNameSpace & ".AFSSSCPEnforcementRecords, " & connNameSpace & ".SSCPEnforcementItems, " & _
-                                                "" & connNameSpace & ".APBHeaderData, " & connNameSpace & ".SSCPEnforcement " & _
-                                                "where " & connNameSpace & ".AFSSSCPEnforcementRecords.strEnforcementNumber = " _
-                                                                 & connNameSpace & ".SSCPEnforcementItems.strEnforcementNumber " & _
-                                                "and " & connNameSpace & ".SSCPEnforcementItems.strEnforcementNumber = " _
-                                                                 & connNameSpace & ".SSCPEnforcement.strEnforcementNumber  " & _
-                                                "and " & connNameSpace & ".SSCPEnforcementItems.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber " & _
-                                                "and " & connNameSpace & ".APBHeaderData.strAIRSNumber = '0413" & AIRSNumber & "' " & _
+                                                "from " & DBNameSpace & ".AFSSSCPEnforcementRecords, " & DBNameSpace & ".SSCPEnforcementItems, " & _
+                                                "" & DBNameSpace & ".APBHeaderData, " & DBNameSpace & ".SSCPEnforcement " & _
+                                                "where " & DBNameSpace & ".AFSSSCPEnforcementRecords.strEnforcementNumber = " _
+                                                                 & DBNameSpace & ".SSCPEnforcementItems.strEnforcementNumber " & _
+                                                "and " & DBNameSpace & ".SSCPEnforcementItems.strEnforcementNumber = " _
+                                                                 & DBNameSpace & ".SSCPEnforcement.strEnforcementNumber  " & _
+                                                "and " & DBNameSpace & ".SSCPEnforcementItems.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber " & _
+                                                "and " & DBNameSpace & ".APBHeaderData.strAIRSNumber = '0413" & AIRSNumber & "' " & _
                                                 "and strAFSActionNumber = '" & ActionNumber & "' "
                                             Case "TR"
                                                 SQL = "select " & _
@@ -32343,14 +32343,14 @@ Public Class ISMPDataManagementTools
                                                 "when strAFSCode = 'True' then strPollutantCode " & _
                                                 "else '     ' " & _
                                                 "end Pollutant  " & _
-                                                "from " & connNameSpace & ".AFSISMPRecords, " & connNameSpace & ".ISMPMaster, " & _
-                                                "" & connNameSpace & ".ISMPReportInformation, " & connNameSpace & ".APBHeaderData, " & _
-                                                "" & connNameSpace & ".LookUpPollutants " & _
-                                                "where " & connNameSpace & ".AFSISMPRecords.strReferenceNumber = " & connNameSpace & ".ISMPMaster.strReferenceNumber " & _
-                                                "and " & connNameSpace & ".ISMPMaster.strReferenceNumber = " & connNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
-                                                "and " & connNameSpace & ".ISMPMaster.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber " & _
-                                                "and " & connNameSpace & ".ISMPReportInformation.strPollutant = " & connNameSpace & ".LookUpPollutants.strPollutantCode " & _
-                                                "and " & connNameSpace & ".ISMPMaster.strAIRSnumber = '0413" & AIRSNumber & "' " & _
+                                                "from " & DBNameSpace & ".AFSISMPRecords, " & DBNameSpace & ".ISMPMaster, " & _
+                                                "" & DBNameSpace & ".ISMPReportInformation, " & DBNameSpace & ".APBHeaderData, " & _
+                                                "" & DBNameSpace & ".LookUpPollutants " & _
+                                                "where " & DBNameSpace & ".AFSISMPRecords.strReferenceNumber = " & DBNameSpace & ".ISMPMaster.strReferenceNumber " & _
+                                                "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
+                                                "and " & DBNameSpace & ".ISMPMaster.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber " & _
+                                                "and " & DBNameSpace & ".ISMPReportInformation.strPollutant = " & DBNameSpace & ".LookUpPollutants.strPollutantCode " & _
+                                                "and " & DBNameSpace & ".ISMPMaster.strAIRSnumber = '0413" & AIRSNumber & "' " & _
                                                 "and strAFSActionNumber = '" & ActionNumber & "' "
                                             Case "23"
                                                 SQL = "select " & _
@@ -32375,14 +32375,14 @@ Public Class ISMPDataManagementTools
                                                 "when strAFSCode = 'True' then strPollutantCode " & _
                                                 "else '     ' " & _
                                                 "end Pollutant  " & _
-                                                "from " & connNameSpace & ".AFSISMPRecords, " & connNameSpace & ".ISMPMaster, " & _
-                                                "" & connNameSpace & ".ISMPReportInformation, " & connNameSpace & ".APBHeaderData, " & _
-                                                "" & connNameSpace & ".LookUpPollutants " & _
-                                                "where " & connNameSpace & ".AFSISMPRecords.strReferenceNumber = " & connNameSpace & ".ISMPMaster.strReferenceNumber " & _
-                                                "and " & connNameSpace & ".ISMPMaster.strReferenceNumber = " & connNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
-                                                "and " & connNameSpace & ".ISMPMaster.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber " & _
-                                                "and " & connNameSpace & ".ISMPReportInformation.strPollutant = " & connNameSpace & ".LookUpPollutants.strPollutantCode " & _
-                                                "and " & connNameSpace & ".ISMPMaster.strAIRSnumber = '0413" & AIRSNumber & "' " & _
+                                                "from " & DBNameSpace & ".AFSISMPRecords, " & DBNameSpace & ".ISMPMaster, " & _
+                                                "" & DBNameSpace & ".ISMPReportInformation, " & DBNameSpace & ".APBHeaderData, " & _
+                                                "" & DBNameSpace & ".LookUpPollutants " & _
+                                                "where " & DBNameSpace & ".AFSISMPRecords.strReferenceNumber = " & DBNameSpace & ".ISMPMaster.strReferenceNumber " & _
+                                                "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
+                                                "and " & DBNameSpace & ".ISMPMaster.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber " & _
+                                                "and " & DBNameSpace & ".ISMPReportInformation.strPollutant = " & DBNameSpace & ".LookUpPollutants.strPollutantCode " & _
+                                                "and " & DBNameSpace & ".ISMPMaster.strAIRSnumber = '0413" & AIRSNumber & "' " & _
                                                 "and strAFSActionNumber = '" & ActionNumber & "' "
                                             Case Else
                                                 SQL = ""
@@ -32501,26 +32501,26 @@ Public Class ISMPDataManagementTools
                                         IAIPPollutant163 = "NULL"
 
                                         SQL = "Select  " & _
-                                        "" & connNameSpace & ".AFSSSCPEnforcementRecords.strEnforcementNumber,    " & _
-                                        "" & connNameSpace & ".APBHeaderData.strAIRSNumber,    " & _
-                                        "" & connNameSpace & ".AFSSSCPEnforcementRecords.strAFSActionNumber,    " & _
+                                        "" & DBNameSpace & ".AFSSSCPEnforcementRecords.strEnforcementNumber,    " & _
+                                        "" & DBNameSpace & ".APBHeaderData.strAIRSNumber,    " & _
+                                        "" & DBNameSpace & ".AFSSSCPEnforcementRecords.strAFSActionNumber,    " & _
                                         "strAFSKeyActionNumber,  " & _
                                         "strPollutants,   " & _
-                                        "" & connNameSpace & ".AFSSSCPRecords.strAFSActionNumber as LinkingEvent  " & _
-                                        "from  " & connNameSpace & ".AFSSSCPEnforcementRecords,    " & _
-                                        "" & connNameSpace & ".SSCPEnforcementItems,  " & connNameSpace & ".SSCPEnforcement,    " & _
-                                        "" & connNameSpace & ".APBHeaderData,  " & connNameSpace & ".SSCPENforcementStipulated, " & _
-                                        "" & connNameSpace & ".SSCPItemMaster, " & connNameSpace & ".AFSSSCPRecords    " & _
-                                        "where " & connNameSpace & ".SSCPEnforcement.strEnforcementNumber =  " _
-                                                 & connNameSpace & ".AFSSSCPEnforcementRecords.strEnforcementNumber    " & _
-                                        "and  " & connNameSpace & ".APBHeaderData.strAIRSNumber =  " & connNameSpace & ".SSCPEnforcementItems.strAIRSNumber    " & _
-                                        "and  " & connNameSpace & ".SSCPEnforcementItems.strEnforcementNumber =  " & connNameSpace & ".SSCPEnforcement.strEnforcementNumber    " & _
-                                        "and  " & connNameSpace & ".SSCPEnforcementItems.strEnforcementNumber =  " _
-                                                & connNameSpace & ".SSCPENforcementStipulated.strEnforcementNumber (+)    " & _
-                                        "and  " & connNameSpace & ".sscpEnforcementItems.strTrackingNumber =  " & connNameSpace & ".SSCPItemMaster.strTrackingNumber (+)   " & _
-                                        "and " & connNameSpace & ".sscpEnforcementItems.strTrackingNumber = " & connNameSpace & ".AFSSSCPRecords.strTrackingNumber (+) " & _
-                                        "and " & connNameSpace & ".APBHeaderData.strAIRSNumber = '0413" & AIRSNumber & "' " & _
-                                        "and " & connNameSpace & ".AFSSSCPEnforcementRecords.strAFSActionNumber = '" & ActionNumber163 & "' " & _
+                                        "" & DBNameSpace & ".AFSSSCPRecords.strAFSActionNumber as LinkingEvent  " & _
+                                        "from  " & DBNameSpace & ".AFSSSCPEnforcementRecords,    " & _
+                                        "" & DBNameSpace & ".SSCPEnforcementItems,  " & DBNameSpace & ".SSCPEnforcement,    " & _
+                                        "" & DBNameSpace & ".APBHeaderData,  " & DBNameSpace & ".SSCPENforcementStipulated, " & _
+                                        "" & DBNameSpace & ".SSCPItemMaster, " & DBNameSpace & ".AFSSSCPRecords    " & _
+                                        "where " & DBNameSpace & ".SSCPEnforcement.strEnforcementNumber =  " _
+                                                 & DBNameSpace & ".AFSSSCPEnforcementRecords.strEnforcementNumber    " & _
+                                        "and  " & DBNameSpace & ".APBHeaderData.strAIRSNumber =  " & DBNameSpace & ".SSCPEnforcementItems.strAIRSNumber    " & _
+                                        "and  " & DBNameSpace & ".SSCPEnforcementItems.strEnforcementNumber =  " & DBNameSpace & ".SSCPEnforcement.strEnforcementNumber    " & _
+                                        "and  " & DBNameSpace & ".SSCPEnforcementItems.strEnforcementNumber =  " _
+                                                & DBNameSpace & ".SSCPENforcementStipulated.strEnforcementNumber (+)    " & _
+                                        "and  " & DBNameSpace & ".sscpEnforcementItems.strTrackingNumber =  " & DBNameSpace & ".SSCPItemMaster.strTrackingNumber (+)   " & _
+                                        "and " & DBNameSpace & ".sscpEnforcementItems.strTrackingNumber = " & DBNameSpace & ".AFSSSCPRecords.strTrackingNumber (+) " & _
+                                        "and " & DBNameSpace & ".APBHeaderData.strAIRSNumber = '0413" & AIRSNumber & "' " & _
+                                        "and " & DBNameSpace & ".AFSSSCPEnforcementRecords.strAFSActionNumber = '" & ActionNumber163 & "' " & _
                                         "and strAFSKeyActionNumber = '" & KeyActionNumber & "' "
 
                                         cmd = New OracleCommand(SQL, conn)
@@ -32584,19 +32584,19 @@ Public Class ISMPDataManagementTools
                                         ViolationType = "NULL"
 
                                         SQL = "Select " & _
-                                        "" & connNameSpace & ".AFSSSCPEnforcementRecords.strEnforcementNumber,    " & _
-                                        "" & connNameSpace & ".APBHeaderData.strAIRSNumber,    " & _
-                                        "" & connNameSpace & ".AFSSSCPEnforcementRecords.strAFSActionNumber,    " & _
+                                        "" & DBNameSpace & ".AFSSSCPEnforcementRecords.strEnforcementNumber,    " & _
+                                        "" & DBNameSpace & ".APBHeaderData.strAIRSNumber,    " & _
+                                        "" & DBNameSpace & ".AFSSSCPEnforcementRecords.strAFSActionNumber,    " & _
                                         "strAFSKeyActionNumber, " & _
                                         "strHPV " & _
-                                        "from  " & connNameSpace & ".AFSSSCPEnforcementRecords,    " & _
-                                        "" & connNameSpace & ".SSCPEnforcementItems,  " & connNameSpace & ".SSCPEnforcement,    " & _
-                                        "" & connNameSpace & ".APBHeaderData " & _
-                                        "where " & connNameSpace & ".SSCPEnforcement.strEnforcementNumber =  " & connNameSpace & ".AFSSSCPEnforcementRecords.strEnforcementNumber    " & _
-                                        "and  " & connNameSpace & ".APBHeaderData.strAIRSNumber =  " & connNameSpace & ".SSCPEnforcementItems.strAIRSNumber    " & _
-                                        "and  " & connNameSpace & ".SSCPEnforcementItems.strEnforcementNumber =  " & connNameSpace & ".SSCPEnforcement.strEnforcementNumber    " & _
-                                        "and " & connNameSpace & ".APBHeaderData.strAIRSNumber = '041312100816' " & _
-                                        "and " & connNameSpace & ".AFSSSCPEnforcementRecords.strAFSActionNumber = '007' " & _
+                                        "from  " & DBNameSpace & ".AFSSSCPEnforcementRecords,    " & _
+                                        "" & DBNameSpace & ".SSCPEnforcementItems,  " & DBNameSpace & ".SSCPEnforcement,    " & _
+                                        "" & DBNameSpace & ".APBHeaderData " & _
+                                        "where " & DBNameSpace & ".SSCPEnforcement.strEnforcementNumber =  " & DBNameSpace & ".AFSSSCPEnforcementRecords.strEnforcementNumber    " & _
+                                        "and  " & DBNameSpace & ".APBHeaderData.strAIRSNumber =  " & DBNameSpace & ".SSCPEnforcementItems.strAIRSNumber    " & _
+                                        "and  " & DBNameSpace & ".SSCPEnforcementItems.strEnforcementNumber =  " & DBNameSpace & ".SSCPEnforcement.strEnforcementNumber    " & _
+                                        "and " & DBNameSpace & ".APBHeaderData.strAIRSNumber = '041312100816' " & _
+                                        "and " & DBNameSpace & ".AFSSSCPEnforcementRecords.strAFSActionNumber = '007' " & _
                                         "and strAFSKeyActionNumber = '007' "
 
                                         cmd = New OracleCommand(SQL, conn)
@@ -32649,7 +32649,7 @@ Public Class ISMPDataManagementTools
 
                                         SQL = "Select " & _
                                         "strCMSMember " & _
-                                        "from " & connNameSpace & ".APBSupplamentalData " & _
+                                        "from " & DBNameSpace & ".APBSupplamentalData " & _
                                         "where strAIRSNumber = '0413" & AIRSNumber & "' "
                                         cmd = New OracleCommand(SQL, conn)
                                         If conn.State = ConnectionState.Closed Then
@@ -33012,10 +33012,10 @@ Public Class ISMPDataManagementTools
                 "strContactLastName, strContactpreFix, " & _
                 "strContactSuffix, strContactTitle, " & _
                 "strContactPhoneNumber1 " & _
-                "from " & connNameSpace & ".SSPPApplicationdata, " & _
-                "" & connNameSpace & ".SSPPApplicationContact " & _
-                "where " & connNameSpace & ".SSPPApplicationData.strApplicationNumber = " & connNameSpace & ".SSPPApplicationContact.strApplicationNumber " & _
-                "and " & connNameSpace & ".SSPPApplicationData.strApplicationNumber = '" & txtApplicationNumber.Text & "' "
+                "from " & DBNameSpace & ".SSPPApplicationdata, " & _
+                "" & DBNameSpace & ".SSPPApplicationContact " & _
+                "where " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationContact.strApplicationNumber " & _
+                "and " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber = '" & txtApplicationNumber.Text & "' "
                 cmd = New OracleCommand(SQL, conn)
                 If conn.State = ConnectionState.Closed Then
                     conn.Open()
@@ -33224,7 +33224,7 @@ Public Class ISMPDataManagementTools
                 lblFacilityName.Text = "Facility Name"
                 airsno = mtbAIRSNumber.Text
                 SQL = "Select strFacilityName " & _
-                "from " & connNameSpace & ".APBFacilityInformation " & _
+                "from " & DBNameSpace & ".APBFacilityInformation " & _
                 "where strAIRSNumber = '0413" & airsno & "' "
                 cmd = New OracleCommand(SQL, conn)
                 If conn.State = ConnectionState.Closed Then
@@ -33312,7 +33312,7 @@ Public Class ISMPDataManagementTools
     Sub UpdateWebUserData()
         Try
 
-            SQL = "Update " & connNameSpace & ".OLAPUserProfile set " & _
+            SQL = "Update " & DBNameSpace & ".OLAPUserProfile set " & _
             "strFirstName = '" & Replace(txtEditFirstName.Text, "'", "''") & "', " & _
             "strLastName = '" & Replace(txtEditLastName.Text, "'", "''") & "', " & _
             "strTitle = '" & Replace(txtEditTitle.Text, "'", "''") & "', " & _
@@ -33378,12 +33378,12 @@ Public Class ISMPDataManagementTools
     Private Sub btnUpdatePassword_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnUpdatePassword.Click
         Try
             If txtWebUserID.Text <> "" And txtEditUserPassword.Text <> "" Then
-                'SQL = "Update " & connNameSpace & ".OLAPUserLogIN set " & _
+                'SQL = "Update " & DBNameSpace & ".OLAPUserLogIN set " & _
                 '"strUserPassword = '" & EncryptDecrypt.EncryptText(txtEditUserPassword.Text) & "' " & _
                 '"where numUserID = '" & txtWebUserID.Text & "' "
 
                 'New password change code 6/30/2010
-                SQL = "Update " & connNameSpace & ".OLAPUserLogIN set " & _
+                SQL = "Update " & DBNameSpace & ".OLAPUserLogIN set " & _
                 "strUserPassword = '" & getMd5Hash(txtEditUserPassword.Text) & "' " & _
                 "where numUserID = '" & txtWebUserID.Text & "' "
 
@@ -33423,7 +33423,7 @@ Public Class ISMPDataManagementTools
         Try
             If txtWebUserID.Text <> "" Then
                 If EmailAddressCheck(txtEditEmail.Text) = True Then
-                    SQL = "Update " & connNameSpace & ".OLAPUserLogIn set " & _
+                    SQL = "Update " & DBNameSpace & ".OLAPUserLogIn set " & _
                     "strUserEmail = '" & Replace(txtEditEmail.Text.ToUpper, "'", "''") & "' " & _
                     "where numUserID = '" & txtWebUserID.Text & "' "
 
@@ -33464,7 +33464,7 @@ Public Class ISMPDataManagementTools
             cboSmokeSchoolLectures.Items.Clear()
             SQL = "Select " & _
             "strSchedule " & _
-            "from " & connNameSpace & ".SmokeSchoolSchedule " & _
+            "from " & DBNameSpace & ".SmokeSchoolSchedule " & _
             "where strDisplay = 'YES' " & _
             "order by to_date(strStartDate, 'MON-dd-YYYY') desc "
 
@@ -33502,7 +33502,7 @@ Public Class ISMPDataManagementTools
             If cboSmokeSchoolLectures.Text <> "" And cboSmokeSchoolLectures.Items.Contains(cboSmokeSchoolLectures.Text) = True Then
                 SQL = "Select " & _
                 "strFirstName, strLastName " & _
-                "from " & connNameSpace & ".SmokeSchoolReservation " & _
+                "from " & DBNameSpace & ".SmokeSchoolReservation " & _
                 "where strLocationDate = '" & cboSmokeSchoolLectures.Text & "' " & _
                 "and upper(strEmail) = '" & txtWebUserEmail.Text.ToUpper & "' "
                 cmd = New OracleCommand(SQL, conn)
@@ -33520,7 +33520,7 @@ Public Class ISMPDataManagementTools
                     ConfirmNbr = "1111" & Now.Date.ToString("yyyy MM dd").Replace(" ", "") & Now.Hour & Now.Minute & Now.Second
 
 
-                    SQL = "Insert into " & connNameSpace & ".SmokeSchoolReservation " & _
+                    SQL = "Insert into " & DBNameSpace & ".SmokeSchoolReservation " & _
                     "values " & _
                     "('" & Replace(txtEditTitle.Text, "'", "''") & "', " & _
                     "'" & Replace(txtEditCompany.Text, "'", "''") & "', " & _
@@ -33542,7 +33542,7 @@ Public Class ISMPDataManagementTools
                     "case when (max(numUserID) + 1) is Null then 1 " & _
                     "else max(numUserID) + 1 " & _
                     "end numUserID " & _
-                    "from " & connNameSpace & ".SmokeSchoolReservation " & _
+                    "from " & DBNameSpace & ".SmokeSchoolReservation " & _
                     "where strLocationDate = '" & cboSmokeSchoolLectures.Text & "'), " & _
                     "'', " & _
                     "'') "
@@ -33601,7 +33601,7 @@ Public Class ISMPDataManagementTools
             If cboSmokeSchoolLectures.Text <> "" And cboSmokeSchoolLectures.Items.Contains(cboSmokeSchoolLectures.Text) = True Then
                 SQL = "Select " & _
                 "strFirstName, strLastName " & _
-                "from " & connNameSpace & ".SmokeSchoolReservation " & _
+                "from " & DBNameSpace & ".SmokeSchoolReservation " & _
                 "where strLocationDate = '" & cboSmokeSchoolLectures.Text & "' " & _
                 "and upper(strEmail) = '" & txtWebUserEmail.Text.ToUpper & "' "
                 cmd = New OracleCommand(SQL, conn)
@@ -33616,7 +33616,7 @@ Public Class ISMPDataManagementTools
                     ConfirmNbr = ""
                     ConfirmNbr = "1111" & Now.Date.ToString("yyyy MM dd").Replace(" ", "") & Now.Hour & Now.Minute & Now.Second
 
-                    SQL = "Update " & connNameSpace & ".SmokeSchoolReservation set " & _
+                    SQL = "Update " & DBNameSpace & ".SmokeSchoolReservation set " & _
                     "strFirstName = '" & Replace(txtEditFirstName.Text, "'", "''") & "', " & _
                     "strLastName = '" & Replace(txtEditLastName.Text, "'", "''") & "', " & _
                     "strTitle = '" & Replace(txtEditTitle.Text, "'", "''") & "', " & _
@@ -33674,7 +33674,7 @@ Public Class ISMPDataManagementTools
             If cboSmokeSchoolLectures.Text <> "" And cboSmokeSchoolLectures.Items.Contains(cboSmokeSchoolLectures.Text) = True Then
                 SQL = "Select " & _
                 "strFirstName, strLastName " & _
-                "from " & connNameSpace & ".SmokeSchoolReservation " & _
+                "from " & DBNameSpace & ".SmokeSchoolReservation " & _
                 "where strLocationDate = '" & cboSmokeSchoolLectures.Text & "' " & _
                 "and upper(strEmail) = '" & txtWebUserEmail.Text.ToUpper & "' "
                 cmd = New OracleCommand(SQL, conn)
@@ -33686,7 +33686,7 @@ Public Class ISMPDataManagementTools
                 dr.Close()
 
                 If recExist = True Then
-                    SQL = "Delete " & connNameSpace & ".SmokeSchoolReservation " & _
+                    SQL = "Delete " & DBNameSpace & ".SmokeSchoolReservation " & _
                     "where strLocationDate = '" & cboSmokeSchoolLectures.Text & "' " & _
                     "and upper(strEmail) = '" & txtWebUserEmail.Text.ToUpper & "' "
                     cmd = New OracleCommand(SQL, conn)
@@ -33751,7 +33751,7 @@ Public Class ISMPDataManagementTools
 
         Try
             SQL = "Select * " & _
-            "FROM " & connNameSpace & ".EISI " & _
+            "FROM " & DBNameSpace & ".EISI " & _
             "where STRINVENTORYYEAR = '" & EIYear & "'"
 
             cmd = New OracleCommand(SQL, conn)
@@ -33765,7 +33765,7 @@ Public Class ISMPDataManagementTools
                 MsgBox("That year " & EIYear & " is already enrolled.", MsgBoxStyle.Information, "EI Enrollment")
             Else
                 SQL = "Select EImailout.STRAIRSNUMBER, eimailout.STRFACILITYNAME " & _
-                "FROM " & connNameSpace & ".EImailout " & _
+                "FROM " & DBNameSpace & ".EImailout " & _
                 "where EImailout.STRINVENTORYYEAR = '" & EIYear & "'"
 
                 cmd = New OracleCommand(SQL, conn)
@@ -33778,7 +33778,7 @@ Public Class ISMPDataManagementTools
                     AirsNo = dr("strAirsNumber")
                     airsYear = AirsNo & EIYear
                     FacilityName = dr("STRFACILITYNAME")
-                    SQL2 = "Insert into " & connNameSpace & ".EISI " & _
+                    SQL2 = "Insert into " & DBNameSpace & ".EISI " & _
                     "(EISI.STRAIRSNUMBER, " & _
                     "EISI.STRFACILITYNAME, " & _
                     "EISI.STRTRANSACTIONDATE, " & _
@@ -33820,7 +33820,7 @@ Public Class ISMPDataManagementTools
                 intAnswer = MessageBox.Show("Remove the enrollment?", "EI Enrollment", MessageBoxButtons.OKCancel, MessageBoxIcon.Information)
                 Select Case intAnswer
                     Case Windows.Forms.DialogResult.OK
-                        sql = "delete from " & connNameSpace & ".EISI " & _
+                        sql = "delete from " & DBNameSpace & ".EISI " & _
                         "where EISI.STRINVENTORYYEAR = '" & EIYear & "'"
                         cmd = New OracleCommand(sql, conn)
                         If conn.State = ConnectionState.Closed Then
@@ -33862,8 +33862,8 @@ Public Class ISMPDataManagementTools
 
         Try
 
-            SQL = "Select " & connNameSpace & ".EISI.STRINVENTORYYEAR " & _
-          "FROM " & connNameSpace & ".EISI " & _
+            SQL = "Select " & DBNameSpace & ".EISI.STRINVENTORYYEAR " & _
+          "FROM " & DBNameSpace & ".EISI " & _
           "where  EISI.STRINVENTORYYEAR = '" & EIYear & "' "
 
             cmd = New OracleCommand(SQL, conn)
@@ -33877,8 +33877,8 @@ Public Class ISMPDataManagementTools
             If recExist = True Then
 
 
-                SQL = "Select " & connNameSpace & ".APBFACILITYINFORMATION.STRFACILITYNAME " & _
-               "FROM " & connNameSpace & ".APBFACILITYINFORMATION " & _
+                SQL = "Select " & DBNameSpace & ".APBFACILITYINFORMATION.STRFACILITYNAME " & _
+               "FROM " & DBNameSpace & ".APBFACILITYINFORMATION " & _
                "where  APBFACILITYINFORMATION.STRAIRSNUMBER = '" & AirsNo & "' "
 
                 cmd = New OracleCommand(SQL, conn)
@@ -33893,7 +33893,7 @@ Public Class ISMPDataManagementTools
                     facilityName = dr("STRFACILITYNAME")
 
                     SQL = "Select * " & _
-                             "FROM " & connNameSpace & ".EISI " & _
+                             "FROM " & DBNameSpace & ".EISI " & _
                              "where STRINVENTORYYEAR = '" & EIYear & "' " & _
                              " And STRAIRSNUMBER = '" & AirsNo & "' "
 
@@ -33907,7 +33907,7 @@ Public Class ISMPDataManagementTools
                     If recExist = True Then
                         MsgBox("This facility (" & AirsNo & ") is already enrolled for " & EIYear & ".", MsgBoxStyle.Information, "EI Enrollment")
                     Else
-                        SQL2 = "Insert into " & connNameSpace & ".EISI " & _
+                        SQL2 = "Insert into " & DBNameSpace & ".EISI " & _
                         "(EISI.STRAIRSNUMBER, " & _
                         "EISI.STRFACILITYNAME, " & _
                         "EISI.STRTRANSACTIONDATE, " & _
@@ -33957,7 +33957,7 @@ Public Class ISMPDataManagementTools
             intAnswer = MessageBox.Show("Remove this facility (" & AirsNo & ") for " & EIYear & "?", "EI Enrollment", MessageBoxButtons.OKCancel, MessageBoxIcon.Information)
             Select Case intAnswer
                 Case Windows.Forms.DialogResult.OK
-                    sql = "delete from " & connNameSpace & ".EISI " & _
+                    sql = "delete from " & DBNameSpace & ".EISI " & _
                     "where EISI.STRINVENTORYYEAR = '" & EIYear & "'" & _
                     " And STROPTOUT is null" & _
                     " And STRAIRSNUMBER = '" & AirsNo & "'"
@@ -33974,7 +33974,7 @@ Public Class ISMPDataManagementTools
             'Dim intAnswer As Integer
             'intAnswer = MsgBox("Remove this facility?", MsgBoxStyle.OkCancel)
             'If intAnswer = vbOK Then
-            '    sql = "delete from " & connNameSpace & ".EISI " & _
+            '    sql = "delete from " & DBNameSpace & ".EISI " & _
             '        "where STRINVENTORYYEAR = '" & EIYear & "' " & _
             '        " And STRAIRSNUMBER = '" & AirsNo & "'"
             '    cmd = New OracleCommand(sql, conn)
@@ -34000,22 +34000,22 @@ Public Class ISMPDataManagementTools
             Dim year As String = txtEIYear.Text
 
 
-            SQL = "SELECT dt_NotInMailout.SchemaAIRS, " & connNameSpace & ".EISI.STRAIRSNUMBER, " & _
-            "" & connNameSpace & ".EISI.STRFACILITYNAME, " & _
-            "" & connNameSpace & ".EISI.STRCONTACTFIRSTNAME, " & _
-            "" & connNameSpace & ".EISI.STRCONTACTLASTNAME, " & _
-            "" & connNameSpace & ".EISI.STRCONTACTCOMPANYNAME, " & _
-            "" & connNameSpace & ".EISI.STRCONTACTEMAIL, " & _
-            "" & connNameSpace & ".EISI.STRCONTACTPHONENUMBER1 " & _
-            "from (Select " & connNameSpace & ".EISI.STRAIRSYEAR AS SchemaAIRS, " & _
-            "" & connNameSpace & ".EIMailout.STRAIRSYEAR AS MailoutAIRS" & _
-            " From " & connNameSpace & ".EIMailout, " & connNameSpace & ".EISI" & _
-            " Where " & connNameSpace & ".EIMailout.STRAIRSYEAR (+)= " & connNameSpace & ".EISI.STRAIRSYEAR " & _
-            "AND " & connNameSpace & ".EISI.STRINVENTORYYEAR=  '" & year & "' " & _
-            "AND " & connNameSpace & ".EISI.STROPTOUT IS NOT NULL) " & _
+            SQL = "SELECT dt_NotInMailout.SchemaAIRS, " & DBNameSpace & ".EISI.STRAIRSNUMBER, " & _
+            "" & DBNameSpace & ".EISI.STRFACILITYNAME, " & _
+            "" & DBNameSpace & ".EISI.STRCONTACTFIRSTNAME, " & _
+            "" & DBNameSpace & ".EISI.STRCONTACTLASTNAME, " & _
+            "" & DBNameSpace & ".EISI.STRCONTACTCOMPANYNAME, " & _
+            "" & DBNameSpace & ".EISI.STRCONTACTEMAIL, " & _
+            "" & DBNameSpace & ".EISI.STRCONTACTPHONENUMBER1 " & _
+            "from (Select " & DBNameSpace & ".EISI.STRAIRSYEAR AS SchemaAIRS, " & _
+            "" & DBNameSpace & ".EIMailout.STRAIRSYEAR AS MailoutAIRS" & _
+            " From " & DBNameSpace & ".EIMailout, " & DBNameSpace & ".EISI" & _
+            " Where " & DBNameSpace & ".EIMailout.STRAIRSYEAR (+)= " & DBNameSpace & ".EISI.STRAIRSYEAR " & _
+            "AND " & DBNameSpace & ".EISI.STRINVENTORYYEAR=  '" & year & "' " & _
+            "AND " & DBNameSpace & ".EISI.STROPTOUT IS NOT NULL) " & _
             "dt_NotInMailout, " & _
-            "" & connNameSpace & ".EISI " & _
-            "Where " & connNameSpace & ".EISI.STRAIRSYEAR = SchemaAIRS " & _
+            "" & DBNameSpace & ".EISI " & _
+            "Where " & DBNameSpace & ".EISI.STRAIRSYEAR = SchemaAIRS " & _
             "AND MailoutAIRS is NULL"
 
             dsViewCount = New DataSet
@@ -34068,12 +34068,12 @@ Public Class ISMPDataManagementTools
             Dim year As String = txtEIYear.Text
 
 
-            SQL = "SELECT " & connNameSpace & ".eiMailOut.STRAIRSNUMBER, " & _
-            "" & connNameSpace & ".eiMailOut.STRFACILITYNAME " & _
-            "from  " & connNameSpace & ".eImailout, " & connNameSpace & ".EISI " & _
-            "where " & connNameSpace & ".eImailout.STRINVENTORYYEAR = '" & year & "' " & _
-            "and " & connNameSpace & ".eImailout.STRAIRSYEAR = " & connNameSpace & ".EISI.STRAIRSYEAR(+) " & _
-            "and " & connNameSpace & ".EISI.STRAIRSYEAR is NULL"
+            SQL = "SELECT " & DBNameSpace & ".eiMailOut.STRAIRSNUMBER, " & _
+            "" & DBNameSpace & ".eiMailOut.STRFACILITYNAME " & _
+            "from  " & DBNameSpace & ".eImailout, " & DBNameSpace & ".EISI " & _
+            "where " & DBNameSpace & ".eImailout.STRINVENTORYYEAR = '" & year & "' " & _
+            "and " & DBNameSpace & ".eImailout.STRAIRSYEAR = " & DBNameSpace & ".EISI.STRAIRSYEAR(+) " & _
+            "and " & DBNameSpace & ".EISI.STRAIRSYEAR is NULL"
 
             dsViewCount = New DataSet
             daViewCount = New OracleDataAdapter(SQL, conn)
@@ -34113,20 +34113,20 @@ Public Class ISMPDataManagementTools
             Dim year As String = txtEIYear.Text
 
 
-            SQL = "SELECT " & connNameSpace & ".eiMailOut.STRAIRSNUMBER, " & _
-             "" & connNameSpace & ".eiMailOut.STRFACILITYNAME, " & _
-             "" & connNameSpace & ".eiMailOut.STRCONTACTFIRSTNAME, " & _
-             "" & connNameSpace & ".eiMailOut.STRCONTACTLASTNAME, " & _
-             "" & connNameSpace & ".eiMailOut.STRCONTACTCOMPANYname, " & _
-             "" & connNameSpace & ".eiMailOut.STRCONTACTADDRESS1, " & _
-             "" & connNameSpace & ".eiMailOut.STRCONTACTCITY, " & _
-             "" & connNameSpace & ".eiMailOut.STRCONTACTSTATE, " & _
-             "" & connNameSpace & ".eiMailOut.STRCONTACTZIPCODE, " & _
-              "" & connNameSpace & ".eiMailOut.STRCONTACTEMAIL " & _
-            "from  " & connNameSpace & ".eImailout, " & connNameSpace & ".EISI " & _
-             "where " & connNameSpace & ".eImailout.STRINVENTORYYEAR = '" & year & "' " & _
-             "and " & connNameSpace & ".eImailout.STRAIRSYEAR = " & connNameSpace & ".EISI.STRAIRSYEAR(+) " & _
-             "and " & connNameSpace & ".EISI.strOptOut is NULL"
+            SQL = "SELECT " & DBNameSpace & ".eiMailOut.STRAIRSNUMBER, " & _
+             "" & DBNameSpace & ".eiMailOut.STRFACILITYNAME, " & _
+             "" & DBNameSpace & ".eiMailOut.STRCONTACTFIRSTNAME, " & _
+             "" & DBNameSpace & ".eiMailOut.STRCONTACTLASTNAME, " & _
+             "" & DBNameSpace & ".eiMailOut.STRCONTACTCOMPANYname, " & _
+             "" & DBNameSpace & ".eiMailOut.STRCONTACTADDRESS1, " & _
+             "" & DBNameSpace & ".eiMailOut.STRCONTACTCITY, " & _
+             "" & DBNameSpace & ".eiMailOut.STRCONTACTSTATE, " & _
+             "" & DBNameSpace & ".eiMailOut.STRCONTACTZIPCODE, " & _
+              "" & DBNameSpace & ".eiMailOut.STRCONTACTEMAIL " & _
+            "from  " & DBNameSpace & ".eImailout, " & DBNameSpace & ".EISI " & _
+             "where " & DBNameSpace & ".eImailout.STRINVENTORYYEAR = '" & year & "' " & _
+             "and " & DBNameSpace & ".eImailout.STRAIRSYEAR = " & DBNameSpace & ".EISI.STRAIRSYEAR(+) " & _
+             "and " & DBNameSpace & ".EISI.strOptOut is NULL"
 
 
             dsViewCount = New DataSet
@@ -34184,14 +34184,14 @@ Public Class ISMPDataManagementTools
             Dim year As String = txtEIYear.Text
 
 
-            SQL = "SELECT " & connNameSpace & ".EISI.STRAIRSNUMBER, " & _
-            "" & connNameSpace & ".EISI.STRFACILITYNAME " & _
-           "from " & connNameSpace & ".EISI " & _
-                " where  not exists (select * from " & connNameSpace & ".EIMAILOUT " & _
-                " where " & connNameSpace & ".EISI.STRAIRSNUMBER = " & connNameSpace & ".EIMAILOUT.STRAIRSNUMBER" & _
+            SQL = "SELECT " & DBNameSpace & ".EISI.STRAIRSNUMBER, " & _
+            "" & DBNameSpace & ".EISI.STRFACILITYNAME " & _
+           "from " & DBNameSpace & ".EISI " & _
+                " where  not exists (select * from " & DBNameSpace & ".EIMAILOUT " & _
+                " where " & DBNameSpace & ".EISI.STRAIRSNUMBER = " & DBNameSpace & ".EIMAILOUT.STRAIRSNUMBER" & _
                 " and EISI.STRINVENTORYYEAR = EIMAILOUT.STRINVENTORYYEAR) " & _
-                " and " & connNameSpace & ".EISI.STRINVENTORYYEAR = '" & year & "' " & _
-                " and " & connNameSpace & ".EISI.STROPTOUT is null"
+                " and " & DBNameSpace & ".EISI.STRINVENTORYYEAR = '" & year & "' " & _
+                " and " & DBNameSpace & ".EISI.STROPTOUT is null"
 
             dsViewCount = New DataSet
             daViewCount = New OracleDataAdapter(SQL, conn)
@@ -34237,11 +34237,11 @@ Public Class ISMPDataManagementTools
                 MsgBox("Please choose a year to view!", MsgBoxStyle.Information, "EI Enrollment")
 
             Else
-                SQL = "SELECT " & connNameSpace & ".EISI.STRAIRSNUMBER, " & _
-        "" & connNameSpace & ".EISI.STRFACILITYNAME, " & _
-        "" & connNameSpace & ".EISI.STRTRANSACTIONDATE " & _
-        "from " & connNameSpace & ".EISI " & _
-        "where " & connNameSpace & ".EISI.STRINVENTORYYEAR = '" & year & "'"
+                SQL = "SELECT " & DBNameSpace & ".EISI.STRAIRSNUMBER, " & _
+        "" & DBNameSpace & ".EISI.STRFACILITYNAME, " & _
+        "" & DBNameSpace & ".EISI.STRTRANSACTIONDATE " & _
+        "from " & DBNameSpace & ".EISI " & _
+        "where " & DBNameSpace & ".EISI.STRINVENTORYYEAR = '" & year & "'"
 
                 dsViewCount = New DataSet
                 daViewCount = New OracleDataAdapter(SQL, conn)
@@ -34284,7 +34284,7 @@ Public Class ISMPDataManagementTools
 
         Try
             SQL = "Select * " & _
-            "FROM " & connNameSpace & ".EISI " & _
+            "FROM " & DBNameSpace & ".EISI " & _
             "where STRINVENTORYYEAR = '" & EIYear & "' " & _
             " And STRAIRSNUMBER = '" & AirsNo & "' "
 
@@ -34332,7 +34332,7 @@ Public Class ISMPDataManagementTools
 
         Try
             SQL = "Select * " & _
-            "FROM " & connNameSpace & ".ESSCHEMA " & _
+            "FROM " & DBNameSpace & ".ESSCHEMA " & _
             "where ESSCHEMA.INTESYEAR = '" & ESYear & "'"
 
             cmd = New OracleCommand(SQL, conn)
@@ -34346,7 +34346,7 @@ Public Class ISMPDataManagementTools
                 MsgBox("That year " & ESYear & " is already enrolled.", MsgBoxStyle.Information, "EI Enrollment")
             Else
                 SQL = "Select ESMAILOUT.STRAIRSNUMBER, ESMAILOUT.STRFACILITYNAME " & _
-                "FROM " & connNameSpace & ".ESMAILOUT " & _
+                "FROM " & DBNameSpace & ".ESMAILOUT " & _
                 "where ESMAILOUT.STRESYEAR = '" & ESYear & "'"
 
                 cmd = New OracleCommand(SQL, conn)
@@ -34359,7 +34359,7 @@ Public Class ISMPDataManagementTools
                     AirsNo = dr("strAirsNumber")
                     airsYear = AirsNo & ESYear
                     FacilityName = dr("STRFACILITYNAME")
-                    SQL2 = "Insert into " & connNameSpace & ".ESSCHEMA " & _
+                    SQL2 = "Insert into " & DBNameSpace & ".ESSCHEMA " & _
                     "(ESSCHEMA.STRAIRSNUMBER, " & _
                     "ESSCHEMA.STRFACILITYNAME, " & _
                     "ESSCHEMA.DATTRANSACTION, " & _
@@ -34400,7 +34400,7 @@ Public Class ISMPDataManagementTools
                 intAnswer = MessageBox.Show("Remove the enrollment?", "ES Enrollment", MessageBoxButtons.OKCancel, MessageBoxIcon.Information)
                 Select Case intAnswer
                     Case Windows.Forms.DialogResult.OK
-                        sql = "delete from " & connNameSpace & ".ESSCHEMA " & _
+                        sql = "delete from " & DBNameSpace & ".ESSCHEMA " & _
                         "where ESSCHEMA.INTESYEAR = '" & ESYear & "'"
                         cmd = New OracleCommand(sql, conn)
                         If conn.State = ConnectionState.Closed Then
@@ -34442,8 +34442,8 @@ Public Class ISMPDataManagementTools
 
         Try
 
-            SQL = "Select " & connNameSpace & ".ESSCHEMA.INTESYEAR " & _
-          "FROM " & connNameSpace & ".ESSCHEMA " & _
+            SQL = "Select " & DBNameSpace & ".ESSCHEMA.INTESYEAR " & _
+          "FROM " & DBNameSpace & ".ESSCHEMA " & _
           "where  ESSCHEMA.INTESYEAR = '" & ESYear & "' "
 
             cmd = New OracleCommand(SQL, conn)
@@ -34457,8 +34457,8 @@ Public Class ISMPDataManagementTools
             If recExist = True Then
 
 
-                SQL = "Select " & connNameSpace & ".APBFACILITYINFORMATION.STRFACILITYNAME " & _
-               "FROM " & connNameSpace & ".APBFACILITYINFORMATION " & _
+                SQL = "Select " & DBNameSpace & ".APBFACILITYINFORMATION.STRFACILITYNAME " & _
+               "FROM " & DBNameSpace & ".APBFACILITYINFORMATION " & _
                "where  APBFACILITYINFORMATION.STRAIRSNUMBER = '" & AirsNo & "' "
 
                 cmd = New OracleCommand(SQL, conn)
@@ -34473,7 +34473,7 @@ Public Class ISMPDataManagementTools
                     facilityName = dr("STRFACILITYNAME")
 
                     SQL = "Select * " & _
-                             "FROM " & connNameSpace & ".ESSCHEMA " & _
+                             "FROM " & DBNameSpace & ".ESSCHEMA " & _
                              "where ESSCHEMA.INTESYEAR = '" & ESYear & "' " & _
                              " And ESSCHEMA.STRAIRSNUMBER = '" & AirsNo & "' "
 
@@ -34487,7 +34487,7 @@ Public Class ISMPDataManagementTools
                     If recExist = True Then
                         MsgBox("This facility (" & AirsNo & ") is already enrolled for " & ESYear & ".", MsgBoxStyle.Information, "ES Enrollment")
                     Else
-                        SQL2 = "Insert into " & connNameSpace & ".ESSCHEMA " & _
+                        SQL2 = "Insert into " & DBNameSpace & ".ESSCHEMA " & _
                         "(ESSCHEMA.STRAIRSNUMBER, " & _
                         "ESSCHEMA.STRFACILITYNAME, " & _
                         "ESSCHEMA.DATTRANSACTION, " & _
@@ -34537,7 +34537,7 @@ Public Class ISMPDataManagementTools
             intAnswer = MessageBox.Show("Remove this facility (" & AirsNo & ") for " & ESYear & "?", "ES Enrollment", MessageBoxButtons.OKCancel, MessageBoxIcon.Information)
             Select Case intAnswer
                 Case Windows.Forms.DialogResult.OK
-                    sql = "delete from " & connNameSpace & ".ESSCHEMA " & _
+                    sql = "delete from " & DBNameSpace & ".ESSCHEMA " & _
                     "where ESSCHEMA.INTESYEAR = '" & ESYear & "'" & _
                     " And ESSCHEMA.STRAIRSNUMBER = '" & AirsNo & "'"
                     cmd = New OracleCommand(sql, conn)
@@ -34564,9 +34564,9 @@ Public Class ISMPDataManagementTools
 
         Try
             SQL = "Select strAIRSYear as RowCount " & _
-            "FROM " & connNameSpace & ".ESSCHEMA " & _
-            "where " & connNameSpace & ".ESSCHEMA.INTESYEAR = '" & ESYear & "' " & _
-            " And " & connNameSpace & ".ESSCHEMA.STRAIRSNUMBER = '" & AirsNo & "' "
+            "FROM " & DBNameSpace & ".ESSCHEMA " & _
+            "where " & DBNameSpace & ".ESSCHEMA.INTESYEAR = '" & ESYear & "' " & _
+            " And " & DBNameSpace & ".ESSCHEMA.STRAIRSNUMBER = '" & AirsNo & "' "
 
             cmd = New OracleCommand(SQL, conn)
             If conn.State = ConnectionState.Closed Then
@@ -34598,11 +34598,11 @@ Public Class ISMPDataManagementTools
                 MsgBox("Please choose a year to view!", MsgBoxStyle.Information, "ES Enrollment")
 
             Else
-                SQL = "SELECT " & connNameSpace & ".ESSCHEMA.STRAIRSNUMBER, " & _
-        "" & connNameSpace & ".ESSCHEMA.STRFACILITYNAME, " & _
-        "" & connNameSpace & ".ESSCHEMA.DATTRANSACTION " & _
-        "from " & connNameSpace & ".ESSCHEMA " & _
-        "where " & connNameSpace & ".ESSCHEMA.INTESYEAR = '" & year & "'"
+                SQL = "SELECT " & DBNameSpace & ".ESSCHEMA.STRAIRSNUMBER, " & _
+        "" & DBNameSpace & ".ESSCHEMA.STRFACILITYNAME, " & _
+        "" & DBNameSpace & ".ESSCHEMA.DATTRANSACTION " & _
+        "from " & DBNameSpace & ".ESSCHEMA " & _
+        "where " & DBNameSpace & ".ESSCHEMA.INTESYEAR = '" & year & "'"
 
                 dsViewCount = New DataSet
                 daViewCount = New OracleDataAdapter(SQL, conn)
@@ -34646,22 +34646,22 @@ Public Class ISMPDataManagementTools
             Dim year As String = txtESYear.Text
             Dim intyear As Integer = Int(year)
 
-            SQL = "SELECT " & connNameSpace & ".esSchema.STRAIRSNUMBER, " & _
-            "" & connNameSpace & ".esSchema.STRFACILITYNAME, " & _
-            "" & connNameSpace & ".esSchema.STRCONTACTFIRSTNAME, " & _
-            "" & connNameSpace & ".esSchema.STRCONTACTLASTNAME, " & _
-            "" & connNameSpace & ".esSchema.STRCONTACTCOMPANY, " & _
-            "" & connNameSpace & ".esSchema.STRCONTACTEMAIL, " & _
-            "" & connNameSpace & ".esSchema.STRCONTACTPHONENUMBER " & _
-            "from (Select " & connNameSpace & ".ESSCHEMA.STRAIRSNUMBER AS SchemaAIRS, " & _
-            "" & connNameSpace & ".ESMAILOUT.STRAIRSNUMBER AS MailoutAIRS" & _
-            " From " & connNameSpace & ".ESMailout, " & connNameSpace & ".ESSCHEMA" & _
-            " Where " & connNameSpace & ".ESMAILOUT.STRAIRSYEAR (+)= " & connNameSpace & ".ESSCHEMA.STRAIRSYEAR " & _
+            SQL = "SELECT " & DBNameSpace & ".esSchema.STRAIRSNUMBER, " & _
+            "" & DBNameSpace & ".esSchema.STRFACILITYNAME, " & _
+            "" & DBNameSpace & ".esSchema.STRCONTACTFIRSTNAME, " & _
+            "" & DBNameSpace & ".esSchema.STRCONTACTLASTNAME, " & _
+            "" & DBNameSpace & ".esSchema.STRCONTACTCOMPANY, " & _
+            "" & DBNameSpace & ".esSchema.STRCONTACTEMAIL, " & _
+            "" & DBNameSpace & ".esSchema.STRCONTACTPHONENUMBER " & _
+            "from (Select " & DBNameSpace & ".ESSCHEMA.STRAIRSNUMBER AS SchemaAIRS, " & _
+            "" & DBNameSpace & ".ESMAILOUT.STRAIRSNUMBER AS MailoutAIRS" & _
+            " From " & DBNameSpace & ".ESMailout, " & DBNameSpace & ".ESSCHEMA" & _
+            " Where " & DBNameSpace & ".ESMAILOUT.STRAIRSYEAR (+)= " & DBNameSpace & ".ESSCHEMA.STRAIRSYEAR " & _
             "AND ESSCHEMA.INTESYEAR=  '" & intyear & "' " & _
-            "AND " & connNameSpace & ".ESSCHEMA.STROPTOUT IS NOT NULL) " & _
+            "AND " & DBNameSpace & ".ESSCHEMA.STROPTOUT IS NOT NULL) " & _
             "dt_NotInMailout, " & _
-            "" & connNameSpace & ".ESSCHEMA " & _
-            "Where " & connNameSpace & ".ESSCHEMA.STRAIRSNUMBER = SchemaAIRS " & _
+            "" & DBNameSpace & ".ESSCHEMA " & _
+            "Where " & DBNameSpace & ".ESSCHEMA.STRAIRSNUMBER = SchemaAIRS " & _
             "AND MailoutAIRS is NULL"
 
             dsViewCount = New DataSet
@@ -34715,13 +34715,13 @@ Public Class ISMPDataManagementTools
             Dim year As String = txtESYear.Text
             Dim intYear As Integer = Int(year)
 
-            SQL = "SELECT " & connNameSpace & ".ESMAILOUT.STRAIRSNUMBER, " & _
-            "" & connNameSpace & ".ESMAILOUT.STRFACILITYNAME " & _
-            "from " & connNameSpace & ".esSchema, " & connNameSpace & ".esmailout " & _
-            "where " & connNameSpace & ".esMailOut.strESyear = '" & intYear & "' " & _
-            "and " & connNameSpace & ".esSchema.STRAIRSYEAR is null " & _
-            "and " & connNameSpace & ".ESMAILOUT.STRAIRSYEAR = " & connNameSpace & ".ESSCHEMA.STRAIRSYEAR(+) " & _
-            "order by " & connNameSpace & ".ESMAILOUT.STRFACILITYNAME"
+            SQL = "SELECT " & DBNameSpace & ".ESMAILOUT.STRAIRSNUMBER, " & _
+            "" & DBNameSpace & ".ESMAILOUT.STRFACILITYNAME " & _
+            "from " & DBNameSpace & ".esSchema, " & DBNameSpace & ".esmailout " & _
+            "where " & DBNameSpace & ".esMailOut.strESyear = '" & intYear & "' " & _
+            "and " & DBNameSpace & ".esSchema.STRAIRSYEAR is null " & _
+            "and " & DBNameSpace & ".ESMAILOUT.STRAIRSYEAR = " & DBNameSpace & ".ESSCHEMA.STRAIRSYEAR(+) " & _
+            "order by " & DBNameSpace & ".ESMAILOUT.STRFACILITYNAME"
 
             dsViewCount = New DataSet
             daViewCount = New OracleDataAdapter(SQL, conn)
@@ -34760,21 +34760,21 @@ Public Class ISMPDataManagementTools
             Dim year As String = txtESYear.Text
             Dim intYear As Integer = Int(year)
 
-            SQL = "SELECT " & connNameSpace & ".esMailOut.STRAIRSNUMBER, " & _
-             "" & connNameSpace & ".esMailOut.STRFACILITYNAME, " & _
-             "" & connNameSpace & ".esMailOut.STRCONTACTFIRSTNAME, " & _
-             "" & connNameSpace & ".esMailOut.STRCONTACTLASTNAME, " & _
-             "" & connNameSpace & ".esMailOut.STRCONTACTCOMPANYname, " & _
-             "" & connNameSpace & ".esMailOut.STRCONTACTADDRESS1, " & _
-             "" & connNameSpace & ".esMailOut.STRCONTACTCITY, " & _
-             "" & connNameSpace & ".esMailOut.STRCONTACTSTATE, " & _
-             "" & connNameSpace & ".esMailOut.STRCONTACTZIPCODE, " & _
-             "" & connNameSpace & ".esMailOut.STRCONTACTEMAIL " & _
-            "from  " & connNameSpace & ".esmailout, " & connNameSpace & ".ESSchema " & _
-            "where " & connNameSpace & ".esmailout.strESYEAR = '" & intYear & "' " & _
-            "and " & connNameSpace & ".esmailout.STRAIRSYEAR = " & connNameSpace & ".ESSchema.STRAIRSYEAR(+) " & _
-            "and " & connNameSpace & ".ESSchema.strOptOut is NULL " & _
-            "order by " & connNameSpace & ".esSchema.STRFACILITYNAME"
+            SQL = "SELECT " & DBNameSpace & ".esMailOut.STRAIRSNUMBER, " & _
+             "" & DBNameSpace & ".esMailOut.STRFACILITYNAME, " & _
+             "" & DBNameSpace & ".esMailOut.STRCONTACTFIRSTNAME, " & _
+             "" & DBNameSpace & ".esMailOut.STRCONTACTLASTNAME, " & _
+             "" & DBNameSpace & ".esMailOut.STRCONTACTCOMPANYname, " & _
+             "" & DBNameSpace & ".esMailOut.STRCONTACTADDRESS1, " & _
+             "" & DBNameSpace & ".esMailOut.STRCONTACTCITY, " & _
+             "" & DBNameSpace & ".esMailOut.STRCONTACTSTATE, " & _
+             "" & DBNameSpace & ".esMailOut.STRCONTACTZIPCODE, " & _
+             "" & DBNameSpace & ".esMailOut.STRCONTACTEMAIL " & _
+            "from  " & DBNameSpace & ".esmailout, " & DBNameSpace & ".ESSchema " & _
+            "where " & DBNameSpace & ".esmailout.strESYEAR = '" & intYear & "' " & _
+            "and " & DBNameSpace & ".esmailout.STRAIRSYEAR = " & DBNameSpace & ".ESSchema.STRAIRSYEAR(+) " & _
+            "and " & DBNameSpace & ".ESSchema.strOptOut is NULL " & _
+            "order by " & DBNameSpace & ".esSchema.STRFACILITYNAME"
 
             dsViewCount = New DataSet
             daViewCount = New OracleDataAdapter(SQL, conn)
@@ -34829,15 +34829,15 @@ Public Class ISMPDataManagementTools
             Dim year As String = txtESYear.Text
             Dim intYear As Integer = Int(year)
 
-            SQL = "SELECT " & connNameSpace & ".esSchema.STRAIRSNUMBER, " & _
-                "" & connNameSpace & ".esSchema.STRFACILITYNAME " & _
-                "from " & connNameSpace & ".ESSchema " & _
-                " where  not exists (select * from " & connNameSpace & ".ESMAILOUT " & _
-                " where " & connNameSpace & ".ESSchema.STRAIRSNUMBER = " & connNameSpace & ".ESMAILOUT.STRAIRSNUMBER" & _
+            SQL = "SELECT " & DBNameSpace & ".esSchema.STRAIRSNUMBER, " & _
+                "" & DBNameSpace & ".esSchema.STRFACILITYNAME " & _
+                "from " & DBNameSpace & ".ESSchema " & _
+                " where  not exists (select * from " & DBNameSpace & ".ESMAILOUT " & _
+                " where " & DBNameSpace & ".ESSchema.STRAIRSNUMBER = " & DBNameSpace & ".ESMAILOUT.STRAIRSNUMBER" & _
                 " and ESSchema.INTESYEAR = ESMAILOUT.strESYEAR) " & _
-                " and " & connNameSpace & ".ESSchema.INTESYEAR = '" & intYear & "' " & _
-                " and " & connNameSpace & ".ESSchema.STROPTOUT is null   " & _
-                "order by " & connNameSpace & ".esSchema.STRFACILITYNAME"
+                " and " & DBNameSpace & ".ESSchema.INTESYEAR = '" & intYear & "' " & _
+                " and " & DBNameSpace & ".ESSchema.STROPTOUT is null   " & _
+                "order by " & DBNameSpace & ".esSchema.STRFACILITYNAME"
 
 
             dsViewCount = New DataSet
@@ -34876,9 +34876,9 @@ Public Class ISMPDataManagementTools
             Dim EItype As String = cboEItype.SelectedItem
             Dim EItypeYear As String = lblEITypeYear.Text
 
-            SQL = "SELECT " & connNameSpace & ".EITHRESHOLDYEARS.STREITYPE " & _
-                   "from  " & connNameSpace & ".EITHRESHOLDYEARS  " & _
-          "where " & connNameSpace & ".EITHRESHOLDYEARS.STRYEAR = '" & EItypeYear & "' "
+            SQL = "SELECT " & DBNameSpace & ".EITHRESHOLDYEARS.STREITYPE " & _
+                   "from  " & DBNameSpace & ".EITHRESHOLDYEARS  " & _
+          "where " & DBNameSpace & ".EITHRESHOLDYEARS.STRYEAR = '" & EItypeYear & "' "
             cmd = New OracleCommand(SQL, conn)
             If conn.State = ConnectionState.Closed Then
                 conn.Open()
@@ -34892,12 +34892,12 @@ Public Class ISMPDataManagementTools
                 End If
                 EItype = cboEItype.SelectedItem
             End While
-            SQL = "SELECT " & connNameSpace & ".EITHRESHOLDS.STRPOLLUTANT, " & _
-            "" & connNameSpace & ".EITHRESHOLDS.NUMTHRESHOLD, " & _
-                "" & connNameSpace & ".EITHRESHOLDS.NUMTHRESHOLDNAA " & _
-            "from  " & connNameSpace & ".EITHRESHOLDS  " & _
-            "where " & connNameSpace & ".EITHRESHOLDS.STRTYPE = '" & EItype & "' " & _
-             " order by " & connNameSpace & ".EITHRESHOLDS.STRPOLLUTANT"
+            SQL = "SELECT " & DBNameSpace & ".EITHRESHOLDS.STRPOLLUTANT, " & _
+            "" & DBNameSpace & ".EITHRESHOLDS.NUMTHRESHOLD, " & _
+                "" & DBNameSpace & ".EITHRESHOLDS.NUMTHRESHOLDNAA " & _
+            "from  " & DBNameSpace & ".EITHRESHOLDS  " & _
+            "where " & DBNameSpace & ".EITHRESHOLDS.STRTYPE = '" & EItype & "' " & _
+             " order by " & DBNameSpace & ".EITHRESHOLDS.STRPOLLUTANT"
 
             dsViewCount = New DataSet
             daViewCount = New OracleDataAdapter(SQL, conn)
@@ -34944,8 +34944,8 @@ Public Class ISMPDataManagementTools
 
         Try
 
-            SQL = "Select " & connNameSpace & ".EITHRESHOLDYEARS.STRYEAR " & _
-          "FROM " & connNameSpace & ".EITHRESHOLDYEARS " & _
+            SQL = "Select " & DBNameSpace & ".EITHRESHOLDYEARS.STRYEAR " & _
+          "FROM " & DBNameSpace & ".EITHRESHOLDYEARS " & _
           "where  EITHRESHOLDYEARS.STRYEAR = '" & EItypeYear & "' "
 
             cmd = New OracleCommand(SQL, conn)
@@ -34956,9 +34956,9 @@ Public Class ISMPDataManagementTools
             recExist = dr.Read
 
             If recExist = True Then
-                SQL = "Update " & connNameSpace & ".EITHRESHOLDYEARS set " & _
+                SQL = "Update " & DBNameSpace & ".EITHRESHOLDYEARS set " & _
                 "STREITYPE = '" & EItype & "' " & _
-                "where " & connNameSpace & ".EITHRESHOLDYEARS.STRYEAR = '" & EItypeYear & "' "
+                "where " & DBNameSpace & ".EITHRESHOLDYEARS.STRYEAR = '" & EItypeYear & "' "
 
                 cmd = New OracleCommand(SQL, conn)
                 If conn.State = ConnectionState.Closed Then
@@ -34970,7 +34970,7 @@ Public Class ISMPDataManagementTools
 
             Else
 
-                SQL = "Insert into " & connNameSpace & ".EITHRESHOLDYEARS " & _
+                SQL = "Insert into " & DBNameSpace & ".EITHRESHOLDYEARS " & _
                  "(STRYEAR, STREITYPE ) " & _
                  "values " & _
                  "('" & EItypeYear & "', '" & EItype & "') "
@@ -34994,9 +34994,9 @@ Public Class ISMPDataManagementTools
             If txtNewEIType.Text = "" Then
                 MsgBox("Please enter new EI type!", MsgBoxStyle.Information, "EI Tools")
             Else
-                SQL = "Select " & connNameSpace & ".EITHRESHOLDS.STRTYPE " & _
-                                " FROM " & connNameSpace & ".EITHRESHOLDS " & _
-                                "where   " & connNameSpace & ".EITHRESHOLDS.STRTYPE = '" & Replace(EItype2, "'", "''") & "' "
+                SQL = "Select " & DBNameSpace & ".EITHRESHOLDS.STRTYPE " & _
+                                " FROM " & DBNameSpace & ".EITHRESHOLDS " & _
+                                "where   " & DBNameSpace & ".EITHRESHOLDS.STRTYPE = '" & Replace(EItype2, "'", "''") & "' "
 
                 cmd = New OracleCommand(SQL, conn)
                 If conn.State = ConnectionState.Closed Then
@@ -35009,8 +35009,8 @@ Public Class ISMPDataManagementTools
                 If recExist = True Then
                     MsgBox("EI type already exist. Please enter new type! ", MsgBoxStyle.Information, "EI Tools")
                 Else
-                    SQL = "Select distinct(" & connNameSpace & ".EITHRESHOLDS.STRPOLLUTANT) as Pollutant " & _
-                   " FROM " & connNameSpace & ".EITHRESHOLDS "
+                    SQL = "Select distinct(" & DBNameSpace & ".EITHRESHOLDS.STRPOLLUTANT) as Pollutant " & _
+                   " FROM " & DBNameSpace & ".EITHRESHOLDS "
 
                     cmd = New OracleCommand(SQL, conn)
                     If conn.State = ConnectionState.Closed Then
@@ -35053,8 +35053,8 @@ Public Class ISMPDataManagementTools
 
 
                 SQL = "Select * " & _
-                    " FROM " & connNameSpace & ".EITHRESHOLDS " & _
-                    "where   " & connNameSpace & ".EITHRESHOLDS.STRTYPE = '" & Replace(EItype2, "'", "''") & "' "
+                    " FROM " & DBNameSpace & ".EITHRESHOLDS " & _
+                    "where   " & DBNameSpace & ".EITHRESHOLDS.STRTYPE = '" & Replace(EItype2, "'", "''") & "' "
 
                 dsViewCount = New DataSet
                 daViewCount = New OracleDataAdapter(SQL, conn)
@@ -35118,8 +35118,8 @@ Public Class ISMPDataManagementTools
             Dim EItype2 As String = cboEIType2.SelectedItem
 
             SQL = "Select * " & _
-                " FROM " & connNameSpace & ".EITHRESHOLDS " & _
-                "where   " & connNameSpace & ".EITHRESHOLDS.STRTYPE = '" & Replace(EItype2, "'", "''") & "' "
+                " FROM " & DBNameSpace & ".EITHRESHOLDS " & _
+                "where   " & DBNameSpace & ".EITHRESHOLDS.STRTYPE = '" & Replace(EItype2, "'", "''") & "' "
 
 
             dsViewCount = New DataSet
@@ -35166,7 +35166,7 @@ Public Class ISMPDataManagementTools
                     lblFacilityName.Text = "Facility Name"
                     airsno = mtbAIRSNumber.Text
                     SQL = "Select strFacilityName " & _
-                    "from " & connNameSpace & ".APBFacilityInformation " & _
+                    "from " & DBNameSpace & ".APBFacilityInformation " & _
                     "where strAIRSNumber = '0413" & airsno & "' "
                     cmd = New OracleCommand(SQL, conn)
                     If conn.State = ConnectionState.Closed Then

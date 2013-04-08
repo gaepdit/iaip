@@ -785,7 +785,7 @@ Public Class SSCPEnforcementChecklist
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -827,7 +827,7 @@ Public Class SSCPEnforcementChecklist
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -851,10 +851,10 @@ Public Class SSCPEnforcementChecklist
                  "and strCountyCode = '" & Mid(txtAIRSNumber.Text, 1, 3) & "' " & _
                  "and " & DBNameSpace & ".APBFacilityInformation.strairsnumber = " & DBNameSpace & ".APBHeaderData.strairsnumber"
 
-            cmd = New OracleCommand(SQL, DBConn)
+            cmd = New OracleCommand(SQL, Conn)
 
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -876,7 +876,7 @@ Public Class SSCPEnforcementChecklist
                 AddAirProgramCodes(dr.Item("strAirProgramCodes"))
             End If
 
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -886,9 +886,9 @@ Public Class SSCPEnforcementChecklist
                     "from " & DBNameSpace & ".SSCP_AuditedEnforcement " & _
                     "where strTrackingNumber= '" & txtTrackingNumber.Text & "'"
 
-                    cmd = New OracleCommand(SQL, DBConn)
-                    If DBConn.State = ConnectionState.Closed Then
-                        DBConn.Open()
+                    cmd = New OracleCommand(SQL, Conn)
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     recExist = dr.Read
@@ -902,7 +902,7 @@ Public Class SSCPEnforcementChecklist
                         EnforcementNumber = "N/A"
                     End If
                     dr.Close()
-                    If DBConn.State = ConnectionState.Open Then
+                    If Conn.State = ConnectionState.Open Then
                         'conn.close()
                     End If
                 Else
@@ -917,9 +917,9 @@ Public Class SSCPEnforcementChecklist
                     SQL = "Select strTrackingNumber " & _
                                  "from " & DBNameSpace & ".SSCP_AuditedEnforcement " & _
                                  "where strEnforcementNumber= '" & txtEnforcementNumber.Text & "'"
-                    cmd = New OracleCommand(SQL, DBConn)
-                    If DBConn.State = ConnectionState.Closed Then
-                        DBConn.Open()
+                    cmd = New OracleCommand(SQL, Conn)
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     recExist = dr.Read
@@ -933,7 +933,7 @@ Public Class SSCPEnforcementChecklist
                         TrackingNumber = "N/A"
                     End If
                     dr.Close()
-                    If DBConn.State = ConnectionState.Open Then
+                    If Conn.State = ConnectionState.Open Then
                         'conn.close()
                     End If
                 Else
@@ -959,9 +959,9 @@ Public Class SSCPEnforcementChecklist
                 "where " & DBNameSpace & ".EPDUserProfiles.numUserID = " & DBNameSpace & ".SSCP_AuditedEnforcement.numStaffResponsible " & _
                 "and " & DBNameSpace & ".SSCP_AuditedEnforcement.strEnforcementNumber = '" & EnforcementNumber & "' "
 
-                cmd = New OracleCommand(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -978,9 +978,9 @@ Public Class SSCPEnforcementChecklist
                     "from " & DBNameSpace & ".EPDUserProfiles, " & DBNameSpace & ".SSCPItemMaster " & _
                     "where " & DBNameSpace & ".EPDUserProfiles.numUserID = " & DBNameSpace & ".SSCPItemMaster.strResponsibleStaff " & _
                     "and " & DBNameSpace & ".SSCPItemMaster.strTrackingNumber = '" & TrackingNumber & "' "
-                    cmd = New OracleCommand(SQL, DBConn)
-                    If DBConn.State = ConnectionState.Closed Then
-                        DBConn.Open()
+                    cmd = New OracleCommand(SQL, Conn)
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     recExist = dr.Read
@@ -1001,7 +1001,7 @@ Public Class SSCPEnforcementChecklist
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1062,7 +1062,7 @@ Public Class SSCPEnforcementChecklist
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1131,7 +1131,7 @@ Public Class SSCPEnforcementChecklist
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1177,9 +1177,9 @@ Public Class SSCPEnforcementChecklist
                 End If
                 'If chbNotifications.Checked = True Then
                 '    If SQLCount <> 0 Then
-                '        SQLLine = SQLLine & "OR " & connNameSpace & ".SSCPItemMaster.strEventType = '05' "
+                '        SQLLine = SQLLine & "OR " & DBNameSpace & ".SSCPItemMaster.strEventType = '05' "
                 '    Else
-                '        SQLLine = SQLLine & "" & connNameSpace & ".SSCPItemMaster.strEventType = '05' "
+                '        SQLLine = SQLLine & "" & DBNameSpace & ".SSCPItemMaster.strEventType = '05' "
                 '    End If
                 '    SQLCount += 1
                 'End If
@@ -1225,20 +1225,20 @@ Public Class SSCPEnforcementChecklist
             SQL = SQL & SQLLine & "Order by datReceivedDate DESC, strTrackingNumber DESC "
         End If
 
-        cmd = New OracleCommand(SQL, DBConn)
+        cmd = New OracleCommand(SQL, Conn)
 
         dsWorkEnTry = New DataSet
 
         daWorkEnTry = New OracleDataAdapter(cmd)
-        If DBConn.State = ConnectionState.Closed Then
-            DBConn.Open()
+        If Conn.State = ConnectionState.Closed Then
+            Conn.Open()
         End If
 
         daWorkEnTry.Fill(dsWorkEnTry, "tblWorkEnTry")
         dgrComplianceEvents.DataSource = dsWorkEnTry
         dgrComplianceEvents.DataMember = "tblWorkEnTry"
 
-        If DBConn.State = ConnectionState.Open Then
+        If Conn.State = ConnectionState.Open Then
             'conn.close()
         End If
         txtWorkCount.Text = dsWorkEnTry.Tables(0).Rows.Count
@@ -1275,7 +1275,7 @@ Public Class SSCPEnforcementChecklist
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1289,7 +1289,7 @@ Public Class SSCPEnforcementChecklist
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1308,7 +1308,7 @@ Public Class SSCPEnforcementChecklist
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1343,7 +1343,7 @@ Public Class SSCPEnforcementChecklist
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1356,7 +1356,7 @@ Public Class SSCPEnforcementChecklist
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1396,7 +1396,7 @@ Public Class SSCPEnforcementChecklist
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1414,7 +1414,7 @@ Public Class SSCPEnforcementChecklist
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try

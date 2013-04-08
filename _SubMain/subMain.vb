@@ -19,14 +19,15 @@ Module subMain
 
     Friend PrdConnString As String = "Data Source = PRD; User ID = AIRBRANCH_APP_USER; Password = " & SimpleCrypt("ÁÚ·Ú±Ï") & ";"
     'Public TestConnString As String = "Data Source = TEST; User ID = AIRBRANCH_APP_USER; Password = " & SimpleCrypt("¡…“¡––’”≈“∞≥") & ";"
-    Public DevConnString As String = "Data Source = DEV; User ID = AIRBRANCH; Password = " & SimpleCrypt("ÛÌÔÁ·ÏÂÚÙ") & ";"
+    Friend DevConnString As String = "Data Source = DEV; User ID = AIRBRANCH; Password = " & SimpleCrypt("ÛÌÔÁ·ÏÂÚÙ") & ";"
+    Friend CurrentConnString As String = PrdConnString
 
     Public TVProjectConnString As String = "Data Source = leia.dnr.state.ga.us:1521/DEV; User ID = airtvproject; Password = airproject;"
     Public TVApplicationConnString As String = "Data Source = leia.dnr.state.ga.us:1521/DEV; User ID = airtvapplication; Password = airapp;"
 
-    Public DBConn As New OracleConnection(PrdConnString)
-    Public DBConnTVProject As New OracleConnection(TVProjectConnString)
-    Public DBConnTVApplication As New OracleConnection(TVApplicationConnString)
+    Public Conn As New OracleConnection(PrdConnString)
+    Public ConnTVProject As New OracleConnection(TVProjectConnString)
+    Public ConnTVApplication As New OracleConnection(TVApplicationConnString)
 
     Public PRDCRLogIn As String = "AirBranch_App_User"
     Public PRDCRPassWord As String = SimpleCrypt("ÁÚ·Ú±Ï")
@@ -306,9 +307,9 @@ Module subMain
             "'" & Replace(ErrorLocation, "'", "''") & "', '" & Replace(ErrorMess, "'", "''") & "', " & _
             "sysdate) "
 
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
 
             dr = cmd.ExecuteReader

@@ -56,13 +56,13 @@ Public Class IAIPEditSubParts
             dsPart63 = New DataSet
             dsSIP = New DataSet
 
-            daPart60 = New OracleDataAdapter(SQL, DBConn)
-            daPart61 = New OracleDataAdapter(SQL2, DBConn)
-            daPart63 = New OracleDataAdapter(SQL3, DBConn)
-            daSIP = New OracleDataAdapter(SQL4, DBConn)
+            daPart60 = New OracleDataAdapter(SQL, Conn)
+            daPart61 = New OracleDataAdapter(SQL2, Conn)
+            daPart63 = New OracleDataAdapter(SQL3, Conn)
+            daSIP = New OracleDataAdapter(SQL4, Conn)
 
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
 
             daPart60.Fill(dsPart60, "Part60")
@@ -274,9 +274,9 @@ Public Class IAIPEditSubParts
                 "where " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSnumber " & _
                 "and " & DBNameSpace & ".APBFacilityInformation.strAIRSnumber = '0413" & txtAIRSNumber.Text & "'"
 
-                cmd = New OracleCommand(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -311,9 +311,9 @@ Public Class IAIPEditSubParts
                 "and Active = '1' " & _
                 "order by strSubPart "
 
-                cmd = New OracleCommand(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -355,11 +355,11 @@ Public Class IAIPEditSubParts
                 '    SQL = "Select " & _
                 '    "strFacilityName, strSubPartKey,  " & _
                 '    "strSubPart, strAirProgramCodes  " & _
-                '    "from " & connNameSpace & ".APBFacilityInformation, " & connNameSpace & ".APBSubpartData,  " & _
-                '    "" & connNameSpace & ".APBHeaderData " & _
-                '    "where " & connNameSpace & ".APBFacilityInformation.strAIRSnumber = " & connNameSpace & ".APBSubpartData.strAirsNumber (+)  " & _
-                '    "and " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSnumber " & _
-                '    "and " & connNameSpace & ".APBFacilityInformation.strAIRSnumber = '0413" & txtAIRSNumber.Text & "' " & _
+                '    "from " & DBNameSpace & ".APBFacilityInformation, " & DBNameSpace & ".APBSubpartData,  " & _
+                '    "" & DBNameSpace & ".APBHeaderData " & _
+                '    "where " & DBNameSpace & ".APBFacilityInformation.strAIRSnumber = " & DBNameSpace & ".APBSubpartData.strAirsNumber (+)  " & _
+                '    "and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSnumber " & _
+                '    "and " & DBNameSpace & ".APBFacilityInformation.strAIRSnumber = '0413" & txtAIRSNumber.Text & "' " & _
                 '    "and Active = '1' " & _
                 '    "order by strSubPart "
                 '    'End If
@@ -455,9 +455,9 @@ Public Class IAIPEditSubParts
             SQL = "Select strDescription " & _
             "from " & DBNameSpace & ".LookupSubPartSIP " & _
             "where strSubPart = '" & SubPart & "' "
-            cmd2 = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd2 = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr2 = cmd2.ExecuteReader
             While dr2.Read
@@ -484,9 +484,9 @@ Public Class IAIPEditSubParts
             SQL = "Select strDescription " & _
             "from " & DBNameSpace & ".LookupSubPart60 " & _
             "where strSubPart = '" & SubPart & "' "
-            cmd2 = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd2 = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr2 = cmd2.ExecuteReader
             While dr2.Read
@@ -509,9 +509,9 @@ Public Class IAIPEditSubParts
             SQL = "Select strDescription " & _
                        "from " & DBNameSpace & ".LookupSubPart61 " & _
                        "where strSubPart = '" & SubPart & "' "
-            cmd2 = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd2 = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr2 = cmd2.ExecuteReader
             While dr2.Read
@@ -534,9 +534,9 @@ Public Class IAIPEditSubParts
             SQL = "Select strDescription " & _
                        "from " & DBNameSpace & ".LookupSubPart63 " & _
                        "where strSubPart = '" & SubPart & "' "
-            cmd2 = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd2 = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr2 = cmd2.ExecuteReader
             While dr2.Read
@@ -562,9 +562,9 @@ Public Class IAIPEditSubParts
             "where strSubpartKey = '0413" & txtAIRSNumber.Text & "0' " & _
             "and strSubpart = '" & cboSIPSubpart.SelectedValue & "' "
 
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             recExist = dr.Read
@@ -584,9 +584,9 @@ Public Class IAIPEditSubParts
                 "'" & OracleDate & "', '1', " & _
                 "'" & OracleDate & "') "
             End If
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -597,9 +597,9 @@ Public Class IAIPEditSubParts
             "strUpdateStatus = 'C' " & _
             "where strAirPollutantKey = '0413" & txtAIRSNumber.Text & "0' " & _
             "and strUpdateStatus = 'N' "
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -608,7 +608,7 @@ Public Class IAIPEditSubParts
             '     
 
             '    SQL = "Select strSubPart " & _
-            '    "from " & connNameSpace & ".APBSubpartData " & _
+            '    "from " & DBNameSpace & ".APBSubpartData " & _
             '    "where strSubPartKey = '0413" & txtAIRSNumber.Text & "0' " & _
             '    "and strSubPart = '" & cboSIPSubpart.SelectedValue & "' "
 
@@ -620,7 +620,7 @@ Public Class IAIPEditSubParts
             '    recExist = dr.Read
             '    dr.Close()
             '    If recExist = False Then
-            '        SQL = "Insert into " & connNameSpace & ".APBSubpartData " & _
+            '        SQL = "Insert into " & DBNameSpace & ".APBSubpartData " & _
             '        "values " & _
             '        "('0413" & txtAIRSNumber.Text & "', '0413" & txtAIRSNumber.Text & "0', " & _
             '        "'" & cboSIPSubpart.SelectedValue & "', '" & UserGCode & "', " & _
@@ -632,7 +632,7 @@ Public Class IAIPEditSubParts
             '        dr = cmd.ExecuteReader
             '        dr.Close()
 
-            '        SQL = "update " & connNameSpace & ".AFSAirPollutantData set " & _
+            '        SQL = "update " & DBNameSpace & ".AFSAirPollutantData set " & _
             '        "strUpdateStatus = 'C', " & _
             '        "strModifingPerson = '" & UserGCode & "', " & _
             '        "datModifingDate = '" & OracleDate & "' " & _
@@ -667,9 +667,9 @@ Public Class IAIPEditSubParts
             "where strSubpartKey = '0413" & txtAIRSNumber.Text & "9' " & _
             "and strSubpart = '" & cboNSPSSubpart.SelectedValue & "' "
 
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             recExist = dr.Read
@@ -689,9 +689,9 @@ Public Class IAIPEditSubParts
                 "'" & OracleDate & "', '1', " & _
                 "'" & OracleDate & "') "
             End If
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -702,9 +702,9 @@ Public Class IAIPEditSubParts
             "strUpdateStatus = 'C' " & _
             "where strAirPollutantKey = '0413" & txtAIRSNumber.Text & "9' " & _
             "and strUpdateStatus = 'N' "
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -713,7 +713,7 @@ Public Class IAIPEditSubParts
             ' 
 
             'SQL = "Select strSubPart " & _
-            '"from " & connNameSpace & ".APBSubpartData " & _
+            '"from " & DBNameSpace & ".APBSubpartData " & _
             '"where strSubPartKey = '0413" & txtAIRSNumber.Text & "9' " & _
             '"and strSubPart = '" & cboNSPSSubpart.SelectedValue & "' "
 
@@ -725,7 +725,7 @@ Public Class IAIPEditSubParts
             'recExist = dr.Read
             'dr.Close()
             'If recExist = False Then
-            '    SQL = "Insert into " & connNameSpace & ".APBSubpartData " & _
+            '    SQL = "Insert into " & DBNameSpace & ".APBSubpartData " & _
             '    "values " & _
             '    "('0413" & txtAIRSNumber.Text & "', '0413" & txtAIRSNumber.Text & "9', " & _
             '    "'" & cboNSPSSubpart.SelectedValue & "', '" & UserGCode & "', " & _
@@ -737,7 +737,7 @@ Public Class IAIPEditSubParts
             '    dr = cmd.ExecuteReader
             '    dr.Close()
 
-            '    SQL = "update " & connNameSpace & ".AFSAirPollutantData set " & _
+            '    SQL = "update " & DBNameSpace & ".AFSAirPollutantData set " & _
             '   "strUpdateStatus = 'C', " & _
             '   "strModifingPerson = '" & UserGCode & "', " & _
             '   "datModifingDate = '" & OracleDate & "' " & _
@@ -771,9 +771,9 @@ Public Class IAIPEditSubParts
             "where strSubpartKey = '0413" & txtAIRSNumber.Text & "8' " & _
             "and strSubpart = '" & cboNESHAPSubpart.SelectedValue & "' "
 
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             recExist = dr.Read
@@ -793,9 +793,9 @@ Public Class IAIPEditSubParts
                 "'" & OracleDate & "', '1', " & _
                 "'" & OracleDate & "') "
             End If
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -806,9 +806,9 @@ Public Class IAIPEditSubParts
             "strUpdateStatus = 'C' " & _
             "where strAirPollutantKey = '0413" & txtAIRSNumber.Text & "8' " & _
             "and strUpdateStatus = 'N' "
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -817,7 +817,7 @@ Public Class IAIPEditSubParts
             ' 
 
             'SQL = "Select strSubPart " & _
-            '"from " & connNameSpace & ".APBSubpartData " & _
+            '"from " & DBNameSpace & ".APBSubpartData " & _
             '"where strSubPartKey = '0413" & txtAIRSNumber.Text & "8' " & _
             '"and strSubPart = '" & cboNESHAPSubpart.SelectedValue & "' "
 
@@ -829,7 +829,7 @@ Public Class IAIPEditSubParts
             'recExist = dr.Read
             'dr.Close()
             'If recExist = False Then
-            '    SQL = "Insert into " & connNameSpace & ".APBSubpartData " & _
+            '    SQL = "Insert into " & DBNameSpace & ".APBSubpartData " & _
             '    "values " & _
             '    "('0413" & txtAIRSNumber.Text & "', '0413" & txtAIRSNumber.Text & "8', " & _
             '    "'" & cboNESHAPSubpart.SelectedValue & "', '" & UserGCode & "', " & _
@@ -841,7 +841,7 @@ Public Class IAIPEditSubParts
             '    dr = cmd.ExecuteReader
             '    dr.Close()
 
-            '    SQL = "update " & connNameSpace & ".AFSAirPollutantData set " & _
+            '    SQL = "update " & DBNameSpace & ".AFSAirPollutantData set " & _
             '   "strUpdateStatus = 'C', " & _
             '   "strModifingPerson = '" & UserGCode & "', " & _
             '   "datModifingDate = '" & OracleDate & "' " & _
@@ -875,9 +875,9 @@ Public Class IAIPEditSubParts
             "where strSubpartKey = '0413" & txtAIRSNumber.Text & "M' " & _
             "and strSubpart = '" & cboMACTSubPart.SelectedValue & "' "
 
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             recExist = dr.Read
@@ -897,9 +897,9 @@ Public Class IAIPEditSubParts
                 "'" & OracleDate & "', '1', " & _
                 "'" & OracleDate & "') "
             End If
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -910,9 +910,9 @@ Public Class IAIPEditSubParts
             "strUpdateStatus = 'C' " & _
             "where strAirPollutantKey = '0413" & txtAIRSNumber.Text & "M' " & _
             "and strUpdateStatus = 'N' "
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -921,7 +921,7 @@ Public Class IAIPEditSubParts
             ' 
 
             'SQL = "Select strSubPart " & _
-            '"from " & connNameSpace & ".APBSubpartData " & _
+            '"from " & DBNameSpace & ".APBSubpartData " & _
             '"where strSubPartKey = '0413" & txtAIRSNumber.Text & "M' " & _
             '"and strSubPart = '" & cboMACTSubPart.SelectedValue & "' "
 
@@ -933,7 +933,7 @@ Public Class IAIPEditSubParts
             'recExist = dr.Read
             'dr.Close()
             'If recExist = False Then
-            '    SQL = "Insert into " & connNameSpace & ".APBSubpartData " & _
+            '    SQL = "Insert into " & DBNameSpace & ".APBSubpartData " & _
             '    "values " & _
             '    "('0413" & txtAIRSNumber.Text & "', '0413" & txtAIRSNumber.Text & "M', " & _
             '    "'" & cboMACTSubPart.SelectedValue & "', '" & UserGCode & "', " & _
@@ -945,7 +945,7 @@ Public Class IAIPEditSubParts
             '    dr = cmd.ExecuteReader
             '    dr.Close()
 
-            '    SQL = "update " & connNameSpace & ".AFSAirPollutantData set " & _
+            '    SQL = "update " & DBNameSpace & ".AFSAirPollutantData set " & _
             '   "strUpdateStatus = 'C', " & _
             '   "strModifingPerson = '" & UserGCode & "', " & _
             '   "datModifingDate = '" & OracleDate & "' " & _
@@ -991,9 +991,9 @@ Public Class IAIPEditSubParts
                     "updateDateTime = '" & OracleDate & "' " & _
                     "where strSubPartKey = '0413" & txtAIRSNumber.Text & "0' " & _
                     "and strSubpart = '" & Subpart & "' "
-                    cmd = New OracleCommand(SQL, DBConn)
-                    If DBConn.State = ConnectionState.Closed Then
-                        DBConn.Open()
+                    cmd = New OracleCommand(SQL, Conn)
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
@@ -1011,9 +1011,9 @@ Public Class IAIPEditSubParts
                      "'" & OracleDate & "', '', " & _
                      "'') "
 
-                    cmd = New OracleCommand(SQL, DBConn)
-                    If DBConn.State = ConnectionState.Closed Then
-                        DBConn.Open()
+                    cmd = New OracleCommand(SQL, Conn)
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
@@ -1022,7 +1022,7 @@ Public Class IAIPEditSubParts
                     temp(i) = clbSIP.Items.Item(count)
                     i += 1
                     'Else
-                    '    SQL = "Delete " & connNameSpace & ".APBSubpartData " & _
+                    '    SQL = "Delete " & DBNameSpace & ".APBSubpartData " & _
                     '    "Where strSubPartkey = '0413" & txtAIRSNumber.Text & "0' " & _
                     '    "and strSubPart = '" & Mid(clbSIP.Items.Item(count), 1, ((clbSIP.Items.Item(count).ToString.IndexOf("-")) - 1)) & "' "
 
@@ -1033,14 +1033,14 @@ Public Class IAIPEditSubParts
                     '    dr = cmd.ExecuteReader
                     '    dr.Close()
 
-                    '    SQL2 = "Insert into " & connNameSpace & ".AFSDeletions " & _
+                    '    SQL2 = "Insert into " & DBNameSpace & ".AFSDeletions " & _
                     '        "values " & _
                     '        "(" & _
                     '        "(select " & _
                     '        "case when max(numCounter) is null then 1 " & _
                     '        "else max(numCounter) + 1 " & _
                     '        "end numCounter " & _
-                    '        "from " & connNameSpace & ".AFSDeletions), " & _
+                    '        "from " & DBNameSpace & ".AFSDeletions), " & _
                     '        "'0413" & txtAIRSNumber.Text & "', " & _
                     '        "'" & Replace(SQL, "'", "''") & "', 'True', " & _
                     '        "'" & OracleDate & "', '', " & _
@@ -1090,9 +1090,9 @@ Public Class IAIPEditSubParts
                     "updateDateTime = '" & OracleDate & "' " & _
                     "where strSubPartKey = '0413" & txtAIRSNumber.Text & "9' " & _
                     "and strSubpart = '" & Subpart & "' "
-                    cmd = New OracleCommand(SQL, DBConn)
-                    If DBConn.State = ConnectionState.Closed Then
-                        DBConn.Open()
+                    cmd = New OracleCommand(SQL, Conn)
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
@@ -1110,9 +1110,9 @@ Public Class IAIPEditSubParts
                      "'" & OracleDate & "', '', " & _
                      "'') "
 
-                    cmd = New OracleCommand(SQL, DBConn)
-                    If DBConn.State = ConnectionState.Closed Then
-                        DBConn.Open()
+                    cmd = New OracleCommand(SQL, Conn)
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
@@ -1121,7 +1121,7 @@ Public Class IAIPEditSubParts
                     temp(i) = clbNSPS.Items.Item(count)
                     i += 1
                     'Else
-                    '    SQL = "Delete " & connNameSpace & ".APBSubpartData " & _
+                    '    SQL = "Delete " & DBNameSpace & ".APBSubpartData " & _
                     '    "Where strSubPartkey = '0413" & txtAIRSNumber.Text & "9' " & _
                     '    "and strSubPart = '" & Mid(clbNSPS.Items.Item(count), 1, ((clbNSPS.Items.Item(count).ToString.IndexOf("-")) - 1)) & "' "
 
@@ -1132,14 +1132,14 @@ Public Class IAIPEditSubParts
                     '    dr = cmd.ExecuteReader
                     '    dr.Close()
 
-                    '    SQL2 = "Insert into " & connNameSpace & ".AFSDeletions " & _
+                    '    SQL2 = "Insert into " & DBNameSpace & ".AFSDeletions " & _
                     '        "values " & _
                     '        "(" & _
                     '        "(select " & _
                     '        "case when max(numCounter) is null then 1 " & _
                     '        "else max(numCounter) + 1 " & _
                     '        "end numCounter " & _
-                    '        "from " & connNameSpace & ".AFSDeletions), " & _
+                    '        "from " & DBNameSpace & ".AFSDeletions), " & _
                     '        "'0413" & txtAIRSNumber.Text & "', " & _
                     '        "'" & Replace(SQL, "'", "''") & "', 'True', " & _
                     '        "'" & OracleDate & "', '', " & _
@@ -1190,9 +1190,9 @@ Public Class IAIPEditSubParts
                     "updateDateTime = '" & OracleDate & "' " & _
                     "where strSubPartKey = '0413" & txtAIRSNumber.Text & "8' " & _
                     "and strSubpart = '" & Subpart & "' "
-                    cmd = New OracleCommand(SQL, DBConn)
-                    If DBConn.State = ConnectionState.Closed Then
-                        DBConn.Open()
+                    cmd = New OracleCommand(SQL, Conn)
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
@@ -1210,9 +1210,9 @@ Public Class IAIPEditSubParts
                      "'" & OracleDate & "', '', " & _
                      "'') "
 
-                    cmd = New OracleCommand(SQL, DBConn)
-                    If DBConn.State = ConnectionState.Closed Then
-                        DBConn.Open()
+                    cmd = New OracleCommand(SQL, Conn)
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
@@ -1221,7 +1221,7 @@ Public Class IAIPEditSubParts
                     temp(i) = clbNESHAP.Items.Item(count)
                     i += 1
                     'Else
-                    '    SQL = "Delete " & connNameSpace & ".APBSubpartData " & _
+                    '    SQL = "Delete " & DBNameSpace & ".APBSubpartData " & _
                     '    "Where strSubPartkey = '0413" & txtAIRSNumber.Text & "8' " & _
                     '    "and strSubPart = '" & Mid(clbNESHAP.Items.Item(count), 1, ((clbNESHAP.Items.Item(count).ToString.IndexOf("-")) - 1)) & "' "
 
@@ -1232,14 +1232,14 @@ Public Class IAIPEditSubParts
                     '    dr = cmd.ExecuteReader
                     '    dr.Close()
 
-                    '    SQL2 = "Insert into " & connNameSpace & ".AFSDeletions " & _
+                    '    SQL2 = "Insert into " & DBNameSpace & ".AFSDeletions " & _
                     '        "values " & _
                     '        "(" & _
                     '        "(select " & _
                     '        "case when max(numCounter) is null then 1 " & _
                     '        "else max(numCounter) + 1 " & _
                     '        "end numCounter " & _
-                    '        "from " & connNameSpace & ".AFSDeletions), " & _
+                    '        "from " & DBNameSpace & ".AFSDeletions), " & _
                     '        "'0413" & txtAIRSNumber.Text & "', " & _
                     '        "'" & Replace(SQL, "'", "''") & "', 'True', " & _
                     '        "'" & OracleDate & "', '', " & _
@@ -1290,9 +1290,9 @@ Public Class IAIPEditSubParts
                     "updateDateTime = '" & OracleDate & "' " & _
                     "where strSubPartKey = '0413" & txtAIRSNumber.Text & "M' " & _
                     "and strSubpart = '" & Subpart & "' "
-                    cmd = New OracleCommand(SQL, DBConn)
-                    If DBConn.State = ConnectionState.Closed Then
-                        DBConn.Open()
+                    cmd = New OracleCommand(SQL, Conn)
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
@@ -1310,9 +1310,9 @@ Public Class IAIPEditSubParts
                      "'" & OracleDate & "', '', " & _
                      "'') "
 
-                    cmd = New OracleCommand(SQL, DBConn)
-                    If DBConn.State = ConnectionState.Closed Then
-                        DBConn.Open()
+                    cmd = New OracleCommand(SQL, Conn)
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
@@ -1321,7 +1321,7 @@ Public Class IAIPEditSubParts
                     temp(i) = clbMACT.Items.Item(count)
                     i += 1
                     'Else
-                    '    SQL = "Delete " & connNameSpace & ".APBSubpartData " & _
+                    '    SQL = "Delete " & DBNameSpace & ".APBSubpartData " & _
                     '    "Where strSubPartkey = '0413" & txtAIRSNumber.Text & "M' " & _
                     '    "and strSubPart = '" & Mid(clbMACT.Items.Item(count), 1, ((clbMACT.Items.Item(count).ToString.IndexOf("-")) - 1)) & "' "
 
@@ -1332,14 +1332,14 @@ Public Class IAIPEditSubParts
                     '    dr = cmd.ExecuteReader
                     '    dr.Close()
 
-                    '    SQL2 = "Insert into " & connNameSpace & ".AFSDeletions " & _
+                    '    SQL2 = "Insert into " & DBNameSpace & ".AFSDeletions " & _
                     '        "values " & _
                     '        "(" & _
                     '        "(select " & _
                     '        "case when max(numCounter) is null then 1 " & _
                     '        "else max(numCounter) + 1 " & _
                     '        "end numCounter " & _
-                    '        "from " & connNameSpace & ".AFSDeletions), " & _
+                    '        "from " & DBNameSpace & ".AFSDeletions), " & _
                     '        "'0413" & txtAIRSNumber.Text & "', " & _
                     '        "'" & Replace(SQL, "'", "''") & "', 'True', " & _
                     '        "'" & OracleDate & "', '', " & _
@@ -1514,9 +1514,9 @@ Public Class IAIPEditSubParts
                 SQL = "Select strSubPart " & _
                 "From " & DBNameSpace & ".LookUpSubpartSIP " & _
                 "where strSubPart = '" & txtSIPCode.Text & "' "
-                cmd = New OracleCommand(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -1531,9 +1531,9 @@ Public Class IAIPEditSubParts
                     "('" & Replace(txtSIPCode.Text, "'", "''") & "', " & _
                     "'" & Replace(txtSIPDescription.Text, "'", "''") & "') "
                 End If
-                cmd = New OracleCommand(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -1567,9 +1567,9 @@ Public Class IAIPEditSubParts
                 SQL = "Select strSubPart " & _
                 "From " & DBNameSpace & ".LookUpSubpart60 " & _
                 "where strSubPart = '" & txtNSPSCode.Text & "' "
-                cmd = New OracleCommand(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -1584,9 +1584,9 @@ Public Class IAIPEditSubParts
                     "('" & Replace(txtNSPSCode.Text, "'", "''") & "', " & _
                     "'" & Replace(txtNSPSDescription.Text, "'", "''") & "') "
                 End If
-                cmd = New OracleCommand(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -1619,9 +1619,9 @@ Public Class IAIPEditSubParts
                 SQL = "Select strSubPart " & _
                 "From " & DBNameSpace & ".LookUpSubpart61 " & _
                 "where strSubPart = '" & txtNESHAPCode.Text & "' "
-                cmd = New OracleCommand(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -1636,9 +1636,9 @@ Public Class IAIPEditSubParts
                     "('" & Replace(txtNESHAPCode.Text, "'", "''") & "', " & _
                     "'" & Replace(txtNESHAPDescription.Text, "'", "''") & "') "
                 End If
-                cmd = New OracleCommand(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -1672,9 +1672,9 @@ Public Class IAIPEditSubParts
                 SQL = "Select strSubPart " & _
                 "From " & DBNameSpace & ".LookUpSubpart63 " & _
                 "where strSubPart = '" & txtMACTCode.Text & "' "
-                cmd = New OracleCommand(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -1689,9 +1689,9 @@ Public Class IAIPEditSubParts
                     "('" & Replace(txtMACTCode.Text, "'", "''") & "', " & _
                     "'" & Replace(txtMACTDescription.Text, "'", "''") & "') "
                 End If
-                cmd = New OracleCommand(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -1721,9 +1721,9 @@ Public Class IAIPEditSubParts
             SQL = "Delete " & DBNameSpace & ".LookUpSubpartSIP " & _
             "where strSubpart = '" & Replace(txtSIPCode.Text, "'", "''") & "' "
 
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -1739,9 +1739,9 @@ Public Class IAIPEditSubParts
             SQL = "Delete " & DBNameSpace & ".LookUpSubpart60 " & _
             "where strSubpart = '" & Replace(txtSIPCode.Text, "'", "''") & "' "
 
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -1757,9 +1757,9 @@ Public Class IAIPEditSubParts
             SQL = "Delete " & DBNameSpace & ".LookUpSubpart61 " & _
             "where strSubpart = '" & Replace(txtSIPCode.Text, "'", "''") & "' "
 
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -1775,9 +1775,9 @@ Public Class IAIPEditSubParts
             SQL = "Delete " & DBNameSpace & ".LookUpSubpart63 " & _
             "where strSubpart = '" & Replace(txtSIPCode.Text, "'", "''") & "' "
 
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()

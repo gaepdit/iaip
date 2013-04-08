@@ -73,9 +73,9 @@ Public Class IAIPEditAirProgramPollutants
             "where " & DBNameSpace & ".APBHeaderData.strAIRSNumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSnumber " & _
             "and " & DBNameSpace & ".APBHeaderData.strAIRSNumber = '0413" & txtAirsNumber.Text & "' "
 
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -129,14 +129,14 @@ Public Class IAIPEditAirProgramPollutants
                 End If
             End While
 
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -161,23 +161,23 @@ Public Class IAIPEditAirProgramPollutants
             dsPollutant = New DataSet
             dsComplianceStatus = New DataSet
 
-            daPollutant = New OracleDataAdapter(SQL, DBConn)
-            daComplianceStatus = New OracleDataAdapter(SQL2, DBConn)
+            daPollutant = New OracleDataAdapter(SQL, Conn)
+            daComplianceStatus = New OracleDataAdapter(SQL2, Conn)
 
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
 
             daPollutant.Fill(dsPollutant, "Pollutant")
             daComplianceStatus.Fill(dsComplianceStatus, "ComplianceStatus")
 
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -240,7 +240,7 @@ Public Class IAIPEditAirProgramPollutants
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -280,17 +280,17 @@ Public Class IAIPEditAirProgramPollutants
 
             dsDataGrid = New DataSet
 
-            daDataGrid = New OracleDataAdapter(SQL, DBConn)
+            daDataGrid = New OracleDataAdapter(SQL, Conn)
 
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
 
             daDataGrid.Fill(dsDataGrid, "DataGrid")
             dgvAirProgramPollutants.DataSource = dsDataGrid
             dgvAirProgramPollutants.DataMember = "DataGrid"
 
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -320,7 +320,7 @@ Public Class IAIPEditAirProgramPollutants
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -337,9 +337,9 @@ Public Class IAIPEditAirProgramPollutants
             "from " & DBNameSpace & ".SSCPEnforcement " & _
             "where strEnforcementNumber = '" & txtEnforcementNumber.Text & "' "
 
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -366,9 +366,9 @@ Public Class IAIPEditAirProgramPollutants
                     "where strAirPollutantKey = '0413" & txtAirsNumber.Text & AirProgram & "' " & _
                     "and strPollutantKey = strPollutantCode  " & _
                     "and strPollutantKey = '" & Pollutant & "' "
-                    cmd = New OracleCommand(SQL, DBConn)
-                    If DBConn.State = ConnectionState.Closed Then
-                        DBConn.Open()
+                    cmd = New OracleCommand(SQL, Conn)
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     recExist = dr.Read
@@ -415,7 +415,7 @@ Public Class IAIPEditAirProgramPollutants
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -471,9 +471,9 @@ Public Class IAIPEditAirProgramPollutants
                     "where strAIRPollutantKey = '" & AIRSPollutantKey & "' " & _
                     "and strPollutantKey = '" & cboPollutants.SelectedValue & "' "
 
-                    cmd = New OracleCommand(SQL, DBConn)
-                    If DBConn.State = ConnectionState.Closed Then
-                        DBConn.Open()
+                    cmd = New OracleCommand(SQL, Conn)
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     recExist = dr.Read
@@ -487,9 +487,9 @@ Public Class IAIPEditAirProgramPollutants
                         SQL = "select strAirProgramCodes " & _
                         "from " & DBNameSpace & ".APBHeaderData  " & _
                         "where strAIRSnumber = '0413" & txtAirsNumber.Text & "' "
-                        cmd = New OracleCommand(SQL, DBConn)
-                        If DBConn.State = ConnectionState.Closed Then
-                            DBConn.Open()
+                        cmd = New OracleCommand(SQL, Conn)
+                        If Conn.State = ConnectionState.Closed Then
+                            Conn.Open()
                         End If
                         dr = cmd.ExecuteReader
                         recExist = dr.Read
@@ -614,9 +614,9 @@ Public Class IAIPEditAirProgramPollutants
                         txtModifingDate.Text = OracleDate
                     End If
 
-                    cmd = New OracleCommand(SQL, DBConn)
-                    If DBConn.State = ConnectionState.Closed Then
-                        DBConn.Open()
+                    cmd = New OracleCommand(SQL, Conn)
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
                     Try
 
@@ -625,7 +625,7 @@ Public Class IAIPEditAirProgramPollutants
                         MsgBox(ex.ToString())
                     End Try
 
-                    If DBConn.State = ConnectionState.Open Then
+                    If Conn.State = ConnectionState.Open Then
                         'conn.close()
                     End If
                     MsgBox("Pollutant added to Air Program Code.", MsgBoxStyle.Information, "Edit Air Program Code Pollutants")
@@ -639,7 +639,7 @@ Public Class IAIPEditAirProgramPollutants
                     MsgBox("No Data Saved", MsgBoxStyle.Exclamation, "Edit Air Program Code Pollutants")
                 End If
 
-                If DBConn.State = ConnectionState.Open Then
+                If Conn.State = ConnectionState.Open Then
                     'conn.close()
                 End If
             End If
@@ -647,7 +647,7 @@ Public Class IAIPEditAirProgramPollutants
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -673,9 +673,9 @@ Public Class IAIPEditAirProgramPollutants
                 "where " & DBNameSpace & ".APBAirProgramPollutants.strPollutantKey = " & DBNameSpace & ".LookUPPollutants.strPollutantCode " & _
                 "and strAirPollutantKey = '0413" & txtAirsNumber.Text & AirProgram & "' " & _
                 "and strPollutantDescription = '" & Pollutant & "' "
-                cmd = New OracleCommand(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -699,9 +699,9 @@ Public Class IAIPEditAirProgramPollutants
             "strPollutants = '" & PollutantList & "' " & _
             "where strEnforcementNumber = '" & txtEnforcementNumber.Text & "' "
 
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -713,7 +713,7 @@ Public Class IAIPEditAirProgramPollutants
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -729,7 +729,7 @@ Public Class IAIPEditAirProgramPollutants
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -744,7 +744,7 @@ Public Class IAIPEditAirProgramPollutants
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -757,7 +757,7 @@ Public Class IAIPEditAirProgramPollutants
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -771,7 +771,7 @@ Public Class IAIPEditAirProgramPollutants
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -784,7 +784,7 @@ Public Class IAIPEditAirProgramPollutants
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -797,7 +797,7 @@ Public Class IAIPEditAirProgramPollutants
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -810,7 +810,7 @@ Public Class IAIPEditAirProgramPollutants
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -823,7 +823,7 @@ Public Class IAIPEditAirProgramPollutants
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -836,7 +836,7 @@ Public Class IAIPEditAirProgramPollutants
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -850,7 +850,7 @@ Public Class IAIPEditAirProgramPollutants
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -882,7 +882,7 @@ Public Class IAIPEditAirProgramPollutants
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -898,7 +898,7 @@ Public Class IAIPEditAirProgramPollutants
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -911,7 +911,7 @@ Public Class IAIPEditAirProgramPollutants
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -942,7 +942,7 @@ Public Class IAIPEditAirProgramPollutants
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try

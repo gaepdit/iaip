@@ -97,7 +97,7 @@ Public Class ISMPTestReports
 
             SQL = "Select strMethodCode, " & _
             "strMethodDesc " & _
-            "from " & connNameSpace & ".LookUpISMPMethods " & _
+            "from " & DBNameSpace & ".LookUpISMPMethods " & _
             "order by strMethodCode "
 
             daMethods = New OracleDataAdapter(SQL, conn)
@@ -111,7 +111,7 @@ Public Class ISMPTestReports
             "(select  " & _
             "(strLastName|| ', ' ||strFirstName) as UserName,  " & _
             "NumUserID  " & _
-            "from " & connNameSpace & ".EPDUSerProfiles  " & _
+            "from " & DBNameSpace & ".EPDUSerProfiles  " & _
             "where numProgram  = '3'  " & _
             "and numEmployeeStatus = '1'   " & _
             "and (numunit is null or numunit <> '14') " & _
@@ -119,12 +119,12 @@ Public Class ISMPTestReports
             "select  " & _
             "distinct(strLastName|| ', ' ||strFirstName) as UserName,  " & _
             "NumUserID  " & _
-            "from " & connNameSpace & ".EPDUSerProfiles, " & connNameSpace & ".ismpreportinformation " & _
-            "where " & connNameSpace & ".epdUserProfiles.numUserId = " & connNameSpace & ".ismpreportinformation.strWitnessingEngineer) "
+            "from " & DBNameSpace & ".EPDUSerProfiles, " & DBNameSpace & ".ismpreportinformation " & _
+            "where " & DBNameSpace & ".epdUserProfiles.numUserId = " & DBNameSpace & ".ismpreportinformation.strWitnessingEngineer) "
 
             daEngineer = New OracleDataAdapter(SQL, conn)
 
-            SQL = "select strCompliancekey, strComplianceStatus from " & connNameSpace & ".LookUPISMPComplianceStatus"
+            SQL = "select strCompliancekey, strComplianceStatus from " & DBNameSpace & ".LookUPISMPComplianceStatus"
 
             daComplianceStatus = New OracleDataAdapter(SQL, conn)
 
@@ -159,15 +159,15 @@ Public Class ISMPTestReports
 
             daCCList = New OracleDataAdapter(SQL, conn)
 
-            SQL = "select strUnitKey, strUnitDescription from " & connNameSpace & ".LookUPUnits order by strUnitDescription"
+            SQL = "select strUnitKey, strUnitDescription from " & DBNameSpace & ".LookUPUnits order by strUnitDescription"
 
             daUnits = New OracleDataAdapter(SQL, conn)
 
-            ' SQL = "Select strUnitTitle, strMonitoringUnit from " & connNameSpace & ".LookUPMonitoringUnits"
+            ' SQL = "Select strUnitTitle, strMonitoringUnit from " & DBNameSpace & ".LookUPMonitoringUnits"
 
             SQL = "select " & _
                 "strUnitDesc, numUnitCode  " & _
-                "from " & connNameSpace & ".LookUpEPDUnits  " & _
+                "from " & DBNameSpace & ".LookUpEPDUnits  " & _
                 "where numProgramCode = '3' or numProgramCode = '0' "
             
             daISMPUnits = New OracleDataAdapter(SQL, conn)
@@ -207,13 +207,13 @@ Public Class ISMPTestReports
 
             daComplianceManager = New OracleDataAdapter(SQL, conn)
 
-            SQL = "Select strTestingFirm, strTestingFirmKey from " & connNameSpace & ".LookUPTestingFirms order by strTestingFirm"
+            SQL = "Select strTestingFirm, strTestingFirmKey from " & DBNameSpace & ".LookUPTestingFirms order by strTestingFirm"
             daTestingFirm = New OracleDataAdapter(SQL, conn)
 
-            SQL = "Select strReportType, strKey from " & connNameSpace & ".ISMPReportType order by strReportType"
+            SQL = "Select strReportType, strKey from " & DBNameSpace & ".ISMPReportType order by strReportType"
             daReportType = New OracleDataAdapter(SQL, conn)
 
-            SQL = "Select strPollutantCode, strPollutantDescription from " & connNameSpace & ".LookUPPollutants order by strPollutantDescription"
+            SQL = "Select strPollutantCode, strPollutantDescription from " & DBNameSpace & ".LookUPPollutants order by strPollutantDescription"
             daPollutants = New OracleDataAdapter(SQL, conn)
 
             SQL = "Select " & _
@@ -2111,9 +2111,9 @@ Public Class ISMPTestReports
             Dim ConfidentialData As String = "0"
 
             SQL = "Select " & _
-            "" & connNameSpace & ".ISMPMaster.strReferenceNumber,  " & _
-            "substr(" & connNameSpace & ".ISMpMaster.strAIRSnumber, 5) as AIRSNumber,  " & _
-            "" & connNameSpace & ".APBFacilityInformation.strFacilityName,  " & _
+            "" & DBNameSpace & ".ISMPMaster.strReferenceNumber,  " & _
+            "substr(" & DBNameSpace & ".ISMpMaster.strAIRSnumber, 5) as AIRSNumber,  " & _
+            "" & DBNameSpace & ".APBFacilityInformation.strFacilityName,  " & _
             "strFacilityCity, strFacilityState,  " & _
             "strPollutant, strEmissionSource,  " & _
             "strReportType, strDocumentType,  " & _
@@ -2130,7 +2130,7 @@ Public Class ISMPTestReports
             "mmoCommentArea,  " & _
             "strClosed, strProgramManager,  " & _
             "strComplianceStatus, strCC,  " & _
-            "to_char(" & connNameSpace & ".ISMPReportInformation.datReceivedDate - " & connNameSpace & ".ISMPReportInformation.datTestDateEnd) as DaysFromTest,  " & _
+            "to_char(" & DBNameSpace & ".ISMPReportInformation.datReceivedDate - " & DBNameSpace & ".ISMPReportInformation.datTestDateEnd) as DaysFromTest,  " & _
             "case  " & _
             "when datCompleteDate = '04-Jul-1776' then to_char(sysdate-datReceivedDate)  " & _
             "else to_char(datCompleteDate - datReceivedDate)  " & _
@@ -2147,12 +2147,12 @@ Public Class ISMPTestReports
             "else (strLastName||', '||strFirstName) " & _
             "END UnitManager, " & _
             "strPreComplianceStatus " & _
-            "from " & connNameSpace & ".ISMPMaster, " & connNameSpace & ".APBFacilityInformation,  " & _
-            "" & connNameSpace & ".ISMPReportInformation, " & connNameSpace & ".EPDUserProfiles     " & _
-            "where " & connNameSpace & ".ISMPMaster.strAIRSNumber = " & connNameSpace & ".APBFacilityInformation.strAIRSNumber  " & _
-            "and " & connNameSpace & ".ISMPMaster.strReferenceNumber = " & connNameSpace & ".ISMPReportInformation.strReferenceNumber  " & _
-            "and " & connNameSpace & ".ISMPReportInformation.numReviewingManager = EPDUserProfiles.numUserID (+) " & _
-            "and " & connNameSpace & ".ISMPMaster.strReferenceNumber = '" & RefNumber & "' "
+            "from " & DBNameSpace & ".ISMPMaster, " & DBNameSpace & ".APBFacilityInformation,  " & _
+            "" & DBNameSpace & ".ISMPReportInformation, " & DBNameSpace & ".EPDUserProfiles     " & _
+            "where " & DBNameSpace & ".ISMPMaster.strAIRSNumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber  " & _
+            "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber  " & _
+            "and " & DBNameSpace & ".ISMPReportInformation.numReviewingManager = EPDUserProfiles.numUserID (+) " & _
+            "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = '" & RefNumber & "' "
 
             cmd = New OracleCommand(SQL, conn)
             If conn.State = ConnectionState.Closed Then
@@ -2540,7 +2540,7 @@ Public Class ISMPTestReports
                     "strEmissionRateUnit,  " & _
                     "strEmissionRateAvg, " & _
                     "strPercentAllowable  " & _
-                    "from " & connNameSpace & ".ISMPReportOneStack " & _
+                    "from " & DBNameSpace & ".ISMPReportOneStack " & _
                     "where strReferenceNumber = '" & RefNum & "' "
 
                     cmd = New OracleCommand(SQL, conn)
@@ -2762,7 +2762,7 @@ Public Class ISMPTestReports
                     "strEmissionRateUnit,  " & _
                     "strEmissionRateAvg, " & _
                     "strPercentAllowable  " & _
-                    "from " & connNameSpace & ".ISMPReportOneStack " & _
+                    "from " & DBNameSpace & ".ISMPReportOneStack " & _
                     "where strReferenceNumber = '" & RefNum & "' "
 
                     cmd = New OracleCommand(SQL, conn)
@@ -3024,7 +3024,7 @@ Public Class ISMPTestReports
                     "strEmissionRateUnit,  " & _
                     "strEmissionRateAvg, " & _
                     "strPercentAllowable  " & _
-                    "from " & connNameSpace & ".ISMPReportOneStack " & _
+                    "from " & DBNameSpace & ".ISMPReportOneStack " & _
                     "where strReferenceNumber = '" & RefNum & "' "
 
                     cmd = New OracleCommand(SQL, conn)
@@ -3329,7 +3329,7 @@ Public Class ISMPTestReports
                     "strEmissionRateTotal1, strEmissionRateTotal2, strEmissionRateTotal3, " & _
                     "strEmissionRateTotalAvg, " & _
                     "strPercentAllowable " & _
-                    "from " & connNameSpace & ".ISMPReportTwoStack " & _
+                    "from " & DBNameSpace & ".ISMPReportTwoStack " & _
                     "where strReferenceNumber = '" & RefNum & "'"
 
                     cmd = New OracleCommand(SQL, conn)
@@ -3930,7 +3930,7 @@ Public Class ISMPTestReports
                      "strEmissionRateUnit, strEmissionRateAvg1, " & _
                      "strEmissionRateAvg2, " & _
                      "strDestructionPercent " & _
-                     "from " & connNameSpace & ".ISMPReportTwoStack " & _
+                     "from " & DBNameSpace & ".ISMPReportTwoStack " & _
                      "where strReferenceNumber = '" & RefNum & "'"
 
                     cmd = New OracleCommand(SQL, conn)
@@ -4505,7 +4505,7 @@ Public Class ISMPTestReports
                     "strPollutantConcenUnitIn, strPollutantConcenOut, strPollutantConcenUnitOut, " & _
                     "strEmissionRate, strEmissionRateUnit, strDestructionEfficiency, " & _
                     "strPercentAllowable " & _
-                    "from " & connNameSpace & ".ISMPReportFlare " & _
+                    "from " & DBNameSpace & ".ISMPReportFlare " & _
                     "where strReferenceNumber = '" & RefNum & "'"
 
                     cmd = New OracleCommand(SQL, conn)
@@ -4693,7 +4693,7 @@ Public Class ISMPTestReports
                     "strTreatmentRate1A, strTreatmentRate1B, strTreatmentRate1C, " & _
                     "strTreatmentRateUnit, strTreatmentRateAvg, " & _
                     "strPercentAllowable " & _
-                    "from " & connNameSpace & ".ISMPReportPondAndGas " & _
+                    "from " & DBNameSpace & ".ISMPReportPondAndGas " & _
                     "where strReferenceNumber = '" & RefNum & "'"
 
                     cmd = New OracleCommand(SQL, conn)
@@ -4935,7 +4935,7 @@ Public Class ISMPTestReports
                     "strEmissionRate1A, strEmissionRate1B, strEmissionRate1C, " & _
                     "strEmissionRateUnit, strEmissionRateAvg, " & _
                     "strPercentAllowable " & _
-                    "from " & connNameSpace & ".ISMPReportPondAndGas " & _
+                    "from " & DBNameSpace & ".ISMPReportPondAndGas " & _
                     "where strReferenceNumber = '" & RefNum & "'"
 
                     cmd = New OracleCommand(SQL, conn)
@@ -5173,7 +5173,7 @@ Public Class ISMPTestReports
                     "strVelocity1A, strVelocity2A, strVelocity3A, " & _
                     "strVelocityUnits, strVelocityAvg, " & _
                     "strPercentAllowable " & _
-                    "from " & connNameSpace & ".ISMPReportFlare " & _
+                    "from " & DBNameSpace & ".ISMPReportFlare " & _
                     "where strReferenceNumber = '" & RefNum & "'"
 
                     cmd = New OracleCommand(SQL, conn)
@@ -5363,7 +5363,7 @@ Public Class ISMPTestReports
                     "StrCMS11, StrCMS12, " & _
                     "strAccuracyChoice, strAccuracyRequiredPercent, " & _
                     "strAccuracyREquiredStatement, strRunsINcludedKey " & _
-                    "from " & connNameSpace & ".ISMPReportRATA " & _
+                    "from " & DBNameSpace & ".ISMPReportRATA " & _
                     "where strReferenceNumber = '" & RefNum & "'"
 
                     cmd = New OracleCommand(SQL, conn)
@@ -5744,7 +5744,7 @@ Public Class ISMPTestReports
 
                     SQL = "Select " & _
                     "strMemorandumField " & _
-                    "from " & connNameSpace & ".ISMPREportMemo " & _
+                    "from " & DBNameSpace & ".ISMPREportMemo " & _
                     "where strReferenceNumber = '" & RefNum & "'"
 
                     cmd = New OracleCommand(SQL, conn)
@@ -5772,7 +5772,7 @@ Public Class ISMPTestReports
                     SQL = "Select " & _
                     "strMemorandumField, strMonitorManufactureAndModel, " & _
                     "strMonitorSerialNumber " & _
-                    "from " & connNameSpace & ".ISMPREportMemo " & _
+                    "from " & DBNameSpace & ".ISMPREportMemo " & _
                     "where strReferenceNumber = '" & RefNum & "'"
 
                     cmd = New OracleCommand(SQL, conn)
@@ -5823,7 +5823,7 @@ Public Class ISMPTestReports
                     "strAllowableEmissionRate1A, strAllowableEmissionRate1B, " & _
                     "strAllowableEmissionRate1C, strAllowableEmissionRateUnit1A, " & _
                     "strAllowableEmissionRateUnit1B, strAllowableEmissionRateUnit1C " & _
-                    "from " & connNameSpace & ".ISMPREportMemo " & _
+                    "from " & DBNameSpace & ".ISMPREportMemo " & _
                     "where strReferenceNumber = '" & RefNum & "'"
 
                     cmd = New OracleCommand(SQL, conn)
@@ -5953,7 +5953,7 @@ Public Class ISMPTestReports
                     "strAllowableEmissionRate1A, strAllowableEmissionRateUnit, " & _
                     "strOpacityTestDuration, " & _
                     "strOpacityPointA, strOpacityStandard  " & _
-                    "from " & connNameSpace & ".ISMPREportOpacity " & _
+                    "from " & DBNameSpace & ".ISMPREportOpacity " & _
                     "where strReferenceNumber = '" & RefNum & "'"
 
                     cmd = New OracleCommand(SQL, conn)
@@ -6057,7 +6057,7 @@ Public Class ISMPTestReports
                     "strEquipmentItem2, strEquipmentItem3, " & _
                     "strEquipmentItem4, strEquipmentItem5, " & _
                     "strOpacityStandard " & _
-                    "from " & connNameSpace & ".ISMPREportOpacity " & _
+                    "from " & DBNameSpace & ".ISMPREportOpacity " & _
                     "where strReferenceNumber = '" & RefNum & "'"
 
                     cmd = New OracleCommand(SQL, conn)
@@ -6353,7 +6353,7 @@ Public Class ISMPTestReports
                     "strOperatingCapacity1A, strOperatingCapacityUnit, " & _
                      "STRALLOWABLEEMISSIONRATE22, " & _
                     "strOpacityTestDuration, strAccumulatedEmissionTime " & _
-                    "from " & connNameSpace & ".ISMPREportOpacity " & _
+                    "from " & DBNameSpace & ".ISMPREportOpacity " & _
                     "where strReferenceNumber = '" & RefNum & "'"
 
                     cmd = New OracleCommand(SQL, conn)
@@ -9417,7 +9417,7 @@ Public Class ISMPTestReports
     Sub LoadOtherWitnessingEng()
         Try
             SQL = "select strWitnessingEngineer " & _
-            "From " & connNameSpace & ".ISMPWitnessingEng " & _
+            "From " & DBNameSpace & ".ISMPWitnessingEng " & _
             "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
             cmd = New OracleCommand(SQL, conn)
             If conn.State = ConnectionState.Closed Then
@@ -9447,14 +9447,14 @@ Public Class ISMPTestReports
         Try
             If txtAirsNumber.Text <> "" Then
                 SQL = "Select " & _
-                "" & connNameSpace & ".SSCPTestReports.strTrackingNumber, " & _
+                "" & DBNameSpace & ".SSCPTestReports.strTrackingNumber, " & _
                 "datTestReportDue, strTestReportComments, " & _
                 "strTestReportFollowUp, datREceivedDate, " & _
                 "strResponsibleStaff, datCompleteDate, " & _
                 "datAcknoledgmentLetterSent, datInformationRequestDate " & _
-                "from " & connNameSpace & ".SSCPTestReports, " & _
-                "" & connNameSpace & ".SSCPItemMaster  " & _
-                "where " & connNameSpace & ".SSCPTestReports.strTrackingNumber = " & connNameSpace & ".SSCPItemMaster.strTrackingNumber " & _
+                "from " & DBNameSpace & ".SSCPTestReports, " & _
+                "" & DBNameSpace & ".SSCPItemMaster  " & _
+                "where " & DBNameSpace & ".SSCPTestReports.strTrackingNumber = " & DBNameSpace & ".SSCPItemMaster.strTrackingNumber " & _
                 "and strReferenceNumber = '" & txtReferenceNumber.Text & "' "
 
                 cmd = New OracleCommand(SQL, conn)
@@ -9544,7 +9544,7 @@ Public Class ISMPTestReports
                 End If
 
                 SQL = "Select strEnforcementNumber " & _
-                "from " & connNameSpace & ".SSCP_AuditedEnforcement " & _
+                "from " & DBNameSpace & ".SSCP_AuditedEnforcement " & _
                 "where strTrackingNumber = '" & txtTrackingNumber.Text & "' "
                 cmd = New OracleCommand(SQL, conn)
                 If conn.State = ConnectionState.Closed Then
@@ -9567,7 +9567,7 @@ Public Class ISMPTestReports
                 dr.Close()
 
                 SQL = "Select datSSCPTestReportDue " & _
-                "from " & connNameSpace & ".APBSupplamentalData " & _
+                "from " & DBNameSpace & ".APBSupplamentalData " & _
                 "where strAIRSNumber = '0413" & txtAirsNumber.Text & "' "
                 cmd = New OracleCommand(SQL, conn)
                 If conn.State = ConnectionState.Closed Then
@@ -9633,61 +9633,61 @@ Public Class ISMPTestReports
             SQL = "select " & _
             "(LogNumber|| ' --> ' ||StartDate) as LogNumber " & _
             "from  " & _
-            "(Select (" & connNameSpace & ".ISMPTESTNotification.strTestLogNumber) as LogNumber, " & _
+            "(Select (" & DBNameSpace & ".ISMPTESTNotification.strTestLogNumber) as LogNumber, " & _
             "to_char(datProposedStartDate) as StartDate " & _
-            "from  " & connNameSpace & ".ISMPTESTNotification  " & _
-            "where not exists(select " & connNameSpace & ".ISMPTestLogLink.strTestLogNumber  " & _
-            "from " & connNameSpace & ".ISMPTestLogLink " & _
-            "where " & connNameSpace & ".ISMPTestNotification.strTestLogNumber = " & connNameSpace & ".ISMPTestLogLink.strTestLogNumber)  " & _
+            "from  " & DBNameSpace & ".ISMPTESTNotification  " & _
+            "where not exists(select " & DBNameSpace & ".ISMPTestLogLink.strTestLogNumber  " & _
+            "from " & DBNameSpace & ".ISMPTestLogLink " & _
+            "where " & DBNameSpace & ".ISMPTestNotification.strTestLogNumber = " & DBNameSpace & ".ISMPTestLogLink.strTestLogNumber)  " & _
             "and strAIRSNumber = '0413" & txtAirsNumber.Text & "') NonLinked  " & _
             "UNION  " & _
             "select " & _
             "(LogNumber|| ' --> ' ||StartDate) as LogNumber " & _
             "from  " & _
-            "(select (" & connNameSpace & ".ISMPTestLogLink.strTestLogNumber) as LogNumber, " & _
+            "(select (" & DBNameSpace & ".ISMPTestLogLink.strTestLogNumber) as LogNumber, " & _
             "' ' as StartDate " & _
-            "from " & connNameSpace & ".ISMPTestLogLink  " & _
+            "from " & DBNameSpace & ".ISMPTestLogLink  " & _
             "where strReferenceNumber = '" & txtReferenceNumber.Text & "') CurrentLink " & _
             "Union " & _
             "select  " & _
             "(LogNumber || ' --> ' ||StartDate) as LogNumber " & _
-            "from (select distinct(" & connNameSpace & ".ISMPTestLogLink.strTestLogNumber) as LogNumber,  " & _
+            "from (select distinct(" & DBNameSpace & ".ISMPTestLogLink.strTestLogNumber) as LogNumber,  " & _
             "' ' as StartDate " & _
-            "from " & connNameSpace & ".ISMPTestLogLink, " & connNameSpace & ".ISMPReportInformation,  " & _
-            "" & connNameSpace & ".ISMPMaster " & _
-            "where " & connNameSpace & ".ISMPTEstLogLink.strReferenceNumber = " & connNameSpace & ".ISMPREportInformation.strReferenceNumber  " & _
-            "and " & connNameSpace & ".ISMPMaster.strReferenceNumber = " & connNameSpace & ".ISMPReportInformation.strReferenceNumber  " & _
+            "from " & DBNameSpace & ".ISMPTestLogLink, " & DBNameSpace & ".ISMPReportInformation,  " & _
+            "" & DBNameSpace & ".ISMPMaster " & _
+            "where " & DBNameSpace & ".ISMPTEstLogLink.strReferenceNumber = " & DBNameSpace & ".ISMPREportInformation.strReferenceNumber  " & _
+            "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber  " & _
             "and strAIRSNumber = '0413" & txtAirsNumber.Text & "'  " & _
             "and strClosed <> 'True') UnclosedLinks "
 
             SQL = "select " & _
             "(LogNumber|| ' --> ' ||StartDate) as LogNumber " & _
-            "from  (Select (" & connNameSpace & ".ISMPTESTNotification.strTestLogNumber) as LogNumber, " & _
+            "from  (Select (" & DBNameSpace & ".ISMPTESTNotification.strTestLogNumber) as LogNumber, " & _
             "to_char(datProposedStartDate) as StartDate " & _
-            "from  " & connNameSpace & ".ISMPTESTNotification  " & _
-            "where not exists(select " & connNameSpace & ".ISMPTestLogLink.strTestLogNumber  " & _
-            "from " & connNameSpace & ".ISMPTestLogLink " & _
-            "where " & connNameSpace & ".ISMPTestNotification.strTestLogNumber = " & connNameSpace & ".ISMPTestLogLink.strTestLogNumber)  " & _
+            "from  " & DBNameSpace & ".ISMPTESTNotification  " & _
+            "where not exists(select " & DBNameSpace & ".ISMPTestLogLink.strTestLogNumber  " & _
+            "from " & DBNameSpace & ".ISMPTestLogLink " & _
+            "where " & DBNameSpace & ".ISMPTestNotification.strTestLogNumber = " & DBNameSpace & ".ISMPTestLogLink.strTestLogNumber)  " & _
             "and strAIRSNumber = '0413" & txtAirsNumber.Text & "') NonLinked  " & _
             "UNION  " & _
             "select " & _
             "LogNumber " & _
             "from (select " & _
-            "(" & connNameSpace & ".ISMPTestLogLink.strTestLogNumber|| ' --> ' ||datProposedStartDate) as LogNumber " & _
-            "from " & connNameSpace & ".ISMPTestLogLink, AIRBranch.ISMPTestNotification " & _
-            "where " & connNameSpace & ".ISMPTestLogLink.strTestLogNumber = " & connNameSpace & ".ISMPTestNotification.strTestLogNumber " & _
+            "(" & DBNameSpace & ".ISMPTestLogLink.strTestLogNumber|| ' --> ' ||datProposedStartDate) as LogNumber " & _
+            "from " & DBNameSpace & ".ISMPTestLogLink, AIRBranch.ISMPTestNotification " & _
+            "where " & DBNameSpace & ".ISMPTestLogLink.strTestLogNumber = " & DBNameSpace & ".ISMPTestNotification.strTestLogNumber " & _
             "and strReferenceNumber = '" & txtReferenceNumber.Text & "') CurrentLink " & _
             "Union " & _
             "select  (LogNumber || ' --> ' ||StartDate) as LogNumber " & _
             "from " & _
-            "(select distinct(" & connNameSpace & ".ISMPTestLogLink.strTestLogNumber) as LogNumber,  " & _
+            "(select distinct(" & DBNameSpace & ".ISMPTestLogLink.strTestLogNumber) as LogNumber,  " & _
             "datProposedstartdate as StartDate " & _
-            "from " & connNameSpace & ".ISMPTestLogLink, " & connNameSpace & ".ISMPReportInformation,  " & _
-            "" & connNameSpace & ".ISMPMaster, " & connNameSpace & ".ISMPTestNotification  " & _
-            "where " & connNameSpace & ".ISMPTEstLogLink.strReferenceNumber = " & connNameSpace & ".ISMPREportInformation.strReferenceNumber  " & _
-            "and " & connNameSpace & ".ISMPMaster.strReferenceNumber = " & connNameSpace & ".ISMPReportInformation.strReferenceNumber  " & _
-            "and " & connNameSpace & ".ISMPTestLogLink.strTestLogNumber = " & connNameSpace & ".ISMPTestNotification.strTestLogNumber  " & _
-            "and " & connNameSpace & ".ISMPMaster.strAIRSNumber = '0413" & txtAirsNumber.Text & "'  " & _
+            "from " & DBNameSpace & ".ISMPTestLogLink, " & DBNameSpace & ".ISMPReportInformation,  " & _
+            "" & DBNameSpace & ".ISMPMaster, " & DBNameSpace & ".ISMPTestNotification  " & _
+            "where " & DBNameSpace & ".ISMPTEstLogLink.strReferenceNumber = " & DBNameSpace & ".ISMPREportInformation.strReferenceNumber  " & _
+            "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber  " & _
+            "and " & DBNameSpace & ".ISMPTestLogLink.strTestLogNumber = " & DBNameSpace & ".ISMPTestNotification.strTestLogNumber  " & _
+            "and " & DBNameSpace & ".ISMPMaster.strAIRSNumber = '0413" & txtAirsNumber.Text & "'  " & _
             "and strClosed <> 'True') UnclosedLinks "
 
 
@@ -9703,9 +9703,9 @@ Public Class ISMPTestReports
             dr.Close()
 
             SQL = "select " & _
-            "(" & connNameSpace & ".ISMPTestLogLink.strTestLogNumber|| ' --> ' ||datProposedStartDate) as LogNumber " & _
-            "from " & connNameSpace & ".ISMPTestLogLink, " & connNameSpace & ".ISMPTestNotification " & _
-            "where " & connNameSpace & ".ISMPTestLogLink.strTestLogNumber = " & connNameSpace & ".ISMPTestNotification.strTestLogNumber " & _
+            "(" & DBNameSpace & ".ISMPTestLogLink.strTestLogNumber|| ' --> ' ||datProposedStartDate) as LogNumber " & _
+            "from " & DBNameSpace & ".ISMPTestLogLink, " & DBNameSpace & ".ISMPTestNotification " & _
+            "where " & DBNameSpace & ".ISMPTestLogLink.strTestLogNumber = " & DBNameSpace & ".ISMPTestNotification.strTestLogNumber " & _
             "and strReferenceNumber = '" & txtReferenceNumber.Text & "' "
             cmd = New OracleCommand(SQL, conn)
             If conn.State = ConnectionState.Closed Then
@@ -9735,17 +9735,17 @@ Public Class ISMPTestReports
             Dim DistrictManager As String = ""
 
             'SQL = "Select strSSCPAssigningManager " & _
-            '"from " & connNameSpace & ".SSCPFacilityAssignment " & _
+            '"from " & DBNameSpace & ".SSCPFacilityAssignment " & _
             '"where strAIRSnumber = '0413" & txtAirsNumber.Text & "' "
 
             SQL = "select max(INTYEAR), strAssigningManager " & _
-                  "from " & connNameSpace & ".SSCPINSPECTIONSREQUIRED, " & _
-                   "(select max(intyear) as MaxYear, " & connNameSpace & ".SSCPINSPECTIONSREQUIRED.STRAIRSNUMBER  " & _
-                      "from " & connNameSpace & ".SSCPINSPECTIONSREQUIRED " & _
-                      "where " & connNameSpace & ".SSCPINSPECTIONSREQUIRED.STRAIRSNUMBER = '0413" & txtAirsNumber.Text & "' " & _
-                      "group by " & connNameSpace & ".SSCPINSPECTIONSREQUIRED.STRAIRSNUMBER ) MaxResults " & _
-                  "where " & connNameSpace & ".SSCPINSPECTIONSREQUIRED.STRAIRSNUMBER = '0413" & txtAirsNumber.Text & "' " & _
-                  " and " & connNameSpace & ".SSCPINSPECTIONSREQUIRED.intyear = maxresults.maxyear " & _
+                  "from " & DBNameSpace & ".SSCPINSPECTIONSREQUIRED, " & _
+                   "(select max(intyear) as MaxYear, " & DBNameSpace & ".SSCPINSPECTIONSREQUIRED.STRAIRSNUMBER  " & _
+                      "from " & DBNameSpace & ".SSCPINSPECTIONSREQUIRED " & _
+                      "where " & DBNameSpace & ".SSCPINSPECTIONSREQUIRED.STRAIRSNUMBER = '0413" & txtAirsNumber.Text & "' " & _
+                      "group by " & DBNameSpace & ".SSCPINSPECTIONSREQUIRED.STRAIRSNUMBER ) MaxResults " & _
+                  "where " & DBNameSpace & ".SSCPINSPECTIONSREQUIRED.STRAIRSNUMBER = '0413" & txtAirsNumber.Text & "' " & _
+                  " and " & DBNameSpace & ".SSCPINSPECTIONSREQUIRED.intyear = maxresults.maxyear " & _
                   "group by strAssigningManager "
 
             cmd = New OracleCommand(SQL, conn)
@@ -9767,13 +9767,13 @@ Public Class ISMPTestReports
 
             SQL = "select " & _
             "strDistrictManager  " & _
-            "from " & connNameSpace & ".SSCPDistrictResponsible,  " & _
-            "" & connNameSpace & ".LookUpDistricts,  " & _
-            "" & connNameSpace & ".LookUpDistrictInformation   " & _
+            "from " & DBNameSpace & ".SSCPDistrictResponsible,  " & _
+            "" & DBNameSpace & ".LookUpDistricts,  " & _
+            "" & DBNameSpace & ".LookUpDistrictInformation   " & _
             "where strDistrictResponsible = 'True'  " & _
-            "and " & connNameSpace & ".LookUpDistricts.strDistrictCode = " & connNameSpace & ".LookUpDistrictInformation.strDistrictCode   " & _
-            "and " & connNameSpace & ".LookUpDistrictInformation.strDistrictCounty = substr(" & connNameSpace & ".SSCPDistrictResponsible.strAIRSNumber, 5, 3) " & _
-            "and " & connNameSpace & ".SSCPDistrictResponsible.strAIRSNumber = '0413" & txtAirsNumber.Text & "' "
+            "and " & DBNameSpace & ".LookUpDistricts.strDistrictCode = " & DBNameSpace & ".LookUpDistrictInformation.strDistrictCode   " & _
+            "and " & DBNameSpace & ".LookUpDistrictInformation.strDistrictCounty = substr(" & DBNameSpace & ".SSCPDistrictResponsible.strAIRSNumber, 5, 3) " & _
+            "and " & DBNameSpace & ".SSCPDistrictResponsible.strAIRSNumber = '0413" & txtAirsNumber.Text & "' "
 
             cmd = New OracleCommand(SQL, conn)
             If conn.State = ConnectionState.Closed Then
@@ -10340,13 +10340,13 @@ Public Class ISMPTestReports
             OldRefNum = InputBox("Enter Old Reference Number.", "PrePopulate Tool.")
 
             If OldRefNum <> "" Then
-                SQL = "select " & connNameSpace & ".ISMPDocumentType.strDocumentType " & _
-                "from " & connNameSpace & ".ISMPDocumentType, " & connNameSpace & ".ISMPReportInformation " & _
-                "where " & connNameSpace & ".ISMPReportInformation.strDocumentType = " & connNameSpace & ".ISMPDocumentType.strKey " & _
+                SQL = "select " & DBNameSpace & ".ISMPDocumentType.strDocumentType " & _
+                "from " & DBNameSpace & ".ISMPDocumentType, " & DBNameSpace & ".ISMPReportInformation " & _
+                "where " & DBNameSpace & ".ISMPReportInformation.strDocumentType = " & DBNameSpace & ".ISMPDocumentType.strKey " & _
                 "and strReferenceNumber = '" & OldRefNum & "'"
 
                 SQL = "Select strDocumentType  " & _
-                "from " & connNameSpace & ".ISMPReportInformation " & _
+                "from " & DBNameSpace & ".ISMPReportInformation " & _
                 "where strReferenceNumber = '" & OldRefNum & "' "
 
                 cmd = New OracleCommand(SQL, conn)
@@ -10365,9 +10365,9 @@ Public Class ISMPTestReports
                     ClearAll()
                   
                     SQL = "Select " & _
-                  "" & connNameSpace & ".ISMPMaster.strReferenceNumber,  " & _
-                  "substr(" & connNameSpace & ".ISMpMaster.strAIRSnumber, 5) as AIRSNumber,  " & _
-                  "" & connNameSpace & ".APBFacilityInformation.strFacilityName,  " & _
+                  "" & DBNameSpace & ".ISMPMaster.strReferenceNumber,  " & _
+                  "substr(" & DBNameSpace & ".ISMpMaster.strAIRSnumber, 5) as AIRSNumber,  " & _
+                  "" & DBNameSpace & ".APBFacilityInformation.strFacilityName,  " & _
                   "strFacilityCity, strFacilityState,  " & _
                   "strPollutant, strEmissionSource,  " & _
                   "strReportType, strDocumentType,  " & _
@@ -10384,7 +10384,7 @@ Public Class ISMPTestReports
                   "mmoCommentArea,  " & _
                   "strClosed, strProgramManager,  " & _
                   "strComplianceStatus, strCC,  " & _
-                  "(" & connNameSpace & ".ISMPReportInformation.datReceivedDate - " & connNameSpace & ".ISMPReportInformation.datTestDateEnd) as DaysFromTest,  " & _
+                  "(" & DBNameSpace & ".ISMPReportInformation.datReceivedDate - " & DBNameSpace & ".ISMPReportInformation.datTestDateEnd) as DaysFromTest,  " & _
                   "case  " & _
                   "when datCompleteDate = '04-Jul-1776' then to_char(sysdate-datReceivedDate)  " & _
                   "else to_char(datCompleteDate - datReceivedDate)  " & _
@@ -10399,12 +10399,12 @@ Public Class ISMPTestReports
                   "when numReviewingManager is null then 'N/A' " & _
                   "else (strLastName||', '||strFirstName) " & _
                   "END UnitManager " & _
-                  "from " & connNameSpace & ".ISMPMaster, " & connNameSpace & ".APBFacilityInformation,  " & _
-                  "" & connNameSpace & ".ISMPReportInformation, " & connNameSpace & ".EPDUserProfiles     " & _
-                  "where " & connNameSpace & ".ISMPMaster.strAIRSNumber = " & connNameSpace & ".APBFacilityInformation.strAIRSNumber  " & _
-                  "and " & connNameSpace & ".ISMPMaster.strReferenceNumber = " & connNameSpace & ".ISMPReportInformation.strReferenceNumber  " & _
-                  "and " & connNameSpace & ".ISMPReportInformation.numReviewingManager = EPDUserProfiles.numUserID (+) " & _
-                  "and " & connNameSpace & ".ISMPMaster.strReferenceNumber = '" & RefNum & "' "
+                  "from " & DBNameSpace & ".ISMPMaster, " & DBNameSpace & ".APBFacilityInformation,  " & _
+                  "" & DBNameSpace & ".ISMPReportInformation, " & DBNameSpace & ".EPDUserProfiles     " & _
+                  "where " & DBNameSpace & ".ISMPMaster.strAIRSNumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber  " & _
+                  "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber  " & _
+                  "and " & DBNameSpace & ".ISMPReportInformation.numReviewingManager = EPDUserProfiles.numUserID (+) " & _
+                  "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = '" & RefNum & "' "
 
                     cmd = New OracleCommand(SQL, conn)
                     If conn.State = ConnectionState.Closed Then
@@ -10599,7 +10599,7 @@ Public Class ISMPTestReports
                     "strPollutant, strEmissionSource, " & _
                     "strReportType, strDeterminationMethod, " & _
                     "strApplicableRequirement, strControlEquipmentData " & _
-                    "from " & connNameSpace & ".ISMPReportInformation " & _
+                    "from " & DBNameSpace & ".ISMPReportInformation " & _
                     "where strReferenceNUmber = '" & OldRefNum & "' "
 
                     cmd = New OracleCommand(SQL, conn)
@@ -10733,20 +10733,20 @@ Public Class ISMPTestReports
                         End If
                         'Delete
                         SQL = "Select strTableName " & _
-                        "from " & connNameSpace & ".ISMPDocumentType, " & connNameSpace & ".ISMPReportInformation " & _
-                        "where " & connNameSpace & ".ISMPDocumentType.strKey = " & connNameSpace & ".ISMPReportInformation.strDocumentType " & _
-                        "and " & connNameSpace & ".ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "'"
+                        "from " & DBNameSpace & ".ISMPDocumentType, " & DBNameSpace & ".ISMPReportInformation " & _
+                        "where " & DBNameSpace & ".ISMPDocumentType.strKey = " & DBNameSpace & ".ISMPReportInformation.strDocumentType " & _
+                        "and " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "'"
                         cmd = New OracleCommand(SQL, conn)
                         dr = cmd.ExecuteReader
                         recExist = dr.Read
                         If recExist = True Then
                             If dr.Item("StrTableName") <> "UNASSIGNED" Then
-                                SQL = "Delete from " & connNameSpace & "." & dr.Item("strTableName") & " " & _
+                                SQL = "Delete from " & DBNameSpace & "." & dr.Item("strTableName") & " " & _
                                 "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
                                 cmd = New OracleCommand(SQL, conn)
                                 dr = cmd.ExecuteReader
                             End If
-                            SQL = "Update " & connNameSpace & ".ISMPReportInformation set " & _
+                            SQL = "Update " & DBNameSpace & ".ISMPReportInformation set " & _
                             "strDocumentType = '001' " & _
                             "where strReferenceNumber = '" & txtReferenceNumber.Text & "'"
                             cmd = New OracleCommand(SQL, conn)
@@ -10919,9 +10919,9 @@ Public Class ISMPTestReports
                     UserUnitTemp = ""
                 End If
                 SQL = "select (strLastName||', '||strFirstName) as UnitManager, " & _
-                "" & connNameSpace & ".EPDUSerProfiles.numUserID " & _
-                "from " & connNameSpace & ".EPDUserProfiles, " & connNameSpace & ".IAIPPermissions " & _
-                "where " & connNameSpace & ".EPDUserProfiles.numUserID = " & connNameSpace & ".IAIPPermissions.numUserID " & _
+                "" & DBNameSpace & ".EPDUSerProfiles.numUserID " & _
+                "from " & DBNameSpace & ".EPDUserProfiles, " & DBNameSpace & ".IAIPPermissions " & _
+                "where " & DBNameSpace & ".EPDUserProfiles.numUserID = " & DBNameSpace & ".IAIPPermissions.numUserID " & _
                 "and numEmployeeStatus = '1' " & _
                 "and (strIAIPPermissions like '%(4)%' or strIAIPPermissions like '%(115)%') " & _
                 "and numUnit = '" & UserUnitTemp & "' "
@@ -11456,7 +11456,7 @@ Public Class ISMPTestReports
                     DocumentType = "001"
             End Select
 
-            SQL = "Update " & connNameSpace & ".ISMPReportInformation set " & _
+            SQL = "Update " & DBNameSpace & ".ISMPReportInformation set " & _
             "strPollutant = '" & Pollutant & "', " & _
             "strEmissionSource = '" & Replace(EmissionSource, "'", "''") & "', " & _
             "strReportType = '" & ReportType & "', " & _
@@ -11536,7 +11536,7 @@ Public Class ISMPTestReports
             If OtherWitnessing > 0 Then
                 Dim temp As String = " "
                 If Me.clbWitnessingEngineers.CheckedItems.Count > 0 Then
-                    SQL = "Delete " & connNameSpace & ".ISMPWitnessingEng " & _
+                    SQL = "Delete " & DBNameSpace & ".ISMPWitnessingEng " & _
                     "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
                     cmd = New OracleCommand(SQL, conn)
                     If conn.State = ConnectionState.Closed Then
@@ -11549,7 +11549,7 @@ Public Class ISMPTestReports
                         If clbWitnessingEngineers.GetItemChecked(x) = True Then
                             clbWitnessingEngineers.SelectedIndex = x
                             temp = clbWitnessingEngineers.SelectedValue
-                            SQL = "Insert into " & connNameSpace & ".ISMPWitnessingEng " & _
+                            SQL = "Insert into " & DBNameSpace & ".ISMPWitnessingEng " & _
                             "values " & _
                             "('" & txtReferenceNumber.Text & "', '" & temp & "') "
                             cmd = New OracleCommand(SQL, conn)
@@ -11563,7 +11563,7 @@ Public Class ISMPTestReports
                 End If
             End If
 
-            SQL = "delete " & connNameSpace & ".ISMPTestLogLink " & _
+            SQL = "delete " & DBNameSpace & ".ISMPTestLogLink " & _
             "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
 
             cmd = New OracleCommand(SQL, conn)
@@ -11581,7 +11581,7 @@ Public Class ISMPTestReports
                     NotificationNumber = cboTestNotificationNumber.Text
                 End If
 
-                SQL = "Insert into " & connNameSpace & ".ISMPTestLogLink " & _
+                SQL = "Insert into " & DBNameSpace & ".ISMPTestLogLink " & _
                 "values " & _
                 "('" & txtReferenceNumber.Text & "', '" & NotificationNumber & "') "
                 cmd = New OracleCommand(SQL, conn)
@@ -11926,13 +11926,13 @@ Public Class ISMPTestReports
                 FollowUp = "False"
             End If
             If txtTrackingNumber.Text = "" Then
-                SQL = "Insert into " & connNameSpace & ".SSCPItemMaster " & _
+                SQL = "Insert into " & DBNameSpace & ".SSCPItemMaster " & _
                 "(strTrackingNumber, strAIRSNumber, " & _
                 "datReceivedDate, strEventType, " & _
                 "strResponsibleStaff, datCompleteDate, " & _
                 "strModifingPerson, datModifingDate) " & _
                 "values " & _
-                "(" & connNameSpace & ".SSCPTrackingNumber.nextval, '0413" & txtAirsNumber.Text & "', " & _
+                "(" & DBNameSpace & ".SSCPTrackingNumber.nextval, '0413" & txtAirsNumber.Text & "', " & _
                 "'" & OracleDate & "', '03', " & _
                 "'" & StaffResponsible & "', '', " & _
                 "'" & UserGCode & "', '" & OracleDate & "')"
@@ -11943,7 +11943,7 @@ Public Class ISMPTestReports
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL = "Select " & connNameSpace & ".SSCPTrackingNumber.currval from dual "
+                SQL = "Select " & DBNameSpace & ".SSCPTrackingNumber.currval from dual "
 
                 cmd = New OracleCommand(SQL, conn)
                 If conn.State = ConnectionState.Closed Then
@@ -11955,7 +11955,7 @@ Public Class ISMPTestReports
                 End While
                 dr.Close()
 
-                SQL = "Insert into " & connNameSpace & ".SSCPTestReports " & _
+                SQL = "Insert into " & DBNameSpace & ".SSCPTestReports " & _
                 "(strTrackingNumber, strReferenceNumber, " & _
                 "datTestReportDue, " & _
                 "strTestReportComments, strTestReportFollowUp, " & _
@@ -11976,7 +11976,7 @@ Public Class ISMPTestReports
 
             If txtTrackingNumber.Text <> "" Then
                 SQL = "Select strTrackingNumber " & _
-                "from " & connNameSpace & ".SSCPItemMaster " & _
+                "from " & DBNameSpace & ".SSCPItemMaster " & _
                 "where strTrackingNumber = '" & txtTrackingNumber.Text & "'"
                 cmd = New OracleCommand(SQL, conn)
                 If conn.State = ConnectionState.Closed Then
@@ -11987,7 +11987,7 @@ Public Class ISMPTestReports
                 dr.Close()
 
                 If RecExist = True Then
-                    SQL = "Update " & connNameSpace & ".SSCPItemMaster set " & _
+                    SQL = "Update " & DBNameSpace & ".SSCPItemMaster set " & _
                     "strResponsibleStaff = '" & StaffResponsible & "', " & _
                     "datCompleteDate = '" & CompleteDate & "', " & _
                     "datAcknoledgmentLetterSent = '" & AckLetter & "', " & _
@@ -12001,7 +12001,7 @@ Public Class ISMPTestReports
                     dr = cmd.ExecuteReader
                     dr.Close()
                     SQL = "Select strTrackingNumber " & _
-                    "from " & connNameSpace & ".SSCPTestReports " & _
+                    "from " & DBNameSpace & ".SSCPTestReports " & _
                     "where strTrackingNumber = '" & txtTrackingNumber.Text & "' "
                     cmd = New OracleCommand(SQL, conn)
                     If conn.State = ConnectionState.Closed Then
@@ -12011,7 +12011,7 @@ Public Class ISMPTestReports
                     RecExist = dr.Read
                     dr.Close()
                     If RecExist = True Then
-                        SQL = "Update " & connNameSpace & ".SSCPTestReports set " & _
+                        SQL = "Update " & DBNameSpace & ".SSCPTestReports set " & _
                         "datTestReportDue = '" & TestDue & "', " & _
                         "strTestReportComments = '" & Replace(ReportComments, "'", "''") & "', " & _
                         "strTestReportFollowUp = '" & FollowUp & "', " & _
@@ -12027,7 +12027,7 @@ Public Class ISMPTestReports
                     End If
                     If txtAirsNumber.Text.Length = 8 Then
                         SQL = "Select strAIRSNumber " & _
-                        "from " & connNameSpace & ".APBSupplamentalData " & _
+                        "from " & DBNameSpace & ".APBSupplamentalData " & _
                         "where strAIRSNumber = '0413" & txtAirsNumber.Text & "' "
                         cmd = New OracleCommand(SQL, conn)
                         If conn.State = ConnectionState.Closed Then
@@ -12037,7 +12037,7 @@ Public Class ISMPTestReports
                         RecExist = dr.Read
                         dr.Close()
                         If RecExist = True Then
-                            SQL = "Update " & connNameSpace & ".APBSupplamentalData set " & _
+                            SQL = "Update " & DBNameSpace & ".APBSupplamentalData set " & _
                             "DatSSCPTestReportDue = '" & NextTest & "', " & _
                             "strModifingPerson = '" & UserGCode & "', " & _
                             "datModifingdate = '" & OracleDate & "' " & _
@@ -12602,7 +12602,7 @@ Public Class ISMPTestReports
             End Select
 
             SQL = "Select strReferenceNumber " & _
-            "From " & connNameSpace & ".ISMPReportOneStack " & _
+            "From " & DBNameSpace & ".ISMPReportOneStack " & _
             "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
             cmd = New OracleCommand(SQL, conn)
             If conn.State = ConnectionState.Closed Then
@@ -12613,7 +12613,7 @@ Public Class ISMPTestReports
             dr.Close()
 
             If RecExist = True Then
-                SQL = "Update " & connNameSpace & ".ISMPReportOneStack Set " & _
+                SQL = "Update " & DBNameSpace & ".ISMPReportOneStack Set " & _
                 "strMaxOperatingCapacity = '" & MaxOpCapacity & "', " & _
                 " strMaxOperatingCapacityUnit = '" & MaxOpCapacityUnit & "', " & _
                 "strOperatingCapacity = '" & OpCapacity & "', " & _
@@ -12659,7 +12659,7 @@ Public Class ISMPTestReports
                 "strPercentAllowable = '" & PercentAllowable & "' " & _
                 "where strReferenceNumber = '" & txtReferenceNumber.Text & "'"
             Else
-                SQL = "Insert into " & connNameSpace & ".ISMPREportOneStack " & _
+                SQL = "Insert into " & DBNameSpace & ".ISMPREportOneStack " & _
                 "values " & _
                 "('" & txtReferenceNumber.Text & "', " & _
                 "'" & MaxOpCapacity & "', '" & MaxOpCapacityUnit & "', " & _
@@ -13382,7 +13382,7 @@ Public Class ISMPTestReports
             End Select
 
             SQL = "Select strReferenceNumber " & _
-            "From " & connNameSpace & ".ISMPReportTwoStack " & _
+            "From " & DBNameSpace & ".ISMPReportTwoStack " & _
             "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
             cmd = New OracleCommand(SQL, conn)
             If conn.State = ConnectionState.Closed Then
@@ -13393,7 +13393,7 @@ Public Class ISMPTestReports
             dr.Close()
 
             If RecExist = True Then
-                SQL = "Update " & connNameSpace & ".ISMPReportTwoStack set " & _
+                SQL = "Update " & DBNameSpace & ".ISMPReportTwoStack set " & _
                 "strMaxOperatingCapacity = '" & MaxOpCapacity & "', " & _
                 "strMaxOperatingCapacityUnit = '" & MaxOpCapacityUnit & "', " & _
                 "strOperatingCapacity = '" & OpCapacity & "', " & _
@@ -13462,7 +13462,7 @@ Public Class ISMPTestReports
                 "strPercentAllowable = '" & PercentAllowable & "' " & _
                 "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
             Else
-                SQL = "Insert into " & connNameSpace & ".ISMPReportTwoStack " & _
+                SQL = "Insert into " & DBNameSpace & ".ISMPReportTwoStack " & _
                 "values " & _
                 "('" & txtReferenceNumber.Text & "', " & _
                 "'" & MaxOpCapacity & "', '" & MaxOpCapacityUnit & "', " & _
@@ -13665,7 +13665,7 @@ Public Class ISMPTestReports
             End If
 
             SQL = "Select strReferenceNumber " & _
-            "from " & connNameSpace & ".ISMPReportFlare " & _
+            "from " & DBNameSpace & ".ISMPReportFlare " & _
             "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
             cmd = New OracleCommand(SQL, conn)
             If conn.State = ConnectionState.Closed Then
@@ -13676,7 +13676,7 @@ Public Class ISMPTestReports
             dr.Close()
 
             If RecExist = True Then
-                SQL = "Update " & connNameSpace & ".ISMPReportFlare set " & _
+                SQL = "Update " & DBNameSpace & ".ISMPReportFlare set " & _
                 "strMaxOperatingCapacity  = '" & MaxOpCapacity & "', " & _
                 "strMaxOperatingCapacityUnit = '" & MaxOpCapacityUnit & "', " & _
                 "strOperatingcapacity = '" & OpCapacity & "', " & _
@@ -13698,7 +13698,7 @@ Public Class ISMPTestReports
                 "strDestructionEfficiency = '" & Destruct & "' " & _
                 "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
             Else
-                SQL = "Insert into " & connNameSpace & ".ISMPReportFlare " & _
+                SQL = "Insert into " & DBNameSpace & ".ISMPReportFlare " & _
                 "values " & _
                 "('" & txtReferenceNumber.Text & "', " & _
                 "'" & MaxOpCapacity & "', '" & MaxOpCapacityUnit & "', " & _
@@ -13904,7 +13904,7 @@ Public Class ISMPTestReports
             End If
 
             SQL = "Select strReferenceNumber " & _
-            "from " & connNameSpace & ".ISMPReportPondAndGas " & _
+            "from " & DBNameSpace & ".ISMPReportPondAndGas " & _
             "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
             cmd = New OracleCommand(SQL, conn)
             If conn.State = ConnectionState.Closed Then
@@ -13915,7 +13915,7 @@ Public Class ISMPTestReports
             dr.Close()
 
             If RecExist = True Then
-                SQL = "Update " & connNameSpace & ".ISMPReportPondAndGas set " & _
+                SQL = "Update " & DBNameSpace & ".ISMPReportPondAndGas set " & _
                 "strMaxOperatingCapacity = '" & MaxOpCapacity & "', " & _
                 "strMaxOperatingCapacityUnit = '" & MaxOpCapacityUnit & "', " & _
                 "strOperatingCapacity  =  '" & OpCapacity & "', " & _
@@ -13942,7 +13942,7 @@ Public Class ISMPTestReports
                 "strPercentallowable = '" & Destruct & "' " & _
                 "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
             Else
-                SQL = "Insert into " & connNameSpace & ".ISMPReportPondAndGas " & _
+                SQL = "Insert into " & DBNameSpace & ".ISMPReportPondAndGas " & _
                 "values " & _
                 "('" & txtReferenceNumber.Text & "', " & _
                 "'" & MaxOpCapacity & "', '" & MaxOpCapacityUnit & "', " & _
@@ -14147,7 +14147,7 @@ Public Class ISMPTestReports
             End If
 
             SQL = "Select strReferenceNumber " & _
-            "from " & connNameSpace & ".ISMPReportPondAndGas " & _
+            "from " & DBNameSpace & ".ISMPReportPondAndGas " & _
             "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
             cmd = New OracleCommand(SQL, conn)
             If conn.State = ConnectionState.Closed Then
@@ -14158,7 +14158,7 @@ Public Class ISMPTestReports
             dr.Close()
 
             If RecExist = True Then
-                SQL = "Update " & connNameSpace & ".ISMPReportPondAndGas set " & _
+                SQL = "Update " & DBNameSpace & ".ISMPReportPondAndGas set " & _
                 "strMaxOperatingCapacity = '" & MaxOpCapacity & "', " & _
                 "strMaxOperatingCapacityUnit = '" & MaxOpCapacityUnit & "', " & _
                 "strOperatingCapacity  =  '" & OpCapacity & "', " & _
@@ -14185,7 +14185,7 @@ Public Class ISMPTestReports
                 "strPercentAllowable = '" & PercentAllowable & "' " & _
                 "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
             Else
-                SQL = "Insert into " & connNameSpace & ".ISMPReportPondAndGas " & _
+                SQL = "Insert into " & DBNameSpace & ".ISMPReportPondAndGas " & _
                 "values " & _
                 "('" & txtReferenceNumber.Text & "', " & _
                 "'" & MaxOpCapacity & "', '" & MaxOpCapacityUnit & "', " & _
@@ -14337,7 +14337,7 @@ Public Class ISMPTestReports
             End If
 
             SQL = "Select strReferenceNumber " & _
-            "from " & connNameSpace & ".ISMPReportFlare " & _
+            "from " & DBNameSpace & ".ISMPReportFlare " & _
             "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
             cmd = New OracleCommand(SQL, conn)
             If conn.State = ConnectionState.Closed Then
@@ -14348,7 +14348,7 @@ Public Class ISMPTestReports
             dr.Close()
 
             If RecExist = True Then
-                SQL = "Update " & connNameSpace & ".ISMPReportFlare set " & _
+                SQL = "Update " & DBNameSpace & ".ISMPReportFlare set " & _
                 "strMaxOperatingCapacity  = '" & MaxOpCapacity & "', " & _
                 "strMaxOperatingCapacityUnit = '" & MaxOpCapacityUnit & "', " & _
                 "strOperatingcapacity = '" & OpCapacity & "', " & _
@@ -14368,7 +14368,7 @@ Public Class ISMPTestReports
                 "strPercentAllowable = '" & PercentAllowable & "' " & _
                 "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
             Else
-                SQL = "Insert into " & connNameSpace & ".ISMPReportFlare " & _
+                SQL = "Insert into " & DBNameSpace & ".ISMPReportFlare " & _
                 "values " & _
                 "('" & txtReferenceNumber.Text & "', " & _
                 "'" & MaxOpCapacity & "', '" & MaxOpCapacityUnit & "', " & _
@@ -14689,7 +14689,7 @@ Public Class ISMPTestReports
             End If
 
             SQL = "Select strReferenceNumber " & _
-            "from " & connNameSpace & ".ISMPReportRata " & _
+            "from " & DBNameSpace & ".ISMPReportRata " & _
             "where strReferenceNumber = '" & txtReferenceNumber.Text & "'"
             cmd = New OracleCommand(SQL, conn)
             If conn.State = ConnectionState.Closed Then
@@ -14700,7 +14700,7 @@ Public Class ISMPTestReports
             dr.Close()
 
             If RecExist = True Then
-                SQL = "Update " & connNameSpace & ".ISMPReportRATA set " & _
+                SQL = "Update " & DBNameSpace & ".ISMPReportRATA set " & _
                 "strDiluent = '" & Diluent & "', " & _
                 "strApplicableStandard = '" & Replace(AppStandard, "'", "''") & "', " & _
                 "strRelativeAccuracyPercent = '" & RelativeAccPercent & "', " & _
@@ -14735,7 +14735,7 @@ Public Class ISMPTestReports
                 "strRunsIncludedKey = '" & IncludeKey & "' " & _
                 "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
             Else
-                SQL = "Insert into " & connNameSpace & ".ISMPReportRATA " & _
+                SQL = "Insert into " & DBNameSpace & ".ISMPReportRATA " & _
                 "values " & _
                 "('" & txtReferenceNumber.Text & "', " & _
                 "'" & Diluent & "', " & _
@@ -14886,7 +14886,7 @@ Public Class ISMPTestReports
             End Select
 
             SQL = "Select strReferenceNumber " & _
-            "from " & connNameSpace & ".ISMPReportMemo " & _
+            "from " & DBNameSpace & ".ISMPReportMemo " & _
             "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
             cmd = New OracleCommand(SQL, conn)
             If conn.State = ConnectionState.Closed Then
@@ -14897,7 +14897,7 @@ Public Class ISMPTestReports
             dr.Close()
 
             If RecExist = True Then
-                SQL = "Update " & connNameSpace & ".ISMPReportMemo set " & _
+                SQL = "Update " & DBNameSpace & ".ISMPReportMemo set " & _
                 "strMemorandumField = '" & Replace(MemoField, "'", "''") & "', " & _
                 "strMaxOperatingCapacity = '" & MaxOpCapacity & "', " & _
                 "strMaxOperatingCapacityUnit = '" & MaxOpCapacityUnit & "', " & _
@@ -14913,7 +14913,7 @@ Public Class ISMPTestReports
                 "strMonitorSerialNumber = '" & Replace(SerialNumber, "'", "''") & "' " & _
                 "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
             Else
-                SQL = "Insert into " & connNameSpace & ".ISMPReportMemo " & _
+                SQL = "Insert into " & DBNameSpace & ".ISMPReportMemo " & _
                 "values " & _
                 "('" & txtReferenceNumber.Text & "', " & _
                 "'" & Replace(MemoField, "'", "''") & "', " & _
@@ -15233,7 +15233,7 @@ Public Class ISMPTestReports
             End Select
 
             SQL = "Select strReferencenumber " & _
-            "from " & connNameSpace & ".ISMPReportOpacity " & _
+            "from " & DBNameSpace & ".ISMPReportOpacity " & _
             "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
             cmd = New OracleCommand(SQL, conn)
             If conn.State = ConnectionState.Closed Then
@@ -15244,7 +15244,7 @@ Public Class ISMPTestReports
             dr.Close()
 
             If RecExist = True Then
-                SQL = "Update " & connNameSpace & ".ISMPReportOpacity set " & _
+                SQL = "Update " & DBNameSpace & ".ISMPReportOpacity set " & _
                 "strMaxoperatingCapacity1A = '" & MaxOpCapacity1 & "', " & _
                 "strMaxOperatingCapacity2A = '" & MaxOpCapacity2 & "', " & _
                 "strMaxOperatingCapacity3A = '" & MaxOpCapacity3 & "', " & _
@@ -15279,7 +15279,7 @@ Public Class ISMPTestReports
                 "STROPACITYStandard = '" & OpacityStandard & "' " & _
                 "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
             Else
-                SQL = "Insert into " & connNameSpace & ".ISMPReportOpacity " & _
+                SQL = "Insert into " & DBNameSpace & ".ISMPReportOpacity " & _
                  "(strReferenceNumber, " & _
                  "strMaxoperatingCapacity1A,  strMaxOperatingCapacity2A, " & _
                  "strMaxOperatingCapacity3A,  strMaxOperatingCapacity4A,  " & _

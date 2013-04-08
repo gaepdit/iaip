@@ -31,7 +31,7 @@ Public Class IAIPDistrictSourceTool
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -73,10 +73,10 @@ Public Class IAIPDistrictSourceTool
 
             End Select
 
-            cmd = New OracleCommand(SQL, DBConn)
+            cmd = New OracleCommand(SQL, Conn)
 
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -84,14 +84,14 @@ Public Class IAIPDistrictSourceTool
                 clbCounties.Items.Add(dr.Item("strCountyname"))
             End While
 
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -118,13 +118,13 @@ Public Class IAIPDistrictSourceTool
                    "order by StrDistrictName"
 
             dsDistrict = New DataSet
-            daDistrict = New OracleDataAdapter(SQL, DBConn)
+            daDistrict = New OracleDataAdapter(SQL, Conn)
 
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             daDistrict.Fill(dsDistrict, "District")
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -202,7 +202,7 @@ Public Class IAIPDistrictSourceTool
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -228,10 +228,10 @@ Public Class IAIPDistrictSourceTool
             "or (numBranch = '5' and numProgram <> '35' and numEmployeeStatus = '1')) "
 
             dsDistrictStaff = New DataSet
-            daDistrictStaff = New OracleDataAdapter(SQL, DBConn)
+            daDistrictStaff = New OracleDataAdapter(SQL, Conn)
 
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             daDistrictStaff.Fill(dsDistrictStaff, "DistrictStaff")
 
@@ -260,7 +260,7 @@ Public Class IAIPDistrictSourceTool
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -282,10 +282,10 @@ Public Class IAIPDistrictSourceTool
                     "from " & DBNameSpace & ".LookUpCountyInformation where " & _
                     "strCountyName = '" & strObject & "') "
 
-                    cmd = New OracleCommand(SQL, DBConn)
+                    cmd = New OracleCommand(SQL, Conn)
 
-                    If DBConn.State = ConnectionState.Closed Then
-                        DBConn.Open()
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
                     dr = cmd.ExecuteReader
                 Next
@@ -305,9 +305,9 @@ Public Class IAIPDistrictSourceTool
                 SQL = "Select strDistrictCode from " & DBNameSpace & ".LookUPDistricts " & _
                 "where strDistrictCode = '" & txtNewDistrictCode.Text & "' "
 
-                cmd = New OracleCommand(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -326,14 +326,14 @@ Public Class IAIPDistrictSourceTool
                     "'" & cboDistrictManager.SelectedValue & "') "
                 End If
 
-                cmd = New OracleCommand(SQL, DBConn)
+                cmd = New OracleCommand(SQL, Conn)
                 dr = cmd.ExecuteReader
 
                 LoadDistrictListBox()
 
                 lsbDistricts.SelectedValue = txtNewDistrict.Text & " - " & txtNewDistrictCode.Text
 
-                If DBConn.State = ConnectionState.Open Then
+                If Conn.State = ConnectionState.Open Then
                     'conn.close()
                 End If
             End If
@@ -342,14 +342,14 @@ Public Class IAIPDistrictSourceTool
                 SQL = "Delete " & DBNameSpace & ".LookUPDistricts " & _
                 "where strDistrictCode = '" & Me.cboDistrictToRemove.SelectedValue & "' "
 
-                cmd = New OracleCommand(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
 
                 dr = cmd.ExecuteReader
 
-                If DBConn.State = ConnectionState.Open Then
+                If Conn.State = ConnectionState.Open Then
                     'conn.close()
                 End If
                 LoadDistrictListBox()
@@ -359,7 +359,7 @@ Public Class IAIPDistrictSourceTool
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -372,7 +372,7 @@ Public Class IAIPDistrictSourceTool
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -386,7 +386,7 @@ Public Class IAIPDistrictSourceTool
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -402,7 +402,7 @@ Public Class IAIPDistrictSourceTool
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -415,7 +415,7 @@ Public Class IAIPDistrictSourceTool
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -428,7 +428,7 @@ Public Class IAIPDistrictSourceTool
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -441,7 +441,7 @@ Public Class IAIPDistrictSourceTool
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -454,7 +454,7 @@ Public Class IAIPDistrictSourceTool
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -467,7 +467,7 @@ Public Class IAIPDistrictSourceTool
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -487,7 +487,7 @@ Public Class IAIPDistrictSourceTool
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -505,7 +505,7 @@ Public Class IAIPDistrictSourceTool
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -522,7 +522,7 @@ Public Class IAIPDistrictSourceTool
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -539,7 +539,7 @@ Public Class IAIPDistrictSourceTool
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -552,7 +552,7 @@ Public Class IAIPDistrictSourceTool
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -566,7 +566,7 @@ Public Class IAIPDistrictSourceTool
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -580,7 +580,7 @@ Public Class IAIPDistrictSourceTool
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -595,9 +595,9 @@ Public Class IAIPDistrictSourceTool
                 "strDistrictName, strDistrictManager " & _
                 "from " & DBNameSpace & ".LookUPDistricts " & _
                 "where strDistrictCode = '" & txtNewDistrictCode.Text & "' "
-                cmd = New OracleCommand(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
 
                 dr = cmd.ExecuteReader
@@ -627,7 +627,7 @@ Public Class IAIPDistrictSourceTool
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -656,10 +656,10 @@ Public Class IAIPDistrictSourceTool
             "from " & DBNameSpace & ".LookUpCountyInformation " & _
             "Order by strCountyName"
 
-            cmd = New OracleCommand(SQL, DBConn)
+            cmd = New OracleCommand(SQL, Conn)
 
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -674,9 +674,9 @@ Public Class IAIPDistrictSourceTool
                 "and strDistrictCode = '" & clbDistricts.SelectedValue & "' " & _
                 "and strCountyName = '" & CountyName & "' "
 
-                cmd = New OracleCommand(SQL2, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL2, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr2 = cmd.ExecuteReader
 
@@ -698,7 +698,7 @@ Public Class IAIPDistrictSourceTool
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try

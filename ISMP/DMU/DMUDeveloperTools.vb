@@ -5371,7 +5371,7 @@ Public Class DMUDeveloperTools
 
             SQL = "Select DISTINCT substr(strairsnumber, 5) as strairsnumber, " _
             + "strfacilityname " _
-            + "from " & connNameSpace & ".APBFacilityInformation " _
+            + "from " & DBNameSpace & ".APBFacilityInformation " _
             + "Order by strAIRSNumber "
 
             ds = New DataSet
@@ -5447,7 +5447,7 @@ Public Class DMUDeveloperTools
         End If
 
         Try
-            Dim updateString As String = "UPDATE " & connNameSpace & ".OlapUserAccess " & _
+            Dim updateString As String = "UPDATE " & DBNameSpace & ".OlapUserAccess " & _
                       "SET intadminaccess = '" & admin & "', " & _
                       "intFeeAccess = '" & fee & "', " & _
                       "intEIAccess = '" & ei & "', " & _
@@ -5507,7 +5507,7 @@ Public Class DMUDeveloperTools
                 ErrorSolution = Mid(txtErrorSolution.Text, 1, 4000)
             End If
             If txtErrorNumber.Text <> "" Then
-                SQL = "Update " & connNameSpace & ".IAIPErrorLog set " & _
+                SQL = "Update " & DBNameSpace & ".IAIPErrorLog set " & _
                 "strSolution = '" & Replace(ErrorSolution, "'", "''") & "' " & _
                 "where strErrornumber = '" & txtErrorNumber.Text & "' "
                 cmd = New OracleCommand(SQL, conn)
@@ -5558,14 +5558,14 @@ Public Class DMUDeveloperTools
                     "strIPAddress, strAgent, strPage, " & _
                     "strTime, strDetails, numError, " & _
                     "strSolution " & _
-                    "from " & connNameSpace & ".LogErrors " & _
+                    "from " & DBNameSpace & ".LogErrors " & _
                     "where NumError = " & txtWebErrorNumber.Text & " "
 
                     SQL = "select numError, " & _
                     "strIPAddress, strUserEmail, " & _
                     "strErrorPage, dateTimeStamp, " & _
                     "strErrorMsg, strSolution " & _
-                    "From " & connNameSpace & ".OLAPERRORLog " & _
+                    "From " & DBNameSpace & ".OLAPERRORLog " & _
                     "where numError = " & txtWebErrorNumber.Text & " "
 
                     cmd = New OracleCommand(SQL, conn)
@@ -5622,7 +5622,7 @@ Public Class DMUDeveloperTools
                 ErrorSolution = Mid(txtWebErrorSolution.Text, 1, 4000)
             End If
             If txtWebErrorNumber.Text <> "" Then
-                SQL = "Update " & connNameSpace & ".OLAPErrorLog set " & _
+                SQL = "Update " & DBNameSpace & ".OLAPErrorLog set " & _
                 "strSolution = '" & Replace(ErrorSolution, "'", "''") & "' " & _
                 "where numError = '" & txtWebErrorNumber.Text & "' "
                 cmd = New OracleCommand(SQL, conn)
@@ -5661,7 +5661,7 @@ Public Class DMUDeveloperTools
         Try
 
             If Me.txtDeleteAIRSNumber.Text <> "" And txtDeleteAIRSNumber.Text.Length = 8 Then
-                SQL = "delete " & connNameSpace & ".afsairpollutantdata where strAIRSNumber = '0413" & txtDeleteAIRSNumber.Text & "' "
+                SQL = "delete " & DBNameSpace & ".afsairpollutantdata where strAIRSNumber = '0413" & txtDeleteAIRSNumber.Text & "' "
                 cmd = New OracleCommand(SQL, conn)
                 If conn.State = ConnectionState.Closed Then
                     conn.Open()
@@ -5669,14 +5669,14 @@ Public Class DMUDeveloperTools
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL2 = "Insert into " & connNameSpace & ".AFSDeletions " & _
+                SQL2 = "Insert into " & DBNameSpace & ".AFSDeletions " & _
                 "values " & _
                 "(" & _
                 "(select " & _
                 "case when max(numCounter) is null then 1 " & _
                 "else max(numCounter) + 1 " & _
                 "end numCounter " & _
-                "from " & connNameSpace & ".AFSDeletions), " & _
+                "from " & DBNameSpace & ".AFSDeletions), " & _
                 "'0413" & txtDeleteAIRSNumber.Text & "', " & _
                 "'" & Replace(SQL, "'", "''") & "', 'True', " & _
                 "'" & OracleDate & "', '', " & _
@@ -5689,7 +5689,7 @@ Public Class DMUDeveloperTools
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL = "delete " & connNameSpace & ".afsfacilitydata where strAirsnumber = '0413" & txtDeleteAIRSNumber.Text & "'"
+                SQL = "delete " & DBNameSpace & ".afsfacilitydata where strAirsnumber = '0413" & txtDeleteAIRSNumber.Text & "'"
                 cmd = New OracleCommand(SQL, conn)
                 If conn.State = ConnectionState.Closed Then
                     conn.Open()
@@ -5697,14 +5697,14 @@ Public Class DMUDeveloperTools
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL2 = "Insert into " & connNameSpace & ".AFSDeletions " & _
+                SQL2 = "Insert into " & DBNameSpace & ".AFSDeletions " & _
                          "values " & _
                          "(" & _
                          "(select " & _
                          "case when max(numCounter) is null then 1 " & _
                          "else max(numCounter) + 1 " & _
                          "end numCounter " & _
-                         "from " & connNameSpace & ".AFSDeletions), " & _
+                         "from " & DBNameSpace & ".AFSDeletions), " & _
                          "'0413" & txtDeleteAIRSNumber.Text & "', " & _
                          "'" & Replace(SQL, "'", "''") & "', 'True', " & _
                          "'" & OracleDate & "', '', " & _
@@ -5717,7 +5717,7 @@ Public Class DMUDeveloperTools
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL = "delete " & connNameSpace & ".apbairprogrampollutants where strAIRSNumber = '0413" & txtDeleteAIRSNumber.Text & "'"
+                SQL = "delete " & DBNameSpace & ".apbairprogrampollutants where strAIRSNumber = '0413" & txtDeleteAIRSNumber.Text & "'"
                 cmd = New OracleCommand(SQL, conn)
                 If conn.State = ConnectionState.Closed Then
                     conn.Open()
@@ -5725,14 +5725,14 @@ Public Class DMUDeveloperTools
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL2 = "Insert into " & connNameSpace & ".AFSDeletions " & _
+                SQL2 = "Insert into " & DBNameSpace & ".AFSDeletions " & _
                          "values " & _
                          "(" & _
                          "(select " & _
                          "case when max(numCounter) is null then 1 " & _
                          "else max(numCounter) + 1 " & _
                          "end numCounter " & _
-                         "from " & connNameSpace & ".AFSDeletions), " & _
+                         "from " & DBNameSpace & ".AFSDeletions), " & _
                          "'0413" & txtDeleteAIRSNumber.Text & "', " & _
                          "'" & Replace(SQL, "'", "''") & "', 'True', " & _
                          "'" & OracleDate & "', '', " & _
@@ -5745,7 +5745,7 @@ Public Class DMUDeveloperTools
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL = "delete " & connNameSpace & ".hb_apbairprogrampollutants where strairsnumber = '0413" & txtDeleteAIRSNumber.Text & "'"
+                SQL = "delete " & DBNameSpace & ".hb_apbairprogrampollutants where strairsnumber = '0413" & txtDeleteAIRSNumber.Text & "'"
                 cmd = New OracleCommand(SQL, conn)
                 If conn.State = ConnectionState.Closed Then
                     conn.Open()
@@ -5753,14 +5753,14 @@ Public Class DMUDeveloperTools
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL2 = "Insert into " & connNameSpace & ".AFSDeletions " & _
+                SQL2 = "Insert into " & DBNameSpace & ".AFSDeletions " & _
                          "values " & _
                          "(" & _
                          "(select " & _
                          "case when max(numCounter) is null then 1 " & _
                          "else max(numCounter) + 1 " & _
                          "end numCounter " & _
-                         "from " & connNameSpace & ".AFSDeletions), " & _
+                         "from " & DBNameSpace & ".AFSDeletions), " & _
                          "'0413" & txtDeleteAIRSNumber.Text & "', " & _
                          "'" & Replace(SQL, "'", "''") & "', 'True', " & _
                          "'" & OracleDate & "', '', " & _
@@ -5773,7 +5773,7 @@ Public Class DMUDeveloperTools
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL = "delete " & connNameSpace & ".apbcontactinformation where strairsnumber = '0413" & txtDeleteAIRSNumber.Text & "'"
+                SQL = "delete " & DBNameSpace & ".apbcontactinformation where strairsnumber = '0413" & txtDeleteAIRSNumber.Text & "'"
                 cmd = New OracleCommand(SQL, conn)
                 If conn.State = ConnectionState.Closed Then
                     conn.Open()
@@ -5781,14 +5781,14 @@ Public Class DMUDeveloperTools
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL2 = "Insert into " & connNameSpace & ".AFSDeletions " & _
+                SQL2 = "Insert into " & DBNameSpace & ".AFSDeletions " & _
                          "values " & _
                          "(" & _
                          "(select " & _
                          "case when max(numCounter) is null then 1 " & _
                          "else max(numCounter) + 1 " & _
                          "end numCounter " & _
-                         "from " & connNameSpace & ".AFSDeletions), " & _
+                         "from " & DBNameSpace & ".AFSDeletions), " & _
                          "'0413" & txtDeleteAIRSNumber.Text & "', " & _
                          "'" & Replace(SQL, "'", "''") & "', 'True', " & _
                          "'" & OracleDate & "', '', " & _
@@ -5801,7 +5801,7 @@ Public Class DMUDeveloperTools
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL = "delete " & connNameSpace & ".apbheaderdata where strairsnumber = '0413" & txtDeleteAIRSNumber.Text & "'"
+                SQL = "delete " & DBNameSpace & ".apbheaderdata where strairsnumber = '0413" & txtDeleteAIRSNumber.Text & "'"
                 cmd = New OracleCommand(SQL, conn)
                 If conn.State = ConnectionState.Closed Then
                     conn.Open()
@@ -5809,14 +5809,14 @@ Public Class DMUDeveloperTools
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL2 = "Insert into " & connNameSpace & ".AFSDeletions " & _
+                SQL2 = "Insert into " & DBNameSpace & ".AFSDeletions " & _
                          "values " & _
                          "(" & _
                          "(select " & _
                          "case when max(numCounter) is null then 1 " & _
                          "else max(numCounter) + 1 " & _
                          "end numCounter " & _
-                         "from " & connNameSpace & ".AFSDeletions), " & _
+                         "from " & DBNameSpace & ".AFSDeletions), " & _
                          "'0413" & txtDeleteAIRSNumber.Text & "', " & _
                          "'" & Replace(SQL, "'", "''") & "', 'True', " & _
                          "'" & OracleDate & "', '', " & _
@@ -5829,7 +5829,7 @@ Public Class DMUDeveloperTools
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL = "delete " & connNameSpace & ".HB_APBHeaderData where strAIRSNumber = '0413" & txtDeleteAIRSNumber.Text & "'"
+                SQL = "delete " & DBNameSpace & ".HB_APBHeaderData where strAIRSNumber = '0413" & txtDeleteAIRSNumber.Text & "'"
                 cmd = New OracleCommand(SQL, conn)
                 If conn.State = ConnectionState.Closed Then
                     conn.Open()
@@ -5837,14 +5837,14 @@ Public Class DMUDeveloperTools
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL2 = "Insert into " & connNameSpace & ".AFSDeletions " & _
+                SQL2 = "Insert into " & DBNameSpace & ".AFSDeletions " & _
                          "values " & _
                          "(" & _
                          "(select " & _
                          "case when max(numCounter) is null then 1 " & _
                          "else max(numCounter) + 1 " & _
                          "end numCounter " & _
-                         "from " & connNameSpace & ".AFSDeletions), " & _
+                         "from " & DBNameSpace & ".AFSDeletions), " & _
                          "'0413" & txtDeleteAIRSNumber.Text & "', " & _
                          "'" & Replace(SQL, "'", "''") & "', 'True', " & _
                          "'" & OracleDate & "', '', " & _
@@ -5857,7 +5857,7 @@ Public Class DMUDeveloperTools
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL = "delete " & connNameSpace & ".HB_APBFacilityInformation where strAIRSNumber = '0413" & txtDeleteAIRSNumber.Text & "'"
+                SQL = "delete " & DBNameSpace & ".HB_APBFacilityInformation where strAIRSNumber = '0413" & txtDeleteAIRSNumber.Text & "'"
                 cmd = New OracleCommand(SQL, conn)
                 If conn.State = ConnectionState.Closed Then
                     conn.Open()
@@ -5865,14 +5865,14 @@ Public Class DMUDeveloperTools
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL2 = "Insert into " & connNameSpace & ".AFSDeletions " & _
+                SQL2 = "Insert into " & DBNameSpace & ".AFSDeletions " & _
                          "values " & _
                          "(" & _
                          "(select " & _
                          "case when max(numCounter) is null then 1 " & _
                          "else max(numCounter) + 1 " & _
                          "end numCounter " & _
-                         "from " & connNameSpace & ".AFSDeletions), " & _
+                         "from " & DBNameSpace & ".AFSDeletions), " & _
                          "'0413" & txtDeleteAIRSNumber.Text & "', " & _
                          "'" & Replace(SQL, "'", "''") & "', 'True', " & _
                          "'" & OracleDate & "', '', " & _
@@ -5885,7 +5885,7 @@ Public Class DMUDeveloperTools
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL = "delete " & connNameSpace & ".APBFacilityInformation where strAIRSNumber = '0413" & txtDeleteAIRSNumber.Text & "'"
+                SQL = "delete " & DBNameSpace & ".APBFacilityInformation where strAIRSNumber = '0413" & txtDeleteAIRSNumber.Text & "'"
                 cmd = New OracleCommand(SQL, conn)
                 If conn.State = ConnectionState.Closed Then
                     conn.Open()
@@ -5893,14 +5893,14 @@ Public Class DMUDeveloperTools
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL2 = "Insert into " & connNameSpace & ".AFSDeletions " & _
+                SQL2 = "Insert into " & DBNameSpace & ".AFSDeletions " & _
                          "values " & _
                          "(" & _
                          "(select " & _
                          "case when max(numCounter) is null then 1 " & _
                          "else max(numCounter) + 1 " & _
                          "end numCounter " & _
-                         "from " & connNameSpace & ".AFSDeletions), " & _
+                         "from " & DBNameSpace & ".AFSDeletions), " & _
                          "'0413" & txtDeleteAIRSNumber.Text & "', " & _
                          "'" & Replace(SQL, "'", "''") & "', 'True', " & _
                          "'" & OracleDate & "', '', " & _
@@ -5913,7 +5913,7 @@ Public Class DMUDeveloperTools
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL = "delete " & connNameSpace & ".apbsupplamentaldata where strairsnumber = '0413" & txtDeleteAIRSNumber.Text & "'"
+                SQL = "delete " & DBNameSpace & ".apbsupplamentaldata where strairsnumber = '0413" & txtDeleteAIRSNumber.Text & "'"
                 cmd = New OracleCommand(SQL, conn)
                 If conn.State = ConnectionState.Closed Then
                     conn.Open()
@@ -5921,14 +5921,14 @@ Public Class DMUDeveloperTools
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL2 = "Insert into " & connNameSpace & ".AFSDeletions " & _
+                SQL2 = "Insert into " & DBNameSpace & ".AFSDeletions " & _
                          "values " & _
                          "(" & _
                          "(select " & _
                          "case when max(numCounter) is null then 1 " & _
                          "else max(numCounter) + 1 " & _
                          "end numCounter " & _
-                         "from " & connNameSpace & ".AFSDeletions), " & _
+                         "from " & DBNameSpace & ".AFSDeletions), " & _
                          "'0413" & txtDeleteAIRSNumber.Text & "', " & _
                          "'" & Replace(SQL, "'", "''") & "', 'True', " & _
                          "'" & OracleDate & "', '', " & _
@@ -5941,9 +5941,9 @@ Public Class DMUDeveloperTools
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                'SQL = "Delete " & connNameSpace & ".SSCPFacilityAssignment where strairsnumber = '0413" & txtDeleteAIRSNumber.Text & "' "
+                'SQL = "Delete " & DBNameSpace & ".SSCPFacilityAssignment where strairsnumber = '0413" & txtDeleteAIRSNumber.Text & "' "
 
-                SQL = "Delete " & connNameSpace & ".SSCPInspectionsRequired where strAIRSnumber = '0413" & txtDeleteAIRSNumber.Text & "' "
+                SQL = "Delete " & DBNameSpace & ".SSCPInspectionsRequired where strAIRSnumber = '0413" & txtDeleteAIRSNumber.Text & "' "
 
                 cmd = New OracleCommand(SQL, conn)
                 If conn.State = ConnectionState.Closed Then
@@ -5952,14 +5952,14 @@ Public Class DMUDeveloperTools
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL2 = "Insert into " & connNameSpace & ".AFSDeletions " & _
+                SQL2 = "Insert into " & DBNameSpace & ".AFSDeletions " & _
                          "values " & _
                          "(" & _
                          "(select " & _
                          "case when max(numCounter) is null then 1 " & _
                          "else max(numCounter) + 1 " & _
                          "end numCounter " & _
-                         "from " & connNameSpace & ".AFSDeletions), " & _
+                         "from " & DBNameSpace & ".AFSDeletions), " & _
                          "'0413" & txtDeleteAIRSNumber.Text & "', " & _
                          "'" & Replace(SQL, "'", "''") & "', 'True', " & _
                          "'" & OracleDate & "', '', " & _
@@ -5972,7 +5972,7 @@ Public Class DMUDeveloperTools
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL = "Delete " & connNameSpace & ".SSCPDistrictResponsible where strairsnumber = '0413" & txtDeleteAIRSNumber.Text & "' "
+                SQL = "Delete " & DBNameSpace & ".SSCPDistrictResponsible where strairsnumber = '0413" & txtDeleteAIRSNumber.Text & "' "
                 cmd = New OracleCommand(SQL, conn)
                 If conn.State = ConnectionState.Closed Then
                     conn.Open()
@@ -5980,14 +5980,14 @@ Public Class DMUDeveloperTools
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL2 = "Insert into " & connNameSpace & ".AFSDeletions " & _
+                SQL2 = "Insert into " & DBNameSpace & ".AFSDeletions " & _
                          "values " & _
                          "(" & _
                          "(select " & _
                          "case when max(numCounter) is null then 1 " & _
                          "else max(numCounter) + 1 " & _
                          "end numCounter " & _
-                         "from " & connNameSpace & ".AFSDeletions), " & _
+                         "from " & DBNameSpace & ".AFSDeletions), " & _
                          "'0413" & txtDeleteAIRSNumber.Text & "', " & _
                          "'" & Replace(SQL, "'", "''") & "', 'True', " & _
                          "'" & OracleDate & "', '', " & _
@@ -6000,7 +6000,7 @@ Public Class DMUDeveloperTools
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL = "delete " & connNameSpace & ".sscpfacilityassignment where strairsnumber = '0413" & txtDeleteAIRSNumber.Text & "' "
+                SQL = "delete " & DBNameSpace & ".sscpfacilityassignment where strairsnumber = '0413" & txtDeleteAIRSNumber.Text & "' "
                 cmd = New OracleCommand(SQL, conn)
                 If conn.State = ConnectionState.Closed Then
                     conn.Open()
@@ -6008,43 +6008,14 @@ Public Class DMUDeveloperTools
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL2 = "Insert into " & connNameSpace & ".AFSDeletions " & _
+                SQL2 = "Insert into " & DBNameSpace & ".AFSDeletions " & _
                          "values " & _
                          "(" & _
                          "(select " & _
                          "case when max(numCounter) is null then 1 " & _
                          "else max(numCounter) + 1 " & _
                          "end numCounter " & _
-                         "from " & connNameSpace & ".AFSDeletions), " & _
-                         "'0413" & txtDeleteAIRSNumber.Text & "', " & _
-                         "'" & Replace(SQL, "'", "''") & "', 'True', " & _
-                         "'" & OracleDate & "', '', " & _
-                         "'') "
-
-                cmd = New OracleCommand(SQL2, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
-                End If
-                dr = cmd.ExecuteReader
-                dr.Close()
-
-
-                SQL = "delete " & connNameSpace & ".sscpInspectionsRequired where strairsnumber = '0413" & txtDeleteAIRSNumber.Text & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
-                End If
-                dr = cmd.ExecuteReader
-                dr.Close()
-
-                SQL2 = "Insert into " & connNameSpace & ".AFSDeletions " & _
-                         "values " & _
-                         "(" & _
-                         "(select " & _
-                         "case when max(numCounter) is null then 1 " & _
-                         "else max(numCounter) + 1 " & _
-                         "end numCounter " & _
-                         "from " & connNameSpace & ".AFSDeletions), " & _
+                         "from " & DBNameSpace & ".AFSDeletions), " & _
                          "'0413" & txtDeleteAIRSNumber.Text & "', " & _
                          "'" & Replace(SQL, "'", "''") & "', 'True', " & _
                          "'" & OracleDate & "', '', " & _
@@ -6058,7 +6029,7 @@ Public Class DMUDeveloperTools
                 dr.Close()
 
 
-                SQL = "delete " & connNameSpace & ".apbmasterairs where strairsnumber = '0413" & txtDeleteAIRSNumber.Text & "' "
+                SQL = "delete " & DBNameSpace & ".sscpInspectionsRequired where strairsnumber = '0413" & txtDeleteAIRSNumber.Text & "' "
                 cmd = New OracleCommand(SQL, conn)
                 If conn.State = ConnectionState.Closed Then
                     conn.Open()
@@ -6066,14 +6037,43 @@ Public Class DMUDeveloperTools
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL2 = "Insert into " & connNameSpace & ".AFSDeletions " & _
+                SQL2 = "Insert into " & DBNameSpace & ".AFSDeletions " & _
                          "values " & _
                          "(" & _
                          "(select " & _
                          "case when max(numCounter) is null then 1 " & _
                          "else max(numCounter) + 1 " & _
                          "end numCounter " & _
-                         "from " & connNameSpace & ".AFSDeletions), " & _
+                         "from " & DBNameSpace & ".AFSDeletions), " & _
+                         "'0413" & txtDeleteAIRSNumber.Text & "', " & _
+                         "'" & Replace(SQL, "'", "''") & "', 'True', " & _
+                         "'" & OracleDate & "', '', " & _
+                         "'') "
+
+                cmd = New OracleCommand(SQL2, conn)
+                If conn.State = ConnectionState.Closed Then
+                    conn.Open()
+                End If
+                dr = cmd.ExecuteReader
+                dr.Close()
+
+
+                SQL = "delete " & DBNameSpace & ".apbmasterairs where strairsnumber = '0413" & txtDeleteAIRSNumber.Text & "' "
+                cmd = New OracleCommand(SQL, conn)
+                If conn.State = ConnectionState.Closed Then
+                    conn.Open()
+                End If
+                dr = cmd.ExecuteReader
+                dr.Close()
+
+                SQL2 = "Insert into " & DBNameSpace & ".AFSDeletions " & _
+                         "values " & _
+                         "(" & _
+                         "(select " & _
+                         "case when max(numCounter) is null then 1 " & _
+                         "else max(numCounter) + 1 " & _
+                         "end numCounter " & _
+                         "from " & DBNameSpace & ".AFSDeletions), " & _
                          "'0413" & txtDeleteAIRSNumber.Text & "', " & _
                          "'" & Replace(SQL, "'", "''") & "', 'True', " & _
                          "'" & OracleDate & "', '', " & _
@@ -7202,7 +7202,7 @@ Public Class DMUDeveloperTools
     End Sub
     Sub TransferLookUpAPBManagement()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".LOOKUPAPBMANAGEMENT "
+        "from " & DBNameSpace & ".LOOKUPAPBMANAGEMENT "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -7211,7 +7211,7 @@ Public Class DMUDeveloperTools
         End If
         daTemp.Fill(dsTemp, "Temp")
 
-        SQL = "DELETE " & connNameSpace & ".LOOKUPAPBMANAGEMENT "
+        SQL = "DELETE " & DBNameSpace & ".LOOKUPAPBMANAGEMENT "
         cmd = New OracleCommand(SQL, transferConn)
         If transferConn.State = ConnectionState.Closed Then
             transferConn.Open()
@@ -7251,7 +7251,7 @@ Public Class DMUDeveloperTools
                 temp6 = drDSRow("STRBRANCHCHIEF")
             End If
 
-            SQL = "Insert into " & connNameSpace & ".LOOKUPAPBMANAGEMENT " & _
+            SQL = "Insert into " & DBNameSpace & ".LOOKUPAPBMANAGEMENT " & _
             "Values " & _
             "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
             "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "', " & _
@@ -7267,7 +7267,7 @@ Public Class DMUDeveloperTools
     End Sub
     Sub TransferLookUpApplicationType()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".LOOKUPAPPLICATIONTYPES "
+        "from " & DBNameSpace & ".LOOKUPAPPLICATIONTYPES "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -7294,7 +7294,7 @@ Public Class DMUDeveloperTools
             End If
 
             SQL = "SELECT COUNT(*) " & _
-            "FROM " & connNameSpace & ".LOOKUPAPPLICATIONTYPES " & _
+            "FROM " & DBNameSpace & ".LOOKUPAPPLICATIONTYPES " & _
             "WHERE STRAPPLICATIONTYPECODE = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -7303,12 +7303,12 @@ Public Class DMUDeveloperTools
             dr = cmd.ExecuteReader
             recExist = dr.Read
             If recExist = False Or dr.Item(0) = 0 Then
-                SQL = "Insert into " & connNameSpace & ".LOOKUPAPPLICATIONTYPES " & _
+                SQL = "Insert into " & DBNameSpace & ".LOOKUPAPPLICATIONTYPES " & _
                 "Values " & _
                 "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                 "'" & Replace(temp3, "'", "''") & "') "
             Else
-                SQL = "UPDATE " & connNameSpace & ".LOOKUPAPPLICATIONTYPES SET " & _
+                SQL = "UPDATE " & DBNameSpace & ".LOOKUPAPPLICATIONTYPES SET " & _
                 "STRAPPLICATIONTYPECODE = '" & Replace(temp, "'", "''") & "', " & _
                 "STRAPPLICATIONTYPEDESC = '" & Replace(temp2, "'", "''") & "', " & _
                 "STRAPPLICATIONTYPEUSED = '" & Replace(temp3, "'", "''") & "' " & _
@@ -7326,7 +7326,7 @@ Public Class DMUDeveloperTools
     End Sub
     Sub TransferLookUpComplianceActivities()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".LOOKUPCOMPLIANCEACTIVITIES "
+        "from " & DBNameSpace & ".LOOKUPCOMPLIANCEACTIVITIES "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -7353,7 +7353,7 @@ Public Class DMUDeveloperTools
             End If
 
             SQL = "SELECT COUNT(*) " & _
-            "FROM " & connNameSpace & ".LOOKUPCOMPLIANCEACTIVITIES " & _
+            "FROM " & DBNameSpace & ".LOOKUPCOMPLIANCEACTIVITIES " & _
             "WHERE STRACTIVITYTYPE = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -7362,12 +7362,12 @@ Public Class DMUDeveloperTools
             dr = cmd.ExecuteReader
             recExist = dr.Read
             If recExist = False Or dr.Item(0) = 0 Then
-                SQL = "Insert into " & connNameSpace & ".LOOKUPCOMPLIANCEACTIVITIES " & _
+                SQL = "Insert into " & DBNameSpace & ".LOOKUPCOMPLIANCEACTIVITIES " & _
                 "Values " & _
                 "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                 "'" & Replace(temp3, "'", "''") & "') "
             Else
-                SQL = "UPDATE " & connNameSpace & ".LOOKUPCOMPLIANCEACTIVITIES SET " & _
+                SQL = "UPDATE " & DBNameSpace & ".LOOKUPCOMPLIANCEACTIVITIES SET " & _
                 "STRACTIVITYTYPE = '" & Replace(temp, "'", "''") & "', " & _
                 "STRACTIVITYNAME = '" & Replace(temp2, "'", "''") & "', " & _
                 "STRACTIVITYDESCRIPTION = '" & Replace(temp3, "'", "''") & "' " & _
@@ -7385,7 +7385,7 @@ Public Class DMUDeveloperTools
     End Sub
     Sub TransferLookUpComplianceStatus()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".LOOKUPCOMPLIANCESTATUS "
+        "from " & DBNameSpace & ".LOOKUPCOMPLIANCESTATUS "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -7407,7 +7407,7 @@ Public Class DMUDeveloperTools
             End If
 
             SQL = "SELECT COUNT(*) " & _
-            "FROM " & connNameSpace & ".LOOKUPCOMPLIANCESTATUS " & _
+            "FROM " & DBNameSpace & ".LOOKUPCOMPLIANCESTATUS " & _
             "WHERE STRCOMPLIANCECODE = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -7416,12 +7416,12 @@ Public Class DMUDeveloperTools
             dr = cmd.ExecuteReader
             recExist = dr.Read
             If recExist = False Or dr.Item(0) = 0 Then
-                SQL = "Insert into " & connNameSpace & ".LOOKUPCOMPLIANCESTATUS " & _
+                SQL = "Insert into " & DBNameSpace & ".LOOKUPCOMPLIANCESTATUS " & _
                 "Values " & _
                 "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                 "'" & Replace(temp3, "'", "''") & "') "
             Else
-                SQL = "UPDATE " & connNameSpace & ".LOOKUPCOMPLIANCESTATUS SET " & _
+                SQL = "UPDATE " & DBNameSpace & ".LOOKUPCOMPLIANCESTATUS SET " & _
                 "STRCOMPLIANCECODE = '" & Replace(temp, "'", "''") & "', " & _
                 "STRCOMPLIANCEDESC = '" & Replace(temp2, "'", "''") & "' " & _
                 "WHERE STRCOMPLIANCECODE = '" & Replace(temp, "'", "''") & "' "
@@ -7439,7 +7439,7 @@ Public Class DMUDeveloperTools
     End Sub
     Sub TransferLookUpComplinaceUnits()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".LOOKUPCOMPLIANCEUNITS "
+        "from " & DBNameSpace & ".LOOKUPCOMPLIANCEUNITS "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -7466,7 +7466,7 @@ Public Class DMUDeveloperTools
             End If
 
             SQL = "SELECT COUNT(*) " & _
-            "FROM " & connNameSpace & ".LOOKUPCOMPLIANCEUNITS " & _
+            "FROM " & DBNameSpace & ".LOOKUPCOMPLIANCEUNITS " & _
             "WHERE STRCOMPLIANCEUNIT = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -7475,12 +7475,12 @@ Public Class DMUDeveloperTools
             dr = cmd.ExecuteReader
             recExist = dr.Read
             If recExist = False Or dr.Item(0) = 0 Then
-                SQL = "Insert into " & connNameSpace & ".LOOKUPCOMPLIANCEUNITS " & _
+                SQL = "Insert into " & DBNameSpace & ".LOOKUPCOMPLIANCEUNITS " & _
                 "Values " & _
                 "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                 "'" & Replace(temp3, "'", "''") & "') "
             Else
-                SQL = "UPDATE " & connNameSpace & ".LOOKUPCOMPLIANCEUNITS SET " & _
+                SQL = "UPDATE " & DBNameSpace & ".LOOKUPCOMPLIANCEUNITS SET " & _
                 "STRCOMPLIANCEUNIT = '" & Replace(temp, "'", "''") & "', " & _
                 "STRUNITTITLE = '" & Replace(temp2, "'", "''") & "', " & _
                 "STRUNITMANAGER = '" & Replace(temp3, "'", "''") & "' " & _
@@ -7498,7 +7498,7 @@ Public Class DMUDeveloperTools
     End Sub
     Sub TransferLookUpCountyInformation()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".LOOKUPCOUNTYINFORMATION "
+        "from " & DBNameSpace & ".LOOKUPCOUNTYINFORMATION "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -7530,7 +7530,7 @@ Public Class DMUDeveloperTools
             End If
 
             SQL = "SELECT COUNT(*) " & _
-            "FROM " & connNameSpace & ".LOOKUPCOUNTYINFORMATION " & _
+            "FROM " & DBNameSpace & ".LOOKUPCOUNTYINFORMATION " & _
             "WHERE STRCOUNTYCODE = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -7539,12 +7539,12 @@ Public Class DMUDeveloperTools
             dr = cmd.ExecuteReader
             recExist = dr.Read
             If recExist = False Or dr.Item(0) = 0 Then
-                SQL = "Insert into " & connNameSpace & ".LOOKUPCOUNTYINFORMATION " & _
+                SQL = "Insert into " & DBNameSpace & ".LOOKUPCOUNTYINFORMATION " & _
                 "Values " & _
                 "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                 "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "') "
             Else
-                SQL = "UPDATE " & connNameSpace & ".LOOKUPCOUNTYINFORMATION SET " & _
+                SQL = "UPDATE " & DBNameSpace & ".LOOKUPCOUNTYINFORMATION SET " & _
                 "STRCOUNTYCODE = '" & Replace(temp, "'", "''") & "', " & _
                 "STRCOUNTYNAME = '" & Replace(temp2, "'", "''") & "', " & _
                 "STRATTAINMENTSTATUS = '" & Replace(temp3, "'", "''") & "', " & _
@@ -7565,7 +7565,7 @@ Public Class DMUDeveloperTools
     End Sub
     Sub TransferLookUpDistrictInformation()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".LOOKUPDISTRICTINFORMATION "
+        "from " & DBNameSpace & ".LOOKUPDISTRICTINFORMATION "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -7587,7 +7587,7 @@ Public Class DMUDeveloperTools
             End If
 
             SQL = "SELECT COUNT(*) " & _
-            "FROM " & connNameSpace & ".LOOKUPDISTRICTINFORMATION " & _
+            "FROM " & DBNameSpace & ".LOOKUPDISTRICTINFORMATION " & _
             "WHERE STRDISTRICTCOUNTY = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -7596,11 +7596,11 @@ Public Class DMUDeveloperTools
             dr = cmd.ExecuteReader
             recExist = dr.Read
             If recExist = False Or dr.Item(0) = 0 Then
-                SQL = "Insert into " & connNameSpace & ".LOOKUPDISTRICTINFORMATION " & _
+                SQL = "Insert into " & DBNameSpace & ".LOOKUPDISTRICTINFORMATION " & _
                 "Values " & _
                 "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "') "
             Else
-                SQL = "UPDATE " & connNameSpace & ".LOOKUPDISTRICTINFORMATION SET " & _
+                SQL = "UPDATE " & DBNameSpace & ".LOOKUPDISTRICTINFORMATION SET " & _
                 "STRDISTRICTCOUNTY = '" & Replace(temp, "'", "''") & "', " & _
                 "STRDISTRICTCODE = '" & Replace(temp2, "'", "''") & "' " & _
                 "WHERE STRDISTRICTCOUNTY = '" & Replace(temp, "'", "''") & "' "
@@ -7617,7 +7617,7 @@ Public Class DMUDeveloperTools
     End Sub
     Sub TransferLookUpDistrictOffice()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".LOOKUPDISTRICTOFFICE "
+        "from " & DBNameSpace & ".LOOKUPDISTRICTOFFICE "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -7639,7 +7639,7 @@ Public Class DMUDeveloperTools
             End If
 
             SQL = "SELECT COUNT(*) " & _
-            "FROM " & connNameSpace & ".LOOKUPDISTRICTOFFICE " & _
+            "FROM " & DBNameSpace & ".LOOKUPDISTRICTOFFICE " & _
             "WHERE STRDISTRICTCODE = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -7648,11 +7648,11 @@ Public Class DMUDeveloperTools
             dr = cmd.ExecuteReader
             recExist = dr.Read
             If recExist = False Or dr.Item(0) = 0 Then
-                SQL = "Insert into " & connNameSpace & ".LOOKUPDISTRICTOFFICE " & _
+                SQL = "Insert into " & DBNameSpace & ".LOOKUPDISTRICTOFFICE " & _
                 "Values " & _
                 "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "') "
             Else
-                SQL = "UPDATE " & connNameSpace & ".LOOKUPDISTRICTOFFICE SET " & _
+                SQL = "UPDATE " & DBNameSpace & ".LOOKUPDISTRICTOFFICE SET " & _
                 "STRDISTRICTCODE = '" & Replace(temp, "'", "''") & "', " & _
                 "STROFFICENAME = '" & Replace(temp2, "'", "''") & "' " & _
                 "WHERE STRDISTRICTCODE = '" & Replace(temp, "'", "''") & "' "
@@ -7670,7 +7670,7 @@ Public Class DMUDeveloperTools
     End Sub
     Sub TransferLookUpDistricts()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".LOOKUPDISTRICTS "
+        "from " & DBNameSpace & ".LOOKUPDISTRICTS "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -7697,7 +7697,7 @@ Public Class DMUDeveloperTools
             End If
 
             SQL = "SELECT COUNT(*) " & _
-            "FROM " & connNameSpace & ".LOOKUPDISTRICTS " & _
+            "FROM " & DBNameSpace & ".LOOKUPDISTRICTS " & _
             "WHERE STRDISTRICTCODE = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -7706,12 +7706,12 @@ Public Class DMUDeveloperTools
             dr = cmd.ExecuteReader
             recExist = dr.Read
             If recExist = False Or dr.Item(0) = 0 Then
-                SQL = "Insert into " & connNameSpace & ".LOOKUPDISTRICTS " & _
+                SQL = "Insert into " & DBNameSpace & ".LOOKUPDISTRICTS " & _
                 "Values " & _
                 "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                 "'" & Replace(temp3, "'", "''") & "') "
             Else
-                SQL = "UPDATE " & connNameSpace & ".LOOKUPDISTRICTS SET " & _
+                SQL = "UPDATE " & DBNameSpace & ".LOOKUPDISTRICTS SET " & _
                 "STRDISTRICTCODE = '" & Replace(temp, "'", "''") & "', " & _
                 "STRDISTRICTNAME = '" & Replace(temp2, "'", "''") & "', " & _
                 "STRDISTRICTMANAGER = '" & Replace(temp3, "'", "''") & "' " & _
@@ -7729,7 +7729,7 @@ Public Class DMUDeveloperTools
     End Sub
     Sub TransferLookUpEPDBranches()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".LOOKUPEPDBranches "
+        "from " & DBNameSpace & ".LOOKUPEPDBranches "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -7751,7 +7751,7 @@ Public Class DMUDeveloperTools
             End If
 
             SQL = "SELECT COUNT(*) " & _
-            "FROM " & connNameSpace & ".LOOKUPEPDBranches " & _
+            "FROM " & DBNameSpace & ".LOOKUPEPDBranches " & _
             "WHERE numbranchCode = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -7760,11 +7760,11 @@ Public Class DMUDeveloperTools
             dr = cmd.ExecuteReader
             recExist = dr.Read
             If recExist = False Or dr.Item(0) = 0 Then
-                SQL = "Insert into " & connNameSpace & ".LOOKUPEPDBranches " & _
+                SQL = "Insert into " & DBNameSpace & ".LOOKUPEPDBranches " & _
                 "Values " & _
                 "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "') "
             Else
-                SQL = "UPDATE " & connNameSpace & ".LOOKUPEPDBranches SET " & _
+                SQL = "UPDATE " & DBNameSpace & ".LOOKUPEPDBranches SET " & _
                 "numbranchCode = '" & Replace(temp, "'", "''") & "', " & _
                 "strBranchDESC = '" & Replace(temp2, "'", "''") & "' " & _
                 "WHERE numbranchCode = '" & Replace(temp, "'", "''") & "' "
@@ -7781,7 +7781,7 @@ Public Class DMUDeveloperTools
     End Sub
     Sub TransferLookUpEPDPrograms()
         SQL = "Select * " & _
-              "from " & connNameSpace & ".LOOKUPEPDPrograms "
+              "from " & DBNameSpace & ".LOOKUPEPDPrograms "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -7808,7 +7808,7 @@ Public Class DMUDeveloperTools
             End If
 
             SQL = "SELECT COUNT(*) " & _
-            "FROM " & connNameSpace & ".LOOKUPEPDPrograms " & _
+            "FROM " & DBNameSpace & ".LOOKUPEPDPrograms " & _
             "WHERE numProgramCode = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -7817,12 +7817,12 @@ Public Class DMUDeveloperTools
             dr = cmd.ExecuteReader
             recExist = dr.Read
             If recExist = False Or dr.Item(0) = 0 Then
-                SQL = "Insert into " & connNameSpace & ".LOOKUPEPDPrograms " & _
+                SQL = "Insert into " & DBNameSpace & ".LOOKUPEPDPrograms " & _
                 "Values " & _
                 "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                 "'" & Replace(temp3, "'", "''") & "') "
             Else
-                SQL = "UPDATE " & connNameSpace & ".LOOKUPEPDPrograms SET " & _
+                SQL = "UPDATE " & DBNameSpace & ".LOOKUPEPDPrograms SET " & _
                 "numProgramCode = '" & Replace(temp, "'", "''") & "', " & _
                 "strProgramDesc = '" & Replace(temp2, "'", "''") & "', " & _
                 "numBranchCode = '" & Replace(temp3, "'", "''") & "' " & _
@@ -7840,7 +7840,7 @@ Public Class DMUDeveloperTools
     End Sub
     Sub TransferLookUpEPDUnits()
         SQL = "Select * " & _
-                    "from " & connNameSpace & ".LookUpEPDUnits "
+                    "from " & DBNameSpace & ".LookUpEPDUnits "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -7867,7 +7867,7 @@ Public Class DMUDeveloperTools
             End If
 
             SQL = "SELECT COUNT(*) " & _
-            "FROM " & connNameSpace & ".LookUpEPDUnits " & _
+            "FROM " & DBNameSpace & ".LookUpEPDUnits " & _
             "WHERE numUnitCode = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -7876,12 +7876,12 @@ Public Class DMUDeveloperTools
             dr = cmd.ExecuteReader
             recExist = dr.Read
             If recExist = False Or dr.Item(0) = 0 Then
-                SQL = "Insert into " & connNameSpace & ".LookUpEPDUnits " & _
+                SQL = "Insert into " & DBNameSpace & ".LookUpEPDUnits " & _
                 "Values " & _
                 "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                 "'" & Replace(temp3, "'", "''") & "') "
             Else
-                SQL = "UPDATE " & connNameSpace & ".LookUpEPDUnits SET " & _
+                SQL = "UPDATE " & DBNameSpace & ".LookUpEPDUnits SET " & _
                 "numUnitCode = '" & Replace(temp, "'", "''") & "', " & _
                 "strUnitDesc = '" & Replace(temp2, "'", "''") & "', " & _
                 "numProgramCode = '" & Replace(temp3, "'", "''") & "' " & _
@@ -7899,7 +7899,7 @@ Public Class DMUDeveloperTools
     End Sub
     Sub TransferLookUpHPVViolations()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".LOOKUPHPVVIOLATIONS "
+        "from " & DBNameSpace & ".LOOKUPHPVVIOLATIONS "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -7921,7 +7921,7 @@ Public Class DMUDeveloperTools
             End If
 
             SQL = "SELECT COUNT(*) " & _
-            "FROM " & connNameSpace & ".LOOKUPHPVVIOLATIONS " & _
+            "FROM " & DBNameSpace & ".LOOKUPHPVVIOLATIONS " & _
             "WHERE STRHPVCODE = '" & Replace(temp, "'", "''") & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -7930,11 +7930,11 @@ Public Class DMUDeveloperTools
             dr = cmd.ExecuteReader
             recExist = dr.Read
             If recExist = False Or dr.Item(0) = 0 Then
-                SQL = "Insert into " & connNameSpace & ".LOOKUPHPVVIOLATIONS " & _
+                SQL = "Insert into " & DBNameSpace & ".LOOKUPHPVVIOLATIONS " & _
                 "Values " & _
                 "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "') "
             Else
-                SQL = "UPDATE " & connNameSpace & ".LOOKUPHPVVIOLATIONS SET " & _
+                SQL = "UPDATE " & DBNameSpace & ".LOOKUPHPVVIOLATIONS SET " & _
                 "STRHPVVIOLATIONDESC = '" & Replace(temp, "'", "''") & "', " & _
                 "STRHPVCODE = '" & Replace(temp2, "'", "''") & "' " & _
                 "WHERE STRHPVCODE = '" & Replace(temp, "'", "''") & "' "
@@ -7952,7 +7952,7 @@ Public Class DMUDeveloperTools
     End Sub
     Sub TransferLookUpIAIPAccounts()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".LookupIAIPAccounts "
+        "from " & DBNameSpace & ".LookupIAIPAccounts "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -7994,7 +7994,7 @@ Public Class DMUDeveloperTools
             End If
 
             SQL = "SELECT COUNT(*) " & _
-            "FROM " & connNameSpace & ".LookupIAIPAccounts " & _
+            "FROM " & DBNameSpace & ".LookupIAIPAccounts " & _
             "WHERE numAccountCode = '" & Replace(temp, "'", "''") & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -8003,13 +8003,13 @@ Public Class DMUDeveloperTools
             dr = cmd.ExecuteReader
             recExist = dr.Read
             If recExist = False Or dr.Item(0) = 0 Then
-                SQL = "Insert into " & connNameSpace & ".LookupIAIPAccounts " & _
+                SQL = "Insert into " & DBNameSpace & ".LookupIAIPAccounts " & _
                 "Values " & _
                 "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                 "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "', " & _
                 "'" & Replace(temp5, "'", "''") & "', '" & Replace(temp6, "'", "''") & "') "
             Else
-                SQL = "UPDATE " & connNameSpace & ".LookupIAIPAccounts SET " & _
+                SQL = "UPDATE " & DBNameSpace & ".LookupIAIPAccounts SET " & _
                 "numAccountCode = '" & Replace(temp, "'", "''") & "', " & _
                 "strAccountDesc = '" & Replace(temp2, "'", "''") & "', " & _
                 "numBranchCode = '" & Replace(temp3, "'", "''") & "', " & _
@@ -8030,7 +8030,7 @@ Public Class DMUDeveloperTools
     End Sub
     Sub TransferLookUpIAIPForms()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".LookUpIAIPForms "
+        "from " & DBNameSpace & ".LookUpIAIPForms "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -8057,7 +8057,7 @@ Public Class DMUDeveloperTools
             End If
 
             SQL = "SELECT COUNT(*) " & _
-            "FROM " & connNameSpace & ".LookUpIAIPForms " & _
+            "FROM " & DBNameSpace & ".LookUpIAIPForms " & _
             "WHERE numFormCode = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -8066,12 +8066,12 @@ Public Class DMUDeveloperTools
             dr = cmd.ExecuteReader
             recExist = dr.Read
             If recExist = False Or dr.Item(0) = 0 Then
-                SQL = "Insert into " & connNameSpace & ".LookUpIAIPForms " & _
+                SQL = "Insert into " & DBNameSpace & ".LookUpIAIPForms " & _
                 "Values " & _
                 "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                 "'" & Replace(temp3, "'", "''") & "') "
             Else
-                SQL = "UPDATE " & connNameSpace & ".LookUpIAIPForms SET " & _
+                SQL = "UPDATE " & DBNameSpace & ".LookUpIAIPForms SET " & _
                 "numFormCode = '" & Replace(temp, "'", "''") & "', " & _
                 "strForm = '" & Replace(temp2, "'", "''") & "', " & _
                 "strFormDesc = '" & Replace(temp3, "'", "''") & "' " & _
@@ -8089,7 +8089,7 @@ Public Class DMUDeveloperTools
     End Sub
     Sub TransferLookUPISMPComplianceStatus()
         SQL = "Select * " & _
-              "from " & connNameSpace & ".LookUpISMPComplianceStatus "
+              "from " & DBNameSpace & ".LookUpISMPComplianceStatus "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -8116,7 +8116,7 @@ Public Class DMUDeveloperTools
             End If
 
             SQL = "SELECT COUNT(*) " & _
-            "FROM " & connNameSpace & ".LookUpISMPComplianceStatus " & _
+            "FROM " & DBNameSpace & ".LookUpISMPComplianceStatus " & _
             "WHERE strComplianceKey = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -8125,12 +8125,12 @@ Public Class DMUDeveloperTools
             dr = cmd.ExecuteReader
             recExist = dr.Read
             If recExist = False Or dr.Item(0) = 0 Then
-                SQL = "Insert into " & connNameSpace & ".LookUpISMPComplianceStatus " & _
+                SQL = "Insert into " & DBNameSpace & ".LookUpISMPComplianceStatus " & _
                 "Values " & _
                 "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                 "'" & Replace(temp3, "'", "''") & "') "
             Else
-                SQL = "UPDATE " & connNameSpace & ".LookUpISMPComplianceStatus SET " & _
+                SQL = "UPDATE " & DBNameSpace & ".LookUpISMPComplianceStatus SET " & _
                 "strComplianceKey = '" & Replace(temp, "'", "''") & "', " & _
                 "strComplianceStatus = '" & Replace(temp2, "'", "''") & "', " & _
                 "strComplianceStatement = '" & Replace(temp3, "'", "''") & "' " & _
@@ -8148,7 +8148,7 @@ Public Class DMUDeveloperTools
     End Sub
     Sub TransferLookUpISMPMethods()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".LOOKUPISMPMETHODS "
+        "from " & DBNameSpace & ".LOOKUPISMPMETHODS "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -8170,7 +8170,7 @@ Public Class DMUDeveloperTools
             End If
 
             SQL = "SELECT COUNT(*) " & _
-            "FROM " & connNameSpace & ".LOOKUPISMPMETHODS " & _
+            "FROM " & DBNameSpace & ".LOOKUPISMPMETHODS " & _
             "WHERE STRMETHODCODE = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -8179,11 +8179,11 @@ Public Class DMUDeveloperTools
             dr = cmd.ExecuteReader
             recExist = dr.Read
             If recExist = False Or dr.Item(0) = 0 Then
-                SQL = "Insert into " & connNameSpace & ".LOOKUPISMPMETHODS " & _
+                SQL = "Insert into " & DBNameSpace & ".LOOKUPISMPMETHODS " & _
                 "Values " & _
                 "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "') "
             Else
-                SQL = "UPDATE " & connNameSpace & ".LOOKUPISMPMETHODS SET " & _
+                SQL = "UPDATE " & DBNameSpace & ".LOOKUPISMPMETHODS SET " & _
                 "STRMETHODCODE = '" & Replace(temp, "'", "''") & "', " & _
                 "STRMETHODDESC = '" & Replace(temp2, "'", "''") & "' " & _
                 "WHERE STRMETHODCODE = '" & Replace(temp, "'", "''") & "' "
@@ -8200,7 +8200,7 @@ Public Class DMUDeveloperTools
     End Sub
     Sub TransferLookUpMonitoringUnits()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".LOOKUPMONITORINGUNITS "
+        "from " & DBNameSpace & ".LOOKUPMONITORINGUNITS "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -8227,7 +8227,7 @@ Public Class DMUDeveloperTools
             End If
 
             SQL = "SELECT COUNT(*) " & _
-            "FROM " & connNameSpace & ".LOOKUPMONITORINGUNITS " & _
+            "FROM " & DBNameSpace & ".LOOKUPMONITORINGUNITS " & _
             "WHERE STRMONITORINGUNIT = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -8236,12 +8236,12 @@ Public Class DMUDeveloperTools
             dr = cmd.ExecuteReader
             recExist = dr.Read
             If recExist = False Or dr.Item(0) = 0 Then
-                SQL = "Insert into " & connNameSpace & ".LOOKUPMONITORINGUNITS " & _
+                SQL = "Insert into " & DBNameSpace & ".LOOKUPMONITORINGUNITS " & _
                 "Values " & _
                 "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                 "'" & Replace(temp3, "'", "''") & "') "
             Else
-                SQL = "UPDATE " & connNameSpace & ".LOOKUPMONITORINGUNITS SET " & _
+                SQL = "UPDATE " & DBNameSpace & ".LOOKUPMONITORINGUNITS SET " & _
                 "STRMONITORINGUNIT = '" & Replace(temp, "'", "''") & "', " & _
                 "STRUNITTITLE = '" & Replace(temp2, "'", "''") & "', " & _
                 "STRUNITMANAGER = '" & Replace(temp3, "'", "''") & "' " & _
@@ -8260,7 +8260,7 @@ Public Class DMUDeveloperTools
     End Sub
     Sub TransferLookUpNonAttainment()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".LOOKUPNONATTAINMENT "
+        "from " & DBNameSpace & ".LOOKUPNONATTAINMENT "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -8282,7 +8282,7 @@ Public Class DMUDeveloperTools
             End If
 
             SQL = "SELECT COUNT(*) " & _
-            "FROM " & connNameSpace & ".LOOKUPNONATTAINMENT " & _
+            "FROM " & DBNameSpace & ".LOOKUPNONATTAINMENT " & _
             "WHERE STRCOUNTYCODE = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -8291,11 +8291,11 @@ Public Class DMUDeveloperTools
             dr = cmd.ExecuteReader
             recExist = dr.Read
             If recExist = False Or dr.Item(0) = 0 Then
-                SQL = "Insert into " & connNameSpace & ".LOOKUPNONATTAINMENT " & _
+                SQL = "Insert into " & DBNameSpace & ".LOOKUPNONATTAINMENT " & _
                 "Values " & _
                 "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "') "
             Else
-                SQL = "UPDATE " & connNameSpace & ".LOOKUPNONATTAINMENT SET " & _
+                SQL = "UPDATE " & DBNameSpace & ".LOOKUPNONATTAINMENT SET " & _
                 "STRCOUNTYCODE = '" & Replace(temp, "'", "''") & "', " & _
                 "STRATTAINMENTSTATUS = '" & Replace(temp2, "'", "''") & "' " & _
                 "WHERE STRCOUNTYCODE = '" & Replace(temp, "'", "''") & "' "
@@ -8313,7 +8313,7 @@ Public Class DMUDeveloperTools
     End Sub
     Sub TransferLookUpPermittingUnits()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".LOOKUPPERMITTINGUNITS "
+        "from " & DBNameSpace & ".LOOKUPPERMITTINGUNITS "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -8340,7 +8340,7 @@ Public Class DMUDeveloperTools
             End If
 
             SQL = "SELECT COUNT(*) " & _
-            "FROM " & connNameSpace & ".LOOKUPPERMITTINGUNITS " & _
+            "FROM " & DBNameSpace & ".LOOKUPPERMITTINGUNITS " & _
             "WHERE STRMONITORINGUNIT = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -8349,12 +8349,12 @@ Public Class DMUDeveloperTools
             dr = cmd.ExecuteReader
             recExist = dr.Read
             If recExist = False Or dr.Item(0) = 0 Then
-                SQL = "Insert into " & connNameSpace & ".LOOKUPPERMITTINGUNITS " & _
+                SQL = "Insert into " & DBNameSpace & ".LOOKUPPERMITTINGUNITS " & _
                 "Values " & _
                 "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                 "'" & Replace(temp3, "'", "''") & "') "
             Else
-                SQL = "UPDATE " & connNameSpace & ".LOOKUPPERMITTINGUNITS SET " & _
+                SQL = "UPDATE " & DBNameSpace & ".LOOKUPPERMITTINGUNITS SET " & _
                 "STRMONITORINGUNIT = '" & Replace(temp, "'", "''") & "', " & _
                 "STRUNITTITLE = '" & Replace(temp2, "'", "''") & "', " & _
                 "STRUNITMANAGER = '" & Replace(temp3, "'", "''") & "' " & _
@@ -8372,7 +8372,7 @@ Public Class DMUDeveloperTools
     End Sub
     Sub TransferLookUpPermitType()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".LOOKUPPERMITTYPES "
+        "from " & DBNameSpace & ".LOOKUPPERMITTYPES "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -8399,7 +8399,7 @@ Public Class DMUDeveloperTools
             End If
 
             SQL = "SELECT COUNT(*) " & _
-            "FROM " & connNameSpace & ".LOOKUPPERMITTYPES " & _
+            "FROM " & DBNameSpace & ".LOOKUPPERMITTYPES " & _
             "WHERE STRPERMITTYPECODE = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -8408,12 +8408,12 @@ Public Class DMUDeveloperTools
             dr = cmd.ExecuteReader
             recExist = dr.Read
             If recExist = False Or dr.Item(0) = 0 Then
-                SQL = "Insert into " & connNameSpace & ".LOOKUPPERMITTYPES " & _
+                SQL = "Insert into " & DBNameSpace & ".LOOKUPPERMITTYPES " & _
                 "Values " & _
                 "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                 "'" & Replace(temp3, "'", "''") & "') "
             Else
-                SQL = "UPDATE " & connNameSpace & ".LOOKUPPERMITTYPES SET " & _
+                SQL = "UPDATE " & DBNameSpace & ".LOOKUPPERMITTYPES SET " & _
                 "STRPERMITTYPECODE = '" & Replace(temp, "'", "''") & "', " & _
                 "STRPERMITTYPEDESCRIPTION = '" & Replace(temp2, "'", "''") & "', " & _
                 "STRTYPEUSED = '" & Replace(temp3, "'", "''") & "' " & _
@@ -8431,7 +8431,7 @@ Public Class DMUDeveloperTools
     End Sub
     Sub TransferLookUpPollutants()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".LOOKUPPOLLUTANTS "
+        "from " & DBNameSpace & ".LOOKUPPOLLUTANTS "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -8458,7 +8458,7 @@ Public Class DMUDeveloperTools
             End If
 
             SQL = "SELECT COUNT(*) " & _
-            "FROM " & connNameSpace & ".LOOKUPPOLLUTANTS " & _
+            "FROM " & DBNameSpace & ".LOOKUPPOLLUTANTS " & _
             "WHERE STRPOLLUTANTCODE = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -8467,12 +8467,12 @@ Public Class DMUDeveloperTools
             dr = cmd.ExecuteReader
             recExist = dr.Read
             If recExist = False Or dr.Item(0) = 0 Then
-                SQL = "Insert into " & connNameSpace & ".LOOKUPPOLLUTANTS " & _
+                SQL = "Insert into " & DBNameSpace & ".LOOKUPPOLLUTANTS " & _
                 "Values " & _
                 "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                 "'" & Replace(temp3, "'", "''") & "') "
             Else
-                SQL = "UPDATE " & connNameSpace & ".LOOKUPPOLLUTANTS SET " & _
+                SQL = "UPDATE " & DBNameSpace & ".LOOKUPPOLLUTANTS SET " & _
                 "STRPOLLUTANTCODE = '" & Replace(temp, "'", "''") & "', " & _
                 "STRPOLLUTANTDESCRIPTION = '" & Replace(temp2, "'", "''") & "', " & _
                 "STRAFSCODE = '" & Replace(temp3, "'", "''") & "' " & _
@@ -8493,7 +8493,7 @@ Public Class DMUDeveloperTools
     End Sub
     Sub TransferLookUpSICCodes()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".LOOKUPSICCODES "
+        "from " & DBNameSpace & ".LOOKUPSICCODES "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -8515,7 +8515,7 @@ Public Class DMUDeveloperTools
             End If
 
             SQL = "SELECT COUNT(*) " & _
-            "FROM " & connNameSpace & ".LOOKUPSICCODES " & _
+            "FROM " & DBNameSpace & ".LOOKUPSICCODES " & _
             "WHERE STRSICCODE = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -8524,11 +8524,11 @@ Public Class DMUDeveloperTools
             dr = cmd.ExecuteReader
             recExist = dr.Read
             If recExist = False Or dr.Item(0) = 0 Then
-                SQL = "Insert into " & connNameSpace & ".LOOKUPSICCODES " & _
+                SQL = "Insert into " & DBNameSpace & ".LOOKUPSICCODES " & _
                 "Values " & _
                 "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "') "
             Else
-                SQL = "UPDATE " & connNameSpace & ".LOOKUPSICCODES SET " & _
+                SQL = "UPDATE " & DBNameSpace & ".LOOKUPSICCODES SET " & _
                 "STRSICCODE = '" & Replace(temp, "'", "''") & "', " & _
                 "STRSICDESC = '" & Replace(temp2, "'", "''") & "' " & _
                 "WHERE STRSICCODE = '" & Replace(temp, "'", "''") & "' "
@@ -8546,7 +8546,7 @@ Public Class DMUDeveloperTools
     End Sub
     Sub TransferLookUpSSCPNotifications()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".LOOKUPSSCPNOTIFICATIONS "
+        "from " & DBNameSpace & ".LOOKUPSSCPNOTIFICATIONS "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -8568,7 +8568,7 @@ Public Class DMUDeveloperTools
             End If
 
             SQL = "SELECT COUNT(*) " & _
-            "FROM " & connNameSpace & ".LOOKUPSSCPNOTIFICATIONS " & _
+            "FROM " & DBNameSpace & ".LOOKUPSSCPNOTIFICATIONS " & _
             "WHERE STRNOTIFICATIONKEY = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -8577,11 +8577,11 @@ Public Class DMUDeveloperTools
             dr = cmd.ExecuteReader
             recExist = dr.Read
             If recExist = False Or dr.Item(0) = 0 Then
-                SQL = "Insert into " & connNameSpace & ".LOOKUPSSCPNOTIFICATIONS " & _
+                SQL = "Insert into " & DBNameSpace & ".LOOKUPSSCPNOTIFICATIONS " & _
                 "Values " & _
                 "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "') "
             Else
-                SQL = "UPDATE " & connNameSpace & ".LOOKUPSSCPNOTIFICATIONS SET " & _
+                SQL = "UPDATE " & DBNameSpace & ".LOOKUPSSCPNOTIFICATIONS SET " & _
                 "STRNOTIFICATIONKEY = '" & Replace(temp, "'", "''") & "', " & _
                 "STRNOTIFICATIONDESC = '" & Replace(temp2, "'", "''") & "' " & _
                 "WHERE STRNOTIFICATIONKEY = '" & Replace(temp, "'", "''") & "' "
@@ -8598,7 +8598,7 @@ Public Class DMUDeveloperTools
     End Sub
     Sub TransferLookUpStates()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".LOOKUPSTATES "
+        "from " & DBNameSpace & ".LOOKUPSTATES "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -8620,7 +8620,7 @@ Public Class DMUDeveloperTools
             End If
 
             SQL = "SELECT COUNT(*) " & _
-            "FROM " & connNameSpace & ".LOOKUPSTATES " & _
+            "FROM " & DBNameSpace & ".LOOKUPSTATES " & _
             "WHERE STRABBREV = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -8629,11 +8629,11 @@ Public Class DMUDeveloperTools
             dr = cmd.ExecuteReader
             recExist = dr.Read
             If recExist = False Or dr.Item(0) = 0 Then
-                SQL = "Insert into " & connNameSpace & ".LOOKUPSTATES " & _
+                SQL = "Insert into " & DBNameSpace & ".LOOKUPSTATES " & _
                 "Values " & _
                 "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "') "
             Else
-                SQL = "UPDATE " & connNameSpace & ".LOOKUPSTATES SET " & _
+                SQL = "UPDATE " & DBNameSpace & ".LOOKUPSTATES SET " & _
                 "STRSTATE = '" & Replace(temp, "'", "''") & "', " & _
                 "STRABBREV = '" & Replace(temp2, "'", "''") & "' " & _
                 "WHERE STRABBREV = '" & Replace(temp, "'", "''") & "' "
@@ -8650,7 +8650,7 @@ Public Class DMUDeveloperTools
     End Sub
     Sub TransferLookUpSubPart60()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".LOOKUPSUBPART60 "
+        "from " & DBNameSpace & ".LOOKUPSUBPART60 "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -8672,7 +8672,7 @@ Public Class DMUDeveloperTools
             End If
 
             SQL = "SELECT COUNT(*) " & _
-            "FROM " & connNameSpace & ".LOOKUPSUBPART60 " & _
+            "FROM " & DBNameSpace & ".LOOKUPSUBPART60 " & _
             "WHERE STRSUBPART = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -8681,11 +8681,11 @@ Public Class DMUDeveloperTools
             dr = cmd.ExecuteReader
             recExist = dr.Read
             If recExist = False Or dr.Item(0) = 0 Then
-                SQL = "Insert into " & connNameSpace & ".LOOKUPSUBPART60 " & _
+                SQL = "Insert into " & DBNameSpace & ".LOOKUPSUBPART60 " & _
                 "Values " & _
                 "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "') "
             Else
-                SQL = "UPDATE " & connNameSpace & ".LOOKUPSUBPART60 SET " & _
+                SQL = "UPDATE " & DBNameSpace & ".LOOKUPSUBPART60 SET " & _
                 "STRSUBPART = '" & Replace(temp, "'", "''") & "', " & _
                 "STRDESCRIPTION = '" & Replace(temp2, "'", "''") & "' " & _
                 "WHERE STRSUBPART = '" & Replace(temp, "'", "''") & "' "
@@ -8702,7 +8702,7 @@ Public Class DMUDeveloperTools
     End Sub
     Sub TransferLookUpSubPart61()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".LOOKUPSUBPART61 "
+        "from " & DBNameSpace & ".LOOKUPSUBPART61 "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -8724,7 +8724,7 @@ Public Class DMUDeveloperTools
             End If
 
             SQL = "SELECT COUNT(*) " & _
-            "FROM " & connNameSpace & ".LOOKUPSUBPART61 " & _
+            "FROM " & DBNameSpace & ".LOOKUPSUBPART61 " & _
             "WHERE STRSUBPART = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -8733,11 +8733,11 @@ Public Class DMUDeveloperTools
             dr = cmd.ExecuteReader
             recExist = dr.Read
             If recExist = False Or dr.Item(0) = 0 Then
-                SQL = "Insert into " & connNameSpace & ".LOOKUPSUBPART61 " & _
+                SQL = "Insert into " & DBNameSpace & ".LOOKUPSUBPART61 " & _
                 "Values " & _
                 "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "') "
             Else
-                SQL = "UPDATE " & connNameSpace & ".LOOKUPSUBPART61 SET " & _
+                SQL = "UPDATE " & DBNameSpace & ".LOOKUPSUBPART61 SET " & _
                 "STRSUBPART = '" & Replace(temp, "'", "''") & "', " & _
                 "STRDESCRIPTION = '" & Replace(temp2, "'", "''") & "' " & _
                 "WHERE STRSUBPART = '" & Replace(temp, "'", "''") & "' "
@@ -8754,7 +8754,7 @@ Public Class DMUDeveloperTools
     End Sub
     Sub TransferLookUpSubPart63()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".LOOKUPSUBPART63 "
+        "from " & DBNameSpace & ".LOOKUPSUBPART63 "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -8776,7 +8776,7 @@ Public Class DMUDeveloperTools
             End If
 
             SQL = "SELECT COUNT(*) " & _
-            "FROM " & connNameSpace & ".LOOKUPSUBPART63 " & _
+            "FROM " & DBNameSpace & ".LOOKUPSUBPART63 " & _
             "WHERE STRSUBPART = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -8785,11 +8785,11 @@ Public Class DMUDeveloperTools
             dr = cmd.ExecuteReader
             recExist = dr.Read
             If recExist = False Or dr.Item(0) = 0 Then
-                SQL = "Insert into " & connNameSpace & ".LOOKUPSUBPART63 " & _
+                SQL = "Insert into " & DBNameSpace & ".LOOKUPSUBPART63 " & _
                 "Values " & _
                 "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "') "
             Else
-                SQL = "UPDATE " & connNameSpace & ".LOOKUPSUBPART63 SET " & _
+                SQL = "UPDATE " & DBNameSpace & ".LOOKUPSUBPART63 SET " & _
                 "STRSUBPART = '" & Replace(temp, "'", "''") & "', " & _
                 "STRDESCRIPTION = '" & Replace(temp2, "'", "''") & "' " & _
                 "WHERE STRSUBPART = '" & Replace(temp, "'", "''") & "' "
@@ -8806,7 +8806,7 @@ Public Class DMUDeveloperTools
     End Sub
     Sub TransferLookUpSubPartSIP()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".LOOKUPSUBPARTSIP "
+        "from " & DBNameSpace & ".LOOKUPSUBPARTSIP "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -8828,7 +8828,7 @@ Public Class DMUDeveloperTools
             End If
 
             SQL = "SELECT COUNT(*) " & _
-            "FROM " & connNameSpace & ".LOOKUPSUBPARTSIP " & _
+            "FROM " & DBNameSpace & ".LOOKUPSUBPARTSIP " & _
             "WHERE STRSUBPART = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -8837,11 +8837,11 @@ Public Class DMUDeveloperTools
             dr = cmd.ExecuteReader
             recExist = dr.Read
             If recExist = False Or dr.Item(0) = 0 Then
-                SQL = "Insert into " & connNameSpace & ".LOOKUPSUBPARTSIP " & _
+                SQL = "Insert into " & DBNameSpace & ".LOOKUPSUBPARTSIP " & _
                 "Values " & _
                 "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "') "
             Else
-                SQL = "UPDATE " & connNameSpace & ".LOOKUPSUBPARTSIP SET " & _
+                SQL = "UPDATE " & DBNameSpace & ".LOOKUPSUBPARTSIP SET " & _
                 "STRSUBPART = '" & Replace(temp, "'", "''") & "', " & _
                 "STRDESCRIPTION = '" & Replace(temp2, "'", "''") & "' " & _
                 "WHERE STRSUBPART = '" & Replace(temp, "'", "''") & "' "
@@ -8858,7 +8858,7 @@ Public Class DMUDeveloperTools
     End Sub
     Sub TransferLookUpTestingFirms()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".LOOKUPTESTINGFIRMS "
+        "from " & DBNameSpace & ".LOOKUPTESTINGFIRMS "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -8925,7 +8925,7 @@ Public Class DMUDeveloperTools
             End If
 
             SQL = "SELECT COUNT(*) " & _
-            "FROM " & connNameSpace & ".LOOKUPTESTINGFIRMS " & _
+            "FROM " & DBNameSpace & ".LOOKUPTESTINGFIRMS " & _
             "WHERE STRTESTINGFIRMKEY = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -8934,7 +8934,7 @@ Public Class DMUDeveloperTools
             dr = cmd.ExecuteReader
             recExist = dr.Read
             If recExist = False Or dr.Item(0) = 0 Then
-                SQL = "Insert into " & connNameSpace & ".LOOKUPTESTINGFIRMS " & _
+                SQL = "Insert into " & DBNameSpace & ".LOOKUPTESTINGFIRMS " & _
                 "Values " & _
                 "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                 "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "', " & _
@@ -8943,7 +8943,7 @@ Public Class DMUDeveloperTools
                 "'" & Replace(temp9, "'", "''") & "', '" & Replace(temp10, "'", "''") & "', " & _
                 "'" & Replace(temp11, "'", "''") & "') "
             Else
-                SQL = "UPDATE " & connNameSpace & ".LOOKUPTESTINGFIRMS SET " & _
+                SQL = "UPDATE " & DBNameSpace & ".LOOKUPTESTINGFIRMS SET " & _
                 "STRTESTINGFIRMKEY = '" & Replace(temp, "'", "''") & "', " & _
                 "STRTESTINGFIRM = '" & Replace(temp2, "'", "''") & "', " & _
                 "STRFIRMADDRESS1 = '" & Replace(temp3, "'", "''") & "', " & _
@@ -8969,7 +8969,7 @@ Public Class DMUDeveloperTools
     End Sub
     Sub TransferLookUpUnits()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".LOOKUPUNITS "
+        "from " & DBNameSpace & ".LOOKUPUNITS "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -8991,7 +8991,7 @@ Public Class DMUDeveloperTools
             End If
 
             SQL = "SELECT COUNT(*) " & _
-            "FROM " & connNameSpace & ".LOOKUPUNITS " & _
+            "FROM " & DBNameSpace & ".LOOKUPUNITS " & _
             "WHERE STRUNITKEY = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -9000,11 +9000,11 @@ Public Class DMUDeveloperTools
             dr = cmd.ExecuteReader
             recExist = dr.Read
             If recExist = False Or dr.Item(0) = 0 Then
-                SQL = "Insert into " & connNameSpace & ".LOOKUPUNITS " & _
+                SQL = "Insert into " & DBNameSpace & ".LOOKUPUNITS " & _
                 "Values " & _
                 "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "') "
             Else
-                SQL = "UPDATE " & connNameSpace & ".LOOKUPUNITS SET " & _
+                SQL = "UPDATE " & DBNameSpace & ".LOOKUPUNITS SET " & _
                 "STRUNITKEY = '" & Replace(temp, "'", "''") & "', " & _
                 "STRUNITDESCRIPTION = '" & Replace(temp2, "'", "''") & "' " & _
                 "WHERE STRUNITKEY = '" & Replace(temp, "'", "''") & "' "
@@ -9021,7 +9021,7 @@ Public Class DMUDeveloperTools
     End Sub
     Sub TransferNSPSReason()
         SQL = "Select * " & _
-        "From " & connNameSpace & ".FSNSPSReason " & _
+        "From " & DBNameSpace & ".FSNSPSReason " & _
         "order by ReasonID "
 
         dsTemp = New DataSet
@@ -9044,7 +9044,7 @@ Public Class DMUDeveloperTools
             End If
 
             SQL = "SELECT COUNT(*) " & _
-            "FROM " & connNameSpace & ".FSNSPSReason " & _
+            "FROM " & DBNameSpace & ".FSNSPSReason " & _
             "WHERE ReasonID = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -9053,11 +9053,11 @@ Public Class DMUDeveloperTools
             dr = cmd.ExecuteReader
             recExist = dr.Read
             If recExist = False Or dr.Item(0) = 0 Then
-                SQL = "Insert into " & connNameSpace & ".FSNSPSReason " & _
+                SQL = "Insert into " & DBNameSpace & ".FSNSPSReason " & _
                 "Values " & _
                 "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "') "
             Else
-                SQL = "UPDATE " & connNameSpace & ".FSNSPSReason SET " & _
+                SQL = "UPDATE " & DBNameSpace & ".FSNSPSReason SET " & _
                 "Reason = '" & Replace(temp2, "'", "''") & "' " & _
                 "WHERE ReasonID = '" & Replace(temp, "'", "''") & "' "
             End If
@@ -9074,7 +9074,7 @@ Public Class DMUDeveloperTools
     End Sub
     Sub TransferEDPUsers()
         SQL = "Select * " & _
-        "From " & connNameSpace & ".EPDUsers " & _
+        "From " & DBNameSpace & ".EPDUsers " & _
         "order by numUserID "
 
         dsTemp = New DataSet
@@ -9102,7 +9102,7 @@ Public Class DMUDeveloperTools
             End If
 
             SQL = "SELECT COUNT(*) " & _
-            "FROM " & connNameSpace & ".EPDUsers " & _
+            "FROM " & DBNameSpace & ".EPDUsers " & _
             "WHERE numUserID = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -9111,12 +9111,12 @@ Public Class DMUDeveloperTools
             dr = cmd.ExecuteReader
             recExist = dr.Read
             If recExist = False Or dr.Item(0) = 0 Then
-                SQL = "Insert into " & connNameSpace & ".EPDUsers " & _
+                SQL = "Insert into " & DBNameSpace & ".EPDUsers " & _
                 "Values " & _
                 "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                 "'" & Replace(temp3, "'", "''") & "') "
             Else
-                SQL = "UPDATE " & connNameSpace & ".EPDUsers SET " & _
+                SQL = "UPDATE " & DBNameSpace & ".EPDUsers SET " & _
                 "strUserName = '" & Replace(temp2, "'", "''") & "', " & _
                 "strPassword = '" & Replace(temp3, "'", "''") & "' " & _
                 "WHERE numUserID = '" & Replace(temp, "'", "''") & "' "
@@ -9133,7 +9133,7 @@ Public Class DMUDeveloperTools
         Next
 
         SQL = "Select * " & _
-        "From " & connNameSpace & ".EPDUserProfiles " & _
+        "From " & DBNameSpace & ".EPDUserProfiles " & _
         "order by numUserID "
 
         dsTemp = New DataSet
@@ -9207,7 +9207,7 @@ Public Class DMUDeveloperTools
             End If
 
             SQL = "SELECT COUNT(*) " & _
-            "FROM " & connNameSpace & ".EPDUserProfiles " & _
+            "FROM " & DBNameSpace & ".EPDUserProfiles " & _
             "WHERE numUserID = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -9216,7 +9216,7 @@ Public Class DMUDeveloperTools
             dr = cmd.ExecuteReader
             recExist = dr.Read
             If recExist = False Or dr.Item(0) = 0 Then
-                SQL = "Insert into " & connNameSpace & ".EPDUserProfiles " & _
+                SQL = "Insert into " & DBNameSpace & ".EPDUserProfiles " & _
                 "Values " & _
                 "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                 "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "', " & _
@@ -9225,7 +9225,7 @@ Public Class DMUDeveloperTools
                 "'" & Replace(temp9, "'", "''") & "', '" & Replace(temp10, "'", "''") & "', " & _
                 "'" & Replace(temp11, "'", "''") & "', '" & Replace(temp12, "'", "''") & "') "
             Else
-                SQL = "UPDATE " & connNameSpace & ".EPDUserProfiles SET " & _
+                SQL = "UPDATE " & DBNameSpace & ".EPDUserProfiles SET " & _
                 "strEmployeeID = '" & Replace(temp2, "'", "''") & "', " & _
                 "strLastName = '" & Replace(temp3, "'", "''") & "', " & _
                 "strFirstName = '" & Replace(temp4, "'", "''") & "', " & _
@@ -9254,7 +9254,7 @@ Public Class DMUDeveloperTools
     End Sub
     Sub TransferEISI()
         SQL = "Select * " & _
-        "From " & connNameSpace & ".EISI " & _
+        "From " & DBNameSpace & ".EISI " & _
         "order by strAIRSYear "
 
         dsTemp = New DataSet
@@ -9522,7 +9522,7 @@ Public Class DMUDeveloperTools
             End If
 
             SQL = "SELECT COUNT(*) " & _
-            "FROM " & connNameSpace & ".EISI " & _
+            "FROM " & DBNameSpace & ".EISI " & _
             "WHERE strAIRSYear = '" & temp44 & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -9531,7 +9531,7 @@ Public Class DMUDeveloperTools
             dr = cmd.ExecuteReader
             recExist = dr.Read
             If recExist = False Or dr.Item(0) = 0 Then
-                SQL = "Insert into " & connNameSpace & ".EISI " & _
+                SQL = "Insert into " & DBNameSpace & ".EISI " & _
                 "Values " & _
                 "('" & Replace(temp2, "'", "''") & "', '" & Replace(temp3, "'", "''") & "', " & _
                 "'" & Replace(temp4, "'", "''") & "', '" & Replace(temp5, "'", "''") & "', " & _
@@ -9560,7 +9560,7 @@ Public Class DMUDeveloperTools
                 "'" & Replace(temp49, "'", "''") & "', '" & Replace(temp50, "'", "''") & "', " & _
                 "'" & Replace(temp51, "'", "''") & "', '' ) "
             Else
-                SQL = "UPDATE " & connNameSpace & ".EISI SET " & _
+                SQL = "UPDATE " & DBNameSpace & ".EISI SET " & _
                 "strInventoryYear = '" & Replace(temp2, "'", "''") & "', " & _
                 "strStateCountyFIPS = '" & Replace(temp3, "'", "''") & "', " & _
                 "strStateFacilityIdentifier = '" & Replace(temp4, "'", "''") & "', " & _
@@ -9628,7 +9628,7 @@ Public Class DMUDeveloperTools
     End Sub
     Sub TransferEIEU()
         SQL = "Select * " & _
-       "From " & connNameSpace & ".EIEU " & _
+       "From " & DBNameSpace & ".EIEU " & _
        "order by strAIRSYear "
 
         dsTemp = New DataSet
@@ -9721,7 +9721,7 @@ Public Class DMUDeveloperTools
             End If
 
             SQL = "SELECT COUNT(*) " & _
-            "FROM " & connNameSpace & ".EIEU " & _
+            "FROM " & DBNameSpace & ".EIEU " & _
             "WHERE strAIRSYearEU = '" & temp10 & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -9730,7 +9730,7 @@ Public Class DMUDeveloperTools
             dr = cmd.ExecuteReader
             recExist = dr.Read
             If recExist = False Or dr.Item(0) = 0 Then
-                SQL = "Insert into " & connNameSpace & ".EIEU " & _
+                SQL = "Insert into " & DBNameSpace & ".EIEU " & _
                 "Values " & _
                 "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                 "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "', " & _
@@ -9741,7 +9741,7 @@ Public Class DMUDeveloperTools
                 "'" & Replace(temp13, "'", "''") & "', '" & Replace(temp14, "'", "''") & "', " & _
                 "'" & Replace(temp15, "'", "''") & "', '" & Replace(temp16, "'", "''") & "') "
             Else
-                SQL = "UPDATE " & connNameSpace & ".EIEU SET " & _
+                SQL = "UPDATE " & DBNameSpace & ".EIEU SET " & _
                 "strInventoryYear = '" & Replace(temp, "'", "''") & "', " & _
                 "strStateCountyFIPS = '" & Replace(temp2, "'", "''") & "', " & _
                 "strStateFacilityIdentifier = '" & Replace(temp3, "'", "''") & "', " & _
@@ -9774,7 +9774,7 @@ Public Class DMUDeveloperTools
     End Sub
     Sub TransferEIER()
         SQL = "Select * " & _
-  "From " & connNameSpace & ".EIER " & _
+  "From " & DBNameSpace & ".EIER " & _
   "order by strAIRSYearERPointID "
 
         dsTemp = New DataSet
@@ -9887,7 +9887,7 @@ Public Class DMUDeveloperTools
             End If
 
             SQL = "SELECT COUNT(*) " & _
-            "FROM " & connNameSpace & ".EIER " & _
+            "FROM " & DBNameSpace & ".EIER " & _
             "WHERE strAIRSYearERPointID = '" & temp17 & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -9896,7 +9896,7 @@ Public Class DMUDeveloperTools
             dr = cmd.ExecuteReader
             recExist = dr.Read
             If recExist = False Or dr.Item(0) = 0 Then
-                SQL = "Insert into " & connNameSpace & ".EIER " & _
+                SQL = "Insert into " & DBNameSpace & ".EIER " & _
                 "Values " & _
                 "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                 "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "', " & _
@@ -9909,7 +9909,7 @@ Public Class DMUDeveloperTools
                 "'" & Replace(temp17, "'", "''") & "', '" & Replace(temp18, "'", "''") & "', " & _
                 "'" & Replace(temp19, "'", "''") & "', '" & Replace(temp20, "'", "''") & "') "
             Else
-                SQL = "UPDATE " & connNameSpace & ".EIER SET " & _
+                SQL = "UPDATE " & DBNameSpace & ".EIER SET " & _
                 "strInventoryYear = '" & Replace(temp, "'", "''") & "', " & _
                 "strStateCountyFIPS = '" & Replace(temp2, "'", "''") & "', " & _
                 "strStateFacilityIdentifier = '" & Replace(temp3, "'", "''") & "', " & _
@@ -9945,7 +9945,7 @@ Public Class DMUDeveloperTools
     End Sub
     Sub TransferEIEP()
         SQL = "Select * " & _
-"From " & connNameSpace & ".EIEP " & _
+"From " & DBNameSpace & ".EIEP " & _
 "order by strAIRSYearEUProcID "
 
         dsTemp = New DataSet
@@ -10118,7 +10118,7 @@ Public Class DMUDeveloperTools
             End If
 
             SQL = "SELECT COUNT(*) " & _
-            "FROM " & connNameSpace & ".EIEP " & _
+            "FROM " & DBNameSpace & ".EIEP " & _
             "WHERE strAIRSYearEUProcID = '" & temp27 & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -10127,7 +10127,7 @@ Public Class DMUDeveloperTools
             dr = cmd.ExecuteReader
             recExist = dr.Read
             If recExist = False Or dr.Item(0) = 0 Then
-                SQL = "Insert into " & connNameSpace & ".EIEP " & _
+                SQL = "Insert into " & DBNameSpace & ".EIEP " & _
                 "Values " & _
                 "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                 "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "', " & _
@@ -10146,7 +10146,7 @@ Public Class DMUDeveloperTools
                 "'" & Replace(temp29, "'", "''") & "', '" & Replace(temp30, "'", "''") & "', " & _
                 "'" & Replace(temp31, "'", "''") & "', '" & Replace(temp32, "'", "''") & "') "
             Else
-                SQL = "UPDATE " & connNameSpace & ".EIEP SET " & _
+                SQL = "UPDATE " & DBNameSpace & ".EIEP SET " & _
                 "strInventoryYear = '" & Replace(temp, "'", "''") & "', " & _
                 "strStateCountyFIPS = '" & Replace(temp2, "'", "''") & "', " & _
                 "strStateFacilityIdentifier = '" & Replace(temp3, "'", "''") & "', " & _
@@ -10196,7 +10196,7 @@ Public Class DMUDeveloperTools
     End Sub
     Sub TransferEIEM()
         SQL = "Select * " & _
-"From " & connNameSpace & ".EIEM " & _
+"From " & DBNameSpace & ".EIEM " & _
 "order by strAIRSYearEUEPEM "
 
         dsTemp = New DataSet
@@ -10344,7 +10344,7 @@ Public Class DMUDeveloperTools
             End If
 
             SQL = "SELECT COUNT(*) " & _
-            "FROM " & connNameSpace & ".EIEM " & _
+            "FROM " & DBNameSpace & ".EIEM " & _
             "WHERE strAIRSYearEUEPEM = '" & temp27 & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -10353,7 +10353,7 @@ Public Class DMUDeveloperTools
             dr = cmd.ExecuteReader
             recExist = dr.Read
             If recExist = False Or dr.Item(0) = 0 Then
-                SQL = "Insert into " & connNameSpace & ".EIEM " & _
+                SQL = "Insert into " & DBNameSpace & ".EIEM " & _
                 "Values " & _
                 "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                 "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "', " & _
@@ -10370,7 +10370,7 @@ Public Class DMUDeveloperTools
                 "'" & Replace(temp25, "'", "''") & "', '" & Replace(temp26, "'", "''") & "', " & _
                 "'" & Replace(temp27, "'", "''") & "') "
             Else
-                SQL = "UPDATE " & connNameSpace & ".EIEM SET " & _
+                SQL = "UPDATE " & DBNameSpace & ".EIEM SET " & _
                 "strInventoryYear = '" & Replace(temp, "'", "''") & "', " & _
                 "strStateCountyFIPS = '" & Replace(temp2, "'", "''") & "', " & _
                 "strStateFacilityIdentifier = '" & Replace(temp3, "'", "''") & "', " & _
@@ -10508,7 +10508,7 @@ Public Class DMUDeveloperTools
 
 
         SQL = "Select * " & _
-        "from " & connNameSpace & ".APBAIRPROGRAMPOLLUTANTS "
+        "from " & DBNameSpace & ".APBAIRPROGRAMPOLLUTANTS "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -10556,7 +10556,7 @@ Public Class DMUDeveloperTools
 
             SQL = "Select " & _
             "strAIRSNumber " & _
-            "from " & connNameSpace & ".APBMasterAIRS " & _
+            "from " & DBNameSpace & ".APBMasterAIRS " & _
             "where strAIRSNumber = '" & temp & "'"
 
             cmd = New OracleCommand(SQL, transferConn)
@@ -10568,7 +10568,7 @@ Public Class DMUDeveloperTools
             dr.Close()
             If recExist = True Then
                 SQL = "SELECT COUNT(*) " & _
-                "FROM " & connNameSpace & ".APBAIRPROGRAMPOLLUTANTS " & _
+                "FROM " & DBNameSpace & ".APBAIRPROGRAMPOLLUTANTS " & _
                 "WHERE STRAIRPOLLUTANTKEY = '" & temp2 & "' " & _
                 "AND STRPOLLUTANTKEY = '" & temp3 & "' "
 
@@ -10579,14 +10579,14 @@ Public Class DMUDeveloperTools
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = False Or dr.Item(0) = 0 Then
-                    SQL = "Insert into " & connNameSpace & ".APBAIRPROGRAMPOLLUTANTS " & _
+                    SQL = "Insert into " & DBNameSpace & ".APBAIRPROGRAMPOLLUTANTS " & _
                     "Values " & _
                     "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                     "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "', " & _
                     "'" & Replace(temp5, "'", "''") & "', '" & Replace(temp6, "'", "''") & "', " & _
                     "'" & Replace(temp7, "'", "''") & "') "
                 Else
-                    SQL = "UPDATE " & connNameSpace & ".APBAIRPROGRAMPOLLUTANTS SET " & _
+                    SQL = "UPDATE " & DBNameSpace & ".APBAIRPROGRAMPOLLUTANTS SET " & _
                     "STRAIRSNUMBER = '" & Replace(temp, "'", "''") & "', " & _
                     "STRAIRPOLLUTANTKEY = '" & Replace(temp2, "'", "''") & "', " & _
                     "STRPOLLUTANTKEY = '" & Replace(temp3, "'", "''") & "', " & _
@@ -10704,7 +10704,7 @@ Public Class DMUDeveloperTools
     End Sub
     Sub TransferAPBContactInformation()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".APBCONTACTINFORMATION "
+        "from " & DBNameSpace & ".APBCONTACTINFORMATION "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -10823,7 +10823,7 @@ Public Class DMUDeveloperTools
 
             SQL = "Select " & _
             "strAIRSNumber " & _
-            "from " & connNameSpace & ".APBMasterAIRS " & _
+            "from " & DBNameSpace & ".APBMasterAIRS " & _
             "where strAIRSNumber = '" & temp2 & "'"
 
             cmd = New OracleCommand(SQL, transferConn)
@@ -10835,7 +10835,7 @@ Public Class DMUDeveloperTools
             dr.Close()
             If recExist = True Then
                 SQL = "SELECT COUNT(*) " & _
-                "FROM " & connNameSpace & ".APBCONTACTINFORMATION " & _
+                "FROM " & DBNameSpace & ".APBCONTACTINFORMATION " & _
                 "WHERE STRCONTACTKEY = '" & temp & "' "
 
                 cmd = New OracleCommand(SQL, transferConn)
@@ -10845,7 +10845,7 @@ Public Class DMUDeveloperTools
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = False Or dr.Item(0) = 0 Then
-                    SQL = "Insert into " & connNameSpace & ".APBCONTACTINFORMATION " & _
+                    SQL = "Insert into " & DBNameSpace & ".APBCONTACTINFORMATION " & _
                     "Values " & _
                     "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                     "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "', " & _
@@ -10859,7 +10859,7 @@ Public Class DMUDeveloperTools
                     "'" & Replace(temp19, "'", "''") & "', '" & Replace(temp20, "'", "''") & "', " & _
                     "'" & Replace(temp21, "'", "''") & "') "
                 Else
-                    SQL = "UPDATE " & connNameSpace & ".APBCONTACTINFORMATION SET " & _
+                    SQL = "UPDATE " & DBNameSpace & ".APBCONTACTINFORMATION SET " & _
                     "STRCONTACTKEY = '" & Replace(temp, "'", "''") & "', " & _
                     "STRAIRSNUMBER = '" & Replace(temp2, "'", "''") & "', " & _
                     "STRKEY = '" & Replace(temp3, "'", "''") & "', " & _
@@ -10961,7 +10961,7 @@ Public Class DMUDeveloperTools
         End If
 
         SQL = "Select * " & _
-        "from " & connNameSpace & ".APBFACILITYINFORMATION "
+        "from " & DBNameSpace & ".APBFACILITYINFORMATION "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -11054,7 +11054,7 @@ Public Class DMUDeveloperTools
 
             SQL = "Select " & _
             "strAIRSNumber " & _
-            "from " & connNameSpace & ".APBMasterAIRS " & _
+            "from " & DBNameSpace & ".APBMasterAIRS " & _
             "where strAIRSNumber = '" & temp & "'"
 
             cmd = New OracleCommand(SQL, transferConn)
@@ -11066,7 +11066,7 @@ Public Class DMUDeveloperTools
             dr.Close()
             If recExist = True Then
                 SQL = "SELECT COUNT(*) " & _
-                "FROM " & connNameSpace & ".APBFACILITYINFORMATION " & _
+                "FROM " & DBNameSpace & ".APBFACILITYINFORMATION " & _
                 "WHERE STRAIRSNUMBER = '" & temp & "' "
                 cmd = New OracleCommand(SQL, transferConn)
                 If transferConn.State = ConnectionState.Closed Then
@@ -11075,7 +11075,7 @@ Public Class DMUDeveloperTools
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = False Or dr.Item(0) = 0 Then
-                    SQL = "Insert into " & connNameSpace & ".APBFACILITYINFORMATION " & _
+                    SQL = "Insert into " & DBNameSpace & ".APBFACILITYINFORMATION " & _
                     "Values " & _
                     "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                     "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "', " & _
@@ -11086,7 +11086,7 @@ Public Class DMUDeveloperTools
                     "'" & Replace(temp13, "'", "''") & "', '" & Replace(temp14, "'", "''") & "', " & _
                     "'" & Replace(temp15, "'", "''") & "', '" & Replace(temp16, "'", "''") & "') "
                 Else
-                    SQL = "UPDATE " & connNameSpace & ".APBFACILITYINFORMATION SET " & _
+                    SQL = "UPDATE " & DBNameSpace & ".APBFACILITYINFORMATION SET " & _
                     "STRAIRSNUMBER = '" & Replace(temp, "'", "''") & "', " & _
                     "STRFACILITYNAME = '" & Replace(temp2, "'", "''") & "', " & _
                     "STRFACILITYSTREET1 = '" & Replace(temp3, "'", "''") & "', " & _
@@ -11274,7 +11274,7 @@ Public Class DMUDeveloperTools
         End If
 
         SQL = "Select * " & _
-        "from " & connNameSpace & ".APBHEADERDATA "
+        "from " & DBNameSpace & ".APBHEADERDATA "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -11362,7 +11362,7 @@ Public Class DMUDeveloperTools
 
             SQL = "Select " & _
             "strAIRSNumber " & _
-            "from " & connNameSpace & ".APBMasterAIRS " & _
+            "from " & DBNameSpace & ".APBMasterAIRS " & _
             "where strAIRSNumber = '" & temp & "'"
 
             cmd = New OracleCommand(SQL, transferConn)
@@ -11374,7 +11374,7 @@ Public Class DMUDeveloperTools
             dr.Close()
             If recExist = True Then
                 SQL = "SELECT COUNT(*) " & _
-                "FROM " & connNameSpace & ".APBHEADERDATA " & _
+                "FROM " & DBNameSpace & ".APBHEADERDATA " & _
                 "WHERE STRAIRSNUMBER = '" & temp & "' "
                 cmd = New OracleCommand(SQL, transferConn)
                 If transferConn.State = ConnectionState.Closed Then
@@ -11383,7 +11383,7 @@ Public Class DMUDeveloperTools
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = False Or dr.Item(0) = 0 Then
-                    SQL = "Insert into " & connNameSpace & ".APBHEADERDATA " & _
+                    SQL = "Insert into " & DBNameSpace & ".APBHEADERDATA " & _
                     "Values " & _
                     "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                     "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "', " & _
@@ -11394,7 +11394,7 @@ Public Class DMUDeveloperTools
                     "'" & Replace(temp13, "'", "''") & "', '" & Replace(temp14, "'", "''") & "', " & _
                     "'" & Replace(temp15, "'", "''") & "') "
                 Else
-                    SQL = "UPDATE " & connNameSpace & ".APBHEADERDATA SET " & _
+                    SQL = "UPDATE " & DBNameSpace & ".APBHEADERDATA SET " & _
                     "STRAIRSNUMBER = '" & Replace(temp, "'", "''") & "', " & _
                     "STROPERATIONALSTATUS = '" & Replace(temp2, "'", "''") & "', " & _
                     "STRCLASS = '" & Replace(temp3, "'", "''") & "', " & _
@@ -11518,7 +11518,7 @@ Public Class DMUDeveloperTools
     End Sub
     Sub TransferAPBMasterAIRS()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".APBMASTERAIRS "
+        "from " & DBNameSpace & ".APBMASTERAIRS "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -11545,7 +11545,7 @@ Public Class DMUDeveloperTools
             End If
 
             SQL = "SELECT COUNT(*) " & _
-            "FROM " & connNameSpace & ".APBMASTERAIRS " & _
+            "FROM " & DBNameSpace & ".APBMASTERAIRS " & _
             "WHERE STRAIRSNUMBER = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -11554,12 +11554,12 @@ Public Class DMUDeveloperTools
             dr = cmd.ExecuteReader
             recExist = dr.Read
             If recExist = False Or dr.Item(0) = 0 Then
-                SQL = "Insert into " & connNameSpace & ".APBMASTERAIRS " & _
+                SQL = "Insert into " & DBNameSpace & ".APBMASTERAIRS " & _
                 "Values " & _
                 "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                 "'" & Replace(temp3, "'", "''") & "') "
             Else
-                SQL = "UPDATE " & connNameSpace & ".APBMASTERAIRS SET " & _
+                SQL = "UPDATE " & DBNameSpace & ".APBMASTERAIRS SET " & _
                 "STRAIRSNUMBER = '" & Replace(temp, "'", "''") & "', " & _
                 "STRMODIFINGPERSON = '" & Replace(temp2, "'", "''") & "', " & _
                 "DATMODIFINGDATE = '" & Replace(temp3, "'", "''") & "' " & _
@@ -11577,7 +11577,7 @@ Public Class DMUDeveloperTools
     End Sub
     Sub TransferAPBMasterAPP()
         SQL = "Select * " & _
-              "from " & connNameSpace & ".APBMasterAPP "
+              "from " & DBNameSpace & ".APBMasterAPP "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -11594,7 +11594,7 @@ Public Class DMUDeveloperTools
             End If
 
             SQL = "SELECT COUNT(*) " & _
-            "FROM " & connNameSpace & ".APBMasterAPP " & _
+            "FROM " & DBNameSpace & ".APBMasterAPP " & _
             "WHERE strVersionNumber = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -11603,11 +11603,11 @@ Public Class DMUDeveloperTools
             dr = cmd.ExecuteReader
             recExist = dr.Read
             If recExist = False Or dr.Item(0) = 0 Then
-                SQL = "Insert into " & connNameSpace & ".APBMasterAPP " & _
+                SQL = "Insert into " & DBNameSpace & ".APBMasterAPP " & _
                 "Values " & _
                 "('" & Replace(temp, "'", "''") & "') "
             Else
-                SQL = "UPDATE " & connNameSpace & ".APBMasterAPP SET " & _
+                SQL = "UPDATE " & DBNameSpace & ".APBMasterAPP SET " & _
                 "strVersionNumber = '" & Replace(temp, "'", "''") & "' " & _
                 "WHERE strVersionNumber = '" & temp & "' "
             End If
@@ -11630,7 +11630,7 @@ Public Class DMUDeveloperTools
     Sub TransferAPBSubPartData()
 
         SQL = "Select * " & _
-        "from " & connNameSpace & ".APBSUBPARTDATA "
+        "from " & DBNameSpace & ".APBSUBPARTDATA "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -11667,7 +11667,7 @@ Public Class DMUDeveloperTools
             End If
             SQL = "Select " & _
             "strAIRSNumber " & _
-            "from " & connNameSpace & ".APBMasterAIRS " & _
+            "from " & DBNameSpace & ".APBMasterAIRS " & _
             "where strAIRSNumber = '" & temp & "'"
 
             cmd = New OracleCommand(SQL, transferConn)
@@ -11679,7 +11679,7 @@ Public Class DMUDeveloperTools
             dr.Close()
             If recExist = True Then
                 SQL = "SELECT COUNT(*) " & _
-                "FROM " & connNameSpace & ".APBSUBPARTDATA " & _
+                "FROM " & DBNameSpace & ".APBSUBPARTDATA " & _
                 "WHERE STRSUBPARTKEY = '" & temp2 & "' " & _
                 "AND STRSUBPART = '" & temp3 & "' "
 
@@ -11690,13 +11690,13 @@ Public Class DMUDeveloperTools
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = False Or dr.Item(0) = 0 Then
-                    SQL = "Insert into " & connNameSpace & ".APBSUBPARTDATA " & _
+                    SQL = "Insert into " & DBNameSpace & ".APBSUBPARTDATA " & _
                     "Values " & _
                     "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                     "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "', " & _
                     "'" & Replace(temp5, "'", "''") & "') "
                 Else
-                    SQL = "UPDATE " & connNameSpace & ".APBSUBPARTDATA SET " & _
+                    SQL = "UPDATE " & DBNameSpace & ".APBSUBPARTDATA SET " & _
                     "STRAIRSNUMBER = '" & Replace(temp, "'", "''") & "', " & _
                     "STRSUBPARTKEY = '" & Replace(temp2, "'", "''") & "', " & _
                     "STRSUBPART = '" & Replace(temp3, "'", "''") & "', " & _
@@ -11751,7 +11751,7 @@ Public Class DMUDeveloperTools
         End If
 
         SQL = "Select * " & _
-        "from " & connNameSpace & ".APBSUPPLAMENTALDATA "
+        "from " & DBNameSpace & ".APBSUPPLAMENTALDATA "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -11824,7 +11824,7 @@ Public Class DMUDeveloperTools
 
             SQL = "Select " & _
            "strAIRSNumber " & _
-           "from " & connNameSpace & ".APBMasterAIRS " & _
+           "from " & DBNameSpace & ".APBMasterAIRS " & _
            "where strAIRSNumber = '" & temp & "'"
 
             cmd = New OracleCommand(SQL, transferConn)
@@ -11837,7 +11837,7 @@ Public Class DMUDeveloperTools
             If recExist = True Then
 
                 SQL = "SELECT COUNT(*) " & _
-                "FROM " & connNameSpace & ".APBSUPPLAMENTALDATA " & _
+                "FROM " & DBNameSpace & ".APBSUPPLAMENTALDATA " & _
                 "WHERE STRAIRSNUMBER = '" & temp & "' "
                 cmd = New OracleCommand(SQL, transferConn)
                 If transferConn.State = ConnectionState.Closed Then
@@ -11846,7 +11846,7 @@ Public Class DMUDeveloperTools
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = False Or dr.Item(0) = 0 Then
-                    SQL = "Insert into " & connNameSpace & ".APBSUPPLAMENTALDATA " & _
+                    SQL = "Insert into " & DBNameSpace & ".APBSUPPLAMENTALDATA " & _
                     "Values " & _
                     "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                     "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "', " & _
@@ -11855,7 +11855,7 @@ Public Class DMUDeveloperTools
                     "'" & Replace(temp9, "'", "''") & "', '" & Replace(temp10, "'", "''") & "', " & _
                     "'" & Replace(temp11, "'", "''") & "', '" & Replace(temp12, "'", "''") & "') "
                 Else
-                    SQL = "UPDATE " & connNameSpace & ".APBSUPPLAMENTALDATA SET " & _
+                    SQL = "UPDATE " & DBNameSpace & ".APBSUPPLAMENTALDATA SET " & _
                     "STRAIRSNUMBER = '" & Replace(temp, "'", "''") & "', " & _
                     "DATSSCPTESTREPORTDUE = '" & Replace(temp2, "'", "''") & "', " & _
                     "STRMODIFINGPERSON = '" & Replace(temp3, "'", "''") & "', " & _
@@ -11923,7 +11923,7 @@ Public Class DMUDeveloperTools
     End Sub
     Sub TransferHBAPBAirProgramPollutants()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".HB_APBAIRPROGRAMPOLLUTANTS "
+        "from " & DBNameSpace & ".HB_APBAIRPROGRAMPOLLUTANTS "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -11932,7 +11932,7 @@ Public Class DMUDeveloperTools
         End If
         daTemp.Fill(dsTemp, "Temp")
 
-        SQL = "DELETE " & connNameSpace & ".HB_APBAIRPROGRAMPOLLUTANTS "
+        SQL = "DELETE " & DBNameSpace & ".HB_APBAIRPROGRAMPOLLUTANTS "
         cmd = New OracleCommand(SQL, transferConn)
         If transferConn.State = ConnectionState.Closed Then
             transferConn.Open()
@@ -11979,7 +11979,7 @@ Public Class DMUDeveloperTools
 
             SQL = "Select " & _
             "strAIRSNumber " & _
-            "from " & connNameSpace & ".APBMasterAIRS " & _
+            "from " & DBNameSpace & ".APBMasterAIRS " & _
             "where strAIRSNumber = '" & temp2 & "'"
 
             cmd = New OracleCommand(SQL, transferConn)
@@ -11991,7 +11991,7 @@ Public Class DMUDeveloperTools
             dr.Close()
             If recExist = True Then
                 SQL = "SELECT COUNT(*) " & _
-                "FROM " & connNameSpace & ".HB_APBAIRPROGRAMPOLLUTANTS " & _
+                "FROM " & DBNameSpace & ".HB_APBAIRPROGRAMPOLLUTANTS " & _
                 "WHERE STRKEY = '" & temp & "' "
                 cmd = New OracleCommand(SQL, transferConn)
                 If transferConn.State = ConnectionState.Closed Then
@@ -12000,14 +12000,14 @@ Public Class DMUDeveloperTools
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = False Or dr.Item(0) = 0 Then
-                    SQL = "Insert into " & connNameSpace & ".HB_APBAIRPROGRAMPOLLUTANTS " & _
+                    SQL = "Insert into " & DBNameSpace & ".HB_APBAIRPROGRAMPOLLUTANTS " & _
                     "Values " & _
                     "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                     "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "', " & _
                     "'" & Replace(temp5, "'", "''") & "', '" & Replace(temp6, "'", "''") & "', " & _
                     "'" & Replace(temp7, "'", "''") & "') "
                 Else
-                    SQL = "UPDATE " & connNameSpace & ".HB_APBAIRPROGRAMPOLLUTANTS SET " & _
+                    SQL = "UPDATE " & DBNameSpace & ".HB_APBAIRPROGRAMPOLLUTANTS SET " & _
                     "STRKEY = '" & Replace(temp, "'", "''") & "', " & _
                     "STRAIRSNUMBER = '" & Replace(temp2, "'", "''") & "', " & _
                     "STRAIRPOLLUTANTKEY = '" & Replace(temp3, "'", "''") & "', " & _
@@ -12032,7 +12032,7 @@ Public Class DMUDeveloperTools
     Sub TransferHBAPBFacilityINformation()
 
         SQL = "Select * " & _
-        "from " & connNameSpace & ".HB_APBFACILITYINFORMATION "
+        "from " & DBNameSpace & ".HB_APBFACILITYINFORMATION "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -12041,7 +12041,7 @@ Public Class DMUDeveloperTools
         End If
         daTemp.Fill(dsTemp, "Temp")
 
-        SQL = "DELETE " & connNameSpace & ".HB_APBFACILITYINFORMATION "
+        SQL = "DELETE " & DBNameSpace & ".HB_APBFACILITYINFORMATION "
         cmd = New OracleCommand(SQL, transferConn)
         If transferConn.State = ConnectionState.Closed Then
             transferConn.Open()
@@ -12123,7 +12123,7 @@ Public Class DMUDeveloperTools
 
             SQL = "Select " & _
            "strAIRSNumber " & _
-           "from " & connNameSpace & ".APBMasterAIRS " & _
+           "from " & DBNameSpace & ".APBMasterAIRS " & _
            "where strAIRSNumber = '" & temp2 & "'"
 
             cmd = New OracleCommand(SQL, transferConn)
@@ -12135,7 +12135,7 @@ Public Class DMUDeveloperTools
             dr.Close()
             If recExist = True Then
                 SQL = "SELECT COUNT(*) " & _
-                "FROM " & connNameSpace & ".HB_APBFACILITYINFORMATION " & _
+                "FROM " & DBNameSpace & ".HB_APBFACILITYINFORMATION " & _
                 "WHERE STRKEY = '" & temp & "' "
                 cmd = New OracleCommand(SQL, transferConn)
                 If transferConn.State = ConnectionState.Closed Then
@@ -12144,7 +12144,7 @@ Public Class DMUDeveloperTools
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = False Or dr.Item(0) = 0 Then
-                    SQL = "Insert into " & connNameSpace & ".HB_APBFACILITYINFORMATION " & _
+                    SQL = "Insert into " & DBNameSpace & ".HB_APBFACILITYINFORMATION " & _
                     "Values " & _
                     "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                     "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "', " & _
@@ -12154,7 +12154,7 @@ Public Class DMUDeveloperTools
                     "'" & Replace(temp11, "'", "''") & "', '" & Replace(temp12, "'", "''") & "', " & _
                     "'" & Replace(temp13, "'", "''") & "', '" & Replace(temp14, "'", "''") & "') "
                 Else
-                    SQL = "UPDATE " & connNameSpace & ".HB_APBFACILITYINFORMATION SET " & _
+                    SQL = "UPDATE " & DBNameSpace & ".HB_APBFACILITYINFORMATION SET " & _
                     "STRKEY = '" & Replace(temp, "'", "''") & "', " & _
                     "STRAIRSNUMBER = '" & Replace(temp2, "'", "''") & "', " & _
                     "STRFACILITYNAME = '" & Replace(temp3, "'", "''") & "', " & _
@@ -12187,7 +12187,7 @@ Public Class DMUDeveloperTools
     Sub TransferHBAPBHeaderData()
 
         SQL = "Select * " & _
-        "from " & connNameSpace & ".HB_APBHEADERDATA "
+        "from " & DBNameSpace & ".HB_APBHEADERDATA "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -12196,7 +12196,7 @@ Public Class DMUDeveloperTools
         End If
         daTemp.Fill(dsTemp, "Temp")
 
-        SQL = "DELETE " & connNameSpace & ".HB_APBHEADERDATA "
+        SQL = "DELETE " & DBNameSpace & ".HB_APBHEADERDATA "
         cmd = New OracleCommand(SQL, transferConn)
         If transferConn.State = ConnectionState.Closed Then
             transferConn.Open()
@@ -12288,7 +12288,7 @@ Public Class DMUDeveloperTools
 
             SQL = "Select " & _
            "strAIRSNumber " & _
-           "from " & connNameSpace & ".APBMasterAIRS " & _
+           "from " & DBNameSpace & ".APBMasterAIRS " & _
            "where strAIRSNumber = '" & temp2 & "'"
 
             cmd = New OracleCommand(SQL, transferConn)
@@ -12300,7 +12300,7 @@ Public Class DMUDeveloperTools
             dr.Close()
             If recExist = True Then
                 SQL = "SELECT COUNT(*) " & _
-                "FROM " & connNameSpace & ".HB_APBHEADERDATA " & _
+                "FROM " & DBNameSpace & ".HB_APBHEADERDATA " & _
                 "WHERE STRKEY = '" & temp & "' "
                 cmd = New OracleCommand(SQL, transferConn)
                 If transferConn.State = ConnectionState.Closed Then
@@ -12309,7 +12309,7 @@ Public Class DMUDeveloperTools
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = False Or dr.Item(0) = 0 Then
-                    SQL = "Insert into " & connNameSpace & ".HB_APBHEADERDATA " & _
+                    SQL = "Insert into " & DBNameSpace & ".HB_APBHEADERDATA " & _
                     "Values " & _
                     "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                     "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "', " & _
@@ -12320,7 +12320,7 @@ Public Class DMUDeveloperTools
                     "'" & Replace(temp13, "'", "''") & "', '" & Replace(temp14, "'", "''") & "', " & _
                     "'" & Replace(temp15, "'", "''") & "', '" & Replace(temp16, "'", "''") & "') "
                 Else
-                    SQL = "UPDATE " & connNameSpace & ".HB_APBHEADERDATA SET " & _
+                    SQL = "UPDATE " & DBNameSpace & ".HB_APBHEADERDATA SET " & _
                     "STRKEY = '" & Replace(temp, "'", "''") & "', " & _
                     "STRAIRSNUMBER = '" & Replace(temp2, "'", "''") & "', " & _
                     "STROPERATIONALSTATUS = '" & Replace(temp3, "'", "''") & "', " & _
@@ -12353,7 +12353,7 @@ Public Class DMUDeveloperTools
     End Sub
     Sub TransferISMPDocumentTypes()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".ISMPDocumentType "
+        "from " & DBNameSpace & ".ISMPDocumentType "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -12385,7 +12385,7 @@ Public Class DMUDeveloperTools
             End If
 
             SQL = "SELECT COUNT(*) " & _
-            "FROM " & connNameSpace & ".ISMPDocumentType " & _
+            "FROM " & DBNameSpace & ".ISMPDocumentType " & _
             "WHERE strKey = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -12394,12 +12394,12 @@ Public Class DMUDeveloperTools
             dr = cmd.ExecuteReader
             recExist = dr.Read
             If recExist = False Or dr.Item(0) = 0 Then
-                SQL = "Insert into " & connNameSpace & ".ISMPDocumentType " & _
+                SQL = "Insert into " & DBNameSpace & ".ISMPDocumentType " & _
                 "Values " & _
                 "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                 "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "') "
             Else
-                SQL = "UPDATE " & connNameSpace & ".ISMPDocumentType SET " & _
+                SQL = "UPDATE " & DBNameSpace & ".ISMPDocumentType SET " & _
                 "strKey = '" & Replace(temp, "'", "''") & "', " & _
                 "strDocumentType = '" & Replace(temp2, "'", "''") & "', " & _
                 "strTableName = '" & Replace(temp2, "'", "''") & "', " & _
@@ -12418,7 +12418,7 @@ Public Class DMUDeveloperTools
     End Sub
     Sub TransferISMPFacilityAssignment()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".ISMPFacilityAssignment "
+        "from " & DBNameSpace & ".ISMPFacilityAssignment "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -12440,7 +12440,7 @@ Public Class DMUDeveloperTools
             End If
 
             SQL = "SELECT COUNT(*) " & _
-            "FROM " & connNameSpace & ".ISMPFacilityAssignment " & _
+            "FROM " & DBNameSpace & ".ISMPFacilityAssignment " & _
             "WHERE strKey = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -12449,11 +12449,11 @@ Public Class DMUDeveloperTools
             dr = cmd.ExecuteReader
             recExist = dr.Read
             If recExist = False Or dr.Item(0) = 0 Then
-                SQL = "Insert into " & connNameSpace & ".ISMPFacilityAssignment " & _
+                SQL = "Insert into " & DBNameSpace & ".ISMPFacilityAssignment " & _
                 "Values " & _
                 "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "') "
             Else
-                SQL = "UPDATE " & connNameSpace & ".ISMPFacilityAssignment SET " & _
+                SQL = "UPDATE " & DBNameSpace & ".ISMPFacilityAssignment SET " & _
                 "strAIRSNumber = '" & Replace(temp, "'", "''") & "', " & _
                 "strISMPUnit = '" & Replace(temp2, "'", "''") & "' " & _
                 "WHERE strAIRSNumber = '" & Replace(temp, "'", "''") & "' "
@@ -12470,7 +12470,7 @@ Public Class DMUDeveloperTools
     End Sub
     Sub TransferISMPMaster()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".ISMPMaster "
+        "from " & DBNameSpace & ".ISMPMaster "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -12503,7 +12503,7 @@ Public Class DMUDeveloperTools
 
             SQL = "Select " & _
             "strAIRSNumber " & _
-            "from " & connNameSpace & ".APBMasterAIRS " & _
+            "from " & DBNameSpace & ".APBMasterAIRS " & _
             "where strAIRSNumber = '" & temp2 & "'"
 
             cmd = New OracleCommand(SQL, transferConn)
@@ -12515,7 +12515,7 @@ Public Class DMUDeveloperTools
             dr.Close()
             If recExist = True Then
                 SQL = "SELECT COUNT(*) " & _
-                "FROM " & connNameSpace & ".ISMPMaster " & _
+                "FROM " & DBNameSpace & ".ISMPMaster " & _
                 "WHERE STRUNIT = '" & temp & "' "
 
                 cmd = New OracleCommand(SQL, transferConn)
@@ -12525,12 +12525,12 @@ Public Class DMUDeveloperTools
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = False Or dr.Item(0) = 0 Then
-                    SQL = "Insert into " & connNameSpace & ".ISMPMaster " & _
+                    SQL = "Insert into " & DBNameSpace & ".ISMPMaster " & _
                     "Values " & _
                     "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                     "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "') "
                 Else
-                    SQL = "UPDATE " & connNameSpace & ".ISMPMaster SET " & _
+                    SQL = "UPDATE " & DBNameSpace & ".ISMPMaster SET " & _
                     "strReferenceNumber = '" & Replace(temp, "'", "''") & "', " & _
                     "strAIRSnumber = '" & Replace(temp2, "'", "''") & "', " & _
                     "strModifingPerson = '" & Replace(temp3, "'", "''") & "', " & _
@@ -12551,7 +12551,7 @@ Public Class DMUDeveloperTools
     End Sub
     Sub TransferISMPReferenceNumber()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".ISMPReferenceNumber "
+        "from " & DBNameSpace & ".ISMPReferenceNumber "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -12568,7 +12568,7 @@ Public Class DMUDeveloperTools
             End If
 
             SQL = "SELECT COUNT(*) " & _
-            "FROM " & connNameSpace & ".ISMPReferenceNumber " & _
+            "FROM " & DBNameSpace & ".ISMPReferenceNumber " & _
             "WHERE strKey = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -12577,11 +12577,11 @@ Public Class DMUDeveloperTools
             dr = cmd.ExecuteReader
             recExist = dr.Read
             If recExist = False Or dr.Item(0) = 0 Then
-                SQL = "Insert into " & connNameSpace & ".ISMPReferenceNumber " & _
+                SQL = "Insert into " & DBNameSpace & ".ISMPReferenceNumber " & _
                 "Values " & _
                 "('" & Replace(temp, "'", "''") & "') "
             Else
-                SQL = "UPDATE " & connNameSpace & ".ISMPReferenceNumber SET " & _
+                SQL = "UPDATE " & DBNameSpace & ".ISMPReferenceNumber SET " & _
                 "strReferenceNumber = '" & Replace(temp, "'", "''") & "' " & _
                 "WHERE strReferenceNumber = '" & Replace(temp, "'", "''") & "' "
             End If
@@ -12601,7 +12601,7 @@ Public Class DMUDeveloperTools
     End Sub
     Sub TransferISMPReportFlare()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".ISMPReportFlare "
+        "from " & DBNameSpace & ".ISMPReportFlare "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -12778,7 +12778,7 @@ Public Class DMUDeveloperTools
             End If
 
             SQL = "SELECT strReferenceNumber " & _
-            "FROM " & connNameSpace & ".ISMPReportInformation " & _
+            "FROM " & DBNameSpace & ".ISMPReportInformation " & _
             "WHERE strReferenceNumber = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -12789,7 +12789,7 @@ Public Class DMUDeveloperTools
             dr.Close()
             If recExist = True Then
                 SQL = "SELECT COUNT(*) " & _
-                "FROM " & connNameSpace & ".ISMPReportFlare " & _
+                "FROM " & DBNameSpace & ".ISMPReportFlare " & _
                 "WHERE strReferenceNumber = '" & temp & "' "
                 cmd = New OracleCommand(SQL, transferConn)
                 If transferConn.State = ConnectionState.Closed Then
@@ -12798,7 +12798,7 @@ Public Class DMUDeveloperTools
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = False Or dr.Item(0) = 0 Then
-                    SQL = "Insert into " & connNameSpace & ".ISMPReportFlare " & _
+                    SQL = "Insert into " & DBNameSpace & ".ISMPReportFlare " & _
                     "Values " & _
                     "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                     "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "', " & _
@@ -12818,7 +12818,7 @@ Public Class DMUDeveloperTools
                     "'" & Replace(temp31, "'", "''") & "', '" & Replace(temp32, "'", "''") & "', " & _
                     "'" & Replace(temp33, "'", "''") & "') "
                 Else
-                    SQL = "UPDATE " & connNameSpace & ".ISMPReportFlare SET " & _
+                    SQL = "UPDATE " & DBNameSpace & ".ISMPReportFlare SET " & _
                     "strReferenceNumber = '" & Replace(temp, "'", "''") & "', " & _
                     "strMaxOperatingCapacity = '" & Replace(temp2, "'", "''") & "', " & _
                     "strMaxOperatingCapacityUnit = '" & Replace(temp3, "'", "''") & "', " & _
@@ -12867,7 +12867,7 @@ Public Class DMUDeveloperTools
     End Sub
     Sub TransferISMPReportInformation()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".ISMPReportInformation "
+        "from " & DBNameSpace & ".ISMPReportInformation "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -13034,7 +13034,7 @@ Public Class DMUDeveloperTools
             End If
 
             SQL = "SELECT strReferenceNumber " & _
-            "FROM " & connNameSpace & ".ISMPMaster " & _
+            "FROM " & DBNameSpace & ".ISMPMaster " & _
             "WHERE strReferenceNumber = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -13045,7 +13045,7 @@ Public Class DMUDeveloperTools
             dr.Close()
             If recExist = True Then
                 SQL = "SELECT COUNT(*) " & _
-                "FROM " & connNameSpace & ".ISMPReportInformation " & _
+                "FROM " & DBNameSpace & ".ISMPReportInformation " & _
                 "WHERE strReferenceNumber = '" & temp & "' "
                 cmd = New OracleCommand(SQL, transferConn)
                 If transferConn.State = ConnectionState.Closed Then
@@ -13054,7 +13054,7 @@ Public Class DMUDeveloperTools
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = False Or dr.Item(0) = 0 Then
-                    SQL = "Insert into " & connNameSpace & ".ISMPReportInformation " & _
+                    SQL = "Insert into " & DBNameSpace & ".ISMPReportInformation " & _
                     "Values " & _
                     "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                     "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "', " & _
@@ -13073,7 +13073,7 @@ Public Class DMUDeveloperTools
                     "'" & Replace(temp29, "'", "''") & "', '" & Replace(temp30, "'", "''") & "', " & _
                     "'" & Replace(temp31, "'", "''") & "') "
                 Else
-                    SQL = "UPDATE " & connNameSpace & ".ISMPReportInformation SET " & _
+                    SQL = "UPDATE " & DBNameSpace & ".ISMPReportInformation SET " & _
                     "strReferenceNumber = '" & Replace(temp, "'", "''") & "', " & _
                     "strPollutant = '" & Replace(temp2, "'", "''") & "', " & _
                     "strEmissionSource = '" & Replace(temp3, "'", "''") & "', " & _
@@ -13120,7 +13120,7 @@ Public Class DMUDeveloperTools
     End Sub
     Sub TransferISMPREportMemo()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".ISMPReportMemo "
+        "from " & DBNameSpace & ".ISMPReportMemo "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -13202,7 +13202,7 @@ Public Class DMUDeveloperTools
             End If
 
             SQL = "SELECT strReferenceNumber " & _
-            "FROM " & connNameSpace & ".ISMPReportInformation " & _
+            "FROM " & DBNameSpace & ".ISMPReportInformation " & _
             "WHERE strReferenceNumber = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -13213,7 +13213,7 @@ Public Class DMUDeveloperTools
             dr.Close()
             If recExist = True Then
                 SQL = "SELECT COUNT(*) " & _
-                "FROM " & connNameSpace & ".ISMPReportMemo " & _
+                "FROM " & DBNameSpace & ".ISMPReportMemo " & _
                 "WHERE strReferenceNumber = '" & temp & "' "
                 cmd = New OracleCommand(SQL, transferConn)
                 If transferConn.State = ConnectionState.Closed Then
@@ -13222,7 +13222,7 @@ Public Class DMUDeveloperTools
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = False Or dr.Item(0) = 0 Then
-                    SQL = "Insert into " & connNameSpace & ".ISMPReportMemo " & _
+                    SQL = "Insert into " & DBNameSpace & ".ISMPReportMemo " & _
                     "Values " & _
                     "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                     "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "', " & _
@@ -13232,7 +13232,7 @@ Public Class DMUDeveloperTools
                     "'" & Replace(temp11, "'", "''") & "', '" & Replace(temp12, "'", "''") & "', " & _
                     "'" & Replace(temp13, "'", "''") & "', '" & Replace(temp14, "'", "''") & "') "
                 Else
-                    SQL = "UPDATE " & connNameSpace & ".ISMPReportMemo SET " & _
+                    SQL = "UPDATE " & DBNameSpace & ".ISMPReportMemo SET " & _
                     "strReferenceNumber = '" & Replace(temp, "'", "''") & "', " & _
                     "strMemorandumField = '" & Replace(temp2, "'", "''") & "', " & _
                     "strMaxOperatingCapacity = '" & Replace(temp3, "'", "''") & "', " & _
@@ -13262,7 +13262,7 @@ Public Class DMUDeveloperTools
     End Sub
     Sub TransferISMPReportOneStack()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".ISMPReportOneStack "
+        "from " & DBNameSpace & ".ISMPReportOneStack "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -13494,7 +13494,7 @@ Public Class DMUDeveloperTools
             End If
 
             SQL = "SELECT strReferenceNumber " & _
-            "FROM " & connNameSpace & ".ISMPReportInformation " & _
+            "FROM " & DBNameSpace & ".ISMPReportInformation " & _
             "WHERE strReferenceNumber = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -13505,7 +13505,7 @@ Public Class DMUDeveloperTools
             dr.Close()
             If recExist = True Then
                 SQL = "SELECT COUNT(*) " & _
-                "FROM " & connNameSpace & ".ISMPReportOneStack " & _
+                "FROM " & DBNameSpace & ".ISMPReportOneStack " & _
                 "WHERE strReferenceNumber = '" & temp & "' "
                 cmd = New OracleCommand(SQL, transferConn)
                 If transferConn.State = ConnectionState.Closed Then
@@ -13514,7 +13514,7 @@ Public Class DMUDeveloperTools
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = False Or dr.Item(0) = 0 Then
-                    SQL = "Insert into " & connNameSpace & ".ISMPReportOneStack " & _
+                    SQL = "Insert into " & DBNameSpace & ".ISMPReportOneStack " & _
                     "Values " & _
                     "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                     "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "', " & _
@@ -13539,7 +13539,7 @@ Public Class DMUDeveloperTools
                     "'" & Replace(temp41, "'", "''") & "', '" & Replace(temp42, "'", "''") & "', " & _
                     "'" & Replace(temp43, "'", "''") & "', '" & Replace(temp44, "'", "''") & "') "
                 Else
-                    SQL = "UPDATE " & connNameSpace & ".ISMPReportOneStack SET " & _
+                    SQL = "UPDATE " & DBNameSpace & ".ISMPReportOneStack SET " & _
                     "strReferenceNumber = '" & Replace(temp, "'", "''") & "', " & _
                     "strMaxOperatingCapacity = '" & Replace(temp2, "'", "''") & "', " & _
                     "strMaxOperatingCapacityUnit = '" & Replace(temp3, "'", "''") & "', " & _
@@ -13599,7 +13599,7 @@ Public Class DMUDeveloperTools
     End Sub
     Sub TransferISMPREportOpacity()
         SQL = "Select * " & _
-              "from " & connNameSpace & ".ISMPReportOpacity "
+              "from " & DBNameSpace & ".ISMPReportOpacity "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -13771,7 +13771,7 @@ Public Class DMUDeveloperTools
             End If
 
             SQL = "SELECT strReferenceNumber " & _
-            "FROM " & connNameSpace & ".ISMPReportInformation " & _
+            "FROM " & DBNameSpace & ".ISMPReportInformation " & _
             "WHERE strReferenceNumber = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -13782,7 +13782,7 @@ Public Class DMUDeveloperTools
             dr.Close()
             If recExist = True Then
                 SQL = "SELECT COUNT(*) " & _
-                "FROM " & connNameSpace & ".ISMPReportOpacity " & _
+                "FROM " & DBNameSpace & ".ISMPReportOpacity " & _
                 "WHERE strReferenceNumber = '" & temp & "' "
                 cmd = New OracleCommand(SQL, transferConn)
                 If transferConn.State = ConnectionState.Closed Then
@@ -13791,7 +13791,7 @@ Public Class DMUDeveloperTools
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = False Or dr.Item(0) = 0 Then
-                    SQL = "Insert into " & connNameSpace & ".ISMPReportOpacity " & _
+                    SQL = "Insert into " & DBNameSpace & ".ISMPReportOpacity " & _
                     "Values " & _
                     "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                     "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "', " & _
@@ -13810,7 +13810,7 @@ Public Class DMUDeveloperTools
                     "'" & Replace(temp29, "'", "''") & "', '" & Replace(temp30, "'", "''") & "', " & _
                     "'" & Replace(temp31, "'", "''") & "', '" & Replace(temp32, "'", "''") & "') "
                 Else
-                    SQL = "UPDATE " & connNameSpace & ".ISMPReportOpacity SET " & _
+                    SQL = "UPDATE " & DBNameSpace & ".ISMPReportOpacity SET " & _
                     "strReferenceNumber = '" & Replace(temp, "'", "''") & "', " & _
                     "strMaxOperatingCapacity1A = '" & Replace(temp2, "'", "''") & "', " & _
                     "strMaxOperatingCapacity2A = '" & Replace(temp3, "'", "''") & "', " & _
@@ -13858,7 +13858,7 @@ Public Class DMUDeveloperTools
     End Sub
     Sub TransferISMPREportPondAndGas()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".ISMPReportPondAndGas "
+        "from " & DBNameSpace & ".ISMPReportPondAndGas "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -14020,7 +14020,7 @@ Public Class DMUDeveloperTools
             End If
 
             SQL = "SELECT strReferenceNumber " & _
-            "FROM " & connNameSpace & ".ISMPReportInformation " & _
+            "FROM " & DBNameSpace & ".ISMPReportInformation " & _
             "WHERE strReferenceNumber = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -14031,7 +14031,7 @@ Public Class DMUDeveloperTools
             dr.Close()
             If recExist = True Then
                 SQL = "SELECT COUNT(*) " & _
-                "FROM " & connNameSpace & ".ISMPReportPondAndGas " & _
+                "FROM " & DBNameSpace & ".ISMPReportPondAndGas " & _
                 "WHERE strReferenceNumber = '" & temp & "' "
                 cmd = New OracleCommand(SQL, transferConn)
                 If transferConn.State = ConnectionState.Closed Then
@@ -14040,7 +14040,7 @@ Public Class DMUDeveloperTools
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = False Or dr.Item(0) = 0 Then
-                    SQL = "Insert into " & connNameSpace & ".ISMPReportPondAndGas " & _
+                    SQL = "Insert into " & DBNameSpace & ".ISMPReportPondAndGas " & _
                     "Values " & _
                     "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                     "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "', " & _
@@ -14058,7 +14058,7 @@ Public Class DMUDeveloperTools
                     "'" & Replace(temp27, "'", "''") & "', '" & Replace(temp28, "'", "''") & "', " & _
                     "'" & Replace(temp29, "'", "''") & "', '" & Replace(temp30, "'", "''") & "') "
                 Else
-                    SQL = "UPDATE " & connNameSpace & ".ISMPReportPondAndGas SET " & _
+                    SQL = "UPDATE " & DBNameSpace & ".ISMPReportPondAndGas SET " & _
                     "strReferenceNumber = '" & Replace(temp, "'", "''") & "', " & _
                     "strMaxOperatingCapacity = '" & Replace(temp2, "'", "''") & "', " & _
                     "strMaxOperatingCapacityUnit = '" & Replace(temp3, "'", "''") & "', " & _
@@ -14104,7 +14104,7 @@ Public Class DMUDeveloperTools
     End Sub
     Sub TransferISMPReportRATA()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".ISMPReportRata "
+        "from " & DBNameSpace & ".ISMPReportRata "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -14281,7 +14281,7 @@ Public Class DMUDeveloperTools
             End If
 
             SQL = "SELECT strReferenceNumber " & _
-            "FROM " & connNameSpace & ".ISMPReportInformation " & _
+            "FROM " & DBNameSpace & ".ISMPReportInformation " & _
             "WHERE strReferenceNumber = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -14292,7 +14292,7 @@ Public Class DMUDeveloperTools
             dr.Close()
             If recExist = True Then
                 SQL = "SELECT COUNT(*) " & _
-                "FROM " & connNameSpace & ".ISMPReportRata " & _
+                "FROM " & DBNameSpace & ".ISMPReportRata " & _
                 "WHERE strReferenceNumber = '" & temp & "' "
                 cmd = New OracleCommand(SQL, transferConn)
                 If transferConn.State = ConnectionState.Closed Then
@@ -14301,7 +14301,7 @@ Public Class DMUDeveloperTools
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = False Or dr.Item(0) = 0 Then
-                    SQL = "Insert into " & connNameSpace & ".ISMPReportRata " & _
+                    SQL = "Insert into " & DBNameSpace & ".ISMPReportRata " & _
                     "Values " & _
                     "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                     "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "', " & _
@@ -14321,7 +14321,7 @@ Public Class DMUDeveloperTools
                     "'" & Replace(temp31, "'", "''") & "', '" & Replace(temp32, "'", "''") & "', " & _
                     "'" & Replace(temp33, "'", "''") & "') "
                 Else
-                    SQL = "UPDATE " & connNameSpace & ".ISMPReportRata SET " & _
+                    SQL = "UPDATE " & DBNameSpace & ".ISMPReportRata SET " & _
                     "strReferenceNumber = '" & Replace(temp, "'", "''") & "', " & _
                     "strDiluent = '" & Replace(temp2, "'", "''") & "', " & _
                     "strApplicableStandard = '" & Replace(temp3, "'", "''") & "', " & _
@@ -14370,7 +14370,7 @@ Public Class DMUDeveloperTools
     End Sub
     Sub TransferISMPREportTwoStack()
         SQL = "Select * " & _
-      "from " & connNameSpace & ".ISMPReportTwoStack "
+      "from " & DBNameSpace & ".ISMPReportTwoStack "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -14719,7 +14719,7 @@ Public Class DMUDeveloperTools
             End If
            
             SQL = "SELECT strReferenceNumber " & _
-            "FROM " & connNameSpace & ".ISMPReportInformation " & _
+            "FROM " & DBNameSpace & ".ISMPReportInformation " & _
             "WHERE strReferenceNumber = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -14730,7 +14730,7 @@ Public Class DMUDeveloperTools
             dr.Close()
             If recExist = True Then
                 SQL = "SELECT COUNT(*) " & _
-                "FROM " & connNameSpace & ".ISMPReportTwoStack " & _
+                "FROM " & DBNameSpace & ".ISMPReportTwoStack " & _
                 "WHERE strReferenceNumber = '" & temp & "' "
                 cmd = New OracleCommand(SQL, transferConn)
                 If transferConn.State = ConnectionState.Closed Then
@@ -14739,7 +14739,7 @@ Public Class DMUDeveloperTools
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = False Or dr.Item(0) = 0 Then
-                    SQL = "Insert into " & connNameSpace & ".ISMPReportTwoStack " & _
+                    SQL = "Insert into " & DBNameSpace & ".ISMPReportTwoStack " & _
                     "Values " & _
                     "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                     "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "', " & _
@@ -14776,7 +14776,7 @@ Public Class DMUDeveloperTools
                     "'" & Replace(temp65, "'", "''") & "', '" & Replace(temp66, "'", "''") & "', " & _
                     "'" & Replace(temp67, "'", "''") & "') "
                 Else
-                    SQL = "UPDATE " & connNameSpace & ".ISMPReportTwoStack SET " & _
+                    SQL = "UPDATE " & DBNameSpace & ".ISMPReportTwoStack SET " & _
                     "strReferenceNumber = '" & Replace(temp, "'", "''") & "', " & _
                     "strMaxOperatingCapacity = '" & Replace(temp2, "'", "''") & "', " & _
                     "strMaxOperatingCapacityUnit = '" & Replace(temp3, "'", "''") & "', " & _
@@ -14859,7 +14859,7 @@ Public Class DMUDeveloperTools
     End Sub
     Sub TransferISMPReportType()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".ISMPReportType "
+        "from " & DBNameSpace & ".ISMPReportType "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -14881,7 +14881,7 @@ Public Class DMUDeveloperTools
             End If
 
             SQL = "SELECT COUNT(*) " & _
-            "FROM " & connNameSpace & ".ISMPReportType " & _
+            "FROM " & DBNameSpace & ".ISMPReportType " & _
             "WHERE strReferenceNumber = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -14890,11 +14890,11 @@ Public Class DMUDeveloperTools
             dr = cmd.ExecuteReader
             recExist = dr.Read
             If recExist = False Or dr.Item(0) = 0 Then
-                SQL = "Insert into " & connNameSpace & ".ISMPReportType " & _
+                SQL = "Insert into " & DBNameSpace & ".ISMPReportType " & _
                 "Values " & _
                 "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "') "
             Else
-                SQL = "UPDATE " & connNameSpace & ".ISMPReportType SET " & _
+                SQL = "UPDATE " & DBNameSpace & ".ISMPReportType SET " & _
                 "strKey = '" & Replace(temp, "'", "''") & "', " & _
                 "strReportType = '" & Replace(temp2, "'", "''") & "' " & _
                 "WHERE strKey = '" & Replace(temp, "'", "''") & "' "
@@ -14911,7 +14911,7 @@ Public Class DMUDeveloperTools
     End Sub
     Sub TransferISMPTestFirmComments()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".ISMPTestFirmComments "
+        "from " & DBNameSpace & ".ISMPTestFirmComments "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -14978,7 +14978,7 @@ Public Class DMUDeveloperTools
             End If
 
             SQL = "SELECT COUNT(*) " & _
-            "FROM " & connNameSpace & ".ISMPTestFirmComments " & _
+            "FROM " & DBNameSpace & ".ISMPTestFirmComments " & _
             "WHERE strReferenceNumber = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -14987,7 +14987,7 @@ Public Class DMUDeveloperTools
             dr = cmd.ExecuteReader
             recExist = dr.Read
             If recExist = False Or dr.Item(0) = 0 Then
-                SQL = "Insert into " & connNameSpace & ".ISMPTestFirmComments " & _
+                SQL = "Insert into " & DBNameSpace & ".ISMPTestFirmComments " & _
                 "Values " & _
                 "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                 "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "', " & _
@@ -14996,7 +14996,7 @@ Public Class DMUDeveloperTools
                 "'" & Replace(temp9, "'", "''") & "', '" & Replace(temp10, "'", "''") & "', " & _
                 "'" & Replace(temp11, "'", "''") & "') "
             Else
-                SQL = "UPDATE " & connNameSpace & ".ISMPTestFirmComments SET " & _
+                SQL = "UPDATE " & DBNameSpace & ".ISMPTestFirmComments SET " & _
                 "strCommentsID = '" & Replace(temp, "'", "''") & "', " & _
                 "strTestingFirmKey = '" & Replace(temp2, "'", "''") & "', " & _
                 "strAIRSNumber = '" & Replace(temp3, "'", "''") & "', " & _
@@ -15022,7 +15022,7 @@ Public Class DMUDeveloperTools
     End Sub
     Sub TransferISMPTestLogLink()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".ISMPTestLogLink "
+        "from " & DBNameSpace & ".ISMPTestLogLink "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -15044,7 +15044,7 @@ Public Class DMUDeveloperTools
             End If
 
             SQL = "SELECT COUNT(*) " & _
-            "FROM " & connNameSpace & ".ISMPTestLogLink " & _
+            "FROM " & DBNameSpace & ".ISMPTestLogLink " & _
             "WHERE strReferenceNumber = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -15053,11 +15053,11 @@ Public Class DMUDeveloperTools
             dr = cmd.ExecuteReader
             recExist = dr.Read
             If recExist = False Or dr.Item(0) = 0 Then
-                SQL = "Insert into " & connNameSpace & ".ISMPTestLogLink " & _
+                SQL = "Insert into " & DBNameSpace & ".ISMPTestLogLink " & _
                 "Values " & _
                 "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "') "
             Else
-                SQL = "UPDATE " & connNameSpace & ".ISMPTestLogLink SET " & _
+                SQL = "UPDATE " & DBNameSpace & ".ISMPTestLogLink SET " & _
                 "strReferenceNumber = '" & Replace(temp, "'", "''") & "', " & _
                 "strTestLogNumber = '" & Replace(temp2, "'", "''") & "' " & _
                 "WHERE strReferenceNumber = '" & Replace(temp, "'", "''") & "' "
@@ -15074,7 +15074,7 @@ Public Class DMUDeveloperTools
     End Sub
     Sub TransferISMPTestLogNumber()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".ISMPTestLogNumber "
+        "from " & DBNameSpace & ".ISMPTestLogNumber "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -15091,7 +15091,7 @@ Public Class DMUDeveloperTools
             End If
 
             SQL = "SELECT COUNT(*) " & _
-            "FROM " & connNameSpace & ".ISMPTestLogNumber " & _
+            "FROM " & DBNameSpace & ".ISMPTestLogNumber " & _
             "WHERE strReferenceNumber = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -15100,11 +15100,11 @@ Public Class DMUDeveloperTools
             dr = cmd.ExecuteReader
             recExist = dr.Read
             If recExist = False Or dr.Item(0) = 0 Then
-                SQL = "Insert into " & connNameSpace & ".ISMPTestLogNumber " & _
+                SQL = "Insert into " & DBNameSpace & ".ISMPTestLogNumber " & _
                 "Values " & _
                 "('" & Replace(temp, "'", "''") & "') "
             Else
-                SQL = "UPDATE " & connNameSpace & ".ISMPTestLogNumber SET " & _
+                SQL = "UPDATE " & DBNameSpace & ".ISMPTestLogNumber SET " & _
                 "strTestLogNumber = '" & Replace(temp, "'", "''") & "' " & _
                 "WHERE strTestLogNumber = '" & Replace(temp, "'", "''") & "' "
             End If
@@ -15120,7 +15120,7 @@ Public Class DMUDeveloperTools
     End Sub
     Sub TransferISMPTestNotification()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".ISMPTestNotification "
+        "from " & DBNameSpace & ".ISMPTestNotification "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -15244,7 +15244,7 @@ Public Class DMUDeveloperTools
             End If
 
             SQL = "SELECT COUNT(*) " & _
-            "FROM " & connNameSpace & ".ISMPTestNotification " & _
+            "FROM " & DBNameSpace & ".ISMPTestNotification " & _
             "WHERE strReferenceNumber = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -15253,7 +15253,7 @@ Public Class DMUDeveloperTools
             dr = cmd.ExecuteReader
             recExist = dr.Read
             If recExist = False Or dr.Item(0) = 0 Then
-                SQL = "Insert into " & connNameSpace & ".ISMPTestNotification " & _
+                SQL = "Insert into " & DBNameSpace & ".ISMPTestNotification " & _
                 "Values " & _
                 "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                 "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "', " & _
@@ -15267,7 +15267,7 @@ Public Class DMUDeveloperTools
                 "'" & Replace(temp19, "'", "''") & "', '" & Replace(temp20, "'", "''") & "', " & _
                 "'" & Replace(temp21, "'", "''") & "', '" & Replace(temp22, "'", "''") & "') "
             Else
-                SQL = "UPDATE " & connNameSpace & ".ISMPTestNotification SET " & _
+                SQL = "UPDATE " & DBNameSpace & ".ISMPTestNotification SET " & _
                 "strTestLogNumber = '" & Replace(temp, "'", "''") & "', " & _
                 "strEmissionUnit = '" & Replace(temp2, "'", "''") & "', " & _
                 "datProposedStartDate = '" & Replace(temp3, "'", "''") & "', " & _
@@ -15304,7 +15304,7 @@ Public Class DMUDeveloperTools
     End Sub
     Sub TransferISMPTestNotificationLog()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".ISMPTestNotificationLog "
+        "from " & DBNameSpace & ".ISMPTestNotificationLog "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -15367,7 +15367,7 @@ Public Class DMUDeveloperTools
             End If
 
             SQL = "SELECT COUNT(*) " & _
-            "FROM " & connNameSpace & ".ISMPTestNotificationLog " & _
+            "FROM " & DBNameSpace & ".ISMPTestNotificationLog " & _
             "WHERE strReferenceNumber = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -15376,7 +15376,7 @@ Public Class DMUDeveloperTools
             dr = cmd.ExecuteReader
             recExist = dr.Read
             If recExist = False Or dr.Item(0) = 0 Then
-                SQL = "Insert into " & connNameSpace & ".ISMPTestNotificationLog " & _
+                SQL = "Insert into " & DBNameSpace & ".ISMPTestNotificationLog " & _
                 "Values " & _
                 "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                 "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "', " & _
@@ -15384,7 +15384,7 @@ Public Class DMUDeveloperTools
                 "'" & Replace(temp7, "'", "''") & "', '" & Replace(temp8, "'", "''") & "', " & _
                 "'" & Replace(temp9, "'", "''") & "', '" & Replace(temp10, "'", "''") & "') "
             Else
-                SQL = "UPDATE " & connNameSpace & ".ISMPTestNotificationLog SET " & _
+                SQL = "UPDATE " & DBNameSpace & ".ISMPTestNotificationLog SET " & _
                 "strTestLogNumber = '" & Replace(temp, "'", "''") & "', " & _
                 "strEngineer = '" & Replace(temp2, "'", "''") & "', " & _
                 "strUnit = '" & Replace(temp3, "'", "''") & "', " & _
@@ -15412,7 +15412,7 @@ Public Class DMUDeveloperTools
     End Sub
     Sub TransferISMPTestREportMemo()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".ISMPTestReportMemo "
+        "from " & DBNameSpace & ".ISMPTestReportMemo "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -15434,7 +15434,7 @@ Public Class DMUDeveloperTools
             End If
 
             SQL = "SELECT COUNT(*) " & _
-            "FROM " & connNameSpace & ".ISMPTestReportMemo " & _
+            "FROM " & DBNameSpace & ".ISMPTestReportMemo " & _
             "WHERE strReferenceNumber = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -15443,11 +15443,11 @@ Public Class DMUDeveloperTools
             dr = cmd.ExecuteReader
             recExist = dr.Read
             If recExist = False Or dr.Item(0) = 0 Then
-                SQL = "Insert into " & connNameSpace & ".ISMPTestReportMemo " & _
+                SQL = "Insert into " & DBNameSpace & ".ISMPTestReportMemo " & _
                 "Values " & _
                 "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "') "
             Else
-                SQL = "UPDATE " & connNameSpace & ".ISMPTestReportMemo SET " & _
+                SQL = "UPDATE " & DBNameSpace & ".ISMPTestReportMemo SET " & _
                 "strReferenceNumber = '" & Replace(temp, "'", "''") & "', " & _
                 "strMemorandumField = '" & Replace(temp2, "'", "''") & "' " & _
                 "WHERE strReferenceNumber = '" & Replace(temp, "'", "''") & "' "
@@ -15464,7 +15464,7 @@ Public Class DMUDeveloperTools
     End Sub
     Sub TransferISMPWitnessingEng()
         SQL = "Select * " & _
-              "from " & connNameSpace & ".ISMPWitnessingEng "
+              "from " & DBNameSpace & ".ISMPWitnessingEng "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -15486,7 +15486,7 @@ Public Class DMUDeveloperTools
             End If
 
             SQL = "SELECT COUNT(*) " & _
-            "FROM " & connNameSpace & ".ISMPWitnessingEng " & _
+            "FROM " & DBNameSpace & ".ISMPWitnessingEng " & _
             "WHERE strReferenceNumber = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -15495,11 +15495,11 @@ Public Class DMUDeveloperTools
             dr = cmd.ExecuteReader
             recExist = dr.Read
             If recExist = False Or dr.Item(0) = 0 Then
-                SQL = "Insert into " & connNameSpace & ".ISMPWitnessingEng " & _
+                SQL = "Insert into " & DBNameSpace & ".ISMPWitnessingEng " & _
                 "Values " & _
                 "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "') "
             Else
-                SQL = "UPDATE " & connNameSpace & ".ISMPWitnessingEng SET " & _
+                SQL = "UPDATE " & DBNameSpace & ".ISMPWitnessingEng SET " & _
                 "strReferenceNumber = '" & Replace(temp, "'", "''") & "', " & _
                 "strWitnessingEngineer = '" & Replace(temp2, "'", "''") & "' " & _
                 "WHERE strReferenceNumber = '" & Replace(temp, "'", "''") & "' "
@@ -15516,7 +15516,7 @@ Public Class DMUDeveloperTools
     End Sub
     Sub TransferSSCPACCS()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".SSCPACCS "
+        "from " & DBNameSpace & ".SSCPACCS "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -15599,7 +15599,7 @@ Public Class DMUDeveloperTools
             End If
 
             SQL = "SELECT strTrackingNumber " & _
-            "FROM " & connNameSpace & ".SSCPItemMaster " & _
+            "FROM " & DBNameSpace & ".SSCPItemMaster " & _
             "WHERE strTrackingNumber = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -15610,7 +15610,7 @@ Public Class DMUDeveloperTools
             dr.Close()
             If recExist = True Then
                 SQL = "SELECT COUNT(*) " & _
-                "FROM " & connNameSpace & ".SSCPACCS " & _
+                "FROM " & DBNameSpace & ".SSCPACCS " & _
                 "WHERE strTrackingNumber = '" & temp & "' "
                 cmd = New OracleCommand(SQL, transferConn)
                 If transferConn.State = ConnectionState.Closed Then
@@ -15619,7 +15619,7 @@ Public Class DMUDeveloperTools
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = False Or dr.Item(0) = 0 Then
-                    SQL = "Insert into " & connNameSpace & ".SSCPACCS " & _
+                    SQL = "Insert into " & DBNameSpace & ".SSCPACCS " & _
                     "Values " & _
                     "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                     "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "', " & _
@@ -15629,7 +15629,7 @@ Public Class DMUDeveloperTools
                     "'" & Replace(temp11, "'", "''") & "', '" & Replace(temp12, "'", "''") & "', " & _
                     "'" & Replace(temp13, "'", "''") & "', '" & Replace(temp14, "'", "''") & "') "
                 Else
-                    SQL = "UPDATE " & connNameSpace & ".SSCPACCS SET " & _
+                    SQL = "UPDATE " & DBNameSpace & ".SSCPACCS SET " & _
                     "strTrackingNumber = '" & Replace(temp, "'", "''") & "', " & _
                     "strSubmittalNumber = '" & Replace(temp2, "'", "''") & "', " & _
                     "strPostMarkedOnTime = '" & Replace(temp3, "'", "''") & "', " & _
@@ -15659,7 +15659,7 @@ Public Class DMUDeveloperTools
     End Sub
     Sub TransferSSCPACCSHistory()
         SQL = "Select * " & _
-      "from " & connNameSpace & ".SSCPACCSHistory "
+      "from " & DBNameSpace & ".SSCPACCSHistory "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -15742,7 +15742,7 @@ Public Class DMUDeveloperTools
             End If
 
             SQL = "SELECT strTrackingNumber " & _
-            "FROM " & connNameSpace & ".SSCPItemMaster " & _
+            "FROM " & DBNameSpace & ".SSCPItemMaster " & _
             "WHERE strTrackingNumber = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -15753,7 +15753,7 @@ Public Class DMUDeveloperTools
             dr.Close()
             If recExist = True Then
                 SQL = "SELECT COUNT(*) " & _
-                "FROM " & connNameSpace & ".SSCPACCSHistory " & _
+                "FROM " & DBNameSpace & ".SSCPACCSHistory " & _
                 "WHERE strTrackingNumber = '" & temp & "' "
                 cmd = New OracleCommand(SQL, transferConn)
                 If transferConn.State = ConnectionState.Closed Then
@@ -15762,7 +15762,7 @@ Public Class DMUDeveloperTools
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = False Or dr.Item(0) = 0 Then
-                    SQL = "Insert into " & connNameSpace & ".SSCPACCSHistory " & _
+                    SQL = "Insert into " & DBNameSpace & ".SSCPACCSHistory " & _
                     "Values " & _
                     "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                     "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "', " & _
@@ -15772,7 +15772,7 @@ Public Class DMUDeveloperTools
                     "'" & Replace(temp11, "'", "''") & "', '" & Replace(temp12, "'", "''") & "', " & _
                     "'" & Replace(temp13, "'", "''") & "', '" & Replace(temp14, "'", "''") & "') "
                 Else
-                    SQL = "UPDATE " & connNameSpace & ".SSCPACCSHistory SET " & _
+                    SQL = "UPDATE " & DBNameSpace & ".SSCPACCSHistory SET " & _
                     "strTrackingNumber = '" & Replace(temp, "'", "''") & "', " & _
                     "strSubmittalNumber = '" & Replace(temp2, "'", "''") & "', " & _
                     "strPostMarkedOnTime = '" & Replace(temp3, "'", "''") & "', " & _
@@ -15802,7 +15802,7 @@ Public Class DMUDeveloperTools
     End Sub
     Sub TransferSSCPDistrictAssignment()
         SQL = "Select * " & _
-   "from " & connNameSpace & ".SSCPDistrictAssignment "
+   "from " & DBNameSpace & ".SSCPDistrictAssignment "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -15835,7 +15835,7 @@ Public Class DMUDeveloperTools
             End If
          
             SQL = "SELECT strAIRSNumber " & _
-            "FROM " & connNameSpace & ".APBMasterAIRS " & _
+            "FROM " & DBNameSpace & ".APBMasterAIRS " & _
             "WHERE strAIRSNumber = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -15846,7 +15846,7 @@ Public Class DMUDeveloperTools
             dr.Close()
             If recExist = True Then
                 SQL = "SELECT COUNT(*) " & _
-                "FROM " & connNameSpace & ".SSCPDistrictAssignment " & _
+                "FROM " & DBNameSpace & ".SSCPDistrictAssignment " & _
                 "WHERE strAIRSNumber = '" & temp & "' "
                 cmd = New OracleCommand(SQL, transferConn)
                 If transferConn.State = ConnectionState.Closed Then
@@ -15855,12 +15855,12 @@ Public Class DMUDeveloperTools
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = False Or dr.Item(0) = 0 Then
-                    SQL = "Insert into " & connNameSpace & ".SSCPDistrictAssignment " & _
+                    SQL = "Insert into " & DBNameSpace & ".SSCPDistrictAssignment " & _
                     "Values " & _
                     "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                     "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "') "
                 Else
-                    SQL = "UPDATE " & connNameSpace & ".SSCPDistrictAssignment SET " & _
+                    SQL = "UPDATE " & DBNameSpace & ".SSCPDistrictAssignment SET " & _
                     "strAIRSNumber = '" & Replace(temp, "'", "''") & "', " & _
                     "strDistrictEngineer = '" & Replace(temp2, "'", "''") & "', " & _
                     "strDistrictAssigningManager = '" & Replace(temp3, "'", "''") & "', " & _
@@ -15880,7 +15880,7 @@ Public Class DMUDeveloperTools
     End Sub
     Sub TransferSSCPDistrictResponsible()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".SSCPDistrictResponsible "
+        "from " & DBNameSpace & ".SSCPDistrictResponsible "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -15913,7 +15913,7 @@ Public Class DMUDeveloperTools
             End If
           
             SQL = "SELECT strAIRSNumber " & _
-            "FROM " & connNameSpace & ".APBMasterAIRS " & _
+            "FROM " & DBNameSpace & ".APBMasterAIRS " & _
             "WHERE strAIRSNumber = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -15924,7 +15924,7 @@ Public Class DMUDeveloperTools
             dr.Close()
             If recExist = True Then
                 SQL = "SELECT COUNT(*) " & _
-                "FROM " & connNameSpace & ".SSCPDistrictResponsible " & _
+                "FROM " & DBNameSpace & ".SSCPDistrictResponsible " & _
                 "WHERE strAIRSNumber = '" & temp & "' "
                 cmd = New OracleCommand(SQL, transferConn)
                 If transferConn.State = ConnectionState.Closed Then
@@ -15933,12 +15933,12 @@ Public Class DMUDeveloperTools
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = False Or dr.Item(0) = 0 Then
-                    SQL = "Insert into " & connNameSpace & ".SSCPDistrictResponsible " & _
+                    SQL = "Insert into " & DBNameSpace & ".SSCPDistrictResponsible " & _
                     "Values " & _
                     "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                     "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "') "
                 Else
-                    SQL = "UPDATE " & connNameSpace & ".SSCPDistrictResponsible SET " & _
+                    SQL = "UPDATE " & DBNameSpace & ".SSCPDistrictResponsible SET " & _
                     "strAIRSNumber = '" & Replace(temp, "'", "''") & "', " & _
                     "strDistrictResponsible = '" & Replace(temp2, "'", "''") & "', " & _
                     "strAssigningManager = '" & Replace(temp3, "'", "''") & "', " & _
@@ -15958,7 +15958,7 @@ Public Class DMUDeveloperTools
     End Sub
     Sub TransferSSCPEnforcement()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".SSCPEnforcement "
+        "from " & DBNameSpace & ".SSCPEnforcement "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -16222,7 +16222,7 @@ Public Class DMUDeveloperTools
             End If
 
             SQL = "SELECT strEnforcementNumber " & _
-            "FROM " & connNameSpace & ".SSCPEnforcementItems " & _
+            "FROM " & DBNameSpace & ".SSCPEnforcementItems " & _
             "WHERE strEnforcementNumber = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -16233,7 +16233,7 @@ Public Class DMUDeveloperTools
             dr.Close()
             If recExist = True Then
                 SQL = "SELECT COUNT(*) " & _
-                "FROM " & connNameSpace & ".SSCPEnforcement " & _
+                "FROM " & DBNameSpace & ".SSCPEnforcement " & _
                 "WHERE strEnforcementNumber = '" & temp & "' "
                 cmd = New OracleCommand(SQL, transferConn)
                 If transferConn.State = ConnectionState.Closed Then
@@ -16242,7 +16242,7 @@ Public Class DMUDeveloperTools
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = False Or dr.Item(0) = 0 Then
-                    SQL = "Insert into " & connNameSpace & ".SSCPEnforcement " & _
+                    SQL = "Insert into " & DBNameSpace & ".SSCPEnforcement " & _
                     "Values " & _
                     "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                     "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "', " & _
@@ -16270,7 +16270,7 @@ Public Class DMUDeveloperTools
                     "'" & Replace(temp47, "'", "''") & "', '" & Replace(temp48, "'", "''") & "', " & _
                     "'" & Replace(temp49, "'", "''") & "', '" & Replace(temp50, "'", "''") & "') "
                 Else
-                    SQL = "UPDATE " & connNameSpace & ".SSCPEnforcement SET " & _
+                    SQL = "UPDATE " & DBNameSpace & ".SSCPEnforcement SET " & _
                     "strEnforcementNumber = '" & Replace(temp, "'", "''") & "', " & _
                     "strActionType = '" & Replace(temp2, "'", "''") & "', " & _
                     "strGeneralComments = '" & Replace(temp3, "'", "''") & "', " & _
@@ -16336,7 +16336,7 @@ Public Class DMUDeveloperTools
     End Sub
     Sub TransferSSCPEnforcementAOComments()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".SSCPEnforcementAOComments "
+        "from " & DBNameSpace & ".SSCPEnforcementAOComments "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -16364,7 +16364,7 @@ Public Class DMUDeveloperTools
             End If
 
             SQL = "SELECT strEnforcementNumber " & _
-            "FROM " & connNameSpace & ".SSCPEnforcementItems " & _
+            "FROM " & DBNameSpace & ".SSCPEnforcementItems " & _
             "WHERE strEnforcementNumber = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -16375,7 +16375,7 @@ Public Class DMUDeveloperTools
             dr.Close()
             If recExist = True Then
                 SQL = "SELECT COUNT(*) " & _
-                "FROM " & connNameSpace & ".SSCPEnforcementAOComments " & _
+                "FROM " & DBNameSpace & ".SSCPEnforcementAOComments " & _
                 "WHERE strEnforcementNumber = '" & temp & "' "
                 cmd = New OracleCommand(SQL, transferConn)
                 If transferConn.State = ConnectionState.Closed Then
@@ -16384,12 +16384,12 @@ Public Class DMUDeveloperTools
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = False Or dr.Item(0) = 0 Then
-                    SQL = "Insert into " & connNameSpace & ".SSCPEnforcementAOComments " & _
+                    SQL = "Insert into " & DBNameSpace & ".SSCPEnforcementAOComments " & _
                     "Values " & _
                     "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                     "'" & Replace(temp3, "'", "''") & "') "
                 Else
-                    SQL = "UPDATE " & connNameSpace & ".SSCPEnforcementAOComments SET " & _
+                    SQL = "UPDATE " & DBNameSpace & ".SSCPEnforcementAOComments SET " & _
                     "strEnforcementNumber = '" & Replace(temp, "'", "''") & "', " & _
                     "strAOEntryNumber = '" & Replace(temp2, "'", "''") & "', " & _
                     "strAOComment = '" & Replace(temp3, "'", "''") & "' " & _
@@ -16408,7 +16408,7 @@ Public Class DMUDeveloperTools
     End Sub
     Sub TransferSSCPEnforcementCOComments()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".SSCPEnforcementCOComments "
+        "from " & DBNameSpace & ".SSCPEnforcementCOComments "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -16436,7 +16436,7 @@ Public Class DMUDeveloperTools
             End If
 
             SQL = "SELECT strEnforcementNumber " & _
-            "FROM " & connNameSpace & ".SSCPEnforcementItems " & _
+            "FROM " & DBNameSpace & ".SSCPEnforcementItems " & _
             "WHERE strEnforcementNumber = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -16447,7 +16447,7 @@ Public Class DMUDeveloperTools
             dr.Close()
             If recExist = True Then
                 SQL = "SELECT COUNT(*) " & _
-                "FROM " & connNameSpace & ".SSCPEnforcementCOComments " & _
+                "FROM " & DBNameSpace & ".SSCPEnforcementCOComments " & _
                 "WHERE strEnforcementNumber = '" & temp & "' "
                 cmd = New OracleCommand(SQL, transferConn)
                 If transferConn.State = ConnectionState.Closed Then
@@ -16456,12 +16456,12 @@ Public Class DMUDeveloperTools
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = False Or dr.Item(0) = 0 Then
-                    SQL = "Insert into " & connNameSpace & ".SSCPEnforcementCOComments " & _
+                    SQL = "Insert into " & DBNameSpace & ".SSCPEnforcementCOComments " & _
                     "Values " & _
                     "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                     "'" & Replace(temp3, "'", "''") & "') "
                 Else
-                    SQL = "UPDATE " & connNameSpace & ".SSCPEnforcementCOComments SET " & _
+                    SQL = "UPDATE " & DBNameSpace & ".SSCPEnforcementCOComments SET " & _
                     "strEnforcementNumber = '" & Replace(temp, "'", "''") & "', " & _
                     "strCOEntryNumber = '" & Replace(temp2, "'", "''") & "', " & _
                     "strCOComment = '" & Replace(temp3, "'", "''") & "' " & _
@@ -16480,7 +16480,7 @@ Public Class DMUDeveloperTools
     End Sub
     Sub TransferSSCPEnforcementItems()
         SQL = "Select * " & _
-     "from " & connNameSpace & ".SSCPEnforcementItems "
+     "from " & DBNameSpace & ".SSCPEnforcementItems "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -16533,7 +16533,7 @@ Public Class DMUDeveloperTools
             End If
 
             SQL = "SELECT strAIRSnumber " & _
-            "FROM " & connNameSpace & ".APBMasterAIRS " & _
+            "FROM " & DBNameSpace & ".APBMasterAIRS " & _
             "WHERE strAIRSNumber = '" & temp3 & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -16544,7 +16544,7 @@ Public Class DMUDeveloperTools
             dr.Close()
             If recExist = True Then
                 SQL = "SELECT COUNT(*) " & _
-                "FROM " & connNameSpace & ".SSCPEnforcementItems " & _
+                "FROM " & DBNameSpace & ".SSCPEnforcementItems " & _
                 "WHERE strEnforcementNumber = '" & temp & "' "
                 cmd = New OracleCommand(SQL, transferConn)
                 If transferConn.State = ConnectionState.Closed Then
@@ -16553,14 +16553,14 @@ Public Class DMUDeveloperTools
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = False Or dr.Item(0) = 0 Then
-                    SQL = "Insert into " & connNameSpace & ".SSCPEnforcementItems " & _
+                    SQL = "Insert into " & DBNameSpace & ".SSCPEnforcementItems " & _
                     "Values " & _
                     "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                     "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "', " & _
                     "'" & Replace(temp5, "'", "''") & "', '" & Replace(temp6, "'", "''") & "', " & _
                     "'" & Replace(temp7, "'", "''") & "', '" & Replace(temp8, "'", "''") & "') " 
                 Else
-                    SQL = "UPDATE " & connNameSpace & ".SSCPEnforcementItems SET " & _
+                    SQL = "UPDATE " & DBNameSpace & ".SSCPEnforcementItems SET " & _
                     "strEnforcementNumber = '" & Replace(temp, "'", "''") & "', " & _
                     "strTrackingNumber = '" & Replace(temp2, "'", "''") & "', " & _
                     "strAIRSNumber = '" & Replace(temp3, "'", "''") & "', " & _
@@ -16587,7 +16587,7 @@ Public Class DMUDeveloperTools
     End Sub
     Sub TransferSSCPEnforceNOVComments()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".SSCPEnforcementNOVComments "
+        "from " & DBNameSpace & ".SSCPEnforcementNOVComments "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -16615,7 +16615,7 @@ Public Class DMUDeveloperTools
             End If
 
             SQL = "SELECT strEnforcementNumber " & _
-            "FROM " & connNameSpace & ".SSCPEnforcementItems " & _
+            "FROM " & DBNameSpace & ".SSCPEnforcementItems " & _
             "WHERE strEnforcementNumber = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -16626,7 +16626,7 @@ Public Class DMUDeveloperTools
             dr.Close()
             If recExist = True Then
                 SQL = "SELECT COUNT(*) " & _
-                "FROM " & connNameSpace & ".SSCPEnforcementNOVComments " & _
+                "FROM " & DBNameSpace & ".SSCPEnforcementNOVComments " & _
                 "WHERE strEnforcementNumber = '" & temp & "' "
                 cmd = New OracleCommand(SQL, transferConn)
                 If transferConn.State = ConnectionState.Closed Then
@@ -16635,12 +16635,12 @@ Public Class DMUDeveloperTools
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = False Or dr.Item(0) = 0 Then
-                    SQL = "Insert into " & connNameSpace & ".SSCPEnforcementNOVComments " & _
+                    SQL = "Insert into " & DBNameSpace & ".SSCPEnforcementNOVComments " & _
                     "Values " & _
                     "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                     "'" & Replace(temp3, "'", "''") & "') "
                 Else
-                    SQL = "UPDATE " & connNameSpace & ".SSCPEnforcementNOVComments SET " & _
+                    SQL = "UPDATE " & DBNameSpace & ".SSCPEnforcementNOVComments SET " & _
                     "strEnforcementNumber = '" & Replace(temp, "'", "''") & "', " & _
                     "strNOVEntryNumber = '" & Replace(temp2, "'", "''") & "', " & _
                     "strNOVComment = '" & Replace(temp3, "'", "''") & "' " & _
@@ -16659,7 +16659,7 @@ Public Class DMUDeveloperTools
     End Sub
     Sub TransferSSCPEnforcementStipulated()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".SSCPEnforcementStipulated "
+        "from " & DBNameSpace & ".SSCPEnforcementStipulated "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -16707,7 +16707,7 @@ Public Class DMUDeveloperTools
             End If
 
             SQL = "SELECT strEnforcementNumber " & _
-            "FROM " & connNameSpace & ".SSCPEnforcementItems " & _
+            "FROM " & DBNameSpace & ".SSCPEnforcementItems " & _
             "WHERE strEnforcementNumber = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -16718,7 +16718,7 @@ Public Class DMUDeveloperTools
             dr.Close()
             If recExist = True Then
                 SQL = "SELECT COUNT(*) " & _
-                "FROM " & connNameSpace & ".SSCPEnforcementStipulated " & _
+                "FROM " & DBNameSpace & ".SSCPEnforcementStipulated " & _
                 "WHERE strEnforcementNumber = '" & temp & "' " & _
                 "and strEnforcementKey = '" & temp2 & "' "
                 cmd = New OracleCommand(SQL, transferConn)
@@ -16728,14 +16728,14 @@ Public Class DMUDeveloperTools
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = False Or dr.Item(0) = 0 Then
-                    SQL = "Insert into " & connNameSpace & ".SSCPEnforcementStipulated " & _
+                    SQL = "Insert into " & DBNameSpace & ".SSCPEnforcementStipulated " & _
                     "Values " & _
                     "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                     "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "', " & _
                     "'" & Replace(temp5, "'", "''") & "', '" & Replace(temp6, "'", "''") & "', " & _
                     "'" & Replace(temp7, "'", "''") & "') "
                 Else
-                    SQL = "UPDATE " & connNameSpace & ".SSCPEnforcementStipulated SET " & _
+                    SQL = "UPDATE " & DBNameSpace & ".SSCPEnforcementStipulated SET " & _
                     "strEnforcementNumber = '" & Replace(temp, "'", "''") & "', " & _
                     "strEnforcementKey = '" & Replace(temp2, "'", "''") & "', " & _
                     "strStipulatedPenalty = '" & Replace(temp3, "'", "''") & "', " & _
@@ -16759,7 +16759,7 @@ Public Class DMUDeveloperTools
     End Sub
     Sub TransferSSCPFacilityAssignment()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".SSCPFacilityAssignment "
+        "from " & DBNameSpace & ".SSCPFacilityAssignment "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -16797,7 +16797,7 @@ Public Class DMUDeveloperTools
             End If
 
             SQL = "SELECT strAIRSNumber " & _
-            "FROM " & connNameSpace & ".APBMasterAIRS " & _
+            "FROM " & DBNameSpace & ".APBMasterAIRS " & _
             "WHERE strAIRSNumber = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -16808,7 +16808,7 @@ Public Class DMUDeveloperTools
             dr.Close()
             If recExist = True Then
                 SQL = "SELECT COUNT(*) " & _
-                "FROM " & connNameSpace & ".SSCPFacilityAssignment " & _
+                "FROM " & DBNameSpace & ".SSCPFacilityAssignment " & _
                 "WHERE strAIRSNumber = '" & temp & "' "
                 cmd = New OracleCommand(SQL, transferConn)
                 If transferConn.State = ConnectionState.Closed Then
@@ -16817,13 +16817,13 @@ Public Class DMUDeveloperTools
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = False Or dr.Item(0) = 0 Then
-                    SQL = "Insert into " & connNameSpace & ".SSCPFacilityAssignment " & _
+                    SQL = "Insert into " & DBNameSpace & ".SSCPFacilityAssignment " & _
                     "Values " & _
                     "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                     "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "', " & _
                     "'" & Replace(temp5, "'", "''") & "') "
                 Else
-                    SQL = "UPDATE " & connNameSpace & ".SSCPFacilityAssignment SET " & _
+                    SQL = "UPDATE " & DBNameSpace & ".SSCPFacilityAssignment SET " & _
                     "strAIRSNumber = '" & Replace(temp, "'", "''") & "', " & _
                     "strSSCPUnit = '" & Replace(temp2, "'", "''") & "', " & _
                     "strSSCPEngineer = '" & Replace(temp3, "'", "''") & "', " & _
@@ -16844,7 +16844,7 @@ Public Class DMUDeveloperTools
     End Sub
     Sub TransferSSCPFCE()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".SSCPFCE "
+        "from " & DBNameSpace & ".SSCPFCE "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -16902,7 +16902,7 @@ Public Class DMUDeveloperTools
             End If
 
             SQL = "SELECT strFCENumber " & _
-            "FROM " & connNameSpace & ".SSCPFCEMaster " & _
+            "FROM " & DBNameSpace & ".SSCPFCEMaster " & _
             "WHERE strFCENumber = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -16913,7 +16913,7 @@ Public Class DMUDeveloperTools
             dr.Close()
             If recExist = True Then
                 SQL = "SELECT COUNT(*) " & _
-                "FROM " & connNameSpace & ".SSCPFCE " & _
+                "FROM " & DBNameSpace & ".SSCPFCE " & _
                 "WHERE strFCENumber = '" & temp & "' "
                 cmd = New OracleCommand(SQL, transferConn)
                 If transferConn.State = ConnectionState.Closed Then
@@ -16922,7 +16922,7 @@ Public Class DMUDeveloperTools
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = False Or dr.Item(0) = 0 Then
-                    SQL = "Insert into " & connNameSpace & ".SSCPFCE " & _
+                    SQL = "Insert into " & DBNameSpace & ".SSCPFCE " & _
                     "Values " & _
                     "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                     "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "', " & _
@@ -16930,7 +16930,7 @@ Public Class DMUDeveloperTools
                     "'" & Replace(temp7, "'", "''") & "', '" & Replace(temp8, "'", "''") & "', " & _
                     "'" & Replace(temp9, "'", "''") & "') "
                 Else
-                    SQL = "UPDATE " & connNameSpace & ".SSCPFCE SET " & _
+                    SQL = "UPDATE " & DBNameSpace & ".SSCPFCE SET " & _
                     "strFCENumber = '" & Replace(temp, "'", "''") & "', " & _
                     "strFCEStatus = '" & Replace(temp2, "'", "''") & "', " & _
                     "strReviewer = '" & Replace(temp3, "'", "''") & "', " & _
@@ -16955,7 +16955,7 @@ Public Class DMUDeveloperTools
     End Sub
     Sub TransferSSCPFCEMaster()
         SQL = "Select * " & _
-      "from " & connNameSpace & ".SSCPFCEMaster "
+      "from " & DBNameSpace & ".SSCPFCEMaster "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -16988,7 +16988,7 @@ Public Class DMUDeveloperTools
             End If
 
             SQL = "SELECT strAIRSNumber " & _
-            "FROM " & connNameSpace & ".APBMasterAIRS " & _
+            "FROM " & DBNameSpace & ".APBMasterAIRS " & _
             "WHERE strAIRSNumber = '" & temp2 & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -16999,7 +16999,7 @@ Public Class DMUDeveloperTools
             dr.Close()
             If recExist = True Then
                 SQL = "SELECT COUNT(*) " & _
-                "FROM " & connNameSpace & ".SSCPFCEMaster " & _
+                "FROM " & DBNameSpace & ".SSCPFCEMaster " & _
                 "WHERE strFCENumber = '" & temp & "' "
                 cmd = New OracleCommand(SQL, transferConn)
                 If transferConn.State = ConnectionState.Closed Then
@@ -17008,12 +17008,12 @@ Public Class DMUDeveloperTools
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = False Or dr.Item(0) = 0 Then
-                    SQL = "Insert into " & connNameSpace & ".SSCPFCEMaster " & _
+                    SQL = "Insert into " & DBNameSpace & ".SSCPFCEMaster " & _
                     "Values " & _
                     "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                     "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "') "
                 Else
-                    SQL = "UPDATE " & connNameSpace & ".SSCPFCEMaster SET " & _
+                    SQL = "UPDATE " & DBNameSpace & ".SSCPFCEMaster SET " & _
                     "strFCENumber = '" & Replace(temp, "'", "''") & "', " & _
                     "strAIRSNumber = '" & Replace(temp2, "'", "''") & "', " & _
                     "strModifingPerson = '" & Replace(temp3, "'", "''") & "', " & _
@@ -17033,7 +17033,7 @@ Public Class DMUDeveloperTools
     End Sub
     Sub TransferSSCPInspectionActivity()
         SQL = "Select * " & _
-      "from " & connNameSpace & ".SSCPInspectionActivity "
+      "from " & DBNameSpace & ".SSCPInspectionActivity "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -17071,7 +17071,7 @@ Public Class DMUDeveloperTools
             End If
 
             SQL = "SELECT strAIRSNumber " & _
-            "FROM " & connNameSpace & ".APBMasterAIRS " & _
+            "FROM " & DBNameSpace & ".APBMasterAIRS " & _
             "WHERE strAIRSNumber = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -17082,7 +17082,7 @@ Public Class DMUDeveloperTools
             dr.Close()
             If recExist = True Then
                 SQL = "SELECT COUNT(*) " & _
-                "FROM " & connNameSpace & ".SSCPInspectionActivity " & _
+                "FROM " & DBNameSpace & ".SSCPInspectionActivity " & _
                 "WHERE strAIRSNumber = '" & temp & "' "
                 cmd = New OracleCommand(SQL, transferConn)
                 If transferConn.State = ConnectionState.Closed Then
@@ -17091,13 +17091,13 @@ Public Class DMUDeveloperTools
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = False Or dr.Item(0) = 0 Then
-                    SQL = "Insert into " & connNameSpace & ".SSCPInspectionActivity " & _
+                    SQL = "Insert into " & DBNameSpace & ".SSCPInspectionActivity " & _
                     "Values " & _
                     "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                     "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "', " & _
                     "'" & Replace(temp5, "'", "''") & "') "
                 Else
-                    SQL = "UPDATE " & connNameSpace & ".SSCPInspectionActivity SET " & _
+                    SQL = "UPDATE " & DBNameSpace & ".SSCPInspectionActivity SET " & _
                     "strAIRSnumber = '" & Replace(temp, "'", "''") & "', " & _
                     "datInspectionDateStart = '" & Replace(temp2, "'", "''") & "', " & _
                     "datInspectionDateEnd = '" & Replace(temp3, "'", "''") & "', " & _
@@ -17118,7 +17118,7 @@ Public Class DMUDeveloperTools
     End Sub
     Sub TransferSSCPInspections()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".SSCPInspections "
+        "from " & DBNameSpace & ".SSCPInspections "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -17191,7 +17191,7 @@ Public Class DMUDeveloperTools
             End If
 
             SQL = "SELECT strTrackingNumber " & _
-            "FROM " & connNameSpace & ".SSCPItemMaster " & _
+            "FROM " & DBNameSpace & ".SSCPItemMaster " & _
             "WHERE strTrackingNumber = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -17202,7 +17202,7 @@ Public Class DMUDeveloperTools
             dr.Close()
             If recExist = True Then
                 SQL = "SELECT COUNT(*) " & _
-                "FROM " & connNameSpace & ".SSCPInspections " & _
+                "FROM " & DBNameSpace & ".SSCPInspections " & _
                 "WHERE strTrackingNumber = '" & temp & "' "
                 cmd = New OracleCommand(SQL, transferConn)
                 If transferConn.State = ConnectionState.Closed Then
@@ -17211,7 +17211,7 @@ Public Class DMUDeveloperTools
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = False Or dr.Item(0) = 0 Then
-                    SQL = "Insert into " & connNameSpace & ".SSCPInspections " & _
+                    SQL = "Insert into " & DBNameSpace & ".SSCPInspections " & _
                     "Values " & _
                     "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                     "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "', " & _
@@ -17220,7 +17220,7 @@ Public Class DMUDeveloperTools
                     "'" & Replace(temp9, "'", "''") & "', '" & Replace(temp10, "'", "''") & "', " & _
                     "'" & Replace(temp11, "'", "''") & "', '" & Replace(temp12, "'", "''") & "') "
                 Else
-                    SQL = "UPDATE " & connNameSpace & ".SSCPInspections SET " & _
+                    SQL = "UPDATE " & DBNameSpace & ".SSCPInspections SET " & _
                     "strTrackingNumber = '" & Replace(temp, "'", "''") & "', " & _
                     "datInspectionDateStart = '" & Replace(temp2, "'", "''") & "', " & _
                     "datInspectionDateEnd = '" & Replace(temp3, "'", "''") & "', " & _
@@ -17248,7 +17248,7 @@ Public Class DMUDeveloperTools
     End Sub
     Sub TransferSSCPInspectionsRequired()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".SSCPInspectionsRequired "
+        "from " & DBNameSpace & ".SSCPInspectionsRequired "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -17281,7 +17281,7 @@ Public Class DMUDeveloperTools
             End If
 
             SQL = "SELECT strAIRSNumber " & _
-            "FROM " & connNameSpace & ".APBMasterAIRS " & _
+            "FROM " & DBNameSpace & ".APBMasterAIRS " & _
             "WHERE strAIRSNumber = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -17292,7 +17292,7 @@ Public Class DMUDeveloperTools
             dr.Close()
             If recExist = True Then
                 SQL = "SELECT COUNT(*) " & _
-                "FROM " & connNameSpace & ".SSCPInspectionsRequired " & _
+                "FROM " & DBNameSpace & ".SSCPInspectionsRequired " & _
                 "WHERE strAIRSNumber = '" & temp & "' "
                 cmd = New OracleCommand(SQL, transferConn)
                 If transferConn.State = ConnectionState.Closed Then
@@ -17301,12 +17301,12 @@ Public Class DMUDeveloperTools
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = False Or dr.Item(0) = 0 Then
-                    SQL = "Insert into " & connNameSpace & ".SSCPInspectionsRequired " & _
+                    SQL = "Insert into " & DBNameSpace & ".SSCPInspectionsRequired " & _
                     "Values " & _
                     "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                     "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "') "
                 Else
-                    SQL = "UPDATE " & connNameSpace & ".SSCPInspectionsRequired SET " & _
+                    SQL = "UPDATE " & DBNameSpace & ".SSCPInspectionsRequired SET " & _
                     "strAIRSnumber = '" & Replace(temp, "'", "''") & "', " & _
                     "strInspectionRequired = '" & Replace(temp2, "'", "''") & "', " & _
                     "strAssigningManager = '" & Replace(temp3, "'", "''") & "', " & _
@@ -17326,7 +17326,7 @@ Public Class DMUDeveloperTools
     End Sub
     Sub TransferSSCPInspectionTracking()
         SQL = "Select * " & _
-      "from " & connNameSpace & ".SSCPInspectionTracking "
+      "from " & DBNameSpace & ".SSCPInspectionTracking "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -17395,7 +17395,7 @@ Public Class DMUDeveloperTools
             End If
 
             SQL = "SELECT strAIRSNumber " & _
-            "FROM " & connNameSpace & ".APBMasterAIRS " & _
+            "FROM " & DBNameSpace & ".APBMasterAIRS " & _
             "WHERE strAIRSNumber = '" & temp2 & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -17406,7 +17406,7 @@ Public Class DMUDeveloperTools
             dr.Close()
             If recExist = True Then
                 SQL = "SELECT COUNT(*) " & _
-                "FROM " & connNameSpace & ".SSCPInspectionTracking " & _
+                "FROM " & DBNameSpace & ".SSCPInspectionTracking " & _
                 "WHERE strAIRSNumber = '" & temp & "' "
                 cmd = New OracleCommand(SQL, transferConn)
                 If transferConn.State = ConnectionState.Closed Then
@@ -17415,7 +17415,7 @@ Public Class DMUDeveloperTools
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = False Or dr.Item(0) = 0 Then
-                    SQL = "Insert into " & connNameSpace & ".SSCPInspectionTracking " & _
+                    SQL = "Insert into " & DBNameSpace & ".SSCPInspectionTracking " & _
                     "Values " & _
                     "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                     "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "', " & _
@@ -17424,7 +17424,7 @@ Public Class DMUDeveloperTools
                     "'" & Replace(temp9, "'", "''") & "', '" & Replace(temp10, "'", "''") & "', " & _
                     "'" & Replace(temp11, "'", "''") & "') "
                 Else
-                    SQL = "UPDATE " & connNameSpace & ".SSCPInspectionTracking SET " & _
+                    SQL = "UPDATE " & DBNameSpace & ".SSCPInspectionTracking SET " & _
                     "InspectionKey = '" & Replace(temp, "'", "''") & "', " & _
                     "strAIRSNumber = '" & Replace(temp2, "'", "''") & "', " & _
                     "strInspectingEngineer = '" & Replace(temp3, "'", "''") & "', " & _
@@ -17451,7 +17451,7 @@ Public Class DMUDeveloperTools
     End Sub
     Sub TransferSSCPItemMaster()
         SQL = "Select * " & _
-    "from " & connNameSpace & ".SSCPItemMaster "
+    "from " & DBNameSpace & ".SSCPItemMaster "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -17520,7 +17520,7 @@ Public Class DMUDeveloperTools
             End If
 
             SQL = "SELECT strAIRSNumber " & _
-            "FROM " & connNameSpace & ".APBMasterAIRS " & _
+            "FROM " & DBNameSpace & ".APBMasterAIRS " & _
             "WHERE strAIRSNumber = '" & temp2 & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -17531,7 +17531,7 @@ Public Class DMUDeveloperTools
             dr.Close()
             If recExist = True Then
                 SQL = "SELECT COUNT(*) " & _
-                "FROM " & connNameSpace & ".SSCPItemMaster " & _
+                "FROM " & DBNameSpace & ".SSCPItemMaster " & _
                 "WHERE strTrackingNumber = '" & temp & "' "
                 cmd = New OracleCommand(SQL, transferConn)
                 If transferConn.State = ConnectionState.Closed Then
@@ -17540,7 +17540,7 @@ Public Class DMUDeveloperTools
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = False Or dr.Item(0) = 0 Then
-                    SQL = "Insert into " & connNameSpace & ".SSCPItemMaster " & _
+                    SQL = "Insert into " & DBNameSpace & ".SSCPItemMaster " & _
                     "Values " & _
                     "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                     "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "', " & _
@@ -17549,7 +17549,7 @@ Public Class DMUDeveloperTools
                     "'" & Replace(temp9, "'", "''") & "', '" & Replace(temp10, "'", "''") & "', " & _
                     "'" & Replace(temp11, "'", "''") & "') "
                 Else
-                    SQL = "UPDATE " & connNameSpace & ".SSCPItemMaster SET " & _
+                    SQL = "UPDATE " & DBNameSpace & ".SSCPItemMaster SET " & _
                     "strTrackingNumber = '" & Replace(temp, "'", "''") & "', " & _
                     "strAIRSNumber = '" & Replace(temp2, "'", "''") & "', " & _
                     "datReceivedDate = '" & Replace(temp3, "'", "''") & "', " & _
@@ -17576,7 +17576,7 @@ Public Class DMUDeveloperTools
     End Sub
     Sub TransferSSCPNotifications()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".SSCPNotifications "
+        "from " & DBNameSpace & ".SSCPNotifications "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -17645,7 +17645,7 @@ Public Class DMUDeveloperTools
             End If
 
             SQL = "SELECT strTrackingNumber " & _
-            "FROM " & connNameSpace & ".SSCPItemMaster " & _
+            "FROM " & DBNameSpace & ".SSCPItemMaster " & _
             "WHERE strTrackingNumber = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -17656,7 +17656,7 @@ Public Class DMUDeveloperTools
             dr.Close()
             If recExist = True Then
                 SQL = "SELECT COUNT(*) " & _
-                "FROM " & connNameSpace & ".SSCPNotifications " & _
+                "FROM " & DBNameSpace & ".SSCPNotifications " & _
                 "WHERE strTrackingNumber = '" & temp & "' "
                 cmd = New OracleCommand(SQL, transferConn)
                 If transferConn.State = ConnectionState.Closed Then
@@ -17665,7 +17665,7 @@ Public Class DMUDeveloperTools
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = False Or dr.Item(0) = 0 Then
-                    SQL = "Insert into " & connNameSpace & ".SSCPNotifications " & _
+                    SQL = "Insert into " & DBNameSpace & ".SSCPNotifications " & _
                     "Values " & _
                     "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                     "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "', " & _
@@ -17674,7 +17674,7 @@ Public Class DMUDeveloperTools
                     "'" & Replace(temp9, "'", "''") & "', '" & Replace(temp10, "'", "''") & "', " & _
                     "'" & Replace(temp11, "'", "''") & "') "
                 Else
-                    SQL = "UPDATE " & connNameSpace & ".SSCPNotifications SET " & _
+                    SQL = "UPDATE " & DBNameSpace & ".SSCPNotifications SET " & _
                     "strTrackingNumber = '" & Replace(temp, "'", "''") & "', " & _
                     "datNotificationDue = '" & Replace(temp2, "'", "''") & "', " & _
                     "strNotificationDue = '" & Replace(temp3, "'", "''") & "', " & _
@@ -17701,7 +17701,7 @@ Public Class DMUDeveloperTools
     End Sub
     Sub TransferSSCPReports()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".SSCPReports "
+        "from " & DBNameSpace & ".SSCPReports "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -17786,7 +17786,7 @@ Public Class DMUDeveloperTools
             End If
 
             SQL = "SELECT strTrackingNumber " & _
-            "FROM " & connNameSpace & ".SSCPItemMaster " & _
+            "FROM " & DBNameSpace & ".SSCPItemMaster " & _
             "WHERE strTrackingNumber = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -17797,7 +17797,7 @@ Public Class DMUDeveloperTools
             dr.Close()
             If recExist = True Then
                 SQL = "SELECT COUNT(*) " & _
-                "FROM " & connNameSpace & ".SSCPReports " & _
+                "FROM " & DBNameSpace & ".SSCPReports " & _
                 "WHERE strTrackingNumber = '" & temp & "' " & _
                 "and strSubmittalNumber = '" & temp14 & "' "
                 cmd = New OracleCommand(SQL, transferConn)
@@ -17807,7 +17807,7 @@ Public Class DMUDeveloperTools
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = False Or dr.Item(0) = 0 Then
-                    SQL = "Insert into " & connNameSpace & ".SSCPReports " & _
+                    SQL = "Insert into " & DBNameSpace & ".SSCPReports " & _
                     "Values " & _
                     "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                     "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "', " & _
@@ -17817,7 +17817,7 @@ Public Class DMUDeveloperTools
                     "'" & Replace(temp11, "'", "''") & "', '" & Replace(temp12, "'", "''") & "', " & _
                     "'" & Replace(temp13, "'", "''") & "', '" & Replace(temp14, "'", "''") & "') "
                 Else
-                    SQL = "UPDATE " & connNameSpace & ".SSCPReports SET " & _
+                    SQL = "UPDATE " & DBNameSpace & ".SSCPReports SET " & _
                     "strTrackingNumber = '" & Replace(temp, "'", "''") & "', " & _
                     "strReportPeriod = '" & Replace(temp2, "'", "''") & "', " & _
                     "datReportingPeriodStart = '" & Replace(temp3, "'", "''") & "', " & _
@@ -17848,7 +17848,7 @@ Public Class DMUDeveloperTools
     End Sub
     Sub TransferSSCPReportsHistory()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".SSCPReportsHistory "
+        "from " & DBNameSpace & ".SSCPReportsHistory "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -17932,7 +17932,7 @@ Public Class DMUDeveloperTools
             End If
 
             SQL = "SELECT strTrackingNumber " & _
-            "FROM " & connNameSpace & ".SSCPItemMaster " & _
+            "FROM " & DBNameSpace & ".SSCPItemMaster " & _
             "WHERE strTrackingNumber = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -17943,7 +17943,7 @@ Public Class DMUDeveloperTools
             dr.Close()
             If recExist = True Then
                 SQL = "SELECT COUNT(*) " & _
-                "FROM " & connNameSpace & ".SSCPReportsHistory " & _
+                "FROM " & DBNameSpace & ".SSCPReportsHistory " & _
                 "WHERE strTrackingNumber = '" & temp & "' " & _
                 "and strSubmittalNumber = '" & temp14 & "' "
                 cmd = New OracleCommand(SQL, transferConn)
@@ -17953,7 +17953,7 @@ Public Class DMUDeveloperTools
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = False Or dr.Item(0) = 0 Then
-                    SQL = "Insert into " & connNameSpace & ".SSCPReportsHistory " & _
+                    SQL = "Insert into " & DBNameSpace & ".SSCPReportsHistory " & _
                     "Values " & _
                     "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                     "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "', " & _
@@ -17963,7 +17963,7 @@ Public Class DMUDeveloperTools
                     "'" & Replace(temp11, "'", "''") & "', '" & Replace(temp12, "'", "''") & "', " & _
                     "'" & Replace(temp13, "'", "''") & "', '" & Replace(temp14, "'", "''") & "') "
                 Else
-                    SQL = "UPDATE " & connNameSpace & ".SSCPReportsHistory SET " & _
+                    SQL = "UPDATE " & DBNameSpace & ".SSCPReportsHistory SET " & _
                     "strTrackingNumber = '" & Replace(temp, "'", "''") & "', " & _
                     "strSubmittalNumber = '" & Replace(temp2, "'", "''") & "', " & _
                     "strReportPeriod = '" & Replace(temp3, "'", "''") & "', " & _
@@ -17994,7 +17994,7 @@ Public Class DMUDeveloperTools
     End Sub
     Sub TransferSSCPTestReports()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".SSCPTestReports "
+        "from " & DBNameSpace & ".SSCPTestReports "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -18043,7 +18043,7 @@ Public Class DMUDeveloperTools
             End If
 
             SQL = "SELECT strTrackingNumber " & _
-            "FROM " & connNameSpace & ".SSCPItemMaster " & _
+            "FROM " & DBNameSpace & ".SSCPItemMaster " & _
             "WHERE strTrackingNumber = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -18054,7 +18054,7 @@ Public Class DMUDeveloperTools
             dr.Close()
             If recExist = True Then
                 SQL = "SELECT COUNT(*) " & _
-                "FROM " & connNameSpace & ".SSCPTestReports " & _
+                "FROM " & DBNameSpace & ".SSCPTestReports " & _
                 "WHERE strTrackingNumber = '" & temp & "' " 
                 cmd = New OracleCommand(SQL, transferConn)
                 If transferConn.State = ConnectionState.Closed Then
@@ -18063,14 +18063,14 @@ Public Class DMUDeveloperTools
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = False Or dr.Item(0) = 0 Then
-                    SQL = "Insert into " & connNameSpace & ".SSCPTestReports " & _
+                    SQL = "Insert into " & DBNameSpace & ".SSCPTestReports " & _
                     "Values " & _
                     "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                     "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "', " & _
                     "'" & Replace(temp5, "'", "''") & "', '" & Replace(temp6, "'", "''") & "', " & _
                     "'" & Replace(temp7, "'", "''") & "') "
                 Else
-                    SQL = "UPDATE " & connNameSpace & ".SSCPTestReports SET " & _
+                    SQL = "UPDATE " & DBNameSpace & ".SSCPTestReports SET " & _
                     "strTrackingNumber = '" & Replace(temp, "'", "''") & "', " & _
                     "strReferenceNumber = '" & Replace(temp2, "'", "''") & "', " & _
                     "datTestReportDue = '" & Replace(temp3, "'", "''") & "', " & _
@@ -18093,7 +18093,7 @@ Public Class DMUDeveloperTools
     End Sub
     Sub TransferSSPPApplicationContact()
         SQL = "Select * " & _
-              "from " & connNameSpace & ".SSPPApplicationContact "
+              "from " & DBNameSpace & ".SSPPApplicationContact "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -18181,7 +18181,7 @@ Public Class DMUDeveloperTools
             End If
 
             SQL = "SELECT strTrackingNumber " & _
-            "FROM " & connNameSpace & ".SSPPApplicationMaster " & _
+            "FROM " & DBNameSpace & ".SSPPApplicationMaster " & _
             "WHERE strApplicationNumber = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -18192,7 +18192,7 @@ Public Class DMUDeveloperTools
             dr.Close()
             If recExist = True Then
                 SQL = "SELECT COUNT(*) " & _
-                "FROM " & connNameSpace & ".SSPPApplicationContact " & _
+                "FROM " & DBNameSpace & ".SSPPApplicationContact " & _
                 "WHERE strApplicationNumber = '" & temp & "' "
                 cmd = New OracleCommand(SQL, transferConn)
                 If transferConn.State = ConnectionState.Closed Then
@@ -18201,7 +18201,7 @@ Public Class DMUDeveloperTools
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = False Or dr.Item(0) = 0 Then
-                    SQL = "Insert into " & connNameSpace & ".SSPPApplicationContact " & _
+                    SQL = "Insert into " & DBNameSpace & ".SSPPApplicationContact " & _
                     "Values " & _
                     "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                     "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "', " & _
@@ -18212,7 +18212,7 @@ Public Class DMUDeveloperTools
                     "'" & Replace(temp13, "'", "''") & "', '" & Replace(temp14, "'", "''") & "', " & _
                     "'" & Replace(temp15, "'", "''") & "') "
                 Else
-                    SQL = "UPDATE " & connNameSpace & ".SSPPApplicationContact SET " & _
+                    SQL = "UPDATE " & DBNameSpace & ".SSPPApplicationContact SET " & _
                     "strApplicationNumber = '" & Replace(temp, "'", "''") & "', " & _
                     "strContactFirstName = '" & Replace(temp2, "'", "''") & "', " & _
                     "strContactLastName = '" & Replace(temp3, "'", "''") & "', " & _
@@ -18243,7 +18243,7 @@ Public Class DMUDeveloperTools
     End Sub
     Sub TransferSSPPApplicationData()
         SQL = "Select * " & _
-            "from " & connNameSpace & ".SSPPApplicationData "
+            "from " & DBNameSpace & ".SSPPApplicationData "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -18436,7 +18436,7 @@ Public Class DMUDeveloperTools
             End If
 
             SQL = "SELECT strTrackingNumber " & _
-            "FROM " & connNameSpace & ".SSPPApplicationMaster " & _
+            "FROM " & DBNameSpace & ".SSPPApplicationMaster " & _
             "WHERE strApplicationNumber = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -18447,7 +18447,7 @@ Public Class DMUDeveloperTools
             dr.Close()
             If recExist = True Then
                 SQL = "SELECT COUNT(*) " & _
-                "FROM " & connNameSpace & ".SSPPApplicationData " & _
+                "FROM " & DBNameSpace & ".SSPPApplicationData " & _
                 "WHERE strApplicationNumber = '" & temp & "' "
                 cmd = New OracleCommand(SQL, transferConn)
                 If transferConn.State = ConnectionState.Closed Then
@@ -18456,7 +18456,7 @@ Public Class DMUDeveloperTools
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = False Or dr.Item(0) = 0 Then
-                    SQL = "Insert into " & connNameSpace & ".SSPPApplicationData " & _
+                    SQL = "Insert into " & DBNameSpace & ".SSPPApplicationData " & _
                     "Values " & _
                     "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                     "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "', " & _
@@ -18477,7 +18477,7 @@ Public Class DMUDeveloperTools
                     "'" & Replace(temp33, "'", "''") & "', '" & Replace(temp34, "'", "''") & "', " & _
                     "'" & Replace(temp35, "'", "''") & "', '" & Replace(temp36, "'", "''") & "') "
                 Else
-                    SQL = "UPDATE " & connNameSpace & ".SSPPApplicationData SET " & _
+                    SQL = "UPDATE " & DBNameSpace & ".SSPPApplicationData SET " & _
                     "strApplicationNumber = '" & Replace(temp, "'", "''") & "', " & _
                     "strFacilityName = '" & Replace(temp2, "'", "''") & "', " & _
                     "strFacilityStreet1 = '" & Replace(temp3, "'", "''") & "', " & _
@@ -18529,7 +18529,7 @@ Public Class DMUDeveloperTools
     End Sub
     Sub TransferSSPPApplicationInformation()
         SQL = "Select * " & _
-            "from " & connNameSpace & ".SSPPApplicationInformation "
+            "from " & DBNameSpace & ".SSPPApplicationInformation "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -18582,7 +18582,7 @@ Public Class DMUDeveloperTools
             End If
          
             SQL = "SELECT strTrackingNumber " & _
-            "FROM " & connNameSpace & ".SSPPApplicationMaster " & _
+            "FROM " & DBNameSpace & ".SSPPApplicationMaster " & _
             "WHERE strApplicationNumber = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -18593,7 +18593,7 @@ Public Class DMUDeveloperTools
             dr.Close()
             If recExist = True Then
                 SQL = "SELECT COUNT(*) " & _
-                "FROM " & connNameSpace & ".SSPPApplicationInformation " & _
+                "FROM " & DBNameSpace & ".SSPPApplicationInformation " & _
                 "WHERE strApplicationNumber = '" & temp & "' " & _
                 "and strRequestKey = '" & temp2 & "' "
 
@@ -18604,14 +18604,14 @@ Public Class DMUDeveloperTools
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = False Or dr.Item(0) = 0 Then
-                    SQL = "Insert into " & connNameSpace & ".SSPPApplicationInformation " & _
+                    SQL = "Insert into " & DBNameSpace & ".SSPPApplicationInformation " & _
                     "Values " & _
                     "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                     "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "', " & _
                     "'" & Replace(temp5, "'", "''") & "', '" & Replace(temp6, "'", "''") & "', " & _
                     "'" & Replace(temp7, "'", "''") & "', '" & Replace(temp8, "'", "''") & "') "
                 Else
-                    SQL = "UPDATE " & connNameSpace & ".SSPPApplicationInformation SET " & _
+                    SQL = "UPDATE " & DBNameSpace & ".SSPPApplicationInformation SET " & _
                     "strApplicationNumber = '" & Replace(temp, "'", "''") & "', " & _
                     "strRequestKey = '" & Replace(temp2, "'", "''") & "', " & _
                     "datInformationRequested = '" & Replace(temp3, "'", "''") & "', " & _
@@ -18636,7 +18636,7 @@ Public Class DMUDeveloperTools
     End Sub
     Sub TransferSSPPApplicationLinking()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".SSPPApplicationLinking "
+        "from " & DBNameSpace & ".SSPPApplicationLinking "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -18658,7 +18658,7 @@ Public Class DMUDeveloperTools
             End If
 
             SQL = "SELECT strTrackingNumber " & _
-            "FROM " & connNameSpace & ".SSPPApplicationMaster " & _
+            "FROM " & DBNameSpace & ".SSPPApplicationMaster " & _
             "WHERE strApplicationNumber = '" & temp2 & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -18669,7 +18669,7 @@ Public Class DMUDeveloperTools
             dr.Close()
             If recExist = True Then
                 SQL = "SELECT COUNT(*) " & _
-                "FROM " & connNameSpace & ".SSPPApplicationLinking " & _
+                "FROM " & DBNameSpace & ".SSPPApplicationLinking " & _
                 "WHERE strApplicationNumber = '" & temp & "' "
                 cmd = New OracleCommand(SQL, transferConn)
                 If transferConn.State = ConnectionState.Closed Then
@@ -18678,11 +18678,11 @@ Public Class DMUDeveloperTools
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = False Or dr.Item(0) = 0 Then
-                    SQL = "Insert into " & connNameSpace & ".SSPPApplicationLinking " & _
+                    SQL = "Insert into " & DBNameSpace & ".SSPPApplicationLinking " & _
                     "Values " & _
                     "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "') "
                 Else
-                    SQL = "UPDATE " & connNameSpace & ".SSPPApplicationLinking SET " & _
+                    SQL = "UPDATE " & DBNameSpace & ".SSPPApplicationLinking SET " & _
                     "strApplicationNumber = '" & Replace(temp, "'", "''") & "', " & _
                     "strMasterApplication = '" & Replace(temp2, "'", "''") & "' " & _
                     "WHERE strMasterApplication = '" & Replace(temp2, "'", "''") & "' "
@@ -18700,7 +18700,7 @@ Public Class DMUDeveloperTools
     End Sub
     Sub TransferSSPPApplicationMaster()
         SQL = "Select * " & _
-            "from " & connNameSpace & ".SSPPApplicationMaster "
+            "from " & DBNameSpace & ".SSPPApplicationMaster "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -18758,7 +18758,7 @@ Public Class DMUDeveloperTools
             End If
 
             SQL = "SELECT strTrackingNumber " & _
-            "FROM " & connNameSpace & ".APBMasterAIRS " & _
+            "FROM " & DBNameSpace & ".APBMasterAIRS " & _
             "WHERE strAIRSNumber = '" & temp2 & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -18769,7 +18769,7 @@ Public Class DMUDeveloperTools
             dr.Close()
             If recExist = True Then
                 SQL = "SELECT COUNT(*) " & _
-                "FROM " & connNameSpace & ".SSPPApplicationMaster " & _
+                "FROM " & DBNameSpace & ".SSPPApplicationMaster " & _
                 "WHERE strApplicationNumber = '" & temp & "' "
                 cmd = New OracleCommand(SQL, transferConn)
                 If transferConn.State = ConnectionState.Closed Then
@@ -18778,7 +18778,7 @@ Public Class DMUDeveloperTools
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = False Or dr.Item(0) = 0 Then
-                    SQL = "Insert into " & connNameSpace & ".SSPPApplicationMaster " & _
+                    SQL = "Insert into " & DBNameSpace & ".SSPPApplicationMaster " & _
                     "Values " & _
                     "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                     "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "', " & _
@@ -18786,7 +18786,7 @@ Public Class DMUDeveloperTools
                     "'" & Replace(temp7, "'", "''") & "', '" & Replace(temp8, "'", "''") & "', " & _
                     "'" & Replace(temp9, "'", "''") & "') "
                 Else
-                    SQL = "UPDATE " & connNameSpace & ".SSPPApplicationMaster SET " & _
+                    SQL = "UPDATE " & DBNameSpace & ".SSPPApplicationMaster SET " & _
                     "strApplicationNumber = '" & Replace(temp, "'", "''") & "', " & _
                     "strAIRSNumber = '" & Replace(temp2, "'", "''") & "', " & _
                     "strStaffResponsible = '" & Replace(temp3, "'", "''") & "', " & _
@@ -18811,7 +18811,7 @@ Public Class DMUDeveloperTools
     End Sub
     Sub TransferSSPPApplicationQuality()
         SQL = "Select * " & _
-            "from " & connNameSpace & ".SSPPApplicationQuality "
+            "from " & DBNameSpace & ".SSPPApplicationQuality "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -18859,7 +18859,7 @@ Public Class DMUDeveloperTools
             End If
          
             SQL = "SELECT strTrackingNumber " & _
-            "FROM " & connNameSpace & ".SSPPApplicationMaster " & _
+            "FROM " & DBNameSpace & ".SSPPApplicationMaster " & _
             "WHERE strApplicationNumber = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -18870,7 +18870,7 @@ Public Class DMUDeveloperTools
             dr.Close()
             If recExist = True Then
                 SQL = "SELECT COUNT(*) " & _
-                "FROM " & connNameSpace & ".SSPPApplicationQuality " & _
+                "FROM " & DBNameSpace & ".SSPPApplicationQuality " & _
                 "WHERE strApplicationNumber = '" & temp & "' "
                 cmd = New OracleCommand(SQL, transferConn)
                 If transferConn.State = ConnectionState.Closed Then
@@ -18879,14 +18879,14 @@ Public Class DMUDeveloperTools
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = False Or dr.Item(0) = 0 Then
-                    SQL = "Insert into " & connNameSpace & ".SSPPApplicationQuality " & _
+                    SQL = "Insert into " & DBNameSpace & ".SSPPApplicationQuality " & _
                     "Values " & _
                     "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                     "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "', " & _
                     "'" & Replace(temp5, "'", "''") & "', '" & Replace(temp6, "'", "''") & "', " & _
                     "'" & Replace(temp7, "'", "''") & "') "
                 Else
-                    SQL = "UPDATE " & connNameSpace & ".SSPPApplicationQuality SET " & _
+                    SQL = "UPDATE " & DBNameSpace & ".SSPPApplicationQuality SET " & _
                     "strApplicationNumber = '" & Replace(temp, "'", "''") & "', " & _
                     "strDifficulty = '" & Replace(temp2, "'", "''") & "', " & _
                     "strGrammer = '" & Replace(temp3, "'", "''") & "', " & _
@@ -18909,7 +18909,7 @@ Public Class DMUDeveloperTools
     End Sub
     Sub TransferSSPPApplicationTracking()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".SSPPApplicationTracking "
+        "from " & DBNameSpace & ".SSPPApplicationTracking "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -19092,7 +19092,7 @@ Public Class DMUDeveloperTools
             End If
 
             SQL = "SELECT strTrackingNumber " & _
-            "FROM " & connNameSpace & ".SSPPApplicationMaster " & _
+            "FROM " & DBNameSpace & ".SSPPApplicationMaster " & _
             "WHERE strApplicationNumber = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -19103,7 +19103,7 @@ Public Class DMUDeveloperTools
             dr.Close()
             If recExist = True Then
                 SQL = "SELECT COUNT(*) " & _
-                "FROM " & connNameSpace & ".SSPPApplicationContact " & _
+                "FROM " & DBNameSpace & ".SSPPApplicationContact " & _
                 "WHERE strApplicationNumber = '" & temp & "' " & _
                 "and strSubmittalNumber = '" & temp2 & "' "
                 cmd = New OracleCommand(SQL, transferConn)
@@ -19113,7 +19113,7 @@ Public Class DMUDeveloperTools
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = False Or dr.Item(0) = 0 Then
-                    SQL = "Insert into " & connNameSpace & ".SSPPApplicationContact " & _
+                    SQL = "Insert into " & DBNameSpace & ".SSPPApplicationContact " & _
                     "Values " & _
                     "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                     "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "', " & _
@@ -19133,7 +19133,7 @@ Public Class DMUDeveloperTools
                     "'" & Replace(temp31, "'", "''") & "', '" & Replace(temp32, "'", "''") & "', " & _
                     "'" & Replace(temp33, "'", "''") & "', '" & Replace(temp34, "'", "''") & "') "
                 Else
-                    SQL = "UPDATE " & connNameSpace & ".SSPPApplicationContact SET " & _
+                    SQL = "UPDATE " & DBNameSpace & ".SSPPApplicationContact SET " & _
                     "strApplicationNumber = '" & Replace(temp, "'", "''") & "', " & _
                     "strSubmittalNumber = '" & Replace(temp2, "'", "''") & "', " & _
                     "datApplicationStarted = '" & Replace(temp3, "'", "''") & "', " & _
@@ -19184,7 +19184,7 @@ Public Class DMUDeveloperTools
     End Sub
     Sub TransferSSPPCDS()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".SSPPCDS "
+        "from " & DBNameSpace & ".SSPPCDS "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -19322,7 +19322,7 @@ Public Class DMUDeveloperTools
             End If
 
             SQL = "SELECT strTrackingNumber " & _
-            "FROM " & connNameSpace & ".SSPPApplicationMaster " & _
+            "FROM " & DBNameSpace & ".SSPPApplicationMaster " & _
             "WHERE strApplicationNumber = '" & temp & "' "
             cmd = New OracleCommand(SQL, transferConn)
             If transferConn.State = ConnectionState.Closed Then
@@ -19333,7 +19333,7 @@ Public Class DMUDeveloperTools
             dr.Close()
             If recExist = True Then
                 SQL = "SELECT COUNT(*) " & _
-                "FROM " & connNameSpace & ".SSPPCDS " & _
+                "FROM " & DBNameSpace & ".SSPPCDS " & _
                 "WHERE strApplicationNumber = '" & temp & "' "
                 cmd = New OracleCommand(SQL, transferConn)
                 If transferConn.State = ConnectionState.Closed Then
@@ -19342,7 +19342,7 @@ Public Class DMUDeveloperTools
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = False Or dr.Item(0) = 0 Then
-                    SQL = "Insert into " & connNameSpace & ".SSPPCDS " & _
+                    SQL = "Insert into " & DBNameSpace & ".SSPPCDS " & _
                     "Values " & _
                     "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                     "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "', " & _
@@ -19358,7 +19358,7 @@ Public Class DMUDeveloperTools
                     "'" & Replace(temp23, "'", "''") & "', '" & Replace(temp24, "'", "''") & "', " & _
                     "'" & Replace(temp25, "'", "''") & "') "
                 Else
-                    SQL = "UPDATE " & connNameSpace & ".SSPPCDS SET " & _
+                    SQL = "UPDATE " & DBNameSpace & ".SSPPCDS SET " & _
                     "strApplicationNumber = '" & Replace(temp, "'", "''") & "', " & _
                     "strFacilityName = '" & Replace(temp2, "'", "''") & "', " & _
                     "strFacilityStreet1 = '" & Replace(temp3, "'", "''") & "', " & _
@@ -19402,7 +19402,7 @@ Public Class DMUDeveloperTools
     End Sub
     Sub TransferAFSAirPollutantDate()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".AFSAirPollutantData "
+        "from " & DBNameSpace & ".AFSAirPollutantData "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -19445,7 +19445,7 @@ Public Class DMUDeveloperTools
             End If
 
             SQL = "SELECT strTrackingNumber " & _
-            "FROM " & connNameSpace & ".APBAirProgramPollutants " & _
+            "FROM " & DBNameSpace & ".APBAirProgramPollutants " & _
             "WHERE strAirPollutantKey = '" & temp & "' " & _
             "and strPollutantKey = '" & temp2 & "' "
 
@@ -19458,7 +19458,7 @@ Public Class DMUDeveloperTools
             dr.Close()
             If recExist = True Then
                 SQL = "SELECT COUNT(*) " & _
-                "FROM " & connNameSpace & ".AFSAirPollutantData " & _
+                "FROM " & DBNameSpace & ".AFSAirPollutantData " & _
                 "WHERE strAirPollutantKey = '" & temp & "' " & _
                 "and strPollutantKey = '" & temp2 & "' "
 
@@ -19469,13 +19469,13 @@ Public Class DMUDeveloperTools
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = False Or dr.Item(0) = 0 Then
-                    SQL = "Insert into " & connNameSpace & ".AFSAirPollutantData " & _
+                    SQL = "Insert into " & DBNameSpace & ".AFSAirPollutantData " & _
                     "Values " & _
                     "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                     "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "', " & _
                     "'" & Replace(temp5, "'", "''") & "', '" & Replace(temp6, "'", "''") & "') "
                 Else
-                    SQL = "UPDATE " & connNameSpace & ".AFSAirPollutantData SET " & _
+                    SQL = "UPDATE " & DBNameSpace & ".AFSAirPollutantData SET " & _
                     "strAIRPollutantKey = '" & Replace(temp, "'", "''") & "', " & _
                     "strPollutantKey = '" & Replace(temp2, "'", "''") & "', " & _
                     "strAIRSNumber = '" & Replace(temp3, "'", "''") & "', " & _
@@ -19501,7 +19501,7 @@ Public Class DMUDeveloperTools
     End Sub
     Sub TransferAFSFacilityData()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".AFSFacilityData "
+        "from " & DBNameSpace & ".AFSFacilityData "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -19534,7 +19534,7 @@ Public Class DMUDeveloperTools
             End If
 
             SQL = "SELECT strAIRSNumber " & _
-            "FROM " & connNameSpace & ".ABPMasterAIRS " & _
+            "FROM " & DBNameSpace & ".ABPMasterAIRS " & _
             "WHERE strAIRSNumber = '" & temp & "' "
 
             cmd = New OracleCommand(SQL, transferConn)
@@ -19546,7 +19546,7 @@ Public Class DMUDeveloperTools
             dr.Close()
             If recExist = True Then
                 SQL = "SELECT COUNT(*) " & _
-                "FROM " & connNameSpace & ".AFSFacilityData " & _
+                "FROM " & DBNameSpace & ".AFSFacilityData " & _
                 "WHERE strAIRSNumber = '" & temp & "' "
 
                 cmd = New OracleCommand(SQL, transferConn)
@@ -19556,12 +19556,12 @@ Public Class DMUDeveloperTools
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = False Or dr.Item(0) = 0 Then
-                    SQL = "Insert into " & connNameSpace & ".AFSFacilityData " & _
+                    SQL = "Insert into " & DBNameSpace & ".AFSFacilityData " & _
                     "Values " & _
                     "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                     "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "') "
                 Else
-                    SQL = "UPDATE " & connNameSpace & ".AFSFacilityData SET " & _
+                    SQL = "UPDATE " & DBNameSpace & ".AFSFacilityData SET " & _
                     "strAIRSNumber = '" & Replace(temp, "'", "''") & "', " & _
                     "strUpdateStatus = '" & Replace(temp2, "'", "''") & "', " & _
                     "strModifingPerson = '" & Replace(temp3, "'", "''") & "', " & _
@@ -19581,7 +19581,7 @@ Public Class DMUDeveloperTools
     End Sub
     Sub TransferAFSISMPRecords()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".AFSISMPRecords "
+        "from " & DBNameSpace & ".AFSISMPRecords "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -19619,7 +19619,7 @@ Public Class DMUDeveloperTools
             End If
 
             SQL = "SELECT strReferenceNumber " & _
-            "FROM " & connNameSpace & ".ISMPMaster " & _
+            "FROM " & DBNameSpace & ".ISMPMaster " & _
             "WHERE strReferenceNumber = '" & temp & "' "
 
             cmd = New OracleCommand(SQL, transferConn)
@@ -19631,7 +19631,7 @@ Public Class DMUDeveloperTools
             dr.Close()
             If recExist = True Then
                 SQL = "SELECT COUNT(*) " & _
-                "FROM " & connNameSpace & ".AFSISMPRecords " & _
+                "FROM " & DBNameSpace & ".AFSISMPRecords " & _
                 "WHERE strReferenceNumber = '" & temp & "' "
 
                 cmd = New OracleCommand(SQL, transferConn)
@@ -19641,13 +19641,13 @@ Public Class DMUDeveloperTools
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = False Or dr.Item(0) = 0 Then
-                    SQL = "Insert into " & connNameSpace & ".AFSISMPRecords " & _
+                    SQL = "Insert into " & DBNameSpace & ".AFSISMPRecords " & _
                     "Values " & _
                     "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                     "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "', " & _
                     "'" & Replace(temp5, "'", "''") & "') "
                 Else
-                    SQL = "UPDATE " & connNameSpace & ".AFSISMPRecords SET " & _
+                    SQL = "UPDATE " & DBNameSpace & ".AFSISMPRecords SET " & _
                     "strReferenceNumber = '" & Replace(temp, "'", "''") & "', " & _
                     "strAFSActionNumber = '" & Replace(temp2, "'", "''") & "', " & _
                     "strUpDateStatus = '" & Replace(temp3, "'", "''") & "', " & _
@@ -19668,7 +19668,7 @@ Public Class DMUDeveloperTools
     End Sub
     Sub TransferAFSSSCPEnforcementRecords()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".AFSSSCPEnforcementRecords "
+        "from " & DBNameSpace & ".AFSSSCPEnforcementRecords "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -19706,7 +19706,7 @@ Public Class DMUDeveloperTools
             End If
 
             SQL = "SELECT strEnforcementNumber " & _
-            "FROM " & connNameSpace & ".SSCPEnforcementItems " & _
+            "FROM " & DBNameSpace & ".SSCPEnforcementItems " & _
             "WHERE strEnforcementNumber = '" & temp & "' "
 
             cmd = New OracleCommand(SQL, transferConn)
@@ -19718,7 +19718,7 @@ Public Class DMUDeveloperTools
             dr.Close()
             If recExist = True Then
                 SQL = "SELECT COUNT(*) " & _
-                "FROM " & connNameSpace & ".AFSSSCPEnforcementRecords " & _
+                "FROM " & DBNameSpace & ".AFSSSCPEnforcementRecords " & _
                 "WHERE strEnforcementNumber = '" & temp & "' "
 
                 cmd = New OracleCommand(SQL, transferConn)
@@ -19728,13 +19728,13 @@ Public Class DMUDeveloperTools
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = False Or dr.Item(0) = 0 Then
-                    SQL = "Insert into " & connNameSpace & ".AFSSSCPEnforcementRecords " & _
+                    SQL = "Insert into " & DBNameSpace & ".AFSSSCPEnforcementRecords " & _
                     "Values " & _
                     "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                     "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "', " & _
                     "'" & Replace(temp5, "'", "''") & "') "
                 Else
-                    SQL = "UPDATE " & connNameSpace & ".AFSSSCPEnforcementRecords SET " & _
+                    SQL = "UPDATE " & DBNameSpace & ".AFSSSCPEnforcementRecords SET " & _
                     "strEnforcementNumber = '" & Replace(temp, "'", "''") & "', " & _
                     "strAFSActionNumber = '" & Replace(temp2, "'", "''") & "', " & _
                     "strUpDateStatus = '" & Replace(temp3, "'", "''") & "', " & _
@@ -19755,7 +19755,7 @@ Public Class DMUDeveloperTools
     End Sub
     Sub TransferAFSSSCPFCERecords()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".AFSSSCPFCERecords "
+        "from " & DBNameSpace & ".AFSSSCPFCERecords "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -19793,7 +19793,7 @@ Public Class DMUDeveloperTools
             End If
 
             SQL = "SELECT strFCENumber " & _
-            "FROM " & connNameSpace & ".SSCPFCEMaster " & _
+            "FROM " & DBNameSpace & ".SSCPFCEMaster " & _
             "WHERE strFCENumber = '" & temp & "' "
 
             cmd = New OracleCommand(SQL, transferConn)
@@ -19805,7 +19805,7 @@ Public Class DMUDeveloperTools
             dr.Close()
             If recExist = True Then
                 SQL = "SELECT COUNT(*) " & _
-                "FROM " & connNameSpace & ".AFSSSCPFCERecords " & _
+                "FROM " & DBNameSpace & ".AFSSSCPFCERecords " & _
                 "WHERE strFCENumber = '" & temp & "' "
 
                 cmd = New OracleCommand(SQL, transferConn)
@@ -19815,13 +19815,13 @@ Public Class DMUDeveloperTools
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = False Or dr.Item(0) = 0 Then
-                    SQL = "Insert into " & connNameSpace & ".AFSSSCPFCERecords " & _
+                    SQL = "Insert into " & DBNameSpace & ".AFSSSCPFCERecords " & _
                     "Values " & _
                     "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                     "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "', " & _
                     "'" & Replace(temp5, "'", "''") & "') "
                 Else
-                    SQL = "UPDATE " & connNameSpace & ".AFSSSCPFCERecords SET " & _
+                    SQL = "UPDATE " & DBNameSpace & ".AFSSSCPFCERecords SET " & _
                     "strFCENumber = '" & Replace(temp, "'", "''") & "', " & _
                     "strAFSActionNumber = '" & Replace(temp2, "'", "''") & "', " & _
                     "strUpDateStatus = '" & Replace(temp3, "'", "''") & "', " & _
@@ -19842,7 +19842,7 @@ Public Class DMUDeveloperTools
     End Sub
     Sub TransferAFSSSCPRecords()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".AFSSSCPRecords "
+        "from " & DBNameSpace & ".AFSSSCPRecords "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -19880,7 +19880,7 @@ Public Class DMUDeveloperTools
             End If
 
             SQL = "SELECT strTrackingNumber " & _
-            "FROM " & connNameSpace & ".SSCPItemMaster " & _
+            "FROM " & DBNameSpace & ".SSCPItemMaster " & _
             "WHERE strTrackingNumber = '" & temp & "' "
 
             cmd = New OracleCommand(SQL, transferConn)
@@ -19892,7 +19892,7 @@ Public Class DMUDeveloperTools
             dr.Close()
             If recExist = True Then
                 SQL = "SELECT COUNT(*) " & _
-                "FROM " & connNameSpace & ".AFSSSCPRecords " & _
+                "FROM " & DBNameSpace & ".AFSSSCPRecords " & _
                 "WHERE strTrackingNumber = '" & temp & "' "
 
                 cmd = New OracleCommand(SQL, transferConn)
@@ -19902,13 +19902,13 @@ Public Class DMUDeveloperTools
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = False Or dr.Item(0) = 0 Then
-                    SQL = "Insert into " & connNameSpace & ".AFSSSCPRecords " & _
+                    SQL = "Insert into " & DBNameSpace & ".AFSSSCPRecords " & _
                     "Values " & _
                     "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                     "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "', " & _
                     "'" & Replace(temp5, "'", "''") & "') "
                 Else
-                    SQL = "UPDATE " & connNameSpace & ".AFSSSCPRecords SET " & _
+                    SQL = "UPDATE " & DBNameSpace & ".AFSSSCPRecords SET " & _
                     "strTrackingNumber = '" & Replace(temp, "'", "''") & "', " & _
                     "strAFSActionNumber = '" & Replace(temp2, "'", "''") & "', " & _
                     "strUpDateStatus = '" & Replace(temp3, "'", "''") & "', " & _
@@ -19929,7 +19929,7 @@ Public Class DMUDeveloperTools
     End Sub
     Sub TransferAFSSSPPRecords()
         SQL = "Select * " & _
-        "from " & connNameSpace & ".AFSSSPPRecords "
+        "from " & DBNameSpace & ".AFSSSPPRecords "
 
         dsTemp = New DataSet
         daTemp = New OracleDataAdapter(SQL, conn)
@@ -19967,7 +19967,7 @@ Public Class DMUDeveloperTools
             End If
 
             SQL = "SELECT strApplicationNumber " & _
-            "FROM " & connNameSpace & ".SSPPApplicationMaster " & _
+            "FROM " & DBNameSpace & ".SSPPApplicationMaster " & _
             "WHERE strApplicationNumber = '" & temp & "' "
 
             cmd = New OracleCommand(SQL, transferConn)
@@ -19979,7 +19979,7 @@ Public Class DMUDeveloperTools
             dr.Close()
             If recExist = True Then
                 SQL = "SELECT COUNT(*) " & _
-                "FROM " & connNameSpace & ".AFSSSPPRecords " & _
+                "FROM " & DBNameSpace & ".AFSSSPPRecords " & _
                 "WHERE strTrackingNumber = '" & temp & "' "
 
                 cmd = New OracleCommand(SQL, transferConn)
@@ -19989,13 +19989,13 @@ Public Class DMUDeveloperTools
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = False Or dr.Item(0) = 0 Then
-                    SQL = "Insert into " & connNameSpace & ".AFSSSPPRecords " & _
+                    SQL = "Insert into " & DBNameSpace & ".AFSSSPPRecords " & _
                     "Values " & _
                     "('" & Replace(temp, "'", "''") & "', '" & Replace(temp2, "'", "''") & "', " & _
                     "'" & Replace(temp3, "'", "''") & "', '" & Replace(temp4, "'", "''") & "', " & _
                     "'" & Replace(temp5, "'", "''") & "') "
                 Else
-                    SQL = "UPDATE " & connNameSpace & ".AFSSSPPRecords SET " & _
+                    SQL = "UPDATE " & DBNameSpace & ".AFSSSPPRecords SET " & _
                     "strApplicationNumber = '" & Replace(temp, "'", "''") & "', " & _
                     "strAFSActionNumber = '" & Replace(temp2, "'", "''") & "', " & _
                     "strUpDateStatus = '" & Replace(temp3, "'", "''") & "', " & _
@@ -20033,10 +20033,10 @@ Public Class DMUDeveloperTools
                 "strContactLastName, strContactpreFix, " & _
                 "strContactSuffix, strContactTitle, " & _
                 "strContactPhoneNumber1 " & _
-                "from " & connNameSpace & ".SSPPApplicationdata, " & _
-                "" & connNameSpace & ".SSPPApplicationContact " & _
-                "where " & connNameSpace & ".SSPPApplicationData.strApplicationNumber = " & connNameSpace & ".SSPPApplicationContact.strApplicationNumber " & _
-                "and " & connNameSpace & ".SSPPApplicationData.strApplicationNumber = '" & txtApplicationNumber.Text & "' "
+                "from " & DBNameSpace & ".SSPPApplicationdata, " & _
+                "" & DBNameSpace & ".SSPPApplicationContact " & _
+                "where " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationContact.strApplicationNumber " & _
+                "and " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber = '" & txtApplicationNumber.Text & "' "
                 cmd = New OracleCommand(SQL, conn)
                 If conn.State = ConnectionState.Closed Then
                     conn.Open()
@@ -20256,7 +20256,7 @@ Public Class DMUDeveloperTools
             If txtAFSBatchFile.Text = "" Then
                 txtAFSBatchFile.Text = "NO AFS DATA TO UPDATE."
             Else
-                SQL = "select " & connNameSpace & ".afsFileNumber.nextval from Dual"
+                SQL = "select " & DBNameSpace & ".afsFileNumber.nextval from Dual"
                 cmd = New OracleCommand(SQL, conn)
                 If conn.State = ConnectionState.Closed Then
                     conn.Open()
@@ -20289,7 +20289,7 @@ Public Class DMUDeveloperTools
                         fs.Close()
 
                         SQL = "Select * " & _
-                        "from " & connNameSpace & ".AFSBatchFiles " & _
+                        "from " & DBNameSpace & ".AFSBatchFiles " & _
                         "where AFSFileName = '" & FileName & "' "
 
                         If conn.State = ConnectionState.Closed Then
@@ -20346,23 +20346,23 @@ Public Class DMUDeveloperTools
             'G36 is for Compliance Manager 
             'GM8 is for Monitoring Manager 
 
-            SQL = "Select " & connNameSpace & ".APBMasterAIRS.strAIRSNumber, " & _
+            SQL = "Select " & DBNameSpace & ".APBMasterAIRS.strAIRSNumber, " & _
             "strFacilityName, strFacilityStreet1,   " & _
             "strFacilityCity, strFacilityzipCode,   " & _
             "strSICCode, strContactFirstName,   " & _
             "strContactLastName, strContactTitle,   " & _
             "strContactPhoneNumber1, strPlantDescription,   " & _
-            "" & connNameSpace & ".AFSFacilityData.strModifingPerson, strUpdateStatus,  " & _
+            "" & DBNameSpace & ".AFSFacilityData.strModifingPerson, strUpdateStatus,  " & _
             "strCMSMember  " & _
-            "from " & connNameSpace & ".APBMasterAIRS, " & connNameSpace & ".APBFacilityInformation,  " & _
-            "" & connNameSpace & ".APBHeaderData, " & connNameSpace & ".APBContactInformation,  " & _
-            "" & connNameSpace & ".APBSupplamentalData, " & connNameSpace & ".AFSFacilityData  " & _
-            "where " & connNameSpace & ".APBMasterAIRS.strAIRSNumber = " & connNameSpace & ".AFSFacilityData.strAIRSNumber    " & _
-            "and " & connNameSpace & ".APBMasterAIRS.strAIRSNumber = " & connNameSpace & ".APBFacilityInformation.strAIRSnumber  " & _
-            "and " & connNameSpace & ".APBMasterAIRS.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber   " & _
-            "and " & connNameSpace & ".APBMasterAIRS.strAIRSNumber = " & connNameSpace & ".APBContactInformation.strAIRSNumber " & _
-            "and " & connNameSpace & ".APBMasterAIRS.strAIRSNumber = " & connNameSpace & ".APBSupplamentalData.strAIRSNumber   " & _
-            "and " & connNameSpace & ".APBContactInformation.strKEy = '30'  "
+            "from " & DBNameSpace & ".APBMasterAIRS, " & DBNameSpace & ".APBFacilityInformation,  " & _
+            "" & DBNameSpace & ".APBHeaderData, " & DBNameSpace & ".APBContactInformation,  " & _
+            "" & DBNameSpace & ".APBSupplamentalData, " & DBNameSpace & ".AFSFacilityData  " & _
+            "where " & DBNameSpace & ".APBMasterAIRS.strAIRSNumber = " & DBNameSpace & ".AFSFacilityData.strAIRSNumber    " & _
+            "and " & DBNameSpace & ".APBMasterAIRS.strAIRSNumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSnumber  " & _
+            "and " & DBNameSpace & ".APBMasterAIRS.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber   " & _
+            "and " & DBNameSpace & ".APBMasterAIRS.strAIRSNumber = " & DBNameSpace & ".APBContactInformation.strAIRSNumber " & _
+            "and " & DBNameSpace & ".APBMasterAIRS.strAIRSNumber = " & DBNameSpace & ".APBSupplamentalData.strAIRSNumber   " & _
+            "and " & DBNameSpace & ".APBContactInformation.strKEy = '30'  "
 
             cmd = New OracleCommand(SQL, conn)
             If conn.State = ConnectionState.Closed Then
@@ -20522,19 +20522,19 @@ Public Class DMUDeveloperTools
                     SICCode = SICCode & "            " & Inspector & "      "
 
                     SQL2 = "Select " & _
-                    "" & connNameSpace & ".AFSAirPollutantData.strAIRPollutantKey, " & _
-                    "" & connNameSpace & ".AFSAirPollutantData.strPollutantKey, " & _
+                    "" & DBNameSpace & ".AFSAirPollutantData.strAIRPollutantKey, " & _
+                    "" & DBNameSpace & ".AFSAirPollutantData.strPollutantKey, " & _
                     "strComplianceStatus, strClass, " & _
-                    "" & connNameSpace & ".APBHeaderData.strAttainmentStatus, " & _
-                    "" & connNameSpace & ".APBAirProgramPollutants.strOperationalStatus " & _
-                    "from " & connNameSpace & ".APBAirProgramPollutants, " & connNameSpace & ".AFSAirPollutantData, " & _
-                    "" & connNameSpace & ".APBHeaderData, " & connNameSpace & ".LookUpCountyInformation " & _
-                    "where " & connNameSpace & ".APBAirProgramPollutants.strAIRSNumber = '" & dr.Item("strAIRSNumber") & "' " & _
-                    "and " & connNameSpace & ".APBHeaderData.strAIRSNumber = " & connNameSpace & ".APBAirProgramPollutants.strAIRSNumber " & _
-                    "and substr(" & connNameSpace & ".APBHeaderData.strAIRSNumber, 5, 3) = " & connNameSpace & ".LookUpCountyInformation.strCountyCode " & _
-                    "and " & connNameSpace & ".AFSAirPollutantData.strAirPollutantKey = " & connNameSpace & ".APBAirProgramPollutants.strAirPollutantKey " & _
-                    "and " & connNameSpace & ".AFSAirPollutantData.strPollutantKey = " & connNameSpace & ".APBAirProgramPollutants.strPollutantKey " & _
-                    "and " & connNameSpace & ".AFSAirPollutantData.strAIRSNumber  = '04" & AIRSNumber & "' "
+                    "" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, " & _
+                    "" & DBNameSpace & ".APBAirProgramPollutants.strOperationalStatus " & _
+                    "from " & DBNameSpace & ".APBAirProgramPollutants, " & DBNameSpace & ".AFSAirPollutantData, " & _
+                    "" & DBNameSpace & ".APBHeaderData, " & DBNameSpace & ".LookUpCountyInformation " & _
+                    "where " & DBNameSpace & ".APBAirProgramPollutants.strAIRSNumber = '" & dr.Item("strAIRSNumber") & "' " & _
+                    "and " & DBNameSpace & ".APBHeaderData.strAIRSNumber = " & DBNameSpace & ".APBAirProgramPollutants.strAIRSNumber " & _
+                    "and substr(" & DBNameSpace & ".APBHeaderData.strAIRSNumber, 5, 3) = " & DBNameSpace & ".LookUpCountyInformation.strCountyCode " & _
+                    "and " & DBNameSpace & ".AFSAirPollutantData.strAirPollutantKey = " & DBNameSpace & ".APBAirProgramPollutants.strAirPollutantKey " & _
+                    "and " & DBNameSpace & ".AFSAirPollutantData.strPollutantKey = " & DBNameSpace & ".APBAirProgramPollutants.strPollutantKey " & _
+                    "and " & DBNameSpace & ".AFSAirPollutantData.strAIRSNumber  = '04" & AIRSNumber & "' "
 
                     cmd2 = New OracleCommand(SQL2, conn)
                     If conn.State = ConnectionState.Closed Then
@@ -20701,8 +20701,8 @@ Public Class DMUDeveloperTools
                     "strErrorLocation, strErrorMessage,  " & _
                     "to_char(datErrorDate, 'DD-Mon-YYYY') as ErrorDate,  " & _
                     "strSolution  " & _
-                    "from " & connNameSpace & ".IAIPErrorLog, " & connNameSpace & ".EPDUserProfiles  " & _
-                    "where " & connNameSpace & ".IAIPErrorLog.strUser = " & connNameSpace & ".EPDUserProfiles.numUserID " & _
+                    "from " & DBNameSpace & ".IAIPErrorLog, " & DBNameSpace & ".EPDUserProfiles  " & _
+                    "where " & DBNameSpace & ".IAIPErrorLog.strUser = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
                     "and strErrorNumber = '" & txtErrorNumber.Text & "' "
                     cmd = New OracleCommand(SQL, conn)
                     If conn.State = ConnectionState.Closed Then
@@ -20762,17 +20762,17 @@ Public Class DMUDeveloperTools
 
             SQL = "Select " & _
             "distinct(substr(strSubPartkey, 13, 1)) as subpart,  " & _
-            "" & connNameSpace & ".APBSubpartData.strAIRSnumber, " & _
-            "" & connNameSpace & ".AFSAirPollutantData.strUpdateStatus    " & _
-            "from " & connNameSpace & ".APBSubpartData, " & connNameSpace & ".AFSAirPollutantData,   " & _
-            "" & connNameSpace & ".AFSFacilityData, airbranch.apbHeaderdata " & _
-            "where " & connNameSpace & ".APBSubpartData.strSubpartKey = " & _
-            "" & connNameSpace & ".AFSAirPollutantData.strAIRPollutantKey  " & _
+            "" & DBNameSpace & ".APBSubpartData.strAIRSnumber, " & _
+            "" & DBNameSpace & ".AFSAirPollutantData.strUpdateStatus    " & _
+            "from " & DBNameSpace & ".APBSubpartData, " & DBNameSpace & ".AFSAirPollutantData,   " & _
+            "" & DBNameSpace & ".AFSFacilityData, airbranch.apbHeaderdata " & _
+            "where " & DBNameSpace & ".APBSubpartData.strSubpartKey = " & _
+            "" & DBNameSpace & ".AFSAirPollutantData.strAIRPollutantKey  " & _
             " and airbranch.afsfacilitydata.strairsnumber = airbranch.apbHeaderdata.strairsnumber " & _
             "and stroperationalstatus  = 'O' " & _
-            " and " & connNameSpace & ".AFSAirPollutantData.strAIRSNUmber = " & _
-            "" & connNameSpace & ".AFSFacilityData.strAIRSNUmber  " & _
-            " and " & connNameSpace & ".AFSFacilityData.strUpdateStatus <>  'A' " & _
+            " and " & DBNameSpace & ".AFSAirPollutantData.strAIRSNUmber = " & _
+            "" & DBNameSpace & ".AFSFacilityData.strAIRSNUmber  " & _
+            " and " & DBNameSpace & ".AFSFacilityData.strUpdateStatus <>  'A' " & _
             "   and AIRBranch.AFSFacilityData.strUpdateStatus <>  'H' "
 
             cmd = New OracleCommand(SQL, conn)
@@ -20799,7 +20799,7 @@ Public Class DMUDeveloperTools
                     Case "8"
                         SQL = "Select " & _
                         "strSubPart " & _
-                        "from " & connNameSpace & ".APBSubpartData " & _
+                        "from " & DBNameSpace & ".APBSubpartData " & _
                         "where strSubpartKey = '04" & AIRSNumber & "8' "
 
                         cmd2 = New OracleCommand(SQL, conn)
@@ -20843,7 +20843,7 @@ Public Class DMUDeveloperTools
                     Case "9"
                         SQL = "Select " & _
                         "strSubPart " & _
-                        "from " & connNameSpace & ".APBSubpartData " & _
+                        "from " & DBNameSpace & ".APBSubpartData " & _
                         "where strSubpartKey = '04" & AIRSNumber & "9' "
 
                         cmd2 = New OracleCommand(SQL, conn)
@@ -20887,7 +20887,7 @@ Public Class DMUDeveloperTools
                     Case "M"
                         SQL = "Select " & _
                          "strSubPart " & _
-                         "from " & connNameSpace & ".APBSubpartData " & _
+                         "from " & DBNameSpace & ".APBSubpartData " & _
                          "where strSubpartKey = '04" & AIRSNumber & "M' "
 
                         cmd2 = New OracleCommand(SQL, conn)
@@ -20944,17 +20944,17 @@ Public Class DMUDeveloperTools
 
             SQL = "Select " & _
           "distinct(substr(strSubPartkey, 13, 1)) as subpart,  " & _
-          "" & connNameSpace & ".APBSubpartData.strAIRSnumber, " & _
-          "" & connNameSpace & ".AFSAirPollutantData.strUpdateStatus    " & _
-          "from " & connNameSpace & ".APBSubpartData, " & connNameSpace & ".AFSAirPollutantData,   " & _
-          "" & connNameSpace & ".AFSFacilityData, airbranch.apbHeaderdata " & _
-          "where " & connNameSpace & ".APBSubpartData.strSubpartKey = " & _
-          "" & connNameSpace & ".AFSAirPollutantData.strAIRPollutantKey  " & _
+          "" & DBNameSpace & ".APBSubpartData.strAIRSnumber, " & _
+          "" & DBNameSpace & ".AFSAirPollutantData.strUpdateStatus    " & _
+          "from " & DBNameSpace & ".APBSubpartData, " & DBNameSpace & ".AFSAirPollutantData,   " & _
+          "" & DBNameSpace & ".AFSFacilityData, airbranch.apbHeaderdata " & _
+          "where " & DBNameSpace & ".APBSubpartData.strSubpartKey = " & _
+          "" & DBNameSpace & ".AFSAirPollutantData.strAIRPollutantKey  " & _
           " and airbranch.afsfacilitydata.strairsnumber = airbranch.apbHeaderdata.strairsnumber " & _
           "and stroperationalstatus  = 'O' " & _
-          " and " & connNameSpace & ".AFSAirPollutantData.strAIRSNUmber = " & _
-          "" & connNameSpace & ".AFSFacilityData.strAIRSNUmber  " & _
-          " and " & connNameSpace & ".AFSFacilityData.strUpdateStatus <>  'A' " & _
+          " and " & DBNameSpace & ".AFSAirPollutantData.strAIRSNUmber = " & _
+          "" & DBNameSpace & ".AFSFacilityData.strAIRSNUmber  " & _
+          " and " & DBNameSpace & ".AFSFacilityData.strUpdateStatus <>  'A' " & _
           "   and AIRBranch.AFSFacilityData.strUpdateStatus <>  'H' "
 
             cmd = New OracleCommand(SQL, conn)
@@ -20981,7 +20981,7 @@ Public Class DMUDeveloperTools
                     Case "8"
                         SQL = "Select " & _
                         "strSubPart " & _
-                        "from " & connNameSpace & ".APBSubpartData " & _
+                        "from " & DBNameSpace & ".APBSubpartData " & _
                         "where strSubpartKey = '04" & AIRSNumber & "8' "
 
                         cmd2 = New OracleCommand(SQL, conn)
@@ -21025,7 +21025,7 @@ Public Class DMUDeveloperTools
                     Case "9"
                         SQL = "Select " & _
                         "strSubPart " & _
-                        "from " & connNameSpace & ".APBSubpartData " & _
+                        "from " & DBNameSpace & ".APBSubpartData " & _
                         "where strSubpartKey = '04" & AIRSNumber & "9' "
 
                         cmd2 = New OracleCommand(SQL, conn)
@@ -21069,7 +21069,7 @@ Public Class DMUDeveloperTools
                     Case "M"
                         SQL = "Select " & _
                          "strSubPart " & _
-                         "from " & connNameSpace & ".APBSubpartData " & _
+                         "from " & DBNameSpace & ".APBSubpartData " & _
                          "where strSubpartKey = '04" & AIRSNumber & "M' "
 
                         cmd2 = New OracleCommand(SQL, conn)
@@ -21134,7 +21134,7 @@ Public Class DMUDeveloperTools
             If txtAFSBatchFile.Text = "" Then
                 txtAFSBatchFile.Text = "NO AFS DATA TO UPDATE."
             Else
-                SQL = "select " & connNameSpace & ".afsFileNumber.nextval from Dual"
+                SQL = "select " & DBNameSpace & ".afsFileNumber.nextval from Dual"
                 cmd = New OracleCommand(SQL, conn)
                 If conn.State = ConnectionState.Closed Then
                     conn.Open()
@@ -21167,7 +21167,7 @@ Public Class DMUDeveloperTools
                         fs.Close()
 
                         SQL = "Select * " & _
-                        "from " & connNameSpace & ".AFSBatchFiles " & _
+                        "from " & DBNameSpace & ".AFSBatchFiles " & _
                         "where AFSFileName = '" & FileName & "' "
 
                         If conn.State = ConnectionState.Closed Then
@@ -22053,7 +22053,7 @@ Public Class DMUDeveloperTools
             If txtAFSBatchFile.Text = "" Then
                 txtAFSBatchFile.Text = "NO AFS DATA TO UPDATE."
             Else
-                SQL = "select " & connNameSpace & ".afsFileNumber.nextval from Dual"
+                SQL = "select " & DBNameSpace & ".afsFileNumber.nextval from Dual"
                 cmd = New OracleCommand(SQL, conn)
                 If conn.State = ConnectionState.Closed Then
                     conn.Open()
@@ -22086,7 +22086,7 @@ Public Class DMUDeveloperTools
                         fs.Close()
 
                         SQL = "Select * " & _
-                        "from " & connNameSpace & ".AFSBatchFiles " & _
+                        "from " & DBNameSpace & ".AFSBatchFiles " & _
                         "where AFSFileName = '" & FileName & "' "
 
                         If conn.State = ConnectionState.Closed Then
@@ -22164,7 +22164,7 @@ Public Class DMUDeveloperTools
 
     Private Sub btnUpdateVersionNumber_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnUpdateVersionNumber.Click
         Try
-            SQL = "Update " & connNameSpace & ".APBMasterApp set " & _
+            SQL = "Update " & DBNameSpace & ".APBMasterApp set " & _
             "strVersionNumber = '" & Replace(mtbVersionNumber.Text, "'", "''") & "' " & _
             "where strApplicationName = 'IAIP' "
 

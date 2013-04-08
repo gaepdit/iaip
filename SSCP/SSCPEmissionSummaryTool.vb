@@ -38,9 +38,9 @@ Public Class SSCPEmissionSummaryTool
             "from " & DBNameSpace & ".esschema " & _
             "order by intESYear desc "
 
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             ' cboYear.Items.Add("- Select a Year -")
@@ -71,9 +71,9 @@ Public Class SSCPEmissionSummaryTool
             "where strInventoryYear < 2010 ) " & _
             "order by EIYear desc  "
 
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -114,10 +114,10 @@ Public Class SSCPEmissionSummaryTool
             "where AIRBranch.VW_EIS_RPEMISSIONS.PollutantCode = AIRBranch.EISLK_PollutantCode.PollutantCode "
 
             ds = New DataSet
-            da = New OracleDataAdapter(SQL, DBConn)
+            da = New OracleDataAdapter(SQL, Conn)
 
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             da.Fill(ds, "EIPollutant")
 
@@ -196,9 +196,9 @@ Public Class SSCPEmissionSummaryTool
                 "where " & DBNameSpace & ".ESMAILOUT.STRAIRSYEAR = " & DBNameSpace & ".ESSCHEMA.STRAIRSYEAR(+) " & _
                 "and " & DBNameSpace & ".esmailout.STRESYEAR = '" & ESYear & "'"
 
-                cmd = New OracleCommand(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr = cmd.ExecuteReader
 
@@ -213,9 +213,9 @@ Public Class SSCPEmissionSummaryTool
                 "and " & DBNameSpace & ".ESSCHEMA.STROPTOUT is not NULL " & _
                 "and " & DBNameSpace & ".esmailout.STRESYEAR = '" & ESYear & "'"
 
-                cmd = New OracleCommand(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr = cmd.ExecuteReader
 
@@ -229,9 +229,9 @@ Public Class SSCPEmissionSummaryTool
                 "where " & DBNameSpace & ".ESSchema.intESYEAR = '" & intESyear & "'" & _
                 " and " & DBNameSpace & ".ESSchema.strOptOut = 'NO'"
 
-                cmd = New OracleCommand(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
 
                 dr = cmd.ExecuteReader
@@ -245,10 +245,10 @@ Public Class SSCPEmissionSummaryTool
                 "where " & DBNameSpace & ".ESSchema.intESYEAR = '" & intESyear & "' " & _
                 "and " & DBNameSpace & ".ESSchema.strOptOut = 'YES'"
 
-                cmd = New OracleCommand(SQL, DBConn)
+                cmd = New OracleCommand(SQL, Conn)
 
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
 
                 dr = cmd.ExecuteReader
@@ -262,9 +262,9 @@ Public Class SSCPEmissionSummaryTool
                 "where " & DBNameSpace & ".ESSchema.intESYEAR = '" & intESyear & "'" & _
                 " and to_date(" & DBNameSpace & ".ESSchema.STRDATEFIRSTCONFIRM) < = '" & deadline & "'"
 
-                cmd = New OracleCommand(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read()
@@ -277,9 +277,9 @@ Public Class SSCPEmissionSummaryTool
                 "where " & DBNameSpace & ".ESSchema.intESYEAR = '" & intESyear & "'" & _
                 " and to_date(" & DBNameSpace & ".ESSchema.STRDATEFIRSTCONFIRM) > '" & deadline & "'"
 
-                cmd = New OracleCommand(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read()
@@ -293,9 +293,9 @@ Public Class SSCPEmissionSummaryTool
                 " and " & DBNameSpace & ".ESMAILOUT.STRAIRSYEAR = " & DBNameSpace & ".ESSCHEMA.STRAIRSYEAR(+) " & _
                 " and " & DBNameSpace & ".ESSchema.strOptOut = 'NO'"
 
-                cmd = New OracleCommand(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr = cmd.ExecuteReader
 
@@ -310,9 +310,9 @@ Public Class SSCPEmissionSummaryTool
                 " and " & DBNameSpace & ".ESMAILOUT.STRAIRSYEAR = " & DBNameSpace & ".ESSCHEMA.STRAIRSYEAR(+) " & _
                 " and " & DBNameSpace & ".ESSchema.strOptOut = 'YES'"
 
-                cmd = New OracleCommand(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr = cmd.ExecuteReader
 
@@ -331,9 +331,9 @@ Public Class SSCPEmissionSummaryTool
              "where " & DBNameSpace & ".ESSCHEMA.intESYEAR = '" & ESYear & "'" & _
              " and " & DBNameSpace & ".ESSchema.strOptOut is NULL"
 
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -354,9 +354,9 @@ Public Class SSCPEmissionSummaryTool
             "Where " & DBNameSpace & ".ESSCHEMA.STRAIRSYEAR = SchemaAIRS " & _
             "AND MailoutAIRS is NULL"
 
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
 
@@ -378,10 +378,10 @@ Public Class SSCPEmissionSummaryTool
             "AND MailoutAIRS is NULL " & _
             "and " & DBNameSpace & ".ESSCHEMA.STROPTOUT='NO'"
 
-            cmd = New OracleCommand(SQL, DBConn)
+            cmd = New OracleCommand(SQL, Conn)
 
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
 
@@ -403,11 +403,11 @@ Public Class SSCPEmissionSummaryTool
             "AND MailoutAIRS is NULL " & _
             "and " & DBNameSpace & ".ESSCHEMA.STROPTOUT='YES'"
 
-            cmd = New OracleCommand(SQL, DBConn)
+            cmd = New OracleCommand(SQL, Conn)
 
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
             Else
-                DBConn.Open()
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read()
@@ -420,10 +420,10 @@ Public Class SSCPEmissionSummaryTool
             "where " & DBNameSpace & ".ESSchema.intESYEAR = '" & intESyear & "'" & _
             " and " & DBNameSpace & ".ESSchema.strOptOut is not NULL"
 
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Open Then
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Open Then
             Else
-                DBConn.Open()
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
 
@@ -449,9 +449,9 @@ Public Class SSCPEmissionSummaryTool
             "where STRAIRSNUMBER = '" & AirsNo & "' " & _
             "and INTESYEAR = '" & intESyear & "'"
 
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -723,9 +723,9 @@ Public Class SSCPEmissionSummaryTool
             "order by STRFACILITYNAME"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            daViewCount = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvESDataCount.DataSource = dsViewCount
@@ -787,9 +787,9 @@ Public Class SSCPEmissionSummaryTool
             "order by " & DBNameSpace & ".esSchema.STRFACILITYNAME"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            daViewCount = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvESDataCount.DataSource = dsViewCount
@@ -840,9 +840,9 @@ Public Class SSCPEmissionSummaryTool
             "order by " & DBNameSpace & ".esSchema.STRFACILITYNAME"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            daViewCount = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvESDataCount.DataSource = dsViewCount
@@ -910,9 +910,9 @@ Public Class SSCPEmissionSummaryTool
             "order by " & DBNameSpace & ".esSchema.STRFACILITYNAME"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            daViewCount = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvESDataCount.DataSource = dsViewCount
@@ -988,9 +988,9 @@ Public Class SSCPEmissionSummaryTool
             "order by " & DBNameSpace & ".esSchema.STRFACILITYNAME"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            daViewCount = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvESDataCount.DataSource = dsViewCount
@@ -1042,9 +1042,9 @@ Public Class SSCPEmissionSummaryTool
             "order by STRFACILITYNAME"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            daViewCount = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvESDataCount.DataSource = dsViewCount
@@ -1103,9 +1103,9 @@ Public Class SSCPEmissionSummaryTool
             "order by STRFACILITYNAME"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            daViewCount = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvESDataCount.DataSource = dsViewCount
@@ -1155,9 +1155,9 @@ Public Class SSCPEmissionSummaryTool
           "order by " & DBNameSpace & ".esMailOut.STRFACILITYNAME"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            daViewCount = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvESDataCount.DataSource = dsViewCount
@@ -1211,9 +1211,9 @@ Public Class SSCPEmissionSummaryTool
             "AND MailoutAIRS is NULL"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            daViewCount = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvESDataCount.DataSource = dsViewCount
@@ -1272,9 +1272,9 @@ Public Class SSCPEmissionSummaryTool
             "order by " & DBNameSpace & ".esSchema.STRFACILITYNAME"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            daViewCount = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvESDataCount.DataSource = dsViewCount
@@ -1324,9 +1324,9 @@ Public Class SSCPEmissionSummaryTool
             "order by " & DBNameSpace & ".esSchema.STRFACILITYNAME"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            daViewCount = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvESDataCount.DataSource = dsViewCount
@@ -1380,9 +1380,9 @@ Public Class SSCPEmissionSummaryTool
             "and " & DBNameSpace & ".ESSCHEMA.STROPTOUT='YES'"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            daViewCount = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvESDataCount.DataSource = dsViewCount
@@ -1437,9 +1437,9 @@ Public Class SSCPEmissionSummaryTool
 
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            daViewCount = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvESDataCount.DataSource = dsViewCount
@@ -1491,9 +1491,9 @@ Public Class SSCPEmissionSummaryTool
             "order by " & DBNameSpace & ".esSchema.STRFACILITYNAME"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            daViewCount = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvESDataCount.DataSource = dsViewCount
@@ -1542,9 +1542,9 @@ Public Class SSCPEmissionSummaryTool
             "where " & DBNameSpace & ".ESMailOut.STRAIRSNUMBER = '" & AirsNo & "' " & _
             "and " & DBNameSpace & ".ESMailOut.STRESYEAR = '" & ESyear & "'"
 
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -1693,9 +1693,9 @@ Public Class SSCPEmissionSummaryTool
                     "order by AIRSNumber) "
 
                     ds = New DataSet
-                    da = New OracleDataAdapter(SQL, DBConn)
-                    If DBConn.State = ConnectionState.Closed Then
-                        DBConn.Open()
+                    da = New OracleDataAdapter(SQL, Conn)
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
                     da.Fill(ds, "EISummary")
                     dgvEIResults.DataSource = ds
@@ -1814,9 +1814,9 @@ Public Class SSCPEmissionSummaryTool
                     "and ViewList.facilitysiteid  = NOXSum.facilitysiteid (+) "
 
                     ds = New DataSet
-                    da = New OracleDataAdapter(SQL, DBConn)
-                    If DBConn.State = ConnectionState.Closed Then
-                        DBConn.Open()
+                    da = New OracleDataAdapter(SQL, Conn)
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
                     da.Fill(ds, "EISummary")
                     dgvEIResults.DataSource = ds
@@ -1949,9 +1949,9 @@ Public Class SSCPEmissionSummaryTool
 
                     End If
                     ds = New DataSet
-                    da = New OracleDataAdapter(SQL, DBConn)
-                    If DBConn.State = ConnectionState.Closed Then
-                        DBConn.Open()
+                    da = New OracleDataAdapter(SQL, Conn)
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
                     da.Fill(ds, "EISummary")
                     dgvEIResults.DataSource = ds

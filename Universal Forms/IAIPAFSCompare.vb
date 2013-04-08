@@ -29,10 +29,10 @@ Public Class IAIPAFSCompare
             "order by strCountyName "
 
             ds = New DataSet
-            da = New OracleDataAdapter(SQL, DBConn)
+            da = New OracleDataAdapter(SQL, Conn)
 
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
 
             da.Fill(ds, "County")
@@ -269,9 +269,9 @@ Public Class IAIPAFSCompare
                                 "from " & DBNameSpace & ".APBFacilityInformation " & _
                                 "where strAIRSNumber = '0413" & AIRSNumber & "' "
 
-                                cmd = New OracleCommand(SQL, DBConn)
-                                If DBConn.State = ConnectionState.Closed Then
-                                    DBConn.Open()
+                                cmd = New OracleCommand(SQL, Conn)
+                                If Conn.State = ConnectionState.Closed Then
+                                    Conn.Open()
                                 End If
                                 dr = cmd.ExecuteReader
                                 While dr.Read
@@ -308,9 +308,9 @@ Public Class IAIPAFSCompare
                             "from " & DBNameSpace & ".APBFacilityInformation " & _
                             "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' "
 
-                            cmd = New OracleCommand(SQL, DBConn)
-                            If DBConn.State = ConnectionState.Closed Then
-                                DBConn.Open()
+                            cmd = New OracleCommand(SQL, Conn)
+                            If Conn.State = ConnectionState.Closed Then
+                                Conn.Open()
                             End If
                             dr = cmd.ExecuteReader
                             While dr.Read
@@ -357,9 +357,9 @@ Public Class IAIPAFSCompare
                                 "from " & DBNameSpace & ".APBFacilityInformation " & _
                                 "where strAIRSNumber like '0413" & county & "%' "
 
-                                cmd = New OracleCommand(SQL, DBConn)
-                                If DBConn.State = ConnectionState.Closed Then
-                                    DBConn.Open()
+                                cmd = New OracleCommand(SQL, Conn)
+                                If Conn.State = ConnectionState.Closed Then
+                                    Conn.Open()
                                 End If
                                 dr = cmd.ExecuteReader
                                 While dr.Read
@@ -498,9 +498,9 @@ Public Class IAIPAFSCompare
                                 "from " & DBNameSpace & ".APBFacilityInformation " & _
                                 "where strAIRSNumber = '0413" & AIRSNumber & "' "
 
-                                cmd = New OracleCommand(SQL, DBConn)
-                                If DBConn.State = ConnectionState.Closed Then
-                                    DBConn.Open()
+                                cmd = New OracleCommand(SQL, Conn)
+                                If Conn.State = ConnectionState.Closed Then
+                                    Conn.Open()
                                 End If
                                 dr = cmd.ExecuteReader
                                 While dr.Read
@@ -537,9 +537,9 @@ Public Class IAIPAFSCompare
                             "from " & DBNameSpace & ".APBFacilityInformation " & _
                             "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' "
 
-                            cmd = New OracleCommand(SQL, DBConn)
-                            If DBConn.State = ConnectionState.Closed Then
-                                DBConn.Open()
+                            cmd = New OracleCommand(SQL, Conn)
+                            If Conn.State = ConnectionState.Closed Then
+                                Conn.Open()
                             End If
                             dr = cmd.ExecuteReader
                             While dr.Read
@@ -586,9 +586,9 @@ Public Class IAIPAFSCompare
                                 "from " & DBNameSpace & ".APBFacilityInformation " & _
                                 "where strAIRSNumber like '0413" & county & "%' "
 
-                                cmd = New OracleCommand(SQL, DBConn)
-                                If DBConn.State = ConnectionState.Closed Then
-                                    DBConn.Open()
+                                cmd = New OracleCommand(SQL, Conn)
+                                If Conn.State = ConnectionState.Closed Then
+                                    Conn.Open()
                                 End If
                                 dr = cmd.ExecuteReader
                                 While dr.Read
@@ -708,9 +708,9 @@ Public Class IAIPAFSCompare
                                 "from " & DBNameSpace & ".APBFacilityInformation  " & _
                                 "where " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = '0413" & AIRSNumber & "' "
 
-                                cmd = New OracleCommand(SQL, DBConn)
-                                If DBConn.State = ConnectionState.Closed Then
-                                    DBConn.Open()
+                                cmd = New OracleCommand(SQL, Conn)
+                                If Conn.State = ConnectionState.Closed Then
+                                    Conn.Open()
                                 End If
                                 dr = cmd.ExecuteReader
                                 While dr.Read
@@ -747,9 +747,9 @@ Public Class IAIPAFSCompare
                             "from " & DBNameSpace & ".APBFacilityInformation  " & _
                             "where " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' "
 
-                            cmd = New OracleCommand(SQL, DBConn)
-                            If DBConn.State = ConnectionState.Closed Then
-                                DBConn.Open()
+                            cmd = New OracleCommand(SQL, Conn)
+                            If Conn.State = ConnectionState.Closed Then
+                                Conn.Open()
                             End If
                             dr = cmd.ExecuteReader
                             While dr.Read
@@ -796,9 +796,9 @@ Public Class IAIPAFSCompare
                                 "from " & DBNameSpace & ".APBFacilityInformation " & _
                                 "where strAIRSNumber like '0413" & county & "%' "
 
-                                cmd = New OracleCommand(SQL, DBConn)
-                                If DBConn.State = ConnectionState.Closed Then
-                                    DBConn.Open()
+                                cmd = New OracleCommand(SQL, Conn)
+                                If Conn.State = ConnectionState.Closed Then
+                                    Conn.Open()
                                 End If
                                 dr = cmd.ExecuteReader
                                 While dr.Read
@@ -918,9 +918,9 @@ Public Class IAIPAFSCompare
                                 "from " & DBNameSpace & ".APBHeaderData  " & _
                                 "where " & DBNameSpace & ".APBHeaderData.strAIRSNumber = '0413" & AIRSNumber & "' "
 
-                                cmd = New OracleCommand(SQL, DBConn)
-                                If DBConn.State = ConnectionState.Closed Then
-                                    DBConn.Open()
+                                cmd = New OracleCommand(SQL, Conn)
+                                If Conn.State = ConnectionState.Closed Then
+                                    Conn.Open()
                                 End If
                                 dr = cmd.ExecuteReader
                                 While dr.Read
@@ -957,9 +957,9 @@ Public Class IAIPAFSCompare
                             "from " & DBNameSpace & ".APBHeaderData  " & _
                             "where " & DBNameSpace & ".APBHeaderData.strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' "
 
-                            cmd = New OracleCommand(SQL, DBConn)
-                            If DBConn.State = ConnectionState.Closed Then
-                                DBConn.Open()
+                            cmd = New OracleCommand(SQL, Conn)
+                            If Conn.State = ConnectionState.Closed Then
+                                Conn.Open()
                             End If
                             dr = cmd.ExecuteReader
                             While dr.Read
@@ -1006,9 +1006,9 @@ Public Class IAIPAFSCompare
                                 "from " & DBNameSpace & ".APBHeaderData " & _
                                 "where strAIRSNumber like '0413" & county & "%' "
 
-                                cmd = New OracleCommand(SQL, DBConn)
-                                If DBConn.State = ConnectionState.Closed Then
-                                    DBConn.Open()
+                                cmd = New OracleCommand(SQL, Conn)
+                                If Conn.State = ConnectionState.Closed Then
+                                    Conn.Open()
                                 End If
                                 dr = cmd.ExecuteReader
                                 While dr.Read
@@ -1129,9 +1129,9 @@ Public Class IAIPAFSCompare
                                 "where " & DBNameSpace & ".APBContactInformation.strairsnumber = '0413" & AIRSNumber & "'  " & _
                                 "and strkey = '30'"
 
-                                cmd = New OracleCommand(SQL, DBConn)
-                                If DBConn.State = ConnectionState.Closed Then
-                                    DBConn.Open()
+                                cmd = New OracleCommand(SQL, Conn)
+                                If Conn.State = ConnectionState.Closed Then
+                                    Conn.Open()
                                 End If
                                 dr = cmd.ExecuteReader
                                 While dr.Read
@@ -1169,9 +1169,9 @@ Public Class IAIPAFSCompare
                             "where " & DBNameSpace & ".APBContactInformation.strairsnumber = '0413" & mtbAIRSNumber.Text & "'  " & _
                             "and strkey = '30'"
 
-                            cmd = New OracleCommand(SQL, DBConn)
-                            If DBConn.State = ConnectionState.Closed Then
-                                DBConn.Open()
+                            cmd = New OracleCommand(SQL, Conn)
+                            If Conn.State = ConnectionState.Closed Then
+                                Conn.Open()
                             End If
                             dr = cmd.ExecuteReader
                             While dr.Read
@@ -1219,9 +1219,9 @@ Public Class IAIPAFSCompare
                                 "where " & DBNameSpace & ".APBContactInformation.strairsnumber like '0413" & county & "%' " & _
                                 "and strkey = '30'"
 
-                                cmd = New OracleCommand(SQL, DBConn)
-                                If DBConn.State = ConnectionState.Closed Then
-                                    DBConn.Open()
+                                cmd = New OracleCommand(SQL, Conn)
+                                If Conn.State = ConnectionState.Closed Then
+                                    Conn.Open()
                                 End If
                                 dr = cmd.ExecuteReader
                                 While dr.Read
@@ -1341,9 +1341,9 @@ Public Class IAIPAFSCompare
                                 "where strAIRSNumber = '0413" & AIRSNumber & "' " & _
                                 "and substr(strAirPollutantKey, 13, 1) = '" & Mid(DefaultText, 14, 1) & "'  "
 
-                                cmd = New OracleCommand(SQL, DBConn)
-                                If DBConn.State = ConnectionState.Closed Then
-                                    DBConn.Open()
+                                cmd = New OracleCommand(SQL, Conn)
+                                If Conn.State = ConnectionState.Closed Then
+                                    Conn.Open()
                                 End If
                                 dr = cmd.ExecuteReader
                                 While dr.Read
@@ -1386,9 +1386,9 @@ Public Class IAIPAFSCompare
                             "from " & DBNameSpace & ".APBAirProgramPollutants " & _
                             "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' "
 
-                            cmd = New OracleCommand(SQL, DBConn)
-                            If DBConn.State = ConnectionState.Closed Then
-                                DBConn.Open()
+                            cmd = New OracleCommand(SQL, Conn)
+                            If Conn.State = ConnectionState.Closed Then
+                                Conn.Open()
                             End If
                             dr = cmd.ExecuteReader
                             AIRSNumber = mtbAIRSNumber.Text
@@ -1475,9 +1475,9 @@ Public Class IAIPAFSCompare
                                 "from " & DBNameSpace & ".APBAirProgramPollutants " & _
                                 "where strAIRSNumber like '0413" & county & "%' "
 
-                                cmd = New OracleCommand(SQL, DBConn)
-                                If DBConn.State = ConnectionState.Closed Then
-                                    DBConn.Open()
+                                cmd = New OracleCommand(SQL, Conn)
+                                If Conn.State = ConnectionState.Closed Then
+                                    Conn.Open()
                                 End If
                                 dr = cmd.ExecuteReader
                                 While dr.Read
@@ -1673,9 +1673,9 @@ Public Class IAIPAFSCompare
                                     "from " & DBNameSpace & ".APBSubPartData  " & _
                                     "where strsubpartkey = '0413" & AIRSNumber & "" & AFSAirCode & "' " & _
                                     "and (upper(strSubPart) = '" & RTrim(Mid(DefaultText, 16, 5).ToUpper) & "') "
-                                    cmd = New OracleCommand(SQL, DBConn)
-                                    If DBConn.State = ConnectionState.Closed Then
-                                        DBConn.Open()
+                                    cmd = New OracleCommand(SQL, Conn)
+                                    If Conn.State = ConnectionState.Closed Then
+                                        Conn.Open()
                                     End If
                                     dr = cmd.ExecuteReader
                                     While dr.Read
@@ -1698,9 +1698,9 @@ Public Class IAIPAFSCompare
                                     "from " & DBNameSpace & ".APBSubPartData  " & _
                                     "where strsubpartkey = '0413" & AIRSNumber & "" & AFSAirCode & "' " & _
                                     "and (upper(strSubPart) = '" & RTrim(Mid(DefaultText, 21, 5).ToUpper) & "') "
-                                    cmd = New OracleCommand(SQL, DBConn)
-                                    If DBConn.State = ConnectionState.Closed Then
-                                        DBConn.Open()
+                                    cmd = New OracleCommand(SQL, Conn)
+                                    If Conn.State = ConnectionState.Closed Then
+                                        Conn.Open()
                                     End If
                                     dr = cmd.ExecuteReader
                                     While dr.Read
@@ -1723,9 +1723,9 @@ Public Class IAIPAFSCompare
                                     "from " & DBNameSpace & ".APBSubPartData  " & _
                                     "where strsubpartkey = '0413" & AIRSNumber & "" & AFSAirCode & "' " & _
                                     "and (upper(strSubPart) = '" & RTrim(Mid(DefaultText, 26, 5).ToUpper) & "') "
-                                    cmd = New OracleCommand(SQL, DBConn)
-                                    If DBConn.State = ConnectionState.Closed Then
-                                        DBConn.Open()
+                                    cmd = New OracleCommand(SQL, Conn)
+                                    If Conn.State = ConnectionState.Closed Then
+                                        Conn.Open()
                                     End If
                                     dr = cmd.ExecuteReader
                                     While dr.Read
@@ -1748,9 +1748,9 @@ Public Class IAIPAFSCompare
                                     "from " & DBNameSpace & ".APBSubPartData  " & _
                                     "where strsubpartkey = '0413" & AIRSNumber & "" & AFSAirCode & "' " & _
                                     "and (upper(strSubPart) = '" & RTrim(Mid(DefaultText, 31, 5).ToUpper) & "') "
-                                    cmd = New OracleCommand(SQL, DBConn)
-                                    If DBConn.State = ConnectionState.Closed Then
-                                        DBConn.Open()
+                                    cmd = New OracleCommand(SQL, Conn)
+                                    If Conn.State = ConnectionState.Closed Then
+                                        Conn.Open()
                                     End If
                                     dr = cmd.ExecuteReader
                                     While dr.Read
@@ -1773,9 +1773,9 @@ Public Class IAIPAFSCompare
                                     "from " & DBNameSpace & ".APBSubPartData  " & _
                                     "where strsubpartkey = '0413" & AIRSNumber & "" & AFSAirCode & "' " & _
                                     "and (upper(strSubPart) = '" & RTrim(Mid(DefaultText, 36, 5).ToUpper) & "') "
-                                    cmd = New OracleCommand(SQL, DBConn)
-                                    If DBConn.State = ConnectionState.Closed Then
-                                        DBConn.Open()
+                                    cmd = New OracleCommand(SQL, Conn)
+                                    If Conn.State = ConnectionState.Closed Then
+                                        Conn.Open()
                                     End If
                                     dr = cmd.ExecuteReader
                                     While dr.Read
@@ -1798,9 +1798,9 @@ Public Class IAIPAFSCompare
                                     "from " & DBNameSpace & ".APBSubPartData  " & _
                                     "where strsubpartkey = '0413" & AIRSNumber & "" & AFSAirCode & "' " & _
                                     "and (upper(strSubPart) = '" & RTrim(Mid(DefaultText, 41, 5).ToUpper) & "') "
-                                    cmd = New OracleCommand(SQL, DBConn)
-                                    If DBConn.State = ConnectionState.Closed Then
-                                        DBConn.Open()
+                                    cmd = New OracleCommand(SQL, Conn)
+                                    If Conn.State = ConnectionState.Closed Then
+                                        Conn.Open()
                                     End If
                                     dr = cmd.ExecuteReader
                                     While dr.Read
@@ -1823,9 +1823,9 @@ Public Class IAIPAFSCompare
                                     "from " & DBNameSpace & ".APBSubPartData  " & _
                                     "where strsubpartkey = '0413" & AIRSNumber & "" & AFSAirCode & "' " & _
                                     "and (upper(strSubPart) = '" & RTrim(Mid(DefaultText, 46, 5).ToUpper) & "') "
-                                    cmd = New OracleCommand(SQL, DBConn)
-                                    If DBConn.State = ConnectionState.Closed Then
-                                        DBConn.Open()
+                                    cmd = New OracleCommand(SQL, Conn)
+                                    If Conn.State = ConnectionState.Closed Then
+                                        Conn.Open()
                                     End If
                                     dr = cmd.ExecuteReader
                                     While dr.Read
@@ -1848,9 +1848,9 @@ Public Class IAIPAFSCompare
                                     "from " & DBNameSpace & ".APBSubPartData  " & _
                                     "where strsubpartkey = '0413" & AIRSNumber & "" & AFSAirCode & "' " & _
                                     "and (upper(strSubPart) = '" & RTrim(Mid(DefaultText, 51, 5).ToUpper) & "') "
-                                    cmd = New OracleCommand(SQL, DBConn)
-                                    If DBConn.State = ConnectionState.Closed Then
-                                        DBConn.Open()
+                                    cmd = New OracleCommand(SQL, Conn)
+                                    If Conn.State = ConnectionState.Closed Then
+                                        Conn.Open()
                                     End If
                                     dr = cmd.ExecuteReader
                                     While dr.Read
@@ -1873,9 +1873,9 @@ Public Class IAIPAFSCompare
                                     "from " & DBNameSpace & ".APBSubPartData  " & _
                                     "where strsubpartkey = '0413" & AIRSNumber & "" & AFSAirCode & "' " & _
                                     "and (upper(strSubPart) = '" & RTrim(Mid(DefaultText, 56, 5).ToUpper) & "') "
-                                    cmd = New OracleCommand(SQL, DBConn)
-                                    If DBConn.State = ConnectionState.Closed Then
-                                        DBConn.Open()
+                                    cmd = New OracleCommand(SQL, Conn)
+                                    If Conn.State = ConnectionState.Closed Then
+                                        Conn.Open()
                                     End If
                                     dr = cmd.ExecuteReader
                                     While dr.Read
@@ -1915,9 +1915,9 @@ Public Class IAIPAFSCompare
                             "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' " & _
                             "and substr(strSubPartKey, 13,1) <> '0' "
 
-                            cmd = New OracleCommand(SQL, DBConn)
-                            If DBConn.State = ConnectionState.Closed Then
-                                DBConn.Open()
+                            cmd = New OracleCommand(SQL, Conn)
+                            If Conn.State = ConnectionState.Closed Then
+                                Conn.Open()
                             End If
                             dr = cmd.ExecuteReader
                             AIRSNumber = mtbAIRSNumber.Text
@@ -2169,9 +2169,9 @@ Public Class IAIPAFSCompare
                                 "where strAIRSNumber like '0413" & county & "%' " & _
                                 "and substr(strSubPartKey, 13,1) <> '0' "
 
-                                cmd = New OracleCommand(SQL, DBConn)
-                                If DBConn.State = ConnectionState.Closed Then
-                                    DBConn.Open()
+                                cmd = New OracleCommand(SQL, Conn)
+                                If Conn.State = ConnectionState.Closed Then
+                                    Conn.Open()
                                 End If
                                 dr = cmd.ExecuteReader
                                 While dr.Read
@@ -2567,9 +2567,9 @@ Public Class IAIPAFSCompare
                                     "from " & DBNameSpace & ".APBFacilityInformation " & _
                                     "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' "
 
-                                    cmd = New OracleCommand(SQL, DBConn)
-                                    If DBConn.State = ConnectionState.Closed Then
-                                        DBConn.Open()
+                                    cmd = New OracleCommand(SQL, Conn)
+                                    If Conn.State = ConnectionState.Closed Then
+                                        Conn.Open()
                                     End If
                                     dr = cmd.ExecuteReader
                                     While dr.Read
@@ -2610,9 +2610,9 @@ Public Class IAIPAFSCompare
                         "order by strAIRSNumber "
 
                         ds = New DataSet
-                        da = New OracleDataAdapter(SQL, DBConn)
-                        If DBConn.State = ConnectionState.Closed Then
-                            DBConn.Open()
+                        da = New OracleDataAdapter(SQL, Conn)
+                        If Conn.State = ConnectionState.Closed Then
+                            Conn.Open()
                         End If
                         da.Fill(ds, "FacilityCheck")
 
@@ -2844,9 +2844,9 @@ Public Class IAIPAFSCompare
                                         SQL = "Select upper(strFacilityName) as strFacilityName " & _
                                         "from " & DBNameSpace & ".APBFacilityInformation " & _
                                         "where strAIRSNumber = '0413" & AIRSNumber & "' "
-                                        cmd = New OracleCommand(SQL, DBConn)
-                                        If DBConn.State = ConnectionState.Closed Then
-                                            DBConn.Open()
+                                        cmd = New OracleCommand(SQL, Conn)
+                                        If Conn.State = ConnectionState.Closed Then
+                                            Conn.Open()
                                         End If
                                         dr = cmd.ExecuteReader
                                         While dr.Read
@@ -2871,9 +2871,9 @@ Public Class IAIPAFSCompare
                                         SQL = "Select upper(strFacilityStreet1) as strFacilityStreet1 " & _
                                         "from " & DBNameSpace & ".APBFacilityInformation " & _
                                         "where strAIRSNumber = '0413" & AIRSNumber & "' "
-                                        cmd = New OracleCommand(SQL, DBConn)
-                                        If DBConn.State = ConnectionState.Closed Then
-                                            DBConn.Open()
+                                        cmd = New OracleCommand(SQL, Conn)
+                                        If Conn.State = ConnectionState.Closed Then
+                                            Conn.Open()
                                         End If
                                         dr = cmd.ExecuteReader
                                         While dr.Read
@@ -2906,9 +2906,9 @@ Public Class IAIPAFSCompare
                                         "from " & DBNameSpace & ".APBFacilityInformation, " & DBNameSpace & ".APBHeaderData " & _
                                         "where " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber " & _
                                         "and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = '0413" & AIRSNumber & "' "
-                                        cmd = New OracleCommand(SQL, DBConn)
-                                        If DBConn.State = ConnectionState.Closed Then
-                                            DBConn.Open()
+                                        cmd = New OracleCommand(SQL, Conn)
+                                        If Conn.State = ConnectionState.Closed Then
+                                            Conn.Open()
                                         End If
                                         dr = cmd.ExecuteReader
                                         While dr.Read
@@ -2969,9 +2969,9 @@ Public Class IAIPAFSCompare
                                         "and " & DBNameSpace & ".APBHeaderData.strairsnumber = '0413" & AIRSNumber & "'  " & _
                                         "and strkey = '30'"
 
-                                        cmd = New OracleCommand(SQL, DBConn)
-                                        If DBConn.State = ConnectionState.Closed Then
-                                            DBConn.Open()
+                                        cmd = New OracleCommand(SQL, Conn)
+                                        If Conn.State = ConnectionState.Closed Then
+                                            Conn.Open()
                                         End If
                                         dr = cmd.ExecuteReader
                                         While dr.Read
@@ -3124,7 +3124,7 @@ Public Class IAIPAFSCompare
                                                 IAIPProgramStatus = "NULL"
                                         End Select
                                         If SQL <> "" Then
-                                            cmd = New OracleCommand(SQL, DBConn)
+                                            cmd = New OracleCommand(SQL, Conn)
                                             dr = cmd.ExecuteReader
                                             While dr.Read
                                                 If IsDBNull(dr.Item("strOperationalStatus")) Then
@@ -3310,9 +3310,9 @@ Public Class IAIPAFSCompare
                                                 IAIPAirProgramCode = "NULL"
                                         End Select
                                         If SQL <> "" Then
-                                            cmd = New OracleCommand(SQL, DBConn)
-                                            If DBConn.State = ConnectionState.Closed Then
-                                                DBConn.Open()
+                                            cmd = New OracleCommand(SQL, Conn)
+                                            If Conn.State = ConnectionState.Closed Then
+                                                Conn.Open()
                                             End If
                                             dr = cmd.ExecuteReader
                                             While dr.Read
@@ -3450,9 +3450,9 @@ Public Class IAIPAFSCompare
                                         End Select
 
                                         If SQL <> "" Then
-                                            cmd = New OracleCommand(SQL, DBConn)
-                                            If DBConn.State = ConnectionState.Closed Then
-                                                DBConn.Open()
+                                            cmd = New OracleCommand(SQL, Conn)
+                                            If Conn.State = ConnectionState.Closed Then
+                                                Conn.Open()
                                             End If
                                             dr = cmd.ExecuteReader
                                             While dr.Read
@@ -3475,9 +3475,9 @@ Public Class IAIPAFSCompare
                                             "from " & DBNameSpace & ".APBHeaderData " & _
                                             "where strAIRSNumber = '0413" & AIRSNumber & "' "
 
-                                            cmd = New OracleCommand(SQL, DBConn)
-                                            If DBConn.State = ConnectionState.Closed Then
-                                                DBConn.Open()
+                                            cmd = New OracleCommand(SQL, Conn)
+                                            If Conn.State = ConnectionState.Closed Then
+                                                Conn.Open()
                                             End If
                                             dr = cmd.ExecuteReader
                                             While dr.Read
@@ -3943,9 +3943,9 @@ Public Class IAIPAFSCompare
                                         End Select
 
                                         If SQL <> "" Then
-                                            cmd = New OracleCommand(SQL, DBConn)
-                                            If DBConn.State = ConnectionState.Closed Then
-                                                DBConn.Open()
+                                            cmd = New OracleCommand(SQL, Conn)
+                                            If Conn.State = ConnectionState.Closed Then
+                                                Conn.Open()
                                             End If
                                             dr = cmd.ExecuteReader
                                             While dr.Read
@@ -4077,9 +4077,9 @@ Public Class IAIPAFSCompare
                                         "and " & DBNameSpace & ".AFSSSCPEnforcementRecords.strAFSActionNumber = '" & ActionNumber163 & "' " & _
                                         "and strAFSKeyActionNumber = '" & KeyActionNumber & "' "
 
-                                        cmd = New OracleCommand(SQL, DBConn)
-                                        If DBConn.State = ConnectionState.Closed Then
-                                            DBConn.Open()
+                                        cmd = New OracleCommand(SQL, Conn)
+                                        If Conn.State = ConnectionState.Closed Then
+                                            Conn.Open()
                                         End If
 
                                         dr = cmd.ExecuteReader
@@ -4153,9 +4153,9 @@ Public Class IAIPAFSCompare
                                         "and " & DBNameSpace & ".AFSSSCPEnforcementRecords.strAFSActionNumber = '007' " & _
                                         "and strAFSKeyActionNumber = '007' "
 
-                                        cmd = New OracleCommand(SQL, DBConn)
-                                        If DBConn.State = ConnectionState.Closed Then
-                                            DBConn.Open()
+                                        cmd = New OracleCommand(SQL, Conn)
+                                        If Conn.State = ConnectionState.Closed Then
+                                            Conn.Open()
                                         End If
                                         dr = cmd.ExecuteReader
                                         While dr.Read
@@ -4205,9 +4205,9 @@ Public Class IAIPAFSCompare
                                         "strCMSMember " & _
                                         "from " & DBNameSpace & ".APBSupplamentalData " & _
                                         "where strAIRSNumber = '0413" & AIRSNumber & "' "
-                                        cmd = New OracleCommand(SQL, DBConn)
-                                        If DBConn.State = ConnectionState.Closed Then
-                                            DBConn.Open()
+                                        cmd = New OracleCommand(SQL, Conn)
+                                        If Conn.State = ConnectionState.Closed Then
+                                            Conn.Open()
                                         End If
                                         dr = cmd.ExecuteReader
                                         While dr.Read

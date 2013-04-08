@@ -102,9 +102,9 @@ Public Class DEVMailoutAndStats
             "distinct(FEEMAILOUT.INTYEAR) as IntYear " & _
             "from " & DBNameSpace & ".FEEMAILOUT " & _
             "order by FEEMAILOUT.INTYEAR desc"
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -142,7 +142,7 @@ Public Class DEVMailoutAndStats
 
             'SQL = "Select " & _
             '"distinct FEEMAILOUT.INTYEAR " & _
-            '"from " & connNameSpace & ".FEEMAILOUT " & _
+            '"from " & DBNameSpace & ".FEEMAILOUT " & _
             '"order by FEEMAILOUT.INTYEAR desc"
             'cmd = New OracleCommand(SQL, conn)
             'If conn.State = ConnectionState.Closed Then
@@ -268,9 +268,9 @@ Public Class DEVMailoutAndStats
               "from " & DBNameSpace & ".FeeMailOut " & _
               "where FeeMailOut.STRAIRSNUMBER = '" & AirsNo & "' " & _
               "and FeeMailOut.intYEAR = '" & feeyear & "'"
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -383,9 +383,9 @@ Public Class DEVMailoutAndStats
               "from " & DBNameSpace & ".FeeMailOut " & _
               "where FeeMailOut.STRAIRSNUMBER = '" & AirsNo & "' " & _
               "and FeeMailOut.intYEAR = '" & feeyear & "'"
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -486,9 +486,9 @@ Public Class DEVMailoutAndStats
             SQL = "delete from " & DBNameSpace & ".feeMailOut " & _
             "where feeMailOut.STRAIRSNUMBER = '" & AirsNo & "'" & _
             " and feeMailOut.INTYEAR = '" & feeyear & "'"
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -538,9 +538,9 @@ Public Class DEVMailoutAndStats
             "from " & DBNameSpace & ".FEEMAILOUT " & _
             "where FEEMAILOUT.STRAIRSNUMBER = '" & AirsNo & "' " & _
             " and FEEMAILOUT.INTYEAR = '" & feeYear & "' "
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             recExist = dr.Read
@@ -568,9 +568,9 @@ Public Class DEVMailoutAndStats
                 SQL = "Select * " & _
                 "from " & DBNameSpace & ".APBFACILITYINFORMATION " & _
                 "where APBFACILITYINFORMATION.STRAIRSNUMBER = '" & AirsNo & "' "
-                cmd = New OracleCommand(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -604,9 +604,9 @@ Public Class DEVMailoutAndStats
                 SQL = "Select * " & _
                 "from " & DBNameSpace & ".APBHEADERDATA " & _
                 "where APBHEADERDATA.STRAIRSNUMBER = '" & AirsNo & "' "
-                cmd = New OracleCommand(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -688,9 +688,9 @@ Public Class DEVMailoutAndStats
                 " )"
                 MsgBox("The new fee contact info has been added!", MsgBoxStyle.Information, "Mailout and Stats")
             End If
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -727,9 +727,9 @@ Public Class DEVMailoutAndStats
             "from " & DBNameSpace & ".FeemailOut " & _
             "where INTYEAR = '" & feeYear & "'"
 
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             recExist = dr.Read
@@ -859,9 +859,9 @@ Public Class DEVMailoutAndStats
                         "WHERE dt_40contact.strairsnumber = dt_30contact.strairsnumber(+)  " & _
                         "AND dt_40contact.strairsnumber=" & DBNameSpace & ".APBFACILITYINFORMATION.strairsnumber (+)"
 
-                        cmd = New OracleCommand(SQL, DBConn)
-                        If DBConn.State = ConnectionState.Closed Then
-                            DBConn.Open()
+                        cmd = New OracleCommand(SQL, Conn)
+                        If Conn.State = ConnectionState.Closed Then
+                            Conn.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Read()
@@ -1009,9 +1009,9 @@ Public Class DEVMailoutAndStats
                             "'" & Replace(Part70Status, "'", "''") & "', " & _
                             "'" & Replace(NSPSstatus, "'", "''") & "') "
 
-                            cmd2 = New OracleCommand(SQL2, DBConn)
-                            If DBConn.State = ConnectionState.Closed Then
-                                DBConn.Open()
+                            cmd2 = New OracleCommand(SQL2, Conn)
+                            If Conn.State = ConnectionState.Closed Then
+                                Conn.Open()
                             End If
                             dr2 = cmd2.ExecuteReader
                             dr2.Close()
@@ -1042,9 +1042,9 @@ Public Class DEVMailoutAndStats
                     "order by feeMailOut.STRFACILITYNAME"
 
                     dsViewCount = New DataSet
-                    daViewCount = New OracleDataAdapter(SQL, DBConn)
-                    If DBConn.State = ConnectionState.Closed Then
-                        DBConn.Open()
+                    daViewCount = New OracleDataAdapter(SQL, Conn)
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
                     daViewCount.Fill(dsViewCount, "ViewCount")
                     dgvFeeDataCount.DataSource = dsViewCount
@@ -1109,9 +1109,9 @@ Public Class DEVMailoutAndStats
 
             SQL = "delete from " & DBNameSpace & ".feemailout " & _
             "where feemailout.INTYEAR = '" & feeyear & "'"
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             dsViewCount = New DataSet
@@ -1182,9 +1182,9 @@ Public Class DEVMailoutAndStats
             "order by " & DBNameSpace & ".FEEMAILOUT.STRFACILITYNAME"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            daViewCount = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvFeeDataCount.DataSource = dsViewCount
@@ -1261,9 +1261,9 @@ Public Class DEVMailoutAndStats
             "FROM " & DBNameSpace & ".FSPAYANDSUBMIT " & _
             "where INTYEAR = '" & feeYear & "'"
 
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             recExist = dr.Read
@@ -1275,9 +1275,9 @@ Public Class DEVMailoutAndStats
                 "FROM " & DBNameSpace & ".feemailout " & _
                 "where feemailout.INTYEAR = '" & feeYear & "'"
 
-                cmd = New OracleCommand(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Read()
@@ -1300,9 +1300,9 @@ Public Class DEVMailoutAndStats
                     "'0', " & _
                     "sysdate)"
 
-                    cmd2 = New OracleCommand(SQL2, DBConn)
-                    If DBConn.State = ConnectionState.Closed Then
-                        DBConn.Open()
+                    cmd2 = New OracleCommand(SQL2, Conn)
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
                     dr2 = cmd2.ExecuteReader
                     dr2.Close()
@@ -1325,9 +1325,9 @@ Public Class DEVMailoutAndStats
             If intAnswer = vbOK Then
                 sql = "delete from " & DBNameSpace & ".FSPAYANDSUBMIT " & _
                 "where FSPAYANDSUBMIT.INTYEAR = '" & feeyear & "'"
-                cmd = New OracleCommand(sql, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(sql, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -1361,9 +1361,9 @@ Public Class DEVMailoutAndStats
             "from " & DBNameSpace & ".APBFACILITYINFORMATION " & _
             "where APBFACILITYINFORMATION.STRAIRSNUMBER = '" & AirsNo & "' "
 
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -1379,9 +1379,9 @@ Public Class DEVMailoutAndStats
             "from " & DBNameSpace & ".APBHEADERDATA " & _
             "where APBHEADERDATA.STRAIRSNUMBER = '" & AirsNo & "' "
 
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -1441,9 +1441,9 @@ Public Class DEVMailoutAndStats
 
             SQL = "Select distinct INTYEAR from " & DBNameSpace & ".FSCALCULATIONS order by INTYEAR desc"
 
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Read()
@@ -1507,9 +1507,9 @@ Public Class DEVMailoutAndStats
             "from " & DBNameSpace & ".feemailout " & _
             "where feemailout.INTYEAR = '" & FeeYear & "'"
 
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read()
@@ -1524,9 +1524,9 @@ Public Class DEVMailoutAndStats
             " and FEEMAILOUT.INTYEAr = FSCALCULATIONS.INTYEAr " & _
             " and FSCALCULATIONS.INTYEAR = '" & FeeYear & "'"
 
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read()
@@ -1542,9 +1542,9 @@ Public Class DEVMailoutAndStats
             " and " & DBNameSpace & ".FEEMAILOUT.STRAIRSNUMBER is not null" & _
             " and " & DBNameSpace & ".FSPAYANDSUBMIT.INTYEAR = '" & FeeYear & "'"
 
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read()
@@ -1562,9 +1562,9 @@ Public Class DEVMailoutAndStats
             " and " & DBNameSpace & ".FEEMAILOUT.STRAIRSNUMBER is not null" & _
             " and " & DBNameSpace & ".FSPAYANDSUBMIT.INTYEAR = '" & FeeYear & "'"
 
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
 
@@ -1580,9 +1580,9 @@ Public Class DEVMailoutAndStats
             " and " & DBNameSpace & ".FEEMAILOUT.STRAIRSNUMBER is null" & _
             " and " & DBNameSpace & ".FSCALCULATIONS.STRAIRSNUMBER = " & DBNameSpace & ".FEEMAILOUT.STRAIRSNUMBER(+)"
 
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
 
@@ -1599,9 +1599,9 @@ Public Class DEVMailoutAndStats
             " and " & DBNameSpace & ".FEEMAILOUT.STRAIRSNUMBER is null" & _
             " and " & DBNameSpace & ".FSPAYANDSUBMIT.STRAIRSNUMBER = " & DBNameSpace & ".FEEMAILOUT.STRAIRSNUMBER(+)"
 
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read()
@@ -1620,9 +1620,9 @@ Public Class DEVMailoutAndStats
             " and " & DBNameSpace & ".FEEMAILOUT.STRAIRSNUMBER is null" & _
             " and " & DBNameSpace & ".FSCALCULATIONS.STRAIRSNUMBER = " & DBNameSpace & ".FEEMAILOUT.STRAIRSNUMBER(+)"
 
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read()
@@ -1634,9 +1634,9 @@ Public Class DEVMailoutAndStats
             "from " & DBNameSpace & ".FSCALCULATIONS " & _
             "where FSCALCULATIONS.INTYEAR = '" & FeeYear & "'"
 
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read()
@@ -1649,9 +1649,9 @@ Public Class DEVMailoutAndStats
             " where FSPAYANDSUBMIT.INTYEAR = '" & FeeYear & "' " & _
             " and FSPAYANDSUBMIT.INTSUBMITTAL = 1"
 
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read()
@@ -1668,9 +1668,9 @@ Public Class DEVMailoutAndStats
             " and to_date(FSPAYANDSUBMIT.DATESUBMIT) < = '" & deadline & "'" & _
             " AND FSPAYANDSUBMIT.INTSUBMITTAL = 1"
 
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
 
@@ -1685,9 +1685,9 @@ Public Class DEVMailoutAndStats
             " and to_date(FSPAYANDSUBMIT.DATESUBMIT) > '" & deadline & "'" & _
             " AND FSPAYANDSUBMIT.INTSUBMITTAL = 1 "
 
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read()
@@ -1702,9 +1702,9 @@ Public Class DEVMailoutAndStats
             " where " & DBNameSpace & ".FEEMAILOUT.INTYEAR = '" & FeeYear & "'" & _
             " and " & DBNameSpace & ".FSCALCULATIONS.STRAIRSNUMBER is null"
 
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
 
@@ -1720,9 +1720,9 @@ Public Class DEVMailoutAndStats
             " where " & DBNameSpace & ".FEEMAILOUT.INTYEAR = '" & FeeYear & "'" & _
             " and " & DBNameSpace & ".FSPAYANDSUBMIT.STRAIRSNUMBER is null"
 
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
 
@@ -1740,9 +1740,9 @@ Public Class DEVMailoutAndStats
             " and " & DBNameSpace & ".FEEMAILOUT.INTYEAR = '" & FeeYear & "'" & _
             " and " & DBNameSpace & ".FSCALCULATIONS.STRAIRSNUMBER is null"
 
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
 
@@ -1758,9 +1758,9 @@ Public Class DEVMailoutAndStats
            " and " & DBNameSpace & ".FEEMAILOUT.STRAIRSNUMBER is null" & _
            " and " & DBNameSpace & ".FSPAYANDSUBMIT.STRAIRSNUMBER = " & DBNameSpace & ".FEEMAILOUT.STRAIRSNUMBER(+)"
 
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
 
@@ -1780,9 +1780,9 @@ Public Class DEVMailoutAndStats
             " and FSPAYANDSUBMIT.INTYEAr = FEEMAILOUT.INTYEAr) " & _
             " and " & DBNameSpace & ".FSPAYANDSUBMIT.INTYEAR = '" & FeeYear & "' "
 
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
 
@@ -1822,9 +1822,9 @@ Public Class DEVMailoutAndStats
             "order by " & DBNameSpace & ".FEEMAILOUT.STRFACILITYNAME"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            daViewCount = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvFeeDataCount2.DataSource = dsViewCount
@@ -1899,9 +1899,9 @@ Public Class DEVMailoutAndStats
             "and APBFACILITYINFORMATION.STRAIRSNUMBER = FeeMailOut. STRAIRSNUMBER"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            daViewCount = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvFeeDataCount2.DataSource = dsViewCount
@@ -1976,9 +1976,9 @@ Public Class DEVMailoutAndStats
             "and APBFACILITYINFORMATION.STRAIRSNUMBER = FeeMailOut. STRAIRSNUMBER"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            daViewCount = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvFeeDataCount2.DataSource = dsViewCount
@@ -2034,26 +2034,26 @@ Public Class DEVMailoutAndStats
 
             'Changed the SQL statement on 2/10/2010 per B.Gregory request based on J.Capp request.
 
-            'SQL = "SELECT " & connNameSpace & ".FEEMAILOUT.STRAIRSNUMBER, " & _
-            '"" & connNameSpace & ".FEEMAILOUT.STRFACILITYNAME, " & _
-            '"" & connNameSpace & ".FEEMAILOUT.STRCONTACTFIRSTNAME, " & _
-            '"" & connNameSpace & ".FEEMAILOUT.STRCONTACTLASTNAME, " & _
-            '"" & connNameSpace & ".FEEMAILOUT.STRCOMPANYNAME, " & _
-            '"" & connNameSpace & ".FEEMAILOUT.STRCONTACTADDRESS, " & _
-            '"" & connNameSpace & ".FEEMAILOUT.STRCONTACTCITY, " & _
-            '"" & connNameSpace & ".FEEMAILOUT.STRCONTACTSTATE, " & _
-            '"" & connNameSpace & ".FEEMAILOUT.STRCONTACTZIPCODE, " & _
-            '"" & connNameSpace & ".FEEMAILOUT.STRFACILITYSTREET, " & _
-            '"" & connNameSpace & ".FEEMAILOUT.STRFACILITYCITY, " & _
-            '"" & connNameSpace & ".FEEMAILOUT.STRFACILITYZIPCODE, " & _
-            '"" & connNameSpace & ".FEEMAILOUT.STRCONTACTEMAIL " & _
-            '"from " & connNameSpace & ".FEEMAILOUT left outer join " & connNameSpace & ".FSCALCULATIONS " & _
-            '" on " & connNameSpace & ".FEEMAILOUT.STRAIRSNUMBER = " & connNameSpace & ".FSCALCULATIONS.STRAIRSNUMBER " & _
-            '" and  " & connNameSpace & ".FEEMAILOUT.INTYEAR = " & connNameSpace & ".FSCALCULATIONS.INTYEAR, " & connNameSpace & ".FSPAYANDSUBMIT  " & _
-            '" where " & connNameSpace & ".FEEMAILOUT.STRAIRSNUMBER = " & connNameSpace & ".FSPAYANDSUBMIT.STRAIRSNUMBER" & _
-            '" and " & connNameSpace & ".FEEMAILOUT.INTYEAR = " & connNameSpace & ".FSPAYANDSUBMIT.INTYEAR " & _
-            '" and " & connNameSpace & ".FEEMAILOUT.INTYEAR = '" & year & "'" & _
-            '" and " & connNameSpace & ".FSCALCULATIONS.STRAIRSNUMBER is null"
+            'SQL = "SELECT " & DBNameSpace & ".FEEMAILOUT.STRAIRSNUMBER, " & _
+            '"" & DBNameSpace & ".FEEMAILOUT.STRFACILITYNAME, " & _
+            '"" & DBNameSpace & ".FEEMAILOUT.STRCONTACTFIRSTNAME, " & _
+            '"" & DBNameSpace & ".FEEMAILOUT.STRCONTACTLASTNAME, " & _
+            '"" & DBNameSpace & ".FEEMAILOUT.STRCOMPANYNAME, " & _
+            '"" & DBNameSpace & ".FEEMAILOUT.STRCONTACTADDRESS, " & _
+            '"" & DBNameSpace & ".FEEMAILOUT.STRCONTACTCITY, " & _
+            '"" & DBNameSpace & ".FEEMAILOUT.STRCONTACTSTATE, " & _
+            '"" & DBNameSpace & ".FEEMAILOUT.STRCONTACTZIPCODE, " & _
+            '"" & DBNameSpace & ".FEEMAILOUT.STRFACILITYSTREET, " & _
+            '"" & DBNameSpace & ".FEEMAILOUT.STRFACILITYCITY, " & _
+            '"" & DBNameSpace & ".FEEMAILOUT.STRFACILITYZIPCODE, " & _
+            '"" & DBNameSpace & ".FEEMAILOUT.STRCONTACTEMAIL " & _
+            '"from " & DBNameSpace & ".FEEMAILOUT left outer join " & DBNameSpace & ".FSCALCULATIONS " & _
+            '" on " & DBNameSpace & ".FEEMAILOUT.STRAIRSNUMBER = " & DBNameSpace & ".FSCALCULATIONS.STRAIRSNUMBER " & _
+            '" and  " & DBNameSpace & ".FEEMAILOUT.INTYEAR = " & DBNameSpace & ".FSCALCULATIONS.INTYEAR, " & DBNameSpace & ".FSPAYANDSUBMIT  " & _
+            '" where " & DBNameSpace & ".FEEMAILOUT.STRAIRSNUMBER = " & DBNameSpace & ".FSPAYANDSUBMIT.STRAIRSNUMBER" & _
+            '" and " & DBNameSpace & ".FEEMAILOUT.INTYEAR = " & DBNameSpace & ".FSPAYANDSUBMIT.INTYEAR " & _
+            '" and " & DBNameSpace & ".FEEMAILOUT.INTYEAR = '" & year & "'" & _
+            '" and " & DBNameSpace & ".FSCALCULATIONS.STRAIRSNUMBER is null"
 
 
             SQL = "SELECT " & DBNameSpace & ".FEEMAILOUT.STRAIRSNUMBER, " & _
@@ -2084,9 +2084,9 @@ Public Class DEVMailoutAndStats
             " order by " & DBNameSpace & ".FEEMAILOUT.STRAIRSNUMBER "
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            daViewCount = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvFeeDataCount2.DataSource = dsViewCount
@@ -2170,9 +2170,9 @@ Public Class DEVMailoutAndStats
             " and " & DBNameSpace & ".FSPAYANDSUBMIT.INTYEAR = '" & year & "'"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            daViewCount = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvFeeDataCount2.DataSource = dsViewCount
@@ -2242,9 +2242,9 @@ Public Class DEVMailoutAndStats
               " and " & DBNameSpace & ".FSPAYANDSUBMIT.INTYEAR = '" & year & "'"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            daViewCount = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvFeeDataCount2.DataSource = dsViewCount
@@ -2306,9 +2306,9 @@ Public Class DEVMailoutAndStats
             " AND " & DBNameSpace & ".FSPAYANDSUBMIT.INTSUBMITTAL = 1"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            daViewCount = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvFeeDataCount2.DataSource = dsViewCount
@@ -2367,9 +2367,9 @@ Public Class DEVMailoutAndStats
             " AND " & DBNameSpace & ".FSPAYANDSUBMIT.INTSUBMITTAL = 1"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            daViewCount = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvFeeDataCount2.DataSource = dsViewCount
@@ -2440,9 +2440,9 @@ Public Class DEVMailoutAndStats
             " and " & DBNameSpace & ".FSCALCULATIONS.INTYEAR = '" & year & "'"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            daViewCount = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvFeeDataCount2.DataSource = dsViewCount
@@ -2514,9 +2514,9 @@ Public Class DEVMailoutAndStats
             " and " & DBNameSpace & ".FSPAYANDSUBMIT.INTYEAR = '" & year & "'"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            daViewCount = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvFeeDataCount2.DataSource = dsViewCount
@@ -2590,9 +2590,9 @@ Public Class DEVMailoutAndStats
             " and " & DBNameSpace & ".FSCALCULATIONS.INTYEAR = '" & year & "'"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            daViewCount = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvFeeDataCount2.DataSource = dsViewCount
@@ -2665,10 +2665,10 @@ Public Class DEVMailoutAndStats
               " and " & DBNameSpace & ".FEEMAILOUT.STRAIRSNUMBER is null"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, DBConn)
+            daViewCount = New OracleDataAdapter(SQL, Conn)
 
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
 
             daViewCount.Fill(dsViewCount, "ViewCount")
@@ -2730,9 +2730,9 @@ Public Class DEVMailoutAndStats
                                    " and " & DBNameSpace & ".FSPAYANDSUBMIT.STRAIRSNUMBER = " & DBNameSpace & ".FEEMAILOUT.STRAIRSNUMBER(+)"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            daViewCount = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvFeeDataCount2.DataSource = dsViewCount
@@ -2780,9 +2780,9 @@ Public Class DEVMailoutAndStats
               " and " & DBNameSpace & ".FSCALCULATIONS.STRAIRSNUMBER = " & DBNameSpace & ".FEEMAILOUT.STRAIRSNUMBER(+)"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            daViewCount = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvFeeDataCount2.DataSource = dsViewCount
@@ -2879,9 +2879,9 @@ Public Class DEVMailoutAndStats
             "order by " & DBNameSpace & ".FEEMAILOUT.STRFACILITYNAME"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            daViewCount = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvFeeDataCount2.DataSource = dsViewCount
@@ -2944,9 +2944,9 @@ Public Class DEVMailoutAndStats
             "order by " & DBNameSpace & ".FEEMAILOUT.STRFACILITYNAME"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            daViewCount = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvFeeDataCount2.DataSource = dsViewCount
@@ -2988,9 +2988,9 @@ Public Class DEVMailoutAndStats
             "and " & DBNameSpace & ".APBFACILITYINFORMATION.STRAIRSNUMBER = " & DBNameSpace & ".FEEMAILOUT.STRAIRSNUMBER"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            daViewCount = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvFeeDataCount2.DataSource = dsViewCount
@@ -3032,9 +3032,9 @@ Public Class DEVMailoutAndStats
             " and " & DBNameSpace & ".APBFACILITYINFORMATION.STRAIRSNUMBER = " & DBNameSpace & ".FEEMAILOUT.STRAIRSNUMBER"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            daViewCount = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvFeeDataCount2.DataSource = dsViewCount
@@ -3077,9 +3077,9 @@ Public Class DEVMailoutAndStats
             " and " & DBNameSpace & ".FSCALCULATIONS.STRAIRSNUMBER is null"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            daViewCount = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvFeeDataCount2.DataSource = dsViewCount
@@ -3119,9 +3119,9 @@ Public Class DEVMailoutAndStats
               " and " & DBNameSpace & ".FSPAYANDSUBMIT.INTYEAR = '" & year & "'"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            daViewCount = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvFeeDataCount2.DataSource = dsViewCount
@@ -3165,9 +3165,9 @@ Public Class DEVMailoutAndStats
               " and " & DBNameSpace & ".FSPAYANDSUBMIT.INTYEAR = '" & year & "'"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            daViewCount = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvFeeDataCount2.DataSource = dsViewCount
@@ -3209,10 +3209,10 @@ Public Class DEVMailoutAndStats
               " and " & DBNameSpace & ".FEEMAILOUT.STRAIRSNUMBER is null"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, DBConn)
+            daViewCount = New OracleDataAdapter(SQL, Conn)
 
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
 
             daViewCount.Fill(dsViewCount, "ViewCount")
@@ -3252,9 +3252,9 @@ Public Class DEVMailoutAndStats
             " and " & DBNameSpace & ".FSCALCULATIONS.INTYEAR = '" & year & "'"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            daViewCount = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvFeeDataCount2.DataSource = dsViewCount
@@ -3294,9 +3294,9 @@ Public Class DEVMailoutAndStats
             " and " & DBNameSpace & ".FSPAYANDSUBMIT.INTYEAR = '" & year & "'"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            daViewCount = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvFeeDataCount2.DataSource = dsViewCount
@@ -3337,9 +3337,9 @@ Public Class DEVMailoutAndStats
               " and " & DBNameSpace & ".FSCALCULATIONS.INTYEAR = '" & year & "'"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            daViewCount = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvFeeDataCount2.DataSource = dsViewCount
@@ -3388,9 +3388,9 @@ Public Class DEVMailoutAndStats
             " AND " & DBNameSpace & ".FSPAYANDSUBMIT.INTSUBMITTAL = 1"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            daViewCount = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvFeeDataCount2.DataSource = dsViewCount
@@ -3447,11 +3447,11 @@ Public Class DEVMailoutAndStats
             + "Order by struseremail "
 
             ds = New DataSet
-            da = New OracleDataAdapter(SQL, DBConn)
+            da = New OracleDataAdapter(SQL, Conn)
 
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
             Else
-                DBConn.Open()
+                Conn.Open()
             End If
 
             da.Fill(ds, "UserEmail")
@@ -3699,9 +3699,9 @@ Public Class DEVMailoutAndStats
                     "WHERE " & DBNameSpace & ".OLAPUserAccess.NumUserId = " & DBNameSpace & ".OlapUserLogin.NumUserID " & _
                     "AND " & DBNameSpace & ".OlapUserAccess.strAirsNumber = '0413" & airsno & "' order by email"
 
-            daWorkEntry = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            daWorkEntry = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
 
             daWorkEntry.Fill(dsWorkEntry, "tblFacilityUser")
@@ -3748,9 +3748,9 @@ Public Class DEVMailoutAndStats
                     "and  strUserEmail = upper('" & EmailLoc & "') " & _
                     "order by strfacilityname"
 
-            daWorkEntry = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            daWorkEntry = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
 
             daWorkEntry.Fill(dsWorkEntry, "tblUserFacility")
@@ -3792,9 +3792,9 @@ Public Class DEVMailoutAndStats
             "where " & DBNameSpace & ".OLAPUserProfile.numUserID = " & DBNameSpace & ".OLAPUserLogIn.numuserid " & _
             "and strUserEmail = upper('" & UserData & "') "
 
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -4007,9 +4007,9 @@ Public Class DEVMailoutAndStats
                       "WHERE numUserID = '" & userid & "' " & _
                       "and strAirsNumber = '0413" & airsno & "' "
 
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -4052,9 +4052,9 @@ Public Class DEVMailoutAndStats
                       "WHERE numUserID = '" & cboUserEmail.SelectedValue & "' " & _
                       "and strAirsNumber = '0413" & airsnumber & "' "
 
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -4072,9 +4072,9 @@ Public Class DEVMailoutAndStats
                 "'" & txtWebUserID.Text & "', '0413" & mtbFacilityToAdd.Text & "', " & _
                 "(select strFacilityName from " & DBNameSpace & ".APBFacilityInformation where strAIRSnumber = '0413" & mtbFacilityToAdd.Text & "')) "
 
-                Dim cmd As New OracleCommand(InsertString, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                Dim cmd As New OracleCommand(InsertString, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 cmd.ExecuteNonQuery()
 
@@ -4095,9 +4095,9 @@ Public Class DEVMailoutAndStats
                 "WHERE numUserID = '" & txtWebUserID.Text & "' " & _
                 "and strAirsNumber = '" & cboFacilityToDelete.SelectedValue & "' "
 
-                Dim cmd As New OracleCommand(deleteString, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                Dim cmd As New OracleCommand(deleteString, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 cmd.ExecuteNonQuery()
 
@@ -4118,10 +4118,10 @@ Public Class DEVMailoutAndStats
             Dim dr As OracleDataReader
             Dim recexist As Boolean
 
-            cmd = New OracleCommand(sql, DBConn)
+            cmd = New OracleCommand(sql, Conn)
 
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
 
@@ -4133,9 +4133,9 @@ Public Class DEVMailoutAndStats
                 "(numUserId, strAirsNumber, strFacilityName) values( " & _
                 "'" & userID & "', '0413" & airsno & "', '" & Replace(lblFacilityName.Text, "'", "''") & "') "
 
-                Dim cmd1 As New OracleCommand(InsertString, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                Dim cmd1 As New OracleCommand(InsertString, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 cmd1.ExecuteNonQuery()
 
@@ -4158,9 +4158,9 @@ Public Class DEVMailoutAndStats
                                 "WHERE numUserID = '" & cboUsers.SelectedValue & "' " & _
                                 "and strAirsNumber = '0413" & airsno & "' "
 
-            Dim cmd As New OracleCommand(deleteString, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            Dim cmd As New OracleCommand(deleteString, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             cmd.ExecuteNonQuery()
 
@@ -4176,9 +4176,9 @@ Public Class DEVMailoutAndStats
             "from " & DBNameSpace & ".OlapUserLogIn " & _
             "where strUserEmail = '" & Replace(UCase(txtEmailAddress.Text), "'", "''") & "' "
 
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             recExist = dr.Read
@@ -4188,10 +4188,10 @@ Public Class DEVMailoutAndStats
                           "SET strconfirm = to_char(sysdate, 'YYYY/MM/DD HH:MI:SS') " & _
                           "WHERE struseremail = '" & Replace(UCase(txtEmailAddress.Text), "'", "''") & "' "
 
-                cmd = New OracleCommand(updateString, DBConn)
+                cmd = New OracleCommand(updateString, Conn)
 
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 'cmd.ExecuteNonQuery()
                 dr = cmd.ExecuteReader
@@ -4211,9 +4211,9 @@ Public Class DEVMailoutAndStats
             SQL = "select strAIRSnumber " & _
             "from " & DBNameSpace & ".APBFacilityInformation " & _
             "where strAIRSnumber = '0413" & mtbFeeAirsNumber.Text & "' "
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             recExist = dr.Read
@@ -4225,9 +4225,9 @@ Public Class DEVMailoutAndStats
                 "where strAIRSNumber = '0413" & mtbFeeAirsNumber.Text & "' " & _
                 "and intYear = '" & mtbyear.Text & "' "
 
-                cmd = New OracleCommand(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -4239,9 +4239,9 @@ Public Class DEVMailoutAndStats
                     "(intyear, strairsnumber, strpaymenttype, strofficialname, strofficialtitle, datesubmit) " & _
                     "values ('" & CInt(mtbyear.Text) & "', '0413" & mtbFeeAirsNumber.Text & "', 'N/A', 'N/A', 'N/A', '" & OracleDate & "')"
 
-                    cmd = New OracleCommand(SQL, DBConn)
-                    If DBConn.State = ConnectionState.Closed Then
-                        DBConn.Open()
+                    cmd = New OracleCommand(SQL, Conn)
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
@@ -4261,18 +4261,18 @@ Public Class DEVMailoutAndStats
             '  mtbYear.Text = "2006"
             Dim SQL As String = "Delete from " & DBNameSpace & ".FSPayandSubmit " & _
                       "where intyear = '" & CInt(mtbyear.Text) & "' and strairsnumber = '0413" & mtbFeeAirsNumber.Text & "'"
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
 
             SQL = "Delete from " & DBNameSpace & ".FSCalculations " & _
                       "where intyear = '" & CInt(mtbyear.Text) & "' and strairsnumber = '0413" & mtbFeeAirsNumber.Text & "'"
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -4280,9 +4280,9 @@ Public Class DEVMailoutAndStats
             SQL = "Delete from " & DBNameSpace & ".FSConfirmation " & _
                       "where intyear = '" & CInt(mtbyear.Text) & "' and strairsnumber = '0413" & mtbFeeAirsNumber.Text & "'"
 
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -4368,7 +4368,7 @@ Public Class DEVMailoutAndStats
             'dtEmails = New DataTable
 
             'SQL = "Select numuserid, struseremail " & _
-            '"from " & connNameSpace & ".OlapUserLogin " & _
+            '"from " & DBNameSpace & ".OlapUserLogin " & _
             '"Order by struseremail "
 
             'ds2 = New DataSet
@@ -4463,9 +4463,9 @@ Public Class DEVMailoutAndStats
             "order by " & DBNameSpace & ".FEEMAILOUT.STRFACILITYNAME"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            daViewCount = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvFeeDataCount.DataSource = dsViewCount
@@ -4591,9 +4591,9 @@ Public Class DEVMailoutAndStats
                 SQL = "Select strFacilityName " & _
                 "from " & DBNameSpace & ".APBFacilityInformation " & _
                 "where strAIRSNumber = '0413" & airsno & "' "
-                cmd = New OracleCommand(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -4697,7 +4697,7 @@ Public Class DEVMailoutAndStats
     Private Sub btnUpdatePassword_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnUpdatePassword.Click
         Try
             If txtWebUserID.Text <> "" And txtEditUserPassword.Text <> "" Then
-                'SQL = "Update " & connNameSpace & ".OLAPUserLogIN set " & _
+                'SQL = "Update " & DBNameSpace & ".OLAPUserLogIN set " & _
                 '"strUserPassword = '" & EncryptDecrypt.EncryptText(txtEditUserPassword.Text) & "' " & _
                 '"where numUserID = '" & txtWebUserID.Text & "' "
 
@@ -4706,9 +4706,9 @@ Public Class DEVMailoutAndStats
                 "strUserPassword = '" & getMd5Hash(txtEditUserPassword.Text) & "' " & _
                 "where numUserID = '" & txtWebUserID.Text & "' "
 
-                cmd = New OracleCommand(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -4786,7 +4786,7 @@ Public Class DEVMailoutAndStats
             "numUserID = '" & txtWebUserID.Text & "' " & _
             "where numUserID = '" & txtWebUserID.Text & "' "
 
-            'SQL = "Update " & connNameSpace & ".OLAPUserProfile set " & _
+            'SQL = "Update " & DBNameSpace & ".OLAPUserProfile set " & _
             '"strFirstName = '" & Replace(txtEditFirstName.Text, "'", "''") & "', " & _
             '"strLastName = '" & Replace(txtEditLastName.Text, "'", "''") & "', " & _
             '"strTitle = '" & Replace(txtEditTitle.Text, "'", "''") & "', " & _
@@ -4799,9 +4799,9 @@ Public Class DEVMailoutAndStats
             '"strFaxNumber = '" & mtbEditFaxNumber.Text & "' " & _
             '"where numUserID = '" & txtWebUserID.Text & "' "
 
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -4837,9 +4837,9 @@ Public Class DEVMailoutAndStats
                     "from " & DBNameSpace & ".OLAPUserLogIN " & _
                     "where upper(strUserEmail) = '" & Replace(txtEditEmail.Text.ToUpper, "'", "''") & "' "
 
-                    cmd = New OracleCommand(SQL, DBConn)
-                    If DBConn.State = ConnectionState.Closed Then
-                        DBConn.Open()
+                    cmd = New OracleCommand(SQL, Conn)
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     recExist = dr.Read
@@ -4863,9 +4863,9 @@ Public Class DEVMailoutAndStats
                     "strUserEmail = '" & Replace(txtEditEmail.Text.ToUpper, "'", "''") & "' " & _
                     "where numUserID = '" & txtWebUserID.Text & "' "
 
-                    cmd = New OracleCommand(SQL, DBConn)
-                    If DBConn.State = ConnectionState.Closed Then
-                        DBConn.Open()
+                    cmd = New OracleCommand(SQL, Conn)
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
@@ -4910,10 +4910,10 @@ Public Class DEVMailoutAndStats
               " and " & DBNameSpace & ".FEEMAILOUT.STRAIRSNUMBER is null"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, DBConn)
+            daViewCount = New OracleDataAdapter(SQL, Conn)
 
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
 
             daViewCount.Fill(dsViewCount, "ViewCount")
@@ -4968,10 +4968,10 @@ Public Class DEVMailoutAndStats
 
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, DBConn)
+            daViewCount = New OracleDataAdapter(SQL, Conn)
 
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
 
             daViewCount.Fill(dsViewCount, "ViewCount")
@@ -5036,10 +5036,10 @@ Public Class DEVMailoutAndStats
 
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, DBConn)
+            daViewCount = New OracleDataAdapter(SQL, Conn)
 
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
 
             daViewCount.Fill(dsViewCount, "ViewCount")
@@ -5095,10 +5095,10 @@ Public Class DEVMailoutAndStats
                      " and " & DBNameSpace & ".FSPAYANDSUBMIT.STRAIRSNUMBER = " & DBNameSpace & ".APBFACILITYINFORMATION.STRAIRSNUMBER"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, DBConn)
+            daViewCount = New OracleDataAdapter(SQL, Conn)
 
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
 
             daViewCount.Fill(dsViewCount, "ViewCount")
@@ -5156,9 +5156,9 @@ Public Class DEVMailoutAndStats
             "distinct(FSFEERATES.INTYEAR) as IntYear " & _
             "from " & DBNameSpace & ".FSFEERATES " & _
             "order by FSFEERATES.INTYEAR desc"
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -5200,9 +5200,9 @@ Public Class DEVMailoutAndStats
                         "from " & DBNameSpace & ".FSFEERATES " & _
                     " Where " & DBNameSpace & ".FSFEERATES.INTYEAR = '" & year & "' "
 
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
 
@@ -5269,9 +5269,9 @@ Public Class DEVMailoutAndStats
             SQL = "Select distinct(intYear) as intYear " & _
             "from " & DBNameSpace & ".FSPayAndSubmit " & _
             "order by intyear desc "
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -5294,9 +5294,9 @@ Public Class DEVMailoutAndStats
             "from " & DBNameSpace & ".FSPayType " & _
             "order by paytype"
 
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -5338,9 +5338,9 @@ Public Class DEVMailoutAndStats
                 "and " & DBNameSpace & ".FSCalculations.intYear = " & DBNameSpace & ".FSPayAndSubmit.intYear " & _
                 "and " & DBNameSpace & ".FSPayAndSubmit.intYear = '" & cboStatYear.Text & "' " & _
                 "and " & DBNameSpace & ".FSPayAndSubmit.strPaymentType like '" & PayType & "' "
-                cmd = New OracleCommand(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -5376,9 +5376,9 @@ Public Class DEVMailoutAndStats
                         "and strPayType = '" & cboStatPayType.Text & "' "
                 End Select
 
-                cmd = New OracleCommand(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -5479,9 +5479,9 @@ Public Class DEVMailoutAndStats
             End Select
 
             ds = New DataSet
-            da = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            da = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
 
             da.Fill(ds, "PaymentDue")
@@ -5595,9 +5595,9 @@ Public Class DEVMailoutAndStats
             "and strPayType like '" & PayType & "' "
 
             ds = New DataSet
-            da = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            da = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
 
             da.Fill(ds, "PaymentDue")
@@ -6244,9 +6244,9 @@ Public Class DEVMailoutAndStats
 
             ds = New DataSet
             If SQL <> "" Then
-                da = New OracleDataAdapter(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                da = New OracleDataAdapter(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 da.Fill(ds, "PaymentDue")
             End If
@@ -6361,10 +6361,10 @@ Public Class DEVMailoutAndStats
             "from " & DBNameSpace & ".FSPayAndSubmit " & _
             "where strAIRSNumber = '0413" & txtSelectedAIRSNumber.Text & "' " & _
             "and intyear = '" & txtSelectedYear.Text & "' "
-            cmd = New OracleCommand(SQL, DBConn)
+            cmd = New OracleCommand(SQL, Conn)
 
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -6415,9 +6415,9 @@ Public Class DEVMailoutAndStats
             "from " & DBNameSpace & ".FSCalculations " & _
             "where strAIRSNumber = '0413" & txtSelectedAIRSNumber.Text & "' " & _
             "and intYear = '" & txtSelectedYear.Text & "' "
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -6559,9 +6559,9 @@ Public Class DEVMailoutAndStats
             "order by datPayDate "
 
             ds = New DataSet
-            da = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            da = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             da.Fill(ds, "PaymentStats")
             dgvStats.DataSource = ds
@@ -6686,9 +6686,9 @@ Public Class DEVMailoutAndStats
                 "strPaymentType = '" & cboNewPaymentType.Text & "' " & _
                 "where strAIRSNumber = '0413" & txtSelectedAIRSNumber.Text & "' " & _
                 "and intYear = '" & txtSelectedYear.Text & "' "
-                cmd = New OracleCommand(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -6727,9 +6727,9 @@ Public Class DEVMailoutAndStats
             SQL = "Select " & DBNameSpace & ".FSFEERATES.INTYEAR  " & _
             "from " & DBNameSpace & ".FSFEERATES " & _
             "where FSFEERATES.INTYEAR = '" & feeYear & "' "
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             recExist = dr.Read
@@ -6770,9 +6770,9 @@ Public Class DEVMailoutAndStats
                 "'" & Replace(FeeDueDate, "'", "''") & "' )"
                 MsgBox("The new fee rate info has been added!", MsgBoxStyle.Information, "Mailout and Stats")
             End If
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -6791,9 +6791,9 @@ Public Class DEVMailoutAndStats
             "from " & DBNameSpace & ".FSPayAndSubmit " & _
             "order by intYear desc "
 
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -6877,9 +6877,9 @@ Public Class DEVMailoutAndStats
             "and intYear = '" & cboFeeYear.Text & "' " & _
             "and intSubmittal = '0' "
 
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -6951,9 +6951,9 @@ Public Class DEVMailoutAndStats
                 "where strAIRSNumber = '0413" & AIRSNumber & "' " & _
                 "and datFinalizedDate is not null"
 
-                cmd = New OracleCommand(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr2 = cmd.ExecuteReader
                 While dr2.Read
@@ -6979,9 +6979,9 @@ Public Class DEVMailoutAndStats
                     "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber (+) " & _
                     "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = '" & LastApp & "' "
 
-                    cmd = New OracleCommand(SQL, DBConn)
-                    If DBConn.State = ConnectionState.Closed Then
-                        DBConn.Open()
+                    cmd = New OracleCommand(SQL, Conn)
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
                     dr2 = cmd.ExecuteReader
                     While dr2.Read
@@ -7016,9 +7016,9 @@ Public Class DEVMailoutAndStats
                 "from " & DBNameSpace & ".SSPPApplicationMaster " & _
                 "where datfinalizedDate Is null " & _
                 "and strAIRSNumber = '0413" & AIRSNumber & "' "
-                cmd = New OracleCommand(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr2 = cmd.ExecuteReader
                 PendingApp = "No"
@@ -7036,7 +7036,7 @@ Public Class DEVMailoutAndStats
                 "from AIRBranch.SSCPItemMaster " & _
                 "where strAIRSNumber = '0413" & AIRSNumber & "' "
 
-                cmd = New OracleCommand(SQL, DBConn)
+                cmd = New OracleCommand(SQL, Conn)
                 dr2 = cmd.ExecuteReader
                 While dr2.Read
                     If IsDBNull(dr2.Item("MaxDate")) Then
@@ -7054,7 +7054,7 @@ Public Class DEVMailoutAndStats
                 "where " & DBNameSpace & ".SSCPFCEMaster.strFCENumber = " & DBNameSpace & ".SSCPFCE.strFCENumber " & _
                 "and strAIRSnumber = '0413" & AIRSNumber & "' "
 
-                cmd = New OracleCommand(SQL, DBConn)
+                cmd = New OracleCommand(SQL, Conn)
                 dr2 = cmd.ExecuteReader
                 While dr2.Read
                     If IsDBNull(dr2.Item("MaxDate")) Then
@@ -7078,7 +7078,7 @@ Public Class DEVMailoutAndStats
                 "from AIRBranch.SSCP_AuditedEnforcement " & _
                 "where strAIRSnumber = '0413" & AIRSNumber & "'"
 
-                cmd = New OracleCommand(SQL, DBConn)
+                cmd = New OracleCommand(SQL, Conn)
                 dr2 = cmd.ExecuteReader
                 While dr2.Read
                     If IsDBNull(dr2.Item("MaxDate")) Then
@@ -7107,9 +7107,9 @@ Public Class DEVMailoutAndStats
                         "and datCompleteDate = (select max(datCompleteDate) from " & DBNameSpace & ".SSCPItemMaster " & _
                         "where strAIRSNumber = '0413" & AIRSNumber & "') "
 
-                        cmd = New OracleCommand(SQL, DBConn)
-                        If DBConn.State = ConnectionState.Closed Then
-                            DBConn.Open()
+                        cmd = New OracleCommand(SQL, Conn)
+                        If Conn.State = ConnectionState.Closed Then
+                            Conn.Open()
                         End If
                         dr2 = cmd.ExecuteReader
                         While dr2.Read
@@ -7141,9 +7141,9 @@ Public Class DEVMailoutAndStats
                         "where " & DBNameSpace & ".SSCPFCEMaster.strFCENumber = " & DBNameSpace & ".SSCPFCE.strFCENumber " & _
                         "and strAIRSnumber = '0413" & AIRSNumber & "') "
 
-                        cmd = New OracleCommand(SQL, DBConn)
-                        If DBConn.State = ConnectionState.Closed Then
-                            DBConn.Open()
+                        cmd = New OracleCommand(SQL, Conn)
+                        If Conn.State = ConnectionState.Closed Then
+                            Conn.Open()
                         End If
                         dr2 = cmd.ExecuteReader
                         While dr2.Read
@@ -7169,9 +7169,9 @@ Public Class DEVMailoutAndStats
                         "from " & DBNameSpace & ".SSCP_AuditedEnforcement " & _
                         "where strairsnumber = '0413" & AIRSNumber & "') "
 
-                        cmd = New OracleCommand(SQL, DBConn)
-                        If DBConn.State = ConnectionState.Closed Then
-                            DBConn.Open()
+                        cmd = New OracleCommand(SQL, Conn)
+                        If Conn.State = ConnectionState.Closed Then
+                            Conn.Open()
                         End If
                         dr2 = cmd.ExecuteReader
                         While dr2.Read
@@ -7236,9 +7236,9 @@ Public Class DEVMailoutAndStats
             "and intSubmittal = '0' "
 
             ds = New DataSet
-            da = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            da = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             da.Fill(ds, "LateFeeReport")
 
@@ -7313,9 +7313,9 @@ Public Class DEVMailoutAndStats
                 "order by AIRSNumber "
 
                 ds = New DataSet
-                da = New OracleDataAdapter(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                da = New OracleDataAdapter(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 da.Fill(ds, "LateFeeReport")
 
@@ -7380,9 +7380,9 @@ Public Class DEVMailoutAndStats
                 "order by AIRSNumber "
 
                 ds = New DataSet
-                da = New OracleDataAdapter(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                da = New OracleDataAdapter(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 da.Fill(ds, "LateFeeReport")
 
@@ -7438,9 +7438,9 @@ Public Class DEVMailoutAndStats
                         "where strAIRSnumber = '0413" & AIRSNumber & "' " & _
                         "and intYear = '" & cboFeeYear.Text & "' "
 
-                        cmd = New OracleCommand(SQL, DBConn)
-                        If DBConn.State = ConnectionState.Connecting Then
-                            DBConn.Close()
+                        cmd = New OracleCommand(SQL, Conn)
+                        If Conn.State = ConnectionState.Connecting Then
+                            Conn.Close()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Close()
@@ -7452,9 +7452,9 @@ Public Class DEVMailoutAndStats
                         "from " & DBNameSpace & ".FSCalculations " & _
                         "where strAIRSNumber = '0413" & AIRSNumber & "' " & _
                         "and intYear = '" & cboFeeYear.Text & "' "
-                        cmd = New OracleCommand(SQL, DBConn)
-                        If DBConn.State = ConnectionState.Closed Then
-                            DBConn.Open()
+                        cmd = New OracleCommand(SQL, Conn)
+                        If Conn.State = ConnectionState.Closed Then
+                            Conn.Open()
                         End If
                         dr = cmd.ExecuteReader
                         While dr.Read
@@ -7475,9 +7475,9 @@ Public Class DEVMailoutAndStats
                             "'', 'No', 'No', '0', " & _
                             "'', '', '', '', '', '0') "
 
-                            cmd = New OracleCommand(SQL, DBConn)
-                            If DBConn.State = ConnectionState.Closed Then
-                                DBConn.Open()
+                            cmd = New OracleCommand(SQL, Conn)
+                            If Conn.State = ConnectionState.Closed Then
+                                Conn.Open()
                             End If
                             dr = cmd.ExecuteReader
                             dr.Close()
@@ -7504,9 +7504,9 @@ Public Class DEVMailoutAndStats
             "and " & DBNameSpace & ".FeeMailOut.intYear = " & DBNameSpace & ".FSPayAndSubmit.intYear) "
 
             ds = New DataSet
-            da = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            da = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             da.Fill(ds, "LateFeeReport")
 
@@ -7582,7 +7582,7 @@ Public Class DEVMailoutAndStats
             "from AIRBranch.SSCPItemMaster " & _
             "where strAIRSNumber = '0413" & AIRSNumber & "' "
 
-            cmd = New OracleCommand(SQL, DBConn)
+            cmd = New OracleCommand(SQL, Conn)
             dr2 = cmd.ExecuteReader
             While dr2.Read
                 If IsDBNull(dr2.Item("MaxDate")) Then
@@ -7600,7 +7600,7 @@ Public Class DEVMailoutAndStats
             "where " & DBNameSpace & ".SSCPFCEMaster.strFCENumber = " & DBNameSpace & ".SSCPFCE.strFCENumber " & _
             "and strAIRSnumber = '0413" & AIRSNumber & "' "
 
-            cmd = New OracleCommand(SQL, DBConn)
+            cmd = New OracleCommand(SQL, Conn)
             dr2 = cmd.ExecuteReader
             While dr2.Read
                 If IsDBNull(dr2.Item("MaxDate")) Then
@@ -7624,7 +7624,7 @@ Public Class DEVMailoutAndStats
             "from AIRBranch.SSCP_AuditedEnforcement " & _
             "where strAIRSnumber = '0413" & AIRSNumber & "'"
 
-            cmd = New OracleCommand(SQL, DBConn)
+            cmd = New OracleCommand(SQL, Conn)
             dr2 = cmd.ExecuteReader
             While dr2.Read
                 If IsDBNull(dr2.Item("MaxDate")) Then
@@ -7653,9 +7653,9 @@ Public Class DEVMailoutAndStats
                     "and datCompleteDate = (select max(datCompleteDate) from " & DBNameSpace & ".SSCPItemMaster " & _
                     "where strAIRSNumber = '0413" & AIRSNumber & "') "
 
-                    cmd = New OracleCommand(SQL, DBConn)
-                    If DBConn.State = ConnectionState.Closed Then
-                        DBConn.Open()
+                    cmd = New OracleCommand(SQL, Conn)
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
                     dr2 = cmd.ExecuteReader
                     While dr2.Read
@@ -7688,9 +7688,9 @@ Public Class DEVMailoutAndStats
                     "where " & DBNameSpace & ".SSCPFCEMaster.strFCENumber = " & DBNameSpace & ".SSCPFCE.strFCENumber " & _
                     "and strAIRSnumber = '0413" & AIRSNumber & "') "
 
-                    cmd = New OracleCommand(SQL, DBConn)
-                    If DBConn.State = ConnectionState.Closed Then
-                        DBConn.Open()
+                    cmd = New OracleCommand(SQL, Conn)
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
                     dr2 = cmd.ExecuteReader
                     While dr2.Read
@@ -7718,9 +7718,9 @@ Public Class DEVMailoutAndStats
                     "from " & DBNameSpace & ".SSCP_AuditedEnforcement " & _
                     "where strairsnumber = '0413" & AIRSNumber & "') "
 
-                    cmd = New OracleCommand(SQL, DBConn)
-                    If DBConn.State = ConnectionState.Closed Then
-                        DBConn.Open()
+                    cmd = New OracleCommand(SQL, Conn)
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
                     dr2 = cmd.ExecuteReader
                     While dr2.Read
@@ -7752,9 +7752,9 @@ Public Class DEVMailoutAndStats
             "where strAIRSNumber = '0413" & AIRSNumber & "' " & _
             "and datFinalizedDate is not null"
 
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr2 = cmd.ExecuteReader
             While dr2.Read
@@ -7780,9 +7780,9 @@ Public Class DEVMailoutAndStats
                 "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber (+) " & _
                 "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = '" & LastApp & "' "
 
-                cmd = New OracleCommand(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr2 = cmd.ExecuteReader
                 While dr2.Read
@@ -7830,9 +7830,9 @@ Public Class DEVMailoutAndStats
             "and datfinalizedDate Is null " & _
             "and strAIRSNumber = '0413" & AIRSNumber & "' "
 
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr2 = cmd.ExecuteReader
             PendingApp = "No"
@@ -7930,9 +7930,9 @@ Public Class DEVMailoutAndStats
                         "and " & DBNameSpace & ".ISMPReportInformation.strDocumentType = " & DBNameSpace & ".ISMPDocumentType.strKey " & _
                         "and strTrackingNumber = '" & txtFeeComplianceEvent.Text & "' "
 
-                        cmd = New OracleCommand(SQL, DBConn)
-                        If DBConn.State = ConnectionState.Closed Then
-                            DBConn.Open()
+                        cmd = New OracleCommand(SQL, Conn)
+                        If Conn.State = ConnectionState.Closed Then
+                            Conn.Open()
                         End If
                         dr = cmd.ExecuteReader
                         recExist = dr.Read
@@ -8112,9 +8112,9 @@ Public Class DEVMailoutAndStats
             "order by ReasonID "
 
             ds = New DataSet
-            da = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            da = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             da.Fill(ds, "NSPSExemptions")
             dgvNSPSExemptions.DataSource = ds
@@ -8178,9 +8178,9 @@ Public Class DEVMailoutAndStats
             "from " & DBNameSpace & ".FSNSPSReasonYear " & _
             "order by intYear desc "
 
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -8240,9 +8240,9 @@ Public Class DEVMailoutAndStats
             "((select (max(reasonID) + 1) from " & DBNameSpace & ".FSNSPSReason), " & _
             "'" & Replace(txtNSPSExemption.Text, "'", "''") & "') "
 
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -8285,9 +8285,9 @@ Public Class DEVMailoutAndStats
                 "strNSPSReason " & _
                 "from " & DBNameSpace & ".FSCalculations " & _
                 "where strNSPSReason = '" & txtDeleteNSPSExemptions.Text & "' "
-                cmd = New OracleCommand(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -8297,18 +8297,18 @@ Public Class DEVMailoutAndStats
                 Else
                     SQL = "Delete " & DBNameSpace & ".FSNSPSReasonYear " & _
                     "where ReasonID = '" & txtDeleteNSPSExemptions.Text & "' "
-                    cmd = New OracleCommand(SQL, DBConn)
-                    If DBConn.State = ConnectionState.Closed Then
-                        DBConn.Open()
+                    cmd = New OracleCommand(SQL, Conn)
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
 
                     SQL = "Delete " & DBNameSpace & ".FSNSPSReason " & _
                     "where ReasonID = '" & txtDeleteNSPSExemptions.Text & "' "
-                    cmd = New OracleCommand(SQL, DBConn)
-                    If DBConn.State = ConnectionState.Closed Then
-                        DBConn.Open()
+                    cmd = New OracleCommand(SQL, Conn)
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
@@ -8346,9 +8346,9 @@ Public Class DEVMailoutAndStats
             "where intYear = '" & cboNSPSExemptionYear.Text & "' " & _
             "order by ReasonID "
 
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -8419,11 +8419,11 @@ Public Class DEVMailoutAndStats
              "and intyear = '" & cboNSPSExemptionYear.Text & "' "
 
             ds = New DataSet
-            da = New OracleDataAdapter(SQL, DBConn)
+            da = New OracleDataAdapter(SQL, Conn)
             'Dim bsource As BindingSource = New BindingSource()
             '  Dim cmdBuilder As OracleCommandBuilder = New OracleCommandBuilder(da)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             da.Fill(ds, "NSPSExemptionsYear")
             'bsource.DataSource = ds.Tables("NSPSExemptionsYear")
@@ -8463,9 +8463,9 @@ Public Class DEVMailoutAndStats
                 "from " & DBNameSpace & ".FSNSPSReasonYear " & _
                 "where intYear = '" & cboNSPSExemptionYear.Text & "' " & _
                 "and ReasonID = '" & cboNSPSExemptions.SelectedValue & "' "
-                cmd = New OracleCommand(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -8475,9 +8475,9 @@ Public Class DEVMailoutAndStats
                     "values " & _
                     "('" & cboNSPSExemptionYear.Text & "', '" & cboNSPSExemptions.SelectedValue & "', " & _
                     "'" & (dgvNSPSExemptionsByYear.RowCount + 1) & "') "
-                    cmd = New OracleCommand(SQL, DBConn)
-                    If DBConn.State = ConnectionState.Closed Then
-                        DBConn.Open()
+                    cmd = New OracleCommand(SQL, Conn)
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
@@ -8542,9 +8542,9 @@ Public Class DEVMailoutAndStats
             "from " & DBNameSpace & ".FSNSPSReasonYear " & _
             "where intyear = '" & cboNSPSExemptionYear.Text & "' "
 
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -8566,9 +8566,9 @@ Public Class DEVMailoutAndStats
                 "from " & DBNameSpace & ".FSNSPSReasonYear " & _
                 "where intYear = '" & cboNSPSExemptionYear.Text & "' " & _
                 "and ReasonID = '" & ReasonID & "' "
-                cmd = New OracleCommand(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 temp = ""
@@ -8588,9 +8588,9 @@ Public Class DEVMailoutAndStats
                             "values " & _
                             "('" & cboNSPSExemptionYear.Text & "', '" & ReasonID & "', " & _
                             "'" & Order & "') "
-                            cmd = New OracleCommand(SQL, DBConn)
-                            If DBConn.State = ConnectionState.Closed Then
-                                DBConn.Open()
+                            cmd = New OracleCommand(SQL, Conn)
+                            If Conn.State = ConnectionState.Closed Then
+                                Conn.Open()
                             End If
                             dr = cmd.ExecuteReader
                             dr.Close()
@@ -8599,9 +8599,9 @@ Public Class DEVMailoutAndStats
                             "displayorder = '" & Order & "' " & _
                             "where intYear = '" & cboNSPSExemptionYear.Text & "' " & _
                             "and ReasonID = '" & ReasonID & "' "
-                            cmd = New OracleCommand(SQL, DBConn)
-                            If DBConn.State = ConnectionState.Closed Then
-                                DBConn.Open()
+                            cmd = New OracleCommand(SQL, Conn)
+                            If Conn.State = ConnectionState.Closed Then
+                                Conn.Open()
                             End If
                             dr = cmd.ExecuteReader
                             dr.Close()
@@ -8610,9 +8610,9 @@ Public Class DEVMailoutAndStats
                           "displayorder = '" & Order & "' " & _
                           "where intYear = '" & cboNSPSExemptionYear.Text & "' " & _
                           "and ReasonID = '" & ReasonID & "' "
-                            cmd = New OracleCommand(SQL, DBConn)
-                            If DBConn.State = ConnectionState.Closed Then
-                                DBConn.Open()
+                            cmd = New OracleCommand(SQL, Conn)
+                            If Conn.State = ConnectionState.Closed Then
+                                Conn.Open()
                             End If
                             dr = cmd.ExecuteReader
                             dr.Close()
@@ -8629,9 +8629,9 @@ Public Class DEVMailoutAndStats
                     SQL = "Delete " & DBNameSpace & ".FSNSPSReasonYear " & _
                     "where intyear = '" & cboNSPSExemptionYear.Text & "' " & _
                     "and ReasonID = '" & ReasonID & "' "
-                    cmd = New OracleCommand(SQL, DBConn)
-                    If DBConn.State = ConnectionState.Closed Then
-                        DBConn.Open()
+                    cmd = New OracleCommand(SQL, Conn)
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
@@ -8677,9 +8677,9 @@ Public Class DEVMailoutAndStats
                 "where intYear = '" & dgvNSPSExemptionsByYear(0, dgvNSPSExemptionsByYear.CurrentRow.Index).Value & "' " & _
                 "and (strNSPSReason like '%" & ReasonID & ",' or strNSPSReason = '" & ReasonID & "' or strNSPSReason like '%," & ReasonID & "') "
 
-                cmd = New OracleCommand(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -8718,9 +8718,9 @@ Public Class DEVMailoutAndStats
                     "where intYear = '" & dgvNSPSExemptionsByYear(0, dgvNSPSExemptionsByYear.CurrentRow.Index).Value & "' " & _
                     "and (strNSPSReason like '%" & ReasonID & ",' or strNSPSReason = '" & ReasonID & "' or strNSPSReason like '%," & ReasonID & "') "
 
-                    cmd = New OracleCommand(SQL, DBConn)
-                    If DBConn.State = ConnectionState.Closed Then
-                        DBConn.Open()
+                    cmd = New OracleCommand(SQL, Conn)
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     recExist = dr.Read
@@ -8791,9 +8791,9 @@ Public Class DEVMailoutAndStats
             "and datPaydate between '" & StartDate & "' and '" & EndDate & "' "
 
             ds = New DataSet
-            da = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            da = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
 
             da.Fill(ds, "PaymentDue")

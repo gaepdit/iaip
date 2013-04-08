@@ -72,9 +72,9 @@ Public Class IAIPNavigation
                 SQL2 = "Select strProgramDesc " & _
                 "from AIRBranch.LookUpEPDPrograms " & _
                 "where numProgramCode = '" & WorkProgram & "' "
-                cmd2 = New OracleCommand(SQL2, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd2 = New OracleCommand(SQL2, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr2 = cmd2.ExecuteReader
                 While dr2.Read
@@ -242,9 +242,9 @@ Public Class IAIPNavigation
 
         If SQL <> "" Then
             dsOpenWork = New DataSet
-            daOpenWork = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            daOpenWork = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             daOpenWork.Fill(dsOpenWork, "OpenWork")
             dgvWorkViewer.DataSource = dsOpenWork
@@ -346,9 +346,9 @@ Public Class IAIPNavigation
 
         If SQL <> "" Then
             dsOpenWork = New DataSet
-            daOpenWork = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            daOpenWork = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             daOpenWork.Fill(dsOpenWork, "OpenWork")
             dgvWorkViewer.DataSource = dsOpenWork
@@ -1203,10 +1203,10 @@ Public Class IAIPNavigation
             End Select
 
             dsOpenWork = New DataSet
-            daOpenWork = New OracleDataAdapter(SQL, DBConn)
+            daOpenWork = New OracleDataAdapter(SQL, Conn)
             If SQL <> "" Then
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 daOpenWork.Fill(dsOpenWork, "OpenWork")
             End If
@@ -1433,10 +1433,10 @@ Public Class IAIPNavigation
             End Select
 
             dsOpenWork = New DataSet
-            daOpenWork = New OracleDataAdapter(SQL, DBConn)
+            daOpenWork = New OracleDataAdapter(SQL, Conn)
             If SQL <> "" Then
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 daOpenWork.Fill(dsOpenWork, "OpenWork")
             End If
@@ -1751,10 +1751,10 @@ Public Class IAIPNavigation
             End Select
 
             dsOpenWork = New DataSet
-            daOpenWork = New OracleDataAdapter(SQL, DBConn)
+            daOpenWork = New OracleDataAdapter(SQL, Conn)
             If SQL <> "" Then
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 daOpenWork.Fill(dsOpenWork, "OpenWork")
             End If
@@ -1918,10 +1918,10 @@ Public Class IAIPNavigation
             End Select
 
             dsOpenWork = New DataSet
-            daOpenWork = New OracleDataAdapter(SQL, DBConn)
+            daOpenWork = New OracleDataAdapter(SQL, Conn)
             If SQL <> "" Then
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 daOpenWork.Fill(dsOpenWork, "OpenWork")
             End If
@@ -1938,9 +1938,9 @@ Public Class IAIPNavigation
                 SQL = "select strApplicationNumber " & _
                 "from AIRBranch.SSPPApplicationMaster " & _
                 "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
-                cmd = New OracleCommand(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -2001,9 +2001,9 @@ Public Class IAIPNavigation
                     "from AIRBranch.ISMPDocumentType, AIRBranch.ISMPReportInformation " & _
                     "where AIRBranch.ISMPReportInformation.strDocumentType = AIRBranch.ISMPDocumentType.strKey and " & _
                     "strReferenceNumber = '" & txtReferenceNumber.Text & "'"
-                    cmd = New OracleCommand(SQL, DBConn)
-                    If DBConn.State = ConnectionState.Closed Then
-                        DBConn.Open()
+                    cmd = New OracleCommand(SQL, Conn)
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     recExist = dr.Read
@@ -2018,9 +2018,9 @@ Public Class IAIPNavigation
                     SQL = "Select strClosed " & _
                     "from AIRBranch.ISMPReportInformation " & _
                     "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
-                    cmd = New OracleCommand(SQL, DBConn)
-                    If DBConn.State = ConnectionState.Closed Then
-                        DBConn.Open()
+                    cmd = New OracleCommand(SQL, Conn)
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     While dr.Read
@@ -2051,9 +2051,9 @@ Public Class IAIPNavigation
                 "from AIRBranch.SSCP_AuditedEnforcement " & _
                 "where strEnforcementNumber = '" & txtEnforcementNumber.Text & "' "
 
-                cmd = New OracleCommand(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -2096,9 +2096,9 @@ Public Class IAIPNavigation
                 "strTrackingNumber " & _
                 "from AIRBranch.SSCPItemMaster " & _
                 "where strTrackingNumber = '" & txtTrackingNumber.Text & "' "
-                cmd = New OracleCommand(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -2116,9 +2116,9 @@ Public Class IAIPNavigation
                     "and AIRBranch.ISMPReportInformation.strDocumentType = AIRBranch.ISMPDocumentType.strKey " & _
                     "and strTrackingNumber = '" & txtTrackingNumber.Text & "' "
 
-                    cmd = New OracleCommand(SQL, DBConn)
-                    If DBConn.State = ConnectionState.Closed Then
-                        DBConn.Open()
+                    cmd = New OracleCommand(SQL, Conn)
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     recExist = dr.Read
@@ -2171,9 +2171,9 @@ Public Class IAIPNavigation
                 "where strAIRSnumber = '0413" & txtAIRSNumber.Text & "' "
 
 
-                cmd = New OracleCommand(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
 
                 dr = cmd.ExecuteReader
@@ -2628,7 +2628,7 @@ Public Class IAIPNavigation
             writer.WriteLine(DefaultsText)
             writer.Close()
 
-            DBConn.Dispose()
+            Conn.Dispose()
             End
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -2661,7 +2661,7 @@ Public Class IAIPNavigation
         writer.WriteLine(DefaultsText)
         writer.Close()
 
-        DBConn.Dispose()
+        Conn.Dispose()
         End
     End Sub
 
@@ -3342,9 +3342,9 @@ Public Class IAIPNavigation
                     "From AIRBranch.LookUpIAIPAccounts " & _
                     "where numAccountCode = '" & Mid(AccountTemp, 2, (AccountTemp.IndexOf(")") - 1)) & "' "
 
-                    cmd = New OracleCommand(SQL, DBConn)
-                    If DBConn.State = ConnectionState.Closed Then
-                        DBConn.Open()
+                    cmd = New OracleCommand(SQL, Conn)
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     While dr.Read
@@ -7919,18 +7919,18 @@ Public Class IAIPNavigation
                     End If
 
                     dsOpenWork = New DataSet
-                    daOpenWork = New OracleDataAdapter(SQL, DBConn)
+                    daOpenWork = New OracleDataAdapter(SQL, Conn)
                     If SQL <> "" Then
-                        If DBConn.State = ConnectionState.Closed Then
-                            DBConn.Open()
+                        If Conn.State = ConnectionState.Closed Then
+                            Conn.Open()
                         End If
                         daOpenWork.Fill(dsOpenWork, "OpenWork")
                     End If
 
                     dsOpenWork = New DataSet
-                    daOpenWork = New OracleDataAdapter(SQL, DBConn)
-                    If DBConn.State = ConnectionState.Closed Then
-                        DBConn.Open()
+                    daOpenWork = New OracleDataAdapter(SQL, Conn)
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
                     daOpenWork.Fill(dsOpenWork, "OpenWork")
                     dgvWorkViewer.DataSource = dsOpenWork
@@ -8070,18 +8070,18 @@ Public Class IAIPNavigation
                     End If
 
                     dsOpenWork = New DataSet
-                    daOpenWork = New OracleDataAdapter(SQL, DBConn)
+                    daOpenWork = New OracleDataAdapter(SQL, Conn)
                     If SQL <> "" Then
-                        If DBConn.State = ConnectionState.Closed Then
-                            DBConn.Open()
+                        If Conn.State = ConnectionState.Closed Then
+                            Conn.Open()
                         End If
                         daOpenWork.Fill(dsOpenWork, "OpenWork")
                     End If
 
                     dsOpenWork = New DataSet
-                    daOpenWork = New OracleDataAdapter(SQL, DBConn)
-                    If DBConn.State = ConnectionState.Closed Then
-                        DBConn.Open()
+                    daOpenWork = New OracleDataAdapter(SQL, Conn)
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
                     daOpenWork.Fill(dsOpenWork, "OpenWork")
                     dgvWorkViewer.DataSource = dsOpenWork
@@ -8127,10 +8127,10 @@ Public Class IAIPNavigation
 
                     If SQL <> "" Then
                         dsOpenWork = New DataSet
-                        daOpenWork = New OracleDataAdapter(SQL, DBConn)
+                        daOpenWork = New OracleDataAdapter(SQL, Conn)
 
-                        If DBConn.State = ConnectionState.Closed Then
-                            DBConn.Open()
+                        If Conn.State = ConnectionState.Closed Then
+                            Conn.Open()
                         End If
 
                         daOpenWork.Fill(dsOpenWork, "OpenWork")
@@ -8334,10 +8334,10 @@ Public Class IAIPNavigation
                     SQL = SQL & "order by strENforcementNumber DESC  "
 
                     dsOpenWork = New DataSet
-                    daOpenWork = New OracleDataAdapter(SQL, DBConn)
+                    daOpenWork = New OracleDataAdapter(SQL, Conn)
                     If SQL <> "" Then
-                        If DBConn.State = ConnectionState.Closed Then
-                            DBConn.Open()
+                        If Conn.State = ConnectionState.Closed Then
+                            Conn.Open()
                         End If
                         daOpenWork.Fill(dsOpenWork, "OpenWork")
                     End If
@@ -8397,10 +8397,10 @@ Public Class IAIPNavigation
                    "order by AIRSNumber "
 
                     dsOpenWork = New DataSet
-                    daOpenWork = New OracleDataAdapter(SQL, DBConn)
+                    daOpenWork = New OracleDataAdapter(SQL, Conn)
                     If SQL <> "" Then
-                        If DBConn.State = ConnectionState.Closed Then
-                            DBConn.Open()
+                        If Conn.State = ConnectionState.Closed Then
+                            Conn.Open()
                         End If
                         daOpenWork.Fill(dsOpenWork, "OpenWork")
                     End If
@@ -8446,10 +8446,10 @@ Public Class IAIPNavigation
                     "order by AIRSNumber "
 
                     dsOpenWork = New DataSet
-                    daOpenWork = New OracleDataAdapter(SQL, DBConn)
+                    daOpenWork = New OracleDataAdapter(SQL, Conn)
                     If SQL <> "" Then
-                        If DBConn.State = ConnectionState.Closed Then
-                            DBConn.Open()
+                        If Conn.State = ConnectionState.Closed Then
+                            Conn.Open()
                         End If
                         daOpenWork.Fill(dsOpenWork, "OpenWork")
                     End If
@@ -8505,10 +8505,10 @@ Public Class IAIPNavigation
                     End If
 
                     dsOpenWork = New DataSet
-                    daOpenWork = New OracleDataAdapter(SQL, DBConn)
+                    daOpenWork = New OracleDataAdapter(SQL, Conn)
                     If SQL <> "" Then
-                        If DBConn.State = ConnectionState.Closed Then
-                            DBConn.Open()
+                        If Conn.State = ConnectionState.Closed Then
+                            Conn.Open()
                         End If
                         daOpenWork.Fill(dsOpenWork, "OpenWork")
                     End If
@@ -8636,10 +8636,10 @@ Public Class IAIPNavigation
                     End If
 
                     dsOpenWork = New DataSet
-                    daOpenWork = New OracleDataAdapter(SQL, DBConn)
+                    daOpenWork = New OracleDataAdapter(SQL, Conn)
                     If SQL <> "" Then
-                        If DBConn.State = ConnectionState.Closed Then
-                            DBConn.Open()
+                        If Conn.State = ConnectionState.Closed Then
+                            Conn.Open()
                         End If
                         daOpenWork.Fill(dsOpenWork, "OpenWork")
                     End If
@@ -8992,10 +8992,10 @@ Public Class IAIPNavigation
                     SQL = SQL & "order by AIRBranch.SSPPApplicationMaster.strApplicationNumber DESC  "
 
                     dsOpenWork = New DataSet
-                    daOpenWork = New OracleDataAdapter(SQL, DBConn)
+                    daOpenWork = New OracleDataAdapter(SQL, Conn)
                     If SQL <> "" Then
-                        If DBConn.State = ConnectionState.Closed Then
-                            DBConn.Open()
+                        If Conn.State = ConnectionState.Closed Then
+                            Conn.Open()
                         End If
                         daOpenWork.Fill(dsOpenWork, "OpenWork")
                     End If

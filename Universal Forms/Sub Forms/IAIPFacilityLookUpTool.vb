@@ -166,12 +166,12 @@ Public Class IAIPFacilityLookUpTool
 
                 Case "Compliance"
                     ' SQL = "Select  " & _
-                    '"strFacilityName, substr(" & connNameSpace & ".APBFacilityInformation.strAIRSNumber, 5) as shortAIRS,   " & _
+                    '"strFacilityName, substr(" & DBNameSpace & ".APBFacilityInformation.strAIRSNumber, 5) as shortAIRS,   " & _
                     '"strFacilityCity,   " & _
                     '"strFacilityStreet1, (strLastName||', '||strFirstname) as Engineer    " & _
-                    '"from " & connNameSpace & ".APBFacilityInformation, " & connNameSpace & ".SSCPFacilityAssignment, " & connNameSpace & ".EPDUserProfiles   " & _
-                    '"where " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".SSCPFacilityAssignment.strAIRSNumber   " & _
-                    '"and " & connNameSpace & ".SSCPFacilityAssignment.strSSCPEngineer = " & connNameSpace & ".EPDUserProfiles.numUserID   " & _
+                    '"from " & DBNameSpace & ".APBFacilityInformation, " & DBNameSpace & ".SSCPFacilityAssignment, " & DBNameSpace & ".EPDUserProfiles   " & _
+                    '"where " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".SSCPFacilityAssignment.strAIRSNumber   " & _
+                    '"and " & DBNameSpace & ".SSCPFacilityAssignment.strSSCPEngineer = " & DBNameSpace & ".EPDUserProfiles.numUserID   " & _
                     '"and Upper(strLastName||', '||strFirstName) like Upper('%" & Replace(txtComplianceEngineer.Text, "'", "''") & "%')  "
 
                     SQL = "Select  " & _
@@ -191,9 +191,9 @@ Public Class IAIPFacilityLookUpTool
             End Select
             If SQL <> "" Then
                 dsSearch = New DataSet
-                daSearch = New OracleDataAdapter(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                daSearch = New OracleDataAdapter(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
 
                 daSearch.Fill(dsSearch, "FacSearch")
@@ -447,7 +447,7 @@ Public Class IAIPFacilityLookUpTool
 
     End Sub
     Private Sub mmiExit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiExit.Click
-        DBConn.Dispose()
+        Conn.Dispose()
         End
 
     End Sub

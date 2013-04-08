@@ -61,7 +61,7 @@ Public Class IAIPListTool
             "and " & DBNameSpace & ".lookupepdprograms.numprogramcode = " & DBNameSpace & ".lookupepdunits.numprogramcode (+) " & _
             "order by strbranchdesc, strProgramDesc, strUnitDesc "
 
-            daOrginizations = New OracleDataAdapter(SQL, DBConn)
+            daOrginizations = New OracleDataAdapter(SQL, Conn)
 
             SQL = "Select " & _
             "numAccountCode, strAccountDesc, " & _
@@ -70,10 +70,10 @@ Public Class IAIPListTool
             "from " & DBNameSpace & ".LookUpIAIPAccounts " & _
             "order by strAccountDesc "
 
-            daAccounts = New OracleDataAdapter(SQL, DBConn)
+            daAccounts = New OracleDataAdapter(SQL, Conn)
 
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             daOrginizations.Fill(dsOrginizations, "Orginization")
             daAccounts.Fill(dsAccounts, "Accounts")
@@ -92,9 +92,9 @@ Public Class IAIPListTool
             "order by strBranchDesc "
 
             dsBranch = New DataSet
-            daBranch = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            daBranch = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             daBranch.Fill(dsBranch, "Branches")
 
@@ -170,9 +170,9 @@ Public Class IAIPListTool
             "from " & DBNameSpace & ".LookUpIAIPForms "
 
             dsForms = New DataSet
-            daForms = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            daForms = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             daForms.Fill(dsForms, "Forms")
 
@@ -311,9 +311,9 @@ Public Class IAIPListTool
             "order by strProgramDesc "
 
             dsProgram = New DataSet
-            daProgram = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            daProgram = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             daProgram.Fill(dsProgram, "Programs")
 
@@ -355,9 +355,9 @@ Public Class IAIPListTool
             "order by strAccountDesc "
 
             dsAccount = New DataSet
-            daAccount = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            daAccount = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             daAccount.Fill(dsAccount, "Accounts")
 
@@ -415,9 +415,9 @@ Public Class IAIPListTool
             "order by strUnitDesc "
 
             dsUnit = New DataSet
-            daUnit = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            daUnit = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             daUnit.Fill(dsUnit, "Units")
 
@@ -458,9 +458,9 @@ Public Class IAIPListTool
             "order by strAccountDesc "
 
             dsAccount = New DataSet
-            daAccount = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            daAccount = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             daAccount.Fill(dsAccount, "Accounts")
 
@@ -520,9 +520,9 @@ Public Class IAIPListTool
             "order by strAccountDesc "
 
             dsAccount = New DataSet
-            daAccount = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            daAccount = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             daAccount.Fill(dsAccount, "Accounts")
 
@@ -782,9 +782,9 @@ Public Class IAIPListTool
 
             If SQLLine <> "" Then
                 SQL = SQL & SQLLine
-                cmd = New OracleCommand(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -820,9 +820,9 @@ Public Class IAIPListTool
             "strFormAccess " & _
             "from " & DBNameSpace & ".LookUpIAIPAccounts " & _
             "where numAccountCode = '" & temp & "' "
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -1064,17 +1064,17 @@ Public Class IAIPListTool
             "((select max(numBranchCode) + 1 from " & DBNameSpace & ".LookUpEPDBranches), " & _
             "'" & Replace(txtBranch.Text, "'", "''") & "') "
 
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
 
             SQL = "Select max(numBranchCode) from " & DBNameSpace & ".LookUpEPDBranches "
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -1094,9 +1094,9 @@ Public Class IAIPListTool
                 SQL = "Update " & DBNameSpace & ".LookUpEPDBranches set " & _
                 "strBranchDesc = '" & Replace(txtBranch.Text, "'", "''") & "' " & _
                 "where numBranchCode = '" & txtBranchCode.Text & "' "
-                cmd = New OracleCommand(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -1114,9 +1114,9 @@ Public Class IAIPListTool
             If txtBranchCode.Text <> "" Then
                 SQL = "Delete " & DBNameSpace & ".LookUpEPDBranches " & _
                 "where numBranchCode = '" & txtBranchCode.Text & "' "
-                cmd = New OracleCommand(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -1141,17 +1141,17 @@ Public Class IAIPListTool
                 "'" & Replace(txtProgram.Text, "'", "''") & "', " & _
                 "'" & txtBranchCode.Text & "') "
 
-                cmd = New OracleCommand(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
 
                 SQL = "select max(numProgramCode) from " & DBNameSpace & ".LookUpEPDPrograms where numProgramCode < 99 "
-                cmd = New OracleCommand(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -1176,9 +1176,9 @@ Public Class IAIPListTool
                 "numBranchCode = '" & txtBranchCode.Text & "' " & _
                 "where numProgramCode = '" & txtProgramCode.Text & "' "
 
-                cmd = New OracleCommand(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -1195,9 +1195,9 @@ Public Class IAIPListTool
         Try
             SQL = "Delete " & DBNameSpace & ".LookUpEPDPrograms " & _
             "where numProgramCode = '" & txtProgramCode.Text & "' "
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -1221,17 +1221,17 @@ Public Class IAIPListTool
                 "((select max(numUnitCode) + 1 From AIRBranch.LookUpEPDUnits), '" & Replace(txtUnit.Text, "'", "''") & "',  " & _
                 "'" & Replace(txtProgramCode.Text, "'", "''") & "') "
 
-                cmd = New OracleCommand(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
 
                 SQL = "select max(numUnitCode) from " & DBNameSpace & ".LookUpEPDUnits "
-                cmd = New OracleCommand(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -1254,9 +1254,9 @@ Public Class IAIPListTool
                 "strUnitDesc = '" & txtUnit.Text & "' " & _
                 "where numUnitCode = '" & txtUnitCode.Text & "' "
 
-                cmd = New OracleCommand(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -1274,9 +1274,9 @@ Public Class IAIPListTool
             SQL = "Delete " & DBNameSpace & ".LookUpEPDUnits " & _
             "where numUnitCode = '" & txtUnitCode.Text & "' "
 
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -1299,9 +1299,9 @@ Public Class IAIPListTool
             "'" & txtAccount.Text & "', " & _
             "'" & txtBranchCode.Text & "', '" & txtProgramCode.Text & "', " & _
             "'" & txtUnitCode.Text & "', '') "
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -1309,9 +1309,9 @@ Public Class IAIPListTool
             SQL = "Select max(numAccountCode) as MaxAccount " & _
             "from " & DBNameSpace & ".LookUpIAIPAccounts "
 
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -1335,9 +1335,9 @@ Public Class IAIPListTool
                 "numUnitCode = '" & txtUnitCode.Text & "' " & _
                 "where numAccountCode = '" & txtAccountCode.Text & "' "
 
-                cmd = New OracleCommand(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -1354,9 +1354,9 @@ Public Class IAIPListTool
         Try
             SQL = "Delete " & DBNameSpace & ".LookUpIAIPAccounts " & _
             "where numAccountCode = '" & txtAccountCode.Text & "' "
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()

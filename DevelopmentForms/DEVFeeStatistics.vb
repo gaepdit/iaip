@@ -84,9 +84,9 @@ Public Class DEVFeeStatistics
             "from " & DBNameSpace & ".FS_Admin " & _
             "order by numFeeYear desc "
 
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -118,9 +118,9 @@ Public Class DEVFeeStatistics
             "where Active = '1' " & _
             "order by numPaytypeID "
 
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -176,10 +176,10 @@ Public Class DEVFeeStatistics
                     "and Active = '1' "
 
                     'SQLPaidInvoiced = "select sum(numPayment) as TotalInvoicedPaid " & _
-                    '"from " & connNameSpace & ".FS_Transactions, " & connNameSpace & ".FS_FeeInvoice " & _
-                    '"where " & connNameSpace & ".FS_Transactions.InvoiceID = " & connNameSpace & ".FS_FeeInvoice.invoiceID " & _
-                    '"and " & connNameSpace & ".FS_Transactions.nuMFeeYEar = '" & cboStatYear.Text & "' " & _
-                    '"and " & connNameSpace & ".FS_Transactions.active = '1' "
+                    '"from " & DBNameSpace & ".FS_Transactions, " & DBNameSpace & ".FS_FeeInvoice " & _
+                    '"where " & DBNameSpace & ".FS_Transactions.InvoiceID = " & DBNameSpace & ".FS_FeeInvoice.invoiceID " & _
+                    '"and " & DBNameSpace & ".FS_Transactions.nuMFeeYEar = '" & cboStatYear.Text & "' " & _
+                    '"and " & DBNameSpace & ".FS_Transactions.active = '1' "
                 Case "ANNUAL"
                     SQLReported = "Select sum(numtotalFee) as TotalDue " & _
                     "from " & DBNameSpace & ".FS_FeeAuditedData, " & DBNameSpace & ".FS_Admin " & _
@@ -241,11 +241,11 @@ Public Class DEVFeeStatistics
                     "or " & DBNameSpace & ".FS_FeeInvoice.strPayType = '5') "
 
                     '      SQLPaidInvoiced = "select sum(numPayment) as TotalInvoicedPaid " & _
-                    '"from " & connNameSpace & ".FS_Transactions, " & connNameSpace & ".FS_FeeInvoice " & _
-                    '"where " & connNameSpace & ".FS_Transactions.InvoiceID = " & connNameSpace & ".FS_FeeInvoice.invoiceID " & _
-                    '"and " & connNameSpace & ".FS_FeeInvoice.strPayType <> '1' " & _
-                    '"and " & connNameSpace & ".FS_Transactions.nuMFeeYEar = '" & cboStatYear.Text & "' " & _
-                    '"and " & connNameSpace & ".FS_Transactions.active = '1' "
+                    '"from " & DBNameSpace & ".FS_Transactions, " & DBNameSpace & ".FS_FeeInvoice " & _
+                    '"where " & DBNameSpace & ".FS_Transactions.InvoiceID = " & DBNameSpace & ".FS_FeeInvoice.invoiceID " & _
+                    '"and " & DBNameSpace & ".FS_FeeInvoice.strPayType <> '1' " & _
+                    '"and " & DBNameSpace & ".FS_Transactions.nuMFeeYEar = '" & cboStatYear.Text & "' " & _
+                    '"and " & DBNameSpace & ".FS_Transactions.active = '1' "
                 Case "QUARTER ONE"
                     SQLReported = "Select sum(numtotalFee/4) as TotalDue " & _
                     "from " & DBNameSpace & ".FS_FeeAuditedData, " & DBNameSpace & ".FS_Admin " & _
@@ -275,11 +275,11 @@ Public Class DEVFeeStatistics
                     "and " & DBNameSpace & ".FS_Transactions.active = '1' "
 
                     '      SQLPaidInvoiced = "select sum(numPayment) as TotalInvoicedPaid " & _
-                    '"from " & connNameSpace & ".FS_Transactions, " & connNameSpace & ".FS_FeeInvoice " & _
-                    '"where " & connNameSpace & ".FS_Transactions.InvoiceID = " & connNameSpace & ".FS_FeeInvoice.invoiceID " & _
-                    '"and " & connNameSpace & ".FS_FeeInvoice.strPayType = '2' " & _
-                    '"and " & connNameSpace & ".FS_Transactions.nuMFeeYEar = '" & cboStatYear.Text & "' " & _
-                    '"and " & connNameSpace & ".FS_Transactions.active = '1' "
+                    '"from " & DBNameSpace & ".FS_Transactions, " & DBNameSpace & ".FS_FeeInvoice " & _
+                    '"where " & DBNameSpace & ".FS_Transactions.InvoiceID = " & DBNameSpace & ".FS_FeeInvoice.invoiceID " & _
+                    '"and " & DBNameSpace & ".FS_FeeInvoice.strPayType = '2' " & _
+                    '"and " & DBNameSpace & ".FS_Transactions.nuMFeeYEar = '" & cboStatYear.Text & "' " & _
+                    '"and " & DBNameSpace & ".FS_Transactions.active = '1' "
                 Case "QUARTER TWO"
                     SQLReported = "Select sum(numtotalFee/4) as TotalDue " & _
                     "from " & DBNameSpace & ".FS_FeeAuditedData, " & DBNameSpace & ".FS_Admin " & _
@@ -309,11 +309,11 @@ Public Class DEVFeeStatistics
                     "and " & DBNameSpace & ".FS_Transactions.active = '1' "
 
                     '      SQLPaidInvoiced = "select sum(numPayment) as TotalInvoicedPaid " & _
-                    '"from " & connNameSpace & ".FS_Transactions, " & connNameSpace & ".FS_FeeInvoice " & _
-                    '"where " & connNameSpace & ".FS_Transactions.InvoiceID = " & connNameSpace & ".FS_FeeInvoice.invoiceID " & _
-                    '"and " & connNameSpace & ".FS_FeeInvoice.strPayType = '3' " & _
-                    '"and " & connNameSpace & ".FS_Transactions.nuMFeeYEar = '" & cboStatYear.Text & "' " & _
-                    '"and " & connNameSpace & ".FS_Transactions.active = '1' "
+                    '"from " & DBNameSpace & ".FS_Transactions, " & DBNameSpace & ".FS_FeeInvoice " & _
+                    '"where " & DBNameSpace & ".FS_Transactions.InvoiceID = " & DBNameSpace & ".FS_FeeInvoice.invoiceID " & _
+                    '"and " & DBNameSpace & ".FS_FeeInvoice.strPayType = '3' " & _
+                    '"and " & DBNameSpace & ".FS_Transactions.nuMFeeYEar = '" & cboStatYear.Text & "' " & _
+                    '"and " & DBNameSpace & ".FS_Transactions.active = '1' "
                 Case "QUARTER THREE"
                     SQLReported = "Select sum(numtotalFee/4) as TotalDue " & _
                     "from " & DBNameSpace & ".FS_FeeAuditedData, " & DBNameSpace & ".FS_Admin " & _
@@ -343,11 +343,11 @@ Public Class DEVFeeStatistics
                     "and " & DBNameSpace & ".FS_Transactions.active = '1' "
 
                     '      SQLPaidInvoiced = "select sum(numPayment) as TotalInvoicedPaid " & _
-                    '"from " & connNameSpace & ".FS_Transactions, " & connNameSpace & ".FS_FeeInvoice " & _
-                    '"where " & connNameSpace & ".FS_Transactions.InvoiceID = " & connNameSpace & ".FS_FeeInvoice.invoiceID " & _
-                    '"and " & connNameSpace & ".FS_FeeInvoice.strPayType = '4' " & _
-                    '"and " & connNameSpace & ".FS_Transactions.nuMFeeYEar = '" & cboStatYear.Text & "' " & _
-                    '"and " & connNameSpace & ".FS_Transactions.active = '1' "
+                    '"from " & DBNameSpace & ".FS_Transactions, " & DBNameSpace & ".FS_FeeInvoice " & _
+                    '"where " & DBNameSpace & ".FS_Transactions.InvoiceID = " & DBNameSpace & ".FS_FeeInvoice.invoiceID " & _
+                    '"and " & DBNameSpace & ".FS_FeeInvoice.strPayType = '4' " & _
+                    '"and " & DBNameSpace & ".FS_Transactions.nuMFeeYEar = '" & cboStatYear.Text & "' " & _
+                    '"and " & DBNameSpace & ".FS_Transactions.active = '1' "
                 Case "QUARTER FOUR"
                     SQLReported = "Select sum(numtotalFee/4 ) as TotalDue " & _
                     "from " & DBNameSpace & ".FS_FeeAuditedData, " & DBNameSpace & ".FS_Admin  " & _
@@ -377,11 +377,11 @@ Public Class DEVFeeStatistics
                     "and " & DBNameSpace & ".FS_Transactions.active = '1' "
 
                     'SQLPaidInvoiced = "select sum(numPayment) as TotalInvoicedPaid " & _
-                    '"from " & connNameSpace & ".FS_Transactions, " & connNameSpace & ".FS_FeeInvoice " & _
-                    '"where " & connNameSpace & ".FS_Transactions.InvoiceID = " & connNameSpace & ".FS_FeeInvoice.invoiceID " & _
-                    '"and " & connNameSpace & ".FS_FeeInvoice.strPayType = '5' " & _
-                    '"and " & connNameSpace & ".FS_Transactions.nuMFeeYEar = '" & cboStatYear.Text & "' " & _
-                    '"and " & connNameSpace & ".FS_Transactions.active = '1' "
+                    '"from " & DBNameSpace & ".FS_Transactions, " & DBNameSpace & ".FS_FeeInvoice " & _
+                    '"where " & DBNameSpace & ".FS_Transactions.InvoiceID = " & DBNameSpace & ".FS_FeeInvoice.invoiceID " & _
+                    '"and " & DBNameSpace & ".FS_FeeInvoice.strPayType = '5' " & _
+                    '"and " & DBNameSpace & ".FS_Transactions.nuMFeeYEar = '" & cboStatYear.Text & "' " & _
+                    '"and " & DBNameSpace & ".FS_Transactions.active = '1' "
                 Case "AMENDMENT"
                     SQLReported = "Select sum(numtotalFee ) as TotalDue " & _
                     "from " & DBNameSpace & ".FS_FeeAuditedData, " & DBNameSpace & ".FS_Admin  " & _
@@ -448,9 +448,9 @@ Public Class DEVFeeStatistics
                     "and Active = '1' "
             End Select
             If SQLReported <> "" Then
-                cmd = New OracleCommand(SQLReported, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQLReported, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -466,9 +466,9 @@ Public Class DEVFeeStatistics
             End If
 
             If SQLInvoiced <> "" Then
-                cmd = New OracleCommand(SQLInvoiced, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQLInvoiced, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -484,9 +484,9 @@ Public Class DEVFeeStatistics
             End If
 
             If SQLPaid <> "" Then
-                cmd = New OracleCommand(SQLPaid, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQLPaid, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -618,9 +618,9 @@ Public Class DEVFeeStatistics
             End Select
 
             ds = New DataSet
-            da = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            da = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
 
             da.Fill(ds, "PaymentDue")
@@ -929,9 +929,9 @@ Public Class DEVFeeStatistics
             End Select
 
             ds = New DataSet
-            da = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            da = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
 
             da.Fill(ds, "PaymentDue")
@@ -1531,9 +1531,9 @@ Public Class DEVFeeStatistics
 
             ds = New DataSet
             If SQL <> "" Then
-                da = New OracleDataAdapter(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                da = New OracleDataAdapter(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 da.Fill(ds, "PaymentDue")
             End If
@@ -1649,9 +1649,9 @@ Public Class DEVFeeStatistics
             "where airbranch.fs_admin.numCurrentStatus = AIRbranch.FSLK_Admin_Status.ID  " & _
             "and strAIRSNumber = '0413" & txtSelectedAIRSNumber.Text & "' " & _
             "and numFeeYear = '" & txtSelectedYear.Text & "' "
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -1704,9 +1704,9 @@ Public Class DEVFeeStatistics
             "where strAIRSNumber = '0413" & txtSelectedAIRSNumber.Text & "' " & _
             "and numFeeYear = '" & txtSelectedYear.Text & "' "
 
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -1875,9 +1875,9 @@ Public Class DEVFeeStatistics
                 End If
 
                 txtNSPSExemptReason.Clear()
-                cmd = New OracleCommand(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -1910,9 +1910,9 @@ Public Class DEVFeeStatistics
             "and airbranch.FS_feeInvoice.strAIRSNumber = '0413" & txtSelectedAIRSNumber.Text & "' "
 
             ds = New DataSet
-            da = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            da = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             da.Fill(ds, "Transactions")
             dgvStats.DataSource = ds
@@ -2101,9 +2101,9 @@ Public Class DEVFeeStatistics
             "and intYear = '" & cboFeeYear.Text & "' " & _
             "and intSubmittal = '0' "
 
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -2175,9 +2175,9 @@ Public Class DEVFeeStatistics
                 "where strAIRSNumber = '0413" & AIRSNumber & "' " & _
                 "and datFinalizedDate is not null"
 
-                cmd = New OracleCommand(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr2 = cmd.ExecuteReader
                 While dr2.Read
@@ -2203,9 +2203,9 @@ Public Class DEVFeeStatistics
                     "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber (+) " & _
                     "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = '" & LastApp & "' "
 
-                    cmd = New OracleCommand(SQL, DBConn)
-                    If DBConn.State = ConnectionState.Closed Then
-                        DBConn.Open()
+                    cmd = New OracleCommand(SQL, Conn)
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
                     dr2 = cmd.ExecuteReader
                     While dr2.Read
@@ -2240,9 +2240,9 @@ Public Class DEVFeeStatistics
                 "from " & DBNameSpace & ".SSPPApplicationMaster " & _
                 "where datfinalizedDate Is null " & _
                 "and strAIRSNumber = '0413" & AIRSNumber & "' "
-                cmd = New OracleCommand(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr2 = cmd.ExecuteReader
                 PendingApp = "No"
@@ -2260,7 +2260,7 @@ Public Class DEVFeeStatistics
                 "from AIRBranch.SSCPItemMaster " & _
                 "where strAIRSNumber = '0413" & AIRSNumber & "' "
 
-                cmd = New OracleCommand(SQL, DBConn)
+                cmd = New OracleCommand(SQL, Conn)
                 dr2 = cmd.ExecuteReader
                 While dr2.Read
                     If IsDBNull(dr2.Item("MaxDate")) Then
@@ -2278,7 +2278,7 @@ Public Class DEVFeeStatistics
                 "where " & DBNameSpace & ".SSCPFCEMaster.strFCENumber = " & DBNameSpace & ".SSCPFCE.strFCENumber " & _
                 "and strAIRSnumber = '0413" & AIRSNumber & "' "
 
-                cmd = New OracleCommand(SQL, DBConn)
+                cmd = New OracleCommand(SQL, Conn)
                 dr2 = cmd.ExecuteReader
                 While dr2.Read
                     If IsDBNull(dr2.Item("MaxDate")) Then
@@ -2302,7 +2302,7 @@ Public Class DEVFeeStatistics
                 "from AIRBranch.SSCP_AuditedEnforcement " & _
                 "where strAIRSnumber = '0413" & AIRSNumber & "'"
 
-                cmd = New OracleCommand(SQL, DBConn)
+                cmd = New OracleCommand(SQL, Conn)
                 dr2 = cmd.ExecuteReader
                 While dr2.Read
                     If IsDBNull(dr2.Item("MaxDate")) Then
@@ -2331,9 +2331,9 @@ Public Class DEVFeeStatistics
                         "and datCompleteDate = (select max(datCompleteDate) from " & DBNameSpace & ".SSCPItemMaster " & _
                         "where strAIRSNumber = '0413" & AIRSNumber & "') "
 
-                        cmd = New OracleCommand(SQL, DBConn)
-                        If DBConn.State = ConnectionState.Closed Then
-                            DBConn.Open()
+                        cmd = New OracleCommand(SQL, Conn)
+                        If Conn.State = ConnectionState.Closed Then
+                            Conn.Open()
                         End If
                         dr2 = cmd.ExecuteReader
                         While dr2.Read
@@ -2365,9 +2365,9 @@ Public Class DEVFeeStatistics
                         "where " & DBNameSpace & ".SSCPFCEMaster.strFCENumber = " & DBNameSpace & ".SSCPFCE.strFCENumber " & _
                         "and strAIRSnumber = '0413" & AIRSNumber & "') "
 
-                        cmd = New OracleCommand(SQL, DBConn)
-                        If DBConn.State = ConnectionState.Closed Then
-                            DBConn.Open()
+                        cmd = New OracleCommand(SQL, Conn)
+                        If Conn.State = ConnectionState.Closed Then
+                            Conn.Open()
                         End If
                         dr2 = cmd.ExecuteReader
                         While dr2.Read
@@ -2393,9 +2393,9 @@ Public Class DEVFeeStatistics
                         "from " & DBNameSpace & ".SSCP_AuditedEnforcement " & _
                         "where strairsnumber = '0413" & AIRSNumber & "') "
 
-                        cmd = New OracleCommand(SQL, DBConn)
-                        If DBConn.State = ConnectionState.Closed Then
-                            DBConn.Open()
+                        cmd = New OracleCommand(SQL, Conn)
+                        If Conn.State = ConnectionState.Closed Then
+                            Conn.Open()
                         End If
                         dr2 = cmd.ExecuteReader
                         While dr2.Read
@@ -2460,9 +2460,9 @@ Public Class DEVFeeStatistics
             "and intSubmittal = '0' "
 
             ds = New DataSet
-            da = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            da = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             da.Fill(ds, "LateFeeReport")
 
@@ -2537,9 +2537,9 @@ Public Class DEVFeeStatistics
                 "order by AIRSNumber "
 
                 ds = New DataSet
-                da = New OracleDataAdapter(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                da = New OracleDataAdapter(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 da.Fill(ds, "LateFeeReport")
 
@@ -2604,9 +2604,9 @@ Public Class DEVFeeStatistics
                 "order by AIRSNumber "
 
                 ds = New DataSet
-                da = New OracleDataAdapter(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                da = New OracleDataAdapter(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 da.Fill(ds, "LateFeeReport")
 
@@ -2662,9 +2662,9 @@ Public Class DEVFeeStatistics
                         "where strAIRSnumber = '0413" & AIRSNumber & "' " & _
                         "and intYear = '" & cboFeeYear.Text & "' "
 
-                        cmd = New OracleCommand(SQL, DBConn)
-                        If DBConn.State = ConnectionState.Connecting Then
-                            DBConn.Close()
+                        cmd = New OracleCommand(SQL, Conn)
+                        If Conn.State = ConnectionState.Connecting Then
+                            Conn.Close()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Close()
@@ -2676,9 +2676,9 @@ Public Class DEVFeeStatistics
                         "from " & DBNameSpace & ".FSCalculations " & _
                         "where strAIRSNumber = '0413" & AIRSNumber & "' " & _
                         "and intYear = '" & cboFeeYear.Text & "' "
-                        cmd = New OracleCommand(SQL, DBConn)
-                        If DBConn.State = ConnectionState.Closed Then
-                            DBConn.Open()
+                        cmd = New OracleCommand(SQL, Conn)
+                        If Conn.State = ConnectionState.Closed Then
+                            Conn.Open()
                         End If
                         dr = cmd.ExecuteReader
                         While dr.Read
@@ -2699,9 +2699,9 @@ Public Class DEVFeeStatistics
                             "'', 'No', 'No', '0', " & _
                             "'', '', '', '', '', '0') "
 
-                            cmd = New OracleCommand(SQL, DBConn)
-                            If DBConn.State = ConnectionState.Closed Then
-                                DBConn.Open()
+                            cmd = New OracleCommand(SQL, Conn)
+                            If Conn.State = ConnectionState.Closed Then
+                                Conn.Open()
                             End If
                             dr = cmd.ExecuteReader
                             dr.Close()
@@ -2728,9 +2728,9 @@ Public Class DEVFeeStatistics
             "and " & DBNameSpace & ".FeeMailOut.intYear = " & DBNameSpace & ".FSPayAndSubmit.intYear) "
 
             ds = New DataSet
-            da = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            da = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             da.Fill(ds, "LateFeeReport")
 
@@ -2806,7 +2806,7 @@ Public Class DEVFeeStatistics
             "from AIRBranch.SSCPItemMaster " & _
             "where strAIRSNumber = '0413" & AIRSNumber & "' "
 
-            cmd = New OracleCommand(SQL, DBConn)
+            cmd = New OracleCommand(SQL, Conn)
             dr2 = cmd.ExecuteReader
             While dr2.Read
                 If IsDBNull(dr2.Item("MaxDate")) Then
@@ -2824,7 +2824,7 @@ Public Class DEVFeeStatistics
             "where " & DBNameSpace & ".SSCPFCEMaster.strFCENumber = " & DBNameSpace & ".SSCPFCE.strFCENumber " & _
             "and strAIRSnumber = '0413" & AIRSNumber & "' "
 
-            cmd = New OracleCommand(SQL, DBConn)
+            cmd = New OracleCommand(SQL, Conn)
             dr2 = cmd.ExecuteReader
             While dr2.Read
                 If IsDBNull(dr2.Item("MaxDate")) Then
@@ -2848,7 +2848,7 @@ Public Class DEVFeeStatistics
             "from AIRBranch.SSCP_AuditedEnforcement " & _
             "where strAIRSnumber = '0413" & AIRSNumber & "'"
 
-            cmd = New OracleCommand(SQL, DBConn)
+            cmd = New OracleCommand(SQL, Conn)
             dr2 = cmd.ExecuteReader
             While dr2.Read
                 If IsDBNull(dr2.Item("MaxDate")) Then
@@ -2877,9 +2877,9 @@ Public Class DEVFeeStatistics
                     "and datCompleteDate = (select max(datCompleteDate) from " & DBNameSpace & ".SSCPItemMaster " & _
                     "where strAIRSNumber = '0413" & AIRSNumber & "') "
 
-                    cmd = New OracleCommand(SQL, DBConn)
-                    If DBConn.State = ConnectionState.Closed Then
-                        DBConn.Open()
+                    cmd = New OracleCommand(SQL, Conn)
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
                     dr2 = cmd.ExecuteReader
                     While dr2.Read
@@ -2912,9 +2912,9 @@ Public Class DEVFeeStatistics
                     "where " & DBNameSpace & ".SSCPFCEMaster.strFCENumber = " & DBNameSpace & ".SSCPFCE.strFCENumber " & _
                     "and strAIRSnumber = '0413" & AIRSNumber & "') "
 
-                    cmd = New OracleCommand(SQL, DBConn)
-                    If DBConn.State = ConnectionState.Closed Then
-                        DBConn.Open()
+                    cmd = New OracleCommand(SQL, Conn)
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
                     dr2 = cmd.ExecuteReader
                     While dr2.Read
@@ -2942,9 +2942,9 @@ Public Class DEVFeeStatistics
                     "from " & DBNameSpace & ".SSCP_AuditedEnforcement " & _
                     "where strairsnumber = '0413" & AIRSNumber & "') "
 
-                    cmd = New OracleCommand(SQL, DBConn)
-                    If DBConn.State = ConnectionState.Closed Then
-                        DBConn.Open()
+                    cmd = New OracleCommand(SQL, Conn)
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
                     dr2 = cmd.ExecuteReader
                     While dr2.Read
@@ -2976,9 +2976,9 @@ Public Class DEVFeeStatistics
             "where strAIRSNumber = '0413" & AIRSNumber & "' " & _
             "and datFinalizedDate is not null"
 
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr2 = cmd.ExecuteReader
             While dr2.Read
@@ -3004,9 +3004,9 @@ Public Class DEVFeeStatistics
                 "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber (+) " & _
                 "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = '" & LastApp & "' "
 
-                cmd = New OracleCommand(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr2 = cmd.ExecuteReader
                 While dr2.Read
@@ -3054,9 +3054,9 @@ Public Class DEVFeeStatistics
             "and datfinalizedDate Is null " & _
             "and strAIRSNumber = '0413" & AIRSNumber & "' "
 
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr2 = cmd.ExecuteReader
             PendingApp = "No"
@@ -3154,9 +3154,9 @@ Public Class DEVFeeStatistics
                         "and " & DBNameSpace & ".ISMPReportInformation.strDocumentType = " & DBNameSpace & ".ISMPDocumentType.strKey " & _
                         "and strTrackingNumber = '" & txtFeeComplianceEvent.Text & "' "
 
-                        cmd = New OracleCommand(SQL, DBConn)
-                        If DBConn.State = ConnectionState.Closed Then
-                            DBConn.Open()
+                        cmd = New OracleCommand(SQL, Conn)
+                        If Conn.State = ConnectionState.Closed Then
+                            Conn.Open()
                         End If
                         dr = cmd.ExecuteReader
                         recExist = dr.Read
@@ -3347,14 +3347,14 @@ Public Class DEVFeeStatistics
             EndDate = dtpEndDepositDate.Text
 
             'SQL = "select " & _
-            '"substr(" & connNameSpace & ".APBFacilityInformation.strAIRSNumber, 5) as AIRSNumber, " & _
+            '"substr(" & DBNameSpace & ".APBFacilityInformation.strAIRSNumber, 5) as AIRSNumber, " & _
             '"strFacilityName, " & _
             '"strPayType, numPayment, " & _
             '"strDepositNo, datPayDate, " & _
             '"strCheckNo, strInvoiceNo, " & _
-            '"" & connNameSpace & ".FSAddPaid.intYear " & _
-            '"From " & connNameSpace & ".APBFacilityInformation, " & connNameSpace & ".FSAddPaid " & _
-            '"where " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".FSAddPaid.strAIRSNumber " & _
+            '"" & DBNameSpace & ".FSAddPaid.intYear " & _
+            '"From " & DBNameSpace & ".APBFacilityInformation, " & DBNameSpace & ".FSAddPaid " & _
+            '"where " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".FSAddPaid.strAIRSNumber " & _
             '"and datPaydate between '" & StartDate & "' and '" & EndDate & "' "
 
             SQL = "select " & _
@@ -3378,9 +3378,9 @@ Public Class DEVFeeStatistics
             "strCheckNo, InvoiceID, numFeeYear "
 
             ds = New DataSet
-            da = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            da = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
 
             da.Fill(ds, "PaymentDue")
@@ -3465,7 +3465,7 @@ Public Class DEVFeeStatistics
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -3485,16 +3485,16 @@ Public Class DEVFeeStatistics
             + "Order by strfacilityname "
 
             ds = New DataSet
-            da = New OracleDataAdapter(SQL, DBConn)
+            da = New OracleDataAdapter(SQL, Conn)
 
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
             Else
-                DBConn.Open()
+                Conn.Open()
             End If
 
             da.Fill(ds, "facilityInfo")
 
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -3533,7 +3533,7 @@ Public Class DEVFeeStatistics
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -3543,17 +3543,17 @@ Public Class DEVFeeStatistics
 
         Try
 
-            ' SQL = "Select distinct strdepositno from " & connNameSpace & ".FSAddPaid " _
+            ' SQL = "Select distinct strdepositno from " & DBNameSpace & ".FSAddPaid " _
             '+ "order by strdepositno"
 
             SQL = "Select distinct strdepositno from " & DBNameSpace & ".FS_Transactions " _
           + "order by strdepositno"
 
-            Dim cmd As New OracleCommand(SQL, DBConn)
+            Dim cmd As New OracleCommand(SQL, Conn)
 
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
             Else
-                DBConn.Open()
+                Conn.Open()
             End If
 
             Dim dr As OracleDataReader = cmd.ExecuteReader
@@ -3567,7 +3567,7 @@ Public Class DEVFeeStatistics
         Catch ex As Exception
             ErrorReport(ex.ToString(), "PASPFeeReports.LoadComboBoxesD(Sub1)")
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -3578,11 +3578,11 @@ Public Class DEVFeeStatistics
             SQL = "Select distinct substr(strairsnumber,5) as strairsnumber " _
             + "from " & DBNameSpace & ".FSAddPaid order by strairsnumber"
 
-            Dim cmd As New OracleCommand(SQL, DBConn)
+            Dim cmd As New OracleCommand(SQL, Conn)
 
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
             Else
-                DBConn.Open()
+                Conn.Open()
             End If
 
             Dim dr As OracleDataReader = cmd.ExecuteReader
@@ -3595,7 +3595,7 @@ Public Class DEVFeeStatistics
         Catch ex As Exception
             ErrorReport(ex.ToString(), "PASPFeeReports.LoadComboBoxesD(Sub2)")
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -3621,7 +3621,7 @@ Public Class DEVFeeStatistics
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -3639,9 +3639,9 @@ Public Class DEVFeeStatistics
             SQL = "Select * from " & DBNameSpace & ".VW_Facility_Fee " & _
             "where strAIRSNumber = '0413" & cboAirsNo.SelectedValue & "' "
 
-            da = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            da = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             ds.EnforceConstraints = False
             da.Fill(ds, "VW_Facility_Fee")
@@ -3693,9 +3693,9 @@ Public Class DEVFeeStatistics
             "from " & DBNameSpace & ".vw_total_fee " & _
             "group by intyear "
 
-            da = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            da = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             ds.EnforceConstraints = False
             da.Fill(ds, "VW_Total_Fee")
@@ -3735,9 +3735,9 @@ Public Class DEVFeeStatistics
             SQL = "Select * from " & DBNameSpace & ".FSCalculations "
             SQL = "Select * from " & DBNameSpace & ".VW_Facility_Class_Counts "
 
-            da = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            da = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             ds.EnforceConstraints = False
             da.Fill(ds, "VW_Facility_Class_Counts")
@@ -3849,9 +3849,9 @@ Public Class DEVFeeStatistics
         "and airbranch.feedetails.intyear = '" & mtbFacilityBalanceYear.Text & "' " & _
         "order by strairsnumber "
 
-            da = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            da = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             ds.EnforceConstraints = False
             da.Fill(ds, "VW_Facility_Balance")
@@ -3936,9 +3936,9 @@ Public Class DEVFeeStatistics
             ds = New DataSet
             rpt = New TotalPayment10
             SQL = "Select * from " & DBNameSpace & ".VW_Total_PAYMENT "
-            da = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            da = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             ds.EnforceConstraints = False
             da.Fill(ds, "VW_Total_PAYMENT")
@@ -3955,7 +3955,7 @@ Public Class DEVFeeStatistics
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -3983,7 +3983,7 @@ Public Class DEVFeeStatistics
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -4024,9 +4024,9 @@ Public Class DEVFeeStatistics
                   "and '" & Format(DateTimePicker2.Value, "dd-MMM-yyyy") & "' " & _
             "order by strBatchNo "
 
-            da = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            da = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             ds.EnforceConstraints = False
             da.Fill(ds, "FSAddPaid")
@@ -4089,9 +4089,9 @@ Public Class DEVFeeStatistics
                 "and '" & Format(DateTimePicker2.Value, "dd-MMM-yyyy") & "' " & _
             "order by strDepositNo "
 
-            da = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            da = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             ds.EnforceConstraints = False
             da.Fill(ds, "FSAddPaid")
@@ -4142,9 +4142,9 @@ Public Class DEVFeeStatistics
             rpt = New Bankrupt10
 
             SQL = "select * from " & DBNameSpace & ".VW_Bankrupt"
-            da = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            da = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             ds.EnforceConstraints = False
             da.Fill(ds, "VW_Bankrupt")
@@ -4175,9 +4175,9 @@ Public Class DEVFeeStatistics
             rpt = New feeByYear10
             SQL = "Select * from " & DBNameSpace & ".FeesDue "
 
-            da = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            da = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             ds.EnforceConstraints = False
             da.Fill(ds, "FeesDue")
@@ -4222,9 +4222,9 @@ Public Class DEVFeeStatistics
 
             End If
 
-            da = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            da = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             ds.EnforceConstraints = False
             da.Fill(ds, "FeeVariance")
@@ -4307,7 +4307,7 @@ Public Class DEVFeeStatistics
 
             SQL = ""
             If cboDepositNo.Text <> "" Then
-                'SQL = "Select * from " & connNameSpace & ".FSAddPaid " & _
+                'SQL = "Select * from " & DBNameSpace & ".FSAddPaid " & _
                 '"where strDepositNo like '%" & cboDepositNo.Text & "%' " & _
                 '"order by intyear desc  "
 
@@ -4317,7 +4317,7 @@ Public Class DEVFeeStatistics
                 "order by nuMFeeYear desc  "
             Else
                 If cboAirs.Text <> "" Then
-                    'SQL = "Select * from " & connNameSpace & ".FSAddPaid " & _
+                    'SQL = "Select * from " & DBNameSpace & ".FSAddPaid " & _
                     '"where strAIRSNumber like '0413%" & cboAirs.Text & "%' " & _
                     '"order by intyear desc  "
 
@@ -4328,7 +4328,7 @@ Public Class DEVFeeStatistics
                 End If
             End If
             If SQL = "" Then
-                'SQL = "Select * from " & connNameSpace & ".FSAddPaid " & _
+                'SQL = "Select * from " & DBNameSpace & ".FSAddPaid " & _
                 '"order by intyear desc  "
 
                 SQL = "Select * from " & DBNameSpace & ".FS_Transactions " & _
@@ -4336,9 +4336,9 @@ Public Class DEVFeeStatistics
                 "order by nuMFeeYear desc  "
             End If
 
-            da = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            da = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             ds.EnforceConstraints = False
             da.Fill(ds, "FS_Transactions")
@@ -4427,9 +4427,9 @@ Public Class DEVFeeStatistics
 
             SQL = "select * from " & DBNameSpace & ".VW_Class_Changed"
 
-            da = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            da = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             ds.EnforceConstraints = False
             da.Fill(ds, "VW_Class_Changed")
@@ -4475,7 +4475,7 @@ Public Class DEVFeeStatistics
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -4492,9 +4492,9 @@ Public Class DEVFeeStatistics
             "where strnsps = 'YES' " & _
             "and STRnspsexempt = 'YES'"
 
-            da = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            da = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             ds.EnforceConstraints = False
             da.Fill(ds, "VW_NSPS_Status")
@@ -4527,9 +4527,9 @@ Public Class DEVFeeStatistics
             "where Strnsps1 = 'YES' " & _
             "and strnsps = 'NO'"
 
-            da = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            da = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             ds.EnforceConstraints = False
             da.Fill(ds, "VW_NSPS_Status")
@@ -4560,9 +4560,9 @@ Public Class DEVFeeStatistics
             "where strnsps = 'YES' " & _
             "and STRoperate <> 'YES'"
 
-            da = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            da = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             ds.EnforceConstraints = False
             da.Fill(ds, "VW_NSPS_Status")
@@ -4610,9 +4610,9 @@ Public Class DEVFeeStatistics
             "where intYear = '" & mtbNonRespondentYear.Text & "' " & _
             "and intSubmittal <> '1' "
 
-            da = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            da = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             ds.EnforceConstraints = False
             da.Fill(ds, "VW_NonRespondent")
@@ -4665,9 +4665,9 @@ Public Class DEVFeeStatistics
             rpt = New NoOperate10
             SQL = "Select * from " & DBNameSpace & ".VW_No_Operate "
 
-            da = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            da = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             ds.EnforceConstraints = False
             da.Fill(ds, "VW_No_Operate")
@@ -4716,9 +4716,9 @@ Public Class DEVFeeStatistics
             "and Active = '1' " & _
             "order by numfeeyear desc, strairsnumber "
 
-            da = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            da = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             ds.EnforceConstraints = False
             da.Fill(ds, "FSPAYANDSUBMIT")
@@ -4750,9 +4750,9 @@ Public Class DEVFeeStatistics
 
             SQL = "Select * from " & DBNameSpace & ".VW_Facility_Info "
 
-            da = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            da = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             ds.EnforceConstraints = False
             da.Fill(ds, "VW_Facility_Info")
@@ -4781,9 +4781,9 @@ Public Class DEVFeeStatistics
             rpt = New TrainingReg10
 
             SQL = "Select * from AIRBranch.VW_Training_reg "
-            da = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            da = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             ds.EnforceConstraints = False
             da.Fill(ds, "VW_Training_reg")
@@ -5012,9 +5012,9 @@ Public Class DEVFeeStatistics
 "and numcurrentstatus = '10' " & _
 "and (intSubmittal = '0' or intsubmittal is null))    "
 
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -5154,9 +5154,9 @@ Public Class DEVFeeStatistics
             "order by strAIRSNumber "
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            daViewCount = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvFeeStats.DataSource = dsViewCount
@@ -5211,9 +5211,9 @@ Public Class DEVFeeStatistics
             "order by strAIRSNumber "
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            daViewCount = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvFeeStats.DataSource = dsViewCount
@@ -5269,9 +5269,9 @@ Public Class DEVFeeStatistics
             "order by strAIRSNumber "
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            daViewCount = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvFeeStats.DataSource = dsViewCount
@@ -5327,9 +5327,9 @@ Public Class DEVFeeStatistics
             "order by strAIRSNumber "
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            daViewCount = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvFeeStats.DataSource = dsViewCount
@@ -5386,9 +5386,9 @@ Public Class DEVFeeStatistics
             "order by strAIRSNumber "
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            daViewCount = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvFeeStats.DataSource = dsViewCount
@@ -5445,9 +5445,9 @@ Public Class DEVFeeStatistics
             "order by strAIRSNumber "
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            daViewCount = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvFeeStats.DataSource = dsViewCount
@@ -5503,9 +5503,9 @@ Public Class DEVFeeStatistics
             "order by strAIRSNumber "
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            daViewCount = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvFeeStats.DataSource = dsViewCount
@@ -5562,9 +5562,9 @@ Public Class DEVFeeStatistics
             "order by strAIRSNumber "
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            daViewCount = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvFeeStats.DataSource = dsViewCount
@@ -5626,9 +5626,9 @@ Public Class DEVFeeStatistics
                 "order by strAIRSNumber "
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            daViewCount = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvFeeStats.DataSource = dsViewCount
@@ -5687,9 +5687,9 @@ Public Class DEVFeeStatistics
             "order by strAIRSNumber "
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            daViewCount = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvFeeStats.DataSource = dsViewCount
@@ -5749,9 +5749,9 @@ Public Class DEVFeeStatistics
             "order by strAIRSNumber "
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            daViewCount = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvFeeStats.DataSource = dsViewCount
@@ -5810,9 +5810,9 @@ Public Class DEVFeeStatistics
             "order by strAIRSNumber "
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            daViewCount = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvFeeStats.DataSource = dsViewCount
@@ -5868,9 +5868,9 @@ Public Class DEVFeeStatistics
             "order by strAIRSNumber "
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            daViewCount = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvFeeStats.DataSource = dsViewCount
@@ -5929,9 +5929,9 @@ Public Class DEVFeeStatistics
             "order by strAIRSNumber "
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            daViewCount = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvFeeStats.DataSource = dsViewCount
@@ -5997,9 +5997,9 @@ Public Class DEVFeeStatistics
 
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            daViewCount = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvFeeStats.DataSource = dsViewCount
@@ -6053,9 +6053,9 @@ Public Class DEVFeeStatistics
           "order by strAIRSNumber "
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            daViewCount = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvFeeStats.DataSource = dsViewCount
@@ -6112,9 +6112,9 @@ Public Class DEVFeeStatistics
           "order by strAIRSNumber "
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            daViewCount = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvFeeStats.DataSource = dsViewCount
@@ -6172,9 +6172,9 @@ Public Class DEVFeeStatistics
           "order by strAIRSNumber "
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            daViewCount = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvFeeStats.DataSource = dsViewCount
@@ -6230,9 +6230,9 @@ Public Class DEVFeeStatistics
             "order by strAIRSNumber "
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            daViewCount = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvFeeStats.DataSource = dsViewCount
@@ -6289,9 +6289,9 @@ Public Class DEVFeeStatistics
           "order by strAIRSNumber "
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            daViewCount = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvFeeStats.DataSource = dsViewCount
@@ -6348,9 +6348,9 @@ Public Class DEVFeeStatistics
           "order by strAIRSNumber "
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            daViewCount = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvFeeStats.DataSource = dsViewCount
@@ -6506,9 +6506,9 @@ Public Class DEVFeeStatistics
             "end, numTotalFee "
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            daViewCount = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvFeeStats.DataSource = dsViewCount
@@ -6652,9 +6652,9 @@ Public Class DEVFeeStatistics
             "order by strAIRSNumber "
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            daViewCount = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvFeeStats.DataSource = dsViewCount
@@ -6800,9 +6800,9 @@ Public Class DEVFeeStatistics
             "order by strAIRSNumber "
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            daViewCount = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvFeeStats.DataSource = dsViewCount
@@ -6948,9 +6948,9 @@ Public Class DEVFeeStatistics
             "order by strAIRSNumber "
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            daViewCount = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvFeeStats.DataSource = dsViewCount
@@ -7097,9 +7097,9 @@ Public Class DEVFeeStatistics
             "order by strAIRSNumber "
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            daViewCount = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvFeeStats.DataSource = dsViewCount
@@ -7246,9 +7246,9 @@ Public Class DEVFeeStatistics
             "order by strAIRSNumber "
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            daViewCount = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvFeeStats.DataSource = dsViewCount
@@ -7392,9 +7392,9 @@ Public Class DEVFeeStatistics
             "order by strAIRSNumber "
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            daViewCount = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvFeeStats.DataSource = dsViewCount
@@ -7541,9 +7541,9 @@ Public Class DEVFeeStatistics
             "order by strAIRSNumber "
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            daViewCount = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvFeeStats.DataSource = dsViewCount
@@ -7697,9 +7697,9 @@ Public Class DEVFeeStatistics
 
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            daViewCount = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvFeeStats.DataSource = dsViewCount
@@ -7850,9 +7850,9 @@ Public Class DEVFeeStatistics
             "order by strAIRSNumber "
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            daViewCount = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvFeeStats.DataSource = dsViewCount
@@ -8003,9 +8003,9 @@ Public Class DEVFeeStatistics
 
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            daViewCount = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvFeeStats.DataSource = dsViewCount
@@ -8152,9 +8152,9 @@ Public Class DEVFeeStatistics
 
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            daViewCount = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvFeeStats.DataSource = dsViewCount
@@ -8302,9 +8302,9 @@ Public Class DEVFeeStatistics
 
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            daViewCount = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvFeeStats.DataSource = dsViewCount
@@ -8448,9 +8448,9 @@ Public Class DEVFeeStatistics
             "order by strAIRSNumber "
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            daViewCount = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvFeeStats.DataSource = dsViewCount
@@ -8594,9 +8594,9 @@ Public Class DEVFeeStatistics
             "order by strAIRSNumber "
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            daViewCount = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvFeeStats.DataSource = dsViewCount
@@ -8740,9 +8740,9 @@ Public Class DEVFeeStatistics
             "order by strAIRSNumber "
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            daViewCount = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvFeeStats.DataSource = dsViewCount
@@ -8886,9 +8886,9 @@ Public Class DEVFeeStatistics
             "order by strAIRSNumber "
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            daViewCount = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvFeeStats.DataSource = dsViewCount
@@ -9035,9 +9035,9 @@ Public Class DEVFeeStatistics
 
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            daViewCount = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvFeeStats.DataSource = dsViewCount
@@ -9185,9 +9185,9 @@ Public Class DEVFeeStatistics
             "order by strAIRSNumber "
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            daViewCount = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvFeeStats.DataSource = dsViewCount
@@ -9336,9 +9336,9 @@ Public Class DEVFeeStatistics
             "order by strAIRSNumber "
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            daViewCount = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvFeeStats.DataSource = dsViewCount
@@ -9490,9 +9490,9 @@ Public Class DEVFeeStatistics
                 "and strInvoiceStatus = '0' " & _
                 "and active = '1' "
 
-                cmd = New OracleCommand(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -9506,9 +9506,9 @@ Public Class DEVFeeStatistics
                 "and updateUser = '" & Replace(UserName, "'", "''") & "' " & _
                 "and numFeeyear = '" & cboFeeStatYear.Text & "' "
 
-                cmd = New OracleCommand(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -9518,10 +9518,10 @@ Public Class DEVFeeStatistics
                         temp = dr.Item("strAIRSNumber")
                     End If
                     If temp <> "" Then
-                        If DBConn.State = ConnectionState.Closed Then
-                            DBConn.Open()
+                        If Conn.State = ConnectionState.Closed Then
+                            Conn.Open()
                         End If
-                        cmd = New OracleCommand("AIRBranch.PD_FEE_STATUS", DBConn)
+                        cmd = New OracleCommand("AIRBranch.PD_FEE_STATUS", Conn)
                         cmd.CommandType = CommandType.StoredProcedure
 
                         cmd.Parameters.Add(New OracleParameter("FeeYear", OracleType.Number)).Value = cboFeeStatYear.Text
@@ -9734,35 +9734,35 @@ Public Class DEVFeeStatistics
 "and  AIRBranch.FS_FeeInvoice.strPayType = '5'  "
                 Case "AMENDMENT", "ONE-TIME", "REFUND"
                     'SQL = "select  " & _
-                    '"substr(" & connNameSpace & ".APBFacilityInformation.strAIRSNumber, 5) as AIRSNumber,  " & _
+                    '"substr(" & DBNameSpace & ".APBFacilityInformation.strAIRSNumber, 5) as AIRSNumber,  " & _
                     '"strFacilityName, strPaymentPlan,  " & _
-                    '"(numTotalFee)/4 as Due, " & connNameSpace & ".FS_FeeAuditedData.numFeeYear,  " & _
+                    '"(numTotalFee)/4 as Due, " & DBNameSpace & ".FS_FeeAuditedData.numFeeYear,  " & _
                     '"numPart70Fee, numSMFee, numNSPSFee,  " & _
                     '"numTotalFee, strClass, numAdminFee  " & _
-                    '"From " & connNameSpace & ".APBFacilityInformation, " & connNameSpace & ".FS_FeeAuditedData " & _
-                    '"where " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".FS_FeeAuditedData.strAIRSNumber  " & _
-                    '"and " & connNameSpace & ".FS_FeeAuditedData.numFeeYear = '" & cboStatYear.Text & "' " & _
-                    '"and " & connNameSpace & ".FS_FeeAuditedData.Active = '1' " & _
+                    '"From " & DBNameSpace & ".APBFacilityInformation, " & DBNameSpace & ".FS_FeeAuditedData " & _
+                    '"where " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".FS_FeeAuditedData.strAIRSNumber  " & _
+                    '"and " & DBNameSpace & ".FS_FeeAuditedData.numFeeYear = '" & cboStatYear.Text & "' " & _
+                    '"and " & DBNameSpace & ".FS_FeeAuditedData.Active = '1' " & _
                     '"and strPaymentPlan is null "
                 Case Else
                     'SQL = "select  " & _
-                    '"substr(" & connNameSpace & ".APBFacilityInformation.strAIRSNumber, 5) as AIRSNumber,  " & _
+                    '"substr(" & DBNameSpace & ".APBFacilityInformation.strAIRSNumber, 5) as AIRSNumber,  " & _
                     '"strFacilityName, strPaymentPlan,  " & _
-                    '"(numTotalFee) as Due, " & connNameSpace & ".FS_FeeAuditedData.numFeeYear,  " & _
+                    '"(numTotalFee) as Due, " & DBNameSpace & ".FS_FeeAuditedData.numFeeYear,  " & _
                     '"numPart70Fee, numSMFee, numNSPSFee,  " & _
                     '"numTotalFee, strClass, numAdminFee  " & _
-                    '"From " & connNameSpace & ".APBFacilityInformation, " & connNameSpace & ".FS_FeeAuditedData " & _
-                    '"where " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".FS_FeeAuditedData.strAIRSNumber  " & _
-                    '"and " & connNameSpace & ".FS_FeeAuditedData.Active = '1' " & _
-                    '"and " & connNameSpace & ".FS_FeeAuditedData.numFeeYear = '" & cboStatYear.Text & "' "
+                    '"From " & DBNameSpace & ".APBFacilityInformation, " & DBNameSpace & ".FS_FeeAuditedData " & _
+                    '"where " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".FS_FeeAuditedData.strAIRSNumber  " & _
+                    '"and " & DBNameSpace & ".FS_FeeAuditedData.Active = '1' " & _
+                    '"and " & DBNameSpace & ".FS_FeeAuditedData.numFeeYear = '" & cboStatYear.Text & "' "
             End Select
 
             If SQL <> "" Then
 
                 ds = New DataSet
-                da = New OracleDataAdapter(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                da = New OracleDataAdapter(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
 
                 da.Fill(ds, "PaymentDue")
@@ -9853,13 +9853,13 @@ Public Class DEVFeeStatistics
             Select Case cboStatPayType.Text
                 Case "ALL"
                     'SQLReported = "Select sum(numtotalFee) as TotalDue " & _
-                    '"from " & connNameSpace & ".FS_FeeAuditedData " & _
-                    '"where " & connNameSpace & ".FS_FeeAuditedData.numFeeYear = '" & cboStatYear.Text & "' " & _
+                    '"from " & DBNameSpace & ".FS_FeeAuditedData " & _
+                    '"where " & DBNameSpace & ".FS_FeeAuditedData.numFeeYear = '" & cboStatYear.Text & "' " & _
                     '"and Active = '1' "
 
                     'SQLInvoiced = "Select sum(numAmount) as TotalInvoiced " & _
-                    '"from " & connNameSpace & ".FS_FeeInvoice " & _
-                    '"where " & connNameSpace & ".FS_FeeInvoice.numFeeYear = '" & cboStatYear.Text & "' " & _
+                    '"from " & DBNameSpace & ".FS_FeeInvoice " & _
+                    '"where " & DBNameSpace & ".FS_FeeInvoice.numFeeYear = '" & cboStatYear.Text & "' " & _
                     '"and Active = '1' "
 
                     SQL = "select " & _
@@ -9982,176 +9982,176 @@ Public Class DEVFeeStatistics
                    
                 Case "ANNUAL"
                     'SQLReported = "Select sum(numtotalFee) as TotalDue " & _
-                    '"from " & connNameSpace & ".FS_FeeAuditedData " & _
-                    '"where " & connNameSpace & ".FS_FeeAuditedData.numFeeYear = '" & cboStatYear.Text & "' " & _
+                    '"from " & DBNameSpace & ".FS_FeeAuditedData " & _
+                    '"where " & DBNameSpace & ".FS_FeeAuditedData.numFeeYear = '" & cboStatYear.Text & "' " & _
                     '"and Active = '1' " & _
                     '"and strpaymentplan = 'Entire Annual Year' "
 
                     'SQLInvoiced = "Select sum(numAmount) as TotalInvoiced " & _
-                    '"from " & connNameSpace & ".FS_FeeInvoice " & _
-                    '"where " & connNameSpace & ".FS_FeeInvoice.numFeeYear = '" & cboStatYear.Text & "' " & _
+                    '"from " & DBNameSpace & ".FS_FeeInvoice " & _
+                    '"where " & DBNameSpace & ".FS_FeeInvoice.numFeeYear = '" & cboStatYear.Text & "' " & _
                     '"and AIRbranch.FS_FeeInvoice.strPayType = '1'  " & _
                     '"and Active = '1' "
 
                     'SQLPaid = "select sum(numPayment) as TotalPaid " & _
-                    '"from " & connNameSpace & ".FS_Transactions, " & connNameSpace & ".FS_FeeInvoice " & _
-                    '"where " & connNameSpace & ".FS_Transactions.InvoiceID = " & connNameSpace & ".FS_FeeInvoice.invoiceID " & _
-                    '"and " & connNameSpace & ".FS_FeeInvoice.strPayType = '1' " & _
-                    '"and " & connNameSpace & ".FS_Transactions.nuMFeeYEar = '" & cboStatYear.Text & "' " & _
-                    '"and " & connNameSpace & ".FS_Transactions.active = '1' "
+                    '"from " & DBNameSpace & ".FS_Transactions, " & DBNameSpace & ".FS_FeeInvoice " & _
+                    '"where " & DBNameSpace & ".FS_Transactions.InvoiceID = " & DBNameSpace & ".FS_FeeInvoice.invoiceID " & _
+                    '"and " & DBNameSpace & ".FS_FeeInvoice.strPayType = '1' " & _
+                    '"and " & DBNameSpace & ".FS_Transactions.nuMFeeYEar = '" & cboStatYear.Text & "' " & _
+                    '"and " & DBNameSpace & ".FS_Transactions.active = '1' "
 
                    
                 Case "ALL QUARTERS"
                     'SQLReported = "Select sum(numtotalFee) as TotalDue " & _
-                    '"from " & connNameSpace & ".FS_FeeAuditedData " & _
-                    '"where " & connNameSpace & ".FS_FeeAuditedData.numFeeYear = '" & cboStatYear.Text & "' " & _
+                    '"from " & DBNameSpace & ".FS_FeeAuditedData " & _
+                    '"where " & DBNameSpace & ".FS_FeeAuditedData.numFeeYear = '" & cboStatYear.Text & "' " & _
                     '"and Active = '1' " & _
                     '"and strpaymentplan = 'Four Quarterly Payments' "
 
                     'SQLInvoiced = "Select sum(numAmount) as TotalInvoiced " & _
-                    '"from " & connNameSpace & ".FS_FeeInvoice " & _
-                    '"where " & connNameSpace & ".FS_FeeInvoice.numFeeYear = '" & cboStatYear.Text & "' " & _
+                    '"from " & DBNameSpace & ".FS_FeeInvoice " & _
+                    '"where " & DBNameSpace & ".FS_FeeInvoice.numFeeYear = '" & cboStatYear.Text & "' " & _
                     '"and AIRbranch.FS_FeeInvoice.strPayType <> '1'  " & _
                     '"and Active = '1' "
 
                     'SQLPaid = "select sum(numPayment) as TotalPaid " & _
-                    '"from " & connNameSpace & ".FS_Transactions, " & connNameSpace & ".FS_FeeInvoice " & _
-                    '"where " & connNameSpace & ".FS_Transactions.InvoiceID = " & connNameSpace & ".FS_FeeInvoice.invoiceID " & _
-                    '"and " & connNameSpace & ".FS_Transactions.nuMFeeYEar = '" & cboStatYear.Text & "' " & _
-                    '"and " & connNameSpace & ".FS_Transactions.active = '1' " & _
-                    '"and (" & connNameSpace & ".FS_FeeInvoice.strPayType = '2' " & _
-                    '"or " & connNameSpace & ".FS_FeeInvoice.strPayType = '3' " & _
-                    '"or " & connNameSpace & ".FS_FeeInvoice.strPayType = '4' " & _
-                    '"or " & connNameSpace & ".FS_FeeInvoice.strPayType = '5') "
+                    '"from " & DBNameSpace & ".FS_Transactions, " & DBNameSpace & ".FS_FeeInvoice " & _
+                    '"where " & DBNameSpace & ".FS_Transactions.InvoiceID = " & DBNameSpace & ".FS_FeeInvoice.invoiceID " & _
+                    '"and " & DBNameSpace & ".FS_Transactions.nuMFeeYEar = '" & cboStatYear.Text & "' " & _
+                    '"and " & DBNameSpace & ".FS_Transactions.active = '1' " & _
+                    '"and (" & DBNameSpace & ".FS_FeeInvoice.strPayType = '2' " & _
+                    '"or " & DBNameSpace & ".FS_FeeInvoice.strPayType = '3' " & _
+                    '"or " & DBNameSpace & ".FS_FeeInvoice.strPayType = '4' " & _
+                    '"or " & DBNameSpace & ".FS_FeeInvoice.strPayType = '5') "
 
                    
                 Case "QUARTER ONE"
                     'SQLReported = "Select sum(numtotalFee/4) as TotalDue " & _
-                    '"from " & connNameSpace & ".FS_FeeAuditedData " & _
-                    '"where " & connNameSpace & ".FS_FeeAuditedData.numFeeYear = '" & cboStatYear.Text & "' " & _
+                    '"from " & DBNameSpace & ".FS_FeeAuditedData " & _
+                    '"where " & DBNameSpace & ".FS_FeeAuditedData.numFeeYear = '" & cboStatYear.Text & "' " & _
                     '"and Active = '1' " & _
                     '"and strpaymentplan = 'Four Quarterly Payments' "
 
                     'SQLInvoiced = "Select sum(numAmount) as TotalInvoiced " & _
-                    '"from " & connNameSpace & ".FS_FeeInvoice " & _
-                    '"where " & connNameSpace & ".FS_FeeInvoice.numFeeYear = '" & cboStatYear.Text & "' " & _
+                    '"from " & DBNameSpace & ".FS_FeeInvoice " & _
+                    '"where " & DBNameSpace & ".FS_FeeInvoice.numFeeYear = '" & cboStatYear.Text & "' " & _
                     '"and AIRbranch.FS_FeeInvoice.strPayType = '2'  " & _
                     '"and Active = '1' "
 
                     'SQLPaid = "select sum(numPayment) as TotalPaid " & _
-                    '"from " & connNameSpace & ".FS_Transactions, " & connNameSpace & ".FS_FeeInvoice " & _
-                    '"where " & connNameSpace & ".FS_Transactions.InvoiceID = " & connNameSpace & ".FS_FeeInvoice.invoiceID " & _
-                    '"and " & connNameSpace & ".FS_FeeInvoice.strPayType = '2' " & _
-                    '"and " & connNameSpace & ".FS_Transactions.nuMFeeYEar = '" & cboStatYear.Text & "' " & _
-                    '"and " & connNameSpace & ".FS_Transactions.active = '1' "
+                    '"from " & DBNameSpace & ".FS_Transactions, " & DBNameSpace & ".FS_FeeInvoice " & _
+                    '"where " & DBNameSpace & ".FS_Transactions.InvoiceID = " & DBNameSpace & ".FS_FeeInvoice.invoiceID " & _
+                    '"and " & DBNameSpace & ".FS_FeeInvoice.strPayType = '2' " & _
+                    '"and " & DBNameSpace & ".FS_Transactions.nuMFeeYEar = '" & cboStatYear.Text & "' " & _
+                    '"and " & DBNameSpace & ".FS_Transactions.active = '1' "
 
                 Case "QUARTER TWO"
                     'SQLReported = "Select sum(numtotalFee/4) as TotalDue " & _
-                    '"from " & connNameSpace & ".FS_FeeAuditedData " & _
-                    '"where " & connNameSpace & ".FS_FeeAuditedData.numFeeYear = '" & cboStatYear.Text & "' " & _
+                    '"from " & DBNameSpace & ".FS_FeeAuditedData " & _
+                    '"where " & DBNameSpace & ".FS_FeeAuditedData.numFeeYear = '" & cboStatYear.Text & "' " & _
                     '"and Active = '1' " & _
                     '"and strpaymentplan = 'Four Quarterly Payments' "
 
                     'SQLInvoiced = "Select sum(numAmount) as TotalInvoiced " & _
-                    '"from " & connNameSpace & ".FS_FeeInvoice " & _
-                    '"where " & connNameSpace & ".FS_FeeInvoice.numFeeYear = '" & cboStatYear.Text & "' " & _
+                    '"from " & DBNameSpace & ".FS_FeeInvoice " & _
+                    '"where " & DBNameSpace & ".FS_FeeInvoice.numFeeYear = '" & cboStatYear.Text & "' " & _
                     '"and AIRbranch.FS_FeeInvoice.strPayType = '3'  " & _
                     '"and Active = '1' "
 
                     'SQLPaid = "select sum(numPayment) as TotalPaid " & _
-                    '"from " & connNameSpace & ".FS_Transactions, " & connNameSpace & ".FS_FeeInvoice " & _
-                    '"where " & connNameSpace & ".FS_Transactions.InvoiceID = " & connNameSpace & ".FS_FeeInvoice.invoiceID " & _
-                    '"and " & connNameSpace & ".FS_FeeInvoice.strPayType = '3' " & _
-                    '"and " & connNameSpace & ".FS_Transactions.nuMFeeYEar = '" & cboStatYear.Text & "' " & _
-                    '"and " & connNameSpace & ".FS_Transactions.active = '1' "
+                    '"from " & DBNameSpace & ".FS_Transactions, " & DBNameSpace & ".FS_FeeInvoice " & _
+                    '"where " & DBNameSpace & ".FS_Transactions.InvoiceID = " & DBNameSpace & ".FS_FeeInvoice.invoiceID " & _
+                    '"and " & DBNameSpace & ".FS_FeeInvoice.strPayType = '3' " & _
+                    '"and " & DBNameSpace & ".FS_Transactions.nuMFeeYEar = '" & cboStatYear.Text & "' " & _
+                    '"and " & DBNameSpace & ".FS_Transactions.active = '1' "
 
                 Case "QUARTER THREE"
                     'SQLReported = "Select sum(numtotalFee/4) as TotalDue " & _
-                    '"from " & connNameSpace & ".FS_FeeAuditedData " & _
-                    '"where " & connNameSpace & ".FS_FeeAuditedData.numFeeYear = '" & cboStatYear.Text & "' " & _
+                    '"from " & DBNameSpace & ".FS_FeeAuditedData " & _
+                    '"where " & DBNameSpace & ".FS_FeeAuditedData.numFeeYear = '" & cboStatYear.Text & "' " & _
                     '"and Active = '1' " & _
                     '"and strpaymentplan = 'Four Quarterly Payments' "
 
                     'SQLInvoiced = "Select sum(numAmount) as TotalInvoiced " & _
-                    '"from " & connNameSpace & ".FS_FeeInvoice " & _
-                    '"where " & connNameSpace & ".FS_FeeInvoice.numFeeYear = '" & cboStatYear.Text & "' " & _
+                    '"from " & DBNameSpace & ".FS_FeeInvoice " & _
+                    '"where " & DBNameSpace & ".FS_FeeInvoice.numFeeYear = '" & cboStatYear.Text & "' " & _
                     '"and AIRbranch.FS_FeeInvoice.strPayType = '4'  " & _
                     '"and Active = '1' "
 
                     'SQLPaid = "select sum(numPayment) as TotalPaid " & _
-                    '"from " & connNameSpace & ".FS_Transactions, " & connNameSpace & ".FS_FeeInvoice " & _
-                    '"where " & connNameSpace & ".FS_Transactions.InvoiceID = " & connNameSpace & ".FS_FeeInvoice.invoiceID " & _
-                    '"and " & connNameSpace & ".FS_FeeInvoice.strPayType = '4' " & _
-                    '"and " & connNameSpace & ".FS_Transactions.nuMFeeYEar = '" & cboStatYear.Text & "' " & _
-                    '"and " & connNameSpace & ".FS_Transactions.active = '1' "
+                    '"from " & DBNameSpace & ".FS_Transactions, " & DBNameSpace & ".FS_FeeInvoice " & _
+                    '"where " & DBNameSpace & ".FS_Transactions.InvoiceID = " & DBNameSpace & ".FS_FeeInvoice.invoiceID " & _
+                    '"and " & DBNameSpace & ".FS_FeeInvoice.strPayType = '4' " & _
+                    '"and " & DBNameSpace & ".FS_Transactions.nuMFeeYEar = '" & cboStatYear.Text & "' " & _
+                    '"and " & DBNameSpace & ".FS_Transactions.active = '1' "
 
                 Case "QUARTER FOUR"
                     'SQLReported = "Select sum(numtotalFee/4 ) as TotalDue " & _
-                    '"from " & connNameSpace & ".FS_FeeAuditedData " & _
-                    '"where " & connNameSpace & ".FS_FeeAuditedData.numFeeYear = '" & cboStatYear.Text & "' " & _
+                    '"from " & DBNameSpace & ".FS_FeeAuditedData " & _
+                    '"where " & DBNameSpace & ".FS_FeeAuditedData.numFeeYear = '" & cboStatYear.Text & "' " & _
                     '"and Active = '1' " & _
                     '"and strpaymentplan = 'Four Quarterly Payments' "
 
                     'SQLInvoiced = "Select sum(numAmount) as TotalInvoiced " & _
-                    '"from " & connNameSpace & ".FS_FeeInvoice " & _
-                    '"where " & connNameSpace & ".FS_FeeInvoice.numFeeYear = '" & cboStatYear.Text & "' " & _
+                    '"from " & DBNameSpace & ".FS_FeeInvoice " & _
+                    '"where " & DBNameSpace & ".FS_FeeInvoice.numFeeYear = '" & cboStatYear.Text & "' " & _
                     '"and AIRbranch.FS_FeeInvoice.strPayType = '5'  " & _
                     '"and Active = '1' "
 
                     'SQLPaid = "select sum(numPayment) as TotalPaid " & _
-                    '"from " & connNameSpace & ".FS_Transactions, " & connNameSpace & ".FS_FeeInvoice " & _
-                    '"where " & connNameSpace & ".FS_Transactions.InvoiceID = " & connNameSpace & ".FS_FeeInvoice.invoiceID " & _
-                    '"and " & connNameSpace & ".FS_FeeInvoice.strPayType = '5' " & _
-                    '"and " & connNameSpace & ".FS_Transactions.nuMFeeYEar = '" & cboStatYear.Text & "' " & _
-                    '"and " & connNameSpace & ".FS_Transactions.active = '1' "
+                    '"from " & DBNameSpace & ".FS_Transactions, " & DBNameSpace & ".FS_FeeInvoice " & _
+                    '"where " & DBNameSpace & ".FS_Transactions.InvoiceID = " & DBNameSpace & ".FS_FeeInvoice.invoiceID " & _
+                    '"and " & DBNameSpace & ".FS_FeeInvoice.strPayType = '5' " & _
+                    '"and " & DBNameSpace & ".FS_Transactions.nuMFeeYEar = '" & cboStatYear.Text & "' " & _
+                    '"and " & DBNameSpace & ".FS_Transactions.active = '1' "
 
                    
                 Case "AMENDMENT"
                     'SQLReported = "Select sum(numtotalFee ) as TotalDue " & _
-                    '"from " & connNameSpace & ".FS_FeeAuditedData " & _
-                    '"where " & connNameSpace & ".FS_FeeAuditedData.numFeeYear = '" & cboStatYear.Text & "' " & _
+                    '"from " & DBNameSpace & ".FS_FeeAuditedData " & _
+                    '"where " & DBNameSpace & ".FS_FeeAuditedData.numFeeYear = '" & cboStatYear.Text & "' " & _
                     '"and Active = '1' " & _
                     '"and strpaymentplan is null "
 
                     'SQLPaid = "select sum(numPayment) as TotalPaid " & _
-                    '"from " & connNameSpace & ".FS_Transactions, " & connNameSpace & ".FS_FeeInvoice " & _
-                    '"where " & connNameSpace & ".FS_Transactions.InvoiceID = " & connNameSpace & ".FS_FeeInvoice.invoiceID " & _
-                    '"and " & connNameSpace & ".FS_FeeInvoice.strPayType = '6' " & _
-                    '"and " & connNameSpace & ".FS_Transactions.nuMFeeYEar = '" & cboStatYear.Text & "' " & _
-                    '"and " & connNameSpace & ".FS_Transactions.active = '1' "
+                    '"from " & DBNameSpace & ".FS_Transactions, " & DBNameSpace & ".FS_FeeInvoice " & _
+                    '"where " & DBNameSpace & ".FS_Transactions.InvoiceID = " & DBNameSpace & ".FS_FeeInvoice.invoiceID " & _
+                    '"and " & DBNameSpace & ".FS_FeeInvoice.strPayType = '6' " & _
+                    '"and " & DBNameSpace & ".FS_Transactions.nuMFeeYEar = '" & cboStatYear.Text & "' " & _
+                    '"and " & DBNameSpace & ".FS_Transactions.active = '1' "
                 Case "ONE-TIME"
                     'SQLReported = "Select sum(numtotalFee ) as TotalDue " & _
-                    '"from " & connNameSpace & ".FS_FeeAuditedData " & _
-                    '"where " & connNameSpace & ".FS_FeeAuditedData.numFeeYear = '" & cboStatYear.Text & "' " & _
+                    '"from " & DBNameSpace & ".FS_FeeAuditedData " & _
+                    '"where " & DBNameSpace & ".FS_FeeAuditedData.numFeeYear = '" & cboStatYear.Text & "' " & _
                     '"and Active = '1' " & _
                     '"and strpaymentplan is null "
 
                     'SQLPaid = "select sum(numPayment) as TotalPaid " & _
-                    '"from " & connNameSpace & ".FS_Transactions, " & connNameSpace & ".FS_FeeInvoice " & _
-                    '"where " & connNameSpace & ".FS_Transactions.InvoiceID = " & connNameSpace & ".FS_FeeInvoice.invoiceID " & _
-                    '"and " & connNameSpace & ".FS_FeeInvoice.strPayType = '8' " & _
-                    '"and " & connNameSpace & ".FS_Transactions.nuMFeeYEar = '" & cboStatYear.Text & "' " & _
-                    '"and " & connNameSpace & ".FS_Transactions.active = '1' "
+                    '"from " & DBNameSpace & ".FS_Transactions, " & DBNameSpace & ".FS_FeeInvoice " & _
+                    '"where " & DBNameSpace & ".FS_Transactions.InvoiceID = " & DBNameSpace & ".FS_FeeInvoice.invoiceID " & _
+                    '"and " & DBNameSpace & ".FS_FeeInvoice.strPayType = '8' " & _
+                    '"and " & DBNameSpace & ".FS_Transactions.nuMFeeYEar = '" & cboStatYear.Text & "' " & _
+                    '"and " & DBNameSpace & ".FS_Transactions.active = '1' "
                 Case "REFUND"
                     'SQLReported = "Select sum(0) as TotalDue " & _
-                    '"from " & connNameSpace & ".FS_FeeAuditedData " & _
-                    '"where " & connNameSpace & ".FS_FeeAuditedData.numFeeYear = '" & cboStatYear.Text & "' " & _
+                    '"from " & DBNameSpace & ".FS_FeeAuditedData " & _
+                    '"where " & DBNameSpace & ".FS_FeeAuditedData.numFeeYear = '" & cboStatYear.Text & "' " & _
                     '"and Active = '1' "
 
                     'SQLPaid = "select sum(numPayment) as TotalPaid " & _
-                    '"from " & connNameSpace & ".FS_Transactions, " & connNameSpace & ".FS_FeeInvoice " & _
-                    '"where " & connNameSpace & ".FS_Transactions.InvoiceID = " & connNameSpace & ".FS_FeeInvoice.invoiceID " & _
-                    '"and " & connNameSpace & ".FS_FeeInvoice.strPayType = '7' " & _
-                    '"and " & connNameSpace & ".FS_Transactions.nuMFeeYEar = '" & cboStatYear.Text & "' " & _
-                    '"and " & connNameSpace & ".FS_Transactions.active = '1' "
+                    '"from " & DBNameSpace & ".FS_Transactions, " & DBNameSpace & ".FS_FeeInvoice " & _
+                    '"where " & DBNameSpace & ".FS_Transactions.InvoiceID = " & DBNameSpace & ".FS_FeeInvoice.invoiceID " & _
+                    '"and " & DBNameSpace & ".FS_FeeInvoice.strPayType = '7' " & _
+                    '"and " & DBNameSpace & ".FS_Transactions.nuMFeeYEar = '" & cboStatYear.Text & "' " & _
+                    '"and " & DBNameSpace & ".FS_Transactions.active = '1' "
                 Case Else
                     'SQLReported = "Select sum(numtotalFee) as TotalDue " & _
-                    '"from " & connNameSpace & ".FS_FeeAuditedData " & _
-                    '"where " & connNameSpace & ".FS_FeeAuditedData.numFeeYear = '" & cboStatYear.Text & "' " & _
+                    '"from " & DBNameSpace & ".FS_FeeAuditedData " & _
+                    '"where " & DBNameSpace & ".FS_FeeAuditedData.numFeeYear = '" & cboStatYear.Text & "' " & _
                     '"and Active = '1' "
 
                     'SQLPaid = "Select sum(numPayment) as TotalPaid " & _
-                    '"from " & connNameSpace & ".FS_Transactions " & _
+                    '"from " & DBNameSpace & ".FS_Transactions " & _
                     '"where numFeeYear = '" & cboStatYear.Text & "' " & _
                     '"and Active = '1' "
             End Select
@@ -10207,9 +10207,9 @@ Public Class DEVFeeStatistics
             "order by strairsnumber "
             ds = New DataSet
 
-            da = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            da = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
 
             da.Fill(ds, "VarianceReport")
@@ -10658,9 +10658,9 @@ Public Class DEVFeeStatistics
 
             ds = New DataSet
             If SQL <> "" Then
-                da = New OracleDataAdapter(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                da = New OracleDataAdapter(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 da.Fill(ds, "PaymentDue")
             End If

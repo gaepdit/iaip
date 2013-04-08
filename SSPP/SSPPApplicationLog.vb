@@ -402,10 +402,10 @@ Public Class SSPPApplicationLog
             "order by strUnitDesc "
 
             dsUnitList = New DataSet
-            daUnitList = New OracleDataAdapter(SQL, DBConn)
+            daUnitList = New OracleDataAdapter(SQL, Conn)
 
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
 
             daUnitList.Fill(dsUnitList, "UnitList")
@@ -440,10 +440,10 @@ Public Class SSPPApplicationLog
             "order by strLastName "
 
             dsEngineerList = New DataSet
-            daEngineerList = New OracleDataAdapter(SQL, DBConn)
+            daEngineerList = New OracleDataAdapter(SQL, Conn)
 
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
 
             daEngineerList.Fill(dsEngineerList, "EngineerList")
@@ -478,9 +478,9 @@ Public Class SSPPApplicationLog
             "from " & DBNameSpace & ".LookUpSubpartSIP " & _
             "order by strSubpart "
 
-            daSubpart = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            daSubpart = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
 
             daSubpart.Fill(dsSubpart, "SubpartSIP")
@@ -533,9 +533,9 @@ Public Class SSPPApplicationLog
             "from " & DBNameSpace & ".LookUpSubpart61 " & _
             "order by strSubpart "
 
-            daSubpart = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            daSubpart = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
 
             daSubpart.Fill(dsSubpart, "SubpartNESHAP")
@@ -588,9 +588,9 @@ Public Class SSPPApplicationLog
             "from " & DBNameSpace & ".LookUpSubpart60 " & _
             "order by strSubpart "
 
-            daSubpart = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            daSubpart = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
 
             daSubpart.Fill(dsSubpart, "SubpartNSPS")
@@ -644,9 +644,9 @@ Public Class SSPPApplicationLog
             "from " & DBNameSpace & ".LookUpSubpart63 " & _
             "order by strSubpart "
 
-            daSubpart = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            daSubpart = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
 
             daSubpart.Fill(dsSubpart, "SubpartMACT")
@@ -737,9 +737,9 @@ Public Class SSPPApplicationLog
                     "where numUserID = '" & UserGCode & "' " & _
                     "and numProgram = '5' "
 
-                    cmd = New OracleCommand(SQL, DBConn)
-                    If DBConn.State = ConnectionState.Closed Then
-                        DBConn.Open()
+                    cmd = New OracleCommand(SQL, Conn)
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
                     Try
 
@@ -1894,10 +1894,10 @@ Public Class SSPPApplicationLog
 
                 SQL = SQL & SQLLine
 
-                daApplication = New OracleDataAdapter(SQL, DBConn)
+                daApplication = New OracleDataAdapter(SQL, Conn)
 
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
 
                 daApplication.Fill(dsApplication, "ApplictionLog")
@@ -1959,7 +1959,7 @@ Public Class SSPPApplicationLog
                 ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
             End If
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -2634,7 +2634,7 @@ Public Class SSPPApplicationLog
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -3308,7 +3308,7 @@ Public Class SSPPApplicationLog
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -3321,7 +3321,7 @@ Public Class SSPPApplicationLog
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -3403,7 +3403,7 @@ Public Class SSPPApplicationLog
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -3425,7 +3425,7 @@ Public Class SSPPApplicationLog
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -3443,7 +3443,7 @@ Public Class SSPPApplicationLog
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -3456,7 +3456,7 @@ Public Class SSPPApplicationLog
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -3469,7 +3469,7 @@ Public Class SSPPApplicationLog
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -3513,7 +3513,7 @@ Public Class SSPPApplicationLog
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -3535,7 +3535,7 @@ Public Class SSPPApplicationLog
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -3579,7 +3579,7 @@ Public Class SSPPApplicationLog
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -3625,7 +3625,7 @@ Public Class SSPPApplicationLog
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -3652,7 +3652,7 @@ Public Class SSPPApplicationLog
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try

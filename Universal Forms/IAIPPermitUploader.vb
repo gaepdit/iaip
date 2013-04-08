@@ -57,9 +57,9 @@ Public Class IAIPPermitUploader
             "strAIRSNumber " & _
             "from " & DBNameSpace & ".SSPPApplicationMaster " & _
             "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -85,7 +85,7 @@ Public Class IAIPPermitUploader
                 "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
                 "and " & DBNameSpace & ".ssppapplicationtracking.strApplicationNumber = '" & txtApplicationNumber.Text & "' "
 
-                cmd = New OracleCommand(SQL, DBConn)
+                cmd = New OracleCommand(SQL, Conn)
                 dr = cmd.ExecuteReader
                 While dr.Read
                     If IsDBNull(dr.Item("strAIRSNumber")) Then
@@ -171,9 +171,9 @@ Public Class IAIPPermitUploader
             SQL = "select strMasterApplication " & _
             "from " & DBNameSpace & ".SSPPApplicationLinking " & _
             "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             recExist = dr.Read
@@ -189,9 +189,9 @@ Public Class IAIPPermitUploader
                 "from " & DBNameSpace & ".SSPPApplicationLinking " & _
                 "where strMasterApplication = '" & MasterApp & "' "
 
-                cmd = New OracleCommand(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -213,9 +213,9 @@ Public Class IAIPPermitUploader
             "and (" & DBNameSpace & ".SSPPApplicationLinking.strApplicationNumber = '" & MasterApp & "' " & _
             "or " & DBNameSpace & ".APBPermits.strFileName like '%-" & MasterApp & "') "
 
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             recExist = dr.Read
@@ -327,9 +327,9 @@ Public Class IAIPPermitUploader
             "strDOCFileSize, strPDFFileSize " & _
             "From " & DBNameSpace & ".ApbPermits " & _
             "where strFileName = '" & FileName & "' "
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             recExist = dr.Read
@@ -437,9 +437,9 @@ Public Class IAIPPermitUploader
                 "strPDFModifingPerson = '', " & _
                 "datPDFModifingDate = '' " & _
                 "where strFileName = '" & FileName & "' "
-                cmd = New OracleCommand(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Read()
@@ -536,9 +536,9 @@ Public Class IAIPPermitUploader
                 If Flag <> "00" Then
                     SQL = "Delete " & DBNameSpace & ".APBPermits " & _
                     "where strFileName = '" & FileName & "' "
-                    cmd = New OracleCommand(SQL, DBConn)
-                    If DBConn.State = ConnectionState.Closed Then
-                        DBConn.Open()
+                    cmd = New OracleCommand(SQL, Conn)
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
@@ -547,9 +547,9 @@ Public Class IAIPPermitUploader
                     "rowCount " & _
                     "from " & DBNameSpace & ".APBPermits " & _
                     "where strFileName = '" & FileName & "' "
-                    cmd = New OracleCommand(SQL, DBConn)
-                    If DBConn.State = ConnectionState.Closed Then
-                        DBConn.Open()
+                    cmd = New OracleCommand(SQL, Conn)
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     While dr.Read
@@ -565,9 +565,9 @@ Public Class IAIPPermitUploader
                         SQL = "select " & _
                         "(max(rowCount) + 1) as RowCount " & _
                         "from " & DBNameSpace & ".APBPermits "
-                        cmd = New OracleCommand(SQL, DBConn)
-                        If DBConn.State = ConnectionState.Closed Then
-                            DBConn.Open()
+                        cmd = New OracleCommand(SQL, Conn)
+                        If Conn.State = ConnectionState.Closed Then
+                            Conn.Open()
                         End If
                         dr = cmd.ExecuteReader
                         While dr.Read
@@ -607,10 +607,10 @@ Public Class IAIPPermitUploader
 
                     SQL = "Select * from " & DBNameSpace & ".APBPermits " & _
                     "where strFileName = '" & FileName & "' "
-                    If DBConn.State = ConnectionState.Closed Then
-                        DBConn.Open()
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
-                    da = New OracleDataAdapter(SQL, DBConn)
+                    da = New OracleDataAdapter(SQL, Conn)
                     cmdCB = New OracleCommandBuilder(da)
                     ds = New DataSet("PDF")
                     da.MissingSchemaAction = MissingSchemaAction.AddWithKey
@@ -637,9 +637,9 @@ Public Class IAIPPermitUploader
                         SQL = "Update " & DBNameSpace & ".SSPPApplicationTracking set " & _
                         "datFinalOnWeb = '" & OracleDate & "' " & _
                         "where strApplicationNumber = '" & MasterApp & "' "
-                        cmd = New OracleCommand(SQL, DBConn)
-                        If DBConn.State = ConnectionState.Closed Then
-                            DBConn.Open()
+                        cmd = New OracleCommand(SQL, Conn)
+                        If Conn.State = ConnectionState.Closed Then
+                            Conn.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Close()
@@ -650,9 +650,9 @@ Public Class IAIPPermitUploader
                     SQL = "Update " & DBNameSpace & ".SSPPApplicationTracking set " & _
                     "datFinalOnWeb = '" & OracleDate & "' " & _
                     "where strApplicationNumber = '" & MasterApp & "' "
-                    cmd = New OracleCommand(SQL, DBConn)
-                    If DBConn.State = ConnectionState.Closed Then
-                        DBConn.Open()
+                    cmd = New OracleCommand(SQL, Conn)
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
@@ -801,9 +801,9 @@ Public Class IAIPPermitUploader
                     SQL = "Select datFinalOnWeb " & _
                     "from " & DBNameSpace & ".SSPPApplicationTracking " & _
                     "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
-                    cmd = New OracleCommand(SQL, DBConn)
-                    If DBConn.State = ConnectionState.Closed Then
-                        DBConn.Open()
+                    cmd = New OracleCommand(SQL, Conn)
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     recExist = dr.Read
@@ -811,9 +811,9 @@ Public Class IAIPPermitUploader
                     If recExist = False Then
                         SQL = "Update " & DBNameSpace & ".SSPPApplicationTracking set " & _
                         "datFinalOnWeb = '" & OracleDate & "' "
-                        cmd = New OracleCommand(SQL, DBConn)
-                        If DBConn.State = ConnectionState.Closed Then
-                            DBConn.Open()
+                        cmd = New OracleCommand(SQL, Conn)
+                        If Conn.State = ConnectionState.Closed Then
+                            Conn.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Close()
@@ -1073,9 +1073,9 @@ Public Class IAIPPermitUploader
                     SQL = "Select datFinalOnWeb " & _
                     "from " & DBNameSpace & ".SSPPApplicationTracking " & _
                     "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
-                    cmd = New OracleCommand(SQL, DBConn)
-                    If DBConn.State = ConnectionState.Closed Then
-                        DBConn.Open()
+                    cmd = New OracleCommand(SQL, Conn)
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     recExist = dr.Read
@@ -1083,9 +1083,9 @@ Public Class IAIPPermitUploader
                     If recExist = False Then
                         SQL = "Update " & DBNameSpace & ".SSPPApplicationTracking set " & _
                         "datFinalOnWeb = '" & OracleDate & "' "
-                        cmd = New OracleCommand(SQL, DBConn)
-                        If DBConn.State = ConnectionState.Closed Then
-                            DBConn.Open()
+                        cmd = New OracleCommand(SQL, Conn)
+                        If Conn.State = ConnectionState.Closed Then
+                            Conn.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Close()
@@ -1158,9 +1158,9 @@ Public Class IAIPPermitUploader
                         SQL = "Select datFinalOnWeb " & _
                         "from " & DBNameSpace & ".SSPPApplicationTracking " & _
                         "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
-                        cmd = New OracleCommand(SQL, DBConn)
-                        If DBConn.State = ConnectionState.Closed Then
-                            DBConn.Open()
+                        cmd = New OracleCommand(SQL, Conn)
+                        If Conn.State = ConnectionState.Closed Then
+                            Conn.Open()
                         End If
                         dr = cmd.ExecuteReader
                         recExist = dr.Read
@@ -1168,9 +1168,9 @@ Public Class IAIPPermitUploader
                         If recExist = False Then
                             SQL = "Update " & DBNameSpace & ".SSPPApplicationTracking set " & _
                             "datFinalOnWeb = '" & OracleDate & "' "
-                            cmd = New OracleCommand(SQL, DBConn)
-                            If DBConn.State = ConnectionState.Closed Then
-                                DBConn.Open()
+                            cmd = New OracleCommand(SQL, Conn)
+                            If Conn.State = ConnectionState.Closed Then
+                                Conn.Open()
                             End If
                             dr = cmd.ExecuteReader
                             dr.Close()
@@ -1201,9 +1201,9 @@ Public Class IAIPPermitUploader
                 "from " & DBNameSpace & ".SSPPApplicationData  " & _
                 "where strApplicationNumber like '" & MasterApp & "' "
 
-                cmd = New OracleCommand(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -1230,8 +1230,8 @@ Public Class IAIPPermitUploader
                             DestFilePath = "N/A"
                         End If
                         If DestFilePath <> "N/A" Then
-                            If DBConn.State = ConnectionState.Closed Then
-                                DBConn.Open()
+                            If Conn.State = ConnectionState.Closed Then
+                                Conn.Open()
                             End If
 
                             SQL = "select " & _
@@ -1239,7 +1239,7 @@ Public Class IAIPPermitUploader
                             "from " & DBNameSpace & ".APBPermits " & _
                             "where strFileName = '" & FileName & "' "
 
-                            cmd = New OracleCommand(SQL, DBConn)
+                            cmd = New OracleCommand(SQL, Conn)
                             dr = cmd.ExecuteReader
 
                             dr.Read()
@@ -1265,8 +1265,8 @@ Public Class IAIPPermitUploader
                         End If
 
                         If DestFilePath <> "N/A" Then
-                            If DBConn.State = ConnectionState.Closed Then
-                                DBConn.Open()
+                            If Conn.State = ConnectionState.Closed Then
+                                Conn.Open()
                             End If
 
                             SQL = "select " & _
@@ -1274,7 +1274,7 @@ Public Class IAIPPermitUploader
                             "from " & DBNameSpace & ".APBPermits " & _
                             "where strFileName = '" & FileName & "' "
 
-                            cmd = New OracleCommand(SQL, DBConn)
+                            cmd = New OracleCommand(SQL, Conn)
                             dr = cmd.ExecuteReader
 
                             dr.Read()
@@ -1299,8 +1299,8 @@ Public Class IAIPPermitUploader
                             DestFilePath = "N/A"
                         End If
                         If DestFilePath <> "N/A" Then
-                            If DBConn.State = ConnectionState.Closed Then
-                                DBConn.Open()
+                            If Conn.State = ConnectionState.Closed Then
+                                Conn.Open()
                             End If
 
                             SQL = "select " & _
@@ -1308,7 +1308,7 @@ Public Class IAIPPermitUploader
                             "from " & DBNameSpace & ".APBPermits " & _
                             "where strFileName = '" & FileName & "' "
 
-                            cmd = New OracleCommand(SQL, DBConn)
+                            cmd = New OracleCommand(SQL, Conn)
                             dr = cmd.ExecuteReader
 
                             dr.Read()
@@ -1333,8 +1333,8 @@ Public Class IAIPPermitUploader
                         End If
 
                         If DestFilePath <> "N/A" Then
-                            If DBConn.State = ConnectionState.Closed Then
-                                DBConn.Open()
+                            If Conn.State = ConnectionState.Closed Then
+                                Conn.Open()
                             End If
 
                             SQL = "select " & _
@@ -1342,7 +1342,7 @@ Public Class IAIPPermitUploader
                             "from " & DBNameSpace & ".APBPermits " & _
                             "where strFileName = '" & FileName & "' "
 
-                            cmd = New OracleCommand(SQL, DBConn)
+                            cmd = New OracleCommand(SQL, Conn)
                             dr = cmd.ExecuteReader
 
                             dr.Read()
@@ -1375,9 +1375,9 @@ Public Class IAIPPermitUploader
             SQL = "Select datFinalizedDate " & _
             "from " & DBNameSpace & ".SSPPApplicationMaster " & _
             "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -1434,9 +1434,9 @@ Public Class IAIPPermitUploader
             "strFileName " & _
             "from " & DBNameSpace & ".APBPermits " & _
             "where strFileName = '" & FileType & "-" & txtApplicationNumber.Text & "' "
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             recExist = dr.Read
@@ -1450,9 +1450,9 @@ Public Class IAIPPermitUploader
                         SQL = "Delete " & DBNameSpace & ".APBPermits " & _
                         "where strFileName = '" & FileType & "-" & txtApplicationNumber.Text & "' "
 
-                        cmd = New OracleCommand(SQL, DBConn)
-                        If DBConn.State = ConnectionState.Closed Then
-                            DBConn.Open()
+                        cmd = New OracleCommand(SQL, Conn)
+                        If Conn.State = ConnectionState.Closed Then
+                            Conn.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Close()
@@ -1553,9 +1553,9 @@ Public Class IAIPPermitUploader
                 "from " & DBNameSpace & ".APBPermits " & _
                 "where strFileName like 'V_-" & MasterApp & "' "
 
-                cmd = New OracleCommand(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 Do While dr.Read
@@ -1623,9 +1623,9 @@ Public Class IAIPPermitUploader
                 "from " & DBNameSpace & ".APBPermits " & _
                 "where strFileName like 'P_-" & MasterApp & "' "
 
-                cmd = New OracleCommand(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 Do While dr.Read
@@ -1701,9 +1701,9 @@ Public Class IAIPPermitUploader
                 "from " & DBNameSpace & ".APBPermits " & _
                 "where strFileName like 'O_-" & MasterApp & "' "
 
-                cmd = New OracleCommand(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 Do While dr.Read
@@ -1780,9 +1780,9 @@ Public Class IAIPPermitUploader
                 "from " & DBNameSpace & ".APBPermits " & _
                 "where strFileName = 'VN-" & MasterApp & "' "
 
-                cmd = New OracleCommand(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -1903,9 +1903,9 @@ Public Class IAIPPermitUploader
                 "from " & DBNameSpace & ".APBPermits " & _
                 "where strFileName = 'VD-" & MasterApp & "' "
 
-                cmd = New OracleCommand(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -2025,9 +2025,9 @@ Public Class IAIPPermitUploader
                 "from " & DBNameSpace & ".APBPermits " & _
                 "where strFileName = 'VP-" & MasterApp & "' "
 
-                cmd = New OracleCommand(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -2147,9 +2147,9 @@ Public Class IAIPPermitUploader
                  "from " & DBNameSpace & ".APBPermits " & _
                  "where strFileName = 'VF-" & MasterApp & "' "
 
-                cmd = New OracleCommand(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -2280,9 +2280,9 @@ Public Class IAIPPermitUploader
                  "from " & DBNameSpace & ".APBPermits " & _
                  "where strFileName = 'PA-" & MasterApp & "' "
 
-                cmd = New OracleCommand(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -2413,9 +2413,9 @@ Public Class IAIPPermitUploader
                  "from " & DBNameSpace & ".APBPermits " & _
                  "where strFileName = 'PP-" & MasterApp & "' "
 
-                cmd = New OracleCommand(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -2544,9 +2544,9 @@ Public Class IAIPPermitUploader
                  "from " & DBNameSpace & ".APBPermits " & _
                  "where strFileName = 'PT-" & MasterApp & "' "
 
-                cmd = New OracleCommand(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -2675,9 +2675,9 @@ Public Class IAIPPermitUploader
                  "from " & DBNameSpace & ".APBPermits " & _
                  "where strFileName = 'PD-" & MasterApp & "' "
 
-                cmd = New OracleCommand(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -2806,9 +2806,9 @@ Public Class IAIPPermitUploader
                 "from " & DBNameSpace & ".APBPermits " & _
                 "where strFileName = 'PN-" & MasterApp & "' "
 
-                cmd = New OracleCommand(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -2937,9 +2937,9 @@ Public Class IAIPPermitUploader
                  "from " & DBNameSpace & ".APBPermits " & _
                  "where strFileName = 'PH-" & MasterApp & "' "
 
-                cmd = New OracleCommand(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -3068,9 +3068,9 @@ Public Class IAIPPermitUploader
                  "from " & DBNameSpace & ".APBPermits " & _
                  "where strFileName = 'PF-" & MasterApp & "' "
 
-                cmd = New OracleCommand(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -3199,9 +3199,9 @@ Public Class IAIPPermitUploader
                 "from " & DBNameSpace & ".APBPermits " & _
                 "where strFileName = 'PI-" & MasterApp & "' "
 
-                cmd = New OracleCommand(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -3319,9 +3319,9 @@ Public Class IAIPPermitUploader
                  "from " & DBNameSpace & ".APBPermits " & _
                  "where strFileName = 'ON-" & MasterApp & "' "
 
-                cmd = New OracleCommand(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -3441,9 +3441,9 @@ Public Class IAIPPermitUploader
                   "from " & DBNameSpace & ".APBPermits " & _
                   "where strFileName = 'OP-" & MasterApp & "' "
 
-                cmd = New OracleCommand(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -5435,9 +5435,9 @@ Public Class IAIPPermitUploader
             "and strPDFFileSize is  null " & _
             "and strFileName = 'PA-14196'  "
 
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -5467,7 +5467,7 @@ Public Class IAIPPermitUploader
                 "from " & DBNameSpace & ".APBPermits " & _
                 "where strFileName = '" & FileName & "' "
 
-                cmd = New OracleCommand(SQL, DBConn)
+                cmd = New OracleCommand(SQL, Conn)
                 dr2 = cmd.ExecuteReader
 
                 dr2.Read()

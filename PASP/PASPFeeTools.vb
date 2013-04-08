@@ -37,10 +37,10 @@ Public Class PASPFeeTools
             "order by paytype"
 
             ds = New DataSet
-            da = New OracleDataAdapter(SQL, DBConn)
+            da = New OracleDataAdapter(SQL, Conn)
 
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
 
             da.Fill(ds, "PayType")
@@ -80,9 +80,9 @@ Public Class PASPFeeTools
             "strAIRSNumber, strFacilityName " & _
             "from " & DBNameSpace & ".APBFacilityInformation " & _
             "where strAIRSNumber = '0413" & AIRSNumber & "' "
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -105,9 +105,9 @@ Public Class PASPFeeTools
                 "strAIRSNumber " & _
                 "from " & DBNameSpace & ".APBFacilityInformation " & _
                 "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' "
-                cmd = New OracleCommand(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -174,9 +174,9 @@ Public Class PASPFeeTools
              "where strDepositNo = '" & txtDepositNumber.Text & "' " & _
              "order by strBatchNo "
 
-            da = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            da = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
 
             da.Fill(ds, "Deposit")
@@ -215,9 +215,9 @@ Public Class PASPFeeTools
             "and intYear = '" & mtbFeeYear.Text & "' " & _
             "order by strBatchNo "
 
-            daInvoice = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            daInvoice = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
 
             daInvoice.Fill(dsInvoice, "Deposit")
@@ -412,9 +412,9 @@ Public Class PASPFeeTools
                     "where strInvoiceNo = '" & Replace(InvoiceNumber, "'", "''") & "' " & _
                     "and datPayDate is null "
 
-                    cmd = New OracleCommand(SQL, DBConn)
-                    If DBConn.State = ConnectionState.Closed Then
-                        DBConn.Open()
+                    cmd = New OracleCommand(SQL, Conn)
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     While dr.Read
@@ -443,9 +443,9 @@ Public Class PASPFeeTools
                 "" & DBNameSpace & ".seqFSDeposit.nextval, " & _
                 "'" & InvoiceNumber & "') "
 
-                cmd = New OracleCommand(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
 
                 dr = cmd.ExecuteReader
@@ -508,10 +508,10 @@ Public Class PASPFeeTools
                     "strEntryPerson = '" & UserGCode & "' " & _
                     "where intpayid = '" & txtDepositPayID.Text & "'"
 
-                    cmd = New OracleCommand(SQL, DBConn)
+                    cmd = New OracleCommand(SQL, Conn)
 
-                    If DBConn.State = ConnectionState.Closed Then
-                        DBConn.Open()
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
                     dr = cmd.ExecuteReader
 
@@ -551,10 +551,10 @@ Public Class PASPFeeTools
                     SQL = "Delete from " & DBNameSpace & ".FSAddPaid " & _
                     "where intpayid = '" & txtDepositPayID.Text & "'"
 
-                    cmd = New OracleCommand(SQL, DBConn)
+                    cmd = New OracleCommand(SQL, Conn)
                     cmd.CommandType = CommandType.Text
-                    If DBConn.State = ConnectionState.Closed Then
-                        DBConn.Open()
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
 
                     dr = cmd.ExecuteReader

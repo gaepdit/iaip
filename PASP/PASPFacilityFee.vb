@@ -940,7 +940,7 @@ Public Class PASPFacilityFee
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -981,7 +981,7 @@ Public Class PASPFacilityFee
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1024,16 +1024,16 @@ Public Class PASPFacilityFee
             + "Order by strFacilityName "
 
             ds = New DataSet
-            da = New OracleDataAdapter(SQL, DBConn)
+            da = New OracleDataAdapter(SQL, Conn)
 
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
             Else
-                DBConn.Open()
+                Conn.Open()
             End If
 
             da.Fill(ds, "facilityInfo")
 
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -1069,7 +1069,7 @@ Public Class PASPFacilityFee
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1102,7 +1102,7 @@ Public Class PASPFacilityFee
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1119,12 +1119,12 @@ Public Class PASPFacilityFee
             " from " & DBNameSpace & ".FSFeeRates " & _
             " where intyear = '" & feeyear & "' "
 
-            Dim cmd As New OracleCommand(SQL, DBConn)
+            Dim cmd As New OracleCommand(SQL, Conn)
             cmd.CommandType = CommandType.Text
 
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
             Else
-                DBConn.Open()
+                Conn.Open()
             End If
 
             Dim dr As OracleDataReader = cmd.ExecuteReader()
@@ -1158,14 +1158,14 @@ Public Class PASPFacilityFee
             Else
             End If
 
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1231,12 +1231,12 @@ Public Class PASPFacilityFee
                 + "where strairsnumber = '0413" & airsnumber & "' " _
                 + "and intyear = '" & feeyear & "' "
 
-            Dim cmd As New OracleCommand(SQL, DBConn)
+            Dim cmd As New OracleCommand(SQL, Conn)
             cmd.CommandType = CommandType.Text
 
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
             Else
-                DBConn.Open()
+                Conn.Open()
             End If
 
             Dim dr As OracleDataReader = cmd.ExecuteReader()
@@ -1372,7 +1372,7 @@ Public Class PASPFacilityFee
 
             End If
 
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -1387,7 +1387,7 @@ Public Class PASPFacilityFee
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1597,7 +1597,7 @@ Public Class PASPFacilityFee
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1756,7 +1756,7 @@ Public Class PASPFacilityFee
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1794,7 +1794,7 @@ Public Class PASPFacilityFee
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1808,7 +1808,7 @@ Public Class PASPFacilityFee
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1906,12 +1906,12 @@ Public Class PASPFacilityFee
             + "where strairsnumber = '0413" & cboAirsNo2.Text & "' " _
             + "and intyear = '" & cboFeeYear2.Text & "' "
 
-            Dim cmd As New OracleCommand(SQL, DBConn)
+            Dim cmd As New OracleCommand(SQL, Conn)
             cmd.CommandType = CommandType.Text
 
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
             Else
-                DBConn.Open()
+                Conn.Open()
             End If
 
             cmd.ExecuteReader()
@@ -1919,7 +1919,7 @@ Public Class PASPFacilityFee
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -2000,23 +2000,23 @@ Public Class PASPFacilityFee
             + "and intyear = '" & cboFeeYear2.Text & "' "
 
 
-            cmd = New OracleCommand(SQL, DBConn)
+            cmd = New OracleCommand(SQL, Conn)
             cmd.CommandType = CommandType.Text
 
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
             Else
-                DBConn.Open()
+                Conn.Open()
             End If
 
             Dim dr As OracleDataReader = cmd.ExecuteReader
 
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -2056,12 +2056,12 @@ Public Class PASPFacilityFee
          + "where strairsnumber = '0413" & cboAirsNo2.Text & "' " _
          + "and intyear = '" & cboFeeYear2.Text & "' "
 
-            Dim cmd As New OracleCommand(SQL, DBConn)
+            Dim cmd As New OracleCommand(SQL, Conn)
             cmd.CommandType = CommandType.Text
 
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
             Else
-                DBConn.Open()
+                Conn.Open()
             End If
 
             Dim dr As OracleDataReader = cmd.ExecuteReader()
@@ -2076,7 +2076,7 @@ Public Class PASPFacilityFee
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -2153,24 +2153,24 @@ Public Class PASPFacilityFee
             + "'" & part70 & "', '" & syntheticminor & "', " _
             + "'" & CDbl(lblcalculated.Text) & "') "
 
-            cmd = New OracleCommand(SQL, DBConn)
+            cmd = New OracleCommand(SQL, Conn)
             cmd.CommandType = CommandType.Text
 
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
             Else
-                DBConn.Open()
+                Conn.Open()
             End If
 
             Dim dr As OracleDataReader = cmd.ExecuteReader
 
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -2238,7 +2238,7 @@ Public Class PASPFacilityFee
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -2256,7 +2256,7 @@ Public Class PASPFacilityFee
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -2271,7 +2271,7 @@ Public Class PASPFacilityFee
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -2285,7 +2285,7 @@ Public Class PASPFacilityFee
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try

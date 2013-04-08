@@ -285,7 +285,7 @@ Public Class SSCPFCESelectorTool
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -301,7 +301,7 @@ Public Class SSCPFCESelectorTool
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -314,7 +314,7 @@ Public Class SSCPFCESelectorTool
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -327,7 +327,7 @@ Public Class SSCPFCESelectorTool
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -354,7 +354,7 @@ Public Class SSCPFCESelectorTool
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -422,7 +422,7 @@ Public Class SSCPFCESelectorTool
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -438,15 +438,15 @@ Public Class SSCPFCESelectorTool
 
         Try
 
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
 
             SQL = "Select strFacilityStreet1, strFacilityCity " & _
             "from " & DBNameSpace & ".APBFacilityInformation " & _
             "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
 
-            cmd = New OracleCommand(SQL, DBConn)
+            cmd = New OracleCommand(SQL, Conn)
             dr = cmd.ExecuteReader
             While dr.Read
                 'Street = dr.Item("strFacilityStreet1")
@@ -457,7 +457,7 @@ Public Class SSCPFCESelectorTool
             "from " & DBNameSpace & ".APBHeaderData " & _
             "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
 
-            cmd = New OracleCommand(SQL, DBConn)
+            cmd = New OracleCommand(SQL, Conn)
             dr = cmd.ExecuteReader
             While dr.Read
                 AIRProgramCode = dr.Item("strAIRProgramCodes")
@@ -465,7 +465,7 @@ Public Class SSCPFCESelectorTool
             End While
 
             'SQL = "Select strCountyName " & _
-            '"from " & connNameSpace & ".LookUpCountyInformation " & _
+            '"from " & DBNameSpace & ".LookUpCountyInformation " & _
             '"where strCountyCode = '" & Mid(txtAIRSNumber.Text, 1, 3) & "' "
 
             'cmd = New OracleCommand(SQL, conn)
@@ -499,7 +499,7 @@ Public Class SSCPFCESelectorTool
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -519,7 +519,7 @@ Public Class SSCPFCESelectorTool
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -533,7 +533,7 @@ Public Class SSCPFCESelectorTool
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -553,9 +553,9 @@ Public Class SSCPFCESelectorTool
                 "from " & DBNameSpace & ".APBFacilityInformation " & _
                 "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
 
-                cmd = New OracleCommand(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
 
                 dr = cmd.ExecuteReader
@@ -566,7 +566,7 @@ Public Class SSCPFCESelectorTool
                     txtFacilityName.Text = "Invalid AIRS Number"
                 End If
 
-                If DBConn.State = ConnectionState.Open Then
+                If Conn.State = ConnectionState.Open Then
                     'conn.close()
                 End If
             Else
@@ -575,7 +575,7 @@ Public Class SSCPFCESelectorTool
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try

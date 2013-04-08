@@ -62,13 +62,13 @@ Public Class ISMPNotificationLog
             "order by UserName "
 
             dsFacilityData = New DataSet
-            daFacilityData = New OracleDataAdapter(SQL, DBConn)
+            daFacilityData = New OracleDataAdapter(SQL, Conn)
 
             dsStaffResponsible = New DataSet
-            daStaffResponsible = New OracleDataAdapter(SQL2, DBConn)
+            daStaffResponsible = New OracleDataAdapter(SQL2, Conn)
 
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
 
             daFacilityData.Fill(dsFacilityData, "FacilityData")
@@ -158,9 +158,9 @@ Public Class ISMPNotificationLog
                 "from " & DBNameSpace & ".ISMPTestNotification, " & DBNameSpace & ".APBFacilityInformation  " & _
                 "where " & DBNameSpace & ".ISMPTestNotification.strAIRSNumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber (+)  " & _
                 "and " & DBNameSpace & ".ISMPTestNotification.strTestLogNumber = '" & txtTestNotificationNumber.Text & "'  "
-                cmd = New OracleCommand(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -332,9 +332,9 @@ Public Class ISMPNotificationLog
             "strReferenceNumber " & _
             "from " & DBNameSpace & ".ISMPTestLogLink " & _
             "where strTestLogNumber = '" & txtTestNotificationNumber.Text & "' "
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -363,9 +363,9 @@ Public Class ISMPNotificationLog
                 SQL = "select strTestLogNumber " & _
                 "from " & DBNameSpace & ".ISMPTestNotification " & _
                 "where strTestLogNumber = '" & txtTestNotificationNumber.Text & "' "
-                cmd = New OracleCommand(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -438,9 +438,9 @@ Public Class ISMPNotificationLog
                     "and '" & Format(DTPTestDateStart.Value.AddDays(15), "dd-MMM-yyyy") & "' " & _
                     "and strAIRSNumber = '0413" & cboAIRSNumber.Text & "' "
 
-                    cmd = New OracleCommand(SQL, DBConn)
-                    If DBConn.State = ConnectionState.Closed Then
-                        DBConn.Open()
+                    cmd = New OracleCommand(SQL, Conn)
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     recExist = dr.Read
@@ -503,9 +503,9 @@ Public Class ISMPNotificationLog
                     "'" & TestNotificationDate & "', '" & TestNotificationDate & "', " & _
                     "'" & Replace(txtPollutants.Text, "'", "''") & "') "
                 End If
-                cmd = New OracleCommand(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -523,9 +523,9 @@ Public Class ISMPNotificationLog
         Try
             SQL = "Select max(to_number(strTestLogNumber)) + 1 as TestNum " & _
             "From " & DBNameSpace & ".ISMPTestnotification "
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read

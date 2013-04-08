@@ -26,7 +26,7 @@ Public Class SSPPAttainmentStatus
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -58,7 +58,7 @@ Public Class SSPPAttainmentStatus
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -77,21 +77,21 @@ Public Class SSPPAttainmentStatus
             SQL = "select strCountyCode, strCountyname " & _
             "from " & DBNameSpace & ".LookUpCountyInformation " & _
             "order by strcountyName"
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
 
             dsCounty = New DataSet
-            daCounty = New OracleDataAdapter(SQL, DBConn)
+            daCounty = New OracleDataAdapter(SQL, Conn)
 
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
 
             daCounty.Fill(dsCounty, "County")
 
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -120,7 +120,7 @@ Public Class SSPPAttainmentStatus
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -169,15 +169,15 @@ Public Class SSPPAttainmentStatus
         SQLClause
 
         dsAttainment = New DataSet
-        daAttainment = New OracleDataAdapter(SQL, DBConn)
+        daAttainment = New OracleDataAdapter(SQL, Conn)
 
-        If DBConn.State = ConnectionState.Closed Then
-            DBConn.Open()
+        If Conn.State = ConnectionState.Closed Then
+            Conn.Open()
         End If
 
         daAttainment.Fill(dsAttainment, "Attainment")
 
-        If DBConn.State = ConnectionState.Open Then
+        If Conn.State = ConnectionState.Open Then
             'conn.close()
         End If
 
@@ -215,9 +215,9 @@ Public Class SSPPAttainmentStatus
             "from " & DBNameSpace & ".LookUpCountyInformation " & _
             "where strCountyCode = '" & cboCounty.SelectedValue & "'"
 
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             recExist = dr.Read
@@ -225,7 +225,7 @@ Public Class SSPPAttainmentStatus
                 Attainment = dr.Item("strNonAttainment")
             End If
 
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -271,7 +271,7 @@ Public Class SSPPAttainmentStatus
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -291,7 +291,7 @@ Public Class SSPPAttainmentStatus
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -305,9 +305,9 @@ Public Class SSPPAttainmentStatus
             SQL = "select strNonAttainment " & _
             "from " & DBNameSpace & ".LookUpCountyInformation " & _
             "where strCountyCode = '" & cboCounty.SelectedValue & "' "
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -332,9 +332,9 @@ Public Class SSPPAttainmentStatus
             SQL = "Update " & DBNameSpace & ".LookUpCountyInformation set " & _
             "strNonAttainment = '" & AttainmentStatus & "' " & _
             "where strCountyCode = '" & cboCounty.SelectedValue & "' "
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -343,9 +343,9 @@ Public Class SSPPAttainmentStatus
             "from " & DBNameSpace & ".APBHeaderData " & _
             "where substr(strAIRSNumber, 5, 3) = '" & cboCounty.SelectedValue & "' "
 
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -378,9 +378,9 @@ Public Class SSPPAttainmentStatus
                 "strAttainmentStatus = '" & AttainmentStatus & "' " & _
                 "where strAIRSNumber = '" & dr.Item("strAirsNumber") & "' "
 
-                cmd2 = New OracleCommand(SQL2, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd2 = New OracleCommand(SQL2, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr2 = cmd2.ExecuteReader
                 dr2.Close()
@@ -391,7 +391,7 @@ Public Class SSPPAttainmentStatus
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -405,9 +405,9 @@ Public Class SSPPAttainmentStatus
             SQL = "select strNonAttainment " & _
             "from " & DBNameSpace & ".LookUpCountyInformation " & _
             "where strCountyCode = '" & cboCounty.SelectedValue & "' "
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -432,9 +432,9 @@ Public Class SSPPAttainmentStatus
             SQL = "Update " & DBNameSpace & ".LookUpCountyInformation set " & _
             "strNonAttainment = '" & AttainmentStatus & "' " & _
             "where strCountyCode = '" & cboCounty.SelectedValue & "' "
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -443,9 +443,9 @@ Public Class SSPPAttainmentStatus
             "from " & DBNameSpace & ".APBHeaderData " & _
             "where substr(strAIRSNumber, 5, 3) = '" & cboCounty.SelectedValue & "' "
 
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -478,9 +478,9 @@ Public Class SSPPAttainmentStatus
                 "strAttainmentStatus = '" & AttainmentStatus & "' " & _
                 "where strAIRSNumber = '" & dr.Item("strAirsNumber") & "' "
 
-                cmd2 = New OracleCommand(SQL2, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd2 = New OracleCommand(SQL2, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr2 = cmd2.ExecuteReader
                 dr2.Close()
@@ -490,7 +490,7 @@ Public Class SSPPAttainmentStatus
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -504,9 +504,9 @@ Public Class SSPPAttainmentStatus
             SQL = "select strNonAttainment " & _
             "from " & DBNameSpace & ".LookUpCountyInformation " & _
             "where strCountyCode = '" & cboCounty.SelectedValue & "' "
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -537,9 +537,9 @@ Public Class SSPPAttainmentStatus
             SQL = "Update " & DBNameSpace & ".LookUpCountyInformation set " & _
             "strNonAttainment = '" & AttainmentStatus & "' " & _
             "where strCountyCode = '" & cboCounty.SelectedValue & "' "
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -548,9 +548,9 @@ Public Class SSPPAttainmentStatus
             "from " & DBNameSpace & ".APBHeaderData " & _
             "where substr(strAIRSNumber, 5, 3) = '" & cboCounty.SelectedValue & "' "
 
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -599,9 +599,9 @@ Public Class SSPPAttainmentStatus
                 "strAttainmentStatus = '" & AttainmentStatus & "' " & _
                 "where strAIRSNumber = '" & dr.Item("strAirsNumber") & "' "
 
-                cmd2 = New OracleCommand(SQL2, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd2 = New OracleCommand(SQL2, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr2 = cmd2.ExecuteReader
                 dr2.Close()
@@ -611,7 +611,7 @@ Public Class SSPPAttainmentStatus
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -629,7 +629,7 @@ Public Class SSPPAttainmentStatus
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -645,7 +645,7 @@ Public Class SSPPAttainmentStatus
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -667,7 +667,7 @@ Public Class SSPPAttainmentStatus
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -682,7 +682,7 @@ Public Class SSPPAttainmentStatus
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -701,7 +701,7 @@ Public Class SSPPAttainmentStatus
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -715,7 +715,7 @@ Public Class SSPPAttainmentStatus
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -729,7 +729,7 @@ Public Class SSPPAttainmentStatus
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -743,7 +743,7 @@ Public Class SSPPAttainmentStatus
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -767,7 +767,7 @@ Public Class SSPPAttainmentStatus
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try

@@ -323,7 +323,7 @@ Module MRFunctions
         Catch ex As Exception
             ErrorReport(ex.ToString(), "MRFunctions.SendMail")
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
             Beep()   ' Beep after error processing.
@@ -357,7 +357,7 @@ Module MRFunctions
         Catch ex As Exception
             ErrorReport(ex.ToString(), "MRFunctions.DisplayReport")
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -390,7 +390,7 @@ Module MRFunctions
             Catch ex As Exception
                 ErrorReport(ex.ToString(), "MRFunctions.New(ByVal sb as StatusBar)")
             Finally
-                If DBConn.State = ConnectionState.Open Then
+                If Conn.State = ConnectionState.Open Then
                     'conn.close()
                 End If
             End Try
@@ -412,7 +412,7 @@ Module MRFunctions
             Catch ex As Exception
                 ErrorReport(ex.ToString(), "MRFunctions.Reposition")
             Finally
-                If DBConn.State = ConnectionState.Open Then
+                If Conn.State = ConnectionState.Open Then
                     'conn.close()
                 End If
             End Try
@@ -510,7 +510,7 @@ Module MRFunctions
             Catch ex As Exception
                 ErrorReport(ex.ToString(), "MRFunctions.drawit")
             Finally
-                If DBConn.State = ConnectionState.Open Then
+                If Conn.State = ConnectionState.Open Then
                     'conn.close()
                 End If
             End Try

@@ -20,9 +20,9 @@ Public Class IAIPLookUpTables
             "order by strApplicationTypeDesc "
 
             ds = New DataSet
-            da = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            da = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             da.Fill(ds, "ApplicationTypes")
             dgvApplicationType.DataSource = ds
@@ -118,18 +118,18 @@ Public Class IAIPLookUpTables
                 "((Select max(to_Number(strApplicationTypeCode)) + 1 as MaxID " & _
                 "from " & DBNameSpace & ".LookUpApplicationTypes), " & _
                 "'" & txtApplicationDesc.Text & "', '" & AppStatus & "') "
-                cmd = New OracleCommand(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
 
                 SQL = "Select max(to_Number(strApplicationTypeCode)) + 1 as MaxID " & _
                 "from " & DBNameSpace & ".LookUpApplicationTypes "
-                cmd = New OracleCommand(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -163,9 +163,9 @@ Public Class IAIPLookUpTables
                 "strApplicationTypeDesc = '" & Replace(txtApplicationDesc.Text, "'", "''") & "', " & _
                 "strApplicationTypeUsed = '" & temp & "' " & _
                 "where strApplicationTypeCode = '" & txtApplicationID.Text & "' "
-                cmd = New OracleCommand(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -187,9 +187,9 @@ Public Class IAIPLookUpTables
                 SQL = "Select Count(*) as IDUsed " & _
                 "from " & DBNameSpace & ".SSPPApplicationMaster " & _
                 "where strApplicationType = '" & txtApplicationID.Text & "' "
-                cmd = New OracleCommand(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -210,9 +210,9 @@ Public Class IAIPLookUpTables
                 If temp <> "Keep" Then
                     SQL = "delete " & DBNameSpace & ".LookUpApplicationTypes " & _
                     "where strApplicationTypeCode = '" & txtApplicationID.Text & "' "
-                    cmd = New OracleCommand(SQL, DBConn)
-                    If DBConn.State = ConnectionState.Closed Then
-                        DBConn.Open()
+                    cmd = New OracleCommand(SQL, Conn)
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
@@ -397,9 +397,9 @@ Public Class IAIPLookUpTables
             "order by to_number(strKey) "
 
             ds = New DataSet
-            da = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            da = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             da.Fill(ds, "APBManagement")
             dgvLookUpManagement.DataSource = ds
@@ -468,9 +468,9 @@ Public Class IAIPLookUpTables
                 "datEndDate, strCurrentContact " & _
                 "from " & DBNameSpace & ".LookUpAPBManagementType " & _
                 "where numId = '" & txtAPBManagemetnID.Text & "' "
-                cmd = New OracleCommand(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -667,9 +667,9 @@ Public Class IAIPLookUpTables
             "from " & DBNameSpace & ".LookUpAPBManagementType " & _
             "where strCurrentContact = '1' " & _
             "and strKey = '" & ManagementType & "' "
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -679,9 +679,9 @@ Public Class IAIPLookUpTables
                     "strCurrentContact = '0', " & _
                     "datEndDate = '" & OracleDate & "' " & _
                     "where numId = '" & dr.Item("numID") & "' "
-                    cmd2 = New OracleCommand(SQL, DBConn)
-                    If DBConn.State = ConnectionState.Closed Then
-                        DBConn.Open()
+                    cmd2 = New OracleCommand(SQL, Conn)
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
                     dr2 = cmd2.ExecuteReader
                     dr2.Close()
@@ -694,9 +694,9 @@ Public Class IAIPLookUpTables
             "((select max(numId) + 1 from AIRBRANCH.LookUpAPBManagementType), '" & ManagementType & "', " & _
             "'" & Replace(ManagementName, "'", "''") & "', '" & OracleDate & "', " & _
             "'', '1') "
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -886,9 +886,9 @@ Public Class IAIPLookUpTables
             "order by numID "
 
             ds = New DataSet
-            da = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            da = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             da.Fill(ds, "APBManagement")
             dgvLookUpManagement.DataSource = ds

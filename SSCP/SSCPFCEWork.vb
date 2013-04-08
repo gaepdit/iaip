@@ -77,10 +77,10 @@ Public Class SSCPFCEWork
             "from " & DBNameSpace & ".VW_APBFacilityLocation " & _
             "where strAIRSNumber = '0413" & txtAirsNumber.Text & "' "
 
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
-            cmd = New OracleCommand(SQL, DBConn)
+            cmd = New OracleCommand(SQL, Conn)
             dr = cmd.ExecuteReader
 
             recExist = dr.Read
@@ -112,9 +112,9 @@ Public Class SSCPFCEWork
             "strClass, strAIRProgramCodes " & _
             "from " & DBNameSpace & ".APBHeaderData " & _
             "where strAIRSNumber = '0413" & txtAirsNumber.Text & "' "
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
 
@@ -126,7 +126,7 @@ Public Class SSCPFCEWork
             End If
             dr.Close()
 
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -150,7 +150,7 @@ Public Class SSCPFCEWork
             'SQL2 = "Select distinct(numUserID), " & _
             '"(strLastName||', '||strFirstName) as StaffName, " & _
             '"strLastName " & _
-            '"from " & connNameSpace & ".EPDUserProfiles, " & connNameSpace & ".SSCP_AuditedEnforcement " & _
+            '"from " & DBNameSpace & ".EPDUserProfiles, " & DBNameSpace & ".SSCP_AuditedEnforcement " & _
             '"where numProgram = '4' " & _
             '"or numUserID = numStaffResponsible " & _
             '"or (numBranch = '5' " & _
@@ -163,17 +163,17 @@ Public Class SSCPFCEWork
             dsFCE = New DataSet
             dsStaff = New DataSet
 
-            daFCE = New OracleDataAdapter(SQL, DBConn)
-            daStaff = New OracleDataAdapter(SQL2, DBConn)
+            daFCE = New OracleDataAdapter(SQL, Conn)
+            daStaff = New OracleDataAdapter(SQL2, Conn)
 
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
 
             daFCE.Fill(dsFCE, "FCEdata")
             daStaff.Fill(dsStaff, "Staff")
 
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -369,12 +369,12 @@ Public Class SSCPFCEWork
 
             dsInspections = New DataSet
 
-            Dim cmd As New OracleCommand(SQL, DBConn)
+            Dim cmd As New OracleCommand(SQL, Conn)
 
             daInspections = New OracleDataAdapter(cmd)
 
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
 
             daInspections.Fill(dsInspections, "Inspections")
@@ -411,12 +411,12 @@ Public Class SSCPFCEWork
 
             dsACC = New DataSet
 
-            Dim cmd As New OracleCommand(SQL, DBConn)
+            Dim cmd As New OracleCommand(SQL, Conn)
 
             daACC = New OracleDataAdapter(cmd)
 
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
 
             daACC.Fill(dsACC, "ACC")
@@ -451,12 +451,12 @@ Public Class SSCPFCEWork
 
             dsReport = New DataSet
 
-            Dim cmd As New OracleCommand(SQL, DBConn)
+            Dim cmd As New OracleCommand(SQL, Conn)
 
             daReport = New OracleDataAdapter(cmd)
 
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
 
             daReport.Fill(dsReport, "Reports")
@@ -500,12 +500,12 @@ Public Class SSCPFCEWork
 
             dsNotifications = New DataSet
 
-            Dim cmd As New OracleCommand(SQL, DBConn)
+            Dim cmd As New OracleCommand(SQL, Conn)
 
             daNotifications = New OracleDataAdapter(cmd)
 
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
 
             daNotifications.Fill(dsNotifications, "Notifications")
@@ -560,11 +560,11 @@ Public Class SSCPFCEWork
 
             dsISMP = New DataSet
 
-            cmd = New OracleCommand(SQL, DBConn)
+            cmd = New OracleCommand(SQL, Conn)
             daISMP = New OracleDataAdapter(cmd)
 
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
 
             daISMP.Fill(dsISMP, "ISMPWork")
@@ -599,9 +599,9 @@ Public Class SSCPFCEWork
 
             dsPerformanceTest = New DataSet
 
-            daPerformanceTest = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            daPerformanceTest = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             daPerformanceTest.Fill(dsPerformanceTest, "PerformanceTests")
             dgrPerformanceTests.DataSource = dsPerformanceTest
@@ -632,12 +632,12 @@ Public Class SSCPFCEWork
 
             dsEnforcement = New DataSet
 
-            cmd = New OracleCommand(SQL, DBConn)
+            cmd = New OracleCommand(SQL, Conn)
 
             daEnforcement = New OracleDataAdapter(cmd)
 
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
 
             daEnforcement.Fill(dsEnforcement, "Enforcements")
@@ -1414,9 +1414,9 @@ Public Class SSCPFCEWork
                 "from " & DBNameSpace & ".SSCPFCE  " & _
                 "where strFCENumber = '" & txtFCENumber.Text & "' "
 
-                cmd = New OracleCommand(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
 
                 dr = cmd.ExecuteReader
@@ -1463,7 +1463,7 @@ Public Class SSCPFCEWork
                     End If
                 End If
                 dr.Close()
-                If DBConn.State = ConnectionState.Open Then
+                If Conn.State = ConnectionState.Open Then
                     'conn.close()
                 End If
 
@@ -1869,9 +1869,9 @@ Public Class SSCPFCEWork
                 SQL = "Select strClass " & _
                 "from " & DBNameSpace & ".APBHeaderData " & _
                 "where strAIRSNumber = '0413" & txtAirsNumber.Text & "' "
-                cmd = New OracleCommand(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -1911,10 +1911,10 @@ Public Class SSCPFCEWork
                     SQL = "Select Max(strFCENumber) as FCENumber " & _
                     "from " & DBNameSpace & ".SSCPFCEMaster "
 
-                    cmd = New OracleCommand(SQL, DBConn)
+                    cmd = New OracleCommand(SQL, Conn)
 
-                    If DBConn.State = ConnectionState.Closed Then
-                        DBConn.Open()
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
 
                     dr = cmd.ExecuteReader
@@ -1930,7 +1930,7 @@ Public Class SSCPFCEWork
                     "('" & FCENumber & "', '0413" & txtAirsNumber.Text & "', " & _
                     "'" & UserGCode & "', '" & OracleDate & "') "
 
-                    cmd = New OracleCommand(SQL, DBConn)
+                    cmd = New OracleCommand(SQL, Conn)
                     dr = cmd.ExecuteReader
 
                     SQL = "Insert into " & DBNameSpace & ".SSCPFCE " & _
@@ -1942,7 +1942,7 @@ Public Class SSCPFCEWork
                     "'" & FCECompleteDate & "', '" & FCEComments & "', '" & UserGCode & "', " & _
                     "'" & OracleDate & "', '" & FCEOnSite & "', '" & FCEYear & "') "
 
-                    cmd = New OracleCommand(SQL, DBConn)
+                    cmd = New OracleCommand(SQL, Conn)
                     dr = cmd.ExecuteReader
 
                     If Classification = "A" Or Classification = "SM" Then
@@ -1950,9 +1950,9 @@ Public Class SSCPFCEWork
                         "from " & DBNameSpace & ".APBSupplamentalData " & _
                         "where strAIRSNumber = '0413" & txtAirsNumber.Text & "' "
 
-                        cmd = New OracleCommand(SQL, DBConn)
-                        If DBConn.State = ConnectionState.Closed Then
-                            DBConn.Open()
+                        cmd = New OracleCommand(SQL, Conn)
+                        If Conn.State = ConnectionState.Closed Then
+                            Conn.Open()
                         End If
                         dr = cmd.ExecuteReader
                         While dr.Read
@@ -1982,9 +1982,9 @@ Public Class SSCPFCEWork
                         "('" & FCENumber & "', '" & ActionNumber & "', " & _
                         "'A', '" & UserGCode & "', " & _
                         "'" & OracleDate & "') "
-                        cmd = New OracleCommand(SQL, DBConn)
-                        If DBConn.State = ConnectionState.Closed Then
-                            DBConn.Open()
+                        cmd = New OracleCommand(SQL, Conn)
+                        If Conn.State = ConnectionState.Closed Then
+                            Conn.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Close()
@@ -2008,9 +2008,9 @@ Public Class SSCPFCEWork
                         SQL = "Update " & DBNameSpace & ".APBSupplamentalData set " & _
                         "strAFSActionNUmber = '" & ActionNumber & "' " & _
                         "where strAIRSNumber = '0413" & txtAirsNumber.Text & "' "
-                        cmd = New OracleCommand(SQL, DBConn)
-                        If DBConn.State = ConnectionState.Closed Then
-                            DBConn.Open()
+                        cmd = New OracleCommand(SQL, Conn)
+                        If Conn.State = ConnectionState.Closed Then
+                            Conn.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Close()
@@ -2022,9 +2022,9 @@ Public Class SSCPFCEWork
                     "from " & DBNameSpace & ".SSCPFCE " & _
                     "where strFCENumber = '" & FCENumber & "' "
 
-                    cmd = New OracleCommand(SQL, DBConn)
-                    If DBConn.State = ConnectionState.Closed Then
-                        DBConn.Open()
+                    cmd = New OracleCommand(SQL, Conn)
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     recExist = dr.Read
@@ -2035,7 +2035,7 @@ Public Class SSCPFCEWork
                         "datModifingDate = '" & OracleDate & "' " & _
                         "where strFCENumber = '" & FCENumber & "' "
 
-                        cmd = New OracleCommand(SQL, DBConn)
+                        cmd = New OracleCommand(SQL, Conn)
                         dr = cmd.ExecuteReader
 
                         SQL = "Update " & DBNameSpace & ".SSCPFCE Set " & _
@@ -2049,12 +2049,12 @@ Public Class SSCPFCEWork
                         "strFCEYear = '" & FCEYear & "' " & _
                         "where strFCENumber = '" & FCENumber & "'"
 
-                        cmd = New OracleCommand(SQL, DBConn)
+                        cmd = New OracleCommand(SQL, Conn)
                         dr = cmd.ExecuteReader
                     End If
                 End If
 
-                If DBConn.State = ConnectionState.Open Then
+                If Conn.State = ConnectionState.Open Then
                     'conn.close()
                 End If
 
@@ -2227,9 +2227,9 @@ Public Class SSCPFCEWork
                 SQL = "Select strClosed " & _
                 "from " & DBNameSpace & ".ISMPReportInformation " & _
                 "where strReferenceNumber = '" & txtISMPReferenceNumber.Text & "' "
-                cmd = New OracleCommand(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -2402,10 +2402,10 @@ Public Class SSCPFCEWork
             "and strReviewer = numUserID  " & _
             "and " & DBNameSpace & ".SSCPFCE.strFCENumber = '" & txtFCENumber.Text & "' "
 
-            cmd = New OracleCommand(SQL, DBConn)
+            cmd = New OracleCommand(SQL, Conn)
 
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -2527,10 +2527,10 @@ Public Class SSCPFCEWork
                "order by datInspectionDate desc "
 
 
-                cmd = New OracleCommand(SQL, DBConn)
+                cmd = New OracleCommand(SQL, Conn)
 
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
 
                 dr = cmd.ExecuteReader
@@ -2538,10 +2538,10 @@ Public Class SSCPFCEWork
                 dr.Close()
 
                 If recExist = True Then
-                    cmd = New OracleCommand(SQL, DBConn)
+                    cmd = New OracleCommand(SQL, Conn)
 
-                    If DBConn.State = ConnectionState.Closed Then
-                        DBConn.Open()
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
 
                     dr = cmd.ExecuteReader
@@ -2574,10 +2574,10 @@ Public Class SSCPFCEWork
                 "and datTestDateStart between '" & FiveYearDate & "' and '" & DTPFCECompleteDate.Text & "' " & _
                 "order by DATTESTDATESTART desc "
 
-                cmd = New OracleCommand(SQL, DBConn)
+                cmd = New OracleCommand(SQL, Conn)
 
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
 
                 dr = cmd.ExecuteReader
@@ -2585,10 +2585,10 @@ Public Class SSCPFCEWork
                 dr.Close()
 
                 If recExist = True Then
-                    cmd = New OracleCommand(SQL, DBConn)
+                    cmd = New OracleCommand(SQL, Conn)
 
-                    If DBConn.State = ConnectionState.Closed Then
-                        DBConn.Open()
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
 
                     dr = cmd.ExecuteReader
@@ -2620,10 +2620,10 @@ Public Class SSCPFCEWork
                 "to_date(reportstart) between  '" & FiveYearDate & "' and '" & DTPFCECompleteDate.Text & "' " & _
                 "order by reportstart desc "
 
-                cmd = New OracleCommand(SQL, DBConn)
+                cmd = New OracleCommand(SQL, Conn)
 
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
 
                 dr = cmd.ExecuteReader
@@ -2631,10 +2631,10 @@ Public Class SSCPFCEWork
                 dr.Close()
 
                 If recExist = True Then
-                    cmd = New OracleCommand(SQL, DBConn)
+                    cmd = New OracleCommand(SQL, Conn)
 
-                    If DBConn.State = ConnectionState.Closed Then
-                        DBConn.Open()
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
 
                     dr = cmd.ExecuteReader
@@ -2661,10 +2661,10 @@ Public Class SSCPFCEWork
                 "and to_date(CompleteDate)  between  '" & OneYearDate & "' and '" & DTPFCECompleteDate.Text & "'  " & _
                 "order by CompleteDate desc "
 
-                cmd = New OracleCommand(SQL, DBConn)
+                cmd = New OracleCommand(SQL, Conn)
 
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
 
                 dr = cmd.ExecuteReader
@@ -2672,10 +2672,10 @@ Public Class SSCPFCEWork
                 dr.Close()
 
                 If recExist = True Then
-                    cmd = New OracleCommand(SQL, DBConn)
+                    cmd = New OracleCommand(SQL, Conn)
 
-                    If DBConn.State = ConnectionState.Closed Then
-                        DBConn.Open()
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
 
                     dr = cmd.ExecuteReader
@@ -2699,9 +2699,9 @@ Public Class SSCPFCEWork
                 "where Facility_ID like '%" & txtAirsNumber.Text & "%' " & _
                 "and RECEIVED_DATE between '" & OneYearDate & "' and '" & DTPFCECompleteDate.Text & "'  "
 
-                cmd = New OracleCommand(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
 
                 dr = cmd.ExecuteReader
@@ -2709,10 +2709,10 @@ Public Class SSCPFCEWork
                 dr.Close()
 
                 If recExist = True Then
-                    cmd = New OracleCommand(SQL, DBConn)
+                    cmd = New OracleCommand(SQL, Conn)
 
-                    If DBConn.State = ConnectionState.Closed Then
-                        DBConn.Open()
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
 
                     dr = cmd.ExecuteReader
@@ -2736,9 +2736,9 @@ Public Class SSCPFCEWork
                      "and '" & CDate(DTPFCECompleteDate.Text).Year.ToString & "'  " & _
                 "order by numFeeyear desc "
 
-                cmd = New OracleCommand(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
 
                 dr = cmd.ExecuteReader
@@ -2746,10 +2746,10 @@ Public Class SSCPFCEWork
                 dr.Close()
 
                 If recExist = True Then
-                    cmd = New OracleCommand(SQL, DBConn)
+                    cmd = New OracleCommand(SQL, Conn)
 
-                    If DBConn.State = ConnectionState.Closed Then
-                        DBConn.Open()
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
 
                     dr = cmd.ExecuteReader
@@ -2778,9 +2778,9 @@ Public Class SSCPFCEWork
                 "and to_date(discoverydate) between '" & FiveYearDate & "' and '" & DTPFCECompleteDate.Text & "'  " & _
                 "order by discoverydate desc "
 
-                cmd = New OracleCommand(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
 
                 dr = cmd.ExecuteReader
@@ -2788,10 +2788,10 @@ Public Class SSCPFCEWork
                 dr.Close()
 
                 If recExist = True Then
-                    cmd = New OracleCommand(SQL, DBConn)
+                    cmd = New OracleCommand(SQL, Conn)
 
-                    If DBConn.State = ConnectionState.Closed Then
-                        DBConn.Open()
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
 
                     dr = cmd.ExecuteReader

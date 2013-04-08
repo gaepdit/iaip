@@ -5395,7 +5395,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -5435,7 +5435,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -5556,12 +5556,12 @@ Public Class ISMPManagersTools
             dsCounty = New DataSet
             dsCity = New DataSet
 
-            daEngineer = New OracleDataAdapter(SQL, DBConn)
-            daCounty = New OracleDataAdapter(SQL2, DBConn)
-            daCity = New OracleDataAdapter(SQL3, DBConn)
+            daEngineer = New OracleDataAdapter(SQL, Conn)
+            daCounty = New OracleDataAdapter(SQL2, Conn)
+            daCity = New OracleDataAdapter(SQL3, Conn)
 
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
 
             daEngineer.Fill(dsEngineer, "Engineers")
@@ -5571,7 +5571,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -5664,7 +5664,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -5721,19 +5721,19 @@ Public Class ISMPManagersTools
             dsTestReportAssignments = New DataSet
             daTestreportAssignments = New OracleDataAdapter
 
-            Dim cmd As New OracleCommand(SQL, DBConn)
+            Dim cmd As New OracleCommand(SQL, Conn)
 
             daTestreportAssignments.SelectCommand = cmd
 
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             daTestreportAssignments.Fill(dsTestReportAssignments, "TestReportAssignment")
 
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -5784,7 +5784,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -5868,7 +5868,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -5921,7 +5921,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -5930,8 +5930,8 @@ Public Class ISMPManagersTools
     Sub LoadExcelDataSet()
         Try
 
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
 
             SQL = "Select FileID, FileTitle " & _
@@ -5939,12 +5939,12 @@ Public Class ISMPManagersTools
 
             dsExcelFiles = New DataSet
 
-            cmd = New OracleCommand(SQL, DBConn)
+            cmd = New OracleCommand(SQL, Conn)
 
             daExcelFiles = New OracleDataAdapter(cmd)
 
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
 
             daExcelFiles.Fill(dsExcelFiles, "ExcelFiles")
@@ -5954,7 +5954,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -5995,7 +5995,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -6006,12 +6006,12 @@ Public Class ISMPManagersTools
 
         Try
 
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
 
             SQL = "Select * from " & DBNameSpace & ".ISMPDocumentType"
-            cmd = New OracleCommand(SQL, DBConn)
+            cmd = New OracleCommand(SQL, Conn)
             dr = cmd.ExecuteReader
 
             While dr.Read
@@ -6126,7 +6126,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -6140,16 +6140,16 @@ Public Class ISMPManagersTools
             "order by strMethodCode "
 
             dsMethods = New DataSet
-            daMethods = New OracleDataAdapter(SQL, DBConn)
+            daMethods = New OracleDataAdapter(SQL, Conn)
 
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             daMethods.Fill(dsMethods, "Methods")
             dgvMethods.DataSource = dsMethods
             dgvMethods.DataMember = "Methods"
 
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -6170,7 +6170,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -6224,19 +6224,19 @@ Public Class ISMPManagersTools
             dsTestReportAssignments = New DataSet
             daTestreportAssignments = New OracleDataAdapter
 
-            Dim cmd As New OracleCommand(SQL, DBConn)
+            Dim cmd As New OracleCommand(SQL, Conn)
 
             daTestreportAssignments.SelectCommand = cmd
 
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             daTestreportAssignments.Fill(dsTestReportAssignments, "TestReportAssignment")
 
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -6288,12 +6288,12 @@ Public Class ISMPManagersTools
             dsTestReportAssignments = New DataSet
             daTestreportAssignments = New OracleDataAdapter
 
-            Dim cmd As New OracleCommand(SQL, DBConn)
+            Dim cmd As New OracleCommand(SQL, Conn)
 
             daTestreportAssignments.SelectCommand = cmd
 
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             daTestreportAssignments.Fill(dsTestReportAssignments, "TestReportAssignment")
 
@@ -6301,7 +6301,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -6356,19 +6356,19 @@ Public Class ISMPManagersTools
             dsTestReportAssignments = New DataSet
             daTestreportAssignments = New OracleDataAdapter
 
-            Dim cmd As New OracleCommand(SQL, DBConn)
+            Dim cmd As New OracleCommand(SQL, Conn)
 
             daTestreportAssignments.SelectCommand = cmd
 
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             daTestreportAssignments.Fill(dsTestReportAssignments, "TestReportAssignment")
 
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -6423,19 +6423,19 @@ Public Class ISMPManagersTools
             dsTestReportAssignments = New DataSet
             daTestreportAssignments = New OracleDataAdapter
 
-            Dim cmd As New OracleCommand(SQL, DBConn)
+            Dim cmd As New OracleCommand(SQL, Conn)
 
             daTestreportAssignments.SelectCommand = cmd
 
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             daTestreportAssignments.Fill(dsTestReportAssignments, "TestReportAssignment")
 
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -6490,19 +6490,19 @@ Public Class ISMPManagersTools
             dsTestReportAssignments = New DataSet
             daTestreportAssignments = New OracleDataAdapter
 
-            Dim cmd As New OracleCommand(SQL, DBConn)
+            Dim cmd As New OracleCommand(SQL, Conn)
 
             daTestreportAssignments.SelectCommand = cmd
 
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             daTestreportAssignments.Fill(dsTestReportAssignments, "TestReportAssignment")
 
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -6556,19 +6556,19 @@ Public Class ISMPManagersTools
             dsTestReportAssignments = New DataSet
             daTestreportAssignments = New OracleDataAdapter
 
-            Dim cmd As New OracleCommand(SQL, DBConn)
+            Dim cmd As New OracleCommand(SQL, Conn)
 
             daTestreportAssignments.SelectCommand = cmd
 
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             daTestreportAssignments.Fill(dsTestReportAssignments, "TestReportAssignment")
 
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -6625,19 +6625,19 @@ Public Class ISMPManagersTools
             dsTestReportAssignments = New DataSet
             daTestreportAssignments = New OracleDataAdapter
 
-            Dim cmd As New OracleCommand(SQL, DBConn)
+            Dim cmd As New OracleCommand(SQL, Conn)
 
             daTestreportAssignments.SelectCommand = cmd
 
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             daTestreportAssignments.Fill(dsTestReportAssignments, "TestReportAssignment")
 
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -6694,19 +6694,19 @@ Public Class ISMPManagersTools
             dsTestReportAssignments = New DataSet
             daTestreportAssignments = New OracleDataAdapter
 
-            Dim cmd As New OracleCommand(SQL, DBConn)
+            Dim cmd As New OracleCommand(SQL, Conn)
 
             daTestreportAssignments.SelectCommand = cmd
 
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             daTestreportAssignments.Fill(dsTestReportAssignments, "TestReportAssignment")
 
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -6763,19 +6763,19 @@ Public Class ISMPManagersTools
             dsTestReportAssignments = New DataSet
             daTestreportAssignments = New OracleDataAdapter
 
-            Dim cmd As New OracleCommand(SQL, DBConn)
+            Dim cmd As New OracleCommand(SQL, Conn)
 
             daTestreportAssignments.SelectCommand = cmd
 
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             daTestreportAssignments.Fill(dsTestReportAssignments, "TestReportAssignment")
 
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -6831,19 +6831,19 @@ Public Class ISMPManagersTools
             dsTestReportAssignments = New DataSet
             daTestreportAssignments = New OracleDataAdapter
 
-            Dim cmd As New OracleCommand(SQL, DBConn)
+            Dim cmd As New OracleCommand(SQL, Conn)
 
             daTestreportAssignments.SelectCommand = cmd
 
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             daTestreportAssignments.Fill(dsTestReportAssignments, "TestReportAssignment")
 
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -6860,7 +6860,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -6878,7 +6878,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -6911,14 +6911,14 @@ Public Class ISMPManagersTools
 
             If EngineerGCode <> "" Then
 
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 For Each strObject In lblTestReportAssignment.Items
                     SQL = "select to_char(datReviewedBYUnitManager, 'dd-Mon-yyyy') as ReviewedByUnitManager " & _
                           "from " & DBNameSpace & ".ISMPReportInformation " & _
                           "where strReferenceNumber = '" & strObject.ToString() & "' "
-                    cmd = New OracleCommand(SQL, DBConn)
+                    cmd = New OracleCommand(SQL, Conn)
                     dr = cmd.ExecuteReader
                     While dr.Read
                         AssignDate = dr.Item("ReviewedByUnitManager")
@@ -6937,7 +6937,7 @@ Public Class ISMPManagersTools
                     "strPreComplianceStatus = '" & PreCompliance & "' " & _
                     "where " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber = '" & strObject.ToString() & "'"
 
-                    cmd = New OracleCommand(SQL, DBConn)
+                    cmd = New OracleCommand(SQL, Conn)
 
                     dr = cmd.ExecuteReader
 
@@ -6953,7 +6953,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -6981,8 +6981,8 @@ Public Class ISMPManagersTools
         Try
 
 
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
 
             If chbOneStack2Runs.Checked = True Then
@@ -6994,7 +6994,7 @@ Public Class ISMPManagersTools
             "strAFSPrint = '" & OneStack2 & "' " & _
             "where strKEy = '002'"
 
-            cmd = New OracleCommand(SQL, DBConn)
+            cmd = New OracleCommand(SQL, Conn)
             dr = cmd.ExecuteReader
 
             If chbOneStack3Runs.Checked = True Then
@@ -7006,7 +7006,7 @@ Public Class ISMPManagersTools
             "strAFSPrint = '" & OneStack3 & "' " & _
             "where strKEy = '003'"
 
-            cmd = New OracleCommand(SQL, DBConn)
+            cmd = New OracleCommand(SQL, Conn)
             dr = cmd.ExecuteReader
 
             If chbOneStack4Runs.Checked = True Then
@@ -7018,7 +7018,7 @@ Public Class ISMPManagersTools
             "strAFSPrint = '" & OneStack4 & "' " & _
             "where strKEy = '004'"
 
-            cmd = New OracleCommand(SQL, DBConn)
+            cmd = New OracleCommand(SQL, Conn)
             dr = cmd.ExecuteReader
 
             If chbTwoStack.Checked = True Then
@@ -7030,7 +7030,7 @@ Public Class ISMPManagersTools
             "strAFSPrint = '" & TwoStackStandard & "' " & _
             "where strKEy = '005'"
 
-            cmd = New OracleCommand(SQL, DBConn)
+            cmd = New OracleCommand(SQL, Conn)
             dr = cmd.ExecuteReader
 
 
@@ -7043,7 +7043,7 @@ Public Class ISMPManagersTools
             "strAFSPrint = '" & TwoStackDRE & "' " & _
             "where strKEy = '006'"
 
-            cmd = New OracleCommand(SQL, DBConn)
+            cmd = New OracleCommand(SQL, Conn)
             dr = cmd.ExecuteReader
 
 
@@ -7056,7 +7056,7 @@ Public Class ISMPManagersTools
             "strAFSPrint = '" & LoadingRack & "' " & _
             "where strKEy = '007'"
 
-            cmd = New OracleCommand(SQL, DBConn)
+            cmd = New OracleCommand(SQL, Conn)
             dr = cmd.ExecuteReader
 
 
@@ -7069,7 +7069,7 @@ Public Class ISMPManagersTools
             "strAFSPrint = '" & PondTreatment & "' " & _
             "where strKEy = '008'"
 
-            cmd = New OracleCommand(SQL, DBConn)
+            cmd = New OracleCommand(SQL, Conn)
             dr = cmd.ExecuteReader
 
 
@@ -7082,7 +7082,7 @@ Public Class ISMPManagersTools
             "strAFSPrint = '" & GasConc & "' " & _
             "where strKEy = '009'"
 
-            cmd = New OracleCommand(SQL, DBConn)
+            cmd = New OracleCommand(SQL, Conn)
             dr = cmd.ExecuteReader
 
 
@@ -7095,7 +7095,7 @@ Public Class ISMPManagersTools
             "strAFSPrint = '" & Flare & "' " & _
             "where strKEy = '010'"
 
-            cmd = New OracleCommand(SQL, DBConn)
+            cmd = New OracleCommand(SQL, Conn)
             dr = cmd.ExecuteReader
 
 
@@ -7108,7 +7108,7 @@ Public Class ISMPManagersTools
             "strAFSPrint = '" & Rata & "' " & _
             "where strKEy = '011'"
 
-            cmd = New OracleCommand(SQL, DBConn)
+            cmd = New OracleCommand(SQL, Conn)
             dr = cmd.ExecuteReader
 
 
@@ -7121,7 +7121,7 @@ Public Class ISMPManagersTools
             "strAFSPrint = '" & MemoStandard & "' " & _
             "where strKEy = '012'"
 
-            cmd = New OracleCommand(SQL, DBConn)
+            cmd = New OracleCommand(SQL, Conn)
             dr = cmd.ExecuteReader
 
 
@@ -7134,7 +7134,7 @@ Public Class ISMPManagersTools
             "strAFSPrint = '" & MemoFile & "' " & _
             "where strKEy = '013'"
 
-            cmd = New OracleCommand(SQL, DBConn)
+            cmd = New OracleCommand(SQL, Conn)
             dr = cmd.ExecuteReader
 
 
@@ -7147,7 +7147,7 @@ Public Class ISMPManagersTools
             "strAFSPrint = '" & Method9Multi & "' " & _
             "where strKEy = '014'"
 
-            cmd = New OracleCommand(SQL, DBConn)
+            cmd = New OracleCommand(SQL, Conn)
             dr = cmd.ExecuteReader
 
 
@@ -7160,7 +7160,7 @@ Public Class ISMPManagersTools
             "strAFSPrint = '" & Method22 & "' " & _
             "where strKEy = '015'"
 
-            cmd = New OracleCommand(SQL, DBConn)
+            cmd = New OracleCommand(SQL, Conn)
             dr = cmd.ExecuteReader
 
 
@@ -7173,7 +7173,7 @@ Public Class ISMPManagersTools
             "strAFSPrint = '" & Method9Single & "' " & _
             "where strKEy = '016'"
 
-            cmd = New OracleCommand(SQL, DBConn)
+            cmd = New OracleCommand(SQL, Conn)
             dr = cmd.ExecuteReader
 
 
@@ -7186,7 +7186,7 @@ Public Class ISMPManagersTools
             "strAFSPrint = '" & PEMS & "' " & _
             "where strKEy = '017'"
 
-            cmd = New OracleCommand(SQL, DBConn)
+            cmd = New OracleCommand(SQL, Conn)
             dr = cmd.ExecuteReader
 
 
@@ -7199,13 +7199,13 @@ Public Class ISMPManagersTools
             "strAFSPrint = '" & PTE & "' " & _
             "where strKEy = '018'"
 
-            cmd = New OracleCommand(SQL, DBConn)
+            cmd = New OracleCommand(SQL, Conn)
             dr = cmd.ExecuteReader
 
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -7218,8 +7218,8 @@ Public Class ISMPManagersTools
 
             If rdbChemVOC.Checked <> False Or rdbCombusMineral.Checked <> False Then
 
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 If rdbChemVOC.Checked = True Then
                     SQL = "Update " & DBNameSpace & ".ISMPFacilityAssignment set " & _
@@ -7233,7 +7233,7 @@ Public Class ISMPManagersTools
 
                     For Each strObject In lsbFacilities.Items
                         SQL2 = SQL & "where strAIRSNumber = '0413" & strObject.ToCharArray() & "' "
-                        cmd = New OracleCommand(SQL2, DBConn)
+                        cmd = New OracleCommand(SQL2, Conn)
                         dr = cmd.ExecuteReader
                         SQL2 = ""
                     Next
@@ -7242,7 +7242,7 @@ Public Class ISMPManagersTools
                     MsgBox(ex.ToString())
                 End Try
                 '  
-                If DBConn.State = ConnectionState.Open Then
+                If Conn.State = ConnectionState.Open Then
                     'conn.close()
                 End If
                 LVFacilities.Clear()
@@ -7255,7 +7255,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -7295,8 +7295,8 @@ Public Class ISMPManagersTools
 
         Try
 
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
 
             If txtFacility.Text <> "" Then
@@ -7353,7 +7353,7 @@ Public Class ISMPManagersTools
             "and subStr(" & DBNameSpace & ".ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " & _
             "and " & DateBias & " "
 
-            cmd = New OracleCommand(SQL, DBConn)
+            cmd = New OracleCommand(SQL, Conn)
             Try
 
 
@@ -7365,7 +7365,7 @@ Public Class ISMPManagersTools
             Catch ex As Exception
                 ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
             Finally
-                If DBConn.State = ConnectionState.Open Then
+                If Conn.State = ConnectionState.Open Then
                     'conn.close()
                 End If
             End Try
@@ -7383,7 +7383,7 @@ Public Class ISMPManagersTools
             "and subStr(" & DBNameSpace & ".ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " & _
             "and " & DateBias & " "
 
-            cmd = New OracleCommand(SQL, DBConn)
+            cmd = New OracleCommand(SQL, Conn)
 
             dr = cmd.ExecuteReader
             While dr.Read
@@ -7403,7 +7403,7 @@ Public Class ISMPManagersTools
             "and (to_date('" & OracleDate & "', 'dd-Mon-yyyy') - datReceivedDate) >= '" & txtDaysOpenFacility.Text & "' " & _
             "and " & DateBias & " "
 
-            cmd = New OracleCommand(SQL, DBConn)
+            cmd = New OracleCommand(SQL, Conn)
 
             dr = cmd.ExecuteReader
             While dr.Read
@@ -7424,7 +7424,7 @@ Public Class ISMPManagersTools
             "and subStr(" & DBNameSpace & ".ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " & _
             "and " & DateBias & " "
 
-            cmd = New OracleCommand(SQL, DBConn)
+            cmd = New OracleCommand(SQL, Conn)
 
             dr = cmd.ExecuteReader
             While dr.Read
@@ -7444,7 +7444,7 @@ Public Class ISMPManagersTools
             "and subStr(" & DBNameSpace & ".ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " & _
             "and " & DateBias & " "
 
-            cmd = New OracleCommand(SQL, DBConn)
+            cmd = New OracleCommand(SQL, Conn)
 
             dr = cmd.ExecuteReader
             While dr.Read
@@ -7464,7 +7464,7 @@ Public Class ISMPManagersTools
             "and subStr(" & DBNameSpace & ".ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " & _
             "and " & DateBias & " "
 
-            cmd = New OracleCommand(SQL, DBConn)
+            cmd = New OracleCommand(SQL, Conn)
 
             dr = cmd.ExecuteReader
             While dr.Read
@@ -7484,7 +7484,7 @@ Public Class ISMPManagersTools
             "and subStr(" & DBNameSpace & ".ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " & _
             "and " & DateBias & " "
 
-            cmd = New OracleCommand(SQL, DBConn)
+            cmd = New OracleCommand(SQL, Conn)
 
             dr = cmd.ExecuteReader
             While dr.Read
@@ -7504,7 +7504,7 @@ Public Class ISMPManagersTools
             "and subStr(" & DBNameSpace & ".ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " & _
             "and " & DateBias & " "
 
-            cmd = New OracleCommand(SQL, DBConn)
+            cmd = New OracleCommand(SQL, Conn)
 
             dr = cmd.ExecuteReader
             While dr.Read
@@ -7525,7 +7525,7 @@ Public Class ISMPManagersTools
             "and subStr(" & DBNameSpace & ".ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " & _
             "and " & DateBias & " "
 
-            cmd = New OracleCommand(SQL, DBConn)
+            cmd = New OracleCommand(SQL, Conn)
 
             dr = cmd.ExecuteReader
             While dr.Read
@@ -7545,7 +7545,7 @@ Public Class ISMPManagersTools
             "and subStr(" & DBNameSpace & ".ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " & _
             "and " & DateBias & " "
 
-            cmd = New OracleCommand(SQL, DBConn)
+            cmd = New OracleCommand(SQL, Conn)
 
             dr = cmd.ExecuteReader
             While dr.Read
@@ -7565,7 +7565,7 @@ Public Class ISMPManagersTools
             "and subStr(" & DBNameSpace & ".ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " & _
             "and " & DateBias & " "
 
-            cmd = New OracleCommand(SQL, DBConn)
+            cmd = New OracleCommand(SQL, Conn)
 
             dr = cmd.ExecuteReader
             While dr.Read
@@ -7585,7 +7585,7 @@ Public Class ISMPManagersTools
             "and subStr(" & DBNameSpace & ".ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " & _
             "and " & DateBias & " "
 
-            cmd = New OracleCommand(SQL, DBConn)
+            cmd = New OracleCommand(SQL, Conn)
 
             dr = cmd.ExecuteReader
             While dr.Read
@@ -7605,7 +7605,7 @@ Public Class ISMPManagersTools
             "and subStr(" & DBNameSpace & ".ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " & _
             "and " & DateBias & " "
 
-            cmd = New OracleCommand(SQL, DBConn)
+            cmd = New OracleCommand(SQL, Conn)
 
             dr = cmd.ExecuteReader
             While dr.Read
@@ -7627,7 +7627,7 @@ Public Class ISMPManagersTools
             "and (to_date('" & OracleDate & "', 'dd-Mon-yyyy') - datReceivedDate) >= '" & txtDaysOpenFacility.Text & "' " & _
             "and " & DateBias & " "
 
-            cmd = New OracleCommand(SQL, DBConn)
+            cmd = New OracleCommand(SQL, Conn)
 
             dr = cmd.ExecuteReader
             While dr.Read
@@ -7648,7 +7648,7 @@ Public Class ISMPManagersTools
             "and (to_date('" & OracleDate & "', 'dd-Mon-yyyy') - datReceivedDate) >= '" & txtDaysOpenFacility.Text & "' " & _
             "and " & DateBias & " "
 
-            cmd = New OracleCommand(SQL, DBConn)
+            cmd = New OracleCommand(SQL, Conn)
 
             dr = cmd.ExecuteReader
             While dr.Read
@@ -7669,7 +7669,7 @@ Public Class ISMPManagersTools
             "and (to_date('" & OracleDate & "', 'dd-Mon-yyyy') - datReceivedDate) >= '" & txtDaysOpenFacility.Text & "' " & _
             "and " & DateBias & " "
 
-            cmd = New OracleCommand(SQL, DBConn)
+            cmd = New OracleCommand(SQL, Conn)
 
             dr = cmd.ExecuteReader
             While dr.Read
@@ -7690,7 +7690,7 @@ Public Class ISMPManagersTools
            "and (to_date('" & OracleDate & "', 'dd-Mon-yyyy') - datReceivedDate) >= '" & txtDaysOpenFacility.Text & "' " & _
            "and " & DateBias & " "
 
-            cmd = New OracleCommand(SQL, DBConn)
+            cmd = New OracleCommand(SQL, Conn)
 
             dr = cmd.ExecuteReader
             While dr.Read
@@ -7711,7 +7711,7 @@ Public Class ISMPManagersTools
            "and (to_date('" & OracleDate & "', 'dd-Mon-yyyy') - datReceivedDate) >= '" & txtDaysOpenFacility.Text & "' " & _
            "and " & DateBias & " "
 
-            cmd = New OracleCommand(SQL, DBConn)
+            cmd = New OracleCommand(SQL, Conn)
 
             dr = cmd.ExecuteReader
             While dr.Read
@@ -7740,7 +7740,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -7776,8 +7776,8 @@ Public Class ISMPManagersTools
         Try
 
 
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
 
             If rdbUnitDateTestStarted.Checked = True Then
@@ -7816,7 +7816,7 @@ Public Class ISMPManagersTools
                     "and strReviewingEngineer = '" & EngineerGCode & "' " & _
                     "and " & DateBias & " "
 
-                    cmd = New OracleCommand(SQL, DBConn)
+                    cmd = New OracleCommand(SQL, Conn)
                     dr = cmd.ExecuteReader
                     While dr.Read
                         FacilityOpen += dr.Item("Count")
@@ -7831,7 +7831,7 @@ Public Class ISMPManagersTools
                     "and (to_date('" & OracleDate & "', 'dd-Mon-yyyy') - datReceivedDate) >= '" & txtDaysOpen.Text & "' " & _
                     "and " & DateBias & " "
 
-                    cmd = New OracleCommand(SQL, DBConn)
+                    cmd = New OracleCommand(SQL, Conn)
 
                     dr = cmd.ExecuteReader
                     While dr.Read
@@ -7847,7 +7847,7 @@ Public Class ISMPManagersTools
                     "or strWitnessingEngineer2 = '" & EngineerGCode & "') " & _
                     "and " & DateBias & " "
 
-                    cmd = New OracleCommand(SQL, DBConn)
+                    cmd = New OracleCommand(SQL, Conn)
                     dr = cmd.ExecuteReader
                     While dr.Read
                         FacilityWitnessed += dr.Item("count")
@@ -7861,7 +7861,7 @@ Public Class ISMPManagersTools
                     "and strReviewingEngineer = '" & EngineerGCode & "' " & _
                     "and " & DateBias & " "
 
-                    cmd = New OracleCommand(SQL, DBConn)
+                    cmd = New OracleCommand(SQL, Conn)
 
                     dr = cmd.ExecuteReader
                     While dr.Read
@@ -7885,7 +7885,7 @@ Public Class ISMPManagersTools
                     "and strReviewingEngineer = '" & EngineerGCode & "' " & _
                     "and " & DateBias & " "
 
-                    cmd = New OracleCommand(SQL, DBConn)
+                    cmd = New OracleCommand(SQL, Conn)
                     dr = cmd.ExecuteReader
                     While dr.Read
                         FacilityOpen2 += dr.Item("Count")
@@ -7900,7 +7900,7 @@ Public Class ISMPManagersTools
                     "and (to_date('" & OracleDate & "', 'dd-Mon-yyyy') - datReceivedDate) >= '" & txtDaysOpen2.Text & "' " & _
                     "and " & DateBias & " "
 
-                    cmd = New OracleCommand(SQL, DBConn)
+                    cmd = New OracleCommand(SQL, Conn)
 
                     dr = cmd.ExecuteReader
                     While dr.Read
@@ -7916,7 +7916,7 @@ Public Class ISMPManagersTools
                     "or strWitnessingEngineer2 = '" & EngineerGCode & "') " & _
                     "and " & DateBias & " "
 
-                    cmd = New OracleCommand(SQL, DBConn)
+                    cmd = New OracleCommand(SQL, Conn)
                     dr = cmd.ExecuteReader
                     While dr.Read
                         FacilityWitnessed2 += dr.Item("count")
@@ -7930,7 +7930,7 @@ Public Class ISMPManagersTools
                     "and strReviewingEngineer = '" & EngineerGCode & "' " & _
                     "and " & DateBias & " "
 
-                    cmd = New OracleCommand(SQL, DBConn)
+                    cmd = New OracleCommand(SQL, Conn)
 
                     dr = cmd.ExecuteReader
                     While dr.Read
@@ -7947,7 +7947,7 @@ Public Class ISMPManagersTools
             "and strReviewingEngineer = '0' " & _
             "and " & DateBias & " "
 
-            cmd = New OracleCommand(SQL, DBConn)
+            cmd = New OracleCommand(SQL, Conn)
             dr = cmd.ExecuteReader
             While dr.Read
                 FacilityOpen3 += dr.Item("Count")
@@ -7962,7 +7962,7 @@ Public Class ISMPManagersTools
             "and (to_date('" & OracleDate & "', 'dd-Mon-yyyy') - datReceivedDate) >= '" & txtDaysOpen3.Text & "' " & _
             "and " & DateBias & " "
 
-            cmd = New OracleCommand(SQL, DBConn)
+            cmd = New OracleCommand(SQL, Conn)
 
             dr = cmd.ExecuteReader
             While dr.Read
@@ -7978,7 +7978,7 @@ Public Class ISMPManagersTools
             "or strWitnessingEngineer2 <> '0') " & _
             "and " & DateBias & " "
 
-            cmd = New OracleCommand(SQL, DBConn)
+            cmd = New OracleCommand(SQL, Conn)
             dr = cmd.ExecuteReader
             While dr.Read
                 FacilityWitnessed3 += dr.Item("count")
@@ -7992,7 +7992,7 @@ Public Class ISMPManagersTools
             "and strReviewingEngineer = '0' " & _
             "and " & DateBias & " "
 
-            cmd = New OracleCommand(SQL, DBConn)
+            cmd = New OracleCommand(SQL, Conn)
 
             dr = cmd.ExecuteReader
             While dr.Read
@@ -8006,7 +8006,7 @@ Public Class ISMPManagersTools
             "and strDelete is NULL " & _
             "and " & DateBias & " "
 
-            cmd = New OracleCommand(SQL, DBConn)
+            cmd = New OracleCommand(SQL, Conn)
             dr = cmd.ExecuteReader
             While dr.Read
                 FacilityOpen4 += dr.Item("Count")
@@ -8020,7 +8020,7 @@ Public Class ISMPManagersTools
             "and (to_date('" & OracleDate & "', 'dd-Mon-yyyy') - datReceivedDate) >= '" & txtDaysOpen4.Text & "' " & _
             "and " & DateBias & " "
 
-            cmd = New OracleCommand(SQL, DBConn)
+            cmd = New OracleCommand(SQL, Conn)
 
             dr = cmd.ExecuteReader
             While dr.Read
@@ -8036,7 +8036,7 @@ Public Class ISMPManagersTools
             "or strWitnessingEngineer2 <> '0') " & _
             "and " & DateBias & " "
 
-            cmd = New OracleCommand(SQL, DBConn)
+            cmd = New OracleCommand(SQL, Conn)
             dr = cmd.ExecuteReader
             While dr.Read
                 FacilityWitnessed4 += dr.Item("count")
@@ -8049,14 +8049,14 @@ Public Class ISMPManagersTools
             "and strDelete is NULL " & _
             "and " & DateBias & " "
 
-            cmd = New OracleCommand(SQL, DBConn)
+            cmd = New OracleCommand(SQL, Conn)
 
             dr = cmd.ExecuteReader
             While dr.Read
                 FacilityClosed4 += dr.Item("Count")
             End While
 
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -8083,7 +8083,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -8484,15 +8484,15 @@ Public Class ISMPManagersTools
                 "and strReviewingEngineer = '" & EngineerGCode & "' " & _
                 "order by DaysClosed ASC "
 
-                cmd = New OracleCommand(SQL, DBConn)
-                cmd2 = New OracleCommand(SQL2, DBConn)
-                cmd3 = New OracleCommand(SQL3, DBConn)
-                cmd4 = New OracleCommand(SQL4, DBConn)
-                cmd5 = New OracleCommand(SQL5, DBConn)
-                cmd6 = New OracleCommand(SQL6, DBConn)
+                cmd = New OracleCommand(SQL, Conn)
+                cmd2 = New OracleCommand(SQL2, Conn)
+                cmd3 = New OracleCommand(SQL3, Conn)
+                cmd4 = New OracleCommand(SQL4, Conn)
+                cmd5 = New OracleCommand(SQL5, Conn)
+                cmd6 = New OracleCommand(SQL6, Conn)
 
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
 
                 Try
@@ -8619,13 +8619,13 @@ Public Class ISMPManagersTools
                 Catch ex As Exception
                     ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
                 Finally
-                    If DBConn.State = ConnectionState.Open Then
+                    If Conn.State = ConnectionState.Open Then
                         'conn.close()
                     End If
                 End Try
                 ' 
 
-                If DBConn.State = ConnectionState.Open Then
+                If Conn.State = ConnectionState.Open Then
                     'conn.close()
                 End If
 
@@ -8736,7 +8736,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(SQL & vbCrLf & ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -8772,7 +8772,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -8795,7 +8795,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -8808,15 +8808,15 @@ Public Class ISMPManagersTools
                 SQL = "Select strFacilityName from " & DBNameSpace & ".APBFacilityInformation " & _
                 "where strAirsNumber = '0413" & txtAIRSNumber.Text & "'"
 
-                cmd = New OracleCommand(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
                     txtFacility.Text = dr.Item("strFacilityName")
                 End While
-                If DBConn.State = ConnectionState.Open Then
+                If Conn.State = ConnectionState.Open Then
                     'conn.close()
                 End If
                 If FacilityLookUpTool Is Nothing Then
@@ -8827,7 +8827,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -8896,16 +8896,16 @@ Public Class ISMPManagersTools
             "and " & DBNameSpace & ".ISMPMaster.strAIRSNumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber " & _
             "and " & DateBias & " " & Engineer & " "
 
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
 
             dsEngineerGrid = New DataSet
 
-            daEngineerGrid = New OracleDataAdapter(SQL, DBConn)
+            daEngineerGrid = New OracleDataAdapter(SQL, Conn)
 
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
 
             daEngineerGrid.Fill(dsEngineerGrid, "EngineerGrid")
@@ -8915,7 +8915,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -8962,11 +8962,11 @@ Public Class ISMPManagersTools
             Engineer & _
             "Order by strReviewingEngineer "
 
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
 
-            cmd = New OracleCommand(SQL, DBConn)
+            cmd = New OracleCommand(SQL, Conn)
             dr = cmd.ExecuteReader
             lsbEngineers.Items.Clear()
 
@@ -8979,7 +8979,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(Engineer & vbCrLf & SQL & vbCrLf & ex.ToString(), "ISMPManagersTools.EngineerOpenTestReports")
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -9001,15 +9001,15 @@ Public Class ISMPManagersTools
         Try
 
 
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
 
             'Tests Received in Date Range
             SQL = "Select count(*) as Count from " & DBNameSpace & ".ISMPReportInformation " & _
             "where datReceivedDate between '" & DTPMonthlyStart.Text & "' and '" & DTPMonthlyEnd.Text & "' " & _
             "and strDelete is NULL"
-            cmd = New OracleCommand(SQL, DBConn)
+            cmd = New OracleCommand(SQL, Conn)
             dr = cmd.ExecuteReader
             While dr.Read
                 TestReceived = dr.Item("Count")
@@ -9019,7 +9019,7 @@ Public Class ISMPManagersTools
             SQL = "Select count(*) as Count from " & DBNameSpace & ".ISMPReportInformation " & _
             "where datCompleteDate between '" & DTPMonthlyStart.Text & "' and '" & DTPMonthlyEnd.Text & "' " & _
             "and strClosed = 'True' and strDelete is NULL "
-            cmd = New OracleCommand(SQL, DBConn)
+            cmd = New OracleCommand(SQL, Conn)
             dr = cmd.ExecuteReader
             While dr.Read
                 TestCompleted = dr.Item("Count")
@@ -9029,7 +9029,7 @@ Public Class ISMPManagersTools
             SQL = "Select Count(*) as Count from " & DBNameSpace & ".ISMPReportInformation " & _
             "where datCompleteDate between '" & DTPMonthlyStart.Text & "' and '" & DTPMonthlyEnd.Text & "' " & _
             "and strDelete is NULL and (strWitnessingEngineer <> '0' or strWitnessingEngineer2 <> '0') "
-            cmd = New OracleCommand(SQL, DBConn)
+            cmd = New OracleCommand(SQL, Conn)
             dr = cmd.ExecuteReader
             While dr.Read
                 TestWitnessed = dr.Item("Count")
@@ -9039,7 +9039,7 @@ Public Class ISMPManagersTools
             SQL = "Select Count(*) as Count from " & DBNameSpace & ".ISMPReportInformation " & _
             "where datCompleteDate between '" & DTPMonthlyStart.Text & "' and '" & DTPMonthlyEnd.Text & "' " & _
             "and strDelete is NULL and strComplianceStatus = '05' "
-            cmd = New OracleCommand(SQL, DBConn)
+            cmd = New OracleCommand(SQL, Conn)
             dr = cmd.ExecuteReader
             While dr.Read
                 OutofCompliance = dr.Item("count")
@@ -9050,7 +9050,7 @@ Public Class ISMPManagersTools
             "where datCompleteDate between '" & DTPMonthlyStart.Text & "' and '" & DTPMonthlyEnd.Text & "' " & _
             "and strDelete is NULL " & _
             "and strClosed = 'True' order by diff desc"
-            cmd = New OracleCommand(SQL, DBConn)
+            cmd = New OracleCommand(SQL, Conn)
             dr = cmd.ExecuteReader
 
             While dr.Read
@@ -9144,7 +9144,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -9169,8 +9169,8 @@ Public Class ISMPManagersTools
 
             SendMessage(txtOutOfComplianceReport.Handle, EM_SETTABSTOPS, 2, tabs(0))
 
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
 
             SQL = "Select " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber, strEmissionSource, strPollutantDescription, " & _
@@ -9186,7 +9186,7 @@ Public Class ISMPManagersTools
             "and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".ISMPMaster.strAIRSNumber " & _
             "and " & DBNameSpace & ".ISMPReportInformation.strReportType = " & DBNameSpace & ".ISMPReportType.strKey "
 
-            cmd = New OracleCommand(SQL, DBConn)
+            cmd = New OracleCommand(SQL, Conn)
             dr = cmd.ExecuteReader
 
             Report = ""
@@ -9220,7 +9220,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -9232,7 +9232,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -9251,7 +9251,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -9271,7 +9271,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -9280,8 +9280,8 @@ Public Class ISMPManagersTools
     Sub AddExcelFile()
         Try
 
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
 
             Dim myStream As Stream
@@ -9315,7 +9315,7 @@ Public Class ISMPManagersTools
 
                 SQL = "select max(FileId) as ID " & _
                 "from " & DBNameSpace & ".ISMPTestReportAids "
-                cmd = New OracleCommand(SQL, DBConn)
+                cmd = New OracleCommand(SQL, Conn)
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = True Then
@@ -9348,10 +9348,10 @@ Public Class ISMPManagersTools
                 "From " & DBNameSpace & ".ISMPTestReportAIDS " & _
                 "where FileID = '" & IDnumber & "' "
 
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
-                da = New OracleDataAdapter(SQL, DBConn)
+                da = New OracleDataAdapter(SQL, Conn)
                 cmdCB = New OracleCommandBuilder(da)
                 ds = New DataSet("IAIPData")
                 da.MissingSchemaAction = MissingSchemaAction.AddWithKey
@@ -9376,7 +9376,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -9388,8 +9388,8 @@ Public Class ISMPManagersTools
         Try
 
             If txtFileName.Text <> "" Then
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 FileID = txtFileName.Text
                 FileID = Mid(FileID, 1, FileID.IndexOf(" - "))
@@ -9397,14 +9397,14 @@ Public Class ISMPManagersTools
                 SQL = "Delete " & DBNameSpace & ".ISMPTestReportAids " & _
                 "where FileID = '" & FileID & "' "
 
-                cmd = New OracleCommand(SQL, DBConn)
+                cmd = New OracleCommand(SQL, Conn)
                 dr = cmd.ExecuteReader
 
                 LoadExcelDataSet()
                 MsgBox("File Removed")
                 txtFileName.Clear()
 
-                If DBConn.State = ConnectionState.Open Then
+                If Conn.State = ConnectionState.Open Then
                     'conn.close()
                 End If
             Else
@@ -9413,7 +9413,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -9466,10 +9466,10 @@ Public Class ISMPManagersTools
 
             dsSummaryReport = New DataSet
 
-            daSummaryReport = New OracleDataAdapter(SQL, DBConn)
+            daSummaryReport = New OracleDataAdapter(SQL, Conn)
 
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
 
             daSummaryReport.Fill(dsSummaryReport, "Test Summary")
@@ -9479,7 +9479,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -9535,7 +9535,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -9577,8 +9577,8 @@ Public Class ISMPManagersTools
                 End If
 
                 If DestFilePath <> "N/A" Then
-                    If DBConn.State = ConnectionState.Closed Then
-                        DBConn.Open()
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
 
                     SQL = "Select " & _
@@ -9586,7 +9586,7 @@ Public Class ISMPManagersTools
                     "from " & DBNameSpace & ".ISMPTestReportAids " & _
                     "Where FileID = '" & FileID & "' "
 
-                    cmd = New OracleCommand(SQL, DBConn)
+                    cmd = New OracleCommand(SQL, Conn)
                     dr = cmd.ExecuteReader
 
                     dr.Read()
@@ -9604,7 +9604,7 @@ Public Class ISMPManagersTools
                         ExcelApp.Visible = True
                     End If
 
-                    If DBConn.State = ConnectionState.Open Then
+                    If Conn.State = ConnectionState.Open Then
                         'conn.close()
                     End If
 
@@ -9618,7 +9618,7 @@ Public Class ISMPManagersTools
                 ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
             End If
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -9641,9 +9641,9 @@ Public Class ISMPManagersTools
             "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber " & _
             "and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".SSPPApplicationMaster.strAIRSNumber "
 
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -9655,7 +9655,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -9675,7 +9675,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -9798,14 +9798,14 @@ Public Class ISMPManagersTools
             "order by strUnitDesc, Engineer "
 
             dsUnitStats = New DataSet
-            daUnitStats = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            daUnitStats = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             daUnitStats.Fill(dsUnitStats, "UnitStats")
             dgvUnitStats.DataSource = dsUnitStats
             dgvUnitStats.DataMember = "UnitStats"
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
             dgvUnitStats.RowHeadersVisible = False
@@ -9904,7 +9904,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -9931,7 +9931,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -9979,7 +9979,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -9995,7 +9995,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -10008,7 +10008,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -10021,7 +10021,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -10034,7 +10034,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -10049,7 +10049,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -10071,7 +10071,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -10090,7 +10090,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -10109,7 +10109,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -10128,7 +10128,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -10152,7 +10152,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -10176,7 +10176,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -10196,7 +10196,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -10215,7 +10215,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -10234,7 +10234,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -10254,7 +10254,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -10273,7 +10273,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -10292,7 +10292,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -10311,7 +10311,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -10330,7 +10330,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -10349,7 +10349,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -10368,7 +10368,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -10387,7 +10387,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -10406,7 +10406,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -10425,7 +10425,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -10444,7 +10444,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -10463,7 +10463,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -10482,7 +10482,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -10501,7 +10501,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -10520,7 +10520,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -10539,7 +10539,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -10558,7 +10558,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -10577,7 +10577,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -10598,7 +10598,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -10617,7 +10617,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -10636,7 +10636,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -10655,7 +10655,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -10674,7 +10674,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -10693,7 +10693,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -10712,7 +10712,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -10731,7 +10731,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -10750,7 +10750,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -10769,7 +10769,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -10788,7 +10788,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -10807,7 +10807,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -10826,7 +10826,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -10845,7 +10845,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -10864,7 +10864,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -10883,7 +10883,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -10902,7 +10902,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -10921,7 +10921,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -10942,7 +10942,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -10961,7 +10961,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -10980,7 +10980,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -10999,7 +10999,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -11018,7 +11018,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -11037,7 +11037,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -11056,7 +11056,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -11075,7 +11075,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -11094,7 +11094,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -11113,7 +11113,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -11132,7 +11132,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -11151,7 +11151,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -11170,7 +11170,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -11189,7 +11189,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -11208,7 +11208,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -11227,7 +11227,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -11246,7 +11246,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -11265,7 +11265,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -11292,7 +11292,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -11305,7 +11305,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -11329,7 +11329,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -11341,7 +11341,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -11362,17 +11362,17 @@ Public Class ISMPManagersTools
             "where " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".ISMPFacilityAssignment.strAIRSNumber " & _
             "order by strAIRSNumber "
 
-            cmd = New OracleCommand(SQL, DBConn)
+            cmd = New OracleCommand(SQL, Conn)
 
-            daFacilityList = New OracleDataAdapter(SQL, DBConn)
+            daFacilityList = New OracleDataAdapter(SQL, Conn)
 
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
 
             daFacilityList.Fill(dsFacilityList, "FacilityList")
 
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -11410,7 +11410,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -11423,7 +11423,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -11439,7 +11439,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -11456,7 +11456,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -11471,7 +11471,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -11484,7 +11484,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -11499,7 +11499,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -11517,7 +11517,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -11534,7 +11534,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -11548,7 +11548,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -11592,7 +11592,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -11606,9 +11606,9 @@ Public Class ISMPManagersTools
                  "from " & DBNameSpace & ".ISMPDocumentType, " & DBNameSpace & ".ISMPReportInformation " & _
                  "where " & DBNameSpace & ".ISMPReportInformation.strDocumentType = " & DBNameSpace & ".ISMPDocumentType.strKey and " & _
                  "strReferenceNumber = '" & txtReferenceNumber.Text & "'"
-                cmd = New OracleCommand(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -11623,7 +11623,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -11674,7 +11674,7 @@ Public Class ISMPManagersTools
                 ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
             End If
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -11687,7 +11687,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -11700,7 +11700,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -11713,7 +11713,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -11726,7 +11726,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -11749,7 +11749,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -11762,7 +11762,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -11777,7 +11777,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -11790,7 +11790,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -11803,7 +11803,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -11816,7 +11816,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -11829,7 +11829,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -11870,14 +11870,14 @@ Public Class ISMPManagersTools
             "and strClosed = 'True' "
 
             dsUnitStats = New DataSet
-            daUnitStats = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            daUnitStats = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             daUnitStats.Fill(dsUnitStats, "UnitStats")
             dgvUnitStats.DataSource = dsUnitStats
             dgvUnitStats.DataMember = "UnitStats"
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
             dgvUnitStats.RowHeadersVisible = False
@@ -11904,7 +11904,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -11937,14 +11937,14 @@ Public Class ISMPManagersTools
             "and strReviewingEngineer  = ChemUnit.numUserID "
 
             dsUnitStats = New DataSet
-            daUnitStats = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            daUnitStats = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             daUnitStats.Fill(dsUnitStats, "UnitStats")
             dgvUnitStats.DataSource = dsUnitStats
             dgvUnitStats.DataMember = "UnitStats"
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
             dgvUnitStats.RowHeadersVisible = False
@@ -11971,7 +11971,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -12004,14 +12004,14 @@ Public Class ISMPManagersTools
            "and strReviewingEngineer  = ComUnit.numUserID "
 
             dsUnitStats = New DataSet
-            daUnitStats = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            daUnitStats = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             daUnitStats.Fill(dsUnitStats, "UnitStats")
             dgvUnitStats.DataSource = dsUnitStats
             dgvUnitStats.DataMember = "UnitStats"
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
             dgvUnitStats.RowHeadersVisible = False
@@ -12038,7 +12038,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -12056,7 +12056,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -12069,9 +12069,9 @@ Public Class ISMPManagersTools
                  "from " & DBNameSpace & ".ISMPDocumentType, " & DBNameSpace & ".ISMPReportInformation " & _
                  "where " & DBNameSpace & ".ISMPReportInformation.strDocumentType = " & DBNameSpace & ".ISMPDocumentType.strKey and " & _
                  "strReferenceNumber = '" & txtUnitStatReferenceNumber.Text & "'"
-                Dim cmd As New OracleCommand(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                Dim cmd As New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 Dim dr As OracleDataReader = cmd.ExecuteReader
                 Dim recExist As Boolean = dr.Read
@@ -12087,7 +12087,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -12103,7 +12103,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -12117,9 +12117,9 @@ Public Class ISMPManagersTools
                 "strMethodDesc " & _
                 "from " & DBNameSpace & ".LookUpISMPMethods " & _
                 "where strMethodCode = '" & txtMethodCode.Text & "' "
-                cmd = New OracleCommand(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -12142,7 +12142,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -12161,9 +12161,9 @@ Public Class ISMPManagersTools
                 "strMethodCode " & _
                 "From " & DBNameSpace & ".LookUpISMPMethods " & _
                 "where substr(strMethodDesc, 1, instr(strMethodDesc,'-')-2)  = 'Method " & Replace(txtMethodNumber.Text.ToUpper, "'", "''") & "' "
-                cmd = New OracleCommand(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -12175,18 +12175,18 @@ Public Class ISMPManagersTools
                         SQL = "Update " & DBNameSpace & ".LookUpISMPMethods set " & _
                         "strMethodDesc = 'Method " & Replace(txtMethodNumber.Text, "'", "''") & " - " & Replace(txtMethodDescription.Text, "'", "''") & "' " & _
                         "where strMethodCode = '" & Replace(txtMethodCode.Text, "'", "''") & "' "
-                        cmd = New OracleCommand(SQL, DBConn)
-                        If DBConn.State = ConnectionState.Closed Then
-                            DBConn.Open()
+                        cmd = New OracleCommand(SQL, Conn)
+                        If Conn.State = ConnectionState.Closed Then
+                            Conn.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Close()
                     Else
                         SQL = "Select (max(strMethodCode) + 1) as MethodCode " & _
                         "from " & DBNameSpace & ".LookUpISMPMethods "
-                        cmd = New OracleCommand(SQL, DBConn)
-                        If DBConn.State = ConnectionState.Closed Then
-                            DBConn.Open()
+                        cmd = New OracleCommand(SQL, Conn)
+                        If Conn.State = ConnectionState.Closed Then
+                            Conn.Open()
                         End If
                         dr = cmd.ExecuteReader
                         While dr.Read
@@ -12217,9 +12217,9 @@ Public Class ISMPManagersTools
                         "values " & _
                         "('" & temp & "', " & _
                         "'Method " & Replace(txtMethodNumber.Text, "'", "''") & " - " & Replace(txtMethodDescription.Text, "'", "''") & "') "
-                        cmd = New OracleCommand(SQL, DBConn)
-                        If DBConn.State = ConnectionState.Closed Then
-                            DBConn.Open()
+                        cmd = New OracleCommand(SQL, Conn)
+                        If Conn.State = ConnectionState.Closed Then
+                            Conn.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Close()
@@ -12228,9 +12228,9 @@ Public Class ISMPManagersTools
                     dr.Close()
                     SQL = "Select (max(strMethodCode) + 1) as MethodCode " & _
                     "from " & DBNameSpace & ".LookUpISMPMethods "
-                    cmd = New OracleCommand(SQL, DBConn)
-                    If DBConn.State = ConnectionState.Closed Then
-                        DBConn.Open()
+                    cmd = New OracleCommand(SQL, Conn)
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     While dr.Read
@@ -12261,9 +12261,9 @@ Public Class ISMPManagersTools
                     "values " & _
                     "('" & temp & "', " & _
                     "'Method " & Replace(txtMethodNumber.Text, "'", "''") & " - " & Replace(txtMethodDescription.Text, "'", "''") & "') "
-                    cmd = New OracleCommand(SQL, DBConn)
-                    If DBConn.State = ConnectionState.Closed Then
-                        DBConn.Open()
+                    cmd = New OracleCommand(SQL, Conn)
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
@@ -12283,7 +12283,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -12350,9 +12350,9 @@ Public Class ISMPManagersTools
                 "strReferenceNumber " & _
                 "from " & DBNameSpace & ".ISMPMaster " & _
                 "where strReferenceNumber = '" & RefNum & "' "
-                cmd = New OracleCommand(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -12366,9 +12366,9 @@ Public Class ISMPManagersTools
                 "strAIRSNumber " & _
                 "from " & DBNameSpace & ".APBMasterAIRS " & _
                 "where strAIRSNumber = '0413" & AIRSNumber & "' "
-                cmd = New OracleCommand(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -12382,9 +12382,9 @@ Public Class ISMPManagersTools
                 "values " & _
                 "('" & RefNum & "', '0413" & AIRSNumber & "', " & _
                 "'" & UserGCode & "', '" & OracleDate & "') "
-                cmd = New OracleCommand(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -12408,9 +12408,9 @@ Public Class ISMPManagersTools
                 "'', '', " & _
                 "'', '') "
 
-                cmd = New OracleCommand(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -12460,9 +12460,9 @@ Public Class ISMPManagersTools
                 "from " & DBNameSpace & ".ISMPReportInformation " & _
                 "where strReferenceNumber = '" & txtCloseTestReportRefNum.Text & "' "
 
-                cmd = New OracleCommand(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -12471,9 +12471,9 @@ Public Class ISMPManagersTools
                     SQL = "Update " & DBNameSpace & ".ISMPReportInformation set " & _
                     "strClosed = 'True' " & _
                     "where strReferenceNumber = '" & txtCloseTestReportRefNum.Text & "' "
-                    cmd = New OracleCommand(SQL, DBConn)
-                    If DBConn.State = ConnectionState.Closed Then
-                        DBConn.Open()
+                    cmd = New OracleCommand(SQL, Conn)
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
@@ -12494,9 +12494,9 @@ Public Class ISMPManagersTools
                 "from " & DBNameSpace & ".ISMPReportInformation " & _
                 "where strReferenceNumber = '" & txtCloseTestReportRefNum.Text & "' "
 
-                cmd = New OracleCommand(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -12505,9 +12505,9 @@ Public Class ISMPManagersTools
                     SQL = "Update " & DBNameSpace & ".ISMPReportInformation set " & _
                     "strClosed = 'False' " & _
                     "where strReferenceNumber = '" & txtCloseTestReportRefNum.Text & "' "
-                    cmd = New OracleCommand(SQL, DBConn)
-                    If DBConn.State = ConnectionState.Closed Then
-                        DBConn.Open()
+                    cmd = New OracleCommand(SQL, Conn)
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()

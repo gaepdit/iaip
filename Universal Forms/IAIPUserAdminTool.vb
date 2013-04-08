@@ -96,7 +96,7 @@ Public Class IAIPUserAdminTool
             "and " & DBNameSpace & ".lookupepdprograms.numprogramcode = " & DBNameSpace & ".lookupepdunits.numprogramcode (+) " & _
             "order by strbranchdesc, strProgramDesc, strUnitDesc "
 
-            daOrginizations = New OracleDataAdapter(SQL, DBConn)
+            daOrginizations = New OracleDataAdapter(SQL, Conn)
 
             SQL = "Select " & _
             "numAccountCode, strAccountDesc, " & _
@@ -105,10 +105,10 @@ Public Class IAIPUserAdminTool
             "from " & DBNameSpace & ".LookUpIAIPAccounts " & _
             "order by strAccountDesc "
 
-            daAccounts = New OracleDataAdapter(SQL, DBConn)
+            daAccounts = New OracleDataAdapter(SQL, Conn)
 
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             daOrginizations.Fill(dsOrginizations, "Orginization")
             daAccounts.Fill(dsAccounts, "Accounts")
@@ -799,9 +799,9 @@ Public Class IAIPUserAdminTool
             "numUserId " & _
             "from " & DBNameSpace & ".IAIPPermissions " & _
             "where numUserId = '" & lblUserID.Text & "' "
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             recExist = dr.Read
@@ -822,9 +822,9 @@ Public Class IAIPUserAdminTool
                 "where numUserID = '" & lblUserID.Text & "' "
             End If
 
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -854,9 +854,9 @@ Public Class IAIPUserAdminTool
                     "from " & DBNameSpace & ".EPDUsers " & _
                     "where strUsername = '" & txtUserName.Text & "' "
 
-                    cmd = New OracleCommand(SQL, DBConn)
-                    If DBConn.State = ConnectionState.Closed Then
-                        DBConn.Open()
+                    cmd = New OracleCommand(SQL, Conn)
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     recExist = dr.Read
@@ -872,22 +872,22 @@ Public Class IAIPUserAdminTool
                         "'" & Replace(txtUserName.Text, "'", "''") & "', " & _
                         "'" & Replace(EncryptDecrypt.EncryptText(txtPassword.Text), "'", "''") & "') "
 
-                        cmd = New OracleCommand(SQL, DBConn)
-                        If DBConn.State = ConnectionState.Closed Then
-                            DBConn.Open()
+                        cmd = New OracleCommand(SQL, Conn)
+                        If Conn.State = ConnectionState.Closed Then
+                            Conn.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Close()
 
 
-                        'SQL = "select " & connNameSpace & ".SEQ_EPD_Users.currval " & _
+                        'SQL = "select " & DBNameSpace & ".SEQ_EPD_Users.currval " & _
                         '"from dual "
                         SQL = "select max(numUserID) as maxUser " & _
                         "from " & DBNameSpace & ".EPDUsers "
 
-                        cmd = New OracleCommand(SQL, DBConn)
-                        If DBConn.State = ConnectionState.Closed Then
-                            DBConn.Open()
+                        cmd = New OracleCommand(SQL, Conn)
+                        If Conn.State = ConnectionState.Closed Then
+                            Conn.Open()
                         End If
                         dr = cmd.ExecuteReader
                         While dr.Read
@@ -918,9 +918,9 @@ Public Class IAIPUserAdminTool
                         "'" & cboProgram.SelectedValue & "', '" & cboUnit.SelectedValue & "', " & _
                         "'" & Replace(txtOfficeNumber.Text, "'", "''") & "', '" & EmployeeStatus & "') "
 
-                        cmd = New OracleCommand(SQL, DBConn)
-                        If DBConn.State = ConnectionState.Closed Then
-                            DBConn.Open()
+                        cmd = New OracleCommand(SQL, Conn)
+                        If Conn.State = ConnectionState.Closed Then
+                            Conn.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Close()
@@ -982,9 +982,9 @@ Public Class IAIPUserAdminTool
                     "from " & DBNameSpace & ".EPDUsers " & _
                     "where strUserName = '" & txtUserName.Text & "' " & _
                     "and numUserID <> '" & lblUserID.Text & "' "
-                    cmd = New OracleCommand(SQL, DBConn)
-                    If DBConn.State = ConnectionState.Closed Then
-                        DBConn.Open()
+                    cmd = New OracleCommand(SQL, Conn)
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     recExist = dr.Read
@@ -997,9 +997,9 @@ Public Class IAIPUserAdminTool
                         "strPassword = '" & Replace(EncryptDecrypt.EncryptText(txtPassword.Text), "'", "''") & "' " & _
                         "where numUserId = '" & lblUserID.Text & "' "
 
-                        cmd = New OracleCommand(SQL, DBConn)
-                        If DBConn.State = ConnectionState.Closed Then
-                            DBConn.Open()
+                        cmd = New OracleCommand(SQL, Conn)
+                        If Conn.State = ConnectionState.Closed Then
+                            Conn.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Close()
@@ -1018,9 +1018,9 @@ Public Class IAIPUserAdminTool
                         "numEmployeeStatus = '" & EmployeeStatus & "' " & _
                         "where numUserId = '" & lblUserID.Text & "' "
 
-                        cmd = New OracleCommand(SQL, DBConn)
-                        If DBConn.State = ConnectionState.Closed Then
-                            DBConn.Open()
+                        cmd = New OracleCommand(SQL, Conn)
+                        If Conn.State = ConnectionState.Closed Then
+                            Conn.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Close()
@@ -1141,9 +1141,9 @@ Public Class IAIPUserAdminTool
             End Select
 
             dsDataGrid = New DataSet
-            daDataGrid = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            daDataGrid = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             daDataGrid.Fill(dsDataGrid, "DataGrid")
 
@@ -1239,9 +1239,9 @@ Public Class IAIPUserAdminTool
             "where " & DBNameSpace & ".epdusers.numuserID = " & DBNameSpace & ".EPDUserProfiles.numUserId " & _
             "and " & DBNameSpace & ".epdusers.numuserid = '" & lblUserID.Text & "' "
 
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -1355,9 +1355,9 @@ Public Class IAIPUserAdminTool
             "from " & DBNameSpace & ".IAIPPermissions " & _
             "where numUserID = '" & lblUserID.Text & "' "
 
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read

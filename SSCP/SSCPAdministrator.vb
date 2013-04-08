@@ -337,9 +337,9 @@ Public Class SSCPAdministrator
 
             ds = New DataSet
 
-            da = New OracleDataAdapter(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            da = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             da.Fill(ds, "ComplianceContacts")
             dgvSSCPContacts.DataSource = ds

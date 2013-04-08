@@ -169,10 +169,10 @@ Public Class DMUTitleVTools
 
             dsWebPublisher = New DataSet
 
-            daWebPublisher = New OracleDataAdapter(SQL, DBConn)
+            daWebPublisher = New OracleDataAdapter(SQL, Conn)
 
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
 
             Try
@@ -282,9 +282,9 @@ Public Class DMUTitleVTools
                 "from " & DBNameSpace & ".SSPPApplicationLinking " & _
                 "where strApplicationNumber = '" & txtWebPublisherApplicationNumber.Text & "' "
 
-                cmd = New OracleCommand(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
 
                 dr = cmd.ExecuteReader
@@ -303,9 +303,9 @@ Public Class DMUTitleVTools
                     "where strMasterApplication = '" & MasterApplication & "' " & _
                     "order by strApplicationNumber "
 
-                    cmd = New OracleCommand(SQL, DBConn)
-                    If DBConn.State = ConnectionState.Closed Then
-                        DBConn.Open()
+                    cmd = New OracleCommand(SQL, Conn)
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     While dr.Read
@@ -395,10 +395,10 @@ Public Class DMUTitleVTools
 
             dsStaff = New DataSet
 
-            daStaff = New OracleDataAdapter(SQL, DBConn)
+            daStaff = New OracleDataAdapter(SQL, Conn)
 
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
 
             daStaff.Fill(dsStaff, "Staff")
@@ -432,9 +432,9 @@ Public Class DMUTitleVTools
             "and " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber  " & _
             "and " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber = '" & txtWebPublisherApplicationNumber.Text & "' "
 
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -602,9 +602,9 @@ Public Class DMUTitleVTools
                 "datExperationDate = '" & ExperationDate & "', " & _
                 "datPNExpires = '" & PNExpires & "' " & _
                 "where strApplicationNumber = '" & txtWebPublisherApplicationNumber.Text & "' "
-                cmd = New OracleCommand(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -612,9 +612,9 @@ Public Class DMUTitleVTools
                 SQL = "Update " & DBNameSpace & ".SSPPApplicationData set " & _
                 "strTargeted = '" & TargetedComments & "' " & _
                 "where strApplicationNumber = '" & txtWebPublisherApplicationNumber.Text & "' "
-                cmd = New OracleCommand(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -641,9 +641,9 @@ Public Class DMUTitleVTools
                             "datPNExpires = '" & PNExpires & "' " & _
                             "where strApplicationNumber = '" & LinkedApplication & "' "
 
-                            cmd = New OracleCommand(SQL, DBConn)
-                            If DBConn.State = ConnectionState.Closed Then
-                                DBConn.Open()
+                            cmd = New OracleCommand(SQL, Conn)
+                            If Conn.State = ConnectionState.Closed Then
+                                Conn.Open()
                             End If
                             dr = cmd.ExecuteReader
                             dr.Read()
@@ -653,9 +653,9 @@ Public Class DMUTitleVTools
                             "strTargeted = '" & TargetedComments & "' " & _
                             "where strApplicationNumber = '" & LinkedApplication & "' "
 
-                            cmd = New OracleCommand(SQL, DBConn)
-                            If DBConn.State = ConnectionState.Closed Then
-                                DBConn.Open()
+                            cmd = New OracleCommand(SQL, Conn)
+                            If Conn.State = ConnectionState.Closed Then
+                                Conn.Open()
                             End If
                             dr = cmd.ExecuteReader
                             dr.Read()
@@ -669,9 +669,9 @@ Public Class DMUTitleVTools
                     "strDraftOnWebNotification = 'False' " & _
                     "where strApplicationNumber = '" & txtWebPublisherApplicationNumber.Text & "' " '& _
 
-                    cmd = New OracleCommand(SQL, DBConn)
-                    If DBConn.State = ConnectionState.Closed Then
-                        DBConn.Open()
+                    cmd = New OracleCommand(SQL, Conn)
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
@@ -722,24 +722,24 @@ Public Class DMUTitleVTools
             'This SQL statement was changed on Feb 3, 2010 to minimize the number of results based on effective and issued dates. 
 
             'SQL = "select " & _
-            '"" & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber, " & _
-            '"substr(" & connNameSpace & ".APBFacilityInformation.strAIRSnumber, 5) as AIRSNumber,  " & _
-            '"" & connNameSpace & ".APBFacilityInformation.strFacilityName,  " & _
+            '"" & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber, " & _
+            '"substr(" & DBNameSpace & ".APBFacilityInformation.strAIRSnumber, 5) as AIRSNumber,  " & _
+            '"" & DBNameSpace & ".APBFacilityInformation.strFacilityName,  " & _
             '"(substr(strPermitNumber, 1, 4)|| '-' || substr(strPermitNumber, 5, 3)  " & _
             '"   || '-' || substr(strPermitNumber, 8, 4)|| '-' ||substr(strPermitNumber, 12, 1)  " & _
             '"     || '-' ||substr(strPermitNumber, 13,2) || '-' ||substr(strPermitNumber, 15)) as PermitNumber,  " & _
             '"to_char(datPermitIssued, 'dd-Mon-yyyy') as PermitIssued, " & _
             '"to_char(datEffective, 'dd-Mon-yyyy') as EffectiveDate  " & _
-            '"from " & connNameSpace & ".SSPPApplicationMaster,  " & _
-            '"" & connNameSpace & ".SSPPApplicationData, " & connNameSpace & ".SSPPApplicationTracking,  " & _
-            '"" & connNameSpace & ".APBHeaderData, " & connNameSpace & ".APBFacilityInformation  " & _
-            '"where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
-            '"and " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-            '"and " & connNameSpace & ".SSPPApplicationMaster.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber  " & _
-            '"and " & connNameSpace & ".SSPPApplicationMaster.strAIRSnumber = " & connNameSpace & ".APBFacilityInformation.strAIRSNumber  " & _
+            '"from " & DBNameSpace & ".SSPPApplicationMaster,  " & _
+            '"" & DBNameSpace & ".SSPPApplicationData, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
+            '"" & DBNameSpace & ".APBHeaderData, " & DBNameSpace & ".APBFacilityInformation  " & _
+            '"where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
+            '"and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
+            '"and " & DBNameSpace & ".SSPPApplicationMaster.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber  " & _
+            '"and " & DBNameSpace & ".SSPPApplicationMaster.strAIRSnumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber  " & _
             '"and strPermitNumber Like '%V__0'  " & _
-            '"and " & connNameSpace & ".APBHeaderData.strOperationalStatus <> 'X'  " & _
-            '"and substr(" & connNameSpace & ".apbheaderdata.strairprogramcodes, 13, 1) = '1' " & _
+            '"and " & DBNameSpace & ".APBHeaderData.strOperationalStatus <> 'X'  " & _
+            '"and substr(" & DBNameSpace & ".apbheaderdata.strairprogramcodes, 13, 1) = '1' " & _
             '"and (datPermitIssued between '" & Startdate & "' and '" & EndDate & "' " & _
             '"   or datEffective between '" & Startdate & "' and '" & EndDate & "') " & _
             '"and (strApplicationType = '14' or strApplicationType = '16' or strApplicationType = '27') "
@@ -798,9 +798,9 @@ Public Class DMUTitleVTools
            "   and datEffective between '" & Startdate & "' and '" & EndDate & "') " & _
            "and (strApplicationType = '14' or strApplicationType = '16' or strApplicationType = '27') "
 
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -895,9 +895,9 @@ Public Class DMUTitleVTools
                 "from " & DBNameSpace & ".SSPPApplicationData " & _
                 "Where strApplicationNumber = '" & txtWebPublisherApplicationNumber.Text & "' "
 
-                cmd = New OracleCommand(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -972,9 +972,9 @@ Public Class DMUTitleVTools
             "or strApplicationType = '22') " & _
             "order by strFacilityName, strAPplicationNumber DESC "
 
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -1082,9 +1082,9 @@ Public Class DMUTitleVTools
                 SQL = SQL & SQLLine & " order by strFacilityName "
                 SQL2 = SQL2 & SQLLine2
 
-                cmd = New OracleCommand(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -1138,9 +1138,9 @@ Public Class DMUTitleVTools
                 "Stationary Source Permitting Program " & vbCrLf & _
                 "404/363-7020"
 
-                cmd = New OracleCommand(SQL2, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL2, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -1192,9 +1192,9 @@ Public Class DMUTitleVTools
             "and datDraftOnWeb is Not Null " & _
             "order by strFacilityName, strAPplicationNumber DESC "
 
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -1259,9 +1259,9 @@ Public Class DMUTitleVTools
                 "where strApplicationNumber = '" & MasterApp & "' "
 
                 temp = ""
-                cmd = New OracleCommand(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -1286,9 +1286,9 @@ Public Class DMUTitleVTools
                     "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationLinking.strApplicationNumber " & _
                     "and " & DBNameSpace & ".SSPPApplicationLinking.strMasterApplication = '" & temp & "' "
 
-                    cmd = New OracleCommand(SQL, DBConn)
-                    If DBConn.State = ConnectionState.Closed Then
-                        DBConn.Open()
+                    cmd = New OracleCommand(SQL, Conn)
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     While dr.Read
@@ -1386,9 +1386,9 @@ Public Class DMUTitleVTools
                     "from " & DBNameSpace & ".SSPPApplicationLinking " & _
                     "where strApplicationNumber = '" & temp & "' "
 
-                    cmd = New OracleCommand(SQL, DBConn)
-                    If DBConn.State = ConnectionState.Closed Then
-                        DBConn.Open()
+                    cmd = New OracleCommand(SQL, Conn)
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     recExist = dr.Read
@@ -1413,9 +1413,9 @@ Public Class DMUTitleVTools
                     "and substr(strAIRSNumber, 5, 3) = strCountyCode " & _
                     "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = '" & temp & "' "
 
-                    cmd = New OracleCommand(SQL, DBConn)
-                    If DBConn.State = ConnectionState.Closed Then
-                        DBConn.Open()
+                    cmd = New OracleCommand(SQL, Conn)
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     While dr.Read
@@ -1487,9 +1487,9 @@ Public Class DMUTitleVTools
                         "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationLinking.strApplicationNumber " & _
                         "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationType = " & DBNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode " & _
                         "and strMasterApplication = '" & LinkedApp & "' "
-                        cmd = New OracleCommand(SQL, DBConn)
-                        If DBConn.State = ConnectionState.Closed Then
-                            DBConn.Open()
+                        cmd = New OracleCommand(SQL, Conn)
+                        If Conn.State = ConnectionState.Closed Then
+                            Conn.Open()
                         End If
                         dr = cmd.ExecuteReader
                         While dr.Read
@@ -1558,9 +1558,9 @@ Public Class DMUTitleVTools
                 "Stationary Source Permitting Program " & vbCrLf & _
                 "404/363-7020"
 
-                cmd = New OracleCommand(SQL2, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL2, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -1606,9 +1606,9 @@ Public Class DMUTitleVTools
                     "from " & DBNameSpace & ".SSPPApplicationLinking " & _
                     "where strApplicationNumber = '" & temp & "' "
 
-                    cmd = New OracleCommand(SQL, DBConn)
-                    If DBConn.State = ConnectionState.Closed Then
-                        DBConn.Open()
+                    cmd = New OracleCommand(SQL, Conn)
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     recExist = dr.Read
@@ -1631,9 +1631,9 @@ Public Class DMUTitleVTools
                     "and substr(strAIRSNumber, 5, 3) = strCountyCode " & _
                     "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = '" & temp & "' "
 
-                    cmd = New OracleCommand(SQL, DBConn)
-                    If DBConn.State = ConnectionState.Closed Then
-                        DBConn.Open()
+                    cmd = New OracleCommand(SQL, Conn)
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     While dr.Read
@@ -1700,9 +1700,9 @@ Public Class DMUTitleVTools
                         "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationLinking.strApplicationNumber " & _
                         "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationType = " & DBNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode " & _
                         "and strMasterApplication = '" & LinkedApp & "' "
-                        cmd = New OracleCommand(SQL, DBConn)
-                        If DBConn.State = ConnectionState.Closed Then
-                            DBConn.Open()
+                        cmd = New OracleCommand(SQL, Conn)
+                        If Conn.State = ConnectionState.Closed Then
+                            Conn.Open()
                         End If
                         dr = cmd.ExecuteReader
                         While dr.Read
@@ -1769,9 +1769,9 @@ Public Class DMUTitleVTools
                 "Stationary Source Permitting Program " & vbCrLf & _
                 "404/363-7020"
 
-                cmd = New OracleCommand(SQL2, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL2, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -1842,9 +1842,9 @@ Public Class DMUTitleVTools
             "and (strApplicationType = '19'  or strApplicationType = '20') " & _
             "order by strFacilityName, strApplicationNumber DESC "
 
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -1909,9 +1909,9 @@ Public Class DMUTitleVTools
                 "where strApplicationNumber = '" & MasterApp & "' "
 
                 temp = ""
-                cmd = New OracleCommand(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -1936,9 +1936,9 @@ Public Class DMUTitleVTools
                     "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationLinking.strApplicationNumber " & _
                     "and " & DBNameSpace & ".SSPPApplicationLinking.strMasterApplication = '" & temp & "' "
 
-                    cmd = New OracleCommand(SQL, DBConn)
-                    If DBConn.State = ConnectionState.Closed Then
-                        DBConn.Open()
+                    cmd = New OracleCommand(SQL, Conn)
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     While dr.Read
@@ -2035,9 +2035,9 @@ Public Class DMUTitleVTools
                     "from " & DBNameSpace & ".SSPPApplicationLinking " & _
                     "where strApplicationNumber = '" & temp & "' "
 
-                    cmd = New OracleCommand(SQL, DBConn)
-                    If DBConn.State = ConnectionState.Closed Then
-                        DBConn.Open()
+                    cmd = New OracleCommand(SQL, Conn)
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     recExist = dr.Read
@@ -2060,9 +2060,9 @@ Public Class DMUTitleVTools
                     "and substr(strAIRSNumber, 5, 3) = strCountyCode " & _
                     "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = '" & temp & "' "
 
-                    cmd = New OracleCommand(SQL, DBConn)
-                    If DBConn.State = ConnectionState.Closed Then
-                        DBConn.Open()
+                    cmd = New OracleCommand(SQL, Conn)
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     While dr.Read
@@ -2129,9 +2129,9 @@ Public Class DMUTitleVTools
                         "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationLinking.strApplicationNumber " & _
                         "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationType = " & DBNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode " & _
                         "and strMasterApplication = '" & LinkedApp & "' "
-                        cmd = New OracleCommand(SQL, DBConn)
-                        If DBConn.State = ConnectionState.Closed Then
-                            DBConn.Open()
+                        cmd = New OracleCommand(SQL, Conn)
+                        If Conn.State = ConnectionState.Closed Then
+                            Conn.Open()
                         End If
                         dr = cmd.ExecuteReader
                         While dr.Read
@@ -2193,9 +2193,9 @@ Public Class DMUTitleVTools
                 "Stationary Source Permitting Program " & vbCrLf & _
                 "404/363-7020"
 
-                cmd = New OracleCommand(SQL2, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL2, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -2242,9 +2242,9 @@ Public Class DMUTitleVTools
                     "from " & DBNameSpace & ".SSPPApplicationLinking " & _
                     "where strApplicationNumber = '" & temp & "' "
 
-                    cmd = New OracleCommand(SQL, DBConn)
-                    If DBConn.State = ConnectionState.Closed Then
-                        DBConn.Open()
+                    cmd = New OracleCommand(SQL, Conn)
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     recExist = dr.Read
@@ -2267,9 +2267,9 @@ Public Class DMUTitleVTools
                     "and substr(strAIRSNumber, 5, 3) = strCountyCode " & _
                     "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = '" & temp & "' "
 
-                    cmd = New OracleCommand(SQL, DBConn)
-                    If DBConn.State = ConnectionState.Closed Then
-                        DBConn.Open()
+                    cmd = New OracleCommand(SQL, Conn)
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     While dr.Read
@@ -2336,9 +2336,9 @@ Public Class DMUTitleVTools
                         "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationLinking.strApplicationNumber " & _
                         "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationType = " & DBNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode " & _
                         "and strMasterApplication = '" & LinkedApp & "' "
-                        cmd = New OracleCommand(SQL, DBConn)
-                        If DBConn.State = ConnectionState.Closed Then
-                            DBConn.Open()
+                        cmd = New OracleCommand(SQL, Conn)
+                        If Conn.State = ConnectionState.Closed Then
+                            Conn.Open()
                         End If
                         dr = cmd.ExecuteReader
                         While dr.Read
@@ -2398,9 +2398,9 @@ Public Class DMUTitleVTools
                 "Stationary Source Permitting Program " & vbCrLf & _
                 "404/363-7020"
 
-                cmd = New OracleCommand(SQL2, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL2, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -2455,9 +2455,9 @@ Public Class DMUTitleVTools
             "and DatFinalOnWeb is Not Null " & _
             "order by strFacilityName, strAPplicationNumber DESC "
 
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -2522,9 +2522,9 @@ Public Class DMUTitleVTools
                 "where strApplicationNumber = '" & MasterApp & "' "
 
                 temp = ""
-                cmd = New OracleCommand(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -2549,9 +2549,9 @@ Public Class DMUTitleVTools
                     "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationLinking.strApplicationNumber " & _
                     "and " & DBNameSpace & ".SSPPApplicationLinking.strMasterApplication = '" & temp & "' "
 
-                    cmd = New OracleCommand(SQL, DBConn)
-                    If DBConn.State = ConnectionState.Closed Then
-                        DBConn.Open()
+                    cmd = New OracleCommand(SQL, Conn)
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     While dr.Read
@@ -2649,9 +2649,9 @@ Public Class DMUTitleVTools
                     SQL = "Select strMasterApplication " & _
                     "from " & DBNameSpace & ".SSPPApplicationLinking " & _
                     "where strApplicationNumber = '" & temp & "' "
-                    cmd = New OracleCommand(SQL, DBConn)
-                    If DBConn.State = ConnectionState.Closed Then
-                        DBConn.Open()
+                    cmd = New OracleCommand(SQL, Conn)
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     recExist = dr.Read
@@ -2677,9 +2677,9 @@ Public Class DMUTitleVTools
                     "and substr(strAIRSNumber, 5, 3) = strCountyCode " & _
                     "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = '" & temp & "' "
 
-                    cmd = New OracleCommand(SQL, DBConn)
-                    If DBConn.State = ConnectionState.Closed Then
-                        DBConn.Open()
+                    cmd = New OracleCommand(SQL, Conn)
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     While dr.Read
@@ -2762,9 +2762,9 @@ Public Class DMUTitleVTools
                         "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationLinking.strApplicationNumber " & _
                         "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationType = " & DBNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode " & _
                         "and strMasterApplication = '" & LinkedApp & "' "
-                        cmd = New OracleCommand(SQL, DBConn)
-                        If DBConn.State = ConnectionState.Closed Then
-                            DBConn.Open()
+                        cmd = New OracleCommand(SQL, Conn)
+                        If Conn.State = ConnectionState.Closed Then
+                            Conn.Open()
                         End If
                         dr = cmd.ExecuteReader
                         While dr.Read
@@ -2829,9 +2829,9 @@ Public Class DMUTitleVTools
                 "Stationary Source Permitting Program " & vbCrLf & _
                 "404/363-7020"
 
-                cmd = New OracleCommand(SQL2, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL2, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -2878,9 +2878,9 @@ Public Class DMUTitleVTools
                    "and " & DBNameSpace & ".EPDUserProfiles.numUnit = " & DBNameSpace & ".LookUpEPDUnits.numUnitCode (+) " & _
                    "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = '" & txtApplicationNumberToAdd.Text & "' "
 
-                    cmd = New OracleCommand(SQL, DBConn)
-                    If DBConn.State = ConnectionState.Closed Then
-                        DBConn.Open()
+                    cmd = New OracleCommand(SQL, Conn)
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     recExist = dr.Read
@@ -2956,9 +2956,9 @@ Public Class DMUTitleVTools
                    "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = '" & txtApplicationNumberToAdd.Text & "' "
 
 
-                    cmd = New OracleCommand(SQL, DBConn)
-                    If DBConn.State = ConnectionState.Closed Then
-                        DBConn.Open()
+                    cmd = New OracleCommand(SQL, Conn)
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     recExist = dr.Read
@@ -3032,9 +3032,9 @@ Public Class DMUTitleVTools
                    "and " & DBNameSpace & ".EPDuserProfiles.numUnit = " & DBNameSpace & ".LookUpEPDUnits.numUnitCode (+) " & _
                    "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = '" & txtApplicationNumberToAdd.Text & "' "
 
-                    cmd = New OracleCommand(SQL, DBConn)
-                    If DBConn.State = ConnectionState.Closed Then
-                        DBConn.Open()
+                    cmd = New OracleCommand(SQL, Conn)
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     recExist = dr.Read
@@ -3108,9 +3108,9 @@ Public Class DMUTitleVTools
                     "and " & DBNameSpace & ".EPDUserProfiles.numUnit = " & DBNameSpace & ".LookUpEPDUnits.numUnitCode (+) " & _
                     "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = '" & txtApplicationNumberToAdd.Text & "' "
 
-                    cmd = New OracleCommand(SQL, DBConn)
-                    If DBConn.State = ConnectionState.Closed Then
-                        DBConn.Open()
+                    cmd = New OracleCommand(SQL, Conn)
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     recExist = dr.Read
@@ -3457,11 +3457,11 @@ Public Class DMUTitleVTools
             + "Order by strAIRSNumber "
 
             ds = New DataSet
-            da = New OracleDataAdapter(SQL, DBConn)
+            da = New OracleDataAdapter(SQL, Conn)
 
-            If DBConn.State = ConnectionState.Open Then
+            If Conn.State = ConnectionState.Open Then
             Else
-                DBConn.Open()
+                Conn.Open()
             End If
 
             da.Fill(ds, "facilityInfo")
@@ -3535,9 +3535,9 @@ Public Class DMUTitleVTools
                       "WHERE numUserID = '" & userid & "' " & _
                       "and strAirsNumber = '0413" & airsno & "' "
 
-            Dim cmd As New OracleCommand(updateString, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            Dim cmd As New OracleCommand(updateString, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             cmd.ExecuteNonQuery()
 
@@ -4005,9 +4005,9 @@ Public Class DMUTitleVTools
             SQL = "Select strApplicationNumber " & _
             "From " & DBNameSpace & ".SSPPApplicationContact " & _
             "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -4034,9 +4034,9 @@ Public Class DMUTitleVTools
                 "where " & DBNameSpace & ".SSPPApplicationContact.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber " & _
                 "and " & DBNameSpace & ".SSPPApplicationContact.strApplicationNumber = '" & txtApplicationNumber.Text & "' "
 
-                cmd = New OracleCommand(SQL, DBConn)
-                If DBConn.State = ConnectionState.Closed Then
-                    DBConn.Open()
+                cmd = New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
 
                 dr = cmd.ExecuteReader
@@ -4169,9 +4169,9 @@ Public Class DMUTitleVTools
              "from " & DBNameSpace & ".APBContactInformation " & _
              "where strContactKey = '0413" & txtAIRSNumber.Text & "30' "
 
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -4365,9 +4365,9 @@ Public Class DMUTitleVTools
             SQL = "Select strApplicationNumber " & _
             "from " & DBNameSpace & ".SSPPApplicationContact " & _
             "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             recExist = dr.Read
@@ -4411,9 +4411,9 @@ Public Class DMUTitleVTools
                 "'" & Replace(ContactDescription, "'", "''") & "') "
             End If
 
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -4521,9 +4521,9 @@ Public Class DMUTitleVTools
             "From " & DBNameSpace & ".APBContactInformation " & _
             "where strContactKey = '0413" & txtAIRSNumber.Text & "20' "
 
-            cmd = New OracleCommand(SQL, DBConn)
-            If DBConn.State = ConnectionState.Closed Then
-                DBConn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
