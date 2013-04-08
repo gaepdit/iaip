@@ -80,9 +80,9 @@ Public Class DMU_TITLEV_PROJECT
                 "from Airbranch.APBMasterAIRS " & _
                 "where strairsnumber = '" & AIRSNumber & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -105,9 +105,9 @@ Public Class DMU_TITLEV_PROJECT
                     "'1') "
 
                     'TVApplication
-                    cmd = New OracleCommand(SQL, connTVApplication)
-                    If connTVApplication.State = ConnectionState.Closed Then
-                        connTVApplication.Open()
+                    cmd = New OracleCommand(SQL, DBConnTVApplication)
+                    If DBConnTVApplication.State = ConnectionState.Closed Then
+                        DBConnTVApplication.Open()
                     End If
                     dr = cmd.ExecuteReader
                     count += 1
@@ -166,9 +166,9 @@ Public Class DMU_TITLEV_PROJECT
                     "from airTVApplication.PFW_WareHouseAdmin " & _
                     "where ProjectID = '" & ProjectId & "' "
 
-                    cmd = New OracleCommand(SQL, connTVApplication)
-                    If connTVApplication.State = ConnectionState.Closed Then
-                        connTVApplication.Open()
+                    cmd = New OracleCommand(SQL, DBConnTVApplication)
+                    If DBConnTVApplication.State = ConnectionState.Closed Then
+                        DBConnTVApplication.Open()
                     End If
                     dr = cmd.ExecuteReader
                     GSID = ""
@@ -194,9 +194,9 @@ Public Class DMU_TITLEV_PROJECT
                         "where not exists (select * from pfw_permitAdmin " & _
                         "where gsid = '" & GSID & "') "
 
-                        cmd = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Close()
@@ -228,9 +228,9 @@ Public Class DMU_TITLEV_PROJECT
                   "from airTVApplication.PFW_WareHouseAdmin " & _
                   "where ProjectID = '" & ConfidentialData & "' "
 
-                    cmd = New OracleCommand(SQL, connTVApplication)
-                    If connTVApplication.State = ConnectionState.Closed Then
-                        connTVApplication.Open()
+                    cmd = New OracleCommand(SQL, DBConnTVApplication)
+                    If DBConnTVApplication.State = ConnectionState.Closed Then
+                        DBConnTVApplication.Open()
                     End If
                     dr = cmd.ExecuteReader
                     GSID = ""
@@ -248,9 +248,9 @@ Public Class DMU_TITLEV_PROJECT
                         "NUMCONFIDENTIALDATA = '1' " & _
                         "where GSID = '" & GSID & "' "
 
-                        cmd = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Close()
@@ -309,9 +309,9 @@ Public Class DMU_TITLEV_PROJECT
                     "from airTVApplication.PFW_WareHouseAdmin " & _
                     "where ProjectID = '" & ProjectId & "' "
 
-                    cmd = New OracleCommand(SQL, connTVApplication)
-                    If connTVApplication.State = ConnectionState.Closed Then
-                        connTVApplication.Open()
+                    cmd = New OracleCommand(SQL, DBConnTVApplication)
+                    If DBConnTVApplication.State = ConnectionState.Closed Then
+                        DBConnTVApplication.Open()
                     End If
                     dr = cmd.ExecuteReader
                     GSID = ""
@@ -343,9 +343,9 @@ Public Class DMU_TITLEV_PROJECT
                         "where exists (select * from PFW_WAREHOUSEADMIN " & _
                         "where gsid = '" & GSID & "') "
 
-                        cmd = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Close()
@@ -506,9 +506,9 @@ Public Class DMU_TITLEV_PROJECT
                     "from airTVApplication.PFW_WareHouseAdmin " & _
                     "where ProjectID = '" & ProjectId & "' "
 
-                    cmd = New OracleCommand(SQL, connTVApplication)
-                    If connTVApplication.State = ConnectionState.Closed Then
-                        connTVApplication.Open()
+                    cmd = New OracleCommand(SQL, DBConnTVApplication)
+                    If DBConnTVApplication.State = ConnectionState.Closed Then
+                        DBConnTVApplication.Open()
                     End If
                     dr = cmd.ExecuteReader
                     GSID = ""
@@ -552,9 +552,9 @@ Public Class DMU_TITLEV_PROJECT
                         "and exists (select * from PFWLK_SIC " & _
                         "where SICCode = '" & SIC & "') "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
@@ -585,9 +585,9 @@ Public Class DMU_TITLEV_PROJECT
             Dim SICDesc As String = ""
 
             SQL = "Select * from airbranch.LookUpSICCodes "
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -611,9 +611,9 @@ Public Class DMU_TITLEV_PROJECT
                     "'" & SIC & "', '" & Replace(SICDesc, "'", "''") & "', '1', 'MFloyd', sysdate, sysdate from dual " & _
                     "where not exists (select * from AIRTVApplication.PFWLK_SIC Where sicCode = '" & SIC & "')"
 
-                    cmd2 = New OracleCommand(SQL2, connTVApplication)
-                    If connTVApplication.State = ConnectionState.Closed Then
-                        connTVApplication.Open()
+                    cmd2 = New OracleCommand(SQL2, DBConnTVApplication)
+                    If DBConnTVApplication.State = ConnectionState.Closed Then
+                        DBConnTVApplication.Open()
                     End If
                     dr2 = cmd2.ExecuteReader
                     dr2.Close()
@@ -679,218 +679,218 @@ Public Class DMU_TITLEV_PROJECT
     Sub DeletePFW_EUMaster()
         Try
             SQL = "Delete AIRTVApplication.PFW_EUS_FuelBurning "
-            cmd = New OracleCommand(SQL, connTVApplication)
-            If connTVApplication.State = ConnectionState.Closed Then
-                connTVApplication.Open()
+            cmd = New OracleCommand(SQL, DBConnTVApplication)
+            If DBConnTVApplication.State = ConnectionState.Closed Then
+                DBConnTVApplication.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
 
             SQL = "Delete AIRTVApplication.PFW_EUS_FuelSupplier "
-            cmd = New OracleCommand(SQL, connTVApplication)
-            If connTVApplication.State = ConnectionState.Closed Then
-                connTVApplication.Open()
+            cmd = New OracleCommand(SQL, DBConnTVApplication)
+            If DBConnTVApplication.State = ConnectionState.Closed Then
+                DBConnTVApplication.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
 
             SQL = "Delete AIRTVApplication.PFW_EUS_LandFillDeposit "
-            cmd = New OracleCommand(SQL, connTVApplication)
-            If connTVApplication.State = ConnectionState.Closed Then
-                connTVApplication.Open()
+            cmd = New OracleCommand(SQL, DBConnTVApplication)
+            If DBConnTVApplication.State = ConnectionState.Closed Then
+                DBConnTVApplication.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
 
             SQL = "Delete AIRTVApplication.PFW_EUS_LandFillPermit "
-            cmd = New OracleCommand(SQL, connTVApplication)
-            If connTVApplication.State = ConnectionState.Closed Then
-                connTVApplication.Open()
+            cmd = New OracleCommand(SQL, DBConnTVApplication)
+            If DBConnTVApplication.State = ConnectionState.Closed Then
+                DBConnTVApplication.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
 
             SQL = "Delete AIRTVApplication.PFW_EUS_Material "
-            cmd = New OracleCommand(SQL, connTVApplication)
-            If connTVApplication.State = ConnectionState.Closed Then
-                connTVApplication.Open()
+            cmd = New OracleCommand(SQL, DBConnTVApplication)
+            If DBConnTVApplication.State = ConnectionState.Closed Then
+                DBConnTVApplication.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
 
             SQL = "Delete airtvApplication.pfw_EU_Boiler "
-            cmd = New OracleCommand(SQL, connTVApplication)
-            If connTVApplication.State = ConnectionState.Closed Then
-                connTVApplication.Open()
+            cmd = New OracleCommand(SQL, DBConnTVApplication)
+            If DBConnTVApplication.State = ConnectionState.Closed Then
+                DBConnTVApplication.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
 
             SQL = "Delete AIRTVApplication.PFW_EU_Coating "
-            cmd = New OracleCommand(SQL, connTVApplication)
-            If connTVApplication.State = ConnectionState.Closed Then
-                connTVApplication.Open()
+            cmd = New OracleCommand(SQL, DBConnTVApplication)
+            If DBConnTVApplication.State = ConnectionState.Closed Then
+                DBConnTVApplication.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
 
             SQL = "Delete AIRTVApplication.PFW_EU_Crushing "
-            cmd = New OracleCommand(SQL, connTVApplication)
-            If connTVApplication.State = ConnectionState.Closed Then
-                connTVApplication.Open()
+            cmd = New OracleCommand(SQL, DBConnTVApplication)
+            If DBConnTVApplication.State = ConnectionState.Closed Then
+                DBConnTVApplication.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
 
             SQL = "Delete AIRTVApplication.PFW_EU_DryCleaner "
-            cmd = New OracleCommand(SQL, connTVApplication)
-            If connTVApplication.State = ConnectionState.Closed Then
-                connTVApplication.Open()
+            cmd = New OracleCommand(SQL, DBConnTVApplication)
+            If DBConnTVApplication.State = ConnectionState.Closed Then
+                DBConnTVApplication.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
 
             SQL = "Delete AIRTVApplication.PFW_EU_DryingEquipment "
-            cmd = New OracleCommand(SQL, connTVApplication)
-            If connTVApplication.State = ConnectionState.Closed Then
-                connTVApplication.Open()
+            cmd = New OracleCommand(SQL, DBConnTVApplication)
+            If DBConnTVApplication.State = ConnectionState.Closed Then
+                DBConnTVApplication.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
 
             SQL = "Delete AIRTVApplication.PFW_EU_ElectroPlating "
-            cmd = New OracleCommand(SQL, connTVApplication)
-            If connTVApplication.State = ConnectionState.Closed Then
-                connTVApplication.Open()
+            cmd = New OracleCommand(SQL, DBConnTVApplication)
+            If DBConnTVApplication.State = ConnectionState.Closed Then
+                DBConnTVApplication.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
 
             SQL = "Delete AIRTVApplication.PFW_EU_FiberReinforceplastic "
-            cmd = New OracleCommand(SQL, connTVApplication)
-            If connTVApplication.State = ConnectionState.Closed Then
-                connTVApplication.Open()
+            cmd = New OracleCommand(SQL, DBConnTVApplication)
+            If DBConnTVApplication.State = ConnectionState.Closed Then
+                DBConnTVApplication.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
 
             SQL = "Delete AIRTVApplication.PFW_EU_IceAndTurbine "
-            cmd = New OracleCommand(SQL, connTVApplication)
-            If connTVApplication.State = ConnectionState.Closed Then
-                connTVApplication.Open()
+            cmd = New OracleCommand(SQL, DBConnTVApplication)
+            If DBConnTVApplication.State = ConnectionState.Closed Then
+                DBConnTVApplication.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
 
             SQL = "Delete AIRTVApplication.PFW_EU_LandFill "
-            cmd = New OracleCommand(SQL, connTVApplication)
-            If connTVApplication.State = ConnectionState.Closed Then
-                connTVApplication.Open()
+            cmd = New OracleCommand(SQL, DBConnTVApplication)
+            If DBConnTVApplication.State = ConnectionState.Closed Then
+                DBConnTVApplication.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
 
             SQL = "Delete AIRTVApplication.PFW_EU_LiquidStorage "
-            cmd = New OracleCommand(SQL, connTVApplication)
-            If connTVApplication.State = ConnectionState.Closed Then
-                connTVApplication.Open()
+            cmd = New OracleCommand(SQL, DBConnTVApplication)
+            If DBConnTVApplication.State = ConnectionState.Closed Then
+                DBConnTVApplication.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
 
             SQL = "Delete AIRTVApplication.PFW_EU_NRBulkMixing "
-            cmd = New OracleCommand(SQL, connTVApplication)
-            If connTVApplication.State = ConnectionState.Closed Then
-                connTVApplication.Open()
+            cmd = New OracleCommand(SQL, DBConnTVApplication)
+            If DBConnTVApplication.State = ConnectionState.Closed Then
+                DBConnTVApplication.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
 
             SQL = "Delete AIRTVApplication.PFW_EU_Oven "
-            cmd = New OracleCommand(SQL, connTVApplication)
-            If connTVApplication.State = ConnectionState.Closed Then
-                connTVApplication.Open()
+            cmd = New OracleCommand(SQL, DBConnTVApplication)
+            If DBConnTVApplication.State = ConnectionState.Closed Then
+                DBConnTVApplication.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
 
             SQL = "Delete AIRTVApplication.PFW_EU_Printing_HAP "
-            cmd = New OracleCommand(SQL, connTVApplication)
-            If connTVApplication.State = ConnectionState.Closed Then
-                connTVApplication.Open()
+            cmd = New OracleCommand(SQL, DBConnTVApplication)
+            If DBConnTVApplication.State = ConnectionState.Closed Then
+                DBConnTVApplication.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
 
             SQL = "Delete AIRTVApplication.PFW_EU_Printing "
-            cmd = New OracleCommand(SQL, connTVApplication)
-            If connTVApplication.State = ConnectionState.Closed Then
-                connTVApplication.Open()
+            cmd = New OracleCommand(SQL, DBConnTVApplication)
+            If DBConnTVApplication.State = ConnectionState.Closed Then
+                DBConnTVApplication.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
 
             SQL = "Delete AIRTVApplication.PFW_EU_ReactorVessel "
-            cmd = New OracleCommand(SQL, connTVApplication)
-            If connTVApplication.State = ConnectionState.Closed Then
-                connTVApplication.Open()
+            cmd = New OracleCommand(SQL, DBConnTVApplication)
+            If DBConnTVApplication.State = ConnectionState.Closed Then
+                DBConnTVApplication.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
 
             SQL = "Delete AIRTVApplication.PFW_EU_SeparationProcess "
-            cmd = New OracleCommand(SQL, connTVApplication)
-            If connTVApplication.State = ConnectionState.Closed Then
-                connTVApplication.Open()
+            cmd = New OracleCommand(SQL, DBConnTVApplication)
+            If DBConnTVApplication.State = ConnectionState.Closed Then
+                DBConnTVApplication.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
 
             SQL = "Delete AIRTVApplication.PFW_EU_SolidWaste "
-            cmd = New OracleCommand(SQL, connTVApplication)
-            If connTVApplication.State = ConnectionState.Closed Then
-                connTVApplication.Open()
+            cmd = New OracleCommand(SQL, DBConnTVApplication)
+            If DBConnTVApplication.State = ConnectionState.Closed Then
+                DBConnTVApplication.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
 
             SQL = "Delete AIRTVApplication.PFW_EU_SolventCleaning "
-            cmd = New OracleCommand(SQL, connTVApplication)
-            If connTVApplication.State = ConnectionState.Closed Then
-                connTVApplication.Open()
+            cmd = New OracleCommand(SQL, DBConnTVApplication)
+            If DBConnTVApplication.State = ConnectionState.Closed Then
+                DBConnTVApplication.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
 
             SQL = "Delete AIRTVApplication.PFW_EU_TextileCoater "
-            cmd = New OracleCommand(SQL, connTVApplication)
-            If connTVApplication.State = ConnectionState.Closed Then
-                connTVApplication.Open()
+            cmd = New OracleCommand(SQL, DBConnTVApplication)
+            If DBConnTVApplication.State = ConnectionState.Closed Then
+                DBConnTVApplication.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
 
 
             SQL = "Delete AIRTVApplication.PFW_EmissionUnitHeader"
-            cmd = New OracleCommand(SQL, connTVApplication)
-            If connTVApplication.State = ConnectionState.Closed Then
-                connTVApplication.Open()
+            cmd = New OracleCommand(SQL, DBConnTVApplication)
+            If DBConnTVApplication.State = ConnectionState.Closed Then
+                DBConnTVApplication.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
 
             SQL = "Delete AIRTVApplication.pfw_emissionunitid"
-            cmd = New OracleCommand(SQL, connTVApplication)
-            If connTVApplication.State = ConnectionState.Closed Then
-                connTVApplication.Open()
+            cmd = New OracleCommand(SQL, DBConnTVApplication)
+            If DBConnTVApplication.State = ConnectionState.Closed Then
+                DBConnTVApplication.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
 
             SQL = "Delete AIRTVApplication.pfw_emissionunitmaster"
-            cmd = New OracleCommand(SQL, connTVApplication)
-            If connTVApplication.State = ConnectionState.Closed Then
-                connTVApplication.Open()
+            cmd = New OracleCommand(SQL, DBConnTVApplication)
+            If DBConnTVApplication.State = ConnectionState.Closed Then
+                DBConnTVApplication.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -911,9 +911,9 @@ Public Class DMU_TITLEV_PROJECT
     Sub DeletePFWFacInformation()
         Try
             SQL = "delete airtvapplication.PFW_FS_FACILITYINFORMATION"
-            cmd = New OracleCommand(SQL, connTVApplication)
-            If connTVApplication.State = ConnectionState.Closed Then
-                connTVApplication.Open()
+            cmd = New OracleCommand(SQL, DBConnTVApplication)
+            If DBConnTVApplication.State = ConnectionState.Closed Then
+                DBConnTVApplication.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -953,9 +953,9 @@ Public Class DMU_TITLEV_PROJECT
     Sub DeletePFWAppReason()
         Try
             SQL = "delete airtvapplication.PFW_APPLICATIONREASON"
-            cmd = New OracleCommand(SQL, connTVApplication)
-            If connTVApplication.State = ConnectionState.Closed Then
-                connTVApplication.Open()
+            cmd = New OracleCommand(SQL, DBConnTVApplication)
+            If DBConnTVApplication.State = ConnectionState.Closed Then
+                DBConnTVApplication.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -975,9 +975,9 @@ Public Class DMU_TITLEV_PROJECT
     Sub deletePermitAdmin()
         Try
             SQL = "delete airtvapplication.PFW_PERMITADMIN"
-            cmd = New OracleCommand(SQL, connTVApplication)
-            If connTVApplication.State = ConnectionState.Closed Then
-                connTVApplication.Open()
+            cmd = New OracleCommand(SQL, DBConnTVApplication)
+            If DBConnTVApplication.State = ConnectionState.Closed Then
+                DBConnTVApplication.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -1005,9 +1005,9 @@ Public Class DMU_TITLEV_PROJECT
 
 
             SQL = "Delete AIRTVApplication.PFW_WAREHOUSEADMIN"
-            cmd = New OracleCommand(SQL, connTVApplication)
-            If connTVApplication.State = ConnectionState.Closed Then
-                connTVApplication.Open()
+            cmd = New OracleCommand(SQL, DBConnTVApplication)
+            If DBConnTVApplication.State = ConnectionState.Closed Then
+                DBConnTVApplication.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -1025,9 +1025,9 @@ Public Class DMU_TITLEV_PROJECT
             "Select * from dual where not exists (select * from AIRTVProject.GAPLK_ProjectStatus " & _
             "  where ProjectStatusCode = '1' )  "
 
-            cmd = New OracleCommand(SQL, connTVProject)
-            If connTVProject.State = ConnectionState.Closed Then
-                connTVProject.Open()
+            cmd = New OracleCommand(SQL, DBConnTVProject)
+            If DBConnTVProject.State = ConnectionState.Closed Then
+                DBConnTVProject.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -1038,9 +1038,9 @@ Public Class DMU_TITLEV_PROJECT
             "Select * from dual where not exists (select * from AIRTVProject.GAPLK_ProjectStatus " & _
             "  where ProjectStatusCode = '2' )  "
 
-            cmd = New OracleCommand(SQL, connTVProject)
-            If connTVProject.State = ConnectionState.Closed Then
-                connTVProject.Open()
+            cmd = New OracleCommand(SQL, DBConnTVProject)
+            If DBConnTVProject.State = ConnectionState.Closed Then
+                DBConnTVProject.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -1052,9 +1052,9 @@ Public Class DMU_TITLEV_PROJECT
             "Select * from dual where not exists (select * from AIRTVProject.GAPLK_ProjectStatus " & _
             "  where ProjectStatusCode = '3' )  "
 
-            cmd = New OracleCommand(SQL, connTVProject)
-            If connTVProject.State = ConnectionState.Closed Then
-                connTVProject.Open()
+            cmd = New OracleCommand(SQL, DBConnTVProject)
+            If DBConnTVProject.State = ConnectionState.Closed Then
+                DBConnTVProject.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -1065,9 +1065,9 @@ Public Class DMU_TITLEV_PROJECT
             "Select * from dual where not exists (select * from AIRTVProject.GAPLK_ProjectStatus " & _
             "  where ProjectStatusCode = '4' )  "
 
-            cmd = New OracleCommand(SQL, connTVProject)
-            If connTVProject.State = ConnectionState.Closed Then
-                connTVProject.Open()
+            cmd = New OracleCommand(SQL, DBConnTVProject)
+            If DBConnTVProject.State = ConnectionState.Closed Then
+                DBConnTVProject.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -1077,9 +1077,9 @@ Public Class DMU_TITLEV_PROJECT
             "Select '100', 'SIP-Initial', '1', 'Floyd, Michael-153', sysdate, sysdate from Dual " & _
             "where not exists (select * from AIRTVProject.GAPLK_ApplicationReason where ApplicationReasonCode = '100' ) "
 
-            cmd = New OracleCommand(SQL, connTVProject)
-            If connTVProject.State = ConnectionState.Closed Then
-                connTVProject.Open()
+            cmd = New OracleCommand(SQL, DBConnTVProject)
+            If DBConnTVProject.State = ConnectionState.Closed Then
+                DBConnTVProject.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -1089,9 +1089,9 @@ Public Class DMU_TITLEV_PROJECT
             "Select '201', 'TV-Initial', '1', 'Floyd, Michael-153', sysdate, sysdate from Dual " & _
             "where not exists (select * from AIRTVProject.GAPLK_ApplicationReason where ApplicationReasonCode = '201' ) "
 
-            cmd = New OracleCommand(SQL, connTVProject)
-            If connTVProject.State = ConnectionState.Closed Then
-                connTVProject.Open()
+            cmd = New OracleCommand(SQL, DBConnTVProject)
+            If DBConnTVProject.State = ConnectionState.Closed Then
+                DBConnTVProject.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -1101,9 +1101,9 @@ Public Class DMU_TITLEV_PROJECT
             "Select '202', 'TV-Renewal', '1', 'Floyd, Michael-153', sysdate, sysdate from Dual " & _
             "where not exists (select * from AIRTVProject.GAPLK_ApplicationReason where ApplicationReasonCode = '202' ) "
 
-            cmd = New OracleCommand(SQL, connTVProject)
-            If connTVProject.State = ConnectionState.Closed Then
-                connTVProject.Open()
+            cmd = New OracleCommand(SQL, DBConnTVProject)
+            If DBConnTVProject.State = ConnectionState.Closed Then
+                DBConnTVProject.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -1113,9 +1113,9 @@ Public Class DMU_TITLEV_PROJECT
             "Select 'O', 'Operating', '1', 'Floyd, Michael-153', sysdate, sysdate from Dual " & _
             "where not exists (select * from AIRTVAPPLICATION.PFWLK_OPERATINGSTATUS where OPERATINGSTATUScODE = 'O' ) "
 
-            cmd = New OracleCommand(SQL, connTVApplication)
-            If connTVApplication.State = ConnectionState.Closed Then
-                connTVApplication.Open()
+            cmd = New OracleCommand(SQL, DBConnTVApplication)
+            If DBConnTVApplication.State = ConnectionState.Closed Then
+                DBConnTVApplication.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -1125,9 +1125,9 @@ Public Class DMU_TITLEV_PROJECT
             "Select 'P', 'Planned', '1', 'Floyd, Michael-153', sysdate, sysdate from Dual " & _
             "where not exists (select * from AIRTVAPPLICATION.PFWLK_OPERATINGSTATUS where OPERATINGSTATUScODE = 'P' ) "
 
-            cmd = New OracleCommand(SQL, connTVApplication)
-            If connTVApplication.State = ConnectionState.Closed Then
-                connTVApplication.Open()
+            cmd = New OracleCommand(SQL, DBConnTVApplication)
+            If DBConnTVApplication.State = ConnectionState.Closed Then
+                DBConnTVApplication.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -1137,9 +1137,9 @@ Public Class DMU_TITLEV_PROJECT
            "Select 'C', 'Under Construction', '1', 'Floyd, Michael-153', sysdate, sysdate from Dual " & _
            "where not exists (select * from AIRTVAPPLICATION.PFWLK_OPERATINGSTATUS where OPERATINGSTATUScODE = 'C' ) "
 
-            cmd = New OracleCommand(SQL, connTVApplication)
-            If connTVApplication.State = ConnectionState.Closed Then
-                connTVApplication.Open()
+            cmd = New OracleCommand(SQL, DBConnTVApplication)
+            If DBConnTVApplication.State = ConnectionState.Closed Then
+                DBConnTVApplication.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -1149,9 +1149,9 @@ Public Class DMU_TITLEV_PROJECT
            "Select 'T', 'Temporarily Closed', '1', 'Floyd, Michael-153', sysdate, sysdate from Dual " & _
            "where not exists (select * from AIRTVAPPLICATION.PFWLK_OPERATINGSTATUS where OPERATINGSTATUScODE = 'T' ) "
 
-            cmd = New OracleCommand(SQL, connTVApplication)
-            If connTVApplication.State = ConnectionState.Closed Then
-                connTVApplication.Open()
+            cmd = New OracleCommand(SQL, DBConnTVApplication)
+            If DBConnTVApplication.State = ConnectionState.Closed Then
+                DBConnTVApplication.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -1161,9 +1161,9 @@ Public Class DMU_TITLEV_PROJECT
            "Select 'X', 'Closed/Dismantled', '1', 'Floyd, Michael-153', sysdate, sysdate from Dual " & _
            "where not exists (select * from AIRTVAPPLICATION.PFWLK_OPERATINGSTATUS where OPERATINGSTATUScODE = 'X' ) "
 
-            cmd = New OracleCommand(SQL, connTVApplication)
-            If connTVApplication.State = ConnectionState.Closed Then
-                connTVApplication.Open()
+            cmd = New OracleCommand(SQL, DBConnTVApplication)
+            If DBConnTVApplication.State = ConnectionState.Closed Then
+                DBConnTVApplication.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -1173,9 +1173,9 @@ Public Class DMU_TITLEV_PROJECT
            "Select 'I', 'Seasonal Operation', '1', 'Floyd, Michael-153', sysdate, sysdate from Dual " & _
            "where not exists (select * from AIRTVAPPLICATION.PFWLK_OPERATINGSTATUS where OPERATINGSTATUScODE = 'I' ) "
 
-            cmd = New OracleCommand(SQL, connTVApplication)
-            If connTVApplication.State = ConnectionState.Closed Then
-                connTVApplication.Open()
+            cmd = New OracleCommand(SQL, DBConnTVApplication)
+            If DBConnTVApplication.State = ConnectionState.Closed Then
+                DBConnTVApplication.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -1185,9 +1185,9 @@ Public Class DMU_TITLEV_PROJECT
             "Select '1', 'Boiler', '1', 'Boiler', '1', 'Floyd, Michael-153', sysdate, sysdate from Dual " & _
             "where not exists (select * from AIRTVAPPLICATION.PFWLK_EMISSIONUNITTYPE where EMISSIONUNITTYPECODE = '1' ) "
 
-            cmd = New OracleCommand(SQL, connTVApplication)
-            If connTVApplication.State = ConnectionState.Closed Then
-                connTVApplication.Open()
+            cmd = New OracleCommand(SQL, DBConnTVApplication)
+            If DBConnTVApplication.State = ConnectionState.Closed Then
+                DBConnTVApplication.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -1197,9 +1197,9 @@ Public Class DMU_TITLEV_PROJECT
             "Select '2', 'Chrome Electroplating', '1', 'Chrome Electroplating', '1', 'Floyd, Michael-153', sysdate, sysdate from Dual " & _
             "where not exists (select * from AIRTVAPPLICATION.PFWLK_EMISSIONUNITTYPE where EMISSIONUNITTYPECODE = '2' ) "
 
-            cmd = New OracleCommand(SQL, connTVApplication)
-            If connTVApplication.State = ConnectionState.Closed Then
-                connTVApplication.Open()
+            cmd = New OracleCommand(SQL, DBConnTVApplication)
+            If DBConnTVApplication.State = ConnectionState.Closed Then
+                DBConnTVApplication.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -1209,9 +1209,9 @@ Public Class DMU_TITLEV_PROJECT
  "Select '3', 'Crushing, Milling, Grinding', '1', 'Crushing, Milling, Grinding', '1', 'Floyd, Michael-153', sysdate, sysdate from Dual " & _
  "where not exists (select * from AIRTVAPPLICATION.PFWLK_EMISSIONUNITTYPE where EMISSIONUNITTYPECODE = '3' ) "
 
-            cmd = New OracleCommand(SQL, connTVApplication)
-            If connTVApplication.State = ConnectionState.Closed Then
-                connTVApplication.Open()
+            cmd = New OracleCommand(SQL, DBConnTVApplication)
+            If DBConnTVApplication.State = ConnectionState.Closed Then
+                DBConnTVApplication.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -1221,9 +1221,9 @@ Public Class DMU_TITLEV_PROJECT
  "Select '4', 'Dryers, Calciners, & Kilns', '1', 'Dryers, Calciners, & Kilns', '1', 'Floyd, Michael-153', sysdate, sysdate from Dual " & _
  "where not exists (select * from AIRTVAPPLICATION.PFWLK_EMISSIONUNITTYPE where EMISSIONUNITTYPECODE = '4' ) "
 
-            cmd = New OracleCommand(SQL, connTVApplication)
-            If connTVApplication.State = ConnectionState.Closed Then
-                connTVApplication.Open()
+            cmd = New OracleCommand(SQL, DBConnTVApplication)
+            If DBConnTVApplication.State = ConnectionState.Closed Then
+                DBConnTVApplication.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -1233,9 +1233,9 @@ Public Class DMU_TITLEV_PROJECT
  "Select '5', 'Ovens', '1', 'Ovens', '1', 'Floyd, Michael-153', sysdate, sysdate from Dual " & _
  "where not exists (select * from AIRTVAPPLICATION.PFWLK_EMISSIONUNITTYPE where EMISSIONUNITTYPECODE = '5' ) "
 
-            cmd = New OracleCommand(SQL, connTVApplication)
-            If connTVApplication.State = ConnectionState.Closed Then
-                connTVApplication.Open()
+            cmd = New OracleCommand(SQL, DBConnTVApplication)
+            If DBConnTVApplication.State = ConnectionState.Closed Then
+                DBConnTVApplication.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -1245,9 +1245,9 @@ Public Class DMU_TITLEV_PROJECT
  "Select '6', 'Fiber Reinforced Plastics', '1', 'Fiber Reinforced Plastics', '1', 'Floyd, Michael-153', sysdate, sysdate from Dual " & _
  "where not exists (select * from AIRTVAPPLICATION.PFWLK_EMISSIONUNITTYPE where EMISSIONUNITTYPECODE = '6' ) "
 
-            cmd = New OracleCommand(SQL, connTVApplication)
-            If connTVApplication.State = ConnectionState.Closed Then
-                connTVApplication.Open()
+            cmd = New OracleCommand(SQL, DBConnTVApplication)
+            If DBConnTVApplication.State = ConnectionState.Closed Then
+                DBConnTVApplication.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -1257,9 +1257,9 @@ Public Class DMU_TITLEV_PROJECT
  "Select '7', 'Internal Combustion Engines', '1', 'Internal Combustion Engines', '1', 'Floyd, Michael-153', sysdate, sysdate from Dual " & _
  "where not exists (select * from AIRTVAPPLICATION.PFWLK_EMISSIONUNITTYPE where EMISSIONUNITTYPECODE = '7' ) "
 
-            cmd = New OracleCommand(SQL, connTVApplication)
-            If connTVApplication.State = ConnectionState.Closed Then
-                connTVApplication.Open()
+            cmd = New OracleCommand(SQL, DBConnTVApplication)
+            If DBConnTVApplication.State = ConnectionState.Closed Then
+                DBConnTVApplication.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -1270,9 +1270,9 @@ Public Class DMU_TITLEV_PROJECT
  "Select '8', 'Landfills', '1', 'Landfills', '1', 'Floyd, Michael-153', sysdate, sysdate from Dual " & _
  "where not exists (select * from AIRTVAPPLICATION.PFWLK_EMISSIONUNITTYPE where EMISSIONUNITTYPECODE = '8' ) "
 
-            cmd = New OracleCommand(SQL, connTVApplication)
-            If connTVApplication.State = ConnectionState.Closed Then
-                connTVApplication.Open()
+            cmd = New OracleCommand(SQL, DBConnTVApplication)
+            If DBConnTVApplication.State = ConnectionState.Closed Then
+                DBConnTVApplication.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -1283,9 +1283,9 @@ Public Class DMU_TITLEV_PROJECT
  "Select '9', 'Liquid Storage Vessels', '1', 'Liquid Storage Vessels', '1', 'Floyd, Michael-153', sysdate, sysdate from Dual " & _
  "where not exists (select * from AIRTVAPPLICATION.PFWLK_EMISSIONUNITTYPE where EMISSIONUNITTYPECODE = '9' ) "
 
-            cmd = New OracleCommand(SQL, connTVApplication)
-            If connTVApplication.State = ConnectionState.Closed Then
-                connTVApplication.Open()
+            cmd = New OracleCommand(SQL, DBConnTVApplication)
+            If DBConnTVApplication.State = ConnectionState.Closed Then
+                DBConnTVApplication.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -1295,9 +1295,9 @@ Public Class DMU_TITLEV_PROJECT
  "Select '10', 'Non-reactive Bulk mixing', '1', 'Non-reactive Bulk mixing', '1', 'Floyd, Michael-153', sysdate, sysdate from Dual " & _
  "where not exists (select * from AIRTVAPPLICATION.PFWLK_EMISSIONUNITTYPE where EMISSIONUNITTYPECODE = '10' ) "
 
-            cmd = New OracleCommand(SQL, connTVApplication)
-            If connTVApplication.State = ConnectionState.Closed Then
-                connTVApplication.Open()
+            cmd = New OracleCommand(SQL, DBConnTVApplication)
+            If DBConnTVApplication.State = ConnectionState.Closed Then
+                DBConnTVApplication.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -1307,9 +1307,9 @@ Public Class DMU_TITLEV_PROJECT
  "Select '11', 'Coating', '1', 'Coating', '1', 'Floyd, Michael-153', sysdate, sysdate from Dual " & _
  "where not exists (select * from AIRTVAPPLICATION.PFWLK_EMISSIONUNITTYPE where EMISSIONUNITTYPECODE = '11' ) "
 
-            cmd = New OracleCommand(SQL, connTVApplication)
-            If connTVApplication.State = ConnectionState.Closed Then
-                connTVApplication.Open()
+            cmd = New OracleCommand(SQL, DBConnTVApplication)
+            If DBConnTVApplication.State = ConnectionState.Closed Then
+                DBConnTVApplication.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -1319,9 +1319,9 @@ Public Class DMU_TITLEV_PROJECT
  "Select '12', 'Percholrate Dry Cleaners', '1', 'Percholrate Dry Cleaners', '1', 'Floyd, Michael-153', sysdate, sysdate from Dual " & _
  "where not exists (select * from AIRTVAPPLICATION.PFWLK_EMISSIONUNITTYPE where EMISSIONUNITTYPECODE = '12' ) "
 
-            cmd = New OracleCommand(SQL, connTVApplication)
-            If connTVApplication.State = ConnectionState.Closed Then
-                connTVApplication.Open()
+            cmd = New OracleCommand(SQL, DBConnTVApplication)
+            If DBConnTVApplication.State = ConnectionState.Closed Then
+                DBConnTVApplication.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -1331,9 +1331,9 @@ Public Class DMU_TITLEV_PROJECT
  "Select '13', 'Printing Operations', '1', 'Printing Operations', '1', 'Floyd, Michael-153', sysdate, sysdate from Dual " & _
  "where not exists (select * from AIRTVAPPLICATION.PFWLK_EMISSIONUNITTYPE where EMISSIONUNITTYPECODE = '13' ) "
 
-            cmd = New OracleCommand(SQL, connTVApplication)
-            If connTVApplication.State = ConnectionState.Closed Then
-                connTVApplication.Open()
+            cmd = New OracleCommand(SQL, DBConnTVApplication)
+            If DBConnTVApplication.State = ConnectionState.Closed Then
+                DBConnTVApplication.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -1343,9 +1343,9 @@ Public Class DMU_TITLEV_PROJECT
  "Select '14', 'Reactor Vessels', '1', 'Reactor Vessels', '1', 'Floyd, Michael-153', sysdate, sysdate from Dual " & _
  "where not exists (select * from AIRTVAPPLICATION.PFWLK_EMISSIONUNITTYPE where EMISSIONUNITTYPECODE = '14' ) "
 
-            cmd = New OracleCommand(SQL, connTVApplication)
-            If connTVApplication.State = ConnectionState.Closed Then
-                connTVApplication.Open()
+            cmd = New OracleCommand(SQL, DBConnTVApplication)
+            If DBConnTVApplication.State = ConnectionState.Closed Then
+                DBConnTVApplication.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -1355,9 +1355,9 @@ Public Class DMU_TITLEV_PROJECT
  "Select '15', 'Separation Process', '1', 'Separation Process', '1', 'Floyd, Michael-153', sysdate, sysdate from Dual " & _
  "where not exists (select * from AIRTVAPPLICATION.PFWLK_EMISSIONUNITTYPE where EMISSIONUNITTYPECODE = '15' ) "
 
-            cmd = New OracleCommand(SQL, connTVApplication)
-            If connTVApplication.State = ConnectionState.Closed Then
-                connTVApplication.Open()
+            cmd = New OracleCommand(SQL, DBConnTVApplication)
+            If DBConnTVApplication.State = ConnectionState.Closed Then
+                DBConnTVApplication.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -1367,9 +1367,9 @@ Public Class DMU_TITLEV_PROJECT
  "Select '16', 'Solid Waste Incinerators', '1', 'Solid Waste Incinerators', '1', 'Floyd, Michael-153', sysdate, sysdate from Dual " & _
  "where not exists (select * from AIRTVAPPLICATION.PFWLK_EMISSIONUNITTYPE where EMISSIONUNITTYPECODE = '16' ) "
 
-            cmd = New OracleCommand(SQL, connTVApplication)
-            If connTVApplication.State = ConnectionState.Closed Then
-                connTVApplication.Open()
+            cmd = New OracleCommand(SQL, DBConnTVApplication)
+            If DBConnTVApplication.State = ConnectionState.Closed Then
+                DBConnTVApplication.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -1379,9 +1379,9 @@ Public Class DMU_TITLEV_PROJECT
  "Select '17', 'Solvent Cleaning', '1', 'Solvent Cleaning', '1', 'Floyd, Michael-153', sysdate, sysdate from Dual " & _
  "where not exists (select * from AIRTVAPPLICATION.PFWLK_EMISSIONUNITTYPE where EMISSIONUNITTYPECODE = '17' ) "
 
-            cmd = New OracleCommand(SQL, connTVApplication)
-            If connTVApplication.State = ConnectionState.Closed Then
-                connTVApplication.Open()
+            cmd = New OracleCommand(SQL, DBConnTVApplication)
+            If DBConnTVApplication.State = ConnectionState.Closed Then
+                DBConnTVApplication.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -1391,9 +1391,9 @@ Public Class DMU_TITLEV_PROJECT
  "Select '18', 'Textile Coating', '1', 'Textile Coating', '1', 'Floyd, Michael-153', sysdate, sysdate from Dual " & _
  "where not exists (select * from AIRTVAPPLICATION.PFWLK_EMISSIONUNITTYPE where EMISSIONUNITTYPECODE = '18' ) "
 
-            cmd = New OracleCommand(SQL, connTVApplication)
-            If connTVApplication.State = ConnectionState.Closed Then
-                connTVApplication.Open()
+            cmd = New OracleCommand(SQL, DBConnTVApplication)
+            If DBConnTVApplication.State = ConnectionState.Closed Then
+                DBConnTVApplication.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -1403,9 +1403,9 @@ Public Class DMU_TITLEV_PROJECT
  "Select '19', 'Miscellaneous', '1', 'Miscellaneous', '1', 'Floyd, Michael-153', sysdate, sysdate from Dual " & _
  "where not exists (select * from AIRTVAPPLICATION.PFWLK_EMISSIONUNITTYPE where EMISSIONUNITTYPECODE = '19' ) "
 
-            cmd = New OracleCommand(SQL, connTVApplication)
-            If connTVApplication.State = ConnectionState.Closed Then
-                connTVApplication.Open()
+            cmd = New OracleCommand(SQL, DBConnTVApplication)
+            If DBConnTVApplication.State = ConnectionState.Closed Then
+                DBConnTVApplication.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -1418,9 +1418,9 @@ Public Class DMU_TITLEV_PROJECT
             SQL = "Select * from Airbranch.LookupSubpartSIP " & _
             "order by strSubPart "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -1449,9 +1449,9 @@ Public Class DMU_TITLEV_PROJECT
                     "where not exists (select * from airtvApplication.PFWLK_RegulatoryStandard where RegulatoryStandardType = 'SIP' " & _
                     "and REgulatoryStandardName = '" & SubPart & "' ) "
 
-                    cmd2 = New OracleCommand(SQL, connTVApplication)
-                    If connTVApplication.State = ConnectionState.Closed Then
-                        connTVApplication.Open()
+                    cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                    If DBConnTVApplication.State = ConnectionState.Closed Then
+                        DBConnTVApplication.Open()
                     End If
                     dr2 = cmd2.ExecuteReader
                     dr2.Close()
@@ -1465,9 +1465,9 @@ Public Class DMU_TITLEV_PROJECT
             SQL = "Select * from Airbranch.LookupSubpart60 " & _
             "order by strSubPart "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -1496,9 +1496,9 @@ Public Class DMU_TITLEV_PROJECT
                     "where not exists (select * from airtvApplication.PFWLK_RegulatoryStandard where RegulatoryStandardType = 'Part 60' " & _
                     "and REgulatoryStandardName = '" & SubPart & "' ) "
 
-                    cmd2 = New OracleCommand(SQL, connTVApplication)
-                    If connTVApplication.State = ConnectionState.Closed Then
-                        connTVApplication.Open()
+                    cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                    If DBConnTVApplication.State = ConnectionState.Closed Then
+                        DBConnTVApplication.Open()
                     End If
                     dr2 = cmd2.ExecuteReader
                     dr2.Close()
@@ -1509,9 +1509,9 @@ Public Class DMU_TITLEV_PROJECT
 
             SQL = "Select * from Airbranch.LookupSubpart61 " & _
             "order by strSubPart "
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -1540,9 +1540,9 @@ Public Class DMU_TITLEV_PROJECT
                     "where not exists (select * from airtvApplication.PFWLK_RegulatoryStandard where RegulatoryStandardType = 'Part 61' " & _
                     "and REgulatoryStandardName = '" & SubPart & "' ) "
 
-                    cmd2 = New OracleCommand(SQL, connTVApplication)
-                    If connTVApplication.State = ConnectionState.Closed Then
-                        connTVApplication.Open()
+                    cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                    If DBConnTVApplication.State = ConnectionState.Closed Then
+                        DBConnTVApplication.Open()
                     End If
                     dr2 = cmd2.ExecuteReader
                     dr2.Close()
@@ -1555,9 +1555,9 @@ Public Class DMU_TITLEV_PROJECT
             SQL = "Select * from Airbranch.LookupSubpart63 " & _
             "order by strSubPart "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -1586,9 +1586,9 @@ Public Class DMU_TITLEV_PROJECT
                     "where not exists (select * from airtvApplication.PFWLK_RegulatoryStandard where RegulatoryStandardType = 'Part 63' " & _
                     "and REgulatoryStandardName = '" & SubPart & "' ) "
 
-                    cmd2 = New OracleCommand(SQL, connTVApplication)
-                    If connTVApplication.State = ConnectionState.Closed Then
-                        connTVApplication.Open()
+                    cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                    If DBConnTVApplication.State = ConnectionState.Closed Then
+                        DBConnTVApplication.Open()
                     End If
                     dr2 = cmd2.ExecuteReader
                     dr2.Close()
@@ -1604,9 +1604,9 @@ Public Class DMU_TITLEV_PROJECT
 
             SQL = "Select * from airbranch.EISLK_PollutantCode " & _
             "order by strPollutantType, pollutantCode "
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -1644,9 +1644,9 @@ Public Class DMU_TITLEV_PROJECT
                     "'Floyd, Michael-153', sysdate, sysdate from Dual " & _
                     "where not exists (select * from airtvApplication.PFWLK_Airpollutant where AIRPollutantCode = '" & PollutantCode & "') "
 
-                    cmd2 = New OracleCommand(SQL, connTVApplication)
-                    If connTVApplication.State = ConnectionState.Closed Then
-                        connTVApplication.Open()
+                    cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                    If DBConnTVApplication.State = ConnectionState.Closed Then
+                        DBConnTVApplication.Open()
                     End If
                     dr2 = cmd2.ExecuteReader
                     dr2.Close()
@@ -1662,9 +1662,9 @@ Public Class DMU_TITLEV_PROJECT
                   "'1', 'Floyd, Michael-153', sysdate, sysdate from Dual " & _
                   "where not exists (select * from airtvApplication.pfwlk_controlUnitType where ControlUnitTypeCode = '1') "
 
-            cmd2 = New OracleCommand(SQL, connTVApplication)
-            If connTVApplication.State = ConnectionState.Closed Then
-                connTVApplication.Open()
+            cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+            If DBConnTVApplication.State = ConnectionState.Closed Then
+                DBConnTVApplication.Open()
             End If
             dr2 = cmd2.ExecuteReader
             dr2.Close()
@@ -1677,9 +1677,9 @@ Public Class DMU_TITLEV_PROJECT
                   "'1', 'Floyd, Michael-153', sysdate, sysdate from Dual " & _
                   "where not exists (select * from airtvApplication.pfwlk_controlUnitType where ControlUnitTypeCode = '2') "
 
-            cmd2 = New OracleCommand(SQL, connTVApplication)
-            If connTVApplication.State = ConnectionState.Closed Then
-                connTVApplication.Open()
+            cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+            If DBConnTVApplication.State = ConnectionState.Closed Then
+                DBConnTVApplication.Open()
             End If
             dr2 = cmd2.ExecuteReader
             dr2.Close()
@@ -1692,9 +1692,9 @@ Public Class DMU_TITLEV_PROJECT
                   "'1', 'Floyd, Michael-153', sysdate, sysdate from Dual " & _
                   "where not exists (select * from airtvApplication.pfwlk_controlUnitType where ControlUnitTypeCode = '3') "
 
-            cmd2 = New OracleCommand(SQL, connTVApplication)
-            If connTVApplication.State = ConnectionState.Closed Then
-                connTVApplication.Open()
+            cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+            If DBConnTVApplication.State = ConnectionState.Closed Then
+                DBConnTVApplication.Open()
             End If
             dr2 = cmd2.ExecuteReader
             dr2.Close()
@@ -1707,9 +1707,9 @@ Public Class DMU_TITLEV_PROJECT
                 "'1', 'Floyd, Michael-153', sysdate, sysdate from Dual " & _
                 "where not exists (select * from airtvApplication.pfwlk_controlUnitType where ControlUnitTypeCode = '4') "
 
-            cmd2 = New OracleCommand(SQL, connTVApplication)
-            If connTVApplication.State = ConnectionState.Closed Then
-                connTVApplication.Open()
+            cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+            If DBConnTVApplication.State = ConnectionState.Closed Then
+                DBConnTVApplication.Open()
             End If
             dr2 = cmd2.ExecuteReader
             dr2.Close()
@@ -1722,9 +1722,9 @@ Public Class DMU_TITLEV_PROJECT
                 "'1', 'Floyd, Michael-153', sysdate, sysdate from Dual " & _
                 "where not exists (select * from airtvApplication.pfwlk_controlUnitType where ControlUnitTypeCode = '5') "
 
-            cmd2 = New OracleCommand(SQL, connTVApplication)
-            If connTVApplication.State = ConnectionState.Closed Then
-                connTVApplication.Open()
+            cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+            If DBConnTVApplication.State = ConnectionState.Closed Then
+                DBConnTVApplication.Open()
             End If
             dr2 = cmd2.ExecuteReader
             dr2.Close()
@@ -1737,9 +1737,9 @@ Public Class DMU_TITLEV_PROJECT
                 "'1', 'Floyd, Michael-153', sysdate, sysdate from Dual " & _
                 "where not exists (select * from airtvApplication.pfwlk_controlUnitType where ControlUnitTypeCode = '6') "
 
-            cmd2 = New OracleCommand(SQL, connTVApplication)
-            If connTVApplication.State = ConnectionState.Closed Then
-                connTVApplication.Open()
+            cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+            If DBConnTVApplication.State = ConnectionState.Closed Then
+                DBConnTVApplication.Open()
             End If
             dr2 = cmd2.ExecuteReader
             dr2.Close()
@@ -1752,9 +1752,9 @@ Public Class DMU_TITLEV_PROJECT
             "'1', 'Floyd, Michael-153', sysdate, sysdate from Dual " & _
             "where not exists (select * from airtvApplication.pfwlk_controlUnitType where ControlUnitTypeCode = '7') "
 
-            cmd2 = New OracleCommand(SQL, connTVApplication)
-            If connTVApplication.State = ConnectionState.Closed Then
-                connTVApplication.Open()
+            cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+            If DBConnTVApplication.State = ConnectionState.Closed Then
+                DBConnTVApplication.Open()
             End If
             dr2 = cmd2.ExecuteReader
             dr2.Close()
@@ -1767,9 +1767,9 @@ Public Class DMU_TITLEV_PROJECT
             "'1', 'Floyd, Michael-153', sysdate, sysdate from Dual " & _
             "where not exists (select * from airtvApplication.pfwlk_controlUnitType where ControlUnitTypeCode = '8') "
 
-            cmd2 = New OracleCommand(SQL, connTVApplication)
-            If connTVApplication.State = ConnectionState.Closed Then
-                connTVApplication.Open()
+            cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+            If DBConnTVApplication.State = ConnectionState.Closed Then
+                DBConnTVApplication.Open()
             End If
             dr2 = cmd2.ExecuteReader
             dr2.Close()
@@ -1782,9 +1782,9 @@ Public Class DMU_TITLEV_PROJECT
             "'1', 'Floyd, Michael-153', sysdate, sysdate from Dual " & _
             "where not exists (select * from airtvApplication.pfwlk_controlUnitType where ControlUnitTypeCode = '9') "
 
-            cmd2 = New OracleCommand(SQL, connTVApplication)
-            If connTVApplication.State = ConnectionState.Closed Then
-                connTVApplication.Open()
+            cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+            If DBConnTVApplication.State = ConnectionState.Closed Then
+                DBConnTVApplication.Open()
             End If
             dr2 = cmd2.ExecuteReader
             dr2.Close()
@@ -1797,9 +1797,9 @@ Public Class DMU_TITLEV_PROJECT
             "'1', 'Floyd, Michael-153', sysdate, sysdate from Dual " & _
             "where not exists (select * from airtvApplication.PFWLK_FUELTYPE where FUELTYPECODE = '0') "
 
-            cmd2 = New OracleCommand(SQL, connTVApplication)
-            If connTVApplication.State = ConnectionState.Closed Then
-                connTVApplication.Open()
+            cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+            If DBConnTVApplication.State = ConnectionState.Closed Then
+                DBConnTVApplication.Open()
             End If
             dr2 = cmd2.ExecuteReader
             dr2.Close()
@@ -1812,9 +1812,9 @@ Public Class DMU_TITLEV_PROJECT
             "'1', 'Floyd, Michael-153', sysdate, sysdate from Dual " & _
             "where not exists (select * from airtvApplication.PFWLK_FUELTYPE where FUELTYPECODE = '1') "
 
-            cmd2 = New OracleCommand(SQL, connTVApplication)
-            If connTVApplication.State = ConnectionState.Closed Then
-                connTVApplication.Open()
+            cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+            If DBConnTVApplication.State = ConnectionState.Closed Then
+                DBConnTVApplication.Open()
             End If
             dr2 = cmd2.ExecuteReader
             dr2.Close()
@@ -1827,9 +1827,9 @@ Public Class DMU_TITLEV_PROJECT
             "'1', 'Floyd, Michael-153', sysdate, sysdate from Dual " & _
             "where not exists (select * from airtvApplication.PFWLK_FUELTYPE where FUELTYPECODE = '2') "
 
-            cmd2 = New OracleCommand(SQL, connTVApplication)
-            If connTVApplication.State = ConnectionState.Closed Then
-                connTVApplication.Open()
+            cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+            If DBConnTVApplication.State = ConnectionState.Closed Then
+                DBConnTVApplication.Open()
             End If
             dr2 = cmd2.ExecuteReader
             dr2.Close()
@@ -1842,9 +1842,9 @@ Public Class DMU_TITLEV_PROJECT
             "'1', 'Floyd, Michael-153', sysdate, sysdate from Dual " & _
             "where not exists (select * from airtvApplication.PFWLK_FUELTYPE where FUELTYPECODE = '3') "
 
-            cmd2 = New OracleCommand(SQL, connTVApplication)
-            If connTVApplication.State = ConnectionState.Closed Then
-                connTVApplication.Open()
+            cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+            If DBConnTVApplication.State = ConnectionState.Closed Then
+                DBConnTVApplication.Open()
             End If
             dr2 = cmd2.ExecuteReader
             dr2.Close()
@@ -1857,9 +1857,9 @@ Public Class DMU_TITLEV_PROJECT
             "'1', 'Floyd, Michael-153', sysdate, sysdate from Dual " & _
             "where not exists (select * from airtvApplication.PFWLK_FUELTYPE where FUELTYPECODE = '4') "
 
-            cmd2 = New OracleCommand(SQL, connTVApplication)
-            If connTVApplication.State = ConnectionState.Closed Then
-                connTVApplication.Open()
+            cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+            If DBConnTVApplication.State = ConnectionState.Closed Then
+                DBConnTVApplication.Open()
             End If
             dr2 = cmd2.ExecuteReader
             dr2.Close()
@@ -1872,9 +1872,9 @@ Public Class DMU_TITLEV_PROJECT
             "'1', 'Floyd, Michael-153', sysdate, sysdate from Dual " & _
             "where not exists (select * from airtvApplication.PFWLK_FUELTYPE where FUELTYPECODE = '5') "
 
-            cmd2 = New OracleCommand(SQL, connTVApplication)
-            If connTVApplication.State = ConnectionState.Closed Then
-                connTVApplication.Open()
+            cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+            If DBConnTVApplication.State = ConnectionState.Closed Then
+                DBConnTVApplication.Open()
             End If
             dr2 = cmd2.ExecuteReader
             dr2.Close()
@@ -1887,9 +1887,9 @@ Public Class DMU_TITLEV_PROJECT
             "'1', 'Floyd, Michael-153', sysdate, sysdate from Dual " & _
             "where not exists (select * from airtvApplication.PFWLK_FUELTYPE where FUELTYPECODE = '6') "
 
-            cmd2 = New OracleCommand(SQL, connTVApplication)
-            If connTVApplication.State = ConnectionState.Closed Then
-                connTVApplication.Open()
+            cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+            If DBConnTVApplication.State = ConnectionState.Closed Then
+                DBConnTVApplication.Open()
             End If
             dr2 = cmd2.ExecuteReader
             dr2.Close()
@@ -1902,9 +1902,9 @@ Public Class DMU_TITLEV_PROJECT
             "'1', 'Floyd, Michael-153', sysdate, sysdate from Dual " & _
             "where not exists (select * from airtvApplication.PFWLK_FUELTYPE where FUELTYPECODE = '7') "
 
-            cmd2 = New OracleCommand(SQL, connTVApplication)
-            If connTVApplication.State = ConnectionState.Closed Then
-                connTVApplication.Open()
+            cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+            If DBConnTVApplication.State = ConnectionState.Closed Then
+                DBConnTVApplication.Open()
             End If
             dr2 = cmd2.ExecuteReader
             dr2.Close()
@@ -1917,9 +1917,9 @@ Public Class DMU_TITLEV_PROJECT
             "'1', 'Floyd, Michael-153', sysdate, sysdate from Dual " & _
             "where not exists (select * from airtvApplication.PFWLK_FUELTYPE where FUELTYPECODE = '8') "
 
-            cmd2 = New OracleCommand(SQL, connTVApplication)
-            If connTVApplication.State = ConnectionState.Closed Then
-                connTVApplication.Open()
+            cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+            If DBConnTVApplication.State = ConnectionState.Closed Then
+                DBConnTVApplication.Open()
             End If
             dr2 = cmd2.ExecuteReader
             dr2.Close()
@@ -1932,9 +1932,9 @@ Public Class DMU_TITLEV_PROJECT
             "'1', 'Floyd, Michael-153', sysdate, sysdate from Dual " & _
             "where not exists (select * from airtvApplication.PFWLK_FUELTYPE where FUELTYPECODE = '9') "
 
-            cmd2 = New OracleCommand(SQL, connTVApplication)
-            If connTVApplication.State = ConnectionState.Closed Then
-                connTVApplication.Open()
+            cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+            If DBConnTVApplication.State = ConnectionState.Closed Then
+                DBConnTVApplication.Open()
             End If
             dr2 = cmd2.ExecuteReader
             dr2.Close()
@@ -1947,9 +1947,9 @@ Public Class DMU_TITLEV_PROJECT
             "'1', 'Floyd, Michael-153', sysdate, sysdate from Dual " & _
             "where not exists (select * from airtvApplication.PFWLK_FUELTYPE where FUELTYPECODE = '10') "
 
-            cmd2 = New OracleCommand(SQL, connTVApplication)
-            If connTVApplication.State = ConnectionState.Closed Then
-                connTVApplication.Open()
+            cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+            If DBConnTVApplication.State = ConnectionState.Closed Then
+                DBConnTVApplication.Open()
             End If
             dr2 = cmd2.ExecuteReader
             dr2.Close()
@@ -1962,9 +1962,9 @@ Public Class DMU_TITLEV_PROJECT
             "'1', 'Floyd, Michael-153', sysdate, sysdate from Dual " & _
             "where not exists (select * from airtvApplication.PFWLK_FUELTYPE where FUELTYPECODE = '11') "
 
-            cmd2 = New OracleCommand(SQL, connTVApplication)
-            If connTVApplication.State = ConnectionState.Closed Then
-                connTVApplication.Open()
+            cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+            If DBConnTVApplication.State = ConnectionState.Closed Then
+                DBConnTVApplication.Open()
             End If
             dr2 = cmd2.ExecuteReader
             dr2.Close()
@@ -1977,9 +1977,9 @@ Public Class DMU_TITLEV_PROJECT
             "'1', 'Floyd, Michael-153', sysdate, sysdate from Dual " & _
             "where not exists (select * from airtvApplication.PFWLK_FUELTYPE where FUELTYPECODE = '12') "
 
-            cmd2 = New OracleCommand(SQL, connTVApplication)
-            If connTVApplication.State = ConnectionState.Closed Then
-                connTVApplication.Open()
+            cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+            If DBConnTVApplication.State = ConnectionState.Closed Then
+                DBConnTVApplication.Open()
             End If
             dr2 = cmd2.ExecuteReader
             dr2.Close()
@@ -1992,9 +1992,9 @@ Public Class DMU_TITLEV_PROJECT
             "'1', 'Floyd, Michael-153', sysdate, sysdate from Dual " & _
             "where not exists (select * from airtvApplication.PFWLK_FUELTYPE where FUELTYPECODE = '13') "
 
-            cmd2 = New OracleCommand(SQL, connTVApplication)
-            If connTVApplication.State = ConnectionState.Closed Then
-                connTVApplication.Open()
+            cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+            If DBConnTVApplication.State = ConnectionState.Closed Then
+                DBConnTVApplication.Open()
             End If
             dr2 = cmd2.ExecuteReader
             dr2.Close()
@@ -2007,9 +2007,9 @@ Public Class DMU_TITLEV_PROJECT
             "'1', 'Floyd, Michael-153', sysdate, sysdate from Dual " & _
             "where not exists (select * from airtvApplication.PFWLK_FUELTYPE where FUELTYPECODE = '14') "
 
-            cmd2 = New OracleCommand(SQL, connTVApplication)
-            If connTVApplication.State = ConnectionState.Closed Then
-                connTVApplication.Open()
+            cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+            If DBConnTVApplication.State = ConnectionState.Closed Then
+                DBConnTVApplication.Open()
             End If
             dr2 = cmd2.ExecuteReader
             dr2.Close()
@@ -2040,9 +2040,9 @@ Public Class DMU_TITLEV_PROJECT
             "'0', '1' " & _
             "from dual "
 
-            cmd = New OracleCommand(SQL, connTVProject)
-            If connTVProject.State = ConnectionState.Closed Then
-                connTVProject.Open()
+            cmd = New OracleCommand(SQL, DBConnTVProject)
+            If DBConnTVProject.State = ConnectionState.Closed Then
+                DBConnTVProject.Open()
             End If
             dr = cmd.ExecuteReader
 
@@ -2080,9 +2080,9 @@ Public Class DMU_TITLEV_PROJECT
             "'0', '1' " & _
             "from dual "
 
-            cmd = New OracleCommand(SQL, connTVProject)
-            If connTVProject.State = ConnectionState.Closed Then
-                connTVProject.Open()
+            cmd = New OracleCommand(SQL, DBConnTVProject)
+            If DBConnTVProject.State = ConnectionState.Closed Then
+                DBConnTVProject.Open()
             End If
             dr = cmd.ExecuteReader
 
@@ -2116,9 +2116,9 @@ Public Class DMU_TITLEV_PROJECT
     Sub DeleteEUBoiler()
         Try
             SQL = "delete airtvapplication.PFW_EU_Boiler"
-            cmd = New OracleCommand(SQL, connTVApplication)
-            If connTVApplication.State = ConnectionState.Closed Then
-                connTVApplication.Open()
+            cmd = New OracleCommand(SQL, DBConnTVApplication)
+            If DBConnTVApplication.State = ConnectionState.Closed Then
+                DBConnTVApplication.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -2306,9 +2306,9 @@ Public Class DMU_TITLEV_PROJECT
                     "from airTVApplication.PFW_WareHouseAdmin " & _
                     "where ProjectID = '" & ProjectId & "' "
 
-                    cmd = New OracleCommand(SQL, connTVApplication)
-                    If connTVApplication.State = ConnectionState.Closed Then
-                        connTVApplication.Open()
+                    cmd = New OracleCommand(SQL, DBConnTVApplication)
+                    If DBConnTVApplication.State = ConnectionState.Closed Then
+                        DBConnTVApplication.Open()
                     End If
                     dr = cmd.ExecuteReader
                     GSID = ""
@@ -2333,17 +2333,17 @@ Public Class DMU_TITLEV_PROJECT
                         "where exists (select * from PFW_WAREHOUSEADMIN " & _
                         "where gsid = '" & GSID & "') "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
 
                         SQL2 = "select AIRTVPROJECT.SEQ_GAP_EMISSIONUNITID.currval from dual "
-                        cmd2 = New OracleCommand(SQL2, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL2, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         While dr2.Read
@@ -2365,9 +2365,9 @@ Public Class DMU_TITLEV_PROJECT
                        "where exists (select * from PFW_EMISSIONUNITMASTER " & _
                        "where EMISSIONUNITID = " & temp & ") "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
@@ -2396,9 +2396,9 @@ Public Class DMU_TITLEV_PROJECT
                         "where exists (select * from PFW_EMISSIONUNITMASTER " & _
                         "where EMISSIONUNITID = " & temp & ") "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
@@ -2421,9 +2421,9 @@ Public Class DMU_TITLEV_PROJECT
                         "where exists (select * from PFW_EMISSIONUNITMASTER " & _
                         "where EMISSIONUNITID = " & temp & ") "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
@@ -2601,9 +2601,9 @@ Public Class DMU_TITLEV_PROJECT
                     "from airTVApplication.PFW_WareHouseAdmin " & _
                     "where ProjectID = '" & ProjectId & "' "
 
-                    cmd = New OracleCommand(SQL, connTVApplication)
-                    If connTVApplication.State = ConnectionState.Closed Then
-                        connTVApplication.Open()
+                    cmd = New OracleCommand(SQL, DBConnTVApplication)
+                    If DBConnTVApplication.State = ConnectionState.Closed Then
+                        DBConnTVApplication.Open()
                     End If
                     dr = cmd.ExecuteReader
                     GSID = ""
@@ -2628,17 +2628,17 @@ Public Class DMU_TITLEV_PROJECT
                         "where exists (select * from PFW_WAREHOUSEADMIN " & _
                         "where gsid = '" & GSID & "') "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
 
                         SQL2 = "select AIRTVPROJECT.SEQ_GAP_EMISSIONUNITID.currval from dual "
-                        cmd2 = New OracleCommand(SQL2, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL2, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         While dr2.Read
@@ -2660,9 +2660,9 @@ Public Class DMU_TITLEV_PROJECT
                        "where exists (select * from PFW_EMISSIONUNITMASTER " & _
                        "where EMISSIONUNITID = " & temp & ") "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
@@ -2691,9 +2691,9 @@ Public Class DMU_TITLEV_PROJECT
                         "where exists (select * from PFW_EMISSIONUNITMASTER " & _
                         "where EMISSIONUNITID = " & temp & ") "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
@@ -2716,9 +2716,9 @@ Public Class DMU_TITLEV_PROJECT
                         "where exists (select * from PFW_EMISSIONUNITMASTER " & _
                         "where EMISSIONUNITID = " & temp & ") "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
@@ -2893,9 +2893,9 @@ Public Class DMU_TITLEV_PROJECT
                     "from airTVApplication.PFW_WareHouseAdmin " & _
                     "where ProjectID = '" & ProjectId & "' "
 
-                    cmd = New OracleCommand(SQL, connTVApplication)
-                    If connTVApplication.State = ConnectionState.Closed Then
-                        connTVApplication.Open()
+                    cmd = New OracleCommand(SQL, DBConnTVApplication)
+                    If DBConnTVApplication.State = ConnectionState.Closed Then
+                        DBConnTVApplication.Open()
                     End If
                     dr = cmd.ExecuteReader
                     GSID = ""
@@ -2920,17 +2920,17 @@ Public Class DMU_TITLEV_PROJECT
                         "where exists (select * from PFW_WAREHOUSEADMIN " & _
                         "where gsid = '" & GSID & "') "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
 
                         SQL2 = "select AIRTVPROJECT.SEQ_GAP_EMISSIONUNITID.currval from dual "
-                        cmd2 = New OracleCommand(SQL2, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL2, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         While dr2.Read
@@ -2952,9 +2952,9 @@ Public Class DMU_TITLEV_PROJECT
                        "where exists (select * from PFW_EMISSIONUNITMASTER " & _
                        "where EMISSIONUNITID = " & temp & ") "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
@@ -2983,9 +2983,9 @@ Public Class DMU_TITLEV_PROJECT
                         "where exists (select * from PFW_EMISSIONUNITMASTER " & _
                         "where EMISSIONUNITID = " & temp & ") "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
@@ -3006,9 +3006,9 @@ Public Class DMU_TITLEV_PROJECT
                         "where exists (select * from PFW_EMISSIONUNITMASTER " & _
                         "where EMISSIONUNITID = " & temp & ") "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
@@ -3177,9 +3177,9 @@ Public Class DMU_TITLEV_PROJECT
                     "from airTVApplication.PFW_WareHouseAdmin " & _
                     "where ProjectID = '" & ProjectId & "' "
 
-                    cmd = New OracleCommand(SQL, connTVApplication)
-                    If connTVApplication.State = ConnectionState.Closed Then
-                        connTVApplication.Open()
+                    cmd = New OracleCommand(SQL, DBConnTVApplication)
+                    If DBConnTVApplication.State = ConnectionState.Closed Then
+                        DBConnTVApplication.Open()
                     End If
                     dr = cmd.ExecuteReader
                     GSID = ""
@@ -3204,17 +3204,17 @@ Public Class DMU_TITLEV_PROJECT
                         "where exists (select * from PFW_WAREHOUSEADMIN " & _
                         "where gsid = '" & GSID & "') "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
 
                         SQL2 = "select AIRTVPROJECT.SEQ_GAP_EMISSIONUNITID.currval from dual "
-                        cmd2 = New OracleCommand(SQL2, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL2, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         While dr2.Read
@@ -3236,9 +3236,9 @@ Public Class DMU_TITLEV_PROJECT
                        "where exists (select * from PFW_EMISSIONUNITMASTER " & _
                        "where EMISSIONUNITID = " & temp & ") "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
@@ -3267,9 +3267,9 @@ Public Class DMU_TITLEV_PROJECT
                         "where exists (select * from PFW_EMISSIONUNITMASTER " & _
                         "where EMISSIONUNITID = " & temp & ") "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
@@ -3290,9 +3290,9 @@ Public Class DMU_TITLEV_PROJECT
                       "where exists (select * from PFW_EMISSIONUNITMASTER " & _
                       "where EMISSIONUNITID = " & temp & ") "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
@@ -3456,9 +3456,9 @@ Public Class DMU_TITLEV_PROJECT
                     "from airTVApplication.PFW_WareHouseAdmin " & _
                     "where ProjectID = '" & ProjectId & "' "
 
-                    cmd = New OracleCommand(SQL, connTVApplication)
-                    If connTVApplication.State = ConnectionState.Closed Then
-                        connTVApplication.Open()
+                    cmd = New OracleCommand(SQL, DBConnTVApplication)
+                    If DBConnTVApplication.State = ConnectionState.Closed Then
+                        DBConnTVApplication.Open()
                     End If
                     dr = cmd.ExecuteReader
                     GSID = ""
@@ -3483,17 +3483,17 @@ Public Class DMU_TITLEV_PROJECT
                         "where exists (select * from PFW_WAREHOUSEADMIN " & _
                         "where gsid = '" & GSID & "') "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
 
                         SQL2 = "select AIRTVPROJECT.SEQ_GAP_EMISSIONUNITID.currval from dual "
-                        cmd2 = New OracleCommand(SQL2, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL2, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         While dr2.Read
@@ -3515,9 +3515,9 @@ Public Class DMU_TITLEV_PROJECT
                        "where exists (select * from PFW_EMISSIONUNITMASTER " & _
                        "where EMISSIONUNITID = " & temp & ") "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
@@ -3546,9 +3546,9 @@ Public Class DMU_TITLEV_PROJECT
                         "where exists (select * from PFW_EMISSIONUNITMASTER " & _
                         "where EMISSIONUNITID = " & temp & ") "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
@@ -3569,9 +3569,9 @@ Public Class DMU_TITLEV_PROJECT
                         "where exists (select * from PFW_EMISSIONUNITMASTER " & _
                         "where EMISSIONUNITID = " & temp & ") "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
@@ -3762,9 +3762,9 @@ Public Class DMU_TITLEV_PROJECT
                     "from airTVApplication.PFW_WareHouseAdmin " & _
                     "where ProjectID = '" & ProjectId & "' "
 
-                    cmd = New OracleCommand(SQL, connTVApplication)
-                    If connTVApplication.State = ConnectionState.Closed Then
-                        connTVApplication.Open()
+                    cmd = New OracleCommand(SQL, DBConnTVApplication)
+                    If DBConnTVApplication.State = ConnectionState.Closed Then
+                        DBConnTVApplication.Open()
                     End If
                     dr = cmd.ExecuteReader
                     GSID = ""
@@ -3789,17 +3789,17 @@ Public Class DMU_TITLEV_PROJECT
                         "where exists (select * from PFW_WAREHOUSEADMIN " & _
                         "where gsid = '" & GSID & "') "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
 
                         SQL2 = "select AIRTVPROJECT.SEQ_GAP_EMISSIONUNITID.currval from dual "
-                        cmd2 = New OracleCommand(SQL2, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL2, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         While dr2.Read
@@ -3821,9 +3821,9 @@ Public Class DMU_TITLEV_PROJECT
                        "where exists (select * from PFW_EMISSIONUNITMASTER " & _
                        "where EMISSIONUNITID = " & temp & ") "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
@@ -3852,9 +3852,9 @@ Public Class DMU_TITLEV_PROJECT
                         "where exists (select * from PFW_EMISSIONUNITMASTER " & _
                         "where EMISSIONUNITID = " & temp & ") "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
@@ -3879,9 +3879,9 @@ Public Class DMU_TITLEV_PROJECT
                         "where exists (select * from PFW_EMISSIONUNITMASTER " & _
                         "where EMISSIONUNITID = " & temp & ") "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
@@ -4235,9 +4235,9 @@ Public Class DMU_TITLEV_PROJECT
                     "from airTVApplication.PFW_WareHouseAdmin " & _
                     "where ProjectID = '" & ProjectId & "' "
 
-                    cmd = New OracleCommand(SQL, connTVApplication)
-                    If connTVApplication.State = ConnectionState.Closed Then
-                        connTVApplication.Open()
+                    cmd = New OracleCommand(SQL, DBConnTVApplication)
+                    If DBConnTVApplication.State = ConnectionState.Closed Then
+                        DBConnTVApplication.Open()
                     End If
                     dr = cmd.ExecuteReader
                     GSID = ""
@@ -4262,17 +4262,17 @@ Public Class DMU_TITLEV_PROJECT
                         "where exists (select * from PFW_WAREHOUSEADMIN " & _
                         "where gsid = '" & GSID & "') "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
 
                         SQL2 = "select AIRTVPROJECT.SEQ_GAP_EMISSIONUNITID.currval from dual "
-                        cmd2 = New OracleCommand(SQL2, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL2, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         While dr2.Read
@@ -4294,9 +4294,9 @@ Public Class DMU_TITLEV_PROJECT
                        "where exists (select * from PFW_EMISSIONUNITMASTER " & _
                        "where EMISSIONUNITID = " & temp & ") "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
@@ -4325,9 +4325,9 @@ Public Class DMU_TITLEV_PROJECT
                         "where exists (select * from PFW_EMISSIONUNITMASTER " & _
                         "where EMISSIONUNITID = " & temp & ") "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
@@ -4372,9 +4372,9 @@ Public Class DMU_TITLEV_PROJECT
                       "where exists (select * from PFW_EMISSIONUNITMASTER " & _
                       "where EMISSIONUNITID = " & temp & ") "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
@@ -4574,9 +4574,9 @@ Public Class DMU_TITLEV_PROJECT
                     "from airTVApplication.PFW_WareHouseAdmin " & _
                     "where ProjectID = '" & ProjectId & "' "
 
-                    cmd = New OracleCommand(SQL, connTVApplication)
-                    If connTVApplication.State = ConnectionState.Closed Then
-                        connTVApplication.Open()
+                    cmd = New OracleCommand(SQL, DBConnTVApplication)
+                    If DBConnTVApplication.State = ConnectionState.Closed Then
+                        DBConnTVApplication.Open()
                     End If
                     dr = cmd.ExecuteReader
                     GSID = ""
@@ -4601,17 +4601,17 @@ Public Class DMU_TITLEV_PROJECT
                         "where exists (select * from PFW_WAREHOUSEADMIN " & _
                         "where gsid = '" & GSID & "') "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
 
                         SQL2 = "select AIRTVPROJECT.SEQ_GAP_EMISSIONUNITID.currval from dual "
-                        cmd2 = New OracleCommand(SQL2, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL2, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         While dr2.Read
@@ -4633,9 +4633,9 @@ Public Class DMU_TITLEV_PROJECT
                        "where exists (select * from PFW_EMISSIONUNITMASTER " & _
                        "where EMISSIONUNITID = " & temp & ") "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
@@ -4664,9 +4664,9 @@ Public Class DMU_TITLEV_PROJECT
                         "where exists (select * from PFW_EMISSIONUNITMASTER " & _
                         "where EMISSIONUNITID = " & temp & ") "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
@@ -4691,9 +4691,9 @@ Public Class DMU_TITLEV_PROJECT
                         "where exists (select * from PFW_EMISSIONUNITMASTER " & _
                         "where EMISSIONUNITID = " & temp & ") "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
@@ -4896,9 +4896,9 @@ Public Class DMU_TITLEV_PROJECT
                     "from airTVApplication.PFW_WareHouseAdmin " & _
                     "where ProjectID = '" & ProjectId & "' "
 
-                    cmd = New OracleCommand(SQL, connTVApplication)
-                    If connTVApplication.State = ConnectionState.Closed Then
-                        connTVApplication.Open()
+                    cmd = New OracleCommand(SQL, DBConnTVApplication)
+                    If DBConnTVApplication.State = ConnectionState.Closed Then
+                        DBConnTVApplication.Open()
                     End If
                     dr = cmd.ExecuteReader
                     GSID = ""
@@ -4923,17 +4923,17 @@ Public Class DMU_TITLEV_PROJECT
                         "where exists (select * from PFW_WAREHOUSEADMIN " & _
                         "where gsid = '" & GSID & "') "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
 
                         SQL2 = "select AIRTVPROJECT.SEQ_GAP_EMISSIONUNITID.currval from dual "
-                        cmd2 = New OracleCommand(SQL2, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL2, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         While dr2.Read
@@ -4955,9 +4955,9 @@ Public Class DMU_TITLEV_PROJECT
                        "where exists (select * from PFW_EMISSIONUNITMASTER " & _
                        "where EMISSIONUNITID = " & temp & ") "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
@@ -4986,9 +4986,9 @@ Public Class DMU_TITLEV_PROJECT
                         "where exists (select * from PFW_EMISSIONUNITMASTER " & _
                         "where EMISSIONUNITID = " & temp & ") "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
@@ -5013,9 +5013,9 @@ Public Class DMU_TITLEV_PROJECT
                         "where exists (select * from PFW_EMISSIONUNITMASTER " & _
                         "where EMISSIONUNITID = " & temp & ") "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
@@ -5067,9 +5067,9 @@ Public Class DMU_TITLEV_PROJECT
                             "where exists (select * from PFW_EMISSIONUNITMASTER " & _
                             "where EMISSIONUNITID = " & temp & ") "
 
-                            cmd2 = New OracleCommand(SQL, connTVApplication)
-                            If connTVApplication.State = ConnectionState.Closed Then
-                                connTVApplication.Open()
+                            cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                            If DBConnTVApplication.State = ConnectionState.Closed Then
+                                DBConnTVApplication.Open()
                             End If
                             dr2 = cmd2.ExecuteReader
                             dr2.Close()
@@ -5143,9 +5143,9 @@ Public Class DMU_TITLEV_PROJECT
                                 "where exists (select * from PFW_EMISSIONUNITMASTER " & _
                                 "where EMISSIONUNITID = " & temp & ") "
 
-                                cmd2 = New OracleCommand(SQL, connTVApplication)
-                                If connTVApplication.State = ConnectionState.Closed Then
-                                    connTVApplication.Open()
+                                cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                                If DBConnTVApplication.State = ConnectionState.Closed Then
+                                    DBConnTVApplication.Open()
                                 End If
                                 dr2 = cmd2.ExecuteReader
                                 dr2.Close()
@@ -5400,9 +5400,9 @@ Public Class DMU_TITLEV_PROJECT
                     "from airTVApplication.PFW_WareHouseAdmin " & _
                     "where ProjectID = '" & ProjectId & "' "
 
-                    cmd = New OracleCommand(SQL, connTVApplication)
-                    If connTVApplication.State = ConnectionState.Closed Then
-                        connTVApplication.Open()
+                    cmd = New OracleCommand(SQL, DBConnTVApplication)
+                    If DBConnTVApplication.State = ConnectionState.Closed Then
+                        DBConnTVApplication.Open()
                     End If
                     dr = cmd.ExecuteReader
                     GSID = ""
@@ -5427,17 +5427,17 @@ Public Class DMU_TITLEV_PROJECT
                         "where exists (select * from PFW_WAREHOUSEADMIN " & _
                         "where gsid = '" & GSID & "') "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
 
                         SQL2 = "select AIRTVPROJECT.SEQ_GAP_EMISSIONUNITID.currval from dual "
-                        cmd2 = New OracleCommand(SQL2, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL2, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         While dr2.Read
@@ -5459,9 +5459,9 @@ Public Class DMU_TITLEV_PROJECT
                        "where exists (select * from PFW_EMISSIONUNITMASTER " & _
                        "where EMISSIONUNITID = " & temp & ") "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
@@ -5490,9 +5490,9 @@ Public Class DMU_TITLEV_PROJECT
                         "where exists (select * from PFW_EMISSIONUNITMASTER " & _
                         "where EMISSIONUNITID = " & temp & ") "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
@@ -5535,9 +5535,9 @@ Public Class DMU_TITLEV_PROJECT
                         "where exists (select * from PFW_EMISSIONUNITMASTER " & _
                         "where EMISSIONUNITID = " & temp & ") "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
@@ -5682,9 +5682,9 @@ Public Class DMU_TITLEV_PROJECT
                     "from airTVApplication.PFW_WareHouseAdmin " & _
                     "where ProjectID = '" & ProjectId & "' "
 
-                    cmd = New OracleCommand(SQL, connTVApplication)
-                    If connTVApplication.State = ConnectionState.Closed Then
-                        connTVApplication.Open()
+                    cmd = New OracleCommand(SQL, DBConnTVApplication)
+                    If DBConnTVApplication.State = ConnectionState.Closed Then
+                        DBConnTVApplication.Open()
                     End If
                     dr = cmd.ExecuteReader
                     GSID = ""
@@ -5709,17 +5709,17 @@ Public Class DMU_TITLEV_PROJECT
                         "where exists (select * from PFW_WAREHOUSEADMIN " & _
                         "where gsid = '" & GSID & "') "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
 
                         SQL2 = "select AIRTVPROJECT.SEQ_GAP_EMISSIONUNITID.currval from dual "
-                        cmd2 = New OracleCommand(SQL2, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL2, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         While dr2.Read
@@ -5741,9 +5741,9 @@ Public Class DMU_TITLEV_PROJECT
                        "where exists (select * from PFW_EMISSIONUNITMASTER " & _
                        "where EMISSIONUNITID = " & temp & ") "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
@@ -5772,9 +5772,9 @@ Public Class DMU_TITLEV_PROJECT
                         "where exists (select * from PFW_EMISSIONUNITMASTER " & _
                         "where EMISSIONUNITID = " & temp & ") "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
@@ -5942,9 +5942,9 @@ Public Class DMU_TITLEV_PROJECT
                     "from airTVApplication.PFW_WareHouseAdmin " & _
                     "where ProjectID = '" & ProjectId & "' "
 
-                    cmd = New OracleCommand(SQL, connTVApplication)
-                    If connTVApplication.State = ConnectionState.Closed Then
-                        connTVApplication.Open()
+                    cmd = New OracleCommand(SQL, DBConnTVApplication)
+                    If DBConnTVApplication.State = ConnectionState.Closed Then
+                        DBConnTVApplication.Open()
                     End If
                     dr = cmd.ExecuteReader
                     GSID = ""
@@ -5969,17 +5969,17 @@ Public Class DMU_TITLEV_PROJECT
                         "where exists (select * from PFW_WAREHOUSEADMIN " & _
                         "where gsid = '" & GSID & "') "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
 
                         SQL2 = "select AIRTVPROJECT.SEQ_GAP_EMISSIONUNITID.currval from dual "
-                        cmd2 = New OracleCommand(SQL2, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL2, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         While dr2.Read
@@ -6001,9 +6001,9 @@ Public Class DMU_TITLEV_PROJECT
                        "where exists (select * from PFW_EMISSIONUNITMASTER " & _
                        "where EMISSIONUNITID = " & temp & ") "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
@@ -6032,9 +6032,9 @@ Public Class DMU_TITLEV_PROJECT
                         "where exists (select * from PFW_EMISSIONUNITMASTER " & _
                         "where EMISSIONUNITID = " & temp & ") "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
@@ -6053,9 +6053,9 @@ Public Class DMU_TITLEV_PROJECT
                         "where exists (select * from PFW_EMISSIONUNITMASTER " & _
                         "where EMISSIONUNITID = " & temp & ") "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
@@ -6215,9 +6215,9 @@ Public Class DMU_TITLEV_PROJECT
                     "from airTVApplication.PFW_WareHouseAdmin " & _
                     "where ProjectID = '" & ProjectId & "' "
 
-                    cmd = New OracleCommand(SQL, connTVApplication)
-                    If connTVApplication.State = ConnectionState.Closed Then
-                        connTVApplication.Open()
+                    cmd = New OracleCommand(SQL, DBConnTVApplication)
+                    If DBConnTVApplication.State = ConnectionState.Closed Then
+                        DBConnTVApplication.Open()
                     End If
                     dr = cmd.ExecuteReader
                     GSID = ""
@@ -6242,17 +6242,17 @@ Public Class DMU_TITLEV_PROJECT
                         "where exists (select * from PFW_WAREHOUSEADMIN " & _
                         "where gsid = '" & GSID & "') "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
 
                         SQL2 = "select AIRTVPROJECT.SEQ_GAP_EMISSIONUNITID.currval from dual "
-                        cmd2 = New OracleCommand(SQL2, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL2, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         While dr2.Read
@@ -6274,9 +6274,9 @@ Public Class DMU_TITLEV_PROJECT
                        "where exists (select * from PFW_EMISSIONUNITMASTER " & _
                        "where EMISSIONUNITID = " & temp & ") "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
@@ -6305,9 +6305,9 @@ Public Class DMU_TITLEV_PROJECT
                         "where exists (select * from PFW_EMISSIONUNITMASTER " & _
                         "where EMISSIONUNITID = " & temp & ") "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
@@ -6327,9 +6327,9 @@ Public Class DMU_TITLEV_PROJECT
                         "where exists (select * from PFW_EMISSIONUNITMASTER " & _
                         "where EMISSIONUNITID = " & temp & ") "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
@@ -6701,9 +6701,9 @@ Public Class DMU_TITLEV_PROJECT
                     "from airTVApplication.PFW_WareHouseAdmin " & _
                     "where ProjectID = '" & ProjectId & "' "
 
-                    cmd = New OracleCommand(SQL, connTVApplication)
-                    If connTVApplication.State = ConnectionState.Closed Then
-                        connTVApplication.Open()
+                    cmd = New OracleCommand(SQL, DBConnTVApplication)
+                    If DBConnTVApplication.State = ConnectionState.Closed Then
+                        DBConnTVApplication.Open()
                     End If
                     dr = cmd.ExecuteReader
                     GSID = ""
@@ -6728,17 +6728,17 @@ Public Class DMU_TITLEV_PROJECT
                         "where exists (select * from PFW_WAREHOUSEADMIN " & _
                         "where gsid = '" & GSID & "') "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
 
                         SQL2 = "select AIRTVPROJECT.SEQ_GAP_EMISSIONUNITID.currval from dual "
-                        cmd2 = New OracleCommand(SQL2, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL2, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         While dr2.Read
@@ -6760,9 +6760,9 @@ Public Class DMU_TITLEV_PROJECT
                        "where exists (select * from PFW_EMISSIONUNITMASTER " & _
                        "where EMISSIONUNITID = " & temp & ") "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
@@ -6791,9 +6791,9 @@ Public Class DMU_TITLEV_PROJECT
                         "where exists (select * from PFW_EMISSIONUNITMASTER " & _
                         "where EMISSIONUNITID = " & temp & ") "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
@@ -6814,9 +6814,9 @@ Public Class DMU_TITLEV_PROJECT
                       "where exists (select * from PFW_EMISSIONUNITMASTER " & _
                       "where EMISSIONUNITID = " & temp & ") "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
@@ -7011,9 +7011,9 @@ Public Class DMU_TITLEV_PROJECT
                     "from airTVApplication.PFW_WareHouseAdmin " & _
                     "where ProjectID = '" & ProjectId & "' "
 
-                    cmd = New OracleCommand(SQL, connTVApplication)
-                    If connTVApplication.State = ConnectionState.Closed Then
-                        connTVApplication.Open()
+                    cmd = New OracleCommand(SQL, DBConnTVApplication)
+                    If DBConnTVApplication.State = ConnectionState.Closed Then
+                        DBConnTVApplication.Open()
                     End If
                     dr = cmd.ExecuteReader
                     GSID = ""
@@ -7038,17 +7038,17 @@ Public Class DMU_TITLEV_PROJECT
                         "where exists (select * from PFW_WAREHOUSEADMIN " & _
                         "where gsid = '" & GSID & "') "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
 
                         SQL2 = "select AIRTVPROJECT.SEQ_GAP_EMISSIONUNITID.currval from dual "
-                        cmd2 = New OracleCommand(SQL2, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL2, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         While dr2.Read
@@ -7070,9 +7070,9 @@ Public Class DMU_TITLEV_PROJECT
                        "where exists (select * from PFW_EMISSIONUNITMASTER " & _
                        "where EMISSIONUNITID = " & temp & ") "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
@@ -7101,9 +7101,9 @@ Public Class DMU_TITLEV_PROJECT
                         "where exists (select * from PFW_EMISSIONUNITMASTER " & _
                         "where EMISSIONUNITID = " & temp & ") "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
@@ -7124,9 +7124,9 @@ Public Class DMU_TITLEV_PROJECT
                         "where exists (select * from PFW_EMISSIONUNITMASTER " & _
                         "where EMISSIONUNITID = " & temp & ") "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
@@ -7286,9 +7286,9 @@ Public Class DMU_TITLEV_PROJECT
                     "from airTVApplication.PFW_WareHouseAdmin " & _
                     "where ProjectID = '" & ProjectId & "' "
 
-                    cmd = New OracleCommand(SQL, connTVApplication)
-                    If connTVApplication.State = ConnectionState.Closed Then
-                        connTVApplication.Open()
+                    cmd = New OracleCommand(SQL, DBConnTVApplication)
+                    If DBConnTVApplication.State = ConnectionState.Closed Then
+                        DBConnTVApplication.Open()
                     End If
                     dr = cmd.ExecuteReader
                     GSID = ""
@@ -7313,17 +7313,17 @@ Public Class DMU_TITLEV_PROJECT
                         "where exists (select * from PFW_WAREHOUSEADMIN " & _
                         "where gsid = '" & GSID & "') "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
 
                         SQL2 = "select AIRTVPROJECT.SEQ_GAP_EMISSIONUNITID.currval from dual "
-                        cmd2 = New OracleCommand(SQL2, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL2, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         While dr2.Read
@@ -7345,9 +7345,9 @@ Public Class DMU_TITLEV_PROJECT
                        "where exists (select * from PFW_EMISSIONUNITMASTER " & _
                        "where EMISSIONUNITID = " & temp & ") "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
@@ -7376,9 +7376,9 @@ Public Class DMU_TITLEV_PROJECT
                         "where exists (select * from PFW_EMISSIONUNITMASTER " & _
                         "where EMISSIONUNITID = " & temp & ") "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
@@ -7397,9 +7397,9 @@ Public Class DMU_TITLEV_PROJECT
                      "where exists (select * from PFW_EMISSIONUNITMASTER " & _
                      "where EMISSIONUNITID = " & temp & ") "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
@@ -7627,9 +7627,9 @@ Public Class DMU_TITLEV_PROJECT
                     "from airTVApplication.PFW_WareHouseAdmin " & _
                     "where ProjectID = '" & ProjectId & "' "
 
-                    cmd = New OracleCommand(SQL, connTVApplication)
-                    If connTVApplication.State = ConnectionState.Closed Then
-                        connTVApplication.Open()
+                    cmd = New OracleCommand(SQL, DBConnTVApplication)
+                    If DBConnTVApplication.State = ConnectionState.Closed Then
+                        DBConnTVApplication.Open()
                     End If
                     dr = cmd.ExecuteReader
                     GSID = ""
@@ -7654,17 +7654,17 @@ Public Class DMU_TITLEV_PROJECT
                         "where exists (select * from PFW_WAREHOUSEADMIN " & _
                         "where gsid = '" & GSID & "') "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
 
                         SQL2 = "select AIRTVPROJECT.SEQ_GAP_EMISSIONUNITID.currval from dual "
-                        cmd2 = New OracleCommand(SQL2, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL2, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         While dr2.Read
@@ -7686,9 +7686,9 @@ Public Class DMU_TITLEV_PROJECT
                        "where exists (select * from PFW_EMISSIONUNITMASTER " & _
                        "where EMISSIONUNITID = " & temp & ") "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
@@ -7717,9 +7717,9 @@ Public Class DMU_TITLEV_PROJECT
                         "where exists (select * from PFW_EMISSIONUNITMASTER " & _
                         "where EMISSIONUNITID = " & temp & ") "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
@@ -7744,9 +7744,9 @@ Public Class DMU_TITLEV_PROJECT
                         "where exists (select * from PFW_EMISSIONUNITMASTER " & _
                         "where EMISSIONUNITID = " & temp & ") "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
@@ -8161,9 +8161,9 @@ Public Class DMU_TITLEV_PROJECT
                     "from airTVApplication.PFW_WareHouseAdmin " & _
                     "where ProjectID = '" & ProjectId & "' "
 
-                    cmd = New OracleCommand(SQL, connTVApplication)
-                    If connTVApplication.State = ConnectionState.Closed Then
-                        connTVApplication.Open()
+                    cmd = New OracleCommand(SQL, DBConnTVApplication)
+                    If DBConnTVApplication.State = ConnectionState.Closed Then
+                        DBConnTVApplication.Open()
                     End If
                     dr = cmd.ExecuteReader
                     GSID = ""
@@ -8188,17 +8188,17 @@ Public Class DMU_TITLEV_PROJECT
                         "where exists (select * from PFW_WAREHOUSEADMIN " & _
                         "where gsid = '" & GSID & "') "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
 
                         SQL2 = "select AIRTVPROJECT.SEQ_GAP_EMISSIONUNITID.currval from dual "
-                        cmd2 = New OracleCommand(SQL2, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL2, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         While dr2.Read
@@ -8220,9 +8220,9 @@ Public Class DMU_TITLEV_PROJECT
                        "where exists (select * from PFW_EMISSIONUNITMASTER " & _
                        "where EMISSIONUNITID = " & temp & ") "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
@@ -8251,9 +8251,9 @@ Public Class DMU_TITLEV_PROJECT
                         "where exists (select * from PFW_EMISSIONUNITMASTER " & _
                         "where EMISSIONUNITID = " & temp & ") "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
@@ -8295,9 +8295,9 @@ Public Class DMU_TITLEV_PROJECT
                         "where exists (select * from PFW_EMISSIONUNITMASTER " & _
                         "where EMISSIONUNITID = " & temp & ") "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
@@ -8508,9 +8508,9 @@ Public Class DMU_TITLEV_PROJECT
                     "from airTVApplication.PFW_WareHouseAdmin " & _
                     "where ProjectID = '" & ProjectId & "' "
 
-                    cmd = New OracleCommand(SQL, connTVApplication)
-                    If connTVApplication.State = ConnectionState.Closed Then
-                        connTVApplication.Open()
+                    cmd = New OracleCommand(SQL, DBConnTVApplication)
+                    If DBConnTVApplication.State = ConnectionState.Closed Then
+                        DBConnTVApplication.Open()
                     End If
                     dr = cmd.ExecuteReader
                     GSID = ""
@@ -8535,17 +8535,17 @@ Public Class DMU_TITLEV_PROJECT
                         "where exists (select * from PFW_WAREHOUSEADMIN " & _
                         "where gsid = '" & GSID & "') "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
 
                         SQL2 = "select AIRTVPROJECT.SEQ_GAP_EMISSIONUNITID.currval from dual "
-                        cmd2 = New OracleCommand(SQL2, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL2, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         While dr2.Read
@@ -8567,9 +8567,9 @@ Public Class DMU_TITLEV_PROJECT
                        "where exists (select * from PFW_EMISSIONUNITMASTER " & _
                        "where EMISSIONUNITID = " & temp & ") "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
@@ -8598,9 +8598,9 @@ Public Class DMU_TITLEV_PROJECT
                         "where exists (select * from PFW_EMISSIONUNITMASTER " & _
                         "where EMISSIONUNITID = " & temp & ") "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
@@ -8628,9 +8628,9 @@ Public Class DMU_TITLEV_PROJECT
                         "where exists (select * from PFW_EMISSIONUNITMASTER " & _
                         "where EMISSIONUNITID = " & temp & ") "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
@@ -8871,9 +8871,9 @@ Public Class DMU_TITLEV_PROJECT
                 "where exists (select * from PFW_EMISSIONUNITMASTER " & _
                 "where EMISSIONUNITID = " & EUID & ") "
 
-                cmd2 = New OracleCommand(SQL, connTVApplication)
-                If connTVApplication.State = ConnectionState.Closed Then
-                    connTVApplication.Open()
+                cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                If DBConnTVApplication.State = ConnectionState.Closed Then
+                    DBConnTVApplication.Open()
                 End If
                 dr2 = cmd2.ExecuteReader
                 dr2.Close()
@@ -8988,9 +8988,9 @@ Public Class DMU_TITLEV_PROJECT
                         "where exists (select * from PFW_EMISSIONUNITMASTER " & _
                         "where EMISSIONUNITID = " & EUID & ") "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
@@ -9078,9 +9078,9 @@ Public Class DMU_TITLEV_PROJECT
                         "where exists (select * from PFW_EMISSIONUNITMASTER " & _
                         "where EMISSIONUNITID = " & EUID & ") "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
@@ -9166,9 +9166,9 @@ Public Class DMU_TITLEV_PROJECT
                         "where exists (select * from PFW_EMISSIONUNITMASTER " & _
                         "where EMISSIONUNITID = " & EUID & ") "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
@@ -9268,9 +9268,9 @@ Public Class DMU_TITLEV_PROJECT
                         "where exists (select * from PFW_EMISSIONUNITMASTER " & _
                         "where EMISSIONUNITID = " & EUID & ") "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
@@ -9362,9 +9362,9 @@ Public Class DMU_TITLEV_PROJECT
                         "where exists (select * from PFW_EMISSIONUNITMASTER " & _
                         "where EMISSIONUNITID = " & EUID & ") "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
@@ -9457,9 +9457,9 @@ Public Class DMU_TITLEV_PROJECT
                         "where exists (select * from PFW_EMISSIONUNITMASTER " & _
                         "where EMISSIONUNITID = " & EUID & ") "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
@@ -9561,9 +9561,9 @@ Public Class DMU_TITLEV_PROJECT
                         "where exists (select * from PFW_EMISSIONUNITMASTER " & _
                         "where EMISSIONUNITID = " & EUID & ") "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
@@ -9665,9 +9665,9 @@ Public Class DMU_TITLEV_PROJECT
                         "where exists (select * from PFW_EMISSIONUNITMASTER " & _
                         "where EMISSIONUNITID = " & EUID & ") "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
@@ -9769,9 +9769,9 @@ Public Class DMU_TITLEV_PROJECT
                         "where exists (select * from PFW_EMISSIONUNITMASTER " & _
                         "where EMISSIONUNITID = " & EUID & ") "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
@@ -9851,9 +9851,9 @@ Public Class DMU_TITLEV_PROJECT
                 "where exists (select * from PFW_EMISSIONUNITMASTER " & _
                 "where EMISSIONUNITID = " & EUID & ") "
 
-                cmd2 = New OracleCommand(SQL, connTVApplication)
-                If connTVApplication.State = ConnectionState.Closed Then
-                    connTVApplication.Open()
+                cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                If DBConnTVApplication.State = ConnectionState.Closed Then
+                    DBConnTVApplication.Open()
                 End If
                 dr2 = cmd2.ExecuteReader
                 dr2.Close()
@@ -9918,9 +9918,9 @@ Public Class DMU_TITLEV_PROJECT
                     "where exists (select * from PFW_EMISSIONUNITMASTER " & _
                     "where EMISSIONUNITID = " & EUID & ") "
 
-                    cmd2 = New OracleCommand(SQL, connTVApplication)
-                    If connTVApplication.State = ConnectionState.Closed Then
-                        connTVApplication.Open()
+                    cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                    If DBConnTVApplication.State = ConnectionState.Closed Then
+                        DBConnTVApplication.Open()
                     End If
                     dr2 = cmd2.ExecuteReader
                     dr2.Close()
@@ -10172,9 +10172,9 @@ Public Class DMU_TITLEV_PROJECT
                     "from airTVApplication.PFW_WareHouseAdmin " & _
                     "where ProjectID = '" & ProjectId & "' "
 
-                    cmd = New OracleCommand(SQL, connTVApplication)
-                    If connTVApplication.State = ConnectionState.Closed Then
-                        connTVApplication.Open()
+                    cmd = New OracleCommand(SQL, DBConnTVApplication)
+                    If DBConnTVApplication.State = ConnectionState.Closed Then
+                        DBConnTVApplication.Open()
                     End If
                     dr = cmd.ExecuteReader
                     GSID = ""
@@ -10199,17 +10199,17 @@ Public Class DMU_TITLEV_PROJECT
                         "where exists (select * from PFW_WAREHOUSEADMIN " & _
                         "where gsid = '" & GSID & "') "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
 
                         SQL2 = "select AIRTVPROJECT.SEQ_GAP_ControlUnitID.currval from dual "
-                        cmd2 = New OracleCommand(SQL2, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL2, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         While dr2.Read
@@ -10231,9 +10231,9 @@ Public Class DMU_TITLEV_PROJECT
                        "where exists (select * from PFW_ControlUNITMASTER " & _
                        "where ControlUNITID = " & temp & ") "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
@@ -10266,9 +10266,9 @@ Public Class DMU_TITLEV_PROJECT
                         "where exists (select * from PFW_ControlUNITMASTER " & _
                         "where ControlUNITID = " & temp & ") "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
@@ -10296,9 +10296,9 @@ Public Class DMU_TITLEV_PROJECT
                         "where exists (select * from PFW_ControlUNITMASTER " & _
                         "where ControlUNITID = " & temp & ") "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
@@ -10631,9 +10631,9 @@ Public Class DMU_TITLEV_PROJECT
                     "from airTVApplication.PFW_WareHouseAdmin " & _
                     "where ProjectID = '" & ProjectID & "' "
 
-                    cmd = New OracleCommand(SQL, connTVApplication)
-                    If connTVApplication.State = ConnectionState.Closed Then
-                        connTVApplication.Open()
+                    cmd = New OracleCommand(SQL, DBConnTVApplication)
+                    If DBConnTVApplication.State = ConnectionState.Closed Then
+                        DBConnTVApplication.Open()
                     End If
                     dr = cmd.ExecuteReader
                     GSID = ""
@@ -10658,17 +10658,17 @@ Public Class DMU_TITLEV_PROJECT
                         "where exists (select * from PFW_WAREHOUSEADMIN " & _
                         "where gsid = '" & GSID & "') "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
 
                         SQL2 = "select AIRTVPROJECT.SEQ_GAP_ControlUnitID.currval from dual "
-                        cmd2 = New OracleCommand(SQL2, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL2, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         While dr2.Read
@@ -10690,9 +10690,9 @@ Public Class DMU_TITLEV_PROJECT
                        "where exists (select * from PFW_ControlUNITMASTER " & _
                        "where ControlUNITID = " & temp & ") "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
@@ -10725,9 +10725,9 @@ Public Class DMU_TITLEV_PROJECT
                         "where exists (select * from PFW_ControlUNITMASTER " & _
                         "where ControlUNITID = " & temp & ") "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
@@ -10762,9 +10762,9 @@ Public Class DMU_TITLEV_PROJECT
                         "where exists (select * from PFW_ControlUNITMASTER " & _
                         "where ControlUNITID = " & temp & ") "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
@@ -11000,9 +11000,9 @@ Public Class DMU_TITLEV_PROJECT
                     "from airTVApplication.PFW_WareHouseAdmin " & _
                     "where ProjectID = '" & ProjectID & "' "
 
-                    cmd = New OracleCommand(SQL, connTVApplication)
-                    If connTVApplication.State = ConnectionState.Closed Then
-                        connTVApplication.Open()
+                    cmd = New OracleCommand(SQL, DBConnTVApplication)
+                    If DBConnTVApplication.State = ConnectionState.Closed Then
+                        DBConnTVApplication.Open()
                     End If
                     dr = cmd.ExecuteReader
                     GSID = ""
@@ -11027,17 +11027,17 @@ Public Class DMU_TITLEV_PROJECT
                         "where exists (select * from PFW_WAREHOUSEADMIN " & _
                         "where gsid = '" & GSID & "') "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
 
                         SQL2 = "select AIRTVPROJECT.SEQ_GAP_ControlUnitID.currval from dual "
-                        cmd2 = New OracleCommand(SQL2, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL2, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         While dr2.Read
@@ -11059,9 +11059,9 @@ Public Class DMU_TITLEV_PROJECT
                        "where exists (select * from PFW_ControlUNITMASTER " & _
                        "where ControlUNITID = " & temp & ") "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
@@ -11094,9 +11094,9 @@ Public Class DMU_TITLEV_PROJECT
                         "where exists (select * from PFW_ControlUNITMASTER " & _
                         "where ControlUNITID = " & temp & ") "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
@@ -11123,9 +11123,9 @@ Public Class DMU_TITLEV_PROJECT
                         "where exists (select * from PFW_ControlUNITMASTER " & _
                         "where ControlUNITID = " & temp & ") "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
@@ -11330,9 +11330,9 @@ Public Class DMU_TITLEV_PROJECT
                     "from airTVApplication.PFW_WareHouseAdmin " & _
                     "where ProjectID = '" & ProjectID & "' "
 
-                    cmd = New OracleCommand(SQL, connTVApplication)
-                    If connTVApplication.State = ConnectionState.Closed Then
-                        connTVApplication.Open()
+                    cmd = New OracleCommand(SQL, DBConnTVApplication)
+                    If DBConnTVApplication.State = ConnectionState.Closed Then
+                        DBConnTVApplication.Open()
                     End If
                     dr = cmd.ExecuteReader
                     GSID = ""
@@ -11357,17 +11357,17 @@ Public Class DMU_TITLEV_PROJECT
                         "where exists (select * from PFW_WAREHOUSEADMIN " & _
                         "where gsid = '" & GSID & "') "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
 
                         SQL2 = "select AIRTVPROJECT.SEQ_GAP_ControlUnitID.currval from dual "
-                        cmd2 = New OracleCommand(SQL2, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL2, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         While dr2.Read
@@ -11389,9 +11389,9 @@ Public Class DMU_TITLEV_PROJECT
                        "where exists (select * from PFW_ControlUNITMASTER " & _
                        "where ControlUNITID = " & temp & ") "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
@@ -11424,9 +11424,9 @@ Public Class DMU_TITLEV_PROJECT
                         "where exists (select * from PFW_ControlUNITMASTER " & _
                         "where ControlUNITID = " & temp & ") "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
@@ -11447,9 +11447,9 @@ Public Class DMU_TITLEV_PROJECT
                         "where exists (select * from PFW_ControlUNITMASTER " & _
                         "where ControlUNITID = " & temp & ") "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
@@ -11700,9 +11700,9 @@ Public Class DMU_TITLEV_PROJECT
                     "from airTVApplication.PFW_WareHouseAdmin " & _
                     "where ProjectID = '" & ProjectID & "' "
 
-                    cmd = New OracleCommand(SQL, connTVApplication)
-                    If connTVApplication.State = ConnectionState.Closed Then
-                        connTVApplication.Open()
+                    cmd = New OracleCommand(SQL, DBConnTVApplication)
+                    If DBConnTVApplication.State = ConnectionState.Closed Then
+                        DBConnTVApplication.Open()
                     End If
                     dr = cmd.ExecuteReader
                     GSID = ""
@@ -11727,17 +11727,17 @@ Public Class DMU_TITLEV_PROJECT
                         "where exists (select * from PFW_WAREHOUSEADMIN " & _
                         "where gsid = '" & GSID & "') "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
 
                         SQL2 = "select AIRTVPROJECT.SEQ_GAP_ControlUnitID.currval from dual "
-                        cmd2 = New OracleCommand(SQL2, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL2, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         While dr2.Read
@@ -11759,9 +11759,9 @@ Public Class DMU_TITLEV_PROJECT
                        "where exists (select * from PFW_ControlUNITMASTER " & _
                        "where ControlUNITID = " & temp & ") "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
@@ -11794,9 +11794,9 @@ Public Class DMU_TITLEV_PROJECT
                         "where exists (select * from PFW_ControlUNITMASTER " & _
                         "where ControlUNITID = " & temp & ") "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
@@ -11825,9 +11825,9 @@ Public Class DMU_TITLEV_PROJECT
                         "where exists (select * from PFW_ControlUNITMASTER " & _
                         "where ControlUNITID = " & temp & ") "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
@@ -12107,9 +12107,9 @@ Public Class DMU_TITLEV_PROJECT
                     "from airTVApplication.PFW_WareHouseAdmin " & _
                     "where ProjectID = '" & ProjectID & "' "
 
-                    cmd = New OracleCommand(SQL, connTVApplication)
-                    If connTVApplication.State = ConnectionState.Closed Then
-                        connTVApplication.Open()
+                    cmd = New OracleCommand(SQL, DBConnTVApplication)
+                    If DBConnTVApplication.State = ConnectionState.Closed Then
+                        DBConnTVApplication.Open()
                     End If
                     dr = cmd.ExecuteReader
                     GSID = ""
@@ -12134,17 +12134,17 @@ Public Class DMU_TITLEV_PROJECT
                         "where exists (select * from PFW_WAREHOUSEADMIN " & _
                         "where gsid = '" & GSID & "') "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
 
                         SQL2 = "select AIRTVPROJECT.SEQ_GAP_ControlUnitID.currval from dual "
-                        cmd2 = New OracleCommand(SQL2, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL2, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         While dr2.Read
@@ -12166,9 +12166,9 @@ Public Class DMU_TITLEV_PROJECT
                        "where exists (select * from PFW_ControlUNITMASTER " & _
                        "where ControlUNITID = " & temp & ") "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
@@ -12201,9 +12201,9 @@ Public Class DMU_TITLEV_PROJECT
                         "where exists (select * from PFW_ControlUNITMASTER " & _
                         "where ControlUNITID = " & temp & ") "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
@@ -12236,9 +12236,9 @@ Public Class DMU_TITLEV_PROJECT
                         "where exists (select * from PFW_ControlUNITMASTER " & _
                         "where ControlUNITID = " & temp & ") "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
@@ -12413,9 +12413,9 @@ Public Class DMU_TITLEV_PROJECT
                     "from airTVApplication.PFW_WareHouseAdmin " & _
                     "where ProjectID = '" & ProjectID & "' "
 
-                    cmd = New OracleCommand(SQL, connTVApplication)
-                    If connTVApplication.State = ConnectionState.Closed Then
-                        connTVApplication.Open()
+                    cmd = New OracleCommand(SQL, DBConnTVApplication)
+                    If DBConnTVApplication.State = ConnectionState.Closed Then
+                        DBConnTVApplication.Open()
                     End If
                     dr = cmd.ExecuteReader
                     GSID = ""
@@ -12440,17 +12440,17 @@ Public Class DMU_TITLEV_PROJECT
                         "where exists (select * from PFW_WAREHOUSEADMIN " & _
                         "where gsid = '" & GSID & "') "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
 
                         SQL2 = "select AIRTVPROJECT.SEQ_GAP_ControlUnitID.currval from dual "
-                        cmd2 = New OracleCommand(SQL2, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL2, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         While dr2.Read
@@ -12472,9 +12472,9 @@ Public Class DMU_TITLEV_PROJECT
                        "where exists (select * from PFW_ControlUNITMASTER " & _
                        "where ControlUNITID = " & temp & ") "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
@@ -12507,9 +12507,9 @@ Public Class DMU_TITLEV_PROJECT
                         "where exists (select * from PFW_ControlUNITMASTER " & _
                         "where ControlUNITID = " & temp & ") "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
@@ -12528,9 +12528,9 @@ Public Class DMU_TITLEV_PROJECT
                         "where exists (select * from PFW_ControlUNITMASTER " & _
                         "where ControlUNITID = " & temp & ") "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
@@ -12821,9 +12821,9 @@ Public Class DMU_TITLEV_PROJECT
                     "from airTVApplication.PFW_WareHouseAdmin " & _
                     "where ProjectID = '" & ProjectID & "' "
 
-                    cmd = New OracleCommand(SQL, connTVApplication)
-                    If connTVApplication.State = ConnectionState.Closed Then
-                        connTVApplication.Open()
+                    cmd = New OracleCommand(SQL, DBConnTVApplication)
+                    If DBConnTVApplication.State = ConnectionState.Closed Then
+                        DBConnTVApplication.Open()
                     End If
                     dr = cmd.ExecuteReader
                     GSID = ""
@@ -12848,17 +12848,17 @@ Public Class DMU_TITLEV_PROJECT
                         "where exists (select * from PFW_WAREHOUSEADMIN " & _
                         "where gsid = '" & GSID & "') "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
 
                         SQL2 = "select AIRTVPROJECT.SEQ_GAP_ControlUnitID.currval from dual "
-                        cmd2 = New OracleCommand(SQL2, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL2, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         While dr2.Read
@@ -12880,9 +12880,9 @@ Public Class DMU_TITLEV_PROJECT
                        "where exists (select * from PFW_ControlUNITMASTER " & _
                        "where ControlUNITID = " & temp & ") "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
@@ -12915,9 +12915,9 @@ Public Class DMU_TITLEV_PROJECT
                         "where exists (select * from PFW_ControlUNITMASTER " & _
                         "where ControlUNITID = " & temp & ") "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
@@ -12950,9 +12950,9 @@ Public Class DMU_TITLEV_PROJECT
                         "where exists (select * from PFW_ControlUNITMASTER " & _
                         "where ControlUNITID = " & temp & ") "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
@@ -13227,9 +13227,9 @@ Public Class DMU_TITLEV_PROJECT
                     "from airTVApplication.PFW_WareHouseAdmin " & _
                     "where ProjectID = '" & ProjectID & "' "
 
-                    cmd = New OracleCommand(SQL, connTVApplication)
-                    If connTVApplication.State = ConnectionState.Closed Then
-                        connTVApplication.Open()
+                    cmd = New OracleCommand(SQL, DBConnTVApplication)
+                    If DBConnTVApplication.State = ConnectionState.Closed Then
+                        DBConnTVApplication.Open()
                     End If
                     dr = cmd.ExecuteReader
                     GSID = ""
@@ -13254,17 +13254,17 @@ Public Class DMU_TITLEV_PROJECT
                         "where exists (select * from PFW_WAREHOUSEADMIN " & _
                         "where gsid = '" & GSID & "') "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
 
                         SQL2 = "select AIRTVPROJECT.SEQ_GAP_ControlUnitID.currval from dual "
-                        cmd2 = New OracleCommand(SQL2, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL2, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         While dr2.Read
@@ -13286,9 +13286,9 @@ Public Class DMU_TITLEV_PROJECT
                        "where exists (select * from PFW_ControlUNITMASTER " & _
                        "where ControlUNITID = " & temp & ") "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
@@ -13321,9 +13321,9 @@ Public Class DMU_TITLEV_PROJECT
                         "where exists (select * from PFW_ControlUNITMASTER " & _
                         "where ControlUNITID = " & temp & ") "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
@@ -13354,9 +13354,9 @@ Public Class DMU_TITLEV_PROJECT
                         "where exists (select * from PFW_ControlUNITMASTER " & _
                         "where ControlUNITID = " & temp & ") "
 
-                        cmd2 = New OracleCommand(SQL, connTVApplication)
-                        If connTVApplication.State = ConnectionState.Closed Then
-                            connTVApplication.Open()
+                        cmd2 = New OracleCommand(SQL, DBConnTVApplication)
+                        If DBConnTVApplication.State = ConnectionState.Closed Then
+                            DBConnTVApplication.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
@@ -13380,117 +13380,117 @@ Public Class DMU_TITLEV_PROJECT
         Try
             SQL = "Delete airtvapplication.PFW_CDS_Pollutant "
 
-            cmd = New OracleCommand(SQL, connTVApplication)
-            If connTVApplication.State = ConnectionState.Closed Then
-                connTVApplication.Open()
+            cmd = New OracleCommand(SQL, DBConnTVApplication)
+            If DBConnTVApplication.State = ConnectionState.Closed Then
+                DBConnTVApplication.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
 
             SQL = "Delete airtvapplication.PFW_CD_Adsorber "
 
-            cmd = New OracleCommand(SQL, connTVApplication)
-            If connTVApplication.State = ConnectionState.Closed Then
-                connTVApplication.Open()
+            cmd = New OracleCommand(SQL, DBConnTVApplication)
+            If DBConnTVApplication.State = ConnectionState.Closed Then
+                DBConnTVApplication.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
 
             SQL = "Delete airtvapplication.PFW_CD_BioFiltration "
 
-            cmd = New OracleCommand(SQL, connTVApplication)
-            If connTVApplication.State = ConnectionState.Closed Then
-                connTVApplication.Open()
+            cmd = New OracleCommand(SQL, DBConnTVApplication)
+            If DBConnTVApplication.State = ConnectionState.Closed Then
+                DBConnTVApplication.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
 
             SQL = "Delete airtvapplication.PFW_CD_Condenser "
 
-            cmd = New OracleCommand(SQL, connTVApplication)
-            If connTVApplication.State = ConnectionState.Closed Then
-                connTVApplication.Open()
+            cmd = New OracleCommand(SQL, DBConnTVApplication)
+            If DBConnTVApplication.State = ConnectionState.Closed Then
+                DBConnTVApplication.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
 
             SQL = "Delete airtvapplication.PFW_CD_Cyclone "
 
-            cmd = New OracleCommand(SQL, connTVApplication)
-            If connTVApplication.State = ConnectionState.Closed Then
-                connTVApplication.Open()
+            cmd = New OracleCommand(SQL, DBConnTVApplication)
+            If DBConnTVApplication.State = ConnectionState.Closed Then
+                DBConnTVApplication.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
 
             SQL = "Delete airtvapplication.PFW_CD_ESP "
 
-            cmd = New OracleCommand(SQL, connTVApplication)
-            If connTVApplication.State = ConnectionState.Closed Then
-                connTVApplication.Open()
+            cmd = New OracleCommand(SQL, DBConnTVApplication)
+            If DBConnTVApplication.State = ConnectionState.Closed Then
+                DBConnTVApplication.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
 
             SQL = "Delete airtvapplication.PFW_CD_FilterMedia "
 
-            cmd = New OracleCommand(SQL, connTVApplication)
-            If connTVApplication.State = ConnectionState.Closed Then
-                connTVApplication.Open()
+            cmd = New OracleCommand(SQL, DBConnTVApplication)
+            If DBConnTVApplication.State = ConnectionState.Closed Then
+                DBConnTVApplication.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
 
             SQL = "Delete airtvapplication.PFW_CD_Miscellaneous "
 
-            cmd = New OracleCommand(SQL, connTVApplication)
-            If connTVApplication.State = ConnectionState.Closed Then
-                connTVApplication.Open()
+            cmd = New OracleCommand(SQL, DBConnTVApplication)
+            If DBConnTVApplication.State = ConnectionState.Closed Then
+                DBConnTVApplication.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
 
             SQL = "Delete airtvapplication.PFW_CD_Oxidizer "
 
-            cmd = New OracleCommand(SQL, connTVApplication)
-            If connTVApplication.State = ConnectionState.Closed Then
-                connTVApplication.Open()
+            cmd = New OracleCommand(SQL, DBConnTVApplication)
+            If DBConnTVApplication.State = ConnectionState.Closed Then
+                DBConnTVApplication.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
 
             SQL = "Delete airtvapplication.PFW_CD_Scrubber "
 
-            cmd = New OracleCommand(SQL, connTVApplication)
-            If connTVApplication.State = ConnectionState.Closed Then
-                connTVApplication.Open()
+            cmd = New OracleCommand(SQL, DBConnTVApplication)
+            If DBConnTVApplication.State = ConnectionState.Closed Then
+                DBConnTVApplication.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
 
             SQL = "Delete airtvapplication.PFW_ControlUnitHeader "
 
-            cmd = New OracleCommand(SQL, connTVApplication)
-            If connTVApplication.State = ConnectionState.Closed Then
-                connTVApplication.Open()
+            cmd = New OracleCommand(SQL, DBConnTVApplication)
+            If DBConnTVApplication.State = ConnectionState.Closed Then
+                DBConnTVApplication.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
 
             SQL = "Delete airtvapplication.PFW_ControlUnitID "
 
-            cmd = New OracleCommand(SQL, connTVApplication)
-            If connTVApplication.State = ConnectionState.Closed Then
-                connTVApplication.Open()
+            cmd = New OracleCommand(SQL, DBConnTVApplication)
+            If DBConnTVApplication.State = ConnectionState.Closed Then
+                DBConnTVApplication.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
 
             SQL = "Delete airtvapplication.PFW_ControlUnitMaster "
 
-            cmd = New OracleCommand(SQL, connTVApplication)
-            If connTVApplication.State = ConnectionState.Closed Then
-                connTVApplication.Open()
+            cmd = New OracleCommand(SQL, DBConnTVApplication)
+            If DBConnTVApplication.State = ConnectionState.Closed Then
+                DBConnTVApplication.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()

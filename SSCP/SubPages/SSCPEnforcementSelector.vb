@@ -19,7 +19,7 @@ Public Class SSCPEnforcementSelector
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -32,7 +32,7 @@ Public Class SSCPEnforcementSelector
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -52,10 +52,10 @@ Public Class SSCPEnforcementSelector
             "order by strUnitDesc  "
 
             dsComplianceUnits = New DataSet
-            daComplianceUnits = New OracleDataAdapter(SQL, conn)
+            daComplianceUnits = New OracleDataAdapter(SQL, DBConn)
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daComplianceUnits.Fill(dsComplianceUnits, "ComplianceUnits")
 
@@ -102,7 +102,7 @@ Public Class SSCPEnforcementSelector
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -115,7 +115,7 @@ Public Class SSCPEnforcementSelector
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -128,7 +128,7 @@ Public Class SSCPEnforcementSelector
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -152,7 +152,7 @@ Public Class SSCPEnforcementSelector
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -163,12 +163,12 @@ Public Class SSCPEnforcementSelector
 
             If txtAIRSNumber.Text.Length = 8 Then
                 SQL = "Select strFacilityName " & _
-                "from " & connNameSpace & ".APBFacilityInformation " & _
+                "from " & DBNameSpace & ".APBFacilityInformation " & _
                 "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
 
                 dr = cmd.ExecuteReader
@@ -181,7 +181,7 @@ Public Class SSCPEnforcementSelector
                     txtFacilityName.Text = "Invalid AIRS Number"
                 End If
 
-                If conn.State = ConnectionState.Open Then
+                If DBConn.State = ConnectionState.Open Then
                     'conn.close()
                 End If
             Else
@@ -190,7 +190,7 @@ Public Class SSCPEnforcementSelector
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -207,7 +207,7 @@ Public Class SSCPEnforcementSelector
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -220,7 +220,7 @@ Public Class SSCPEnforcementSelector
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -242,7 +242,7 @@ Public Class SSCPEnforcementSelector
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -290,7 +290,7 @@ Public Class SSCPEnforcementSelector
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -323,13 +323,13 @@ Public Class SSCPEnforcementSelector
                        "	when datEnforcementFinalized is NUll then 'Open' " & _
                        "Else 'Open' " & _
                        "End as Status, " & _
-                       "substr(" & connNameSpace & ".SSCP_AuditedEnforcement.strAIRSNumber, 5) as AIRSNumber, " & _
+                       "substr(" & DBNameSpace & ".SSCP_AuditedEnforcement.strAIRSNumber, 5) as AIRSNumber, " & _
                         "(strLastName|| ', ' ||strFirstName) as Staff,  " & _
                        "strFacilityName  " & _
-                       "from " & connNameSpace & ".SSCP_AuditedEnforcement,  " & _
-                       "" & connNameSpace & ".APBFacilityInformation, " & connNameSpace & ".EPDUserProfiles " & _
-                       "Where " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".SSCP_AuditedEnforcement.strAIRSNumber " & _
-                       "and " & connNameSpace & ".EPDUserProfiles.numUserID = " & connNameSpace & ".SSCP_AuditedEnforcement.numStaffResponsible  " & _
+                       "from " & DBNameSpace & ".SSCP_AuditedEnforcement,  " & _
+                       "" & DBNameSpace & ".APBFacilityInformation, " & DBNameSpace & ".EPDUserProfiles " & _
+                       "Where " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".SSCP_AuditedEnforcement.strAIRSNumber " & _
+                       "and " & DBNameSpace & ".EPDUserProfiles.numUserID = " & DBNameSpace & ".SSCP_AuditedEnforcement.numStaffResponsible  " & _
                        "order by strENforcementNumber DESC "
                 Case "AllOpen"
                     'txtAIRSNumber.Clear()
@@ -356,13 +356,13 @@ Public Class SSCPEnforcementSelector
                     "	when datEnforcementFinalized is NUll then 'Open' " & _
                     "Else 'Open' " & _
                     "End as Status, " & _
-                    "substr(" & connNameSpace & ".SSCP_AuditedEnforcement.strAIRSNumber, 5) as AIRSNumber, " & _
+                    "substr(" & DBNameSpace & ".SSCP_AuditedEnforcement.strAIRSNumber, 5) as AIRSNumber, " & _
                      "(strLastName|| ', ' ||strFirstName) as Staff,  " & _
                     "strFacilityName  " & _
-                    "from " & connNameSpace & ".SSCP_AuditedEnforcement,   " & _
-                    "" & connNameSpace & ".APBFacilityInformation, " & connNameSpace & ".EPDUserProfiles " & _
-                    "Where  " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".SSCP_AuditedEnforcement.strAIRSNumber " & _
-                    "and " & connNameSpace & ".EPDUserProfiles.numUserID = " & connNameSpace & ".SSCP_AuditedEnforcement.numStaffResponsible  " & _
+                    "from " & DBNameSpace & ".SSCP_AuditedEnforcement,   " & _
+                    "" & DBNameSpace & ".APBFacilityInformation, " & DBNameSpace & ".EPDUserProfiles " & _
+                    "Where  " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".SSCP_AuditedEnforcement.strAIRSNumber " & _
+                    "and " & DBNameSpace & ".EPDUserProfiles.numUserID = " & DBNameSpace & ".SSCP_AuditedEnforcement.numStaffResponsible  " & _
                     "and datEnforcementFinalized IS Null " & _
                     "order by strENforcementNumber DESC "
                 Case "Single"
@@ -388,19 +388,19 @@ Public Class SSCPEnforcementSelector
                     "	when datEnforcementFinalized is NUll then 'Open' " & _
                     "Else 'Open' " & _
                     "End as Status, " & _
-                    "substr(" & connNameSpace & ".SSCP_AuditedEnforcement.strAIRSNumber, 5) as AIRSNumber, " & _
+                    "substr(" & DBNameSpace & ".SSCP_AuditedEnforcement.strAIRSNumber, 5) as AIRSNumber, " & _
                      "(strLastName|| ', ' ||strFirstName) as Staff,  " & _
                     "strFacilityName " & _
-                    "from " & connNameSpace & ".SSCP_AuditedEnforcement, " & _
-                    "" & connNameSpace & ".APBFacilityInformation, " & connNameSpace & ".EPDUserProfiles " & _
-                    "Where  " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".SSCP_AuditedEnforcement.strAIRSNumber " & _
-                    "and " & connNameSpace & ".EPDUserProfiles.numUserID = " & connNameSpace & ".SSCP_AuditedEnforcement.numStaffResponsible  " & _
-                    "and " & connNameSpace & ".SSCP_AuditedEnforcement.strAIRSNumber = '0413" & txtAIRSNumber.Text & "' " & _
+                    "from " & DBNameSpace & ".SSCP_AuditedEnforcement, " & _
+                    "" & DBNameSpace & ".APBFacilityInformation, " & DBNameSpace & ".EPDUserProfiles " & _
+                    "Where  " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".SSCP_AuditedEnforcement.strAIRSNumber " & _
+                    "and " & DBNameSpace & ".EPDUserProfiles.numUserID = " & DBNameSpace & ".SSCP_AuditedEnforcement.numStaffResponsible  " & _
+                    "and " & DBNameSpace & ".SSCP_AuditedEnforcement.strAIRSNumber = '0413" & txtAIRSNumber.Text & "' " & _
                     "order by strENforcementNumber DESC "
                 Case "ByUnit"
                     If cboComplianceUnits.Text = "Unassigned" Then
                         SQL = "Select " & _
-                        "to_number(" & connNameSpace & ".SSCP_AuditedEnforcement.strEnforcementNumber) as strEnforcementNumber, " & _
+                        "to_number(" & DBNameSpace & ".SSCP_AuditedEnforcement.strEnforcementNumber) as strEnforcementNumber, " & _
                         "case  " & _
                         "   when datEnforcementFinalized is Not Null then '4 - Closed Out' " & _
                         "   when strAFSKeyActionNumber is Not Null then '3 - Submitted to EPA'  " & _
@@ -422,19 +422,19 @@ Public Class SSCPEnforcementSelector
                         " 	when datEnforcementFinalized is NUll then 'Open'  " & _
                         "Else 'Open'  " & _
                         "End as Status,  " & _
-                         "substr(" & connNameSpace & ".SSCP_AuditedEnforcement.strAIRSNumber, 5) as AIRSNumber,  " & _
+                         "substr(" & DBNameSpace & ".SSCP_AuditedEnforcement.strAIRSNumber, 5) as AIRSNumber,  " & _
                         "strFacilityName,  " & _
                         "(strLastName|| ', ' ||strFirstName) as Staff  " & _
-                        "from " & connNameSpace & ".SSCP_AuditedEnforcement,   " & _
-                        "" & connNameSpace & ".APBFacilityInformation, " & connNameSpace & ".EPDUserProfiles  " & _
-                        "Where  " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".SSCP_AuditedEnforcement.strAIRSNumber  " & _
+                        "from " & DBNameSpace & ".SSCP_AuditedEnforcement,   " & _
+                        "" & DBNameSpace & ".APBFacilityInformation, " & DBNameSpace & ".EPDUserProfiles  " & _
+                        "Where  " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".SSCP_AuditedEnforcement.strAIRSNumber  " & _
                         "and (strStatus IS Null or strStatus = 'UC')  " & _
                         "and datEnforcementFinalized is NULL  " & _
-                        "and " & connNameSpace & ".EPDUserProfiles.numUserID = " & connNameSpace & ".SSCP_AuditedEnforcement.numStaffResponsible  " & _
-                        "and " & connNameSpace & ".EPDUserProfiles.numUserID = '0'  " & _
+                        "and " & DBNameSpace & ".EPDUserProfiles.numUserID = " & DBNameSpace & ".SSCP_AuditedEnforcement.numStaffResponsible  " & _
+                        "and " & DBNameSpace & ".EPDUserProfiles.numUserID = '0'  " & _
                         "order by strENforcementNumber DESC "
                     Else
-                        SQL = "Select to_number(" & connNameSpace & ".SSCP_AuditedEnforcement.strEnforcementNumber) as strEnforcementNumber, " & _
+                        SQL = "Select to_number(" & DBNameSpace & ".SSCP_AuditedEnforcement.strEnforcementNumber) as strEnforcementNumber, " & _
                         "case  " & _
                         "   when datEnforcementFinalized is Not Null then '4 - Closed Out' " & _
                         "   when strAFSKeyActionNumber is Not Null then '3 - Submitted to EPA'  " & _
@@ -456,36 +456,36 @@ Public Class SSCPEnforcementSelector
                         " 	when datEnforcementFinalized is NUll then 'Open'  " & _
                         "Else 'Open'  " & _
                         "End as Status,  " & _
-                         "substr(" & connNameSpace & ".SSCP_AuditedEnforcement.strAIRSNumber, 5) as AIRSNumber,  " & _
+                         "substr(" & DBNameSpace & ".SSCP_AuditedEnforcement.strAIRSNumber, 5) as AIRSNumber,  " & _
                         "strFacilityName,  " & _
                         "(strLastName|| ', ' ||strFirstName) as Staff  " & _
-                        "from " & connNameSpace & ".SSCP_AuditedEnforcement, " & _
-                        "" & connNameSpace & ".APBFacilityInformation, " & connNameSpace & ".EPDUserProfiles  " & _
-                        "Where  " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".SSCP_AuditedEnforcement.strAIRSNumber  " & _
+                        "from " & DBNameSpace & ".SSCP_AuditedEnforcement, " & _
+                        "" & DBNameSpace & ".APBFacilityInformation, " & DBNameSpace & ".EPDUserProfiles  " & _
+                        "Where  " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".SSCP_AuditedEnforcement.strAIRSNumber  " & _
                         "and (strStatus IS Null or strStatus = 'UC')  " & _
                         "and datEnforcementFinalized is NULL  " & _
-                        "and " & connNameSpace & ".EPDUserProfiles.numUserID = " & connNameSpace & ".SSCP_AuditedEnforcement.numStaffResponsible  " & _
-                        "and (" & connNameSpace & ".EPDUserProfiles.numUnit = '" & cboComplianceUnits.SelectedValue & "'  " & _
-                        "or " & connNameSpace & ".EPDUserProfiles.numUserID = '0')  " & _
+                        "and " & DBNameSpace & ".EPDUserProfiles.numUserID = " & DBNameSpace & ".SSCP_AuditedEnforcement.numStaffResponsible  " & _
+                        "and (" & DBNameSpace & ".EPDUserProfiles.numUnit = '" & cboComplianceUnits.SelectedValue & "'  " & _
+                        "or " & DBNameSpace & ".EPDUserProfiles.numUserID = '0')  " & _
                         "order by strENforcementNumber DESC "
                     End If
             End Select
 
             dsSSCPEnforcement = New DataSet
 
-            Dim cmd As New OracleCommand(SQL, conn)
+            Dim cmd As New OracleCommand(SQL, DBConn)
 
             daSSCPEnforcement = New OracleDataAdapter(cmd)
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             daSSCPEnforcement.Fill(dsSSCPEnforcement, "SSCPEnforcement")
             dgvSSCPEnforcement.DataSource = dsSSCPEnforcement
             dgvSSCPEnforcement.DataMember = "SSCPEnforcement"
 
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -524,7 +524,7 @@ Public Class SSCPEnforcementSelector
         Catch ex As Exception
             ErrorReport(SQL & vbCrLf & ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -537,7 +537,7 @@ Public Class SSCPEnforcementSelector
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -557,7 +557,7 @@ Public Class SSCPEnforcementSelector
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -570,7 +570,7 @@ Public Class SSCPEnforcementSelector
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -619,7 +619,7 @@ Public Class SSCPEnforcementSelector
                 ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
             End If
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try

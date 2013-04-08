@@ -293,7 +293,7 @@ Public Class ISMPExcelFiles
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -333,7 +333,7 @@ Public Class ISMPExcelFiles
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -342,34 +342,34 @@ Public Class ISMPExcelFiles
     Sub LoadExcelDataSet()
         Try
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             SQL = "Select FileID, FileTitle " & _
-            "From " & connNameSpace & ".ISMPTestReportAids"
+            "From " & DBNameSpace & ".ISMPTestReportAids"
 
             dsExcelFiles = New DataSet
 
-            cmd = New OracleCommand(SQL, conn)
+            cmd = New OracleCommand(SQL, DBConn)
 
             daExcelFiles = New OracleDataAdapter(cmd)
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             daExcelFiles.Fill(dsExcelFiles, "ExcelFiles")
             dgrExcelFiles.DataSource = dsExcelFiles
             dgrExcelFiles.DataMember = "ExcelFiles"
 
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -410,7 +410,7 @@ Public Class ISMPExcelFiles
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -456,16 +456,16 @@ Public Class ISMPExcelFiles
                 End If
 
                 If DestFilePath <> "N/A" Then
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
 
                     SQL = "Select " & _
                     "FileId, FileTitle, ISMPBlob " & _
-                    "from " & connNameSpace & ".ISMPTestReportAids " & _
+                    "from " & DBNameSpace & ".ISMPTestReportAids " & _
                     "Where FileID = '" & FileID & "' "
 
-                    cmd = New OracleCommand(SQL, conn)
+                    cmd = New OracleCommand(SQL, DBConn)
                     dr = cmd.ExecuteReader
 
                     dr.Read()
@@ -483,7 +483,7 @@ Public Class ISMPExcelFiles
                         ExcelApp.Visible = True
                     End If
 
-                    If conn.State = ConnectionState.Open Then
+                    If DBConn.State = ConnectionState.Open Then
                         'conn.close()
                     End If
 
@@ -497,7 +497,7 @@ Public Class ISMPExcelFiles
                 ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
             End If
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -521,7 +521,7 @@ Public Class ISMPExcelFiles
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -535,7 +535,7 @@ Public Class ISMPExcelFiles
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -549,7 +549,7 @@ Public Class ISMPExcelFiles
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -564,7 +564,7 @@ Public Class ISMPExcelFiles
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -578,7 +578,7 @@ Public Class ISMPExcelFiles
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try

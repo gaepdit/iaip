@@ -600,12 +600,12 @@ Public Class IAIPFeeAuditTool
                 "strContactCity_08_Edit, strContactState_08_Edit, " & _
                 "strContactZipCode_08_Edit, strTotalPaid_08, " & _
                 "str2008Comments " & _
-                "from " & connNameSpace & ".Fee_NonResponders_2010  " & _
+                "from " & DBNameSpace & ".Fee_NonResponders_2010  " & _
                 "where numNonRespondersID = '" & txtNonRespondersID.Text & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -815,12 +815,12 @@ Public Class IAIPFeeAuditTool
                 "strContactCity_07_Edit, strContactState_07_Edit, " & _
                 "strContactZipCode_07_Edit, strTotalPaid_07, " & _
                 "str2007Comments " & _
-                "from " & connNameSpace & ".Fee_NonResponders_2010  " & _
+                "from " & DBNameSpace & ".Fee_NonResponders_2010  " & _
                 "where numNonRespondersID = '" & txtNonRespondersID.Text & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -1025,12 +1025,12 @@ Public Class IAIPFeeAuditTool
                 "strContactCity_06_Edit, strContactState_06_Edit, " & _
                 "strContactZipCode_06_Edit, strTotalPaid_06, " & _
                 "str2006Comments " & _
-                "from " & connNameSpace & ".Fee_NonResponders_2010  " & _
+                "from " & DBNameSpace & ".Fee_NonResponders_2010  " & _
                 "where numNonRespondersID = '" & txtNonRespondersID.Text & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -1199,11 +1199,11 @@ Public Class IAIPFeeAuditTool
             SQL = "Select " & _
             "strOwnershipChange, strOwnershipComments, " & _
             "strSourceClassChange, strSourceClassComments " & _
-            "from " & connNameSpace & ".Fee_NonResponders_2010 " & _
+            "from " & DBNameSpace & ".Fee_NonResponders_2010 " & _
             "where numNonrespondersID = '" & txtNonRespondersID.Text & "' "
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -1250,11 +1250,11 @@ Public Class IAIPFeeAuditTool
             If txtNonRespondersID.Text <> "" Then
                 SQL = "Select " & _
                 "strcomments " & _
-                "from " & connNameSpace & ".Fee_NonResponders_2010 " & _
+                "from " & DBNameSpace & ".Fee_NonResponders_2010 " & _
                 "where numNonrespondersID = '" & txtNonRespondersID.Text & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -1291,15 +1291,15 @@ Public Class IAIPFeeAuditTool
             "strActive, " & _
             "Status_08, Status_07, " & _
             "Status_06 " & _
-            "from " & connNameSpace & ".Fee_NonResponders_2010,  " & _
-            "" & connNameSpace & ".EPDUserProfiles " & _
-            "where " & connNameSpace & ".Fee_NonResponders_2010.strStaffResponsible = " & connNameSpace & ".EPDUserProfiles.numUserID (+) " & _
+            "from " & DBNameSpace & ".Fee_NonResponders_2010,  " & _
+            "" & DBNameSpace & ".EPDUserProfiles " & _
+            "where " & DBNameSpace & ".Fee_NonResponders_2010.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID (+) " & _
             "and strAIRSNumber = '" & mtbAIRSNumber.Text & "' "
 
-            cmd = New OracleCommand(SQL, conn)
+            cmd = New OracleCommand(SQL, DBConn)
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             recExist = dr.Read
@@ -1578,11 +1578,11 @@ Public Class IAIPFeeAuditTool
                 "strFacilityZIpCode_Edit, strFacilityClass_Edit, " & _
                 "strOperatingStatus_Edit, strFacilityClass_Edit, " & _
                 "strNSPSStatus_Edit, strTVStatus_Edit " & _
-                "From " & connNameSpace & ".Fee_NonResponders_2010 " & _
+                "From " & DBNameSpace & ".Fee_NonResponders_2010 " & _
                 "where numNonRespondersID = '" & txtNonRespondersID.Text & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -1674,12 +1674,12 @@ Public Class IAIPFeeAuditTool
                 "strContactEmail_Edit, strContactPhoneNumber_Edit, " & _
                 "strContactAddress_Edit, strContactCity_Edit, " & _
                 "strContactState_Edit, strContactZIpCode_Edit " & _
-                "from " & connNameSpace & ".Fee_NonResponders_2010 " & _
+                "from " & DBNameSpace & ".Fee_NonResponders_2010 " & _
                 "where numNonRespondersID = '" & txtNonRespondersID.Text & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -1768,11 +1768,11 @@ Public Class IAIPFeeAuditTool
             If txtNonRespondersID.Text <> "" Then
                 SQL = "Select " & _
                 "strCurrentInfoComments " & _
-                "From " & connNameSpace & ".Fee_NonResponders_2010 " & _
+                "From " & DBNameSpace & ".Fee_NonResponders_2010 " & _
                 "where numNonRespondersID = '" & txtNonRespondersID.Text & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -1848,7 +1848,7 @@ Public Class IAIPFeeAuditTool
             txtNonPayerEmail.Clear()
 
             SQL = "Select * " & _
-            "from " & connNameSpace & ".Fee_NonPayers_2010 " & _
+            "from " & DBNameSpace & ".Fee_NonPayers_2010 " & _
             "where strAIRSNumber = '" & mtbAIRSNumber.Text & "' "
 
             SQL = "Select " & _
@@ -1882,13 +1882,13 @@ Public Class IAIPFeeAuditTool
 "numStaffResponsible, strActive,  " & _
 "strComments,  " & _
 "(strLastName||', '||strFirstName) as Staff    " & _
-"from " & connNameSpace & ".Fee_NonPayers_2010, " & connNameSpace & ".EPDUserProfiles   " & _
-"where " & connNameSpace & ".Fee_NonPayers_2010.numStaffResponsible = " & connNameSpace & ".EPDUserProfiles.numUserID  (+) " & _
+"from " & DBNameSpace & ".Fee_NonPayers_2010, " & DBNameSpace & ".EPDUserProfiles   " & _
+"where " & DBNameSpace & ".Fee_NonPayers_2010.numStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID  (+) " & _
 "and strAIRSNumber = '" & mtbAIRSNumber.Text & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             recExist = dr.Read
@@ -2261,11 +2261,11 @@ Public Class IAIPFeeAuditTool
             "strStatus_06, strStatus_05, " & _
             "strStatus_04, strStatus_03, " & _
             "strStatus_02 " & _
-            "from " & connNameSpace & ".Fee_NonPayers_2010 " & _
+            "from " & DBNameSpace & ".Fee_NonPayers_2010 " & _
             "where strAIRSNumber = '" & mtbAIRSNumber.Text & "' "
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -2318,12 +2318,12 @@ Public Class IAIPFeeAuditTool
                 lblAmountPaid_CY2008.Text = "Fees Paid: -"
                 SQL = "Select " & _
                 "sum(numPayment) as FeesPaid " & _
-                "from " & connNameSpace & ".FSAddPaid " & _
+                "from " & DBNameSpace & ".FSAddPaid " & _
                 "where intYear = '2008' " & _
                 "and strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -2346,12 +2346,12 @@ Public Class IAIPFeeAuditTool
                 lblAmountPaid_CY2007.Text = "Fees Paid: -"
                 SQL = "Select " & _
                 "sum(numPayment) as FeesPaid " & _
-                "from " & connNameSpace & ".FSAddPaid " & _
+                "from " & DBNameSpace & ".FSAddPaid " & _
                 "where intYear = '2007' " & _
                 "and strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -2374,12 +2374,12 @@ Public Class IAIPFeeAuditTool
                 lblAmountPaid_CY2006.Text = "Fees Paid: -"
                 SQL = "Select " & _
                 "sum(numPayment) as FeesPaid " & _
-                "from " & connNameSpace & ".FSAddPaid " & _
+                "from " & DBNameSpace & ".FSAddPaid " & _
                 "where intYear = '2006' " & _
                 "and strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -2402,12 +2402,12 @@ Public Class IAIPFeeAuditTool
                 lblAmountPaid_CY2005.Text = "Fees Paid: -"
                 SQL = "Select " & _
                 "sum(numPayment) as FeesPaid " & _
-                "from " & connNameSpace & ".FSAddPaid " & _
+                "from " & DBNameSpace & ".FSAddPaid " & _
                 "where intYear = '2005' " & _
                 "and strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -2430,12 +2430,12 @@ Public Class IAIPFeeAuditTool
                 lblAmountPaid_CY2004.Text = "Fees Paid: -"
                 SQL = "Select " & _
                 "sum(numPayment) as FeesPaid " & _
-                "from " & connNameSpace & ".FSAddPaid " & _
+                "from " & DBNameSpace & ".FSAddPaid " & _
                 "where intYear = '2004' " & _
                 "and strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -2458,12 +2458,12 @@ Public Class IAIPFeeAuditTool
                 lblAmountPaid_CY2003.Text = "Fees Paid: -"
                 SQL = "Select " & _
                 "sum(numPayment) as FeesPaid " & _
-                "from " & connNameSpace & ".FSAddPaid " & _
+                "from " & DBNameSpace & ".FSAddPaid " & _
                 "where intYear = '2003' " & _
                 "and strAIRSNumber = '0313" & mtbAIRSNumber.Text & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -2486,12 +2486,12 @@ Public Class IAIPFeeAuditTool
                 lblAmountPaid_CY2002.Text = "Fees Paid: -"
                 SQL = "Select " & _
                 "sum(numPayment) as FeesPaid " & _
-                "from " & connNameSpace & ".FSAddPaid " & _
+                "from " & DBNameSpace & ".FSAddPaid " & _
                 "where intYear = '2002' " & _
                 "and strAIRSNumber = '0213" & mtbAIRSNumber.Text & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -2573,12 +2573,12 @@ Public Class IAIPFeeAuditTool
               "datLastModified_02, numManagerSignOff_02, " & _
               "datManagerSignOff_02,strComments_02,  " & _
               "strComments " & _
-              "from " & connNameSpace & ".Fee_Audit_2010 " & _
+              "from " & DBNameSpace & ".Fee_Audit_2010 " & _
               "where strAIRSNumber = '" & mtbAIRSNumber.Text & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -3502,11 +3502,11 @@ Public Class IAIPFeeAuditTool
             If Staff_08 <> "" Then
                 SQL = "Select " & _
                 "(strLastname|| ', ' ||strFirstName) as Staff " & _
-                "from " & connNameSpace & ".EPDUserProfiles " & _
+                "from " & DBNameSpace & ".EPDUserProfiles " & _
                 "where numUserID = '" & Staff_08 & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -3521,12 +3521,12 @@ Public Class IAIPFeeAuditTool
             If Manager_08 <> "" Then
                 SQL = "Select " & _
                 "(strLastname|| ', ' ||strFirstName) as Staff " & _
-                "from " & connNameSpace & ".EPDUserProfiles " & _
+                "from " & DBNameSpace & ".EPDUserProfiles " & _
                 "where numUserID = '" & Manager_08 & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -3541,11 +3541,11 @@ Public Class IAIPFeeAuditTool
             If Staff_07 <> "" Then
                 SQL = "Select " & _
                 "(strLastname|| ', ' ||strFirstName) as Staff " & _
-                "from " & connNameSpace & ".EPDUserProfiles " & _
+                "from " & DBNameSpace & ".EPDUserProfiles " & _
                 "where numUserID = '" & Staff_07 & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -3560,12 +3560,12 @@ Public Class IAIPFeeAuditTool
             If Manager_07 <> "" Then
                 SQL = "Select " & _
                 "(strLastname|| ', ' ||strFirstName) as Staff " & _
-                "from " & connNameSpace & ".EPDUserProfiles " & _
+                "from " & DBNameSpace & ".EPDUserProfiles " & _
                 "where numUserID = '" & Manager_07 & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -3580,11 +3580,11 @@ Public Class IAIPFeeAuditTool
             If Staff_06 <> "" Then
                 SQL = "Select " & _
                 "(strLastname|| ', ' ||strFirstName) as Staff " & _
-                "from " & connNameSpace & ".EPDUserProfiles " & _
+                "from " & DBNameSpace & ".EPDUserProfiles " & _
                 "where numUserID = '" & Staff_06 & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -3599,12 +3599,12 @@ Public Class IAIPFeeAuditTool
             If Manager_06 <> "" Then
                 SQL = "Select " & _
                 "(strLastname|| ', ' ||strFirstName) as Staff " & _
-                "from " & connNameSpace & ".EPDUserProfiles " & _
+                "from " & DBNameSpace & ".EPDUserProfiles " & _
                 "where numUserID = '" & Manager_06 & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -3619,11 +3619,11 @@ Public Class IAIPFeeAuditTool
             If Staff_05 <> "" Then
                 SQL = "Select " & _
                 "(strLastname|| ', ' ||strFirstName) as Staff " & _
-                "from " & connNameSpace & ".EPDUserProfiles " & _
+                "from " & DBNameSpace & ".EPDUserProfiles " & _
                 "where numUserID = '" & Staff_05 & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -3638,12 +3638,12 @@ Public Class IAIPFeeAuditTool
             If Manager_05 <> "" Then
                 SQL = "Select " & _
                 "(strLastname|| ', ' ||strFirstName) as Staff " & _
-                "from " & connNameSpace & ".EPDUserProfiles " & _
+                "from " & DBNameSpace & ".EPDUserProfiles " & _
                 "where numUserID = '" & Manager_05 & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -3658,11 +3658,11 @@ Public Class IAIPFeeAuditTool
             If Staff_04 <> "" Then
                 SQL = "Select " & _
                 "(strLastname|| ', ' ||strFirstName) as Staff " & _
-                "from " & connNameSpace & ".EPDUserProfiles " & _
+                "from " & DBNameSpace & ".EPDUserProfiles " & _
                 "where numUserID = '" & Staff_04 & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -3677,12 +3677,12 @@ Public Class IAIPFeeAuditTool
             If Manager_04 <> "" Then
                 SQL = "Select " & _
                 "(strLastname|| ', ' ||strFirstName) as Staff " & _
-                "from " & connNameSpace & ".EPDUserProfiles " & _
+                "from " & DBNameSpace & ".EPDUserProfiles " & _
                 "where numUserID = '" & Manager_04 & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -3697,11 +3697,11 @@ Public Class IAIPFeeAuditTool
             If Staff_03 <> "" Then
                 SQL = "Select " & _
                 "(strLastname|| ', ' ||strFirstName) as Staff " & _
-                "from " & connNameSpace & ".EPDUserProfiles " & _
+                "from " & DBNameSpace & ".EPDUserProfiles " & _
                 "where numUserID = '" & Staff_03 & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -3716,12 +3716,12 @@ Public Class IAIPFeeAuditTool
             If Manager_03 <> "" Then
                 SQL = "Select " & _
                 "(strLastname|| ', ' ||strFirstName) as Staff " & _
-                "from " & connNameSpace & ".EPDUserProfiles " & _
+                "from " & DBNameSpace & ".EPDUserProfiles " & _
                 "where numUserID = '" & Manager_03 & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -3736,11 +3736,11 @@ Public Class IAIPFeeAuditTool
             If Staff_02 <> "" Then
                 SQL = "Select " & _
                 "(strLastname|| ', ' ||strFirstName) as Staff " & _
-                "from " & connNameSpace & ".EPDUserProfiles " & _
+                "from " & DBNameSpace & ".EPDUserProfiles " & _
                 "where numUserID = '" & Staff_02 & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -3755,12 +3755,12 @@ Public Class IAIPFeeAuditTool
             If Manager_02 <> "" Then
                 SQL = "Select " & _
                 "(strLastname|| ', ' ||strFirstName) as Staff " & _
-                "from " & connNameSpace & ".EPDUserProfiles " & _
+                "from " & DBNameSpace & ".EPDUserProfiles " & _
                 "where numUserID = '" & Manager_02 & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -3975,13 +3975,13 @@ Public Class IAIPFeeAuditTool
             If SQLLine <> "   " Then
                 SQLLine = Mid(SQLLine, 1, (SQLLine.Length - 3))
 
-                SQL = "Update " & connNameSpace & ".Fee_NonResponders_2010 set " & _
+                SQL = "Update " & DBNameSpace & ".Fee_NonResponders_2010 set " & _
                 SQLLine & _
                 " where numNonRespondersID = '" & txtNonRespondersID.Text & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -4063,14 +4063,14 @@ Public Class IAIPFeeAuditTool
             If SQLLine <> "   " Then
                 SQLLine = Mid(SQLLine, 1, (SQLLine.Length - 3))
 
-                SQL = "Update " & connNameSpace & ".Fee_NonResponders_2010 set " & _
+                SQL = "Update " & DBNameSpace & ".Fee_NonResponders_2010 set " & _
                 "strContactDescription_Edit = 'Fee_nonresponders tool', " & _
                 SQLLine & _
                 " where numNonRespondersID = '" & txtNonRespondersID.Text & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -4087,13 +4087,13 @@ Public Class IAIPFeeAuditTool
                 Exit Sub
             End If
 
-            SQL = "Update " & connNameSpace & ".Fee_NonResponders_2010 set " & _
+            SQL = "Update " & DBNameSpace & ".Fee_NonResponders_2010 set " & _
             "strCurrentInfoComments = '" & Replace(txtCurrentComments.Text, "'", "''") & "' " & _
             " where numNonRespondersID = '" & txtNonRespondersID.Text & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -4114,13 +4114,13 @@ Public Class IAIPFeeAuditTool
                     OwnershipChange = "No"
                 End If
 
-                SQL = "Update " & connNameSpace & ".Fee_NonResponders_2010 set " & _
+                SQL = "Update " & DBNameSpace & ".Fee_NonResponders_2010 set " & _
                 "strOwnershipChange = '" & OwnershipChange & "', " & _
                 "strOwnershipComments = '" & Replace(txtOwnershipChangeComments.Text, "'", "''") & "' " & _
                 "where numNonrespondersID = '" & txtNonRespondersID.Text & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -4141,13 +4141,13 @@ Public Class IAIPFeeAuditTool
                     ClassChange = "No"
                 End If
 
-                SQL = "Update " & connNameSpace & ".Fee_NonResponders_2010 set " & _
+                SQL = "Update " & DBNameSpace & ".Fee_NonResponders_2010 set " & _
                 "strSourceClassChange = '" & ClassChange & "', " & _
                 "strSourceClassComments = '" & Replace(txtSourceClassificationChangeComment.Text, "'", "''") & "' " & _
                 "where numNonrespondersID = '" & txtNonRespondersID.Text & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -4163,13 +4163,13 @@ Public Class IAIPFeeAuditTool
         Try
 
             If txtNonRespondersID.Text <> "" Then
-                SQL = "Update " & connNameSpace & ".Fee_NonResponders_2010 set " & _
+                SQL = "Update " & DBNameSpace & ".Fee_NonResponders_2010 set " & _
                 "strComments = '" & Replace(txtComments.Text, "'", "''") & "'  " & _
                 "where numNonRespondersID = '" & txtNonRespondersID.Text & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -4189,26 +4189,26 @@ Public Class IAIPFeeAuditTool
                 ActiveStatus = "True"
             End If
 
-            SQL = "Update " & connNameSpace & ".Fee_NonResponders_2010 set " & _
+            SQL = "Update " & DBNameSpace & ".Fee_NonResponders_2010 set " & _
             "strActive = '" & ActiveStatus & "' " & _
             "where numNonRespondersID = '" & txtNonRespondersID.Text & "' "
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
 
             If txtAuditID.Text <> "" Then
-                SQL = "Update " & connNameSpace & ".Fee_Audit_2010 set " & _
+                SQL = "Update " & DBNameSpace & ".Fee_Audit_2010 set " & _
                 "datClosedOutFeeAudit_08 = '" & OracleDate & "', " & _
                 "datClosedOutFeeAudit_07 = '" & OracleDate & "', " & _
                 "datClosedOutFeeAudit_06 = '" & OracleDate & "' " & _
                 "where numAuditID = '" & txtAuditID.Text & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -4357,13 +4357,13 @@ Public Class IAIPFeeAuditTool
             If SQLLine <> "   " Then
                 SQLLine = Mid(SQLLine, 1, (SQLLine.Length - 3))
 
-                SQL = "Update " & connNameSpace & ".Fee_NonResponders_2010 set " & _
+                SQL = "Update " & DBNameSpace & ".Fee_NonResponders_2010 set " & _
                 SQLLine & _
                 " where numNonRespondersID = '" & txtNonRespondersID.Text & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -4421,13 +4421,13 @@ Public Class IAIPFeeAuditTool
             If SQLLine <> "   " Then
                 SQLLine = Mid(SQLLine, 1, (SQLLine.Length - 3))
 
-                SQL = "Update " & connNameSpace & ".Fee_NonResponders_2010 set " & _
+                SQL = "Update " & DBNameSpace & ".Fee_NonResponders_2010 set " & _
                 SQLLine & _
                 " where numNonRespondersID = '" & txtNonRespondersID.Text & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -4445,13 +4445,13 @@ Public Class IAIPFeeAuditTool
             End If
 
             If txtCurrentComments_CY2008.Text <> "" Then
-                SQL = "Update " & connNameSpace & ".Fee_NonResponders_2010 set " & _
+                SQL = "Update " & DBNameSpace & ".Fee_NonResponders_2010 set " & _
                 "str2008Comments = '" & Replace(txtCurrentComments_CY2008.Text, "'", "''") & "' " & _
                 " where numNonRespondersID = '" & txtNonRespondersID.Text & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -4597,13 +4597,13 @@ Public Class IAIPFeeAuditTool
             If SQLLine <> "   " Then
                 SQLLine = Mid(SQLLine, 1, (SQLLine.Length - 3))
 
-                SQL = "Update " & connNameSpace & ".Fee_NonResponders_2010 set " & _
+                SQL = "Update " & DBNameSpace & ".Fee_NonResponders_2010 set " & _
                 SQLLine & _
                 " where numNonRespondersID = '" & txtNonRespondersID.Text & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -4662,14 +4662,14 @@ Public Class IAIPFeeAuditTool
             If SQLLine <> "   " Then
                 SQLLine = Mid(SQLLine, 1, (SQLLine.Length - 3))
 
-                SQL = "Update " & connNameSpace & ".Fee_NonResponders_2010 set " & _
+                SQL = "Update " & DBNameSpace & ".Fee_NonResponders_2010 set " & _
                 "strContactDescription_07_Edit = 'Fee_nonresponders tool', " & _
                 SQLLine & _
                 " where numNonRespondersID = '" & txtNonRespondersID.Text & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -4687,13 +4687,13 @@ Public Class IAIPFeeAuditTool
             End If
 
             If txtCurrentComments_CY2007.Text <> "" Then
-                SQL = "Update " & connNameSpace & ".Fee_NonResponders_2010 set " & _
+                SQL = "Update " & DBNameSpace & ".Fee_NonResponders_2010 set " & _
                 "str2007Comments = '" & Replace(txtCurrentComments_CY2007.Text, "'", "''") & "' " & _
                 " where numNonRespondersID = '" & txtNonRespondersID.Text & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -4840,13 +4840,13 @@ Public Class IAIPFeeAuditTool
             If SQLLine <> "   " Then
                 SQLLine = Mid(SQLLine, 1, (SQLLine.Length - 3))
 
-                SQL = "Update " & connNameSpace & ".Fee_NonResponders_2010 set " & _
+                SQL = "Update " & DBNameSpace & ".Fee_NonResponders_2010 set " & _
                 SQLLine & _
                 " where numNonRespondersID = '" & txtNonRespondersID.Text & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -4904,14 +4904,14 @@ Public Class IAIPFeeAuditTool
             If SQLLine <> "   " Then
                 SQLLine = Mid(SQLLine, 1, (SQLLine.Length - 3))
 
-                SQL = "Update " & connNameSpace & ".Fee_NonResponders_2010 set " & _
+                SQL = "Update " & DBNameSpace & ".Fee_NonResponders_2010 set " & _
                 "strContactDescription_06_Edit = 'Fee_nonresponders tool', " & _
                 SQLLine & _
                 " where numNonRespondersID = '" & txtNonRespondersID.Text & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -4929,13 +4929,13 @@ Public Class IAIPFeeAuditTool
             End If
 
             If txtCurrentComments_CY2006.Text <> "" Then
-                SQL = "Update " & connNameSpace & ".Fee_NonResponders_2010 set " & _
+                SQL = "Update " & DBNameSpace & ".Fee_NonResponders_2010 set " & _
                 "str2006Comments = '" & Replace(txtCurrentComments_CY2006.Text, "'", "''") & "' " & _
                 " where numNonRespondersID = '" & txtNonRespondersID.Text & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -5056,12 +5056,12 @@ Public Class IAIPFeeAuditTool
                 If txtAuditID.Text = "" Then
                     SQL = "Select " & _
                     "numAuditID " & _
-                    "from " & connNameSpace & ".FEE_Audit_2010 " & _
+                    "from " & DBNameSpace & ".FEE_Audit_2010 " & _
                     "where strAIRSNumber = '" & mtbAIRSNumber.Text & "' "
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     recExist = dr.Read
@@ -5074,12 +5074,12 @@ Public Class IAIPFeeAuditTool
 
                         SQL = "Select " & _
                         "numAuditID " & _
-                        "from " & connNameSpace & ".FEE_Audit_2010 " & _
+                        "from " & DBNameSpace & ".FEE_Audit_2010 " & _
                         "where strAIRSNumber = '" & mtbAIRSNumber.Text & "' "
 
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, DBConn)
+                        If DBConn.State = ConnectionState.Closed Then
+                            DBConn.Open()
                         End If
                         dr = cmd.ExecuteReader
                         While dr.Read
@@ -5093,7 +5093,7 @@ Public Class IAIPFeeAuditTool
                 End If
 
                 If txtAuditID.Text <> "" Then
-                    SQL = "Update " & connNameSpace & ".Fee_Audit_2010 set " & _
+                    SQL = "Update " & DBNameSpace & ".Fee_Audit_2010 set " & _
                     "datInitialLetterMailed_08 = '" & InitialLetter & "', " & _
                     "datLetterReturned_08 = '" & LetterReturned & "', " & _
                     "strAddressUnknown_08 = '" & AddressUnknown & "', " & _
@@ -5112,14 +5112,14 @@ Public Class IAIPFeeAuditTool
                     "datLastModified_08 = '" & OracleDate & "' " & _
                     "where numAuditId = '" & txtAuditID.Text & "' "
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
                 Else
-                    SQL = "Insert into " & connNameSpace & ".Fee_Audit_2010 " & _
+                    SQL = "Insert into " & DBNameSpace & ".Fee_Audit_2010 " & _
                     "(numAuditID, strAIRSNumber, " & _
                     "datInitialLetterMailed_08, datLetterReturned_08, " & _
                     "strAddressUnknown_08, datInitialLetterRemailed_08, " & _
@@ -5131,7 +5131,7 @@ Public Class IAIPFeeAuditTool
                     "datClosedOutFeeAudit_08, strComments_08,  " & _
                     "numStaffAssigned_08, datLastModified_08) " & _
                     "values " & _
-                    "((select (max(numAuditID) + 1) from " & connNameSpace & ".Fee_Audit_2010), " & _
+                    "((select (max(numAuditID) + 1) from " & DBNameSpace & ".Fee_Audit_2010), " & _
                     "'" & mtbAIRSNumber.Text & "', " & _
                     "'" & InitialLetter & "', '" & LetterReturned & "', " & _
                     "'" & AddressUnknown & "', '" & LetterRemailed & "', " & _
@@ -5143,20 +5143,20 @@ Public Class IAIPFeeAuditTool
                     "'" & ClosedOut & "', '" & Comments & "', " & _
                     "'" & UserGCode & "', '" & OracleDate & "') "
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
 
                     SQL = "Select " & _
                     "numAuditID " & _
-                    "from " & connNameSpace & ".Fee_Audit_2010 " & _
+                    "from " & DBNameSpace & ".Fee_Audit_2010 " & _
                     "where strAIRSNumber = '" & mtbAIRSNumber.Text & "' "
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     While dr.Read
@@ -5182,13 +5182,13 @@ Public Class IAIPFeeAuditTool
     Private Sub btnManagerSignOff_CY2008_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnManagerSignOff_CY2008.Click
         Try
             If txtAuditID.Text <> "" Then
-                SQL = "Update " & connNameSpace & ".Fee_Audit_2010 set " & _
+                SQL = "Update " & DBNameSpace & ".Fee_Audit_2010 set " & _
                 "numManagerSignOff_08 = '" & UserGCode & "', " & _
                 "datManagerSignOff_08 = '" & OracleDate & "' " & _
                 "where numAuditID = '" & txtAuditID.Text & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -5196,13 +5196,13 @@ Public Class IAIPFeeAuditTool
                 SQL = "select " & _
                 "(strLastName|| ', ' ||strFirstName) as Staff, " & _
                 "datManagerSignOff_08 " & _
-                "from " & connNameSpace & ".EPDUserProfiles, " & connNameSpace & ".Fee_Audit_2010 " & _
-                "where " & connNameSpace & ".Fee_Audit_2010.numManagerSignOff_08 = " & connNameSpace & ".EPDUserProfiles.numUserID " & _
+                "from " & DBNameSpace & ".EPDUserProfiles, " & DBNameSpace & ".Fee_Audit_2010 " & _
+                "where " & DBNameSpace & ".Fee_Audit_2010.numManagerSignOff_08 = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
                 "and numAuditID = '" & txtAuditID.Text & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -5334,7 +5334,7 @@ Public Class IAIPFeeAuditTool
                 End If
 
                 If txtAuditID.Text <> "" Then
-                    SQL = "Update " & connNameSpace & ".Fee_Audit_2010 set " & _
+                    SQL = "Update " & DBNameSpace & ".Fee_Audit_2010 set " & _
                     "datInitialLetterMailed_07 = '" & InitialLetter & "', " & _
                     "datLetterReturned_07 = '" & LetterReturned & "', " & _
                     "strAddressUnknown_07 = '" & AddressUnknown & "', " & _
@@ -5353,14 +5353,14 @@ Public Class IAIPFeeAuditTool
                     "datLastModified_07 = '" & OracleDate & "' " & _
                     "where numAuditId = '" & txtAuditID.Text & "' "
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
                 Else
-                    SQL = "Insert into " & connNameSpace & ".Fee_Audit_2010 " & _
+                    SQL = "Insert into " & DBNameSpace & ".Fee_Audit_2010 " & _
                     "(numAuditID, strAIRSNumber, " & _
                     "datInitialLetterMailed_07, datLetterReturned_07, " & _
                     "strAddressUnknown_07, datInitialLetterRemailed_07, " & _
@@ -5372,7 +5372,7 @@ Public Class IAIPFeeAuditTool
                     "datClosedOutFeeAudit_07, strComments_07,  " & _
                     "numStaffAssigned_07, datLastModified_07) " & _
                     "values " & _
-                    "((select (max(numAuditID) + 1) from " & connNameSpace & ".Fee_Audit_2010), " & _
+                    "((select (max(numAuditID) + 1) from " & DBNameSpace & ".Fee_Audit_2010), " & _
                     "'" & mtbAIRSNumber.Text & "', " & _
                     "'" & InitialLetter & "', '" & LetterReturned & "', " & _
                     "'" & AddressUnknown & "', '" & LetterRemailed & "', " & _
@@ -5384,20 +5384,20 @@ Public Class IAIPFeeAuditTool
                     "'" & ClosedOut & "', '" & Comments & "', " & _
                     "'" & UserGCode & "', '" & OracleDate & "') "
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
 
                     SQL = "Select " & _
                     "numAuditID " & _
-                    "from " & connNameSpace & ".Fee_Audit_2010 " & _
+                    "from " & DBNameSpace & ".Fee_Audit_2010 " & _
                     "where strAIRSNumber = '" & mtbAIRSNumber.Text & "' "
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     While dr.Read
@@ -5423,13 +5423,13 @@ Public Class IAIPFeeAuditTool
     Private Sub btnManagerSignOff_CY2007_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnManagerSignOff_CY2007.Click
         Try
             If txtAuditID.Text <> "" Then
-                SQL = "Update " & connNameSpace & ".Fee_Audit_2010 set " & _
+                SQL = "Update " & DBNameSpace & ".Fee_Audit_2010 set " & _
                 "numManagerSignOff_07 = '" & UserGCode & "', " & _
                 "datManagerSignOff_07 = '" & OracleDate & "' " & _
                 "where numAuditID = '" & txtAuditID.Text & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -5437,13 +5437,13 @@ Public Class IAIPFeeAuditTool
                 SQL = "select " & _
                 "(strLastName|| ', ' ||strFirstName) as Staff, " & _
                 "datManagerSignOff_07 " & _
-                "from " & connNameSpace & ".EPDUserProfiles, " & connNameSpace & ".Fee_Audit_2010 " & _
-                "where " & connNameSpace & ".Fee_Audit_2010.numManagerSignOff_07 = " & connNameSpace & ".EPDUserProfiles.numUserID " & _
+                "from " & DBNameSpace & ".EPDUserProfiles, " & DBNameSpace & ".Fee_Audit_2010 " & _
+                "where " & DBNameSpace & ".Fee_Audit_2010.numManagerSignOff_07 = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
                 "and numAuditID = '" & txtAuditID.Text & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -5575,7 +5575,7 @@ Public Class IAIPFeeAuditTool
                 End If
 
                 If txtAuditID.Text <> "" Then
-                    SQL = "Update " & connNameSpace & ".Fee_Audit_2010 set " & _
+                    SQL = "Update " & DBNameSpace & ".Fee_Audit_2010 set " & _
                     "datInitialLetterMailed_06 = '" & InitialLetter & "', " & _
                     "datLetterReturned_06 = '" & LetterReturned & "', " & _
                     "strAddressUnknown_06 = '" & AddressUnknown & "', " & _
@@ -5594,14 +5594,14 @@ Public Class IAIPFeeAuditTool
                     "datLastModified_06 = '" & OracleDate & "' " & _
                     "where numAuditId = '" & txtAuditID.Text & "' "
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
                 Else
-                    SQL = "Insert into " & connNameSpace & ".Fee_Audit_2010 " & _
+                    SQL = "Insert into " & DBNameSpace & ".Fee_Audit_2010 " & _
                     "(numAuditID, strAIRSNumber, " & _
                     "datInitialLetterMailed_06, datLetterReturned_06, " & _
                     "strAddressUnknown_06, datInitialLetterRemailed_06, " & _
@@ -5613,7 +5613,7 @@ Public Class IAIPFeeAuditTool
                     "datClosedOutFeeAudit_06, strComments_06,  " & _
                     "numStaffAssigned_06, datLastModified_06) " & _
                     "values " & _
-                    "((select (max(numAuditID) + 1) from " & connNameSpace & ".Fee_Audit_2010), " & _
+                    "((select (max(numAuditID) + 1) from " & DBNameSpace & ".Fee_Audit_2010), " & _
                     "'" & mtbAIRSNumber.Text & "', " & _
                     "'" & InitialLetter & "', '" & LetterReturned & "', " & _
                     "'" & AddressUnknown & "', '" & LetterRemailed & "', " & _
@@ -5625,20 +5625,20 @@ Public Class IAIPFeeAuditTool
                     "'" & ClosedOut & "', '" & Comments & "', " & _
                     "'" & UserGCode & "', '" & OracleDate & "') "
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
 
                     SQL = "Select " & _
                     "numAuditID " & _
-                    "from " & connNameSpace & ".Fee_Audit_2010 " & _
+                    "from " & DBNameSpace & ".Fee_Audit_2010 " & _
                     "where strAIRSNumber = '" & mtbAIRSNumber.Text & "' "
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     While dr.Read
@@ -5664,13 +5664,13 @@ Public Class IAIPFeeAuditTool
     Private Sub btnManagerSignOff_CY2006_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnManagerSignOff_CY2006.Click
         Try
             If txtAuditID.Text <> "" Then
-                SQL = "Update " & connNameSpace & ".Fee_Audit_2010 set " & _
+                SQL = "Update " & DBNameSpace & ".Fee_Audit_2010 set " & _
                 "numManagerSignOff_06 = '" & UserGCode & "', " & _
                 "datManagerSignOff_06 = '" & OracleDate & "' " & _
                 "where numAuditID = '" & txtAuditID.Text & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -5678,13 +5678,13 @@ Public Class IAIPFeeAuditTool
                 SQL = "select " & _
                 "(strLastName|| ', ' ||strFirstName) as Staff, " & _
                 "datManagerSignOff_06 " & _
-                "from " & connNameSpace & ".EPDUserProfiles, " & connNameSpace & ".Fee_Audit_2010 " & _
-                "where " & connNameSpace & ".Fee_Audit_2010.numManagerSignOff_06 = " & connNameSpace & ".EPDUserProfiles.numUserID " & _
+                "from " & DBNameSpace & ".EPDUserProfiles, " & DBNameSpace & ".Fee_Audit_2010 " & _
+                "where " & DBNameSpace & ".Fee_Audit_2010.numManagerSignOff_06 = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
                 "and numAuditID = '" & txtAuditID.Text & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -5817,7 +5817,7 @@ Public Class IAIPFeeAuditTool
                 End If
 
                 If txtAuditID.Text <> "" Then
-                    SQL = "Update " & connNameSpace & ".Fee_Audit_2010 set " & _
+                    SQL = "Update " & DBNameSpace & ".Fee_Audit_2010 set " & _
                     "datInitialLetterMailed_05 = '" & InitialLetter & "', " & _
                     "datLetterReturned_05 = '" & LetterReturned & "', " & _
                     "strAddressUnknown_05 = '" & AddressUnknown & "', " & _
@@ -5836,14 +5836,14 @@ Public Class IAIPFeeAuditTool
                     "datLastModified_05 = '" & OracleDate & "' " & _
                     "where numAuditId = '" & txtAuditID.Text & "' "
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
                 Else
-                    SQL = "Insert into " & connNameSpace & ".Fee_Audit_2010 " & _
+                    SQL = "Insert into " & DBNameSpace & ".Fee_Audit_2010 " & _
                     "(numAuditID, strAIRSNumber, " & _
                     "datInitialLetterMailed_05, datLetterReturned_05, " & _
                     "strAddressUnknown_05, datInitialLetterRemailed_05, " & _
@@ -5855,7 +5855,7 @@ Public Class IAIPFeeAuditTool
                     "datClosedOutFeeAudit_05, strComments_05,  " & _
                     "numStaffAssigned_05, datLastModified_05) " & _
                     "values " & _
-                    "((select (max(numAuditID) + 1) from " & connNameSpace & ".Fee_Audit_2010), " & _
+                    "((select (max(numAuditID) + 1) from " & DBNameSpace & ".Fee_Audit_2010), " & _
                     "'" & mtbAIRSNumber.Text & "', " & _
                     "'" & InitialLetter & "', '" & LetterReturned & "', " & _
                     "'" & AddressUnknown & "', '" & LetterRemailed & "', " & _
@@ -5867,20 +5867,20 @@ Public Class IAIPFeeAuditTool
                     "'" & ClosedOut & "', '" & Comments & "', " & _
                     "'" & UserGCode & "', '" & OracleDate & "') "
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
 
                     SQL = "Select " & _
                     "numAuditID " & _
-                    "from " & connNameSpace & ".Fee_Audit_2010 " & _
+                    "from " & DBNameSpace & ".Fee_Audit_2010 " & _
                     "where strAIRSNumber = '" & mtbAIRSNumber.Text & "' "
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     While dr.Read
@@ -5906,13 +5906,13 @@ Public Class IAIPFeeAuditTool
     Private Sub btnManagerSignOff_CY2005_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnManagerSignOff_CY2005.Click
         Try
             If txtAuditID.Text <> "" Then
-                SQL = "Update " & connNameSpace & ".Fee_Audit_2010 set " & _
+                SQL = "Update " & DBNameSpace & ".Fee_Audit_2010 set " & _
                 "numManagerSignOff_05 = '" & UserGCode & "', " & _
                 "datManagerSignOff_05 = '" & OracleDate & "' " & _
                 "where numAuditID = '" & txtAuditID.Text & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -5920,13 +5920,13 @@ Public Class IAIPFeeAuditTool
                 SQL = "select " & _
                 "(strLastName|| ', ' ||strFirstName) as Staff, " & _
                 "datManagerSignOff_05 " & _
-                "from " & connNameSpace & ".EPDUserProfiles, " & connNameSpace & ".Fee_Audit_2010 " & _
-                "where " & connNameSpace & ".Fee_Audit_2010.numManagerSignOff_05 = " & connNameSpace & ".EPDUserProfiles.numUserID " & _
+                "from " & DBNameSpace & ".EPDUserProfiles, " & DBNameSpace & ".Fee_Audit_2010 " & _
+                "where " & DBNameSpace & ".Fee_Audit_2010.numManagerSignOff_05 = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
                 "and numAuditID = '" & txtAuditID.Text & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -6059,7 +6059,7 @@ Public Class IAIPFeeAuditTool
                 End If
 
                 If txtAuditID.Text <> "" Then
-                    SQL = "Update " & connNameSpace & ".Fee_Audit_2010 set " & _
+                    SQL = "Update " & DBNameSpace & ".Fee_Audit_2010 set " & _
                     "datInitialLetterMailed_04 = '" & InitialLetter & "', " & _
                     "datLetterReturned_04 = '" & LetterReturned & "', " & _
                     "strAddressUnknown_04 = '" & AddressUnknown & "', " & _
@@ -6078,14 +6078,14 @@ Public Class IAIPFeeAuditTool
                     "datLastModified_04 = '" & OracleDate & "' " & _
                     "where numAuditId = '" & txtAuditID.Text & "' "
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
                 Else
-                    SQL = "Insert into " & connNameSpace & ".Fee_Audit_2010 " & _
+                    SQL = "Insert into " & DBNameSpace & ".Fee_Audit_2010 " & _
                     "(numAuditID, strAIRSNumber, " & _
                     "datInitialLetterMailed_04, datLetterReturned_04, " & _
                     "strAddressUnknown_04, datInitialLetterRemailed_04, " & _
@@ -6097,7 +6097,7 @@ Public Class IAIPFeeAuditTool
                     "datClosedOutFeeAudit_04, strComments_04,  " & _
                     "numStaffAssigned_04, datLastModified_04) " & _
                     "values " & _
-                    "((select (max(numAuditID) + 1) from " & connNameSpace & ".Fee_Audit_2010), " & _
+                    "((select (max(numAuditID) + 1) from " & DBNameSpace & ".Fee_Audit_2010), " & _
                     "'" & mtbAIRSNumber.Text & "', " & _
                     "'" & InitialLetter & "', '" & LetterReturned & "', " & _
                     "'" & AddressUnknown & "', '" & LetterRemailed & "', " & _
@@ -6109,20 +6109,20 @@ Public Class IAIPFeeAuditTool
                     "'" & ClosedOut & "', '" & Comments & "', " & _
                     "'" & UserGCode & "', '" & OracleDate & "') "
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
 
                     SQL = "Select " & _
                     "numAuditID " & _
-                    "from " & connNameSpace & ".Fee_Audit_2010 " & _
+                    "from " & DBNameSpace & ".Fee_Audit_2010 " & _
                     "where strAIRSNumber = '" & mtbAIRSNumber.Text & "' "
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     While dr.Read
@@ -6148,13 +6148,13 @@ Public Class IAIPFeeAuditTool
     Private Sub btnManagerSignOff_CY2004_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnManagerSignOff_CY2004.Click
         Try
             If txtAuditID.Text <> "" Then
-                SQL = "Update " & connNameSpace & ".Fee_Audit_2010 set " & _
+                SQL = "Update " & DBNameSpace & ".Fee_Audit_2010 set " & _
                 "numManagerSignOff_04 = '" & UserGCode & "', " & _
                 "datManagerSignOff_04 = '" & OracleDate & "' " & _
                 "where numAuditID = '" & txtAuditID.Text & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -6162,13 +6162,13 @@ Public Class IAIPFeeAuditTool
                 SQL = "select " & _
                 "(strLastName|| ', ' ||strFirstName) as Staff, " & _
                 "datManagerSignOff_04 " & _
-                "from " & connNameSpace & ".EPDUserProfiles, " & connNameSpace & ".Fee_Audit_2010 " & _
-                "where " & connNameSpace & ".Fee_Audit_2010.numManagerSignOff_04 = " & connNameSpace & ".EPDUserProfiles.numUserID " & _
+                "from " & DBNameSpace & ".EPDUserProfiles, " & DBNameSpace & ".Fee_Audit_2010 " & _
+                "where " & DBNameSpace & ".Fee_Audit_2010.numManagerSignOff_04 = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
                 "and numAuditID = '" & txtAuditID.Text & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -6301,7 +6301,7 @@ Public Class IAIPFeeAuditTool
                 End If
 
                 If txtAuditID.Text <> "" Then
-                    SQL = "Update " & connNameSpace & ".Fee_Audit_2010 set " & _
+                    SQL = "Update " & DBNameSpace & ".Fee_Audit_2010 set " & _
                     "datInitialLetterMailed_03 = '" & InitialLetter & "', " & _
                     "datLetterReturned_03 = '" & LetterReturned & "', " & _
                     "strAddressUnknown_03 = '" & AddressUnknown & "', " & _
@@ -6320,14 +6320,14 @@ Public Class IAIPFeeAuditTool
                     "datLastModified_03 = '" & OracleDate & "' " & _
                     "where numAuditId = '" & txtAuditID.Text & "' "
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
                 Else
-                    SQL = "Insert into " & connNameSpace & ".Fee_Audit_2010 " & _
+                    SQL = "Insert into " & DBNameSpace & ".Fee_Audit_2010 " & _
                     "(numAuditID, strAIRSNumber, " & _
                     "datInitialLetterMailed_03, datLetterReturned_03, " & _
                     "strAddressUnknown_03, datInitialLetterRemailed_03, " & _
@@ -6339,7 +6339,7 @@ Public Class IAIPFeeAuditTool
                     "datClosedOutFeeAudit_03, strComments_03,  " & _
                     "numStaffAssigned_03, datLastModified_03) " & _
                     "values " & _
-                    "((select (max(numAuditID) + 1) from " & connNameSpace & ".Fee_Audit_2010), " & _
+                    "((select (max(numAuditID) + 1) from " & DBNameSpace & ".Fee_Audit_2010), " & _
                     "'" & mtbAIRSNumber.Text & "', " & _
                     "'" & InitialLetter & "', '" & LetterReturned & "', " & _
                     "'" & AddressUnknown & "', '" & LetterRemailed & "', " & _
@@ -6351,20 +6351,20 @@ Public Class IAIPFeeAuditTool
                     "'" & ClosedOut & "', '" & Comments & "', " & _
                     "'" & UserGCode & "', '" & OracleDate & "') "
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
 
                     SQL = "Select " & _
                     "numAuditID " & _
-                    "from " & connNameSpace & ".Fee_Audit_2010 " & _
+                    "from " & DBNameSpace & ".Fee_Audit_2010 " & _
                     "where strAIRSNumber = '" & mtbAIRSNumber.Text & "' "
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     While dr.Read
@@ -6390,13 +6390,13 @@ Public Class IAIPFeeAuditTool
     Private Sub btnManagerSignOff_CY2003_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnManagerSignOff_CY2003.Click
         Try
             If txtAuditID.Text <> "" Then
-                SQL = "Update " & connNameSpace & ".Fee_Audit_2010 set " & _
+                SQL = "Update " & DBNameSpace & ".Fee_Audit_2010 set " & _
                 "numManagerSignOff_03 = '" & UserGCode & "', " & _
                 "datManagerSignOff_03 = '" & OracleDate & "' " & _
                 "where numAuditID = '" & txtAuditID.Text & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -6404,13 +6404,13 @@ Public Class IAIPFeeAuditTool
                 SQL = "select " & _
                 "(strLastName|| ', ' ||strFirstName) as Staff, " & _
                 "datManagerSignOff_03 " & _
-                "from " & connNameSpace & ".EPDUserProfiles, " & connNameSpace & ".Fee_Audit_2010 " & _
-                "where " & connNameSpace & ".Fee_Audit_2010.numManagerSignOff_03 = " & connNameSpace & ".EPDUserProfiles.numUserID " & _
+                "from " & DBNameSpace & ".EPDUserProfiles, " & DBNameSpace & ".Fee_Audit_2010 " & _
+                "where " & DBNameSpace & ".Fee_Audit_2010.numManagerSignOff_03 = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
                 "and numAuditID = '" & txtAuditID.Text & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -6543,7 +6543,7 @@ Public Class IAIPFeeAuditTool
                 End If
 
                 If txtAuditID.Text <> "" Then
-                    SQL = "Update " & connNameSpace & ".Fee_Audit_2010 set " & _
+                    SQL = "Update " & DBNameSpace & ".Fee_Audit_2010 set " & _
                     "datInitialLetterMailed_02 = '" & InitialLetter & "', " & _
                     "datLetterReturned_02 = '" & LetterReturned & "', " & _
                     "strAddressUnknown_02 = '" & AddressUnknown & "', " & _
@@ -6562,14 +6562,14 @@ Public Class IAIPFeeAuditTool
                     "datLastModified_02 = '" & OracleDate & "' " & _
                     "where numAuditId = '" & txtAuditID.Text & "' "
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
                 Else
-                    SQL = "Insert into " & connNameSpace & ".Fee_Audit_2010 " & _
+                    SQL = "Insert into " & DBNameSpace & ".Fee_Audit_2010 " & _
                     "(numAuditID, strAIRSNumber, " & _
                     "datInitialLetterMailed_02, datLetterReturned_02, " & _
                     "strAddressUnknown_02, datInitialLetterRemailed_02, " & _
@@ -6581,7 +6581,7 @@ Public Class IAIPFeeAuditTool
                     "datClosedOutFeeAudit_02, strComments_02,  " & _
                     "numStaffAssigned_02, datLastModified_02) " & _
                     "values " & _
-                    "((select (max(numAuditID) + 1) from " & connNameSpace & ".Fee_Audit_2010), " & _
+                    "((select (max(numAuditID) + 1) from " & DBNameSpace & ".Fee_Audit_2010), " & _
                     "'" & mtbAIRSNumber.Text & "', " & _
                     "'" & InitialLetter & "', '" & LetterReturned & "', " & _
                     "'" & AddressUnknown & "', '" & LetterRemailed & "', " & _
@@ -6593,20 +6593,20 @@ Public Class IAIPFeeAuditTool
                     "'" & ClosedOut & "', '" & Comments & "', " & _
                     "'" & UserGCode & "', '" & OracleDate & "') "
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
 
                     SQL = "Select " & _
                     "numAuditID " & _
-                    "from " & connNameSpace & ".Fee_Audit_2010 " & _
+                    "from " & DBNameSpace & ".Fee_Audit_2010 " & _
                     "where strAIRSNumber = '" & mtbAIRSNumber.Text & "' "
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     While dr.Read
@@ -6630,13 +6630,13 @@ Public Class IAIPFeeAuditTool
     Private Sub btnManagerSignOff_CY2002_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnManagerSignOff_CY2002.Click
         Try
             If txtAuditID.Text <> "" Then
-                SQL = "Update " & connNameSpace & ".Fee_Audit_2010 set " & _
+                SQL = "Update " & DBNameSpace & ".Fee_Audit_2010 set " & _
                 "numManagerSignOff_02 = '" & UserGCode & "', " & _
                 "datManagerSignOff_02 = '" & OracleDate & "' " & _
                 "where numAuditID = '" & txtAuditID.Text & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -6644,13 +6644,13 @@ Public Class IAIPFeeAuditTool
                 SQL = "select " & _
                 "(strLastName|| ', ' ||strFirstName) as Staff, " & _
                 "datManagerSignOff_02 " & _
-                "from " & connNameSpace & ".EPDUserProfiles, " & connNameSpace & ".Fee_Audit_2010 " & _
-                "where " & connNameSpace & ".Fee_Audit_2010.numManagerSignOff_02 = " & connNameSpace & ".EPDUserProfiles.numUserID " & _
+                "from " & DBNameSpace & ".EPDUserProfiles, " & DBNameSpace & ".Fee_Audit_2010 " & _
+                "where " & DBNameSpace & ".Fee_Audit_2010.numManagerSignOff_02 = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
                 "and numAuditID = '" & txtAuditID.Text & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -6687,38 +6687,38 @@ Public Class IAIPFeeAuditTool
 
             If mtbAIRSNumber.Text <> "" And lblFacilityNameTop.Text <> "Facility Name: BAD AIRS #" Then
                 If txtAuditID.Text <> "" Then
-                    SQL = "Update " & connNameSpace & ".Fee_Audit_2010 set " & _
+                    SQL = "Update " & DBNameSpace & ".Fee_Audit_2010 set " & _
                    "strComments = '" & Replace(Comments, "'", "''") & "' " & _
                     "where numAuditId = '" & txtAuditID.Text & "' "
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
                 Else
-                    SQL = "Insert into " & connNameSpace & ".Fee_Audit_2010 " & _
+                    SQL = "Insert into " & DBNameSpace & ".Fee_Audit_2010 " & _
                     "(numAuditID, strAIRSNumber, " & _
                     "strComments) " & _
                     "values " & _
-                    "((select (max(numAuditID) + 1) from " & connNameSpace & ".Fee_Audit_2010), " & _
+                    "((select (max(numAuditID) + 1) from " & DBNameSpace & ".Fee_Audit_2010), " & _
                     "'" & Comments & "') "
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
 
                     SQL = "Select " & _
                     "numAuditID " & _
-                    "from " & connNameSpace & ".Fee_Audit_2010 " & _
+                    "from " & DBNameSpace & ".Fee_Audit_2010 " & _
                     "where strAIRSNumber = '" & mtbAIRSNumber.Text & "' "
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     While dr.Read
@@ -6919,15 +6919,15 @@ Public Class IAIPFeeAuditTool
 "STRTOTALPAID_06_EDIT, " & _
 "STR2006COMMENTS,  " & _
 "STRACTIVE " & _
-"from " & connNameSpace & ".Fee_nonResponders_2010, " & connNameSpace & ".EPDUSerProfiles " & _
-"where " & connNameSpace & ".Fee_NonResponders_2010.strStaffResponsible = " & connNameSpace & ".EPDUserProfiles.numUserID " & _
+"from " & DBNameSpace & ".Fee_nonResponders_2010, " & DBNameSpace & ".EPDUSerProfiles " & _
+"where " & DBNameSpace & ".Fee_NonResponders_2010.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
 SQLLine & _
 "order by STRAIRSnumber "
 
             ds = New DataSet
-            da = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            da = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             da.Fill(ds, "NonResponders")
             dgvFeeAuditReport.DataSource = ds
@@ -7374,19 +7374,19 @@ SQLLine & _
                 "from " & _
                 "(Select " & _
                 "* " & _
-                "from " & connNameSpace & ".Fee_Audit_2010  " & _
+                "from " & DBNameSpace & ".Fee_Audit_2010  " & _
                 "where Exists (select * " & _
-                "from " & connNameSpace & ".Fee_NonResponders_2010 " & _
-                "where " & connNameSpace & ".Fee_Audit_2010.strAIRSnumber = " & connNameSpace & ".Fee_NonResponders_2010.strAIRSnumber " & _
+                "from " & DBNameSpace & ".Fee_NonResponders_2010 " & _
+                "where " & DBNameSpace & ".Fee_Audit_2010.strAIRSnumber = " & DBNameSpace & ".Fee_NonResponders_2010.strAIRSnumber " & _
                  SQLLine & " ) " & _
                 "and numAuditID <> '0' " & _
                 "union " & _
                 "Select " & _
                 "* " & _
-                "from " & connNameSpace & ".Fee_Audit_2010  " & _
+                "from " & DBNameSpace & ".Fee_Audit_2010  " & _
                 "where Exists (select * " & _
-                "from " & connNameSpace & ".Fee_NonPayers_2010 " & _
-                "where " & connNameSpace & ".Fee_Audit_2010.strAIRSnumber = " & connNameSpace & ".Fee_NonPayers_2010.strAIRSnumber " & _
+                "from " & DBNameSpace & ".Fee_NonPayers_2010 " & _
+                "where " & DBNameSpace & ".Fee_Audit_2010.strAIRSnumber = " & DBNameSpace & ".Fee_NonPayers_2010.strAIRSnumber " & _
                 SQLLine & " ) " & _
                 "and numAuditID <> '0') " & _
                 SQLline2 & _
@@ -7394,9 +7394,9 @@ SQLLine & _
             End If
 
             ds = New DataSet
-            da = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            da = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             da.Fill(ds, "AuditData")
             dgvFeeAuditReport.DataSource = ds
@@ -7881,9 +7881,9 @@ SQLLine & _
 "order by strAIRSNumber "
 
             ds = New DataSet
-            da = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            da = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             da.Fill(ds, "NonPayers")
             dgvFeeAuditReport.DataSource = ds
@@ -8029,7 +8029,7 @@ SQLLine & _
             SQL = "Select distinct * from " & _
             "(Select distinct " & _
             "substr(strAIRSNumber, 5) as AIRSNumber, strContactEmail " & _
-            "from " & connNameSpace & ".APBContactInformation " & _
+            "from " & DBNameSpace & ".APBContactInformation " & _
             "where strContactEmail is not null " & _
             "and strContactEmail <> 'N/A' " & _
             "and Upper(strContactEmail) <> 'NO@EMAIL.COM' " & _
@@ -8039,15 +8039,15 @@ SQLLine & _
             "union " & _
             "Select distinct " & _
             "substr(strAIRSNumber, 5) as AIRSNumber, strContactEmail " & _
-            "from " & connNameSpace & ".FSContactInfo " & _
+            "from " & DBNameSpace & ".FSContactInfo " & _
             "where Upper(strContactEmail) not like '%N/A%' " & _
             "and Upper(strContactEmail) not like '%@DNR.STATE.GA.US%' " & _
             "AND (" & Mid(SQLLine, 1, SQLLine.Length - 3) & " )) "
 
             ds = New DataSet
-            da = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            da = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             da.Fill(ds, "Emails")
@@ -8088,12 +8088,12 @@ SQLLine & _
                 ActiveStatus = "True"
             End If
 
-            SQL = "Update " & connNameSpace & ".Fee_NonPayers_2010 set " & _
+            SQL = "Update " & DBNameSpace & ".Fee_NonPayers_2010 set " & _
             "strActive = '" & ActiveStatus & "' " & _
             "where numNonPayersID = '" & txtNonPayerID.Text & "' "
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -8111,11 +8111,11 @@ SQLLine & _
 
                 SQL = "Select " & _
                 "strFacilityName " & _
-                "from " & connNameSpace & ".APBFacilityInformation " & _
+                "from " & DBNameSpace & ".APBFacilityInformation " & _
                 "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -8148,12 +8148,12 @@ SQLLine & _
     End Sub
     Private Sub btnSaveNonPayerComments_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSaveNonPayerComments.Click
         Try
-            SQL = "Update " & connNameSpace & ".Fee_NonPayers_2010 set " & _
+            SQL = "Update " & DBNameSpace & ".Fee_NonPayers_2010 set " & _
             "strComments = '" & Replace(txtNonPayersComments.Text, "'", "''") & "' " & _
             "where numNonpayersId = '" & txtNonPayerID.Text & "' "
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -8190,7 +8190,7 @@ SQLLine & _
 
     Private Sub btnNonPayerSave_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNonPayerSave.Click
         Try
-            SQL = "Update " & connNameSpace & ".Fee_NonPayers_2010 set " & _
+            SQL = "Update " & DBNameSpace & ".Fee_NonPayers_2010 set " & _
             "strContactFirstName = '" & Replace(txtNonPayerFirstname.Text, "'", "''") & "', " & _
             "strContactLastname = '" & Replace(txtNonPayerLastName.Text, "'", "''") & "', " & _
             "strContactTitle = '" & Replace(txtNonPayerTitle.Text, "'", "''") & "', " & _
@@ -8203,9 +8203,9 @@ SQLLine & _
             "strContactZipCode = '" & Replace(mtbNonPayerZipCode.Text, "'", "''") & "' " & _
             "where strAIRSnumber = '" & Replace(mtbAIRSNumber.Text, "'", "''") & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -8220,10 +8220,10 @@ SQLLine & _
     Private Sub btnRunStats_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnRunStats.Click
         Try
             SQL = "select count(*) as TotalSent " & _
-            "from " & connNameSpace & ".Fee_Audit_2010 "
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            "from " & DBNameSpace & ".Fee_Audit_2010 "
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -8236,13 +8236,13 @@ SQLLine & _
             dr.Close()
 
             SQL = "select count(*) as NonPayerSent " & _
-            "from " & connNameSpace & ".Fee_Audit_2010 " & _
+            "from " & DBNameSpace & ".Fee_Audit_2010 " & _
             "where exists (select * " & _
-            "from " & connNameSpace & ".Fee_NonPayers_2010 " & _
-            "where " & connNameSpace & ".Fee_Audit_2010.strAIRSNumber = " & connNameSpace & ".Fee_NonPayers_2010.strAIRSNumber) "
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            "from " & DBNameSpace & ".Fee_NonPayers_2010 " & _
+            "where " & DBNameSpace & ".Fee_Audit_2010.strAIRSNumber = " & DBNameSpace & ".Fee_NonPayers_2010.strAIRSNumber) "
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -8255,13 +8255,13 @@ SQLLine & _
             dr.Close()
 
             SQL = "select count(*) as NonRespondersSent " & _
-           "from " & connNameSpace & ".Fee_Audit_2010 " & _
+           "from " & DBNameSpace & ".Fee_Audit_2010 " & _
            "where exists (select * " & _
-           "from " & connNameSpace & ".Fee_NonResponders_2010 " & _
-           "where " & connNameSpace & ".Fee_Audit_2010.strAIRSNumber = " & connNameSpace & ".Fee_NonResponders_2010.strAIRSNumber) "
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+           "from " & DBNameSpace & ".Fee_NonResponders_2010 " & _
+           "where " & DBNameSpace & ".Fee_Audit_2010.strAIRSNumber = " & DBNameSpace & ".Fee_NonResponders_2010.strAIRSNumber) "
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -8274,7 +8274,7 @@ SQLLine & _
             dr.Close()
 
             SQL = "select count(*) as NotResponding " & _
-            "from " & connNameSpace & ".Fee_Audit_2010 " & _
+            "from " & DBNameSpace & ".Fee_Audit_2010 " & _
             "where strUnableToContact_08 = 'True' " & _
             "or strUnableToContact_07 = 'True' " & _
             "or strUnableToContact_06 = 'True' " & _
@@ -8283,9 +8283,9 @@ SQLLine & _
             "or strUnableToContact_03 = 'True' " & _
             "or strUnableToContact_02 = 'True'  "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -8298,7 +8298,7 @@ SQLLine & _
             dr.Close()
 
             SQL = "select count(*) as ClosedAudits " & _
-            "from " & connNameSpace & ".Fee_Audit_2010 " & _
+            "from " & DBNameSpace & ".Fee_Audit_2010 " & _
             "where datClosedOutFeeAudit_08 is not NULL " & _
             "or datClosedOutFeeAudit_07 is not NULL " & _
             "or datClosedOutFeeAudit_06 is not NULL " & _
@@ -8309,7 +8309,7 @@ SQLLine & _
 
 
             SQL = "select count(*) as ClosedAudits  " & _
-            "from " & connNameSpace & ".Fee_Audit_2010  " & _
+            "from " & DBNameSpace & ".Fee_Audit_2010  " & _
             "where (datInitialLetterMailed_08 is null or " & _
             "(datInitialLetterMailed_08 is not null and datClosedOutFeeAudit_08 is not null)) " & _
             "and (datInitialLetterMailed_07 is null or " & _
@@ -8325,9 +8325,9 @@ SQLLine & _
             "and (datInitialLetterMailed_02 is null or " & _
             "(datInitialLetterMailed_02 is not null and datClosedOutFeeAudit_02 is not null))  "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -8350,9 +8350,9 @@ SQLLine & _
             "or datInitialLetterMailed_03 is not null and  datclosedoutfeeaudit_03 is null  " & _
             "or datInitialLetterMailed_02 is not null and  datclosedoutfeeaudit_02 is null ) "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read

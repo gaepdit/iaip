@@ -944,14 +944,14 @@ Public Class PASPFeeDeposits
             cboAirsNo.Items.Add("")
             cboFeeYear.Items.Add("")
 
-            SQL = "Select distinct strdepositno from " & connNameSpace & ".FSAddPaid " _
+            SQL = "Select distinct strdepositno from " & DBNameSpace & ".FSAddPaid " _
            + "order by strdepositno"
 
-            cmd = New OracleCommand(SQL, conn)
+            cmd = New OracleCommand(SQL, DBConn)
 
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
             Else
-                conn.Open()
+                DBConn.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -964,13 +964,13 @@ Public Class PASPFeeDeposits
             dr.Close()
 
             SQL2 = "Select distinct substr(strairsnumber, 5) as strairsnumber " _
-           + "from " & connNameSpace & ".FSAddPaid order by strairsnumber"
+           + "from " & DBNameSpace & ".FSAddPaid order by strairsnumber"
 
-            cmd2 = New OracleCommand(SQL2, conn)
+            cmd2 = New OracleCommand(SQL2, DBConn)
 
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
             Else
-                conn.Open()
+                DBConn.Open()
             End If
 
             dr2 = cmd2.ExecuteReader
@@ -983,14 +983,14 @@ Public Class PASPFeeDeposits
             dr2.Close()
 
             SQL3 = "Select paytype " & _
-            "from " & connNameSpace & ".FSPayType " & _
+            "from " & DBNameSpace & ".FSPayType " & _
             "order by paytype"
 
-            cmd3 = New OracleCommand(SQL3, conn)
+            cmd3 = New OracleCommand(SQL3, DBConn)
 
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
             Else
-                conn.Open()
+                DBConn.Open()
             End If
 
             dr3 = cmd3.ExecuteReader
@@ -1004,12 +1004,12 @@ Public Class PASPFeeDeposits
 
             SQL = "Select " & _
             "distinct(intYear) as intYear " & _
-            "from " & connNameSpace & ".FSAddPaid " & _
+            "from " & DBNameSpace & ".FSAddPaid " & _
             "order by intyear desc "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -1053,7 +1053,7 @@ Public Class PASPFeeDeposits
                 "strCheckNo, strBatchNo, " & _
                 "strPayType, intPayId, " & _
                 "strComments, strInvoiceNo " & _
-                "from " & connNameSpace & ".FSAddPaid " & _
+                "from " & DBNameSpace & ".FSAddPaid " & _
                 "where strDepositNo = '" & cboDepositNo.Text & "' " & _
                 "order by strBatchNo "
 
@@ -1066,7 +1066,7 @@ Public Class PASPFeeDeposits
                    "strCheckNo, strBatchNo, " & _
                    "strPayType, intPayId, " & _
                    "strComments, strInvoiceNo " & _
-                   "from " & connNameSpace & ".FSAddPaid " & _
+                   "from " & DBNameSpace & ".FSAddPaid " & _
                    "where strairsnumber = '0413" & cboAirsNo.Text & "' " & _
                    "order by strBatchNo "
                 Else
@@ -1079,7 +1079,7 @@ Public Class PASPFeeDeposits
                            "strCheckNo, strBatchNo, " & _
                            "strPayType, intPayId, " & _
                            "strComments, strInvoiceNo " & _
-                           "from " & connNameSpace & ".FSAddPaid " & _
+                           "from " & DBNameSpace & ".FSAddPaid " & _
                            "where intYear = '" & cboFeeYear.Text & "' " & _
                            "and strDepositNo is Not Null " & _
                            "order by strBatchNo "
@@ -1091,7 +1091,7 @@ Public Class PASPFeeDeposits
                            "strCheckNo, strBatchNo, " & _
                            "strPayType, intPayId, " & _
                            "strComments, strInvoiceNo " & _
-                           "from " & connNameSpace & ".FSAddPaid " & _
+                           "from " & DBNameSpace & ".FSAddPaid " & _
                            "where intYear = '" & cboFeeYear.Text & "' " & _
                            "order by strBatchNo "
                         End If
@@ -1102,9 +1102,9 @@ Public Class PASPFeeDeposits
             End If
 
             If SQL <> "" Then
-                daWorkEnTry = New OracleDataAdapter(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                daWorkEnTry = New OracleDataAdapter(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
 
                 daWorkEnTry.Fill(dsWorkEnTry, "tblWorkEnTry")
@@ -1269,20 +1269,20 @@ Public Class PASPFeeDeposits
 
             ValidateEntry()
 
-            SQL = "Insert into " & connNameSpace & ".FSAddPaid (strairsnumber, intyear, numpayment, " _
+            SQL = "Insert into " & DBNameSpace & ".FSAddPaid (strairsnumber, intyear, numpayment, " _
              + "datpaydate, strcheckno, strdepositno, strpaytype, strbatchno, " _
              + "strentryperson, strcomments, intpayid) values('0413" & mtbAirsNo.Text & "', " _
              + " " & CInt(txtYear.Text) & " ,  " & CDec(txtPayment.Text) & " , '" & txtDepositdate.Text & "', " _
              + "'" & txtCheckNo.Text & "', '" & txtDepositNo.Text & "', " _
              + "'" & cboPayType.Text & "', '" & txtbatchNo.Text & "', " _
-             + "'" & UserGCode & "', '" & Replace(txtComments.Text, "'", "''") & "', " & connNameSpace & ".seqfsdeposit.nextval)"
+             + "'" & UserGCode & "', '" & Replace(txtComments.Text, "'", "''") & "', " & DBNameSpace & ".seqfsdeposit.nextval)"
 
-            cmd = New OracleCommand(SQL, conn)
+            cmd = New OracleCommand(SQL, DBConn)
             cmd.CommandType = CommandType.Text
 
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
             Else
-                conn.Open()
+                DBConn.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -1355,7 +1355,7 @@ Public Class PASPFeeDeposits
 
         Try
 
-            SQL = "Update " & connNameSpace & ".FSAddPaid set strairsnumber = '0413" & mtbAirsNo.Text & "', " _
+            SQL = "Update " & DBNameSpace & ".FSAddPaid set strairsnumber = '0413" & mtbAirsNo.Text & "', " _
             + "datpaydate = '" & txtDepositdate.Text & "', " _
             + "numpayment = '" & CDec(txtPayment.Text) & "', " _
             + "strcheckno = '" & txtCheckNo.Text & "', " _
@@ -1367,12 +1367,12 @@ Public Class PASPFeeDeposits
             + "strentryperson = '" & UserGCode & "' " _
             + "where intpayid = '" & txtPayId.Text & "'"
 
-            cmd = New OracleCommand(SQL, conn)
+            cmd = New OracleCommand(SQL, DBConn)
             cmd.CommandType = CommandType.Text
 
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
             Else
-                conn.Open()
+                DBConn.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -1393,15 +1393,15 @@ Public Class PASPFeeDeposits
 
         Try
 
-            SQL = "Delete from " & connNameSpace & ".FSAddPaid " _
+            SQL = "Delete from " & DBNameSpace & ".FSAddPaid " _
             + "where intpayid = '" & txtPayId.Text & "'"
 
-            cmd = New OracleCommand(SQL, conn)
+            cmd = New OracleCommand(SQL, DBConn)
             cmd.CommandType = CommandType.Text
 
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
             Else
-                conn.Open()
+                DBConn.Open()
             End If
 
             dr = cmd.ExecuteReader

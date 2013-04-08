@@ -25,14 +25,14 @@ Public Class IAIPAFSCompare
 
             SQL = "Select " & _
             "strCountyCode, strCountyName " & _
-            "from " & connNameSpace & ".LookUpCountyInformation " & _
+            "from " & DBNameSpace & ".LookUpCountyInformation " & _
             "order by strCountyName "
 
             ds = New DataSet
-            da = New OracleDataAdapter(SQL, conn)
+            da = New OracleDataAdapter(SQL, DBConn)
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             da.Fill(ds, "County")
@@ -266,12 +266,12 @@ Public Class IAIPAFSCompare
                                 IAIPFacilityName = ""
 
                                 SQL = "Select strFacilityName  " & _
-                                "from " & connNameSpace & ".APBFacilityInformation " & _
+                                "from " & DBNameSpace & ".APBFacilityInformation " & _
                                 "where strAIRSNumber = '0413" & AIRSNumber & "' "
 
-                                cmd = New OracleCommand(SQL, conn)
-                                If conn.State = ConnectionState.Closed Then
-                                    conn.Open()
+                                cmd = New OracleCommand(SQL, DBConn)
+                                If DBConn.State = ConnectionState.Closed Then
+                                    DBConn.Open()
                                 End If
                                 dr = cmd.ExecuteReader
                                 While dr.Read
@@ -305,12 +305,12 @@ Public Class IAIPAFSCompare
 
                             SQL = "Select " & _
                             "strFacilityName " & _
-                            "from " & connNameSpace & ".APBFacilityInformation " & _
+                            "from " & DBNameSpace & ".APBFacilityInformation " & _
                             "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' "
 
-                            cmd = New OracleCommand(SQL, conn)
-                            If conn.State = ConnectionState.Closed Then
-                                conn.Open()
+                            cmd = New OracleCommand(SQL, DBConn)
+                            If DBConn.State = ConnectionState.Closed Then
+                                DBConn.Open()
                             End If
                             dr = cmd.ExecuteReader
                             While dr.Read
@@ -354,12 +354,12 @@ Public Class IAIPAFSCompare
                                 SQL = "Select " & _
                                 "substr(strAIRSNumber, 5) as AIRSNumber, " & _
                                 "strFacilityName " & _
-                                "from " & connNameSpace & ".APBFacilityInformation " & _
+                                "from " & DBNameSpace & ".APBFacilityInformation " & _
                                 "where strAIRSNumber like '0413" & county & "%' "
 
-                                cmd = New OracleCommand(SQL, conn)
-                                If conn.State = ConnectionState.Closed Then
-                                    conn.Open()
+                                cmd = New OracleCommand(SQL, DBConn)
+                                If DBConn.State = ConnectionState.Closed Then
+                                    DBConn.Open()
                                 End If
                                 dr = cmd.ExecuteReader
                                 While dr.Read
@@ -495,12 +495,12 @@ Public Class IAIPAFSCompare
                                 IAIPAddress = ""
 
                                 SQL = "Select strFacilityStreet1 " & _
-                                "from " & connNameSpace & ".APBFacilityInformation " & _
+                                "from " & DBNameSpace & ".APBFacilityInformation " & _
                                 "where strAIRSNumber = '0413" & AIRSNumber & "' "
 
-                                cmd = New OracleCommand(SQL, conn)
-                                If conn.State = ConnectionState.Closed Then
-                                    conn.Open()
+                                cmd = New OracleCommand(SQL, DBConn)
+                                If DBConn.State = ConnectionState.Closed Then
+                                    DBConn.Open()
                                 End If
                                 dr = cmd.ExecuteReader
                                 While dr.Read
@@ -534,12 +534,12 @@ Public Class IAIPAFSCompare
 
                             SQL = "Select " & _
                             "strFacilityStreet1 " & _
-                            "from " & connNameSpace & ".APBFacilityInformation " & _
+                            "from " & DBNameSpace & ".APBFacilityInformation " & _
                             "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' "
 
-                            cmd = New OracleCommand(SQL, conn)
-                            If conn.State = ConnectionState.Closed Then
-                                conn.Open()
+                            cmd = New OracleCommand(SQL, DBConn)
+                            If DBConn.State = ConnectionState.Closed Then
+                                DBConn.Open()
                             End If
                             dr = cmd.ExecuteReader
                             While dr.Read
@@ -583,12 +583,12 @@ Public Class IAIPAFSCompare
                                 SQL = "Select " & _
                                 "substr(strAIRSNumber, 5) as AIRSNumber, " & _
                                 "strFacilityStreet1 " & _
-                                "from " & connNameSpace & ".APBFacilityInformation " & _
+                                "from " & DBNameSpace & ".APBFacilityInformation " & _
                                 "where strAIRSNumber like '0413" & county & "%' "
 
-                                cmd = New OracleCommand(SQL, conn)
-                                If conn.State = ConnectionState.Closed Then
-                                    conn.Open()
+                                cmd = New OracleCommand(SQL, DBConn)
+                                If DBConn.State = ConnectionState.Closed Then
+                                    DBConn.Open()
                                 End If
                                 dr = cmd.ExecuteReader
                                 While dr.Read
@@ -705,12 +705,12 @@ Public Class IAIPAFSCompare
 
                                 SQL = "Select " & _
                                 "(strFacilityCity|| ' - '||strFacilityZipCode) as CityZip " & _
-                                "from " & connNameSpace & ".APBFacilityInformation  " & _
-                                "where " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = '0413" & AIRSNumber & "' "
+                                "from " & DBNameSpace & ".APBFacilityInformation  " & _
+                                "where " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = '0413" & AIRSNumber & "' "
 
-                                cmd = New OracleCommand(SQL, conn)
-                                If conn.State = ConnectionState.Closed Then
-                                    conn.Open()
+                                cmd = New OracleCommand(SQL, DBConn)
+                                If DBConn.State = ConnectionState.Closed Then
+                                    DBConn.Open()
                                 End If
                                 dr = cmd.ExecuteReader
                                 While dr.Read
@@ -744,12 +744,12 @@ Public Class IAIPAFSCompare
 
                             SQL = "Select " & _
                             "(strFacilityCity|| ' - '||strFacilityZipCode) as CityZip " & _
-                            "from " & connNameSpace & ".APBFacilityInformation  " & _
-                            "where " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' "
+                            "from " & DBNameSpace & ".APBFacilityInformation  " & _
+                            "where " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' "
 
-                            cmd = New OracleCommand(SQL, conn)
-                            If conn.State = ConnectionState.Closed Then
-                                conn.Open()
+                            cmd = New OracleCommand(SQL, DBConn)
+                            If DBConn.State = ConnectionState.Closed Then
+                                DBConn.Open()
                             End If
                             dr = cmd.ExecuteReader
                             While dr.Read
@@ -793,12 +793,12 @@ Public Class IAIPAFSCompare
                                 SQL = "Select " & _
                                 "substr(strAIRSNumber, 5) as AIRSNumber, " & _
                                 "(strFacilityCity|| ' - '||strFacilityZipCode) as CityZip " & _
-                                "from " & connNameSpace & ".APBFacilityInformation " & _
+                                "from " & DBNameSpace & ".APBFacilityInformation " & _
                                 "where strAIRSNumber like '0413" & county & "%' "
 
-                                cmd = New OracleCommand(SQL, conn)
-                                If conn.State = ConnectionState.Closed Then
-                                    conn.Open()
+                                cmd = New OracleCommand(SQL, DBConn)
+                                If DBConn.State = ConnectionState.Closed Then
+                                    DBConn.Open()
                                 End If
                                 dr = cmd.ExecuteReader
                                 While dr.Read
@@ -915,12 +915,12 @@ Public Class IAIPAFSCompare
 
                                 SQL = "Select " & _
                                 "strSICCode " & _
-                                "from " & connNameSpace & ".APBHeaderData  " & _
-                                "where " & connNameSpace & ".APBHeaderData.strAIRSNumber = '0413" & AIRSNumber & "' "
+                                "from " & DBNameSpace & ".APBHeaderData  " & _
+                                "where " & DBNameSpace & ".APBHeaderData.strAIRSNumber = '0413" & AIRSNumber & "' "
 
-                                cmd = New OracleCommand(SQL, conn)
-                                If conn.State = ConnectionState.Closed Then
-                                    conn.Open()
+                                cmd = New OracleCommand(SQL, DBConn)
+                                If DBConn.State = ConnectionState.Closed Then
+                                    DBConn.Open()
                                 End If
                                 dr = cmd.ExecuteReader
                                 While dr.Read
@@ -954,12 +954,12 @@ Public Class IAIPAFSCompare
 
                             SQL = "Select " & _
                             "strSICCode " & _
-                            "from " & connNameSpace & ".APBHeaderData  " & _
-                            "where " & connNameSpace & ".APBHeaderData.strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' "
+                            "from " & DBNameSpace & ".APBHeaderData  " & _
+                            "where " & DBNameSpace & ".APBHeaderData.strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' "
 
-                            cmd = New OracleCommand(SQL, conn)
-                            If conn.State = ConnectionState.Closed Then
-                                conn.Open()
+                            cmd = New OracleCommand(SQL, DBConn)
+                            If DBConn.State = ConnectionState.Closed Then
+                                DBConn.Open()
                             End If
                             dr = cmd.ExecuteReader
                             While dr.Read
@@ -1003,12 +1003,12 @@ Public Class IAIPAFSCompare
                                 SQL = "Select " & _
                                 "substr(strAIRSNumber, 5) as AIRSNumber, " & _
                                 "strSICCode " & _
-                                "from " & connNameSpace & ".APBHeaderData " & _
+                                "from " & DBNameSpace & ".APBHeaderData " & _
                                 "where strAIRSNumber like '0413" & county & "%' "
 
-                                cmd = New OracleCommand(SQL, conn)
-                                If conn.State = ConnectionState.Closed Then
-                                    conn.Open()
+                                cmd = New OracleCommand(SQL, DBConn)
+                                If DBConn.State = ConnectionState.Closed Then
+                                    DBConn.Open()
                                 End If
                                 dr = cmd.ExecuteReader
                                 While dr.Read
@@ -1125,13 +1125,13 @@ Public Class IAIPAFSCompare
 
                                 SQL = "select " & _
                                 "(strContactFirstName||' '||strContactLastName|| ' - ' ||strContactPhoneNumber1) as Contact " & _
-                                "from " & connNameSpace & ".APBContactInformation " & _
-                                "where " & connNameSpace & ".APBContactInformation.strairsnumber = '0413" & AIRSNumber & "'  " & _
+                                "from " & DBNameSpace & ".APBContactInformation " & _
+                                "where " & DBNameSpace & ".APBContactInformation.strairsnumber = '0413" & AIRSNumber & "'  " & _
                                 "and strkey = '30'"
 
-                                cmd = New OracleCommand(SQL, conn)
-                                If conn.State = ConnectionState.Closed Then
-                                    conn.Open()
+                                cmd = New OracleCommand(SQL, DBConn)
+                                If DBConn.State = ConnectionState.Closed Then
+                                    DBConn.Open()
                                 End If
                                 dr = cmd.ExecuteReader
                                 While dr.Read
@@ -1165,13 +1165,13 @@ Public Class IAIPAFSCompare
 
                             SQL = "select " & _
                             "(strContactFirstName||' '||strContactLastName|| ' - ' ||strContactPhoneNumber1) as Contact " & _
-                            "from " & connNameSpace & ".APBContactInformation " & _
-                            "where " & connNameSpace & ".APBContactInformation.strairsnumber = '0413" & mtbAIRSNumber.Text & "'  " & _
+                            "from " & DBNameSpace & ".APBContactInformation " & _
+                            "where " & DBNameSpace & ".APBContactInformation.strairsnumber = '0413" & mtbAIRSNumber.Text & "'  " & _
                             "and strkey = '30'"
 
-                            cmd = New OracleCommand(SQL, conn)
-                            If conn.State = ConnectionState.Closed Then
-                                conn.Open()
+                            cmd = New OracleCommand(SQL, DBConn)
+                            If DBConn.State = ConnectionState.Closed Then
+                                DBConn.Open()
                             End If
                             dr = cmd.ExecuteReader
                             While dr.Read
@@ -1215,13 +1215,13 @@ Public Class IAIPAFSCompare
                                 SQL = "select " & _
                                 "substr(strAIRSNumber, 5) as AIRSNumber, " & _
                                 "(strContactFirstName||' '||strContactLastName|| ' - ' ||strContactPhoneNumber1) as Contact " & _
-                                "from " & connNameSpace & ".APBContactInformation " & _
-                                "where " & connNameSpace & ".APBContactInformation.strairsnumber like '0413" & county & "%' " & _
+                                "from " & DBNameSpace & ".APBContactInformation " & _
+                                "where " & DBNameSpace & ".APBContactInformation.strairsnumber like '0413" & county & "%' " & _
                                 "and strkey = '30'"
 
-                                cmd = New OracleCommand(SQL, conn)
-                                If conn.State = ConnectionState.Closed Then
-                                    conn.Open()
+                                cmd = New OracleCommand(SQL, DBConn)
+                                If DBConn.State = ConnectionState.Closed Then
+                                    DBConn.Open()
                                 End If
                                 dr = cmd.ExecuteReader
                                 While dr.Read
@@ -1337,13 +1337,13 @@ Public Class IAIPAFSCompare
                                 SQL = "select " & _
                                 "distinct(substr(strAirPollutantKey, 13, 1)) as AirCode, " & _
                                 "strOperationalStatus " & _
-                                "from " & connNameSpace & ".APBAirProgramPollutants " & _
+                                "from " & DBNameSpace & ".APBAirProgramPollutants " & _
                                 "where strAIRSNumber = '0413" & AIRSNumber & "' " & _
                                 "and substr(strAirPollutantKey, 13, 1) = '" & Mid(DefaultText, 14, 1) & "'  "
 
-                                cmd = New OracleCommand(SQL, conn)
-                                If conn.State = ConnectionState.Closed Then
-                                    conn.Open()
+                                cmd = New OracleCommand(SQL, DBConn)
+                                If DBConn.State = ConnectionState.Closed Then
+                                    DBConn.Open()
                                 End If
                                 dr = cmd.ExecuteReader
                                 While dr.Read
@@ -1383,12 +1383,12 @@ Public Class IAIPAFSCompare
                             SQL = "select " & _
                             "distinct(substr(strAirPollutantKey, 13, 1)) as AirCode, " & _
                             "strOperationalStatus " & _
-                            "from " & connNameSpace & ".APBAirProgramPollutants " & _
+                            "from " & DBNameSpace & ".APBAirProgramPollutants " & _
                             "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' "
 
-                            cmd = New OracleCommand(SQL, conn)
-                            If conn.State = ConnectionState.Closed Then
-                                conn.Open()
+                            cmd = New OracleCommand(SQL, DBConn)
+                            If DBConn.State = ConnectionState.Closed Then
+                                DBConn.Open()
                             End If
                             dr = cmd.ExecuteReader
                             AIRSNumber = mtbAIRSNumber.Text
@@ -1472,12 +1472,12 @@ Public Class IAIPAFSCompare
                                 "distinct(substr(strAirPollutantKey, 13, 1)) as AirCode, " & _
                                 "strOperationalStatus, " & _
                                 "substr(strAIRSNumber, 5) as AIRSNumber " & _
-                                "from " & connNameSpace & ".APBAirProgramPollutants " & _
+                                "from " & DBNameSpace & ".APBAirProgramPollutants " & _
                                 "where strAIRSNumber like '0413" & county & "%' "
 
-                                cmd = New OracleCommand(SQL, conn)
-                                If conn.State = ConnectionState.Closed Then
-                                    conn.Open()
+                                cmd = New OracleCommand(SQL, DBConn)
+                                If DBConn.State = ConnectionState.Closed Then
+                                    DBConn.Open()
                                 End If
                                 dr = cmd.ExecuteReader
                                 While dr.Read
@@ -1670,12 +1670,12 @@ Public Class IAIPAFSCompare
 
                                     SQL = "select " & _
                                     "strSubPart " & _
-                                    "from " & connNameSpace & ".APBSubPartData  " & _
+                                    "from " & DBNameSpace & ".APBSubPartData  " & _
                                     "where strsubpartkey = '0413" & AIRSNumber & "" & AFSAirCode & "' " & _
                                     "and (upper(strSubPart) = '" & RTrim(Mid(DefaultText, 16, 5).ToUpper) & "') "
-                                    cmd = New OracleCommand(SQL, conn)
-                                    If conn.State = ConnectionState.Closed Then
-                                        conn.Open()
+                                    cmd = New OracleCommand(SQL, DBConn)
+                                    If DBConn.State = ConnectionState.Closed Then
+                                        DBConn.Open()
                                     End If
                                     dr = cmd.ExecuteReader
                                     While dr.Read
@@ -1695,12 +1695,12 @@ Public Class IAIPAFSCompare
 
                                     SQL = "select " & _
                                     "strSubPart " & _
-                                    "from " & connNameSpace & ".APBSubPartData  " & _
+                                    "from " & DBNameSpace & ".APBSubPartData  " & _
                                     "where strsubpartkey = '0413" & AIRSNumber & "" & AFSAirCode & "' " & _
                                     "and (upper(strSubPart) = '" & RTrim(Mid(DefaultText, 21, 5).ToUpper) & "') "
-                                    cmd = New OracleCommand(SQL, conn)
-                                    If conn.State = ConnectionState.Closed Then
-                                        conn.Open()
+                                    cmd = New OracleCommand(SQL, DBConn)
+                                    If DBConn.State = ConnectionState.Closed Then
+                                        DBConn.Open()
                                     End If
                                     dr = cmd.ExecuteReader
                                     While dr.Read
@@ -1720,12 +1720,12 @@ Public Class IAIPAFSCompare
 
                                     SQL = "select " & _
                                     "strSubPart " & _
-                                    "from " & connNameSpace & ".APBSubPartData  " & _
+                                    "from " & DBNameSpace & ".APBSubPartData  " & _
                                     "where strsubpartkey = '0413" & AIRSNumber & "" & AFSAirCode & "' " & _
                                     "and (upper(strSubPart) = '" & RTrim(Mid(DefaultText, 26, 5).ToUpper) & "') "
-                                    cmd = New OracleCommand(SQL, conn)
-                                    If conn.State = ConnectionState.Closed Then
-                                        conn.Open()
+                                    cmd = New OracleCommand(SQL, DBConn)
+                                    If DBConn.State = ConnectionState.Closed Then
+                                        DBConn.Open()
                                     End If
                                     dr = cmd.ExecuteReader
                                     While dr.Read
@@ -1745,12 +1745,12 @@ Public Class IAIPAFSCompare
 
                                     SQL = "select " & _
                                     "strSubPart " & _
-                                    "from " & connNameSpace & ".APBSubPartData  " & _
+                                    "from " & DBNameSpace & ".APBSubPartData  " & _
                                     "where strsubpartkey = '0413" & AIRSNumber & "" & AFSAirCode & "' " & _
                                     "and (upper(strSubPart) = '" & RTrim(Mid(DefaultText, 31, 5).ToUpper) & "') "
-                                    cmd = New OracleCommand(SQL, conn)
-                                    If conn.State = ConnectionState.Closed Then
-                                        conn.Open()
+                                    cmd = New OracleCommand(SQL, DBConn)
+                                    If DBConn.State = ConnectionState.Closed Then
+                                        DBConn.Open()
                                     End If
                                     dr = cmd.ExecuteReader
                                     While dr.Read
@@ -1770,12 +1770,12 @@ Public Class IAIPAFSCompare
 
                                     SQL = "select " & _
                                     "strSubPart " & _
-                                    "from " & connNameSpace & ".APBSubPartData  " & _
+                                    "from " & DBNameSpace & ".APBSubPartData  " & _
                                     "where strsubpartkey = '0413" & AIRSNumber & "" & AFSAirCode & "' " & _
                                     "and (upper(strSubPart) = '" & RTrim(Mid(DefaultText, 36, 5).ToUpper) & "') "
-                                    cmd = New OracleCommand(SQL, conn)
-                                    If conn.State = ConnectionState.Closed Then
-                                        conn.Open()
+                                    cmd = New OracleCommand(SQL, DBConn)
+                                    If DBConn.State = ConnectionState.Closed Then
+                                        DBConn.Open()
                                     End If
                                     dr = cmd.ExecuteReader
                                     While dr.Read
@@ -1795,12 +1795,12 @@ Public Class IAIPAFSCompare
 
                                     SQL = "select " & _
                                     "strSubPart " & _
-                                    "from " & connNameSpace & ".APBSubPartData  " & _
+                                    "from " & DBNameSpace & ".APBSubPartData  " & _
                                     "where strsubpartkey = '0413" & AIRSNumber & "" & AFSAirCode & "' " & _
                                     "and (upper(strSubPart) = '" & RTrim(Mid(DefaultText, 41, 5).ToUpper) & "') "
-                                    cmd = New OracleCommand(SQL, conn)
-                                    If conn.State = ConnectionState.Closed Then
-                                        conn.Open()
+                                    cmd = New OracleCommand(SQL, DBConn)
+                                    If DBConn.State = ConnectionState.Closed Then
+                                        DBConn.Open()
                                     End If
                                     dr = cmd.ExecuteReader
                                     While dr.Read
@@ -1820,12 +1820,12 @@ Public Class IAIPAFSCompare
 
                                     SQL = "select " & _
                                     "strSubPart " & _
-                                    "from " & connNameSpace & ".APBSubPartData  " & _
+                                    "from " & DBNameSpace & ".APBSubPartData  " & _
                                     "where strsubpartkey = '0413" & AIRSNumber & "" & AFSAirCode & "' " & _
                                     "and (upper(strSubPart) = '" & RTrim(Mid(DefaultText, 46, 5).ToUpper) & "') "
-                                    cmd = New OracleCommand(SQL, conn)
-                                    If conn.State = ConnectionState.Closed Then
-                                        conn.Open()
+                                    cmd = New OracleCommand(SQL, DBConn)
+                                    If DBConn.State = ConnectionState.Closed Then
+                                        DBConn.Open()
                                     End If
                                     dr = cmd.ExecuteReader
                                     While dr.Read
@@ -1845,12 +1845,12 @@ Public Class IAIPAFSCompare
 
                                     SQL = "select " & _
                                     "strSubPart " & _
-                                    "from " & connNameSpace & ".APBSubPartData  " & _
+                                    "from " & DBNameSpace & ".APBSubPartData  " & _
                                     "where strsubpartkey = '0413" & AIRSNumber & "" & AFSAirCode & "' " & _
                                     "and (upper(strSubPart) = '" & RTrim(Mid(DefaultText, 51, 5).ToUpper) & "') "
-                                    cmd = New OracleCommand(SQL, conn)
-                                    If conn.State = ConnectionState.Closed Then
-                                        conn.Open()
+                                    cmd = New OracleCommand(SQL, DBConn)
+                                    If DBConn.State = ConnectionState.Closed Then
+                                        DBConn.Open()
                                     End If
                                     dr = cmd.ExecuteReader
                                     While dr.Read
@@ -1870,12 +1870,12 @@ Public Class IAIPAFSCompare
 
                                     SQL = "select " & _
                                     "strSubPart " & _
-                                    "from " & connNameSpace & ".APBSubPartData  " & _
+                                    "from " & DBNameSpace & ".APBSubPartData  " & _
                                     "where strsubpartkey = '0413" & AIRSNumber & "" & AFSAirCode & "' " & _
                                     "and (upper(strSubPart) = '" & RTrim(Mid(DefaultText, 56, 5).ToUpper) & "') "
-                                    cmd = New OracleCommand(SQL, conn)
-                                    If conn.State = ConnectionState.Closed Then
-                                        conn.Open()
+                                    cmd = New OracleCommand(SQL, DBConn)
+                                    If DBConn.State = ConnectionState.Closed Then
+                                        DBConn.Open()
                                     End If
                                     dr = cmd.ExecuteReader
                                     While dr.Read
@@ -1911,13 +1911,13 @@ Public Class IAIPAFSCompare
                             SQL = "select " & _
                             "substr(strSubPartKey, 13,1) as AirCode, " & _
                             "strSubPart " & _
-                            "from " & connNameSpace & ".APBSubPartData " & _
+                            "from " & DBNameSpace & ".APBSubPartData " & _
                             "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' " & _
                             "and substr(strSubPartKey, 13,1) <> '0' "
 
-                            cmd = New OracleCommand(SQL, conn)
-                            If conn.State = ConnectionState.Closed Then
-                                conn.Open()
+                            cmd = New OracleCommand(SQL, DBConn)
+                            If DBConn.State = ConnectionState.Closed Then
+                                DBConn.Open()
                             End If
                             dr = cmd.ExecuteReader
                             AIRSNumber = mtbAIRSNumber.Text
@@ -2157,7 +2157,7 @@ Public Class IAIPAFSCompare
                                 "substr(strAIRSNumber, 5) as AIRSNumber, " & _
                                 "substr(strSubPartKey, 13,1) as AirCode, " & _
                                 "strSubPart " & _
-                                "from " & connNameSpace & ".APBSubPartData " & _
+                                "from " & DBNameSpace & ".APBSubPartData " & _
                                 "where strAIRSNumber like '041312100129' " & _
                                 "and substr(strSubPartKey, 13,1) <> '0' "
 
@@ -2165,13 +2165,13 @@ Public Class IAIPAFSCompare
                                 "substr(strAIRSNumber, 5) as AIRSNumber, " & _
                                 "substr(strSubPartKey, 13,1) as AirCode, " & _
                                 "strSubPart " & _
-                                "from " & connNameSpace & ".APBSubPartData " & _
+                                "from " & DBNameSpace & ".APBSubPartData " & _
                                 "where strAIRSNumber like '0413" & county & "%' " & _
                                 "and substr(strSubPartKey, 13,1) <> '0' "
 
-                                cmd = New OracleCommand(SQL, conn)
-                                If conn.State = ConnectionState.Closed Then
-                                    conn.Open()
+                                cmd = New OracleCommand(SQL, DBConn)
+                                If DBConn.State = ConnectionState.Closed Then
+                                    DBConn.Open()
                                 End If
                                 dr = cmd.ExecuteReader
                                 While dr.Read
@@ -2564,12 +2564,12 @@ Public Class IAIPAFSCompare
                                     IAIPFacilityName = "NULL"
 
                                     SQL = "Select upper(strFacilityName) as strFacilityName " & _
-                                    "from " & connNameSpace & ".APBFacilityInformation " & _
+                                    "from " & DBNameSpace & ".APBFacilityInformation " & _
                                     "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' "
 
-                                    cmd = New OracleCommand(SQL, conn)
-                                    If conn.State = ConnectionState.Closed Then
-                                        conn.Open()
+                                    cmd = New OracleCommand(SQL, DBConn)
+                                    If DBConn.State = ConnectionState.Closed Then
+                                        DBConn.Open()
                                     End If
                                     dr = cmd.ExecuteReader
                                     While dr.Read
@@ -2606,13 +2606,13 @@ Public Class IAIPAFSCompare
                         SQL = "Select " & _
                         "substr(strAIRSNumber, 5) as strAIRSNumber, " & _
                         "upper(strFacilityName) as strFacilityName " & _
-                        "from " & connNameSpace & ".APBFacilityInformation " & _
+                        "from " & DBNameSpace & ".APBFacilityInformation " & _
                         "order by strAIRSNumber "
 
                         ds = New DataSet
-                        da = New OracleDataAdapter(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        da = New OracleDataAdapter(SQL, DBConn)
+                        If DBConn.State = ConnectionState.Closed Then
+                            DBConn.Open()
                         End If
                         da.Fill(ds, "FacilityCheck")
 
@@ -2842,11 +2842,11 @@ Public Class IAIPAFSCompare
                                         IAIPFacilityName = "NULL"
 
                                         SQL = "Select upper(strFacilityName) as strFacilityName " & _
-                                        "from " & connNameSpace & ".APBFacilityInformation " & _
+                                        "from " & DBNameSpace & ".APBFacilityInformation " & _
                                         "where strAIRSNumber = '0413" & AIRSNumber & "' "
-                                        cmd = New OracleCommand(SQL, conn)
-                                        If conn.State = ConnectionState.Closed Then
-                                            conn.Open()
+                                        cmd = New OracleCommand(SQL, DBConn)
+                                        If DBConn.State = ConnectionState.Closed Then
+                                            DBConn.Open()
                                         End If
                                         dr = cmd.ExecuteReader
                                         While dr.Read
@@ -2869,11 +2869,11 @@ Public Class IAIPAFSCompare
                                         IAIPFacilityAddress = "NULL"
 
                                         SQL = "Select upper(strFacilityStreet1) as strFacilityStreet1 " & _
-                                        "from " & connNameSpace & ".APBFacilityInformation " & _
+                                        "from " & DBNameSpace & ".APBFacilityInformation " & _
                                         "where strAIRSNumber = '0413" & AIRSNumber & "' "
-                                        cmd = New OracleCommand(SQL, conn)
-                                        If conn.State = ConnectionState.Closed Then
-                                            conn.Open()
+                                        cmd = New OracleCommand(SQL, DBConn)
+                                        If DBConn.State = ConnectionState.Closed Then
+                                            DBConn.Open()
                                         End If
                                         dr = cmd.ExecuteReader
                                         While dr.Read
@@ -2903,12 +2903,12 @@ Public Class IAIPAFSCompare
                                         "Upper(strFacilityCity) as strFacilityCity, " & _
                                         "Upper(strFacilityZipCode) as strFacilityZipCode, " & _
                                         "upper(strSICCode) as strSICCode " & _
-                                        "from " & connNameSpace & ".APBFacilityInformation, " & connNameSpace & ".APBHeaderData " & _
-                                        "where " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber " & _
-                                        "and " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = '0413" & AIRSNumber & "' "
-                                        cmd = New OracleCommand(SQL, conn)
-                                        If conn.State = ConnectionState.Closed Then
-                                            conn.Open()
+                                        "from " & DBNameSpace & ".APBFacilityInformation, " & DBNameSpace & ".APBHeaderData " & _
+                                        "where " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber " & _
+                                        "and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = '0413" & AIRSNumber & "' "
+                                        cmd = New OracleCommand(SQL, DBConn)
+                                        If DBConn.State = ConnectionState.Closed Then
+                                            DBConn.Open()
                                         End If
                                         dr = cmd.ExecuteReader
                                         While dr.Read
@@ -2964,14 +2964,14 @@ Public Class IAIPAFSCompare
                                         "upper(strContactFirstName||' '||strContactLastName) as strContactName,  " & _
                                         "strContactPhoneNumber1,  " & _
                                         "upper(strPlantDescription) as strPlantDescription  " & _
-                                        "from " & connNameSpace & ".APBContactInformation, " & connNameSpace & ".APBHeaderData  " & _
-                                        "where " & connNameSpace & ".apbcontactinformation.strAIRSNumber = " & connNameSpace & ".apbheaderdata.strairsnumber  " & _
-                                        "and " & connNameSpace & ".APBHeaderData.strairsnumber = '0413" & AIRSNumber & "'  " & _
+                                        "from " & DBNameSpace & ".APBContactInformation, " & DBNameSpace & ".APBHeaderData  " & _
+                                        "where " & DBNameSpace & ".apbcontactinformation.strAIRSNumber = " & DBNameSpace & ".apbheaderdata.strairsnumber  " & _
+                                        "and " & DBNameSpace & ".APBHeaderData.strairsnumber = '0413" & AIRSNumber & "'  " & _
                                         "and strkey = '30'"
 
-                                        cmd = New OracleCommand(SQL, conn)
-                                        If conn.State = ConnectionState.Closed Then
-                                            conn.Open()
+                                        cmd = New OracleCommand(SQL, DBConn)
+                                        If DBConn.State = ConnectionState.Closed Then
+                                            DBConn.Open()
                                         End If
                                         dr = cmd.ExecuteReader
                                         While dr.Read
@@ -3031,91 +3031,91 @@ Public Class IAIPAFSCompare
                                                 IAIPAirProgramCode = "0"
                                                 SQL = "select " & _
                                                 "strOperationalStatus  " & _
-                                                "from " & connNameSpace & ".APBHeaderData  " & _
+                                                "from " & DBNameSpace & ".APBHeaderData  " & _
                                                 "where strAIRSNumber = '0413" & AIRSNumber & "' " & _
                                                 "and substr(strAirProgramCodes, 1, 1) = '1' "
                                             Case "1"
                                                 IAIPAirProgramCode = "1"
                                                 SQL = "select " & _
                                                 "strOperationalStatus  " & _
-                                                "from " & connNameSpace & ".APBHeaderData  " & _
+                                                "from " & DBNameSpace & ".APBHeaderData  " & _
                                                 "where strAIRSNumber = '0413" & AIRSNumber & "' " & _
                                                 "and substr(strAirProgramCodes, 2, 1) = '1' "
                                             Case "3"
                                                 IAIPAirProgramCode = "3"
                                                 SQL = "select " & _
                                                 "strOperationalStatus  " & _
-                                                "from " & connNameSpace & ".APBHeaderData  " & _
+                                                "from " & DBNameSpace & ".APBHeaderData  " & _
                                                 "where strAIRSNumber = '0413" & AIRSNumber & "' " & _
                                                 "and substr(strAirProgramCodes, 3, 1) = '1' "
                                             Case "4"
                                                 IAIPAirProgramCode = "4"
                                                 SQL = "select " & _
                                                 "strOperationalStatus  " & _
-                                                "from " & connNameSpace & ".APBHeaderData  " & _
+                                                "from " & DBNameSpace & ".APBHeaderData  " & _
                                                 "where strAIRSNumber = '0413" & AIRSNumber & "' " & _
                                                 "and substr(strAirProgramCodes, 4, 1) = '1' "
                                             Case "6"
                                                 IAIPAirProgramCode = "6"
                                                 SQL = "select " & _
                                                 "strOperationalStatus  " & _
-                                                "from " & connNameSpace & ".APBHeaderData  " & _
+                                                "from " & DBNameSpace & ".APBHeaderData  " & _
                                                 "where strAIRSNumber = '0413" & AIRSNumber & "' " & _
                                                 "and substr(strAirProgramCodes, 5, 1) = '1' "
                                             Case "7"
                                                 IAIPAirProgramCode = "7"
                                                 SQL = "select " & _
                                                 "strOperationalStatus  " & _
-                                                "from " & connNameSpace & ".APBHeaderData  " & _
+                                                "from " & DBNameSpace & ".APBHeaderData  " & _
                                                 "where strAIRSNumber = '0413" & AIRSNumber & "' " & _
                                                 "and substr(strAirProgramCodes, 6, 1) = '1' "
                                             Case "8"
                                                 IAIPAirProgramCode = "8"
                                                 SQL = "select " & _
                                                 "strOperationalStatus  " & _
-                                                "from " & connNameSpace & ".APBHeaderData  " & _
+                                                "from " & DBNameSpace & ".APBHeaderData  " & _
                                                 "where strAIRSNumber = '0413" & AIRSNumber & "' " & _
                                                 "and substr(strAirProgramCodes, 7, 1) = '1' "
                                             Case "9"
                                                 IAIPAirProgramCode = "9"
                                                 SQL = "select " & _
                                                 "strOperationalStatus  " & _
-                                                "from " & connNameSpace & ".APBHeaderData  " & _
+                                                "from " & DBNameSpace & ".APBHeaderData  " & _
                                                 "where strAIRSNumber = '0413" & AIRSNumber & "' " & _
                                                 "and substr(strAirProgramCodes, 8, 1) = '1' "
                                             Case "A"
                                                 IAIPAirProgramCode = "A"
                                                 SQL = "select " & _
                                                 "strOperationalStatus  " & _
-                                                "from " & connNameSpace & ".APBHeaderData  " & _
+                                                "from " & DBNameSpace & ".APBHeaderData  " & _
                                                 "where strAIRSNumber = '0413" & AIRSNumber & "' " & _
                                                 "and substr(strAirProgramCodes, 9, 1) = '1' "
                                             Case "F"
                                                 IAIPAirProgramCode = "F"
                                                 SQL = "select " & _
                                                 "strOperationalStatus  " & _
-                                                "from " & connNameSpace & ".APBHeaderData  " & _
+                                                "from " & DBNameSpace & ".APBHeaderData  " & _
                                                 "where strAIRSNumber = '0413" & AIRSNumber & "' " & _
                                                 "and substr(strAirProgramCodes, 10, 1) = '1' "
                                             Case "I"
                                                 IAIPAirProgramCode = "I"
                                                 SQL = "select " & _
                                                 "strOperationalStatus  " & _
-                                                "from " & connNameSpace & ".APBHeaderData  " & _
+                                                "from " & DBNameSpace & ".APBHeaderData  " & _
                                                 "where strAIRSNumber = '0413" & AIRSNumber & "' " & _
                                                 "and substr(strAirProgramCodes, 11, 1) = '1' "
                                             Case "M"
                                                 IAIPAirProgramCode = "M"
                                                 SQL = "select " & _
                                                 "strOperationalStatus  " & _
-                                                "from " & connNameSpace & ".APBHeaderData  " & _
+                                                "from " & DBNameSpace & ".APBHeaderData  " & _
                                                 "where strAIRSNumber = '0413" & AIRSNumber & "' " & _
                                                 "and substr(strAirProgramCodes, 12, 1) = '1' "
                                             Case "V"
                                                 IAIPAirProgramCode = "V"
                                                 SQL = "select " & _
                                                 "strOperationalStatus  " & _
-                                                "from " & connNameSpace & ".APBHeaderData  " & _
+                                                "from " & DBNameSpace & ".APBHeaderData  " & _
                                                 "where strAIRSNumber = '0413" & AIRSNumber & "' " & _
                                                 "and substr(strAirProgramCodes, 13, 1) = '1' "
                                             Case Else
@@ -3124,7 +3124,7 @@ Public Class IAIPAFSCompare
                                                 IAIPProgramStatus = "NULL"
                                         End Select
                                         If SQL <> "" Then
-                                            cmd = New OracleCommand(SQL, conn)
+                                            cmd = New OracleCommand(SQL, DBConn)
                                             dr = cmd.ExecuteReader
                                             While dr.Read
                                                 If IsDBNull(dr.Item("strOperationalStatus")) Then
@@ -3166,7 +3166,7 @@ Public Class IAIPAFSCompare
                                                 IAIPAirProgramCode = "0"
                                                 SQL = "select " & _
                                                 "distinct(strAIRSNumber) as subPartTest " & _
-                                                "from " & connNameSpace & ".APBSubPartData  " & _
+                                                "from " & DBNameSpace & ".APBSubPartData  " & _
                                                 "where strsubpartkey = '0413" & AIRSNumber & "0' " & _
                                                 "and (strSubPart = '" & SubPart1 & "' or strsubpart = '" & SubPart2 & "' " & _
                                                 "or strsubpart = '" & SubPart3 & "' or strsubpart = '" & SubPart4 & "' " & _
@@ -3177,7 +3177,7 @@ Public Class IAIPAFSCompare
                                                 IAIPAirProgramCode = "1"
                                                 SQL = "select " & _
                                                 "distinct(strAIRSNumber) as subPartTest " & _
-                                                "from " & connNameSpace & ".APBSubPartData  " & _
+                                                "from " & DBNameSpace & ".APBSubPartData  " & _
                                                 "where strsubpartkey = '0413" & AIRSNumber & "1' " & _
                                                 "and (strSubPart = '" & SubPart1 & "' or strsubpart = '" & SubPart2 & "' " & _
                                                 "or strsubpart = '" & SubPart3 & "' or strsubpart = '" & SubPart4 & "' " & _
@@ -3188,7 +3188,7 @@ Public Class IAIPAFSCompare
                                                 IAIPAirProgramCode = "3"
                                                 SQL = "select " & _
                                                 "distinct(strAIRSNumber) as subPartTest " & _
-                                                "from " & connNameSpace & ".APBSubPartData  " & _
+                                                "from " & DBNameSpace & ".APBSubPartData  " & _
                                                 "where strsubpartkey = '0413" & AIRSNumber & "3' " & _
                                                 "and (strSubPart = '" & SubPart1 & "' or strsubpart = '" & SubPart2 & "' " & _
                                                 "or strsubpart = '" & SubPart3 & "' or strsubpart = '" & SubPart4 & "' " & _
@@ -3199,7 +3199,7 @@ Public Class IAIPAFSCompare
                                                 IAIPAirProgramCode = "4"
                                                 SQL = "select " & _
                                                 "distinct(strAIRSNumber) as subPartTest " & _
-                                                "from " & connNameSpace & ".APBSubPartData  " & _
+                                                "from " & DBNameSpace & ".APBSubPartData  " & _
                                                 "where strsubpartkey = '0413" & AIRSNumber & "4' " & _
                                                 "and (strSubPart = '" & SubPart1 & "' or strsubpart = '" & SubPart2 & "' " & _
                                                 "or strsubpart = '" & SubPart3 & "' or strsubpart = '" & SubPart4 & "' " & _
@@ -3210,7 +3210,7 @@ Public Class IAIPAFSCompare
                                                 IAIPAirProgramCode = "6"
                                                 SQL = "select " & _
                                                 "distinct(strAIRSNumber) as subPartTest " & _
-                                                "from " & connNameSpace & ".APBSubPartData  " & _
+                                                "from " & DBNameSpace & ".APBSubPartData  " & _
                                                 "where strsubpartkey = '0413" & AIRSNumber & "6' " & _
                                                 "and (strSubPart = '" & SubPart1 & "' or strsubpart = '" & SubPart2 & "' " & _
                                                 "or strsubpart = '" & SubPart3 & "' or strsubpart = '" & SubPart4 & "' " & _
@@ -3221,7 +3221,7 @@ Public Class IAIPAFSCompare
                                                 IAIPAirProgramCode = "7"
                                                 SQL = "select " & _
                                                 "distinct(strAIRSNumber) as subPartTest " & _
-                                                "from " & connNameSpace & ".APBSubPartData  " & _
+                                                "from " & DBNameSpace & ".APBSubPartData  " & _
                                                 "where strsubpartkey = '0413" & AIRSNumber & "7' " & _
                                                 "and (strSubPart = '" & SubPart1 & "' or strsubpart = '" & SubPart2 & "' " & _
                                                 "or strsubpart = '" & SubPart3 & "' or strsubpart = '" & SubPart4 & "' " & _
@@ -3232,7 +3232,7 @@ Public Class IAIPAFSCompare
                                                 IAIPAirProgramCode = "8"
                                                 SQL = "select " & _
                                                 "distinct(strAIRSNumber) as subPartTest " & _
-                                                "from " & connNameSpace & ".APBSubPartData  " & _
+                                                "from " & DBNameSpace & ".APBSubPartData  " & _
                                                 "where strsubpartkey = '0413" & AIRSNumber & "8' " & _
                                                 "and (strSubPart = '" & SubPart1 & "' or strsubpart = '" & SubPart2 & "' " & _
                                                 "or strsubpart = '" & SubPart3 & "' or strsubpart = '" & SubPart4 & "' " & _
@@ -3243,7 +3243,7 @@ Public Class IAIPAFSCompare
                                                 IAIPAirProgramCode = "9"
                                                 SQL = "select " & _
                                                 "distinct(strAIRSNumber) as subPartTest " & _
-                                                "from " & connNameSpace & ".APBSubPartData  " & _
+                                                "from " & DBNameSpace & ".APBSubPartData  " & _
                                                 "where strsubpartkey = '0413" & AIRSNumber & "9' " & _
                                                 "and (strSubPart = '" & SubPart1 & "' or strsubpart = '" & SubPart2 & "' " & _
                                                 "or strsubpart = '" & SubPart3 & "' or strsubpart = '" & SubPart4 & "' " & _
@@ -3254,7 +3254,7 @@ Public Class IAIPAFSCompare
                                                 IAIPAirProgramCode = "A"
                                                 SQL = "select " & _
                                                 "distinct(strAIRSNumber) as subPartTest " & _
-                                                "from " & connNameSpace & ".APBSubPartData  " & _
+                                                "from " & DBNameSpace & ".APBSubPartData  " & _
                                                 "where strsubpartkey = '0413" & AIRSNumber & "A' " & _
                                                 "and (strSubPart = '" & SubPart1 & "' or strsubpart = '" & SubPart2 & "' " & _
                                                 "or strsubpart = '" & SubPart3 & "' or strsubpart = '" & SubPart4 & "' " & _
@@ -3265,7 +3265,7 @@ Public Class IAIPAFSCompare
                                                 IAIPAirProgramCode = "F"
                                                 SQL = "select " & _
                                                 "distinct(strAIRSNumber) as subPartTest " & _
-                                                "from " & connNameSpace & ".APBSubPartData  " & _
+                                                "from " & DBNameSpace & ".APBSubPartData  " & _
                                                 "where strsubpartkey = '0413" & AIRSNumber & "F' " & _
                                                 "and (strSubPart = '" & SubPart1 & "' or strsubpart = '" & SubPart2 & "' " & _
                                                 "or strsubpart = '" & SubPart3 & "' or strsubpart = '" & SubPart4 & "' " & _
@@ -3276,7 +3276,7 @@ Public Class IAIPAFSCompare
                                                 IAIPAirProgramCode = "I"
                                                 SQL = "select " & _
                                                 "distinct(strAIRSNumber) as subPartTest " & _
-                                                "from " & connNameSpace & ".APBSubPartData  " & _
+                                                "from " & DBNameSpace & ".APBSubPartData  " & _
                                                 "where strsubpartkey = '0413" & AIRSNumber & "I' " & _
                                                 "and (strSubPart = '" & SubPart1 & "' or strsubpart = '" & SubPart2 & "' " & _
                                                 "or strsubpart = '" & SubPart3 & "' or strsubpart = '" & SubPart4 & "' " & _
@@ -3287,7 +3287,7 @@ Public Class IAIPAFSCompare
                                                 IAIPAirProgramCode = "M"
                                                 SQL = "select " & _
                                                 "distinct(strAIRSNumber) as subPartTest " & _
-                                                "from " & connNameSpace & ".APBSubPartData  " & _
+                                                "from " & DBNameSpace & ".APBSubPartData  " & _
                                                 "where strsubpartkey = '0413" & AIRSNumber & "M' " & _
                                                 "and (strSubPart = '" & SubPart1 & "' or strsubpart = '" & SubPart2 & "' " & _
                                                 "or strsubpart = '" & SubPart3 & "' or strsubpart = '" & SubPart4 & "' " & _
@@ -3298,7 +3298,7 @@ Public Class IAIPAFSCompare
                                                 IAIPAirProgramCode = "V"
                                                 SQL = "select " & _
                                                 "distinct(strAIRSNumber) as subPartTest " & _
-                                                "from " & connNameSpace & ".APBSubPartData  " & _
+                                                "from " & DBNameSpace & ".APBSubPartData  " & _
                                                 "where strsubpartkey = '0413" & AIRSNumber & "V' " & _
                                                 "and (strSubPart = '" & SubPart1 & "' or strsubpart = '" & SubPart2 & "' " & _
                                                 "or strsubpart = '" & SubPart3 & "' or strsubpart = '" & SubPart4 & "' " & _
@@ -3310,9 +3310,9 @@ Public Class IAIPAFSCompare
                                                 IAIPAirProgramCode = "NULL"
                                         End Select
                                         If SQL <> "" Then
-                                            cmd = New OracleCommand(SQL, conn)
-                                            If conn.State = ConnectionState.Closed Then
-                                                conn.Open()
+                                            cmd = New OracleCommand(SQL, DBConn)
+                                            If DBConn.State = ConnectionState.Closed Then
+                                                DBConn.Open()
                                             End If
                                             dr = cmd.ExecuteReader
                                             While dr.Read
@@ -3357,91 +3357,91 @@ Public Class IAIPAFSCompare
                                                 IAIPAirProgramCode = "0"
                                                 SQL = "Select " & _
                                                 "strPollutantKey, strComplianceStatus " & _
-                                                "from " & connNameSpace & ".APBAirProgramPollutants " & _
+                                                "from " & DBNameSpace & ".APBAirProgramPollutants " & _
                                                 "where strAirPollutantKey = '0413" & AIRSNumber & "0' " & _
                                                 "and strPollutantKey = '" & Pollutant & "' "
                                             Case "1"
                                                 IAIPAirProgramCode = "1"
                                                 SQL = "Select " & _
                                                 "strPollutantKey, strComplianceStatus " & _
-                                                "from " & connNameSpace & ".APBAirProgramPollutants " & _
+                                                "from " & DBNameSpace & ".APBAirProgramPollutants " & _
                                                 "where strAirPollutantKey = '0413" & AIRSNumber & "1' " & _
                                                 "and strPollutantKey = '" & Pollutant & "' "
                                             Case "3"
                                                 IAIPAirProgramCode = "3"
                                                 SQL = "Select " & _
                                                 "strPollutantKey, strComplianceStatus " & _
-                                                "from " & connNameSpace & ".APBAirProgramPollutants " & _
+                                                "from " & DBNameSpace & ".APBAirProgramPollutants " & _
                                                 "where strAirPollutantKey = '0413" & AIRSNumber & "3' " & _
                                                 "and strPollutantKey = '" & Pollutant & "' "
                                             Case "4"
                                                 IAIPAirProgramCode = "4"
                                                 SQL = "Select " & _
                                                 "strPollutantKey, strComplianceStatus " & _
-                                                "from " & connNameSpace & ".APBAirProgramPollutants " & _
+                                                "from " & DBNameSpace & ".APBAirProgramPollutants " & _
                                                 "where strAirPollutantKey = '0413" & AIRSNumber & "4' " & _
                                                 "and strPollutantKey = '" & Pollutant & "' "
                                             Case "6"
                                                 IAIPAirProgramCode = "6"
                                                 SQL = "Select " & _
                                                 "strPollutantKey, strComplianceStatus " & _
-                                                "from " & connNameSpace & ".APBAirProgramPollutants " & _
+                                                "from " & DBNameSpace & ".APBAirProgramPollutants " & _
                                                 "where strAirPollutantKey = '0413" & AIRSNumber & "6' " & _
                                                 "and strPollutantKey = '" & Pollutant & "' "
                                             Case "7"
                                                 IAIPAirProgramCode = "7"
                                                 SQL = "Select " & _
                                                 "strPollutantKey, strComplianceStatus " & _
-                                                "from " & connNameSpace & ".APBAirProgramPollutants " & _
+                                                "from " & DBNameSpace & ".APBAirProgramPollutants " & _
                                                 "where strAirPollutantKey = '0413" & AIRSNumber & "7' " & _
                                                 "and strPollutantKey = '" & Pollutant & "' "
                                             Case "8"
                                                 IAIPAirProgramCode = "8"
                                                 SQL = "Select " & _
                                                 "strPollutantKey, strComplianceStatus " & _
-                                                "from " & connNameSpace & ".APBAirProgramPollutants " & _
+                                                "from " & DBNameSpace & ".APBAirProgramPollutants " & _
                                                 "where strAirPollutantKey = '0413" & AIRSNumber & "8' " & _
                                                 "and strPollutantKey = '" & Pollutant & "' "
                                             Case "9"
                                                 IAIPAirProgramCode = "9"
                                                 SQL = "Select " & _
                                                 "strPollutantKey, strComplianceStatus " & _
-                                                "from " & connNameSpace & ".APBAirProgramPollutants " & _
+                                                "from " & DBNameSpace & ".APBAirProgramPollutants " & _
                                                 "where strAirPollutantKey = '0413" & AIRSNumber & "9' " & _
                                                 "and strPollutantKey = '" & Pollutant & "' "
                                             Case "A"
                                                 IAIPAirProgramCode = "A"
                                                 SQL = "Select " & _
                                                 "strPollutantKey, strComplianceStatus " & _
-                                                "from " & connNameSpace & ".APBAirProgramPollutants " & _
+                                                "from " & DBNameSpace & ".APBAirProgramPollutants " & _
                                                 "where strAirPollutantKey = '0413" & AIRSNumber & "A' " & _
                                                 "and strPollutantKey = '" & Pollutant & "' "
                                             Case "F"
                                                 IAIPAirProgramCode = "F"
                                                 SQL = "Select " & _
                                                 "strPollutantKey, strComplianceStatus " & _
-                                                "from " & connNameSpace & ".APBAirProgramPollutants " & _
+                                                "from " & DBNameSpace & ".APBAirProgramPollutants " & _
                                                 "where strAirPollutantKey = '0413" & AIRSNumber & "F' " & _
                                                 "and strPollutantKey = '" & Pollutant & "' "
                                             Case "I"
                                                 IAIPAirProgramCode = "I"
                                                 SQL = "Select " & _
                                                 "strPollutantKey, strComplianceStatus " & _
-                                                "from " & connNameSpace & ".APBAirProgramPollutants " & _
+                                                "from " & DBNameSpace & ".APBAirProgramPollutants " & _
                                                 "where strAirPollutantKey = '0413" & AIRSNumber & "I' " & _
                                                 "and strPollutantKey = '" & Pollutant & "' "
                                             Case "M"
                                                 IAIPAirProgramCode = "M"
                                                 SQL = "Select " & _
                                                 "strPollutantKey, strComplianceStatus " & _
-                                                "from " & connNameSpace & ".APBAirProgramPollutants " & _
+                                                "from " & DBNameSpace & ".APBAirProgramPollutants " & _
                                                 "where strAirPollutantKey = '0413" & AIRSNumber & "M' " & _
                                                 "and strPollutantKey = '" & Pollutant & "' "
                                             Case "V"
                                                 IAIPAirProgramCode = "V"
                                                 SQL = "Select " & _
                                                 "strPollutantKey, strComplianceStatus " & _
-                                                "from " & connNameSpace & ".APBAirProgramPollutants " & _
+                                                "from " & DBNameSpace & ".APBAirProgramPollutants " & _
                                                 "where strAirPollutantKey = '0413" & AIRSNumber & "V' " & _
                                                 "and strPollutantKey = '" & Pollutant & "' "
                                             Case Else
@@ -3450,9 +3450,9 @@ Public Class IAIPAFSCompare
                                         End Select
 
                                         If SQL <> "" Then
-                                            cmd = New OracleCommand(SQL, conn)
-                                            If conn.State = ConnectionState.Closed Then
-                                                conn.Open()
+                                            cmd = New OracleCommand(SQL, DBConn)
+                                            If DBConn.State = ConnectionState.Closed Then
+                                                DBConn.Open()
                                             End If
                                             dr = cmd.ExecuteReader
                                             While dr.Read
@@ -3472,12 +3472,12 @@ Public Class IAIPAFSCompare
                                             SQL = "Select " & _
                                             "strClass, strAttainmentStatus, " & _
                                             "strSICCode " & _
-                                            "from " & connNameSpace & ".APBHeaderData " & _
+                                            "from " & DBNameSpace & ".APBHeaderData " & _
                                             "where strAIRSNumber = '0413" & AIRSNumber & "' "
 
-                                            cmd = New OracleCommand(SQL, conn)
-                                            If conn.State = ConnectionState.Closed Then
-                                                conn.Open()
+                                            cmd = New OracleCommand(SQL, DBConn)
+                                            If DBConn.State = ConnectionState.Closed Then
+                                                DBConn.Open()
                                             End If
                                             dr = cmd.ExecuteReader
                                             While dr.Read
@@ -3580,13 +3580,13 @@ Public Class IAIPAFSCompare
                                                 "end ResultCode, " & _
                                                 "'0000000' as PenaltyAmount, " & _
                                                 "'  ' as Pollutant " & _
-                                                "from " & connNameSpace & ".AFSSSCPFCERecords, " & connNameSpace & ".SSCPFCEMaster, " & _
-                                                "" & connNameSpace & ".APBHeaderData, " & connNameSpace & ".SSCPFCE  " & _
-                                                "where " & connNameSpace & ".AFSSSCPFCERecords.strFCENumber = " & connNameSpace & ".SSCPFCEMaster.StrFCENumber " & _
-                                                "and " & connNameSpace & ".SSCPFCEMaster.strFCENumber = " & connNameSpace & ".SSCPFCE.strFCENumber " & _
-                                                "and " & connNameSpace & ".SSCPFCEMaster.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber " & _
+                                                "from " & DBNameSpace & ".AFSSSCPFCERecords, " & DBNameSpace & ".SSCPFCEMaster, " & _
+                                                "" & DBNameSpace & ".APBHeaderData, " & DBNameSpace & ".SSCPFCE  " & _
+                                                "where " & DBNameSpace & ".AFSSSCPFCERecords.strFCENumber = " & DBNameSpace & ".SSCPFCEMaster.StrFCENumber " & _
+                                                "and " & DBNameSpace & ".SSCPFCEMaster.strFCENumber = " & DBNameSpace & ".SSCPFCE.strFCENumber " & _
+                                                "and " & DBNameSpace & ".SSCPFCEMaster.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber " & _
                                                 "and strSiteInspection = 'True' " & _
-                                                "and " & connNameSpace & ".SSCPFCEMaster.strAIRSNumber = '0413" & AIRSNumber & "' " & _
+                                                "and " & DBNameSpace & ".SSCPFCEMaster.strAIRSNumber = '0413" & AIRSNumber & "' " & _
                                                 "and strAFSActionNumber  = '" & ActionNumber & "' "
                                             Case "FF"
                                                 SQL = "select " & _
@@ -3600,13 +3600,13 @@ Public Class IAIPAFSCompare
                                                 "end ResultCode, " & _
                                                 "'0000000' as PenaltyAmount, " & _
                                                 "'  ' as Pollutant " & _
-                                                "from " & connNameSpace & ".AFSSSCPFCERecords, " & connNameSpace & ".SSCPFCEMaster, " & _
-                                                "" & connNameSpace & ".APBHeaderData, " & connNameSpace & ".SSCPFCE  " & _
-                                                "where " & connNameSpace & ".AFSSSCPFCERecords.strFCENumber = " & connNameSpace & ".SSCPFCEMaster.StrFCENumber " & _
-                                                "and " & connNameSpace & ".SSCPFCEMaster.strFCENumber = " & connNameSpace & ".SSCPFCE.strFCENumber " & _
-                                                "and " & connNameSpace & ".SSCPFCEMaster.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber " & _
+                                                "from " & DBNameSpace & ".AFSSSCPFCERecords, " & DBNameSpace & ".SSCPFCEMaster, " & _
+                                                "" & DBNameSpace & ".APBHeaderData, " & DBNameSpace & ".SSCPFCE  " & _
+                                                "where " & DBNameSpace & ".AFSSSCPFCERecords.strFCENumber = " & DBNameSpace & ".SSCPFCEMaster.StrFCENumber " & _
+                                                "and " & DBNameSpace & ".SSCPFCEMaster.strFCENumber = " & DBNameSpace & ".SSCPFCE.strFCENumber " & _
+                                                "and " & DBNameSpace & ".SSCPFCEMaster.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber " & _
                                                 "and strSiteInspection <> 'True' " & _
-                                                "and " & connNameSpace & ".SSCPFCEMaster.strAIRSNumber = '0413" & AIRSNumber & "' " & _
+                                                "and " & DBNameSpace & ".SSCPFCEMaster.strAIRSNumber = '0413" & AIRSNumber & "' " & _
                                                 "and strAFSActionNumber  = '" & ActionNumber & "' "
                                             Case "37"
                                                 SQL = "select " & _
@@ -3617,11 +3617,11 @@ Public Class IAIPAFSCompare
                                                 "'01' as ResultCode, " & _
                                                 "'0000000' as PenaltyAmount, " & _
                                                 "'  ' as Pollutant " & _
-                                                "from " & connNameSpace & ".AFSSSCPRecords, " & connNameSpace & ".SSCPItemMaster, " & _
-                                                "" & connNameSpace & ".APBHeaderData " & _
-                                                "where " & connNameSpace & ".AFSSSCPRecords.strTrackingNumber = " & connNameSpace & ".SSCPItemMaster.strTrackingNumber " & _
-                                                "and " & connNameSpace & ".SSCPItemMaster.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber " & _
-                                                "and " & connNameSpace & ".SSCPItemMaster.strAIRSNumber = '0413" & AIRSNumber & "' " & _
+                                                "from " & DBNameSpace & ".AFSSSCPRecords, " & DBNameSpace & ".SSCPItemMaster, " & _
+                                                "" & DBNameSpace & ".APBHeaderData " & _
+                                                "where " & DBNameSpace & ".AFSSSCPRecords.strTrackingNumber = " & DBNameSpace & ".SSCPItemMaster.strTrackingNumber " & _
+                                                "and " & DBNameSpace & ".SSCPItemMaster.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber " & _
+                                                "and " & DBNameSpace & ".SSCPItemMaster.strAIRSNumber = '0413" & AIRSNumber & "' " & _
                                                 "and strAFSActionNumber  = '" & ActionNumber & "' "
                                             Case "27"
                                                 SQL = "select " & _
@@ -3632,11 +3632,11 @@ Public Class IAIPAFSCompare
                                                 "'01' as ResultCode, " & _
                                                 "'0000000' as PenaltyAmount, " & _
                                                 "'  ' as Pollutant " & _
-                                                "from " & connNameSpace & ".AFSSSCPRecords, " & connNameSpace & ".SSCPItemMaster, " & _
-                                                "" & connNameSpace & ".APBHeaderData " & _
-                                                "where " & connNameSpace & ".AFSSSCPRecords.strTrackingNumber = " & connNameSpace & ".SSCPItemMaster.strTrackingNumber " & _
-                                                "and " & connNameSpace & ".SSCPItemMaster.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber " & _
-                                                "and " & connNameSpace & ".SSCPItemMaster.strAIRSNumber = '0413" & AIRSNumber & "' " & _
+                                                "from " & DBNameSpace & ".AFSSSCPRecords, " & DBNameSpace & ".SSCPItemMaster, " & _
+                                                "" & DBNameSpace & ".APBHeaderData " & _
+                                                "where " & DBNameSpace & ".AFSSSCPRecords.strTrackingNumber = " & DBNameSpace & ".SSCPItemMaster.strTrackingNumber " & _
+                                                "and " & DBNameSpace & ".SSCPItemMaster.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber " & _
+                                                "and " & DBNameSpace & ".SSCPItemMaster.strAIRSNumber = '0413" & AIRSNumber & "' " & _
                                                 "and strAFSActionNumber  = '" & ActionNumber & "' "
                                             Case "SR"
                                                 SQL = "select " & _
@@ -3651,12 +3651,12 @@ Public Class IAIPAFSCompare
                                                 "end ResultCode, " & _
                                                 "'0000000' as PenaltyAmount, " & _
                                                 "'  ' as Pollutant " & _
-                                                "from " & connNameSpace & ".AFSSSCPRecords, " & connNameSpace & ".SSCPItemMaster, " & _
-                                                "" & connNameSpace & ".APBHeaderData, " & connNameSpace & ".SSCPEnforcementItems " & _
-                                                "where " & connNameSpace & ".AFSSSCPRecords.strTrackingNumber = " & connNameSpace & ".SSCPItemMaster.strTrackingNumber " & _
-                                                "and " & connNameSpace & ".SSCPItemMaster.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber " & _
-                                                "and " & connNameSpace & ".SSCPItemMaster.strTrackingNumber = " & connNameSpace & ".SSCPEnforcementItems.strTrackingNumber (+) " & _
-                                                "and " & connNameSpace & ".SSCPItemMaster.strAIRSNumber = '0413" & AIRSNumber & "' " & _
+                                                "from " & DBNameSpace & ".AFSSSCPRecords, " & DBNameSpace & ".SSCPItemMaster, " & _
+                                                "" & DBNameSpace & ".APBHeaderData, " & DBNameSpace & ".SSCPEnforcementItems " & _
+                                                "where " & DBNameSpace & ".AFSSSCPRecords.strTrackingNumber = " & DBNameSpace & ".SSCPItemMaster.strTrackingNumber " & _
+                                                "and " & DBNameSpace & ".SSCPItemMaster.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber " & _
+                                                "and " & DBNameSpace & ".SSCPItemMaster.strTrackingNumber = " & DBNameSpace & ".SSCPEnforcementItems.strTrackingNumber (+) " & _
+                                                "and " & DBNameSpace & ".SSCPItemMaster.strAIRSNumber = '0413" & AIRSNumber & "' " & _
                                                 "and strAFSActionNumber  = '" & ActionNumber & "' "
                                             Case "CS"
                                                 SQL = "select " & _
@@ -3667,11 +3667,11 @@ Public Class IAIPAFSCompare
                                                 "'  ' as ResultCode, " & _
                                                 "'       ' as PenaltyAmount, " & _
                                                 "'  ' as Pollutant " & _
-                                                "from " & connNameSpace & ".AFSSSCPRecords, " & connNameSpace & ".SSCPItemMaster, " & _
-                                                "" & connNameSpace & ".APBHeaderData " & _
-                                                "where " & connNameSpace & ".AFSSSCPRecords.strTrackingNumber = " & connNameSpace & ".SSCPItemMaster.strTrackingNumber " & _
-                                                "and " & connNameSpace & ".SSCPItemMaster.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber " & _
-                                                "and " & connNameSpace & ".SSCPItemMaster.strAIRSNumber = '0413" & AIRSNumber & "' " & _
+                                                "from " & DBNameSpace & ".AFSSSCPRecords, " & DBNameSpace & ".SSCPItemMaster, " & _
+                                                "" & DBNameSpace & ".APBHeaderData " & _
+                                                "where " & DBNameSpace & ".AFSSSCPRecords.strTrackingNumber = " & DBNameSpace & ".SSCPItemMaster.strTrackingNumber " & _
+                                                "and " & DBNameSpace & ".SSCPItemMaster.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber " & _
+                                                "and " & DBNameSpace & ".SSCPItemMaster.strAIRSNumber = '0413" & AIRSNumber & "' " & _
                                                 "and strAFSActionNumber  = '" & ActionNumber & "' "
                                             Case "04"
                                                 SQL = "select " & _
@@ -3682,14 +3682,14 @@ Public Class IAIPAFSCompare
                                                 "'01' as ResultCode, " & _
                                                 "'0000000' as PenaltyAmount, " & _
                                                 "'  ' as Pollutant " & _
-                                                "from " & connNameSpace & ".AFSSSCPEnforcementRecords, " & connNameSpace & ".SSCPEnforcementItems, " & _
-                                                "" & connNameSpace & ".APBHeaderData, " & connNameSpace & ".SSCPEnforcement " & _
-                                                "where " & connNameSpace & ".AFSSSCPEnforcementRecords.strEnforcementNumber = " _
-                                                                 & connNameSpace & ".SSCPEnforcementItems.strEnforcementNumber " & _
-                                                "and " & connNameSpace & ".SSCPEnforcementItems.strEnforcementNumber = " _
-                                                                 & connNameSpace & ".SSCPEnforcement.strEnforcementNumber  " & _
-                                                "and " & connNameSpace & ".SSCPEnforcementItems.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber " & _
-                                                "and " & connNameSpace & ".APBHeaderData.strAIRSNumber = '0413" & AIRSNumber & "' " & _
+                                                "from " & DBNameSpace & ".AFSSSCPEnforcementRecords, " & DBNameSpace & ".SSCPEnforcementItems, " & _
+                                                "" & DBNameSpace & ".APBHeaderData, " & DBNameSpace & ".SSCPEnforcement " & _
+                                                "where " & DBNameSpace & ".AFSSSCPEnforcementRecords.strEnforcementNumber = " _
+                                                                 & DBNameSpace & ".SSCPEnforcementItems.strEnforcementNumber " & _
+                                                "and " & DBNameSpace & ".SSCPEnforcementItems.strEnforcementNumber = " _
+                                                                 & DBNameSpace & ".SSCPEnforcement.strEnforcementNumber  " & _
+                                                "and " & DBNameSpace & ".SSCPEnforcementItems.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber " & _
+                                                "and " & DBNameSpace & ".APBHeaderData.strAIRSNumber = '0413" & AIRSNumber & "' " & _
                                                 "and strAFSActionNumber = '" & ActionNumber & "' "
                                             Case "VZ"
                                                 SQL = "select " & _
@@ -3700,14 +3700,14 @@ Public Class IAIPAFSCompare
                                                 "'01' as ResultCode, " & _
                                                 "'0000000' as PenaltyAmount, " & _
                                                 "'  ' as Pollutant " & _
-                                                "from " & connNameSpace & ".AFSSSCPEnforcementRecords, " & connNameSpace & ".SSCPEnforcementItems, " & _
-                                                "" & connNameSpace & ".APBHeaderData, " & connNameSpace & ".SSCPEnforcement " & _
-                                                "where " & connNameSpace & ".AFSSSCPEnforcementRecords.strEnforcementNumber = " _
-                                                                 & connNameSpace & ".SSCPEnforcementItems.strEnforcementNumber " & _
-                                                "and " & connNameSpace & ".SSCPEnforcementItems.strEnforcementNumber = " _
-                                                                 & connNameSpace & ".SSCPEnforcement.strEnforcementNumber  " & _
-                                                "and " & connNameSpace & ".SSCPEnforcementItems.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber " & _
-                                                "and " & connNameSpace & ".APBHeaderData.strAIRSNumber = '0413" & AIRSNumber & "' " & _
+                                                "from " & DBNameSpace & ".AFSSSCPEnforcementRecords, " & DBNameSpace & ".SSCPEnforcementItems, " & _
+                                                "" & DBNameSpace & ".APBHeaderData, " & DBNameSpace & ".SSCPEnforcement " & _
+                                                "where " & DBNameSpace & ".AFSSSCPEnforcementRecords.strEnforcementNumber = " _
+                                                                 & DBNameSpace & ".SSCPEnforcementItems.strEnforcementNumber " & _
+                                                "and " & DBNameSpace & ".SSCPEnforcementItems.strEnforcementNumber = " _
+                                                                 & DBNameSpace & ".SSCPEnforcement.strEnforcementNumber  " & _
+                                                "and " & DBNameSpace & ".SSCPEnforcementItems.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber " & _
+                                                "and " & DBNameSpace & ".APBHeaderData.strAIRSNumber = '0413" & AIRSNumber & "' " & _
                                                 "and strAFSActionNumber = '" & ActionNumber & "' "
                                             Case "56"
                                                 SQL = "select " & _
@@ -3718,14 +3718,14 @@ Public Class IAIPAFSCompare
                                                 "'  ' as ResultCode, " & _
                                                 "'0000000' as PenaltyAmount, " & _
                                                 "'  ' as Pollutant " & _
-                                                "from " & connNameSpace & ".AFSSSCPEnforcementRecords, " & connNameSpace & ".SSCPEnforcementItems, " & _
-                                                "" & connNameSpace & ".APBHeaderData, " & connNameSpace & ".SSCPEnforcement " & _
-                                                "where " & connNameSpace & ".AFSSSCPEnforcementRecords.strEnforcementNumber = " _
-                                                                 & connNameSpace & ".SSCPEnforcementItems.strEnforcementNumber " & _
-                                                "and " & connNameSpace & ".SSCPEnforcementItems.strEnforcementNumber = " _
-                                                                 & connNameSpace & ".SSCPEnforcement.strEnforcementNumber  " & _
-                                                "and " & connNameSpace & ".SSCPEnforcementItems.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber " & _
-                                                "and " & connNameSpace & ".APBHeaderData.strAIRSNumber = '0413" & AIRSNumber & "' " & _
+                                                "from " & DBNameSpace & ".AFSSSCPEnforcementRecords, " & DBNameSpace & ".SSCPEnforcementItems, " & _
+                                                "" & DBNameSpace & ".APBHeaderData, " & DBNameSpace & ".SSCPEnforcement " & _
+                                                "where " & DBNameSpace & ".AFSSSCPEnforcementRecords.strEnforcementNumber = " _
+                                                                 & DBNameSpace & ".SSCPEnforcementItems.strEnforcementNumber " & _
+                                                "and " & DBNameSpace & ".SSCPEnforcementItems.strEnforcementNumber = " _
+                                                                 & DBNameSpace & ".SSCPEnforcement.strEnforcementNumber  " & _
+                                                "and " & DBNameSpace & ".SSCPEnforcementItems.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber " & _
+                                                "and " & DBNameSpace & ".APBHeaderData.strAIRSNumber = '0413" & AIRSNumber & "' " & _
                                                 "and strAFSActionNumber = '" & ActionNumber & "' "
                                             Case "AW"
                                                 SQL = "select " & _
@@ -3736,14 +3736,14 @@ Public Class IAIPAFSCompare
                                                 "'  ' as ResultCode, " & _
                                                 "'0000000' as PenaltyAmount, " & _
                                                 "'  ' as Pollutant " & _
-                                                "from " & connNameSpace & ".AFSSSCPEnforcementRecords, " & connNameSpace & ".SSCPEnforcementItems, " & _
-                                                "" & connNameSpace & ".APBHeaderData, " & connNameSpace & ".SSCPEnforcement " & _
-                                                "where " & connNameSpace & ".AFSSSCPEnforcementRecords.strEnforcementNumber = " _
-                                                                 & connNameSpace & ".SSCPEnforcementItems.strEnforcementNumber " & _
-                                                "and " & connNameSpace & ".SSCPEnforcementItems.strEnforcementNumber = " _
-                                                                 & connNameSpace & ".SSCPEnforcement.strEnforcementNumber  " & _
-                                                "and " & connNameSpace & ".SSCPEnforcementItems.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber " & _
-                                                "and " & connNameSpace & ".APBHeaderData.strAIRSNumber = '0413" & AIRSNumber & "' " & _
+                                                "from " & DBNameSpace & ".AFSSSCPEnforcementRecords, " & DBNameSpace & ".SSCPEnforcementItems, " & _
+                                                "" & DBNameSpace & ".APBHeaderData, " & DBNameSpace & ".SSCPEnforcement " & _
+                                                "where " & DBNameSpace & ".AFSSSCPEnforcementRecords.strEnforcementNumber = " _
+                                                                 & DBNameSpace & ".SSCPEnforcementItems.strEnforcementNumber " & _
+                                                "and " & DBNameSpace & ".SSCPEnforcementItems.strEnforcementNumber = " _
+                                                                 & DBNameSpace & ".SSCPEnforcement.strEnforcementNumber  " & _
+                                                "and " & DBNameSpace & ".SSCPEnforcementItems.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber " & _
+                                                "and " & DBNameSpace & ".APBHeaderData.strAIRSNumber = '0413" & AIRSNumber & "' " & _
                                                 "and strAFSActionNumber = '" & ActionNumber & "' "
                                             Case "57"
                                                 SQL = "select " & _
@@ -3754,14 +3754,14 @@ Public Class IAIPAFSCompare
                                                 "'  ' as ResultCode, " & _
                                                 "'0000000' as PenaltyAmount, " & _
                                                 "'  ' as Pollutant " & _
-                                                "from " & connNameSpace & ".AFSSSCPEnforcementRecords, " & connNameSpace & ".SSCPEnforcementItems, " & _
-                                                "" & connNameSpace & ".APBHeaderData, " & connNameSpace & ".SSCPEnforcement " & _
-                                                "where " & connNameSpace & ".AFSSSCPEnforcementRecords.strEnforcementNumber = " _
-                                                                 & connNameSpace & ".SSCPEnforcementItems.strEnforcementNumber " & _
-                                                "and " & connNameSpace & ".SSCPEnforcementItems.strEnforcementNumber = " _
-                                                                 & connNameSpace & ".SSCPEnforcement.strEnforcementNumber  " & _
-                                                "and " & connNameSpace & ".SSCPEnforcementItems.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber " & _
-                                                "and " & connNameSpace & ".APBHeaderData.strAIRSNumber = '0413" & AIRSNumber & "' " & _
+                                                "from " & DBNameSpace & ".AFSSSCPEnforcementRecords, " & DBNameSpace & ".SSCPEnforcementItems, " & _
+                                                "" & DBNameSpace & ".APBHeaderData, " & DBNameSpace & ".SSCPEnforcement " & _
+                                                "where " & DBNameSpace & ".AFSSSCPEnforcementRecords.strEnforcementNumber = " _
+                                                                 & DBNameSpace & ".SSCPEnforcementItems.strEnforcementNumber " & _
+                                                "and " & DBNameSpace & ".SSCPEnforcementItems.strEnforcementNumber = " _
+                                                                 & DBNameSpace & ".SSCPEnforcement.strEnforcementNumber  " & _
+                                                "and " & DBNameSpace & ".SSCPEnforcementItems.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber " & _
+                                                "and " & DBNameSpace & ".APBHeaderData.strAIRSNumber = '0413" & AIRSNumber & "' " & _
                                                 "and strAFSActionNumber = '" & ActionNumber & "' "
                                             Case "X1"
                                                 SQL = "select " & _
@@ -3772,14 +3772,14 @@ Public Class IAIPAFSCompare
                                                 "'01' as ResultCode, " & _
                                                 "strCOPenaltyAmount as PenaltyAmount, " & _
                                                 "'  ' as Pollutant " & _
-                                                "from " & connNameSpace & ".AFSSSCPEnforcementRecords, " & connNameSpace & ".SSCPEnforcementItems, " & _
-                                                "" & connNameSpace & ".APBHeaderData, " & connNameSpace & ".SSCPEnforcement " & _
-                                                "where " & connNameSpace & ".AFSSSCPEnforcementRecords.strEnforcementNumber = " _
-                                                                 & connNameSpace & ".SSCPEnforcementItems.strEnforcementNumber " & _
-                                                "and " & connNameSpace & ".SSCPEnforcementItems.strEnforcementNumber = " _
-                                                                 & connNameSpace & ".SSCPEnforcement.strEnforcementNumber  " & _
-                                                "and " & connNameSpace & ".SSCPEnforcementItems.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber " & _
-                                                "and " & connNameSpace & ".APBHeaderData.strAIRSNumber = '0413" & AIRSNumber & "' " & _
+                                                "from " & DBNameSpace & ".AFSSSCPEnforcementRecords, " & DBNameSpace & ".SSCPEnforcementItems, " & _
+                                                "" & DBNameSpace & ".APBHeaderData, " & DBNameSpace & ".SSCPEnforcement " & _
+                                                "where " & DBNameSpace & ".AFSSSCPEnforcementRecords.strEnforcementNumber = " _
+                                                                 & DBNameSpace & ".SSCPEnforcementItems.strEnforcementNumber " & _
+                                                "and " & DBNameSpace & ".SSCPEnforcementItems.strEnforcementNumber = " _
+                                                                 & DBNameSpace & ".SSCPEnforcement.strEnforcementNumber  " & _
+                                                "and " & DBNameSpace & ".SSCPEnforcementItems.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber " & _
+                                                "and " & DBNameSpace & ".APBHeaderData.strAIRSNumber = '0413" & AIRSNumber & "' " & _
                                                 "and strAFSActionNumber = '" & ActionNumber & "' "
                                             Case "AS"
                                                 SQL = "select " & _
@@ -3790,35 +3790,35 @@ Public Class IAIPAFSCompare
                                                 "'  ' as ResultCode, " & _
                                                 "'0000000' as PenaltyAmount, " & _
                                                 "'  ' as Pollutant " & _
-                                                "from " & connNameSpace & ".AFSSSCPEnforcementRecords, " & connNameSpace & ".SSCPEnforcementItems, " & _
-                                                "" & connNameSpace & ".APBHeaderData, " & connNameSpace & ".SSCPEnforcement " & _
-                                                "where " & connNameSpace & ".AFSSSCPEnforcementRecords.strEnforcementNumber = " _
-                                                                 & connNameSpace & ".SSCPEnforcementItems.strEnforcementNumber " & _
-                                                "and " & connNameSpace & ".SSCPEnforcementItems.strEnforcementNumber = " _
-                                                                 & connNameSpace & ".SSCPEnforcement.strEnforcementNumber  " & _
-                                                "and " & connNameSpace & ".SSCPEnforcementItems.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber " & _
-                                                "and " & connNameSpace & ".APBHeaderData.strAIRSNumber = '0413" & AIRSNumber & "' " & _
+                                                "from " & DBNameSpace & ".AFSSSCPEnforcementRecords, " & DBNameSpace & ".SSCPEnforcementItems, " & _
+                                                "" & DBNameSpace & ".APBHeaderData, " & DBNameSpace & ".SSCPEnforcement " & _
+                                                "where " & DBNameSpace & ".AFSSSCPEnforcementRecords.strEnforcementNumber = " _
+                                                                 & DBNameSpace & ".SSCPEnforcementItems.strEnforcementNumber " & _
+                                                "and " & DBNameSpace & ".SSCPEnforcementItems.strEnforcementNumber = " _
+                                                                 & DBNameSpace & ".SSCPEnforcement.strEnforcementNumber  " & _
+                                                "and " & DBNameSpace & ".SSCPEnforcementItems.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber " & _
+                                                "and " & DBNameSpace & ".APBHeaderData.strAIRSNumber = '0413" & AIRSNumber & "' " & _
                                                 "and strAFSActionNumber = '" & ActionNumber & "' "
                                             Case "Z4"
                                                 SQL = "select " & _
                                                 "strAIRProgramCodes, " & _
                                                 "strAFSActionNumber, " & _
                                                 "'000000' as DateScheduled, " & _
-                                                "" & connNameSpace & ".SSCPEnforcementStipulated.datModifingDate as datCompleteDate, " & _
+                                                "" & DBNameSpace & ".SSCPEnforcementStipulated.datModifingDate as datCompleteDate, " & _
                                                 "'01' as ResultCode, " & _
-                                                "" & connNameSpace & ".SSCPEnforcementStipulated.strStipulatedPenalty as PenaltyAmount, " & _
+                                                "" & DBNameSpace & ".SSCPEnforcementStipulated.strStipulatedPenalty as PenaltyAmount, " & _
                                                 "'  ' as Pollutant " & _
-                                                "from " & connNameSpace & ".AFSSSCPEnforcementRecords, " & connNameSpace & ".SSCPEnforcementItems, " & _
-                                                "" & connNameSpace & ".APBHeaderData, " & connNameSpace & ".SSCPEnforcement, " & _
-                                                "" & connNameSpace & ".SSCPEnforcementStipulated " & _
-                                                "where " & connNameSpace & ".AFSSSCPEnforcementRecords.strEnforcementNumber = " _
-                                                                 & connNameSpace & ".SSCPEnforcementItems.strEnforcementNumber " & _
-                                                "and " & connNameSpace & ".SSCPEnforcementItems.strEnforcementNumber = " _
-                                                                 & connNameSpace & ".SSCPEnforcement.strEnforcementNumber  " & _
-                                                "and " & connNameSpace & ".SSCPEnforcementItems.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber " & _
-                                                "and " & connNameSpace & ".SSCPEnforcementITems.strEnforcementNumber = " _
-                                                                 & connNameSpace & ".SSCPEnforcementStipulated.strEnforcementNumber " & _
-                                                "and " & connNameSpace & ".APBHeaderData.strAIRSNumber = '0413" & AIRSNumber & "' " & _
+                                                "from " & DBNameSpace & ".AFSSSCPEnforcementRecords, " & DBNameSpace & ".SSCPEnforcementItems, " & _
+                                                "" & DBNameSpace & ".APBHeaderData, " & DBNameSpace & ".SSCPEnforcement, " & _
+                                                "" & DBNameSpace & ".SSCPEnforcementStipulated " & _
+                                                "where " & DBNameSpace & ".AFSSSCPEnforcementRecords.strEnforcementNumber = " _
+                                                                 & DBNameSpace & ".SSCPEnforcementItems.strEnforcementNumber " & _
+                                                "and " & DBNameSpace & ".SSCPEnforcementItems.strEnforcementNumber = " _
+                                                                 & DBNameSpace & ".SSCPEnforcement.strEnforcementNumber  " & _
+                                                "and " & DBNameSpace & ".SSCPEnforcementItems.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber " & _
+                                                "and " & DBNameSpace & ".SSCPEnforcementITems.strEnforcementNumber = " _
+                                                                 & DBNameSpace & ".SSCPEnforcementStipulated.strEnforcementNumber " & _
+                                                "and " & DBNameSpace & ".APBHeaderData.strAIRSNumber = '0413" & AIRSNumber & "' " & _
                                                 "and strAFSActionNumber = '" & ActionNumber & "' "
                                             Case "60"
                                                 SQL = "select " & _
@@ -3829,14 +3829,14 @@ Public Class IAIPAFSCompare
                                                 "'  ' as ResultCode, " & _
                                                 "'0000000' as PenaltyAmount, " & _
                                                 "'  ' as Pollutant " & _
-                                                "from " & connNameSpace & ".AFSSSCPEnforcementRecords, " & connNameSpace & ".SSCPEnforcementItems, " & _
-                                                "" & connNameSpace & ".APBHeaderData, " & connNameSpace & ".SSCPEnforcement " & _
-                                                "where " & connNameSpace & ".AFSSSCPEnforcementRecords.strEnforcementNumber = " _
-                                                                 & connNameSpace & ".SSCPEnforcementItems.strEnforcementNumber " & _
-                                                "and " & connNameSpace & ".SSCPEnforcementItems.strEnforcementNumber = " _
-                                                                 & connNameSpace & ".SSCPEnforcement.strEnforcementNumber  " & _
-                                                "and " & connNameSpace & ".SSCPEnforcementItems.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber " & _
-                                                "and " & connNameSpace & ".APBHeaderData.strAIRSNumber = '0413" & AIRSNumber & "' " & _
+                                                "from " & DBNameSpace & ".AFSSSCPEnforcementRecords, " & DBNameSpace & ".SSCPEnforcementItems, " & _
+                                                "" & DBNameSpace & ".APBHeaderData, " & DBNameSpace & ".SSCPEnforcement " & _
+                                                "where " & DBNameSpace & ".AFSSSCPEnforcementRecords.strEnforcementNumber = " _
+                                                                 & DBNameSpace & ".SSCPEnforcementItems.strEnforcementNumber " & _
+                                                "and " & DBNameSpace & ".SSCPEnforcementItems.strEnforcementNumber = " _
+                                                                 & DBNameSpace & ".SSCPEnforcement.strEnforcementNumber  " & _
+                                                "and " & DBNameSpace & ".SSCPEnforcementItems.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber " & _
+                                                "and " & DBNameSpace & ".APBHeaderData.strAIRSNumber = '0413" & AIRSNumber & "' " & _
                                                 "and strAFSActionNumber = '" & ActionNumber & "' "
                                             Case "64"
                                                 SQL = "select " & _
@@ -3847,14 +3847,14 @@ Public Class IAIPAFSCompare
                                                 "'  ' as ResultCode, " & _
                                                 "'0000000' as PenaltyAmount, " & _
                                                 "'  ' as Pollutant " & _
-                                                "from " & connNameSpace & ".AFSSSCPEnforcementRecords, " & connNameSpace & ".SSCPEnforcementItems, " & _
-                                                "" & connNameSpace & ".APBHeaderData, " & connNameSpace & ".SSCPEnforcement " & _
-                                                "where " & connNameSpace & ".AFSSSCPEnforcementRecords.strEnforcementNumber = " _
-                                                                 & connNameSpace & ".SSCPEnforcementItems.strEnforcementNumber " & _
-                                                "and " & connNameSpace & ".SSCPEnforcementItems.strEnforcementNumber = " _
-                                                                 & connNameSpace & ".SSCPEnforcement.strEnforcementNumber  " & _
-                                                "and " & connNameSpace & ".SSCPEnforcementItems.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber " & _
-                                                "and " & connNameSpace & ".APBHeaderData.strAIRSNumber = '0413" & AIRSNumber & "' " & _
+                                                "from " & DBNameSpace & ".AFSSSCPEnforcementRecords, " & DBNameSpace & ".SSCPEnforcementItems, " & _
+                                                "" & DBNameSpace & ".APBHeaderData, " & DBNameSpace & ".SSCPEnforcement " & _
+                                                "where " & DBNameSpace & ".AFSSSCPEnforcementRecords.strEnforcementNumber = " _
+                                                                 & DBNameSpace & ".SSCPEnforcementItems.strEnforcementNumber " & _
+                                                "and " & DBNameSpace & ".SSCPEnforcementItems.strEnforcementNumber = " _
+                                                                 & DBNameSpace & ".SSCPEnforcement.strEnforcementNumber  " & _
+                                                "and " & DBNameSpace & ".SSCPEnforcementItems.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber " & _
+                                                "and " & DBNameSpace & ".APBHeaderData.strAIRSNumber = '0413" & AIRSNumber & "' " & _
                                                 "and strAFSActionNumber = '" & ActionNumber & "' "
                                             Case "XX"
                                                 SQL = "select " & _
@@ -3865,14 +3865,14 @@ Public Class IAIPAFSCompare
                                                 "'  ' as ResultCode, " & _
                                                 "'0000000' as PenaltyAmount, " & _
                                                 "'  ' as Pollutant " & _
-                                                "from " & connNameSpace & ".AFSSSCPEnforcementRecords, " & connNameSpace & ".SSCPEnforcementItems, " & _
-                                                "" & connNameSpace & ".APBHeaderData, " & connNameSpace & ".SSCPEnforcement " & _
-                                                "where " & connNameSpace & ".AFSSSCPEnforcementRecords.strEnforcementNumber = " _
-                                                                 & connNameSpace & ".SSCPEnforcementItems.strEnforcementNumber " & _
-                                                "and " & connNameSpace & ".SSCPEnforcementItems.strEnforcementNumber = " _
-                                                                 & connNameSpace & ".SSCPEnforcement.strEnforcementNumber  " & _
-                                                "and " & connNameSpace & ".SSCPEnforcementItems.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber " & _
-                                                "and " & connNameSpace & ".APBHeaderData.strAIRSNumber = '0413" & AIRSNumber & "' " & _
+                                                "from " & DBNameSpace & ".AFSSSCPEnforcementRecords, " & DBNameSpace & ".SSCPEnforcementItems, " & _
+                                                "" & DBNameSpace & ".APBHeaderData, " & DBNameSpace & ".SSCPEnforcement " & _
+                                                "where " & DBNameSpace & ".AFSSSCPEnforcementRecords.strEnforcementNumber = " _
+                                                                 & DBNameSpace & ".SSCPEnforcementItems.strEnforcementNumber " & _
+                                                "and " & DBNameSpace & ".SSCPEnforcementItems.strEnforcementNumber = " _
+                                                                 & DBNameSpace & ".SSCPEnforcement.strEnforcementNumber  " & _
+                                                "and " & DBNameSpace & ".SSCPEnforcementItems.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber " & _
+                                                "and " & DBNameSpace & ".APBHeaderData.strAIRSNumber = '0413" & AIRSNumber & "' " & _
                                                 "and strAFSActionNumber = '" & ActionNumber & "' "
                                             Case "TR"
                                                 SQL = "select " & _
@@ -3897,14 +3897,14 @@ Public Class IAIPAFSCompare
                                                 "when strAFSCode = 'True' then strPollutantCode " & _
                                                 "else '     ' " & _
                                                 "end Pollutant  " & _
-                                                "from " & connNameSpace & ".AFSISMPRecords, " & connNameSpace & ".ISMPMaster, " & _
-                                                "" & connNameSpace & ".ISMPReportInformation, " & connNameSpace & ".APBHeaderData, " & _
-                                                "" & connNameSpace & ".LookUpPollutants " & _
-                                                "where " & connNameSpace & ".AFSISMPRecords.strReferenceNumber = " & connNameSpace & ".ISMPMaster.strReferenceNumber " & _
-                                                "and " & connNameSpace & ".ISMPMaster.strReferenceNumber = " & connNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
-                                                "and " & connNameSpace & ".ISMPMaster.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber " & _
-                                                "and " & connNameSpace & ".ISMPReportInformation.strPollutant = " & connNameSpace & ".LookUpPollutants.strPollutantCode " & _
-                                                "and " & connNameSpace & ".ISMPMaster.strAIRSnumber = '0413" & AIRSNumber & "' " & _
+                                                "from " & DBNameSpace & ".AFSISMPRecords, " & DBNameSpace & ".ISMPMaster, " & _
+                                                "" & DBNameSpace & ".ISMPReportInformation, " & DBNameSpace & ".APBHeaderData, " & _
+                                                "" & DBNameSpace & ".LookUpPollutants " & _
+                                                "where " & DBNameSpace & ".AFSISMPRecords.strReferenceNumber = " & DBNameSpace & ".ISMPMaster.strReferenceNumber " & _
+                                                "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
+                                                "and " & DBNameSpace & ".ISMPMaster.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber " & _
+                                                "and " & DBNameSpace & ".ISMPReportInformation.strPollutant = " & DBNameSpace & ".LookUpPollutants.strPollutantCode " & _
+                                                "and " & DBNameSpace & ".ISMPMaster.strAIRSnumber = '0413" & AIRSNumber & "' " & _
                                                 "and strAFSActionNumber = '" & ActionNumber & "' "
                                             Case "23"
                                                 SQL = "select " & _
@@ -3929,23 +3929,23 @@ Public Class IAIPAFSCompare
                                                 "when strAFSCode = 'True' then strPollutantCode " & _
                                                 "else '     ' " & _
                                                 "end Pollutant  " & _
-                                                "from " & connNameSpace & ".AFSISMPRecords, " & connNameSpace & ".ISMPMaster, " & _
-                                                "" & connNameSpace & ".ISMPReportInformation, " & connNameSpace & ".APBHeaderData, " & _
-                                                "" & connNameSpace & ".LookUpPollutants " & _
-                                                "where " & connNameSpace & ".AFSISMPRecords.strReferenceNumber = " & connNameSpace & ".ISMPMaster.strReferenceNumber " & _
-                                                "and " & connNameSpace & ".ISMPMaster.strReferenceNumber = " & connNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
-                                                "and " & connNameSpace & ".ISMPMaster.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber " & _
-                                                "and " & connNameSpace & ".ISMPReportInformation.strPollutant = " & connNameSpace & ".LookUpPollutants.strPollutantCode " & _
-                                                "and " & connNameSpace & ".ISMPMaster.strAIRSnumber = '0413" & AIRSNumber & "' " & _
+                                                "from " & DBNameSpace & ".AFSISMPRecords, " & DBNameSpace & ".ISMPMaster, " & _
+                                                "" & DBNameSpace & ".ISMPReportInformation, " & DBNameSpace & ".APBHeaderData, " & _
+                                                "" & DBNameSpace & ".LookUpPollutants " & _
+                                                "where " & DBNameSpace & ".AFSISMPRecords.strReferenceNumber = " & DBNameSpace & ".ISMPMaster.strReferenceNumber " & _
+                                                "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
+                                                "and " & DBNameSpace & ".ISMPMaster.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber " & _
+                                                "and " & DBNameSpace & ".ISMPReportInformation.strPollutant = " & DBNameSpace & ".LookUpPollutants.strPollutantCode " & _
+                                                "and " & DBNameSpace & ".ISMPMaster.strAIRSnumber = '0413" & AIRSNumber & "' " & _
                                                 "and strAFSActionNumber = '" & ActionNumber & "' "
                                             Case Else
                                                 SQL = ""
                                         End Select
 
                                         If SQL <> "" Then
-                                            cmd = New OracleCommand(SQL, conn)
-                                            If conn.State = ConnectionState.Closed Then
-                                                conn.Open()
+                                            cmd = New OracleCommand(SQL, DBConn)
+                                            If DBConn.State = ConnectionState.Closed Then
+                                                DBConn.Open()
                                             End If
                                             dr = cmd.ExecuteReader
                                             While dr.Read
@@ -4055,31 +4055,31 @@ Public Class IAIPAFSCompare
                                         IAIPPollutant163 = "NULL"
 
                                         SQL = "Select  " & _
-                                        "" & connNameSpace & ".AFSSSCPEnforcementRecords.strEnforcementNumber,    " & _
-                                        "" & connNameSpace & ".APBHeaderData.strAIRSNumber,    " & _
-                                        "" & connNameSpace & ".AFSSSCPEnforcementRecords.strAFSActionNumber,    " & _
+                                        "" & DBNameSpace & ".AFSSSCPEnforcementRecords.strEnforcementNumber,    " & _
+                                        "" & DBNameSpace & ".APBHeaderData.strAIRSNumber,    " & _
+                                        "" & DBNameSpace & ".AFSSSCPEnforcementRecords.strAFSActionNumber,    " & _
                                         "strAFSKeyActionNumber,  " & _
                                         "strPollutants,   " & _
-                                        "" & connNameSpace & ".AFSSSCPRecords.strAFSActionNumber as LinkingEvent  " & _
-                                        "from  " & connNameSpace & ".AFSSSCPEnforcementRecords,    " & _
-                                        "" & connNameSpace & ".SSCPEnforcementItems,  " & connNameSpace & ".SSCPEnforcement,    " & _
-                                        "" & connNameSpace & ".APBHeaderData,  " & connNameSpace & ".SSCPENforcementStipulated, " & _
-                                        "" & connNameSpace & ".SSCPItemMaster, " & connNameSpace & ".AFSSSCPRecords    " & _
-                                        "where " & connNameSpace & ".SSCPEnforcement.strEnforcementNumber =  " _
-                                                 & connNameSpace & ".AFSSSCPEnforcementRecords.strEnforcementNumber    " & _
-                                        "and  " & connNameSpace & ".APBHeaderData.strAIRSNumber =  " & connNameSpace & ".SSCPEnforcementItems.strAIRSNumber    " & _
-                                        "and  " & connNameSpace & ".SSCPEnforcementItems.strEnforcementNumber =  " & connNameSpace & ".SSCPEnforcement.strEnforcementNumber    " & _
-                                        "and  " & connNameSpace & ".SSCPEnforcementItems.strEnforcementNumber =  " _
-                                                & connNameSpace & ".SSCPENforcementStipulated.strEnforcementNumber (+)    " & _
-                                        "and  " & connNameSpace & ".sscpEnforcementItems.strTrackingNumber =  " & connNameSpace & ".SSCPItemMaster.strTrackingNumber (+)   " & _
-                                        "and " & connNameSpace & ".sscpEnforcementItems.strTrackingNumber = " & connNameSpace & ".AFSSSCPRecords.strTrackingNumber (+) " & _
-                                        "and " & connNameSpace & ".APBHeaderData.strAIRSNumber = '0413" & AIRSNumber & "' " & _
-                                        "and " & connNameSpace & ".AFSSSCPEnforcementRecords.strAFSActionNumber = '" & ActionNumber163 & "' " & _
+                                        "" & DBNameSpace & ".AFSSSCPRecords.strAFSActionNumber as LinkingEvent  " & _
+                                        "from  " & DBNameSpace & ".AFSSSCPEnforcementRecords,    " & _
+                                        "" & DBNameSpace & ".SSCPEnforcementItems,  " & DBNameSpace & ".SSCPEnforcement,    " & _
+                                        "" & DBNameSpace & ".APBHeaderData,  " & DBNameSpace & ".SSCPENforcementStipulated, " & _
+                                        "" & DBNameSpace & ".SSCPItemMaster, " & DBNameSpace & ".AFSSSCPRecords    " & _
+                                        "where " & DBNameSpace & ".SSCPEnforcement.strEnforcementNumber =  " _
+                                                 & DBNameSpace & ".AFSSSCPEnforcementRecords.strEnforcementNumber    " & _
+                                        "and  " & DBNameSpace & ".APBHeaderData.strAIRSNumber =  " & DBNameSpace & ".SSCPEnforcementItems.strAIRSNumber    " & _
+                                        "and  " & DBNameSpace & ".SSCPEnforcementItems.strEnforcementNumber =  " & DBNameSpace & ".SSCPEnforcement.strEnforcementNumber    " & _
+                                        "and  " & DBNameSpace & ".SSCPEnforcementItems.strEnforcementNumber =  " _
+                                                & DBNameSpace & ".SSCPENforcementStipulated.strEnforcementNumber (+)    " & _
+                                        "and  " & DBNameSpace & ".sscpEnforcementItems.strTrackingNumber =  " & DBNameSpace & ".SSCPItemMaster.strTrackingNumber (+)   " & _
+                                        "and " & DBNameSpace & ".sscpEnforcementItems.strTrackingNumber = " & DBNameSpace & ".AFSSSCPRecords.strTrackingNumber (+) " & _
+                                        "and " & DBNameSpace & ".APBHeaderData.strAIRSNumber = '0413" & AIRSNumber & "' " & _
+                                        "and " & DBNameSpace & ".AFSSSCPEnforcementRecords.strAFSActionNumber = '" & ActionNumber163 & "' " & _
                                         "and strAFSKeyActionNumber = '" & KeyActionNumber & "' "
 
-                                        cmd = New OracleCommand(SQL, conn)
-                                        If conn.State = ConnectionState.Closed Then
-                                            conn.Open()
+                                        cmd = New OracleCommand(SQL, DBConn)
+                                        If DBConn.State = ConnectionState.Closed Then
+                                            DBConn.Open()
                                         End If
 
                                         dr = cmd.ExecuteReader
@@ -4138,24 +4138,24 @@ Public Class IAIPAFSCompare
                                         ViolationType = "NULL"
 
                                         SQL = "Select " & _
-                                        "" & connNameSpace & ".AFSSSCPEnforcementRecords.strEnforcementNumber,    " & _
-                                        "" & connNameSpace & ".APBHeaderData.strAIRSNumber,    " & _
-                                        "" & connNameSpace & ".AFSSSCPEnforcementRecords.strAFSActionNumber,    " & _
+                                        "" & DBNameSpace & ".AFSSSCPEnforcementRecords.strEnforcementNumber,    " & _
+                                        "" & DBNameSpace & ".APBHeaderData.strAIRSNumber,    " & _
+                                        "" & DBNameSpace & ".AFSSSCPEnforcementRecords.strAFSActionNumber,    " & _
                                         "strAFSKeyActionNumber, " & _
                                         "strHPV " & _
-                                        "from  " & connNameSpace & ".AFSSSCPEnforcementRecords,    " & _
-                                        "" & connNameSpace & ".SSCPEnforcementItems,  " & connNameSpace & ".SSCPEnforcement,    " & _
-                                        "" & connNameSpace & ".APBHeaderData " & _
-                                        "where " & connNameSpace & ".SSCPEnforcement.strEnforcementNumber =  " & connNameSpace & ".AFSSSCPEnforcementRecords.strEnforcementNumber    " & _
-                                        "and  " & connNameSpace & ".APBHeaderData.strAIRSNumber =  " & connNameSpace & ".SSCPEnforcementItems.strAIRSNumber    " & _
-                                        "and  " & connNameSpace & ".SSCPEnforcementItems.strEnforcementNumber =  " & connNameSpace & ".SSCPEnforcement.strEnforcementNumber    " & _
-                                        "and " & connNameSpace & ".APBHeaderData.strAIRSNumber = '041312100816' " & _
-                                        "and " & connNameSpace & ".AFSSSCPEnforcementRecords.strAFSActionNumber = '007' " & _
+                                        "from  " & DBNameSpace & ".AFSSSCPEnforcementRecords,    " & _
+                                        "" & DBNameSpace & ".SSCPEnforcementItems,  " & DBNameSpace & ".SSCPEnforcement,    " & _
+                                        "" & DBNameSpace & ".APBHeaderData " & _
+                                        "where " & DBNameSpace & ".SSCPEnforcement.strEnforcementNumber =  " & DBNameSpace & ".AFSSSCPEnforcementRecords.strEnforcementNumber    " & _
+                                        "and  " & DBNameSpace & ".APBHeaderData.strAIRSNumber =  " & DBNameSpace & ".SSCPEnforcementItems.strAIRSNumber    " & _
+                                        "and  " & DBNameSpace & ".SSCPEnforcementItems.strEnforcementNumber =  " & DBNameSpace & ".SSCPEnforcement.strEnforcementNumber    " & _
+                                        "and " & DBNameSpace & ".APBHeaderData.strAIRSNumber = '041312100816' " & _
+                                        "and " & DBNameSpace & ".AFSSSCPEnforcementRecords.strAFSActionNumber = '007' " & _
                                         "and strAFSKeyActionNumber = '007' "
 
-                                        cmd = New OracleCommand(SQL, conn)
-                                        If conn.State = ConnectionState.Closed Then
-                                            conn.Open()
+                                        cmd = New OracleCommand(SQL, DBConn)
+                                        If DBConn.State = ConnectionState.Closed Then
+                                            DBConn.Open()
                                         End If
                                         dr = cmd.ExecuteReader
                                         While dr.Read
@@ -4203,11 +4203,11 @@ Public Class IAIPAFSCompare
 
                                         SQL = "Select " & _
                                         "strCMSMember " & _
-                                        "from " & connNameSpace & ".APBSupplamentalData " & _
+                                        "from " & DBNameSpace & ".APBSupplamentalData " & _
                                         "where strAIRSNumber = '0413" & AIRSNumber & "' "
-                                        cmd = New OracleCommand(SQL, conn)
-                                        If conn.State = ConnectionState.Closed Then
-                                            conn.Open()
+                                        cmd = New OracleCommand(SQL, DBConn)
+                                        If DBConn.State = ConnectionState.Closed Then
+                                            DBConn.Open()
                                         End If
                                         dr = cmd.ExecuteReader
                                         While dr.Read

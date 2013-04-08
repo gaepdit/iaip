@@ -16,13 +16,13 @@ Public Class IAIPLookUpTables
             "to_number(strApplicationTypeCode) as strApplicationTypeCode, " & _
             "strApplicationTypeDesc, " & _
             "strApplicationTypeUsed " & _
-            "From " & connNameSpace & ".LookUpApplicationTypes " & _
+            "From " & DBNameSpace & ".LookUpApplicationTypes " & _
             "order by strApplicationTypeDesc "
 
             ds = New DataSet
-            da = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            da = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             da.Fill(ds, "ApplicationTypes")
             dgvApplicationType.DataSource = ds
@@ -113,23 +113,23 @@ Public Class IAIPLookUpTables
                     AppStatus = False
                 End If
 
-                SQL = "Insert into " & connNameSpace & ".LookUpApplicationTypes " & _
+                SQL = "Insert into " & DBNameSpace & ".LookUpApplicationTypes " & _
                 "values " & _
                 "((Select max(to_Number(strApplicationTypeCode)) + 1 as MaxID " & _
-                "from " & connNameSpace & ".LookUpApplicationTypes), " & _
+                "from " & DBNameSpace & ".LookUpApplicationTypes), " & _
                 "'" & txtApplicationDesc.Text & "', '" & AppStatus & "') "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
 
                 SQL = "Select max(to_Number(strApplicationTypeCode)) + 1 as MaxID " & _
-                "from " & connNameSpace & ".LookUpApplicationTypes "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                "from " & DBNameSpace & ".LookUpApplicationTypes "
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -159,13 +159,13 @@ Public Class IAIPLookUpTables
             End If
 
             If txtApplicationID.Text <> "" Then
-                SQL = "Update " & connNameSpace & ".LookUpApplicationTypes set " & _
+                SQL = "Update " & DBNameSpace & ".LookUpApplicationTypes set " & _
                 "strApplicationTypeDesc = '" & Replace(txtApplicationDesc.Text, "'", "''") & "', " & _
                 "strApplicationTypeUsed = '" & temp & "' " & _
                 "where strApplicationTypeCode = '" & txtApplicationID.Text & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -185,11 +185,11 @@ Public Class IAIPLookUpTables
         Try
             If txtApplicationID.Text <> "" Then
                 SQL = "Select Count(*) as IDUsed " & _
-                "from " & connNameSpace & ".SSPPApplicationMaster " & _
+                "from " & DBNameSpace & ".SSPPApplicationMaster " & _
                 "where strApplicationType = '" & txtApplicationID.Text & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -208,11 +208,11 @@ Public Class IAIPLookUpTables
                 dr.Close()
 
                 If temp <> "Keep" Then
-                    SQL = "delete " & connNameSpace & ".LookUpApplicationTypes " & _
+                    SQL = "delete " & DBNameSpace & ".LookUpApplicationTypes " & _
                     "where strApplicationTypeCode = '" & txtApplicationID.Text & "' "
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
@@ -392,14 +392,14 @@ Public Class IAIPLookUpTables
             "end MangerType, " & _
             "strManagementName, datStartDate, " & _
             "datEndDate, strCurrentContact " & _
-            "from " & connNameSpace & ".LookUpAPBManagementType " & _
+            "from " & DBNameSpace & ".LookUpAPBManagementType " & _
             "where strCurrentContact = '1' " & _
             "order by to_number(strKey) "
 
             ds = New DataSet
-            da = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            da = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             da.Fill(ds, "APBManagement")
             dgvLookUpManagement.DataSource = ds
@@ -466,11 +466,11 @@ Public Class IAIPLookUpTables
                 "strKey, " & _
                 "strManagementName, datStartDate, " & _
                 "datEndDate, strCurrentContact " & _
-                "from " & connNameSpace & ".LookUpAPBManagementType " & _
+                "from " & DBNameSpace & ".LookUpAPBManagementType " & _
                 "where numId = '" & txtAPBManagemetnID.Text & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -664,24 +664,24 @@ Public Class IAIPLookUpTables
             End Select
 
             SQL = "Select numId " & _
-            "from " & connNameSpace & ".LookUpAPBManagementType " & _
+            "from " & DBNameSpace & ".LookUpAPBManagementType " & _
             "where strCurrentContact = '1' " & _
             "and strKey = '" & ManagementType & "' "
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
                 If IsDBNull(dr.Item("numID")) Then
                 Else
-                    SQL = "Update " & connNameSpace & ".LookUpAPBManagementType set " & _
+                    SQL = "Update " & DBNameSpace & ".LookUpAPBManagementType set " & _
                     "strCurrentContact = '0', " & _
                     "datEndDate = '" & OracleDate & "' " & _
                     "where numId = '" & dr.Item("numID") & "' "
-                    cmd2 = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd2 = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr2 = cmd2.ExecuteReader
                     dr2.Close()
@@ -689,14 +689,14 @@ Public Class IAIPLookUpTables
             End While
             dr.Close()
 
-            SQL = "Insert into " & connNameSpace & ".LookUpAPBManagementType " & _
+            SQL = "Insert into " & DBNameSpace & ".LookUpAPBManagementType " & _
             "values " & _
             "((select max(numId) + 1 from AIRBRANCH.LookUpAPBManagementType), '" & ManagementType & "', " & _
             "'" & Replace(ManagementName, "'", "''") & "', '" & OracleDate & "', " & _
             "'', '1') "
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -881,14 +881,14 @@ Public Class IAIPLookUpTables
             "end MangerType, " & _
             "strManagementName, datStartDate, " & _
             "datEndDate, strCurrentContact " & _
-            "from " & connNameSpace & ".LookUpAPBManagementType " & _
+            "from " & DBNameSpace & ".LookUpAPBManagementType " & _
             "where strKey = '" & ManagementType & "' " & _
             "order by numID "
 
             ds = New DataSet
-            da = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            da = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             da.Fill(ds, "APBManagement")
             dgvLookUpManagement.DataSource = ds

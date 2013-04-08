@@ -573,12 +573,12 @@ Public Class AFSValidator
                         temp = Mid(worktemp, 3, 8)
                         SQL = "Select " & _
                         "Upper(strFacilityName) as strFacilityName " & _
-                        "from " & connNameSpace & ".APBFacilityInformation " & _
+                        "from " & DBNameSpace & ".APBFacilityInformation " & _
                         "where strAIRSNumber = '0413" & temp & "' "
 
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, DBConn)
+                        If DBConn.State = ConnectionState.Closed Then
+                            DBConn.Open()
                         End If
                         dr = cmd.ExecuteReader
                         recExist = dr.Read
@@ -597,12 +597,12 @@ Public Class AFSValidator
                         temp = Mid(worktemp, 3, 8)
                         SQL = "Select " & _
                         "Upper(strFacilityStreet1) as strFacilityStreet1 " & _
-                        "from " & connNameSpace & ".APBFacilityInformation " & _
+                        "from " & DBNameSpace & ".APBFacilityInformation " & _
                         "where strAIRSNumber = '0413" & temp & "' "
 
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, DBConn)
+                        If DBConn.State = ConnectionState.Closed Then
+                            DBConn.Open()
                         End If
                         dr = cmd.ExecuteReader
                         recExist = dr.Read
@@ -626,14 +626,14 @@ Public Class AFSValidator
                         "upper(strFacilityCity) as strFacilityCity, " & _
                         "strFacilityZipCode, " & _
                         "strSICCode " & _
-                        "from " & connNameSpace & ".APBFacilityInformation, " & _
-                        "" & connNameSpace & ".APBHeaderData " & _
-                        "where " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSnumber " & _
-                        "and " & connNameSpace & ".APBHeaderData.strAIRSNumber = '0413" & temp & "'"
+                        "from " & DBNameSpace & ".APBFacilityInformation, " & _
+                        "" & DBNameSpace & ".APBHeaderData " & _
+                        "where " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSnumber " & _
+                        "and " & DBNameSpace & ".APBHeaderData.strAIRSNumber = '0413" & temp & "'"
 
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, DBConn)
+                        If DBConn.State = ConnectionState.Closed Then
+                            DBConn.Open()
                         End If
                         dr = cmd.ExecuteReader
                         recExist = dr.Read
@@ -658,15 +658,15 @@ Public Class AFSValidator
                         "upper(strPlantDescription) as strPlantDescription, " & _
                         "upper(strContactFirstName)|| ' ' ||upper(strContactLastName) as ContactName, " & _
                         "substr(strContactPhoneNumber1, 1, 10) as strContactPhoneNumber1 " & _
-                        "from " & connNameSpace & ".APBHeaderData, " & _
-                        "" & connNameSpace & ".APBContactInformation " & _
-                        "where " & connNameSpace & ".APBHeaderData.strAIRSNumber = " & connNameSpace & ".APBContactInformation.strAIRSnumber " & _
+                        "from " & DBNameSpace & ".APBHeaderData, " & _
+                        "" & DBNameSpace & ".APBContactInformation " & _
+                        "where " & DBNameSpace & ".APBHeaderData.strAIRSNumber = " & DBNameSpace & ".APBContactInformation.strAIRSnumber " & _
                         "and strKey = '30' " & _
-                        "and " & connNameSpace & ".APBHeaderData.strAIRSNumber = '0413" & temp & "' "
+                        "and " & DBNameSpace & ".APBHeaderData.strAIRSNumber = '0413" & temp & "' "
 
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, DBConn)
+                        If DBConn.State = ConnectionState.Closed Then
+                            DBConn.Open()
                         End If
                         dr = cmd.ExecuteReader
                         recExist = dr.Read
@@ -689,13 +689,13 @@ Public Class AFSValidator
                         SQL = "select " & _
                         "distinct(substr(strAIRPollutantkey, 13,1)) as AirCode, " & _
                         "strOperationalStatus " & _
-                        "from " & connNameSpace & ".apbairprogrampollutants " & _
+                        "from " & DBNameSpace & ".apbairprogrampollutants " & _
                         "where strairsnumber = '0413" & temp & "' " & _
                         "and substr(strAIRPollutantkey, 13,1) = '" & Mid(worktemp, 14, 1) & "' "
 
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, DBConn)
+                        If DBConn.State = ConnectionState.Closed Then
+                            DBConn.Open()
                         End If
                         dr = cmd.ExecuteReader
                         recExist = dr.Read
@@ -724,13 +724,13 @@ Public Class AFSValidator
                                 SQL = "select " & _
                                 "substr(strSubPartKey, 13,1) as strSubPartkey, " & _
                                 "strSubPart " & _
-                                "from " & connNameSpace & ".APBSubPartData " & _
+                                "from " & DBNameSpace & ".APBSubPartData " & _
                                 "where strAIRSNumber = '0413" & temp & "' " & _
                                 "and upper(strSubPart) = Upper('" & tempSubPart & "') "
 
-                                cmd = New OracleCommand(SQL, conn)
-                                If conn.State = ConnectionState.Closed Then
-                                    conn.Open()
+                                cmd = New OracleCommand(SQL, DBConn)
+                                If DBConn.State = ConnectionState.Closed Then
+                                    DBConn.Open()
                                 End If
                                 dr = cmd.ExecuteReader
                                 recExist = dr.Read
@@ -768,16 +768,16 @@ Public Class AFSValidator
                         "    when strAttainmentStatus = '00000' then 'A' " & _
                         "else 'N' " & _
                         "end strAttainmentStatus " & _
-                        "from " & connNameSpace & ".apbairprogrampollutants, " & _
-                        "" & connNameSpace & ".APBHeaderData  " & _
-                        "where " & connNameSpace & ".APBAirProgramPollutants.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber  " & _
-                        "and " & connNameSpace & ".apbheaderdata.strairsnumber = '0413" & temp & "' " & _
+                        "from " & DBNameSpace & ".apbairprogrampollutants, " & _
+                        "" & DBNameSpace & ".APBHeaderData  " & _
+                        "where " & DBNameSpace & ".APBAirProgramPollutants.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber  " & _
+                        "and " & DBNameSpace & ".apbheaderdata.strairsnumber = '0413" & temp & "' " & _
                         "and substr(strAIRPollutantkey, 13,1) = '" & Mid(worktemp, 14, 1) & "' " & _
                         "and Upper(strPollutantKey) = Upper('" & Replace(Mid(worktemp, 15, 5), " ", "") & "') "
 
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, DBConn)
+                        If DBConn.State = ConnectionState.Closed Then
+                            DBConn.Open()
                         End If
                         dr = cmd.ExecuteReader
                         recExist = dr.Read
@@ -835,23 +835,23 @@ Public Class AFSValidator
                                 End Select
 
                                 SQL = "select " & _
-                                "" & connNameSpace & ".SSCPFCEMaster.strFCENumber,  " & _
+                                "" & DBNameSpace & ".SSCPFCEMaster.strFCENumber,  " & _
                                 "to_char(to_date(datFCECompleted, 'YY-mm-DD')) as datFCECompleted, " & _
                                 "strAFSActionNumber, strAirProgramCodes, " & _
                                 "case " & _
                                 "when strSiteInspection = 'True' then 'FS' " & _
                                 "else 'FF' " & _
                                 "end SiteInspection " & _
-                                "from " & connNameSpace & ".SSCPFCEMaster, " & connNameSpace & ".SSCPFCE,  " & _
-                                "" & connNameSpace & ".AFSSSCPFCERecords, " & connNameSpace & ".APBHeaderData  " & _
-                                "where " & connNameSpace & ".SSCPFCEMaster.strFCENumber = " & connNameSpace & ".SSCPFCE.strFCENumber  " & _
-                                "and " & connNameSpace & ".SSCPFCEMaster.strFCENumber = " & connNameSpace & ".AFSSSCPFCERecords.strFCENumber   " & _
-                                "and " & connNameSpace & ".SSCPFCEMaster.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber  " & _
-                                "and " & connNameSpace & ".SSCPFCEMaster.strAIRSnumber = '0413" & temp & "' " & _
-                                "and " & connNameSpace & ".SSCPFCE.datFCECompleted = '" & tempDate & "' "
-                                cmd = New OracleCommand(SQL, conn)
-                                If conn.State = ConnectionState.Closed Then
-                                    conn.Open()
+                                "from " & DBNameSpace & ".SSCPFCEMaster, " & DBNameSpace & ".SSCPFCE,  " & _
+                                "" & DBNameSpace & ".AFSSSCPFCERecords, " & DBNameSpace & ".APBHeaderData  " & _
+                                "where " & DBNameSpace & ".SSCPFCEMaster.strFCENumber = " & DBNameSpace & ".SSCPFCE.strFCENumber  " & _
+                                "and " & DBNameSpace & ".SSCPFCEMaster.strFCENumber = " & DBNameSpace & ".AFSSSCPFCERecords.strFCENumber   " & _
+                                "and " & DBNameSpace & ".SSCPFCEMaster.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber  " & _
+                                "and " & DBNameSpace & ".SSCPFCEMaster.strAIRSnumber = '0413" & temp & "' " & _
+                                "and " & DBNameSpace & ".SSCPFCE.datFCECompleted = '" & tempDate & "' "
+                                cmd = New OracleCommand(SQL, DBConn)
+                                If DBConn.State = ConnectionState.Closed Then
+                                    DBConn.Open()
                                 End If
                                 dr = cmd.ExecuteReader
                                 recExist = dr.Read
@@ -971,7 +971,7 @@ Public Class AFSValidator
                                 End Select
 
                                 SQL = "select " & _
-                                "" & connNameSpace & ".ISMPMaster.strReferenceNumber, " & _
+                                "" & DBNameSpace & ".ISMPMaster.strReferenceNumber, " & _
                                 "to_char(to_date(datTestDateEnd, 'YY-mm-DD')) as datTestDateEnd, " & _
                                 "case " & _
                                 "when strComplianceStatus = '01' then '01' " & _
@@ -986,16 +986,16 @@ Public Class AFSValidator
                                 "end ActionType, " & _
                                 "strAirProgramCodes, " & _
                                 "strAfsActionNumber " & _
-                                "from " & connNameSpace & ".ISMPMaster, " & connNameSpace & ".ISMPReportInformation, " & _
-                                "" & connNameSpace & ".APBHeaderData, " & connNameSpace & ".AFSISMPRecords " & _
-                                "where " & connNameSpace & ".ISMPMaster.strReferenceNumber = " & connNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
-                                "and " & connNameSpace & ".ISMPMaster.strAIRSnumber = " & connNameSpace & ".APBHeaderData.strAirsNumber " & _
-                                "and " & connNameSpace & ".ISMPMaster.strReferenceNumber = " & connNameSpace & ".AFSISMPRecords.strReferenceNumber " & _
-                                "and " & connNameSpace & ".ISMPMaster.strAIRSNumber = '0413" & temp & "' " & _
+                                "from " & DBNameSpace & ".ISMPMaster, " & DBNameSpace & ".ISMPReportInformation, " & _
+                                "" & DBNameSpace & ".APBHeaderData, " & DBNameSpace & ".AFSISMPRecords " & _
+                                "where " & DBNameSpace & ".ISMPMaster.strReferenceNumber = " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
+                                "and " & DBNameSpace & ".ISMPMaster.strAIRSnumber = " & DBNameSpace & ".APBHeaderData.strAirsNumber " & _
+                                "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = " & DBNameSpace & ".AFSISMPRecords.strReferenceNumber " & _
+                                "and " & DBNameSpace & ".ISMPMaster.strAIRSNumber = '0413" & temp & "' " & _
                                 "and datTestDateEnd = '" & tempDate & "' "
-                                cmd = New OracleCommand(SQL, conn)
-                                If conn.State = ConnectionState.Closed Then
-                                    conn.Open()
+                                cmd = New OracleCommand(SQL, DBConn)
+                                If DBConn.State = ConnectionState.Closed Then
+                                    DBConn.Open()
                                 End If
                                 dr = cmd.ExecuteReader
                                 recExist = dr.Read
@@ -1121,17 +1121,17 @@ Public Class AFSValidator
                                 "strAFSActionNumber,  " & _
                                 "to_char(to_date(datCompleteDate, 'YY-mm-DD')) as AchievedDate, " & _
                                 "strAirProgramCodes " & _
-                                "from " & connNameSpace & ".SSCPItemMaster, " & connNameSpace & ".AFSSSCPRecords,  " & _
-                                "" & connNameSpace & ".APBHeaderData " & _
-                                "where " & connNameSpace & ".SSCPItemMaster.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber  " & _
-                                "and " & connNameSpace & ".SSCPItemMaster.strTrackingNumber = " & connNameSpace & ".AFSSSCPRecords.strTrackingNumber " & _
-                                "and " & connNameSpace & ".sscpitemmaster.strAIRSnumber = '0413" & temp & "' " & _
-                                "and " & connNameSpace & ".SSCPItemMaster.strEventType = '01' " & _
+                                "from " & DBNameSpace & ".SSCPItemMaster, " & DBNameSpace & ".AFSSSCPRecords,  " & _
+                                "" & DBNameSpace & ".APBHeaderData " & _
+                                "where " & DBNameSpace & ".SSCPItemMaster.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber  " & _
+                                "and " & DBNameSpace & ".SSCPItemMaster.strTrackingNumber = " & DBNameSpace & ".AFSSSCPRecords.strTrackingNumber " & _
+                                "and " & DBNameSpace & ".sscpitemmaster.strAIRSnumber = '0413" & temp & "' " & _
+                                "and " & DBNameSpace & ".SSCPItemMaster.strEventType = '01' " & _
                                 "and datCompleteDate = '" & tempDate & "' "
 
-                                cmd = New OracleCommand(SQL, conn)
-                                If conn.State = ConnectionState.Closed Then
-                                    conn.Open()
+                                cmd = New OracleCommand(SQL, DBConn)
+                                If DBConn.State = ConnectionState.Closed Then
+                                    DBConn.Open()
                                 End If
                                 dr = cmd.ExecuteReader
                                 recExist = dr.Read
@@ -1257,17 +1257,17 @@ Public Class AFSValidator
                                 "strAFSActionNumber,  " & _
                                 "to_char(to_date(datCompleteDate, 'YY-mm-DD')) as AchievedDate, " & _
                                 "strAirProgramCodes " & _
-                                "from " & connNameSpace & ".SSCPItemMaster, " & connNameSpace & ".AFSSSCPRecords,  " & _
-                                "" & connNameSpace & ".APBHeaderData " & _
-                                "where " & connNameSpace & ".SSCPItemMaster.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber  " & _
-                                "and " & connNameSpace & ".SSCPItemMaster.strTrackingNumber = " & connNameSpace & ".AFSSSCPRecords.strTrackingNumber " & _
-                                "and " & connNameSpace & ".sscpitemmaster.strAIRSnumber = '0413" & temp & "' " & _
-                                "and " & connNameSpace & ".SSCPItemMaster.strEventType = '02' " & _
+                                "from " & DBNameSpace & ".SSCPItemMaster, " & DBNameSpace & ".AFSSSCPRecords,  " & _
+                                "" & DBNameSpace & ".APBHeaderData " & _
+                                "where " & DBNameSpace & ".SSCPItemMaster.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber  " & _
+                                "and " & DBNameSpace & ".SSCPItemMaster.strTrackingNumber = " & DBNameSpace & ".AFSSSCPRecords.strTrackingNumber " & _
+                                "and " & DBNameSpace & ".sscpitemmaster.strAIRSnumber = '0413" & temp & "' " & _
+                                "and " & DBNameSpace & ".SSCPItemMaster.strEventType = '02' " & _
                                 "and datCompleteDate = '" & tempDate & "' "
 
-                                cmd = New OracleCommand(SQL, conn)
-                                If conn.State = ConnectionState.Closed Then
-                                    conn.Open()
+                                cmd = New OracleCommand(SQL, DBConn)
+                                If DBConn.State = ConnectionState.Closed Then
+                                    DBConn.Open()
                                 End If
                                 dr = cmd.ExecuteReader
                                 recExist = dr.Read
@@ -1395,17 +1395,17 @@ Public Class AFSValidator
                                 "strAFSActionNumber,  " & _
                                 "to_char(to_date(datCompleteDate, 'YY-mm-DD')) as AchievedDate, " & _
                                 "strAirProgramCodes " & _
-                                "from " & connNameSpace & ".SSCPItemMaster, " & connNameSpace & ".AFSSSCPRecords,  " & _
-                                "" & connNameSpace & ".APBHeaderData " & _
-                                "where " & connNameSpace & ".SSCPItemMaster.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber  " & _
-                                "and " & connNameSpace & ".SSCPItemMaster.strTrackingNumber = " & connNameSpace & ".AFSSSCPRecords.strTrackingNumber " & _
-                                "and " & connNameSpace & ".sscpitemmaster.strAIRSnumber = '0413" & temp & "' " & _
-                                "and " & connNameSpace & ".SSCPItemMaster.strEventType = '04' " & _
+                                "from " & DBNameSpace & ".SSCPItemMaster, " & DBNameSpace & ".AFSSSCPRecords,  " & _
+                                "" & DBNameSpace & ".APBHeaderData " & _
+                                "where " & DBNameSpace & ".SSCPItemMaster.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber  " & _
+                                "and " & DBNameSpace & ".SSCPItemMaster.strTrackingNumber = " & DBNameSpace & ".AFSSSCPRecords.strTrackingNumber " & _
+                                "and " & DBNameSpace & ".sscpitemmaster.strAIRSnumber = '0413" & temp & "' " & _
+                                "and " & DBNameSpace & ".SSCPItemMaster.strEventType = '04' " & _
                                 "and datCompleteDate = '" & tempDate & "' "
 
-                                cmd = New OracleCommand(SQL, conn)
-                                If conn.State = ConnectionState.Closed Then
-                                    conn.Open()
+                                cmd = New OracleCommand(SQL, DBConn)
+                                If DBConn.State = ConnectionState.Closed Then
+                                    DBConn.Open()
                                 End If
                                 dr = cmd.ExecuteReader
                                 recExist = dr.Read
@@ -1534,17 +1534,17 @@ Public Class AFSValidator
                                 "strAFSActionNumber,  " & _
                                 "to_char(to_date(datCompleteDate, 'YY-mm-DD')) as AchievedDate, " & _
                                 "strAirProgramCodes " & _
-                                "from " & connNameSpace & ".SSCPItemMaster, " & connNameSpace & ".AFSSSCPRecords,  " & _
-                                "" & connNameSpace & ".APBHeaderData " & _
-                                "where " & connNameSpace & ".SSCPItemMaster.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber  " & _
-                                "and " & connNameSpace & ".SSCPItemMaster.strTrackingNumber = " & connNameSpace & ".AFSSSCPRecords.strTrackingNumber " & _
-                                "and " & connNameSpace & ".sscpitemmaster.strAIRSnumber = '0413" & temp & "' " & _
-                                "and " & connNameSpace & ".SSCPItemMaster.strEventType = '06' " & _
+                                "from " & DBNameSpace & ".SSCPItemMaster, " & DBNameSpace & ".AFSSSCPRecords,  " & _
+                                "" & DBNameSpace & ".APBHeaderData " & _
+                                "where " & DBNameSpace & ".SSCPItemMaster.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber  " & _
+                                "and " & DBNameSpace & ".SSCPItemMaster.strTrackingNumber = " & DBNameSpace & ".AFSSSCPRecords.strTrackingNumber " & _
+                                "and " & DBNameSpace & ".sscpitemmaster.strAIRSnumber = '0413" & temp & "' " & _
+                                "and " & DBNameSpace & ".SSCPItemMaster.strEventType = '06' " & _
                                 "and datCompleteDate = '" & tempDate & "' "
 
-                                cmd = New OracleCommand(SQL, conn)
-                                If conn.State = ConnectionState.Closed Then
-                                    conn.Open()
+                                cmd = New OracleCommand(SQL, DBConn)
+                                If DBConn.State = ConnectionState.Closed Then
+                                    DBConn.Open()
                                 End If
                                 dr = cmd.ExecuteReader
                                 recExist = dr.Read
@@ -1661,12 +1661,12 @@ Public Class AFSValidator
                         "  when strcmsmember = 'A' then '2' " & _
                         "  when strcmsmember = 'S' then '5' " & _
                         "end CMSYear  " & _
-                        "from " & connNameSpace & ".apbsupplamentaldata " & _
+                        "from " & DBNameSpace & ".apbsupplamentaldata " & _
                         "where strairsnumber = '0413" & temp & "' "
 
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, DBConn)
+                        If DBConn.State = ConnectionState.Closed Then
+                            DBConn.Open()
                         End If
                         dr = cmd.ExecuteReader
                         recExist = dr.Read

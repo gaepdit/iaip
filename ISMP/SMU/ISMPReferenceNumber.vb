@@ -154,7 +154,7 @@ Public Class ISMPReferenceNumber
         Me.Controls.Add(Me.btnReseed)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Menu = Me.MainMenu1
-        Me.Name = "" & connNameSpace & ".ISMPReferenceNumber"
+        Me.Name = "" & DBNameSpace & ".ISMPReferenceNumber"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.Manual
         Me.Text = "ISMP Reference Number Manager"
         Me.ResumeLayout(False)
@@ -170,7 +170,7 @@ Public Class ISMPReferenceNumber
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -208,7 +208,7 @@ Public Class ISMPReferenceNumber
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -220,22 +220,22 @@ Public Class ISMPReferenceNumber
         Try
 
             If txtReSeed.Text <> "" Then
-                SQL = "Update " & connNameSpace & ".ISMPReferenceNumber set " & _
+                SQL = "Update " & DBNameSpace & ".ISMPReferenceNumber set " & _
                 "strReferenceNumber = '" & txtReSeed.Text & "' "
 
-                Dim cmd As New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                Dim cmd As New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 Dim dr As OracleDataReader = cmd.ExecuteReader
-                If conn.State = ConnectionState.Open Then
+                If DBConn.State = ConnectionState.Open Then
                     'conn.close()
                 End If
             End If
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -248,7 +248,7 @@ Public Class ISMPReferenceNumber
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -266,7 +266,7 @@ Public Class ISMPReferenceNumber
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -279,7 +279,7 @@ Public Class ISMPReferenceNumber
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -295,7 +295,7 @@ Public Class ISMPReferenceNumber
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try

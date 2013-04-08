@@ -21,13 +21,13 @@ Public Class IAIPProfileUpdate
             If myRegEx.IsMatch(myInput) Then
                 ' MessageBox.Show("E-Mail is valid")
 
-                SQL = "Update " & connNameSpace & ".EPDUserProfiles set " & _
+                SQL = "Update " & DBNameSpace & ".EPDUserProfiles set " & _
                 "strEmailAddress = '" & txtEmailAddress.Text & "' " & _
                 "where numUserID = '" & UserGCode & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -49,12 +49,12 @@ Public Class IAIPProfileUpdate
             Dim pattern As String = "^1?\s*-?\s*(\d{3}|\(\s*\d{3}\s*\))\s*-?\s*\d{3}\s*-?\s*\d{4}$"
             Dim myRegEx As New System.Text.RegularExpressions.Regex(pattern)
             If myRegEx.IsMatch(myInput) Then
-                SQL = "Update " & connNameSpace & ".EPDUserProfiles set " & _
+                SQL = "Update " & DBNameSpace & ".EPDUserProfiles set " & _
                 "strPhone = '" & mtbPhoneNumber.Text & "' " & _
                 "where numuserID = '" & UserGCode & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -72,13 +72,13 @@ Public Class IAIPProfileUpdate
         Try
             If txtUserPassword.Text <> "" And txtConfirmPassword.Text <> "" Then
                 If txtUserPassword.Text = txtConfirmPassword.Text Then
-                    SQL = "Update " & connNameSpace & ".EPDUsers set " & _
+                    SQL = "Update " & DBNameSpace & ".EPDUsers set " & _
                     "strPassword = '" & Replace(EncryptDecrypt.EncryptText(txtUserPassword.Text), "'", "''") & "' " & _
                     "where numUserId = '" & UserGCode & "' "
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
@@ -104,13 +104,13 @@ Public Class IAIPProfileUpdate
             If myRegEx.IsMatch(myInput) Then
                 ' MessageBox.Show("E-Mail is valid")
 
-                SQL = "Update " & connNameSpace & ".EPDUserProfiles set " & _
+                SQL = "Update " & DBNameSpace & ".EPDUserProfiles set " & _
                 "strEmailAddress = '" & txtEmailAddress.Text & "' " & _
                 "where numUserID = '" & UserGCode & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -126,12 +126,12 @@ Public Class IAIPProfileUpdate
             Dim pattern2 As String = "^1?\s*-?\s*(\d{3}|\(\s*\d{3}\s*\))\s*-?\s*\d{3}\s*-?\s*\d{4}$"
             Dim myRegEx2 As New System.Text.RegularExpressions.Regex(pattern)
             If myRegEx2.IsMatch(myInput) Then
-                SQL = "Update " & connNameSpace & ".EPDUserProfiles set " & _
+                SQL = "Update " & DBNameSpace & ".EPDUserProfiles set " & _
                 "strPhone = '" & mtbPhoneNumber.Text & "' " & _
                 "where numuserID = '" & UserGCode & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -145,13 +145,13 @@ Public Class IAIPProfileUpdate
 
             If txtUserPassword.Text <> "" And txtConfirmPassword.Text <> "" Then
                 If txtUserPassword.Text = txtConfirmPassword.Text Then
-                    SQL = "Update " & connNameSpace & ".EPDUsers set " & _
+                    SQL = "Update " & DBNameSpace & ".EPDUsers set " & _
                     "strPassword = '" & Replace(EncryptDecrypt.EncryptText(txtUserPassword.Text), "'", "''") & "' " & _
                     "where numUserId = '" & UserGCode & "' "
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()

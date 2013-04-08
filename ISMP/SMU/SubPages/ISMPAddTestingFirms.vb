@@ -593,7 +593,7 @@ Public Class ISMPAddTestingFirms
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -633,7 +633,7 @@ Public Class ISMPAddTestingFirms
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -648,15 +648,15 @@ Public Class ISMPAddTestingFirms
                  "strFirmCity, strFirmState, " & _
                  "strFirmZipCode, strFirmPhoneNumber1, " & _
                  "strFirmPhoneNumber2, strFirmFax, strFirmEmail " & _
-                 "from " & connNameSpace & ".LookUPTestingFirms " & _
+                 "from " & DBNameSpace & ".LookUPTestingFirms " & _
                  "Order by strTestingFirm "
 
             dsTestingFirms = New DataSet
 
-            daTestingFirms = New OracleDataAdapter(SQL, conn)
+            daTestingFirms = New OracleDataAdapter(SQL, DBConn)
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             daTestingFirms.Fill(dsTestingFirms, "TestingFirms")
@@ -666,7 +666,7 @@ Public Class ISMPAddTestingFirms
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -776,7 +776,7 @@ Public Class ISMPAddTestingFirms
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -850,7 +850,7 @@ Public Class ISMPAddTestingFirms
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -865,8 +865,8 @@ Public Class ISMPAddTestingFirms
             TestingFirmKey = "00001"
             newTestingFirmKey = "00000"
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             Do Until newTestingFirmKey <> "00000"
@@ -884,9 +884,9 @@ Public Class ISMPAddTestingFirms
                 End Select
 
                 SQL = "Select strTestingfirmKey " & _
-                "from " & connNameSpace & ".LookUPTestingFirms " & _
+                "from " & DBNameSpace & ".LookUPTestingFirms " & _
                 "where strTestingFirmKey = '" & TestingFirmKey & "' "
-                cmd = New OracleCommand(SQL, conn)
+                cmd = New OracleCommand(SQL, DBConn)
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = True Then
@@ -896,7 +896,7 @@ Public Class ISMPAddTestingFirms
                 End If
             Loop
 
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -917,7 +917,7 @@ Public Class ISMPAddTestingFirms
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1024,21 +1024,21 @@ Public Class ISMPAddTestingFirms
                     GetNextKey()
                 End If
 
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 If chbDeleteTestingFirm.Checked = True Then
-                    SQL = "Delete " & connNameSpace & ".LookUPTestingFirms " & _
+                    SQL = "Delete " & DBNameSpace & ".LookUPTestingFirms " & _
                     "where strTestingFirmKey = '" & txtTestingFirmKey.Text & "'"
                 Else
                     SQL = "Select strTestingFirmKey " & _
-                    "from " & connNameSpace & ".LookUPTestingFirms " & _
+                    "from " & DBNameSpace & ".LookUPTestingFirms " & _
                     "where strTestingFirmKey = '" & txtTestingFirmKey.Text & "'"
-                    cmd = New OracleCommand(SQL, conn)
+                    cmd = New OracleCommand(SQL, DBConn)
                     dr = cmd.ExecuteReader
                     recExist = dr.Read
                     If recExist = True Then
-                        SQL = "Update " & connNameSpace & ".LookUPTestingFirms set " & _
+                        SQL = "Update " & DBNameSpace & ".LookUPTestingFirms set " & _
                         "strTestingFirm = '" & TestingFirm & "', " & _
                         "strFirmAddress1 = '" & TestingFirmAddress1 & "', " & _
                         "strFirmAddress2 = '" & TestingFirmAddress2 & "', " & _
@@ -1051,7 +1051,7 @@ Public Class ISMPAddTestingFirms
                         "strFirmEmail = '" & TestingFirmEmail & "' " & _
                         "where strTestingFirmKey = '" & txtTestingFirmKey.Text & "' "
                     Else
-                        SQL = "Insert into " & connNameSpace & ".LookUPTestingFirms " & _
+                        SQL = "Insert into " & DBNameSpace & ".LookUPTestingFirms " & _
                         "(strTestingFirmKey, strTestingFirm, " & _
                         "strFirmAddress1, strFirmAddress2, " & _
                         "strFirmCity, strFirmState, " & _
@@ -1067,12 +1067,12 @@ Public Class ISMPAddTestingFirms
                         "'" & TestingFirmEmail & "') "
                     End If
                 End If
-                cmd = New OracleCommand(SQL, conn)
+                cmd = New OracleCommand(SQL, DBConn)
                 dr = cmd.ExecuteReader
 
                 LoadDataSet()
 
-                If conn.State = ConnectionState.Open Then
+                If DBConn.State = ConnectionState.Open Then
                     'conn.close()
                 End If
             End If
@@ -1080,7 +1080,7 @@ Public Class ISMPAddTestingFirms
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1107,7 +1107,7 @@ Public Class ISMPAddTestingFirms
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1121,7 +1121,7 @@ Public Class ISMPAddTestingFirms
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1135,7 +1135,7 @@ Public Class ISMPAddTestingFirms
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1182,7 +1182,7 @@ Public Class ISMPAddTestingFirms
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1197,7 +1197,7 @@ Public Class ISMPAddTestingFirms
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1212,7 +1212,7 @@ Public Class ISMPAddTestingFirms
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1225,7 +1225,7 @@ Public Class ISMPAddTestingFirms
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1238,7 +1238,7 @@ Public Class ISMPAddTestingFirms
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1251,7 +1251,7 @@ Public Class ISMPAddTestingFirms
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1264,7 +1264,7 @@ Public Class ISMPAddTestingFirms
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1277,7 +1277,7 @@ Public Class ISMPAddTestingFirms
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1290,7 +1290,7 @@ Public Class ISMPAddTestingFirms
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1312,7 +1312,7 @@ Public Class ISMPAddTestingFirms
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try

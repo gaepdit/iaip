@@ -21,7 +21,7 @@ Public Class PASPWebApplicationUser
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -54,7 +54,7 @@ Public Class PASPWebApplicationUser
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -78,7 +78,7 @@ Public Class PASPWebApplicationUser
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -111,7 +111,7 @@ Public Class PASPWebApplicationUser
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -134,7 +134,7 @@ Public Class PASPWebApplicationUser
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -153,20 +153,20 @@ Public Class PASPWebApplicationUser
 
             SQL = "Select DISTINCT substr(strairsnumber, 5) as strairsnumber, " _
             + "strfacilityname " _
-            + "from " & connNameSpace & ".APBFacilityInformation " _
+            + "from " & DBNameSpace & ".APBFacilityInformation " _
             + "Order by strAIRSNumber "
 
             ds = New DataSet
-            da = New OracleDataAdapter(SQL, conn)
+            da = New OracleDataAdapter(SQL, DBConn)
 
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
             Else
-                conn.Open()
+                DBConn.Open()
             End If
 
             da.Fill(ds, "facilityInfo")
 
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -191,7 +191,7 @@ Public Class PASPWebApplicationUser
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
             Return Nothing
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -208,20 +208,20 @@ Public Class PASPWebApplicationUser
 
 
             SQL = "Select numuserid, struseremail " _
-            + "from " & connNameSpace & ".OlapUserLogin " _
+            + "from " & DBNameSpace & ".OlapUserLogin " _
             + "Order by struseremail "
 
             ds = New DataSet
-            da = New OracleDataAdapter(SQL, conn)
+            da = New OracleDataAdapter(SQL, DBConn)
 
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
             Else
-                conn.Open()
+                DBConn.Open()
             End If
 
             da.Fill(ds, "UserEmail")
 
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -253,7 +253,7 @@ Public Class PASPWebApplicationUser
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -340,7 +340,7 @@ Public Class PASPWebApplicationUser
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -427,7 +427,7 @@ Public Class PASPWebApplicationUser
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -443,7 +443,7 @@ Public Class PASPWebApplicationUser
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -457,7 +457,7 @@ Public Class PASPWebApplicationUser
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -473,19 +473,19 @@ Public Class PASPWebApplicationUser
                 dsWorkEntry.AcceptChanges()
             End If
 
-            SQL = "SELECT " & connNameSpace & ".OlapUserAccess.NumUserID as ID, " & connNameSpace & ".OlapUserLogin.numuserid, " & _
-                    "" & connNameSpace & ".OlapUserLogin.strUserEmail as Email, " & _
+            SQL = "SELECT " & DBNameSpace & ".OlapUserAccess.NumUserID as ID, " & DBNameSpace & ".OlapUserLogin.numuserid, " & _
+                    "" & DBNameSpace & ".OlapUserLogin.strUserEmail as Email, " & _
                     "Case When intAdminAccess = 0 Then 'False' When intAdminAccess = 1 Then 'True' End as intAdminAccess, " & _
                     "Case When intFeeAccess = 0 Then 'False' When intFeeAccess = 1 Then 'True' End as intFeeAccess, " & _
                     "Case When intEIAccess = 0 Then 'False' When intEIAccess = 1 Then 'True' End as intEIAccess, " & _
                     "Case When intESAccess = 0 Then 'False' When intESAccess = 1 Then 'True' End as intESAccess " & _
-                    "FROM " & connNameSpace & ".OlapUserAccess, " & connNameSpace & ".OlapUserLogin " & _
-                    "WHERE " & connNameSpace & ".OLAPUserAccess.NumUserId = " & connNameSpace & ".OlapUserLogin.NumUserID " & _
-                    "AND " & connNameSpace & ".OlapUserAccess.strAirsNumber = '0413" & airsno & "' order by email"
+                    "FROM " & DBNameSpace & ".OlapUserAccess, " & DBNameSpace & ".OlapUserLogin " & _
+                    "WHERE " & DBNameSpace & ".OLAPUserAccess.NumUserId = " & DBNameSpace & ".OlapUserLogin.NumUserID " & _
+                    "AND " & DBNameSpace & ".OlapUserAccess.strAirsNumber = '0413" & airsno & "' order by email"
 
-            daWorkEntry = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daWorkEntry = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             daWorkEntry.Fill(dsWorkEntry, "tblFacilityUser")
@@ -505,14 +505,14 @@ Public Class PASPWebApplicationUser
             dv.AllowNew = False
             'End remove append Row
 
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -534,12 +534,12 @@ Public Class PASPWebApplicationUser
                     "Case When intFeeAccess = 0 Then 'False' When intFeeAccess = 1 Then 'True' End as intFeeAccess, " & _
                     "Case When intEIAccess = 0 Then 'False' When intEIAccess = 1 Then 'True' End as intEIAccess, " & _
                     "Case When intESAccess = 0 Then 'False' When intESAccess = 1 Then 'True' End as intESAccess " & _
-                    "FROM " & connNameSpace & ".OlapUserAccess " & _
+                    "FROM " & DBNameSpace & ".OlapUserAccess " & _
                     "WHERE numuserid = '" & cboUserEmail.SelectedValue & "' order by strfacilityname"
 
-            daWorkEntry = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daWorkEntry = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             daWorkEntry.Fill(dsWorkEntry, "tblUserFacility")
@@ -559,14 +559,14 @@ Public Class PASPWebApplicationUser
             dv.AllowNew = False
             'End remove append Row
 
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -582,12 +582,12 @@ Public Class PASPWebApplicationUser
             "straddress, strcity, " & _
             "strstate, strzip, " & _
             "strphonenumber, strfaxnumber " & _
-            "from " & connNameSpace & ".OlapUserProfile " & _
+            "from " & DBNameSpace & ".OlapUserProfile " & _
             "where numuserid = '" & cboUserEmail.SelectedValue & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -633,7 +633,7 @@ Public Class PASPWebApplicationUser
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -646,7 +646,7 @@ Public Class PASPWebApplicationUser
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -722,7 +722,7 @@ Public Class PASPWebApplicationUser
         End If
 
         Try
-            Dim updateString As String = "UPDATE " & connNameSpace & ".OlapUserAccess " & _
+            Dim updateString As String = "UPDATE " & DBNameSpace & ".OlapUserAccess " & _
                       "SET intadminaccess = '" & admin & "', " & _
                       "intFeeAccess = '" & fee & "', " & _
                       "intEIAccess = '" & ei & "', " & _
@@ -730,12 +730,12 @@ Public Class PASPWebApplicationUser
                       "WHERE numUserID = '" & userid & "' " & _
                       "and strAirsNumber = '0413" & airsno & "' "
 
-            Dim cmd As New OracleCommand(updateString, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            Dim cmd As New OracleCommand(updateString, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             cmd.ExecuteNonQuery()
-            If conn.State = ConnectionState.Closed Then
+            If DBConn.State = ConnectionState.Closed Then
             Else
                 'conn.close()
             End If
@@ -770,7 +770,7 @@ Public Class PASPWebApplicationUser
         End If
 
         Try
-            Dim updateString As String = "UPDATE " & connNameSpace & ".OlapUserAccess " & _
+            Dim updateString As String = "UPDATE " & DBNameSpace & ".OlapUserAccess " & _
                       "SET intadminaccess = '" & admin & "', " & _
                       "intFeeAccess = '" & fee & "', " & _
                       "intEIAccess = '" & ei & "', " & _
@@ -778,12 +778,12 @@ Public Class PASPWebApplicationUser
                       "WHERE numUserID = '" & cboUserEmail.SelectedValue & "' " & _
                       "and strAirsNumber = '0413" & airsnumber & "' "
 
-            Dim cmd As New OracleCommand(updateString, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            Dim cmd As New OracleCommand(updateString, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             cmd.ExecuteNonQuery()
-            If conn.State = ConnectionState.Closed Then
+            If DBConn.State = ConnectionState.Closed Then
             Else
                 'conn.close()
             End If
@@ -796,14 +796,14 @@ Public Class PASPWebApplicationUser
     Private Sub btnAddFacilitytoUser_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAddFacilitytoUser.Click
         Try
 
-            Dim InsertString As String = "Insert into " & connNameSpace & ".OlapUserAccess " & _
+            Dim InsertString As String = "Insert into " & DBNameSpace & ".OlapUserAccess " & _
             "(numUserId, strAirsNumber, strFacilityName) values( " & _
             "'" & cboUserEmail.SelectedValue & "', '0413" & cboFacilityToAdd.Text & "', " & _
             "'" & Replace(cboFacilityToAdd.SelectedValue, "'", "''") & "') "
 
-            Dim cmd As New OracleCommand(InsertString, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            Dim cmd As New OracleCommand(InsertString, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             cmd.ExecuteNonQuery()
 
@@ -811,7 +811,7 @@ Public Class PASPWebApplicationUser
             MsgBox("The facility has beed added to this user", MsgBoxStyle.Information, "Insert Success!")
             LoadDataGridFacility()
 
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -821,16 +821,16 @@ Public Class PASPWebApplicationUser
     End Sub
     Private Sub btnDeleteFacilityUser_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDeleteFacilityUser.Click
         Try
-            Dim deleteString As String = "DELETE " & connNameSpace & ".OlapUserAccess " & _
+            Dim deleteString As String = "DELETE " & DBNameSpace & ".OlapUserAccess " & _
                                 "WHERE numUserID = '" & cboUserEmail.SelectedValue & "' " & _
                                 "and strAirsNumber = '0413" & cboFacilityToDelete.SelectedValue & "' "
 
-            Dim cmd As New OracleCommand(deleteString, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            Dim cmd As New OracleCommand(deleteString, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             cmd.ExecuteNonQuery()
-            If conn.State = ConnectionState.Closed Then
+            If DBConn.State = ConnectionState.Closed Then
             Else
                 'conn.close()
             End If
@@ -843,16 +843,16 @@ Public Class PASPWebApplicationUser
     Private Sub btnAddUser_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAddUser.Click
         Try
             Dim userID As Integer
-            Dim sql As String = "Select numUserId from " & connNameSpace & ".olapuserlogin " & _
+            Dim sql As String = "Select numUserId from " & DBNameSpace & ".olapuserlogin " & _
             "where struseremail = '" & Replace(UCase(txtEmail.Text), "'", "''") & "' "
             Dim cmd As New OracleCommand
             Dim dr As OracleDataReader
             Dim recexist As Boolean
 
-            cmd = New OracleCommand(sql, conn)
+            cmd = New OracleCommand(sql, DBConn)
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
 
@@ -860,13 +860,13 @@ Public Class PASPWebApplicationUser
 
             If recexist = True Then 'Email address is registered
                 userID = dr.Item("numUserId")
-                Dim InsertString As String = "Insert into " & connNameSpace & ".OlapUserAccess " & _
+                Dim InsertString As String = "Insert into " & DBNameSpace & ".OlapUserAccess " & _
                 "(numUserId, strAirsNumber, strFacilityName) values( " & _
                 "'" & userID & "', '0413" & airsno & "', '" & Replace(cboFacilityName.Text, "'", "''") & "') "
 
-                Dim cmd1 As New OracleCommand(InsertString, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                Dim cmd1 As New OracleCommand(InsertString, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 cmd1.ExecuteNonQuery()
 
@@ -878,7 +878,7 @@ Public Class PASPWebApplicationUser
             End If
 
             If dr.IsClosed = False Then dr.Close()
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -888,16 +888,16 @@ Public Class PASPWebApplicationUser
     End Sub
     Private Sub btnDelete_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDelete.Click
         Try
-            Dim deleteString As String = "DELETE " & connNameSpace & ".OlapUserAccess " & _
+            Dim deleteString As String = "DELETE " & DBNameSpace & ".OlapUserAccess " & _
                                 "WHERE numUserID = '" & cboUsers.SelectedValue & "' " & _
                                 "and strAirsNumber = '0413" & airsno & "' "
 
-            Dim cmd As New OracleCommand(deleteString, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            Dim cmd As New OracleCommand(deleteString, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             cmd.ExecuteNonQuery()
-            If conn.State = ConnectionState.Closed Then
+            If DBConn.State = ConnectionState.Closed Then
             Else
                 'conn.close()
             End If
@@ -910,30 +910,30 @@ Public Class PASPWebApplicationUser
     Private Sub btnActivateUser_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnActivateUser.Click
         Try
             SQL = "Select strUserEmail " & _
-            "from " & connNameSpace & ".OlapUserLogIn " & _
+            "from " & DBNameSpace & ".OlapUserLogIn " & _
             "where strUserEmail = '" & Replace(UCase(txtEmailAddress.Text), "'", "''") & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             recExist = dr.Read
             dr.Close()
             If recExist = True Then
-                Dim updateString As String = "UPDATE " & connNameSpace & ".OlapUserLogin " & _
+                Dim updateString As String = "UPDATE " & DBNameSpace & ".OlapUserLogin " & _
                           "SET strconfirm = to_char(sysdate, 'YYYY/MM/DD HH:MI:SS') " & _
                           "WHERE struseremail = '" & Replace(UCase(txtEmailAddress.Text), "'", "''") & "' "
 
-                cmd = New OracleCommand(updateString, conn)
+                cmd = New OracleCommand(updateString, DBConn)
 
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 'cmd.ExecuteNonQuery()
                 dr = cmd.ExecuteReader
                 dr.Close()
-                If conn.State = ConnectionState.Closed Then
+                If DBConn.State = ConnectionState.Closed Then
                 Else
                     'conn.close()
                 End If
@@ -948,16 +948,16 @@ Public Class PASPWebApplicationUser
     End Sub
     Private Sub btnAddFacility_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAddFacility.Click
         Try
-            Dim insertString As String = "Insert into " & connNameSpace & ".FSPayandSubmit " & _
+            Dim insertString As String = "Insert into " & DBNameSpace & ".FSPayandSubmit " & _
                       "(intyear, strairsnumber, strpaymenttype, strofficialname, strofficialtitle, datesubmit) " & _
                       "values ('" & CInt(txtYear.Text) & "', '" & txtAirsNo.Text & "', 'N/A', 'N/A', 'N/A', '" & OracleDate & "')"
 
-            Dim cmd As New OracleCommand(insertString, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            Dim cmd As New OracleCommand(insertString, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             cmd.ExecuteNonQuery()
-            If conn.State = ConnectionState.Closed Then
+            If DBConn.State = ConnectionState.Closed Then
             Else
                 'conn.close()
             End If
@@ -970,41 +970,41 @@ Public Class PASPWebApplicationUser
     Private Sub btnRemoveFacility_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnRemoveFacility.Click
         Try
             txtYear.Text = "2006"
-            Dim SQL As String = "Delete from " & connNameSpace & ".FSPayandSubmit " & _
+            Dim SQL As String = "Delete from " & DBNameSpace & ".FSPayandSubmit " & _
                       "where intyear = '" & CInt(txtYear.Text) & "' and strairsnumber = '" & txtAirsNo.Text & "'"
 
-            Dim cmd As New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            Dim cmd As New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             cmd.ExecuteNonQuery()
-            If conn.State = ConnectionState.Closed Then
+            If DBConn.State = ConnectionState.Closed Then
             Else
                 'conn.close()
             End If
 
-            SQL = "Delete from " & connNameSpace & ".FSCalculations " & _
+            SQL = "Delete from " & DBNameSpace & ".FSCalculations " & _
                       "where intyear = '" & CInt(txtYear.Text) & "' and strairsnumber = '" & txtAirsNo.Text & "'"
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             cmd.ExecuteNonQuery()
-            If conn.State = ConnectionState.Closed Then
+            If DBConn.State = ConnectionState.Closed Then
             Else
                 'conn.close()
             End If
 
-            SQL = "Delete from " & connNameSpace & ".FSConfirmation " & _
+            SQL = "Delete from " & DBNameSpace & ".FSConfirmation " & _
                       "where intyear = '" & CInt(txtYear.Text) & "' and strairsnumber = '" & txtAirsNo.Text & "'"
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             cmd.ExecuteNonQuery()
-            If conn.State = ConnectionState.Closed Then
+            If DBConn.State = ConnectionState.Closed Then
             Else
                 'conn.close()
             End If

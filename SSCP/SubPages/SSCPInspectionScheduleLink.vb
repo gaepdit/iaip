@@ -395,7 +395,7 @@ Public Class SSCPInspectionscheduleLink
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -436,7 +436,7 @@ Public Class SSCPInspectionscheduleLink
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -448,12 +448,12 @@ Public Class SSCPInspectionscheduleLink
 
             SQL = "Select InspectionKey, " & _
                "datScheduleDateStart, datScheduleDateEnd " & _
-               "from " & connNameSpace & ".SSCPInspectionTracking " & _
+               "from " & DBNameSpace & ".SSCPInspectionTracking " & _
                "where SSCPTrackingNumber = '" & txtInspectionTrackingNumber.Text & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -469,7 +469,7 @@ Public Class SSCPInspectionscheduleLink
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -481,7 +481,7 @@ Public Class SSCPInspectionscheduleLink
 
             SQL = "Select InspectionKey, SSCPTrackingNumber, " & _
             "datScheduleDateStart, datScheduleDateEnd " & _
-            "from " & connNameSpace & ".SSCPInspectionTracking " & _
+            "from " & DBNameSpace & ".SSCPInspectionTracking " & _
             "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
 
             Select Case Source
@@ -497,10 +497,10 @@ Public Class SSCPInspectionscheduleLink
 
             dsInspectionSchedule = New DataSet
 
-            daInspectionschedule = New OracleDataAdapter(SQL, conn)
+            daInspectionschedule = New OracleDataAdapter(SQL, DBConn)
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             daInspectionschedule.Fill(dsInspectionSchedule, "ScheduledInspections")
@@ -510,7 +510,7 @@ Public Class SSCPInspectionscheduleLink
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -571,7 +571,7 @@ Public Class SSCPInspectionscheduleLink
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -588,24 +588,24 @@ Public Class SSCPInspectionscheduleLink
 
             If txtInspectionTrackingNumber.Text <> "" And txtInspectionNumber.Text <> "" Then
                 SQL = "select Inspectionkey " & _
-                "from " & connNameSpace & ".SSCPInspectionTracking " & _
+                "from " & DBNameSpace & ".SSCPInspectionTracking " & _
                 "where SSCPTrackingNumber = '" & txtInspectionTrackingNumber.Text & "' "
 
-                cmd = New OracleCommand(SQL, conn)
+                cmd = New OracleCommand(SQL, DBConn)
 
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = True Then
                     temp = dr.Item("inspectionKey")
 
-                    SQL = "Update " & connNameSpace & ".SSCPInspectionTracking set " & _
+                    SQL = "Update " & DBNameSpace & ".SSCPInspectionTracking set " & _
                     "SSCPTrackingNumber = '' " & _
                     "where InspectionKey = '" & temp & "' "
 
-                    cmd = New OracleCommand(SQL, conn)
+                    cmd = New OracleCommand(SQL, DBConn)
                     Try
 
                         dr = cmd.ExecuteReader
@@ -617,14 +617,14 @@ Public Class SSCPInspectionscheduleLink
 
                 End If
 
-                SQL = "Update " & connNameSpace & ".SSCPInspectionTracking set " & _
+                SQL = "Update " & DBNameSpace & ".SSCPInspectionTracking set " & _
                 "SSCPTrackingNumber = '" & txtInspectionTrackingNumber.Text & "' " & _
                 "where InspectionKey = '" & txtInspectionNumber.Text & "' "
 
-                cmd = New OracleCommand(SQL, conn)
+                cmd = New OracleCommand(SQL, DBConn)
 
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 Try
 
@@ -634,17 +634,17 @@ Public Class SSCPInspectionscheduleLink
                 End Try
                 ' 
 
-                SQL = "Update " & connNameSpace & ".SSCPInspectionTracking set " & _
+                SQL = "Update " & DBNameSpace & ".SSCPInspectionTracking set " & _
                 "datActualDateStart = (Select datInspectionDateStart " & _
-                "from " & connNameSpace & ".SSCPInspections where strTrackingNumber = '" & txtInspectionTrackingNumber.Text & "'), " & _
+                "from " & DBNameSpace & ".SSCPInspections where strTrackingNumber = '" & txtInspectionTrackingNumber.Text & "'), " & _
                 "datActualDateEnd = " & _
-                "(Select datInspectionDateEnd from " & connNameSpace & ".SSCPInspections " & _
+                "(Select datInspectionDateEnd from " & DBNameSpace & ".SSCPInspections " & _
                 "where strTrackingNumber = '" & txtInspectionTrackingNumber.Text & "') " & _
                 "where InspectionKey = '" & txtInspectionNumber.Text & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
 
                 Try
@@ -655,7 +655,7 @@ Public Class SSCPInspectionscheduleLink
                 End Try
                 ' 
 
-                If conn.State = ConnectionState.Open Then
+                If DBConn.State = ConnectionState.Open Then
                     'conn.close()
                 End If
 
@@ -664,7 +664,7 @@ Public Class SSCPInspectionscheduleLink
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -702,7 +702,7 @@ Public Class SSCPInspectionscheduleLink
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -722,7 +722,7 @@ Public Class SSCPInspectionscheduleLink
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -736,7 +736,7 @@ Public Class SSCPInspectionscheduleLink
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -750,7 +750,7 @@ Public Class SSCPInspectionscheduleLink
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try

@@ -34,22 +34,22 @@ Public Class MASPRegistrationTool
            "(select " & _
            "(strLastName ||', '||strFirstName) as EPDUser, " & _
            "numUserId, strPhone " & _
-           "from " & connNameSpace & ".EPDUserProfiles " & _
+           "from " & DBNameSpace & ".EPDUserProfiles " & _
            "where numEmployeeStatus = '1' " & _
            "and numBranch = '1' " & _
            "union " & _
            "select " & _
            "(strLastName ||', '||strFirstName) as EPDUser, " & _
            "numUserId, strPhone " & _
-           "from " & connNameSpace & ".EPDUserProfiles, " & connNameSpace & ".res_event  " & _
-           "where " & connNameSpace & ".EPDUserprofiles.numUserID = " & connNameSpace & ".REs_Event.numAPBContact " & _
-           "or " & connNameSpace & ".epduserprofiles.numUseriD = " & connNameSpace & ".res_event.strUserGCode ) " & _
+           "from " & DBNameSpace & ".EPDUserProfiles, " & DBNameSpace & ".res_event  " & _
+           "where " & DBNameSpace & ".EPDUserprofiles.numUserID = " & DBNameSpace & ".REs_Event.numAPBContact " & _
+           "or " & DBNameSpace & ".epduserprofiles.numUseriD = " & DBNameSpace & ".res_event.strUserGCode ) " & _
            "order by EPDUser "
 
             ds = New DataSet
-            da = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            da = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             da.Fill(ds, "Contacts")
@@ -132,13 +132,13 @@ Public Class MASPRegistrationTool
 
             SQL = "Select " & _
             "strEventStatus, numREslk_eventStatusID " & _
-            "from " & connNameSpace & ".RESLK_EventStatus " & _
+            "from " & DBNameSpace & ".RESLK_EventStatus " & _
             "where Active = '1' " & _
             "order by strEventStatus "
 
-            da = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            da = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             da.Fill(ds, "EventStatus")
 
@@ -167,13 +167,13 @@ Public Class MASPRegistrationTool
 
             SQL = "Select " & _
             "numResLK_RegistrationStatusID, strRegistrationStatus " & _
-            "from " & connNameSpace & ".RESLK_RegistrationStatus " & _
+            "from " & DBNameSpace & ".RESLK_RegistrationStatus " & _
             "where Active = '1' " & _
             "order by strRegistrationStatus "
 
-            da = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            da = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             da.Fill(ds, "RegistrationStatus")
 
@@ -223,17 +223,17 @@ Public Class MASPRegistrationTool
             "strTitle, strDescription, " & _
             "datStartDate, strEventStartTime, " & _
             "strVenue, strNotes " & _
-            "from " & connNameSpace & ".RES_EVENT " & _
+            "from " & DBNameSpace & ".RES_EVENT " & _
             "where Active = '1' " & _
             SQL
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             ds = New DataSet
-            da = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            da = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             da.Fill(ds, "Event")
 
@@ -333,7 +333,7 @@ Public Class MASPRegistrationTool
                "numRes_EventID, " & _
                "strEventStatus, strUserGCode, " & _
                "strTitle, " & _
-               "" & connNameSpace & ".Res_Event.strDescription, " & _
+               "" & DBNameSpace & ".Res_Event.strDescription, " & _
                "datStartDate, datEndDate, " & _
                "strVenue, " & _
                "numCapacity, strNotes, " & _
@@ -342,13 +342,13 @@ Public Class MASPRegistrationTool
                "strState, numZipCode, " & _
                "numAPBContact, numWebPhoneNumber, " & _
                "strEventStartTime, strEventEndTime " & _
-               "From " & connNameSpace & ".RES_Event, " & connNameSpace & ".RESLK_EVENTStatus " & _
-               "where " & connNameSpace & ".Res_Event.numEventStatusCode = " & connNameSpace & ".ResLK_EventStatus.numResLK_EventStatusID " & _
+               "From " & DBNameSpace & ".RES_Event, " & DBNameSpace & ".RESLK_EVENTStatus " & _
+               "where " & DBNameSpace & ".Res_Event.numEventStatusCode = " & DBNameSpace & ".ResLK_EventStatus.numResLK_EventStatusID " & _
                "and nuMRes_EventID = '" & txtSelectedEventID.Text & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -430,12 +430,12 @@ Public Class MASPRegistrationTool
 
             SQL = "Select " & _
             "count(*) as RegNum " & _
-            "from " & connNameSpace & ".Res_registration " & _
+            "from " & DBNameSpace & ".Res_registration " & _
             "where numRes_EventID = '" & txtSelectedEventID.Text & "' " & _
             "and numRegistrationStatusCode = '1' "
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -449,13 +449,13 @@ Public Class MASPRegistrationTool
 
             SQL = "Select " & _
             "count(*) as RegNum " & _
-            "from " & connNameSpace & ".Res_registration " & _
+            "from " & DBNameSpace & ".Res_registration " & _
             "where numRes_EventID = '" & txtSelectedEventID.Text & "' " & _
             "and numRegistrationStatusCode = '2' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -551,8 +551,8 @@ Public Class MASPRegistrationTool
 
 
             SQL = "select " & _
-         "" & connNameSpace & ".Res_Registration.numRes_registrationID, " & _
-         "" & connNameSpace & ".Res_Event.strTitle as eventTitle,  " & _
+         "" & DBNameSpace & ".Res_Registration.numRes_registrationID, " & _
+         "" & DBNameSpace & ".Res_Event.strTitle as eventTitle,  " & _
          "datRegistrationDateTime, " & _
          " strComments, " & _
          "STRREGISTRATIONSTATUS,  " & _
@@ -563,20 +563,20 @@ Public Class MASPRegistrationTool
          "strCompanyName, strPhonenumber  " & _
          " " & _
          "  " & _
-         "from " & connNameSpace & ".Res_Registration, " & connNameSpace & ".OLAPUSERProfile, " & _
-         "" & connNameSpace & ".res_event, " & connNameSpace & ".OLAPUserLogIn,  " & _
-         "" & connNameSpace & ".RESLK_RegistrationStatus " & _
-         "where " & connNameSpace & ".Res_Registration.numGECouserID = " & connNameSpace & ".OlapUserProfile.numUserID " & _
-         "and " & connNameSpace & ".Res_registration.numRes_eventid = " & connNameSpace & ".Res_Event.numRes_EventId  " & _
-         "and " & connNameSpace & ".Res_registration.numRegistrationStatusCode = " & _
-         "" & connNameSpace & ".RESLK_RegistrationStatus.NUMRESLK_REGISTRATIONSTATUSID " & _
-         "and " & connNameSpace & ".Res_Registration.numGECouserID = " & connNameSpace & ".OLAPUserLogIn.numuserid " & _
-         "and " & connNameSpace & ".Res_registration.numRes_EventID = '" & txtSelectedEventID.Text & "' "
+         "from " & DBNameSpace & ".Res_Registration, " & DBNameSpace & ".OLAPUSERProfile, " & _
+         "" & DBNameSpace & ".res_event, " & DBNameSpace & ".OLAPUserLogIn,  " & _
+         "" & DBNameSpace & ".RESLK_RegistrationStatus " & _
+         "where " & DBNameSpace & ".Res_Registration.numGECouserID = " & DBNameSpace & ".OlapUserProfile.numUserID " & _
+         "and " & DBNameSpace & ".Res_registration.numRes_eventid = " & DBNameSpace & ".Res_Event.numRes_EventId  " & _
+         "and " & DBNameSpace & ".Res_registration.numRegistrationStatusCode = " & _
+         "" & DBNameSpace & ".RESLK_RegistrationStatus.NUMRESLK_REGISTRATIONSTATUSID " & _
+         "and " & DBNameSpace & ".Res_Registration.numGECouserID = " & DBNameSpace & ".OLAPUserLogIn.numuserid " & _
+         "and " & DBNameSpace & ".Res_registration.numRes_EventID = '" & txtSelectedEventID.Text & "' "
 
             ds = New DataSet
-            da = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            da = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             da.Fill(ds, "Registered")
@@ -642,11 +642,11 @@ Public Class MASPRegistrationTool
             "numAPBContact, numWebPhoneNumber, " & _
             "strEventStartTime, strEventEndTime, " & _
             "strWebURL " & _
-            "From " & connNameSpace & ".RES_Event " & _
+            "From " & DBNameSpace & ".RES_Event " & _
             "where nuMRes_EventID = '" & txtEventID.Text & "' "
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -769,32 +769,32 @@ Public Class MASPRegistrationTool
     Sub LoadRegistrationManagement()
         Try
             SQL = "select " & _
-            "" & connNameSpace & ".Res_Registration.numRes_registrationID, " & _
-            "" & connNameSpace & ".Res_Event.strTitle as eventTitle,  " & _
+            "" & DBNameSpace & ".Res_Registration.numRes_registrationID, " & _
+            "" & DBNameSpace & ".Res_Event.strTitle as eventTitle,  " & _
             "datRegistrationDateTime, " & _
             "strConfirmationNumber, strComments, " & _
-            "STRREGISTRATIONSTATUS, " & connNameSpace & ".Res_Registration.numGECouserID, " & _
+            "STRREGISTRATIONSTATUS, " & DBNameSpace & ".Res_Registration.numGECouserID, " & _
             "strSalutation, strFirstName, " & _
             "strLastName, strUserEmail, " & _
-            "" & connNameSpace & ".OlapUserProfile.strAddress, " & connNameSpace & ".OlapUserProfile.strCity, " & _
-            "" & connNameSpace & ".OlapUserProfile.strState, strZip, " & _
+            "" & DBNameSpace & ".OlapUserProfile.strAddress, " & DBNameSpace & ".OlapUserProfile.strCity, " & _
+            "" & DBNameSpace & ".OlapUserProfile.strState, strZip, " & _
             "strCompanyName, strPhonenumber, " & _
             "strUserType, " & _
-            "" & connNameSpace & ".OLAPUserProfile.strTitle as UserTitle " & _
-            "from " & connNameSpace & ".Res_Registration, " & connNameSpace & ".OLAPUSERProfile, " & _
-            "" & connNameSpace & ".res_event, " & connNameSpace & ".OLAPUserLogIn,  " & _
-            "" & connNameSpace & ".RESLK_RegistrationStatus " & _
-            "where " & connNameSpace & ".Res_Registration.numGECouserID = " & connNameSpace & ".OlapUserProfile.numUserID " & _
-            "and " & connNameSpace & ".Res_registration.numRes_eventid = " & connNameSpace & ".Res_Event.numRes_EventId  " & _
-            "and " & connNameSpace & ".Res_registration.numRegistrationStatusCode = " & _
-            "" & connNameSpace & ".RESLK_RegistrationStatus.NUMRESLK_REGISTRATIONSTATUSID " & _
-            "and " & connNameSpace & ".Res_Registration.numGECouserID = " & connNameSpace & ".OLAPUserLogIn.numuserid " & _
-            "and " & connNameSpace & ".Res_registration.numRes_EventID = '" & txtSelectedEventID.Text & "' "
+            "" & DBNameSpace & ".OLAPUserProfile.strTitle as UserTitle " & _
+            "from " & DBNameSpace & ".Res_Registration, " & DBNameSpace & ".OLAPUSERProfile, " & _
+            "" & DBNameSpace & ".res_event, " & DBNameSpace & ".OLAPUserLogIn,  " & _
+            "" & DBNameSpace & ".RESLK_RegistrationStatus " & _
+            "where " & DBNameSpace & ".Res_Registration.numGECouserID = " & DBNameSpace & ".OlapUserProfile.numUserID " & _
+            "and " & DBNameSpace & ".Res_registration.numRes_eventid = " & DBNameSpace & ".Res_Event.numRes_EventId  " & _
+            "and " & DBNameSpace & ".Res_registration.numRegistrationStatusCode = " & _
+            "" & DBNameSpace & ".RESLK_RegistrationStatus.NUMRESLK_REGISTRATIONSTATUSID " & _
+            "and " & DBNameSpace & ".Res_Registration.numGECouserID = " & DBNameSpace & ".OLAPUserLogIn.numuserid " & _
+            "and " & DBNameSpace & ".Res_registration.numRes_EventID = '" & txtSelectedEventID.Text & "' "
 
             ds = New DataSet
-            da = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            da = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             da.Fill(ds, "Registered")
@@ -972,11 +972,11 @@ Public Class MASPRegistrationTool
 
             SQL = "Select " & _
             "numRes_EventID " & _
-            "from " & connNameSpace & ".ReS_Event " & _
+            "from " & DBNameSpace & ".ReS_Event " & _
             "where strPasscode = '" & temp & "' "
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             recExist = dr.Read
@@ -1000,11 +1000,11 @@ Public Class MASPRegistrationTool
 
             SQL = "Select " & _
             "numRes_EventID " & _
-            "from " & connNameSpace & ".ReS_Event " & _
+            "from " & DBNameSpace & ".ReS_Event " & _
             "where strPasscode = '" & temp & "' "
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             recExist = dr.Read

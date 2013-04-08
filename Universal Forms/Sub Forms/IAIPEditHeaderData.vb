@@ -85,20 +85,20 @@ Public Class IAIPEditHeaderData
 
         Try
             SQL = "Select * " & _
-            "From " & connNameSpace & ".VW_APBFacilityHeader " & _
+            "From " & DBNameSpace & ".VW_APBFacilityHeader " & _
             "where strAIRSNumber = '0413" & txtAirsNumber.Text & "' "
 
             SQL2 = "Select * " & _
-            "from " & connNameSpace & ".VW_HB_APBHeaderData " & _
+            "from " & DBNameSpace & ".VW_HB_APBHeaderData " & _
             "where strAIRSNumber = '0413" & txtAirsNumber.Text & "' " & _
             "Order by strKey DESC "
 
             dsHeaderData = New DataSet
-            daHeaderData = New OracleDataAdapter(SQL, conn)
-            daHeaderData2 = New OracleDataAdapter(SQL2, conn)
+            daHeaderData = New OracleDataAdapter(SQL, DBConn)
+            daHeaderData2 = New OracleDataAdapter(SQL2, DBConn)
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             daHeaderData.Fill(dsHeaderData, "Current")
@@ -623,17 +623,17 @@ Public Class IAIPEditHeaderData
                 If chbAPC0.Checked = True Then
                     AirProgramCode = "1"
                     SQL = "Select strPollutantKey " & _
-                    "from " & connNameSpace & ".APBAirProgramPollutants " & _
+                    "from " & DBNameSpace & ".APBAirProgramPollutants " & _
                     "where strAIRPollutantKey = '0413" & txtAirsNumber.Text & "0' "
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     recExist = dr.Read
                     dr.Close()
                     If recExist = False Then
-                        SQL = "Insert into " & connNameSpace & ".APBAirProgramPollutants " & _
+                        SQL = "Insert into " & DBNameSpace & ".APBAirProgramPollutants " & _
                          "(strAirsNumber, strAirPollutantKey, " & _
                          "strPollutantKey, strComplianceStatus, " & _
                          "strModifingPerson, datModifingDate, " & _
@@ -643,21 +643,21 @@ Public Class IAIPEditHeaderData
                          "'OT', 'C', " & _
                          "'" & UserGCode & "', '" & OracleDate & "', " & _
                          "'O')"
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, DBConn)
+                        If DBConn.State = ConnectionState.Closed Then
+                            DBConn.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Read()
                         dr.Close()
                     Else
                         If OperationalStatus <> "" Then
-                            SQL = "Update " & connNameSpace & ".APBAirProgramPollutants set " & _
+                            SQL = "Update " & DBNameSpace & ".APBAirProgramPollutants set " & _
                             "strOperationalStatus = '" & OperationalStatus & "' " & _
                             "where strAirPOllutantKey = '0413" & txtAirsNumber.Text & "0' "
-                            cmd = New OracleCommand(SQL, conn)
-                            If conn.State = ConnectionState.Closed Then
-                                conn.Open()
+                            cmd = New OracleCommand(SQL, DBConn)
+                            If DBConn.State = ConnectionState.Closed Then
+                                DBConn.Open()
                             End If
                             dr = cmd.ExecuteReader
                             dr.Read()
@@ -665,11 +665,11 @@ Public Class IAIPEditHeaderData
                         End If
                         If Classification <> "" Then
                             SQL = "Select strUpdateStatus " & _
-                            "from " & connNameSpace & ".AFSAirPollutantData " & _
+                            "from " & DBNameSpace & ".AFSAirPollutantData " & _
                             "where strAirPollutantKey = '0413" & txtAirsNumber.Text & "0' "
-                            cmd = New OracleCommand(SQL, conn)
-                            If conn.State = ConnectionState.Closed Then
-                                conn.Open()
+                            cmd = New OracleCommand(SQL, DBConn)
+                            If DBConn.State = ConnectionState.Closed Then
+                                DBConn.Open()
                             End If
                             dr = cmd.ExecuteReader
                             While dr.Read
@@ -677,12 +677,12 @@ Public Class IAIPEditHeaderData
                             End While
                             dr.Close()
                             If temp = "N" Then
-                                SQL = "update " & connNameSpace & ".AFSAirPollutantData set " & _
+                                SQL = "update " & DBNameSpace & ".AFSAirPollutantData set " & _
                                 "strUpdateStatus = 'C' " & _
                                 "where strAIRPollutantKey = '0413" & txtAirsNumber.Text & "0'"
-                                cmd = New OracleCommand(SQL, conn)
-                                If conn.State = ConnectionState.Closed Then
-                                    conn.Open()
+                                cmd = New OracleCommand(SQL, DBConn)
+                                If DBConn.State = ConnectionState.Closed Then
+                                    DBConn.Open()
                                 End If
                                 dr = cmd.ExecuteReader
                                 dr.Read()
@@ -692,14 +692,14 @@ Public Class IAIPEditHeaderData
                     End If
                 Else
                     AirProgramCode = "0"
-                    SQL = "Update " & connNameSpace & ".APBSubpartData set " & _
+                    SQL = "Update " & DBNameSpace & ".APBSubpartData set " & _
                        "active = '0', " & _
                        "UpdateUser = '" & UserGCode & "', " & _
                        "updateDateTime = '" & OracleDate & "' " & _
                        "where strSubPartKey = '0413" & txtAirsNumber.Text & "0' "
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
@@ -707,17 +707,17 @@ Public Class IAIPEditHeaderData
                 If chbAPC1.Checked = True Then
                     AirProgramCode = AirProgramCode & "1"
                     SQL = "Select strPollutantKey " & _
-                    "from " & connNameSpace & ".APBAirProgramPollutants " & _
+                    "from " & DBNameSpace & ".APBAirProgramPollutants " & _
                     "where strAIRPollutantKey = '0413" & txtAirsNumber.Text & "1' "
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     recExist = dr.Read
                     dr.Close()
                     If recExist = False Then
-                        SQL = "Insert into " & connNameSpace & ".APBAirProgramPollutants " & _
+                        SQL = "Insert into " & DBNameSpace & ".APBAirProgramPollutants " & _
                          "(strAirsNumber, strAirPollutantKey, " & _
                          "strPollutantKey, strComplianceStatus, " & _
                          "strModifingPerson, datModifingDate, " & _
@@ -727,21 +727,21 @@ Public Class IAIPEditHeaderData
                          "'OT', 'C', " & _
                          "'" & UserGCode & "', '" & OracleDate & "', " & _
                          "'O')"
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, DBConn)
+                        If DBConn.State = ConnectionState.Closed Then
+                            DBConn.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Read()
                         dr.Close()
                     Else
                         If OperationalStatus <> "" Then
-                            SQL = "Update " & connNameSpace & ".APBAirProgramPollutants set " & _
+                            SQL = "Update " & DBNameSpace & ".APBAirProgramPollutants set " & _
                             "strOperationalStatus = '" & OperationalStatus & "' " & _
                             "where strAirPOllutantKey = '0413" & txtAirsNumber.Text & "1' "
-                            cmd = New OracleCommand(SQL, conn)
-                            If conn.State = ConnectionState.Closed Then
-                                conn.Open()
+                            cmd = New OracleCommand(SQL, DBConn)
+                            If DBConn.State = ConnectionState.Closed Then
+                                DBConn.Open()
                             End If
                             dr = cmd.ExecuteReader
                             dr.Read()
@@ -749,11 +749,11 @@ Public Class IAIPEditHeaderData
                         End If
                         If Classification <> "" Then
                             SQL = "Select strUpdateStatus " & _
-                            "from " & connNameSpace & ".AFSAirPollutantData " & _
+                            "from " & DBNameSpace & ".AFSAirPollutantData " & _
                             "where strAirPollutantKey = '0413" & txtAirsNumber.Text & "1' "
-                            cmd = New OracleCommand(SQL, conn)
-                            If conn.State = ConnectionState.Closed Then
-                                conn.Open()
+                            cmd = New OracleCommand(SQL, DBConn)
+                            If DBConn.State = ConnectionState.Closed Then
+                                DBConn.Open()
                             End If
                             dr = cmd.ExecuteReader
                             While dr.Read
@@ -761,12 +761,12 @@ Public Class IAIPEditHeaderData
                             End While
                             dr.Close()
                             If temp = "N" Then
-                                SQL = "update " & connNameSpace & ".AFSAirPollutantData set " & _
+                                SQL = "update " & DBNameSpace & ".AFSAirPollutantData set " & _
                                 "strUpdateStatus = 'C' " & _
                                 "where strAIRPollutantKey = '0413" & txtAirsNumber.Text & "1'"
-                                cmd = New OracleCommand(SQL, conn)
-                                If conn.State = ConnectionState.Closed Then
-                                    conn.Open()
+                                cmd = New OracleCommand(SQL, DBConn)
+                                If DBConn.State = ConnectionState.Closed Then
+                                    DBConn.Open()
                                 End If
                                 dr = cmd.ExecuteReader
                                 dr.Read()
@@ -780,17 +780,17 @@ Public Class IAIPEditHeaderData
                 If chbAPC3.Checked = True Then
                     AirProgramCode = AirProgramCode & "1"
                     SQL = "Select strPollutantKey " & _
-                   "from " & connNameSpace & ".APBAirProgramPollutants " & _
+                   "from " & DBNameSpace & ".APBAirProgramPollutants " & _
                    "where strAIRPollutantKey = '0413" & txtAirsNumber.Text & "3' "
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     recExist = dr.Read
                     dr.Close()
                     If recExist = False Then
-                        SQL = "Insert into " & connNameSpace & ".APBAirProgramPollutants " & _
+                        SQL = "Insert into " & DBNameSpace & ".APBAirProgramPollutants " & _
                          "(strAirsNumber, strAirPollutantKey, " & _
                          "strPollutantKey, strComplianceStatus, " & _
                          "strModifingPerson, datModifingDate, " & _
@@ -800,21 +800,21 @@ Public Class IAIPEditHeaderData
                          "'OT', 'C', " & _
                          "'" & UserGCode & "', '" & OracleDate & "', " & _
                          "'O')"
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, DBConn)
+                        If DBConn.State = ConnectionState.Closed Then
+                            DBConn.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Read()
                         dr.Close()
                     Else
                         If OperationalStatus <> "" Then
-                            SQL = "Update " & connNameSpace & ".APBAirProgramPollutants set " & _
+                            SQL = "Update " & DBNameSpace & ".APBAirProgramPollutants set " & _
                             "strOperationalStatus = '" & OperationalStatus & "' " & _
                             "where strAirPOllutantKey = '0413" & txtAirsNumber.Text & "3' "
-                            cmd = New OracleCommand(SQL, conn)
-                            If conn.State = ConnectionState.Closed Then
-                                conn.Open()
+                            cmd = New OracleCommand(SQL, DBConn)
+                            If DBConn.State = ConnectionState.Closed Then
+                                DBConn.Open()
                             End If
                             dr = cmd.ExecuteReader
                             dr.Read()
@@ -822,11 +822,11 @@ Public Class IAIPEditHeaderData
                         End If
                         If Classification <> "" Then
                             SQL = "Select strUpdateStatus " & _
-                            "from " & connNameSpace & ".AFSAirPollutantData " & _
+                            "from " & DBNameSpace & ".AFSAirPollutantData " & _
                             "where strAirPollutantKey = '0413" & txtAirsNumber.Text & "3' "
-                            cmd = New OracleCommand(SQL, conn)
-                            If conn.State = ConnectionState.Closed Then
-                                conn.Open()
+                            cmd = New OracleCommand(SQL, DBConn)
+                            If DBConn.State = ConnectionState.Closed Then
+                                DBConn.Open()
                             End If
                             dr = cmd.ExecuteReader
                             While dr.Read
@@ -834,12 +834,12 @@ Public Class IAIPEditHeaderData
                             End While
                             dr.Close()
                             If temp = "N" Then
-                                SQL = "update " & connNameSpace & ".AFSAirPollutantData set " & _
+                                SQL = "update " & DBNameSpace & ".AFSAirPollutantData set " & _
                                 "strUpdateStatus = 'C' " & _
                                 "where strAIRPollutantKey = '0413" & txtAirsNumber.Text & "3'"
-                                cmd = New OracleCommand(SQL, conn)
-                                If conn.State = ConnectionState.Closed Then
-                                    conn.Open()
+                                cmd = New OracleCommand(SQL, DBConn)
+                                If DBConn.State = ConnectionState.Closed Then
+                                    DBConn.Open()
                                 End If
                                 dr = cmd.ExecuteReader
                                 dr.Read()
@@ -853,17 +853,17 @@ Public Class IAIPEditHeaderData
                 If chbAPC4.Checked = True Then
                     AirProgramCode = AirProgramCode & "1"
                     SQL = "Select strPollutantKey " & _
-                   "from " & connNameSpace & ".APBAirProgramPollutants " & _
+                   "from " & DBNameSpace & ".APBAirProgramPollutants " & _
                    "where strAIRPollutantKey = '0413" & txtAirsNumber.Text & "4' "
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     recExist = dr.Read
                     dr.Close()
                     If recExist = False Then
-                        SQL = "Insert into " & connNameSpace & ".APBAirProgramPollutants " & _
+                        SQL = "Insert into " & DBNameSpace & ".APBAirProgramPollutants " & _
                          "(strAirsNumber, strAirPollutantKey, " & _
                          "strPollutantKey, strComplianceStatus, " & _
                          "strModifingPerson, datModifingDate, " & _
@@ -873,21 +873,21 @@ Public Class IAIPEditHeaderData
                          "'OT', 'C', " & _
                          "'" & UserGCode & "', '" & OracleDate & "', " & _
                          "'O')"
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, DBConn)
+                        If DBConn.State = ConnectionState.Closed Then
+                            DBConn.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Read()
                         dr.Close()
                     Else
                         If OperationalStatus <> "" Then
-                            SQL = "Update " & connNameSpace & ".APBAirProgramPollutants set " & _
+                            SQL = "Update " & DBNameSpace & ".APBAirProgramPollutants set " & _
                             "strOperationalStatus = '" & OperationalStatus & "' " & _
                             "where strAirPOllutantKey = '0413" & txtAirsNumber.Text & "4' "
-                            cmd = New OracleCommand(SQL, conn)
-                            If conn.State = ConnectionState.Closed Then
-                                conn.Open()
+                            cmd = New OracleCommand(SQL, DBConn)
+                            If DBConn.State = ConnectionState.Closed Then
+                                DBConn.Open()
                             End If
                             dr = cmd.ExecuteReader
                             dr.Read()
@@ -895,11 +895,11 @@ Public Class IAIPEditHeaderData
                         End If
                         If Classification <> "" Then
                             SQL = "Select strUpdateStatus " & _
-                            "from " & connNameSpace & ".AFSAirPollutantData " & _
+                            "from " & DBNameSpace & ".AFSAirPollutantData " & _
                             "where strAirPollutantKey = '0413" & txtAirsNumber.Text & "4' "
-                            cmd = New OracleCommand(SQL, conn)
-                            If conn.State = ConnectionState.Closed Then
-                                conn.Open()
+                            cmd = New OracleCommand(SQL, DBConn)
+                            If DBConn.State = ConnectionState.Closed Then
+                                DBConn.Open()
                             End If
                             dr = cmd.ExecuteReader
                             While dr.Read
@@ -907,12 +907,12 @@ Public Class IAIPEditHeaderData
                             End While
                             dr.Close()
                             If temp = "N" Then
-                                SQL = "update " & connNameSpace & ".AFSAirPollutantData set " & _
+                                SQL = "update " & DBNameSpace & ".AFSAirPollutantData set " & _
                                 "strUpdateStatus = 'C' " & _
                                 "where strAIRPollutantKey = '0413" & txtAirsNumber.Text & "4'"
-                                cmd = New OracleCommand(SQL, conn)
-                                If conn.State = ConnectionState.Closed Then
-                                    conn.Open()
+                                cmd = New OracleCommand(SQL, DBConn)
+                                If DBConn.State = ConnectionState.Closed Then
+                                    DBConn.Open()
                                 End If
                                 dr = cmd.ExecuteReader
                                 dr.Read()
@@ -926,17 +926,17 @@ Public Class IAIPEditHeaderData
                 If chbAPC6.Checked = True Then
                     AirProgramCode = AirProgramCode & "1"
                     SQL = "Select strPollutantKey " & _
-                   "from " & connNameSpace & ".APBAirProgramPollutants " & _
+                   "from " & DBNameSpace & ".APBAirProgramPollutants " & _
                    "where strAIRPollutantKey = '0413" & txtAirsNumber.Text & "6' "
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     recExist = dr.Read
                     dr.Close()
                     If recExist = False Then
-                        SQL = "Insert into " & connNameSpace & ".APBAirProgramPollutants " & _
+                        SQL = "Insert into " & DBNameSpace & ".APBAirProgramPollutants " & _
                          "(strAirsNumber, strAirPollutantKey, " & _
                          "strPollutantKey, strComplianceStatus, " & _
                          "strModifingPerson, datModifingDate, " & _
@@ -946,21 +946,21 @@ Public Class IAIPEditHeaderData
                          "'OT', 'C', " & _
                          "'" & UserGCode & "', '" & OracleDate & "', " & _
                          "'O')"
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, DBConn)
+                        If DBConn.State = ConnectionState.Closed Then
+                            DBConn.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Read()
                         dr.Close()
                     Else
                         If OperationalStatus <> "" Then
-                            SQL = "Update " & connNameSpace & ".APBAirProgramPollutants set " & _
+                            SQL = "Update " & DBNameSpace & ".APBAirProgramPollutants set " & _
                             "strOperationalStatus = '" & OperationalStatus & "' " & _
                             "where strAirPOllutantKey = '0413" & txtAirsNumber.Text & "6' "
-                            cmd = New OracleCommand(SQL, conn)
-                            If conn.State = ConnectionState.Closed Then
-                                conn.Open()
+                            cmd = New OracleCommand(SQL, DBConn)
+                            If DBConn.State = ConnectionState.Closed Then
+                                DBConn.Open()
                             End If
                             dr = cmd.ExecuteReader
                             dr.Read()
@@ -968,11 +968,11 @@ Public Class IAIPEditHeaderData
                         End If
                         If Classification <> "" Then
                             SQL = "Select strUpdateStatus " & _
-                            "from " & connNameSpace & ".AFSAirPollutantData " & _
+                            "from " & DBNameSpace & ".AFSAirPollutantData " & _
                             "where strAirPollutantKey = '0413" & txtAirsNumber.Text & "6' "
-                            cmd = New OracleCommand(SQL, conn)
-                            If conn.State = ConnectionState.Closed Then
-                                conn.Open()
+                            cmd = New OracleCommand(SQL, DBConn)
+                            If DBConn.State = ConnectionState.Closed Then
+                                DBConn.Open()
                             End If
                             dr = cmd.ExecuteReader
                             While dr.Read
@@ -980,12 +980,12 @@ Public Class IAIPEditHeaderData
                             End While
                             dr.Close()
                             If temp = "N" Then
-                                SQL = "update " & connNameSpace & ".AFSAirPollutantData set " & _
+                                SQL = "update " & DBNameSpace & ".AFSAirPollutantData set " & _
                                 "strUpdateStatus = 'C' " & _
                                 "where strAIRPollutantKey = '0413" & txtAirsNumber.Text & "6'"
-                                cmd = New OracleCommand(SQL, conn)
-                                If conn.State = ConnectionState.Closed Then
-                                    conn.Open()
+                                cmd = New OracleCommand(SQL, DBConn)
+                                If DBConn.State = ConnectionState.Closed Then
+                                    DBConn.Open()
                                 End If
                                 dr = cmd.ExecuteReader
                                 dr.Read()
@@ -999,17 +999,17 @@ Public Class IAIPEditHeaderData
                 If chbAPC7.Checked = True Then
                     AirProgramCode = AirProgramCode & "1"
                     SQL = "Select strPollutantKey " & _
-                   "from " & connNameSpace & ".APBAirProgramPollutants " & _
+                   "from " & DBNameSpace & ".APBAirProgramPollutants " & _
                    "where strAIRPollutantKey = '0413" & txtAirsNumber.Text & "7' "
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     recExist = dr.Read
                     dr.Close()
                     If recExist = False Then
-                        SQL = "Insert into " & connNameSpace & ".APBAirProgramPollutants " & _
+                        SQL = "Insert into " & DBNameSpace & ".APBAirProgramPollutants " & _
                          "(strAirsNumber, strAirPollutantKey, " & _
                          "strPollutantKey, strComplianceStatus, " & _
                          "strModifingPerson, datModifingDate, " & _
@@ -1019,21 +1019,21 @@ Public Class IAIPEditHeaderData
                          "'OT', 'C', " & _
                          "'" & UserGCode & "', '" & OracleDate & "', " & _
                          "'O')"
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, DBConn)
+                        If DBConn.State = ConnectionState.Closed Then
+                            DBConn.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Read()
                         dr.Close()
                     Else
                         If OperationalStatus <> "" Then
-                            SQL = "Update " & connNameSpace & ".APBAirProgramPollutants set " & _
+                            SQL = "Update " & DBNameSpace & ".APBAirProgramPollutants set " & _
                             "strOperationalStatus = '" & OperationalStatus & "' " & _
                             "where strAirPOllutantKey = '0413" & txtAirsNumber.Text & "7' "
-                            cmd = New OracleCommand(SQL, conn)
-                            If conn.State = ConnectionState.Closed Then
-                                conn.Open()
+                            cmd = New OracleCommand(SQL, DBConn)
+                            If DBConn.State = ConnectionState.Closed Then
+                                DBConn.Open()
                             End If
                             dr = cmd.ExecuteReader
                             dr.Read()
@@ -1041,11 +1041,11 @@ Public Class IAIPEditHeaderData
                         End If
                         If Classification <> "" Then
                             SQL = "Select strUpdateStatus " & _
-                            "from " & connNameSpace & ".AFSAirPollutantData " & _
+                            "from " & DBNameSpace & ".AFSAirPollutantData " & _
                             "where strAirPollutantKey = '0413" & txtAirsNumber.Text & "7' "
-                            cmd = New OracleCommand(SQL, conn)
-                            If conn.State = ConnectionState.Closed Then
-                                conn.Open()
+                            cmd = New OracleCommand(SQL, DBConn)
+                            If DBConn.State = ConnectionState.Closed Then
+                                DBConn.Open()
                             End If
                             dr = cmd.ExecuteReader
                             While dr.Read
@@ -1053,12 +1053,12 @@ Public Class IAIPEditHeaderData
                             End While
                             dr.Close()
                             If temp = "N" Then
-                                SQL = "update " & connNameSpace & ".AFSAirPollutantData set " & _
+                                SQL = "update " & DBNameSpace & ".AFSAirPollutantData set " & _
                                 "strUpdateStatus = 'C' " & _
                                 "where strAIRPollutantKey = '0413" & txtAirsNumber.Text & "7'"
-                                cmd = New OracleCommand(SQL, conn)
-                                If conn.State = ConnectionState.Closed Then
-                                    conn.Open()
+                                cmd = New OracleCommand(SQL, DBConn)
+                                If DBConn.State = ConnectionState.Closed Then
+                                    DBConn.Open()
                                 End If
                                 dr = cmd.ExecuteReader
                                 dr.Read()
@@ -1072,17 +1072,17 @@ Public Class IAIPEditHeaderData
                 If chbAPC8.Checked = True Then
                     AirProgramCode = AirProgramCode & "1"
                     SQL = "Select strPollutantKey " & _
-                   "from " & connNameSpace & ".APBAirProgramPollutants " & _
+                   "from " & DBNameSpace & ".APBAirProgramPollutants " & _
                    "where strAIRPollutantKey = '0413" & txtAirsNumber.Text & "8' "
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     recExist = dr.Read
                     dr.Close()
                     If recExist = False Then
-                        SQL = "Insert into " & connNameSpace & ".APBAirProgramPollutants " & _
+                        SQL = "Insert into " & DBNameSpace & ".APBAirProgramPollutants " & _
                          "(strAirsNumber, strAirPollutantKey, " & _
                          "strPollutantKey, strComplianceStatus, " & _
                          "strModifingPerson, datModifingDate, " & _
@@ -1092,21 +1092,21 @@ Public Class IAIPEditHeaderData
                          "'OT', 'C', " & _
                          "'" & UserGCode & "', '" & OracleDate & "', " & _
                          "'O')"
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, DBConn)
+                        If DBConn.State = ConnectionState.Closed Then
+                            DBConn.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Read()
                         dr.Close()
                     Else
                         If OperationalStatus <> "" Then
-                            SQL = "Update " & connNameSpace & ".APBAirProgramPollutants set " & _
+                            SQL = "Update " & DBNameSpace & ".APBAirProgramPollutants set " & _
                             "strOperationalStatus = '" & OperationalStatus & "' " & _
                             "where strAirPOllutantKey = '0413" & txtAirsNumber.Text & "8' "
-                            cmd = New OracleCommand(SQL, conn)
-                            If conn.State = ConnectionState.Closed Then
-                                conn.Open()
+                            cmd = New OracleCommand(SQL, DBConn)
+                            If DBConn.State = ConnectionState.Closed Then
+                                DBConn.Open()
                             End If
                             dr = cmd.ExecuteReader
                             dr.Read()
@@ -1114,11 +1114,11 @@ Public Class IAIPEditHeaderData
                         End If
                         If Classification <> "" Then
                             SQL = "Select strUpdateStatus " & _
-                            "from " & connNameSpace & ".AFSAirPollutantData " & _
+                            "from " & DBNameSpace & ".AFSAirPollutantData " & _
                             "where strAirPollutantKey = '0413" & txtAirsNumber.Text & "8' "
-                            cmd = New OracleCommand(SQL, conn)
-                            If conn.State = ConnectionState.Closed Then
-                                conn.Open()
+                            cmd = New OracleCommand(SQL, DBConn)
+                            If DBConn.State = ConnectionState.Closed Then
+                                DBConn.Open()
                             End If
                             dr = cmd.ExecuteReader
                             While dr.Read
@@ -1126,12 +1126,12 @@ Public Class IAIPEditHeaderData
                             End While
                             dr.Close()
                             If temp = "N" Then
-                                SQL = "update " & connNameSpace & ".AFSAirPollutantData set " & _
+                                SQL = "update " & DBNameSpace & ".AFSAirPollutantData set " & _
                                 "strUpdateStatus = 'C' " & _
                                 "where strAIRPollutantKey = '0413" & txtAirsNumber.Text & "8'"
-                                cmd = New OracleCommand(SQL, conn)
-                                If conn.State = ConnectionState.Closed Then
-                                    conn.Open()
+                                cmd = New OracleCommand(SQL, DBConn)
+                                If DBConn.State = ConnectionState.Closed Then
+                                    DBConn.Open()
                                 End If
                                 dr = cmd.ExecuteReader
                                 dr.Read()
@@ -1141,14 +1141,14 @@ Public Class IAIPEditHeaderData
                     End If
                 Else
                     AirProgramCode = AirProgramCode & "0"
-                    SQL = "Update " & connNameSpace & ".APBSubpartData set " & _
+                    SQL = "Update " & DBNameSpace & ".APBSubpartData set " & _
                    "active = '0', " & _
                    "UpdateUser = '" & UserGCode & "', " & _
                    "updateDateTime = '" & OracleDate & "' " & _
                    "where strSubPartKey = '0413" & txtAirsNumber.Text & "8' "
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
@@ -1156,17 +1156,17 @@ Public Class IAIPEditHeaderData
                 If chbAPC9.Checked = True Then
                     AirProgramCode = AirProgramCode & "1"
                     SQL = "Select strPollutantKey " & _
-                   "from " & connNameSpace & ".APBAirProgramPollutants " & _
+                   "from " & DBNameSpace & ".APBAirProgramPollutants " & _
                    "where strAIRPollutantKey = '0413" & txtAirsNumber.Text & "9' "
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     recExist = dr.Read
                     dr.Close()
                     If recExist = False Then
-                        SQL = "Insert into " & connNameSpace & ".APBAirProgramPollutants " & _
+                        SQL = "Insert into " & DBNameSpace & ".APBAirProgramPollutants " & _
                          "(strAirsNumber, strAirPollutantKey, " & _
                          "strPollutantKey, strComplianceStatus, " & _
                          "strModifingPerson, datModifingDate, " & _
@@ -1176,21 +1176,21 @@ Public Class IAIPEditHeaderData
                          "'OT', 'C', " & _
                          "'" & UserGCode & "', '" & OracleDate & "', " & _
                          "'O')"
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, DBConn)
+                        If DBConn.State = ConnectionState.Closed Then
+                            DBConn.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Read()
                         dr.Close()
                     Else
                         If OperationalStatus <> "" Then
-                            SQL = "Update " & connNameSpace & ".APBAirProgramPollutants set " & _
+                            SQL = "Update " & DBNameSpace & ".APBAirProgramPollutants set " & _
                             "strOperationalStatus = '" & OperationalStatus & "' " & _
                             "where strAirPOllutantKey = '0413" & txtAirsNumber.Text & "9' "
-                            cmd = New OracleCommand(SQL, conn)
-                            If conn.State = ConnectionState.Closed Then
-                                conn.Open()
+                            cmd = New OracleCommand(SQL, DBConn)
+                            If DBConn.State = ConnectionState.Closed Then
+                                DBConn.Open()
                             End If
                             dr = cmd.ExecuteReader
                             dr.Read()
@@ -1198,11 +1198,11 @@ Public Class IAIPEditHeaderData
                         End If
                         If Classification <> "" Then
                             SQL = "Select strUpdateStatus " & _
-                            "from " & connNameSpace & ".AFSAirPollutantData " & _
+                            "from " & DBNameSpace & ".AFSAirPollutantData " & _
                             "where strAirPollutantKey = '0413" & txtAirsNumber.Text & "9' "
-                            cmd = New OracleCommand(SQL, conn)
-                            If conn.State = ConnectionState.Closed Then
-                                conn.Open()
+                            cmd = New OracleCommand(SQL, DBConn)
+                            If DBConn.State = ConnectionState.Closed Then
+                                DBConn.Open()
                             End If
                             dr = cmd.ExecuteReader
                             While dr.Read
@@ -1210,12 +1210,12 @@ Public Class IAIPEditHeaderData
                             End While
                             dr.Close()
                             If temp = "N" Then
-                                SQL = "update " & connNameSpace & ".AFSAirPollutantData set " & _
+                                SQL = "update " & DBNameSpace & ".AFSAirPollutantData set " & _
                                 "strUpdateStatus = 'C' " & _
                                 "where strAIRPollutantKey = '0413" & txtAirsNumber.Text & "9'"
-                                cmd = New OracleCommand(SQL, conn)
-                                If conn.State = ConnectionState.Closed Then
-                                    conn.Open()
+                                cmd = New OracleCommand(SQL, DBConn)
+                                If DBConn.State = ConnectionState.Closed Then
+                                    DBConn.Open()
                                 End If
                                 dr = cmd.ExecuteReader
                                 dr.Read()
@@ -1225,14 +1225,14 @@ Public Class IAIPEditHeaderData
                     End If
                 Else
                     AirProgramCode = AirProgramCode & "0"
-                    SQL = "Update " & connNameSpace & ".APBSubpartData set " & _
+                    SQL = "Update " & DBNameSpace & ".APBSubpartData set " & _
                    "active = '0', " & _
                    "UpdateUser = '" & UserGCode & "', " & _
                    "updateDateTime = '" & OracleDate & "' " & _
                    "where strSubPartKey = '0413" & txtAirsNumber.Text & "9' "
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
@@ -1240,17 +1240,17 @@ Public Class IAIPEditHeaderData
                 If chbAPCF.Checked = True Then
                     AirProgramCode = AirProgramCode & "1"
                     SQL = "Select strPollutantKey " & _
-                   "from " & connNameSpace & ".APBAirProgramPollutants " & _
+                   "from " & DBNameSpace & ".APBAirProgramPollutants " & _
                    "where strAIRPollutantKey = '0413" & txtAirsNumber.Text & "F' "
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     recExist = dr.Read
                     dr.Close()
                     If recExist = False Then
-                        SQL = "Insert into " & connNameSpace & ".APBAirProgramPollutants " & _
+                        SQL = "Insert into " & DBNameSpace & ".APBAirProgramPollutants " & _
                          "(strAirsNumber, strAirPollutantKey, " & _
                          "strPollutantKey, strComplianceStatus, " & _
                          "strModifingPerson, datModifingDate, " & _
@@ -1260,21 +1260,21 @@ Public Class IAIPEditHeaderData
                          "'OT', 'C', " & _
                          "'" & UserGCode & "', '" & OracleDate & "', " & _
                          "'O')"
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, DBConn)
+                        If DBConn.State = ConnectionState.Closed Then
+                            DBConn.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Read()
                         dr.Close()
                     Else
                         If OperationalStatus <> "" Then
-                            SQL = "Update " & connNameSpace & ".APBAirProgramPollutants set " & _
+                            SQL = "Update " & DBNameSpace & ".APBAirProgramPollutants set " & _
                             "strOperationalStatus = '" & OperationalStatus & "' " & _
                             "where strAirPOllutantKey = '0413" & txtAirsNumber.Text & "F' "
-                            cmd = New OracleCommand(SQL, conn)
-                            If conn.State = ConnectionState.Closed Then
-                                conn.Open()
+                            cmd = New OracleCommand(SQL, DBConn)
+                            If DBConn.State = ConnectionState.Closed Then
+                                DBConn.Open()
                             End If
                             dr = cmd.ExecuteReader
                             dr.Read()
@@ -1282,11 +1282,11 @@ Public Class IAIPEditHeaderData
                         End If
                         If Classification <> "" Then
                             SQL = "Select strUpdateStatus " & _
-                            "from " & connNameSpace & ".AFSAirPollutantData " & _
+                            "from " & DBNameSpace & ".AFSAirPollutantData " & _
                             "where strAirPollutantKey = '0413" & txtAirsNumber.Text & "F' "
-                            cmd = New OracleCommand(SQL, conn)
-                            If conn.State = ConnectionState.Closed Then
-                                conn.Open()
+                            cmd = New OracleCommand(SQL, DBConn)
+                            If DBConn.State = ConnectionState.Closed Then
+                                DBConn.Open()
                             End If
                             dr = cmd.ExecuteReader
                             While dr.Read
@@ -1294,12 +1294,12 @@ Public Class IAIPEditHeaderData
                             End While
                             dr.Close()
                             If temp = "N" Then
-                                SQL = "update " & connNameSpace & ".AFSAirPollutantData set " & _
+                                SQL = "update " & DBNameSpace & ".AFSAirPollutantData set " & _
                                 "strUpdateStatus = 'C' " & _
                                 "where strAIRPollutantKey = '0413" & txtAirsNumber.Text & "F'"
-                                cmd = New OracleCommand(SQL, conn)
-                                If conn.State = ConnectionState.Closed Then
-                                    conn.Open()
+                                cmd = New OracleCommand(SQL, DBConn)
+                                If DBConn.State = ConnectionState.Closed Then
+                                    DBConn.Open()
                                 End If
                                 dr = cmd.ExecuteReader
                                 dr.Read()
@@ -1313,17 +1313,17 @@ Public Class IAIPEditHeaderData
                 If chbAPCA.Checked = True Then
                     AirProgramCode = AirProgramCode & "1"
                     SQL = "Select strPollutantKey " & _
-                   "from " & connNameSpace & ".APBAirProgramPollutants " & _
+                   "from " & DBNameSpace & ".APBAirProgramPollutants " & _
                    "where strAIRPollutantKey = '0413" & txtAirsNumber.Text & "A' "
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     recExist = dr.Read
                     dr.Close()
                     If recExist = False Then
-                        SQL = "Insert into " & connNameSpace & ".APBAirProgramPollutants " & _
+                        SQL = "Insert into " & DBNameSpace & ".APBAirProgramPollutants " & _
                          "(strAirsNumber, strAirPollutantKey, " & _
                          "strPollutantKey, strComplianceStatus, " & _
                          "strModifingPerson, datModifingDate, " & _
@@ -1333,21 +1333,21 @@ Public Class IAIPEditHeaderData
                          "'OT', 'C', " & _
                          "'" & UserGCode & "', '" & OracleDate & "', " & _
                          "'O')"
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, DBConn)
+                        If DBConn.State = ConnectionState.Closed Then
+                            DBConn.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Read()
                         dr.Close()
                     Else
                         If OperationalStatus <> "" Then
-                            SQL = "Update " & connNameSpace & ".APBAirProgramPollutants set " & _
+                            SQL = "Update " & DBNameSpace & ".APBAirProgramPollutants set " & _
                             "strOperationalStatus = '" & OperationalStatus & "' " & _
                             "where strAirPOllutantKey = '0413" & txtAirsNumber.Text & "A' "
-                            cmd = New OracleCommand(SQL, conn)
-                            If conn.State = ConnectionState.Closed Then
-                                conn.Open()
+                            cmd = New OracleCommand(SQL, DBConn)
+                            If DBConn.State = ConnectionState.Closed Then
+                                DBConn.Open()
                             End If
                             dr = cmd.ExecuteReader
                             dr.Read()
@@ -1355,11 +1355,11 @@ Public Class IAIPEditHeaderData
                         End If
                         If Classification <> "" Then
                             SQL = "Select strUpdateStatus " & _
-                            "from " & connNameSpace & ".AFSAirPollutantData " & _
+                            "from " & DBNameSpace & ".AFSAirPollutantData " & _
                             "where strAirPollutantKey = '0413" & txtAirsNumber.Text & "A' "
-                            cmd = New OracleCommand(SQL, conn)
-                            If conn.State = ConnectionState.Closed Then
-                                conn.Open()
+                            cmd = New OracleCommand(SQL, DBConn)
+                            If DBConn.State = ConnectionState.Closed Then
+                                DBConn.Open()
                             End If
                             dr = cmd.ExecuteReader
                             While dr.Read
@@ -1367,12 +1367,12 @@ Public Class IAIPEditHeaderData
                             End While
                             dr.Close()
                             If temp = "N" Then
-                                SQL = "update " & connNameSpace & ".AFSAirPollutantData set " & _
+                                SQL = "update " & DBNameSpace & ".AFSAirPollutantData set " & _
                                 "strUpdateStatus = 'C' " & _
                                 "where strAIRPollutantKey = '0413" & txtAirsNumber.Text & "A'"
-                                cmd = New OracleCommand(SQL, conn)
-                                If conn.State = ConnectionState.Closed Then
-                                    conn.Open()
+                                cmd = New OracleCommand(SQL, DBConn)
+                                If DBConn.State = ConnectionState.Closed Then
+                                    DBConn.Open()
                                 End If
                                 dr = cmd.ExecuteReader
                                 dr.Read()
@@ -1386,17 +1386,17 @@ Public Class IAIPEditHeaderData
                 If chbAPCI.Checked = True Then
                     AirProgramCode = AirProgramCode & "1"
                     SQL = "Select strPollutantKey " & _
-                   "from " & connNameSpace & ".APBAirProgramPollutants " & _
+                   "from " & DBNameSpace & ".APBAirProgramPollutants " & _
                    "where strAIRPollutantKey = '0413" & txtAirsNumber.Text & "I' "
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     recExist = dr.Read
                     dr.Close()
                     If recExist = False Then
-                        SQL = "Insert into " & connNameSpace & ".APBAirProgramPollutants " & _
+                        SQL = "Insert into " & DBNameSpace & ".APBAirProgramPollutants " & _
                          "(strAirsNumber, strAirPollutantKey, " & _
                          "strPollutantKey, strComplianceStatus, " & _
                          "strModifingPerson, datModifingDate, " & _
@@ -1406,21 +1406,21 @@ Public Class IAIPEditHeaderData
                          "'OT', 'C', " & _
                          "'" & UserGCode & "', '" & OracleDate & "', " & _
                          "'O')"
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, DBConn)
+                        If DBConn.State = ConnectionState.Closed Then
+                            DBConn.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Read()
                         dr.Close()
                     Else
                         If OperationalStatus <> "" Then
-                            SQL = "Update " & connNameSpace & ".APBAirProgramPollutants set " & _
+                            SQL = "Update " & DBNameSpace & ".APBAirProgramPollutants set " & _
                             "strOperationalStatus = '" & OperationalStatus & "' " & _
                             "where strAirPOllutantKey = '0413" & txtAirsNumber.Text & "I' "
-                            cmd = New OracleCommand(SQL, conn)
-                            If conn.State = ConnectionState.Closed Then
-                                conn.Open()
+                            cmd = New OracleCommand(SQL, DBConn)
+                            If DBConn.State = ConnectionState.Closed Then
+                                DBConn.Open()
                             End If
                             dr = cmd.ExecuteReader
                             dr.Read()
@@ -1428,11 +1428,11 @@ Public Class IAIPEditHeaderData
                         End If
                         If Classification <> "" Then
                             SQL = "Select strUpdateStatus " & _
-                            "from " & connNameSpace & ".AFSAirPollutantData " & _
+                            "from " & DBNameSpace & ".AFSAirPollutantData " & _
                             "where strAirPollutantKey = '0413" & txtAirsNumber.Text & "I' "
-                            cmd = New OracleCommand(SQL, conn)
-                            If conn.State = ConnectionState.Closed Then
-                                conn.Open()
+                            cmd = New OracleCommand(SQL, DBConn)
+                            If DBConn.State = ConnectionState.Closed Then
+                                DBConn.Open()
                             End If
                             dr = cmd.ExecuteReader
                             While dr.Read
@@ -1440,12 +1440,12 @@ Public Class IAIPEditHeaderData
                             End While
                             dr.Close()
                             If temp = "N" Then
-                                SQL = "update " & connNameSpace & ".AFSAirPollutantData set " & _
+                                SQL = "update " & DBNameSpace & ".AFSAirPollutantData set " & _
                                 "strUpdateStatus = 'C' " & _
                                 "where strAIRPollutantKey = '0413" & txtAirsNumber.Text & "I'"
-                                cmd = New OracleCommand(SQL, conn)
-                                If conn.State = ConnectionState.Closed Then
-                                    conn.Open()
+                                cmd = New OracleCommand(SQL, DBConn)
+                                If DBConn.State = ConnectionState.Closed Then
+                                    DBConn.Open()
                                 End If
                                 dr = cmd.ExecuteReader
                                 dr.Read()
@@ -1459,17 +1459,17 @@ Public Class IAIPEditHeaderData
                 If chbAPCM.Checked = True Then
                     AirProgramCode = AirProgramCode & "1"
                     SQL = "Select strPollutantKey " & _
-                   "from " & connNameSpace & ".APBAirProgramPollutants " & _
+                   "from " & DBNameSpace & ".APBAirProgramPollutants " & _
                    "where strAIRPollutantKey = '0413" & txtAirsNumber.Text & "M' "
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     recExist = dr.Read
                     dr.Close()
                     If recExist = False Then
-                        SQL = "Insert into " & connNameSpace & ".APBAirProgramPollutants " & _
+                        SQL = "Insert into " & DBNameSpace & ".APBAirProgramPollutants " & _
                          "(strAirsNumber, strAirPollutantKey, " & _
                          "strPollutantKey, strComplianceStatus, " & _
                          "strModifingPerson, datModifingDate, " & _
@@ -1479,21 +1479,21 @@ Public Class IAIPEditHeaderData
                          "'OT', 'C', " & _
                          "'" & UserGCode & "', '" & OracleDate & "', " & _
                          "'O')"
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, DBConn)
+                        If DBConn.State = ConnectionState.Closed Then
+                            DBConn.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Read()
                         dr.Close()
                     Else
                         If OperationalStatus <> "" Then
-                            SQL = "Update " & connNameSpace & ".APBAirProgramPollutants set " & _
+                            SQL = "Update " & DBNameSpace & ".APBAirProgramPollutants set " & _
                             "strOperationalStatus = '" & OperationalStatus & "' " & _
                             "where strAirPOllutantKey = '0413" & txtAirsNumber.Text & "M' "
-                            cmd = New OracleCommand(SQL, conn)
-                            If conn.State = ConnectionState.Closed Then
-                                conn.Open()
+                            cmd = New OracleCommand(SQL, DBConn)
+                            If DBConn.State = ConnectionState.Closed Then
+                                DBConn.Open()
                             End If
                             dr = cmd.ExecuteReader
                             dr.Read()
@@ -1501,11 +1501,11 @@ Public Class IAIPEditHeaderData
                         End If
                         If Classification <> "" Then
                             SQL = "Select strUpdateStatus " & _
-                            "from " & connNameSpace & ".AFSAirPollutantData " & _
+                            "from " & DBNameSpace & ".AFSAirPollutantData " & _
                             "where strAirPollutantKey = '0413" & txtAirsNumber.Text & "M' "
-                            cmd = New OracleCommand(SQL, conn)
-                            If conn.State = ConnectionState.Closed Then
-                                conn.Open()
+                            cmd = New OracleCommand(SQL, DBConn)
+                            If DBConn.State = ConnectionState.Closed Then
+                                DBConn.Open()
                             End If
                             dr = cmd.ExecuteReader
                             While dr.Read
@@ -1513,12 +1513,12 @@ Public Class IAIPEditHeaderData
                             End While
                             dr.Close()
                             If temp = "N" Then
-                                SQL = "update " & connNameSpace & ".AFSAirPollutantData set " & _
+                                SQL = "update " & DBNameSpace & ".AFSAirPollutantData set " & _
                                 "strUpdateStatus = 'C' " & _
                                 "where strAIRPollutantKey = '0413" & txtAirsNumber.Text & "M'"
-                                cmd = New OracleCommand(SQL, conn)
-                                If conn.State = ConnectionState.Closed Then
-                                    conn.Open()
+                                cmd = New OracleCommand(SQL, DBConn)
+                                If DBConn.State = ConnectionState.Closed Then
+                                    DBConn.Open()
                                 End If
                                 dr = cmd.ExecuteReader
                                 dr.Read()
@@ -1528,14 +1528,14 @@ Public Class IAIPEditHeaderData
                     End If
                 Else
                     AirProgramCode = AirProgramCode & "0"
-                    SQL = "Update " & connNameSpace & ".APBSubpartData set " & _
+                    SQL = "Update " & DBNameSpace & ".APBSubpartData set " & _
                     "active = '0', " & _
                     "UpdateUser = '" & UserGCode & "', " & _
                     "updateDateTime = '" & OracleDate & "' " & _
                     "where strSubPartKey = '0413" & txtAirsNumber.Text & "M' "
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
@@ -1543,17 +1543,17 @@ Public Class IAIPEditHeaderData
                 If chbAPCV.Checked = True Then
                     AirProgramCode = AirProgramCode & "1"
                     SQL = "Select strPollutantKey " & _
-                   "from " & connNameSpace & ".APBAirProgramPollutants " & _
+                   "from " & DBNameSpace & ".APBAirProgramPollutants " & _
                    "where strAIRPollutantKey = '0413" & txtAirsNumber.Text & "V' "
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     recExist = dr.Read
                     dr.Close()
                     If recExist = False Then
-                        SQL = "Insert into " & connNameSpace & ".APBAirProgramPollutants " & _
+                        SQL = "Insert into " & DBNameSpace & ".APBAirProgramPollutants " & _
                          "(strAirsNumber, strAirPollutantKey, " & _
                          "strPollutantKey, strComplianceStatus, " & _
                          "strModifingPerson, datModifingDate, " & _
@@ -1563,21 +1563,21 @@ Public Class IAIPEditHeaderData
                          "'OT', 'C', " & _
                          "'" & UserGCode & "', '" & OracleDate & "', " & _
                          "'O')"
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, DBConn)
+                        If DBConn.State = ConnectionState.Closed Then
+                            DBConn.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Read()
                         dr.Close()
                     Else
                         If OperationalStatus <> "" Then
-                            SQL = "Update " & connNameSpace & ".APBAirProgramPollutants set " & _
+                            SQL = "Update " & DBNameSpace & ".APBAirProgramPollutants set " & _
                             "strOperationalStatus = '" & OperationalStatus & "' " & _
                             "where strAirPOllutantKey = '0413" & txtAirsNumber.Text & "V' "
-                            cmd = New OracleCommand(SQL, conn)
-                            If conn.State = ConnectionState.Closed Then
-                                conn.Open()
+                            cmd = New OracleCommand(SQL, DBConn)
+                            If DBConn.State = ConnectionState.Closed Then
+                                DBConn.Open()
                             End If
                             dr = cmd.ExecuteReader
                             dr.Read()
@@ -1585,11 +1585,11 @@ Public Class IAIPEditHeaderData
                         End If
                         If Classification <> "" Then
                             SQL = "Select strUpdateStatus " & _
-                            "from " & connNameSpace & ".AFSAirPollutantData " & _
+                            "from " & DBNameSpace & ".AFSAirPollutantData " & _
                             "where strAirPollutantKey = '0413" & txtAirsNumber.Text & "V' "
-                            cmd = New OracleCommand(SQL, conn)
-                            If conn.State = ConnectionState.Closed Then
-                                conn.Open()
+                            cmd = New OracleCommand(SQL, DBConn)
+                            If DBConn.State = ConnectionState.Closed Then
+                                DBConn.Open()
                             End If
                             dr = cmd.ExecuteReader
                             While dr.Read
@@ -1597,12 +1597,12 @@ Public Class IAIPEditHeaderData
                             End While
                             dr.Close()
                             If temp = "N" Then
-                                SQL = "update " & connNameSpace & ".AFSAirPollutantData set " & _
+                                SQL = "update " & DBNameSpace & ".AFSAirPollutantData set " & _
                                 "strUpdateStatus = 'C' " & _
                                 "where strAIRPollutantKey = '0413" & txtAirsNumber.Text & "V'"
-                                cmd = New OracleCommand(SQL, conn)
-                                If conn.State = ConnectionState.Closed Then
-                                    conn.Open()
+                                cmd = New OracleCommand(SQL, DBConn)
+                                If DBConn.State = ConnectionState.Closed Then
+                                    DBConn.Open()
                                 End If
                                 dr = cmd.ExecuteReader
                                 dr.Read()
@@ -1693,7 +1693,7 @@ Public Class IAIPEditHeaderData
                           Comments <> "" Or AttainmentStatus <> "" Or _
                           StateProgramCodes <> "" Or NAICSCode <> "" Then
 
-                            SQL = "Update " & connNameSpace & ".APBHeaderData set "
+                            SQL = "Update " & DBNameSpace & ".APBHeaderData set "
                             If Classification <> "" Then
                                 SQL = SQL & "strClass = '" & Classification & "', "
                             End If
@@ -1732,10 +1732,10 @@ Public Class IAIPEditHeaderData
                             "strModifingLocation = '2' " & _
                             "where strAIRSNumber = '0413" & txtAirsNumber.Text & "' "
 
-                            cmd = New OracleCommand(SQL, conn)
+                            cmd = New OracleCommand(SQL, DBConn)
 
-                            If conn.State = ConnectionState.Closed Then
-                                conn.Open()
+                            If DBConn.State = ConnectionState.Closed Then
+                                DBConn.Open()
                             End If
 
 
@@ -1754,13 +1754,13 @@ Public Class IAIPEditHeaderData
                                 RMPNumber = ""
                             End If
 
-                            SQL = "Update " & connNameSpace & ".APBSupplamentalData set " & _
+                            SQL = "Update " & DBNameSpace & ".APBSupplamentalData set " & _
                             "strRMPID = '" & Replace(RMPNumber, "'", "''") & "' " & _
                             "where strAIRSnumber = '0413" & txtAirsNumber.Text & "' "
 
-                            cmd = New OracleCommand(SQL, conn)
-                            If conn.State = ConnectionState.Closed Then
-                                conn.Open()
+                            cmd = New OracleCommand(SQL, DBConn)
+                            If DBConn.State = ConnectionState.Closed Then
+                                DBConn.Open()
                             End If
 
                             dr = cmd.ExecuteReader
@@ -1773,9 +1773,9 @@ Public Class IAIPEditHeaderData
                                 "UpdateUSer = '" & UserName & "', " & _
                                 "updateDateTime = sysdate " & _
                                 "where facilitySiteID = '" & txtAirsNumber.Text & "' "
-                                cmd = New OracleCommand(SQL, conn)
-                                If conn.State = ConnectionState.Closed Then
-                                    conn.Open()
+                                cmd = New OracleCommand(SQL, DBConn)
+                                If DBConn.State = ConnectionState.Closed Then
+                                    DBConn.Open()
                                 End If
                                 cmd.ExecuteReader()
                             End If
@@ -1784,9 +1784,9 @@ Public Class IAIPEditHeaderData
                             "strFacilitySiteDescription = '" & Replace(txtPlantDescription.Text, "'", "''") & "' " & _
                             "where facilitySiteID = '" & txtAirsNumber.Text & "' "
 
-                            cmd = New OracleCommand(SQL, conn)
-                            If conn.State = ConnectionState.Closed Then
-                                conn.Open()
+                            cmd = New OracleCommand(SQL, DBConn)
+                            If DBConn.State = ConnectionState.Closed Then
+                                DBConn.Open()
                             End If
                             cmd.ExecuteReader()
 
@@ -1964,11 +1964,11 @@ Public Class IAIPEditHeaderData
 
             If txtKey.Text <> "" Then
                 SQL = "select * " & _
-                "from " & connNameSpace & ".VW_HB_APBHeaderData " & _
+                "from " & DBNameSpace & ".VW_HB_APBHeaderData " & _
                 "where strKEy = '" & txtKey.Text & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read

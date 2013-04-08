@@ -47,14 +47,14 @@ Public Class PASPFeeManagement
             "datThirdQrtDue, datFourthQrtDue, " & _
             "strComments, " & _
             "numAAThres, numNAThres " & _
-            "from " & connNameSpace & ".FS_FeeRate " & _
+            "from " & DBNameSpace & ".FS_FeeRate " & _
             "where Active = '" & ActiveStatus & "' " & _
             "order by numFeeYear desc "
 
             ds = New DataSet
-            da = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            da = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             da.Fill(ds, "FeeRates")
             dgvFeeRates.DataSource = ds
@@ -174,15 +174,15 @@ Public Class PASPFeeManagement
             "when Active = '0' then 'Flagged as deleted' " & _
             "else 'Active' " & _
             "end ActiveStatus " & _
-            "from " & connNameSpace & ".FSLK_NSPSReason, " & connNameSpace & ".EPDUserProfiles " & _
-            "where " & connNameSpace & ".FSLK_NSPSReason.UpdateUser = " & connNameSpace & ".EPDUserProfiles.numUserID " & _
+            "from " & DBNameSpace & ".FSLK_NSPSReason, " & DBNameSpace & ".EPDUserProfiles " & _
+            "where " & DBNameSpace & ".FSLK_NSPSReason.UpdateUser = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
             "and Active = '" & ActiveStatus & "' " & _
             "order by NSPSReasonCode "
 
             ds = New DataSet
-            da = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            da = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             da.Fill(ds, "NSPSExemptions")
             dgvNSPSExemptions.DataSource = ds
@@ -227,15 +227,15 @@ Public Class PASPFeeManagement
             "when Active = '0' then 'Flagged as deleted' " & _
             "else 'Active' " & _
             "end ActiveStatus " & _
-            "from " & connNameSpace & ".FSLK_NSPSReason, " & connNameSpace & ".EPDUserProfiles " & _
-            "where " & connNameSpace & ".FSLK_NSPSReason.UpdateUser = " & connNameSpace & ".EPDUserProfiles.numUserID " & _
+            "from " & DBNameSpace & ".FSLK_NSPSReason, " & DBNameSpace & ".EPDUserProfiles " & _
+            "where " & DBNameSpace & ".FSLK_NSPSReason.UpdateUser = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
             "and Active = '" & ActiveStatus & "' " & _
             "order by NSPSReasonCode "
 
             ds = New DataSet
-            da = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            da = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             da.Fill(ds, "NSPSExemptions")
 
@@ -284,12 +284,12 @@ Public Class PASPFeeManagement
 
             SQL = "Select " & _
             "distinct(numFeeYear) as NSPSYear " & _
-            "from " & connNameSpace & ".FSLK_NSPSReasonYear " & _
+            "from " & DBNameSpace & ".FSLK_NSPSReasonYear " & _
             "order by numFeeyear desc "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -549,13 +549,13 @@ Public Class PASPFeeManagement
 
             SQL = "Select " & _
             "NSPSReasonCode, DisplayOrder " & _
-            "from " & connNameSpace & ".FSLK_NSPSReasonYear " & _
+            "from " & DBNameSpace & ".FSLK_NSPSReasonYear " & _
             "where numFeeYear = '" & cboNSPSExemptionYear.Text & "' " & _
             "order by NSPSReasonCode "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -695,13 +695,13 @@ Public Class PASPFeeManagement
 
                 SQL = "Select " & _
                 "strNSPSReason " & _
-                "from " & connNameSpace & ".FSCalculations " & _
+                "from " & DBNameSpace & ".FSCalculations " & _
                 "where intYear = '" & dgvNSPSExemptionsByYear(0, dgvNSPSExemptionsByYear.CurrentRow.Index).Value & "' " & _
                 "and (strNSPSReason like '%" & ReasonID & ",' or strNSPSReason = '" & ReasonID & "' or strNSPSReason like '%," & ReasonID & "') "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -736,13 +736,13 @@ Public Class PASPFeeManagement
                     ReasonID = dgvNSPSExemptionsByYear(1, i).Value
                     SQL = "Select " & _
                     "strNSPSReason " & _
-                    "from " & connNameSpace & ".FSCalculations " & _
+                    "from " & DBNameSpace & ".FSCalculations " & _
                     "where intYear = '" & dgvNSPSExemptionsByYear(0, dgvNSPSExemptionsByYear.CurrentRow.Index).Value & "' " & _
                     "and (strNSPSReason like '%" & ReasonID & ",' or strNSPSReason = '" & ReasonID & "' or strNSPSReason like '%," & ReasonID & "') "
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     recExist = dr.Read
@@ -774,12 +774,12 @@ Public Class PASPFeeManagement
 
             SQL = "Select " & _
             "NSPSReasonCode " & _
-            "from " & connNameSpace & ".FSLK_NSPSReasonYear " & _
+            "from " & DBNameSpace & ".FSLK_NSPSReasonYear " & _
             "where numFeeYear = '" & cboNSPSExemptionYear.Text & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -798,12 +798,12 @@ Public Class PASPFeeManagement
 
                 SQL = "Select " & _
                 "DisplayOrder " & _
-                "from " & connNameSpace & ".FSLK_NSPSReasonYear " & _
+                "from " & DBNameSpace & ".FSLK_NSPSReasonYear " & _
                 "where numFeeYear = '" & cboNSPSExemptionYear.Text & "' " & _
                 "and NSPSReasonCode = '" & ReasonID & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 temp = ""
@@ -972,14 +972,14 @@ Public Class PASPFeeManagement
 
             SQL = "Select " & _
             "count(*) as EnrollCheck " & _
-            "from " & connNameSpace & ".FS_Admin " & _
+            "from " & DBNameSpace & ".FS_Admin " & _
             "where numFeeYear = '" & cboAvailableFeeYears.Text & "' " & _
             "and strEnrolled = '1' " & _
             "and ACTIVE = '1' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -996,7 +996,7 @@ Public Class PASPFeeManagement
                 Exit Sub
             End If
 
-            SQL = "Update " & connNameSpace & ".FS_Admin set " & _
+            SQL = "Update " & DBNameSpace & ".FS_Admin set " & _
             "strEnrolled = '1', " & _
             "datEnrollment = sysdate, " & _
             "updateUser = 'IAIP||" & UserName & "', " & _
@@ -1004,30 +1004,30 @@ Public Class PASPFeeManagement
              "numCurrentStatus = 3 " & _
             "where numFeeYear = '" & cboAvailableFeeYears.Text & "' " & _
             "and ACTIVE = '1' "
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
 
-            SQL = "Update " & connNameSpace & ".FS_Admin set " & _
+            SQL = "Update " & DBNameSpace & ".FS_Admin set " & _
             "datInitialEnrollment = datEnrollment " & _
             "where numFeeYear = '" & cboAvailableFeeYears.Text & "' " & _
             "and datInitialEnrollment is null " & _
             "and ACTIVE = '1' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
-            cmd = New OracleCommand("AIRBranch.PD_FEE_DATA", conn)
+            cmd = New OracleCommand("AIRBranch.PD_FEE_DATA", DBConn)
             cmd.CommandType = CommandType.StoredProcedure
 
             cmd.Parameters.Add(New OracleParameter("FeeYear", OracleType.Number)).Value = cboAvailableFeeYears.Text
@@ -1068,7 +1068,7 @@ Public Class PASPFeeManagement
                     Exit Sub
             End Select
 
-            SQL = "Update " & connNameSpace & ".FS_Admin set " & _
+            SQL = "Update " & DBNameSpace & ".FS_Admin set " & _
             "strEnrolled = '0', " & _
             "datEnrollment = '', " & _
             "datInitialEnrollment = '', " & _
@@ -1076,9 +1076,9 @@ Public Class PASPFeeManagement
             "UpdateDateTime = '" & OracleDate & "' " & _
             "where numFeeYear = '" & cboAvailableFeeYears.Text & "' " & _
             "and ACTIVE = '1' "
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -1119,17 +1119,17 @@ Public Class PASPFeeManagement
             "else 'NO' " & _
             "end strPart70, " & _
             "datShutdowndate  " & _
-            "From " & connNameSpace & ".FS_Admin, " & connNameSpace & ".FS_MailOut  " & _
-            "where " & connNameSpace & ".FS_Admin.strAIRSnumber = " & connNameSpace & ".FS_MailOut.strAIRSnumber  " & _
-            "and " & connNameSpace & ".FS_Admin.numFeeYear = " & connNameSpace & ".FS_MailOut.numFeeYear  " & _
-            "and  " & connNameSpace & ".FS_Admin.numFeeYear = '" & cboAvailableFeeYears.Text & "'  " & _
+            "From " & DBNameSpace & ".FS_Admin, " & DBNameSpace & ".FS_MailOut  " & _
+            "where " & DBNameSpace & ".FS_Admin.strAIRSnumber = " & DBNameSpace & ".FS_MailOut.strAIRSnumber  " & _
+            "and " & DBNameSpace & ".FS_Admin.numFeeYear = " & DBNameSpace & ".FS_MailOut.numFeeYear  " & _
+            "and  " & DBNameSpace & ".FS_Admin.numFeeYear = '" & cboAvailableFeeYears.Text & "'  " & _
             "and (strEnrolled = '1')  " & _
-            "AND " & connNameSpace & ".FS_Admin.Active = '1' "
+            "AND " & DBNameSpace & ".FS_Admin.Active = '1' "
 
             ds = New DataSet
-            da = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            da = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             da.Fill(ds, "MailOutList")
             dgvFeeManagmentLists.DataSource = ds
@@ -1210,9 +1210,9 @@ Public Class PASPFeeManagement
             "from AIRBranch.FS_MailOut " & _
             "where numfeeyear = '" & cboAvailableFeeYears.Text & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -1225,10 +1225,10 @@ Public Class PASPFeeManagement
             dr.Close()
 
             If temp < 1 Then
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
-                cmd = New OracleCommand("AIRBranch.PD_FEE_MAILOUT", conn)
+                cmd = New OracleCommand("AIRBranch.PD_FEE_MAILOUT", DBConn)
                 cmd.CommandType = CommandType.StoredProcedure
 
                 cmd.Parameters.Add(New OracleParameter("FeeYear", OracleType.Number)).Value = cboAvailableFeeYears.Text
@@ -1236,10 +1236,10 @@ Public Class PASPFeeManagement
 
                 cmd.ExecuteNonQuery()
 
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
-                cmd = New OracleCommand("AIRBranch.PD_FEE_DATA", conn)
+                cmd = New OracleCommand("AIRBranch.PD_FEE_DATA", DBConn)
                 cmd.CommandType = CommandType.StoredProcedure
 
                 cmd.Parameters.Add(New OracleParameter("FeeYear", OracleType.Number)).Value = cboAvailableFeeYears.Text
@@ -1275,7 +1275,7 @@ Public Class PASPFeeManagement
                 'dr = cmd.ExecuteReader
                 'dr.Close()
 
-                SQL = "Update " & connNameSpace & ".FS_Admin set " & _
+                SQL = "Update " & DBNameSpace & ".FS_Admin set " & _
                 "numCurrentStatus = 4, " & _
                 "strInitialMailout = '1'  " & _
                 "where numFeeYear = '" & cboAvailableFeeYears.Text & "' " & _
@@ -1283,9 +1283,9 @@ Public Class PASPFeeManagement
                 "and strMailoutSent <> '0' " & _
                 "and numCurrentStatus < 5 "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -1326,17 +1326,17 @@ Public Class PASPFeeManagement
             "else 'NO' " & _
             "end strPart70, " & _
             "datShutdowndate  " & _
-            "From " & connNameSpace & ".FS_Admin, " & connNameSpace & ".FS_MailOut   " & _
-            "where " & connNameSpace & ".FS_Admin.strAIRSnumber = " & connNameSpace & ".FS_MailOut.strAIRSnumber  " & _
-            "and " & connNameSpace & ".FS_Admin.numFeeYear = " & connNameSpace & ".FS_MailOut.numFeeYear  " & _
-            "and  " & connNameSpace & ".FS_Admin.numFeeYear = '" & cboAvailableFeeYears.Text & "'  " & _
+            "From " & DBNameSpace & ".FS_Admin, " & DBNameSpace & ".FS_MailOut   " & _
+            "where " & DBNameSpace & ".FS_Admin.strAIRSnumber = " & DBNameSpace & ".FS_MailOut.strAIRSnumber  " & _
+            "and " & DBNameSpace & ".FS_Admin.numFeeYear = " & DBNameSpace & ".FS_MailOut.numFeeYear  " & _
+            "and  " & DBNameSpace & ".FS_Admin.numFeeYear = '" & cboAvailableFeeYears.Text & "'  " & _
             "and (strInitialMailOut = '1' or strMailoutSent = '1' )  " & _
-            "AND " & connNameSpace & ".FS_Admin.Active = '1' "
+            "AND " & DBNameSpace & ".FS_Admin.Active = '1' "
 
             ds = New DataSet
-            da = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            da = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             da.Fill(ds, "MailOutList")
             dgvFeeManagmentLists.DataSource = ds
@@ -1412,12 +1412,12 @@ Public Class PASPFeeManagement
 
             SQL = "Select " & _
             "strAIRSNumber " & _
-            "from " & connNameSpace & ".FS_Admin " & _
+            "from " & DBNameSpace & ".FS_Admin " & _
             "where numFeeYear = '" & cboAvailableFeeYears.Text & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -1428,13 +1428,13 @@ Public Class PASPFeeManagement
                 End If
                 If AIRSNumber <> "" Then
                     SQL = "Select * " & _
-                    "from " & connNameSpace & ".APBContactInformation " & _
+                    "from " & DBNameSpace & ".APBContactInformation " & _
                     "where strAIRSNumber = '" & AIRSNumber & "' " & _
                     "and strKey = '40' "
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr2 = cmd.ExecuteReader
                     While dr2.Read
@@ -1506,7 +1506,7 @@ Public Class PASPFeeManagement
                     End While
                     dr2.Close()
 
-                    SQL = "Update " & connNameSpace & ".FS_MailOut set " & _
+                    SQL = "Update " & DBNameSpace & ".FS_MailOut set " & _
                     "strFirstName = '" & ContactFirstName & "', " & _
                     "strLastName = '" & ContactLastName & "', " & _
                     "strPrefix = '" & ContactPrefix & "',  " & _
@@ -1518,9 +1518,9 @@ Public Class PASPFeeManagement
                     "strcontactZipCode = '" & ContactZipCode & "' " & _
                     "where strAIRSNumber = '" & AIRSNumber & "' " & _
                     "and numFeeYear = '" & cboAvailableFeeYears.Text & "' "
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr2 = cmd.ExecuteReader
                     dr2.Close()
@@ -1654,18 +1654,18 @@ Public Class PASPFeeManagement
           "when strMailoutSent = '1' then 'YES' " & _
           "else 'NO' " & _
           "end strMailoutSent " & _
-          "From " & connNameSpace & ".FS_Admin, " & connNameSpace & ".APBFacilityInformation,  " & _
-          "" & connNameSpace & ".APBHeaderData " & _
-          "where " & connNameSpace & ".FS_Admin.strAIRSnumber = " & connNameSpace & ".APBFacilityInformation.strAIRSnumber  " & _
-          "and " & connNameSpace & ".FS_admin.strAIRSNumber = " & connNameSpace & ".APBheaderData.strAIRSNumber " & _
-          "and  " & connNameSpace & ".FS_Admin.numFeeYear = '" & cboAvailableFeeYears.Text & "'  " & _
-          "AND " & connNameSpace & ".FS_Admin.Active = '1' "
+          "From " & DBNameSpace & ".FS_Admin, " & DBNameSpace & ".APBFacilityInformation,  " & _
+          "" & DBNameSpace & ".APBHeaderData " & _
+          "where " & DBNameSpace & ".FS_Admin.strAIRSnumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSnumber  " & _
+          "and " & DBNameSpace & ".FS_admin.strAIRSNumber = " & DBNameSpace & ".APBheaderData.strAIRSNumber " & _
+          "and  " & DBNameSpace & ".FS_Admin.numFeeYear = '" & cboAvailableFeeYears.Text & "'  " & _
+          "AND " & DBNameSpace & ".FS_Admin.Active = '1' "
  '"and (strEnrolled = '1' or strInitialMailout = '1' or strMailoutSent = '1')  " & _
 
             ds = New DataSet
-            da = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            da = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             da.Fill(ds, "MailOutList")
             dgvFeeManagmentLists.DataSource = ds
@@ -1716,16 +1716,16 @@ Public Class PASPFeeManagement
     End Sub
     Private Sub btnSetMailoutDate_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSetMailoutDate.Click
         Try
-            SQL = "Update " & connNameSpace & ".FS_Admin set " & _
+            SQL = "Update " & DBNameSpace & ".FS_Admin set " & _
             "datMailoutSent = '" & dtpDateMailoutSent.Text & "', " & _
             "strMailOutSent = '1' " & _
             "where numFeeYear = '" & cboAvailableFeeYears.Text & "' " & _
             "and datMailoutSent is null " & _
             "and strEnrolled = '1' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -1832,11 +1832,11 @@ Public Class PASPFeeManagement
                 txtEmail.Clear()
 
                 SQL = "Select strFacilityName " & _
-                "from " & connNameSpace & ".APBFacilityInformation " & _
+                "from " & DBNameSpace & ".APBFacilityInformation " & _
                 "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -1849,8 +1849,8 @@ Public Class PASPFeeManagement
                 dr.Close()
 
                 SQL = "SELECT " & _
-                "" & connNameSpace & ".OlapUserAccess.NumUserID as ID, " & connNameSpace & ".OlapUserLogin.numuserid, " & _
-                "" & connNameSpace & ".OlapUserLogin.strUserEmail as Email, " & _
+                "" & DBNameSpace & ".OlapUserAccess.NumUserID as ID, " & DBNameSpace & ".OlapUserLogin.numuserid, " & _
+                "" & DBNameSpace & ".OlapUserLogin.strUserEmail as Email, " & _
                 "Case " & _
                 "When intAdminAccess = 0 Then 'False' " & _
                 "When intAdminAccess = 1 Then 'True' " & _
@@ -1867,16 +1867,16 @@ Public Class PASPFeeManagement
                 "When intESAccess = 0 Then 'False' " & _
                 "When intESAccess = 1 Then 'True' " & _
                 "End as intESAccess " & _
-                "FROM " & connNameSpace & ".OlapUserAccess, " & connNameSpace & ".OlapUserLogin " & _
-                "WHERE " & connNameSpace & ".OLAPUserAccess.NumUserId = " & connNameSpace & ".OlapUserLogin.NumUserID " & _
-                "AND " & connNameSpace & ".OlapUserAccess.strAirsNumber = '0413" & mtbAIRSNumber.Text & "' order by email"
+                "FROM " & DBNameSpace & ".OlapUserAccess, " & DBNameSpace & ".OlapUserLogin " & _
+                "WHERE " & DBNameSpace & ".OLAPUserAccess.NumUserId = " & DBNameSpace & ".OlapUserLogin.NumUserID " & _
+                "AND " & DBNameSpace & ".OlapUserAccess.strAirsNumber = '0413" & mtbAIRSNumber.Text & "' order by email"
 
                 dgvUsers.Rows.Clear()
                 ds = New DataSet
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -1922,9 +1922,9 @@ Public Class PASPFeeManagement
                 End While
                 dr.Close()
 
-                da = New OracleDataAdapter(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                da = New OracleDataAdapter(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 da.Fill(ds, "FacilityUsers")
 
@@ -1943,24 +1943,24 @@ Public Class PASPFeeManagement
             Dim userID As Integer
 
             SQL = "Select numUserId " & _
-            "from " & connNameSpace & ".olapuserlogin " & _
+            "from " & DBNameSpace & ".olapuserlogin " & _
             "where struseremail = '" & Replace(UCase(txtEmail.Text), "'", "''") & "' "
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             recExist = dr.Read
 
             If recExist = True Then 'Email address is registered
                 userID = dr.Item("numUserId")
-                Dim InsertString As String = "Insert into " & connNameSpace & ".OlapUserAccess " & _
+                Dim InsertString As String = "Insert into " & DBNameSpace & ".OlapUserAccess " & _
                 "(numUserId, strAirsNumber, strFacilityName) values( " & _
                 "'" & userID & "', '0413" & mtbAIRSNumber.Text & "', '" & Replace(lblFaciltyName.Text, "'", "''") & "') "
 
-                Dim cmd1 As New OracleCommand(InsertString, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                Dim cmd1 As New OracleCommand(InsertString, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 cmd1.ExecuteNonQuery()
 
@@ -1979,13 +1979,13 @@ Public Class PASPFeeManagement
     End Sub
     Private Sub btnDelete_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDelete.Click
         Try
-            SQL = "DELETE " & connNameSpace & ".OlapUserAccess " & _
+            SQL = "DELETE " & DBNameSpace & ".OlapUserAccess " & _
             "WHERE numUserID = '" & cboUsers.SelectedValue & "' " & _
             "and strAirsNumber = '0413" & mtbAIRSNumber.Text & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             cmd.ExecuteNonQuery()
 
@@ -2025,7 +2025,7 @@ Public Class PASPFeeManagement
                     esaccess = "0"
                 End If
 
-                SQL = "UPDATE " & connNameSpace & ".OlapUserAccess " & _
+                SQL = "UPDATE " & DBNameSpace & ".OlapUserAccess " & _
                 "SET intadminaccess = '" & adminaccess & "', " & _
                 "intFeeAccess = '" & feeaccess & "', " & _
                 "intEIAccess = '" & eiaccess & "', " & _
@@ -2033,9 +2033,9 @@ Public Class PASPFeeManagement
                 "WHERE numUserID = '" & dgvUsers(1, i).Value & "' " & _
                 "and strAirsNumber = '0413" & mtbAIRSNumber.Text & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 cmd.ExecuteNonQuery()
             Next
@@ -2059,7 +2059,7 @@ Public Class PASPFeeManagement
     Sub LoadUserInfo(ByVal UserData As String)
         Try
             SQL = "Select " & _
-            "" & connNameSpace & ".OLAPUserProfile.numUserID, " & _
+            "" & DBNameSpace & ".OLAPUserProfile.numUserID, " & _
             "strfirstname, strlastname, " & _
             "strtitle, strcompanyname, " & _
             "straddress, strcity, " & _
@@ -2067,13 +2067,13 @@ Public Class PASPFeeManagement
             "strphonenumber, strfaxnumber, " & _
             "datLastLogIn, strConfirm, " & _
             "strUserEmail " & _
-            "from " & connNameSpace & ".OlapUserProfile, " & connNameSpace & ".OLAPUserLogIn " & _
-            "where " & connNameSpace & ".OLAPUserProfile.numUserID = " & connNameSpace & ".OLAPUserLogIn.numuserid " & _
+            "from " & DBNameSpace & ".OlapUserProfile, " & DBNameSpace & ".OLAPUserLogIn " & _
+            "where " & DBNameSpace & ".OLAPUserProfile.numUserID = " & DBNameSpace & ".OLAPUserLogIn.numuserid " & _
             "and strUserEmail = upper('" & UserData & "') "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -2199,17 +2199,17 @@ Public Class PASPFeeManagement
              "Case When intFeeAccess = 0 Then 'False' When intFeeAccess = 1 Then 'True' End as intFeeAccess, " & _
              "Case When intEIAccess = 0 Then 'False' When intEIAccess = 1 Then 'True' End as intEIAccess, " & _
              "Case When intESAccess = 0 Then 'False' When intESAccess = 1 Then 'True' End as intESAccess " & _
-             "FROM " & connNameSpace & ".OlapUserAccess, " & connNameSpace & ".OLAPUserLogIn  " & _
-             "WHERE " & connNameSpace & ".OlapUserAccess.numUserId = " & connNameSpace & ".OLAPUserLogIn.numUserId " & _
+             "FROM " & DBNameSpace & ".OlapUserAccess, " & DBNameSpace & ".OLAPUserLogIn  " & _
+             "WHERE " & DBNameSpace & ".OlapUserAccess.numUserId = " & DBNameSpace & ".OLAPUserLogIn.numUserId " & _
              "and  strUserEmail = upper('" & EmailLoc & "') " & _
              "order by strfacilityname"
 
             dgvUserFacilities.Rows.Clear()
             ds = New DataSet
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -2251,9 +2251,9 @@ Public Class PASPFeeManagement
             End While
             dr.Close()
 
-            da = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            da = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             da.Fill(ds, "FacilityUsers")
 
@@ -2334,15 +2334,15 @@ Public Class PASPFeeManagement
                     FaxNumber = " strFaxNumber = '" & Replace(mtbEditFaxNumber.Text, "'", "''") & "', "
                 End If
 
-                SQL = "Update " & connNameSpace & ".OLAPUserProfile set " & _
+                SQL = "Update " & DBNameSpace & ".OLAPUserProfile set " & _
                 FirstName & LastName & Title & Company & Address & _
                 City & State & Zip & PhoneNumber & FaxNumber & _
                 "numUserID = '" & txtWebUserID.Text & "' " & _
                 "where numUserID = '" & txtWebUserID.Text & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -2383,13 +2383,13 @@ Public Class PASPFeeManagement
         Try
             If txtWebUserID.Text <> "" And txtEditUserPassword.Text <> "" Then
                 'New password change code 6/30/2010
-                SQL = "Update " & connNameSpace & ".OLAPUserLogIN set " & _
+                SQL = "Update " & DBNameSpace & ".OLAPUserLogIN set " & _
                 "strUserPassword = '" & getMd5Hash(txtEditUserPassword.Text) & "' " & _
                 "where numUserID = '" & txtWebUserID.Text & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -2421,12 +2421,12 @@ Public Class PASPFeeManagement
                 If EmailAddressCheck(txtEditEmail.Text) = True Then
                     SQL = "Select " & _
                     "numUserID, strUserPassword " & _
-                    "from " & connNameSpace & ".OLAPUserLogIN " & _
+                    "from " & DBNameSpace & ".OLAPUserLogIN " & _
                     "where upper(strUserEmail) = '" & Replace(txtEditEmail.Text.ToUpper, "'", "''") & "' "
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     recExist = dr.Read
@@ -2446,13 +2446,13 @@ Public Class PASPFeeManagement
                         dr.Close()
                     End If
 
-                    SQL = "Update " & connNameSpace & ".OLAPUserLogIn set " & _
+                    SQL = "Update " & DBNameSpace & ".OLAPUserLogIn set " & _
                     "strUserEmail = '" & Replace(txtEditEmail.Text.ToUpper, "'", "''") & "' " & _
                     "where numUserID = '" & txtWebUserID.Text & "' "
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
@@ -2484,30 +2484,30 @@ Public Class PASPFeeManagement
             If txtWebUserID.Text <> "" And mtbFacilityToAdd.Text <> "" Then
                 SQL = "Select " & _
                 "numUserId " & _
-                "from " & connNameSpace & ".OlapUserAccess " & _
+                "from " & DBNameSpace & ".OlapUserAccess " & _
                 "where numUserId = '" & txtWebUserID.Text & "' " & _
                 "and strAirsNumber = '0413" & mtbFacilityToAdd.Text & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 dr.Close()
 
                 If recExist = False Then
-                    SQL = "Insert into " & connNameSpace & ".OlapUserAccess " & _
+                    SQL = "Insert into " & DBNameSpace & ".OlapUserAccess " & _
                      "(numUserId, strAirsNumber, strFacilityName) " & _
                      "values " & _
                      "('" & txtWebUserID.Text & "', '0413" & mtbFacilityToAdd.Text & "', " & _
                      "(select strFacilityName " & _
-                     "from " & connNameSpace & ".APBFacilityInformation " & _
+                     "from " & DBNameSpace & ".APBFacilityInformation " & _
                      "where strAIRSnumber = '0413" & mtbFacilityToAdd.Text & "')) "
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     cmd.ExecuteNonQuery()
 
@@ -2527,13 +2527,13 @@ Public Class PASPFeeManagement
     Private Sub btnDeleteFacilityUser_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDeleteFacilityUser.Click
         Try
             If txtWebUserID.Text <> "" And cboFacilityToDelete.Text <> "" Then
-                SQL = "DELETE " & connNameSpace & ".OlapUserAccess " & _
+                SQL = "DELETE " & DBNameSpace & ".OlapUserAccess " & _
                 "WHERE numUserID = '" & txtWebUserID.Text & "' " & _
                 "and strAirsNumber = '0413" & cboFacilityToDelete.SelectedValue & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 cmd.ExecuteNonQuery()
 
@@ -2576,7 +2576,7 @@ Public Class PASPFeeManagement
                     esaccess = "0"
                 End If
 
-                SQL = "UPDATE " & connNameSpace & ".OlapUserAccess " & _
+                SQL = "UPDATE " & DBNameSpace & ".OlapUserAccess " & _
                 "SET intadminaccess = '" & adminaccess & "', " & _
                 "intFeeAccess = '" & feeaccess & "', " & _
                 "intEIAccess = '" & eiaccess & "', " & _
@@ -2584,9 +2584,9 @@ Public Class PASPFeeManagement
                 "WHERE numUserID = '" & txtWebUserID.Text & "' " & _
                 "and strAirsNumber = '0413" & dgvUserFacilities(0, i).Value & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 cmd.ExecuteNonQuery()
             Next
@@ -2603,7 +2603,7 @@ Public Class PASPFeeManagement
         Try
             If btnSetMailoutDate.Enabled = True Then
 
-                SQL = "Insert into " & connNameSpace & ".FS_Admin " & _
+                SQL = "Insert into " & DBNameSpace & ".FS_Admin " & _
                 "(numFeeYear, strAIRSNumber, " & _
                 "strInitialMailout, " & _
                 "active, updateUser, " & _
@@ -2614,7 +2614,7 @@ Public Class PASPFeeManagement
                 "'1', '" & UserGCode & "', " & _
                 "sysdate, sysdate ) "
             Else
-                SQL = "Insert into " & connNameSpace & ".FS_Admin " & _
+                SQL = "Insert into " & DBNameSpace & ".FS_Admin " & _
                "(numFeeYear, strAIRSNumber, " & _
                "strEnrolled, datInitialEnrollment, " & _
                "active, updateUser, " & _
@@ -2634,7 +2634,7 @@ Public Class PASPFeeManagement
             'dr.Close()
 
             'Insert into FS_FeeData
-            SQL = "Insert into " & connNameSpace & ".FS_FeeData " & _
+            SQL = "Insert into " & DBNameSpace & ".FS_FeeData " & _
             "("
 
 
@@ -2656,12 +2656,12 @@ Public Class PASPFeeManagement
 
             SQL = "Select " & _
             "strFacilityName " & _
-            "from " & connNameSpace & ".APBFacilityInformation  " & _
-           "where " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = '0413" & mtbCheckAIRSNumber.Text & "' "
+            "from " & DBNameSpace & ".APBFacilityInformation  " & _
+           "where " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = '0413" & mtbCheckAIRSNumber.Text & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -2678,13 +2678,13 @@ Public Class PASPFeeManagement
             SQL = "Select " & _
             "strEnrolled, " & _
             "strInitialMailout, strMailoutSent " & _
-            "from " & connNameSpace & ".FS_Admin " & _
+            "from " & DBNameSpace & ".FS_Admin " & _
             "where numfeeyear = '" & cboAvailableFeeYears.Text & "'  " & _
-            "and " & connNameSpace & ".FS_Admin.strAIRSNumber = '0413" & mtbCheckAIRSNumber.Text & "' "
+            "and " & DBNameSpace & ".FS_Admin.strAIRSNumber = '0413" & mtbCheckAIRSNumber.Text & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read

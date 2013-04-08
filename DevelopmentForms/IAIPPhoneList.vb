@@ -203,7 +203,7 @@
             SQL = "select " & _
             "(strLastName||', '||strFirstName) as PhoneListName, " & _
             "strOffice, strPhone " & _
-            "from " & connNameSpace & ".EPDUSerProfiles " & _
+            "from " & DBNameSpace & ".EPDUSerProfiles " & _
             "where  numEmployeeStatus = '1' "
 
             SQLWhere = " and ( "

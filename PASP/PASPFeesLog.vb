@@ -30,9 +30,9 @@ Public Class PASPFeesLog
               "distinct(numFeeYear) as FeeYear " & _
               "From AIRBRANCH.FS_Admin order by FeeYear Desc "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -63,7 +63,7 @@ Public Class PASPFeesLog
             For y As Integer = 0 To clbFeeYear.Items.Count - 1
                 If clbFeeYear.GetItemChecked(y) = True Then
                     clbFeeYear.SelectedIndex = y
-                    FeeYearSQL = FeeYearSQL & " " & connNameSpace & ".FS_Admin.numFeeYear = '" & clbFeeYear.Items(y).ToString & "' or "
+                    FeeYearSQL = FeeYearSQL & " " & DBNameSpace & ".FS_Admin.numFeeYear = '" & clbFeeYear.Items(y).ToString & "' or "
                 End If
             Next
             If FeeYearSQL <> " " Then
@@ -115,10 +115,10 @@ Public Class PASPFeesLog
                 OpStatus = " and ( " & OpStatus & " ) "
             End If
             If mtbSearchAirsNumber.Text <> "" Then
-                AIRSNumber = " and " & connNameSpace & ".APBFacilityInformation.strAIRSNumber like '%" & mtbSearchAirsNumber.Text & "%' "
+                AIRSNumber = " and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber like '%" & mtbSearchAirsNumber.Text & "%' "
             End If
             If txtSearchFacilityName.Text <> "" Then
-                FacilityName = " and " & connNameSpace & ".APBFacilityInformation.strFacilityName like '%" & txtSearchFacilityName.Text & "%' "
+                FacilityName = " and " & DBNameSpace & ".APBFacilityInformation.strFacilityName like '%" & txtSearchFacilityName.Text & "%' "
             End If
             If chbOwesFees.Checked = True Then
                 CollectionStatus = " and numCurrentStatus < 10 "
@@ -129,26 +129,26 @@ Public Class PASPFeesLog
 
             If txtInvoice.Text = "" Then
                 SQL = "select " & _
-                "substr(" & connNameSpace & ".FS_Admin.strAIRSnumber, 5) as AIRSNumber, " & _
-                "" & connNameSpace & ".APBFacilityInformation.strFacilityName, " & _
-                "" & connNameSpace & ".FS_Admin.numFeeYear, " & _
+                "substr(" & DBNameSpace & ".FS_Admin.strAIRSnumber, 5) as AIRSNumber, " & _
+                "" & DBNameSpace & ".APBFacilityInformation.strFacilityName, " & _
+                "" & DBNameSpace & ".FS_Admin.numFeeYear, " & _
                 "stroperationalstatus,  " & _
                 "case " & _
                 "when stroperationalstatus <> 'O' then datShutDownDate " & _
                 "else null " & _
                 "End ShutDownDate, strIAIPDesc " & _
-                "from " & connNameSpace & ".FS_Admin, " & connNameSpace & ".APBFacilityInformation, " & _
-                "" & connNameSpace & ".APBHeaderData, " & connNameSpace & ".FSLK_Admin_Status " & _
-                "where " & connNameSpace & ".FS_Admin.strAIRSnumber = " & connNameSpace & ".APBFacilityInformation.strAIRSNumber " & _
-                "and " & connNameSpace & ".APBFacilityInformation.strAIRSnumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber " & _
-                "and " & connNameSpace & ".FS_Admin.numCurrentStatus = " & connNameSpace & ".FSLK_Admin_Status.ID (+) " & _
+                "from " & DBNameSpace & ".FS_Admin, " & DBNameSpace & ".APBFacilityInformation, " & _
+                "" & DBNameSpace & ".APBHeaderData, " & DBNameSpace & ".FSLK_Admin_Status " & _
+                "where " & DBNameSpace & ".FS_Admin.strAIRSnumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber " & _
+                "and " & DBNameSpace & ".APBFacilityInformation.strAIRSnumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber " & _
+                "and " & DBNameSpace & ".FS_Admin.numCurrentStatus = " & DBNameSpace & ".FSLK_Admin_Status.ID (+) " & _
                 FeeYearSQL & OpStatus & AIRSNumber & FacilityName & CollectionStatus & ShutDownBetween & _
                 "order by AIRSnumber "
 
                 ds = New DataSet
-                da = New OracleDataAdapter(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                da = New OracleDataAdapter(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
 
                 da.Fill(ds, "Fee_Admin")
@@ -180,30 +180,30 @@ Public Class PASPFeesLog
                 dgvExistingYearAdmin.Columns("ShutDownDate").DefaultCellStyle.Format = "dd-MMM-yyyy"
             Else
                 SQL = "select " & _
-                    "substr(" & connNameSpace & ".FS_Admin.strAIRSnumber, 5) as AIRSNumber, " & _
-                    "" & connNameSpace & ".APBFacilityInformation.strFacilityName, " & _
-                    "" & connNameSpace & ".FS_Admin.numFeeYear, " & _
+                    "substr(" & DBNameSpace & ".FS_Admin.strAIRSnumber, 5) as AIRSNumber, " & _
+                    "" & DBNameSpace & ".APBFacilityInformation.strFacilityName, " & _
+                    "" & DBNameSpace & ".FS_Admin.numFeeYear, " & _
                     "InvoiceID, " & _
                     "stroperationalstatus,  " & _
                     "case " & _
                     "when stroperationalstatus <> 'O' then datShutDownDate " & _
                     "else null " & _
                     "End ShutDownDate, strIAIPDesc " & _
-                    "from " & connNameSpace & ".FS_Admin, " & connNameSpace & ".APBFacilityInformation, " & _
-                    "" & connNameSpace & ".APBHeaderData, " & connNameSpace & ".FSLK_Admin_Status, " & _
-                    "" & connNameSpace & ".FS_FeeInvoice " & _
-                    "where " & connNameSpace & ".FS_Admin.strAIRSnumber = " & connNameSpace & ".APBFacilityInformation.strAIRSNumber " & _
-                    "and " & connNameSpace & ".APBFacilityInformation.strAIRSnumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber " & _
-                    "and " & connNameSpace & ".FS_Admin.strAIRSNumber = " & connNameSpace & ".FS_FeeInvoice.strAIRSNumber " & _
-                    "and " & connNameSpace & ".FS_Admin.numFeeYear = " & connNameSpace & ".FS_FeeInvoice.numFeeYear " & _
-                    "and " & connNameSpace & ".FS_Admin.numCurrentStatus = " & connNameSpace & ".FSLK_Admin_Status.ID (+) " & _
+                    "from " & DBNameSpace & ".FS_Admin, " & DBNameSpace & ".APBFacilityInformation, " & _
+                    "" & DBNameSpace & ".APBHeaderData, " & DBNameSpace & ".FSLK_Admin_Status, " & _
+                    "" & DBNameSpace & ".FS_FeeInvoice " & _
+                    "where " & DBNameSpace & ".FS_Admin.strAIRSnumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber " & _
+                    "and " & DBNameSpace & ".APBFacilityInformation.strAIRSnumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber " & _
+                    "and " & DBNameSpace & ".FS_Admin.strAIRSNumber = " & DBNameSpace & ".FS_FeeInvoice.strAIRSNumber " & _
+                    "and " & DBNameSpace & ".FS_Admin.numFeeYear = " & DBNameSpace & ".FS_FeeInvoice.numFeeYear " & _
+                    "and " & DBNameSpace & ".FS_Admin.numCurrentStatus = " & DBNameSpace & ".FSLK_Admin_Status.ID (+) " & _
                     FeeYearSQL & OpStatus & AIRSNumber & FacilityName & CollectionStatus & ShutDownBetween & _
                     "order by AIRSnumber "
 
                 ds = New DataSet
-                da = New OracleDataAdapter(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                da = New OracleDataAdapter(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
 
                 da.Fill(ds, "Fee_Admin")

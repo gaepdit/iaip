@@ -189,27 +189,27 @@ Public Class SSCPManagersTools
             SQL = "Select  " & _
             "(strLastName||', '||strFirstName) as UserName, " & _
             "strUnitDesc, numUserID " & _
-            "from " & connNameSpace & ".EPDUserProfiles, " & connNameSpace & ".LookUpEPDUnits  " & _
-            "where " & connNameSpace & ".EPDUserProfiles.numUnit = " & connNameSpace & ".LookupEPDUnits.numUnitCode (+) " & _
+            "from " & DBNameSpace & ".EPDUserProfiles, " & DBNameSpace & ".LookUpEPDUnits  " & _
+            "where " & DBNameSpace & ".EPDUserProfiles.numUnit = " & DBNameSpace & ".LookupEPDUnits.numUnitCode (+) " & _
             "and (numProgram = '4' " & _
             "or strLastname = 'District') " & _
             "UNION " & _
             "Select  " & _
             "(strLastName||', '||strFirstName) as UserName, " & _
             "strUnitDesc, numUserID " & _
-            "from " & connNameSpace & ".EPDUserProfiles, " & connNameSpace & ".LookUpEPDUnits, " & _
-            "" & connNameSpace & ".SSCPInspectionsRequired   " & _
-            "where " & connNameSpace & ".SSCPInspectionsRequired.numSSCPEngineer = " & connNameSpace & ".EPDUserProfiles.numUserID " & _
-            "and " & connNameSpace & ".EPDUserProfiles.numUnit = " & connNameSpace & ".LookupEPDUnits.numUnitCode (+) " & _
+            "from " & DBNameSpace & ".EPDUserProfiles, " & DBNameSpace & ".LookUpEPDUnits, " & _
+            "" & DBNameSpace & ".SSCPInspectionsRequired   " & _
+            "where " & DBNameSpace & ".SSCPInspectionsRequired.numSSCPEngineer = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
+            "and " & DBNameSpace & ".EPDUserProfiles.numUnit = " & DBNameSpace & ".LookupEPDUnits.numUnitCode (+) " & _
             "group by strLastName, strFirstName, strUnitDesc, numUserID  " & _
             "order by UserName "
 
-            daStaff = New OracleDataAdapter(SQL, conn)
+            daStaff = New OracleDataAdapter(SQL, DBConn)
 
             If AccountArray(22, 2) = "1" Then 'District Liason 
                 SQL = "select " & _
                 "strUnitDesc, numUnitCode " & _
-                "from " & connNameSpace & ".LookUPEPDUnits " & _
+                "from " & DBNameSpace & ".LookUPEPDUnits " & _
                 "where numProgramCode = '4' " & _
                 "or numUnitCode = '44' " & _
                 "or numUnitCode = '43' " & _
@@ -222,28 +222,28 @@ Public Class SSCPManagersTools
                 "or numUnitCode = '36' "
             Else
                 SQL = "select strUnitDesc, numUnitCode " & _
-                "from " & connNameSpace & ".LookUpEPDUnits   " & _
+                "from " & DBNameSpace & ".LookUpEPDUnits   " & _
                 "where numProgramCode = '4' " & _
                 "order by strUnitDesc  "
             End If
 
-            daUnits = New OracleDataAdapter(SQL, conn)
+            daUnits = New OracleDataAdapter(SQL, DBConn)
 
             SQL = "Select " & _
             "(strLastName||', '||strFirstName) as UserName, " & _
             "strUnitDesc, numUserID " & _
-            "from " & connNameSpace & ".EPDUserProfiles, " & connNameSpace & ".LookUpEPDUnits  " & _
-            "where " & connNameSpace & ".EPDUserProfiles.numUnit = " & connNameSpace & ".LookupEPDUnits.numUnitCode (+) " & _
+            "from " & DBNameSpace & ".EPDUserProfiles, " & DBNameSpace & ".LookUpEPDUnits  " & _
+            "where " & DBNameSpace & ".EPDUserProfiles.numUnit = " & DBNameSpace & ".LookupEPDUnits.numUnitCode (+) " & _
             "and ((numProgram = '4' " & _
             "or strLastname = 'District') " & _
             "    or numbranch = '5') " & _
             "and numEmployeeStatus = '1'  " & _
             "order by strLastName  "
-            daAssignStaff = New OracleDataAdapter(SQL, conn)
+            daAssignStaff = New OracleDataAdapter(SQL, DBConn)
 
             SQL = "select " & _
            "strUnitDesc, numUnitCode " & _
-           "from " & connNameSpace & ".LookUPEPDUnits " & _
+           "from " & DBNameSpace & ".LookUPEPDUnits " & _
            "where numProgramCode = '4' " & _
            "or numUnitCode = '44' " & _
            "or numUnitCode = '43' " & _
@@ -254,33 +254,33 @@ Public Class SSCPManagersTools
            "or numUnitCode = '38'  " & _
            "or numUnitCode = '37'  "
 
-            daFilterUnits = New OracleDataAdapter(SQL, conn)
+            daFilterUnits = New OracleDataAdapter(SQL, DBConn)
 
             SQL = "select distinct(strClass) as strClass " & _
-            "from " & connNameSpace & ".APBHeaderData  " & _
+            "from " & DBNameSpace & ".APBHeaderData  " & _
             "order by strClass "
 
-            daClassFilter = New OracleDataAdapter(SQL, conn)
+            daClassFilter = New OracleDataAdapter(SQL, DBConn)
 
             SQL = "Select distinct(strCMSMember) as strCMSMember " & _
-            "from " & connNameSpace & ".APBSupplamentalData " & _
+            "from " & DBNameSpace & ".APBSupplamentalData " & _
             "order by strCMSMember "
 
-            daCMSMemberFilter = New OracleDataAdapter(SQL, conn)
+            daCMSMemberFilter = New OracleDataAdapter(SQL, DBConn)
 
             SQL = "select " & _
             "strCountyName, strCountyCode " & _
-            "from " & connNameSpace & ".LookUpCountyInformation " & _
+            "from " & DBNameSpace & ".LookUpCountyInformation " & _
             "order by strCountyName "
 
-            daCountyFilter = New OracleDataAdapter(SQL, conn)
+            daCountyFilter = New OracleDataAdapter(SQL, DBConn)
 
             SQL = "Select " & _
             "strDistrictName " & _
-            "from " & connNameSpace & ".LookupDistricts " & _
+            "from " & DBNameSpace & ".LookupDistricts " & _
             "order by strDistrictname "
 
-            daDistrictFilter = New OracleDataAdapter(SQL, conn)
+            daDistrictFilter = New OracleDataAdapter(SQL, DBConn)
 
             'If AccountArray(22, 3) = "1" And UserUnit <> "---" Then  'SSCP Unit Manager 
             '    SQL2 = "SELECT strunitdesc, " & _
@@ -315,8 +315,8 @@ Public Class SSCPManagersTools
             '                   "order by strUnitDesc  "
             'End If
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             daStaff.Fill(dsStaff, "Staff")
@@ -331,16 +331,16 @@ Public Class SSCPManagersTools
             If dsStaff.Tables(0).Rows.Count = 0 Then
                 SQL = "Select (strLastName||', '||strFirstName) as UserName,  " & _
                 "strUnitDesc, numUserID    " & _
-                "from " & connNameSpace & ".EPDUserProfiles, " & connNameSpace & ".LookUpEPDUnits    " & _
-                "where " & connNameSpace & ".EPDUserProfiles.numUnit = " & connNameSpace & ".LookUpEPDUnits.numUnitCode (+)  " & _
+                "from " & DBNameSpace & ".EPDUserProfiles, " & DBNameSpace & ".LookUpEPDUnits    " & _
+                "where " & DBNameSpace & ".EPDUserProfiles.numUnit = " & DBNameSpace & ".LookUpEPDUnits.numUnitCode (+)  " & _
                 "and (numProgram = '4' or strLastName = 'District') " & _
                 "order by strLastName "
 
                 dsStaff = New DataSet
-                daStaff = New OracleDataAdapter(SQL, conn)
+                daStaff = New OracleDataAdapter(SQL, DBConn)
 
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
 
                 daStaff.Fill(dsStaff, "Staff")
@@ -351,12 +351,12 @@ Public Class SSCPManagersTools
 
             SQL = "select " & _
             "distinct(intYear) as FCEYear " & _
-            "from " & connNameSpace & ".SSCPInspectionsRequired " & _
+            "from " & DBNameSpace & ".SSCPInspectionsRequired " & _
             "order by intYear desc "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -393,10 +393,10 @@ Public Class SSCPManagersTools
 
             If Profile_Code = "" Then
                 SQL3 = "Select strSSCPFacilityAssignment " & _
-                "from " & connNameSpace & ".APBUsers " & _
+                "from " & DBNameSpace & ".APBUsers " & _
                 "where strUserGCode = '" & UserGCode & "' "
 
-                cmd = New OracleCommand(SQL3, conn)
+                cmd = New OracleCommand(SQL3, DBConn)
                 dr = cmd.ExecuteReader
                 While dr.Read
                     If IsDBNull(dr.Item("strSSCPFacilityAssignment")) Then
@@ -1137,13 +1137,13 @@ Public Class SSCPManagersTools
 
             SQL = "select distinct(strLastName||', '||strFirstName) as Engineers, " & _
             "strLastName  " & _
-            "from " & connNameSpace & ".EPDUserProfiles, " & connNameSpace & ".SSCPInspectionTracking " & _
-            "where " & connNameSpace & ".EPDUserProfiles.numUserID = " & connNameSpace & ".SSCPInspectionTracking.strInspectingEngineer " & _
+            "from " & DBNameSpace & ".EPDUserProfiles, " & DBNameSpace & ".SSCPInspectionTracking " & _
+            "where " & DBNameSpace & ".EPDUserProfiles.numUserID = " & DBNameSpace & ".SSCPInspectionTracking.strInspectingEngineer " & _
             "order by strLastName  "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -1170,64 +1170,64 @@ Public Class SSCPManagersTools
             SQL = "Select " & _
             "(strLastName||', '||strFirstName) as UserName, " & _
             "numUserID " & _
-            "from " & connNameSpace & ".EPDUserProfiles " & _
+            "from " & DBNameSpace & ".EPDUserProfiles " & _
             "where numProgram = '4' " & _
             "and numUnit is null " & _
             "order by strLastName "
 
             dsAdminStaff = New DataSet
-            daAdminStaff = New OracleDataAdapter(SQL, conn)
+            daAdminStaff = New OracleDataAdapter(SQL, DBConn)
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daAdminStaff.Fill(dsAdminStaff, "AdminStaff")
 
             SQL = "Select " & _
             "(strLastName||', '||strFirstName) as UserName, " & _
             "numUserID " & _
-            "from " & connNameSpace & ".EPDUserProfiles " & _
+            "from " & DBNameSpace & ".EPDUserProfiles " & _
             "where numProgram = '4' " & _
             "and numUnit = '30' " & _
             "order by strLastName "
 
             dsAirStaff = New DataSet
-            daAirStaff = New OracleDataAdapter(SQL, conn)
+            daAirStaff = New OracleDataAdapter(SQL, DBConn)
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daAirStaff.Fill(dsAirStaff, "AirStaff")
 
             SQL = "Select " & _
             "(strLastName||', '||strFirstName) as UserName, " & _
             "numUserID " & _
-            "from " & connNameSpace & ".EPDUserProfiles " & _
+            "from " & DBNameSpace & ".EPDUserProfiles " & _
             "where numProgram = '4' " & _
             "and numUnit = '31' " & _
             "order by strLastName "
 
             dsChemStaff = New DataSet
-            daChemStaff = New OracleDataAdapter(SQL, conn)
+            daChemStaff = New OracleDataAdapter(SQL, DBConn)
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daChemStaff.Fill(dsChemStaff, "ChemStaff")
 
             SQL = "Select " & _
              "(strLastName||', '||strFirstName) as UserName, " & _
              "numUserID " & _
-             "from " & connNameSpace & ".EPDUserProfiles " & _
+             "from " & DBNameSpace & ".EPDUserProfiles " & _
              "where numProgram = '4' " & _
              "and numUnit = '32' " & _
              "order by strLastName "
 
             dsVOCStaff = New DataSet
-            daVOCStaff = New OracleDataAdapter(SQL, conn)
+            daVOCStaff = New OracleDataAdapter(SQL, DBConn)
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daVOCStaff.Fill(dsVOCStaff, "VOCStaff")
 
@@ -1247,10 +1247,10 @@ Public Class SSCPManagersTools
             "order by strLastName "
 
             dsDistrictStaff = New DataSet
-            daDistrictStaff = New OracleDataAdapter(SQL, conn)
+            daDistrictStaff = New OracleDataAdapter(SQL, DBConn)
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daDistrictStaff.Fill(dsDistrictStaff, "DistrictStaff")
 
@@ -1428,7 +1428,7 @@ Public Class SSCPManagersTools
 
 
             SQL = "Select * " & _
-                "from " & connNameSpace & ".VW_SSCP_MT_FacilityAssignment "
+                "from " & DBNameSpace & ".VW_SSCP_MT_FacilityAssignment "
 
             If cboFilterOption1.Items.Contains(cboFilterOption1.Text) And txtSearchText1.Text <> "" Then
                 Select Case cboFilterOption1.Text
@@ -1892,15 +1892,15 @@ Public Class SSCPManagersTools
 
             dsFacilityAssignment = New DataSet
 
-            daFacilityAssignment = New OracleDataAdapter(SQL, conn)
+            daFacilityAssignment = New OracleDataAdapter(SQL, DBConn)
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             daFacilityAssignment.Fill(dsFacilityAssignment, "FacilityAssignment")
 
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -1918,7 +1918,7 @@ Public Class SSCPManagersTools
         Try
 
             SQL = "Select * " & _
-                  "from " & connNameSpace & ".VW_SSCP_MT_FacilityAssignment "
+                  "from " & DBNameSpace & ".VW_SSCP_MT_FacilityAssignment "
 
             If lsbAIRSNumber.Items.Count <> 0 Then
                 For i = 0 To lsbAIRSNumber.Items.Count - 1
@@ -1936,15 +1936,15 @@ Public Class SSCPManagersTools
 
             dsFacilityAssignment = New DataSet
 
-            daFacilityAssignment = New OracleDataAdapter(SQL, conn)
+            daFacilityAssignment = New OracleDataAdapter(SQL, DBConn)
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             daFacilityAssignment.Fill(dsFacilityAssignment, "FacilityAssignment")
 
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
             txtFilterType.Text = "DataSet2"
@@ -3125,13 +3125,13 @@ Public Class SSCPManagersTools
 
             For Each strObject In lsbSelectedFacilities.Items
                 SQL = "Select strAIRSNumber " & _
-                "from " & connNameSpace & ".SSCPInspectionsRequired " & _
+                "from " & DBNameSpace & ".SSCPInspectionsRequired " & _
                 "where strAIRSNumber = '0413" & strObject.ToString & "' " & _
                 "and intYear = '" & cboFiscalYear.Text & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -3143,7 +3143,7 @@ Public Class SSCPManagersTools
                     temp = UserUnit
                 End If
                 If recExist = True Then
-                    SQL = "Update " & connNameSpace & ".SSCPInspecationRequired set " & _
+                    SQL = "Update " & DBNameSpace & ".SSCPInspecationRequired set " & _
                     "numSSCPUnit = '" & temp & "', " & _
                     "numSSCPEngineer = '" & EngineerGCode & "', " & _
                     "strSSCPAssigningManager = '" & UserGCode & "', " & _
@@ -3151,13 +3151,13 @@ Public Class SSCPManagersTools
                     "where strAIRSNumber = '0413" & strObject.ToString & "'" & _
                     "and intYear = '" & cboFiscalYear.Text & "' "
                 Else
-                    SQL = "Insert into " & connNameSpace & ".SSCPInspecationRequired " & _
+                    SQL = "Insert into " & DBNameSpace & ".SSCPInspecationRequired " & _
                     "(numKey, strAIRSNumber, intYear, " & _
                     "numSSCPEngineer, numSSCPUnit, " & _
                     "strSSCPAssigningManager, " & _
                     "datAssignmentDate) " & _
                     "values " & _
-                    "(select max(numKey) + 1 from " & connNameSpace & ".SSCPInspectionsRequired) " & _
+                    "(select max(numKey) + 1 from " & DBNameSpace & ".SSCPInspectionsRequired) " & _
                     "('0413" & strObject.ToString & "', '" & cboFiscalYear.Text & "', " & _
                     "'" & temp & "', " & _
                     "'" & EngineerGCode & "', '" & UserGCode & "', " & _
@@ -3166,15 +3166,15 @@ Public Class SSCPManagersTools
 
                 temp = "0413" & strObject.ToString & " " & UserGCode & " " & EngineerGCode & vbCrLf
 
-                cmd = New OracleCommand(SQL, conn)
+                cmd = New OracleCommand(SQL, DBConn)
 
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
 
                 dr = cmd.ExecuteReader
 
-                If conn.State = ConnectionState.Open Then
+                If DBConn.State = ConnectionState.Open Then
                     'conn.close()
                 End If
             Next
@@ -3315,24 +3315,24 @@ Public Class SSCPManagersTools
 
             For Each strObject In lsbSelectedFacilities.Items
                 SQL = "Select strAIRSNumber " & _
-                "from " & connNameSpace & ".SSCPDistrictResponsible " & _
+                "from " & DBNameSpace & ".SSCPDistrictResponsible " & _
                 "where strAIRSNumber = '0413" & strObject & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
 
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 dr.Close()
                 If recExist = True Then
-                    SQL = "update " & connNameSpace & ".SSCPDistrictResponsible set strdistrictresponsible = '" & Status & "', " & _
+                    SQL = "update " & DBNameSpace & ".SSCPDistrictResponsible set strdistrictresponsible = '" & Status & "', " & _
                     "strassigningmanager = '" & UserGCode & "', " & _
                     "datassigningdate = '" & OracleDate & "' " & _
                     "where strairsnumber = '0413" & strObject & "'"
                 Else
-                    SQL = "Insert into " & connNameSpace & ".SSCPDistrictResponsible " & _
+                    SQL = "Insert into " & DBNameSpace & ".SSCPDistrictResponsible " & _
                     "(strAIRSNumber, strDistrictResponsible, " & _
                     "strAssigningManager, datAssigningDate) " & _
                     "values " & _
@@ -3340,13 +3340,13 @@ Public Class SSCPManagersTools
                     "'" & UserGCode & "', '" & OracleDate & "') "
                 End If
 
-                cmd = New OracleCommand(SQL, conn)
+                cmd = New OracleCommand(SQL, DBConn)
 
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 cmd.ExecuteReader()
-                If conn.State = ConnectionState.Open Then
+                If DBConn.State = ConnectionState.Open Then
                     'conn.close()
                 End If
             Next
@@ -3387,8 +3387,8 @@ Public Class SSCPManagersTools
 
         Try
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             If rdbRequiresAnInspection.Checked = True Then
                 Status = "True"
@@ -3403,26 +3403,26 @@ Public Class SSCPManagersTools
             For Each strObject In lsbSelectedFacilities.Items
                 temp = "0413" & strObject.ToString
 
-                SQL = "Select strairsnumber from " & connNameSpace & ".SSCPInspectionsRequired where strairsnumber = '" & temp & "'"
+                SQL = "Select strairsnumber from " & DBNameSpace & ".SSCPInspectionsRequired where strairsnumber = '" & temp & "'"
 
-                cmd = New OracleCommand(SQL, conn)
+                cmd = New OracleCommand(SQL, DBConn)
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
 
                 If recExist Then
-                    SQL = "Update " & connNameSpace & ".SSCPInspectionsREQUIRED set strInspectionRequired = '" & Status & "', " & _
+                    SQL = "Update " & DBNameSpace & ".SSCPInspectionsREQUIRED set strInspectionRequired = '" & Status & "', " & _
                     "strAssigningManager = '" & UserGCode & "', " & _
                     "datAssigningDate = '" & OracleDate & "' " & _
                     "where strAIRSNumber = '" & temp & "'"
                 Else
-                    SQL = "Insert into " & connNameSpace & ".SSCPInspectionsRequired values " & _
+                    SQL = "Insert into " & DBNameSpace & ".SSCPInspectionsRequired values " & _
                     "('" & temp & "', 'True', '" & UserGCode & "', '" & OracleDate & "')"
                 End If
-                cmd = New OracleCommand(SQL, conn)
+                cmd = New OracleCommand(SQL, DBConn)
                 dr = cmd.ExecuteReader
             Next
 
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -3465,7 +3465,7 @@ Public Class SSCPManagersTools
             End If
 
             SQL = "Select * from " & _
-            "" & connNameSpace & ".VW_SSCPManagerInspections "
+            "" & DBNameSpace & ".VW_SSCPManagerInspections "
 
             For Each Engineer In clbEngineerInspections.CheckedItems
                 SQLLine = SQLLine & " Engineer = '" & Engineer.ToString & "' OR "
@@ -3484,10 +3484,10 @@ Public Class SSCPManagersTools
 
             dsInspectionList = New DataSet
 
-            daInspectionList = New OracleDataAdapter(SQL, conn)
+            daInspectionList = New OracleDataAdapter(SQL, DBConn)
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             daInspectionList.Fill(dsInspectionList, "InspectionList")
@@ -3520,18 +3520,18 @@ Public Class SSCPManagersTools
             If count <> 0 Then
                 SQLLine = Mid(SQLLine, 1, (SQLLine.Length) - 3)
 
-                SQL = "Update " & connNameSpace & ".SSCPInspectionTracking set " & _
+                SQL = "Update " & DBNameSpace & ".SSCPInspectionTracking set " & _
                        "strLockSchedule = 'True' " & _
                        "where (" & SQLLine & " ) "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
 
                 dr = cmd.ExecuteReader
 
-                If conn.State = ConnectionState.Open Then
+                If DBConn.State = ConnectionState.Open Then
                     'conn.close()
                 End If
 
@@ -3563,18 +3563,18 @@ Public Class SSCPManagersTools
             If count <> 0 Then
                 SQLLine = Mid(SQLLine, 1, (SQLLine.Length) - 3)
 
-                SQL = "Update " & connNameSpace & ".SSCPInspectionTracking set " & _
+                SQL = "Update " & DBNameSpace & ".SSCPInspectionTracking set " & _
                        "strLockSchedule = 'False' " & _
                        "where (" & SQLLine & " ) "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
 
                 dr = cmd.ExecuteReader
 
-                If conn.State = ConnectionState.Open Then
+                If DBConn.State = ConnectionState.Open Then
                     'conn.close()
                 End If
             End If
@@ -3658,15 +3658,15 @@ Public Class SSCPManagersTools
             End Select
 
             SQL = "Select * " & _
-           "from " & connNameSpace & ".VW_SSCP_CMSWarning " & _
+           "from " & DBNameSpace & ".VW_SSCP_CMSWarning " & _
            "where AIRSNumber is not Null " & _
            CMSStatus
 
             dsCMSDataSet = New DataSet
 
-            daCMSDataSet = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daCMSDataSet = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             daCMSDataSet.Fill(dsCMSDataSet, "CMSData")
@@ -3793,11 +3793,11 @@ Public Class SSCPManagersTools
                     CMSState = "S"
                 End If
                 SQL = "Select strAIRSNumber " & _
-                "from " & connNameSpace & ".APBSupplamentalData " & _
+                "from " & DBNameSpace & ".APBSupplamentalData " & _
                 "where strAIRSNumber = '0413" & txtCMSAIRSNumber.Text & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
 
@@ -3805,12 +3805,12 @@ Public Class SSCPManagersTools
                 dr.Close()
 
                 If recExist = True Then
-                    SQL = "Update " & connNameSpace & ".APBSupplamentalData set " & _
+                    SQL = "Update " & DBNameSpace & ".APBSupplamentalData set " & _
                     "strCMSMember = '" & CMSState & "' " & _
                     "where strAIRSNumber = '0413" & txtCMSAIRSNumber.Text & "' "
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
 
                     dr = cmd.ExecuteReader
@@ -3830,11 +3830,11 @@ Public Class SSCPManagersTools
         Try
 
             SQL = "Select strAIRSNumber " & _
-                              "from " & connNameSpace & ".APBSupplamentalData " & _
+                              "from " & DBNameSpace & ".APBSupplamentalData " & _
                               "where strAIRSNumber = '0413" & txtCMSAIRSNumber.Text & "' "
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
 
@@ -3842,12 +3842,12 @@ Public Class SSCPManagersTools
             dr.Close()
 
             If recExist = True Then
-                SQL = "Update " & connNameSpace & ".APBSupplamentalData set " & _
+                SQL = "Update " & DBNameSpace & ".APBSupplamentalData set " & _
                 "strCMSMember = '' " & _
                 "where strAIRSNumber = '0413" & txtCMSAIRSNumber.Text & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
 
                 dr = cmd.ExecuteReader
@@ -3981,102 +3981,102 @@ Public Class SSCPManagersTools
                   "     when OpenNotification is NULL then 0  " & _
                   "     Else OpenNotification  " & _
                   "End as OpenNotification  " & _
-                  "from " & connNameSpace & ".EPDUserProfiles, " & connNameSpace & ".SSCPItemMaster,  " & _
+                  "from " & DBNameSpace & ".EPDUserProfiles, " & DBNameSpace & ".SSCPItemMaster,  " & _
                   "(Select strResponsibleStaff, count(*) as StartedReport  " & _
-                  "from " & connNameSpace & ".SSCPItemMaster   " & _
+                  "from " & DBNameSpace & ".SSCPItemMaster   " & _
                   "where strEventType = '01'  " & _
                   DateReceivedBias & "  " & _
                   "group by strResponsibleStaff) StartedReports,  " & _
                   "(Select strResponsibleStaff, count(*) as StartedInspection " & _
-                  "from " & connNameSpace & ".SSCPItemMaster   " & _
+                  "from " & DBNameSpace & ".SSCPItemMaster   " & _
                   "where strEventType = '02'  " & _
                   DateReceivedBias & " " & _
                   "group by strResponsibleStaff) StartedInspections,  " & _
                   "(Select strResponsibleStaff, count(*) as StartedISMPTest " & _
-                  "from " & connNameSpace & ".SSCPItemMaster   " & _
+                  "from " & DBNameSpace & ".SSCPItemMaster   " & _
                   "where strEventType = '03'  " & _
                   DateReceivedBias & "  " & _
                   "group by strResponsibleStaff) StartedISMPTEsts,  " & _
                   "(Select strResponsibleStaff, count(*) as StartedAcc " & _
-                  "from " & connNameSpace & ".SSCPItemMaster   " & _
+                  "from " & DBNameSpace & ".SSCPItemMaster   " & _
                   "where strEventType = '04'  " & _
                   DateReceivedBias & "  " & _
                   "group by strResponsibleStaff) StartedACCs,  " & _
                   "(Select strResponsibleStaff, count(*) as StartedNotification " & _
-                  "from " & connNameSpace & ".SSCPItemMaster   " & _
+                  "from " & DBNameSpace & ".SSCPItemMaster   " & _
                   "where strEventType = '05'  " & _
                   DateReceivedBias & "  " & _
                   "group by strResponsibleStaff) StartedNotifications,  " & _
                   "(Select strResponsibleStaff, count(*) as ClosedReport  " & _
-                  "from " & connNameSpace & ".SSCPItemMaster   " & _
+                  "from " & DBNameSpace & ".SSCPItemMaster   " & _
                   "where strEventType = '01'  " & _
                   DateCompletedBias & "  " & _
                   "group by strResponsibleStaff) ClosedReports,  " & _
                   "(Select strResponsibleStaff, count(*) as ClosedInspection " & _
-                  "from " & connNameSpace & ".SSCPItemMaster   " & _
+                  "from " & DBNameSpace & ".SSCPItemMaster   " & _
                   "where strEventType = '02'  " & _
                   DateCompletedBias & "  " & _
                   "group by strResponsibleStaff) ClosedInspections,  " & _
                   "(Select strResponsibleStaff, count(*) as ClosedISMPTest " & _
-                  "from " & connNameSpace & ".SSCPItemMaster   " & _
+                  "from " & DBNameSpace & ".SSCPItemMaster   " & _
                   "where strEventType = '03'  " & _
                   DateCompletedBias & "  " & _
                   "group by strResponsibleStaff) ClosedISMPTEsts,  " & _
                   "(Select strResponsibleStaff, count(*) as ClosedAcc " & _
-                  "from " & connNameSpace & ".SSCPItemMaster   " & _
+                  "from " & DBNameSpace & ".SSCPItemMaster   " & _
                   "where strEventType = '04'  " & _
                   DateCompletedBias & "  " & _
                   "group by strResponsibleStaff) ClosedACCs,  " & _
                   "(Select strResponsibleStaff, count(*) as ClosedNotification " & _
-                  "from " & connNameSpace & ".SSCPItemMaster   " & _
+                  "from " & DBNameSpace & ".SSCPItemMaster   " & _
                   "where strEventType = '05'  " & _
                   DateCompletedBias & "  " & _
                   "group by strResponsibleStaff) ClosedNotifications, " & _
                   "(Select strResponsibleStaff, count(*) as OpenReport  " & _
-                  "from " & connNameSpace & ".SSCPItemMaster   " & _
+                  "from " & DBNameSpace & ".SSCPItemMaster   " & _
                   "where strEventType = '01'  " & _
                   "and DatCompleteDate IS NULL  " & _
                   "group by strResponsibleStaff) OpenReports,  " & _
                   "(Select strResponsibleStaff, count(*) as OpenInspection " & _
-                  "from " & connNameSpace & ".SSCPItemMaster   " & _
+                  "from " & DBNameSpace & ".SSCPItemMaster   " & _
                   "where strEventType = '02'  " & _
                   "and DatCompleteDate IS NULL  " & _
                   "group by strResponsibleStaff) OpenInspections,  " & _
                   "(Select strResponsibleStaff, count(*) as OpenISMPTest " & _
-                  "from " & connNameSpace & ".SSCPItemMaster   " & _
+                  "from " & DBNameSpace & ".SSCPItemMaster   " & _
                   "where strEventType = '03'  " & _
                   "and DatCompleteDate IS NULL  " & _
                   "group by strResponsibleStaff) OpenISMPTEsts,  " & _
                   "(Select strResponsibleStaff, count(*) as OpenAcc " & _
-                  "from " & connNameSpace & ".SSCPItemMaster   " & _
+                  "from " & DBNameSpace & ".SSCPItemMaster   " & _
                   "where strEventType = '04'  " & _
                   "and DatCompleteDate IS NULL  " & _
                   "group by strResponsibleStaff) OpenACCs,  " & _
                   "(Select strResponsibleStaff, count(*) as OpenNotification " & _
-                  "from " & connNameSpace & ".SSCPItemMaster   " & _
+                  "from " & DBNameSpace & ".SSCPItemMaster   " & _
                   "where strEventType = '05'  " & _
                   "and DatCompleteDate IS NULL  " & _
                   "group by strResponsibleStaff) OpenNotifications " & _
-                  "where " & connNameSpace & ".EPDUserProfiles.numUserID = " & connNameSpace & ".SSCPItemMaster.strResponsibleStaff " & _
-                  "and " & connNameSpace & ".SSCPItemMaster.strResponsibleStaff = StartedInspections.strResponsibleStaff (+) " & _
-                  "and " & connNameSpace & ".SSCPItemMaster.strResponsibleStaff = StartedReports.strResponsibleStaff (+) " & _
-                  "and " & connNameSpace & ".SSCPItemMaster.strResponsibleStaff = StartedISMPTests.strResponsibleStaff (+) " & _
-                  "and " & connNameSpace & ".SSCPItemMaster.strResponsibleStaff = StartedACCS.strResponsibleStaff (+) " & _
-                  "and " & connNameSpace & ".SSCPItemMaster.strResponsibleStaff = StartedNotifications.strResponsibleStaff (+)  " & _
-                  "and " & connNameSpace & ".SSCPItemMaster.strResponsibleStaff = ClosedInspections.strResponsibleStaff (+) " & _
-                  "and " & connNameSpace & ".SSCPItemMaster.strResponsibleStaff = ClosedReports.strResponsibleStaff (+) " & _
-                  "and " & connNameSpace & ".SSCPItemMaster.strResponsibleStaff = ClosedISMPTests.strResponsibleStaff (+) " & _
-                  "and " & connNameSpace & ".SSCPItemMaster.strResponsibleStaff = ClosedACCS.strResponsibleStaff (+) " & _
-                  "and " & connNameSpace & ".SSCPItemMaster.strResponsibleStaff = ClosedNotifications.strResponsibleStaff (+)  " & _
-                  "and " & connNameSpace & ".SSCPItemMaster.strResponsibleStaff = OpenInspections.strResponsibleStaff (+) " & _
-                  "and " & connNameSpace & ".SSCPItemMaster.strResponsibleStaff = OpenReports.strResponsibleStaff (+) " & _
-                  "and " & connNameSpace & ".SSCPItemMaster.strResponsibleStaff = OpenISMPTests.strResponsibleStaff (+) " & _
-                  "and " & connNameSpace & ".SSCPItemMaster.strResponsibleStaff = OpenACCS.strResponsibleStaff (+) " & _
-                  "and " & connNameSpace & ".SSCPItemMaster.strResponsibleStaff = OpenNotifications.strResponsibleStaff (+) " & _
-                  "and " & connNameSpace & ".SSCPItemMaster.strResponsibleStaff = '" & Staff & "' " & _
+                  "where " & DBNameSpace & ".EPDUserProfiles.numUserID = " & DBNameSpace & ".SSCPItemMaster.strResponsibleStaff " & _
+                  "and " & DBNameSpace & ".SSCPItemMaster.strResponsibleStaff = StartedInspections.strResponsibleStaff (+) " & _
+                  "and " & DBNameSpace & ".SSCPItemMaster.strResponsibleStaff = StartedReports.strResponsibleStaff (+) " & _
+                  "and " & DBNameSpace & ".SSCPItemMaster.strResponsibleStaff = StartedISMPTests.strResponsibleStaff (+) " & _
+                  "and " & DBNameSpace & ".SSCPItemMaster.strResponsibleStaff = StartedACCS.strResponsibleStaff (+) " & _
+                  "and " & DBNameSpace & ".SSCPItemMaster.strResponsibleStaff = StartedNotifications.strResponsibleStaff (+)  " & _
+                  "and " & DBNameSpace & ".SSCPItemMaster.strResponsibleStaff = ClosedInspections.strResponsibleStaff (+) " & _
+                  "and " & DBNameSpace & ".SSCPItemMaster.strResponsibleStaff = ClosedReports.strResponsibleStaff (+) " & _
+                  "and " & DBNameSpace & ".SSCPItemMaster.strResponsibleStaff = ClosedISMPTests.strResponsibleStaff (+) " & _
+                  "and " & DBNameSpace & ".SSCPItemMaster.strResponsibleStaff = ClosedACCS.strResponsibleStaff (+) " & _
+                  "and " & DBNameSpace & ".SSCPItemMaster.strResponsibleStaff = ClosedNotifications.strResponsibleStaff (+)  " & _
+                  "and " & DBNameSpace & ".SSCPItemMaster.strResponsibleStaff = OpenInspections.strResponsibleStaff (+) " & _
+                  "and " & DBNameSpace & ".SSCPItemMaster.strResponsibleStaff = OpenReports.strResponsibleStaff (+) " & _
+                  "and " & DBNameSpace & ".SSCPItemMaster.strResponsibleStaff = OpenISMPTests.strResponsibleStaff (+) " & _
+                  "and " & DBNameSpace & ".SSCPItemMaster.strResponsibleStaff = OpenACCS.strResponsibleStaff (+) " & _
+                  "and " & DBNameSpace & ".SSCPItemMaster.strResponsibleStaff = OpenNotifications.strResponsibleStaff (+) " & _
+                  "and " & DBNameSpace & ".SSCPItemMaster.strResponsibleStaff = '" & Staff & "' " & _
                   "and strDelete is Null "
 
-                    SQL2 = "Select distinct(" & connNameSpace & ".SSCPItemMaster.strResponsibleStaff), " & _
+                    SQL2 = "Select distinct(" & DBNameSpace & ".SSCPItemMaster.strResponsibleStaff), " & _
                     "Case " & _
                     "	When ClassA is Null then 0  " & _
                     "	else CLassA " & _
@@ -4089,52 +4089,52 @@ Public Class SSCPManagersTools
                     "	When ClassB is Null then 0  " & _
                     "	else CLassB  " & _
                     "end ClassB  " & _
-                    "from " & connNameSpace & ".SSCPItemMaster,  " & _
+                    "from " & DBNameSpace & ".SSCPItemMaster,  " & _
                     "(select strResponsibleStaff, count(*) as ClassA  " & _
-                    "from " & connNameSpace & ".APBHeaderData, " & connNameSpace & ".SSCPItemMaster, " & connNameSpace & ".SSCPInspections  " & _
-                    "where " & connNameSpace & ".APBHeaderData.strAIRSNumber = " & connNameSpace & ".SSCPItemMaster.strAIRSNUmber  " & _
-                    "and " & connNameSpace & ".SSCPItemMaster.strTrackingNumber = " & connNameSpace & ".SSCPInspections.strTrackingNumber  " & _
+                    "from " & DBNameSpace & ".APBHeaderData, " & DBNameSpace & ".SSCPItemMaster, " & DBNameSpace & ".SSCPInspections  " & _
+                    "where " & DBNameSpace & ".APBHeaderData.strAIRSNumber = " & DBNameSpace & ".SSCPItemMaster.strAIRSNUmber  " & _
+                    "and " & DBNameSpace & ".SSCPItemMaster.strTrackingNumber = " & DBNameSpace & ".SSCPInspections.strTrackingNumber  " & _
                     "and strClass = 'A'  " & _
                     DateInspection & _
                     "group by strResponsibleStaff) ClassAs,  " & _
                     "(select strResponsibleStaff, count(*) as ClassSM  " & _
-                    "from " & connNameSpace & ".APBHeaderData, " & connNameSpace & ".SSCPItemMaster, " & connNameSpace & ".SSCPInspections  " & _
-                    "where " & connNameSpace & ".APBHeaderData.strAIRSNumber = " & connNameSpace & ".SSCPItemMaster.strAIRSNUmber  " & _
-                    "and " & connNameSpace & ".SSCPItemMaster.strTrackingNumber = " & connNameSpace & ".SSCPInspections.strTrackingNumber  " & _
+                    "from " & DBNameSpace & ".APBHeaderData, " & DBNameSpace & ".SSCPItemMaster, " & DBNameSpace & ".SSCPInspections  " & _
+                    "where " & DBNameSpace & ".APBHeaderData.strAIRSNumber = " & DBNameSpace & ".SSCPItemMaster.strAIRSNUmber  " & _
+                    "and " & DBNameSpace & ".SSCPItemMaster.strTrackingNumber = " & DBNameSpace & ".SSCPInspections.strTrackingNumber  " & _
                     "and strClass = 'SM'  " & _
                     DateInspection & _
                     "group by strResponsibleStaff) ClassSMs,  " & _
                     "(select strResponsibleStaff, count(*) as ClassB  " & _
-                    "from " & connNameSpace & ".APBHeaderData, " & connNameSpace & ".SSCPItemMaster, " & connNameSpace & ".SSCPInspections  " & _
-                    "where " & connNameSpace & ".APBHeaderData.strAIRSNumber = " & connNameSpace & ".SSCPItemMaster.strAIRSNUmber  " & _
-                    "and " & connNameSpace & ".SSCPItemMaster.strTrackingNumber = " & connNameSpace & ".SSCPInspections.strTrackingNumber  " & _
+                    "from " & DBNameSpace & ".APBHeaderData, " & DBNameSpace & ".SSCPItemMaster, " & DBNameSpace & ".SSCPInspections  " & _
+                    "where " & DBNameSpace & ".APBHeaderData.strAIRSNumber = " & DBNameSpace & ".SSCPItemMaster.strAIRSNUmber  " & _
+                    "and " & DBNameSpace & ".SSCPItemMaster.strTrackingNumber = " & DBNameSpace & ".SSCPInspections.strTrackingNumber  " & _
                     "and strClass = 'B'  " & _
                     DateInspection & _
                     "group by strResponsibleStaff) ClassBs " & _
                     "where " & _
-                    "" & connNameSpace & ".SSCPItemMaster.strResponsibleStaff = ClassAs.strResponsibleStaff (+)  " & _
-                    "and " & connNameSpace & ".SSCPItemMaster.strResponsibleStaff = ClassSMs.strResponsibleStaff (+) " & _
-                    "and " & connNameSpace & ".SSCPItemMaster.strResponsibleStaff = ClassBs.strResponsibleStaff (+) " & _
-                    "and " & connNameSpace & ".SSCPItemMaster.strResponsibleStaff = '" & Staff & "' " & _
+                    "" & DBNameSpace & ".SSCPItemMaster.strResponsibleStaff = ClassAs.strResponsibleStaff (+)  " & _
+                    "and " & DBNameSpace & ".SSCPItemMaster.strResponsibleStaff = ClassSMs.strResponsibleStaff (+) " & _
+                    "and " & DBNameSpace & ".SSCPItemMaster.strResponsibleStaff = ClassBs.strResponsibleStaff (+) " & _
+                    "and " & DBNameSpace & ".SSCPItemMaster.strResponsibleStaff = '" & Staff & "' " & _
                     "and strDelete is Null "
 
                     SQL3 = "Select " & _
                     "strFacilityName, strFacilityCity,  " & _
-                    "" & connNameSpace & ".SSCPItemMaster.strTrackingNumber, datInspectionDateStart,  " & _
+                    "" & DBNameSpace & ".SSCPItemMaster.strTrackingNumber, datInspectionDateStart,  " & _
                     "strClass  " & _
-                    "from " & connNameSpace & ".APBHeaderData, " & connNameSpace & ".APBFacilityInformation,  " & _
-                    "" & connNameSpace & ".SSCPItemMaster, " & connNameSpace & ".SSCPInspections  " & _
-                    "where " & connNameSpace & ".APBHeaderData.strAIRSNumber = " & connNameSpace & ".APBFacilityInformation.strAIrSnumber  " & _
-                    "and " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".SSCPItemMaster.strAIRSNumber  " & _
-                    "and " & connNameSpace & ".SSCPItemMaster.strTrackingNumber = " & connNameSpace & ".SSCPInspections.strTrackingNumber  " & _
+                    "from " & DBNameSpace & ".APBHeaderData, " & DBNameSpace & ".APBFacilityInformation,  " & _
+                    "" & DBNameSpace & ".SSCPItemMaster, " & DBNameSpace & ".SSCPInspections  " & _
+                    "where " & DBNameSpace & ".APBHeaderData.strAIRSNumber = " & DBNameSpace & ".APBFacilityInformation.strAIrSnumber  " & _
+                    "and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".SSCPItemMaster.strAIRSNumber  " & _
+                    "and " & DBNameSpace & ".SSCPItemMaster.strTrackingNumber = " & DBNameSpace & ".SSCPInspections.strTrackingNumber  " & _
                     DateInspection & _
-                    "and " & connNameSpace & ".SSCPItemMaster.strResponsibleStaff = '" & Staff & "' " & _
+                    "and " & DBNameSpace & ".SSCPItemMaster.strResponsibleStaff = '" & Staff & "' " & _
                     "and strDelete is Null " & _
                     "order by strClass, datInspectionDateStart "
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     Try
 
@@ -4164,9 +4164,9 @@ Public Class SSCPManagersTools
                     End Try
                     '  
 
-                    cmd2 = New OracleCommand(SQL2, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd2 = New OracleCommand(SQL2, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr2 = cmd2.ExecuteReader
                     While dr2.Read
@@ -4175,9 +4175,9 @@ Public Class SSCPManagersTools
                         InspectB = dr2.Item("ClassB")
                     End While
 
-                    cmd3 = New OracleCommand(SQL3, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd3 = New OracleCommand(SQL3, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
 
                     dr3 = cmd3.ExecuteReader
@@ -4432,15 +4432,15 @@ Public Class SSCPManagersTools
 
 
             SQL = "Select * " & _
-            "from " & connNameSpace & ".VW_SSCP_CMSWarning " & _
+            "from " & DBNameSpace & ".VW_SSCP_CMSWarning " & _
             "where AIRSNumber is not Null " & _
             FCEStatus & CMSStatus
 
             If SQL <> "" Then
                 dsCMSWarningDataSet = New DataSet
-                daCMSWarningDataSet = New OracleDataAdapter(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                daCMSWarningDataSet = New OracleDataAdapter(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
 
                 daCMSWarningDataSet.Fill(dsCMSWarningDataSet, "CMSWarning")
@@ -4568,7 +4568,7 @@ Public Class SSCPManagersTools
                 ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
             End If
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -4689,26 +4689,26 @@ Public Class SSCPManagersTools
             End If
 
             SQL = "Select " & _
-            "substr(" & connNameSpace & ".APBAirProgramPollutants.strAIRSnumber, 5) as AIRSNumber, " & _
+            "substr(" & DBNameSpace & ".APBAirProgramPollutants.strAIRSnumber, 5) as AIRSNumber, " & _
             "strFacilityName, " & _
             "(strComplianceStatus|| ' - ' ||strComplianceDesc) as PollutantStatus, " & _
             "strPollutantDescription " & _
-            "from " & connNameSpace & ".APBAirProgramPollutants, " & connNameSpace & ".APBFacilityInformation, " & _
-            "" & connNameSpace & ".LookUpComplianceStatus, " & connNameSpace & ".LookUPPollutants " & _
-            "where " & connNameSpace & ".APBAirProgramPollutants.strAIRSNumber = " & connNameSpace & ".APBFacilityInformation.strAIRSnumber " & _
-            "and " & connNameSpace & ".APBAirProgramPollutants.strComplianceStatus  = " & connNameSpace & ".LookUpComplianceStatus.strComplianceCode " & _
-            "and " & connNameSpace & ".LookUPPollutants.strPollutantCode = " & connNameSpace & ".APBAirProgramPollutants.strPollutantKey " & _
+            "from " & DBNameSpace & ".APBAirProgramPollutants, " & DBNameSpace & ".APBFacilityInformation, " & _
+            "" & DBNameSpace & ".LookUpComplianceStatus, " & DBNameSpace & ".LookUPPollutants " & _
+            "where " & DBNameSpace & ".APBAirProgramPollutants.strAIRSNumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSnumber " & _
+            "and " & DBNameSpace & ".APBAirProgramPollutants.strComplianceStatus  = " & DBNameSpace & ".LookUpComplianceStatus.strComplianceCode " & _
+            "and " & DBNameSpace & ".LookUPPollutants.strPollutantCode = " & DBNameSpace & ".APBAirProgramPollutants.strPollutantKey " & _
             PollutantLine
 
             dsPollutantList = New DataSet
-            daPollutantList = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daPollutantList = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daPollutantList.Fill(dsPollutantList, "PollutantList")
             dgvPollutantFacilities.DataSource = dsPollutantList
             dgvPollutantFacilities.DataMember = "PollutantList"
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
             dgvPollutantFacilities.RowHeadersVisible = False
@@ -4784,13 +4784,13 @@ Public Class SSCPManagersTools
             "from " & _
             "(select " & _
             "max(intYear), strAIRSNumber " & _
-            "from " & connNameSpace & ".SSCPInspectionsRequired " & _
+            "from " & DBNameSpace & ".SSCPInspectionsRequired " & _
             EngineerList & _
             "group by strAIRSNumber) "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -4805,14 +4805,14 @@ Public Class SSCPManagersTools
 
             '---Total Facilities reporting ACC's
             SQL = "select count(*) as TotalACCs " & _
-            "from " & connNameSpace & ".SSCPItemMaster " & _
+            "from " & DBNameSpace & ".SSCPItemMaster " & _
             "where strEventType = '04' " & _
             "and datReceivedDate between '" & Me.DTPSearchDateStart.Text & "' and '" & Me.DTPSearchDateEnd.Text & "'  " & _
             ResponsibleStaff
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -4823,16 +4823,16 @@ Public Class SSCPManagersTools
             '---Requiring resubmittals
             SQL = "select " & _
             "count(*) as TotalRequiringResubmittals  " & _
-            "from " & connNameSpace & ".SSCPACCs, " & connNameSpace & ".SSCPItemMaster " & _
-            "where " & connNameSpace & ".SSCPACCs.strTrackingNumber = " & connNameSpace & ".SSCPItemMaster.strTrackingNumber " & _
+            "from " & DBNameSpace & ".SSCPACCs, " & DBNameSpace & ".SSCPItemMaster " & _
+            "where " & DBNameSpace & ".SSCPACCs.strTrackingNumber = " & DBNameSpace & ".SSCPItemMaster.strTrackingNumber " & _
             "and strEventType = '04' " & _
             "and strSubmittalNumber = '2'  " & _
             "and datReceivedDate between '" & DTPSearchDateStart.Text & "' and '" & DTPSearchDateEnd.Text & "'  " & _
             ResponsibleStaff
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -4843,16 +4843,16 @@ Public Class SSCPManagersTools
             '---Submitted Late
             SQL = "select " & _
             "count(*) as SubmittedLate " & _
-            "from " & connNameSpace & ".SSCPACCs, " & connNameSpace & ".SSCPItemMaster " & _
-            "where " & connNameSpace & ".SSCPACCs.strTrackingNumber = " & connNameSpace & ".SSCPItemMaster.strTrackingNumber " & _
+            "from " & DBNameSpace & ".SSCPACCs, " & DBNameSpace & ".SSCPItemMaster " & _
+            "where " & DBNameSpace & ".SSCPACCs.strTrackingNumber = " & DBNameSpace & ".SSCPItemMaster.strTrackingNumber " & _
             "and strEventType = '04' " & _
             "and strPostMarkedOnTime = 'False' " & _
             "and datReceivedDate between '" & DTPSearchDateStart.Text & "' and '" & DTPSearchDateEnd.Text & "'  " & _
             ResponsibleStaff
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -4863,17 +4863,17 @@ Public Class SSCPManagersTools
             '---Devations Reported in first Submittal
             SQL = "select " & _
             "count(*) as DeviationsReported " & _
-            "from " & connNameSpace & ".SSCPACCs, " & connNameSpace & ".SSCPItemMaster " & _
-            "where " & connNameSpace & ".SSCPACCs.strTrackingNumber = " & connNameSpace & ".SSCPItemMaster.strTrackingNumber " & _
+            "from " & DBNameSpace & ".SSCPACCs, " & DBNameSpace & ".SSCPItemMaster " & _
+            "where " & DBNameSpace & ".SSCPACCs.strTrackingNumber = " & DBNameSpace & ".SSCPItemMaster.strTrackingNumber " & _
             "and strEventType = '04' " & _
             "and strSubmittalNumber = '1'  " & _
             "and strReportedDeviations = 'True' " & _
             "and datReceivedDate between '" & DTPSearchDateStart.Text & "' and '" & DTPSearchDateEnd.Text & "'  " & _
             ResponsibleStaff
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -4885,8 +4885,8 @@ Public Class SSCPManagersTools
             '   ---Correctly 
             SQL = "select  " & _
             "count(*) as DeviationsCorrect " & _
-            "from " & connNameSpace & ".SSCPACCsHistory, " & connNameSpace & ".SSCPItemMaster " & _
-            "where " & connNameSpace & ".SSCPACCsHistory.strTrackingNumber = " & connNameSpace & ".SSCPItemMaster.strTrackingNumber " & _
+            "from " & DBNameSpace & ".SSCPACCsHistory, " & DBNameSpace & ".SSCPItemMaster " & _
+            "where " & DBNameSpace & ".SSCPACCsHistory.strTrackingNumber = " & DBNameSpace & ".SSCPItemMaster.strTrackingNumber " & _
             "and strEventType = '04' " & _
             "and strSubmittalNumber = '1'  " & _
             "and strReportedDeviations = 'False' " & _
@@ -4894,9 +4894,9 @@ Public Class SSCPManagersTools
             "and datReceivedDate between '" & DTPSearchDateStart.Text & "' and '" & DTPSearchDateEnd.Text & "'  " & _
             ResponsibleStaff
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -4907,8 +4907,8 @@ Public Class SSCPManagersTools
             '   ---Incorrectly
             SQL = "select " & _
             "count(*) as DeviationsIncorrect " & _
-            "from " & connNameSpace & ".SSCPACCsHistory, " & connNameSpace & ".SSCPItemMaster " & _
-            "where " & connNameSpace & ".SSCPACCsHistory.strTrackingNumber = " & connNameSpace & ".SSCPItemMaster.strTrackingNumber " & _
+            "from " & DBNameSpace & ".SSCPACCsHistory, " & DBNameSpace & ".SSCPItemMaster " & _
+            "where " & DBNameSpace & ".SSCPACCsHistory.strTrackingNumber = " & DBNameSpace & ".SSCPItemMaster.strTrackingNumber " & _
             "and strEventType = '04' " & _
             "and strSubmittalNumber = '1'  " & _
             "and strReportedDeviations = 'False' " & _
@@ -4916,9 +4916,9 @@ Public Class SSCPManagersTools
             "and datReceivedDate between '" & DTPSearchDateStart.Text & "' and '" & DTPSearchDateEnd.Text & "'  " & _
             ResponsibleStaff
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -4929,16 +4929,16 @@ Public Class SSCPManagersTools
             '---Deviations Reported in Final Report 
             SQL = "select " & _
             "count(*) as DeviationsInFinal " & _
-            "from " & connNameSpace & ".SSCPACCs, " & connNameSpace & ".SSCPItemMaster " & _
-            "where " & connNameSpace & ".SSCPACCs.strTrackingNumber = " & connNameSpace & ".SSCPItemMaster.strTrackingNumber " & _
+            "from " & DBNameSpace & ".SSCPACCs, " & DBNameSpace & ".SSCPItemMaster " & _
+            "where " & DBNameSpace & ".SSCPACCs.strTrackingNumber = " & DBNameSpace & ".SSCPItemMaster.strTrackingNumber " & _
             "and strEventType = '04' " & _
             "and strReportedDeviations = 'True' " & _
             "and datReceivedDate between '" & DTPSearchDateStart.Text & "' and '" & DTPSearchDateEnd.Text & "'  " & _
             ResponsibleStaff
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -4949,16 +4949,16 @@ Public Class SSCPManagersTools
             '---Deviations Not Previously Report
             SQL = "select  " & _
             "count(*) as DeviationsNotReported " & _
-            "from " & connNameSpace & ".SSCPACCs, " & connNameSpace & ".SSCPItemMaster " & _
-            "where " & connNameSpace & ".SSCPACCs.strTrackingNumber = " & connNameSpace & ".SSCPItemMaster.strTrackingNumber " & _
+            "from " & DBNameSpace & ".SSCPACCs, " & DBNameSpace & ".SSCPItemMaster " & _
+            "where " & DBNameSpace & ".SSCPACCs.strTrackingNumber = " & DBNameSpace & ".SSCPItemMaster.strTrackingNumber " & _
             "and strEventType = '04' " & _
             "and strDeviationsUnReported = 'True' " & _
             "and datReceivedDate between '" & DTPSearchDateStart.Text & "' and '" & DTPSearchDateEnd.Text & "'  " & _
             ResponsibleStaff
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -4968,15 +4968,15 @@ Public Class SSCPManagersTools
 
             '---Enforcement Action Taken 
             SQL = "select count(*) as EnforcementTaken " & _
-            "from " & connNameSpace & ".SSCP_AuditedEnforcement, " & connNameSpace & ".SSCPItemMaster  " & _
-            "where " & connNameSpace & ".SSCP_AuditedEnforcement.strTrackingNumber = " & connNameSpace & ".SSCPItemMaster.strTrackingNumber  " & _
+            "from " & DBNameSpace & ".SSCP_AuditedEnforcement, " & DBNameSpace & ".SSCPItemMaster  " & _
+            "where " & DBNameSpace & ".SSCP_AuditedEnforcement.strTrackingNumber = " & DBNameSpace & ".SSCPItemMaster.strTrackingNumber  " & _
             "and strEventType = '04'  " & _
             "and datReceivedDate between '" & DTPSearchDateStart.Text & "' and '" & DTPSearchDateEnd.Text & "'  " & _
             ResponsibleStaff
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -4986,16 +4986,16 @@ Public Class SSCPManagersTools
 
             '    ---LON
             SQL = "select count(*) as LONTaken  " & _
-            "from " & connNameSpace & ".SSCP_AuditedEnforcement, " & connNameSpace & ".SSCPItemMaster  " & _
-             "where " & connNameSpace & ".SSCP_AuditedEnforcement.strTrackingNumber = " & connNameSpace & ".SSCPItemMaster.strTrackingNumber  " & _
+            "from " & DBNameSpace & ".SSCP_AuditedEnforcement, " & DBNameSpace & ".SSCPItemMaster  " & _
+             "where " & DBNameSpace & ".SSCP_AuditedEnforcement.strTrackingNumber = " & DBNameSpace & ".SSCPItemMaster.strTrackingNumber  " & _
             "and strEventType = '04'  " & _
             "and datLONSent is Not Null  " & _
             "and datReceivedDate between '" & DTPSearchDateStart.Text & "' and '" & DTPSearchDateEnd.Text & "'  " & _
             ResponsibleStaff
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -5005,16 +5005,16 @@ Public Class SSCPManagersTools
 
             '---NOV 
             SQL = "select count(*) as NOVTaken " & _
-            "from " & connNameSpace & ".SSCP_AuditedEnforcement, " & connNameSpace & ".SSCPItemMaster " & _
-             "where " & connNameSpace & ".SSCP_AuditedEnforcement.strTrackingNumber = " & connNameSpace & ".SSCPItemMaster.strTrackingNumber  " & _
+            "from " & DBNameSpace & ".SSCP_AuditedEnforcement, " & DBNameSpace & ".SSCPItemMaster " & _
+             "where " & DBNameSpace & ".SSCP_AuditedEnforcement.strTrackingNumber = " & DBNameSpace & ".SSCPItemMaster.strTrackingNumber  " & _
            "and strEventType = '04'  " & _
             "and datNFALetterSent is Not Null  " & _
             "and datReceivedDate between '" & DTPSearchDateStart.Text & "' and '" & DTPSearchDateEnd.Text & "'  " & _
             ResponsibleStaff
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -5024,16 +5024,16 @@ Public Class SSCPManagersTools
 
             '---CO 
             SQL = "select count(*) as COTaken " & _
-            "from " & connNameSpace & ".SSCP_AuditedEnforcement, " & connNameSpace & ".SSCPItemMaster  " & _
-            "where " & connNameSpace & ".SSCP_AuditedEnforcement.strTrackingNumber = " & connNameSpace & ".SSCPItemMaster.strTrackingNumber  " & _
+            "from " & DBNameSpace & ".SSCP_AuditedEnforcement, " & DBNameSpace & ".SSCPItemMaster  " & _
+            "where " & DBNameSpace & ".SSCP_AuditedEnforcement.strTrackingNumber = " & DBNameSpace & ".SSCPItemMaster.strTrackingNumber  " & _
             "and strEventType = '04'  " & _
             "and datCOResolved is Not Null  " & _
             "and datReceivedDate between '" & DTPSearchDateStart.Text & "' and '" & DTPSearchDateEnd.Text & "'  " & _
             ResponsibleStaff
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -5335,20 +5335,20 @@ Public Class SSCPManagersTools
                "(strLastName||', '||strFirstName) as AssignedEngineer " & _
                "from " & _
                "(select * " & _
-               "from " & connNameSpace & ".VW_SSCP_CMSWARNING) TABLE1, " & _
+               "from " & DBNameSpace & ".VW_SSCP_CMSWARNING) TABLE1, " & _
                "(select " & _
                "max(INTYEAR), NUMSSCPENGINEER, " & _
                "strairsnumber " & _
-               "from " & connNameSpace & ".SSCPINSPECTIONSREQUIRED " & _
+               "from " & DBNameSpace & ".SSCPINSPECTIONSREQUIRED " & _
                "group by NUMSSCPENGINEER, STRAIRSNUMBER)TABLE2, " & _
-               "" & connNameSpace & ".EPDUSERPROFILES " & _
+               "" & DBNameSpace & ".EPDUSERPROFILES " & _
                "where '0413'||TABLE1.AIRSNUMBER = TABLE2.STRAIRSNUMBER (+) " & _
-               "and Table2.numSSCPEngineer = " & connNameSpace & ".EPDUserProfiles.numuserid (+)  " & _
+               "and Table2.numSSCPEngineer = " & DBNameSpace & ".EPDUserProfiles.numuserid (+)  " & _
                "and AIRSNumber = '" & txtCMSAIRSNumber.Text & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -5398,20 +5398,20 @@ Public Class SSCPManagersTools
                 "(strLastName||', '||strFirstName) as AssignedEngineer " & _
                 "from " & _
                 "(select * " & _
-                "from " & connNameSpace & ".VW_SSCP_CMSWARNING) TABLE1, " & _
+                "from " & DBNameSpace & ".VW_SSCP_CMSWARNING) TABLE1, " & _
                 "(select " & _
                 "max(INTYEAR), NUMSSCPENGINEER, " & _
                 "strairsnumber " & _
-                "from " & connNameSpace & ".SSCPINSPECTIONSREQUIRED " & _
+                "from " & DBNameSpace & ".SSCPINSPECTIONSREQUIRED " & _
                 "group by NUMSSCPENGINEER, STRAIRSNUMBER)TABLE2, " & _
-                "" & connNameSpace & ".EPDUSERPROFILES " & _
+                "" & DBNameSpace & ".EPDUSERPROFILES " & _
                 "where '0413'||TABLE1.AIRSNUMBER = TABLE2.STRAIRSNUMBER (+) " & _
-                "and Table2.numSSCPEngineer = " & connNameSpace & ".EPDUserProfiles.numuserid (+)  " & _
+                "and Table2.numSSCPEngineer = " & DBNameSpace & ".EPDUserProfiles.numuserid (+)  " & _
                 "and AIRSNumber = '" & txtCMSAIRSNumber2.Text & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -5645,22 +5645,22 @@ Public Class SSCPManagersTools
             "(select " & _
             "max(intYear), strAIRSNumber, " & _
             "numSSCPEngineer " & _
-            "from " & connNameSpace & ".SSCPInspectionsRequired " & _
+            "from " & DBNameSpace & ".SSCPInspectionsRequired " & _
             EngineerList & _
             "group by strAIRSNumber, numSSCPEngineer) Table1, " & _
-            "" & connNameSpace & ".APBFacilityInformation, " & connNameSpace & ".EPDUserProfiles " & _
-            "where Table1.strAIRSNumber = " & connNameSpace & ".APBFacilityInformation.strAIRsnumber " & _
-            "and Table1.numSSCPEngineer = " & connNameSpace & ".EPDUserProfiles.numUserID "
+            "" & DBNameSpace & ".APBFacilityInformation, " & DBNameSpace & ".EPDUserProfiles " & _
+            "where Table1.strAIRSNumber = " & DBNameSpace & ".APBFacilityInformation.strAIRsnumber " & _
+            "and Table1.numSSCPEngineer = " & DBNameSpace & ".EPDUserProfiles.numUserID "
 
             dsStatisticalReport = New DataSet
-            daStatisticalReport = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daStatisticalReport = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daStatisticalReport.Fill(dsStatisticalReport, "TotalFacilities")
             dgvStatistialReports.DataSource = dsStatisticalReport
             dgvStatistialReports.DataMember = "TotalFacilities"
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
             dgvStatistialReports.RowHeadersVisible = False
@@ -5719,28 +5719,28 @@ Public Class SSCPManagersTools
 
             '---Total Facilities reporting ACC's
             SQL = "select " & _
-                "substr(" & connNameSpace & ".APBFacilityInformation.strAIRSnumber, 5) as AIRSNumber,  " & _
+                "substr(" & DBNameSpace & ".APBFacilityInformation.strAIRSnumber, 5) as AIRSNumber,  " & _
                 "strFacilityName,  " & _
                 "(strLastname||', '||strFirstName) as UserName,  " & _
                 "strTrackingNumber " & _
-                "from " & connNameSpace & ".APBFacilityInformation, " & connNameSpace & ".EPDUserProfiles,  " & _
-                "" & connNameSpace & ".SSCPItemMaster  " & _
-                "where " & connNameSpace & ".SSCPItemMaster.strAirsnumber = " & connNameSpace & ".APBFacilityInformation.strAIRSnumber  " & _
-                "and " & connNameSpace & ".SSCPItemMaster.strResponsibleStaff = " & connNameSpace & ".EPDUserProfiles.numUserID   " & _
+                "from " & DBNameSpace & ".APBFacilityInformation, " & DBNameSpace & ".EPDUserProfiles,  " & _
+                "" & DBNameSpace & ".SSCPItemMaster  " & _
+                "where " & DBNameSpace & ".SSCPItemMaster.strAirsnumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSnumber  " & _
+                "and " & DBNameSpace & ".SSCPItemMaster.strResponsibleStaff = " & DBNameSpace & ".EPDUserProfiles.numUserID   " & _
                 "and strEventType = '04'  " & _
                 "and datReceivedDate between '" & Me.DTPSearchDateStart.Text & "' and '" & Me.DTPSearchDateEnd.Text & "'  " & _
                 ResponsibleStaff & _
                 "order by strFacilityName "
 
             dsStatisticalReport = New DataSet
-            daStatisticalReport = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daStatisticalReport = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daStatisticalReport.Fill(dsStatisticalReport, "TotalFacilities")
             dgvStatistialReports.DataSource = dsStatisticalReport
             dgvStatistialReports.DataMember = "TotalFacilities"
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
             dgvStatistialReports.RowHeadersVisible = False
@@ -5801,15 +5801,15 @@ Public Class SSCPManagersTools
 
             '---Requiring resubmittals
             SQL = "select " & _
-                "substr(" & connNameSpace & ".APBFacilityInformation.strAIRSnumber, 5) as AIRSNumber,   " & _
+                "substr(" & DBNameSpace & ".APBFacilityInformation.strAIRSnumber, 5) as AIRSNumber,   " & _
                 "strFacilityName,   " & _
                 "(strLastName||', '||strFirstName) as UserName,   " & _
-                "" & connNameSpace & ".SSCPItemMaster.strTrackingNumber  " & _
-                "from " & connNameSpace & ".APBFacilityInformation, " & connNameSpace & ".EPDUserProfiles,   " & _
-                "" & connNameSpace & ".SSCPItemMaster, " & connNameSpace & ".SSCPACCs    " & _
-                "where " & connNameSpace & ".SSCPItemMaster.strAirsnumber = " & connNameSpace & ".APBFacilityInformation.strAIRSnumber   " & _
-                "and " & connNameSpace & ".SSCPItemMaster.strResponsibleStaff = " & connNameSpace & ".EPDUserProfiles.numUserID    " & _
-                "and " & connNameSpace & ".SSCPItemMaster.strTrackingnumber = " & connNameSpace & ".SSCPACCs.strTrackingNumber  " & _
+                "" & DBNameSpace & ".SSCPItemMaster.strTrackingNumber  " & _
+                "from " & DBNameSpace & ".APBFacilityInformation, " & DBNameSpace & ".EPDUserProfiles,   " & _
+                "" & DBNameSpace & ".SSCPItemMaster, " & DBNameSpace & ".SSCPACCs    " & _
+                "where " & DBNameSpace & ".SSCPItemMaster.strAirsnumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSnumber   " & _
+                "and " & DBNameSpace & ".SSCPItemMaster.strResponsibleStaff = " & DBNameSpace & ".EPDUserProfiles.numUserID    " & _
+                "and " & DBNameSpace & ".SSCPItemMaster.strTrackingnumber = " & DBNameSpace & ".SSCPACCs.strTrackingNumber  " & _
                 "and strSubmittalNumber = '2'  " & _
                 "and strEventType = '04'   " & _
                 "and datReceivedDate between '" & DTPSearchDateStart.Text & "' and '" & DTPSearchDateEnd.Text & "'  " & _
@@ -5817,14 +5817,14 @@ Public Class SSCPManagersTools
                 "order by strFacilityName "
 
             dsStatisticalReport = New DataSet
-            daStatisticalReport = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daStatisticalReport = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daStatisticalReport.Fill(dsStatisticalReport, "TotalFacilities")
             dgvStatistialReports.DataSource = dsStatisticalReport
             dgvStatistialReports.DataMember = "TotalFacilities"
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
             dgvStatistialReports.RowHeadersVisible = False
@@ -5886,15 +5886,15 @@ Public Class SSCPManagersTools
 
             '---Submitted Late
             SQL = "select " & _
-           "substr(" & connNameSpace & ".APBFacilityInformation.strAIRSnumber, 5) as AIRSNumber,   " & _
+           "substr(" & DBNameSpace & ".APBFacilityInformation.strAIRSnumber, 5) as AIRSNumber,   " & _
            "strFacilityName,   " & _
            "(strLastName||', '||strFirstName) as UserName,   " & _
-           "" & connNameSpace & ".SSCPItemMaster.strTrackingNumber  " & _
-           "from " & connNameSpace & ".APBFacilityInformation, " & connNameSpace & ".EPDUserProfiles,   " & _
-           "" & connNameSpace & ".SSCPItemMaster, " & connNameSpace & ".SSCPACCs    " & _
-           "where " & connNameSpace & ".SSCPItemMaster.strAirsnumber = " & connNameSpace & ".APBFacilityInformation.strAIRSnumber   " & _
-           "and " & connNameSpace & ".SSCPItemMaster.strResponsibleStaff = " & connNameSpace & ".EPDUserProfiles.numUserID    " & _
-           "and " & connNameSpace & ".SSCPItemMaster.strTrackingnumber = " & connNameSpace & ".SSCPACCs.strTrackingNumber  " & _
+           "" & DBNameSpace & ".SSCPItemMaster.strTrackingNumber  " & _
+           "from " & DBNameSpace & ".APBFacilityInformation, " & DBNameSpace & ".EPDUserProfiles,   " & _
+           "" & DBNameSpace & ".SSCPItemMaster, " & DBNameSpace & ".SSCPACCs    " & _
+           "where " & DBNameSpace & ".SSCPItemMaster.strAirsnumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSnumber   " & _
+           "and " & DBNameSpace & ".SSCPItemMaster.strResponsibleStaff = " & DBNameSpace & ".EPDUserProfiles.numUserID    " & _
+           "and " & DBNameSpace & ".SSCPItemMaster.strTrackingnumber = " & DBNameSpace & ".SSCPACCs.strTrackingNumber  " & _
            "and strPostMarkedOnTime = 'False' " & _
            "and strEventType = '04'   " & _
            "and datReceivedDate between '" & DTPSearchDateStart.Text & "' and '" & DTPSearchDateEnd.Text & "'  " & _
@@ -5902,14 +5902,14 @@ Public Class SSCPManagersTools
            "order by strFacilityName "
 
             dsStatisticalReport = New DataSet
-            daStatisticalReport = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daStatisticalReport = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daStatisticalReport.Fill(dsStatisticalReport, "TotalFacilities")
             dgvStatistialReports.DataSource = dsStatisticalReport
             dgvStatistialReports.DataMember = "TotalFacilities"
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
             dgvStatistialReports.RowHeadersVisible = False
@@ -5972,15 +5972,15 @@ Public Class SSCPManagersTools
 
             '---Devations Reported in first Submittal
             SQL = "select " & _
-                "substr(" & connNameSpace & ".APBFacilityInformation.strAIRSnumber, 5) as AIRSNumber,   " & _
+                "substr(" & DBNameSpace & ".APBFacilityInformation.strAIRSnumber, 5) as AIRSNumber,   " & _
                 "strFacilityName,   " & _
                 "(strLastName||', '||strFirstName) as UserName,   " & _
-                "" & connNameSpace & ".SSCPItemMaster.strTrackingNumber  " & _
-                "from " & connNameSpace & ".APBFacilityInformation, " & connNameSpace & ".EPDUserProfiles,   " & _
-                "" & connNameSpace & ".SSCPItemMaster, " & connNameSpace & ".SSCPACCs    " & _
-                "where " & connNameSpace & ".SSCPItemMaster.strAirsnumber = " & connNameSpace & ".APBFacilityInformation.strAIRSnumber   " & _
-                "and " & connNameSpace & ".SSCPItemMaster.strResponsibleStaff = " & connNameSpace & ".EPDUserProfiles.numUserID    " & _
-                "and " & connNameSpace & ".SSCPItemMaster.strTrackingnumber = " & connNameSpace & ".SSCPACCs.strTrackingNumber  " & _
+                "" & DBNameSpace & ".SSCPItemMaster.strTrackingNumber  " & _
+                "from " & DBNameSpace & ".APBFacilityInformation, " & DBNameSpace & ".EPDUserProfiles,   " & _
+                "" & DBNameSpace & ".SSCPItemMaster, " & DBNameSpace & ".SSCPACCs    " & _
+                "where " & DBNameSpace & ".SSCPItemMaster.strAirsnumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSnumber   " & _
+                "and " & DBNameSpace & ".SSCPItemMaster.strResponsibleStaff = " & DBNameSpace & ".EPDUserProfiles.numUserID    " & _
+                "and " & DBNameSpace & ".SSCPItemMaster.strTrackingnumber = " & DBNameSpace & ".SSCPACCs.strTrackingNumber  " & _
                 "and strSubmittalNumber = '1'  " & _
                 "and strEventType = '04'   " & _
                 "and strReportedDeviations = 'True' " & _
@@ -5989,14 +5989,14 @@ Public Class SSCPManagersTools
                 "order by strFacilityName "
 
             dsStatisticalReport = New DataSet
-            daStatisticalReport = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daStatisticalReport = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daStatisticalReport.Fill(dsStatisticalReport, "TotalFacilities")
             dgvStatistialReports.DataSource = dsStatisticalReport
             dgvStatistialReports.DataMember = "TotalFacilities"
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
             dgvStatistialReports.RowHeadersVisible = False
@@ -6060,15 +6060,15 @@ Public Class SSCPManagersTools
             '---No Deviations Reported in first Submittal
             '   ---Correctly 
             SQL = "select " & _
-                "substr(" & connNameSpace & ".APBFacilityInformation.strAIRSnumber, 5) as AIRSNumber,   " & _
+                "substr(" & DBNameSpace & ".APBFacilityInformation.strAIRSnumber, 5) as AIRSNumber,   " & _
                 "strFacilityName,   " & _
                 "(strLastName||', '||strFirstName) as UserName,   " & _
-                "" & connNameSpace & ".SSCPItemMaster.strTrackingNumber  " & _
-                "from " & connNameSpace & ".APBFacilityInformation, " & connNameSpace & ".EPDUserProfiles,   " & _
-                "" & connNameSpace & ".SSCPItemMaster, " & connNameSpace & ".SSCPACCsHistory    " & _
-                "where " & connNameSpace & ".SSCPItemMaster.strAirsnumber = " & connNameSpace & ".APBFacilityInformation.strAIRSnumber   " & _
-                "and " & connNameSpace & ".SSCPItemMaster.strResponsibleStaff = " & connNameSpace & ".EPDUserProfiles.numUserID    " & _
-                "and " & connNameSpace & ".SSCPItemMaster.strTrackingnumber = " & connNameSpace & ".SSCPACCsHistory.strTrackingNumber  " & _
+                "" & DBNameSpace & ".SSCPItemMaster.strTrackingNumber  " & _
+                "from " & DBNameSpace & ".APBFacilityInformation, " & DBNameSpace & ".EPDUserProfiles,   " & _
+                "" & DBNameSpace & ".SSCPItemMaster, " & DBNameSpace & ".SSCPACCsHistory    " & _
+                "where " & DBNameSpace & ".SSCPItemMaster.strAirsnumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSnumber   " & _
+                "and " & DBNameSpace & ".SSCPItemMaster.strResponsibleStaff = " & DBNameSpace & ".EPDUserProfiles.numUserID    " & _
+                "and " & DBNameSpace & ".SSCPItemMaster.strTrackingnumber = " & DBNameSpace & ".SSCPACCsHistory.strTrackingNumber  " & _
                 "and strSubmittalNumber = '1'  " & _
                 "and strEventType = '04'   " & _
                 "and strReportedDeviations = 'False' " & _
@@ -6078,14 +6078,14 @@ Public Class SSCPManagersTools
                 "order by strFacilityName "
 
             dsStatisticalReport = New DataSet
-            daStatisticalReport = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daStatisticalReport = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daStatisticalReport.Fill(dsStatisticalReport, "TotalFacilities")
             dgvStatistialReports.DataSource = dsStatisticalReport
             dgvStatistialReports.DataMember = "TotalFacilities"
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
             dgvStatistialReports.RowHeadersVisible = False
@@ -6150,15 +6150,15 @@ Public Class SSCPManagersTools
             '---No Deviations Reported in first Submittal
             '   ---Incorrectly
             SQL = "select " & _
-                "substr(" & connNameSpace & ".APBFacilityInformation.strAIRSnumber, 5) as AIRSNumber,   " & _
+                "substr(" & DBNameSpace & ".APBFacilityInformation.strAIRSnumber, 5) as AIRSNumber,   " & _
                 "strFacilityName,   " & _
                 "(strLastName||', '||strFirstName) as UserName,   " & _
-                "" & connNameSpace & ".SSCPItemMaster.strTrackingNumber  " & _
-                "from " & connNameSpace & ".APBFacilityInformation, " & connNameSpace & ".EPDUserProfiles,   " & _
-                "" & connNameSpace & ".SSCPItemMaster, " & connNameSpace & ".SSCPACCsHistory    " & _
-                "where " & connNameSpace & ".SSCPItemMaster.strAirsnumber = " & connNameSpace & ".APBFacilityInformation.strAIRSnumber   " & _
-                "and " & connNameSpace & ".SSCPItemMaster.strResponsibleStaff = " & connNameSpace & ".EPDUserProfiles.numUserID    " & _
-                "and " & connNameSpace & ".SSCPItemMaster.strTrackingnumber = " & connNameSpace & ".SSCPACCsHistory.strTrackingNumber  " & _
+                "" & DBNameSpace & ".SSCPItemMaster.strTrackingNumber  " & _
+                "from " & DBNameSpace & ".APBFacilityInformation, " & DBNameSpace & ".EPDUserProfiles,   " & _
+                "" & DBNameSpace & ".SSCPItemMaster, " & DBNameSpace & ".SSCPACCsHistory    " & _
+                "where " & DBNameSpace & ".SSCPItemMaster.strAirsnumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSnumber   " & _
+                "and " & DBNameSpace & ".SSCPItemMaster.strResponsibleStaff = " & DBNameSpace & ".EPDUserProfiles.numUserID    " & _
+                "and " & DBNameSpace & ".SSCPItemMaster.strTrackingnumber = " & DBNameSpace & ".SSCPACCsHistory.strTrackingNumber  " & _
                 "and strSubmittalNumber = '1'  " & _
                 "and strEventType = '04'   " & _
                 "and strReportedDeviations = 'False' " & _
@@ -6168,14 +6168,14 @@ Public Class SSCPManagersTools
                 "order by strFacilityName "
 
             dsStatisticalReport = New DataSet
-            daStatisticalReport = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daStatisticalReport = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daStatisticalReport.Fill(dsStatisticalReport, "TotalFacilities")
             dgvStatistialReports.DataSource = dsStatisticalReport
             dgvStatistialReports.DataMember = "TotalFacilities"
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
             dgvStatistialReports.RowHeadersVisible = False
@@ -6238,15 +6238,15 @@ Public Class SSCPManagersTools
 
             '---Deviations Reported in Final Report 
             SQL = "select " & _
-            "substr(" & connNameSpace & ".APBFacilityInformation.strAIRSnumber, 5) as AIRSNumber,   " & _
+            "substr(" & DBNameSpace & ".APBFacilityInformation.strAIRSnumber, 5) as AIRSNumber,   " & _
             "strFacilityName,   " & _
             "(strLastname||', '||strFirstName) as UserName,   " & _
-            "" & connNameSpace & ".SSCPItemMaster.strTrackingNumber  " & _
-            "from " & connNameSpace & ".APBFacilityInformation, " & connNameSpace & ".EPDUserProfiles,   " & _
-            "" & connNameSpace & ".SSCPItemMaster, " & connNameSpace & ".SSCPACCs    " & _
-            "where " & connNameSpace & ".SSCPItemMaster.strAirsnumber = " & connNameSpace & ".APBFacilityInformation.strAIRSnumber   " & _
-            "and " & connNameSpace & ".SSCPItemMaster.strResponsibleStaff = " & connNameSpace & ".EPDUserProfiles.numUserID    " & _
-            "and " & connNameSpace & ".SSCPItemMaster.strTrackingnumber = " & connNameSpace & ".SSCPACCs.strTrackingNumber  " & _
+            "" & DBNameSpace & ".SSCPItemMaster.strTrackingNumber  " & _
+            "from " & DBNameSpace & ".APBFacilityInformation, " & DBNameSpace & ".EPDUserProfiles,   " & _
+            "" & DBNameSpace & ".SSCPItemMaster, " & DBNameSpace & ".SSCPACCs    " & _
+            "where " & DBNameSpace & ".SSCPItemMaster.strAirsnumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSnumber   " & _
+            "and " & DBNameSpace & ".SSCPItemMaster.strResponsibleStaff = " & DBNameSpace & ".EPDUserProfiles.numUserID    " & _
+            "and " & DBNameSpace & ".SSCPItemMaster.strTrackingnumber = " & DBNameSpace & ".SSCPACCs.strTrackingNumber  " & _
             "and strEventType = '04' " & _
             "and strReportedDeviations = 'True' " & _
             "and datReceivedDate between '" & DTPSearchDateStart.Text & "' and '" & DTPSearchDateEnd.Text & "'  " & _
@@ -6254,14 +6254,14 @@ Public Class SSCPManagersTools
             "order by strFacilityName "
 
             dsStatisticalReport = New DataSet
-            daStatisticalReport = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daStatisticalReport = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daStatisticalReport.Fill(dsStatisticalReport, "TotalFacilities")
             dgvStatistialReports.DataSource = dsStatisticalReport
             dgvStatistialReports.DataMember = "TotalFacilities"
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
             dgvStatistialReports.RowHeadersVisible = False
@@ -6324,15 +6324,15 @@ Public Class SSCPManagersTools
 
             '---Deviations Not Previously Report
             SQL = "select " & _
-            "substr(" & connNameSpace & ".APBFacilityInformation.strAIRSnumber, 5) as AIRSNumber,   " & _
+            "substr(" & DBNameSpace & ".APBFacilityInformation.strAIRSnumber, 5) as AIRSNumber,   " & _
             "strFacilityName,   " & _
             "(strLastName||', '||strFirstName) as UserName,   " & _
-            "" & connNameSpace & ".SSCPItemMaster.strTrackingNumber  " & _
-            "from " & connNameSpace & ".APBFacilityInformation, " & connNameSpace & ".EPDUserProfiles,   " & _
-            "" & connNameSpace & ".SSCPItemMaster, " & connNameSpace & ".SSCPACCs    " & _
-            "where " & connNameSpace & ".SSCPItemMaster.strAirsnumber = " & connNameSpace & ".APBFacilityInformation.strAIRSnumber   " & _
-            "and " & connNameSpace & ".SSCPItemMaster.strResponsibleStaff = " & connNameSpace & ".EPDUserProfiles.numUserID    " & _
-            "and " & connNameSpace & ".SSCPItemMaster.strTrackingnumber = " & connNameSpace & ".SSCPACCs.strTrackingNumber  " & _
+            "" & DBNameSpace & ".SSCPItemMaster.strTrackingNumber  " & _
+            "from " & DBNameSpace & ".APBFacilityInformation, " & DBNameSpace & ".EPDUserProfiles,   " & _
+            "" & DBNameSpace & ".SSCPItemMaster, " & DBNameSpace & ".SSCPACCs    " & _
+            "where " & DBNameSpace & ".SSCPItemMaster.strAirsnumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSnumber   " & _
+            "and " & DBNameSpace & ".SSCPItemMaster.strResponsibleStaff = " & DBNameSpace & ".EPDUserProfiles.numUserID    " & _
+            "and " & DBNameSpace & ".SSCPItemMaster.strTrackingnumber = " & DBNameSpace & ".SSCPACCs.strTrackingNumber  " & _
             "and strEventType = '04'   " & _
             "and strDeviationsUnReported = 'True' " & _
             "and datReceivedDate between '" & DTPSearchDateStart.Text & "' and '" & DTPSearchDateEnd.Text & "'  " & _
@@ -6340,14 +6340,14 @@ Public Class SSCPManagersTools
             "order by strFacilityName "
 
             dsStatisticalReport = New DataSet
-            daStatisticalReport = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daStatisticalReport = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daStatisticalReport.Fill(dsStatisticalReport, "TotalFacilities")
             dgvStatistialReports.DataSource = dsStatisticalReport
             dgvStatistialReports.DataMember = "TotalFacilities"
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
             dgvStatistialReports.RowHeadersVisible = False
@@ -6409,32 +6409,32 @@ Public Class SSCPManagersTools
 
             '---Enforcement Action Taken 
             SQL = "select " & _
-                "substr(" & connNameSpace & ".APBFacilityInformation.strAIRSnumber, 5) as AIRSNumber,   " & _
+                "substr(" & DBNameSpace & ".APBFacilityInformation.strAIRSnumber, 5) as AIRSNumber,   " & _
                 "strFacilityName,   " & _
                 "(strLastName||', '||strFirstName) as UserName,   " & _
-                "" & connNameSpace & ".SSCPItemMaster.strTrackingNumber,  " & _
-                "" & connNameSpace & ".SSCP_AuditedEnforcement.strEnforcementNumber  " & _
-                "from " & connNameSpace & ".APBFacilityInformation, " & connNameSpace & ".EPDUserProfiles,   " & _
-                "" & connNameSpace & ".SSCPItemMaster, " & connNameSpace & ".SSCPACCs,  " & _
-                "" & connNameSpace & ".SSCP_AuditedEnforcement   " & _
-                "where " & connNameSpace & ".SSCPItemMaster.strAirsnumber = " & connNameSpace & ".APBFacilityInformation.strAIRSnumber   " & _
-                "and " & connNameSpace & ".SSCPItemMaster.strResponsibleStaff = " & connNameSpace & ".EPDUserProfiles.numUserID    " & _
-                "and " & connNameSpace & ".SSCPItemMaster.strTrackingnumber = " & connNameSpace & ".SSCPACCs.strTrackingNumber  " & _
-                "and " & connNameSpace & ".SSCPItemMaster.strTrackingNumber = " & connNameSpace & ".SSCP_AuditedEnforcement.strTrackingNumber  " & _
+                "" & DBNameSpace & ".SSCPItemMaster.strTrackingNumber,  " & _
+                "" & DBNameSpace & ".SSCP_AuditedEnforcement.strEnforcementNumber  " & _
+                "from " & DBNameSpace & ".APBFacilityInformation, " & DBNameSpace & ".EPDUserProfiles,   " & _
+                "" & DBNameSpace & ".SSCPItemMaster, " & DBNameSpace & ".SSCPACCs,  " & _
+                "" & DBNameSpace & ".SSCP_AuditedEnforcement   " & _
+                "where " & DBNameSpace & ".SSCPItemMaster.strAirsnumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSnumber   " & _
+                "and " & DBNameSpace & ".SSCPItemMaster.strResponsibleStaff = " & DBNameSpace & ".EPDUserProfiles.numUserID    " & _
+                "and " & DBNameSpace & ".SSCPItemMaster.strTrackingnumber = " & DBNameSpace & ".SSCPACCs.strTrackingNumber  " & _
+                "and " & DBNameSpace & ".SSCPItemMaster.strTrackingNumber = " & DBNameSpace & ".SSCP_AuditedEnforcement.strTrackingNumber  " & _
                 "and strEventType = '04'   " & _
                 "and datReceivedDate between '" & DTPSearchDateStart.Text & "' and '" & DTPSearchDateEnd.Text & "'  " & _
                 ResponsibleStaff & _
                 "order by strFacilityName"
 
             dsStatisticalReport = New DataSet
-            daStatisticalReport = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daStatisticalReport = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daStatisticalReport.Fill(dsStatisticalReport, "TotalFacilities")
             dgvStatistialReports.DataSource = dsStatisticalReport
             dgvStatistialReports.DataMember = "TotalFacilities"
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
             dgvStatistialReports.RowHeadersVisible = False
@@ -6498,17 +6498,17 @@ Public Class SSCPManagersTools
 
             '---CO 
             SQL = "select " & _
-            "substr(" & connNameSpace & ".APBFacilityInformation.strAIRSnumber, 5) as AIRSNumber,   " & _
+            "substr(" & DBNameSpace & ".APBFacilityInformation.strAIRSnumber, 5) as AIRSNumber,   " & _
             "strFacilityName,   " & _
             "(strLastName||', '||strFirstName) as UserName,   " & _
-            "" & connNameSpace & ".SSCPItemMaster.strTrackingNumber,  " & _
-            "" & connNameSpace & ".SSCP_AuditedEnforcement.strEnforcementNumber  " & _
-            "from " & connNameSpace & ".APBFacilityInformation, " & connNameSpace & ".EPDUserProfiles,   " & _
-            "" & connNameSpace & ".SSCPItemMaster,  " & _
-            "" & connNameSpace & ".SSCP_AuditedEnforcement   " & _
-            "where " & connNameSpace & ".SSCPItemMaster.strAirsnumber = " & connNameSpace & ".APBFacilityInformation.strAIRSnumber   " & _
-            "and " & connNameSpace & ".SSCPItemMaster.strResponsibleStaff = " & connNameSpace & ".EPDUserProfiles.numUserID    " & _
-            "and " & connNameSpace & ".SSCPItemMaster.strTrackingNumber = " & connNameSpace & ".SSCP_AuditedEnforcement.strTrackingNumber  " & _
+            "" & DBNameSpace & ".SSCPItemMaster.strTrackingNumber,  " & _
+            "" & DBNameSpace & ".SSCP_AuditedEnforcement.strEnforcementNumber  " & _
+            "from " & DBNameSpace & ".APBFacilityInformation, " & DBNameSpace & ".EPDUserProfiles,   " & _
+            "" & DBNameSpace & ".SSCPItemMaster,  " & _
+            "" & DBNameSpace & ".SSCP_AuditedEnforcement   " & _
+            "where " & DBNameSpace & ".SSCPItemMaster.strAirsnumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSnumber   " & _
+            "and " & DBNameSpace & ".SSCPItemMaster.strResponsibleStaff = " & DBNameSpace & ".EPDUserProfiles.numUserID    " & _
+            "and " & DBNameSpace & ".SSCPItemMaster.strTrackingNumber = " & DBNameSpace & ".SSCP_AuditedEnforcement.strTrackingNumber  " & _
             "and strEventType = '04'   " & _
             "and datCOResolved is Not Null  " & _
             "and datReceivedDate between '" & DTPSearchDateStart.Text & "' and '" & DTPSearchDateEnd.Text & "'  " & _
@@ -6516,14 +6516,14 @@ Public Class SSCPManagersTools
             "order by strFacilityName"
 
             dsStatisticalReport = New DataSet
-            daStatisticalReport = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daStatisticalReport = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daStatisticalReport.Fill(dsStatisticalReport, "TotalFacilities")
             dgvStatistialReports.DataSource = dsStatisticalReport
             dgvStatistialReports.DataMember = "TotalFacilities"
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
             dgvStatistialReports.RowHeadersVisible = False
@@ -6585,17 +6585,17 @@ Public Class SSCPManagersTools
 
             '---NOV 
             SQL = "select " & _
-            "substr(" & connNameSpace & ".APBFacilityInformation.strAIRSnumber, 5) as AIRSNumber,   " & _
+            "substr(" & DBNameSpace & ".APBFacilityInformation.strAIRSnumber, 5) as AIRSNumber,   " & _
             "strFacilityName,   " & _
             "(strLastName||', '||strFirstName) as UserName,   " & _
-            "" & connNameSpace & ".SSCPItemMaster.strTrackingNumber,  " & _
-            "" & connNameSpace & ".SSCP_AuditedEnforcement.strEnforcementNumber  " & _
-            "from " & connNameSpace & ".APBFacilityInformation, " & connNameSpace & ".EPDUserProfiles,   " & _
-            "" & connNameSpace & ".SSCPItemMaster,  " & _
-            "" & connNameSpace & ".SSCP_AuditedEnforcement   " & _
-            "where " & connNameSpace & ".SSCPItemMaster.strAirsnumber = " & connNameSpace & ".APBFacilityInformation.strAIRSnumber   " & _
-            "and " & connNameSpace & ".SSCPItemMaster.strResponsibleStaff = " & connNameSpace & ".EPDUserProfiles.numUserID    " & _
-             "and " & connNameSpace & ".SSCPItemMaster.strTrackingNumber = " & connNameSpace & ".SSCP_AuditedEnforcement.strTrackingNumber  " & _
+            "" & DBNameSpace & ".SSCPItemMaster.strTrackingNumber,  " & _
+            "" & DBNameSpace & ".SSCP_AuditedEnforcement.strEnforcementNumber  " & _
+            "from " & DBNameSpace & ".APBFacilityInformation, " & DBNameSpace & ".EPDUserProfiles,   " & _
+            "" & DBNameSpace & ".SSCPItemMaster,  " & _
+            "" & DBNameSpace & ".SSCP_AuditedEnforcement   " & _
+            "where " & DBNameSpace & ".SSCPItemMaster.strAirsnumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSnumber   " & _
+            "and " & DBNameSpace & ".SSCPItemMaster.strResponsibleStaff = " & DBNameSpace & ".EPDUserProfiles.numUserID    " & _
+             "and " & DBNameSpace & ".SSCPItemMaster.strTrackingNumber = " & DBNameSpace & ".SSCP_AuditedEnforcement.strTrackingNumber  " & _
              "and strEventType = '04'   " & _
              "and datNFALetterSent is Not Null  " & _
             "and datReceivedDate between '" & DTPSearchDateStart.Text & "' and '" & DTPSearchDateEnd.Text & "'  " & _
@@ -6603,14 +6603,14 @@ Public Class SSCPManagersTools
             "order by strFacilityName"
 
             dsStatisticalReport = New DataSet
-            daStatisticalReport = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daStatisticalReport = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daStatisticalReport.Fill(dsStatisticalReport, "TotalFacilities")
             dgvStatistialReports.DataSource = dsStatisticalReport
             dgvStatistialReports.DataMember = "TotalFacilities"
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
             dgvStatistialReports.RowHeadersVisible = False
@@ -6672,17 +6672,17 @@ Public Class SSCPManagersTools
 
             '    ---LON
             SQL = "select " & _
-            "substr(" & connNameSpace & ".APBFacilityInformation.strAIRSnumber, 5) as AIRSNumber,   " & _
+            "substr(" & DBNameSpace & ".APBFacilityInformation.strAIRSnumber, 5) as AIRSNumber,   " & _
             "strFacilityName,   " & _
             "(strLastName||', '||strFirstName) as UserName,   " & _
-            "" & connNameSpace & ".SSCPItemMaster.strTrackingNumber,  " & _
-            "" & connNameSpace & ".SSCP_AuditedEnforcement.strEnforcementNumber  " & _
-            "from " & connNameSpace & ".APBFacilityInformation, " & connNameSpace & ".EPDUserProfiles,   " & _
-            "" & connNameSpace & ".SSCPItemMaster,   " & _
-            "" & connNameSpace & ".SSCP_AuditedEnforcement   " & _
-            "where " & connNameSpace & ".SSCPItemMaster.strAirsnumber = " & connNameSpace & ".APBFacilityInformation.strAIRSnumber   " & _
-            "and " & connNameSpace & ".SSCPItemMaster.strResponsibleStaff = " & connNameSpace & ".EPDUserProfiles.numUserID    " & _
-            "and " & connNameSpace & ".SSCPItemMaster.strTrackingNumber = " & connNameSpace & ".SSCP_AuditedEnforcement.strTrackingNumber  " & _
+            "" & DBNameSpace & ".SSCPItemMaster.strTrackingNumber,  " & _
+            "" & DBNameSpace & ".SSCP_AuditedEnforcement.strEnforcementNumber  " & _
+            "from " & DBNameSpace & ".APBFacilityInformation, " & DBNameSpace & ".EPDUserProfiles,   " & _
+            "" & DBNameSpace & ".SSCPItemMaster,   " & _
+            "" & DBNameSpace & ".SSCP_AuditedEnforcement   " & _
+            "where " & DBNameSpace & ".SSCPItemMaster.strAirsnumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSnumber   " & _
+            "and " & DBNameSpace & ".SSCPItemMaster.strResponsibleStaff = " & DBNameSpace & ".EPDUserProfiles.numUserID    " & _
+            "and " & DBNameSpace & ".SSCPItemMaster.strTrackingNumber = " & DBNameSpace & ".SSCP_AuditedEnforcement.strTrackingNumber  " & _
              "and strEventType = '04'   " & _
             "and datLONSent is Not Null  " & _
             "and datReceivedDate between '" & DTPSearchDateStart.Text & "' and '" & DTPSearchDateEnd.Text & "'  " & _
@@ -6690,14 +6690,14 @@ Public Class SSCPManagersTools
             "order by strFacilityName"
 
             dsStatisticalReport = New DataSet
-            daStatisticalReport = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daStatisticalReport = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daStatisticalReport.Fill(dsStatisticalReport, "TotalFacilities")
             dgvStatistialReports.DataSource = dsStatisticalReport
             dgvStatistialReports.DataMember = "TotalFacilities"
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
             dgvStatistialReports.RowHeadersVisible = False
@@ -6852,35 +6852,35 @@ Public Class SSCPManagersTools
             "'$'||to_number((CoPenalty + Stipulated), '99999999.99') as TotalPen  " & _
             "from  " & _
             "(select  " & _
-            "sum(" & connNameSpace & ".SSCP_AuditedEnforcement.strCOPenaltyAmount) as COPenalty " & _
-            "from " & connNameSpace & ".SSCP_AuditedEnforcement  " & _
-            "where " & connNameSpace & ".SSCP_AuditedEnforcement.strAIRSNumber = '0413" & txtEnforcementAIRSNumber.Text & "') COPEn,  " & _
+            "sum(" & DBNameSpace & ".SSCP_AuditedEnforcement.strCOPenaltyAmount) as COPenalty " & _
+            "from " & DBNameSpace & ".SSCP_AuditedEnforcement  " & _
+            "where " & DBNameSpace & ".SSCP_AuditedEnforcement.strAIRSNumber = '0413" & txtEnforcementAIRSNumber.Text & "') COPEn,  " & _
             "(select  " & _
-            "sum(" & connNameSpace & ".SSCPEnforcementStipulated.strStipulatedPenalty) as Stipulated " & _
-            "from " & connNameSpace & ".SSCPEnforcementStipulated, " & connNameSpace & ".SSCP_AuditedEnforcement  " & _
-            "where " & connNameSpace & ".SSCP_AuditedEnforcement.strEnforcementNumber = " & connNameSpace & ".SSCPEnforcementStipulated.strEnforcementNumber  " & _
-            "and " & connNameSpace & ".SSCP_AuditedEnforcement.strAIRSNumber = '0413" & txtEnforcementAIRSNumber.Text & "') StipPen "
+            "sum(" & DBNameSpace & ".SSCPEnforcementStipulated.strStipulatedPenalty) as Stipulated " & _
+            "from " & DBNameSpace & ".SSCPEnforcementStipulated, " & DBNameSpace & ".SSCP_AuditedEnforcement  " & _
+            "where " & DBNameSpace & ".SSCP_AuditedEnforcement.strEnforcementNumber = " & DBNameSpace & ".SSCPEnforcementStipulated.strEnforcementNumber  " & _
+            "and " & DBNameSpace & ".SSCP_AuditedEnforcement.strAIRSNumber = '0413" & txtEnforcementAIRSNumber.Text & "') StipPen "
 
             If chbUseEnforcementDateRange.Checked = True Then
                 SQL = "select " & _
                 "'$'||to_number((CoPenalty + Stipulated), '99999999.99') as TotalPen  " & _
                 "from  " & _
                 "(select  " & _
-                "sum(" & connNameSpace & ".SSCP_AuditedEnforcement.strCOPenaltyAmount) as COPenalty " & _
-                "from " & connNameSpace & ".SSCP_AuditedEnforcement  " & _
-                "where  " & connNameSpace & ".SSCP_AuditedEnforcement.strAIRSNumber = '0413" & txtEnforcementAIRSNumber.Text & "' " & _
+                "sum(" & DBNameSpace & ".SSCP_AuditedEnforcement.strCOPenaltyAmount) as COPenalty " & _
+                "from " & DBNameSpace & ".SSCP_AuditedEnforcement  " & _
+                "where  " & DBNameSpace & ".SSCP_AuditedEnforcement.strAIRSNumber = '0413" & txtEnforcementAIRSNumber.Text & "' " & _
                 "and datDiscoveryDate between '" & dtpEnforcementStartDate.Text & "' and '" & dtpEnforcementEndDate.Text & "') COPEn,  " & _
                 "(select  " & _
-                "sum(" & connNameSpace & ".SSCPEnforcementStipulated.strStipulatedPenalty) as Stipulated " & _
-                "from " & connNameSpace & ".SSCPEnforcementStipulated, " & connNameSpace & ".SSCP_AuditedEnforcement  " & _
-                "where " & connNameSpace & ".SSCP_AuditedEnforcement.strEnforcementNumber = " & connNameSpace & ".SSCPEnforcementStipulated.strEnforcementNumber  " & _
-                 "and " & connNameSpace & ".SSCP_AuditedEnforcement.strAIRSNumber = '0413" & txtEnforcementAIRSNumber.Text & "' " & _
+                "sum(" & DBNameSpace & ".SSCPEnforcementStipulated.strStipulatedPenalty) as Stipulated " & _
+                "from " & DBNameSpace & ".SSCPEnforcementStipulated, " & DBNameSpace & ".SSCP_AuditedEnforcement  " & _
+                "where " & DBNameSpace & ".SSCP_AuditedEnforcement.strEnforcementNumber = " & DBNameSpace & ".SSCPEnforcementStipulated.strEnforcementNumber  " & _
+                 "and " & DBNameSpace & ".SSCP_AuditedEnforcement.strAIRSNumber = '0413" & txtEnforcementAIRSNumber.Text & "' " & _
                 "and datDiscoveryDate between '" & dtpEnforcementStartDate.Text & "' and '" & dtpEnforcementEndDate.Text & "') StipPen "
             End If
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             recExist = dr.Read
@@ -6913,41 +6913,41 @@ Public Class SSCPManagersTools
                 SQL = "select " & _
                 "strFacilityName, " & _
                 "substr(SSCP_AuditedEnforcement.strAIRSNumber, 5) as AIRSNumber, " & _
-                "" & connNameSpace & ".SSCP_AuditedEnforcement.strEnforcementNumber, " & _
-                "'$'||to_number(" & connNameSpace & ".SSCP_AuditedEnforcement.strCOPenaltyAmount, '99999999.99') as COPenalty, " & _
-                "'$'||to_number(" & connNameSpace & ".SSCPEnforcementStipulated.strStipulatedPenalty, '99999999.99') as StipulatedPenalty, " & _
+                "" & DBNameSpace & ".SSCP_AuditedEnforcement.strEnforcementNumber, " & _
+                "'$'||to_number(" & DBNameSpace & ".SSCP_AuditedEnforcement.strCOPenaltyAmount, '99999999.99') as COPenalty, " & _
+                "'$'||to_number(" & DBNameSpace & ".SSCPEnforcementStipulated.strStipulatedPenalty, '99999999.99') as StipulatedPenalty, " & _
                 "to_char(datDiscoveryDate, 'dd-Mon-yyyy') as datDiscoveryDate " & _
-                "from " & connNameSpace & ".SSCP_AuditedEnforcement, " & _
-                "" & connNameSpace & ".SSCPEnforcementStipulated, " & connNameSpace & ".APBFacilityInformation  " & _
-                "where " & connNameSpace & ".SSCP_AuditedEnforcement.strEnforcementNumber = " & connNameSpace & ".SSCPEnforcementStipulated.strEnforcementNumber " & _
-                "and " & connNameSpace & ".SSCP_AuditedEnforcement.strAIRSNumber = " & connNameSpace & ".APBFacilityInformation.strAIRSNumber " & _
-                "and " & connNameSpace & ".SSCP_AuditedEnforcement.strAIRSNumber = '0413" & txtEnforcementAIRSNumber.Text & "' "
+                "from " & DBNameSpace & ".SSCP_AuditedEnforcement, " & _
+                "" & DBNameSpace & ".SSCPEnforcementStipulated, " & DBNameSpace & ".APBFacilityInformation  " & _
+                "where " & DBNameSpace & ".SSCP_AuditedEnforcement.strEnforcementNumber = " & DBNameSpace & ".SSCPEnforcementStipulated.strEnforcementNumber " & _
+                "and " & DBNameSpace & ".SSCP_AuditedEnforcement.strAIRSNumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber " & _
+                "and " & DBNameSpace & ".SSCP_AuditedEnforcement.strAIRSNumber = '0413" & txtEnforcementAIRSNumber.Text & "' "
 
                 If chbUseEnforcementDateRange.Checked = True Then
                     SQL = "select " & _
                     "strFacilityName, " & _
                     "substr(SSCP_AuditedEnforcement.strAIRSNumber, 5) as AIRSNumber, " & _
-                    "" & connNameSpace & ".SSCP_AuditedEnforcement.strEnforcementNumber, " & _
-                    "'$'||to_number(" & connNameSpace & ".SSCP_AuditedEnforcement.strCOPenaltyAmount, '99999999.99') as COPenalty, " & _
-                    "'$'||to_number(" & connNameSpace & ".SSCPEnforcementStipulated.strStipulatedPenalty, '99999999.99') as StipulatedPenalty, " & _
+                    "" & DBNameSpace & ".SSCP_AuditedEnforcement.strEnforcementNumber, " & _
+                    "'$'||to_number(" & DBNameSpace & ".SSCP_AuditedEnforcement.strCOPenaltyAmount, '99999999.99') as COPenalty, " & _
+                    "'$'||to_number(" & DBNameSpace & ".SSCPEnforcementStipulated.strStipulatedPenalty, '99999999.99') as StipulatedPenalty, " & _
                     "to_char(datDiscoveryDate, 'dd-Mon-yyyy') as datDiscoveryDate " & _
-                    "from " & connNameSpace & ".SSCP_AuditedEnforcement, " & _
-                    "" & connNameSpace & ".SSCPEnforcementStipulated, " & connNameSpace & ".APBFacilityInformation " & _
-                    "where  " & connNameSpace & ".SSCP_AuditedEnforcement.strEnforcementNumber = " & connNameSpace & ".SSCPEnforcementStipulated.strEnforcementNumber " & _
-                    "and " & connNameSpace & ".SSCP_AuditedEnforcement.strAIRSNumber = " & connNameSpace & ".APBFacilityInformation.strAIRSNumber " & _
+                    "from " & DBNameSpace & ".SSCP_AuditedEnforcement, " & _
+                    "" & DBNameSpace & ".SSCPEnforcementStipulated, " & DBNameSpace & ".APBFacilityInformation " & _
+                    "where  " & DBNameSpace & ".SSCP_AuditedEnforcement.strEnforcementNumber = " & DBNameSpace & ".SSCPEnforcementStipulated.strEnforcementNumber " & _
+                    "and " & DBNameSpace & ".SSCP_AuditedEnforcement.strAIRSNumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber " & _
                     "and datDiscoveryDate between '" & dtpEnforcementStartDate.Text & "' and '" & dtpEnforcementEndDate.Text & "' " & _
-                    "and " & connNameSpace & ".SSCP_AuditedEnforcement.strAIRSNumber = '0413" & txtEnforcementAIRSNumber.Text & "' "
+                    "and " & DBNameSpace & ".SSCP_AuditedEnforcement.strAIRSNumber = '0413" & txtEnforcementAIRSNumber.Text & "' "
                 End If
 
                 dsEnforcementPenalties = New DataSet
-                daEnforcementPenalties = New OracleDataAdapter(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                daEnforcementPenalties = New OracleDataAdapter(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 daEnforcementPenalties.Fill(dsEnforcementPenalties, "EnforcementPenalties")
                 dgvStatistialReports.DataSource = dsEnforcementPenalties
                 dgvStatistialReports.DataMember = "EnforcementPenalties"
-                If conn.State = ConnectionState.Open Then
+                If DBConn.State = ConnectionState.Open Then
                     'conn.close()
                 End If
                 dgvStatistialReports.RowHeadersVisible = False
@@ -7064,11 +7064,11 @@ Public Class SSCPManagersTools
 
             If txtRecordNumber.Text <> "" And txtRecordNumber.Text.Length = 8 Then
                 SQL = "Select strAIRSNumber " & _
-                "from " & connNameSpace & ".APBMasterAIRS " & _
+                "from " & DBNameSpace & ".APBMasterAIRS " & _
                 "where strAIRSnumber = '0413" & txtRecordNumber.Text & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
 
                 dr = cmd.ExecuteReader
@@ -7104,12 +7104,12 @@ Public Class SSCPManagersTools
 
             If txtRecordNumber.Text <> "" Then
                 SQL = "select strEnforcementNumber " & _
-                "from " & connNameSpace & ".SSCP_AuditedEnforcement " & _
+                "from " & DBNameSpace & ".SSCP_AuditedEnforcement " & _
                 "where strEnforcementNumber = '" & txtRecordNumber.Text & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -7148,11 +7148,11 @@ Public Class SSCPManagersTools
             If txtRecordNumber.Text <> "" And IsNumeric(txtRecordNumber.Text) Then
                 SQL = "Select " & _
                 "strTrackingNumber " & _
-                "from " & connNameSpace & ".SSCPItemMaster " & _
+                "from " & DBNameSpace & ".SSCPItemMaster " & _
                 "where strTrackingNumber = '" & txtRecordNumber.Text & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -7349,20 +7349,20 @@ Public Class SSCPManagersTools
             End If
 
             SQL = "select " & _
-            "distinct(substr(" & connNameSpace & ".APBAirProgramPollutants.strAIRSNumber, 5)) as AIRSNumber, " & _
+            "distinct(substr(" & DBNameSpace & ".APBAirProgramPollutants.strAIRSNumber, 5)) as AIRSNumber, " & _
             "strFacilityName, strPollutantDescription, " & _
             "(strComplianceStatus||' - '||strComplianceDesc) as ComplianceStatus " & _
-            "from " & connNameSpace & ".APBAirProgramPollutants, " & connNameSpace & ".APBFacilityInformation, " & _
-            "" & connNameSpace & ".LookUpPollutants, " & connNameSpace & ".LookUpComplianceStatus  " & _
-            "where " & connNameSpace & ".APBAirProgramPollutants.strAIRSnumber = " & connNameSpace & ".APBFacilityInformation.strAIRSNumber  " & _
-            "and " & connNameSpace & ".APBAirProgramPollutants.strPollutantKey = " & connNameSpace & ".LookUpPollutants.strPollutantCode " & _
-            "and " & connNameSpace & ".APBAirProgramPollutants.strComplianceStatus = " & connNameSpace & ".LookupComplianceStatus.strComplianceCode  " & _
+            "from " & DBNameSpace & ".APBAirProgramPollutants, " & DBNameSpace & ".APBFacilityInformation, " & _
+            "" & DBNameSpace & ".LookUpPollutants, " & DBNameSpace & ".LookUpComplianceStatus  " & _
+            "where " & DBNameSpace & ".APBAirProgramPollutants.strAIRSnumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber  " & _
+            "and " & DBNameSpace & ".APBAirProgramPollutants.strPollutantKey = " & DBNameSpace & ".LookUpPollutants.strPollutantCode " & _
+            "and " & DBNameSpace & ".APBAirProgramPollutants.strComplianceStatus = " & DBNameSpace & ".LookupComplianceStatus.strComplianceCode  " & _
                ComplianceWhere
 
             ds = New DataSet
-            da = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            da = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             da.Fill(ds, "ComplianceStatus")
             dgvWatchList.DataSource = ds
@@ -7449,7 +7449,7 @@ Public Class SSCPManagersTools
 
             If chbIgnoreFiscalYear.Checked = True Then
                 SQL = "Select " & _
-                "substr(" & connNameSpace & ".VW_SSCP_MT_FacilityAssignment.strAIRSNumber, 5) as AIRSNumber, strFacilityName, " & _
+                "substr(" & DBNameSpace & ".VW_SSCP_MT_FacilityAssignment.strAIRSNumber, 5) as AIRSNumber, strFacilityName, " & _
                 "strFacilityCity, " & _
                 "strCMSMember, " & _
                 "strClass, strOperationalStatus, " & _
@@ -7459,23 +7459,23 @@ Public Class SSCPManagersTools
                 "strUnitDesc," & _
                 " strDistrictResponsible, " & _
                 "strCountyName " & _
-                "from " & connNameSpace & ".VW_SSCP_MT_FacilityAssignment, " & _
-                "" & connNameSpace & ".EPDUserProfiles, " & _
-                " " & connNameSpace & ".SSCPInspectionsRequired, " & _
-                "" & connNameSpace & ".LookUpEPDUnits, " & _
+                "from " & DBNameSpace & ".VW_SSCP_MT_FacilityAssignment, " & _
+                "" & DBNameSpace & ".EPDUserProfiles, " & _
+                " " & DBNameSpace & ".SSCPInspectionsRequired, " & _
+                "" & DBNameSpace & ".LookUpEPDUnits, " & _
                 "(select " & _
-                "max(intYear) as MaxYear, " & connNameSpace & ".SSCPInspectionsRequired.strairsnumber " & _
-                "from " & connNameSpace & ".SSCPInspectionsRequired " & _
-                "group by " & connNameSpace & ".SSCPInspectionsRequired.strAIRSNumber) MaxResults " & _
-              " where " & connNameSpace & ".SSCPInspectionsRequired.numSSCPEngineer = " & connNameSpace & ".EPDUserProfiles.numUserID (+) " & _
-              "and " & connNameSpace & ".SSCPInspectionsRequired.numSSCPUnit = " & connNameSpace & ".LookUpEPDunits.numUnitCode (+) " & _
-              " and " & connNameSpace & ".VW_SSCP_MT_FacilityAssignment.strairsnumber = " & connNameSpace & ".sscpinspectionsrequired.strairsnumber (+) " & _
-              "and " & connNameSpace & ".SSCPInspectionsRequired.strAIRSNumber = MaxResults.strAIRSNumber " & _
-              "and " & connNameSpace & ".SSCPInspectionsRequired.intYear = MaxResults.maxYear "
+                "max(intYear) as MaxYear, " & DBNameSpace & ".SSCPInspectionsRequired.strairsnumber " & _
+                "from " & DBNameSpace & ".SSCPInspectionsRequired " & _
+                "group by " & DBNameSpace & ".SSCPInspectionsRequired.strAIRSNumber) MaxResults " & _
+              " where " & DBNameSpace & ".SSCPInspectionsRequired.numSSCPEngineer = " & DBNameSpace & ".EPDUserProfiles.numUserID (+) " & _
+              "and " & DBNameSpace & ".SSCPInspectionsRequired.numSSCPUnit = " & DBNameSpace & ".LookUpEPDunits.numUnitCode (+) " & _
+              " and " & DBNameSpace & ".VW_SSCP_MT_FacilityAssignment.strairsnumber = " & DBNameSpace & ".sscpinspectionsrequired.strairsnumber (+) " & _
+              "and " & DBNameSpace & ".SSCPInspectionsRequired.strAIRSNumber = MaxResults.strAIRSNumber " & _
+              "and " & DBNameSpace & ".SSCPInspectionsRequired.intYear = MaxResults.maxYear "
 
             Else
                 SQL = "Select " & _
-              "substr(" & connNameSpace & ".VW_SSCP_MT_FacilityAssignment.strAIRSNumber, 5) as AIRSNumber, strFacilityName, " & _
+              "substr(" & DBNameSpace & ".VW_SSCP_MT_FacilityAssignment.strAIRSNumber, 5) as AIRSNumber, strFacilityName, " & _
               "strFacilityCity, " & _
               "strCMSMember, " & _
               " strClass, strOperationalStatus, " & _
@@ -7495,14 +7495,14 @@ Public Class SSCPManagersTools
               "  strUnitDesc," & _
               "   strDistrictResponsible, " & _
               "  strCountyName " & _
-              " from " & connNameSpace & ".VW_SSCP_MT_FacilityAssignment, " & _
-              "" & connNameSpace & ".EPDUserProfiles, " & _
-              " " & connNameSpace & ".SSCPInspectionsRequired, " & _
-              "" & connNameSpace & ".LookUpEPDUnits " & _
-              " where " & connNameSpace & ".SSCPInspectionsRequired.numSSCPEngineer = " & connNameSpace & ".EPDUserProfiles.numUserID (+) " & _
-              "and " & connNameSpace & ".SSCPInspectionsRequired.numSSCPUnit = " & connNameSpace & ".LookUpEPDunits.numUnitCode (+) " & _
-              " and " & connNameSpace & ".VW_SSCP_MT_FacilityAssignment.strairsnumber = " & connNameSpace & ".sscpinspectionsrequired.strairsnumber (+) " & _
-              " and " & connNameSpace & ".sscpinspectionsrequired.intYear = '" & cboFiscalYear.Text & "' "
+              " from " & DBNameSpace & ".VW_SSCP_MT_FacilityAssignment, " & _
+              "" & DBNameSpace & ".EPDUserProfiles, " & _
+              " " & DBNameSpace & ".SSCPInspectionsRequired, " & _
+              "" & DBNameSpace & ".LookUpEPDUnits " & _
+              " where " & DBNameSpace & ".SSCPInspectionsRequired.numSSCPEngineer = " & DBNameSpace & ".EPDUserProfiles.numUserID (+) " & _
+              "and " & DBNameSpace & ".SSCPInspectionsRequired.numSSCPUnit = " & DBNameSpace & ".LookUpEPDunits.numUnitCode (+) " & _
+              " and " & DBNameSpace & ".VW_SSCP_MT_FacilityAssignment.strairsnumber = " & DBNameSpace & ".sscpinspectionsrequired.strairsnumber (+) " & _
+              " and " & DBNameSpace & ".sscpinspectionsrequired.intYear = '" & cboFiscalYear.Text & "' "
             End If
 
             SQLLine1 = " "
@@ -7513,7 +7513,7 @@ Public Class SSCPManagersTools
                 If cboFacSearch1.Items.Contains(cboFacSearch1.Text) And cboFilterEngineer1.Text <> "" Then
                     Select Case cboFacSearch1.Text
                         Case "AIRS Number"
-                            SQLLine1 = " upper(" & connNameSpace & ".VW_SSCP_MT_FacilityAssignment.strAIRSNumber) like '%" & Replace(txtFacSearch1.Text.ToUpper, "'", "''") & "%' "
+                            SQLLine1 = " upper(" & DBNameSpace & ".VW_SSCP_MT_FacilityAssignment.strAIRSNumber) like '%" & Replace(txtFacSearch1.Text.ToUpper, "'", "''") & "%' "
                         Case "City"
                             SQLLine1 = " upper(strFacilityCity) like '%" & Replace(txtFacSearch1.Text.ToUpper, "'", "''") & "%' "
                         Case "Classification"
@@ -7553,7 +7553,7 @@ Public Class SSCPManagersTools
                 If cboFacSearch2.Items.Contains(cboFacSearch2.Text) And cboFilterEngineer2.Text <> "" Then
                     Select Case cboFacSearch2.Text
                         Case "AIRS Number"
-                            SQLLine2 = " upper(" & connNameSpace & ".VW_SSCP_MT_FacilityAssignment.strAIRSNumber) like '%" & Replace(txtFacSearch2.Text.ToUpper, "'", "''") & "%' "
+                            SQLLine2 = " upper(" & DBNameSpace & ".VW_SSCP_MT_FacilityAssignment.strAIRSNumber) like '%" & Replace(txtFacSearch2.Text.ToUpper, "'", "''") & "%' "
                         Case "City"
                             SQLLine2 = " upper(strFacilityCity) like '%" & Replace(txtFacSearch2.Text.ToUpper, "'", "''") & "%' "
                         Case "Classification"
@@ -7689,7 +7689,7 @@ Public Class SSCPManagersTools
                 SQLLine = ""
 
                 Do While TotalText <> ""
-                    SQLLine = SQLLine & " " & connNameSpace & ".VW_SSCP_MT_FacilityAssignment.strairsnumber = '0413" & Mid(TotalText, 1, 8) & "' or "
+                    SQLLine = SQLLine & " " & DBNameSpace & ".VW_SSCP_MT_FacilityAssignment.strairsnumber = '0413" & Mid(TotalText, 1, 8) & "' or "
                     If TotalText.Length > 10 Then
                         TotalText = Microsoft.VisualBasic.Right(TotalText, TotalText.Length - 10)
                     Else
@@ -7703,9 +7703,9 @@ Public Class SSCPManagersTools
             End If
 
             ds = New DataSet
-            da = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            da = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             da.Fill(ds, "FacilitySearch")
             dgvFilteredFacilityList.DataSource = ds
@@ -8468,39 +8468,39 @@ Public Class SSCPManagersTools
                 Eng = cboSSCPEngineer.SelectedValue
 
                 SQL = "Select strAIRSNumber " & _
-                "from " & connNameSpace & ".SSCPInspectionsRequired " & _
+                "from " & DBNameSpace & ".SSCPInspectionsRequired " & _
                 "where strAIRSNumber = '0413" & AIRSNum & "' " & _
                 "and intYear = '" & cboFiscalYear.Text & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 dr.Close()
 
                 If recExist = True Then
-                    SQL = "Update " & connNameSpace & ".SSCPInspectionsRequired set " & _
+                    SQL = "Update " & DBNameSpace & ".SSCPInspectionsRequired set " & _
                     "numSSCPEngineer = '" & Eng & "', " & _
                     "strAssigningManager = '" & UserGCode & "', " & _
                     "DATASSIGNINGDATE = '" & OracleDate & "' " & _
                     "where strAIRSNumber = '0413" & AIRSNum & "' " & _
-                    "and " & connNameSpace & ".sscpinspectionsrequired.intYear = '" & cboFiscalYear.Text & "' "
+                    "and " & DBNameSpace & ".sscpinspectionsrequired.intYear = '" & cboFiscalYear.Text & "' "
                 Else
-                    SQL = "Insert into " & connNameSpace & ".SSCPInspectionsRequired " & _
+                    SQL = "Insert into " & DBNameSpace & ".SSCPInspectionsRequired " & _
                     "(numKey, strAIRSNumber, intYear, " & _
                     "numSSCPEngineer, strAssigningManager, DATASSIGNINGDATE) " & _
                     "values " & _
-                    "((select max(numKey) + 1 from " & connNameSpace & ".SSCPInspectionsRequired), " & _
+                    "((select max(numKey) + 1 from " & DBNameSpace & ".SSCPInspectionsRequired), " & _
                     "'0413" & AIRSNum & "', '" & cboFiscalYear.Text & "', " & _
                     "'" & Eng & "', '" & UserGCode & "', " & _
                     "'" & OracleDate & "') "
                 End If
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -8530,39 +8530,39 @@ Public Class SSCPManagersTools
                 AIRSNum = dgvSelectedFacilityList(0, i).Value
 
                 SQL = "select strAIRSNumber " & _
-                "from " & connNameSpace & ".SSCPInspectionsRequired " & _
+                "from " & DBNameSpace & ".SSCPInspectionsRequired " & _
                 "where strAIRSNumber = '0413" & AIRSNum & "' " & _
                 "and intYear = '" & cboFiscalYear.Text & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 dr.Close()
                 If recExist = True Then
-                    SQL = "Update " & connNameSpace & ".SSCPInspectionsRequired set " & _
+                    SQL = "Update " & DBNameSpace & ".SSCPInspectionsRequired set " & _
                     "numSSCPUnit = '" & cboSSCPUnit2.SelectedValue & "' , " & _
                     "strAssigningManager = '" & UserGCode & "', " & _
                     "DATASSIGNINGDATE = '" & OracleDate & "' " & _
                     "where strAIRSNumber = '0413" & AIRSNum & "'" & _
                     "and intYear = '" & cboFiscalYear.Text & "' "
                 Else
-                    SQL = "Insert into " & connNameSpace & ".SSCPInspectionsRequired " & _
+                    SQL = "Insert into " & DBNameSpace & ".SSCPInspectionsRequired " & _
                     "(numKey, strAIRSNumber, intYear, " & _
                     "numSSCPUnit, strAssigningManager, DATASSIGNINGDATE) " & _
                     "values " & _
-                    "((select max(numKey) + 1 from " & connNameSpace & ".SSCPInspectionsRequired), " & _
+                    "((select max(numKey) + 1 from " & DBNameSpace & ".SSCPInspectionsRequired), " & _
                     "'0413" & AIRSNum & "', '" & cboFiscalYear.Text & "', " & _
                     "'" & cboSSCPUnit2.SelectedValue & "', " & _
                     "'" & UserGCode & "', " & _
                     "'" & OracleDate & "') "
                 End If
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -8598,31 +8598,31 @@ Public Class SSCPManagersTools
                 AIRSNum = dgvSelectedFacilityList(0, i).Value
 
                 SQL = "Select strAIRSNumber " & _
-                "from " & connNameSpace & ".SSCPDistrictResponsible " & _
+                "from " & DBNameSpace & ".SSCPDistrictResponsible " & _
                 "where strAIRSNumber = '0413" & AIRSNum & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 dr.Close()
 
                 If recExist = True Then
-                    SQL = "Update " & connNameSpace & ".SSCPDistrictResponsible set " & _
+                    SQL = "Update " & DBNameSpace & ".SSCPDistrictResponsible set " & _
                     "strDistrictResponsible = '" & DistResp & "', " & _
                     "strAssigningManager = '" & UserGCode & "', " & _
                     "datAssigningDate = '" & OracleDate & "' " & _
                     "where strAIRSNumber = '0413" & AIRSNum & "' "
                 Else
-                    SQL = "Insert into " & connNameSpace & ".SSCPDistrictResponsible " & _
+                    SQL = "Insert into " & DBNameSpace & ".SSCPDistrictResponsible " & _
                     "values " & _
                     "('0413" & AIRSNum & ", '" & DistResp & "', " & _
                     "'" & UserGCode & "', '" & OracleDate & "') "
                 End If
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -8660,37 +8660,37 @@ Public Class SSCPManagersTools
                 AIRSNum = dgvSelectedFacilityList(0, i).Value
 
                 SQL = "Select strAIRSNumber " & _
-                "from " & connNameSpace & ".SSCPInspectionsRequired " & _
+                "from " & DBNameSpace & ".SSCPInspectionsRequired " & _
                 "where strAIRSNumber = '0413" & AIRSNum & "' " & _
                 "and intYear = '" & cboFiscalYear.Text & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 dr.Close()
                 If recExist = True Then
-                    SQL = "Update " & connNameSpace & ".SSCPInspectionsRequired set " & _
+                    SQL = "Update " & DBNameSpace & ".SSCPInspectionsRequired set " & _
                     "strInspectionRequired = '" & InspectionRequired & "', " & _
                     "strAssigningManager = '" & UserGCode & "', " & _
                     "datAssigningDate = '" & OracleDate & "' " & _
                     "where strAIRSNumber = '0413" & AIRSNum & "' " & _
                     "and intYear = '" & cboFiscalYear.Text & "' "
                 Else
-                    SQL = "Insert into " & connNameSpace & ".SSCPInspectionsRequired " & _
+                    SQL = "Insert into " & DBNameSpace & ".SSCPInspectionsRequired " & _
                     "(numKey, strAIRSNumber, intYear, " & _
                     "strInspectionRequired, strAssigningManager, datAssigningDate) " & _
                     "values " & _
-                    "((select max(numKey) + 1 from " & connNameSpace & ".SSCPInspectionsRequired), " & _
+                    "((select max(numKey) + 1 from " & DBNameSpace & ".SSCPInspectionsRequired), " & _
                     "'0413" & AIRSNum & "', '" & cboFiscalYear.Text & "', " & _
                     "'" & InspectionRequired & "', " & _
                     "'" & UserGCode & "', '" & OracleDate & "') "
                 End If
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
 
                 dr = cmd.ExecuteReader
@@ -8730,36 +8730,36 @@ Public Class SSCPManagersTools
                 AIRSNum = dgvSelectedFacilityList(0, i).Value
 
                 SQL = "Select strAIRSNumber " & _
-                "from " & connNameSpace & ".SSCPInspectionsRequired " & _
+                "from " & DBNameSpace & ".SSCPInspectionsRequired " & _
                 "where strAIRSNumber = '0413" & AIRSNum & "' " & _
                 "and intYear = '" & cboFiscalYear.Text & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 dr.Close()
                 If recExist = True Then
-                    SQL = "Update " & connNameSpace & ".SSCPInspectionsRequired set " & _
+                    SQL = "Update " & DBNameSpace & ".SSCPInspectionsRequired set " & _
                     "strFCERequired = '" & FCERequired & "', " & _
                     "strAssigningManager = '" & UserGCode & "', " & _
                     "datAssigningDate = '" & OracleDate & "' " & _
                     "where strAIRSNumber = '0413" & AIRSNum & "' " & _
                     "and intYear = '" & cboFiscalYear.Text & "' "
                 Else
-                    SQL = "Insert into " & connNameSpace & ".SSCPInspectionsRequired " & _
+                    SQL = "Insert into " & DBNameSpace & ".SSCPInspectionsRequired " & _
                     "(numKey, strAIRSNumber, intYear, " & _
                     "strFCERequired, strAssigningManager, datAssigningDate) " & _
                    "values " & _
-                   "((select max(numKey) + 1 from " & connNameSpace & ".SSCPInspectionsRequired), " & _
+                   "((select max(numKey) + 1 from " & DBNameSpace & ".SSCPInspectionsRequired), " & _
                    "'0413" & AIRSNum & "', '" & cboFiscalYear.Text & "', " & _
                    "'" & FCERequired & "', '" & UserGCode & "', '" & OracleDate & "') "
                 End If
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
 
                 dr = cmd.ExecuteReader
@@ -8812,19 +8812,19 @@ Public Class SSCPManagersTools
                 AIRSNum = dgvSelectedFacilityList(0, i).Value
 
                 SQL = "select strAIRSNumber " & _
-                "from " & connNameSpace & ".SSCPInspectionsRequired " & _
+                "from " & DBNameSpace & ".SSCPInspectionsRequired " & _
                 "where strAIRSNumber = '0413" & AIRSNum & "' " & _
                 "and intYear = '" & cboFiscalYear.Text & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 dr.Close()
                 If recExist = True Then
-                    SQL = "Update " & connNameSpace & ".SSCPInspectionsRequired set " & _
+                    SQL = "Update " & DBNameSpace & ".SSCPInspectionsRequired set " & _
                     "numSSCPEngineer = '" & Eng & "', " & _
                     "numSSCPUnit = '" & cboSSCPUnit2.SelectedValue & "' , " & _
                     "strInspectionRequired = '" & InspectionRequired & "', " & _
@@ -8834,51 +8834,51 @@ Public Class SSCPManagersTools
                     "where strAIRSNumber = '0413" & AIRSNum & "' " & _
                     "and intyear = '" & cboFiscalYear.Text & "' "
                 Else
-                    SQL = "Insert into " & connNameSpace & ".SSCPInspectionsRequired " & _
+                    SQL = "Insert into " & DBNameSpace & ".SSCPInspectionsRequired " & _
                     "(numKey, strAIRSNumber, intYear, " & _
                     "numSSCPEngineer, numSSCPUnit, " & _
                     "strInspectionRequired, strFCERequired, " & _
                     "STRASSIGNINGMANAGER, DATASSIGNINGDATE) " & _
                     "values " & _
-                    "((select max(numKey) + 1 from " & connNameSpace & ".SSCPInspectionsRequired), " & _
+                    "((select max(numKey) + 1 from " & DBNameSpace & ".SSCPInspectionsRequired), " & _
                     "'0413" & AIRSNum & "', '" & cboFiscalYear.Text & "', " & _
                     "'" & Eng & "', '" & cboSSCPUnit2.SelectedValue & "', " & _
                     "'" & InspectionRequired & "', '" & FCERequired & "', " & _
                     "'" & UserGCode & "', '" & OracleDate & "') " 
                 End If
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
 
                 SQL = "Select strAIRSNumber " & _
-                "from " & connNameSpace & ".SSCPDistrictResponsible " & _
+                "from " & DBNameSpace & ".SSCPDistrictResponsible " & _
                 "where strAIRSNumber = '0413" & AIRSNum & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 dr.Close()
 
                 If recExist = True Then
-                    SQL = "Update " & connNameSpace & ".SSCPDistrictResponsible set " & _
+                    SQL = "Update " & DBNameSpace & ".SSCPDistrictResponsible set " & _
                     "strDistrictResponsible = '" & DistResp & "', " & _
                     "strAssigningManager = '" & UserGCode & "', " & _
                     "datAssigningDate = '" & OracleDate & "' " & _
                     "where strAIRSNumber = '0413" & AIRSNum & "' "
                 Else
-                    SQL = "Insert into " & connNameSpace & ".SSCPDistrictResponsible " & _
+                    SQL = "Insert into " & DBNameSpace & ".SSCPDistrictResponsible " & _
                     "values " & _
                     "('0413" & AIRSNum & ", '" & DistResp & "', " & _
                     "'" & UserGCode & "', '" & OracleDate & "') "
                 End If
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -8907,11 +8907,11 @@ Public Class SSCPManagersTools
             Dim FacilityName As String = ""
 
             SQL = "Select strAIRSNumber " & _
-            "From " & connNameSpace & ".APBMasterAIRS " & _
+            "From " & DBNameSpace & ".APBMasterAIRS " & _
             "where strAIRSNumber = '0413" & mtbForcedAIRS.Text & "' "
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             recExist = dr.Read
@@ -8920,11 +8920,11 @@ Public Class SSCPManagersTools
             If recExist = True Then
                 SQL = "Select " & _
                 "strFacilityName " & _
-                "from " & connNameSpace & ".APBFacilityInformation " & _
+                "from " & DBNameSpace & ".APBFacilityInformation " & _
                 "where strAIRSNumber = '0413" & mtbForcedAIRS.Text & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -8995,39 +8995,39 @@ Public Class SSCPManagersTools
                 AIRSNum = dgvSelectedFacilityList(0, i).Value
 
                 SQL = "Select strAIRSNumber " & _
-                "from " & connNameSpace & ".SSCPInspectionsRequired " & _
+                "from " & DBNameSpace & ".SSCPInspectionsRequired " & _
                 "where strAIRSNumber = '0413" & AIRSNum & "' " & _
                 "and intYear = '" & cboFiscalYear.Text & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 dr.Close()
 
                 If recExist = True Then
-                    SQL = "Update " & connNameSpace & ".SSCPInspectionsRequired set " & _
+                    SQL = "Update " & DBNameSpace & ".SSCPInspectionsRequired set " & _
                     "numSSCPEngineer = '', " & _
                     "strAssigningManager = '" & UserGCode & "', " & _
                     "DATASSIGNINGDATE = '" & OracleDate & "' " & _
                     "where strAIRSNumber = '0413" & AIRSNum & "' " & _
                     "and intYear = '" & cboFiscalYear.Text & "' "
                 Else
-                    SQL = "Insert into " & connNameSpace & ".SSCPInspectionsRequired " & _
+                    SQL = "Insert into " & DBNameSpace & ".SSCPInspectionsRequired " & _
                     "(numKey, strAIRSNumber, intYear, " & _
                     "numSSCPEngineer, strAssigningManager, DATASSIGNINGDATE) " & _
                     "values " & _
-                    "((select max(numKey) + 1 from " & connNameSpace & ".SSCPInspectionsRequired), " & _
+                    "((select max(numKey) + 1 from " & DBNameSpace & ".SSCPInspectionsRequired), " & _
                     "'0413" & AIRSNum & "', '" & cboFiscalYear.Text & "', " & _
                     "'', '" & UserGCode & "', " & _
                     "'" & OracleDate & "') "
                 End If
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -9054,39 +9054,39 @@ Public Class SSCPManagersTools
                 AIRSNum = dgvSelectedFacilityList(0, i).Value
 
                 SQL = "select strAIRSNumber " & _
-                "from " & connNameSpace & ".SSCPInspectionsRequired " & _
+                "from " & DBNameSpace & ".SSCPInspectionsRequired " & _
                 "where strAIRSNumber = '0413" & AIRSNum & "' " & _
                 "and intYear = '" & cboFiscalYear.Text & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 dr.Close()
                 If recExist = True Then
-                    SQL = "Update " & connNameSpace & ".SSCPInspectionsRequired set " & _
+                    SQL = "Update " & DBNameSpace & ".SSCPInspectionsRequired set " & _
                     "numSSCPUnit = '', " & _
                     "strAssigningManager = '" & UserGCode & "', " & _
                   "DATASSIGNINGDATE = '" & OracleDate & "' " & _
                   "where strAIRSNumber = '0413" & AIRSNum & "'" & _
                   "and intYear = '" & cboFiscalYear.Text & "' "
                 Else
-                    SQL = "Insert into " & connNameSpace & ".SSCPInspectionsRequired " & _
+                    SQL = "Insert into " & DBNameSpace & ".SSCPInspectionsRequired " & _
                  "(numKey, strAIRSNumber, intYear, " & _
                  "numSSCPUnit, strAssigningManager, DATASSIGNINGDATE) " & _
                  "values " & _
-                 "((select max(numKey) + 1 from " & connNameSpace & ".SSCPInspectionsRequired), " & _
+                 "((select max(numKey) + 1 from " & DBNameSpace & ".SSCPInspectionsRequired), " & _
                  "'0413" & AIRSNum & "', '" & cboFiscalYear.Text & "', " & _
                     "'', " & _
                     "'" & UserGCode & "', " & _
                     "'" & OracleDate & "') "
                 End If
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -9121,13 +9121,13 @@ Public Class SSCPManagersTools
             For i = 0 To dgvSelectedFacilityList.Rows.Count - 1
                 AIRSNum = dgvSelectedFacilityList(0, i).Value
 
-                SQL = "Update " & connNameSpace & ".APBSupplamentalData set " & _
+                SQL = "Update " & DBNameSpace & ".APBSupplamentalData set " & _
                 "strCMSMember = '" & CMSStatus & "' " & _
                 "where strAIRSNumber = '0413" & AIRSNum & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -9184,22 +9184,22 @@ Public Class SSCPManagersTools
             End If
 
             If chbClearExistingData.Checked = True Then
-                SQL = "Delete " & connNameSpace & ".sscpinspectionsrequired " & _
+                SQL = "Delete " & DBNameSpace & ".sscpinspectionsrequired " & _
                 "where intYear = '" & mtbNewYear.Text & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
             End If
 
             SQL = "select * " & _
-            "from " & connNameSpace & ".sscpinspectionsrequired " & _
+            "from " & DBNameSpace & ".sscpinspectionsrequired " & _
             "where intYear = '" & cboExistingYears.Text & "' "
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -9235,13 +9235,13 @@ Public Class SSCPManagersTools
                 End If
 
                 SQL = "Select count(*) as ckCount " & _
-                "from " & connNameSpace & ".sscpinspectionsrequired " & _
+                "from " & DBNameSpace & ".sscpinspectionsrequired " & _
                 "where strAIRSNumber = '" & AIRSNumber & "' " & _
                 "and intYear = '" & mtbNewYear.Text & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr2 = cmd.ExecuteReader
                 While dr2.Read
@@ -9253,16 +9253,16 @@ Public Class SSCPManagersTools
                 End While
                 dr2.Close()
                 If temp = "0" Then
-                    SQL = "Insert into " & connNameSpace & ".sscpinspectionsrequired " & _
+                    SQL = "Insert into " & DBNameSpace & ".sscpinspectionsrequired " & _
                     "values " & _
-                    "((select max(numKey) + 1 from " & connNameSpace & ".SSCPinspectionsRequired), " & _
+                    "((select max(numKey) + 1 from " & DBNameSpace & ".SSCPinspectionsRequired), " & _
                     "'" & AIRSNumber & "', '" & mtbNewYear.Text & "', " & _
                     "'" & SSCPEngineer & "', '" & SSCPUnit & "', " & _
                     "'" & InspectionRequired & "', '" & FCERequired & "', " & _
                     "'" & AssigningManager & "', '" & OracleDate & "' ) "
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr2 = cmd.ExecuteReader
                     dr2.Close()
@@ -9361,9 +9361,9 @@ Public Class SSCPManagersTools
             "where AIRbranch.APBFacilityInformation.strAIRSNumber = '0413'||TVFacilities.AIRSNumber " & _
             "and AIRbranch.APBFacilityInformation.strAIRSNumber = AIRbranch.APBHeaderdata.strairsnumber "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -9450,14 +9450,14 @@ Public Class SSCPManagersTools
             "order by AIRSNumber "
 
             dsStatisticalReport = New DataSet
-            daStatisticalReport = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daStatisticalReport = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daStatisticalReport.Fill(dsStatisticalReport, "TotalFacilities")
             dgvStatistialReports.DataSource = dsStatisticalReport
             dgvStatistialReports.DataMember = "TotalFacilities"
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
             dgvStatistialReports.RowHeadersVisible = False
@@ -9527,9 +9527,9 @@ Public Class SSCPManagersTools
 "order by datDiscoverydate desc Nulls Last "
 
             ds = New DataSet
-            da = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            da = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             da.Fill(ds, "MiscReport")
             dgvMiscReport.DataSource = ds

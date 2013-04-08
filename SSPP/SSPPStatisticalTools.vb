@@ -110,7 +110,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -136,7 +136,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -156,10 +156,10 @@ Public Class SSPPStatisticalTools
             "order by strUnitDesc "
 
             dsPermittingUnits = New DataSet
-            daPermittingUnits = New OracleDataAdapter(SQL, conn)
+            daPermittingUnits = New OracleDataAdapter(SQL, DBConn)
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             daPermittingUnits.Fill(dsPermittingUnits, "PermittingUnits")
@@ -260,19 +260,19 @@ Public Class SSPPStatisticalTools
             LastDay = Format(DTPPermitCountEnd.Value.AddDays(1), "dd-MMM-yyyy")
 
             SQL = "select count(*) as TVInitial " & _
-            "from " & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".SSPPApplicationTracking, " & _
-            "" & connNameSpace & ".EPDUserProfiles " & _
-            "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber " & _
-            "and " & connNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & connNameSpace & ".EPDUserProfiles.numUserID " & _
+            "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking, " & _
+            "" & DBNameSpace & ".EPDUserProfiles " & _
+            "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber " & _
+            "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
             "and strApplicationType = '14' " & _
             "and DatPermitIssued > '" & FirstDay & "' and datPermitissued < '" & LastDay & "' " & _
             "and (strPermitType = '4' or strPermitType = '7' or strPermitType = '12' " & _
             "or strPermitType = '13') " & _
             EngineerLine
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -283,10 +283,10 @@ Public Class SSPPStatisticalTools
 
             If txtTitleVInitialCount.Text <> "0" Then
                 SQL = "select (datPermitIssued - datReceivedDate) as Diff " & _
-                "from " & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".SSPPApplicationTracking,  " & _
-                "" & connNameSpace & ".EPDUserProfiles " & _
-                "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-                "and " & connNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & connNameSpace & ".EPDUserProfiles.numUserID " & _
+                "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
+                "" & DBNameSpace & ".EPDUserProfiles " & _
+                "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
+                "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
                 "and strApplicationType = '14'  " & _
                 "and DatPermitIssued > '" & FirstDay & "' and datPermitissued < '" & LastDay & "' " & _
                 "and (strPermitType = '4' or strPermitType = '7' or strPermitType = '12' " & _
@@ -297,7 +297,7 @@ Public Class SSPPStatisticalTools
                 n = 0
                 ReDim MedianArray(n)
 
-                cmd = New OracleCommand(SQL, conn)
+                cmd = New OracleCommand(SQL, DBConn)
                 dr = cmd.ExecuteReader
 
                 While dr.Read
@@ -320,19 +320,19 @@ Public Class SSPPStatisticalTools
             End If
 
             SQL = "select count(*) as TVRenewal " & _
-            "from " & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".SSPPApplicationTracking,   " & _
-            "" & connNameSpace & ".EPDUserProfiles " & _
-            "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber " & _
-            "and " & connNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & connNameSpace & ".EPDUserProfiles.numUserID " & _
+            "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,   " & _
+            "" & DBNameSpace & ".EPDUserProfiles " & _
+            "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber " & _
+            "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
             "and strApplicationType = '16' " & _
             "and DatPermitIssued > '" & FirstDay & "' and datPermitissued < '" & LastDay & "' " & _
             "and (strPermitType = '4' or strPermitType = '7' or strPermitType = '12' " & _
             "or strPermitType = '13') " & _
             EngineerLine
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -342,10 +342,10 @@ Public Class SSPPStatisticalTools
 
             If txtTitleVRenewalCount.Text <> "0" Then
                 SQL = "select (datPermitIssued - datReceivedDate) as Diff " & _
-                    "from " & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".SSPPApplicationTracking,  " & _
-                    "" & connNameSpace & ".EPDUserProfiles " & _
-                    "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-                    "and " & connNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & connNameSpace & ".EPDUserProfiles.numUserID " & _
+                    "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
+                    "" & DBNameSpace & ".EPDUserProfiles " & _
+                    "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
+                    "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
                     "and strApplicationType = '16'  " & _
                     "and DatPermitIssued > '" & FirstDay & "' and datPermitissued < '" & LastDay & "' " & _
                     "and (strPermitType = '4' or strPermitType = '7' or strPermitType = '12' " & _
@@ -356,7 +356,7 @@ Public Class SSPPStatisticalTools
                 n = 0
                 ReDim MedianArray(n)
 
-                cmd = New OracleCommand(SQL, conn)
+                cmd = New OracleCommand(SQL, DBConn)
                 dr = cmd.ExecuteReader
 
                 While dr.Read
@@ -380,10 +380,10 @@ Public Class SSPPStatisticalTools
 
             If txtTitleVInitialCount.Text <> "0" And txtTitleVRenewalCount.Text <> "0" Then
                 SQL = "select (datPermitIssued - datReceivedDate) as Diff " & _
-                    "from " & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".SSPPApplicationTracking,  " & _
-                    "" & connNameSpace & ".EPDUserProfiles " & _
-                    "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-                    "and " & connNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & connNameSpace & ".EPDUserProfiles.numUserID " & _
+                    "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
+                    "" & DBNameSpace & ".EPDUserProfiles " & _
+                    "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
+                    "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
                     "and (strApplicationType = '16' or strApplicationType = '14') " & _
                     "and DatPermitIssued > '" & FirstDay & "' and datPermitissued < '" & LastDay & "' " & _
                     "and (strPermitType = '4' or strPermitType = '7' or strPermitType = '12' " & _
@@ -394,7 +394,7 @@ Public Class SSPPStatisticalTools
                 n = 0
                 ReDim MedianArray(n)
 
-                cmd = New OracleCommand(SQL, conn)
+                cmd = New OracleCommand(SQL, DBConn)
                 dr = cmd.ExecuteReader
 
                 While dr.Read
@@ -417,18 +417,18 @@ Public Class SSPPStatisticalTools
             End If
 
             SQL = "select count(*) as SigMod " & _
-            "from " & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".SSPPApplicationTracking,  " & _
-            "" & connNameSpace & ".EPDUserProfiles " & _
-            "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber " & _
-            "and " & connNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & connNameSpace & ".EPDUserProfiles.numUserID " & _
+            "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
+            "" & DBNameSpace & ".EPDUserProfiles " & _
+            "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber " & _
+            "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
             "and (strApplicationType = '22' or strApplicationType = '21') " & _
             "and DatPermitIssued > '" & FirstDay & "' and datPermitissued < '" & LastDay & "' " & _
             "and (strPermitType = '4' or strPermitType = '7') " & _
             EngineerLine
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -438,10 +438,10 @@ Public Class SSPPStatisticalTools
 
             If txtSigModCount.Text <> "0" Then
                 SQL = "select (datPermitIssued - datReceivedDate) as Diff " & _
-                    "from " & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".SSPPApplicationTracking, " & _
-                    "" & connNameSpace & ".EPDUserProfiles " & _
-                    "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-                    "and " & connNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & connNameSpace & ".EPDUserProfiles.numUserID " & _
+                    "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking, " & _
+                    "" & DBNameSpace & ".EPDUserProfiles " & _
+                    "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
+                    "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
                     "and (strApplicationType = '22' or strApplicationType = '21') " & _
                     "and DatPermitIssued > '" & FirstDay & "' and datPermitissued < '" & LastDay & "' " & _
                     "and (strPermitType = '4' or strPermitType = '7') " & _
@@ -452,7 +452,7 @@ Public Class SSPPStatisticalTools
                 n = 0
                 ReDim MedianArray(n)
 
-                cmd = New OracleCommand(SQL, conn)
+                cmd = New OracleCommand(SQL, DBConn)
                 dr = cmd.ExecuteReader
 
                 While dr.Read
@@ -475,18 +475,18 @@ Public Class SSPPStatisticalTools
             End If
 
             SQL = "select count(*) as MinorMod " & _
-            "from " & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".SSPPApplicationTracking, " & _
-            "" & connNameSpace & ".EPDUserProfiles " & _
-            "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber " & _
-            "and " & connNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & connNameSpace & ".EPDUserProfiles.numUserID " & _
+            "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking, " & _
+            "" & DBNameSpace & ".EPDUserProfiles " & _
+            "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber " & _
+            "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
             "and (strApplicationType = '19' or strApplicationType = '20') " & _
             "and DatPermitIssued > '" & FirstDay & "' and datPermitissued < '" & LastDay & "' " & _
             "and (strPermitType = '4' or strPermitType = '7') " & _
             EngineerLine
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -496,10 +496,10 @@ Public Class SSPPStatisticalTools
 
             If txtMinorModCount.Text <> "0" Then
                 SQL = "select (datPermitIssued - datReceivedDate) as Diff " & _
-                    "from " & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".SSPPApplicationTracking,  " & _
-                    "" & connNameSpace & ".EPDUserProfiles " & _
-                    "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-                    "and " & connNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & connNameSpace & ".EPDUserProfiles.numUserID " & _
+                    "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
+                    "" & DBNameSpace & ".EPDUserProfiles " & _
+                    "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
+                    "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
                     "and (strApplicationType = '19' or strApplicationType = '20') " & _
                     "and DatPermitIssued > '" & FirstDay & "' and datPermitissued < '" & LastDay & "' " & _
                     "and (strPermitType = '4' or strPermitType = '7') " & _
@@ -509,7 +509,7 @@ Public Class SSPPStatisticalTools
                 n = 0
                 ReDim MedianArray(n)
 
-                cmd = New OracleCommand(SQL, conn)
+                cmd = New OracleCommand(SQL, DBConn)
                 dr = cmd.ExecuteReader
 
                 While dr.Read
@@ -532,18 +532,18 @@ Public Class SSPPStatisticalTools
             End If
 
             SQL = "select count(*) as Mod502 " & _
-            "from " & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".SSPPApplicationTracking,  " & _
-            "" & connNameSpace & ".EPDUserProfiles " & _
-            "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber " & _
-            "and " & connNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & connNameSpace & ".EPDUserProfiles.numUserID " & _
+            "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
+            "" & DBNameSpace & ".EPDUserProfiles " & _
+            "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber " & _
+            "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
             "and strApplicationType = '15' " & _
             "and DatPermitIssued > '" & FirstDay & "' and datPermitissued < '" & LastDay & "' " & _
             "and (strPermitType = '4' or strPermitType = '7') " & _
             EngineerLine
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -553,10 +553,10 @@ Public Class SSPPStatisticalTools
 
             If txt502Count.Text <> "0" Then
                 SQL = "select (datPermitIssued - datReceivedDate) as Diff " & _
-                    "from " & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".SSPPApplicationTracking,  " & _
-                    "" & connNameSpace & ".EPDUserProfiles " & _
-                    "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-                    "and " & connNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & connNameSpace & ".EPDUserProfiles.numUserID " & _
+                    "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
+                    "" & DBNameSpace & ".EPDUserProfiles " & _
+                    "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
+                    "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
                     "and strApplicationType = '15' " & _
                     "and DatPermitIssued > '" & FirstDay & "' and datPermitissued < '" & LastDay & "' " & _
                     "and (strPermitType = '4' or strPermitType = '7') " & _
@@ -566,7 +566,7 @@ Public Class SSPPStatisticalTools
                 n = 0
                 ReDim MedianArray(n)
 
-                cmd = New OracleCommand(SQL, conn)
+                cmd = New OracleCommand(SQL, DBConn)
                 dr = cmd.ExecuteReader
 
                 While dr.Read
@@ -589,18 +589,18 @@ Public Class SSPPStatisticalTools
             End If
 
             SQL = "select count(*) as AA " & _
-            "from " & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".SSPPApplicationTracking,  " & _
-            "" & connNameSpace & ".EPDUserProfiles " & _
-            "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber " & _
-            "and " & connNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & connNameSpace & ".EPDUserProfiles.numUserID " & _
+            "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
+            "" & DBNameSpace & ".EPDUserProfiles " & _
+            "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber " & _
+            "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
             "and strApplicationType = '26' " & _
             "and DatPermitIssued > '" & FirstDay & "' and datPermitissued < '" & LastDay & "' " & _
             "and (strPermitType = '4' or strPermitType = '7' or strPermitType = '1') " & _
             EngineerLine
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -611,10 +611,10 @@ Public Class SSPPStatisticalTools
 
             If txtAACount.Text <> "0" Then
                 SQL = "select (datPermitIssued - datReceivedDate) as Diff " & _
-                        "from " & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".SSPPApplicationTracking, " & _
-                        "" & connNameSpace & ".EPDUserProfiles " & _
-                        "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-                        "and " & connNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & connNameSpace & ".EPDUserProfiles.numUserID " & _
+                        "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking, " & _
+                        "" & DBNameSpace & ".EPDUserProfiles " & _
+                        "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
+                        "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
                         "and strApplicationType = '26' " & _
                         "and DatPermitIssued > '" & FirstDay & "' and datPermitissued < '" & LastDay & "' " & _
                         "and (strPermitType = '4' or strPermitType = '7' or strPermitType = '1') " & _
@@ -624,7 +624,7 @@ Public Class SSPPStatisticalTools
                 n = 0
                 ReDim MedianArray(n)
 
-                cmd = New OracleCommand(SQL, conn)
+                cmd = New OracleCommand(SQL, DBConn)
                 dr = cmd.ExecuteReader
 
                 While dr.Read
@@ -647,18 +647,18 @@ Public Class SSPPStatisticalTools
             End If
 
             SQL = "select count(*) as SM " & _
-            "from " & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".SSPPApplicationTracking, " & _
-            "" & connNameSpace & ".EPDUserProfiles " & _
-            "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber " & _
-            "and " & connNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & connNameSpace & ".EPDUserProfiles.numUserID " & _
+            "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking, " & _
+            "" & DBNameSpace & ".EPDUserProfiles " & _
+            "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber " & _
+            "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
             "and strApplicationType = '12' " & _
             "and DatPermitIssued > '" & FirstDay & "' and datPermitissued < '" & LastDay & "' " & _
             "and (strPermitType = '4' or strPermitType = '7') " & _
             EngineerLine
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -668,10 +668,10 @@ Public Class SSPPStatisticalTools
 
             If txtSMCount.Text <> "0" Then
                 SQL = "select (datPermitIssued - datReceivedDate) as Diff " & _
-                    "from " & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".SSPPApplicationTracking,  " & _
-                    "" & connNameSpace & ".EPDUserProfiles " & _
-                    "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-                    "and " & connNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & connNameSpace & ".EPDUserProfiles.numUserID " & _
+                    "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
+                    "" & DBNameSpace & ".EPDUserProfiles " & _
+                    "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
+                    "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
                     "and strApplicationType = '12' " & _
                     "and DatPermitIssued > '" & FirstDay & "' and datPermitissued < '" & LastDay & "' " & _
                     "and (strPermitType = '4' or strPermitType = '7') " & _
@@ -681,7 +681,7 @@ Public Class SSPPStatisticalTools
                 n = 0
                 ReDim MedianArray(n)
 
-                cmd = New OracleCommand(SQL, conn)
+                cmd = New OracleCommand(SQL, DBConn)
                 dr = cmd.ExecuteReader
 
                 While dr.Read
@@ -705,18 +705,18 @@ Public Class SSPPStatisticalTools
             End If
 
             SQL = "select count(*) as PBR " & _
-            "from " & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".SSPPApplicationTracking,  " & _
-            "" & connNameSpace & ".EPDUserProfiles " & _
-            "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber " & _
-            "and " & connNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & connNameSpace & ".EPDUserProfiles.numUserID " & _
+            "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
+            "" & DBNameSpace & ".EPDUserProfiles " & _
+            "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber " & _
+            "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
             "and strApplicationType = '9' " & _
             "and DatPermitIssued > '" & FirstDay & "' and datPermitissued < '" & LastDay & "' " & _
             "and strPermitType = '6' " & _
             EngineerLine
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -726,10 +726,10 @@ Public Class SSPPStatisticalTools
 
             If txtPBRCount.Text <> "0" Then
                 SQL = "select (datPermitIssued - datReceivedDate) as Diff " & _
-                    "from " & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".SSPPApplicationTracking, " & _
-                    "" & connNameSpace & ".EPDUserProfiles " & _
-                    "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-                    "and " & connNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & connNameSpace & ".EPDUserProfiles.numUserID " & _
+                    "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking, " & _
+                    "" & DBNameSpace & ".EPDUserProfiles " & _
+                    "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
+                    "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
                     "and strApplicationType = '9' " & _
                     "and DatPermitIssued > '" & FirstDay & "' and datPermitissued < '" & LastDay & "' " & _
                     "and strPermitType = '6' " & _
@@ -739,7 +739,7 @@ Public Class SSPPStatisticalTools
                 n = 0
                 ReDim MedianArray(n)
 
-                cmd = New OracleCommand(SQL, conn)
+                cmd = New OracleCommand(SQL, DBConn)
                 dr = cmd.ExecuteReader
 
                 While dr.Read
@@ -762,10 +762,10 @@ Public Class SSPPStatisticalTools
             End If
 
             SQL = "select count(*) as Other " & _
-            "from " & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".SSPPApplicationTracking,  " & _
-            "" & connNameSpace & ".EPDUserProfiles " & _
-            "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber " & _
-            "and " & connNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & connNameSpace & ".EPDUserProfiles.numUserID " & _
+            "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
+            "" & DBNameSpace & ".EPDUserProfiles " & _
+            "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber " & _
+            "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
             "and (strApplicationType = '11' OR strApplicationType = '8' " & _
             "OR strApplicationType = '4' OR strapplicationType = '3' " & _
             "OR strApplicationType = '25' OR strApplicationType = '2') " & _
@@ -773,9 +773,9 @@ Public Class SSPPStatisticalTools
             "and (strPermitType = '7' or strPermitType = '4') " & _
             EngineerLine
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -785,10 +785,10 @@ Public Class SSPPStatisticalTools
 
             If txtOtherCount.Text <> "0" Then
                 SQL = "select (datPermitIssued - datReceivedDate) as Diff " & _
-                    "from " & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".SSPPApplicationTracking, " & _
-                    "" & connNameSpace & ".EPDUserProfiles " & _
-                    "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-                    "and " & connNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & connNameSpace & ".EPDUserProfiles.numUserID " & _
+                    "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking, " & _
+                    "" & DBNameSpace & ".EPDUserProfiles " & _
+                    "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
+                    "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
                     "and (strApplicationType = '11' OR strApplicationType = '8' " & _
                     "OR strApplicationType = '4' OR strapplicationType = '3' " & _
                     "OR strApplicationType = '25' OR strApplicationType = '2') " & _
@@ -800,7 +800,7 @@ Public Class SSPPStatisticalTools
                 n = 0
                 ReDim MedianArray(n)
 
-                cmd = New OracleCommand(SQL, conn)
+                cmd = New OracleCommand(SQL, DBConn)
                 dr = cmd.ExecuteReader
 
                 While dr.Read
@@ -824,10 +824,10 @@ Public Class SSPPStatisticalTools
             End If
 
             SQL = "select count(*) as Closed " & _
-            "from " & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".SSPPApplicationTracking,  " & _
-            "" & connNameSpace & ".EPDUserProfiles " & _
-            "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-            "and " & connNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & connNameSpace & ".EPDUserProfiles.numUserID " & _
+            "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
+            "" & DBNameSpace & ".EPDUserProfiles " & _
+            "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
+            "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
             "and datPermitIssued IS not Null  " & _
             "and datPermitIssued > '" & FirstDay & "' and datPermitIssued < '" & LastDay & "' " & _
             "and strPermitType <> '4' " & _
@@ -838,9 +838,9 @@ Public Class SSPPStatisticalTools
             EngineerLine
 
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -850,10 +850,10 @@ Public Class SSPPStatisticalTools
 
             If txtNonPermitCount.Text <> "0" Then
                 SQL = "select (datPermitIssued - datReceivedDate) as Diff " & _
-                    "from " & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".SSPPApplicationTracking, " & _
-                    "" & connNameSpace & ".EPDUserProfiles " & _
-                    "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-                    "and " & connNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & connNameSpace & ".EPDUserProfiles.numUserID " & _
+                    "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking, " & _
+                    "" & DBNameSpace & ".EPDUserProfiles " & _
+                    "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
+                    "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
                     "and datPermitIssued IS not Null  " & _
                     "and datPermitIssued > '" & FirstDay & "' and datPermitIssued < '" & LastDay & "' " & _
                     "and strPermitType <> '4' " & _
@@ -867,7 +867,7 @@ Public Class SSPPStatisticalTools
                 n = 0
                 ReDim MedianArray(n)
 
-                cmd = New OracleCommand(SQL, conn)
+                cmd = New OracleCommand(SQL, DBConn)
                 dr = cmd.ExecuteReader
 
                 While dr.Read
@@ -890,12 +890,12 @@ Public Class SSPPStatisticalTools
             End If
 
             SQL = "select count(*) as PSD " & _
-            "from " & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".SSPPApplicationTracking,  " & _
-            "" & connNameSpace & ".SSPPApplicationData,  " & _
-            "" & connNameSpace & ".EPDUserProfiles " & _
-            "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-            "and " & connNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & connNameSpace & ".EPDUserProfiles.numUserID " & _
-            "and " & connNameSpace & ".SSPPApplicationMaster.strApplicatioNNumber = " & connNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
+            "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
+            "" & DBNameSpace & ".SSPPApplicationData,  " & _
+            "" & DBNameSpace & ".EPDUserProfiles " & _
+            "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
+            "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
+            "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicatioNNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
             "and substr(strTrackedRules, 1, 1) = '1'  " & _
             "and DatPermitIssued > '" & FirstDay & "' and datPermitissued < '" & LastDay & "'  " & _
             "and strPermitType <> '9' " & _
@@ -903,9 +903,9 @@ Public Class SSPPStatisticalTools
             "and strPermitType <> '11' " & _
             EngineerLine
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -915,12 +915,12 @@ Public Class SSPPStatisticalTools
 
             If txtPSDCount.Text <> "0" Then
                 SQL = "select (datPermitIssued - datReceivedDate) as Diff " & _
-                    "from " & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".SSPPApplicationTracking,  " & _
-                    "" & connNameSpace & ".SSPPApplicationData,  " & _
-                    "" & connNameSpace & ".EPDUserProfiles " & _
-                    "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-                    "and " & connNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & connNameSpace & ".EPDUserProfiles.numUserID " & _
-                    "and " & connNameSpace & ".SSPPApplicationMaster.strApplicatioNNumber = " & connNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
+                    "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
+                    "" & DBNameSpace & ".SSPPApplicationData,  " & _
+                    "" & DBNameSpace & ".EPDUserProfiles " & _
+                    "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
+                    "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
+                    "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicatioNNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
                     "and substr(strTrackedRules, 1, 1) = '1'  " & _
                     "and DatPermitIssued > '" & FirstDay & "' and datPermitissued < '" & LastDay & "' " & _
                     "and strPermitType <> '9' " & _
@@ -932,7 +932,7 @@ Public Class SSPPStatisticalTools
                 n = 0
                 ReDim MedianArray(n)
 
-                cmd = New OracleCommand(SQL, conn)
+                cmd = New OracleCommand(SQL, DBConn)
                 dr = cmd.ExecuteReader
 
                 While dr.Read
@@ -957,7 +957,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -1011,15 +1011,15 @@ Public Class SSPPStatisticalTools
             End If
 
             SQL = "select count(*) as OpenCount " & _
-            "from " & connNameSpace & ".SSPPApplicationMaster,  " & _
-            "" & connNameSpace & ".EPDUserProfiles " & _
+            "from " & DBNameSpace & ".SSPPApplicationMaster,  " & _
+            "" & DBNameSpace & ".EPDUserProfiles " & _
             "where datFinalizedDate is Null " & _
-            "and " & connNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & connNameSpace & ".EPDUserProfiles.numUserID " & _
+            "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
                     EngineerLine
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -1028,18 +1028,18 @@ Public Class SSPPStatisticalTools
             dr.Close()
 
             SQL = "select count(*) as OpenDOCount " & _
-            "from " & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".SSPPApplicationTracking,  " & _
-            "" & connNameSpace & ".EPDUserProfiles " & _
+            "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
+            "" & DBNameSpace & ".EPDUserProfiles " & _
             "where datFinalizedDate is Null  " & _
-            "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-            "and " & connNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & connNameSpace & ".EPDUserProfiles.numUserID " & _
+            "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
+            "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
             "and datToDirector is Not Null  " & _
             "and (datDraftIssued is Null or datDraftIssued < datToDirector) " & _
                     EngineerLine
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -1048,19 +1048,19 @@ Public Class SSPPStatisticalTools
             dr.Close()
 
             SQL = "select count(*) as OpenBCCount " & _
-            "from " & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".SSPPApplicationTracking,  " & _
-            "" & connNameSpace & ".EPDUserProfiles " & _
+            "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
+            "" & DBNameSpace & ".EPDUserProfiles " & _
             "where datFinalizedDate is Null  " & _
-            "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-            "and " & connNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & connNameSpace & ".EPDUserProfiles.numUserID " & _
+            "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
+            "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
             "and datToBranchCheif is Not Null  " & _
             "and datToDirector is Null  " & _
             "and (datDraftIssued is Null or datDraftIssued < datToBranchCheif) " & _
                     EngineerLine
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -1069,18 +1069,18 @@ Public Class SSPPStatisticalTools
             dr.Close()
 
             SQL = "select count(*) as Open45Days " & _
-            "from " & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".SSPPApplicationTracking,  " & _
-            "" & connNameSpace & ".EPDUserProfiles " & _
+            "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
+            "" & DBNameSpace & ".EPDUserProfiles " & _
             "where datFinalizedDate is Null  " & _
-            "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-            "and " & connNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & connNameSpace & ".EPDUserProfiles.numUserID " & _
+            "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
+            "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
             "and datEPAEnds is Not Null  " & _
             "and datDraftIssued is Not Null " & _
                     EngineerLine
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -1089,18 +1089,18 @@ Public Class SSPPStatisticalTools
             dr.Close()
 
             SQL = "select count(*) as OpenPublicNotice " & _
-            "from " & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".SSPPApplicationTracking,  " & _
-            "" & connNameSpace & ".EPDUserProfiles " & _
+            "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
+            "" & DBNameSpace & ".EPDUserProfiles " & _
             "where datFinalizedDate is Null  " & _
-            "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-            "and " & connNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & connNameSpace & ".EPDUserProfiles.numUserID " & _
+            "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
+            "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
             "and datPNExpires is Not Null and datPNExpires < sysdate " & _
             "and datEPAEnds is Null  " & _
                     EngineerLine
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -1109,11 +1109,11 @@ Public Class SSPPStatisticalTools
             dr.Close()
 
             SQL = "select count(*) as OpenDraftIssued " & _
-            "from " & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".SSPPApplicationTracking,  " & _
-            "" & connNameSpace & ".EPDUserProfiles " & _
+            "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
+            "" & DBNameSpace & ".EPDUserProfiles " & _
             "where datFinalizedDate is Null  " & _
-            "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-            "and " & connNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & connNameSpace & ".EPDUserProfiles.numUserID " & _
+            "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
+            "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
             "and ((datPNExpires is Not Null and datPNExpires >= sysdate)  " & _
             "or (datDraftIssued is not Null and datPNExpires is Null))  " & _
             "and datToBranchCheif is Null  " & _
@@ -1121,9 +1121,9 @@ Public Class SSPPStatisticalTools
             "and datEPAEnds is Null  " & _
                     EngineerLine
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -1132,11 +1132,11 @@ Public Class SSPPStatisticalTools
             dr.Close()
 
             SQL = "select count(*) as OpenPMIICount " & _
-            "from " & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".SSPPApplicationTracking,  " & _
-            "" & connNameSpace & ".EPDUserProfiles " & _
+            "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
+            "" & DBNameSpace & ".EPDUserProfiles " & _
             "where datFinalizedDate is Null  " & _
-            "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-            "and " & connNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & connNameSpace & ".EPDUserProfiles.numUserID " & _
+            "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
+            "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
             "and datToBranchCheif is Null  " & _
             "and datToDirector is Null  " & _
             "and datEPAEnds is Null  " & _
@@ -1145,9 +1145,9 @@ Public Class SSPPStatisticalTools
             "and datToPMII is Not Null " & _
                     EngineerLine
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -1156,11 +1156,11 @@ Public Class SSPPStatisticalTools
             dr.Close()
 
             SQL = "select count(*) as OpenPMICount " & _
-            "from " & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".SSPPApplicationTracking,  " & _
-            "" & connNameSpace & ".EPDUserProfiles " & _
+            "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
+            "" & DBNameSpace & ".EPDUserProfiles " & _
             "where datFinalizedDate is Null  " & _
-            "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-            "and " & connNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & connNameSpace & ".EPDUserProfiles.numUserID " & _
+            "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
+            "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
             "and datToBranchCheif is Null  " & _
             "and datToDirector is Null  " & _
             "and datEPAEnds is Null  " & _
@@ -1170,9 +1170,9 @@ Public Class SSPPStatisticalTools
             "and datToPMI is Not Null " & _
                     EngineerLine
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -1181,11 +1181,11 @@ Public Class SSPPStatisticalTools
             dr.Close()
 
             SQL = "select count(*) as OpenStaffCount " & _
-            "from " & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".SSPPApplicationTracking,  " & _
-            "" & connNameSpace & ".EPDUserProfiles " & _
+            "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
+            "" & DBNameSpace & ".EPDUserProfiles " & _
             "where datFinalizedDate is Null  " & _
-            "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-            "and " & connNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & connNameSpace & ".EPDUserProfiles.numUserID " & _
+            "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
+            "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
             "and datToBranchCheif is Null  " & _
             "and datToDirector is Null  " & _
             "and datEPAEnds is Null  " & _
@@ -1195,9 +1195,9 @@ Public Class SSPPStatisticalTools
             "and datToPMI is Null " & _
                     EngineerLine
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -1208,7 +1208,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -1262,17 +1262,17 @@ Public Class SSPPStatisticalTools
             End If
 
             SQL = "Select count(*) as TVTotalOpen " & _
-            "from " & connNameSpace & ".SSPPApplicationMaster,  " & _
-            "" & connNameSpace & ".EPDUserProfiles " & _
+            "from " & DBNameSpace & ".SSPPApplicationMaster,  " & _
+            "" & DBNameSpace & ".EPDUserProfiles " & _
             "where datFinalizedDate is Null " & _
-            "and " & connNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & connNameSpace & ".EPDUserProfiles.numUserID " & _
+            "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
             "and (strApplicationType = '14' or strApplicationType = '16' " & _
             "or strApplicationType = '27' or strApplicationType = '17') " & _
                 EngineerLine
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -1281,19 +1281,19 @@ Public Class SSPPStatisticalTools
             dr.Close()
 
             SQL = "Select count(*) as TVYearOpen " & _
-            "from " & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".SSPPApplicationTracking,  " & _
-            "" & connNameSpace & ".EPDUserProfiles " & _
-            "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-            "and " & connNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & connNameSpace & ".EPDUserProfiles.numUserID " & _
+            "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
+            "" & DBNameSpace & ".EPDUserProfiles " & _
+            "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
+            "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
             "and (strApplicationType = '14' or strApplicationType = '16'   " & _
             "or strApplicationType = '27' or strApplicationType = '17') " & _
             "and datFinalizedDate is NUll  " & _
             "and datReceivedDate > add_months(sysdate, -12)  " & _
                 EngineerLine
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -1302,10 +1302,10 @@ Public Class SSPPStatisticalTools
             dr.Close()
 
             SQL = "Select count(*) as TV12MonthsOpen " & _
-            "from " & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".SSPPApplicationTracking,  " & _
-            "" & connNameSpace & ".EPDUserProfiles " & _
-            "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-            "and " & connNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & connNameSpace & ".EPDUserProfiles.numuserID " & _
+            "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
+            "" & DBNameSpace & ".EPDUserProfiles " & _
+            "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
+            "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numuserID " & _
             "and (strApplicationType = '14' or strApplicationType = '16'   " & _
             "or strApplicationType = '27' or strApplicationType = '17') " & _
             "and datFinalizedDate is NUll  " & _
@@ -1313,9 +1313,9 @@ Public Class SSPPStatisticalTools
             "and datReceivedDate < add_months(sysdate, -12) " & _
                 EngineerLine
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -1324,19 +1324,19 @@ Public Class SSPPStatisticalTools
             dr.Close()
 
             SQL = "Select count(*) as TV18MonthsOpen " & _
-            "from " & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".SSPPApplicationTracking,  " & _
-            "" & connNameSpace & ".EPDUserProfiles " & _
-            "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-            "and " & connNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & connNameSpace & ".EPDUserProfiles.numUserID " & _
+            "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
+            "" & DBNameSpace & ".EPDUserProfiles " & _
+            "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
+            "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
             "and (strApplicationType = '14' or strApplicationType = '16'   " & _
             "or strApplicationType = '27' or strApplicationType = '17') " & _
             "and datFinalizedDate is NUll  " & _
             "and datReceivedDate < add_months(sysdate, -18)" & _
                 EngineerLine
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -1347,7 +1347,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -1402,17 +1402,17 @@ Public Class SSPPStatisticalTools
             End If
 
             SQL = "Select count(*) as NonTVTotalOpen " & _
-            "from " & connNameSpace & ".SSPPApplicationMaster,  " & _
-            "" & connNameSpace & ".EPDUserProfiles " & _
+            "from " & DBNameSpace & ".SSPPApplicationMaster,  " & _
+            "" & DBNameSpace & ".EPDUserProfiles " & _
             "where datFinalizedDate is Null " & _
-            "and " & connNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & connNameSpace & ".EPDUserProfiles.numUserID " & _
+            "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
             "and strApplicationType <> '16' and strApplicationType <> '14' " & _
             "and strApplicationType <> '17' and strApplicationType <> '27' " & _
                 EngineerLine
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -1421,19 +1421,19 @@ Public Class SSPPStatisticalTools
             dr.Close()
 
             SQL = "Select count(*) as NonTVThreeMonthOpen " & _
-            "from " & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".SSPPApplicationTracking,  " & _
-            "" & connNameSpace & ".EPDUserProfiles " & _
-            "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-            "and " & connNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & connNameSpace & ".EPDUserProfiles.numUserID " & _
+            "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
+            "" & DBNameSpace & ".EPDUserProfiles " & _
+            "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
+            "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
             "and strApplicationType <> '16' and strApplicationType <> '14' " & _
             "and strApplicationType <> '17' and strApplicationType <> '27' " & _
             "and datFinalizedDate is NUll  " & _
             "and datReceivedDate >= add_months(sysdate, -3)  " & _
                 EngineerLine
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -1442,10 +1442,10 @@ Public Class SSPPStatisticalTools
             dr.Close()
 
             SQL = "Select count(*) as NonTVSixMonthsOpen " & _
-            "from " & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".SSPPApplicationTracking,  " & _
-            "" & connNameSpace & ".EPDUserProfiles " & _
-            "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-            "and " & connNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & connNameSpace & ".EPDUserProfiles.numUserID " & _
+            "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
+            "" & DBNameSpace & ".EPDUserProfiles " & _
+            "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
+            "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
             "and strApplicationType <> '16' and strApplicationType <> '14' " & _
             "and strApplicationType <> '17' and strApplicationType <> '27' " & _
             "and datFinalizedDate is NUll  " & _
@@ -1453,9 +1453,9 @@ Public Class SSPPStatisticalTools
             "and datReceivedDate < add_months(sysdate, -3) " & _
                 EngineerLine
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -1464,10 +1464,10 @@ Public Class SSPPStatisticalTools
             dr.Close()
 
             SQL = "Select count(*) as NonTVNineMonthsOpen " & _
-            "from " & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".SSPPApplicationTracking,   " & _
-            "" & connNameSpace & ".EPDUserProfiles " & _
-            "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-            "and " & connNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & connNameSpace & ".EPDUserProfiles.numUserID " & _
+            "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,   " & _
+            "" & DBNameSpace & ".EPDUserProfiles " & _
+            "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
+            "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
             "and strApplicationType <> '16' and strApplicationType <> '14' " & _
             "and strApplicationType <> '17' and strApplicationType <> '27' " & _
             "and datFinalizedDate is NUll  " & _
@@ -1475,9 +1475,9 @@ Public Class SSPPStatisticalTools
             "and datReceivedDate < add_months(sysdate, -6) " & _
                 EngineerLine
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -1486,10 +1486,10 @@ Public Class SSPPStatisticalTools
             dr.Close()
 
             SQL = "Select count(*) as NonTVTwelveMonthsOpen " & _
-            "from " & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".SSPPApplicationTracking, " & _
-            "" & connNameSpace & ".EPDUserProfiles " & _
-            "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-            "and " & connNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & connNameSpace & ".EPDUserProfiles.numUserID " & _
+            "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking, " & _
+            "" & DBNameSpace & ".EPDUserProfiles " & _
+            "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
+            "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
             "and strApplicationType <> '16' and strApplicationType <> '14' " & _
             "and strApplicationType <> '17' and strApplicationType <> '27' " & _
             "and datFinalizedDate is NUll  " & _
@@ -1497,9 +1497,9 @@ Public Class SSPPStatisticalTools
             "and datReceivedDate < add_months(sysdate, -9) " & _
                 EngineerLine
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -1508,19 +1508,19 @@ Public Class SSPPStatisticalTools
             dr.Close()
 
             SQL = "Select count(*) as NonTVGreaterThanOpen " & _
-            "from " & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".SSPPApplicationTracking, " & _
-            "" & connNameSpace & ".EPDUserProfiles " & _
-            "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-            "and " & connNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & connNameSpace & ".EPDUserProfiles.numUserID " & _
+            "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking, " & _
+            "" & DBNameSpace & ".EPDUserProfiles " & _
+            "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
+            "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
             "and strApplicationType <> '16' and strApplicationType <> '14' " & _
             "and strApplicationType <> '17' and strApplicationType <> '27' " & _
             "and datFinalizedDate is NUll  " & _
             "and datReceivedDate < add_months(sysdate, -12)" & _
                 EngineerLine
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -1531,7 +1531,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -1563,26 +1563,26 @@ Public Class SSPPStatisticalTools
             SQL = "select (EPA2ab + EPA2aa) as EPA2a " & _
             "from " & _
             "(select count(*) as EPA2aa " & _
-            "from " & connNameSpace & ".APBHeaderData, " & connNameSpace & ".APBSupplamentalData  " & _
-            "where " & connNameSpace & ".APBHeaderData.strAIRSNumber = " & connNameSpace & ".APBSupplamentalData.strAIRSNumber " & _
+            "from " & DBNameSpace & ".APBHeaderData, " & DBNameSpace & ".APBSupplamentalData  " & _
+            "where " & DBNameSpace & ".APBHeaderData.strAIRSNumber = " & DBNameSpace & ".APBSupplamentalData.strAIRSNumber " & _
             "AND (substr(strAirProgramCodes, 13, 1) = '1'  " & _
             "and (strEPATOPSExcluded is null or strEPATOPSExcluded = 'False')  " & _
             "and strOperationalStatus = 'O')) EPA2a1,  " & _
             "(select count(*) as EPA2ab " & _
-            "from " & connNameSpace & ".APBHeaderData, " & connNameSpace & ".APBSupplamentalData,  " & _
-            "" & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".SSPPApplicationTracking  " & _
-            "where " & connNameSpace & ".APBHeaderData.strAIRSNumber = " & connNameSpace & ".APBSupplamentalData.strAIRSNumber " & _
-            "and " & connNameSpace & ".APBHeaderData.strAIRSNumber = " & connNameSpace & ".SSPPApplicationMaster.strAIRSNumber (+)  " & _
-            "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strAPplicationNumber  " & _
+            "from " & DBNameSpace & ".APBHeaderData, " & DBNameSpace & ".APBSupplamentalData,  " & _
+            "" & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking  " & _
+            "where " & DBNameSpace & ".APBHeaderData.strAIRSNumber = " & DBNameSpace & ".APBSupplamentalData.strAIRSNumber " & _
+            "and " & DBNameSpace & ".APBHeaderData.strAIRSNumber = " & DBNameSpace & ".SSPPApplicationMaster.strAIRSNumber (+)  " & _
+            "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strAPplicationNumber  " & _
             "AND (substr(strAirProgramCodes, 13, 1) <> '1'  " & _
             "and datPermitIssued is null  " & _
             "and strApplicationType = '14'  " & _
             "and datFinalizeddate is null " & _
             "and (strEPATOPSExcluded is null or strEPATOPSExcluded = 'False'))) EPA2a2 "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -1596,22 +1596,22 @@ Public Class SSPPStatisticalTools
             SQL = "select (EPA2db + EPA2da) as EPA2d " & _
             "from " & _
             "(select count(*) as EPA2da " & _
-            "from " & connNameSpace & ".APBHeaderData  " & _
+            "from " & DBNameSpace & ".APBHeaderData  " & _
             "where (substr(strAirProgramCodes, 13, 1) = '1' " & _
             "and strOperationalStatus = 'O')) EPA2d1,  " & _
             "(select count(*) as EPA2db " & _
-            "from " & connNameSpace & ".APBHeaderData, " & _
-            "" & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".SSPPApplicationTracking  " & _
-            "where " & connNameSpace & ".APBHeaderData.strAIRSNumber = " & connNameSpace & ".SSPPApplicationMaster.strAIRSNumber (+) " & _
-            "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strAPplicationNumber  " & _
+            "from " & DBNameSpace & ".APBHeaderData, " & _
+            "" & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking  " & _
+            "where " & DBNameSpace & ".APBHeaderData.strAIRSNumber = " & DBNameSpace & ".SSPPApplicationMaster.strAIRSNumber (+) " & _
+            "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strAPplicationNumber  " & _
             "AND (substr(strAirProgramCodes, 13, 1) <> '1'  " & _
             "and datPermitIssued is null  " & _
             "and strApplicationType = '14'  " & _
             "and datFinalizeddate is null )) EPA2d2 "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -1620,13 +1620,13 @@ Public Class SSPPStatisticalTools
             dr.Close()
 
             SQL = "select count(*) as EPA3a " & _
-            "from " & connNameSpace & ".APBHeaderData " & _
+            "from " & DBNameSpace & ".APBHeaderData " & _
             "where substr(strAirProgramCodes, 13, 1) = '1'  " & _
             "and strOperationalStatus = 'O' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -1636,19 +1636,19 @@ Public Class SSPPStatisticalTools
             dr.Close()
 
             SQL = "SELECT COUNT(*) AS EPA4a " & _
-            "from " & connNameSpace & ".SSPPApplicationMaster,  " & _
-            "" & connNameSpace & ".SSPPApplicationTracking, " & connNameSpace & ".SSPPApplicationData  " & _
-            "WHERE " & connNameSpace & ".SSPPApplicationMaster.strApplicatioNnumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-            "AND " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
+            "from " & DBNameSpace & ".SSPPApplicationMaster,  " & _
+            "" & DBNameSpace & ".SSPPApplicationTracking, " & DBNameSpace & ".SSPPApplicationData  " & _
+            "WHERE " & DBNameSpace & ".SSPPApplicationMaster.strApplicatioNnumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
+            "AND " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
             "AND datPermitIssued IS NOT NULL " & _
             "AND strApplicationType = '14'  " & _
             "AND strPermitType = '7'  " & _
             "AND datPermitIssued > '" & StartDate & "' " & _
             "AND datPermitIssued < '" & EndDate & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -1658,10 +1658,10 @@ Public Class SSPPStatisticalTools
             dr.Close()
 
             SQL = "SELECT COUNT(*) AS EPA4b " & _
-            "from " & connNameSpace & ".SSPPApplicationMaster,  " & _
-            "" & connNameSpace & ".SSPPApplicationTracking, " & connNameSpace & ".SSPPApplicationData  " & _
-            "WHERE " & connNameSpace & ".SSPPApplicationMaster.strApplicatioNnumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-            "AND " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
+            "from " & DBNameSpace & ".SSPPApplicationMaster,  " & _
+            "" & DBNameSpace & ".SSPPApplicationTracking, " & DBNameSpace & ".SSPPApplicationData  " & _
+            "WHERE " & DBNameSpace & ".SSPPApplicationMaster.strApplicatioNnumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
+            "AND " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
             "AND datPermitIssued IS NOT NULL " & _
             "AND strApplicationType = '14'  " & _
             "AND strPermitType = '7'  " & _
@@ -1669,9 +1669,9 @@ Public Class SSPPStatisticalTools
             "AND datPermitIssued < '" & EndDate & "' " & _
             "and datReceivedDate > add_months(datPermitIssued, -18) "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -1686,17 +1686,17 @@ Public Class SSPPStatisticalTools
             End If
 
             SQL = "SELECT COUNT(*) AS EPA5a " & _
-            "from " & connNameSpace & ".SSPPApplicationMaster, " & _
-            "" & connNameSpace & ".SSPPApplicationTracking, " & connNameSpace & ".SSPPApplicationData " & _
-            "WHERE " & connNameSpace & ".SSPPApplicationMaster.strApplicatioNnumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber " & _
-            "AND " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationData.strApplicationNumber " & _
+            "from " & DBNameSpace & ".SSPPApplicationMaster, " & _
+            "" & DBNameSpace & ".SSPPApplicationTracking, " & DBNameSpace & ".SSPPApplicationData " & _
+            "WHERE " & DBNameSpace & ".SSPPApplicationMaster.strApplicatioNnumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber " & _
+            "AND " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber " & _
             "AND strApplicationType = '14' " & _
             "and datPermitIssued is Null " & _
             "and datReceivedDate < add_months('" & EndDate & "', -18) "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -1708,37 +1708,37 @@ Public Class SSPPStatisticalTools
             SQL = "Select Count(*) as EPA6a " & _
             "From " & _
             "(select " & _
-            "distinct(" & connNameSpace & ".SSPPApplicationMaster.strAIRSnumber) as AIRSNumber,  " & _
+            "distinct(" & DBNameSpace & ".SSPPApplicationMaster.strAIRSnumber) as AIRSNumber,  " & _
             "MaxDate " & _
-            "from " & connNameSpace & ".SSPPApplicationMaster,  " & _
-            "" & connNameSpace & ".SSPPApplicationTracking, " & connNameSpace & ".APBHeaderData,  " & _
+            "from " & DBNameSpace & ".SSPPApplicationMaster,  " & _
+            "" & DBNameSpace & ".SSPPApplicationTracking, " & DBNameSpace & ".APBHeaderData,  " & _
             "(select  " & _
             "strAIRSNumber,  " & _
             "max(datEffective) as MaxDate  " & _
-            "from " & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".SSPPApplicationTracking  " & _
-            "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
+            "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking  " & _
+            "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
             "and datEffective is not null  " & _
             "group by strAIRSnumber) Effect,  " & _
             "(Select  " & _
-            "distinct(" & connNameSpace & ".SSPPApplicationMaster.strAIRSnumber) as AIRSNumber " & _
-            "from " & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".SSPPApplicationTracking  " & _
-            "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
+            "distinct(" & DBNameSpace & ".SSPPApplicationMaster.strAIRSnumber) as AIRSNumber " & _
+            "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking  " & _
+            "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
             "and datReceiveddate < add_months('" & EndDate & "', -6)  " & _
             "and datReceivedDate > add_months('" & EndDate & "', -54)  " & _
             "and strApplicationType <> '16'  " & _
             "and strApplicationType <> '12') PermitRequests   " & _
-            "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationnumber " & _
-            "and " & connNameSpace & ".APBHeaderData.strAIRSNumber = " & connNameSpace & ".SSPPApplicationMaster.strAIRSNumber   " & _
-            "and " & connNameSpace & ".SSPPApplicationMaster.strAIRSNumber = Effect.strAIRSnumber  " & _
-            "and MaxDate = " & connNameSpace & ".SSPPApplicationTracking.datEffective " & _
+            "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationnumber " & _
+            "and " & DBNameSpace & ".APBHeaderData.strAIRSNumber = " & DBNameSpace & ".SSPPApplicationMaster.strAIRSNumber   " & _
+            "and " & DBNameSpace & ".SSPPApplicationMaster.strAIRSNumber = Effect.strAIRSnumber  " & _
+            "and MaxDate = " & DBNameSpace & ".SSPPApplicationTracking.datEffective " & _
             "and maxDate < add_months('" & EndDate & "', -54) " & _
             "and strOperationalStatus = 'O'  " & _
             "and substr(strAirProgramCodes, 13, 1) = '1'  " & _
-            "and " & connNameSpace & ".SSPPApplicationMaster.strAIRSNumber = PermitRequests.AIRSNumber) "
+            "and " & DBNameSpace & ".SSPPApplicationMaster.strAIRSNumber = PermitRequests.AIRSNumber) "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -1750,39 +1750,39 @@ Public Class SSPPStatisticalTools
             SQL = "Select Count(*) as EPA6b " & _
             "From " & _
             "(select " & _
-            "distinct(substr(" & connNameSpace & ".SSPPApplicationMaster.strAIRSnumber, 5) ) as AIRSNumber,  " & _
+            "distinct(substr(" & DBNameSpace & ".SSPPApplicationMaster.strAIRSnumber, 5) ) as AIRSNumber,  " & _
             "strFacilityName, " & _
             "MaxDate " & _
-            "from " & connNameSpace & ".SSPPApplicationMaster,  " & _
-            "" & connNameSpace & ".SSPPApplicationTracking, " & connNameSpace & ".APBHeaderData,  " & _
-            "" & connNameSpace & ".APBFacilityInformation,   " & _
+            "from " & DBNameSpace & ".SSPPApplicationMaster,  " & _
+            "" & DBNameSpace & ".SSPPApplicationTracking, " & DBNameSpace & ".APBHeaderData,  " & _
+            "" & DBNameSpace & ".APBFacilityInformation,   " & _
             "(select  " & _
             "strAIRSNumber,  " & _
             "max(datEffective) as MaxDate  " & _
-            "from " & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".SSPPApplicationTracking  " & _
-            "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
+            "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking  " & _
+            "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
             "and datEffective is not null  " & _
             "group by strAIRSnumber) Effect,  " & _
             "(Select  " & _
-            "distinct(" & connNameSpace & ".SSPPApplicationMaster.strAIRSnumber) as AIRSNumber " & _
-            "from " & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".SSPPApplicationTracking  " & _
-            "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
+            "distinct(" & DBNameSpace & ".SSPPApplicationMaster.strAIRSnumber) as AIRSNumber " & _
+            "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking  " & _
+            "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
             "and datReceiveddate < add_months('" & EndDate & "', -6)  " & _
             "and datReceivedDate > add_months('" & EndDate & "', -54)  " & _
             "and (strApplicationType = '16' or strApplicationType = '12')) PermitRequests   " & _
-            "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationnumber " & _
-            "and " & connNameSpace & ".APBHeaderData.strAIRSNumber = " & connNameSpace & ".SSPPApplicationMaster.strAIRSNumber   " & _
-            "and " & connNameSpace & ".APBHeaderData.strAIRSNumber = " & connNameSpace & ".APBFacilityInformation.strAIRSNumber  " & _
-            "and " & connNameSpace & ".SSPPApplicationMaster.strAIRSNumber = Effect.strAIRSnumber  " & _
-            "and MaxDate = " & connNameSpace & ".SSPPApplicationTracking.datEffective " & _
+            "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationnumber " & _
+            "and " & DBNameSpace & ".APBHeaderData.strAIRSNumber = " & DBNameSpace & ".SSPPApplicationMaster.strAIRSNumber   " & _
+            "and " & DBNameSpace & ".APBHeaderData.strAIRSNumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber  " & _
+            "and " & DBNameSpace & ".SSPPApplicationMaster.strAIRSNumber = Effect.strAIRSnumber  " & _
+            "and MaxDate = " & DBNameSpace & ".SSPPApplicationTracking.datEffective " & _
             "and maxDate < add_months('" & EndDate & "', -54) " & _
             "and strOperationalStatus = 'O'  " & _
             "and substr(strAirProgramCodes, 13, 1) = '1'  " & _
-            "and " & connNameSpace & ".SSPPApplicationMaster.strAIRSNumber = PermitRequests.AIRSNumber)  "
+            "and " & DBNameSpace & ".SSPPApplicationMaster.strAIRSNumber = PermitRequests.AIRSNumber)  "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -1795,56 +1795,56 @@ Public Class SSPPStatisticalTools
             SQL = "select count(*) as EPA6C " & _
 "from (Select *  From  " & _
 "(select  " & _
-"distinct(substr(" & connNameSpace & ".SSPPApplicationMaster.strAIRSnumber, 5)) as AIRSNumber,   " & _
+"distinct(substr(" & DBNameSpace & ".SSPPApplicationMaster.strAIRSnumber, 5)) as AIRSNumber,   " & _
 "MaxDate  " & _
-"from " & connNameSpace & ".SSPPApplicationMaster,  " & connNameSpace & ".SSPPApplicationTracking,  " & _
-"" & connNameSpace & ".APBHeaderData,   " & _
+"from " & DBNameSpace & ".SSPPApplicationMaster,  " & DBNameSpace & ".SSPPApplicationTracking,  " & _
+"" & DBNameSpace & ".APBHeaderData,   " & _
 "(select  strAIRSNumber,  " & _
 "max(datEffective) as MaxDate   " & _
-"from " & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".SSPPApplicationTracking   " & _
-"where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber   " & _
+"from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking   " & _
+"where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber   " & _
 "and datEffective is not null  GROUP BY strAIRSNumber) Effect,   " & _
-"(Select  distinct(" & connNameSpace & ".SSPPApplicationMaster.strAIRSnumber) as AIRSNumber  " & _
-"from " & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".SSPPApplicationTracking   " & _
-"where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
+"(Select  distinct(" & DBNameSpace & ".SSPPApplicationMaster.strAIRSnumber) as AIRSNumber  " & _
+"from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking   " & _
+"where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
 "and datReceiveddate < add_months('" & EndDate & "', -6)   " & _
 "and datReceivedDate > add_months('" & EndDate & "', -54)   " & _
 "and strApplicationType <> '16'   " & _
 "and strApplicationType <> '12') PermitRequests    " & _
-"where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationnumber  " & _
-"and " & connNameSpace & ".APBHeaderData.strAIRSNumber = " & connNameSpace & ".SSPPApplicationMaster.strAIRSNumber    " & _
-"and " & connNameSpace & ".SSPPApplicationMaster.strAIRSNumber = Effect.strAIRSnumber   " & _
-"and MaxDate = " & connNameSpace & ".SSPPApplicationTracking.datEffective  " & _
+"where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationnumber  " & _
+"and " & DBNameSpace & ".APBHeaderData.strAIRSNumber = " & DBNameSpace & ".SSPPApplicationMaster.strAIRSNumber    " & _
+"and " & DBNameSpace & ".SSPPApplicationMaster.strAIRSNumber = Effect.strAIRSnumber   " & _
+"and MaxDate = " & DBNameSpace & ".SSPPApplicationTracking.datEffective  " & _
 "and maxDate < add_months('" & EndDate & "', -54) " & _
 "and strOperationalStatus = 'O'   " & _
 "and substr(strAirProgramCodes, 13, 1) = '1'  " & _
-"and " & connNameSpace & ".SSPPApplicationMaster.strAIRSNumber = PermitRequests.AIRSNumber))  EPA6A " & _
+"and " & DBNameSpace & ".SSPPApplicationMaster.strAIRSNumber = PermitRequests.AIRSNumber))  EPA6A " & _
 "where not exists  " & _
 "(select * from (Select *   " & _
-"From (select distinct(substr(" & connNameSpace & ".SSPPApplicationMaster.strAIRSnumber, 5) ) as AIRSNumber,   " & _
-"strFacilityName, MaxDate from " & connNameSpace & ".SSPPApplicationMaster,  " & connNameSpace & ".SSPPApplicationTracking, " & connNameSpace & ".APBHeaderData,   " & _
-"" & connNameSpace & ".APBFacilityInformation,   (select  strAIRSNumber,  max(datEffective) as MaxDate  from " & connNameSpace & ".SSPPApplicationMaster,  " & _
-"" & connNameSpace & ".SSPPApplicationTracking   " & _
-"where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber   " & _
+"From (select distinct(substr(" & DBNameSpace & ".SSPPApplicationMaster.strAIRSnumber, 5) ) as AIRSNumber,   " & _
+"strFacilityName, MaxDate from " & DBNameSpace & ".SSPPApplicationMaster,  " & DBNameSpace & ".SSPPApplicationTracking, " & DBNameSpace & ".APBHeaderData,   " & _
+"" & DBNameSpace & ".APBFacilityInformation,   (select  strAIRSNumber,  max(datEffective) as MaxDate  from " & DBNameSpace & ".SSPPApplicationMaster,  " & _
+"" & DBNameSpace & ".SSPPApplicationTracking   " & _
+"where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber   " & _
 "and datEffective is not null  group by strAIRSnumber) Effect,   " & _
-"(Select  distinct(" & connNameSpace & ".SSPPApplicationMaster.strAIRSnumber) as AIRSNumber from " & connNameSpace & ".SSPPApplicationMaster,  " & _
-"" & connNameSpace & ".SSPPApplicationTracking   " & _
-"where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber   " & _
+"(Select  distinct(" & DBNameSpace & ".SSPPApplicationMaster.strAIRSnumber) as AIRSNumber from " & DBNameSpace & ".SSPPApplicationMaster,  " & _
+"" & DBNameSpace & ".SSPPApplicationTracking   " & _
+"where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber   " & _
 "and datReceiveddate < add_months('" & EndDate & "', -6)  and datReceivedDate > add_months('" & EndDate & "', -54)   " & _
 "and (strApplicationType = '16' or strApplicationType = '12')) PermitRequests    " & _
-"where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationnumber  " & _
-"and " & connNameSpace & ".APBHeaderData.strAIRSNumber = " & connNameSpace & ".SSPPApplicationMaster.strAIRSNumber    " & _
-"and " & connNameSpace & ".APBHeaderData.strAIRSNumber = " & connNameSpace & ".APBFacilityInformation.strAIRSNumber  " & _
- "and " & connNameSpace & ".SSPPApplicationMaster.strAIRSNumber = Effect.strAIRSnumber  " & _
- "and MaxDate = " & connNameSpace & ".SSPPApplicationTracking.datEffective  " & _
+"where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationnumber  " & _
+"and " & DBNameSpace & ".APBHeaderData.strAIRSNumber = " & DBNameSpace & ".SSPPApplicationMaster.strAIRSNumber    " & _
+"and " & DBNameSpace & ".APBHeaderData.strAIRSNumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber  " & _
+ "and " & DBNameSpace & ".SSPPApplicationMaster.strAIRSNumber = Effect.strAIRSnumber  " & _
+ "and MaxDate = " & DBNameSpace & ".SSPPApplicationTracking.datEffective  " & _
 "and maxDate < add_months('" & EndDate & "', -54)  " & _
 "and strOperationalStatus = 'O'  and substr(strAirProgramCodes, 13, 1) = '1'   " & _
-"and " & connNameSpace & ".SSPPApplicationMaster.strAIRSNumber = PermitRequests.AIRSNumber)  ) EPA6b where  EPA6A.airsnumber = EPA6b.airsNumber) "
+"and " & DBNameSpace & ".SSPPApplicationMaster.strAIRSNumber = PermitRequests.AIRSNumber)  ) EPA6b where  EPA6A.airsnumber = EPA6b.airsNumber) "
 
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -1858,19 +1858,19 @@ Public Class SSPPStatisticalTools
 
 
             SQL = "SELECT COUNT(*) AS EPA7a " & _
-            "from " & connNameSpace & ".SSPPApplicationMaster,  " & _
-            "" & connNameSpace & ".SSPPApplicationTracking, " & connNameSpace & ".SSPPApplicationData  " & _
-            "WHERE " & connNameSpace & ".SSPPApplicationMaster.strApplicatioNnumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-            "AND " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
+            "from " & DBNameSpace & ".SSPPApplicationMaster,  " & _
+            "" & DBNameSpace & ".SSPPApplicationTracking, " & DBNameSpace & ".SSPPApplicationData  " & _
+            "WHERE " & DBNameSpace & ".SSPPApplicationMaster.strApplicatioNnumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
+            "AND " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
             "AND datPermitIssued IS NOT NULL " & _
             "AND (strApplicationType = '22' or strApplicationType = '21')  " & _
             "AND strPermitType = '7'  " & _
             "AND datPermitIssued > '" & StartDate & "' " & _
             "AND datPermitIssued < '" & EndDate & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -1880,10 +1880,10 @@ Public Class SSPPStatisticalTools
             dr.Close()
 
             SQL = "SELECT COUNT(*) AS EPA7b " & _
-            "from " & connNameSpace & ".SSPPApplicationMaster,  " & _
-            "" & connNameSpace & ".SSPPApplicationTracking, " & connNameSpace & ".SSPPApplicationData  " & _
-            "WHERE " & connNameSpace & ".SSPPApplicationMaster.strApplicatioNnumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-            "AND " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
+            "from " & DBNameSpace & ".SSPPApplicationMaster,  " & _
+            "" & DBNameSpace & ".SSPPApplicationTracking, " & DBNameSpace & ".SSPPApplicationData  " & _
+            "WHERE " & DBNameSpace & ".SSPPApplicationMaster.strApplicatioNnumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
+            "AND " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
             "AND datPermitIssued IS NOT NULL " & _
             "AND (strApplicationType = '22' or strApplicationType = '21')  " & _
             "AND strPermitType = '7'  " & _
@@ -1891,9 +1891,9 @@ Public Class SSPPStatisticalTools
             "AND datPermitIssued < '" & EndDate & "' " & _
             "and datReceivedDate > add_months(datPermitIssued, -18) "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -1903,10 +1903,10 @@ Public Class SSPPStatisticalTools
             dr.Close()
 
             SQL = "SELECT COUNT(*) AS EPA7c " & _
-            "from " & connNameSpace & ".SSPPApplicationMaster,  " & _
-            "" & connNameSpace & ".SSPPApplicationTracking, " & connNameSpace & ".SSPPApplicationData  " & _
-            "WHERE " & connNameSpace & ".SSPPApplicationMaster.strApplicatioNnumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-            "AND " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
+            "from " & DBNameSpace & ".SSPPApplicationMaster,  " & _
+            "" & DBNameSpace & ".SSPPApplicationTracking, " & DBNameSpace & ".SSPPApplicationData  " & _
+            "WHERE " & DBNameSpace & ".SSPPApplicationMaster.strApplicatioNnumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
+            "AND " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
             "AND datPermitIssued IS NOT NULL " & _
             "AND (strApplicationType = '22' or strApplicationType = '21')  " & _
             "AND strPermitType = '7'  " & _
@@ -1914,9 +1914,9 @@ Public Class SSPPStatisticalTools
             "AND datPermitIssued < '" & EndDate & "' " & _
             "and datReceivedDate > add_months(datPermitIssued, -9) "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -1932,17 +1932,17 @@ Public Class SSPPStatisticalTools
             End If
 
             SQL = "SELECT COUNT(*) AS EPA8a " & _
-            "from " & connNameSpace & ".SSPPApplicationMaster, " & _
-            "" & connNameSpace & ".SSPPApplicationTracking, " & connNameSpace & ".SSPPApplicationData " & _
-            "WHERE " & connNameSpace & ".SSPPApplicationMaster.strApplicatioNnumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber " & _
-            "AND " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationData.strApplicationNumber " & _
+            "from " & DBNameSpace & ".SSPPApplicationMaster, " & _
+            "" & DBNameSpace & ".SSPPApplicationTracking, " & DBNameSpace & ".SSPPApplicationData " & _
+            "WHERE " & DBNameSpace & ".SSPPApplicationMaster.strApplicatioNnumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber " & _
+            "AND " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber " & _
             "AND (strApplicationType = '22' or strApplicationType = '21')  " & _
             "and datPermitIssued is Null " & _
             "and datReceivedDate < add_months('" & EndDate & "', -18)"
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -1958,7 +1958,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -2001,7 +2001,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -2021,7 +2021,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -2036,7 +2036,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -2098,7 +2098,7 @@ Public Class SSPPStatisticalTools
                  (txtTitleVRenewalCount.Text <> "0" And txtTitleVRenewalCount.Text <> "") Then
 
                 SQL = "select " & _
-                "" & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
+                "" & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
                 "strFacilityName,  " & _
                 "to_char(datPermitIssued, 'RRRR-MM-dd') as datPermitIssued,  " & _
                 "strApplicationTypeDesc, " & _
@@ -2108,15 +2108,15 @@ Public Class SSPPStatisticalTools
                 "end Link, " & _
                 "(datPermitIssued - datReceivedDate) as Diff, " & _
                 "(strLastName||', '||strFirstName) as UserName " & _
-                "from " & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".SSPPApplicationTracking,  " & _
-                "" & connNameSpace & ".SSPPApplicationData, " & connNameSpace & ".LookUpApplicationTypes, " & _
-                "" & connNameSpace & ".SSPPApplicationLinking, " & _
-                "" & connNameSpace & ".EPDUserProfiles " & _
-                "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-                "and " & connNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & connNameSpace & ".EPDUserProfiles.numUserID " & _
-                "and " & connNameSpace & ".SSPPApplicationMaster.strApplicatioNNumber = " & connNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
-                "and " & connNameSpace & ".SSPPApplicationMaster.strApplicatioNnumber = " & connNameSpace & ".SSPPApplicationLinking.strApplicationNumber (+) " & _
-                "and " & connNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode = strApplicationType  " & _
+                "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
+                "" & DBNameSpace & ".SSPPApplicationData, " & DBNameSpace & ".LookUpApplicationTypes, " & _
+                "" & DBNameSpace & ".SSPPApplicationLinking, " & _
+                "" & DBNameSpace & ".EPDUserProfiles " & _
+                "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
+                "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
+                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicatioNNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
+                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicatioNnumber = " & DBNameSpace & ".SSPPApplicationLinking.strApplicationNumber (+) " & _
+                "and " & DBNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode = strApplicationType  " & _
                 "and (strApplicationType = '14' or strApplicationType = '16')  " & _
                 "and DatPermitIssued > '" & FirstDay & "' and datPermitissued < '" & LastDay & "'  " & _
                 "and (strPermitType = '4' or strPermitType = '7' or strPermitType = '12' " & _
@@ -2124,14 +2124,14 @@ Public Class SSPPStatisticalTools
                 EngineerLine
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                daViewCount = New OracleDataAdapter(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If conn.State = ConnectionState.Open Then
+                If DBConn.State = ConnectionState.Open Then
                     'conn.close()
                 End If
                 dgvApplicationCount.RowHeadersVisible = False
@@ -2163,7 +2163,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -2196,7 +2196,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -2209,11 +2209,11 @@ Public Class SSPPStatisticalTools
             If txtRecordNumber.Text <> "" Then
                 If txtRecordNumber.Text.Length = 8 Then
                     SQL = "Select strAIRSNumber " & _
-                    "from " & connNameSpace & ".APBMasterAIRS " & _
+                    "from " & DBNameSpace & ".APBMasterAIRS " & _
                     "where strAIRSNumber = '0413" & txtRecordNumber.Text & "' "
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     recExist = dr.Read
@@ -2235,11 +2235,11 @@ Public Class SSPPStatisticalTools
                     End If
                 Else
                     SQL = "select strApplicationNumber " & _
-                    "from " & connNameSpace & ".SSPPApplicationMaster " & _
+                    "from " & DBNameSpace & ".SSPPApplicationMaster " & _
                     "where strApplicationNumber = '" & txtRecordNumber.Text & "' "
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     recExist = dr.Read
@@ -2270,7 +2270,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -2331,7 +2331,7 @@ Public Class SSPPStatisticalTools
             If (txtSigModCount.Text <> "0" And txtSigModCount.Text <> "") Then
 
                 SQL = "select " & _
-                "" & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
+                "" & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
                 "strFacilityName,  " & _
                 "to_char(datPermitIssued, 'RRRR-MM-dd') as datPermitIssued,  " & _
                 "strApplicationTypeDesc,  " & _
@@ -2341,29 +2341,29 @@ Public Class SSPPStatisticalTools
                 "end Link, " & _
                 "(datPermitIssued - datReceivedDate) as Diff, " & _
                 "(strLastName||', '||strFirstName) as UserName " & _
-                "from " & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".SSPPApplicationTracking,  " & _
-                "" & connNameSpace & ".SSPPApplicationData, " & connNameSpace & ".LookUpApplicationTypes,     " & _
-                "" & connNameSpace & ".SSPPApplicationLinking, " & _
-                "" & connNameSpace & ".EPDUserProfiles " & _
-                "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-                "and " & connNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & connNameSpace & ".EPDUserProfiles.numUserID " & _
-                "and " & connNameSpace & ".SSPPApplicationMaster.strApplicatioNNumber = " & connNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
-                "and " & connNameSpace & ".SSPPApplicationMaster.strApplicatioNnumber = " & connNameSpace & ".SSPPApplicationLinking.strApplicationNumber (+) " & _
-                "and " & connNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode = strApplicationType  " & _
+                "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
+                "" & DBNameSpace & ".SSPPApplicationData, " & DBNameSpace & ".LookUpApplicationTypes,     " & _
+                "" & DBNameSpace & ".SSPPApplicationLinking, " & _
+                "" & DBNameSpace & ".EPDUserProfiles " & _
+                "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
+                "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
+                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicatioNNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
+                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicatioNnumber = " & DBNameSpace & ".SSPPApplicationLinking.strApplicationNumber (+) " & _
+                "and " & DBNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode = strApplicationType  " & _
                 "and (strApplicationType = '22' or strApplicationType = '21')  " & _
                 "and DatPermitIssued > '" & FirstDay & "' and datPermitissued < '" & LastDay & "'  " & _
                 "and (strPermitType = '4' or strPermitType = '7') " & _
                 EngineerLine
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                daViewCount = New OracleDataAdapter(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If conn.State = ConnectionState.Open Then
+                If DBConn.State = ConnectionState.Open Then
                     'conn.close()
                 End If
                 dgvApplicationCount.RowHeadersVisible = False
@@ -2395,7 +2395,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -2456,7 +2456,7 @@ Public Class SSPPStatisticalTools
             If (txtMinorModCount.Text <> "0" And txtMinorModCount.Text <> "") Then
 
                 SQL = "select " & _
-                "" & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
+                "" & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
                 "strFacilityName,  " & _
                 "to_char(datPermitIssued, 'RRRR-MM-dd') as datPermitIssued,  " & _
                 "strApplicationTypeDesc,  " & _
@@ -2466,29 +2466,29 @@ Public Class SSPPStatisticalTools
                 "end Link, " & _
                 "(datPermitIssued - datReceivedDate) as Diff, " & _
                 "(strLastName||', '||strFirstName) as UserName " & _
-                "from " & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".SSPPApplicationTracking,  " & _
-                "" & connNameSpace & ".SSPPApplicationData, " & connNameSpace & ".LookUpApplicationTypes,     " & _
-                "" & connNameSpace & ".SSPPApplicationLinking, " & _
-                "" & connNameSpace & ".EPDUserProfiles " & _
-                "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-                "and " & connNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & connNameSpace & ".EPDUserProfiles.numUserID " & _
-                "and " & connNameSpace & ".SSPPApplicationMaster.strApplicatioNNumber = " & connNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
-                "and " & connNameSpace & ".SSPPApplicationMaster.strApplicatioNnumber = " & connNameSpace & ".SSPPApplicationLinking.strApplicationNumber (+) " & _
-                "and " & connNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode = strApplicationType  " & _
+                "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
+                "" & DBNameSpace & ".SSPPApplicationData, " & DBNameSpace & ".LookUpApplicationTypes,     " & _
+                "" & DBNameSpace & ".SSPPApplicationLinking, " & _
+                "" & DBNameSpace & ".EPDUserProfiles " & _
+                "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
+                "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
+                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicatioNNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
+                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicatioNnumber = " & DBNameSpace & ".SSPPApplicationLinking.strApplicationNumber (+) " & _
+                "and " & DBNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode = strApplicationType  " & _
                 "and (strApplicationType = '20' or strApplicationType = '19')  " & _
                 "and DatPermitIssued > '" & FirstDay & "' and datPermitissued < '" & LastDay & "'  " & _
                 "and (strPermitType = '4' or strPermitType = '7') " & _
                 EngineerLine
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                daViewCount = New OracleDataAdapter(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If conn.State = ConnectionState.Open Then
+                If DBConn.State = ConnectionState.Open Then
                     'conn.close()
                 End If
                 dgvApplicationCount.RowHeadersVisible = False
@@ -2520,7 +2520,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -2581,7 +2581,7 @@ Public Class SSPPStatisticalTools
             If (txt502Count.Text <> "0" And txt502Count.Text <> "") Then
 
                 SQL = "select " & _
-                "" & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
+                "" & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
                 "strFacilityName,  " & _
                 "to_char(datPermitIssued, 'RRRR-MM-dd') as datPermitIssued,  " & _
                 "strApplicationTypeDesc,  " & _
@@ -2591,29 +2591,29 @@ Public Class SSPPStatisticalTools
                 "end Link, " & _
                 "(datPermitIssued - datReceivedDate) as Diff, " & _
                 "(strLastName||', '||strFirstName) as UserName " & _
-                "from " & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".SSPPApplicationTracking,  " & _
-                "" & connNameSpace & ".SSPPApplicationData, " & connNameSpace & ".LookUpApplicationTypes,     " & _
-                "" & connNameSpace & ".SSPPApplicationLinking, " & _
-                "" & connNameSpace & ".EPDUserProfiles " & _
-                "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-                "and " & connNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & connNameSpace & ".EPDUserProfiles.numUserID " & _
-                "and " & connNameSpace & ".SSPPApplicationMaster.strApplicatioNNumber = " & connNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
-                "and " & connNameSpace & ".SSPPApplicationMaster.strApplicatioNnumber = " & connNameSpace & ".SSPPApplicationLinking.strApplicationNumber (+) " & _
-                "and " & connNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode = strApplicationType  " & _
+                "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
+                "" & DBNameSpace & ".SSPPApplicationData, " & DBNameSpace & ".LookUpApplicationTypes,     " & _
+                "" & DBNameSpace & ".SSPPApplicationLinking, " & _
+                "" & DBNameSpace & ".EPDUserProfiles " & _
+                "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
+                "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
+                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicatioNNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
+                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicatioNnumber = " & DBNameSpace & ".SSPPApplicationLinking.strApplicationNumber (+) " & _
+                "and " & DBNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode = strApplicationType  " & _
                 "and strApplicationType = '15' " & _
                 "and DatPermitIssued > '" & FirstDay & "' and datPermitissued < '" & LastDay & "'  " & _
                 "and (strPermitType = '4' or strPermitType = '7') " & _
                 EngineerLine
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                daViewCount = New OracleDataAdapter(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If conn.State = ConnectionState.Open Then
+                If DBConn.State = ConnectionState.Open Then
                     'conn.close()
                 End If
                 dgvApplicationCount.RowHeadersVisible = False
@@ -2645,7 +2645,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -2706,7 +2706,7 @@ Public Class SSPPStatisticalTools
             If (txtAACount.Text <> "0" And txtAACount.Text <> "") Then
 
                 SQL = "select " & _
-                "" & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
+                "" & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
                 "strFacilityName,  " & _
                 "to_char(datPermitIssued, 'RRRR-MM-dd') as datPermitIssued,  " & _
                 "strApplicationTypeDesc,  " & _
@@ -2716,29 +2716,29 @@ Public Class SSPPStatisticalTools
                 "end Link, " & _
                 "(datPermitIssued - datReceivedDate) as Diff, " & _
                 "(strLastName||', '||strFirstname) as UserName " & _
-                "from " & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".SSPPApplicationTracking,  " & _
-                "" & connNameSpace & ".SSPPApplicationData, " & connNameSpace & ".LookUpApplicationTypes,     " & _
-                "" & connNameSpace & ".SSPPApplicationLinking, " & _
-                "" & connNameSpace & ".EPDUserProfiles " & _
-                "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-                "and " & connNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & connNameSpace & ".EPDUserProfiles.numUserID " & _
-                "and " & connNameSpace & ".SSPPApplicationMaster.strApplicatioNNumber = " & connNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
-                "and " & connNameSpace & ".SSPPApplicationMaster.strApplicatioNnumber = " & connNameSpace & ".SSPPApplicationLinking.strApplicationNumber (+) " & _
-                "and " & connNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode = strApplicationType  " & _
+                "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
+                "" & DBNameSpace & ".SSPPApplicationData, " & DBNameSpace & ".LookUpApplicationTypes,     " & _
+                "" & DBNameSpace & ".SSPPApplicationLinking, " & _
+                "" & DBNameSpace & ".EPDUserProfiles " & _
+                "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
+                "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
+                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicatioNNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
+                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicatioNnumber = " & DBNameSpace & ".SSPPApplicationLinking.strApplicationNumber (+) " & _
+                "and " & DBNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode = strApplicationType  " & _
                 "and strApplicationType = '26' " & _
                 "and DatPermitIssued > '" & FirstDay & "' and datPermitissued < '" & LastDay & "'  " & _
                 "and (strPermitType = '4' or strPermitType = '7' or strPermitType = '1') " & _
                 EngineerLine
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                daViewCount = New OracleDataAdapter(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If conn.State = ConnectionState.Open Then
+                If DBConn.State = ConnectionState.Open Then
                     'conn.close()
                 End If
                 dgvApplicationCount.RowHeadersVisible = False
@@ -2770,7 +2770,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -2831,7 +2831,7 @@ Public Class SSPPStatisticalTools
             If (txtSMCount.Text <> "0" And txtSMCount.Text <> "") Then
 
                 SQL = "select " & _
-                "" & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
+                "" & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
                 "strFacilityName,  " & _
                 "to_char(datPermitIssued, 'RRRR-MM-dd') as datPermitIssued,  " & _
                 "strApplicationTypeDesc,  " & _
@@ -2841,29 +2841,29 @@ Public Class SSPPStatisticalTools
                 "end Link, " & _
                 "(datPermitIssued - datReceivedDate) as Diff, " & _
                 "(strLastName||', '||strFirstName) as UserName " & _
-                "from " & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".SSPPApplicationTracking,  " & _
-                "" & connNameSpace & ".SSPPApplicationData, " & connNameSpace & ".LookUpApplicationTypes,     " & _
-                "" & connNameSpace & ".SSPPApplicationLinking, " & _
-                "" & connNameSpace & ".EPDUserProfiles " & _
-                "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-                "and " & connNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & connNameSpace & ".EPDUserProfiles.numUserID " & _
-                "and " & connNameSpace & ".SSPPApplicationMaster.strApplicatioNNumber = " & connNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
-                "and " & connNameSpace & ".SSPPApplicationMaster.strApplicatioNnumber = " & connNameSpace & ".SSPPApplicationLinking.strApplicationNumber (+) " & _
-                "and " & connNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode = strApplicationType  " & _
+                "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
+                "" & DBNameSpace & ".SSPPApplicationData, " & DBNameSpace & ".LookUpApplicationTypes,     " & _
+                "" & DBNameSpace & ".SSPPApplicationLinking, " & _
+                "" & DBNameSpace & ".EPDUserProfiles " & _
+                "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
+                "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
+                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicatioNNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
+                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicatioNnumber = " & DBNameSpace & ".SSPPApplicationLinking.strApplicationNumber (+) " & _
+                "and " & DBNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode = strApplicationType  " & _
                 "and strApplicationType = '12' " & _
                 "and DatPermitIssued > '" & FirstDay & "' and datPermitissued < '" & LastDay & "'  " & _
                  "and (strPermitType = '4' or strPermitType = '7') " & _
                 EngineerLine
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                daViewCount = New OracleDataAdapter(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If conn.State = ConnectionState.Open Then
+                If DBConn.State = ConnectionState.Open Then
                     'conn.close()
                 End If
                 dgvApplicationCount.RowHeadersVisible = False
@@ -2895,7 +2895,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -2956,7 +2956,7 @@ Public Class SSPPStatisticalTools
             If (txtPBRCount.Text <> "0" And txtPBRCount.Text <> "") Then
 
                 SQL = "select " & _
-                "" & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
+                "" & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
                 "strFacilityName,  " & _
                 "to_char(datPermitIssued, 'RRRR-MM-dd') as datPermitIssued,  " & _
                 "strApplicationTypeDesc,  " & _
@@ -2966,29 +2966,29 @@ Public Class SSPPStatisticalTools
                 "end Link, " & _
                 "(datPermitIssued - datReceivedDate) as Diff, " & _
                 "(strLastName||', '||strFirstName) as UserName " & _
-                "from " & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".SSPPApplicationTracking,  " & _
-                "" & connNameSpace & ".SSPPApplicationData, " & connNameSpace & ".LookUpApplicationTypes,     " & _
-                "" & connNameSpace & ".SSPPApplicationLinking, " & _
-                "" & connNameSpace & ".EPDUserProfiles " & _
-                "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-                "and " & connNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & connNameSpace & ".EPDUserProfiles.numUserID " & _
-                "and " & connNameSpace & ".SSPPApplicationMaster.strApplicatioNNumber = " & connNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
-                "and " & connNameSpace & ".SSPPApplicationMaster.strApplicatioNnumber = " & connNameSpace & ".SSPPApplicationLinking.strApplicationNumber (+) " & _
-                "and " & connNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode = strApplicationType  " & _
+                "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
+                "" & DBNameSpace & ".SSPPApplicationData, " & DBNameSpace & ".LookUpApplicationTypes,     " & _
+                "" & DBNameSpace & ".SSPPApplicationLinking, " & _
+                "" & DBNameSpace & ".EPDUserProfiles " & _
+                "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
+                "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
+                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicatioNNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
+                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicatioNnumber = " & DBNameSpace & ".SSPPApplicationLinking.strApplicationNumber (+) " & _
+                "and " & DBNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode = strApplicationType  " & _
                 "and strApplicationType = '9' " & _
                 "and DatPermitIssued > '" & FirstDay & "' and datPermitissued < '" & LastDay & "' " & _
                 "and strPermitType = '6' " & _
                 EngineerLine
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                daViewCount = New OracleDataAdapter(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If conn.State = ConnectionState.Open Then
+                If DBConn.State = ConnectionState.Open Then
                     'conn.close()
                 End If
                 dgvApplicationCount.RowHeadersVisible = False
@@ -3020,7 +3020,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -3081,7 +3081,7 @@ Public Class SSPPStatisticalTools
             If (txtOtherCount.Text <> "0" And txtOtherCount.Text <> "") Then
 
                 SQL = "select " & _
-                "" & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
+                "" & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
                 "strFacilityName,  " & _
                 "to_char(datPermitIssued, 'RRRR-MM-dd') as datPermitIssued,  " & _
                 "strApplicationTypeDesc,  " & _
@@ -3091,15 +3091,15 @@ Public Class SSPPStatisticalTools
                 "end Link, " & _
                 "(datPermitIssued - datReceivedDate) as Diff, " & _
                 "(strLastName||', '||strFirstName) as UserName " & _
-                "from " & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".SSPPApplicationTracking,  " & _
-                "" & connNameSpace & ".SSPPApplicationData, " & connNameSpace & ".LookUpApplicationTypes,    " & _
-                "" & connNameSpace & ".SSPPApplicationLinking, " & _
-                "" & connNameSpace & ".EPDUserProfiles " & _
-                "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-                "and " & connNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & connNameSpace & ".EPDUserProfiles.nuMUserID " & _
-                "and " & connNameSpace & ".SSPPApplicationMaster.strApplicatioNNumber = " & connNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
-                "and " & connNameSpace & ".SSPPApplicationMaster.strApplicatioNnumber = " & connNameSpace & ".SSPPApplicationLinking.strApplicationNumber (+) " & _
-                "and " & connNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode = strApplicationType  " & _
+                "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
+                "" & DBNameSpace & ".SSPPApplicationData, " & DBNameSpace & ".LookUpApplicationTypes,    " & _
+                "" & DBNameSpace & ".SSPPApplicationLinking, " & _
+                "" & DBNameSpace & ".EPDUserProfiles " & _
+                "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
+                "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.nuMUserID " & _
+                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicatioNNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
+                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicatioNnumber = " & DBNameSpace & ".SSPPApplicationLinking.strApplicationNumber (+) " & _
+                "and " & DBNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode = strApplicationType  " & _
                 "and (strApplicationType = '11' OR strApplicationType = '8' " & _
                 "OR strApplicationType = '4' OR strapplicationType = '3' " & _
                 "OR strApplicationType = '25' OR strApplicationType = '2') " & _
@@ -3108,14 +3108,14 @@ Public Class SSPPStatisticalTools
                 EngineerLine
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                daViewCount = New OracleDataAdapter(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If conn.State = ConnectionState.Open Then
+                If DBConn.State = ConnectionState.Open Then
                     'conn.close()
                 End If
                 dgvApplicationCount.RowHeadersVisible = False
@@ -3147,7 +3147,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -3208,7 +3208,7 @@ Public Class SSPPStatisticalTools
             If (txtNonPermitCount.Text <> "0" And txtNonPermitCount.Text <> "") Then
 
                 SQL = "select " & _
-                "" & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
+                "" & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
                 "strFacilityName,  " & _
                 "to_char(datPermitIssued, 'RRRR-MM-dd') as datPermitIssued,  " & _
                 "case " & _
@@ -3221,15 +3221,15 @@ Public Class SSPPStatisticalTools
                 "end Link, " & _
                 "(datPermitIssued - datReceivedDate) as Diff, " & _
                 "(strLastname||', '||strFirstName) as UserName " & _
-                "from " & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".SSPPApplicationTracking,  " & _
-                "" & connNameSpace & ".SSPPApplicationData, " & connNameSpace & ".LookUpApplicationTypes,  " & _
-                "" & connNameSpace & ".SSPPApplicationLinking, " & _
-                "" & connNameSpace & ".EPDUserProfiles " & _
-                "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-                "and " & connNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & connNameSpace & ".EPDUserProfiles.numUserID " & _
-                "and " & connNameSpace & ".SSPPApplicationMaster.strApplicatioNNumber = " & connNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
-                "and " & connNameSpace & ".SSPPApplicationMaster.strApplicatioNnumber = " & connNameSpace & ".SSPPApplicationLinking.strApplicationNumber (+) " & _
-                "and strApplicationType = " & connNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode (+) " & _
+                "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
+                "" & DBNameSpace & ".SSPPApplicationData, " & DBNameSpace & ".LookUpApplicationTypes,  " & _
+                "" & DBNameSpace & ".SSPPApplicationLinking, " & _
+                "" & DBNameSpace & ".EPDUserProfiles " & _
+                "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
+                "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
+                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicatioNNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
+                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicatioNnumber = " & DBNameSpace & ".SSPPApplicationLinking.strApplicationNumber (+) " & _
+                "and strApplicationType = " & DBNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode (+) " & _
                 "and datPermitIssued IS not Null  " & _
                 "and datPermitIssued > '" & FirstDay & "' and datPermitIssued < '" & LastDay & "'  " & _
                 "and strPermitType <> '4' " & _
@@ -3240,14 +3240,14 @@ Public Class SSPPStatisticalTools
                 EngineerLine
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                daViewCount = New OracleDataAdapter(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If conn.State = ConnectionState.Open Then
+                If DBConn.State = ConnectionState.Open Then
                     'conn.close()
                 End If
                 dgvApplicationCount.RowHeadersVisible = False
@@ -3279,7 +3279,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -3340,7 +3340,7 @@ Public Class SSPPStatisticalTools
             If (txtPSDCount.Text <> "0" And txtPSDCount.Text <> "") Then
 
                 SQL = "select " & _
-                "" & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
+                "" & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
                 "strFacilityName,  " & _
                 "to_char(datPermitIssued, 'RRRR-MM-dd') as datPermitIssued,  " & _
                 "strApplicationTypeDesc,  " & _
@@ -3350,15 +3350,15 @@ Public Class SSPPStatisticalTools
                 "end Link, " & _
                 "(datPermitIssued - datReceivedDate) as Diff, " & _
                 "(strLastName||', '||strFirstName) as UserName " & _
-                "from " & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".SSPPApplicationTracking,  " & _
-                "" & connNameSpace & ".SSPPApplicationData, " & connNameSpace & ".LookUpApplicationTypes, " & _
-                "" & connNameSpace & ".SSPPApplicationLinking, " & _
-                "" & connNameSpace & ".EPDUserProfiles " & _
-                "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-                "and " & connNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & connNameSpace & ".EPDUserProfiles.numUserID " & _
-                "and " & connNameSpace & ".SSPPApplicationMaster.strApplicatioNNumber = " & connNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
-                "and " & connNameSpace & ".SSPPApplicationMaster.strApplicatioNnumber = " & connNameSpace & ".SSPPApplicationLinking.strApplicationNumber (+) " & _
-                "and " & connNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode = strApplicationType  " & _
+                "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
+                "" & DBNameSpace & ".SSPPApplicationData, " & DBNameSpace & ".LookUpApplicationTypes, " & _
+                "" & DBNameSpace & ".SSPPApplicationLinking, " & _
+                "" & DBNameSpace & ".EPDUserProfiles " & _
+                "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
+                "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
+                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicatioNNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
+                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicatioNnumber = " & DBNameSpace & ".SSPPApplicationLinking.strApplicationNumber (+) " & _
+                "and " & DBNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode = strApplicationType  " & _
                 "and substr(strTrackedRules, 1, 1) = '1'  " & _
                 "and DatPermitIssued > '" & FirstDay & "' and datPermitissued < '" & LastDay & "'  " & _
                 "and strPermitType <> '9' " & _
@@ -3367,14 +3367,14 @@ Public Class SSPPStatisticalTools
                 EngineerLine
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                daViewCount = New OracleDataAdapter(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If conn.State = ConnectionState.Open Then
+                If DBConn.State = ConnectionState.Open Then
                     'conn.close()
                 End If
                 dgvApplicationCount.RowHeadersVisible = False
@@ -3406,7 +3406,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -3421,7 +3421,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -3476,7 +3476,7 @@ Public Class SSPPStatisticalTools
 
             If txtAllOpenCount.Text <> "" Then
                 SQL = "select " & _
-                "" & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
+                "" & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
                 "strFacilityName, strApplicationTypeDesc,  " & _
                 "case       " & _
                 "when datFinalizedDate is Not Null then '11 - Closed Out'        " & _
@@ -3493,25 +3493,25 @@ Public Class SSPPStatisticalTools
                 "else '01 - At Engineer'        " & _
                 "end as AppStatus,     " & _
                 "(strLastname||', '||strFirstName) as UserName " & _
-                "from " & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".SSPPApplicationTracking,  " & _
-                "" & connNameSpace & ".SSPPApplicationData, " & connNameSpace & ".LookUpApplicationTypes,  " & _
-                "" & connNameSpace & ".EPDUserProfiles " & _
-                "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-                "and " & connNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & connNameSpace & ".EPDUserProfiles.numUserID " & _
-                "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
-                "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationType = " & connNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode  " & _
+                "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
+                "" & DBNameSpace & ".SSPPApplicationData, " & DBNameSpace & ".LookUpApplicationTypes,  " & _
+                "" & DBNameSpace & ".EPDUserProfiles " & _
+                "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
+                "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
+                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
+                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationType = " & DBNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode  " & _
                 "and datFinalizedDate is Null " & _
                 EngineerLine
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                daViewCount = New OracleDataAdapter(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If conn.State = ConnectionState.Open Then
+                If DBConn.State = ConnectionState.Open Then
                     'conn.close()
                 End If
                 dgvApplicationCount.RowHeadersVisible = False
@@ -3539,7 +3539,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -3594,7 +3594,7 @@ Public Class SSPPStatisticalTools
 
             If txtToDOCount.Text <> "" Or txtToBCCount.Text <> "" Then
                 SQL = "select " & _
-                "" & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
+                "" & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
                 "strFacilityName, strApplicationTypeDesc,  " & _
                 "case       " & _
                 "when datFinalizedDate is Not Null then '11 - Closed Out'        " & _
@@ -3611,27 +3611,27 @@ Public Class SSPPStatisticalTools
                 "else '01 - At Engineer'        " & _
                 "end as AppStatus,     " & _
                 "(strLastName||', '||strFirstName) as UserName " & _
-                "from " & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".SSPPApplicationTracking,  " & _
-                "" & connNameSpace & ".SSPPApplicationData, " & connNameSpace & ".LookUpApplicationTypes,  " & _
-                "" & connNameSpace & ".EPDUserProfiles " & _
-                "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-                "and " & connNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & connNameSpace & ".EPDUserProfiles.numUserID " & _
-                "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
-                "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationType = " & connNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode  " & _
+                "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
+                "" & DBNameSpace & ".SSPPApplicationData, " & DBNameSpace & ".LookUpApplicationTypes,  " & _
+                "" & DBNameSpace & ".EPDUserProfiles " & _
+                "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
+                "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
+                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
+                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationType = " & DBNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode  " & _
                 "and datFinalizedDate is Null " & _
                 "and ((datToBranchCheif is Not Null and datToDirector is Null and (datDraftIssued is Null or datDraftIssued < datToBranchCheif)) " & _
                 "or (datToDirector is Not Null and (datDraftIssued is Null or datDraftIssued < datToDirector))) " & _
                 EngineerLine
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                daViewCount = New OracleDataAdapter(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If conn.State = ConnectionState.Open Then
+                If DBConn.State = ConnectionState.Open Then
                     'conn.close()
                 End If
                 dgvApplicationCount.RowHeadersVisible = False
@@ -3659,7 +3659,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -3714,7 +3714,7 @@ Public Class SSPPStatisticalTools
 
             If txtOpen45DayCount.Text <> "" Then
                 SQL = "select " & _
-                "" & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
+                "" & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
                 "strFacilityName, strApplicationTypeDesc,  " & _
                 "case       " & _
                 "when datFinalizedDate is Not Null then '11 - Closed Out'        " & _
@@ -3731,27 +3731,27 @@ Public Class SSPPStatisticalTools
                 "else '01 - At Engineer'        " & _
                 "end as AppStatus,    " & _
                 "(strLastName||', '||strFirstName) as UserName " & _
-                "from " & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".SSPPApplicationTracking,  " & _
-                "" & connNameSpace & ".SSPPApplicationData, " & connNameSpace & ".LookUpApplicationTypes,  " & _
-                "" & connNameSpace & ".EPDUserProfiles " & _
-                "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-                "and " & connNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & connNameSpace & ".EPDUserProfiles.numUserID " & _
-                "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
-                "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationType = " & connNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode  " & _
+                "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
+                "" & DBNameSpace & ".SSPPApplicationData, " & DBNameSpace & ".LookUpApplicationTypes,  " & _
+                "" & DBNameSpace & ".EPDUserProfiles " & _
+                "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
+                "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
+                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
+                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationType = " & DBNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode  " & _
                 "and datFinalizedDate is Null " & _
                 "and datEPAEnds is Not Null " & _
                 "and datDraftIssued is Not Null " & _
                 EngineerLine
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                daViewCount = New OracleDataAdapter(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If conn.State = ConnectionState.Open Then
+                If DBConn.State = ConnectionState.Open Then
                     'conn.close()
                 End If
                 dgvApplicationCount.RowHeadersVisible = False
@@ -3779,7 +3779,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -3834,7 +3834,7 @@ Public Class SSPPStatisticalTools
 
             If txtPublicNoticeCount.Text <> "" Then
                 SQL = "select " & _
-                "" & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
+                "" & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
                 "strFacilityName, strApplicationTypeDesc,  " & _
                 "case       " & _
                 "when datFinalizedDate is Not Null then '11 - Closed Out'        " & _
@@ -3851,27 +3851,27 @@ Public Class SSPPStatisticalTools
                 "else '01 - At Engineer'        " & _
                 "end as AppStatus,     " & _
                 "(strLastName||', '||strFirstName) as UserName " & _
-                "from " & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".SSPPApplicationTracking,  " & _
-                "" & connNameSpace & ".SSPPApplicationData, " & connNameSpace & ".LookUpApplicationTypes,  " & _
-                "" & connNameSpace & ".EPDUserProfiles " & _
-                "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-                "and " & connNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & connNameSpace & ".EPDUserProfiles.numUserID " & _
-                "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
-                "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationType = " & connNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode  " & _
+                "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
+                "" & DBNameSpace & ".SSPPApplicationData, " & DBNameSpace & ".LookUpApplicationTypes,  " & _
+                "" & DBNameSpace & ".EPDUserProfiles " & _
+                "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
+                "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
+                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
+                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationType = " & DBNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode  " & _
                 "and datFinalizedDate is Null " & _
                 "and datPNExpires is Not Null and datPNExpires < sysdate " & _
                 "and datEPAEnds is Null " & _
                 EngineerLine
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                daViewCount = New OracleDataAdapter(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If conn.State = ConnectionState.Open Then
+                If DBConn.State = ConnectionState.Open Then
                     'conn.close()
                 End If
                 dgvApplicationCount.RowHeadersVisible = False
@@ -3899,7 +3899,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -3954,7 +3954,7 @@ Public Class SSPPStatisticalTools
 
             If txtDraftIssuedCount.Text <> "" Then
                 SQL = "select " & _
-                "" & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
+                "" & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
                 "strFacilityName, strApplicationTypeDesc,  " & _
                 "case       " & _
                 "when datFinalizedDate is Not Null then '11 - Closed Out'        " & _
@@ -3971,13 +3971,13 @@ Public Class SSPPStatisticalTools
                 "else '01 - At Engineer'        " & _
                 "end as AppStatus,    " & _
                 "(strLastName||', '||strFirstName) as UserName " & _
-                "from " & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".SSPPApplicationTracking,  " & _
-                "" & connNameSpace & ".SSPPApplicationData, " & connNameSpace & ".LookUpApplicationTypes,  " & _
-                "" & connNameSpace & ".EPDUserProfiles " & _
-                "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-                "and " & connNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & connNameSpace & ".EPDUserProfiles.numUserID " & _
-                "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
-                "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationType = " & connNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode  " & _
+                "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
+                "" & DBNameSpace & ".SSPPApplicationData, " & DBNameSpace & ".LookUpApplicationTypes,  " & _
+                "" & DBNameSpace & ".EPDUserProfiles " & _
+                "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
+                "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
+                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
+                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationType = " & DBNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode  " & _
                 "and datFinalizedDate is Null " & _
                 "and ((datPNExpires is Not Null and datPNExpires >= sysdate)  " & _
                 "or (datDraftIssued is not Null and datPNExpires is Null))  " & _
@@ -3987,14 +3987,14 @@ Public Class SSPPStatisticalTools
                 EngineerLine
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                daViewCount = New OracleDataAdapter(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If conn.State = ConnectionState.Open Then
+                If DBConn.State = ConnectionState.Open Then
                     'conn.close()
                 End If
                 dgvApplicationCount.RowHeadersVisible = False
@@ -4023,7 +4023,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -4078,7 +4078,7 @@ Public Class SSPPStatisticalTools
 
             If txtToPMCount.Text <> "" Then
                 SQL = "select " & _
-                "" & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
+                "" & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
                 "strFacilityName, strApplicationTypeDesc,  " & _
                 "case       " & _
                 "when datFinalizedDate is Not Null then '11 - Closed Out'        " & _
@@ -4095,13 +4095,13 @@ Public Class SSPPStatisticalTools
                 "else '01 - At Engineer'        " & _
                 "end as AppStatus,     " & _
                 "(strLastname||', '||strFirstName) as UserName " & _
-                "from " & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".SSPPApplicationTracking,  " & _
-                "" & connNameSpace & ".SSPPApplicationData, " & connNameSpace & ".LookUpApplicationTypes,  " & _
-                "" & connNameSpace & ".EPDUserProfiles " & _
-                "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-                "and " & connNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & connNameSpace & ".EPDUserProfiles.numUserID " & _
-                "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
-                "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationType = " & connNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode  " & _
+                "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
+                "" & DBNameSpace & ".SSPPApplicationData, " & DBNameSpace & ".LookUpApplicationTypes,  " & _
+                "" & DBNameSpace & ".EPDUserProfiles " & _
+                "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
+                "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
+                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
+                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationType = " & DBNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode  " & _
                 "and datFinalizedDate is Null " & _
                 "and datToBranchCheif is Null  " & _
                 "and datToDirector is Null  " & _
@@ -4112,14 +4112,14 @@ Public Class SSPPStatisticalTools
                 EngineerLine
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                daViewCount = New OracleDataAdapter(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If conn.State = ConnectionState.Open Then
+                If DBConn.State = ConnectionState.Open Then
                     'conn.close()
                 End If
                 dgvApplicationCount.RowHeadersVisible = False
@@ -4148,7 +4148,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -4203,7 +4203,7 @@ Public Class SSPPStatisticalTools
 
             If txtToUCCount.Text <> "" Then
                 SQL = "select " & _
-                "" & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
+                "" & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
                 "strFacilityName, strApplicationTypeDesc,  " & _
                 "case       " & _
                 "when datFinalizedDate is Not Null then '11 - Closed Out'        " & _
@@ -4220,13 +4220,13 @@ Public Class SSPPStatisticalTools
                 "else '01 - At Engineer'        " & _
                 "end as AppStatus,   " & _
                 "(strLastName||', '||strFirstName) as UserName " & _
-                "from " & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".SSPPApplicationTracking,  " & _
-                "" & connNameSpace & ".SSPPApplicationData, " & connNameSpace & ".LookUpApplicationTypes,  " & _
-                "" & connNameSpace & ".EPDUserProfiles " & _
-                "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-                "and " & connNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & connNameSpace & ".EPDUserProfiles.numUserID " & _
-                "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
-                "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationType = " & connNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode  " & _
+                "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
+                "" & DBNameSpace & ".SSPPApplicationData, " & DBNameSpace & ".LookUpApplicationTypes,  " & _
+                "" & DBNameSpace & ".EPDUserProfiles " & _
+                "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
+                "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
+                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
+                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationType = " & DBNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode  " & _
                 "and datFinalizedDate is Null " & _
                 "and datToBranchCheif is Null  " & _
                 "and datToDirector is Null  " & _
@@ -4238,14 +4238,14 @@ Public Class SSPPStatisticalTools
                 EngineerLine
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                daViewCount = New OracleDataAdapter(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If conn.State = ConnectionState.Open Then
+                If DBConn.State = ConnectionState.Open Then
                     'conn.close()
                 End If
                 dgvApplicationCount.RowHeadersVisible = False
@@ -4274,7 +4274,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -4329,7 +4329,7 @@ Public Class SSPPStatisticalTools
 
             If txtWStaffCount.Text <> "" Then
                 SQL = "select " & _
-                "" & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
+                "" & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
                 "strFacilityName, strApplicationTypeDesc,  " & _
                 "case       " & _
                 "when datFinalizedDate is Not Null then '11 - Closed Out'        " & _
@@ -4346,13 +4346,13 @@ Public Class SSPPStatisticalTools
                 "else '01 - At Engineer'        " & _
                 "end as AppStatus,   " & _
                 "(strLastName||', '||strFirstName) as UserName " & _
-                "from " & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".SSPPApplicationTracking,  " & _
-                "" & connNameSpace & ".SSPPApplicationData, " & connNameSpace & ".LookUpApplicationTypes,  " & _
-                "" & connNameSpace & ".EPDUserProfiles " & _
-                "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-                "and " & connNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & connNameSpace & ".EPDUserProfiles.numUserID " & _
-                "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
-                "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationType = " & connNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode  " & _
+                "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
+                "" & DBNameSpace & ".SSPPApplicationData, " & DBNameSpace & ".LookUpApplicationTypes,  " & _
+                "" & DBNameSpace & ".EPDUserProfiles " & _
+                "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
+                "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
+                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
+                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationType = " & DBNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode  " & _
                 "and datFinalizedDate is Null " & _
                 "and datToBranchCheif is Null  " & _
                 "and datToDirector is Null  " & _
@@ -4364,14 +4364,14 @@ Public Class SSPPStatisticalTools
                 EngineerLine
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                daViewCount = New OracleDataAdapter(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If conn.State = ConnectionState.Open Then
+                If DBConn.State = ConnectionState.Open Then
                     'conn.close()
                 End If
                 dgvApplicationCount.RowHeadersVisible = False
@@ -4399,7 +4399,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -4414,7 +4414,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -4469,7 +4469,7 @@ Public Class SSPPStatisticalTools
 
             If txtTVTotalOpenCount.Text <> "" Then
                 SQL = "select " & _
-                "" & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
+                "" & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
                 "strFacilityName, strApplicationTypeDesc, " & _
                 "case       " & _
                 "when datFinalizedDate is Not Null then '11 - Closed Out'        " & _
@@ -4487,27 +4487,27 @@ Public Class SSPPStatisticalTools
                 "end as AppStatus, " & _
                 "to_char(datReceivedDate, 'RRRR-MM-dd') as datReceivedDate, " & _
                 "(strLastName||', '||strFirstName) as UserName " & _
-                "from " & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".SSPPApplicationTracking,  " & _
-                "" & connNameSpace & ".SSPPApplicationData, " & connNameSpace & ".LookUpApplicationTypes,  " & _
-                "" & connNameSpace & ".EPDUserProfiles " & _
-                "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-                "and " & connNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & connNameSpace & ".EPDUserProfiles.numUserID " & _
-                "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
-                "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationType = " & connNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode (+) " & _
+                "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
+                "" & DBNameSpace & ".SSPPApplicationData, " & DBNameSpace & ".LookUpApplicationTypes,  " & _
+                "" & DBNameSpace & ".EPDUserProfiles " & _
+                "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
+                "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
+                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
+                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationType = " & DBNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode (+) " & _
                 "and datFinalizedDate is Null " & _
                 "and (strApplicationType = '14' or strApplicationType = '16') " & _
                 EngineerLine
 
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                daViewCount = New OracleDataAdapter(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If conn.State = ConnectionState.Open Then
+                If DBConn.State = ConnectionState.Open Then
                     'conn.close()
                 End If
                 dgvApplicationCount.RowHeadersVisible = False
@@ -4537,7 +4537,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -4592,7 +4592,7 @@ Public Class SSPPStatisticalTools
 
             If txtTVOneYearCount.Text <> "" Then
                 SQL = "select " & _
-                "" & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
+                "" & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
                 "strFacilityName, strApplicationTypeDesc, " & _
                 "case       " & _
                 "when datFinalizedDate is Not Null then '11 - Closed Out'        " & _
@@ -4610,13 +4610,13 @@ Public Class SSPPStatisticalTools
                 "end as AppStatus, " & _
                 "to_char(datReceivedDate, 'RRRR-MM-dd') as datReceivedDate, " & _
                 "(strLastName||', '||strFirstName) as UserName " & _
-                "from " & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".SSPPApplicationTracking,  " & _
-                "" & connNameSpace & ".SSPPApplicationData, " & connNameSpace & ".LookUpApplicationTypes,  " & _
-                "" & connNameSpace & ".EPDUserProfiles " & _
-                "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-                "and " & connNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & connNameSpace & ".EPDUserProfiles.numUserID " & _
-                "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
-                "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationType = " & connNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode (+) " & _
+                "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
+                "" & DBNameSpace & ".SSPPApplicationData, " & DBNameSpace & ".LookUpApplicationTypes,  " & _
+                "" & DBNameSpace & ".EPDUserProfiles " & _
+                "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
+                "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
+                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
+                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationType = " & DBNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode (+) " & _
                 "and datFinalizedDate is Null " & _
                 "and (strApplicationType = '14' or strApplicationType = '16') " & _
                 "and datReceivedDate > add_months(sysdate, -12)  " & _
@@ -4624,14 +4624,14 @@ Public Class SSPPStatisticalTools
 
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                daViewCount = New OracleDataAdapter(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If conn.State = ConnectionState.Open Then
+                If DBConn.State = ConnectionState.Open Then
                     'conn.close()
                 End If
                 dgvApplicationCount.RowHeadersVisible = False
@@ -4661,7 +4661,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -4716,7 +4716,7 @@ Public Class SSPPStatisticalTools
 
             If txtTVTwelveCount.Text <> "" Then
                 SQL = "select " & _
-                "" & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
+                "" & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
                 "strFacilityName, strApplicationTypeDesc, " & _
                 "case       " & _
                 "when datFinalizedDate is Not Null then '11 - Closed Out'        " & _
@@ -4734,13 +4734,13 @@ Public Class SSPPStatisticalTools
                 "end as AppStatus, " & _
                 "to_char(datReceivedDate, 'RRRR-MM-dd') as datReceivedDate, " & _
                 "(strLastName||', '||strFirstName) as UserName " & _
-                "from " & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".SSPPApplicationTracking,  " & _
-                "" & connNameSpace & ".SSPPApplicationData, " & connNameSpace & ".LookUpApplicationTypes,  " & _
-                "" & connNameSpace & ".EPDUserProfiles " & _
-                "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-                "and " & connNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & connNameSpace & ".EPDUserProfiles.numUserID " & _
-                "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
-                "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationType = " & connNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode (+) " & _
+                "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
+                "" & DBNameSpace & ".SSPPApplicationData, " & DBNameSpace & ".LookUpApplicationTypes,  " & _
+                "" & DBNameSpace & ".EPDUserProfiles " & _
+                "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
+                "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
+                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
+                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationType = " & DBNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode (+) " & _
                 "and datFinalizedDate is Null " & _
                 "and (strApplicationType = '14' or strApplicationType = '16') " & _
                 "and datReceivedDate >= add_months(sysdate, -18) " & _
@@ -4748,14 +4748,14 @@ Public Class SSPPStatisticalTools
                 EngineerLine
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                daViewCount = New OracleDataAdapter(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If conn.State = ConnectionState.Open Then
+                If DBConn.State = ConnectionState.Open Then
                     'conn.close()
                 End If
                 dgvApplicationCount.RowHeadersVisible = False
@@ -4785,7 +4785,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -4840,7 +4840,7 @@ Public Class SSPPStatisticalTools
 
             If txtTVGreaterCount.Text <> "" Then
                 SQL = "select " & _
-                "" & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
+                "" & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
                 "strFacilityName, strApplicationTypeDesc, " & _
                 "case       " & _
                 "when datFinalizedDate is Not Null then '11 - Closed Out'        " & _
@@ -4858,27 +4858,27 @@ Public Class SSPPStatisticalTools
                 "end as AppStatus, " & _
                 "to_char(datReceivedDate, 'RRRR-MM-dd') as datReceivedDate, " & _
                 "(strLastName||', '||strFirstName) as UserName " & _
-                "from " & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".SSPPApplicationTracking,  " & _
-                "" & connNameSpace & ".SSPPApplicationData, " & connNameSpace & ".LookUpApplicationTypes,  " & _
-                "" & connNameSpace & ".EPDUserProfiles " & _
-                "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-                "and " & connNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & connNameSpace & ".EPDUserProfiles.numUserID " & _
-                "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
-                "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationType = " & connNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode (+) " & _
+                "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
+                "" & DBNameSpace & ".SSPPApplicationData, " & DBNameSpace & ".LookUpApplicationTypes,  " & _
+                "" & DBNameSpace & ".EPDUserProfiles " & _
+                "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
+                "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
+                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
+                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationType = " & DBNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode (+) " & _
                 "and datFinalizedDate is Null " & _
                 "and (strApplicationType = '14' or strApplicationType = '16') " & _
                 "and datReceivedDate < add_months(sysdate, -18)" & _
                 EngineerLine
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                daViewCount = New OracleDataAdapter(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If conn.State = ConnectionState.Open Then
+                If DBConn.State = ConnectionState.Open Then
                     'conn.close()
                 End If
                 dgvApplicationCount.RowHeadersVisible = False
@@ -4908,7 +4908,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -4923,7 +4923,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -4978,7 +4978,7 @@ Public Class SSPPStatisticalTools
 
             If txtTotalOpenCount.Text <> "" Then
                 SQL = "select " & _
-                "" & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
+                "" & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
                 "strFacilityName, strApplicationTypeDesc, " & _
                 "case       " & _
                 "when datFinalizedDate is Not Null then '11 - Closed Out'        " & _
@@ -4996,27 +4996,27 @@ Public Class SSPPStatisticalTools
                 "end as AppStatus, " & _
                 "to_char(datReceivedDate, 'RRRR-MM-dd') as datReceivedDate, " & _
                 "(strLastName||', '||strFirstName) as UserName " & _
-                "from " & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".SSPPApplicationTracking,  " & _
-                "" & connNameSpace & ".SSPPApplicationData, " & connNameSpace & ".LookUpApplicationTypes,  " & _
-                "" & connNameSpace & ".EPDUserProfiles " & _
-                "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-                "and " & connNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & connNameSpace & ".EPDUserProfiles.numUserID " & _
-                "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
-                "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationType = " & connNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode (+) " & _
+                "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
+                "" & DBNameSpace & ".SSPPApplicationData, " & DBNameSpace & ".LookUpApplicationTypes,  " & _
+                "" & DBNameSpace & ".EPDUserProfiles " & _
+                "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
+                "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
+                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
+                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationType = " & DBNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode (+) " & _
                 "and datFinalizedDate is Null " & _
                 "and strApplicationType <> '16' and strApplicationType <> '14' " & _
                 "and strApplicationType <> '17' and strApplicationType <> '27' " & _
                 EngineerLine
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                daViewCount = New OracleDataAdapter(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If conn.State = ConnectionState.Open Then
+                If DBConn.State = ConnectionState.Open Then
                     'conn.close()
                 End If
                 dgvApplicationCount.RowHeadersVisible = False
@@ -5046,7 +5046,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -5101,7 +5101,7 @@ Public Class SSPPStatisticalTools
 
             If txtThreeMonthOpenCount.Text <> "" Then
                 SQL = "select " & _
-                "" & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
+                "" & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
                 "strFacilityName, strApplicationTypeDesc, " & _
                 "case       " & _
                 "when datFinalizedDate is Not Null then '11 - Closed Out'        " & _
@@ -5119,13 +5119,13 @@ Public Class SSPPStatisticalTools
                 "end as AppStatus, " & _
                 "to_char(datReceivedDate, 'RRRR-MM-dd') as datReceivedDate, " & _
                 "(strLastName||', '||strFirstName) as UserName " & _
-                "from " & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".SSPPApplicationTracking,  " & _
-                "" & connNameSpace & ".SSPPApplicationData, " & connNameSpace & ".LookUpApplicationTypes,  " & _
-                "" & connNameSpace & ".EPDUserProfiles " & _
-                "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-                "and " & connNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & connNameSpace & ".EPDUserProfiles.numUserID " & _
-                "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
-                "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationType = " & connNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode (+) " & _
+                "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
+                "" & DBNameSpace & ".SSPPApplicationData, " & DBNameSpace & ".LookUpApplicationTypes,  " & _
+                "" & DBNameSpace & ".EPDUserProfiles " & _
+                "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
+                "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
+                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
+                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationType = " & DBNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode (+) " & _
                 "and datFinalizedDate is Null " & _
                 "and strApplicationType <> '16' and strApplicationType <> '14' " & _
                 "and strApplicationType <> '17' and strApplicationType <> '27' " & _
@@ -5133,14 +5133,14 @@ Public Class SSPPStatisticalTools
                 EngineerLine
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                daViewCount = New OracleDataAdapter(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If conn.State = ConnectionState.Open Then
+                If DBConn.State = ConnectionState.Open Then
                     'conn.close()
                 End If
                 dgvApplicationCount.RowHeadersVisible = False
@@ -5170,7 +5170,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -5225,7 +5225,7 @@ Public Class SSPPStatisticalTools
 
             If txtSixMonthOpenCount.Text <> "" Then
                 SQL = "select " & _
-                "" & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
+                "" & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
                 "strFacilityName, strApplicationTypeDesc, " & _
                 "case       " & _
                 "when datFinalizedDate is Not Null then '11 - Closed Out'        " & _
@@ -5243,13 +5243,13 @@ Public Class SSPPStatisticalTools
                 "end as AppStatus, " & _
                 "to_char(datReceivedDate, 'RRRR-MM-dd') as datReceivedDate, " & _
                 "(strLastName||', '||strFirstName) as UserName " & _
-                "from " & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".SSPPApplicationTracking,  " & _
-                "" & connNameSpace & ".SSPPApplicationData, " & connNameSpace & ".LookUpApplicationTypes,  " & _
-                "" & connNameSpace & ".EPDUserProfiles " & _
-                "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-                "and " & connNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & connNameSpace & ".EPDUserProfiles.numUserID " & _
-                "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
-                "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationType = " & connNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode (+) " & _
+                "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
+                "" & DBNameSpace & ".SSPPApplicationData, " & DBNameSpace & ".LookUpApplicationTypes,  " & _
+                "" & DBNameSpace & ".EPDUserProfiles " & _
+                "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
+                "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
+                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
+                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationType = " & DBNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode (+) " & _
                 "and datFinalizedDate is Null " & _
                 "and strApplicationType <> '16' and strApplicationType <> '14' " & _
                 "and strApplicationType <> '17' and strApplicationType <> '27' " & _
@@ -5258,14 +5258,14 @@ Public Class SSPPStatisticalTools
                 EngineerLine
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                daViewCount = New OracleDataAdapter(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If conn.State = ConnectionState.Open Then
+                If DBConn.State = ConnectionState.Open Then
                     'conn.close()
                 End If
                 dgvApplicationCount.RowHeadersVisible = False
@@ -5295,7 +5295,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -5350,7 +5350,7 @@ Public Class SSPPStatisticalTools
 
             If txtNineMonthOpenCount.Text <> "" Then
                 SQL = "select " & _
-                "" & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
+                "" & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
                 "strFacilityName, strApplicationTypeDesc, " & _
                 "case       " & _
                 "when datFinalizedDate is Not Null then '11 - Closed Out'        " & _
@@ -5368,13 +5368,13 @@ Public Class SSPPStatisticalTools
                 "end as AppStatus, " & _
                 "to_char(datReceivedDate, 'RRRR-MM-dd') as datReceivedDate, " & _
                 "(strLastName||', '||strFirstName) as UserName " & _
-                "from " & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".SSPPApplicationTracking,  " & _
-                "" & connNameSpace & ".SSPPApplicationData, " & connNameSpace & ".LookUpApplicationTypes,  " & _
-                "" & connNameSpace & ".EPDUserProfiles " & _
-                "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-                "and " & connNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & connNameSpace & ".EPDUserProfiles.numUserID " & _
-                "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
-                "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationType = " & connNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode (+) " & _
+                "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
+                "" & DBNameSpace & ".SSPPApplicationData, " & DBNameSpace & ".LookUpApplicationTypes,  " & _
+                "" & DBNameSpace & ".EPDUserProfiles " & _
+                "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
+                "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
+                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
+                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationType = " & DBNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode (+) " & _
                 "and datFinalizedDate is Null " & _
                 "and strApplicationType <> '16' and strApplicationType <> '14' " & _
                 "and strApplicationType <> '17' and strApplicationType <> '27' " & _
@@ -5383,14 +5383,14 @@ Public Class SSPPStatisticalTools
                 EngineerLine
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                daViewCount = New OracleDataAdapter(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If conn.State = ConnectionState.Open Then
+                If DBConn.State = ConnectionState.Open Then
                     'conn.close()
                 End If
                 dgvApplicationCount.RowHeadersVisible = False
@@ -5420,7 +5420,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -5475,7 +5475,7 @@ Public Class SSPPStatisticalTools
 
             If txtTwelveMonthOpenCount.Text <> "" Then
                 SQL = "select " & _
-                "" & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
+                "" & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
                 "strFacilityName, strApplicationTypeDesc, " & _
                 "case       " & _
                 "when datFinalizedDate is Not Null then '11 - Closed Out'        " & _
@@ -5493,13 +5493,13 @@ Public Class SSPPStatisticalTools
                 "end as AppStatus, " & _
                 "to_char(datReceivedDate, 'RRRR-MM-dd') as datReceivedDate, " & _
                 "(strLastName||', '||strFirstName) as UserName " & _
-                "from " & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".SSPPApplicationTracking,  " & _
-                "" & connNameSpace & ".SSPPApplicationData, " & connNameSpace & ".LookUpApplicationTypes,  " & _
-                "" & connNameSpace & ".EPDUserProfiles " & _
-                "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-                "and " & connNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & connNameSpace & ".EPDUserProfiles.numUserID " & _
-                "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
-                "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationType = " & connNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode (+) " & _
+                "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
+                "" & DBNameSpace & ".SSPPApplicationData, " & DBNameSpace & ".LookUpApplicationTypes,  " & _
+                "" & DBNameSpace & ".EPDUserProfiles " & _
+                "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
+                "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
+                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
+                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationType = " & DBNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode (+) " & _
                 "and datFinalizedDate is Null " & _
                 "and strApplicationType <> '16' and strApplicationType <> '14' " & _
                 "and strApplicationType <> '17' and strApplicationType <> '27' " & _
@@ -5508,14 +5508,14 @@ Public Class SSPPStatisticalTools
                 EngineerLine
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                daViewCount = New OracleDataAdapter(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If conn.State = ConnectionState.Open Then
+                If DBConn.State = ConnectionState.Open Then
                     'conn.close()
                 End If
                 dgvApplicationCount.RowHeadersVisible = False
@@ -5545,7 +5545,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -5600,7 +5600,7 @@ Public Class SSPPStatisticalTools
 
             If txtGreaterThanOpenCount.Text <> "" Then
                 SQL = "select " & _
-                "" & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
+                "" & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
                 "strFacilityName, strApplicationTypeDesc, " & _
                 "case       " & _
                 "when datFinalizedDate is Not Null then '11 - Closed Out'        " & _
@@ -5618,13 +5618,13 @@ Public Class SSPPStatisticalTools
                 "end as AppStatus, " & _
                 "to_char(datReceivedDate, 'RRRR-MM-dd') as datReceivedDate, " & _
                 "(strLastName||', '||strFirstName) as UserName " & _
-                "from " & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".SSPPApplicationTracking,  " & _
-                "" & connNameSpace & ".SSPPApplicationData, " & connNameSpace & ".LookUpApplicationTypes,  " & _
-                "" & connNameSpace & ".EPDUserProfiles " & _
-                "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-                "and " & connNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & connNameSpace & ".EPDUserProfiles.numUserID " & _
-                "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
-                "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationType = " & connNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode (+) " & _
+                "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
+                "" & DBNameSpace & ".SSPPApplicationData, " & DBNameSpace & ".LookUpApplicationTypes,  " & _
+                "" & DBNameSpace & ".EPDUserProfiles " & _
+                "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
+                "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
+                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
+                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationType = " & DBNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode (+) " & _
                 "and datFinalizedDate is Null " & _
                 "and strApplicationType <> '16' and strApplicationType <> '14' " & _
                 "and strApplicationType <> '17' and strApplicationType <> '27' " & _
@@ -5632,14 +5632,14 @@ Public Class SSPPStatisticalTools
                 EngineerLine
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                daViewCount = New OracleDataAdapter(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If conn.State = ConnectionState.Open Then
+                If DBConn.State = ConnectionState.Open Then
                     'conn.close()
                 End If
                 dgvApplicationCount.RowHeadersVisible = False
@@ -5669,7 +5669,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -5688,7 +5688,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -5700,8 +5700,8 @@ Public Class SSPPStatisticalTools
 
             If txtEPA2a.Text <> "" Then
                 SQL = "Select " & _
-                "distinct(substr(" & connNameSpace & ".APBFacilityInformation.strAIRSNumber, 5)) as AIRSNumber,  " & _
-                "" & connNameSpace & ".APBFacilityInformation.strFacilityName,  " & _
+                "distinct(substr(" & DBNameSpace & ".APBFacilityInformation.strAIRSNumber, 5)) as AIRSNumber,  " & _
+                "" & DBNameSpace & ".APBFacilityInformation.strFacilityName,  " & _
                 "case  " & _
                 "   when substr(strAirprogramCodes, 13, 1) = '1' then 'Title V'  " & _
                 "Else 'Non Title V'  " & _
@@ -5710,37 +5710,37 @@ Public Class SSPPStatisticalTools
                 "   when strOperationalStatus = 'O' then 'O-Operating'  " & _
                 "Else 'Not Operating'  " & _
                 "End strOperationalStatus  " & _
-                "from " & connNameSpace & ".APBFacilityInformation, " & connNameSpace & ".APBHeaderData,  " & _
-                "(select " & connNameSpace & ".APBHeaderData.strAIRSnumber as AIRSNumber1 " & _
-                "from " & connNameSpace & ".APBHeaderData, " & connNameSpace & ".APBSupplamentalData " & _
-                "where " & connNameSpace & ".APBHeaderData.strAIRSNumber = " & connNameSpace & ".APBSupplamentalData.strAIRSNumber  " & _
+                "from " & DBNameSpace & ".APBFacilityInformation, " & DBNameSpace & ".APBHeaderData,  " & _
+                "(select " & DBNameSpace & ".APBHeaderData.strAIRSnumber as AIRSNumber1 " & _
+                "from " & DBNameSpace & ".APBHeaderData, " & DBNameSpace & ".APBSupplamentalData " & _
+                "where " & DBNameSpace & ".APBHeaderData.strAIRSNumber = " & DBNameSpace & ".APBSupplamentalData.strAIRSNumber  " & _
                 "AND substr(strAirProgramCodes, 13, 1) = '1'  " & _
                 "and (strEPATOPSExcluded is null or strEPATOPSExcluded = 'False')   " & _
                 "and strOperationalStatus = 'O') EPA1,  " & _
-                "(select " & connNameSpace & ".APBHeaderData.strAIRSNumber as AIRSNumber2 " & _
-                "from " & connNameSpace & ".APBHeaderData, " & connNameSpace & ".APBSupplamentalData,   " & _
-                "" & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".SSPPApplicationTracking   " & _
-                "where " & connNameSpace & ".APBHeaderData.strAIRSNumber = " & connNameSpace & ".APBSupplamentalData.strAIRSNumber  " & _
-                "and " & connNameSpace & ".APBHeaderData.strAIRSNumber = " & connNameSpace & ".SSPPApplicationMaster.strAIRSNumber (+)   " & _
-                "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strAPplicationNumber   " & _
+                "(select " & DBNameSpace & ".APBHeaderData.strAIRSNumber as AIRSNumber2 " & _
+                "from " & DBNameSpace & ".APBHeaderData, " & DBNameSpace & ".APBSupplamentalData,   " & _
+                "" & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking   " & _
+                "where " & DBNameSpace & ".APBHeaderData.strAIRSNumber = " & DBNameSpace & ".APBSupplamentalData.strAIRSNumber  " & _
+                "and " & DBNameSpace & ".APBHeaderData.strAIRSNumber = " & DBNameSpace & ".SSPPApplicationMaster.strAIRSNumber (+)   " & _
+                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strAPplicationNumber   " & _
                 "AND substr(strAirProgramCodes, 13, 1) <> '1'   " & _
                 "and datPermitIssued is null   " & _
                 "and strApplicationType = '14'   " & _
                 "and datFinalizeddate is null  " & _
                 "and (strEPATOPSExcluded is null or strEPATOPSExcluded = 'False')) EPA2 " & _
-                "where " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSnumber  " & _
-                "and (" & connNameSpace & ".APBHeaderData.strAIRSnumber = EPA1.AIRSNumber1  " & _
-                "or " & connNameSpace & ".APBHeaderData.strAIRSnumber = EPA2.AIRSNumber2) "
+                "where " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSnumber  " & _
+                "and (" & DBNameSpace & ".APBHeaderData.strAIRSnumber = EPA1.AIRSNumber1  " & _
+                "or " & DBNameSpace & ".APBHeaderData.strAIRSnumber = EPA2.AIRSNumber2) "
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                daViewCount = New OracleDataAdapter(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If conn.State = ConnectionState.Open Then
+                If DBConn.State = ConnectionState.Open Then
                     'conn.close()
                 End If
                 dgvApplicationCount.RowHeadersVisible = False
@@ -5766,7 +5766,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -5778,8 +5778,8 @@ Public Class SSPPStatisticalTools
 
             If txtEPA2d.Text <> "" Then
                 SQL = "Select " & _
-                "distinct(substr(" & connNameSpace & ".APBFacilityInformation.strAIRSNumber, 5)) as AIRSNumber,   " & _
-                "" & connNameSpace & ".APBFacilityInformation.strFacilityName,   " & _
+                "distinct(substr(" & DBNameSpace & ".APBFacilityInformation.strAIRSNumber, 5)) as AIRSNumber,   " & _
+                "" & DBNameSpace & ".APBFacilityInformation.strFacilityName,   " & _
                 "case      " & _
                 "   when substr(strAirprogramCodes, 13, 1) = '1' then 'Title V'   " & _
                 "Else 'Non Title V'   " & _
@@ -5794,37 +5794,37 @@ Public Class SSPPStatisticalTools
                 "   when strEPATOPSExcluded = 'False' then ' '  " & _
                 "else ' '  " & _
                 "End strEPATOPSExcluded    " & _
-                "from " & connNameSpace & ".APBFacilityInformation, " & connNameSpace & ".APBHeaderData,   " & _
-                "" & connNameSpace & ".APBSupplamentalData,   " & _
-                "(select " & connNameSpace & ".APBHeaderData.strAIRSnumber as AIRSNumber1  " & _
-                "from " & connNameSpace & ".APBHeaderData, " & connNameSpace & ".APBSupplamentalData  " & _
-                "where " & connNameSpace & ".APBHeaderData.strAIRSNumber = " & connNameSpace & ".APBSupplamentalData.strAIRSNumber   " & _
+                "from " & DBNameSpace & ".APBFacilityInformation, " & DBNameSpace & ".APBHeaderData,   " & _
+                "" & DBNameSpace & ".APBSupplamentalData,   " & _
+                "(select " & DBNameSpace & ".APBHeaderData.strAIRSnumber as AIRSNumber1  " & _
+                "from " & DBNameSpace & ".APBHeaderData, " & DBNameSpace & ".APBSupplamentalData  " & _
+                "where " & DBNameSpace & ".APBHeaderData.strAIRSNumber = " & DBNameSpace & ".APBSupplamentalData.strAIRSNumber   " & _
                 "AND substr(strAirProgramCodes, 13, 1) = '1'   " & _
                 "and strOperationalStatus = 'O') EPA1,   " & _
-                "(select " & connNameSpace & ".APBHeaderData.strAIRSNumber as AIRSNumber2  " & _
-                "from " & connNameSpace & ".APBHeaderData, " & connNameSpace & ".APBSupplamentalData,    " & _
-                "" & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".SSPPApplicationTracking    " & _
-                "where " & connNameSpace & ".APBHeaderData.strAIRSNumber = " & connNameSpace & ".APBSupplamentalData.strAIRSNumber   " & _
-                "and " & connNameSpace & ".APBHeaderData.strAIRSNumber = " & connNameSpace & ".SSPPApplicationMaster.strAIRSNumber (+)    " & _
-                "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strAPplicationNumber    " & _
+                "(select " & DBNameSpace & ".APBHeaderData.strAIRSNumber as AIRSNumber2  " & _
+                "from " & DBNameSpace & ".APBHeaderData, " & DBNameSpace & ".APBSupplamentalData,    " & _
+                "" & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking    " & _
+                "where " & DBNameSpace & ".APBHeaderData.strAIRSNumber = " & DBNameSpace & ".APBSupplamentalData.strAIRSNumber   " & _
+                "and " & DBNameSpace & ".APBHeaderData.strAIRSNumber = " & DBNameSpace & ".SSPPApplicationMaster.strAIRSNumber (+)    " & _
+                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strAPplicationNumber    " & _
                 "AND substr(strAirProgramCodes, 13, 1) <> '1'    " & _
                 "and datPermitIssued is null    " & _
                 "and strApplicationType = '14'   " & _
                 "and datFinalizeddate is null) EPA2   " & _
-                "where " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSnumber   " & _
-                "and " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".APBSupplamentalData.strAIRSNumber  " & _
-                "and (" & connNameSpace & ".APBHeaderData.strAIRSnumber = EPA1.AIRSNumber1   " & _
-                "or " & connNameSpace & ".APBHeaderData.strAIRSnumber = EPA2.AIRSNumber2) "
+                "where " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSnumber   " & _
+                "and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBSupplamentalData.strAIRSNumber  " & _
+                "and (" & DBNameSpace & ".APBHeaderData.strAIRSnumber = EPA1.AIRSNumber1   " & _
+                "or " & DBNameSpace & ".APBHeaderData.strAIRSnumber = EPA2.AIRSNumber2) "
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                daViewCount = New OracleDataAdapter(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If conn.State = ConnectionState.Open Then
+                If DBConn.State = ConnectionState.Open Then
                     'conn.close()
                 End If
                 dgvApplicationCount.RowHeadersVisible = False
@@ -5852,7 +5852,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -5864,7 +5864,7 @@ Public Class SSPPStatisticalTools
 
             If txtEPA3a.Text <> "" Then
                 SQL = "Select " & _
-                "substr(" & connNameSpace & ".APBFacilityInformation.strAIRSNumber, 5) as AIRSNumber,  " & _
+                "substr(" & DBNameSpace & ".APBFacilityInformation.strAIRSNumber, 5) as AIRSNumber,  " & _
                 "strFacilityName,  " & _
                 "case  " & _
                 " when substr(strAirprogramCodes, 13, 1) = '1' then 'Title V'  " & _
@@ -5874,20 +5874,20 @@ Public Class SSPPStatisticalTools
                 " when strOperationalStatus = 'O' then 'O-Operating' " & _
                 "else 'Not Operating'  " & _
                 "end strOperationalStatus  " & _
-                "from " & connNameSpace & ".APBHeaderData, " & connNameSpace & ".APBFacilityInformation  " & _
-                "where " & connNameSpace & ".APBHeaderData.strAIRSNumber = " & connNameSpace & ".APBFacilityInformation.strAIRSNumber  " & _
+                "from " & DBNameSpace & ".APBHeaderData, " & DBNameSpace & ".APBFacilityInformation  " & _
+                "where " & DBNameSpace & ".APBHeaderData.strAIRSNumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber  " & _
                 "and substr(strAirProgramCodes, 13, 1) = '1'  " & _
                 "and strOPerationalStatus = 'O'  "
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                daViewCount = New OracleDataAdapter(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If conn.State = ConnectionState.Open Then
+                If DBConn.State = ConnectionState.Open Then
                     'conn.close()
                 End If
                 dgvApplicationCount.RowHeadersVisible = False
@@ -5913,7 +5913,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -5940,7 +5940,7 @@ Public Class SSPPStatisticalTools
 
             If txtEPA4a.Text <> "" Then
                 SQL = "select " & _
-                "" & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
+                "" & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
                 "strFacilityName, strApplicationTypeDesc, " & _
                 "case       " & _
                 "when datFinalizedDate is Not Null then '11 - Closed Out'        " & _
@@ -5958,11 +5958,11 @@ Public Class SSPPStatisticalTools
                 "end as AppStatus, " & _
                 "to_char(datReceivedDate, 'RRRR-MM-dd') as datReceivedDate, " & _
                 "to_char(datPermitIssued, 'RRRR-MM-dd') as datPermitIssued " & _
-                "from " & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".SSPPApplicationTracking,  " & _
-                "" & connNameSpace & ".SSPPApplicationData, " & connNameSpace & ".LookUpApplicationTypes " & _
-                "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-                "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
-                "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationType = " & connNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode (+) " & _
+                "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
+                "" & DBNameSpace & ".SSPPApplicationData, " & DBNameSpace & ".LookUpApplicationTypes " & _
+                "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
+                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
+                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationType = " & DBNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode (+) " & _
                 "AND datPermitIssued IS NOT NULL " & _
                 "AND strApplicationType = '14'  " & _
                 "AND strPermitType = '7'  " & _
@@ -5970,14 +5970,14 @@ Public Class SSPPStatisticalTools
                 "AND datPermitIssued < '" & EndDate & "' "
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                daViewCount = New OracleDataAdapter(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If conn.State = ConnectionState.Open Then
+                If DBConn.State = ConnectionState.Open Then
                     'conn.close()
                 End If
                 dgvApplicationCount.RowHeadersVisible = False
@@ -6007,7 +6007,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -6034,7 +6034,7 @@ Public Class SSPPStatisticalTools
 
             If txtEPA4b.Text <> "" Then
                 SQL = "select " & _
-                "" & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
+                "" & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
                 "strFacilityName, strApplicationTypeDesc, " & _
                 "case       " & _
                 "when datFinalizedDate is Not Null then '11 - Closed Out'        " & _
@@ -6052,11 +6052,11 @@ Public Class SSPPStatisticalTools
                 "end as AppStatus, " & _
                 "to_char(datReceivedDate, 'RRRR-MM-dd') as datReceivedDate, " & _
                 "to_char(datPermitIssued, 'RRRR-MM-dd') as datPermitIssued " & _
-                "from " & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".SSPPApplicationTracking,  " & _
-                "" & connNameSpace & ".SSPPApplicationData, " & connNameSpace & ".LookUpApplicationTypes " & _
-                "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-                "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
-                "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationType = " & connNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode (+) " & _
+                "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
+                "" & DBNameSpace & ".SSPPApplicationData, " & DBNameSpace & ".LookUpApplicationTypes " & _
+                "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
+                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
+                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationType = " & DBNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode (+) " & _
                 "AND datPermitIssued IS NOT NULL " & _
                 "AND strApplicationType = '14'  " & _
                 "AND strPermitType = '7'  " & _
@@ -6065,14 +6065,14 @@ Public Class SSPPStatisticalTools
                 "and datReceivedDate > add_months(datPermitIssued, -18) "
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                daViewCount = New OracleDataAdapter(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If conn.State = ConnectionState.Open Then
+                If DBConn.State = ConnectionState.Open Then
                     'conn.close()
                 End If
                 dgvApplicationCount.RowHeadersVisible = False
@@ -6103,7 +6103,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -6129,7 +6129,7 @@ Public Class SSPPStatisticalTools
 
             If txtEPA5a.Text <> "" Then
                 SQL = "select " & _
-                "" & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
+                "" & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
                 "strFacilityName, strApplicationTypeDesc, " & _
                 "case       " & _
                 "when datFinalizedDate is Not Null then '11 - Closed Out'        " & _
@@ -6146,24 +6146,24 @@ Public Class SSPPStatisticalTools
                 "else '01 - At Engineer'        " & _
                 "end as AppStatus, " & _
                 "to_char(datReceivedDate, 'RRRR-MM-dd') as datReceivedDate " & _
-                "from " & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".SSPPApplicationTracking,  " & _
-                "" & connNameSpace & ".SSPPApplicationData, " & connNameSpace & ".LookUpApplicationTypes " & _
-                "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-                "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
-                "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationType = " & connNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode (+) " & _
+                "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
+                "" & DBNameSpace & ".SSPPApplicationData, " & DBNameSpace & ".LookUpApplicationTypes " & _
+                "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
+                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
+                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationType = " & DBNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode (+) " & _
                 "AND strApplicationType = '14' " & _
                 "and datPermitIssued is Null " & _
                 "and datReceivedDate < add_months('" & EndDate & "', -18) "
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                daViewCount = New OracleDataAdapter(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If conn.State = ConnectionState.Open Then
+                If DBConn.State = ConnectionState.Open Then
                     'conn.close()
                 End If
                 dgvApplicationCount.RowHeadersVisible = False
@@ -6191,7 +6191,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -6217,46 +6217,46 @@ Public Class SSPPStatisticalTools
 
             If txtEPA6a.Text <> "" Then
                 SQL = "select " & _
-                "distinct(substr(" & connNameSpace & ".SSPPApplicationMaster.strAIRSnumber, 5)) as AIRSNumber,  " & _
+                "distinct(substr(" & DBNameSpace & ".SSPPApplicationMaster.strAIRSnumber, 5)) as AIRSNumber,  " & _
                 "strFacilityName,  " & _
                 "to_char(MaxDate, 'RRRR-MM-dd') as MaxDate " & _
-                "from " & connNameSpace & ".SSPPApplicationMaster,  " & _
-                "" & connNameSpace & ".SSPPApplicationTracking, " & connNameSpace & ".APBHeaderData,  " & _
-                "" & connNameSpace & ".APBFacilityInformation,   " & _
+                "from " & DBNameSpace & ".SSPPApplicationMaster,  " & _
+                "" & DBNameSpace & ".SSPPApplicationTracking, " & DBNameSpace & ".APBHeaderData,  " & _
+                "" & DBNameSpace & ".APBFacilityInformation,   " & _
                 "(select  " & _
                 "strAIRSNumber, " & _
                 "max(datEffective) as MaxDate  " & _
-                "from " & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".SSPPApplicationTracking  " & _
-                "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
+                "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking  " & _
+                "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
                 "and datEffective is not null  " & _
                 "group by strAIRSnumber) Effect,  " & _
                 "(Select  " & _
-                "distinct(" & connNameSpace & ".SSPPApplicationMaster.strAIRSnumber) as AIRSNumber " & _
-                "from " & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".SSPPApplicationTracking  " & _
-                "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
+                "distinct(" & DBNameSpace & ".SSPPApplicationMaster.strAIRSnumber) as AIRSNumber " & _
+                "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking  " & _
+                "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
                 "and datReceiveddate < add_months('" & EndDate & "', -6)  " & _
                 "and datReceivedDate > add_months('" & EndDate & "', -54)  " & _
                 "and strApplicationType <> '16'  " & _
                 "and strApplicationType <> '12') PermitRequests   " & _
-                "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationnumber " & _
-                "and " & connNameSpace & ".APBHeaderData.strAIRSNumber = " & connNameSpace & ".SSPPApplicationMaster.strAIRSNumber   " & _
-                "and " & connNameSpace & ".APBHeaderData.strAIRSNumber = " & connNameSpace & ".APBFacilityInformation.strAIRSNumber  " & _
-                "and " & connNameSpace & ".SSPPApplicationMaster.strAIRSNumber = Effect.strAIRSnumber  " & _
-                "and MaxDate = " & connNameSpace & ".SSPPApplicationTracking.datEffective " & _
+                "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationnumber " & _
+                "and " & DBNameSpace & ".APBHeaderData.strAIRSNumber = " & DBNameSpace & ".SSPPApplicationMaster.strAIRSNumber   " & _
+                "and " & DBNameSpace & ".APBHeaderData.strAIRSNumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber  " & _
+                "and " & DBNameSpace & ".SSPPApplicationMaster.strAIRSNumber = Effect.strAIRSnumber  " & _
+                "and MaxDate = " & DBNameSpace & ".SSPPApplicationTracking.datEffective " & _
                 "and maxDate < add_months('" & EndDate & "', -54) " & _
                 "and strOperationalStatus = 'O'  " & _
                 "and substr(strAirProgramCodes, 13, 1) = '1'  " & _
-                "and " & connNameSpace & ".SSPPApplicationMaster.strAIRSNumber = PermitRequests.AIRSNumber "
+                "and " & DBNameSpace & ".SSPPApplicationMaster.strAIRSNumber = PermitRequests.AIRSNumber "
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                daViewCount = New OracleDataAdapter(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If conn.State = ConnectionState.Open Then
+                If DBConn.State = ConnectionState.Open Then
                     'conn.close()
                 End If
                 dgvApplicationCount.RowHeadersVisible = False
@@ -6280,7 +6280,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -6306,46 +6306,46 @@ Public Class SSPPStatisticalTools
 
             If txtEPA6b.Text <> "" Then
                 SQL = "select " & _
-            "distinct(substr(" & connNameSpace & ".SSPPApplicationMaster.strAIRSnumber, 5) ) as AIRSNumber,  " & _
+            "distinct(substr(" & DBNameSpace & ".SSPPApplicationMaster.strAIRSnumber, 5) ) as AIRSNumber,  " & _
             "strFacilityName, " & _
             "to_char(MaxDate, 'RRRR-MM-dd') as MaxDate " & _
-            "from " & connNameSpace & ".SSPPApplicationMaster,  " & _
-            "" & connNameSpace & ".SSPPApplicationTracking, " & connNameSpace & ".APBHeaderData,  " & _
-            "" & connNameSpace & ".APBFacilityInformation,   " & _
+            "from " & DBNameSpace & ".SSPPApplicationMaster,  " & _
+            "" & DBNameSpace & ".SSPPApplicationTracking, " & DBNameSpace & ".APBHeaderData,  " & _
+            "" & DBNameSpace & ".APBFacilityInformation,   " & _
             "(select  " & _
          "strAIRSNumber,  " & _
             "max(datEffective) as MaxDate  " & _
-            "from " & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".SSPPApplicationTracking  " & _
-            "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
+            "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking  " & _
+            "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
             "and datEffective is not null  " & _
             "group by strAIRSnumber) Effect,  " & _
             "(Select  " & _
-            "distinct(" & connNameSpace & ".SSPPApplicationMaster.strAIRSnumber) as AIRSNumber " & _
-            "from " & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".SSPPApplicationTracking  " & _
-            "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
+            "distinct(" & DBNameSpace & ".SSPPApplicationMaster.strAIRSnumber) as AIRSNumber " & _
+            "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking  " & _
+            "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
             "and datReceiveddate < add_months('" & EndDate & "', -6)  " & _
             "and datReceivedDate > add_months('" & EndDate & "', -54)  " & _
             "and (strApplicationType = '16' or strApplicationType = '12')) PermitRequests   " & _
-            "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationnumber " & _
-            "and " & connNameSpace & ".APBHeaderData.strAIRSNumber = " & connNameSpace & ".SSPPApplicationMaster.strAIRSNumber   " & _
-            "and " & connNameSpace & ".APBHeaderData.strAIRSNumber = " & connNameSpace & ".APBFacilityInformation.strAIRSNumber  " & _
-            "and " & connNameSpace & ".SSPPApplicationMaster.strAIRSNumber = Effect.strAIRSnumber  " & _
-            "and MaxDate = " & connNameSpace & ".SSPPApplicationTracking.datEffective " & _
+            "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationnumber " & _
+            "and " & DBNameSpace & ".APBHeaderData.strAIRSNumber = " & DBNameSpace & ".SSPPApplicationMaster.strAIRSNumber   " & _
+            "and " & DBNameSpace & ".APBHeaderData.strAIRSNumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber  " & _
+            "and " & DBNameSpace & ".SSPPApplicationMaster.strAIRSNumber = Effect.strAIRSnumber  " & _
+            "and MaxDate = " & DBNameSpace & ".SSPPApplicationTracking.datEffective " & _
             "and maxDate < add_months('" & EndDate & "', -54) " & _
             "and strOperationalStatus = 'O'  " & _
             "and substr(strAirProgramCodes, 13, 1) = '1'  " & _
-            "and " & connNameSpace & ".SSPPApplicationMaster.strAIRSNumber = PermitRequests.AIRSNumber  " & _
+            "and " & DBNameSpace & ".SSPPApplicationMaster.strAIRSNumber = PermitRequests.AIRSNumber  " & _
             "order by AIRSNumber "
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                daViewCount = New OracleDataAdapter(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If conn.State = ConnectionState.Open Then
+                If DBConn.State = ConnectionState.Open Then
                     'conn.close()
                 End If
                 dgvApplicationCount.RowHeadersVisible = False
@@ -6371,7 +6371,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -6400,62 +6400,62 @@ Public Class SSPPStatisticalTools
                 SQL = "select * " & _
                 "from (Select *  From  " & _
                 "(select  " & _
-                "distinct(substr(" & connNameSpace & ".SSPPApplicationMaster.strAIRSnumber, 5)) as AIRSNumber,   " & _
+                "distinct(substr(" & DBNameSpace & ".SSPPApplicationMaster.strAIRSnumber, 5)) as AIRSNumber,   " & _
                 "strFacilityName, MaxDate  " & _
-                "from " & connNameSpace & ".SSPPApplicationMaster,  " & connNameSpace & ".SSPPApplicationTracking,  " & _
-                "" & connNameSpace & ".APBHeaderData, " & connNameSpace & ".APBFacilityInformation,  " & _
+                "from " & DBNameSpace & ".SSPPApplicationMaster,  " & DBNameSpace & ".SSPPApplicationTracking,  " & _
+                "" & DBNameSpace & ".APBHeaderData, " & DBNameSpace & ".APBFacilityInformation,  " & _
                 "(select  strAIRSNumber,  " & _
                 "max(datEffective) as MaxDate   " & _
-                "from " & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".SSPPApplicationTracking   " & _
-                "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber   " & _
+                "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking   " & _
+                "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber   " & _
                 "and datEffective is not null  GROUP BY strAIRSNumber) Effect,   " & _
-                "(Select  distinct(" & connNameSpace & ".SSPPApplicationMaster.strAIRSnumber) as AIRSNumber  " & _
-                "from " & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".SSPPApplicationTracking   " & _
-                "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
+                "(Select  distinct(" & DBNameSpace & ".SSPPApplicationMaster.strAIRSnumber) as AIRSNumber  " & _
+                "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking   " & _
+                "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
                 "and datReceiveddate < add_months('" & EndDate & "', -6)   " & _
                 "and datReceivedDate > add_months('" & EndDate & "', -54)   " & _
                 "and strApplicationType <> '16'   " & _
                 "and strApplicationType <> '12') PermitRequests    " & _
-                "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationnumber  " & _
-                "and " & connNameSpace & ".APBHeaderData.strAIRSnumber = " & connNameSpace & ".APBFacilityInformation.strAIRSNumber " & _
-                "and " & connNameSpace & ".APBHeaderData.strAIRSNumber = " & connNameSpace & ".SSPPApplicationMaster.strAIRSNumber    " & _
-                "and " & connNameSpace & ".SSPPApplicationMaster.strAIRSNumber = Effect.strAIRSnumber   " & _
-                "and MaxDate = " & connNameSpace & ".SSPPApplicationTracking.datEffective  " & _
+                "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationnumber  " & _
+                "and " & DBNameSpace & ".APBHeaderData.strAIRSnumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber " & _
+                "and " & DBNameSpace & ".APBHeaderData.strAIRSNumber = " & DBNameSpace & ".SSPPApplicationMaster.strAIRSNumber    " & _
+                "and " & DBNameSpace & ".SSPPApplicationMaster.strAIRSNumber = Effect.strAIRSnumber   " & _
+                "and MaxDate = " & DBNameSpace & ".SSPPApplicationTracking.datEffective  " & _
                 "and maxDate < add_months('" & EndDate & "', -54) " & _
                 "and strOperationalStatus = 'O'   " & _
                 "and substr(strAirProgramCodes, 13, 1) = '1'  " & _
-                "and " & connNameSpace & ".SSPPApplicationMaster.strAIRSNumber = PermitRequests.AIRSNumber))  EPA6A " & _
+                "and " & DBNameSpace & ".SSPPApplicationMaster.strAIRSNumber = PermitRequests.AIRSNumber))  EPA6A " & _
                 "where not exists  " & _
                 "(select * from (Select *   " & _
-                "From (select distinct(substr(" & connNameSpace & ".SSPPApplicationMaster.strAIRSnumber, 5) ) as AIRSNumber,   " & _
-                "strFacilityName, MaxDate from " & connNameSpace & ".SSPPApplicationMaster,  " & connNameSpace & ".SSPPApplicationTracking, " & connNameSpace & ".APBHeaderData,   " & _
-                "" & connNameSpace & ".APBFacilityInformation,   (select  strAIRSNumber,  max(datEffective) as MaxDate  from " & connNameSpace & ".SSPPApplicationMaster,  " & _
-                "" & connNameSpace & ".SSPPApplicationTracking   " & _
-                "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber   " & _
+                "From (select distinct(substr(" & DBNameSpace & ".SSPPApplicationMaster.strAIRSnumber, 5) ) as AIRSNumber,   " & _
+                "strFacilityName, MaxDate from " & DBNameSpace & ".SSPPApplicationMaster,  " & DBNameSpace & ".SSPPApplicationTracking, " & DBNameSpace & ".APBHeaderData,   " & _
+                "" & DBNameSpace & ".APBFacilityInformation,   (select  strAIRSNumber,  max(datEffective) as MaxDate  from " & DBNameSpace & ".SSPPApplicationMaster,  " & _
+                "" & DBNameSpace & ".SSPPApplicationTracking   " & _
+                "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber   " & _
                 "and datEffective is not null  group by strAIRSnumber) Effect,   " & _
-                "(Select  distinct(" & connNameSpace & ".SSPPApplicationMaster.strAIRSnumber) as AIRSNumber from " & connNameSpace & ".SSPPApplicationMaster,  " & _
-                "" & connNameSpace & ".SSPPApplicationTracking   " & _
-                "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber   " & _
+                "(Select  distinct(" & DBNameSpace & ".SSPPApplicationMaster.strAIRSnumber) as AIRSNumber from " & DBNameSpace & ".SSPPApplicationMaster,  " & _
+                "" & DBNameSpace & ".SSPPApplicationTracking   " & _
+                "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber   " & _
                 "and datReceiveddate < add_months('" & EndDate & "', -6)  and datReceivedDate > add_months('" & EndDate & "', -54)   " & _
                 "and (strApplicationType = '16' or strApplicationType = '12')) PermitRequests    " & _
-                "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationnumber  " & _
-                "and " & connNameSpace & ".APBHeaderData.strAIRSNumber = " & connNameSpace & ".SSPPApplicationMaster.strAIRSNumber    " & _
-                "and " & connNameSpace & ".APBHeaderData.strAIRSNumber = " & connNameSpace & ".APBFacilityInformation.strAIRSNumber  " & _
-                "and " & connNameSpace & ".SSPPApplicationMaster.strAIRSNumber = Effect.strAIRSnumber  " & _
-                "and MaxDate = " & connNameSpace & ".SSPPApplicationTracking.datEffective  " & _
+                "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationnumber  " & _
+                "and " & DBNameSpace & ".APBHeaderData.strAIRSNumber = " & DBNameSpace & ".SSPPApplicationMaster.strAIRSNumber    " & _
+                "and " & DBNameSpace & ".APBHeaderData.strAIRSNumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber  " & _
+                "and " & DBNameSpace & ".SSPPApplicationMaster.strAIRSNumber = Effect.strAIRSnumber  " & _
+                "and MaxDate = " & DBNameSpace & ".SSPPApplicationTracking.datEffective  " & _
                 "and maxDate < add_months('" & EndDate & "', -54)  " & _
                 "and strOperationalStatus = 'O'  and substr(strAirProgramCodes, 13, 1) = '1'   " & _
-                "and " & connNameSpace & ".SSPPApplicationMaster.strAIRSNumber = PermitRequests.AIRSNumber)  ) EPA6b where  EPA6A.airsnumber = EPA6b.airsNumber) "
+                "and " & DBNameSpace & ".SSPPApplicationMaster.strAIRSNumber = PermitRequests.AIRSNumber)  ) EPA6b where  EPA6A.airsnumber = EPA6b.airsNumber) "
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                daViewCount = New OracleDataAdapter(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If conn.State = ConnectionState.Open Then
+                If DBConn.State = ConnectionState.Open Then
                     'conn.close()
                 End If
                 dgvApplicationCount.RowHeadersVisible = False
@@ -6480,7 +6480,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -6510,7 +6510,7 @@ Public Class SSPPStatisticalTools
 
             If txtEPA7a.Text <> "" Then
                 SQL = "select " & _
-                "" & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
+                "" & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
                 "strFacilityName, strApplicationTypeDesc, " & _
                 "case       " & _
                 "when datFinalizedDate is Not Null then '11 - Closed Out'        " & _
@@ -6528,11 +6528,11 @@ Public Class SSPPStatisticalTools
                 "end as AppStatus, " & _
                 "to_char(datReceivedDate, 'RRRR-MM-dd') as datReceivedDate, " & _
                 "to_char(datPermitIssued, 'RRRR-MM-dd') as datPermitIssued " & _
-                "from " & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".SSPPApplicationTracking,  " & _
-                "" & connNameSpace & ".SSPPApplicationData, " & connNameSpace & ".LookUpApplicationTypes " & _
-                "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-                "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
-                "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationType = " & connNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode (+) " & _
+                "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
+                "" & DBNameSpace & ".SSPPApplicationData, " & DBNameSpace & ".LookUpApplicationTypes " & _
+                "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
+                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
+                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationType = " & DBNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode (+) " & _
                 "AND datPermitIssued IS NOT NULL " & _
                 "AND (strApplicationType = '22' or strApplicationType = '21')  " & _
                 "AND strPermitType = '7'  " & _
@@ -6540,14 +6540,14 @@ Public Class SSPPStatisticalTools
                 "AND datPermitIssued < '" & EndDate & "' "
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                daViewCount = New OracleDataAdapter(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If conn.State = ConnectionState.Open Then
+                If DBConn.State = ConnectionState.Open Then
                     'conn.close()
                 End If
                 dgvApplicationCount.RowHeadersVisible = False
@@ -6577,7 +6577,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -6604,7 +6604,7 @@ Public Class SSPPStatisticalTools
 
             If txtEPA7b.Text <> "" Then
                 SQL = "select " & _
-                "" & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
+                "" & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
                 "strFacilityName, strApplicationTypeDesc, " & _
                 "case       " & _
                 "when datFinalizedDate is Not Null then '11 - Closed Out'        " & _
@@ -6622,11 +6622,11 @@ Public Class SSPPStatisticalTools
                 "end as AppStatus, " & _
                 "to_char(datReceivedDate, 'RRRR-MM-dd') as datReceivedDate, " & _
                 "to_char(datPermitIssued, 'RRRR-MM-dd') as datPermitIssued " & _
-                "from " & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".SSPPApplicationTracking,  " & _
-                "" & connNameSpace & ".SSPPApplicationData, " & connNameSpace & ".LookUpApplicationTypes " & _
-                "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-                "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
-                "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationType = " & connNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode (+) " & _
+                "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
+                "" & DBNameSpace & ".SSPPApplicationData, " & DBNameSpace & ".LookUpApplicationTypes " & _
+                "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
+                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
+                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationType = " & DBNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode (+) " & _
                 "AND datPermitIssued IS NOT NULL " & _
                 "AND (strApplicationType = '22' or strApplicationType = '21')  " & _
                 "AND strPermitType = '7'  " & _
@@ -6635,14 +6635,14 @@ Public Class SSPPStatisticalTools
                 "and datReceivedDate > add_months(datPermitIssued, -18) "
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                daViewCount = New OracleDataAdapter(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If conn.State = ConnectionState.Open Then
+                If DBConn.State = ConnectionState.Open Then
                     'conn.close()
                 End If
                 dgvApplicationCount.RowHeadersVisible = False
@@ -6672,7 +6672,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -6699,7 +6699,7 @@ Public Class SSPPStatisticalTools
 
             If txtEPA7c.Text <> "" Then
                 SQL = "select " & _
-                "" & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
+                "" & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
                 "strFacilityName, strApplicationTypeDesc, " & _
                 "case       " & _
                 "when datFinalizedDate is Not Null then '11 - Closed Out'        " & _
@@ -6717,11 +6717,11 @@ Public Class SSPPStatisticalTools
                 "end as AppStatus, " & _
                 "to_char(datReceivedDate, 'RRRR-MM-dd') as datReceivedDate, " & _
                 "to_char(datPermitIssued, 'RRRR-MM-dd') as datPermitIssued " & _
-                "from " & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".SSPPApplicationTracking,  " & _
-                "" & connNameSpace & ".SSPPApplicationData, " & connNameSpace & ".LookUpApplicationTypes " & _
-                "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-                "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
-                "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationType = " & connNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode (+) " & _
+                "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
+                "" & DBNameSpace & ".SSPPApplicationData, " & DBNameSpace & ".LookUpApplicationTypes " & _
+                "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
+                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
+                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationType = " & DBNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode (+) " & _
                 "AND datPermitIssued IS NOT NULL " & _
                 "AND (strApplicationType = '22' or strApplicationType = '21')  " & _
                 "AND strPermitType = '7'  " & _
@@ -6730,14 +6730,14 @@ Public Class SSPPStatisticalTools
                 "and datReceivedDate > add_months(datPermitIssued, -9) "
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                daViewCount = New OracleDataAdapter(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If conn.State = ConnectionState.Open Then
+                If DBConn.State = ConnectionState.Open Then
                     'conn.close()
                 End If
                 dgvApplicationCount.RowHeadersVisible = False
@@ -6767,7 +6767,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -6793,7 +6793,7 @@ Public Class SSPPStatisticalTools
 
             If txtEPA8a.Text <> "" Then
                 SQL = "select " & _
-                "" & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
+                "" & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber,  " & _
                 "strFacilityName, strApplicationTypeDesc, " & _
                 "case       " & _
                 "when datFinalizedDate is Not Null then '11 - Closed Out'        " & _
@@ -6810,24 +6810,24 @@ Public Class SSPPStatisticalTools
                 "else '01 - At Engineer'        " & _
                 "end as AppStatus, " & _
                 "to_char(datReceivedDate, 'RRRR-MM-dd') as datReceivedDate " & _
-                "from " & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".SSPPApplicationTracking,  " & _
-                "" & connNameSpace & ".SSPPApplicationData, " & connNameSpace & ".LookUpApplicationTypes " & _
-                "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-                "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
-                "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationType = " & connNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode (+) " & _
+                "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
+                "" & DBNameSpace & ".SSPPApplicationData, " & DBNameSpace & ".LookUpApplicationTypes " & _
+                "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
+                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber  " & _
+                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationType = " & DBNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode (+) " & _
                 "AND (strApplicationType = '22' or strApplicationType = '21')  " & _
                 "and datPermitIssued is Null " & _
                 "and datReceivedDate < add_months('" & EndDate & "', -18) "
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                daViewCount = New OracleDataAdapter(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvApplicationCount.DataSource = dsViewCount
                 dgvApplicationCount.DataMember = "ViewCount"
-                If conn.State = ConnectionState.Open Then
+                If DBConn.State = ConnectionState.Open Then
                     'conn.close()
                 End If
                 dgvApplicationCount.RowHeadersVisible = False
@@ -6856,7 +6856,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -6871,7 +6871,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -6896,9 +6896,9 @@ Public Class SSPPStatisticalTools
                 "WHERE numUnit = '" & cboSSPPUnits.SelectedValue & "'   " & _
                 "Order by UserName  "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -6912,18 +6912,18 @@ Public Class SSPPStatisticalTools
                     SQL = "select (strLastName||', '||strFirstName) as UserName,  " & _
                     "numUSerID    " & _
                     "from    " & _
-                    "" & connNameSpace & ".EPDUserProfiles,    " & _
+                    "" & DBNameSpace & ".EPDUserProfiles,    " & _
                     "(select distinct(strStaffResponsible) As Users   " & _
-                    "from " & connNameSpace & ".SSPPApplicationMaster   " & _
+                    "from " & DBNameSpace & ".SSPPApplicationMaster   " & _
                     "minus    " & _
                     "select to_char(numUserID)     " & _
-                    "from " & connNameSpace & ".EPDUserProfiles where numProgram = '5') AppUsers   " & _
-                    "where " & connNameSpace & ".EPDUserProfiles.numUserID = AppUsers.Users    " & _
+                    "from " & DBNameSpace & ".EPDUserProfiles where numProgram = '5') AppUsers   " & _
+                    "where " & DBNameSpace & ".EPDUserProfiles.numUserID = AppUsers.Users    " & _
                     "Order by Username  "
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     While dr.Read
@@ -6962,7 +6962,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -6982,7 +6982,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -7002,7 +7002,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -7036,7 +7036,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -7070,7 +7070,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -7104,7 +7104,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -7122,7 +7122,7 @@ Public Class SSPPStatisticalTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -7172,7 +7172,7 @@ Public Class SSPPStatisticalTools
                 ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
             End If
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -7198,23 +7198,23 @@ Public Class SSPPStatisticalTools
             Dim drDSRow4 As DataRow
             Dim drNewRow As DataRow
 
-            SQL = "Select * from " & connNameSpace & ".LookupSubPart60 order by strSubpart "
-            SQL2 = "Select * from " & connNameSpace & ".LookupSubPart61 order by strSubpart "
-            SQL3 = "Select * from " & connNameSpace & ".LookupSubPart63 order by strSubpart "
-            SQL4 = "Select * from " & connNameSpace & ".LookUpSubPartSIP order by strSubPart "
+            SQL = "Select * from " & DBNameSpace & ".LookupSubPart60 order by strSubpart "
+            SQL2 = "Select * from " & DBNameSpace & ".LookupSubPart61 order by strSubpart "
+            SQL3 = "Select * from " & DBNameSpace & ".LookupSubPart63 order by strSubpart "
+            SQL4 = "Select * from " & DBNameSpace & ".LookUpSubPartSIP order by strSubPart "
 
             dsPart60 = New DataSet
             dsPart61 = New DataSet
             dsPart63 = New DataSet
             dsSIP = New DataSet
 
-            daPart60 = New OracleDataAdapter(SQL, conn)
-            daPart61 = New OracleDataAdapter(SQL2, conn)
-            daPart63 = New OracleDataAdapter(SQL3, conn)
-            daSIP = New OracleDataAdapter(SQL4, conn)
+            daPart60 = New OracleDataAdapter(SQL, DBConn)
+            daPart61 = New OracleDataAdapter(SQL2, DBConn)
+            daPart63 = New OracleDataAdapter(SQL3, DBConn)
+            daSIP = New OracleDataAdapter(SQL4, DBConn)
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             daPart60.Fill(dsPart60, "Part60")
@@ -7359,28 +7359,28 @@ Public Class SSPPStatisticalTools
                 txtSIPDescription.BackColor = Color.White
 
                 SQL = "Select strSubPart " & _
-                "From " & connNameSpace & ".LookUpSubpartSIP " & _
+                "From " & DBNameSpace & ".LookUpSubpartSIP " & _
                 "where strSubPart = '" & txtSIPCode.Text & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 dr.Close()
                 If recExist = True Then
-                    SQL = "Update " & connNameSpace & ".LookUpSubpartSIP set " & _
+                    SQL = "Update " & DBNameSpace & ".LookUpSubpartSIP set " & _
                     "strDescription = '" & Replace(txtSIPDescription.Text, "'", "''") & "' " & _
                     "where strSubpart = '" & txtSIPCode.Text & "' "
                 Else
-                    SQL = "Insert into " & connNameSpace & ".LookUpSubpartSIP " & _
+                    SQL = "Insert into " & DBNameSpace & ".LookUpSubpartSIP " & _
                     "values " & _
                     "('" & Replace(txtSIPCode.Text, "'", "''") & "', " & _
                     "'" & Replace(txtSIPDescription.Text, "'", "''") & "') "
                 End If
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -7412,28 +7412,28 @@ Public Class SSPPStatisticalTools
                 txtNSPSDescription.BackColor = Color.White
 
                 SQL = "Select strSubPart " & _
-                "From " & connNameSpace & ".LookUpSubpart60 " & _
+                "From " & DBNameSpace & ".LookUpSubpart60 " & _
                 "where strSubPart = '" & txtNSPSCode.Text & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 dr.Close()
                 If recExist = True Then
-                    SQL = "Update " & connNameSpace & ".LookUpSubpart60 set " & _
+                    SQL = "Update " & DBNameSpace & ".LookUpSubpart60 set " & _
                     "strDescription = '" & Replace(txtNSPSDescription.Text, "'", "''") & "' " & _
                     "where strSubpart = '" & txtNSPSCode.Text & "' "
                 Else
-                    SQL = "Insert into " & connNameSpace & ".LookUpSubpart60 " & _
+                    SQL = "Insert into " & DBNameSpace & ".LookUpSubpart60 " & _
                     "values " & _
                     "('" & Replace(txtNSPSCode.Text, "'", "''") & "', " & _
                     "'" & Replace(txtNSPSDescription.Text, "'", "''") & "') "
                 End If
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -7464,28 +7464,28 @@ Public Class SSPPStatisticalTools
                 txtNESHAPDescription.BackColor = Color.White
 
                 SQL = "Select strSubPart " & _
-                "From " & connNameSpace & ".LookUpSubpart61 " & _
+                "From " & DBNameSpace & ".LookUpSubpart61 " & _
                 "where strSubPart = '" & txtNESHAPCode.Text & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 dr.Close()
                 If recExist = True Then
-                    SQL = "Update " & connNameSpace & ".LookUpSubpart61 set " & _
+                    SQL = "Update " & DBNameSpace & ".LookUpSubpart61 set " & _
                     "strDescription = '" & Replace(txtNESHAPDescription.Text, "'", "''") & "' " & _
                     "where strSubpart = '" & txtNESHAPCode.Text & "' "
                 Else
-                    SQL = "Insert into " & connNameSpace & ".LookUpSubpart61 " & _
+                    SQL = "Insert into " & DBNameSpace & ".LookUpSubpart61 " & _
                     "values " & _
                     "('" & Replace(txtNESHAPCode.Text, "'", "''") & "', " & _
                     "'" & Replace(txtNESHAPDescription.Text, "'", "''") & "') "
                 End If
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -7517,28 +7517,28 @@ Public Class SSPPStatisticalTools
                 txtMACTDescription.BackColor = Color.White
 
                 SQL = "Select strSubPart " & _
-                "From " & connNameSpace & ".LookUpSubpart63 " & _
+                "From " & DBNameSpace & ".LookUpSubpart63 " & _
                 "where strSubPart = '" & txtMACTCode.Text & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 dr.Close()
                 If recExist = True Then
-                    SQL = "Update " & connNameSpace & ".LookUpSubpart63 set " & _
+                    SQL = "Update " & DBNameSpace & ".LookUpSubpart63 set " & _
                     "strDescription = '" & Replace(txtMACTDescription.Text, "'", "''") & "' " & _
                     "where strSubpart = '" & txtMACTCode.Text & "' "
                 Else
-                    SQL = "Insert into " & connNameSpace & ".LookUpSubpart63 " & _
+                    SQL = "Insert into " & DBNameSpace & ".LookUpSubpart63 " & _
                     "values " & _
                     "('" & Replace(txtMACTCode.Text, "'", "''") & "', " & _
                     "'" & Replace(txtMACTDescription.Text, "'", "''") & "') "
                 End If
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -7565,12 +7565,12 @@ Public Class SSPPStatisticalTools
     End Sub
     Private Sub btnDeleteSIPSubpart_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDeleteSIPSubpart.Click
         Try
-            SQL = "Delete " & connNameSpace & ".LookUpSubpartSIP " & _
+            SQL = "Delete " & DBNameSpace & ".LookUpSubpartSIP " & _
             "where strSubpart = '" & Replace(txtSIPCode.Text, "'", "''") & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -7583,12 +7583,12 @@ Public Class SSPPStatisticalTools
     End Sub
     Private Sub btnDeleteNSPSSubpart_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDeleteNSPSSubpart.Click
         Try
-            SQL = "Delete " & connNameSpace & ".LookUpSubpart60 " & _
+            SQL = "Delete " & DBNameSpace & ".LookUpSubpart60 " & _
             "where strSubpart = '" & Replace(txtSIPCode.Text, "'", "''") & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -7601,12 +7601,12 @@ Public Class SSPPStatisticalTools
     End Sub
     Private Sub btnDeleteNESHAPSubpart_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDeleteNESHAPSubpart.Click
         Try
-            SQL = "Delete " & connNameSpace & ".LookUpSubpart61 " & _
+            SQL = "Delete " & DBNameSpace & ".LookUpSubpart61 " & _
             "where strSubpart = '" & Replace(txtSIPCode.Text, "'", "''") & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -7619,12 +7619,12 @@ Public Class SSPPStatisticalTools
     End Sub
     Private Sub btnDeleteMACTSubpart_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDeleteMACTSubpart.Click
         Try
-            SQL = "Delete " & connNameSpace & ".LookUpSubpart63 " & _
+            SQL = "Delete " & DBNameSpace & ".LookUpSubpart63 " & _
             "where strSubpart = '" & Replace(txtSIPCode.Text, "'", "''") & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()

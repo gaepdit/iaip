@@ -13,13 +13,13 @@ Public Class PassFailNoShow
             Dim ds As DataSet
             Dim da As OracleDataAdapter
 
-            SQL = "Select * from " & connNameSpace & ".SmokeSchoolPrintInfo "
+            SQL = "Select * from " & DBNameSpace & ".SmokeSchoolPrintInfo "
 
             ds = New DataSet
 
-            da = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            da = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             ds.EnforceConstraints = False
             da.Fill(ds, "SmokeSchoolPrintInfo")

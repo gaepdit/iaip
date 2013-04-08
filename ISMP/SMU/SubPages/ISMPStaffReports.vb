@@ -179,49 +179,49 @@ Public Class ISMPStaffReports
                 "	When CloseComplianceByDate is NULL then 0  " & _
                 "	Else CloseComplianceByDate " & _
                 "End as CloseComplianceByDate  " & _
-                "from " & connNameSpace & ".EPDUserProfiles, " & connNameSpace & ".ISMPReportInformation,  " & _
+                "from " & DBNameSpace & ".EPDUserProfiles, " & DBNameSpace & ".ISMPReportInformation,  " & _
                 "(Select strReviewingEngineer,  count(*) as ReceivedByDate   " & _
-                "from " & connNameSpace & ".ISMPReportInformation   " & _
+                "from " & DBNameSpace & ".ISMPReportInformation   " & _
                 "where strDelete is NULL " & _
                 "and " & DateBias & " " & _
                 "Group by strReviewingEngineer) ReceivedByDates,  " & _
                 "(Select strReviewingEngineer,  " & _
                 "count(*) as OpenByDate  " & _
-                "from " & connNameSpace & ".ISMPReportInformation  " & _
+                "from " & DBNameSpace & ".ISMPReportInformation  " & _
                 "where strClosed = 'False'  " & _
                 "and strDelete is NULL  " & _
                 "and " & DateBias & " " & _
                 "Group by strReviewingEngineer) OpenByDates,  " & _
                 "(Select strReviewingEngineer,  " & _
                 "count(*) as CloseByDate  " & _
-                "from " & connNameSpace & ".ISMPReportInformation  " & _
+                "from " & DBNameSpace & ".ISMPReportInformation  " & _
                 "where strClosed = 'True'  " & _
                 "and StrDelete is NULL  " & _
                 "and " & DateBias & " " & _
                 "Group by strReviewingEngineer) CloseByDates,  " & _
                 "(Select strWitnessingEngineer,  " & _
                 "count(*) as WitnessedByDate  " & _
-                "from " & connNameSpace & ".ISMPReportInformation  " & _
+                "from " & DBNameSpace & ".ISMPReportInformation  " & _
                 "where strDelete is NULL  " & _
                 "and " & DateBias & " " & _
                 "group by strWitnessingEngineer) WitnessedByDates,  " & _
                 "(Select strWitnessingEngineer,  " & _
                 "count(*) as OpenWitnessedByDate   " & _
-                "from " & connNameSpace & ".ISMPReportInformation  " & _
+                "from " & DBNameSpace & ".ISMPReportInformation  " & _
                 "where strDelete is NULL  " & _
                 "and strClosed = 'False'  " & _
                  "and " & DateBias & " " & _
                 "group by strWitnessingEngineer) OpenWitnessedByDates,  " & _
                 "(select strWitnessingEngineer,  " & _
                 "count(*) as CloseWitnessedByDate   " & _
-                "from " & connNameSpace & ".ISMPReportInformation  " & _
+                "from " & DBNameSpace & ".ISMPReportInformation  " & _
                 "where strDelete is NULL  " & _
                 "and strClosed = 'True' " & _
                 "and " & DateBias & " " & _
                 "group by strwitnessingEngineer) CloseWitnessedByDates,  " & _
                 "(select strReviewingEngineer,  " & _
                 "count(*) as GreaterByDate " & _
-                "from " & connNameSpace & ".ISMPReportInformation  " & _
+                "from " & DBNameSpace & ".ISMPReportInformation  " & _
                 "where strDelete is NULL  " & _
                 "and datReceivedDate < Decode(strClosed, 'False', (trunc(sysdate) - 50), " & _
                 "                                        'True', (-50 + datCompleteDate)) " & _
@@ -229,7 +229,7 @@ Public Class ISMPStaffReports
                 "Group by strReviewingEngineer) GreaterByDates,  " & _
                 "(select strReviewingEngineer,  " & _
                 "count(*) as OpenGreaterByDate " & _
-                "from " & connNameSpace & ".ISMPReportInformation  " & _
+                "from " & DBNameSpace & ".ISMPReportInformation  " & _
                 "where strDelete is NULL  " & _
                 "and strClosed = 'False'  " & _
                 "and datReceivedDate < (trunc(sysdate) - 50)  " & _
@@ -237,7 +237,7 @@ Public Class ISMPStaffReports
                 "Group by strReviewingEngineer) OpenGreaterByDates,  " & _
                 "(select strReviewingEngineer,  " & _
                 "count(*) as CloseGreaterByDate " & _
-                "from " & connNameSpace & ".ISMPReportInformation  " & _
+                "from " & DBNameSpace & ".ISMPReportInformation  " & _
                 "where strDelete is NULL  " & _
                 "and strClosed = 'True'  " & _
                 "and datReceivedDate < (-50 + datCompleteDate) " & _
@@ -245,14 +245,14 @@ Public Class ISMPStaffReports
                 "Group by strReviewingEngineer) CloseGreaterByDates,  " & _
                 "(select strReviewingEngineer, " & _
                 "count(*) as ComplianceByDate " & _
-                "from " & connNameSpace & ".ISMPReportInformation " & _
+                "from " & DBNameSpace & ".ISMPReportInformation " & _
                 "where strComplianceStatus = '05' " & _
                 "and strDelete is NULL " & _
                 "and " & DateBias & " " & _
                 "group by strReviewingEngineer) ComplianceByDates, " & _
                 "(select strReviewingEngineer,   " & _
                 "count(*) as OpenComplianceByDate  " & _
-                "from " & connNameSpace & ".ISMPReportInformation   " & _
+                "from " & DBNameSpace & ".ISMPReportInformation   " & _
                 "where strComplianceStatus = '05'  " & _
                 "and strClosed = 'False'  " & _
                 "and strDelete is NULL  " & _
@@ -260,32 +260,32 @@ Public Class ISMPStaffReports
                 "group by strReviewingEngineer) OpenComplianceByDates,   " & _
                 "(Select strReviewingEngineer,  " & _
                 "count(*) as CloseComplianceByDate  " & _
-                "from " & connNameSpace & ".ISMPReportInformation   " & _
+                "from " & DBNameSpace & ".ISMPReportInformation   " & _
                 "where strComplianceStatus = '05'  " & _
                 "and strClosed = 'True'  " & _
                 "and strDelete is NULL  " & _
                 "and " & DateBias & " " & _
                 "group by strReviewingEngineer) CloseComplianceByDates   " & _
-                "where " & connNameSpace & ".EPDUserProfiles.numUserID = " & connNameSpace & ".ISMPReportInformation.strReviewingEngineer  " & _
-                "and " & connNameSpace & ".ISMPReportInformation.strReviewingEngineer = ReceivedByDates.strReviewingEngineer (+) " & _
-                "and " & connNameSpace & ".ISMPReportInformation.strReviewingEngineer = OpenBYDates.strReviewingEngineer (+)  " & _
-                "and " & connNameSpace & ".ISMPReportInformation.strReviewingEngineer = CloseByDates.strReviewingEngineer (+)  " & _
-                "and " & connNameSpace & ".ISMPReportInformation.strReviewingEngineer = WitnessedByDates.strWitnessingEngineer (+)  " & _
-                "and " & connNameSpace & ".ISMPReportInformation.strReviewingEngineer = OpenwitnessedByDates.strWitnessingEngineer (+)  " & _
-                "and " & connNameSpace & ".ISMPReportInformation.strReviewingEngineer = CloseWitnessedByDates.strWitnessingEngineer (+)  " & _
-                "and " & connNameSpace & ".ISMPReportInformation.strReviewingEngineer = GreaterByDates.strReviewingEngineer (+) " & _
-                "and " & connNameSpace & ".ISMPReportInformation.strReviewingEngineer = OpenGreaterByDates.strReviewingEngineer (+)  " & _
-                "and " & connNameSpace & ".ISMPReportInformation.strReviewingEngineer = CloseGreaterByDates.strReviewingEngineer (+)  " & _
-                "and " & connNameSpace & ".ISMPReportInformation.strReviewingEngineer = ComplianceByDates.strReviewingEngineer (+) " & _
-                "and " & connNameSpace & ".ISMPReportInformation.strReviewingEngineer = OpenComplianceByDates.strReviewingEngineer (+)  " & _
-                "and " & connNameSpace & ".ISMPReportInformation.strREviewingEngineer = CloseComplianceByDates.strReviewingEngineer (+)  " & _
-                "and " & connNameSpace & ".ISMPReportInformation.strReviewingEngineer = '" & EngineerGCode & "' "
+                "where " & DBNameSpace & ".EPDUserProfiles.numUserID = " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer  " & _
+                "and " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer = ReceivedByDates.strReviewingEngineer (+) " & _
+                "and " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer = OpenBYDates.strReviewingEngineer (+)  " & _
+                "and " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer = CloseByDates.strReviewingEngineer (+)  " & _
+                "and " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer = WitnessedByDates.strWitnessingEngineer (+)  " & _
+                "and " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer = OpenwitnessedByDates.strWitnessingEngineer (+)  " & _
+                "and " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer = CloseWitnessedByDates.strWitnessingEngineer (+)  " & _
+                "and " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer = GreaterByDates.strReviewingEngineer (+) " & _
+                "and " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer = OpenGreaterByDates.strReviewingEngineer (+)  " & _
+                "and " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer = CloseGreaterByDates.strReviewingEngineer (+)  " & _
+                "and " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer = ComplianceByDates.strReviewingEngineer (+) " & _
+                "and " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer = OpenComplianceByDates.strReviewingEngineer (+)  " & _
+                "and " & DBNameSpace & ".ISMPReportInformation.strREviewingEngineer = CloseComplianceByDates.strReviewingEngineer (+)  " & _
+                "and " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer = '" & EngineerGCode & "' "
 
                 SQL2 = "Select " & _
                 "(strLastName|| ', ' ||strFirstName) as Staff, " & _
                 "(trunc(sysdate) - datReceivedDate) as DaysOpenByDate " & _
-                "from " & connNameSpace & ".EPDUserProfiles, " & connNameSpace & ".ISMPReportInformation " & _
-                "where " & connNameSpace & ".EPDUserProfiles.numUserID = " & connNameSpace & ".ISMPReportInformation.strReviewingEngineer  " & _
+                "from " & DBNameSpace & ".EPDUserProfiles, " & DBNameSpace & ".ISMPReportInformation " & _
+                "where " & DBNameSpace & ".EPDUserProfiles.numUserID = " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer  " & _
                 "and strClosed = 'False' " & _
                 "and strDelete is NULL " & _
                 "and " & DateBias & " " & _
@@ -295,8 +295,8 @@ Public Class ISMPStaffReports
                 SQL3 = "Select " & _
                 "(strLastName|| ', ' ||strFirstName) as Staff, " & _
                 "(datCompleteDate - datReceivedDate) as DaysCloseByDate " & _
-                "from " & connNameSpace & ".EPDUserProfiles, " & connNameSpace & ".ISMPReportInformation " & _
-                "where " & connNameSpace & ".EPDUserProfiles.numUserID = " & connNameSpace & ".ISMPReportInformation.strReviewingEngineer  " & _
+                "from " & DBNameSpace & ".EPDUserProfiles, " & DBNameSpace & ".ISMPReportInformation " & _
+                "where " & DBNameSpace & ".EPDUserProfiles.numUserID = " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer  " & _
                 "and strClosed = 'True' " & _
                 "and strDelete is NULL " & _
                 "and " & DateBias & " " & _
@@ -341,79 +341,79 @@ Public Class ISMPStaffReports
                 "when ClosedGreaterTotal is NULL then 0   " & _
                 "Else ClosedGreaterTotal   " & _
                 "End as ClosedGreaterTotal   " & _
-                "from " & connNameSpace & ".EPDUserProfiles, " & connNameSpace & ".ISMPReportInformation, " & _
+                "from " & DBNameSpace & ".EPDUserProfiles, " & DBNameSpace & ".ISMPReportInformation, " & _
                 "(Select strReviewingEngineer,  " & _
                 "count(*) as ReceivedTotal  " & _
-                "from " & connNameSpace & ".ISMPReportInformation  " & _
+                "from " & DBNameSpace & ".ISMPReportInformation  " & _
                 "where strDelete is NULL  " & _
                 "Group by strReviewingEngineer) ReceivedTotals,  " & _
                 "(Select strReviewingEngineer,  " & _
                 "count(*) as OpenTotal " & _
-                "from " & connNameSpace & ".ISMPReportInformation  " & _
+                "from " & DBNameSpace & ".ISMPReportInformation  " & _
                 "where strClosed = 'False' " & _
                 "and strDelete is NULL  " & _
                 "Group by strReviewingEngineer) OpenTotals,  " & _
                 "(select strWitnessingEngineer,  " & _
                 "count(*) as OpenWitnessedTotal  " & _
-                "from " & connNameSpace & ".ISMPReportInformation  " & _
+                "from " & DBNameSpace & ".ISMPReportInformation  " & _
                 "where strClosed = 'False' " & _
                 "and strDelete is Null " & _
                 "group by strWitnessingEngineer) OpenWitnessedTotals,  " & _
                 "(select strReviewingEngineer,  " & _
                 "count(*) as OpenComplianceTotal  " & _
-                "from " & connNameSpace & ".ISMPReportInformation  " & _
+                "from " & DBNameSpace & ".ISMPReportInformation  " & _
                 "where strComplianceStatus = '05' " & _
                 "and strClosed = 'False' " & _
                 "and strDelete is NULL " & _
                 "group by strReviewingEngineer) OpenComplianceTotals,  " & _
                 "(select strReviewingEngineer,  " & _
                 "count(*) as CloseTotal  " & _
-                "from " & connNameSpace & ".ISMPReportInformation  " & _
+                "from " & DBNameSpace & ".ISMPReportInformation  " & _
                 "where strClosed = 'True'  " & _
                 "and strDelete is NULL " & _
                 "Group by strReviewingEngineer) CloseTotals,  " & _
                 "(select strWitnessingEngineer,  " & _
                 "count(*) as ClosedWitnessedTotal  " & _
-                "from " & connNameSpace & ".ISMPReportInformation  " & _
+                "from " & DBNameSpace & ".ISMPReportInformation  " & _
                 "where strClosed = 'True' " & _
                 "and strDelete is NULL  " & _
                 "group by strWitnessingEngineer) ClosedWitnessedTotals,  " & _
                 "(select strReviewingEngineer,  " & _
                 "count(*) as ClosedComplianceTotal  " & _
-                "from " & connNameSpace & ".ISMPReportInformation  " & _
+                "from " & DBNameSpace & ".ISMPReportInformation  " & _
                 "where strComplianceStatus = '05' " & _
                 "and strClosed = 'True' " & _
                 "and strDelete is NULL " & _
                 "group by strReviewingEngineer) ClosedComplianceTotals, " & _
                 "(select strReviewingEngineer, count(*) as OpenGreaterTotal " & _
-                "from " & connNameSpace & ".ISMPReportInformation  " & _
+                "from " & DBNameSpace & ".ISMPReportInformation  " & _
                 "where strDelete is NULL  " & _
                 "and strClosed = 'False'  " & _
                 "and datReceivedDate < (trunc(sysdate) - 50)  " & _
                 "Group by strReviewingEngineer) OpenGreaterTotals, " & _
                 "(select strReviewingEngineer, count(*) as ClosedGreaterTotal " & _
-                "from " & connNameSpace & ".ISMPReportInformation  " & _
+                "from " & DBNameSpace & ".ISMPReportInformation  " & _
                 "where strDelete is NULL  " & _
                 "and strClosed = 'True'  " & _
                 "and datReceivedDate < (-50 + datCompleteDate)  " & _
                 "Group by strReviewingEngineer) ClosedGreaterTotals " & _
-                "where " & connNameSpace & ".EPDUserProfiles.numUserID = " & connNameSpace & ".ISMPReportInformation.strReviewingEngineer  " & _
-                "and " & connNameSpace & ".ISMPReportInformation.strReviewingEngineer = ReceivedTotals.strReviewingEngineer (+) " & _
-                "and " & connNameSpace & ".ISMPReportInformation.strReviewingEngineer = OpenTotals.strReviewingEngineer (+) " & _
-                "and " & connNameSpace & ".ISMPReportInformation.strReviewingEngineer = OpenWitnessedTotals.strWitnessingEngineer (+) " & _
-                "and " & connNameSpace & ".ISMPReportInformation.strReviewingEngineer = OpenComplianceTotals.strReviewingEngineer (+) " & _
-                "and " & connNameSpace & ".ISMPReportInformation.strReviewingEngineer = CloseTotals.strReviewingEngineer (+)  " & _
-                "and " & connNameSpace & ".ISMPReportInformation.strReviewingEngineer = ClosedWitnessedTotals.strWitnessingEngineer (+)  " & _
-                "and " & connNameSpace & ".ISMPReportInformation.strReviewingEngineer = ClosedCompliancetotals.strReviewingEngineer (+) " & _
-                "and " & connNameSpace & ".ISMPReportInformation.strReviewingEngineer = OpenGreaterTotals.strReviewingEngineer (+) " & _
-                "and " & connNameSpace & ".ISMPReportInformation.strReviewingEngineer = ClosedGreaterTotals.strReviewingEngineer (+)   " & _
-                "and " & connNameSpace & ".ISMPReportInformation.strReviewingEngineer = '" & EngineerGCode & "' "
+                "where " & DBNameSpace & ".EPDUserProfiles.numUserID = " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer  " & _
+                "and " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer = ReceivedTotals.strReviewingEngineer (+) " & _
+                "and " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer = OpenTotals.strReviewingEngineer (+) " & _
+                "and " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer = OpenWitnessedTotals.strWitnessingEngineer (+) " & _
+                "and " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer = OpenComplianceTotals.strReviewingEngineer (+) " & _
+                "and " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer = CloseTotals.strReviewingEngineer (+)  " & _
+                "and " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer = ClosedWitnessedTotals.strWitnessingEngineer (+)  " & _
+                "and " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer = ClosedCompliancetotals.strReviewingEngineer (+) " & _
+                "and " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer = OpenGreaterTotals.strReviewingEngineer (+) " & _
+                "and " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer = ClosedGreaterTotals.strReviewingEngineer (+)   " & _
+                "and " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer = '" & EngineerGCode & "' "
 
                 SQL5 = "Select " & _
                 "(strLastName|| ', ' ||strFirstName) as Staff, " & _
                 "(trunc(sysdate) - datReceivedDate) as DaysOpen " & _
-                "from " & connNameSpace & ".EPDUSerProfiles, " & connNameSpace & ".ISMPReportInformation " & _
-                "where " & connNameSpace & ".EPDUserProfiles.numUserID = " & connNameSpace & ".ISMPReportInformation.strReviewingEngineer  " & _
+                "from " & DBNameSpace & ".EPDUSerProfiles, " & DBNameSpace & ".ISMPReportInformation " & _
+                "where " & DBNameSpace & ".EPDUserProfiles.numUserID = " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer  " & _
                 "and strClosed = 'False' " & _
                 "and strDelete is NULL " & _
                 "and strReviewingEngineer = '" & EngineerGCode & "' " & _
@@ -422,22 +422,22 @@ Public Class ISMPStaffReports
                 SQL6 = "Select " & _
                 "(strLastName|| ', ' ||strFirstName) as Staff, " & _
                 "(datCompleteDate -datReceivedDate) as DaysClosed " & _
-                "from " & connNameSpace & ".EPDUserProfiles, " & connNameSpace & ".ISMPReportInformation " & _
-                "where " & connNameSpace & ".EPDUserProfiles.numUserID = " & connNameSpace & ".ISMPReportInformation.strReviewingEngineer  " & _
+                "from " & DBNameSpace & ".EPDUserProfiles, " & DBNameSpace & ".ISMPReportInformation " & _
+                "where " & DBNameSpace & ".EPDUserProfiles.numUserID = " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer  " & _
                 "and strClosed = 'True' " & _
                 "and strDelete is NULL " & _
                 "and strReviewingEngineer = '" & EngineerGCode & "' " & _
                 "order by DaysClosed ASC "
 
-                cmd = New OracleCommand(SQL, conn)
-                cmd2 = New OracleCommand(SQL2, conn)
-                cmd3 = New OracleCommand(SQL3, conn)
-                cmd4 = New OracleCommand(SQL4, conn)
-                cmd5 = New OracleCommand(SQL5, conn)
-                cmd6 = New OracleCommand(SQL6, conn)
+                cmd = New OracleCommand(SQL, DBConn)
+                cmd2 = New OracleCommand(SQL2, DBConn)
+                cmd3 = New OracleCommand(SQL3, DBConn)
+                cmd4 = New OracleCommand(SQL4, DBConn)
+                cmd5 = New OracleCommand(SQL5, DBConn)
+                cmd6 = New OracleCommand(SQL6, DBConn)
 
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
 
                 Try
@@ -507,13 +507,13 @@ Public Class ISMPStaffReports
                 Catch ex As Exception
                     ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
                 Finally
-                    If conn.State = ConnectionState.Open Then
+                    If DBConn.State = ConnectionState.Open Then
                         'conn.close()
                     End If
                 End Try
                 ' 
 
-                If conn.State = ConnectionState.Open Then
+                If DBConn.State = ConnectionState.Open Then
                     'conn.close()
                 End If
 
@@ -621,7 +621,7 @@ Public Class ISMPStaffReports
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -645,7 +645,7 @@ Public Class ISMPStaffReports
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try

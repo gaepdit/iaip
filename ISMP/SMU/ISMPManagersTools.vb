@@ -5395,7 +5395,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -5435,7 +5435,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -5539,29 +5539,29 @@ Public Class ISMPManagersTools
             SQL = "select " & _
             "(strLastName|| ', ' ||strFirstName) as UserName,  " & _
             "numUserID, numUnit  " & _
-            "from " & connNameSpace & ".EPDUSerProfiles, " & connNameSpace & ".LookUpEPDUnits  " & _
-            "where " & connNameSpace & ".EPDUSerProfiles.numUnit = " & connNameSpace & ".LookUpEPDUnits.numUnitCode  " & _
+            "from " & DBNameSpace & ".EPDUSerProfiles, " & DBNameSpace & ".LookUpEPDUnits  " & _
+            "where " & DBNameSpace & ".EPDUSerProfiles.numUnit = " & DBNameSpace & ".LookUpEPDUnits.numUnitCode  " & _
             "and numProgram = '3'  " & _
             "and numUnit <> '14'  " & _
             "and numEmployeeStatus = '1' " & _
             "and numUserID <> '0' "
 
-            SQL2 = "select strCountyCode, strCountyName from " & connNameSpace & ".LookUpCountyInformation " & _
+            SQL2 = "select strCountyCode, strCountyName from " & DBNameSpace & ".LookUpCountyInformation " & _
             "order by strCountyName"
 
-            SQL3 = "select distinct(strFacilityCity) as City from " & connNameSpace & ".APBFacilityInformation " & _
+            SQL3 = "select distinct(strFacilityCity) as City from " & DBNameSpace & ".APBFacilityInformation " & _
             "order by strFacilityCity"
 
             dsEngineer = New DataSet
             dsCounty = New DataSet
             dsCity = New DataSet
 
-            daEngineer = New OracleDataAdapter(SQL, conn)
-            daCounty = New OracleDataAdapter(SQL2, conn)
-            daCity = New OracleDataAdapter(SQL3, conn)
+            daEngineer = New OracleDataAdapter(SQL, DBConn)
+            daCounty = New OracleDataAdapter(SQL2, DBConn)
+            daCity = New OracleDataAdapter(SQL3, DBConn)
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             daEngineer.Fill(dsEngineer, "Engineers")
@@ -5571,7 +5571,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -5664,7 +5664,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -5675,43 +5675,43 @@ Public Class ISMPManagersTools
 
             If AccountArray(17, 3) = "1" Then
                 SQL = "Select " & _
-                "" & connNameSpace & ".ISMPMaster.strReferenceNumber, " & connNameSpace & ".ISMPMaster.strAIRSNumber, strFacilityName,   " & _
+                "" & DBNameSpace & ".ISMPMaster.strReferenceNumber, " & DBNameSpace & ".ISMPMaster.strAIRSNumber, strFacilityName,   " & _
                 "to_Char(DATTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart,  " & _
                 "strEmissionSource,   " & _
                 "(Select strPollutantDescription   " & _
-                "from " & connNameSpace & ".LookUPPollutants, " & connNameSpace & ".ISMPReportInformation  " & _
-                "where " & connNameSpace & ".LookUPPollutants.strPollutantCode = " & connNameSpace & ".ISMPReportInformation.strPOllutant   " & _
-                "and " & connNameSpace & ".ISMPReportInformation.strReferenceNumber = " & connNameSpace & ".ISMPMaster.StrReferenceNumber) as Pollutant,   " & _
+                "from " & DBNameSpace & ".LookUPPollutants, " & DBNameSpace & ".ISMPReportInformation  " & _
+                "where " & DBNameSpace & ".LookUPPollutants.strPollutantCode = " & DBNameSpace & ".ISMPReportInformation.strPOllutant   " & _
+                "and " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber = " & DBNameSpace & ".ISMPMaster.StrReferenceNumber) as Pollutant,   " & _
                 "(select (strLastName|| ', ' ||strFirstName) as ReviewingEngineer   " & _
-                "from " & connNameSpace & ".EPDUserProfiles, " & connNameSpace & ".ISMPReportInformation   " & _
-                "where " & connNameSpace & ".EPDUserProfiles.numUserID = " & connNameSpace & ".ISMPReportInformation.strReviewingEngineer   " & _
-                "and " & connNameSpace & ".ISMPReportInformation.strReferenceNumber = " & connNameSpace & ".ISMPMaster.strReferenceNumber) as ReviewingEngineer   " & _
-                "from " & connNameSpace & ".ISMPMaster, AIRBranch.APBFacilityInformation, " & connNameSpace & ".ISMPReportInformation   " & _
-                "where " & connNameSpace & ".ISMPMaster.strAIRSNumber = " & connNameSpace & ".APBFacilityInformation.strAIRSNumber  " & _
-                "and " & connNameSpace & ".ISMPMaster.strReferenceNumber = " & connNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
+                "from " & DBNameSpace & ".EPDUserProfiles, " & DBNameSpace & ".ISMPReportInformation   " & _
+                "where " & DBNameSpace & ".EPDUserProfiles.numUserID = " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer   " & _
+                "and " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber = " & DBNameSpace & ".ISMPMaster.strReferenceNumber) as ReviewingEngineer   " & _
+                "from " & DBNameSpace & ".ISMPMaster, AIRBranch.APBFacilityInformation, " & DBNameSpace & ".ISMPReportInformation   " & _
+                "where " & DBNameSpace & ".ISMPMaster.strAIRSNumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber  " & _
+                "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
                 "and ( strclosed = 'False' or strClosed is null ) " & _
-                "and " & connNameSpace & ".ISMPReportInformation.strReviewingEngineer = '0'  " & _
-                "and " & connNameSpace & ".ISMPReportInformation.strDelete is NULL "
+                "and " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer = '0'  " & _
+                "and " & DBNameSpace & ".ISMPReportInformation.strDelete is NULL "
             Else
                 If AccountArray(17, 2) = "1" Then
                     SQL = "Select " & _
-                    "" & connNameSpace & ".ISMPMaster.strReferenceNumber, " & connNameSpace & ".ISMPMaster.strAIRSNumber, strFacilityName,  " & _
+                    "" & DBNameSpace & ".ISMPMaster.strReferenceNumber, " & DBNameSpace & ".ISMPMaster.strAIRSNumber, strFacilityName,  " & _
                     "to_Char(DATTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart, " & _
                     "strEmissionSource,  " & _
                     "(Select strPollutantDescription  " & _
-                    "from " & connNameSpace & ".LookUPPollutants, " & connNameSpace & ".ISMPReportInformation  " & _
-                    "where " & connNameSpace & ".LookUPPollutants.strPollutantCode = " & connNameSpace & ".ISMPReportInformation.strPOllutant  " & _
-                    "and " & connNameSpace & ".ISMPReportInformation.strReferenceNumber = " & connNameSpace & ".ISMPMaster.StrReferenceNumber) as Pollutant,  " & _
+                    "from " & DBNameSpace & ".LookUPPollutants, " & DBNameSpace & ".ISMPReportInformation  " & _
+                    "where " & DBNameSpace & ".LookUPPollutants.strPollutantCode = " & DBNameSpace & ".ISMPReportInformation.strPOllutant  " & _
+                    "and " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber = " & DBNameSpace & ".ISMPMaster.StrReferenceNumber) as Pollutant,  " & _
                     "(select (strLastName|| ', ' ||strFirstName) as ReviewingEngineer  " & _
-                    "from " & connNameSpace & ".EPDUserProfiles, " & connNameSpace & ".ISMPReportInformation  " & _
-                    "where " & connNameSpace & ".EPDUserProfiles.numUserID = " & connNameSpace & ".ISMPReportInformation.strReviewingEngineer  " & _
-                    "and " & connNameSpace & ".ISMPReportInformation.strReferenceNumber = " & connNameSpace & ".ISMPMaster.strReferenceNumber) as ReviewingEngineer  " & _
-                    "from " & connNameSpace & ".ISMPMaster, " & connNameSpace & ".APBFacilityInformation, " & connNameSpace & ".ISMPReportInformation  " & _
-                    "where " & connNameSpace & ".ISMPMaster.strAIRSNumber = " & connNameSpace & ".APBFacilityInformation.strAIRSNumber " & _
-                    "and " & connNameSpace & ".ISMPMaster.strReferenceNumber = " & connNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
+                    "from " & DBNameSpace & ".EPDUserProfiles, " & DBNameSpace & ".ISMPReportInformation  " & _
+                    "where " & DBNameSpace & ".EPDUserProfiles.numUserID = " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer  " & _
+                    "and " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber = " & DBNameSpace & ".ISMPMaster.strReferenceNumber) as ReviewingEngineer  " & _
+                    "from " & DBNameSpace & ".ISMPMaster, " & DBNameSpace & ".APBFacilityInformation, " & DBNameSpace & ".ISMPReportInformation  " & _
+                    "where " & DBNameSpace & ".ISMPMaster.strAIRSNumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber " & _
+                    "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
                       "and ( strclosed = 'False' or strClosed is null ) " & _
-                    "and " & connNameSpace & ".ISMPReportInformation.strReviewingEngineer = '0' " & _
-                    "and " & connNameSpace & ".ISMPReportInformation.strDelete is NULL"
+                    "and " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer = '0' " & _
+                    "and " & DBNameSpace & ".ISMPReportInformation.strDelete is NULL"
 
                 Else
                     SQL = ""
@@ -5721,19 +5721,19 @@ Public Class ISMPManagersTools
             dsTestReportAssignments = New DataSet
             daTestreportAssignments = New OracleDataAdapter
 
-            Dim cmd As New OracleCommand(SQL, conn)
+            Dim cmd As New OracleCommand(SQL, DBConn)
 
             daTestreportAssignments.SelectCommand = cmd
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daTestreportAssignments.Fill(dsTestReportAssignments, "TestReportAssignment")
 
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -5784,7 +5784,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -5868,7 +5868,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -5921,7 +5921,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -5930,21 +5930,21 @@ Public Class ISMPManagersTools
     Sub LoadExcelDataSet()
         Try
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             SQL = "Select FileID, FileTitle " & _
-            "From " & connNameSpace & ".ISMPTestReportAids"
+            "From " & DBNameSpace & ".ISMPTestReportAids"
 
             dsExcelFiles = New DataSet
 
-            cmd = New OracleCommand(SQL, conn)
+            cmd = New OracleCommand(SQL, DBConn)
 
             daExcelFiles = New OracleDataAdapter(cmd)
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             daExcelFiles.Fill(dsExcelFiles, "ExcelFiles")
@@ -5954,7 +5954,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -5995,7 +5995,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -6006,12 +6006,12 @@ Public Class ISMPManagersTools
 
         Try
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
-            SQL = "Select * from " & connNameSpace & ".ISMPDocumentType"
-            cmd = New OracleCommand(SQL, conn)
+            SQL = "Select * from " & DBNameSpace & ".ISMPDocumentType"
+            cmd = New OracleCommand(SQL, DBConn)
             dr = cmd.ExecuteReader
 
             While dr.Read
@@ -6126,7 +6126,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -6136,20 +6136,20 @@ Public Class ISMPManagersTools
         Try
             SQL = "Select " & _
             "strMethodCode, strMethodDesc " & _
-            "From " & connNameSpace & ".LookUpISMPMethods " & _
+            "From " & DBNameSpace & ".LookUpISMPMethods " & _
             "order by strMethodCode "
 
             dsMethods = New DataSet
-            daMethods = New OracleDataAdapter(SQL, conn)
+            daMethods = New OracleDataAdapter(SQL, DBConn)
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daMethods.Fill(dsMethods, "Methods")
             dgvMethods.DataSource = dsMethods
             dgvMethods.DataMember = "Methods"
 
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -6170,7 +6170,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -6182,40 +6182,40 @@ Public Class ISMPManagersTools
 
             If AccountArray(17, 3) = "1" Then
                 SQL = "Select " & _
-                "" & connNameSpace & ".ISMPMaster.strReferenceNumber, " & connNameSpace & ".ISMPMaster.strAIRSNumber, strFacilityName,  " & _
+                "" & DBNameSpace & ".ISMPMaster.strReferenceNumber, " & DBNameSpace & ".ISMPMaster.strAIRSNumber, strFacilityName,  " & _
                 "to_Char(DATTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart, " & _
                 "strEmissionSource,  " & _
                 "(Select strPollutantDescription  " & _
-                "from " & connNameSpace & ".LookUPPollutants, " & connNameSpace & ".ISMPReportInformation  " & _
-                "where " & connNameSpace & ".LookUPPollutants.strPollutantCode = " & connNameSpace & ".ISMPReportInformation.strPOllutant  " & _
-                "and " & connNameSpace & ".ISMPReportInformation.strReferenceNumber = " & connNameSpace & ".ISMPMaster.StrReferenceNumber) as Pollutant,  " & _
+                "from " & DBNameSpace & ".LookUPPollutants, " & DBNameSpace & ".ISMPReportInformation  " & _
+                "where " & DBNameSpace & ".LookUPPollutants.strPollutantCode = " & DBNameSpace & ".ISMPReportInformation.strPOllutant  " & _
+                "and " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber = " & DBNameSpace & ".ISMPMaster.StrReferenceNumber) as Pollutant,  " & _
                 "(select (strLastName|| ', ' ||strFirstName) as ReviewingEngineer  " & _
-                "from " & connNameSpace & ".EPDUserProfiles, " & connNameSpace & ".ISMPReportInformation  " & _
-                "where " & connNameSpace & ".EPDUserProfiles.numUserID = " & connNameSpace & ".ISMPReportInformation.strReviewingEngineer  " & _
-                "and " & connNameSpace & ".ISMPReportInformation.strReferenceNumber = " & connNameSpace & ".ISMPMaster.strReferenceNumber) as ReviewingEngineer  " & _
-                "from " & connNameSpace & ".ISMPMaster, " & connNameSpace & ".APBFacilityInformation, " & connNameSpace & ".ISMPReportInformation  " & _
-                "where " & connNameSpace & ".ISMPMaster.strAIRSNumber = " & connNameSpace & ".APBFacilityInformation.strAIRSNumber " & _
-                "and " & connNameSpace & ".ISMPMaster.strReferenceNumber = " & connNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
-                  "and " & connNameSpace & ".ISMPReportInformation.strDelete is NULL"
+                "from " & DBNameSpace & ".EPDUserProfiles, " & DBNameSpace & ".ISMPReportInformation  " & _
+                "where " & DBNameSpace & ".EPDUserProfiles.numUserID = " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer  " & _
+                "and " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber = " & DBNameSpace & ".ISMPMaster.strReferenceNumber) as ReviewingEngineer  " & _
+                "from " & DBNameSpace & ".ISMPMaster, " & DBNameSpace & ".APBFacilityInformation, " & DBNameSpace & ".ISMPReportInformation  " & _
+                "where " & DBNameSpace & ".ISMPMaster.strAIRSNumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber " & _
+                "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
+                  "and " & DBNameSpace & ".ISMPReportInformation.strDelete is NULL"
             Else
                 If AccountArray(17, 2) = "1" Then
                     SQL = "Select " & _
-                    "" & connNameSpace & ".ISMPMaster.strReferenceNumber, " & connNameSpace & ".ISMPMaster.strAIRSNumber, strFacilityName,  " & _
+                    "" & DBNameSpace & ".ISMPMaster.strReferenceNumber, " & DBNameSpace & ".ISMPMaster.strAIRSNumber, strFacilityName,  " & _
                     "to_Char(DATTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart, " & _
                     "strEmissionSource,  " & _
                     "(Select strPollutantDescription  " & _
-                    "from " & connNameSpace & ".LookUPPollutants, " & connNameSpace & ".ISMPReportInformation  " & _
-                    "where " & connNameSpace & ".LookUPPollutants.strPollutantCode = " & connNameSpace & ".ISMPReportInformation.strPOllutant  " & _
-                    "and " & connNameSpace & ".ISMPReportInformation.strReferenceNumber = " & connNameSpace & ".ISMPMaster.StrReferenceNumber) as Pollutant,  " & _
+                    "from " & DBNameSpace & ".LookUPPollutants, " & DBNameSpace & ".ISMPReportInformation  " & _
+                    "where " & DBNameSpace & ".LookUPPollutants.strPollutantCode = " & DBNameSpace & ".ISMPReportInformation.strPOllutant  " & _
+                    "and " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber = " & DBNameSpace & ".ISMPMaster.StrReferenceNumber) as Pollutant,  " & _
                     "(select (strLastName|| ', ' ||strFirstName) as ReviewingEngineer  " & _
-                    "from " & connNameSpace & ".EPDUserProfiles, " & connNameSpace & ".ISMPReportInformation  " & _
-                    "where " & connNameSpace & ".EPDUserProfiles.numUserID = " & connNameSpace & ".ISMPReportInformation.strReviewingEngineer  " & _
-                    "and " & connNameSpace & ".ISMPReportInformation.strReferenceNumber = " & connNameSpace & ".ISMPMaster.strReferenceNumber) as ReviewingEngineer  " & _
-                    "from " & connNameSpace & ".ISMPMaster, " & connNameSpace & ".APBFacilityInformation, " & connNameSpace & ".ISMPReportInformation  " & _
-                    "where " & connNameSpace & ".ISMPMaster.strAIRSNumber = " & connNameSpace & ".APBFacilityInformation.strAIRSNumber " & _
-                    "and " & connNameSpace & ".ISMPMaster.strReferenceNumber = " & connNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
+                    "from " & DBNameSpace & ".EPDUserProfiles, " & DBNameSpace & ".ISMPReportInformation  " & _
+                    "where " & DBNameSpace & ".EPDUserProfiles.numUserID = " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer  " & _
+                    "and " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber = " & DBNameSpace & ".ISMPMaster.strReferenceNumber) as ReviewingEngineer  " & _
+                    "from " & DBNameSpace & ".ISMPMaster, " & DBNameSpace & ".APBFacilityInformation, " & DBNameSpace & ".ISMPReportInformation  " & _
+                    "where " & DBNameSpace & ".ISMPMaster.strAIRSNumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber " & _
+                    "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
                     "and strReviewingUnit = '" & UserGCode & "' " & _
-                      "and " & connNameSpace & ".ISMPReportInformation.strDelete is NULL"
+                      "and " & DBNameSpace & ".ISMPReportInformation.strDelete is NULL"
                 Else
                     SQL = ""
                 End If
@@ -6224,19 +6224,19 @@ Public Class ISMPManagersTools
             dsTestReportAssignments = New DataSet
             daTestreportAssignments = New OracleDataAdapter
 
-            Dim cmd As New OracleCommand(SQL, conn)
+            Dim cmd As New OracleCommand(SQL, DBConn)
 
             daTestreportAssignments.SelectCommand = cmd
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daTestreportAssignments.Fill(dsTestReportAssignments, "TestReportAssignment")
 
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -6247,39 +6247,39 @@ Public Class ISMPManagersTools
 
             If AccountArray(17, 3) = "1" Then
                 SQL = "Select " & _
-                "" & connNameSpace & ".ISMPMaster.strReferenceNumber, " & connNameSpace & ".ISMPMaster.strAIRSNumber, strFacilityName,  " & _
+                "" & DBNameSpace & ".ISMPMaster.strReferenceNumber, " & DBNameSpace & ".ISMPMaster.strAIRSNumber, strFacilityName,  " & _
                 "to_Char(DATTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart, " & _
                 "strEmissionSource,  " & _
                 "(Select strPollutantDescription  " & _
-                "from " & connNameSpace & ".LookUPPollutants, " & connNameSpace & ".ISMPReportInformation  " & _
-                "where " & connNameSpace & ".LookUPPollutants.strPollutantCode = " & connNameSpace & ".ISMPReportInformation.strPOllutant  " & _
-                "and " & connNameSpace & ".ISMPReportInformation.strReferenceNumber = " & connNameSpace & ".ISMPMaster.StrReferenceNumber) as Pollutant,  " & _
+                "from " & DBNameSpace & ".LookUPPollutants, " & DBNameSpace & ".ISMPReportInformation  " & _
+                "where " & DBNameSpace & ".LookUPPollutants.strPollutantCode = " & DBNameSpace & ".ISMPReportInformation.strPOllutant  " & _
+                "and " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber = " & DBNameSpace & ".ISMPMaster.StrReferenceNumber) as Pollutant,  " & _
                 "(select (strLastName|| ', ' ||strFirstName) as ReviewingEngineer  " & _
-                "from " & connNameSpace & ".EPDUSerProfiles, " & connNameSpace & ".ISMPReportInformation  " & _
-                "where " & connNameSpace & ".EPDUSerProfiles.numUserID = " & connNameSpace & ".ISMPReportInformation.strReviewingEngineer  " & _
-                "and " & connNameSpace & ".ISMPReportInformation.strReferenceNumber = " & connNameSpace & ".ISMPMaster.strReferenceNumber) as ReviewingEngineer  " & _
-                "from " & connNameSpace & ".ISMPMaster, " & connNameSpace & ".APBFacilityInformation, " & connNameSpace & ".ISMPReportInformation  " & _
-                "where " & connNameSpace & ".ISMPMaster.strAIRSNumber = " & connNameSpace & ".APBFacilityInformation.strAIRSNumber " & _
-                "and " & connNameSpace & ".ISMPMaster.strReferenceNumber = " & connNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
-                  "and " & connNameSpace & ".ISMPReportInformation.strDelete is NULL"
+                "from " & DBNameSpace & ".EPDUSerProfiles, " & DBNameSpace & ".ISMPReportInformation  " & _
+                "where " & DBNameSpace & ".EPDUSerProfiles.numUserID = " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer  " & _
+                "and " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber = " & DBNameSpace & ".ISMPMaster.strReferenceNumber) as ReviewingEngineer  " & _
+                "from " & DBNameSpace & ".ISMPMaster, " & DBNameSpace & ".APBFacilityInformation, " & DBNameSpace & ".ISMPReportInformation  " & _
+                "where " & DBNameSpace & ".ISMPMaster.strAIRSNumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber " & _
+                "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
+                  "and " & DBNameSpace & ".ISMPReportInformation.strDelete is NULL"
             Else
                 If AccountArray(17, 2) = "1" Then
                     SQL = "Select " & _
-                    "" & connNameSpace & ".ISMPMaster.strReferenceNumber, " & connNameSpace & ".ISMPMaster.strAIRSNumber, strFacilityName,  " & _
+                    "" & DBNameSpace & ".ISMPMaster.strReferenceNumber, " & DBNameSpace & ".ISMPMaster.strAIRSNumber, strFacilityName,  " & _
                     "to_Char(DATTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart, " & _
                     "strEmissionSource,  " & _
                     "(Select strPollutantDescription  " & _
-                    "from " & connNameSpace & ".LookUPPollutants, " & connNameSpace & ".ISMPReportInformation  " & _
-                    "where " & connNameSpace & ".LookUPPollutants.strPollutantCode = " & connNameSpace & ".ISMPReportInformation.strPOllutant  " & _
-                    "and " & connNameSpace & ".ISMPReportInformation.strReferenceNumber = " & connNameSpace & ".ISMPMaster.StrReferenceNumber) as Pollutant,  " & _
+                    "from " & DBNameSpace & ".LookUPPollutants, " & DBNameSpace & ".ISMPReportInformation  " & _
+                    "where " & DBNameSpace & ".LookUPPollutants.strPollutantCode = " & DBNameSpace & ".ISMPReportInformation.strPOllutant  " & _
+                    "and " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber = " & DBNameSpace & ".ISMPMaster.StrReferenceNumber) as Pollutant,  " & _
                     "(select (strLastName|| ', ' ||strFirstName) as ReviewingEngineer  " & _
-                    "from " & connNameSpace & ".EPDUSerProfiles, " & connNameSpace & ".ISMPReportInformation  " & _
-                    "where " & connNameSpace & ".EPDUSerProfiles.numUserID = " & connNameSpace & ".ISMPReportInformation.strReviewingEngineer  " & _
-                    "and " & connNameSpace & ".ISMPReportInformation.strReferenceNumber = " & connNameSpace & ".ISMPMaster.strReferenceNumber) as ReviewingEngineer  " & _
-                    "from " & connNameSpace & ".ISMPMaster, " & connNameSpace & ".APBFacilityInformation, " & connNameSpace & ".ISMPReportInformation  " & _
-                    "where " & connNameSpace & ".ISMPMaster.strAIRSNumber = " & connNameSpace & ".APBFacilityInformation.strAIRSNumber " & _
-                    "and " & connNameSpace & ".ISMPMaster.strReferenceNumber = " & connNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
-                      "and " & connNameSpace & ".ISMPReportInformation.strDelete is NULL"
+                    "from " & DBNameSpace & ".EPDUSerProfiles, " & DBNameSpace & ".ISMPReportInformation  " & _
+                    "where " & DBNameSpace & ".EPDUSerProfiles.numUserID = " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer  " & _
+                    "and " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber = " & DBNameSpace & ".ISMPMaster.strReferenceNumber) as ReviewingEngineer  " & _
+                    "from " & DBNameSpace & ".ISMPMaster, " & DBNameSpace & ".APBFacilityInformation, " & DBNameSpace & ".ISMPReportInformation  " & _
+                    "where " & DBNameSpace & ".ISMPMaster.strAIRSNumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber " & _
+                    "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
+                      "and " & DBNameSpace & ".ISMPReportInformation.strDelete is NULL"
                 Else
                     SQL = ""
                 End If
@@ -6288,12 +6288,12 @@ Public Class ISMPManagersTools
             dsTestReportAssignments = New DataSet
             daTestreportAssignments = New OracleDataAdapter
 
-            Dim cmd As New OracleCommand(SQL, conn)
+            Dim cmd As New OracleCommand(SQL, DBConn)
 
             daTestreportAssignments.SelectCommand = cmd
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daTestreportAssignments.Fill(dsTestReportAssignments, "TestReportAssignment")
 
@@ -6301,7 +6301,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -6313,41 +6313,41 @@ Public Class ISMPManagersTools
 
             If AccountArray(17, 3) = "1" Then
                 SQL = "Select " & _
-                "" & connNameSpace & ".ISMPMaster.strReferenceNumber, " & connNameSpace & ".ISMPMaster.strAIRSNumber, strFacilityName,  " & _
+                "" & DBNameSpace & ".ISMPMaster.strReferenceNumber, " & DBNameSpace & ".ISMPMaster.strAIRSNumber, strFacilityName,  " & _
                 "to_Char(DATTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart, " & _
                 "strEmissionSource,  " & _
                 "(Select strPollutantDescription  " & _
-                "from " & connNameSpace & ".LookUPPollutants, " & connNameSpace & ".ISMPReportInformation  " & _
-                "where " & connNameSpace & ".LookUPPollutants.strPollutantCode = " & connNameSpace & ".ISMPReportInformation.strPOllutant  " & _
-                "and " & connNameSpace & ".ISMPReportInformation.strReferenceNumber = " & connNameSpace & ".ISMPMaster.StrReferenceNumber) as Pollutant,  " & _
+                "from " & DBNameSpace & ".LookUPPollutants, " & DBNameSpace & ".ISMPReportInformation  " & _
+                "where " & DBNameSpace & ".LookUPPollutants.strPollutantCode = " & DBNameSpace & ".ISMPReportInformation.strPOllutant  " & _
+                "and " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber = " & DBNameSpace & ".ISMPMaster.StrReferenceNumber) as Pollutant,  " & _
                 "(select (strLastName|| ', ' ||strFirstName) as ReviewingEngineer  " & _
-                "from " & connNameSpace & ".EPDUserProfiles, " & connNameSpace & ".ISMPReportInformation  " & _
-                "where " & connNameSpace & ".EPDUserProfiles.numUserID = " & connNameSpace & ".ISMPReportInformation.strReviewingEngineer  " & _
-                "and " & connNameSpace & ".ISMPReportInformation.strReferenceNumber = " & connNameSpace & ".ISMPMaster.strReferenceNumber) as ReviewingEngineer  " & _
-                "from " & connNameSpace & ".ISMPMaster, " & connNameSpace & ".APBFacilityInformation, " & connNameSpace & ".ISMPReportInformation  " & _
-                "where " & connNameSpace & ".ISMPMaster.strAIRSNumber = " & connNameSpace & ".APBFacilityInformation.strAIRSNumber " & _
-                "and " & connNameSpace & ".ISMPMaster.strReferenceNumber = " & connNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
-                "and " & connNameSpace & ".ISMPReportInformation.strReviewingEngineer = '0' " & _
-                  "and " & connNameSpace & ".ISMPReportInformation.strDelete is NULL"
+                "from " & DBNameSpace & ".EPDUserProfiles, " & DBNameSpace & ".ISMPReportInformation  " & _
+                "where " & DBNameSpace & ".EPDUserProfiles.numUserID = " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer  " & _
+                "and " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber = " & DBNameSpace & ".ISMPMaster.strReferenceNumber) as ReviewingEngineer  " & _
+                "from " & DBNameSpace & ".ISMPMaster, " & DBNameSpace & ".APBFacilityInformation, " & DBNameSpace & ".ISMPReportInformation  " & _
+                "where " & DBNameSpace & ".ISMPMaster.strAIRSNumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber " & _
+                "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
+                "and " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer = '0' " & _
+                  "and " & DBNameSpace & ".ISMPReportInformation.strDelete is NULL"
             Else
                 If AccountArray(17, 2) = "1" Then
                     SQL = "Select " & _
-                    "" & connNameSpace & ".ISMPMaster.strReferenceNumber, " & connNameSpace & ".ISMPMaster.strAIRSNumber, strFacilityName,  " & _
+                    "" & DBNameSpace & ".ISMPMaster.strReferenceNumber, " & DBNameSpace & ".ISMPMaster.strAIRSNumber, strFacilityName,  " & _
                     "to_Char(DATTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart, " & _
                     "strEmissionSource,  " & _
                     "(Select strPollutantDescription  " & _
-                    "from " & connNameSpace & ".LookUPPollutants, " & connNameSpace & ".ISMPReportInformation  " & _
-                    "where " & connNameSpace & ".LookUPPollutants.strPollutantCode = " & connNameSpace & ".ISMPReportInformation.strPOllutant  " & _
-                    "and " & connNameSpace & ".ISMPReportInformation.strReferenceNumber = " & connNameSpace & ".ISMPMaster.StrReferenceNumber) as Pollutant,  " & _
+                    "from " & DBNameSpace & ".LookUPPollutants, " & DBNameSpace & ".ISMPReportInformation  " & _
+                    "where " & DBNameSpace & ".LookUPPollutants.strPollutantCode = " & DBNameSpace & ".ISMPReportInformation.strPOllutant  " & _
+                    "and " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber = " & DBNameSpace & ".ISMPMaster.StrReferenceNumber) as Pollutant,  " & _
                     "(select (strLastName|| ', ' ||strFirstName) as ReviewingEngineer  " & _
-                    "from " & connNameSpace & ".EPDUserProfiles, " & connNameSpace & ".ISMPReportInformation  " & _
-                    "where " & connNameSpace & ".EPDUserProfiles.numUserID = " & connNameSpace & ".ISMPReportInformation.strReviewingEngineer  " & _
-                    "and " & connNameSpace & ".ISMPReportInformation.strReferenceNumber = " & connNameSpace & ".ISMPMaster.strReferenceNumber) as ReviewingEngineer  " & _
-                    "from " & connNameSpace & ".ISMPMaster, " & connNameSpace & ".APBFacilityInformation, " & connNameSpace & ".ISMPReportInformation  " & _
-                    "where " & connNameSpace & ".ISMPMaster.strAIRSNumber = " & connNameSpace & ".APBFacilityInformation.strAIRSNumber " & _
-                    "and " & connNameSpace & ".ISMPMaster.strReferenceNumber = " & connNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
-                    "and " & connNameSpace & ".ISMPReportInformation.strReviewingEngineer = '0' " & _
-                      "and " & connNameSpace & ".ISMPReportInformation.strDelete is NULL"
+                    "from " & DBNameSpace & ".EPDUserProfiles, " & DBNameSpace & ".ISMPReportInformation  " & _
+                    "where " & DBNameSpace & ".EPDUserProfiles.numUserID = " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer  " & _
+                    "and " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber = " & DBNameSpace & ".ISMPMaster.strReferenceNumber) as ReviewingEngineer  " & _
+                    "from " & DBNameSpace & ".ISMPMaster, " & DBNameSpace & ".APBFacilityInformation, " & DBNameSpace & ".ISMPReportInformation  " & _
+                    "where " & DBNameSpace & ".ISMPMaster.strAIRSNumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber " & _
+                    "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
+                    "and " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer = '0' " & _
+                      "and " & DBNameSpace & ".ISMPReportInformation.strDelete is NULL"
                 Else
                     SQL = ""
                 End If
@@ -6356,19 +6356,19 @@ Public Class ISMPManagersTools
             dsTestReportAssignments = New DataSet
             daTestreportAssignments = New OracleDataAdapter
 
-            Dim cmd As New OracleCommand(SQL, conn)
+            Dim cmd As New OracleCommand(SQL, DBConn)
 
             daTestreportAssignments.SelectCommand = cmd
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daTestreportAssignments.Fill(dsTestReportAssignments, "TestReportAssignment")
 
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -6379,42 +6379,42 @@ Public Class ISMPManagersTools
 
             If AccountArray(17, 3) = "1" Then
                 SQL = "Select " & _
-                "" & connNameSpace & ".ISMPMaster.strReferenceNumber, " & connNameSpace & ".ISMPMaster.strAIRSNumber, strFacilityName,  " & _
+                "" & DBNameSpace & ".ISMPMaster.strReferenceNumber, " & DBNameSpace & ".ISMPMaster.strAIRSNumber, strFacilityName,  " & _
                 "to_Char(DATTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart, " & _
                 "strEmissionSource,  " & _
                 "(Select strPollutantDescription  " & _
-                "from " & connNameSpace & ".LookUPPollutants, " & connNameSpace & ".ISMPReportInformation  " & _
-                "where " & connNameSpace & ".LookUPPollutants.strPollutantCode = " & connNameSpace & ".ISMPReportInformation.strPOllutant  " & _
-                "and " & connNameSpace & ".ISMPReportInformation.strReferenceNumber = " & connNameSpace & ".ISMPMaster.StrReferenceNumber) as Pollutant,  " & _
+                "from " & DBNameSpace & ".LookUPPollutants, " & DBNameSpace & ".ISMPReportInformation  " & _
+                "where " & DBNameSpace & ".LookUPPollutants.strPollutantCode = " & DBNameSpace & ".ISMPReportInformation.strPOllutant  " & _
+                "and " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber = " & DBNameSpace & ".ISMPMaster.StrReferenceNumber) as Pollutant,  " & _
                 "(select (strLastName|| ', ' ||strFirstName) as ReviewingEngineer  " & _
-                "from " & connNameSpace & ".EPDUSerProfiles, " & connNameSpace & ".ISMPReportInformation  " & _
-                "where " & connNameSpace & ".EPDUSerProfiles.numUserID = " & connNameSpace & ".ISMPReportInformation.strReviewingEngineer  " & _
-                "and " & connNameSpace & ".ISMPReportInformation.strReferenceNumber = " & connNameSpace & ".ISMPMaster.strReferenceNumber) as ReviewingEngineer  " & _
-                "from " & connNameSpace & ".ISMPMaster, " & connNameSpace & ".APBFacilityInformation, " & connNameSpace & ".ISMPReportInformation  " & _
-                "where " & connNameSpace & ".ISMPMaster.strAIRSNumber = " & connNameSpace & ".APBFacilityInformation.strAIRSNumber " & _
-                "and " & connNameSpace & ".ISMPMaster.strReferenceNumber = " & connNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
-                "and " & connNameSpace & ".ISMPReportInformation.strReviewingEngineer <> '0' " & _
-                  "and " & connNameSpace & ".ISMPReportInformation.strDelete is NULL"
+                "from " & DBNameSpace & ".EPDUSerProfiles, " & DBNameSpace & ".ISMPReportInformation  " & _
+                "where " & DBNameSpace & ".EPDUSerProfiles.numUserID = " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer  " & _
+                "and " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber = " & DBNameSpace & ".ISMPMaster.strReferenceNumber) as ReviewingEngineer  " & _
+                "from " & DBNameSpace & ".ISMPMaster, " & DBNameSpace & ".APBFacilityInformation, " & DBNameSpace & ".ISMPReportInformation  " & _
+                "where " & DBNameSpace & ".ISMPMaster.strAIRSNumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber " & _
+                "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
+                "and " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer <> '0' " & _
+                  "and " & DBNameSpace & ".ISMPReportInformation.strDelete is NULL"
             Else
                 If AccountArray(17, 2) = "1" Then
                     SQL = "Select " & _
-                    "" & connNameSpace & ".ISMPMaster.strReferenceNumber, " & connNameSpace & ".ISMPMaster.strAIRSNumber, strFacilityName,  " & _
+                    "" & DBNameSpace & ".ISMPMaster.strReferenceNumber, " & DBNameSpace & ".ISMPMaster.strAIRSNumber, strFacilityName,  " & _
                     "to_Char(DATTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart, " & _
                     "strEmissionSource,  " & _
                     "(Select strPollutantDescription  " & _
-                    "from " & connNameSpace & ".LookUPPollutants, " & connNameSpace & ".ISMPReportInformation  " & _
-                    "where " & connNameSpace & ".LookUPPollutants.strPollutantCode = " & connNameSpace & ".ISMPReportInformation.strPOllutant  " & _
-                    "and " & connNameSpace & ".ISMPReportInformation.strReferenceNumber = " & connNameSpace & ".ISMPMaster.StrReferenceNumber) as Pollutant,  " & _
+                    "from " & DBNameSpace & ".LookUPPollutants, " & DBNameSpace & ".ISMPReportInformation  " & _
+                    "where " & DBNameSpace & ".LookUPPollutants.strPollutantCode = " & DBNameSpace & ".ISMPReportInformation.strPOllutant  " & _
+                    "and " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber = " & DBNameSpace & ".ISMPMaster.StrReferenceNumber) as Pollutant,  " & _
                     "(select (strLastName|| ', ' ||strFirstName) as ReviewingEngineer  " & _
-                    "from " & connNameSpace & ".EPDUserProfiles, " & connNameSpace & ".ISMPReportInformation  " & _
-                    "where " & connNameSpace & ".EPDUserProfiles.numUserID = " & connNameSpace & ".ISMPReportInformation.strReviewingEngineer  " & _
-                    "and " & connNameSpace & ".ISMPReportInformation.strReferenceNumber = " & connNameSpace & ".ISMPMaster.strReferenceNumber) as ReviewingEngineer  " & _
-                    "from " & connNameSpace & ".ISMPMaster, " & connNameSpace & ".APBFacilityInformation, " & connNameSpace & ".ISMPReportInformation  " & _
-                    "where " & connNameSpace & ".ISMPMaster.strAIRSNumber = " & connNameSpace & ".APBFacilityInformation.strAIRSNumber " & _
-                    "and " & connNameSpace & ".ISMPMaster.strReferenceNumber = " & connNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
+                    "from " & DBNameSpace & ".EPDUserProfiles, " & DBNameSpace & ".ISMPReportInformation  " & _
+                    "where " & DBNameSpace & ".EPDUserProfiles.numUserID = " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer  " & _
+                    "and " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber = " & DBNameSpace & ".ISMPMaster.strReferenceNumber) as ReviewingEngineer  " & _
+                    "from " & DBNameSpace & ".ISMPMaster, " & DBNameSpace & ".APBFacilityInformation, " & DBNameSpace & ".ISMPReportInformation  " & _
+                    "where " & DBNameSpace & ".ISMPMaster.strAIRSNumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber " & _
+                    "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
                     "and strReviewingUnit = '" & UserGCode & "' " & _
-                     "and " & connNameSpace & ".ISMPReportInformation.strReviewingEngineer <> '0' " & _
-                       "and " & connNameSpace & ".ISMPReportInformation.strDelete is NULL"
+                     "and " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer <> '0' " & _
+                       "and " & DBNameSpace & ".ISMPReportInformation.strDelete is NULL"
                 Else
                     SQL = ""
                 End If
@@ -6423,19 +6423,19 @@ Public Class ISMPManagersTools
             dsTestReportAssignments = New DataSet
             daTestreportAssignments = New OracleDataAdapter
 
-            Dim cmd As New OracleCommand(SQL, conn)
+            Dim cmd As New OracleCommand(SQL, DBConn)
 
             daTestreportAssignments.SelectCommand = cmd
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daTestreportAssignments.Fill(dsTestReportAssignments, "TestReportAssignment")
 
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -6447,41 +6447,41 @@ Public Class ISMPManagersTools
 
             If AccountArray(17, 3) = "1" Then
                 SQL = "Select " & _
-                "" & connNameSpace & ".ISMPMaster.strReferenceNumber, " & connNameSpace & ".ISMPMaster.strAIRSNumber, strFacilityName,  " & _
+                "" & DBNameSpace & ".ISMPMaster.strReferenceNumber, " & DBNameSpace & ".ISMPMaster.strAIRSNumber, strFacilityName,  " & _
                 "to_Char(DATTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart, " & _
                 "strEmissionSource,  " & _
                 "(Select strPollutantDescription  " & _
-                "from " & connNameSpace & ".LookUPPollutants, " & connNameSpace & ".ISMPReportInformation  " & _
-                "where " & connNameSpace & ".LookUPPollutants.strPollutantCode = " & connNameSpace & ".ISMPReportInformation.strPOllutant  " & _
-                "and " & connNameSpace & ".ISMPReportInformation.strReferenceNumber = " & connNameSpace & ".ISMPMaster.StrReferenceNumber) as Pollutant,  " & _
+                "from " & DBNameSpace & ".LookUPPollutants, " & DBNameSpace & ".ISMPReportInformation  " & _
+                "where " & DBNameSpace & ".LookUPPollutants.strPollutantCode = " & DBNameSpace & ".ISMPReportInformation.strPOllutant  " & _
+                "and " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber = " & DBNameSpace & ".ISMPMaster.StrReferenceNumber) as Pollutant,  " & _
                 "(select (strLastName|| ', ' ||strFirstName) as ReviewingEngineer  " & _
-                "from " & connNameSpace & ".EPDUserProfiles, " & connNameSpace & ".ISMPReportInformation  " & _
-                "where " & connNameSpace & ".EPDUserProfiles.numUserID = " & connNameSpace & ".ISMPReportInformation.strReviewingEngineer  " & _
-                "and " & connNameSpace & ".ISMPReportInformation.strReferenceNumber = " & connNameSpace & ".ISMPMaster.strReferenceNumber) as ReviewingEngineer  " & _
-                "from " & connNameSpace & ".ISMPMaster, " & connNameSpace & ".APBFacilityInformation, " & connNameSpace & ".ISMPReportInformation  " & _
-                "where " & connNameSpace & ".ISMPMaster.strAIRSNumber = " & connNameSpace & ".APBFacilityInformation.strAIRSNumber " & _
-                "and " & connNameSpace & ".ISMPMaster.strReferenceNumber = " & connNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
-                "and " & connNameSpace & ".ISMPReportInformation.strReviewingEngineer <> '0' " & _
-                  "and " & connNameSpace & ".ISMPReportInformation.strDelete is NULL"
+                "from " & DBNameSpace & ".EPDUserProfiles, " & DBNameSpace & ".ISMPReportInformation  " & _
+                "where " & DBNameSpace & ".EPDUserProfiles.numUserID = " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer  " & _
+                "and " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber = " & DBNameSpace & ".ISMPMaster.strReferenceNumber) as ReviewingEngineer  " & _
+                "from " & DBNameSpace & ".ISMPMaster, " & DBNameSpace & ".APBFacilityInformation, " & DBNameSpace & ".ISMPReportInformation  " & _
+                "where " & DBNameSpace & ".ISMPMaster.strAIRSNumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber " & _
+                "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
+                "and " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer <> '0' " & _
+                  "and " & DBNameSpace & ".ISMPReportInformation.strDelete is NULL"
             Else
                 If AccountArray(17, 2) = "1" Then
                     SQL = "Select " & _
-                    "" & connNameSpace & ".ISMPMaster.strReferenceNumber, " & connNameSpace & ".ISMPMaster.strAIRSNumber, strFacilityName,  " & _
+                    "" & DBNameSpace & ".ISMPMaster.strReferenceNumber, " & DBNameSpace & ".ISMPMaster.strAIRSNumber, strFacilityName,  " & _
                     "to_Char(DATTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart, " & _
                     "strEmissionSource,  " & _
                     "(Select strPollutantDescription  " & _
-                    "from " & connNameSpace & ".LookUPPollutants, " & connNameSpace & ".ISMPReportInformation  " & _
-                    "where " & connNameSpace & ".LookUPPollutants.strPollutantCode = " & connNameSpace & ".ISMPReportInformation.strPOllutant  " & _
-                    "and " & connNameSpace & ".ISMPReportInformation.strReferenceNumber = " & connNameSpace & ".ISMPMaster.StrReferenceNumber) as Pollutant,  " & _
+                    "from " & DBNameSpace & ".LookUPPollutants, " & DBNameSpace & ".ISMPReportInformation  " & _
+                    "where " & DBNameSpace & ".LookUPPollutants.strPollutantCode = " & DBNameSpace & ".ISMPReportInformation.strPOllutant  " & _
+                    "and " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber = " & DBNameSpace & ".ISMPMaster.StrReferenceNumber) as Pollutant,  " & _
                     "(select (strLastName|| ', ' ||strFirstName) as ReviewingEngineer  " & _
-                    "from " & connNameSpace & ".EPDUserProfiles, " & connNameSpace & ".ISMPReportInformation  " & _
-                    "where " & connNameSpace & ".EPDUserProfiles.numUserID = " & connNameSpace & ".ISMPReportInformation.strReviewingEngineer  " & _
-                    "and " & connNameSpace & ".ISMPReportInformation.strReferenceNumber = " & connNameSpace & ".ISMPMaster.strReferenceNumber) as ReviewingEngineer  " & _
-                    "from " & connNameSpace & ".ISMPMaster, " & connNameSpace & ".APBFacilityInformation, " & connNameSpace & ".ISMPReportInformation  " & _
-                    "where " & connNameSpace & ".ISMPMaster.strAIRSNumber = " & connNameSpace & ".APBFacilityInformation.strAIRSNumber " & _
-                    "and " & connNameSpace & ".ISMPMaster.strReferenceNumber = " & connNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
-                    "and " & connNameSpace & ".ISMPReportInformation.strReviewingEngineer <> '0' " & _
-                      "and " & connNameSpace & ".ISMPReportInformation.strDelete is NULL"
+                    "from " & DBNameSpace & ".EPDUserProfiles, " & DBNameSpace & ".ISMPReportInformation  " & _
+                    "where " & DBNameSpace & ".EPDUserProfiles.numUserID = " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer  " & _
+                    "and " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber = " & DBNameSpace & ".ISMPMaster.strReferenceNumber) as ReviewingEngineer  " & _
+                    "from " & DBNameSpace & ".ISMPMaster, " & DBNameSpace & ".APBFacilityInformation, " & DBNameSpace & ".ISMPReportInformation  " & _
+                    "where " & DBNameSpace & ".ISMPMaster.strAIRSNumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber " & _
+                    "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
+                    "and " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer <> '0' " & _
+                      "and " & DBNameSpace & ".ISMPReportInformation.strDelete is NULL"
                 Else
                     SQL = ""
                 End If
@@ -6490,19 +6490,19 @@ Public Class ISMPManagersTools
             dsTestReportAssignments = New DataSet
             daTestreportAssignments = New OracleDataAdapter
 
-            Dim cmd As New OracleCommand(SQL, conn)
+            Dim cmd As New OracleCommand(SQL, DBConn)
 
             daTestreportAssignments.SelectCommand = cmd
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daTestreportAssignments.Fill(dsTestReportAssignments, "TestReportAssignment")
 
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -6514,40 +6514,40 @@ Public Class ISMPManagersTools
 
             If AccountArray(17, 3) = "1" Then
                 SQL = "Select " & _
-                "" & connNameSpace & ".ISMPMaster.strReferenceNumber, " & connNameSpace & ".ISMPMaster.strAIRSNumber, strFacilityName,  " & _
+                "" & DBNameSpace & ".ISMPMaster.strReferenceNumber, " & DBNameSpace & ".ISMPMaster.strAIRSNumber, strFacilityName,  " & _
                 "to_Char(DATTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart, " & _
                 "strEmissionSource,  " & _
                 "(Select strPollutantDescription  " & _
-                "from " & connNameSpace & ".LookUPPollutants, " & connNameSpace & ".ISMPReportInformation  " & _
-                "where " & connNameSpace & ".LookUPPollutants.strPollutantCode = " & connNameSpace & ".ISMPReportInformation.strPOllutant  " & _
-                "and " & connNameSpace & ".ISMPReportInformation.strReferenceNumber = " & connNameSpace & ".ISMPMaster.StrReferenceNumber) as Pollutant,  " & _
+                "from " & DBNameSpace & ".LookUPPollutants, " & DBNameSpace & ".ISMPReportInformation  " & _
+                "where " & DBNameSpace & ".LookUPPollutants.strPollutantCode = " & DBNameSpace & ".ISMPReportInformation.strPOllutant  " & _
+                "and " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber = " & DBNameSpace & ".ISMPMaster.StrReferenceNumber) as Pollutant,  " & _
                 "(select (strLastName|| ', ' ||strFirstName) as ReviewingEngineer  " & _
-                "from " & connNameSpace & ".EPDUserProfiles, " & connNameSpace & ".ISMPReportInformation  " & _
-                "where " & connNameSpace & ".EPDUserProfiles.numUserID = " & connNameSpace & ".ISMPReportInformation.strReviewingEngineer  " & _
-                "and " & connNameSpace & ".ISMPReportInformation.strReferenceNumber = " & connNameSpace & ".ISMPMaster.strReferenceNumber) as ReviewingEngineer  " & _
-                "from " & connNameSpace & ".ISMPMaster, " & connNameSpace & ".APBFacilityInformation, " & connNameSpace & ".ISMPReportInformation  " & _
-                "where " & connNameSpace & ".ISMPMaster.strAIRSNumber = " & connNameSpace & ".APBFacilityInformation.strAIRSNumber " & _
-                "and " & connNameSpace & ".ISMPMaster.strReferenceNumber = " & connNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
-                "and " & connNameSpace & ".ISMPReportInformation.strDelete is not NULL"
+                "from " & DBNameSpace & ".EPDUserProfiles, " & DBNameSpace & ".ISMPReportInformation  " & _
+                "where " & DBNameSpace & ".EPDUserProfiles.numUserID = " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer  " & _
+                "and " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber = " & DBNameSpace & ".ISMPMaster.strReferenceNumber) as ReviewingEngineer  " & _
+                "from " & DBNameSpace & ".ISMPMaster, " & DBNameSpace & ".APBFacilityInformation, " & DBNameSpace & ".ISMPReportInformation  " & _
+                "where " & DBNameSpace & ".ISMPMaster.strAIRSNumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber " & _
+                "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
+                "and " & DBNameSpace & ".ISMPReportInformation.strDelete is not NULL"
             Else
                 If AccountArray(17, 2) = "1" Then
                     SQL = "Select " & _
-                    "" & connNameSpace & ".ISMPMaster.strReferenceNumber, " & connNameSpace & ".ISMPMaster.strAIRSNumber, strFacilityName,  " & _
+                    "" & DBNameSpace & ".ISMPMaster.strReferenceNumber, " & DBNameSpace & ".ISMPMaster.strAIRSNumber, strFacilityName,  " & _
                     "to_Char(DATTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart, " & _
                     "strEmissionSource,  " & _
                     "(Select strPollutantDescription  " & _
-                    "from " & connNameSpace & ".LookUPPollutants, " & connNameSpace & ".ISMPReportInformation  " & _
-                    "where " & connNameSpace & ".LookUPPollutants.strPollutantCode = " & connNameSpace & ".ISMPReportInformation.strPOllutant  " & _
-                    "and " & connNameSpace & ".ISMPReportInformation.strReferenceNumber = " & connNameSpace & ".ISMPMaster.StrReferenceNumber) as Pollutant,  " & _
+                    "from " & DBNameSpace & ".LookUPPollutants, " & DBNameSpace & ".ISMPReportInformation  " & _
+                    "where " & DBNameSpace & ".LookUPPollutants.strPollutantCode = " & DBNameSpace & ".ISMPReportInformation.strPOllutant  " & _
+                    "and " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber = " & DBNameSpace & ".ISMPMaster.StrReferenceNumber) as Pollutant,  " & _
                     "(select (strLastName|| ', ' ||strFirstName) as ReviewingEngineer  " & _
-                    "from " & connNameSpace & ".EPDUserProfiles, " & connNameSpace & ".ISMPReportInformation  " & _
-                    "where " & connNameSpace & ".EPDUserProfiles.numUserID = " & connNameSpace & ".ISMPReportInformation.strReviewingEngineer  " & _
-                    "and " & connNameSpace & ".ISMPReportInformation.strReferenceNumber = " & connNameSpace & ".ISMPMaster.strReferenceNumber) as ReviewingEngineer  " & _
-                    "from " & connNameSpace & ".ISMPMaster, " & connNameSpace & ".APBFacilityInformation, " & connNameSpace & ".ISMPReportInformation  " & _
-                    "where " & connNameSpace & ".ISMPMaster.strAIRSNumber = " & connNameSpace & ".APBFacilityInformation.strAIRSNumber " & _
-                    "and " & connNameSpace & ".ISMPMaster.strReferenceNumber = " & connNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
+                    "from " & DBNameSpace & ".EPDUserProfiles, " & DBNameSpace & ".ISMPReportInformation  " & _
+                    "where " & DBNameSpace & ".EPDUserProfiles.numUserID = " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer  " & _
+                    "and " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber = " & DBNameSpace & ".ISMPMaster.strReferenceNumber) as ReviewingEngineer  " & _
+                    "from " & DBNameSpace & ".ISMPMaster, " & DBNameSpace & ".APBFacilityInformation, " & DBNameSpace & ".ISMPReportInformation  " & _
+                    "where " & DBNameSpace & ".ISMPMaster.strAIRSNumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber " & _
+                    "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
                     "and strReviewingUnit = '" & UserGCode & "' " & _
-                    "and " & connNameSpace & ".ISMPReportInformation.strDelete is not NULL"
+                    "and " & DBNameSpace & ".ISMPReportInformation.strDelete is not NULL"
                 Else
                     SQL = ""
                 End If
@@ -6556,19 +6556,19 @@ Public Class ISMPManagersTools
             dsTestReportAssignments = New DataSet
             daTestreportAssignments = New OracleDataAdapter
 
-            Dim cmd As New OracleCommand(SQL, conn)
+            Dim cmd As New OracleCommand(SQL, DBConn)
 
             daTestreportAssignments.SelectCommand = cmd
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daTestreportAssignments.Fill(dsTestReportAssignments, "TestReportAssignment")
 
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -6579,44 +6579,44 @@ Public Class ISMPManagersTools
 
             If AccountArray(17, 3) = "1" Then
                 SQL = "Select " & _
-                "" & connNameSpace & ".ISMPMaster.strReferenceNumber, " & connNameSpace & ".ISMPMaster.strAIRSNumber, strFacilityName,  " & _
+                "" & DBNameSpace & ".ISMPMaster.strReferenceNumber, " & DBNameSpace & ".ISMPMaster.strAIRSNumber, strFacilityName,  " & _
                 "to_Char(DATTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart, " & _
                 "strEmissionSource,  " & _
                 "(Select strPollutantDescription  " & _
-                "from " & connNameSpace & ".LookUPPollutants, " & connNameSpace & ".ISMPReportInformation  " & _
-                "where " & connNameSpace & ".LookUPPollutants.strPollutantCode = " & connNameSpace & ".ISMPReportInformation.strPOllutant  " & _
-                "and " & connNameSpace & ".ISMPReportInformation.strReferenceNumber = " & connNameSpace & ".ISMPMaster.StrReferenceNumber) as Pollutant,  " & _
+                "from " & DBNameSpace & ".LookUPPollutants, " & DBNameSpace & ".ISMPReportInformation  " & _
+                "where " & DBNameSpace & ".LookUPPollutants.strPollutantCode = " & DBNameSpace & ".ISMPReportInformation.strPOllutant  " & _
+                "and " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber = " & DBNameSpace & ".ISMPMaster.StrReferenceNumber) as Pollutant,  " & _
                 "(select (strLastName|| ', ' ||strFirstName) as ReviewingEngineer  " & _
-                "from " & connNameSpace & ".EPDUserProfiles, " & connNameSpace & ".ISMPReportInformation  " & _
-                "where " & connNameSpace & ".EPDUserProfiles.numUserID = " & connNameSpace & ".ISMPReportInformation.strReviewingEngineer  " & _
-                "and " & connNameSpace & ".ISMPReportInformation.strReferenceNumber = " & connNameSpace & ".ISMPMaster.strReferenceNumber) as ReviewingEngineer  " & _
-                "from " & connNameSpace & ".ISMPMaster, " & connNameSpace & ".APBFacilityInformation, " & connNameSpace & ".ISMPReportInformation  " & _
-                "where " & connNameSpace & ".ISMPMaster.strAIRSNumber = " & connNameSpace & ".APBFacilityInformation.strAIRSNumber " & _
-                "and " & connNameSpace & ".ISMPMaster.strReferenceNumber = " & connNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
-                 "and " & connNameSpace & ".ISMPReportInformation.strReviewingEngineer = '0' " & _
-                 "and " & connNameSpace & ".ISMPReportInformation.strDocumentType = '" & ReportType & "' " & _
-                "and " & connNameSpace & ".ISMPReportInformation.strDelete is NULL"
+                "from " & DBNameSpace & ".EPDUserProfiles, " & DBNameSpace & ".ISMPReportInformation  " & _
+                "where " & DBNameSpace & ".EPDUserProfiles.numUserID = " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer  " & _
+                "and " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber = " & DBNameSpace & ".ISMPMaster.strReferenceNumber) as ReviewingEngineer  " & _
+                "from " & DBNameSpace & ".ISMPMaster, " & DBNameSpace & ".APBFacilityInformation, " & DBNameSpace & ".ISMPReportInformation  " & _
+                "where " & DBNameSpace & ".ISMPMaster.strAIRSNumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber " & _
+                "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
+                 "and " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer = '0' " & _
+                 "and " & DBNameSpace & ".ISMPReportInformation.strDocumentType = '" & ReportType & "' " & _
+                "and " & DBNameSpace & ".ISMPReportInformation.strDelete is NULL"
             Else
                 If AccountArray(17, 2) = "1" Then
                     SQL = "Select " & _
-                    "" & connNameSpace & ".ISMPMaster.strReferenceNumber, " & connNameSpace & ".ISMPMaster.strAIRSNumber, strFacilityName,  " & _
+                    "" & DBNameSpace & ".ISMPMaster.strReferenceNumber, " & DBNameSpace & ".ISMPMaster.strAIRSNumber, strFacilityName,  " & _
                     "to_Char(DATTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart, " & _
                     "strEmissionSource,  " & _
                     "(Select strPollutantDescription  " & _
-                    "from " & connNameSpace & ".LookUPPollutants, " & connNameSpace & ".ISMPReportInformation  " & _
-                    "where " & connNameSpace & ".LookUPPollutants.strPollutantCode = " & connNameSpace & ".ISMPReportInformation.strPOllutant  " & _
-                    "and " & connNameSpace & ".ISMPReportInformation.strReferenceNumber = " & connNameSpace & ".ISMPMaster.StrReferenceNumber) as Pollutant,  " & _
+                    "from " & DBNameSpace & ".LookUPPollutants, " & DBNameSpace & ".ISMPReportInformation  " & _
+                    "where " & DBNameSpace & ".LookUPPollutants.strPollutantCode = " & DBNameSpace & ".ISMPReportInformation.strPOllutant  " & _
+                    "and " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber = " & DBNameSpace & ".ISMPMaster.StrReferenceNumber) as Pollutant,  " & _
                     "(select (strLastName|| ', ' ||strFirstName) as ReviewingEngineer  " & _
-                    "from " & connNameSpace & ".EPDUSerProfiles, " & connNameSpace & ".ISMPReportInformation  " & _
-                    "where " & connNameSpace & ".EPDUSerProfiles.numUserID = " & connNameSpace & ".ISMPReportInformation.strReviewingEngineer  " & _
-                    "and " & connNameSpace & ".ISMPReportInformation.strReferenceNumber = " & connNameSpace & ".ISMPMaster.strReferenceNumber) as ReviewingEngineer  " & _
-                    "from " & connNameSpace & ".ISMPMaster, " & connNameSpace & ".APBFacilityInformation, " & connNameSpace & ".ISMPReportInformation  " & _
-                    "where " & connNameSpace & ".ISMPMaster.strAIRSNumber = " & connNameSpace & ".APBFacilityInformation.strAIRSNumber " & _
-                    "and " & connNameSpace & ".ISMPMaster.strReferenceNumber = " & connNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
+                    "from " & DBNameSpace & ".EPDUSerProfiles, " & DBNameSpace & ".ISMPReportInformation  " & _
+                    "where " & DBNameSpace & ".EPDUSerProfiles.numUserID = " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer  " & _
+                    "and " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber = " & DBNameSpace & ".ISMPMaster.strReferenceNumber) as ReviewingEngineer  " & _
+                    "from " & DBNameSpace & ".ISMPMaster, " & DBNameSpace & ".APBFacilityInformation, " & DBNameSpace & ".ISMPReportInformation  " & _
+                    "where " & DBNameSpace & ".ISMPMaster.strAIRSNumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber " & _
+                    "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
                     "and strReviewingUnit = '" & UserGCode & "' " & _
-                    "and " & connNameSpace & ".ISMPReportInformation.strReviewingEngineer = '0' " & _
-                    "and " & connNameSpace & ".ISMPReportInformation.strDocumentType = '" & ReportType & "' " & _
-                    "and " & connNameSpace & ".ISMPReportInformation.strDelete is NULL"
+                    "and " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer = '0' " & _
+                    "and " & DBNameSpace & ".ISMPReportInformation.strDocumentType = '" & ReportType & "' " & _
+                    "and " & DBNameSpace & ".ISMPReportInformation.strDelete is NULL"
                 Else
                     SQL = ""
                 End If
@@ -6625,19 +6625,19 @@ Public Class ISMPManagersTools
             dsTestReportAssignments = New DataSet
             daTestreportAssignments = New OracleDataAdapter
 
-            Dim cmd As New OracleCommand(SQL, conn)
+            Dim cmd As New OracleCommand(SQL, DBConn)
 
             daTestreportAssignments.SelectCommand = cmd
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daTestreportAssignments.Fill(dsTestReportAssignments, "TestReportAssignment")
 
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -6648,44 +6648,44 @@ Public Class ISMPManagersTools
 
             If AccountArray(17, 3) = "1" Then
                 SQL = "Select " & _
-                "" & connNameSpace & ".ISMPMaster.strReferenceNumber, " & connNameSpace & ".ISMPMaster.strAIRSNumber, strFacilityName,  " & _
+                "" & DBNameSpace & ".ISMPMaster.strReferenceNumber, " & DBNameSpace & ".ISMPMaster.strAIRSNumber, strFacilityName,  " & _
                 "to_Char(DATTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart, " & _
                 "strEmissionSource,  " & _
                 "(Select strPollutantDescription  " & _
-                "from " & connNameSpace & ".LookUPPollutants, " & connNameSpace & ".ISMPReportInformation  " & _
-                "where " & connNameSpace & ".LookUPPollutants.strPollutantCode = " & connNameSpace & ".ISMPReportInformation.strPOllutant  " & _
-                "and " & connNameSpace & ".ISMPReportInformation.strReferenceNumber = " & connNameSpace & ".ISMPMaster.StrReferenceNumber) as Pollutant,  " & _
+                "from " & DBNameSpace & ".LookUPPollutants, " & DBNameSpace & ".ISMPReportInformation  " & _
+                "where " & DBNameSpace & ".LookUPPollutants.strPollutantCode = " & DBNameSpace & ".ISMPReportInformation.strPOllutant  " & _
+                "and " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber = " & DBNameSpace & ".ISMPMaster.StrReferenceNumber) as Pollutant,  " & _
                 "(select (strLastName|| ', ' ||strFirstName) as ReviewingEngineer  " & _
-                "from " & connNameSpace & ".EPDUserProfiles, " & connNameSpace & ".ISMPReportInformation  " & _
-                "where " & connNameSpace & ".EPDUserProfiles.numUserID = " & connNameSpace & ".ISMPReportInformation.strReviewingEngineer  " & _
-                "and " & connNameSpace & ".ISMPReportInformation.strReferenceNumber = " & connNameSpace & ".ISMPMaster.strReferenceNumber) as ReviewingEngineer  " & _
-                "from " & connNameSpace & ".ISMPMaster, " & connNameSpace & ".APBFacilityInformation, " & connNameSpace & ".ISMPReportInformation  " & _
-                "where " & connNameSpace & ".ISMPMaster.strAIRSNumber = " & connNameSpace & ".APBFacilityInformation.strAIRSNumber " & _
-                "and " & connNameSpace & ".ISMPMaster.strReferenceNumber = " & connNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
-                "and " & connNameSpace & ".ISMPReportInformation.strDocumentType = '" & ReportType & "' " & _
-                "and " & connNameSpace & ".ISMPReportInformation.strReviewingEngineer <> '0' " & _
-                "and " & connNameSpace & ".ISMPReportInformation.strDelete is NULL"
+                "from " & DBNameSpace & ".EPDUserProfiles, " & DBNameSpace & ".ISMPReportInformation  " & _
+                "where " & DBNameSpace & ".EPDUserProfiles.numUserID = " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer  " & _
+                "and " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber = " & DBNameSpace & ".ISMPMaster.strReferenceNumber) as ReviewingEngineer  " & _
+                "from " & DBNameSpace & ".ISMPMaster, " & DBNameSpace & ".APBFacilityInformation, " & DBNameSpace & ".ISMPReportInformation  " & _
+                "where " & DBNameSpace & ".ISMPMaster.strAIRSNumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber " & _
+                "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
+                "and " & DBNameSpace & ".ISMPReportInformation.strDocumentType = '" & ReportType & "' " & _
+                "and " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer <> '0' " & _
+                "and " & DBNameSpace & ".ISMPReportInformation.strDelete is NULL"
             Else
                 If AccountArray(17, 2) = "1" Then
                     SQL = "Select " & _
-                    "" & connNameSpace & ".ISMPMaster.strReferenceNumber, " & connNameSpace & ".ISMPMaster.strAIRSNumber, strFacilityName,  " & _
+                    "" & DBNameSpace & ".ISMPMaster.strReferenceNumber, " & DBNameSpace & ".ISMPMaster.strAIRSNumber, strFacilityName,  " & _
                     "to_Char(DATTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart, " & _
                     "strEmissionSource,  " & _
                     "(Select strPollutantDescription  " & _
-                    "from " & connNameSpace & ".LookUPPollutants, " & connNameSpace & ".ISMPReportInformation  " & _
-                    "where " & connNameSpace & ".LookUPPollutants.strPollutantCode = " & connNameSpace & ".ISMPReportInformation.strPOllutant  " & _
-                    "and " & connNameSpace & ".ISMPReportInformation.strReferenceNumber = " & connNameSpace & ".ISMPMaster.StrReferenceNumber) as Pollutant,  " & _
+                    "from " & DBNameSpace & ".LookUPPollutants, " & DBNameSpace & ".ISMPReportInformation  " & _
+                    "where " & DBNameSpace & ".LookUPPollutants.strPollutantCode = " & DBNameSpace & ".ISMPReportInformation.strPOllutant  " & _
+                    "and " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber = " & DBNameSpace & ".ISMPMaster.StrReferenceNumber) as Pollutant,  " & _
                     "(select (strLastName|| ', ' ||strFirstName) as ReviewingEngineer  " & _
-                    "from " & connNameSpace & ".EPDUserProfiles, " & connNameSpace & ".ISMPReportInformation  " & _
-                    "where " & connNameSpace & ".EPDUserProfiles.numUserID = " & connNameSpace & ".ISMPReportInformation.strReviewingEngineer  " & _
-                    "and " & connNameSpace & ".ISMPReportInformation.strReferenceNumber = " & connNameSpace & ".ISMPMaster.strReferenceNumber) as ReviewingEngineer  " & _
-                    "from " & connNameSpace & ".ISMPMaster, " & connNameSpace & ".APBFacilityInformation, " & connNameSpace & ".ISMPReportInformation  " & _
-                    "where " & connNameSpace & ".ISMPMaster.strAIRSNumber = " & connNameSpace & ".APBFacilityInformation.strAIRSNumber " & _
-                    "and " & connNameSpace & ".ISMPMaster.strReferenceNumber = " & connNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
+                    "from " & DBNameSpace & ".EPDUserProfiles, " & DBNameSpace & ".ISMPReportInformation  " & _
+                    "where " & DBNameSpace & ".EPDUserProfiles.numUserID = " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer  " & _
+                    "and " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber = " & DBNameSpace & ".ISMPMaster.strReferenceNumber) as ReviewingEngineer  " & _
+                    "from " & DBNameSpace & ".ISMPMaster, " & DBNameSpace & ".APBFacilityInformation, " & DBNameSpace & ".ISMPReportInformation  " & _
+                    "where " & DBNameSpace & ".ISMPMaster.strAIRSNumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber " & _
+                    "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
                     "and strReviewingUnit = '" & UserGCode & "' " & _
-                    "and " & connNameSpace & ".ISMPReportInformation.strDocumentType = '" & ReportType & "' " & _
-                    "and " & connNameSpace & ".ISMPReportInformation.strReviewingEngineer <> '0' " & _
-                    "and " & connNameSpace & ".ISMPReportInformation.strDelete is NULL"
+                    "and " & DBNameSpace & ".ISMPReportInformation.strDocumentType = '" & ReportType & "' " & _
+                    "and " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer <> '0' " & _
+                    "and " & DBNameSpace & ".ISMPReportInformation.strDelete is NULL"
                 Else
                     SQL = ""
                 End If
@@ -6694,19 +6694,19 @@ Public Class ISMPManagersTools
             dsTestReportAssignments = New DataSet
             daTestreportAssignments = New OracleDataAdapter
 
-            Dim cmd As New OracleCommand(SQL, conn)
+            Dim cmd As New OracleCommand(SQL, DBConn)
 
             daTestreportAssignments.SelectCommand = cmd
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daTestreportAssignments.Fill(dsTestReportAssignments, "TestReportAssignment")
 
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -6719,42 +6719,42 @@ Public Class ISMPManagersTools
 
             If AccountArray(17, 3) = "1" Then
                 SQL = "Select " & _
-                    "" & connNameSpace & ".ISMPMaster.strReferenceNumber, " & connNameSpace & ".ISMPMaster.strAIRSNumber, strFacilityName,  " & _
+                    "" & DBNameSpace & ".ISMPMaster.strReferenceNumber, " & DBNameSpace & ".ISMPMaster.strAIRSNumber, strFacilityName,  " & _
                     "to_Char(DATTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart, " & _
                     "strEmissionSource,  " & _
                     "(Select strPollutantDescription  " & _
-                    "from " & connNameSpace & ".LookUPPollutants, " & connNameSpace & ".ISMPReportInformation  " & _
-                    "where " & connNameSpace & ".LookUPPollutants.strPollutantCode = " & connNameSpace & ".ISMPReportInformation.strPOllutant  " & _
-                    "and " & connNameSpace & ".ISMPReportInformation.strReferenceNumber = " & connNameSpace & ".ISMPMaster.StrReferenceNumber) as Pollutant,  " & _
+                    "from " & DBNameSpace & ".LookUPPollutants, " & DBNameSpace & ".ISMPReportInformation  " & _
+                    "where " & DBNameSpace & ".LookUPPollutants.strPollutantCode = " & DBNameSpace & ".ISMPReportInformation.strPOllutant  " & _
+                    "and " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber = " & DBNameSpace & ".ISMPMaster.StrReferenceNumber) as Pollutant,  " & _
                     "(select (strLastName|| ', ' ||strFirstName) as ReviewingEngineer  " & _
-                    "from " & connNameSpace & ".EPDUserProfiles, " & connNameSpace & ".ISMPReportInformation  " & _
-                    "where " & connNameSpace & ".EPDUserProfiles.numUserID = " & connNameSpace & ".ISMPReportInformation.strReviewingEngineer  " & _
-                    "and " & connNameSpace & ".ISMPReportInformation.strReferenceNumber = " & connNameSpace & ".ISMPMaster.strReferenceNumber) as ReviewingEngineer  " & _
-                    "from " & connNameSpace & ".ISMPMaster, " & connNameSpace & ".APBFacilityInformation, " & connNameSpace & ".ISMPReportInformation  " & _
-                    "where " & connNameSpace & ".ISMPMaster.strAIRSNumber = " & connNameSpace & ".APBFacilityInformation.strAIRSNumber " & _
-                    "and " & connNameSpace & ".ISMPMaster.strReferenceNumber = " & connNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
-                    "and " & connNameSpace & ".ISMPReportInformation.strDocumentType = '" & ReportType & "' " & _
-                    "and " & connNameSpace & ".ISMPReportInformation.strDelete is NULL"
+                    "from " & DBNameSpace & ".EPDUserProfiles, " & DBNameSpace & ".ISMPReportInformation  " & _
+                    "where " & DBNameSpace & ".EPDUserProfiles.numUserID = " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer  " & _
+                    "and " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber = " & DBNameSpace & ".ISMPMaster.strReferenceNumber) as ReviewingEngineer  " & _
+                    "from " & DBNameSpace & ".ISMPMaster, " & DBNameSpace & ".APBFacilityInformation, " & DBNameSpace & ".ISMPReportInformation  " & _
+                    "where " & DBNameSpace & ".ISMPMaster.strAIRSNumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber " & _
+                    "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
+                    "and " & DBNameSpace & ".ISMPReportInformation.strDocumentType = '" & ReportType & "' " & _
+                    "and " & DBNameSpace & ".ISMPReportInformation.strDelete is NULL"
             Else
                 If AccountArray(17, 2) = "1" Then
                     SQL = "Select " & _
-                    "" & connNameSpace & ".ISMPMaster.strReferenceNumber, " & connNameSpace & ".ISMPMaster.strAIRSNumber, strFacilityName,  " & _
+                    "" & DBNameSpace & ".ISMPMaster.strReferenceNumber, " & DBNameSpace & ".ISMPMaster.strAIRSNumber, strFacilityName,  " & _
                     "to_Char(DATTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart, " & _
                     "strEmissionSource,  " & _
                     "(Select strPollutantDescription  " & _
-                    "from " & connNameSpace & ".LookUPPollutants, " & connNameSpace & ".ISMPReportInformation  " & _
-                    "where " & connNameSpace & ".LookUPPollutants.strPollutantCode = " & connNameSpace & ".ISMPReportInformation.strPOllutant  " & _
-                    "and " & connNameSpace & ".ISMPReportInformation.strReferenceNumber = " & connNameSpace & ".ISMPMaster.StrReferenceNumber) as Pollutant,  " & _
+                    "from " & DBNameSpace & ".LookUPPollutants, " & DBNameSpace & ".ISMPReportInformation  " & _
+                    "where " & DBNameSpace & ".LookUPPollutants.strPollutantCode = " & DBNameSpace & ".ISMPReportInformation.strPOllutant  " & _
+                    "and " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber = " & DBNameSpace & ".ISMPMaster.StrReferenceNumber) as Pollutant,  " & _
                     "(select (strLastName|| ', ' ||strFirstName) as ReviewingEngineer  " & _
-                    "from " & connNameSpace & ".EPDUserProfiles, " & connNameSpace & ".ISMPReportInformation  " & _
-                    "where " & connNameSpace & ".EPDUserProfiles.numUserID = " & connNameSpace & ".ISMPReportInformation.strReviewingEngineer  " & _
-                    "and " & connNameSpace & ".ISMPReportInformation.strReferenceNumber = " & connNameSpace & ".ISMPMaster.strReferenceNumber) as ReviewingEngineer  " & _
-                    "from " & connNameSpace & ".ISMPMaster, " & connNameSpace & ".APBFacilityInformation, " & connNameSpace & ".ISMPReportInformation  " & _
-                    "where " & connNameSpace & ".ISMPMaster.strAIRSNumber = " & connNameSpace & ".APBFacilityInformation.strAIRSNumber " & _
-                    "and " & connNameSpace & ".ISMPMaster.strReferenceNumber = " & connNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
+                    "from " & DBNameSpace & ".EPDUserProfiles, " & DBNameSpace & ".ISMPReportInformation  " & _
+                    "where " & DBNameSpace & ".EPDUserProfiles.numUserID = " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer  " & _
+                    "and " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber = " & DBNameSpace & ".ISMPMaster.strReferenceNumber) as ReviewingEngineer  " & _
+                    "from " & DBNameSpace & ".ISMPMaster, " & DBNameSpace & ".APBFacilityInformation, " & DBNameSpace & ".ISMPReportInformation  " & _
+                    "where " & DBNameSpace & ".ISMPMaster.strAIRSNumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber " & _
+                    "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
                     "and strReviewingUnit = '" & UserGCode & "' " & _
-                    "and " & connNameSpace & ".ISMPReportInformation.strDocumentType = '" & ReportType & "' " & _
-                    "and " & connNameSpace & ".ISMPReportInformation.strDelete is NULL"
+                    "and " & DBNameSpace & ".ISMPReportInformation.strDocumentType = '" & ReportType & "' " & _
+                    "and " & DBNameSpace & ".ISMPReportInformation.strDelete is NULL"
                 Else
                     SQL = ""
                 End If
@@ -6763,19 +6763,19 @@ Public Class ISMPManagersTools
             dsTestReportAssignments = New DataSet
             daTestreportAssignments = New OracleDataAdapter
 
-            Dim cmd As New OracleCommand(SQL, conn)
+            Dim cmd As New OracleCommand(SQL, DBConn)
 
             daTestreportAssignments.SelectCommand = cmd
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daTestreportAssignments.Fill(dsTestReportAssignments, "TestReportAssignment")
 
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -6787,42 +6787,42 @@ Public Class ISMPManagersTools
 
             If AccountArray(17, 3) = "1" Then
                 SQL = "Select " & _
-                "" & connNameSpace & ".ISMPMaster.strReferenceNumber, " & connNameSpace & ".ISMPMaster.strAIRSNumber, strFacilityName,  " & _
+                "" & DBNameSpace & ".ISMPMaster.strReferenceNumber, " & DBNameSpace & ".ISMPMaster.strAIRSNumber, strFacilityName,  " & _
                 "to_Char(DATTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart, " & _
                 "strEmissionSource,  " & _
                 "(Select strPollutantDescription  " & _
-                "from " & connNameSpace & ".LookUPPollutants, " & connNameSpace & ".ISMPReportInformation  " & _
-                "where " & connNameSpace & ".LookUPPollutants.strPollutantCode = " & connNameSpace & ".ISMPReportInformation.strPOllutant  " & _
-                "and " & connNameSpace & ".ISMPReportInformation.strReferenceNumber = " & connNameSpace & ".ISMPMaster.StrReferenceNumber) as Pollutant,  " & _
+                "from " & DBNameSpace & ".LookUPPollutants, " & DBNameSpace & ".ISMPReportInformation  " & _
+                "where " & DBNameSpace & ".LookUPPollutants.strPollutantCode = " & DBNameSpace & ".ISMPReportInformation.strPOllutant  " & _
+                "and " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber = " & DBNameSpace & ".ISMPMaster.StrReferenceNumber) as Pollutant,  " & _
                 "(select (strLastName|| ', ' ||strFirstName) as ReviewingEngineer  " & _
-                "from " & connNameSpace & ".EPDUserProfiles, " & connNameSpace & ".ISMPReportInformation  " & _
-                "where " & connNameSpace & ".EPDUserProfiles.numUserID = " & connNameSpace & ".ISMPReportInformation.strReviewingEngineer  " & _
-                "and " & connNameSpace & ".ISMPReportInformation.strReferenceNumber = " & connNameSpace & ".ISMPMaster.strReferenceNumber) as ReviewingEngineer  " & _
-                "from " & connNameSpace & ".ISMPMaster, " & connNameSpace & ".APBFacilityInformation, " & connNameSpace & ".ISMPReportInformation  " & _
-                "where " & connNameSpace & ".ISMPMaster.strAIRSNumber = " & connNameSpace & ".APBFacilityInformation.strAIRSNumber " & _
-                "and " & connNameSpace & ".ISMPMaster.strReferenceNumber = " & connNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
-                "and " & connNameSpace & ".ISMPMaster.strAIRSNumber = '0413" & txtAIRSNumber.Text & "' " & _
-                "and " & connNameSpace & ".ISMPReportInformation.strDelete is NULL"
+                "from " & DBNameSpace & ".EPDUserProfiles, " & DBNameSpace & ".ISMPReportInformation  " & _
+                "where " & DBNameSpace & ".EPDUserProfiles.numUserID = " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer  " & _
+                "and " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber = " & DBNameSpace & ".ISMPMaster.strReferenceNumber) as ReviewingEngineer  " & _
+                "from " & DBNameSpace & ".ISMPMaster, " & DBNameSpace & ".APBFacilityInformation, " & DBNameSpace & ".ISMPReportInformation  " & _
+                "where " & DBNameSpace & ".ISMPMaster.strAIRSNumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber " & _
+                "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
+                "and " & DBNameSpace & ".ISMPMaster.strAIRSNumber = '0413" & txtAIRSNumber.Text & "' " & _
+                "and " & DBNameSpace & ".ISMPReportInformation.strDelete is NULL"
             Else
                 If AccountArray(17, 2) = "1" Then
                     SQL = "Select " & _
-                    "" & connNameSpace & ".ISMPMaster.strReferenceNumber, " & connNameSpace & ".ISMPMaster.strAIRSNumber, strFacilityName,  " & _
+                    "" & DBNameSpace & ".ISMPMaster.strReferenceNumber, " & DBNameSpace & ".ISMPMaster.strAIRSNumber, strFacilityName,  " & _
                     "to_Char(DATTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart, " & _
                     "strEmissionSource,  " & _
                     "(Select strPollutantDescription  " & _
-                    "from " & connNameSpace & ".LookUPPollutants, " & connNameSpace & ".ISMPReportInformation  " & _
-                    "where " & connNameSpace & ".LookUPPollutants.strPollutantCode = " & connNameSpace & ".ISMPReportInformation.strPOllutant  " & _
-                    "and " & connNameSpace & ".ISMPReportInformation.strReferenceNumber = " & connNameSpace & ".ISMPMaster.StrReferenceNumber) as Pollutant,  " & _
+                    "from " & DBNameSpace & ".LookUPPollutants, " & DBNameSpace & ".ISMPReportInformation  " & _
+                    "where " & DBNameSpace & ".LookUPPollutants.strPollutantCode = " & DBNameSpace & ".ISMPReportInformation.strPOllutant  " & _
+                    "and " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber = " & DBNameSpace & ".ISMPMaster.StrReferenceNumber) as Pollutant,  " & _
                     "(select (strLastName|| ', ' ||strFirstName) as ReviewingEngineer  " & _
-                    "from " & connNameSpace & ".EPDUserProfiles, " & connNameSpace & ".ISMPReportInformation  " & _
-                    "where " & connNameSpace & ".EPDUserProfiles.numUserID = " & connNameSpace & ".ISMPReportInformation.strReviewingEngineer  " & _
-                    "and " & connNameSpace & ".ISMPReportInformation.strReferenceNumber = " & connNameSpace & ".ISMPMaster.strReferenceNumber) as ReviewingEngineer  " & _
-                    "from " & connNameSpace & ".ISMPMaster, " & connNameSpace & ".APBFacilityInformation, " & connNameSpace & ".ISMPReportInformation  " & _
-                    "where " & connNameSpace & ".ISMPMaster.strAIRSNumber = " & connNameSpace & ".APBFacilityInformation.strAIRSNumber " & _
-                    "and " & connNameSpace & ".ISMPMaster.strReferenceNumber = " & connNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
+                    "from " & DBNameSpace & ".EPDUserProfiles, " & DBNameSpace & ".ISMPReportInformation  " & _
+                    "where " & DBNameSpace & ".EPDUserProfiles.numUserID = " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer  " & _
+                    "and " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber = " & DBNameSpace & ".ISMPMaster.strReferenceNumber) as ReviewingEngineer  " & _
+                    "from " & DBNameSpace & ".ISMPMaster, " & DBNameSpace & ".APBFacilityInformation, " & DBNameSpace & ".ISMPReportInformation  " & _
+                    "where " & DBNameSpace & ".ISMPMaster.strAIRSNumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber " & _
+                    "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
                     "and strReviewingUnit = '" & UserGCode & "' " & _
-                      "and " & connNameSpace & ".ISMPMaster.strAIRSNumber = '0413" & txtAIRSNumber.Text & "' " & _
-                    "and " & connNameSpace & ".ISMPReportInformation.strDelete is NULL"
+                      "and " & DBNameSpace & ".ISMPMaster.strAIRSNumber = '0413" & txtAIRSNumber.Text & "' " & _
+                    "and " & DBNameSpace & ".ISMPReportInformation.strDelete is NULL"
                 Else
                     SQL = ""
                 End If
@@ -6831,19 +6831,19 @@ Public Class ISMPManagersTools
             dsTestReportAssignments = New DataSet
             daTestreportAssignments = New OracleDataAdapter
 
-            Dim cmd As New OracleCommand(SQL, conn)
+            Dim cmd As New OracleCommand(SQL, DBConn)
 
             daTestreportAssignments.SelectCommand = cmd
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daTestreportAssignments.Fill(dsTestReportAssignments, "TestReportAssignment")
 
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -6860,7 +6860,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -6878,7 +6878,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -6911,14 +6911,14 @@ Public Class ISMPManagersTools
 
             If EngineerGCode <> "" Then
 
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 For Each strObject In lblTestReportAssignment.Items
                     SQL = "select to_char(datReviewedBYUnitManager, 'dd-Mon-yyyy') as ReviewedByUnitManager " & _
-                          "from " & connNameSpace & ".ISMPReportInformation " & _
+                          "from " & DBNameSpace & ".ISMPReportInformation " & _
                           "where strReferenceNumber = '" & strObject.ToString() & "' "
-                    cmd = New OracleCommand(SQL, conn)
+                    cmd = New OracleCommand(SQL, DBConn)
                     dr = cmd.ExecuteReader
                     While dr.Read
                         AssignDate = dr.Item("ReviewedByUnitManager")
@@ -6929,15 +6929,15 @@ Public Class ISMPManagersTools
                         'AssignDate = AssignDate
                     End If
 
-                    SQL = "Update " & connNameSpace & ".ISMPReportInformation set " & _
+                    SQL = "Update " & DBNameSpace & ".ISMPReportInformation set " & _
                     "strReviewingEngineer = '" & EngineerGCode & "', " & _
                     "datReviewedBYUnitManager = '" & AssignDate & "', " & _
                     "strReviewingUnit = '" & UserUnit & "', " & _
                     "numReviewingManager = '" & UserGCode & "', " & _
                     "strPreComplianceStatus = '" & PreCompliance & "' " & _
-                    "where " & connNameSpace & ".ISMPReportInformation.strReferenceNumber = '" & strObject.ToString() & "'"
+                    "where " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber = '" & strObject.ToString() & "'"
 
-                    cmd = New OracleCommand(SQL, conn)
+                    cmd = New OracleCommand(SQL, DBConn)
 
                     dr = cmd.ExecuteReader
 
@@ -6953,7 +6953,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -6981,8 +6981,8 @@ Public Class ISMPManagersTools
         Try
 
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             If chbOneStack2Runs.Checked = True Then
@@ -6990,11 +6990,11 @@ Public Class ISMPManagersTools
             Else
                 OneStack2 = True
             End If
-            SQL = "Update " & connNameSpace & ".ISMPDocumentType set " & _
+            SQL = "Update " & DBNameSpace & ".ISMPDocumentType set " & _
             "strAFSPrint = '" & OneStack2 & "' " & _
             "where strKEy = '002'"
 
-            cmd = New OracleCommand(SQL, conn)
+            cmd = New OracleCommand(SQL, DBConn)
             dr = cmd.ExecuteReader
 
             If chbOneStack3Runs.Checked = True Then
@@ -7002,11 +7002,11 @@ Public Class ISMPManagersTools
             Else
                 OneStack3 = True
             End If
-            SQL = "Update " & connNameSpace & ".ISMPDocumentType set " & _
+            SQL = "Update " & DBNameSpace & ".ISMPDocumentType set " & _
             "strAFSPrint = '" & OneStack3 & "' " & _
             "where strKEy = '003'"
 
-            cmd = New OracleCommand(SQL, conn)
+            cmd = New OracleCommand(SQL, DBConn)
             dr = cmd.ExecuteReader
 
             If chbOneStack4Runs.Checked = True Then
@@ -7014,11 +7014,11 @@ Public Class ISMPManagersTools
             Else
                 OneStack4 = True
             End If
-            SQL = "Update " & connNameSpace & ".ISMPDocumentType set " & _
+            SQL = "Update " & DBNameSpace & ".ISMPDocumentType set " & _
             "strAFSPrint = '" & OneStack4 & "' " & _
             "where strKEy = '004'"
 
-            cmd = New OracleCommand(SQL, conn)
+            cmd = New OracleCommand(SQL, DBConn)
             dr = cmd.ExecuteReader
 
             If chbTwoStack.Checked = True Then
@@ -7026,11 +7026,11 @@ Public Class ISMPManagersTools
             Else
                 TwoStackStandard = True
             End If
-            SQL = "Update " & connNameSpace & ".ISMPDocumentType set " & _
+            SQL = "Update " & DBNameSpace & ".ISMPDocumentType set " & _
             "strAFSPrint = '" & TwoStackStandard & "' " & _
             "where strKEy = '005'"
 
-            cmd = New OracleCommand(SQL, conn)
+            cmd = New OracleCommand(SQL, DBConn)
             dr = cmd.ExecuteReader
 
 
@@ -7039,11 +7039,11 @@ Public Class ISMPManagersTools
             Else
                 TwoStackDRE = True
             End If
-            SQL = "Update " & connNameSpace & ".ISMPDocumentType set " & _
+            SQL = "Update " & DBNameSpace & ".ISMPDocumentType set " & _
             "strAFSPrint = '" & TwoStackDRE & "' " & _
             "where strKEy = '006'"
 
-            cmd = New OracleCommand(SQL, conn)
+            cmd = New OracleCommand(SQL, DBConn)
             dr = cmd.ExecuteReader
 
 
@@ -7052,11 +7052,11 @@ Public Class ISMPManagersTools
             Else
                 LoadingRack = True
             End If
-            SQL = "Update " & connNameSpace & ".ISMPDocumentType set " & _
+            SQL = "Update " & DBNameSpace & ".ISMPDocumentType set " & _
             "strAFSPrint = '" & LoadingRack & "' " & _
             "where strKEy = '007'"
 
-            cmd = New OracleCommand(SQL, conn)
+            cmd = New OracleCommand(SQL, DBConn)
             dr = cmd.ExecuteReader
 
 
@@ -7065,11 +7065,11 @@ Public Class ISMPManagersTools
             Else
                 PondTreatment = True
             End If
-            SQL = "Update " & connNameSpace & ".ISMPDocumentType set " & _
+            SQL = "Update " & DBNameSpace & ".ISMPDocumentType set " & _
             "strAFSPrint = '" & PondTreatment & "' " & _
             "where strKEy = '008'"
 
-            cmd = New OracleCommand(SQL, conn)
+            cmd = New OracleCommand(SQL, DBConn)
             dr = cmd.ExecuteReader
 
 
@@ -7078,11 +7078,11 @@ Public Class ISMPManagersTools
             Else
                 GasConc = True
             End If
-            SQL = "Update " & connNameSpace & ".ISMPDocumentType set " & _
+            SQL = "Update " & DBNameSpace & ".ISMPDocumentType set " & _
             "strAFSPrint = '" & GasConc & "' " & _
             "where strKEy = '009'"
 
-            cmd = New OracleCommand(SQL, conn)
+            cmd = New OracleCommand(SQL, DBConn)
             dr = cmd.ExecuteReader
 
 
@@ -7091,11 +7091,11 @@ Public Class ISMPManagersTools
             Else
                 Flare = True
             End If
-            SQL = "Update " & connNameSpace & ".ISMPDocumentType set " & _
+            SQL = "Update " & DBNameSpace & ".ISMPDocumentType set " & _
             "strAFSPrint = '" & Flare & "' " & _
             "where strKEy = '010'"
 
-            cmd = New OracleCommand(SQL, conn)
+            cmd = New OracleCommand(SQL, DBConn)
             dr = cmd.ExecuteReader
 
 
@@ -7104,11 +7104,11 @@ Public Class ISMPManagersTools
             Else
                 Rata = True
             End If
-            SQL = "Update " & connNameSpace & ".ISMPDocumentType set " & _
+            SQL = "Update " & DBNameSpace & ".ISMPDocumentType set " & _
             "strAFSPrint = '" & Rata & "' " & _
             "where strKEy = '011'"
 
-            cmd = New OracleCommand(SQL, conn)
+            cmd = New OracleCommand(SQL, DBConn)
             dr = cmd.ExecuteReader
 
 
@@ -7117,11 +7117,11 @@ Public Class ISMPManagersTools
             Else
                 MemoStandard = True
             End If
-            SQL = "Update " & connNameSpace & ".ISMPDocumentType set " & _
+            SQL = "Update " & DBNameSpace & ".ISMPDocumentType set " & _
             "strAFSPrint = '" & MemoStandard & "' " & _
             "where strKEy = '012'"
 
-            cmd = New OracleCommand(SQL, conn)
+            cmd = New OracleCommand(SQL, DBConn)
             dr = cmd.ExecuteReader
 
 
@@ -7130,11 +7130,11 @@ Public Class ISMPManagersTools
             Else
                 MemoFile = True
             End If
-            SQL = "Update " & connNameSpace & ".ISMPDocumentType set " & _
+            SQL = "Update " & DBNameSpace & ".ISMPDocumentType set " & _
             "strAFSPrint = '" & MemoFile & "' " & _
             "where strKEy = '013'"
 
-            cmd = New OracleCommand(SQL, conn)
+            cmd = New OracleCommand(SQL, DBConn)
             dr = cmd.ExecuteReader
 
 
@@ -7143,11 +7143,11 @@ Public Class ISMPManagersTools
             Else
                 Method9Multi = True
             End If
-            SQL = "Update " & connNameSpace & ".ISMPDocumentType set " & _
+            SQL = "Update " & DBNameSpace & ".ISMPDocumentType set " & _
             "strAFSPrint = '" & Method9Multi & "' " & _
             "where strKEy = '014'"
 
-            cmd = New OracleCommand(SQL, conn)
+            cmd = New OracleCommand(SQL, DBConn)
             dr = cmd.ExecuteReader
 
 
@@ -7156,11 +7156,11 @@ Public Class ISMPManagersTools
             Else
                 Method22 = True
             End If
-            SQL = "Update " & connNameSpace & ".ISMPDocumentType set " & _
+            SQL = "Update " & DBNameSpace & ".ISMPDocumentType set " & _
             "strAFSPrint = '" & Method22 & "' " & _
             "where strKEy = '015'"
 
-            cmd = New OracleCommand(SQL, conn)
+            cmd = New OracleCommand(SQL, DBConn)
             dr = cmd.ExecuteReader
 
 
@@ -7169,11 +7169,11 @@ Public Class ISMPManagersTools
             Else
                 Method9Single = True
             End If
-            SQL = "Update " & connNameSpace & ".ISMPDocumentType set " & _
+            SQL = "Update " & DBNameSpace & ".ISMPDocumentType set " & _
             "strAFSPrint = '" & Method9Single & "' " & _
             "where strKEy = '016'"
 
-            cmd = New OracleCommand(SQL, conn)
+            cmd = New OracleCommand(SQL, DBConn)
             dr = cmd.ExecuteReader
 
 
@@ -7182,11 +7182,11 @@ Public Class ISMPManagersTools
             Else
                 PEMS = True
             End If
-            SQL = "Update " & connNameSpace & ".ISMPDocumentType set " & _
+            SQL = "Update " & DBNameSpace & ".ISMPDocumentType set " & _
             "strAFSPrint = '" & PEMS & "' " & _
             "where strKEy = '017'"
 
-            cmd = New OracleCommand(SQL, conn)
+            cmd = New OracleCommand(SQL, DBConn)
             dr = cmd.ExecuteReader
 
 
@@ -7195,17 +7195,17 @@ Public Class ISMPManagersTools
             Else
                 PTE = True
             End If
-            SQL = "Update " & connNameSpace & ".ISMPDocumentType set " & _
+            SQL = "Update " & DBNameSpace & ".ISMPDocumentType set " & _
             "strAFSPrint = '" & PTE & "' " & _
             "where strKEy = '018'"
 
-            cmd = New OracleCommand(SQL, conn)
+            cmd = New OracleCommand(SQL, DBConn)
             dr = cmd.ExecuteReader
 
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -7218,14 +7218,14 @@ Public Class ISMPManagersTools
 
             If rdbChemVOC.Checked <> False Or rdbCombusMineral.Checked <> False Then
 
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 If rdbChemVOC.Checked = True Then
-                    SQL = "Update " & connNameSpace & ".ISMPFacilityAssignment set " & _
+                    SQL = "Update " & DBNameSpace & ".ISMPFacilityAssignment set " & _
                     "strISMPUnit = 'H' "
                 Else
-                    SQL = "Update " & connNameSpace & ".ISMPFacilityAssignment set " & _
+                    SQL = "Update " & DBNameSpace & ".ISMPFacilityAssignment set " & _
                     "strChemicalVOC = 'I' "
                 End If
                 Try
@@ -7233,7 +7233,7 @@ Public Class ISMPManagersTools
 
                     For Each strObject In lsbFacilities.Items
                         SQL2 = SQL & "where strAIRSNumber = '0413" & strObject.ToCharArray() & "' "
-                        cmd = New OracleCommand(SQL2, conn)
+                        cmd = New OracleCommand(SQL2, DBConn)
                         dr = cmd.ExecuteReader
                         SQL2 = ""
                     Next
@@ -7242,7 +7242,7 @@ Public Class ISMPManagersTools
                     MsgBox(ex.ToString())
                 End Try
                 '  
-                If conn.State = ConnectionState.Open Then
+                If DBConn.State = ConnectionState.Open Then
                     'conn.close()
                 End If
                 LVFacilities.Clear()
@@ -7255,7 +7255,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -7295,8 +7295,8 @@ Public Class ISMPManagersTools
 
         Try
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             If txtFacility.Text <> "" Then
@@ -7343,17 +7343,17 @@ Public Class ISMPManagersTools
 
             'txtOpenFacility
             SQL = "Select count(*) as Count " & _
-            "from " & connNameSpace & ".ISMPReportInformation, " & connNameSpace & ".ISMPMaster, " & connNameSpace & ".APBFacilityInformation " & _
+            "from " & DBNameSpace & ".ISMPReportInformation, " & DBNameSpace & ".ISMPMaster, " & DBNameSpace & ".APBFacilityInformation " & _
             "where strClosed = 'False' " & _
             "and strDelete is NULL " & _
-            "and " & connNameSpace & ".ISMPMaster.strReferenceNumber = " & connNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
-            "and " & connNameSpace & ".ISMPMaster.strAIRSNumber = " & connNameSpace & ".APBFacilityInformation.strAIRSNumber " & _
-            "and Upper(" & connNameSpace & ".APBFacilityInformation.strFacilityCity) Like Upper('" & CityBias & "') " & _
-            "and " & connNameSpace & ".ISMPMaster.strAIRSNumber Like '0413" & FacilityBias & "' " & _
-            "and subStr(" & connNameSpace & ".ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " & _
+            "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
+            "and " & DBNameSpace & ".ISMPMaster.strAIRSNumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber " & _
+            "and Upper(" & DBNameSpace & ".APBFacilityInformation.strFacilityCity) Like Upper('" & CityBias & "') " & _
+            "and " & DBNameSpace & ".ISMPMaster.strAIRSNumber Like '0413" & FacilityBias & "' " & _
+            "and subStr(" & DBNameSpace & ".ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " & _
             "and " & DateBias & " "
 
-            cmd = New OracleCommand(SQL, conn)
+            cmd = New OracleCommand(SQL, DBConn)
             Try
 
 
@@ -7365,7 +7365,7 @@ Public Class ISMPManagersTools
             Catch ex As Exception
                 ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
             Finally
-                If conn.State = ConnectionState.Open Then
+                If DBConn.State = ConnectionState.Open Then
                     'conn.close()
                 End If
             End Try
@@ -7373,17 +7373,17 @@ Public Class ISMPManagersTools
 
             'txtClosedFacility
             SQL = "Select count(*) as Count " & _
-            "from " & connNameSpace & ".ISMPReportInformation, " & connNameSpace & ".ISMPMaster, " & connNameSpace & ".APBFacilityInformation " & _
+            "from " & DBNameSpace & ".ISMPReportInformation, " & DBNameSpace & ".ISMPMaster, " & DBNameSpace & ".APBFacilityInformation " & _
             "where strClosed = 'True' " & _
             "and strDelete is NULL " & _
-            "and " & connNameSpace & ".ISMPMaster.strReferenceNumber = " & connNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
-            "and " & connNameSpace & ".ISMPMaster.strAIRSNumber = " & connNameSpace & ".APBFacilityInformation.strAIRSNumber " & _
-            "and Upper(" & connNameSpace & ".APBFacilityInformation.strFacilityCity) Like Upper('" & CityBias & "') " & _
-            "and " & connNameSpace & ".ISMPMaster.strAIRSNumber Like '0413" & FacilityBias & "' " & _
-            "and subStr(" & connNameSpace & ".ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " & _
+            "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
+            "and " & DBNameSpace & ".ISMPMaster.strAIRSNumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber " & _
+            "and Upper(" & DBNameSpace & ".APBFacilityInformation.strFacilityCity) Like Upper('" & CityBias & "') " & _
+            "and " & DBNameSpace & ".ISMPMaster.strAIRSNumber Like '0413" & FacilityBias & "' " & _
+            "and subStr(" & DBNameSpace & ".ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " & _
             "and " & DateBias & " "
 
-            cmd = New OracleCommand(SQL, conn)
+            cmd = New OracleCommand(SQL, DBConn)
 
             dr = cmd.ExecuteReader
             While dr.Read
@@ -7392,18 +7392,18 @@ Public Class ISMPManagersTools
 
             'txtFacilityOpenDays
             SQL = "Select count(*) as Count " & _
-            "from " & connNameSpace & ".ISMPReportInformation, " & connNameSpace & ".ISMPMaster, " & connNameSpace & ".APBFacilityInformation " & _
+            "from " & DBNameSpace & ".ISMPReportInformation, " & DBNameSpace & ".ISMPMaster, " & DBNameSpace & ".APBFacilityInformation " & _
             "where " & _
             "strDelete is NULL " & _
-            "and " & connNameSpace & ".ISMPMaster.strReferenceNumber = " & connNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
-            "and " & connNameSpace & ".ISMPMaster.strAIRSNumber = " & connNameSpace & ".APBFacilityInformation.strAIRSNumber " & _
-            "and Upper(" & connNameSpace & ".APBFacilityInformation.strFacilityCity) Like Upper('" & CityBias & "') " & _
-            "and " & connNameSpace & ".ISMPMaster.strAIRSNumber Like '0413" & FacilityBias & "' " & _
-            "and subStr(" & connNameSpace & ".ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " & _
+            "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
+            "and " & DBNameSpace & ".ISMPMaster.strAIRSNumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber " & _
+            "and Upper(" & DBNameSpace & ".APBFacilityInformation.strFacilityCity) Like Upper('" & CityBias & "') " & _
+            "and " & DBNameSpace & ".ISMPMaster.strAIRSNumber Like '0413" & FacilityBias & "' " & _
+            "and subStr(" & DBNameSpace & ".ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " & _
             "and (to_date('" & OracleDate & "', 'dd-Mon-yyyy') - datReceivedDate) >= '" & txtDaysOpenFacility.Text & "' " & _
             "and " & DateBias & " "
 
-            cmd = New OracleCommand(SQL, conn)
+            cmd = New OracleCommand(SQL, DBConn)
 
             dr = cmd.ExecuteReader
             While dr.Read
@@ -7413,18 +7413,18 @@ Public Class ISMPManagersTools
             'Compliance Status Open
             'File Open 
             SQL = "Select count(*) as Count " & _
-            "from " & connNameSpace & ".ISMPReportInformation, " & connNameSpace & ".ISMPMaster, " & connNameSpace & ".APBFacilityInformation " & _
+            "from " & DBNameSpace & ".ISMPReportInformation, " & DBNameSpace & ".ISMPMaster, " & DBNameSpace & ".APBFacilityInformation " & _
             "where strClosed = 'False' " & _
             "and strDelete is NULL " & _
             "and strComplianceStatus = '01' " & _
-            "and " & connNameSpace & ".ISMPMaster.strReferenceNumber = " & connNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
-            "and " & connNameSpace & ".ISMPMaster.strAIRSNumber = " & connNameSpace & ".APBFacilityInformation.strAIRSNumber " & _
-            "and Upper(" & connNameSpace & ".APBFacilityInformation.strFacilityCity) Like Upper('" & CityBias & "') " & _
-            "and " & connNameSpace & ".ISMPMaster.strAIRSNumber Like '0413" & FacilityBias & "' " & _
-            "and subStr(" & connNameSpace & ".ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " & _
+            "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
+            "and " & DBNameSpace & ".ISMPMaster.strAIRSNumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber " & _
+            "and Upper(" & DBNameSpace & ".APBFacilityInformation.strFacilityCity) Like Upper('" & CityBias & "') " & _
+            "and " & DBNameSpace & ".ISMPMaster.strAIRSNumber Like '0413" & FacilityBias & "' " & _
+            "and subStr(" & DBNameSpace & ".ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " & _
             "and " & DateBias & " "
 
-            cmd = New OracleCommand(SQL, conn)
+            cmd = New OracleCommand(SQL, DBConn)
 
             dr = cmd.ExecuteReader
             While dr.Read
@@ -7433,18 +7433,18 @@ Public Class ISMPManagersTools
 
             'For Information Purposes Only
             SQL = "Select count(*) as Count " & _
-            "from " & connNameSpace & ".ISMPReportInformation, " & connNameSpace & ".ISMPMaster, " & connNameSpace & ".APBFacilityInformation " & _
+            "from " & DBNameSpace & ".ISMPReportInformation, " & DBNameSpace & ".ISMPMaster, " & DBNameSpace & ".APBFacilityInformation " & _
             "where strClosed = 'False' " & _
             "and strDelete is NULL " & _
             "and strComplianceStatus = '02' " & _
-            "and " & connNameSpace & ".ISMPMaster.strReferenceNumber = " & connNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
-            "and " & connNameSpace & ".ISMPMaster.strAIRSNumber = " & connNameSpace & ".APBFacilityInformation.strAIRSNumber " & _
-            "and Upper(" & connNameSpace & ".APBFacilityInformation.strFacilityCity) Like Upper('" & CityBias & "') " & _
-            "and " & connNameSpace & ".ISMPMaster.strAIRSNumber Like '0413" & FacilityBias & "' " & _
-            "and subStr(" & connNameSpace & ".ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " & _
+            "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
+            "and " & DBNameSpace & ".ISMPMaster.strAIRSNumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber " & _
+            "and Upper(" & DBNameSpace & ".APBFacilityInformation.strFacilityCity) Like Upper('" & CityBias & "') " & _
+            "and " & DBNameSpace & ".ISMPMaster.strAIRSNumber Like '0413" & FacilityBias & "' " & _
+            "and subStr(" & DBNameSpace & ".ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " & _
             "and " & DateBias & " "
 
-            cmd = New OracleCommand(SQL, conn)
+            cmd = New OracleCommand(SQL, DBConn)
 
             dr = cmd.ExecuteReader
             While dr.Read
@@ -7453,18 +7453,18 @@ Public Class ISMPManagersTools
 
             'In Compliance
             SQL = "Select count(*) as Count " & _
-            "from " & connNameSpace & ".ISMPReportInformation, " & connNameSpace & ".ISMPMaster, " & connNameSpace & ".APBFacilityInformation " & _
+            "from " & DBNameSpace & ".ISMPReportInformation, " & DBNameSpace & ".ISMPMaster, " & DBNameSpace & ".APBFacilityInformation " & _
             "where strClosed = 'False' " & _
             "and strDelete is NULL " & _
             "and strComplianceStatus = '03' " & _
-            "and " & connNameSpace & ".ISMPMaster.strReferenceNumber = " & connNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
-            "and " & connNameSpace & ".ISMPMaster.strAIRSNumber = " & connNameSpace & ".APBFacilityInformation.strAIRSNumber " & _
-            "and Upper(" & connNameSpace & ".APBFacilityInformation.strFacilityCity) Like Upper('" & CityBias & "') " & _
-            "and " & connNameSpace & ".ISMPMaster.strAIRSNumber Like '0413" & FacilityBias & "' " & _
-            "and subStr(" & connNameSpace & ".ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " & _
+            "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
+            "and " & DBNameSpace & ".ISMPMaster.strAIRSNumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber " & _
+            "and Upper(" & DBNameSpace & ".APBFacilityInformation.strFacilityCity) Like Upper('" & CityBias & "') " & _
+            "and " & DBNameSpace & ".ISMPMaster.strAIRSNumber Like '0413" & FacilityBias & "' " & _
+            "and subStr(" & DBNameSpace & ".ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " & _
             "and " & DateBias & " "
 
-            cmd = New OracleCommand(SQL, conn)
+            cmd = New OracleCommand(SQL, DBConn)
 
             dr = cmd.ExecuteReader
             While dr.Read
@@ -7473,18 +7473,18 @@ Public Class ISMPManagersTools
 
             'Indeterminate
             SQL = "Select count(*) as Count " & _
-            "from " & connNameSpace & ".ISMPReportInformation, " & connNameSpace & ".ISMPMaster, " & connNameSpace & ".APBFacilityInformation " & _
+            "from " & DBNameSpace & ".ISMPReportInformation, " & DBNameSpace & ".ISMPMaster, " & DBNameSpace & ".APBFacilityInformation " & _
             "where strClosed = 'False' " & _
             "and strDelete is NULL " & _
             "and strComplianceStatus = '04' " & _
-            "and " & connNameSpace & ".ISMPMaster.strReferenceNumber = " & connNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
-            "and " & connNameSpace & ".ISMPMaster.strAIRSNumber = " & connNameSpace & ".APBFacilityInformation.strAIRSNumber " & _
-            "and Upper(" & connNameSpace & ".APBFacilityInformation.strFacilityCity) Like Upper('" & CityBias & "') " & _
-            "and " & connNameSpace & ".ISMPMaster.strAIRSNumber Like '0413" & FacilityBias & "' " & _
-            "and subStr(" & connNameSpace & ".ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " & _
+            "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
+            "and " & DBNameSpace & ".ISMPMaster.strAIRSNumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber " & _
+            "and Upper(" & DBNameSpace & ".APBFacilityInformation.strFacilityCity) Like Upper('" & CityBias & "') " & _
+            "and " & DBNameSpace & ".ISMPMaster.strAIRSNumber Like '0413" & FacilityBias & "' " & _
+            "and subStr(" & DBNameSpace & ".ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " & _
             "and " & DateBias & " "
 
-            cmd = New OracleCommand(SQL, conn)
+            cmd = New OracleCommand(SQL, DBConn)
 
             dr = cmd.ExecuteReader
             While dr.Read
@@ -7493,18 +7493,18 @@ Public Class ISMPManagersTools
 
             'Not In Compliance
             SQL = "Select count(*) as Count " & _
-            "from " & connNameSpace & ".ISMPReportInformation, " & connNameSpace & ".ISMPMaster, " & connNameSpace & ".APBFacilityInformation " & _
+            "from " & DBNameSpace & ".ISMPReportInformation, " & DBNameSpace & ".ISMPMaster, " & DBNameSpace & ".APBFacilityInformation " & _
             "where strClosed = 'False' " & _
             "and strDelete is NULL " & _
             "and strComplianceStatus = '05' " & _
-            "and " & connNameSpace & ".ISMPMaster.strReferenceNumber = " & connNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
-            "and " & connNameSpace & ".ISMPMaster.strAIRSNumber = " & connNameSpace & ".APBFacilityInformation.strAIRSNumber " & _
-            "and Upper(" & connNameSpace & ".APBFacilityInformation.strFacilityCity) Like Upper('" & CityBias & "') " & _
-            "and " & connNameSpace & ".ISMPMaster.strAIRSNumber Like '0413" & FacilityBias & "' " & _
-            "and subStr(" & connNameSpace & ".ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " & _
+            "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
+            "and " & DBNameSpace & ".ISMPMaster.strAIRSNumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber " & _
+            "and Upper(" & DBNameSpace & ".APBFacilityInformation.strFacilityCity) Like Upper('" & CityBias & "') " & _
+            "and " & DBNameSpace & ".ISMPMaster.strAIRSNumber Like '0413" & FacilityBias & "' " & _
+            "and subStr(" & DBNameSpace & ".ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " & _
             "and " & DateBias & " "
 
-            cmd = New OracleCommand(SQL, conn)
+            cmd = New OracleCommand(SQL, DBConn)
 
             dr = cmd.ExecuteReader
             While dr.Read
@@ -7514,18 +7514,18 @@ Public Class ISMPManagersTools
             'Compliance Status Closed
             'File Open 
             SQL = "Select count(*) as Count " & _
-            "from " & connNameSpace & ".ISMPReportInformation, " & connNameSpace & ".ISMPMaster, " & connNameSpace & ".APBFacilityInformation " & _
+            "from " & DBNameSpace & ".ISMPReportInformation, " & DBNameSpace & ".ISMPMaster, " & DBNameSpace & ".APBFacilityInformation " & _
             "where strClosed = 'True' " & _
             "and strDelete is NULL " & _
             "and strComplianceStatus = '01' " & _
-            "and " & connNameSpace & ".ISMPMaster.strReferenceNumber = " & connNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
-            "and " & connNameSpace & ".ISMPMaster.strAIRSNumber = " & connNameSpace & ".APBFacilityInformation.strAIRSNumber " & _
-            "and Upper(" & connNameSpace & ".APBFacilityInformation.strFacilityCity) Like Upper('" & CityBias & "') " & _
-            "and " & connNameSpace & ".ISMPMaster.strAIRSNumber Like '0413" & FacilityBias & "' " & _
-            "and subStr(" & connNameSpace & ".ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " & _
+            "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
+            "and " & DBNameSpace & ".ISMPMaster.strAIRSNumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber " & _
+            "and Upper(" & DBNameSpace & ".APBFacilityInformation.strFacilityCity) Like Upper('" & CityBias & "') " & _
+            "and " & DBNameSpace & ".ISMPMaster.strAIRSNumber Like '0413" & FacilityBias & "' " & _
+            "and subStr(" & DBNameSpace & ".ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " & _
             "and " & DateBias & " "
 
-            cmd = New OracleCommand(SQL, conn)
+            cmd = New OracleCommand(SQL, DBConn)
 
             dr = cmd.ExecuteReader
             While dr.Read
@@ -7534,18 +7534,18 @@ Public Class ISMPManagersTools
 
             'For Information Purposes Only
             SQL = "Select count(*) as Count " & _
-            "from " & connNameSpace & ".ISMPReportInformation, " & connNameSpace & ".ISMPMaster, " & connNameSpace & ".APBFacilityInformation " & _
+            "from " & DBNameSpace & ".ISMPReportInformation, " & DBNameSpace & ".ISMPMaster, " & DBNameSpace & ".APBFacilityInformation " & _
             "where strClosed = 'True' " & _
             "and strDelete is NULL " & _
             "and strComplianceStatus = '02' " & _
-            "and " & connNameSpace & ".ISMPMaster.strReferenceNumber = " & connNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
-            "and " & connNameSpace & ".ISMPMaster.strAIRSNumber = " & connNameSpace & ".APBFacilityInformation.strAIRSNumber " & _
-            "and Upper(" & connNameSpace & ".APBFacilityInformation.strFacilityCity) Like Upper('" & CityBias & "') " & _
-            "and " & connNameSpace & ".ISMPMaster.strAIRSNumber Like '0413" & FacilityBias & "' " & _
-            "and subStr(" & connNameSpace & ".ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " & _
+            "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
+            "and " & DBNameSpace & ".ISMPMaster.strAIRSNumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber " & _
+            "and Upper(" & DBNameSpace & ".APBFacilityInformation.strFacilityCity) Like Upper('" & CityBias & "') " & _
+            "and " & DBNameSpace & ".ISMPMaster.strAIRSNumber Like '0413" & FacilityBias & "' " & _
+            "and subStr(" & DBNameSpace & ".ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " & _
             "and " & DateBias & " "
 
-            cmd = New OracleCommand(SQL, conn)
+            cmd = New OracleCommand(SQL, DBConn)
 
             dr = cmd.ExecuteReader
             While dr.Read
@@ -7554,18 +7554,18 @@ Public Class ISMPManagersTools
 
             'In Compliance
             SQL = "Select count(*) as Count " & _
-            "from " & connNameSpace & ".ISMPReportInformation, " & connNameSpace & ".ISMPMaster, " & connNameSpace & ".APBFacilityInformation " & _
+            "from " & DBNameSpace & ".ISMPReportInformation, " & DBNameSpace & ".ISMPMaster, " & DBNameSpace & ".APBFacilityInformation " & _
             "where strClosed = 'True' " & _
             "and strDelete is NULL " & _
             "and strComplianceStatus = '03' " & _
-            "and " & connNameSpace & ".ISMPMaster.strReferenceNumber = " & connNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
-            "and " & connNameSpace & ".ISMPMaster.strAIRSNumber = " & connNameSpace & ".APBFacilityInformation.strAIRSNumber " & _
-            "and Upper(" & connNameSpace & ".APBFacilityInformation.strFacilityCity) Like Upper('" & CityBias & "') " & _
-            "and " & connNameSpace & ".ISMPMaster.strAIRSNumber Like '0413" & FacilityBias & "' " & _
-            "and subStr(" & connNameSpace & ".ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " & _
+            "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
+            "and " & DBNameSpace & ".ISMPMaster.strAIRSNumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber " & _
+            "and Upper(" & DBNameSpace & ".APBFacilityInformation.strFacilityCity) Like Upper('" & CityBias & "') " & _
+            "and " & DBNameSpace & ".ISMPMaster.strAIRSNumber Like '0413" & FacilityBias & "' " & _
+            "and subStr(" & DBNameSpace & ".ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " & _
             "and " & DateBias & " "
 
-            cmd = New OracleCommand(SQL, conn)
+            cmd = New OracleCommand(SQL, DBConn)
 
             dr = cmd.ExecuteReader
             While dr.Read
@@ -7574,18 +7574,18 @@ Public Class ISMPManagersTools
 
             'Indeterminate
             SQL = "Select count(*) as Count " & _
-            "from " & connNameSpace & ".ISMPReportInformation, " & connNameSpace & ".ISMPMaster, " & connNameSpace & ".APBFacilityInformation " & _
+            "from " & DBNameSpace & ".ISMPReportInformation, " & DBNameSpace & ".ISMPMaster, " & DBNameSpace & ".APBFacilityInformation " & _
             "where strClosed = 'True' " & _
             "and strDelete is NULL " & _
             "and strComplianceStatus = '04' " & _
-            "and " & connNameSpace & ".ISMPMaster.strReferenceNumber = " & connNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
-            "and " & connNameSpace & ".ISMPMaster.strAIRSNumber = " & connNameSpace & ".APBFacilityInformation.strAIRSNumber " & _
-            "and Upper(" & connNameSpace & ".APBFacilityInformation.strFacilityCity) Like Upper('" & CityBias & "') " & _
-            "and " & connNameSpace & ".ISMPMaster.strAIRSNumber Like '0413" & FacilityBias & "' " & _
-            "and subStr(" & connNameSpace & ".ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " & _
+            "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
+            "and " & DBNameSpace & ".ISMPMaster.strAIRSNumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber " & _
+            "and Upper(" & DBNameSpace & ".APBFacilityInformation.strFacilityCity) Like Upper('" & CityBias & "') " & _
+            "and " & DBNameSpace & ".ISMPMaster.strAIRSNumber Like '0413" & FacilityBias & "' " & _
+            "and subStr(" & DBNameSpace & ".ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " & _
             "and " & DateBias & " "
 
-            cmd = New OracleCommand(SQL, conn)
+            cmd = New OracleCommand(SQL, DBConn)
 
             dr = cmd.ExecuteReader
             While dr.Read
@@ -7594,18 +7594,18 @@ Public Class ISMPManagersTools
 
             'Not In Compliance
             SQL = "Select count(*) as Count " & _
-            "from " & connNameSpace & ".ISMPReportInformation, " & connNameSpace & ".ISMPMaster, " & connNameSpace & ".APBFacilityInformation " & _
+            "from " & DBNameSpace & ".ISMPReportInformation, " & DBNameSpace & ".ISMPMaster, " & DBNameSpace & ".APBFacilityInformation " & _
             "where strClosed = 'True' " & _
             "and strDelete is NULL " & _
             "and strComplianceStatus = '05' " & _
-            "and " & connNameSpace & ".ISMPMaster.strReferenceNumber = " & connNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
-            "and " & connNameSpace & ".ISMPMaster.strAIRSNumber = " & connNameSpace & ".APBFacilityInformation.strAIRSNumber " & _
-            "and Upper(" & connNameSpace & ".APBFacilityInformation.strFacilityCity) Like Upper('" & CityBias & "') " & _
-            "and " & connNameSpace & ".ISMPMaster.strAIRSNumber Like '0413" & FacilityBias & "' " & _
-            "and subStr(" & connNameSpace & ".ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " & _
+            "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
+            "and " & DBNameSpace & ".ISMPMaster.strAIRSNumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber " & _
+            "and Upper(" & DBNameSpace & ".APBFacilityInformation.strFacilityCity) Like Upper('" & CityBias & "') " & _
+            "and " & DBNameSpace & ".ISMPMaster.strAIRSNumber Like '0413" & FacilityBias & "' " & _
+            "and subStr(" & DBNameSpace & ".ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " & _
             "and " & DateBias & " "
 
-            cmd = New OracleCommand(SQL, conn)
+            cmd = New OracleCommand(SQL, DBConn)
 
             dr = cmd.ExecuteReader
             While dr.Read
@@ -7615,19 +7615,19 @@ Public Class ISMPManagersTools
             'Compliance Status for Days Open
             'File Open 
             SQL = "Select count(*) as Count " & _
-            "from " & connNameSpace & ".ISMPReportInformation, " & connNameSpace & ".ISMPMaster, " & connNameSpace & ".APBFacilityInformation " & _
+            "from " & DBNameSpace & ".ISMPReportInformation, " & DBNameSpace & ".ISMPMaster, " & DBNameSpace & ".APBFacilityInformation " & _
             "where " & _
             "strDelete is NULL " & _
             "and strComplianceStatus = '01' " & _
-            "and " & connNameSpace & ".ISMPMaster.strReferenceNumber = " & connNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
-            "and " & connNameSpace & ".ISMPMaster.strAIRSNumber = " & connNameSpace & ".APBFacilityInformation.strAIRSNumber " & _
-            "and Upper(" & connNameSpace & ".APBFacilityInformation.strFacilityCity) Like Upper('" & CityBias & "') " & _
-            "and " & connNameSpace & ".ISMPMaster.strAIRSNumber Like '0413" & FacilityBias & "' " & _
-            "and subStr(" & connNameSpace & ".ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " & _
+            "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
+            "and " & DBNameSpace & ".ISMPMaster.strAIRSNumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber " & _
+            "and Upper(" & DBNameSpace & ".APBFacilityInformation.strFacilityCity) Like Upper('" & CityBias & "') " & _
+            "and " & DBNameSpace & ".ISMPMaster.strAIRSNumber Like '0413" & FacilityBias & "' " & _
+            "and subStr(" & DBNameSpace & ".ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " & _
             "and (to_date('" & OracleDate & "', 'dd-Mon-yyyy') - datReceivedDate) >= '" & txtDaysOpenFacility.Text & "' " & _
             "and " & DateBias & " "
 
-            cmd = New OracleCommand(SQL, conn)
+            cmd = New OracleCommand(SQL, DBConn)
 
             dr = cmd.ExecuteReader
             While dr.Read
@@ -7636,19 +7636,19 @@ Public Class ISMPManagersTools
 
             'For Information Purposes Only
             SQL = "Select count(*) as Count " & _
-            "from " & connNameSpace & ".ISMPReportInformation, " & connNameSpace & ".ISMPMaster, " & connNameSpace & ".APBFacilityInformation " & _
+            "from " & DBNameSpace & ".ISMPReportInformation, " & DBNameSpace & ".ISMPMaster, " & DBNameSpace & ".APBFacilityInformation " & _
             "where " & _
             "strDelete is NULL " & _
             "and strComplianceStatus = '02' " & _
-            "and " & connNameSpace & ".ISMPMaster.strReferenceNumber = " & connNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
-            "and " & connNameSpace & ".ISMPMaster.strAIRSNumber = " & connNameSpace & ".APBFacilityInformation.strAIRSNumber " & _
-            "and Upper(" & connNameSpace & ".APBFacilityInformation.strFacilityCity) Like Upper('" & CityBias & "') " & _
-            "and " & connNameSpace & ".ISMPMaster.strAIRSNumber Like '0413" & FacilityBias & "' " & _
-            "and subStr(" & connNameSpace & ".ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " & _
+            "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
+            "and " & DBNameSpace & ".ISMPMaster.strAIRSNumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber " & _
+            "and Upper(" & DBNameSpace & ".APBFacilityInformation.strFacilityCity) Like Upper('" & CityBias & "') " & _
+            "and " & DBNameSpace & ".ISMPMaster.strAIRSNumber Like '0413" & FacilityBias & "' " & _
+            "and subStr(" & DBNameSpace & ".ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " & _
             "and (to_date('" & OracleDate & "', 'dd-Mon-yyyy') - datReceivedDate) >= '" & txtDaysOpenFacility.Text & "' " & _
             "and " & DateBias & " "
 
-            cmd = New OracleCommand(SQL, conn)
+            cmd = New OracleCommand(SQL, DBConn)
 
             dr = cmd.ExecuteReader
             While dr.Read
@@ -7657,19 +7657,19 @@ Public Class ISMPManagersTools
 
             'In Compliance
             SQL = "Select count(*) as Count " & _
-            "from " & connNameSpace & ".ISMPReportInformation, " & connNameSpace & ".ISMPMaster, " & connNameSpace & ".APBFacilityInformation " & _
+            "from " & DBNameSpace & ".ISMPReportInformation, " & DBNameSpace & ".ISMPMaster, " & DBNameSpace & ".APBFacilityInformation " & _
             "where " & _
             "strDelete is NULL " & _
             "and strComplianceStatus = '03' " & _
-            "and " & connNameSpace & ".ISMPMaster.strReferenceNumber = " & connNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
-            "and " & connNameSpace & ".ISMPMaster.strAIRSNumber = " & connNameSpace & ".APBFacilityInformation.strAIRSNumber " & _
-            "and Upper(" & connNameSpace & ".APBFacilityInformation.strFacilityCity) Like Upper('" & CityBias & "') " & _
-            "and " & connNameSpace & ".ISMPMaster.strAIRSNumber Like '0413" & FacilityBias & "' " & _
-            "and subStr(" & connNameSpace & ".ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " & _
+            "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
+            "and " & DBNameSpace & ".ISMPMaster.strAIRSNumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber " & _
+            "and Upper(" & DBNameSpace & ".APBFacilityInformation.strFacilityCity) Like Upper('" & CityBias & "') " & _
+            "and " & DBNameSpace & ".ISMPMaster.strAIRSNumber Like '0413" & FacilityBias & "' " & _
+            "and subStr(" & DBNameSpace & ".ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " & _
             "and (to_date('" & OracleDate & "', 'dd-Mon-yyyy') - datReceivedDate) >= '" & txtDaysOpenFacility.Text & "' " & _
             "and " & DateBias & " "
 
-            cmd = New OracleCommand(SQL, conn)
+            cmd = New OracleCommand(SQL, DBConn)
 
             dr = cmd.ExecuteReader
             While dr.Read
@@ -7678,19 +7678,19 @@ Public Class ISMPManagersTools
 
             'Indeterminate
             SQL = "Select count(*) as Count " & _
-           "from " & connNameSpace & ".ISMPReportInformation, " & connNameSpace & ".ISMPMaster, " & connNameSpace & ".APBFacilityInformation " & _
+           "from " & DBNameSpace & ".ISMPReportInformation, " & DBNameSpace & ".ISMPMaster, " & DBNameSpace & ".APBFacilityInformation " & _
            "where " & _
            "strDelete is NULL " & _
            "and strComplianceStatus = '04' " & _
-           "and " & connNameSpace & ".ISMPMaster.strReferenceNumber = " & connNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
-           "and " & connNameSpace & ".ISMPMaster.strAIRSNumber = " & connNameSpace & ".APBFacilityInformation.strAIRSNumber " & _
-           "and Upper(" & connNameSpace & ".APBFacilityInformation.strFacilityCity) Like Upper('" & CityBias & "') " & _
-           "and " & connNameSpace & ".ISMPMaster.strAIRSNumber Like '0413" & FacilityBias & "' " & _
-           "and subStr(" & connNameSpace & ".ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " & _
+           "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
+           "and " & DBNameSpace & ".ISMPMaster.strAIRSNumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber " & _
+           "and Upper(" & DBNameSpace & ".APBFacilityInformation.strFacilityCity) Like Upper('" & CityBias & "') " & _
+           "and " & DBNameSpace & ".ISMPMaster.strAIRSNumber Like '0413" & FacilityBias & "' " & _
+           "and subStr(" & DBNameSpace & ".ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " & _
            "and (to_date('" & OracleDate & "', 'dd-Mon-yyyy') - datReceivedDate) >= '" & txtDaysOpenFacility.Text & "' " & _
            "and " & DateBias & " "
 
-            cmd = New OracleCommand(SQL, conn)
+            cmd = New OracleCommand(SQL, DBConn)
 
             dr = cmd.ExecuteReader
             While dr.Read
@@ -7699,19 +7699,19 @@ Public Class ISMPManagersTools
 
             'Not In Compliance
             SQL = "Select count(*) as Count " & _
-           "from " & connNameSpace & ".ISMPReportInformation, " & connNameSpace & ".ISMPMaster, " & connNameSpace & ".APBFacilityInformation " & _
+           "from " & DBNameSpace & ".ISMPReportInformation, " & DBNameSpace & ".ISMPMaster, " & DBNameSpace & ".APBFacilityInformation " & _
            "where " & _
            "strDelete is NULL " & _
            "and strComplianceStatus = '05' " & _
-           "and " & connNameSpace & ".ISMPMaster.strReferenceNumber = " & connNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
-           "and " & connNameSpace & ".ISMPMaster.strAIRSNumber = " & connNameSpace & ".APBFacilityInformation.strAIRSNumber " & _
-           "and Upper(" & connNameSpace & ".APBFacilityInformation.strFacilityCity) Like Upper('" & CityBias & "') " & _
-           "and " & connNameSpace & ".ISMPMaster.strAIRSNumber Like '0413" & FacilityBias & "' " & _
-           "and subStr(" & connNameSpace & ".ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " & _
+           "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
+           "and " & DBNameSpace & ".ISMPMaster.strAIRSNumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber " & _
+           "and Upper(" & DBNameSpace & ".APBFacilityInformation.strFacilityCity) Like Upper('" & CityBias & "') " & _
+           "and " & DBNameSpace & ".ISMPMaster.strAIRSNumber Like '0413" & FacilityBias & "' " & _
+           "and subStr(" & DBNameSpace & ".ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " & _
            "and (to_date('" & OracleDate & "', 'dd-Mon-yyyy') - datReceivedDate) >= '" & txtDaysOpenFacility.Text & "' " & _
            "and " & DateBias & " "
 
-            cmd = New OracleCommand(SQL, conn)
+            cmd = New OracleCommand(SQL, DBConn)
 
             dr = cmd.ExecuteReader
             While dr.Read
@@ -7740,7 +7740,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -7776,8 +7776,8 @@ Public Class ISMPManagersTools
         Try
 
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             If rdbUnitDateTestStarted.Checked = True Then
@@ -7810,13 +7810,13 @@ Public Class ISMPManagersTools
 
                     'txtOpenFacility
                     SQL = "Select count(*) as Count " & _
-                    "from " & connNameSpace & ".ISMPReportInformation " & _
+                    "from " & DBNameSpace & ".ISMPReportInformation " & _
                     "where strClosed = 'False' " & _
                     "and strDelete is NULL " & _
                     "and strReviewingEngineer = '" & EngineerGCode & "' " & _
                     "and " & DateBias & " "
 
-                    cmd = New OracleCommand(SQL, conn)
+                    cmd = New OracleCommand(SQL, DBConn)
                     dr = cmd.ExecuteReader
                     While dr.Read
                         FacilityOpen += dr.Item("Count")
@@ -7824,14 +7824,14 @@ Public Class ISMPManagersTools
 
                     'txtFacilityOpenDays
                     SQL = "Select count(*) as Count " & _
-                    "from " & connNameSpace & ".ISMPReportInformation " & _
+                    "from " & DBNameSpace & ".ISMPReportInformation " & _
                     "where " & _
                     "strDelete is NULL " & _
                     "and strReviewingEngineer = '" & EngineerGCode & "' " & _
                     "and (to_date('" & OracleDate & "', 'dd-Mon-yyyy') - datReceivedDate) >= '" & txtDaysOpen.Text & "' " & _
                     "and " & DateBias & " "
 
-                    cmd = New OracleCommand(SQL, conn)
+                    cmd = New OracleCommand(SQL, DBConn)
 
                     dr = cmd.ExecuteReader
                     While dr.Read
@@ -7840,14 +7840,14 @@ Public Class ISMPManagersTools
 
                     'txtWitnessedTests
                     SQL = "Select count(*) as Count " & _
-                    "from " & connNameSpace & ".ISMPReportInformation " & _
+                    "from " & DBNameSpace & ".ISMPReportInformation " & _
                     "where " & _
                     "strDelete is NULL " & _
                     "and (strWitnessingEngineer = '" & EngineerGCode & "' " & _
                     "or strWitnessingEngineer2 = '" & EngineerGCode & "') " & _
                     "and " & DateBias & " "
 
-                    cmd = New OracleCommand(SQL, conn)
+                    cmd = New OracleCommand(SQL, DBConn)
                     dr = cmd.ExecuteReader
                     While dr.Read
                         FacilityWitnessed += dr.Item("count")
@@ -7855,13 +7855,13 @@ Public Class ISMPManagersTools
 
                     'txtClosedFacility
                     SQL = "Select count(*) as Count " & _
-                    "from " & connNameSpace & ".ISMPReportInformation " & _
+                    "from " & DBNameSpace & ".ISMPReportInformation " & _
                     "where strClosed = 'True' " & _
                     "and strDelete is NULL " & _
                     "and strReviewingEngineer = '" & EngineerGCode & "' " & _
                     "and " & DateBias & " "
 
-                    cmd = New OracleCommand(SQL, conn)
+                    cmd = New OracleCommand(SQL, DBConn)
 
                     dr = cmd.ExecuteReader
                     While dr.Read
@@ -7879,13 +7879,13 @@ Public Class ISMPManagersTools
 
                     'txtOpenFacility
                     SQL = "Select count(*) as Count " & _
-                    "from " & connNameSpace & ".ISMPReportInformation " & _
+                    "from " & DBNameSpace & ".ISMPReportInformation " & _
                     "where strClosed = 'False' " & _
                     "and strDelete is NULL " & _
                     "and strReviewingEngineer = '" & EngineerGCode & "' " & _
                     "and " & DateBias & " "
 
-                    cmd = New OracleCommand(SQL, conn)
+                    cmd = New OracleCommand(SQL, DBConn)
                     dr = cmd.ExecuteReader
                     While dr.Read
                         FacilityOpen2 += dr.Item("Count")
@@ -7893,14 +7893,14 @@ Public Class ISMPManagersTools
 
                     'txtFacilityOpenDays
                     SQL = "Select count(*) as Count " & _
-                    "from " & connNameSpace & ".ISMPReportInformation " & _
+                    "from " & DBNameSpace & ".ISMPReportInformation " & _
                     "where " & _
                     "strDelete is NULL " & _
                     "and strReviewingEngineer = '" & EngineerGCode & "' " & _
                     "and (to_date('" & OracleDate & "', 'dd-Mon-yyyy') - datReceivedDate) >= '" & txtDaysOpen2.Text & "' " & _
                     "and " & DateBias & " "
 
-                    cmd = New OracleCommand(SQL, conn)
+                    cmd = New OracleCommand(SQL, DBConn)
 
                     dr = cmd.ExecuteReader
                     While dr.Read
@@ -7909,14 +7909,14 @@ Public Class ISMPManagersTools
 
                     'txtWitnessedTests
                     SQL = "Select count(*) as Count " & _
-                    "from " & connNameSpace & ".ISMPReportInformation " & _
+                    "from " & DBNameSpace & ".ISMPReportInformation " & _
                     "where " & _
                     "strDelete is NULL " & _
                     "and (strWitnessingEngineer = '" & EngineerGCode & "' " & _
                     "or strWitnessingEngineer2 = '" & EngineerGCode & "') " & _
                     "and " & DateBias & " "
 
-                    cmd = New OracleCommand(SQL, conn)
+                    cmd = New OracleCommand(SQL, DBConn)
                     dr = cmd.ExecuteReader
                     While dr.Read
                         FacilityWitnessed2 += dr.Item("count")
@@ -7924,13 +7924,13 @@ Public Class ISMPManagersTools
 
                     'txtClosedFacility
                     SQL = "Select count(*) as Count " & _
-                    "from " & connNameSpace & ".ISMPReportInformation " & _
+                    "from " & DBNameSpace & ".ISMPReportInformation " & _
                     "where strClosed = 'True' " & _
                     "and strDelete is NULL " & _
                     "and strReviewingEngineer = '" & EngineerGCode & "' " & _
                     "and " & DateBias & " "
 
-                    cmd = New OracleCommand(SQL, conn)
+                    cmd = New OracleCommand(SQL, DBConn)
 
                     dr = cmd.ExecuteReader
                     While dr.Read
@@ -7941,13 +7941,13 @@ Public Class ISMPManagersTools
 
             'txtOpenFacility
             SQL = "Select count(*) as Count " & _
-            "from " & connNameSpace & ".ISMPReportInformation " & _
+            "from " & DBNameSpace & ".ISMPReportInformation " & _
             "where strClosed = 'False' " & _
             "and strDelete is NULL " & _
             "and strReviewingEngineer = '0' " & _
             "and " & DateBias & " "
 
-            cmd = New OracleCommand(SQL, conn)
+            cmd = New OracleCommand(SQL, DBConn)
             dr = cmd.ExecuteReader
             While dr.Read
                 FacilityOpen3 += dr.Item("Count")
@@ -7955,14 +7955,14 @@ Public Class ISMPManagersTools
 
             'txtFacilityOpenDays
             SQL = "Select count(*) as Count " & _
-            "from " & connNameSpace & ".ISMPReportInformation " & _
+            "from " & DBNameSpace & ".ISMPReportInformation " & _
             "where " & _
             "strDelete is NULL " & _
             "and strReviewingEngineer = '0' " & _
             "and (to_date('" & OracleDate & "', 'dd-Mon-yyyy') - datReceivedDate) >= '" & txtDaysOpen3.Text & "' " & _
             "and " & DateBias & " "
 
-            cmd = New OracleCommand(SQL, conn)
+            cmd = New OracleCommand(SQL, DBConn)
 
             dr = cmd.ExecuteReader
             While dr.Read
@@ -7971,14 +7971,14 @@ Public Class ISMPManagersTools
 
             'txtWitnessedTests
             SQL = "Select count(*) as Count " & _
-            "from " & connNameSpace & ".ISMPReportInformation " & _
+            "from " & DBNameSpace & ".ISMPReportInformation " & _
             "where " & _
             "strDelete is NULL " & _
             "and (strWitnessingEngineer <> '0' " & _
             "or strWitnessingEngineer2 <> '0') " & _
             "and " & DateBias & " "
 
-            cmd = New OracleCommand(SQL, conn)
+            cmd = New OracleCommand(SQL, DBConn)
             dr = cmd.ExecuteReader
             While dr.Read
                 FacilityWitnessed3 += dr.Item("count")
@@ -7986,13 +7986,13 @@ Public Class ISMPManagersTools
 
             'txtClosedFacility
             SQL = "Select count(*) as Count " & _
-            "from " & connNameSpace & ".ISMPReportInformation " & _
+            "from " & DBNameSpace & ".ISMPReportInformation " & _
             "where strClosed = 'True' " & _
             "and strDelete is NULL " & _
             "and strReviewingEngineer = '0' " & _
             "and " & DateBias & " "
 
-            cmd = New OracleCommand(SQL, conn)
+            cmd = New OracleCommand(SQL, DBConn)
 
             dr = cmd.ExecuteReader
             While dr.Read
@@ -8001,12 +8001,12 @@ Public Class ISMPManagersTools
 
             'txtOpenFacility
             SQL = "Select count(*) as Count " & _
-            "from " & connNameSpace & ".ISMPReportInformation " & _
+            "from " & DBNameSpace & ".ISMPReportInformation " & _
             "where strClosed = 'False' " & _
             "and strDelete is NULL " & _
             "and " & DateBias & " "
 
-            cmd = New OracleCommand(SQL, conn)
+            cmd = New OracleCommand(SQL, DBConn)
             dr = cmd.ExecuteReader
             While dr.Read
                 FacilityOpen4 += dr.Item("Count")
@@ -8014,13 +8014,13 @@ Public Class ISMPManagersTools
 
             'txtFacilityOpenDays
             SQL = "Select count(*) as Count " & _
-            "from " & connNameSpace & ".ISMPReportInformation " & _
+            "from " & DBNameSpace & ".ISMPReportInformation " & _
             "where " & _
             "strDelete is NULL " & _
             "and (to_date('" & OracleDate & "', 'dd-Mon-yyyy') - datReceivedDate) >= '" & txtDaysOpen4.Text & "' " & _
             "and " & DateBias & " "
 
-            cmd = New OracleCommand(SQL, conn)
+            cmd = New OracleCommand(SQL, DBConn)
 
             dr = cmd.ExecuteReader
             While dr.Read
@@ -8029,14 +8029,14 @@ Public Class ISMPManagersTools
 
             'txtWitnessedTests
             SQL = "Select count(*) as Count " & _
-            "from " & connNameSpace & ".ISMPReportInformation " & _
+            "from " & DBNameSpace & ".ISMPReportInformation " & _
             "where " & _
             "strDelete is NULL " & _
             "and (strWitnessingEngineer <> '0' " & _
             "or strWitnessingEngineer2 <> '0') " & _
             "and " & DateBias & " "
 
-            cmd = New OracleCommand(SQL, conn)
+            cmd = New OracleCommand(SQL, DBConn)
             dr = cmd.ExecuteReader
             While dr.Read
                 FacilityWitnessed4 += dr.Item("count")
@@ -8044,19 +8044,19 @@ Public Class ISMPManagersTools
 
             'txtClosedFacility
             SQL = "Select count(*) as Count " & _
-            "from " & connNameSpace & ".ISMPReportInformation " & _
+            "from " & DBNameSpace & ".ISMPReportInformation " & _
             "where strClosed = 'True' " & _
             "and strDelete is NULL " & _
             "and " & DateBias & " "
 
-            cmd = New OracleCommand(SQL, conn)
+            cmd = New OracleCommand(SQL, DBConn)
 
             dr = cmd.ExecuteReader
             While dr.Read
                 FacilityClosed4 += dr.Item("Count")
             End While
 
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -8083,7 +8083,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -8228,49 +8228,49 @@ Public Class ISMPManagersTools
                 "	Else CloseComplianceByDate " & _
                 "End as CloseComplianceByDate,  " & _
                 "OtherWitnessed " & _
-                "from " & connNameSpace & ".EPDUserProfiles, " & connNameSpace & ".ISMPReportInformation,  " & _
+                "from " & DBNameSpace & ".EPDUserProfiles, " & DBNameSpace & ".ISMPReportInformation,  " & _
                 "(Select strReviewingEngineer,  count(*) as ReceivedByDate   " & _
-                "from " & connNameSpace & ".ISMPReportInformation   " & _
+                "from " & DBNameSpace & ".ISMPReportInformation   " & _
                 "where strDelete is NULL " & _
                 "and " & DateBias & " " & _
                 "Group by strReviewingEngineer) ReceivedByDates,  " & _
                 "(Select strReviewingEngineer,  " & _
                 "count(*) as OpenByDate  " & _
-                "from " & connNameSpace & ".ISMPReportInformation  " & _
+                "from " & DBNameSpace & ".ISMPReportInformation  " & _
                 "where strClosed = 'False'  " & _
                 "and strDelete is NULL  " & _
                 "and " & DateBias & " " & _
                 "Group by strReviewingEngineer) OpenByDates,  " & _
                 "(Select strReviewingEngineer,  " & _
                 "count(*) as CloseByDate  " & _
-                "from " & connNameSpace & ".ISMPReportInformation  " & _
+                "from " & DBNameSpace & ".ISMPReportInformation  " & _
                 "where strClosed = 'True'  " & _
                 "and StrDelete is NULL  " & _
                 "and " & DateBias & " " & _
                 "Group by strReviewingEngineer) CloseByDates,  " & _
                 "(Select strWitnessingEngineer,  " & _
                 "count(*) as WitnessedByDate  " & _
-                "from " & connNameSpace & ".ISMPReportInformation  " & _
+                "from " & DBNameSpace & ".ISMPReportInformation  " & _
                 "where strDelete is NULL  " & _
                 "and " & DateBias & " " & _
                 "group by strWitnessingEngineer) WitnessedByDates,  " & _
                 "(Select strWitnessingEngineer,  " & _
                 "count(*) as OpenWitnessedByDate   " & _
-                "from " & connNameSpace & ".ISMPReportInformation  " & _
+                "from " & DBNameSpace & ".ISMPReportInformation  " & _
                 "where strDelete is NULL  " & _
                 "and strClosed = 'False'  " & _
                  "and " & DateBias & " " & _
                 "group by strWitnessingEngineer) OpenWitnessedByDates,  " & _
                 "(select strWitnessingEngineer,  " & _
                 "count(*) as CloseWitnessedByDate   " & _
-                "from " & connNameSpace & ".ISMPReportInformation  " & _
+                "from " & DBNameSpace & ".ISMPReportInformation  " & _
                 "where strDelete is NULL  " & _
                 "and strClosed = 'True' " & _
                 "and " & DateBias & " " & _
                 "group by strwitnessingEngineer) CloseWitnessedByDates,  " & _
                 "(select strReviewingEngineer,  " & _
                 "count(*) as GreaterByDate " & _
-                "from " & connNameSpace & ".ISMPReportInformation  " & _
+                "from " & DBNameSpace & ".ISMPReportInformation  " & _
                 "where strDelete is NULL  " & _
                 "and datReceivedDate < Decode(strClosed, 'False', (trunc(sysdate) - 50), " & _
                 "                                        'True', (-50 + datCompleteDate)) " & _
@@ -8278,7 +8278,7 @@ Public Class ISMPManagersTools
                 "Group by strReviewingEngineer) GreaterByDates,  " & _
                 "(select strReviewingEngineer,  " & _
                 "count(*) as OpenGreaterByDate " & _
-                "from " & connNameSpace & ".ISMPReportInformation  " & _
+                "from " & DBNameSpace & ".ISMPReportInformation  " & _
                 "where strDelete is NULL  " & _
                 "and strClosed = 'False'  " & _
                 "and datReceivedDate < (trunc(sysdate) - 50)  " & _
@@ -8286,7 +8286,7 @@ Public Class ISMPManagersTools
                 "Group by strReviewingEngineer) OpenGreaterByDates,  " & _
                 "(select strReviewingEngineer,  " & _
                 "count(*) as CloseGreaterByDate " & _
-                "from " & connNameSpace & ".ISMPReportInformation  " & _
+                "from " & DBNameSpace & ".ISMPReportInformation  " & _
                 "where strDelete is NULL  " & _
                 "and strClosed = 'True'  " & _
                 "and datReceivedDate < (-50 + datCompleteDate) " & _
@@ -8294,14 +8294,14 @@ Public Class ISMPManagersTools
                 "Group by strReviewingEngineer) CloseGreaterByDates,  " & _
                 "(select strReviewingEngineer, " & _
                 "count(*) as ComplianceByDate " & _
-                "from " & connNameSpace & ".ISMPReportInformation " & _
+                "from " & DBNameSpace & ".ISMPReportInformation " & _
                 "where strComplianceStatus = '05' " & _
                 "and strDelete is NULL " & _
                 "and " & DateBias & " " & _
                 "group by strReviewingEngineer) ComplianceByDates, " & _
                 "(select strReviewingEngineer,   " & _
                 "count(*) as OpenComplianceByDate  " & _
-                "from " & connNameSpace & ".ISMPReportInformation   " & _
+                "from " & DBNameSpace & ".ISMPReportInformation   " & _
                 "where strComplianceStatus = '05'  " & _
                 "and strClosed = 'False'  " & _
                 "and strDelete is NULL  " & _
@@ -8309,38 +8309,38 @@ Public Class ISMPManagersTools
                 "group by strReviewingEngineer) OpenComplianceByDates,   " & _
                 "(Select strReviewingEngineer,  " & _
                 "count(*) as CloseComplianceByDate  " & _
-                "from " & connNameSpace & ".ISMPReportInformation   " & _
+                "from " & DBNameSpace & ".ISMPReportInformation   " & _
                 "where strComplianceStatus = '05'  " & _
                 "and strClosed = 'True'  " & _
                 "and strDelete is NULL  " & _
                 "and " & DateBias & " " & _
                 "group by strReviewingEngineer) CloseComplianceByDates,   " & _
                 "(select  count(*) as OtherWitnessed " & _
-                "from " & connNameSpace & ".ISMPWitnessingEng,  " & connNameSpace & ".ISMPReportInformation " & _
-                "where " & connNameSpace & ".ISMPWitnessingEng.strreferencenumber  = " & connNameSpace & ".ISMPReportInformation.strreferencenumber  " & _
+                "from " & DBNameSpace & ".ISMPWitnessingEng,  " & DBNameSpace & ".ISMPReportInformation " & _
+                "where " & DBNameSpace & ".ISMPWitnessingEng.strreferencenumber  = " & DBNameSpace & ".ISMPReportInformation.strreferencenumber  " & _
                 "and strDelete is null  " & _
                 "and " & DateBias & "  " & _
                 "and AIRBranch.ISMPWitnessingEng.strWitnessingEngineer = '" & EngineerGCode & "')  OtherWitnesses  " & _
-                "where " & connNameSpace & ".EPDUserProfiles.numUserID = " & connNameSpace & ".ISMPReportInformation.strReviewingEngineer  " & _
-                "and " & connNameSpace & ".ISMPReportInformation.strReviewingEngineer = ReceivedByDates.strReviewingEngineer (+) " & _
-                "and " & connNameSpace & ".ISMPReportInformation.strReviewingEngineer = OpenBYDates.strReviewingEngineer (+)  " & _
-                "and " & connNameSpace & ".ISMPReportInformation.strReviewingEngineer = CloseByDates.strReviewingEngineer (+)  " & _
-                "and " & connNameSpace & ".ISMPReportInformation.strReviewingEngineer = WitnessedByDates.strWitnessingEngineer (+)  " & _
-                "and " & connNameSpace & ".ISMPReportInformation.strReviewingEngineer = OpenwitnessedByDates.strWitnessingEngineer (+)  " & _
-                "and " & connNameSpace & ".ISMPReportInformation.strReviewingEngineer = CloseWitnessedByDates.strWitnessingEngineer (+)  " & _
-                "and " & connNameSpace & ".ISMPReportInformation.strReviewingEngineer = GreaterByDates.strReviewingEngineer (+) " & _
-                "and " & connNameSpace & ".ISMPReportInformation.strReviewingEngineer = OpenGreaterByDates.strReviewingEngineer (+)  " & _
-                "and " & connNameSpace & ".ISMPReportInformation.strReviewingEngineer = CloseGreaterByDates.strReviewingEngineer (+)  " & _
-                "and " & connNameSpace & ".ISMPReportInformation.strReviewingEngineer = ComplianceByDates.strReviewingEngineer (+) " & _
-                "and " & connNameSpace & ".ISMPReportInformation.strReviewingEngineer = OpenComplianceByDates.strReviewingEngineer (+)  " & _
-                "and " & connNameSpace & ".ISMPReportInformation.strREviewingEngineer = CloseComplianceByDates.strReviewingEngineer (+)  " & _
-                "and " & connNameSpace & ".ISMPReportInformation.strReviewingEngineer = '" & EngineerGCode & "' "
+                "where " & DBNameSpace & ".EPDUserProfiles.numUserID = " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer  " & _
+                "and " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer = ReceivedByDates.strReviewingEngineer (+) " & _
+                "and " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer = OpenBYDates.strReviewingEngineer (+)  " & _
+                "and " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer = CloseByDates.strReviewingEngineer (+)  " & _
+                "and " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer = WitnessedByDates.strWitnessingEngineer (+)  " & _
+                "and " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer = OpenwitnessedByDates.strWitnessingEngineer (+)  " & _
+                "and " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer = CloseWitnessedByDates.strWitnessingEngineer (+)  " & _
+                "and " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer = GreaterByDates.strReviewingEngineer (+) " & _
+                "and " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer = OpenGreaterByDates.strReviewingEngineer (+)  " & _
+                "and " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer = CloseGreaterByDates.strReviewingEngineer (+)  " & _
+                "and " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer = ComplianceByDates.strReviewingEngineer (+) " & _
+                "and " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer = OpenComplianceByDates.strReviewingEngineer (+)  " & _
+                "and " & DBNameSpace & ".ISMPReportInformation.strREviewingEngineer = CloseComplianceByDates.strReviewingEngineer (+)  " & _
+                "and " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer = '" & EngineerGCode & "' "
 
                 SQL2 = "Select " & _
                 "(strLastName|| ', ' ||strFirstName) as Staff, " & _
                 "(trunc(sysdate) - datReceivedDate) as DaysOpenByDate " & _
-                "from " & connNameSpace & ".EPDUserProfiles, " & connNameSpace & ".ISMPReportInformation " & _
-                "where " & connNameSpace & ".EPDUserProfiles.numUserID = " & connNameSpace & ".ISMPReportInformation.strReviewingEngineer  " & _
+                "from " & DBNameSpace & ".EPDUserProfiles, " & DBNameSpace & ".ISMPReportInformation " & _
+                "where " & DBNameSpace & ".EPDUserProfiles.numUserID = " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer  " & _
                 "and strClosed = 'False' " & _
                 "and strDelete is NULL " & _
                 "and " & DateBias & " " & _
@@ -8350,8 +8350,8 @@ Public Class ISMPManagersTools
                 SQL3 = "Select " & _
                 "(strLastName|| ', ' ||strFirstName) as Staff, " & _
                 "(datCompleteDate - datReceivedDate) as DaysCloseByDate " & _
-                "from " & connNameSpace & ".EPDUserProfiles, " & connNameSpace & ".ISMPReportInformation " & _
-                "where " & connNameSpace & ".EPDUserProfiles.numUserID = " & connNameSpace & ".ISMPReportInformation.strReviewingEngineer  " & _
+                "from " & DBNameSpace & ".EPDUserProfiles, " & DBNameSpace & ".ISMPReportInformation " & _
+                "where " & DBNameSpace & ".EPDUserProfiles.numUserID = " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer  " & _
                 "and strClosed = 'True' " & _
                 "and strDelete is NULL " & _
                 "and " & DateBias & " " & _
@@ -8396,79 +8396,79 @@ Public Class ISMPManagersTools
                 "when ClosedGreaterTotal is NULL then 0   " & _
                 "Else ClosedGreaterTotal   " & _
                 "End as ClosedGreaterTotal   " & _
-                "from " & connNameSpace & ".EPDUserProfiles, " & connNameSpace & ".ISMPReportInformation, " & _
+                "from " & DBNameSpace & ".EPDUserProfiles, " & DBNameSpace & ".ISMPReportInformation, " & _
                 "(Select strReviewingEngineer,  " & _
                 "count(*) as ReceivedTotal  " & _
-                "from " & connNameSpace & ".ISMPReportInformation  " & _
+                "from " & DBNameSpace & ".ISMPReportInformation  " & _
                 "where strDelete is NULL  " & _
                 "Group by strReviewingEngineer) ReceivedTotals,  " & _
                 "(Select strReviewingEngineer,  " & _
                 "count(*) as OpenTotal " & _
-                "from " & connNameSpace & ".ISMPReportInformation  " & _
+                "from " & DBNameSpace & ".ISMPReportInformation  " & _
                 "where strClosed = 'False' " & _
                 "and strDelete is NULL  " & _
                 "Group by strReviewingEngineer) OpenTotals,  " & _
                 "(select strWitnessingEngineer,  " & _
                 "count(*) as OpenWitnessedTotal  " & _
-                "from " & connNameSpace & ".ISMPReportInformation  " & _
+                "from " & DBNameSpace & ".ISMPReportInformation  " & _
                 "where strClosed = 'False' " & _
                 "and strDelete is Null " & _
                 "group by strWitnessingEngineer) OpenWitnessedTotals,  " & _
                 "(select strReviewingEngineer,  " & _
                 "count(*) as OpenComplianceTotal  " & _
-                "from " & connNameSpace & ".ISMPReportInformation  " & _
+                "from " & DBNameSpace & ".ISMPReportInformation  " & _
                 "where strComplianceStatus = '05' " & _
                 "and strClosed = 'False' " & _
                 "and strDelete is NULL " & _
                 "group by strReviewingEngineer) OpenComplianceTotals,  " & _
                 "(select strReviewingEngineer,  " & _
                 "count(*) as CloseTotal  " & _
-                "from " & connNameSpace & ".ISMPReportInformation  " & _
+                "from " & DBNameSpace & ".ISMPReportInformation  " & _
                 "where strClosed = 'True'  " & _
                 "and strDelete is NULL " & _
                 "Group by strReviewingEngineer) CloseTotals,  " & _
                 "(select strWitnessingEngineer,  " & _
                 "count(*) as ClosedWitnessedTotal  " & _
-                "from " & connNameSpace & ".ISMPReportInformation  " & _
+                "from " & DBNameSpace & ".ISMPReportInformation  " & _
                 "where strClosed = 'True' " & _
                 "and strDelete is NULL  " & _
                 "group by strWitnessingEngineer) ClosedWitnessedTotals,  " & _
                 "(select strReviewingEngineer,  " & _
                 "count(*) as ClosedComplianceTotal  " & _
-                "from " & connNameSpace & ".ISMPReportInformation  " & _
+                "from " & DBNameSpace & ".ISMPReportInformation  " & _
                 "where strComplianceStatus = '05' " & _
                 "and strClosed = 'True' " & _
                 "and strDelete is NULL " & _
                 "group by strReviewingEngineer) ClosedComplianceTotals, " & _
                 "(select strReviewingEngineer, count(*) as OpenGreaterTotal " & _
-                "from " & connNameSpace & ".ISMPReportInformation  " & _
+                "from " & DBNameSpace & ".ISMPReportInformation  " & _
                 "where strDelete is NULL  " & _
                 "and strClosed = 'False'  " & _
                 "and datReceivedDate < (trunc(sysdate) - 50)  " & _
                 "Group by strReviewingEngineer) OpenGreaterTotals, " & _
                 "(select strReviewingEngineer, count(*) as ClosedGreaterTotal " & _
-                "from " & connNameSpace & ".ISMPReportInformation  " & _
+                "from " & DBNameSpace & ".ISMPReportInformation  " & _
                 "where strDelete is NULL  " & _
                 "and strClosed = 'True'  " & _
                 "and datReceivedDate < (-50 + datCompleteDate)  " & _
                 "Group by strReviewingEngineer) ClosedGreaterTotals " & _
-                "where " & connNameSpace & ".EPDUserProfiles.numUserID = " & connNameSpace & ".ISMPReportInformation.strReviewingEngineer  " & _
-                "and " & connNameSpace & ".ISMPReportInformation.strReviewingEngineer = ReceivedTotals.strReviewingEngineer (+) " & _
-                "and " & connNameSpace & ".ISMPReportInformation.strReviewingEngineer = OpenTotals.strReviewingEngineer (+) " & _
-                "and " & connNameSpace & ".ISMPReportInformation.strReviewingEngineer = OpenWitnessedTotals.strWitnessingEngineer (+) " & _
-                "and " & connNameSpace & ".ISMPReportInformation.strReviewingEngineer = OpenComplianceTotals.strReviewingEngineer (+) " & _
-                "and " & connNameSpace & ".ISMPReportInformation.strReviewingEngineer = CloseTotals.strReviewingEngineer (+)  " & _
-                "and " & connNameSpace & ".ISMPReportInformation.strReviewingEngineer = ClosedWitnessedTotals.strWitnessingEngineer (+)  " & _
-                "and " & connNameSpace & ".ISMPReportInformation.strReviewingEngineer = ClosedCompliancetotals.strReviewingEngineer (+) " & _
-                "and " & connNameSpace & ".ISMPReportInformation.strReviewingEngineer = OpenGreaterTotals.strReviewingEngineer (+) " & _
-                "and " & connNameSpace & ".ISMPReportInformation.strReviewingEngineer = ClosedGreaterTotals.strReviewingEngineer (+)   " & _
-                "and " & connNameSpace & ".ISMPReportInformation.strReviewingEngineer = '" & EngineerGCode & "' "
+                "where " & DBNameSpace & ".EPDUserProfiles.numUserID = " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer  " & _
+                "and " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer = ReceivedTotals.strReviewingEngineer (+) " & _
+                "and " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer = OpenTotals.strReviewingEngineer (+) " & _
+                "and " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer = OpenWitnessedTotals.strWitnessingEngineer (+) " & _
+                "and " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer = OpenComplianceTotals.strReviewingEngineer (+) " & _
+                "and " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer = CloseTotals.strReviewingEngineer (+)  " & _
+                "and " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer = ClosedWitnessedTotals.strWitnessingEngineer (+)  " & _
+                "and " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer = ClosedCompliancetotals.strReviewingEngineer (+) " & _
+                "and " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer = OpenGreaterTotals.strReviewingEngineer (+) " & _
+                "and " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer = ClosedGreaterTotals.strReviewingEngineer (+)   " & _
+                "and " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer = '" & EngineerGCode & "' "
 
                 SQL5 = "Select " & _
                 "(strLastName|| ', ' ||strFirstName) as Staff, " & _
                 "(trunc(sysdate) - datReceivedDate) as DaysOpen " & _
-                "from " & connNameSpace & ".EPDUSerProfiles, " & connNameSpace & ".ISMPReportInformation " & _
-                "where " & connNameSpace & ".EPDUserProfiles.numUserID = " & connNameSpace & ".ISMPReportInformation.strReviewingEngineer  " & _
+                "from " & DBNameSpace & ".EPDUSerProfiles, " & DBNameSpace & ".ISMPReportInformation " & _
+                "where " & DBNameSpace & ".EPDUserProfiles.numUserID = " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer  " & _
                 "and strClosed = 'False' " & _
                 "and strDelete is NULL " & _
                 "and strReviewingEngineer = '" & EngineerGCode & "' " & _
@@ -8477,22 +8477,22 @@ Public Class ISMPManagersTools
                 SQL6 = "Select " & _
                 "(strLastName|| ', ' ||strFirstName) as Staff, " & _
                 "(datCompleteDate -datReceivedDate) as DaysClosed " & _
-                "from " & connNameSpace & ".EPDUserProfiles, " & connNameSpace & ".ISMPReportInformation " & _
-                "where " & connNameSpace & ".EPDUserProfiles.numUserID = " & connNameSpace & ".ISMPReportInformation.strReviewingEngineer  " & _
+                "from " & DBNameSpace & ".EPDUserProfiles, " & DBNameSpace & ".ISMPReportInformation " & _
+                "where " & DBNameSpace & ".EPDUserProfiles.numUserID = " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer  " & _
                 "and strClosed = 'True' " & _
                 "and strDelete is NULL " & _
                 "and strReviewingEngineer = '" & EngineerGCode & "' " & _
                 "order by DaysClosed ASC "
 
-                cmd = New OracleCommand(SQL, conn)
-                cmd2 = New OracleCommand(SQL2, conn)
-                cmd3 = New OracleCommand(SQL3, conn)
-                cmd4 = New OracleCommand(SQL4, conn)
-                cmd5 = New OracleCommand(SQL5, conn)
-                cmd6 = New OracleCommand(SQL6, conn)
+                cmd = New OracleCommand(SQL, DBConn)
+                cmd2 = New OracleCommand(SQL2, DBConn)
+                cmd3 = New OracleCommand(SQL3, DBConn)
+                cmd4 = New OracleCommand(SQL4, DBConn)
+                cmd5 = New OracleCommand(SQL5, DBConn)
+                cmd6 = New OracleCommand(SQL6, DBConn)
 
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
 
                 Try
@@ -8619,13 +8619,13 @@ Public Class ISMPManagersTools
                 Catch ex As Exception
                     ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
                 Finally
-                    If conn.State = ConnectionState.Open Then
+                    If DBConn.State = ConnectionState.Open Then
                         'conn.close()
                     End If
                 End Try
                 ' 
 
-                If conn.State = ConnectionState.Open Then
+                If DBConn.State = ConnectionState.Open Then
                     'conn.close()
                 End If
 
@@ -8736,7 +8736,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(SQL & vbCrLf & ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -8772,7 +8772,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -8795,7 +8795,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -8805,18 +8805,18 @@ Public Class ISMPManagersTools
         Try
 
             If txtAIRSNumber.Text <> "" Then
-                SQL = "Select strFacilityName from " & connNameSpace & ".APBFacilityInformation " & _
+                SQL = "Select strFacilityName from " & DBNameSpace & ".APBFacilityInformation " & _
                 "where strAirsNumber = '0413" & txtAIRSNumber.Text & "'"
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
                     txtFacility.Text = dr.Item("strFacilityName")
                 End While
-                If conn.State = ConnectionState.Open Then
+                If DBConn.State = ConnectionState.Open Then
                     'conn.close()
                 End If
                 If FacilityLookUpTool Is Nothing Then
@@ -8827,7 +8827,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -8878,34 +8878,34 @@ Public Class ISMPManagersTools
                 Engineer = Mid(Engineer, 1, (Len(Engineer) - 3)) & ") "
             End If
 
-            SQL = "Select " & connNameSpace & ".ISMPReportInformation.strReferenceNumber, strFacilityName, " & _
-            "substr(" & connNameSpace & ".ISMPMaster.strAIRSNumber, 5) as AIRSNumber, strClosed, " & _
+            SQL = "Select " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber, strFacilityName, " & _
+            "substr(" & DBNameSpace & ".ISMPMaster.strAIRSNumber, 5) as AIRSNumber, strClosed, " & _
             "to_char(datTestDateStart, 'dd-Mon-yyyy') as ForDatTestDateStart, " & _
             "to_char(datReceivedDate, 'dd-Mon-yyyy') as ForDatReceivedDate, " & _
             "to_char(datCompleteDate, 'dd-Mon-yyyy') as ForDatCompleteDate, " & _
             "(select (strLastName|| ', ' ||strFirstName) as ReviewingEngineer  " & _
-            "from " & connNameSpace & ".EPDUserProfiles, " & connNameSpace & ".ISMPReportInformation  " & _
-            "where " & connNameSpace & ".EPDUserProfiles.numUserID = " & connNameSpace & ".ISMPReportInformation.strReviewingEngineer  " & _
-            "and " & connNameSpace & ".ISMPReportInformation.strReferenceNumber = " & connNameSpace & ".ISMPMaster.strReferenceNumber) as ReviewingEngineer, " & _
+            "from " & DBNameSpace & ".EPDUserProfiles, " & DBNameSpace & ".ISMPReportInformation  " & _
+            "where " & DBNameSpace & ".EPDUserProfiles.numUserID = " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer  " & _
+            "and " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber = " & DBNameSpace & ".ISMPMaster.strReferenceNumber) as ReviewingEngineer, " & _
             "(Select (strLastName|| ', ' ||strFirstName) as WitnessingEngineer " & _
-            "from " & connNameSpace & ".EPDUserProfiles, " & connNameSpace & ".ISMPReportInformation " & _
-            "where " & connNameSpace & ".EPDUserProfiles.numUserID = " & connNameSpace & ".ISMPReportInformation.strReviewingEngineer " & _
-            "and " & connNameSpace & ".ISMPReportInformation.strReferenceNumber = " & connNameSpace & ".ISMPMaster.strReferenceNumber) as WitnessingEngineer " & _
-            "from " & connNameSpace & ".ISMPReportInformation, " & connNameSpace & ".ISMPMaster, " & connNameSpace & ".APBFacilityInformation " & _
-            "where " & connNameSpace & ".ISMPReportInformation.strReferenceNumber = " & connNameSpace & ".ISMPMaster.strReferenceNumber " & _
-            "and " & connNameSpace & ".ISMPMaster.strAIRSNumber = " & connNameSpace & ".APBFacilityInformation.strAIRSNumber " & _
+            "from " & DBNameSpace & ".EPDUserProfiles, " & DBNameSpace & ".ISMPReportInformation " & _
+            "where " & DBNameSpace & ".EPDUserProfiles.numUserID = " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer " & _
+            "and " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber = " & DBNameSpace & ".ISMPMaster.strReferenceNumber) as WitnessingEngineer " & _
+            "from " & DBNameSpace & ".ISMPReportInformation, " & DBNameSpace & ".ISMPMaster, " & DBNameSpace & ".APBFacilityInformation " & _
+            "where " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber = " & DBNameSpace & ".ISMPMaster.strReferenceNumber " & _
+            "and " & DBNameSpace & ".ISMPMaster.strAIRSNumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber " & _
             "and " & DateBias & " " & Engineer & " "
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             dsEngineerGrid = New DataSet
 
-            daEngineerGrid = New OracleDataAdapter(SQL, conn)
+            daEngineerGrid = New OracleDataAdapter(SQL, DBConn)
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             daEngineerGrid.Fill(dsEngineerGrid, "EngineerGrid")
@@ -8915,7 +8915,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -8948,25 +8948,25 @@ Public Class ISMPManagersTools
 
             SQL = "Select " & _
             "(select (strLastName|| ', ' ||strFirstName) as ReviewingEngineer " & _
-            "from " & connNameSpace & ".EPDUserProfiles, " & connNameSpace & ".ISMPReportInformation " & _
-            "where " & connNameSpace & ".EPDUserProfiles.numUserID = " & connNameSpace & ".ISMPReportInformation.strReviewingEngineer " & _
-            "and " & connNameSpace & ".ISMPReportInformation.strReferenceNumber = " & connNameSpace & ".ISMPMaster.strReferenceNumber) as ReviewingEngineer, " & _
-            "" & connNameSpace & ".ISMPReportInformation.strReferenceNumber, strFacilityName, " & _
+            "from " & DBNameSpace & ".EPDUserProfiles, " & DBNameSpace & ".ISMPReportInformation " & _
+            "where " & DBNameSpace & ".EPDUserProfiles.numUserID = " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer " & _
+            "and " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber = " & DBNameSpace & ".ISMPMaster.strReferenceNumber) as ReviewingEngineer, " & _
+            "" & DBNameSpace & ".ISMPReportInformation.strReferenceNumber, strFacilityName, " & _
             "to_char(datReceivedDate, 'dd-Mon-yyyy') as ForDatReceivedDate, " & _
             "(to_date('" & OracleDate & "', 'dd-Mon-yyyy') - datReceivedDate) as Days " & _
-            "from " & connNameSpace & ".ISMPReportInformation, " & connNameSpace & ".ISMPMaster, " & connNameSpace & ".APBFacilityInformation " & _
+            "from " & DBNameSpace & ".ISMPReportInformation, " & DBNameSpace & ".ISMPMaster, " & DBNameSpace & ".APBFacilityInformation " & _
             "where " & _
-            "" & connNameSpace & ".ISMPReportInformation.strReferenceNumber = " & connNameSpace & ".ISMPMaster.strReferenceNumber " & _
-            "and " & connNameSpace & ".ISMPMaster.strAIRSNumber = " & connNameSpace & ".APBFacilityInformation.strAIRSNumber " & _
+            "" & DBNameSpace & ".ISMPReportInformation.strReferenceNumber = " & DBNameSpace & ".ISMPMaster.strReferenceNumber " & _
+            "and " & DBNameSpace & ".ISMPMaster.strAIRSNumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber " & _
             "and strClosed = 'False' " & _
             Engineer & _
             "Order by strReviewingEngineer "
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
-            cmd = New OracleCommand(SQL, conn)
+            cmd = New OracleCommand(SQL, DBConn)
             dr = cmd.ExecuteReader
             lsbEngineers.Items.Clear()
 
@@ -8979,7 +8979,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(Engineer & vbCrLf & SQL & vbCrLf & ex.ToString(), "ISMPManagersTools.EngineerOpenTestReports")
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -9001,56 +9001,56 @@ Public Class ISMPManagersTools
         Try
 
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             'Tests Received in Date Range
-            SQL = "Select count(*) as Count from " & connNameSpace & ".ISMPReportInformation " & _
+            SQL = "Select count(*) as Count from " & DBNameSpace & ".ISMPReportInformation " & _
             "where datReceivedDate between '" & DTPMonthlyStart.Text & "' and '" & DTPMonthlyEnd.Text & "' " & _
             "and strDelete is NULL"
-            cmd = New OracleCommand(SQL, conn)
+            cmd = New OracleCommand(SQL, DBConn)
             dr = cmd.ExecuteReader
             While dr.Read
                 TestReceived = dr.Item("Count")
             End While
 
             'Tests Completed in Date Range 
-            SQL = "Select count(*) as Count from " & connNameSpace & ".ISMPReportInformation " & _
+            SQL = "Select count(*) as Count from " & DBNameSpace & ".ISMPReportInformation " & _
             "where datCompleteDate between '" & DTPMonthlyStart.Text & "' and '" & DTPMonthlyEnd.Text & "' " & _
             "and strClosed = 'True' and strDelete is NULL "
-            cmd = New OracleCommand(SQL, conn)
+            cmd = New OracleCommand(SQL, DBConn)
             dr = cmd.ExecuteReader
             While dr.Read
                 TestCompleted = dr.Item("Count")
             End While
 
             'Tests Witnessed in Date Range
-            SQL = "Select Count(*) as Count from " & connNameSpace & ".ISMPReportInformation " & _
+            SQL = "Select Count(*) as Count from " & DBNameSpace & ".ISMPReportInformation " & _
             "where datCompleteDate between '" & DTPMonthlyStart.Text & "' and '" & DTPMonthlyEnd.Text & "' " & _
             "and strDelete is NULL and (strWitnessingEngineer <> '0' or strWitnessingEngineer2 <> '0') "
-            cmd = New OracleCommand(SQL, conn)
+            cmd = New OracleCommand(SQL, DBConn)
             dr = cmd.ExecuteReader
             While dr.Read
                 TestWitnessed = dr.Item("Count")
             End While
 
             'Tests out of compliance 
-            SQL = "Select Count(*) as Count from " & connNameSpace & ".ISMPReportInformation " & _
+            SQL = "Select Count(*) as Count from " & DBNameSpace & ".ISMPReportInformation " & _
             "where datCompleteDate between '" & DTPMonthlyStart.Text & "' and '" & DTPMonthlyEnd.Text & "' " & _
             "and strDelete is NULL and strComplianceStatus = '05' "
-            cmd = New OracleCommand(SQL, conn)
+            cmd = New OracleCommand(SQL, DBConn)
             dr = cmd.ExecuteReader
             While dr.Read
                 OutofCompliance = dr.Item("count")
             End While
 
             'Test Median 
-            SQL = "Select (datCompleteDate - datReceivedDate) as diff from " & connNameSpace & ".ISMPReportInformation " & _
+            SQL = "Select (datCompleteDate - datReceivedDate) as diff from " & DBNameSpace & ".ISMPReportInformation " & _
             "where datCompleteDate between '" & DTPMonthlyStart.Text & "' and '" & DTPMonthlyEnd.Text & "' " & _
             "and strDelete is NULL " & _
             "and strClosed = 'True' order by diff desc"
-            cmd = New OracleCommand(SQL, conn)
+            cmd = New OracleCommand(SQL, DBConn)
             dr = cmd.ExecuteReader
 
             While dr.Read
@@ -9144,7 +9144,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -9169,24 +9169,24 @@ Public Class ISMPManagersTools
 
             SendMessage(txtOutOfComplianceReport.Handle, EM_SETTABSTOPS, 2, tabs(0))
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
-            SQL = "Select " & connNameSpace & ".ISMPReportInformation.strReferenceNumber, strEmissionSource, strPollutantDescription, " & _
+            SQL = "Select " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber, strEmissionSource, strPollutantDescription, " & _
             "to_char(datTestDateStart, 'dd-Mon-yyyy') as fordatTestDateStart, to_char(datTestDateEnd, 'dd-Mon-yyyy') as fordatTestDateEnd, " & _
-            "substr(" & connNameSpace & ".ISMPMaster.strAIRSNumber, 5) as AIRSNumber, strFacilityName, strFacilityCity, strFacilityState, " & _
-            "" & connNameSpace & ".ISMPReportType.strReportType " & _
-            "from " & connNameSpace & ".ISMPReportInformation, " & connNameSpace & ".LookUPPollutants, " & connNameSpace & ".ISMPMaster, " & connNameSpace & ".APBFacilityInformation, " & _
-            "" & connNameSpace & ".ISMPReportType " & _
+            "substr(" & DBNameSpace & ".ISMPMaster.strAIRSNumber, 5) as AIRSNumber, strFacilityName, strFacilityCity, strFacilityState, " & _
+            "" & DBNameSpace & ".ISMPReportType.strReportType " & _
+            "from " & DBNameSpace & ".ISMPReportInformation, " & DBNameSpace & ".LookUPPollutants, " & DBNameSpace & ".ISMPMaster, " & DBNameSpace & ".APBFacilityInformation, " & _
+            "" & DBNameSpace & ".ISMPReportType " & _
             "where strDelete is NULL and strComplianceStatus = '05' " & _
             "and datCompleteDate between '" & DTPMonthlyStart.Text & "' and '" & DTPMonthlyEnd.Text & "' " & _
             "and strPollutantCode = strPOllutant " & _
-            "and " & connNameSpace & ".ISMPMaster.strReferenceNumber = " & connNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
-            "and " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".ISMPMaster.strAIRSNumber " & _
-            "and " & connNameSpace & ".ISMPReportInformation.strReportType = " & connNameSpace & ".ISMPReportType.strKey "
+            "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
+            "and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".ISMPMaster.strAIRSNumber " & _
+            "and " & DBNameSpace & ".ISMPReportInformation.strReportType = " & DBNameSpace & ".ISMPReportType.strKey "
 
-            cmd = New OracleCommand(SQL, conn)
+            cmd = New OracleCommand(SQL, DBConn)
             dr = cmd.ExecuteReader
 
             Report = ""
@@ -9220,7 +9220,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -9232,7 +9232,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -9251,7 +9251,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -9271,7 +9271,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -9280,8 +9280,8 @@ Public Class ISMPManagersTools
     Sub AddExcelFile()
         Try
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             Dim myStream As Stream
@@ -9314,8 +9314,8 @@ Public Class ISMPManagersTools
             If PathName <> "N/A" Then
 
                 SQL = "select max(FileId) as ID " & _
-                "from " & connNameSpace & ".ISMPTestReportAids "
-                cmd = New OracleCommand(SQL, conn)
+                "from " & DBNameSpace & ".ISMPTestReportAids "
+                cmd = New OracleCommand(SQL, DBConn)
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = True Then
@@ -9345,13 +9345,13 @@ Public Class ISMPManagersTools
                 Fs.Close()
 
                 SQL = "Select * " & _
-                "From " & connNameSpace & ".ISMPTestReportAIDS " & _
+                "From " & DBNameSpace & ".ISMPTestReportAIDS " & _
                 "where FileID = '" & IDnumber & "' "
 
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
-                da = New OracleDataAdapter(SQL, conn)
+                da = New OracleDataAdapter(SQL, DBConn)
                 cmdCB = New OracleCommandBuilder(da)
                 ds = New DataSet("IAIPData")
                 da.MissingSchemaAction = MissingSchemaAction.AddWithKey
@@ -9376,7 +9376,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -9388,23 +9388,23 @@ Public Class ISMPManagersTools
         Try
 
             If txtFileName.Text <> "" Then
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 FileID = txtFileName.Text
                 FileID = Mid(FileID, 1, FileID.IndexOf(" - "))
 
-                SQL = "Delete " & connNameSpace & ".ISMPTestReportAids " & _
+                SQL = "Delete " & DBNameSpace & ".ISMPTestReportAids " & _
                 "where FileID = '" & FileID & "' "
 
-                cmd = New OracleCommand(SQL, conn)
+                cmd = New OracleCommand(SQL, DBConn)
                 dr = cmd.ExecuteReader
 
                 LoadExcelDataSet()
                 MsgBox("File Removed")
                 txtFileName.Clear()
 
-                If conn.State = ConnectionState.Open Then
+                If DBConn.State = ConnectionState.Open Then
                     'conn.close()
                 End If
             Else
@@ -9413,7 +9413,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -9440,24 +9440,24 @@ Public Class ISMPManagersTools
              "    When OpenFiftys is Null then 0 " & _
              "    Else OpenFiftys " & _
              "End as OpenFiftys " & _
-             "From (SELECT " & connNameSpace & ".EPDUSerProfiles.STRFIRSTNAME as Engineer, Count(*) as OpenReports " & _
-             "    FROM " & connNameSpace & ".EPDUserProfiles, " & connNameSpace & ".ISMPReportInformation " & _
-             "    WHERE (" & connNameSpace & ".ISMPReportInformation.STRCLOSED = 'False' ) " & _
-             "    and " & connNameSpace & ".EPDUserProfiles.numUserID = " & connNameSpace & ".ISMPReportInformation.strReviewingEngineer " & _
+             "From (SELECT " & DBNameSpace & ".EPDUSerProfiles.STRFIRSTNAME as Engineer, Count(*) as OpenReports " & _
+             "    FROM " & DBNameSpace & ".EPDUserProfiles, " & DBNameSpace & ".ISMPReportInformation " & _
+             "    WHERE (" & DBNameSpace & ".ISMPReportInformation.STRCLOSED = 'False' ) " & _
+             "    and " & DBNameSpace & ".EPDUserProfiles.numUserID = " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer " & _
              "Group by strfirstname) OpenReport, " & _
-             "(SELECT " & connNameSpace & ".EPDUserProfiles.STRFIRSTNAME as Engineer, Count(*) as ClosedReports " & _
-             "    FROM " & connNameSpace & ".EPDUserProfiles, " & connNameSpace & ".ISMPReportInformation " & _
-             "    WHERE (" & connNameSpace & ".ISMPReportInformation.STRCLOSED = 'True' ) " & _
-             "    and " & connNameSpace & ".EPDUSerProfiles.numUserID = " & connNameSpace & ".ISMPReportInformation.strReviewingEngineer " & _
+             "(SELECT " & DBNameSpace & ".EPDUserProfiles.STRFIRSTNAME as Engineer, Count(*) as ClosedReports " & _
+             "    FROM " & DBNameSpace & ".EPDUserProfiles, " & DBNameSpace & ".ISMPReportInformation " & _
+             "    WHERE (" & DBNameSpace & ".ISMPReportInformation.STRCLOSED = 'True' ) " & _
+             "    and " & DBNameSpace & ".EPDUSerProfiles.numUserID = " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer " & _
              "    and datCompleteDate Between Trunc(sysdate) - 60 and Trunc(sysdate) " & _
              "Group by strfirstname) ClosedReport, " & _
-             "(SELECT " & connNameSpace & ".EPDUSerProfiles.STRFIRSTNAME as Engineer, Count(*) as OpenFiftys " & _
-             "    FROM " & connNameSpace & ".EPDUSerProfiles, " & connNameSpace & ".ISMPReportInformation " & _
-             "    WHERE (" & connNameSpace & ".ISMPReportInformation.STRCLOSED = 'False' ) " & _
-             "    and " & connNameSpace & ".EPDUserProfiles.numUserID = " & connNameSpace & ".ISMPReportInformation.strReviewingEngineer " & _
+             "(SELECT " & DBNameSpace & ".EPDUSerProfiles.STRFIRSTNAME as Engineer, Count(*) as OpenFiftys " & _
+             "    FROM " & DBNameSpace & ".EPDUSerProfiles, " & DBNameSpace & ".ISMPReportInformation " & _
+             "    WHERE (" & DBNameSpace & ".ISMPReportInformation.STRCLOSED = 'False' ) " & _
+             "    and " & DBNameSpace & ".EPDUserProfiles.numUserID = " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer " & _
              "    and datReceivedDate <= (Trunc(SysDate) - 50) " & _
              "Group by strfirstname) OLdOpen, " & _
-             "" & connNameSpace & ".EPDUserProfiles " & _
+             "" & DBNameSpace & ".EPDUserProfiles " & _
              "where strFirstname = OpenReport.Engineer (+) " & _
              "and strFirstName = ClosedReport.Engineer (+) " & _
              "and strFirstName = OldOpen.Engineer (+) " & _
@@ -9466,10 +9466,10 @@ Public Class ISMPManagersTools
 
             dsSummaryReport = New DataSet
 
-            daSummaryReport = New OracleDataAdapter(SQL, conn)
+            daSummaryReport = New OracleDataAdapter(SQL, DBConn)
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             daSummaryReport.Fill(dsSummaryReport, "Test Summary")
@@ -9479,7 +9479,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -9535,7 +9535,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -9577,16 +9577,16 @@ Public Class ISMPManagersTools
                 End If
 
                 If DestFilePath <> "N/A" Then
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
 
                     SQL = "Select " & _
                     "FileId, FileTitle, ISMPBlob " & _
-                    "from " & connNameSpace & ".ISMPTestReportAids " & _
+                    "from " & DBNameSpace & ".ISMPTestReportAids " & _
                     "Where FileID = '" & FileID & "' "
 
-                    cmd = New OracleCommand(SQL, conn)
+                    cmd = New OracleCommand(SQL, DBConn)
                     dr = cmd.ExecuteReader
 
                     dr.Read()
@@ -9604,7 +9604,7 @@ Public Class ISMPManagersTools
                         ExcelApp.Visible = True
                     End If
 
-                    If conn.State = ConnectionState.Open Then
+                    If DBConn.State = ConnectionState.Open Then
                         'conn.close()
                     End If
 
@@ -9618,7 +9618,7 @@ Public Class ISMPManagersTools
                 ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
             End If
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -9629,21 +9629,21 @@ Public Class ISMPManagersTools
 
 
             SQL = "Select " & _
-            "" & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber, " & _
+            "" & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber, " & _
             "strISMPUnit, strISMPReviewer, datISMPReviewDate,  " & _
             "strISMPComments,  " & _
-            "substr(" & connNameSpace & ".SSPPApplicationMaster.strAIRSNumber, 5) as AIRSNumber, " & _
-            "" & connNameSpace & ".APBFacilityinformation.strFacilityName " & _
-            "from " & connNameSpace & ".APBFacilityInformation, " & connNameSpace & ".SSPPApplicationMaster,  " & _
-            "" & connNameSpace & ".SSPPApplicationTracking, " & connNameSpace & ".SSPPApplicationData " & _
+            "substr(" & DBNameSpace & ".SSPPApplicationMaster.strAIRSNumber, 5) as AIRSNumber, " & _
+            "" & DBNameSpace & ".APBFacilityinformation.strFacilityName " & _
+            "from " & DBNameSpace & ".APBFacilityInformation, " & DBNameSpace & ".SSPPApplicationMaster,  " & _
+            "" & DBNameSpace & ".SSPPApplicationTracking, " & DBNameSpace & ".SSPPApplicationData " & _
             "where datISMPReviewDate between '" & DTPAppStartDate.Text & "' and '" & DTPAppEndDate.Text & "'  " & _
-            "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
-            "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationData.strApplicationNumber " & _
-            "and " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".SSPPApplicationMaster.strAIRSNumber "
+            "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber  " & _
+            "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber " & _
+            "and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".SSPPApplicationMaster.strAIRSNumber "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -9655,7 +9655,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -9675,7 +9675,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -9695,25 +9695,25 @@ Public Class ISMPManagersTools
             "MedDays,  " & _
             "PercentDays,  " & _
             "(Witness1.witcount + witness2.witcount + Witness3.witcount) as Witnessed " & _
-            "from " & connNameSpace & ".ISMPReportInformation, " & connNameSpace & ".EPDUserProfiles,  " & _
-            "" & connNameSpace & ".LookUpEPDUnits, " & _
+            "from " & DBNameSpace & ".ISMPReportInformation, " & DBNameSpace & ".EPDUserProfiles,  " & _
+            "" & DBNameSpace & ".LookUpEPDUnits, " & _
             "(select count(*) as TotalReceived " & _
-            "from " & connNameSpace & ".ISMPReportInformation  " & _
+            "from " & DBNameSpace & ".ISMPReportInformation  " & _
             "where datCompleteDate between '" & DTPUnitStatsStartDate.Text & "' and '" & DTPUnitStatsEndDate.Text & "'  " & _
             "and (strDelete <> 'True' or strDelete is Null) " & _
             "and strReviewingEngineer <> '0' " & _
             "and strClosed = 'True') TotalReviewed,  " & _
             "(select strReviewingEngineer, Count(*) as ReceivedCount " & _
-            "from " & connNameSpace & ".ISMPReportInformation   " & _
+            "from " & DBNameSpace & ".ISMPReportInformation   " & _
             "where datcompleteDate between '" & DTPUnitStatsStartDate.Text & "' and '" & DTPUnitStatsEndDate.Text & "'  " & _
             "and (strDelete is Null or strDelete <> 'True') " & _
             "and strReviewingEngineer <> '0'  " & _
             "and strClosed = 'True'  " & _
             "group by strReviewingEngineer) TotalRec,  " & _
             "(select count(*) as ComUnitTotal  " & _
-            "from " & connNameSpace & ".ISMPReportInformation,   " & _
+            "from " & DBNameSpace & ".ISMPReportInformation,   " & _
             "(select numUserID   " & _
-            "from " & connNameSpace & ".EPDUserProfiles   " & _
+            "from " & DBNameSpace & ".EPDUserProfiles   " & _
             "where numProgram = '3'  " & _
             "and numUnit = '13') ComUnit  " & _
             "where datCompleteDate between '" & DTPUnitStatsStartDate.Text & "' and '" & DTPUnitStatsEndDate.Text & "'  " & _
@@ -9721,9 +9721,9 @@ Public Class ISMPManagersTools
             "and strClosed = 'True'  " & _
             "and strReviewingEngineer  = ComUnit.numUserID) ComTotal,  " & _
             "(select count(*) as ChemUnitTotal  " & _
-            "from " & connNameSpace & ".ISMPReportInformation,   " & _
+            "from " & DBNameSpace & ".ISMPReportInformation,   " & _
             "(select numUserID   " & _
-            "from " & connNameSpace & ".EPDUserProfiles   " & _
+            "from " & DBNameSpace & ".EPDUserProfiles   " & _
             "where numProgram = '3'   " & _
             "and numUnit = '12') ChemUnit  " & _
             "where datCompleteDate between '" & DTPUnitStatsStartDate.Text & "' and '" & DTPUnitStatsEndDate.Text & "'  " & _
@@ -9739,7 +9739,7 @@ Public Class ISMPManagersTools
             "when strClosed = 'True' then (datCompleteDate - datReceivedDate)  " & _
             "when strClosed = 'False' then (round(sysdate, 'DDD') - datReceivedDate) " & _
             "END DayIn " & _
-            "from " & connNameSpace & ".ISMPReportInformation " & _
+            "from " & DBNameSpace & ".ISMPReportInformation " & _
             "where datCompleteDate between '" & DTPUnitStatsStartDate.Text & "' and '" & DTPUnitStatsEndDate.Text & "'  " & _
             "and (strDelete <> 'True' or strDelete is Null) " & _
             "and strClosed = 'True'  " & _
@@ -9754,58 +9754,58 @@ Public Class ISMPManagersTools
             "when strClosed = 'True' then (datCompleteDate - datReceivedDate)  " & _
             "when strClosed = 'False' then (round(sysdate, 'DDD') - datReceivedDate) " & _
             "END DaysIn " & _
-            "from " & connNameSpace & ".ISMPReportInformation " & _
+            "from " & DBNameSpace & ".ISMPReportInformation " & _
             "where datCompleteDate between '" & DTPUnitStatsStartDate.Text & "' and '" & DTPUnitStatsEndDate.Text & "'  " & _
             "and (strDelete <> 'True' or strDelete is Null) " & _
             "and strReviewingEngineer <> '0'  " & _
             "and strClosed = 'True')  " & _
             "group by strReviewingEngineer) PercentDays,  " & _
-            "(select " & connNameSpace & ".ISMPReportInformation.strWitnessingEngineer,  " & _
+            "(select " & DBNameSpace & ".ISMPReportInformation.strWitnessingEngineer,  " & _
             "count(*) as WitCount " & _
-            "from " & connNameSpace & ".ISMPReportInformation   " & _
+            "from " & DBNameSpace & ".ISMPReportInformation   " & _
             "where datcompleteDate between '" & DTPUnitStatsStartDate.Text & "' and '" & DTPUnitStatsEndDate.Text & "'  " & _
             "and (strDelete <> 'True' or strDelete is Null)  " & _
-            "and " & connNameSpace & ".ISMPReportInformation.strWitnessingEngineer <> '0' " & _
+            "and " & DBNameSpace & ".ISMPReportInformation.strWitnessingEngineer <> '0' " & _
             "and strClosed = 'True'  " & _
-            "group by " & connNameSpace & ".ISMPReportInformation.strWitnessingEngineer) Witness1,  " & _
-            "(select " & connNameSpace & ".ISMPReportInformation.strWitnessingEngineer2,  " & _
+            "group by " & DBNameSpace & ".ISMPReportInformation.strWitnessingEngineer) Witness1,  " & _
+            "(select " & DBNameSpace & ".ISMPReportInformation.strWitnessingEngineer2,  " & _
             "count(*) as WitCount " & _
-            "from " & connNameSpace & ".ISMPReportInformation   " & _
+            "from " & DBNameSpace & ".ISMPReportInformation   " & _
             "where datcompleteDate between '" & DTPUnitStatsStartDate.Text & "' and '" & DTPUnitStatsEndDate.Text & "'  " & _
             "and (strDelete <> 'True' or strDelete is Null)  " & _
-            "and " & connNameSpace & ".ISMPReportInformation.strWitnessingEngineer2 <> '0' " & _
+            "and " & DBNameSpace & ".ISMPReportInformation.strWitnessingEngineer2 <> '0' " & _
             "and strClosed = 'True'  " & _
-            "group by " & connNameSpace & ".ISMPReportInformation.strWitnessingEngineer2) Witness2,  " & _
-            "(select  " & connNameSpace & ".ISMPWitnessingEng.strWitnessingEngineer,  " & _
+            "group by " & DBNameSpace & ".ISMPReportInformation.strWitnessingEngineer2) Witness2,  " & _
+            "(select  " & DBNameSpace & ".ISMPWitnessingEng.strWitnessingEngineer,  " & _
             "count(*) as WitCount " & _
-            "from " & connNameSpace & ".ISMPReportInformation, " & connNameSpace & ".ISMPWitnessingEng    " & _
+            "from " & DBNameSpace & ".ISMPReportInformation, " & DBNameSpace & ".ISMPWitnessingEng    " & _
             "where datcompleteDate between '" & DTPUnitStatsStartDate.Text & "' and '" & DTPUnitStatsEndDate.Text & "'  " & _
             "and (strDelete <> 'True' or strDelete is Null)  " & _
-            "and " & connNameSpace & ".ISMPReportInformation.strReferenceNumber = " & connNameSpace & ".ISMPWitnessingEng.strReferenceNumber   " & _
+            "and " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber = " & DBNameSpace & ".ISMPWitnessingEng.strReferenceNumber   " & _
             "and strClosed = 'True'  " & _
-            "group by " & connNameSpace & ".ISMPWitnessingEng.strWitnessingEngineer) Witness3  " & _
-            "where " & connNameSpace & ".ISMPReportInformation.strReviewingEngineer = " & connNameSpace & ".EPDUserProfiles.numUserID  " & _
-            "and " & connNameSpace & ".EPDUserProfiles.numUnit = " & connNameSpace & ".LookUpEPDUnits.numUnitCode " & _
+            "group by " & DBNameSpace & ".ISMPWitnessingEng.strWitnessingEngineer) Witness3  " & _
+            "where " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer = " & DBNameSpace & ".EPDUserProfiles.numUserID  " & _
+            "and " & DBNameSpace & ".EPDUserProfiles.numUnit = " & DBNameSpace & ".LookUpEPDUnits.numUnitCode " & _
             "and datCompleteDate between '" & DTPUnitStatsStartDate.Text & "' and '" & DTPUnitStatsEndDate.Text & "' " & _
             "and (strDelete <> 'True' or strDelete is Null)  " & _
-            "and " & connNameSpace & ".ISMPReportInformation.strReviewingEngineer <> '0'  " & _
-            "and " & connNameSpace & ".ISMPReportInformation.strReviewingEngineer = TotalRec.strReviewingEngineer (+)  " & _
-            "and " & connNameSpace & ".ISMPREportINformation.strReviewingEngineer = MedianTotal.strReviewingEngineer (+) " & _
-            "and " & connNameSpace & ".ISMPREportINformation.strReviewingEngineer = PercentDays.strReviewingEngineer (+) " & _
-            "and " & connNameSpace & ".ISMPREportINformation.strReviewingEngineer = Witness1.strWitnessingEngineer (+)  " & _
-            "and " & connNameSpace & ".ISMPREportINformation.strReviewingEngineer = Witness2.strWitnessingEngineer2 (+) " & _
-            "and " & connNameSpace & ".ISMPREportINformation.strReviewingEngineer = Witness3.strWitnessingEngineer (+)  " & _
+            "and " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer <> '0'  " & _
+            "and " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer = TotalRec.strReviewingEngineer (+)  " & _
+            "and " & DBNameSpace & ".ISMPREportINformation.strReviewingEngineer = MedianTotal.strReviewingEngineer (+) " & _
+            "and " & DBNameSpace & ".ISMPREportINformation.strReviewingEngineer = PercentDays.strReviewingEngineer (+) " & _
+            "and " & DBNameSpace & ".ISMPREportINformation.strReviewingEngineer = Witness1.strWitnessingEngineer (+)  " & _
+            "and " & DBNameSpace & ".ISMPREportINformation.strReviewingEngineer = Witness2.strWitnessingEngineer2 (+) " & _
+            "and " & DBNameSpace & ".ISMPREportINformation.strReviewingEngineer = Witness3.strWitnessingEngineer (+)  " & _
             "order by strUnitDesc, Engineer "
 
             dsUnitStats = New DataSet
-            daUnitStats = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daUnitStats = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daUnitStats.Fill(dsUnitStats, "UnitStats")
             dgvUnitStats.DataSource = dsUnitStats
             dgvUnitStats.DataMember = "UnitStats"
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
             dgvUnitStats.RowHeadersVisible = False
@@ -9904,7 +9904,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -9931,7 +9931,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -9979,7 +9979,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -9995,7 +9995,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -10008,7 +10008,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -10021,7 +10021,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -10034,7 +10034,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -10049,7 +10049,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -10071,7 +10071,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -10090,7 +10090,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -10109,7 +10109,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -10128,7 +10128,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -10152,7 +10152,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -10176,7 +10176,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -10196,7 +10196,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -10215,7 +10215,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -10234,7 +10234,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -10254,7 +10254,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -10273,7 +10273,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -10292,7 +10292,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -10311,7 +10311,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -10330,7 +10330,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -10349,7 +10349,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -10368,7 +10368,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -10387,7 +10387,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -10406,7 +10406,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -10425,7 +10425,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -10444,7 +10444,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -10463,7 +10463,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -10482,7 +10482,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -10501,7 +10501,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -10520,7 +10520,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -10539,7 +10539,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -10558,7 +10558,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -10577,7 +10577,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -10598,7 +10598,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -10617,7 +10617,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -10636,7 +10636,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -10655,7 +10655,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -10674,7 +10674,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -10693,7 +10693,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -10712,7 +10712,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -10731,7 +10731,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -10750,7 +10750,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -10769,7 +10769,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -10788,7 +10788,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -10807,7 +10807,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -10826,7 +10826,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -10845,7 +10845,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -10864,7 +10864,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -10883,7 +10883,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -10902,7 +10902,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -10921,7 +10921,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -10942,7 +10942,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -10961,7 +10961,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -10980,7 +10980,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -10999,7 +10999,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -11018,7 +11018,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -11037,7 +11037,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -11056,7 +11056,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -11075,7 +11075,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -11094,7 +11094,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -11113,7 +11113,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -11132,7 +11132,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -11151,7 +11151,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -11170,7 +11170,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -11189,7 +11189,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -11208,7 +11208,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -11227,7 +11227,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -11246,7 +11246,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -11265,7 +11265,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -11292,7 +11292,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -11305,7 +11305,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -11329,7 +11329,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -11341,7 +11341,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -11352,27 +11352,27 @@ Public Class ISMPManagersTools
 
             dsFacilityList = New DataSet
 
-            SQL = "Select strFacilityName, substr(" & connNameSpace & ".APBFacilityInformation.strAIRSnumber, 5) as StrAIRSNumber, " & _
+            SQL = "Select strFacilityName, substr(" & DBNameSpace & ".APBFacilityInformation.strAIRSnumber, 5) as StrAIRSNumber, " & _
             "CASE " & _
             "when strISMPUnit = 'H' then 'Chemical and VOC' " & _
             "when strISMPUnit = 'I' then 'Combustion and Mineral' " & _
             "ELSE 'Unassigned' " & _
             "END as UnitAssigned " & _
-            "from " & connNameSpace & ".APBFacilityInformation, " & connNameSpace & ".ISMPFacilityAssignment " & _
-            "where " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".ISMPFacilityAssignment.strAIRSNumber " & _
+            "from " & DBNameSpace & ".APBFacilityInformation, " & DBNameSpace & ".ISMPFacilityAssignment " & _
+            "where " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".ISMPFacilityAssignment.strAIRSNumber " & _
             "order by strAIRSNumber "
 
-            cmd = New OracleCommand(SQL, conn)
+            cmd = New OracleCommand(SQL, DBConn)
 
-            daFacilityList = New OracleDataAdapter(SQL, conn)
+            daFacilityList = New OracleDataAdapter(SQL, DBConn)
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             daFacilityList.Fill(dsFacilityList, "FacilityList")
 
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -11410,7 +11410,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -11423,7 +11423,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -11439,7 +11439,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -11456,7 +11456,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -11471,7 +11471,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -11484,7 +11484,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -11499,7 +11499,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -11517,7 +11517,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -11534,7 +11534,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -11548,7 +11548,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -11592,7 +11592,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -11602,13 +11602,13 @@ Public Class ISMPManagersTools
         Try
 
             If txtReferenceNumber.Text <> "" Then
-                SQL = "select " & connNameSpace & ".ISMPDocumentType.strDocumentType " & _
-                 "from " & connNameSpace & ".ISMPDocumentType, " & connNameSpace & ".ISMPReportInformation " & _
-                 "where " & connNameSpace & ".ISMPReportInformation.strDocumentType = " & connNameSpace & ".ISMPDocumentType.strKey and " & _
+                SQL = "select " & DBNameSpace & ".ISMPDocumentType.strDocumentType " & _
+                 "from " & DBNameSpace & ".ISMPDocumentType, " & DBNameSpace & ".ISMPReportInformation " & _
+                 "where " & DBNameSpace & ".ISMPReportInformation.strDocumentType = " & DBNameSpace & ".ISMPDocumentType.strKey and " & _
                  "strReferenceNumber = '" & txtReferenceNumber.Text & "'"
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -11623,7 +11623,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -11674,7 +11674,7 @@ Public Class ISMPManagersTools
                 ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
             End If
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -11687,7 +11687,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -11700,7 +11700,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -11713,7 +11713,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -11726,7 +11726,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -11749,7 +11749,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -11762,7 +11762,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -11777,7 +11777,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -11790,7 +11790,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -11803,7 +11803,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -11816,7 +11816,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -11829,7 +11829,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -11862,22 +11862,22 @@ Public Class ISMPManagersTools
             "when datCompleteDate = '04-Jul-1776' then Null  " & _
             "else to_char(datCompleteDate, 'dd-Mon-yyyy')  " & _
             "end datCompleteDate  " & _
-            "from " & connNameSpace & ".ISMPReportInformation, " & connNameSpace & ".EPDUserProfiles    " & _
-            "where " & connNameSpace & ".ISMPReportInformation.strReviewingEngineer = " & connNameSpace & ".EPDUserProfiles.numUserID  " & _
+            "from " & DBNameSpace & ".ISMPReportInformation, " & DBNameSpace & ".EPDUserProfiles    " & _
+            "where " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer = " & DBNameSpace & ".EPDUserProfiles.numUserID  " & _
             "and datCompleteDate between '" & DTPUnitStatsStartDate.Text & "' and '" & DTPUnitStatsEndDate.Text & "'  " & _
             "and (strDelete <> 'True' or strDelete is Null)  " & _
             "and strReviewingEngineer <> '0'  " & _
             "and strClosed = 'True' "
 
             dsUnitStats = New DataSet
-            daUnitStats = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daUnitStats = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daUnitStats.Fill(dsUnitStats, "UnitStats")
             dgvUnitStats.DataSource = dsUnitStats
             dgvUnitStats.DataMember = "UnitStats"
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
             dgvUnitStats.RowHeadersVisible = False
@@ -11904,7 +11904,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -11925,26 +11925,26 @@ Public Class ISMPManagersTools
             "when datCompleteDate = '04-Jul-1776' then Null  " & _
             "else to_char(datCompleteDate, 'dd-Mon-yyyy')  " & _
             "End datCompleteDate  " & _
-            "from " & connNameSpace & ".ISMPReportInformation,  " & connNameSpace & ".EPDUserProfiles,  " & _
+            "from " & DBNameSpace & ".ISMPReportInformation,  " & DBNameSpace & ".EPDUserProfiles,  " & _
             "(select numUserID    " & _
-            "from " & connNameSpace & ".EPDUserProfiles " & _
+            "from " & DBNameSpace & ".EPDUserProfiles " & _
             "where numProgram = '3'  " & _
             "and numUnit = '12') ChemUnit   " & _
-            "where " & connNameSpace & ".ISMPReportInformation.strReviewingEngineer = " & connNameSpace & ".EPDUSerProfiles.numUSerID   " & _
+            "where " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer = " & DBNameSpace & ".EPDUSerProfiles.numUSerID   " & _
             "and datCompleteDate between '" & DTPUnitStatsStartDate.Text & "' and '" & DTPUnitStatsEndDate.Text & "'  " & _
             "and (strDelete <> 'True' or strDelete is Null)    " & _
             "and strClosed = 'True'   " & _
             "and strReviewingEngineer  = ChemUnit.numUserID "
 
             dsUnitStats = New DataSet
-            daUnitStats = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daUnitStats = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daUnitStats.Fill(dsUnitStats, "UnitStats")
             dgvUnitStats.DataSource = dsUnitStats
             dgvUnitStats.DataMember = "UnitStats"
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
             dgvUnitStats.RowHeadersVisible = False
@@ -11971,7 +11971,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -11992,26 +11992,26 @@ Public Class ISMPManagersTools
            "when datCompleteDate = '04-Jul-1776' then Null  " & _
            "else to_char(datCompleteDate, 'dd-Mon-yyyy')  " & _
            "End datCompleteDate  " & _
-           "from " & connNameSpace & ".ISMPReportInformation,  " & connNameSpace & ".EPDUserProfiles,  " & _
+           "from " & DBNameSpace & ".ISMPReportInformation,  " & DBNameSpace & ".EPDUserProfiles,  " & _
            "(select numUserID " & _
-           "from " & connNameSpace & ".EPDUserProfiles     " & _
+           "from " & DBNameSpace & ".EPDUserProfiles     " & _
            "where numProgram = '3' " & _
            "and numUnit = '13') ComUnit   " & _
-           "where " & connNameSpace & ".ISMPReportInformation.strReviewingEngineer = " & connNameSpace & ".EPDUserProfiles.numUserID   " & _
+           "where " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer = " & DBNameSpace & ".EPDUserProfiles.numUserID   " & _
            "and datCompleteDate between '" & DTPUnitStatsStartDate.Text & "' and '" & DTPUnitStatsEndDate.Text & "'  " & _
            "and (strDelete <> 'True' or strDelete is Null)    " & _
            "and strClosed = 'True'   " & _
            "and strReviewingEngineer  = ComUnit.numUserID "
 
             dsUnitStats = New DataSet
-            daUnitStats = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daUnitStats = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daUnitStats.Fill(dsUnitStats, "UnitStats")
             dgvUnitStats.DataSource = dsUnitStats
             dgvUnitStats.DataMember = "UnitStats"
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
             dgvUnitStats.RowHeadersVisible = False
@@ -12038,7 +12038,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -12056,7 +12056,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -12065,13 +12065,13 @@ Public Class ISMPManagersTools
         Try
 
             If txtUnitStatReferenceNumber.Text <> "" Then
-                SQL = "select " & connNameSpace & ".ISMPDocumentType.strDocumentType " & _
-                 "from " & connNameSpace & ".ISMPDocumentType, " & connNameSpace & ".ISMPReportInformation " & _
-                 "where " & connNameSpace & ".ISMPReportInformation.strDocumentType = " & connNameSpace & ".ISMPDocumentType.strKey and " & _
+                SQL = "select " & DBNameSpace & ".ISMPDocumentType.strDocumentType " & _
+                 "from " & DBNameSpace & ".ISMPDocumentType, " & DBNameSpace & ".ISMPReportInformation " & _
+                 "where " & DBNameSpace & ".ISMPReportInformation.strDocumentType = " & DBNameSpace & ".ISMPDocumentType.strKey and " & _
                  "strReferenceNumber = '" & txtUnitStatReferenceNumber.Text & "'"
-                Dim cmd As New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                Dim cmd As New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 Dim dr As OracleDataReader = cmd.ExecuteReader
                 Dim recExist As Boolean = dr.Read
@@ -12087,7 +12087,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -12103,7 +12103,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -12115,11 +12115,11 @@ Public Class ISMPManagersTools
             If txtMethodCode.Text <> "" Then
                 SQL = "Select " & _
                 "strMethodDesc " & _
-                "from " & connNameSpace & ".LookUpISMPMethods " & _
+                "from " & DBNameSpace & ".LookUpISMPMethods " & _
                 "where strMethodCode = '" & txtMethodCode.Text & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -12142,7 +12142,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -12159,11 +12159,11 @@ Public Class ISMPManagersTools
 
                 SQL = "Select " & _
                 "strMethodCode " & _
-                "From " & connNameSpace & ".LookUpISMPMethods " & _
+                "From " & DBNameSpace & ".LookUpISMPMethods " & _
                 "where substr(strMethodDesc, 1, instr(strMethodDesc,'-')-2)  = 'Method " & Replace(txtMethodNumber.Text.ToUpper, "'", "''") & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -12172,21 +12172,21 @@ Public Class ISMPManagersTools
                     temp = dr.Item("strMethodCode")
                     dr.Close()
                     If temp = txtMethodCode.Text Then
-                        SQL = "Update " & connNameSpace & ".LookUpISMPMethods set " & _
+                        SQL = "Update " & DBNameSpace & ".LookUpISMPMethods set " & _
                         "strMethodDesc = 'Method " & Replace(txtMethodNumber.Text, "'", "''") & " - " & Replace(txtMethodDescription.Text, "'", "''") & "' " & _
                         "where strMethodCode = '" & Replace(txtMethodCode.Text, "'", "''") & "' "
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, DBConn)
+                        If DBConn.State = ConnectionState.Closed Then
+                            DBConn.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Close()
                     Else
                         SQL = "Select (max(strMethodCode) + 1) as MethodCode " & _
-                        "from " & connNameSpace & ".LookUpISMPMethods "
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        "from " & DBNameSpace & ".LookUpISMPMethods "
+                        cmd = New OracleCommand(SQL, DBConn)
+                        If DBConn.State = ConnectionState.Closed Then
+                            DBConn.Open()
                         End If
                         dr = cmd.ExecuteReader
                         While dr.Read
@@ -12213,13 +12213,13 @@ Public Class ISMPManagersTools
                             End If
                         End While
 
-                        SQL = "Insert into " & connNameSpace & ".LookUpISMPMethods " & _
+                        SQL = "Insert into " & DBNameSpace & ".LookUpISMPMethods " & _
                         "values " & _
                         "('" & temp & "', " & _
                         "'Method " & Replace(txtMethodNumber.Text, "'", "''") & " - " & Replace(txtMethodDescription.Text, "'", "''") & "') "
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, DBConn)
+                        If DBConn.State = ConnectionState.Closed Then
+                            DBConn.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Close()
@@ -12227,10 +12227,10 @@ Public Class ISMPManagersTools
                 Else
                     dr.Close()
                     SQL = "Select (max(strMethodCode) + 1) as MethodCode " & _
-                    "from " & connNameSpace & ".LookUpISMPMethods "
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    "from " & DBNameSpace & ".LookUpISMPMethods "
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     While dr.Read
@@ -12257,13 +12257,13 @@ Public Class ISMPManagersTools
                         End If
                     End While
 
-                    SQL = "Insert into " & connNameSpace & ".LookUpISMPMethods " & _
+                    SQL = "Insert into " & DBNameSpace & ".LookUpISMPMethods " & _
                     "values " & _
                     "('" & temp & "', " & _
                     "'Method " & Replace(txtMethodNumber.Text, "'", "''") & " - " & Replace(txtMethodDescription.Text, "'", "''") & "') "
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
@@ -12283,7 +12283,7 @@ Public Class ISMPManagersTools
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -12348,11 +12348,11 @@ Public Class ISMPManagersTools
 
                 SQL = "Select " & _
                 "strReferenceNumber " & _
-                "from " & connNameSpace & ".ISMPMaster " & _
+                "from " & DBNameSpace & ".ISMPMaster " & _
                 "where strReferenceNumber = '" & RefNum & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -12364,11 +12364,11 @@ Public Class ISMPManagersTools
 
                 SQL = "Select " & _
                 "strAIRSNumber " & _
-                "from " & connNameSpace & ".APBMasterAIRS " & _
+                "from " & DBNameSpace & ".APBMasterAIRS " & _
                 "where strAIRSNumber = '0413" & AIRSNumber & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -12378,18 +12378,18 @@ Public Class ISMPManagersTools
                     Exit Sub
                 End If
 
-                SQL = "Insert into " & connNameSpace & ".ISMPMaster " & _
+                SQL = "Insert into " & DBNameSpace & ".ISMPMaster " & _
                 "values " & _
                 "('" & RefNum & "', '0413" & AIRSNumber & "', " & _
                 "'" & UserGCode & "', '" & OracleDate & "') "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL = "Insert into " & connNameSpace & ".ISMPReportInformation " & _
+                SQL = "Insert into " & DBNameSpace & ".ISMPReportInformation " & _
                 "values " & _
                 "('" & RefNum & "', '00001', " & _
                 "'N/A', '001', " & _
@@ -12408,9 +12408,9 @@ Public Class ISMPManagersTools
                 "'', '', " & _
                 "'', '') "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -12457,23 +12457,23 @@ Public Class ISMPManagersTools
             If txtCloseTestReportRefNum.Text <> "" Then
                 SQL = "Select " & _
                 "strReferenceNumber " & _
-                "from " & connNameSpace & ".ISMPReportInformation " & _
+                "from " & DBNameSpace & ".ISMPReportInformation " & _
                 "where strReferenceNumber = '" & txtCloseTestReportRefNum.Text & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 dr.Close()
                 If recExist = True Then
-                    SQL = "Update " & connNameSpace & ".ISMPReportInformation set " & _
+                    SQL = "Update " & DBNameSpace & ".ISMPReportInformation set " & _
                     "strClosed = 'True' " & _
                     "where strReferenceNumber = '" & txtCloseTestReportRefNum.Text & "' "
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
@@ -12491,23 +12491,23 @@ Public Class ISMPManagersTools
             If txtCloseTestReportRefNum.Text <> "" Then
                 SQL = "Select " & _
                 "strReferenceNumber " & _
-                "from " & connNameSpace & ".ISMPReportInformation " & _
+                "from " & DBNameSpace & ".ISMPReportInformation " & _
                 "where strReferenceNumber = '" & txtCloseTestReportRefNum.Text & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 dr.Close()
                 If recExist = True Then
-                    SQL = "Update " & connNameSpace & ".ISMPReportInformation set " & _
+                    SQL = "Update " & DBNameSpace & ".ISMPReportInformation set " & _
                     "strClosed = 'False' " & _
                     "where strReferenceNumber = '" & txtCloseTestReportRefNum.Text & "' "
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()

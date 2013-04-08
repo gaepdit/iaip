@@ -396,7 +396,7 @@ Public Class PASPFeeVarianceCheck
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -437,7 +437,7 @@ Public Class PASPFeeVarianceCheck
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -468,9 +468,9 @@ Public Class PASPFeeVarianceCheck
                         + "where Difference2006 <> 0 and vcheck2006 = 'NO'"
             End Select
 
-            daWorkEnTry = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daWorkEnTry = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             daWorkEnTry.Fill(dsWorkEntry, "tblWorkEnTry")
@@ -478,14 +478,14 @@ Public Class PASPFeeVarianceCheck
             dgrVariance.DataSource = dsWorkEntry
             dgrVariance.DataMember = "tblWorkEntry"
 
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -519,9 +519,9 @@ Public Class PASPFeeVarianceCheck
                         + "where Difference2006 <> 0 and vcheck2006 = 'YES'"
             End Select
 
-            daWorkEnTry = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daWorkEnTry = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             daWorkEnTry.Fill(dsWorkEntry, "tblWorkEnTry")
@@ -529,14 +529,14 @@ Public Class PASPFeeVarianceCheck
             dgrVariance.DataSource = dsWorkEntry
             dgrVariance.DataMember = "tblWorkEntry"
 
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
             FormatDataGridForWorkEnTry()
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -622,7 +622,7 @@ Public Class PASPFeeVarianceCheck
                 Catch ex As Exception
                     ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
                 Finally
-                    If conn.State = ConnectionState.Open Then
+                    If DBConn.State = ConnectionState.Open Then
                         'conn.close()
                     End If
                 End Try
@@ -702,7 +702,7 @@ Public Class PASPFeeVarianceCheck
                 Catch ex As Exception
                     ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
                 Finally
-                    If conn.State = ConnectionState.Open Then
+                    If DBConn.State = ConnectionState.Open Then
                         'conn.close()
                     End If
                 End Try
@@ -722,7 +722,7 @@ Public Class PASPFeeVarianceCheck
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -741,7 +741,7 @@ Public Class PASPFeeVarianceCheck
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -755,7 +755,7 @@ Public Class PASPFeeVarianceCheck
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -808,30 +808,30 @@ Public Class PASPFeeVarianceCheck
         Try
 
 
-            SQL = "Update " & connNameSpace & ".FSCalculations set " _
+            SQL = "Update " & DBNameSpace & ".FSCalculations set " _
             + "variancecheck = '" & UCase(varcheck) & "', " _
             + "variancecomments = '" & Replace(comments, "'", "''") & "' " _
             + "where strairsnumber = '" & airsno & "' and " _
             + "intyear = '" & CInt(cboFeeYear3.Text) & "' "
 
-            cmd = New OracleCommand(SQL, conn)
+            cmd = New OracleCommand(SQL, DBConn)
             cmd.CommandType = CommandType.Text
 
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
             Else
-                conn.Open()
+                DBConn.Open()
             End If
 
             dr = cmd.ExecuteReader
 
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -846,7 +846,7 @@ Public Class PASPFeeVarianceCheck
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -860,7 +860,7 @@ Public Class PASPFeeVarianceCheck
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try

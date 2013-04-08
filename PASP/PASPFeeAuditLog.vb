@@ -72,14 +72,14 @@ Public Class PASPFeeAuditLog
 
             SQL = "select " & _
             "numPayTypeID, strPayTypeDesc " & _
-            "from " & connNameSpace & ".FSLK_PayType " & _
+            "from " & DBNameSpace & ".FSLK_PayType " & _
             "order by numPayTypeID "
 
             ds = New DataSet
-            da = New OracleDataAdapter(SQL, conn)
+            da = New OracleDataAdapter(SQL, DBConn)
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             da.Fill(ds, "PayTypes")
 
@@ -120,12 +120,12 @@ Public Class PASPFeeAuditLog
 
             SQL = "Select " & _
             "transactionTypeCode, Description " & _
-            "from " & connNameSpace & ".FSLK_TransactionType " & _
+            "from " & DBNameSpace & ".FSLK_TransactionType " & _
             "order by description "
             ds = New DataSet
-            da = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            da = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             da.Fill(ds, "Transactions")
 
@@ -269,11 +269,11 @@ Public Class PASPFeeAuditLog
                 If txtFeeAdminFacilityName.Text = "" Then
                     SQL = "Select " & _
                     "strFacilityName " & _
-                    "from " & connNameSpace & ".APBFacilityInformation " & _
+                    "from " & DBNameSpace & ".APBFacilityInformation " & _
                     "where strAIRSNumber = '0413" & mtbFeeAdminAIRSNumber.Text & "' "
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     txtFeeAdminFacilityName.Text = "ERROR"
                     dr = cmd.ExecuteReader
@@ -331,18 +331,18 @@ Public Class PASPFeeAuditLog
                 "strIAIPDesc, strGECODesc, " & _
                 "datStatusDate, " & _
                 "strComment, " & _
-                "" & connNameSpace & ".FS_Admin.active, " & _
-                "" & connNameSpace & ".FS_Admin.updateUser, " & _
-                "" & connNameSpace & ".FS_Admin.updateDateTime, " & _
-                "" & connNameSpace & ".FS_Admin.CreateDateTime " & _
-                "From " & connNameSpace & ".FS_Admin, " & connNameSpace & ".FSLK_ADMIN_Status  " & _
-                "where " & connNameSpace & ".FS_Admin.numCurrentStatus = " & connNameSpace & ".FSLK_Admin_Status.ID (+) " & _
+                "" & DBNameSpace & ".FS_Admin.active, " & _
+                "" & DBNameSpace & ".FS_Admin.updateUser, " & _
+                "" & DBNameSpace & ".FS_Admin.updateDateTime, " & _
+                "" & DBNameSpace & ".FS_Admin.CreateDateTime " & _
+                "From " & DBNameSpace & ".FS_Admin, " & DBNameSpace & ".FSLK_ADMIN_Status  " & _
+                "where " & DBNameSpace & ".FS_Admin.numCurrentStatus = " & DBNameSpace & ".FSLK_Admin_Status.ID (+) " & _
                 "and numFeeYear = '" & mtbFeeAdminExistingYear.Text & "' " & _
                 "and strAIRSNumber = '0413" & mtbFeeAdminAIRSNumber.Text & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -468,13 +468,13 @@ Public Class PASPFeeAuditLog
                 "strComment, " & _
                 "Active, UpdateUser, " & _
                 "UpdateDateTime, CreateDateTime " & _
-                "from " & connNameSpace & ".FS_MailOut " & _
+                "from " & DBNameSpace & ".FS_MailOut " & _
                 "where numFeeYear = '" & mtbFeeAdminExistingYear.Text & "' " & _
                 "and strAIRSNumber = '0413" & mtbFeeAdminAIRSNumber.Text & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -677,14 +677,14 @@ Public Class PASPFeeAuditLog
                 "strContactZipCode, strContactPhoneNumber, " & _
                 "strContactFaxNumber, strContactEmail, " & _
                 "strComment " & _
-                "from " & connNameSpace & ".FS_ContactInfo " & _
+                "from " & DBNameSpace & ".FS_ContactInfo " & _
                 "where numfeeyear = '" & mtbFeeAdminExistingYear.Text & "' " & _
                 "and strAIRSnumber = '0413" & mtbFeeAdminAIRSNumber.Text & "' "
 
-                cmd = New OracleCommand(SQL, conn)
+                cmd = New OracleCommand(SQL, DBConn)
 
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
 
                 dr = cmd.ExecuteReader
@@ -770,8 +770,8 @@ Public Class PASPFeeAuditLog
     Sub LoadFeeInvoiceData()
         Try
             SQL = "select " & _
-            "" & connNameSpace & ".FS_FEEDATA.NUMFEEYEAR, " & _
-            "" & connNameSpace & ".FS_FEEDATA.STRAIRSNUMBER, " & _
+            "" & DBNameSpace & ".FS_FEEDATA.NUMFEEYEAR, " & _
+            "" & DBNameSpace & ".FS_FEEDATA.STRAIRSNUMBER, " & _
             "STRSYNTHETICMINOR, NUMSMFEE, " & _
             "STRPART70, NUMPART70FEE, " & _
             "INTVOCTONS, INTPMTONS, " & _
@@ -784,17 +784,17 @@ Public Class PASPFeeAuditLog
             "DATSHUTDOWN, STROFFICIALNAME, " & _
             "strOfficialTitle, " & _
             "strPaymentPlan, STRCONFIRMATIONNUMBER, " & _
-            "" & connNameSpace & ".FS_FEEDATA.strComment, " & _
+            "" & DBNameSpace & ".FS_FEEDATA.strComment, " & _
             "updateUser, " & _
             "UpdateDateTime, CreateDateTime " & _
-            "from " & connNameSpace & ".FS_FEEDATA " & _
+            "from " & DBNameSpace & ".FS_FEEDATA " & _
             "where STRAIRSNUMBER = '0413" & mtbFeeAdminAIRSNumber.Text & "' " & _
             "and NUMFEEYEAR = '" & mtbFeeAdminExistingYear.Text & "' "
 
             txtGECOExceptions.Clear()
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -1022,13 +1022,13 @@ Public Class PASPFeeAuditLog
                 End If
 
                 SQL = "Select Description " & _
-                "from " & connNameSpace & ".FSLK_NSPSReason " & _
+                "from " & DBNameSpace & ".FSLK_NSPSReason " & _
                 "where " & _
                 SQLLine
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -1045,12 +1045,12 @@ Public Class PASPFeeAuditLog
 
             SQL = "Select " & _
             "strNonAttainment " & _
-            "from " & connNameSpace & ".LookUpCountyInformation " & _
+            "from " & DBNameSpace & ".LookUpCountyInformation " & _
             "where strCountyCode = '" & Mid(mtbFeeAdminAIRSNumber.Text, 1, 3) & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -1089,13 +1089,13 @@ Public Class PASPFeeAuditLog
                 End If
 
                 SQL = "Select Description " & _
-                "from " & connNameSpace & ".FSLK_NSPSReason " & _
+                "from " & DBNameSpace & ".FSLK_NSPSReason " & _
                 "where " & _
                 SQLLine
 
-                da = New OracleDataAdapter(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                da = New OracleDataAdapter(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 da.Fill(ds, "InvoiceData")
 
@@ -1125,16 +1125,16 @@ Public Class PASPFeeAuditLog
             "when strInvoiceStatus = '1' then 'Paid' " & _
             "else 'Unpaid' " & _
             "end InvoiceStatus " & _
-            "from " & connNameSpace & ".FS_FeeInvoice, " & connNameSpace & ".FSLK_PayType " & _
-            "where " & connNameSpace & ".FS_FeeInvoice.strPaytype = " & connNameSpace & ".FSLK_PayType.numpaytypeid " & _
+            "from " & DBNameSpace & ".FS_FeeInvoice, " & DBNameSpace & ".FSLK_PayType " & _
+            "where " & DBNameSpace & ".FS_FeeInvoice.strPaytype = " & DBNameSpace & ".FSLK_PayType.numpaytypeid " & _
             "and strAIRSNumber = '0413" & mtbFeeAdminAIRSNumber.Text & "' " & _
             "and numFeeYear = '" & mtbFeeAdminExistingYear.Text & "' " & _
-            "and " & connNameSpace & ".FS_FeeInvoice.Active = '1' "
+            "and " & DBNameSpace & ".FS_FeeInvoice.Active = '1' "
 
             ds = New DataSet
-            da = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            da = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             da.Fill(ds, "FeeInvoice")
@@ -1210,27 +1210,27 @@ Public Class PASPFeeAuditLog
             "transactiontypecode, " & _
             "UPDATEUSER, UPDATEDATETIME, " & _
             "createDateTime, strairsnumber, numfeeyear, ''  " & _
-            "from " & connNameSpace & ".FS_TRANSACTIONS, " & connNameSpace & ".EPDUSERPROFILES " & _
-            "where " & connNameSpace & ".FS_TRANSACTIONS.STRENTRYPERSON = " & connNameSpace & ".EPDUSERPROFILES.NUMUSERID (+) " & _
-            "and " & connNameSpace & ".FS_TRANSACTIONS.STRAIRSNUMBER = '0413" & mtbFeeAdminAIRSNumber.Text & "' " & _
-            "and " & connNameSpace & ".FS_TRANSACTIONS.NUMFEEYEAR = '" & mtbFeeAdminExistingYear.Text & "' " & _
+            "from " & DBNameSpace & ".FS_TRANSACTIONS, " & DBNameSpace & ".EPDUSERPROFILES " & _
+            "where " & DBNameSpace & ".FS_TRANSACTIONS.STRENTRYPERSON = " & DBNameSpace & ".EPDUSERPROFILES.NUMUSERID (+) " & _
+            "and " & DBNameSpace & ".FS_TRANSACTIONS.STRAIRSNUMBER = '0413" & mtbFeeAdminAIRSNumber.Text & "' " & _
+            "and " & DBNameSpace & ".FS_TRANSACTIONS.NUMFEEYEAR = '" & mtbFeeAdminExistingYear.Text & "' " & _
             "and active = 1) TRANSACTIONS,  " & _
             "(select " & _
             "0, INVOICEID, " & _
             "sysdate, 1, '', '', " & _
             "'', '', '', '', 2, " & _
-            "" & connNameSpace & ".FS_feeINVOICE.UPDATEUSER, " & connNameSpace & ".FS_feeINVOICE.UPDATEDATETIME, " & _
-            "" & connNameSpace & ".FS_feeINVOICE.CREATEDATETIME, STRAIRSNUMBER, NUMFEEYEAR, strpaytypedesc " & _
-            "from " & connNameSpace & ".FS_feeINVOICE, " & connNameSpace & ".FSLK_PayType " & _
-            "where " & connNameSpace & ".FS_FeeInvoice.strPayType = " & connNameSpace & ".FSLK_PayType.numPayTypeID " & _
+            "" & DBNameSpace & ".FS_feeINVOICE.UPDATEUSER, " & DBNameSpace & ".FS_feeINVOICE.UPDATEDATETIME, " & _
+            "" & DBNameSpace & ".FS_feeINVOICE.CREATEDATETIME, STRAIRSNUMBER, NUMFEEYEAR, strpaytypedesc " & _
+            "from " & DBNameSpace & ".FS_feeINVOICE, " & DBNameSpace & ".FSLK_PayType " & _
+            "where " & DBNameSpace & ".FS_FeeInvoice.strPayType = " & DBNameSpace & ".FSLK_PayType.numPayTypeID " & _
             "and STRAIRSNUMBER = '0413" & mtbFeeAdminAIRSNumber.Text & "' " & _
             "and NUMFEEYEAR = '" & mtbFeeAdminExistingYear.Text & "' " & _
-            "and " & connNameSpace & ".FS_feeINVOICE.Active = '1' ) INVOICES, " & _
-            "" & connNameSpace & ".EPDUSERPROFILES " & _
+            "and " & DBNameSpace & ".FS_feeINVOICE.Active = '1' ) INVOICES, " & _
+            "" & DBNameSpace & ".EPDUSERPROFILES " & _
             "where TRANSACTIONS.STRAIRSNUMBER  =  INVOICES.STRAIRSNUMBER (+) " & _
             "and TRANSACTIONS.NUMFEEYEAR  =  INVOICES.NUMFEEYEAR  (+) " & _
             "and TRANSACTIONS.INVOICEID  =  INVOICES.INVOICEID (+) " & _
-            "and TRANSACTIONS.UPDATEUSER  = " & connNameSpace & ".epduserProfiles.numUserID   (+) " & _
+            "and TRANSACTIONS.UPDATEUSER  = " & DBNameSpace & ".epduserProfiles.numUserID   (+) " & _
             " union " & _
             "select " & _
             "TRANSACTIONID,  INVOICES.INVOICEID, DATTRANSACTIONDATE, " & _
@@ -1252,32 +1252,32 @@ Public Class PASPFeeAuditLog
             "transactiontypecode, " & _
             "UPDATEUSER, UPDATEDATETIME, " & _
             "createDateTime, strairsnumber, numfeeyear, ''  " & _
-            "from " & connNameSpace & ".FS_TRANSACTIONS, " & connNameSpace & ".EPDUSERPROFILES " & _
-            "where " & connNameSpace & ".FS_TRANSACTIONS.STRENTRYPERSON = " & connNameSpace & ".EPDUSERPROFILES.NUMUSERID (+) " & _
-            "and " & connNameSpace & ".FS_TRANSACTIONS.STRAIRSNUMBER = '0413" & mtbFeeAdminAIRSNumber.Text & "' " & _
-            "and " & connNameSpace & ".FS_TRANSACTIONS.NUMFEEYEAR = '" & mtbFeeAdminExistingYear.Text & "' " & _
+            "from " & DBNameSpace & ".FS_TRANSACTIONS, " & DBNameSpace & ".EPDUSERPROFILES " & _
+            "where " & DBNameSpace & ".FS_TRANSACTIONS.STRENTRYPERSON = " & DBNameSpace & ".EPDUSERPROFILES.NUMUSERID (+) " & _
+            "and " & DBNameSpace & ".FS_TRANSACTIONS.STRAIRSNUMBER = '0413" & mtbFeeAdminAIRSNumber.Text & "' " & _
+            "and " & DBNameSpace & ".FS_TRANSACTIONS.NUMFEEYEAR = '" & mtbFeeAdminExistingYear.Text & "' " & _
             "and active = 1) TRANSACTIONS,  " & _
             "(select " & _
             "0, INVOICEID, " & _
             "sysdate, 1, '', '', " & _
             "'', '', '', '', 2, " & _
-            "" & connNameSpace & ".FS_feeINVOICE.UPDATEUSER, " & connNameSpace & ".FS_feeINVOICE.UPDATEDATETIME, " & _
-            "" & connNameSpace & ".FS_feeINVOICE.CREATEDATETIME, STRAIRSNUMBER, NUMFEEYEAR, strPayTypeDesc " & _
-            "from " & connNameSpace & ".FS_feeINVOICE, " & connNameSpace & ".fsLK_Paytype " & _
-            "where " & connNameSpace & ".FS_feeINVOICE.strPayType = " & connNameSpace & ".fsLK_Paytype.numPayTypeID " & _
+            "" & DBNameSpace & ".FS_feeINVOICE.UPDATEUSER, " & DBNameSpace & ".FS_feeINVOICE.UPDATEDATETIME, " & _
+            "" & DBNameSpace & ".FS_feeINVOICE.CREATEDATETIME, STRAIRSNUMBER, NUMFEEYEAR, strPayTypeDesc " & _
+            "from " & DBNameSpace & ".FS_feeINVOICE, " & DBNameSpace & ".fsLK_Paytype " & _
+            "where " & DBNameSpace & ".FS_feeINVOICE.strPayType = " & DBNameSpace & ".fsLK_Paytype.numPayTypeID " & _
             "and STRAIRSNUMBER = '0413" & mtbFeeAdminAIRSNumber.Text & "' " & _
             "and NUMFEEYEAR = '" & mtbFeeAdminExistingYear.Text & "' " & _
-            "and " & connNameSpace & ".FS_feeINVOICE.Active = '1') INVOICES, " & _
-            "" & connNameSpace & ".EPDUSERPROFILES " & _
+            "and " & DBNameSpace & ".FS_feeINVOICE.Active = '1') INVOICES, " & _
+            "" & DBNameSpace & ".EPDUSERPROFILES " & _
             "where  INVOICES.STRAIRSNUMBER  = TRANSACTIONS.STRAIRSNUMBER (+) " & _
             "and INVOICES.NUMFEEYEAR  =  TRANSACTIONS.NUMFEEYEAR  (+) " & _
             "and INVOICES.INVOICEID  =  TRANSACTIONS.INVOICEID (+) " & _
-            "and TRANSACTIONS.UPDATEUSER  = " & connNameSpace & ".epduserProfiles.numUserID (+) "
+            "and TRANSACTIONS.UPDATEUSER  = " & DBNameSpace & ".epduserProfiles.numUserID (+) "
 
             ds = New DataSet
-            da = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            da = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             da.Fill(ds, "Transactions")
             dgvTransactions.DataSource = ds
@@ -1926,9 +1926,9 @@ Public Class PASPFeeAuditLog
                     "where AIRBRANCH.FS_FEEDATA.STRAIRSNUMBER = '0413" & mtbFeeAdminAIRSNumber.Text & "'  " & _
                     "and AIRBRANCH.FS_FEEDATA.NUMFEEYEAR = '" & mtbFeeAdminExistingYear.Text & "'  ) "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -2089,13 +2089,13 @@ Public Class PASPFeeAuditLog
                     End If
 
                     SQL = "Select Description " & _
-                    "from " & connNameSpace & ".FSLK_NSPSReason " & _
+                    "from " & DBNameSpace & ".FSLK_NSPSReason " & _
                     "where " & _
                     SQLLine
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     While dr.Read
@@ -2111,7 +2111,7 @@ Public Class PASPFeeAuditLog
                 SQLLine = ""
 
                 SQL = "Select " & _
-                "" & connNameSpace & ".FS_FeeAudit.AuditID, " & _
+                "" & DBNameSpace & ".FS_FeeAudit.AuditID, " & _
                 "case when strSyntheticMinor = '1' then 'True' " & _
                 "when strSYntheticMinor is null then '' " & _
                 "else 'False' " & _
@@ -2136,20 +2136,20 @@ Public Class PASPFeeAuditLog
                 "datShutdown, strOfficialname, " & _
                 "strOfficialTitle, strPaymentPlan, " & _
                 "(strLastName||', '||strFirstName) as IAIPUpdate, " & _
-                "" & connNameSpace & ".FS_FeeAudit.UpdateDateTime, " & connNameSpace & ".FS_FeeAudit.CreateDateTime " & _
-                "from " & connNameSpace & ".FS_FeeAmendment, " & connNameSpace & ".EPDUserProfiles, " & _
-                "" & connNameSpace & ".FS_FeeAudit " & _
-                "where " & connNameSpace & ".FS_FeeAudit.UpdateUser = " & connNameSpace & ".EPDUserProfiles.numUserID " & _
-                "and " & connNameSpace & ".FS_FeeAudit.AuditID = " & connNameSpace & ".FS_FeeAmendment.AuditID (+) " & _
-                "and " & connNameSpace & ".FS_FeeAudit.strAIRSNumber = '0413" & mtbFeeAdminAIRSNumber.Text & "' " & _
-                "and " & connNameSpace & ".FS_FeeAudit.numFeeyear  = '" & mtbFeeAdminExistingYear.Text & "' " & _
-                "and " & connNameSpace & ".FS_FeeAudit.Active = '1' "
+                "" & DBNameSpace & ".FS_FeeAudit.UpdateDateTime, " & DBNameSpace & ".FS_FeeAudit.CreateDateTime " & _
+                "from " & DBNameSpace & ".FS_FeeAmendment, " & DBNameSpace & ".EPDUserProfiles, " & _
+                "" & DBNameSpace & ".FS_FeeAudit " & _
+                "where " & DBNameSpace & ".FS_FeeAudit.UpdateUser = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
+                "and " & DBNameSpace & ".FS_FeeAudit.AuditID = " & DBNameSpace & ".FS_FeeAmendment.AuditID (+) " & _
+                "and " & DBNameSpace & ".FS_FeeAudit.strAIRSNumber = '0413" & mtbFeeAdminAIRSNumber.Text & "' " & _
+                "and " & DBNameSpace & ".FS_FeeAudit.numFeeyear  = '" & mtbFeeAdminExistingYear.Text & "' " & _
+                "and " & DBNameSpace & ".FS_FeeAudit.Active = '1' "
 
                 ds = New DataSet
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
-                da = New OracleDataAdapter(SQL, conn)
+                da = New OracleDataAdapter(SQL, DBConn)
                 da.Fill(ds, "AuditHistory")
                 dgvAuditHistory.DataSource = ds
                 dgvAuditHistory.DataMember = "AuditHistory"
@@ -2263,14 +2263,14 @@ Public Class PASPFeeAuditLog
             If mtbFeeAdminAIRSNumber.Text <> "" And mtbFeeAdminExistingYear.Text <> "" Then
                 SQL = "select " & _
                 "strIAIPDesc " & _
-                "From " & connNameSpace & ".FS_Admin, " & connNameSpace & ".FSLK_ADMIN_Status " & _
-                "where " & connNameSpace & ".FS_Admin.numCurrentStatus = " & connNameSpace & ".FSLK_Admin_Status.ID (+) " & _
+                "From " & DBNameSpace & ".FS_Admin, " & DBNameSpace & ".FSLK_ADMIN_Status " & _
+                "where " & DBNameSpace & ".FS_Admin.numCurrentStatus = " & DBNameSpace & ".FSLK_Admin_Status.ID (+) " & _
                 "and numFeeYear = '" & mtbFeeAdminExistingYear.Text & "' " & _
                 "and strAIRSNumber = '0413" & mtbFeeAdminAIRSNumber.Text & "'  "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -2297,7 +2297,7 @@ Public Class PASPFeeAuditLog
             SQL = "Select " & _
             "numUserID, " & _
             "(strLastName||', '||strFirstName) as Staff " & _
-            "from " & connNameSpace & ".EPDUserProfiles " & _
+            "from " & DBNameSpace & ".EPDUserProfiles " & _
             "where numBranch = '1' " & _
             "and numProgram = '2' " & _
             "and numUnit = '9' " & _
@@ -2322,9 +2322,9 @@ Public Class PASPFeeAuditLog
             "order by staff "
 
             ds = New DataSet
-            da = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            da = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             da.Fill(ds, "StaffResponsible")
@@ -2575,9 +2575,9 @@ Public Class PASPFeeAuditLog
             "where numFeeYear = '" & mtbFeeAdminExistingYear.Text & "' " & _
             "and strAIRSNumber = '0413" & mtbFeeAdminAIRSNumber.Text & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             recExist = dr.Read
@@ -2717,7 +2717,7 @@ Public Class PASPFeeAuditLog
      "strContactAddress1, strContactAddress2, " & _
      "strContactCity, strContactstate, " & _
      "strContactZipCode, strContactEmail " & _
-     "from " & connNameSpace & ".APBContactInformation " & _
+     "from " & DBNameSpace & ".APBContactInformation " & _
      "where strAIRSNumber = '0413" & mtbFeeAdminAIRSNumber.Text & "' " & _
      "and strKey = '40') dt_contact40, " & _
      "(select " & _
@@ -2728,13 +2728,13 @@ Public Class PASPFeeAuditLog
      "strContactAddress1, strContactAddress2, " & _
      "strContactCity, strContactstate, " & _
      "strContactZipCode, strContactEmail " & _
-     "from " & connNameSpace & ".APBContactInformation " & _
+     "from " & DBNameSpace & ".APBContactInformation " & _
      "where strAIRSNumber = '0413" & mtbFeeAdminAIRSNumber.Text & "' " & _
      "and strKey = '30') dt_contact30 "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -2823,13 +2823,13 @@ Public Class PASPFeeAuditLog
             "strFacilityName, strFacilityStreet1, " & _
             "strFacilityStreet2, strFacilityCity, " & _
             "strFacilityZipCode " & _
-            "from " & connNameSpace & ".APBFacilityInformation, " & connNameSpace & ".APBHeaderData  " & _
-            "where " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber " & _
-            "and " & connNameSpace & ".APBFacilityInformation.strAIRSnumber = '0413" & mtbFeeAdminAIRSNumber.Text & "' "
+            "from " & DBNameSpace & ".APBFacilityInformation, " & DBNameSpace & ".APBHeaderData  " & _
+            "where " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber " & _
+            "and " & DBNameSpace & ".APBFacilityInformation.strAIRSnumber = '0413" & mtbFeeAdminAIRSNumber.Text & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -2939,13 +2939,13 @@ Public Class PASPFeeAuditLog
 
             SQL = "Select " & _
             "count(*) as MailoutCheck " & _
-            "from " & connNameSpace & ".FS_Mailout " & _
+            "from " & DBNameSpace & ".FS_Mailout " & _
             "where numFeeYear = '" & mtbFeeAdminExistingYear.Text & "' " & _
             "and strAIRSNumber = '0413" & mtbFeeAdminAIRSNumber.Text & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -3018,14 +3018,14 @@ Public Class PASPFeeAuditLog
              "strContactZipCode, strContactPhoneNumber, " & _
              "strContactFaxNumber, strContactEmail, " & _
              "strComment " & _
-             "from " & connNameSpace & ".FS_ContactInfo " & _
+             "from " & DBNameSpace & ".FS_ContactInfo " & _
              "where numfeeyear = '" & mtbFeeAdminExistingYear.Text & "' " & _
              "and strAIRSnumber = '0413" & mtbFeeAdminAIRSNumber.Text & "' "
 
-            cmd = New OracleCommand(SQL, conn)
+            cmd = New OracleCommand(SQL, DBConn)
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -3120,14 +3120,14 @@ Public Class PASPFeeAuditLog
     Private Sub btnGECOViewPastContacts_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnGECOViewPastContacts.Click
         Try
             SQL = "Select * " & _
-            "from " & connNameSpace & ".FS_ContactInfo " & _
+            "from " & DBNameSpace & ".FS_ContactInfo " & _
             "where strAIRSnumber = '0413" & mtbFeeAdminAIRSNumber.Text & "' " & _
             "order by numFeeYear desc "
 
             ds = New DataSet
-            da = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            da = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             da.Fill(ds, "GECOContacts")
@@ -3311,19 +3311,19 @@ Public Class PASPFeeAuditLog
 
             SQL = "Select " & _
             "numFeeYear " & _
-            "from " & connNameSpace & ".FS_ContactInfo " & _
+            "from " & DBNameSpace & ".FS_ContactInfo " & _
             "where numFeeYear = '" & mtbFeeAdminExistingYear.Text & "' " & _
             "and strAIRSNumber = '0413" & mtbFeeAdminAIRSNumber.Text & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             recExist = dr.Read
             dr.Close()
             If recExist = True Then
-                SQL = "Update " & connNameSpace & ".FS_ContactInfo set " & _
+                SQL = "Update " & DBNameSpace & ".FS_ContactInfo set " & _
                 "strContactFirstName = '" & txtGECOContactFirstName.Text & "', " & _
                 "strContactLastName = '" & txtGECOContactLastName.Text & "', " & _
                 "strContactPrefix = '" & txtGECOContactSalutation.Text & "', " & _
@@ -3343,7 +3343,7 @@ Public Class PASPFeeAuditLog
                 "and strAIRSNumber = '0413" & mtbFeeAdminAIRSNumber.Text & "' "
 
             Else
-                SQL = "Insert into " & connNameSpace & ".FS_ContactInfo " & _
+                SQL = "Insert into " & DBNameSpace & ".FS_ContactInfo " & _
                 "values " & _
                 "('" & mtbFeeAdminExistingYear.Text & "', '0413" & mtbFeeAdminAIRSNumber.Text & "', " & _
                 "'" & txtGECOContactFirstName.Text & "', '" & txtGECOContactLastName.Text & "', " & _
@@ -3357,9 +3357,9 @@ Public Class PASPFeeAuditLog
                 "'" & OracleDate & "' ) "
             End If
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -3396,9 +3396,9 @@ Public Class PASPFeeAuditLog
                 "and strAIRSNumber = '0413" & txtAIRSNumber.Text & "' " & _
                 "and numFeeyear = '" & txtYear.Text & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -3459,9 +3459,9 @@ Public Class PASPFeeAuditLog
             End If
 
             If txtInvoiceID.Text <> "" Then
-                SQL = "Insert into " & connNameSpace & ".FS_Transactions " & _
+                SQL = "Insert into " & DBNameSpace & ".FS_Transactions " & _
                 "values " & _
-                "((" & connNameSpace & ".seq_fs_transactions.nextVal), " & _
+                "((" & DBNameSpace & ".seq_fs_transactions.nextVal), " & _
                 "'" & Replace(txtInvoiceID.Text, "'", "''") & "', " & _
                 "'" & Replace(cboTransactionType.SelectedValue, "'", "''") & "', '" & dtpTransactionDate.Text & "', " & _
                 "'" & Replace(Replace(Replace(txtTransactionAmount.Text, "'", "''"), ",", ""), "$", "") & "', " & _
@@ -3473,9 +3473,9 @@ Public Class PASPFeeAuditLog
                 "'0413" & mtbFeeAdminAIRSNumber.Text & "', " & _
                 "'" & mtbFeeAdminExistingYear.Text & "', '" & Replace(txtTransactionCreditCardNo.Text, "'", "''") & "') "
             Else
-                SQL = "Insert into " & connNameSpace & ".FS_Transactions " & _
+                SQL = "Insert into " & DBNameSpace & ".FS_Transactions " & _
                "values " & _
-               "((" & connNameSpace & ".seq_fs_transactions.nextVal), " & _
+               "((" & DBNameSpace & ".seq_fs_transactions.nextVal), " & _
                "'', " & _
                "'" & Replace(cboTransactionType.SelectedValue, "'", "''") & "', '" & dtpTransactionDate.Text & "', " & _
                "'" & Replace(Replace(Replace(txtTransactionAmount.Text, "'", "''"), ",", ""), "$", "") & "', " & _
@@ -3488,19 +3488,19 @@ Public Class PASPFeeAuditLog
                "'" & mtbFeeAdminExistingYear.Text & "', '" & Replace(txtTransactionCreditCardNo.Text, "'", "''") & "') "
             End If
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
 
             SQL = "Select max(TransactionID) " & _
-            "from " & connNameSpace & ".FS_TRANSACTIONS "
+            "from " & DBNameSpace & ".FS_TRANSACTIONS "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -3676,7 +3676,7 @@ Public Class PASPFeeAuditLog
                 Exit Sub
             End If
 
-            SQL = "Update " & connNameSpace & ".FS_Transactions set " & _
+            SQL = "Update " & DBNameSpace & ".FS_Transactions set " & _
             "invoiceid = '" & txtInvoiceID.Text & "', " & _
             "TransactionTypecode = '" & cboTransactionType.SelectedValue & "', " & _
             "datTransactionDate = '" & dtpTransactionDate.Text & "', " & _
@@ -3691,9 +3691,9 @@ Public Class PASPFeeAuditLog
             "strCreditCardNo = '" & txtTransactionCreditCardNo.Text & "' " & _
             "where TransactionID = '" & txtTransactionID.Text & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -3736,15 +3736,15 @@ Public Class PASPFeeAuditLog
             '"updateDateTime = sysdate " & _
             '"where TransactionID = '" & txtTransactionID.Text & "' "
 
-            SQL = "Update " & connNameSpace & ".FS_Transactions set " & _
+            SQL = "Update " & DBNameSpace & ".FS_Transactions set " & _
             "active = '0', " & _
             "updateUser = '" & UserGCode & "', " & _
             "updateDateTime = sysdate " & _
             "where TransactionID = '" & txtTransactionID.Text & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -3777,9 +3777,9 @@ Public Class PASPFeeAuditLog
             "where invoiceid = '" & invoiceID & "' " & _
             "and Active = '1' ) Payments "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -3794,19 +3794,19 @@ Public Class PASPFeeAuditLog
 
             If temp <> "0" Then
                 'Not Paid in full
-                SQL = "Update " & connNameSpace & ".FS_FeeInvoice set " & _
+                SQL = "Update " & DBNameSpace & ".FS_FeeInvoice set " & _
                 "strInvoicestatus = '0' " & _
                 "where invoiceId = '" & invoiceID & "' "
             Else
                 'Paid in Full 
-                SQL = "Update " & connNameSpace & ".FS_FeeInvoice set " & _
+                SQL = "Update " & DBNameSpace & ".FS_FeeInvoice set " & _
                 "strInvoicestatus = '1' " & _
                 "where invoiceId = '" & invoiceID & "' "
             End If
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -4001,13 +4001,13 @@ Public Class PASPFeeAuditLog
             End If
 
             SQL = "select count(*) as DataCheck " & _
-            "From " & connNameSpace & ".FS_FeeData " & _
+            "From " & DBNameSpace & ".FS_FeeData " & _
             "where strAIRSNumber = '0413" & mtbFeeAdminAIRSNumber.Text & "' " & _
             "and numFeeYear = '" & mtbFeeAdminExistingYear.Text & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -4020,7 +4020,7 @@ Public Class PASPFeeAuditLog
             dr.Close()
 
             If temp = "0" Then
-                SQL = "insert into " & connNameSpace & ".FS_FeeData " & _
+                SQL = "insert into " & DBNameSpace & ".FS_FeeData " & _
                 "(numfeeyear, strairsnumber, " & _
                 "strComment, Active, " & _
                 "UpdateUser, UpdateDateTime, " & _
@@ -4030,9 +4030,9 @@ Public Class PASPFeeAuditLog
                 "'Add Via IAIP Audit Process', '1', " & _
                 "'IAIP||" & UserName & "', sysdate, " & _
                 "sysdate) "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -4092,7 +4092,7 @@ Public Class PASPFeeAuditLog
                 EndCollections = "False"
             End If
 
-            SQL = "Insert into " & connNameSpace & ".FS_FeeAudit " & _
+            SQL = "Insert into " & DBNameSpace & ".FS_FeeAudit " & _
             "values " & _
             "((select " & _
             "case " & _
@@ -4100,7 +4100,7 @@ Public Class PASPFeeAuditLog
             "when Max(AuditID) is not null then max(AuditID) + 1 " & _
             "else 1 " & _
             "end AuditID " & _
-            "from " & connNameSpace & ".FS_FeeAudit), " & _
+            "from " & DBNameSpace & ".FS_FeeAudit), " & _
             "'" & StaffResponsible & "', " & _
             "'" & AuditLevel & "', '" & AuditEnforcement & "', " & _
             "'" & Replace(AuditComments, "'", "''") & "', " & _
@@ -4110,21 +4110,21 @@ Public Class PASPFeeAuditLog
             "'" & OracleDate & "', '" & OracleDate & "', " & _
             "'0413" & mtbFeeAdminAIRSNumber.Text & "', '" & mtbFeeAdminExistingYear.Text & "' )  "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
 
             SQL = "select max(AuditID) as AuditID " & _
-            "from " & connNameSpace & ". FS_FeeAudit " '& _
+            "from " & DBNameSpace & ". FS_FeeAudit " '& _
             ' "where strAIRSNumber = '0413" & mtbFeeAdminAIRSNumber.Text & "' " & _
             ' "and numFeeYear = '" & mtbFeeAdminExistingYear.Text & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -4138,7 +4138,7 @@ Public Class PASPFeeAuditLog
             dr.Close()
 
             If chbMakeEdits.Checked = True Then
-                SQL = "Insert into " & connNameSpace & ".FS_FeeAmendment " & _
+                SQL = "Insert into " & DBNameSpace & ".FS_FeeAmendment " & _
                 "values " & _
                 "('" & txtAuditID.Text & "',  " & _
                 "'0413" & mtbFeeAdminAIRSNumber.Text & "', '" & mtbFeeAdminExistingYear.Text & "', " & _
@@ -4156,17 +4156,17 @@ Public Class PASPFeeAuditLog
                 "'1', '" & UserGCode & "', " & _
                 "sysdate, sysdate) "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
-                cmd = New OracleCommand("AIRBranch.PD_FeeAmendment", conn)
+                cmd = New OracleCommand("AIRBranch.PD_FeeAmendment", DBConn)
                 cmd.CommandType = CommandType.StoredProcedure
 
                 cmd.Parameters.Add(New OracleParameter("FeeYear", OracleType.Number)).Value = FeeYear
@@ -4180,9 +4180,9 @@ Public Class PASPFeeAuditLog
                 "numCurrentStatus = '12' " & _
                 "where numFeeYear = '" & mtbFeeAdminExistingYear.Text & "' " & _
                 "and strAIRSNumber = '0413" & mtbFeeAdminAIRSNumber.Text & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 cmd.ExecuteReader()
 
@@ -4245,15 +4245,15 @@ Public Class PASPFeeAuditLog
             End If
 
             SQL = "select " & _
-            "" & connNameSpace & ".FSLK_NspsReason.NSPSREasonCode , Description " & _
-            "from " & connNameSpace & ".FSLK_NSPSReason, " & connNameSpace & ".fslk_NSPSReasonYear " & _
-            "where " & connNameSpace & ".FSLK_NspsReason.NSPSREasonCode = " & connNameSpace & ".FSLK_NSPSREasonYear.nspsreasoncode  " & _
+            "" & DBNameSpace & ".FSLK_NspsReason.NSPSREasonCode , Description " & _
+            "from " & DBNameSpace & ".FSLK_NSPSReason, " & DBNameSpace & ".fslk_NSPSReasonYear " & _
+            "where " & DBNameSpace & ".FSLK_NspsReason.NSPSREasonCode = " & DBNameSpace & ".FSLK_NSPSREasonYear.nspsreasoncode  " & _
             "and numFeeYear = 2009 " & _
             "order by displayorder "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             dgvEditExemptions.Rows.Clear()
@@ -4273,13 +4273,13 @@ Public Class PASPFeeAuditLog
 
             SQL = "Select " & _
             "NSPSReasonCode, DisplayOrder " & _
-            "from " & connNameSpace & ".FSLK_NSPSReasonYear " & _
+            "from " & DBNameSpace & ".FSLK_NSPSReasonYear " & _
             "where numFeeYear = '" & mtbFeeAdminExistingYear.Text & "' " & _
             "order by NSPSReasonCode "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -4387,13 +4387,13 @@ Public Class PASPFeeAuditLog
             End If
             SQL = "Select " & _
              "strManagementName from " & _
-             "" & connNameSpace & ".LookUpAPBManagementType " & _
+             "" & DBNameSpace & ".LookUpAPBManagementType " & _
              "where strCurrentContact = '1' " & _
              "and strKey = '1' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -4407,13 +4407,13 @@ Public Class PASPFeeAuditLog
 
             SQL = "Select " & _
             "strManagementName from " & _
-            "" & connNameSpace & ".LookUpAPBManagementType " & _
+            "" & DBNameSpace & ".LookUpAPBManagementType " & _
             "where strCurrentContact = '1' " & _
             "and strKey = '2' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -4428,19 +4428,19 @@ Public Class PASPFeeAuditLog
             SQL = "Select " & _
             "numAmount, datInvoiceDate, " & _
             "strPayType, strPayTypeDesc, " & _
-            "" & connNameSpace & ".FS_FeeInvoice.CreateDateTime, " & _
-            "" & connNameSpace & ".FS_FeeInvoice.Active " & _
-            "from " & connNameSpace & ".FS_FeeInvoice, " & _
-            "" & connNameSpace & ".FSLK_PayType " & _
-            "where " & connNameSpace & ".FS_FeeInvoice.strPayType = " & _
-               "" & connNameSpace & ".FSLK_PayType.numPayTypeID " & _
+            "" & DBNameSpace & ".FS_FeeInvoice.CreateDateTime, " & _
+            "" & DBNameSpace & ".FS_FeeInvoice.Active " & _
+            "from " & DBNameSpace & ".FS_FeeInvoice, " & _
+            "" & DBNameSpace & ".FSLK_PayType " & _
+            "where " & DBNameSpace & ".FS_FeeInvoice.strPayType = " & _
+               "" & DBNameSpace & ".FSLK_PayType.numPayTypeID " & _
                "and InvoiceID = '" & txtInvoice.Text & "' " & _
                "and strAIRSNumber = '0413" & mtbFeeAdminAIRSNumber.Text & "' " & _
                "and numFeeYear = '" & mtbFeeAdminExistingYear.Text & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -4480,13 +4480,13 @@ Public Class PASPFeeAuditLog
             SQL = "Select " & _
             "numTotalFee, numAdminFee, " & _
             "(numTotalFee - numAdminFee) as TotalEmissionFees " & _
-            "from " & connNameSpace & ".FS_FeeAuditedData " & _
+            "from " & DBNameSpace & ".FS_FeeAuditedData " & _
             "where numFeeYear = '" & mtbFeeAdminExistingYear.Text & "' " & _
             "and strAIRSNumber = '0413" & mtbFeeAdminAIRSNumber.Text & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -4516,16 +4516,16 @@ Public Class PASPFeeAuditLog
             "datTransactionDate, numPayment, " & _
             "strCheckNo, strCreditCardNo, " & _
             "strDepositNo " & _
-            "From " & connNameSpace & ".FS_Transactions " & _
+            "From " & DBNameSpace & ".FS_Transactions " & _
             "where strAIRSNumber = '0413" & mtbFeeAdminAIRSNumber.Text & "' " & _
             "and numFeeYear = '" & mtbFeeAdminExistingYear.Text & "' " & _
             "and Active = '1' "
 
             ds = New DataSet
 
-            da = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            da = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             ds.EnforceConstraints = False
             da.Fill(ds, "FS_Transactions")
@@ -4671,32 +4671,32 @@ Public Class PASPFeeAuditLog
     Sub ViewAllInvoices()
         Try
             SQL = "select distinct " & _
-            "" & connNameSpace & ".FS_FeeInvoice.InvoiceID, " & _
-            "" & connNameSpace & ".FS_FeeInvoice.numAmount, " & _
+            "" & DBNameSpace & ".FS_FeeInvoice.InvoiceID, " & _
+            "" & DBNameSpace & ".FS_FeeInvoice.numAmount, " & _
             "datInvoiceDate, " & _
             "case " & _
-            "when " & connNameSpace & ".FS_FeeInvoice.active = '1' then 'Active' " & _
-            "when " & connNameSpace & ".FS_FeeInvoice.active = '0' then 'VOID' " & _
+            "when " & DBNameSpace & ".FS_FeeInvoice.active = '1' then 'Active' " & _
+            "when " & DBNameSpace & ".FS_FeeInvoice.active = '0' then 'VOID' " & _
             "end InvoiceStatus, strPayTypeDesc, " & _
             "case " & _
             "when strInvoiceStatus = '1' then 'Paid in Full' " & _
             "when strInvoiceStatus = '0' and " & _
-            "(numPayment <> '0' and numPayment is not null and " & connNameSpace & ".FS_Transactions.active = '1') then 'Partial Payment' " & _
+            "(numPayment <> '0' and numPayment is not null and " & DBNameSpace & ".FS_Transactions.active = '1') then 'Partial Payment' " & _
             "when strInvoicestatus = '0' then 'Unpaid' " & _
             "end PayStatus, " & _
-            "" & connNameSpace & ".FS_FeeInvoice.strComment " & _
-            "from " & connNameSpace & ".FS_FeeInvoice, " & connNameSpace & ".FSLK_PayType, " & _
-            "" & connNameSpace & ".FS_Transactions " & _
-            "where " & connNameSpace & ".FS_FeeInvoice.strPayType = " & connNameSpace & ".FSLK_PayType.nuMPayTypeID " & _
-            "and " & connNameSpace & ".FS_FeeInvoice.InvoiceID = " & connNameSpace & ".FS_Transactions.InvoiceID (+) " & _
-            "and " & connNameSpace & ".FS_FeeInvoice.strAIRSNumber = '0413" & mtbFeeAdminAIRSNumber.Text & "' " & _
-            "and " & connNameSpace & ".FS_FeeInvoice.numFeeYear = '" & mtbFeeAdminExistingYear.Text & "' "
+            "" & DBNameSpace & ".FS_FeeInvoice.strComment " & _
+            "from " & DBNameSpace & ".FS_FeeInvoice, " & DBNameSpace & ".FSLK_PayType, " & _
+            "" & DBNameSpace & ".FS_Transactions " & _
+            "where " & DBNameSpace & ".FS_FeeInvoice.strPayType = " & DBNameSpace & ".FSLK_PayType.nuMPayTypeID " & _
+            "and " & DBNameSpace & ".FS_FeeInvoice.InvoiceID = " & DBNameSpace & ".FS_Transactions.InvoiceID (+) " & _
+            "and " & DBNameSpace & ".FS_FeeInvoice.strAIRSNumber = '0413" & mtbFeeAdminAIRSNumber.Text & "' " & _
+            "and " & DBNameSpace & ".FS_FeeInvoice.numFeeYear = '" & mtbFeeAdminExistingYear.Text & "' "
 
             ds = New DataSet
 
-            da = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            da = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             da.Fill(ds, "Invoices")
             dgvInvoices.DataSource = ds
@@ -4813,9 +4813,9 @@ Public Class PASPFeeAuditLog
                 Exit Sub
             End If
 
-            SQL = "Insert into " & connNameSpace & ".FS_FeeINvoice " & _
+            SQL = "Insert into " & DBNameSpace & ".FS_FeeINvoice " & _
             "values " & _
-            "(" & connNameSpace & ".FeeInvoice_ID.nextVal, " & _
+            "(" & DBNameSpace & ".FeeInvoice_ID.nextVal, " & _
             "'0413" & mtbFeeAdminAIRSNumber.Text & "', '" & mtbFeeAdminExistingYear.Text & "', " & _
             "'" & Replace(Replace(txtAmount.Text, "$", ""), ",", "") & "', '" & Format(DTPInvoiceDate.Value, "dd-MMM-yyyy") & "', " & _
             "'" & Replace(txtInvoiceComments.Text, "'", "''") & "', " & _
@@ -4823,17 +4823,17 @@ Public Class PASPFeeAuditLog
             "'" & OracleDate & "', '" & cboInvoiceType.SelectedValue & "', " & _
             "'" & InvoiceStatus & "') "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
-            cmd = New OracleCommand("AIRBranch.PD_FEE_STATUS", conn)
+            cmd = New OracleCommand("AIRBranch.PD_FEE_STATUS", DBConn)
             cmd.CommandType = CommandType.StoredProcedure
 
             cmd.Parameters.Add(New OracleParameter("FeeYear", OracleType.Number)).Value = mtbFeeAdminExistingYear.Text
@@ -4869,13 +4869,13 @@ Public Class PASPFeeAuditLog
 
             SQL = "Select " & _
             "TransactionID, numPayment " & _
-            "from " & connNameSpace & ".FS_Transactions " & _
+            "from " & DBNameSpace & ".FS_Transactions " & _
             "where invoiceID = '" & txtInvoice.Text & "' " & _
             "and Active <> '0' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -4898,12 +4898,12 @@ Public Class PASPFeeAuditLog
                          MsgBoxStyle.Exclamation, Me.Text)
                 Exit Sub
             End If
-            SQL = "Update " & connNameSpace & ".FS_FeeInvoice set " & _
+            SQL = "Update " & DBNameSpace & ".FS_FeeInvoice set " & _
             "Active = '0' " & _
             "where InvoiceID = '" & txtInvoice.Text & "' "
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -4930,17 +4930,17 @@ Public Class PASPFeeAuditLog
             End If
 
             SQL = "Select distinct " & _
-            "" & connNameSpace & ".FS_FeeInvoice.InvoiceID " & _
-            "from " & connNameSpace & ".FS_FeeInvoice, " & connNameSpace & ".FS_Transactions " & _
-            "where " & connNameSpace & ".FS_FeeInvoice.invoiceid = " & connNameSpace & ".FS_Transactions.InvoiceID (+) " & _
-            "and " & connNameSpace & ".FS_FeeInvoice.Active = '1' " & _
-            "and " & connNameSpace & ".FS_FeeInvoice.strAIRSNumber = '0413" & mtbFeeAdminAIRSNumber.Text & "' " & _
-            "and " & connNameSpace & ".FS_FeeInvoice.numFeeYear = '" & mtbFeeAdminExistingYear.Text & "' " & _
+            "" & DBNameSpace & ".FS_FeeInvoice.InvoiceID " & _
+            "from " & DBNameSpace & ".FS_FeeInvoice, " & DBNameSpace & ".FS_Transactions " & _
+            "where " & DBNameSpace & ".FS_FeeInvoice.invoiceid = " & DBNameSpace & ".FS_Transactions.InvoiceID (+) " & _
+            "and " & DBNameSpace & ".FS_FeeInvoice.Active = '1' " & _
+            "and " & DBNameSpace & ".FS_FeeInvoice.strAIRSNumber = '0413" & mtbFeeAdminAIRSNumber.Text & "' " & _
+            "and " & DBNameSpace & ".FS_FeeInvoice.numFeeYear = '" & mtbFeeAdminExistingYear.Text & "' " & _
             "and (numPayment is null or numPayment = '0' ) "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -4951,12 +4951,12 @@ Public Class PASPFeeAuditLog
                 End If
 
                 If InvoiceID <> "" Then
-                    SQL = "Update " & connNameSpace & ".FS_FeeInvoice set " & _
+                    SQL = "Update " & DBNameSpace & ".FS_FeeInvoice set " & _
                     "Active = '0' " & _
                     "where invoiceID = '" & InvoiceID & "' "
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr2 = cmd.ExecuteReader
                     dr2.Close()
@@ -4983,12 +4983,12 @@ Public Class PASPFeeAuditLog
             End If
 
             If txtInvoice.Text <> "" Then
-                SQL = "Update " & connNameSpace & ".FS_FeeInvoice set " & _
+                SQL = "Update " & DBNameSpace & ".FS_FeeInvoice set " & _
                 "Active = '1' " & _
                 "where invoiceID = '" & txtInvoice.Text & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -5245,21 +5245,21 @@ Public Class PASPFeeAuditLog
 
             If chbMakeEdits.Checked = True Then
                 SQL = "select updateuser " & _
-                "from " & connNameSpace & ".FS_FeeAmendment " & _
+                "from " & DBNameSpace & ".FS_FeeAmendment " & _
                 "where numfeeyear = '" & FeeYear & "' " & _
                 "and strAIRSNumber = '0413" & mtbFeeAdminAIRSNumber.Text & "' " & _
                 "and auditID = '" & txtAuditID.Text & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 dr.Close()
 
                 If recExist = True Then
-                    SQL = "Update " & connNameSpace & ".FS_FeeAmendment set " & _
+                    SQL = "Update " & DBNameSpace & ".FS_FeeAmendment set " & _
                     "strSyntheticMinor = '" & SM & "', " & _
                     "numSMFee = '" & SMFee & "',  " & _
                     "strPart70 = '" & Part70 & "', " & _
@@ -5286,7 +5286,7 @@ Public Class PASPFeeAuditLog
                     "updateDateTime = sysdate " & _
                     "where AuditID = '" & txtAuditID.Text & "' "
                 Else
-                    SQL = "Insert into " & connNameSpace & ".FS_FeeAmendment " & _
+                    SQL = "Insert into " & DBNameSpace & ".FS_FeeAmendment " & _
                     "values " & _
                     "('" & txtAuditID.Text & "',  " & _
                     "'0413" & mtbFeeAdminAIRSNumber.Text & "', '" & mtbFeeAdminExistingYear.Text & "', " & _
@@ -5305,17 +5305,17 @@ Public Class PASPFeeAuditLog
                     "sysdate, sysdate) "
                 End If
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
-                cmd = New OracleCommand("AIRBranch.PD_FeeAmendment", conn)
+                cmd = New OracleCommand("AIRBranch.PD_FeeAmendment", DBConn)
                 cmd.CommandType = CommandType.StoredProcedure
 
                 cmd.Parameters.Add(New OracleParameter("FeeYear", OracleType.Number)).Value = FeeYear
@@ -5380,7 +5380,7 @@ Public Class PASPFeeAuditLog
                 EndCollections = "False"
             End If
 
-            SQL = "Update " & connNameSpace & ".FS_FeeAudit set " & _
+            SQL = "Update " & DBNameSpace & ".FS_FeeAudit set " & _
             "numStaffResponsible = '" & StaffResponsible & "', " & _
             "strAuditLevel = '" & AuditLevel & "', " & _
             "numENFORCEMENT = '" & AuditENFORCEMENT & "', " & _
@@ -5404,9 +5404,9 @@ Public Class PASPFeeAuditLog
             '"'1', '" & UserGCode & "', " & _
             '"'" & OracleDate & "', '" & OracleDate & "') "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -5416,9 +5416,9 @@ Public Class PASPFeeAuditLog
                 "numCurrentStatus = '12' " & _
                 "where numFeeYear = '" & mtbFeeAdminExistingYear.Text & "' " & _
                 "and strAIRSNumber = '0413" & mtbFeeAdminAIRSNumber.Text & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 cmd.ExecuteReader()
 
@@ -5451,12 +5451,12 @@ Public Class PASPFeeAuditLog
             txtAuditID.Text = dgvAuditHistory(0, dgvAuditHistory.CurrentRow.Index).Value
 
             SQL = "Select * " & _
-            "From " & connNameSpace & ".FS_FeeAudit " & _
+            "From " & DBNameSpace & ".FS_FeeAudit " & _
             "where AuditID = '" & txtAuditID.Text & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -5531,12 +5531,12 @@ Public Class PASPFeeAuditLog
             End Select
 
             SQL = "select * " & _
-            "from " & connNameSpace & ".FS_FeeAmendment " & _
+            "from " & DBNameSpace & ".FS_FeeAmendment " & _
             "where auditID = '" & txtAuditID.Text & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -5850,9 +5850,9 @@ ClearAuditData
          "transactiontypecode, " & _
          "UPDATEUSER, UPDATEDATETIME, " & _
          "createDateTime, strairsnumber, numfeeyear  " & _
-         "from " & connNameSpace & ".FS_TRANSACTIONS, " & connNameSpace & ".EPDUSERPROFILES " & _
-         "where " & connNameSpace & ".FS_TRANSACTIONS.STRENTRYPERSON = " & connNameSpace & ".EPDUSERPROFILES.NUMUSERID " & _
-         "and " & connNameSpace & ".FS_TRANSACTIONS.STRAIRSNUMBER = '0413" & mtbFeeAdminAIRSNumber.Text & "' " & _
+         "from " & DBNameSpace & ".FS_TRANSACTIONS, " & DBNameSpace & ".EPDUSERPROFILES " & _
+         "where " & DBNameSpace & ".FS_TRANSACTIONS.STRENTRYPERSON = " & DBNameSpace & ".EPDUSERPROFILES.NUMUSERID " & _
+         "and " & DBNameSpace & ".FS_TRANSACTIONS.STRAIRSNUMBER = '0413" & mtbFeeAdminAIRSNumber.Text & "' " & _
          "and active = 1) TRANSACTIONS,  " & _
          "(select " & _
          "0, INVOICEID, " & _
@@ -5860,14 +5860,14 @@ ClearAuditData
          "'', '', '', '', 2, " & _
          "UPDATEUSER, UPDATEDATETIME, " & _
          "CREATEDATETIME, STRAIRSNUMBER, NUMFEEYEAR   " & _
-         "from " & connNameSpace & ".FS_feeINVOICE " & _
+         "from " & DBNameSpace & ".FS_feeINVOICE " & _
          "where STRAIRSNUMBER = '0413" & mtbFeeAdminAIRSNumber.Text & "' " & _
-         "and " & connNameSpace & ".FS_feeINVOICE.Active = '1' ) INVOICES, " & _
-         "" & connNameSpace & ".EPDUSERPROFILES " & _
+         "and " & DBNameSpace & ".FS_feeINVOICE.Active = '1' ) INVOICES, " & _
+         "" & DBNameSpace & ".EPDUSERPROFILES " & _
          "where TRANSACTIONS.STRAIRSNUMBER  =  INVOICES.STRAIRSNUMBER (+) " & _
          "and TRANSACTIONS.NUMFEEYEAR  =  INVOICES.NUMFEEYEAR  (+) " & _
          "and TRANSACTIONS.INVOICEID  =  INVOICES.INVOICEID (+) " & _
-         "and TRANSACTIONS.UPDATEUSER  = " & connNameSpace & ".epduserProfiles.numUserID   (+) " & _
+         "and TRANSACTIONS.UPDATEUSER  = " & DBNameSpace & ".epduserProfiles.numUserID   (+) " & _
          " union " & _
          "select " & _
          "TRANSACTIONID,  INVOICES.INVOICEID, DATTRANSACTIONDATE, " & _
@@ -5889,9 +5889,9 @@ ClearAuditData
          "transactiontypecode, " & _
          "UPDATEUSER, UPDATEDATETIME, " & _
          "createDateTime, strairsnumber, numfeeyear  " & _
-         "from " & connNameSpace & ".FS_TRANSACTIONS, " & connNameSpace & ".EPDUSERPROFILES " & _
-         "where " & connNameSpace & ".FS_TRANSACTIONS.STRENTRYPERSON = " & connNameSpace & ".EPDUSERPROFILES.NUMUSERID " & _
-         "and " & connNameSpace & ".FS_TRANSACTIONS.STRAIRSNUMBER = '0413" & mtbFeeAdminAIRSNumber.Text & "' " & _
+         "from " & DBNameSpace & ".FS_TRANSACTIONS, " & DBNameSpace & ".EPDUSERPROFILES " & _
+         "where " & DBNameSpace & ".FS_TRANSACTIONS.STRENTRYPERSON = " & DBNameSpace & ".EPDUSERPROFILES.NUMUSERID " & _
+         "and " & DBNameSpace & ".FS_TRANSACTIONS.STRAIRSNUMBER = '0413" & mtbFeeAdminAIRSNumber.Text & "' " & _
          "and active = 1) TRANSACTIONS,  " & _
          "(select " & _
          "0, INVOICEID, " & _
@@ -5899,19 +5899,19 @@ ClearAuditData
          "'', '', '', '', 2, " & _
          "UPDATEUSER, UPDATEDATETIME, " & _
          "CREATEDATETIME, STRAIRSNUMBER, NUMFEEYEAR   " & _
-         "from " & connNameSpace & ".FS_feeINVOICE " & _
+         "from " & DBNameSpace & ".FS_feeINVOICE " & _
          "where STRAIRSNUMBER = '0413" & mtbFeeAdminAIRSNumber.Text & "' " & _
-         "and " & connNameSpace & ".FS_feeINVOICE.Active = '1') INVOICES, " & _
-         "" & connNameSpace & ".EPDUSERPROFILES " & _
+         "and " & DBNameSpace & ".FS_feeINVOICE.Active = '1') INVOICES, " & _
+         "" & DBNameSpace & ".EPDUSERPROFILES " & _
          "where  INVOICES.STRAIRSNUMBER  = TRANSACTIONS.STRAIRSNUMBER (+) " & _
          "and INVOICES.NUMFEEYEAR  =  TRANSACTIONS.NUMFEEYEAR  (+) " & _
          "and INVOICES.INVOICEID  =  TRANSACTIONS.INVOICEID (+) " & _
-         "and TRANSACTIONS.UPDATEUSER  = " & connNameSpace & ".epduserProfiles.numUserID (+) "
+         "and TRANSACTIONS.UPDATEUSER  = " & DBNameSpace & ".epduserProfiles.numUserID (+) "
 
                 ds = New DataSet
-                da = New OracleDataAdapter(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                da = New OracleDataAdapter(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 da.Fill(ds, "Transactions")
                 dgvTransactions.DataSource = ds

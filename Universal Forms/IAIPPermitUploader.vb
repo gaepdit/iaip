@@ -55,11 +55,11 @@ Public Class IAIPPermitUploader
 
             SQL = "Select " & _
             "strAIRSNumber " & _
-            "from " & connNameSpace & ".SSPPApplicationMaster " & _
+            "from " & DBNameSpace & ".SSPPApplicationMaster " & _
             "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -67,25 +67,25 @@ Public Class IAIPPermitUploader
             dr.Close()
             If recExist = True Then
                 SQL = "Select " & _
-                "substr(" & connNameSpace & ".SSPPApplicationMaster.strAIRSNumber, 5) as strAIRSnumber, " & _
-                "" & connNameSpace & ".APBFacilityInformation.strFacilityName, " & connNameSpace & ".APBFacilityInformation.strFacilityStreet1, " & _
-                "" & connNameSpace & ".APBFacilityInformation.strFacilityCity, " & connNameSpace & ".APBFacilityInformation.strFacilityZipCode, " & _
+                "substr(" & DBNameSpace & ".SSPPApplicationMaster.strAIRSNumber, 5) as strAIRSnumber, " & _
+                "" & DBNameSpace & ".APBFacilityInformation.strFacilityName, " & DBNameSpace & ".APBFacilityInformation.strFacilityStreet1, " & _
+                "" & DBNameSpace & ".APBFacilityInformation.strFacilityCity, " & DBNameSpace & ".APBFacilityInformation.strFacilityZipCode, " & _
                 "datFinalizedDate, strCountyName, strApplicationTypeDesc, strPermitTypeDescription, " & _
                 "datPermitIssued, (strLastName||', '||strFirstName) as StaffResponsible, " & _
                 "datFinalOnWeb " & _
-                "from " & connNameSpace & ".SSPPApplicationTracking, " & connNameSpace & ".SSPPApplicationMaster, " & _
-                "" & connNameSpace & ".APBFacilityInformation, " & connNameSpace & ".LookUpCountyInformation, " & _
-                "" & connNameSpace & ".LookUpApplicationTypes, " & connNameSpace & ".LookUpPermitTypes, " & _
-                "" & connNameSpace & ".EPDUserProfiles " & _
-                "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber  = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber (+) " & _
-                "and " & connNameSpace & ".SSPPApplicationMaster.strAIRSNumber = " & connNameSpace & ".APBFacilityInformation.strAIRSNumber  " & _
-                "and substr(" & connNameSpace & ".SSPPApplicationMaster.strAIRSnumber, 5, 3)  = " & connNameSpace & ".LookUpCountyInformation.strCountyCode (+) " & _
-                "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationType = " & connNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode (+) " & _
-                "and " & connNameSpace & ".SSPPApplicationMaster.strPermitType = " & connNameSpace & ".LookUpPermitTypes.strPermitTypeCode (+) " & _
-                "and " & connNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & connNameSpace & ".EPDUserProfiles.numUserID " & _
-                "and " & connNameSpace & ".ssppapplicationtracking.strApplicationNumber = '" & txtApplicationNumber.Text & "' "
+                "from " & DBNameSpace & ".SSPPApplicationTracking, " & DBNameSpace & ".SSPPApplicationMaster, " & _
+                "" & DBNameSpace & ".APBFacilityInformation, " & DBNameSpace & ".LookUpCountyInformation, " & _
+                "" & DBNameSpace & ".LookUpApplicationTypes, " & DBNameSpace & ".LookUpPermitTypes, " & _
+                "" & DBNameSpace & ".EPDUserProfiles " & _
+                "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber  = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber (+) " & _
+                "and " & DBNameSpace & ".SSPPApplicationMaster.strAIRSNumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber  " & _
+                "and substr(" & DBNameSpace & ".SSPPApplicationMaster.strAIRSnumber, 5, 3)  = " & DBNameSpace & ".LookUpCountyInformation.strCountyCode (+) " & _
+                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationType = " & DBNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode (+) " & _
+                "and " & DBNameSpace & ".SSPPApplicationMaster.strPermitType = " & DBNameSpace & ".LookUpPermitTypes.strPermitTypeCode (+) " & _
+                "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
+                "and " & DBNameSpace & ".ssppapplicationtracking.strApplicationNumber = '" & txtApplicationNumber.Text & "' "
 
-                cmd = New OracleCommand(SQL, conn)
+                cmd = New OracleCommand(SQL, DBConn)
                 dr = cmd.ExecuteReader
                 While dr.Read
                     If IsDBNull(dr.Item("strAIRSNumber")) Then
@@ -169,11 +169,11 @@ Public Class IAIPPermitUploader
             End If
 
             SQL = "select strMasterApplication " & _
-            "from " & connNameSpace & ".SSPPApplicationLinking " & _
+            "from " & DBNameSpace & ".SSPPApplicationLinking " & _
             "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             recExist = dr.Read
@@ -186,12 +186,12 @@ Public Class IAIPPermitUploader
             dr.Close()
             If MasterApp <> "" Then
                 SQL = "Select strApplicationNumber " & _
-                "from " & connNameSpace & ".SSPPApplicationLinking " & _
+                "from " & DBNameSpace & ".SSPPApplicationLinking " & _
                 "where strMasterApplication = '" & MasterApp & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -207,15 +207,15 @@ Public Class IAIPPermitUploader
             rdbOtherPermit.Checked = False
 
             SQL = "select " & _
-            "distinct(" & connNameSpace & ".APBPermits.strFileName)  " & _
-            "from " & connNameSpace & ".APBpermits, " & connNameSpace & ".SSPPApplicationLinking " & _
-            "where substr(" & connNameSpace & ".APBpermits.strFileName, 4) = " & connNameSpace & ".SSPPAPPlicationLinking.strmasterapplication (+) " & _
-            "and (" & connNameSpace & ".SSPPApplicationLinking.strApplicationNumber = '" & MasterApp & "' " & _
-            "or " & connNameSpace & ".APBPermits.strFileName like '%-" & MasterApp & "') "
+            "distinct(" & DBNameSpace & ".APBPermits.strFileName)  " & _
+            "from " & DBNameSpace & ".APBpermits, " & DBNameSpace & ".SSPPApplicationLinking " & _
+            "where substr(" & DBNameSpace & ".APBpermits.strFileName, 4) = " & DBNameSpace & ".SSPPAPPlicationLinking.strmasterapplication (+) " & _
+            "and (" & DBNameSpace & ".SSPPApplicationLinking.strApplicationNumber = '" & MasterApp & "' " & _
+            "or " & DBNameSpace & ".APBPermits.strFileName like '%-" & MasterApp & "') "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             recExist = dr.Read
@@ -325,11 +325,11 @@ Public Class IAIPPermitUploader
 
             SQL = "Select " & _
             "strDOCFileSize, strPDFFileSize " & _
-            "From " & connNameSpace & ".ApbPermits " & _
+            "From " & DBNameSpace & ".ApbPermits " & _
             "where strFileName = '" & FileName & "' "
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             recExist = dr.Read
@@ -431,15 +431,15 @@ Public Class IAIPPermitUploader
                 End If
             End If
             If (PDFFile <> "" And Mid(Flag, 1, 1) = "1") Or DocOnFile = "On File" Then
-                SQL = "update " & connNameSpace & ".APBPermits set " & _
+                SQL = "update " & DBNameSpace & ".APBPermits set " & _
                 "PDFPermitData = '', " & _
                 "strPDFFileSize = '', " & _
                 "strPDFModifingPerson = '', " & _
                 "datPDFModifingDate = '' " & _
                 "where strFileName = '" & FileName & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Read()
@@ -534,22 +534,22 @@ Public Class IAIPPermitUploader
                 Dim ds As DataSet
 
                 If Flag <> "00" Then
-                    SQL = "Delete " & connNameSpace & ".APBPermits " & _
+                    SQL = "Delete " & DBNameSpace & ".APBPermits " & _
                     "where strFileName = '" & FileName & "' "
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
 
                     SQL = "select " & _
                     "rowCount " & _
-                    "from " & connNameSpace & ".APBPermits " & _
+                    "from " & DBNameSpace & ".APBPermits " & _
                     "where strFileName = '" & FileName & "' "
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     While dr.Read
@@ -564,10 +564,10 @@ Public Class IAIPPermitUploader
                     If rowCount = "" Then
                         SQL = "select " & _
                         "(max(rowCount) + 1) as RowCount " & _
-                        "from " & connNameSpace & ".APBPermits "
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        "from " & DBNameSpace & ".APBPermits "
+                        cmd = New OracleCommand(SQL, DBConn)
+                        If DBConn.State = ConnectionState.Closed Then
+                            DBConn.Open()
                         End If
                         dr = cmd.ExecuteReader
                         While dr.Read
@@ -605,12 +605,12 @@ Public Class IAIPPermitUploader
                     fs.Read(rawData, 0, System.Convert.ToInt32(fs.Length))
                     fs.Close()
 
-                    SQL = "Select * from " & connNameSpace & ".APBPermits " & _
+                    SQL = "Select * from " & DBNameSpace & ".APBPermits " & _
                     "where strFileName = '" & FileName & "' "
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
-                    da = New OracleDataAdapter(SQL, conn)
+                    da = New OracleDataAdapter(SQL, DBConn)
                     cmdCB = New OracleCommandBuilder(da)
                     ds = New DataSet("PDF")
                     da.MissingSchemaAction = MissingSchemaAction.AddWithKey
@@ -634,12 +634,12 @@ Public Class IAIPPermitUploader
                     da.Update(ds, "PDF")
 
                     If Mid(FileName, 1, 2) = "OP" Then
-                        SQL = "Update " & connNameSpace & ".SSPPApplicationTracking set " & _
+                        SQL = "Update " & DBNameSpace & ".SSPPApplicationTracking set " & _
                         "datFinalOnWeb = '" & OracleDate & "' " & _
                         "where strApplicationNumber = '" & MasterApp & "' "
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, DBConn)
+                        If DBConn.State = ConnectionState.Closed Then
+                            DBConn.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Close()
@@ -647,12 +647,12 @@ Public Class IAIPPermitUploader
                 End If
 
                 If Mid(FileName, 1, 2) = "OP" Then
-                    SQL = "Update " & connNameSpace & ".SSPPApplicationTracking set " & _
+                    SQL = "Update " & DBNameSpace & ".SSPPApplicationTracking set " & _
                     "datFinalOnWeb = '" & OracleDate & "' " & _
                     "where strApplicationNumber = '" & MasterApp & "' "
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
@@ -799,21 +799,21 @@ Public Class IAIPPermitUploader
                     End If
 
                     SQL = "Select datFinalOnWeb " & _
-                    "from " & connNameSpace & ".SSPPApplicationTracking " & _
+                    "from " & DBNameSpace & ".SSPPApplicationTracking " & _
                     "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     recExist = dr.Read
                     dr.Close()
                     If recExist = False Then
-                        SQL = "Update " & connNameSpace & ".SSPPApplicationTracking set " & _
+                        SQL = "Update " & DBNameSpace & ".SSPPApplicationTracking set " & _
                         "datFinalOnWeb = '" & OracleDate & "' "
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, DBConn)
+                        If DBConn.State = ConnectionState.Closed Then
+                            DBConn.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Close()
@@ -1071,21 +1071,21 @@ Public Class IAIPPermitUploader
                     End If
 
                     SQL = "Select datFinalOnWeb " & _
-                    "from " & connNameSpace & ".SSPPApplicationTracking " & _
+                    "from " & DBNameSpace & ".SSPPApplicationTracking " & _
                     "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     recExist = dr.Read
                     dr.Close()
                     If recExist = False Then
-                        SQL = "Update " & connNameSpace & ".SSPPApplicationTracking set " & _
+                        SQL = "Update " & DBNameSpace & ".SSPPApplicationTracking set " & _
                         "datFinalOnWeb = '" & OracleDate & "' "
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, DBConn)
+                        If DBConn.State = ConnectionState.Closed Then
+                            DBConn.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Close()
@@ -1156,21 +1156,21 @@ Public Class IAIPPermitUploader
                         UploadFile("OP-" & MasterApp, doc, docx, pdf, docOnFile)
 
                         SQL = "Select datFinalOnWeb " & _
-                        "from " & connNameSpace & ".SSPPApplicationTracking " & _
+                        "from " & DBNameSpace & ".SSPPApplicationTracking " & _
                         "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, DBConn)
+                        If DBConn.State = ConnectionState.Closed Then
+                            DBConn.Open()
                         End If
                         dr = cmd.ExecuteReader
                         recExist = dr.Read
                         dr.Close()
                         If recExist = False Then
-                            SQL = "Update " & connNameSpace & ".SSPPApplicationTracking set " & _
+                            SQL = "Update " & DBNameSpace & ".SSPPApplicationTracking set " & _
                             "datFinalOnWeb = '" & OracleDate & "' "
-                            cmd = New OracleCommand(SQL, conn)
-                            If conn.State = ConnectionState.Closed Then
-                                conn.Open()
+                            cmd = New OracleCommand(SQL, DBConn)
+                            If DBConn.State = ConnectionState.Closed Then
+                                DBConn.Open()
                             End If
                             dr = cmd.ExecuteReader
                             dr.Close()
@@ -1198,12 +1198,12 @@ Public Class IAIPPermitUploader
                 "(substr(strPermitNumber,1, 4) ||'-'||substr(strPermitNumber, 5,3) " & _
                 "   ||'-'||substr(strPermitNumber, 8,4)||'-'||substr(strPermitNumber, 12, 1)  " & _
                 "   ||'-'||substr(strPermitNumber, 13, 2) ||'-'||substr(strPermitNumber, 15,1)) as PermitNumber " & _
-                "from " & connNameSpace & ".SSPPApplicationData  " & _
+                "from " & DBNameSpace & ".SSPPApplicationData  " & _
                 "where strApplicationNumber like '" & MasterApp & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -1230,16 +1230,16 @@ Public Class IAIPPermitUploader
                             DestFilePath = "N/A"
                         End If
                         If DestFilePath <> "N/A" Then
-                            If conn.State = ConnectionState.Closed Then
-                                conn.Open()
+                            If DBConn.State = ConnectionState.Closed Then
+                                DBConn.Open()
                             End If
 
                             SQL = "select " & _
                             "DocPermitData " & _
-                            "from " & connNameSpace & ".APBPermits " & _
+                            "from " & DBNameSpace & ".APBPermits " & _
                             "where strFileName = '" & FileName & "' "
 
-                            cmd = New OracleCommand(SQL, conn)
+                            cmd = New OracleCommand(SQL, DBConn)
                             dr = cmd.ExecuteReader
 
                             dr.Read()
@@ -1265,16 +1265,16 @@ Public Class IAIPPermitUploader
                         End If
 
                         If DestFilePath <> "N/A" Then
-                            If conn.State = ConnectionState.Closed Then
-                                conn.Open()
+                            If DBConn.State = ConnectionState.Closed Then
+                                DBConn.Open()
                             End If
 
                             SQL = "select " & _
                             "pdfPermitData " & _
-                            "from " & connNameSpace & ".APBPermits " & _
+                            "from " & DBNameSpace & ".APBPermits " & _
                             "where strFileName = '" & FileName & "' "
 
-                            cmd = New OracleCommand(SQL, conn)
+                            cmd = New OracleCommand(SQL, DBConn)
                             dr = cmd.ExecuteReader
 
                             dr.Read()
@@ -1299,16 +1299,16 @@ Public Class IAIPPermitUploader
                             DestFilePath = "N/A"
                         End If
                         If DestFilePath <> "N/A" Then
-                            If conn.State = ConnectionState.Closed Then
-                                conn.Open()
+                            If DBConn.State = ConnectionState.Closed Then
+                                DBConn.Open()
                             End If
 
                             SQL = "select " & _
                             "DocPermitData " & _
-                            "from " & connNameSpace & ".APBPermits " & _
+                            "from " & DBNameSpace & ".APBPermits " & _
                             "where strFileName = '" & FileName & "' "
 
-                            cmd = New OracleCommand(SQL, conn)
+                            cmd = New OracleCommand(SQL, DBConn)
                             dr = cmd.ExecuteReader
 
                             dr.Read()
@@ -1333,16 +1333,16 @@ Public Class IAIPPermitUploader
                         End If
 
                         If DestFilePath <> "N/A" Then
-                            If conn.State = ConnectionState.Closed Then
-                                conn.Open()
+                            If DBConn.State = ConnectionState.Closed Then
+                                DBConn.Open()
                             End If
 
                             SQL = "select " & _
                             "pdfPermitData " & _
-                            "from " & connNameSpace & ".APBPermits " & _
+                            "from " & DBNameSpace & ".APBPermits " & _
                             "where strFileName = '" & FileName & "' "
 
-                            cmd = New OracleCommand(SQL, conn)
+                            cmd = New OracleCommand(SQL, DBConn)
                             dr = cmd.ExecuteReader
 
                             dr.Read()
@@ -1373,11 +1373,11 @@ Public Class IAIPPermitUploader
             Dim CloseStatus As String = ""
 
             SQL = "Select datFinalizedDate " & _
-            "from " & connNameSpace & ".SSPPApplicationMaster " & _
+            "from " & DBNameSpace & ".SSPPApplicationMaster " & _
             "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -1432,11 +1432,11 @@ Public Class IAIPPermitUploader
 
             SQL = "Select " & _
             "strFileName " & _
-            "from " & connNameSpace & ".APBPermits " & _
+            "from " & DBNameSpace & ".APBPermits " & _
             "where strFileName = '" & FileType & "-" & txtApplicationNumber.Text & "' "
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             recExist = dr.Read
@@ -1447,12 +1447,12 @@ Public Class IAIPPermitUploader
                         MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
                 Select Case ResultDoc
                     Case Windows.Forms.DialogResult.Yes
-                        SQL = "Delete " & connNameSpace & ".APBPermits " & _
+                        SQL = "Delete " & DBNameSpace & ".APBPermits " & _
                         "where strFileName = '" & FileType & "-" & txtApplicationNumber.Text & "' "
 
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, DBConn)
+                        If DBConn.State = ConnectionState.Closed Then
+                            DBConn.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Close()
@@ -1550,12 +1550,12 @@ Public Class IAIPPermitUploader
             If rdbTitleVPermit.Checked = True And MasterApp <> "" Then
                 SQL = "select " & _
                 "strFileName " & _
-                "from " & connNameSpace & ".APBPermits " & _
+                "from " & DBNameSpace & ".APBPermits " & _
                 "where strFileName like 'V_-" & MasterApp & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 Do While dr.Read
@@ -1620,12 +1620,12 @@ Public Class IAIPPermitUploader
             If rdbPSDPermit.Checked = True And MasterApp <> "" Then
                 SQL = "select " & _
                 "strFileName " & _
-                "from " & connNameSpace & ".APBPermits " & _
+                "from " & DBNameSpace & ".APBPermits " & _
                 "where strFileName like 'P_-" & MasterApp & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 Do While dr.Read
@@ -1698,12 +1698,12 @@ Public Class IAIPPermitUploader
             If rdbOtherPermit.Checked = True And MasterApp <> "" Then
                 SQL = "select " & _
                 "strFileName " & _
-                "from " & connNameSpace & ".APBPermits " & _
+                "from " & DBNameSpace & ".APBPermits " & _
                 "where strFileName like 'O_-" & MasterApp & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 Do While dr.Read
@@ -1752,8 +1752,8 @@ Public Class IAIPPermitUploader
                 "case " & _
                 "when strDocModifingPerson is Null then '' " & _
                 "else (select (strLastName||', '||strFirstName) as StaffName " & _
-                "from " & connNameSpace & ".APBPermits, " & connNameSpace & ".EPDUserProfiles " & _
-                "where " & connNameSpace & ".APBPermits.strDocModifingPerson = " & connNameSpace & ".EPDUserProfiles.numUserID " & _
+                "from " & DBNameSpace & ".APBPermits, " & DBNameSpace & ".EPDUserProfiles " & _
+                "where " & DBNameSpace & ".APBPermits.strDocModifingPerson = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
                 "and numUserID = strDocModifingPerson " & _
                 "and strFileName = 'VN-" & MasterApp & "') " & _
                 "end DocStaffResponsible, " & _
@@ -1768,8 +1768,8 @@ Public Class IAIPPermitUploader
                 "case " & _
                 "when strPDFModifingPerson is Null then '' " & _
                 "else (select (strLastName||', '||strFirstName) as StaffName " & _
-                "from " & connNameSpace & ".APBPermits, " & connNameSpace & ".EPDUSerProfiles " & _
-                "where " & connNameSpace & ".APBPermits.strPDFModifingPerson = " & connNameSpace & ".EPDUSerProfiles.numUserID  " & _
+                "from " & DBNameSpace & ".APBPermits, " & DBNameSpace & ".EPDUSerProfiles " & _
+                "where " & DBNameSpace & ".APBPermits.strPDFModifingPerson = " & DBNameSpace & ".EPDUSerProfiles.numUserID  " & _
                 "and numUserID = strPDFModifingPerson " & _
                 "and strFileName = 'VN-" & MasterApp & "') " & _
                 "end PDFStaffResponsible, " & _
@@ -1777,12 +1777,12 @@ Public Class IAIPPermitUploader
                 "when datPDFModifingDate is Null then '' " & _
                 "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " & _
                 "End datPDFModifingDate " & _
-                "from " & connNameSpace & ".APBPermits " & _
+                "from " & DBNameSpace & ".APBPermits " & _
                 "where strFileName = 'VN-" & MasterApp & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -1875,8 +1875,8 @@ Public Class IAIPPermitUploader
                 "case " & _
                 "when strDocModifingPerson is Null then '' " & _
                 "else (select (strLastName||', '||strFirstName) as StaffName " & _
-                "from " & connNameSpace & ".APBPermits, " & connNameSpace & ".EPDUSerProfiles " & _
-                "where " & connNameSpace & ".APBPermits.strDocModifingPerson = " & connNameSpace & ".EPDUSerProfiles.numUserID " & _
+                "from " & DBNameSpace & ".APBPermits, " & DBNameSpace & ".EPDUSerProfiles " & _
+                "where " & DBNameSpace & ".APBPermits.strDocModifingPerson = " & DBNameSpace & ".EPDUSerProfiles.numUserID " & _
                 "and numUserID = strDocModifingPerson " & _
                 "and strFileName = 'VD-" & MasterApp & "') " & _
                 "end DocStaffResponsible, " & _
@@ -1891,8 +1891,8 @@ Public Class IAIPPermitUploader
                 "case " & _
                 "when strPDFModifingPerson is Null then '' " & _
                 "else (select (strLastName||', '||strFirstName) as StaffName " & _
-                "from " & connNameSpace & ".APBPermits, " & connNameSpace & ".EPDUserProfiles " & _
-                "where " & connNameSpace & ".APBPermits.strPDFModifingPerson = " & connNameSpace & ".EPDUserProfiles.numUserID  " & _
+                "from " & DBNameSpace & ".APBPermits, " & DBNameSpace & ".EPDUserProfiles " & _
+                "where " & DBNameSpace & ".APBPermits.strPDFModifingPerson = " & DBNameSpace & ".EPDUserProfiles.numUserID  " & _
                 "and numUserID = strPDFModifingPerson " & _
                 "and strFileName = 'VD-" & MasterApp & "') " & _
                 "end PDFStaffResponsible, " & _
@@ -1900,12 +1900,12 @@ Public Class IAIPPermitUploader
                 "when datPDFModifingDate is Null then '' " & _
                 "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " & _
                 "End datPDFModifingDate " & _
-                "from " & connNameSpace & ".APBPermits " & _
+                "from " & DBNameSpace & ".APBPermits " & _
                 "where strFileName = 'VD-" & MasterApp & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -1997,8 +1997,8 @@ Public Class IAIPPermitUploader
                 "case " & _
                 "when strDocModifingPerson is Null then '' " & _
                 "else (select (strLastName||', '||strFirstName) as StaffName " & _
-                "from " & connNameSpace & ".APBPermits, " & connNameSpace & ".EPDUserProfiles " & _
-                "where " & connNameSpace & ".APBPermits.strDocModifingPerson = " & connNameSpace & ".EPDUserProfiles.numUserID " & _
+                "from " & DBNameSpace & ".APBPermits, " & DBNameSpace & ".EPDUserProfiles " & _
+                "where " & DBNameSpace & ".APBPermits.strDocModifingPerson = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
                 "and numUserID = strDocModifingPerson " & _
                 "and strFileName = 'VP-" & MasterApp & "') " & _
                 "end DocStaffResponsible, " & _
@@ -2013,8 +2013,8 @@ Public Class IAIPPermitUploader
                 "case " & _
                 "when strPDFModifingPerson is Null then '' " & _
                 "else (select (strLastName||', '||strFirstName) as StaffName " & _
-                "from " & connNameSpace & ".APBPermits, " & connNameSpace & ".EPDUserProfiles " & _
-                "where " & connNameSpace & ".APBPermits.strPDFModifingPerson = " & connNameSpace & ".EPDUserProfiles.numUserID  " & _
+                "from " & DBNameSpace & ".APBPermits, " & DBNameSpace & ".EPDUserProfiles " & _
+                "where " & DBNameSpace & ".APBPermits.strPDFModifingPerson = " & DBNameSpace & ".EPDUserProfiles.numUserID  " & _
                 "and numUserID = strPDFModifingPerson " & _
                 "and strFileName = 'VP-" & MasterApp & "') " & _
                 "end PDFStaffResponsible, " & _
@@ -2022,12 +2022,12 @@ Public Class IAIPPermitUploader
                 "when datPDFModifingDate is Null then '' " & _
                 "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " & _
                 "End datPDFModifingDate " & _
-                "from " & connNameSpace & ".APBPermits " & _
+                "from " & DBNameSpace & ".APBPermits " & _
                 "where strFileName = 'VP-" & MasterApp & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -2119,8 +2119,8 @@ Public Class IAIPPermitUploader
                  "case " & _
                  "when strDocModifingPerson is Null then '' " & _
                  "else (select (strLastName||', '||strFirstName) as StaffName " & _
-                 "from " & connNameSpace & ".APBPermits, " & connNameSpace & ".EPDUserProfiles " & _
-                 "where " & connNameSpace & ".APBPermits.strDocModifingPerson = " & connNameSpace & ".EPDUserProfiles.numUserID " & _
+                 "from " & DBNameSpace & ".APBPermits, " & DBNameSpace & ".EPDUserProfiles " & _
+                 "where " & DBNameSpace & ".APBPermits.strDocModifingPerson = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
                  "and numUserID = strDocModifingPerson " & _
                  "and strFileName = 'VF-" & MasterApp & "') " & _
                  "end DocStaffResponsible, " & _
@@ -2135,8 +2135,8 @@ Public Class IAIPPermitUploader
                  "case " & _
                  "when strPDFModifingPerson is Null then '' " & _
                  "else (select (strLastName||', '||strFirstName) as StaffName " & _
-                 "from " & connNameSpace & ".APBPermits, " & connNameSpace & ".EPDUserProfiles " & _
-                 "where " & connNameSpace & ".APBPermits.strPDFModifingPerson = " & connNameSpace & ".EPDUserProfiles.numUserID  " & _
+                 "from " & DBNameSpace & ".APBPermits, " & DBNameSpace & ".EPDUserProfiles " & _
+                 "where " & DBNameSpace & ".APBPermits.strPDFModifingPerson = " & DBNameSpace & ".EPDUserProfiles.numUserID  " & _
                  "and numUserID = strPDFModifingPerson " & _
                  "and strFileName = 'VF-" & MasterApp & "') " & _
                  "end PDFStaffResponsible, " & _
@@ -2144,12 +2144,12 @@ Public Class IAIPPermitUploader
                  "when datPDFModifingDate is Null then '' " & _
                  "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " & _
                  "End datPDFModifingDate " & _
-                 "from " & connNameSpace & ".APBPermits " & _
+                 "from " & DBNameSpace & ".APBPermits " & _
                  "where strFileName = 'VF-" & MasterApp & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -2252,8 +2252,8 @@ Public Class IAIPPermitUploader
                  "case " & _
                  "when strDocModifingPerson is Null then '' " & _
                  "else (select (strLastName||', '||strFirstName) as StaffName " & _
-                 "from " & connNameSpace & ".APBPermits, " & connNameSpace & ".EPDUserProfiles " & _
-                 "where " & connNameSpace & ".APBPermits.strDocModifingPerson = " & connNameSpace & ".EPDUserProfiles.numUserID " & _
+                 "from " & DBNameSpace & ".APBPermits, " & DBNameSpace & ".EPDUserProfiles " & _
+                 "where " & DBNameSpace & ".APBPermits.strDocModifingPerson = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
                  "and numUserID = strDocModifingPerson " & _
                  "and strFileName = 'PA-" & MasterApp & "') " & _
                  "end DocStaffResponsible, " & _
@@ -2268,8 +2268,8 @@ Public Class IAIPPermitUploader
                  "case " & _
                  "when strPDFModifingPerson is Null then '' " & _
                  "else (select (strLastName||', '||strFirstName) as StaffName " & _
-                 "from " & connNameSpace & ".APBPermits, " & connNameSpace & ".EPDUserProfiles " & _
-                 "where " & connNameSpace & ".APBPermits.strPDFModifingPerson = " & connNameSpace & ".EPDUserProfiles.numUserID  " & _
+                 "from " & DBNameSpace & ".APBPermits, " & DBNameSpace & ".EPDUserProfiles " & _
+                 "where " & DBNameSpace & ".APBPermits.strPDFModifingPerson = " & DBNameSpace & ".EPDUserProfiles.numUserID  " & _
                  "and numUserID = strPDFModifingPerson " & _
                  "and strFileName = 'PA-" & MasterApp & "') " & _
                  "end PDFStaffResponsible, " & _
@@ -2277,12 +2277,12 @@ Public Class IAIPPermitUploader
                  "when datPDFModifingDate is Null then '' " & _
                  "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " & _
                  "End datPDFModifingDate " & _
-                 "from " & connNameSpace & ".APBPermits " & _
+                 "from " & DBNameSpace & ".APBPermits " & _
                  "where strFileName = 'PA-" & MasterApp & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -2385,8 +2385,8 @@ Public Class IAIPPermitUploader
                  "case " & _
                  "when strDocModifingPerson is Null then '' " & _
                  "else (select (strLastName||', '||strFirstName) as StaffName " & _
-                 "from " & connNameSpace & ".APBPermits, " & connNameSpace & ".EPDUserProfiles " & _
-                 "where " & connNameSpace & ".APBPermits.strDocModifingPerson = " & connNameSpace & ".EPDUserProfiles.numUserID " & _
+                 "from " & DBNameSpace & ".APBPermits, " & DBNameSpace & ".EPDUserProfiles " & _
+                 "where " & DBNameSpace & ".APBPermits.strDocModifingPerson = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
                  "and numUserID = strDocModifingPerson " & _
                  "and strFileName = 'PP-" & MasterApp & "') " & _
                  "end DocStaffResponsible, " & _
@@ -2401,8 +2401,8 @@ Public Class IAIPPermitUploader
                  "case " & _
                  "when strPDFModifingPerson is Null then '' " & _
                  "else (select (strLastName||', '||strFirstName) as StaffName " & _
-                 "from " & connNameSpace & ".APBPermits, " & connNameSpace & ".EPDUserProfiles " & _
-                 "where " & connNameSpace & ".APBPermits.strPDFModifingPerson = " & connNameSpace & ".EPDUserProfiles.numUserID  " & _
+                 "from " & DBNameSpace & ".APBPermits, " & DBNameSpace & ".EPDUserProfiles " & _
+                 "where " & DBNameSpace & ".APBPermits.strPDFModifingPerson = " & DBNameSpace & ".EPDUserProfiles.numUserID  " & _
                  "and numUserID = strPDFModifingPerson " & _
                  "and strFileName = 'PP-" & MasterApp & "') " & _
                  "end PDFStaffResponsible, " & _
@@ -2410,12 +2410,12 @@ Public Class IAIPPermitUploader
                  "when datPDFModifingDate is Null then '' " & _
                  "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " & _
                  "End datPDFModifingDate " & _
-                 "from " & connNameSpace & ".APBPermits " & _
+                 "from " & DBNameSpace & ".APBPermits " & _
                  "where strFileName = 'PP-" & MasterApp & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -2516,8 +2516,8 @@ Public Class IAIPPermitUploader
                  "case " & _
                  "when strDocModifingPerson is Null then '' " & _
                  "else (select (strLastName||', '||strFirstName) as StaffName " & _
-                 "from " & connNameSpace & ".APBPermits, " & connNameSpace & ".EPDUserProfiles " & _
-                 "where " & connNameSpace & ".APBPermits.strDocModifingPerson = " & connNameSpace & ".EPDUserProfiles.numUserID " & _
+                 "from " & DBNameSpace & ".APBPermits, " & DBNameSpace & ".EPDUserProfiles " & _
+                 "where " & DBNameSpace & ".APBPermits.strDocModifingPerson = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
                  "and numUserID = strDocModifingPerson " & _
                  "and strFileName = 'PT-" & MasterApp & "') " & _
                  "end DocStaffResponsible, " & _
@@ -2532,8 +2532,8 @@ Public Class IAIPPermitUploader
                  "case " & _
                  "when strPDFModifingPerson is Null then '' " & _
                  "else (select (strLastName||', '||strFirstName) as StaffName " & _
-                 "from " & connNameSpace & ".APBPermits, " & connNameSpace & ".EPDUserProfiles " & _
-                 "where " & connNameSpace & ".APBPermits.strPDFModifingPerson = " & connNameSpace & ".EPDUserProfiles.numUserID  " & _
+                 "from " & DBNameSpace & ".APBPermits, " & DBNameSpace & ".EPDUserProfiles " & _
+                 "where " & DBNameSpace & ".APBPermits.strPDFModifingPerson = " & DBNameSpace & ".EPDUserProfiles.numUserID  " & _
                  "and numUserID = strPDFModifingPerson " & _
                  "and strFileName = 'PT-" & MasterApp & "') " & _
                  "end PDFStaffResponsible, " & _
@@ -2541,12 +2541,12 @@ Public Class IAIPPermitUploader
                  "when datPDFModifingDate is Null then '' " & _
                  "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " & _
                  "End datPDFModifingDate " & _
-                 "from " & connNameSpace & ".APBPermits " & _
+                 "from " & DBNameSpace & ".APBPermits " & _
                  "where strFileName = 'PT-" & MasterApp & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -2647,8 +2647,8 @@ Public Class IAIPPermitUploader
                  "case " & _
                  "when strDocModifingPerson is Null then '' " & _
                  "else (select (strLastName||', '||strFirstName) as StaffName " & _
-                 "from " & connNameSpace & ".APBPermits, " & connNameSpace & ".EPDUserProfiles " & _
-                 "where " & connNameSpace & ".APBPermits.strDocModifingPerson = " & connNameSpace & ".EPDUserProfiles.numUserID " & _
+                 "from " & DBNameSpace & ".APBPermits, " & DBNameSpace & ".EPDUserProfiles " & _
+                 "where " & DBNameSpace & ".APBPermits.strDocModifingPerson = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
                  "and numUserID = strDocModifingPerson " & _
                  "and strFileName = 'PD-" & MasterApp & "') " & _
                  "end DocStaffResponsible, " & _
@@ -2663,8 +2663,8 @@ Public Class IAIPPermitUploader
                  "case " & _
                  "when strPDFModifingPerson is Null then '' " & _
                  "else (select (strLastName||', '||strFirstName) as StaffName " & _
-                 "from " & connNameSpace & ".APBPermits, " & connNameSpace & ".EPDUserProfiles " & _
-                 "where " & connNameSpace & ".APBPermits.strPDFModifingPerson = " & connNameSpace & ".EPDUserProfiles.numUserID  " & _
+                 "from " & DBNameSpace & ".APBPermits, " & DBNameSpace & ".EPDUserProfiles " & _
+                 "where " & DBNameSpace & ".APBPermits.strPDFModifingPerson = " & DBNameSpace & ".EPDUserProfiles.numUserID  " & _
                  "and numUserID = strPDFModifingPerson " & _
                  "and strFileName = 'PD-" & MasterApp & "') " & _
                  "end PDFStaffResponsible, " & _
@@ -2672,12 +2672,12 @@ Public Class IAIPPermitUploader
                  "when datPDFModifingDate is Null then '' " & _
                  "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " & _
                  "End datPDFModifingDate " & _
-                 "from " & connNameSpace & ".APBPermits " & _
+                 "from " & DBNameSpace & ".APBPermits " & _
                  "where strFileName = 'PD-" & MasterApp & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -2778,8 +2778,8 @@ Public Class IAIPPermitUploader
                 "case " & _
                 "when strDocModifingPerson is Null then '' " & _
                 "else (select (strLastName||', '||strFirstName) as StaffName " & _
-                "from " & connNameSpace & ".APBPermits, " & connNameSpace & ".EPDUserProfiles " & _
-                "where " & connNameSpace & ".APBPermits.strDocModifingPerson = " & connNameSpace & ".EPDUserProfiles.numUserID " & _
+                "from " & DBNameSpace & ".APBPermits, " & DBNameSpace & ".EPDUserProfiles " & _
+                "where " & DBNameSpace & ".APBPermits.strDocModifingPerson = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
                 "and numUserID = strDocModifingPerson " & _
                 "and strFileName = 'PN-" & MasterApp & "') " & _
                 "end DocStaffResponsible, " & _
@@ -2794,8 +2794,8 @@ Public Class IAIPPermitUploader
                 "case " & _
                 "when strPDFModifingPerson is Null then '' " & _
                 "else (select (strLastName||', '||strFirstName) as StaffName " & _
-                "from " & connNameSpace & ".APBPermits, " & connNameSpace & ".EPDUserProfiles " & _
-                "where " & connNameSpace & ".APBPermits.strPDFModifingPerson = " & connNameSpace & ".EPDUserProfiles.numUserID  " & _
+                "from " & DBNameSpace & ".APBPermits, " & DBNameSpace & ".EPDUserProfiles " & _
+                "where " & DBNameSpace & ".APBPermits.strPDFModifingPerson = " & DBNameSpace & ".EPDUserProfiles.numUserID  " & _
                 "and numUserID = strPDFModifingPerson " & _
                 "and strFileName = 'PN-" & MasterApp & "') " & _
                 "end PDFStaffResponsible, " & _
@@ -2803,12 +2803,12 @@ Public Class IAIPPermitUploader
                 "when datPDFModifingDate is Null then '' " & _
                 "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " & _
                 "End datPDFModifingDate " & _
-                "from " & connNameSpace & ".APBPermits " & _
+                "from " & DBNameSpace & ".APBPermits " & _
                 "where strFileName = 'PN-" & MasterApp & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -2909,8 +2909,8 @@ Public Class IAIPPermitUploader
                  "case " & _
                  "when strDocModifingPerson is Null then '' " & _
                  "else (select (strLastName||', '||strFirstName) as StaffName " & _
-                 "from " & connNameSpace & ".APBPermits, " & connNameSpace & ".EPDUserProfiles " & _
-                 "where " & connNameSpace & ".APBPermits.strDocModifingPerson = " & connNameSpace & ".EPDUserProfiles.numUserID " & _
+                 "from " & DBNameSpace & ".APBPermits, " & DBNameSpace & ".EPDUserProfiles " & _
+                 "where " & DBNameSpace & ".APBPermits.strDocModifingPerson = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
                  "and numUserID = strDocModifingPerson " & _
                  "and strFileName = 'PH-" & MasterApp & "') " & _
                  "end DocStaffResponsible, " & _
@@ -2925,8 +2925,8 @@ Public Class IAIPPermitUploader
                  "case " & _
                  "when strPDFModifingPerson is Null then '' " & _
                  "else (select (strLastName||', '||strFirstName) as StaffName " & _
-                 "from " & connNameSpace & ".APBPermits, " & connNameSpace & ".EPDUserProfiles " & _
-                 "where " & connNameSpace & ".APBPermits.strPDFModifingPerson = " & connNameSpace & ".EPDUserProfiles.numUserID  " & _
+                 "from " & DBNameSpace & ".APBPermits, " & DBNameSpace & ".EPDUserProfiles " & _
+                 "where " & DBNameSpace & ".APBPermits.strPDFModifingPerson = " & DBNameSpace & ".EPDUserProfiles.numUserID  " & _
                  "and numUserID = strPDFModifingPerson " & _
                  "and strFileName = 'PH-" & MasterApp & "') " & _
                  "end PDFStaffResponsible, " & _
@@ -2934,12 +2934,12 @@ Public Class IAIPPermitUploader
                  "when datPDFModifingDate is Null then '' " & _
                  "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " & _
                  "End datPDFModifingDate " & _
-                 "from " & connNameSpace & ".APBPermits " & _
+                 "from " & DBNameSpace & ".APBPermits " & _
                  "where strFileName = 'PH-" & MasterApp & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -3040,8 +3040,8 @@ Public Class IAIPPermitUploader
                  "case " & _
                  "when strDocModifingPerson is Null then '' " & _
                  "else (select (strLastName||', '||strFirstName) as StaffName " & _
-                 "from " & connNameSpace & ".APBPermits, " & connNameSpace & ".EPDUserProfiles " & _
-                 "where " & connNameSpace & ".APBPermits.strDocModifingPerson = " & connNameSpace & ".EPDUserProfiles.numUserID " & _
+                 "from " & DBNameSpace & ".APBPermits, " & DBNameSpace & ".EPDUserProfiles " & _
+                 "where " & DBNameSpace & ".APBPermits.strDocModifingPerson = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
                  "and numUserID = strDocModifingPerson " & _
                  "and strFileName = 'PF-" & MasterApp & "') " & _
                  "end DocStaffResponsible, " & _
@@ -3056,8 +3056,8 @@ Public Class IAIPPermitUploader
                  "case " & _
                  "when strPDFModifingPerson is Null then '' " & _
                  "else (select (strLastName||', '||strFirstName) as StaffName " & _
-                 "from " & connNameSpace & ".APBPermits, " & connNameSpace & ".EPDUserProfiles " & _
-                 "where " & connNameSpace & ".APBPermits.strPDFModifingPerson = " & connNameSpace & ".EPDUserProfiles.numUserID  " & _
+                 "from " & DBNameSpace & ".APBPermits, " & DBNameSpace & ".EPDUserProfiles " & _
+                 "where " & DBNameSpace & ".APBPermits.strPDFModifingPerson = " & DBNameSpace & ".EPDUserProfiles.numUserID  " & _
                  "and numUserID = strPDFModifingPerson " & _
                  "and strFileName = 'PF-" & MasterApp & "') " & _
                  "end PDFStaffResponsible, " & _
@@ -3065,12 +3065,12 @@ Public Class IAIPPermitUploader
                  "when datPDFModifingDate is Null then '' " & _
                  "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " & _
                  "End datPDFModifingDate " & _
-                 "from " & connNameSpace & ".APBPermits " & _
+                 "from " & DBNameSpace & ".APBPermits " & _
                  "where strFileName = 'PF-" & MasterApp & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -3171,8 +3171,8 @@ Public Class IAIPPermitUploader
                 "case " & _
                 "when strDocModifingPerson is Null then '' " & _
                 "else (select (strLastName||', '||strFirstName) as StaffName " & _
-                "from " & connNameSpace & ".APBPermits, " & connNameSpace & ".EPDUserProfiles " & _
-                "where " & connNameSpace & ".APBPermits.strDocModifingPerson = " & connNameSpace & ".EPDUserProfiles.numUserID " & _
+                "from " & DBNameSpace & ".APBPermits, " & DBNameSpace & ".EPDUserProfiles " & _
+                "where " & DBNameSpace & ".APBPermits.strDocModifingPerson = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
                 "and numUserID = strDocModifingPerson " & _
                 "and strFileName = 'PI-" & MasterApp & "') " & _
                 "end DocStaffResponsible, " & _
@@ -3187,8 +3187,8 @@ Public Class IAIPPermitUploader
                 "case " & _
                 "when strPDFModifingPerson is Null then '' " & _
                 "else (select (strLastName||', '||strFirstName) as StaffName " & _
-                "from " & connNameSpace & ".APBPermits, " & connNameSpace & ".EPDUserProfiles " & _
-                "where " & connNameSpace & ".APBPermits.strPDFModifingPerson = " & connNameSpace & ".EPDUserProfiles.numUserID  " & _
+                "from " & DBNameSpace & ".APBPermits, " & DBNameSpace & ".EPDUserProfiles " & _
+                "where " & DBNameSpace & ".APBPermits.strPDFModifingPerson = " & DBNameSpace & ".EPDUserProfiles.numUserID  " & _
                 "and numUserID = strPDFModifingPerson " & _
                 "and strFileName = 'PI-" & MasterApp & "') " & _
                 "end PDFStaffResponsible, " & _
@@ -3196,12 +3196,12 @@ Public Class IAIPPermitUploader
                 "when datPDFModifingDate is Null then '' " & _
                 "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " & _
                 "End datPDFModifingDate " & _
-                "from " & connNameSpace & ".APBPermits " & _
+                "from " & DBNameSpace & ".APBPermits " & _
                 "where strFileName = 'PI-" & MasterApp & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -3291,8 +3291,8 @@ Public Class IAIPPermitUploader
                  "case " & _
                  "when strDocModifingPerson is Null then '' " & _
                  "else (select (strLastName||', '||strFirstName) as StaffName " & _
-                 "from " & connNameSpace & ".APBPermits, " & connNameSpace & ".EPDUserProfiles " & _
-                 "where " & connNameSpace & ".APBPermits.strDocModifingPerson = " & connNameSpace & ".EPDUserProfiles.numUserID " & _
+                 "from " & DBNameSpace & ".APBPermits, " & DBNameSpace & ".EPDUserProfiles " & _
+                 "where " & DBNameSpace & ".APBPermits.strDocModifingPerson = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
                  "and numUserID = strDocModifingPerson " & _
                  "and strFileName = 'ON-" & MasterApp & "') " & _
                  "end DocStaffResponsible, " & _
@@ -3307,8 +3307,8 @@ Public Class IAIPPermitUploader
                  "case " & _
                  "when strPDFModifingPerson is Null then '' " & _
                  "else (select (strLastName||', '||strFirstName) as StaffName " & _
-                 "from " & connNameSpace & ".APBPermits, " & connNameSpace & ".EPDUserProfiles " & _
-                 "where " & connNameSpace & ".APBPermits.strPDFModifingPerson = " & connNameSpace & ".EPDUserProfiles.numUserID  " & _
+                 "from " & DBNameSpace & ".APBPermits, " & DBNameSpace & ".EPDUserProfiles " & _
+                 "where " & DBNameSpace & ".APBPermits.strPDFModifingPerson = " & DBNameSpace & ".EPDUserProfiles.numUserID  " & _
                  "and numUserID = strPDFModifingPerson " & _
                  "and strFileName = 'ON-" & MasterApp & "') " & _
                  "end PDFStaffResponsible, " & _
@@ -3316,12 +3316,12 @@ Public Class IAIPPermitUploader
                  "when datPDFModifingDate is Null then '' " & _
                  "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " & _
                  "End datPDFModifingDate " & _
-                 "from " & connNameSpace & ".APBPermits " & _
+                 "from " & DBNameSpace & ".APBPermits " & _
                  "where strFileName = 'ON-" & MasterApp & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -3413,8 +3413,8 @@ Public Class IAIPPermitUploader
                   "case " & _
                   "when strDocModifingPerson is Null then '' " & _
                   "else (select (strLastName||', '||strFirstName) as StaffName " & _
-                  "from " & connNameSpace & ".APBPermits, " & connNameSpace & ".EPDUserProfiles " & _
-                  "where " & connNameSpace & ".APBPermits.strDocModifingPerson = " & connNameSpace & ".EPDUserProfiles.numUserID " & _
+                  "from " & DBNameSpace & ".APBPermits, " & DBNameSpace & ".EPDUserProfiles " & _
+                  "where " & DBNameSpace & ".APBPermits.strDocModifingPerson = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
                   "and numUserID = strDocModifingPerson " & _
                   "and strFileName = 'OP-" & MasterApp & "') " & _
                   "end DocStaffResponsible, " & _
@@ -3429,8 +3429,8 @@ Public Class IAIPPermitUploader
                   "case " & _
                   "when strPDFModifingPerson is Null then '' " & _
                   "else (select (strLastName||', '||strFirstName) as StaffName " & _
-                  "from " & connNameSpace & ".APBPermits, " & connNameSpace & ".EPDUserProfiles " & _
-                  "where " & connNameSpace & ".APBPermits.strPDFModifingPerson = " & connNameSpace & ".EPDUserProfiles.numUserID  " & _
+                  "from " & DBNameSpace & ".APBPermits, " & DBNameSpace & ".EPDUserProfiles " & _
+                  "where " & DBNameSpace & ".APBPermits.strPDFModifingPerson = " & DBNameSpace & ".EPDUserProfiles.numUserID  " & _
                   "and numUserID = strPDFModifingPerson " & _
                   "and strFileName = 'OP-" & MasterApp & "') " & _
                   "end PDFStaffResponsible, " & _
@@ -3438,12 +3438,12 @@ Public Class IAIPPermitUploader
                   "when datPDFModifingDate is Null then '' " & _
                   "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " & _
                   "End datPDFModifingDate " & _
-                  "from " & connNameSpace & ".APBPermits " & _
+                  "from " & DBNameSpace & ".APBPermits " & _
                   "where strFileName = 'OP-" & MasterApp & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -5435,9 +5435,9 @@ Public Class IAIPPermitUploader
             "and strPDFFileSize is  null " & _
             "and strFileName = 'PA-14196'  "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -5464,10 +5464,10 @@ Public Class IAIPPermitUploader
 
                 SQL = "select " & _
                 "DocPermitData " & _
-                "from " & connNameSpace & ".APBPermits " & _
+                "from " & DBNameSpace & ".APBPermits " & _
                 "where strFileName = '" & FileName & "' "
 
-                cmd = New OracleCommand(SQL, conn)
+                cmd = New OracleCommand(SQL, DBConn)
                 dr2 = cmd.ExecuteReader
 
                 dr2.Read()

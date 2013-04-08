@@ -26,15 +26,15 @@ Public Class SSCPAdministrator
 "strContactEmail, strContactDescription " & _
 "from " & _
 "(select " & _
-"" & connNameSpace & ".APBHeaderData.strAIRSnumber, " & _
-"" & connNameSpace & ".APBFacilityInformation.strFacilityName,  " & _
+"" & DBNameSpace & ".APBHeaderData.strAIRSnumber, " & _
+"" & DBNameSpace & ".APBFacilityInformation.strFacilityName,  " & _
 "strOperationalstatus, " & _
 "strContactFirstname, strContactLastName, " & _
 "strContactEmail, strContactDescription " & _
-"from " & connNameSpace & ".APBHeaderData, " & connNameSpace & ".APBFacilityInformation, " & _
-"" & connNameSpace & ".APBContactInformation " & _
-"where " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSnumber   " & _
-"and " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".APBContactInformation.strAIRSNumber (+) " & _
+"from " & DBNameSpace & ".APBHeaderData, " & DBNameSpace & ".APBFacilityInformation, " & _
+"" & DBNameSpace & ".APBContactInformation " & _
+"where " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSnumber   " & _
+"and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBContactInformation.strAIRSNumber (+) " & _
 "and substr(strAIRProgramCodes, 13, 1) = '1' " & _
 "and strOperationalstatus <> 'X' " & _
 "and strkey = '20'  " & _
@@ -43,30 +43,30 @@ Public Class SSCPAdministrator
 "Select * " & _
 "from " & _
 "(select " & _
-"" & connNameSpace & ".APBHeaderData.strAIRSnumber, " & _
-"" & connNameSpace & ".APBFacilityInformation.strFacilityName,  " & _
+"" & DBNameSpace & ".APBHeaderData.strAIRSnumber, " & _
+"" & DBNameSpace & ".APBFacilityInformation.strFacilityName,  " & _
 "strOperationalstatus, " & _
 "strContactFirstname, strContactLastName, " & _
 "strContactEmail, strContactDescription " & _
-"from " & connNameSpace & ".APBHeaderData, " & connNameSpace & ".APBFacilityInformation, " & _
-"" & connNameSpace & ".APBContactInformation " & _
-"where " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSnumber   " & _
-"and " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".APBContactInformation.strAIRSNumber (+) " & _
+"from " & DBNameSpace & ".APBHeaderData, " & DBNameSpace & ".APBFacilityInformation, " & _
+"" & DBNameSpace & ".APBContactInformation " & _
+"where " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSnumber   " & _
+"and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBContactInformation.strAIRSNumber (+) " & _
 "and substr(strAIRProgramCodes, 13, 1) = '1' " & _
 "and strOperationalstatus <> 'X' " & _
 "and strkey = '40'  " & _
 "and strContactEmail is not null) FeeContact  " & _
 "where not exists " & _
 "(select * from (select " & _
-"" & connNameSpace & ".APBHeaderData.strAIRSnumber, " & _
-"" & connNameSpace & ".APBFacilityInformation.strFacilityName,  " & _
+"" & DBNameSpace & ".APBHeaderData.strAIRSnumber, " & _
+"" & DBNameSpace & ".APBFacilityInformation.strFacilityName,  " & _
 "strOperationalstatus, " & _
 "strContactFirstname, strContactLastName, " & _
 "strContactEmail, strContactDescription " & _
-"from " & connNameSpace & ".APBHeaderData, " & connNameSpace & ".APBFacilityInformation, " & _
-"" & connNameSpace & ".APBContactInformation " & _
-"where " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSnumber   " & _
-"and " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".APBContactInformation.strAIRSNumber (+) " & _
+"from " & DBNameSpace & ".APBHeaderData, " & DBNameSpace & ".APBFacilityInformation, " & _
+"" & DBNameSpace & ".APBContactInformation " & _
+"where " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSnumber   " & _
+"and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBContactInformation.strAIRSNumber (+) " & _
 "and substr(strAIRProgramCodes, 13, 1) = '1' " & _
 "and strOperationalstatus <> 'X' " & _
 "and strkey = '20'  " & _
@@ -74,27 +74,27 @@ Public Class SSCPAdministrator
 "union " & _
 "select * " & _
 "from (select " & _
-"" & connNameSpace & ".APBHeaderData.strAIRSnumber, " & _
-"" & connNameSpace & ".APBFacilityInformation.strFacilityName,  " & _
+"" & DBNameSpace & ".APBHeaderData.strAIRSnumber, " & _
+"" & DBNameSpace & ".APBFacilityInformation.strFacilityName,  " & _
 "strOperationalstatus, " & _
 "'' as strContactFirstName, '' as strContactLastName, " & _
 "'' asstrContactEmail, 'No Email' as strContactDescription " & _
-"from " & connNameSpace & ".APBHeaderData, " & connNameSpace & ".APBFacilityInformation " & _
-"where " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSnumber    " & _
+"from " & DBNameSpace & ".APBHeaderData, " & DBNameSpace & ".APBFacilityInformation " & _
+"where " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSnumber    " & _
 "and substr(strAIRProgramCodes, 13, 1) = '1' " & _
 "and strOperationalstatus <> 'X') WithoutContacts " & _
 "where not exists " & _
 "(select * from " & _
 "(select " & _
-"" & connNameSpace & ".APBHeaderData.strAIRSnumber, " & _
-"" & connNameSpace & ".APBFacilityInformation.strFacilityName,  " & _
+"" & DBNameSpace & ".APBHeaderData.strAIRSnumber, " & _
+"" & DBNameSpace & ".APBFacilityInformation.strFacilityName,  " & _
 "strOperationalstatus, " & _
 "strContactFirstname, strContactLastName, " & _
 "strContactEmail, strContactDescription " & _
-"from " & connNameSpace & ".APBHeaderData, " & connNameSpace & ".APBFacilityInformation, " & _
-"" & connNameSpace & ".APBContactInformation " & _
-"where " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSnumber   " & _
-"and " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".APBContactInformation.strAIRSNumber (+) " & _
+"from " & DBNameSpace & ".APBHeaderData, " & DBNameSpace & ".APBFacilityInformation, " & _
+"" & DBNameSpace & ".APBContactInformation " & _
+"where " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSnumber   " & _
+"and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBContactInformation.strAIRSNumber (+) " & _
 "and substr(strAIRProgramCodes, 13, 1) = '1' " & _
 "and strOperationalstatus <> 'X' " & _
 "and strkey = '20'  " & _
@@ -103,30 +103,30 @@ Public Class SSCPAdministrator
 "Select * " & _
 "from " & _
 "(select " & _
-"" & connNameSpace & ".APBHeaderData.strAIRSnumber, " & _
-"" & connNameSpace & ".APBFacilityInformation.strFacilityName,  " & _
+"" & DBNameSpace & ".APBHeaderData.strAIRSnumber, " & _
+"" & DBNameSpace & ".APBFacilityInformation.strFacilityName,  " & _
 "strOperationalstatus, " & _
 "strContactFirstname, strContactLastName, " & _
 "strContactEmail, strContactDescription " & _
-"from " & connNameSpace & ".APBHeaderData, " & connNameSpace & ".APBFacilityInformation, " & _
-"" & connNameSpace & ".APBContactInformation " & _
-"where " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSnumber   " & _
-"and " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".APBContactInformation.strAIRSNumber (+) " & _
+"from " & DBNameSpace & ".APBHeaderData, " & DBNameSpace & ".APBFacilityInformation, " & _
+"" & DBNameSpace & ".APBContactInformation " & _
+"where " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSnumber   " & _
+"and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBContactInformation.strAIRSNumber (+) " & _
 "and substr(strAIRProgramCodes, 13, 1) = '1' " & _
 "and strOperationalstatus <> 'X' " & _
 "and strkey = '40'  " & _
 "and strContactEmail is not null) FeeContact  " & _
 "where not exists " & _
 "(select * from (select " & _
-"" & connNameSpace & ".APBHeaderData.strAIRSnumber, " & _
-"" & connNameSpace & ".APBFacilityInformation.strFacilityName,  " & _
+"" & DBNameSpace & ".APBHeaderData.strAIRSnumber, " & _
+"" & DBNameSpace & ".APBFacilityInformation.strFacilityName,  " & _
 "strOperationalstatus, " & _
 "strContactFirstname, strContactLastName, " & _
 "strContactEmail, strContactDescription " & _
-"from " & connNameSpace & ".APBHeaderData, " & connNameSpace & ".APBFacilityInformation, " & _
-"" & connNameSpace & ".APBContactInformation " & _
-"where " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSnumber   " & _
-"and " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".APBContactInformation.strAIRSNumber (+) " & _
+"from " & DBNameSpace & ".APBHeaderData, " & DBNameSpace & ".APBFacilityInformation, " & _
+"" & DBNameSpace & ".APBContactInformation " & _
+"where " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSnumber   " & _
+"and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBContactInformation.strAIRSNumber (+) " & _
 "and substr(strAIRProgramCodes, 13, 1) = '1' " & _
 "and strOperationalstatus <> 'X' " & _
 "and strkey = '20'  " & _
@@ -154,8 +154,8 @@ Public Class SSCPAdministrator
 "strContactEmail, strContactDescription   " & _
 "from   " & _
 "(select   " & _
-"" & connNameSpace & ".APBHeaderData.strAIRSnumber,   " & _
-"" & connNameSpace & ".APBFacilityInformation.strFacilityName,    " & _
+"" & DBNameSpace & ".APBHeaderData.strAIRSnumber,   " & _
+"" & DBNameSpace & ".APBFacilityInformation.strFacilityName,    " & _
 "strOperationalstatus,   " & _
 "strContactTitle,  strContactCompanyName,  " & _
 "case " & _
@@ -171,10 +171,10 @@ Public Class SSCPAdministrator
 "strContactCity, strContactState,  " & _
 "strContactZipCode,    " & _
 "strContactEmail, strContactDescription   " & _
-"from " & connNameSpace & ".APBHeaderData, " & connNameSpace & ".APBFacilityInformation,   " & _
-"" & connNameSpace & ".APBContactInformation   " & _
-"where " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSnumber     " & _
-"and " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".APBContactInformation.strAIRSNumber (+)   " & _
+"from " & DBNameSpace & ".APBHeaderData, " & DBNameSpace & ".APBFacilityInformation,   " & _
+"" & DBNameSpace & ".APBContactInformation   " & _
+"where " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSnumber     " & _
+"and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBContactInformation.strAIRSNumber (+)   " & _
 "and substr(strAIRProgramCodes, 13, 1) = '1'   " & _
 "and strOperationalstatus <> 'X'   " & _
 "and strkey = '20'    " & _
@@ -183,8 +183,8 @@ Public Class SSCPAdministrator
 "Select *   " & _
 "from   " & _
 "(select   " & _
-"" & connNameSpace & ".APBHeaderData.strAIRSnumber,   " & _
-"" & connNameSpace & ".APBFacilityInformation.strFacilityName,    " & _
+"" & DBNameSpace & ".APBHeaderData.strAIRSnumber,   " & _
+"" & DBNameSpace & ".APBFacilityInformation.strFacilityName,    " & _
 "strOperationalstatus,  strContactTitle,  strContactCompanyName,  " & _
 "case " & _
 "when strContactPrefix = 'N/A' then '' " & _
@@ -199,18 +199,18 @@ Public Class SSCPAdministrator
 "strContactCity, strContactState,  " & _
 "strContactZipCode,    " & _
 "strContactEmail, strContactDescription   " & _
-"from " & connNameSpace & ".APBHeaderData, " & connNameSpace & ".APBFacilityInformation,   " & _
-"" & connNameSpace & ".APBContactInformation   " & _
-"where " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSnumber     " & _
-"and " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".APBContactInformation.strAIRSNumber (+)   " & _
+"from " & DBNameSpace & ".APBHeaderData, " & DBNameSpace & ".APBFacilityInformation,   " & _
+"" & DBNameSpace & ".APBContactInformation   " & _
+"where " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSnumber     " & _
+"and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBContactInformation.strAIRSNumber (+)   " & _
 "and substr(strAIRProgramCodes, 13, 1) = '1'   " & _
 "and strOperationalstatus <> 'X'   " & _
 "and strkey = '40'    " & _
 "and strContactEmail is not null) FeeContact    " & _
 "where not exists   " & _
 "(select * from (select   " & _
-"" & connNameSpace & ".APBHeaderData.strAIRSnumber,   " & _
-"" & connNameSpace & ".APBFacilityInformation.strFacilityName,    " & _
+"" & DBNameSpace & ".APBHeaderData.strAIRSnumber,   " & _
+"" & DBNameSpace & ".APBFacilityInformation.strFacilityName,    " & _
 "strOperationalstatus,  strContactTitle, strContactCompanyName,  " & _
  "case " & _
 "when strContactPrefix = 'N/A' then '' " & _
@@ -225,10 +225,10 @@ Public Class SSCPAdministrator
 "strContactCity, strContactState,  " & _
 "strContactZipCode,    " & _
 "strContactEmail, strContactDescription   " & _
-"from " & connNameSpace & ".APBHeaderData, " & connNameSpace & ".APBFacilityInformation,   " & _
-"" & connNameSpace & ".APBContactInformation   " & _
-"where " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSnumber     " & _
-"and " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".APBContactInformation.strAIRSNumber (+)   " & _
+"from " & DBNameSpace & ".APBHeaderData, " & DBNameSpace & ".APBFacilityInformation,   " & _
+"" & DBNameSpace & ".APBContactInformation   " & _
+"where " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSnumber     " & _
+"and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBContactInformation.strAIRSNumber (+)   " & _
 "and substr(strAIRProgramCodes, 13, 1) = '1'   " & _
 "and strOperationalstatus <> 'X'   " & _
 "and strkey = '20'    " & _
@@ -236,8 +236,8 @@ Public Class SSCPAdministrator
 "union   " & _
 "select *   " & _
 "from (select   " & _
-"" & connNameSpace & ".APBHeaderData.strAIRSnumber,   " & _
-"" & connNameSpace & ".APBFacilityInformation.strFacilityName,    " & _
+"" & DBNameSpace & ".APBHeaderData.strAIRSnumber,   " & _
+"" & DBNameSpace & ".APBFacilityInformation.strFacilityName,    " & _
 "strOperationalstatus,  '' as strContactTitle, '' as strContactCompanyName,  " & _
 "'' as strContactPrefix, " & _
 "'' as strContactFirstName, '' as strContactLastName,   " & _
@@ -245,15 +245,15 @@ Public Class SSCPAdministrator
 "'' as strContactCity, '' as strContactState,  " & _
 "'' as strContactZipCode,    " & _
 "'' asstrContactEmail, 'No Email' as strContactDescription   " & _
-"from " & connNameSpace & ".APBHeaderData, " & connNameSpace & ".APBFacilityInformation   " & _
-"where " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSnumber      " & _
+"from " & DBNameSpace & ".APBHeaderData, " & DBNameSpace & ".APBFacilityInformation   " & _
+"where " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSnumber      " & _
 "and substr(strAIRProgramCodes, 13, 1) = '1'   " & _
 "and strOperationalstatus <> 'X') WithoutContacts   " & _
 "where not exists   " & _
 "(select * from   " & _
 "(select   " & _
-"" & connNameSpace & ".APBHeaderData.strAIRSnumber,   " & _
-"" & connNameSpace & ".APBFacilityInformation.strFacilityName,    " & _
+"" & DBNameSpace & ".APBHeaderData.strAIRSnumber,   " & _
+"" & DBNameSpace & ".APBFacilityInformation.strFacilityName,    " & _
 "strOperationalstatus,  strContactTitle,  strContactCompanyName,  " & _
  "case " & _
 "when strContactPrefix = 'N/A' then '' " & _
@@ -268,10 +268,10 @@ Public Class SSCPAdministrator
 "strContactCity, strContactState,  " & _
 "strContactZipCode,    " & _
 "strContactEmail, strContactDescription   " & _
-"from " & connNameSpace & ".APBHeaderData, " & connNameSpace & ".APBFacilityInformation,   " & _
-"" & connNameSpace & ".APBContactInformation   " & _
-"where " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSnumber     " & _
-"and " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".APBContactInformation.strAIRSNumber (+)   " & _
+"from " & DBNameSpace & ".APBHeaderData, " & DBNameSpace & ".APBFacilityInformation,   " & _
+"" & DBNameSpace & ".APBContactInformation   " & _
+"where " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSnumber     " & _
+"and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBContactInformation.strAIRSNumber (+)   " & _
 "and substr(strAIRProgramCodes, 13, 1) = '1'   " & _
 "and strOperationalstatus <> 'X'   " & _
 "and strkey = '20'    " & _
@@ -280,8 +280,8 @@ Public Class SSCPAdministrator
 "Select *   " & _
 "from   " & _
 "(select   " & _
-"" & connNameSpace & ".APBHeaderData.strAIRSnumber,   " & _
-"" & connNameSpace & ".APBFacilityInformation.strFacilityName,    " & _
+"" & DBNameSpace & ".APBHeaderData.strAIRSnumber,   " & _
+"" & DBNameSpace & ".APBFacilityInformation.strFacilityName,    " & _
 "strOperationalstatus,  strcontacttitle, strContactCompanyName,  " & _
 "case " & _
 "when strContactPrefix = 'N/A' then '' " & _
@@ -296,18 +296,18 @@ Public Class SSCPAdministrator
 "strContactCity, strContactState,  " & _
 "strContactZipCode,    " & _
 "strContactEmail, strContactDescription   " & _
-"from " & connNameSpace & ".APBHeaderData, " & connNameSpace & ".APBFacilityInformation,   " & _
-"" & connNameSpace & ".APBContactInformation   " & _
-"where " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSnumber     " & _
-"and " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".APBContactInformation.strAIRSNumber (+)   " & _
+"from " & DBNameSpace & ".APBHeaderData, " & DBNameSpace & ".APBFacilityInformation,   " & _
+"" & DBNameSpace & ".APBContactInformation   " & _
+"where " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSnumber     " & _
+"and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBContactInformation.strAIRSNumber (+)   " & _
 "and substr(strAIRProgramCodes, 13, 1) = '1'   " & _
 "and strOperationalstatus <> 'X'   " & _
 "and strkey = '40'    " & _
 "and strContactEmail is not null) FeeContact    " & _
 "where not exists   " & _
 "(select * from (select   " & _
-"" & connNameSpace & ".APBHeaderData.strAIRSnumber,   " & _
-"" & connNameSpace & ".APBFacilityInformation.strFacilityName,    " & _
+"" & DBNameSpace & ".APBHeaderData.strAIRSnumber,   " & _
+"" & DBNameSpace & ".APBFacilityInformation.strFacilityName,    " & _
 "strOperationalstatus,  strContactTitle, strContactCompanyName,  " & _
  "case " & _
 "when strContactPrefix = 'N/A' then '' " & _
@@ -322,10 +322,10 @@ Public Class SSCPAdministrator
 "strContactCity, strContactState,  " & _
 "strContactZipCode,    " & _
 "strContactEmail, strContactDescription   " & _
-"from " & connNameSpace & ".APBHeaderData, " & connNameSpace & ".APBFacilityInformation,   " & _
-"" & connNameSpace & ".APBContactInformation   " & _
-"where " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSnumber     " & _
-"and " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".APBContactInformation.strAIRSNumber (+)   " & _
+"from " & DBNameSpace & ".APBHeaderData, " & DBNameSpace & ".APBFacilityInformation,   " & _
+"" & DBNameSpace & ".APBContactInformation   " & _
+"where " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSnumber     " & _
+"and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBContactInformation.strAIRSNumber (+)   " & _
 "and substr(strAIRProgramCodes, 13, 1) = '1'   " & _
 "and strOperationalstatus <> 'X'   " & _
 "and strkey = '20'    " & _
@@ -337,9 +337,9 @@ Public Class SSCPAdministrator
 
             ds = New DataSet
 
-            da = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            da = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             da.Fill(ds, "ComplianceContacts")
             dgvSSCPContacts.DataSource = ds

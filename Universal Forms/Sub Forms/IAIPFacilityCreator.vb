@@ -45,13 +45,13 @@ Public Class IAIPFacilityCreator
 
             SQL = "Select " & _
             "strCountyCode, strCountyName " & _
-            "from " & connNameSpace & ".lookUpCountyInformation " & _
+            "from " & DBNameSpace & ".lookUpCountyInformation " & _
             "order by strCountyName "
 
             ds = New DataSet
-            da = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            da = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             da.Fill(ds, "CountyData")
 
@@ -120,38 +120,38 @@ Public Class IAIPFacilityCreator
          "SSPPApprover, datApproveDateSSPP, strCommentSSPP, " & _
          "strfacilityStreet1 " & _
          "from " & _
-         "(select substr(" & connNameSpace & ".APBMasterAIRS.strAIRSNumber, 5) as AIRSNumber, " & _
-         "strFacilityName, " & connNameSpace & ".AFSFacilityData.datModifingDate as dateCreated, " & _
-         "" & connNameSpace & ".APBHeaderData.strComments,  " & _
+         "(select substr(" & DBNameSpace & ".APBMasterAIRS.strAIRSNumber, 5) as AIRSNumber, " & _
+         "strFacilityName, " & DBNameSpace & ".AFSFacilityData.datModifingDate as dateCreated, " & _
+         "" & DBNameSpace & ".APBHeaderData.strComments,  " & _
          "datApproveDateSSCP, strCommentSSCP, " & _
          "datApproveDateSSPP, strCommentSSPP, " & _
          "strfacilityStreet1 " & _
-         "from " & connNameSpace & ".AFSFacilityData, " & connNameSpace & ".APBFacilityInformation,  " & _
-         "" & connNameSpace & ".APBMasterAIRS, " & connNameSpace & ".APBHeaderData, " & connNameSpace & ".APBSupplamentalData " & _
-         "where " & connNameSpace & ".AFSFacilityData.strAIRSNumber = " & connNameSpace & ".APBFacilityInformation.strAIRSnumber  " & _
-         "and " & connNameSpace & ".AFSFacilityData.strAIRSNumber = " & connNameSpace & ".APBMasterAIRS.strAIRSnumber  " & _
-         "and " & connNameSpace & ".AFSFacilityData.strAIRSnumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber " & _
-         "and " & connNameSpace & ".AFSFacilityData.strAIRSNumber = " & connNameSpace & ".APBSupplamentalData.strAIRSNumber " & _
+         "from " & DBNameSpace & ".AFSFacilityData, " & DBNameSpace & ".APBFacilityInformation,  " & _
+         "" & DBNameSpace & ".APBMasterAIRS, " & DBNameSpace & ".APBHeaderData, " & DBNameSpace & ".APBSupplamentalData " & _
+         "where " & DBNameSpace & ".AFSFacilityData.strAIRSNumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSnumber  " & _
+         "and " & DBNameSpace & ".AFSFacilityData.strAIRSNumber = " & DBNameSpace & ".APBMasterAIRS.strAIRSnumber  " & _
+         "and " & DBNameSpace & ".AFSFacilityData.strAIRSnumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber " & _
+         "and " & DBNameSpace & ".AFSFacilityData.strAIRSNumber = " & DBNameSpace & ".APBSupplamentalData.strAIRSNumber " & _
          " ) FullData,   " & _
-         "(select substr(" & connNameSpace & ".AFSFacilityData.strAIRSNumber, 5) as AIRSNumber, " & _
+         "(select substr(" & DBNameSpace & ".AFSFacilityData.strAIRSNumber, 5) as AIRSNumber, " & _
          "case " & _
          "when numApprovingSSCP is not null then (strLastName||', '||strFirstName) " & _
          "else '' " & _
          "end SSCPApprover " & _
-         "from " & connNameSpace & ".AFSFacilityData, " & connNameSpace & ".APBSupplamentalData, " & _
-         "" & connNameSpace & ".EPDUserProfiles " & _
-         "where  " & connNameSpace & ".AFSFacilityData.strAIRSNumber = " & connNameSpace & ".APBSupplamentalData.strAIRSNumber " & _
-         "and " & connNameSpace & ".APBSupplamentalData.numApprovingSSCP = " & connNameSpace & ".EPDUserProfiles.numUserID (+) " & _
+         "from " & DBNameSpace & ".AFSFacilityData, " & DBNameSpace & ".APBSupplamentalData, " & _
+         "" & DBNameSpace & ".EPDUserProfiles " & _
+         "where  " & DBNameSpace & ".AFSFacilityData.strAIRSNumber = " & DBNameSpace & ".APBSupplamentalData.strAIRSNumber " & _
+         "and " & DBNameSpace & ".APBSupplamentalData.numApprovingSSCP = " & DBNameSpace & ".EPDUserProfiles.numUserID (+) " & _
          " )SSCPStaff, " & _
-         "(select substr(" & connNameSpace & ".AFSFacilityData.strAIRSNumber, 5) as AIRSNumber, " & _
+         "(select substr(" & DBNameSpace & ".AFSFacilityData.strAIRSNumber, 5) as AIRSNumber, " & _
          "case " & _
          "when numApprovingSSPP is not null then (strLastName||', '||strFirstName) " & _
          "else '' " & _
          "end SSPPApprover " & _
-         "from " & connNameSpace & ".AFSFacilityData, " & connNameSpace & ".APBSupplamentalData, " & _
-         "" & connNameSpace & ".EPDUserProfiles " & _
-         "where  " & connNameSpace & ".AFSFacilityData.strAIRSNumber = " & connNameSpace & ".APBSupplamentalData.strAIRSNumber " & _
-         "and " & connNameSpace & ".APBSupplamentalData.numApprovingSSPP = " & connNameSpace & ".EPDUserProfiles.numUserID (+) " & _
+         "from " & DBNameSpace & ".AFSFacilityData, " & DBNameSpace & ".APBSupplamentalData, " & _
+         "" & DBNameSpace & ".EPDUserProfiles " & _
+         "where  " & DBNameSpace & ".AFSFacilityData.strAIRSNumber = " & DBNameSpace & ".APBSupplamentalData.strAIRSNumber " & _
+         "and " & DBNameSpace & ".APBSupplamentalData.numApprovingSSPP = " & DBNameSpace & ".EPDUserProfiles.numUserID (+) " & _
          " )SSPPStaff " & _
          "where FullData.AIRSNumber = SSCPStaff.AIRSNumber (+) " & _
          "and FullData.AIRSNumber = SSPPStaff.AIRSNumber (+) "
@@ -164,38 +164,38 @@ Public Class IAIPFacilityCreator
          "SSPPApprover, datApproveDateSSPP, strCommentSSPP, " & _
          "strfacilityStreet1 " & _
          "from " & _
-         "(select substr(" & connNameSpace & ".APBMasterAIRS.strAIRSNumber, 5) as AIRSNumber, " & _
-         "strFacilityName, " & connNameSpace & ".AFSFacilityData.datModifingDate as dateCreated, " & _
-         "" & connNameSpace & ".APBHeaderData.strComments,  " & _
+         "(select substr(" & DBNameSpace & ".APBMasterAIRS.strAIRSNumber, 5) as AIRSNumber, " & _
+         "strFacilityName, " & DBNameSpace & ".AFSFacilityData.datModifingDate as dateCreated, " & _
+         "" & DBNameSpace & ".APBHeaderData.strComments,  " & _
          "datApproveDateSSCP, strCommentSSCP, " & _
          "datApproveDateSSPP, strCommentSSPP, " & _
          "strfacilityStreet1 " & _
-         "from " & connNameSpace & ".AFSFacilityData, " & connNameSpace & ".APBFacilityInformation,  " & _
-         "" & connNameSpace & ".APBMasterAIRS, " & connNameSpace & ".APBHeaderData, " & connNameSpace & ".APBSupplamentalData " & _
-         "where " & connNameSpace & ".AFSFacilityData.strAIRSNumber = " & connNameSpace & ".APBFacilityInformation.strAIRSnumber  " & _
-         "and " & connNameSpace & ".AFSFacilityData.strAIRSNumber = " & connNameSpace & ".APBMasterAIRS.strAIRSnumber  " & _
-         "and " & connNameSpace & ".AFSFacilityData.strAIRSnumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber " & _
-         "and " & connNameSpace & ".AFSFacilityData.strAIRSNumber = " & connNameSpace & ".APBSupplamentalData.strAIRSNumber " & _
+         "from " & DBNameSpace & ".AFSFacilityData, " & DBNameSpace & ".APBFacilityInformation,  " & _
+         "" & DBNameSpace & ".APBMasterAIRS, " & DBNameSpace & ".APBHeaderData, " & DBNameSpace & ".APBSupplamentalData " & _
+         "where " & DBNameSpace & ".AFSFacilityData.strAIRSNumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSnumber  " & _
+         "and " & DBNameSpace & ".AFSFacilityData.strAIRSNumber = " & DBNameSpace & ".APBMasterAIRS.strAIRSnumber  " & _
+         "and " & DBNameSpace & ".AFSFacilityData.strAIRSnumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber " & _
+         "and " & DBNameSpace & ".AFSFacilityData.strAIRSNumber = " & DBNameSpace & ".APBSupplamentalData.strAIRSNumber " & _
          "and strUpdateStatus = 'H') FullData,   " & _
-         "(select substr(" & connNameSpace & ".AFSFacilityData.strAIRSNumber, 5) as AIRSNumber, " & _
+         "(select substr(" & DBNameSpace & ".AFSFacilityData.strAIRSNumber, 5) as AIRSNumber, " & _
          "case " & _
          "when numApprovingSSCP is not null then (strLastName||', '||strFirstName) " & _
          "else '' " & _
          "end SSCPApprover " & _
-         "from " & connNameSpace & ".AFSFacilityData, " & connNameSpace & ".APBSupplamentalData, " & _
-         "" & connNameSpace & ".EPDUserProfiles " & _
-         "where  " & connNameSpace & ".AFSFacilityData.strAIRSNumber = " & connNameSpace & ".APBSupplamentalData.strAIRSNumber " & _
-         "and " & connNameSpace & ".APBSupplamentalData.numApprovingSSCP = " & connNameSpace & ".EPDUserProfiles.numUserID (+) " & _
+         "from " & DBNameSpace & ".AFSFacilityData, " & DBNameSpace & ".APBSupplamentalData, " & _
+         "" & DBNameSpace & ".EPDUserProfiles " & _
+         "where  " & DBNameSpace & ".AFSFacilityData.strAIRSNumber = " & DBNameSpace & ".APBSupplamentalData.strAIRSNumber " & _
+         "and " & DBNameSpace & ".APBSupplamentalData.numApprovingSSCP = " & DBNameSpace & ".EPDUserProfiles.numUserID (+) " & _
          "and strUpdateStatus = 'H')SSCPStaff, " & _
-         "(select substr(" & connNameSpace & ".AFSFacilityData.strAIRSNumber, 5) as AIRSNumber, " & _
+         "(select substr(" & DBNameSpace & ".AFSFacilityData.strAIRSNumber, 5) as AIRSNumber, " & _
          "case " & _
          "when numApprovingSSPP is not null then (strLastName||', '||strFirstName) " & _
          "else '' " & _
          "end SSPPApprover " & _
-         "from " & connNameSpace & ".AFSFacilityData, " & connNameSpace & ".APBSupplamentalData, " & _
-         "" & connNameSpace & ".EPDUserProfiles " & _
-         "where  " & connNameSpace & ".AFSFacilityData.strAIRSNumber = " & connNameSpace & ".APBSupplamentalData.strAIRSNumber " & _
-         "and " & connNameSpace & ".APBSupplamentalData.numApprovingSSPP = " & connNameSpace & ".EPDUserProfiles.numUserID (+) " & _
+         "from " & DBNameSpace & ".AFSFacilityData, " & DBNameSpace & ".APBSupplamentalData, " & _
+         "" & DBNameSpace & ".EPDUserProfiles " & _
+         "where  " & DBNameSpace & ".AFSFacilityData.strAIRSNumber = " & DBNameSpace & ".APBSupplamentalData.strAIRSNumber " & _
+         "and " & DBNameSpace & ".APBSupplamentalData.numApprovingSSPP = " & DBNameSpace & ".EPDUserProfiles.numUserID (+) " & _
          "and strUpdateStatus = 'H')SSPPStaff " & _
          "where FullData.AIRSNumber = SSCPStaff.AIRSNumber (+) " & _
          "and FullData.AIRSNumber = SSPPStaff.AIRSNumber (+) "
@@ -249,9 +249,9 @@ Public Class IAIPFacilityCreator
             End If
             
             ds = New DataSet
-            da = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            da = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             da.Fill(ds, "PendingAIRS")
             dgvVerifyNewFacilities.DataSource = ds
@@ -314,14 +314,14 @@ Public Class IAIPFacilityCreator
         Try
 
             If Len(AIRSNumber) = 8 And IsNumeric(AIRSNumber) Then
-                SQL = "Select (" & connNameSpace & ".LookUPDistricts.strDistrictcode|| '-'||strDistrictName) as District " & _
-                "from " & connNameSpace & ".LookUPDistricts, " & connNameSpace & ".LookUPDistrictInformation " & _
-                "where " & connNameSpace & ".LookUPDistricts.strDistrictCode = " & connNameSpace & ".LookUPDistrictInformation.strDistrictCode " & _
+                SQL = "Select (" & DBNameSpace & ".LookUPDistricts.strDistrictcode|| '-'||strDistrictName) as District " & _
+                "from " & DBNameSpace & ".LookUPDistricts, " & DBNameSpace & ".LookUPDistrictInformation " & _
+                "where " & DBNameSpace & ".LookUPDistricts.strDistrictCode = " & DBNameSpace & ".LookUPDistrictInformation.strDistrictCode " & _
                 "and strDistrictCounty = '" & Mid(AIRSNumber, 1, 3) & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
 
                 dr = cmd.ExecuteReader
@@ -407,26 +407,26 @@ Public Class IAIPFacilityCreator
                 Exit Sub
             End If
 
-            SQL = "Insert into " & connNameSpace & ".APBMasterAIRS " & _
+            SQL = "Insert into " & DBNameSpace & ".APBMasterAIRS " & _
             "values " & _
             "((select '0413'||substr((max(strAIRSNumber) + 1), 4) " & _
-            "from " & connNameSpace & ".APBMasterAIRS " & _
+            "from " & DBNameSpace & ".APBMasterAIRS " & _
             "where substr(strAIRSNumber, 1, 7) = '0413" & cboCounty.SelectedValue & "'), " & _
             "'" & UserGCode & "', '" & OracleDate & "' ) "
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
 
             SQL = "select (substr((max(strAIRSNumber)), 5)) as AIRSNumber " & _
-            "from " & connNameSpace & ".APBMasterAIRS " & _
+            "from " & DBNameSpace & ".APBMasterAIRS " & _
             "where substr(strAIRSNumber, 1, 7) = '0413" & cboCounty.SelectedValue & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -631,7 +631,7 @@ Public Class IAIPFacilityCreator
                 RMPNumber = ""
             End If
 
-            SQL = "Insert into " & connNameSpace & ".APBFacilityInformation " & _
+            SQL = "Insert into " & DBNameSpace & ".APBFacilityInformation " & _
             "(strAIRSNumber, strFacilityName, " & _
             "strFacilityStreet1, strFacilityStreet2, " & _
             "strFacilityCity, strFacilityState, " & _
@@ -649,9 +649,9 @@ Public Class IAIPFacilityCreator
             "" & FacilityLatitude & ", '007', " & _
             "'25', '002', '4' ) "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -660,12 +660,12 @@ Public Class IAIPFacilityCreator
 
             SQL = "select " & _
             "strNonAttainment " & _
-            "from " & connNameSpace & ".LookUpCountyInformation " & _
+            "from " & DBNameSpace & ".LookUpCountyInformation " & _
             "where strCountyCode = '" & Mid(AIRSNumber, 5, 3) & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -677,7 +677,7 @@ Public Class IAIPFacilityCreator
             End While
             dr.Close()
 
-            SQL = "Insert into " & connNameSpace & ".APBHeaderData " & _
+            SQL = "Insert into " & DBNameSpace & ".APBHeaderData " & _
             "(strAIRSNumber, strOperationalStatus, " & _
             "strClass, " & _
             "strAIRProgramCodes, strSICCode, " & _
@@ -696,15 +696,15 @@ Public Class IAIPFacilityCreator
             "'" & Replace(PlantDesc, "'", "''") & "', '" & AttainmentStatus & "', " & _
             "'" & Replace(NAICSCode, "'", "''") & "', '4' ) "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             dr = cmd.ExecuteReader
             dr.Close()
 
-            SQL = "Insert into " & connNameSpace & ".APBSupplamentalData " & _
+            SQL = "Insert into " & DBNameSpace & ".APBSupplamentalData " & _
             "(strAIRSNumber, datSSCPTestReportDue, " & _
             "strModifingPerson, DatModifingDate, " & _
             "strDistrictOffice, strCMSMember, " & _
@@ -715,15 +715,15 @@ Public Class IAIPFacilityCreator
              "'" & DistrictOffice & "', '', " & _
              "'00001', '" & Replace(RMPNumber, "'", "''") & "' ) "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             dr = cmd.ExecuteReader
             dr.Close()
 
-            SQL = "insert into " & connNameSpace & ".APBContactInformation " & _
+            SQL = "insert into " & DBNameSpace & ".APBContactInformation " & _
             "(strContactKey, strAIRSNumber, strKey, " & _
             "strContactFirstName, strContactLastName, " & _
             "strContactPrefix, strContactSuffix, " & _
@@ -746,16 +746,16 @@ Public Class IAIPFacilityCreator
             "'" & Replace(MailingZipCode, "-", "") & "', '" & UserGCode & "', " & _
             "'" & OracleDate & "') "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             dr = cmd.ExecuteReader
             dr.Close()
 
             If chbCDS_1.Checked = True Then
-                SQL = "Insert into " & connNameSpace & ".APBAirProgramPollutants " & _
+                SQL = "Insert into " & DBNameSpace & ".APBAirProgramPollutants " & _
                 "(strAIRSNumber, strAIRPollutantKey, " & _
                 "strPollutantKey, strComplianceStatus, " & _
                 "strModifingPerson, datModifingDate) " & _
@@ -764,16 +764,16 @@ Public Class IAIPFacilityCreator
                 "'OT', 'C', " & _
                 "'" & UserGCode & "', '" & OracleDate & "') "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
 
                 dr = cmd.ExecuteReader
                 dr.Close()
             End If
             If chbCDS_2.Checked = True Then
-                SQL = "Insert into " & connNameSpace & ".APBAirProgramPollutants " & _
+                SQL = "Insert into " & DBNameSpace & ".APBAirProgramPollutants " & _
                 "(strAIRSNumber, strAIRPollutantKey, " & _
                 "strPollutantKey, strComplianceStatus, " & _
                 "strModifingPerson, datModifingDate) " & _
@@ -782,16 +782,16 @@ Public Class IAIPFacilityCreator
                 "'OT', 'C', " & _
                 "'" & UserGCode & "', '" & OracleDate & "') "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
 
                 dr = cmd.ExecuteReader
                 dr.Close()
             End If
             If chbCDS_3.Checked = True Then
-                SQL = "Insert into " & connNameSpace & ".APBAirProgramPollutants " & _
+                SQL = "Insert into " & DBNameSpace & ".APBAirProgramPollutants " & _
                 "(strAIRSNumber, strAIRPollutantKey, " & _
                 "strPollutantKey, strComplianceStatus, " & _
                 "strModifingPerson, datModifingDate) " & _
@@ -800,16 +800,16 @@ Public Class IAIPFacilityCreator
                 "'OT', 'C', " & _
                 "'" & UserGCode & "', '" & OracleDate & "') "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
 
                 dr = cmd.ExecuteReader
                 dr.Close()
             End If
             If chbCDS_4.Checked = True Then
-                SQL = "Insert into " & connNameSpace & ".APBAirProgramPollutants " & _
+                SQL = "Insert into " & DBNameSpace & ".APBAirProgramPollutants " & _
                 "(strAIRSNumber, strAIRPollutantKey, " & _
                 "strPollutantKey, strComplianceStatus, " & _
                 "strModifingPerson, datModifingDate) " & _
@@ -818,16 +818,16 @@ Public Class IAIPFacilityCreator
                 "'OT', 'C', " & _
                 "'" & UserGCode & "', '" & OracleDate & "') "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
 
                 dr = cmd.ExecuteReader
                 dr.Close()
             End If
             If chbCDS_5.Checked = True Then
-                SQL = "Insert into " & connNameSpace & ".APBAirProgramPollutants " & _
+                SQL = "Insert into " & DBNameSpace & ".APBAirProgramPollutants " & _
                 "(strAIRSNumber, strAIRPollutantKey, " & _
                 "strPollutantKey, strComplianceStatus, " & _
                 "strModifingPerson, datModifingDate) " & _
@@ -836,16 +836,16 @@ Public Class IAIPFacilityCreator
                 "'OT', 'C', " & _
                 "'" & UserGCode & "', '" & OracleDate & "') "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
 
                 dr = cmd.ExecuteReader
                 dr.Close()
             End If
             If chbCDS_6.Checked = True Then
-                SQL = "Insert into " & connNameSpace & ".APBAirProgramPollutants " & _
+                SQL = "Insert into " & DBNameSpace & ".APBAirProgramPollutants " & _
                 "(strAIRSNumber, strAIRPollutantKey, " & _
                 "strPollutantKey, strComplianceStatus, " & _
                 "strModifingPerson, datModifingDate) " & _
@@ -854,16 +854,16 @@ Public Class IAIPFacilityCreator
                 "'OT', 'C', " & _
                 "'" & UserGCode & "', '" & OracleDate & "') "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
 
                 dr = cmd.ExecuteReader
                 dr.Close()
             End If
             If chbCDS_7.Checked = True Then
-                SQL = "Insert into " & connNameSpace & ".APBAirProgramPollutants " & _
+                SQL = "Insert into " & DBNameSpace & ".APBAirProgramPollutants " & _
                 "(strAIRSNumber, strAIRPollutantKey, " & _
                 "strPollutantKey, strComplianceStatus, " & _
                 "strModifingPerson, datModifingDate) " & _
@@ -872,16 +872,16 @@ Public Class IAIPFacilityCreator
                 "'OT', 'C', " & _
                 "'" & UserGCode & "', '" & OracleDate & "') "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
 
                 dr = cmd.ExecuteReader
                 dr.Close()
             End If
             If chbCDS_8.Checked = True Then
-                SQL = "Insert into " & connNameSpace & ".APBAirProgramPollutants " & _
+                SQL = "Insert into " & DBNameSpace & ".APBAirProgramPollutants " & _
                 "(strAIRSNumber, strAIRPollutantKey, " & _
                 "strPollutantKey, strComplianceStatus, " & _
                 "strModifingPerson, datModifingDate) " & _
@@ -890,16 +890,16 @@ Public Class IAIPFacilityCreator
                 "'OT', 'C', " & _
                 "'" & UserGCode & "', '" & OracleDate & "') "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
 
                 dr = cmd.ExecuteReader
                 dr.Close()
             End If
             If chbCDS_9.Checked = True Then
-                SQL = "Insert into " & connNameSpace & ".APBAirProgramPollutants " & _
+                SQL = "Insert into " & DBNameSpace & ".APBAirProgramPollutants " & _
                 "(strAIRSNumber, strAIRPollutantKey, " & _
                 "strPollutantKey, strComplianceStatus, " & _
                 "strModifingPerson, datModifingDate) " & _
@@ -908,16 +908,16 @@ Public Class IAIPFacilityCreator
                 "'OT', 'C', " & _
                 "'" & UserGCode & "', '" & OracleDate & "') "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
 
                 dr = cmd.ExecuteReader
                 dr.Close()
             End If
             If chbCDS_10.Checked = True Then
-                SQL = "Insert into " & connNameSpace & ".APBAirProgramPollutants " & _
+                SQL = "Insert into " & DBNameSpace & ".APBAirProgramPollutants " & _
                 "(strAIRSNumber, strAIRPollutantKey, " & _
                 "strPollutantKey, strComplianceStatus, " & _
                 "strModifingPerson, datModifingDate) " & _
@@ -926,16 +926,16 @@ Public Class IAIPFacilityCreator
                 "'OT', 'C', " & _
                 "'" & UserGCode & "', '" & OracleDate & "') "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
 
                 dr = cmd.ExecuteReader
                 dr.Close()
             End If
             If chbCDS_11.Checked = True Then
-                SQL = "Insert into " & connNameSpace & ".APBAirProgramPollutants " & _
+                SQL = "Insert into " & DBNameSpace & ".APBAirProgramPollutants " & _
                 "(strAIRSNumber, strAIRPollutantKey, " & _
                 "strPollutantKey, strComplianceStatus, " & _
                 "strModifingPerson, datModifingDate) " & _
@@ -944,16 +944,16 @@ Public Class IAIPFacilityCreator
                 "'OT', 'C', " & _
                 "'" & UserGCode & "', '" & OracleDate & "') "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
 
                 dr = cmd.ExecuteReader
                 dr.Close()
             End If
             If chbCDS_12.Checked = True Then
-                SQL = "Insert into " & connNameSpace & ".APBAirProgramPollutants " & _
+                SQL = "Insert into " & DBNameSpace & ".APBAirProgramPollutants " & _
                 "(strAIRSNumber, strAIRPollutantKey, " & _
                 "strPollutantKey, strComplianceStatus, " & _
                 "strModifingPerson, datModifingDate) " & _
@@ -962,16 +962,16 @@ Public Class IAIPFacilityCreator
                 "'OT', 'C', " & _
                 "'" & UserGCode & "', '" & OracleDate & "') "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
 
                 dr = cmd.ExecuteReader
                 dr.Close()
             End If
             If chbCDS_13.Checked = True Then
-                SQL = "Insert into " & connNameSpace & ".APBAirProgramPollutants " & _
+                SQL = "Insert into " & DBNameSpace & ".APBAirProgramPollutants " & _
                 "(strAIRSNumber, strAIRPollutantKey, " & _
                 "strPollutantKey, strComplianceStatus, " & _
                 "strModifingPerson, datModifingDate) " & _
@@ -980,22 +980,22 @@ Public Class IAIPFacilityCreator
                 "'OT', 'C', " & _
                 "'" & UserGCode & "', '" & OracleDate & "') "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
 
                 dr = cmd.ExecuteReader
                 dr.Close()
             End If
 
-            SQL = "Insert into " & connNameSpace & ".SSCPDistrictResponsible " & _
+            SQL = "Insert into " & DBNameSpace & ".SSCPDistrictResponsible " & _
             "values " & _
             "('" & AIRSNumber & "', 'False', " & _
             "'1', sysdate) "
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -1040,13 +1040,13 @@ Public Class IAIPFacilityCreator
                 "strContactLastName, strContactpreFix, " & _
                 "strContactSuffix, strContactTitle, " & _
                 "strContactPhoneNumber1 " & _
-                "from " & connNameSpace & ".SSPPApplicationdata, " & _
-                "" & connNameSpace & ".SSPPApplicationContact " & _
-                "where " & connNameSpace & ".SSPPApplicationData.strApplicationNumber = " & connNameSpace & ".SSPPApplicationContact.strApplicationNumber " & _
-                "and " & connNameSpace & ".SSPPApplicationData.strApplicationNumber = '" & txtApplicationNumber.Text & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                "from " & DBNameSpace & ".SSPPApplicationdata, " & _
+                "" & DBNameSpace & ".SSPPApplicationContact " & _
+                "where " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationContact.strApplicationNumber " & _
+                "and " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber = '" & txtApplicationNumber.Text & "' "
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -1383,19 +1383,19 @@ Public Class IAIPFacilityCreator
             "strSICCode, strOperationalStatus, " & _
             "strClass, strAirProgramCodes, " & _
             "strPlantDescription, " & _
-            "" & connNameSpace & ".APBHeaderData.strComments, " & _
+            "" & DBNameSpace & ".APBHeaderData.strComments, " & _
             "strNAICSCode, strRMPID " & _
-            "from " & connNameSpace & ".APBFacilityInformation, " & connNameSpace & ".APBHeaderData, " & _
-            "" & connNameSpace & ".APBContactInformation, " & connNameSpace & ".APBSupplamentalData  " & _
-            "where " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber " & _
-            "and " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".APBSupplamentalData.strAIRSNumber " & _
-            "and " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".APBContactInformation.strAIRSNumber " & _
+            "from " & DBNameSpace & ".APBFacilityInformation, " & DBNameSpace & ".APBHeaderData, " & _
+            "" & DBNameSpace & ".APBContactInformation, " & DBNameSpace & ".APBSupplamentalData  " & _
+            "where " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber " & _
+            "and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBSupplamentalData.strAIRSNumber " & _
+            "and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBContactInformation.strAIRSNumber " & _
             "and strkey = '30' " & _
-            "and " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = '0413" & txtNewAIRSNumber.Text & "'"
+            "and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = '0413" & txtNewAIRSNumber.Text & "'"
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             recExist = dr.Read
@@ -1646,11 +1646,11 @@ Public Class IAIPFacilityCreator
             If chbSSCPSignOff.Checked = True And chbSSPPSignOff.Checked = True Then
                 SQL = "Select " & _
                 "numApprovingSSCP, numApprovingSSPP " & _
-                "from " & connNameSpace & ".APBSupplamentalData " & _
+                "from " & DBNameSpace & ".APBSupplamentalData " & _
                 "where strAIRSNumber = '0413" & txtNewAIRSNumber.Text & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -1668,7 +1668,7 @@ Public Class IAIPFacilityCreator
                 dr.Close()
 
                 If SSCPSignOff = "" And SSPPSignOff = "" Then
-                    SQL = "Update " & connNameSpace & ".APBSupplamentalData set " & _
+                    SQL = "Update " & DBNameSpace & ".APBSupplamentalData set " & _
                     "numApprovingSSCP = '" & UserGCode & "', " & _
                     "datApproveDateSSCP = '" & DTPSSCPApproveDate.Text & "', " & _
                     "strCommentSSCP = '" & txtSSCPComments.Text & "', " & _
@@ -1677,39 +1677,39 @@ Public Class IAIPFacilityCreator
                     "strCommentSSPP = '" & txtSSCPComments.Text & "' " & _
                     "where strAIRSnumber = '0413" & txtNewAIRSNumber.Text & "' "
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
 
                     dr = cmd.ExecuteReader
                     dr.Close()
                 Else
                     If SSCPSignOff = "" Then
-                        SQL = "Update " & connNameSpace & ".APBSupplamentalData set " & _
+                        SQL = "Update " & DBNameSpace & ".APBSupplamentalData set " & _
                          "numApprovingSSCP = '" & UserGCode & "', " & _
                          "datApproveDateSSCP = '" & DTPSSCPApproveDate.Text & "', " & _
                          "strCommentSSCP = '" & txtSSCPComments.Text & "' " & _
                          "where strAIRSnumber = '0413" & txtNewAIRSNumber.Text & "' "
 
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, DBConn)
+                        If DBConn.State = ConnectionState.Closed Then
+                            DBConn.Open()
                         End If
 
                         dr = cmd.ExecuteReader
                         dr.Close()
                     End If
                     If SSPPSignOff = "" Then
-                        SQL = "Update " & connNameSpace & ".APBSupplamentalData set " & _
+                        SQL = "Update " & DBNameSpace & ".APBSupplamentalData set " & _
                         "numApprovingSSPP = '" & UserGCode & "', " & _
                         "datApproveDateSSPP = '" & DTPSSCPApproveDate.Text & "', " & _
                         "strCommentSSPP = '" & txtSSCPComments.Text & "' " & _
                         "where strAIRSnumber = '0413" & txtNewAIRSNumber.Text & "' "
 
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, DBConn)
+                        If DBConn.State = ConnectionState.Closed Then
+                            DBConn.Open()
                         End If
 
                         dr = cmd.ExecuteReader
@@ -1717,13 +1717,13 @@ Public Class IAIPFacilityCreator
                     End If
                 End If
 
-                SQL = "Update " & connNameSpace & ".AFSFacilityData set " & _
+                SQL = "Update " & DBNameSpace & ".AFSFacilityData set " & _
                 "strUpdateStatus = 'A' " & _
                 "where strAIRSNumber = '0413" & txtNewAIRSNumber.Text & "' " & _
                 "and strUpdateStatus = 'H' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -1764,102 +1764,102 @@ Public Class IAIPFacilityCreator
             'SQL = "delete " & connNameSpace & ".SSCPFacilityAssignment " & _
             '"where strAIRSNumber = '0413" & txtNewAIRSNumber.Text & "' "
 
-            SQL = "Delete " & connNameSpace & ".SSCPInspectionsRequired " & _
+            SQL = "Delete " & DBNameSpace & ".SSCPInspectionsRequired " & _
             "where strAIRSNumber = '0413" & txtNewAIRSNumber.Text & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
 
-            SQL = "Delete " & connNameSpace & ".SSCPDistrictResponsible " & _
+            SQL = "Delete " & DBNameSpace & ".SSCPDistrictResponsible " & _
             "where strAIRSNumber = '0413" & txtNewAIRSNumber.Text & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
 
-            SQL = "Delete " & connNameSpace & ".APBAirProgramPollutants " & _
+            SQL = "Delete " & DBNameSpace & ".APBAirProgramPollutants " & _
             "where strAIRSNumber = '0413" & txtNewAIRSNumber.Text & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
 
-            SQL = "Delete " & connNameSpace & ".APBContactInformation " & _
+            SQL = "Delete " & DBNameSpace & ".APBContactInformation " & _
            "where strAIRSNumber = '0413" & txtNewAIRSNumber.Text & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
 
-            SQL = "Delete " & connNameSpace & ".APBSupplamentalData " & _
+            SQL = "Delete " & DBNameSpace & ".APBSupplamentalData " & _
             "where strAIRSNumber = '0413" & txtNewAIRSNumber.Text & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
 
-            SQL = "Delete " & connNameSpace & ".APBHeaderData " & _
+            SQL = "Delete " & DBNameSpace & ".APBHeaderData " & _
             "where strAIRSNumber = '0413" & txtNewAIRSNumber.Text & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
 
-            SQL = "Delete " & connNameSpace & ".APBFacilityInformation " & _
+            SQL = "Delete " & DBNameSpace & ".APBFacilityInformation " & _
             "where strAIRSNumber = '0413" & txtNewAIRSNumber.Text & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
 
-            SQL = "Delete " & connNameSpace & ".AFSFacilityData " & _
+            SQL = "Delete " & DBNameSpace & ".AFSFacilityData " & _
             "where strAIRSNumber = '0413" & txtNewAIRSNumber.Text & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
 
-            SQL = "Delete " & connNameSpace & ".AFSAIRPollutantData " & _
+            SQL = "Delete " & DBNameSpace & ".AFSAIRPollutantData " & _
             "where strAIRSNumber = '0413" & txtNewAIRSNumber.Text & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
 
-            SQL = "Delete " & connNameSpace & ".APBMasterAIRS " & _
+            SQL = "Delete " & DBNameSpace & ".APBMasterAIRS " & _
             "where strAIRSNumber = '0413" & txtNewAIRSNumber.Text & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -1881,15 +1881,15 @@ Public Class IAIPFacilityCreator
                 Exit Sub
             End If
 
-            SQL = "Update " & connNameSpace & ".APBSupplamentalData set " & _
+            SQL = "Update " & DBNameSpace & ".APBSupplamentalData set " & _
             "numApprovingSSCP = '" & UserGCode & "', " & _
             "datApproveDateSSCP = '" & DTPSSCPApproveDate.Text & "', " & _
             "strCommentSSCP = '" & txtSSCPComments.Text & "' " & _
             "where strAIRSnumber = '0413" & txtNewAIRSNumber.Text & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -1909,15 +1909,15 @@ Public Class IAIPFacilityCreator
                 Exit Sub
             End If
 
-            SQL = "Update " & connNameSpace & ".APBSupplamentalData set " & _
+            SQL = "Update " & DBNameSpace & ".APBSupplamentalData set " & _
             "numApprovingSSpp = '" & UserGCode & "', " & _
             "datApproveDateSSpP = '" & DTPSSPPApproveDate.Text & "', " & _
             "strCommentSSpP = '" & txtSSPPComments.Text & "' " & _
             "where strAIRSnumber = '0413" & txtNewAIRSNumber.Text & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -1956,7 +1956,7 @@ Public Class IAIPFacilityCreator
             "substr(strAIRSNumber, 5) as AIRSNumber, strFacilityName, " & _
             "strFacilityStreet1, strFacilityCity, " & _
             "strFacilityZipCode " & _
-            "from " & connNameSpace & ".APBFacilityInformation " & _
+            "from " & DBNameSpace & ".APBFacilityInformation " & _
             "where upper(strFacilityName) like '%" & FacilityName.ToUpper & "%' " & _
             "or upper(strFacilityStreet1) like '%" & FacilityAddress.ToUpper & "%' "
 
@@ -1966,7 +1966,7 @@ Public Class IAIPFacilityCreator
             "substr(strAIRSNumber, 5) as AIRSNumber, " & _
             "strFacilityStreet1, strFacilityCity, " & _
             "strFacilityZipCode " & _
-            "from " & connNameSpace & ".APBFacilityInformation " & _
+            "from " & DBNameSpace & ".APBFacilityInformation " & _
             "where Upper(strFacilityName) Like Upper('%" & Replace(FacilityName.ToUpper, "'", "''") & "%')" & _
             "or upper(strFacilityStreet1) like '%" & FacilityAddress.ToUpper & "%' " & _
             "Union " & _
@@ -1974,7 +1974,7 @@ Public Class IAIPFacilityCreator
             "distinct(strFacilityName) as strFacilityName, " & _
             "substr(strAIRSNumber, 5) as shortAIRS, " & _
             "strFacilityStreet1, strFacilityCity,  strFacilityZipCode " & _
-            "from " & connNameSpace & ".HB_APBFacilityInformation " & _
+            "from " & DBNameSpace & ".HB_APBFacilityInformation " & _
             "where Upper(strFacilityName) Like Upper('%" & Replace(FacilityName.ToUpper, "'", "''") & "%')" & _
             "or upper(strFacilityStreet1) like '%" & FacilityAddress.ToUpper & "%' " & _
             "Union " & _
@@ -1982,15 +1982,15 @@ Public Class IAIPFacilityCreator
             "Distinct(strFacilityname) as strFacilityname,  " & _
             "substr(strAIRSNumber, 5) as shortAIRS,  " & _
             "strFacilityStreet1, strFacilityCity, strFacilityZipCode  " & _
-            "from " & connNameSpace & ".SSPPApplicationData, " & connNameSpace & ".SSPPApplicationMaster   " & _
-            "where " & connNameSpace & ".SSPPApplicationData.strApplicationNumber = " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber " & _
+            "from " & DBNameSpace & ".SSPPApplicationData, " & DBNameSpace & ".SSPPApplicationMaster   " & _
+            "where " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber " & _
             "and (upper(strFacilityname) like Upper('%" & Replace(FacilityName.ToUpper, "'", "''") & "%') " & _
             "or upper(strFacilityStreet1) like '%" & FacilityAddress.ToUpper & "%') "
 
             ds = New DataSet
-            da = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            da = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             da.Fill(ds, "Validate")
             dgvValidatingAIRS.DataSource = ds
@@ -2331,7 +2331,7 @@ Public Class IAIPFacilityCreator
                 Comments = Comments & "Pre-loaded with Application " & txtApplicationNumber.Text
             End If
 
-            SQL = "update " & connNameSpace & ".APBFacilityInformation set " & _
+            SQL = "update " & DBNameSpace & ".APBFacilityInformation set " & _
             "strFacilityName = '" & Replace(FacilityName, "'", "''") & "', " & _
             "strFacilityStreet1 = '" & Replace(FacilityStreet, "'", "''") & "', " & _
             "strFacilityCity = '" & Replace(FacilityCity, "'", "''") & "', " & _
@@ -2342,14 +2342,14 @@ Public Class IAIPFacilityCreator
             "numFacilityLatitude = '" & Replace(FacilityLatitude, "'", "''") & "' " & _
             "where strAirsnumber = '" & AIRSNumber & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
 
-            SQL = "Update " & connNameSpace & ".APBHeaderData set " & _
+            SQL = "Update " & DBNameSpace & ".APBHeaderData set " & _
             "strOperationalStatus = '" & Replace(OperatingStatus, "'", "''") & "', " & _
             "strClass = '" & Replace(Classification, "'", "''") & "', " & _
             "strAIRProgramCodes = '" & Replace(AirProgramCode, "'", "''") & "', " & _
@@ -2361,27 +2361,27 @@ Public Class IAIPFacilityCreator
             "datModifingDate = '" & OracleDate & "' " & _
             "where strAIRSNumber = '" & AIRSNumber & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
 
-            SQL = "Update " & connNameSpace & ".APBSupplamentalData set " & _
+            SQL = "Update " & DBNameSpace & ".APBSupplamentalData set " & _
             "strDistrictOffice = '" & Replace(DistrictOffice, "'", "''") & "', " & _
             "strModifingPerson = '" & UserGCode & "', " & _
             "datModifingDate = '" & OracleDate & "' " & _
             "where strAIRSNumber = '" & AIRSNumber & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
 
-            SQL = "update " & connNameSpace & ".APBContactInformation set " & _
+            SQL = "update " & DBNameSpace & ".APBContactInformation set " & _
             "strContactAddress1 = '" & Replace(MailingStreet, "'", "''") & "', " & _
             "strContactCity = '" & Replace(MailingCity, "'", "''") & "', " & _
             "strContactState = '" & Replace(MailingState, "'", "''") & "', " & _
@@ -2398,9 +2398,9 @@ Public Class IAIPFacilityCreator
             "and strContactKey = '" & AIRSNumber & "30' " & _
             "and strKey = '30' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()

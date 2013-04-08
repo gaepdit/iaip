@@ -22,12 +22,12 @@ Public Class SSCPInspectionTool
 
             SQL = "select " & _
             "distinct intyear  " & _
-            "from " & connNameSpace & ".SSCPINSPECTIONSREQUIRED " & _
+            "from " & DBNameSpace & ".SSCPINSPECTIONSREQUIRED " & _
             "order by intyear desc "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -67,9 +67,9 @@ Public Class SSCPInspectionTool
            "order by username "
 
             ds = New DataSet
-            da = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            da = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             da.Fill(ds, "AssignedStaff")
 

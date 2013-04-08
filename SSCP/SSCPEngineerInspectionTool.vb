@@ -1066,7 +1066,7 @@ Public Class SSCPEngineerInspectionTool
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1107,7 +1107,7 @@ Public Class SSCPEngineerInspectionTool
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1126,7 +1126,7 @@ Public Class SSCPEngineerInspectionTool
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1141,20 +1141,20 @@ Public Class SSCPEngineerInspectionTool
             '     "order by STRFACILITYNAME "
 
             SQL = "Select * " & _
-            "From " & connNameSpace & ".VW_SSCPInspection_List " & _
+            "From " & DBNameSpace & ".VW_SSCPInspection_List " & _
             "where numSSCPEngineer = '" & UserGCode & "' " & _
             "order by strFacilityName "
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             dsFacilities = New DataSet
 
-            daFacilities = New OracleDataAdapter(SQL, conn)
+            daFacilities = New OracleDataAdapter(SQL, DBConn)
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             daFacilities.Fill(dsFacilities, "Facilities")
@@ -1164,7 +1164,7 @@ Public Class SSCPEngineerInspectionTool
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1175,27 +1175,27 @@ Public Class SSCPEngineerInspectionTool
         Try
 
             SQL = "Select * " & _
-                  "from " & connNameSpace & ".VW_SSCPInspection_List2 " & _
+                  "from " & DBNameSpace & ".VW_SSCPInspection_List2 " & _
                   "where AIRSNumber = '" & txtAIRSNumber.Text & "' " & _
                   "Order by InspectionKey ASC "
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             dsInspections = New DataSet
 
-            daInspections = New OracleDataAdapter(SQL, conn)
+            daInspections = New OracleDataAdapter(SQL, DBConn)
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             daInspections.Fill(dsInspections, "Inspections")
             dgrInspectionList.DataSource = dsInspections
             dgrInspectionList.DataMember = "Inspections"
 
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -1204,7 +1204,7 @@ Public Class SSCPEngineerInspectionTool
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1284,7 +1284,7 @@ Public Class SSCPEngineerInspectionTool
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1374,7 +1374,7 @@ Public Class SSCPEngineerInspectionTool
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1398,7 +1398,7 @@ Public Class SSCPEngineerInspectionTool
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1441,20 +1441,20 @@ Public Class SSCPEngineerInspectionTool
                     End If
 
                     If txtInspectionNumber.Text = "" Then
-                        SQL = "Insert into " & connNameSpace & ".SSCPInspectionTracking " & _
+                        SQL = "Insert into " & DBNameSpace & ".SSCPInspectionTracking " & _
                         "(InspectionKey, strAIRSNumber, strInspectingEngineer, " & _
                         "strLockSchedule, SSCPTrackingNumber, " & _
                         "datScheduleDateStart, datScheduleDateEnd, " & _
                         "datCurrentDateStart, datCurrentDateEnd, " & _
                         "datActualDateStart, datActualDateEnd) " & _
                         "values " & _
-                        "(" & connNameSpace & ".SSCPInspectionTrackingKey.nextval, '0413" & AIRSNumber & "', '" & UserGCode & "', " & _
+                        "(" & DBNameSpace & ".SSCPInspectionTrackingKey.nextval, '0413" & AIRSNumber & "', '" & UserGCode & "', " & _
                         "'False', '', " & _
                         "'" & ScheduleStart & "', '" & ScheduleEnd & "', " & _
                         "'" & CurrentStart & "', '" & CurrentEnd & "', " & _
                         "'', '') "
                     Else
-                        SQL = "Update " & connNameSpace & ".SSCPInspectionTracking set " & _
+                        SQL = "Update " & DBNameSpace & ".SSCPInspectionTracking set " & _
                         "strInspectingEngineer = '" & UserGCode & "', " & _
                         "datScheduleDateStart = '" & ScheduleStart & "', " & _
                         "datScheduleDateEnd = '" & ScheduleEnd & "', " & _
@@ -1463,14 +1463,14 @@ Public Class SSCPEngineerInspectionTool
                         "where InspectionKey = '" & txtInspectionNumber.Text & "' "
                     End If
 
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
 
-                    cmd = New OracleCommand(SQL, conn)
+                    cmd = New OracleCommand(SQL, DBConn)
                     dr = cmd.ExecuteReader
 
-                    If conn.State = ConnectionState.Open Then
+                    If DBConn.State = ConnectionState.Open Then
                         'conn.close()
                     End If
 
@@ -1486,7 +1486,7 @@ Public Class SSCPEngineerInspectionTool
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1498,11 +1498,11 @@ Public Class SSCPEngineerInspectionTool
             If chbDeleteInspection.Checked = False Then
                 MsgBox("The Delete Checkbox must be selected to delete inspection.", MsgBoxStyle.Information, "Inspection Tracking")
             Else
-                SQL = "Delete " & connNameSpace & ".SSCPInspectionTracking " & _
+                SQL = "Delete " & DBNameSpace & ".SSCPInspectionTracking " & _
                    "where InspectionKey = '" & txtInspectionNumber.Text & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -1512,7 +1512,7 @@ Public Class SSCPEngineerInspectionTool
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1527,24 +1527,24 @@ Public Class SSCPEngineerInspectionTool
                 Select Case cboInspectionScheduleFilter.Items.IndexOf(cboInspectionScheduleFilter.Text)
                     Case 0
                         SQL = "Select * " & _
-                        "from " & connNameSpace & ".VW_SSCPInspection_List " & _
+                        "from " & DBNameSpace & ".VW_SSCPInspection_List " & _
                         "where numSSCPEngineer = '" & UserGCode & "' " & _
                         "order by STRFACILITYNAME "
 
                     Case 1
                         SQL = "Select * " & _
-                        "from " & connNameSpace & ".VW_SSCPInspection_List " & _
+                        "from " & DBNameSpace & ".VW_SSCPInspection_List " & _
                         "where numSSCPEngineer = '" & UserGCode & "' " & _
                         "and InspectionRequired = 'True' " & _
                         "order by STRFACILITYNAME "
                     Case 2
                         SQL = "Select * " & _
-                        "from " & connNameSpace & ".VW_SSCPInspection_List " & _
+                        "from " & DBNameSpace & ".VW_SSCPInspection_List " & _
                         "where numSSCPEngineer <> '" & UserGCode & "' " & _
                         "and InspectionRequired = 'True' " & _
                         "order by STRFACILITYNAME "
                     Case 3
-                        SQL = "Select distinct(substr(" & connNameSpace & ".APBFacilityInformation.strAIRSNumber, 5)) as STRAIRSNUMBER, " & _
+                        SQL = "Select distinct(substr(" & DBNameSpace & ".APBFacilityInformation.strAIRSNumber, 5)) as STRAIRSNUMBER, " & _
                         "strFacilityName, strFacilityStreet1, " & _
                         "strFacilityCity, strCountyName,  " & _
                         "(strLastName|| ', ' ||strFirstName) as Engineer,  " & _
@@ -1554,39 +1554,39 @@ Public Class SSCPEngineerInspectionTool
                         "ELSE 'False' " & _
                         "End as InspectionRequired,  " & _
                         "strInspectingEngineer  " & _
-                        "from " & connNameSpace & ".APBFacilityInformation, " & connNameSpace & ".LookUpCountyInformation,  " & _
-                        "" & connNameSpace & ".SSCPFacilityAssignment, " & connNameSpace & ".SSCPInspectionsRequired, " & connNameSpace & ".EPDUserProfiles,  " & _
-                        "" & connNameSpace & ".SSCPInspectionTracking " & _
-                        "where substr(" & connNameSpace & ".APBFacilityInformation.strAIRSNUmber, 5, 3) = " & connNameSpace & ".LookUpCountyInformation.strCountyCode  " & _
-                        "and " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".SSCPFacilityAssignment.strAIRSNumber " & _
-                        "and " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".SSCPInspectionsRequired.strAIRSNumber (+) " & _
-                        "and " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".SSCPInspectionTracking.strAIRSNumber  " & _
-                        "and " & connNameSpace & ".EPDUserProfiles.numUserID = " & connNameSpace & ".SSCPFacilityAssignment.strSSCPENgineer "
+                        "from " & DBNameSpace & ".APBFacilityInformation, " & DBNameSpace & ".LookUpCountyInformation,  " & _
+                        "" & DBNameSpace & ".SSCPFacilityAssignment, " & DBNameSpace & ".SSCPInspectionsRequired, " & DBNameSpace & ".EPDUserProfiles,  " & _
+                        "" & DBNameSpace & ".SSCPInspectionTracking " & _
+                        "where substr(" & DBNameSpace & ".APBFacilityInformation.strAIRSNUmber, 5, 3) = " & DBNameSpace & ".LookUpCountyInformation.strCountyCode  " & _
+                        "and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".SSCPFacilityAssignment.strAIRSNumber " & _
+                        "and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".SSCPInspectionsRequired.strAIRSNumber (+) " & _
+                        "and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".SSCPInspectionTracking.strAIRSNumber  " & _
+                        "and " & DBNameSpace & ".EPDUserProfiles.numUserID = " & DBNameSpace & ".SSCPFacilityAssignment.strSSCPENgineer "
                     Case Else
                         SQL = "Select * " & _
-                        "from " & connNameSpace & ".VW_SSCPInspection_List " & _
+                        "from " & DBNameSpace & ".VW_SSCPInspection_List " & _
                         "where numSSCPEngineer = '" & UserGCode & "' " & _
                         "order by STRFACILITYNAME "
 
                 End Select
 
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
 
                 dsFacilities = New DataSet
 
-                daFacilities = New OracleDataAdapter(SQL, conn)
+                daFacilities = New OracleDataAdapter(SQL, DBConn)
 
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
 
                 daFacilities.Fill(dsFacilities, "Facilities")
                 dgrFacilityList.DataSource = dsFacilities
                 dgrFacilityList.DataMember = "Facilities"
 
-                If conn.State = ConnectionState.Open Then
+                If DBConn.State = ConnectionState.Open Then
                     'conn.close()
                 End If
 
@@ -1600,7 +1600,7 @@ Public Class SSCPEngineerInspectionTool
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1654,7 +1654,7 @@ Public Class SSCPEngineerInspectionTool
                 ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
             End If
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1711,7 +1711,7 @@ Public Class SSCPEngineerInspectionTool
                 ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
             End If
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1726,7 +1726,7 @@ Public Class SSCPEngineerInspectionTool
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1739,7 +1739,7 @@ Public Class SSCPEngineerInspectionTool
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1752,7 +1752,7 @@ Public Class SSCPEngineerInspectionTool
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1765,7 +1765,7 @@ Public Class SSCPEngineerInspectionTool
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1778,7 +1778,7 @@ Public Class SSCPEngineerInspectionTool
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1791,7 +1791,7 @@ Public Class SSCPEngineerInspectionTool
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1804,7 +1804,7 @@ Public Class SSCPEngineerInspectionTool
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1825,7 +1825,7 @@ Public Class SSCPEngineerInspectionTool
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1873,7 +1873,7 @@ Public Class SSCPEngineerInspectionTool
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1897,14 +1897,14 @@ Public Class SSCPEngineerInspectionTool
                     If txtFacilityName.Text = "" Then
                         SQL = "Select strFacilityName, strFacilityStreet1, " & _
                         "strFacilityCity, strCountyName " & _
-                        "from " & connNameSpace & ".APBFacilityInformation, " & connNameSpace & ".LookUpCountyInformation " & _
-                        "where substr(" & connNameSpace & ".APBFacilityInformation.strAIRSNUmber, 5, 3) = " & connNameSpace & ".LookUpCountyInformation.strCountyCode " & _
-                        "and " & connNameSpace & ".APBFacilityInformation.strAIRSNUmber = '0413" & txtAIRSNumber.Text & "' "
+                        "from " & DBNameSpace & ".APBFacilityInformation, " & DBNameSpace & ".LookUpCountyInformation " & _
+                        "where substr(" & DBNameSpace & ".APBFacilityInformation.strAIRSNUmber, 5, 3) = " & DBNameSpace & ".LookUpCountyInformation.strCountyCode " & _
+                        "and " & DBNameSpace & ".APBFacilityInformation.strAIRSNUmber = '0413" & txtAIRSNumber.Text & "' "
 
-                        cmd = New OracleCommand(SQL, conn)
+                        cmd = New OracleCommand(SQL, DBConn)
 
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        If DBConn.State = ConnectionState.Closed Then
+                            DBConn.Open()
                         End If
 
                         dr = cmd.ExecuteReader
@@ -1916,7 +1916,7 @@ Public Class SSCPEngineerInspectionTool
                             txtFacilityCityCounty.Text = dr.Item("strFacilityCity") & " / " & dr.Item("strCountyName")
                         End While
 
-                        If conn.State = ConnectionState.Open Then
+                        If DBConn.State = ConnectionState.Open Then
                             'conn.close()
                         End If
 
@@ -1928,7 +1928,7 @@ Public Class SSCPEngineerInspectionTool
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -2006,7 +2006,7 @@ Public Class SSCPEngineerInspectionTool
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -2020,7 +2020,7 @@ Public Class SSCPEngineerInspectionTool
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -2035,7 +2035,7 @@ Public Class SSCPEngineerInspectionTool
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -2050,7 +2050,7 @@ Public Class SSCPEngineerInspectionTool
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -2076,7 +2076,7 @@ Public Class SSCPEngineerInspectionTool
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -2089,7 +2089,7 @@ Public Class SSCPEngineerInspectionTool
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -2111,7 +2111,7 @@ Public Class SSCPEngineerInspectionTool
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -2124,7 +2124,7 @@ Public Class SSCPEngineerInspectionTool
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -2137,7 +2137,7 @@ Public Class SSCPEngineerInspectionTool
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -2168,7 +2168,7 @@ Public Class SSCPEngineerInspectionTool
     Private Sub btnSearchFacilities_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         Try
             SQL = "select " & _
-            "SUBSTR(" & connNameSpace & ".VW_SSCP_MT_FacilityAssignment.strAIRSNumber, 5) as AIRSNUMBER, " & _
+            "SUBSTR(" & DBNameSpace & ".VW_SSCP_MT_FacilityAssignment.strAIRSNumber, 5) as AIRSNUMBER, " & _
             "STRFACILITYNAME, STRCLASS, STRFACILITYCITY, " & _
             "STROPERATIONALSTATUS, STRCOUNTYNAME, STRCMSMEMBER, " & _
             "LASTFCE, LASTINSPECTION, " & _
@@ -2177,19 +2177,19 @@ Public Class SSCPEngineerInspectionTool
             "else (STRLASTNAME||', '||STRFIRSTNAME) " & _
             "end STAFFRESPONSIBLE, " & _
             "STRUNITDESC " & _
-            "from " & connNameSpace & ".VW_SSCP_MT_FACILITYASSIGNMENT, " & _
-            "" & connNameSpace & ".SSCPINSPECTIONSREQUIRED, " & connNameSpace & ".EPDUSERPROFILES, " & _
-            "" & connNameSpace & ".LookUpEPDUnits " & _
-            "where " & connNameSpace & ".SSCPINSPECTIONSREQUIRED.STRAIRSNUMBER = " & connNameSpace & ".VW_SSCP_MT_FACILITYASSIGNMENT.STRAIRSNUMBER " & _
-            "and " & connNameSpace & ".SSCPINSPECTIONSREQUIRED.NUMSSCPENGINEER =  " & connNameSpace & ".EPDUSERPROFILES.NUMUSERID (+) " & _
-            "and " & connNameSpace & ".EPDUSERPROFILES.NUMUNIT = " & connNameSpace & ".LOOKUPEPDUNITS.NUMUNITCODE (+) " & _
+            "from " & DBNameSpace & ".VW_SSCP_MT_FACILITYASSIGNMENT, " & _
+            "" & DBNameSpace & ".SSCPINSPECTIONSREQUIRED, " & DBNameSpace & ".EPDUSERPROFILES, " & _
+            "" & DBNameSpace & ".LookUpEPDUnits " & _
+            "where " & DBNameSpace & ".SSCPINSPECTIONSREQUIRED.STRAIRSNUMBER = " & DBNameSpace & ".VW_SSCP_MT_FACILITYASSIGNMENT.STRAIRSNUMBER " & _
+            "and " & DBNameSpace & ".SSCPINSPECTIONSREQUIRED.NUMSSCPENGINEER =  " & DBNameSpace & ".EPDUSERPROFILES.NUMUSERID (+) " & _
+            "and " & DBNameSpace & ".EPDUSERPROFILES.NUMUNIT = " & DBNameSpace & ".LOOKUPEPDUNITS.NUMUNITCODE (+) " & _
             "and INTYEAR = '2011' "
 
             ds = New DataSet
-            da = New OracleDataAdapter(SQL, conn)
+            da = New OracleDataAdapter(SQL, DBConn)
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             da.Fill(ds, "FacilitiesList")
             dgvFacilitesList.DataSource = ds

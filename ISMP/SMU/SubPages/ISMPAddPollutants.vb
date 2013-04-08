@@ -399,7 +399,7 @@ Public Class ISMPAddPollutants
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -440,7 +440,7 @@ Public Class ISMPAddPollutants
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -450,15 +450,15 @@ Public Class ISMPAddPollutants
         Try
 
             SQL = "Select strPollutantCode, strPOllutantDescription " & _
-                 "from " & connNameSpace & ".LookUPPollutants " & _
+                 "from " & DBNameSpace & ".LookUPPollutants " & _
                  "Order by strPollutantDescription"
 
             dsPollutant = New DataSet
 
-            daPollutant = New OracleDataAdapter(SQL, conn)
+            daPollutant = New OracleDataAdapter(SQL, DBConn)
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             daPollutant.Fill(dsPollutant, "Pollutant")
@@ -468,7 +468,7 @@ Public Class ISMPAddPollutants
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -515,7 +515,7 @@ Public Class ISMPAddPollutants
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -531,40 +531,40 @@ Public Class ISMPAddPollutants
                 If txtPollutantCode.Text = "" Then
                     GetNextPollutantCode()
                 End If
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
 
                 If chbDeletePollutant.Checked = True Then
-                    SQL = "Delete " & connNameSpace & ".LookUPPollutants " & _
+                    SQL = "Delete " & DBNameSpace & ".LookUPPollutants " & _
                     "where strPollutantCode = '" & txtPollutantCode.Text & "' "
                 Else
                     SQL = "Select strPollutantDescription " & _
-                    "from " & connNameSpace & ".LookUPPollutants " & _
+                    "from " & DBNameSpace & ".LookUPPollutants " & _
                     "where strPollutantcode = '" & txtPollutantCode.Text & "' "
 
-                    cmd = New OracleCommand(SQL, conn)
+                    cmd = New OracleCommand(SQL, DBConn)
 
                     dr = cmd.ExecuteReader
                     recExist = dr.Read
                     If recExist = True Then
-                        SQL = "Update " & connNameSpace & ".LookUPPollutants set " & _
+                        SQL = "Update " & DBNameSpace & ".LookUPPollutants set " & _
                         "strPollutantDescription = '" & txtPollutant.Text & "', " & _
                         "strPollutantCode = '" & txtPollutantCode.Text & "' " & _
                         "where strPollutantCode = '" & txtPollutantCode.Text & "' "
                     Else
-                        SQL = "Insert into " & connNameSpace & ".LookUPPollutants " & _
+                        SQL = "Insert into " & DBNameSpace & ".LookUPPollutants " & _
                         "(strPollutantCode, strPollutantDescription) " & _
                         "values " & _
                         "('" & txtPollutantCode.Text & "', '" & txtPollutant.Text & "') "
                     End If
                 End If
-                cmd = New OracleCommand(SQL, conn)
+                cmd = New OracleCommand(SQL, DBConn)
                 dr = cmd.ExecuteReader
 
                 LoadDataSet()
 
-                If conn.State = ConnectionState.Open Then
+                If DBConn.State = ConnectionState.Open Then
                     'conn.close()
                 End If
             Else
@@ -573,7 +573,7 @@ Public Class ISMPAddPollutants
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -589,7 +589,7 @@ Public Class ISMPAddPollutants
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -604,7 +604,7 @@ Public Class ISMPAddPollutants
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -618,8 +618,8 @@ Public Class ISMPAddPollutants
             PollutantCode = "00001"
             newPollutantCode = "00000"
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             Do Until newPollutantCode <> "00000"
@@ -637,9 +637,9 @@ Public Class ISMPAddPollutants
                 End Select
 
                 SQL = "Select strPollutantCode " & _
-                "from " & connNameSpace & ".LookUPPollutants " & _
+                "from " & DBNameSpace & ".LookUPPollutants " & _
                 "where strPollutantCode = '" & PollutantCode & "' "
-                cmd = New OracleCommand(SQL, conn)
+                cmd = New OracleCommand(SQL, DBConn)
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = True Then
@@ -649,7 +649,7 @@ Public Class ISMPAddPollutants
                 End If
             Loop
 
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -670,7 +670,7 @@ Public Class ISMPAddPollutants
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -692,7 +692,7 @@ Public Class ISMPAddPollutants
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -717,7 +717,7 @@ Public Class ISMPAddPollutants
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -731,7 +731,7 @@ Public Class ISMPAddPollutants
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -746,7 +746,7 @@ Public Class ISMPAddPollutants
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -759,7 +759,7 @@ Public Class ISMPAddPollutants
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -772,7 +772,7 @@ Public Class ISMPAddPollutants
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -785,7 +785,7 @@ Public Class ISMPAddPollutants
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -798,7 +798,7 @@ Public Class ISMPAddPollutants
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -811,7 +811,7 @@ Public Class ISMPAddPollutants
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -824,7 +824,7 @@ Public Class ISMPAddPollutants
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -840,7 +840,7 @@ Public Class ISMPAddPollutants
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try

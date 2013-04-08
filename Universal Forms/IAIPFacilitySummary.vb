@@ -505,13 +505,13 @@ Public Class IAIPFacilitySummary
                     End If
                 Case 10
                     If txtReferenceNumber.Text <> "" Then
-                        SQL = "Select " & connNameSpace & ".ISMPDocumentType.strDocumentType " & _
-                         "from " & connNameSpace & ".ISMPDocumentType, " & connNameSpace & ".ISMPReportInformation " & _
-                         "where " & connNameSpace & ".ISMPReportInformation.strDocumentType = " & connNameSpace & ".ISMPDocumentType.strKey and " & _
+                        SQL = "Select " & DBNameSpace & ".ISMPDocumentType.strDocumentType " & _
+                         "from " & DBNameSpace & ".ISMPDocumentType, " & DBNameSpace & ".ISMPReportInformation " & _
+                         "where " & DBNameSpace & ".ISMPReportInformation.strDocumentType = " & DBNameSpace & ".ISMPDocumentType.strKey and " & _
                          "strReferenceNumber = '" & txtReferenceNumber.Text & "'"
-                        Dim cmd As New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        Dim cmd As New OracleCommand(SQL, DBConn)
+                        If DBConn.State = ConnectionState.Closed Then
+                            DBConn.Open()
                         End If
                         Dim dr As OracleDataReader = cmd.ExecuteReader
                         Dim recExist As Boolean = dr.Read
@@ -790,13 +790,13 @@ Public Class IAIPFacilitySummary
         Try
 
             If txtReferenceNumber.Text <> "" Then
-                SQL = "Select " & connNameSpace & ".ISMPDocumentType.strDocumentType " & _
-                 "from " & connNameSpace & ".ISMPDocumentType, " & connNameSpace & ".ISMPReportInformation " & _
-                 "where " & connNameSpace & ".ISMPReportInformation.strDocumentType = " & connNameSpace & ".ISMPDocumentType.strKey and " & _
+                SQL = "Select " & DBNameSpace & ".ISMPDocumentType.strDocumentType " & _
+                 "from " & DBNameSpace & ".ISMPDocumentType, " & DBNameSpace & ".ISMPReportInformation " & _
+                 "where " & DBNameSpace & ".ISMPReportInformation.strDocumentType = " & DBNameSpace & ".ISMPDocumentType.strKey and " & _
                  "strReferenceNumber = '" & txtReferenceNumber.Text & "'"
-                Dim cmd As New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                Dim cmd As New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 Dim dr As OracleDataReader = cmd.ExecuteReader
                 Dim recExist As Boolean = dr.Read
@@ -1175,8 +1175,8 @@ Public Class IAIPFacilitySummary
             Dim drDSRow As DataRow
 
             SQL = "select " & _
-            "" & connNameSpace & ".VW_APBFacilityLocation.strAIRSnumber, " & _
-            "" & connNameSpace & ".VW_APBFacilityLocation.strFacilityName, " & _
+            "" & DBNameSpace & ".VW_APBFacilityLocation.strAIRSnumber, " & _
+            "" & DBNameSpace & ".VW_APBFacilityLocation.strFacilityName, " & _
             "strFacilityStreet1, strFacilityStreet2, " & _
             "strFacilityCity, strFacilityState, " & _
             "strFacilityZipCode, " & _
@@ -1190,13 +1190,13 @@ Public Class IAIPFacilitySummary
             "strStateProgramCodes, strNAICSCode, " & _
             "STRRMPID " & _
             "from " & _
-            "" & connNameSpace & ".VW_APBFacilityLocation, " & _
-            "" & connNameSpace & ".VW_APBFacilityHeader " & _
-            "where " & connNameSpace & ".VW_APBFacilityLocation.strAIRSNumber = " & connNameSpace & ".VW_APBFacilityHeader.strAIRSNumber " & _
-            "and " & connNameSpace & ".VW_APBFacilityLocation.strAIRSnumber = '0413" & mtbAIRSNumber.Text & "' "
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            "" & DBNameSpace & ".VW_APBFacilityLocation, " & _
+            "" & DBNameSpace & ".VW_APBFacilityHeader " & _
+            "where " & DBNameSpace & ".VW_APBFacilityLocation.strAIRSNumber = " & DBNameSpace & ".VW_APBFacilityHeader.strAIRSNumber " & _
+            "and " & DBNameSpace & ".VW_APBFacilityLocation.strAIRSnumber = '0413" & mtbAIRSNumber.Text & "' "
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             recExist = dr.Read
@@ -1449,9 +1449,9 @@ Public Class IAIPFacilitySummary
             "from AIRBranch.APBAirProgramPollutants  " & _
             "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -1535,16 +1535,16 @@ Public Class IAIPFacilitySummary
             dsFacilityWideData = New DataSet
 
             SQL = "Select " & _
-            "" & connNameSpace & ".VW_APBFacilityFees.*, " & _
+            "" & DBNameSpace & ".VW_APBFacilityFees.*, " & _
             "(numTotalFee - TotalPaid) as Balance " & _
-            "from " & connNameSpace & ".VW_APBFacilityFees " & _
+            "from " & DBNameSpace & ".VW_APBFacilityFees " & _
             "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "'  " & _
             "order by intYear DESC "
 
-            daFacilityWideData = New OracleDataAdapter(SQL, conn)
+            daFacilityWideData = New OracleDataAdapter(SQL, DBConn)
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daFacilityWideData.Fill(dsFacilityWideData, "Fees")
 
@@ -1726,11 +1726,11 @@ Public Class IAIPFacilitySummary
             End If
 
             SQL = "select strDistrictResponsible " & _
-            "from " & connNameSpace & ".SSCPDistrictResponsible " & _
+            "from " & DBNameSpace & ".SSCPDistrictResponsible " & _
             "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' "
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             recExist = dr.Read
@@ -1898,24 +1898,24 @@ Public Class IAIPFacilitySummary
             dsFacilityWideData = New DataSet
 
             SQL = "select " & _
-           "distinct(" & connNameSpace & ".OLAPUserAccess.numUserID), " & _
+           "distinct(" & DBNameSpace & ".OLAPUserAccess.numUserID), " & _
            "strUserType, " & _
            "(strSalutation||' '||strFirstName||' '||strLastName||', '||strTitle) as GECOContact, " & _
-           "" & connNameSpace & ".OLAPUserLogIN.strUserEmail, " & _
+           "" & DBNameSpace & ".OLAPUserLogIN.strUserEmail, " & _
            "strPhoneNumber, strFaxNumber, " & _
            "strCompanyName, strAddress, " & _
            "strCity, strState,  " & _
            "strZip " & _
-           "from " & connNameSpace & ".OLAPUserAccess, " & connNameSpace & ".OLAPUserProfile,  " & _
-           "" & connNameSpace & ".OLAPUserLogIN  " & _
-           "where " & connNameSpace & ".OLAPUserAccess.numUserID = " & connNameSpace & ".OLAPUserProfile.NumUserID  " & _
-           "and " & connNameSpace & ".OLAPUserAccess.numUserID = " & connNameSpace & ".OLAPUserLogIN.numUserID (+) " & _
+           "from " & DBNameSpace & ".OLAPUserAccess, " & DBNameSpace & ".OLAPUserProfile,  " & _
+           "" & DBNameSpace & ".OLAPUserLogIN  " & _
+           "where " & DBNameSpace & ".OLAPUserAccess.numUserID = " & DBNameSpace & ".OLAPUserProfile.NumUserID  " & _
+           "and " & DBNameSpace & ".OLAPUserAccess.numUserID = " & DBNameSpace & ".OLAPUserLogIN.numUserID (+) " & _
            "and strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' "
 
-            daFacilityWideData = New OracleDataAdapter(SQL, conn)
+            daFacilityWideData = New OracleDataAdapter(SQL, DBConn)
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daFacilityWideData.Fill(dsFacilityWideData, "GECOContacts")
 
@@ -1927,15 +1927,15 @@ Public Class IAIPFacilitySummary
             "strContactAddress1, strContactAddress2, " & _
             "strContactCity, strContactState, " & _
             "strContactZipCode, strContactDescription " & _
-            "from " & connNameSpace & ".APBContactInformation " & _
+            "from " & DBNameSpace & ".APBContactInformation " & _
             "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' " & _
             "and strKey like '1%' " & _
             "order by strContactKey "
 
-            daFacilityWideData = New OracleDataAdapter(SQL, conn)
+            daFacilityWideData = New OracleDataAdapter(SQL, DBConn)
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daFacilityWideData.Fill(dsFacilityWideData, "ISMPContacts")
 
@@ -1947,15 +1947,15 @@ Public Class IAIPFacilitySummary
             "strContactAddress1, strContactAddress2, " & _
             "strContactCity, strContactState, " & _
             "strContactZipCode, strContactDescription " & _
-            "from " & connNameSpace & ".APBContactInformation " & _
+            "from " & DBNameSpace & ".APBContactInformation " & _
             "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' " & _
             "and strKey like '2%' " & _
             "order by strContactKey "
 
-            daFacilityWideData = New OracleDataAdapter(SQL, conn)
+            daFacilityWideData = New OracleDataAdapter(SQL, DBConn)
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daFacilityWideData.Fill(dsFacilityWideData, "SSCPContacts")
 
@@ -1967,15 +1967,15 @@ Public Class IAIPFacilitySummary
             "strContactAddress1, strContactAddress2, " & _
             "strContactCity, strContactState, " & _
             "strContactZipCode, strContactDescription " & _
-            "from " & connNameSpace & ".APBContactInformation " & _
+            "from " & DBNameSpace & ".APBContactInformation " & _
             "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' " & _
             "and strKey like '3%' " & _
             "order by strContactKey "
 
-            daFacilityWideData = New OracleDataAdapter(SQL, conn)
+            daFacilityWideData = New OracleDataAdapter(SQL, DBConn)
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daFacilityWideData.Fill(dsFacilityWideData, "SSPPContacts")
 
@@ -1987,15 +1987,15 @@ Public Class IAIPFacilitySummary
             "strContactAddress1, strContactAddress2, " & _
             "strContactCity, strContactState, " & _
             "strContactZipCode, strContactDescription " & _
-            "from " & connNameSpace & ".APBContactInformation " & _
+            "from " & DBNameSpace & ".APBContactInformation " & _
             "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' " & _
             "and strKey like '4%' " & _
             "order by strContactKey "
 
-            daFacilityWideData = New OracleDataAdapter(SQL, conn)
+            daFacilityWideData = New OracleDataAdapter(SQL, DBConn)
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daFacilityWideData.Fill(dsFacilityWideData, "WebContacts")
 
@@ -2014,64 +2014,64 @@ Public Class IAIPFacilitySummary
 "NUMSSCPENGINEER, " & _
 "(STRLASTNAME||', '||STRFIRSTNAME) as SSCPENGINEER, " & _
 "strUnitDesc " & _
-"from " & connNameSpace & ".SSCPINSPECTIONSREQUIRED, " & _
-"" & connNameSpace & ".EPDUSERPROFILES, " & connNameSpace & ".LookUpEPDUnits,  " & _
-"(select max(intyear) as MaxYear, " & connNameSpace & ".SSCPINSPECTIONSREQUIRED.STRAIRSNUMBER  " & _
-"from " & connNameSpace & ".SSCPINSPECTIONSREQUIRED " & _
-"where " & connNameSpace & ".SSCPINSPECTIONSREQUIRED.STRAIRSNUMBER = '0413" & mtbAIRSNumber.Text & "' " & _
-"group by " & connNameSpace & ".SSCPINSPECTIONSREQUIRED.STRAIRSNUMBER ) MaxResults " & _
-"where " & connNameSpace & ".SSCPINSPECTIONSREQUIRED.NUMSSCPENGINEER = " & connNameSpace & ".EPDUSERPROFILES.NUMUSERID " & _
-"and " & connNameSpace & ".SSCPINSPECTIONSREQUIRED.intyear = maxResults.maxYear  " & _
-"and " & connNameSpace & ".EPDUSERPROFILES.NUMUNIT = " & connNameSpace & ".LOOKUPEPDUNITS.NUMUNITCODE (+) " & _
-"and " & connNameSpace & ".SSCPINSPECTIONSREQUIRED.strAIRSNumber = '0413" & mtbAIRSNumber.Text & "'  " & _
+"from " & DBNameSpace & ".SSCPINSPECTIONSREQUIRED, " & _
+"" & DBNameSpace & ".EPDUSERPROFILES, " & DBNameSpace & ".LookUpEPDUnits,  " & _
+"(select max(intyear) as MaxYear, " & DBNameSpace & ".SSCPINSPECTIONSREQUIRED.STRAIRSNUMBER  " & _
+"from " & DBNameSpace & ".SSCPINSPECTIONSREQUIRED " & _
+"where " & DBNameSpace & ".SSCPINSPECTIONSREQUIRED.STRAIRSNUMBER = '0413" & mtbAIRSNumber.Text & "' " & _
+"group by " & DBNameSpace & ".SSCPINSPECTIONSREQUIRED.STRAIRSNUMBER ) MaxResults " & _
+"where " & DBNameSpace & ".SSCPINSPECTIONSREQUIRED.NUMSSCPENGINEER = " & DBNameSpace & ".EPDUSERPROFILES.NUMUSERID " & _
+"and " & DBNameSpace & ".SSCPINSPECTIONSREQUIRED.intyear = maxResults.maxYear  " & _
+"and " & DBNameSpace & ".EPDUSERPROFILES.NUMUNIT = " & DBNameSpace & ".LOOKUPEPDUNITS.NUMUNITCODE (+) " & _
+"and " & DBNameSpace & ".SSCPINSPECTIONSREQUIRED.strAIRSNumber = '0413" & mtbAIRSNumber.Text & "'  " & _
 "group by NUMSSCPENGINEER, (STRLASTNAME||', '||STRFIRSTNAME), STRUNITDESC)  "
 
 
-            daFacilityWideData = New OracleDataAdapter(SQL, conn)
+            daFacilityWideData = New OracleDataAdapter(SQL, DBConn)
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daFacilityWideData.Fill(dsFacilityWideData, "ComplianceContact")
 
             SQL = "Select " & _
             "Distinct((strLastName||', '||strFirstName)) as ISMPEngineer, strUnitDesc   " & _
-            "from " & connNameSpace & ".EPDUserProfiles, " & connNameSpace & ".ISMPReportInformation,   " & _
-            "" & connNameSpace & ".ISMPMaster, " & connNameSpace & ".LookUpEPDUnits    " & _
-            "where " & connNameSpace & ".EPDUserProfiles.numUnit = " & connNameSpace & ".LookUpEPDunits.numunitCode (+) " & _
+            "from " & DBNameSpace & ".EPDUserProfiles, " & DBNameSpace & ".ISMPReportInformation,   " & _
+            "" & DBNameSpace & ".ISMPMaster, " & DBNameSpace & ".LookUpEPDUnits    " & _
+            "where " & DBNameSpace & ".EPDUserProfiles.numUnit = " & DBNameSpace & ".LookUpEPDunits.numunitCode (+) " & _
             "and numUserID = strReviewingEngineer   " & _
-            "AND " & connNameSpace & ".ISMPMaster.strReferenceNumber = " & connNameSpace & ".ISMPReportInformation.strReferenceNumber   " & _
+            "AND " & DBNameSpace & ".ISMPMaster.strReferenceNumber = " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber   " & _
             "and strClosed = 'True'  " & _
             "and datCompleteDate = (Select Distinct(Max(datCompleteDate)) as CompleteDate  " & _
-            "from " & connNameSpace & ".ISMPReportInformation, " & connNameSpace & ".ISMPMaster  " & _
-            "where " & connNameSpace & ".ISMPReportInformation.strReferenceNumber = " & connNameSpace & ".ISMPMaster.strReferenceNumber   " & _
-            "and " & connNameSpace & ".ISMPMaster.strAIRSNumber = '0413" & mtbAIRSNumber.Text & "'  " & _
+            "from " & DBNameSpace & ".ISMPReportInformation, " & DBNameSpace & ".ISMPMaster  " & _
+            "where " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber = " & DBNameSpace & ".ISMPMaster.strReferenceNumber   " & _
+            "and " & DBNameSpace & ".ISMPMaster.strAIRSNumber = '0413" & mtbAIRSNumber.Text & "'  " & _
             "and strClosed = 'True')  " & _
-            "and " & connNameSpace & ".ISMPMaster.strAIRSNumber = '0413" & mtbAIRSNumber.Text & "'  "
+            "and " & DBNameSpace & ".ISMPMaster.strAIRSNumber = '0413" & mtbAIRSNumber.Text & "'  "
 
-            daFacilityWideData = New OracleDataAdapter(SQL, conn)
+            daFacilityWideData = New OracleDataAdapter(SQL, DBConn)
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daFacilityWideData.Fill(dsFacilityWideData, "MonitoringContact")
 
             SQL = "select  " & _
             "Distinct((strLastName||', '||strFirstName)) as SSPPStaffResponsible, strUnitDesc   " & _
-            "from " & connNameSpace & ".EPDUserProfiles, " & connNameSpace & ".SSPPApplicationMaster, " & _
-            "" & connNameSpace & ".LookUpEPDUnits " & _
-            "where " & connNameSpace & ".EPDUserProfiles.numUnit = " & connNameSpace & ".LookUpEPDUnits.numUnitCode (+) " & _
+            "from " & DBNameSpace & ".EPDUserProfiles, " & DBNameSpace & ".SSPPApplicationMaster, " & _
+            "" & DBNameSpace & ".LookUpEPDUnits " & _
+            "where " & DBNameSpace & ".EPDUserProfiles.numUnit = " & DBNameSpace & ".LookUpEPDUnits.numUnitCode (+) " & _
             "and numUserID = strStaffResponsible  " & _
-            "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber =  " & _
+            "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber =  " & _
             "(select distinct(max(to_number(strApplicationNumber))) as GreatestApplication  " & _
-            "from " & connNameSpace & ".SSPPApplicationMaster   " & _
-            "where " & connNameSpace & ".SSPPApplicationMaster.strAIRSNumber = '0413" & mtbAIRSNumber.Text & "')  " & _
-            "and " & connNameSpace & ".SSPPApplicationMaster.strAIRSnumber = '0413" & mtbAIRSNumber.Text & "'  "
+            "from " & DBNameSpace & ".SSPPApplicationMaster   " & _
+            "where " & DBNameSpace & ".SSPPApplicationMaster.strAIRSNumber = '0413" & mtbAIRSNumber.Text & "')  " & _
+            "and " & DBNameSpace & ".SSPPApplicationMaster.strAIRSnumber = '0413" & mtbAIRSNumber.Text & "'  "
 
-            daFacilityWideData = New OracleDataAdapter(SQL, conn)
+            daFacilityWideData = New OracleDataAdapter(SQL, DBConn)
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daFacilityWideData.Fill(dsFacilityWideData, "PermittingContact")
 
@@ -2371,7 +2371,7 @@ Public Class IAIPFacilitySummary
             cboEIYear.Items.Clear()
 
             SQL = "select distinct(strInventoryYear)  as EIYear " & _
-            "from " & connNameSpace & ".EISI " & _
+            "from " & DBNameSpace & ".EISI " & _
             "where strStateFacilityIdentifier = '" & mtbAIRSNumber.Text & "' " & _
             "order by EIYear desc "
 
@@ -2388,9 +2388,9 @@ Public Class IAIPFacilitySummary
             "and strStateFacilityIdentifier = '" & mtbAIRSNumber.Text & "'  ) " & _
             "order by EIYear desc "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -2403,11 +2403,11 @@ Public Class IAIPFacilitySummary
                 chkNotNonAttain.Checked = False
                 chkLessThan25.Checked = False
 
-                SQL = "Select * from " & connNameSpace & ".eiSI where strStateFacilityIdentifier = '" & mtbAIRSNumber.Text & "' " ' & _ 
+                SQL = "Select * from " & DBNameSpace & ".eiSI where strStateFacilityIdentifier = '" & mtbAIRSNumber.Text & "' " ' & _ 
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -2456,107 +2456,107 @@ Public Class IAIPFacilitySummary
                     "when PMFILTable.TotalEmissions is Null then 0  " & _
                     "else PMFILTable.TotalEmissions  " & _
                     "end PMFIL " & _
-                    "from " & connNameSpace & ".EIEM,  " & _
+                    "from " & DBNameSpace & ".EIEM,  " & _
                     "(Select  " & _
-                    "" & connNameSpace & ".EIEM.strPollutantCode as PollutantCode,   " & _
-                    "sum(" & connNameSpace & ".EIEM.dblEmissionNumericValue) as TotalEmissions,  " & _
-                    "" & connNameSpace & ".EIEM.strInventoryYear,  " & _
+                    "" & DBNameSpace & ".EIEM.strPollutantCode as PollutantCode,   " & _
+                    "sum(" & DBNameSpace & ".EIEM.dblEmissionNumericValue) as TotalEmissions,  " & _
+                    "" & DBNameSpace & ".EIEM.strInventoryYear,  " & _
                     "strStateFacilityIdentifier  " & _
-                    "from " & connNameSpace & ".EIEM   " & _
-                    "where " & connNameSpace & ".EIEM.strStateFacilityIdentifier = '" & mtbAIRSNumber.Text & "'  " & _
+                    "from " & DBNameSpace & ".EIEM   " & _
+                    "where " & DBNameSpace & ".EIEM.strStateFacilityIdentifier = '" & mtbAIRSNumber.Text & "'  " & _
                     "and strPollutantCode = 'CO'  " & _
-                    "group by " & connNameSpace & ".EIEM.strPollutantCode,  " & _
-                    "" & connNameSpace & ".EIEM.strInventoryYear, strStateFacilityIdentifier) COTable,  " & _
+                    "group by " & DBNameSpace & ".EIEM.strPollutantCode,  " & _
+                    "" & DBNameSpace & ".EIEM.strInventoryYear, strStateFacilityIdentifier) COTable,  " & _
                     "(Select  " & _
-                    "" & connNameSpace & ".EIEM.strPollutantCode as PollutantCode,   " & _
-                    "sum(" & connNameSpace & ".EIEM.dblEmissionNumericValue) as TotalEmissions,  " & _
-                    "" & connNameSpace & ".EIEM.strInventoryYear,  " & _
+                    "" & DBNameSpace & ".EIEM.strPollutantCode as PollutantCode,   " & _
+                    "sum(" & DBNameSpace & ".EIEM.dblEmissionNumericValue) as TotalEmissions,  " & _
+                    "" & DBNameSpace & ".EIEM.strInventoryYear,  " & _
                     "strStateFacilityIdentifier  " & _
-                    "from " & connNameSpace & ".EIEM   " & _
-                    "where " & connNameSpace & ".EIEM.strStateFacilityIdentifier = '" & mtbAIRSNumber.Text & "'  " & _
+                    "from " & DBNameSpace & ".EIEM   " & _
+                    "where " & DBNameSpace & ".EIEM.strStateFacilityIdentifier = '" & mtbAIRSNumber.Text & "'  " & _
                     "and strPollutantCode = '7439921'  " & _
-                    "group by " & connNameSpace & ".EIEM.strPollutantCode,  " & _
-                    "" & connNameSpace & ".EIEM.strInventoryYear, strStateFacilityIdentifier) LeadTable,  " & _
+                    "group by " & DBNameSpace & ".EIEM.strPollutantCode,  " & _
+                    "" & DBNameSpace & ".EIEM.strInventoryYear, strStateFacilityIdentifier) LeadTable,  " & _
                     "(Select  " & _
-                    "" & connNameSpace & ".EIEM.strPollutantCode as PollutantCode,   " & _
-                    "sum(" & connNameSpace & ".EIEM.dblEmissionNumericValue) as TotalEmissions,  " & _
-                    "" & connNameSpace & ".EIEM.strInventoryYear,  " & _
+                    "" & DBNameSpace & ".EIEM.strPollutantCode as PollutantCode,   " & _
+                    "sum(" & DBNameSpace & ".EIEM.dblEmissionNumericValue) as TotalEmissions,  " & _
+                    "" & DBNameSpace & ".EIEM.strInventoryYear,  " & _
                     "strStateFacilityIdentifier  " & _
-                    "from " & connNameSpace & ".EIEM   " & _
-                    "where " & connNameSpace & ".EIEM.strStateFacilityIdentifier = '" & mtbAIRSNumber.Text & "'  " & _
+                    "from " & DBNameSpace & ".EIEM   " & _
+                    "where " & DBNameSpace & ".EIEM.strStateFacilityIdentifier = '" & mtbAIRSNumber.Text & "'  " & _
                     "and strPollutantCode = 'NH3'  " & _
-                    "group by " & connNameSpace & ".EIEM.strPollutantCode,  " & _
-                    "" & connNameSpace & ".EIEM.strInventoryYear, strStateFacilityIdentifier) NH3Table,  " & _
+                    "group by " & DBNameSpace & ".EIEM.strPollutantCode,  " & _
+                    "" & DBNameSpace & ".EIEM.strInventoryYear, strStateFacilityIdentifier) NH3Table,  " & _
                     "(Select  " & _
-                    "" & connNameSpace & ".EIEM.strPollutantCode as PollutantCode,   " & _
-                    "sum(" & connNameSpace & ".EIEM.dblEmissionNumericValue) as TotalEmissions,  " & _
-                    "" & connNameSpace & ".EIEM.strInventoryYear,  " & _
+                    "" & DBNameSpace & ".EIEM.strPollutantCode as PollutantCode,   " & _
+                    "sum(" & DBNameSpace & ".EIEM.dblEmissionNumericValue) as TotalEmissions,  " & _
+                    "" & DBNameSpace & ".EIEM.strInventoryYear,  " & _
                     "strStateFacilityIdentifier  " & _
-                    "from " & connNameSpace & ".EIEM   " & _
-                    "where " & connNameSpace & ".EIEM.strStateFacilityIdentifier = '" & mtbAIRSNumber.Text & "'  " & _
+                    "from " & DBNameSpace & ".EIEM   " & _
+                    "where " & DBNameSpace & ".EIEM.strStateFacilityIdentifier = '" & mtbAIRSNumber.Text & "'  " & _
                     "and strPollutantCode = 'NOX'  " & _
-                    "group by " & connNameSpace & ".EIEM.strPollutantCode,  " & _
-                    "" & connNameSpace & ".EIEM.strInventoryYear, strStateFacilityIdentifier) NOXTable,  " & _
+                    "group by " & DBNameSpace & ".EIEM.strPollutantCode,  " & _
+                    "" & DBNameSpace & ".EIEM.strInventoryYear, strStateFacilityIdentifier) NOXTable,  " & _
                     "(Select  " & _
-                    "" & connNameSpace & ".EIEM.strPollutantCode as PollutantCode,   " & _
-                    "sum(" & connNameSpace & ".EIEM.dblEmissionNumericValue) as TotalEmissions,  " & _
-                    "" & connNameSpace & ".EIEM.strInventoryYear,  " & _
+                    "" & DBNameSpace & ".EIEM.strPollutantCode as PollutantCode,   " & _
+                    "sum(" & DBNameSpace & ".EIEM.dblEmissionNumericValue) as TotalEmissions,  " & _
+                    "" & DBNameSpace & ".EIEM.strInventoryYear,  " & _
                     "strStateFacilityIdentifier  " & _
-                    "from " & connNameSpace & ".EIEM   " & _
-                    "where " & connNameSpace & ".EIEM.strStateFacilityIdentifier = '" & mtbAIRSNumber.Text & "'  " & _
+                    "from " & DBNameSpace & ".EIEM   " & _
+                    "where " & DBNameSpace & ".EIEM.strStateFacilityIdentifier = '" & mtbAIRSNumber.Text & "'  " & _
                     "and strPollutantCode = 'PM-PRI'  " & _
-                    "group by " & connNameSpace & ".EIEM.strPollutantCode,  " & _
-                    "" & connNameSpace & ".EIEM.strInventoryYear, strStateFacilityIdentifier) PMTable,  " & _
+                    "group by " & DBNameSpace & ".EIEM.strPollutantCode,  " & _
+                    "" & DBNameSpace & ".EIEM.strInventoryYear, strStateFacilityIdentifier) PMTable,  " & _
                     "(Select  " & _
-                    "" & connNameSpace & ".EIEM.strPollutantCode as PollutantCode,   " & _
-                    "sum(" & connNameSpace & ".EIEM.dblEmissionNumericValue) as TotalEmissions,  " & _
-                    "" & connNameSpace & ".EIEM.strInventoryYear,  " & _
+                    "" & DBNameSpace & ".EIEM.strPollutantCode as PollutantCode,   " & _
+                    "sum(" & DBNameSpace & ".EIEM.dblEmissionNumericValue) as TotalEmissions,  " & _
+                    "" & DBNameSpace & ".EIEM.strInventoryYear,  " & _
                     "strStateFacilityIdentifier  " & _
-                    "from " & connNameSpace & ".EIEM   " & _
-                    "where " & connNameSpace & ".EIEM.strStateFacilityIdentifier = '" & mtbAIRSNumber.Text & "'  " & _
+                    "from " & DBNameSpace & ".EIEM   " & _
+                    "where " & DBNameSpace & ".EIEM.strStateFacilityIdentifier = '" & mtbAIRSNumber.Text & "'  " & _
                     "and strPollutantCode = 'PM10-PMI'  " & _
-                    "group by " & connNameSpace & ".EIEM.strPollutantCode,  " & _
-                    "" & connNameSpace & ".EIEM.strInventoryYear, strStateFacilityIdentifier) PM10Table,  " & _
+                    "group by " & DBNameSpace & ".EIEM.strPollutantCode,  " & _
+                    "" & DBNameSpace & ".EIEM.strInventoryYear, strStateFacilityIdentifier) PM10Table,  " & _
                     "(Select  " & _
-                    "" & connNameSpace & ".EIEM.strPollutantCode as PollutantCode,   " & _
-                    "sum(" & connNameSpace & ".EIEM.dblEmissionNumericValue) as TotalEmissions,  " & _
-                    "" & connNameSpace & ".EIEM.strInventoryYear,  " & _
+                    "" & DBNameSpace & ".EIEM.strPollutantCode as PollutantCode,   " & _
+                    "sum(" & DBNameSpace & ".EIEM.dblEmissionNumericValue) as TotalEmissions,  " & _
+                    "" & DBNameSpace & ".EIEM.strInventoryYear,  " & _
                     "strStateFacilityIdentifier  " & _
-                    "from " & connNameSpace & ".EIEM   " & _
-                    "where " & connNameSpace & ".EIEM.strStateFacilityIdentifier = '" & mtbAIRSNumber.Text & "'  " & _
+                    "from " & DBNameSpace & ".EIEM   " & _
+                    "where " & DBNameSpace & ".EIEM.strStateFacilityIdentifier = '" & mtbAIRSNumber.Text & "'  " & _
                     "and strPollutantCode = 'PM25-PMI'  " & _
-                    "group by " & connNameSpace & ".EIEM.strPollutantCode,  " & _
-                    "" & connNameSpace & ".EIEM.strInventoryYear, strStateFacilityIdentifier) PM25Table,  " & _
+                    "group by " & DBNameSpace & ".EIEM.strPollutantCode,  " & _
+                    "" & DBNameSpace & ".EIEM.strInventoryYear, strStateFacilityIdentifier) PM25Table,  " & _
                     "(Select  " & _
-                    "" & connNameSpace & ".EIEM.strPollutantCode as PollutantCode,   " & _
-                    "sum(" & connNameSpace & ".EIEM.dblEmissionNumericValue) as TotalEmissions,  " & _
-                    "" & connNameSpace & ".EIEM.strInventoryYear,  " & _
+                    "" & DBNameSpace & ".EIEM.strPollutantCode as PollutantCode,   " & _
+                    "sum(" & DBNameSpace & ".EIEM.dblEmissionNumericValue) as TotalEmissions,  " & _
+                    "" & DBNameSpace & ".EIEM.strInventoryYear,  " & _
                     "strStateFacilityIdentifier  " & _
-                    "from " & connNameSpace & ".EIEM   " & _
-                    "where " & connNameSpace & ".EIEM.strStateFacilityIdentifier = '" & mtbAIRSNumber.Text & "'  " & _
+                    "from " & DBNameSpace & ".EIEM   " & _
+                    "where " & DBNameSpace & ".EIEM.strStateFacilityIdentifier = '" & mtbAIRSNumber.Text & "'  " & _
                     "and strPollutantCode = 'SO2'  " & _
-                    "group by " & connNameSpace & ".EIEM.strPollutantCode,  " & _
-                    "" & connNameSpace & ".EIEM.strInventoryYear, strStateFacilityIdentifier) SO2Table,  " & _
+                    "group by " & DBNameSpace & ".EIEM.strPollutantCode,  " & _
+                    "" & DBNameSpace & ".EIEM.strInventoryYear, strStateFacilityIdentifier) SO2Table,  " & _
                     "(Select  " & _
-                    "" & connNameSpace & ".EIEM.strPollutantCode as PollutantCode,   " & _
-                    "sum(" & connNameSpace & ".EIEM.dblEmissionNumericValue) as TotalEmissions,  " & _
-                    "" & connNameSpace & ".EIEM.strInventoryYear,  " & _
+                    "" & DBNameSpace & ".EIEM.strPollutantCode as PollutantCode,   " & _
+                    "sum(" & DBNameSpace & ".EIEM.dblEmissionNumericValue) as TotalEmissions,  " & _
+                    "" & DBNameSpace & ".EIEM.strInventoryYear,  " & _
                     "strStateFacilityIdentifier  " & _
-                    "from " & connNameSpace & ".EIEM   " & _
-                    "where " & connNameSpace & ".EIEM.strStateFacilityIdentifier = '" & mtbAIRSNumber.Text & "'  " & _
+                    "from " & DBNameSpace & ".EIEM   " & _
+                    "where " & DBNameSpace & ".EIEM.strStateFacilityIdentifier = '" & mtbAIRSNumber.Text & "'  " & _
                     "and strPollutantCode = 'VOC'  " & _
-                    "group by " & connNameSpace & ".EIEM.strPollutantCode,  " & _
-                    "" & connNameSpace & ".EIEM.strInventoryYear, strStateFacilityIdentifier) VOCTable,  " & _
+                    "group by " & DBNameSpace & ".EIEM.strPollutantCode,  " & _
+                    "" & DBNameSpace & ".EIEM.strInventoryYear, strStateFacilityIdentifier) VOCTable,  " & _
                     "(Select  " & _
-                    "" & connNameSpace & ".EIEM.strPollutantCode as PollutantCode,   " & _
-                    "sum(" & connNameSpace & ".EIEM.dblEmissionNumericValue) as TotalEmissions,  " & _
-                    "" & connNameSpace & ".EIEM.strInventoryYear,  " & _
+                    "" & DBNameSpace & ".EIEM.strPollutantCode as PollutantCode,   " & _
+                    "sum(" & DBNameSpace & ".EIEM.dblEmissionNumericValue) as TotalEmissions,  " & _
+                    "" & DBNameSpace & ".EIEM.strInventoryYear,  " & _
                     "strStateFacilityIdentifier  " & _
-                    "from " & connNameSpace & ".EIEM   " & _
-                    "where " & connNameSpace & ".EIEM.strStateFacilityIdentifier = '" & mtbAIRSNumber.Text & "'  " & _
+                    "from " & DBNameSpace & ".EIEM   " & _
+                    "where " & DBNameSpace & ".EIEM.strStateFacilityIdentifier = '" & mtbAIRSNumber.Text & "'  " & _
                     "and strPollutantCode = 'PM-FIL'  " & _
-                    "group by " & connNameSpace & ".EIEM.strPollutantCode,  " & _
-                    "" & connNameSpace & ".EIEM.strInventoryYear, strStateFacilityIdentifier) PMFILTable " & _
+                    "group by " & DBNameSpace & ".EIEM.strPollutantCode,  " & _
+                    "" & DBNameSpace & ".EIEM.strInventoryYear, strStateFacilityIdentifier) PMFILTable " & _
                     "where EIEM.strInventoryYear = COTable.strInventoryYear (+)   " & _
                     "and EIEM.strInventoryYear = LeadTable.strInventoryYear (+)   " & _
                     "and EIEM.strInventoryYear = NH3Table.strInventoryYear  (+)  " & _
@@ -2571,9 +2571,9 @@ Public Class IAIPFacilitySummary
                     "order by EIEM.strInventoryYear DESC "
 
                     ds = New DataSet
-                    da = New OracleDataAdapter(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    da = New OracleDataAdapter(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     da.Fill(ds, "EM")
                     dgvEIData.DataSource = ds
@@ -2630,20 +2630,20 @@ Public Class IAIPFacilitySummary
                 End If
 
                 SQL = "select * " & _
-                "from " & connNameSpace & ".ESSchema " & _
+                "from " & DBNameSpace & ".ESSchema " & _
                 "where strAirsNumber = '0413" & mtbAIRSNumber.Text & "' " & _
                 "and intESYear = '" & inventoryYear & "' "
 
-                If conn.State = ConnectionState.Open Then
+                If DBConn.State = ConnectionState.Open Then
                 Else
-                    conn.Open()
+                    DBConn.Open()
                 End If
 
                 Dim county As String = Mid(mtbAIRSNumber.Text, 1, 3)
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -2654,13 +2654,13 @@ Public Class IAIPFacilitySummary
                                                 Or county = "097" Or county = "113" Or county = "117" Or county = "121" _
                                                 Or county = "135" Or county = "151" Or county = "223" Or county = "247" Then
                         SQL = "Select dblVOCEmission, dblNOXEmission, strOptOut " & _
-                        "from " & connNameSpace & ".ESSchema " & _
+                        "from " & DBNameSpace & ".ESSchema " & _
                         "where intESYear = '" & inventoryYear & "' " & _
                         "and strAirsNumber = '0413" & mtbAIRSNumber.Text & "' "
 
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, DBConn)
+                        If DBConn.State = ConnectionState.Closed Then
+                            DBConn.Open()
                         End If
                         dr = cmd.ExecuteReader
                         While dr.Read
@@ -2688,9 +2688,9 @@ Public Class IAIPFacilitySummary
             "and inventoryyear > 2009 "
 
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             recExist = dr.Read
@@ -2701,9 +2701,9 @@ Public Class IAIPFacilitySummary
                 "where FacilitySiteID = '" & mtbAIRSNumber.Text & "' "
 
                 ds = New DataSet
-                da = New OracleDataAdapter(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                da = New OracleDataAdapter(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 da.Fill(ds, "EIS")
                 dgvEISData.DataSource = ds
@@ -2855,15 +2855,15 @@ Public Class IAIPFacilitySummary
                             "dblYCoordinate, " & _
                             "strHorizontalCollectionCode, " & _
                             "(Select STRHORIZCOLLECTIONMETHODDESC " & _
-                               "from " & connNameSpace & ".EILOOKUPHORIZCOLMETHOD " & _
-                               "where " & connNameSpace & ".EISI.STRHORIZONTALCOLLECTIONCODE = " & _
-                               "" & connNameSpace & ".EILOOKUPHORIZCOLMETHOD.STRHORIZCOLLECTIONMETHODCODE) as HMCdesc, " & _
+                               "from " & DBNameSpace & ".EILOOKUPHORIZCOLMETHOD " & _
+                               "where " & DBNameSpace & ".EISI.STRHORIZONTALCOLLECTIONCODE = " & _
+                               "" & DBNameSpace & ".EILOOKUPHORIZCOLMETHOD.STRHORIZCOLLECTIONMETHODCODE) as HMCdesc, " & _
                             "strHorizontalReferenceCode, " & _
                             "strHorizontalAccuracyMeasure, " & _
                             "(Select STRHORIZONTALREFERENCEDESC " & _
-                               "from " & connNameSpace & ".EILOOKUPHORIZREFDATUM " & _
-                               "where " & connNameSpace & ".EISI.STRHORIZONTALREFERENCECODE = " & _
-                               "" & connNameSpace & ".EILOOKUPHORIZREFDATUM.STRHORIZONTALREFERENCEDATUM) as HDRCdesc, " & _
+                               "from " & DBNameSpace & ".EILOOKUPHORIZREFDATUM " & _
+                               "where " & DBNameSpace & ".EISI.STRHORIZONTALREFERENCECODE = " & _
+                               "" & DBNameSpace & ".EILOOKUPHORIZREFDATUM.STRHORIZONTALREFERENCEDATUM) as HDRCdesc, " & _
                             "strContactPrefix, " & _
                             "strContactFirstName, " & _
                             "strContactLastName, " & _
@@ -2880,14 +2880,14 @@ Public Class IAIPFacilitySummary
                             "strSiteDescription, " & _
                             "strSICPrimary, " & _
                             "strNAICSPrimary " & _
-                     "from " & connNameSpace & ".eiSI where strAirsYear = '" & airsYear & "'"
+                     "from " & DBNameSpace & ".eiSI where strAirsYear = '" & airsYear & "'"
 
-            Dim cmd As New OracleCommand(SQL, conn)
+            Dim cmd As New OracleCommand(SQL, DBConn)
             cmd.CommandType = CommandType.Text
 
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
             Else
-                conn.Open()
+                DBConn.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -2960,24 +2960,24 @@ Public Class IAIPFacilitySummary
                          "sngDesignCapacity, " & _
                          "strDesignCapUnitNum, " & _
                          "(Select STRUNITDESCRIPTION " & _
-                               "from " & connNameSpace & ".EILOOKUPUNITCODES " & _
-                               "where " & connNameSpace & ".EIEU.strDesignCapUnitNum = " & _
-                               "" & connNameSpace & ".EILOOKUPUNITCODES.STRUNITCODE) as numDesc, " & _
+                               "from " & DBNameSpace & ".EILOOKUPUNITCODES " & _
+                               "where " & DBNameSpace & ".EIEU.strDesignCapUnitNum = " & _
+                               "" & DBNameSpace & ".EILOOKUPUNITCODES.STRUNITCODE) as numDesc, " & _
                          "strDesignCapUnitDenom, " & _
                          "(Select STRUNITDESCRIPTION " & _
-                               "from " & connNameSpace & ".EILOOKUPUNITCODES " & _
-                               "where " & connNameSpace & ".EIEU.strDesignCapUnitDenom = " & _
-                               "" & connNameSpace & ".EILOOKUPUNITCODES.STRUNITCODE) as denomDesc, " & _
+                               "from " & DBNameSpace & ".EILOOKUPUNITCODES " & _
+                               "where " & DBNameSpace & ".EIEU.strDesignCapUnitDenom = " & _
+                               "" & DBNameSpace & ".EILOOKUPUNITCODES.STRUNITCODE) as denomDesc, " & _
                          "sngMaxNameplateCapacity, " & _
                          "strEmissionUnitDesc " & _
-                    "from " & connNameSpace & ".eiEU where strAirsYear = '" & airsYear & "'"
+                    "from " & DBNameSpace & ".eiEU where strAirsYear = '" & airsYear & "'"
 
-            Dim cmd As New OracleCommand(SQL, conn)
+            Dim cmd As New OracleCommand(SQL, DBConn)
             cmd.CommandType = CommandType.Text
 
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
             Else
-                conn.Open()
+                DBConn.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -3027,9 +3027,9 @@ Public Class IAIPFacilitySummary
             SQL = "select strEmissionReleasePointID, " & _
             "strEmissionReleaseType, " & _
             "(Select STREMISSIONTYPEDESC " & _
-            "from " & connNameSpace & ".EILOOKUPEMISSIONTYPES " & _
-            "where " & connNameSpace & ".EIER.STREMISSIONRELEASETYPE = " & _
-            "" & connNameSpace & ".EILOOKUPEMISSIONTYPES.STREMISSIONTYPECODE) as stackType, " & _
+            "from " & DBNameSpace & ".EILOOKUPEMISSIONTYPES " & _
+            "where " & DBNameSpace & ".EIER.STREMISSIONRELEASETYPE = " & _
+            "" & DBNameSpace & ".EILOOKUPEMISSIONTYPES.STREMISSIONTYPECODE) as stackType, " & _
             "sngStackHeight, " & _
             "sngStackDiameter, " & _
             "sngExitGasTemperature, " & _
@@ -3040,23 +3040,23 @@ Public Class IAIPFacilitySummary
             "strEmissionReleasePtDesc, " & _
             "strHorizontalCollectionCode, " & _
             "(Select STRHORIZCOLLECTIONMETHODDESC " & _
-            "from " & connNameSpace & ".EILOOKUPHORIZCOLMETHOD " & _
-            "where " & connNameSpace & ".EIER.STRHORIZONTALCOLLECTIONCODE = " & _
-            "" & connNameSpace & ".EILOOKUPHORIZCOLMETHOD.STRHORIZCOLLECTIONMETHODCODE) as HMCdesc, " & _
+            "from " & DBNameSpace & ".EILOOKUPHORIZCOLMETHOD " & _
+            "where " & DBNameSpace & ".EIER.STRHORIZONTALCOLLECTIONCODE = " & _
+            "" & DBNameSpace & ".EILOOKUPHORIZCOLMETHOD.STRHORIZCOLLECTIONMETHODCODE) as HMCdesc, " & _
             "strHorizontalAccuracyMeasure, " & _
             "strHorizontalReferenceCode, " & _
             "(Select STRHORIZONTALREFERENCEDESC " & _
-            "from " & connNameSpace & ".EILOOKUPHORIZREFDATUM " & _
-            "where " & connNameSpace & ".EIER.STRHORIZONTALREFERENCECODE = " & _
-            "" & connNameSpace & ".EILOOKUPHORIZREFDATUM.STRHORIZONTALREFERENCEDATUM) as HDRCdesc " & _
-            "from " & connNameSpace & ".eiER where strAirsYear = '" & airsYear & "'"
+            "from " & DBNameSpace & ".EILOOKUPHORIZREFDATUM " & _
+            "where " & DBNameSpace & ".EIER.STRHORIZONTALREFERENCECODE = " & _
+            "" & DBNameSpace & ".EILOOKUPHORIZREFDATUM.STRHORIZONTALREFERENCEDATUM) as HDRCdesc " & _
+            "from " & DBNameSpace & ".eiER where strAirsYear = '" & airsYear & "'"
 
-            Dim cmd As New OracleCommand(SQL, conn)
+            Dim cmd As New OracleCommand(SQL, DBConn)
             cmd.CommandType = CommandType.Text
 
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
             Else
-                conn.Open()
+                DBConn.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -3131,25 +3131,25 @@ Public Class IAIPFacilitySummary
                             "sngDailySummerProcessTPut, " & _
                             "strDailySummerProcessTPutNum, " & _
                             "(Select STRUNITDESCRIPTION " & _
-                               "from " & connNameSpace & ".EILOOKUPUNITCODES " & _
-                               "where " & connNameSpace & ".EIEP.strDailySummerProcessTPutNum = " & _
-                               "" & connNameSpace & ".EILOOKUPUNITCODES.STRUNITCODE) as DailySummerTputNumDesc, " & _
+                               "from " & DBNameSpace & ".EILOOKUPUNITCODES " & _
+                               "where " & DBNameSpace & ".EIEP.strDailySummerProcessTPutNum = " & _
+                               "" & DBNameSpace & ".EILOOKUPUNITCODES.STRUNITCODE) as DailySummerTputNumDesc, " & _
                             "sngActualThroughput, " & _
                             "strThroughputUnitNumerator, " & _
                             "(Select STRUNITDESCRIPTION " & _
-                               "from " & connNameSpace & ".EILOOKUPUNITCODES " & _
-                               "where " & connNameSpace & ".EIEP.strThroughputUnitNumerator = " & _
-                               "" & connNameSpace & ".EILOOKUPUNITCODES.STRUNITCODE) as TputNumDesc, " & _
+                               "from " & DBNameSpace & ".EILOOKUPUNITCODES " & _
+                               "where " & DBNameSpace & ".EIEP.strThroughputUnitNumerator = " & _
+                               "" & DBNameSpace & ".EILOOKUPUNITCODES.STRUNITCODE) as TputNumDesc, " & _
                             "strStartTime " & _
-                       "from " & connNameSpace & ".eiEP " & _
+                       "from " & DBNameSpace & ".eiEP " & _
                       "where strAirsYear = '" & airsYear & "'"
 
-            Dim cmd As New OracleCommand(SQL, conn)
+            Dim cmd As New OracleCommand(SQL, DBConn)
             cmd.CommandType = CommandType.Text
 
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
             Else
-                conn.Open()
+                DBConn.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -3218,57 +3218,57 @@ Public Class IAIPFacilitySummary
             SQL += "STRPROCESSID, "
             SQL += "strPollutantCode, "
             SQL += "(Select STRPOLLUTANTDESC "
-            SQL += "from " & connNameSpace & ".EILOOKUPPOLLUTANTCODES "
-            SQL += "where " & connNameSpace & ".EIEM.STRPOLLUTANTCODE = "
-            SQL += "" & connNameSpace & ".EILOOKUPPOLLUTANTCODES.STRPOLLUTANTCODE) as pollutantDesc, "
+            SQL += "from " & DBNameSpace & ".EILOOKUPPOLLUTANTCODES "
+            SQL += "where " & DBNameSpace & ".EIEM.STRPOLLUTANTCODE = "
+            SQL += "" & DBNameSpace & ".EILOOKUPPOLLUTANTCODES.STRPOLLUTANTCODE) as pollutantDesc, "
             SQL += "DBLEMISSIONNUMERICVALUE, "
             SQL += "STREMISSIONUNITNUMERATOR, "
             SQL += "(Select STRUNITDESCRIPTION "
-            SQL += "from " & connNameSpace & ".EILOOKUPUNITCODES "
-            SQL += "where " & connNameSpace & ".EIEM.STREMISSIONUNITNUMERATOR = "
-            SQL += "" & connNameSpace & ".EILOOKUPUNITCODES.STRUNITCODE) as EMISSIONUNITNUMERATORDesc, "
+            SQL += "from " & DBNameSpace & ".EILOOKUPUNITCODES "
+            SQL += "where " & DBNameSpace & ".EIEM.STREMISSIONUNITNUMERATOR = "
+            SQL += "" & DBNameSpace & ".EILOOKUPUNITCODES.STRUNITCODE) as EMISSIONUNITNUMERATORDesc, "
             SQL += "sngFactorNumericValue, "
             SQL += "strFactorUnitNumerator, "
             SQL += "(Select STRUNITDESCRIPTION "
-            SQL += "from " & connNameSpace & ".EILOOKUPUNITCODES "
-            SQL += "where " & connNameSpace & ".EIEM.strFactorUnitNumerator = "
-            SQL += "" & connNameSpace & ".EILOOKUPUNITCODES.STRUNITCODE) as FactorUnitNumeratorDesc, "
+            SQL += "from " & DBNameSpace & ".EILOOKUPUNITCODES "
+            SQL += "where " & DBNameSpace & ".EIEM.strFactorUnitNumerator = "
+            SQL += "" & DBNameSpace & ".EILOOKUPUNITCODES.STRUNITCODE) as FactorUnitNumeratorDesc, "
             SQL += "strFactorUnitDenominator, "
             SQL += "(Select STRUNITDESCRIPTION "
-            SQL += "from " & connNameSpace & ".EILOOKUPUNITCODES "
-            SQL += "where " & connNameSpace & ".EIEM.strFactorUnitDenominator = "
-            SQL += "" & connNameSpace & ".EILOOKUPUNITCODES.STRUNITCODE) as FactorUnitDenominatorDesc, "
+            SQL += "from " & DBNameSpace & ".EILOOKUPUNITCODES "
+            SQL += "where " & DBNameSpace & ".EIEM.strFactorUnitDenominator = "
+            SQL += "" & DBNameSpace & ".EILOOKUPUNITCODES.STRUNITCODE) as FactorUnitDenominatorDesc, "
             SQL += "strEmissionCalculationMetCode, "
             SQL += "(Select STREMISSIONCALCMETHODDESC "
-            SQL += "from " & connNameSpace & ".EILOOKUPEMISSIONCALCMETHOD "
-            SQL += "where " & connNameSpace & ".EIEM.strEmissionCalculationMetCode = "
-            SQL += "" & connNameSpace & ".EILOOKUPEMISSIONCALCMETHOD.STREMISSIONCALCMETHODCODE) as EMISSIONCALCMETHODDESC, "
+            SQL += "from " & DBNameSpace & ".EILOOKUPEMISSIONCALCMETHOD "
+            SQL += "where " & DBNameSpace & ".EIEM.strEmissionCalculationMetCode = "
+            SQL += "" & DBNameSpace & ".EILOOKUPEMISSIONCALCMETHOD.STREMISSIONCALCMETHODCODE) as EMISSIONCALCMETHODDESC, "
             SQL += "strControlStatus, "
             SQL += "strControlSystemDescription, "
             SQL += "strPrimaryDeviceTypeCode, "
             SQL += "(Select STRCONTROLDEVICEDesc "
-            SQL += "from " & connNameSpace & ".EILOOKUPCONTROLDEVICE "
-            SQL += "where " & connNameSpace & ".EIEM.strPrimaryDeviceTypeCode = "
-            SQL += "" & connNameSpace & ".EILOOKUPCONTROLDEVICE.STRCONTROLDEVICECODE) as PrimaryDeviceTypeDesc, "
+            SQL += "from " & DBNameSpace & ".EILOOKUPCONTROLDEVICE "
+            SQL += "where " & DBNameSpace & ".EIEM.strPrimaryDeviceTypeCode = "
+            SQL += "" & DBNameSpace & ".EILOOKUPCONTROLDEVICE.STRCONTROLDEVICECODE) as PrimaryDeviceTypeDesc, "
             SQL += "sngPrimaryPCTControlEffic, "
             SQL += "strSecondaryDeviceTypeCode, "
             SQL += "(Select STRCONTROLDEVICEDesc "
-            SQL += "from " & connNameSpace & ".EILOOKUPCONTROLDEVICE "
-            SQL += "where " & connNameSpace & ".EIEM.strSecondaryDeviceTypeCode = "
-            SQL += "" & connNameSpace & ".EILOOKUPCONTROLDEVICE.STRCONTROLDEVICECODE) as SecondaryDeviceTypeDesc, "
+            SQL += "from " & DBNameSpace & ".EILOOKUPCONTROLDEVICE "
+            SQL += "where " & DBNameSpace & ".EIEM.strSecondaryDeviceTypeCode = "
+            SQL += "" & DBNameSpace & ".EILOOKUPCONTROLDEVICE.STRCONTROLDEVICECODE) as SecondaryDeviceTypeDesc, "
             SQL += "sngPCTCaptureEfficiency, "
             SQL += "sngTotalCaptureControlEffic "
-            SQL += "from " & connNameSpace & ".eiEM "
+            SQL += "from " & DBNameSpace & ".eiEM "
             SQL += "where strAirsYear = '" & airsYear & "'"
 
             'SQL = "Select * from " & connNameSpace & ".eiEM where strAirsYear = '" & airsYear & "'"
 
-            Dim cmd As New OracleCommand(SQL, conn)
+            Dim cmd As New OracleCommand(SQL, DBConn)
             cmd.CommandType = CommandType.Text
 
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
             Else
-                conn.Open()
+                DBConn.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -3586,18 +3586,18 @@ Public Class IAIPFacilitySummary
                 TCFacilitySummary.TabPages.Add(TPISMPTestingWork)
             End If
 
-            SQL = "Select " & connNameSpace & ".VW_ISMPWorkDataGrid.*, strPreComplianceStatus  " & _
-            "from " & connNameSpace & ".VW_ISMPWorkDataGrid, " & connNameSpace & ".ISMPReportInformation " & _
-            "where " & connNameSpace & ".VW_ISMPWorkDataGrid.strReferenceNumber = " & _
-            "" & connNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
+            SQL = "Select " & DBNameSpace & ".VW_ISMPWorkDataGrid.*, strPreComplianceStatus  " & _
+            "from " & DBNameSpace & ".VW_ISMPWorkDataGrid, " & DBNameSpace & ".ISMPReportInformation " & _
+            "where " & DBNameSpace & ".VW_ISMPWorkDataGrid.strReferenceNumber = " & _
+            "" & DBNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
             "and strAIRSNUmber = '0413" & mtbAIRSNumber.Text & "' " & _
             SQLLine '& _
             ' "order by " & connNameSpace & ".ISMPReportInformation.strReferenceNumber DESC "
 
-            daISMP = New OracleDataAdapter(SQL, conn)
+            daISMP = New OracleDataAdapter(SQL, DBConn)
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daISMP.Fill(dsISMP, "ISMPWork")
 
@@ -3606,32 +3606,32 @@ Public Class IAIPFacilitySummary
             "strEmissionUnit, strUnitDesc, " & _
             "datTestNotification, datProposedstartDate,  " & _
             "datProposedEndDate, strComments  " & _
-            "from " & connNameSpace & ".ISMPTestNotification, " & connNameSpace & ".EPDUserProfiles, " & _
-            "" & connNameSpace & ".LookUpEPDUnits  " & _
-            "where " & connNameSpace & ".EPDUserProfiles.numUserID = " & connNameSpace & ".ISMPTestNotification.strStaffResponsible  " & _
-            "and " & connNameSpace & ".EPDUserProfiles.numUnit = " & connNameSpace & ".LookUpEPDUnits.numUnitCode (+) " & _
+            "from " & DBNameSpace & ".ISMPTestNotification, " & DBNameSpace & ".EPDUserProfiles, " & _
+            "" & DBNameSpace & ".LookUpEPDUnits  " & _
+            "where " & DBNameSpace & ".EPDUserProfiles.numUserID = " & DBNameSpace & ".ISMPTestNotification.strStaffResponsible  " & _
+            "and " & DBNameSpace & ".EPDUserProfiles.numUnit = " & DBNameSpace & ".LookUpEPDUnits.numUnitCode (+) " & _
             "and strAIRSNumber = '0413" & mtbAIRSNumber.Text & "'  " & _
             "order by strTestLogNumber DESC "
 
-            daISMP = New OracleDataAdapter(SQL, conn)
+            daISMP = New OracleDataAdapter(SQL, DBConn)
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daISMP.Fill(dsISMP, "ISMPTestLog")
 
-            SQL = "Select " & connNameSpace & ".ISMPTestREportMemo.strReferenceNumber, " & _
+            SQL = "Select " & DBNameSpace & ".ISMPTestREportMemo.strReferenceNumber, " & _
             "strMemorandumField " & _
-            "from " & connNameSpace & ".ISMPTestREportMemo, " & connNameSpace & ".ISMPMaster " & _
-            "where " & connNameSpace & ".ISMPTestREportMemo.strReferenceNumber = " & connNameSpace & ".ISMPMaster.strReferenceNumber " & _
-            "and " & connNameSpace & ".ISMPMaster.strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' " & _
+            "from " & DBNameSpace & ".ISMPTestREportMemo, " & DBNameSpace & ".ISMPMaster " & _
+            "where " & DBNameSpace & ".ISMPTestREportMemo.strReferenceNumber = " & DBNameSpace & ".ISMPMaster.strReferenceNumber " & _
+            "and " & DBNameSpace & ".ISMPMaster.strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' " & _
             SQLLine & _
-            "Order by " & connNameSpace & ".ISMPTestREportMemo.strReferenceNumber DESC "
+            "Order by " & DBNameSpace & ".ISMPTestREportMemo.strReferenceNumber DESC "
 
-            daISMP = New OracleDataAdapter(SQL, conn)
+            daISMP = New OracleDataAdapter(SQL, DBConn)
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daISMP.Fill(dsISMP, "ISMPMemo")
 
@@ -3821,13 +3821,13 @@ Public Class IAIPFacilitySummary
 
             If txtReferenceNumber.Text <> "" Then
                 If UserProgram = "3" Then
-                    SQL = "select " & connNameSpace & ".ISMPDocumentType.strDocumentType " & _
-                    "from " & connNameSpace & ".ISMPDocumentType, " & connNameSpace & ".ISMPReportInformation " & _
-                    "where " & connNameSpace & ".ISMPReportInformation.strDocumentType = " & connNameSpace & ".ISMPDocumentType.strKey and " & _
+                    SQL = "select " & DBNameSpace & ".ISMPDocumentType.strDocumentType " & _
+                    "from " & DBNameSpace & ".ISMPDocumentType, " & DBNameSpace & ".ISMPReportInformation " & _
+                    "where " & DBNameSpace & ".ISMPReportInformation.strDocumentType = " & DBNameSpace & ".ISMPDocumentType.strKey and " & _
                     "strReferenceNumber = '" & txtReferenceNumber.Text & "'"
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     recExist = dr.Read
@@ -3840,11 +3840,11 @@ Public Class IAIPFacilitySummary
                     End If
                 Else
                     SQL = "Select strClosed " & _
-                    "from " & connNameSpace & ".ISMPReportInformation " & _
+                    "from " & DBNameSpace & ".ISMPReportInformation " & _
                     "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     While dr.Read
@@ -3874,13 +3874,13 @@ Public Class IAIPFacilitySummary
         Try
 
             If txtReferenceNumber.Text <> "" Then
-                SQL = "Select " & connNameSpace & ".ISMPDocumentType.strDocumentType " & _
-                 "from " & connNameSpace & ".ISMPDocumentType, " & connNameSpace & ".ISMPReportInformation " & _
-                 "where " & connNameSpace & ".ISMPReportInformation.strDocumentType = " & connNameSpace & ".ISMPDocumentType.strKey and " & _
+                SQL = "Select " & DBNameSpace & ".ISMPDocumentType.strDocumentType " & _
+                 "from " & DBNameSpace & ".ISMPDocumentType, " & DBNameSpace & ".ISMPReportInformation " & _
+                 "where " & DBNameSpace & ".ISMPReportInformation.strDocumentType = " & DBNameSpace & ".ISMPDocumentType.strKey and " & _
                  "strReferenceNumber = '" & txtReferenceNumber.Text & "'"
-                Dim cmd As New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                Dim cmd As New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 Dim dr As OracleDataReader = cmd.ExecuteReader
                 Dim recExist As Boolean = dr.Read
@@ -3959,14 +3959,14 @@ Public Class IAIPFacilitySummary
             End If
 
             SQL = "Select * " & _
-            "From " & connNameSpace & ".VW_SSCPWorkDataGrid " & _
+            "From " & DBNameSpace & ".VW_SSCPWorkDataGrid " & _
             "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' " & _
             "Order by strTrackingNumber DESC "
 
-            daSSCP = New OracleDataAdapter(SQL, conn)
+            daSSCP = New OracleDataAdapter(SQL, DBConn)
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daSSCP.Fill(dsSSCP, "SSCPEvents")
 
@@ -3983,33 +3983,33 @@ Public Class IAIPFacilitySummary
            "Else 'Open' " & _
            "End as Status, " & _
            "substr(strAIRSNumber, 5) as AIRSNumber " & _
-           "from " & connNameSpace & ".SSCP_AuditedEnforcement  " & _
+           "from " & DBNameSpace & ".SSCP_AuditedEnforcement  " & _
            "Where  strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' " & _
            "order by strENforcementNumber DESC "
 
-            daSSCP = New OracleDataAdapter(SQL, conn)
+            daSSCP = New OracleDataAdapter(SQL, DBConn)
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daSSCP.Fill(dsSSCP, "SSCPEnforcement")
 
-            SQL = "Select " & connNameSpace & ".SSCPFCEMaster.strFCENumber, " & _
+            SQL = "Select " & DBNameSpace & ".SSCPFCEMaster.strFCENumber, " & _
             "strFCEStatus, " & _
             "(strLastname||', '||strFirstName) as ReviewingEngineer, " & _
             "to_char(DatFCECompleted, 'dd-Mon-yyyy') as FCECompleted, " & _
             "strFCEYear as FCEYear, " & _
             "strFCEComments " & _
-            "from " & connNameSpace & ".SSCPFCE, " & connNameSpace & ".SSCPFCEMaster, " & connNameSpace & ".EPDuserProfiles " & _
+            "from " & DBNameSpace & ".SSCPFCE, " & DBNameSpace & ".SSCPFCEMaster, " & DBNameSpace & ".EPDuserProfiles " & _
             "where StrAIRSNumber = '0413" & mtbAIRSNumber.Text & "' " & _
-            "and " & connNameSpace & ".SSCPFCEMaster.strFCENumber = " & connNameSpace & ".SSCPFCE.strFCENumber " & _
-            "and " & connNameSpace & ".EPDuserProfiles.numUserID = " & connNameSpace & ".SSCPFCE.strReviewer  " & _
+            "and " & DBNameSpace & ".SSCPFCEMaster.strFCENumber = " & DBNameSpace & ".SSCPFCE.strFCENumber " & _
+            "and " & DBNameSpace & ".EPDuserProfiles.numUserID = " & DBNameSpace & ".SSCPFCE.strReviewer  " & _
             "order by DatFCECompleted DESC "
 
-            daSSCP = New OracleDataAdapter(SQL, conn)
+            daSSCP = New OracleDataAdapter(SQL, DBConn)
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daSSCP.Fill(dsSSCP, "SSCPFCE")
 
@@ -4163,12 +4163,12 @@ Public Class IAIPFacilitySummary
 
             If txtEnforcementNumber.Text <> "" Then
                 SQL = "Select strEnforcementNumber " & _
-                "from " & connNameSpace & ".SSCP_AuditedEnforcement " & _
+                "from " & DBNameSpace & ".SSCP_AuditedEnforcement " & _
                 "where strEnforcementNumber = '" & txtEnforcementNumber.Text & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -4318,7 +4318,7 @@ Public Class IAIPFacilitySummary
             End If
 
             SQL = "Select  " & _
-           "distinct(to_Number(" & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber)) as strApplicationNumber,   " & _
+           "distinct(to_Number(" & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber)) as strApplicationNumber,   " & _
            "  case   " & _
            "	when strApplicationTypeDesc IS Null then ' '   " & _
            "Else strApplicationTypeDesc   " & _
@@ -4343,13 +4343,13 @@ Public Class IAIPFacilitySummary
    "else (strLastName||', '||strFirstName)   " & _
    "end as StaffResponsible,   " & _
    "case   " & _
-   "	when " & connNameSpace & ".SSPPApplicationData.strFacilityName is Null then ' '   " & _
-   "else " & connNameSpace & ".SSPPApplicationData.strFacilityName   " & _
+   "	when " & DBNameSpace & ".SSPPApplicationData.strFacilityName is Null then ' '   " & _
+   "else " & DBNameSpace & ".SSPPApplicationData.strFacilityName   " & _
    "end as strFacilityName,   " & _
    "case   " & _
-   "	when " & connNameSpace & ".SSPPApplicationMaster.strAIRSNumber is Null then ' '   " & _
-   "	when " & connNameSpace & ".SSPPApplicationMaster.strAIRSNumber = '0413' then ' '   " & _
-   "else substr(" & connNameSpace & ".SSPPApplicationMaster.strAIRSNumber, 5)   " & _
+   "	when " & DBNameSpace & ".SSPPApplicationMaster.strAIRSNumber is Null then ' '   " & _
+   "	when " & DBNameSpace & ".SSPPApplicationMaster.strAIRSNumber = '0413' then ' '   " & _
+   "else substr(" & DBNameSpace & ".SSPPApplicationMaster.strAIRSNumber, 5)   " & _
    "end as strAIRSNumber,   " & _
   "case   " & _
   "when datPermitIssued is Not Null OR datFinalizedDate IS NOT NULL then '11 - Closed Out'   " & _
@@ -4384,34 +4384,34 @@ Public Class IAIPFacilitySummary
   "when strStaffResponsible is Null or strStaffResponsible ='0' then 'Unknown'      " & _
   "else to_char(datAssignedToEngineer, 'RRRR-MM-dd')      " & _
   "end as StatusDate    " & _
-   "from " & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".SSPPApplicationTracking,   " & _
-   "" & connNameSpace & ".SSPPApplicationData,   " & _
-   "" & connNameSpace & ".LookUpApplicationTypes, " & connNameSpace & ".LookUPPermitTypes,   " & _
-   "" & connNameSpace & ".EPDUserProfiles  " & _
-   "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationData.strApplicationNumber (+)    " & _
-   "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber (+)   " & _
+   "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,   " & _
+   "" & DBNameSpace & ".SSPPApplicationData,   " & _
+   "" & DBNameSpace & ".LookUpApplicationTypes, " & DBNameSpace & ".LookUPPermitTypes,   " & _
+   "" & DBNameSpace & ".EPDUserProfiles  " & _
+   "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber (+)    " & _
+   "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber (+)   " & _
    "and strApplicationType = strApplicationTypeCode (+)   " & _
    "and strPermitType = strPermitTypeCode (+)   " & _
-   "and " & connNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & connNameSpace & ".EPDUserProfiles.numUserID (+)   " & _
+   "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID (+)   " & _
          "and strAIRSNumber = '0413" & mtbAIRSNumber.Text & "'   "
 
             SQL = SQL & SQLLine & "order by strApplicationNumber DESC "
 
-            daSSPP = New OracleDataAdapter(SQL, conn)
+            daSSPP = New OracleDataAdapter(SQL, DBConn)
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daSSPP.Fill(dsSSPP, "ApplictionLog")
 
             SQL = "select " & _
             "substr(strAIRSNumber, 5) as AIRSNumber,  " & _
             "'0-SIP' as Subpart, " & _
-            "" & connNameSpace & ".LookUpSUBPartSip.strSubpart, " & _
-            "" & connNameSpace & ".LookUpSubpartSIP.strDescription, " & _
-            "" & connNameSpace & ".APBSubpartData.CreateDateTime " & _
-            "from " & connNameSpace & ".APBSubpartData, " & connNameSpace & ".LookUpSubPartSIP " & _
-            "where " & connNameSpace & ".APBSubpartData.strSubpart = " & connNameSpace & ".LookUpSubpartSIP.strSubpart " & _
+            "" & DBNameSpace & ".LookUpSUBPartSip.strSubpart, " & _
+            "" & DBNameSpace & ".LookUpSubpartSIP.strDescription, " & _
+            "" & DBNameSpace & ".APBSubpartData.CreateDateTime " & _
+            "from " & DBNameSpace & ".APBSubpartData, " & DBNameSpace & ".LookUpSubPartSIP " & _
+            "where " & DBNameSpace & ".APBSubpartData.strSubpart = " & DBNameSpace & ".LookUpSubpartSIP.strSubpart " & _
             "and ACTIVE <> '0' " & _
             "and strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' " & _
             "and substr(strSubpartKey, 13, 1) = '0' " & _
@@ -4419,11 +4419,11 @@ Public Class IAIPFacilitySummary
             "select " & _
             "substr(strAIRSNumber, 5) as AIRSNumber,  " & _
             "'9-NSPS(Part 60)' as Subpart, " & _
-            "" & connNameSpace & ".LookUpSUBPart60.strSubpart, " & _
-            "" & connNameSpace & ".LookUpSubpart60.strDescription, " & _
-            "" & connNameSpace & ".APBSubpartData.CreateDateTime " & _
-            "from " & connNameSpace & ".APBSubpartData, " & connNameSpace & ".LookUpSubPart60 " & _
-            "where " & connNameSpace & ".APBSubpartData.strSubpart = " & connNameSpace & ".LookUpSubpart60.strSubpart " & _
+            "" & DBNameSpace & ".LookUpSUBPart60.strSubpart, " & _
+            "" & DBNameSpace & ".LookUpSubpart60.strDescription, " & _
+            "" & DBNameSpace & ".APBSubpartData.CreateDateTime " & _
+            "from " & DBNameSpace & ".APBSubpartData, " & DBNameSpace & ".LookUpSubPart60 " & _
+            "where " & DBNameSpace & ".APBSubpartData.strSubpart = " & DBNameSpace & ".LookUpSubpart60.strSubpart " & _
             "and ACTIVE <> '0' " & _
             "and strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' " & _
             "and substr(strSubpartKey, 13, 1) = '9' " & _
@@ -4431,11 +4431,11 @@ Public Class IAIPFacilitySummary
             "select " & _
             "substr(strAIRSNumber, 5) as AIRSNumber,  " & _
             "'8-NESHAP(Part 61)' as Subpart, " & _
-            "" & connNameSpace & ".LookUpSUBPart61.strSubpart, " & _
-            "" & connNameSpace & ".LookUpSubpart61.strDescription, " & _
-            "" & connNameSpace & ".APBSubpartData.CreateDateTime " & _
-            "from " & connNameSpace & ".APBSubpartData, " & connNameSpace & ".LookUpSubPart61 " & _
-            "where " & connNameSpace & ".APBSubpartData.strSubpart = " & connNameSpace & ".LookUpSubpart61.strSubpart " & _
+            "" & DBNameSpace & ".LookUpSUBPart61.strSubpart, " & _
+            "" & DBNameSpace & ".LookUpSubpart61.strDescription, " & _
+            "" & DBNameSpace & ".APBSubpartData.CreateDateTime " & _
+            "from " & DBNameSpace & ".APBSubpartData, " & DBNameSpace & ".LookUpSubPart61 " & _
+            "where " & DBNameSpace & ".APBSubpartData.strSubpart = " & DBNameSpace & ".LookUpSubpart61.strSubpart " & _
             "and ACTIVE <> '0' " & _
             "and strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' " & _
             "and substr(strSubpartKey, 13, 1) = '8' " & _
@@ -4443,102 +4443,102 @@ Public Class IAIPFacilitySummary
             "select " & _
             "substr(strAIRSNumber, 5) as AIRSNumber,  " & _
             "'M-MACT(Part 63)' as Subpart, " & _
-            "" & connNameSpace & ".LookUpSUBPart63.strSubpart, " & _
-            "" & connNameSpace & ".LookUpSubpart63.strDescription, " & _
-            "" & connNameSpace & ".APBSubpartData.CreateDateTime " & _
-            "from " & connNameSpace & ".APBSubpartData, " & connNameSpace & ".LookUpSubPart63 " & _
-            "where " & connNameSpace & ".APBSubpartData.strSubpart = " & connNameSpace & ".LookUpSubpart63.strSubpart " & _
+            "" & DBNameSpace & ".LookUpSUBPart63.strSubpart, " & _
+            "" & DBNameSpace & ".LookUpSubpart63.strDescription, " & _
+            "" & DBNameSpace & ".APBSubpartData.CreateDateTime " & _
+            "from " & DBNameSpace & ".APBSubpartData, " & DBNameSpace & ".LookUpSubPart63 " & _
+            "where " & DBNameSpace & ".APBSubpartData.strSubpart = " & DBNameSpace & ".LookUpSubpart63.strSubpart " & _
             "and ACTIVE <> '0' " & _
             "and strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' " & _
             "and substr(strSubpartKey, 13, 1) = 'M' "
 
-            daSSPP = New OracleDataAdapter(SQL, conn)
+            daSSPP = New OracleDataAdapter(SQL, DBConn)
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daSSPP.Fill(dsSSPP, "ActiveRules")
 
             SQL = "select " & _
             "'0-SIP' as Subpart,  " & _
-            "" & connNameSpace & ".LookUpSubpartSIP.strSubpart,  " & _
-            "" & connNameSpace & ".LookupSubpartSIP.strDescription,  " & _
-            "" & connNameSpace & ".SSPPSubpartData.strApplicationNumber,  " & _
-            "" & connNameSpace & ".SSPPSubpartData.CreateDateTime,  " & _
+            "" & DBNameSpace & ".LookUpSubpartSIP.strSubpart,  " & _
+            "" & DBNameSpace & ".LookupSubpartSIP.strDescription,  " & _
+            "" & DBNameSpace & ".SSPPSubpartData.strApplicationNumber,  " & _
+            "" & DBNameSpace & ".SSPPSubpartData.CreateDateTime,  " & _
             "case  " & _
             "when strApplicationActivity = '0' then 'Removed'  " & _
             "when strApplicationActivity = '1' then 'Added'  " & _
             "when strApplicationActivity = '2' then 'Modified'  " & _
             "End AppActivity  " & _
-            "from " & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".SSPPSubpartData,  " & _
-            "" & connNameSpace & ".LookUpSubpartSIP  " & _
-            "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber =  " & _
-            "   " & connNameSpace & ".SSPPSubpartData.strApplicationNumber  " & _
-            "and " & connNameSpace & ".SSPPSubpartData.strSubPart = " & connNameSpace & ".LookUPSubpartSIP.strSubpart  " & _
+            "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPSubpartData,  " & _
+            "" & DBNameSpace & ".LookUpSubpartSIP  " & _
+            "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber =  " & _
+            "   " & DBNameSpace & ".SSPPSubpartData.strApplicationNumber  " & _
+            "and " & DBNameSpace & ".SSPPSubpartData.strSubPart = " & DBNameSpace & ".LookUPSubpartSIP.strSubpart  " & _
             "and strAIRSnumber = '0413" & mtbAIRSNumber.Text & "' " & _
             "and substr(strSubpartKey, 6,1) = '0'  " & _
             "union  " & _
             "select  " & _
             "'9-NSPS(Part 60)' as Subpart,  " & _
-            "" & connNameSpace & ".LookUpSubpart60.strSubpart,  " & _
-            "" & connNameSpace & ".LookupSubpart60.strDescription,  " & _
-            "" & connNameSpace & ".SSPPSubpartData.strApplicationNumber,  " & _
-            "" & connNameSpace & ".SSPPSubpartData.CreateDateTime,  " & _
+            "" & DBNameSpace & ".LookUpSubpart60.strSubpart,  " & _
+            "" & DBNameSpace & ".LookupSubpart60.strDescription,  " & _
+            "" & DBNameSpace & ".SSPPSubpartData.strApplicationNumber,  " & _
+            "" & DBNameSpace & ".SSPPSubpartData.CreateDateTime,  " & _
             "case  " & _
             "when strApplicationActivity = '0' then 'Removed'  " & _
             "when strApplicationActivity = '1' then 'Added'  " & _
             "when strApplicationActivity = '2' then 'Modified'  " & _
             "End AppActivity  " & _
-            "from " & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".SSPPSubpartData,  " & _
-            "" & connNameSpace & ".LookUpSubpart60  " & _
-            "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber =  " & _
-            "   " & connNameSpace & ".SSPPSubpartData.strApplicationNumber  " & _
-            "and " & connNameSpace & ".SSPPSubpartData.strSubPart = " & connNameSpace & ".LookUPSubpart60.strSubpart  " & _
+            "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPSubpartData,  " & _
+            "" & DBNameSpace & ".LookUpSubpart60  " & _
+            "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber =  " & _
+            "   " & DBNameSpace & ".SSPPSubpartData.strApplicationNumber  " & _
+            "and " & DBNameSpace & ".SSPPSubpartData.strSubPart = " & DBNameSpace & ".LookUPSubpart60.strSubpart  " & _
             "and strAIRSnumber = '0413" & mtbAIRSNumber.Text & "' " & _
             "and substr(strSubpartKey, 6,1) = '9' " & _
             "Union  " & _
             "select  " & _
             "'8-NESHAP(Part 61)' as Subpart,  " & _
-            "" & connNameSpace & ".LookUpSubpart61.strSubpart,  " & _
-            "" & connNameSpace & ".LookupSubpart61.strDescription,  " & _
-            "" & connNameSpace & ".SSPPSubpartData.strApplicationNumber,  " & _
-            "" & connNameSpace & ".SSPPSubpartData.CreateDateTime,  " & _
+            "" & DBNameSpace & ".LookUpSubpart61.strSubpart,  " & _
+            "" & DBNameSpace & ".LookupSubpart61.strDescription,  " & _
+            "" & DBNameSpace & ".SSPPSubpartData.strApplicationNumber,  " & _
+            "" & DBNameSpace & ".SSPPSubpartData.CreateDateTime,  " & _
             "case  " & _
             "when strApplicationActivity = '0' then 'Removed'  " & _
             "when strApplicationActivity = '1' then 'Added'  " & _
             "when strApplicationActivity = '2' then 'Modified'  " & _
             "End AppActivity  " & _
-            "from " & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".SSPPSubpartData,  " & _
-            "" & connNameSpace & ".LookUpSubpart61  " & _
-            "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber =  " & _
-            "   " & connNameSpace & ".SSPPSubpartData.strApplicationNumber  " & _
-            "and " & connNameSpace & ".SSPPSubpartData.strSubPart = " & connNameSpace & ".LookUPSubpart61.strSubpart  " & _
+            "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPSubpartData,  " & _
+            "" & DBNameSpace & ".LookUpSubpart61  " & _
+            "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber =  " & _
+            "   " & DBNameSpace & ".SSPPSubpartData.strApplicationNumber  " & _
+            "and " & DBNameSpace & ".SSPPSubpartData.strSubPart = " & DBNameSpace & ".LookUPSubpart61.strSubpart  " & _
             "and strAIRSnumber = '0413" & mtbAIRSNumber.Text & "' " & _
             "and substr(strSubpartKey, 6,1) = '8' " & _
             "Union  " & _
             "select  " & _
             "'M-MACT(Part 63)' as Subpart,  " & _
-            "" & connNameSpace & ".LookUpSubpart63.strSubpart,  " & _
-            "" & connNameSpace & ".LookupSubpart63.strDescription,  " & _
-            "" & connNameSpace & ".SSPPSubpartData.strApplicationNumber,  " & _
-            "" & connNameSpace & ".SSPPSubpartData.CreateDateTime,  " & _
+            "" & DBNameSpace & ".LookUpSubpart63.strSubpart,  " & _
+            "" & DBNameSpace & ".LookupSubpart63.strDescription,  " & _
+            "" & DBNameSpace & ".SSPPSubpartData.strApplicationNumber,  " & _
+            "" & DBNameSpace & ".SSPPSubpartData.CreateDateTime,  " & _
             "case  " & _
             "when strApplicationActivity = '0' then 'Removed'  " & _
             "when strApplicationActivity = '1' then 'Added'  " & _
             "when strApplicationActivity = '2' then 'Modified'  " & _
             "End AppActivity  " & _
-            "from " & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".SSPPSubpartData,  " & _
-            "" & connNameSpace & ".LookUpSubpart63  " & _
-            "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber =  " & _
-            "   " & connNameSpace & ".SSPPSubpartData.strApplicationNumber  " & _
-            "and " & connNameSpace & ".SSPPSubpartData.strSubPart = " & connNameSpace & ".LookUPSubpart63.strSubpart  " & _
+            "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPSubpartData,  " & _
+            "" & DBNameSpace & ".LookUpSubpart63  " & _
+            "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber =  " & _
+            "   " & DBNameSpace & ".SSPPSubpartData.strApplicationNumber  " & _
+            "and " & DBNameSpace & ".SSPPSubpartData.strSubPart = " & DBNameSpace & ".LookUPSubpart63.strSubpart  " & _
             "and strAIRSnumber = '0413" & mtbAIRSNumber.Text & "' " & _
             "and substr(strSubpartKey, 6,1) = 'M'"
 
-            daSSPP = New OracleDataAdapter(SQL, conn)
+            daSSPP = New OracleDataAdapter(SQL, DBConn)
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daSSPP.Fill(dsSSPP, "RuleHistory")
 
@@ -4695,91 +4695,91 @@ Public Class IAIPFacilitySummary
                 TCFacilitySummary.TabPages.Add(TPPlanningSupportData)
             End If
 
-            SQL = "select substr(" & connNameSpace & ".FS_FeeAuditedData.strAIRSNumber, 5) as AIRSNumber, " & _
-            "" & connNameSpace & ".FS_FeeAuditedData.numFeeYear,  " & _
-            "" & connNameSpace & ".FS_FeeAuditedData.intVOCTons,  " & _
-            "" & connNameSpace & ".FS_FeeAuditedData.intPMTons,  " & _
-            "" & connNameSpace & ".FS_FeeAuditedData.intSO2Tons,  " & _
-            "" & connNameSpace & ".FS_FeeAuditedData.intNOXTons,  " & _
-            "" & connNameSpace & ".FS_FeeAuditedData.numPart70Fee,  " & _
-            "" & connNameSpace & ".FS_FeeAuditedData.numSMFee,  " & _
-            "" & connNameSpace & ".FS_FeeAuditedData.numTotalFee,  " & _
+            SQL = "select substr(" & DBNameSpace & ".FS_FeeAuditedData.strAIRSNumber, 5) as AIRSNumber, " & _
+            "" & DBNameSpace & ".FS_FeeAuditedData.numFeeYear,  " & _
+            "" & DBNameSpace & ".FS_FeeAuditedData.intVOCTons,  " & _
+            "" & DBNameSpace & ".FS_FeeAuditedData.intPMTons,  " & _
+            "" & DBNameSpace & ".FS_FeeAuditedData.intSO2Tons,  " & _
+            "" & DBNameSpace & ".FS_FeeAuditedData.intNOXTons,  " & _
+            "" & DBNameSpace & ".FS_FeeAuditedData.numPart70Fee,  " & _
+            "" & DBNameSpace & ".FS_FeeAuditedData.numSMFee,  " & _
+            "" & DBNameSpace & ".FS_FeeAuditedData.numTotalFee,  " & _
             "case " & _
-            "when " & connNameSpace & ".FS_FeeAuditedData.strNSPSExempt = '1' then 'YES' " & _
-            "when " & connNameSpace & ".FS_FeeAuditedData.strNSPSExempt = '0' then 'NO' " & _
+            "when " & DBNameSpace & ".FS_FeeAuditedData.strNSPSExempt = '1' then 'YES' " & _
+            "when " & DBNameSpace & ".FS_FeeAuditedData.strNSPSExempt = '0' then 'NO' " & _
             "end strNSPSExempt, " & _
             "'' as strNSPSReason,  " & _
             "case " & _
-            "when " & connNameSpace & ".FS_FeeAuditedData.strOperate = '1' then 'YES' " & _
-            "when " & connNameSpace & ".FS_FeeAuditedData.strOperate = '0' then 'NO' " & _
+            "when " & DBNameSpace & ".FS_FeeAuditedData.strOperate = '1' then 'YES' " & _
+            "when " & DBNameSpace & ".FS_FeeAuditedData.strOperate = '0' then 'NO' " & _
             "end strOperate, " & _
-            "" & connNameSpace & ".FS_FeeAuditedData.numFeeRate,  " & _
-            "" & connNameSpace & ".FS_FeeAuditedData.strNSPSExemptReason,  " & _
+            "" & DBNameSpace & ".FS_FeeAuditedData.numFeeRate,  " & _
+            "" & DBNameSpace & ".FS_FeeAuditedData.strNSPSExemptReason,  " & _
             "case " & _
-            "when " & connNameSpace & ".FS_FeeAuditedData.strPart70 = '1' then 'YES' " & _
-            "when " & connNameSpace & ".FS_FeeAuditedData.strPart70 = '0' then 'NO' " & _
+            "when " & DBNameSpace & ".FS_FeeAuditedData.strPart70 = '1' then 'YES' " & _
+            "when " & DBNameSpace & ".FS_FeeAuditedData.strPart70 = '0' then 'NO' " & _
             "end strPart70, " & _
             "case " & _
-            "when " & connNameSpace & ".FS_FeeAuditedData.strSyntheticMinor = '1' then 'YES' " & _
-            "when " & connNameSpace & ".FS_FeeAuditedData.strSyntheticMinor = '0' then 'NO' " & _
+            "when " & DBNameSpace & ".FS_FeeAuditedData.strSyntheticMinor = '1' then 'YES' " & _
+            "when " & DBNameSpace & ".FS_FeeAuditedData.strSyntheticMinor = '0' then 'NO' " & _
             "End strSyntheticMinor, " & _
-            "" & connNameSpace & ".FS_FeeAuditedData.numCalculatedFee,  " & _
-            "" & connNameSpace & ".FS_FeeAuditedData.strClass,  " & _
+            "" & DBNameSpace & ".FS_FeeAuditedData.numCalculatedFee,  " & _
+            "" & DBNameSpace & ".FS_FeeAuditedData.strClass,  " & _
             "case " & _
-            "when " & connNameSpace & ".FS_FeeAuditedData.strNSPS = '1' then 'YES' " & _
-            "when " & connNameSpace & ".FS_FeeAuditedData.strNSPS = '0' then 'NO' " & _
+            "when " & DBNameSpace & ".FS_FeeAuditedData.strNSPS = '1' then 'YES' " & _
+            "when " & DBNameSpace & ".FS_FeeAuditedData.strNSPS = '0' then 'NO' " & _
             "end strNSPS,  " & _
-            "" & connNameSpace & ".FS_FeeAuditedData.datShutDown,  " & _
-            "" & connNameSpace & ".FS_FeeAuditedData.strPaymentPlan,  " & _
-            "" & connNameSpace & ".FS_FeeAuditedData.strOfficialName,  " & _
-            "" & connNameSpace & ".FS_FeeAuditedData.strOfficialTitle,  " & _
+            "" & DBNameSpace & ".FS_FeeAuditedData.datShutDown,  " & _
+            "" & DBNameSpace & ".FS_FeeAuditedData.strPaymentPlan,  " & _
+            "" & DBNameSpace & ".FS_FeeAuditedData.strOfficialName,  " & _
+            "" & DBNameSpace & ".FS_FeeAuditedData.strOfficialTitle,  " & _
             "case " & _
             "when intSubmittal = '1' then 'YES' " & _
             "when intSubmittal = '0' then 'NO' " & _
             "end intSubmittal, " & _
             "datSubmittal " & _
-            "from " & connNameSpace & ".FS_FeeAuditedData, " & connNameSpace & ".FS_Admin " & _
-            "where " & connNameSpace & ".FS_FeeAuditedData.strAIRSNUmber = '0413" & mtbAIRSNumber.Text & "' " & _
-            "and " & connNameSpace & ".FS_FeeAuditedData.strAIRSnumber = " & connNameSpace & ".FS_Admin.strAIRSnumber  " & _
-            "and " & connNameSpace & ".FS_FeeAuditedData.numFeeYear = " & connNameSpace & ".FS_Admin.numFeeYear " & _
-            "and " & connNameSpace & ".FS_Admin.active = '1' " & _
+            "from " & DBNameSpace & ".FS_FeeAuditedData, " & DBNameSpace & ".FS_Admin " & _
+            "where " & DBNameSpace & ".FS_FeeAuditedData.strAIRSNUmber = '0413" & mtbAIRSNumber.Text & "' " & _
+            "and " & DBNameSpace & ".FS_FeeAuditedData.strAIRSnumber = " & DBNameSpace & ".FS_Admin.strAIRSnumber  " & _
+            "and " & DBNameSpace & ".FS_FeeAuditedData.numFeeYear = " & DBNameSpace & ".FS_Admin.numFeeYear " & _
+            "and " & DBNameSpace & ".FS_Admin.active = '1' " & _
             "and strEnrolled is not null " & _
             "and strenrolled = '1'" & _
-            "order by " & connNameSpace & ".FS_FeeAuditedData.numFeeYear desc "
+            "order by " & DBNameSpace & ".FS_FeeAuditedData.numFeeYear desc "
 
-            da = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            da = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             da.Fill(ds, "FeeData")
 
 
             SQL = "select distinct " & _
-            "" & connNameSpace & ".FS_FeeInvoice.numFeeYear, " & _
-           "" & connNameSpace & ".FS_FeeInvoice.InvoiceID, " & _
-           "" & connNameSpace & ".FS_FeeInvoice.numAmount, " & _
+            "" & DBNameSpace & ".FS_FeeInvoice.numFeeYear, " & _
+           "" & DBNameSpace & ".FS_FeeInvoice.InvoiceID, " & _
+           "" & DBNameSpace & ".FS_FeeInvoice.numAmount, " & _
            "datInvoiceDate, " & _
            "case " & _
-           "when " & connNameSpace & ".FS_FeeInvoice.active = '1' then 'Active' " & _
-           "when " & connNameSpace & ".FS_FeeInvoice.active = '0' then 'VOID' " & _
+           "when " & DBNameSpace & ".FS_FeeInvoice.active = '1' then 'Active' " & _
+           "when " & DBNameSpace & ".FS_FeeInvoice.active = '0' then 'VOID' " & _
            "end InvoiceStatus, strPayTypeDesc, " & _
            "case " & _
            "when strInvoiceStatus = '1' then 'Paid in Full' " & _
            "when strInvoiceStatus = '0' and " & _
-           "(numPayment <> '0' and numPayment is not null and " & connNameSpace & ".FS_Transactions.active = '1') then 'Partial Payment' " & _
+           "(numPayment <> '0' and numPayment is not null and " & DBNameSpace & ".FS_Transactions.active = '1') then 'Partial Payment' " & _
            "when strInvoicestatus = '0' then 'Unpaid' " & _
            "end PayStatus, " & _
-           "" & connNameSpace & ".FS_FeeInvoice.strComment " & _
-           "from " & connNameSpace & ".FS_FeeInvoice, " & connNameSpace & ".FSLK_PayType, " & _
-           "" & connNameSpace & ".FS_Transactions " & _
-           "where " & connNameSpace & ".FS_FeeInvoice.strPayType = " & connNameSpace & ".FSLK_PayType.nuMPayTypeID " & _
-           "and " & connNameSpace & ".FS_FeeInvoice.InvoiceID = " & connNameSpace & ".FS_Transactions.InvoiceID (+) " & _
-           "and " & connNameSpace & ".FS_FeeInvoice.strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' " & _
+           "" & DBNameSpace & ".FS_FeeInvoice.strComment " & _
+           "from " & DBNameSpace & ".FS_FeeInvoice, " & DBNameSpace & ".FSLK_PayType, " & _
+           "" & DBNameSpace & ".FS_Transactions " & _
+           "where " & DBNameSpace & ".FS_FeeInvoice.strPayType = " & DBNameSpace & ".FSLK_PayType.nuMPayTypeID " & _
+           "and " & DBNameSpace & ".FS_FeeInvoice.InvoiceID = " & DBNameSpace & ".FS_Transactions.InvoiceID (+) " & _
+           "and " & DBNameSpace & ".FS_FeeInvoice.strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' " & _
            "order by numFeeyear desc, datInvoiceDate desc  "
 
-            da = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            da = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             da.Fill(ds, "FeeInvoice")
 
@@ -4799,15 +4799,15 @@ Public Class IAIPFacilitySummary
             "end strEntryPerson, " & _
             "strComment,  " & _
             "transactionid  " & _
-            "from " & connNameSpace & ".FS_Transactions, " & connNameSpace & ".EPDUserProfiles " & _
-            "where " & connNameSpace & ".FS_Transactions.strEntryPerson = " & connNameSpace & ".EPDUserProfiles.numUserID (+) " & _
+            "from " & DBNameSpace & ".FS_Transactions, " & DBNameSpace & ".EPDUserProfiles " & _
+            "where " & DBNameSpace & ".FS_Transactions.strEntryPerson = " & DBNameSpace & ".EPDUserProfiles.numUserID (+) " & _
             "and strAIRSnumber = '0413" & mtbAIRSNumber.Text & "' " & _
             "and Active = '1' " & _
             "order by numFeeYear desc, dattransactiondate desc "
 
-            da = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            da = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             da.Fill(ds, "FeeDeposits")
 
@@ -5207,24 +5207,24 @@ Public Class IAIPFacilitySummary
 
     Private Sub mmiAddAFS_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiAddAFS.Click
         Try
-            SQL = "Update " & connNameSpace & ".AFSFacilityData set " & _
+            SQL = "Update " & DBNameSpace & ".AFSFacilityData set " & _
             "strUpdateStatus = 'A' " & _
             "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
 
-            SQL = "Update " & connNameSpace & ".AFSAirPollutantData set " & _
+            SQL = "Update " & DBNameSpace & ".AFSAirPollutantData set " & _
             "strUpdateStatus = 'A' " & _
             "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -5238,9 +5238,9 @@ Public Class IAIPFacilitySummary
             "airbranch.AFSSSPPrecords.strApplicationNumber  " & _
             "and AIRbranch.SSPPApplicationMaster.strAIRSNumber = '0413" & mtbAIRSNumber.Text & "') "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -5254,9 +5254,9 @@ Public Class IAIPFacilitySummary
             "       airbranch.AFSSSCPRecords.strTrackingNumber  " & _
             "and AIRbranch.SSCPItemMaster.strAIRSNumber = '0413" & mtbAIRSNumber.Text & "') "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -5271,14 +5271,14 @@ Public Class IAIPFacilitySummary
             "and AIRbranch.ISMPMaster.strAIRSNumber = '0413" & mtbAIRSNumber.Text & "') "
 
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
 
-            SQL = "Update " & connNameSpace & ".AFSSSCPEnforcementRecords set " & _
+            SQL = "Update " & DBNameSpace & ".AFSSSCPEnforcementRecords set " & _
            "strUpdateStatus = 'A' " & _
            "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' "
 
@@ -5292,14 +5292,14 @@ Public Class IAIPFacilitySummary
            "and AIRbranch.SSCPEnforcementItems.strAIRSNumber = '0413" & mtbAIRSNumber.Text & "') "
 
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
 
-            SQL = "Update " & connNameSpace & ".AFSSSCPFCERecords set " & _
+            SQL = "Update " & DBNameSpace & ".AFSSSCPFCERecords set " & _
     "strUpdateStatus = 'A' " & _
     "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' "
 
@@ -5312,9 +5312,9 @@ Public Class IAIPFacilitySummary
         "       airbranch.AFSSSCPFCERecords.strFCENumber  " & _
         "and AIRbranch.SSCPFCEMaster.strAIRSNumber = '0413" & mtbAIRSNumber.Text & "') "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -5327,24 +5327,24 @@ Public Class IAIPFacilitySummary
 
     Private Sub mmiUpdateAFSData_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiUpdateAFSData.Click
         Try
-            SQL = "Update " & connNameSpace & ".AFSFacilityData set " & _
+            SQL = "Update " & DBNameSpace & ".AFSFacilityData set " & _
             "strUpdateStatus = 'C' " & _
             "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
 
-            SQL = "Update " & connNameSpace & ".AFSAirPollutantData set " & _
+            SQL = "Update " & DBNameSpace & ".AFSAirPollutantData set " & _
             "strUpdateStatus = 'C' " & _
             "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -5358,9 +5358,9 @@ Public Class IAIPFacilitySummary
             "airbranch.AFSSSPPrecords.strApplicationNumber  " & _
             "and AIRbranch.SSPPApplicationMaster.strAIRSNumber = '0413" & mtbAIRSNumber.Text & "') "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -5374,9 +5374,9 @@ Public Class IAIPFacilitySummary
             "       airbranch.AFSSSCPRecords.strTrackingNumber  " & _
             "and AIRbranch.SSCPItemMaster.strAIRSNumber = '0413" & mtbAIRSNumber.Text & "') "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -5391,9 +5391,9 @@ Public Class IAIPFacilitySummary
             "and AIRbranch.ISMPMaster.strAIRSNumber = '0413" & mtbAIRSNumber.Text & "') "
 
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -5408,9 +5408,9 @@ Public Class IAIPFacilitySummary
            "and AIRbranch.SSCPEnforcementItems.strAIRSNumber = '0413" & mtbAIRSNumber.Text & "') "
 
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -5424,9 +5424,9 @@ Public Class IAIPFacilitySummary
         "       airbranch.AFSSSCPFCERecords.strFCENumber  " & _
         "and AIRbranch.SSCPFCEMaster.strAIRSNumber = '0413" & mtbAIRSNumber.Text & "') "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()

@@ -419,7 +419,7 @@ Public Class ISMPMemo
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -460,7 +460,7 @@ Public Class ISMPMemo
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -479,22 +479,22 @@ Public Class ISMPMemo
         Try
 
             If txtReferenceNumber.Text <> "" Then
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
 
                 SQL = "Select strReferenceNumber " & _
-                "from " & connNameSpace & ".ISMPMaster " & _
+                "from " & DBNameSpace & ".ISMPMaster " & _
                 "where strReferenceNumber = '" & txtReferenceNumber.Text & "'"
-                cmd = New OracleCommand(SQL, conn)
+                cmd = New OracleCommand(SQL, DBConn)
 
                 dr = cmd.ExecuteReader
                 Dim recExist As Boolean = dr.Read
                 If recExist = True Then
                     SQL = "Select strMemorandumField " & _
-                    "from " & connNameSpace & ".ISMPTestREportMemo " & _
+                    "from " & DBNameSpace & ".ISMPTestREportMemo " & _
                     "where strReferenceNumber = '" & txtReferenceNumber.Text & "'"
-                    cmd = New OracleCommand(SQL, conn)
+                    cmd = New OracleCommand(SQL, DBConn)
 
                     dr = cmd.ExecuteReader
                     recExist = dr.Read
@@ -505,19 +505,19 @@ Public Class ISMPMemo
                         MemoTemp = dr.Item("StrMemorandumField")
                         MemoTemp = MemoTemp & vbCrLf & Replace(txtMemoIN.Text, " '", "''")
 
-                        SQL = "Update " & connNameSpace & ".ISMPTestREportMemo set " & _
+                        SQL = "Update " & DBNameSpace & ".ISMPTestREportMemo set " & _
                         "strMemorandumField = '" & Replace(MemoTemp, "'", "''") & "' " & _
                         "where strReferenceNumber = '" & txtReferenceNumber.Text & "'"
                     Else
-                        SQL = "Insert into " & connNameSpace & ".ISMPTestREportMemo " & _
+                        SQL = "Insert into " & DBNameSpace & ".ISMPTestREportMemo " & _
                         "(strReferenceNumber, strMemorandumField) " & _
                         "values " & _
                         "('" & txtReferenceNumber.Text & "', '" & Replace(txtMemoIN.Text, "'", "''") & "')"
                     End If
-                    cmd = New OracleCommand(SQL, conn)
+                    cmd = New OracleCommand(SQL, DBConn)
                     dr = cmd.ExecuteReader
                 End If
-                If conn.State = ConnectionState.Open Then
+                If DBConn.State = ConnectionState.Open Then
                     'conn.close()
                 End If
             End If
@@ -525,7 +525,7 @@ Public Class ISMPMemo
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -539,13 +539,13 @@ Public Class ISMPMemo
         Try
 
             If txtReferenceNumber.Text <> "" Then
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 SQL = "Select strMemorandumField " & _
-                "from " & connNameSpace & ".ISMPTestREportMemo " & _
+                "from " & DBNameSpace & ".ISMPTestREportMemo " & _
                 "where strReferenceNumber = '" & txtReferenceNumber.Text & "'"
-                cmd = New OracleCommand(SQL, conn)
+                cmd = New OracleCommand(SQL, DBConn)
 
                 dr = cmd.ExecuteReader
                 Dim recExist As Boolean = dr.Read
@@ -553,14 +553,14 @@ Public Class ISMPMemo
                     txtMemoOut.Text = dr.Item("strMemorandumField")
                 End If
 
-                If conn.State = ConnectionState.Open Then
+                If DBConn.State = ConnectionState.Open Then
                     'conn.close()
                 End If
             End If
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -573,7 +573,7 @@ Public Class ISMPMemo
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -586,7 +586,7 @@ Public Class ISMPMemo
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -599,7 +599,7 @@ Public Class ISMPMemo
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -612,7 +612,7 @@ Public Class ISMPMemo
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -625,7 +625,7 @@ Public Class ISMPMemo
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -646,7 +646,7 @@ Public Class ISMPMemo
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -662,7 +662,7 @@ Public Class ISMPMemo
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try

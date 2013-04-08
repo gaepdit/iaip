@@ -19,7 +19,7 @@ Module CodeFile
             If AIRSNumber = "" Then
                 Return False
             End If
-            SQL = "Insert into " & connNameSpace & ".APBContactInformation " & _
+            SQL = "Insert into " & DBNameSpace & ".APBContactInformation " & _
              "values " & _
              "('0413" & AIRSNumber & Key & "', '0413" & AIRSNumber & "', " & _
              "" & Key & " , '" & Replace(ContactFirstName, "'", "''") & "', " & _
@@ -33,9 +33,9 @@ Module CodeFile
              "'" & UserGCode & "', '" & OracleDate & "', " & _
              "'" & Replace(ContactDescription, "'", "''") & "') "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -67,13 +67,13 @@ Module CodeFile
 
             SQL = "Select " & _
             "substr(max(strKey) + 1, 2, 1) as NewKey " & _
-            "from " & connNameSpace & ".APBContactInformation " & _
+            "from " & DBNameSpace & ".APBContactInformation " & _
             "where strAIRSNumber = '0413" & AIRSNumber & "' " & _
             "and strKey like '" & Mid(Key, 1, 1) & "%' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -87,12 +87,12 @@ Module CodeFile
 
             If NewKey = 0 Then
                 NewKey = 9
-                SQL = "Delete " & connNameSpace & ".APBContactInformation " & _
+                SQL = "Delete " & DBNameSpace & ".APBContactInformation " & _
                 "where strAIRSNumber = '0413" & AIRSNumber & "' " & _
                 "and strKey = '" & Mid(Key, 1, 1) & "9'"
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -101,15 +101,15 @@ Module CodeFile
             Do Until NewKey = 0
                 ' MsgBox(NewKey.ToString)
 
-                SQL = "Update " & connNameSpace & ".APBContactInformation set " & _
+                SQL = "Update " & DBNameSpace & ".APBContactInformation set " & _
                 "strKey = '" & Mid(Key, 1, 1) & NewKey & "', " & _
                 "strContactKey = '0413" & AIRSNumber & Mid(Key, 1, 1) & NewKey & "' " & _
                 "where strAIRSNumber = '0413" & AIRSNumber & "' " & _
                 "and strKey = '" & Mid(Key, 1, 1) & (NewKey - 1) & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -117,7 +117,7 @@ Module CodeFile
                 NewKey -= 1
             Loop
 
-            SQL = "Insert into " & connNameSpace & ".APBContactInformation " & _
+            SQL = "Insert into " & DBNameSpace & ".APBContactInformation " & _
             "values " & _
             "('0413" & AIRSNumber & Mid(Key, 1, 1) & NewKey & "', " & _
             "'0413" & AIRSNumber & "', '" & Key & "', " & _
@@ -140,9 +140,9 @@ Module CodeFile
             "'" & OracleDate & "', " & _
             "'" & Replace(ContactDescription, "'", "''") & "') "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -229,7 +229,7 @@ Module CodeFile
 
             SQL = "Insert into FS_FeeRate " & _
             "values " & _
-            "((Select max(numFeeRateID) + 1 from " & connNameSpace & ".FS_FeeRate), " & _
+            "((Select max(numFeeRateID) + 1 from " & DBNameSpace & ".FS_FeeRate), " & _
             "'" & FeeYear & "', '" & PeriodStart & "', " & _
             "'" & PeriodEnd & "', '" & Part70Fee & "', " & _
             "'" & SMFee & "', '" & PerTonRate & "', " & _
@@ -243,9 +243,9 @@ Module CodeFile
             "'" & ThirdQrtDue & "', '" & FourthQrtDue & "', " & _
             "'', '" & AAThres & "', '" & NAThres & "') "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -332,7 +332,7 @@ Module CodeFile
                 End If
             End If
 
-            SQL = "Update " & connNameSpace & ".FS_FeeRate set " & _
+            SQL = "Update " & DBNameSpace & ".FS_FeeRate set " & _
             "numFeeYear = '" & FeeYear & "', " & _
             "datFeePeriodStart = '" & PeriodStart & "', " & _
             "datFeePeriodEnd = '" & PeriodEnd & "', " & _
@@ -355,9 +355,9 @@ Module CodeFile
             "numNAThres = '" & NAThres & "' " & _
             "where numFeeRateID = '" & FeeRateID & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -369,16 +369,16 @@ Module CodeFile
     End Function
     Function Insert_FSLK_NSPSReason(ByVal Description As String) As Boolean
         Try
-            SQL = "Insert into " & connNameSpace & ".FSLK_NSPSReason " & _
+            SQL = "Insert into " & DBNameSpace & ".FSLK_NSPSReason " & _
             "Values " & _
-            "((select max(NSPSReasonCode) + 1 from " & connNameSpace & ".FSLK_NSPSReason), " & _
+            "((select max(NSPSReasonCode) + 1 from " & DBNameSpace & ".FSLK_NSPSReason), " & _
             "'" & Replace(Description, "'", "''") & "', " & _
             "'1', '" & UserGCode & "', " & _
             "'" & OracleDate & "', '" & OracleDate & "') "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -392,13 +392,13 @@ Module CodeFile
     Function Update_FSLK_NSPSReason(ByVal NSPSReasonCode As String, ByVal Description As String, ByVal ActiveStatus As String) As Boolean
         Try
             If Description = "" Then
-                SQL = "Update " & connNameSpace & ".FSLK_NSPSReason set " & _
+                SQL = "Update " & DBNameSpace & ".FSLK_NSPSReason set " & _
                 "Active = '" & ActiveStatus & "', " & _
                 "updateUser = '" & UserGCode & "', " & _
                 "UpdateDateTime = '" & OracleDate & "' " & _
                 "where NSPSReasonCode = '" & NSPSReasonCode & "' "
             Else
-                SQL = "Update " & connNameSpace & ".FSLK_NSPSReason set " & _
+                SQL = "Update " & DBNameSpace & ".FSLK_NSPSReason set " & _
                 "Description = '" & Replace(Description, "'", "''") & "', " & _
                 "Active = '" & ActiveStatus & "', " & _
                 "updateUser = '" & UserGCode & "', " & _
@@ -406,9 +406,9 @@ Module CodeFile
                 "where NSPSReasonCode = '" & NSPSReasonCode & "' "
             End If
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -421,16 +421,16 @@ Module CodeFile
     End Function
     Function Insert_FSLK_NSPSReasonYear(ByVal numFeeYear As String, ByVal NSPSReasonCode As String, ByVal DisplayOrder As String) As Boolean
         Try
-            SQL = "Insert into " & connNameSpace & ".FSLK_NSPSReasonYear " & _
+            SQL = "Insert into " & DBNameSpace & ".FSLK_NSPSReasonYear " & _
             "values " & _
             "('" & numFeeYear & "', '" & NSPSReasonCode & "', " & _
             "'" & DisplayOrder & "', '1', " & _
             "'" & UserGCode & "', '" & OracleDate & "', " & _
             "'" & OracleDate & "') "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -441,7 +441,7 @@ Module CodeFile
     Function Update_FSLK_NSPSReasonYear(ByVal numFeeYear As String, ByVal NSPSReasonCode As String, ByVal DisplayOrder As String, _
                                        ByVal ActiveStatus As String) As Boolean
         Try
-            SQL = "Update " & connNameSpace & ".FSLK_NSPSReasonYear set " & _
+            SQL = "Update " & DBNameSpace & ".FSLK_NSPSReasonYear set " & _
             "NSPSReasonCode = '" & NSPSReasonCode & "', " & _
             "DisplayOrder = '" & DisplayOrder & "', " & _
             "Active = '" & ActiveStatus & "', " & _
@@ -450,9 +450,9 @@ Module CodeFile
             "where numFeeYear = '" & numFeeYear & "' " & _
             "and NSPSReasonCode = '" & NSPSReasonCode & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -480,13 +480,13 @@ Module CodeFile
 
             SQL = "Select " & _
             "count(*) as AdminCount " & _
-            "from " & connNameSpace & ".FS_Admin " & _
+            "from " & DBNameSpace & ".FS_Admin " & _
             "where numFeeYear = '" & FeeYear & "' " & _
             "and strAIRSNumber = '0413" & AIRSNumber & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -539,7 +539,7 @@ Module CodeFile
                 End If
             End If
 
-            SQL = "Insert into " & connNameSpace & ".FS_Admin " & _
+            SQL = "Insert into " & DBNameSpace & ".FS_Admin " & _
             "values " & _
             "(" & FeeYear & ", '0413" & AIRSNumber & "', " & _
             "'" & Enrolled & "', '', " & _
@@ -551,29 +551,29 @@ Module CodeFile
             "'IAIP||" & UserName & "', '" & OracleDate & "', " & _
             "'" & OracleDate & "') "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
 
-            SQL = "Update " & connNameSpace & ".FS_Admin set " & _
+            SQL = "Update " & DBNameSpace & ".FS_Admin set " & _
            "datInitialEnrollment = datEnrollment " & _
            "where numFeeYear = '" & FeeYear & "' " & _
            "and strAIRSnumber = '0413" & AIRSNumber & "' " & _
            "and datInitialEnrollment is null "
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
-            cmd = New OracleCommand("AIRBranch.PD_FEE_MAILOUT", conn)
+            cmd = New OracleCommand("AIRBranch.PD_FEE_MAILOUT", DBConn)
             cmd.CommandType = CommandType.StoredProcedure
 
             cmd.Parameters.Add(New OracleParameter("FeeYear", OracleType.Number)).Value = FeeYear
@@ -581,10 +581,10 @@ Module CodeFile
 
             cmd.ExecuteNonQuery()
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
-            cmd = New OracleCommand("AIRBranch.PD_FEE_DATA", conn)
+            cmd = New OracleCommand("AIRBranch.PD_FEE_DATA", DBConn)
             cmd.CommandType = CommandType.StoredProcedure
 
             cmd.Parameters.Add(New OracleParameter("FeeYear", OracleType.Number)).Value = FeeYear
@@ -683,12 +683,12 @@ Module CodeFile
                 "updateDateTime = '" & OracleDate & "' "
             End If
 
-            SQL = "Update " & connNameSpace & ".FS_Admin set " & SQL & _
+            SQL = "Update " & DBNameSpace & ".FS_Admin set " & SQL & _
             "where numFeeYear = '" & FeeYear & "' " & _
             "and strAIRSNumber = '0413" & AIRSNumber & "' "
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -709,23 +709,23 @@ Module CodeFile
                 End If
             End If
 
-            SQL = "Update " & connNameSpace & ".FS_Admin set " & _
+            SQL = "Update " & DBNameSpace & ".FS_Admin set " & _
             "datInitialEnrollment = datEnrollment " & _
             "where numFeeYear = '" & FeeYear & "' " & _
             "and strAIRSnumber = '0413" & AIRSNumber & "' " & _
             "and datInitialEnrollment is null "
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
 
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
-            cmd = New OracleCommand("AIRBranch.PD_FEE_MAILOUT", conn)
+            cmd = New OracleCommand("AIRBranch.PD_FEE_MAILOUT", DBConn)
             cmd.CommandType = CommandType.StoredProcedure
 
             cmd.Parameters.Add(New OracleParameter("FeeYear", OracleType.Number)).Value = FeeYear
@@ -733,10 +733,10 @@ Module CodeFile
 
             cmd.ExecuteNonQuery()
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
-            cmd = New OracleCommand("AIRBranch.PD_FEE_DATA", conn)
+            cmd = New OracleCommand("AIRBranch.PD_FEE_DATA", DBConn)
             cmd.CommandType = CommandType.StoredProcedure
 
             cmd.Parameters.Add(New OracleParameter("FeeYear", OracleType.Number)).Value = FeeYear
@@ -754,10 +754,10 @@ Module CodeFile
     Function Update_FS_Admin_Status(ByVal FeeYear As String, ByVal AIRSNumber As String) As Boolean
         Try
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
-            cmd = New OracleCommand("AIRBranch.PD_FEE_Status", conn)
+            cmd = New OracleCommand("AIRBranch.PD_FEE_Status", DBConn)
             cmd.CommandType = CommandType.StoredProcedure
 
             cmd.Parameters.Add(New OracleParameter("FeeYear", OracleType.Number)).Value = FeeYear
@@ -810,7 +810,7 @@ Module CodeFile
                 Active = "1"
             End If
 
-            SQL = "Insert into " & connNameSpace & ".FS_MailOut " & _
+            SQL = "Insert into " & DBNameSpace & ".FS_MailOut " & _
             "values " & _
             "('" & FeeYear & "', '0413" & AIRSNumber & "', " & _
             "'" & Replace(FirstName, "'", "''") & "', '" & Replace(LastName, "'", "''") & "', " & _
@@ -829,9 +829,9 @@ Module CodeFile
             "'IAIP||" & UserName & "', '" & OracleDate & "', " & _
             "'" & OracleDate & "') "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -971,16 +971,16 @@ Module CodeFile
                     SQL = SQL & "Active = '1', "
                 End If
             End If
-            SQL = "Update " & connNameSpace & ".FS_MailOut set " & _
+            SQL = "Update " & DBNameSpace & ".FS_MailOut set " & _
             SQL & _
             "updateUser = 'IAIP||" & UserName & "', " & _
             "updateDateTime = '" & OracleDate & "' " & _
             "where numFeeYear = '" & FeeYear & "' " & _
             "and strAIRSNumber = '0413" & AIRSNumber & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -1005,17 +1005,17 @@ Module CodeFile
             "and strInvoiceStatus = '0' " & _
             "and active = '1' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
-            cmd = New OracleCommand("AIRBranch.PD_FEE_STATUS", conn)
+            cmd = New OracleCommand("AIRBranch.PD_FEE_STATUS", DBConn)
             cmd.CommandType = CommandType.StoredProcedure
 
             cmd.Parameters.Add(New OracleParameter("FeeYear", OracleType.Number)).Value = FeeYear
@@ -1042,9 +1042,9 @@ Module CodeFile
                             ByVal Active As String) As Boolean
         Try
 
-            SQL = "Insert into " & connNameSpace & ".REG_Evetn " & _
+            SQL = "Insert into " & DBNameSpace & ".REG_Evetn " & _
             "values " & _
-            "((select max(numReg_EventID) + 1 from " & connNameSpace & ".Reg_Event), " & _
+            "((select max(numReg_EventID) + 1 from " & DBNameSpace & ".Reg_Event), " & _
             "'" & EventStatusCode & "',  '" & Title & "', " & _
             "'" & Description & "', '" & StartDateTime & "', " & _
             "'" & EndDateTime & "', '" & Venue & "', " & _
@@ -1100,7 +1100,7 @@ Module CodeFile
                 LogInRequired = "0"
             End If
 
-            SQL = "Insert into " & connNameSpace & ".RES_Event " & _
+            SQL = "Insert into " & DBNameSpace & ".RES_Event " & _
                      "(numRes_EventID, numEventStatusCode, " & _
                      "strUserGCode, strTitle, " & _
                      "strDescription, datStartDate, " & _
@@ -1118,7 +1118,7 @@ Module CodeFile
                      "((select " & _
                      "case when max(numres_eventID) is null then 1 " & _
                      "else max(numRes_EventID) + 1 End  " & _
-                     "from " & connNameSpace & ".Res_event), " & _
+                     "from " & DBNameSpace & ".Res_event), " & _
                      "'" & Replace(EventStatusCode, "'", "''") & "',  '" & Replace(WebContact, "'", "''") & "', " & _
                      "'" & Replace(Title, "'", "''") & "', " & _
                      "'" & Replace(Description, "'", "''") & "', '" & Replace(StartDateTime, "'", "''") & "', " & _
@@ -1134,20 +1134,20 @@ Module CodeFile
                      "'" & WebPhoneNumber & "', '" & Replace(EventTime, "'", "''") & "', " & _
                      "'" & Replace(EventEndTime, "'", "''") & "', '" & Replace(WebURL, "'", "''") & "') "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
 
             SQL = "Select " & _
             "max(numRes_eventID) as EventID " & _
-            "from " & connNameSpace & ".RES_Event "
+            "from " & DBNameSpace & ".RES_Event "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -1312,13 +1312,13 @@ Module CodeFile
                 SQL = SQL & "active = '" & Active & "', "
             End If
             If SQL <> "" Then
-                SQL = "Update " & connNameSpace & ".Res_Event set " & _
+                SQL = "Update " & DBNameSpace & ".Res_Event set " & _
                 SQL & "updateUser = '" & UserGCode & "', " & _
                 "updateDateTime = '" & OracleDate & "' " & _
                 "where numRes_EventID = '" & Res_EventID & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -1333,15 +1333,15 @@ Module CodeFile
                                      ByVal RegStatusCode As String, ByVal RegDate As String) As Boolean
         Try
 
-            SQL = "Update " & connNameSpace & ".Res_Registration set " & _
+            SQL = "Update " & DBNameSpace & ".Res_Registration set " & _
             "numREgistrationStatusCode = '" & RegStatusCode & "', " & _
             "datRegistrationDateTime = '" & RegDate & "' " & _
             "where numRes_RegistrationID = '" & RegistrationID & "' " & _
             "and strConfirmationNumber = '" & Confirmation & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -1356,9 +1356,9 @@ Module CodeFile
             "from AIRBranch.EILookUpNAICS " & _
             "where strNAICSCode = '" & NAICSCode & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -1381,9 +1381,9 @@ Module CodeFile
             "where strSICCode = '" & SICCode & "' " & _
             "and length(strSICCode) = 4 "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             dr = cmd.ExecuteReader

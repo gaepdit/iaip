@@ -67,14 +67,14 @@ Public Class PASPDepositsAmendments
 
             SQL = "Select " & _
             "PayID, PayType " & _
-            "from " & connNameSpace & ".FSPayType " & _
+            "from " & DBNameSpace & ".FSPayType " & _
             "order by paytype"
 
             ds = New DataSet
-            da = New OracleDataAdapter(SQL, conn)
+            da = New OracleDataAdapter(SQL, DBConn)
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             da.Fill(ds, "PayType")
@@ -529,15 +529,15 @@ Public Class PASPDepositsAmendments
         Dim SQL As String
         Try
             SQL = "Select smfee, pertonrate, nspsfee, part70fee " & _
-            " from " & connNameSpace & ".FSFeeRates " & _
+            " from " & DBNameSpace & ".FSFeeRates " & _
             " where intyear = '" & feeyear & "' "
 
-            Dim cmd As New OracleCommand(SQL, conn)
+            Dim cmd As New OracleCommand(SQL, DBConn)
             cmd.CommandType = CommandType.Text
 
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
             Else
-                conn.Open()
+                DBConn.Open()
             End If
 
             Dim dr As OracleDataReader = cmd.ExecuteReader()
@@ -631,16 +631,16 @@ Public Class PASPDepositsAmendments
                 + "numpart70fee, numsmfee, numnspsfee, numtotalfee, " _
                 + "strnspsexempt, strnspsreason, stroperate, numfeerate, " _
                 + "strclass1, strnsps1, strpart70, strsyntheticminor, numcalculatedfee " _
-                + "from " & connNameSpace & ".FSCalculations " _
+                + "from " & DBNameSpace & ".FSCalculations " _
                 + "where strairsnumber = '0413" & airsnumber & "' " _
                 + "and intyear = '" & feeyear & "' "
 
-            Dim cmd As New OracleCommand(SQL, conn)
+            Dim cmd As New OracleCommand(SQL, DBConn)
             cmd.CommandType = CommandType.Text
 
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
             Else
-                conn.Open()
+                DBConn.Open()
             End If
 
             Dim dr As OracleDataReader = cmd.ExecuteReader()
@@ -890,12 +890,12 @@ Public Class PASPDepositsAmendments
             "strPaymentType, intSubmittal, " & _
             "strOfficialName, strOfficialTitle, " & _
             "dateSubmit, strComments " & _
-            "from " & connNameSpace & ".FSPayAndSubmit " & _
+            "from " & DBNameSpace & ".FSPayAndSubmit " & _
             "where strAIRSnumber = '0413" & cboAirsNo2.Text & "' " & _
             "and intYear = '" & cboFeeYear2.Text & "' "
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -1370,26 +1370,26 @@ Public Class PASPDepositsAmendments
 
             SQL = "select " & _
             "intSubmittal " & _
-            "from " & connNameSpace & ".FSPayAndSubmit " & _
+            "from " & DBNameSpace & ".FSPayAndSubmit " & _
             "where strAIRSNumber = '0413" & cboAirsNo2.Text & "' " & _
             "and intYear = '" & cboFeeYear2.Text & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             recExist = dr.Read
             dr.Close()
             If recExist = False Then
-                SQL = "Insert into " & connNameSpace & ".FSPayAndSubmit " & _
+                SQL = "Insert into " & DBNameSpace & ".FSPayAndSubmit " & _
                 "values " & _
                 "('0413" & cboAirsNo2.Text & "', '" & cboFeeYear2.Text & "', " & _
                 "'" & cboAmendmentsPayType.Text & "', '" & txtSubmittal.Text & "', " & _
                 "'" & Replace(txtOfficalName.Text, "'", "''") & "', '" & Replace(txtOfficalTitle.Text, "'", "''") & "', " & _
                 "'" & DTPAmendmentSubmitted.Text & "', '" & Replace(txtAmendmentComments.Text, "'", "''") & "') "
             Else
-                SQL = "Update " & connNameSpace & ".FSPayAndSubmit set " & _
+                SQL = "Update " & DBNameSpace & ".FSPayAndSubmit set " & _
                 "strPaymentType = '" & cboAmendmentsPayType.Text & "', " & _
                 "intSubmittal = '" & Replace(txtSubmittal.Text, "'", "''") & "', " & _
                 "strOfficialName = '" & Replace(txtOfficalName.Text, "'", "''") & "', " & _
@@ -1400,9 +1400,9 @@ Public Class PASPDepositsAmendments
                 "and intYear = '" & cboFeeYear2.Text & "' "
             End If
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -1415,23 +1415,23 @@ Public Class PASPDepositsAmendments
         Try
 
 
-            SQL = "INSERT INTO " & connNameSpace & ".FSAmendment " _
+            SQL = "INSERT INTO " & DBNameSpace & ".FSAmendment " _
             + "Select STRAIRSNUMBER, INTYEAR, INTVOCTONS, INTPMTONS, " _
             + "INTSO2TONS, INTNOXTONS, STRNSPSEXEMPT, STRNSPSREASON, " _
             + "STROPERATE, STRNSPSEXEMPTREASON, STRPART70, STRSYNTHETICMINOR, " _
             + "NUMCALCULATEDFEE, STRCLASS1, STRNSPS1, " _
             + "to_date('" & Format$(Now, "dd-MMM-yyyy hh:mm:ss") & "', " _
             + "'dd-mon-yyyy hh:mi:ss'), " _
-            + "'" & UserGCode & "' from " & connNameSpace & ".FSCalculations " _
+            + "'" & UserGCode & "' from " & DBNameSpace & ".FSCalculations " _
             + "where strairsnumber = '0413" & cboAirsNo2.Text & "' " _
             + "and intyear = '" & cboFeeYear2.Text & "' "
 
-            Dim cmd As New OracleCommand(SQL, conn)
+            Dim cmd As New OracleCommand(SQL, DBConn)
             cmd.CommandType = CommandType.Text
 
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
             Else
-                conn.Open()
+                DBConn.Open()
             End If
 
             cmd.ExecuteReader()
@@ -1513,7 +1513,7 @@ Public Class PASPDepositsAmendments
                 didnotoperate = "YES"
             End If
 
-            SQL = "Update " & connNameSpace & ".FSCalculations set " _
+            SQL = "Update " & DBNameSpace & ".FSCalculations set " _
             + "intvoctons = '" & CInt(txtvoctons.Text) & "', " _
             + "intnoxtons = '" & CInt(txtnoxtons.Text) & "', " _
             + "intpmtons = '" & CInt(txtpmtons.Text) & "', " _
@@ -1535,12 +1535,12 @@ Public Class PASPDepositsAmendments
             + "and intyear = '" & cboFeeYear2.Text & "' "
 
 
-            cmd = New OracleCommand(SQL, conn)
+            cmd = New OracleCommand(SQL, DBConn)
             cmd.CommandType = CommandType.Text
 
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
             Else
-                conn.Open()
+                DBConn.Open()
             End If
 
             Dim dr As OracleDataReader = cmd.ExecuteReader
@@ -1581,16 +1581,16 @@ Public Class PASPDepositsAmendments
             Dim SQL As String
 
             SQL = "Select strairsnumber " _
-         + "from " & connNameSpace & ".FSCalculations " _
+         + "from " & DBNameSpace & ".FSCalculations " _
          + "where strairsnumber = '0413" & cboAirsNo2.Text & "' " _
          + "and intyear = '" & cboFeeYear2.Text & "' "
 
-            Dim cmd As New OracleCommand(SQL, conn)
+            Dim cmd As New OracleCommand(SQL, DBConn)
             cmd.CommandType = CommandType.Text
 
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
             Else
-                conn.Open()
+                DBConn.Open()
             End If
 
             Dim dr As OracleDataReader = cmd.ExecuteReader()
@@ -1603,27 +1603,27 @@ Public Class PASPDepositsAmendments
             End If
 
             SQL = "Select strAIRSNUmber " & _
-            "From " & connNameSpace & ".FSPayAndSubmit " & _
+            "From " & DBNameSpace & ".FSPayAndSubmit " & _
             "where strAIRSNumber = '0413" & cboAirsNo2.Text & "' " & _
             "and intYear = '" & cboFeeYear2.Text & "'  "
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             recExist = dr.Read
             dr.Close()
 
             If recExist = False Then
-                SQL = "Insert into " & connNameSpace & ".FSPayAndSubmit " & _
+                SQL = "Insert into " & DBNameSpace & ".FSPayAndSubmit " & _
                 "values " & _
                 "('0413" & cboAirsNo2.Text & "', '" & cboFeeYear2.Text & "', " & _
                 "'Entire Annual Year', 1, " & _
                 "'" & Replace(UserName, "'", "''") & "', 'GA APB Employee', " & _
                 "sysdate, '') "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -1705,7 +1705,7 @@ Public Class PASPDepositsAmendments
                 didnotoperate = "YES"
             End If
 
-            SQL = "Insert into " & connNameSpace & ".FSCalculations " _
+            SQL = "Insert into " & DBNameSpace & ".FSCalculations " _
             + "(strairsnumber, intyear, " _
             + "intvoctons, intpmtons, intso2tons, intnoxtons, " _
             + "numpart70fee, numsmfee, numnspsfee, " _
@@ -1724,12 +1724,12 @@ Public Class PASPDepositsAmendments
             + "'" & part70 & "', '" & syntheticminor & "', " _
             + "'" & CDbl(lblcalculated.Text) & "', '0') "
 
-            cmd = New OracleCommand(SQL, conn)
+            cmd = New OracleCommand(SQL, DBConn)
             cmd.CommandType = CommandType.Text
 
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
             Else
-                conn.Open()
+                DBConn.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -1737,94 +1737,94 @@ Public Class PASPDepositsAmendments
 
             SQL = "Select " & _
             "strInvoiceNo " & _
-            "from " & connNameSpace & ".FSAddPaid " & _
+            "from " & DBNameSpace & ".FSAddPaid " & _
             "where strAIRSNumber = '0413" & cboAirsNo2.Text & "' " & _
             "and intYear = '" & cboFeeYear2.Text & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             recExist = dr.Read
             dr.Close()
             If recExist = False Then
                 If cboAmendmentsPayType.Text = "Entire Annual Year" Then
-                    SQL = "Insert into " & connNameSpace & ".FSAddPaid " & _
+                    SQL = "Insert into " & DBNameSpace & ".FSAddPaid " & _
                     "values " & _
                     "('0413" & cboAirsNo2.Text & "', '" & cboFeeYear2.Text & "', " & _
                     "'0', '', '', '', " & _
                     "'ANNUAL', '', '" & UserGCode & "', " & _
                     "'" & Replace(txtAmendmentComments.Text, "'", "''") & "', '', " & _
-                    "" & connNameSpace & ".SeqFSDeposit.nextval, " & _
+                    "" & DBNameSpace & ".SeqFSDeposit.nextval, " & _
                     "'" & cboAirsNo2.Text & "-A1-" & cboFeeYear2.Text & "') "
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
                 Else
-                    SQL = "Insert into " & connNameSpace & ".FSAddPaid " & _
+                    SQL = "Insert into " & DBNameSpace & ".FSAddPaid " & _
                     "values " & _
                     "('0413" & cboAirsNo2.Text & "', '" & cboFeeYear2.Text & "', " & _
                     "'0', '', '', '', " & _
                     "'QUARTER ONE', '', '" & UserGCode & "', " & _
                     "'" & Replace(txtAmendmentComments.Text, "'", "''") & "', '', " & _
-                    "" & connNameSpace & ".SeqFSDeposit.nextval, " & _
+                    "" & DBNameSpace & ".SeqFSDeposit.nextval, " & _
                     "'" & cboAirsNo2.Text & "-Q1-" & cboFeeYear2.Text & "') "
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
 
-                    SQL = "Insert into " & connNameSpace & ".FSAddPaid " & _
+                    SQL = "Insert into " & DBNameSpace & ".FSAddPaid " & _
                    "values " & _
                    "('0413" & cboAirsNo2.Text & "', '" & cboFeeYear2.Text & "', " & _
                    "'0', '', '', '', " & _
                    "'QUARTER TWO', '', '" & UserGCode & "', " & _
                    "'" & Replace(txtAmendmentComments.Text, "'", "''") & "', '', " & _
-                   "" & connNameSpace & ".SeqFSDeposit.nextval, " & _
+                   "" & DBNameSpace & ".SeqFSDeposit.nextval, " & _
                    "'" & cboAirsNo2.Text & "-Q2-" & cboFeeYear2.Text & "') "
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
 
-                    SQL = "Insert into " & connNameSpace & ".FSAddPaid " & _
+                    SQL = "Insert into " & DBNameSpace & ".FSAddPaid " & _
                    "values " & _
                    "('0413" & cboAirsNo2.Text & "', '" & cboFeeYear2.Text & "', " & _
                    "'0', '', '', '', " & _
                    "'QUARTER THREE', '', '" & UserGCode & "', " & _
                    "'" & Replace(txtAmendmentComments.Text, "'", "''") & "', '', " & _
-                   "" & connNameSpace & ".SeqFSDeposit.nextval, " & _
+                   "" & DBNameSpace & ".SeqFSDeposit.nextval, " & _
                    "'" & cboAirsNo2.Text & "-Q3-" & cboFeeYear2.Text & "') "
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
 
-                    SQL = "Insert into " & connNameSpace & ".FSAddPaid " & _
+                    SQL = "Insert into " & DBNameSpace & ".FSAddPaid " & _
                    "values " & _
                    "('0413" & cboAirsNo2.Text & "', '" & cboFeeYear2.Text & "', " & _
                    "'0', '', '', '', " & _
                    "'QUARTER FOUR', '', '" & UserGCode & "', " & _
                    "'" & Replace(txtAmendmentComments.Text, "'", "''") & "', '', " & _
-                   "" & connNameSpace & ".SeqFSDeposit.nextval, " & _
+                   "" & DBNameSpace & ".SeqFSDeposit.nextval, " & _
                    "'" & cboAirsNo2.Text & "-Q4-" & cboFeeYear2.Text & "') "
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
@@ -1931,7 +1931,7 @@ Public Class PASPDepositsAmendments
                 "strCheckNo, strBatchNo, " & _
                 "strPayType, intPayId, " & _
                 "strComments, strInvoiceNo " & _
-                "from " & connNameSpace & ".FSAddPaid " & _
+                "from " & DBNameSpace & ".FSAddPaid " & _
                 "where strDepositNo = '" & cboDepositNo.Text & "' " & _
                 "order by strBatchNo "
             Else
@@ -1943,7 +1943,7 @@ Public Class PASPDepositsAmendments
                    "strCheckNo, strBatchNo, " & _
                    "strPayType, intPayId, " & _
                    "strComments, strInvoiceNo " & _
-                   "from " & connNameSpace & ".FSAddPaid " & _
+                   "from " & DBNameSpace & ".FSAddPaid " & _
                    "where strairsnumber = '0413" & cboAirsNo.Text & "' " & _
                    "order by strBatchNo "
                 Else
@@ -1956,7 +1956,7 @@ Public Class PASPDepositsAmendments
                            "strCheckNo, strBatchNo, " & _
                            "strPayType, intPayId, " & _
                            "strComments, strInvoiceNo " & _
-                           "from " & connNameSpace & ".FSAddPaid " & _
+                           "from " & DBNameSpace & ".FSAddPaid " & _
                            "where intYear = '" & cboFeeYear.Text & "' " & _
                            "and strDepositNo is Not Null " & _
                            "order by strBatchNo "
@@ -1968,7 +1968,7 @@ Public Class PASPDepositsAmendments
                            "strCheckNo, strBatchNo, " & _
                            "strPayType, intPayId, " & _
                            "strComments, strInvoiceNo " & _
-                           "from " & connNameSpace & ".FSAddPaid " & _
+                           "from " & DBNameSpace & ".FSAddPaid " & _
                            "where intYear = '" & cboFeeYear.Text & "' " & _
                            "order by strBatchNo "
                         End If
@@ -1979,9 +1979,9 @@ Public Class PASPDepositsAmendments
             End If
 
             If SQL <> "" Then
-                daWorkEnTry = New OracleDataAdapter(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                daWorkEnTry = New OracleDataAdapter(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
 
                 daWorkEnTry.Fill(dsWorkEnTry, "tblWorkEnTry")
@@ -2224,7 +2224,7 @@ Public Class PASPDepositsAmendments
                         InvoiceNumber = ""
                 End Select
 
-                SQL = "Update " & connNameSpace & ".FSAddPaid set strairsnumber = '0413" & mtbAirsNo.Text & "', " _
+                SQL = "Update " & DBNameSpace & ".FSAddPaid set strairsnumber = '0413" & mtbAirsNo.Text & "', " _
                 + "datPaydate = '" & txtDepositdate.Text & "', " _
                 + "numPayment = '" & CDec(txtPayment.Text) & "', " _
                 + "strCheckno = '" & txtCheckNo.Text & "', " _
@@ -2237,12 +2237,12 @@ Public Class PASPDepositsAmendments
                 + "strEntryPerson = '" & UserGCode & "' " _
                 + "where intpayid = '" & txtPayId.Text & "'"
 
-                cmd = New OracleCommand(SQL, conn)
+                cmd = New OracleCommand(SQL, DBConn)
                 cmd.CommandType = CommandType.Text
 
-                If conn.State = ConnectionState.Open Then
+                If DBConn.State = ConnectionState.Open Then
                 Else
-                    conn.Open()
+                    DBConn.Open()
                 End If
 
                 dr = cmd.ExecuteReader
@@ -2265,15 +2265,15 @@ Public Class PASPDepositsAmendments
 
         Try
 
-            SQL = "Delete from " & connNameSpace & ".FSAddPaid " _
+            SQL = "Delete from " & DBNameSpace & ".FSAddPaid " _
             + "where intpayid = '" & txtPayId.Text & "'"
 
-            cmd = New OracleCommand(SQL, conn)
+            cmd = New OracleCommand(SQL, DBConn)
             cmd.CommandType = CommandType.Text
 
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
             Else
-                conn.Open()
+                DBConn.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -2354,9 +2354,9 @@ Public Class PASPDepositsAmendments
                         + "where Difference2006 <> 0 and vcheck2006 = 'NO'"
             End Select
 
-            daWorkEnTry = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daWorkEnTry = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             daWorkEnTry.Fill(dsWorkEnTry, "tblWorkEnTry")
@@ -2442,9 +2442,9 @@ Public Class PASPDepositsAmendments
                         + "where Difference2006 <> 0 and vcheck2006 = 'YES'"
             End Select
 
-            daWorkEnTry = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daWorkEnTry = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             daWorkEnTry.Fill(dsWorkEnTry, "tblWorkEnTry")
@@ -2566,18 +2566,18 @@ Public Class PASPDepositsAmendments
     Private Sub UpdateRecords(ByVal airsno As String, ByVal varcheck As String, ByVal comments As String)
 
         Try
-            SQL = "Update " & connNameSpace & ".FSCalculations set " _
+            SQL = "Update " & DBNameSpace & ".FSCalculations set " _
             + "variancecheck = '" & UCase(varcheck) & "', " _
             + "variancecomments = '" & Replace(comments, "'", "''") & "' " _
             + "where strairsnumber = '" & airsno & "' and " _
             + "intyear = '" & CInt(cboFeeYear3.Text) & "' "
 
-            cmd = New OracleCommand(SQL, conn)
+            cmd = New OracleCommand(SQL, DBConn)
             cmd.CommandType = CommandType.Text
 
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
             Else
-                conn.Open()
+                DBConn.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -2635,18 +2635,18 @@ Public Class PASPDepositsAmendments
 
         Try
 
-            SQL = "Select DISTINCT substr(" & connNameSpace & ".FSAddPaid.strairsnumber, 5) as strairsnumber, " & _
-            "" & connNameSpace & ".APBFacilityInformation.strfacilityname " & _
-            "from " & connNameSpace & ".FSAddPaid, " & connNameSpace & ".APBFacilityInformation " & _
-            "where " & connNameSpace & ".FSAddPaid.strairsnumber = " & connNameSpace & ".APBFacilityInformation.strairsnumber " & _
-            "order by " & connNameSpace & ".APBFacilityInformation.strFacilityName "
+            SQL = "Select DISTINCT substr(" & DBNameSpace & ".FSAddPaid.strairsnumber, 5) as strairsnumber, " & _
+            "" & DBNameSpace & ".APBFacilityInformation.strfacilityname " & _
+            "from " & DBNameSpace & ".FSAddPaid, " & DBNameSpace & ".APBFacilityInformation " & _
+            "where " & DBNameSpace & ".FSAddPaid.strairsnumber = " & DBNameSpace & ".APBFacilityInformation.strairsnumber " & _
+            "order by " & DBNameSpace & ".APBFacilityInformation.strFacilityName "
 
             ds = New DataSet
-            da = New OracleDataAdapter(SQL, conn)
+            da = New OracleDataAdapter(SQL, DBConn)
 
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
             Else
-                conn.Open()
+                DBConn.Open()
             End If
 
             da.Fill(ds, "facilityInfo")
@@ -2694,12 +2694,12 @@ Public Class PASPDepositsAmendments
         Try
 
 
-            SQL = "Select isbankrupt from " & connNameSpace & ".APBSupplamentalData " _
+            SQL = "Select isbankrupt from " & DBNameSpace & ".APBSupplamentalData " _
                 + "where strairsnumber = '0413" & cboAirsNo3.Text & "'"
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             recExist = dr.Read
@@ -2718,13 +2718,13 @@ Public Class PASPDepositsAmendments
             dr.Close()
 
             SQL = "Select intsubmittal " & _
-            "from " & connNameSpace & ".FSPayAndSubmit " & _
+            "from " & DBNameSpace & ".FSPayAndSubmit " & _
             "where strairsnumber = '0413" & cboAirsNo3.Text & "' " & _
             "and intyear = '" & CInt(txtYear3.Text) & "'"
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -2759,23 +2759,23 @@ Public Class PASPDepositsAmendments
                 bankrupt = "NO"
             End If
 
-            SQL = "Update " & connNameSpace & ".APBSupplamentalData set " _
+            SQL = "Update " & DBNameSpace & ".APBSupplamentalData set " _
                 + "isbankrupt = '" & bankrupt & "' " _
                 + "where strairsnumber = '0413" & cboAirsNo3.Text & "'"
 
-            Dim cmd As New OracleCommand(SQL, conn)
+            Dim cmd As New OracleCommand(SQL, DBConn)
             cmd.CommandType = CommandType.Text
 
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
             Else
-                conn.Open()
+                DBConn.Open()
             End If
 
             cmd.ExecuteNonQuery()
 
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
             Else
-                conn.Open()
+                DBConn.Open()
             End If
 
             If chkFinal.Checked = True Then
@@ -2800,22 +2800,22 @@ Public Class PASPDepositsAmendments
 
             Dim confirmation As String
             confirmation = cboAirsNo3.Text & "-" & Now
-            Dim SQL As String = "Update " & connNameSpace & ".FSPayAndSubmit set " & _
+            Dim SQL As String = "Update " & DBNameSpace & ".FSPayAndSubmit set " & _
             "intsubmittal = '1' " & _
             "where strairsnumber = '0413" & cboAirsNo3.Text & "' " & _
             "and intyear = '" & CInt(txtYear3.Text) & "'"
 
-            Dim cmd As New OracleCommand(SQL, conn)
+            Dim cmd As New OracleCommand(SQL, DBConn)
             cmd.CommandType = CommandType.Text
             cmd.ExecuteNonQuery()
 
-            SQL = "Insert into " & connNameSpace & ".FSConfirmation (" & _
+            SQL = "Insert into " & DBNameSpace & ".FSConfirmation (" & _
             "strairsnumber, intyear, strconfirmation, numuserid, datconfirmation) values(" & _
             "'0413" & cboAirsNo3.Text & "', '" & CInt(txtYear3.Text) & "', " & _
             "'" & confirmation & "', '" & UserGCode & "', " & _
             "to_date('" & Format$(Now, "dd-MMM-yyyy hh:mm:ss") & "', 'dd-mon-yyyy hh:mi:ss'))"
 
-            cmd = New OracleCommand(SQL, conn)
+            cmd = New OracleCommand(SQL, DBConn)
             cmd.CommandType = CommandType.Text
             cmd.ExecuteNonQuery()
 
@@ -2830,25 +2830,25 @@ Public Class PASPDepositsAmendments
         Try
 
 
-            SQL = "Update " & connNameSpace & ".FSPayAndSubmit set " & _
+            SQL = "Update " & DBNameSpace & ".FSPayAndSubmit set " & _
              "intsubmittal = '0' " & _
              "where strairsnumber = '0413" & cboAirsNo3.Text & "' " & _
              "and intyear = '" & CInt(txtYear3.Text) & "'"
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
 
-            SQL = "Delete from " & connNameSpace & ".FSConfirmation " & _
+            SQL = "Delete from " & DBNameSpace & ".FSConfirmation " & _
             "where strairsnumber = '0413" & cboAirsNo3.Text & "' " & _
              "and intyear = '" & CInt(txtYear3.Text) & "'"
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -2954,11 +2954,11 @@ Public Class PASPDepositsAmendments
         Try
             SQL = "Select " & _
             "strAIRSNumber, strFacilityName " & _
-            "from " & connNameSpace & ".APBFacilityInformation " & _
+            "from " & DBNameSpace & ".APBFacilityInformation " & _
             "where strAIRSNumber = '0413" & AIRSNumber & "' "
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -2979,11 +2979,11 @@ Public Class PASPDepositsAmendments
             If mtbAIRSNumber.Text <> "" Then
                 SQL = "Select " & _
                 "strAIRSNumber " & _
-                "from " & connNameSpace & ".APBFacilityInformation " & _
+                "from " & DBNameSpace & ".APBFacilityInformation " & _
                 "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -3036,9 +3036,9 @@ Public Class PASPDepositsAmendments
                 SQL = "Select InvoiceID from AIRBranch.FS_FeeInvoice " & _
                 "where invoiceID = '" & txtInvoiceForDeposit.Text & "' " & _
                 "and strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -3059,25 +3059,25 @@ Public Class PASPDepositsAmendments
             ds = New DataSet
 
             SQL = "select " & _
-            "substr(" & connNameSpace & ".FS_Transactions.strAIRSNumber, 5) as strAIRSNumber, " & _
+            "substr(" & DBNameSpace & ".FS_Transactions.strAIRSNumber, 5) as strAIRSNumber, " & _
             "strDepositNO, strBatchNo, " & _
             "transactionID, datTransactionDate, " & _
-            "numPayment, " & connNameSpace & ".FS_Transactions.numFeeYear, " & _
+            "numPayment, " & DBNameSpace & ".FS_Transactions.numFeeYear, " & _
             "strCheckNo, strCreditCardNo, " & _
-            "" & connNameSpace & ".FS_Transactions.InvoiceID, strPaytypeDesc as strPayType, " & _
-            "" & connNameSpace & ".FS_Transactions.strComment " & _
-            "from " & connNameSpace & ".FS_Transactions, " & connNameSpace & ".FS_FeeInvoice, " & _
-            "" & connNameSpace & ".FSLK_PayType " & _
-            "where " & connNameSpace & ".FS_Transactions.InvoiceID = " & connNameSpace & ".FS_FeeInvoice.INvoiceID " & _
-            "and " & connNameSpace & ".FS_FeeInvoice.strPayType = " & connNameSpace & ".FSLK_PayType.numPaytypeID  " & _
+            "" & DBNameSpace & ".FS_Transactions.InvoiceID, strPaytypeDesc as strPayType, " & _
+            "" & DBNameSpace & ".FS_Transactions.strComment " & _
+            "from " & DBNameSpace & ".FS_Transactions, " & DBNameSpace & ".FS_FeeInvoice, " & _
+            "" & DBNameSpace & ".FSLK_PayType " & _
+            "where " & DBNameSpace & ".FS_Transactions.InvoiceID = " & DBNameSpace & ".FS_FeeInvoice.INvoiceID " & _
+            "and " & DBNameSpace & ".FS_FeeInvoice.strPayType = " & DBNameSpace & ".FSLK_PayType.numPaytypeID  " & _
             "and strDepositNo = '" & txtDepositNumber.Text & "' " & _
-            "and " & connNameSpace & ".FS_Transactions.Active = '1' " & _
-            "and " & connNameSpace & ".FS_FeeInvoice.Active = '1' " & _
+            "and " & DBNameSpace & ".FS_Transactions.Active = '1' " & _
+            "and " & DBNameSpace & ".FS_FeeInvoice.Active = '1' " & _
             "order by strBatchNo "
 
-            da = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            da = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             da.Fill(ds, "Deposit")
@@ -3101,12 +3101,12 @@ Public Class PASPDepositsAmendments
                     Exit Sub
             End Select
 
-            SQL = "Delete " & connNameSpace & ".FSAddPaid " & _
+            SQL = "Delete " & DBNameSpace & ".FSAddPaid " & _
             "where intPayID = '" & txtTransactionID.Text & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -3162,24 +3162,24 @@ Public Class PASPDepositsAmendments
                 '  "order by strBatchNo  "
 
                 SQL = "select " & _
-                "substr(" & connNameSpace & ".FS_FeeInvoice.strAIRSnumber, 5) as strAIRSNumber, " & _
+                "substr(" & DBNameSpace & ".FS_FeeInvoice.strAIRSnumber, 5) as strAIRSNumber, " & _
                 "strDepositNo, datTransactionDate, " & _
-                "numPayment, " & connNameSpace & ".FS_FeeInvoice.numFeeYear, " & _
+                "numPayment, " & DBNameSpace & ".FS_FeeInvoice.numFeeYear, " & _
                 "strCheckNo, strBatchNo, " & _
                 "Description, TransactionID, " & _
-                "" & connNameSpace & ".FS_Transactions.strComment, " & connNameSpace & ".FS_FeeInvoice.InvoiceID, " & _
+                "" & DBNameSpace & ".FS_Transactions.strComment, " & DBNameSpace & ".FS_FeeInvoice.InvoiceID, " & _
                 "case " & _
-                "when " & connNameSpace & ".FS_Transactions.transactionTypeCode = '1' then numAmount " & _
-                "when " & connNameSpace & ".FS_Transactions.TransactionTypeCode = '2' then numAmount/4 " & _
+                "when " & DBNameSpace & ".FS_Transactions.transactionTypeCode = '1' then numAmount " & _
+                "when " & DBNameSpace & ".FS_Transactions.TransactionTypeCode = '2' then numAmount/4 " & _
                 "else numAmount " & _
                 "end FeeDue " & _
-                "from " & connNameSpace & ".FS_Transactions, " & connNameSpace & ".FS_FeeInvoice, " & _
-                "" & connNameSpace & ".FSLK_TransactionType  " & _
-                "where " & connNameSpace & ".FS_FeeInvoice.InvoiceID = " & connNameSpace & ".FS_Transactions.INvoiceID (+) " & _
-                "and " & connNameSpace & ".FS_Transactions.transactionTypeCode = " & connNameSpace & ".FSLK_TransactionType.TransactionTypeCode (+) " & _
+                "from " & DBNameSpace & ".FS_Transactions, " & DBNameSpace & ".FS_FeeInvoice, " & _
+                "" & DBNameSpace & ".FSLK_TransactionType  " & _
+                "where " & DBNameSpace & ".FS_FeeInvoice.InvoiceID = " & DBNameSpace & ".FS_Transactions.INvoiceID (+) " & _
+                "and " & DBNameSpace & ".FS_Transactions.transactionTypeCode = " & DBNameSpace & ".FSLK_TransactionType.TransactionTypeCode (+) " & _
                 "and strCheckNo like '%" & Replace(txtCheckNumber.Text, "'", "''") & "%'  " & _
-                "and " & connNameSpace & ".FS_Transactions.Active = '1' " & _
-                "and " & connNameSpace & ".FS_FeeInvoice.Active = '1' " & _
+                "and " & DBNameSpace & ".FS_Transactions.Active = '1' " & _
+                "and " & DBNameSpace & ".FS_FeeInvoice.Active = '1' " & _
                 "order by strBatchNo  "
             Else
              
@@ -3241,9 +3241,9 @@ Public Class PASPDepositsAmendments
  "where Allinvoices.InvoiceID = Transactions.InvoiceID  (+) "
 
             End If
-            daInvoice = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daInvoice = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             daInvoice.Fill(dsInvoice, "Deposit")
@@ -3513,9 +3513,9 @@ Public Class PASPDepositsAmendments
             End If
             If ValidatingState = True Then
                 If txtTransactionID.Text = "" Then
-                    SQL = "Insert into " & connNameSpace & ".FS_Transactions " & _
+                    SQL = "Insert into " & DBNameSpace & ".FS_Transactions " & _
                     "values " & _
-                    "((" & connNameSpace & ".seq_fs_transactions.nextVal), " & _
+                    "((" & DBNameSpace & ".seq_fs_transactions.nextVal), " & _
                     "'" & Replace(txtInvoiceForDeposit.Text, "'", "''") & "', " & _
                     "'1', '" & DTPBatchDepositDateField.Text & "', " & _
                     "'" & Replace(Replace(Replace(txtDepositAmount.Text, "'", "''"), ",", ""), "$", "") & "', " & _
@@ -3527,9 +3527,9 @@ Public Class PASPDepositsAmendments
                     "'0413" & mtbAIRSNumber.Text & "', " & _
                     "'" & mtbFeeYear2.Text & "', '" & Replace(txtCreditCardNo.Text, "'", "''") & "') "
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
@@ -3579,9 +3579,9 @@ Public Class PASPDepositsAmendments
             "where invoiceid = '" & invoiceID & "' " & _
             "and Active = '1' ) Payments "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -3595,18 +3595,18 @@ Public Class PASPDepositsAmendments
             dr.Close()
 
             If temp <> "0" Then
-                SQL = "Update " & connNameSpace & ".FS_FeeInvoice set " & _
+                SQL = "Update " & DBNameSpace & ".FS_FeeInvoice set " & _
                 "strInvoicestatus = '0' " & _
                 "where invoiceId = '" & invoiceID & "' "
             Else
-                SQL = "Update " & connNameSpace & ".FS_FeeInvoice set " & _
+                SQL = "Update " & DBNameSpace & ".FS_FeeInvoice set " & _
                 "strInvoicestatus = '1' " & _
                 "where invoiceId = '" & invoiceID & "' "
             End If
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -3625,7 +3625,7 @@ Public Class PASPDepositsAmendments
                     If ValidatingState = True Then
 
                         If txtTransactionID.Text <> "" Then
-                            SQL = "Update " & connNameSpace & ".FS_Transactions set " & _
+                            SQL = "Update " & DBNameSpace & ".FS_Transactions set " & _
                             "invoiceid = '" & txtInvoiceForDeposit.Text & "', " & _
                             "TransactionTypecode = '1', " & _
                             "datTransactionDate = '" & DTPBatchDepositDateField.Text & "', " & _
@@ -3640,9 +3640,9 @@ Public Class PASPDepositsAmendments
                             "strCreditCardNo = '" & txtCreditCardNo.Text & "' " & _
                             "where TransactionID = '" & txtTransactionID.Text & "' "
 
-                            cmd = New OracleCommand(SQL, conn)
-                            If conn.State = ConnectionState.Closed Then
-                                conn.Open()
+                            cmd = New OracleCommand(SQL, DBConn)
+                            If DBConn.State = ConnectionState.Closed Then
+                                DBConn.Open()
                             End If
                             dr = cmd.ExecuteReader
                             dr.Close()
@@ -3695,14 +3695,14 @@ Public Class PASPDepositsAmendments
 
             Select Case Result
                 Case Windows.Forms.DialogResult.Yes
-                    SQL = "Update " & connNameSpace & ".FS_Transactions set " & _
+                    SQL = "Update " & DBNameSpace & ".FS_Transactions set " & _
                     "active = '0' " & _
                     "where TransactionId = '" & txtTransactionID.Text & "' "
 
-                    cmd = New OracleCommand(SQL, conn)
+                    cmd = New OracleCommand(SQL, DBConn)
                     cmd.CommandType = CommandType.Text
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
 
                     dr = cmd.ExecuteReader
@@ -3871,11 +3871,11 @@ Public Class PASPDepositsAmendments
             If mtbAIRSNumber.Text <> "" And dgvInvoices.RowCount = 0 Then
                 SQL = "Select " & _
                 "strFacilityName " & _
-                "from " & connNameSpace & ".APBFacilityInformation " & _
+                "from " & DBNameSpace & ".APBFacilityInformation " & _
                 "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -4008,13 +4008,13 @@ Public Class PASPDepositsAmendments
     Private Sub btnAddInvoice_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAddInvoice.Click
         Try
             SQL = "select intPayID " & _
-            "from " & connNameSpace & ".FSAddPaid " & _
+            "from " & DBNameSpace & ".FSAddPaid " & _
             "where strAIRSNumber = '0413" & cboAirsNo2.Text & "' " & _
             "and intYear = '" & cboFeeYear2.Text & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             recExist = dr.Read
@@ -4023,87 +4023,87 @@ Public Class PASPDepositsAmendments
             If recExist = False Then
                 Select Case cboAmendmentsPayType.Text
                     Case "Entire Annual Year"
-                        SQL = "Insert into " & connNameSpace & ".FSAddPaid " & _
+                        SQL = "Insert into " & DBNameSpace & ".FSAddPaid " & _
                         "values " & _
                         "('0413" & cboAirsNo2.Text & "', '" & cboFeeYear2.Text & "', " & _
                         "'0', '', " & _
                         "'', '', " & _
                         "'', '', " & _
                         "'', '', " & _
-                        "'', " & connNameSpace & ".seqFSDeposit.nextval, " & _
+                        "'', " & DBNameSpace & ".seqFSDeposit.nextval, " & _
                         "'" & cboAirsNo2.Text & "-A1-" & cboFeeYear2.Text & "')"
 
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, DBConn)
+                        If DBConn.State = ConnectionState.Closed Then
+                            DBConn.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Close()
                     Case "Four Quarterly Payments"
-                        SQL = "Insert into " & connNameSpace & ".FSAddPaid " & _
+                        SQL = "Insert into " & DBNameSpace & ".FSAddPaid " & _
                         "values " & _
                         "('0413" & cboAirsNo2.Text & "', '" & cboFeeYear2.Text & "', " & _
                         "'0', '', " & _
                         "'', '', " & _
                         "'', '', " & _
                         "'', '', " & _
-                        "'', " & connNameSpace & ".seqFSDeposit.nextval, " & _
+                        "'', " & DBNameSpace & ".seqFSDeposit.nextval, " & _
                         "'" & cboAirsNo2.Text & "-Q1-" & cboFeeYear2.Text & "')"
 
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, DBConn)
+                        If DBConn.State = ConnectionState.Closed Then
+                            DBConn.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Close()
 
-                        SQL = "Insert into " & connNameSpace & ".FSAddPaid " & _
+                        SQL = "Insert into " & DBNameSpace & ".FSAddPaid " & _
                         "values " & _
                         "('0413" & cboAirsNo2.Text & "', '" & cboFeeYear2.Text & "', " & _
                         "'0', '', " & _
                         "'', '', " & _
                         "'', '', " & _
                         "'', '', " & _
-                        "'', " & connNameSpace & ".seqFSDeposit.nextval, " & _
+                        "'', " & DBNameSpace & ".seqFSDeposit.nextval, " & _
                         "'" & cboAirsNo2.Text & "-Q2-" & cboFeeYear2.Text & "')"
 
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, DBConn)
+                        If DBConn.State = ConnectionState.Closed Then
+                            DBConn.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Close()
 
-                        SQL = "Insert into " & connNameSpace & ".FSAddPaid " & _
+                        SQL = "Insert into " & DBNameSpace & ".FSAddPaid " & _
                         "values " & _
                         "('0413" & cboAirsNo2.Text & "', '" & cboFeeYear2.Text & "', " & _
                         "'0', '', " & _
                         "'', '', " & _
                         "'', '', " & _
                         "'', '', " & _
-                        "'', " & connNameSpace & ".seqFSDeposit.nextval, " & _
+                        "'', " & DBNameSpace & ".seqFSDeposit.nextval, " & _
                         "'" & cboAirsNo2.Text & "-Q3-" & cboFeeYear2.Text & "')"
 
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, DBConn)
+                        If DBConn.State = ConnectionState.Closed Then
+                            DBConn.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Close()
 
-                        SQL = "Insert into " & connNameSpace & ".FSAddPaid " & _
+                        SQL = "Insert into " & DBNameSpace & ".FSAddPaid " & _
                         "values " & _
                         "('0413" & cboAirsNo2.Text & "', '" & cboFeeYear2.Text & "', " & _
                         "'0', '', " & _
                         "'', '', " & _
                         "'', '', " & _
                         "'', '', " & _
-                        "'', " & connNameSpace & ".seqFSDeposit.nextval, " & _
+                        "'', " & DBNameSpace & ".seqFSDeposit.nextval, " & _
                         "'" & cboAirsNo2.Text & "-Q4-" & cboFeeYear2.Text & "')"
 
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, DBConn)
+                        If DBConn.State = ConnectionState.Closed Then
+                            DBConn.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Close()
@@ -4203,7 +4203,7 @@ Public Class PASPDepositsAmendments
                     "(select substr(AIRBranch.FS_FeeINvoice.strAIRSnumber, 5) as strAIRSNumber, " & _
                     "AIRBranch.FS_FeeINvoice.numFeeYear, AIRBranch.FS_FeeINvoice.InvoiceID " & _
                     "from  AIRBranch.FS_FeeInvoice " & _
-                    "where " & connNameSpace & ".FS_FeeInvoice.InvoiceID like '%" & Replace(txtSearchInvoice.Text, "'", "''") & "%'  " & _
+                    "where " & DBNameSpace & ".FS_FeeInvoice.InvoiceID like '%" & Replace(txtSearchInvoice.Text, "'", "''") & "%'  " & _
                     "and AIRBranch.FS_FeeInvoice.Active = '1' " & _
                     "union " & _
                     "select distinct substr(AIRBranch.FS_FeeINvoice.strAIRSnumber, 5) as strAIRSNumber, " & _
@@ -4211,7 +4211,7 @@ Public Class PASPDepositsAmendments
                     "from AIRBranch.FS_Transactions, AIRBranch.FS_FeeInvoice, AIRBranch.FSLK_TransactionType  " & _
                     "where AIRBranch.FS_FeeINvoice.InvoiceID = AIRBranch.FS_Transactions.INvoiceID (+) " & _
                     "and AIRBranch.FS_Transactions.transactionTypeCode = AIRBranch.FSLK_TransactionType.TransactionTypeCode (+) " & _
-                    "and " & connNameSpace & ".FS_FeeInvoice.InvoiceID like '%" & Replace(txtSearchInvoice.Text, "'", "''") & "%'  " & _
+                    "and " & DBNameSpace & ".FS_FeeInvoice.InvoiceID like '%" & Replace(txtSearchInvoice.Text, "'", "''") & "%'  " & _
                     "and AIRBranch.FS_FeeInvoice.Active = '1' " & _
                     "and AIRBranch.FS_Transactions.Active = '1'  ) ALLInvoices,  " & _
                     "(select distinct substr(AIRBranch.FS_FeeINvoice.strAIRSnumber, 5) as strAIRSNumber, " & _
@@ -4267,9 +4267,9 @@ Public Class PASPDepositsAmendments
      "and AIRBranch.FS_Transactions.Active = '1' order by InvoiceID desc) Transactions " & _
      "where Allinvoices.InvoiceID = Transactions.InvoiceID  (+) "
                 End If
-                daInvoice = New OracleDataAdapter(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                daInvoice = New OracleDataAdapter(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
 
                 daInvoice.Fill(dsInvoice, "Deposit")
@@ -4321,11 +4321,11 @@ Public Class PASPDepositsAmendments
                 If mtbAIRSNumber.Text <> "" And dgvInvoices.RowCount = 0 Then
                     SQL = "Select " & _
                     "strFacilityName " & _
-                    "from " & connNameSpace & ".APBFacilityInformation " & _
+                    "from " & DBNameSpace & ".APBFacilityInformation " & _
                     "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' "
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     While dr.Read

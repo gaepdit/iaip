@@ -87,13 +87,13 @@ Public Class PASPInventory
 
             SQL = "Select " & _
             "numInventoryID, strInventoryType " & _
-            "from " & connNameSpace & ".LookUpPASPInventoryType " & _
+            "from " & DBNameSpace & ".LookUpPASPInventoryType " & _
             "order by strInventoryType "
             ds = New DataSet
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
-            da = New OracleDataAdapter(SQL, conn)
+            da = New OracleDataAdapter(SQL, DBConn)
             da.Fill(ds, "InventoryType")
 
             dtInventoryTypes.Columns.Add("numInventoryID", GetType(System.String))
@@ -200,13 +200,13 @@ Public Class PASPInventory
 
             SQL = "Select " & _
             "numTransactionType, strTransactionType " & _
-            "from " & connNameSpace & ".LookUpPASPTransactionType " & _
+            "from " & DBNameSpace & ".LookUpPASPTransactionType " & _
             "order by strTransactionType "
             ds = New DataSet
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
-            da = New OracleDataAdapter(SQL, conn)
+            da = New OracleDataAdapter(SQL, DBConn)
             da.Fill(ds, "TransactionType")
 
             dtTransactionTypes.Columns.Add("numTransactionType", GetType(System.String))
@@ -299,10 +299,10 @@ Public Class PASPInventory
             "order by strLastName "
 
             ds = New DataSet
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
-            da = New OracleDataAdapter(SQL, conn)
+            da = New OracleDataAdapter(SQL, DBConn)
             da.Fill(ds, "Staff")
 
             dtStaff.Columns.Add("numUserID", GetType(System.String))
@@ -386,25 +386,25 @@ Public Class PASPInventory
 
             SQL = "Select " & _
             "numProgramCode, strProgramDesc " & _
-            "from " & connNameSpace & ".LookUpEPDPrograms " & _
-            "where " & connNameSpace & ".LookUpEPDPrograms.numBranchCode = '1' " & _
+            "from " & DBNameSpace & ".LookUpEPDPrograms " & _
+            "where " & DBNameSpace & ".LookUpEPDPrograms.numBranchCode = '1' " & _
             "order by strProgramDesc "
 
             SQL2 = "Select " & _
             "numUnitCode, strUnitDesc " & _
-            "from " & connNameSpace & ".LookUpEPDUnits, " & connNameSpace & ".LookUpEPDPrograms " & _
-            "where " & connNameSpace & ".LookUpEPDUnits.numProgramCode = " & connNameSpace & ".LookUpEPDPrograms.numProgramCode " & _
-            "and " & connNameSpace & ".LookUpEPDPrograms.numBranchCode = '1' " & _
+            "from " & DBNameSpace & ".LookUpEPDUnits, " & DBNameSpace & ".LookUpEPDPrograms " & _
+            "where " & DBNameSpace & ".LookUpEPDUnits.numProgramCode = " & DBNameSpace & ".LookUpEPDPrograms.numProgramCode " & _
+            "and " & DBNameSpace & ".LookUpEPDPrograms.numBranchCode = '1' " & _
             "order by strUnitDesc "
 
             ds = New DataSet
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
-            da = New OracleDataAdapter(SQL, conn)
+            da = New OracleDataAdapter(SQL, DBConn)
             da.Fill(ds, "Program")
 
-            da = New OracleDataAdapter(SQL2, conn)
+            da = New OracleDataAdapter(SQL2, DBConn)
             da.Fill(ds, "Unit")
 
             dtProgram.Columns.Add("numProgramCode", GetType(System.String))
@@ -463,15 +463,15 @@ Public Class PASPInventory
 
             SQL = "select " & _
             "strProgramDesc, strUnitDesc  " & _
-            "from " & connNameSpace & ".EPDUserProfiles, " & connNameSpace & ".LookUpEPDPrograms,  " & _
-            "" & connNameSpace & ".LookUpEPDUnits  " & _
-            "where " & connNameSpace & ".EPDUserProfiles.numProgram = " & connNameSpace & ".LookUpEPDPrograms.numProgramCode (+)  " & _
-            "and " & connNameSpace & ".EPDUserProfiles.numUnit = " & connNameSpace & ".LookUpEPDUnits.numUnitCode (+)  " & _
+            "from " & DBNameSpace & ".EPDUserProfiles, " & DBNameSpace & ".LookUpEPDPrograms,  " & _
+            "" & DBNameSpace & ".LookUpEPDUnits  " & _
+            "where " & DBNameSpace & ".EPDUserProfiles.numProgram = " & DBNameSpace & ".LookUpEPDPrograms.numProgramCode (+)  " & _
+            "and " & DBNameSpace & ".EPDUserProfiles.numUnit = " & DBNameSpace & ".LookUpEPDUnits.numUnitCode (+)  " & _
             "and (strLastName||', '||strFirstName) = '" & StaffCode & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -508,12 +508,12 @@ Public Class PASPInventory
         Try
             SQL = "Select " & _
             "numInventoryID " & _
-            "from " & connNameSpace & ".LookUpPASPInventoryType " & _
+            "from " & DBNameSpace & ".LookUpPASPInventoryType " & _
             "where Upper(strInventoryType) = '" & txtNewInventoryType.Text.ToUpper & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             recExist = dr.Read
@@ -521,13 +521,13 @@ Public Class PASPInventory
             If recExist = True Then
                 MsgBox("The Inventory Description currently exists.", MsgBoxStyle.Information, "PASP Inventory")
             Else
-                SQL = "Insert into " & connNameSpace & ".LookUpPASPInventoryType " & _
+                SQL = "Insert into " & DBNameSpace & ".LookUpPASPInventoryType " & _
                 "values " & _
-                "((Select max(numInventoryID) +1 from " & connNameSpace & ".LookUpPASPInventoryType), " & _
+                "((Select max(numInventoryID) +1 from " & DBNameSpace & ".LookUpPASPInventoryType), " & _
                 "'" & Replace(txtNewInventoryType.Text, "'", "''") & "') "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -547,22 +547,22 @@ Public Class PASPInventory
             If txtInventoryID.Text <> "" And txtInventoryID.Text <> " " Then
                 SQL = "Select " & _
                 "numInventoryID " & _
-                "from " & connNameSpace & ".LookUpPASPInventoryType " & _
+                "from " & DBNameSpace & ".LookUpPASPInventoryType " & _
                 "where numInventoryID = '" & txtInventoryID.Text & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 dr.Close()
                 If recExist = True Then
-                    SQL = "Update " & connNameSpace & ".LookUpPASPInventoryType set " & _
+                    SQL = "Update " & DBNameSpace & ".LookUpPASPInventoryType set " & _
                     "strInventoryType = '" & Replace(txtNewInventoryType.Text, "'", "''") & "' " & _
                     "where numInventoryID = '" & txtInventoryID.Text & "' "
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
@@ -589,11 +589,11 @@ Public Class PASPInventory
                 Select Case Result
                     Case Windows.Forms.DialogResult.Yes
                         SQL = "select count(*) as ResultCount " & _
-                        "from " & connNameSpace & ".PASPInventory " & _
+                        "from " & DBNameSpace & ".PASPInventory " & _
                         "where numInventoryID = '" & txtInventoryID.Text & "' "
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, DBConn)
+                        If DBConn.State = ConnectionState.Closed Then
+                            DBConn.Open()
                         End If
                         dr = cmd.ExecuteReader
                         While dr.Read
@@ -609,11 +609,11 @@ Public Class PASPInventory
                             MsgBox("This inventory item can not be deleted because assets currently use this item." & vbCrLf & _
                                    "Please reclassify any assets that use this item before deleting this item.", MsgBoxStyle.Information, "PASP Inventory")
                         Else
-                            SQL = "Delete " & connNameSpace & ".LookUpPASPInventoryType  " & _
+                            SQL = "Delete " & DBNameSpace & ".LookUpPASPInventoryType  " & _
                             "where numInventoryID = '" & txtInventoryID.Text & "' "
-                            cmd = New OracleCommand(SQL, conn)
-                            If conn.State = ConnectionState.Closed Then
-                                conn.Open()
+                            cmd = New OracleCommand(SQL, DBConn)
+                            If DBConn.State = ConnectionState.Closed Then
+                                DBConn.Open()
                             End If
                             dr = cmd.ExecuteReader
                             dr.Close()
@@ -661,12 +661,12 @@ Public Class PASPInventory
         Try
             SQL = "Select " & _
             "numTransactionType " & _
-            "from " & connNameSpace & ".LookUpPASPTransactionType " & _
+            "from " & DBNameSpace & ".LookUpPASPTransactionType " & _
             "where Upper(strTransactionType) = '" & txtNewTransactionType.Text.ToUpper & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             recExist = dr.Read
@@ -674,13 +674,13 @@ Public Class PASPInventory
             If recExist = True Then
                 MsgBox("The Transaction Description currently exists.", MsgBoxStyle.Information, "PASP Inventory")
             Else
-                SQL = "Insert into " & connNameSpace & ".LookUpPASPTransactionType " & _
+                SQL = "Insert into " & DBNameSpace & ".LookUpPASPTransactionType " & _
                 "values " & _
-                "((Select max(numTransactionType) +1 from " & connNameSpace & ".LookUpPASPTransactionType), " & _
+                "((Select max(numTransactionType) +1 from " & DBNameSpace & ".LookUpPASPTransactionType), " & _
                 "'" & Replace(txtNewTransactionType.Text, "'", "''") & "') "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -700,22 +700,22 @@ Public Class PASPInventory
             If txtTransactionIDValue.Text <> "" And txtTransactionIDValue.Text <> " " Then
                 SQL = "Select " & _
                 "numTransactionType " & _
-                "from " & connNameSpace & ".LookUpPASPTransactionType " & _
+                "from " & DBNameSpace & ".LookUpPASPTransactionType " & _
                 "where numTransactionID = '" & txtTransactionIDValue.Text & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 dr.Close()
                 If recExist = True Then
-                    SQL = "Update " & connNameSpace & ".LookUpPASPTransactionType set " & _
+                    SQL = "Update " & DBNameSpace & ".LookUpPASPTransactionType set " & _
                     "strTransactionType = '" & Replace(txtNewTransactionType.Text, "'", "''") & "' " & _
                     "where numTransactionType = '" & txtTransactionIDValue.Text & "' "
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
@@ -742,11 +742,11 @@ Public Class PASPInventory
                 Select Case Result
                     Case Windows.Forms.DialogResult.Yes
                         SQL = "select count(*) as ResultCount " & _
-                        "from " & connNameSpace & ".PASPInventoryTransactions " & _
+                        "from " & DBNameSpace & ".PASPInventoryTransactions " & _
                         "where numTransactionType = '" & txtTransactionIDValue.Text & "' "
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, DBConn)
+                        If DBConn.State = ConnectionState.Closed Then
+                            DBConn.Open()
                         End If
                         dr = cmd.ExecuteReader
                         While dr.Read
@@ -763,11 +763,11 @@ Public Class PASPInventory
                                    "Please reclassify any transactions that use this item before deleting this item.", _
                                    MsgBoxStyle.Information, "PASP Inventory")
                         Else
-                            SQL = "Delete " & connNameSpace & ".LookUPPASPTransactionType " & _
+                            SQL = "Delete " & DBNameSpace & ".LookUPPASPTransactionType " & _
                             "where numTransactionType = '" & txtTransactionIDValue.Text & "' "
-                            cmd = New OracleCommand(SQL, conn)
-                            If conn.State = ConnectionState.Closed Then
-                                conn.Open()
+                            cmd = New OracleCommand(SQL, DBConn)
+                            If DBConn.State = ConnectionState.Closed Then
+                                DBConn.Open()
                             End If
                             dr = cmd.ExecuteReader
                             dr.Close()
@@ -814,10 +814,10 @@ Public Class PASPInventory
                 Status = "True"
             End If
 
-            SQL = "Insert into " & connNameSpace & ".PASPInventory " & _
+            SQL = "Insert into " & DBNameSpace & ".PASPInventory " & _
             "values " & _
             "((Select max(strAssetid) + 1 " & _
-            "from " & connNameSpace & ".PASPInventory " & _
+            "from " & DBNameSpace & ".PASPInventory " & _
             "where length(trim(Translate(strAssetid, '+-.0123456789',' '))) is null ),  " & _
             "'" & Replace(txtDNRDecal.Text, "'", "''") & "', " & _
             "'" & cboInventoryType.SelectedValue & "', '" & Replace(txtDescription.Text, "'", "''") & "', " & _
@@ -826,20 +826,20 @@ Public Class PASPInventory
             "'" & Replace(txtPOID.Text, "'", "''") & "', '" & mtbReplacementDate.Text & "', " & _
             "'" & Status & "', '') "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
 
             SQL = "Select max(strAssetid) as AssetID " & _
-            "from " & connNameSpace & ".PASPInventory " & _
+            "from " & DBNameSpace & ".PASPInventory " & _
             "where length(trim(Translate(strAssetid, '+-.0123456789',' '))) is null "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -851,25 +851,25 @@ Public Class PASPInventory
             End While
             dr.Close()
 
-            SQL = "Insert into " & connNameSpace & ".PASPInventoryTransactions " & _
+            SQL = "Insert into " & DBNameSpace & ".PASPInventoryTransactions " & _
             "values " & _
             "((Select max(numTransactionId) + 1 " & _
-            "from " & connNameSpace & ".PASPInventoryTransactions " & _
+            "from " & DBNameSpace & ".PASPInventoryTransactions " & _
             "where length(trim(Translate(strAssetid, '+-.0123456789',' '))) is null ),  " & _
             "'" & txtAssetID.Text & "', '2', " & _
             "'', '" & OracleDate & "', " & _
             "'', " & _
             "'Initial Transaction created when Asset was created by " & UserName & " on " & OracleDate & "', '') "
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
 
             If AssetWhere = "" Then
                 txtDecalSearch.Text = txtDNRDecal.Text
-                AssetWhere = AssetWhere & " and " & connNameSpace & ".PASPInventory.strDecalNumber = '" & txtDecalSearch.Text & "' "
+                AssetWhere = AssetWhere & " and " & DBNameSpace & ".PASPInventory.strDecalNumber = '" & txtDecalSearch.Text & "' "
             End If
             btnSearchForAsset.Enabled = False
             btnExportInventory.Enabled = False
@@ -898,18 +898,18 @@ Public Class PASPInventory
 
             If txtAssetID.Text <> "" Then
                 SQL = "Select strAssetID " & _
-                "From " & connNameSpace & ".PASPInventory " & _
+                "From " & DBNameSpace & ".PASPInventory " & _
                 "where strAssetID = '" & txtAssetID.Text & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 dr.Close()
 
                 If recExist = True Then
-                    SQL = "Update " & connNameSpace & ".PASPInventory set " & _
+                    SQL = "Update " & DBNameSpace & ".PASPInventory set " & _
                     "strDecalNumber = '" & Replace(txtDNRDecal.Text, "'", "''") & "', " & _
                     "numInventoryID = '" & cboInventoryType.SelectedValue & "', " & _
                     "strDescription = '" & Replace(txtDescription.Text, "'", "''") & "', " & _
@@ -919,16 +919,16 @@ Public Class PASPInventory
                     "strReplacementYear = '" & mtbReplacementDate.Text & "', " & _
                     "strActivityStatus = '" & Status & "' " & _
                     "where strAssetID = '" & txtAssetID.Text & "' "
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
 
                     If AssetWhere = "" Then
                         txtDecalSearch.Text = txtDNRDecal.Text
-                        AssetWhere = AssetWhere & " and " & connNameSpace & ".PASPInventory.strDecalNumber = '" & txtDecalSearch.Text & "' "
+                        AssetWhere = AssetWhere & " and " & DBNameSpace & ".PASPInventory.strDecalNumber = '" & txtDecalSearch.Text & "' "
                     End If
                     btnSearchForAsset.Enabled = False
                     btnExportInventory.Enabled = False
@@ -960,9 +960,9 @@ Public Class PASPInventory
                     "numTransactionID  " & _
                     "from AIRBranch.PASPInventoryTransactions  " & _
                     "where strAssetID = '" & txtAssetID.Text & "' "
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     recExist = dr.Read
@@ -974,11 +974,11 @@ Public Class PASPInventory
                                                  MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
                         Select Case Result
                             Case Windows.Forms.DialogResult.Yes
-                                SQL = "Delete " & connNameSpace & ".PASPInventoryTransactions " & _
+                                SQL = "Delete " & DBNameSpace & ".PASPInventoryTransactions " & _
                                 "where strAssetID = '" & txtAssetID.Text & "' "
-                                cmd = New OracleCommand(SQL, conn)
-                                If conn.State = ConnectionState.Closed Then
-                                    conn.Open()
+                                cmd = New OracleCommand(SQL, DBConn)
+                                If DBConn.State = ConnectionState.Closed Then
+                                    DBConn.Open()
                                 End If
                                 dr = cmd.ExecuteReader
                                 dr.Close()
@@ -986,11 +986,11 @@ Public Class PASPInventory
                                 Exit Sub
                         End Select
                     End If
-                    SQL = "Delete " & connNameSpace & ".PASPInventory " & _
+                    SQL = "Delete " & DBNameSpace & ".PASPInventory " & _
                           "where strAssetID = '" & txtAssetID.Text & "' "
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
@@ -1186,7 +1186,7 @@ Public Class PASPInventory
     Sub LoaddgvInventory(ByVal WhereClause As String)
         Try
             SQL = "Select " & _
-            "distinct(" & connNameSpace & ".PASPInventory.strAssetId) as AssetID, " & _
+            "distinct(" & DBNameSpace & ".PASPInventory.strAssetId) as AssetID, " & _
             "strDecalnumber, " & _
             "strInventoryType, strDescription, " & _
             "datAquired, numCost, " & _
@@ -1198,21 +1198,21 @@ Public Class PASPInventory
             "else (strLastName||', '||strFirstName) " & _
             "end CurrentStaff, " & _
             "strProgramDesc, strUnitDesc " & _
-            "from " & connNameSpace & ".PASPInventory, " & connNameSpace & ".LookUpPASPInventoryType, " & _
-            "" & connNameSpace & ".EPDUserProfiles, " & connNameSpace & ".LookUpEPDPrograms, " & _
-            "" & connNameSpace & ".LookUpEPDUnits " & _
-            "where " & connNameSpace & ".PASPInventory.numInventoryID = " & connNameSpace & ".LookUpPASPInventoryType.numInventoryID " & _
-            "and " & connNameSpace & ".PASPInventory.numCurrentStaff = " & connNameSpace & ".EPDUserProfiles.numUserID (+) " & _
-            "and " & connNameSpace & ".EPDUserProfiles.numProgram = " & connNameSpace & ".LookUpEPDPrograms.numProgramCode (+) " & _
-            "and " & connNameSpace & ".EPDUserProfiles.numUnit = " & connNameSpace & ".LookUpEPDUnits.numUnitCode (+) " & _
-            "and " & connNameSpace & ".PASPInventory.strAssetID is not null " & _
+            "from " & DBNameSpace & ".PASPInventory, " & DBNameSpace & ".LookUpPASPInventoryType, " & _
+            "" & DBNameSpace & ".EPDUserProfiles, " & DBNameSpace & ".LookUpEPDPrograms, " & _
+            "" & DBNameSpace & ".LookUpEPDUnits " & _
+            "where " & DBNameSpace & ".PASPInventory.numInventoryID = " & DBNameSpace & ".LookUpPASPInventoryType.numInventoryID " & _
+            "and " & DBNameSpace & ".PASPInventory.numCurrentStaff = " & DBNameSpace & ".EPDUserProfiles.numUserID (+) " & _
+            "and " & DBNameSpace & ".EPDUserProfiles.numProgram = " & DBNameSpace & ".LookUpEPDPrograms.numProgramCode (+) " & _
+            "and " & DBNameSpace & ".EPDUserProfiles.numUnit = " & DBNameSpace & ".LookUpEPDUnits.numUnitCode (+) " & _
+            "and " & DBNameSpace & ".PASPInventory.strAssetID is not null " & _
             WhereClause
 
             ds = New DataSet
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
-            da = New OracleDataAdapter(SQL, conn)
+            da = New OracleDataAdapter(SQL, DBConn)
             da.Fill(ds, "Inventory")
 
         Catch ex As Exception
@@ -1223,10 +1223,10 @@ Public Class PASPInventory
         Try
             AssetWhere = ""
             If txtDecalSearch.Text <> "" Then
-                AssetWhere = AssetWhere & " and " & connNameSpace & ".PASPInventory.strDecalNumber like '%" & txtDecalSearch.Text & "%' "
+                AssetWhere = AssetWhere & " and " & DBNameSpace & ".PASPInventory.strDecalNumber like '%" & txtDecalSearch.Text & "%' "
             End If
             If cboInventorySearch.Text <> "" And cboInventorySearch.Text <> " " Then
-                AssetWhere = AssetWhere & " and " & connNameSpace & ".PASPInventory.numInventoryID = '" & cboInventorySearch.SelectedValue & "' "
+                AssetWhere = AssetWhere & " and " & DBNameSpace & ".PASPInventory.numInventoryID = '" & cboInventorySearch.SelectedValue & "' "
             End If
             If DTPDatAcquiredStart.Checked = True Then
                 AssetWhere = AssetWhere & " and datAquired between '" & DTPDatAcquiredStart.Text & "' and '" & DTPDatAcquiredEnd.Text & "' "
@@ -1416,11 +1416,11 @@ Public Class PASPInventory
 
             If txtAssetTransaction.Text <> "" Then
                 SQL = "Select strAssetID " & _
-                "from " & connNameSpace & ".PASPInventory " & _
+                "from " & DBNameSpace & ".PASPInventory " & _
                 "where strAssetID = '" & txtAssetTransaction.Text & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -1432,30 +1432,30 @@ Public Class PASPInventory
                 End If
             End If
 
-            SQL = "Insert into " & connNameSpace & ".PASPInventoryTransactions " & _
+            SQL = "Insert into " & DBNameSpace & ".PASPInventoryTransactions " & _
             "values " & _
             "((Select max(numTransactionId) + 1 " & _
-            "from " & connNameSpace & ".PASPInventoryTransactions " & _
+            "from " & DBNameSpace & ".PASPInventoryTransactions " & _
             "where length(trim(Translate(strAssetid, '+-.0123456789',' '))) is null ),  " & _
             "'" & txtAssetTransaction.Text & "', '" & cboTransactionType.SelectedValue & "', " & _
             "'" & cboStaff.SelectedValue & "', '" & DTPTransactionDate.Text & "', " & _
             "'" & Replacement & "', " & _
             "'" & txtTransactionComments.Text & "', '" & AssetRole & "') "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
 
             SQL = "Select max(numTransactionID) as TransactionID " & _
-            "from " & connNameSpace & ".PASPInventoryTransactions " & _
+            "from " & DBNameSpace & ".PASPInventoryTransactions " & _
             "where length(trim(Translate(numTransactionID, '+-.0123456789',' '))) is null "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -1468,25 +1468,25 @@ Public Class PASPInventory
             dr.Close()
 
             If txtAssetTransaction.Text <> "" Then
-                SQL = "Update " & connNameSpace & ".PASPInventory set " & _
+                SQL = "Update " & DBNameSpace & ".PASPInventory set " & _
                 "numCurrentStaff = '" & cboStaff.SelectedValue & "' " & _
                 "where strAssetID = '" & txtAssetTransaction.Text & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
             End If
 
             If cboTransactionType.SelectedValue = "4" Then
-                SQL = "Update " & connNameSpace & ".PASPInventory set " & _
+                SQL = "Update " & DBNameSpace & ".PASPInventory set " & _
                 "strActivityStatus = 'False' " & _
                 "where strAssetID = '" & txtAssetTransaction.Text & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -1524,18 +1524,18 @@ Public Class PASPInventory
                 End If
 
                 SQL = "Select numTransactionID " & _
-                "From " & connNameSpace & ".PASPInventoryTransactions " & _
+                "From " & DBNameSpace & ".PASPInventoryTransactions " & _
                 "where numTransactionID = '" & txtTransactionID.Text & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 dr.Close()
 
                 If recExist = True Then
-                    SQL = "Update " & connNameSpace & ".PASPInventoryTransactions set " & _
+                    SQL = "Update " & DBNameSpace & ".PASPInventoryTransactions set " & _
                     "strAssetID = '" & Replace(txtAssetTransaction.Text, "'", "''") & "', " & _
                     "numTransactionType = '" & cboTransactionType.SelectedValue & "', " & _
                     "numStaff = '" & cboStaff.SelectedValue & "', " & _
@@ -1544,33 +1544,33 @@ Public Class PASPInventory
                     "strTransactionComments = '" & Replace(txtTransactionComments.Text, "'", "''") & "', " & _
                     "strAssetRole = '" & AssetRole & "' " & _
                     "where numTransactionID = '" & txtTransactionID.Text & "' "
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
 
                     If txtAssetTransaction.Text <> "" Then
-                        SQL = "Update " & connNameSpace & ".PASPInventory set " & _
+                        SQL = "Update " & DBNameSpace & ".PASPInventory set " & _
                         "numCurrentStaff = '" & cboStaff.SelectedValue & "' " & _
                         "where strAssetID = '" & txtAssetTransaction.Text & "' "
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, DBConn)
+                        If DBConn.State = ConnectionState.Closed Then
+                            DBConn.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Close()
                     End If
 
                     If cboTransactionType.SelectedValue = "4" Then
-                        SQL = "Update " & connNameSpace & ".PASPInventory set " & _
+                        SQL = "Update " & DBNameSpace & ".PASPInventory set " & _
                         "strActivityStatus = 'False' " & _
                         "where strAssetID = '" & txtAssetTransaction.Text & "' "
 
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, DBConn)
+                        If DBConn.State = ConnectionState.Closed Then
+                            DBConn.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Close()
@@ -1603,11 +1603,11 @@ Public Class PASPInventory
 
             Select Case Result
                 Case Windows.Forms.DialogResult.Yes
-                    SQL = "Delete " & connNameSpace & ".PASPInventoryTransactions " & _
+                    SQL = "Delete " & DBNameSpace & ".PASPInventoryTransactions " & _
                           "where numTransactionID = '" & txtTransactionID.Text & "' "
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
@@ -1686,7 +1686,7 @@ Public Class PASPInventory
         Try
             SQL = "select " & _
             "numTransactionID, " & _
-            "" & connNameSpace & ".PASPInventoryTransactions.strAssetID,  " & _
+            "" & DBNameSpace & ".PASPInventoryTransactions.strAssetID,  " & _
             "strTransactionType, " & _
             "case " & _
             "when numStaff is Null then ' ' " & _
@@ -1707,22 +1707,22 @@ Public Class PASPInventory
             "numStaff,  " & _
             "strProgramDesc, strUnitDesc, " & _
             "strDecalNumber " & _
-            "from " & connNameSpace & ".PASPInventoryTransactions, " & connNameSpace & ".LookUpPASPTransactionType, " & _
-            "" & connNameSpace & ".EPDUserProfiles, " & connNameSpace & ".LookUpEPDPrograms, " & _
-            "" & connNameSpace & ".LookUpEPDUnits, " & connNameSpace & ".PASPInventory " & _
-            "where " & connNameSpace & ".PASPInventoryTransactions.numTransactionType = " & _
-            "" & connNameSpace & ".LookUpPASPTransactionType.numTransactiontype  " & _
-            "and " & connNameSpace & ".PASPInventoryTransactions.strAssetID = " & connNameSpace & ".PASPInventory.strAssetID (+) " & _
-            "and " & connNameSpace & ".EPDUserProfiles.numProgram = " & connNameSpace & ".LookUpEPDPrograms.numProgramCode (+) " & _
-            "and " & connNameSpace & ".EPDUserProfiles.numUnit = " & connNameSpace & ".LookUpEPDUnits.numUnitCode (+) " & _
-            "and " & connNameSpace & ".PASPInventoryTransactions.numStaff = " & connNameSpace & ".EPDUserProfiles.numUserID (+) " & _
+            "from " & DBNameSpace & ".PASPInventoryTransactions, " & DBNameSpace & ".LookUpPASPTransactionType, " & _
+            "" & DBNameSpace & ".EPDUserProfiles, " & DBNameSpace & ".LookUpEPDPrograms, " & _
+            "" & DBNameSpace & ".LookUpEPDUnits, " & DBNameSpace & ".PASPInventory " & _
+            "where " & DBNameSpace & ".PASPInventoryTransactions.numTransactionType = " & _
+            "" & DBNameSpace & ".LookUpPASPTransactionType.numTransactiontype  " & _
+            "and " & DBNameSpace & ".PASPInventoryTransactions.strAssetID = " & DBNameSpace & ".PASPInventory.strAssetID (+) " & _
+            "and " & DBNameSpace & ".EPDUserProfiles.numProgram = " & DBNameSpace & ".LookUpEPDPrograms.numProgramCode (+) " & _
+            "and " & DBNameSpace & ".EPDUserProfiles.numUnit = " & DBNameSpace & ".LookUpEPDUnits.numUnitCode (+) " & _
+            "and " & DBNameSpace & ".PASPInventoryTransactions.numStaff = " & DBNameSpace & ".EPDUserProfiles.numUserID (+) " & _
             WhereClause
 
             ds = New DataSet
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
-            da = New OracleDataAdapter(SQL, conn)
+            da = New OracleDataAdapter(SQL, DBConn)
             da.Fill(ds, "Transactions")
 
 
@@ -1811,11 +1811,11 @@ Public Class PASPInventory
                 TransactionWhere = TransactionWhere & " and strDecalNumber like '%" & txtDecalSearch2.Text & "%' "
             End If
             If cboTransactionTypeSearch.Text <> "" And cboTransactionTypeSearch.Text <> " " Then
-                TransactionWhere = TransactionWhere & " and " & connNameSpace & ".PASPInventoryTransactions.numTransactionType = " & _
+                TransactionWhere = TransactionWhere & " and " & DBNameSpace & ".PASPInventoryTransactions.numTransactionType = " & _
                       "'" & cboTransactionTypeSearch.SelectedValue & "' "
             End If
             If cboTransactionStaffSearch.Text <> "" And cboTransactionStaffSearch.Text <> " " Then
-                TransactionWhere = TransactionWhere & " and " & connNameSpace & ".PASPInventoryTransactions.numStaff = " & _
+                TransactionWhere = TransactionWhere & " and " & DBNameSpace & ".PASPInventoryTransactions.numStaff = " & _
                       "'" & cboTransactionStaffSearch.SelectedValue & "' "
             End If
 
@@ -1974,22 +1974,22 @@ Public Class PASPInventory
             If cboReportProgram.Text = "-All Programs-" Then
                 ReportWhere = " "
             Else
-                ReportWhere = "and " & connNameSpace & ".EPDUserProfiles.numProgram = '" & cboReportProgram.SelectedValue & "' "
+                ReportWhere = "and " & DBNameSpace & ".EPDUserProfiles.numProgram = '" & cboReportProgram.SelectedValue & "' "
             End If
             If cboReportUnit.Text = "-All Units-" Then
                 ReportWhere = ReportWhere & " "
             Else
-                ReportWhere = ReportWhere & "and " & connNameSpace & ".EPDUserProfiles.numUnit = '" & cboReportUnit.SelectedValue & "' "
+                ReportWhere = ReportWhere & "and " & DBNameSpace & ".EPDUserProfiles.numUnit = '" & cboReportUnit.SelectedValue & "' "
             End If
             If cboReportInventoryType.Text = "-All Types-" Then
                 ReportWhere = ReportWhere & " "
             Else
-                ReportWhere = ReportWhere & "and " & connNameSpace & ".PASPInventory.numInventoryID = '" & cboReportInventoryType.SelectedValue & "' "
+                ReportWhere = ReportWhere & "and " & DBNameSpace & ".PASPInventory.numInventoryID = '" & cboReportInventoryType.SelectedValue & "' "
             End If
             If rdbAssignedInventory.Checked = True Then
-                ReportWhere = ReportWhere & " and " & connNameSpace & ".EPDUserProfiles.numBranch = '1' "
+                ReportWhere = ReportWhere & " and " & DBNameSpace & ".EPDUserProfiles.numBranch = '1' "
             Else
-                ReportWhere = ReportWhere & " and " & connNameSpace & ".PASPInventory.numCurrentStaff is null "
+                ReportWhere = ReportWhere & " and " & DBNameSpace & ".PASPInventory.numCurrentStaff is null "
             End If
 
             btnViewReport.Enabled = False
@@ -2014,20 +2014,20 @@ Public Class PASPInventory
             "strProgramDesc, strUnitDesc, " & _
             "strOffice, strDecalNumber, " & _
             "strDescription, strReplacementYear " & _
-            "from " & connNameSpace & ".PASPInventory, " & connNameSpace & ".EPDUserProfiles, " & _
-            "" & connNameSpace & ".LookUpEPDPrograms, " & connNameSpace & ".LookUpEPDUnits  " & _
-            "where " & connNameSpace & ".PASPInventory.numCurrentStaff = " & connNameSpace & ".EPDUserProfiles.numUserID (+) " & _
-            "and " & connNameSpace & ".EPDUserProfiles.numProgram = " & connNameSpace & ".LookUpEPDPrograms.numProgramCode (+) " & _
-            "and " & connNameSpace & ".EPDUserProfiles.numUnit = " & connNameSpace & ".LookUpEPDUnits.numUnitCode (+) " & _
-            "and " & connNameSpace & ".EPDUserProfiles.numBranch = '1' " & _
+            "from " & DBNameSpace & ".PASPInventory, " & DBNameSpace & ".EPDUserProfiles, " & _
+            "" & DBNameSpace & ".LookUpEPDPrograms, " & DBNameSpace & ".LookUpEPDUnits  " & _
+            "where " & DBNameSpace & ".PASPInventory.numCurrentStaff = " & DBNameSpace & ".EPDUserProfiles.numUserID (+) " & _
+            "and " & DBNameSpace & ".EPDUserProfiles.numProgram = " & DBNameSpace & ".LookUpEPDPrograms.numProgramCode (+) " & _
+            "and " & DBNameSpace & ".EPDUserProfiles.numUnit = " & DBNameSpace & ".LookUpEPDUnits.numUnitCode (+) " & _
+            "and " & DBNameSpace & ".EPDUserProfiles.numBranch = '1' " & _
             "and strActivityStatus = 'True' " & _
             ReportWhere & _
             "order by strProgramDesc, strUnitDesc, Staff  "
 
             ds = New DataSet
-            da = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            da = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             da.Fill(ds, "InventoryReport")
 
@@ -2091,22 +2091,22 @@ Public Class PASPInventory
             If cboReportProgram.Text = "-All Programs-" Then
                 ReportWhere = " "
             Else
-                ReportWhere = "and " & connNameSpace & ".EPDUserProfiles.numProgram = '" & cboReportProgram.SelectedValue & "' "
+                ReportWhere = "and " & DBNameSpace & ".EPDUserProfiles.numProgram = '" & cboReportProgram.SelectedValue & "' "
             End If
             If cboReportUnit.Text = "-All Units-" Then
                 ReportWhere = ReportWhere & " "
             Else
-                ReportWhere = ReportWhere & "and " & connNameSpace & ".EPDUserProfiles.numUnit = '" & cboReportUnit.SelectedValue & "' "
+                ReportWhere = ReportWhere & "and " & DBNameSpace & ".EPDUserProfiles.numUnit = '" & cboReportUnit.SelectedValue & "' "
             End If
             If cboReportInventoryType.Text = "-All Types-" Then
                 ReportWhere = ReportWhere & " "
             Else
-                ReportWhere = ReportWhere & "and " & connNameSpace & ".PASPInventory.numInventoryID = '" & cboReportInventoryType.SelectedValue & "' "
+                ReportWhere = ReportWhere & "and " & DBNameSpace & ".PASPInventory.numInventoryID = '" & cboReportInventoryType.SelectedValue & "' "
             End If
             If rdbAssignedInventory.Checked = True Then
-                ReportWhere = ReportWhere & " and " & connNameSpace & ".EPDUserProfiles.numBranch = '1' "
+                ReportWhere = ReportWhere & " and " & DBNameSpace & ".EPDUserProfiles.numBranch = '1' "
             Else
-                ReportWhere = ReportWhere & " and " & connNameSpace & ".PASPInventory.numCurrentStaff is null "
+                ReportWhere = ReportWhere & " and " & DBNameSpace & ".PASPInventory.numCurrentStaff is null "
             End If
 
             Dim ds2 As dsInventoryReport = New dsInventoryReport
@@ -2119,21 +2119,21 @@ Public Class PASPInventory
             "strProgramDesc, strUnitDesc, " & _
             "strOffice, strDecalNumber, " & _
             "strDescription, strReplacementYear, " & _
-            "" & connNameSpace & ".LookUpPASPInventoryType.strInventoryType " & _
-            "from " & connNameSpace & ".PASPInventory, " & connNameSpace & ".EPDUserProfiles, " & _
-            "" & connNameSpace & ".LookUpEPDPrograms, " & connNameSpace & ".LookUpEPDUnits,  " & _
-            "" & connNameSpace & ".LookUpPASPInventoryType " & _
-            "where " & connNameSpace & ".PASPInventory.numCurrentStaff = " & connNameSpace & ".EPDUserProfiles.numUserID (+) " & _
-            "and " & connNameSpace & ".PASPInventory.NumInventoryID = " & connNameSpace & ".LookUpPASPInventoryType.numInventoryID (+) " & _
-            "and " & connNameSpace & ".EPDUserProfiles.numProgram = " & connNameSpace & ".LookUpEPDPrograms.numProgramCode (+) " & _
-            "and " & connNameSpace & ".EPDUserProfiles.numUnit = " & connNameSpace & ".LookUpEPDUnits.numUnitCode (+) " & _
+            "" & DBNameSpace & ".LookUpPASPInventoryType.strInventoryType " & _
+            "from " & DBNameSpace & ".PASPInventory, " & DBNameSpace & ".EPDUserProfiles, " & _
+            "" & DBNameSpace & ".LookUpEPDPrograms, " & DBNameSpace & ".LookUpEPDUnits,  " & _
+            "" & DBNameSpace & ".LookUpPASPInventoryType " & _
+            "where " & DBNameSpace & ".PASPInventory.numCurrentStaff = " & DBNameSpace & ".EPDUserProfiles.numUserID (+) " & _
+            "and " & DBNameSpace & ".PASPInventory.NumInventoryID = " & DBNameSpace & ".LookUpPASPInventoryType.numInventoryID (+) " & _
+            "and " & DBNameSpace & ".EPDUserProfiles.numProgram = " & DBNameSpace & ".LookUpEPDPrograms.numProgramCode (+) " & _
+            "and " & DBNameSpace & ".EPDUserProfiles.numUnit = " & DBNameSpace & ".LookUpEPDUnits.numUnitCode (+) " & _
             "and strActivityStatus = 'True' " & _
             ReportWhere & _
             "order by strProgramDesc, strUnitDesc, Staff  "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -2220,13 +2220,13 @@ Public Class PASPInventory
             SQL = "Select " & _
             "numCategoryID, strCategoryDesc, " & _
             "Active " & _
-            "from " & connNameSpace & ".LookUpGAITCategory " & _
+            "from " & DBNameSpace & ".LookUpGAITCategory " & _
             "order by numCategoryID "
 
             dsGAITCategory = New DataSet
-            daGAITCategory = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daGAITCategory = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daGAITCategory.Fill(dsGAITCategory, "GAITCategoryEdit")
 
@@ -2309,11 +2309,11 @@ Public Class PASPInventory
             If txtAddEditGAITCategory.Text <> "" Then
                 SQL = "Select " & _
                 "numCategoryID " & _
-                "from " & connNameSpace & ".LookupGAITCategory " & _
+                "from " & DBNameSpace & ".LookupGAITCategory " & _
                 "where Upper(strCategoryDesc) = '" & Replace(txtAddEditGAITCategory.Text.ToUpper, "'", "''") & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -2324,14 +2324,14 @@ Public Class PASPInventory
                            MsgBoxStyle.Exclamation, "GAIT Inventory")
                     Exit Sub
                 Else
-                    SQL = "Insert into " & connNameSpace & ".LookUpGAITCategory " & _
+                    SQL = "Insert into " & DBNameSpace & ".LookUpGAITCategory " & _
                     "values " & _
-                    "((select max(numCategoryID) + 1 from " & connNameSpace & ".LookUpGAITCategory), " & _
+                    "((select max(numCategoryID) + 1 from " & DBNameSpace & ".LookUpGAITCategory), " & _
                     "'" & txtAddEditGAITCategory.Text & "', " & _
                     "'1') "
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
@@ -2350,13 +2350,13 @@ Public Class PASPInventory
             If txtGAITCategoryID.Text <> "" And txtGAITCategoryID.Text <> " " Then
                 GAITID = txtGAITCategoryID.Text
 
-                SQL = "Update " & connNameSpace & ".LookUpGaitCategory set " & _
+                SQL = "Update " & DBNameSpace & ".LookUpGaitCategory set " & _
                 "strCategoryDESC = '" & Replace(txtAddEditGAITCategory.Text, "'", "''") & "', " & _
                 "Active = '1' " & _
                 "where numCategoryID = '" & txtGAITCategoryID.Text & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -2375,12 +2375,12 @@ Public Class PASPInventory
             If txtGAITCategoryID.Text <> "" And txtGAITCategoryID.Text <> " " Then
                 GAITID = txtGAITCategoryID.Text
 
-                SQL = "Update " & connNameSpace & ".LookUpGaitCategory set " & _
+                SQL = "Update " & DBNameSpace & ".LookUpGaitCategory set " & _
                 "Active = '0' " & _
                 "where numCategoryID = '" & txtGAITCategoryID.Text & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -2416,13 +2416,13 @@ Public Class PASPInventory
             SQL = "Select " & _
             "numManufactureID, strManufactureDesc, " & _
             "Active " & _
-            "from " & connNameSpace & ".LookUpGAITManufacture " & _
+            "from " & DBNameSpace & ".LookUpGAITManufacture " & _
             "order by numManufactureID "
 
             dsGAITManufacturer = New DataSet
-            daGAITManufacturer = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daGAITManufacturer = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daGAITManufacturer.Fill(dsGAITManufacturer, "GAITManufacturerEdit")
 
@@ -2505,11 +2505,11 @@ Public Class PASPInventory
             If txtAddEditGAITManufacturer.Text <> "" Then
                 SQL = "Select " & _
                 "nummanufactureID " & _
-                "from " & connNameSpace & ".LookupGAITmanufacture " & _
+                "from " & DBNameSpace & ".LookupGAITmanufacture " & _
                 "where Upper(strmanufactureDesc) = '" & Replace(txtAddEditGAITManufacturer.Text.ToUpper, "'", "''") & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -2520,14 +2520,14 @@ Public Class PASPInventory
                            MsgBoxStyle.Exclamation, "GAIT Inventory")
                     Exit Sub
                 Else
-                    SQL = "Insert into " & connNameSpace & ".LookUpGAITmanufacture " & _
+                    SQL = "Insert into " & DBNameSpace & ".LookUpGAITmanufacture " & _
                     "values " & _
-                    "((select max(nummanufactureID) + 1 from " & connNameSpace & ".LookUpGAITmanufacture), " & _
+                    "((select max(nummanufactureID) + 1 from " & DBNameSpace & ".LookUpGAITmanufacture), " & _
                     "'" & txtAddEditGAITManufacturer.Text & "', " & _
                     "'1') "
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
@@ -2546,13 +2546,13 @@ Public Class PASPInventory
             If txtGAITManufacturerID.Text <> "" And txtGAITManufacturerID.Text <> " " Then
                 GAITID = txtGAITManufacturerID.Text
 
-                SQL = "Update " & connNameSpace & ".LookUpGaitManufacture set " & _
+                SQL = "Update " & DBNameSpace & ".LookUpGaitManufacture set " & _
                 "strManufactureDESC = '" & Replace(txtAddEditGAITManufacturer.Text, "'", "''") & "', " & _
                 "Active = '1' " & _
                 "where numManufactureID = '" & txtGAITManufacturerID.Text & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -2571,12 +2571,12 @@ Public Class PASPInventory
             If txtGAITManufacturerID.Text <> "" And txtGAITManufacturerID.Text <> " " Then
                 GAITID = txtGAITManufacturerID.Text
 
-                SQL = "Update " & connNameSpace & ".LookUpGaitManufacture set " & _
+                SQL = "Update " & DBNameSpace & ".LookUpGaitManufacture set " & _
                 "Active = '0' " & _
                 "where numManufactureID = '" & txtGAITManufacturerID.Text & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -2613,13 +2613,13 @@ Public Class PASPInventory
             SQL = "Select " & _
             "numModelID, strModelDesc, " & _
             "Active " & _
-            "from " & connNameSpace & ".LookUpGAITModel " & _
+            "from " & DBNameSpace & ".LookUpGAITModel " & _
             "order by numModelID "
 
             dsGAITModel = New DataSet
-            daGAITModel = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daGAITModel = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daGAITModel.Fill(dsGAITModel, "GAITModelEdit")
 
@@ -2702,11 +2702,11 @@ Public Class PASPInventory
             If txtAddEditGAITModel.Text <> "" Then
                 SQL = "Select " & _
                 "numModelID " & _
-                "from " & connNameSpace & ".LookupGAITModel " & _
+                "from " & DBNameSpace & ".LookupGAITModel " & _
                 "where Upper(strModelDesc) = '" & Replace(txtAddEditGAITModel.Text.ToUpper, "'", "''") & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -2717,15 +2717,15 @@ Public Class PASPInventory
                            MsgBoxStyle.Exclamation, "GAIT Inventory")
                     Exit Sub
                 Else
-                    SQL = "Insert into " & connNameSpace & ".LookUpGAITModel " & _
+                    SQL = "Insert into " & DBNameSpace & ".LookUpGAITModel " & _
                     "values " & _
-                    "((select max(numModelID) + 1 from " & connNameSpace & ".LookUpGAITModel), " & _
+                    "((select max(numModelID) + 1 from " & DBNameSpace & ".LookUpGAITModel), " & _
                     "'" & txtAddEditGAITModel.Text & "', " & _
                     "'1') "
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
@@ -2744,13 +2744,13 @@ Public Class PASPInventory
             If txtGAITModelID.Text <> "" And txtGAITModelID.Text <> " " Then
                 GAITID = txtGAITModelID.Text
 
-                SQL = "Update " & connNameSpace & ".LookUpGaitModel set " & _
+                SQL = "Update " & DBNameSpace & ".LookUpGaitModel set " & _
                 "strModelDESC = '" & Replace(txtAddEditGAITModel.Text, "'", "''") & "', " & _
                 "Active = '1' " & _
                 "where numModelID = '" & txtGAITModelID.Text & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -2769,12 +2769,12 @@ Public Class PASPInventory
             If txtGAITModelID.Text <> "" And txtGAITModelID.Text <> " " Then
                 GAITID = txtGAITModelID.Text
 
-                SQL = "Update " & connNameSpace & ".LookUpGaitModel set " & _
+                SQL = "Update " & DBNameSpace & ".LookUpGaitModel set " & _
                 "Active = '0' " & _
                 "where numModelID = '" & txtGAITModelID.Text & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -2810,13 +2810,13 @@ Public Class PASPInventory
             SQL = "Select " & _
             "numModelNumberID, strModelNumberDesc, " & _
             "Active " & _
-            "from " & connNameSpace & ".LookUpGAITModelNumber " & _
+            "from " & DBNameSpace & ".LookUpGAITModelNumber " & _
             "order by numModelNumberID "
 
             dsGAITModelNumber = New DataSet
-            daGAITModelNumber = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daGAITModelNumber = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daGAITModelNumber.Fill(dsGAITModelNumber, "GAITModelNumberEdit")
 
@@ -2899,11 +2899,11 @@ Public Class PASPInventory
             If txtAddEditGAITModelNumber.Text <> "" Then
                 SQL = "Select " & _
                 "numModelNumberID " & _
-                "from " & connNameSpace & ".LookupGAITModelNumber " & _
+                "from " & DBNameSpace & ".LookupGAITModelNumber " & _
                 "where Upper(strModelNumberDesc) = '" & Replace(txtAddEditGAITModelNumber.Text.ToUpper, "'", "''") & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -2914,14 +2914,14 @@ Public Class PASPInventory
                            MsgBoxStyle.Exclamation, "GAIT Inventory")
                     Exit Sub
                 Else
-                    SQL = "Insert into " & connNameSpace & ".LookUpGAITModelNumber " & _
+                    SQL = "Insert into " & DBNameSpace & ".LookUpGAITModelNumber " & _
                     "values " & _
-                    "((select max(numModelNumberID) + 1 from " & connNameSpace & ".LookUpGAITModelNumber), " & _
+                    "((select max(numModelNumberID) + 1 from " & DBNameSpace & ".LookUpGAITModelNumber), " & _
                     "'" & txtAddEditGAITModelNumber.Text & "', " & _
                     "'1') "
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
@@ -2940,13 +2940,13 @@ Public Class PASPInventory
             If txtGAITModelNumberID.Text <> "" And txtGAITModelNumberID.Text <> " " Then
                 GAITID = txtGAITModelNumberID.Text
 
-                SQL = "Update " & connNameSpace & ".LookUpGaitModelNumber set " & _
+                SQL = "Update " & DBNameSpace & ".LookUpGaitModelNumber set " & _
                 "strModelNumberDESC = '" & Replace(txtAddEditGAITModelNumber.Text, "'", "''") & "', " & _
                 "Active = '1' " & _
                 "where numModelNumberID = '" & txtGAITModelNumberID.Text & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -2965,12 +2965,12 @@ Public Class PASPInventory
             If txtGAITModelNumberID.Text <> "" And txtGAITModelNumberID.Text <> " " Then
                 GAITID = txtGAITModelNumberID.Text
 
-                SQL = "Update " & connNameSpace & ".LookUpGaitModelNumber set " & _
+                SQL = "Update " & DBNameSpace & ".LookUpGaitModelNumber set " & _
                 "Active = '0' " & _
                 "where numModelNumberID = '" & txtGAITModelNumberID.Text & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -3007,13 +3007,13 @@ Public Class PASPInventory
             SQL = "Select " & _
             "numQualityID, strQualityDesc, " & _
             "Active " & _
-            "from " & connNameSpace & ".LookUpGAITQuality " & _
+            "from " & DBNameSpace & ".LookUpGAITQuality " & _
             "order by numQualityID "
 
             dsGAITQuality = New DataSet
-            daGAITQuality = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daGAITQuality = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daGAITQuality.Fill(dsGAITQuality, "GAITQualityEdit")
 
@@ -3096,11 +3096,11 @@ Public Class PASPInventory
             If txtAddEditGAITQuality.Text <> "" Then
                 SQL = "Select " & _
                 "numQualityID " & _
-                "from " & connNameSpace & ".LookupGAITQuality " & _
+                "from " & DBNameSpace & ".LookupGAITQuality " & _
                 "where Upper(strQualityDesc) = '" & Replace(txtAddEditGAITQuality.Text.ToUpper, "'", "''") & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -3111,14 +3111,14 @@ Public Class PASPInventory
                            MsgBoxStyle.Exclamation, "GAIT Inventory")
                     Exit Sub
                 Else
-                    SQL = "Insert into " & connNameSpace & ".LookUpGAITQuality " & _
+                    SQL = "Insert into " & DBNameSpace & ".LookUpGAITQuality " & _
                     "values " & _
-                    "((select max(numQualityID) + 1 from " & connNameSpace & ".LookUpGAITQuality), " & _
+                    "((select max(numQualityID) + 1 from " & DBNameSpace & ".LookUpGAITQuality), " & _
                     "'" & txtAddEditGAITQuality.Text & "', " & _
                     "'1') "
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
@@ -3137,14 +3137,14 @@ Public Class PASPInventory
             If txtGAITQualityID.Text <> "" And txtGAITQualityID.Text <> " " Then
                 GAITID = txtGAITQualityID.Text
 
-                SQL = "Update " & connNameSpace & ".LookUpGaitQuality set " & _
+                SQL = "Update " & DBNameSpace & ".LookUpGaitQuality set " & _
                 "strQualityDESC = '" & Replace(txtAddEditGAITQuality.Text, "'", "''") & "', " & _
                 "Active = '1' " & _
                 "where numQualityID = '" & txtGAITQualityID.Text & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -3163,12 +3163,12 @@ Public Class PASPInventory
             If txtGAITQualityID.Text <> "" And txtGAITQualityID.Text <> " " Then
                 GAITID = txtGAITQualityID.Text
 
-                SQL = "Update " & connNameSpace & ".LookUpGaitQuality set " & _
+                SQL = "Update " & DBNameSpace & ".LookUpGaitQuality set " & _
                 "Active = '0' " & _
                 "where numQualityID = '" & txtGAITQualityID.Text & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -3206,60 +3206,60 @@ Public Class PASPInventory
 
             SQL = "Select " & _
             "numCategoryID, strCategoryDesc " & _
-            "from " & connNameSpace & ".LookUpGAITCategory " & _
+            "from " & DBNameSpace & ".LookUpGAITCategory " & _
             "where Active = '1' " & _
             "order by strCategoryDesc "
 
-            daGAITLookUps = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daGAITLookUps = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daGAITLookUps.Fill(dsGAITLookUps, "GAITCategory")
 
             SQL = "Select " & _
             "numManufactureID, strManufactureDesc " & _
-            "from " & connNameSpace & ".LookUpGAITManufacture " & _
+            "from " & DBNameSpace & ".LookUpGAITManufacture " & _
             "where Active = '1' " & _
             "order by strManufactureDesc "
 
-            daGAITLookUps = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daGAITLookUps = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daGAITLookUps.Fill(dsGAITLookUps, "GAITManufacture")
 
             SQL = "Select " & _
             "numModelID, strModelDesc " & _
-            "from " & connNameSpace & ".LookUpGAITModel " & _
+            "from " & DBNameSpace & ".LookUpGAITModel " & _
             "where Active = '1' " & _
             "order by strModelDesc "
 
-            daGAITLookUps = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daGAITLookUps = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daGAITLookUps.Fill(dsGAITLookUps, "GAITModel")
 
             SQL = "Select " & _
             "numModelNumberID, strModelNumberDesc " & _
-            "from " & connNameSpace & ".LookUpGAITModelNumber " & _
+            "from " & DBNameSpace & ".LookUpGAITModelNumber " & _
             "where Active = '1' " & _
             "order by strModelNumberDesc "
 
-            daGAITLookUps = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daGAITLookUps = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daGAITLookUps.Fill(dsGAITLookUps, "GAITModelNumber")
 
             SQL = "Select " & _
             "numQualityID, strQualityDesc " & _
-           "from " & connNameSpace & ".LookUpGAITQuality " & _
+           "from " & DBNameSpace & ".LookUpGAITQuality " & _
             "order by strQualityDesc "
 
-            daGAITLookUps = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daGAITLookUps = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daGAITLookUps.Fill(dsGAITLookUps, "GAITQuality")
 
@@ -3275,32 +3275,32 @@ Public Class PASPInventory
             "(select  " & _
             "numUserID,  " & _
             "(strLastName||', '||strFirstname) as IAIPUser " & _
-            "from " & connNameSpace & ".EPDUSerProfiles  " & _
+            "from " & DBNameSpace & ".EPDUSerProfiles  " & _
             "where numbranch = '1' " & _
             "union " & _
             "select " & _
             "distinct " & _
-            "" & connNameSpace & ".GAITInventory.numUserID, " & _
+            "" & DBNameSpace & ".GAITInventory.numUserID, " & _
             "(strLastName||', '||strFirstName) as IAIPUSER " & _
-            "from " & connNameSpace & ".GAITInventory, " & connNameSpace & ".EPDUserProfiles " & _
-            "where " & connNameSpace & ".EPDUserProfiles.numUserID = " & connNameSpace & ".GAITInventory.numUserID)  " & _
+            "from " & DBNameSpace & ".GAITInventory, " & DBNameSpace & ".EPDUserProfiles " & _
+            "where " & DBNameSpace & ".EPDUserProfiles.numUserID = " & DBNameSpace & ".GAITInventory.numUserID)  " & _
             "order by IAIPUser "
 
-            daGAITLookUps = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daGAITLookUps = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daGAITLookUps.Fill(dsGAITLookUps, "IAIPStaff")
 
             SQL = "Select " & _
             "numProgramCode, strProgramDesc " & _
-            "from " & connNameSpace & ".LookUpEPDPrograms " & _
+            "from " & DBNameSpace & ".LookUpEPDPrograms " & _
             "where numBranchCode = '1' " & _
             "order by strProgramDesc "
 
-            daGAITLookUps = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daGAITLookUps = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daGAITLookUps.Fill(dsGAITLookUps, "IAIPPrograms")
 
@@ -3512,7 +3512,7 @@ Public Class PASPInventory
                 ActiveStatus = "%"
             End If
             If txtGAITAssetSearch.Text <> "" Then
-                AssetTag = " and " & connNameSpace & ".GAITInventory.strAssetTag like '%" & txtGAITAssetSearch.Text & "%' "
+                AssetTag = " and " & DBNameSpace & ".GAITInventory.strAssetTag like '%" & txtGAITAssetSearch.Text & "%' "
             Else
                 AssetTag = " "
             End If
@@ -3523,7 +3523,7 @@ Public Class PASPInventory
                 APBProgram = " "
             End If
             If txtGAITCommentSearch.Text <> "" Then
-                GAITComments = " and upper(" & connNameSpace & ".GAITInventory.strComments) like '%" & txtGAITCommentSearch.Text.ToUpper & "%' "
+                GAITComments = " and upper(" & DBNameSpace & ".GAITInventory.strComments) like '%" & txtGAITCommentSearch.Text.ToUpper & "%' "
             Else
                 GAITComments = " "
             End If
@@ -3597,8 +3597,8 @@ Public Class PASPInventory
             "datAquired, " & _
             "strComments, " & _
             "case " & _
-            "when " & connNameSpace & ".GAITInventory.numUserID is null then '' " & _
-            "when " & connNameSpace & ".GAITInventory.numUserID is not null then  (strLastName||', '||strFirstName) " & _
+            "when " & DBNameSpace & ".GAITInventory.numUserID is null then '' " & _
+            "when " & DBNameSpace & ".GAITInventory.numUserID is not null then  (strLastName||', '||strFirstName) " & _
             "end IAIPStaff, strOffice, " & _
             "strProgramDesc, strUnitDesc, " & _
             "to_number(to_char(abs(trunc(months_between(datAquired, sysdate)/12, 1))))  as TimeInService, " & _
@@ -3613,32 +3613,32 @@ Public Class PASPInventory
             "when GAITInventory.Active = '1' then 'Active' " & _
             "when GAITInventory.Active = '0' then 'Deleted' " & _
             "End Active " & _
-            "from " & connNameSpace & ".GAITInventory, " & _
-            "" & connNameSpace & ".LookupGAITCategory, " & _
-            "" & connNameSpace & ".LookUpGAITManufacture, " & _
-            "" & connNameSpace & ".LookupGAITModel, " & _
-            "" & connNameSpace & ".LookUpGAITModelNumber, " & _
-            "" & connNameSpace & ".LookUpGAITQuality, " & _
-            "" & connNameSpace & ".EPDUSERProfiles, " & _
-            "" & connNameSpace & ".LookUpEPDPrograms, " & _
-            "" & connNameSpace & ".LookUpEPDUnits " & _
-            "where " & connNameSpace & ".GAITInventory.numCategory = " & connNameSpace & ".LookupGAITCategory.numCategoryID (+) " & _
-            "and " & connNameSpace & ".GAITInventory.numManufacturer = " & connNameSpace & ".LookUpGAITManufacture.numManufactureID  (+) " & _
-            "and " & connNameSpace & ".GAITInventory.numModel = " & connNameSpace & ".LookUpGAITModel.numModelID   (+) " & _
-            "and " & connNameSpace & ".GAITInventory.numModelNumber = " & connNameSpace & ".LookUpGAITModelNumber.numModelNumberID (+) " & _
-            "and " & connNameSpace & ".GAITInventory.numQuality = " & connNameSpace & ".LookUpGAITQuality.numQualityID  (+) " & _
-            "and " & connNameSpace & ".GAITInventory.numUserID = " & connNameSpace & ".EPDUserProfiles.numUserID  (+) " & _
-            "and " & connNameSpace & ".EPDUserProfiles.numProgram = " & connNameSpace & ".LookUpEPDPrograms.numProgramCode (+) " & _
-            "and " & connNameSpace & ".EPDUserProfiles.numUnit = " & connNameSpace & ".LookUpEPDUnits.numUnitCode (+) " & _
-            "and " & connNameSpace & ".GAITInventory.ACTIVE like '" & ActiveStatus & "' " & _
+            "from " & DBNameSpace & ".GAITInventory, " & _
+            "" & DBNameSpace & ".LookupGAITCategory, " & _
+            "" & DBNameSpace & ".LookUpGAITManufacture, " & _
+            "" & DBNameSpace & ".LookupGAITModel, " & _
+            "" & DBNameSpace & ".LookUpGAITModelNumber, " & _
+            "" & DBNameSpace & ".LookUpGAITQuality, " & _
+            "" & DBNameSpace & ".EPDUSERProfiles, " & _
+            "" & DBNameSpace & ".LookUpEPDPrograms, " & _
+            "" & DBNameSpace & ".LookUpEPDUnits " & _
+            "where " & DBNameSpace & ".GAITInventory.numCategory = " & DBNameSpace & ".LookupGAITCategory.numCategoryID (+) " & _
+            "and " & DBNameSpace & ".GAITInventory.numManufacturer = " & DBNameSpace & ".LookUpGAITManufacture.numManufactureID  (+) " & _
+            "and " & DBNameSpace & ".GAITInventory.numModel = " & DBNameSpace & ".LookUpGAITModel.numModelID   (+) " & _
+            "and " & DBNameSpace & ".GAITInventory.numModelNumber = " & DBNameSpace & ".LookUpGAITModelNumber.numModelNumberID (+) " & _
+            "and " & DBNameSpace & ".GAITInventory.numQuality = " & DBNameSpace & ".LookUpGAITQuality.numQualityID  (+) " & _
+            "and " & DBNameSpace & ".GAITInventory.numUserID = " & DBNameSpace & ".EPDUserProfiles.numUserID  (+) " & _
+            "and " & DBNameSpace & ".EPDUserProfiles.numProgram = " & DBNameSpace & ".LookUpEPDPrograms.numProgramCode (+) " & _
+            "and " & DBNameSpace & ".EPDUserProfiles.numUnit = " & DBNameSpace & ".LookUpEPDUnits.numUnitCode (+) " & _
+            "and " & DBNameSpace & ".GAITInventory.ACTIVE like '" & ActiveStatus & "' " & _
             AssetTag & APBProgram & AssetCategory & GAITDates & GAITComments & _
             "order by numGAITID desc "
 
             ds = New DataSet
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
-            da = New OracleDataAdapter(SQL, conn)
+            da = New OracleDataAdapter(SQL, DBConn)
             da.Fill(ds, "GAITInventory")
 
             dgvGAITInventory.DataSource = ds
@@ -3806,11 +3806,11 @@ Public Class PASPInventory
             If txtGAITAssetTag.Text <> "" Then
                 SQL = "Select " & _
                 "numGAITID " & _
-                "from " & connNameSpace & ".GAITInventory " & _
+                "from " & DBNameSpace & ".GAITInventory " & _
                 "where strAssetTag = '" & txtGAITAssetTag.Text & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -3870,9 +3870,9 @@ Public Class PASPInventory
                 ActiveStatus = "1"
             End If
 
-            SQL = "Insert into " & connNameSpace & ".GAITInventory " & _
+            SQL = "Insert into " & DBNameSpace & ".GAITInventory " & _
             "values " & _
-            "((Select max(numGAITid) + 1 from " & connNameSpace & ".GAITInventory), " & _
+            "((Select max(numGAITid) + 1 from " & DBNameSpace & ".GAITInventory), " & _
             "'" & Replace(AssetTag, "'", "''") & "', '" & Replace(Category, "'", "''") & "', " & _
             "'" & Replace(Manufacturer, "'", "''") & "', '" & Replace(Model, "'", "''") & "', " & _
             "'" & Replace(ModelNumber, "'", "''") & "', '" & Serial & "', " & _
@@ -3881,9 +3881,9 @@ Public Class PASPInventory
             "'" & IAIPStaff & "', '" & UserGCode & "', " & _
             "'" & OracleDate & "', '" & ActiveStatus & "', '" & Replace(Comments, "'", "''") & "') "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -3979,18 +3979,18 @@ Public Class PASPInventory
             End If
 
             SQL = "Select numGAITID " & _
-            "from " & connNameSpace & ".GAITInventory " & _
+            "from " & DBNameSpace & ".GAITInventory " & _
             "where nuMGAITID = '" & GAITID & "' "
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             recExist = dr.Read
             dr.Close()
 
             If recExist = True Then
-                SQL = "Update " & connNameSpace & ".GAITInventory set " & _
+                SQL = "Update " & DBNameSpace & ".GAITInventory set " & _
                 "strAssetTag = '" & Replace(AssetTag, "'", "''") & "', " & _
                 "numCategory = '" & Category & "', " & _
                 "numManufacturer = '" & Manufacturer & "', " & _
@@ -4007,9 +4007,9 @@ Public Class PASPInventory
                 "Active = '" & ActiveStatus & "', " & _
                 "strComments = '" & Replace(Comments, "'", "''") & "' " & _
                 "where numGAITid = '" & GAITID & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -4071,13 +4071,13 @@ Public Class PASPInventory
                 ActiveStatus = "1"
             End If
 
-            SQL = "Update " & connNameSpace & ".GAITInventory set " & _
+            SQL = "Update " & DBNameSpace & ".GAITInventory set " & _
             "Active = '" & ActiveStatus & "' " & _
             "where numGAITID = '" & txtGAITID.Text & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()

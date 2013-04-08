@@ -102,10 +102,10 @@ Public Class DMUStaffTools
 
             dsStaff = New DataSet
 
-            daStaff = New OracleDataAdapter(SQL, conn)
+            daStaff = New OracleDataAdapter(SQL, DBConn)
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             daStaff.Fill(dsStaff, "Staff")
@@ -123,12 +123,12 @@ Public Class DMUStaffTools
         Try
             SQL = "Select " & _
             "distinct intESYear " & _
-            "from " & connNameSpace & ".esschema " & _
+            "from " & DBNameSpace & ".esschema " & _
             "order by intESYear desc"
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Read()
@@ -151,15 +151,15 @@ Public Class DMUStaffTools
         Dim SQL As String
 
         Try
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
             Else
-                conn.Open()
+                DBConn.Open()
             End If
 
             SQL = "Select distinct STRESYEAR " & _
-                  "from " & connNameSpace & ".esmailout " & _
+                  "from " & DBNameSpace & ".esmailout " & _
                   "order by STRESYEAR desc"
-            Dim cmd As New OracleCommand(SQL, conn)
+            Dim cmd As New OracleCommand(SQL, DBConn)
 
             Dim dr As OracleDataReader = cmd.ExecuteReader()
             dr.Read()
@@ -263,12 +263,12 @@ Public Class DMUStaffTools
             Dim drNewRow As DataRow
 
             SQL = "Select distinct(inventoryYear) as InvYear " & _
-            "from " & connNameSpace & ".EIS_Admin " & _
+            "from " & DBNameSpace & ".EIS_Admin " & _
             "order by invYear desc "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -290,9 +290,9 @@ Public Class DMUStaffTools
             "and numunit = '14' " & _
             "and numEmployeeStatus = '1'  "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -308,10 +308,10 @@ Public Class DMUStaffTools
 
             ds = New DataSet
 
-            da = New OracleDataAdapter(SQL, conn)
+            da = New OracleDataAdapter(SQL, DBConn)
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             da.Fill(ds, "QAStatus")
@@ -631,15 +631,15 @@ Public Class DMUStaffTools
         Try
             SQL = "Select DISTINCT substr(strairsnumber, 5) as strairsnumber, " _
             + "strfacilityname " _
-            + "from " & connNameSpace & ".APBFacilityInformation " _
+            + "from " & DBNameSpace & ".APBFacilityInformation " _
             + "Order by strAIRSNumber "
 
             ds = New DataSet
-            da = New OracleDataAdapter(SQL, conn)
+            da = New OracleDataAdapter(SQL, DBConn)
 
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
             Else
-                conn.Open()
+                DBConn.Open()
             End If
 
             da.Fill(ds, "facilityInfo")
@@ -680,15 +680,15 @@ Public Class DMUStaffTools
             
 
             SQL = "Select numuserid, struseremail " _
-            + "from " & connNameSpace & ".OlapUserLogin " _
+            + "from " & DBNameSpace & ".OlapUserLogin " _
             + "Order by struseremail "
 
             ds = New DataSet
-            da = New OracleDataAdapter(SQL, conn)
+            da = New OracleDataAdapter(SQL, DBConn)
 
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
             Else
-                conn.Open()
+                DBConn.Open()
             End If
 
             da.Fill(ds, "UserEmail")
@@ -743,7 +743,7 @@ Public Class DMUStaffTools
     Sub LoadUserInfo(ByVal UserData As String)
         Try
             SQL = "Select " & _
-            "" & connNameSpace & ".OLAPUserProfile.numUserID, " & _
+            "" & DBNameSpace & ".OLAPUserProfile.numUserID, " & _
             "strfirstname, strlastname, " & _
             "strtitle, strcompanyname, " & _
             "straddress, strcity, " & _
@@ -751,13 +751,13 @@ Public Class DMUStaffTools
             "strphonenumber, strfaxnumber, " & _
             "datLastLogIn, strConfirm, " & _
             "strUserEmail " & _
-            "from " & connNameSpace & ".OlapUserProfile, " & connNameSpace & ".OLAPUserLogIn " & _
-            "where " & connNameSpace & ".OLAPUserProfile.numUserID = " & connNameSpace & ".OLAPUserLogIn.numuserid " & _
+            "from " & DBNameSpace & ".OlapUserProfile, " & DBNameSpace & ".OLAPUserLogIn " & _
+            "where " & DBNameSpace & ".OLAPUserProfile.numUserID = " & DBNameSpace & ".OLAPUserLogIn.numuserid " & _
             "and strUserEmail = upper('" & UserData & "') "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -886,17 +886,17 @@ Public Class DMUStaffTools
              "Case When intFeeAccess = 0 Then 'False' When intFeeAccess = 1 Then 'True' End as intFeeAccess, " & _
              "Case When intEIAccess = 0 Then 'False' When intEIAccess = 1 Then 'True' End as intEIAccess, " & _
              "Case When intESAccess = 0 Then 'False' When intESAccess = 1 Then 'True' End as intESAccess " & _
-             "FROM " & connNameSpace & ".OlapUserAccess, " & connNameSpace & ".OLAPUserLogIn  " & _
-             "WHERE " & connNameSpace & ".OlapUserAccess.numUserId = " & connNameSpace & ".OLAPUserLogIn.numUserId " & _
+             "FROM " & DBNameSpace & ".OlapUserAccess, " & DBNameSpace & ".OLAPUserLogIn  " & _
+             "WHERE " & DBNameSpace & ".OlapUserAccess.numUserId = " & DBNameSpace & ".OLAPUserLogIn.numUserId " & _
              "and  strUserEmail = upper('" & EmailLoc & "') " & _
              "order by strfacilityname"
 
             dgvUserFacilities.Rows.Clear()
             ds = New DataSet
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -938,9 +938,9 @@ Public Class DMUStaffTools
             End While
             dr.Close()
 
-            da = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            da = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             da.Fill(ds, "FacilityUsers")
 
@@ -991,11 +991,11 @@ Public Class DMUStaffTools
         Try
             If txtAirsNumber.Text <> "" Then
                 SQL = "Select strFacilityName " & _
-                "from " & connNameSpace & ".APBFacilityInformation " & _
+                "from " & DBNameSpace & ".APBFacilityInformation " & _
                 "where strAIRSNumber = '0413" & txtAirsNumber.Text & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -1025,11 +1025,11 @@ Public Class DMUStaffTools
     Private Sub btnGetData_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnGetData.Click
         Try
             If txtAirsNumber.Text <> "" Then
-                SQL = "Select * from " & connNameSpace & ".eiSI where strStateFacilityIdentifier = '" & txtAirsNumber.Text & "' "
+                SQL = "Select * from " & DBNameSpace & ".eiSI where strStateFacilityIdentifier = '" & txtAirsNumber.Text & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -1078,107 +1078,107 @@ Public Class DMUStaffTools
                     "when PMFILTable.TotalEmissions is Null then 0  " & _
                     "else PMFILTable.TotalEmissions  " & _
                     "end PMFIL " & _
-                    "from " & connNameSpace & ".EIEM,  " & _
+                    "from " & DBNameSpace & ".EIEM,  " & _
                     "(Select  " & _
-                    "" & connNameSpace & ".EIEM.strPollutantCode as PollutantCode,   " & _
-                    "sum(" & connNameSpace & ".EIEM.dblEmissionNumericValue) as TotalEmissions,  " & _
-                    "" & connNameSpace & ".EIEM.strInventoryYear,  " & _
+                    "" & DBNameSpace & ".EIEM.strPollutantCode as PollutantCode,   " & _
+                    "sum(" & DBNameSpace & ".EIEM.dblEmissionNumericValue) as TotalEmissions,  " & _
+                    "" & DBNameSpace & ".EIEM.strInventoryYear,  " & _
                     "strStateFacilityIdentifier  " & _
-                    "from " & connNameSpace & ".EIEM   " & _
-                    "where " & connNameSpace & ".EIEM.strStateFacilityIdentifier = '" & txtAirsNumber.Text & "'  " & _
+                    "from " & DBNameSpace & ".EIEM   " & _
+                    "where " & DBNameSpace & ".EIEM.strStateFacilityIdentifier = '" & txtAirsNumber.Text & "'  " & _
                     "and strPollutantCode = 'CO'  " & _
-                    "group by " & connNameSpace & ".EIEM.strPollutantCode,  " & _
-                    "" & connNameSpace & ".EIEM.strInventoryYear, strStateFacilityIdentifier) COTable,  " & _
+                    "group by " & DBNameSpace & ".EIEM.strPollutantCode,  " & _
+                    "" & DBNameSpace & ".EIEM.strInventoryYear, strStateFacilityIdentifier) COTable,  " & _
                     "(Select  " & _
-                    "" & connNameSpace & ".EIEM.strPollutantCode as PollutantCode,   " & _
-                    "sum(" & connNameSpace & ".EIEM.dblEmissionNumericValue) as TotalEmissions,  " & _
-                    "" & connNameSpace & ".EIEM.strInventoryYear,  " & _
+                    "" & DBNameSpace & ".EIEM.strPollutantCode as PollutantCode,   " & _
+                    "sum(" & DBNameSpace & ".EIEM.dblEmissionNumericValue) as TotalEmissions,  " & _
+                    "" & DBNameSpace & ".EIEM.strInventoryYear,  " & _
                     "strStateFacilityIdentifier  " & _
-                    "from " & connNameSpace & ".EIEM   " & _
-                    "where " & connNameSpace & ".EIEM.strStateFacilityIdentifier = '" & txtAirsNumber.Text & "'  " & _
+                    "from " & DBNameSpace & ".EIEM   " & _
+                    "where " & DBNameSpace & ".EIEM.strStateFacilityIdentifier = '" & txtAirsNumber.Text & "'  " & _
                     "and strPollutantCode = '7439921'  " & _
-                    "group by " & connNameSpace & ".EIEM.strPollutantCode,  " & _
-                    "" & connNameSpace & ".EIEM.strInventoryYear, strStateFacilityIdentifier) LeadTable,  " & _
+                    "group by " & DBNameSpace & ".EIEM.strPollutantCode,  " & _
+                    "" & DBNameSpace & ".EIEM.strInventoryYear, strStateFacilityIdentifier) LeadTable,  " & _
                     "(Select  " & _
-                    "" & connNameSpace & ".EIEM.strPollutantCode as PollutantCode,   " & _
-                    "sum(" & connNameSpace & ".EIEM.dblEmissionNumericValue) as TotalEmissions,  " & _
-                    "" & connNameSpace & ".EIEM.strInventoryYear,  " & _
+                    "" & DBNameSpace & ".EIEM.strPollutantCode as PollutantCode,   " & _
+                    "sum(" & DBNameSpace & ".EIEM.dblEmissionNumericValue) as TotalEmissions,  " & _
+                    "" & DBNameSpace & ".EIEM.strInventoryYear,  " & _
                     "strStateFacilityIdentifier  " & _
-                    "from " & connNameSpace & ".EIEM   " & _
-                    "where " & connNameSpace & ".EIEM.strStateFacilityIdentifier = '" & txtAirsNumber.Text & "'  " & _
+                    "from " & DBNameSpace & ".EIEM   " & _
+                    "where " & DBNameSpace & ".EIEM.strStateFacilityIdentifier = '" & txtAirsNumber.Text & "'  " & _
                     "and strPollutantCode = 'NH3'  " & _
-                    "group by " & connNameSpace & ".EIEM.strPollutantCode,  " & _
-                    "" & connNameSpace & ".EIEM.strInventoryYear, strStateFacilityIdentifier) NH3Table,  " & _
+                    "group by " & DBNameSpace & ".EIEM.strPollutantCode,  " & _
+                    "" & DBNameSpace & ".EIEM.strInventoryYear, strStateFacilityIdentifier) NH3Table,  " & _
                     "(Select  " & _
-                    "" & connNameSpace & ".EIEM.strPollutantCode as PollutantCode,   " & _
-                    "sum(" & connNameSpace & ".EIEM.dblEmissionNumericValue) as TotalEmissions,  " & _
-                    "" & connNameSpace & ".EIEM.strInventoryYear,  " & _
+                    "" & DBNameSpace & ".EIEM.strPollutantCode as PollutantCode,   " & _
+                    "sum(" & DBNameSpace & ".EIEM.dblEmissionNumericValue) as TotalEmissions,  " & _
+                    "" & DBNameSpace & ".EIEM.strInventoryYear,  " & _
                     "strStateFacilityIdentifier  " & _
-                    "from " & connNameSpace & ".EIEM   " & _
-                    "where " & connNameSpace & ".EIEM.strStateFacilityIdentifier = '" & txtAirsNumber.Text & "'  " & _
+                    "from " & DBNameSpace & ".EIEM   " & _
+                    "where " & DBNameSpace & ".EIEM.strStateFacilityIdentifier = '" & txtAirsNumber.Text & "'  " & _
                     "and strPollutantCode = 'NOX'  " & _
-                    "group by " & connNameSpace & ".EIEM.strPollutantCode,  " & _
-                    "" & connNameSpace & ".EIEM.strInventoryYear, strStateFacilityIdentifier) NOXTable,  " & _
+                    "group by " & DBNameSpace & ".EIEM.strPollutantCode,  " & _
+                    "" & DBNameSpace & ".EIEM.strInventoryYear, strStateFacilityIdentifier) NOXTable,  " & _
                     "(Select  " & _
-                    "" & connNameSpace & ".EIEM.strPollutantCode as PollutantCode,   " & _
-                    "sum(" & connNameSpace & ".EIEM.dblEmissionNumericValue) as TotalEmissions,  " & _
-                    "" & connNameSpace & ".EIEM.strInventoryYear,  " & _
+                    "" & DBNameSpace & ".EIEM.strPollutantCode as PollutantCode,   " & _
+                    "sum(" & DBNameSpace & ".EIEM.dblEmissionNumericValue) as TotalEmissions,  " & _
+                    "" & DBNameSpace & ".EIEM.strInventoryYear,  " & _
                     "strStateFacilityIdentifier  " & _
-                    "from " & connNameSpace & ".EIEM   " & _
-                    "where " & connNameSpace & ".EIEM.strStateFacilityIdentifier = '" & txtAirsNumber.Text & "'  " & _
+                    "from " & DBNameSpace & ".EIEM   " & _
+                    "where " & DBNameSpace & ".EIEM.strStateFacilityIdentifier = '" & txtAirsNumber.Text & "'  " & _
                     "and strPollutantCode = 'PM-PRI'  " & _
-                    "group by " & connNameSpace & ".EIEM.strPollutantCode,  " & _
-                    "" & connNameSpace & ".EIEM.strInventoryYear, strStateFacilityIdentifier) PMTable,  " & _
+                    "group by " & DBNameSpace & ".EIEM.strPollutantCode,  " & _
+                    "" & DBNameSpace & ".EIEM.strInventoryYear, strStateFacilityIdentifier) PMTable,  " & _
                     "(Select  " & _
-                    "" & connNameSpace & ".EIEM.strPollutantCode as PollutantCode,   " & _
-                    "sum(" & connNameSpace & ".EIEM.dblEmissionNumericValue) as TotalEmissions,  " & _
-                    "" & connNameSpace & ".EIEM.strInventoryYear,  " & _
+                    "" & DBNameSpace & ".EIEM.strPollutantCode as PollutantCode,   " & _
+                    "sum(" & DBNameSpace & ".EIEM.dblEmissionNumericValue) as TotalEmissions,  " & _
+                    "" & DBNameSpace & ".EIEM.strInventoryYear,  " & _
                     "strStateFacilityIdentifier  " & _
-                    "from " & connNameSpace & ".EIEM   " & _
-                    "where " & connNameSpace & ".EIEM.strStateFacilityIdentifier = '" & txtAirsNumber.Text & "'  " & _
+                    "from " & DBNameSpace & ".EIEM   " & _
+                    "where " & DBNameSpace & ".EIEM.strStateFacilityIdentifier = '" & txtAirsNumber.Text & "'  " & _
                     "and strPollutantCode = 'PM10-PMI'  " & _
-                    "group by " & connNameSpace & ".EIEM.strPollutantCode,  " & _
-                    "" & connNameSpace & ".EIEM.strInventoryYear, strStateFacilityIdentifier) PM10Table,  " & _
+                    "group by " & DBNameSpace & ".EIEM.strPollutantCode,  " & _
+                    "" & DBNameSpace & ".EIEM.strInventoryYear, strStateFacilityIdentifier) PM10Table,  " & _
                     "(Select  " & _
-                    "" & connNameSpace & ".EIEM.strPollutantCode as PollutantCode,   " & _
-                    "sum(" & connNameSpace & ".EIEM.dblEmissionNumericValue) as TotalEmissions,  " & _
-                    "" & connNameSpace & ".EIEM.strInventoryYear,  " & _
+                    "" & DBNameSpace & ".EIEM.strPollutantCode as PollutantCode,   " & _
+                    "sum(" & DBNameSpace & ".EIEM.dblEmissionNumericValue) as TotalEmissions,  " & _
+                    "" & DBNameSpace & ".EIEM.strInventoryYear,  " & _
                     "strStateFacilityIdentifier  " & _
-                    "from " & connNameSpace & ".EIEM   " & _
-                    "where " & connNameSpace & ".EIEM.strStateFacilityIdentifier = '" & txtAirsNumber.Text & "'  " & _
+                    "from " & DBNameSpace & ".EIEM   " & _
+                    "where " & DBNameSpace & ".EIEM.strStateFacilityIdentifier = '" & txtAirsNumber.Text & "'  " & _
                     "and strPollutantCode = 'PM25-PMI'  " & _
-                    "group by " & connNameSpace & ".EIEM.strPollutantCode,  " & _
-                    "" & connNameSpace & ".EIEM.strInventoryYear, strStateFacilityIdentifier) PM25Table,  " & _
+                    "group by " & DBNameSpace & ".EIEM.strPollutantCode,  " & _
+                    "" & DBNameSpace & ".EIEM.strInventoryYear, strStateFacilityIdentifier) PM25Table,  " & _
                     "(Select  " & _
-                    "" & connNameSpace & ".EIEM.strPollutantCode as PollutantCode,   " & _
-                    "sum(" & connNameSpace & ".EIEM.dblEmissionNumericValue) as TotalEmissions,  " & _
-                    "" & connNameSpace & ".EIEM.strInventoryYear,  " & _
+                    "" & DBNameSpace & ".EIEM.strPollutantCode as PollutantCode,   " & _
+                    "sum(" & DBNameSpace & ".EIEM.dblEmissionNumericValue) as TotalEmissions,  " & _
+                    "" & DBNameSpace & ".EIEM.strInventoryYear,  " & _
                     "strStateFacilityIdentifier  " & _
-                    "from " & connNameSpace & ".EIEM   " & _
-                    "where " & connNameSpace & ".EIEM.strStateFacilityIdentifier = '" & txtAirsNumber.Text & "'  " & _
+                    "from " & DBNameSpace & ".EIEM   " & _
+                    "where " & DBNameSpace & ".EIEM.strStateFacilityIdentifier = '" & txtAirsNumber.Text & "'  " & _
                     "and strPollutantCode = 'SO2'  " & _
-                    "group by " & connNameSpace & ".EIEM.strPollutantCode,  " & _
-                    "" & connNameSpace & ".EIEM.strInventoryYear, strStateFacilityIdentifier) SO2Table,  " & _
+                    "group by " & DBNameSpace & ".EIEM.strPollutantCode,  " & _
+                    "" & DBNameSpace & ".EIEM.strInventoryYear, strStateFacilityIdentifier) SO2Table,  " & _
                     "(Select  " & _
-                    "" & connNameSpace & ".EIEM.strPollutantCode as PollutantCode,   " & _
-                    "sum(" & connNameSpace & ".EIEM.dblEmissionNumericValue) as TotalEmissions,  " & _
-                    "" & connNameSpace & ".EIEM.strInventoryYear,  " & _
+                    "" & DBNameSpace & ".EIEM.strPollutantCode as PollutantCode,   " & _
+                    "sum(" & DBNameSpace & ".EIEM.dblEmissionNumericValue) as TotalEmissions,  " & _
+                    "" & DBNameSpace & ".EIEM.strInventoryYear,  " & _
                     "strStateFacilityIdentifier  " & _
-                    "from " & connNameSpace & ".EIEM   " & _
-                    "where " & connNameSpace & ".EIEM.strStateFacilityIdentifier = '" & txtAirsNumber.Text & "'  " & _
+                    "from " & DBNameSpace & ".EIEM   " & _
+                    "where " & DBNameSpace & ".EIEM.strStateFacilityIdentifier = '" & txtAirsNumber.Text & "'  " & _
                     "and strPollutantCode = 'VOC'  " & _
-                    "group by " & connNameSpace & ".EIEM.strPollutantCode,  " & _
-                    "" & connNameSpace & ".EIEM.strInventoryYear, strStateFacilityIdentifier) VOCTable,  " & _
+                    "group by " & DBNameSpace & ".EIEM.strPollutantCode,  " & _
+                    "" & DBNameSpace & ".EIEM.strInventoryYear, strStateFacilityIdentifier) VOCTable,  " & _
                     "(Select  " & _
-                    "" & connNameSpace & ".EIEM.strPollutantCode as PollutantCode,   " & _
-                    "sum(" & connNameSpace & ".EIEM.dblEmissionNumericValue) as TotalEmissions,  " & _
-                    "" & connNameSpace & ".EIEM.strInventoryYear,  " & _
+                    "" & DBNameSpace & ".EIEM.strPollutantCode as PollutantCode,   " & _
+                    "sum(" & DBNameSpace & ".EIEM.dblEmissionNumericValue) as TotalEmissions,  " & _
+                    "" & DBNameSpace & ".EIEM.strInventoryYear,  " & _
                     "strStateFacilityIdentifier  " & _
-                    "from " & connNameSpace & ".EIEM   " & _
-                    "where " & connNameSpace & ".EIEM.strStateFacilityIdentifier = '" & txtAirsNumber.Text & "'  " & _
+                    "from " & DBNameSpace & ".EIEM   " & _
+                    "where " & DBNameSpace & ".EIEM.strStateFacilityIdentifier = '" & txtAirsNumber.Text & "'  " & _
                     "and strPollutantCode = 'PM-FIL'  " & _
-                    "group by " & connNameSpace & ".EIEM.strPollutantCode,  " & _
-                    "" & connNameSpace & ".EIEM.strInventoryYear, strStateFacilityIdentifier) PMFILTable " & _
+                    "group by " & DBNameSpace & ".EIEM.strPollutantCode,  " & _
+                    "" & DBNameSpace & ".EIEM.strInventoryYear, strStateFacilityIdentifier) PMFILTable " & _
                     "where EIEM.strInventoryYear = COTable.strInventoryYear (+)   " & _
                     "and EIEM.strInventoryYear = LeadTable.strInventoryYear (+)   " & _
                     "and EIEM.strInventoryYear = NH3Table.strInventoryYear  (+)  " & _
@@ -1193,9 +1193,9 @@ Public Class DMUStaffTools
                     "order by EIEM.strInventoryYear DESC "
 
                     ds = New DataSet
-                    da = New OracleDataAdapter(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    da = New OracleDataAdapter(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     da.Fill(ds, "EM")
                     dgvEIData.DataSource = ds
@@ -1352,15 +1352,15 @@ Public Class DMUStaffTools
                             "dblYCoordinate, " & _
                             "strHorizontalCollectionCode, " & _
                             "(Select STRHORIZCOLLECTIONMETHODDESC " & _
-                               "from " & connNameSpace & ".EILOOKUPHORIZCOLMETHOD " & _
-                               "where " & connNameSpace & ".EISI.STRHORIZONTALCOLLECTIONCODE = " & _
-                               "" & connNameSpace & ".EILOOKUPHORIZCOLMETHOD.STRHORIZCOLLECTIONMETHODCODE) as HMCdesc, " & _
+                               "from " & DBNameSpace & ".EILOOKUPHORIZCOLMETHOD " & _
+                               "where " & DBNameSpace & ".EISI.STRHORIZONTALCOLLECTIONCODE = " & _
+                               "" & DBNameSpace & ".EILOOKUPHORIZCOLMETHOD.STRHORIZCOLLECTIONMETHODCODE) as HMCdesc, " & _
                             "strHorizontalReferenceCode, " & _
                             "strHorizontalAccuracyMeasure, " & _
                             "(Select STRHORIZONTALREFERENCEDESC " & _
-                               "from " & connNameSpace & ".EILOOKUPHORIZREFDATUM " & _
-                               "where " & connNameSpace & ".EISI.STRHORIZONTALREFERENCECODE = " & _
-                               "" & connNameSpace & ".EILOOKUPHORIZREFDATUM.STRHORIZONTALREFERENCEDATUM) as HDRCdesc, " & _
+                               "from " & DBNameSpace & ".EILOOKUPHORIZREFDATUM " & _
+                               "where " & DBNameSpace & ".EISI.STRHORIZONTALREFERENCECODE = " & _
+                               "" & DBNameSpace & ".EILOOKUPHORIZREFDATUM.STRHORIZONTALREFERENCEDATUM) as HDRCdesc, " & _
                             "strContactPrefix, " & _
                             "strContactFirstName, " & _
                             "strContactLastName, " & _
@@ -1377,14 +1377,14 @@ Public Class DMUStaffTools
                             "strSiteDescription, " & _
                             "strSICPrimary, " & _
                             "strNAICSPrimary " & _
-                     "from " & connNameSpace & ".eiSI where strAirsYear = '" & airsYear & "'"
+                     "from " & DBNameSpace & ".eiSI where strAirsYear = '" & airsYear & "'"
 
-            Dim cmd As New OracleCommand(SQL, conn)
+            Dim cmd As New OracleCommand(SQL, DBConn)
             cmd.CommandType = CommandType.Text
 
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
             Else
-                conn.Open()
+                DBConn.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -1459,24 +1459,24 @@ Public Class DMUStaffTools
                          "sngDesignCapacity, " & _
                          "strDesignCapUnitNum, " & _
                          "(Select STRUNITDESCRIPTION " & _
-                               "from " & connNameSpace & ".EILOOKUPUNITCODES " & _
-                               "where " & connNameSpace & ".EIEU.strDesignCapUnitNum = " & _
-                               "" & connNameSpace & ".EILOOKUPUNITCODES.STRUNITCODE) as numDesc, " & _
+                               "from " & DBNameSpace & ".EILOOKUPUNITCODES " & _
+                               "where " & DBNameSpace & ".EIEU.strDesignCapUnitNum = " & _
+                               "" & DBNameSpace & ".EILOOKUPUNITCODES.STRUNITCODE) as numDesc, " & _
                          "strDesignCapUnitDenom, " & _
                          "(Select STRUNITDESCRIPTION " & _
-                               "from " & connNameSpace & ".EILOOKUPUNITCODES " & _
-                               "where " & connNameSpace & ".EIEU.strDesignCapUnitDenom = " & _
-                               "" & connNameSpace & ".EILOOKUPUNITCODES.STRUNITCODE) as denomDesc, " & _
+                               "from " & DBNameSpace & ".EILOOKUPUNITCODES " & _
+                               "where " & DBNameSpace & ".EIEU.strDesignCapUnitDenom = " & _
+                               "" & DBNameSpace & ".EILOOKUPUNITCODES.STRUNITCODE) as denomDesc, " & _
                          "sngMaxNameplateCapacity, " & _
                          "strEmissionUnitDesc " & _
-                    "from " & connNameSpace & ".eiEU where strAirsYear = '" & airsYear & "'"
+                    "from " & DBNameSpace & ".eiEU where strAirsYear = '" & airsYear & "'"
 
-            Dim cmd As New OracleCommand(SQL, conn)
+            Dim cmd As New OracleCommand(SQL, DBConn)
             cmd.CommandType = CommandType.Text
 
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
             Else
-                conn.Open()
+                DBConn.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -1529,9 +1529,9 @@ Public Class DMUStaffTools
             SQL = "select strEmissionReleasePointID, " & _
                             "strEmissionReleaseType, " & _
                             "(Select STREMISSIONTYPEDESC " & _
-                               "from " & connNameSpace & ".EILOOKUPEMISSIONTYPES " & _
-                               "where " & connNameSpace & ".EIER.STREMISSIONRELEASETYPE = " & _
-                               "" & connNameSpace & ".EILOOKUPEMISSIONTYPES.STREMISSIONTYPECODE) as stackType, " & _
+                               "from " & DBNameSpace & ".EILOOKUPEMISSIONTYPES " & _
+                               "where " & DBNameSpace & ".EIER.STREMISSIONRELEASETYPE = " & _
+                               "" & DBNameSpace & ".EILOOKUPEMISSIONTYPES.STREMISSIONTYPECODE) as stackType, " & _
                             "sngStackHeight, " & _
                             "sngStackDiameter, " & _
                             "sngExitGasTemperature, " & _
@@ -1542,23 +1542,23 @@ Public Class DMUStaffTools
                             "strEmissionReleasePtDesc, " & _
                             "strHorizontalCollectionCode, " & _
                             "(Select STRHORIZCOLLECTIONMETHODDESC " & _
-                               "from " & connNameSpace & ".EILOOKUPHORIZCOLMETHOD " & _
-                               "where " & connNameSpace & ".EIER.STRHORIZONTALCOLLECTIONCODE = " & _
-                               "" & connNameSpace & ".EILOOKUPHORIZCOLMETHOD.STRHORIZCOLLECTIONMETHODCODE) as HMCdesc, " & _
+                               "from " & DBNameSpace & ".EILOOKUPHORIZCOLMETHOD " & _
+                               "where " & DBNameSpace & ".EIER.STRHORIZONTALCOLLECTIONCODE = " & _
+                               "" & DBNameSpace & ".EILOOKUPHORIZCOLMETHOD.STRHORIZCOLLECTIONMETHODCODE) as HMCdesc, " & _
                             "strHorizontalAccuracyMeasure, " & _
                             "strHorizontalReferenceCode, " & _
                             "(Select STRHORIZONTALREFERENCEDESC " & _
-                               "from " & connNameSpace & ".EILOOKUPHORIZREFDATUM " & _
-                               "where " & connNameSpace & ".EIER.STRHORIZONTALREFERENCECODE = " & _
-                               "" & connNameSpace & ".EILOOKUPHORIZREFDATUM.STRHORIZONTALREFERENCEDATUM) as HDRCdesc " & _
-                            "from " & connNameSpace & ".eiER where strAirsYear = '" & airsYear & "'"
+                               "from " & DBNameSpace & ".EILOOKUPHORIZREFDATUM " & _
+                               "where " & DBNameSpace & ".EIER.STRHORIZONTALREFERENCECODE = " & _
+                               "" & DBNameSpace & ".EILOOKUPHORIZREFDATUM.STRHORIZONTALREFERENCEDATUM) as HDRCdesc " & _
+                            "from " & DBNameSpace & ".eiER where strAirsYear = '" & airsYear & "'"
 
-            Dim cmd As New OracleCommand(SQL, conn)
+            Dim cmd As New OracleCommand(SQL, DBConn)
             cmd.CommandType = CommandType.Text
 
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
             Else
-                conn.Open()
+                DBConn.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -1635,25 +1635,25 @@ Public Class DMUStaffTools
                             "sngDailySummerProcessTPut, " & _
                             "strDailySummerProcessTPutNum, " & _
                             "(Select STRUNITDESCRIPTION " & _
-                               "from " & connNameSpace & ".EILOOKUPUNITCODES " & _
-                               "where " & connNameSpace & ".EIEP.strDailySummerProcessTPutNum = " & _
-                               "" & connNameSpace & ".EILOOKUPUNITCODES.STRUNITCODE) as DailySummerTputNumDesc, " & _
+                               "from " & DBNameSpace & ".EILOOKUPUNITCODES " & _
+                               "where " & DBNameSpace & ".EIEP.strDailySummerProcessTPutNum = " & _
+                               "" & DBNameSpace & ".EILOOKUPUNITCODES.STRUNITCODE) as DailySummerTputNumDesc, " & _
                             "sngActualThroughput, " & _
                             "strThroughputUnitNumerator, " & _
                             "(Select STRUNITDESCRIPTION " & _
-                               "from " & connNameSpace & ".EILOOKUPUNITCODES " & _
-                               "where " & connNameSpace & ".EIEP.strThroughputUnitNumerator = " & _
-                               "" & connNameSpace & ".EILOOKUPUNITCODES.STRUNITCODE) as TputNumDesc, " & _
+                               "from " & DBNameSpace & ".EILOOKUPUNITCODES " & _
+                               "where " & DBNameSpace & ".EIEP.strThroughputUnitNumerator = " & _
+                               "" & DBNameSpace & ".EILOOKUPUNITCODES.STRUNITCODE) as TputNumDesc, " & _
                             "strStartTime " & _
-                       "from " & connNameSpace & ".eiEP " & _
+                       "from " & DBNameSpace & ".eiEP " & _
                       "where strAirsYear = '" & airsYear & "'"
 
-            Dim cmd As New OracleCommand(SQL, conn)
+            Dim cmd As New OracleCommand(SQL, DBConn)
             cmd.CommandType = CommandType.Text
 
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
             Else
-                conn.Open()
+                DBConn.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -1724,57 +1724,57 @@ Public Class DMUStaffTools
             SQL += "STRPROCESSID, "
             SQL += "strPollutantCode, "
             SQL += "(Select STRPOLLUTANTDESC "
-            SQL += "from " & connNameSpace & ".EILOOKUPPOLLUTANTCODES "
-            SQL += "where " & connNameSpace & ".EIEM.STRPOLLUTANTCODE = "
-            SQL += "" & connNameSpace & ".EILOOKUPPOLLUTANTCODES.STRPOLLUTANTCODE) as pollutantDesc, "
+            SQL += "from " & DBNameSpace & ".EILOOKUPPOLLUTANTCODES "
+            SQL += "where " & DBNameSpace & ".EIEM.STRPOLLUTANTCODE = "
+            SQL += "" & DBNameSpace & ".EILOOKUPPOLLUTANTCODES.STRPOLLUTANTCODE) as pollutantDesc, "
             SQL += "DBLEMISSIONNUMERICVALUE, "
             SQL += "STREMISSIONUNITNUMERATOR, "
             SQL += "(Select STRUNITDESCRIPTION "
-            SQL += "from " & connNameSpace & ".EILOOKUPUNITCODES "
-            SQL += "where " & connNameSpace & ".EIEM.STREMISSIONUNITNUMERATOR = "
-            SQL += "" & connNameSpace & ".EILOOKUPUNITCODES.STRUNITCODE) as EMISSIONUNITNUMERATORDesc, "
+            SQL += "from " & DBNameSpace & ".EILOOKUPUNITCODES "
+            SQL += "where " & DBNameSpace & ".EIEM.STREMISSIONUNITNUMERATOR = "
+            SQL += "" & DBNameSpace & ".EILOOKUPUNITCODES.STRUNITCODE) as EMISSIONUNITNUMERATORDesc, "
             SQL += "sngFactorNumericValue, "
             SQL += "strFactorUnitNumerator, "
             SQL += "(Select STRUNITDESCRIPTION "
-            SQL += "from " & connNameSpace & ".EILOOKUPUNITCODES "
-            SQL += "where " & connNameSpace & ".EIEM.strFactorUnitNumerator = "
-            SQL += "" & connNameSpace & ".EILOOKUPUNITCODES.STRUNITCODE) as FactorUnitNumeratorDesc, "
+            SQL += "from " & DBNameSpace & ".EILOOKUPUNITCODES "
+            SQL += "where " & DBNameSpace & ".EIEM.strFactorUnitNumerator = "
+            SQL += "" & DBNameSpace & ".EILOOKUPUNITCODES.STRUNITCODE) as FactorUnitNumeratorDesc, "
             SQL += "strFactorUnitDenominator, "
             SQL += "(Select STRUNITDESCRIPTION "
-            SQL += "from " & connNameSpace & ".EILOOKUPUNITCODES "
-            SQL += "where " & connNameSpace & ".EIEM.strFactorUnitDenominator = "
-            SQL += "" & connNameSpace & ".EILOOKUPUNITCODES.STRUNITCODE) as FactorUnitDenominatorDesc, "
+            SQL += "from " & DBNameSpace & ".EILOOKUPUNITCODES "
+            SQL += "where " & DBNameSpace & ".EIEM.strFactorUnitDenominator = "
+            SQL += "" & DBNameSpace & ".EILOOKUPUNITCODES.STRUNITCODE) as FactorUnitDenominatorDesc, "
             SQL += "strEmissionCalculationMetCode, "
             SQL += "(Select STREMISSIONCALCMETHODDESC "
-            SQL += "from " & connNameSpace & ".EILOOKUPEMISSIONCALCMETHOD "
-            SQL += "where " & connNameSpace & ".EIEM.strEmissionCalculationMetCode = "
-            SQL += "" & connNameSpace & ".EILOOKUPEMISSIONCALCMETHOD.STREMISSIONCALCMETHODCODE) as EMISSIONCALCMETHODDESC, "
+            SQL += "from " & DBNameSpace & ".EILOOKUPEMISSIONCALCMETHOD "
+            SQL += "where " & DBNameSpace & ".EIEM.strEmissionCalculationMetCode = "
+            SQL += "" & DBNameSpace & ".EILOOKUPEMISSIONCALCMETHOD.STREMISSIONCALCMETHODCODE) as EMISSIONCALCMETHODDESC, "
             SQL += "strControlStatus, "
             SQL += "strControlSystemDescription, "
             SQL += "strPrimaryDeviceTypeCode, "
             SQL += "(Select STRCONTROLDEVICEDesc "
-            SQL += "from " & connNameSpace & ".EILOOKUPCONTROLDEVICE "
-            SQL += "where " & connNameSpace & ".EIEM.strPrimaryDeviceTypeCode = "
-            SQL += "" & connNameSpace & ".EILOOKUPCONTROLDEVICE.STRCONTROLDEVICECODE) as PrimaryDeviceTypeDesc, "
+            SQL += "from " & DBNameSpace & ".EILOOKUPCONTROLDEVICE "
+            SQL += "where " & DBNameSpace & ".EIEM.strPrimaryDeviceTypeCode = "
+            SQL += "" & DBNameSpace & ".EILOOKUPCONTROLDEVICE.STRCONTROLDEVICECODE) as PrimaryDeviceTypeDesc, "
             SQL += "sngPrimaryPCTControlEffic, "
             SQL += "strSecondaryDeviceTypeCode, "
             SQL += "(Select STRCONTROLDEVICEDesc "
-            SQL += "from " & connNameSpace & ".EILOOKUPCONTROLDEVICE "
-            SQL += "where " & connNameSpace & ".EIEM.strSecondaryDeviceTypeCode = "
-            SQL += "" & connNameSpace & ".EILOOKUPCONTROLDEVICE.STRCONTROLDEVICECODE) as SecondaryDeviceTypeDesc, "
+            SQL += "from " & DBNameSpace & ".EILOOKUPCONTROLDEVICE "
+            SQL += "where " & DBNameSpace & ".EIEM.strSecondaryDeviceTypeCode = "
+            SQL += "" & DBNameSpace & ".EILOOKUPCONTROLDEVICE.STRCONTROLDEVICECODE) as SecondaryDeviceTypeDesc, "
             SQL += "sngPCTCaptureEfficiency, "
             SQL += "sngTotalCaptureControlEffic "
-            SQL += "from " & connNameSpace & ".eiEM "
+            SQL += "from " & DBNameSpace & ".eiEM "
             SQL += "where strAirsYear = '" & airsYear & "'"
 
             'SQL = "Select * from " & connNameSpace & ".eiEM where strAirsYear = '" & airsYear & "'"
 
-            Dim cmd As New OracleCommand(SQL, conn)
+            Dim cmd As New OracleCommand(SQL, DBConn)
             cmd.CommandType = CommandType.Text
 
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
             Else
-                conn.Open()
+                DBConn.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -2088,13 +2088,13 @@ Public Class DMUStaffTools
             cboEIYear.Items.Clear()
 
             SQL = "select distinct(strInventoryYear)  as EIYear " & _
-            "from " & connNameSpace & ".EISI " & _
+            "from " & DBNameSpace & ".EISI " & _
             "where strStateFacilityIdentifier = '" & txtAirsNumber.Text & "' " & _
             "order by EIYear desc "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -2154,13 +2154,13 @@ Public Class DMUStaffTools
         Try
             Try
                 SQL = "select count(*) as ESMailoutCount " & _
-                "from " & connNameSpace & ".esmailout, " & connNameSpace & ".ESSCHEMA " & _
-                "where " & connNameSpace & ".ESMAILOUT.STRAIRSYEAR = " & connNameSpace & ".ESSCHEMA.STRAIRSYEAR(+) " & _
-                "and " & connNameSpace & ".esmailout.STRESYEAR = '" & ESYear & "'"
+                "from " & DBNameSpace & ".esmailout, " & DBNameSpace & ".ESSCHEMA " & _
+                "where " & DBNameSpace & ".ESMAILOUT.STRAIRSYEAR = " & DBNameSpace & ".ESSCHEMA.STRAIRSYEAR(+) " & _
+                "and " & DBNameSpace & ".esmailout.STRESYEAR = '" & ESYear & "'"
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
 
@@ -2170,14 +2170,14 @@ Public Class DMUStaffTools
                 dr.Close()
 
                 SQL = "select count(*) as ResponseCount " & _
-                "from " & connNameSpace & ".esmailout, " & connNameSpace & ".ESSCHEMA " & _
-                "where " & connNameSpace & ".ESMAILOUT.STRAIRSYEAR = " & connNameSpace & ".ESSCHEMA.STRAIRSYEAR " & _
-                "and " & connNameSpace & ".ESSCHEMA.STROPTOUT is not NULL " & _
-                "and " & connNameSpace & ".esmailout.STRESYEAR = '" & ESYear & "'"
+                "from " & DBNameSpace & ".esmailout, " & DBNameSpace & ".ESSCHEMA " & _
+                "where " & DBNameSpace & ".ESMAILOUT.STRAIRSYEAR = " & DBNameSpace & ".ESSCHEMA.STRAIRSYEAR " & _
+                "and " & DBNameSpace & ".ESSCHEMA.STROPTOUT is not NULL " & _
+                "and " & DBNameSpace & ".esmailout.STRESYEAR = '" & ESYear & "'"
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
 
@@ -2187,13 +2187,13 @@ Public Class DMUStaffTools
                 dr.Close()
 
                 SQL = "select count(*) as TotaloptinCount " & _
-                "from " & connNameSpace & ".ESSchema " & _
-                "where " & connNameSpace & ".ESSchema.intESYEAR = '" & intESyear & "'" & _
-                " and " & connNameSpace & ".ESSchema.strOptOut = 'NO'"
+                "from " & DBNameSpace & ".ESSchema " & _
+                "where " & DBNameSpace & ".ESSchema.intESYEAR = '" & intESyear & "'" & _
+                " and " & DBNameSpace & ".ESSchema.strOptOut = 'NO'"
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
 
                 dr = cmd.ExecuteReader
@@ -2203,14 +2203,14 @@ Public Class DMUStaffTools
                 dr.Close()
 
                 SQL = "select count(*) as TotaloptOutCount " & _
-                "from " & connNameSpace & ".ESSchema " & _
-                "where " & connNameSpace & ".ESSchema.intESYEAR = '" & intESyear & "' " & _
-                "and " & connNameSpace & ".ESSchema.strOptOut = 'YES'"
+                "from " & DBNameSpace & ".ESSchema " & _
+                "where " & DBNameSpace & ".ESSchema.intESYEAR = '" & intESyear & "' " & _
+                "and " & DBNameSpace & ".ESSchema.strOptOut = 'YES'"
 
-                cmd = New OracleCommand(SQL, conn)
+                cmd = New OracleCommand(SQL, DBConn)
 
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
 
                 dr = cmd.ExecuteReader
@@ -2220,13 +2220,13 @@ Public Class DMUStaffTools
                 dr.Close()
 
                 SQL = "select count(*) as TotalinincomplianceCount " & _
-                "from " & connNameSpace & ".ESSchema " & _
-                "where " & connNameSpace & ".ESSchema.intESYEAR = '" & intESyear & "'" & _
-                " and to_date(" & connNameSpace & ".ESSchema.STRDATEFIRSTCONFIRM) < = '" & deadline & "'"
+                "from " & DBNameSpace & ".ESSchema " & _
+                "where " & DBNameSpace & ".ESSchema.intESYEAR = '" & intESyear & "'" & _
+                " and to_date(" & DBNameSpace & ".ESSchema.STRDATEFIRSTCONFIRM) < = '" & deadline & "'"
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read()
@@ -2235,13 +2235,13 @@ Public Class DMUStaffTools
                 dr.Close()
 
                 SQL = "select count(*) as TotaloutofcomplianceCount " & _
-                "from " & connNameSpace & ".ESSchema " & _
-                "where " & connNameSpace & ".ESSchema.intESYEAR = '" & intESyear & "'" & _
-                " and to_date(" & connNameSpace & ".ESSchema.STRDATEFIRSTCONFIRM) > '" & deadline & "'"
+                "from " & DBNameSpace & ".ESSchema " & _
+                "where " & DBNameSpace & ".ESSchema.intESYEAR = '" & intESyear & "'" & _
+                " and to_date(" & DBNameSpace & ".ESSchema.STRDATEFIRSTCONFIRM) > '" & deadline & "'"
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read()
@@ -2250,14 +2250,14 @@ Public Class DMUStaffTools
                 dr.Close()
 
                 SQL = "select count(*) as MailOutOptInCount " & _
-                "from " & connNameSpace & ".ESSchema, " & connNameSpace & ".ESMailout " & _
-                "where " & connNameSpace & ".ESMAILOUT.strESYEAR = '" & ESYear & "' " & _
-                " and " & connNameSpace & ".ESMAILOUT.STRAIRSYEAR = " & connNameSpace & ".ESSCHEMA.STRAIRSYEAR(+) " & _
-                " and " & connNameSpace & ".ESSchema.strOptOut = 'NO'"
+                "from " & DBNameSpace & ".ESSchema, " & DBNameSpace & ".ESMailout " & _
+                "where " & DBNameSpace & ".ESMAILOUT.strESYEAR = '" & ESYear & "' " & _
+                " and " & DBNameSpace & ".ESMAILOUT.STRAIRSYEAR = " & DBNameSpace & ".ESSCHEMA.STRAIRSYEAR(+) " & _
+                " and " & DBNameSpace & ".ESSchema.strOptOut = 'NO'"
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
 
@@ -2267,14 +2267,14 @@ Public Class DMUStaffTools
                 dr.Close()
 
                 SQL = "select count(*) as MailOutOptOutCount " & _
-                "from " & connNameSpace & ".ESSchema, " & connNameSpace & ".ESMailout " & _
-                "where " & connNameSpace & ".ESMAILOUT.strESYEAR = '" & ESYear & "'" & _
-                " and " & connNameSpace & ".ESMAILOUT.STRAIRSYEAR = " & connNameSpace & ".ESSCHEMA.STRAIRSYEAR(+) " & _
-                " and " & connNameSpace & ".ESSchema.strOptOut = 'YES'"
+                "from " & DBNameSpace & ".ESSchema, " & DBNameSpace & ".ESMailout " & _
+                "where " & DBNameSpace & ".ESMAILOUT.strESYEAR = '" & ESYear & "'" & _
+                " and " & DBNameSpace & ".ESMAILOUT.STRAIRSYEAR = " & DBNameSpace & ".ESSCHEMA.STRAIRSYEAR(+) " & _
+                " and " & DBNameSpace & ".ESSchema.strOptOut = 'YES'"
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
 
@@ -2289,13 +2289,13 @@ Public Class DMUStaffTools
 
 
             SQL = "select count(*) as Nonresponsecount " & _
-             "from " & connNameSpace & ".ESSCHEMA " & _
-             "where " & connNameSpace & ".ESSCHEMA.intESYEAR = '" & ESYear & "'" & _
-             " and " & connNameSpace & ".ESSchema.strOptOut is NULL"
+             "from " & DBNameSpace & ".ESSCHEMA " & _
+             "where " & DBNameSpace & ".ESSCHEMA.intESYEAR = '" & ESYear & "'" & _
+             " and " & DBNameSpace & ".ESSchema.strOptOut is NULL"
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -2305,14 +2305,14 @@ Public Class DMUStaffTools
             dr.Close()
 
             SQL = "select count(*) as removedFacilitiescount " & _
-          "from " & connNameSpace & ".ESSchema , " & connNameSpace & ".esmailout " & _
-          "where " & connNameSpace & ".esMailOut.STRESYEAR = '" & ESYear & "'" & _
-            "and " & connNameSpace & ".esmailout.STRAIRSYEAR = " & connNameSpace & ".ESSchema.STRAIRSYEAR(+) " & _
-          " and " & connNameSpace & ".ESSchema.STRAIRSYEAR is NULL"
+          "from " & DBNameSpace & ".ESSchema , " & DBNameSpace & ".esmailout " & _
+          "where " & DBNameSpace & ".esMailOut.STRESYEAR = '" & ESYear & "'" & _
+            "and " & DBNameSpace & ".esmailout.STRAIRSYEAR = " & DBNameSpace & ".ESSchema.STRAIRSYEAR(+) " & _
+          " and " & DBNameSpace & ".ESSchema.STRAIRSYEAR is NULL"
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -2322,16 +2322,16 @@ Public Class DMUStaffTools
             dr.Close()
 
             SQL = "select count(*) as extraNonresponderscount " & _
-           "from " & connNameSpace & ".ESSchema " & _
-           " where  not exists (select * from " & connNameSpace & ".ESMAILOUT " & _
-                " where " & connNameSpace & ".ESSchema.STRAIRSNUMBER = " & connNameSpace & ".ESMAILOUT.STRAIRSNUMBER" & _
+           "from " & DBNameSpace & ".ESSchema " & _
+           " where  not exists (select * from " & DBNameSpace & ".ESMAILOUT " & _
+                " where " & DBNameSpace & ".ESSchema.STRAIRSNUMBER = " & DBNameSpace & ".ESMAILOUT.STRAIRSNUMBER" & _
                 " and ESSchema.INTESYEAR = ESMAILOUT.strESYEAR) " & _
-                " and " & connNameSpace & ".ESSchema.INTESYEAR = '" & ESYear & "' " & _
-                " and " & connNameSpace & ".ESSchema.STROPTOUT is null"
+                " and " & DBNameSpace & ".ESSchema.INTESYEAR = '" & ESYear & "' " & _
+                " and " & DBNameSpace & ".ESSchema.STROPTOUT is null"
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -2341,14 +2341,14 @@ Public Class DMUStaffTools
             dr.Close()
 
             SQL = "select count(*) as mailoutNonresponderscount " & _
-          "from  " & connNameSpace & ".esmailout, " & connNameSpace & ".ESSchema " & _
-            "where " & connNameSpace & ".esmailout.strESYEAR = '" & ESYear & "' " & _
-            "and " & connNameSpace & ".esmailout.STRAIRSYEAR = " & connNameSpace & ".ESSchema.STRAIRSYEAR(+) " & _
-            "and " & connNameSpace & ".ESSchema.strOptOut is NULL"
+          "from  " & DBNameSpace & ".esmailout, " & DBNameSpace & ".ESSchema " & _
+            "where " & DBNameSpace & ".esmailout.strESYEAR = '" & ESYear & "' " & _
+            "and " & DBNameSpace & ".esmailout.STRAIRSYEAR = " & DBNameSpace & ".ESSchema.STRAIRSYEAR(+) " & _
+            "and " & DBNameSpace & ".ESSchema.strOptOut is NULL"
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -2358,20 +2358,20 @@ Public Class DMUStaffTools
             dr.Close()
 
             SQL = "select count(*) as ExtraCount " & _
-            "from (Select " & connNameSpace & ".ESSCHEMA.STRAIRSYEAR AS SchemaAIRS, " & _
-            "" & connNameSpace & ".ESMAILOUT.STRAIRSYear AS MailoutAIRS " & _
-            "From " & connNameSpace & ".ESMailout, " & connNameSpace & ".ESSCHEMA" & _
-            " Where " & connNameSpace & ".ESMAILOUT.STRAIRSYEAR (+)= " & connNameSpace & ".ESSCHEMA.STRAIRSYEAR " & _
-            "AND " & connNameSpace & ".esschema.INTESYEAR= '" & intESyear & "' " & _
-            "AND " & connNameSpace & ".ESSCHEMA.STROPTOUT IS NOT NULL) " & _
+            "from (Select " & DBNameSpace & ".ESSCHEMA.STRAIRSYEAR AS SchemaAIRS, " & _
+            "" & DBNameSpace & ".ESMAILOUT.STRAIRSYear AS MailoutAIRS " & _
+            "From " & DBNameSpace & ".ESMailout, " & DBNameSpace & ".ESSCHEMA" & _
+            " Where " & DBNameSpace & ".ESMAILOUT.STRAIRSYEAR (+)= " & DBNameSpace & ".ESSCHEMA.STRAIRSYEAR " & _
+            "AND " & DBNameSpace & ".esschema.INTESYEAR= '" & intESyear & "' " & _
+            "AND " & DBNameSpace & ".ESSCHEMA.STROPTOUT IS NOT NULL) " & _
             "dt_NotInMailout, " & _
-            "" & connNameSpace & ".ESSCHEMA " & _
-            "Where " & connNameSpace & ".ESSCHEMA.STRAIRSYEAR = SchemaAIRS " & _
+            "" & DBNameSpace & ".ESSCHEMA " & _
+            "Where " & DBNameSpace & ".ESSCHEMA.STRAIRSYEAR = SchemaAIRS " & _
             "AND MailoutAIRS is NULL"
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
 
@@ -2405,22 +2405,22 @@ Public Class DMUStaffTools
             '   dr.Close()
 
             SQL = "select count(*) as ExtraOptinCount " & _
-            "from (Select " & connNameSpace & ".ESSCHEMA.STRAIRSYEAR AS SchemaAIRS, " & _
-            "" & connNameSpace & ".ESMAILOUT.STRAIRSYear AS MailoutAIRS " & _
-            "From " & connNameSpace & ".ESMailout, " & connNameSpace & ".ESSCHEMA " & _
-            "Where " & connNameSpace & ".ESMAILOUT.STRAIRSYEAR (+)= " & connNameSpace & ".ESSCHEMA.STRAIRSYEAR " & _
-            "AND " & connNameSpace & ".esschema.INTESYEAR= '" & intESyear & "' " & _
-            "AND " & connNameSpace & ".ESSCHEMA.STROPTOUT IS NOT NULL) " & _
+            "from (Select " & DBNameSpace & ".ESSCHEMA.STRAIRSYEAR AS SchemaAIRS, " & _
+            "" & DBNameSpace & ".ESMAILOUT.STRAIRSYear AS MailoutAIRS " & _
+            "From " & DBNameSpace & ".ESMailout, " & DBNameSpace & ".ESSCHEMA " & _
+            "Where " & DBNameSpace & ".ESMAILOUT.STRAIRSYEAR (+)= " & DBNameSpace & ".ESSCHEMA.STRAIRSYEAR " & _
+            "AND " & DBNameSpace & ".esschema.INTESYEAR= '" & intESyear & "' " & _
+            "AND " & DBNameSpace & ".ESSCHEMA.STROPTOUT IS NOT NULL) " & _
             "dt_NotInMailout, " & _
-            "" & connNameSpace & ".ESSCHEMA " & _
-            "Where " & connNameSpace & ".ESSCHEMA.STRAIRSYEAR = SchemaAIRS " & _
+            "" & DBNameSpace & ".ESSCHEMA " & _
+            "Where " & DBNameSpace & ".ESSCHEMA.STRAIRSYEAR = SchemaAIRS " & _
             "AND MailoutAIRS is NULL " & _
-            "and " & connNameSpace & ".ESSCHEMA.STROPTOUT='NO'"
+            "and " & DBNameSpace & ".ESSCHEMA.STROPTOUT='NO'"
 
-            cmd = New OracleCommand(SQL, conn)
+            cmd = New OracleCommand(SQL, DBConn)
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
 
@@ -2430,23 +2430,23 @@ Public Class DMUStaffTools
             dr.Close()
 
             SQL = "select count(*) as ExtraOptOUTCount " & _
-            "from (Select " & connNameSpace & ".ESSCHEMA.STRAIRSYEAR AS SchemaAIRS, " & _
-            "" & connNameSpace & ".ESMAILOUT.STRAIRSYear AS MailoutAIRS " & _
-            "From " & connNameSpace & ".ESMailout, " & connNameSpace & ".ESSCHEMA " & _
-            "Where " & connNameSpace & ".ESMAILOUT.STRAIRSYEAR (+)= " & connNameSpace & ".ESSCHEMA.STRAIRSYEAR " & _
-            "AND " & connNameSpace & ".esschema.INTESYEAR= '" & intESyear & "' " & _
-            "AND " & connNameSpace & ".ESSCHEMA.STROPTOUT IS NOT NULL) " & _
+            "from (Select " & DBNameSpace & ".ESSCHEMA.STRAIRSYEAR AS SchemaAIRS, " & _
+            "" & DBNameSpace & ".ESMAILOUT.STRAIRSYear AS MailoutAIRS " & _
+            "From " & DBNameSpace & ".ESMailout, " & DBNameSpace & ".ESSCHEMA " & _
+            "Where " & DBNameSpace & ".ESMAILOUT.STRAIRSYEAR (+)= " & DBNameSpace & ".ESSCHEMA.STRAIRSYEAR " & _
+            "AND " & DBNameSpace & ".esschema.INTESYEAR= '" & intESyear & "' " & _
+            "AND " & DBNameSpace & ".ESSCHEMA.STROPTOUT IS NOT NULL) " & _
             "dt_NotInMailout, " & _
-            "" & connNameSpace & ".ESSCHEMA " & _
-            "Where " & connNameSpace & ".ESSCHEMA.STRAIRSYEAR = SchemaAIRS " & _
+            "" & DBNameSpace & ".ESSCHEMA " & _
+            "Where " & DBNameSpace & ".ESSCHEMA.STRAIRSYEAR = SchemaAIRS " & _
             "AND MailoutAIRS is NULL " & _
-            "and " & connNameSpace & ".ESSCHEMA.STROPTOUT='YES'"
+            "and " & DBNameSpace & ".ESSCHEMA.STROPTOUT='YES'"
 
-            cmd = New OracleCommand(SQL, conn)
+            cmd = New OracleCommand(SQL, DBConn)
 
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
             Else
-                conn.Open()
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read()
@@ -2455,14 +2455,14 @@ Public Class DMUStaffTools
             dr.Close()
 
             SQL = "select count(*) as TotalResponsecount " & _
-            "from " & connNameSpace & ".ESSchema " & _
-            "where " & connNameSpace & ".ESSchema.intESYEAR = '" & intESyear & "'" & _
-            " and " & connNameSpace & ".ESSchema.strOptOut is not NULL"
+            "from " & DBNameSpace & ".ESSchema " & _
+            "where " & DBNameSpace & ".ESSchema.intESYEAR = '" & intESyear & "'" & _
+            " and " & DBNameSpace & ".ESSchema.strOptOut is not NULL"
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Open Then
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Open Then
             Else
-                conn.Open()
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
 
@@ -2484,13 +2484,13 @@ Public Class DMUStaffTools
 
         Try
             SQL = "SELECT * " & _
-                  "from " & connNameSpace & ".esMailOut " & _
+                  "from " & DBNameSpace & ".esMailOut " & _
                   "where STRAIRSNUMBER = '" & AirsNo & "' " & _
                   "and STRESYEAR = '" & ESyear & "'"
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -2567,13 +2567,13 @@ Public Class DMUStaffTools
         Try
 
             SQL = "SELECT * " & _
-            "from " & connNameSpace & ".esschema " & _
+            "from " & DBNameSpace & ".esschema " & _
             "where STRAIRSNUMBER = '" & AirsNo & "' " & _
             "and INTESYEAR = '" & intESyear & "'"
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -2866,14 +2866,14 @@ Public Class DMUStaffTools
             "STRCONTACTSTATE, " & _
             "STRCONTACTZIPCODE, " & _
             "STRCONTACTEMAIL " & _
-            "from " & connNameSpace & ".esMailOut " & _
+            "from " & DBNameSpace & ".esMailOut " & _
             "where STRESYEAR = '" & year & "' " & _
             "order by STRFACILITYNAME"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvESDataCount.DataSource = dsViewCount
@@ -2925,22 +2925,22 @@ Public Class DMUStaffTools
             Dim year As String = txtESYear.Text
             Dim intYear As Integer = Int(year)
 
-            SQL = "SELECT " & connNameSpace & ".esSchema.STRAIRSNUMBER, " & _
-            "" & connNameSpace & ".esSchema.STRFACILITYNAME, " & _
-            "" & connNameSpace & ".esSchema.STRDATEFIRSTCONFIRM, " & _
-            "" & connNameSpace & ".esSchema.DBLVOCEMISSION, " & _
-           "" & connNameSpace & ".esSchema.DBLNOXEMISSION, " & _
-            "" & connNameSpace & ".esSchema.STRCONFIRMATIONNBR " & _
-            "from " & connNameSpace & ".esSchema, " & connNameSpace & ".esmailout " & _
-            "where " & connNameSpace & ".esSchema.intESyear = '" & intYear & "' " & _
-            "and " & connNameSpace & ".esSchema.STROPTOUT = 'NO'" & _
-            "and " & connNameSpace & ".ESMAILOUT.STRAIRSYEAR (+)= " & connNameSpace & ".ESSCHEMA.STRAIRSYEAR " & _
-            "order by " & connNameSpace & ".esSchema.STRFACILITYNAME"
+            SQL = "SELECT " & DBNameSpace & ".esSchema.STRAIRSNUMBER, " & _
+            "" & DBNameSpace & ".esSchema.STRFACILITYNAME, " & _
+            "" & DBNameSpace & ".esSchema.STRDATEFIRSTCONFIRM, " & _
+            "" & DBNameSpace & ".esSchema.DBLVOCEMISSION, " & _
+           "" & DBNameSpace & ".esSchema.DBLNOXEMISSION, " & _
+            "" & DBNameSpace & ".esSchema.STRCONFIRMATIONNBR " & _
+            "from " & DBNameSpace & ".esSchema, " & DBNameSpace & ".esmailout " & _
+            "where " & DBNameSpace & ".esSchema.intESyear = '" & intYear & "' " & _
+            "and " & DBNameSpace & ".esSchema.STROPTOUT = 'NO'" & _
+            "and " & DBNameSpace & ".ESMAILOUT.STRAIRSYEAR (+)= " & DBNameSpace & ".ESSCHEMA.STRAIRSYEAR " & _
+            "order by " & DBNameSpace & ".esSchema.STRFACILITYNAME"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvESDataCount.DataSource = dsViewCount
@@ -2984,20 +2984,20 @@ Public Class DMUStaffTools
             Dim year As String = txtESYear.Text
             Dim intYear As Integer = Int(year)
 
-            SQL = "SELECT " & connNameSpace & ".esSchema.STRAIRSNUMBER, " & _
-            "" & connNameSpace & ".esSchema.STRFACILITYNAME, " & _
-            "" & connNameSpace & ".esSchema.STRDATEFIRSTCONFIRM, " & _
-            "" & connNameSpace & ".esSchema.STRCONFIRMATIONNBR " & _
-            "from " & connNameSpace & ".esSchema, " & connNameSpace & ".esmailout  " & _
-            "where " & connNameSpace & ".esSchema.intESyear = '" & intYear & "' " & _
-            "and " & connNameSpace & ".ESMAILOUT.STRAIRSYEAR (+)= " & connNameSpace & ".ESSCHEMA.STRAIRSYEAR " & _
-            "and " & connNameSpace & ".esSchema.STROPTOUT = 'YES'" & _
-            "order by " & connNameSpace & ".esSchema.STRFACILITYNAME"
+            SQL = "SELECT " & DBNameSpace & ".esSchema.STRAIRSNUMBER, " & _
+            "" & DBNameSpace & ".esSchema.STRFACILITYNAME, " & _
+            "" & DBNameSpace & ".esSchema.STRDATEFIRSTCONFIRM, " & _
+            "" & DBNameSpace & ".esSchema.STRCONFIRMATIONNBR " & _
+            "from " & DBNameSpace & ".esSchema, " & DBNameSpace & ".esmailout  " & _
+            "where " & DBNameSpace & ".esSchema.intESyear = '" & intYear & "' " & _
+            "and " & DBNameSpace & ".ESMAILOUT.STRAIRSYEAR (+)= " & DBNameSpace & ".ESSCHEMA.STRAIRSYEAR " & _
+            "and " & DBNameSpace & ".esSchema.STROPTOUT = 'YES'" & _
+            "order by " & DBNameSpace & ".esSchema.STRFACILITYNAME"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvESDataCount.DataSource = dsViewCount
@@ -3039,28 +3039,28 @@ Public Class DMUStaffTools
             deadline = "15-Jun-" & txtESYear.Text + 1
 
             SQL = "SELECT airbranch.esSchema.STRAIRSNUMBER, " & _
-            "" & connNameSpace & ".esSchema.STRFACILITYNAME, " & _
-            "" & connNameSpace & ".esSchema.STROPTOUT, " & _
-            "" & connNameSpace & ".esSchema.STRCONFIRMATIONNBR, " & _
-            "" & connNameSpace & ".esSchema.STRCONTACTFIRSTNAME, " & _
-            "" & connNameSpace & ".esSchema.STRCONTACTLASTNAME, " & _
-            "" & connNameSpace & ".esSchema.STRCONTACTCOMPANY, " & _
-            "" & connNameSpace & ".esSchema.STRCONTACTADDRESS1, " & _
-            "" & connNameSpace & ".esSchema.STRCONTACTCITY, " & _
-            "" & connNameSpace & ".esSchema.STRCONTACTSTATE, " & _
-            "" & connNameSpace & ".esSchema.STRCONTACTZIP, " & _
-            "" & connNameSpace & ".esSchema.STRCONTACTEMAIL, " & _
-            "" & connNameSpace & ".esSchema.STRCONTACTPHONENUMBER " & _
-            "from " & connNameSpace & ".esSchema " & _
+            "" & DBNameSpace & ".esSchema.STRFACILITYNAME, " & _
+            "" & DBNameSpace & ".esSchema.STROPTOUT, " & _
+            "" & DBNameSpace & ".esSchema.STRCONFIRMATIONNBR, " & _
+            "" & DBNameSpace & ".esSchema.STRCONTACTFIRSTNAME, " & _
+            "" & DBNameSpace & ".esSchema.STRCONTACTLASTNAME, " & _
+            "" & DBNameSpace & ".esSchema.STRCONTACTCOMPANY, " & _
+            "" & DBNameSpace & ".esSchema.STRCONTACTADDRESS1, " & _
+            "" & DBNameSpace & ".esSchema.STRCONTACTCITY, " & _
+            "" & DBNameSpace & ".esSchema.STRCONTACTSTATE, " & _
+            "" & DBNameSpace & ".esSchema.STRCONTACTZIP, " & _
+            "" & DBNameSpace & ".esSchema.STRCONTACTEMAIL, " & _
+            "" & DBNameSpace & ".esSchema.STRCONTACTPHONENUMBER " & _
+            "from " & DBNameSpace & ".esSchema " & _
             "where intESyear = '" & intYear & "' " & _
-            "and " & connNameSpace & ".esSchema.STRDATEFIRSTCONFIRM is not NULL " & _
-            "and to_date(" & connNameSpace & ".esSchema.STRDATEFIRSTCONFIRM) > '" & deadline & "' " & _
-            "order by " & connNameSpace & ".esSchema.STRFACILITYNAME"
+            "and " & DBNameSpace & ".esSchema.STRDATEFIRSTCONFIRM is not NULL " & _
+            "and to_date(" & DBNameSpace & ".esSchema.STRDATEFIRSTCONFIRM) > '" & deadline & "' " & _
+            "order by " & DBNameSpace & ".esSchema.STRFACILITYNAME"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvESDataCount.DataSource = dsViewCount
@@ -3117,20 +3117,20 @@ Public Class DMUStaffTools
             Dim intYear As Integer = Int(year)
             Dim deadline As String = "15-Jun-" & intYear + 1
 
-            SQL = "SELECT " & connNameSpace & ".esSchema.STRAIRSNUMBER, " & _
-            "" & connNameSpace & ".esSchema.STRFACILITYNAME, " & _
-            "" & connNameSpace & ".esSchema.STRDATEFIRSTCONFIRM, " & _
-            "" & connNameSpace & ".esSchema.STRCONFIRMATIONNBR " & _
-            "from " & connNameSpace & ".esSchema " & _
-            "where " & connNameSpace & ".esSchema.intESyear = '" & intYear & "' " & _
-             "and " & connNameSpace & ".esSchema.STRDATEFIRSTCONFIRM is not NULL " & _
-            "and to_date(" & connNameSpace & ".esSchema.STRDATEFIRSTCONFIRM) <= '" & deadline & "' " & _
-            "order by " & connNameSpace & ".esSchema.STRFACILITYNAME"
+            SQL = "SELECT " & DBNameSpace & ".esSchema.STRAIRSNUMBER, " & _
+            "" & DBNameSpace & ".esSchema.STRFACILITYNAME, " & _
+            "" & DBNameSpace & ".esSchema.STRDATEFIRSTCONFIRM, " & _
+            "" & DBNameSpace & ".esSchema.STRCONFIRMATIONNBR " & _
+            "from " & DBNameSpace & ".esSchema " & _
+            "where " & DBNameSpace & ".esSchema.intESyear = '" & intYear & "' " & _
+             "and " & DBNameSpace & ".esSchema.STRDATEFIRSTCONFIRM is not NULL " & _
+            "and to_date(" & DBNameSpace & ".esSchema.STRDATEFIRSTCONFIRM) <= '" & deadline & "' " & _
+            "order by " & DBNameSpace & ".esSchema.STRFACILITYNAME"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvESDataCount.DataSource = dsViewCount
@@ -3178,14 +3178,14 @@ Public Class DMUStaffTools
             "esMailOut.STRCONTACTSTATE, " & _
             "esMailOut.STRCONTACTZIPCODE, " & _
             "esMailOut.STRCONTACTEMAIL " & _
-            "from " & connNameSpace & ".esMailOut " & _
+            "from " & DBNameSpace & ".esMailOut " & _
             "where STRESYEAR = '" & year & "' " & _
             "order by STRFACILITYNAME"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvESDataCount.DataSource = dsViewCount
@@ -3245,14 +3245,14 @@ Public Class DMUStaffTools
             "else to_char(DBLNOXEMISSION) " & _
             "end DBLNOXEMISSION, " & _
             "esSchema.STRDATEFIRSTCONFIRM " & _
-            "from " & connNameSpace & ".esSchema " & _
+            "from " & DBNameSpace & ".esSchema " & _
             "where esSchema.intESyear = '" & year & "' " & _
             "order by esSchema.STRFACILITYNAME"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvESDataCount.DataSource = dsViewCount
@@ -3293,18 +3293,18 @@ Public Class DMUStaffTools
 
             Dim year As String = txtESYear.Text
 
-            SQL = "SELECT " & connNameSpace & ".esSchema.STRAIRSNUMBER, " & _
-            "" & connNameSpace & ".esSchema.STRFACILITYNAME " & _
-            "from " & connNameSpace & ".esMailOut, " & connNameSpace & ".ESSCHEMA " & _
-            "where " & connNameSpace & ".esSchema.INTESYEAR = '" & year & "'" & _
-            "and " & connNameSpace & ".esSchema.strOPTOUT is NULL " & _
-            "and " & connNameSpace & ".esmailout.STRAIRSYEAR = " & connNameSpace & ".ESSchema.STRAIRSYEAR(+) " & _
-            "order by " & connNameSpace & ".esMailOut.STRFACILITYNAME"
+            SQL = "SELECT " & DBNameSpace & ".esSchema.STRAIRSNUMBER, " & _
+            "" & DBNameSpace & ".esSchema.STRFACILITYNAME " & _
+            "from " & DBNameSpace & ".esMailOut, " & DBNameSpace & ".ESSCHEMA " & _
+            "where " & DBNameSpace & ".esSchema.INTESYEAR = '" & year & "'" & _
+            "and " & DBNameSpace & ".esSchema.strOPTOUT is NULL " & _
+            "and " & DBNameSpace & ".esmailout.STRAIRSYEAR = " & DBNameSpace & ".ESSchema.STRAIRSYEAR(+) " & _
+            "order by " & DBNameSpace & ".esMailOut.STRFACILITYNAME"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvESDataCount.DataSource = dsViewCount
@@ -3339,28 +3339,28 @@ Public Class DMUStaffTools
             Dim year As String = txtESYear.Text
             Dim intyear As Integer = Int(year)
 
-            SQL = "SELECT dt_NotInMailout.SchemaAIRS, " & connNameSpace & ".esSchema.STRAIRSNUMBER, " & _
-            "" & connNameSpace & ".esSchema.STRFACILITYNAME, " & _
-            "" & connNameSpace & ".esSchema.STRCONTACTFIRSTNAME, " & _
-            "" & connNameSpace & ".esSchema.STRCONTACTLASTNAME, " & _
-            "" & connNameSpace & ".esSchema.STRCONTACTCOMPANY, " & _
-            "" & connNameSpace & ".esSchema.STRCONTACTEMAIL, " & _
-            "" & connNameSpace & ".esSchema.STRCONTACTPHONENUMBER " & _
-            "from (Select " & connNameSpace & ".ESSCHEMA.STRAIRSNUMBER AS SchemaAIRS, " & _
-            "" & connNameSpace & ".ESMAILOUT.STRAIRSNUMBER AS MailoutAIRS" & _
-            " From " & connNameSpace & ".ESMailout, " & connNameSpace & ".ESSCHEMA" & _
-            " Where " & connNameSpace & ".ESMAILOUT.STRAIRSYEAR (+)= " & connNameSpace & ".ESSCHEMA.STRAIRSYEAR " & _
+            SQL = "SELECT dt_NotInMailout.SchemaAIRS, " & DBNameSpace & ".esSchema.STRAIRSNUMBER, " & _
+            "" & DBNameSpace & ".esSchema.STRFACILITYNAME, " & _
+            "" & DBNameSpace & ".esSchema.STRCONTACTFIRSTNAME, " & _
+            "" & DBNameSpace & ".esSchema.STRCONTACTLASTNAME, " & _
+            "" & DBNameSpace & ".esSchema.STRCONTACTCOMPANY, " & _
+            "" & DBNameSpace & ".esSchema.STRCONTACTEMAIL, " & _
+            "" & DBNameSpace & ".esSchema.STRCONTACTPHONENUMBER " & _
+            "from (Select " & DBNameSpace & ".ESSCHEMA.STRAIRSNUMBER AS SchemaAIRS, " & _
+            "" & DBNameSpace & ".ESMAILOUT.STRAIRSNUMBER AS MailoutAIRS" & _
+            " From " & DBNameSpace & ".ESMailout, " & DBNameSpace & ".ESSCHEMA" & _
+            " Where " & DBNameSpace & ".ESMAILOUT.STRAIRSYEAR (+)= " & DBNameSpace & ".ESSCHEMA.STRAIRSYEAR " & _
             "AND INTESYEAR=  '" & intyear & "' " & _
-            "AND " & connNameSpace & ".ESSCHEMA.STROPTOUT IS NOT NULL) " & _
+            "AND " & DBNameSpace & ".ESSCHEMA.STROPTOUT IS NOT NULL) " & _
             "dt_NotInMailout, " & _
-            "" & connNameSpace & ".ESSCHEMA " & _
-            "Where " & connNameSpace & ".ESSCHEMA.STRAIRSNUMBER = SchemaAIRS " & _
+            "" & DBNameSpace & ".ESSCHEMA " & _
+            "Where " & DBNameSpace & ".ESSCHEMA.STRAIRSNUMBER = SchemaAIRS " & _
             "AND MailoutAIRS is NULL"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvESDataCount.DataSource = dsViewCount
@@ -3407,21 +3407,21 @@ Public Class DMUStaffTools
             Dim year As String = txtESYear.Text
             Dim intYear As Integer = Int(year)
 
-            SQL = "SELECT " & connNameSpace & ".esSchema.STRAIRSNUMBER, " & _
-            "" & connNameSpace & ".esSchema.STRFACILITYNAME, " & _
-            "" & connNameSpace & ".esSchema.STRDATEFIRSTCONFIRM, " & _
-            "" & connNameSpace & ".esSchema.STRCONFIRMATIONNBR " & _
-            "from " & connNameSpace & ".esSchema, " & connNameSpace & ".esmailout " & _
-            "where " & connNameSpace & ".esSchema.intESyear = '" & intYear & "' " & _
-            "and " & connNameSpace & ".esSchema.STROPTOUT = 'NO'" & _
-            "and " & connNameSpace & ".ESMAILOUT.STRAIRSYEAR = " & connNameSpace & ".ESSCHEMA.STRAIRSYEAR(+) " & _
-            "and " & connNameSpace & ".esSchema.STRDATEFIRSTCONFIRM is not NULL " & _
-            "order by " & connNameSpace & ".esSchema.STRFACILITYNAME"
+            SQL = "SELECT " & DBNameSpace & ".esSchema.STRAIRSNUMBER, " & _
+            "" & DBNameSpace & ".esSchema.STRFACILITYNAME, " & _
+            "" & DBNameSpace & ".esSchema.STRDATEFIRSTCONFIRM, " & _
+            "" & DBNameSpace & ".esSchema.STRCONFIRMATIONNBR " & _
+            "from " & DBNameSpace & ".esSchema, " & DBNameSpace & ".esmailout " & _
+            "where " & DBNameSpace & ".esSchema.intESyear = '" & intYear & "' " & _
+            "and " & DBNameSpace & ".esSchema.STROPTOUT = 'NO'" & _
+            "and " & DBNameSpace & ".ESMAILOUT.STRAIRSYEAR = " & DBNameSpace & ".ESSCHEMA.STRAIRSYEAR(+) " & _
+            "and " & DBNameSpace & ".esSchema.STRDATEFIRSTCONFIRM is not NULL " & _
+            "order by " & DBNameSpace & ".esSchema.STRFACILITYNAME"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvESDataCount.DataSource = dsViewCount
@@ -3459,21 +3459,21 @@ Public Class DMUStaffTools
             Dim year As String = txtESYear.Text
             Dim intYear As Integer = Int(year)
 
-            SQL = "SELECT " & connNameSpace & ".esSchema.STRAIRSNUMBER, " & _
-            "" & connNameSpace & ".esSchema.STRFACILITYNAME, " & _
-            "" & connNameSpace & ".esSchema.STRDATEFIRSTCONFIRM, " & _
-            "" & connNameSpace & ".esSchema.STRCONFIRMATIONNBR " & _
-            "from " & connNameSpace & ".esSchema, " & connNameSpace & ".esmailout " & _
-            "where " & connNameSpace & ".esSchema.intESyear = '" & intYear & "' " & _
-            "and " & connNameSpace & ".esSchema.STROPTOUT = 'YES'" & _
-            " and " & connNameSpace & ".ESMAILOUT.STRAIRSYEAR = " & connNameSpace & ".ESSCHEMA.STRAIRSYEAR(+) " & _
-            "and " & connNameSpace & ".esSchema.STRDATEFIRSTCONFIRM is not NULL " & _
-            "order by " & connNameSpace & ".esSchema.STRFACILITYNAME"
+            SQL = "SELECT " & DBNameSpace & ".esSchema.STRAIRSNUMBER, " & _
+            "" & DBNameSpace & ".esSchema.STRFACILITYNAME, " & _
+            "" & DBNameSpace & ".esSchema.STRDATEFIRSTCONFIRM, " & _
+            "" & DBNameSpace & ".esSchema.STRCONFIRMATIONNBR " & _
+            "from " & DBNameSpace & ".esSchema, " & DBNameSpace & ".esmailout " & _
+            "where " & DBNameSpace & ".esSchema.intESyear = '" & intYear & "' " & _
+            "and " & DBNameSpace & ".esSchema.STROPTOUT = 'YES'" & _
+            " and " & DBNameSpace & ".ESMAILOUT.STRAIRSYEAR = " & DBNameSpace & ".ESSCHEMA.STRAIRSYEAR(+) " & _
+            "and " & DBNameSpace & ".esSchema.STRDATEFIRSTCONFIRM is not NULL " & _
+            "order by " & DBNameSpace & ".esSchema.STRFACILITYNAME"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvESDataCount.DataSource = dsViewCount
@@ -3511,25 +3511,25 @@ Public Class DMUStaffTools
             Dim year As String = txtESYear.Text
             Dim intYear As Integer = Int(year)
 
-            SQL = "SELECT " & connNameSpace & ".esSchema.STRAIRSNUMBER, " & _
-            "" & connNameSpace & ".esSchema.STRFACILITYNAME, " & _
-            "" & connNameSpace & ".esSchema.STRDATEFIRSTCONFIRM, " & _
-            "" & connNameSpace & ".esSchema.STRCONFIRMATIONNBR " & _
-            "from (select " & connNameSpace & ".esSchema.strairsyear as SchemaAIRS, " & _
-            "" & connNameSpace & ".esmailout.strairsyear as MailoutAIRS " & _
-            "From " & connNameSpace & ".ESMailout, " & connNameSpace & ".ESSCHEMA " & _
-            "where " & connNameSpace & ".ESMAILOUT.STRAIRSYEAR (+)= " & connNameSpace & ".ESSCHEMA.STRAIRSYEAR " & _
-            "and " & connNameSpace & ".esSchema.intESyear = '" & intYear & "' " & _
-            "and " & connNameSpace & ".ESSCHEMA.STROPTOUT IS NOT NULL) " & _
-            "dt_NotInMailout, " & connNameSpace & ".ESSCHEMA " & _
-            "Where " & connNameSpace & ".ESSCHEMA.STRAIRSYEAR = SchemaAIRS " & _
+            SQL = "SELECT " & DBNameSpace & ".esSchema.STRAIRSNUMBER, " & _
+            "" & DBNameSpace & ".esSchema.STRFACILITYNAME, " & _
+            "" & DBNameSpace & ".esSchema.STRDATEFIRSTCONFIRM, " & _
+            "" & DBNameSpace & ".esSchema.STRCONFIRMATIONNBR " & _
+            "from (select " & DBNameSpace & ".esSchema.strairsyear as SchemaAIRS, " & _
+            "" & DBNameSpace & ".esmailout.strairsyear as MailoutAIRS " & _
+            "From " & DBNameSpace & ".ESMailout, " & DBNameSpace & ".ESSCHEMA " & _
+            "where " & DBNameSpace & ".ESMAILOUT.STRAIRSYEAR (+)= " & DBNameSpace & ".ESSCHEMA.STRAIRSYEAR " & _
+            "and " & DBNameSpace & ".esSchema.intESyear = '" & intYear & "' " & _
+            "and " & DBNameSpace & ".ESSCHEMA.STROPTOUT IS NOT NULL) " & _
+            "dt_NotInMailout, " & DBNameSpace & ".ESSCHEMA " & _
+            "Where " & DBNameSpace & ".ESSCHEMA.STRAIRSYEAR = SchemaAIRS " & _
             "and MailoutAIRS is NULL " & _
-            "and " & connNameSpace & ".ESSCHEMA.STROPTOUT='YES'"
+            "and " & DBNameSpace & ".ESSCHEMA.STROPTOUT='YES'"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvESDataCount.DataSource = dsViewCount
@@ -3567,26 +3567,26 @@ Public Class DMUStaffTools
             Dim year As String = txtESYear.Text
             Dim intYear As Integer = Int(year)
 
-            SQL = "SELECT " & connNameSpace & ".esSchema.STRAIRSNUMBER, " & _
-            "" & connNameSpace & ".esSchema.STRFACILITYNAME, " & _
-            "" & connNameSpace & ".esSchema.STRDATEFIRSTCONFIRM, " & _
-            "" & connNameSpace & ".esSchema.STRCONFIRMATIONNBR " & _
-            "from (select " & connNameSpace & ".esSchema.strairsyear as SchemaAIRS, " & _
-            "" & connNameSpace & ".esmailout.strairsyear as MailoutAIRS " & _
-            "From " & connNameSpace & ".ESMailout, " & connNameSpace & ".ESSCHEMA " & _
-            "where " & connNameSpace & ".ESMAILOUT.STRAIRSYEAR (+)= " & connNameSpace & ".ESSCHEMA.STRAIRSYEAR " & _
-            "and " & connNameSpace & ".esSchema.intESyear = '" & intYear & "' " & _
-            "and " & connNameSpace & ".ESSCHEMA.STROPTOUT IS NOT NULL) " & _
-            "dt_NotInMailout, " & connNameSpace & ".ESSCHEMA " & _
-            "Where " & connNameSpace & ".ESSCHEMA.STRAIRSYEAR = SchemaAIRS " & _
+            SQL = "SELECT " & DBNameSpace & ".esSchema.STRAIRSNUMBER, " & _
+            "" & DBNameSpace & ".esSchema.STRFACILITYNAME, " & _
+            "" & DBNameSpace & ".esSchema.STRDATEFIRSTCONFIRM, " & _
+            "" & DBNameSpace & ".esSchema.STRCONFIRMATIONNBR " & _
+            "from (select " & DBNameSpace & ".esSchema.strairsyear as SchemaAIRS, " & _
+            "" & DBNameSpace & ".esmailout.strairsyear as MailoutAIRS " & _
+            "From " & DBNameSpace & ".ESMailout, " & DBNameSpace & ".ESSCHEMA " & _
+            "where " & DBNameSpace & ".ESMAILOUT.STRAIRSYEAR (+)= " & DBNameSpace & ".ESSCHEMA.STRAIRSYEAR " & _
+            "and " & DBNameSpace & ".esSchema.intESyear = '" & intYear & "' " & _
+            "and " & DBNameSpace & ".ESSCHEMA.STROPTOUT IS NOT NULL) " & _
+            "dt_NotInMailout, " & DBNameSpace & ".ESSCHEMA " & _
+            "Where " & DBNameSpace & ".ESSCHEMA.STRAIRSYEAR = SchemaAIRS " & _
             "and MailoutAIRS is NULL " & _
-            "and " & connNameSpace & ".ESSCHEMA.STROPTOUT='NO'"
+            "and " & DBNameSpace & ".ESSCHEMA.STROPTOUT='NO'"
 
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvESDataCount.DataSource = dsViewCount
@@ -3625,22 +3625,22 @@ Public Class DMUStaffTools
             Dim year As String = txtESYear.Text
             Dim intYear As Integer = Int(year)
 
-            SQL = "SELECT " & connNameSpace & ".esSchema.STRAIRSNUMBER, " & _
-            "" & connNameSpace & ".esSchema.STRFACILITYNAME, " & _
-            "" & connNameSpace & ".esSchema.STRCONTACTFIRSTNAME, " & _
-            "" & connNameSpace & ".esSchema.STRCONTACTLASTNAME, " & _
-            "" & connNameSpace & ".esSchema.STRCONTACTCOMPANY, " & _
-            "" & connNameSpace & ".esSchema.STRCONTACTEMAIL, " & _
-            "" & connNameSpace & ".esSchema.STRCONTACTPHONENUMBER " & _
-            "from " & connNameSpace & ".esSchema " & _
-            "where " & connNameSpace & ".esSchema.intESyear = '" & intYear & "' " & _
-            "and " & connNameSpace & ".esSchema.STROPTOUT is not NULL " & _
-            "order by " & connNameSpace & ".esSchema.STRFACILITYNAME"
+            SQL = "SELECT " & DBNameSpace & ".esSchema.STRAIRSNUMBER, " & _
+            "" & DBNameSpace & ".esSchema.STRFACILITYNAME, " & _
+            "" & DBNameSpace & ".esSchema.STRCONTACTFIRSTNAME, " & _
+            "" & DBNameSpace & ".esSchema.STRCONTACTLASTNAME, " & _
+            "" & DBNameSpace & ".esSchema.STRCONTACTCOMPANY, " & _
+            "" & DBNameSpace & ".esSchema.STRCONTACTEMAIL, " & _
+            "" & DBNameSpace & ".esSchema.STRCONTACTPHONENUMBER " & _
+            "from " & DBNameSpace & ".esSchema " & _
+            "where " & DBNameSpace & ".esSchema.intESyear = '" & intYear & "' " & _
+            "and " & DBNameSpace & ".esSchema.STROPTOUT is not NULL " & _
+            "order by " & DBNameSpace & ".esSchema.STRFACILITYNAME"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvESDataCount.DataSource = dsViewCount
@@ -3698,7 +3698,7 @@ Public Class DMUStaffTools
         Dim ESContactEmail As String = txtcontactEmail.Text
 
         Try
-            SQL = "Insert into " & connNameSpace & ".ESMailOut(STRAIRSYEAR, " & _
+            SQL = "Insert into " & DBNameSpace & ".ESMailOut(STRAIRSYEAR, " & _
             "STRAIRSNUMBER, " & _
             "STRFACILITYNAME, " & _
             "STRCONTACTPREFIX, " & _
@@ -3729,9 +3729,9 @@ Public Class DMUStaffTools
             "'" & Replace(ESContactEmail, "'", "''") & "' " & _
             " )"
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
 
@@ -3759,34 +3759,34 @@ Public Class DMUStaffTools
 
         Try
             SQL = "Select strAIRSYear " & _
-            "from " & connNameSpace & ".EsMailOut " & _
+            "from " & DBNameSpace & ".EsMailOut " & _
             "where STRAIRSYEAR = '" & airsYear & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             dr = cmd.ExecuteReader
             recExist = dr.Read
             If recExist = True Then
-                SQL = "update " & connNameSpace & ".ESMailOut set " & _
-                "" & connNameSpace & ".ESMailOut.STRCONTACTPREFIX = '" & ESPrefix & "', " & _
-                "" & connNameSpace & ".ESMailOut.STRCONTACTFIRSTNAME = '" & ESFirstName & "', " & _
-                "" & connNameSpace & ".ESMailOut.STRCONTACTLASTNAME = '" & ESLastName & "', " & _
-                "" & connNameSpace & ".ESMailOut.STRCONTACTCOMPANYNAME = '" & ESCompanyName & "', " & _
-                "" & connNameSpace & ".ESMailOut.STRCONTACTADDRESS1 = '" & ESContactAddress1 & "', " & _
-                "" & connNameSpace & ".ESMailOut.STRCONTACTADDRESS2 = '" & ESContactAddress2 & "', " & _
-                "" & connNameSpace & ".ESMailOut.STRCONTACTCITY = '" & ESContactCity & "', " & _
-                "" & connNameSpace & ".ESMailOut.STRCONTACTSTATE = '" & EScontactState & "', " & _
-                "" & connNameSpace & ".ESMailOut.STRCONTACTZIPCODE = '" & ESContactZip & "', " & _
-                "" & connNameSpace & ".ESMailOut.STRCONTACTEMAIL = '" & ESContactEmail & "'" & _
+                SQL = "update " & DBNameSpace & ".ESMailOut set " & _
+                "" & DBNameSpace & ".ESMailOut.STRCONTACTPREFIX = '" & ESPrefix & "', " & _
+                "" & DBNameSpace & ".ESMailOut.STRCONTACTFIRSTNAME = '" & ESFirstName & "', " & _
+                "" & DBNameSpace & ".ESMailOut.STRCONTACTLASTNAME = '" & ESLastName & "', " & _
+                "" & DBNameSpace & ".ESMailOut.STRCONTACTCOMPANYNAME = '" & ESCompanyName & "', " & _
+                "" & DBNameSpace & ".ESMailOut.STRCONTACTADDRESS1 = '" & ESContactAddress1 & "', " & _
+                "" & DBNameSpace & ".ESMailOut.STRCONTACTADDRESS2 = '" & ESContactAddress2 & "', " & _
+                "" & DBNameSpace & ".ESMailOut.STRCONTACTCITY = '" & ESContactCity & "', " & _
+                "" & DBNameSpace & ".ESMailOut.STRCONTACTSTATE = '" & EScontactState & "', " & _
+                "" & DBNameSpace & ".ESMailOut.STRCONTACTZIPCODE = '" & ESContactZip & "', " & _
+                "" & DBNameSpace & ".ESMailOut.STRCONTACTEMAIL = '" & ESContactEmail & "'" & _
                 "where ESMailOut.STRAIRSNUMBER = '" & AirsNo & "' "
 
                 MsgBox("your info is updated!")
 
             Else
-                SQL = "Insert into " & connNameSpace & ".ESMailOut " & _
+                SQL = "Insert into " & DBNameSpace & ".ESMailOut " & _
                 "(STRAIRSYEAR, " & _
                 "STRAIRSNUMBER, " & _
                 "STRFACILITYNAME, " & _
@@ -3822,9 +3822,9 @@ Public Class DMUStaffTools
 
             End If
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -3840,13 +3840,13 @@ Public Class DMUStaffTools
         Dim ESyear As String = txtESYear.Text
 
         Try
-            SQL = "delete from " & connNameSpace & ".ESMailOut " & _
-            "where " & connNameSpace & ".ESMailOut.STRAIRSNUMBER = '" & AirsNo & "' " & _
-            "and " & connNameSpace & ".ESMailOut.STRESYEAR = '" & ESyear & "'"
+            SQL = "delete from " & DBNameSpace & ".ESMailOut " & _
+            "where " & DBNameSpace & ".ESMailOut.STRAIRSNUMBER = '" & AirsNo & "' " & _
+            "and " & DBNameSpace & ".ESMailOut.STRESYEAR = '" & ESyear & "'"
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -4073,15 +4073,15 @@ Public Class DMUStaffTools
 
 
             SQL = "Select strAirsNumber " & _
-            "FROM " & connNameSpace & ".ESmailOut " & _
+            "FROM " & DBNameSpace & ".ESmailOut " & _
             "where strESyear = '" & ESYear & "'"
 
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
-            cmd = New OracleCommand(SQL, conn)
+            cmd = New OracleCommand(SQL, DBConn)
             dr = cmd.ExecuteReader
 
             recExist = dr.Read
@@ -4093,8 +4093,8 @@ Public Class DMUStaffTools
             Else
                 If cboMailoutYear.Text <> "" Then
                     If cboMailoutYear.Text.Length = 4 Then
-                        SQL = "Select dt_EScontact.STRairsnumber, " & connNameSpace & ".APBFacilityinformation.STRFACILITYNAME, " & _
-                        "" & connNameSpace & ".APBHEADERDATA.stroperationalstatus, " & connNameSpace & ".APBHEADERDATA.STRCLASS, " & _
+                        SQL = "Select dt_EScontact.STRairsnumber, " & DBNameSpace & ".APBFacilityinformation.STRFACILITYNAME, " & _
+                        "" & DBNameSpace & ".APBHEADERDATA.stroperationalstatus, " & DBNameSpace & ".APBHEADERDATA.STRCLASS, " & _
                         "(Case " & _
                         "When dt_ESContact.STRKEY='42' THEN dt_ESContact.STRContactLastName " & _
                         "When dt_ESContact.STRKEY Is Null THEN dt_PermitContact.STRContactLastName " & _
@@ -4140,72 +4140,72 @@ Public Class DMUStaffTools
                         "dt_Contact.STRCONTACTPREFIX, dt_Contact.STRCONTACTADDRESS1, dt_Contact.STRCONTACTCITY,  " & _
                         "dt_Contact.STRCONTACTSTATE, dt_Contact.STRCONTACTZIPCODE " & _
                         "FROM " & _
-                        "(Select * FROM " & connNameSpace & ".APBHEADERDATA " & _
+                        "(Select * FROM " & DBNameSpace & ".APBHEADERDATA " & _
                         "where (stroperationalstatus = 'O' OR stroperationalstatus = 'P' oR stroperationalstatus = 'C') AND  " & _
                         "(STRCLASS = 'A')   " & _
-                        "AND (" & connNameSpace & ".apbheaderdata.STRAIRSNUMBER Like '____121%' " & _
-                        "or " & connNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____013%' " & _
-                        "or " & connNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____015%' " & _
-                        "or " & connNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____045%' " & _
-                        "or " & connNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____057%' " & _
-                        "or " & connNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____063%' " & _
-                        "or " & connNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____067%' " & _
-                        "or " & connNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____077%' " & _
-                        "or " & connNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____089%' " & _
-                        "or " & connNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____097%' " & _
-                        "or " & connNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____113%' " & _
-                        "or " & connNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____117%' " & _
-                        "or " & connNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____135%' " & _
-                        "or " & connNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____139%' " & _
-                        "or " & connNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____151%' " & _
-                        "or " & connNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____217%' " & _
-                        "or " & connNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____223%' " & _
-                        "or " & connNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____247%' " & _
-                        "or " & connNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____255%' " & _
-                        "or " & connNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____297%') " & _
+                        "AND (" & DBNameSpace & ".apbheaderdata.STRAIRSNUMBER Like '____121%' " & _
+                        "or " & DBNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____013%' " & _
+                        "or " & DBNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____015%' " & _
+                        "or " & DBNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____045%' " & _
+                        "or " & DBNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____057%' " & _
+                        "or " & DBNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____063%' " & _
+                        "or " & DBNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____067%' " & _
+                        "or " & DBNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____077%' " & _
+                        "or " & DBNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____089%' " & _
+                        "or " & DBNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____097%' " & _
+                        "or " & DBNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____113%' " & _
+                        "or " & DBNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____117%' " & _
+                        "or " & DBNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____135%' " & _
+                        "or " & DBNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____139%' " & _
+                        "or " & DBNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____151%' " & _
+                        "or " & DBNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____217%' " & _
+                        "or " & DBNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____223%' " & _
+                        "or " & DBNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____247%' " & _
+                        "or " & DBNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____255%' " & _
+                        "or " & DBNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____297%') " & _
                         " ) dt_ESList,      " & _
-                        "(Select * From " & connNameSpace & ".APBCONTACTINFORMATION where STRKEY=42) dt_Contact " & _
+                        "(Select * From " & DBNameSpace & ".APBCONTACTINFORMATION where STRKEY=42) dt_Contact " & _
                         "Where dt_ESList.STRAIRSNUMBEr = dt_Contact.STRAIRSNUMBER (+)) dt_ESContact, " & _
                         "(Select DISTINCT dt_eslist.STRAIRSNUMBER, dt_contact.STRKEY,  " & _
                         "dt_Contact.STRCONTACTLASTNAME, dt_Contact.STRCONTACTFIRSTNAME, " & _
                         "dt_Contact.STRContactCompanyName, dt_Contact.STRContactEmail, dt_Contact.STRCONTACTPREFIX,  " & _
                         "dt_Contact.STRCONTACTADDRESS1, dt_Contact.strcontactcity, dt_Contact.STRCONTACTSTATE, dt_Contact.STRCONTACTZIPCODE " & _
                         "FROM " & _
-                        "(Select * FROM " & connNameSpace & ".APBHEADERDATA " & _
+                        "(Select * FROM " & DBNameSpace & ".APBHEADERDATA " & _
                         "where (stroperationalstatus = 'O' OR stroperationalstatus = 'P' oR stroperationalstatus = 'C') AND  " & _
                         "(STRCLASS = 'A')   " & _
-                        "AND (" & connNameSpace & ".apbheaderdata.STRAIRSNUMBER Like '____121%'    " & _
-                        "or " & connNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____013%' " & _
-                        "or " & connNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____015%' " & _
-                        "or " & connNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____045%' " & _
-                        "or " & connNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____057%' " & _
-                        "or " & connNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____063%' " & _
-                        "or " & connNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____067%' " & _
-                        "or " & connNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____077%' " & _
-                        "or " & connNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____089%' " & _
-                        "or " & connNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____097%' " & _
-                        "or " & connNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____113%' " & _
-                        "or " & connNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____117%' " & _
-                        "or " & connNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____135%' " & _
-                        "or " & connNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____139%' " & _
-                        "or " & connNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____151%' " & _
-                        "or " & connNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____217%' " & _
-                        "or " & connNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____223%' " & _
-                        "or " & connNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____247%' " & _
-                        "or " & connNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____255%' " & _
-                        "or " & connNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____297%') " & _
+                        "AND (" & DBNameSpace & ".apbheaderdata.STRAIRSNUMBER Like '____121%'    " & _
+                        "or " & DBNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____013%' " & _
+                        "or " & DBNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____015%' " & _
+                        "or " & DBNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____045%' " & _
+                        "or " & DBNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____057%' " & _
+                        "or " & DBNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____063%' " & _
+                        "or " & DBNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____067%' " & _
+                        "or " & DBNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____077%' " & _
+                        "or " & DBNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____089%' " & _
+                        "or " & DBNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____097%' " & _
+                        "or " & DBNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____113%' " & _
+                        "or " & DBNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____117%' " & _
+                        "or " & DBNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____135%' " & _
+                        "or " & DBNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____139%' " & _
+                        "or " & DBNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____151%' " & _
+                        "or " & DBNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____217%' " & _
+                        "or " & DBNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____223%' " & _
+                        "or " & DBNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____247%' " & _
+                        "or " & DBNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____255%' " & _
+                        "or " & DBNameSpace & ".apbheaderdata.STRAIRSNUMBER like '____297%') " & _
                         ")dt_ESList,  " & _
-                        "(Select * From " & connNameSpace & ".APBCONTACTINFORMATION where STRKEY=30) dt_Contact " & _
+                        "(Select * From " & DBNameSpace & ".APBCONTACTINFORMATION where STRKEY=30) dt_Contact " & _
                         "Where dt_ESList.STRAIRSNUMBEr = dt_Contact.STRAIRSNUMBER (+)) dt_PermitContact, " & _
-                        "" & connNameSpace & ".APBFACILITYINFORMATION, " & _
-                        "" & connNameSpace & ".APBHEADERDATA " & _
-                        "Where " & connNameSpace & ".APBFACILITYINFORMATION.STRAIRSNUMBER= dt_ESContact.STRAIRSNumber and  " & _
-                        "" & connNameSpace & ".APBHEADERDATA.STRAIRSNUMBER= dt_ESContact.STRAIRSNumber and  " & _
+                        "" & DBNameSpace & ".APBFACILITYINFORMATION, " & _
+                        "" & DBNameSpace & ".APBHEADERDATA " & _
+                        "Where " & DBNameSpace & ".APBFACILITYINFORMATION.STRAIRSNUMBER= dt_ESContact.STRAIRSNumber and  " & _
+                        "" & DBNameSpace & ".APBHEADERDATA.STRAIRSNUMBER= dt_ESContact.STRAIRSNumber and  " & _
                         "dt_ESContact.STRAIRSNumber  = dt_PermitContact.STRAIRSNUMBER (+) "
 
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, DBConn)
+                        If DBConn.State = ConnectionState.Closed Then
+                            DBConn.Open()
                         End If
                         dr = cmd.ExecuteReader
 
@@ -4270,7 +4270,7 @@ Public Class DMUStaffTools
                                 CONTACTEMAIL = dr("STRCONTACTEMAIL")
                             End If
 
-                            SQL2 = "insert into " & connNameSpace & ".ESmailOut " & _
+                            SQL2 = "insert into " & DBNameSpace & ".ESmailOut " & _
                             "(strAirsYear, " & _
                             "strAirsNumber, " & _
                             "STRFACILITYNAME, " & _
@@ -4301,7 +4301,7 @@ Public Class DMUStaffTools
                             "'" & Replace(Replace(CONTACTEMAIL, "'", "''"), "N/A", " ") & "', " & _
                             "'" & ESYear & "')"
 
-                            Dim cmd2 As New OracleCommand(SQL2, conn)
+                            Dim cmd2 As New OracleCommand(SQL2, DBConn)
                             'If conn.State = ConnectionState.Closed Then
                             '    conn.Open()
                             'End If
@@ -4329,14 +4329,14 @@ Public Class DMUStaffTools
                     "STRCONTACTSTATE, " & _
                     "STRCONTACTZIPCODE, " & _
                     "STRCONTACTEMAIL " & _
-                    "from " & connNameSpace & ".esMailOut " & _
+                    "from " & DBNameSpace & ".esMailOut " & _
                     "where STRESYEAR = '" & year & "' " & _
                     "order by STRFACILITYNAME"
 
                     dsViewCount = New DataSet
-                    daViewCount = New OracleDataAdapter(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    daViewCount = New OracleDataAdapter(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     daViewCount.Fill(dsViewCount, "ViewCount")
                     dgvESDataCount.DataSource = dsViewCount
@@ -4396,12 +4396,12 @@ Public Class DMUStaffTools
             If ESyear = "Select a Mailout Year & Click Below" Then
                 MsgBox("You must select a Mailout Year")
             Else
-                SQL = "delete from " & connNameSpace & ".ESmailout " & _
+                SQL = "delete from " & DBNameSpace & ".ESmailout " & _
                 "where strESyear = '" & ESyear & "'"
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -4457,14 +4457,14 @@ Public Class DMUStaffTools
             "STRCONTACTSTATE, " & _
             "STRCONTACTZIPCODE, " & _
             "STRCONTACTEMAIL " & _
-            "from " & connNameSpace & ".esMailOut " & _
+            "from " & DBNameSpace & ".esMailOut " & _
             "where STRESYEAR = '" & year & "' " & _
             "order by STRFACILITYNAME"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvESDataCount.DataSource = dsViewCount
@@ -4520,12 +4520,12 @@ Public Class DMUStaffTools
         Dim year As String
         Try
             SQL = "Select distinct STRINVENTORYYEAR " & _
-            "from " & connNameSpace & ".EISI " & _
+            "from " & DBNameSpace & ".EISI " & _
             "order by STRINVENTORYYEAR desc "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -4547,12 +4547,12 @@ Public Class DMUStaffTools
         Dim EItype As String
         Try
             SQL = "Select distinct EITHRESHOLDS.STRTYPE " & _
-            "from " & connNameSpace & ".EITHRESHOLDS " & _
+            "from " & DBNameSpace & ".EITHRESHOLDS " & _
             "order by STRTYPE desc "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -4608,13 +4608,13 @@ Public Class DMUStaffTools
             Try
 
                 SQL = "select count(*) as MailoutCount " & _
-                "from " & connNameSpace & ".eImailout, " & connNameSpace & ".EISI " & _
-                "where " & connNameSpace & ".eImailout.STRAIRSYEAR = " & connNameSpace & ".EISI.STRAIRSYEAR(+) " & _
-                "and " & connNameSpace & ".eImailout.STRINVENTORYYEAR = '" & EIYear & "'"
+                "from " & DBNameSpace & ".eImailout, " & DBNameSpace & ".EISI " & _
+                "where " & DBNameSpace & ".eImailout.STRAIRSYEAR = " & DBNameSpace & ".EISI.STRAIRSYEAR(+) " & _
+                "and " & DBNameSpace & ".eImailout.STRINVENTORYYEAR = '" & EIYear & "'"
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read()
@@ -4623,15 +4623,15 @@ Public Class DMUStaffTools
                 dr.Close()
 
                 SQL = "select count(*) as ResponseCount " & _
-                "from " & connNameSpace & ".eImailout, " & connNameSpace & ".EISI " & _
-                "where " & connNameSpace & ".eImailout.STRAIRSYEAR = " & connNameSpace & ".EISI.STRAIRSYEAR " & _
-                "and " & connNameSpace & ".EISI.STROPTOUT is not NULL " & _
-                "and " & connNameSpace & ".eImailout.STRINVENTORYYEAR = '" & EIYear & "'"
+                "from " & DBNameSpace & ".eImailout, " & DBNameSpace & ".EISI " & _
+                "where " & DBNameSpace & ".eImailout.STRAIRSYEAR = " & DBNameSpace & ".EISI.STRAIRSYEAR " & _
+                "and " & DBNameSpace & ".EISI.STROPTOUT is not NULL " & _
+                "and " & DBNameSpace & ".eImailout.STRINVENTORYYEAR = '" & EIYear & "'"
 
-                cmd = New OracleCommand(SQL, conn)
+                cmd = New OracleCommand(SQL, DBConn)
 
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read()
@@ -4640,15 +4640,15 @@ Public Class DMUStaffTools
                 dr.Close()
 
                 SQL = "select count(*) as removedFacilitiescount " & _
-            "from  " & connNameSpace & ".eImailout, " & connNameSpace & ".EISI " & _
-            "where " & connNameSpace & ".eImailout.STRINVENTORYYEAR = '" & EIYear & "' " & _
-            "and " & connNameSpace & ".eImailout.STRAIRSYEAR = " & connNameSpace & ".EISI.STRAIRSYEAR(+) " & _
-            "and " & connNameSpace & ".EISI.STRAIRSYEAR is NULL"
+            "from  " & DBNameSpace & ".eImailout, " & DBNameSpace & ".EISI " & _
+            "where " & DBNameSpace & ".eImailout.STRINVENTORYYEAR = '" & EIYear & "' " & _
+            "and " & DBNameSpace & ".eImailout.STRAIRSYEAR = " & DBNameSpace & ".EISI.STRAIRSYEAR(+) " & _
+            "and " & DBNameSpace & ".EISI.STRAIRSYEAR is NULL"
 
-                cmd = New OracleCommand(SQL, conn)
+                cmd = New OracleCommand(SQL, DBConn)
 
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read()
@@ -4657,17 +4657,17 @@ Public Class DMUStaffTools
                 dr.Close()
 
                 SQL = "select count(*) as extraNonresponderscount  " & _
-                "from " & connNameSpace & ".EISI " & _
-                " where  not exists (select * from " & connNameSpace & ".EIMAILOUT " & _
-                " where " & connNameSpace & ".EISI.STRAIRSNUMBER = " & connNameSpace & ".EIMAILOUT.STRAIRSNUMBER" & _
+                "from " & DBNameSpace & ".EISI " & _
+                " where  not exists (select * from " & DBNameSpace & ".EIMAILOUT " & _
+                " where " & DBNameSpace & ".EISI.STRAIRSNUMBER = " & DBNameSpace & ".EIMAILOUT.STRAIRSNUMBER" & _
                 " and EISI.STRINVENTORYYEAR = EIMAILOUT.STRINVENTORYYEAR) " & _
-                " and " & connNameSpace & ".EISI.STRINVENTORYYEAR = '" & EIYear & "' " & _
-                " and " & connNameSpace & ".EISI.STROPTOUT is null"
+                " and " & DBNameSpace & ".EISI.STRINVENTORYYEAR = '" & EIYear & "' " & _
+                " and " & DBNameSpace & ".EISI.STROPTOUT is null"
 
-                cmd = New OracleCommand(SQL, conn)
+                cmd = New OracleCommand(SQL, DBConn)
 
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read()
@@ -4676,13 +4676,13 @@ Public Class DMUStaffTools
                 dr.Close()
 
                 SQL = "select count(*) as TotaloptinCount " & _
-                "from " & connNameSpace & ".EISI " & _
-                "where " & connNameSpace & ".EISI.STRINVENTORYYEAR = '" & EIYear & "'" & _
-                " and " & connNameSpace & ".EISI.strOptOut = 'NO'"
+                "from " & DBNameSpace & ".EISI " & _
+                "where " & DBNameSpace & ".EISI.STRINVENTORYYEAR = '" & EIYear & "'" & _
+                " and " & DBNameSpace & ".EISI.strOptOut = 'NO'"
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read()
@@ -4691,12 +4691,12 @@ Public Class DMUStaffTools
                 dr.Close()
 
                 SQL = "select count(*) as TotaloptOutCount " & _
-                "from " & connNameSpace & ".EISI " & _
-                "where " & connNameSpace & ".EISI.STRINVENTORYYEAR = '" & EIYear & "' " & _
-                "and " & connNameSpace & ".EISI.strOptOut = 'YES'"
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                "from " & DBNameSpace & ".EISI " & _
+                "where " & DBNameSpace & ".EISI.STRINVENTORYYEAR = '" & EIYear & "' " & _
+                "and " & DBNameSpace & ".EISI.strOptOut = 'YES'"
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read()
@@ -4705,15 +4705,15 @@ Public Class DMUStaffTools
                 dr.Close()
 
                 SQL = "select count(*) as FinalizedCount " & _
-                "from " & connNameSpace & ".EISI, " & connNameSpace & ".eImailout " & _
-                "where " & connNameSpace & ".EISI.STRINVENTORYYEAR = '" & EIYear & "' " & _
-                "and " & connNameSpace & ".eImailout.STRAIRSYEAR = " & connNameSpace & ".EISI.STRAIRSYEAR(+) " & _
-                "and " & connNameSpace & ".EISI.strOptOut = 'NO' " & _
-                "and " & connNameSpace & ".EISI.STRFINALIZE is not null"
+                "from " & DBNameSpace & ".EISI, " & DBNameSpace & ".eImailout " & _
+                "where " & DBNameSpace & ".EISI.STRINVENTORYYEAR = '" & EIYear & "' " & _
+                "and " & DBNameSpace & ".eImailout.STRAIRSYEAR = " & DBNameSpace & ".EISI.STRAIRSYEAR(+) " & _
+                "and " & DBNameSpace & ".EISI.strOptOut = 'NO' " & _
+                "and " & DBNameSpace & ".EISI.STRFINALIZE is not null"
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
 
@@ -4723,15 +4723,15 @@ Public Class DMUStaffTools
                 dr.Close()
 
                 SQL = "select count(*) as inprocesscount " & _
-                "from " & connNameSpace & ".EISI, " & connNameSpace & ".eImailout  " & _
-                "where " & connNameSpace & ".EISI.STRINVENTORYYEAR = '" & EIYear & "' " & _
-                "and " & connNameSpace & ".eImailout.STRAIRSYEAR = " & connNameSpace & ".EISI.STRAIRSYEAR(+) " & _
-                "and " & connNameSpace & ".EISI.strOptOut = 'NO' " & _
-                "and " & connNameSpace & ".EISI.STRFINALIZE is null"
+                "from " & DBNameSpace & ".EISI, " & DBNameSpace & ".eImailout  " & _
+                "where " & DBNameSpace & ".EISI.STRINVENTORYYEAR = '" & EIYear & "' " & _
+                "and " & DBNameSpace & ".eImailout.STRAIRSYEAR = " & DBNameSpace & ".EISI.STRAIRSYEAR(+) " & _
+                "and " & DBNameSpace & ".EISI.strOptOut = 'NO' " & _
+                "and " & DBNameSpace & ".EISI.STRFINALIZE is null"
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read()
@@ -4740,14 +4740,14 @@ Public Class DMUStaffTools
                 dr.Close()
 
                 SQL = "select count(*) as MailOutOptInCount " & _
-                "from " & connNameSpace & ".EISI, " & connNameSpace & ".eImailout " & _
-                "where " & connNameSpace & ".eImailout.STRINVENTORYYEAR = '" & EIYear & "' " & _
-                "and " & connNameSpace & ".eImailout.STRAIRSYEAR = " & connNameSpace & ".EISI.STRAIRSYEAR(+) " & _
-                "and " & connNameSpace & ".EISI.strOptOut = 'NO'"
+                "from " & DBNameSpace & ".EISI, " & DBNameSpace & ".eImailout " & _
+                "where " & DBNameSpace & ".eImailout.STRINVENTORYYEAR = '" & EIYear & "' " & _
+                "and " & DBNameSpace & ".eImailout.STRAIRSYEAR = " & DBNameSpace & ".EISI.STRAIRSYEAR(+) " & _
+                "and " & DBNameSpace & ".EISI.strOptOut = 'NO'"
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
 
@@ -4757,14 +4757,14 @@ Public Class DMUStaffTools
                 dr.Close()
 
                 SQL = "select count(*) as MailOutOptOutCount " & _
-                "from " & connNameSpace & ".EISI, " & connNameSpace & ".eImailout " & _
-                "where " & connNameSpace & ".eImailout.STRINVENTORYYEAR = '" & EIYear & "' " & _
-                "and " & connNameSpace & ".eImailout.STRAIRSYEAR = " & connNameSpace & ".EISI.STRAIRSYEAR " & _
-                "and " & connNameSpace & ".EISI.strOptOut = 'YES'"
+                "from " & DBNameSpace & ".EISI, " & DBNameSpace & ".eImailout " & _
+                "where " & DBNameSpace & ".eImailout.STRINVENTORYYEAR = '" & EIYear & "' " & _
+                "and " & DBNameSpace & ".eImailout.STRAIRSYEAR = " & DBNameSpace & ".EISI.STRAIRSYEAR " & _
+                "and " & DBNameSpace & ".EISI.strOptOut = 'YES'"
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
 
@@ -4778,14 +4778,14 @@ Public Class DMUStaffTools
             End Try
 
             SQL = "select count(*) as mailoutNonresponderscount " & _
-            "from  " & connNameSpace & ".eImailout, " & connNameSpace & ".EISI " & _
-            "where " & connNameSpace & ".eImailout.STRINVENTORYYEAR = '" & EIYear & "' " & _
-            "and " & connNameSpace & ".eImailout.STRAIRSYEAR = " & connNameSpace & ".EISI.STRAIRSYEAR(+) " & _
-            "and " & connNameSpace & ".EISI.strOptOut is NULL"
+            "from  " & DBNameSpace & ".eImailout, " & DBNameSpace & ".EISI " & _
+            "where " & DBNameSpace & ".eImailout.STRINVENTORYYEAR = '" & EIYear & "' " & _
+            "and " & DBNameSpace & ".eImailout.STRAIRSYEAR = " & DBNameSpace & ".EISI.STRAIRSYEAR(+) " & _
+            "and " & DBNameSpace & ".EISI.strOptOut is NULL"
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read()
@@ -4794,13 +4794,13 @@ Public Class DMUStaffTools
             dr.Close()
 
             SQL = "select count(*) as Nonresponsecount " & _
-         "from  " & connNameSpace & ".EISI " & _
-         "where " & connNameSpace & ".EISI.STRINVENTORYYEAR = '" & EIYear & "' " & _
-         "and " & connNameSpace & ".EISI.strOptOut is NULL"
+         "from  " & DBNameSpace & ".EISI " & _
+         "where " & DBNameSpace & ".EISI.STRINVENTORYYEAR = '" & EIYear & "' " & _
+         "and " & DBNameSpace & ".EISI.strOptOut is NULL"
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read()
@@ -4809,20 +4809,20 @@ Public Class DMUStaffTools
             dr.Close()
 
             SQL = "select count(*) as ExtraCount " & _
-            "from (Select " & connNameSpace & ".EISI.STRAIRSYEAR AS SchemaAIRS, " & _
-            "" & connNameSpace & ".eImailout.STRAIRSYear AS MailoutAIRS " & _
-            "From " & connNameSpace & ".eImailout, " & connNameSpace & ".EISI  " & _
-            "Where " & connNameSpace & ".eImailout.STRAIRSYEAR (+) = " & connNameSpace & ".EISI.STRAIRSYEAR " & _
-            "AND " & connNameSpace & ".EISI.STRINVENTORYYEAR= '" & EIYear & "' " & _
-            "AND " & connNameSpace & ".EISI.STROPTOUT IS NOT NULL) " & _
+            "from (Select " & DBNameSpace & ".EISI.STRAIRSYEAR AS SchemaAIRS, " & _
+            "" & DBNameSpace & ".eImailout.STRAIRSYear AS MailoutAIRS " & _
+            "From " & DBNameSpace & ".eImailout, " & DBNameSpace & ".EISI  " & _
+            "Where " & DBNameSpace & ".eImailout.STRAIRSYEAR (+) = " & DBNameSpace & ".EISI.STRAIRSYEAR " & _
+            "AND " & DBNameSpace & ".EISI.STRINVENTORYYEAR= '" & EIYear & "' " & _
+            "AND " & DBNameSpace & ".EISI.STROPTOUT IS NOT NULL) " & _
             "dt_NotInMailout, " & _
-            "" & connNameSpace & ".EISI " & _
-            "Where " & connNameSpace & ".EISI.STRAIRSYEAR = SchemaAIRS " & _
+            "" & DBNameSpace & ".EISI " & _
+            "Where " & DBNameSpace & ".EISI.STRAIRSYEAR = SchemaAIRS " & _
             "AND MailoutAIRS is NULL"
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read()
@@ -4832,21 +4832,21 @@ Public Class DMUStaffTools
             dr.Close()
 
             SQL = "select count(*) as ExtraOptinCount " & _
-            "from (Select " & connNameSpace & ".EISI.STRAIRSYEAR AS SchemaAIRS, " & _
-            "" & connNameSpace & ".EIMAILOUT.STRAIRSYear AS MailoutAIRS " & _
-            "From " & connNameSpace & ".EIMailout, " & connNameSpace & ".EISI " & _
-            "Where " & connNameSpace & ".EIMAILOUT.STRAIRSYEAR (+)= " & connNameSpace & ".EISI.STRAIRSYEAR " & _
-            "AND " & connNameSpace & ".EISI.STRINVENTORYYEAR= '" & EIYear & "' " & _
-            "AND " & connNameSpace & ".EISI.STROPTOUT IS NOT NULL) " & _
+            "from (Select " & DBNameSpace & ".EISI.STRAIRSYEAR AS SchemaAIRS, " & _
+            "" & DBNameSpace & ".EIMAILOUT.STRAIRSYear AS MailoutAIRS " & _
+            "From " & DBNameSpace & ".EIMailout, " & DBNameSpace & ".EISI " & _
+            "Where " & DBNameSpace & ".EIMAILOUT.STRAIRSYEAR (+)= " & DBNameSpace & ".EISI.STRAIRSYEAR " & _
+            "AND " & DBNameSpace & ".EISI.STRINVENTORYYEAR= '" & EIYear & "' " & _
+            "AND " & DBNameSpace & ".EISI.STROPTOUT IS NOT NULL) " & _
             "dt_NotInMailout, " & _
-            "" & connNameSpace & ".EISI " & _
-            "Where " & connNameSpace & ".EISI.STRAIRSYEAR = SchemaAIRS " & _
+            "" & DBNameSpace & ".EISI " & _
+            "Where " & DBNameSpace & ".EISI.STRAIRSYEAR = SchemaAIRS " & _
             "AND MailoutAIRS is NULL " & _
-            "and " & connNameSpace & ".EISI.STROPTOUT='NO'"
+            "and " & DBNameSpace & ".EISI.STROPTOUT='NO'"
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read()
@@ -4855,21 +4855,21 @@ Public Class DMUStaffTools
             dr.Close()
 
             SQL = "select count(*) as ExtraOptOUTCount " & _
-            "from (Select " & connNameSpace & ".EISI.STRAIRSYEAR AS SchemaAIRS, " & _
-            "" & connNameSpace & ".EIMAILOUT.STRAIRSYear AS MailoutAIRS " & _
-            "From " & connNameSpace & ".EiMailout, " & connNameSpace & ".EISI " & _
-            " Where " & connNameSpace & ".EIMAILOUT.STRAIRSYEAR (+)= " & connNameSpace & ".EISI.STRAIRSYEAR " & _
-            "AND " & connNameSpace & ".EISI.STRINVENTORYYEAR= '" & EIYear & "' " & _
-            "AND " & connNameSpace & ".EISI.STROPTOUT IS NOT NULL) " & _
+            "from (Select " & DBNameSpace & ".EISI.STRAIRSYEAR AS SchemaAIRS, " & _
+            "" & DBNameSpace & ".EIMAILOUT.STRAIRSYear AS MailoutAIRS " & _
+            "From " & DBNameSpace & ".EiMailout, " & DBNameSpace & ".EISI " & _
+            " Where " & DBNameSpace & ".EIMAILOUT.STRAIRSYEAR (+)= " & DBNameSpace & ".EISI.STRAIRSYEAR " & _
+            "AND " & DBNameSpace & ".EISI.STRINVENTORYYEAR= '" & EIYear & "' " & _
+            "AND " & DBNameSpace & ".EISI.STROPTOUT IS NOT NULL) " & _
             "dt_NotInMailout, " & _
-            "" & connNameSpace & ".EISI " & _
-            "Where " & connNameSpace & ".EISI.STRAIRSYEAR = SchemaAIRS " & _
+            "" & DBNameSpace & ".EISI " & _
+            "Where " & DBNameSpace & ".EISI.STRAIRSYEAR = SchemaAIRS " & _
             "AND MailoutAIRS is NULL " & _
-            "and " & connNameSpace & ".EISI.STROPTOUT='YES'"
+            "and " & DBNameSpace & ".EISI.STROPTOUT='YES'"
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
 
@@ -4879,13 +4879,13 @@ Public Class DMUStaffTools
             dr.Close()
 
             SQL = "select count(*) as TotalResponsecount " & _
-            "from " & connNameSpace & ".EISI " & _
-            "where " & connNameSpace & ".EISI.STRINVENTORYYEAR = '" & EIYear & "' " & _
+            "from " & DBNameSpace & ".EISI " & _
+            "where " & DBNameSpace & ".EISI.STRINVENTORYYEAR = '" & EIYear & "' " & _
             "and EISI.strOptOut is not NULL"
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
 
@@ -4908,13 +4908,13 @@ Public Class DMUStaffTools
 
         Try
             SQL = "SELECT * " & _
-            "from " & connNameSpace & ".eIMailOut " & _
+            "from " & DBNameSpace & ".eIMailOut " & _
             "where STRAIRSNUMBER = '" & AirsNo & "' " & _
             "and STRINVENTORYYEAR = '" & EIyear & "'"
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
 
@@ -5020,14 +5020,14 @@ Public Class DMUStaffTools
             "STRCONTACTSTATE, " & _
             "STRCONTACTZIPCODE, " & _
             "STRCONTACTEMAIL " & _
-            "from " & connNameSpace & ".eIMailOut " & _
+            "from " & DBNameSpace & ".eIMailOut " & _
             "where STRinventoryYEAR = '" & year & "' " & _
             "order by STRFACILITYNAME"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvEIDataCount.DataSource = dsViewCount
@@ -5077,27 +5077,27 @@ Public Class DMUStaffTools
             
             Dim year As String = txtEIYear.Text()
 
-            SQL = "SELECT " & connNameSpace & ".eiMailOut.STRAIRSNUMBER, " & _
-            "" & connNameSpace & ".eiMailOut.STRFACILITYNAME " & _
-            "from  " & connNameSpace & ".EISI,  " & connNameSpace & ".eiMailOut " & _
+            SQL = "SELECT " & DBNameSpace & ".eiMailOut.STRAIRSNUMBER, " & _
+            "" & DBNameSpace & ".eiMailOut.STRFACILITYNAME " & _
+            "from  " & DBNameSpace & ".EISI,  " & DBNameSpace & ".eiMailOut " & _
             "where " & _
-            "and " & connNameSpace & ".EISI.STRINVENTORYYEAR = '" & year & "' " & _
-            "and " & connNameSpace & ".EISI.strOptOut is NULL" & _
-            " order by " & connNameSpace & ".eiMailOut.STRFACILITYNAME"
+            "and " & DBNameSpace & ".EISI.STRINVENTORYYEAR = '" & year & "' " & _
+            "and " & DBNameSpace & ".EISI.strOptOut is NULL" & _
+            " order by " & DBNameSpace & ".eiMailOut.STRFACILITYNAME"
 
 
             SQL = "select  " & _
-            "" & connNameSpace & ".EISI.STRAIRSNUMBER, " & _
-            "" & connNameSpace & ".EISI.STRFACILITYNAME " & _
-            "from  " & connNameSpace & ".EISI  " & _
-            "where " & connNameSpace & ".EISI.STRINVENTORYYEAR = '" & year & "'  " & _
-            "and " & connNameSpace & ".EISI.strOptOut is NULL  "
+            "" & DBNameSpace & ".EISI.STRAIRSNUMBER, " & _
+            "" & DBNameSpace & ".EISI.STRFACILITYNAME " & _
+            "from  " & DBNameSpace & ".EISI  " & _
+            "where " & DBNameSpace & ".EISI.STRINVENTORYYEAR = '" & year & "'  " & _
+            "and " & DBNameSpace & ".EISI.strOptOut is NULL  "
 
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvEIDataCount.DataSource = dsViewCount
@@ -5135,16 +5135,16 @@ Public Class DMUStaffTools
             "airbranch.EISI.STRFACILITYNAME, " & _
             "airbranch.EISI.STRFINALIZE, " & _
             "airbranch.EISI.STRCONFIRMATIONNUMBER " & _
-            "from " & connNameSpace & ".EISI, " & connNameSpace & ".eImailout " & _
-            "where " & connNameSpace & ".EISI.STRINVENTORYYEAR = '" & year & "' " & _
-            "and " & connNameSpace & ".EISI.STROPTOUT = 'NO'" & _
-            "and " & connNameSpace & ".eImailout.STRAIRSYEAR = " & connNameSpace & ".EISI.STRAIRSYEAR " & _
-            "order by " & connNameSpace & ".EISI.STRFACILITYNAME"
+            "from " & DBNameSpace & ".EISI, " & DBNameSpace & ".eImailout " & _
+            "where " & DBNameSpace & ".EISI.STRINVENTORYYEAR = '" & year & "' " & _
+            "and " & DBNameSpace & ".EISI.STROPTOUT = 'NO'" & _
+            "and " & DBNameSpace & ".eImailout.STRAIRSYEAR = " & DBNameSpace & ".EISI.STRAIRSYEAR " & _
+            "order by " & DBNameSpace & ".EISI.STRFACILITYNAME"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvEIDataCount.DataSource = dsViewCount
@@ -5181,20 +5181,20 @@ Public Class DMUStaffTools
             
             Dim year As String = txtEIYear.Text
 
-            SQL = "SELECT " & connNameSpace & ".EISI.STRAIRSNUMBER, " & _
-            "" & connNameSpace & ".EISI.STRFACILITYNAME, " & _
-            "" & connNameSpace & ".EISI.STRFINALIZE, " & _
-            "" & connNameSpace & ".EISI.STRCONFIRMATIONNUMBER " & _
-            "from " & connNameSpace & ".EISI, " & connNameSpace & ".eImailout " & _
-            "where " & connNameSpace & ".EISI.STRINVENTORYYEAR = '" & year & "' " & _
-            "and " & connNameSpace & ".EISI.STROPTOUT = 'YES'" & _
-            "and " & connNameSpace & ".eImailout.STRAIRSYEAR = " & connNameSpace & ".EISI.STRAIRSYEAR " & _
-            "order by " & connNameSpace & ".EISI.STRFACILITYNAME"
+            SQL = "SELECT " & DBNameSpace & ".EISI.STRAIRSNUMBER, " & _
+            "" & DBNameSpace & ".EISI.STRFACILITYNAME, " & _
+            "" & DBNameSpace & ".EISI.STRFINALIZE, " & _
+            "" & DBNameSpace & ".EISI.STRCONFIRMATIONNUMBER " & _
+            "from " & DBNameSpace & ".EISI, " & DBNameSpace & ".eImailout " & _
+            "where " & DBNameSpace & ".EISI.STRINVENTORYYEAR = '" & year & "' " & _
+            "and " & DBNameSpace & ".EISI.STROPTOUT = 'YES'" & _
+            "and " & DBNameSpace & ".eImailout.STRAIRSYEAR = " & DBNameSpace & ".EISI.STRAIRSYEAR " & _
+            "order by " & DBNameSpace & ".EISI.STRFACILITYNAME"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvEIDataCount.DataSource = dsViewCount
@@ -5231,28 +5231,28 @@ Public Class DMUStaffTools
             Dim year As String = txtEIYear.Text
 
 
-            SQL = "SELECT dt_NotInMailout.SchemaAIRS, " & connNameSpace & ".EISI.STRAIRSNUMBER, " & _
-            "" & connNameSpace & ".EISI.STRFACILITYNAME, " & _
-            "" & connNameSpace & ".EISI.STRCONTACTFIRSTNAME, " & _
-            "" & connNameSpace & ".EISI.STRCONTACTLASTNAME, " & _
-            "" & connNameSpace & ".EISI.STRCONTACTCOMPANYNAME, " & _
-            "" & connNameSpace & ".EISI.STRCONTACTEMAIL, " & _
-            "" & connNameSpace & ".EISI.STRCONTACTPHONENUMBER1 " & _
-            "from (Select " & connNameSpace & ".EISI.STRAIRSYEAR AS SchemaAIRS, " & _
-            "" & connNameSpace & ".EIMailout.STRAIRSYEAR AS MailoutAIRS" & _
-            " From " & connNameSpace & ".EIMailout, " & connNameSpace & ".EISI" & _
-            " Where " & connNameSpace & ".EIMailout.STRAIRSYEAR (+)= " & connNameSpace & ".EISI.STRAIRSYEAR " & _
-            "AND " & connNameSpace & ".EISI.STRINVENTORYYEAR=  '" & year & "' " & _
-            "AND " & connNameSpace & ".EISI.STROPTOUT IS NOT NULL) " & _
+            SQL = "SELECT dt_NotInMailout.SchemaAIRS, " & DBNameSpace & ".EISI.STRAIRSNUMBER, " & _
+            "" & DBNameSpace & ".EISI.STRFACILITYNAME, " & _
+            "" & DBNameSpace & ".EISI.STRCONTACTFIRSTNAME, " & _
+            "" & DBNameSpace & ".EISI.STRCONTACTLASTNAME, " & _
+            "" & DBNameSpace & ".EISI.STRCONTACTCOMPANYNAME, " & _
+            "" & DBNameSpace & ".EISI.STRCONTACTEMAIL, " & _
+            "" & DBNameSpace & ".EISI.STRCONTACTPHONENUMBER1 " & _
+            "from (Select " & DBNameSpace & ".EISI.STRAIRSYEAR AS SchemaAIRS, " & _
+            "" & DBNameSpace & ".EIMailout.STRAIRSYEAR AS MailoutAIRS" & _
+            " From " & DBNameSpace & ".EIMailout, " & DBNameSpace & ".EISI" & _
+            " Where " & DBNameSpace & ".EIMailout.STRAIRSYEAR (+)= " & DBNameSpace & ".EISI.STRAIRSYEAR " & _
+            "AND " & DBNameSpace & ".EISI.STRINVENTORYYEAR=  '" & year & "' " & _
+            "AND " & DBNameSpace & ".EISI.STROPTOUT IS NOT NULL) " & _
             "dt_NotInMailout, " & _
-            "" & connNameSpace & ".EISI " & _
-            "Where " & connNameSpace & ".EISI.STRAIRSYEAR = SchemaAIRS " & _
+            "" & DBNameSpace & ".EISI " & _
+            "Where " & DBNameSpace & ".EISI.STRAIRSYEAR = SchemaAIRS " & _
             "AND MailoutAIRS is NULL"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvEIDataCount.DataSource = dsViewCount
@@ -5299,25 +5299,25 @@ Public Class DMUStaffTools
             
             Dim year As String = txtEIYear.Text
 
-            SQL = "SELECT " & connNameSpace & ".EISI.STRAIRSNUMBER, " & _
-            "" & connNameSpace & ".EISI.STRFACILITYNAME, " & _
-            "" & connNameSpace & ".EISI.strfinalize, " & _
-            "" & connNameSpace & ".EISI.STRCONFIRMATIONNumber " & _
-            "from (select " & connNameSpace & ".EISI.strairsyear as SchemaAIRS, " & _
-            "" & connNameSpace & ".eImailout.strairsyear as MailoutAIRS " & _
-            "From " & connNameSpace & ".EIMailout, " & connNameSpace & ".EISI " & _
-            "where " & connNameSpace & ".eImailout.STRAIRSYEAR (+)= " & connNameSpace & ".EISI.STRAIRSYEAR " & _
-            "and " & connNameSpace & ".EISI.STRINVENTORYYEAR = '" & year & "' " & _
-            "and " & connNameSpace & ".EISI.STROPTOUT IS NOT NULL) " & _
-            "dt_NotInMailout, " & connNameSpace & ".EISI " & _
-            "Where " & connNameSpace & ".EISI.STRAIRSYEAR = SchemaAIRS " & _
+            SQL = "SELECT " & DBNameSpace & ".EISI.STRAIRSNUMBER, " & _
+            "" & DBNameSpace & ".EISI.STRFACILITYNAME, " & _
+            "" & DBNameSpace & ".EISI.strfinalize, " & _
+            "" & DBNameSpace & ".EISI.STRCONFIRMATIONNumber " & _
+            "from (select " & DBNameSpace & ".EISI.strairsyear as SchemaAIRS, " & _
+            "" & DBNameSpace & ".eImailout.strairsyear as MailoutAIRS " & _
+            "From " & DBNameSpace & ".EIMailout, " & DBNameSpace & ".EISI " & _
+            "where " & DBNameSpace & ".eImailout.STRAIRSYEAR (+)= " & DBNameSpace & ".EISI.STRAIRSYEAR " & _
+            "and " & DBNameSpace & ".EISI.STRINVENTORYYEAR = '" & year & "' " & _
+            "and " & DBNameSpace & ".EISI.STROPTOUT IS NOT NULL) " & _
+            "dt_NotInMailout, " & DBNameSpace & ".EISI " & _
+            "Where " & DBNameSpace & ".EISI.STRAIRSYEAR = SchemaAIRS " & _
             "and MailoutAIRS is NULL " & _
-            "and " & connNameSpace & ".EISI.STROPTOUT='NO'"
+            "and " & DBNameSpace & ".EISI.STROPTOUT='NO'"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvEIDataCount.DataSource = dsViewCount
@@ -5354,25 +5354,25 @@ Public Class DMUStaffTools
             
             Dim year As String = txtEIYear.Text
 
-            SQL = "SELECT " & connNameSpace & ".EISI.STRAIRSNUMBER, " & _
-            "" & connNameSpace & ".EISI.STRFACILITYNAME, " & _
-            "" & connNameSpace & ".EISI.strfinalize, " & _
-            "" & connNameSpace & ".EISI.STRCONFIRMATIONNumber " & _
-            "from (select " & connNameSpace & ".EISI.strairsyear as SchemaAIRS, " & _
-            "" & connNameSpace & ".eImailout.strairsyear as MailoutAIRS " & _
-            "From " & connNameSpace & ".EIMailout, " & connNameSpace & ".EISI " & _
-            "where " & connNameSpace & ".eImailout.STRAIRSYEAR (+) = " & connNameSpace & ".EISI.STRAIRSYEAR " & _
-            "and " & connNameSpace & ".EISI.STRINVENTORYYEAR = '" & year & "' " & _
-            "and " & connNameSpace & ".EISI.STROPTOUT IS NOT NULL) " & _
-            "dt_NotInMailout, " & connNameSpace & ".EISI " & _
-            "Where " & connNameSpace & ".EISI.STRAIRSYEAR = SchemaAIRS " & _
+            SQL = "SELECT " & DBNameSpace & ".EISI.STRAIRSNUMBER, " & _
+            "" & DBNameSpace & ".EISI.STRFACILITYNAME, " & _
+            "" & DBNameSpace & ".EISI.strfinalize, " & _
+            "" & DBNameSpace & ".EISI.STRCONFIRMATIONNumber " & _
+            "from (select " & DBNameSpace & ".EISI.strairsyear as SchemaAIRS, " & _
+            "" & DBNameSpace & ".eImailout.strairsyear as MailoutAIRS " & _
+            "From " & DBNameSpace & ".EIMailout, " & DBNameSpace & ".EISI " & _
+            "where " & DBNameSpace & ".eImailout.STRAIRSYEAR (+) = " & DBNameSpace & ".EISI.STRAIRSYEAR " & _
+            "and " & DBNameSpace & ".EISI.STRINVENTORYYEAR = '" & year & "' " & _
+            "and " & DBNameSpace & ".EISI.STROPTOUT IS NOT NULL) " & _
+            "dt_NotInMailout, " & DBNameSpace & ".EISI " & _
+            "Where " & DBNameSpace & ".EISI.STRAIRSYEAR = SchemaAIRS " & _
             "and MailoutAIRS is NULL " & _
-            "and " & connNameSpace & ".EISI.STROPTOUT='YES'"
+            "and " & DBNameSpace & ".EISI.STROPTOUT='YES'"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvEIDataCount.DataSource = dsViewCount
@@ -5410,22 +5410,22 @@ Public Class DMUStaffTools
             
             Dim year As String = txtEIYear.Text
 
-            SQL = "SELECT " & connNameSpace & ".EISI.STRAIRSNUMBER, " & _
-            "" & connNameSpace & ".EISI.STRFACILITYNAME, " & _
-            "" & connNameSpace & ".EISI.STRCONTACTFIRSTNAME, " & _
-            "" & connNameSpace & ".EISI.STRCONTACTLASTNAME, " & _
-            "" & connNameSpace & ".EISI.STRCONTACTCOMPANYname, " & _
-            "" & connNameSpace & ".EISI.STRCONTACTEMAIL, " & _
-            "" & connNameSpace & ".EISI.STRCONTACTPHONENUMBER1 " & _
-            "from " & connNameSpace & ".EISI " & _
-            "where " & connNameSpace & ".EISI.strinventoryYear = '" & year & "' " & _
-            "and " & connNameSpace & ".EISI.STROPTOUT is not NULL " & _
-            "order by " & connNameSpace & ".EISI.STRFACILITYNAME"
+            SQL = "SELECT " & DBNameSpace & ".EISI.STRAIRSNUMBER, " & _
+            "" & DBNameSpace & ".EISI.STRFACILITYNAME, " & _
+            "" & DBNameSpace & ".EISI.STRCONTACTFIRSTNAME, " & _
+            "" & DBNameSpace & ".EISI.STRCONTACTLASTNAME, " & _
+            "" & DBNameSpace & ".EISI.STRCONTACTCOMPANYname, " & _
+            "" & DBNameSpace & ".EISI.STRCONTACTEMAIL, " & _
+            "" & DBNameSpace & ".EISI.STRCONTACTPHONENUMBER1 " & _
+            "from " & DBNameSpace & ".EISI " & _
+            "where " & DBNameSpace & ".EISI.strinventoryYear = '" & year & "' " & _
+            "and " & DBNameSpace & ".EISI.STROPTOUT is not NULL " & _
+            "order by " & DBNameSpace & ".EISI.STRFACILITYNAME"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvEIDataCount.DataSource = dsViewCount
@@ -5471,20 +5471,20 @@ Public Class DMUStaffTools
             Dim year As String = txtEIYear.Text
             Dim intYear As Integer = Int(year)
 
-            SQL = "SELECT " & connNameSpace & ".EISI.STRAIRSNUMBER, " & _
-            "" & connNameSpace & ".EISI.STRFACILITYNAME, " & _
-            "" & connNameSpace & ".EISI.STRfinalize, " & _
-            "" & connNameSpace & ".EISI.STRCONFIRMATIONNumber " & _
-            "from " & connNameSpace & ".EISI, " & connNameSpace & ".eimailout " & _
-            "where " & connNameSpace & ".EISI.strinventoryyear = '" & intYear & "' " & _
-            "and " & connNameSpace & ".EISI.STROPTOUT = 'NO'" & _
-            "and " & connNameSpace & ".EIMAILOUT.STRAIRSYEAR (+)= " & connNameSpace & ".EISI.STRAIRSYEAR " & _
-            "order by " & connNameSpace & ".eisi.STRFACILITYNAME"
+            SQL = "SELECT " & DBNameSpace & ".EISI.STRAIRSNUMBER, " & _
+            "" & DBNameSpace & ".EISI.STRFACILITYNAME, " & _
+            "" & DBNameSpace & ".EISI.STRfinalize, " & _
+            "" & DBNameSpace & ".EISI.STRCONFIRMATIONNumber " & _
+            "from " & DBNameSpace & ".EISI, " & DBNameSpace & ".eimailout " & _
+            "where " & DBNameSpace & ".EISI.strinventoryyear = '" & intYear & "' " & _
+            "and " & DBNameSpace & ".EISI.STROPTOUT = 'NO'" & _
+            "and " & DBNameSpace & ".EIMAILOUT.STRAIRSYEAR (+)= " & DBNameSpace & ".EISI.STRAIRSYEAR " & _
+            "order by " & DBNameSpace & ".eisi.STRFACILITYNAME"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvEIDataCount.DataSource = dsViewCount
@@ -5523,20 +5523,20 @@ Public Class DMUStaffTools
             Dim year As String = txtEIYear.Text
             Dim intYear As Integer = Int(year)
 
-            SQL = "SELECT " & connNameSpace & ".EISI.STRAIRSNUMBER, " & _
-            "" & connNameSpace & ".EISI.STRFACILITYNAME, " & _
-            "" & connNameSpace & ".EISI.STRfinalize, " & _
-            "" & connNameSpace & ".EISI.STRCONFIRMATIONNumber " & _
-            "from " & connNameSpace & ".EISI, " & connNameSpace & ".eimailout " & _
-            "where " & connNameSpace & ".EISI.strinventoryyear = '" & intYear & "' " & _
-            "and " & connNameSpace & ".EISI.STROPTOUT = 'YES'" & _
-            "and " & connNameSpace & ".EIMAILOUT.STRAIRSYEAR (+)= " & connNameSpace & ".EISI.STRAIRSYEAR " & _
-            "order by " & connNameSpace & ".eisi.STRFACILITYNAME"
+            SQL = "SELECT " & DBNameSpace & ".EISI.STRAIRSNUMBER, " & _
+            "" & DBNameSpace & ".EISI.STRFACILITYNAME, " & _
+            "" & DBNameSpace & ".EISI.STRfinalize, " & _
+            "" & DBNameSpace & ".EISI.STRCONFIRMATIONNumber " & _
+            "from " & DBNameSpace & ".EISI, " & DBNameSpace & ".eimailout " & _
+            "where " & DBNameSpace & ".EISI.strinventoryyear = '" & intYear & "' " & _
+            "and " & DBNameSpace & ".EISI.STROPTOUT = 'YES'" & _
+            "and " & DBNameSpace & ".EIMAILOUT.STRAIRSYEAR (+)= " & DBNameSpace & ".EISI.STRAIRSYEAR " & _
+            "order by " & DBNameSpace & ".eisi.STRFACILITYNAME"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvEIDataCount.DataSource = dsViewCount
@@ -5582,14 +5582,14 @@ Public Class DMUStaffTools
             "STRCONTACTSTATE, " & _
             "STRCONTACTZIPCODE, " & _
             "STRCONTACTEMAIL " & _
-            "from " & connNameSpace & ".eIMailOut " & _
+            "from " & DBNameSpace & ".eIMailOut " & _
             "where strinventoryyear = '" & year & "' " & _
             "order by STRFACILITYNAME"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvEIDataCount.DataSource = dsViewCount
@@ -5709,15 +5709,15 @@ Public Class DMUStaffTools
         Dim year As Integer
         Dim SQL As String
         Try
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
             Else
-                conn.Open()
+                DBConn.Open()
             End If
 
             SQL = "Select distinct STRINVENTORYYEAR " & _
-                      "from " & connNameSpace & ".EIMAILOUT  " & _
+                      "from " & DBNameSpace & ".EIMAILOUT  " & _
                       "order by STRINVENTORYYEAR desc"
-            Dim cmd As New OracleCommand(SQL, conn)
+            Dim cmd As New OracleCommand(SQL, DBConn)
 
             Dim dr As OracleDataReader = cmd.ExecuteReader()
             dr.Read()
@@ -5740,15 +5740,15 @@ Public Class DMUStaffTools
         Dim year As Integer
         Dim SQL As String
         Try
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
             Else
-                conn.Open()
+                DBConn.Open()
             End If
 
             SQL = "Select distinct STRINVENTORYYEAR " & _
-                      "from " & connNameSpace & ".EIMAILOUT  " & _
+                      "from " & DBNameSpace & ".EIMAILOUT  " & _
                       "order by STRINVENTORYYEAR desc"
-            Dim cmd As New OracleCommand(SQL, conn)
+            Dim cmd As New OracleCommand(SQL, DBConn)
 
             Dim dr As OracleDataReader = cmd.ExecuteReader()
             dr.Read()
@@ -5769,15 +5769,15 @@ Public Class DMUStaffTools
         Dim year As Integer
         Dim SQL As String
         Try
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
             Else
-                conn.Open()
+                DBConn.Open()
             End If
 
             SQL = "Select distinct ESMAILOUT.STRESYEAR " & _
-                      "from " & connNameSpace & ".ESMAILOUT  " & _
+                      "from " & DBNameSpace & ".ESMAILOUT  " & _
                       "order by STRESYEAR desc"
-            Dim cmd As New OracleCommand(SQL, conn)
+            Dim cmd As New OracleCommand(SQL, DBConn)
 
             Dim dr As OracleDataReader = cmd.ExecuteReader()
             dr.Read()
@@ -5836,12 +5836,12 @@ Public Class DMUStaffTools
                 MsgBox("You must select a Mailout Year")
             Else
                 SQL = "Select strAirsNumber " & _
-                "FROM " & connNameSpace & ".EImailOut " & _
+                "FROM " & DBNameSpace & ".EImailOut " & _
                 "where STRINVENTORYYEAR = '" & EIYear & "'"
             End If
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             recExist = dr.Read
@@ -5851,8 +5851,8 @@ Public Class DMUStaffTools
             Else
                 If cboEIMailoutYear.Text <> "" Then
                     If cboEIMailoutYear.Text.Length = 4 Then
-                        SQL = "Select dt_EIcontact.STRairsnumber, " & connNameSpace & ".APBFacilityinformation.STRFACILITYNAME, " & _
-                        "" & connNameSpace & ".APBHEADERDATA.stroperationalstatus, " & connNameSpace & ".APBHEADERDATA.STRCLASS, " & _
+                        SQL = "Select dt_EIcontact.STRairsnumber, " & DBNameSpace & ".APBFacilityinformation.STRFACILITYNAME, " & _
+                        "" & DBNameSpace & ".APBHEADERDATA.stroperationalstatus, " & DBNameSpace & ".APBHEADERDATA.STRCLASS, " & _
                         "(Case " & _
                         "When dt_EIcontact.STRKEY='41' THEN dt_EIcontact.STRContactLastName " & _
                         "When dt_EIcontact.STRKEY Is Null THEN dt_PermitContact.STRContactLastName " & _
@@ -5898,32 +5898,32 @@ Public Class DMUStaffTools
                         "dt_Contact.STRCONTACTPREFIX, dt_Contact.STRCONTACTADDRESS1, dt_Contact.STRCONTACTCITY,  " & _
                         "dt_Contact.STRCONTACTSTATE, dt_Contact.STRCONTACTZIPCODE " & _
                         "FROM " & _
-                        "(Select * FROM " & connNameSpace & ".APBHEADERDATA " & _
+                        "(Select * FROM " & DBNameSpace & ".APBHEADERDATA " & _
                         "where (stroperationalstatus = 'O' OR stroperationalstatus = 'P' oR stroperationalstatus = 'C') AND  " & _
                         "(STRCLASS = 'A')   " & _
                         ") dt_EIList,      " & _
-                        "(Select * From " & connNameSpace & ".APBCONTACTINFORMATION where STRKEY=41) dt_Contact " & _
+                        "(Select * From " & DBNameSpace & ".APBCONTACTINFORMATION where STRKEY=41) dt_Contact " & _
                         "Where dt_EIList.STRAIRSNUMBEr = dt_Contact.STRAIRSNUMBER (+)) dt_EIContact, " & _
                         "(Select DISTINCT dt_eIlist.STRAIRSNUMBER, dt_contact.STRKEY,  " & _
                 "dt_Contact.STRCONTACTLASTNAME, dt_Contact.STRCONTACTFIRSTNAME, " & _
                 "dt_Contact.STRContactCompanyName, dt_Contact.STRContactEmail, dt_Contact.STRCONTACTPREFIX,  " & _
                 "dt_Contact.STRCONTACTADDRESS1, dt_Contact.strcontactcity, dt_Contact.STRCONTACTSTATE, dt_Contact.STRCONTACTZIPCODE " & _
                 "FROM " & _
-                        "(Select * FROM " & connNameSpace & ".APBHEADERDATA " & _
+                        "(Select * FROM " & DBNameSpace & ".APBHEADERDATA " & _
                         "where (stroperationalstatus = 'O' OR stroperationalstatus = 'P' oR stroperationalstatus = 'C') AND  " & _
                         "(STRCLASS = 'A')   " & _
                         ") dt_EIList,      " & _
-                        "(Select * From " & connNameSpace & ".APBCONTACTINFORMATION where STRKEY=30) dt_Contact " & _
+                        "(Select * From " & DBNameSpace & ".APBCONTACTINFORMATION where STRKEY=30) dt_Contact " & _
                         "Where dt_EIList.STRAIRSNUMBEr = dt_Contact.STRAIRSNUMBER (+)) dt_PermitContact, " & _
-                        "" & connNameSpace & ".APBFACILITYINFORMATION, " & _
-                        "" & connNameSpace & ".APBHEADERDATA " & _
-                        "Where " & connNameSpace & ".APBFACILITYINFORMATION.STRAIRSNUMBER= dt_EIContact.STRAIRSNumber and  " & _
-                        "" & connNameSpace & ".APBHEADERDATA.STRAIRSNUMBER= dt_EIContact.STRAIRSNumber and  " & _
+                        "" & DBNameSpace & ".APBFACILITYINFORMATION, " & _
+                        "" & DBNameSpace & ".APBHEADERDATA " & _
+                        "Where " & DBNameSpace & ".APBFACILITYINFORMATION.STRAIRSNUMBER= dt_EIContact.STRAIRSNumber and  " & _
+                        "" & DBNameSpace & ".APBHEADERDATA.STRAIRSNUMBER= dt_EIContact.STRAIRSNumber and  " & _
                         "dt_EIContact.STRAIRSNumber  = dt_PermitContact.STRAIRSNUMBER (+) "
 
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, DBConn)
+                        If DBConn.State = ConnectionState.Closed Then
+                            DBConn.Open()
                         End If
                         dr = cmd.ExecuteReader
                         While dr.Read
@@ -5987,7 +5987,7 @@ Public Class DMUStaffTools
                                 CONTACTEMAIL = dr("STRCONTACTEMAIL")
                             End If
 
-                            SQL2 = "insert into " & connNameSpace & ".EImailOut " & _
+                            SQL2 = "insert into " & DBNameSpace & ".EImailOut " & _
                            "(strAirsYear, " & _
                            "strAirsNumber, " & _
                            "STRFACILITYNAME, " & _
@@ -6018,9 +6018,9 @@ Public Class DMUStaffTools
                            "'" & Replace(Replace(CONTACTEMAIL, "'", "''"), "N/A", " ") & "', " & _
                            "'" & EIYear & "')"
 
-                            cmd2 = New OracleCommand(SQL2, conn)
-                            If conn.State = ConnectionState.Closed Then
-                                conn.Open()
+                            cmd2 = New OracleCommand(SQL2, DBConn)
+                            If DBConn.State = ConnectionState.Closed Then
+                                DBConn.Open()
                             End If
                             dr2 = cmd2.ExecuteReader
                             dr2.Close()
@@ -6042,14 +6042,14 @@ Public Class DMUStaffTools
                     "STRCONTACTSTATE, " & _
                     "STRCONTACTZIPCODE, " & _
                     "STRCONTACTEMAIL " & _
-                    "from " & connNameSpace & ".eIMailOut " & _
+                    "from " & DBNameSpace & ".eIMailOut " & _
                     "where STRINVENTORYYEAR = '" & year & "' " & _
                     "order by STRFACILITYNAME"
 
                     dsViewCount = New DataSet
-                    daViewCount = New OracleDataAdapter(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    daViewCount = New OracleDataAdapter(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     daViewCount.Fill(dsViewCount, "ViewCount")
                     dgvEIDataCount.DataSource = dsViewCount
@@ -6121,14 +6121,14 @@ Public Class DMUStaffTools
             If EIyear = "Select a Mailout Year & Click Below" Then
                 MsgBox("You must select a Mailout Year", MsgBoxStyle.Information, "EIMailout")
             Else
-                SQL = "delete from " & connNameSpace & ".EImailout " & _
-                "where " & connNameSpace & ".EImailout.STRINVENTORYYEAR = '" & EIyear & "'"
+                SQL = "delete from " & DBNameSpace & ".EImailout " & _
+                "where " & DBNameSpace & ".EImailout.STRINVENTORYYEAR = '" & EIyear & "'"
 
                 MsgBox("EI mail out is deleted!")
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -6230,47 +6230,47 @@ Public Class DMUStaffTools
 
         Try
             SQL = "Select strAIRSYear " & _
-                  "from " & connNameSpace & ".EIMailout " & _
+                  "from " & DBNameSpace & ".EIMailout " & _
                   "where STRAIRSYEAR = '" & airsYear & "' "
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             recExist = dr.Read
 
 
             If recExist = True Then
-                SQL = "update " & connNameSpace & ".EIMailOut set " & _
-                "" & connNameSpace & ".EIMailOut.STRCONTACTPREFIX = '" & EIPrefix & "', " & _
-                "" & connNameSpace & ".EIMailOut.STRCONTACTFIRSTNAME = '" & EIFirstName & "', " & _
-                "" & connNameSpace & ".EIMailOut.STRCONTACTLASTNAME = '" & EILastName & "', " & _
-                "" & connNameSpace & ".EIMailOut.STRCONTACTCOMPANYNAME = '" & EICompanyName & "', " & _
-                "" & connNameSpace & ".EIMailOut.STRCONTACTADDRESS1 = '" & EIContactAddress1 & "', " & _
-                "" & connNameSpace & ".EIMailOut.STRCONTACTADDRESS2 = '" & EIContactAddress2 & "', " & _
-                "" & connNameSpace & ".EIMailOut.STRCONTACTCITY = '" & EIContactCity & "', " & _
-                "" & connNameSpace & ".EIMailOut.STRCONTACTSTATE = '" & EIcontactState & "', " & _
-                "" & connNameSpace & ".EIMailOut.STRCONTACTZIPCODE = '" & EIContactZip & "', " & _
-                "" & connNameSpace & ".EIMailOut.STRCONTACTEMAIL = '" & EIContactEmail & "'" & _
-                "where " & connNameSpace & ".EIMailOut.STRAIRSYEAR = '" & airsYear & "' "
+                SQL = "update " & DBNameSpace & ".EIMailOut set " & _
+                "" & DBNameSpace & ".EIMailOut.STRCONTACTPREFIX = '" & EIPrefix & "', " & _
+                "" & DBNameSpace & ".EIMailOut.STRCONTACTFIRSTNAME = '" & EIFirstName & "', " & _
+                "" & DBNameSpace & ".EIMailOut.STRCONTACTLASTNAME = '" & EILastName & "', " & _
+                "" & DBNameSpace & ".EIMailOut.STRCONTACTCOMPANYNAME = '" & EICompanyName & "', " & _
+                "" & DBNameSpace & ".EIMailOut.STRCONTACTADDRESS1 = '" & EIContactAddress1 & "', " & _
+                "" & DBNameSpace & ".EIMailOut.STRCONTACTADDRESS2 = '" & EIContactAddress2 & "', " & _
+                "" & DBNameSpace & ".EIMailOut.STRCONTACTCITY = '" & EIContactCity & "', " & _
+                "" & DBNameSpace & ".EIMailOut.STRCONTACTSTATE = '" & EIcontactState & "', " & _
+                "" & DBNameSpace & ".EIMailOut.STRCONTACTZIPCODE = '" & EIContactZip & "', " & _
+                "" & DBNameSpace & ".EIMailOut.STRCONTACTEMAIL = '" & EIContactEmail & "'" & _
+                "where " & DBNameSpace & ".EIMailOut.STRAIRSYEAR = '" & airsYear & "' "
                 MsgBox("your info is updated")
             Else
 
-                SQL = "Insert into " & connNameSpace & ".EIMailOut" & _
-                "(" & connNameSpace & ".EIMailOut.STRAIRSYEAR, " & _
-              "" & connNameSpace & ".EIMailOut.STRAIRSNUMBER, " & _
-              "" & connNameSpace & ".EIMailOut.STRFACILITYNAME, " & _
-              "" & connNameSpace & ".EIMailOut.STRCONTACTPREFIX, " & _
-              "" & connNameSpace & ".EIMailOut.STRCONTACTFIRSTNAME, " & _
-              "" & connNameSpace & ".EIMailOut.STRCONTACTLASTNAME, " & _
-              "" & connNameSpace & ".EIMailOut.STRCONTACTCOMPANYNAME, " & _
-              "" & connNameSpace & ".EIMailOut.STRCONTACTADDRESS1, " & _
-              "" & connNameSpace & ".EIMailOut.STRCONTACTADDRESS2, " & _
-              "" & connNameSpace & ".EIMailOut.STRCONTACTCITY, " & _
-              "" & connNameSpace & ".EIMailOut.STRCONTACTSTATE, " & _
-              "" & connNameSpace & ".EIMailOut.STRCONTACTZIPCODE, " & _
-              "" & connNameSpace & ".EIMailOut.STRINVENTORYYEAR, " & _
-              "" & connNameSpace & ".EIMailOut.STRCONTACTEMAIL) " & _
+                SQL = "Insert into " & DBNameSpace & ".EIMailOut" & _
+                "(" & DBNameSpace & ".EIMailOut.STRAIRSYEAR, " & _
+              "" & DBNameSpace & ".EIMailOut.STRAIRSNUMBER, " & _
+              "" & DBNameSpace & ".EIMailOut.STRFACILITYNAME, " & _
+              "" & DBNameSpace & ".EIMailOut.STRCONTACTPREFIX, " & _
+              "" & DBNameSpace & ".EIMailOut.STRCONTACTFIRSTNAME, " & _
+              "" & DBNameSpace & ".EIMailOut.STRCONTACTLASTNAME, " & _
+              "" & DBNameSpace & ".EIMailOut.STRCONTACTCOMPANYNAME, " & _
+              "" & DBNameSpace & ".EIMailOut.STRCONTACTADDRESS1, " & _
+              "" & DBNameSpace & ".EIMailOut.STRCONTACTADDRESS2, " & _
+              "" & DBNameSpace & ".EIMailOut.STRCONTACTCITY, " & _
+              "" & DBNameSpace & ".EIMailOut.STRCONTACTSTATE, " & _
+              "" & DBNameSpace & ".EIMailOut.STRCONTACTZIPCODE, " & _
+              "" & DBNameSpace & ".EIMailOut.STRINVENTORYYEAR, " & _
+              "" & DBNameSpace & ".EIMailOut.STRCONTACTEMAIL) " & _
                 "values (" & _
                 "'" & Replace(airsYear, "'", "''") & "', " & _
                 "'" & Replace(AirsNo, "'", "''") & "', " & _
@@ -6291,9 +6291,9 @@ Public Class DMUStaffTools
                 MsgBox("your info is added!")
             End If
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -6322,13 +6322,13 @@ Public Class DMUStaffTools
         Dim EIyear As String = txtEIYear.Text
 
         Try
-            SQL = "delete from " & connNameSpace & ".EIMailOut " & _
-          "where " & connNameSpace & ".EIMailOut.STRAIRSNUMBER = '" & AirsNo & "' " & _
-          " and " & connNameSpace & ".EIMailOut.STRINVENTORYYEAR = '" & EIyear & "'"
+            SQL = "delete from " & DBNameSpace & ".EIMailOut " & _
+          "where " & DBNameSpace & ".EIMailOut.STRAIRSNUMBER = '" & AirsNo & "' " & _
+          " and " & DBNameSpace & ".EIMailOut.STRINVENTORYYEAR = '" & EIyear & "'"
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -6347,26 +6347,26 @@ Public Class DMUStaffTools
             Dim year As String = txtEIYear.Text
             Dim intYear As Integer = Int(year)
 
-            SQL = "SELECT " & connNameSpace & ".EISI.STRAIRSNUMBER, " & _
-            "" & connNameSpace & ".EISI.STRFACILITYNAME, " & _
+            SQL = "SELECT " & DBNameSpace & ".EISI.STRAIRSNUMBER, " & _
+            "" & DBNameSpace & ".EISI.STRFACILITYNAME, " & _
             "case " & _
             "when substr(strFinalize, 2, 1) = '-' then '0'||substr(strFinalize, 1, 10) " & _
             "else substr(strFinalize, 1,11) " & _
             "end Finalize, " & _
-            "" & connNameSpace & ".EISI.STRfinalize, " & _
-            "" & connNameSpace & ".EISI.STRQADONE, " & _
-            "" & connNameSpace & ".EISI.STRCONFIRMATIONNumber " & _
-            "from " & connNameSpace & ".EISI, " & connNameSpace & ".eimailout " & _
-            "where " & connNameSpace & ".EISI.strinventoryyear = '" & intYear & "' " & _
-            "and " & connNameSpace & ".EISI.STROPTOUT = 'NO' " & _
-            "and " & connNameSpace & ".EISI.strfinalize is not NULL " & _
-            "and " & connNameSpace & ".EIMAILOUT.STRAIRSYEAR = " & connNameSpace & ".EISI.STRAIRSYEAR (+)" & _
-            "order by " & connNameSpace & ".eisi.STRFACILITYNAME"
+            "" & DBNameSpace & ".EISI.STRfinalize, " & _
+            "" & DBNameSpace & ".EISI.STRQADONE, " & _
+            "" & DBNameSpace & ".EISI.STRCONFIRMATIONNumber " & _
+            "from " & DBNameSpace & ".EISI, " & DBNameSpace & ".eimailout " & _
+            "where " & DBNameSpace & ".EISI.strinventoryyear = '" & intYear & "' " & _
+            "and " & DBNameSpace & ".EISI.STROPTOUT = 'NO' " & _
+            "and " & DBNameSpace & ".EISI.strfinalize is not NULL " & _
+            "and " & DBNameSpace & ".EIMAILOUT.STRAIRSYEAR = " & DBNameSpace & ".EISI.STRAIRSYEAR (+)" & _
+            "order by " & DBNameSpace & ".eisi.STRFACILITYNAME"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvEIDataCount.DataSource = dsViewCount
@@ -6407,21 +6407,21 @@ Public Class DMUStaffTools
 
             Dim year As String = txtEIYear.Text
 
-            SQL = "SELECT " & connNameSpace & ".EISI.STRAIRSNUMBER, " & _
-            "" & connNameSpace & ".EISI.STRFACILITYNAME, " & _
-            "" & connNameSpace & ".EISI.STRDATELASTLOGIN, " & _
-            "" & connNameSpace & ".EIMailOut.strContactEmail " & _
-            "from " & connNameSpace & ".EISI, " & connNameSpace & ".eimailout " & _
-            "where " & connNameSpace & ".eImailout.STRINVENTORYYEAR = '" & year & "'" & _
-            "and " & connNameSpace & ".EISI.STROPTOUT = 'NO' " & _
-            "and " & connNameSpace & ".EISI.strfinalize is NULL " & _
-            "and " & connNameSpace & ".EIMAILOUT.STRAIRSYEAR (+)= " & connNameSpace & ".EISI.STRAIRSYEAR " & _
-            "order by " & connNameSpace & ".eisi.STRFACILITYNAME"
+            SQL = "SELECT " & DBNameSpace & ".EISI.STRAIRSNUMBER, " & _
+            "" & DBNameSpace & ".EISI.STRFACILITYNAME, " & _
+            "" & DBNameSpace & ".EISI.STRDATELASTLOGIN, " & _
+            "" & DBNameSpace & ".EIMailOut.strContactEmail " & _
+            "from " & DBNameSpace & ".EISI, " & DBNameSpace & ".eimailout " & _
+            "where " & DBNameSpace & ".eImailout.STRINVENTORYYEAR = '" & year & "'" & _
+            "and " & DBNameSpace & ".EISI.STROPTOUT = 'NO' " & _
+            "and " & DBNameSpace & ".EISI.strfinalize is NULL " & _
+            "and " & DBNameSpace & ".EIMAILOUT.STRAIRSYEAR (+)= " & DBNameSpace & ".EISI.STRAIRSYEAR " & _
+            "order by " & DBNameSpace & ".eisi.STRFACILITYNAME"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvEIDataCount.DataSource = dsViewCount
@@ -6470,14 +6470,14 @@ Public Class DMUStaffTools
             "STRCONTACTSTATE, " & _
             "STRCONTACTZIPCODE, " & _
             "STRCONTACTEMAIL " & _
-            "from " & connNameSpace & ".eIMailOut " & _
+            "from " & DBNameSpace & ".eIMailOut " & _
             "where STRINVENTORYYEAR = '" & year & "' " & _
             "order by STRFACILITYNAME"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvEIDataCount.DataSource = dsViewCount
@@ -6600,13 +6600,13 @@ Public Class DMUStaffTools
             cboSmokeSchoolLectures.Items.Clear()
             SQL = "Select " & _
             "strSchedule " & _
-            "from " & connNameSpace & ".SmokeSchoolSchedule " & _
+            "from " & DBNameSpace & ".SmokeSchoolSchedule " & _
             "where strDisplay = 'YES' " & _
             "order by to_date(strStartDate, 'MON-dd-YYYY') desc "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -6890,12 +6890,12 @@ Public Class DMUStaffTools
 
         Try
             SQL = "Select * " & _
-            "FROM " & connNameSpace & ".EISI " & _
+            "FROM " & DBNameSpace & ".EISI " & _
             "where STRINVENTORYYEAR = '" & EIYear & "'"
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             recExist = dr.Read
@@ -6904,12 +6904,12 @@ Public Class DMUStaffTools
                 MsgBox("That year " & EIYear & " is already enrolled.", MsgBoxStyle.Information, "EI Enrollment")
             Else
                 SQL = "Select EImailout.STRAIRSNUMBER, eimailout.STRFACILITYNAME " & _
-                "FROM " & connNameSpace & ".EImailout " & _
+                "FROM " & DBNameSpace & ".EImailout " & _
                 "where EImailout.STRINVENTORYYEAR = '" & EIYear & "'"
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Read()
@@ -6917,7 +6917,7 @@ Public Class DMUStaffTools
                     AirsNo = dr("strAirsNumber")
                     airsYear = AirsNo & EIYear
                     FacilityName = dr("STRFACILITYNAME")
-                    SQL2 = "Insert into " & connNameSpace & ".EISI " & _
+                    SQL2 = "Insert into " & DBNameSpace & ".EISI " & _
                     "(EISI.STRAIRSNUMBER, " & _
                     "EISI.STRFACILITYNAME, " & _
                     "EISI.STRTRANSACTIONDATE, " & _
@@ -6932,9 +6932,9 @@ Public Class DMUStaffTools
                     "'3', " & _
                     "'" & airsYear & "' )"
 
-                    cmd2 = New OracleCommand(SQL2, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd2 = New OracleCommand(SQL2, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr2 = cmd2.ExecuteReader
                     dr2.Close()
@@ -6959,11 +6959,11 @@ Public Class DMUStaffTools
                 intAnswer = MessageBox.Show("Remove the enrollment?", "EI Enrollment", MessageBoxButtons.OKCancel, MessageBoxIcon.Information)
                 Select Case intAnswer
                     Case Windows.Forms.DialogResult.OK
-                        sql = "delete from " & connNameSpace & ".EISI " & _
+                        sql = "delete from " & DBNameSpace & ".EISI " & _
                         "where EISI.STRINVENTORYYEAR = '" & EIYear & "'"
-                        cmd = New OracleCommand(sql, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(sql, DBConn)
+                        If DBConn.State = ConnectionState.Closed Then
+                            DBConn.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Close()
@@ -7001,13 +7001,13 @@ Public Class DMUStaffTools
 
         Try
 
-            SQL = "Select " & connNameSpace & ".EISI.STRINVENTORYYEAR " & _
-          "FROM " & connNameSpace & ".EISI " & _
+            SQL = "Select " & DBNameSpace & ".EISI.STRINVENTORYYEAR " & _
+          "FROM " & DBNameSpace & ".EISI " & _
           "where  EISI.STRINVENTORYYEAR = '" & EIYear & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             recExist = dr.Read
@@ -7016,13 +7016,13 @@ Public Class DMUStaffTools
             If recExist = True Then
 
 
-                SQL = "Select " & connNameSpace & ".APBFACILITYINFORMATION.STRFACILITYNAME " & _
-               "FROM " & connNameSpace & ".APBFACILITYINFORMATION " & _
+                SQL = "Select " & DBNameSpace & ".APBFACILITYINFORMATION.STRFACILITYNAME " & _
+               "FROM " & DBNameSpace & ".APBFACILITYINFORMATION " & _
                "where  APBFACILITYINFORMATION.STRAIRSNUMBER = '" & AirsNo & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -7032,13 +7032,13 @@ Public Class DMUStaffTools
                     facilityName = dr("STRFACILITYNAME")
 
                     SQL = "Select * " & _
-                             "FROM " & connNameSpace & ".EISI " & _
+                             "FROM " & DBNameSpace & ".EISI " & _
                              "where STRINVENTORYYEAR = '" & EIYear & "' " & _
                              " And STRAIRSNUMBER = '" & AirsNo & "' "
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     recExist = dr.Read
@@ -7046,7 +7046,7 @@ Public Class DMUStaffTools
                     If recExist = True Then
                         MsgBox("This facility (" & AirsNo & ") is already enrolled for " & EIYear & ".", MsgBoxStyle.Information, "EI Enrollment")
                     Else
-                        SQL2 = "Insert into " & connNameSpace & ".EISI " & _
+                        SQL2 = "Insert into " & DBNameSpace & ".EISI " & _
                         "(EISI.STRAIRSNUMBER, " & _
                         "EISI.STRFACILITYNAME, " & _
                         "EISI.STRTRANSACTIONDATE, " & _
@@ -7061,9 +7061,9 @@ Public Class DMUStaffTools
                         "'3', " & _
                         "'" & airsYear & "' )"
 
-                        cmd2 = New OracleCommand(SQL2, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd2 = New OracleCommand(SQL2, DBConn)
+                        If DBConn.State = ConnectionState.Closed Then
+                            DBConn.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
@@ -7102,12 +7102,12 @@ Public Class DMUStaffTools
                     "when strOptOut = 'YES' then 'OPTED OUT' " & _
                     "when strOptOut = 'NO' then 'OPTED IN' " & _
                     "End OptOut " & _
-                    "from " & connNameSpace & ".EISI " & _
+                    "from " & DBNameSpace & ".EISI " & _
                     "where strAIRSNumber = '" & AirsNo & "' " & _
                     "and strInventoryYear = '" & EIYear & "' "
-                    cmd = New OracleCommand(sql, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(sql, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     While dr.Read
@@ -7130,13 +7130,13 @@ Public Class DMUStaffTools
 
                     End Select
 
-                    sql = "delete from " & connNameSpace & ".EISI " & _
+                    sql = "delete from " & DBNameSpace & ".EISI " & _
                     "where EISI.STRINVENTORYYEAR = '" & EIYear & "'" & _
                     " And STROPTOUT is null" & _
                     " And STRAIRSNUMBER = '" & AirsNo & "'"
-                    cmd = New OracleCommand(sql, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(sql, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
@@ -7157,28 +7157,28 @@ Public Class DMUStaffTools
             Dim year As String = txtEIYear.Text
 
 
-            SQL = "SELECT dt_NotInMailout.SchemaAIRS, " & connNameSpace & ".EISI.STRAIRSNUMBER, " & _
-            "" & connNameSpace & ".EISI.STRFACILITYNAME, " & _
-            "" & connNameSpace & ".EISI.STRCONTACTFIRSTNAME, " & _
-            "" & connNameSpace & ".EISI.STRCONTACTLASTNAME, " & _
-            "" & connNameSpace & ".EISI.STRCONTACTCOMPANYNAME, " & _
-            "" & connNameSpace & ".EISI.STRCONTACTEMAIL, " & _
-            "" & connNameSpace & ".EISI.STRCONTACTPHONENUMBER1 " & _
-            "from (Select " & connNameSpace & ".EISI.STRAIRSYEAR AS SchemaAIRS, " & _
-            "" & connNameSpace & ".EIMailout.STRAIRSYEAR AS MailoutAIRS" & _
-            " From " & connNameSpace & ".EIMailout, " & connNameSpace & ".EISI" & _
-            " Where " & connNameSpace & ".EIMailout.STRAIRSYEAR (+)= " & connNameSpace & ".EISI.STRAIRSYEAR " & _
-            "AND " & connNameSpace & ".EISI.STRINVENTORYYEAR=  '" & year & "' " & _
-            "AND " & connNameSpace & ".EISI.STROPTOUT IS NOT NULL) " & _
+            SQL = "SELECT dt_NotInMailout.SchemaAIRS, " & DBNameSpace & ".EISI.STRAIRSNUMBER, " & _
+            "" & DBNameSpace & ".EISI.STRFACILITYNAME, " & _
+            "" & DBNameSpace & ".EISI.STRCONTACTFIRSTNAME, " & _
+            "" & DBNameSpace & ".EISI.STRCONTACTLASTNAME, " & _
+            "" & DBNameSpace & ".EISI.STRCONTACTCOMPANYNAME, " & _
+            "" & DBNameSpace & ".EISI.STRCONTACTEMAIL, " & _
+            "" & DBNameSpace & ".EISI.STRCONTACTPHONENUMBER1 " & _
+            "from (Select " & DBNameSpace & ".EISI.STRAIRSYEAR AS SchemaAIRS, " & _
+            "" & DBNameSpace & ".EIMailout.STRAIRSYEAR AS MailoutAIRS" & _
+            " From " & DBNameSpace & ".EIMailout, " & DBNameSpace & ".EISI" & _
+            " Where " & DBNameSpace & ".EIMailout.STRAIRSYEAR (+)= " & DBNameSpace & ".EISI.STRAIRSYEAR " & _
+            "AND " & DBNameSpace & ".EISI.STRINVENTORYYEAR=  '" & year & "' " & _
+            "AND " & DBNameSpace & ".EISI.STROPTOUT IS NOT NULL) " & _
             "dt_NotInMailout, " & _
-            "" & connNameSpace & ".EISI " & _
-            "Where " & connNameSpace & ".EISI.STRAIRSYEAR = SchemaAIRS " & _
+            "" & DBNameSpace & ".EISI " & _
+            "Where " & DBNameSpace & ".EISI.STRAIRSYEAR = SchemaAIRS " & _
             "AND MailoutAIRS is NULL"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvEIDataCount.DataSource = dsViewCount
@@ -7225,17 +7225,17 @@ Public Class DMUStaffTools
             Dim year As String = txtEIYear.Text
 
 
-            SQL = "SELECT " & connNameSpace & ".eiMailOut.STRAIRSNUMBER, " & _
-            "" & connNameSpace & ".eiMailOut.STRFACILITYNAME " & _
-            "from  " & connNameSpace & ".eImailout, " & connNameSpace & ".EISI " & _
-            "where " & connNameSpace & ".eImailout.STRINVENTORYYEAR = '" & year & "' " & _
-            "and " & connNameSpace & ".eImailout.STRAIRSYEAR = " & connNameSpace & ".EISI.STRAIRSYEAR(+) " & _
-            "and " & connNameSpace & ".EISI.STRAIRSYEAR is NULL"
+            SQL = "SELECT " & DBNameSpace & ".eiMailOut.STRAIRSNUMBER, " & _
+            "" & DBNameSpace & ".eiMailOut.STRFACILITYNAME " & _
+            "from  " & DBNameSpace & ".eImailout, " & DBNameSpace & ".EISI " & _
+            "where " & DBNameSpace & ".eImailout.STRINVENTORYYEAR = '" & year & "' " & _
+            "and " & DBNameSpace & ".eImailout.STRAIRSYEAR = " & DBNameSpace & ".EISI.STRAIRSYEAR(+) " & _
+            "and " & DBNameSpace & ".EISI.STRAIRSYEAR is NULL"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvEIDataCount.DataSource = dsViewCount
@@ -7270,26 +7270,26 @@ Public Class DMUStaffTools
             Dim year As String = txtEIYear.Text
 
 
-            SQL = "SELECT " & connNameSpace & ".eiMailOut.STRAIRSNUMBER, " & _
-             "" & connNameSpace & ".eiMailOut.STRFACILITYNAME, " & _
-             "" & connNameSpace & ".eiMailOut.STRCONTACTFIRSTNAME, " & _
-             "" & connNameSpace & ".eiMailOut.STRCONTACTLASTNAME, " & _
-             "" & connNameSpace & ".eiMailOut.STRCONTACTCOMPANYname, " & _
-             "" & connNameSpace & ".eiMailOut.STRCONTACTADDRESS1, " & _
-             "" & connNameSpace & ".eiMailOut.STRCONTACTCITY, " & _
-             "" & connNameSpace & ".eiMailOut.STRCONTACTSTATE, " & _
-             "" & connNameSpace & ".eiMailOut.STRCONTACTZIPCODE, " & _
-              "" & connNameSpace & ".eiMailOut.STRCONTACTEMAIL " & _
-            "from  " & connNameSpace & ".eImailout, " & connNameSpace & ".EISI " & _
-             "where " & connNameSpace & ".eImailout.STRINVENTORYYEAR = '" & year & "' " & _
-             "and " & connNameSpace & ".eImailout.STRAIRSYEAR = " & connNameSpace & ".EISI.STRAIRSYEAR(+) " & _
-             "and " & connNameSpace & ".EISI.strOptOut is NULL"
+            SQL = "SELECT " & DBNameSpace & ".eiMailOut.STRAIRSNUMBER, " & _
+             "" & DBNameSpace & ".eiMailOut.STRFACILITYNAME, " & _
+             "" & DBNameSpace & ".eiMailOut.STRCONTACTFIRSTNAME, " & _
+             "" & DBNameSpace & ".eiMailOut.STRCONTACTLASTNAME, " & _
+             "" & DBNameSpace & ".eiMailOut.STRCONTACTCOMPANYname, " & _
+             "" & DBNameSpace & ".eiMailOut.STRCONTACTADDRESS1, " & _
+             "" & DBNameSpace & ".eiMailOut.STRCONTACTCITY, " & _
+             "" & DBNameSpace & ".eiMailOut.STRCONTACTSTATE, " & _
+             "" & DBNameSpace & ".eiMailOut.STRCONTACTZIPCODE, " & _
+              "" & DBNameSpace & ".eiMailOut.STRCONTACTEMAIL " & _
+            "from  " & DBNameSpace & ".eImailout, " & DBNameSpace & ".EISI " & _
+             "where " & DBNameSpace & ".eImailout.STRINVENTORYYEAR = '" & year & "' " & _
+             "and " & DBNameSpace & ".eImailout.STRAIRSYEAR = " & DBNameSpace & ".EISI.STRAIRSYEAR(+) " & _
+             "and " & DBNameSpace & ".EISI.strOptOut is NULL"
 
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvEIDataCount.DataSource = dsViewCount
@@ -7341,19 +7341,19 @@ Public Class DMUStaffTools
             Dim year As String = txtEIYear.Text
 
 
-            SQL = "SELECT " & connNameSpace & ".EISI.STRAIRSNUMBER, " & _
-            "" & connNameSpace & ".EISI.STRFACILITYNAME " & _
-           "from " & connNameSpace & ".EISI " & _
-                " where  not exists (select * from " & connNameSpace & ".EIMAILOUT " & _
-                " where " & connNameSpace & ".EISI.STRAIRSNUMBER = " & connNameSpace & ".EIMAILOUT.STRAIRSNUMBER" & _
+            SQL = "SELECT " & DBNameSpace & ".EISI.STRAIRSNUMBER, " & _
+            "" & DBNameSpace & ".EISI.STRFACILITYNAME " & _
+           "from " & DBNameSpace & ".EISI " & _
+                " where  not exists (select * from " & DBNameSpace & ".EIMAILOUT " & _
+                " where " & DBNameSpace & ".EISI.STRAIRSNUMBER = " & DBNameSpace & ".EIMAILOUT.STRAIRSNUMBER" & _
                 " and EISI.STRINVENTORYYEAR = EIMAILOUT.STRINVENTORYYEAR) " & _
-                " and " & connNameSpace & ".EISI.STRINVENTORYYEAR = '" & year & "' " & _
-                " and " & connNameSpace & ".EISI.STROPTOUT is null"
+                " and " & DBNameSpace & ".EISI.STRINVENTORYYEAR = '" & year & "' " & _
+                " and " & DBNameSpace & ".EISI.STROPTOUT is null"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvEIDataCount.DataSource = dsViewCount
@@ -7394,16 +7394,16 @@ Public Class DMUStaffTools
                 MsgBox("Please choose a year to view!", MsgBoxStyle.Information, "EI Enrollment")
 
             Else
-                SQL = "SELECT " & connNameSpace & ".EISI.STRAIRSNUMBER, " & _
-        "" & connNameSpace & ".EISI.STRFACILITYNAME, " & _
-        "" & connNameSpace & ".EISI.STRTRANSACTIONDATE " & _
-        "from " & connNameSpace & ".EISI " & _
-        "where " & connNameSpace & ".EISI.STRINVENTORYYEAR = '" & year & "'"
+                SQL = "SELECT " & DBNameSpace & ".EISI.STRAIRSNUMBER, " & _
+        "" & DBNameSpace & ".EISI.STRFACILITYNAME, " & _
+        "" & DBNameSpace & ".EISI.STRTRANSACTIONDATE " & _
+        "from " & DBNameSpace & ".EISI " & _
+        "where " & DBNameSpace & ".EISI.STRINVENTORYYEAR = '" & year & "'"
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                daViewCount = New OracleDataAdapter(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvEIDataCount.DataSource = dsViewCount
@@ -7441,13 +7441,13 @@ Public Class DMUStaffTools
 
         Try
             SQL = "Select * " & _
-            "FROM " & connNameSpace & ".EISI " & _
+            "FROM " & DBNameSpace & ".EISI " & _
             "where STRINVENTORYYEAR = '" & EIYear & "' " & _
             " And STRAIRSNUMBER = '" & AirsNo & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             recExist = dr.Read
@@ -7489,12 +7489,12 @@ Public Class DMUStaffTools
 
         Try
             SQL = "Select * " & _
-            "FROM " & connNameSpace & ".ESSCHEMA " & _
+            "FROM " & DBNameSpace & ".ESSCHEMA " & _
             "where ESSCHEMA.INTESYEAR = '" & ESYear & "'"
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             recExist = dr.Read
@@ -7503,12 +7503,12 @@ Public Class DMUStaffTools
                 MsgBox("That year " & ESYear & " is already enrolled.", MsgBoxStyle.Information, "EI Enrollment")
             Else
                 SQL = "Select ESMAILOUT.STRAIRSNUMBER, ESMAILOUT.STRFACILITYNAME " & _
-                "FROM " & connNameSpace & ".ESMAILOUT " & _
+                "FROM " & DBNameSpace & ".ESMAILOUT " & _
                 "where ESMAILOUT.STRESYEAR = '" & ESYear & "'"
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Read()
@@ -7516,7 +7516,7 @@ Public Class DMUStaffTools
                     AirsNo = dr("strAirsNumber")
                     airsYear = AirsNo & ESYear
                     FacilityName = dr("STRFACILITYNAME")
-                    SQL2 = "Insert into " & connNameSpace & ".ESSCHEMA " & _
+                    SQL2 = "Insert into " & DBNameSpace & ".ESSCHEMA " & _
                     "(ESSCHEMA.STRAIRSNUMBER, " & _
                     "ESSCHEMA.STRFACILITYNAME, " & _
                     "ESSCHEMA.DATTRANSACTION, " & _
@@ -7531,9 +7531,9 @@ Public Class DMUStaffTools
                     "'3', " & _
                     "'" & airsYear & "' )"
 
-                    cmd2 = New OracleCommand(SQL2, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd2 = New OracleCommand(SQL2, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr2 = cmd2.ExecuteReader
                     dr2.Close()
@@ -7557,11 +7557,11 @@ Public Class DMUStaffTools
                 intAnswer = MessageBox.Show("Remove the enrollment?", "ES Enrollment", MessageBoxButtons.OKCancel, MessageBoxIcon.Information)
                 Select Case intAnswer
                     Case Windows.Forms.DialogResult.OK
-                        sql = "delete from " & connNameSpace & ".ESSCHEMA " & _
+                        sql = "delete from " & DBNameSpace & ".ESSCHEMA " & _
                         "where ESSCHEMA.INTESYEAR = '" & ESYear & "'"
-                        cmd = New OracleCommand(sql, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(sql, DBConn)
+                        If DBConn.State = ConnectionState.Closed Then
+                            DBConn.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Close()
@@ -7599,13 +7599,13 @@ Public Class DMUStaffTools
 
         Try
 
-            SQL = "Select " & connNameSpace & ".ESSCHEMA.INTESYEAR " & _
-          "FROM " & connNameSpace & ".ESSCHEMA " & _
+            SQL = "Select " & DBNameSpace & ".ESSCHEMA.INTESYEAR " & _
+          "FROM " & DBNameSpace & ".ESSCHEMA " & _
           "where  ESSCHEMA.INTESYEAR = '" & ESYear & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             recExist = dr.Read
@@ -7614,13 +7614,13 @@ Public Class DMUStaffTools
             If recExist = True Then
 
 
-                SQL = "Select " & connNameSpace & ".APBFACILITYINFORMATION.STRFACILITYNAME " & _
-               "FROM " & connNameSpace & ".APBFACILITYINFORMATION " & _
+                SQL = "Select " & DBNameSpace & ".APBFACILITYINFORMATION.STRFACILITYNAME " & _
+               "FROM " & DBNameSpace & ".APBFACILITYINFORMATION " & _
                "where  APBFACILITYINFORMATION.STRAIRSNUMBER = '" & AirsNo & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -7630,13 +7630,13 @@ Public Class DMUStaffTools
                     facilityName = dr("STRFACILITYNAME")
 
                     SQL = "Select * " & _
-                             "FROM " & connNameSpace & ".ESSCHEMA " & _
+                             "FROM " & DBNameSpace & ".ESSCHEMA " & _
                              "where ESSCHEMA.INTESYEAR = '" & ESYear & "' " & _
                              " And ESSCHEMA.STRAIRSNUMBER = '" & AirsNo & "' "
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     recExist = dr.Read
@@ -7644,7 +7644,7 @@ Public Class DMUStaffTools
                     If recExist = True Then
                         MsgBox("This facility (" & AirsNo & ") is already enrolled for " & ESYear & ".", MsgBoxStyle.Information, "ES Enrollment")
                     Else
-                        SQL2 = "Insert into " & connNameSpace & ".ESSCHEMA " & _
+                        SQL2 = "Insert into " & DBNameSpace & ".ESSCHEMA " & _
                         "(ESSCHEMA.STRAIRSNUMBER, " & _
                         "ESSCHEMA.STRFACILITYNAME, " & _
                         "ESSCHEMA.DATTRANSACTION, " & _
@@ -7659,9 +7659,9 @@ Public Class DMUStaffTools
                         "'3', " & _
                         "'" & airsYear & "' )"
 
-                        cmd2 = New OracleCommand(SQL2, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd2 = New OracleCommand(SQL2, DBConn)
+                        If DBConn.State = ConnectionState.Closed Then
+                            DBConn.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
@@ -7694,12 +7694,12 @@ Public Class DMUStaffTools
             intAnswer = MessageBox.Show("Remove this facility (" & AirsNo & ") for " & ESYear & "?", "ES Enrollment", MessageBoxButtons.OKCancel, MessageBoxIcon.Information)
             Select Case intAnswer
                 Case Windows.Forms.DialogResult.OK
-                    sql = "delete from " & connNameSpace & ".ESSCHEMA " & _
+                    sql = "delete from " & DBNameSpace & ".ESSCHEMA " & _
                     "where ESSCHEMA.INTESYEAR = '" & ESYear & "'" & _
                     " And ESSCHEMA.STRAIRSNUMBER = '" & AirsNo & "'"
-                    cmd = New OracleCommand(sql, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(sql, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
@@ -7721,13 +7721,13 @@ Public Class DMUStaffTools
 
         Try
             SQL = "Select strAIRSYear as RowCount " & _
-            "FROM " & connNameSpace & ".ESSCHEMA " & _
-            "where " & connNameSpace & ".ESSCHEMA.INTESYEAR = '" & ESYear & "' " & _
-            " And " & connNameSpace & ".ESSCHEMA.STRAIRSNUMBER = '" & AirsNo & "' "
+            "FROM " & DBNameSpace & ".ESSCHEMA " & _
+            "where " & DBNameSpace & ".ESSCHEMA.INTESYEAR = '" & ESYear & "' " & _
+            " And " & DBNameSpace & ".ESSCHEMA.STRAIRSNUMBER = '" & AirsNo & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
 
@@ -7755,16 +7755,16 @@ Public Class DMUStaffTools
                 MsgBox("Please choose a year to view!", MsgBoxStyle.Information, "ES Enrollment")
 
             Else
-                SQL = "SELECT " & connNameSpace & ".ESSCHEMA.STRAIRSNUMBER, " & _
-        "" & connNameSpace & ".ESSCHEMA.STRFACILITYNAME, " & _
-        "" & connNameSpace & ".ESSCHEMA.DATTRANSACTION " & _
-        "from " & connNameSpace & ".ESSCHEMA " & _
-        "where " & connNameSpace & ".ESSCHEMA.INTESYEAR = '" & year & "'"
+                SQL = "SELECT " & DBNameSpace & ".ESSCHEMA.STRAIRSNUMBER, " & _
+        "" & DBNameSpace & ".ESSCHEMA.STRFACILITYNAME, " & _
+        "" & DBNameSpace & ".ESSCHEMA.DATTRANSACTION " & _
+        "from " & DBNameSpace & ".ESSCHEMA " & _
+        "where " & DBNameSpace & ".ESSCHEMA.INTESYEAR = '" & year & "'"
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                daViewCount = New OracleDataAdapter(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvESDataCount.DataSource = dsViewCount
@@ -7803,28 +7803,28 @@ Public Class DMUStaffTools
             Dim year As String = txtESYear.Text
             Dim intyear As Integer = Int(year)
 
-            SQL = "SELECT " & connNameSpace & ".esSchema.STRAIRSNUMBER, " & _
-            "" & connNameSpace & ".esSchema.STRFACILITYNAME, " & _
-            "" & connNameSpace & ".esSchema.STRCONTACTFIRSTNAME, " & _
-            "" & connNameSpace & ".esSchema.STRCONTACTLASTNAME, " & _
-            "" & connNameSpace & ".esSchema.STRCONTACTCOMPANY, " & _
-            "" & connNameSpace & ".esSchema.STRCONTACTEMAIL, " & _
-            "" & connNameSpace & ".esSchema.STRCONTACTPHONENUMBER " & _
-            "from (Select " & connNameSpace & ".ESSCHEMA.STRAIRSNUMBER AS SchemaAIRS, " & _
-            "" & connNameSpace & ".ESMAILOUT.STRAIRSNUMBER AS MailoutAIRS" & _
-            " From " & connNameSpace & ".ESMailout, " & connNameSpace & ".ESSCHEMA" & _
-            " Where " & connNameSpace & ".ESMAILOUT.STRAIRSYEAR (+)= " & connNameSpace & ".ESSCHEMA.STRAIRSYEAR " & _
+            SQL = "SELECT " & DBNameSpace & ".esSchema.STRAIRSNUMBER, " & _
+            "" & DBNameSpace & ".esSchema.STRFACILITYNAME, " & _
+            "" & DBNameSpace & ".esSchema.STRCONTACTFIRSTNAME, " & _
+            "" & DBNameSpace & ".esSchema.STRCONTACTLASTNAME, " & _
+            "" & DBNameSpace & ".esSchema.STRCONTACTCOMPANY, " & _
+            "" & DBNameSpace & ".esSchema.STRCONTACTEMAIL, " & _
+            "" & DBNameSpace & ".esSchema.STRCONTACTPHONENUMBER " & _
+            "from (Select " & DBNameSpace & ".ESSCHEMA.STRAIRSNUMBER AS SchemaAIRS, " & _
+            "" & DBNameSpace & ".ESMAILOUT.STRAIRSNUMBER AS MailoutAIRS" & _
+            " From " & DBNameSpace & ".ESMailout, " & DBNameSpace & ".ESSCHEMA" & _
+            " Where " & DBNameSpace & ".ESMAILOUT.STRAIRSYEAR (+)= " & DBNameSpace & ".ESSCHEMA.STRAIRSYEAR " & _
             "AND ESSCHEMA.INTESYEAR=  '" & intyear & "' " & _
-            "AND " & connNameSpace & ".ESSCHEMA.STROPTOUT IS NOT NULL) " & _
+            "AND " & DBNameSpace & ".ESSCHEMA.STROPTOUT IS NOT NULL) " & _
             "dt_NotInMailout, " & _
-            "" & connNameSpace & ".ESSCHEMA " & _
-            "Where " & connNameSpace & ".ESSCHEMA.STRAIRSNUMBER = SchemaAIRS " & _
+            "" & DBNameSpace & ".ESSCHEMA " & _
+            "Where " & DBNameSpace & ".ESSCHEMA.STRAIRSNUMBER = SchemaAIRS " & _
             "AND MailoutAIRS is NULL"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvESDataCount.DataSource = dsViewCount
@@ -7872,18 +7872,18 @@ Public Class DMUStaffTools
             Dim year As String = txtESYear.Text
             Dim intYear As Integer = Int(year)
 
-            SQL = "SELECT " & connNameSpace & ".ESMAILOUT.STRAIRSNUMBER, " & _
-            "" & connNameSpace & ".ESMAILOUT.STRFACILITYNAME " & _
-            "from " & connNameSpace & ".esSchema, " & connNameSpace & ".esmailout " & _
-            "where " & connNameSpace & ".esMailOut.strESyear = '" & intYear & "' " & _
-            "and " & connNameSpace & ".esSchema.STRAIRSYEAR is null " & _
-            "and " & connNameSpace & ".ESMAILOUT.STRAIRSYEAR = " & connNameSpace & ".ESSCHEMA.STRAIRSYEAR(+) " & _
-            "order by " & connNameSpace & ".ESMAILOUT.STRFACILITYNAME"
+            SQL = "SELECT " & DBNameSpace & ".ESMAILOUT.STRAIRSNUMBER, " & _
+            "" & DBNameSpace & ".ESMAILOUT.STRFACILITYNAME " & _
+            "from " & DBNameSpace & ".esSchema, " & DBNameSpace & ".esmailout " & _
+            "where " & DBNameSpace & ".esMailOut.strESyear = '" & intYear & "' " & _
+            "and " & DBNameSpace & ".esSchema.STRAIRSYEAR is null " & _
+            "and " & DBNameSpace & ".ESMAILOUT.STRAIRSYEAR = " & DBNameSpace & ".ESSCHEMA.STRAIRSYEAR(+) " & _
+            "order by " & DBNameSpace & ".ESMAILOUT.STRFACILITYNAME"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvESDataCount.DataSource = dsViewCount
@@ -7917,26 +7917,26 @@ Public Class DMUStaffTools
             Dim year As String = txtESYear.Text
             Dim intYear As Integer = Int(year)
 
-            SQL = "SELECT " & connNameSpace & ".esMailOut.STRAIRSNUMBER, " & _
-             "" & connNameSpace & ".esMailOut.STRFACILITYNAME, " & _
-             "" & connNameSpace & ".esMailOut.STRCONTACTFIRSTNAME, " & _
-             "" & connNameSpace & ".esMailOut.STRCONTACTLASTNAME, " & _
-             "" & connNameSpace & ".esMailOut.STRCONTACTCOMPANYname, " & _
-             "" & connNameSpace & ".esMailOut.STRCONTACTADDRESS1, " & _
-             "" & connNameSpace & ".esMailOut.STRCONTACTCITY, " & _
-             "" & connNameSpace & ".esMailOut.STRCONTACTSTATE, " & _
-             "" & connNameSpace & ".esMailOut.STRCONTACTZIPCODE, " & _
-             "" & connNameSpace & ".esMailOut.STRCONTACTEMAIL " & _
-            "from  " & connNameSpace & ".esmailout, " & connNameSpace & ".ESSchema " & _
-            "where " & connNameSpace & ".esmailout.strESYEAR = '" & intYear & "' " & _
-            "and " & connNameSpace & ".esmailout.STRAIRSYEAR = " & connNameSpace & ".ESSchema.STRAIRSYEAR(+) " & _
-            "and " & connNameSpace & ".ESSchema.strOptOut is NULL " & _
-            "order by " & connNameSpace & ".esSchema.STRFACILITYNAME"
+            SQL = "SELECT " & DBNameSpace & ".esMailOut.STRAIRSNUMBER, " & _
+             "" & DBNameSpace & ".esMailOut.STRFACILITYNAME, " & _
+             "" & DBNameSpace & ".esMailOut.STRCONTACTFIRSTNAME, " & _
+             "" & DBNameSpace & ".esMailOut.STRCONTACTLASTNAME, " & _
+             "" & DBNameSpace & ".esMailOut.STRCONTACTCOMPANYname, " & _
+             "" & DBNameSpace & ".esMailOut.STRCONTACTADDRESS1, " & _
+             "" & DBNameSpace & ".esMailOut.STRCONTACTCITY, " & _
+             "" & DBNameSpace & ".esMailOut.STRCONTACTSTATE, " & _
+             "" & DBNameSpace & ".esMailOut.STRCONTACTZIPCODE, " & _
+             "" & DBNameSpace & ".esMailOut.STRCONTACTEMAIL " & _
+            "from  " & DBNameSpace & ".esmailout, " & DBNameSpace & ".ESSchema " & _
+            "where " & DBNameSpace & ".esmailout.strESYEAR = '" & intYear & "' " & _
+            "and " & DBNameSpace & ".esmailout.STRAIRSYEAR = " & DBNameSpace & ".ESSchema.STRAIRSYEAR(+) " & _
+            "and " & DBNameSpace & ".ESSchema.strOptOut is NULL " & _
+            "order by " & DBNameSpace & ".esSchema.STRFACILITYNAME"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvESDataCount.DataSource = dsViewCount
@@ -7986,21 +7986,21 @@ Public Class DMUStaffTools
             Dim year As String = txtESYear.Text
             Dim intYear As Integer = Int(year)
 
-            SQL = "SELECT " & connNameSpace & ".esSchema.STRAIRSNUMBER, " & _
-                "" & connNameSpace & ".esSchema.STRFACILITYNAME " & _
-                "from " & connNameSpace & ".ESSchema " & _
-                " where  not exists (select * from " & connNameSpace & ".ESMAILOUT " & _
-                " where " & connNameSpace & ".ESSchema.STRAIRSNUMBER = " & connNameSpace & ".ESMAILOUT.STRAIRSNUMBER" & _
+            SQL = "SELECT " & DBNameSpace & ".esSchema.STRAIRSNUMBER, " & _
+                "" & DBNameSpace & ".esSchema.STRFACILITYNAME " & _
+                "from " & DBNameSpace & ".ESSchema " & _
+                " where  not exists (select * from " & DBNameSpace & ".ESMAILOUT " & _
+                " where " & DBNameSpace & ".ESSchema.STRAIRSNUMBER = " & DBNameSpace & ".ESMAILOUT.STRAIRSNUMBER" & _
                 " and ESSchema.INTESYEAR = ESMAILOUT.strESYEAR) " & _
-                " and " & connNameSpace & ".ESSchema.INTESYEAR = '" & intYear & "' " & _
-                " and " & connNameSpace & ".ESSchema.STROPTOUT is null   " & _
-                "order by " & connNameSpace & ".esSchema.STRFACILITYNAME"
+                " and " & DBNameSpace & ".ESSchema.INTESYEAR = '" & intYear & "' " & _
+                " and " & DBNameSpace & ".ESSchema.STROPTOUT is null   " & _
+                "order by " & DBNameSpace & ".esSchema.STRFACILITYNAME"
 
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvESDataCount.DataSource = dsViewCount
@@ -8033,12 +8033,12 @@ Public Class DMUStaffTools
             Dim EItype As String = cboEItype.SelectedItem
             Dim EItypeYear As String = lblEITypeYear.Text
 
-            SQL = "SELECT " & connNameSpace & ".EITHRESHOLDYEARS.STREITYPE " & _
-                   "from  " & connNameSpace & ".EITHRESHOLDYEARS  " & _
-          "where " & connNameSpace & ".EITHRESHOLDYEARS.STRYEAR = '" & EItypeYear & "' "
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            SQL = "SELECT " & DBNameSpace & ".EITHRESHOLDYEARS.STREITYPE " & _
+                   "from  " & DBNameSpace & ".EITHRESHOLDYEARS  " & _
+          "where " & DBNameSpace & ".EITHRESHOLDYEARS.STRYEAR = '" & EItypeYear & "' "
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -8049,17 +8049,17 @@ Public Class DMUStaffTools
                 End If
                 EItype = cboEItype.SelectedItem
             End While
-            SQL = "SELECT " & connNameSpace & ".EITHRESHOLDS.STRPOLLUTANT, " & _
-            "" & connNameSpace & ".EITHRESHOLDS.NUMTHRESHOLD, " & _
-                "" & connNameSpace & ".EITHRESHOLDS.NUMTHRESHOLDNAA " & _
-            "from  " & connNameSpace & ".EITHRESHOLDS  " & _
-            "where " & connNameSpace & ".EITHRESHOLDS.STRTYPE = '" & EItype & "' " & _
-             " order by " & connNameSpace & ".EITHRESHOLDS.STRPOLLUTANT"
+            SQL = "SELECT " & DBNameSpace & ".EITHRESHOLDS.STRPOLLUTANT, " & _
+            "" & DBNameSpace & ".EITHRESHOLDS.NUMTHRESHOLD, " & _
+                "" & DBNameSpace & ".EITHRESHOLDS.NUMTHRESHOLDNAA " & _
+            "from  " & DBNameSpace & ".EITHRESHOLDS  " & _
+            "where " & DBNameSpace & ".EITHRESHOLDS.STRTYPE = '" & EItype & "' " & _
+             " order by " & DBNameSpace & ".EITHRESHOLDS.STRPOLLUTANT"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvEIThreshold.DataSource = dsViewCount
@@ -8101,25 +8101,25 @@ Public Class DMUStaffTools
 
         Try
 
-            SQL = "Select " & connNameSpace & ".EITHRESHOLDYEARS.STRYEAR " & _
-          "FROM " & connNameSpace & ".EITHRESHOLDYEARS " & _
+            SQL = "Select " & DBNameSpace & ".EITHRESHOLDYEARS.STRYEAR " & _
+          "FROM " & DBNameSpace & ".EITHRESHOLDYEARS " & _
           "where  EITHRESHOLDYEARS.STRYEAR = '" & EItypeYear & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             recExist = dr.Read
 
             If recExist = True Then
-                SQL = "Update " & connNameSpace & ".EITHRESHOLDYEARS set " & _
+                SQL = "Update " & DBNameSpace & ".EITHRESHOLDYEARS set " & _
                 "STREITYPE = '" & EItype & "' " & _
-                "where " & connNameSpace & ".EITHRESHOLDYEARS.STRYEAR = '" & EItypeYear & "' "
+                "where " & DBNameSpace & ".EITHRESHOLDYEARS.STRYEAR = '" & EItypeYear & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -8127,7 +8127,7 @@ Public Class DMUStaffTools
 
             Else
 
-                SQL = "Insert into " & connNameSpace & ".EITHRESHOLDYEARS " & _
+                SQL = "Insert into " & DBNameSpace & ".EITHRESHOLDYEARS " & _
                  "(STRYEAR, STREITYPE ) " & _
                  "values " & _
                  "('" & EItypeYear & "', '" & EItype & "') "
@@ -8151,13 +8151,13 @@ Public Class DMUStaffTools
             If txtNewEIType.Text = "" Then
                 MsgBox("Please enter new EI type!", MsgBoxStyle.Information, "EI Tools")
             Else
-                SQL = "Select " & connNameSpace & ".EITHRESHOLDS.STRTYPE " & _
-                                " FROM " & connNameSpace & ".EITHRESHOLDS " & _
-                                "where   " & connNameSpace & ".EITHRESHOLDS.STRTYPE = '" & Replace(EItype2, "'", "''") & "' "
+                SQL = "Select " & DBNameSpace & ".EITHRESHOLDS.STRTYPE " & _
+                                " FROM " & DBNameSpace & ".EITHRESHOLDS " & _
+                                "where   " & DBNameSpace & ".EITHRESHOLDS.STRTYPE = '" & Replace(EItype2, "'", "''") & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -8166,12 +8166,12 @@ Public Class DMUStaffTools
                 If recExist = True Then
                     MsgBox("EI type already exist. Please enter new type! ", MsgBoxStyle.Information, "EI Tools")
                 Else
-                    SQL = "Select distinct(" & connNameSpace & ".EITHRESHOLDS.STRPOLLUTANT) as Pollutant " & _
-                   " FROM " & connNameSpace & ".EITHRESHOLDS "
+                    SQL = "Select distinct(" & DBNameSpace & ".EITHRESHOLDS.STRPOLLUTANT) as Pollutant " & _
+                   " FROM " & DBNameSpace & ".EITHRESHOLDS "
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
 
                     dr = cmd.ExecuteReader
@@ -8188,9 +8188,9 @@ Public Class DMUStaffTools
                                 "('" & Replace(temp, "'", "''") & "', " & _
                                 "'', '', '" & Replace(EItype2, "'", "''") & "', " & _
                                 "(Select max(PollutantID) + 1 from AIRBranch.EIThresholds) ) "
-                            cmd2 = New OracleCommand(SQL, conn)
-                            If conn.State = ConnectionState.Closed Then
-                                conn.Open()
+                            cmd2 = New OracleCommand(SQL, DBConn)
+                            If DBConn.State = ConnectionState.Closed Then
+                                DBConn.Open()
                             End If
                             dr2 = cmd2.ExecuteReader
                             dr2.Close()
@@ -8210,13 +8210,13 @@ Public Class DMUStaffTools
 
 
                 SQL = "Select * " & _
-                    " FROM " & connNameSpace & ".EITHRESHOLDS " & _
-                    "where   " & connNameSpace & ".EITHRESHOLDS.STRTYPE = '" & Replace(EItype2, "'", "''") & "' "
+                    " FROM " & DBNameSpace & ".EITHRESHOLDS " & _
+                    "where   " & DBNameSpace & ".EITHRESHOLDS.STRTYPE = '" & Replace(EItype2, "'", "''") & "' "
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                daViewCount = New OracleDataAdapter(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 cmdBuild = New OracleCommandBuilder(daViewCount)
 
@@ -8256,11 +8256,11 @@ Public Class DMUStaffTools
     Private Sub btnSaveEIThresholds_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSaveEIThresholds.Click
         Try
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daViewCount.Update(dsViewCount, "ViewCount")
-            conn.Close()
+            DBConn.Close()
 
             MessageBox.Show("The Update has Completed!", "EI Tool")
 
@@ -8275,14 +8275,14 @@ Public Class DMUStaffTools
             Dim EItype2 As String = cboEIType2.SelectedItem
 
             SQL = "Select * " & _
-                " FROM " & connNameSpace & ".EITHRESHOLDS " & _
-                "where   " & connNameSpace & ".EITHRESHOLDS.STRTYPE = '" & Replace(EItype2, "'", "''") & "' "
+                " FROM " & DBNameSpace & ".EITHRESHOLDS " & _
+                "where   " & DBNameSpace & ".EITHRESHOLDS.STRTYPE = '" & Replace(EItype2, "'", "''") & "' "
 
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             cmdBuild = New OracleCommandBuilder(daViewCount)
 
@@ -8365,13 +8365,13 @@ Public Class DMUStaffTools
 
         Try
             'Checks to see if AIRS No. is in IAIP
-            SQL = "Select " & connNameSpace & ".APBFACILITYINFORMATION.STRFACILITYNAME " & _
-                           "FROM " & connNameSpace & ".APBFACILITYINFORMATION " & _
+            SQL = "Select " & DBNameSpace & ".APBFACILITYINFORMATION.STRFACILITYNAME " & _
+                           "FROM " & DBNameSpace & ".APBFACILITYINFORMATION " & _
                            "where  APBFACILITYINFORMATION.STRAIRSNUMBER = '" & airsno & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             recExist = dr.Read
@@ -8379,12 +8379,12 @@ Public Class DMUStaffTools
             If recExist = True Then
 
                 SQL = "Select * " & _
-                           "FROM " & connNameSpace & ".APBFACILITYINFORMATION " & _
+                           "FROM " & DBNameSpace & ".APBFACILITYINFORMATION " & _
                            "where  APBFACILITYINFORMATION.STRAIRSNUMBER = '" & airsno & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Read()
@@ -8406,26 +8406,26 @@ Public Class DMUStaffTools
 
 
                 'Check to see if AirsNo is in EIS Admin - previous FI submittal
-                SQL = "Select " & connNameSpace & ".EIS_Admin.FACILITYSITEID " & _
-                      "FROM " & connNameSpace & ".EIS_Admin " & _
+                SQL = "Select " & DBNameSpace & ".EIS_Admin.FACILITYSITEID " & _
+                      "FROM " & DBNameSpace & ".EIS_Admin " & _
                       "where  EIS_Admin.FACILITYSITEID = '" & facilitySiteID & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = True Then
                     'Check to see if AIRS No is enrolled for the year by checking strenrollment =1
                     SQL = "Select FACILITYSITEID, strenrollment " & _
-                            "FROM " & connNameSpace & ".EIS_Admin " & _
+                            "FROM " & DBNameSpace & ".EIS_Admin " & _
                             "where INVENTORYYEAR = '" & EISYear & "' " & _
                             " And FACILITYSITEID = '" & facilitySiteID & "' "
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     recExist = dr.Read
@@ -8437,7 +8437,7 @@ Public Class DMUStaffTools
                                 MsgBox("This facility (" & facilitySiteID & ") is already enrolled for " & EISYear & ".", MsgBoxStyle.Information, "EIS Enrollment")
                             Case 0
                                 'update enrollment =1 and then msgbox
-                                SQL = "Update " & connNameSpace & ".EIS_ADMIN set " & _
+                                SQL = "Update " & DBNameSpace & ".EIS_ADMIN set " & _
                                       "INVENTORYYEAR = '" & EISYear & "', " & _
                                       "FACILITYSITEID = '" & facilitySiteID & "', " & _
                                       "STRENROLLMENT = '1', " & _
@@ -8449,9 +8449,9 @@ Public Class DMUStaffTools
                                       "where FACILITYSITEID = '" & facilitySiteID & "' " & _
                                       " And INVENTORYYEAR = '" & EISYear & "' "
 
-                                cmd = New OracleCommand(SQL, conn)
-                                If conn.State = ConnectionState.Closed Then
-                                    conn.Open()
+                                cmd = New OracleCommand(SQL, DBConn)
+                                If DBConn.State = ConnectionState.Closed Then
+                                    DBConn.Open()
                                 End If
                                 dr = cmd.ExecuteReader
                                 dr.Close()
@@ -8460,7 +8460,7 @@ Public Class DMUStaffTools
 
                     Else
                         ' insert into EIS_admin table with EISaccesscode=1, EISStatus=1, Enrollment=1 and strmailout=1
-                        SQL2 = "Insert into " & connNameSpace & ".EIS_Admin " & _
+                        SQL2 = "Insert into " & DBNameSpace & ".EIS_Admin " & _
                         "(EIS_Admin.INVENTORYYEAR, " & _
                         "EIS_Admin.FACILITYSITEID, " & _
                         "EIS_Admin.UPDATEDATETIME, " & _
@@ -8483,9 +8483,9 @@ Public Class DMUStaffTools
                         "'1', " & _
                         "'" & OracleDate & "' )"
 
-                        cmd2 = New OracleCommand(SQL2, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd2 = New OracleCommand(SQL2, DBConn)
+                        If DBConn.State = ConnectionState.Closed Then
+                            DBConn.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
@@ -8495,7 +8495,7 @@ Public Class DMUStaffTools
                 Else
                     ' Inserts facility into the FI components - 5 tables
                     ' insert into EIS_FacilitySite table
-                    SQL2 = "Insert into " & connNameSpace & ".EIS_FACILITYSITE " & _
+                    SQL2 = "Insert into " & DBNameSpace & ".EIS_FACILITYSITE " & _
                    "(EIS_FACILITYSITE.FACILITYSITEID, " & _
                    "EIS_FACILITYSITE.STRFACILITYSITENAME, " & _
                    "EIS_FACILITYSITE.STRFACILITYSITESTATUSCODE, " & _
@@ -8511,16 +8511,16 @@ Public Class DMUStaffTools
                    "'" & Replace(UpdateUser, "'", "''") & "', " & _
                    "'1', " & _
                    "'" & OracleDate & "' )"
-                    cmd2 = New OracleCommand(SQL2, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd2 = New OracleCommand(SQL2, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr2 = cmd2.ExecuteReader
                     dr2.Close()
 
                     ' insert into EIS_admin table
                     'EISACCESSCODE needs to be changed to 1 once the EI components are in place - BCG
-                    SQL2 = "Insert into " & connNameSpace & ".EIS_Admin " & _
+                    SQL2 = "Insert into " & DBNameSpace & ".EIS_Admin " & _
                     "(EIS_Admin.INVENTORYYEAR, " & _
                     "EIS_Admin.FACILITYSITEID, " & _
                     "EIS_Admin.EISSTATUSCODE, " & _
@@ -8541,15 +8541,15 @@ Public Class DMUStaffTools
                     "'1', " & _
                     "'" & OracleDate & "' )"
 
-                    cmd2 = New OracleCommand(SQL2, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd2 = New OracleCommand(SQL2, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr2 = cmd2.ExecuteReader
                     dr2.Close()
 
                     'insert into EIS_FacilitySiteAddress table
-                    SQL2 = "Insert into " & connNameSpace & ".EIS_FACILITYSITEADDRESS " & _
+                    SQL2 = "Insert into " & DBNameSpace & ".EIS_FACILITYSITEADDRESS " & _
                   "(EIS_FACILITYSITEADDRESS.FACILITYSITEID, " & _
                   "EIS_FACILITYSITEADDRESS.STRMAILINGADDRESSTEXT, " & _
                   "EIS_FACILITYSITEADDRESS.STRMAILINGADDRESSCITYNAME, " & _
@@ -8577,15 +8577,15 @@ Public Class DMUStaffTools
                   "'" & OracleDate & "' )"
 
                  
-                    cmd2 = New OracleCommand(SQL2, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd2 = New OracleCommand(SQL2, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr2 = cmd2.ExecuteReader
                     dr2.Close()
 
                     ' insert into EIS_FacilityIdentification table
-                    SQL2 = "Insert into " & connNameSpace & ".EIS_FACILITYIDENTIFICATION " & _
+                    SQL2 = "Insert into " & DBNameSpace & ".EIS_FACILITYIDENTIFICATION " & _
                   "(EIS_FACILITYIDENTIFICATION.FACILITYSITEID, " & _
                   "EIS_FACILITYIDENTIFICATION.STRSTATEANDCOUNTYFIPSCODE, " & _
                    "EIS_FACILITYIDENTIFICATION.UPDATEDATETIME, " & _
@@ -8600,15 +8600,15 @@ Public Class DMUStaffTools
                   "'1', " & _
                   "'" & OracleDate & "' )"
 
-                    cmd2 = New OracleCommand(SQL2, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd2 = New OracleCommand(SQL2, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr2 = cmd2.ExecuteReader
                     dr2.Close()
 
                     ' insert into EIS_FACILITYGEOCOORD table
-                    SQL2 = "Insert into " & connNameSpace & ".EIS_FACILITYGEOCOORD " & _
+                    SQL2 = "Insert into " & DBNameSpace & ".EIS_FACILITYGEOCOORD " & _
                   "(EIS_FACILITYGEOCOORD.FACILITYSITEID, " & _
                   "EIS_FACILITYGEOCOORD.NUMLATITUDEMEASURE, " & _
                   "EIS_FACILITYGEOCOORD.NUMLONGITUDEMEASURE, " & _
@@ -8631,15 +8631,15 @@ Public Class DMUStaffTools
                   "'1', " & _
                   "'" & OracleDate & "' )"
 
-                    cmd2 = New OracleCommand(SQL2, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd2 = New OracleCommand(SQL2, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr2 = cmd2.ExecuteReader
                     dr2.Close()
 
                     ' insert into EIS_FACILITYSITEAFFINDIV table
-                    SQL2 = "Insert into " & connNameSpace & ".EIS_FACILITYSITEAFFINDIV " & _
+                    SQL2 = "Insert into " & DBNameSpace & ".EIS_FACILITYSITEAFFINDIV " & _
                   "(EIS_FACILITYSITEAFFINDIV.FACILITYSITEID, " & _
                   "EIS_FACILITYSITEAFFINDIV.UPDATEDATETIME, " & _
                   "EIS_FACILITYSITEAFFINDIV.UPDATEUSER, " & _
@@ -8652,9 +8652,9 @@ Public Class DMUStaffTools
                   "'1', " & _
                   "'" & OracleDate & "' )"
 
-                    cmd2 = New OracleCommand(SQL2, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd2 = New OracleCommand(SQL2, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr2 = cmd2.ExecuteReader
                     dr2.Close()
@@ -8684,7 +8684,7 @@ Public Class DMUStaffTools
         Dim sql As String
         Try
 
-            sql = "Update " & connNameSpace & ".EIS_ADMIN set " & _
+            sql = "Update " & DBNameSpace & ".EIS_ADMIN set " & _
              "INVENTORYYEAR = '" & EISYear & "', " & _
              "FACILITYSITEID = '" & FacilitySiteID & "', " & _
              "EISACCESSCODE = '" & EISAccessCode & "', " & _
@@ -8697,9 +8697,9 @@ Public Class DMUStaffTools
              "where FACILITYSITEID = '" & FacilitySiteID & "' " & _
              " And INVENTORYYEAR = '" & EISYear & "' "
 
-            cmd = New OracleCommand(sql, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(sql, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -8723,14 +8723,14 @@ Public Class DMUStaffTools
 
         Try
             SQL = "Select FACILITYSITEID, EISACCESSCODE " & _
-                  "FROM " & connNameSpace & ".EIS_Admin " & _
+                  "FROM " & DBNameSpace & ".EIS_Admin " & _
                   "where INVENTORYYEAR = '" & EISYear & "' " & _
                   " And FACILITYSITEID = '" & FacilitySiteID & "' " & _
                   " And STRENROLLMENT = '" & enrollment & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             recExist = dr.Read
@@ -8757,12 +8757,12 @@ Public Class DMUStaffTools
 
         Try
             SQL = "Select FACILITYSITEID " & _
-                                   "FROM " & connNameSpace & ".EIS_Admin " & _
+                                   "FROM " & DBNameSpace & ".EIS_Admin " & _
                                    "where FACILITYSITEID = '" & FacilitySiteID & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             recExist = dr.Read
@@ -8786,12 +8786,12 @@ Public Class DMUStaffTools
         Dim EIStype As String
         Try
             SQL = "Select distinct EITHRESHOLDS.STRTYPE " & _
-            "from " & connNameSpace & ".EITHRESHOLDS " & _
+            "from " & DBNameSpace & ".EITHRESHOLDS " & _
             "order by STRTYPE desc "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -8814,15 +8814,15 @@ Public Class DMUStaffTools
         Dim year As Integer
         Dim SQL As String
         Try
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
             Else
-                conn.Open()
+                DBConn.Open()
             End If
 
             SQL = "Select distinct INVENTORYYEAR " & _
-                      "from " & connNameSpace & ".EIS_Admin  " & _
+                      "from " & DBNameSpace & ".EIS_Admin  " & _
                       "order by INVENTORYYEAR desc"
-            Dim cmd As New OracleCommand(SQL, conn)
+            Dim cmd As New OracleCommand(SQL, DBConn)
 
             Dim dr As OracleDataReader = cmd.ExecuteReader()
             dr.Read()
@@ -8843,12 +8843,12 @@ Public Class DMUStaffTools
         Dim year As String
         Try
             SQL = "Select distinct strYear " & _
-            "from " & connNameSpace & ".EITHRESHOLDYEARS " & _
+            "from " & DBNameSpace & ".EITHRESHOLDYEARS " & _
             "order by strYear desc "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -8891,12 +8891,12 @@ Public Class DMUStaffTools
 
         Try
             SQL = "Select distinct  EISSTATUSCODE, STRDESC " & _
-            "from " & connNameSpace & ".EISLK_EISSTATUSCODE "
+            "from " & DBNameSpace & ".EISLK_EISSTATUSCODE "
 
             dscode = New DataSet
-            dacode = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            dacode = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             dacode.Fill(dscode, "EISLK_EISSTATUSCODE")
@@ -8929,9 +8929,9 @@ Public Class DMUStaffTools
             "order by strDesc"
 
             dscode = New DataSet
-            daEIcode = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daEIcode = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             daEIcode.Fill(dscode, "EISAccessCode")
@@ -9059,11 +9059,11 @@ Public Class DMUStaffTools
 
         Try
             SQL = "Select distinct EISLK_EISACCESSCODE.EISACCESSCODE,EISLK_EISACCESSCODE.STRDESC " & _
-            "from " & connNameSpace & ".EISLK_EISACCESSCODE "
+            "from " & DBNameSpace & ".EISLK_EISACCESSCODE "
             dscode = New DataSet
-            dacode = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            dacode = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             dacode.Fill(dscode, "EISAccessCodes")
@@ -9136,28 +9136,28 @@ Public Class DMUStaffTools
 
         Try
             SQL = "Select * " & _
-            "FROM " & connNameSpace & ".EIS_ADMIN " & _
+            "FROM " & DBNameSpace & ".EIS_ADMIN " & _
             "where INVENTORYYEAR = '" & EISYear & "'" & _
             " and active ='1' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             recExist = dr.Read
 
             If recExist = True Then
                 SQL = "Select * " & _
-            "FROM " & connNameSpace & ".EIS_ADMIN " & _
+            "FROM " & DBNameSpace & ".EIS_ADMIN " & _
             "where INVENTORYYEAR = '" & EISYear & "'" & _
             " and strenrollment = '1'" & _
             " and active ='1'"
 
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist2 = dr.Read
@@ -9166,25 +9166,25 @@ Public Class DMUStaffTools
                     MsgBox("That year " & EISYear & " is already enrolled.", MsgBoxStyle.Information, "EIS Enrollment")
                 Else
                     SQL = "Select EIS_MAILOUT.FACILITYSITEID, EIS_MAILOUT.STRFACILITYNAME " & _
-               "FROM " & connNameSpace & ".EIS_MAILOUT " & _
+               "FROM " & DBNameSpace & ".EIS_MAILOUT " & _
                "where EIS_MAILOUT.INTINVENTORYYEAR = '" & EISYear & "'" & _
                " and active '1'"
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Read()
                     'Update strenrollment =1, EISstatuscode=1, and active =1 to EIS_admin table
                     SQL = "SELECT FACILITYSITEID " & _
-                                          "from " & connNameSpace & ".EIS_ADMIN " & _
+                                          "from " & DBNameSpace & ".EIS_ADMIN " & _
                                           "where EIS_ADMIN.INVENTORYYEAR = '" & EISYear & "'" & _
                                           " order by FACILITYSITEID " & _
                                           " and active = '1' "
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     enrollment = "1"
@@ -9198,7 +9198,7 @@ Public Class DMUStaffTools
                             facilitySiteID = dr("FACILITYSITEID")
                         End If
 
-                        SQL2 = "Update " & connNameSpace & ".EIS_ADMIN set " & _
+                        SQL2 = "Update " & DBNameSpace & ".EIS_ADMIN set " & _
             "EISACCESSCODE = '" & EISAccessCode & "', " & _
             "EISSTATUSCODE = '" & EISSTATUSCODE & "', " & _
             "STRENROLLMENT = '" & enrollment & "', " & _
@@ -9208,9 +9208,9 @@ Public Class DMUStaffTools
             "UpdateDateTime = '" & OracleDate & "' " & _
             "where FACILITYSITEID = '" & facilitySiteID & "' " & _
             " And INVENTORYYEAR = '" & EISYear & "' "
-                        cmd2 = New OracleCommand(SQL2, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd2 = New OracleCommand(SQL2, DBConn)
+                        If DBConn.State = ConnectionState.Closed Then
+                            DBConn.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
@@ -9247,12 +9247,12 @@ Public Class DMUStaffTools
                 Select Case intAnswer
                     Case Windows.Forms.DialogResult.OK
                         sql = "SELECT FACILITYSITEID " & _
-                       "from " & connNameSpace & ".EIS_ADMIN " & _
+                       "from " & DBNameSpace & ".EIS_ADMIN " & _
                        "where EIS_ADMIN.INVENTORYYEAR = '" & EISYear & "'" & _
                        " order by FACILITYSITEID"
-                        cmd = New OracleCommand(sql, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(sql, DBConn)
+                        If DBConn.State = ConnectionState.Closed Then
+                            DBConn.Open()
                         End If
                         dr = cmd.ExecuteReader
                         While dr.Read
@@ -9262,7 +9262,7 @@ Public Class DMUStaffTools
                                 FacilitySiteID = dr("FACILITYSITEID")
                             End If
                             ' add active 
-                            SQL2 = "Update " & connNameSpace & ".EIS_ADMIN set " & _
+                            SQL2 = "Update " & DBNameSpace & ".EIS_ADMIN set " & _
                 "EISACCESSCODE = '" & EISAccessCode & "', " & _
                 "EISSTATUSCODE = '" & EISSTATUSCODE & "', " & _
                 "STRENROLLMENT = '" & enrollment & "', " & _
@@ -9272,9 +9272,9 @@ Public Class DMUStaffTools
                 "where FACILITYSITEID = '" & FacilitySiteID & "' " & _
                 " And INVENTORYYEAR = '" & EISYear & "' " & _
                 " And Active = '" & active & "' "
-                            cmd2 = New OracleCommand(SQL2, conn)
-                            If conn.State = ConnectionState.Closed Then
-                                conn.Open()
+                            cmd2 = New OracleCommand(SQL2, DBConn)
+                            If DBConn.State = ConnectionState.Closed Then
+                                DBConn.Open()
                             End If
                             dr2 = cmd2.ExecuteReader
                             dr2.Close()
@@ -9338,12 +9338,12 @@ Public Class DMUStaffTools
                 MsgBox("You must select a Mailout Year")
             Else
                 SQL = "Select FacilitySiteID " & _
-                "FROM " & connNameSpace & ".EIS_MAILOUT " & _
+                "FROM " & DBNameSpace & ".EIS_MAILOUT " & _
                 "where INTINVENTORYYEAR = '" & EISYear & "'"
             End If
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             recExist = dr.Read
@@ -9367,13 +9367,13 @@ Public Class DMUStaffTools
                    "STRCONTACTSTATE, " & _
                    "STRCONTACTZIPCODE, " & _
                    "STRCONTACTEMAIL " & _
-                   "from " & connNameSpace & ".VIEW_EIS_Currentmailout " & _
+                   "from " & DBNameSpace & ".VIEW_EIS_Currentmailout " & _
                    "order by STRFACILITYNAME"
 
 
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, DBConn)
+                        If DBConn.State = ConnectionState.Closed Then
+                            DBConn.Open()
                         End If
                         dr = cmd.ExecuteReader
                         While dr.Read
@@ -9438,7 +9438,7 @@ Public Class DMUStaffTools
                                 CONTACTEMAIL = dr("STRCONTACTEMAIL")
                             End If
                             'strmailout=1 in the EIS_admin
-                            SQL2 = "insert into " & connNameSpace & ".EIS_mailOut " & _
+                            SQL2 = "insert into " & DBNameSpace & ".EIS_mailOut " & _
                            "(INTINVENTORYYEAR, " & _
                            "FACILITYSITEID, " & _
                            "STRFACILITYNAME, " & _
@@ -9473,9 +9473,9 @@ Public Class DMUStaffTools
                            "'" & Replace(UpdateUser, "'", "''") & "', " & _
                            "'" & OracleDate & "' )"
 
-                            cmd2 = New OracleCommand(SQL2, conn)
-                            If conn.State = ConnectionState.Closed Then
-                                conn.Open()
+                            cmd2 = New OracleCommand(SQL2, DBConn)
+                            If DBConn.State = ConnectionState.Closed Then
+                                DBConn.Open()
                             End If
                             dr2 = cmd2.ExecuteReader
                             dr2.Close()
@@ -9497,14 +9497,14 @@ Public Class DMUStaffTools
                     "STRCONTACTSTATE, " & _
                     "STRCONTACTZIPCODE, " & _
                     "STRCONTACTEMAIL " & _
-                    "from " & connNameSpace & ".EIS_MailOut " & _
+                    "from " & DBNameSpace & ".EIS_MailOut " & _
                     "where INTINVENTORYYEAR = '" & year & "' " & _
                     "order by STRFACILITYNAME"
 
                     dsViewCount = New DataSet
-                    daViewCount = New OracleDataAdapter(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    daViewCount = New OracleDataAdapter(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     daViewCount.Fill(dsViewCount, "ViewCount")
                     dgvEISDataCount.DataSource = dsViewCount
@@ -9566,16 +9566,16 @@ Public Class DMUStaffTools
                 MsgBox("Please choose a year to view!", MsgBoxStyle.Information, "EIS Enrollment")
 
             Else
-                SQL = "SELECT " & connNameSpace & ".EIS_admin.FACILITYSITEID, " & _
-         "" & connNameSpace & ".EIS_admin.DATENROLLMENT " & _
-        "from " & connNameSpace & ".EIS_admin " & _
-        "where " & connNameSpace & ".EIS_admin.INVENTORYYEAR = '" & year & "' " & _
+                SQL = "SELECT " & DBNameSpace & ".EIS_admin.FACILITYSITEID, " & _
+         "" & DBNameSpace & ".EIS_admin.DATENROLLMENT " & _
+        "from " & DBNameSpace & ".EIS_admin " & _
+        "where " & DBNameSpace & ".EIS_admin.INVENTORYYEAR = '" & year & "' " & _
         "and strenrollment = '1' "
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                daViewCount = New OracleDataAdapter(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvEISDataCount.DataSource = dsViewCount
@@ -9633,14 +9633,14 @@ Public Class DMUStaffTools
                 "STRCONTACTSTATE, " & _
                 "STRCONTACTZIPCODE, " & _
                 "STRCONTACTEMAIL " & _
-                "from " & connNameSpace & ".EIS_MailOut " & _
+                "from " & DBNameSpace & ".EIS_MailOut " & _
                 "where INTINVENTORYYEAR = '" & year & "' " & _
                 "order by STRFACILITYNAME"
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                daViewCount = New OracleDataAdapter(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvEISDataCount.DataSource = dsViewCount
@@ -9753,23 +9753,23 @@ Public Class DMUStaffTools
 
         Try
 
-            SQL = "Select " & connNameSpace & ".EITHRESHOLDYEARS.STRYEAR " & _
-          "FROM " & connNameSpace & ".EITHRESHOLDYEARS " & _
+            SQL = "Select " & DBNameSpace & ".EITHRESHOLDYEARS.STRYEAR " & _
+          "FROM " & DBNameSpace & ".EITHRESHOLDYEARS " & _
           "where  EITHRESHOLDYEARS.STRYEAR = '" & EIStypeYear & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
 
-            SQL = "Update " & connNameSpace & ".EITHRESHOLDYEARS set " & _
+            SQL = "Update " & DBNameSpace & ".EITHRESHOLDYEARS set " & _
             "STREITYPE = '" & EIStype & "' " & _
-            "where " & connNameSpace & ".EITHRESHOLDYEARS.STRYEAR = '" & EIStypeYear & "' "
+            "where " & DBNameSpace & ".EITHRESHOLDYEARS.STRYEAR = '" & EIStypeYear & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -9787,14 +9787,14 @@ Public Class DMUStaffTools
             Dim EIStype2 As String = cboEISType2.SelectedItem
 
             SQL = "Select * " & _
-                " FROM " & connNameSpace & ".EITHRESHOLDS " & _
-                "where   " & connNameSpace & ".EITHRESHOLDS.STRTYPE = '" & Replace(EIStype2, "'", "''") & "' "
+                " FROM " & DBNameSpace & ".EITHRESHOLDS " & _
+                "where   " & DBNameSpace & ".EITHRESHOLDS.STRTYPE = '" & Replace(EIStype2, "'", "''") & "' "
 
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             cmdBuild = New OracleCommandBuilder(daViewCount)
 
@@ -9833,12 +9833,12 @@ Public Class DMUStaffTools
         Dim EIStype As String = cboEISType2.SelectedItem
         Try
             SQL = "Select * " & _
-            "from " & connNameSpace & ".EITHRESHOLDS " & _
+            "from " & DBNameSpace & ".EITHRESHOLDS " & _
             "where EITHRESHOLDS.STRTYPE = '" & EIStype & "'"
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -9888,14 +9888,14 @@ Public Class DMUStaffTools
             Dim EIStype As String = cboEISType.SelectedItem
 
             SQL = "Select * " & _
-                " FROM " & connNameSpace & ".EITHRESHOLDS " & _
-                "where   " & connNameSpace & ".EITHRESHOLDS.STRTYPE = '" & Replace(EIStype, "'", "''") & "' "
+                " FROM " & DBNameSpace & ".EITHRESHOLDS " & _
+                "where   " & DBNameSpace & ".EITHRESHOLDS.STRTYPE = '" & Replace(EIStype, "'", "''") & "' "
 
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             cmdBuild = New OracleCommandBuilder(daViewCount)
 
@@ -9940,13 +9940,13 @@ Public Class DMUStaffTools
             If txtNewEISType.Text = "" Then
                 MsgBox("Please enter new EIS type!", MsgBoxStyle.Information, "EIS Tools")
             Else
-                SQL = "Select " & connNameSpace & ".EITHRESHOLDS.STRTYPE " & _
-                                " FROM " & connNameSpace & ".EITHRESHOLDS " & _
-                                "where   " & connNameSpace & ".EITHRESHOLDS.STRTYPE = '" & Replace(EIStype2, "'", "''") & "' "
+                SQL = "Select " & DBNameSpace & ".EITHRESHOLDS.STRTYPE " & _
+                                " FROM " & DBNameSpace & ".EITHRESHOLDS " & _
+                                "where   " & DBNameSpace & ".EITHRESHOLDS.STRTYPE = '" & Replace(EIStype2, "'", "''") & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -9955,12 +9955,12 @@ Public Class DMUStaffTools
                 If recExist = True Then
                     MsgBox("EIS type already exist. Please enter new type! ", MsgBoxStyle.Information, "EIS Tools")
                 Else
-                    SQL = "Select distinct(" & connNameSpace & ".EITHRESHOLDS.STRPOLLUTANT) as Pollutant " & _
-                   " FROM " & connNameSpace & ".EITHRESHOLDS "
+                    SQL = "Select distinct(" & DBNameSpace & ".EITHRESHOLDS.STRPOLLUTANT) as Pollutant " & _
+                   " FROM " & DBNameSpace & ".EITHRESHOLDS "
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
 
                     dr = cmd.ExecuteReader
@@ -9977,9 +9977,9 @@ Public Class DMUStaffTools
                                 "('" & Replace(temp, "'", "''") & "', " & _
                                 "'', '', '" & Replace(EIStype2, "'", "''") & "', " & _
                                 "(Select max(PollutantID) + 1 from AIRBranch.EIThresholds) ) "
-                            cmd2 = New OracleCommand(SQL, conn)
-                            If conn.State = ConnectionState.Closed Then
-                                conn.Open()
+                            cmd2 = New OracleCommand(SQL, DBConn)
+                            If DBConn.State = ConnectionState.Closed Then
+                                DBConn.Open()
                             End If
                             dr2 = cmd2.ExecuteReader
                             dr2.Close()
@@ -9997,13 +9997,13 @@ Public Class DMUStaffTools
                 End If
 
                 SQL = "Select * " & _
-                    " FROM " & connNameSpace & ".EITHRESHOLDS " & _
-                    "where   " & connNameSpace & ".EITHRESHOLDS.STRTYPE = '" & Replace(EIStype2, "'", "''") & "' "
+                    " FROM " & DBNameSpace & ".EITHRESHOLDS " & _
+                    "where   " & DBNameSpace & ".EITHRESHOLDS.STRTYPE = '" & Replace(EIStype2, "'", "''") & "' "
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                daViewCount = New OracleDataAdapter(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 cmdBuild = New OracleCommandBuilder(daViewCount)
 
@@ -10045,26 +10045,26 @@ Public Class DMUStaffTools
         Try
 
             SQL = "Select * " & _
-                  " FROM " & connNameSpace & ".EIS_ADMIN " & _
-                  "where   " & connNameSpace & ".EIS_ADMIN.FACILITYSITEID = '" & Replace(FacilitySiteID, "'", "''") & "' " & _
+                  " FROM " & DBNameSpace & ".EIS_ADMIN " & _
+                  "where   " & DBNameSpace & ".EIS_ADMIN.FACILITYSITEID = '" & Replace(FacilitySiteID, "'", "''") & "' " & _
                   " and EIS_ADMIN.INVENTORYYEAR = '" & Replace(EISYear, "'", "''") & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             recExist = dr.Read
             dr.Close()
             If recExist = True Then
                 SQL = "Select * " & _
-                 " FROM " & connNameSpace & ".EIS_ADMIN " & _
-                 "where   " & connNameSpace & ".EIS_ADMIN.FACILITYSITEID = '" & Replace(FacilitySiteID, "'", "''") & "' " & _
+                 " FROM " & DBNameSpace & ".EIS_ADMIN " & _
+                 "where   " & DBNameSpace & ".EIS_ADMIN.FACILITYSITEID = '" & Replace(FacilitySiteID, "'", "''") & "' " & _
                  " and EIS_ADMIN.INVENTORYYEAR = '" & Replace(EISYear, "'", "''") & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
 
                 dr = cmd.ExecuteReader
@@ -10184,7 +10184,7 @@ Public Class DMUStaffTools
             If optout = "Null" Then
                 optout = ""
             End If
-            sql = "UPDATE " & connNameSpace & ".EIS_admin " & _
+            sql = "UPDATE " & DBNameSpace & ".EIS_admin " & _
                  "SET EISSTATUSCODE = '" & statuscode & "', " & _
                  "EISACCESSCODE = '" & AccessCode & "', " & _
                  "STROPTOUT = '" & optout & "', " & _
@@ -10196,9 +10196,9 @@ Public Class DMUStaffTools
                  "WHERE FACILITYSITEID = '" & fsid & "' " & _
                  "and INVENTORYYEAR = '" & inventoryyear & "' "
 
-            Dim cmd As New OracleCommand(sql, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            Dim cmd As New OracleCommand(sql, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -10243,12 +10243,12 @@ Public Class DMUStaffTools
         Try
 
             SQL = "Select * " & _
-             " FROM " & connNameSpace & ".APBFACILITYINFORMATION " & _
-             "where   " & connNameSpace & ".APBFACILITYINFORMATION.STRAIRSNUMBER = '" & Replace(airsNo, "'", "''") & "' "
+             " FROM " & DBNameSpace & ".APBFACILITYINFORMATION " & _
+             "where   " & DBNameSpace & ".APBFACILITYINFORMATION.STRAIRSNUMBER = '" & Replace(airsNo, "'", "''") & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -10277,24 +10277,24 @@ Public Class DMUStaffTools
             dr.Close()
 
             SQL = "Select * " & _
-                  " FROM " & connNameSpace & ".EIS_FACILITYSITE " & _
-                  "where   " & connNameSpace & ".EIS_FACILITYSITE.FACILITYSITEID = '" & Replace(FacilitySiteID, "'", "''") & "' "
+                  " FROM " & DBNameSpace & ".EIS_FACILITYSITE " & _
+                  "where   " & DBNameSpace & ".EIS_FACILITYSITE.FACILITYSITEID = '" & Replace(FacilitySiteID, "'", "''") & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             recExist = dr.Read
             dr.Close()
             If recExist = True Then
                 SQL = "Select STRFACILITYSITENAME " & _
-                 " FROM " & connNameSpace & ".EIS_FACILITYSITE " & _
-                 "where   " & connNameSpace & ".EIS_FACILITYSITE.FACILITYSITEID = '" & Replace(FacilitySiteID, "'", "''") & "' "
+                 " FROM " & DBNameSpace & ".EIS_FACILITYSITE " & _
+                 "where   " & DBNameSpace & ".EIS_FACILITYSITE.FACILITYSITEID = '" & Replace(FacilitySiteID, "'", "''") & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
 
                 dr = cmd.ExecuteReader
@@ -10316,12 +10316,12 @@ Public Class DMUStaffTools
             End If
 
             SQL = "Select * " & _
-                " FROM " & connNameSpace & ".EIS_FACILITYSITEADDRESS " & _
-                "where   " & connNameSpace & ".EIS_FACILITYSITEADDRESS.FACILITYSITEID = '" & Replace(FacilitySiteID, "'", "''") & "' "
+                " FROM " & DBNameSpace & ".EIS_FACILITYSITEADDRESS " & _
+                "where   " & DBNameSpace & ".EIS_FACILITYSITEADDRESS.FACILITYSITEID = '" & Replace(FacilitySiteID, "'", "''") & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             recExist = dr.Read
@@ -10329,12 +10329,12 @@ Public Class DMUStaffTools
             If recExist = True Then
 
                 SQL = "Select * " & _
-                 " FROM " & connNameSpace & ".EIS_FACILITYSITEADDRESS " & _
-                 "where   " & connNameSpace & ".EIS_FACILITYSITEADDRESS.FACILITYSITEID = '" & Replace(FacilitySiteID, "'", "''") & "' "
+                 " FROM " & DBNameSpace & ".EIS_FACILITYSITEADDRESS " & _
+                 "where   " & DBNameSpace & ".EIS_FACILITYSITEADDRESS.FACILITYSITEID = '" & Replace(FacilitySiteID, "'", "''") & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
 
                 dr = cmd.ExecuteReader
@@ -10383,20 +10383,20 @@ Public Class DMUStaffTools
         Dim updateuser As String = UserGCode
 
         Try
-            sql = "UPDATE " & connNameSpace & ".EIS_FACILITYSITE " & _
+            sql = "UPDATE " & DBNameSpace & ".EIS_FACILITYSITE " & _
                  "SET STRFACILITYSITENAME = '" & facilityName & "', " & _
                  "UPDATEUSER = '" & updateuser & "', " & _
                  "UPDATEDATETIME = '" & OracleDate & "' " & _
                  "WHERE FACILITYSITEID = '" & fsid & "' "
 
-            Dim cmd As New OracleCommand(sql, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            Dim cmd As New OracleCommand(sql, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
 
-            sql1 = "UPDATE " & connNameSpace & ".EIS_FACILITYSITEADDRESS " & _
+            sql1 = "UPDATE " & DBNameSpace & ".EIS_FACILITYSITEADDRESS " & _
                "SET STRLOCATIONADDRESSTEXT = '" & FacilityAddress & "', " & _
                "STRLOCALITYNAME = '" & facilityCity & "', " & _
                "STRLOCATIONADDRESSPOSTALCODE = '" & facilityZip & "', " & _
@@ -10404,9 +10404,9 @@ Public Class DMUStaffTools
                "UPDATEDATETIME = '" & OracleDate & "' " & _
                "WHERE FACILITYSITEID = '" & fsid & "' "
 
-            Dim cmd1 As New OracleCommand(sql1, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            Dim cmd1 As New OracleCommand(sql1, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd1.ExecuteReader
             dr.Close()
@@ -10444,11 +10444,11 @@ Public Class DMUStaffTools
                 txtEmail.Clear()
 
                 SQL = "Select strFacilityName " & _
-                "from " & connNameSpace & ".APBFacilityInformation " & _
+                "from " & DBNameSpace & ".APBFacilityInformation " & _
                 "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -10461,8 +10461,8 @@ Public Class DMUStaffTools
                 dr.Close()
 
                 SQL = "SELECT " & _
-                "" & connNameSpace & ".OlapUserAccess.NumUserID as ID, " & connNameSpace & ".OlapUserLogin.numuserid, " & _
-                "" & connNameSpace & ".OlapUserLogin.strUserEmail as Email, " & _
+                "" & DBNameSpace & ".OlapUserAccess.NumUserID as ID, " & DBNameSpace & ".OlapUserLogin.numuserid, " & _
+                "" & DBNameSpace & ".OlapUserLogin.strUserEmail as Email, " & _
                 "Case " & _
                 "When intAdminAccess = 0 Then 'False' " & _
                 "When intAdminAccess = 1 Then 'True' " & _
@@ -10479,16 +10479,16 @@ Public Class DMUStaffTools
                 "When intESAccess = 0 Then 'False' " & _
                 "When intESAccess = 1 Then 'True' " & _
                 "End as intESAccess " & _
-                "FROM " & connNameSpace & ".OlapUserAccess, " & connNameSpace & ".OlapUserLogin " & _
-                "WHERE " & connNameSpace & ".OLAPUserAccess.NumUserId = " & connNameSpace & ".OlapUserLogin.NumUserID " & _
-                "AND " & connNameSpace & ".OlapUserAccess.strAirsNumber = '0413" & mtbAIRSNumber.Text & "' order by email"
+                "FROM " & DBNameSpace & ".OlapUserAccess, " & DBNameSpace & ".OlapUserLogin " & _
+                "WHERE " & DBNameSpace & ".OLAPUserAccess.NumUserId = " & DBNameSpace & ".OlapUserLogin.NumUserID " & _
+                "AND " & DBNameSpace & ".OlapUserAccess.strAirsNumber = '0413" & mtbAIRSNumber.Text & "' order by email"
 
                 dgvUsers.Rows.Clear()
                 ds = New DataSet
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -10534,9 +10534,9 @@ Public Class DMUStaffTools
                 End While
                 dr.Close()
 
-                da = New OracleDataAdapter(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                da = New OracleDataAdapter(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 da.Fill(ds, "FacilityUsers")
 
@@ -10555,24 +10555,24 @@ Public Class DMUStaffTools
             Dim userID As Integer
 
             SQL = "Select numUserId " & _
-            "from " & connNameSpace & ".olapuserlogin " & _
+            "from " & DBNameSpace & ".olapuserlogin " & _
             "where struseremail = '" & Replace(UCase(txtEmail.Text), "'", "''") & "' "
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             recExist = dr.Read
 
             If recExist = True Then 'Email address is registered
                 userID = dr.Item("numUserId")
-                Dim InsertString As String = "Insert into " & connNameSpace & ".OlapUserAccess " & _
+                Dim InsertString As String = "Insert into " & DBNameSpace & ".OlapUserAccess " & _
                 "(numUserId, strAirsNumber, strFacilityName) values( " & _
                 "'" & userID & "', '0413" & mtbAIRSNumber.Text & "', '" & Replace(lblFaciltyName.Text, "'", "''") & "') "
 
-                Dim cmd1 As New OracleCommand(InsertString, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                Dim cmd1 As New OracleCommand(InsertString, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 cmd1.ExecuteNonQuery()
 
@@ -10591,13 +10591,13 @@ Public Class DMUStaffTools
     End Sub
     Private Sub btnDelete_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDelete.Click
         Try
-            SQL = "DELETE " & connNameSpace & ".OlapUserAccess " & _
+            SQL = "DELETE " & DBNameSpace & ".OlapUserAccess " & _
             "WHERE numUserID = '" & cboUsers.SelectedValue & "' " & _
             "and strAirsNumber = '0413" & mtbAIRSNumber.Text & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             cmd.ExecuteNonQuery()
 
@@ -10637,7 +10637,7 @@ Public Class DMUStaffTools
                     esaccess = "0"
                 End If
 
-                SQL = "UPDATE " & connNameSpace & ".OlapUserAccess " & _
+                SQL = "UPDATE " & DBNameSpace & ".OlapUserAccess " & _
                 "SET intadminaccess = '" & adminaccess & "', " & _
                 "intFeeAccess = '" & feeaccess & "', " & _
                 "intEIAccess = '" & eiaccess & "', " & _
@@ -10645,9 +10645,9 @@ Public Class DMUStaffTools
                 "WHERE numUserID = '" & dgvUsers(1, i).Value & "' " & _
                 "and strAirsNumber = '0413" & mtbAIRSNumber.Text & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 cmd.ExecuteNonQuery()
             Next
@@ -10726,15 +10726,15 @@ Public Class DMUStaffTools
                     FaxNumber = " strFaxNumber = '" & Replace(mtbEditFaxNumber.Text, "'", "''") & "', "
                 End If
 
-                SQL = "Update " & connNameSpace & ".OLAPUserProfile set " & _
+                SQL = "Update " & DBNameSpace & ".OLAPUserProfile set " & _
                 FirstName & LastName & Title & Company & Address & _
                 City & State & Zip & PhoneNumber & FaxNumber & _
                 "numUserID = '" & txtWebUserID.Text & "' " & _
                 "where numUserID = '" & txtWebUserID.Text & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -10775,13 +10775,13 @@ Public Class DMUStaffTools
         Try
             If txtWebUserID.Text <> "" And txtEditUserPassword.Text <> "" Then
                 'New password change code 6/30/2010
-                SQL = "Update " & connNameSpace & ".OLAPUserLogIN set " & _
+                SQL = "Update " & DBNameSpace & ".OLAPUserLogIN set " & _
                 "strUserPassword = '" & getMd5Hash(txtEditUserPassword.Text) & "' " & _
                 "where numUserID = '" & txtWebUserID.Text & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -10813,12 +10813,12 @@ Public Class DMUStaffTools
                 If EmailAddressCheck(txtEditEmail.Text) = True Then
                     SQL = "Select " & _
                     "numUserID, strUserPassword " & _
-                    "from " & connNameSpace & ".OLAPUserLogIN " & _
+                    "from " & DBNameSpace & ".OLAPUserLogIN " & _
                     "where upper(strUserEmail) = '" & Replace(txtEditEmail.Text.ToUpper, "'", "''") & "' "
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     recExist = dr.Read
@@ -10838,13 +10838,13 @@ Public Class DMUStaffTools
                         dr.Close()
                     End If
 
-                    SQL = "Update " & connNameSpace & ".OLAPUserLogIn set " & _
+                    SQL = "Update " & DBNameSpace & ".OLAPUserLogIn set " & _
                     "strUserEmail = '" & Replace(txtEditEmail.Text.ToUpper, "'", "''") & "' " & _
                     "where numUserID = '" & txtWebUserID.Text & "' "
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
@@ -10876,30 +10876,30 @@ Public Class DMUStaffTools
             If txtWebUserID.Text <> "" And mtbFacilityToAdd.Text <> "" Then
                 SQL = "Select " & _
                 "numUserId " & _
-                "from " & connNameSpace & ".OlapUserAccess " & _
+                "from " & DBNameSpace & ".OlapUserAccess " & _
                 "where numUserId = '" & txtWebUserID.Text & "' " & _
                 "and strAirsNumber = '0413" & mtbFacilityToAdd.Text & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 dr.Close()
 
                 If recExist = False Then
-                    SQL = "Insert into " & connNameSpace & ".OlapUserAccess " & _
+                    SQL = "Insert into " & DBNameSpace & ".OlapUserAccess " & _
                      "(numUserId, strAirsNumber, strFacilityName) " & _
                      "values " & _
                      "('" & txtWebUserID.Text & "', '0413" & mtbFacilityToAdd.Text & "', " & _
                      "(select strFacilityName " & _
-                     "from " & connNameSpace & ".APBFacilityInformation " & _
+                     "from " & DBNameSpace & ".APBFacilityInformation " & _
                      "where strAIRSnumber = '0413" & mtbFacilityToAdd.Text & "')) "
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     cmd.ExecuteNonQuery()
 
@@ -10917,13 +10917,13 @@ Public Class DMUStaffTools
     Private Sub btnDeleteFacilityUser_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDeleteFacilityUser.Click
         Try
             If txtWebUserID.Text <> "" And cboFacilityToDelete.Text <> "" Then
-                SQL = "DELETE " & connNameSpace & ".OlapUserAccess " & _
+                SQL = "DELETE " & DBNameSpace & ".OlapUserAccess " & _
                 "WHERE numUserID = '" & txtWebUserID.Text & "' " & _
                 "and strAirsNumber = '0413" & cboFacilityToDelete.SelectedValue & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 cmd.ExecuteNonQuery()
 
@@ -10965,7 +10965,7 @@ Public Class DMUStaffTools
                     esaccess = "0"
                 End If
 
-                SQL = "UPDATE " & connNameSpace & ".OlapUserAccess " & _
+                SQL = "UPDATE " & DBNameSpace & ".OlapUserAccess " & _
                 "SET intadminaccess = '" & adminaccess & "', " & _
                 "intFeeAccess = '" & feeaccess & "', " & _
                 "intEIAccess = '" & eiaccess & "', " & _
@@ -10973,9 +10973,9 @@ Public Class DMUStaffTools
                 "WHERE numUserID = '" & txtWebUserID.Text & "' " & _
                 "and strAirsNumber = '0413" & dgvUserFacilities(0, i).Value & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 cmd.ExecuteNonQuery()
             Next
@@ -11023,11 +11023,11 @@ Public Class DMUStaffTools
 
             SQL = "select  " & _
             "strFacilitySiteName " & _
-            "from " & connNameSpace & ".EIS_FacilitySite " & _
+            "from " & DBNameSpace & ".EIS_FacilitySite " & _
             "where FacilitySiteId = '" & txtEILogSelectedAIRSNumber.Text & "' "
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -11043,12 +11043,12 @@ Public Class DMUStaffTools
 
             SQL = "select  " & _
             "* " & _
-            "from " & connNameSpace & ".EIS_FacilitySiteAddress " & _
+            "from " & DBNameSpace & ".EIS_FacilitySiteAddress " & _
             "where FacilitySiteId = '" & txtEILogSelectedAIRSNumber.Text & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -11072,12 +11072,12 @@ Public Class DMUStaffTools
 
             SQL = "select  " & _
             "* " & _
-            "from " & connNameSpace & ".EIS_FacilityGeoCoord " & _
+            "from " & DBNameSpace & ".EIS_FacilityGeoCoord " & _
             "where FacilitySiteId = '" & txtEILogSelectedAIRSNumber.Text & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -11095,12 +11095,12 @@ Public Class DMUStaffTools
             dr.Close()
 
             SQL = "select * " & _
-            "from " & connNameSpace & ".APBFacilityInformation " & _
+            "from " & DBNameSpace & ".APBFacilityInformation " & _
             "where strAIRSNumber = '0413" & txtEILogSelectedAIRSNumber.Text & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -11138,13 +11138,13 @@ Public Class DMUStaffTools
             dr.Close()
 
             SQL = "Select * " & _
-            "from " & connNameSpace & ".EIS_Mailout " & _
+            "from " & DBNameSpace & ".EIS_Mailout " & _
             "where intInventoryYear = '" & txtEILogSelectedYear.Text & "' " & _
             "and FacilitySiteID = '" & txtEILogSelectedAIRSNumber.Text & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -11236,14 +11236,14 @@ Public Class DMUStaffTools
             "strContactCity, strContactState, " & _
             "strContactZipCode, strContactDescription, " & _
             "datModifingDate, (strLastName||', '||strFirstName) as ModifingPerson " & _
-            "from " & connNameSpace & ".APBContactInformation, " & connNameSpace & ".EPDUserProfiles " & _
-            "where " & connNameSpace & ".APBContactInformation.strModifingPerson = " & _
-            "" & connNameSpace & ".EPDUserProfiles.numUserID  " & _
+            "from " & DBNameSpace & ".APBContactInformation, " & DBNameSpace & ".EPDUserProfiles " & _
+            "where " & DBNameSpace & ".APBContactInformation.strModifingPerson = " & _
+            "" & DBNameSpace & ".EPDUserProfiles.numUserID  " & _
             "and strContactKey = '0413" & txtEILogSelectedAIRSNumber.Text & "41' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -11355,13 +11355,13 @@ Public Class DMUStaffTools
             txtAllEISDeadlineComment.Clear()
 
             SQL = "Select * " & _
-           "From " & connNameSpace & ".EIS_Admin " & _
+           "From " & DBNameSpace & ".EIS_Admin " & _
            "where inventoryYear = '" & txtEILogSelectedYear.Text & "' " & _
            "and FacilitySiteID = '" & txtEILogSelectedAIRSNumber.Text & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -11616,13 +11616,13 @@ Public Class DMUStaffTools
             txtAllEISDeadlineComment.Clear()
 
             SQL = "Select * " & _
-            "from " & connNameSpace & ".EIS_QAAdmin " & _
+            "from " & DBNameSpace & ".EIS_QAAdmin " & _
             "where inventoryYear = '" & cboEILogYear.Text & "' " & _
             "and FacilitySiteID = '" & mtbEILogAIRSNumber.Text & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -11890,9 +11890,9 @@ Public Class DMUStaffTools
               "and eis_qaAdmin.qaStatusCode = '2' " & _
               "and eis_admin.inventoryyear = '" & cboEISStatisticsYear.Text & "' ) "
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     While dr.Read
@@ -12167,9 +12167,9 @@ Public Class DMUStaffTools
 
             SQL = "select distinct " & _
             "'False' as ID, " & _
-            " " & connNameSpace & ".EIS_Admin.facilitysiteid, " & _
-           "" & connNameSpace & ".APBFacilityInformation.strFacilityname, " & _
-           "" & connNameSpace & ".EIS_Admin.inventoryyear, " & _
+            " " & DBNameSpace & ".EIS_Admin.facilitysiteid, " & _
+           "" & DBNameSpace & ".APBFacilityInformation.strFacilityname, " & _
+           "" & DBNameSpace & ".EIS_Admin.inventoryyear, " & _
            "AIRbranch.EISLK_EISStatusCode.strDesc as EISStatus, " & _
            "AIRbranch.EISLK_EISAccessCode.strDesc as EISAccess, " & _
            "case " & _
@@ -12223,14 +12223,14 @@ Public Class DMUStaffTools
            "and  '0413'||AIRBranch.EIS_Admin.FacilitySiteID||'41' =  airbranch.APBContactInformation.strContactkey (+) " & _
             "and AIRBranch.EIS_Admin.Active = '1' " & _
             "and AIRbranch.EIS_Admin.inventoryyear = '" & txtSelectedEISStatYear.Text & "'" & _
- "order by " & connNameSpace & ".EIS_Admin.facilitysiteid "
+ "order by " & DBNameSpace & ".EIS_Admin.facilitysiteid "
 
             dgvEISStats.Rows.Clear()
             ds = New DataSet
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -12358,9 +12358,9 @@ Public Class DMUStaffTools
 
             SQL = "select distinct " & _
             "'False' as ID, " & _
-            " " & connNameSpace & ".EIS_Admin.facilitysiteid, " & _
-           "" & connNameSpace & ".APBFacilityInformation.strFacilityname, " & _
-           "" & connNameSpace & ".EIS_Admin.inventoryyear, " & _
+            " " & DBNameSpace & ".EIS_Admin.facilitysiteid, " & _
+           "" & DBNameSpace & ".APBFacilityInformation.strFacilityname, " & _
+           "" & DBNameSpace & ".EIS_Admin.inventoryyear, " & _
            "AIRbranch.EISLK_EISStatusCode.strDesc as EISStatus, " & _
            "AIRbranch.EISLK_EISAccessCode.strDesc as EISAccess, " & _
            "case " & _
@@ -12411,14 +12411,14 @@ Public Class DMUStaffTools
             "and AIRBranch.EIS_Admin.Active = '1' " & _
            "and AIRbranch.EIS_Admin.inventoryyear = '" & txtSelectedEISStatYear.Text & "'" & _
            "and strMailout = '1' " & _
- "order by " & connNameSpace & ".EIS_Admin.facilitysiteid "
+ "order by " & DBNameSpace & ".EIS_Admin.facilitysiteid "
 
             dgvEISStats.Rows.Clear()
             ds = New DataSet
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -12543,9 +12543,9 @@ Public Class DMUStaffTools
 
             SQL = "select distinct " & _
        "'False' as ID, " & _
-       " " & connNameSpace & ".EIS_Admin.facilitysiteid, " & _
-      "" & connNameSpace & ".APBFacilityInformation.strFacilityname, " & _
-      "" & connNameSpace & ".EIS_Admin.inventoryyear, " & _
+       " " & DBNameSpace & ".EIS_Admin.facilitysiteid, " & _
+      "" & DBNameSpace & ".APBFacilityInformation.strFacilityname, " & _
+      "" & DBNameSpace & ".EIS_Admin.inventoryyear, " & _
       "AIRbranch.EISLK_EISStatusCode.strDesc as EISStatus, " & _
       "AIRbranch.EISLK_EISAccessCode.strDesc as EISAccess, " & _
       "case " & _
@@ -12590,14 +12590,14 @@ Public Class DMUStaffTools
        "and AIRBranch.EIS_Admin.Active = '1' " & _
       "and AIRbranch.EIS_Admin.inventoryyear = '" & txtSelectedEISStatYear.Text & "'" & _
              "and strEnrollment = '1' " & _
- "order by " & connNameSpace & ".EIS_Admin.facilitysiteid "
+ "order by " & DBNameSpace & ".EIS_Admin.facilitysiteid "
 
             dgvEISStats.Rows.Clear()
             ds = New DataSet
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -12696,9 +12696,9 @@ Public Class DMUStaffTools
 
             SQL = "select distinct " & _
         "'False' as ID, " & _
-        " " & connNameSpace & ".EIS_Admin.facilitysiteid, " & _
-              "" & connNameSpace & ".APBFacilityInformation.strFacilityname, " & _
-              "" & connNameSpace & ".EIS_Admin.inventoryyear, " & _
+        " " & DBNameSpace & ".EIS_Admin.facilitysiteid, " & _
+              "" & DBNameSpace & ".APBFacilityInformation.strFacilityname, " & _
+              "" & DBNameSpace & ".EIS_Admin.inventoryyear, " & _
               "AIRbranch.EISLK_EISStatusCode.strDesc as EISStatus, " & _
               "AIRbranch.EISLK_EISAccessCode.strDesc as EISAccess, " & _
               "case " & _
@@ -12745,15 +12745,15 @@ Public Class DMUStaffTools
               "and AIRbranch.EIS_Admin.inventoryyear = '" & txtSelectedEISStatYear.Text & "'" & _
               "and strOptOut is null " & _
                "and strEnrollment = '1' " & _
- "order by " & connNameSpace & ".EIS_Admin.facilitysiteid "
+ "order by " & DBNameSpace & ".EIS_Admin.facilitysiteid "
 
 
             dgvEISStats.Rows.Clear()
             ds = New DataSet
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -12855,9 +12855,9 @@ Public Class DMUStaffTools
 
             SQL = "select distinct " & _
              "'False' as ID, " & _
-             " " & connNameSpace & ".EIS_Admin.facilitysiteid, " & _
-            "" & connNameSpace & ".APBFacilityInformation.strFacilityname, " & _
-            "" & connNameSpace & ".EIS_Admin.inventoryyear, " & _
+             " " & DBNameSpace & ".EIS_Admin.facilitysiteid, " & _
+            "" & DBNameSpace & ".APBFacilityInformation.strFacilityname, " & _
+            "" & DBNameSpace & ".EIS_Admin.inventoryyear, " & _
             "AIRbranch.EISLK_EISStatusCode.strDesc as EISStatus, " & _
             "AIRbranch.EISLK_EISAccessCode.strDesc as EISAccess, " & _
             "case " & _
@@ -12903,14 +12903,14 @@ Public Class DMUStaffTools
             "and AIRbranch.EIS_Admin.inventoryyear = '" & txtSelectedEISStatYear.Text & "'" & _
               "and strMailout = '1' " & _
               "and (strEnrollment = '0') " & _
- "order by " & connNameSpace & ".EIS_Admin.facilitysiteid "
+ "order by " & DBNameSpace & ".EIS_Admin.facilitysiteid "
 
             dgvEISStats.Rows.Clear()
             ds = New DataSet
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -13018,9 +13018,9 @@ Public Class DMUStaffTools
 
             SQL = "select distinct " & _
        "'False' as ID, " & _
-       " " & connNameSpace & ".EIS_Admin.facilitysiteid, " & _
-       "" & connNameSpace & ".APBFacilityInformation.strFacilityname, " & _
-        "" & connNameSpace & ".EIS_Admin.inventoryyear, " & _
+       " " & DBNameSpace & ".EIS_Admin.facilitysiteid, " & _
+       "" & DBNameSpace & ".APBFacilityInformation.strFacilityname, " & _
+        "" & DBNameSpace & ".EIS_Admin.inventoryyear, " & _
         "AIRbranch.EISLK_EISStatusCode.strDesc as EISStatus, " & _
         "AIRbranch.EISLK_EISAccessCode.strDesc as EISAccess, " & _
         "case " & _
@@ -13068,16 +13068,16 @@ Public Class DMUStaffTools
              "and airbranch.EIS_Admin.eisStatuscode = '2' " & _
              "and (strOptOut = '0' )" & _
               "and strEnrollment = '1' " & _
- "order by " & connNameSpace & ".EIS_Admin.facilitysiteid "
+ "order by " & DBNameSpace & ".EIS_Admin.facilitysiteid "
 
 
 
             dgvEISStats.Rows.Clear()
             ds = New DataSet
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -13181,9 +13181,9 @@ Public Class DMUStaffTools
             'added contact email and name
             SQL = "select distinct " & _
        "'False' as ID, " & _
-       " " & connNameSpace & ".EIS_Admin.facilitysiteid, " & _
-       "" & connNameSpace & ".APBFacilityInformation.strFacilityname, " & _
-            "" & connNameSpace & ".EIS_Admin.inventoryyear, " & _
+       " " & DBNameSpace & ".EIS_Admin.facilitysiteid, " & _
+       "" & DBNameSpace & ".APBFacilityInformation.strFacilityname, " & _
+            "" & DBNameSpace & ".EIS_Admin.inventoryyear, " & _
             "AIRbranch.EISLK_EISStatusCode.strDesc as EISStatus, " & _
             "AIRbranch.EISLK_EISAccessCode.strDesc as EISAccess, " & _
             "case " & _
@@ -13229,15 +13229,15 @@ Public Class DMUStaffTools
              "and AIRbranch.EIS_Admin.inventoryyear = '" & txtSelectedEISStatYear.Text & "'" & _
              "and (strOptOut = '0')  " & _
               "and strEnrollment = '1' " & _
- "order by " & connNameSpace & ".EIS_Admin.facilitysiteid "
+ "order by " & DBNameSpace & ".EIS_Admin.facilitysiteid "
 
 
             dgvEISStats.Rows.Clear()
             ds = New DataSet
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -13342,9 +13342,9 @@ Public Class DMUStaffTools
             'added contact email and name
             SQL = "select distinct " & _
           "'False' as ID, " & _
-          " " & connNameSpace & ".EIS_Admin.facilitysiteid, " & _
-               "" & connNameSpace & ".APBFacilityInformation.strFacilityname, " & _
-               "" & connNameSpace & ".EIS_Admin.inventoryyear, " & _
+          " " & DBNameSpace & ".EIS_Admin.facilitysiteid, " & _
+               "" & DBNameSpace & ".APBFacilityInformation.strFacilityname, " & _
+               "" & DBNameSpace & ".EIS_Admin.inventoryyear, " & _
                "AIRbranch.EISLK_EISStatusCode.strDesc as EISStatus, " & _
                "AIRbranch.EISLK_EISAccessCode.strDesc as EISAccess, " & _
                           "case " & _
@@ -13390,15 +13390,15 @@ Public Class DMUStaffTools
                 "and AIRbranch.EIS_Admin.inventoryyear = '" & txtSelectedEISStatYear.Text & "'" & _
                 "and strOptOut = '1'  " & _
                "and strEnrollment = '1' " & _
- "order by " & connNameSpace & ".EIS_Admin.facilitysiteid "
+ "order by " & DBNameSpace & ".EIS_Admin.facilitysiteid "
 
 
             dgvEISStats.Rows.Clear()
             ds = New DataSet
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -13507,9 +13507,9 @@ Public Class DMUStaffTools
          
             SQL = "select distinct " & _
        "'False' as ID, " & _
-       " " & connNameSpace & ".EIS_Admin.facilitysiteid, " & _
-         "" & connNameSpace & ".APBFacilityInformation.strFacilityname, " & _
-    "" & connNameSpace & ".EIS_Admin.inventoryyear, " & _
+       " " & DBNameSpace & ".EIS_Admin.facilitysiteid, " & _
+         "" & DBNameSpace & ".APBFacilityInformation.strFacilityname, " & _
+    "" & DBNameSpace & ".EIS_Admin.inventoryyear, " & _
     "AIRbranch.EISLK_EISStatusCode.strDesc as EISStatus, " & _
     "AIRbranch.EISLK_EISAccessCode.strDesc as EISAccess, " & _
     "case " & _
@@ -13556,14 +13556,14 @@ Public Class DMUStaffTools
              "and strEnrollment = '1' " & _
              "and AIRBranch.EIS_Admin.eisstatuscode >= 3 " & _
              "and (strOptOut = '0')  " & _
- "order by " & connNameSpace & ".EIS_Admin.facilitysiteid "
+ "order by " & DBNameSpace & ".EIS_Admin.facilitysiteid "
 
             dgvEISStats.Rows.Clear()
             ds = New DataSet
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -13665,9 +13665,9 @@ Public Class DMUStaffTools
  
             SQL = "select distinct " & _
       "'False' as ID, " & _
-      " " & connNameSpace & ".EIS_Admin.facilitysiteid, " & _
-     "" & connNameSpace & ".APBFacilityInformation.strFacilityname, " & _
-"" & connNameSpace & ".EIS_Admin.inventoryyear, " & _
+      " " & DBNameSpace & ".EIS_Admin.facilitysiteid, " & _
+     "" & DBNameSpace & ".APBFacilityInformation.strFacilityname, " & _
+"" & DBNameSpace & ".EIS_Admin.inventoryyear, " & _
 "AIRbranch.EISLK_EISStatusCode.strDesc as EISStatus, " & _
 "AIRbranch.EISLK_EISAccessCode.strDesc as EISAccess, " & _
       "case " & _
@@ -13714,14 +13714,14 @@ Public Class DMUStaffTools
              "and strEnrollment = '1' " & _
            "and (AIRBranch.EIS_Admin.eisstatuscode = '3' " & _
             "or AIRBranch.EIS_Admin.eisstatuscode = '4' or AIRBranch.EIS_Admin.eisstatuscode = '5') " & _
- "order by " & connNameSpace & ".EIS_Admin.facilitysiteid "
+ "order by " & DBNameSpace & ".EIS_Admin.facilitysiteid "
 
             dgvEISStats.Rows.Clear()
             ds = New DataSet
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -13823,9 +13823,9 @@ Public Class DMUStaffTools
 
             SQL = "select " & _
       "'False' as ID, " & _
-      " " & connNameSpace & ".EIS_Admin.facilitysiteid, " & _
-     "" & connNameSpace & ".APBFacilityInformation.strFacilityname, " & _
-"" & connNameSpace & ".EIS_Admin.inventoryyear, " & _
+      " " & DBNameSpace & ".EIS_Admin.facilitysiteid, " & _
+     "" & DBNameSpace & ".APBFacilityInformation.strFacilityname, " & _
+"" & DBNameSpace & ".EIS_Admin.inventoryyear, " & _
 "AIRbranch.EISLK_EISStatusCode.strDesc as EISStatus, " & _
 "AIRbranch.EISLK_EISAccessCode.strDesc as EISAccess, " & _
 "case " & _
@@ -13877,9 +13877,9 @@ Public Class DMUStaffTools
             dgvEISStats.Rows.Clear()
             ds = New DataSet
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -13981,9 +13981,9 @@ Public Class DMUStaffTools
 
             SQL = "select distinct " & _
       "'False' as ID, " & _
-      " " & connNameSpace & ".EIS_Admin.facilitysiteid, " & _
-     "" & connNameSpace & ".APBFacilityInformation.strFacilityname, " & _
-"" & connNameSpace & ".EIS_Admin.inventoryyear, " & _
+      " " & DBNameSpace & ".EIS_Admin.facilitysiteid, " & _
+     "" & DBNameSpace & ".APBFacilityInformation.strFacilityname, " & _
+"" & DBNameSpace & ".EIS_Admin.inventoryyear, " & _
 "AIRbranch.EISLK_EISStatusCode.strDesc as EISStatus, " & _
 "AIRbranch.EISLK_EISAccessCode.strDesc as EISAccess, " & _
 "case " & _
@@ -14037,14 +14037,14 @@ Public Class DMUStaffTools
  "where AIRBranch.EIS_QAAdmin.inventoryYear = AIRBranch.EIS_Admin.inventoryYEar " & _
  "and AIRBranch.EIS_QAAdmin.facilitysiteID = AIRBranch.EIS_Admin.facilitysiteID " & _
  "and datQAComplete is not null )  " & _
- "order by " & connNameSpace & ".EIS_Admin.facilitysiteid "
+ "order by " & DBNameSpace & ".EIS_Admin.facilitysiteid "
 
             dgvEISStats.Rows.Clear()
             ds = New DataSet
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -14263,9 +14263,9 @@ Public Class DMUStaffTools
                      "where intInventoryyear = '" & txtSelectedEISMailout.Text & "' " & _
                      "and FacilitySiteID = '" & txtEISStatsMailoutAIRSNumber.Text & "' "
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
 
                     dr = cmd.ExecuteReader
@@ -14359,7 +14359,7 @@ Public Class DMUStaffTools
     Private Sub btnSaveEISStatMailout_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSaveEISStatMailout.Click
         Try
             If txtSelectedEISMailout.Text <> "" And txtEISStatsMailoutAIRSNumber.Text <> "" Then
-                SQL = "UPdate " & connNameSpace & ".EIS_Mailout set " & _
+                SQL = "UPdate " & DBNameSpace & ".EIS_Mailout set " & _
                 "strFacilityName = '" & txtEISStatsMailoutFacilityName.Text & "', " & _
                 "strContactCompanyName = '" & txtEISStatsMailoutCompanyName.Text & "', " & _
                 "strContactAddress1 = '" & txtEISStatsMailoutAddress1.Text & "', " & _
@@ -14376,9 +14376,9 @@ Public Class DMUStaffTools
                 "where intInventoryYear = '" & txtSelectedEISStatYear.Text & "' " & _
                 "and FacilitySiteID = '" & txtEISStatsMailoutAIRSNumber.Text & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 cmd.ExecuteNonQuery()
 
@@ -14448,7 +14448,7 @@ Public Class DMUStaffTools
                 Next
                 If temp <> "" Then
                     temp = " and ( " & Mid(temp, 1, (temp.Length - 3)) & " ) "
-                    SQL = "Update " & connNameSpace & ".EIS_Admin set " & _
+                    SQL = "Update " & DBNameSpace & ".EIS_Admin set " & _
                     "strEnrollment = '1', " & _
                     "EISAccessCode = '1', " & _
                     "EISStatusCode = '1', " & _
@@ -14461,9 +14461,9 @@ Public Class DMUStaffTools
                     "and strMailout = '1' " & _
                     temp
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     cmd.ExecuteReader()
                 End If
@@ -14492,9 +14492,9 @@ Public Class DMUStaffTools
 
             SQL = "select " & _
             "'False' as ID, " & _
-            " " & connNameSpace & ".EIS_Admin.facilitysiteid, " & _
-           "" & connNameSpace & ".APBFacilityInformation.strFacilityname, " & _
-           "" & connNameSpace & ".EIS_Admin.inventoryyear, " & _
+            " " & DBNameSpace & ".EIS_Admin.facilitysiteid, " & _
+           "" & DBNameSpace & ".APBFacilityInformation.strFacilityname, " & _
+           "" & DBNameSpace & ".EIS_Admin.inventoryyear, " & _
            "AIRbranch.EISLK_EISStatusCode.strDesc as EISStatus, " & _
            "AIRbranch.EISLK_EISAccessCode.strDesc as EISAccess, " & _
            "case " & _
@@ -14547,9 +14547,9 @@ Public Class DMUStaffTools
             dgvEISStats.Rows.Clear()
             ds = New DataSet
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -14650,7 +14650,7 @@ Public Class DMUStaffTools
                 Next
                 If temp <> "" Then
                     temp = " and ( " & Mid(temp, 1, (temp.Length - 3)) & " ) "
-                    SQL = "Update " & connNameSpace & ".EIS_Admin set " & _
+                    SQL = "Update " & DBNameSpace & ".EIS_Admin set " & _
                     "strEnrollment = '0', " & _
                     "EISAccessCode = '1', " & _
                     "EISStatusCode = '1', " & _
@@ -14663,9 +14663,9 @@ Public Class DMUStaffTools
                     "and strMailout = '1' " & _
                     temp
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     cmd.ExecuteReader()
                 End If
@@ -14700,9 +14700,9 @@ Public Class DMUStaffTools
                 "where inventoryYear = '" & EISConfirm & "' " & _
                 temp
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 cmd.ExecuteReader()
                 ViewEISStats()
@@ -14743,9 +14743,9 @@ Public Class DMUStaffTools
                     "and inventoryYear = '" & EISConfirm & "' " & _
                     temp
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     cmd.ExecuteReader(CommandBehavior.CloseConnection)
                 End If
@@ -14771,9 +14771,9 @@ Public Class DMUStaffTools
                     "and inventoryYear = '" & EISConfirm & "' " & _
                     temp
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     cmd.ExecuteReader(CommandBehavior.CloseConnection)
                 End If
@@ -14799,16 +14799,16 @@ Public Class DMUStaffTools
                         "and FacilitySiteID = '" & dgvEISStats(1, i).Value & "' " & _
                         "and strOptOut = '0' )) "
 
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, DBConn)
+                        If DBConn.State = ConnectionState.Closed Then
+                            DBConn.Open()
                         End If
                         cmd.ExecuteReader(CommandBehavior.CloseConnection)
 
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        If DBConn.State = ConnectionState.Closed Then
+                            DBConn.Open()
                         End If
-                        cmd = New OracleCommand("AIRBranch.PD_EIS_QASTART", conn)
+                        cmd = New OracleCommand("AIRBranch.PD_EIS_QASTART", DBConn)
                         cmd.CommandType = CommandType.StoredProcedure
 
                         cmd.Parameters.Add(New OracleParameter("AIRSNUMBER_IN", OracleType.VarChar)).Value = dgvEISStats(1, i).Value
@@ -15183,8 +15183,8 @@ Public Class DMUStaffTools
                         '                End If
                         '                cmd.ExecuteReader(CommandBehavior.CloseConnection)
 
-                        If conn.State = ConnectionState.Open Then
-                            conn.Close()
+                        If DBConn.State = ConnectionState.Open Then
+                            DBConn.Close()
                         End If
                     End If
                 Next
@@ -15255,9 +15255,9 @@ Public Class DMUStaffTools
             "where inventoryyear = '" & cboEILogYear.Text & "' " & _
             "and FacilitySiteID = '" & mtbEILogAIRSNumber.Text & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             recExist = dr.Read
@@ -15285,9 +15285,9 @@ Public Class DMUStaffTools
             "where inventoryyear = '" & cboEILogYear.Text & "' " & _
             "and FacilitySiteID = '" & mtbEILogAIRSNumber.Text & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             cmd.ExecuteReader()
 
@@ -15305,9 +15305,9 @@ Public Class DMUStaffTools
                     "strEISDeadlineComment = '" & Replace(DeadLineComments, "'", "''") & "' " & _
                     "where INventoryyear = '" & cboEILogYear.Text & "' " & _
                     "and FacilitySiteID = '" & mtbEILogAIRSNumber.Text & "' "
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     cmd.ExecuteReader()
                 End If
@@ -15418,7 +15418,7 @@ Public Class DMUStaffTools
                 ' End If
                 ' cmd.ExecuteReader()
 
-                SQL = "Update " & connNameSpace & ".eis_QAAdmin set " & _
+                SQL = "Update " & DBNameSpace & ".eis_QAAdmin set " & _
                "datDateQAStart = '" & QAStart & "', " & _
                "datDateQAPass = '" & QAPass & "', " & _
                "QAStatusCode = '" & QAStatusCode & "', " & _
@@ -15436,9 +15436,9 @@ Public Class DMUStaffTools
                "where INventoryyear = '" & cboEILogYear.Text & "' " & _
                "and FacilitySiteID = '" & mtbEILogAIRSNumber.Text & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 cmd.ExecuteReader()
 
@@ -15462,10 +15462,10 @@ Public Class DMUStaffTools
             Dim Mailout As String = ""
             Dim ActiveStatus As String = ""
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
-            cmd = New OracleCommand("AIRBranch.PD_EIS_Data", conn)
+            cmd = New OracleCommand("AIRBranch.PD_EIS_Data", DBConn)
             cmd.CommandType = CommandType.StoredProcedure
 
             cmd.Parameters.Add(New OracleParameter("AIRSNUM", OracleType.VarChar)).Value = txtEILogSelectedAIRSNumber.Text
@@ -15556,9 +15556,9 @@ Public Class DMUStaffTools
                     "and FacilitySiteID = '" & dgvEISStats(1, i).Value & "' & " ' "
 
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     cmd.ExecuteReader()
                 Next
@@ -15681,7 +15681,7 @@ Public Class DMUStaffTools
             ' End If
             ' cmd.ExecuteReader()
 
-            SQL = "Update " & connNameSpace & ".eis_QAAdmin set " & _
+            SQL = "Update " & DBNameSpace & ".eis_QAAdmin set " & _
             "datDateQAStart = '" & QAStart & "', " & _
             "datDateQAPass = '" & QAPass & "', " & _
             "QAStatusCode = '" & QAStatusCode & "', " & _
@@ -15699,19 +15699,19 @@ Public Class DMUStaffTools
             "where INventoryyear = '" & cboEILogYear.Text & "' " & _
             "and FacilitySiteID = '" & mtbEILogAIRSNumber.Text & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             cmd.ExecuteReader()
 
             LoadQASpecificData()
 
             If dtpQACompleted.Checked = True Then
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
-                cmd = New OracleCommand("AIRBranch.PD_EIS_QA_Done", conn)
+                cmd = New OracleCommand("AIRBranch.PD_EIS_QA_Done", DBConn)
                 cmd.CommandType = CommandType.StoredProcedure
 
                 cmd.Parameters.Add(New OracleParameter("AIRSNUM", OracleType.VarChar)).Value = txtEILogSelectedAIRSNumber.Text
@@ -15767,9 +15767,9 @@ Public Class DMUStaffTools
                 "strFacilitySiteName = '" & Replace(FacilityName, "'", "''") & "' " & _
                 "where facilitysiteid = '" & txtEILogSelectedAIRSNumber.Text & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 cmd.ExecuteReader()
 
@@ -15781,9 +15781,9 @@ Public Class DMUStaffTools
                 "strMailingAddressPostalCode = '" & Replace(PostalCode, "'", "''") & "' " & _
                 "where facilitysiteid = '" & txtEILogSelectedAIRSNumber.Text & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 cmd.ExecuteReader()
 
@@ -15814,9 +15814,9 @@ Public Class DMUStaffTools
                 "numLongitudeMeasure = '-" & mtbEIModifyLongitude.Text & "' " & _
                 "where facilitySiteID = '" & txtEILogSelectedAIRSNumber.Text & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 cmd.ExecuteReader()
 
@@ -15828,9 +15828,9 @@ Public Class DMUStaffTools
                 "datModifingDate = sysdate " & _
                 "where strAIRSNumber = '0413" & txtEILogSelectedAIRSNumber.Text & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 cmd.ExecuteReader()
 
@@ -15901,9 +15901,9 @@ Public Class DMUStaffTools
             "where FacilitySiteid = '" & txtEILogSelectedAIRSNumber.Text & "' " & _
             "and intInventoryYear = '" & txtEILogSelectedYear.Text & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             cmd.ExecuteReader()
 
@@ -15931,9 +15931,9 @@ Public Class DMUStaffTools
 
             SQL = "select distinct " & _
             "'False' as ID, " & _
-            " " & connNameSpace & ".EIS_Admin.facilitysiteid, " & _
-           "" & connNameSpace & ".APBFacilityInformation.strFacilityname, " & _
-           "" & connNameSpace & ".EIS_Admin.inventoryyear, " & _
+            " " & DBNameSpace & ".EIS_Admin.facilitysiteid, " & _
+           "" & DBNameSpace & ".APBFacilityInformation.strFacilityname, " & _
+           "" & DBNameSpace & ".EIS_Admin.inventoryyear, " & _
            "AIRbranch.EISLK_EISStatusCode.strDesc as EISStatus, " & _
            "AIRbranch.EISLK_EISAccessCode.strDesc as EISAccess, " & _
            "case " & _
@@ -15983,15 +15983,15 @@ Public Class DMUStaffTools
  "and  NOT  exists (Select * from AIRBranch.EIS_QAAdmin " & _
  "where AIRBranch.EIS_QAAdmin.inventoryYear = AIRBranch.EIS_Admin.inventoryYEar " & _
  "and AIRBranch.EIS_QAAdmin.facilitysiteID = AIRBranch.EIS_Admin.facilitysiteID)    " & _
- "order by " & connNameSpace & ".EIS_Admin.facilitysiteid "
+ "order by " & DBNameSpace & ".EIS_Admin.facilitysiteid "
              
 
             dgvEISStats.Rows.Clear()
             ds = New DataSet
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -16097,9 +16097,9 @@ Public Class DMUStaffTools
 
             SQL = "select distinct " & _
             "'False' as ID, " & _
-            " " & connNameSpace & ".EIS_Admin.facilitysiteid, " & _
-           "" & connNameSpace & ".APBFacilityInformation.strFacilityname, " & _
-           "" & connNameSpace & ".EIS_Admin.inventoryyear, " & _
+            " " & DBNameSpace & ".EIS_Admin.facilitysiteid, " & _
+           "" & DBNameSpace & ".APBFacilityInformation.strFacilityname, " & _
+           "" & DBNameSpace & ".EIS_Admin.inventoryyear, " & _
            "AIRbranch.EISLK_EISStatusCode.strDesc as EISStatus, " & _
            "AIRbranch.EISLK_EISAccessCode.strDesc as EISAccess, " & _
            "case " & _
@@ -16150,14 +16150,14 @@ Public Class DMUStaffTools
  "where AIRBranch.EIS_QAAdmin.inventoryYear = AIRBranch.EIS_Admin.inventoryYEar " & _
  "and AIRBranch.EIS_QAAdmin.facilitysiteID = AIRBranch.EIS_Admin.facilitysiteID " & _
  "and datQAComplete is null )  " & _
- "order by " & connNameSpace & ".EIS_Admin.facilitysiteid "
+ "order by " & DBNameSpace & ".EIS_Admin.facilitysiteid "
 
             dgvEISStats.Rows.Clear()
             ds = New DataSet
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -16262,9 +16262,9 @@ Public Class DMUStaffTools
 
             SQL = "select distinct " & _
             "'False' as ID, " & _
-            " " & connNameSpace & ".EIS_Admin.facilitysiteid, " & _
-           "" & connNameSpace & ".APBFacilityInformation.strFacilityname, " & _
-           "" & connNameSpace & ".EIS_Admin.inventoryyear, " & _
+            " " & DBNameSpace & ".EIS_Admin.facilitysiteid, " & _
+           "" & DBNameSpace & ".APBFacilityInformation.strFacilityname, " & _
+           "" & DBNameSpace & ".EIS_Admin.inventoryyear, " & _
            "AIRbranch.EISLK_EISStatusCode.strDesc as EISStatus, " & _
            "AIRbranch.EISLK_EISAccessCode.strDesc as EISAccess, " & _
            "case " & _
@@ -16316,14 +16316,14 @@ Public Class DMUStaffTools
  "and AIRBranch.EIS_QAAdmin.facilitysiteID = AIRBranch.EIS_Admin.facilitysiteID " & _
  "and datQAComplete is null )  " & _
  "and strFIError = 'True' and (strPointError = 'False' or strPointError is null) " & _
- "order by " & connNameSpace & ".EIS_Admin.facilitysiteid "
+ "order by " & DBNameSpace & ".EIS_Admin.facilitysiteid "
 
             dgvEISStats.Rows.Clear()
             ds = New DataSet
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -16427,9 +16427,9 @@ Public Class DMUStaffTools
 
             SQL = "select distinct " & _
             "'False' as ID, " & _
-            " " & connNameSpace & ".EIS_Admin.facilitysiteid, " & _
-           "" & connNameSpace & ".APBFacilityInformation.strFacilityname, " & _
-           "" & connNameSpace & ".EIS_Admin.inventoryyear, " & _
+            " " & DBNameSpace & ".EIS_Admin.facilitysiteid, " & _
+           "" & DBNameSpace & ".APBFacilityInformation.strFacilityname, " & _
+           "" & DBNameSpace & ".EIS_Admin.inventoryyear, " & _
            "AIRbranch.EISLK_EISStatusCode.strDesc as EISStatus, " & _
            "AIRbranch.EISLK_EISAccessCode.strDesc as EISAccess, " & _
            "case " & _
@@ -16481,14 +16481,14 @@ Public Class DMUStaffTools
  "and AIRBranch.EIS_QAAdmin.facilitysiteID = AIRBranch.EIS_Admin.facilitysiteID " & _
  "and datQAComplete is null )  " & _
  "and (strFIError = 'False' or strFIError is null) and strPointError = 'True' " & _
- "order by " & connNameSpace & ".EIS_Admin.facilitysiteid "
+ "order by " & DBNameSpace & ".EIS_Admin.facilitysiteid "
 
             dgvEISStats.Rows.Clear()
             ds = New DataSet
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -16592,9 +16592,9 @@ Public Class DMUStaffTools
 
             SQL = "select distinct " & _
             "'False' as ID, " & _
-            " " & connNameSpace & ".EIS_Admin.facilitysiteid, " & _
-           "" & connNameSpace & ".APBFacilityInformation.strFacilityname, " & _
-           "" & connNameSpace & ".EIS_Admin.inventoryyear, " & _
+            " " & DBNameSpace & ".EIS_Admin.facilitysiteid, " & _
+           "" & DBNameSpace & ".APBFacilityInformation.strFacilityname, " & _
+           "" & DBNameSpace & ".EIS_Admin.inventoryyear, " & _
            "AIRbranch.EISLK_EISStatusCode.strDesc as EISStatus, " & _
            "AIRbranch.EISLK_EISAccessCode.strDesc as EISAccess, " & _
            "case " & _
@@ -16646,14 +16646,14 @@ Public Class DMUStaffTools
  "and AIRBranch.EIS_QAAdmin.facilitysiteID = AIRBranch.EIS_Admin.facilitysiteID " & _
  "and datQAComplete is null )  " & _
  "and (strFIError = 'True' ) and (strPointError = 'True' ) " & _
- "order by " & connNameSpace & ".EIS_Admin.facilitysiteid "
+ "order by " & DBNameSpace & ".EIS_Admin.facilitysiteid "
 
             dgvEISStats.Rows.Clear()
             ds = New DataSet
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -16757,9 +16757,9 @@ Public Class DMUStaffTools
 
             SQL = "select distinct " & _
             "'False' as ID, " & _
-            " " & connNameSpace & ".EIS_Admin.facilitysiteid, " & _
-           "" & connNameSpace & ".APBFacilityInformation.strFacilityname, " & _
-           "" & connNameSpace & ".EIS_Admin.inventoryyear, " & _
+            " " & DBNameSpace & ".EIS_Admin.facilitysiteid, " & _
+           "" & DBNameSpace & ".APBFacilityInformation.strFacilityname, " & _
+           "" & DBNameSpace & ".EIS_Admin.inventoryyear, " & _
            "AIRbranch.EISLK_EISStatusCode.strDesc as EISStatus, " & _
            "AIRbranch.EISLK_EISAccessCode.strDesc as EISAccess, " & _
            "case " & _
@@ -16811,14 +16811,14 @@ Public Class DMUStaffTools
  "and AIRBranch.EIS_QAAdmin.facilitysiteID = AIRBranch.EIS_Admin.facilitysiteID " & _
  "and datQAComplete is null )  " & _
  "and (strFIError = 'False' or strFIError is null) and (strPointError = 'False' or strPointError is null) " & _
- "order by " & connNameSpace & ".EIS_Admin.facilitysiteid "
+ "order by " & DBNameSpace & ".EIS_Admin.facilitysiteid "
 
             dgvEISStats.Rows.Clear()
             ds = New DataSet
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -16924,9 +16924,9 @@ Public Class DMUStaffTools
 
             SQL = "select distinct " & _
            "'False' as ID, " & _
-           " " & connNameSpace & ".EIS_Admin.facilitysiteid, " & _
-          "" & connNameSpace & ".APBFacilityInformation.strFacilityname, " & _
-          "" & connNameSpace & ".EIS_Admin.inventoryyear, " & _
+           " " & DBNameSpace & ".EIS_Admin.facilitysiteid, " & _
+          "" & DBNameSpace & ".APBFacilityInformation.strFacilityname, " & _
+          "" & DBNameSpace & ".EIS_Admin.inventoryyear, " & _
           "AIRbranch.EISLK_EISStatusCode.strDesc as EISStatus, " & _
           "AIRbranch.EISLK_EISAccessCode.strDesc as EISAccess, " & _
                  "case " & _
@@ -16980,9 +16980,9 @@ Public Class DMUStaffTools
             dgvEISStats.Rows.Clear()
             ds = New DataSet
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -17088,9 +17088,9 @@ Public Class DMUStaffTools
 
             SQL = "select distinct " & _
             "'False' as ID, " & _
-            " " & connNameSpace & ".EIS_Admin.facilitysiteid, " & _
-           "" & connNameSpace & ".APBFacilityInformation.strFacilityname, " & _
-           "" & connNameSpace & ".EIS_Admin.inventoryyear, " & _
+            " " & DBNameSpace & ".EIS_Admin.facilitysiteid, " & _
+           "" & DBNameSpace & ".APBFacilityInformation.strFacilityname, " & _
+           "" & DBNameSpace & ".EIS_Admin.inventoryyear, " & _
            "AIRbranch.EISLK_EISStatusCode.strDesc as EISStatus, " & _
            "AIRbranch.EISLK_EISAccessCode.strDesc as EISAccess, " & _
            "case " & _
@@ -17151,9 +17151,9 @@ Public Class DMUStaffTools
             dgvEISStats.Rows.Clear()
             ds = New DataSet
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -17258,9 +17258,9 @@ Public Class DMUStaffTools
 
             SQL = "select distinct " & _
             "'False' as ID, " & _
-            " " & connNameSpace & ".EIS_Admin.facilitysiteid, " & _
-           "" & connNameSpace & ".APBFacilityInformation.strFacilityname, " & _
-           "" & connNameSpace & ".EIS_Admin.inventoryyear, " & _
+            " " & DBNameSpace & ".EIS_Admin.facilitysiteid, " & _
+           "" & DBNameSpace & ".APBFacilityInformation.strFacilityname, " & _
+           "" & DBNameSpace & ".EIS_Admin.inventoryyear, " & _
            "AIRbranch.EISLK_EISStatusCode.strDesc as EISStatus, " & _
            "AIRbranch.EISLK_EISAccessCode.strDesc as EISAccess, " & _
            "case " & _
@@ -17335,9 +17335,9 @@ Public Class DMUStaffTools
             dgvEISStats.Rows.Clear()
             ds = New DataSet
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -17445,9 +17445,9 @@ Public Class DMUStaffTools
                    "where intInventoryyear = '" & cboEISStatisticsYear.Text & "' " & _
                    "and FacilitySiteID = '" & txtEISStatsMailoutAIRSNumber.Text & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -17533,8 +17533,8 @@ Public Class DMUStaffTools
 
             If txtEISStatsMailoutFacilityName.Text = "" Then
                 SQL = "Select * from " & _
-                "(Select dt_EIcontact.STRairsnumber, " & connNameSpace & ".APBFacilityinformation.STRFACILITYNAME, " & _
-                "" & connNameSpace & ".APBHEADERDATA.stroperationalstatus, " & connNameSpace & ".APBHEADERDATA.STRCLASS, " & _
+                "(Select dt_EIcontact.STRairsnumber, " & DBNameSpace & ".APBFacilityinformation.STRFACILITYNAME, " & _
+                "" & DBNameSpace & ".APBHEADERDATA.stroperationalstatus, " & DBNameSpace & ".APBHEADERDATA.STRCLASS, " & _
                 "(Case " & _
                 "When dt_EIcontact.STRKEY='41' THEN dt_EIcontact.STRContactLastName " & _
                 "When dt_EIcontact.STRKEY Is Null THEN dt_PermitContact.STRContactLastName " & _
@@ -17580,34 +17580,34 @@ Public Class DMUStaffTools
                 "dt_Contact.STRCONTACTPREFIX, dt_Contact.STRCONTACTADDRESS1, dt_Contact.STRCONTACTCITY,  " & _
                 "dt_Contact.STRCONTACTSTATE, dt_Contact.STRCONTACTZIPCODE " & _
                 "FROM " & _
-                "(Select * FROM " & connNameSpace & ".APBHEADERDATA " & _
+                "(Select * FROM " & DBNameSpace & ".APBHEADERDATA " & _
                 "where (stroperationalstatus = 'O' OR stroperationalstatus = 'P' oR stroperationalstatus = 'C') AND  " & _
                 "(STRCLASS = 'A')   " & _
                 ") dt_EIList,      " & _
-                "(Select * From " & connNameSpace & ".APBCONTACTINFORMATION where STRKEY=41) dt_Contact " & _
+                "(Select * From " & DBNameSpace & ".APBCONTACTINFORMATION where STRKEY=41) dt_Contact " & _
                 "Where dt_EIList.STRAIRSNUMBEr = dt_Contact.STRAIRSNUMBER (+)) dt_EIContact, " & _
                 "(Select DISTINCT dt_eIlist.STRAIRSNUMBER, dt_contact.STRKEY,  " & _
                 "dt_Contact.STRCONTACTLASTNAME, dt_Contact.STRCONTACTFIRSTNAME, " & _
                 "dt_Contact.STRContactCompanyName, dt_Contact.STRContactEmail, dt_Contact.STRCONTACTPREFIX,  " & _
                 "dt_Contact.STRCONTACTADDRESS1, dt_Contact.strcontactcity, dt_Contact.STRCONTACTSTATE, dt_Contact.STRCONTACTZIPCODE " & _
                 "FROM " & _
-                "(Select * FROM " & connNameSpace & ".APBHEADERDATA " & _
+                "(Select * FROM " & DBNameSpace & ".APBHEADERDATA " & _
                 "where (stroperationalstatus = 'O' OR stroperationalstatus = 'P' oR stroperationalstatus = 'C') AND  " & _
                 "(STRCLASS = 'A')   " & _
                 ") dt_EIList,      " & _
-                "(Select * From " & connNameSpace & ".APBCONTACTINFORMATION where STRKEY=30) dt_Contact " & _
+                "(Select * From " & DBNameSpace & ".APBCONTACTINFORMATION where STRKEY=30) dt_Contact " & _
                 "Where dt_EIList.STRAIRSNUMBEr = dt_Contact.STRAIRSNUMBER (+)) dt_PermitContact, " & _
-                "" & connNameSpace & ".APBFACILITYINFORMATION, " & _
-                "" & connNameSpace & ".APBHEADERDATA " & _
-                "Where " & connNameSpace & ".APBFACILITYINFORMATION.STRAIRSNUMBER= dt_EIContact.STRAIRSNumber and  " & _
-                "" & connNameSpace & ".APBHEADERDATA.STRAIRSNUMBER= dt_EIContact.STRAIRSNumber and  " & _
+                "" & DBNameSpace & ".APBFACILITYINFORMATION, " & _
+                "" & DBNameSpace & ".APBHEADERDATA " & _
+                "Where " & DBNameSpace & ".APBFACILITYINFORMATION.STRAIRSNUMBER= dt_EIContact.STRAIRSNumber and  " & _
+                "" & DBNameSpace & ".APBHEADERDATA.STRAIRSNUMBER= dt_EIContact.STRAIRSNumber and  " & _
                 "dt_EIContact.STRAIRSNumber  = dt_PermitContact.STRAIRSNUMBER (+) ) " & _
                 "where strAIRSnumber = '0413" & txtEISStatsMailoutAIRSNumber.Text & "' "
 
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
 
                 dr = cmd.ExecuteReader
@@ -17731,9 +17731,9 @@ Public Class DMUStaffTools
                     "where inventoryYear = '" & EISConfirm & "' " & _
                     temp
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     cmd.ExecuteReader()
                     MsgBox(EISConfirm & " Emission Inventory Facilities in Mailout.", MsgBoxStyle.Information, Me.Text)
@@ -17775,9 +17775,9 @@ Public Class DMUStaffTools
                 "where inventoryYear = '" & EISConfirm & "' " & _
                 temp
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 cmd.ExecuteReader()
 
@@ -17825,10 +17825,10 @@ Public Class DMUStaffTools
             End If
 
             dsThreshold = New DataSet
-            daThreshold = New OracleDataAdapter(SQL, conn)
+            daThreshold = New OracleDataAdapter(SQL, DBConn)
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             daThreshold.Fill(dsThreshold, "ThresholdPollutants")
@@ -17920,9 +17920,9 @@ Public Class DMUStaffTools
             "where upper(strPollutant) = '" & Replace(txtPollutant.Text.ToUpper, "'", "''") & "' " & _
             "and strType = '" & ThresholdType & "'"
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
 
@@ -17936,9 +17936,9 @@ Public Class DMUStaffTools
                 "'" & txtThreshold.Text & "', " & _
                 "'" & txtNonAttainmentThreshold.Text & "', " & _
                 "'" & ThresholdType & "') "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 cmd.ExecuteReader()
                 ViewPollutantThresholds()
@@ -17974,9 +17974,9 @@ Public Class DMUStaffTools
             "where upper(strPollutant) = '" & Replace(txtPollutant.Text.ToUpper, "'", "''") & "' " & _
             "and strType = '" & ThresholdType & "'"
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
 
@@ -17987,9 +17987,9 @@ Public Class DMUStaffTools
                       "numThresholdNAA = '" & txtNonAttainmentThreshold.Text & "' " & _
                       "where strType = '" & ThresholdType & "'  " & _
                       "and strPollutant =  '" & Replace(txtPollutant.Text, "'", "''") & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 cmd.ExecuteReader()
                 ViewPollutantThresholds()
@@ -18014,10 +18014,10 @@ Public Class DMUStaffTools
             "order by strYear desc "
 
             ds = New DataSet
-            da = New OracleDataAdapter(SQL, conn)
+            da = New OracleDataAdapter(SQL, DBConn)
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             da.Fill(ds, "EISYears")
@@ -18113,9 +18113,9 @@ Public Class DMUStaffTools
             "from AIRBranch.EIThresholdYears " & _
             "where strYEar = '" & Replace(mtbThresholdYear.Text, "'", "''") & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
 
@@ -18129,9 +18129,9 @@ Public Class DMUStaffTools
                 "'" & EISYearType & "', " & _
                 "'" & dtpEISDeadline.Text & "')  "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 cmd.ExecuteReader()
                 LoadEISYear()
@@ -18163,9 +18163,9 @@ Public Class DMUStaffTools
             "from AIRBranch.EIThresholdYears " & _
             "where strYEar = '" & Replace(mtbThresholdYear.Text, "'", "''") & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
 
@@ -18176,9 +18176,9 @@ Public Class DMUStaffTools
                 "DatDeadline = '" & dtpEISDeadline.Text & "'  " & _
                 "where strYear = '" & mtbThresholdYear.Text & "'"
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 cmd.ExecuteReader()
                 LoadEISYear()
@@ -18209,92 +18209,92 @@ Public Class DMUStaffTools
             If EISConfirm = txtSelectedEISStatYear.Text Then
                 SQL = "delete airbranch.EIS_UnitControlPollutant " & _
                 "where active = '0' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 cmd.ExecuteReader()
 
                 SQL = "delete airbranch.EIS_UnitControlMeasure  " & _
                 "where active = '0' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 cmd.ExecuteReader()
 
                 SQL = "delete airbranch.EIS_UnitControlApproach  " & _
                 "where active = '0' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 cmd.ExecuteReader()
 
                 SQL = "delete airbranch.EIS_RPGEOCoordinates  " & _
                 "where active = '0' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 cmd.ExecuteReader()
 
                 SQL = "delete airbranch.EIS_RPApportionment  " & _
                 "where active = '0' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 cmd.ExecuteReader()
 
                 SQL = "delete airbranch.EIS_ProcessControlPollutant " & _
                 "where active = '0' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 cmd.ExecuteReader()
 
                 SQL = "delete airbranch.EIS_ProcessControlMeasure " & _
                 "where active = '0'"
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 cmd.ExecuteReader()
 
                 SQL = "delete airbranch.EIS_ProcessControlApproach  " & _
                 "where active = '0' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 cmd.ExecuteReader()
 
                 SQL = "delete airbranch.EIS_ReportingPeriodEmissions  " & _
               "where active = '0'  " & _
               "and intinventoryyear = '2010' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 cmd.ExecuteReader()
 
                 SQL = "delete airbranch.EIS_ProcessOperatingDetails  " & _
                 "where active = '0'  " & _
                 "and intInventoryYear = '2010' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 cmd.ExecuteReader()
 
                 SQL = "delete airbranch.EIS_ProcessRPTPeriodSCP  " & _
                 "where Active = '0'  " & _
                 "and intInventoryYear = '2010'"
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 cmd.ExecuteReader()
 
@@ -18306,9 +18306,9 @@ Public Class DMUStaffTools
              "and Airbranch.EIS_RPApportionment.ProcessId = Airbranch.eis_Process.ProcessId " & _
              "and Airbranch.EIS_RPApportionment.EmissionsUnitID  = Airbranch.eis_Process.EmissionsUnitID) "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 cmd.ExecuteReader()
 
@@ -18323,9 +18323,9 @@ Public Class DMUStaffTools
                 " and Airbranch.EIS_ProcessControlPollutant.EmissionsUnitID  = Airbranch.EIS_Process.EmissionsUnitID  " & _
                 " and EIS_Process.active = '0' ) "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 cmd.ExecuteReader()
 
@@ -18337,9 +18337,9 @@ Public Class DMUStaffTools
              "and Airbranch.EIS_ProcessControlMeasure.EmissionsUnitID  = Airbranch.EIS_Process.EmissionsUnitID " & _
              "and EIS_Process.active = '0' ) "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 cmd.ExecuteReader()
 
@@ -18351,9 +18351,9 @@ Public Class DMUStaffTools
                 "and Airbranch.EIS_ProcessControlApproach.ProcessId = Airbranch.eis_Process.ProcessId " & _
                 "and Airbranch.EIS_ProcessControlApproach.EmissionsUnitID  = Airbranch.eis_Process.EmissionsUnitID) "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 cmd.ExecuteReader()
 
@@ -18365,9 +18365,9 @@ Public Class DMUStaffTools
                 "and Airbranch.EIS_ProcessControlPollutant.ProcessId = Airbranch.EIS_ProcessControlApproach.ProcessId " & _
                 "and Airbranch.EIS_ProcessControlPollutant.EmissionsUnitID  = Airbranch.EIS_ProcessControlApproach.EmissionsUnitID) "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 cmd.ExecuteReader()
 
@@ -18379,9 +18379,9 @@ Public Class DMUStaffTools
                 "and Airbranch.EIS_ProcessOperatingDetails.ProcessId = Airbranch.EIS_Process.ProcessId  " & _
                 "and Airbranch.EIS_ProcessOperatingDetails.EmissionsUnitID  = Airbranch.EIS_Process.EmissionsUnitID)  "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 cmd.ExecuteReader()
 
@@ -18393,9 +18393,9 @@ Public Class DMUStaffTools
                 "and Airbranch.EIS_ReportingPeriodEmissions.ProcessId = Airbranch.EIS_Process.ProcessId  " & _
                 "and Airbranch.EIS_ReportingPeriodEmissions.EmissionsUnitID  = Airbranch.EIS_Process.EmissionsUnitID)  "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 cmd.ExecuteReader()
 
@@ -18407,9 +18407,9 @@ Public Class DMUStaffTools
                  "and Airbranch.EIS_ProcessRPTPeriodSCP.ProcessId = Airbranch.EIS_Process.ProcessId  " & _
                  "and Airbranch.EIS_ProcessRPTPeriodSCP.EmissionsUnitID  = Airbranch.EIS_Process.EmissionsUnitID)  "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 cmd.ExecuteReader()
 
@@ -18421,25 +18421,25 @@ Public Class DMUStaffTools
                  "and Airbranch.eis_processReportingPeriod.EmissionsUnitID  = Airbranch.EIS_Process.EmissionsUnitID " & _
                  "and EIS_Process.active = '0' ) "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 cmd.ExecuteReader()
 
                 SQL = "delete airbranch.EIS_Process  " & _
                               "where Active = '0' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 cmd.ExecuteReader()
 
                 SQL = "Delete airbranch.EIS_EmissionsUnit   " & _
                 "where active = '0' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 cmd.ExecuteReader()
 
@@ -18447,9 +18447,9 @@ Public Class DMUStaffTools
                 "where active = '0'  " & _
                 "and numRPStatusCodeYear = '2010' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 cmd.ExecuteReader()
 
@@ -18489,11 +18489,11 @@ Public Class DMUStaffTools
 
             SQL = "select  " & _
             "strFacilitySiteName " & _
-            "from " & connNameSpace & ".EIS_FacilitySite " & _
+            "from " & DBNameSpace & ".EIS_FacilitySite " & _
             "where FacilitySiteId = '" & txtEILogSelectedAIRSNumber.Text & "' "
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -18509,12 +18509,12 @@ Public Class DMUStaffTools
 
             SQL = "select  " & _
             "* " & _
-            "from " & connNameSpace & ".EIS_FacilitySiteAddress " & _
+            "from " & DBNameSpace & ".EIS_FacilitySiteAddress " & _
             "where FacilitySiteId = '" & txtEILogSelectedAIRSNumber.Text & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -18538,12 +18538,12 @@ Public Class DMUStaffTools
 
             SQL = "select  " & _
             "* " & _
-            "from " & connNameSpace & ".EIS_FacilityGeoCoord " & _
+            "from " & DBNameSpace & ".EIS_FacilityGeoCoord " & _
             "where FacilitySiteId = '" & txtEILogSelectedAIRSNumber.Text & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -18561,12 +18561,12 @@ Public Class DMUStaffTools
             dr.Close()
 
             SQL = "select * " & _
-            "from " & connNameSpace & ".APBFacilityInformation " & _
+            "from " & DBNameSpace & ".APBFacilityInformation " & _
             "where strAIRSNumber = '0413" & txtEILogSelectedAIRSNumber.Text & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -18604,13 +18604,13 @@ Public Class DMUStaffTools
             dr.Close()
 
             SQL = "Select * " & _
-            "from " & connNameSpace & ".EIS_Mailout " & _
+            "from " & DBNameSpace & ".EIS_Mailout " & _
             "where intInventoryYear = '" & txtEILogSelectedYear.Text & "' " & _
             "and FacilitySiteID = '" & txtEILogSelectedAIRSNumber.Text & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -18702,14 +18702,14 @@ Public Class DMUStaffTools
             "strContactCity, strContactState, " & _
             "strContactZipCode, strContactDescription, " & _
             "datModifingDate, (strLastName||', '||strFirstName) as ModifingPerson " & _
-            "from " & connNameSpace & ".APBContactInformation, " & connNameSpace & ".EPDUserProfiles " & _
-            "where " & connNameSpace & ".APBContactInformation.strModifingPerson = " & _
-            "" & connNameSpace & ".EPDUserProfiles.numUserID  " & _
+            "from " & DBNameSpace & ".APBContactInformation, " & DBNameSpace & ".EPDUserProfiles " & _
+            "where " & DBNameSpace & ".APBContactInformation.strModifingPerson = " & _
+            "" & DBNameSpace & ".EPDUserProfiles.numUserID  " & _
             "and strContactKey = '0413" & txtEILogSelectedAIRSNumber.Text & "41' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -18827,11 +18827,11 @@ Public Class DMUStaffTools
 
                 SQL = "select  " & _
                 "strFacilitySiteName " & _
-                "from " & connNameSpace & ".EIS_FacilitySite " & _
+                "from " & DBNameSpace & ".EIS_FacilitySite " & _
                 "where FacilitySiteId = '" & txtEILogSelectedAIRSNumber.Text & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -18847,12 +18847,12 @@ Public Class DMUStaffTools
 
                 SQL = "select  " & _
                 "* " & _
-                "from " & connNameSpace & ".EIS_FacilitySiteAddress " & _
+                "from " & DBNameSpace & ".EIS_FacilitySiteAddress " & _
                 "where FacilitySiteId = '" & txtEILogSelectedAIRSNumber.Text & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -18876,12 +18876,12 @@ Public Class DMUStaffTools
 
                 SQL = "select  " & _
                 "* " & _
-                "from " & connNameSpace & ".EIS_FacilityGeoCoord " & _
+                "from " & DBNameSpace & ".EIS_FacilityGeoCoord " & _
                 "where FacilitySiteId = '" & txtEILogSelectedAIRSNumber.Text & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -18899,12 +18899,12 @@ Public Class DMUStaffTools
                 dr.Close()
 
                 SQL = "select * " & _
-                "from " & connNameSpace & ".APBFacilityInformation " & _
+                "from " & DBNameSpace & ".APBFacilityInformation " & _
                 "where strAIRSNumber = '0413" & txtEILogSelectedAIRSNumber.Text & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -18942,13 +18942,13 @@ Public Class DMUStaffTools
                 dr.Close()
 
                 SQL = "Select * " & _
-                "from " & connNameSpace & ".EIS_Mailout " & _
+                "from " & DBNameSpace & ".EIS_Mailout " & _
                 "where intInventoryYear = '" & txtEILogSelectedYear.Text & "' " & _
                 "and FacilitySiteID = '" & txtEILogSelectedAIRSNumber.Text & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -19040,14 +19040,14 @@ Public Class DMUStaffTools
                 "strContactCity, strContactState, " & _
                 "strContactZipCode, strContactDescription, " & _
                 "datModifingDate, (strLastName||', '||strFirstName) as ModifingPerson " & _
-                "from " & connNameSpace & ".APBContactInformation, " & connNameSpace & ".EPDUserProfiles " & _
-                "where " & connNameSpace & ".APBContactInformation.strModifingPerson = " & _
-                "" & connNameSpace & ".EPDUserProfiles.numUserID  " & _
+                "from " & DBNameSpace & ".APBContactInformation, " & DBNameSpace & ".EPDUserProfiles " & _
+                "where " & DBNameSpace & ".APBContactInformation.strModifingPerson = " & _
+                "" & DBNameSpace & ".EPDUserProfiles.numUserID  " & _
                 "and strContactKey = '0413" & txtEILogSelectedAIRSNumber.Text & "41' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -19184,9 +19184,9 @@ Public Class DMUStaffTools
 
             SQL = "select distinct " & _
       "'False' as ID, " & _
-      " " & connNameSpace & ".EIS_Admin.facilitysiteid, " & _
-     "" & connNameSpace & ".APBFacilityInformation.strFacilityname, " & _
-"" & connNameSpace & ".EIS_Admin.inventoryyear, " & _
+      " " & DBNameSpace & ".EIS_Admin.facilitysiteid, " & _
+     "" & DBNameSpace & ".APBFacilityInformation.strFacilityname, " & _
+"" & DBNameSpace & ".EIS_Admin.inventoryyear, " & _
 "AIRbranch.EISLK_EISStatusCode.strDesc as EISStatus, " & _
 "AIRbranch.EISLK_EISAccessCode.strDesc as EISAccess, " & _
 "case " & _
@@ -19241,15 +19241,15 @@ Public Class DMUStaffTools
  "where AIRBranch.EIS_QAAdmin.inventoryYear = AIRBranch.EIS_Admin.inventoryYEar " & _
  "and AIRBranch.EIS_QAAdmin.facilitysiteID = AIRBranch.EIS_Admin.facilitysiteID " & _
  "and eis_qaAdmin.qaStatusCode = '2') " & _
- "order by " & connNameSpace & ".EIS_Admin.facilitysiteid "
+ "order by " & DBNameSpace & ".EIS_Admin.facilitysiteid "
             ' "and datQAComplete is not null )  "
 
             dgvEISStats.Rows.Clear()
             ds = New DataSet
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -19356,9 +19356,9 @@ Public Class DMUStaffTools
                 "where inventoryyear = '" & EISConfirm & "', " & _
                 "and facilitysiteid = '" & txtEILogSelectedAIRSNumber.Text & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -19372,9 +19372,9 @@ Public Class DMUStaffTools
                   "where inventoryYear = '" & EISConfirm & "' " & _
                   "and facilitysiteid = '" & txtEILogSelectedAIRSNumber.Text & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 cmd.ExecuteReader(CommandBehavior.CloseConnection)
 
@@ -19391,10 +19391,10 @@ Public Class DMUStaffTools
             For i = 0 To dgvEISStats.Rows.Count - 1
                 If dgvEISStats(0, i).Value = True Then
 
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
-                    cmd = New OracleCommand("airbranch.PD_EIS_QASTART", conn)
+                    cmd = New OracleCommand("airbranch.PD_EIS_QASTART", DBConn)
                     cmd.CommandType = CommandType.StoredProcedure
                     temp = dgvEISStats(1, i).Value
 
@@ -19403,8 +19403,8 @@ Public Class DMUStaffTools
 
                     cmd.ExecuteNonQuery()
 
-                    If conn.State = ConnectionState.Open Then
-                        conn.Close()
+                    If DBConn.State = ConnectionState.Open Then
+                        DBConn.Close()
                     End If
                 End If
             Next
@@ -19422,9 +19422,9 @@ Public Class DMUStaffTools
             dgvEISStats.Rows.Clear()
             SQL = "select " & _
             "'False' as ID, " & _
-            " " & connNameSpace & ".EIS_Admin.facilitysiteid, " & _
-           "" & connNameSpace & ".APBFacilityInformation.strFacilityname, " & _
-           "" & connNameSpace & ".EIS_Admin.inventoryyear, " & _
+            " " & DBNameSpace & ".EIS_Admin.facilitysiteid, " & _
+           "" & DBNameSpace & ".APBFacilityInformation.strFacilityname, " & _
+           "" & DBNameSpace & ".EIS_Admin.inventoryyear, " & _
            "AIRbranch.EISLK_EISStatusCode.strDesc as EISStatus, " & _
            "AIRbranch.EISLK_EISAccessCode.strDesc as EISAccess, " & _
            "case " & _
@@ -19491,9 +19491,9 @@ Public Class DMUStaffTools
             dgvEISStats.Rows.Clear()
             ds = New DataSet
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -19668,10 +19668,10 @@ Public Class DMUStaffTools
             "strMailout = '1' " & _
             "where inventoryYear = '" & txtSelectedEISMailout.Text & "' " & _
             "and Active = '1' "
-            cmd = New OracleCommand(SQL, conn)
+            cmd = New OracleCommand(SQL, DBConn)
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             cmd.ExecuteNonQuery()
 
@@ -19695,10 +19695,10 @@ Public Class DMUStaffTools
           "and strMailout = '1' " & _
           "and Active = '1' "
 
-            cmd = New OracleCommand(SQL, conn)
+            cmd = New OracleCommand(SQL, DBConn)
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             cmd.ExecuteNonQuery()
             EIS_VIEW(txtSelectedEISMailout.Text, "1", "", "1", "", "", "", "")
@@ -19741,9 +19741,9 @@ Public Class DMUStaffTools
             "where active = '1' " & _
             "and InventoryYear = '" & txtEISStatsEnrollmentYear.Text & "' " & _
             "and strMailout = '1' "
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             cmd.ExecuteNonQuery()
 
@@ -19769,9 +19769,9 @@ Public Class DMUStaffTools
             "and InventoryYear = '" & txtEISStatsEnrollmentYear.Text & "' " & _
             "and strEnrollment = '1' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             cmd.ExecuteNonQuery()
 
@@ -19857,9 +19857,9 @@ Public Class DMUStaffTools
 
             dgvEISStats.Rows.Clear()
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
 

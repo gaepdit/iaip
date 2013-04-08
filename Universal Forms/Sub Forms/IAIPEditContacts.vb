@@ -21,7 +21,7 @@ Public Class IAIPEditContacts
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -124,7 +124,7 @@ Public Class IAIPEditContacts
                         "    when strContactDescription is Null then 'N/A' " & _
                         "    ELSE strContactDescription " & _
                         "END as ContactDescription " & _
-                        "from " & connNameSpace & ".APBContactInformation " & _
+                        "from " & DBNameSpace & ".APBContactInformation " & _
                         "where strContactKey like '0413" & txtAIRSNumber.Text & "1%'"
                         clbContactKey.Items.Add("ISMP Contact 1", False)
                         clbContactKey.Items.Add("ISMP Contact 2", False)
@@ -160,7 +160,7 @@ Public Class IAIPEditContacts
                       "    when strContactDescription is Null then 'N/A' " & _
                       "    ELSE strContactDescription " & _
                       "END as ContactDescription " & _
-                      "from " & connNameSpace & ".APBContactInformation " & _
+                      "from " & DBNameSpace & ".APBContactInformation " & _
                       "where strContactKey like '0413" & txtAIRSNumber.Text & "2%'"
                         clbContactKey.Items.Add("SSCP Contact 1", False)
                         clbContactKey.Items.Add("SSCP Contact 2", False)
@@ -196,7 +196,7 @@ Public Class IAIPEditContacts
                           "    when strContactDescription is Null then 'N/A' " & _
                           "    ELSE strContactDescription " & _
                           "END as ContactDescription " & _
-                          "from " & connNameSpace & ".APBContactInformation " & _
+                          "from " & DBNameSpace & ".APBContactInformation " & _
                           "where strContactKey like '0413" & txtAIRSNumber.Text & "3%'"
                         clbContactKey.Items.Add("SSPP Contact 1", False)
                         clbContactKey.Items.Add("SSPP Contact 2", False)
@@ -232,7 +232,7 @@ Public Class IAIPEditContacts
                           "    when strContactDescription is Null then 'N/A' " & _
                           "    ELSE strContactDescription " & _
                           "END as ContactDescription " & _
-                          "from " & connNameSpace & ".APBContactInformation " & _
+                          "from " & DBNameSpace & ".APBContactInformation " & _
                           "where strContactKey like '0413" & txtAIRSNumber.Text & "4%'"
                         clbContactKey.Items.Add("Fees Contact", False)
                         clbContactKey.Items.Add("Emission Inventory Contact", False)
@@ -268,7 +268,7 @@ Public Class IAIPEditContacts
                           "    when strContactDescription is Null then 'N/A' " & _
                           "    ELSE strContactDescription " & _
                           "END as ContactDescription " & _
-                          "from " & connNameSpace & ".APBContactInformation " & _
+                          "from " & DBNameSpace & ".APBContactInformation " & _
                           "where strContactKey like '0413" & txtAIRSNumber.Text & "%'"
                         clbContactKey.Items.Add("A&M Contact 1", False)
                         clbContactKey.Items.Add("A&M Contact 2", False)
@@ -364,7 +364,7 @@ Public Class IAIPEditContacts
                           "    when strContactDescription is Null then 'N/A' " & _
                           "    ELSE strContactDescription " & _
                           "END as ContactDescription " & _
-                          "from " & connNameSpace & ".APBContactInformation " & _
+                          "from " & DBNameSpace & ".APBContactInformation " & _
                           "where strContactKey like '0413" & txtAIRSNumber.Text & "5%'"
                         clbContactKey.Items.Add("A&M Contact 1", False)
                         clbContactKey.Items.Add("A&M Contact 2", False)
@@ -400,7 +400,7 @@ Public Class IAIPEditContacts
                           "    when strContactDescription is Null then 'N/A' " & _
                           "    ELSE strContactDescription " & _
                           "END as ContactDescription " & _
-                          "from " & connNameSpace & ".APBContactInformation " & _
+                          "from " & DBNameSpace & ".APBContactInformation " & _
                           "where strContactKey like '0413" & txtAIRSNumber.Text & "7%'"
                         clbContactKey.Items.Add("District Contact 1", False)
                         clbContactKey.Items.Add("District Contact 2", False)
@@ -436,7 +436,7 @@ Public Class IAIPEditContacts
                           "    when strContactDescription is Null then 'N/A' " & _
                           "    ELSE strContactDescription " & _
                           "END as ContactDescription " & _
-                          "from " & connNameSpace & ".APBContactInformation " & _
+                          "from " & DBNameSpace & ".APBContactInformation " & _
                           "where strContactKey like '0413" & txtAIRSNumber.Text & "40' or strContactKey = '0413" & txtAIRSNumber.Text & "6%' "
                         clbContactKey.Items.Add("Fees Contact", False)
                         clbContactKey.Items.Add("P&S Contact 1", False)
@@ -473,7 +473,7 @@ Public Class IAIPEditContacts
                         "    when strContactDescription is Null then 'N/A' " & _
                         "    ELSE strContactDescription " & _
                         "END as ContactDescription " & _
-                        "from " & connNameSpace & ".APBContactInformation " & _
+                        "from " & DBNameSpace & ".APBContactInformation " & _
                         "where strContactKey like '0413" & txtAIRSNumber.Text & "%'"
                         clbContactKey.Items.Add("A&M Contact 1", False)
                         clbContactKey.Items.Add("A&M Contact 2", False)
@@ -585,22 +585,22 @@ Public Class IAIPEditContacts
                  "    when strContactDescription is Null then '' " & _
                  "    ELSE strContactDescription " & _
                  "END as ContactDescription " & _
-                 "from " & connNameSpace & ".APBContactInformation " & _
+                 "from " & DBNameSpace & ".APBContactInformation " & _
                  "where strAIRSnumber = '0413" & txtAIRSNumber.Text & "' " & _
                  "order by substr(strKey, 2), strKey "
 
                  dsContacts = New DataSet
-                daContacts = New OracleDataAdapter(SQL, conn)
+                daContacts = New OracleDataAdapter(SQL, DBConn)
 
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
 
                 daContacts.Fill(dsContacts, "Contacts")
                 dgvContacts.DataSource = dsContacts
                 dgvContacts.DataMember = "Contacts"
 
-                If conn.State = ConnectionState.Open Then
+                If DBConn.State = ConnectionState.Open Then
                     'conn.close()
                 End If
 
@@ -673,7 +673,7 @@ Public Class IAIPEditContacts
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -688,9 +688,9 @@ Public Class IAIPEditContacts
                 "where strAIRSNumber = '0413" & txtNewAIRSnumber.Text & "' " & _
                 "and strKey = '" & txtNewKey.Text & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -847,7 +847,7 @@ Public Class IAIPEditContacts
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1389,12 +1389,12 @@ Public Class IAIPEditContacts
                     End Select
 
                     SQL = "Select * " & _
-                    "from " & connNameSpace & ".APBContactInformation " & _
+                    "from " & DBNameSpace & ".APBContactInformation " & _
                     "where strContactkey = '" & txtContactKey.Text & "'"
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     While dr.Read
@@ -1501,7 +1501,7 @@ Public Class IAIPEditContacts
                         End If
                     End While
 
-                    If conn.State = ConnectionState.Open Then
+                    If DBConn.State = ConnectionState.Open Then
                         'conn.close()
                     End If
 
@@ -1515,7 +1515,7 @@ Public Class IAIPEditContacts
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1685,8 +1685,8 @@ Public Class IAIPEditContacts
             End If
             ContactDescription = Replace(ContactDescription, "'", "''")
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             If txtAIRSNumber.Text <> "" Then
@@ -1744,14 +1744,14 @@ Public Class IAIPEditContacts
 
                 If ContactKey <> "" Then
                     SQL = "Select strKey " & _
-                        "from " & connNameSpace & ".APBContactInformation " & _
+                        "from " & DBNameSpace & ".APBContactInformation " & _
                         "where strContactKey = '" & ContactKey & "' "
-                    cmd = New OracleCommand(SQL, conn)
+                    cmd = New OracleCommand(SQL, DBConn)
                     dr = cmd.ExecuteReader
                     recExist = dr.Read
                     dr.Close()
                     If recExist = True Then
-                        SQL = "Update " & connNameSpace & ".APBContactInformation set " & _
+                        SQL = "Update " & DBNameSpace & ".APBContactInformation set " & _
                          "strContactFirstname = '" & ContactFirstName & "', " & _
                          "strContactLastName = '" & ContactLastName & "', " & _
                          "strContactPrefix = '" & ContactSocialTitle & "', " & _
@@ -1772,7 +1772,7 @@ Public Class IAIPEditContacts
                          "strContactDescription = '" & ContactDescription & "' " & _
                          "where strContactKEy = '" & ContactKey & "' "
                     Else
-                        SQL = "Insert into " & connNameSpace & ".APBContactInformation " & _
+                        SQL = "Insert into " & DBNameSpace & ".APBContactInformation " & _
                         "(strContactKey, strAIRSNumber, strKey, " & _
                         "strContactFirstName, strContactLastName, " & _
                         "strCOntactPrefix, strContactSuffix, " & _
@@ -1797,7 +1797,7 @@ Public Class IAIPEditContacts
 
                     Try
 
-                        cmd = New OracleCommand(SQL, conn)
+                        cmd = New OracleCommand(SQL, DBConn)
                         dr = cmd.ExecuteReader
 
                         dr.Close()
@@ -1819,14 +1819,14 @@ Public Class IAIPEditContacts
                 SSCPRequest.LoadFacilityContactInformation()
             End If
 
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1835,11 +1835,11 @@ Public Class IAIPEditContacts
     Sub DeleteContact()
         Try
             If txtContactKey.Text.Length = 14 Then
-                SQL = "Delete " & connNameSpace & ".APBContactInformation " & _
+                SQL = "Delete " & DBNameSpace & ".APBContactInformation " & _
                 "where strContactKey = '" & txtContactKey.Text & "'"
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -1863,7 +1863,7 @@ Public Class IAIPEditContacts
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1875,7 +1875,7 @@ Public Class IAIPEditContacts
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1891,7 +1891,7 @@ Public Class IAIPEditContacts
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1904,7 +1904,7 @@ Public Class IAIPEditContacts
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1917,7 +1917,7 @@ Public Class IAIPEditContacts
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1930,7 +1930,7 @@ Public Class IAIPEditContacts
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1943,7 +1943,7 @@ Public Class IAIPEditContacts
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1956,7 +1956,7 @@ Public Class IAIPEditContacts
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1969,7 +1969,7 @@ Public Class IAIPEditContacts
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -2001,7 +2001,7 @@ Public Class IAIPEditContacts
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -2023,7 +2023,7 @@ Public Class IAIPEditContacts
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -2045,7 +2045,7 @@ Public Class IAIPEditContacts
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -2059,7 +2059,7 @@ Public Class IAIPEditContacts
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -2072,7 +2072,7 @@ Public Class IAIPEditContacts
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -2085,7 +2085,7 @@ Public Class IAIPEditContacts
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -2098,7 +2098,7 @@ Public Class IAIPEditContacts
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -2111,7 +2111,7 @@ Public Class IAIPEditContacts
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -2124,7 +2124,7 @@ Public Class IAIPEditContacts
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -2137,7 +2137,7 @@ Public Class IAIPEditContacts
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -2150,7 +2150,7 @@ Public Class IAIPEditContacts
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -2163,7 +2163,7 @@ Public Class IAIPEditContacts
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -2176,7 +2176,7 @@ Public Class IAIPEditContacts
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -2189,7 +2189,7 @@ Public Class IAIPEditContacts
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -2202,7 +2202,7 @@ Public Class IAIPEditContacts
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -2215,7 +2215,7 @@ Public Class IAIPEditContacts
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -2295,9 +2295,9 @@ Public Class IAIPEditContacts
                     "where strAIRSNumber = '" & txtNewAIRSnumber.Text & "' " & _
                     "and strKey = '" & txtNewKey.Text & "' "
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     cmd.ExecuteReader()
                 Else
@@ -2342,9 +2342,9 @@ Public Class IAIPEditContacts
                        "STRCONTACTDESCRIPTION = '" & Replace(txtNewDescrption.Text, "'", "''") & "' " & _
                        "where strAIRSNumber = '" & txtNewAIRSnumber.Text & "' " & _
                        "and strKey = '" & newKey & "' "
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, DBConn)
+                        If DBConn.State = ConnectionState.Closed Then
+                            DBConn.Open()
                         End If
                         cmd.ExecuteReader()
                     End If
@@ -2458,9 +2458,9 @@ Public Class IAIPEditContacts
                             "where strAIRSNumber = '" & txtNewAIRSnumber.Text & "' " & _
                             "and strKey = '" & Mid(newKey, 1, 1) & "9' "
 
-                            cmd = New OracleCommand(SQL, conn)
-                            If conn.State = ConnectionState.Closed Then
-                                conn.Open()
+                            cmd = New OracleCommand(SQL, DBConn)
+                            If DBConn.State = ConnectionState.Closed Then
+                                DBConn.Open()
                             End If
                             cmd.ExecuteReader()
 
@@ -2469,9 +2469,9 @@ Public Class IAIPEditContacts
                             "strContactKey = substr(strContactKey, 1, 13) || (substr(strContactKey, 14, 1) + 1) " & _
                             "where strAIRSNumber = '0413" & txtNewAIRSnumber.Text & "' " & _
                             "and strKey like '" & Mid(newKey, 1, 1) & "%' "
-                            cmd = New OracleCommand(SQL, conn)
-                            If conn.State = ConnectionState.Closed Then
-                                conn.Open()
+                            cmd = New OracleCommand(SQL, DBConn)
+                            If DBConn.State = ConnectionState.Closed Then
+                                DBConn.Open()
                             End If
                             cmd.ExecuteReader()
 
@@ -2504,9 +2504,9 @@ Public Class IAIPEditContacts
                             "where strKey = '" & newKey & "' " & _
                             "and strAIRSNumber = '0413" & txtNewAIRSnumber.Text & "')) "
 
-                            cmd = New OracleCommand(SQL, conn)
-                            If conn.State = ConnectionState.Closed Then
-                                conn.Open()
+                            cmd = New OracleCommand(SQL, DBConn)
+                            If DBConn.State = ConnectionState.Closed Then
+                                DBConn.Open()
                             End If
                             cmd.ExecuteReader()
 
@@ -2540,9 +2540,9 @@ Public Class IAIPEditContacts
                             "where strKey = '" & newKey & "' " & _
                             "and strAIRSNumber = '0413" & txtNewAIRSnumber.Text & "')) "
 
-                            cmd = New OracleCommand(SQL, conn)
-                            If conn.State = ConnectionState.Closed Then
-                                conn.Open()
+                            cmd = New OracleCommand(SQL, DBConn)
+                            If DBConn.State = ConnectionState.Closed Then
+                                DBConn.Open()
                             End If
                             cmd.ExecuteReader()
                     End Select

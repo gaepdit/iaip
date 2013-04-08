@@ -1310,7 +1310,7 @@ Public Class SSCPInformationRequest
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1350,7 +1350,7 @@ Public Class SSCPInformationRequest
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1381,8 +1381,8 @@ Public Class SSCPInformationRequest
 
             RemoveContactTabPages()
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             SQL = "Select strContactKey, " & _
@@ -1394,11 +1394,11 @@ Public Class SSCPInformationRequest
             "strContactAddress1, strContactAddress2, " & _
             "strContactCity, strContactState, " & _
             "strContactZipCode, strContactDescription " & _
-            "from " & connNameSpace & ".APBContactInformation " & _
+            "from " & DBNameSpace & ".APBContactInformation " & _
             "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' " & _
             "order by strContactKey "
 
-            cmd = New OracleCommand(SQL, conn)
+            cmd = New OracleCommand(SQL, DBConn)
             dr = cmd.ExecuteReader
             recExist = dr.Read
             dr.Close()
@@ -1741,7 +1741,7 @@ Public Class SSCPInformationRequest
         Catch ex As Exception
             ErrorReport(txtAIRSNumber.Text.ToString() & ex.ToString(), "SSCPInformationRequest.LoadFacilityContactInformation")
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1763,7 +1763,7 @@ Public Class SSCPInformationRequest
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1839,7 +1839,7 @@ Public Class SSCPInformationRequest
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1850,29 +1850,29 @@ Public Class SSCPInformationRequest
 
             If txtTrackingNumber.Text <> "" Then
                 SQL = "Select strTrackingNumber " & _
-                "from " & connNameSpace & ".SSCPItemMaster " & _
+                "from " & DBNameSpace & ".SSCPItemMaster " & _
                 "where strtrackingNumber = '" & txtTrackingNumber.Text & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
 
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = True Then
-                    SQL = "Update " & connNameSpace & ".SSCPItemMaster set " & _
+                    SQL = "Update " & DBNameSpace & ".SSCPItemMaster set " & _
                     "datInformationRequestDate = '" & DTPDueDate.Text & "' " & _
                     "where strTrackingnumber = '" & txtTrackingNumber.Text & "' "
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                 End If
             End If
 
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
             If SSCPREports Is Nothing Then
@@ -1883,7 +1883,7 @@ Public Class SSCPInformationRequest
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1910,7 +1910,7 @@ Public Class SSCPInformationRequest
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1929,7 +1929,7 @@ Public Class SSCPInformationRequest
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try

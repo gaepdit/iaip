@@ -37,11 +37,11 @@ Public Class DEVEditContacts
             Dim OLAPid As String = ""
 
             SQL = "select * " & _
-            "From " & connNameSpace & ".APBContactInformation " & _
+            "From " & DBNameSpace & ".APBContactInformation " & _
             "where strAIRSNumber like '0413%' " & _
             "order by datModifingDate asc "
 
-            cmd = New OracleCommand(SQL, conn)
+            cmd = New OracleCommand(SQL, DBConn)
             dr = cmd.ExecuteReader
             While dr.Read
                 If IsDBNull(dr.Item("strContactFirstName")) Then
@@ -137,12 +137,12 @@ Public Class DEVEditContacts
 
                 If strContactkey <> "" Then
                     SQL2 = "Select numContactID " & _
-                    "from " & connNameSpace & ".APBContactData " & _
+                    "from " & DBNameSpace & ".APBContactData " & _
                     "where upper(strFirstName) = '" & Replace(strFirstName.ToUpper, "'", "''") & "' " & _
                     "and upper(strLastName) = '" & Replace(strLastName.ToUpper, "'", "''") & "' "
-                    cmd2 = New OracleCommand(SQL2, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd2 = New OracleCommand(SQL2, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr2 = cmd2.ExecuteReader
                     recExist = dr2.Read
@@ -152,10 +152,10 @@ Public Class DEVEditContacts
                         ContactType = Mid(strContactkey, 13)
 
                         SQL2 = "Select (max(numContactID) + 1) as ConID " & _
-                        "From " & connNameSpace & ".APBContactData "
-                        cmd2 = New OracleCommand(SQL2, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        "From " & DBNameSpace & ".APBContactData "
+                        cmd2 = New OracleCommand(SQL2, DBConn)
+                        If DBConn.State = ConnectionState.Closed Then
+                            DBConn.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         While dr2.Read
@@ -167,7 +167,7 @@ Public Class DEVEditContacts
                         End While
                         dr2.Close()
 
-                        SQL2 = "Insert into " & connNameSpace & ".APBContactData " & _
+                        SQL2 = "Insert into " & DBNameSpace & ".APBContactData " & _
                         "values " & _
                         "('" & ContactID & "', '" & Replace(strFirstName, "'", "''") & "', " & _
                         "'" & Replace(strLastName, "'", "''") & "', '" & Replace(strPrefix, "'", "''") & "', " & _
@@ -180,16 +180,16 @@ Public Class DEVEditContacts
                         "'" & Replace(ModPerson, "'", "''") & "', '" & OracleDate & "', " & _
                         "'" & Replace(ModPerson, "'", "''") & "', '" & OracleDate & "', " & _
                         "'' ) "
-                        cmd2 = New OracleCommand(SQL2, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd2 = New OracleCommand(SQL2, DBConn)
+                        If DBConn.State = ConnectionState.Closed Then
+                            DBConn.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         dr2.Close()
                     Else
-                        cmd2 = New OracleCommand(SQL2, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd2 = New OracleCommand(SQL2, DBConn)
+                        If DBConn.State = ConnectionState.Closed Then
+                            DBConn.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         While dr2.Read
@@ -205,13 +205,13 @@ Public Class DEVEditContacts
                     If ContactID <> "" Then
                         SQL2 = "Select " & _
                         "numID " & _
-                        "from " & connNameSpace & ".APBContacts " & _
+                        "from " & DBNameSpace & ".APBContacts " & _
                         "where strAIRSNumber = '" & AIRSNumber & "' " & _
                         "and strkey = '" & ContactType & "' "
 
-                        cmd2 = New OracleCommand(SQL2, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd2 = New OracleCommand(SQL2, DBConn)
+                        If DBConn.State = ConnectionState.Closed Then
+                            DBConn.Open()
                         End If
                         dr2 = cmd2.ExecuteReader
                         recExist = dr2.Read
@@ -219,10 +219,10 @@ Public Class DEVEditContacts
                         If recExist = False Then
                             SQL2 = "Select " & _
                             "(max(numID) + 1) as numID " & _
-                            "from " & connNameSpace & ".APBContacts "
-                            cmd2 = New OracleCommand(SQL2, conn)
-                            If conn.State = ConnectionState.Closed Then
-                                conn.Open()
+                            "from " & DBNameSpace & ".APBContacts "
+                            cmd2 = New OracleCommand(SQL2, DBConn)
+                            If DBConn.State = ConnectionState.Closed Then
+                                DBConn.Open()
                             End If
                             dr2 = cmd2.ExecuteReader
                             While dr2.Read
@@ -234,13 +234,13 @@ Public Class DEVEditContacts
                             End While
                             dr2.Close()
 
-                            SQL2 = "Insert into " & connNameSpace & ".APBContacts " & _
+                            SQL2 = "Insert into " & DBNameSpace & ".APBContacts " & _
                             "values " & _
                             "('" & ContactID2 & "', '" & AIRSNumber & "', " & _
                             "'" & ContactType & "', '" & ContactID & "') "
-                            cmd2 = New OracleCommand(SQL2, conn)
-                            If conn.State = ConnectionState.Closed Then
-                                conn.Open()
+                            cmd2 = New OracleCommand(SQL2, DBConn)
+                            If DBConn.State = ConnectionState.Closed Then
+                                DBConn.Open()
                             End If
                             dr2 = cmd2.ExecuteReader
                             dr2.Close()
@@ -255,12 +255,12 @@ Public Class DEVEditContacts
                             End While
                             dr2.Close()
 
-                            SQL2 = "Update " & connNameSpace & ".APBContacts set " & _
+                            SQL2 = "Update " & DBNameSpace & ".APBContacts set " & _
                             "numContactID = '" & ContactID & "' " & _
                             "where numID = '" & ContactID2 & "' "
-                            cmd2 = New OracleCommand(SQL2, conn)
-                            If conn.State = ConnectionState.Closed Then
-                                conn.Open()
+                            cmd2 = New OracleCommand(SQL2, DBConn)
+                            If DBConn.State = ConnectionState.Closed Then
+                                DBConn.Open()
                             End If
                             dr2 = cmd2.ExecuteReader
                             dr2.Close()
@@ -272,11 +272,11 @@ Public Class DEVEditContacts
 
             SQL = "Select " & _
             "numContactId, strEmail " & _
-            "From " & connNameSpace & ".APBContactData "  
+            "From " & DBNameSpace & ".APBContactData "  
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -295,12 +295,12 @@ Public Class DEVEditContacts
                 End If
 
                 SQL2 = "Select numUserID " & _
-                "from " & connNameSpace & ".OlapUserLogIn " & _
+                "from " & DBNameSpace & ".OlapUserLogIn " & _
                 "where upper(strUserEmail) = '" & Replace(strEmail.ToUpper, "'", "''") & "' "
 
-                cmd2 = New OracleCommand(SQL2, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd2 = New OracleCommand(SQL2, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr2 = cmd2.ExecuteReader
                 While dr2.Read
@@ -312,13 +312,13 @@ Public Class DEVEditContacts
                 End While
                 dr2.Close()
                 If OLAPid <> "" Then
-                    SQL2 = "update " & connNameSpace & ".APBContactData set " & _
+                    SQL2 = "update " & DBNameSpace & ".APBContactData set " & _
                     "numOlapID = '" & OLAPid & "' " & _
                     "where numContactID = '" & ContactID & "' "
 
-                    cmd2 = New OracleCommand(SQL2, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd2 = New OracleCommand(SQL2, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr2 = cmd2.ExecuteReader
                     dr2.Close()
@@ -347,12 +347,12 @@ Public Class DEVEditContacts
 
             SQL = "select " & _
             "numContactID " & _
-            "from " & connNameSpace & ".APBContactData " & _
+            "from " & DBNameSpace & ".APBContactData " & _
             "where upper(strEmail) = '" & Replace(txtEmailAddress.Text.ToUpper, "'", "''") & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             recExist = dr.Read
@@ -369,14 +369,14 @@ Public Class DEVEditContacts
                 End Select
             End If
 
-            SQL = "Insert into " & connNameSpace & ".APBContactData " & _
+            SQL = "Insert into " & DBNameSpace & ".APBContactData " & _
             "values " & _
             "((select " & _
             "case " & _
             "when max(numContactID) is null then 1 " & _
             "else max(numContactID) + 1 " & _
             "End ConID " & _
-            "from " & connNameSpace & ".APBContactData), " & _
+            "from " & DBNameSpace & ".APBContactData), " & _
             "'" & Replace(txtContactFirstName.Text, "'", "''") & "', '" & Replace(txtContactLastName.Text, "'", "''") & "', " & _
             "'" & Replace(txtContactSocialTitle.Text, "'", "''") & "', '" & Replace(txtContactPedigree.Text, "'", "''") & "', " & _
             "'" & Replace(txtContactTitle.Text, "'", "''") & "', '" & Replace(txtContactCompanyName.Text, "'", "''") & "', " & _
@@ -389,25 +389,25 @@ Public Class DEVEditContacts
             "'" & UserGCode & "', '" & OracleDate & "', " & _
             "'') "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
 
             SQL = "Select " & _
             "numContactID " & _
-            "from " & connNameSpace & ".APBContactData " & _
+            "from " & DBNameSpace & ".APBContactData " & _
             "where strEmail = '" & txtEmailAddress.Text & "' " & _
             "and strFirstName = '" & txtContactFirstName.Text & "' " & _
             "and strLastName = '" & txtContactLastName.Text & "' " & _
             "and numCreator = '" & UserGCode & "' " & _
             "and numLastModified = '" & UserGCode & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -421,12 +421,12 @@ Public Class DEVEditContacts
             OLAPid = ""
             SQL = "select " & _
             "numUserID " & _
-            "from " & connNameSpace & ".OLAPUserLogIn " & _
+            "from " & DBNameSpace & ".OLAPUserLogIn " & _
             "where upper(strUserEmail) = '" & Replace(txtEmailAddress.Text.ToUpper, "'", "''") & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -439,12 +439,12 @@ Public Class DEVEditContacts
             dr.Close()
 
             If OLAPid <> "" Then
-                SQL = "Update " & connNameSpace & ".APBContactData set " & _
+                SQL = "Update " & DBNameSpace & ".APBContactData set " & _
                 "numOLAPid = '" & OLAPid & "' " & _
                 "where numContactID = '" & txtContactId.Text & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -471,31 +471,31 @@ Public Class DEVEditContacts
             If chbMonitoringContact.Checked = True Then
                 SQL = "Select " & _
                 "numID " & _
-                "from " & connNameSpace & ".APBContacts " & _
+                "from " & DBNameSpace & ".APBContacts " & _
                 "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' " & _
                 "and strKey = '10' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 dr.Close()
                 If recExist = False Then
-                    SQL = "Insert into " & connNameSpace & ".APBContacts " & _
+                    SQL = "Insert into " & DBNameSpace & ".APBContacts " & _
                     "values " & _
                     "((Select " & _
                     "case " & _
                     "when max(numID) is null then 1 " & _
                     "else max(numID) + 1 " & _
                     "end numID " & _
-                    "from " & connNameSpace & ".APBContacts), " & _
+                    "from " & DBNameSpace & ".APBContacts), " & _
                     "'0413" & mtbAIRSNumber.Text & "', '10', " & _
                     "'" & txtContactId.Text & "') "
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
@@ -510,14 +510,14 @@ Public Class DEVEditContacts
 
                     SQL = "Select " & _
                     "numID, numContactID " & _
-                    "from " & connNameSpace & ".APBContacts " & _
+                    "from " & DBNameSpace & ".APBContacts " & _
                     "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' " & _
                     "and strKey like '1%' " & _
                     "order by strKey asc "
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
 
@@ -545,38 +545,38 @@ Public Class DEVEditContacts
                     End While
                     dr.Close()
 
-                    SQL = "Delete " & connNameSpace & ".APBContacts " & _
+                    SQL = "Delete " & DBNameSpace & ".APBContacts " & _
                     "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' " & _
                     "and strKey like '1%' "
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
 
                     Do Until i = 0
                         If ID(1, i - 1) Is Nothing Then
-                            SQL = "Insert into " & connNameSpace & ".APBContacts " & _
+                            SQL = "Insert into " & DBNameSpace & ".APBContacts " & _
                             "values " & _
                             "((Select " & _
                             "case " & _
                             "when max(numID) is null then 1 " & _
                             "else max(numID) + 1 " & _
                             "end numID " & _
-                            "from " & connNameSpace & ".APBContacts), " & _
+                            "from " & DBNameSpace & ".APBContacts), " & _
                             "'0413" & mtbAIRSNumber.Text & "', " & _
                             "'10', '" & ID(0, i - 1).ToString & "') "
                         Else
-                            SQL = "Insert into " & connNameSpace & ".APBContacts " & _
+                            SQL = "Insert into " & DBNameSpace & ".APBContacts " & _
                             "values " & _
                             "('" & ID(1, i - 1).ToString & "', '0413" & mtbAIRSNumber.Text & "', " & _
                             "'1" & (i - 1) & "', '" & ID(0, i - 1).ToString & "') "
                         End If
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, DBConn)
+                        If DBConn.State = ConnectionState.Closed Then
+                            DBConn.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Close()
@@ -585,14 +585,14 @@ Public Class DEVEditContacts
 
                 End If
             Else
-                SQL = "Delete " & connNameSpace & ".APBContacts " & _
+                SQL = "Delete " & DBNameSpace & ".APBContacts " & _
                 "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' " & _
                 "and numContactID = '" & txtContactId.Text & "' " & _
                 "and strKey like '1%' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -601,31 +601,31 @@ Public Class DEVEditContacts
             If chbComplianceContact.Checked = True Then
                 SQL = "Select " & _
                 "numID " & _
-                "from " & connNameSpace & ".APBContacts " & _
+                "from " & DBNameSpace & ".APBContacts " & _
                 "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' " & _
                 "and strKey = '20' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 dr.Close()
                 If recExist = False Then
-                    SQL = "Insert into " & connNameSpace & ".APBContacts " & _
+                    SQL = "Insert into " & DBNameSpace & ".APBContacts " & _
                     "values " & _
                     "((Select " & _
                     "case " & _
                     "when max(numID) is null then 1 " & _
                     "else max(numID) + 1 " & _
                     "end numID " & _
-                    "from " & connNameSpace & ".APBContacts), " & _
+                    "from " & DBNameSpace & ".APBContacts), " & _
                     "'0413" & mtbAIRSNumber.Text & "', '20', " & _
                     "'" & txtContactId.Text & "') "
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
@@ -640,14 +640,14 @@ Public Class DEVEditContacts
 
                     SQL = "Select " & _
                     "numID, numContactID " & _
-                    "from " & connNameSpace & ".APBContacts " & _
+                    "from " & DBNameSpace & ".APBContacts " & _
                     "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' " & _
                     "and strKey like '2%' " & _
                     "order by strKey asc "
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
 
@@ -675,38 +675,38 @@ Public Class DEVEditContacts
                     End While
                     dr.Close()
 
-                    SQL = "Delete " & connNameSpace & ".APBContacts " & _
+                    SQL = "Delete " & DBNameSpace & ".APBContacts " & _
                     "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' " & _
                     "and strKey like '2%' "
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
 
                     Do Until i = 0
                         If ID(1, i - 1) Is Nothing Then
-                            SQL = "Insert into " & connNameSpace & ".APBContacts " & _
+                            SQL = "Insert into " & DBNameSpace & ".APBContacts " & _
                             "values " & _
                             "((Select " & _
                             "case " & _
                             "when max(numID) is null then 1 " & _
                             "else max(numID) + 1 " & _
                             "end numID " & _
-                            "from " & connNameSpace & ".APBContacts), " & _
+                            "from " & DBNameSpace & ".APBContacts), " & _
                             "'0413" & mtbAIRSNumber.Text & "', " & _
                             "'20', '" & ID(0, i - 1).ToString & "') "
                         Else
-                            SQL = "Insert into " & connNameSpace & ".APBContacts " & _
+                            SQL = "Insert into " & DBNameSpace & ".APBContacts " & _
                             "values " & _
                             "('" & ID(1, i - 1).ToString & "', '0413" & mtbAIRSNumber.Text & "', " & _
                             "'2" & (i - 1) & "', '" & ID(0, i - 1).ToString & "') "
                         End If
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, DBConn)
+                        If DBConn.State = ConnectionState.Closed Then
+                            DBConn.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Close()
@@ -714,14 +714,14 @@ Public Class DEVEditContacts
                     Loop
                 End If
             Else
-                SQL = "Delete " & connNameSpace & ".APBContacts " & _
+                SQL = "Delete " & DBNameSpace & ".APBContacts " & _
                 "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' " & _
                 "and numContactID = '" & txtContactId.Text & "' " & _
                 "and strKey like '2%' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -731,31 +731,31 @@ Public Class DEVEditContacts
             If chbPermittingContact.Checked = True Then
                 SQL = "Select " & _
                "numID " & _
-               "from " & connNameSpace & ".APBContacts " & _
+               "from " & DBNameSpace & ".APBContacts " & _
                "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' " & _
                "and strKey = '30' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 dr.Close()
                 If recExist = False Then
-                    SQL = "Insert into " & connNameSpace & ".APBContacts " & _
+                    SQL = "Insert into " & DBNameSpace & ".APBContacts " & _
                     "values " & _
                     "((Select " & _
                     "case " & _
                     "when max(numID) is null then 1 " & _
                     "else max(numID) + 1 " & _
                     "end numID " & _
-                    "from " & connNameSpace & ".APBContacts), " & _
+                    "from " & DBNameSpace & ".APBContacts), " & _
                     "'0413" & mtbAIRSNumber.Text & "', '30', " & _
                     "'" & txtContactId.Text & "') "
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
@@ -770,14 +770,14 @@ Public Class DEVEditContacts
 
                     SQL = "Select " & _
                     "numID, numContactID " & _
-                    "from " & connNameSpace & ".APBContacts " & _
+                    "from " & DBNameSpace & ".APBContacts " & _
                     "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' " & _
                     "and strKey like '3%' " & _
                     "order by strKey asc "
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
 
@@ -805,38 +805,38 @@ Public Class DEVEditContacts
                     End While
                     dr.Close()
 
-                    SQL = "Delete " & connNameSpace & ".APBContacts " & _
+                    SQL = "Delete " & DBNameSpace & ".APBContacts " & _
                     "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' " & _
                     "and strKey like '3%' "
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
 
                     Do Until i = 0
                         If ID(1, i - 1) Is Nothing Then
-                            SQL = "Insert into " & connNameSpace & ".APBContacts " & _
+                            SQL = "Insert into " & DBNameSpace & ".APBContacts " & _
                             "values " & _
                             "((Select " & _
                             "case " & _
                             "when max(numID) is null then 1 " & _
                             "else max(numID) + 1 " & _
                             "end numID " & _
-                            "from " & connNameSpace & ".APBContacts), " & _
+                            "from " & DBNameSpace & ".APBContacts), " & _
                             "'0413" & mtbAIRSNumber.Text & "', " & _
                             "'30', '" & ID(0, i - 1).ToString & "') "
                         Else
-                            SQL = "Insert into " & connNameSpace & ".APBContacts " & _
+                            SQL = "Insert into " & DBNameSpace & ".APBContacts " & _
                             "values " & _
                             "('" & ID(1, i - 1).ToString & "', '0413" & mtbAIRSNumber.Text & "', " & _
                             "'3" & (i - 1) & "', '" & ID(0, i - 1).ToString & "') "
                         End If
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, DBConn)
+                        If DBConn.State = ConnectionState.Closed Then
+                            DBConn.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Close()
@@ -844,14 +844,14 @@ Public Class DEVEditContacts
                     Loop
                 End If
             Else
-                SQL = "Delete " & connNameSpace & ".APBContacts " & _
+                SQL = "Delete " & DBNameSpace & ".APBContacts " & _
                 "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' " & _
                 "and numContactID = '" & txtContactId.Text & "' " & _
                 "and strKey like '3%' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -860,56 +860,56 @@ Public Class DEVEditContacts
             If chbFeeContact.Checked = True Then
                 SQL = "Select " & _
                 "numID " & _
-                "from " & connNameSpace & ".APBContacts " & _
+                "from " & DBNameSpace & ".APBContacts " & _
                 "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' " & _
                 "and strKey = '40' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 dr.Close()
                 If recExist = False Then
-                    SQL = "Insert into " & connNameSpace & ".APBContacts " & _
+                    SQL = "Insert into " & DBNameSpace & ".APBContacts " & _
                     "values " & _
                     "((Select " & _
                     "case " & _
                     "when max(numID) is null then 1 " & _
                     "else max(numID) + 1 " & _
                     "end numID " & _
-                    "from " & connNameSpace & ".APBContacts), " & _
+                    "from " & DBNameSpace & ".APBContacts), " & _
                     "'0413" & mtbAIRSNumber.Text & "', '40', " & _
                     "'" & txtContactId.Text & "') "
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
                 Else
-                    SQL = "Update " & connNameSpace & ".APBContacts set " & _
+                    SQL = "Update " & DBNameSpace & ".APBContacts set " & _
                     "numContactID = '" & txtContactId.Text & "' " & _
                     "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' " & _
                     "and strKey = '40' "
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
                 End If
             Else
-                SQL = "Delete " & connNameSpace & ".APBContacts " & _
+                SQL = "Delete " & DBNameSpace & ".APBContacts " & _
                 "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' " & _
                 "and numContactID = '" & txtContactId.Text & "' " & _
                 "and strKey = '40' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -918,56 +918,56 @@ Public Class DEVEditContacts
             If chbGECOContact.Checked = True Then
                 SQL = "Select " & _
                "numID " & _
-               "from " & connNameSpace & ".APBContacts " & _
+               "from " & DBNameSpace & ".APBContacts " & _
                "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' " & _
                "and strKey = '41' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 dr.Close()
                 If recExist = False Then
-                    SQL = "Insert into " & connNameSpace & ".APBContacts " & _
+                    SQL = "Insert into " & DBNameSpace & ".APBContacts " & _
                     "values " & _
                     "((Select " & _
                     "case " & _
                     "when max(numID) is null then 1 " & _
                     "else max(numID) + 1 " & _
                     "end numID " & _
-                    "from " & connNameSpace & ".APBContacts), " & _
+                    "from " & DBNameSpace & ".APBContacts), " & _
                     "'0413" & mtbAIRSNumber.Text & "', '41', " & _
                     "'" & txtContactId.Text & "') "
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
                 Else
-                    SQL = "Update " & connNameSpace & ".APBContacts set " & _
+                    SQL = "Update " & DBNameSpace & ".APBContacts set " & _
                     "numContactID = '" & txtContactId.Text & "' " & _
                     "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' " & _
                     "and strKey = '41' "
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
                 End If
             Else
-                SQL = "Delete " & connNameSpace & ".APBContacts " & _
+                SQL = "Delete " & DBNameSpace & ".APBContacts " & _
                 "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' " & _
                 "and numContactID = '" & txtContactId.Text & "' " & _
                 "and strKey = '41' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -976,43 +976,43 @@ Public Class DEVEditContacts
             If chbEIContact.Checked = True Then
                 SQL = "Select " & _
                "numID " & _
-               "from " & connNameSpace & ".APBContacts " & _
+               "from " & DBNameSpace & ".APBContacts " & _
                "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' " & _
                "and strKey = '42' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 dr.Close()
                 If recExist = False Then
-                    SQL = "Insert into " & connNameSpace & ".APBContacts " & _
+                    SQL = "Insert into " & DBNameSpace & ".APBContacts " & _
                     "values " & _
                     "((Select " & _
                     "case " & _
                     "when max(numID) is null then 1 " & _
                     "else max(numID) + 1 " & _
                     "end numID " & _
-                    "from " & connNameSpace & ".APBContacts), " & _
+                    "from " & DBNameSpace & ".APBContacts), " & _
                     "'0413" & mtbAIRSNumber.Text & "', '42', " & _
                     "'" & txtContactId.Text & "') "
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
                 Else
-                    SQL = "Update " & connNameSpace & ".APBContacts set " & _
+                    SQL = "Update " & DBNameSpace & ".APBContacts set " & _
                     "numContactID = '" & txtContactId.Text & "' " & _
                     "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' " & _
                     "and strKey = '42' "
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
@@ -1022,56 +1022,56 @@ Public Class DEVEditContacts
             If chbESContact.Checked = True Then
                 SQL = "Select " & _
                "numID " & _
-               "from " & connNameSpace & ".APBContacts " & _
+               "from " & DBNameSpace & ".APBContacts " & _
                "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' " & _
                "and strKey = '43' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 dr.Close()
                 If recExist = False Then
-                    SQL = "Insert into " & connNameSpace & ".APBContacts " & _
+                    SQL = "Insert into " & DBNameSpace & ".APBContacts " & _
                     "values " & _
                     "((Select " & _
                     "case " & _
                     "when max(numID) is null then 1 " & _
                     "else max(numID) + 1 " & _
                     "end numID " & _
-                    "from " & connNameSpace & ".APBContacts), " & _
+                    "from " & DBNameSpace & ".APBContacts), " & _
                     "'0413" & mtbAIRSNumber.Text & "', '43', " & _
                     "'" & txtContactId.Text & "') "
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
                 Else
-                    SQL = "Update " & connNameSpace & ".APBContacts set " & _
+                    SQL = "Update " & DBNameSpace & ".APBContacts set " & _
                     "numContactID = '" & txtContactId.Text & "' " & _
                     "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' " & _
                     "and strKey = '43' "
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
                 End If
             Else
-                SQL = "Delete " & connNameSpace & ".APBContacts " & _
+                SQL = "Delete " & DBNameSpace & ".APBContacts " & _
                 "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' " & _
                 "and numContactID = '" & txtContactId.Text & "' " & _
                 "and strKey = '43' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -1080,31 +1080,31 @@ Public Class DEVEditContacts
             If chbAmbientContact.Checked = True Then
                 SQL = "Select " & _
                "numID " & _
-               "from " & connNameSpace & ".APBContacts " & _
+               "from " & DBNameSpace & ".APBContacts " & _
                "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' " & _
                "and strKey = '50' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 dr.Close()
                 If recExist = False Then
-                    SQL = "Insert into " & connNameSpace & ".APBContacts " & _
+                    SQL = "Insert into " & DBNameSpace & ".APBContacts " & _
                     "values " & _
                     "((Select " & _
                     "case " & _
                     "when max(numID) is null then 1 " & _
                     "else max(numID) + 1 " & _
                     "end numID " & _
-                    "from " & connNameSpace & ".APBContacts), " & _
+                    "from " & DBNameSpace & ".APBContacts), " & _
                     "'0413" & mtbAIRSNumber.Text & "', '50', " & _
                     "'" & txtContactId.Text & "') "
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
@@ -1119,14 +1119,14 @@ Public Class DEVEditContacts
 
                     SQL = "Select " & _
                     "numID, numContactID " & _
-                    "from " & connNameSpace & ".APBContacts " & _
+                    "from " & DBNameSpace & ".APBContacts " & _
                     "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' " & _
                     "and strKey like '5%' " & _
                     "order by strKey asc "
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
 
@@ -1154,38 +1154,38 @@ Public Class DEVEditContacts
                     End While
                     dr.Close()
 
-                    SQL = "Delete " & connNameSpace & ".APBContacts " & _
+                    SQL = "Delete " & DBNameSpace & ".APBContacts " & _
                     "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' " & _
                     "and strKey like '5%' "
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
 
                     Do Until i = 0
                         If ID(1, i - 1) Is Nothing Then
-                            SQL = "Insert into " & connNameSpace & ".APBContacts " & _
+                            SQL = "Insert into " & DBNameSpace & ".APBContacts " & _
                             "values " & _
                             "((Select " & _
                             "case " & _
                             "when max(numID) is null then 1 " & _
                             "else max(numID) + 1 " & _
                             "end numID " & _
-                            "from " & connNameSpace & ".APBContacts), " & _
+                            "from " & DBNameSpace & ".APBContacts), " & _
                             "'0413" & mtbAIRSNumber.Text & "', " & _
                             "'50', '" & ID(0, i - 1).ToString & "') "
                         Else
-                            SQL = "Insert into " & connNameSpace & ".APBContacts " & _
+                            SQL = "Insert into " & DBNameSpace & ".APBContacts " & _
                             "values " & _
                             "('" & ID(1, i - 1).ToString & "', '0413" & mtbAIRSNumber.Text & "', " & _
                             "'5" & (i - 1) & "', '" & ID(0, i - 1).ToString & "') "
                         End If
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, DBConn)
+                        If DBConn.State = ConnectionState.Closed Then
+                            DBConn.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Close()
@@ -1193,14 +1193,14 @@ Public Class DEVEditContacts
                     Loop
                 End If
             Else
-                SQL = "Delete " & connNameSpace & ".APBContacts " & _
+                SQL = "Delete " & DBNameSpace & ".APBContacts " & _
                 "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' " & _
                 "and numContactID = '" & txtContactId.Text & "' " & _
                 "and strKey like '5%' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -1209,31 +1209,31 @@ Public Class DEVEditContacts
             If chbPlanningContact.Checked = True Then
                 SQL = "Select " & _
                "numID " & _
-               "from " & connNameSpace & ".APBContacts " & _
+               "from " & DBNameSpace & ".APBContacts " & _
                "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' " & _
                "and strKey = '60' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 dr.Close()
                 If recExist = False Then
-                    SQL = "Insert into " & connNameSpace & ".APBContacts " & _
+                    SQL = "Insert into " & DBNameSpace & ".APBContacts " & _
                     "values " & _
                     "((Select " & _
                     "case " & _
                     "when max(numID) is null then 1 " & _
                     "else max(numID) + 1 " & _
                     "end numID " & _
-                    "from " & connNameSpace & ".APBContacts), " & _
+                    "from " & DBNameSpace & ".APBContacts), " & _
                     "'0413" & mtbAIRSNumber.Text & "', '60', " & _
                     "'" & txtContactId.Text & "') "
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
@@ -1248,14 +1248,14 @@ Public Class DEVEditContacts
 
                     SQL = "Select " & _
                     "numID, numContactID " & _
-                    "from " & connNameSpace & ".APBContacts " & _
+                    "from " & DBNameSpace & ".APBContacts " & _
                     "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' " & _
                     "and strKey like '6%' " & _
                     "order by strKey asc "
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
 
@@ -1283,38 +1283,38 @@ Public Class DEVEditContacts
                     End While
                     dr.Close()
 
-                    SQL = "Delete " & connNameSpace & ".APBContacts " & _
+                    SQL = "Delete " & DBNameSpace & ".APBContacts " & _
                     "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' " & _
                     "and strKey like '6%' "
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
 
                     Do Until i = 0
                         If ID(1, i - 1) Is Nothing Then
-                            SQL = "Insert into " & connNameSpace & ".APBContacts " & _
+                            SQL = "Insert into " & DBNameSpace & ".APBContacts " & _
                             "values " & _
                             "((Select " & _
                             "case " & _
                             "when max(numID) is null then 1 " & _
                             "else max(numID) + 1 " & _
                             "end numID " & _
-                            "from " & connNameSpace & ".APBContacts), " & _
+                            "from " & DBNameSpace & ".APBContacts), " & _
                             "'0413" & mtbAIRSNumber.Text & "', " & _
                             "'60', '" & ID(0, i - 1).ToString & "') "
                         Else
-                            SQL = "Insert into " & connNameSpace & ".APBContacts " & _
+                            SQL = "Insert into " & DBNameSpace & ".APBContacts " & _
                             "values " & _
                             "('" & ID(1, i - 1).ToString & "', '0413" & mtbAIRSNumber.Text & "', " & _
                             "'6" & (i - 1) & "', '" & ID(0, i - 1).ToString & "') "
                         End If
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, DBConn)
+                        If DBConn.State = ConnectionState.Closed Then
+                            DBConn.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Close()
@@ -1322,14 +1322,14 @@ Public Class DEVEditContacts
                     Loop
                 End If
             Else
-                SQL = "Delete " & connNameSpace & ".APBContacts " & _
+                SQL = "Delete " & DBNameSpace & ".APBContacts " & _
                 "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' " & _
                 "and numContactID = '" & txtContactId.Text & "' " & _
                 "and strKey like '6%' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -1338,31 +1338,31 @@ Public Class DEVEditContacts
             If chbDistrictContact.Checked = True Then
                 SQL = "Select " & _
                "numID " & _
-               "from " & connNameSpace & ".APBContacts " & _
+               "from " & DBNameSpace & ".APBContacts " & _
                "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' " & _
                "and strKey = '70' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 dr.Close()
                 If recExist = False Then
-                    SQL = "Insert into " & connNameSpace & ".APBContacts " & _
+                    SQL = "Insert into " & DBNameSpace & ".APBContacts " & _
                     "values " & _
                     "((Select " & _
                     "case " & _
                     "when max(numID) is null then 1 " & _
                     "else max(numID) + 1 " & _
                     "end numID " & _
-                    "from " & connNameSpace & ".APBContacts), " & _
+                    "from " & DBNameSpace & ".APBContacts), " & _
                     "'0413" & mtbAIRSNumber.Text & "', '70', " & _
                     "'" & txtContactId.Text & "') "
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
@@ -1377,14 +1377,14 @@ Public Class DEVEditContacts
 
                     SQL = "Select " & _
                     "numID, numContactID " & _
-                    "from " & connNameSpace & ".APBContacts " & _
+                    "from " & DBNameSpace & ".APBContacts " & _
                     "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' " & _
                     "and strKey like '7%' " & _
                     "order by strKey asc "
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
 
@@ -1412,38 +1412,38 @@ Public Class DEVEditContacts
                     End While
                     dr.Close()
 
-                    SQL = "Delete " & connNameSpace & ".APBContacts " & _
+                    SQL = "Delete " & DBNameSpace & ".APBContacts " & _
                     "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' " & _
                     "and strKey like '7%' "
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
 
                     Do Until i = 0
                         If ID(1, i - 1) Is Nothing Then
-                            SQL = "Insert into " & connNameSpace & ".APBContacts " & _
+                            SQL = "Insert into " & DBNameSpace & ".APBContacts " & _
                             "values " & _
                             "((Select " & _
                             "case " & _
                             "when max(numID) is null then 1 " & _
                             "else max(numID) + 1 " & _
                             "end numID " & _
-                            "from " & connNameSpace & ".APBContacts), " & _
+                            "from " & DBNameSpace & ".APBContacts), " & _
                             "'0413" & mtbAIRSNumber.Text & "', " & _
                             "'70', '" & ID(0, i - 1).ToString & "') "
                         Else
-                            SQL = "Insert into " & connNameSpace & ".APBContacts " & _
+                            SQL = "Insert into " & DBNameSpace & ".APBContacts " & _
                             "values " & _
                             "('" & ID(1, i - 1).ToString & "', '0413" & mtbAIRSNumber.Text & "', " & _
                             "'7" & (i - 1) & "', '" & ID(0, i - 1).ToString & "') "
                         End If
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, DBConn)
+                        If DBConn.State = ConnectionState.Closed Then
+                            DBConn.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Close()
@@ -1451,14 +1451,14 @@ Public Class DEVEditContacts
                     Loop
                 End If
             Else
-                SQL = "Delete " & connNameSpace & ".APBContacts " & _
+                SQL = "Delete " & DBNameSpace & ".APBContacts " & _
                 "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' " & _
                 "and numContactID = '" & txtContactId.Text & "' " & _
                 "and strKey like '7%' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -1508,7 +1508,7 @@ Public Class DEVEditContacts
             If mtbSearchAIRS.Text = "" Then
                 SQL = "select " & _
                 "distinct " & _
-                "" & connNameSpace & ".APBContactData.numContactID, " & _
+                "" & DBNameSpace & ".APBContactData.numContactID, " & _
                 "strFirstName, strLastName, " & _
                 "strPrefix, strSuffix, " & _
                 "strTitle, strCompanyName, " & _
@@ -1517,7 +1517,7 @@ Public Class DEVEditContacts
                 "strAddress, strCity, " & _
                 "strState, strZipCode, " & _
                 "strDescription " & _
-                "from " & connNameSpace & ".APBContactData " & _
+                "from " & DBNameSpace & ".APBContactData " & _
                 "where numcontactid is not null " & _
                 "and (Upper(strFirstName) like '%" & FirstName & "%' or strFirstName is null)  " & _
                 "and (Upper(strLastName) like '%" & LastName & "%' or strLastName is null) " & _
@@ -1525,7 +1525,7 @@ Public Class DEVEditContacts
             Else
                 SQL = "select " & _
                 "distinct " & _
-                "" & connNameSpace & ".APBContactData.numContactID, " & _
+                "" & DBNameSpace & ".APBContactData.numContactID, " & _
                 "strFirstName, strLastName, " & _
                 "strPrefix, strSuffix, " & _
                 "strTitle, strCompanyName, " & _
@@ -1534,21 +1534,21 @@ Public Class DEVEditContacts
                 "strAddress, strCity, " & _
                 "strState, strZipCode, " & _
                  "strDescription " & _
-                "from " & connNameSpace & ".APBContactData " & _
+                "from " & DBNameSpace & ".APBContactData " & _
                 "where numcontactid is not null " & _
                 "and (Upper(strFirstName) like '%" & FirstName & "%' or strFirstName is null)  " & _
                 "and (Upper(strLastName) like '%" & LastName & "%' or strLastName is null) " & _
                 "and (Upper(strEmail) like '%" & Email & "%' or strEmail is null) " & _
                 "and Exists " & _
-                "(select * from " & connNameSpace & ".APBContacts " & _
-                "where " & connNameSpace & ".APBContactData.numContactID = " & connNameSpace & ".APBContacts.numContactID " & _
+                "(select * from " & DBNameSpace & ".APBContacts " & _
+                "where " & DBNameSpace & ".APBContactData.numContactID = " & DBNameSpace & ".APBContacts.numContactID " & _
                 "and strAIRSnumber like '0413%" & AIRSNum & "%' ) "
             End If
 
             ds = New DataSet
-            da = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            da = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             da.Fill(ds, "EditContacts")
@@ -1641,12 +1641,12 @@ Public Class DEVEditContacts
     Sub LoadContactData()
         Try
             SQL = "Select * " & _
-            "from " & connNameSpace & ".APBContactData " & _
+            "from " & DBNameSpace & ".APBContactData " & _
             "where numContactID = '" & txtContactId.Text & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -1742,12 +1742,12 @@ Public Class DEVEditContacts
             If mtbAIRSNumber.Text <> "" Then
                 SQL = "Select " & _
                 "strKey " & _
-                "from " & connNameSpace & ".APBContacts " & _
+                "from " & DBNameSpace & ".APBContacts " & _
                 "where strAIRSnumber = '0413" & mtbAIRSNumber.Text & "' " & _
                 "and numContactId = '" & txtContactId.Text & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -1813,15 +1813,15 @@ Public Class DEVEditContacts
 
             txtAssociatedFacilites.Clear()
             SQL = "Select distinct " & _
-            "substr(" & connNameSpace & ".APBContacts.strAIRSnumber,5) as AIRSNumber, " & _
+            "substr(" & DBNameSpace & ".APBContacts.strAIRSnumber,5) as AIRSNumber, " & _
             "strFacilityName " & _
-            "from " & connNameSpace & ".APBContacts, " & connNameSpace & ".APBFacilityInformation " & _
-            "where " & connNameSpace & ".APBContacts.strAIRSNumber = " & connNameSpace & ".APBFacilityInformation.strAIRSnumber " & _
+            "from " & DBNameSpace & ".APBContacts, " & DBNameSpace & ".APBFacilityInformation " & _
+            "where " & DBNameSpace & ".APBContacts.strAIRSNumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSnumber " & _
             "and numContactID = '" & txtContactId.Text & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -1850,7 +1850,7 @@ Public Class DEVEditContacts
     Private Sub btnSaveContactInformation_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSaveContactInformation.Click
         Try
             If txtContactId.Text <> "" Then
-                SQL = "Update " & connNameSpace & ".APBContactData set " & _
+                SQL = "Update " & DBNameSpace & ".APBContactData set " & _
                 "strFirstName = '" & Replace(txtContactFirstName.Text, "'", "''") & "', " & _
                 "strLastname = '" & Replace(txtContactLastName.Text, "'", "''") & "', " & _
                 "strPrefix = '" & Replace(txtContactSocialTitle.Text, "'", "''") & "', " & _
@@ -1870,9 +1870,9 @@ Public Class DEVEditContacts
                 "datLastModified = '" & OracleDate & "' " & _
                 "where numContactID = '" & txtContactId.Text & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()

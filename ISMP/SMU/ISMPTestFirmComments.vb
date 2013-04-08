@@ -57,13 +57,13 @@ Public Class ISMPTestFirmComments
         Try
             SQL = "Select " & _
             "strTestingFirmKey, strTestingFirm " & _
-            "from " & connNameSpace & ".LookUpTestingFirms " & _
+            "from " & DBNameSpace & ".LookUpTestingFirms " & _
             "order by strTestingFirm "
 
             dsTestingFirms = New DataSet
-            daTestingFirms = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daTestingFirms = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             daTestingFirms.Fill(dsTestingFirms, "TestingFirms")
@@ -108,8 +108,8 @@ Public Class ISMPTestFirmComments
             "strComment, " & _
             "to_char(datCommentDate, 'dd-Mon-yyyy') as CommentDate, " & _
             "(strLastName|| ', ' ||strFirstName) as StaffResponsible " & _
-            "from " & connNameSpace & ".ismptestfirmcomments, " & connNameSpace & ".EPDUSerProfiles " & _
-            "where " & connNameSpace & ".ismptestfirmcomments.strStaffResponsible = " & connNameSpace & ".EPDUSerProfiles.numUserID "
+            "from " & DBNameSpace & ".ismptestfirmcomments, " & DBNameSpace & ".EPDUSerProfiles " & _
+            "where " & DBNameSpace & ".ismptestfirmcomments.strStaffResponsible = " & DBNameSpace & ".EPDUSerProfiles.numUserID "
 
             If txtTestNotificationNumber.Text <> "" Then
                 SQL = SQL & " and strTestLogNumber = '" & txtTestNotificationNumber.Text & "' "
@@ -126,9 +126,9 @@ Public Class ISMPTestFirmComments
             
             SQL = SQL & " order by numCommentsID desc "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -171,11 +171,11 @@ Public Class ISMPTestFirmComments
                 SQL = "Select " & _
                 "to_char(datTestDateStart, 'dd-Mon-yyyy') as datTestDateStart, " & _
                 "to_char(datTestDateEnd, 'dd-Mon-yyyy') as datTestDateEnd " & _
-                "from " & connNameSpace & ".ISMPReportInformation " & _
+                "from " & DBNameSpace & ".ISMPReportInformation " & _
                 "where strReferenceNumber = '" & txtTestReportNumber.Text & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -267,10 +267,10 @@ Public Class ISMPTestFirmComments
                 End If
 
                 If CommentID = "" Then
-                    SQL = "Insert into " & connNameSpace & ".ISMPTestFirmComments " & _
+                    SQL = "Insert into " & DBNameSpace & ".ISMPTestFirmComments " & _
                     "values " & _
-                    "((select max(" & connNameSpace & ".ismptestfirmcomments.numcommentsid) + 1 " & _
-                    "from " & connNameSpace & ".ismptestfirmcomments ),   " & _
+                    "((select max(" & DBNameSpace & ".ismptestfirmcomments.numcommentsid) + 1 " & _
+                    "from " & DBNameSpace & ".ismptestfirmcomments ),   " & _
                     "'" & TestFirmKey & "', " & _
                     "'" & AIRSNum & "', '" & TestLogNum & "', " & _
                     "'" & RefNum & "', '" & SaveType & "', " & _
@@ -278,7 +278,7 @@ Public Class ISMPTestFirmComments
                     "'" & Replace(Comment, "'", "''") & "', '" & UserGCode & "', " & _
                     "sysdate) "
                 Else
-                    SQL = "Update " & connNameSpace & ".ISMPTestFirmComments set " & _
+                    SQL = "Update " & DBNameSpace & ".ISMPTestFirmComments set " & _
                     "strTestingFirmKey = '" & TestFirmKey & "', " & _
                     "strAIRSNumber = '" & AIRSNum & "', " & _
                     "strTestLogNumber = '" & TestLogNum & "', " & _
@@ -291,9 +291,9 @@ Public Class ISMPTestFirmComments
                     "datModifingdate = sysdate " & _
                     "where numcommentsID = '" & CommentID & "' "
                 End If
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -302,12 +302,12 @@ Public Class ISMPTestFirmComments
 
                 If CommentID = "" Then
                     SQL = "Select " & _
-                    "max(" & connNameSpace & ".ISMPTestFirmComments.numcommentsid) " & _
-                    "from " & connNameSpace & ".ISMPTestFirmComments "
+                    "max(" & DBNameSpace & ".ISMPTestFirmComments.numcommentsid) " & _
+                    "from " & DBNameSpace & ".ISMPTestFirmComments "
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     CommentID = dr.Read
@@ -327,14 +327,14 @@ Public Class ISMPTestFirmComments
             Select Case RefreshType
                 Case "AIRS Number"
                     SQL = "select " & _
-                    "substr(" & connNameSpace & ".APBFacilityInformation.strAIRSnumber, 5) as strAIRSnumber, " & _
+                    "substr(" & DBNameSpace & ".APBFacilityInformation.strAIRSnumber, 5) as strAIRSnumber, " & _
                     "strFacilityName " & _
-                    "from " & connNameSpace & ".APBFacilityInformation " & _
+                    "from " & DBNameSpace & ".APBFacilityInformation " & _
                     "where strAIRSnumber = '0413" & txtAIRSNumber.Text & "'"
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     While dr.Read
@@ -347,15 +347,15 @@ Public Class ISMPTestFirmComments
                     dr.Close()
                 Case "Notification"
                     SQL = "select " & _
-                    "substr(" & connNameSpace & ".APBFacilityInformation.strAIRSNumber, 5) as strAIRSNumber, " & _
+                    "substr(" & DBNameSpace & ".APBFacilityInformation.strAIRSNumber, 5) as strAIRSNumber, " & _
                     "strFacilityName, " & _
                     "strTestLogNumber " & _
-                    "from " & connNameSpace & ".APBFacilityInformation, " & connNameSpace & ".ISMPTestNotification " & _
-                    "where " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".ISMPTestNotification.strAIRSNumber (+) " & _
-                    "and " & connNameSpace & ".ISMPTestNotification.strTestLogNumber = '" & txtTestNotificationNumber.Text & "' "
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    "from " & DBNameSpace & ".APBFacilityInformation, " & DBNameSpace & ".ISMPTestNotification " & _
+                    "where " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".ISMPTestNotification.strAIRSNumber (+) " & _
+                    "and " & DBNameSpace & ".ISMPTestNotification.strTestLogNumber = '" & txtTestNotificationNumber.Text & "' "
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     While dr.Read
@@ -373,21 +373,21 @@ Public Class ISMPTestFirmComments
                     dr.Close()
                 Case "Test Report"
                     SQL = "select " & _
-                    "" & connNameSpace & ".ISMPMaster.strReferenceNumber,  " & _
-                    "substr(" & connNameSpace & ".APBFacilityInformation.strAIRSnumber, 5) as strAIRSNUmber, " & _
+                    "" & DBNameSpace & ".ISMPMaster.strReferenceNumber,  " & _
+                    "substr(" & DBNameSpace & ".APBFacilityInformation.strAIRSnumber, 5) as strAIRSNUmber, " & _
                     "strFacilityName,  strTestLogNumber,  " & _
                     "to_char(datTestDateStart, 'dd-Mon-yyyy') as datTestDateStart, " & _
                     "to_char(datTestDateEnd, 'dd-Mon-yyyy') as datTestDateEnd " & _
-                    "from " & connNameSpace & ".ISMPMaster, " & connNameSpace & ".APBFacilityInformation,  " & _
-                    "" & connNameSpace & ".ISMPTestNotification, " & connNameSpace & ".ISMPReportInformation " & _
-                    "where " & connNameSpace & ".ISMPMaster.strAIRSNumber = " & connNameSpace & ".APBFacilityInformation.strAIRSnumber  " & _
-                    "and " & connNameSpace & ".ISMPMaster.strAIRSNumber = " & connNameSpace & ".ISMpTestNotification.strAIRSNumber (+)  " & _
-                    "and " & connNameSpace & ".ISMPMaster.strReferenceNumber = " & connNameSpace & ".ISMPReportInformation.strReferenceNumber (+) " & _
-                    "and " & connNameSpace & ".ISMPMaster.strReferenceNumber = '" & txtTestReportNumber.Text & "'  "
+                    "from " & DBNameSpace & ".ISMPMaster, " & DBNameSpace & ".APBFacilityInformation,  " & _
+                    "" & DBNameSpace & ".ISMPTestNotification, " & DBNameSpace & ".ISMPReportInformation " & _
+                    "where " & DBNameSpace & ".ISMPMaster.strAIRSNumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSnumber  " & _
+                    "and " & DBNameSpace & ".ISMPMaster.strAIRSNumber = " & DBNameSpace & ".ISMpTestNotification.strAIRSNumber (+)  " & _
+                    "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber (+) " & _
+                    "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = '" & txtTestReportNumber.Text & "'  "
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     While dr.Read
@@ -463,7 +463,7 @@ Public Class ISMPTestFirmComments
                 End If
 
                 If CommentID <> "" Then
-                    SQL = "Update " & connNameSpace & ".ISMPTestFirmComments set " & _
+                    SQL = "Update " & DBNameSpace & ".ISMPTestFirmComments set " & _
                     "strTestingFirmKey = '" & TestFirmKey & "', " & _
                     "strAIRSNumber = '" & AIRSNum & "', " & _
                     "strTestLogNumber = '" & TestLogNum & "', " & _
@@ -471,9 +471,9 @@ Public Class ISMPTestFirmComments
                     "strModifingPerson = '" & UserGCode & "', " & _
                     "datModifingdate = sysdate " & _
                     "where numcommentsID = '" & CommentID & "' "
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
@@ -588,12 +588,12 @@ Public Class ISMPTestFirmComments
             If cboCommentNumber.Text <> "" Then
                 SQL = "Select " & _
                 "strComment " & _
-                "from " & connNameSpace & ".ISMPTestFirmComments " & _
+                "from " & DBNameSpace & ".ISMPTestFirmComments " & _
                 "where numCommentsID = '" & cboCommentNumber.Text & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -643,7 +643,7 @@ Public Class ISMPTestFirmComments
                     RefNum = ""
                 End If
 
-                SQL = "Update " & connNameSpace & ".ISMPTestFirmComments set " & _
+                SQL = "Update " & DBNameSpace & ".ISMPTestFirmComments set " & _
                 "strTestingFirmKey = '" & TestFirmKey & "', " & _
                 "strAIRSNumber = '" & AIRSNum & "', " & _
                 "strTestLogNumber = '" & TestLogNum & "', " & _
@@ -655,9 +655,9 @@ Public Class ISMPTestFirmComments
                 "datModifingDate = sysdate " & _
                 "where numCommentsID = '" & CommentID & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -676,12 +676,12 @@ Public Class ISMPTestFirmComments
     Private Sub btnDeleteComment_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnDeleteComment.Click
         Try
             If cboCommentNumber.Text <> "" Then
-                SQL = "Delete " & connNameSpace & ".ISMPTestFirmComments " & _
+                SQL = "Delete " & DBNameSpace & ".ISMPTestFirmComments " & _
                 "where numCommentsId = '" & cboCommentNumber.Text & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()

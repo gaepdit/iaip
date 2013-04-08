@@ -15,29 +15,27 @@ Module subMain
     Friend Const HELP_URL As String = "https://sites.google.com/site/iaipdocs/"
 
 #Region "DB Connection Strings"
-    Friend Const connNameSpace As String = "AIRBRANCH"
+    Friend Const DBNameSpace As String = "AIRBRANCH"
 
-    Friend PRDconnLine As String = "Data Source = PRD; User ID = AIRBRANCH_APP_USER; Password = " & SimpleCrypt("ÁÚ·Ú±Ï") & ";"
-    Public TESTconnLine As String = "Data Source = TEST; User ID = AIRBRANCH_APP_USER; Password = " & SimpleCrypt("¡…“¡––’”≈“∞≥") & ";"
-    Public DEVconnLine As String = "Data Source = DEV; User ID = AIRBRANCH; Password = " & SimpleCrypt("ÛÌÔÁ·ÏÂÚÙ") & ";"
+    Friend PrdConnString As String = "Data Source = PRD; User ID = AIRBRANCH_APP_USER; Password = " & SimpleCrypt("ÁÚ·Ú±Ï") & ";"
+    'Public TestConnString As String = "Data Source = TEST; User ID = AIRBRANCH_APP_USER; Password = " & SimpleCrypt("¡…“¡––’”≈“∞≥") & ";"
+    Public DevConnString As String = "Data Source = DEV; User ID = AIRBRANCH; Password = " & SimpleCrypt("ÛÌÔÁ·ÏÂÚÙ") & ";"
 
-    Public TVProject As String = "Data Source = airtvproject; User ID = airtvproject; Password = airproject;"
-    Public TVApplication As String = "Data Source = airtvapplication; User ID = airtvapplication; Password = airapp;"
+    Public TVProjectConnString As String = "Data Source = leia.dnr.state.ga.us:1521/DEV; User ID = airtvproject; Password = airproject;"
+    Public TVApplicationConnString As String = "Data Source = leia.dnr.state.ga.us:1521/DEV; User ID = airtvapplication; Password = airapp;"
+
+    Public DBConn As New OracleConnection(PrdConnString)
+    Public DBConnTVProject As New OracleConnection(TVProjectConnString)
+    Public DBConnTVApplication As New OracleConnection(TVApplicationConnString)
 
     Public PRDCRLogIn As String = "AirBranch_App_User"
     Public PRDCRPassWord As String = SimpleCrypt("ÁÚ·Ú±Ï")
 
-    Public TESTCRLogIn As String = "AirBranch_App_User"
-    Public TESTCRPassWord As String = SimpleCrypt("¡…“¡––’”≈“∞≥")
+    'Public TESTCRLogIn As String = "AirBranch_App_User"
+    'Public TESTCRPassWord As String = SimpleCrypt("¡…“¡––’”≈“∞≥")
 
     Public DEVCRLogIn As String = "AirBranch"
     Public DEVCRPassWord As String = SimpleCrypt("ÛÌÔÁ·ÏÂÚÙ")
-
-    Public conn As New OracleConnection(PRDconnLine)
-    Public connTVProject As New OracleConnection("Data Source= leia.dnr.state.ga.us:1521/DEV; " & _
-        "User ID = AirTVProject; Password= airproject;")
-    Public connTVApplication As New OracleConnection("Data Source = leia.dnr.state.ga.us:1521/DEV; " & _
-                                                     "User ID = AirTVApplication; Password = airapp;")
 
     Public CRLogIn As String = PRDCRLogIn
     Public CRPassWord As String = PRDCRPassWord
@@ -299,18 +297,18 @@ Module subMain
             ErrorMessage = FileVersionInfo.GetVersionInfo("C:\APB\johngaltproject.exe").ProductVersion.ToString & vbCrLf & ErrorMessage
             ErrorMess = Mid(ErrorMessage, 1, 4000)
 
-            SQL = "Insert into " & connNameSpace & ".IAIPErrorLog " & _
+            SQL = "Insert into " & DBNameSpace & ".IAIPErrorLog " & _
             "(strErrorNumber, strUser, " & _
             "strErrorLocation, strErrorMessage, " & _
             "datErrorDate) " & _
             "values " & _
-            "(" & connNameSpace & ".IAIPErrornumber.nextval, '" & UserGCode & "', " & _
+            "(" & DBNameSpace & ".IAIPErrornumber.nextval, '" & UserGCode & "', " & _
             "'" & Replace(ErrorLocation, "'", "''") & "', '" & Replace(ErrorMess, "'", "''") & "', " & _
             "sysdate) "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             dr = cmd.ExecuteReader

@@ -470,22 +470,22 @@ Public Class SSCPFacAssignment
             "from AIRBranch.LookUpEPDUnits " & _
             "where numProgramCode = '4' "
 
-            daUnits = New OracleDataAdapter(SQL, conn)
+            daUnits = New OracleDataAdapter(SQL, DBConn)
 
             SQL = "Select " & _
             "numUserID, (strLastName||', ' ||strFirstName) as UserName,  " & _
             "strUnitDesc, strProgramDesc  " & _
-            "from " & connNameSpace & ".EPDUserProfiles, " & connNameSpace & ".LookupEPDPrograms,  " & _
-            "" & connNameSpace & ".LookUpEPDUnits  " & _
-            "where " & connNameSpace & ".EPDUserProfiles.numProgram = " & connNameSpace & ".LookUpEPDPrograms.numProgramCode  " & _
-            "and " & connNameSpace & ".EPDUserProfiles.numUnit = " & connNameSpace & ".LookUpEPDUnits.numUnitCode  " & _
+            "from " & DBNameSpace & ".EPDUserProfiles, " & DBNameSpace & ".LookupEPDPrograms,  " & _
+            "" & DBNameSpace & ".LookUpEPDUnits  " & _
+            "where " & DBNameSpace & ".EPDUserProfiles.numProgram = " & DBNameSpace & ".LookUpEPDPrograms.numProgramCode  " & _
+            "and " & DBNameSpace & ".EPDUserProfiles.numUnit = " & DBNameSpace & ".LookUpEPDUnits.numUnitCode  " & _
             "and numProgram = '4'  " & _
             "Order by strUnitDesc, strLastName "
 
-            daEngineerList = New OracleDataAdapter(SQL, conn)
+            daEngineerList = New OracleDataAdapter(SQL, DBConn)
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             daUnits.Fill(dsUnits, "Units")
@@ -568,17 +568,17 @@ Public Class SSCPFacAssignment
             "else STRUNITDESC " & _
             "end STRUNITDESC,  " & _
             "NUMUNIT " & _
-            "from " & connNameSpace & ".VW_SSCPINSPECTION_LIST, " & _
-            "" & connNameSpace & ".EPDUSERPROFILES, " & connNameSpace & ".LOOKUPEPDUNITS  " & _
-            "where " & connNameSpace & ".VW_SSCPINSPECTION_LIST.NUMSSCPENGINEER = " & connNameSpace & ".EPDUSERPROFILES.NUMUSERID " & _
-            "and " & connNameSpace & ".EPDUSERPROFILES.NUMUNIT = " & connNameSpace & ".LOOKUpEPDUnits.numUnitCode  (+) " & _
+            "from " & DBNameSpace & ".VW_SSCPINSPECTION_LIST, " & _
+            "" & DBNameSpace & ".EPDUSERPROFILES, " & DBNameSpace & ".LOOKUPEPDUNITS  " & _
+            "where " & DBNameSpace & ".VW_SSCPINSPECTION_LIST.NUMSSCPENGINEER = " & DBNameSpace & ".EPDUSERPROFILES.NUMUSERID " & _
+            "and " & DBNameSpace & ".EPDUSERPROFILES.NUMUNIT = " & DBNameSpace & ".LOOKUpEPDUnits.numUnitCode  (+) " & _
             "and AIRSNumber = '" & txtAIRSNumber.Text & "' "
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
-            cmd = New OracleCommand(SQL, conn)
+            cmd = New OracleCommand(SQL, DBConn)
             dr = cmd.ExecuteReader
             While dr.Read
                 If IsDBNull(dr.Item("SSCPEngineer")) Then
@@ -594,10 +594,10 @@ Public Class SSCPFacAssignment
             End While
 
             SQL = "Select strInspectionRequired " & _
-            "from " & connNameSpace & ".SSCPInspectionsRequired " & _
+            "from " & DBNameSpace & ".SSCPInspectionsRequired " & _
             "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
 
-            cmd = New OracleCommand(SQL, conn)
+            cmd = New OracleCommand(SQL, DBConn)
             dr = cmd.ExecuteReader
             recExist = dr.Read
             If recExist = True Then
@@ -636,7 +636,7 @@ Public Class SSCPFacAssignment
             panel1.Text = "Saving Facility Data."
 
             Dim dtEngineers As New DataTable
-            dtEngineers = dsEngineerList.Tables("" & connNameSpace & ".EPDUserProfiles")
+            dtEngineers = dsEngineerList.Tables("" & DBNameSpace & ".EPDUserProfiles")
             Dim drEngineers As DataRow()
             Dim row As DataRow
 
@@ -663,10 +663,10 @@ Public Class SSCPFacAssignment
             Exit Sub
 
             'Dim cmd As New OracleCommand(SQL, conn)
-            cmd = New OracleCommand(SQL, conn)
+            cmd = New OracleCommand(SQL, DBConn)
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
 
@@ -675,19 +675,19 @@ Public Class SSCPFacAssignment
             panel1.Text = "Saving Facility Data..."
 
             SQL = "Select strInspectionRequired " & _
-            "from " & connNameSpace & ".SSCPInspectionsRequired " & _
+            "from " & DBNameSpace & ".SSCPInspectionsRequired " & _
             "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
-            cmd = New OracleCommand(SQL, conn)
+            cmd = New OracleCommand(SQL, DBConn)
             dr = cmd.ExecuteReader
             recExist = dr.Read
             If recExist = True Then
-                SQL = "Update " & connNameSpace & ".SSCPInspectionsRequired set " & _
+                SQL = "Update " & DBNameSpace & ".SSCPInspectionsRequired set " & _
                 "strInspectionRequired= '" & Inspection & "', " & _
                 "strAssigningManager = '" & UserGCode & "', " & _
                 "datAssigningDate = '" & OracleDate & "' " & _
                 "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
             Else
-                SQL = "Insert into " & connNameSpace & ".SSCPInspectionsRequired " & _
+                SQL = "Insert into " & DBNameSpace & ".SSCPInspectionsRequired " & _
                 "(strAIRSNumber, strInspectionRequired, " & _
                 "strAssigningManager, datAssigningDate) " & _
                 "values " & _
@@ -697,7 +697,7 @@ Public Class SSCPFacAssignment
             End If
 
             panel1.Text = "Saving Facility Data...."
-            cmd = New OracleCommand(SQL, conn)
+            cmd = New OracleCommand(SQL, DBConn)
             dr = cmd.ExecuteReader
 
             panel1.Text = "Refreshing Facility Summary Screen..."

@@ -40,12 +40,12 @@ Public Class SSPP_FeeContact
             "strContactAddress1, strContactCity, " & _
             "strContactState, strContactZipCode, " & _
             "strContactDescription " & _
-            "from " & connNameSpace & ".APBContactInformation " & _
+            "from " & DBNameSpace & ".APBContactInformation " & _
             "where strContactKey = '0413" & txtAIRSNumber.Text & "40' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             recExist = dr.Read
@@ -180,13 +180,13 @@ Public Class SSPP_FeeContact
             If txtAIRSNumber.Text <> "" Then
                 SQL = "Select " & _
                 "strContactKey " & _
-                "from " & connNameSpace & ".APBContactInformation " & _
+                "from " & DBNameSpace & ".APBContactInformation " & _
                 "where strContactKey = '0413" & txtAIRSNumber.Text & "40' " & _
                 "and strContactDescription = '" & txtDescription.Text & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -212,7 +212,7 @@ Public Class SSPP_FeeContact
                     End If
                 End If
 
-                SQL = "Update " & connNameSpace & ".APBContactInformation set " & _
+                SQL = "Update " & DBNameSpace & ".APBContactInformation set " & _
                 "strContactFirstName = '" & Replace(txtFirstName.Text, "'", "''") & "', " & _
                 "strContactLastName = '" & Replace(txtLastName.Text, "'", "''") & "', " & _
                 "strContactPrefix = '" & Replace(txtSocialTitle.Text, "'", "''") & "', " & _
@@ -232,9 +232,9 @@ Public Class SSPP_FeeContact
                 "datModifingDate = '" & OracleDate & "', " & _
                 "strContactDescription = '" & Replace(txtDescription.Text, "'", "''") & "' " & _
                 "where strContactKey = '0413" & txtAIRSNumber.Text & "40' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()

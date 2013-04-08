@@ -397,15 +397,15 @@ Public Class SSPPApplicationLog
 
             SQL = "select " & _
             "strUnitDesc, numUnitCode " & _
-            "from " & connNameSpace & ".LookUpEPDUnits " & _
+            "from " & DBNameSpace & ".LookUpEPDUnits " & _
             "where numProgramCode = '5' " & _
             "order by strUnitDesc "
 
             dsUnitList = New DataSet
-            daUnitList = New OracleDataAdapter(SQL, conn)
+            daUnitList = New OracleDataAdapter(SQL, DBConn)
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             daUnitList.Fill(dsUnitList, "UnitList")
@@ -435,15 +435,15 @@ Public Class SSPPApplicationLog
             SQL = "Select " & _
             "Distinct((strLastName|| ', ' ||strFirstName)) as EngineerName,  " & _
             "numUserID, strLastName   " & _
-            "from " & connNameSpace & ".EPDUserProfiles, " & connNameSpace & ".SSPPApplicationMaster  " & _
-            "where " & connNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & connNameSpace & ".EPDUserProfiles.numUserID " & _
+            "from " & DBNameSpace & ".EPDUserProfiles, " & DBNameSpace & ".SSPPApplicationMaster  " & _
+            "where " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
             "order by strLastName "
 
             dsEngineerList = New DataSet
-            daEngineerList = New OracleDataAdapter(SQL, conn)
+            daEngineerList = New OracleDataAdapter(SQL, DBConn)
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             daEngineerList.Fill(dsEngineerList, "EngineerList")
@@ -475,12 +475,12 @@ Public Class SSPPApplicationLog
             SQL = "Select " & _
             "strSubpart, " & _
             "(strSubpart||' - '||strDescription) as Subpart " & _
-            "from " & connNameSpace & ".LookUpSubpartSIP " & _
+            "from " & DBNameSpace & ".LookUpSubpartSIP " & _
             "order by strSubpart "
 
-            daSubpart = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daSubpart = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             daSubpart.Fill(dsSubpart, "SubpartSIP")
@@ -530,12 +530,12 @@ Public Class SSPPApplicationLog
             SQL = "Select " & _
             "strSubpart, " & _
             "(strSubpart||' - '||strDescription) as Subpart " & _
-            "from " & connNameSpace & ".LookUpSubpart61 " & _
+            "from " & DBNameSpace & ".LookUpSubpart61 " & _
             "order by strSubpart "
 
-            daSubpart = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daSubpart = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             daSubpart.Fill(dsSubpart, "SubpartNESHAP")
@@ -585,12 +585,12 @@ Public Class SSPPApplicationLog
             SQL = "Select " & _
             "strSubpart, " & _
             "(strSubpart||' - '||strDescription) as Subpart " & _
-            "from " & connNameSpace & ".LookUpSubpart60 " & _
+            "from " & DBNameSpace & ".LookUpSubpart60 " & _
             "order by strSubpart "
 
-            daSubpart = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daSubpart = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             daSubpart.Fill(dsSubpart, "SubpartNSPS")
@@ -641,12 +641,12 @@ Public Class SSPPApplicationLog
             SQL = "Select " & _
             "strSubpart, " & _
             "(strSubpart||' - '||strDescription) as Subpart " & _
-            "from " & connNameSpace & ".LookUpSubpart63 " & _
+            "from " & DBNameSpace & ".LookUpSubpart63 " & _
             "order by strSubpart "
 
-            daSubpart = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daSubpart = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             daSubpart.Fill(dsSubpart, "SubpartMACT")
@@ -733,13 +733,13 @@ Public Class SSPPApplicationLog
                 If AccountArray(3, 3) = "1" And UserUnit <> "---" Then
                     'All Active Applications from UC's Unit
                     SQL = "Select numUnit " & _
-                    "from " & connNameSpace & ".EPDUserProfiles " & _
+                    "from " & DBNameSpace & ".EPDUserProfiles " & _
                     "where numUserID = '" & UserGCode & "' " & _
                     "and numProgram = '5' "
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     Try
 
@@ -785,7 +785,7 @@ Public Class SSPPApplicationLog
             Try
                 If chbShowAll.Checked = True Then
                     SQL = "Select  " & _
-                    "  distinct(to_Number(" & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber)) as strApplicationNumber,  " & _
+                    "  distinct(to_Number(" & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber)) as strApplicationNumber,  " & _
                     "   case  " & _
                     "   	when strApplicationTypeDesc IS Null then ''  " & _
                     "   Else strApplicationTypeDesc  " & _
@@ -810,13 +810,13 @@ Public Class SSPPApplicationLog
                     "   else (strLastName|| ', ' ||strFirstName)  " & _
                     "   end as StaffResponsible,  " & _
                     "   case  " & _
-                    "   	when " & connNameSpace & ".SSPPApplicationData.strFacilityName is Null then ''  " & _
-                    "   else " & connNameSpace & ".SSPPApplicationData.strFacilityName  " & _
+                    "   	when " & DBNameSpace & ".SSPPApplicationData.strFacilityName is Null then ''  " & _
+                    "   else " & DBNameSpace & ".SSPPApplicationData.strFacilityName  " & _
                     "   end as strFacilityName,  " & _
                     "   case  " & _
-                    "   	when " & connNameSpace & ".SSPPApplicationMaster.strAIRSNumber is Null then ''  " & _
-                    "   	when " & connNameSpace & ".SSPPApplicationMaster.strAIRSNumber = '0413' then ''  " & _
-                    "   else substr(" & connNameSpace & ".SSPPApplicationMaster.strAIRSNumber, 5)  " & _
+                    "   	when " & DBNameSpace & ".SSPPApplicationMaster.strAIRSNumber is Null then ''  " & _
+                    "   	when " & DBNameSpace & ".SSPPApplicationMaster.strAIRSNumber = '0413' then ''  " & _
+                    "   else substr(" & DBNameSpace & ".SSPPApplicationMaster.strAIRSNumber, 5)  " & _
                     "   end as strAIRSNumber,  " & _
                     "     case  " & _
                     "   when datPermitIssued is Not Null OR datFinalizedDate IS NOT NULL then '11 - Closed Out'  " & _
@@ -833,8 +833,8 @@ Public Class SSPPApplicationLog
                     "   when strStaffResponsible is Null or strStaffResponsible ='0' then '0 - Unassigned'    " & _
                     "   else '01 - At Engineer'   " & _
                     "   end as AppStatus,  " & _
-                    "   " & connNameSpace & ".SSPPApplicationData.strSICCode,  " & _
-                    "   " & connNameSpace & ".SSPPApplicationData.strPlantDescription,  " & _
+                    "   " & DBNameSpace & ".SSPPApplicationData.strSICCode,  " & _
+                    "   " & DBNameSpace & ".SSPPApplicationData.strPlantDescription,  " & _
                     "   Case  " & _
                     "   	when APBUnit is Null then ''  " & _
                     "   Else strUnitDesc    " & _
@@ -890,8 +890,8 @@ Public Class SSPPApplicationLog
                     "   else to_char(datDraftIssued, 'RRRR-MM-dd')  " & _
                     "   end as datDraftIssued,  " & _
                     "   case  " & _
-                    "   	when " & connNameSpace & ".SSPPApplicationData.strComments is Null then ''  " & _
-                    "   else " & connNameSpace & ".SSPPApplicationData.strComments  " & _
+                    "   	when " & DBNameSpace & ".SSPPApplicationData.strComments is Null then ''  " & _
+                    "   else " & DBNameSpace & ".SSPPApplicationData.strComments  " & _
                     "   End as strComments,   " & _
                     "   case  " & _
                     "   	when datWithdrawn is Null  then ''  " & _
@@ -933,12 +933,12 @@ Public Class SSPPApplicationLog
                     "   else strUnitDesc  " & _
                     "   end as strUserUnit,  " & _
                     "   case  " & _
-                    "   	when " & connNameSpace & ".SSPPApplicationData.strFacilityStreet1 is NUll then ''  " & _
-                    "   else " & connNameSpace & ".SSPPApplicationData.strFacilityStreet1  " & _
+                    "   	when " & DBNameSpace & ".SSPPApplicationData.strFacilityStreet1 is NUll then ''  " & _
+                    "   else " & DBNameSpace & ".SSPPApplicationData.strFacilityStreet1  " & _
                     "   end as strFacilityStreet1,  " & _
                     "   case  " & _
-                    "   	when " & connNameSpace & ".SSPPApplicationData.strFacilityCity is Null then ''  " & _
-                    "   else " & connNameSpace & ".SSPPApplicationData.strFacilityCity  " & _
+                    "   	when " & DBNameSpace & ".SSPPApplicationData.strFacilityCity is Null then ''  " & _
+                    "   else " & DBNameSpace & ".SSPPApplicationData.strFacilityCity  " & _
                     "   end as strFacilityCity,  " & _
                     "   case  " & _
                     "   	when strCountyName is Null then ''  " & _
@@ -953,24 +953,24 @@ Public Class SSPPApplicationLog
                     "   else strOfficeName  " & _
                     "   End as strOfficeName,  " & _
                     "   case  " & _
-                    "   	     when " & connNameSpace & ".APBHeaderData.strAttainmentStatus is Null then ''  " & _
-                    "when substr(" & connNameSpace & ".APBHeaderData.strAttainmentstatus, 2, 1) = '0' then 'No'  " & _
-                    "when substr(" & connNameSpace & ".APBHeaderData.strAttainmentstatus, 2, 1) = '1' then '1-hr Ozone'  " & _
-                    "when substr(" & connNameSpace & ".APBHeaderData.strAttainmentstatus, 2, 1) = '2' then '1-hr Ozone Contribute'  " & _
+                    "   	     when " & DBNameSpace & ".APBHeaderData.strAttainmentStatus is Null then ''  " & _
+                    "when substr(" & DBNameSpace & ".APBHeaderData.strAttainmentstatus, 2, 1) = '0' then 'No'  " & _
+                    "when substr(" & DBNameSpace & ".APBHeaderData.strAttainmentstatus, 2, 1) = '1' then '1-hr Ozone'  " & _
+                    "when substr(" & DBNameSpace & ".APBHeaderData.strAttainmentstatus, 2, 1) = '2' then '1-hr Ozone Contribute'  " & _
                     "   end as OneHrOzone,  " & _
                     "   case  " & _
-                    "   	     when " & connNameSpace & ".APBHeaderData.strAttainmentStatus is Null then ''  " & _
-                    "when substr(" & connNameSpace & ".APBHeaderData.strAttainmentstatus, 3, 1) = '0' then 'No'  " & _
-                    "when substr(" & connNameSpace & ".APBHeaderData.strAttainmentstatus, 3, 1) = '1' then '8-hr Ozone Atlanta'  " & _
-                    "when substr(" & connNameSpace & ".APBHeaderData.strAttainmentstatus, 3, 1) = '2' then '8-hr Ozone Macon'  " & _
+                    "   	     when " & DBNameSpace & ".APBHeaderData.strAttainmentStatus is Null then ''  " & _
+                    "when substr(" & DBNameSpace & ".APBHeaderData.strAttainmentstatus, 3, 1) = '0' then 'No'  " & _
+                    "when substr(" & DBNameSpace & ".APBHeaderData.strAttainmentstatus, 3, 1) = '1' then '8-hr Ozone Atlanta'  " & _
+                    "when substr(" & DBNameSpace & ".APBHeaderData.strAttainmentstatus, 3, 1) = '2' then '8-hr Ozone Macon'  " & _
                     "   end as EightHrOzone,  " & _
                     "   case  " & _
-                    "   	     when " & connNameSpace & ".APBHeaderData.strAttainmentStatus is Null then ''  " & _
-                    "when substr(" & connNameSpace & ".APBHeaderData.strAttainmentstatus, 4, 1) = '0' then 'No'  " & _
-                    "when substr(" & connNameSpace & ".APBHeaderData.strAttainmentstatus, 4, 1) = '1' then 'PM - Atlanta'  " & _
-                    "when substr(" & connNameSpace & ".APBHeaderData.strAttainmentstatus, 4, 1) = '2' then 'PM - Chattanooga'  " & _
-                    "when substr(" & connNameSpace & ".APBHeaderData.strAttainmentstatus, 4, 1) = '3' then 'PM - Floyd'  " & _
-                    "when substr(" & connNameSpace & ".APBHeaderData.strAttainmentstatus, 4, 1) = '4' then 'PM - Macon'  " & _
+                    "   	     when " & DBNameSpace & ".APBHeaderData.strAttainmentStatus is Null then ''  " & _
+                    "when substr(" & DBNameSpace & ".APBHeaderData.strAttainmentstatus, 4, 1) = '0' then 'No'  " & _
+                    "when substr(" & DBNameSpace & ".APBHeaderData.strAttainmentstatus, 4, 1) = '1' then 'PM - Atlanta'  " & _
+                    "when substr(" & DBNameSpace & ".APBHeaderData.strAttainmentstatus, 4, 1) = '2' then 'PM - Chattanooga'  " & _
+                    "when substr(" & DBNameSpace & ".APBHeaderData.strAttainmentstatus, 4, 1) = '3' then 'PM - Floyd'  " & _
+                    "when substr(" & DBNameSpace & ".APBHeaderData.strAttainmentstatus, 4, 1) = '4' then 'PM - Macon'  " & _
                     "   end as PMFine,  " & _
                     "   case  " & _
                     "      when strPAReady is Null then ''   " & _
@@ -999,12 +999,12 @@ Public Class SSPPApplicationLog
                     "   else to_char(datToDirector, 'RRRR-MM-dd')  " & _
                     "   end as datToDirector,  " & _
                     "   case  " & _
-                    "        when " & connNameSpace & ".APBHeaderData.strStateProgramCodes is Null then ''  " & _
-                    "        when substr(" & connNameSpace & ".APBHeaderData.strStateProgramCodes, 1, 1) = '1' then 'NSR/PSD Major'  " & _
+                    "        when " & DBNameSpace & ".APBHeaderData.strStateProgramCodes is Null then ''  " & _
+                    "        when substr(" & DBNameSpace & ".APBHeaderData.strStateProgramCodes, 1, 1) = '1' then 'NSR/PSD Major'  " & _
                     "   End as NSRMajor,  " & _
                     "   Case  " & _
-                    "        when " & connNameSpace & ".APBHeaderData.strStateProgramCodes is Null then ''  " & _
-                    "        when substr(" & connNameSpace & ".APBHeaderData.strStateProgramCodes, 2, 1) = '1' then 'HAPs Major'  " & _
+                    "        when " & DBNameSpace & ".APBHeaderData.strStateProgramCodes is Null then ''  " & _
+                    "        when substr(" & DBNameSpace & ".APBHeaderData.strStateProgramCodes, 2, 1) = '1' then 'HAPs Major'  " & _
                     "   End as HAPsMajor,  " & _
                     "   case   " & _
                     "   when datPermitIssued is Not Null then to_char(datPermitIssued, 'RRRR-MM-dd')     " & _
@@ -1045,28 +1045,28 @@ Public Class SSPPApplicationLog
                     "   when substr(strTrackedRules, 6, 1) = '1' then 'Actual PAL Rule'   " & _
                     "   else ' '   " & _
                     "   end PALRule, " & _
-                    " (substr(" & connNameSpace & ".SSPPSubpartData.strSubpartKey, -1, 1) ||' - '||" & connNameSpace & ".SSPPSubpartData.strSubpart) as strSubpart " & _
-                    "from " & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".SSPPApplicationTracking,  " & _
-                    "  " & connNameSpace & ".SSPPApplicationData, " & connNameSpace & ".LookUpApplicationTypes, " & connNameSpace & ".LookUpPermitTypes, " & _
-                    "  " & connNameSpace & ".LookUpCountyInformation, " & connNameSpace & ".LookUPDistrictInformation, " & _
-                    "  " & connNameSpace & ".LookUpDistricts, " & connNameSpace & ".LookUpDistrictOffice, " & connNameSpace & ".APBHeaderData, " & _
-                    "  " & connNameSpace & ".EPDUSerProfiles, " & connNameSpace & ".LookUpEPDUnits, " & _
-                    "" & connNameSpace & ".SSPPSubpartData " & _
-                    "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber (+) " & _
-                    "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationData.strApplicationNumber (+) " & _
-                    "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationType = " & connNameSpace & ".LookUpAPplicationTypes.strApplicationTypeCode (+) " & _
-                    "and " & connNameSpace & ".SSPPApplicationMaster.strPermitType = " & connNameSpace & ".LookUpPermitTypes.strPermitTypeCode (+)     " & _
-                    "and " & connNameSpace & ".SSPPApplicationMaster.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber (+)     " & _
-                    "and substr(" & connNameSpace & ".SSPPApplicationMaster.strAIRSNumber, 5, 3) = " & connNameSpace & ".LookUpCountyInformation.strCountyCode (+) " & _
-                    "and " & connNameSpace & ".LookUpCountyInformation.strCountyCode = " & connNameSpace & ".LookUpDistrictInformation.strDistrictCounty (+)  " & _
-                    "and " & connNameSpace & ".LookUpDistrictInformation.strDistrictCode = " & connNameSpace & ".LookUPDistricts.strDistrictCode (+)  " & _
-                    "and " & connNameSpace & ".LookUPDistricts.strDistrictCode = " & connNameSpace & ".LooKUPDistrictOffice.strDistrictCode (+)  " & _
-                    "and " & connNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & connNameSpace & ".EPDUserProfiles.numUserID " & _
-                    "and " & connNameSpace & ".SSPPApplicationMaster.APBUnit = " & connNameSpace & ".LookUpEPDUnits.numUnitCode (+) " & _
-                    "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPSubpartData.strApplicationNumber (+) "
+                    " (substr(" & DBNameSpace & ".SSPPSubpartData.strSubpartKey, -1, 1) ||' - '||" & DBNameSpace & ".SSPPSubpartData.strSubpart) as strSubpart " & _
+                    "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,  " & _
+                    "  " & DBNameSpace & ".SSPPApplicationData, " & DBNameSpace & ".LookUpApplicationTypes, " & DBNameSpace & ".LookUpPermitTypes, " & _
+                    "  " & DBNameSpace & ".LookUpCountyInformation, " & DBNameSpace & ".LookUPDistrictInformation, " & _
+                    "  " & DBNameSpace & ".LookUpDistricts, " & DBNameSpace & ".LookUpDistrictOffice, " & DBNameSpace & ".APBHeaderData, " & _
+                    "  " & DBNameSpace & ".EPDUSerProfiles, " & DBNameSpace & ".LookUpEPDUnits, " & _
+                    "" & DBNameSpace & ".SSPPSubpartData " & _
+                    "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber (+) " & _
+                    "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber (+) " & _
+                    "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationType = " & DBNameSpace & ".LookUpAPplicationTypes.strApplicationTypeCode (+) " & _
+                    "and " & DBNameSpace & ".SSPPApplicationMaster.strPermitType = " & DBNameSpace & ".LookUpPermitTypes.strPermitTypeCode (+)     " & _
+                    "and " & DBNameSpace & ".SSPPApplicationMaster.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber (+)     " & _
+                    "and substr(" & DBNameSpace & ".SSPPApplicationMaster.strAIRSNumber, 5, 3) = " & DBNameSpace & ".LookUpCountyInformation.strCountyCode (+) " & _
+                    "and " & DBNameSpace & ".LookUpCountyInformation.strCountyCode = " & DBNameSpace & ".LookUpDistrictInformation.strDistrictCounty (+)  " & _
+                    "and " & DBNameSpace & ".LookUpDistrictInformation.strDistrictCode = " & DBNameSpace & ".LookUPDistricts.strDistrictCode (+)  " & _
+                    "and " & DBNameSpace & ".LookUPDistricts.strDistrictCode = " & DBNameSpace & ".LooKUPDistrictOffice.strDistrictCode (+)  " & _
+                    "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID " & _
+                    "and " & DBNameSpace & ".SSPPApplicationMaster.APBUnit = " & DBNameSpace & ".LookUpEPDUnits.numUnitCode (+) " & _
+                    "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPSubpartData.strApplicationNumber (+) "
                 Else
                     SQL = "Select  " & _
-                        "  distinct(to_Number(" & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber)) as strApplicationNumber,  " & _
+                        "  distinct(to_Number(" & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber)) as strApplicationNumber,  " & _
                         "  case   " & _
                         " 	when strApplicationTypeDesc IS Null then ''   " & _
                         " Else strApplicationTypeDesc   " & _
@@ -1091,13 +1091,13 @@ Public Class SSPPApplicationLog
                         " else (strLastName|| ', ' ||strFirstName)   " & _
                         " end as StaffResponsible,   " & _
                         " case   " & _
-                        " 	when " & connNameSpace & ".SSPPApplicationData.strFacilityName is Null then ''   " & _
-                        " else " & connNameSpace & ".SSPPApplicationData.strFacilityName   " & _
+                        " 	when " & DBNameSpace & ".SSPPApplicationData.strFacilityName is Null then ''   " & _
+                        " else " & DBNameSpace & ".SSPPApplicationData.strFacilityName   " & _
                         " end as strFacilityName,  " & _
                         " case   " & _
-                        " 	when " & connNameSpace & ".SSPPApplicationMaster.strAIRSNumber is Null then ''   " & _
-                        " 	when " & connNameSpace & ".SSPPApplicationMaster.strAIRSNumber = '0413' then ''   " & _
-                        " else substr(" & connNameSpace & ".SSPPApplicationMaster.strAIRSNumber, 5)   " & _
+                        " 	when " & DBNameSpace & ".SSPPApplicationMaster.strAIRSNumber is Null then ''   " & _
+                        " 	when " & DBNameSpace & ".SSPPApplicationMaster.strAIRSNumber = '0413' then ''   " & _
+                        " else substr(" & DBNameSpace & ".SSPPApplicationMaster.strAIRSNumber, 5)   " & _
                         " end as strAIRSNumber,   " & _
                         "case   " & _
                         "when datPermitIssued is Not Null OR datFinalizedDate IS NOT NULL then '11 - Closed Out'   " & _
@@ -1135,52 +1135,52 @@ Public Class SSPPApplicationLog
                         "when strStaffResponsible is Null or strStaffResponsible ='0' then 'Unknown'      " & _
                         "else to_char(datAssignedToEngineer, 'RRRR-MM-dd')      " & _
                         "end as StatusDate,   " & _
-                        "" & connNameSpace & ".SSPPApplicationData.strSICCode,   " & _
-                        "" & connNameSpace & ".SSPPApplicationData.strPlantDescription   " & _
-                        "from " & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".SSPPApplicationTracking,   " & _
-                        "  " & connNameSpace & ".SSPPApplicationData, " & connNameSpace & ".LookUpApplicationTypes, " & connNameSpace & ".LookUpPermitTypes,  " & _
-                        "  " & connNameSpace & ".LookUpCountyInformation, " & connNameSpace & ".LookUPDistrictInformation,  " & _
-                        "  " & connNameSpace & ".LookUpDistricts, " & connNameSpace & ".LookUpDistrictOffice, " & connNameSpace & ".APBHeaderData,  " & _
-                        "  " & connNameSpace & ".EPDUSerProfiles, " & connNameSpace & ".LookUpEPDUnits,  " & _
-                        " " & connNameSpace & ".SSPPSubpartData " & _
-                        "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber (+) " & _
-                        "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationData.strApplicationNumber (+) " & _
-                        "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationType = " & connNameSpace & ".LookUpAPplicationTypes.strApplicationTypeCode (+) " & _
-                        "and " & connNameSpace & ".SSPPApplicationMaster.strPermitType = " & connNameSpace & ".LookUpPermitTypes.strPermitTypeCode (+)      " & _
-                        "and " & connNameSpace & ".SSPPApplicationMaster.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber (+)      " & _
-                        "and substr(" & connNameSpace & ".SSPPApplicationMaster.strAIRSNumber, 5, 3) = " & connNameSpace & ".LookUpCountyInformation.strCountyCode (+)  " & _
-                        "and " & connNameSpace & ".LookUpCountyInformation.strCountyCode = " & connNameSpace & ".LookUpDistrictInformation.strDistrictCounty (+)   " & _
-                        "and " & connNameSpace & ".LookUpDistrictInformation.strDistrictCode = " & connNameSpace & ".LookUPDistricts.strDistrictCode (+)   " & _
-                        "and " & connNameSpace & ".LookUPDistricts.strDistrictCode = " & connNameSpace & ".LooKUPDistrictOffice.strDistrictCode (+)   " & _
-                        "and " & connNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & connNameSpace & ".EPDUserProfiles.numUserID  " & _
-                        "and " & connNameSpace & ".SSPPApplicationMaster.APBUnit = " & connNameSpace & ".LookUpEPDUnits.numUnitCode (+) " & _
-                        "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPSubpartData.strApplicationNumber (+) "
+                        "" & DBNameSpace & ".SSPPApplicationData.strSICCode,   " & _
+                        "" & DBNameSpace & ".SSPPApplicationData.strPlantDescription   " & _
+                        "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".SSPPApplicationTracking,   " & _
+                        "  " & DBNameSpace & ".SSPPApplicationData, " & DBNameSpace & ".LookUpApplicationTypes, " & DBNameSpace & ".LookUpPermitTypes,  " & _
+                        "  " & DBNameSpace & ".LookUpCountyInformation, " & DBNameSpace & ".LookUPDistrictInformation,  " & _
+                        "  " & DBNameSpace & ".LookUpDistricts, " & DBNameSpace & ".LookUpDistrictOffice, " & DBNameSpace & ".APBHeaderData,  " & _
+                        "  " & DBNameSpace & ".EPDUSerProfiles, " & DBNameSpace & ".LookUpEPDUnits,  " & _
+                        " " & DBNameSpace & ".SSPPSubpartData " & _
+                        "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber (+) " & _
+                        "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber (+) " & _
+                        "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationType = " & DBNameSpace & ".LookUpAPplicationTypes.strApplicationTypeCode (+) " & _
+                        "and " & DBNameSpace & ".SSPPApplicationMaster.strPermitType = " & DBNameSpace & ".LookUpPermitTypes.strPermitTypeCode (+)      " & _
+                        "and " & DBNameSpace & ".SSPPApplicationMaster.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber (+)      " & _
+                        "and substr(" & DBNameSpace & ".SSPPApplicationMaster.strAIRSNumber, 5, 3) = " & DBNameSpace & ".LookUpCountyInformation.strCountyCode (+)  " & _
+                        "and " & DBNameSpace & ".LookUpCountyInformation.strCountyCode = " & DBNameSpace & ".LookUpDistrictInformation.strDistrictCounty (+)   " & _
+                        "and " & DBNameSpace & ".LookUpDistrictInformation.strDistrictCode = " & DBNameSpace & ".LookUPDistricts.strDistrictCode (+)   " & _
+                        "and " & DBNameSpace & ".LookUPDistricts.strDistrictCode = " & DBNameSpace & ".LooKUPDistrictOffice.strDistrictCode (+)   " & _
+                        "and " & DBNameSpace & ".SSPPApplicationMaster.strStaffResponsible = " & DBNameSpace & ".EPDUserProfiles.numUserID  " & _
+                        "and " & DBNameSpace & ".SSPPApplicationMaster.APBUnit = " & DBNameSpace & ".LookUpEPDUnits.numUnitCode (+) " & _
+                        "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPSubpartData.strApplicationNumber (+) "
                 End If
 
                 Select Case FieldType1
                     Case "AIRS No."
-                        SQLSearch1 = " " & connNameSpace & ".SSPPApplicationMaster.strAIRSNumber like '%" & Replace(txtSearchText1.Text, "'", "''") & "%' "
+                        SQLSearch1 = " " & DBNameSpace & ".SSPPApplicationMaster.strAIRSNumber like '%" & Replace(txtSearchText1.Text, "'", "''") & "%' "
                     Case "Applicable Rules"
                         Select Case cboSearchText1.Text
                             Case "Any Rule"
-                                SQLSearch1 = " " & connNameSpace & ".SSPPApplicationData.strTrackedRules <> '0000000000' "
+                                SQLSearch1 = " " & DBNameSpace & ".SSPPApplicationData.strTrackedRules <> '0000000000' "
                             Case "112(g)"
-                                SQLSearch1 = " substr(" & connNameSpace & ".SSPPApplicationData.strTrackedRules, 3, 1) = '1' "
+                                SQLSearch1 = " substr(" & DBNameSpace & ".SSPPApplicationData.strTrackedRules, 3, 1) = '1' "
                             Case "Actuals PAL"
-                                SQLSearch1 = " substr(" & connNameSpace & ".SSPPApplicationData.strTrackedRules, 6, 1) = '1' "
+                                SQLSearch1 = " substr(" & DBNameSpace & ".SSPPApplicationData.strTrackedRules, 6, 1) = '1' "
                             Case "NAA NSR"
-                                SQLSearch1 = " substr(" & connNameSpace & ".SSPPApplicationData.strTrackedRules, 2, 1) = '1' "
+                                SQLSearch1 = " substr(" & DBNameSpace & ".SSPPApplicationData.strTrackedRules, 2, 1) = '1' "
                             Case "PSD"
-                                SQLSearch1 = " substr(" & connNameSpace & ".SSPPApplicationData.strTrackedRules, 1, 1) = '1' "
+                                SQLSearch1 = " substr(" & DBNameSpace & ".SSPPApplicationData.strTrackedRules, 1, 1) = '1' "
                             Case "Rule (tt) RACT"
-                                SQLSearch1 = " substr(" & connNameSpace & ".SSPPApplicationData.strTrackedRules, 4, 1) = '1' "
+                                SQLSearch1 = " substr(" & DBNameSpace & ".SSPPApplicationData.strTrackedRules, 4, 1) = '1' "
                             Case "Rule (yy) RACT"
-                                SQLSearch1 = " substr(" & connNameSpace & ".SSPPApplicationData.strTrackedRules, 5, 1) = '1' "
+                                SQLSearch1 = " substr(" & DBNameSpace & ".SSPPApplicationData.strTrackedRules, 5, 1) = '1' "
                             Case Else
                                 SQLSearch1 = " "
                         End Select
                     Case "Application No."
-                        SQLSearch1 = " " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber like '%" & Replace(txtSearchText1.Text, "'", "''") & "%' "
+                        SQLSearch1 = " " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber like '%" & Replace(txtSearchText1.Text, "'", "''") & "%' "
                     Case "Application Status"
                         Select Case cboSearchText1.Text
                             Case "0 - Unassigned"
@@ -1225,9 +1225,9 @@ Public Class SSPPApplicationLog
                             SQLSearch1 = " Upper(strApplicationTypeDesc) like Upper('%" & cboSearchText1.Text & "%') "
                         End If
                     Case "Application Unit"
-                        SQLSearch1 = " Upper(" & connNameSpace & ".LookUpEPDUnits.strUnitDesc) like Upper('%" & Replace(cboSearchText1.Text, "'", "''") & "%') "
+                        SQLSearch1 = " Upper(" & DBNameSpace & ".LookUpEPDUnits.strUnitDesc) like Upper('%" & Replace(cboSearchText1.Text, "'", "''") & "%') "
                     Case "Applog Comments"
-                        SQLSearch1 = " Upper(" & connNameSpace & ".SSPPApplicationData.strComments) like Upper('%" & Replace(txtSearchText1.Text, "'", "''") & "%') "
+                        SQLSearch1 = " Upper(" & DBNameSpace & ".SSPPApplicationData.strComments) like Upper('%" & Replace(txtSearchText1.Text, "'", "''") & "%') "
                     Case "Date Acknowledged"
                         SQLSearch1 = " datAcknowledgementLetterSent between '" & DTPSearchDate1.Text & "' and '" & DTPSearchDate1b.Text & "' "
                     Case "Date APL Completed"
@@ -1281,31 +1281,31 @@ Public Class SSPPApplicationLog
                     Case "Facility Street"
                         SQLSearch1 = " Upper(strFacilityStreet1) like Upper('%" & Replace(txtSearchText1.Text, "'", "''") & "%') "
                     Case "HAPs Major"
-                        SQLSearch1 = " " & connNameSpace & ".APBHeaderData.strStateProgramCodes like '_1___' "
+                        SQLSearch1 = " " & DBNameSpace & ".APBHeaderData.strStateProgramCodes like '_1___' "
                     Case "NAA 1Hr-Yes"
-                        SQLSearch1 = " " & connNameSpace & ".APBHeaderData.strAttainmentStatus like '_1___' "
+                        SQLSearch1 = " " & DBNameSpace & ".APBHeaderData.strAttainmentStatus like '_1___' "
                     Case "NAA 1Hr-Contr."
-                        SQLSearch1 = " " & connNameSpace & ".APBHeaderData.strAttainmentStatus like '_2___' "
+                        SQLSearch1 = " " & DBNameSpace & ".APBHeaderData.strAttainmentStatus like '_2___' "
                     Case "NAA 1Hr-No"
-                        SQLSearch1 = " " & connNameSpace & ".APBHeaderData.strAttainmentStatus like '_0___' "
+                        SQLSearch1 = " " & DBNameSpace & ".APBHeaderData.strAttainmentStatus like '_0___' "
                     Case "NAA 8Hr-Atlanta"
-                        SQLSearch1 = " " & connNameSpace & ".APBHeaderData.strAttainmentStatus like '__1__' "
+                        SQLSearch1 = " " & DBNameSpace & ".APBHeaderData.strAttainmentStatus like '__1__' "
                     Case "NAA 8Hr-Macon"
-                        SQLSearch1 = " " & connNameSpace & ".APBHeaderData.strAttainmentStatus like '__2__' "
+                        SQLSearch1 = " " & DBNameSpace & ".APBHeaderData.strAttainmentStatus like '__2__' "
                     Case "NAA 8Hr-No"
-                        SQLSearch1 = " " & connNameSpace & ".APBHeaderData.strAttainmentStatus like '__0__' "
+                        SQLSearch1 = " " & DBNameSpace & ".APBHeaderData.strAttainmentStatus like '__0__' "
                     Case "NAA PM-Atlanta"
-                        SQLSearch1 = " " & connNameSpace & ".APBHeaderData.strAttainmentStatus like '___1_' "
+                        SQLSearch1 = " " & DBNameSpace & ".APBHeaderData.strAttainmentStatus like '___1_' "
                     Case "NAA PM-Chattanooga"
-                        SQLSearch1 = " " & connNameSpace & ".APBHeaderData.strAttainmentStatus like '___2_' "
+                        SQLSearch1 = " " & DBNameSpace & ".APBHeaderData.strAttainmentStatus like '___2_' "
                     Case "NAA PM-Floyd"
-                        SQLSearch1 = " " & connNameSpace & ".APBHeaderData.strAttainmentStatus like '___3_' "
+                        SQLSearch1 = " " & DBNameSpace & ".APBHeaderData.strAttainmentStatus like '___3_' "
                     Case "NAA PM-Macon"
-                        SQLSearch1 = " " & connNameSpace & ".APBHeaderData.strAttainmentStatus like '___4_' "
+                        SQLSearch1 = " " & DBNameSpace & ".APBHeaderData.strAttainmentStatus like '___4_' "
                     Case "NAA PM-No"
-                        SQLSearch1 = " " & connNameSpace & ".APBHeaderData.strAttainmentStatus like '___0_' "
+                        SQLSearch1 = " " & DBNameSpace & ".APBHeaderData.strAttainmentStatus like '___0_' "
                     Case "NSR/PSD Major"
-                        SQLSearch1 = " " & connNameSpace & ".APBHeaderData.strStateProgramCodes like '1____' "
+                        SQLSearch1 = " " & DBNameSpace & ".APBHeaderData.strStateProgramCodes like '1____' "
                     Case "PA Ready"
                         SQLSearch1 = " strPAReady is Not Null and strPAReady = 'True' "
                     Case "Permit Number"
@@ -1349,7 +1349,7 @@ Public Class SSPPApplicationLog
                             End Select
                         End If
                     Case "Plant Description"
-                        SQLSearch1 = " Upper(" & connNameSpace & ".SSPPApplicationData.strPlantDescription) like '%" & Replace(txtSearchText1.Text.ToUpper, "'", "''") & "%' "
+                        SQLSearch1 = " Upper(" & DBNameSpace & ".SSPPApplicationData.strPlantDescription) like '%" & Replace(txtSearchText1.Text.ToUpper, "'", "''") & "%' "
                     Case "PN Ready"
                         SQLSearch1 = " strPNReady is Not Null and strPNReady = 'True' "
                     Case "Public Advisory"
@@ -1372,45 +1372,45 @@ Public Class SSPPApplicationLog
                     Case "Status Date"
                         SQLSearch1 = " StatusDate between '" & DTPSearchDate1.Text & "' and '" & DTPSearchDate1b.Text & "' "
                     Case "SIC Code"
-                        SQLSearch1 = " " & connNameSpace & ".SSPPApplicationData.strSICCode like '%" & Replace(txtSearchText1.Text, "'", "''") & "%' "
+                        SQLSearch1 = " " & DBNameSpace & ".SSPPApplicationData.strSICCode like '%" & Replace(txtSearchText1.Text, "'", "''") & "%' "
                     Case "Subpart - 0-SIP"
-                        SQLSearch1 = " ( " & connNameSpace & ".SSPPSubpartData.strSubpart = '" & SubpartSIP1 & "' " & _
-                        "and substr(" & connNameSpace & ".SSPPSubpartData.strSubpartKey, -1, 1) = '0' ) "
+                        SQLSearch1 = " ( " & DBNameSpace & ".SSPPSubpartData.strSubpart = '" & SubpartSIP1 & "' " & _
+                        "and substr(" & DBNameSpace & ".SSPPSubpartData.strSubpartKey, -1, 1) = '0' ) "
                     Case "Subpart - 8-NESHAP (Part 61)"
-                        SQLSearch1 = " ( " & connNameSpace & ".SSPPSubpartData.strSubpart = '" & SubpartNESHAP1 & "' " & _
-                        "and substr(" & connNameSpace & ".SSPPSubpartData.strSubpartKey, -1, 1) = '8' ) "
+                        SQLSearch1 = " ( " & DBNameSpace & ".SSPPSubpartData.strSubpart = '" & SubpartNESHAP1 & "' " & _
+                        "and substr(" & DBNameSpace & ".SSPPSubpartData.strSubpartKey, -1, 1) = '8' ) "
                     Case "Subpart - 9-NSPS (Part 60)"
-                        SQLSearch1 = " ( " & connNameSpace & ".SSPPSubpartData.strSubpart = '" & SubpartNSPS1 & "' " & _
-                        "and substr(" & connNameSpace & ".SSPPSubpartData.strSubpartKey, -1, 1) = '9' ) "
+                        SQLSearch1 = " ( " & DBNameSpace & ".SSPPSubpartData.strSubpart = '" & SubpartNSPS1 & "' " & _
+                        "and substr(" & DBNameSpace & ".SSPPSubpartData.strSubpartKey, -1, 1) = '9' ) "
                     Case "Subpart - M-MACT (Part 63)"
-                        SQLSearch1 = " ( " & connNameSpace & ".SSPPSubpartData.strSubpart = '" & SubpartMACT1 & "' " & _
-                        "and substr(" & connNameSpace & ".SSPPSubpartData.strSubpartKey, -1, 1) = 'M' ) "
+                        SQLSearch1 = " ( " & DBNameSpace & ".SSPPSubpartData.strSubpart = '" & SubpartMACT1 & "' " & _
+                        "and substr(" & DBNameSpace & ".SSPPSubpartData.strSubpartKey, -1, 1) = 'M' ) "
                 End Select
 
                 Select Case FieldType2
                     Case "AIRS No."
-                        SQLSearch2 = " " & connNameSpace & ".SSPPApplicationMaster.strAIRSNumber like '%" & Replace(txtSearchText2.Text, "'", "''") & "%' "
+                        SQLSearch2 = " " & DBNameSpace & ".SSPPApplicationMaster.strAIRSNumber like '%" & Replace(txtSearchText2.Text, "'", "''") & "%' "
                     Case "Applicable Rules"
                         Select Case cboSearchText2.Text
                             Case "Any Rule"
-                                SQLSearch2 = " " & connNameSpace & ".SSPPApplicationData.strTrackedRules <> '0000000000' "
+                                SQLSearch2 = " " & DBNameSpace & ".SSPPApplicationData.strTrackedRules <> '0000000000' "
                             Case "112(g)"
-                                SQLSearch2 = " substr(" & connNameSpace & ".SSPPApplicationData.strTrackedRules, 3, 1) = '1' "
+                                SQLSearch2 = " substr(" & DBNameSpace & ".SSPPApplicationData.strTrackedRules, 3, 1) = '1' "
                             Case "Actuals PAL"
-                                SQLSearch2 = " substr(" & connNameSpace & ".SSPPApplicationData.strTrackedRules, 6, 1) = '1' "
+                                SQLSearch2 = " substr(" & DBNameSpace & ".SSPPApplicationData.strTrackedRules, 6, 1) = '1' "
                             Case "NAA NSR"
-                                SQLSearch2 = " substr(" & connNameSpace & ".SSPPApplicationData.strTrackedRules, 2, 1) = '1' "
+                                SQLSearch2 = " substr(" & DBNameSpace & ".SSPPApplicationData.strTrackedRules, 2, 1) = '1' "
                             Case "PSD"
-                                SQLSearch2 = " substr(" & connNameSpace & ".SSPPApplicationData.strTrackedRules, 1, 1) = '1' "
+                                SQLSearch2 = " substr(" & DBNameSpace & ".SSPPApplicationData.strTrackedRules, 1, 1) = '1' "
                             Case "Rule (tt) RACT"
-                                SQLSearch2 = " substr(" & connNameSpace & ".SSPPApplicationData.strTrackedRules, 4, 1) = '1' "
+                                SQLSearch2 = " substr(" & DBNameSpace & ".SSPPApplicationData.strTrackedRules, 4, 1) = '1' "
                             Case "Rule (yy) RACT"
-                                SQLSearch2 = " substr(" & connNameSpace & ".SSPPApplicationData.strTrackedRules, 5, 1) = '1' "
+                                SQLSearch2 = " substr(" & DBNameSpace & ".SSPPApplicationData.strTrackedRules, 5, 1) = '1' "
                             Case Else
                                 SQLSearch2 = " "
                         End Select
                     Case "Application No."
-                        SQLSearch2 = " " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber like '%" & Replace(txtSearchText2.Text, "'", "''") & "%' "
+                        SQLSearch2 = " " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber like '%" & Replace(txtSearchText2.Text, "'", "''") & "%' "
                     Case "Application Status"
                         Select Case cboSearchText2.Text
                             Case "0 - Unassigned"
@@ -1454,9 +1454,9 @@ Public Class SSPPApplicationLog
                             SQLSearch2 = " Upper(strApplicationTypeDesc) like Upper('%" & cboSearchText2.Text & "%') "
                         End If
                     Case "Application Unit"
-                        SQLSearch2 = " Upper(" & connNameSpace & ".LookUpEPDUnits.strUnitDesc) like Upper('%" & Replace(cboSearchText2.Text, "'", "''") & "%') "
+                        SQLSearch2 = " Upper(" & DBNameSpace & ".LookUpEPDUnits.strUnitDesc) like Upper('%" & Replace(cboSearchText2.Text, "'", "''") & "%') "
                     Case "Applog Comments"
-                        SQLSearch2 = " Upper(" & connNameSpace & ".SSPPApplicationData.strComments) like Upper('%" & Replace(txtSearchText2.Text, "'", "''") & "%') "
+                        SQLSearch2 = " Upper(" & DBNameSpace & ".SSPPApplicationData.strComments) like Upper('%" & Replace(txtSearchText2.Text, "'", "''") & "%') "
                     Case "Date Acknowledged"
                         SQLSearch2 = " datAcknowledgementLetterSent between '" & DTPSearchDate2.Text & "' and '" & DTPSearchDate2b.Text & "'  "
                     Case "Date APL Completed"
@@ -1510,31 +1510,31 @@ Public Class SSPPApplicationLog
                     Case "Facility Street"
                         SQLSearch2 = " Upper(strFacilityStreet1) like Upper('%" & Replace(txtSearchText2.Text, "'", "''") & "%') "
                     Case "HAPs Major"
-                        SQLSearch2 = " " & connNameSpace & ".APBHeaderData.strStateProgramCodes like '1____' "
+                        SQLSearch2 = " " & DBNameSpace & ".APBHeaderData.strStateProgramCodes like '1____' "
                     Case "NAA 1Hr-Yes"
-                        SQLSearch2 = " " & connNameSpace & ".APBHeaderData.strAttainmentStatus like '_1___' "
+                        SQLSearch2 = " " & DBNameSpace & ".APBHeaderData.strAttainmentStatus like '_1___' "
                     Case "NAA 1Hr-Contr."
-                        SQLSearch2 = " " & connNameSpace & ".APBHeaderData.strAttainmentStatus like '_2___' "
+                        SQLSearch2 = " " & DBNameSpace & ".APBHeaderData.strAttainmentStatus like '_2___' "
                     Case "NAA 1Hr-No"
-                        SQLSearch2 = " " & connNameSpace & ".APBHeaderData.strAttainmentStatus like '_0___' "
+                        SQLSearch2 = " " & DBNameSpace & ".APBHeaderData.strAttainmentStatus like '_0___' "
                     Case "NAA 8Hr-Atlanta"
-                        SQLSearch2 = " " & connNameSpace & ".APBHeaderData.strAttainmentStatus like '__1__' "
+                        SQLSearch2 = " " & DBNameSpace & ".APBHeaderData.strAttainmentStatus like '__1__' "
                     Case "NAA 8Hr-Macon"
-                        SQLSearch2 = " " & connNameSpace & ".APBHeaderData.strAttainmentStatus like '__2__' "
+                        SQLSearch2 = " " & DBNameSpace & ".APBHeaderData.strAttainmentStatus like '__2__' "
                     Case "NAA 8Hr-No"
-                        SQLSearch2 = " " & connNameSpace & ".APBHeaderData.strAttainmentStatus like '__0__' "
+                        SQLSearch2 = " " & DBNameSpace & ".APBHeaderData.strAttainmentStatus like '__0__' "
                     Case "NAA PM-Atlanta"
-                        SQLSearch2 = " " & connNameSpace & ".APBHeaderData.strAttainmentStatus like '___1_' "
+                        SQLSearch2 = " " & DBNameSpace & ".APBHeaderData.strAttainmentStatus like '___1_' "
                     Case "NAA PM-Chattanooga"
-                        SQLSearch2 = " " & connNameSpace & ".APBHeaderData.strAttainmentStatus like '___2_' "
+                        SQLSearch2 = " " & DBNameSpace & ".APBHeaderData.strAttainmentStatus like '___2_' "
                     Case "NAA PM-Floyd"
-                        SQLSearch2 = " " & connNameSpace & ".APBHeaderData.strAttainmentStatus like '___3_' "
+                        SQLSearch2 = " " & DBNameSpace & ".APBHeaderData.strAttainmentStatus like '___3_' "
                     Case "NAA PM-Macon"
-                        SQLSearch2 = " " & connNameSpace & ".APBHeaderData.strAttainmentStatus like '___4_' "
+                        SQLSearch2 = " " & DBNameSpace & ".APBHeaderData.strAttainmentStatus like '___4_' "
                     Case "NAA PM-No"
-                        SQLSearch2 = " " & connNameSpace & ".APBHeaderData.strAttainmentStatus like '___0_' "
+                        SQLSearch2 = " " & DBNameSpace & ".APBHeaderData.strAttainmentStatus like '___0_' "
                     Case "NSR/PSD Major"
-                        SQLSearch2 = " " & connNameSpace & ".APBHeaderData.strStateProgramCodes like '1____' "
+                        SQLSearch2 = " " & DBNameSpace & ".APBHeaderData.strStateProgramCodes like '1____' "
                     Case "PA Ready"
                         SQLSearch2 = " strPAReady is Not Null and strPAReady = 'True' "
                     Case "Permit Number"
@@ -1578,7 +1578,7 @@ Public Class SSPPApplicationLog
                             End Select
                         End If
                     Case "Plant Description"
-                        SQLSearch2 = " Upper(" & connNameSpace & ".SSPPApplicationData.strPlantDescription) like '%" & Replace(txtSearchText2.Text.ToUpper, "'", "''") & "%' "
+                        SQLSearch2 = " Upper(" & DBNameSpace & ".SSPPApplicationData.strPlantDescription) like '%" & Replace(txtSearchText2.Text.ToUpper, "'", "''") & "%' "
                     Case "PN Ready"
                         SQLSearch2 = " strPNReady is Not Null and strPNReady = 'True' "
                     Case "Public Advisory"
@@ -1599,21 +1599,21 @@ Public Class SSPPApplicationLog
                     Case "Regional Office"
                         SQLSearch2 = " Upper(strOfficeName) like Upper('%" & Replace(cboSearchText2.Text, "'", "''") & "%') "
                     Case "SIC Code"
-                        SQLSearch2 = " " & connNameSpace & ".SSPPApplicationData.strSICCode like '%" & Replace(txtSearchText2.Text, "'", "''") & "%' "
+                        SQLSearch2 = " " & DBNameSpace & ".SSPPApplicationData.strSICCode like '%" & Replace(txtSearchText2.Text, "'", "''") & "%' "
                     Case "Status Date"
                         SQLSearch2 = " StatusDate between '" & DTPSearchDate2.Text & "' and '" & DTPSearchDate2b.Text & "' "
                     Case "Subpart - 0-SIP"
-                        SQLSearch2 = " ( " & connNameSpace & ".SSPPSubpartData.strSubpart = '" & SubpartSIP2 & "' " & _
-                        "and substr(" & connNameSpace & ".SSPPSubpartData.strSubpartKey, -1, 1) = '0' ) "
+                        SQLSearch2 = " ( " & DBNameSpace & ".SSPPSubpartData.strSubpart = '" & SubpartSIP2 & "' " & _
+                        "and substr(" & DBNameSpace & ".SSPPSubpartData.strSubpartKey, -1, 1) = '0' ) "
                     Case "Subpart - 8-NESHAP (Part 61)"
-                        SQLSearch2 = " ( " & connNameSpace & ".SSPPSubpartData.strSubpart = '" & SubpartNESHAP2 & "' " & _
-                        "and substr(" & connNameSpace & ".SSPPSubpartData.strSubpartKey, -1, 1) = '8' ) "
+                        SQLSearch2 = " ( " & DBNameSpace & ".SSPPSubpartData.strSubpart = '" & SubpartNESHAP2 & "' " & _
+                        "and substr(" & DBNameSpace & ".SSPPSubpartData.strSubpartKey, -1, 1) = '8' ) "
                     Case "Subpart - 9-NSPS (Part 60)"
-                        SQLSearch2 = " ( " & connNameSpace & ".SSPPSubpartData.strSubpart = '" & SubpartNSPS2 & "' " & _
-                        "and substr(" & connNameSpace & ".SSPPSubpartData.strSubpartKey, -1, 1) = '9' ) "
+                        SQLSearch2 = " ( " & DBNameSpace & ".SSPPSubpartData.strSubpart = '" & SubpartNSPS2 & "' " & _
+                        "and substr(" & DBNameSpace & ".SSPPSubpartData.strSubpartKey, -1, 1) = '9' ) "
                     Case "Subpart - M-MACT (Part 63)"
-                        SQLSearch2 = " ( " & connNameSpace & ".SSPPSubpartData.strSubpart = '" & SubpartMACT2 & "' " & _
-                        "and substr(" & connNameSpace & ".SSPPSubpartData.strSubpartKey, -1, 1) = 'M' ) "
+                        SQLSearch2 = " ( " & DBNameSpace & ".SSPPSubpartData.strSubpart = '" & SubpartMACT2 & "' " & _
+                        "and substr(" & DBNameSpace & ".SSPPSubpartData.strSubpartKey, -1, 1) = 'M' ) "
                 End Select
 
                 If FieldType1 = FieldType2 Then
@@ -1632,7 +1632,7 @@ Public Class SSPPApplicationLog
                     End Select
                 End If
                 If AppUnitText <> "All" Then
-                    SQLLine = SQLLine & "and (Upper(" & connNameSpace & ".LookUpEPDUnits.strUnitDesc) = Upper('" & Replace(AppUnitText, "'", "''") & "') " & _
+                    SQLLine = SQLLine & "and (Upper(" & DBNameSpace & ".LookUpEPDUnits.strUnitDesc) = Upper('" & Replace(AppUnitText, "'", "''") & "') " & _
                     "or (Upper(APBUnit) = Upper('" & Replace(AppUnit, "'", "''") & "'))) "
                 End If
                 If AppStatus <> "All" Then
@@ -1659,7 +1659,7 @@ Public Class SSPPApplicationLog
                     Case "AIRS No."
                         SQLOrder = SQLOrder & " strAIRSNumber " & temp
                     Case "Application No."
-                        SQLOrder = SQLOrder & " " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber " & temp
+                        SQLOrder = SQLOrder & " " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber " & temp
                     Case "Application Status"
                         SQLOrder = SQLOrder & " AppStatus " & temp
                     Case "Application Type"
@@ -1749,7 +1749,7 @@ Public Class SSPPApplicationLog
                     Case "Permit Type"
                         SQLOrder = SQLOrder & " strPermitType " & temp
                     Case "Plant Description"
-                        SQLOrder = SQLOrder & " " & connNameSpace & ".SSPPApplicationData.strPlantDescription " & temp
+                        SQLOrder = SQLOrder & " " & DBNameSpace & ".SSPPApplicationData.strPlantDescription " & temp
                     Case "PN Ready"
                         SQLOrder = SQLOrder & " strPNReady " & temp
                     Case "Public Advisory"
@@ -1761,7 +1761,7 @@ Public Class SSPPApplicationLog
                     Case "Regional Office"
                         SQLOrder = SQLOrder & " strOfficeName " & temp
                     Case "SIC Code"
-                        SQLOrder = SQLOrder & " " & connNameSpace & ".SSPPApplicationData.strSICCode " & temp
+                        SQLOrder = SQLOrder & " " & DBNameSpace & ".SSPPApplicationData.strSICCode " & temp
                 End Select
 
                 If SQLOrder = " order by " Then
@@ -1780,7 +1780,7 @@ Public Class SSPPApplicationLog
                     Case "AIRS No."
                         SQLOrder = SQLOrder & " strAIRSNumber " & temp
                     Case "Application No."
-                        SQLOrder = SQLOrder & " " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber " & temp
+                        SQLOrder = SQLOrder & " " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber " & temp
                     Case "Application Status"
                         SQLOrder = SQLOrder & " AppStatus " & temp
                     Case "Application Type"
@@ -1870,7 +1870,7 @@ Public Class SSPPApplicationLog
                     Case "Permit Type"
                         SQLOrder = SQLOrder & " strPermitType " & temp
                     Case "Plant Description"
-                        SQLOrder = SQLOrder & " " & connNameSpace & ".SSPPApplicationData.strPlantDescription " & temp
+                        SQLOrder = SQLOrder & " " & DBNameSpace & ".SSPPApplicationData.strPlantDescription " & temp
                     Case "PN Ready"
                         SQLOrder = SQLOrder & " strPNReady " & temp
                     Case "Public Advisory"
@@ -1882,7 +1882,7 @@ Public Class SSPPApplicationLog
                     Case "Regional Office"
                         SQLOrder = SQLOrder & " strOfficeName " & temp
                     Case "SIC Code"
-                        SQLOrder = SQLOrder & " " & connNameSpace & ".SSPPApplicationData.strSICCode " & temp
+                        SQLOrder = SQLOrder & " " & DBNameSpace & ".SSPPApplicationData.strSICCode " & temp
                 End Select
 
                 temp = Mid(SQLOrder, (Len(SQLOrder) - 1))
@@ -1894,10 +1894,10 @@ Public Class SSPPApplicationLog
 
                 SQL = SQL & SQLLine
 
-                daApplication = New OracleDataAdapter(SQL, conn)
+                daApplication = New OracleDataAdapter(SQL, DBConn)
 
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
 
                 daApplication.Fill(dsApplication, "ApplictionLog")
@@ -1959,7 +1959,7 @@ Public Class SSPPApplicationLog
                 ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
             End If
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -2634,7 +2634,7 @@ Public Class SSPPApplicationLog
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -3308,7 +3308,7 @@ Public Class SSPPApplicationLog
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -3321,7 +3321,7 @@ Public Class SSPPApplicationLog
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -3403,7 +3403,7 @@ Public Class SSPPApplicationLog
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -3425,7 +3425,7 @@ Public Class SSPPApplicationLog
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -3443,7 +3443,7 @@ Public Class SSPPApplicationLog
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -3456,7 +3456,7 @@ Public Class SSPPApplicationLog
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -3469,7 +3469,7 @@ Public Class SSPPApplicationLog
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -3513,7 +3513,7 @@ Public Class SSPPApplicationLog
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -3535,7 +3535,7 @@ Public Class SSPPApplicationLog
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -3579,7 +3579,7 @@ Public Class SSPPApplicationLog
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -3625,7 +3625,7 @@ Public Class SSPPApplicationLog
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -3652,7 +3652,7 @@ Public Class SSPPApplicationLog
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try

@@ -57,7 +57,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -70,14 +70,14 @@ Public Class ISMPTestReportAdministrative
             SQL = "select strFacilityName, substr(strAIRSNumber, 5) as strAIRSNumber, " & _
             "strFacilityStreet1, strFacilityCity, strFacilityState, " & _
             "strFacilityZipCode " & _
-            "from " & connNameSpace & ".APBFacilityInformation order by strFacilityName"
+            "from " & DBNameSpace & ".APBFacilityInformation order by strFacilityName"
 
             dsFacility = New DataSet
 
-            daFacility = New OracleDataAdapter(SQL, conn)
+            daFacility = New OracleDataAdapter(SQL, DBConn)
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             daFacility.Fill(dsFacility, "APBFacilities")
@@ -85,7 +85,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -158,7 +158,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -167,17 +167,17 @@ Public Class ISMPTestReportAdministrative
     Private Sub FillPollutantandTestingFirms()
         Try
 
-            SQL = "Select strPollutantCode, strPollutantDescription from " & connNameSpace & ".LookUPPollutants order by strPollutantDescription"
-            SQL2 = "Select strTestingFirmKey, strTestingFirm from " & connNameSpace & ".LookUPTestingFirms order by strTestingFirm"
+            SQL = "Select strPollutantCode, strPollutantDescription from " & DBNameSpace & ".LookUPPollutants order by strPollutantDescription"
+            SQL2 = "Select strTestingFirmKey, strTestingFirm from " & DBNameSpace & ".LookUPTestingFirms order by strTestingFirm"
 
             dsPollutant = New DataSet
             dsTestingFirms = New DataSet
 
-            daPollutant = New OracleDataAdapter(SQL, conn)
-            daTestingFirms = New OracleDataAdapter(SQL2, conn)
+            daPollutant = New OracleDataAdapter(SQL, DBConn)
+            daTestingFirms = New OracleDataAdapter(SQL2, DBConn)
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             daPollutant.Fill(dsPollutant, "Pollutant")
@@ -186,7 +186,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -261,7 +261,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -270,25 +270,25 @@ Public Class ISMPTestReportAdministrative
     Private Sub FillDateGrid()
         Dim SQL As String
 
-        SQL = "select " & connNameSpace & ".ISMPMaster.strReferenceNumber, " & _
+        SQL = "select " & DBNameSpace & ".ISMPMaster.strReferenceNumber, " & _
         "to_char(datReceivedDate, 'dd-Mon-yyyy') as forDatReceivedDate, " & _
         "to_char(datTestDateStart, 'dd-Mon-yyyy') as forDatTestDateStart, " & _
-        " substr(" & connNameSpace & ".ISMPMaster.strAirsnumber, 5) as StrAIRSNumber, " & _
-        "strFacilityName, " & connNameSpace & ".ISMPDocumentType.strDocumentType " & _
-        "from " & connNameSpace & ".ISMPReportInformation, " & connNameSpace & ".ISMPDocumentType, " & _
-        "" & connNameSpace & ".ISMPMaster, " & connNameSpace & ".APBFacilityInformation " & _
-        "where " & connNameSpace & ".APBFacilityInformation.strairsnumber = " & connNameSpace & ".ISMPMaster.strairsnumber " & _
-        "and " & connNameSpace & ".ISMPDocumentType.strKey = " & connNameSpace & ".ISMPReportInformation.strDocumentType " & _
-        "and " & connNameSpace & ".ISMPMaster.strReferenceNumber = " & connNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
+        " substr(" & DBNameSpace & ".ISMPMaster.strAirsnumber, 5) as StrAIRSNumber, " & _
+        "strFacilityName, " & DBNameSpace & ".ISMPDocumentType.strDocumentType " & _
+        "from " & DBNameSpace & ".ISMPReportInformation, " & DBNameSpace & ".ISMPDocumentType, " & _
+        "" & DBNameSpace & ".ISMPMaster, " & DBNameSpace & ".APBFacilityInformation " & _
+        "where " & DBNameSpace & ".APBFacilityInformation.strairsnumber = " & DBNameSpace & ".ISMPMaster.strairsnumber " & _
+        "and " & DBNameSpace & ".ISMPDocumentType.strKey = " & DBNameSpace & ".ISMPReportInformation.strDocumentType " & _
+        "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
         "and strDelete is NULL " & _
         "and strClosed = 'False' " & _
-        "order by " & connNameSpace & ".ISMPMaster.strReferenceNumber"
+        "order by " & DBNameSpace & ".ISMPMaster.strReferenceNumber"
 
         dsGrid = New DataSet
-        daGrid = New OracleDataAdapter(SQL, conn)
+        daGrid = New OracleDataAdapter(SQL, DBConn)
 
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
+        If DBConn.State = ConnectionState.Closed Then
+            DBConn.Open()
         End If
 
         daGrid.Fill(dsGrid, "Grid")
@@ -315,12 +315,12 @@ Public Class ISMPTestReportAdministrative
                 "strFacilityName, strFacilityStreet1, " & _
                 "strFacilityCity, " & _
                 "strFacilityState, strFacilityZipcode " & _
-                "from " & connNameSpace & ".APBFacilityInformation " & _
+                "from " & DBNameSpace & ".APBFacilityInformation " & _
                 "where strAIRSNumber = '0413" & cboAIRSNumber.Text & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -359,12 +359,12 @@ Public Class ISMPTestReportAdministrative
 
                 SQL = "Select strFacilityName, strFacilityStreet1, " & _
                 "strFacilityCity, strFacilityState, strFacilityZipCode " & _
-                "from " & connNameSpace & ".APBFacilityInformation " & _
+                "from " & DBNameSpace & ".APBFacilityInformation " & _
                 "where strAIRSNumber = '0413" & cboAIRSNumber.Text & "'"
 
-                Dim cmd As New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                Dim cmd As New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 Dim dr As OracleDataReader = cmd.ExecuteReader
                 Dim recExist As Boolean = dr.Read
@@ -397,7 +397,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -411,22 +411,22 @@ Public Class ISMPTestReportAdministrative
 
             If DTPDateReceived.Text <> "" And cboAIRSNumber.Text <> "" Then
                 SQL = "Select " & _
-                "" & connNameSpace & ".ISMPMaster.strReferenceNumber, " & _
+                "" & DBNameSpace & ".ISMPMaster.strReferenceNumber, " & _
                 "strEmissionSource, strPollutantDescription " & _
-                "from " & connNameSpace & ".ISMPMaster, " & connNameSpace & ".ISMPReportInformation, " & _
-                "" & connNameSpace & ".LookUPPollutants " & _
-                "where " & connNameSpace & ".ISMPMaster.strReferenceNumber = " & connNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
-                "and " & connNameSpace & ".ISMPReportInformation.strPollutant = " & connNameSpace & ".LookUPPollutants.strPollutantCode " & _
+                "from " & DBNameSpace & ".ISMPMaster, " & DBNameSpace & ".ISMPReportInformation, " & _
+                "" & DBNameSpace & ".LookUPPollutants " & _
+                "where " & DBNameSpace & ".ISMPMaster.strReferenceNumber = " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
+                "and " & DBNameSpace & ".ISMPReportInformation.strPollutant = " & DBNameSpace & ".LookUPPollutants.strPollutantCode " & _
                 "and strAIRSNumber = '0413" & cboAIRSNumber.Text & "' " & _
                 "and datReceivedDate = '" & DTPDateReceived.Text & "' " & _
                 "and strClosed <> 'True' " & _
                 "and (strDelete <> 'DELETE' " & _
                 "or strDelete is NUll) " & _
-                "Order by " & connNameSpace & ".ISMPMaster.strReferenceNumber "
+                "Order by " & DBNameSpace & ".ISMPMaster.strReferenceNumber "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -443,7 +443,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -461,12 +461,12 @@ Public Class ISMPTestReportAdministrative
             "case when max(strReferenceNumber) is null then to_char(sysdate, 'YYYY')||'00001'  " & _
             "else to_char(max(to_number(strReferenceNumber) + 1 )) " & _
             "end MaxRefNum  " & _
-            "from " & connNameSpace & ".ISMPMaster  " & _
+            "from " & DBNameSpace & ".ISMPMaster  " & _
             "where strReferenceNumber like '" & RefYear & "%' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -548,22 +548,22 @@ Public Class ISMPTestReportAdministrative
                     rdbOpenReport.Checked = True
                 End If
 
-                SQL = "Select strReferenceNumber from " & connNameSpace & ".ISMPMaster where strReferenceNumber = '" & txtReferenceNumber.Text & "'"
+                SQL = "Select strReferenceNumber from " & DBNameSpace & ".ISMPMaster where strReferenceNumber = '" & txtReferenceNumber.Text & "'"
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 dr.Close()
 
                 If recExist = True Then
-                    SQL = "Update " & connNameSpace & ".ISMPMaster set " & _
+                    SQL = "Update " & DBNameSpace & ".ISMPMaster set " & _
                     "strAIRSNumber = '0413" & AIRSNumber & "' " & _
                     "where strReferenceNumber = '" & txtReferenceNumber.Text & "'"
 
-                    SQL2 = "Update " & connNameSpace & ".ISMPReportInformation set " & _
+                    SQL2 = "Update " & DBNameSpace & ".ISMPReportInformation set " & _
                     "strPollutant = '" & cboPollutant.SelectedValue & "', " & _
                     "strEmissionSource = '" & txtEmissionSource.Text & "', " & _
                     "strTestingFirm = '" & cboTestingFirms.SelectedValue & "', " & _
@@ -575,7 +575,7 @@ Public Class ISMPTestReportAdministrative
                     "strDelete = '' " & _
                     "where strReferenceNumber = '" & txtReferenceNumber.Text & "'"
                 Else
-                    SQL = "Insert into " & connNameSpace & ".ISMPMaster values ('" & txtReferenceNumber.Text & "', " & _
+                    SQL = "Insert into " & DBNameSpace & ".ISMPMaster values ('" & txtReferenceNumber.Text & "', " & _
                     "'0413" & AIRSNumber & "', '" & UserGCode & "', " & _
                     "'" & OracleDate & "')"
 
@@ -767,7 +767,7 @@ Public Class ISMPTestReportAdministrative
                     '"'" & UserGCode & "', '" & OracleDate & "', " & _
                     '"'N/A', '', '')"
 
-                    SQL2 = "Insert into " & connNameSpace & ".ISMPReportInformation " & _
+                    SQL2 = "Insert into " & DBNameSpace & ".ISMPReportInformation " & _
            "(strReferenceNumber, strPollutant, strEmissionSource, " & _
            "strReportType, strDocumentType, strApplicableRequirement, " & _
            "strTestingFirm, strReviewingEngineer, strWitnessingEngineer, " & _
@@ -793,28 +793,28 @@ Public Class ISMPTestReportAdministrative
            "WHEN to_char(TABLE1.STRASSIGNINGMANAGER) <> '1' AND to_char(TABLE1.STRASSIGNINGMANAGER) IS NOT NULL THEN to_char(TABLE1.STRASSIGNINGMANAGER) " & _
            " ELSE '337' " & _
            "END ManagerResponsible  " & _
-           "from " & connNameSpace & ".LookUPDistricts, " & connNameSpace & ".LOOKUPDISTRICTINFORMATION,  " & _
-           "" & connNameSpace & ".SSCPDISTRICTRESPONSIBLE,     " & _
-           "(select " & connNameSpace & ".SSCPINSPECTIONSREQUIRED.STRASSIGNINGMANAGER, " & _
-           "" & connNameSpace & ".SSCPINSPECTIONSREQUIRED.strAIRSNumber " & _
-           "from " & connNameSpace & ".SSCPINSPECTIONSREQUIRED, " & _
+           "from " & DBNameSpace & ".LookUPDistricts, " & DBNameSpace & ".LOOKUPDISTRICTINFORMATION,  " & _
+           "" & DBNameSpace & ".SSCPDISTRICTRESPONSIBLE,     " & _
+           "(select " & DBNameSpace & ".SSCPINSPECTIONSREQUIRED.STRASSIGNINGMANAGER, " & _
+           "" & DBNameSpace & ".SSCPINSPECTIONSREQUIRED.strAIRSNumber " & _
+           "from " & DBNameSpace & ".SSCPINSPECTIONSREQUIRED, " & _
            "(select max(INTYEAR) as MAXYEAR, STRAIRSNUMBER " & _
-           "from " & connNameSpace & ".SSCPINSPECTIONSREQUIRED " & _
+           "from " & DBNameSpace & ".SSCPINSPECTIONSREQUIRED " & _
            "group by STRAIRSNUMBER) MAXRESULTS " & _
-           "where " & connNameSpace & ".SSCPINSPECTIONSREQUIRED.STRAIRSNUMBER = MAXRESULTS.STRAIRSNUMBER " & _
-           "and " & connNameSpace & ".SSCPINSPECTIONSREQUIRED.INTYEAR = MAXRESULTS.MAXYEAR) Table1 " & _
-           "WHERE " & connNameSpace & ".LOOKUPDISTRICTINFORMATION.strDistrictCode = " & connNameSpace & ".LookUPDistricts.strDistrictCode (+) " & _
-           "AND " & connNameSpace & ".SSCPDistrictResponsible.strAIRSNumber = Table1.strAIRSnumber (+) " & _
-           "AND SUBSTR(" & connNameSpace & ".SSCPDistrictResponsible.strAIRSNumber, 5, 3) = strDistrictCounty (+) " & _
-           "and " & connNameSpace & ".SSCPDISTRICTRESPONSIBLE.STRAIRSNUMBER = '0413" & cboAIRSNumber.Text & "'), " & _
+           "where " & DBNameSpace & ".SSCPINSPECTIONSREQUIRED.STRAIRSNUMBER = MAXRESULTS.STRAIRSNUMBER " & _
+           "and " & DBNameSpace & ".SSCPINSPECTIONSREQUIRED.INTYEAR = MAXRESULTS.MAXYEAR) Table1 " & _
+           "WHERE " & DBNameSpace & ".LOOKUPDISTRICTINFORMATION.strDistrictCode = " & DBNameSpace & ".LookUPDistricts.strDistrictCode (+) " & _
+           "AND " & DBNameSpace & ".SSCPDistrictResponsible.strAIRSNumber = Table1.strAIRSnumber (+) " & _
+           "AND SUBSTR(" & DBNameSpace & ".SSCPDistrictResponsible.strAIRSNumber, 5, 3) = strDistrictCounty (+) " & _
+           "and " & DBNameSpace & ".SSCPDISTRICTRESPONSIBLE.STRAIRSNUMBER = '0413" & cboAIRSNumber.Text & "'), " & _
            "'" & DTPTestDateStart.Text & "', '" & DTPTestDateEnd.Text & "', " & _
            "'" & DTPDateReceived.Text & "', " & _
            "'04-Jul-1776', 'N/A', '" & RecordStatus & "', " & _
-           "(select strManagementName from " & connNameSpace & ".LookUpAPBManagementType " & _
+           "(select strManagementName from " & DBNameSpace & ".LookUpAPBManagementType " & _
            "where strKey = '1' and strCurrentContact = '1' ), " & _
-           "(select strManagementName from " & connNameSpace & ".LookUpAPBManagementType " & _
+           "(select strManagementName from " & DBNameSpace & ".LookUpAPBManagementType " & _
            "where strKey = '2' and strCurrentContact = '1' ), " & _
-           "(select strManagementName from " & connNameSpace & ".LookUpAPBManagementType " & _
+           "(select strManagementName from " & DBNameSpace & ".LookUpAPBManagementType " & _
            "where strKey = '5' and strCurrentContact = '1' ), " & _
            "'01', " & _
            "(SELECT " & _
@@ -823,20 +823,20 @@ Public Class ISMPTestReportAdministrative
            " THEN '9' " & _
            "ELSE '0'   " & _
            "END ManagerResponsible " & _
-           "from " & connNameSpace & ".LookUPDistricts, " & connNameSpace & ".LOOKUPDISTRICTINFORMATION,  " & _
-           "" & connNameSpace & ".SSCPDistrictResponsible,     " & _
-           "(select " & connNameSpace & ".SSCPINSPECTIONSREQUIRED.STRASSIGNINGMANAGER, " & _
-            "" & connNameSpace & ".SSCPINSPECTIONSREQUIRED.strAIRSNumber " & _
-            "from " & connNameSpace & ".SSCPINSPECTIONSREQUIRED, " & _
+           "from " & DBNameSpace & ".LookUPDistricts, " & DBNameSpace & ".LOOKUPDISTRICTINFORMATION,  " & _
+           "" & DBNameSpace & ".SSCPDistrictResponsible,     " & _
+           "(select " & DBNameSpace & ".SSCPINSPECTIONSREQUIRED.STRASSIGNINGMANAGER, " & _
+            "" & DBNameSpace & ".SSCPINSPECTIONSREQUIRED.strAIRSNumber " & _
+            "from " & DBNameSpace & ".SSCPINSPECTIONSREQUIRED, " & _
             "(select max(INTYEAR) as MAXYEAR, STRAIRSNUMBER " & _
-            "from " & connNameSpace & ".SSCPINSPECTIONSREQUIRED " & _
+            "from " & DBNameSpace & ".SSCPINSPECTIONSREQUIRED " & _
             "group by STRAIRSNUMBER) MAXRESULTS " & _
-            "where " & connNameSpace & ".SSCPINSPECTIONSREQUIRED.STRAIRSNUMBER = MAXRESULTS.STRAIRSNUMBER " & _
-            "and " & connNameSpace & ".SSCPINSPECTIONSREQUIRED.INTYEAR = MAXRESULTS.MAXYEAR) Table1 " & _
-           "WHERE " & connNameSpace & ".LOOKUPDISTRICTINFORMATION.strDistrictCode = " & connNameSpace & ".LookUPDistricts.strDistrictCode (+) " & _
-           "AND " & connNameSpace & ".SSCPDistrictResponsible.strAIRSNumber = Table1.strAIRSnumber (+) " & _
-           "AND SUBSTR(" & connNameSpace & ".SSCPDistrictResponsible.strAIRSNumber, 5, 3) = strDistrictCounty (+) " & _
-           "AND " & connNameSpace & ".SSCPDistrictResponsible.strAIRSNumber = '0413" & cboAIRSNumber.Text & "'), " & _
+            "where " & DBNameSpace & ".SSCPINSPECTIONSREQUIRED.STRAIRSNUMBER = MAXRESULTS.STRAIRSNUMBER " & _
+            "and " & DBNameSpace & ".SSCPINSPECTIONSREQUIRED.INTYEAR = MAXRESULTS.MAXYEAR) Table1 " & _
+           "WHERE " & DBNameSpace & ".LOOKUPDISTRICTINFORMATION.strDistrictCode = " & DBNameSpace & ".LookUPDistricts.strDistrictCode (+) " & _
+           "AND " & DBNameSpace & ".SSCPDistrictResponsible.strAIRSNumber = Table1.strAIRSnumber (+) " & _
+           "AND SUBSTR(" & DBNameSpace & ".SSCPDistrictResponsible.strAIRSNumber, 5, 3) = strDistrictCounty (+) " & _
+           "AND " & DBNameSpace & ".SSCPDistrictResponsible.strAIRSNumber = '0413" & cboAIRSNumber.Text & "'), " & _
            "'" & UserGCode & "', '" & OracleDate & "', " & _
            "'N/A', '', '')"
 
@@ -844,9 +844,9 @@ Public Class ISMPTestReportAdministrative
 
                 Try
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
@@ -856,9 +856,9 @@ Public Class ISMPTestReportAdministrative
 
                 Try
 
-                    cmd = New OracleCommand(SQL2, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL2, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
@@ -883,7 +883,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(txtReferenceNumber.Text & vbCrLf & ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -914,12 +914,12 @@ Public Class ISMPTestReportAdministrative
                         Exit Sub
                     End If
                     SQL = "Select strComplianceStatus " & _
-                    "from " & connNameSpace & ".ISMPReportInformation " & _
+                    "from " & DBNameSpace & ".ISMPReportInformation " & _
                     "where strReferenceNumber = '" & RefNum & "' "
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     recExist = dr.Read
@@ -936,11 +936,11 @@ Public Class ISMPTestReportAdministrative
                             SQL = ""
                         Case Else
                             SQL = "Select strUpdateStatus " & _
-                            "from " & connNameSpace & ".AFSISMPRecords " & _
+                            "from " & DBNameSpace & ".AFSISMPRecords " & _
                             "where strReferenceNumber = '" & RefNum & "' "
-                            cmd = New OracleCommand(SQL, conn)
-                            If conn.State = ConnectionState.Closed Then
-                                conn.Open()
+                            cmd = New OracleCommand(SQL, DBConn)
+                            If DBConn.State = ConnectionState.Closed Then
+                                DBConn.Open()
                             End If
                             dr = cmd.ExecuteReader
                             recExist = dr.Read
@@ -956,23 +956,23 @@ Public Class ISMPTestReportAdministrative
                                 Case "C"
                                     'Leave it alone
                                 Case "N"
-                                    SQL = "Update " & connNameSpace & ".AFSISMPRecords set " & _
+                                    SQL = "Update " & DBNameSpace & ".AFSISMPRecords set " & _
                                     "strUpDateStatus = 'C' " & _
                                     "where strReferenceNumber = '" & RefNum & "' "
-                                    cmd = New OracleCommand(SQL, conn)
-                                    If conn.State = ConnectionState.Closed Then
-                                        conn.Open()
+                                    cmd = New OracleCommand(SQL, DBConn)
+                                    If DBConn.State = ConnectionState.Closed Then
+                                        DBConn.Open()
                                     End If
                                     dr = cmd.ExecuteReader
                                     dr.Close()
                                 Case ""
                                     SQL = "Select strAFSActionNumber " & _
-                                    "from " & connNameSpace & ".APBSupplamentalData " & _
+                                    "from " & DBNameSpace & ".APBSupplamentalData " & _
                                     "where strAIRSNumber = '0413" & AIRSNumber & "' "
 
-                                    cmd = New OracleCommand(SQL, conn)
-                                    If conn.State = ConnectionState.Closed Then
-                                        conn.Open()
+                                    cmd = New OracleCommand(SQL, DBConn)
+                                    If DBConn.State = ConnectionState.Closed Then
+                                        DBConn.Open()
                                     End If
                                     dr = cmd.ExecuteReader
                                     While dr.Read
@@ -995,7 +995,7 @@ Public Class ISMPTestReportAdministrative
                                     '        AFSActionNumber = AFSActionNumber
                                     'End Select
 
-                                    SQL = "Insert into " & connNameSpace & ".AFSISMPRecords " & _
+                                    SQL = "Insert into " & DBNameSpace & ".AFSISMPRecords " & _
                                     "(strReferenceNumber, strAFSActionNumber, " & _
                                     "strUpDateStatus, strModifingPerson, " & _
                                     "datModifingDate) " & _
@@ -1004,9 +1004,9 @@ Public Class ISMPTestReportAdministrative
                                     "'A', '" & UserGCode & "', " & _
                                     "'" & OracleDate & "') "
 
-                                    cmd = New OracleCommand(SQL, conn)
-                                    If conn.State = ConnectionState.Closed Then
-                                        conn.Open()
+                                    cmd = New OracleCommand(SQL, DBConn)
+                                    If DBConn.State = ConnectionState.Closed Then
+                                        DBConn.Open()
                                     End If
                                     dr = cmd.ExecuteReader
                                     dr.Close()
@@ -1027,13 +1027,13 @@ Public Class ISMPTestReportAdministrative
                                     '        AFSActionNumber = AFSActionNumber
                                     'End Select
 
-                                    SQL = "Update " & connNameSpace & ".APBSupplamentalData set " & _
+                                    SQL = "Update " & DBNameSpace & ".APBSupplamentalData set " & _
                                     "strAFSActionNumber = '" & AFSActionNumber & "' " & _
                                     "where strAIRSNumber = '0413" & AIRSNumber & "' "
 
-                                    cmd = New OracleCommand(SQL, conn)
-                                    If conn.State = ConnectionState.Closed Then
-                                        conn.Open()
+                                    cmd = New OracleCommand(SQL, DBConn)
+                                    If DBConn.State = ConnectionState.Closed Then
+                                        DBConn.Open()
                                     End If
                                     dr = cmd.ExecuteReader
                                     dr.Close()
@@ -1053,13 +1053,13 @@ Public Class ISMPTestReportAdministrative
                               MsgBoxStyle.Exclamation, "ISMP Test Report Information")
                             Exit Sub
                         Case Else
-                            SQL = "Update " & connNameSpace & ".ISMPReportInformation set " & _
+                            SQL = "Update " & DBNameSpace & ".ISMPReportInformation set " & _
                             "strClosed = 'True', " & _
                             "datCompleteDate = '" & DTPDateClosed.Text & "' " & _
                             "where strReferenceNumber = '" & RefNum.ToString & "' "
-                            cmd = New OracleCommand(SQL, conn)
-                            If conn.State = ConnectionState.Closed Then
-                                conn.Open()
+                            cmd = New OracleCommand(SQL, DBConn)
+                            If DBConn.State = ConnectionState.Closed Then
+                                DBConn.Open()
                             End If
                             dr = cmd.ExecuteReader
                             dr.Close()
@@ -1081,7 +1081,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1101,10 +1101,10 @@ Public Class ISMPTestReportAdministrative
             If txtReferenceNumber.Text <> "" Then
                 temp = txtReferenceNumber.Text
 
-                SQL = "Select strAIRSNumber from " & connNameSpace & ".ISMPMaster where strReferenceNumber = '" & txtReferenceNumber.Text & "'"
-                Dim cmd As New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                SQL = "Select strAIRSNumber from " & DBNameSpace & ".ISMPMaster where strReferenceNumber = '" & txtReferenceNumber.Text & "'"
+                Dim cmd As New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
 
                 Dim dr As OracleDataReader = cmd.ExecuteReader
@@ -1119,43 +1119,43 @@ Public Class ISMPTestReportAdministrative
 
 
                     SQL = "Select  " & _
-              "" & connNameSpace & ".ISMPReportInformation.strReferenceNumber, " & _
+              "" & DBNameSpace & ".ISMPReportInformation.strReferenceNumber, " & _
               "to_char(datReceivedDate, 'dd-Mon-yyyy') as forDatReceivedDate, " & _
               "to_char(datTestDateStart, 'dd-Mon-yyyy') as forDatTestDateStart, " & _
               "to_char(datTestDateEnd, 'dd-Mon-yyyy') as forDatTestDateEnd, " & _
               "to_char(datReviewedByUnitmanager, 'dd-Mon-yyyy') as forDatReviewedByUnitManager, " & _
               "to_char(datCompleteDate, 'dd-Mon-yyyy') as forDateComplete, " & _
               "strClosed, " & _
-              "" & connNameSpace & ".ISMpReportType.strReportType, " & _
+              "" & DBNameSpace & ".ISMpReportType.strReportType, " & _
               "(select (strLastName||', '||strFirstName) as ReviewingEngineer " & _
-               "from " & connNameSpace & ".EPDUserProfiles, " & connNameSpace & ".ISMPReportInformation " & _
-               "where " & connNameSpace & ".EPDUserProfiles.numUserID = " & connNameSpace & ".ISMPReportInformation.strReviewingEngineer " & _
-               "and " & connNameSpace & ".ISMPReportInformation.strReferencenumber = '" & txtReferenceNumber.Text & "') as ReviewingENgineer,  " & _
+               "from " & DBNameSpace & ".EPDUserProfiles, " & DBNameSpace & ".ISMPReportInformation " & _
+               "where " & DBNameSpace & ".EPDUserProfiles.numUserID = " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer " & _
+               "and " & DBNameSpace & ".ISMPReportInformation.strReferencenumber = '" & txtReferenceNumber.Text & "') as ReviewingENgineer,  " & _
               "(strLastName||', '||strFirstName) as UnitManager, " & _
                "strEmissionSource, " & _
-               "" & connNameSpace & ".LookUpTestingFirms.strTestingFirm, " & _
-               "" & connNameSpace & ".LookUpPollutants.strPollutantDescription,  " & _
-               "" & connNameSpace & ".LookUpEPDUnits.strUnitDesc, " & _
-               "" & connNameSpace & ".ISMPDocumentType.strDocumentType, " & _
-               "" & connNameSpace & ".LookUpISMPComplianceStatus.strComplianceStatus " & _
-            "from " & connNameSpace & ".ISMPMaster, " & connNameSpace & ".ISMPReportInformation, " & _
-              "" & connNameSpace & ".ISMPReportType, " & connNameSpace & ".LookUpTestingFirms, " & _
-              "" & connNameSpace & ".LookUpPollutants, " & connNameSpace & ".LookUpEPDUnits, " & _
-              "" & connNameSpace & ".EPDUSerPRofiles, " & connNameSpace & ".ISMPDocumentType,  " & _
-              "" & connNameSpace & ".LookUpISMpComplianceStatus " & _
-            "where " & connNameSpace & ".ISMPMaster.strReferenceNumber = " & connNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
-              "and " & connNameSpace & ".ISMPReportInformation.strReportType = " & connNameSpace & ".ISMpReportType.strKey " & _
-              "and " & connNameSpace & ".ISMPREportINformation.strTestingFirm = " & connNameSpace & ".LookUpTestingFirms.strTestingFirmKey " & _
-              "and " & connNameSpace & ".ISMPReportInformation.strPollutant = " & connNameSpace & ".LookUpPollutants.strPollutantCode " & _
-              "and " & connNameSpace & ".ISMPREportInformation.numReviewingManager = " & connNameSpace & ".EPDUserProfiles.numUserID (+) " & _
-              "and " & connNameSpace & ".EPDUserPRofiles.numUnit = " & connNameSpace & ".LookUpEPDUnits.numUnitCode (+) " & _
-              "and " & connNameSpace & ".ISMPReportInformation.strDocumentTYpe = " & connNameSpace & ".ISMPDocumentType.strKEy " & _
-              "and " & connNameSpace & ".ISMPReportINformation.strComplianceStatus = " & connNameSpace & ".LookUpISMPComplianceStatus.strComplianceKey " & _
-              "and " & connNameSpace & ".ISMPMaster.strReferenceNumber = '" & txtReferenceNumber.Text & "' "
+               "" & DBNameSpace & ".LookUpTestingFirms.strTestingFirm, " & _
+               "" & DBNameSpace & ".LookUpPollutants.strPollutantDescription,  " & _
+               "" & DBNameSpace & ".LookUpEPDUnits.strUnitDesc, " & _
+               "" & DBNameSpace & ".ISMPDocumentType.strDocumentType, " & _
+               "" & DBNameSpace & ".LookUpISMPComplianceStatus.strComplianceStatus " & _
+            "from " & DBNameSpace & ".ISMPMaster, " & DBNameSpace & ".ISMPReportInformation, " & _
+              "" & DBNameSpace & ".ISMPReportType, " & DBNameSpace & ".LookUpTestingFirms, " & _
+              "" & DBNameSpace & ".LookUpPollutants, " & DBNameSpace & ".LookUpEPDUnits, " & _
+              "" & DBNameSpace & ".EPDUSerPRofiles, " & DBNameSpace & ".ISMPDocumentType,  " & _
+              "" & DBNameSpace & ".LookUpISMpComplianceStatus " & _
+            "where " & DBNameSpace & ".ISMPMaster.strReferenceNumber = " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
+              "and " & DBNameSpace & ".ISMPReportInformation.strReportType = " & DBNameSpace & ".ISMpReportType.strKey " & _
+              "and " & DBNameSpace & ".ISMPREportINformation.strTestingFirm = " & DBNameSpace & ".LookUpTestingFirms.strTestingFirmKey " & _
+              "and " & DBNameSpace & ".ISMPReportInformation.strPollutant = " & DBNameSpace & ".LookUpPollutants.strPollutantCode " & _
+              "and " & DBNameSpace & ".ISMPREportInformation.numReviewingManager = " & DBNameSpace & ".EPDUserProfiles.numUserID (+) " & _
+              "and " & DBNameSpace & ".EPDUserPRofiles.numUnit = " & DBNameSpace & ".LookUpEPDUnits.numUnitCode (+) " & _
+              "and " & DBNameSpace & ".ISMPReportInformation.strDocumentTYpe = " & DBNameSpace & ".ISMPDocumentType.strKEy " & _
+              "and " & DBNameSpace & ".ISMPReportINformation.strComplianceStatus = " & DBNameSpace & ".LookUpISMPComplianceStatus.strComplianceKey " & _
+              "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = '" & txtReferenceNumber.Text & "' "
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
 
@@ -1217,7 +1217,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1266,7 +1266,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1283,14 +1283,14 @@ Public Class ISMPTestReportAdministrative
 
                 If temp = "Delete" Then
 
-                    SQL = "Select " & connNameSpace & ".ISMPDocumentType.strTableName " & _
-                    "from " & connNameSpace & ".ISMPDocumentType, " & connNameSpace & ".ISMPReportInformation " & _
-                    "where " & connNameSpace & ".ISMPReportInformation.strDocumentType = " & connNameSpace & ".ISMPDocumentType.strKEy " & _
+                    SQL = "Select " & DBNameSpace & ".ISMPDocumentType.strTableName " & _
+                    "from " & DBNameSpace & ".ISMPDocumentType, " & DBNameSpace & ".ISMPReportInformation " & _
+                    "where " & DBNameSpace & ".ISMPReportInformation.strDocumentType = " & DBNameSpace & ".ISMPDocumentType.strKEy " & _
                     "and strReferenceNumber = '" & txtReferenceNumber.Text & "'"
 
-                    Dim cmd As New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    Dim cmd As New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
 
                     Dim dr As OracleDataReader = cmd.ExecuteReader
@@ -1299,25 +1299,25 @@ Public Class ISMPTestReportAdministrative
                     If recExist Then
                         temp = dr.Item("strTableName")
                     End If
-                    If conn.State = ConnectionState.Open Then
+                    If DBConn.State = ConnectionState.Open Then
                         'conn.close()
                     End If
                     If temp <> "DeLeTe" Then
                         SQL = "Delete " & temp & " where strREferenceNumber = '" & txtReferenceNumber.Text & "'"
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, DBConn)
+                        If DBConn.State = ConnectionState.Closed Then
+                            DBConn.Open()
                         End If
                         dr = cmd.ExecuteReader
-                        If conn.State = ConnectionState.Open Then
+                        If DBConn.State = ConnectionState.Open Then
                             'conn.close()
                         End If
-                        SQL = "Update " & connNameSpace & ".ISMPReportInformation set " & _
+                        SQL = "Update " & DBNameSpace & ".ISMPReportInformation set " & _
                         "strDelete = 'DELETE' where strREferenceNumber = '" & txtReferenceNumber.Text & "'"
 
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, DBConn)
+                        If DBConn.State = ConnectionState.Closed Then
+                            DBConn.Open()
                         End If
                         Try
 
@@ -1327,7 +1327,7 @@ Public Class ISMPTestReportAdministrative
                         End Try
 
 
-                        If conn.State = ConnectionState.Open Then
+                        If DBConn.State = ConnectionState.Open Then
                             'conn.close()
                         End If
 
@@ -1342,7 +1342,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(txtReferenceNumber.Text & vbCrLf & SQL & vbCrLf & ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1354,13 +1354,13 @@ Public Class ISMPTestReportAdministrative
         Try
 
             If txtReferenceNumber.Text <> "" Then
-                SQL = "select " & connNameSpace & ".ISMPDocumentType.strDocumentType " & _
-                 "from " & connNameSpace & ".ISMPDocumentType, " & connNameSpace & ".ISMPReportInformation " & _
-                 "where " & connNameSpace & ".ISMPReportInformation.strDocumentType = " & connNameSpace & ".ISMPDocumentType.strKey and " & _
+                SQL = "select " & DBNameSpace & ".ISMPDocumentType.strDocumentType " & _
+                 "from " & DBNameSpace & ".ISMPDocumentType, " & DBNameSpace & ".ISMPReportInformation " & _
+                 "where " & DBNameSpace & ".ISMPReportInformation.strDocumentType = " & DBNameSpace & ".ISMPDocumentType.strKey and " & _
                  "strReferenceNumber = '" & txtReferenceNumber.Text & "'"
-                Dim cmd As New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                Dim cmd As New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 Dim dr As OracleDataReader = cmd.ExecuteReader
                 Dim recExist As Boolean = dr.Read
@@ -1376,7 +1376,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1396,7 +1396,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1412,23 +1412,23 @@ Public Class ISMPTestReportAdministrative
                 RefNum = Mid(RefNum, 1, (RefNum.IndexOf(" -")))
 
                 SQL = "Select strReferenceNumber " & _
-                "from " & connNameSpace & ".ISMPReportInformation " & _
+                "from " & DBNameSpace & ".ISMPReportInformation " & _
                 "where strReferenceNumber = '" & RefNum & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 dr.Close()
                 If recExist = True Then
-                    SQL = "Update " & connNameSpace & ".ISMPReportInformation set " & _
+                    SQL = "Update " & DBNameSpace & ".ISMPReportInformation set " & _
                     "strDelete = 'DELETE' " & _
                     "where strReferenceNumber = '" & RefNum & "'  "
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
@@ -1447,7 +1447,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1464,12 +1464,12 @@ Public Class ISMPTestReportAdministrative
             If cboAIRSNumber.Text <> "" Then
                 SQL = "select " & _
                 "strTrackingNumber " & _
-                "from " & connNameSpace & ".SSCPTestReports " & _
+                "from " & DBNameSpace & ".SSCPTestReports " & _
                 "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -1484,18 +1484,18 @@ Public Class ISMPTestReportAdministrative
 
                 SQL = "Select " & _
                 "numSSCPEngineer " & _
-                "from " & connNameSpace & ".SSCPInspectionsRequired, " & _
-                "(select max(intyear) as MaxYear, " & connNameSpace & ".SSCPINSPECTIONSREQUIRED.STRAIRSNUMBER  " & _
-                "from " & connNameSpace & ".SSCPINSPECTIONSREQUIRED " & _
-                "where " & connNameSpace & ".SSCPINSPECTIONSREQUIRED.STRAIRSNUMBER = '0413" & cboAIRSNumber.Text & "' " & _
-                "group by " & connNameSpace & ".SSCPINSPECTIONSREQUIRED.STRAIRSNUMBER ) MaxResults " & _
-                "where " & connNameSpace & ".SSCPINSPECTIONSREQUIRED.strAIRSNumber = '0413" & cboAIRSNumber.Text & "' " & _
-                "and " & connNameSpace & ".SSCPINSPECTIONSREQUIRED.intyear = maxresults.maxyear " & _
+                "from " & DBNameSpace & ".SSCPInspectionsRequired, " & _
+                "(select max(intyear) as MaxYear, " & DBNameSpace & ".SSCPINSPECTIONSREQUIRED.STRAIRSNUMBER  " & _
+                "from " & DBNameSpace & ".SSCPINSPECTIONSREQUIRED " & _
+                "where " & DBNameSpace & ".SSCPINSPECTIONSREQUIRED.STRAIRSNUMBER = '0413" & cboAIRSNumber.Text & "' " & _
+                "group by " & DBNameSpace & ".SSCPINSPECTIONSREQUIRED.STRAIRSNUMBER ) MaxResults " & _
+                "where " & DBNameSpace & ".SSCPINSPECTIONSREQUIRED.strAIRSNumber = '0413" & cboAIRSNumber.Text & "' " & _
+                "and " & DBNameSpace & ".SSCPINSPECTIONSREQUIRED.intyear = maxresults.maxyear " & _
                 "group by numSSCPEngineer "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -1507,11 +1507,11 @@ Public Class ISMPTestReportAdministrative
                 dr.Close()
 
                 SQL = "select datSSCPTestReportDue " & _
-                "from " & connNameSpace & ".APBSupplamentalData " & _
+                "from " & DBNameSpace & ".APBSupplamentalData " & _
                 "where strAIRSNumber = '0413" & cboAIRSNumber.Text & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -1526,29 +1526,29 @@ Public Class ISMPTestReportAdministrative
                 End If
                 dr.Close()
 
-                SQL = "Insert into " & connNameSpace & ".SSCPItemMaster " & _
+                SQL = "Insert into " & DBNameSpace & ".SSCPItemMaster " & _
                 "(strTrackingNumber, strAIRSNumber, " & _
                 "datReceivedDate, strEventType, " & _
                 "strResponsibleStaff, datCompleteDate, " & _
                 "strModifingPerson, datModifingDate) " & _
                 "values " & _
-                "(" & connNameSpace & ".SSCPTrackingNumber.nextval, '0413" & cboAIRSNumber.Text & "', " & _
+                "(" & DBNameSpace & ".SSCPTrackingNumber.nextval, '0413" & cboAIRSNumber.Text & "', " & _
                 "'" & DTPDateClosed.Text & "', '03', " & _
                 "'" & StaffResponsible & "', '', " & _
                 "'" & UserGCode & "', '" & OracleDate & "')"
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL = "Select " & connNameSpace & ".SSCPTrackingNumber.currval from dual "
+                SQL = "Select " & DBNameSpace & ".SSCPTrackingNumber.currval from dual "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -1556,7 +1556,7 @@ Public Class ISMPTestReportAdministrative
                 End While
                 dr.Close()
 
-                SQL = "Insert into " & connNameSpace & ".SSCPTestReports " & _
+                SQL = "Insert into " & DBNameSpace & ".SSCPTestReports " & _
                 "(strTrackingNumber, strReferenceNumber, " & _
                 "datTestReportDue, " & _
                 "strTestReportComments, strTestReportFollowUp, " & _
@@ -1567,9 +1567,9 @@ Public Class ISMPTestReportAdministrative
                 "' ', 'False', " & _
                 "'" & UserGCode & "', '" & OracleDate & "') "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -1579,7 +1579,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1593,7 +1593,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1606,7 +1606,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1619,7 +1619,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1632,7 +1632,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1645,7 +1645,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1658,7 +1658,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1671,7 +1671,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1684,7 +1684,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1697,7 +1697,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1708,24 +1708,24 @@ Public Class ISMPTestReportAdministrative
 
         Try
 
-            SQL = "select " & connNameSpace & ".ISMPMaster.strReferenceNumber,  " & _
+            SQL = "select " & DBNameSpace & ".ISMPMaster.strReferenceNumber,  " & _
             "to_char(datReceivedDate, 'dd-Mon-yyyy') as forDatReceivedDate, " & _
                   "to_char(datTestDateStart, 'dd-Mon-yyyy') as forDatTestDateStart, " & _
-                  "substr(" & connNameSpace & ".ISMPMaster.strAirsnumber, 5) as strAIRSNumber, strFacilityName, " & _
-                  "" & connNameSpace & ".ISMPDocumentType.strDocumentType " & _
-                  "from " & connNameSpace & ".ISMPReportInformation, " & connNameSpace & ".ISMPDocumentType, " & connNameSpace & ".ISMPMaster, " & connNameSpace & ".APBFacilityInformation " & _
-                  "where " & connNameSpace & ".APBFacilityInformation.strairsnumber = " & connNameSpace & ".ISMPMaster.strairsnumber " & _
-                  "and " & connNameSpace & ".ISMPDocumentType.strKey = " & connNameSpace & ".ISMPReportInformation.strDocumentType " & _
-                  "and " & connNameSpace & ".ISMPMaster.strReferenceNumber = " & connNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
+                  "substr(" & DBNameSpace & ".ISMPMaster.strAirsnumber, 5) as strAIRSNumber, strFacilityName, " & _
+                  "" & DBNameSpace & ".ISMPDocumentType.strDocumentType " & _
+                  "from " & DBNameSpace & ".ISMPReportInformation, " & DBNameSpace & ".ISMPDocumentType, " & DBNameSpace & ".ISMPMaster, " & DBNameSpace & ".APBFacilityInformation " & _
+                  "where " & DBNameSpace & ".APBFacilityInformation.strairsnumber = " & DBNameSpace & ".ISMPMaster.strairsnumber " & _
+                  "and " & DBNameSpace & ".ISMPDocumentType.strKey = " & DBNameSpace & ".ISMPReportInformation.strDocumentType " & _
+                  "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
                   "and strDelete = 'DELETE' " & _
-                  "order by " & connNameSpace & ".ISMPMaster.strReferenceNumber"
+                  "order by " & DBNameSpace & ".ISMPMaster.strReferenceNumber"
 
             dsGrid = New DataSet
 
-            daGrid = New OracleDataAdapter(SQL, conn)
+            daGrid = New OracleDataAdapter(SQL, DBConn)
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             daGrid.Fill(dsGrid, "Grid")
@@ -1735,7 +1735,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1748,7 +1748,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1761,26 +1761,26 @@ Public Class ISMPTestReportAdministrative
 
         Try
 
-            SQL = "select " & connNameSpace & ".ISMPMaster.strReferenceNumber,  " & _
+            SQL = "select " & DBNameSpace & ".ISMPMaster.strReferenceNumber,  " & _
             "to_char(datReceivedDate, 'dd-Mon-yyyy') as forDatReceivedDate, " & _
             "to_char(datTestDateStart, 'dd-Mon-yyyy') as forDatTestDateStart, " & _
-            "substr(" & connNameSpace & ".ISMPMaster.strAirsnumber, 5) as strAIRSNumber, strFacilityName, " & _
-            "" & connNameSpace & ".ISMPDocumentType.strDocumentType " & _
-            "from " & connNameSpace & ".ISMPReportInformation, " & connNameSpace & ".ISMPDocumentType, " & connNameSpace & ".ISMPMaster, " & connNameSpace & ".APBFacilityInformation " & _
-            "where " & connNameSpace & ".APBFacilityInformation.strairsnumber = " & connNameSpace & ".ISMPMaster.strairsnumber " & _
-            "and " & connNameSpace & ".ISMPDocumentType.strKey = " & connNameSpace & ".ISMPReportInformation.strDocumentType " & _
-            "and " & connNameSpace & ".ISMPMaster.strReferenceNumber = " & connNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
+            "substr(" & DBNameSpace & ".ISMPMaster.strAirsnumber, 5) as strAIRSNumber, strFacilityName, " & _
+            "" & DBNameSpace & ".ISMPDocumentType.strDocumentType " & _
+            "from " & DBNameSpace & ".ISMPReportInformation, " & DBNameSpace & ".ISMPDocumentType, " & DBNameSpace & ".ISMPMaster, " & DBNameSpace & ".APBFacilityInformation " & _
+            "where " & DBNameSpace & ".APBFacilityInformation.strairsnumber = " & DBNameSpace & ".ISMPMaster.strairsnumber " & _
+            "and " & DBNameSpace & ".ISMPDocumentType.strKey = " & DBNameSpace & ".ISMPReportInformation.strDocumentType " & _
+            "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
             "and strDelete is NULL " & _
              "and strClosed = 'False' " & _
-            "and " & connNameSpace & ".ISMPDocumentType.strDocumentType = 'Unassigned' " & _
-            "order by " & connNameSpace & ".ISMPMaster.strReferenceNumber"
+            "and " & DBNameSpace & ".ISMPDocumentType.strDocumentType = 'Unassigned' " & _
+            "order by " & DBNameSpace & ".ISMPMaster.strReferenceNumber"
 
             dsGrid = New DataSet
 
-            daGrid = New OracleDataAdapter(SQL, conn)
+            daGrid = New OracleDataAdapter(SQL, DBConn)
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             daGrid.Fill(dsGrid, "Grid")
@@ -1790,7 +1790,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1801,26 +1801,26 @@ Public Class ISMPTestReportAdministrative
 
         Try
 
-            SQL = "select " & connNameSpace & ".ISMPMaster.strReferenceNumber, " & _
+            SQL = "select " & DBNameSpace & ".ISMPMaster.strReferenceNumber, " & _
             "to_char(datReceivedDate, 'dd-Mon-yyyy') as forDatReceivedDate, " & _
                  "to_char(datTestDateStart, 'dd-Mon-yyyy') as forDatTestDateStart, " & _
-                 "substr(" & connNameSpace & ".ISMPMaster.strAirsnumber, 5) as strAIRSNumber, strFacilityName, " & _
-                 "" & connNameSpace & ".ISMPDocumentType.strDocumentType " & _
-                 "from " & connNameSpace & ".ISMPReportInformation, " & connNameSpace & ".ISMPDocumentType, " & connNameSpace & ".ISMPMaster, " & connNameSpace & ".APBFacilityInformation " & _
-                 "where " & connNameSpace & ".APBFacilityInformation.strairsnumber = " & connNameSpace & ".ISMPMaster.strairsnumber " & _
-                 "and " & connNameSpace & ".ISMPDocumentType.strKey = " & connNameSpace & ".ISMPReportInformation.strDocumentType " & _
-                 "and " & connNameSpace & ".ISMPMaster.strReferenceNumber = " & connNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
+                 "substr(" & DBNameSpace & ".ISMPMaster.strAirsnumber, 5) as strAIRSNumber, strFacilityName, " & _
+                 "" & DBNameSpace & ".ISMPDocumentType.strDocumentType " & _
+                 "from " & DBNameSpace & ".ISMPReportInformation, " & DBNameSpace & ".ISMPDocumentType, " & DBNameSpace & ".ISMPMaster, " & DBNameSpace & ".APBFacilityInformation " & _
+                 "where " & DBNameSpace & ".APBFacilityInformation.strairsnumber = " & DBNameSpace & ".ISMPMaster.strairsnumber " & _
+                 "and " & DBNameSpace & ".ISMPDocumentType.strKey = " & DBNameSpace & ".ISMPReportInformation.strDocumentType " & _
+                 "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
                  "and strDelete is NULL " & _
                   "and strClosed = 'False' " & _
-                 "and " & connNameSpace & ".ISMPDocumentType.strDocumentType = 'One Stack (Two Runs)' " & _
-                 "order by " & connNameSpace & ".ISMPMaster.strReferenceNumber"
+                 "and " & DBNameSpace & ".ISMPDocumentType.strDocumentType = 'One Stack (Two Runs)' " & _
+                 "order by " & DBNameSpace & ".ISMPMaster.strReferenceNumber"
 
             dsGrid = New DataSet
 
-            daGrid = New OracleDataAdapter(SQL, conn)
+            daGrid = New OracleDataAdapter(SQL, DBConn)
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             daGrid.Fill(dsGrid, "Grid")
@@ -1830,7 +1830,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1841,26 +1841,26 @@ Public Class ISMPTestReportAdministrative
 
         Try
 
-            SQL = "select " & connNameSpace & ".ISMPMaster.strReferenceNumber, " & _
+            SQL = "select " & DBNameSpace & ".ISMPMaster.strReferenceNumber, " & _
             "to_char(datReceivedDate, 'dd-Mon-yyyy') as forDatReceivedDate, " & _
                 "to_char(datTestDateStart, 'dd-Mon-yyyy') as forDatTestDateStart, " & _
-                "substr(" & connNameSpace & ".ISMPMaster.strAirsnumber, 5) as strAIRSNumber, strFacilityName, " & _
-                "" & connNameSpace & ".ISMPDocumentType.strDocumentType " & _
-                "from " & connNameSpace & ".ISMPReportInformation, " & connNameSpace & ".ISMPDocumentType, " & connNameSpace & ".ISMPMaster, " & connNameSpace & ".APBFacilityInformation " & _
-                "where " & connNameSpace & ".APBFacilityInformation.strairsnumber = " & connNameSpace & ".ISMPMaster.strairsnumber " & _
-                "and " & connNameSpace & ".ISMPDocumentType.strKey = " & connNameSpace & ".ISMPReportInformation.strDocumentType " & _
-                "and " & connNameSpace & ".ISMPMaster.strReferenceNumber = " & connNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
+                "substr(" & DBNameSpace & ".ISMPMaster.strAirsnumber, 5) as strAIRSNumber, strFacilityName, " & _
+                "" & DBNameSpace & ".ISMPDocumentType.strDocumentType " & _
+                "from " & DBNameSpace & ".ISMPReportInformation, " & DBNameSpace & ".ISMPDocumentType, " & DBNameSpace & ".ISMPMaster, " & DBNameSpace & ".APBFacilityInformation " & _
+                "where " & DBNameSpace & ".APBFacilityInformation.strairsnumber = " & DBNameSpace & ".ISMPMaster.strairsnumber " & _
+                "and " & DBNameSpace & ".ISMPDocumentType.strKey = " & DBNameSpace & ".ISMPReportInformation.strDocumentType " & _
+                "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
                 "and strDelete is NULL " & _
                  "and strClosed = 'False' " & _
-                "and " & connNameSpace & ".ISMPDocumentType.strDocumentType = 'One Stack (Three Runs)' " & _
-                "order by " & connNameSpace & ".ISMPMaster.strReferenceNumber"
+                "and " & DBNameSpace & ".ISMPDocumentType.strDocumentType = 'One Stack (Three Runs)' " & _
+                "order by " & DBNameSpace & ".ISMPMaster.strReferenceNumber"
 
             dsGrid = New DataSet
 
-            daGrid = New OracleDataAdapter(SQL, conn)
+            daGrid = New OracleDataAdapter(SQL, DBConn)
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             daGrid.Fill(dsGrid, "Grid")
@@ -1870,7 +1870,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1881,26 +1881,26 @@ Public Class ISMPTestReportAdministrative
 
         Try
 
-            SQL = "select " & connNameSpace & ".ISMPMaster.strReferenceNumber, " & _
+            SQL = "select " & DBNameSpace & ".ISMPMaster.strReferenceNumber, " & _
             "to_char(datReceivedDate, 'dd-Mon-yyyy') as forDatReceivedDate, " & _
                  "to_char(datTestDateStart, 'dd-Mon-yyyy') as forDatTestDateStart, " & _
-                 "substr(" & connNameSpace & ".ISMPMaster.strAirsnumber, 5) as strAIRSNumber, strFacilityName, " & _
-                 "" & connNameSpace & ".ISMPDocumentType.strDocumentType " & _
-                 "from " & connNameSpace & ".ISMPReportInformation, " & connNameSpace & ".ISMPDocumentType, " & connNameSpace & ".ISMPMaster, " & connNameSpace & ".APBFacilityInformation " & _
-                 "where " & connNameSpace & ".APBFacilityInformation.strairsnumber = " & connNameSpace & ".ISMPMaster.strairsnumber " & _
-                 "and " & connNameSpace & ".ISMPDocumentType.strKey = " & connNameSpace & ".ISMPReportInformation.strDocumentType " & _
-                 "and " & connNameSpace & ".ISMPMaster.strReferenceNumber = " & connNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
+                 "substr(" & DBNameSpace & ".ISMPMaster.strAirsnumber, 5) as strAIRSNumber, strFacilityName, " & _
+                 "" & DBNameSpace & ".ISMPDocumentType.strDocumentType " & _
+                 "from " & DBNameSpace & ".ISMPReportInformation, " & DBNameSpace & ".ISMPDocumentType, " & DBNameSpace & ".ISMPMaster, " & DBNameSpace & ".APBFacilityInformation " & _
+                 "where " & DBNameSpace & ".APBFacilityInformation.strairsnumber = " & DBNameSpace & ".ISMPMaster.strairsnumber " & _
+                 "and " & DBNameSpace & ".ISMPDocumentType.strKey = " & DBNameSpace & ".ISMPReportInformation.strDocumentType " & _
+                 "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
                  "and strDelete is NULL " & _
                   "and strClosed = 'False' " & _
-                 "and " & connNameSpace & ".ISMPDocumentType.strDocumentType = 'One Stack (Four Runs)' " & _
-                 "order by " & connNameSpace & ".ISMPMaster.strReferenceNumber"
+                 "and " & DBNameSpace & ".ISMPDocumentType.strDocumentType = 'One Stack (Four Runs)' " & _
+                 "order by " & DBNameSpace & ".ISMPMaster.strReferenceNumber"
 
             dsGrid = New DataSet
 
-            daGrid = New OracleDataAdapter(SQL, conn)
+            daGrid = New OracleDataAdapter(SQL, DBConn)
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             daGrid.Fill(dsGrid, "Grid")
@@ -1910,7 +1910,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1921,26 +1921,26 @@ Public Class ISMPTestReportAdministrative
 
         Try
 
-            SQL = "select " & connNameSpace & ".ISMPMaster.strReferenceNumber, " & _
+            SQL = "select " & DBNameSpace & ".ISMPMaster.strReferenceNumber, " & _
             "to_char(datReceivedDate, 'dd-Mon-yyyy') as forDatReceivedDate, " & _
                 "to_char(datTestDateStart, 'dd-Mon-yyyy') as forDatTestDateStart, " & _
-                "substr(" & connNameSpace & ".ISMPMaster.strAirsnumber, 5) as strAIRSNumber, strFacilityName, " & _
-                "" & connNameSpace & ".ISMPDocumentType.strDocumentType " & _
-                "from " & connNameSpace & ".ISMPReportInformation, " & connNameSpace & ".ISMPDocumentType, " & connNameSpace & ".ISMPMaster, " & connNameSpace & ".APBFacilityInformation " & _
-                "where " & connNameSpace & ".APBFacilityInformation.strairsnumber = " & connNameSpace & ".ISMPMaster.strairsnumber " & _
-                "and " & connNameSpace & ".ISMPDocumentType.strKey = " & connNameSpace & ".ISMPReportInformation.strDocumentType " & _
-                "and " & connNameSpace & ".ISMPMaster.strReferenceNumber = " & connNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
+                "substr(" & DBNameSpace & ".ISMPMaster.strAirsnumber, 5) as strAIRSNumber, strFacilityName, " & _
+                "" & DBNameSpace & ".ISMPDocumentType.strDocumentType " & _
+                "from " & DBNameSpace & ".ISMPReportInformation, " & DBNameSpace & ".ISMPDocumentType, " & DBNameSpace & ".ISMPMaster, " & DBNameSpace & ".APBFacilityInformation " & _
+                "where " & DBNameSpace & ".APBFacilityInformation.strairsnumber = " & DBNameSpace & ".ISMPMaster.strairsnumber " & _
+                "and " & DBNameSpace & ".ISMPDocumentType.strKey = " & DBNameSpace & ".ISMPReportInformation.strDocumentType " & _
+                "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
                 "and strDelete is NULL " & _
                  "and strClosed = 'False' " & _
-                "and " & connNameSpace & ".ISMPDocumentType.strDocumentType = 'Two Stack (Standard)' " & _
-                "order by " & connNameSpace & ".ISMPMaster.strReferenceNumber"
+                "and " & DBNameSpace & ".ISMPDocumentType.strDocumentType = 'Two Stack (Standard)' " & _
+                "order by " & DBNameSpace & ".ISMPMaster.strReferenceNumber"
 
             dsGrid = New DataSet
 
-            daGrid = New OracleDataAdapter(SQL, conn)
+            daGrid = New OracleDataAdapter(SQL, DBConn)
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             daGrid.Fill(dsGrid, "Grid")
@@ -1950,7 +1950,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1961,26 +1961,26 @@ Public Class ISMPTestReportAdministrative
 
         Try
 
-            SQL = "select " & connNameSpace & ".ISMPMaster.strReferenceNumber, " & _
+            SQL = "select " & DBNameSpace & ".ISMPMaster.strReferenceNumber, " & _
             "to_char(datReceivedDate, 'dd-Mon-yyyy') as forDatReceivedDate, " & _
                  "to_char(datTestDateStart, 'dd-Mon-yyyy') as forDatTestDateStart, " & _
-                 "substr(" & connNameSpace & ".ISMPMaster.strAirsnumber, 5) as strAIRSNumber, strFacilityName, " & _
-                 "" & connNameSpace & ".ISMPDocumentType.strDocumentType " & _
-                 "from " & connNameSpace & ".ISMPReportInformation, " & connNameSpace & ".ISMPDocumentType, " & connNameSpace & ".ISMPMaster, " & connNameSpace & ".APBFacilityInformation " & _
-                 "where " & connNameSpace & ".APBFacilityInformation.strairsnumber = " & connNameSpace & ".ISMPMaster.strairsnumber " & _
-                 "and " & connNameSpace & ".ISMPDocumentType.strKey = " & connNameSpace & ".ISMPReportInformation.strDocumentType " & _
-                 "and " & connNameSpace & ".ISMPMaster.strReferenceNumber = " & connNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
+                 "substr(" & DBNameSpace & ".ISMPMaster.strAirsnumber, 5) as strAIRSNumber, strFacilityName, " & _
+                 "" & DBNameSpace & ".ISMPDocumentType.strDocumentType " & _
+                 "from " & DBNameSpace & ".ISMPReportInformation, " & DBNameSpace & ".ISMPDocumentType, " & DBNameSpace & ".ISMPMaster, " & DBNameSpace & ".APBFacilityInformation " & _
+                 "where " & DBNameSpace & ".APBFacilityInformation.strairsnumber = " & DBNameSpace & ".ISMPMaster.strairsnumber " & _
+                 "and " & DBNameSpace & ".ISMPDocumentType.strKey = " & DBNameSpace & ".ISMPReportInformation.strDocumentType " & _
+                 "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
                  "and strDelete is NULL " & _
                   "and strClosed = 'False' " & _
-                 "and " & connNameSpace & ".ISMPDocumentType.strDocumentType = 'Two Stack (DRE)' " & _
-                 "order by " & connNameSpace & ".ISMPMaster.strReferenceNumber"
+                 "and " & DBNameSpace & ".ISMPDocumentType.strDocumentType = 'Two Stack (DRE)' " & _
+                 "order by " & DBNameSpace & ".ISMPMaster.strReferenceNumber"
 
             dsGrid = New DataSet
 
-            daGrid = New OracleDataAdapter(SQL, conn)
+            daGrid = New OracleDataAdapter(SQL, DBConn)
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             daGrid.Fill(dsGrid, "Grid")
@@ -1990,7 +1990,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -2001,26 +2001,26 @@ Public Class ISMPTestReportAdministrative
 
         Try
 
-            SQL = "select " & connNameSpace & ".ISMPMaster.strReferenceNumber, " & _
+            SQL = "select " & DBNameSpace & ".ISMPMaster.strReferenceNumber, " & _
             "to_char(datReceivedDate, 'dd-Mon-yyyy') as forDatReceivedDate, " & _
                "to_char(datTestDateStart, 'dd-Mon-yyyy') as forDatTestDateStart, " & _
-               "substr(" & connNameSpace & ".ISMPMaster.strAirsnumber, 5) as strAIRSNumber, strFacilityName, " & _
-               "" & connNameSpace & ".ISMPDocumentType.strDocumentType " & _
-               "from " & connNameSpace & ".ISMPReportInformation, " & connNameSpace & ".ISMPDocumentType, " & connNameSpace & ".ISMPMaster, " & connNameSpace & ".APBFacilityInformation " & _
-               "where " & connNameSpace & ".APBFacilityInformation.strairsnumber = " & connNameSpace & ".ISMPMaster.strairsnumber " & _
-               "and " & connNameSpace & ".ISMPDocumentType.strKey = " & connNameSpace & ".ISMPReportInformation.strDocumentType " & _
-               "and " & connNameSpace & ".ISMPMaster.strReferenceNumber = " & connNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
+               "substr(" & DBNameSpace & ".ISMPMaster.strAirsnumber, 5) as strAIRSNumber, strFacilityName, " & _
+               "" & DBNameSpace & ".ISMPDocumentType.strDocumentType " & _
+               "from " & DBNameSpace & ".ISMPReportInformation, " & DBNameSpace & ".ISMPDocumentType, " & DBNameSpace & ".ISMPMaster, " & DBNameSpace & ".APBFacilityInformation " & _
+               "where " & DBNameSpace & ".APBFacilityInformation.strairsnumber = " & DBNameSpace & ".ISMPMaster.strairsnumber " & _
+               "and " & DBNameSpace & ".ISMPDocumentType.strKey = " & DBNameSpace & ".ISMPReportInformation.strDocumentType " & _
+               "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
                "and strDelete is NULL " & _
                 "and strClosed = 'False' " & _
-               "and " & connNameSpace & ".ISMPDocumentType.strDocumentType = 'Loading Rack' " & _
-               "order by " & connNameSpace & ".ISMPMaster.strReferenceNumber"
+               "and " & DBNameSpace & ".ISMPDocumentType.strDocumentType = 'Loading Rack' " & _
+               "order by " & DBNameSpace & ".ISMPMaster.strReferenceNumber"
 
             dsGrid = New DataSet
 
-            daGrid = New OracleDataAdapter(SQL, conn)
+            daGrid = New OracleDataAdapter(SQL, DBConn)
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             daGrid.Fill(dsGrid, "Grid")
@@ -2030,7 +2030,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -2041,26 +2041,26 @@ Public Class ISMPTestReportAdministrative
 
         Try
 
-            SQL = "select " & connNameSpace & ".ISMPMaster.strReferenceNumber,  " & _
+            SQL = "select " & DBNameSpace & ".ISMPMaster.strReferenceNumber,  " & _
             "to_char(datReceivedDate, 'dd-Mon-yyyy') as forDatReceivedDate, " & _
                  "to_char(datTestDateStart, 'dd-Mon-yyyy') as forDatTestDateStart, " & _
-                 "substr(" & connNameSpace & ".ISMPMaster.strAirsnumber, 5) as strAIRSNumber, strFacilityName, " & _
-                 "" & connNameSpace & ".ISMPDocumentType.strDocumentType " & _
-                 "from " & connNameSpace & ".ISMPReportInformation, " & connNameSpace & ".ISMPDocumentType, " & connNameSpace & ".ISMPMaster, " & connNameSpace & ".APBFacilityInformation " & _
-                 "where " & connNameSpace & ".APBFacilityInformation.strairsnumber = " & connNameSpace & ".ISMPMaster.strairsnumber " & _
-                 "and " & connNameSpace & ".ISMPDocumentType.strKey = " & connNameSpace & ".ISMPReportInformation.strDocumentType " & _
-                 "and " & connNameSpace & ".ISMPMaster.strReferenceNumber = " & connNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
+                 "substr(" & DBNameSpace & ".ISMPMaster.strAirsnumber, 5) as strAIRSNumber, strFacilityName, " & _
+                 "" & DBNameSpace & ".ISMPDocumentType.strDocumentType " & _
+                 "from " & DBNameSpace & ".ISMPReportInformation, " & DBNameSpace & ".ISMPDocumentType, " & DBNameSpace & ".ISMPMaster, " & DBNameSpace & ".APBFacilityInformation " & _
+                 "where " & DBNameSpace & ".APBFacilityInformation.strairsnumber = " & DBNameSpace & ".ISMPMaster.strairsnumber " & _
+                 "and " & DBNameSpace & ".ISMPDocumentType.strKey = " & DBNameSpace & ".ISMPReportInformation.strDocumentType " & _
+                 "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
                  "and strDelete is NULL " & _
                   "and strClosed = 'False' " & _
-                 "and " & connNameSpace & ".ISMPDocumentType.strDocumentType = 'Flare' " & _
-                 "order by " & connNameSpace & ".ISMPMaster.strReferenceNumber"
+                 "and " & DBNameSpace & ".ISMPDocumentType.strDocumentType = 'Flare' " & _
+                 "order by " & DBNameSpace & ".ISMPMaster.strReferenceNumber"
 
             dsGrid = New DataSet
 
-            daGrid = New OracleDataAdapter(SQL, conn)
+            daGrid = New OracleDataAdapter(SQL, DBConn)
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             daGrid.Fill(dsGrid, "Grid")
@@ -2070,7 +2070,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -2081,26 +2081,26 @@ Public Class ISMPTestReportAdministrative
 
         Try
 
-            SQL = "select " & connNameSpace & ".ISMPMaster.strReferenceNumber, " & _
+            SQL = "select " & DBNameSpace & ".ISMPMaster.strReferenceNumber, " & _
             "to_char(datReceivedDate, 'dd-Mon-yyyy') as forDatReceivedDate, " & _
                  "to_char(datTestDateStart, 'dd-Mon-yyyy') as forDatTestDateStart, " & _
-                 "substr(" & connNameSpace & ".ISMPMaster.strAirsnumber, 5) as strAIRSNumber, strFacilityName, " & _
-                 "" & connNameSpace & ".ISMPDocumentType.strDocumentType " & _
-                 "from " & connNameSpace & ".ISMPReportInformation, " & connNameSpace & ".ISMPDocumentType, " & connNameSpace & ".ISMPMaster, " & connNameSpace & ".APBFacilityInformation " & _
-                 "where " & connNameSpace & ".APBFacilityInformation.strairsnumber = " & connNameSpace & ".ISMPMaster.strairsnumber " & _
-                 "and " & connNameSpace & ".ISMPDocumentType.strKey = " & connNameSpace & ".ISMPReportInformation.strDocumentType " & _
-                 "and " & connNameSpace & ".ISMPMaster.strReferenceNumber = " & connNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
+                 "substr(" & DBNameSpace & ".ISMPMaster.strAirsnumber, 5) as strAIRSNumber, strFacilityName, " & _
+                 "" & DBNameSpace & ".ISMPDocumentType.strDocumentType " & _
+                 "from " & DBNameSpace & ".ISMPReportInformation, " & DBNameSpace & ".ISMPDocumentType, " & DBNameSpace & ".ISMPMaster, " & DBNameSpace & ".APBFacilityInformation " & _
+                 "where " & DBNameSpace & ".APBFacilityInformation.strairsnumber = " & DBNameSpace & ".ISMPMaster.strairsnumber " & _
+                 "and " & DBNameSpace & ".ISMPDocumentType.strKey = " & DBNameSpace & ".ISMPReportInformation.strDocumentType " & _
+                 "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
                  "and strDelete is NULL " & _
                   "and strClosed = 'False' " & _
-                 "and " & connNameSpace & ".ISMPDocumentType.strDocumentType = 'Pond Treatment' " & _
-                 "order by " & connNameSpace & ".ISMPMaster.strReferenceNumber"
+                 "and " & DBNameSpace & ".ISMPDocumentType.strDocumentType = 'Pond Treatment' " & _
+                 "order by " & DBNameSpace & ".ISMPMaster.strReferenceNumber"
 
             dsGrid = New DataSet
 
-            daGrid = New OracleDataAdapter(SQL, conn)
+            daGrid = New OracleDataAdapter(SQL, DBConn)
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             daGrid.Fill(dsGrid, "Grid")
@@ -2110,7 +2110,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -2121,26 +2121,26 @@ Public Class ISMPTestReportAdministrative
 
         Try
 
-            SQL = "select " & connNameSpace & ".ISMPMaster.strReferenceNumber,  " & _
+            SQL = "select " & DBNameSpace & ".ISMPMaster.strReferenceNumber,  " & _
             "to_char(datReceivedDate, 'dd-Mon-yyyy') as forDatReceivedDate, " & _
                  "to_char(datTestDateStart, 'dd-Mon-yyyy') as forDatTestDateStart, " & _
-                 "substr(" & connNameSpace & ".ISMPMaster.strAirsnumber, 5) as strAIRSNumber, strFacilityName, " & _
-                 "" & connNameSpace & ".ISMPDocumentType.strDocumentType " & _
-                 "from " & connNameSpace & ".ISMPReportInformation, " & connNameSpace & ".ISMPDocumentType, " & connNameSpace & ".ISMPMaster, " & connNameSpace & ".APBFacilityInformation " & _
-                 "where " & connNameSpace & ".APBFacilityInformation.strairsnumber = " & connNameSpace & ".ISMPMaster.strairsnumber " & _
-                 "and " & connNameSpace & ".ISMPDocumentType.strKey = " & connNameSpace & ".ISMPReportInformation.strDocumentType " & _
-                 "and " & connNameSpace & ".ISMPMaster.strReferenceNumber = " & connNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
+                 "substr(" & DBNameSpace & ".ISMPMaster.strAirsnumber, 5) as strAIRSNumber, strFacilityName, " & _
+                 "" & DBNameSpace & ".ISMPDocumentType.strDocumentType " & _
+                 "from " & DBNameSpace & ".ISMPReportInformation, " & DBNameSpace & ".ISMPDocumentType, " & DBNameSpace & ".ISMPMaster, " & DBNameSpace & ".APBFacilityInformation " & _
+                 "where " & DBNameSpace & ".APBFacilityInformation.strairsnumber = " & DBNameSpace & ".ISMPMaster.strairsnumber " & _
+                 "and " & DBNameSpace & ".ISMPDocumentType.strKey = " & DBNameSpace & ".ISMPReportInformation.strDocumentType " & _
+                 "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
                  "and strDelete is NULL " & _
                   "and strClosed = 'False' " & _
-                 "and " & connNameSpace & ".ISMPDocumentType.strDocumentType = 'Gas Concentration' " & _
-                 "order by " & connNameSpace & ".ISMPMaster.strReferenceNumber"
+                 "and " & DBNameSpace & ".ISMPDocumentType.strDocumentType = 'Gas Concentration' " & _
+                 "order by " & DBNameSpace & ".ISMPMaster.strReferenceNumber"
 
             dsGrid = New DataSet
 
-            daGrid = New OracleDataAdapter(SQL, conn)
+            daGrid = New OracleDataAdapter(SQL, DBConn)
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             daGrid.Fill(dsGrid, "Grid")
@@ -2150,7 +2150,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -2161,26 +2161,26 @@ Public Class ISMPTestReportAdministrative
 
         Try
 
-            SQL = "select " & connNameSpace & ".ISMPMaster.strReferenceNumber, " & _
+            SQL = "select " & DBNameSpace & ".ISMPMaster.strReferenceNumber, " & _
             "to_char(datReceivedDate, 'dd-Mon-yyyy') as forDatReceivedDate, " & _
                  "to_char(datTestDateStart, 'dd-Mon-yyyy') as forDatTestDateStart, " & _
-                 "substr(" & connNameSpace & ".ISMPMaster.strAirsnumber, 5) as strAIRSNumber, strFacilityName, " & _
-                 "" & connNameSpace & ".ISMPDocumentType.strDocumentType " & _
-                 "from " & connNameSpace & ".ISMPReportInformation, " & connNameSpace & ".ISMPDocumentType, " & connNameSpace & ".ISMPMaster, " & connNameSpace & ".APBFacilityInformation " & _
-                 "where " & connNameSpace & ".APBFacilityInformation.strairsnumber = " & connNameSpace & ".ISMPMaster.strairsnumber " & _
-                 "and " & connNameSpace & ".ISMPDocumentType.strKey = " & connNameSpace & ".ISMPReportInformation.strDocumentType " & _
-                 "and " & connNameSpace & ".ISMPMaster.strReferenceNumber = " & connNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
+                 "substr(" & DBNameSpace & ".ISMPMaster.strAirsnumber, 5) as strAIRSNumber, strFacilityName, " & _
+                 "" & DBNameSpace & ".ISMPDocumentType.strDocumentType " & _
+                 "from " & DBNameSpace & ".ISMPReportInformation, " & DBNameSpace & ".ISMPDocumentType, " & DBNameSpace & ".ISMPMaster, " & DBNameSpace & ".APBFacilityInformation " & _
+                 "where " & DBNameSpace & ".APBFacilityInformation.strairsnumber = " & DBNameSpace & ".ISMPMaster.strairsnumber " & _
+                 "and " & DBNameSpace & ".ISMPDocumentType.strKey = " & DBNameSpace & ".ISMPReportInformation.strDocumentType " & _
+                 "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
                  "and strDelete is NULL " & _
                   "and strClosed = 'False' " & _
-                 "and " & connNameSpace & ".ISMPDocumentType.strDocumentType = 'Rata' " & _
-                 "order by " & connNameSpace & ".ISMPMaster.strReferenceNumber"
+                 "and " & DBNameSpace & ".ISMPDocumentType.strDocumentType = 'Rata' " & _
+                 "order by " & DBNameSpace & ".ISMPMaster.strReferenceNumber"
 
             dsGrid = New DataSet
 
-            daGrid = New OracleDataAdapter(SQL, conn)
+            daGrid = New OracleDataAdapter(SQL, DBConn)
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             daGrid.Fill(dsGrid, "Grid")
@@ -2190,7 +2190,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -2201,26 +2201,26 @@ Public Class ISMPTestReportAdministrative
 
         Try
 
-            SQL = "select " & connNameSpace & ".ISMPMaster.strReferenceNumber,  " & _
+            SQL = "select " & DBNameSpace & ".ISMPMaster.strReferenceNumber,  " & _
             "to_char(datReceivedDate, 'dd-Mon-yyyy') as forDatReceivedDate, " & _
                 "to_char(datTestDateStart, 'dd-Mon-yyyy') as forDatTestDateStart, " & _
-                "substr(" & connNameSpace & ".ISMPMaster.strAirsnumber, 5) as strAIRSNumber, strFacilityName, " & _
-                "" & connNameSpace & ".ISMPDocumentType.strDocumentType " & _
-                "from " & connNameSpace & ".ISMPReportInformation, " & connNameSpace & ".ISMPDocumentType, " & connNameSpace & ".ISMPMaster, " & connNameSpace & ".APBFacilityInformation " & _
-                "where " & connNameSpace & ".APBFacilityInformation.strairsnumber = " & connNameSpace & ".ISMPMaster.strairsnumber " & _
-                "and " & connNameSpace & ".ISMPDocumentType.strKey = " & connNameSpace & ".ISMPReportInformation.strDocumentType " & _
-                "and " & connNameSpace & ".ISMPMaster.strReferenceNumber = " & connNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
+                "substr(" & DBNameSpace & ".ISMPMaster.strAirsnumber, 5) as strAIRSNumber, strFacilityName, " & _
+                "" & DBNameSpace & ".ISMPDocumentType.strDocumentType " & _
+                "from " & DBNameSpace & ".ISMPReportInformation, " & DBNameSpace & ".ISMPDocumentType, " & DBNameSpace & ".ISMPMaster, " & DBNameSpace & ".APBFacilityInformation " & _
+                "where " & DBNameSpace & ".APBFacilityInformation.strairsnumber = " & DBNameSpace & ".ISMPMaster.strairsnumber " & _
+                "and " & DBNameSpace & ".ISMPDocumentType.strKey = " & DBNameSpace & ".ISMPReportInformation.strDocumentType " & _
+                "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
                 "and strDelete is NULL " & _
                  "and strClosed = 'False' " & _
-                "and " & connNameSpace & ".ISMPDocumentType.strDocumentType = 'PEMS' " & _
-                "order by " & connNameSpace & ".ISMPMaster.strReferenceNumber"
+                "and " & DBNameSpace & ".ISMPDocumentType.strDocumentType = 'PEMS' " & _
+                "order by " & DBNameSpace & ".ISMPMaster.strReferenceNumber"
 
             dsGrid = New DataSet
 
-            daGrid = New OracleDataAdapter(SQL, conn)
+            daGrid = New OracleDataAdapter(SQL, DBConn)
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             daGrid.Fill(dsGrid, "Grid")
@@ -2230,7 +2230,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -2241,26 +2241,26 @@ Public Class ISMPTestReportAdministrative
 
         Try
 
-            SQL = "select " & connNameSpace & ".ISMPMaster.strReferenceNumber, " & _
+            SQL = "select " & DBNameSpace & ".ISMPMaster.strReferenceNumber, " & _
             "to_char(datReceivedDate, 'dd-Mon-yyyy') as forDatReceivedDate, " & _
                 "to_char(datTestDateStart, 'dd-Mon-yyyy') as forDatTestDateStart, " & _
-                "substr(" & connNameSpace & ".ISMPMaster.strAirsnumber, 5) as strAIRSNumber, strFacilityName, " & _
-                "" & connNameSpace & ".ISMPDocumentType.strDocumentType " & _
-                "from " & connNameSpace & ".ISMPReportInformation, " & connNameSpace & ".ISMPDocumentType, " & connNameSpace & ".ISMPMaster, " & connNameSpace & ".APBFacilityInformation " & _
-                "where " & connNameSpace & ".APBFacilityInformation.strairsnumber = " & connNameSpace & ".ISMPMaster.strairsnumber " & _
-                "and " & connNameSpace & ".ISMPDocumentType.strKey = " & connNameSpace & ".ISMPReportInformation.strDocumentType " & _
-                "and " & connNameSpace & ".ISMPMaster.strReferenceNumber = " & connNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
+                "substr(" & DBNameSpace & ".ISMPMaster.strAirsnumber, 5) as strAIRSNumber, strFacilityName, " & _
+                "" & DBNameSpace & ".ISMPDocumentType.strDocumentType " & _
+                "from " & DBNameSpace & ".ISMPReportInformation, " & DBNameSpace & ".ISMPDocumentType, " & DBNameSpace & ".ISMPMaster, " & DBNameSpace & ".APBFacilityInformation " & _
+                "where " & DBNameSpace & ".APBFacilityInformation.strairsnumber = " & DBNameSpace & ".ISMPMaster.strairsnumber " & _
+                "and " & DBNameSpace & ".ISMPDocumentType.strKey = " & DBNameSpace & ".ISMPReportInformation.strDocumentType " & _
+                "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
                 "and strDelete is NULL " & _
                  "and strClosed = 'False' " & _
-                "and " & connNameSpace & ".ISMPDocumentType.strDocumentType = 'Memorandum (Standard)' " & _
-                "order by " & connNameSpace & ".ISMPMaster.strReferenceNumber"
+                "and " & DBNameSpace & ".ISMPDocumentType.strDocumentType = 'Memorandum (Standard)' " & _
+                "order by " & DBNameSpace & ".ISMPMaster.strReferenceNumber"
 
             dsGrid = New DataSet
 
-            daGrid = New OracleDataAdapter(SQL, conn)
+            daGrid = New OracleDataAdapter(SQL, DBConn)
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             daGrid.Fill(dsGrid, "Grid")
@@ -2270,7 +2270,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -2281,26 +2281,26 @@ Public Class ISMPTestReportAdministrative
 
         Try
 
-            SQL = "select " & connNameSpace & ".ISMPMaster.strReferenceNumber,  " & _
+            SQL = "select " & DBNameSpace & ".ISMPMaster.strReferenceNumber,  " & _
             "to_char(datReceivedDate, 'dd-Mon-yyyy') as forDatReceivedDate, " & _
                 "to_char(datTestDateStart, 'dd-Mon-yyyy') as forDatTestDateStart, " & _
-                "substr(" & connNameSpace & ".ISMPMaster.strAirsnumber, 5) as strAIRSNumber, strFacilityName, " & _
-                "" & connNameSpace & ".ISMPDocumentType.strDocumentType " & _
-                "from " & connNameSpace & ".ISMPReportInformation, " & connNameSpace & ".ISMPDocumentType, " & connNameSpace & ".ISMPMaster, " & connNameSpace & ".APBFacilityInformation " & _
-                "where " & connNameSpace & ".APBFacilityInformation.strairsnumber = " & connNameSpace & ".ISMPMaster.strairsnumber " & _
-                "and " & connNameSpace & ".ISMPDocumentType.strKey = " & connNameSpace & ".ISMPReportInformation.strDocumentType " & _
-                "and " & connNameSpace & ".ISMPMaster.strReferenceNumber = " & connNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
+                "substr(" & DBNameSpace & ".ISMPMaster.strAirsnumber, 5) as strAIRSNumber, strFacilityName, " & _
+                "" & DBNameSpace & ".ISMPDocumentType.strDocumentType " & _
+                "from " & DBNameSpace & ".ISMPReportInformation, " & DBNameSpace & ".ISMPDocumentType, " & DBNameSpace & ".ISMPMaster, " & DBNameSpace & ".APBFacilityInformation " & _
+                "where " & DBNameSpace & ".APBFacilityInformation.strairsnumber = " & DBNameSpace & ".ISMPMaster.strairsnumber " & _
+                "and " & DBNameSpace & ".ISMPDocumentType.strKey = " & DBNameSpace & ".ISMPReportInformation.strDocumentType " & _
+                "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
                 "and strDelete is NULL " & _
                  "and strClosed = 'False' " & _
-                "and " & connNameSpace & ".ISMPDocumentType.strDocumentType = 'Memorandum (To File)' " & _
-                "order by " & connNameSpace & ".ISMPMaster.strReferenceNumber"
+                "and " & DBNameSpace & ".ISMPDocumentType.strDocumentType = 'Memorandum (To File)' " & _
+                "order by " & DBNameSpace & ".ISMPMaster.strReferenceNumber"
 
             dsGrid = New DataSet
 
-            daGrid = New OracleDataAdapter(SQL, conn)
+            daGrid = New OracleDataAdapter(SQL, DBConn)
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             daGrid.Fill(dsGrid, "Grid")
@@ -2310,7 +2310,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -2321,26 +2321,26 @@ Public Class ISMPTestReportAdministrative
 
         Try
 
-            SQL = "select " & connNameSpace & ".ISMPMaster.strReferenceNumber,  " & _
+            SQL = "select " & DBNameSpace & ".ISMPMaster.strReferenceNumber,  " & _
             "to_char(datReceivedDate, 'dd-Mon-yyyy') as forDatReceivedDate, " & _
                   "to_char(datTestDateStart, 'dd-Mon-yyyy') as forDatTestDateStart, " & _
-                  "substr(" & connNameSpace & ".ISMPMaster.strAirsnumber, 5) as strAIRSNumber, strFacilityName, " & _
-                  "" & connNameSpace & ".ISMPDocumentType.strDocumentType " & _
-                  "from " & connNameSpace & ".ISMPReportInformation, " & connNameSpace & ".ISMPDocumentType, " & connNameSpace & ".ISMPMaster, " & connNameSpace & ".APBFacilityInformation " & _
-                  "where " & connNameSpace & ".APBFacilityInformation.strairsnumber = " & connNameSpace & ".ISMPMaster.strairsnumber " & _
-                  "and " & connNameSpace & ".ISMPDocumentType.strKey = " & connNameSpace & ".ISMPReportInformation.strDocumentType " & _
-                  "and " & connNameSpace & ".ISMPMaster.strReferenceNumber = " & connNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
+                  "substr(" & DBNameSpace & ".ISMPMaster.strAirsnumber, 5) as strAIRSNumber, strFacilityName, " & _
+                  "" & DBNameSpace & ".ISMPDocumentType.strDocumentType " & _
+                  "from " & DBNameSpace & ".ISMPReportInformation, " & DBNameSpace & ".ISMPDocumentType, " & DBNameSpace & ".ISMPMaster, " & DBNameSpace & ".APBFacilityInformation " & _
+                  "where " & DBNameSpace & ".APBFacilityInformation.strairsnumber = " & DBNameSpace & ".ISMPMaster.strairsnumber " & _
+                  "and " & DBNameSpace & ".ISMPDocumentType.strKey = " & DBNameSpace & ".ISMPReportInformation.strDocumentType " & _
+                  "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
                   "and strDelete is NULL " & _
                    "and strClosed = 'False' " & _
-                  "and " & connNameSpace & ".ISMPDocumentType.strDocumentType = 'PTE (Perminate Total Enclosure)' " & _
-                  "order by " & connNameSpace & ".ISMPMaster.strReferenceNumber"
+                  "and " & DBNameSpace & ".ISMPDocumentType.strDocumentType = 'PTE (Perminate Total Enclosure)' " & _
+                  "order by " & DBNameSpace & ".ISMPMaster.strReferenceNumber"
 
             dsGrid = New DataSet
 
-            daGrid = New OracleDataAdapter(SQL, conn)
+            daGrid = New OracleDataAdapter(SQL, DBConn)
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             daGrid.Fill(dsGrid, "Grid")
@@ -2350,7 +2350,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -2361,26 +2361,26 @@ Public Class ISMPTestReportAdministrative
 
         Try
 
-            SQL = "select " & connNameSpace & ".ISMPMaster.strReferenceNumber,  " & _
+            SQL = "select " & DBNameSpace & ".ISMPMaster.strReferenceNumber,  " & _
             "to_char(datReceivedDate, 'dd-Mon-yyyy') as forDatReceivedDate, " & _
                    "to_char(datTestDateStart, 'dd-Mon-yyyy') as forDatTestDateStart, " & _
-                   "substr(" & connNameSpace & ".ISMPMaster.strAirsnumber, 5) as strAIRSNumber, strFacilityName, " & _
-                   "" & connNameSpace & ".ISMPDocumentType.strDocumentType " & _
-                   "from " & connNameSpace & ".ISMPReportInformation, " & connNameSpace & ".ISMPDocumentType, " & connNameSpace & ".ISMPMaster, " & connNameSpace & ".APBFacilityInformation " & _
-                   "where " & connNameSpace & ".APBFacilityInformation.strairsnumber = " & connNameSpace & ".ISMPMaster.strairsnumber " & _
-                   "and " & connNameSpace & ".ISMPDocumentType.strKey = " & connNameSpace & ".ISMPReportInformation.strDocumentType " & _
-                   "and " & connNameSpace & ".ISMPMaster.strReferenceNumber = " & connNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
+                   "substr(" & DBNameSpace & ".ISMPMaster.strAirsnumber, 5) as strAIRSNumber, strFacilityName, " & _
+                   "" & DBNameSpace & ".ISMPDocumentType.strDocumentType " & _
+                   "from " & DBNameSpace & ".ISMPReportInformation, " & DBNameSpace & ".ISMPDocumentType, " & DBNameSpace & ".ISMPMaster, " & DBNameSpace & ".APBFacilityInformation " & _
+                   "where " & DBNameSpace & ".APBFacilityInformation.strairsnumber = " & DBNameSpace & ".ISMPMaster.strairsnumber " & _
+                   "and " & DBNameSpace & ".ISMPDocumentType.strKey = " & DBNameSpace & ".ISMPReportInformation.strDocumentType " & _
+                   "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
                    "and strDelete is NULL " & _
                     "and strClosed = 'False' " & _
-                   "and " & connNameSpace & ".ISMPDocumentType.strDocumentType = 'Method9 (Single)' " & _
-                   "order by " & connNameSpace & ".ISMPMaster.strReferenceNumber"
+                   "and " & DBNameSpace & ".ISMPDocumentType.strDocumentType = 'Method9 (Single)' " & _
+                   "order by " & DBNameSpace & ".ISMPMaster.strReferenceNumber"
 
             dsGrid = New DataSet
 
-            daGrid = New OracleDataAdapter(SQL, conn)
+            daGrid = New OracleDataAdapter(SQL, DBConn)
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             daGrid.Fill(dsGrid, "Grid")
@@ -2390,7 +2390,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -2401,26 +2401,26 @@ Public Class ISMPTestReportAdministrative
 
         Try
 
-            SQL = "select " & connNameSpace & ".ISMPMaster.strReferenceNumber, " & _
+            SQL = "select " & DBNameSpace & ".ISMPMaster.strReferenceNumber, " & _
             "to_char(datReceivedDate, 'dd-Mon-yyyy') as forDatReceivedDate, " & _
                  "to_char(datTestDateStart, 'dd-Mon-yyyy') as forDatTestDateStart, " & _
-                 "substr(" & connNameSpace & ".ISMPMaster.strAirsnumber, 5) as strAIRSNumber, strFacilityName, " & _
-                 "" & connNameSpace & ".ISMPDocumentType.strDocumentType " & _
-                 "from " & connNameSpace & ".ISMPReportInformation, " & connNameSpace & ".ISMPDocumentType, " & connNameSpace & ".ISMPMaster, " & connNameSpace & ".APBFacilityInformation " & _
-                 "where " & connNameSpace & ".APBFacilityInformation.strairsnumber = " & connNameSpace & ".ISMPMaster.strairsnumber " & _
-                 "and " & connNameSpace & ".ISMPDocumentType.strKey = " & connNameSpace & ".ISMPReportInformation.strDocumentType " & _
-                 "and " & connNameSpace & ".ISMPMaster.strReferenceNumber = " & connNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
+                 "substr(" & DBNameSpace & ".ISMPMaster.strAirsnumber, 5) as strAIRSNumber, strFacilityName, " & _
+                 "" & DBNameSpace & ".ISMPDocumentType.strDocumentType " & _
+                 "from " & DBNameSpace & ".ISMPReportInformation, " & DBNameSpace & ".ISMPDocumentType, " & DBNameSpace & ".ISMPMaster, " & DBNameSpace & ".APBFacilityInformation " & _
+                 "where " & DBNameSpace & ".APBFacilityInformation.strairsnumber = " & DBNameSpace & ".ISMPMaster.strairsnumber " & _
+                 "and " & DBNameSpace & ".ISMPDocumentType.strKey = " & DBNameSpace & ".ISMPReportInformation.strDocumentType " & _
+                 "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
                  "and strDelete is NULL " & _
                   "and strClosed = 'False' " & _
-                 "and " & connNameSpace & ".ISMPDocumentType.strDocumentType = 'Method 9 (Multi.)' " & _
-                 "order by " & connNameSpace & ".ISMPMaster.strReferenceNumber"
+                 "and " & DBNameSpace & ".ISMPDocumentType.strDocumentType = 'Method 9 (Multi.)' " & _
+                 "order by " & DBNameSpace & ".ISMPMaster.strReferenceNumber"
 
             dsGrid = New DataSet
 
-            daGrid = New OracleDataAdapter(SQL, conn)
+            daGrid = New OracleDataAdapter(SQL, DBConn)
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             daGrid.Fill(dsGrid, "Grid")
@@ -2430,7 +2430,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -2441,26 +2441,26 @@ Public Class ISMPTestReportAdministrative
 
         Try
 
-            SQL = "select " & connNameSpace & ".ISMPMaster.strReferenceNumber,  " & _
+            SQL = "select " & DBNameSpace & ".ISMPMaster.strReferenceNumber,  " & _
             "to_char(datReceivedDate, 'dd-Mon-yyyy') as forDatReceivedDate, " & _
                 "to_char(datTestDateStart, 'dd-Mon-yyyy') as forDatTestDateStart, " & _
-                "substr(" & connNameSpace & ".ISMPMaster.strAirsnumber, 5) as strAIRSNumber, strFacilityName, " & _
-                "" & connNameSpace & ".ISMPDocumentType.strDocumentType " & _
-                "from " & connNameSpace & ".ISMPReportInformation, " & connNameSpace & ".ISMPDocumentType, " & connNameSpace & ".ISMPMaster, " & connNameSpace & ".APBFacilityInformation " & _
-                "where " & connNameSpace & ".APBFacilityInformation.strairsnumber = " & connNameSpace & ".ISMPMaster.strairsnumber " & _
-                "and " & connNameSpace & ".ISMPDocumentType.strKey = " & connNameSpace & ".ISMPReportInformation.strDocumentType " & _
-                "and " & connNameSpace & ".ISMPMaster.strReferenceNumber = " & connNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
+                "substr(" & DBNameSpace & ".ISMPMaster.strAirsnumber, 5) as strAIRSNumber, strFacilityName, " & _
+                "" & DBNameSpace & ".ISMPDocumentType.strDocumentType " & _
+                "from " & DBNameSpace & ".ISMPReportInformation, " & DBNameSpace & ".ISMPDocumentType, " & DBNameSpace & ".ISMPMaster, " & DBNameSpace & ".APBFacilityInformation " & _
+                "where " & DBNameSpace & ".APBFacilityInformation.strairsnumber = " & DBNameSpace & ".ISMPMaster.strairsnumber " & _
+                "and " & DBNameSpace & ".ISMPDocumentType.strKey = " & DBNameSpace & ".ISMPReportInformation.strDocumentType " & _
+                "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
                 "and strDelete is NULL " & _
                  "and strClosed = 'False' " & _
-                "and " & connNameSpace & ".ISMPDocumentType.strDocumentType = 'Method 22' " & _
-                "order by " & connNameSpace & ".ISMPMaster.strReferenceNumber"
+                "and " & DBNameSpace & ".ISMPDocumentType.strDocumentType = 'Method 22' " & _
+                "order by " & DBNameSpace & ".ISMPMaster.strReferenceNumber"
 
             dsGrid = New DataSet
 
-            daGrid = New OracleDataAdapter(SQL, conn)
+            daGrid = New OracleDataAdapter(SQL, DBConn)
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             daGrid.Fill(dsGrid, "Grid")
@@ -2470,7 +2470,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -2481,25 +2481,25 @@ Public Class ISMPTestReportAdministrative
 
         Try
 
-            SQL = "select " & connNameSpace & ".ISMPMaster.strReferenceNumber, " & _
+            SQL = "select " & DBNameSpace & ".ISMPMaster.strReferenceNumber, " & _
             "to_char(datReceivedDate, 'dd-Mon-yyyy') as forDatReceivedDate, " & _
                   "to_char(datTestDateStart, 'dd-Mon-yyyy') as forDatTestDateStart, " & _
-                  "substr(" & connNameSpace & ".ISMPMaster.strAirsnumber, 5) as strAIRSNumber, strFacilityName, " & _
-                  "" & connNameSpace & ".ISMPDocumentType.strDocumentType " & _
-                  "from " & connNameSpace & ".ISMPReportInformation, " & connNameSpace & ".ISMPDocumentType, " & connNameSpace & ".ISMPMaster, " & connNameSpace & ".APBFacilityInformation " & _
-                  "where " & connNameSpace & ".APBFacilityInformation.strairsnumber = " & connNameSpace & ".ISMPMaster.strairsnumber " & _
-                  "and " & connNameSpace & ".ISMPDocumentType.strKey = " & connNameSpace & ".ISMPReportInformation.strDocumentType " & _
-                  "and " & connNameSpace & ".ISMPMaster.strReferenceNumber = " & connNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
+                  "substr(" & DBNameSpace & ".ISMPMaster.strAirsnumber, 5) as strAIRSNumber, strFacilityName, " & _
+                  "" & DBNameSpace & ".ISMPDocumentType.strDocumentType " & _
+                  "from " & DBNameSpace & ".ISMPReportInformation, " & DBNameSpace & ".ISMPDocumentType, " & DBNameSpace & ".ISMPMaster, " & DBNameSpace & ".APBFacilityInformation " & _
+                  "where " & DBNameSpace & ".APBFacilityInformation.strairsnumber = " & DBNameSpace & ".ISMPMaster.strairsnumber " & _
+                  "and " & DBNameSpace & ".ISMPDocumentType.strKey = " & DBNameSpace & ".ISMPReportInformation.strDocumentType " & _
+                  "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
                   "and strDelete is NULL " & _
                    "and strClosed = 'False' " & _
-                  "order by " & connNameSpace & ".ISMPMaster.strReferenceNumber"
+                  "order by " & DBNameSpace & ".ISMPMaster.strReferenceNumber"
 
             dsGrid = New DataSet
 
-            daGrid = New OracleDataAdapter(SQL, conn)
+            daGrid = New OracleDataAdapter(SQL, DBConn)
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             daGrid.Fill(dsGrid, "Grid")
@@ -2509,7 +2509,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -2520,25 +2520,25 @@ Public Class ISMPTestReportAdministrative
 
         Try
 
-            SQL = "select " & connNameSpace & ".ISMPMaster.strReferenceNumber,  " & _
+            SQL = "select " & DBNameSpace & ".ISMPMaster.strReferenceNumber,  " & _
             "to_char(datReceivedDate, 'dd-Mon-yyyy') as forDatReceivedDate, " & _
                "to_char(datTestDateStart, 'dd-Mon-yyyy') as forDatTestDateStart, " & _
-               "substr(" & connNameSpace & ".ISMPMaster.strAirsnumber, 5) as strAIRSNumber, strFacilityName, " & _
-               "" & connNameSpace & ".ISMPDocumentType.strDocumentType " & _
-               "from " & connNameSpace & ".ISMPReportInformation, " & connNameSpace & ".ISMPDocumentType, " & connNameSpace & ".ISMPMaster, " & connNameSpace & ".APBFacilityInformation " & _
-               "where " & connNameSpace & ".APBFacilityInformation.strairsnumber = " & connNameSpace & ".ISMPMaster.strairsnumber " & _
-               "and " & connNameSpace & ".ISMPDocumentType.strKey = " & connNameSpace & ".ISMPReportInformation.strDocumentType " & _
-               "and " & connNameSpace & ".ISMPMaster.strReferenceNumber = " & connNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
+               "substr(" & DBNameSpace & ".ISMPMaster.strAirsnumber, 5) as strAIRSNumber, strFacilityName, " & _
+               "" & DBNameSpace & ".ISMPDocumentType.strDocumentType " & _
+               "from " & DBNameSpace & ".ISMPReportInformation, " & DBNameSpace & ".ISMPDocumentType, " & DBNameSpace & ".ISMPMaster, " & DBNameSpace & ".APBFacilityInformation " & _
+               "where " & DBNameSpace & ".APBFacilityInformation.strairsnumber = " & DBNameSpace & ".ISMPMaster.strairsnumber " & _
+               "and " & DBNameSpace & ".ISMPDocumentType.strKey = " & DBNameSpace & ".ISMPReportInformation.strDocumentType " & _
+               "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
                "and strDelete is NULL " & _
                "and strClosed = 'False' " & _
-               "order by " & connNameSpace & ".ISMPMaster.strReferenceNumber"
+               "order by " & DBNameSpace & ".ISMPMaster.strReferenceNumber"
 
             dsGrid = New DataSet
 
-            daGrid = New OracleDataAdapter(SQL, conn)
+            daGrid = New OracleDataAdapter(SQL, DBConn)
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             daGrid.Fill(dsGrid, "Grid")
@@ -2548,7 +2548,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -2559,25 +2559,25 @@ Public Class ISMPTestReportAdministrative
 
         Try
 
-            SQL = "select " & connNameSpace & ".ISMPMaster.strReferenceNumber, " & _
+            SQL = "select " & DBNameSpace & ".ISMPMaster.strReferenceNumber, " & _
             "to_char(datReceivedDate, 'dd-Mon-yyyy') as forDatReceivedDate, " & _
             "to_char(datTestDateStart, 'dd-Mon-yyyy') as forDatTestDateStart, " & _
-            "substr(" & connNameSpace & ".ISMPMaster.strAirsnumber, 5) as strAIRSNumber, strFacilityName, " & _
-            "" & connNameSpace & ".ISMPDocumentType.strDocumentType " & _
-            "from " & connNameSpace & ".ISMPReportInformation, " & connNameSpace & ".ISMPDocumentType, " & connNameSpace & ".ISMPMaster, " & connNameSpace & ".APBFacilityInformation " & _
-            "where " & connNameSpace & ".APBFacilityInformation.strairsnumber = " & connNameSpace & ".ISMPMaster.strairsnumber " & _
-            "and " & connNameSpace & ".ISMPDocumentType.strKey = " & connNameSpace & ".ISMPReportInformation.strDocumentType " & _
-            "and " & connNameSpace & ".ISMPMaster.strReferenceNumber = " & connNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
+            "substr(" & DBNameSpace & ".ISMPMaster.strAirsnumber, 5) as strAIRSNumber, strFacilityName, " & _
+            "" & DBNameSpace & ".ISMPDocumentType.strDocumentType " & _
+            "from " & DBNameSpace & ".ISMPReportInformation, " & DBNameSpace & ".ISMPDocumentType, " & DBNameSpace & ".ISMPMaster, " & DBNameSpace & ".APBFacilityInformation " & _
+            "where " & DBNameSpace & ".APBFacilityInformation.strairsnumber = " & DBNameSpace & ".ISMPMaster.strairsnumber " & _
+            "and " & DBNameSpace & ".ISMPDocumentType.strKey = " & DBNameSpace & ".ISMPReportInformation.strDocumentType " & _
+            "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
             "and strDelete is NULL " & _
             "and strClosed = 'True' " & _
-            "order by " & connNameSpace & ".ISMPMaster.strReferenceNumber"
+            "order by " & DBNameSpace & ".ISMPMaster.strReferenceNumber"
 
             dsGrid = New DataSet
 
-            daGrid = New OracleDataAdapter(SQL, conn)
+            daGrid = New OracleDataAdapter(SQL, DBConn)
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             daGrid.Fill(dsGrid, "Grid")
@@ -2587,7 +2587,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -2610,7 +2610,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -2628,7 +2628,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -2647,7 +2647,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -2674,7 +2674,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -2719,7 +2719,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -2741,7 +2741,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -2756,7 +2756,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -2774,7 +2774,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -2792,7 +2792,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -2814,7 +2814,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -2853,7 +2853,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -2871,7 +2871,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -2887,7 +2887,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -2903,7 +2903,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -2922,7 +2922,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -2936,7 +2936,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -2950,7 +2950,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -2962,7 +2962,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -2976,7 +2976,7 @@ Public Class ISMPTestReportAdministrative
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -3035,11 +3035,11 @@ Public Class ISMPTestReportAdministrative
 
                 SQL = "Select " & _
                 "strReferenceNumber " & _
-                "from " & connNameSpace & ".ISMPMaster " & _
+                "from " & DBNameSpace & ".ISMPMaster " & _
                 "where strReferenceNumber = '" & RefNum & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -3051,11 +3051,11 @@ Public Class ISMPTestReportAdministrative
 
                 SQL = "Select " & _
                 "strAIRSNumber " & _
-                "from " & connNameSpace & ".APBMasterAIRS " & _
+                "from " & DBNameSpace & ".APBMasterAIRS " & _
                 "where strAIRSNumber = '0413" & AIRSNumber & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -3065,18 +3065,18 @@ Public Class ISMPTestReportAdministrative
                     Exit Sub
                 End If
 
-                SQL = "Insert into " & connNameSpace & ".ISMPMaster " & _
+                SQL = "Insert into " & DBNameSpace & ".ISMPMaster " & _
                 "values " & _
                 "('" & RefNum & "', '0413" & AIRSNumber & "', " & _
                 "'" & UserGCode & "', '" & OracleDate & "') "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL = "Insert into " & connNameSpace & ".ISMPReportInformation " & _
+                SQL = "Insert into " & DBNameSpace & ".ISMPReportInformation " & _
                 "values " & _
                 "('" & RefNum & "', '00001', " & _
                 "'N/A', '001', " & _
@@ -3096,9 +3096,9 @@ Public Class ISMPTestReportAdministrative
                 "'', '', " & _
                 "'', '', '') "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -3185,23 +3185,23 @@ Public Class ISMPTestReportAdministrative
             If txtCloseTestReportRefNum.Text <> "" Then
                 SQL = "Select " & _
                 "strReferenceNumber " & _
-                "from " & connNameSpace & ".ISMPReportInformation " & _
+                "from " & DBNameSpace & ".ISMPReportInformation " & _
                 "where strReferenceNumber = '" & txtCloseTestReportRefNum.Text & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 dr.Close()
                 If recExist = True Then
-                    SQL = "Update " & connNameSpace & ".ISMPReportInformation set " & _
+                    SQL = "Update " & DBNameSpace & ".ISMPReportInformation set " & _
                     "strClosed = 'True' " & _
                     "where strReferenceNumber = '" & txtCloseTestReportRefNum.Text & "' "
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
@@ -3224,23 +3224,23 @@ Public Class ISMPTestReportAdministrative
             If txtCloseTestReportRefNum.Text <> "" Then
                 SQL = "Select " & _
                 "strReferenceNumber " & _
-                "from " & connNameSpace & ".ISMPReportInformation " & _
+                "from " & DBNameSpace & ".ISMPReportInformation " & _
                 "where strReferenceNumber = '" & txtCloseTestReportRefNum.Text & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 dr.Close()
                 If recExist = True Then
-                    SQL = "Update " & connNameSpace & ".ISMPReportInformation set " & _
+                    SQL = "Update " & DBNameSpace & ".ISMPReportInformation set " & _
                     "strClosed = 'False' " & _
                     "where strReferenceNumber = '" & txtCloseTestReportRefNum.Text & "' "
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
@@ -3261,13 +3261,13 @@ Public Class ISMPTestReportAdministrative
     Private Sub btnOpenTestReport_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOpenTestReport.Click
         Try
             If txtAddTestReportRefNum.Text <> "" Then
-                SQL = "select " & connNameSpace & ".ISMPDocumentType.strDocumentType " & _
-                 "from " & connNameSpace & ".ISMPDocumentType, " & connNameSpace & ".ISMPReportInformation " & _
-                 "where " & connNameSpace & ".ISMPReportInformation.strDocumentType = " & connNameSpace & ".ISMPDocumentType.strKey and " & _
+                SQL = "select " & DBNameSpace & ".ISMPDocumentType.strDocumentType " & _
+                 "from " & DBNameSpace & ".ISMPDocumentType, " & DBNameSpace & ".ISMPReportInformation " & _
+                 "where " & DBNameSpace & ".ISMPReportInformation.strDocumentType = " & DBNameSpace & ".ISMPDocumentType.strKey and " & _
                  "strReferenceNumber = '" & txtAddTestReportRefNum.Text & "'"
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -3298,12 +3298,12 @@ Public Class ISMPTestReportAdministrative
                 "strFacilityName, strFacilityStreet1, " & _
                 "strFacilityCity, " & _
                 "strFacilityState, strFacilityZipcode " & _
-                "from " & connNameSpace & ".APBFacilityInformation " & _
+                "from " & DBNameSpace & ".APBFacilityInformation " & _
                 "where strAIRSNumber = '0413" & cboAIRSNumber.Text & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read

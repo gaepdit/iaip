@@ -165,12 +165,12 @@ Public Class SSCPEnforcementAudit
             SQL = "Select " & _
             "strComplianceCode, " & _
             "(strComplianceCode || ' - ' || strComplianceDesc) as ComplianceDesc " & _
-            "from " & connNameSpace & ".LookUpComplianceStatus "
+            "from " & DBNameSpace & ".LookUpComplianceStatus "
 
             SQL2 = "select " & _
             "strHPVCode, " & _
             "(strHPVCode || ' - ' || strHPVViolationDesc) as HPVViolationDesc " & _
-            "from " & connNameSpace & ".LookUPHPVViolations "
+            "from " & DBNameSpace & ".LookUPHPVViolations "
 
             'SQL3 = "Select distinct(numUserID), " & _
             '"(strLastName|| ', '||strFirstName) as StaffName, " & _
@@ -189,19 +189,19 @@ Public Class SSCPEnforcementAudit
             dsHPV = New DataSet
             dsStaff = New DataSet
 
-            daComplianceStatus = New OracleDataAdapter(SQL, conn)
-            daHPV = New OracleDataAdapter(SQL2, conn)
-            daStaff = New OracleDataAdapter(SQL3, conn)
+            daComplianceStatus = New OracleDataAdapter(SQL, DBConn)
+            daHPV = New OracleDataAdapter(SQL2, DBConn)
+            daStaff = New OracleDataAdapter(SQL3, DBConn)
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             daComplianceStatus.Fill(dsComplianceStatus, "ComplianceStatus")
             daHPV.Fill(dsHPV, "HPV")
             daStaff.Fill(dsStaff, "Staff")
 
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -649,11 +649,11 @@ Public Class SSCPEnforcementAudit
           
             If txtEnforcementNumber.Text <> "" And txtEnforcementNumber.Text <> "N/A" Then
                 SQL = "Select * " & _
-                "from " & connNameSpace & ".SSCP_AuditedEnforcement " & _
+                "from " & DBNameSpace & ".SSCP_AuditedEnforcement " & _
                 "where strEnforcementNumber = '" & txtEnforcementNumber.Text & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -1438,16 +1438,16 @@ Public Class SSCPEnforcementAudit
             SQL = "Select strFacilityName, strFacilityStreet1, " & _
             "strFacilityCity, strCountyName, strFacilityState, strFacilityZipCode, " & _
             "strClass, strAIRProgramCodes " & _
-            "from " & connNameSpace & ".APBFacilityInformation, " & connNameSpace & ".LookUpCountyInformation, " & _
-            "" & connNameSpace & ".APBHeaderData " & _
-            "where " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = '0413" & txtAIRSNumber.Text & "' " & _
+            "from " & DBNameSpace & ".APBFacilityInformation, " & DBNameSpace & ".LookUpCountyInformation, " & _
+            "" & DBNameSpace & ".APBHeaderData " & _
+            "where " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = '0413" & txtAIRSNumber.Text & "' " & _
             "and strCountyCode = '" & Mid(txtAIRSNumber.Text, 1, 3) & "' " & _
-            "and " & connNameSpace & ".APBFacilityInformation.strairsnumber = " & connNameSpace & ".APBHeaderData.strairsnumber"
+            "and " & DBNameSpace & ".APBFacilityInformation.strairsnumber = " & DBNameSpace & ".APBHeaderData.strairsnumber"
 
-            cmd = New OracleCommand(SQL, conn)
+            cmd = New OracleCommand(SQL, DBConn)
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -1600,9 +1600,9 @@ Public Class SSCPEnforcementAudit
             "order by AirProgram, strPollutantDescription, ComplianceStatus "
 
             ds = New DataSet
-            da = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            da = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             da.Fill(ds, "AirPollutants")
 
@@ -1675,12 +1675,12 @@ Public Class SSCPEnforcementAudit
                 If txtEnforcementNumber.Text <> "" And txtEnforcementNumber.Text <> "N/A" Then
                     SQL = "Select " & _
                     "strPollutants " & _
-                    "from " & connNameSpace & ".SSCP_AuditedEnforcement " & _
+                    "from " & DBNameSpace & ".SSCP_AuditedEnforcement " & _
                     "where strEnforcementNumber = '" & txtEnforcementNumber.Text & "' "
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     While dr.Read
@@ -1750,12 +1750,12 @@ Public Class SSCPEnforcementAudit
                 If txtEnforcementNumber.Text <> "" And txtEnforcementNumber.Text <> "N/A" Then
                     SQL = "Select " & _
                     "strPollutants " & _
-                    "from " & connNameSpace & ".SSCP_AuditedEnforcement " & _
+                    "from " & DBNameSpace & ".SSCP_AuditedEnforcement " & _
                     "where strEnforcementNumber = '" & txtEnforcementNumber.Text & "' "
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     While dr.Read
@@ -1802,15 +1802,15 @@ Public Class SSCPEnforcementAudit
                 "End StipulatedPenaltyComments, " & _
                 "strAFSStipulatedPenaltyNumber, " & _
                 "strEnforcementKey " & _
-                "from " & connNameSpace & ".SSCPENforcementStipulated " & _
+                "from " & DBNameSpace & ".SSCPENforcementStipulated " & _
                 "where strEnforcementNumber = '" & txtEnforcementNumber.Text & "' " & _
                 "order by strEnforcementKey "
 
                 dsStipulatedPenalty = New DataSet
-                daStipulatedPenalty = New OracleDataAdapter(SQL, conn)
+                daStipulatedPenalty = New OracleDataAdapter(SQL, DBConn)
 
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
 
                 daStipulatedPenalty.Fill(dsStipulatedPenalty, "StipulatedPenalty")
@@ -2288,10 +2288,10 @@ Public Class SSCPEnforcementAudit
                 End If
 
                 If txtEnforcementNumber.Text = "" Or txtEnforcementNumber.Text = "N/A" Then
-                    SQL = "Insert into " & connNameSpace & ".SSCP_Enforcement " & _
+                    SQL = "Insert into " & DBNameSpace & ".SSCP_Enforcement " & _
                     "values " & _
-                    "((select max(ID) + 1 from " & connNameSpace & ".SSCP_Enforcement), " & _
-                    "" & connNameSpace & ".SSCPEnforcementNumber.nextval, " & _
+                    "((select max(ID) + 1 from " & DBNameSpace & ".SSCP_Enforcement), " & _
+                    "" & DBNameSpace & ".SSCPEnforcementNumber.nextval, " & _
                     "'" & TrackingNumber & "', '0413" & AIRSNumber & "', " & _
                     "'" & EnforcementFinalizedCheck & "', '" & EnforcementFinalized & "', " & _
                     "'" & StaffResponsible & "', '" & EnforcementStatus & "', " & _
@@ -2334,17 +2334,17 @@ Public Class SSCPEnforcementAudit
                     "'" & AFSAOResolvedNumber & "', " & _
                     "'" & UserGCode & "', sysdate ) "
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
 
-                    SQL = "Select " & connNameSpace & ".SSCPEnforcementnumber.currval from dual "
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    SQL = "Select " & DBNameSpace & ".SSCPEnforcementnumber.currval from dual "
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     While dr.Read
@@ -2353,9 +2353,9 @@ Public Class SSCPEnforcementAudit
 
                     dr.Close()
                 Else
-                    SQL = "Insert into " & connNameSpace & ".SSCP_Enforcement " & _
+                    SQL = "Insert into " & DBNameSpace & ".SSCP_Enforcement " & _
                     "values " & _
-                    "((select max(ID) + 1 from " & connNameSpace & ".SSCP_Enforcement), " & _
+                    "((select max(ID) + 1 from " & DBNameSpace & ".SSCP_Enforcement), " & _
                     "'" & txtEnforcementNumber.Text & "', " & _
                     "'" & TrackingNumber & "', '0413" & AIRSNumber & "', " & _
                     "'" & EnforcementFinalizedCheck & "', '" & EnforcementFinalized & "', " & _
@@ -2399,18 +2399,18 @@ Public Class SSCPEnforcementAudit
                     "'" & AFSAOResolvedNumber & "', " & _
                     "'" & UserGCode & "', sysdate ) "
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
                 End If
 
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
-                cmd = New OracleCommand("AIRBranch.PD_SSCPEnforcement", conn)
+                cmd = New OracleCommand("AIRBranch.PD_SSCPEnforcement", DBConn)
                 cmd.CommandType = CommandType.StoredProcedure
 
                 cmd.Parameters.Add(New OracleParameter("ENFORCEMENT", OracleType.VarChar)).Value = txtEnforcementNumber.Text
@@ -2424,16 +2424,16 @@ Public Class SSCPEnforcementAudit
                 For i = 0 To lvPollutants.Items.Count - 1
                     If lvPollutants.Items.Item(i).Checked = True Then
 
-                        SQL = "Update " & connNameSpace & ".APBAirProgramPollutants set " & _
+                        SQL = "Update " & DBNameSpace & ".APBAirProgramPollutants set " & _
                         "strComplianceStatus = '" & cboPollutantStatus.SelectedValue & "', " & _
                         "strModifingPerson = '" & UserGCode & "', " & _
                         "datModifingDate = '" & OracleDate & "' " & _
                         "where strAirPollutantKey = '" & lvPollutants.Items.Item(i).SubItems(5).Text & "' " & _
                         "and strPollutantkey = '" & lvPollutants.Items.Item(i).SubItems(2).Text & "' "
 
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, DBConn)
+                        If DBConn.State = ConnectionState.Closed Then
+                            DBConn.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Close()
@@ -2454,11 +2454,11 @@ Public Class SSCPEnforcementAudit
 
             If txtEnforcementNumber.Text <> "" And txtEnforcementNumber.Text <> "N/A" Then
                 SQL = "select strStipulatedPenalty " & _
-                "from " & connNameSpace & ".SSCP_AuditedEnforcement " & _
+                "from " & DBNameSpace & ".SSCP_AuditedEnforcement " & _
                 "where strEnforcementNumber= '" & txtEnforcementNumber.Text & "'"
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -2482,11 +2482,11 @@ Public Class SSCPEnforcementAudit
 
             If txtAFSKeyActionNumber.Text <> "" Then
                 SQL = "Select strAFSActionNumber " & _
-                "from " & connNameSpace & ".APBSupplamentalData " & _
+                "from " & DBNameSpace & ".APBSupplamentalData " & _
                 "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -2496,22 +2496,22 @@ Public Class SSCPEnforcementAudit
 
                 temp = CStr(CInt(AFSNumber) + 1)
 
-                SQL = "Update " & connNameSpace & ".APBSupplamentalData set " & _
+                SQL = "Update " & DBNameSpace & ".APBSupplamentalData set " & _
                 "strAFSActionNumber = '" & temp & "' " & _
                 "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
             Else
                 SQL = "Select strAFSActionNumber " & _
-                "from " & connNameSpace & ".APBSupplamentalData " & _
+                "from " & DBNameSpace & ".APBSupplamentalData " & _
                 "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -2523,12 +2523,12 @@ Public Class SSCPEnforcementAudit
 
                 temp = CStr(CInt(AFSNumber) + 1)
 
-                SQL = "Update " & connNameSpace & ".APBSupplamentalData set " & _
+                SQL = "Update " & DBNameSpace & ".APBSupplamentalData set " & _
                 "strAFSActionNumber = '" & temp & "' " & _
                 "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -2536,12 +2536,12 @@ Public Class SSCPEnforcementAudit
                 AFSNumber = temp
                 temp = CStr(CInt(AFSNumber) + 1)
 
-                SQL = "Update " & connNameSpace & ".APBSupplamentalData set " & _
+                SQL = "Update " & DBNameSpace & ".APBSupplamentalData set " & _
                 "strAFSActionNumber = '" & temp & "' " & _
                 "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -2549,7 +2549,7 @@ Public Class SSCPEnforcementAudit
 
             SaveEnforcement()
 
-            SQL = "Insert into " & connNameSpace & ".SSCPEnforcementStipulated " & _
+            SQL = "Insert into " & DBNameSpace & ".SSCPEnforcementStipulated " & _
             "values " & _
             "('" & txtEnforcementNumber.Text & "', " & _
             "'" & StipulatedCount & "', " & _
@@ -2558,9 +2558,9 @@ Public Class SSCPEnforcementAudit
             "'" & AFSNumber & "', " & _
             "'" & UserGCode & "', " & _
             "'" & OracleDate & "') "
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
@@ -2587,12 +2587,12 @@ Public Class SSCPEnforcementAudit
             If chbHPV.Checked = True Or chbNOV.Checked = True Or chbCO.Checked = True Or chbAO.Checked = True Then
                 If txtAFSKeyActionNumber.Text = "" Then
                     SQL = "Select strAFSActionNumber " & _
-                    "from " & connNameSpace & ".APBSupplamentalData " & _
+                    "from " & DBNameSpace & ".APBSupplamentalData " & _
                     "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     While dr.Read
@@ -2604,12 +2604,12 @@ Public Class SSCPEnforcementAudit
 
                     KeyActionNumber = CStr(CInt(KeyActionNumber) + 1)
 
-                    SQL = "Update " & connNameSpace & ".APBSupplamentalData set " & _
+                    SQL = "Update " & DBNameSpace & ".APBSupplamentalData set " & _
                     "strAFSActionNUmber = '" & KeyActionNumber & "' " & _
                     "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
@@ -2621,12 +2621,12 @@ Public Class SSCPEnforcementAudit
                     If txtAFSNOVActionNumber.Text = "" Then
 
                         SQL = "Select strAFSActionNumber " & _
-                        "from " & connNameSpace & ".APBSupplamentalData " & _
+                        "from " & DBNameSpace & ".APBSupplamentalData " & _
                         "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
 
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, DBConn)
+                        If DBConn.State = ConnectionState.Closed Then
+                            DBConn.Open()
                         End If
                         dr = cmd.ExecuteReader
                         While dr.Read
@@ -2638,12 +2638,12 @@ Public Class SSCPEnforcementAudit
 
                         NOVActionNumber = CStr(CInt(NOVActionNumber) + 1)
 
-                        SQL = "Update " & connNameSpace & ".APBSupplamentalData set " & _
+                        SQL = "Update " & DBNameSpace & ".APBSupplamentalData set " & _
                         "strAFSActionNUmber = '" & NOVActionNumber & "' " & _
                         "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, DBConn)
+                        If DBConn.State = ConnectionState.Closed Then
+                            DBConn.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Close()
@@ -2657,12 +2657,12 @@ Public Class SSCPEnforcementAudit
                 If DTPNFALetterSent.Checked = True Then
                     If txtAFSNOVResolvedNumber.Text = "" Then
                         SQL = "Select strAFSActionNumber " & _
-                        "from " & connNameSpace & ".APBSupplamentalData " & _
+                        "from " & DBNameSpace & ".APBSupplamentalData " & _
                         "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
 
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, DBConn)
+                        If DBConn.State = ConnectionState.Closed Then
+                            DBConn.Open()
                         End If
                         dr = cmd.ExecuteReader
                         While dr.Read
@@ -2674,12 +2674,12 @@ Public Class SSCPEnforcementAudit
 
                         NFAActionNumber = CStr(CInt(NFAActionNumber) + 1)
 
-                        SQL = "Update " & connNameSpace & ".APBSupplamentalData set " & _
+                        SQL = "Update " & DBNameSpace & ".APBSupplamentalData set " & _
                         "strAFSActionNumber = '" & NFAActionNumber & "' " & _
                         "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, DBConn)
+                        If DBConn.State = ConnectionState.Closed Then
+                            DBConn.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Close()
@@ -2693,12 +2693,12 @@ Public Class SSCPEnforcementAudit
                 If DTPCOProposed.Checked = True Then
                     If txtAFSCOProposedActionNumber.Text = "" Then
                         SQL = "Select strAFSActionNumber " & _
-                        "from " & connNameSpace & ".APBSupplamentalData " & _
+                        "from " & DBNameSpace & ".APBSupplamentalData " & _
                         "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
 
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, DBConn)
+                        If DBConn.State = ConnectionState.Closed Then
+                            DBConn.Open()
                         End If
                         dr = cmd.ExecuteReader
                         While dr.Read
@@ -2710,12 +2710,12 @@ Public Class SSCPEnforcementAudit
 
                         COProposedActionNumber = CStr(CInt(COProposedActionNumber) + 1)
 
-                        SQL = "Update " & connNameSpace & ".APBSupplamentalData set " & _
+                        SQL = "Update " & DBNameSpace & ".APBSupplamentalData set " & _
                         "strAFSActionNumber = '" & COProposedActionNumber & "' " & _
                         "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, DBConn)
+                        If DBConn.State = ConnectionState.Closed Then
+                            DBConn.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Close()
@@ -2729,12 +2729,12 @@ Public Class SSCPEnforcementAudit
                 If DTPCOExecuted.Checked = True Then
                     If txtAFSCOExecutedActionNumber.Text = "" Then
                         SQL = "Select strAFSActionNumber " & _
-                        "from " & connNameSpace & ".APBSupplamentalData " & _
+                        "from " & DBNameSpace & ".APBSupplamentalData " & _
                         "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
 
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, DBConn)
+                        If DBConn.State = ConnectionState.Closed Then
+                            DBConn.Open()
                         End If
                         dr = cmd.ExecuteReader
                         While dr.Read
@@ -2746,12 +2746,12 @@ Public Class SSCPEnforcementAudit
 
                         COExecutedActionNumber = CStr(CInt(COExecutedActionNumber) + 1)
 
-                        SQL = "Update " & connNameSpace & ".APBSupplamentalData set " & _
+                        SQL = "Update " & DBNameSpace & ".APBSupplamentalData set " & _
                         "strAFSActionNumber = '" & COExecutedActionNumber & "' " & _
                         "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, DBConn)
+                        If DBConn.State = ConnectionState.Closed Then
+                            DBConn.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Close()
@@ -2765,12 +2765,12 @@ Public Class SSCPEnforcementAudit
                 If DTPCOResolved.Checked = True Then
                     If txtAFSCOResolvedActionNumber.Text = "" Then
                         SQL = "Select strAFSActionNumber " & _
-                        "from " & connNameSpace & ".APBSupplamentalData " & _
+                        "from " & DBNameSpace & ".APBSupplamentalData " & _
                         "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
 
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, DBConn)
+                        If DBConn.State = ConnectionState.Closed Then
+                            DBConn.Open()
                         End If
                         dr = cmd.ExecuteReader
                         While dr.Read
@@ -2782,12 +2782,12 @@ Public Class SSCPEnforcementAudit
 
                         COResolvedActionNumber = CStr(CInt(COResolvedActionNumber) + 1)
 
-                        SQL = "Update " & connNameSpace & ".APBSupplamentalData set " & _
+                        SQL = "Update " & DBNameSpace & ".APBSupplamentalData set " & _
                         "strAFSActionNumber = '" & COResolvedActionNumber & "' " & _
                         "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, DBConn)
+                        If DBConn.State = ConnectionState.Closed Then
+                            DBConn.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Close()
@@ -2801,12 +2801,12 @@ Public Class SSCPEnforcementAudit
                 If DTPAOExecuted.Checked = True Then
                     If txtAFSAOToAGActionNumber.Text = "" Then
                         SQL = "Select strAFSActionNumber " & _
-                        "from " & connNameSpace & ".APBSupplamentalData " & _
+                        "from " & DBNameSpace & ".APBSupplamentalData " & _
                         "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
 
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, DBConn)
+                        If DBConn.State = ConnectionState.Closed Then
+                            DBConn.Open()
                         End If
                         dr = cmd.ExecuteReader
                         While dr.Read
@@ -2818,12 +2818,12 @@ Public Class SSCPEnforcementAudit
 
                         AOtoAGActionNumber = CStr(CInt(AOtoAGActionNumber) + 1)
 
-                        SQL = "Update " & connNameSpace & ".APBSupplamentalData set " & _
+                        SQL = "Update " & DBNameSpace & ".APBSupplamentalData set " & _
                         "strAFSActionNumber = '" & AOtoAGActionNumber & "' " & _
                         "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, DBConn)
+                        If DBConn.State = ConnectionState.Closed Then
+                            DBConn.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Close()
@@ -2837,12 +2837,12 @@ Public Class SSCPEnforcementAudit
                 If DTPAOAppealed.Checked = True Then
                     If txtAFSCivilCourtActionNumber.Text = "" Then
                         SQL = "Select strAFSActionNumber " & _
-                        "from " & connNameSpace & ".APBSupplamentalData " & _
+                        "from " & DBNameSpace & ".APBSupplamentalData " & _
                         "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
 
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, DBConn)
+                        If DBConn.State = ConnectionState.Closed Then
+                            DBConn.Open()
                         End If
                         dr = cmd.ExecuteReader
                         While dr.Read
@@ -2854,12 +2854,12 @@ Public Class SSCPEnforcementAudit
 
                         AOtoCivilCourtActionNumber = CStr(CInt(AOtoCivilCourtActionNumber) + 1)
 
-                        SQL = "Update " & connNameSpace & ".APBSupplamentalData set " & _
+                        SQL = "Update " & DBNameSpace & ".APBSupplamentalData set " & _
                         "strAFSActionNumber = '" & AOtoCivilCourtActionNumber & "' " & _
                         "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, DBConn)
+                        If DBConn.State = ConnectionState.Closed Then
+                            DBConn.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Close()
@@ -2873,12 +2873,12 @@ Public Class SSCPEnforcementAudit
                 If DTPAOResolved.Checked = True Then
                     If txtAFSAOResolvedActionNumber.Text = "" Then
                         SQL = "Select strAFSActionNumber " & _
-                        "from " & connNameSpace & ".APBSupplamentalData " & _
+                        "from " & DBNameSpace & ".APBSupplamentalData " & _
                         "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
 
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, DBConn)
+                        If DBConn.State = ConnectionState.Closed Then
+                            DBConn.Open()
                         End If
                         dr = cmd.ExecuteReader
                         While dr.Read
@@ -2890,12 +2890,12 @@ Public Class SSCPEnforcementAudit
 
                         AOResolvedActionNumber = CStr(CInt(AOResolvedActionNumber) + 1)
 
-                        SQL = "Update " & connNameSpace & ".APBSupplamentalData set " & _
+                        SQL = "Update " & DBNameSpace & ".APBSupplamentalData set " & _
                         "strAFSActionNumber = '" & AOResolvedActionNumber & "' " & _
                         "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, DBConn)
+                        If DBConn.State = ConnectionState.Closed Then
+                            DBConn.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Close()
@@ -3037,12 +3037,12 @@ Public Class SSCPEnforcementAudit
             Dim tempAIRS As String = ""
 
             SQL = "Select strUpDateStatus " & _
-            "from " & connNameSpace & ".AFSSSCPEnforcementRecords " & _
+            "from " & DBNameSpace & ".AFSSSCPEnforcementRecords " & _
             "where strEnforcementNumber = '" & txtEnforcementNumber.Text & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             recExist = dr.Read
@@ -3067,12 +3067,12 @@ Public Class SSCPEnforcementAudit
                 Select Case Result
                     Case Windows.Forms.DialogResult.Yes
                         SQL = "Select strAIRSNumber " & _
-                        "from " & connNameSpace & ".SSCP_AuditedEnforcement " & _
+                        "from " & DBNameSpace & ".SSCP_AuditedEnforcement " & _
                         "where strEnforcementNumber = '" & txtEnforcementNumber.Text & "' "
 
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, DBConn)
+                        If DBConn.State = ConnectionState.Closed Then
+                            DBConn.Open()
                         End If
                         dr = cmd.ExecuteReader
                         While dr.Read
@@ -3084,89 +3084,89 @@ Public Class SSCPEnforcementAudit
                         End While
                         dr.Close()
 
-                        SQL = "Delete " & connNameSpace & ".AFSSSCPEnforcementRecords " & _
+                        SQL = "Delete " & DBNameSpace & ".AFSSSCPEnforcementRecords " & _
                         "where strEnforcementNumber = '" & txtEnforcementNumber.Text & "' "
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, DBConn)
+                        If DBConn.State = ConnectionState.Closed Then
+                            DBConn.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Close()
 
-                        SQL2 = "Insert into " & connNameSpace & ".AFSDeletions " & _
+                        SQL2 = "Insert into " & DBNameSpace & ".AFSDeletions " & _
                                "values " & _
                                "(" & _
                                "(select " & _
                                "case when max(numCounter) is null then 1 " & _
                                "else max(numCounter) + 1 " & _
                                "end numCounter " & _
-                               "from " & connNameSpace & ".AFSDeletions), " & _
+                               "from " & DBNameSpace & ".AFSDeletions), " & _
                                "'" & tempAIRS & "', " & _
                                "'" & Replace(SQL, "'", "''") & "', 'True', " & _
                                "'" & OracleDate & "', '', " & _
                                "'') "
 
-                        cmd = New OracleCommand(SQL2, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL2, DBConn)
+                        If DBConn.State = ConnectionState.Closed Then
+                            DBConn.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Close()
 
-                        SQL = "Delete " & connNameSpace & ".SSCPENforcementStipulated " & _
+                        SQL = "Delete " & DBNameSpace & ".SSCPENforcementStipulated " & _
                         "where strEnforcementNumber = '" & txtEnforcementNumber.Text & "' "
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, DBConn)
+                        If DBConn.State = ConnectionState.Closed Then
+                            DBConn.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Close()
 
-                        SQL2 = "Insert into " & connNameSpace & ".AFSDeletions " & _
+                        SQL2 = "Insert into " & DBNameSpace & ".AFSDeletions " & _
                                "values " & _
                                "(" & _
                                "(select " & _
                                "case when max(numCounter) is null then 1 " & _
                                "else max(numCounter) + 1 " & _
                                "end numCounter " & _
-                               "from " & connNameSpace & ".AFSDeletions), " & _
+                               "from " & DBNameSpace & ".AFSDeletions), " & _
                                "'" & tempAIRS & "', " & _
                                "'" & Replace(SQL, "'", "''") & "', 'True', " & _
                                "'" & OracleDate & "', '', " & _
                                "'') "
 
-                        cmd = New OracleCommand(SQL2, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL2, DBConn)
+                        If DBConn.State = ConnectionState.Closed Then
+                            DBConn.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Close()
 
-                        SQL = "Delete " & connNameSpace & ".SSCP_AuditedEnforcement " & _
+                        SQL = "Delete " & DBNameSpace & ".SSCP_AuditedEnforcement " & _
                         "where strEnforcementNumber = '" & txtEnforcementNumber.Text & "' "
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, DBConn)
+                        If DBConn.State = ConnectionState.Closed Then
+                            DBConn.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Close()
 
-                        SQL2 = "Insert into " & connNameSpace & ".AFSDeletions " & _
+                        SQL2 = "Insert into " & DBNameSpace & ".AFSDeletions " & _
                                "values " & _
                                "(" & _
                                "(select " & _
                                "case when max(numCounter) is null then 1 " & _
                                "else max(numCounter) + 1 " & _
                                "end numCounter " & _
-                               "from " & connNameSpace & ".AFSDeletions), " & _
+                               "from " & DBNameSpace & ".AFSDeletions), " & _
                                "'" & tempAIRS & "', " & _
                                "'" & Replace(SQL, "'", "''") & "', 'True', " & _
                                "'" & OracleDate & "', '', " & _
                                "'') "
 
-                        cmd = New OracleCommand(SQL2, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL2, DBConn)
+                        If DBConn.State = ConnectionState.Closed Then
+                            DBConn.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Close()
@@ -3512,12 +3512,12 @@ Public Class SSCPEnforcementAudit
             If txtStipulatedKey.Text <> "" Then
                 SQL = "Select " & _
                 "strStipulatedPenalty, strStipulatedPenaltyComments " & _
-                "from " & connNameSpace & ".SSCPENforcementStipulated " & _
+                "from " & DBNameSpace & ".SSCPENforcementStipulated " & _
                 "where strEnforcementNumber = '" & txtEnforcementNumber.Text & "' " & _
                 "and strEnforcementKey = '" & txtStipulatedKey.Text & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -3809,13 +3809,13 @@ Public Class SSCPEnforcementAudit
 
                 If PathName <> "N/A" Then
 
-                    SQL = "Delete " & connNameSpace & ".SSCPEnforcementLetter " & _
+                    SQL = "Delete " & DBNameSpace & ".SSCPEnforcementLetter " & _
                     "where strEnforcementNumber = '" & txtEnforcementNumber.Text & "' " & _
                     "and strLetterType = 'CO' "
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
@@ -3832,12 +3832,12 @@ Public Class SSCPEnforcementAudit
                     Dim ds As DataSet
 
                     SQL = "Select * " & _
-                    "from " & connNameSpace & ".SSCPEnforcementLetter " & _
+                    "from " & DBNameSpace & ".SSCPEnforcementLetter " & _
                     "where strEnforcementNumber = '" & FileName & "' "
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
-                    da = New OracleDataAdapter(SQL, conn)
+                    da = New OracleDataAdapter(SQL, DBConn)
                     cmdCB = New OracleCommandBuilder(da)
                     ds = New DataSet("IAIPData")
                     da.MissingSchemaAction = MissingSchemaAction.AddWithKey
@@ -3889,13 +3889,13 @@ Public Class SSCPEnforcementAudit
 
                 If PathName <> "N/A" Then
 
-                    SQL = "Delete " & connNameSpace & ".SSCPEnforcementLetter " & _
+                    SQL = "Delete " & DBNameSpace & ".SSCPEnforcementLetter " & _
                     "where strEnforcementNumber = '" & txtEnforcementNumber.Text & "' " & _
                     "and strLetterType = 'NFA' "
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
@@ -3912,12 +3912,12 @@ Public Class SSCPEnforcementAudit
                     Dim ds As DataSet
 
                     SQL = "Select * " & _
-                    "from " & connNameSpace & ".SSCPEnforcementLetter " & _
+                    "from " & DBNameSpace & ".SSCPEnforcementLetter " & _
                     "where strEnforcementNumber = '" & FileName & "' "
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
-                    da = New OracleDataAdapter(SQL, conn)
+                    da = New OracleDataAdapter(SQL, DBConn)
                     cmdCB = New OracleCommandBuilder(da)
                     ds = New DataSet("IAIPData")
                     da.MissingSchemaAction = MissingSchemaAction.AddWithKey
@@ -3968,13 +3968,13 @@ Public Class SSCPEnforcementAudit
 
                 If PathName <> "N/A" Then
 
-                    SQL = "Delete " & connNameSpace & ".SSCPEnforcementLetter " & _
+                    SQL = "Delete " & DBNameSpace & ".SSCPEnforcementLetter " & _
                     "where strEnforcementNumber = '" & txtEnforcementNumber.Text & "' " & _
                     "and strLetterType = 'AO' "
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
@@ -3991,12 +3991,12 @@ Public Class SSCPEnforcementAudit
                     Dim ds As DataSet
 
                     SQL = "Select * " & _
-                    "from " & connNameSpace & ".SSCPEnforcementLetter " & _
+                    "from " & DBNameSpace & ".SSCPEnforcementLetter " & _
                     "where strEnforcementNumber = '" & FileName & "' "
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
-                    da = New OracleDataAdapter(SQL, conn)
+                    da = New OracleDataAdapter(SQL, DBConn)
                     cmdCB = New OracleCommandBuilder(da)
                     ds = New DataSet("IAIPData")
                     da.MissingSchemaAction = MissingSchemaAction.AddWithKey
@@ -4033,9 +4033,9 @@ Public Class SSCPEnforcementAudit
                 "Where strEnforcementNumber = '" & txtEnforcementNumber.Text & "' " & _
                 "and strLetterType = 'CO' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -4068,16 +4068,16 @@ Public Class SSCPEnforcementAudit
                 End If
 
                 If DestFilePath <> "N/A" Then
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
 
                     SQL = "Select " & _
                     "strEnforcementNumber, EnforcementLetter " & _
-                    "from " & connNameSpace & ".SSCPEnforcementLetter " & _
+                    "from " & DBNameSpace & ".SSCPEnforcementLetter " & _
                     "Where strEnforcementNumber = '" & txtEnforcementNumber.Text & "' "
 
-                    cmd = New OracleCommand(SQL, conn)
+                    cmd = New OracleCommand(SQL, DBConn)
                     dr = cmd.ExecuteReader
 
                     dr.Read()
@@ -4089,7 +4089,7 @@ Public Class SSCPEnforcementAudit
                     fs.Write(b, 0, b.Length)
                     fs.Close()
 
-                    If conn.State = ConnectionState.Open Then
+                    If DBConn.State = ConnectionState.Open Then
                         'conn.close()
                     End If
 
@@ -4117,9 +4117,9 @@ Public Class SSCPEnforcementAudit
                 "Where strEnforcementNumber = '" & txtEnforcementNumber.Text & "' " & _
                 "and strLetterType = 'NFA' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -4152,16 +4152,16 @@ Public Class SSCPEnforcementAudit
                 End If
 
                 If DestFilePath <> "N/A" Then
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
 
                     SQL = "Select " & _
                     "strEnforcementNumber, EnforcementLetter " & _
-                    "from " & connNameSpace & ".SSCPEnforcementLetter " & _
+                    "from " & DBNameSpace & ".SSCPEnforcementLetter " & _
                     "Where strEnforcementNumber = '" & txtEnforcementNumber.Text & "' "
 
-                    cmd = New OracleCommand(SQL, conn)
+                    cmd = New OracleCommand(SQL, DBConn)
                     dr = cmd.ExecuteReader
 
                     dr.Read()
@@ -4173,7 +4173,7 @@ Public Class SSCPEnforcementAudit
                     fs.Write(b, 0, b.Length)
                     fs.Close()
 
-                    If conn.State = ConnectionState.Open Then
+                    If DBConn.State = ConnectionState.Open Then
                         'conn.close()
                     End If
 
@@ -4199,9 +4199,9 @@ Public Class SSCPEnforcementAudit
             "Where strEnforcementNumber = '" & txtEnforcementNumber.Text & "' " & _
             "and strLetterType = 'AO' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -4234,16 +4234,16 @@ Public Class SSCPEnforcementAudit
             End If
 
             If DestFilePath <> "N/A" Then
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
 
                 SQL = "Select " & _
                 "strEnforcementNumber, EnforcementLetter " & _
-                "from " & connNameSpace & ".SSCPEnforcementLetter " & _
+                "from " & DBNameSpace & ".SSCPEnforcementLetter " & _
                 "Where strEnforcementNumber = '" & txtEnforcementNumber.Text & "' "
 
-                cmd = New OracleCommand(SQL, conn)
+                cmd = New OracleCommand(SQL, DBConn)
                 dr = cmd.ExecuteReader
 
                 dr.Read()
@@ -4255,7 +4255,7 @@ Public Class SSCPEnforcementAudit
                 fs.Write(b, 0, b.Length)
                 fs.Close()
 
-                If conn.State = ConnectionState.Open Then
+                If DBConn.State = ConnectionState.Open Then
                     'conn.close()
                 End If
 
@@ -4316,10 +4316,10 @@ Public Class SSCPEnforcementAudit
             SQL = "select sb1.ID, sb1.strEnforcementNumber, " & _
        "strTrackingNumber, substr(strAIRSNumber, 5) as strAIRSnumber, " & _
        "strEnforcementFinalized, datEnforcementFinalized, " & _
-       "(select (strLastName||', '||strFirstName) from " & connNameSpace & ".EPDUserProfiles, " & _
-       "" & connNameSpace & ".SSCP_Enforcement " & _
-       "where " & connNameSpace & ".epduserprofiles.numUserID = " & connNameSpace & ".SSCP_enforcement.numstaffresponsible " & _
-       "and " & connNameSpace & ".SSCP_Enforcement.id = sb1.id) as StaffResponsible, numStaffResponsible, " & _
+       "(select (strLastName||', '||strFirstName) from " & DBNameSpace & ".EPDUserProfiles, " & _
+       "" & DBNameSpace & ".SSCP_Enforcement " & _
+       "where " & DBNameSpace & ".epduserprofiles.numUserID = " & DBNameSpace & ".SSCP_enforcement.numstaffresponsible " & _
+       "and " & DBNameSpace & ".SSCP_Enforcement.id = sb1.id) as StaffResponsible, numStaffResponsible, " & _
        "strStatus, strActionType, " & _
        "strGeneralCOmments, strDiscoveryDate, " & _
        "strDayZero, datDayZero, " & _
@@ -4353,21 +4353,21 @@ Public Class SSCPEnforcementAudit
        "strAOResolved, datAOResolved, " & _
        "strAOComment, " & _
        "(select " & _
-       "(strLastName||', '||strFirstName) from " & connNameSpace & ".EPDUserProfiles, " & _
-       "" & connNameSpace & ".SSCP_Enforcement " & _
-       "where " & connNameSpace & ".epduserprofiles.numUserID = " & connNameSpace & ".SSCP_enforcement.strModifingPerson " & _
-       "and " & connNameSpace & ".SSCP_Enforcement.id = sb1.id) as ModifingPerson, strModifingPerson, " & _
+       "(strLastName||', '||strFirstName) from " & DBNameSpace & ".EPDUserProfiles, " & _
+       "" & DBNameSpace & ".SSCP_Enforcement " & _
+       "where " & DBNameSpace & ".epduserprofiles.numUserID = " & DBNameSpace & ".SSCP_enforcement.strModifingPerson " & _
+       "and " & DBNameSpace & ".SSCP_Enforcement.id = sb1.id) as ModifingPerson, strModifingPerson, " & _
        "DatModifingDate " & _
        "from " & _
        "(Select * " & _
-       "From " & connNameSpace & ".SSCP_Enforcement " & _
+       "From " & DBNameSpace & ".SSCP_Enforcement " & _
        "where strEnforcementNumber = '" & txtEnforcementNumber.Text & "' order by ID desc)  sb1 "
 
             ds = New DataSet
-            da = New OracleDataAdapter(SQL, conn)
+            da = New OracleDataAdapter(SQL, DBConn)
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             da.Fill(ds, "AuditHistory")
@@ -4645,15 +4645,15 @@ Public Class SSCPEnforcementAudit
 
             SaveEnforcement()
 
-            SQL = "Update " & connNameSpace & ".SSCPEnforcementStipulated set " & _
+            SQL = "Update " & DBNameSpace & ".SSCPEnforcementStipulated set " & _
             "strStipulatedPenalty = '" & Replace(txtStipulatedPenalty.Text, "'", "''") & "', " & _
             "strStipulatedPenaltyCOmments = '" & Replace(txtStipulatedComments.Text, "'", "''") & "' " & _
             "where strEnforcementNumber = '" & Replace(txtEnforcementNumber.Text, "'", "''") & "' " & _
             "and strEnforcementKey = '" & txtStipulatedKey.Text & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()

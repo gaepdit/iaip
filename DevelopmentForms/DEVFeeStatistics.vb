@@ -81,12 +81,12 @@ Public Class DEVFeeStatistics
 
             Year = Now.Year
             SQL = "Select distinct(numFeeYear) as FeeYear " & _
-            "from " & connNameSpace & ".FS_Admin " & _
+            "from " & DBNameSpace & ".FS_Admin " & _
             "order by numFeeYear desc "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -114,13 +114,13 @@ Public Class DEVFeeStatistics
             cboStatPayType.Items.Add("ALL QUARTERS")
 
             SQL = "Select strPayTypeDesc " & _
-            "from " & connNameSpace & ".FSLK_PayType " & _
+            "from " & DBNameSpace & ".FSLK_PayType " & _
             "where Active = '1' " & _
             "order by numPaytypeID "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -153,25 +153,25 @@ Public Class DEVFeeStatistics
             Select Case cboStatPayType.Text
                 Case "ALL"
                     SQLReported = "Select sum(numtotalFee) as TotalDue " & _
-                    "from " & connNameSpace & ".FS_FeeAuditedData, " & connNameSpace & ".FS_Admin  " & _
-                    "where " & connNameSpace & ".FS_FeeAuditedData.numFeeYear = '" & cboStatYear.Text & "' " & _
-                    "and " & connNameSpace & ".FS_Admin.strAIRSNumber = " & connNameSpace & ".FS_FeeAuditedData.strAIRSnumber " & _
-                    "and " & connNameSpace & ".FS_Admin.numFeeYear = " & connNameSpace & ".FS_FeeAuditedData.numFeeYear " & _
-                    "and " & connNameSpace & ".FS_Admin.Active = '1' " & _
-                    "and " & connNameSpace & ".FS_FeeAuditedData.Active = '1' " & _
+                    "from " & DBNameSpace & ".FS_FeeAuditedData, " & DBNameSpace & ".FS_Admin  " & _
+                    "where " & DBNameSpace & ".FS_FeeAuditedData.numFeeYear = '" & cboStatYear.Text & "' " & _
+                    "and " & DBNameSpace & ".FS_Admin.strAIRSNumber = " & DBNameSpace & ".FS_FeeAuditedData.strAIRSnumber " & _
+                    "and " & DBNameSpace & ".FS_Admin.numFeeYear = " & DBNameSpace & ".FS_FeeAuditedData.numFeeYear " & _
+                    "and " & DBNameSpace & ".FS_Admin.Active = '1' " & _
+                    "and " & DBNameSpace & ".FS_FeeAuditedData.Active = '1' " & _
                     "and numCurrentStatus <> '12' "
 
                     SQLInvoiced = "Select sum(numAmount) as TotalInvoiced " & _
-                    "from " & connNameSpace & ".FS_FeeInvoice, " & connNameSpace & ".FS_Admin  " & _
-                    "where " & connNameSpace & ".FS_FeeInvoice.numFeeYear = '" & cboStatYear.Text & "' " & _
-                    "and " & connNameSpace & ".FS_FeeInvoice.strAIRSnumber = " & connNameSpace & ".FS_Admin.strAIRSNumber " & _
-                    "and " & connNameSpace & ".FS_FeeInvoice.numFeeYEar = " & connNameSpace & ".fs_Admin.numFeeYear " & _
-                    "and " & connNameSpace & ".FS_FeeInvoice.Active = '1' " & _
-                    "and " & connNameSpace & ".FS_Admin.Active = '1' " & _
+                    "from " & DBNameSpace & ".FS_FeeInvoice, " & DBNameSpace & ".FS_Admin  " & _
+                    "where " & DBNameSpace & ".FS_FeeInvoice.numFeeYear = '" & cboStatYear.Text & "' " & _
+                    "and " & DBNameSpace & ".FS_FeeInvoice.strAIRSnumber = " & DBNameSpace & ".FS_Admin.strAIRSNumber " & _
+                    "and " & DBNameSpace & ".FS_FeeInvoice.numFeeYEar = " & DBNameSpace & ".fs_Admin.numFeeYear " & _
+                    "and " & DBNameSpace & ".FS_FeeInvoice.Active = '1' " & _
+                    "and " & DBNameSpace & ".FS_Admin.Active = '1' " & _
                     "and numCurrentStatus <> '12' "
 
                     SQLPaid = "Select sum(numPayment) as TotalPaid " & _
-                    "from " & connNameSpace & ".FS_Transactions " & _
+                    "from " & DBNameSpace & ".FS_Transactions " & _
                     "where numFeeYear = '" & cboStatYear.Text & "' " & _
                     "and Active = '1' "
 
@@ -182,63 +182,63 @@ Public Class DEVFeeStatistics
                     '"and " & connNameSpace & ".FS_Transactions.active = '1' "
                 Case "ANNUAL"
                     SQLReported = "Select sum(numtotalFee) as TotalDue " & _
-                    "from " & connNameSpace & ".FS_FeeAuditedData, " & connNameSpace & ".FS_Admin " & _
-                    "where " & connNameSpace & ".FS_FeeAuditedData.numFeeYear = '" & cboStatYear.Text & "' " & _
-                    "and " & connNameSpace & ".FS_FeeAuditedData.strAIRSNumber = " & connNameSpace & ".FS_Admin.strAIRSNumber " & _
-                    "and " & connNameSpace & ".FS_FeeAuditedData.nuMFeeYear = " & connNameSpace & ".FS_Admin.numFeeyear " & _
-                    "and " & connNameSpace & ".FS_FeeAuditedData.Active = '1' " & _
-                    "and " & connNameSpace & ".FS_Admin.Active = '1' " & _
+                    "from " & DBNameSpace & ".FS_FeeAuditedData, " & DBNameSpace & ".FS_Admin " & _
+                    "where " & DBNameSpace & ".FS_FeeAuditedData.numFeeYear = '" & cboStatYear.Text & "' " & _
+                    "and " & DBNameSpace & ".FS_FeeAuditedData.strAIRSNumber = " & DBNameSpace & ".FS_Admin.strAIRSNumber " & _
+                    "and " & DBNameSpace & ".FS_FeeAuditedData.nuMFeeYear = " & DBNameSpace & ".FS_Admin.numFeeyear " & _
+                    "and " & DBNameSpace & ".FS_FeeAuditedData.Active = '1' " & _
+                    "and " & DBNameSpace & ".FS_Admin.Active = '1' " & _
                     "and numCurrentStatus <> '12' " & _
                     "and strpaymentplan = 'Entire Annual Year' "
 
                     SQLInvoiced = "Select sum(numAmount) as TotalInvoiced " & _
-                    "from " & connNameSpace & ".FS_FeeInvoice, " & connNameSpace & ".FS_Admin " & _
-                    "where " & connNameSpace & ".FS_FeeInvoice.numFeeYear = '" & cboStatYear.Text & "' " & _
-                    "and " & connNameSpace & ".FS_FeeInvoice.strAIRSNumber = " & connNameSpace & ".FS_Admin.strAIRSNumber " & _
-                    "and " & connNameSpace & ".FS_FeeInvoice.numFeeyear = " & connNameSpace & ".FS_Admin.numFeeyear " & _
-                    "and " & connNameSpace & ".FS_admin.active = '1' " & _
+                    "from " & DBNameSpace & ".FS_FeeInvoice, " & DBNameSpace & ".FS_Admin " & _
+                    "where " & DBNameSpace & ".FS_FeeInvoice.numFeeYear = '" & cboStatYear.Text & "' " & _
+                    "and " & DBNameSpace & ".FS_FeeInvoice.strAIRSNumber = " & DBNameSpace & ".FS_Admin.strAIRSNumber " & _
+                    "and " & DBNameSpace & ".FS_FeeInvoice.numFeeyear = " & DBNameSpace & ".FS_Admin.numFeeyear " & _
+                    "and " & DBNameSpace & ".FS_admin.active = '1' " & _
                     "and AIRbranch.FS_FeeInvoice.strPayType = '1'  " & _
-                    "and " & connNameSpace & ".FS_FeeInvoice.Active = '1' " & _
+                    "and " & DBNameSpace & ".FS_FeeInvoice.Active = '1' " & _
                     "and numCurrentStatus <> '12' "
 
                     SQLPaid = "select sum(numPayment) as TotalPaid " & _
-                    "from " & connNameSpace & ".FS_Transactions, " & connNameSpace & ".FS_FeeInvoice " & _
-                    "where " & connNameSpace & ".FS_Transactions.InvoiceID = " & connNameSpace & ".FS_FeeInvoice.invoiceID " & _
-                    "and " & connNameSpace & ".FS_FeeInvoice.strPayType = '1' " & _
-                    "and " & connNameSpace & ".FS_Transactions.nuMFeeYEar = '" & cboStatYear.Text & "' " & _
-                    "and " & connNameSpace & ".FS_Transactions.active = '1' "
+                    "from " & DBNameSpace & ".FS_Transactions, " & DBNameSpace & ".FS_FeeInvoice " & _
+                    "where " & DBNameSpace & ".FS_Transactions.InvoiceID = " & DBNameSpace & ".FS_FeeInvoice.invoiceID " & _
+                    "and " & DBNameSpace & ".FS_FeeInvoice.strPayType = '1' " & _
+                    "and " & DBNameSpace & ".FS_Transactions.nuMFeeYEar = '" & cboStatYear.Text & "' " & _
+                    "and " & DBNameSpace & ".FS_Transactions.active = '1' "
 
                  
                 Case "ALL QUARTERS"
                     SQLReported = "Select sum(numtotalFee) as TotalDue " & _
-                    "from " & connNameSpace & ".FS_FeeAuditedData, " & connNameSpace & ".FS_Admin " & _
-                    "where " & connNameSpace & ".FS_FeeAuditedData.numFeeYear = '" & cboStatYear.Text & "' " & _
-                    "and " & connNameSpace & ".FS_FeeAuditedData.strAIRSNumber = " & connNameSpace & ".FS_Admin.strAIRSNumber " & _
-                    "and " & connNameSpace & ".FS_FeeAuditedData.nuMFeeYear = " & connNameSpace & ".FS_Admin.numFeeyear " & _
-                    "and " & connNameSpace & ".FS_FeeAuditedData.Active = '1' " & _
-                    "and " & connNameSpace & ".FS_Admin.Active = '1' " & _
+                    "from " & DBNameSpace & ".FS_FeeAuditedData, " & DBNameSpace & ".FS_Admin " & _
+                    "where " & DBNameSpace & ".FS_FeeAuditedData.numFeeYear = '" & cboStatYear.Text & "' " & _
+                    "and " & DBNameSpace & ".FS_FeeAuditedData.strAIRSNumber = " & DBNameSpace & ".FS_Admin.strAIRSNumber " & _
+                    "and " & DBNameSpace & ".FS_FeeAuditedData.nuMFeeYear = " & DBNameSpace & ".FS_Admin.numFeeyear " & _
+                    "and " & DBNameSpace & ".FS_FeeAuditedData.Active = '1' " & _
+                    "and " & DBNameSpace & ".FS_Admin.Active = '1' " & _
                     "and numCurrentStatus <> '12' " & _
                     "and strpaymentplan = 'Four Quarterly Payments' "
 
                     SQLInvoiced = "Select sum(numAmount) as TotalInvoiced " & _
-                    "from " & connNameSpace & ".FS_FeeInvoice, " & connNameSpace & ".FS_Admin " & _
-                    "where " & connNameSpace & ".FS_FeeInvoice.numFeeYear = '" & cboStatYear.Text & "' " & _
-                     "and " & connNameSpace & ".FS_FeeInvoice.strAIRSnumber = " & connNameSpace & ".FS_Admin.strAIRSNumber " & _
-                    "and " & connNameSpace & ".FS_FeeInvoice.numFeeYEar = " & connNameSpace & ".fs_Admin.numFeeYear " & _
-                    "and " & connNameSpace & ".FS_FeeInvoice.Active = '1' " & _
-                    "and " & connNameSpace & ".FS_Admin.Active = '1' " & _
+                    "from " & DBNameSpace & ".FS_FeeInvoice, " & DBNameSpace & ".FS_Admin " & _
+                    "where " & DBNameSpace & ".FS_FeeInvoice.numFeeYear = '" & cboStatYear.Text & "' " & _
+                     "and " & DBNameSpace & ".FS_FeeInvoice.strAIRSnumber = " & DBNameSpace & ".FS_Admin.strAIRSNumber " & _
+                    "and " & DBNameSpace & ".FS_FeeInvoice.numFeeYEar = " & DBNameSpace & ".fs_Admin.numFeeYear " & _
+                    "and " & DBNameSpace & ".FS_FeeInvoice.Active = '1' " & _
+                    "and " & DBNameSpace & ".FS_Admin.Active = '1' " & _
                     "and AIRbranch.FS_FeeInvoice.strPayType <> '1'  " & _
                     "and numCurrentStatus <> '12' "
 
                     SQLPaid = "select sum(numPayment) as TotalPaid " & _
-                    "from " & connNameSpace & ".FS_Transactions, " & connNameSpace & ".FS_FeeInvoice " & _
-                    "where " & connNameSpace & ".FS_Transactions.InvoiceID = " & connNameSpace & ".FS_FeeInvoice.invoiceID " & _
-                    "and " & connNameSpace & ".FS_Transactions.nuMFeeYEar = '" & cboStatYear.Text & "' " & _
-                    "and " & connNameSpace & ".FS_Transactions.active = '1' " & _
-                    "and (" & connNameSpace & ".FS_FeeInvoice.strPayType = '2' " & _
-                    "or " & connNameSpace & ".FS_FeeInvoice.strPayType = '3' " & _
-                    "or " & connNameSpace & ".FS_FeeInvoice.strPayType = '4' " & _
-                    "or " & connNameSpace & ".FS_FeeInvoice.strPayType = '5') "
+                    "from " & DBNameSpace & ".FS_Transactions, " & DBNameSpace & ".FS_FeeInvoice " & _
+                    "where " & DBNameSpace & ".FS_Transactions.InvoiceID = " & DBNameSpace & ".FS_FeeInvoice.invoiceID " & _
+                    "and " & DBNameSpace & ".FS_Transactions.nuMFeeYEar = '" & cboStatYear.Text & "' " & _
+                    "and " & DBNameSpace & ".FS_Transactions.active = '1' " & _
+                    "and (" & DBNameSpace & ".FS_FeeInvoice.strPayType = '2' " & _
+                    "or " & DBNameSpace & ".FS_FeeInvoice.strPayType = '3' " & _
+                    "or " & DBNameSpace & ".FS_FeeInvoice.strPayType = '4' " & _
+                    "or " & DBNameSpace & ".FS_FeeInvoice.strPayType = '5') "
 
                     '      SQLPaidInvoiced = "select sum(numPayment) as TotalInvoicedPaid " & _
                     '"from " & connNameSpace & ".FS_Transactions, " & connNameSpace & ".FS_FeeInvoice " & _
@@ -248,31 +248,31 @@ Public Class DEVFeeStatistics
                     '"and " & connNameSpace & ".FS_Transactions.active = '1' "
                 Case "QUARTER ONE"
                     SQLReported = "Select sum(numtotalFee/4) as TotalDue " & _
-                    "from " & connNameSpace & ".FS_FeeAuditedData, " & connNameSpace & ".FS_Admin " & _
-                    "where " & connNameSpace & ".FS_FeeAuditedData.numFeeYear = '" & cboStatYear.Text & "' " & _
-                       "and " & connNameSpace & ".FS_FeeAuditedData.strAIRSNumber = " & connNameSpace & ".FS_Admin.strAIRSNumber " & _
-                    "and " & connNameSpace & ".FS_FeeAuditedData.nuMFeeYear = " & connNameSpace & ".FS_Admin.numFeeyear " & _
-                    "and " & connNameSpace & ".FS_FeeAuditedData.Active = '1' " & _
-                    "and " & connNameSpace & ".FS_Admin.Active = '1' " & _
+                    "from " & DBNameSpace & ".FS_FeeAuditedData, " & DBNameSpace & ".FS_Admin " & _
+                    "where " & DBNameSpace & ".FS_FeeAuditedData.numFeeYear = '" & cboStatYear.Text & "' " & _
+                       "and " & DBNameSpace & ".FS_FeeAuditedData.strAIRSNumber = " & DBNameSpace & ".FS_Admin.strAIRSNumber " & _
+                    "and " & DBNameSpace & ".FS_FeeAuditedData.nuMFeeYear = " & DBNameSpace & ".FS_Admin.numFeeyear " & _
+                    "and " & DBNameSpace & ".FS_FeeAuditedData.Active = '1' " & _
+                    "and " & DBNameSpace & ".FS_Admin.Active = '1' " & _
                     "and numCurrentStatus <> '12' " & _
                     "and strpaymentplan = 'Four Quarterly Payments' "
 
                     SQLInvoiced = "Select sum(numAmount) as TotalInvoiced " & _
-                    "from " & connNameSpace & ".FS_FeeInvoice,  " & connNameSpace & ".FS_Admin " & _
-                    "where " & connNameSpace & ".FS_FeeInvoice.numFeeYear = '" & cboStatYear.Text & "' " & _
-                      "and " & connNameSpace & ".FS_FeeInvoice.strAIRSnumber = " & connNameSpace & ".FS_Admin.strAIRSNumber " & _
-                    "and " & connNameSpace & ".FS_FeeInvoice.numFeeYEar = " & connNameSpace & ".fs_Admin.numFeeYear " & _
-                    "and " & connNameSpace & ".FS_FeeInvoice.Active = '1' " & _
-                    "and " & connNameSpace & ".FS_Admin.Active = '1' " & _
+                    "from " & DBNameSpace & ".FS_FeeInvoice,  " & DBNameSpace & ".FS_Admin " & _
+                    "where " & DBNameSpace & ".FS_FeeInvoice.numFeeYear = '" & cboStatYear.Text & "' " & _
+                      "and " & DBNameSpace & ".FS_FeeInvoice.strAIRSnumber = " & DBNameSpace & ".FS_Admin.strAIRSNumber " & _
+                    "and " & DBNameSpace & ".FS_FeeInvoice.numFeeYEar = " & DBNameSpace & ".fs_Admin.numFeeYear " & _
+                    "and " & DBNameSpace & ".FS_FeeInvoice.Active = '1' " & _
+                    "and " & DBNameSpace & ".FS_Admin.Active = '1' " & _
                     "and numCurrentStatus <> '12' " & _
                     "and AIRbranch.FS_FeeInvoice.strPayType = '2'  "
 
                     SQLPaid = "select sum(numPayment) as TotalPaid " & _
-                    "from " & connNameSpace & ".FS_Transactions, " & connNameSpace & ".FS_FeeInvoice " & _
-                    "where " & connNameSpace & ".FS_Transactions.InvoiceID = " & connNameSpace & ".FS_FeeInvoice.invoiceID " & _
-                    "and " & connNameSpace & ".FS_FeeInvoice.strPayType = '2' " & _
-                    "and " & connNameSpace & ".FS_Transactions.nuMFeeYEar = '" & cboStatYear.Text & "' " & _
-                    "and " & connNameSpace & ".FS_Transactions.active = '1' "
+                    "from " & DBNameSpace & ".FS_Transactions, " & DBNameSpace & ".FS_FeeInvoice " & _
+                    "where " & DBNameSpace & ".FS_Transactions.InvoiceID = " & DBNameSpace & ".FS_FeeInvoice.invoiceID " & _
+                    "and " & DBNameSpace & ".FS_FeeInvoice.strPayType = '2' " & _
+                    "and " & DBNameSpace & ".FS_Transactions.nuMFeeYEar = '" & cboStatYear.Text & "' " & _
+                    "and " & DBNameSpace & ".FS_Transactions.active = '1' "
 
                     '      SQLPaidInvoiced = "select sum(numPayment) as TotalInvoicedPaid " & _
                     '"from " & connNameSpace & ".FS_Transactions, " & connNameSpace & ".FS_FeeInvoice " & _
@@ -282,31 +282,31 @@ Public Class DEVFeeStatistics
                     '"and " & connNameSpace & ".FS_Transactions.active = '1' "
                 Case "QUARTER TWO"
                     SQLReported = "Select sum(numtotalFee/4) as TotalDue " & _
-                    "from " & connNameSpace & ".FS_FeeAuditedData, " & connNameSpace & ".FS_Admin " & _
-                    "where " & connNameSpace & ".FS_FeeAuditedData.numFeeYear = '" & cboStatYear.Text & "' " & _
-                    "and " & connNameSpace & ".FS_FeeAuditedData.strAIRSNumber = " & connNameSpace & ".FS_Admin.strAIRSNumber " & _
-                    "and " & connNameSpace & ".FS_FeeAuditedData.nuMFeeYear = " & connNameSpace & ".FS_Admin.numFeeyear " & _
-                    "and " & connNameSpace & ".FS_FeeAuditedData.Active = '1' " & _
-                    "and " & connNameSpace & ".FS_Admin.Active = '1' " & _
+                    "from " & DBNameSpace & ".FS_FeeAuditedData, " & DBNameSpace & ".FS_Admin " & _
+                    "where " & DBNameSpace & ".FS_FeeAuditedData.numFeeYear = '" & cboStatYear.Text & "' " & _
+                    "and " & DBNameSpace & ".FS_FeeAuditedData.strAIRSNumber = " & DBNameSpace & ".FS_Admin.strAIRSNumber " & _
+                    "and " & DBNameSpace & ".FS_FeeAuditedData.nuMFeeYear = " & DBNameSpace & ".FS_Admin.numFeeyear " & _
+                    "and " & DBNameSpace & ".FS_FeeAuditedData.Active = '1' " & _
+                    "and " & DBNameSpace & ".FS_Admin.Active = '1' " & _
                     "and numCurrentStatus <> '12' " & _
                     "and strpaymentplan = 'Four Quarterly Payments' "
 
                     SQLInvoiced = "Select sum(numAmount) as TotalInvoiced " & _
-                    "from " & connNameSpace & ".FS_FeeInvoice, " & connNameSpace & ".FS_Admin " & _
-                    "where " & connNameSpace & ".FS_FeeInvoice.numFeeYear = '" & cboStatYear.Text & "' " & _
-                    "and " & connNameSpace & ".FS_FeeInvoice.strAIRSnumber = " & connNameSpace & ".FS_Admin.strAIRSNumber " & _
-                    "and " & connNameSpace & ".FS_FeeInvoice.numFeeYEar = " & connNameSpace & ".fs_Admin.numFeeYear " & _
-                    "and " & connNameSpace & ".FS_FeeInvoice.Active = '1' " & _
-                    "and " & connNameSpace & ".FS_Admin.Active = '1' " & _
+                    "from " & DBNameSpace & ".FS_FeeInvoice, " & DBNameSpace & ".FS_Admin " & _
+                    "where " & DBNameSpace & ".FS_FeeInvoice.numFeeYear = '" & cboStatYear.Text & "' " & _
+                    "and " & DBNameSpace & ".FS_FeeInvoice.strAIRSnumber = " & DBNameSpace & ".FS_Admin.strAIRSNumber " & _
+                    "and " & DBNameSpace & ".FS_FeeInvoice.numFeeYEar = " & DBNameSpace & ".fs_Admin.numFeeYear " & _
+                    "and " & DBNameSpace & ".FS_FeeInvoice.Active = '1' " & _
+                    "and " & DBNameSpace & ".FS_Admin.Active = '1' " & _
                     "and numCurrentStatus <> '12' " & _
                     "and AIRbranch.FS_FeeInvoice.strPayType = '3'   
 
                     SQLPaid = "select sum(numPayment) as TotalPaid " & _
-                    "from " & connNameSpace & ".FS_Transactions, " & connNameSpace & ".FS_FeeInvoice " & _
-                    "where " & connNameSpace & ".FS_Transactions.InvoiceID = " & connNameSpace & ".FS_FeeInvoice.invoiceID " & _
-                    "and " & connNameSpace & ".FS_FeeInvoice.strPayType = '3' " & _
-                    "and " & connNameSpace & ".FS_Transactions.nuMFeeYEar = '" & cboStatYear.Text & "' " & _
-                    "and " & connNameSpace & ".FS_Transactions.active = '1' "
+                    "from " & DBNameSpace & ".FS_Transactions, " & DBNameSpace & ".FS_FeeInvoice " & _
+                    "where " & DBNameSpace & ".FS_Transactions.InvoiceID = " & DBNameSpace & ".FS_FeeInvoice.invoiceID " & _
+                    "and " & DBNameSpace & ".FS_FeeInvoice.strPayType = '3' " & _
+                    "and " & DBNameSpace & ".FS_Transactions.nuMFeeYEar = '" & cboStatYear.Text & "' " & _
+                    "and " & DBNameSpace & ".FS_Transactions.active = '1' "
 
                     '      SQLPaidInvoiced = "select sum(numPayment) as TotalInvoicedPaid " & _
                     '"from " & connNameSpace & ".FS_Transactions, " & connNameSpace & ".FS_FeeInvoice " & _
@@ -316,31 +316,31 @@ Public Class DEVFeeStatistics
                     '"and " & connNameSpace & ".FS_Transactions.active = '1' "
                 Case "QUARTER THREE"
                     SQLReported = "Select sum(numtotalFee/4) as TotalDue " & _
-                    "from " & connNameSpace & ".FS_FeeAuditedData, " & connNameSpace & ".FS_Admin " & _
-                    "where " & connNameSpace & ".FS_FeeAuditedData.numFeeYear = '" & cboStatYear.Text & "' " & _
-                    "and " & connNameSpace & ".FS_FeeAuditedData.strAIRSNumber = " & connNameSpace & ".FS_Admin.strAIRSNumber " & _
-                    "and " & connNameSpace & ".FS_FeeAuditedData.nuMFeeYear = " & connNameSpace & ".FS_Admin.numFeeyear " & _
-                    "and " & connNameSpace & ".FS_FeeAuditedData.Active = '1' " & _
-                    "and " & connNameSpace & ".FS_Admin.Active = '1' " & _
+                    "from " & DBNameSpace & ".FS_FeeAuditedData, " & DBNameSpace & ".FS_Admin " & _
+                    "where " & DBNameSpace & ".FS_FeeAuditedData.numFeeYear = '" & cboStatYear.Text & "' " & _
+                    "and " & DBNameSpace & ".FS_FeeAuditedData.strAIRSNumber = " & DBNameSpace & ".FS_Admin.strAIRSNumber " & _
+                    "and " & DBNameSpace & ".FS_FeeAuditedData.nuMFeeYear = " & DBNameSpace & ".FS_Admin.numFeeyear " & _
+                    "and " & DBNameSpace & ".FS_FeeAuditedData.Active = '1' " & _
+                    "and " & DBNameSpace & ".FS_Admin.Active = '1' " & _
                     "and numCurrentStatus <> '12' " & _
                     "and strpaymentplan = 'Four Quarterly Payments' "
 
                     SQLInvoiced = "Select sum(numAmount) as TotalInvoiced " & _
-                    "from " & connNameSpace & ".FS_FeeInvoice, " & connNameSpace & ".FS_Admin  " & _
-                    "where " & connNameSpace & ".FS_FeeInvoice.numFeeYear = '" & cboStatYear.Text & "' " & _
-                    "and " & connNameSpace & ".FS_FeeInvoice.strAIRSnumber = " & connNameSpace & ".FS_Admin.strAIRSNumber " & _
-                    "and " & connNameSpace & ".FS_FeeInvoice.numFeeYEar = " & connNameSpace & ".fs_Admin.numFeeYear " & _
-                    "and " & connNameSpace & ".FS_FeeInvoice.Active = '1' " & _
-                    "and " & connNameSpace & ".FS_Admin.Active = '1' " & _
+                    "from " & DBNameSpace & ".FS_FeeInvoice, " & DBNameSpace & ".FS_Admin  " & _
+                    "where " & DBNameSpace & ".FS_FeeInvoice.numFeeYear = '" & cboStatYear.Text & "' " & _
+                    "and " & DBNameSpace & ".FS_FeeInvoice.strAIRSnumber = " & DBNameSpace & ".FS_Admin.strAIRSNumber " & _
+                    "and " & DBNameSpace & ".FS_FeeInvoice.numFeeYEar = " & DBNameSpace & ".fs_Admin.numFeeYear " & _
+                    "and " & DBNameSpace & ".FS_FeeInvoice.Active = '1' " & _
+                    "and " & DBNameSpace & ".FS_Admin.Active = '1' " & _
                     "and numCurrentStatus <> '12' " & _
                     "and AIRbranch.FS_FeeInvoice.strPayType = '4'   "
 
                     SQLPaid = "select sum(numPayment) as TotalPaid " & _
-                    "from " & connNameSpace & ".FS_Transactions, " & connNameSpace & ".FS_FeeInvoice " & _
-                    "where " & connNameSpace & ".FS_Transactions.InvoiceID = " & connNameSpace & ".FS_FeeInvoice.invoiceID " & _
-                    "and " & connNameSpace & ".FS_FeeInvoice.strPayType = '4' " & _
-                    "and " & connNameSpace & ".FS_Transactions.nuMFeeYEar = '" & cboStatYear.Text & "' " & _
-                    "and " & connNameSpace & ".FS_Transactions.active = '1' "
+                    "from " & DBNameSpace & ".FS_Transactions, " & DBNameSpace & ".FS_FeeInvoice " & _
+                    "where " & DBNameSpace & ".FS_Transactions.InvoiceID = " & DBNameSpace & ".FS_FeeInvoice.invoiceID " & _
+                    "and " & DBNameSpace & ".FS_FeeInvoice.strPayType = '4' " & _
+                    "and " & DBNameSpace & ".FS_Transactions.nuMFeeYEar = '" & cboStatYear.Text & "' " & _
+                    "and " & DBNameSpace & ".FS_Transactions.active = '1' "
 
                     '      SQLPaidInvoiced = "select sum(numPayment) as TotalInvoicedPaid " & _
                     '"from " & connNameSpace & ".FS_Transactions, " & connNameSpace & ".FS_FeeInvoice " & _
@@ -350,31 +350,31 @@ Public Class DEVFeeStatistics
                     '"and " & connNameSpace & ".FS_Transactions.active = '1' "
                 Case "QUARTER FOUR"
                     SQLReported = "Select sum(numtotalFee/4 ) as TotalDue " & _
-                    "from " & connNameSpace & ".FS_FeeAuditedData, " & connNameSpace & ".FS_Admin  " & _
-                    "where " & connNameSpace & ".FS_FeeAuditedData.numFeeYear = '" & cboStatYear.Text & "' " & _
-                   "and " & connNameSpace & ".FS_FeeAuditedData.strAIRSNumber = " & connNameSpace & ".FS_Admin.strAIRSNumber " & _
-                    "and " & connNameSpace & ".FS_FeeAuditedData.nuMFeeYear = " & connNameSpace & ".FS_Admin.numFeeyear " & _
-                    "and " & connNameSpace & ".FS_FeeAuditedData.Active = '1' " & _
-                    "and " & connNameSpace & ".FS_Admin.Active = '1' " & _
+                    "from " & DBNameSpace & ".FS_FeeAuditedData, " & DBNameSpace & ".FS_Admin  " & _
+                    "where " & DBNameSpace & ".FS_FeeAuditedData.numFeeYear = '" & cboStatYear.Text & "' " & _
+                   "and " & DBNameSpace & ".FS_FeeAuditedData.strAIRSNumber = " & DBNameSpace & ".FS_Admin.strAIRSNumber " & _
+                    "and " & DBNameSpace & ".FS_FeeAuditedData.nuMFeeYear = " & DBNameSpace & ".FS_Admin.numFeeyear " & _
+                    "and " & DBNameSpace & ".FS_FeeAuditedData.Active = '1' " & _
+                    "and " & DBNameSpace & ".FS_Admin.Active = '1' " & _
                     "and numCurrentStatus <> '12' " & _
                     "and strpaymentplan = 'Four Quarterly Payments' "
 
                     SQLInvoiced = "Select sum(numAmount) as TotalInvoiced " & _
-                    "from " & connNameSpace & ".FS_FeeInvoice, " & connNameSpace & ".FS_Admin  " & _
-                    "where " & connNameSpace & ".FS_FeeInvoice.numFeeYear = '" & cboStatYear.Text & "' " & _
-                    "and " & connNameSpace & ".FS_FeeInvoice.strAIRSnumber = " & connNameSpace & ".FS_Admin.strAIRSNumber " & _
-                    "and " & connNameSpace & ".FS_FeeInvoice.numFeeYEar = " & connNameSpace & ".fs_Admin.numFeeYear " & _
-                    "and " & connNameSpace & ".FS_FeeInvoice.Active = '1' " & _
-                    "and " & connNameSpace & ".FS_Admin.Active = '1' " & _
+                    "from " & DBNameSpace & ".FS_FeeInvoice, " & DBNameSpace & ".FS_Admin  " & _
+                    "where " & DBNameSpace & ".FS_FeeInvoice.numFeeYear = '" & cboStatYear.Text & "' " & _
+                    "and " & DBNameSpace & ".FS_FeeInvoice.strAIRSnumber = " & DBNameSpace & ".FS_Admin.strAIRSNumber " & _
+                    "and " & DBNameSpace & ".FS_FeeInvoice.numFeeYEar = " & DBNameSpace & ".fs_Admin.numFeeYear " & _
+                    "and " & DBNameSpace & ".FS_FeeInvoice.Active = '1' " & _
+                    "and " & DBNameSpace & ".FS_Admin.Active = '1' " & _
                     "and numCurrentStatus <> '12' " & _
                     "and AIRbranch.FS_FeeInvoice.strPayType = '5'  "
 
                     SQLPaid = "select sum(numPayment) as TotalPaid " & _
-                    "from " & connNameSpace & ".FS_Transactions, " & connNameSpace & ".FS_FeeInvoice " & _
-                    "where " & connNameSpace & ".FS_Transactions.InvoiceID = " & connNameSpace & ".FS_FeeInvoice.invoiceID " & _
-                    "and " & connNameSpace & ".FS_FeeInvoice.strPayType = '5' " & _
-                    "and " & connNameSpace & ".FS_Transactions.nuMFeeYEar = '" & cboStatYear.Text & "' " & _
-                    "and " & connNameSpace & ".FS_Transactions.active = '1' "
+                    "from " & DBNameSpace & ".FS_Transactions, " & DBNameSpace & ".FS_FeeInvoice " & _
+                    "where " & DBNameSpace & ".FS_Transactions.InvoiceID = " & DBNameSpace & ".FS_FeeInvoice.invoiceID " & _
+                    "and " & DBNameSpace & ".FS_FeeInvoice.strPayType = '5' " & _
+                    "and " & DBNameSpace & ".FS_Transactions.nuMFeeYEar = '" & cboStatYear.Text & "' " & _
+                    "and " & DBNameSpace & ".FS_Transactions.active = '1' "
 
                     'SQLPaidInvoiced = "select sum(numPayment) as TotalInvoicedPaid " & _
                     '"from " & connNameSpace & ".FS_Transactions, " & connNameSpace & ".FS_FeeInvoice " & _
@@ -384,73 +384,73 @@ Public Class DEVFeeStatistics
                     '"and " & connNameSpace & ".FS_Transactions.active = '1' "
                 Case "AMENDMENT"
                     SQLReported = "Select sum(numtotalFee ) as TotalDue " & _
-                    "from " & connNameSpace & ".FS_FeeAuditedData, " & connNameSpace & ".FS_Admin  " & _
-                    "where " & connNameSpace & ".FS_FeeAuditedData.numFeeYear = '" & cboStatYear.Text & "' " & _
-                    "and " & connNameSpace & ".FS_FeeAuditedData.strAIRSNumber = " & connNameSpace & ".FS_Admin.strAIRSNumber " & _
-                    "and " & connNameSpace & ".FS_FeeAuditedData.nuMFeeYear = " & connNameSpace & ".FS_Admin.numFeeyear " & _
-                    "and " & connNameSpace & ".FS_FeeAuditedData.Active = '1' " & _
-                    "and " & connNameSpace & ".FS_Admin.Active = '1' " & _
+                    "from " & DBNameSpace & ".FS_FeeAuditedData, " & DBNameSpace & ".FS_Admin  " & _
+                    "where " & DBNameSpace & ".FS_FeeAuditedData.numFeeYear = '" & cboStatYear.Text & "' " & _
+                    "and " & DBNameSpace & ".FS_FeeAuditedData.strAIRSNumber = " & DBNameSpace & ".FS_Admin.strAIRSNumber " & _
+                    "and " & DBNameSpace & ".FS_FeeAuditedData.nuMFeeYear = " & DBNameSpace & ".FS_Admin.numFeeyear " & _
+                    "and " & DBNameSpace & ".FS_FeeAuditedData.Active = '1' " & _
+                    "and " & DBNameSpace & ".FS_Admin.Active = '1' " & _
                     "and numCurrentStatus <> '12' " & _
                     "and strpaymentplan is null "
 
                     SQLPaid = "select sum(numPayment) as TotalPaid " & _
-                    "from " & connNameSpace & ".FS_Transactions, " & connNameSpace & ".FS_FeeInvoice " & _
-                    "where " & connNameSpace & ".FS_Transactions.InvoiceID = " & connNameSpace & ".FS_FeeInvoice.invoiceID " & _
-                    "and " & connNameSpace & ".FS_FeeInvoice.strPayType = '6' " & _
-                    "and " & connNameSpace & ".FS_Transactions.nuMFeeYEar = '" & cboStatYear.Text & "' " & _
-                    "and " & connNameSpace & ".FS_Transactions.active = '1' "
+                    "from " & DBNameSpace & ".FS_Transactions, " & DBNameSpace & ".FS_FeeInvoice " & _
+                    "where " & DBNameSpace & ".FS_Transactions.InvoiceID = " & DBNameSpace & ".FS_FeeInvoice.invoiceID " & _
+                    "and " & DBNameSpace & ".FS_FeeInvoice.strPayType = '6' " & _
+                    "and " & DBNameSpace & ".FS_Transactions.nuMFeeYEar = '" & cboStatYear.Text & "' " & _
+                    "and " & DBNameSpace & ".FS_Transactions.active = '1' "
                 Case "ONE-TIME"
                     SQLReported = "Select sum(numtotalFee ) as TotalDue " & _
-                    "from " & connNameSpace & ".FS_FeeAuditedData, " & connNameSpace & ".FS_Admin  " & _
-                    "where " & connNameSpace & ".FS_FeeAuditedData.numFeeYear = '" & cboStatYear.Text & "' " & _
-                    "and " & connNameSpace & ".FS_FeeAuditedData.strAIRSNumber = " & connNameSpace & ".FS_Admin.strAIRSNumber " & _
-                    "and " & connNameSpace & ".FS_FeeAuditedData.nuMFeeYear = " & connNameSpace & ".FS_Admin.numFeeyear " & _
-                    "and " & connNameSpace & ".FS_FeeAuditedData.Active = '1' " & _
-                    "and " & connNameSpace & ".FS_Admin.Active = '1' " & _
+                    "from " & DBNameSpace & ".FS_FeeAuditedData, " & DBNameSpace & ".FS_Admin  " & _
+                    "where " & DBNameSpace & ".FS_FeeAuditedData.numFeeYear = '" & cboStatYear.Text & "' " & _
+                    "and " & DBNameSpace & ".FS_FeeAuditedData.strAIRSNumber = " & DBNameSpace & ".FS_Admin.strAIRSNumber " & _
+                    "and " & DBNameSpace & ".FS_FeeAuditedData.nuMFeeYear = " & DBNameSpace & ".FS_Admin.numFeeyear " & _
+                    "and " & DBNameSpace & ".FS_FeeAuditedData.Active = '1' " & _
+                    "and " & DBNameSpace & ".FS_Admin.Active = '1' " & _
                     "and numCurrentStatus <> '12' " & _
                     "and strpaymentplan is null "
 
                     SQLPaid = "select sum(numPayment) as TotalPaid " & _
-                    "from " & connNameSpace & ".FS_Transactions, " & connNameSpace & ".FS_FeeInvoice " & _
-                    "where " & connNameSpace & ".FS_Transactions.InvoiceID = " & connNameSpace & ".FS_FeeInvoice.invoiceID " & _
-                    "and " & connNameSpace & ".FS_FeeInvoice.strPayType = '8' " & _
-                    "and " & connNameSpace & ".FS_Transactions.nuMFeeYEar = '" & cboStatYear.Text & "' " & _
-                    "and " & connNameSpace & ".FS_Transactions.active = '1' "
+                    "from " & DBNameSpace & ".FS_Transactions, " & DBNameSpace & ".FS_FeeInvoice " & _
+                    "where " & DBNameSpace & ".FS_Transactions.InvoiceID = " & DBNameSpace & ".FS_FeeInvoice.invoiceID " & _
+                    "and " & DBNameSpace & ".FS_FeeInvoice.strPayType = '8' " & _
+                    "and " & DBNameSpace & ".FS_Transactions.nuMFeeYEar = '" & cboStatYear.Text & "' " & _
+                    "and " & DBNameSpace & ".FS_Transactions.active = '1' "
                 Case "REFUND"
                     SQLReported = "Select sum(0) as TotalDue " & _
-                    "from " & connNameSpace & ".FS_FeeAuditedData, " & connNameSpace & ".FS_Admin " & _
-                    "where " & connNameSpace & ".FS_FeeAuditedData.numFeeYear = '" & cboStatYear.Text & "' " & _
-                    "and " & connNameSpace & ".FS_FeeAuditedData.strAIRSNumber = " & connNameSpace & ".FS_Admin.strAIRSNumber " & _
-                    "and " & connNameSpace & ".FS_FeeAuditedData.nuMFeeYear = " & connNameSpace & ".FS_Admin.numFeeyear " & _
-                    "and " & connNameSpace & ".FS_FeeAuditedData.Active = '1' " & _
-                    "and " & connNameSpace & ".FS_Admin.Active = '1' " & _
+                    "from " & DBNameSpace & ".FS_FeeAuditedData, " & DBNameSpace & ".FS_Admin " & _
+                    "where " & DBNameSpace & ".FS_FeeAuditedData.numFeeYear = '" & cboStatYear.Text & "' " & _
+                    "and " & DBNameSpace & ".FS_FeeAuditedData.strAIRSNumber = " & DBNameSpace & ".FS_Admin.strAIRSNumber " & _
+                    "and " & DBNameSpace & ".FS_FeeAuditedData.nuMFeeYear = " & DBNameSpace & ".FS_Admin.numFeeyear " & _
+                    "and " & DBNameSpace & ".FS_FeeAuditedData.Active = '1' " & _
+                    "and " & DBNameSpace & ".FS_Admin.Active = '1' " & _
                     "and numCurrentStatus <> '12' "
 
                     SQLPaid = "select sum(numPayment) as TotalPaid " & _
-                    "from " & connNameSpace & ".FS_Transactions, " & connNameSpace & ".FS_FeeInvoice " & _
-                    "where " & connNameSpace & ".FS_Transactions.InvoiceID = " & connNameSpace & ".FS_FeeInvoice.invoiceID " & _
-                    "and " & connNameSpace & ".FS_FeeInvoice.strPayType = '7' " & _
-                    "and " & connNameSpace & ".FS_Transactions.nuMFeeYEar = '" & cboStatYear.Text & "' " & _
-                    "and " & connNameSpace & ".FS_Transactions.active = '1' "
+                    "from " & DBNameSpace & ".FS_Transactions, " & DBNameSpace & ".FS_FeeInvoice " & _
+                    "where " & DBNameSpace & ".FS_Transactions.InvoiceID = " & DBNameSpace & ".FS_FeeInvoice.invoiceID " & _
+                    "and " & DBNameSpace & ".FS_FeeInvoice.strPayType = '7' " & _
+                    "and " & DBNameSpace & ".FS_Transactions.nuMFeeYEar = '" & cboStatYear.Text & "' " & _
+                    "and " & DBNameSpace & ".FS_Transactions.active = '1' "
                 Case Else
                     SQLReported = "Select sum(numtotalFee) as TotalDue " & _
-                    "from " & connNameSpace & ".FS_FeeAuditedData, " & connNameSpace & ".FS_Admin " & _
-                    "where " & connNameSpace & ".FS_FeeAuditedData.numFeeYear = '" & cboStatYear.Text & "' " & _
-                    "and " & connNameSpace & ".FS_FeeAuditedData.strAIRSNumber = " & connNameSpace & ".FS_Admin.strAIRSNumber " & _
-                    "and " & connNameSpace & ".FS_FeeAuditedData.nuMFeeYear = " & connNameSpace & ".FS_Admin.numFeeyear " & _
-                    "and " & connNameSpace & ".FS_FeeAuditedData.Active = '1' " & _
-                    "and " & connNameSpace & ".FS_Admin.Active = '1' " & _
+                    "from " & DBNameSpace & ".FS_FeeAuditedData, " & DBNameSpace & ".FS_Admin " & _
+                    "where " & DBNameSpace & ".FS_FeeAuditedData.numFeeYear = '" & cboStatYear.Text & "' " & _
+                    "and " & DBNameSpace & ".FS_FeeAuditedData.strAIRSNumber = " & DBNameSpace & ".FS_Admin.strAIRSNumber " & _
+                    "and " & DBNameSpace & ".FS_FeeAuditedData.nuMFeeYear = " & DBNameSpace & ".FS_Admin.numFeeyear " & _
+                    "and " & DBNameSpace & ".FS_FeeAuditedData.Active = '1' " & _
+                    "and " & DBNameSpace & ".FS_Admin.Active = '1' " & _
                     "and numCurrentStatus <> '12' "
 
                     SQLPaid = "Select sum(numPayment) as TotalPaid " & _
-                    "from " & connNameSpace & ".FS_Transactions " & _
+                    "from " & DBNameSpace & ".FS_Transactions " & _
                     "where numFeeYear = '" & cboStatYear.Text & "' " & _
                     "and Active = '1' "
             End Select
             If SQLReported <> "" Then
-                cmd = New OracleCommand(SQLReported, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQLReported, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -466,9 +466,9 @@ Public Class DEVFeeStatistics
             End If
 
             If SQLInvoiced <> "" Then
-                cmd = New OracleCommand(SQLInvoiced, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQLInvoiced, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -484,9 +484,9 @@ Public Class DEVFeeStatistics
             End If
 
             If SQLPaid <> "" Then
-                cmd = New OracleCommand(SQLPaid, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQLPaid, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -534,93 +534,93 @@ Public Class DEVFeeStatistics
             Select Case cboStatPayType.Text
                 Case "ALL"
                     SQL = "select  " & _
-                    "substr(" & connNameSpace & ".APBFacilityInformation.strAIRSNumber, 5) as AIRSNumber,  " & _
+                    "substr(" & DBNameSpace & ".APBFacilityInformation.strAIRSNumber, 5) as AIRSNumber,  " & _
                     "strFacilityName, strPaymentPlan,  " & _
-                    "(numTotalFee ) as Due, " & connNameSpace & ".FS_FeeAuditedData.numFeeYear,  " & _
+                    "(numTotalFee ) as Due, " & DBNameSpace & ".FS_FeeAuditedData.numFeeYear,  " & _
                     "numPart70Fee, numSMFee, numNSPSFee,  " & _
                     "numTotalFee, strClass, numAdminFee  " & _
-                    "From " & connNameSpace & ".APBFacilityInformation, " & connNameSpace & ".FS_FeeAuditedData, " & _
-                    "" & connNameSpace & ".FS_Admin " & _
-                    "where " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".FS_FeeAuditedData.strAIRSNumber  " & _
-                    "and " & connNameSpace & ".FS_feeAuditedData.strAIRSnumber = " & connNameSpace & ".FS_Admin.strAIRSNumber " & _
-                    "and " & connNameSpace & ".FS_feeAuditedData.numFeeYear = " & connNameSpace & ".FS_Admin.numFeeYear " & _
-                    "and " & connNameSpace & ".FS_FeeAuditedData.active = '1' " & _
-                    "and " & connNameSpace & ".FS_Admin.Active = '1' " & _
+                    "From " & DBNameSpace & ".APBFacilityInformation, " & DBNameSpace & ".FS_FeeAuditedData, " & _
+                    "" & DBNameSpace & ".FS_Admin " & _
+                    "where " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".FS_FeeAuditedData.strAIRSNumber  " & _
+                    "and " & DBNameSpace & ".FS_feeAuditedData.strAIRSnumber = " & DBNameSpace & ".FS_Admin.strAIRSNumber " & _
+                    "and " & DBNameSpace & ".FS_feeAuditedData.numFeeYear = " & DBNameSpace & ".FS_Admin.numFeeYear " & _
+                    "and " & DBNameSpace & ".FS_FeeAuditedData.active = '1' " & _
+                    "and " & DBNameSpace & ".FS_Admin.Active = '1' " & _
                     "and numCurrentStatus <> '12' " & _
-                    "and " & connNameSpace & ".FS_FeeAuditedData.numFeeYear = '" & cboStatYear.Text & "' "
+                    "and " & DBNameSpace & ".FS_FeeAuditedData.numFeeYear = '" & cboStatYear.Text & "' "
                 Case "ANNUAL"
                     SQL = "select  " & _
-                    "substr(" & connNameSpace & ".APBFacilityInformation.strAIRSNumber, 5) as AIRSNumber,  " & _
+                    "substr(" & DBNameSpace & ".APBFacilityInformation.strAIRSNumber, 5) as AIRSNumber,  " & _
                     "strFacilityName, strPaymentPlan,  " & _
-                    "(numTotalFee) as Due, " & connNameSpace & ".FS_FeeAuditedData.numFeeYear,  " & _
+                    "(numTotalFee) as Due, " & DBNameSpace & ".FS_FeeAuditedData.numFeeYear,  " & _
                     "numPart70Fee, numSMFee, numNSPSFee,  " & _
                     "numTotalFee, strClass, numAdminFee  " & _
-                    "From " & connNameSpace & ".APBFacilityInformation, " & connNameSpace & ".FS_FeeAuditedData, " & _
-                    "" & connNameSpace & ".FS_Admin " & _
-                    "where " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".FS_FeeAuditedData.strAIRSNumber  " & _
-                    "and " & connNameSpace & ".FS_FeeAuditedData.numFeeYear = '" & cboStatYear.Text & "' " & _
-                    "and " & connNameSpace & ".FS_feeAuditedData.strAIRSnumber = " & connNameSpace & ".FS_Admin.strAIRSNumber " & _
-                    "and " & connNameSpace & ".FS_feeAuditedData.numFeeYear = " & connNameSpace & ".FS_Admin.numFeeYear " & _
-                    "and " & connNameSpace & ".FS_FeeAuditedData.active = '1' " & _
-                    "and " & connNameSpace & ".FS_Admin.Active = '1' " & _
+                    "From " & DBNameSpace & ".APBFacilityInformation, " & DBNameSpace & ".FS_FeeAuditedData, " & _
+                    "" & DBNameSpace & ".FS_Admin " & _
+                    "where " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".FS_FeeAuditedData.strAIRSNumber  " & _
+                    "and " & DBNameSpace & ".FS_FeeAuditedData.numFeeYear = '" & cboStatYear.Text & "' " & _
+                    "and " & DBNameSpace & ".FS_feeAuditedData.strAIRSnumber = " & DBNameSpace & ".FS_Admin.strAIRSNumber " & _
+                    "and " & DBNameSpace & ".FS_feeAuditedData.numFeeYear = " & DBNameSpace & ".FS_Admin.numFeeYear " & _
+                    "and " & DBNameSpace & ".FS_FeeAuditedData.active = '1' " & _
+                    "and " & DBNameSpace & ".FS_Admin.Active = '1' " & _
                     "and numCurrentStatus <> '12' " & _
                     "and strPaymentPlan = 'Entire Annual Year' "
                 Case "QUARTER ONE", "QUARTER TWO", "QUARTER THREE", "QUARTER FOUR", "ALL QUARTERS"
                     SQL = "select  " & _
-                    "substr(" & connNameSpace & ".APBFacilityInformation.strAIRSNumber, 5) as AIRSNumber,  " & _
+                    "substr(" & DBNameSpace & ".APBFacilityInformation.strAIRSNumber, 5) as AIRSNumber,  " & _
                     "strFacilityName, strPaymentPlan,  " & _
-                    "(numTotalFee)/4 as Due, " & connNameSpace & ".FS_FeeAuditedData.numFeeYear,  " & _
+                    "(numTotalFee)/4 as Due, " & DBNameSpace & ".FS_FeeAuditedData.numFeeYear,  " & _
                     "numPart70Fee, numSMFee, numNSPSFee,  " & _
                     "numTotalFee, strClass, numAdminFee  " & _
-                    "From " & connNameSpace & ".APBFacilityInformation, " & connNameSpace & ".FS_FeeAuditedData, " & _
-                    "" & connNameSpace & ".FS_Admin " & _
-                    "where " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".FS_FeeAuditedData.strAIRSNumber  " & _
-                    "and " & connNameSpace & ".FS_FeeAuditedData.numFeeYear = '" & cboStatYear.Text & "' " & _
-                    "and " & connNameSpace & ".FS_feeAuditedData.strAIRSnumber = " & connNameSpace & ".FS_Admin.strAIRSNumber " & _
-                    "and " & connNameSpace & ".FS_feeAuditedData.numFeeYear = " & connNameSpace & ".FS_Admin.numFeeYear " & _
-                    "and " & connNameSpace & ".FS_FeeAuditedData.active = '1' " & _
-                    "and " & connNameSpace & ".FS_Admin.Active = '1' " & _
+                    "From " & DBNameSpace & ".APBFacilityInformation, " & DBNameSpace & ".FS_FeeAuditedData, " & _
+                    "" & DBNameSpace & ".FS_Admin " & _
+                    "where " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".FS_FeeAuditedData.strAIRSNumber  " & _
+                    "and " & DBNameSpace & ".FS_FeeAuditedData.numFeeYear = '" & cboStatYear.Text & "' " & _
+                    "and " & DBNameSpace & ".FS_feeAuditedData.strAIRSnumber = " & DBNameSpace & ".FS_Admin.strAIRSNumber " & _
+                    "and " & DBNameSpace & ".FS_feeAuditedData.numFeeYear = " & DBNameSpace & ".FS_Admin.numFeeYear " & _
+                    "and " & DBNameSpace & ".FS_FeeAuditedData.active = '1' " & _
+                    "and " & DBNameSpace & ".FS_Admin.Active = '1' " & _
                     "and numCurrentStatus <> '12' " & _
                     "and strPaymentPlan = 'Four Quarterly Payments' "
                 Case "AMENDMENT", "ONE-TIME", "REFUND"
                     SQL = "select  " & _
-                    "substr(" & connNameSpace & ".APBFacilityInformation.strAIRSNumber, 5) as AIRSNumber,  " & _
+                    "substr(" & DBNameSpace & ".APBFacilityInformation.strAIRSNumber, 5) as AIRSNumber,  " & _
                     "strFacilityName, strPaymentPlan,  " & _
-                    "(numTotalFee)/4 as Due, " & connNameSpace & ".FS_FeeAuditedData.numFeeYear,  " & _
+                    "(numTotalFee)/4 as Due, " & DBNameSpace & ".FS_FeeAuditedData.numFeeYear,  " & _
                     "numPart70Fee, numSMFee, numNSPSFee,  " & _
                     "numTotalFee, strClass, numAdminFee  " & _
-                    "From " & connNameSpace & ".APBFacilityInformation, " & connNameSpace & ".FS_FeeAuditedData, " & _
-                    "" & connNameSpace & ".FS_Admin " & _
-                    "where " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".FS_FeeAuditedData.strAIRSNumber  " & _
-                    "and " & connNameSpace & ".FS_FeeAuditedData.numFeeYear = '" & cboStatYear.Text & "' " & _
-                     "and " & connNameSpace & ".FS_feeAuditedData.strAIRSnumber = " & connNameSpace & ".FS_Admin.strAIRSNumber " & _
-                    "and " & connNameSpace & ".FS_feeAuditedData.numFeeYear = " & connNameSpace & ".FS_Admin.numFeeYear " & _
-                    "and " & connNameSpace & ".FS_FeeAuditedData.active = '1' " & _
-                    "and " & connNameSpace & ".FS_Admin.Active = '1' " & _
+                    "From " & DBNameSpace & ".APBFacilityInformation, " & DBNameSpace & ".FS_FeeAuditedData, " & _
+                    "" & DBNameSpace & ".FS_Admin " & _
+                    "where " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".FS_FeeAuditedData.strAIRSNumber  " & _
+                    "and " & DBNameSpace & ".FS_FeeAuditedData.numFeeYear = '" & cboStatYear.Text & "' " & _
+                     "and " & DBNameSpace & ".FS_feeAuditedData.strAIRSnumber = " & DBNameSpace & ".FS_Admin.strAIRSNumber " & _
+                    "and " & DBNameSpace & ".FS_feeAuditedData.numFeeYear = " & DBNameSpace & ".FS_Admin.numFeeYear " & _
+                    "and " & DBNameSpace & ".FS_FeeAuditedData.active = '1' " & _
+                    "and " & DBNameSpace & ".FS_Admin.Active = '1' " & _
                     "and numCurrentStatus <> '12' " & _
                     "and strPaymentPlan is null "
                 Case Else
                     SQL = "select  " & _
-                    "substr(" & connNameSpace & ".APBFacilityInformation.strAIRSNumber, 5) as AIRSNumber,  " & _
+                    "substr(" & DBNameSpace & ".APBFacilityInformation.strAIRSNumber, 5) as AIRSNumber,  " & _
                     "strFacilityName, strPaymentPlan,  " & _
-                    "(numTotalFee) as Due, " & connNameSpace & ".FS_FeeAuditedData.numFeeYear,  " & _
+                    "(numTotalFee) as Due, " & DBNameSpace & ".FS_FeeAuditedData.numFeeYear,  " & _
                     "numPart70Fee, numSMFee, numNSPSFee,  " & _
                     "numTotalFee, strClass, numAdminFee  " & _
-                    "From " & connNameSpace & ".APBFacilityInformation, " & connNameSpace & ".FS_FeeAuditedData, " & _
-                    "" & connNameSpace & ".FS_Admin " & _
-                    "where " & connNameSpace & ".APBFacilityInformation.strAIRSNumber = " & connNameSpace & ".FS_FeeAuditedData.strAIRSNumber  " & _
-                     "and " & connNameSpace & ".FS_feeAuditedData.strAIRSnumber = " & connNameSpace & ".FS_Admin.strAIRSNumber " & _
-                    "and " & connNameSpace & ".FS_feeAuditedData.numFeeYear = " & connNameSpace & ".FS_Admin.numFeeYear " & _
-                    "and " & connNameSpace & ".FS_FeeAuditedData.active = '1' " & _
-                    "and " & connNameSpace & ".FS_Admin.Active = '1' " & _
+                    "From " & DBNameSpace & ".APBFacilityInformation, " & DBNameSpace & ".FS_FeeAuditedData, " & _
+                    "" & DBNameSpace & ".FS_Admin " & _
+                    "where " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".FS_FeeAuditedData.strAIRSNumber  " & _
+                     "and " & DBNameSpace & ".FS_feeAuditedData.strAIRSnumber = " & DBNameSpace & ".FS_Admin.strAIRSNumber " & _
+                    "and " & DBNameSpace & ".FS_feeAuditedData.numFeeYear = " & DBNameSpace & ".FS_Admin.numFeeYear " & _
+                    "and " & DBNameSpace & ".FS_FeeAuditedData.active = '1' " & _
+                    "and " & DBNameSpace & ".FS_Admin.Active = '1' " & _
                     "and numCurrentStatus <> '12' " & _
-                    "and " & connNameSpace & ".FS_FeeAuditedData.numFeeYear = '" & cboStatYear.Text & "' "
+                    "and " & DBNameSpace & ".FS_FeeAuditedData.numFeeYear = '" & cboStatYear.Text & "' "
             End Select
 
             ds = New DataSet
-            da = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            da = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             da.Fill(ds, "PaymentDue")
@@ -698,9 +698,9 @@ Public Class DEVFeeStatistics
                       "and airbranch.FS_Transactions.numFeeyear = Airbranch.FS_FeeAuditedData.numFeeYear (+) " & _
                       "and AIRBranch.FS_Transactions.invoiceid = AIRBranch.FS_FeeInvoice.invoiceid  (+) " & _
                       "and airbranch.FS_FeeInvoice.strPayType = AIRbranch.FSLK_PayType.numPayTypeID " & _
-                      "and " & connNameSpace & ".FS_Transactions.Active = '1' " & _
-                      "and " & connNameSpace & ".FS_FeeAuditedData.Active = '1' " & _
-                      "and " & connNameSpace & ".FS_FeeInvoice.Active = '1' " & _
+                      "and " & DBNameSpace & ".FS_Transactions.Active = '1' " & _
+                      "and " & DBNameSpace & ".FS_FeeAuditedData.Active = '1' " & _
+                      "and " & DBNameSpace & ".FS_FeeInvoice.Active = '1' " & _
                       "and AIRBranch.FS_Transactions.numFeeYear = '" & cboStatYear.Text & "' "
                 Case "ANNUAL"
                     SQL = "select " & _
@@ -719,9 +719,9 @@ Public Class DEVFeeStatistics
                        "and airbranch.FS_Transactions.numFeeyear = Airbranch.FS_FeeAuditedData.numFeeYear (+) " & _
                         "and AIRBranch.FS_Transactions.invoiceid = AIRBranch.FS_FeeInvoice.invoiceid  (+) " & _
                       "and airbranch.FS_FeeInvoice.strPayType = AIRbranch.FSLK_PayType.numPayTypeID " & _
-                      "and " & connNameSpace & ".FS_Transactions.Active = '1' " & _
-                      "and " & connNameSpace & ".FS_FeeAuditedData.Active = '1' " & _
-                      "and " & connNameSpace & ".FS_FeeInvoice.Active = '1' " & _
+                      "and " & DBNameSpace & ".FS_Transactions.Active = '1' " & _
+                      "and " & DBNameSpace & ".FS_FeeAuditedData.Active = '1' " & _
+                      "and " & DBNameSpace & ".FS_FeeInvoice.Active = '1' " & _
                        "and AIRBranch.FS_Transactions.numFeeYear = '" & cboStatYear.Text & "' " & _
                        "and strPaymentPlan = 'Entire Annual Year' "
                 Case "QUARTER ONE"
@@ -741,9 +741,9 @@ Public Class DEVFeeStatistics
                 "and airbranch.FS_Transactions.numFeeyear = Airbranch.FS_FeeAuditedData.numFeeYear (+) " & _
                  "and AIRBranch.FS_Transactions.invoiceid = AIRBranch.FS_FeeInvoice.invoiceid  (+) " & _
                   "and airbranch.FS_FeeInvoice.strPayType = AIRbranch.FSLK_PayType.numPayTypeID " & _
-                  "and " & connNameSpace & ".FS_Transactions.Active = '1' " & _
-                      "and " & connNameSpace & ".FS_FeeAuditedData.Active = '1' " & _
-                      "and " & connNameSpace & ".FS_FeeInvoice.Active = '1' " & _
+                  "and " & DBNameSpace & ".FS_Transactions.Active = '1' " & _
+                      "and " & DBNameSpace & ".FS_FeeAuditedData.Active = '1' " & _
+                      "and " & DBNameSpace & ".FS_FeeInvoice.Active = '1' " & _
                 "and AIRBranch.FS_Transactions.numFeeYear = '" & cboStatYear.Text & "' " & _
                 "and numPayTypeID = '2' "
                 Case "QUARTER TWO"
@@ -763,9 +763,9 @@ Public Class DEVFeeStatistics
                    "and airbranch.FS_Transactions.numFeeyear = Airbranch.FS_FeeAuditedData.numFeeYear (+) " & _
                     "and AIRBranch.FS_Transactions.invoiceid = AIRBranch.FS_FeeInvoice.invoiceid  (+) " & _
                    "and airbranch.FS_FeeInvoice.strPayType = AIRbranch.FSLK_PayType.numPayTypeID " & _
-                   "and " & connNameSpace & ".FS_Transactions.Active = '1' " & _
-                      "and " & connNameSpace & ".FS_FeeAuditedData.Active = '1' " & _
-                      "and " & connNameSpace & ".FS_FeeInvoice.Active = '1' " & _
+                   "and " & DBNameSpace & ".FS_Transactions.Active = '1' " & _
+                      "and " & DBNameSpace & ".FS_FeeAuditedData.Active = '1' " & _
+                      "and " & DBNameSpace & ".FS_FeeInvoice.Active = '1' " & _
                    "and AIRBranch.FS_Transactions.numFeeYear = '" & cboStatYear.Text & "' " & _
                    "and numPayTypeID = '3' "
                 Case "QUARTER THREE"
@@ -785,9 +785,9 @@ Public Class DEVFeeStatistics
            "and airbranch.FS_Transactions.numFeeyear = Airbranch.FS_FeeAuditedData.numFeeYear (+) " & _
             "and AIRBranch.FS_Transactions.invoiceid = AIRBranch.FS_FeeInvoice.invoiceid  (+) " & _
              "and airbranch.FS_FeeInvoice.strPayType = AIRbranch.FSLK_PayType.numPayTypeID " & _
-             "and " & connNameSpace & ".FS_Transactions.Active = '1' " & _
-                      "and " & connNameSpace & ".FS_FeeAuditedData.Active = '1' " & _
-                      "and " & connNameSpace & ".FS_FeeInvoice.Active = '1' " & _
+             "and " & DBNameSpace & ".FS_Transactions.Active = '1' " & _
+                      "and " & DBNameSpace & ".FS_FeeAuditedData.Active = '1' " & _
+                      "and " & DBNameSpace & ".FS_FeeInvoice.Active = '1' " & _
            "and AIRBranch.FS_Transactions.numFeeYear = '" & cboStatYear.Text & "' " & _
            "and numPayTypeID = '4' "
                 Case "QUARTER FOUR"
@@ -807,9 +807,9 @@ Public Class DEVFeeStatistics
            "and airbranch.FS_Transactions.numFeeyear = Airbranch.FS_FeeAuditedData.numFeeYear (+) " & _
             "and AIRBranch.FS_Transactions.invoiceid = AIRBranch.FS_FeeInvoice.invoiceid  (+) " & _
              "and airbranch.FS_FeeInvoice.strPayType = AIRbranch.FSLK_PayType.numPayTypeID " & _
-             "and " & connNameSpace & ".FS_Transactions.Active = '1' " & _
-                      "and " & connNameSpace & ".FS_FeeAuditedData.Active = '1' " & _
-                      "and " & connNameSpace & ".FS_FeeInvoice.Active = '1' " & _
+             "and " & DBNameSpace & ".FS_Transactions.Active = '1' " & _
+                      "and " & DBNameSpace & ".FS_FeeAuditedData.Active = '1' " & _
+                      "and " & DBNameSpace & ".FS_FeeInvoice.Active = '1' " & _
            "and AIRBranch.FS_Transactions.numFeeYear = '" & cboStatYear.Text & "' " & _
            "and numPayTypeID = '5' "
 
@@ -830,9 +830,9 @@ Public Class DEVFeeStatistics
                     "and airbranch.FS_Transactions.numFeeyear = Airbranch.FS_FeeAuditedData.numFeeYear (+) " & _
                      "and AIRBranch.FS_Transactions.invoiceid = AIRBranch.FS_FeeInvoice.invoiceid  (+) " & _
                       "and airbranch.FS_FeeInvoice.strPayType = AIRbranch.FSLK_PayType.numPayTypeID " & _
-                      "and " & connNameSpace & ".FS_Transactions.Active = '1' " & _
-                      "and " & connNameSpace & ".FS_FeeAuditedData.Active = '1' " & _
-                      "and " & connNameSpace & ".FS_FeeInvoice.Active = '1' " & _
+                      "and " & DBNameSpace & ".FS_Transactions.Active = '1' " & _
+                      "and " & DBNameSpace & ".FS_FeeAuditedData.Active = '1' " & _
+                      "and " & DBNameSpace & ".FS_FeeInvoice.Active = '1' " & _
                     "and AIRBranch.FS_Transactions.numFeeYear = '" & cboStatYear.Text & "' " & _
                     "and strPaymentPlan = 'Four Quarterly Payments' "
                 Case "AMENDMENT"
@@ -852,9 +852,9 @@ Public Class DEVFeeStatistics
                      "and airbranch.FS_Transactions.numFeeyear = Airbranch.FS_FeeAuditedData.numFeeYear (+) " & _
                       "and AIRBranch.FS_Transactions.invoiceid = AIRBranch.FS_FeeInvoice.invoiceid  (+) " & _
                        "and airbranch.FS_FeeInvoice.strPayType = AIRbranch.FSLK_PayType.numPayTypeID " & _
-                       "and " & connNameSpace & ".FS_Transactions.Active = '1' " & _
-                      "and " & connNameSpace & ".FS_FeeAuditedData.Active = '1' " & _
-                      "and " & connNameSpace & ".FS_FeeInvoice.Active = '1' " & _
+                       "and " & DBNameSpace & ".FS_Transactions.Active = '1' " & _
+                      "and " & DBNameSpace & ".FS_FeeAuditedData.Active = '1' " & _
+                      "and " & DBNameSpace & ".FS_FeeInvoice.Active = '1' " & _
                      "and AIRBranch.FS_Transactions.numFeeYear = '" & cboStatYear.Text & "' " & _
                      "and numPayTypeID = '6' "
 
@@ -876,9 +876,9 @@ Public Class DEVFeeStatistics
                    "and airbranch.FS_Transactions.numFeeyear = Airbranch.FS_FeeAuditedData.numFeeYear (+) " & _
                     "and AIRBranch.FS_Transactions.invoiceid = AIRBranch.FS_FeeInvoice.invoiceid  (+) " & _
                      "and airbranch.FS_FeeInvoice.strPayType = AIRbranch.FSLK_PayType.numPayTypeID " & _
-                     "and " & connNameSpace & ".FS_Transactions.Active = '1' " & _
-                      "and " & connNameSpace & ".FS_FeeAuditedData.Active = '1' " & _
-                      "and " & connNameSpace & ".FS_FeeInvoice.Active = '1' " & _
+                     "and " & DBNameSpace & ".FS_Transactions.Active = '1' " & _
+                      "and " & DBNameSpace & ".FS_FeeAuditedData.Active = '1' " & _
+                      "and " & DBNameSpace & ".FS_FeeInvoice.Active = '1' " & _
                    "and AIRBranch.FS_Transactions.numFeeYear = '" & cboStatYear.Text & "' " & _
                    "and numPayTypeID = '8' "
 
@@ -899,9 +899,9 @@ Public Class DEVFeeStatistics
                    "and airbranch.FS_Transactions.numFeeyear = Airbranch.FS_FeeAuditedData.numFeeYear (+) " & _
                     "and AIRBranch.FS_Transactions.invoiceid = AIRBranch.FS_FeeInvoice.invoiceid  (+) " & _
                      "and airbranch.FS_FeeInvoice.strPayType = AIRbranch.FSLK_PayType.numPayTypeID " & _
-                     "and " & connNameSpace & ".FS_Transactions.Active = '1' " & _
-                      "and " & connNameSpace & ".FS_FeeAuditedData.Active = '1' " & _
-                      "and " & connNameSpace & ".FS_FeeInvoice.Active = '1' " & _
+                     "and " & DBNameSpace & ".FS_Transactions.Active = '1' " & _
+                      "and " & DBNameSpace & ".FS_FeeAuditedData.Active = '1' " & _
+                      "and " & DBNameSpace & ".FS_FeeInvoice.Active = '1' " & _
                    "and AIRBranch.FS_Transactions.numFeeYear = '" & cboStatYear.Text & "' " & _
                    "and numPayTypeID = '7' "
 
@@ -922,16 +922,16 @@ Public Class DEVFeeStatistics
                      "and airbranch.FS_Transactions.numFeeyear = Airbranch.FS_FeeAuditedData.numFeeYear (+) " & _
                       "and AIRBranch.FS_Transactions.invoiceid = AIRBranch.FS_FeeInvoice.invoiceid  (+) " & _
                        "and airbranch.FS_FeeInvoice.strPayType = AIRbranch.FSLK_PayType.numPayTypeID " & _
-                       "and " & connNameSpace & ".FS_Transactions.Active = '1' " & _
-                      "and " & connNameSpace & ".FS_FeeAuditedData.Active = '1' " & _
-                      "and " & connNameSpace & ".FS_FeeInvoice.Active = '1' " & _
+                       "and " & DBNameSpace & ".FS_Transactions.Active = '1' " & _
+                      "and " & DBNameSpace & ".FS_FeeAuditedData.Active = '1' " & _
+                      "and " & DBNameSpace & ".FS_FeeInvoice.Active = '1' " & _
                      "and AIRBranch.FS_Transactions.numFeeYear = '" & cboStatYear.Text & "' "
             End Select
 
             ds = New DataSet
-            da = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            da = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             da.Fill(ds, "PaymentDue")
@@ -1004,7 +1004,7 @@ Public Class DEVFeeStatistics
                 Case "ALL"
                     SQL = "select * from " & _
                     "(select " & _
-                    "SUBSTR(" & connNameSpace & ".APBFACILITYINFORMATION.STRAIRSNUMBER, 5) as AIRSNUMBER, " & _
+                    "SUBSTR(" & DBNameSpace & ".APBFACILITYINFORMATION.STRAIRSNUMBER, 5) as AIRSNUMBER, " & _
                     "STRFACILITYNAME, " & _
                     "TOTALDUE.INTYEAR, strPaymentPlan, " & _
                     "case " & _
@@ -1022,7 +1022,7 @@ Public Class DEVFeeStatistics
                     "else (TOTALDUE - TOTALPAID) " & _
                     "end Balance " & _
                     "from (select STRAIRSNUMBER, numfeeyear as  intyear, NUMTOTALFEE, NUMADMINFEE, (NUMTOTALFEE) as TOTALDUE " & _
-                    "from  " & connNameSpace & ".fs_feeAuditedData where active = '1') TOTALDUE,  " & _
+                    "from  " & DBNameSpace & ".fs_feeAuditedData where active = '1') TOTALDUE,  " & _
                     "( " & _
                     "  SELECT  " & _
                     " STRAIRSNUMBER, INTYEAR, " & _
@@ -1032,35 +1032,35 @@ Public Class DEVFeeStatistics
                     " END TOTALPAID " & _
                     " FROM " & _
                     " ( " & _
-                    " select " & connNameSpace & ".fs_Transactions.STRAIRSNUMBER, " & connNameSpace & ".fs_Transactions.numfeeyear as INTYEAR, sum(NUMPAYMENT) as TotalPaid      " & _
-                    " from " & connNameSpace & ".fs_Transactions, " & connNameSpace & ".fs_feeAuditedData   " & _
-                    " where " & connNameSpace & ".fs_Transactions.STRAIRSNUMBER = " & connNameSpace & ".fs_feeAuditedData.STRAIRSNUMBER (+) " & _
-                    " and " & connNameSpace & ".fs_Transactions.numfeeyear = " & connNameSpace & ".fs_feeAuditedData.numfeeyear   (+) " & _
-                    " and " & connNameSpace & ".fs_Transactions.active = '1' and " & connNameSpace & ".fs_feeAuditeddata.active = '1' " & _
-                    " group by " & connNameSpace & ".fs_Transactions.STRAIRSNUMBER, " & connNameSpace & ".fs_Transactions.numfeeyear" & _
+                    " select " & DBNameSpace & ".fs_Transactions.STRAIRSNUMBER, " & DBNameSpace & ".fs_Transactions.numfeeyear as INTYEAR, sum(NUMPAYMENT) as TotalPaid      " & _
+                    " from " & DBNameSpace & ".fs_Transactions, " & DBNameSpace & ".fs_feeAuditedData   " & _
+                    " where " & DBNameSpace & ".fs_Transactions.STRAIRSNUMBER = " & DBNameSpace & ".fs_feeAuditedData.STRAIRSNUMBER (+) " & _
+                    " and " & DBNameSpace & ".fs_Transactions.numfeeyear = " & DBNameSpace & ".fs_feeAuditedData.numfeeyear   (+) " & _
+                    " and " & DBNameSpace & ".fs_Transactions.active = '1' and " & DBNameSpace & ".fs_feeAuditeddata.active = '1' " & _
+                    " group by " & DBNameSpace & ".fs_Transactions.STRAIRSNUMBER, " & DBNameSpace & ".fs_Transactions.numfeeyear" & _
                     " UNION " & _
-                    "  select " & connNameSpace & ".fs_feeAuditedData.STRAIRSNUMBER, " & connNameSpace & ".fs_feeAuditedData.numfeeyear as INTYEAR, sum(NUMPAYMENT) as TotalPaid      " & _
-                    " from " & connNameSpace & ".fs_Transactions, " & connNameSpace & ".fs_feeAuditedData   " & _
-                    " where " & connNameSpace & ".fs_feeAuditedData.STRAIRSNUMBER = " & connNameSpace & ".fs_Transactions.STRAIRSNUMBER (+) " & _
-                    " and " & connNameSpace & ".fs_feeAuditedData.numfeeyear = " & connNameSpace & ".fs_Transactions.numfeeyear   (+) " & _
-                    " and " & connNameSpace & ".fs_Transactions.active = '1' and " & connNameSpace & ".fs_feeAuditeddata.active = '1' " & _
-                    " group by " & connNameSpace & ".fs_feeAuditedData.STRAIRSNUMBER, " & connNameSpace & ".fs_feeAuditedData.numfeeyear" & _
+                    "  select " & DBNameSpace & ".fs_feeAuditedData.STRAIRSNUMBER, " & DBNameSpace & ".fs_feeAuditedData.numfeeyear as INTYEAR, sum(NUMPAYMENT) as TotalPaid      " & _
+                    " from " & DBNameSpace & ".fs_Transactions, " & DBNameSpace & ".fs_feeAuditedData   " & _
+                    " where " & DBNameSpace & ".fs_feeAuditedData.STRAIRSNUMBER = " & DBNameSpace & ".fs_Transactions.STRAIRSNUMBER (+) " & _
+                    " and " & DBNameSpace & ".fs_feeAuditedData.numfeeyear = " & DBNameSpace & ".fs_Transactions.numfeeyear   (+) " & _
+                    " and " & DBNameSpace & ".fs_Transactions.active = '1' and " & DBNameSpace & ".fs_feeAuditeddata.active = '1' " & _
+                    " group by " & DBNameSpace & ".fs_feeAuditedData.STRAIRSNUMBER, " & DBNameSpace & ".fs_feeAuditedData.numfeeyear" & _
                     "  )) TOTALPAID, " & _
-                    " " & connNameSpace & ".APBFACILITYINFORMATION, " & _
-                    "" & connNameSpace & ".fs_feeAuditedData   " & _
-                    "where (" & connNameSpace & ".APBFACILITYINFORMATION.STRAIRSNUMBER = TOTALDUE.STRAIRSNUMBER  " & _
-                    "or " & connNameSpace & ".APBFACILITYINFORMATION.STRAIRSNUMBER = TOTALPAID.STRAIRSNUMBER   ) " & _
-                    "and " & connNameSpace & ".APBFACILITYINFORMATION.strAIRSNumber = " & connNameSpace & ".fs_feeAuditedData.strAIRSNumber " & _
+                    " " & DBNameSpace & ".APBFACILITYINFORMATION, " & _
+                    "" & DBNameSpace & ".fs_feeAuditedData   " & _
+                    "where (" & DBNameSpace & ".APBFACILITYINFORMATION.STRAIRSNUMBER = TOTALDUE.STRAIRSNUMBER  " & _
+                    "or " & DBNameSpace & ".APBFACILITYINFORMATION.STRAIRSNUMBER = TOTALPAID.STRAIRSNUMBER   ) " & _
+                    "and " & DBNameSpace & ".APBFACILITYINFORMATION.strAIRSNumber = " & DBNameSpace & ".fs_feeAuditedData.strAIRSNumber " & _
                     "and TOTALDUE.STRAIRSNUMBER = TOTALPAID.STRAIRSNUMBER (+) " & _
                     "and TOTALDUE.INTYEAR = TOTALPAID.INTYEAR (+) " & _
                     "and TOTALDUE.INTYEAR = '" & cboStatYear.Text & "' " & _
-                    "and " & connNameSpace & ".fs_feeAuditedData.numFeeYear = '" & cboStatYear.Text & "') "
+                    "and " & DBNameSpace & ".fs_feeAuditedData.numFeeYear = '" & cboStatYear.Text & "') "
 
 
                 Case "ANNUAL"
                     SQL = "select * from " & _
                    "(select " & _
-                   "SUBSTR(" & connNameSpace & ".APBFACILITYINFORMATION.STRAIRSNUMBER, 5) as AIRSNUMBER, " & _
+                   "SUBSTR(" & DBNameSpace & ".APBFACILITYINFORMATION.STRAIRSNUMBER, 5) as AIRSNUMBER, " & _
                    "STRFACILITYNAME, " & _
                    "TOTALDUE.INTYEAR, strPaymentPlan, " & _
                    "case " & _
@@ -1078,7 +1078,7 @@ Public Class DEVFeeStatistics
                    "else (TOTALDUE - TOTALPAID) " & _
                    "end Balance " & _
                    "from (select STRAIRSNUMBER, numfeeyear as  intyear, NUMTOTALFEE, NUMADMINFEE, (NUMTOTALFEE) as TOTALDUE " & _
-                   "from  " & connNameSpace & ".fs_feeAuditedData where active = '1') TOTALDUE,  " & _
+                   "from  " & DBNameSpace & ".fs_feeAuditedData where active = '1') TOTALDUE,  " & _
                    "( " & _
                    "  SELECT  " & _
                    " STRAIRSNUMBER, INTYEAR, " & _
@@ -1088,34 +1088,34 @@ Public Class DEVFeeStatistics
                    " END TOTALPAID " & _
                    " FROM " & _
                    " ( " & _
-                   " select " & connNameSpace & ".fs_Transactions.STRAIRSNUMBER, " & connNameSpace & ".fs_Transactions.numfeeyear as INTYEAR, sum(NUMPAYMENT) as TotalPaid      " & _
-                   " from " & connNameSpace & ".fs_Transactions, " & connNameSpace & ".fs_feeAuditedData   " & _
-                   " where " & connNameSpace & ".fs_Transactions.STRAIRSNUMBER = " & connNameSpace & ".fs_feeAuditedData.STRAIRSNUMBER (+) " & _
-                   " and " & connNameSpace & ".fs_Transactions.numfeeyear = " & connNameSpace & ".fs_feeAuditedData.numfeeyear   (+) " & _
-                   " and " & connNameSpace & ".fs_Transactions.active = '1' and " & connNameSpace & ".fs_feeAuditeddata.active = '1' " & _
-                   " group by " & connNameSpace & ".fs_Transactions.STRAIRSNUMBER, " & connNameSpace & ".fs_Transactions.numfeeyear" & _
+                   " select " & DBNameSpace & ".fs_Transactions.STRAIRSNUMBER, " & DBNameSpace & ".fs_Transactions.numfeeyear as INTYEAR, sum(NUMPAYMENT) as TotalPaid      " & _
+                   " from " & DBNameSpace & ".fs_Transactions, " & DBNameSpace & ".fs_feeAuditedData   " & _
+                   " where " & DBNameSpace & ".fs_Transactions.STRAIRSNUMBER = " & DBNameSpace & ".fs_feeAuditedData.STRAIRSNUMBER (+) " & _
+                   " and " & DBNameSpace & ".fs_Transactions.numfeeyear = " & DBNameSpace & ".fs_feeAuditedData.numfeeyear   (+) " & _
+                   " and " & DBNameSpace & ".fs_Transactions.active = '1' and " & DBNameSpace & ".fs_feeAuditeddata.active = '1' " & _
+                   " group by " & DBNameSpace & ".fs_Transactions.STRAIRSNUMBER, " & DBNameSpace & ".fs_Transactions.numfeeyear" & _
                    " UNION " & _
-                   "  select " & connNameSpace & ".fs_feeAuditedData.STRAIRSNUMBER, " & connNameSpace & ".fs_feeAuditedData.numfeeyear as INTYEAR, sum(NUMPAYMENT) as TotalPaid      " & _
-                   " from " & connNameSpace & ".fs_Transactions, " & connNameSpace & ".fs_feeAuditedData   " & _
-                   " where " & connNameSpace & ".fs_feeAuditedData.STRAIRSNUMBER = " & connNameSpace & ".fs_Transactions.STRAIRSNUMBER (+) " & _
-                   " and " & connNameSpace & ".fs_feeAuditedData.numfeeyear = " & connNameSpace & ".fs_Transactions.numfeeyear   (+) " & _
-                   " and " & connNameSpace & ".fs_Transactions.active = '1' and " & connNameSpace & ".fs_feeAuditeddata.active = '1' " & _
-                   " group by " & connNameSpace & ".fs_feeAuditedData.STRAIRSNUMBER, " & connNameSpace & ".fs_feeAuditedData.numfeeyear" & _
+                   "  select " & DBNameSpace & ".fs_feeAuditedData.STRAIRSNUMBER, " & DBNameSpace & ".fs_feeAuditedData.numfeeyear as INTYEAR, sum(NUMPAYMENT) as TotalPaid      " & _
+                   " from " & DBNameSpace & ".fs_Transactions, " & DBNameSpace & ".fs_feeAuditedData   " & _
+                   " where " & DBNameSpace & ".fs_feeAuditedData.STRAIRSNUMBER = " & DBNameSpace & ".fs_Transactions.STRAIRSNUMBER (+) " & _
+                   " and " & DBNameSpace & ".fs_feeAuditedData.numfeeyear = " & DBNameSpace & ".fs_Transactions.numfeeyear   (+) " & _
+                   " and " & DBNameSpace & ".fs_Transactions.active = '1' and " & DBNameSpace & ".fs_feeAuditeddata.active = '1' " & _
+                   " group by " & DBNameSpace & ".fs_feeAuditedData.STRAIRSNUMBER, " & DBNameSpace & ".fs_feeAuditedData.numfeeyear" & _
                    "  )) TOTALPAID, " & _
-                   " " & connNameSpace & ".APBFACILITYINFORMATION, " & _
-                   "" & connNameSpace & ".fs_feeAuditedData   " & _
-                   "where (" & connNameSpace & ".APBFACILITYINFORMATION.STRAIRSNUMBER = TOTALDUE.STRAIRSNUMBER  " & _
-                   "or " & connNameSpace & ".APBFACILITYINFORMATION.STRAIRSNUMBER = TOTALPAID.STRAIRSNUMBER   ) " & _
-                   "and " & connNameSpace & ".APBFACILITYINFORMATION.strAIRSNumber = " & connNameSpace & ".fs_feeAuditedData.strAIRSNumber " & _
+                   " " & DBNameSpace & ".APBFACILITYINFORMATION, " & _
+                   "" & DBNameSpace & ".fs_feeAuditedData   " & _
+                   "where (" & DBNameSpace & ".APBFACILITYINFORMATION.STRAIRSNUMBER = TOTALDUE.STRAIRSNUMBER  " & _
+                   "or " & DBNameSpace & ".APBFACILITYINFORMATION.STRAIRSNUMBER = TOTALPAID.STRAIRSNUMBER   ) " & _
+                   "and " & DBNameSpace & ".APBFACILITYINFORMATION.strAIRSNumber = " & DBNameSpace & ".fs_feeAuditedData.strAIRSNumber " & _
                    "and TOTALDUE.STRAIRSNUMBER = TOTALPAID.STRAIRSNUMBER (+) " & _
                    "and TOTALDUE.INTYEAR = TOTALPAID.INTYEAR (+) " & _
                    "and TOTALDUE.INTYEAR = '" & cboStatYear.Text & "' " & _
-                   "and " & connNameSpace & ".fs_feeAuditedData.numFeeYear = '" & cboStatYear.Text & "' " & _
+                   "and " & DBNameSpace & ".fs_feeAuditedData.numFeeYear = '" & cboStatYear.Text & "' " & _
                    "and strPaymentPlan = 'Entire Annual Year' )"
                 Case "ALL QUARTERS"
                     SQL = "select * from " & _
                      "(select " & _
-                     "SUBSTR(" & connNameSpace & ".APBFACILITYINFORMATION.STRAIRSNUMBER, 5) as AIRSNUMBER, " & _
+                     "SUBSTR(" & DBNameSpace & ".APBFACILITYINFORMATION.STRAIRSNUMBER, 5) as AIRSNUMBER, " & _
                      "STRFACILITYNAME, " & _
                      "TOTALDUE.INTYEAR, strPaymentPlan, " & _
                      "case " & _
@@ -1133,7 +1133,7 @@ Public Class DEVFeeStatistics
                      "else (TOTALDUE - TOTALPAID) " & _
                      "end Balance " & _
                    "from (select STRAIRSNUMBER, numfeeyear as  intyear, NUMTOTALFEE, NUMADMINFEE, (NUMTOTALFEE) as TOTALDUE " & _
-                   "from  " & connNameSpace & ".fs_feeAuditedData where active = '1') TOTALDUE,  " & _
+                   "from  " & DBNameSpace & ".fs_feeAuditedData where active = '1') TOTALDUE,  " & _
                      "( " & _
  "  SELECT  " & _
  " STRAIRSNUMBER, INTYEAR, " & _
@@ -1143,35 +1143,35 @@ Public Class DEVFeeStatistics
  " END TOTALPAID " & _
  " FROM " & _
  " ( " & _
- " select " & connNameSpace & ".fs_Transactions.STRAIRSNUMBER, " & connNameSpace & ".fs_Transactions.numfeeyear as INTYEAR, sum(NUMPAYMENT) as TotalPaid      " & _
- " from " & connNameSpace & ".fs_Transactions, " & connNameSpace & ".fs_feeAuditedData   " & _
- " where " & connNameSpace & ".fs_Transactions.STRAIRSNUMBER = " & connNameSpace & ".fs_feeAuditedData.STRAIRSNUMBER (+) " & _
- " and " & connNameSpace & ".fs_Transactions.numfeeyear = " & connNameSpace & ".fs_feeAuditedData.numfeeyear   (+) " & _
- " and " & connNameSpace & ".fs_Transactions.active = '1' and " & connNameSpace & ".fs_feeAuditeddata.active = '1' " & _
- " group by " & connNameSpace & ".fs_Transactions.STRAIRSNUMBER, " & connNameSpace & ".fs_Transactions.numfeeyear" & _
+ " select " & DBNameSpace & ".fs_Transactions.STRAIRSNUMBER, " & DBNameSpace & ".fs_Transactions.numfeeyear as INTYEAR, sum(NUMPAYMENT) as TotalPaid      " & _
+ " from " & DBNameSpace & ".fs_Transactions, " & DBNameSpace & ".fs_feeAuditedData   " & _
+ " where " & DBNameSpace & ".fs_Transactions.STRAIRSNUMBER = " & DBNameSpace & ".fs_feeAuditedData.STRAIRSNUMBER (+) " & _
+ " and " & DBNameSpace & ".fs_Transactions.numfeeyear = " & DBNameSpace & ".fs_feeAuditedData.numfeeyear   (+) " & _
+ " and " & DBNameSpace & ".fs_Transactions.active = '1' and " & DBNameSpace & ".fs_feeAuditeddata.active = '1' " & _
+ " group by " & DBNameSpace & ".fs_Transactions.STRAIRSNUMBER, " & DBNameSpace & ".fs_Transactions.numfeeyear" & _
  " UNION " & _
- "  select " & connNameSpace & ".fs_feeAuditedData.STRAIRSNUMBER, " & connNameSpace & ".fs_feeAuditedData.numfeeyear as INTYEAR, sum(NUMPAYMENT) as TotalPaid      " & _
- " from " & connNameSpace & ".fs_Transactions, " & connNameSpace & ".fs_feeAuditedData   " & _
- " where " & connNameSpace & ".fs_feeAuditedData.STRAIRSNUMBER = " & connNameSpace & ".fs_Transactions.STRAIRSNUMBER (+) " & _
- " and " & connNameSpace & ".fs_feeAuditedData.numfeeyear = " & connNameSpace & ".fs_Transactions.numfeeyear   (+) " & _
- " and " & connNameSpace & ".fs_Transactions.active = '1' and " & connNameSpace & ".fs_feeAuditeddata.active = '1' " & _
- " group by " & connNameSpace & ".fs_feeAuditedData.STRAIRSNUMBER, " & connNameSpace & ".fs_feeAuditedData.numfeeyear" & _
+ "  select " & DBNameSpace & ".fs_feeAuditedData.STRAIRSNUMBER, " & DBNameSpace & ".fs_feeAuditedData.numfeeyear as INTYEAR, sum(NUMPAYMENT) as TotalPaid      " & _
+ " from " & DBNameSpace & ".fs_Transactions, " & DBNameSpace & ".fs_feeAuditedData   " & _
+ " where " & DBNameSpace & ".fs_feeAuditedData.STRAIRSNUMBER = " & DBNameSpace & ".fs_Transactions.STRAIRSNUMBER (+) " & _
+ " and " & DBNameSpace & ".fs_feeAuditedData.numfeeyear = " & DBNameSpace & ".fs_Transactions.numfeeyear   (+) " & _
+ " and " & DBNameSpace & ".fs_Transactions.active = '1' and " & DBNameSpace & ".fs_feeAuditeddata.active = '1' " & _
+ " group by " & DBNameSpace & ".fs_feeAuditedData.STRAIRSNUMBER, " & DBNameSpace & ".fs_feeAuditedData.numfeeyear" & _
  "  )) TOTALPAID, " & _
- " " & connNameSpace & ".APBFACILITYINFORMATION, " & _
-                   "" & connNameSpace & ".fs_feeAuditedData   " & _
-                   "where (" & connNameSpace & ".APBFACILITYINFORMATION.STRAIRSNUMBER = TOTALDUE.STRAIRSNUMBER  " & _
-                   "or " & connNameSpace & ".APBFACILITYINFORMATION.STRAIRSNUMBER = TOTALPAID.STRAIRSNUMBER   ) " & _
-                   "and " & connNameSpace & ".APBFACILITYINFORMATION.strAIRSNumber = " & connNameSpace & ".fs_feeAuditedData.strAIRSNumber " & _
+ " " & DBNameSpace & ".APBFACILITYINFORMATION, " & _
+                   "" & DBNameSpace & ".fs_feeAuditedData   " & _
+                   "where (" & DBNameSpace & ".APBFACILITYINFORMATION.STRAIRSNUMBER = TOTALDUE.STRAIRSNUMBER  " & _
+                   "or " & DBNameSpace & ".APBFACILITYINFORMATION.STRAIRSNUMBER = TOTALPAID.STRAIRSNUMBER   ) " & _
+                   "and " & DBNameSpace & ".APBFACILITYINFORMATION.strAIRSNumber = " & DBNameSpace & ".fs_feeAuditedData.strAIRSNumber " & _
                    "and TOTALDUE.STRAIRSNUMBER = TOTALPAID.STRAIRSNUMBER (+) " & _
                    "and TOTALDUE.INTYEAR = TOTALPAID.INTYEAR (+) " & _
                    "and TOTALDUE.INTYEAR = '" & cboStatYear.Text & "' " & _
-                   "and " & connNameSpace & ".fs_feeAuditedData.numFeeYear = '" & cboStatYear.Text & "' " & _
+                   "and " & DBNameSpace & ".fs_feeAuditedData.numFeeYear = '" & cboStatYear.Text & "' " & _
                    "and strPaymentPlan = 'Four Quarterly Payments') "
 
                 Case "QUARTER ONE"
                     SQL = "select * from " & _
                     "(select " & _
-                    "SUBSTR(" & connNameSpace & ".APBFACILITYINFORMATION.STRAIRSNUMBER, 5) as AIRSNUMBER, " & _
+                    "SUBSTR(" & DBNameSpace & ".APBFACILITYINFORMATION.STRAIRSNUMBER, 5) as AIRSNUMBER, " & _
                     "STRFACILITYNAME, " & _
                     "TOTALDUE.INTYEAR, strPaymentPlan, " & _
                     "case " & _
@@ -1200,25 +1200,25 @@ Public Class DEVFeeStatistics
 " END TOTALPAID " & _
 " FROM " & _
 " ( " & _
-" select " & connNameSpace & ".fs_Transactions.STRAIRSNUMBER, " & connNameSpace & ".fs_Transactions.numfeeyear as INTYEAR, sum(NUMPAYMENT) as TotalPaid      " & _
-" from " & connNameSpace & ".fs_Transactions, " & connNameSpace & ".fs_feeAuditedData, " & connNameSpace & ".fs_feeinvoice " & _
-" where " & connNameSpace & ".fs_Transactions.STRAIRSNUMBER = " & connNameSpace & ".fs_feeAuditedData.STRAIRSNUMBER (+) " & _
-" and " & connNameSpace & ".fs_Transactions.numfeeyear = " & connNameSpace & ".fs_feeAuditedData.numfeeyear   (+) " & _
-"and " & connNameSpace & ".Fs_transactions.invoiceid = " & connNameSpace & ".fs_feeinvoice.invoiceid (+) " & _
+" select " & DBNameSpace & ".fs_Transactions.STRAIRSNUMBER, " & DBNameSpace & ".fs_Transactions.numfeeyear as INTYEAR, sum(NUMPAYMENT) as TotalPaid      " & _
+" from " & DBNameSpace & ".fs_Transactions, " & DBNameSpace & ".fs_feeAuditedData, " & DBNameSpace & ".fs_feeinvoice " & _
+" where " & DBNameSpace & ".fs_Transactions.STRAIRSNUMBER = " & DBNameSpace & ".fs_feeAuditedData.STRAIRSNUMBER (+) " & _
+" and " & DBNameSpace & ".fs_Transactions.numfeeyear = " & DBNameSpace & ".fs_feeAuditedData.numfeeyear   (+) " & _
+"and " & DBNameSpace & ".Fs_transactions.invoiceid = " & DBNameSpace & ".fs_feeinvoice.invoiceid (+) " & _
 "and strPayType = '2' " & _
-" and " & connNameSpace & ".fs_Transactions.active = '1' and " & connNameSpace & ".fs_feeAuditeddata.active = '1' " & _
-" group by " & connNameSpace & ".fs_Transactions.STRAIRSNUMBER, " & connNameSpace & ".fs_Transactions.numfeeyear" & _
+" and " & DBNameSpace & ".fs_Transactions.active = '1' and " & DBNameSpace & ".fs_feeAuditeddata.active = '1' " & _
+" group by " & DBNameSpace & ".fs_Transactions.STRAIRSNUMBER, " & DBNameSpace & ".fs_Transactions.numfeeyear" & _
 " UNION " & _
-"  select " & connNameSpace & ".fs_feeAuditedData.STRAIRSNUMBER, " & connNameSpace & ".fs_feeAuditedData.numfeeyear as INTYEAR, sum(NUMPAYMENT) as TotalPaid      " & _
-" from " & connNameSpace & ".fs_Transactions, " & connNameSpace & ".fs_feeAuditedData, " & connNameSpace & ".fs_feeinvoice    " & _
-" where " & connNameSpace & ".fs_feeAuditedData.STRAIRSNUMBER = " & connNameSpace & ".fs_Transactions.STRAIRSNUMBER (+) " & _
-" and " & connNameSpace & ".fs_feeAuditedData.numfeeyear = " & connNameSpace & ".fs_Transactions.numfeeyear   (+) " & _
-"and " & connNameSpace & ".Fs_transactions.invoiceid = " & connNameSpace & ".fs_feeinvoice.invoiceid (+) " & _
-" and " & connNameSpace & ".fs_Transactions.active = '1' and " & connNameSpace & ".fs_feeAuditeddata.active = '1' " & _
+"  select " & DBNameSpace & ".fs_feeAuditedData.STRAIRSNUMBER, " & DBNameSpace & ".fs_feeAuditedData.numfeeyear as INTYEAR, sum(NUMPAYMENT) as TotalPaid      " & _
+" from " & DBNameSpace & ".fs_Transactions, " & DBNameSpace & ".fs_feeAuditedData, " & DBNameSpace & ".fs_feeinvoice    " & _
+" where " & DBNameSpace & ".fs_feeAuditedData.STRAIRSNUMBER = " & DBNameSpace & ".fs_Transactions.STRAIRSNUMBER (+) " & _
+" and " & DBNameSpace & ".fs_feeAuditedData.numfeeyear = " & DBNameSpace & ".fs_Transactions.numfeeyear   (+) " & _
+"and " & DBNameSpace & ".Fs_transactions.invoiceid = " & DBNameSpace & ".fs_feeinvoice.invoiceid (+) " & _
+" and " & DBNameSpace & ".fs_Transactions.active = '1' and " & DBNameSpace & ".fs_feeAuditeddata.active = '1' " & _
 "and strPayType = '2' " & _
-" group by " & connNameSpace & ".fs_feeAuditedData.STRAIRSNUMBER, " & connNameSpace & ".fs_feeAuditedData.numfeeyear" & _
+" group by " & DBNameSpace & ".fs_feeAuditedData.STRAIRSNUMBER, " & DBNameSpace & ".fs_feeAuditedData.numfeeyear" & _
 "  )) TOTALPAID, " & _
-" " & connNameSpace & ".APBFACILITYINFORMATION, " & _
+" " & DBNameSpace & ".APBFACILITYINFORMATION, " & _
                   "  AIRBranch.fs_feeAuditedData  " & _
                   "where (AIRBranch.APBFACILITYINFORMATION.STRAIRSNUMBER = TOTALDUE.STRAIRSNUMBER  " & _
                   "or AIRBranch.APBFACILITYINFORMATION.STRAIRSNUMBER = TOTALPAID.STRAIRSNUMBER   ) " & _
@@ -1232,7 +1232,7 @@ Public Class DEVFeeStatistics
                 Case "QUARTER TWO"
                     SQL = "select * from " & _
                      "(select " & _
-                     "SUBSTR(" & connNameSpace & ".APBFACILITYINFORMATION.STRAIRSNUMBER, 5) as AIRSNUMBER, " & _
+                     "SUBSTR(" & DBNameSpace & ".APBFACILITYINFORMATION.STRAIRSNUMBER, 5) as AIRSNUMBER, " & _
                      "STRFACILITYNAME, " & _
                      "TOTALDUE.INTYEAR, strPaymentPlan, " & _
                      "case " & _
@@ -1261,25 +1261,25 @@ Public Class DEVFeeStatistics
       " END TOTALPAID " & _
       " FROM " & _
       " ( " & _
-      " select " & connNameSpace & ".fs_Transactions.STRAIRSNUMBER, " & connNameSpace & ".fs_Transactions.numfeeyear as INTYEAR, sum(NUMPAYMENT) as TotalPaid      " & _
-      " from " & connNameSpace & ".fs_Transactions, " & connNameSpace & ".fs_feeAuditedData, " & connNameSpace & ".fs_feeinvoice " & _
-      " where " & connNameSpace & ".fs_Transactions.STRAIRSNUMBER = " & connNameSpace & ".fs_feeAuditedData.STRAIRSNUMBER (+) " & _
-      " and " & connNameSpace & ".fs_Transactions.numfeeyear = " & connNameSpace & ".fs_feeAuditedData.numfeeyear   (+) " & _
-      "and " & connNameSpace & ".Fs_transactions.invoiceid = " & connNameSpace & ".fs_feeinvoice.invoiceid (+) " & _
+      " select " & DBNameSpace & ".fs_Transactions.STRAIRSNUMBER, " & DBNameSpace & ".fs_Transactions.numfeeyear as INTYEAR, sum(NUMPAYMENT) as TotalPaid      " & _
+      " from " & DBNameSpace & ".fs_Transactions, " & DBNameSpace & ".fs_feeAuditedData, " & DBNameSpace & ".fs_feeinvoice " & _
+      " where " & DBNameSpace & ".fs_Transactions.STRAIRSNUMBER = " & DBNameSpace & ".fs_feeAuditedData.STRAIRSNUMBER (+) " & _
+      " and " & DBNameSpace & ".fs_Transactions.numfeeyear = " & DBNameSpace & ".fs_feeAuditedData.numfeeyear   (+) " & _
+      "and " & DBNameSpace & ".Fs_transactions.invoiceid = " & DBNameSpace & ".fs_feeinvoice.invoiceid (+) " & _
       "and strPayType = '3' " & _
-      " and " & connNameSpace & ".fs_Transactions.active = '1' and " & connNameSpace & ".fs_feeAuditeddata.active = '1' " & _
-      " group by " & connNameSpace & ".fs_Transactions.STRAIRSNUMBER, " & connNameSpace & ".fs_Transactions.numfeeyear" & _
+      " and " & DBNameSpace & ".fs_Transactions.active = '1' and " & DBNameSpace & ".fs_feeAuditeddata.active = '1' " & _
+      " group by " & DBNameSpace & ".fs_Transactions.STRAIRSNUMBER, " & DBNameSpace & ".fs_Transactions.numfeeyear" & _
       " UNION " & _
-      "  select " & connNameSpace & ".fs_feeAuditedData.STRAIRSNUMBER, " & connNameSpace & ".fs_feeAuditedData.numfeeyear as INTYEAR, sum(NUMPAYMENT) as TotalPaid      " & _
-      " from " & connNameSpace & ".fs_Transactions, " & connNameSpace & ".fs_feeAuditedData, " & connNameSpace & ".fs_feeinvoice    " & _
-      " where " & connNameSpace & ".fs_feeAuditedData.STRAIRSNUMBER = " & connNameSpace & ".fs_Transactions.STRAIRSNUMBER (+) " & _
-      " and " & connNameSpace & ".fs_feeAuditedData.numfeeyear = " & connNameSpace & ".fs_Transactions.numfeeyear   (+) " & _
-      "and " & connNameSpace & ".Fs_transactions.invoiceid = " & connNameSpace & ".fs_feeinvoice.invoiceid (+) " & _
+      "  select " & DBNameSpace & ".fs_feeAuditedData.STRAIRSNUMBER, " & DBNameSpace & ".fs_feeAuditedData.numfeeyear as INTYEAR, sum(NUMPAYMENT) as TotalPaid      " & _
+      " from " & DBNameSpace & ".fs_Transactions, " & DBNameSpace & ".fs_feeAuditedData, " & DBNameSpace & ".fs_feeinvoice    " & _
+      " where " & DBNameSpace & ".fs_feeAuditedData.STRAIRSNUMBER = " & DBNameSpace & ".fs_Transactions.STRAIRSNUMBER (+) " & _
+      " and " & DBNameSpace & ".fs_feeAuditedData.numfeeyear = " & DBNameSpace & ".fs_Transactions.numfeeyear   (+) " & _
+      "and " & DBNameSpace & ".Fs_transactions.invoiceid = " & DBNameSpace & ".fs_feeinvoice.invoiceid (+) " & _
       "and strPayType = '3' " & _
-      " and " & connNameSpace & ".fs_Transactions.active = '1' and " & connNameSpace & ".fs_feeAuditeddata.active = '1' " & _
-      " group by " & connNameSpace & ".fs_feeAuditedData.STRAIRSNUMBER, " & connNameSpace & ".fs_feeAuditedData.numfeeyear" & _
+      " and " & DBNameSpace & ".fs_Transactions.active = '1' and " & DBNameSpace & ".fs_feeAuditeddata.active = '1' " & _
+      " group by " & DBNameSpace & ".fs_feeAuditedData.STRAIRSNUMBER, " & DBNameSpace & ".fs_feeAuditedData.numfeeyear" & _
       "  )) TOTALPAID, " & _
-      " " & connNameSpace & ".APBFACILITYINFORMATION, " & _
+      " " & DBNameSpace & ".APBFACILITYINFORMATION, " & _
                         "  AIRBranch.fs_feeAuditedData  " & _
                         "where (AIRBranch.APBFACILITYINFORMATION.STRAIRSNUMBER = TOTALDUE.STRAIRSNUMBER  " & _
                         "or AIRBranch.APBFACILITYINFORMATION.STRAIRSNUMBER = TOTALPAID.STRAIRSNUMBER   ) " & _
@@ -1293,7 +1293,7 @@ Public Class DEVFeeStatistics
                 Case "QUARTER THREE"
                     SQL = "select * from " & _
                         "(select " & _
-                        "SUBSTR(" & connNameSpace & ".APBFACILITYINFORMATION.STRAIRSNUMBER, 5) as AIRSNUMBER, " & _
+                        "SUBSTR(" & DBNameSpace & ".APBFACILITYINFORMATION.STRAIRSNUMBER, 5) as AIRSNUMBER, " & _
                         "STRFACILITYNAME, " & _
                         "TOTALDUE.INTYEAR, strPaymentPlan, " & _
                         "case " & _
@@ -1322,23 +1322,23 @@ Public Class DEVFeeStatistics
                    " END TOTALPAID " & _
                    " FROM " & _
                    " ( " & _
-                   " select " & connNameSpace & ".fs_Transactions.STRAIRSNUMBER, " & connNameSpace & ".fs_Transactions.numfeeyear as INTYEAR, sum(NUMPAYMENT) as TotalPaid      " & _
-                   " from " & connNameSpace & ".fs_Transactions, " & connNameSpace & ".fs_feeAuditedData, " & connNameSpace & ".fs_feeinvoice " & _
-                   " where " & connNameSpace & ".fs_Transactions.STRAIRSNUMBER = " & connNameSpace & ".fs_feeAuditedData.STRAIRSNUMBER (+) " & _
-                   " and " & connNameSpace & ".fs_Transactions.numfeeyear = " & connNameSpace & ".fs_feeAuditedData.numfeeyear   (+) " & _
-                   "and " & connNameSpace & ".Fs_transactions.invoiceid = " & connNameSpace & ".fs_feeinvoice.invoiceid (+) " & _
+                   " select " & DBNameSpace & ".fs_Transactions.STRAIRSNUMBER, " & DBNameSpace & ".fs_Transactions.numfeeyear as INTYEAR, sum(NUMPAYMENT) as TotalPaid      " & _
+                   " from " & DBNameSpace & ".fs_Transactions, " & DBNameSpace & ".fs_feeAuditedData, " & DBNameSpace & ".fs_feeinvoice " & _
+                   " where " & DBNameSpace & ".fs_Transactions.STRAIRSNUMBER = " & DBNameSpace & ".fs_feeAuditedData.STRAIRSNUMBER (+) " & _
+                   " and " & DBNameSpace & ".fs_Transactions.numfeeyear = " & DBNameSpace & ".fs_feeAuditedData.numfeeyear   (+) " & _
+                   "and " & DBNameSpace & ".Fs_transactions.invoiceid = " & DBNameSpace & ".fs_feeinvoice.invoiceid (+) " & _
                    "and strPayType = '4' " & _
-                   " group by " & connNameSpace & ".fs_Transactions.STRAIRSNUMBER, " & connNameSpace & ".fs_Transactions.numfeeyear" & _
+                   " group by " & DBNameSpace & ".fs_Transactions.STRAIRSNUMBER, " & DBNameSpace & ".fs_Transactions.numfeeyear" & _
                    " UNION " & _
-                   "  select " & connNameSpace & ".fs_feeAuditedData.STRAIRSNUMBER, " & connNameSpace & ".fs_feeAuditedData.numfeeyear as INTYEAR, sum(NUMPAYMENT) as TotalPaid      " & _
-                   " from " & connNameSpace & ".fs_Transactions, " & connNameSpace & ".fs_feeAuditedData, " & connNameSpace & ".fs_feeinvoice    " & _
-                   " where " & connNameSpace & ".fs_feeAuditedData.STRAIRSNUMBER = " & connNameSpace & ".fs_Transactions.STRAIRSNUMBER (+) " & _
-                   " and " & connNameSpace & ".fs_feeAuditedData.numfeeyear = " & connNameSpace & ".fs_Transactions.numfeeyear   (+) " & _
-                   "and " & connNameSpace & ".Fs_transactions.invoiceid = " & connNameSpace & ".fs_feeinvoice.invoiceid (+) " & _
+                   "  select " & DBNameSpace & ".fs_feeAuditedData.STRAIRSNUMBER, " & DBNameSpace & ".fs_feeAuditedData.numfeeyear as INTYEAR, sum(NUMPAYMENT) as TotalPaid      " & _
+                   " from " & DBNameSpace & ".fs_Transactions, " & DBNameSpace & ".fs_feeAuditedData, " & DBNameSpace & ".fs_feeinvoice    " & _
+                   " where " & DBNameSpace & ".fs_feeAuditedData.STRAIRSNUMBER = " & DBNameSpace & ".fs_Transactions.STRAIRSNUMBER (+) " & _
+                   " and " & DBNameSpace & ".fs_feeAuditedData.numfeeyear = " & DBNameSpace & ".fs_Transactions.numfeeyear   (+) " & _
+                   "and " & DBNameSpace & ".Fs_transactions.invoiceid = " & DBNameSpace & ".fs_feeinvoice.invoiceid (+) " & _
                    "and strPayType = '4' " & _
-                   " group by " & connNameSpace & ".fs_feeAuditedData.STRAIRSNUMBER, " & connNameSpace & ".fs_feeAuditedData.numfeeyear" & _
+                   " group by " & DBNameSpace & ".fs_feeAuditedData.STRAIRSNUMBER, " & DBNameSpace & ".fs_feeAuditedData.numfeeyear" & _
                    "  )) TOTALPAID, " & _
-                   " " & connNameSpace & ".APBFACILITYINFORMATION, " & _
+                   " " & DBNameSpace & ".APBFACILITYINFORMATION, " & _
                                      "  AIRBranch.fs_feeAuditedData  " & _
                                      "where (AIRBranch.APBFACILITYINFORMATION.STRAIRSNUMBER = TOTALDUE.STRAIRSNUMBER  " & _
                                      "or AIRBranch.APBFACILITYINFORMATION.STRAIRSNUMBER = TOTALPAID.STRAIRSNUMBER   ) " & _
@@ -1352,7 +1352,7 @@ Public Class DEVFeeStatistics
                 Case "QUARTER FOUR"
                     SQL = "select * from " & _
                    "(select " & _
-                   "SUBSTR(" & connNameSpace & ".APBFACILITYINFORMATION.STRAIRSNUMBER, 5) as AIRSNUMBER, " & _
+                   "SUBSTR(" & DBNameSpace & ".APBFACILITYINFORMATION.STRAIRSNUMBER, 5) as AIRSNUMBER, " & _
                    "STRFACILITYNAME, " & _
                    "TOTALDUE.INTYEAR, strPaymentPlan, " & _
                    "case " & _
@@ -1381,23 +1381,23 @@ Public Class DEVFeeStatistics
 " END TOTALPAID " & _
 " FROM " & _
 " ( " & _
-" select " & connNameSpace & ".fs_Transactions.STRAIRSNUMBER, " & connNameSpace & ".fs_Transactions.numfeeyear as INTYEAR, sum(NUMPAYMENT) as TotalPaid      " & _
-" from " & connNameSpace & ".fs_Transactions, " & connNameSpace & ".fs_feeAuditedData, " & connNameSpace & ".fs_feeinvoice " & _
-" where " & connNameSpace & ".fs_Transactions.STRAIRSNUMBER = " & connNameSpace & ".fs_feeAuditedData.STRAIRSNUMBER (+) " & _
-" and " & connNameSpace & ".fs_Transactions.numfeeyear = " & connNameSpace & ".fs_feeAuditedData.numfeeyear   (+) " & _
-"and " & connNameSpace & ".Fs_transactions.invoiceid = " & connNameSpace & ".fs_feeinvoice.invoiceid (+) " & _
+" select " & DBNameSpace & ".fs_Transactions.STRAIRSNUMBER, " & DBNameSpace & ".fs_Transactions.numfeeyear as INTYEAR, sum(NUMPAYMENT) as TotalPaid      " & _
+" from " & DBNameSpace & ".fs_Transactions, " & DBNameSpace & ".fs_feeAuditedData, " & DBNameSpace & ".fs_feeinvoice " & _
+" where " & DBNameSpace & ".fs_Transactions.STRAIRSNUMBER = " & DBNameSpace & ".fs_feeAuditedData.STRAIRSNUMBER (+) " & _
+" and " & DBNameSpace & ".fs_Transactions.numfeeyear = " & DBNameSpace & ".fs_feeAuditedData.numfeeyear   (+) " & _
+"and " & DBNameSpace & ".Fs_transactions.invoiceid = " & DBNameSpace & ".fs_feeinvoice.invoiceid (+) " & _
 "and strPayType = '5' " & _
-" group by " & connNameSpace & ".fs_Transactions.STRAIRSNUMBER, " & connNameSpace & ".fs_Transactions.numfeeyear" & _
+" group by " & DBNameSpace & ".fs_Transactions.STRAIRSNUMBER, " & DBNameSpace & ".fs_Transactions.numfeeyear" & _
 " UNION " & _
-"  select " & connNameSpace & ".fs_feeAuditedData.STRAIRSNUMBER, " & connNameSpace & ".fs_feeAuditedData.numfeeyear as INTYEAR, sum(NUMPAYMENT) as TotalPaid      " & _
-" from " & connNameSpace & ".fs_Transactions, " & connNameSpace & ".fs_feeAuditedData, " & connNameSpace & ".fs_feeinvoice    " & _
-" where " & connNameSpace & ".fs_feeAuditedData.STRAIRSNUMBER = " & connNameSpace & ".fs_Transactions.STRAIRSNUMBER (+) " & _
-" and " & connNameSpace & ".fs_feeAuditedData.numfeeyear = " & connNameSpace & ".fs_Transactions.numfeeyear   (+) " & _
-"and " & connNameSpace & ".Fs_transactions.invoiceid = " & connNameSpace & ".fs_feeinvoice.invoiceid (+) " & _
+"  select " & DBNameSpace & ".fs_feeAuditedData.STRAIRSNUMBER, " & DBNameSpace & ".fs_feeAuditedData.numfeeyear as INTYEAR, sum(NUMPAYMENT) as TotalPaid      " & _
+" from " & DBNameSpace & ".fs_Transactions, " & DBNameSpace & ".fs_feeAuditedData, " & DBNameSpace & ".fs_feeinvoice    " & _
+" where " & DBNameSpace & ".fs_feeAuditedData.STRAIRSNUMBER = " & DBNameSpace & ".fs_Transactions.STRAIRSNUMBER (+) " & _
+" and " & DBNameSpace & ".fs_feeAuditedData.numfeeyear = " & DBNameSpace & ".fs_Transactions.numfeeyear   (+) " & _
+"and " & DBNameSpace & ".Fs_transactions.invoiceid = " & DBNameSpace & ".fs_feeinvoice.invoiceid (+) " & _
 "and strPayType = '5' " & _
-" group by " & connNameSpace & ".fs_feeAuditedData.STRAIRSNUMBER, " & connNameSpace & ".fs_feeAuditedData.numfeeyear" & _
+" group by " & DBNameSpace & ".fs_feeAuditedData.STRAIRSNUMBER, " & DBNameSpace & ".fs_feeAuditedData.numfeeyear" & _
 "  )) TOTALPAID, " & _
-" " & connNameSpace & ".APBFACILITYINFORMATION, " & _
+" " & DBNameSpace & ".APBFACILITYINFORMATION, " & _
                   "  AIRBranch.fs_feeAuditedData  " & _
                   "where (AIRBranch.APBFACILITYINFORMATION.STRAIRSNUMBER = TOTALDUE.STRAIRSNUMBER  " & _
                   "or AIRBranch.APBFACILITYINFORMATION.STRAIRSNUMBER = TOTALPAID.STRAIRSNUMBER   ) " & _
@@ -1410,7 +1410,7 @@ Public Class DEVFeeStatistics
                 Case "AMENDMENT"
                     SQL = "select * from " & _
                     "(select " & _
-                    "SUBSTR(" & connNameSpace & ".APBFACILITYINFORMATION.STRAIRSNUMBER, 5) as AIRSNUMBER, " & _
+                    "SUBSTR(" & DBNameSpace & ".APBFACILITYINFORMATION.STRAIRSNUMBER, 5) as AIRSNUMBER, " & _
                     "STRFACILITYNAME, " & _
                     "TOTALDUE.INTYEAR, strPaymentPlan, " & _
                     "case " & _
@@ -1448,7 +1448,7 @@ Public Class DEVFeeStatistics
                 Case "ONE-TIME"
                     SQL = "select * from " & _
                     "(select " & _
-                    "SUBSTR(" & connNameSpace & ".APBFACILITYINFORMATION.STRAIRSNUMBER, 5) as AIRSNUMBER, " & _
+                    "SUBSTR(" & DBNameSpace & ".APBFACILITYINFORMATION.STRAIRSNUMBER, 5) as AIRSNUMBER, " & _
                     "STRFACILITYNAME, " & _
                     "TOTALDUE.INTYEAR, strPaymentPlan, " & _
                     "case " & _
@@ -1486,7 +1486,7 @@ Public Class DEVFeeStatistics
                 Case "REFUND"
                     SQL = "select * from " & _
                        "(select " & _
-                       "SUBSTR(" & connNameSpace & ".APBFACILITYINFORMATION.STRAIRSNUMBER, 5) as AIRSNUMBER, " & _
+                       "SUBSTR(" & DBNameSpace & ".APBFACILITYINFORMATION.STRAIRSNUMBER, 5) as AIRSNUMBER, " & _
                        "STRFACILITYNAME, " & _
                        "TOTALDUE.INTYEAR, strPaymentPlan, " & _
                        "case " & _
@@ -1531,9 +1531,9 @@ Public Class DEVFeeStatistics
 
             ds = New DataSet
             If SQL <> "" Then
-                da = New OracleDataAdapter(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                da = New OracleDataAdapter(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 da.Fill(ds, "PaymentDue")
             End If
@@ -1645,13 +1645,13 @@ Public Class DEVFeeStatistics
             "strAIRSNUmber, nuMFeeYear, " & _
             "intSubmittal, datSubmittal, " & _
             "strComment, strIAIPdesc  " & _
-            "from " & connNameSpace & ".FS_Admin, airbranch.fslk_admin_status " & _
+            "from " & DBNameSpace & ".FS_Admin, airbranch.fslk_admin_status " & _
             "where airbranch.fs_admin.numCurrentStatus = AIRbranch.FSLK_Admin_Status.ID  " & _
             "and strAIRSNumber = '0413" & txtSelectedAIRSNumber.Text & "' " & _
             "and numFeeYear = '" & txtSelectedYear.Text & "' "
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -1700,13 +1700,13 @@ Public Class DEVFeeStatistics
             "numAdminFee, " & _
             "(numTotalFee) as AllFees, " & _
             "strPaymentPlan " & _
-            "from " & connNameSpace & ".FS_FeeAuditedData " & _
+            "from " & DBNameSpace & ".FS_FeeAuditedData " & _
             "where strAIRSNumber = '0413" & txtSelectedAIRSNumber.Text & "' " & _
             "and numFeeYear = '" & txtSelectedYear.Text & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -1875,9 +1875,9 @@ Public Class DEVFeeStatistics
                 End If
 
                 txtNSPSExemptReason.Clear()
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -1910,9 +1910,9 @@ Public Class DEVFeeStatistics
             "and airbranch.FS_feeInvoice.strAIRSNumber = '0413" & txtSelectedAIRSNumber.Text & "' "
 
             ds = New DataSet
-            da = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            da = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             da.Fill(ds, "Transactions")
             dgvStats.DataSource = ds
@@ -2076,7 +2076,7 @@ Public Class DEVFeeStatistics
 
 
             SQL = "select " & _
-            "substr(" & connNameSpace & ".FSPayAndSubmit.strAIRSNumber, 5) as AIRSNumber, " & _
+            "substr(" & DBNameSpace & ".FSPayAndSubmit.strAIRSNumber, 5) as AIRSNumber, " & _
             "strFacilityName, strCountyName, " & _
             "strClass, " & _
             "case " & _
@@ -2093,17 +2093,17 @@ Public Class DEVFeeStatistics
             "else 'No' " & _
             "end TVStatus, " & _
             "'" & cboFeeYear.Text & "' as FeeYear " & _
-            "from " & connNameSpace & ".FSPayAndSubmit, " & connNameSpace & ".APBFacilityInformation, " & _
-            "" & connNameSpace & ".LookUpCountyInformation, " & connNameSpace & ".APBHeaderData " & _
-            "where " & connNameSpace & ".FSPayAndSubmit.strAIRSNumber = " & connNameSpace & ".APBFacilityInformation.strAIRSNumber " & _
-            "and " & connNameSpace & ".FSPayAndSubmit.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber " & _
-            "and substr(" & connNameSpace & ".FSPayAndSubmit.strAIRSNumber,5, 3) = " & connNameSpace & ".LookUpCountyInformation.strCountyCode " & _
+            "from " & DBNameSpace & ".FSPayAndSubmit, " & DBNameSpace & ".APBFacilityInformation, " & _
+            "" & DBNameSpace & ".LookUpCountyInformation, " & DBNameSpace & ".APBHeaderData " & _
+            "where " & DBNameSpace & ".FSPayAndSubmit.strAIRSNumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber " & _
+            "and " & DBNameSpace & ".FSPayAndSubmit.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber " & _
+            "and substr(" & DBNameSpace & ".FSPayAndSubmit.strAIRSNumber,5, 3) = " & DBNameSpace & ".LookUpCountyInformation.strCountyCode " & _
             "and intYear = '" & cboFeeYear.Text & "' " & _
             "and intSubmittal = '0' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -2175,9 +2175,9 @@ Public Class DEVFeeStatistics
                 "where strAIRSNumber = '0413" & AIRSNumber & "' " & _
                 "and datFinalizedDate is not null"
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr2 = cmd.ExecuteReader
                 While dr2.Read
@@ -2196,16 +2196,16 @@ Public Class DEVFeeStatistics
                     "when datPermitIssued is null then to_char(datFinalizedDate, 'dd-Mon-yyyy') " & _
                     "else to_char(datPermitIssued, 'dd-Mon-yyyy') " & _
                     "end FinalDate " & _
-                    "from " & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".LookUpApplicationTypes, " & _
-                    "" & connNameSpace & ".SSPPApplicationTracking, " & connNameSpace & ".SSPPApplicationData  " & _
-                    "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationType = " & connNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode (+) " & _
-                    "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber (+) " & _
-                    "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationData.strApplicationNumber (+) " & _
-                    "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = '" & LastApp & "' "
+                    "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".LookUpApplicationTypes, " & _
+                    "" & DBNameSpace & ".SSPPApplicationTracking, " & DBNameSpace & ".SSPPApplicationData  " & _
+                    "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationType = " & DBNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode (+) " & _
+                    "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber (+) " & _
+                    "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber (+) " & _
+                    "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = '" & LastApp & "' "
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr2 = cmd.ExecuteReader
                     While dr2.Read
@@ -2237,12 +2237,12 @@ Public Class DEVFeeStatistics
 
                 SQL = "select " & _
                 "strApplicationNumber " & _
-                "from " & connNameSpace & ".SSPPApplicationMaster " & _
+                "from " & DBNameSpace & ".SSPPApplicationMaster " & _
                 "where datfinalizedDate Is null " & _
                 "and strAIRSNumber = '0413" & AIRSNumber & "' "
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr2 = cmd.ExecuteReader
                 PendingApp = "No"
@@ -2260,7 +2260,7 @@ Public Class DEVFeeStatistics
                 "from AIRBranch.SSCPItemMaster " & _
                 "where strAIRSNumber = '0413" & AIRSNumber & "' "
 
-                cmd = New OracleCommand(SQL, conn)
+                cmd = New OracleCommand(SQL, DBConn)
                 dr2 = cmd.ExecuteReader
                 While dr2.Read
                     If IsDBNull(dr2.Item("MaxDate")) Then
@@ -2274,11 +2274,11 @@ Public Class DEVFeeStatistics
 
                 SQL = "select " & _
                 "max(datFCECompleted) as MaxDate " & _
-                "from " & connNameSpace & ".SSCPFCEMaster, " & connNameSpace & ".SSCPFCE  " & _
-                "where " & connNameSpace & ".SSCPFCEMaster.strFCENumber = " & connNameSpace & ".SSCPFCE.strFCENumber " & _
+                "from " & DBNameSpace & ".SSCPFCEMaster, " & DBNameSpace & ".SSCPFCE  " & _
+                "where " & DBNameSpace & ".SSCPFCEMaster.strFCENumber = " & DBNameSpace & ".SSCPFCE.strFCENumber " & _
                 "and strAIRSnumber = '0413" & AIRSNumber & "' "
 
-                cmd = New OracleCommand(SQL, conn)
+                cmd = New OracleCommand(SQL, DBConn)
                 dr2 = cmd.ExecuteReader
                 While dr2.Read
                     If IsDBNull(dr2.Item("MaxDate")) Then
@@ -2302,7 +2302,7 @@ Public Class DEVFeeStatistics
                 "from AIRBranch.SSCP_AuditedEnforcement " & _
                 "where strAIRSnumber = '0413" & AIRSNumber & "'"
 
-                cmd = New OracleCommand(SQL, conn)
+                cmd = New OracleCommand(SQL, DBConn)
                 dr2 = cmd.ExecuteReader
                 While dr2.Read
                     If IsDBNull(dr2.Item("MaxDate")) Then
@@ -2325,15 +2325,15 @@ Public Class DEVFeeStatistics
                     Case "Item"
                         SQL = "select strTrackingNumber, datCompleteDate, " & _
                         "strActivityName " & _
-                        "from " & connNameSpace & ".SSCPItemMaster, " & connNameSpace & ".LookupComplianceActivities  " & _
-                        "where " & connNameSpace & ".SSCPItemMaster.strEventType = " & connNameSpace & ".LookUpComplianceActivities.strActivityType  " & _
+                        "from " & DBNameSpace & ".SSCPItemMaster, " & DBNameSpace & ".LookupComplianceActivities  " & _
+                        "where " & DBNameSpace & ".SSCPItemMaster.strEventType = " & DBNameSpace & ".LookUpComplianceActivities.strActivityType  " & _
                         "and strAIRSNumber = '0413" & AIRSNumber & "' " & _
-                        "and datCompleteDate = (select max(datCompleteDate) from " & connNameSpace & ".SSCPItemMaster " & _
+                        "and datCompleteDate = (select max(datCompleteDate) from " & DBNameSpace & ".SSCPItemMaster " & _
                         "where strAIRSNumber = '0413" & AIRSNumber & "') "
 
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, DBConn)
+                        If DBConn.State = ConnectionState.Closed Then
+                            DBConn.Open()
                         End If
                         dr2 = cmd.ExecuteReader
                         While dr2.Read
@@ -2355,19 +2355,19 @@ Public Class DEVFeeStatistics
                         End While
                     Case "FCE"
                         SQL = "select " & _
-                        "" & connNameSpace & ".SSCPFCE.strFCENumber, datFCECompleted " & _
-                        "from " & connNameSpace & ".SSCPFCE, " & connNameSpace & ".SSCPFCEMaster  " & _
-                        "where " & connNameSpace & ".SSCPFCEMaster.strFCENumber = " & connNameSpace & ".SSCPFCE.strFCENumber " & _
+                        "" & DBNameSpace & ".SSCPFCE.strFCENumber, datFCECompleted " & _
+                        "from " & DBNameSpace & ".SSCPFCE, " & DBNameSpace & ".SSCPFCEMaster  " & _
+                        "where " & DBNameSpace & ".SSCPFCEMaster.strFCENumber = " & DBNameSpace & ".SSCPFCE.strFCENumber " & _
                         "and strAIRSNumber = '0413" & AIRSNumber & "' " & _
-                        "and " & connNameSpace & ".SSCPFCE.datFCECompleted = (select " & _
+                        "and " & DBNameSpace & ".SSCPFCE.datFCECompleted = (select " & _
                         "max(datFCECompleted) " & _
-                        "from " & connNameSpace & ".SSCPFCEMaster, " & connNameSpace & ".SSCPFCE  " & _
-                        "where " & connNameSpace & ".SSCPFCEMaster.strFCENumber = " & connNameSpace & ".SSCPFCE.strFCENumber " & _
+                        "from " & DBNameSpace & ".SSCPFCEMaster, " & DBNameSpace & ".SSCPFCE  " & _
+                        "where " & DBNameSpace & ".SSCPFCEMaster.strFCENumber = " & DBNameSpace & ".SSCPFCE.strFCENumber " & _
                         "and strAIRSnumber = '0413" & AIRSNumber & "') "
 
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, DBConn)
+                        If DBConn.State = ConnectionState.Closed Then
+                            DBConn.Open()
                         End If
                         dr2 = cmd.ExecuteReader
                         While dr2.Read
@@ -2386,16 +2386,16 @@ Public Class DEVFeeStatistics
                     Case "Enforcement"
                         SQL = "select " & _
                         "strEnforcementNumber, datEnforcementFinalized " & _
-                        "from " & connNameSpace & ".SSCP_AuditedEnforcement " & _
+                        "from " & DBNameSpace & ".SSCP_AuditedEnforcement " & _
                         "where strAIRSNumber = '0413" & AIRSNumber & "' " & _
                         "and datEnforcementFinalized = (Select " & _
                         "max(datEnforcementFinalized) " & _
-                        "from " & connNameSpace & ".SSCP_AuditedEnforcement " & _
+                        "from " & DBNameSpace & ".SSCP_AuditedEnforcement " & _
                         "where strairsnumber = '0413" & AIRSNumber & "') "
 
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, DBConn)
+                        If DBConn.State = ConnectionState.Closed Then
+                            DBConn.Open()
                         End If
                         dr2 = cmd.ExecuteReader
                         While dr2.Read
@@ -2434,7 +2434,7 @@ Public Class DEVFeeStatistics
     Private Sub btnRunReport_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnRunReport.Click
         Try
             SQL = "select " & _
-            "substr(" & connNameSpace & ".FSPayAndSubmit.strAIRSNumber, 5) as AIRSNumber, " & _
+            "substr(" & DBNameSpace & ".FSPayAndSubmit.strAIRSNumber, 5) as AIRSNumber, " & _
             "strFacilityName, strCountyName, " & _
             "strClass, " & _
             "case " & _
@@ -2451,18 +2451,18 @@ Public Class DEVFeeStatistics
             "else 'No' " & _
             "end TVStatus, " & _
             "'" & cboFeeYear.Text & "' as FeeYear " & _
-            "from " & connNameSpace & ".FSPayAndSubmit, " & connNameSpace & ".APBFacilityInformation, " & _
-            "" & connNameSpace & ".LookUpCountyInformation, " & connNameSpace & ".APBHeaderData " & _
-            "where " & connNameSpace & ".FSPayAndSubmit.strAIRSNumber = " & connNameSpace & ".APBFacilityInformation.strAIRSNumber " & _
-            "and " & connNameSpace & ".FSPayAndSubmit.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber " & _
-            "and substr(" & connNameSpace & ".FSPayAndSubmit.strAIRSNumber,5, 3) = " & connNameSpace & ".LookUpCountyInformation.strCountyCode " & _
+            "from " & DBNameSpace & ".FSPayAndSubmit, " & DBNameSpace & ".APBFacilityInformation, " & _
+            "" & DBNameSpace & ".LookUpCountyInformation, " & DBNameSpace & ".APBHeaderData " & _
+            "where " & DBNameSpace & ".FSPayAndSubmit.strAIRSNumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber " & _
+            "and " & DBNameSpace & ".FSPayAndSubmit.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber " & _
+            "and substr(" & DBNameSpace & ".FSPayAndSubmit.strAIRSNumber,5, 3) = " & DBNameSpace & ".LookUpCountyInformation.strCountyCode " & _
             "and intYear = '" & cboFeeYear.Text & "' " & _
             "and intSubmittal = '0' "
 
             ds = New DataSet
-            da = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            da = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             da.Fill(ds, "LateFeeReport")
 
@@ -2504,7 +2504,7 @@ Public Class DEVFeeStatistics
         Try
             If rdbHasPaidFee.Checked = True Then
                 SQL = "select  " & _
-                "substr(" & connNameSpace & ".FSPayAndSubmit.strAIRSNumber, 5) as AIRSNumber,   " & _
+                "substr(" & DBNameSpace & ".FSPayAndSubmit.strAIRSNumber, 5) as AIRSNumber,   " & _
                 "strFacilityName, strCountyName,   " & _
                 "strClass,  " & _
                 "case   " & _
@@ -2522,24 +2522,24 @@ Public Class DEVFeeStatistics
                 "end TVStatus, " & _
                 "sum(numPayment) TotalPaid, " & _
                  "'" & cboFeeYear.Text & "' as FeeYear " & _
-                "from " & connNameSpace & ".FSPayAndSubmit, " & connNameSpace & ".APBFacilityInformation,   " & _
-                "" & connNameSpace & ".LookUpCountyInformation, " & connNameSpace & ".APBHeaderData,  " & _
-                "" & connNameSpace & ".FSAddPaid  " & _
-                "where " & connNameSpace & ".FSPayAndSubmit.strAIRSNumber = " & connNameSpace & ".APBFacilityInformation.strAIRSNumber   " & _
-                "and " & connNameSpace & ".FSPayAndSubmit.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber   " & _
-                "and " & connNameSpace & ".FSPayAndSubmit.strAIRSNumber = " & connNameSpace & ".FSAddPaid.strAIRSnumber   " & _
-                "and " & connNameSpace & ".FSPayAndSubmit.intYear = " & connNameSpace & ".FSAddPaid.intYear  " & _
-                "and substr(" & connNameSpace & ".FSPayAndSubmit.strAIRSNumber,5, 3) = " & connNameSpace & ".LookUpCountyInformation.strCountyCode   " & _
-                "and " & connNameSpace & ".FSPayAndSubmit.intYear = '" & cboFeeYear.Text & "'   " & _
+                "from " & DBNameSpace & ".FSPayAndSubmit, " & DBNameSpace & ".APBFacilityInformation,   " & _
+                "" & DBNameSpace & ".LookUpCountyInformation, " & DBNameSpace & ".APBHeaderData,  " & _
+                "" & DBNameSpace & ".FSAddPaid  " & _
+                "where " & DBNameSpace & ".FSPayAndSubmit.strAIRSNumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber   " & _
+                "and " & DBNameSpace & ".FSPayAndSubmit.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber   " & _
+                "and " & DBNameSpace & ".FSPayAndSubmit.strAIRSNumber = " & DBNameSpace & ".FSAddPaid.strAIRSnumber   " & _
+                "and " & DBNameSpace & ".FSPayAndSubmit.intYear = " & DBNameSpace & ".FSAddPaid.intYear  " & _
+                "and substr(" & DBNameSpace & ".FSPayAndSubmit.strAIRSNumber,5, 3) = " & DBNameSpace & ".LookUpCountyInformation.strCountyCode   " & _
+                "and " & DBNameSpace & ".FSPayAndSubmit.intYear = '" & cboFeeYear.Text & "'   " & _
                 "and intSubmittal = '0'   " & _
-                "group by " & connNameSpace & ".FSPayAndSubmit.strAIRSNumber, strFacilityName, strCountyName,   " & _
+                "group by " & DBNameSpace & ".FSPayAndSubmit.strAIRSNumber, strFacilityName, strCountyName,   " & _
                 "strClass, strOperationalStatus, datShutDownDate, strSICCode, strAirProgramCodes  " & _
                 "order by AIRSNumber "
 
                 ds = New DataSet
-                da = New OracleDataAdapter(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                da = New OracleDataAdapter(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 da.Fill(ds, "LateFeeReport")
 
@@ -2574,7 +2574,7 @@ Public Class DEVFeeStatistics
                 dgvLateFeeReport.Columns("FeeYear").DisplayIndex = 9
             Else
                 SQL = "select " & _
-                "substr(" & connNameSpace & ".FSPayAndSubmit.strAIRSNumber, 5) as AIRSNumber, " & _
+                "substr(" & DBNameSpace & ".FSPayAndSubmit.strAIRSNumber, 5) as AIRSNumber, " & _
                 "strFacilityName, strCountyName, " & _
                 "strClass, " & _
                 "case " & _
@@ -2591,22 +2591,22 @@ Public Class DEVFeeStatistics
                 "else 'No' " & _
                 "end TVStatus, " & _
                  "'" & cboFeeYear.Text & "' as FeeYear " & _
-                "from " & connNameSpace & ".FSPayAndSubmit, " & connNameSpace & ".APBFacilityInformation, " & _
-                "" & connNameSpace & ".LookUpCountyInformation, " & connNameSpace & ".APBHeaderData " & _
-                "where " & connNameSpace & ".FSPayAndSubmit.strAIRSNumber = " & connNameSpace & ".APBFacilityInformation.strAIRSNumber " & _
-                "and " & connNameSpace & ".FSPayAndSubmit.strAIRSNumber = " & connNameSpace & ".APBHeaderData.strAIRSNumber " & _
-                "and substr(" & connNameSpace & ".FSPayAndSubmit.strAIRSNumber,5, 3) = " & connNameSpace & ".LookUpCountyInformation.strCountyCode " & _
+                "from " & DBNameSpace & ".FSPayAndSubmit, " & DBNameSpace & ".APBFacilityInformation, " & _
+                "" & DBNameSpace & ".LookUpCountyInformation, " & DBNameSpace & ".APBHeaderData " & _
+                "where " & DBNameSpace & ".FSPayAndSubmit.strAIRSNumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber " & _
+                "and " & DBNameSpace & ".FSPayAndSubmit.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber " & _
+                "and substr(" & DBNameSpace & ".FSPayAndSubmit.strAIRSNumber,5, 3) = " & DBNameSpace & ".LookUpCountyInformation.strCountyCode " & _
                 "and intYear = '" & cboFeeYear.Text & "' " & _
                 "and intSubmittal = '0' " & _
-                "and not exists (select * from " & connNameSpace & ".FSAddPaid " & _
-                "where " & connNameSpace & ".FSPayAndSubmit.strAIRSnumber = " & connNameSpace & ".FSAddPaid.strAIRSnumber " & _
-                "and " & connNameSpace & ".FSPayAndSubmit.intYear = " & connNameSpace & ".FSAddPaid.intYear) " & _
+                "and not exists (select * from " & DBNameSpace & ".FSAddPaid " & _
+                "where " & DBNameSpace & ".FSPayAndSubmit.strAIRSnumber = " & DBNameSpace & ".FSAddPaid.strAIRSnumber " & _
+                "and " & DBNameSpace & ".FSPayAndSubmit.intYear = " & DBNameSpace & ".FSAddPaid.intYear) " & _
                 "order by AIRSNumber "
 
                 ds = New DataSet
-                da = New OracleDataAdapter(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                da = New OracleDataAdapter(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 da.Fill(ds, "LateFeeReport")
 
@@ -2657,14 +2657,14 @@ Public Class DEVFeeStatistics
                     For i = 0 To dgvLateFeeReport.RowCount.ToString - 1
                         AIRSNumber = dgvLateFeeReport(0, i).Value
 
-                        SQL = "update " & connNameSpace & ".FSPayAndSubmit set " & _
+                        SQL = "update " & DBNameSpace & ".FSPayAndSubmit set " & _
                         "intSubmittal = '1' " & _
                         "where strAIRSnumber = '0413" & AIRSNumber & "' " & _
                         "and intYear = '" & cboFeeYear.Text & "' "
 
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Connecting Then
-                            conn.Close()
+                        cmd = New OracleCommand(SQL, DBConn)
+                        If DBConn.State = ConnectionState.Connecting Then
+                            DBConn.Close()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Close()
@@ -2673,12 +2673,12 @@ Public Class DEVFeeStatistics
 
                         SQL = "Select " & _
                         "count(*) as FSCalc " & _
-                        "from " & connNameSpace & ".FSCalculations " & _
+                        "from " & DBNameSpace & ".FSCalculations " & _
                         "where strAIRSNumber = '0413" & AIRSNumber & "' " & _
                         "and intYear = '" & cboFeeYear.Text & "' "
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, DBConn)
+                        If DBConn.State = ConnectionState.Closed Then
+                            DBConn.Open()
                         End If
                         dr = cmd.ExecuteReader
                         While dr.Read
@@ -2690,7 +2690,7 @@ Public Class DEVFeeStatistics
                         End While
                         dr.Close()
                         If temp = "0" Then
-                            SQL = "Insert into " & connNameSpace & ".FSCalculations " & _
+                            SQL = "Insert into " & DBNameSpace & ".FSCalculations " & _
                             "values " & _
                             "('0413" & AIRSNumber & "', '" & cboFeeYear.Text & "', " & _
                             "'0', '0', '0', '0', " & _
@@ -2699,9 +2699,9 @@ Public Class DEVFeeStatistics
                             "'', 'No', 'No', '0', " & _
                             "'', '', '', '', '', '0') "
 
-                            cmd = New OracleCommand(SQL, conn)
-                            If conn.State = ConnectionState.Closed Then
-                                conn.Open()
+                            cmd = New OracleCommand(SQL, DBConn)
+                            If DBConn.State = ConnectionState.Closed Then
+                                DBConn.Open()
                             End If
                             dr = cmd.ExecuteReader
                             dr.Close()
@@ -2719,18 +2719,18 @@ Public Class DEVFeeStatistics
     Private Sub btnViewUnenrolled_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnViewUnenrolled.Click
         Try
             SQL = "select " & _
-            "substr(" & connNameSpace & ".FEEMailOut.strAIRSNumber, 5) as AIRSNumber, " & _
+            "substr(" & DBNameSpace & ".FEEMailOut.strAIRSNumber, 5) as AIRSNumber, " & _
             "strFacilityName " & _
-            "from " & connNameSpace & ".FeeMailout " & _
+            "from " & DBNameSpace & ".FeeMailout " & _
             "where intYear = '" & cboFeeYear.Text & "' " & _
-            "and not exists (select * from " & connNameSpace & ".FSPayAndSubmit " & _
-            "where " & connNameSpace & ".FeeMailOut.strAIRSnumber = " & connNameSpace & ".FSPayAndSubmit.strAIRSnumber " & _
-            "and " & connNameSpace & ".FeeMailOut.intYear = " & connNameSpace & ".FSPayAndSubmit.intYear) "
+            "and not exists (select * from " & DBNameSpace & ".FSPayAndSubmit " & _
+            "where " & DBNameSpace & ".FeeMailOut.strAIRSnumber = " & DBNameSpace & ".FSPayAndSubmit.strAIRSnumber " & _
+            "and " & DBNameSpace & ".FeeMailOut.intYear = " & DBNameSpace & ".FSPayAndSubmit.intYear) "
 
             ds = New DataSet
-            da = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            da = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             da.Fill(ds, "LateFeeReport")
 
@@ -2806,7 +2806,7 @@ Public Class DEVFeeStatistics
             "from AIRBranch.SSCPItemMaster " & _
             "where strAIRSNumber = '0413" & AIRSNumber & "' "
 
-            cmd = New OracleCommand(SQL, conn)
+            cmd = New OracleCommand(SQL, DBConn)
             dr2 = cmd.ExecuteReader
             While dr2.Read
                 If IsDBNull(dr2.Item("MaxDate")) Then
@@ -2820,11 +2820,11 @@ Public Class DEVFeeStatistics
 
             SQL = "select " & _
             "max(datFCECompleted) as MaxDate " & _
-            "from " & connNameSpace & ".SSCPFCEMaster, " & connNameSpace & ".SSCPFCE  " & _
-            "where " & connNameSpace & ".SSCPFCEMaster.strFCENumber = " & connNameSpace & ".SSCPFCE.strFCENumber " & _
+            "from " & DBNameSpace & ".SSCPFCEMaster, " & DBNameSpace & ".SSCPFCE  " & _
+            "where " & DBNameSpace & ".SSCPFCEMaster.strFCENumber = " & DBNameSpace & ".SSCPFCE.strFCENumber " & _
             "and strAIRSnumber = '0413" & AIRSNumber & "' "
 
-            cmd = New OracleCommand(SQL, conn)
+            cmd = New OracleCommand(SQL, DBConn)
             dr2 = cmd.ExecuteReader
             While dr2.Read
                 If IsDBNull(dr2.Item("MaxDate")) Then
@@ -2848,7 +2848,7 @@ Public Class DEVFeeStatistics
             "from AIRBranch.SSCP_AuditedEnforcement " & _
             "where strAIRSnumber = '0413" & AIRSNumber & "'"
 
-            cmd = New OracleCommand(SQL, conn)
+            cmd = New OracleCommand(SQL, DBConn)
             dr2 = cmd.ExecuteReader
             While dr2.Read
                 If IsDBNull(dr2.Item("MaxDate")) Then
@@ -2871,15 +2871,15 @@ Public Class DEVFeeStatistics
                 Case "Item"
                     SQL = "select strTrackingNumber, datCompleteDate, " & _
                     "strActivityName " & _
-                    "from " & connNameSpace & ".SSCPItemMaster, " & connNameSpace & ".LookupComplianceActivities  " & _
-                    "where " & connNameSpace & ".SSCPItemMaster.strEventType = " & connNameSpace & ".LookUpComplianceActivities.strActivityType  " & _
+                    "from " & DBNameSpace & ".SSCPItemMaster, " & DBNameSpace & ".LookupComplianceActivities  " & _
+                    "where " & DBNameSpace & ".SSCPItemMaster.strEventType = " & DBNameSpace & ".LookUpComplianceActivities.strActivityType  " & _
                     "and strAIRSNumber = '0413" & AIRSNumber & "' " & _
-                    "and datCompleteDate = (select max(datCompleteDate) from " & connNameSpace & ".SSCPItemMaster " & _
+                    "and datCompleteDate = (select max(datCompleteDate) from " & DBNameSpace & ".SSCPItemMaster " & _
                     "where strAIRSNumber = '0413" & AIRSNumber & "') "
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr2 = cmd.ExecuteReader
                     While dr2.Read
@@ -2902,19 +2902,19 @@ Public Class DEVFeeStatistics
                     lblComplianceDate.Text = "Date Completed"
                 Case "FCE"
                     SQL = "select " & _
-                    "" & connNameSpace & ".SSCPFCE.strFCENumber, datFCECompleted " & _
-                    "from " & connNameSpace & ".SSCPFCE, " & connNameSpace & ".SSCPFCEMaster  " & _
-                    "where " & connNameSpace & ".SSCPFCEMaster.strFCENumber = " & connNameSpace & ".SSCPFCE.strFCENumber " & _
+                    "" & DBNameSpace & ".SSCPFCE.strFCENumber, datFCECompleted " & _
+                    "from " & DBNameSpace & ".SSCPFCE, " & DBNameSpace & ".SSCPFCEMaster  " & _
+                    "where " & DBNameSpace & ".SSCPFCEMaster.strFCENumber = " & DBNameSpace & ".SSCPFCE.strFCENumber " & _
                     "and strAIRSNumber = '0413" & AIRSNumber & "' " & _
-                    "and " & connNameSpace & ".SSCPFCE.datFCECompleted = (select " & _
+                    "and " & DBNameSpace & ".SSCPFCE.datFCECompleted = (select " & _
                     "max(datFCECompleted) " & _
-                    "from " & connNameSpace & ".SSCPFCEMaster, " & connNameSpace & ".SSCPFCE  " & _
-                    "where " & connNameSpace & ".SSCPFCEMaster.strFCENumber = " & connNameSpace & ".SSCPFCE.strFCENumber " & _
+                    "from " & DBNameSpace & ".SSCPFCEMaster, " & DBNameSpace & ".SSCPFCE  " & _
+                    "where " & DBNameSpace & ".SSCPFCEMaster.strFCENumber = " & DBNameSpace & ".SSCPFCE.strFCENumber " & _
                     "and strAIRSnumber = '0413" & AIRSNumber & "') "
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr2 = cmd.ExecuteReader
                     While dr2.Read
@@ -2935,16 +2935,16 @@ Public Class DEVFeeStatistics
                 Case "Enforcement"
                     SQL = "select " & _
                     "strEnforcementNumber, datEnforcementFinalized " & _
-                    "from " & connNameSpace & ".SSCP_AuditedEnforcement " & _
+                    "from " & DBNameSpace & ".SSCP_AuditedEnforcement " & _
                     "where strAIRSNumber = '0413" & AIRSNumber & "' " & _
                     "and datEnforcementFinalized = (Select " & _
                     "max(datEnforcementFinalized) " & _
-                    "from " & connNameSpace & ".SSCP_AuditedEnforcement " & _
+                    "from " & DBNameSpace & ".SSCP_AuditedEnforcement " & _
                     "where strairsnumber = '0413" & AIRSNumber & "') "
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     dr2 = cmd.ExecuteReader
                     While dr2.Read
@@ -2976,9 +2976,9 @@ Public Class DEVFeeStatistics
             "where strAIRSNumber = '0413" & AIRSNumber & "' " & _
             "and datFinalizedDate is not null"
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr2 = cmd.ExecuteReader
             While dr2.Read
@@ -2997,16 +2997,16 @@ Public Class DEVFeeStatistics
                 "when datPermitIssued is null then to_char(datFinalizedDate, 'dd-Mon-yyyy') " & _
                 "else to_char(datPermitIssued, 'dd-Mon-yyyy') " & _
                 "end FinalDate " & _
-                "from " & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".LookUpApplicationTypes, " & _
-                "" & connNameSpace & ".SSPPApplicationTracking, " & connNameSpace & ".SSPPApplicationData  " & _
-                "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationType = " & connNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode (+) " & _
-                "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationTracking.strApplicationNumber (+) " & _
-                "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & connNameSpace & ".SSPPApplicationData.strApplicationNumber (+) " & _
-                "and " & connNameSpace & ".SSPPApplicationMaster.strApplicationNumber = '" & LastApp & "' "
+                "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".LookUpApplicationTypes, " & _
+                "" & DBNameSpace & ".SSPPApplicationTracking, " & DBNameSpace & ".SSPPApplicationData  " & _
+                "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationType = " & DBNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode (+) " & _
+                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationTracking.strApplicationNumber (+) " & _
+                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = " & DBNameSpace & ".SSPPApplicationData.strApplicationNumber (+) " & _
+                "and " & DBNameSpace & ".SSPPApplicationMaster.strApplicationNumber = '" & LastApp & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr2 = cmd.ExecuteReader
                 While dr2.Read
@@ -3043,20 +3043,20 @@ Public Class DEVFeeStatistics
 
             SQL = "select " & _
             "strApplicationNumber " & _
-            "from " & connNameSpace & ".SSPPApplicationMaster " & _
+            "from " & DBNameSpace & ".SSPPApplicationMaster " & _
             "where datfinalizedDate Is null " & _
             "and strAIRSNumber = '0413" & AIRSNumber & "' "
 
             SQL = "select " & _
             "strApplicationNumber, strApplicationTypeDesc " & _
-            "from " & connNameSpace & ".SSPPApplicationMaster, " & connNameSpace & ".LookUpApplicationTypes " & _
-            "where " & connNameSpace & ".SSPPApplicationMaster.strApplicationType = " & connNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode (+) " & _
+            "from " & DBNameSpace & ".SSPPApplicationMaster, " & DBNameSpace & ".LookUpApplicationTypes " & _
+            "where " & DBNameSpace & ".SSPPApplicationMaster.strApplicationType = " & DBNameSpace & ".LookUpApplicationTypes.strApplicationTypeCode (+) " & _
             "and datfinalizedDate Is null " & _
             "and strAIRSNumber = '0413" & AIRSNumber & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr2 = cmd.ExecuteReader
             PendingApp = "No"
@@ -3147,16 +3147,16 @@ Public Class DEVFeeStatistics
                         Dim DocType As String = ""
 
                         SQL = "Select " & _
-                        "" & connNameSpace & ".ISMPReportInformation.strReferenceNumber, " & connNameSpace & ".ISMPDocumentType.strDocumentType " & _
-                        "from " & connNameSpace & ".SSCPTestReports, " & connNameSpace & ".ISMPDocumentType, " & _
-                        "" & connNameSpace & ".ISMPReportInformation " & _
-                        "where " & connNameSpace & ".SSCPTestReports.strReferenceNumber = " & connNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
-                        "and " & connNameSpace & ".ISMPReportInformation.strDocumentType = " & connNameSpace & ".ISMPDocumentType.strKey " & _
+                        "" & DBNameSpace & ".ISMPReportInformation.strReferenceNumber, " & DBNameSpace & ".ISMPDocumentType.strDocumentType " & _
+                        "from " & DBNameSpace & ".SSCPTestReports, " & DBNameSpace & ".ISMPDocumentType, " & _
+                        "" & DBNameSpace & ".ISMPReportInformation " & _
+                        "where " & DBNameSpace & ".SSCPTestReports.strReferenceNumber = " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
+                        "and " & DBNameSpace & ".ISMPReportInformation.strDocumentType = " & DBNameSpace & ".ISMPDocumentType.strKey " & _
                         "and strTrackingNumber = '" & txtFeeComplianceEvent.Text & "' "
 
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, DBConn)
+                        If DBConn.State = ConnectionState.Closed Then
+                            DBConn.Open()
                         End If
                         dr = cmd.ExecuteReader
                         recExist = dr.Read
@@ -3378,9 +3378,9 @@ Public Class DEVFeeStatistics
             "strCheckNo, InvoiceID, numFeeYear "
 
             ds = New DataSet
-            da = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            da = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             da.Fill(ds, "PaymentDue")
@@ -3465,7 +3465,7 @@ Public Class DEVFeeStatistics
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -3478,23 +3478,23 @@ Public Class DEVFeeStatistics
         Dim drNewRow As DataRow
 
         Try
-            SQL = "Select DISTINCT substr(" & connNameSpace & ".FSCalculations.strairsnumber, 5) as strairsnumber, " _
+            SQL = "Select DISTINCT substr(" & DBNameSpace & ".FSCalculations.strairsnumber, 5) as strairsnumber, " _
             + "strfacilityname " _
-            + "from " & connNameSpace & ".FSCalculations, " & connNameSpace & ".APBFacilityInformation " _
-            + "where " & connNameSpace & ".FSCalculations.strairsnumber = " & connNameSpace & ".APBFacilityInformation.strairsnumber " _
+            + "from " & DBNameSpace & ".FSCalculations, " & DBNameSpace & ".APBFacilityInformation " _
+            + "where " & DBNameSpace & ".FSCalculations.strairsnumber = " & DBNameSpace & ".APBFacilityInformation.strairsnumber " _
             + "Order by strfacilityname "
 
             ds = New DataSet
-            da = New OracleDataAdapter(SQL, conn)
+            da = New OracleDataAdapter(SQL, DBConn)
 
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
             Else
-                conn.Open()
+                DBConn.Open()
             End If
 
             da.Fill(ds, "facilityInfo")
 
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -3533,7 +3533,7 @@ Public Class DEVFeeStatistics
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -3546,14 +3546,14 @@ Public Class DEVFeeStatistics
             ' SQL = "Select distinct strdepositno from " & connNameSpace & ".FSAddPaid " _
             '+ "order by strdepositno"
 
-            SQL = "Select distinct strdepositno from " & connNameSpace & ".FS_Transactions " _
+            SQL = "Select distinct strdepositno from " & DBNameSpace & ".FS_Transactions " _
           + "order by strdepositno"
 
-            Dim cmd As New OracleCommand(SQL, conn)
+            Dim cmd As New OracleCommand(SQL, DBConn)
 
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
             Else
-                conn.Open()
+                DBConn.Open()
             End If
 
             Dim dr As OracleDataReader = cmd.ExecuteReader
@@ -3567,7 +3567,7 @@ Public Class DEVFeeStatistics
         Catch ex As Exception
             ErrorReport(ex.ToString(), "PASPFeeReports.LoadComboBoxesD(Sub1)")
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -3576,13 +3576,13 @@ Public Class DEVFeeStatistics
         Try
 
             SQL = "Select distinct substr(strairsnumber,5) as strairsnumber " _
-            + "from " & connNameSpace & ".FSAddPaid order by strairsnumber"
+            + "from " & DBNameSpace & ".FSAddPaid order by strairsnumber"
 
-            Dim cmd As New OracleCommand(SQL, conn)
+            Dim cmd As New OracleCommand(SQL, DBConn)
 
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
             Else
-                conn.Open()
+                DBConn.Open()
             End If
 
             Dim dr As OracleDataReader = cmd.ExecuteReader
@@ -3595,7 +3595,7 @@ Public Class DEVFeeStatistics
         Catch ex As Exception
             ErrorReport(ex.ToString(), "PASPFeeReports.LoadComboBoxesD(Sub2)")
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
 
@@ -3621,7 +3621,7 @@ Public Class DEVFeeStatistics
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -3636,12 +3636,12 @@ Public Class DEVFeeStatistics
             progress1.progress = -1
             ds = New DataSet
             rpt = New FacilityFee10
-            SQL = "Select * from " & connNameSpace & ".VW_Facility_Fee " & _
+            SQL = "Select * from " & DBNameSpace & ".VW_Facility_Fee " & _
             "where strAIRSNumber = '0413" & cboAirsNo.SelectedValue & "' "
 
-            da = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            da = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             ds.EnforceConstraints = False
             da.Fill(ds, "VW_Facility_Fee")
@@ -3678,7 +3678,7 @@ Public Class DEVFeeStatistics
             ds = New DataSet
             rpt = New TotalFee10
 
-            SQL = "Select * from " & connNameSpace & ".VW_Total_fee "
+            SQL = "Select * from " & DBNameSpace & ".VW_Total_fee "
 
             SQL = "SELECT  intYear, sum(intVOCTons) as intvoctons, " & _
             "sum(intPMTons) as intPMTons, " & _
@@ -3690,12 +3690,12 @@ Public Class DEVFeeStatistics
             "round(avg(numFeeRate)) as numFeeRate, " & _
             "Round(avg(titlevminfee)) as titlevminfee, " & _
             "round(avg(titlevfee)) as titlevfee  " & _
-            "from " & connNameSpace & ".vw_total_fee " & _
+            "from " & DBNameSpace & ".vw_total_fee " & _
             "group by intyear "
 
-            da = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            da = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             ds.EnforceConstraints = False
             da.Fill(ds, "VW_Total_Fee")
@@ -3732,12 +3732,12 @@ Public Class DEVFeeStatistics
             ds = New DataSet
             rpt = New FacilityClassification10
 
-            SQL = "Select * from " & connNameSpace & ".FSCalculations "
-            SQL = "Select * from " & connNameSpace & ".VW_Facility_Class_Counts "
+            SQL = "Select * from " & DBNameSpace & ".FSCalculations "
+            SQL = "Select * from " & DBNameSpace & ".VW_Facility_Class_Counts "
 
-            da = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            da = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             ds.EnforceConstraints = False
             da.Fill(ds, "VW_Facility_Class_Counts")
@@ -3849,9 +3849,9 @@ Public Class DEVFeeStatistics
         "and airbranch.feedetails.intyear = '" & mtbFacilityBalanceYear.Text & "' " & _
         "order by strairsnumber "
 
-            da = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            da = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             ds.EnforceConstraints = False
             da.Fill(ds, "VW_Facility_Balance")
@@ -3935,10 +3935,10 @@ Public Class DEVFeeStatistics
             progress1.progress = -1
             ds = New DataSet
             rpt = New TotalPayment10
-            SQL = "Select * from " & connNameSpace & ".VW_Total_PAYMENT "
-            da = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            SQL = "Select * from " & DBNameSpace & ".VW_Total_PAYMENT "
+            da = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             ds.EnforceConstraints = False
             da.Fill(ds, "VW_Total_PAYMENT")
@@ -3955,7 +3955,7 @@ Public Class DEVFeeStatistics
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -3983,7 +3983,7 @@ Public Class DEVFeeStatistics
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -4004,7 +4004,7 @@ Public Class DEVFeeStatistics
 
             rpt = New DepositDataQA10
 
-            SQL = "Select * from " & connNameSpace & ".FSAddPaid " & _
+            SQL = "Select * from " & DBNameSpace & ".FSAddPaid " & _
             "where datPayDate between '" & Format(DateTimePicker1.Value, "dd-MMM-yyyy") & "' and '" & Format(DateTimePicker2.Value, "dd-MMM-yyyy") & "' " & _
             "order by strBatchNo "
 
@@ -4019,14 +4019,14 @@ Public Class DEVFeeStatistics
             "strBatchNo, " & _
             "strAIRSNumber, " & _
             "nuMFeeYear, strCreditCardNo " & _
-            "from " & connNameSpace & ".FS_Transactions " & _
+            "from " & DBNameSpace & ".FS_Transactions " & _
             "where datTransactionDate between '" & Format(DateTimePicker1.Value, "dd-MMM-yyyy") & "' " & _
                   "and '" & Format(DateTimePicker2.Value, "dd-MMM-yyyy") & "' " & _
             "order by strBatchNo "
 
-            da = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            da = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             ds.EnforceConstraints = False
             da.Fill(ds, "FSAddPaid")
@@ -4070,7 +4070,7 @@ Public Class DEVFeeStatistics
             ds = New DataSet
             rpt = New DepositData10
 
-            SQL = "Select * from " & connNameSpace & ".FSAddPaid " & _
+            SQL = "Select * from " & DBNameSpace & ".FSAddPaid " & _
             "where datPayDate between '" & Format(DateTimePicker1.Value, "dd-MMM-yyyy") & "' and '" & Format(DateTimePicker2.Value, "dd-MMM-yyyy") & "' "
 
             SQL = "select " & _
@@ -4084,14 +4084,14 @@ Public Class DEVFeeStatistics
             "strBatchNo, " & _
             "strAIRSNumber, " & _
             "nuMFeeYear, strCreditCardNo " & _
-            "from " & connNameSpace & ".FS_Transactions " & _
+            "from " & DBNameSpace & ".FS_Transactions " & _
             "where datTransactionDate between '" & Format(DateTimePicker1.Value, "dd-MMM-yyyy") & "' " & _
                 "and '" & Format(DateTimePicker2.Value, "dd-MMM-yyyy") & "' " & _
             "order by strDepositNo "
 
-            da = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            da = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             ds.EnforceConstraints = False
             da.Fill(ds, "FSAddPaid")
@@ -4141,10 +4141,10 @@ Public Class DEVFeeStatistics
             ds = New DataSet
             rpt = New Bankrupt10
 
-            SQL = "select * from " & connNameSpace & ".VW_Bankrupt"
-            da = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            SQL = "select * from " & DBNameSpace & ".VW_Bankrupt"
+            da = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             ds.EnforceConstraints = False
             da.Fill(ds, "VW_Bankrupt")
@@ -4173,11 +4173,11 @@ Public Class DEVFeeStatistics
             progress1.progress = -1
             ds = New DataSet
             rpt = New feeByYear10
-            SQL = "Select * from " & connNameSpace & ".FeesDue "
+            SQL = "Select * from " & DBNameSpace & ".FeesDue "
 
-            da = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            da = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             ds.EnforceConstraints = False
             da.Fill(ds, "FeesDue")
@@ -4213,18 +4213,18 @@ Public Class DEVFeeStatistics
             rpt = New Variance10
 
             If rdb2005Variance.Checked = True Then
-                SQL = "Select * from " & connNameSpace & ".FeeVariance " & _
+                SQL = "Select * from " & DBNameSpace & ".FeeVariance " & _
                 "where difference2005 <> '0' and vCheck2005 <> 'YES' "
 
             Else
-                SQL = "Select * from " & connNameSpace & ".FeeVariance " & _
+                SQL = "Select * from " & DBNameSpace & ".FeeVariance " & _
                 "where difference2006 <> '0' and vCheck2006 <> 'YES' "
 
             End If
 
-            da = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            da = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             ds.EnforceConstraints = False
             da.Fill(ds, "FeeVariance")
@@ -4311,7 +4311,7 @@ Public Class DEVFeeStatistics
                 '"where strDepositNo like '%" & cboDepositNo.Text & "%' " & _
                 '"order by intyear desc  "
 
-                SQL = "Select * from " & connNameSpace & ".FS_Transactions " & _
+                SQL = "Select * from " & DBNameSpace & ".FS_Transactions " & _
                 "where strDepositNo like '%" & cboDepositNo.Text & "%' " & _
                 "and Active = '1' " & _
                 "order by nuMFeeYear desc  "
@@ -4321,7 +4321,7 @@ Public Class DEVFeeStatistics
                     '"where strAIRSNumber like '0413%" & cboAirs.Text & "%' " & _
                     '"order by intyear desc  "
 
-                    SQL = "Select * from " & connNameSpace & ".FS_Transactions " & _
+                    SQL = "Select * from " & DBNameSpace & ".FS_Transactions " & _
                     "where strAIRSNumber like '0413%" & cboAirs.Text & "%' " & _
                     "and Active = '1' " & _
                     "order by nuMFeeYear desc  "
@@ -4331,14 +4331,14 @@ Public Class DEVFeeStatistics
                 'SQL = "Select * from " & connNameSpace & ".FSAddPaid " & _
                 '"order by intyear desc  "
 
-                SQL = "Select * from " & connNameSpace & ".FS_Transactions " & _
+                SQL = "Select * from " & DBNameSpace & ".FS_Transactions " & _
                 "where Active = '1' " & _
                 "order by nuMFeeYear desc  "
             End If
 
-            da = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            da = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             ds.EnforceConstraints = False
             da.Fill(ds, "FS_Transactions")
@@ -4425,11 +4425,11 @@ Public Class DEVFeeStatistics
             ds = New DataSet
             rpt = New ClassChanged10
 
-            SQL = "select * from " & connNameSpace & ".VW_Class_Changed"
+            SQL = "select * from " & DBNameSpace & ".VW_Class_Changed"
 
-            da = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            da = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             ds.EnforceConstraints = False
             da.Fill(ds, "VW_Class_Changed")
@@ -4475,7 +4475,7 @@ Public Class DEVFeeStatistics
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -4488,13 +4488,13 @@ Public Class DEVFeeStatistics
             ds = New DataSet
 
             SQL = "Select * " & _
-            "from " & connNameSpace & ".VW_NSPS_Status " & _
+            "from " & DBNameSpace & ".VW_NSPS_Status " & _
             "where strnsps = 'YES' " & _
             "and STRnspsexempt = 'YES'"
 
-            da = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            da = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             ds.EnforceConstraints = False
             da.Fill(ds, "VW_NSPS_Status")
@@ -4523,13 +4523,13 @@ Public Class DEVFeeStatistics
             ds = New DataSet
             rpt = New NSPSStatus1_10
             SQL = "Select * " & _
-            "from " & connNameSpace & ".VW_NSPS_Status " & _
+            "from " & DBNameSpace & ".VW_NSPS_Status " & _
             "where Strnsps1 = 'YES' " & _
             "and strnsps = 'NO'"
 
-            da = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            da = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             ds.EnforceConstraints = False
             da.Fill(ds, "VW_NSPS_Status")
@@ -4556,13 +4556,13 @@ Public Class DEVFeeStatistics
             ds = New DataSet
             rpt = New NSPSStatus2_10
             SQL = "Select * " & _
-            "from " & connNameSpace & ".VW_NSPS_Status " & _
+            "from " & DBNameSpace & ".VW_NSPS_Status " & _
             "where strnsps = 'YES' " & _
             "and STRoperate <> 'YES'"
 
-            da = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            da = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             ds.EnforceConstraints = False
             da.Fill(ds, "VW_NSPS_Status")
@@ -4606,13 +4606,13 @@ Public Class DEVFeeStatistics
             ds = New DataSet
             rpt = New NonRespondent10
 
-            SQL = "Select * from " & connNameSpace & ".VW_NonRespondent " & _
+            SQL = "Select * from " & DBNameSpace & ".VW_NonRespondent " & _
             "where intYear = '" & mtbNonRespondentYear.Text & "' " & _
             "and intSubmittal <> '1' "
 
-            da = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            da = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             ds.EnforceConstraints = False
             da.Fill(ds, "VW_NonRespondent")
@@ -4663,11 +4663,11 @@ Public Class DEVFeeStatistics
             progress1.progress = -1
             ds = New DataSet
             rpt = New NoOperate10
-            SQL = "Select * from " & connNameSpace & ".VW_No_Operate "
+            SQL = "Select * from " & DBNameSpace & ".VW_No_Operate "
 
-            da = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            da = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             ds.EnforceConstraints = False
             da.Fill(ds, "VW_No_Operate")
@@ -4708,17 +4708,17 @@ Public Class DEVFeeStatistics
             ds = New DataSet
             rpt = New FacilityComments10
 
-            SQL = "Select * from " & connNameSpace & ".FSPAYANDSUBMIT " & _
+            SQL = "Select * from " & DBNameSpace & ".FSPAYANDSUBMIT " & _
             "where strComments is not Null "
 
-            SQL = "Select * from " & connNameSpace & ".FS_FeeData " & _
+            SQL = "Select * from " & DBNameSpace & ".FS_FeeData " & _
             "where strComment is not null " & _
             "and Active = '1' " & _
             "order by numfeeyear desc, strairsnumber "
 
-            da = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            da = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             ds.EnforceConstraints = False
             da.Fill(ds, "FSPAYANDSUBMIT")
@@ -4748,11 +4748,11 @@ Public Class DEVFeeStatistics
             ds = New DataSet
             rpt = New FacilityInfo10
 
-            SQL = "Select * from " & connNameSpace & ".VW_Facility_Info "
+            SQL = "Select * from " & DBNameSpace & ".VW_Facility_Info "
 
-            da = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            da = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             ds.EnforceConstraints = False
             da.Fill(ds, "VW_Facility_Info")
@@ -4781,9 +4781,9 @@ Public Class DEVFeeStatistics
             rpt = New TrainingReg10
 
             SQL = "Select * from AIRBranch.VW_Training_reg "
-            da = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            da = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             ds.EnforceConstraints = False
             da.Fill(ds, "VW_Training_reg")
@@ -5012,9 +5012,9 @@ Public Class DEVFeeStatistics
 "and numcurrentstatus = '10' " & _
 "and (intSubmittal = '0' or intsubmittal is null))    "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -5154,9 +5154,9 @@ Public Class DEVFeeStatistics
             "order by strAIRSNumber "
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvFeeStats.DataSource = dsViewCount
@@ -5211,9 +5211,9 @@ Public Class DEVFeeStatistics
             "order by strAIRSNumber "
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvFeeStats.DataSource = dsViewCount
@@ -5269,9 +5269,9 @@ Public Class DEVFeeStatistics
             "order by strAIRSNumber "
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvFeeStats.DataSource = dsViewCount
@@ -5327,9 +5327,9 @@ Public Class DEVFeeStatistics
             "order by strAIRSNumber "
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvFeeStats.DataSource = dsViewCount
@@ -5386,9 +5386,9 @@ Public Class DEVFeeStatistics
             "order by strAIRSNumber "
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvFeeStats.DataSource = dsViewCount
@@ -5445,9 +5445,9 @@ Public Class DEVFeeStatistics
             "order by strAIRSNumber "
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvFeeStats.DataSource = dsViewCount
@@ -5503,9 +5503,9 @@ Public Class DEVFeeStatistics
             "order by strAIRSNumber "
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvFeeStats.DataSource = dsViewCount
@@ -5562,9 +5562,9 @@ Public Class DEVFeeStatistics
             "order by strAIRSNumber "
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvFeeStats.DataSource = dsViewCount
@@ -5626,9 +5626,9 @@ Public Class DEVFeeStatistics
                 "order by strAIRSNumber "
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvFeeStats.DataSource = dsViewCount
@@ -5687,9 +5687,9 @@ Public Class DEVFeeStatistics
             "order by strAIRSNumber "
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvFeeStats.DataSource = dsViewCount
@@ -5749,9 +5749,9 @@ Public Class DEVFeeStatistics
             "order by strAIRSNumber "
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvFeeStats.DataSource = dsViewCount
@@ -5810,9 +5810,9 @@ Public Class DEVFeeStatistics
             "order by strAIRSNumber "
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvFeeStats.DataSource = dsViewCount
@@ -5868,9 +5868,9 @@ Public Class DEVFeeStatistics
             "order by strAIRSNumber "
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvFeeStats.DataSource = dsViewCount
@@ -5929,9 +5929,9 @@ Public Class DEVFeeStatistics
             "order by strAIRSNumber "
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvFeeStats.DataSource = dsViewCount
@@ -5997,9 +5997,9 @@ Public Class DEVFeeStatistics
 
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvFeeStats.DataSource = dsViewCount
@@ -6053,9 +6053,9 @@ Public Class DEVFeeStatistics
           "order by strAIRSNumber "
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvFeeStats.DataSource = dsViewCount
@@ -6112,9 +6112,9 @@ Public Class DEVFeeStatistics
           "order by strAIRSNumber "
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvFeeStats.DataSource = dsViewCount
@@ -6172,9 +6172,9 @@ Public Class DEVFeeStatistics
           "order by strAIRSNumber "
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvFeeStats.DataSource = dsViewCount
@@ -6230,9 +6230,9 @@ Public Class DEVFeeStatistics
             "order by strAIRSNumber "
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvFeeStats.DataSource = dsViewCount
@@ -6289,9 +6289,9 @@ Public Class DEVFeeStatistics
           "order by strAIRSNumber "
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvFeeStats.DataSource = dsViewCount
@@ -6348,9 +6348,9 @@ Public Class DEVFeeStatistics
           "order by strAIRSNumber "
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvFeeStats.DataSource = dsViewCount
@@ -6396,18 +6396,18 @@ Public Class DEVFeeStatistics
 
             SQL = "Select  " & _
             "substr(AIRBranch.FS_Admin.strAIRSNumber, 5) as strAIRSNumber, strFacilityName, strIAIPDesc, airbranch.FS_Admin.strComment, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTFIRSTNAME, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTLASTNAME, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRContactCOMPANYNAME, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTADDRESS, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTCITY, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTSTATE, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTZIPCODE, " & _
-            "" & connNameSpace & ".APBFACILITYINFORMATION.STRFACILITYSTREET1, " & _
-            "" & connNameSpace & ".APBFACILITYINFORMATION.STRFACILITYCITY, " & _
-            "" & connNameSpace & ".APBFACILITYINFORMATION.STRFACILITYZIPCODE, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTEMAIL, " & _
-            "" & connNameSpace & ".FS_ContactInfo.strContactPhoneNumber, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTFIRSTNAME, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTLASTNAME, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRContactCOMPANYNAME, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTADDRESS, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTCITY, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTSTATE, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTZIPCODE, " & _
+            "" & DBNameSpace & ".APBFACILITYINFORMATION.STRFACILITYSTREET1, " & _
+            "" & DBNameSpace & ".APBFACILITYINFORMATION.STRFACILITYCITY, " & _
+            "" & DBNameSpace & ".APBFACILITYINFORMATION.STRFACILITYZIPCODE, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTEMAIL, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.strContactPhoneNumber, " & _
             "datShutDown, strClass, " & _
             "case " & _
             "when strOperate = '1' then 'Operating' " & _
@@ -6506,9 +6506,9 @@ Public Class DEVFeeStatistics
             "end, numTotalFee "
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvFeeStats.DataSource = dsViewCount
@@ -6596,18 +6596,18 @@ Public Class DEVFeeStatistics
 
             SQL = "Select  " & _
             "substr(AIRBranch.FS_Admin.strAIRSNumber, 5) as strAIRSNumber, strFacilityName, strIAIPDesc, airbranch.FS_Admin.strComment,  " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTFIRSTNAME, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTLASTNAME, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRContactCOMPANYNAME, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTADDRESS, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTCITY, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTSTATE, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTZIPCODE, " & _
-            "" & connNameSpace & ".APBFACILITYINFORMATION.STRFACILITYSTREET1, " & _
-            "" & connNameSpace & ".APBFACILITYINFORMATION.STRFACILITYCITY, " & _
-            "" & connNameSpace & ".APBFACILITYINFORMATION.STRFACILITYZIPCODE, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTEMAIL, " & _
-            "" & connNameSpace & ".FS_ContactInfo.strContactPhoneNumber, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTFIRSTNAME, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTLASTNAME, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRContactCOMPANYNAME, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTADDRESS, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTCITY, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTSTATE, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTZIPCODE, " & _
+            "" & DBNameSpace & ".APBFACILITYINFORMATION.STRFACILITYSTREET1, " & _
+            "" & DBNameSpace & ".APBFACILITYINFORMATION.STRFACILITYCITY, " & _
+            "" & DBNameSpace & ".APBFACILITYINFORMATION.STRFACILITYZIPCODE, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTEMAIL, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.strContactPhoneNumber, " & _
             "datShutDown, strClass, " & _
             "case " & _
             "when strOperate = '1' then 'Operating' " & _
@@ -6652,9 +6652,9 @@ Public Class DEVFeeStatistics
             "order by strAIRSNumber "
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvFeeStats.DataSource = dsViewCount
@@ -6743,18 +6743,18 @@ Public Class DEVFeeStatistics
 
             SQL = "Select  " & _
             "substr(AIRBranch.FS_Admin.strAIRSNumber, 5) as strAIRSNumber, strFacilityName, strIAIPDesc, airbranch.FS_Admin.strComment,  " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTFIRSTNAME, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTLASTNAME, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRContactCOMPANYNAME, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTADDRESS, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTCITY, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTSTATE, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTZIPCODE, " & _
-            "" & connNameSpace & ".APBFACILITYINFORMATION.STRFACILITYSTREET1, " & _
-            "" & connNameSpace & ".APBFACILITYINFORMATION.STRFACILITYCITY, " & _
-            "" & connNameSpace & ".APBFACILITYINFORMATION.STRFACILITYZIPCODE, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTEMAIL, " & _
-            "" & connNameSpace & ".FS_ContactInfo.strContactPhoneNumber, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTFIRSTNAME, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTLASTNAME, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRContactCOMPANYNAME, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTADDRESS, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTCITY, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTSTATE, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTZIPCODE, " & _
+            "" & DBNameSpace & ".APBFACILITYINFORMATION.STRFACILITYSTREET1, " & _
+            "" & DBNameSpace & ".APBFACILITYINFORMATION.STRFACILITYCITY, " & _
+            "" & DBNameSpace & ".APBFACILITYINFORMATION.STRFACILITYZIPCODE, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTEMAIL, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.strContactPhoneNumber, " & _
             "datShutDown, strClass, " & _
             "case " & _
             "when strOperate = '1' then 'Operating' " & _
@@ -6800,9 +6800,9 @@ Public Class DEVFeeStatistics
             "order by strAIRSNumber "
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvFeeStats.DataSource = dsViewCount
@@ -6891,18 +6891,18 @@ Public Class DEVFeeStatistics
 
             SQL = "Select  " & _
             "substr(AIRBranch.FS_Admin.strAIRSNumber, 5) as strAIRSNumber, strFacilityName, strIAIPDesc, airbranch.FS_Admin.strComment,  " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTFIRSTNAME, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTLASTNAME, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRContactCOMPANYNAME, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTADDRESS, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTCITY, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTSTATE, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTZIPCODE, " & _
-            "" & connNameSpace & ".APBFACILITYINFORMATION.STRFACILITYSTREET1, " & _
-            "" & connNameSpace & ".APBFACILITYINFORMATION.STRFACILITYCITY, " & _
-            "" & connNameSpace & ".APBFACILITYINFORMATION.STRFACILITYZIPCODE, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTEMAIL, " & _
-            "" & connNameSpace & ".FS_ContactInfo.strContactPhoneNumber, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTFIRSTNAME, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTLASTNAME, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRContactCOMPANYNAME, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTADDRESS, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTCITY, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTSTATE, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTZIPCODE, " & _
+            "" & DBNameSpace & ".APBFACILITYINFORMATION.STRFACILITYSTREET1, " & _
+            "" & DBNameSpace & ".APBFACILITYINFORMATION.STRFACILITYCITY, " & _
+            "" & DBNameSpace & ".APBFACILITYINFORMATION.STRFACILITYZIPCODE, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTEMAIL, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.strContactPhoneNumber, " & _
             "datShutDown, strClass, " & _
             "case " & _
             "when strOperate = '1' then 'Operating' " & _
@@ -6948,9 +6948,9 @@ Public Class DEVFeeStatistics
             "order by strAIRSNumber "
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvFeeStats.DataSource = dsViewCount
@@ -7039,18 +7039,18 @@ Public Class DEVFeeStatistics
 
             SQL = "Select  " & _
             "substr(AIRBranch.FS_Admin.strAIRSNumber, 5) as strAIRSNumber, strFacilityName, strIAIPDesc, airbranch.FS_Admin.strComment,  " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTFIRSTNAME, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTLASTNAME, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRContactCOMPANYNAME, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTADDRESS, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTCITY, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTSTATE, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTZIPCODE, " & _
-            "" & connNameSpace & ".APBFACILITYINFORMATION.STRFACILITYSTREET1, " & _
-            "" & connNameSpace & ".APBFACILITYINFORMATION.STRFACILITYCITY, " & _
-            "" & connNameSpace & ".APBFACILITYINFORMATION.STRFACILITYZIPCODE, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTEMAIL, " & _
-            "" & connNameSpace & ".FS_ContactInfo.strContactPhoneNumber, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTFIRSTNAME, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTLASTNAME, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRContactCOMPANYNAME, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTADDRESS, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTCITY, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTSTATE, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTZIPCODE, " & _
+            "" & DBNameSpace & ".APBFACILITYINFORMATION.STRFACILITYSTREET1, " & _
+            "" & DBNameSpace & ".APBFACILITYINFORMATION.STRFACILITYCITY, " & _
+            "" & DBNameSpace & ".APBFACILITYINFORMATION.STRFACILITYZIPCODE, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTEMAIL, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.strContactPhoneNumber, " & _
             "datShutDown, strClass, " & _
             "case " & _
             "when strOperate = '1' then 'Operating' " & _
@@ -7097,9 +7097,9 @@ Public Class DEVFeeStatistics
             "order by strAIRSNumber "
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvFeeStats.DataSource = dsViewCount
@@ -7188,18 +7188,18 @@ Public Class DEVFeeStatistics
 
             SQL = "Select  " & _
             "substr(AIRBranch.FS_Admin.strAIRSNumber, 5) as strAIRSNumber, strFacilityName, strIAIPDesc, airbranch.FS_Admin.strComment,  " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTFIRSTNAME, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTLASTNAME, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRContactCOMPANYNAME, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTADDRESS, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTCITY, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTSTATE, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTZIPCODE, " & _
-            "" & connNameSpace & ".APBFACILITYINFORMATION.STRFACILITYSTREET1, " & _
-            "" & connNameSpace & ".APBFACILITYINFORMATION.STRFACILITYCITY, " & _
-            "" & connNameSpace & ".APBFACILITYINFORMATION.STRFACILITYZIPCODE, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTEMAIL, " & _
-            "" & connNameSpace & ".FS_ContactInfo.strContactPhoneNumber, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTFIRSTNAME, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTLASTNAME, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRContactCOMPANYNAME, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTADDRESS, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTCITY, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTSTATE, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTZIPCODE, " & _
+            "" & DBNameSpace & ".APBFACILITYINFORMATION.STRFACILITYSTREET1, " & _
+            "" & DBNameSpace & ".APBFACILITYINFORMATION.STRFACILITYCITY, " & _
+            "" & DBNameSpace & ".APBFACILITYINFORMATION.STRFACILITYZIPCODE, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTEMAIL, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.strContactPhoneNumber, " & _
             "datShutDown, strClass, " & _
             "case " & _
             "when strOperate = '1' then 'Operating' " & _
@@ -7246,9 +7246,9 @@ Public Class DEVFeeStatistics
             "order by strAIRSNumber "
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvFeeStats.DataSource = dsViewCount
@@ -7337,27 +7337,27 @@ Public Class DEVFeeStatistics
             SQL = "Select  " & _
             "substr(AIRBranch.FS_Admin.strAIRSNumber, 5) as strAIRSNumber, airbranch.FS_Admin.strcomment, " & _
             "APBFacilityInformation.strFacilityName, strIAIPDesc,  " & _
-            "" & connNameSpace & ".FS_Mailout.STRFIRSTNAME, " & _
-            "" & connNameSpace & ".FS_Mailout.STRLASTNAME, " & _
-            "" & connNameSpace & ".FS_Mailout.STRContactCONAME, " & _
-            "" & connNameSpace & ".FS_Mailout.STRCONTACTADDRESS1, " & _
-            "" & connNameSpace & ".FS_Mailout.STRCONTACTCITY, " & _
-            "" & connNameSpace & ".FS_Mailout.STRCONTACTSTATE, " & _
-            "" & connNameSpace & ".FS_Mailout.STRCONTACTZIPCODE, " & _
-            "" & connNameSpace & ".APBFACILITYINFORMATION.STRFACILITYSTREET1, " & _
-            "" & connNameSpace & ".APBFACILITYINFORMATION.STRFACILITYCITY, " & _
-            "" & connNameSpace & ".APBFACILITYINFORMATION.STRFACILITYZIPCODE, " & _
-            "datShutDown, " & connNameSpace & ".FS_Mailout.strClass, " & _
+            "" & DBNameSpace & ".FS_Mailout.STRFIRSTNAME, " & _
+            "" & DBNameSpace & ".FS_Mailout.STRLASTNAME, " & _
+            "" & DBNameSpace & ".FS_Mailout.STRContactCONAME, " & _
+            "" & DBNameSpace & ".FS_Mailout.STRCONTACTADDRESS1, " & _
+            "" & DBNameSpace & ".FS_Mailout.STRCONTACTCITY, " & _
+            "" & DBNameSpace & ".FS_Mailout.STRCONTACTSTATE, " & _
+            "" & DBNameSpace & ".FS_Mailout.STRCONTACTZIPCODE, " & _
+            "" & DBNameSpace & ".APBFACILITYINFORMATION.STRFACILITYSTREET1, " & _
+            "" & DBNameSpace & ".APBFACILITYINFORMATION.STRFACILITYCITY, " & _
+            "" & DBNameSpace & ".APBFACILITYINFORMATION.STRFACILITYZIPCODE, " & _
+            "datShutDown, " & DBNameSpace & ".FS_Mailout.strClass, " & _
             "case " & _
             "when strOperate = '1' then 'Operating' " & _
             "else 'Not Operating' " & _
             "end Operating, " & _
             "case " & _
-            "when " & connNameSpace & ".FS_Mailout.strPart70 = '1' then 'True' " & _
+            "when " & DBNameSpace & ".FS_Mailout.strPart70 = '1' then 'True' " & _
             "else 'False' " & _
             "end Part70, " & _
             "case " & _
-            "when " & connNameSpace & ".FS_Mailout.strNSPS = '1' then 'True' " & _
+            "when " & DBNameSpace & ".FS_Mailout.strNSPS = '1' then 'True' " & _
             "else 'False' " & _
             "end NSPS, " & _
             "numTotalFee, sum(numPayment) as TotalPaid " & _
@@ -7392,9 +7392,9 @@ Public Class DEVFeeStatistics
             "order by strAIRSNumber "
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvFeeStats.DataSource = dsViewCount
@@ -7483,18 +7483,18 @@ Public Class DEVFeeStatistics
 
             SQL = "Select  " & _
             "substr(AIRBranch.FS_Admin.strAIRSNumber, 5) as strAIRSNumber, strFacilityName, strIAIPDesc, airbranch.FS_Admin.strComment,  " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTFIRSTNAME, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTLASTNAME, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRContactCOMPANYNAME, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTADDRESS, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTCITY, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTSTATE, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTZIPCODE, " & _
-            "" & connNameSpace & ".APBFACILITYINFORMATION.STRFACILITYSTREET1, " & _
-            "" & connNameSpace & ".APBFACILITYINFORMATION.STRFACILITYCITY, " & _
-            "" & connNameSpace & ".APBFACILITYINFORMATION.STRFACILITYZIPCODE, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTEMAIL, " & _
-            "" & connNameSpace & ".FS_ContactInfo.strContactPhoneNumber, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTFIRSTNAME, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTLASTNAME, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRContactCOMPANYNAME, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTADDRESS, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTCITY, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTSTATE, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTZIPCODE, " & _
+            "" & DBNameSpace & ".APBFACILITYINFORMATION.STRFACILITYSTREET1, " & _
+            "" & DBNameSpace & ".APBFACILITYINFORMATION.STRFACILITYCITY, " & _
+            "" & DBNameSpace & ".APBFACILITYINFORMATION.STRFACILITYZIPCODE, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTEMAIL, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.strContactPhoneNumber, " & _
             "datShutDown, strClass, " & _
             "case " & _
             "when strOperate = '1' then 'Operating' " & _
@@ -7541,9 +7541,9 @@ Public Class DEVFeeStatistics
             "order by strAIRSNumber "
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvFeeStats.DataSource = dsViewCount
@@ -7631,18 +7631,18 @@ Public Class DEVFeeStatistics
 
             SQL = "Select  " & _
             "substr(AIRBranch.FS_Admin.strAIRSNumber, 5) as strAIRSNumber, strFacilityName, strIAIPDesc, airbranch.FS_Admin.strComment,  " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTFIRSTNAME, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTLASTNAME, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRContactCOMPANYNAME, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTADDRESS, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTCITY, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTSTATE, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTZIPCODE, " & _
-            "" & connNameSpace & ".APBFACILITYINFORMATION.STRFACILITYSTREET1, " & _
-            "" & connNameSpace & ".APBFACILITYINFORMATION.STRFACILITYCITY, " & _
-            "" & connNameSpace & ".APBFACILITYINFORMATION.STRFACILITYZIPCODE, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTEMAIL, " & _
-            "" & connNameSpace & ".FS_ContactInfo.strContactPhoneNumber, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTFIRSTNAME, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTLASTNAME, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRContactCOMPANYNAME, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTADDRESS, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTCITY, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTSTATE, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTZIPCODE, " & _
+            "" & DBNameSpace & ".APBFACILITYINFORMATION.STRFACILITYSTREET1, " & _
+            "" & DBNameSpace & ".APBFACILITYINFORMATION.STRFACILITYCITY, " & _
+            "" & DBNameSpace & ".APBFACILITYINFORMATION.STRFACILITYZIPCODE, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTEMAIL, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.strContactPhoneNumber, " & _
             "datShutDown, strClass, " & _
             "case " & _
             "when strOperate = '1' then 'Operating' " & _
@@ -7697,9 +7697,9 @@ Public Class DEVFeeStatistics
 
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvFeeStats.DataSource = dsViewCount
@@ -7789,18 +7789,18 @@ Public Class DEVFeeStatistics
 
             SQL = "Select  " & _
             "substr(AIRBranch.FS_Admin.strAIRSNumber, 5) as strAIRSNumber, strFacilityName, strIAIPDesc, airbranch.FS_Admin.strComment,  " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTFIRSTNAME, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTLASTNAME, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRContactCOMPANYNAME, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTADDRESS, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTCITY, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTSTATE, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTZIPCODE, " & _
-            "" & connNameSpace & ".APBFACILITYINFORMATION.STRFACILITYSTREET1, " & _
-            "" & connNameSpace & ".APBFACILITYINFORMATION.STRFACILITYCITY, " & _
-            "" & connNameSpace & ".APBFACILITYINFORMATION.STRFACILITYZIPCODE, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTEMAIL, " & _
-            "" & connNameSpace & ".FS_ContactInfo.strContactPhoneNumber, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTFIRSTNAME, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTLASTNAME, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRContactCOMPANYNAME, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTADDRESS, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTCITY, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTSTATE, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTZIPCODE, " & _
+            "" & DBNameSpace & ".APBFACILITYINFORMATION.STRFACILITYSTREET1, " & _
+            "" & DBNameSpace & ".APBFACILITYINFORMATION.STRFACILITYCITY, " & _
+            "" & DBNameSpace & ".APBFACILITYINFORMATION.STRFACILITYZIPCODE, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTEMAIL, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.strContactPhoneNumber, " & _
             "datShutDown, strClass, " & _
             "case " & _
             "when strOperate = '1' then 'Operating' " & _
@@ -7850,9 +7850,9 @@ Public Class DEVFeeStatistics
             "order by strAIRSNumber "
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvFeeStats.DataSource = dsViewCount
@@ -7942,18 +7942,18 @@ Public Class DEVFeeStatistics
 
             SQL = "Select  " & _
             "substr(AIRBranch.FS_Admin.strAIRSNumber, 5) as strAIRSNumber, strFacilityName, strIAIPDesc, airbranch.FS_Admin.strComment,  " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTFIRSTNAME, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTLASTNAME, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRContactCOMPANYNAME, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTADDRESS, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTCITY, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTSTATE, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTZIPCODE, " & _
-            "" & connNameSpace & ".APBFACILITYINFORMATION.STRFACILITYSTREET1, " & _
-            "" & connNameSpace & ".APBFACILITYINFORMATION.STRFACILITYCITY, " & _
-            "" & connNameSpace & ".APBFACILITYINFORMATION.STRFACILITYZIPCODE, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTEMAIL, " & _
-            "" & connNameSpace & ".FS_ContactInfo.strContactPhoneNumber, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTFIRSTNAME, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTLASTNAME, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRContactCOMPANYNAME, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTADDRESS, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTCITY, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTSTATE, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTZIPCODE, " & _
+            "" & DBNameSpace & ".APBFACILITYINFORMATION.STRFACILITYSTREET1, " & _
+            "" & DBNameSpace & ".APBFACILITYINFORMATION.STRFACILITYCITY, " & _
+            "" & DBNameSpace & ".APBFACILITYINFORMATION.STRFACILITYZIPCODE, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTEMAIL, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.strContactPhoneNumber, " & _
             "datShutDown, strClass, " & _
             "case " & _
             "when strOperate = '1' then 'Operating' " & _
@@ -8003,9 +8003,9 @@ Public Class DEVFeeStatistics
 
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvFeeStats.DataSource = dsViewCount
@@ -8094,18 +8094,18 @@ Public Class DEVFeeStatistics
 
             SQL = "Select  " & _
             "substr(AIRBranch.FS_Admin.strAIRSNumber, 5) as strAIRSNumber, strFacilityName, strIAIPDesc, airbranch.FS_Admin.strComment,  " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTFIRSTNAME, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTLASTNAME, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRContactCOMPANYNAME, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTADDRESS, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTCITY, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTSTATE, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTZIPCODE, " & _
-            "" & connNameSpace & ".APBFACILITYINFORMATION.STRFACILITYSTREET1, " & _
-            "" & connNameSpace & ".APBFACILITYINFORMATION.STRFACILITYCITY, " & _
-            "" & connNameSpace & ".APBFACILITYINFORMATION.STRFACILITYZIPCODE, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTEMAIL, " & _
-            "" & connNameSpace & ".FS_ContactInfo.strContactPhoneNumber, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTFIRSTNAME, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTLASTNAME, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRContactCOMPANYNAME, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTADDRESS, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTCITY, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTSTATE, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTZIPCODE, " & _
+            "" & DBNameSpace & ".APBFACILITYINFORMATION.STRFACILITYSTREET1, " & _
+            "" & DBNameSpace & ".APBFACILITYINFORMATION.STRFACILITYCITY, " & _
+            "" & DBNameSpace & ".APBFACILITYINFORMATION.STRFACILITYZIPCODE, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTEMAIL, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.strContactPhoneNumber, " & _
             "datShutDown, strClass, " & _
             "case " & _
             "when strOperate = '1' then 'Operating' " & _
@@ -8152,9 +8152,9 @@ Public Class DEVFeeStatistics
 
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvFeeStats.DataSource = dsViewCount
@@ -8243,18 +8243,18 @@ Public Class DEVFeeStatistics
 
             SQL = "Select  " & _
             "substr(AIRBranch.FS_Admin.strAIRSNumber, 5) as strAIRSNumber, strFacilityName, strIAIPDesc, airbranch.FS_Admin.strComment,  " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTFIRSTNAME, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTLASTNAME, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRContactCOMPANYNAME, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTADDRESS, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTCITY, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTSTATE, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTZIPCODE, " & _
-            "" & connNameSpace & ".APBFACILITYINFORMATION.STRFACILITYSTREET1, " & _
-            "" & connNameSpace & ".APBFACILITYINFORMATION.STRFACILITYCITY, " & _
-            "" & connNameSpace & ".APBFACILITYINFORMATION.STRFACILITYZIPCODE, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTEMAIL, " & _
-            "" & connNameSpace & ".FS_ContactInfo.strContactPhoneNumber, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTFIRSTNAME, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTLASTNAME, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRContactCOMPANYNAME, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTADDRESS, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTCITY, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTSTATE, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTZIPCODE, " & _
+            "" & DBNameSpace & ".APBFACILITYINFORMATION.STRFACILITYSTREET1, " & _
+            "" & DBNameSpace & ".APBFACILITYINFORMATION.STRFACILITYCITY, " & _
+            "" & DBNameSpace & ".APBFACILITYINFORMATION.STRFACILITYZIPCODE, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTEMAIL, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.strContactPhoneNumber, " & _
             "datShutDown, strClass, " & _
             "case " & _
             "when strOperate = '1' then 'Operating' " & _
@@ -8302,9 +8302,9 @@ Public Class DEVFeeStatistics
 
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvFeeStats.DataSource = dsViewCount
@@ -8393,18 +8393,18 @@ Public Class DEVFeeStatistics
 
             SQL = "Select  " & _
             "substr(AIRBranch.FS_Admin.strAIRSNumber, 5) as strAIRSNumber, strFacilityName, strIAIPDesc, airbranch.FS_Admin.strComment,  " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTFIRSTNAME, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTLASTNAME, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRContactCOMPANYNAME, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTADDRESS, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTCITY, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTSTATE, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTZIPCODE, " & _
-            "" & connNameSpace & ".APBFACILITYINFORMATION.STRFACILITYSTREET1, " & _
-            "" & connNameSpace & ".APBFACILITYINFORMATION.STRFACILITYCITY, " & _
-            "" & connNameSpace & ".APBFACILITYINFORMATION.STRFACILITYZIPCODE, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTEMAIL, " & _
-            "" & connNameSpace & ".FS_ContactInfo.strContactPhoneNumber, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTFIRSTNAME, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTLASTNAME, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRContactCOMPANYNAME, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTADDRESS, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTCITY, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTSTATE, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTZIPCODE, " & _
+            "" & DBNameSpace & ".APBFACILITYINFORMATION.STRFACILITYSTREET1, " & _
+            "" & DBNameSpace & ".APBFACILITYINFORMATION.STRFACILITYCITY, " & _
+            "" & DBNameSpace & ".APBFACILITYINFORMATION.STRFACILITYZIPCODE, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTEMAIL, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.strContactPhoneNumber, " & _
             "datShutDown, strClass, " & _
             "case " & _
             "when strOperate = '1' then 'Operating' " & _
@@ -8448,9 +8448,9 @@ Public Class DEVFeeStatistics
             "order by strAIRSNumber "
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvFeeStats.DataSource = dsViewCount
@@ -8539,18 +8539,18 @@ Public Class DEVFeeStatistics
 
             SQL = "Select  " & _
             "substr(AIRBranch.FS_Admin.strAIRSNumber, 5) as strAIRSNumber, strFacilityName, strIAIPDesc, airbranch.FS_Admin.strComment,  " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTFIRSTNAME, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTLASTNAME, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRContactCOMPANYNAME, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTADDRESS, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTCITY, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTSTATE, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTZIPCODE, " & _
-            "" & connNameSpace & ".APBFACILITYINFORMATION.STRFACILITYSTREET1, " & _
-            "" & connNameSpace & ".APBFACILITYINFORMATION.STRFACILITYCITY, " & _
-            "" & connNameSpace & ".APBFACILITYINFORMATION.STRFACILITYZIPCODE, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTEMAIL, " & _
-            "" & connNameSpace & ".FS_ContactInfo.strContactPhoneNumber, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTFIRSTNAME, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTLASTNAME, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRContactCOMPANYNAME, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTADDRESS, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTCITY, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTSTATE, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTZIPCODE, " & _
+            "" & DBNameSpace & ".APBFACILITYINFORMATION.STRFACILITYSTREET1, " & _
+            "" & DBNameSpace & ".APBFACILITYINFORMATION.STRFACILITYCITY, " & _
+            "" & DBNameSpace & ".APBFACILITYINFORMATION.STRFACILITYZIPCODE, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTEMAIL, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.strContactPhoneNumber, " & _
             "datShutDown, strClass, " & _
             "case " & _
             "when strOperate = '1' then 'Operating' " & _
@@ -8594,9 +8594,9 @@ Public Class DEVFeeStatistics
             "order by strAIRSNumber "
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvFeeStats.DataSource = dsViewCount
@@ -8685,18 +8685,18 @@ Public Class DEVFeeStatistics
 
             SQL = "Select  " & _
             "substr(AIRBranch.FS_Admin.strAIRSNumber, 5) as strAIRSNumber, strFacilityName, strIAIPDesc, airbranch.FS_Admin.strComment,  " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTFIRSTNAME, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTLASTNAME, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRContactCOMPANYNAME, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTADDRESS, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTCITY, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTSTATE, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTZIPCODE, " & _
-            "" & connNameSpace & ".APBFACILITYINFORMATION.STRFACILITYSTREET1, " & _
-            "" & connNameSpace & ".APBFACILITYINFORMATION.STRFACILITYCITY, " & _
-            "" & connNameSpace & ".APBFACILITYINFORMATION.STRFACILITYZIPCODE, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTEMAIL, " & _
-            "" & connNameSpace & ".FS_ContactInfo.strContactPhoneNumber, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTFIRSTNAME, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTLASTNAME, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRContactCOMPANYNAME, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTADDRESS, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTCITY, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTSTATE, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTZIPCODE, " & _
+            "" & DBNameSpace & ".APBFACILITYINFORMATION.STRFACILITYSTREET1, " & _
+            "" & DBNameSpace & ".APBFACILITYINFORMATION.STRFACILITYCITY, " & _
+            "" & DBNameSpace & ".APBFACILITYINFORMATION.STRFACILITYZIPCODE, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTEMAIL, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.strContactPhoneNumber, " & _
             "datShutDown, strClass, " & _
             "case " & _
             "when strOperate = '1' then 'Operating' " & _
@@ -8740,9 +8740,9 @@ Public Class DEVFeeStatistics
             "order by strAIRSNumber "
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvFeeStats.DataSource = dsViewCount
@@ -8831,18 +8831,18 @@ Public Class DEVFeeStatistics
 
             SQL = "Select  " & _
             "substr(AIRBranch.FS_Admin.strAIRSNumber, 5) as strAIRSNumber, strFacilityName, strIAIPDesc, airbranch.FS_Admin.strComment,  " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTFIRSTNAME, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTLASTNAME, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRContactCOMPANYNAME, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTADDRESS, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTCITY, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTSTATE, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTZIPCODE, " & _
-            "" & connNameSpace & ".APBFACILITYINFORMATION.STRFACILITYSTREET1, " & _
-            "" & connNameSpace & ".APBFACILITYINFORMATION.STRFACILITYCITY, " & _
-            "" & connNameSpace & ".APBFACILITYINFORMATION.STRFACILITYZIPCODE, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTEMAIL, " & _
-            "" & connNameSpace & ".FS_ContactInfo.strContactPhoneNumber, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTFIRSTNAME, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTLASTNAME, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRContactCOMPANYNAME, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTADDRESS, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTCITY, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTSTATE, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTZIPCODE, " & _
+            "" & DBNameSpace & ".APBFACILITYINFORMATION.STRFACILITYSTREET1, " & _
+            "" & DBNameSpace & ".APBFACILITYINFORMATION.STRFACILITYCITY, " & _
+            "" & DBNameSpace & ".APBFACILITYINFORMATION.STRFACILITYZIPCODE, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTEMAIL, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.strContactPhoneNumber, " & _
             "datShutDown, strClass, " & _
             "case " & _
             "when strOperate = '1' then 'Operating' " & _
@@ -8886,9 +8886,9 @@ Public Class DEVFeeStatistics
             "order by strAIRSNumber "
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvFeeStats.DataSource = dsViewCount
@@ -8977,18 +8977,18 @@ Public Class DEVFeeStatistics
 
             SQL = "Select  " & _
             "substr(AIRBranch.FS_Admin.strAIRSNumber, 5) as strAIRSNumber, strFacilityName, strIAIPDesc, airbranch.FS_Admin.strComment,  " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTFIRSTNAME, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTLASTNAME, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRContactCOMPANYNAME, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTADDRESS, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTCITY, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTSTATE, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTZIPCODE, " & _
-            "" & connNameSpace & ".APBFACILITYINFORMATION.STRFACILITYSTREET1, " & _
-            "" & connNameSpace & ".APBFACILITYINFORMATION.STRFACILITYCITY, " & _
-            "" & connNameSpace & ".APBFACILITYINFORMATION.STRFACILITYZIPCODE, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTEMAIL, " & _
-            "" & connNameSpace & ".FS_ContactInfo.strContactPhoneNumber, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTFIRSTNAME, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTLASTNAME, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRContactCOMPANYNAME, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTADDRESS, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTCITY, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTSTATE, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTZIPCODE, " & _
+            "" & DBNameSpace & ".APBFACILITYINFORMATION.STRFACILITYSTREET1, " & _
+            "" & DBNameSpace & ".APBFACILITYINFORMATION.STRFACILITYCITY, " & _
+            "" & DBNameSpace & ".APBFACILITYINFORMATION.STRFACILITYZIPCODE, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTEMAIL, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.strContactPhoneNumber, " & _
             "datShutDown, strClass, " & _
             "case " & _
             "when strOperate = '1' then 'Operating' " & _
@@ -9035,9 +9035,9 @@ Public Class DEVFeeStatistics
 
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvFeeStats.DataSource = dsViewCount
@@ -9127,18 +9127,18 @@ Public Class DEVFeeStatistics
             SQL = "Select  " & _
             "substr(AIRBranch.FS_Admin.strAIRSNumber, 5) as strAIRSNumber, strFacilityName, strIAIPDesc, " & _
             "airbranch.FS_Admin.strComment,  " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTFIRSTNAME, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTLASTNAME, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRContactCOMPANYNAME, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTADDRESS, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTCITY, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTSTATE, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTZIPCODE, " & _
-            "" & connNameSpace & ".APBFACILITYINFORMATION.STRFACILITYSTREET1, " & _
-            "" & connNameSpace & ".APBFACILITYINFORMATION.STRFACILITYCITY, " & _
-            "" & connNameSpace & ".APBFACILITYINFORMATION.STRFACILITYZIPCODE, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTEMAIL, " & _
-            "" & connNameSpace & ".FS_ContactInfo.strContactPhoneNumber, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTFIRSTNAME, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTLASTNAME, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRContactCOMPANYNAME, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTADDRESS, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTCITY, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTSTATE, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTZIPCODE, " & _
+            "" & DBNameSpace & ".APBFACILITYINFORMATION.STRFACILITYSTREET1, " & _
+            "" & DBNameSpace & ".APBFACILITYINFORMATION.STRFACILITYCITY, " & _
+            "" & DBNameSpace & ".APBFACILITYINFORMATION.STRFACILITYZIPCODE, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTEMAIL, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.strContactPhoneNumber, " & _
             "datShutDown, strClass, " & _
             "case " & _
             "when strOperate = '1' then 'Operating' " & _
@@ -9185,9 +9185,9 @@ Public Class DEVFeeStatistics
             "order by strAIRSNumber "
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvFeeStats.DataSource = dsViewCount
@@ -9278,18 +9278,18 @@ Public Class DEVFeeStatistics
             SQL = "Select  " & _
             "substr(AIRBranch.FS_Admin.strAIRSNumber, 5) as strAIRSNumber, strFacilityName, strIAIPDesc, " & _
             "airbranch.FS_Admin.strComment,  " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTFIRSTNAME, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTLASTNAME, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRContactCOMPANYNAME, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTADDRESS, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTCITY, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTSTATE, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTZIPCODE, " & _
-            "" & connNameSpace & ".APBFACILITYINFORMATION.STRFACILITYSTREET1, " & _
-            "" & connNameSpace & ".APBFACILITYINFORMATION.STRFACILITYCITY, " & _
-            "" & connNameSpace & ".APBFACILITYINFORMATION.STRFACILITYZIPCODE, " & _
-            "" & connNameSpace & ".FS_ContactInfo.STRCONTACTEMAIL, " & _
-            "" & connNameSpace & ".FS_ContactInfo.strContactPhoneNumber, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTFIRSTNAME, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTLASTNAME, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRContactCOMPANYNAME, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTADDRESS, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTCITY, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTSTATE, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTZIPCODE, " & _
+            "" & DBNameSpace & ".APBFACILITYINFORMATION.STRFACILITYSTREET1, " & _
+            "" & DBNameSpace & ".APBFACILITYINFORMATION.STRFACILITYCITY, " & _
+            "" & DBNameSpace & ".APBFACILITYINFORMATION.STRFACILITYZIPCODE, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.STRCONTACTEMAIL, " & _
+            "" & DBNameSpace & ".FS_ContactInfo.strContactPhoneNumber, " & _
             "datShutDown, strClass, " & _
             "case " & _
             "when strOperate = '1' then 'Operating' " & _
@@ -9336,9 +9336,9 @@ Public Class DEVFeeStatistics
             "order by strAIRSNumber "
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            daViewCount = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvFeeStats.DataSource = dsViewCount
@@ -9490,9 +9490,9 @@ Public Class DEVFeeStatistics
                 "and strInvoiceStatus = '0' " & _
                 "and active = '1' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 dr.Close()
@@ -9506,9 +9506,9 @@ Public Class DEVFeeStatistics
                 "and updateUser = '" & Replace(UserName, "'", "''") & "' " & _
                 "and numFeeyear = '" & cboFeeStatYear.Text & "' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -9518,10 +9518,10 @@ Public Class DEVFeeStatistics
                         temp = dr.Item("strAIRSNumber")
                     End If
                     If temp <> "" Then
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        If DBConn.State = ConnectionState.Closed Then
+                            DBConn.Open()
                         End If
-                        cmd = New OracleCommand("AIRBranch.PD_FEE_STATUS", conn)
+                        cmd = New OracleCommand("AIRBranch.PD_FEE_STATUS", DBConn)
                         cmd.CommandType = CommandType.StoredProcedure
 
                         cmd.Parameters.Add(New OracleParameter("FeeYear", OracleType.Number)).Value = cboFeeStatYear.Text
@@ -9760,9 +9760,9 @@ Public Class DEVFeeStatistics
             If SQL <> "" Then
 
                 ds = New DataSet
-                da = New OracleDataAdapter(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                da = New OracleDataAdapter(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
 
                 da.Fill(ds, "PaymentDue")
@@ -10207,9 +10207,9 @@ Public Class DEVFeeStatistics
             "order by strairsnumber "
             ds = New DataSet
 
-            da = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            da = New OracleDataAdapter(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             da.Fill(ds, "VarianceReport")
@@ -10658,9 +10658,9 @@ Public Class DEVFeeStatistics
 
             ds = New DataSet
             If SQL <> "" Then
-                da = New OracleDataAdapter(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                da = New OracleDataAdapter(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 da.Fill(ds, "PaymentDue")
             End If

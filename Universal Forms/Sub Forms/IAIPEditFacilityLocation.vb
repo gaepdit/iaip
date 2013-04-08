@@ -37,20 +37,20 @@ Public Class IAIPEditFacilityLocation
         Try
 
             SQL = "Select * " & _
-            "from " & connNameSpace & ".VW_APBFacilityLocation " & _
+            "from " & DBNameSpace & ".VW_APBFacilityLocation " & _
             "where strAIRSNumber = '0413" & txtAirsNumber.Text & "' "
 
             SQL2 = "Select * " & _
-            "from " & connNameSpace & ".VW_HB_APBFacilityLocation " & _
+            "from " & DBNameSpace & ".VW_HB_APBFacilityLocation " & _
             "where strAIRSNumber = '0413" & txtAirsNumber.Text & "' " & _
             "Order by strKey DESC "
 
             dsFacilityInformation = New DataSet
-            daFacilityInformation = New OracleDataAdapter(SQL, conn)
-            daFacilityInformation2 = New OracleDataAdapter(SQL2, conn)
+            daFacilityInformation = New OracleDataAdapter(SQL, DBConn)
+            daFacilityInformation2 = New OracleDataAdapter(SQL2, DBConn)
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             daFacilityInformation.Fill(dsFacilityInformation, "Current")
@@ -299,7 +299,7 @@ Public Class IAIPEditFacilityLocation
                           Longitude <> "" Or Latitude <> "" Or _
                           Comments <> "" Then
 
-                            SQL = "Update " & connNameSpace & ".APBFacilityInformation set "
+                            SQL = "Update " & DBNameSpace & ".APBFacilityInformation set "
                             If FacilityName <> "" Then
                                 SQL = SQL & "strFacilityName = '" & FacilityName & "', "
                             End If
@@ -332,9 +332,9 @@ Public Class IAIPEditFacilityLocation
                             "strModifingLocation = '2' " & _
                             "where strAIRSNumber = '0413" & txtAirsNumber.Text & "' "
 
-                            cmd = New OracleCommand(SQL, conn)
-                            If conn.State = ConnectionState.Closed Then
-                                conn.Open()
+                            cmd = New OracleCommand(SQL, DBConn)
+                            If DBConn.State = ConnectionState.Closed Then
+                                DBConn.Open()
                             End If
                             Try
 
@@ -347,13 +347,13 @@ Public Class IAIPEditFacilityLocation
                             dr.Close()
 
                             If FacilityName <> "" Then
-                                SQL = "Update " & connNameSpace & ".OLAPUserAccess set " & _
+                                SQL = "Update " & DBNameSpace & ".OLAPUserAccess set " & _
                                 "strFacilityName = '" & Replace(FacilityName, "'", "''") & "' " & _
                                 "where strAIRSNumber = '0413" & txtAirsNumber.Text & "' "
 
-                                cmd = New OracleCommand(SQL, conn)
-                                If conn.State = ConnectionState.Closed Then
-                                    conn.Open()
+                                cmd = New OracleCommand(SQL, DBConn)
+                                If DBConn.State = ConnectionState.Closed Then
+                                    DBConn.Open()
                                 End If
                                 dr = cmd.ExecuteReader
                                 dr.Close()
@@ -371,9 +371,9 @@ Public Class IAIPEditFacilityLocation
                             "updateDateTime = sysdate " & _
                             "where facilitySiteID = '" & txtAirsNumber.Text & "' "
 
-                            cmd = New OracleCommand(SQL, conn)
-                            If conn.State = ConnectionState.Closed Then
-                                conn.Open()
+                            cmd = New OracleCommand(SQL, DBConn)
+                            If DBConn.State = ConnectionState.Closed Then
+                                DBConn.Open()
                             End If
                             cmd.ExecuteReader()
 
@@ -468,13 +468,13 @@ Public Class IAIPEditFacilityLocation
 
             If txtKey.Text <> "" Then
                 SQL = "Select * " & _
-                "from " & connNameSpace & ".VW_HB_APBFacilityLocation " & _
+                "from " & DBNameSpace & ".VW_HB_APBFacilityLocation " & _
                 "where strKey = '" & txtKey.Text & "' " & _
                 "Order by strKey DESC "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
 
                 dr = cmd.ExecuteReader

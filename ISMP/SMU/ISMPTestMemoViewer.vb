@@ -601,7 +601,7 @@ Public Class ISMPTestMemoViewer
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -642,7 +642,7 @@ Public Class ISMPTestMemoViewer
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -664,7 +664,7 @@ Public Class ISMPTestMemoViewer
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -681,7 +681,7 @@ Public Class ISMPTestMemoViewer
         Try
 
             If Loading = True Then
-                SQLLine = "and " & connNameSpace & ".ISMPReportInformation.strReviewingEngineer = '" & UserGCode & "' " & _
+                SQLLine = "and " & DBNameSpace & ".ISMPReportInformation.strReviewingEngineer = '" & UserGCode & "' " & _
                 "and strClosed = 'False' "
             End If
 
@@ -704,19 +704,19 @@ Public Class ISMPTestMemoViewer
             End If
 
             If chbComplianceStatus1.Checked = True Then
-                SQLLine3 = SQLLine3 & "" & connNameSpace & ".ISMPReportInformation.strCOmplianceStatus = '01' or "
+                SQLLine3 = SQLLine3 & "" & DBNameSpace & ".ISMPReportInformation.strCOmplianceStatus = '01' or "
             End If
             If chbComplianceStatus2.Checked = True Then
-                SQLLine3 = SQLLine3 & "" & connNameSpace & ".ISMPReportInformation.strCOmplianceStatus = '02' or "
+                SQLLine3 = SQLLine3 & "" & DBNameSpace & ".ISMPReportInformation.strCOmplianceStatus = '02' or "
             End If
             If chbComplianceStatus3.Checked = True Then
-                SQLLine3 = SQLLine3 & "" & connNameSpace & ".ISMPReportInformation.strCOmplianceStatus = '03' or "
+                SQLLine3 = SQLLine3 & "" & DBNameSpace & ".ISMPReportInformation.strCOmplianceStatus = '03' or "
             End If
             If chbComplianceStatus4.Checked = True Then
-                SQLLine3 = SQLLine3 & "" & connNameSpace & ".ISMPReportInformation.strCOmplianceStatus = '04' or "
+                SQLLine3 = SQLLine3 & "" & DBNameSpace & ".ISMPReportInformation.strCOmplianceStatus = '04' or "
             End If
             If chbComplianceStatus5.Checked = True Then
-                SQLLine3 = SQLLine3 & "" & connNameSpace & ".ISMPReportInformation.strCOmplianceStatus = '05' or "
+                SQLLine3 = SQLLine3 & "" & DBNameSpace & ".ISMPReportInformation.strCOmplianceStatus = '05' or "
             End If
             If SQLLine3 = "AND (" Then
                 SQLLine3 = ""
@@ -724,24 +724,24 @@ Public Class ISMPTestMemoViewer
                 SQLLine3 = Mid(SQLLine3, 1, (Len(SQLLine3) - 4)) & ") "
             End If
             If chbDelete.Checked = True Then
-                SQLLine4 = "And " & connNameSpace & ".ISMPReportInformation.strDelete = 'DELETE' "
+                SQLLine4 = "And " & DBNameSpace & ".ISMPReportInformation.strDelete = 'DELETE' "
             Else
-                SQLLine4 = "And " & connNameSpace & ".ISMPReportInformation.strDelete is NULL "
+                SQLLine4 = "And " & DBNameSpace & ".ISMPReportInformation.strDelete is NULL "
             End If
 
-            SQL = "select " & connNameSpace & ".ISMPTestREportMemo.strReferenceNumber, strMemorandumField " & _
-            "from " & connNameSpace & ".ISMPTestREportMemo, " & connNameSpace & ".ISMPReportInformation " & _
-            "where " & connNameSpace & ".ISMPTestREportMemo.strReferenceNumber = " & connNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
+            SQL = "select " & DBNameSpace & ".ISMPTestREportMemo.strReferenceNumber, strMemorandumField " & _
+            "from " & DBNameSpace & ".ISMPTestREportMemo, " & DBNameSpace & ".ISMPReportInformation " & _
+            "where " & DBNameSpace & ".ISMPTestREportMemo.strReferenceNumber = " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber " & _
             SQLLine & SQLLine2 & SQLLine3 & SQLLine4
 
             dsMemo = New DataSet
 
-            Dim cmd As New OracleCommand(SQL, conn)
+            Dim cmd As New OracleCommand(SQL, DBConn)
 
             daMemo = New OracleDataAdapter(cmd)
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             daMemo.Fill(dsMemo, "TestMemoViewer")
@@ -751,7 +751,7 @@ Public Class ISMPTestMemoViewer
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -798,7 +798,7 @@ Public Class ISMPTestMemoViewer
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -821,7 +821,7 @@ Public Class ISMPTestMemoViewer
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -833,13 +833,13 @@ Public Class ISMPTestMemoViewer
         Try
 
             If txtReferenceNumber.Text <> "" Then
-                SQL = "select " & connNameSpace & ".ISMPDocumentType.strDocumentType " & _
-                 "from " & connNameSpace & ".ISMPDocumentType, " & connNameSpace & ".ISMPReportInformation " & _
-                 "where " & connNameSpace & ".ISMPReportInformation.strDocumentType = " & connNameSpace & ".ISMPDocumentType.strKey and " & _
+                SQL = "select " & DBNameSpace & ".ISMPDocumentType.strDocumentType " & _
+                 "from " & DBNameSpace & ".ISMPDocumentType, " & DBNameSpace & ".ISMPReportInformation " & _
+                 "where " & DBNameSpace & ".ISMPReportInformation.strDocumentType = " & DBNameSpace & ".ISMPDocumentType.strKey and " & _
                  "strReferenceNumber = '" & txtReferenceNumber.Text & "'"
-                Dim cmd As New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                Dim cmd As New OracleCommand(SQL, DBConn)
+                If DBConn.State = ConnectionState.Closed Then
+                    DBConn.Open()
                 End If
                 Dim dr As OracleDataReader = cmd.ExecuteReader
                 Dim recExist As Boolean = dr.Read
@@ -855,7 +855,7 @@ Public Class ISMPTestMemoViewer
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -879,7 +879,7 @@ Public Class ISMPTestMemoViewer
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -892,7 +892,7 @@ Public Class ISMPTestMemoViewer
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -905,7 +905,7 @@ Public Class ISMPTestMemoViewer
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -918,7 +918,7 @@ Public Class ISMPTestMemoViewer
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -931,7 +931,7 @@ Public Class ISMPTestMemoViewer
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -944,7 +944,7 @@ Public Class ISMPTestMemoViewer
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -957,7 +957,7 @@ Public Class ISMPTestMemoViewer
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -976,7 +976,7 @@ Public Class ISMPTestMemoViewer
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -989,7 +989,7 @@ Public Class ISMPTestMemoViewer
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1002,7 +1002,7 @@ Public Class ISMPTestMemoViewer
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1019,7 +1019,7 @@ Public Class ISMPTestMemoViewer
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1033,7 +1033,7 @@ Public Class ISMPTestMemoViewer
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try
@@ -1057,7 +1057,7 @@ Public Class ISMPTestMemoViewer
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            If conn.State = ConnectionState.Open Then
+            If DBConn.State = ConnectionState.Open Then
                 'conn.close()
             End If
         End Try

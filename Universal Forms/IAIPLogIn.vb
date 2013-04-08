@@ -47,20 +47,16 @@ Public Class IAIPLogIn
                 Oracledll = version.FileVersion.ToString
                 'If Oracledll = "2.111.6.20" Or Oracledll = "4.112.30" Then
                 If Oracledll <> "9.2.0.401" Then
-                    PRDconnLine = "Data Source = luke.dnr.state.ga.us:1521/PRD; User ID = AIRBranch_App_User; " & _
-                             "Password = " & SimpleCrypt("ÁÚ·Ú±Ï") & ";"
-                    'TESTconnLine = "Data Source = leia.dnr.state.ga.us:1521/TEST; User ID = AIRBRANCH_APP_USER; " & _
-                    '         "Password = " & SimpleCrypt("¡…“¡––’”≈“∞≥") & ";"
-                    'DEVconnLine = "Data Source = leia.dnr.state.ga.us:2483/DEV; User ID = AirBranch; " & _
-                    '         "Password = " & SimpleCrypt("ÛÌÔÁ·ÏÂÚÙ") & ";"
-                    DEVconnLine = "Data Source = leia.dnr.state.ga.us:1521/DEV; User ID = AirBranch; " & _
-                       "Password = " & SimpleCrypt("ÛÌÔÁ·ÏÂÚÙ") & ";"
-                    conn = New OracleConnection(PRDconnLine)
+                    PrdConnString = "Data Source = luke.dnr.state.ga.us:1521/PRD; User ID = AIRBranch_App_User; " & _
+                        "Password = " & SimpleCrypt("ÁÚ·Ú±Ï") & ";"
+                    DevConnString = "Data Source = leia.dnr.state.ga.us:1521/DEV; User ID = AirBranch; " & _
+                        "Password = " & SimpleCrypt("ÛÌÔÁ·ÏÂÚÙ") & ";"
+                    DBConn = New OracleConnection(PrdConnString)
 
                     PRDCRLogIn = "AIRBranch_App_User/" & SimpleCrypt("ÁÚ·Ú±Ï") & "@//luke.dnr.state.ga.us:1521/PRD"
                     PRDCRPassWord = ""
-                    TESTCRLogIn = "AIRBranch_App_User/" & SimpleCrypt("¡…“¡––’”≈“∞≥") & "@//leia.dnr.state.ga.us:1521/TEST"
-                    TESTCRPassWord = ""
+                    'TESTCRLogIn = "AIRBranch_App_User/" & SimpleCrypt("¡…“¡––’”≈“∞≥") & "@//leia.dnr.state.ga.us:1521/TEST"
+                    'TESTCRPassWord = ""
                     DEVCRLogIn = "airbranch/" & SimpleCrypt("ÛÌÔÁ·ÏÂÚÙ") & "@//leia.dnr.state.ga.us:1521/DEV"
                     DEVCRPassWord = ""
 
@@ -107,49 +103,48 @@ Public Class IAIPLogIn
 #Region "Page Load Functions"
 
     Sub VerifyVersion()
-        Dim Version As FileVersionInfo = FileVersionInfo.GetVersionInfo(APBFolder & "\johngaltproject.exe")
-        'Dim Version As FileVersionInfo = FileVersionInfo.GetVersionInfo("C:\APB\johngaltproject.exe")
-        Dim VersionNumber As String = ""
-        Dim ProductNumber As String = ""
+        Dim version As FileVersionInfo = FileVersionInfo.GetVersionInfo(APBFolder & "\johngaltproject.exe")
+        Dim versionNumber As String = ""
+        Dim productNumber As String = ""
         'Dim ver As String = 0.0
 
         Try
 
-            VersionNumber = Version.ProductVersion.ToString
+            versionNumber = version.ProductVersion.ToString
 
             SQL = "Select strVersionNumber " & _
-            "from " & connNameSpace & ".APBMasterApp " & _
+            "from " & DBNameSpace & ".APBMasterApp " & _
             "where strApplicationName = 'IAIP' "
 
-            cmd = New OracleCommand(SQL, conn)
+            cmd = New OracleCommand(SQL, DBConn)
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
             dr = cmd.ExecuteReader
 
             While dr.Read
                 If IsDBNull(dr.Item("strVersionNumber")) Then
-                    ProductNumber = ""
+                    productNumber = ""
                 Else
-                    ProductNumber = dr.Item("strVersionNumber")
+                    productNumber = dr.Item("strVersionNumber")
                 End If
             End While
             dr.Close()
 
-            If VersionNumber <> ProductNumber Then
+            If versionNumber <> productNumber Then
                 llbUpdateIAIP.Visible = True
             Else
                 llbUpdateIAIP.Visible = False
             End If
 
             versionCheck = ""
-            If (Replace(ProductNumber, ".", "") - Replace(VersionNumber, ".", "")) > 1 Then
+            If (Replace(productNumber, ".", "") - Replace(versionNumber, ".", "")) > 1 Then
                 versionCheck = "Update"
             End If
 
-            If ProductNumber = "0.0.0.0" Then
+            If productNumber = "0.0.0.0" Then
                 MsgBox("The Integrated Air Information Platform (IAIP) is currently unavailable, due to maintenance." & _
                        vbCrLf & "Check back later.", MsgBoxStyle.Information, Me.Text)
                 End
@@ -238,23 +233,23 @@ Public Class IAIPLogIn
             If txtUserID.Text <> "" Then
                 If txtUserPassword.Text <> "" Then
                     ProgressBar.PerformStep()
-                    SQL = "Select " & connNameSpace & ".EPDUsers.numUserID, " & _
+                    SQL = "Select " & DBNameSpace & ".EPDUsers.numUserID, " & _
                     "strIAIPPermissions, " & _
                     "(strLastName|| ', ' ||strFirstName) as UserName, " & _
                     "numBranch, numProgram, numUnit, " & _
                     "numEmployeeStatus, strPhone,  " & _
                     "strEmailAddress, strFirstName, " & _
                     "strLastName " & _
-                    "from " & connNameSpace & ".EPDUsers, " & connNameSpace & ".IAIPPermissions, " & _
-                    "" & connNameSpace & ".EPDUserProfiles " & _
-                    "where " & connNameSpace & ".EPDUsers.numUserID = " & connNameSpace & ".IAIPPermissions.numUserID " & _
-                    "and " & connNameSpace & ".EPDUsers.numUserID = " & connNameSpace & ".EPDUserProfiles.numUserId " & _
+                    "from " & DBNameSpace & ".EPDUsers, " & DBNameSpace & ".IAIPPermissions, " & _
+                    "" & DBNameSpace & ".EPDUserProfiles " & _
+                    "where " & DBNameSpace & ".EPDUsers.numUserID = " & DBNameSpace & ".IAIPPermissions.numUserID " & _
+                    "and " & DBNameSpace & ".EPDUsers.numUserID = " & DBNameSpace & ".EPDUserProfiles.numUserId " & _
                     "and upper(strUserName) = '" & Replace(txtUserID.Text.ToUpper, "'", "''") & "' " & _
                     "and strPassword = '" & Replace(EncryptDecrypt.EncryptText(txtUserPassword.Text), "'", "''") & "' "
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, DBConn)
+                    If DBConn.State = ConnectionState.Closed Then
+                        DBConn.Open()
                     End If
                     ProgressBar.PerformStep()
                     dr = cmd.ExecuteReader
@@ -444,14 +439,14 @@ Public Class IAIPLogIn
     End Sub
     Private Sub Splash_Closing(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
         If APB110 Is Nothing Then
-            conn.Dispose()
+            DBConn.Dispose()
             End
         Else
         End If
     End Sub
     Private Sub Splash_Closed(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Closed
         If NavigationScreen Is Nothing Then
-            conn.Dispose()
+            DBConn.Dispose()
             End
         Else
 
@@ -476,7 +471,7 @@ Public Class IAIPLogIn
 
             URL = "http://airpermit.dnr.state.ga.us/iaip/iaip.exe"
             System.Diagnostics.Process.Start(URL)
-            conn.Dispose()
+            DBConn.Dispose()
             End
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -604,7 +599,7 @@ Public Class IAIPLogIn
     End Sub
     Private Sub btnExit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         Me.Close()
-        conn.Dispose()
+        DBConn.Dispose()
         End
     End Sub
     Private Sub mmiTestingEnvior_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiTestingEnvior.Click
@@ -615,8 +610,7 @@ Public Class IAIPLogIn
             txtUserID.BackColor = Color.Tomato
             txtUserPassword.BackColor = Color.Tomato
             btnEnter.BackColor = Color.Tomato
-            'connNameSpace = "AIRBRANCH"
-            conn = New OracleConnection(DEVconnLine)
+            DBConn = New OracleConnection(DevConnString)
             CRLogIn = DEVCRLogIn
             CRPassWord = DEVCRPassWord
         Else
@@ -624,8 +618,7 @@ Public Class IAIPLogIn
             txtUserID.BackColor = Color.White
             txtUserPassword.BackColor = Color.White
             btnEnter.BackColor = Color.White
-            'connNameSpace = "AIRBranch"
-            conn = New OracleConnection(PRDconnLine)
+            DBConn = New OracleConnection(PrdConnString)
             CRLogIn = PRDCRLogIn
             CRPassWord = PRDCRPassWord
         End If
@@ -661,8 +654,7 @@ Public Class IAIPLogIn
             txtUserID.BackColor = Color.Black
             txtUserPassword.BackColor = Color.Black
             btnEnter.BackColor = Color.Bisque
-            'connNameSpace = "AIRBRANCH"
-            conn = New OracleConnection(PRDconnLine)
+            DBConn = New OracleConnection(PrdConnString)
             CRLogIn = PRDCRLogIn
             CRPassWord = PRDCRPassWord
         Else
@@ -670,8 +662,7 @@ Public Class IAIPLogIn
             txtUserID.BackColor = Color.White
             txtUserPassword.BackColor = Color.White
             btnEnter.BackColor = Color.White
-            'connNameSpace = "AIRBranch"
-            conn = New OracleConnection(PRDconnLine)
+            DBConn = New OracleConnection(PrdConnString)
             CRLogIn = PRDCRLogIn
             CRPassWord = PRDCRPassWord
         End If
@@ -689,7 +680,7 @@ Public Class IAIPLogIn
                 Case Windows.Forms.DialogResult.OK
                     URL = "http://airpermit.dnr.state.ga.us/iaip/iaipPatch.exe"
                     System.Diagnostics.Process.Start(URL)
-                    conn.Dispose()
+                    DBConn.Dispose()
                     End
                 Case Windows.Forms.DialogResult.Cancel
 
@@ -757,7 +748,7 @@ Public Class IAIPLogIn
             Dim URL As String = ""
             URL = "http://airpermit.dnr.state.ga.us/iaip/iaip.exe"
             System.Diagnostics.Process.Start(URL)
-            conn.Dispose()
+            DBConn.Dispose()
             End
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -843,11 +834,11 @@ Public Class IAIPLogIn
         Try
             ' Exit Sub
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
 
-            cmd = New OracleCommand("AIRBranch.PD_EIS_Process", conn)
+            cmd = New OracleCommand("AIRBranch.PD_EIS_Process", DBConn)
             cmd.CommandType = CommandType.StoredProcedure
 
             cmd.Parameters.Add(New OracleParameter("FACILITYID", OracleType.VarChar)).Value = "03900001"
@@ -873,9 +864,9 @@ Public Class IAIPLogIn
             "and ProcessID = '1' " & _
             "and EmissionsUnitID = '500A' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
 
@@ -886,9 +877,9 @@ Public Class IAIPLogIn
             "and ProcessID = '1' " & _
             "and EmissionsUnitID = '500A' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
 
@@ -898,9 +889,9 @@ Public Class IAIPLogIn
            "and ProcessID = '1' " & _
            "and EmissionsUnitID = '500A' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
 
@@ -910,9 +901,9 @@ Public Class IAIPLogIn
             "and ProcessID = '1' " & _
             "and EmissionsUnitID = '500A' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, DBConn)
+            If DBConn.State = ConnectionState.Closed Then
+                DBConn.Open()
             End If
             dr = cmd.ExecuteReader
 
