@@ -72,10 +72,10 @@ Partial Class DMUDeveloperTools
         Me.btnFillComputerAssets = New System.Windows.Forms.Button
         Me.btnPopulatePrinterAssets = New System.Windows.Forms.Button
         Me.GroupBox2 = New System.Windows.Forms.GroupBox
+        Me.VersionNumberInput = New System.Windows.Forms.TextBox
         Me.Label13 = New System.Windows.Forms.Label
         Me.lblCurrentVersion = New System.Windows.Forms.Label
-        Me.mtbVersionNumber = New System.Windows.Forms.MaskedTextBox
-        Me.btnUpdateVersionNumber = New System.Windows.Forms.Button
+        Me.UpdateVersionNumber = New System.Windows.Forms.Button
         Me.TPErrorLog = New System.Windows.Forms.TabPage
         Me.GroupBox3 = New System.Windows.Forms.GroupBox
         Me.Panel4 = New System.Windows.Forms.Panel
@@ -942,10 +942,10 @@ Partial Class DMUDeveloperTools
         '
         'GroupBox2
         '
+        Me.GroupBox2.Controls.Add(Me.VersionNumberInput)
         Me.GroupBox2.Controls.Add(Me.Label13)
         Me.GroupBox2.Controls.Add(Me.lblCurrentVersion)
-        Me.GroupBox2.Controls.Add(Me.mtbVersionNumber)
-        Me.GroupBox2.Controls.Add(Me.btnUpdateVersionNumber)
+        Me.GroupBox2.Controls.Add(Me.UpdateVersionNumber)
         Me.GroupBox2.Dock = System.Windows.Forms.DockStyle.Top
         Me.GroupBox2.Location = New System.Drawing.Point(3, 3)
         Me.GroupBox2.Name = "GroupBox2"
@@ -953,6 +953,13 @@ Partial Class DMUDeveloperTools
         Me.GroupBox2.TabIndex = 5
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "IAIP Version Update"
+        '
+        'VersionNumberInput
+        '
+        Me.VersionNumberInput.Location = New System.Drawing.Point(121, 21)
+        Me.VersionNumberInput.Name = "VersionNumberInput"
+        Me.VersionNumberInput.Size = New System.Drawing.Size(87, 20)
+        Me.VersionNumberInput.TabIndex = 56
         '
         'Label13
         '
@@ -966,30 +973,22 @@ Partial Class DMUDeveloperTools
         'lblCurrentVersion
         '
         Me.lblCurrentVersion.AutoSize = True
-        Me.lblCurrentVersion.Location = New System.Drawing.Point(175, 24)
+        Me.lblCurrentVersion.Location = New System.Drawing.Point(209, 24)
         Me.lblCurrentVersion.Name = "lblCurrentVersion"
         Me.lblCurrentVersion.Size = New System.Drawing.Size(85, 13)
         Me.lblCurrentVersion.TabIndex = 54
         Me.lblCurrentVersion.Text = "Current Version: "
         '
-        'mtbVersionNumber
+        'UpdateVersionNumber
         '
-        Me.mtbVersionNumber.Location = New System.Drawing.Point(123, 21)
-        Me.mtbVersionNumber.Mask = "0.0.0.0"
-        Me.mtbVersionNumber.Name = "mtbVersionNumber"
-        Me.mtbVersionNumber.Size = New System.Drawing.Size(46, 20)
-        Me.mtbVersionNumber.TabIndex = 53
-        '
-        'btnUpdateVersionNumber
-        '
-        Me.btnUpdateVersionNumber.AutoSize = True
-        Me.btnUpdateVersionNumber.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnUpdateVersionNumber.Location = New System.Drawing.Point(15, 19)
-        Me.btnUpdateVersionNumber.Name = "btnUpdateVersionNumber"
-        Me.btnUpdateVersionNumber.Size = New System.Drawing.Size(100, 23)
-        Me.btnUpdateVersionNumber.TabIndex = 52
-        Me.btnUpdateVersionNumber.Text = "Update Version #"
-        Me.btnUpdateVersionNumber.UseVisualStyleBackColor = True
+        Me.UpdateVersionNumber.AutoSize = True
+        Me.UpdateVersionNumber.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.UpdateVersionNumber.Location = New System.Drawing.Point(15, 19)
+        Me.UpdateVersionNumber.Name = "UpdateVersionNumber"
+        Me.UpdateVersionNumber.Size = New System.Drawing.Size(100, 23)
+        Me.UpdateVersionNumber.TabIndex = 52
+        Me.UpdateVersionNumber.Text = "Update Version #"
+        Me.UpdateVersionNumber.UseVisualStyleBackColor = True
         '
         'TPErrorLog
         '
@@ -4374,8 +4373,8 @@ Partial Class DMUDeveloperTools
     Friend WithEvents rdbBasicData As System.Windows.Forms.RadioButton
     Friend WithEvents GroupBox1 As System.Windows.Forms.GroupBox
     Friend WithEvents GroupBox2 As System.Windows.Forms.GroupBox
-    Friend WithEvents mtbVersionNumber As System.Windows.Forms.MaskedTextBox
-    Friend WithEvents btnUpdateVersionNumber As System.Windows.Forms.Button
+    Friend WithEvents UpdateVersionNumber As System.Windows.Forms.Button
     Friend WithEvents lblCurrentVersion As System.Windows.Forms.Label
     Friend WithEvents Label13 As System.Windows.Forms.Label
+    Friend WithEvents VersionNumberInput As System.Windows.Forms.TextBox
 End Class

@@ -22162,22 +22162,21 @@ Public Class DMUDeveloperTools
         End Try
     End Sub
 
-    Private Sub btnUpdateVersionNumber_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnUpdateVersionNumber.Click
+    Private Sub UpdateVersionNumber_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles UpdateVersionNumber.Click
         Try
             SQL = "Update " & DBNameSpace & ".APBMasterApp set " & _
-            "strVersionNumber = '" & Replace(mtbVersionNumber.Text, "'", "''") & "' " & _
+            "strVersionNumber = '" & Replace(VersionNumberInput.Text, "'", "''") & "' " & _
             "where strApplicationName = 'IAIP' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             dr.Close()
-            MsgBox("Version Number Updated.", MsgBoxStyle.Information, Me.Name)
-
+            MsgBox("Version number updated to: " & Replace(VersionNumberInput.Text, "'", "''"), MsgBoxStyle.Information, Me.Name)
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & ".btnUpdateVersionNumber_Click")
+            ErrorReport(ex.ToString(), Me.Name & ".UpdateVersionNumber_Click")
         End Try
     End Sub
 End Class

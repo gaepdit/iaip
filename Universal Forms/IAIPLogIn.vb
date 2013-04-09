@@ -113,8 +113,9 @@ Public Class IAIPLogIn
         End With
 
         If publishedVersion.ToString = "0.0.0.0" Then
-            DisableIaipLogin("The Platform is currently unavailable due to maintenance. " & _
-                   "Please check back later.")
+            DisableIaipLogin("The Platform is currently unavailable. Please check back later. " & _
+                             "If you continue to see this message after two hours, please inform the " & _
+                             "Data Management Unit. Thank you.")
             Exit Sub
         End If
 

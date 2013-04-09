@@ -14,12 +14,14 @@ Module Iaip
         ' This is the latest available version as listed in the database
         ' (The database has to be updated by hand by an administrator)
         Dim publishedVersionString As String = ""
+
+        ' Hit up the database for a version string
         Dim sql As String = "Select strVersionNumber from " & DBNameSpace & ".APBMasterApp where strApplicationName = 'IAIP'"
         Using dbConn As New OracleConnection(CurrentConnString)
             Using dbCommand As New OracleCommand(sql, dbConn)
-                dbConn.Open()
-                Dim reader As OracleDataReader = dbCommand.ExecuteReader
                 Try
+                    dbConn.Open()
+                    Dim reader As OracleDataReader = dbCommand.ExecuteReader
                     While reader.Read
                         If Not IsDBNull(reader.Item("strVersionNumber")) Then
                             publishedVersionString = reader.Item("strVersionNumber")
@@ -31,7 +33,18 @@ Module Iaip
                 End Try
             End Using
         End Using
-        Return New Version(publishedVersionString)
+
+        Try
+            Return New Version(publishedVersionString)
+        Catch ee As Exception When _
+        TypeOf ee Is ArgumentException OrElse _
+        TypeOf ee Is ArgumentNullException OrElse _
+        TypeOf ee Is ArgumentOutOfRangeException OrElse _
+        TypeOf ee Is FormatException OrElse _
+        TypeOf ee Is OverflowException
+            MessageBox.Show("The database version string contains an error. Please inform the Data Management Unit. Thank you.")
+            Return New Version("0.0.0.0")
+        End Try
     End Function
     Public Function IsUpdateAvailable() As Boolean
         ' If Version has increased, update is available
