@@ -1,15 +1,14 @@
 ﻿Imports System.Reflection
 Imports System.Data.OracleClient
 
-Module IAIP
+Module Iaip
 
 #Region "Versioning Info"
     Public Function GetCurrentVersion() As Version
         ' This is the currently installed (running) version
         Dim thisAssembly As Assembly = Assembly.GetExecutingAssembly()
         Dim fileVersion As FileVersionInfo = FileVersionInfo.GetVersionInfo(thisAssembly.Location)
-        Dim version As New Version(fileVersion.FileVersion)
-        Return version
+        Return New Version(fileVersion.FileVersion)
     End Function
     Public Function GetPublishedVersion() As Version
         ' This is the latest available version as listed in the database
@@ -27,12 +26,8 @@ Module IAIP
                         End If
                     End While
                 Catch ee As OracleException
-                    Select Case ee.Code
-                        Case 12560
-                            MessageBox.Show("The database is unavailable.")
-                            Return New Version(0, 0, 0, 0)
-                    End Select
-                    Throw
+                    MessageBox.Show("The database is currently unavailable.")
+                    publishedVersionString = "0.0.0.0"
                 End Try
             End Using
         End Using
@@ -43,6 +38,7 @@ Module IAIP
         Dim currentVersion As Version = GetCurrentVersion()
         Dim publishedVersion As Version = GetPublishedVersion()
 
+        ' If database has an error, published version will be 0.0.0.0. This will return false.
         If currentVersion.CompareTo(publishedVersion) < 0 Then Return True
         Return False
     End Function
@@ -51,13 +47,14 @@ Module IAIP
         Dim currentVersion As Version = GetCurrentVersion()
         Dim publishedVersion As Version = GetPublishedVersion()
 
+        ' If database has an error, published version will be 0.0.0.0. This will return false.
         If GetVersionAsBuild(currentVersion).CompareTo(GetVersionAsBuild(publishedVersion)) < 0 Then Return True
         Return False
     End Function
     Private Function GetVersionAsBuild(ByVal v As Version) As Version
         ' This converst a Version from four components to three
         If v.Revision = -1 Then Return v
-        ' A version with fewer than four components gets returned as-is
+        ' (A version with fewer than four components gets returned as-is)
         Return New Version(v.Major, v.Minor, v.Build)
     End Function
 #End Region

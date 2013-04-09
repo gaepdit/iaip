@@ -14,28 +14,17 @@ Public Class IAIPLogIn
     Dim DefaultsText As String = ""
     Dim versionCheck As String = ""
     Dim APBFolder As String = "C:\APB"
+    Dim IaipAvailable As Boolean = True
 
     Private Sub Splash_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         Try
-
-            Dim readValue As String
-            '  conn = New OracleConnection(PRDconnLine)
             AddHandler t.Elapsed, AddressOf TimerFired
             t.Enabled = True
             Panel3.Text = OracleDate
-            lblVersion.Text = String.Format("Version: {0}", My.Application.Info.Version.ToString)
-            FindLogIn()
-            Me.Width = 800
-            Me.Height = 550
-            Label3.Location = New System.Drawing.Point(9, 415)
-            Me.lblVersion.Location = New System.Drawing.Point(658, 415)
-            readValue = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Environment", "NLS_LANG", Nothing)
 
-            If readValue Is Nothing Or readValue <> "AMERICAN" Then
-                My.Computer.Registry.SetValue("HKEY_CURRENT_USER\Environment", "NLS_LANG", "AMERICAN")
-                MsgBox("Please Restart the application", MsgBoxStyle.Information, "IAIP")
-                End
-            End If
+            CheckLanguageRegistrySetting()
+
+            FindLogIn()
 
             If File.Exists("C:\APB2\johngaltproject.exe") Then
                 APBFolder = "C:\APB2"
@@ -65,15 +54,10 @@ Public Class IAIPLogIn
                 End If
             End If
 
-            VerifyVersion()
-
             If Panel1.Text = "Enter your Password....." Then
-                txtUserPassword.Focus()
-            Else
-
+                UserPassword.Focus()
             End If
 
-            'Dim Profile_Code As String = ""
             Dim DefaultsText As String = ""
             temp = "SSCPProfile-313000000200000-eliforPPCSS"
             If File.Exists("C:\APB\Defaults.txt") Then
@@ -92,6 +76,8 @@ Public Class IAIPLogIn
                 'Profile_Code = ""
             End If
 
+            VerifyVersion()
+
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
@@ -101,67 +87,63 @@ Public Class IAIPLogIn
     End Sub
 
 #Region "Page Load Functions"
+    Private Sub DisableIaipLogin(Optional ByVal message As String = "")
+        UserID.Enabled = False
+        UserPassword.Enabled = False
+        LogInButton.Enabled = False
 
-    Sub VerifyVersion()
-        Dim version As FileVersionInfo = FileVersionInfo.GetVersionInfo(APBFolder & "\johngaltproject.exe")
-        Dim currentVersionNumber As String = ""
-        Dim publishedVersionNumber As String = ""
-        Dim sqlStatement As String = "Select strVersionNumber from " & DBNameSpace & ".APBMasterApp where strApplicationName = 'IAIP'"
+        UserIDLabel.ForeColor = SystemColors.GrayText
+        PasswordLabel.ForeColor = SystemColors.GrayText
 
-        Try
-            currentVersionNumber = version.ProductVersion.ToString
+        With GeneralMessage
+            .Text = message
+            .Visible = True
+        End With
+    End Sub
+    Private Sub VerifyVersion()
+        ' Do version checking
+        Dim currentVersion As Version = GetCurrentVersion()
+        Dim publishedVersion As Version = GetPublishedVersion()
 
-            ' DWW TO-DO: Move the above code to a "GetCurrentVersion" function
-            ' DWW TO-DO: Move the following db code to a "GetPublishedVersion" function
+        UpdateIaipLink.Visible = False
 
-            Using dbConn = New OracleConnection(CurrentConnString)
-                Using dbCommand = New OracleCommand(sqlStatement, dbConn)
-                    dbConn.Open()
-                    Dim reader As OracleDataReader = dbCommand.ExecuteReader
-                    'dr = cmd.ExecuteReader
+        With CurrentVersionMessage
+            .Text = String.Format("Version: {0}", currentVersion.ToString)
+            .Visible = True
+        End With
 
-                    Try
-                        While reader.Read
-                            If Not IsDBNull(reader.Item("strVersionNumber")) Then
-                                publishedVersionNumber = reader.Item("strVersionNumber")
-                            End If
-                        End While
-                    Catch ee As OracleException
-                        Select Case ee.Code
-                            Case 12560
-                                MessageBox.Show("The database is unavailable.")
-                                ' DWW TO-DO: DisableIAIP
-                        End Select
-                    End Try
-                End Using
-            End Using
+        If publishedVersion.ToString = "0.0.0.0" Then
+            DisableIaipLogin("The Platform is currently unavailable due to maintenance. " & _
+                   "Please check back later.")
+            Exit Sub
+        End If
 
-            If publishedVersionNumber = "0.0.0.0" Then
-                MsgBox("The Integrated Air Information Platform (IAIP) is currently unavailable due to maintenance." & _
-                       vbCrLf & "Please check back later.", MsgBoxStyle.Information, Me.Text)
-                Exit Sub
-                'DWW TO-DO: Create "DisableIAIP" Sub that removes login form and replaces with this text.
-            End If
+        If IsUpdateAvailable() Then
+            ShowUpdateLink(currentVersion, publishedVersion)
+        End If
 
-            If currentVersionNumber <> publishedVersionNumber Then
-                llbUpdateIAIP.Visible = True
-            Else
-                llbUpdateIAIP.Visible = False
-            End If
-
-            versionCheck = ""
-            If (Replace(publishedVersionNumber, ".", "") - Replace(currentVersionNumber, ".", "")) > 1 Then
-                versionCheck = "Update"
-                ' DWW TO-DO: Replace this code with better version checking. If IAIP is too out of date, require update:
-                ' DisableIAIP, but enable update link
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
+        If IsUpdateMandatory() Then
+            DisableIaipLogin("Your installation of the Platform is out of date and must be updated before you can proceed.")
+        End If
+    End Sub
+    Private Sub ShowUpdateLink(ByVal currentVersion As Version, ByVal publishedVersion As Version)
+        UpdateIaipLink.Visible = True
+        With CurrentVersionMessage
+            .Text = String.Format("You are using version: {0}", currentVersion.ToString)
+            .Visible = True
+        End With
+        With AvailableVersionMessage
+            .Text = String.Format("Version {0} is available to install", publishedVersion.ToString)
+            .Visible = True
+        End With
+    End Sub
+    Private Sub CheckLanguageRegistrySetting()
+        Dim currentSetting As String
+        currentSetting = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Environment", "NLS_LANG", Nothing)
+        If currentSetting Is Nothing Or currentSetting <> "AMERICAN" Then
+            My.Computer.Registry.SetValue("HKEY_CURRENT_USER\Environment", "NLS_LANG", "AMERICAN")
+            DisableIaipLogin("Language settings have been updated. Please close and restart the Platform.")
+        End If
     End Sub
     Sub FindLogIn()
         Try
@@ -175,9 +157,9 @@ Public Class IAIPLogIn
 
                 If DefaultsText <> "" Then
                     If DefaultsText.IndexOf("LogInID-") <> -1 Then
-                        txtUserID.Text = Mid(DefaultsText, ((DefaultsText.IndexOf("LogInID-")) + 9), ((DefaultsText.IndexOf("-DInIgoL")) - (DefaultsText.IndexOf("LogInID-") + 8)))
+                        UserID.Text = Mid(DefaultsText, ((DefaultsText.IndexOf("LogInID-")) + 9), ((DefaultsText.IndexOf("-DInIgoL")) - (DefaultsText.IndexOf("LogInID-") + 8)))
                     Else
-                        DefaultsText = "LogInID-" & txtUserID.Text & "-DInIgoL"
+                        DefaultsText = "LogInID-" & UserID.Text & "-DInIgoL"
                     End If
                     If DefaultsText.IndexOf("StartLocation-") <> -1 Then
                         temp = Mid(DefaultsText, ((DefaultsText.IndexOf("StartLocation-")) + 15), ((DefaultsText.IndexOf("-noitacoLtratS")) - (DefaultsText.IndexOf("StartLocation-") + 14)))
@@ -236,8 +218,8 @@ Public Class IAIPLogIn
             ProgressBar.PerformStep()
             Paneltemp1 = Panel1.Text
             Panel1.Text = "Logging In"
-            If txtUserID.Text <> "" Then
-                If txtUserPassword.Text <> "" Then
+            If UserID.Text <> "" Then
+                If UserPassword.Text <> "" Then
                     ProgressBar.PerformStep()
                     SQL = "Select " & DBNameSpace & ".EPDUsers.numUserID, " & _
                     "strIAIPPermissions, " & _
@@ -250,8 +232,8 @@ Public Class IAIPLogIn
                     "" & DBNameSpace & ".EPDUserProfiles " & _
                     "where " & DBNameSpace & ".EPDUsers.numUserID = " & DBNameSpace & ".IAIPPermissions.numUserID " & _
                     "and " & DBNameSpace & ".EPDUsers.numUserID = " & DBNameSpace & ".EPDUserProfiles.numUserId " & _
-                    "and upper(strUserName) = '" & Replace(txtUserID.Text.ToUpper, "'", "''") & "' " & _
-                    "and strPassword = '" & Replace(EncryptDecrypt.EncryptText(txtUserPassword.Text), "'", "''") & "' "
+                    "and upper(strUserName) = '" & Replace(UserID.Text.ToUpper, "'", "''") & "' " & _
+                    "and strPassword = '" & Replace(EncryptDecrypt.EncryptText(UserPassword.Text), "'", "''") & "' "
 
                     cmd = New OracleCommand(SQL, Conn)
                     If Conn.State = ConnectionState.Closed Then
@@ -327,7 +309,7 @@ Public Class IAIPLogIn
                             ValidateLogInInfo = "Check"
                             PhoneNumber = "Require"
                         End If
-                        If LastName.ToUpper = txtUserPassword.Text.ToUpper Then
+                        If LastName.ToUpper = UserPassword.Text.ToUpper Then
                             ValidateLogInInfo = "Check"
                             LastName = "Require"
                         End If
@@ -335,7 +317,7 @@ Public Class IAIPLogIn
                             ProfileUpdate = Nothing
                             If ProfileUpdate Is Nothing Then ProfileUpdate = New IAIPProfileUpdate
                             ProfileUpdate.Show()
-                            txtUserPassword.Clear()
+                            UserPassword.Clear()
                             If EmailAddress = "Require" Then
                                 ProfileUpdate.pnlEmailAddress.Visible = True
                                 ProfileUpdate.txtEmailAddress.BackColor = Color.Tomato
@@ -375,7 +357,7 @@ Public Class IAIPLogIn
 
                         If File.Exists("C:\APB\Defaults.txt") Then
                         Else
-                            DefaultsText = "LogInID-" & txtUserID.Text & "-DInIgoL"
+                            DefaultsText = "LogInID-" & UserID.Text & "-DInIgoL"
                             ProgressBar.PerformStep()
                             Dim fs As New System.IO.FileStream("C:\APB\Defaults.txt", IO.FileMode.Create, IO.FileAccess.Write)
 
@@ -402,7 +384,7 @@ Public Class IAIPLogIn
                         Else
                             NavigationScreen.pnl4.Text = ""
                         End If
-                        NavigationScreen.mmiVersion.Text = lblVersion.Text
+                        NavigationScreen.mmiVersion.Text = CurrentVersionMessage.Text
                         NavigationScreen.Show()
 
                         ProgressBar.Value = 0
@@ -417,8 +399,8 @@ Public Class IAIPLogIn
                             MsgBox("Log In information is incorrect." & vbCrLf & "Please try again.", MsgBoxStyle.Exclamation, _
     "Log In Error")
                         End If
-                        txtUserPassword.Clear()
-                        txtUserPassword.Focus()
+                        UserPassword.Clear()
+                        UserPassword.Focus()
 
                         ProgressBar.Value = 0
                     End If
@@ -436,7 +418,7 @@ Public Class IAIPLogIn
 
     End Sub
 #End Region
-    Private Sub btnEnter_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEnter.Click
+    Private Sub btnEnter_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles LogInButton.Click
         Try
             LogInCheck()
         Catch ex As Exception
@@ -471,7 +453,7 @@ Public Class IAIPLogIn
 
     End Sub
 #Region ".EXE Update"
-    Private Sub llbUpdateIAIP_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbUpdateIAIP.LinkClicked
+    Private Sub llbUpdateIAIP_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles UpdateIaipLink.LinkClicked
         Try
             Dim URL As String = ""
 
@@ -488,18 +470,18 @@ Public Class IAIPLogIn
     End Sub
 #End Region
 #Region "Mouse Actions"
-    Private Sub txtUserID_MouseHover(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtUserID.MouseHover
+    Private Sub txtUserID_MouseHover(ByVal sender As Object, ByVal e As System.EventArgs) Handles UserID.MouseHover
         Try
 
             Paneltemp1 = Panel1.Text
             Panel1.Text = "Enter your Log In ID..."
-            ToolTip1.SetToolTip(txtUserID, "Enter your Log In ID...")
+            ToolTip1.SetToolTip(UserID, "Enter your Log In ID...")
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
     End Sub
-    Private Sub txtUserID_MouseLeave(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtUserID.MouseLeave
+    Private Sub txtUserID_MouseLeave(ByVal sender As Object, ByVal e As System.EventArgs) Handles UserID.MouseLeave
         Try
 
             Panel1.Text = "Enter Your User ID..."
@@ -508,18 +490,18 @@ Public Class IAIPLogIn
         End Try
 
     End Sub
-    Private Sub txtUserPassword_MouseHover(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtUserPassword.MouseHover
+    Private Sub txtUserPassword_MouseHover(ByVal sender As Object, ByVal e As System.EventArgs) Handles UserPassword.MouseHover
         Try
 
             Paneltemp1 = Panel1.Text
             Panel1.Text = "Enter your Password if your Log In ID is correct..."
-            ToolTip1.SetToolTip(txtUserPassword, "Enter your Password if your Log In ID is correct...")
+            ToolTip1.SetToolTip(UserPassword, "Enter your Password if your Log In ID is correct...")
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
     End Sub
-    Private Sub txtUserPassword_MouseLeave(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtUserPassword.MouseLeave
+    Private Sub txtUserPassword_MouseLeave(ByVal sender As Object, ByVal e As System.EventArgs) Handles UserPassword.MouseLeave
         Try
 
             Panel1.Text = "Enter Your User ID..."
@@ -528,18 +510,18 @@ Public Class IAIPLogIn
         End Try
 
     End Sub
-    Private Sub btnEnter_MouseHover(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnEnter.MouseHover
+    Private Sub btnEnter_MouseHover(ByVal sender As Object, ByVal e As System.EventArgs) Handles LogInButton.MouseHover
         Try
 
             Paneltemp1 = Panel1.Text
             Panel1.Text = "If all information is correct enter main console..."
-            ToolTip1.SetToolTip(btnEnter, "If all information is correct enter main console...")
+            ToolTip1.SetToolTip(LogInButton, "If all information is correct enter main console...")
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
     End Sub
-    Private Sub btnEnter_MouseLeave(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnEnter.MouseLeave
+    Private Sub btnEnter_MouseLeave(ByVal sender As Object, ByVal e As System.EventArgs) Handles LogInButton.MouseLeave
         Try
 
             Panel1.Text = "Enter Your User ID..."
@@ -549,11 +531,11 @@ Public Class IAIPLogIn
 
     End Sub
 #End Region
-    Private Sub txtUserID_LostFocus(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtUserID.LostFocus
+    Private Sub txtUserID_LostFocus(ByVal sender As Object, ByVal e As System.EventArgs) Handles UserID.LostFocus
         Try
 
-            If txtUserID.Text <> "" Then
-                Panel2.Text = txtUserID.Text
+            If UserID.Text <> "" Then
+                Panel2.Text = UserID.Text
             End If
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -565,11 +547,11 @@ Public Class IAIPLogIn
 
             If File.Exists("C:\APB\Defaults.txt") Then
                 Panel1.Text = "Enter your Password....."
-                txtUserPassword.Focus()
+                UserPassword.Focus()
             Else
-                txtUserID.Focus()
+                UserID.Focus()
             End If
-            Panel2.Text = txtUserID.Text
+            Panel2.Text = UserID.Text
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
@@ -577,7 +559,7 @@ Public Class IAIPLogIn
         End Try
 
     End Sub
-    Private Sub txtUserPassword_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txtUserPassword.KeyPress
+    Private Sub txtUserPassword_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles UserPassword.KeyPress
         Try
 
             If e.KeyChar = Microsoft.VisualBasic.ChrW(13) Then
@@ -590,7 +572,7 @@ Public Class IAIPLogIn
         End Try
 
     End Sub
-    Private Sub txtUserID_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txtUserID.KeyPress
+    Private Sub txtUserID_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles UserID.KeyPress
         Try
 
             If e.KeyChar = Microsoft.VisualBasic.ChrW(13) Then
@@ -613,18 +595,18 @@ Public Class IAIPLogIn
         mmiLukeEnviornment.Checked = False
         If mmiTestingEnvior.Checked = False Then
             mmiTestingEnvior.Checked = True
-            txtUserID.BackColor = Color.Tomato
-            txtUserPassword.BackColor = Color.Tomato
-            btnEnter.BackColor = Color.Tomato
+            UserID.BackColor = Color.Tomato
+            UserPassword.BackColor = Color.Tomato
+            LogInButton.BackColor = Color.Tomato
             Conn = New OracleConnection(DevConnString)
             CRLogIn = DEVCRLogIn
             CRPassWord = DEVCRPassWord
             CurrentConnString = DevConnString
         Else
             mmiTestingEnvior.Checked = False
-            txtUserID.BackColor = Color.White
-            txtUserPassword.BackColor = Color.White
-            btnEnter.BackColor = Color.White
+            UserID.BackColor = Color.White
+            UserPassword.BackColor = Color.White
+            LogInButton.BackColor = Color.White
             Conn = New OracleConnection(PrdConnString)
             CRLogIn = PRDCRLogIn
             CRPassWord = PRDCRPassWord
@@ -659,18 +641,18 @@ Public Class IAIPLogIn
         mmiTestingDatabase.Checked = False
         If mmiLukeEnviornment.Checked = False Then
             mmiLukeEnviornment.Checked = True
-            txtUserID.BackColor = Color.Black
-            txtUserPassword.BackColor = Color.Black
-            btnEnter.BackColor = Color.Bisque
+            UserID.BackColor = Color.Black
+            UserPassword.BackColor = Color.Black
+            LogInButton.BackColor = Color.Bisque
             Conn = New OracleConnection(PrdConnString)
             CRLogIn = PRDCRLogIn
             CRPassWord = PRDCRPassWord
             CurrentConnString = DevConnString
         Else
             mmiLukeEnviornment.Checked = False
-            txtUserID.BackColor = Color.White
-            txtUserPassword.BackColor = Color.White
-            btnEnter.BackColor = Color.White
+            UserID.BackColor = Color.White
+            UserPassword.BackColor = Color.White
+            LogInButton.BackColor = Color.White
             Conn = New OracleConnection(PrdConnString)
             CRLogIn = PRDCRLogIn
             CRPassWord = PRDCRPassWord
@@ -678,7 +660,7 @@ Public Class IAIPLogIn
         End If
 
     End Sub
-    Private Sub llbIAIPPatch_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbIAIPPatch.LinkClicked
+    Private Sub IaipPatchLink_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles IaipPatchLink.LinkClicked
         Try
             Dim Result As DialogResult
             Dim URL As String = ""
@@ -707,7 +689,7 @@ Public Class IAIPLogIn
     Private Sub mmiRefreshUserID_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiRefreshUserID.Click
         Try
             DefaultsText = ""
-            temp = "LogInID-" & txtUserID.Text & "-DInIgoL"
+            temp = "LogInID-" & UserID.Text & "-DInIgoL"
             If File.Exists("C:\APB\Defaults.txt") Then
                 Dim reader As StreamReader = New StreamReader("C:\APB\Defaults.txt")
                 Do
@@ -821,17 +803,7 @@ Public Class IAIPLogIn
                 My.Computer.Registry.SetValue("HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Internet Settings\ZoneMap\Domains\dnr-tpfs5", "file", "1", RegistryValueKind.DWord)
             End If
 
-
-
             Exit Sub
-
-
-
-
-
-
-
-
 
         Catch ex As Exception
 
@@ -921,6 +893,5 @@ Public Class IAIPLogIn
 
         End Try
     End Sub
-
 
 End Class
