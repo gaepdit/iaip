@@ -91,7 +91,8 @@ Partial Class IAIPPrintOut
         'mmiHelp
         '
         Me.mmiHelp.Index = 1
-        Me.mmiHelp.Text = "Help"
+        Me.mmiHelp.Shortcut = System.Windows.Forms.Shortcut.F1
+        Me.mmiHelp.Text = "&Help"
         '
         'Image_List_All
         '

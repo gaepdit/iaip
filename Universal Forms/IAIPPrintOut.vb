@@ -21,13 +21,14 @@ Public Class IAIPPrintOut
     Dim l As Integer
 
     Private Sub IAIPPrintOut_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+
         Try
-             
+
             LoadCorrectReport()
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-          
+
         End Try
          
     End Sub
@@ -19497,13 +19498,10 @@ Public Class IAIPPrintOut
     End Sub
     Private Sub mmiHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiHelp.Click
         Try
-             
-            Help.ShowHelp(Label1, HELP_URL)
+            OpenHelpUrl(sender)
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
         End Try
-         
     End Sub
 
 End Class
