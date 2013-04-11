@@ -1,56 +1,42 @@
 ﻿'Imports System.Data.OracleClient
-Public Class IAIPFacilitySummaryPrint
+Public Class IaipFacilitySummaryPrint
 
-    Private Sub IAIPFacilitySummaryPrint_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        Try
-
-            DTPFullPrintStartDate.Text = Format(CDate(OracleDate).AddMonths(-12), "dd-MMM-yyyy")
-            DTPFullPrintEndDate.Text = OracleDate
-            DTPExtendedPrintStartDate.Text = Format(CDate(OracleDate).AddMonths(-12), "dd-MMM-yyyy")
-            DTPExtendedPrintEndDate.Text = OracleDate
-
-        Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+    Private Sub IaipFacilitySummaryPrintLoad(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+        FullPrintStartDate.Text = Format(Today.AddMonths(-12), DateFormat)
+        FullPrintEndDate.Text = TodayString
     End Sub
-    Private Sub btnRunReport_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnRunReport.Click
+
+    Private Sub ShowReport(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ShowBasicReport.Click, ShowFullReport.Click
+        If Not (AirsNumber.Text <> "" And AirsNumber.Text.Length = 8) Then
+            MessageBox.Show("The AIRS Number is invalid")
+            Exit Sub
+        End If
         Try
-            If mtbAIRSNumber.Text <> "" And mtbAIRSNumber.Text.Length = 8 Then
-                If rdbBasicReport.Checked = True Then
-                    PrintOut = Nothing
-                    If PrintOut Is Nothing Then PrintOut = New IAIPPrintOut
-                    PrintOut.txtPrintType.Text = "BasicFacilityReport"
-                    PrintOut.txtAIRSNumber.Text = mtbAIRSNumber.Text
-                    PrintOut.Show()
-                    PrintOut.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
-                    Exit Sub
-                End If
-                If rdbFullReport.Checked = True Then
-                    PrintOut = Nothing
-                    If PrintOut Is Nothing Then PrintOut = New IAIPPrintOut
-                    PrintOut.txtPrintType.Text = "FullFacilityReport"
-                    PrintOut.txtAIRSNumber.Text = mtbAIRSNumber.Text
-                    PrintOut.txtStartDate.Text = DTPFullPrintStartDate.Text
-                    PrintOut.txtEndDate.Text = DTPFullPrintEndDate.Text
-                    PrintOut.Show()
-                    PrintOut.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
-                    Exit Sub
-                End If
-                If rdbExtendedReport.Checked = True Then
-
-
-
-                    Exit Sub
-                End If
-
-
-            Else
-                MessageBox.Show("There is an invalid AIRS Number")
+            If sender IsNot Nothing Then
+                sender.Cursor = Cursors.AppStarting
             End If
-
+            PrintOut = New IAIPPrintOut
+            Select Case sender.Name
+                Case ShowBasicReport.Name
+                    PrintOut.txtPrintType.Text = "BasicFacilityReport"
+                Case ShowFullReport.Name
+                    PrintOut.txtPrintType.Text = "FullFacilityReport"
+                    PrintOut.txtStartDate.Text = FullPrintStartDate.Text
+                    PrintOut.txtEndDate.Text = FullPrintEndDate.Text
+            End Select
+            With PrintOut
+                .txtAIRSNumber.Text = AirsNumber.Text
+                .Show()
+                .Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+            End With
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+        Finally
+            If sender IsNot Nothing Then
+                sender.Cursor = Nothing
+            End If
         End Try
+
     End Sub
 
 End Class

@@ -597,16 +597,16 @@ Public Class IAIPFacilitySummary
                         Exit Sub
                     End If
                     If FacilityPrintOut Is Nothing Then
-                        If FacilityPrintOut Is Nothing Then FacilityPrintOut = New IAIPFacilitySummaryPrint
+                        If FacilityPrintOut Is Nothing Then FacilityPrintOut = New IaipFacilitySummaryPrint
                         FacilityPrintOut.Show()
                     Else
                         FacilityPrintOut.Dispose()
-                        FacilityPrintOut = New IAIPFacilitySummaryPrint
-                        If FacilityPrintOut Is Nothing Then FacilityPrintOut = New IAIPFacilitySummaryPrint
+                        FacilityPrintOut = New IaipFacilitySummaryPrint
+                        If FacilityPrintOut Is Nothing Then FacilityPrintOut = New IaipFacilitySummaryPrint
                         FacilityPrintOut.Show()
                     End If
-                    FacilityPrintOut.mtbAIRSNumber.Text = mtbAIRSNumber.Text
-                    FacilityPrintOut.txtFacilityName.Text = txtFacilityName.Text
+                    FacilityPrintOut.AirsNumber.Text = mtbAIRSNumber.Text
+                    FacilityPrintOut.FacilityName.Text = txtFacilityName.Text
 
                     FacilityPrintOut.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                 Case Else
@@ -1149,16 +1149,16 @@ Public Class IAIPFacilitySummary
                 Exit Sub
             End If
             If FacilityPrintOut Is Nothing Then
-                If FacilityPrintOut Is Nothing Then FacilityPrintOut = New IAIPFacilitySummaryPrint
+                If FacilityPrintOut Is Nothing Then FacilityPrintOut = New IaipFacilitySummaryPrint
                 FacilityPrintOut.Show()
             Else
                 FacilityPrintOut.Dispose()
-                FacilityPrintOut = New IAIPFacilitySummaryPrint
-                If FacilityPrintOut Is Nothing Then FacilityPrintOut = New IAIPFacilitySummaryPrint
+                FacilityPrintOut = New IaipFacilitySummaryPrint
+                If FacilityPrintOut Is Nothing Then FacilityPrintOut = New IaipFacilitySummaryPrint
                 FacilityPrintOut.Show()
             End If
-            FacilityPrintOut.mtbAIRSNumber.Text = mtbAIRSNumber.Text
-            FacilityPrintOut.txtFacilityName.Text = txtFacilityName.Text
+            FacilityPrintOut.AirsNumber.Text = mtbAIRSNumber.Text
+            FacilityPrintOut.FacilityName.Text = txtFacilityName.Text
 
             FacilityPrintOut.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
 
