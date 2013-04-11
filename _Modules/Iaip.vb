@@ -71,4 +71,29 @@ Module Iaip
         Return New Version(v.Major, v.Minor, v.Build)
     End Function
 #End Region
+
+#Region "URL handling"
+    Public Sub OpenHelpUrl(Optional ByVal sender As System.Object = Nothing)
+        OpenUrl(HELP_URL, sender)
+    End Sub
+    Private Sub OpenUrl(ByVal url As String, Optional ByVal sender As System.Object = Nothing)
+        ' Reference: http://code.logos.com/blog/2008/01/using_processstart_to_link_to.html
+        If url Is Nothing Then Exit Sub
+
+        If sender IsNot Nothing Then
+            sender.Cursor = Cursors.AppStarting
+        End If
+        Try
+            Process.Start(url)
+        Catch ee As Exception When _
+        TypeOf ee Is System.ComponentModel.Win32Exception OrElse _
+        TypeOf ee Is System.ObjectDisposedException OrElse _
+        TypeOf ee Is System.IO.FileNotFoundException
+        Finally
+            If sender IsNot Nothing Then
+                sender.Cursor = Nothing
+            End If
+        End Try
+    End Sub
+#End Region
 End Module
