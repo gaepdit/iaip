@@ -12,7 +12,6 @@ Imports System.Data.OleDb
 Imports System.Data.Odbc
 
 Module subMain
-    Friend Const HELP_URL As String = "https://sites.google.com/site/iaipdocs/"
 
 #Region "DB Connection Strings"
     Friend Const DBNameSpace As String = "AIRBRANCH"
@@ -42,6 +41,14 @@ Module subMain
     Public CRPassWord As String = PRDCRPassWord
 #End Region
 
+#Region "New public variables"
+    Friend HELP_URL As String = "https://sites.google.com/site/iaipdocs/"
+    Friend DateFormat As String = "dd-MMM-yyyy"
+    Friend Today As Date = DateTime.Today
+    Friend TodayString As String = Format(Today, DateFormat)
+#End Region
+
+#Region "Old public variables"
     Public OracleDate As String = Format(Date.Today, "dd-MMM-yyyy")
     Public UserGCode As String
     Public Permissions As String
@@ -64,7 +71,9 @@ Module subMain
 
     Public t As New System.Timers.Timer(14400000)
     Public t2 As New System.Timers.Timer(300000)
+#End Region
 
+#Region "All Forms"
 #Region "Universal Screens"
     Public APB110 As IAIPLogIn
 
@@ -89,7 +98,7 @@ Module subMain
     Public PhoneList As IAIPPhoneList
     Public ProfileUpdate As IAIPProfileUpdate
     Public AFSCompare As IAIPAFSCompare
-    Public FacilityPrintOut As IAIPFacilitySummaryPrint
+    Public FacilityPrintOut As IaipFacilitySummaryPrint
     Public LookUpTables As IAIPLookUpTables
     Public FacilityCreator As IAIPFacilityCreator
     Public EISLog As IAIP_EIS_Log
@@ -179,8 +188,6 @@ Module subMain
     Public FeeContact As SSPP_FeeContact
 
 #End Region
-#Region "AFS"
-
 #End Region
 
 #Region "Public Procedures"
@@ -349,6 +356,7 @@ Module subMain
     End Sub
 
 #End Region
+
 #Region "Encryption Script"
 
     Public Function SimpleCrypt(ByVal Text As String) As String
