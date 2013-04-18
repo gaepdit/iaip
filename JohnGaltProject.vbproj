@@ -2221,7 +2221,7 @@
   <PropertyGroup>
     <PreBuildEvent>
     </PreBuildEvent>
-    <PostBuildEvent>"$(TargetDir)SFX\7za.exe" a "$(TargetDir)SFX\IAIP.7z" "$(TargetDir)SFX\JohnGaltProject.exe"
+    <PostBuildEvent>"$(TargetDir)SFX\7za.exe" a "$(TargetDir)SFX\IAIP.7z" "$(TargetDir)JohnGaltProject.exe"
 copy /b "$(TargetDir)SFX\7zsd_All.sfx" + "$(TargetDir)SFX\config.txt" + "$(TargetDir)SFX\IAIP.7z" "$(TargetDir)SFX\IAIP.exe"
 del "$(TargetDir)SFX\IAIP.7z"</PostBuildEvent>
   </PropertyGroup>
