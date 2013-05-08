@@ -172,40 +172,67 @@ Public Class ISMPTestReports
             
             daISMPUnits = New OracleDataAdapter(SQL, conn)
 
-            SQL = "select " & _
-            "case when numUserID = '0' then 'No Manager'  " & _
-            "else UserName " & _
-            "End ComplianceManager,  " & _
-            "numUserId  " & _
-            "from  " & _
-            "(select  " & _
-            "distinct(strLastName|| ', ' ||strFirstName) as UserName,  " & _
-            "airbranch.epduserprofiles.numUserID    " & _
-            "from AIRBranch.EPDUserProfiles, AIRBranch.IAIPPermissions  " & _
-            "where AIRBranch.EPDUserProfiles.numUserId = AIRBranch.IAIPPermissions.numUserID  " & _
-            "and numemployeestatus= '1' " & _
-            "and (strIAIPPermissions like '%(19)%'  " & _
-            "or strIAIPPermissions like '%(27)%'  " & _
-            "or strIAIPPermissions like '%(21)%'  " & _
-            "or strIAIPPermissions like '%(23)%'  " & _
-            "or strIAIPPermissions like '%(25)%' " & _
-            "or strIAIPPermissions like '%(79)%' " & _
-            "or strIAIPPermissions like '%(80)%' " & _
-            "or strIAIPPermissions like '%(81)%' " & _
-            "or strIAIPPermissions like '%(82)%' " & _
-            "or strIAIPPermissions like '%(83)%' " & _
-            "or strIAIPPermissions like '%(84)%' " & _
-            "or strIAIPPermissions like '%(85)%' " & _
-            "or strIAIPPermissions like '%(86)%' " & _
-            ") " & _
-            "union  " & _
-            "select  " & _
-            "distinct(strLastName|| ', ' ||strFirstName) as UserName,  " & _
-            "numUserId  " & _
-            "from AIRBranch.EPDUserProfiles, AIRBranch.ISMPREportInformation " & _
-            "where AIRBranch.EPDUserProfiles.numUserID = AIRBranch.ISMPReportInformation.strComplianceManager) "
+            'SQL = "select " & _
+            '"case when numUserID = '0' then 'No Manager'  " & _
+            '"else UserName " & _
+            '"End ComplianceManager,  " & _
+            '"numUserId  " & _
+            '"from  " & _
+            '"(select  " & _
+            '"distinct(strLastName|| ', ' ||strFirstName) as UserName,  " & _
+            '"airbranch.epduserprofiles.numUserID    " & _
+            '"from AIRBranch.EPDUserProfiles, AIRBranch.IAIPPermissions  " & _
+            '"where AIRBranch.EPDUserProfiles.numUserId = AIRBranch.IAIPPermissions.numUserID  " & _
+            '"and numemployeestatus= '1' " & _
+            '"and (strIAIPPermissions like '%(19)%'  " & _
+            '"or strIAIPPermissions like '%(27)%'  " & _
+            '"or strIAIPPermissions like '%(21)%'  " & _
+            '"or strIAIPPermissions like '%(23)%'  " & _
+            '"or strIAIPPermissions like '%(25)%' " & _
+            '"or strIAIPPermissions like '%(79)%' " & _
+            '"or strIAIPPermissions like '%(80)%' " & _
+            '"or strIAIPPermissions like '%(81)%' " & _
+            '"or strIAIPPermissions like '%(82)%' " & _
+            '"or strIAIPPermissions like '%(83)%' " & _
+            '"or strIAIPPermissions like '%(84)%' " & _
+            '"or strIAIPPermissions like '%(85)%' " & _
+            '"or strIAIPPermissions like '%(86)%' " & _
+            '") " & _
+            '"union  " & _
+            '"select  " & _
+            '"distinct(strLastName|| ', ' ||strFirstName) as UserName,  " & _
+            '"numUserId  " & _
+            '"from AIRBranch.EPDUserProfiles, AIRBranch.ISMPREportInformation " & _
+            '"where AIRBranch.EPDUserProfiles.numUserID = AIRBranch.ISMPReportInformation.strComplianceManager) "
 
-            daComplianceManager = New OracleDataAdapter(SQL, conn)
+            SQL = <s><![CDATA[
+SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
+    || ', '
+    || AIRBranch.EPDUserProfiles.STRFIRSTNAME) AS ComplianceManager,
+    AIRBranch.EPDUserProfiles.NUMUSERID
+  FROM AIRBranch.EPDUserProfiles,
+    AIRBranch.IAIPPermissions
+  WHERE AIRBranch.EPDUserProfiles.NUMUSERID        = AIRBranch.IAIPPermissions.NUMUSERID
+  AND (AIRBranch.EPDUserProfiles.NUMEMPLOYEESTATUS = '1'
+  AND (AIRBranch.IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(19)%'
+  OR AIRBranch.IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(27)%'
+  OR AIRBranch.IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(21)%'
+  OR AIRBranch.IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(23)%'
+  OR AIRBranch.IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(25)%'
+  OR AIRBranch.IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(79)%'
+  OR AIRBranch.IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(80)%'
+  OR AIRBranch.IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(81)%'
+  OR AIRBranch.IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(82)%'
+  OR AIRBranch.IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(83)%'
+  OR AIRBranch.IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(84)%'
+  OR AIRBranch.IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(85)%'
+  OR AIRBranch.IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(86)%'
+  OR AIRBranch.IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(114)%'))
+  UNION
+  SELECT ' No Manager', 0 FROM DUAL 
+  ORDER BY ComplianceManager
+            ]]></s>.Value
+            daComplianceManager = New OracleDataAdapter(SQL, Conn)
 
             SQL = "Select strTestingFirm, strTestingFirmKey from " & DBNameSpace & ".LookUPTestingFirms order by strTestingFirm"
             daTestingFirm = New OracleDataAdapter(SQL, conn)
@@ -2110,53 +2137,126 @@ Public Class ISMPTestReports
             Dim OtherWitnessingEng As String = "0"
             Dim ConfidentialData As String = "0"
 
-            SQL = "Select " & _
-            "" & DBNameSpace & ".ISMPMaster.strReferenceNumber,  " & _
-            "substr(" & DBNameSpace & ".ISMpMaster.strAIRSnumber, 5) as AIRSNumber,  " & _
-            "" & DBNameSpace & ".APBFacilityInformation.strFacilityName,  " & _
-            "strFacilityCity, strFacilityState,  " & _
-            "strPollutant, strEmissionSource,  " & _
-            "strReportType, strDocumentType,  " & _
-            "strApplicableRequirement,  " & _
-            "strTestingFirm, strReviewingEngineer,  " & _
-            "strWitnessingEngineer,  " & _
-            "strReviewingUnit,  " & _
-            "to_char(datReviewedByUnitManager, 'dd-Mon-yyyy') as datReviewedByUnitManager,  " & _
-            "strComplianceManager,  " & _
-            "to_char(datReceivedDate, 'dd-Mon-yyyy') as datReceivedDate,  " & _
-            "to_char(datTestDateStart, 'dd-Mon-yyyy') as datTestDateStart,  " & _
-            "to_char(datTestDateEnd, 'dd-Mon-yyyy') as datTestDateEnd,  " & _
-            "to_char(datCompleteDate, 'dd-Mon-yyyy') as datCompleteDate,  " & _
-            "mmoCommentArea,  " & _
-            "strClosed, strProgramManager,  " & _
-            "strComplianceStatus, strCC,  " & _
-            "to_char(" & DBNameSpace & ".ISMPReportInformation.datReceivedDate - " & DBNameSpace & ".ISMPReportInformation.datTestDateEnd) as DaysFromTest,  " & _
-            "case  " & _
-            "when datCompleteDate = '04-Jul-1776' then to_char(sysdate-datReceivedDate)  " & _
-            "else to_char(datCompleteDate - datReceivedDate)  " & _
-            "End APBDays,  " & _
-            "Case " & _
-            "when datCompleteDate = '04-Jul-1776' then to_char(sysdate-datReviewedByUnitManager)  " & _
-            "else to_char(datCompleteDate - datReviewedByUnitManager)  " & _
-            "End EngineerDays,  " & _
-            "strDeterminationMethod, strControlEquipmentData,  " & _
-            "strOtherWitnessingEng, strConfidentialData,  " & _
-            "case " & _
-            "when numReviewingManager is null then 'N/A' " & _
-            "when numReviewingManager = '0' then 'N/A' " & _
-            "else (strLastName||', '||strFirstName) " & _
-            "END UnitManager, " & _
-            "strPreComplianceStatus " & _
-            "from " & DBNameSpace & ".ISMPMaster, " & DBNameSpace & ".APBFacilityInformation,  " & _
-            "" & DBNameSpace & ".ISMPReportInformation, " & DBNameSpace & ".EPDUserProfiles     " & _
-            "where " & DBNameSpace & ".ISMPMaster.strAIRSNumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber  " & _
-            "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber  " & _
-            "and " & DBNameSpace & ".ISMPReportInformation.numReviewingManager = EPDUserProfiles.numUserID (+) " & _
-            "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = '" & RefNumber & "' "
+            'SQL = "Select " & _
+            '"" & DBNameSpace & ".ISMPMaster.strReferenceNumber,  " & _
+            '"substr(" & DBNameSpace & ".ISMpMaster.strAIRSnumber, 5) as AIRSNumber,  " & _
+            '"" & DBNameSpace & ".APBFacilityInformation.strFacilityName,  " & _
+            '"strFacilityCity, strFacilityState,  " & _
+            '"strPollutant, strEmissionSource,  " & _
+            '"strReportType, strDocumentType,  " & _
+            '"strApplicableRequirement,  " & _
+            '"strTestingFirm, strReviewingEngineer,  " & _
+            '"strWitnessingEngineer,  " & _
+            '"strReviewingUnit,  " & _
+            '"to_char(datReviewedByUnitManager, 'dd-Mon-yyyy') as datReviewedByUnitManager,  " & _
+            '"strComplianceManager,  " & _
+            '"to_char(datReceivedDate, 'dd-Mon-yyyy') as datReceivedDate,  " & _
+            '"to_char(datTestDateStart, 'dd-Mon-yyyy') as datTestDateStart,  " & _
+            '"to_char(datTestDateEnd, 'dd-Mon-yyyy') as datTestDateEnd,  " & _
+            '"to_char(datCompleteDate, 'dd-Mon-yyyy') as datCompleteDate,  " & _
+            '"mmoCommentArea,  " & _
+            '"strClosed, strProgramManager,  " & _
+            '"strComplianceStatus, strCC,  " & _
+            '"to_char(" & DBNameSpace & ".ISMPReportInformation.datReceivedDate - " & DBNameSpace & ".ISMPReportInformation.datTestDateEnd) as DaysFromTest,  " & _
+            '"case  " & _
+            '"when datCompleteDate = '04-Jul-1776' then to_char(sysdate-datReceivedDate)  " & _
+            '"else to_char(datCompleteDate - datReceivedDate)  " & _
+            '"End APBDays,  " & _
+            '"Case " & _
+            '"when datCompleteDate = '04-Jul-1776' then to_char(sysdate-datReviewedByUnitManager)  " & _
+            '"else to_char(datCompleteDate - datReviewedByUnitManager)  " & _
+            '"End EngineerDays,  " & _
+            '"strDeterminationMethod, strControlEquipmentData,  " & _
+            '"strOtherWitnessingEng, strConfidentialData,  " & _
+            '"case " & _
+            '"when numReviewingManager is null then 'N/A' " & _
+            '"when numReviewingManager = '0' then 'N/A' " & _
+            '"else (strLastName||', '||strFirstName) " & _
+            '"END UnitManager, " & _
+            '"strPreComplianceStatus " & _
+            '"from " & DBNameSpace & ".ISMPMaster, " & DBNameSpace & ".APBFacilityInformation,  " & _
+            '"" & DBNameSpace & ".ISMPReportInformation, " & DBNameSpace & ".EPDUserProfiles     " & _
+            '"where " & DBNameSpace & ".ISMPMaster.strAIRSNumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber  " & _
+            '"and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber  " & _
+            '"and " & DBNameSpace & ".ISMPReportInformation.numReviewingManager = EPDUserProfiles.numUserID (+) " & _
+            '"and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = '" & RefNumber & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            SQL = <s><![CDATA[
+SELECT AIRBRANCH.ISMPMaster.STRREFERENCENUMBER,
+  SUBSTR(AIRBRANCH.ISMPMaster.STRAIRSNUMBER, 5) AS AIRSNumber,
+  AIRBRANCH.APBFacilityInformation.STRFACILITYNAME,
+  AIRBRANCH.APBFacilityInformation.STRFACILITYCITY,
+  AIRBRANCH.APBFacilityInformation.STRFACILITYSTATE,
+  AIRBRANCH.ISMPReportInformation.STRPOLLUTANT,
+  AIRBRANCH.ISMPReportInformation.STREMISSIONSOURCE,
+  AIRBRANCH.ISMPReportInformation.STRREPORTTYPE,
+  AIRBRANCH.ISMPReportInformation.STRDOCUMENTTYPE,
+  AIRBRANCH.ISMPReportInformation.STRAPPLICABLEREQUIREMENT,
+  AIRBRANCH.ISMPReportInformation.STRTESTINGFIRM,
+  AIRBRANCH.ISMPReportInformation.STRREVIEWINGENGINEER,
+  AIRBRANCH.ISMPReportInformation.STRWITNESSINGENGINEER,
+  AIRBRANCH.ISMPReportInformation.STRREVIEWINGUNIT,
+  TO_CHAR(AIRBRANCH.ISMPReportInformation.DATREVIEWEDBYUNITMANAGER, 'dd-Mon-yyyy') AS datReviewedByUnitManager,
+  AIRBRANCH.ISMPReportInformation.STRCOMPLIANCEMANAGER,
+  TO_CHAR(AIRBRANCH.ISMPReportInformation.DATRECEIVEDDATE, 'dd-Mon-yyyy')  AS datReceivedDate,
+  TO_CHAR(AIRBRANCH.ISMPReportInformation.DATTESTDATESTART, 'dd-Mon-yyyy') AS datTestDateStart,
+  TO_CHAR(AIRBRANCH.ISMPReportInformation.DATTESTDATEEND, 'dd-Mon-yyyy')   AS datTestDateEnd,
+  TO_CHAR(AIRBRANCH.ISMPReportInformation.DATCOMPLETEDATE, 'dd-Mon-yyyy')  AS datCompleteDate,
+  AIRBRANCH.ISMPReportInformation.MMOCOMMENTAREA,
+  AIRBRANCH.ISMPReportInformation.STRCLOSED,
+  AIRBRANCH.ISMPReportInformation.STRPROGRAMMANAGER,
+  AIRBRANCH.ISMPReportInformation.STRCOMPLIANCESTATUS,
+  AIRBRANCH.ISMPReportInformation.STRCC,
+  TO_CHAR(AIRBRANCH.ISMPReportInformation.DATRECEIVEDDATE - AIRBRANCH.ISMPReportInformation.DATTESTDATEEND) AS DaysFromTest,
+  CASE
+    WHEN AIRBRANCH.ISMPReportInformation.DATCOMPLETEDATE = '04-Jul-1776'
+    THEN TO_CHAR(SysDate                                         - AIRBRANCH.ISMPReportInformation.DATRECEIVEDDATE)
+    ELSE TO_CHAR(AIRBRANCH.ISMPReportInformation.DATCOMPLETEDATE - AIRBRANCH.ISMPReportInformation.DATRECEIVEDDATE)
+  END APBDays,
+  CASE
+    WHEN AIRBRANCH.ISMPReportInformation.DATCOMPLETEDATE = '04-Jul-1776'
+    THEN TO_CHAR(SysDate                                         - AIRBRANCH.ISMPReportInformation.DATREVIEWEDBYUNITMANAGER)
+    ELSE TO_CHAR(AIRBRANCH.ISMPReportInformation.DATCOMPLETEDATE - AIRBRANCH.ISMPReportInformation.DATREVIEWEDBYUNITMANAGER)
+  END EngineerDays,
+  AIRBRANCH.ISMPReportInformation.STRDETERMINATIONMETHOD,
+  AIRBRANCH.ISMPReportInformation.STRCONTROLEQUIPMENTDATA,
+  AIRBRANCH.ISMPReportInformation.STROTHERWITNESSINGENG,
+  AIRBRANCH.ISMPReportInformation.STRCONFIDENTIALDATA,
+  CASE
+    WHEN AIRBRANCH.ISMPReportInformation.NUMREVIEWINGMANAGER IS NULL
+    THEN 'N/A'
+    WHEN AIRBRANCH.ISMPReportInformation.NUMREVIEWINGMANAGER = '0'
+    THEN 'N/A'
+    ELSE (p1.STRLASTNAME
+      || ', '
+      || p1.STRFIRSTNAME)
+  END UnitManager,
+  AIRBRANCH.ISMPReportInformation.STRPRECOMPLIANCESTATUS,
+  CASE
+    WHEN AIRBRANCH.ISMPReportInformation.STRCOMPLIANCEMANAGER IS NULL
+    THEN 'N/A'
+    WHEN AIRBRANCH.ISMPReportInformation.STRCOMPLIANCEMANAGER = '0'
+    THEN 'N/A'
+    ELSE (p2.STRLASTNAME
+      || ', '
+      || p2.STRFIRSTNAME)
+  END ComplianceManager
+FROM AIRBRANCH.ISMPMaster,
+  AIRBRANCH.APBFacilityInformation,
+  AIRBRANCH.ISMPReportInformation,
+  AIRBRANCH.EPDUserProfiles p1,
+  AIRBRANCH.EPDUserProfiles p2
+WHERE AIRBRANCH.ISMPMaster.STRAIRSNUMBER = AIRBRANCH.APBFacilityInformation.STRAIRSNUMBER
+AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER             = AIRBRANCH.ISMPReportInformation.STRREFERENCENUMBER
+AND AIRBRANCH.ISMPReportInformation.NUMREVIEWINGMANAGER = p1.NUMUSERID(+)
+AND AIRBRANCH.ISMPReportInformation.STRCOMPLIANCEMANAGER = p2.NUMUSERID(+)
+AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            = 
+            ]]></s>.Value & _
+            " '" & RefNumber & "' "
+
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             RecExist = dr.Read
@@ -2243,15 +2343,25 @@ Public Class ISMPTestReports
                 Else
                     txtAssignedToEngineer.Text = dr.Item("datReviewedByUnitManager")
                 End If
-                If IsDBNull(dr.Item("strComplianceManager")) Then
+
+                If IsDBNull(dr.Item("strComplianceManager")) OrElse dr.Item("strComplianceManager") = "0" Then
                     cboComplianceManager.SelectedValue = 0
                 Else
-                    If dr.Item("strComplianceManager") = "0" Then
-                        cboComplianceManager.SelectedValue = 0
-                    Else
-                        cboComplianceManager.SelectedValue = dr.Item("strComplianceManager")
-                    End If
+                    ' The Compliance Manager combo box is filled with names according to a 
+                    ' list of current specific IAIP permissions. Previously existing stack
+                    ' tests may have already been assigned to users who no longer have the
+                    ' correct permissions. So we have to add one additional row to the combo
+                    ' box data source for the existing compliance manager assignment.
+                    Dim CMComboBoxData As DataTable = cboComplianceManager.DataSource
+                    Dim dr1 As DataRow
+                    dr1 = CMComboBoxData.NewRow()
+                    dr1("numUserID") = dr.Item("strComplianceManager")
+                    dr1("ComplianceManager") = dr.Item("ComplianceManager")
+                    CMComboBoxData.Rows.Add(dr1)
+
+                    cboComplianceManager.SelectedValue = dr.Item("strComplianceManager")
                 End If
+
                 If IsDBNull(dr.Item("datReceivedDate")) Then
                     txtReceivedByAPB.Clear()
                 Else
@@ -2408,84 +2518,84 @@ Public Class ISMPTestReports
             Else
 
             End If
-            dr.Close()
+                    dr.Close()
 
-            If DocumentType <> "" Then
-                Select Case DocumentType
-                    Case "001"
-                        TCDocumentTypes.TabPages.Remove(TPSSCPWork)
-                        LoadDefaultComplianceManager()
-                    Case "002"
-                        LoadOneStack(txtReferenceNumber.Text)
-                    Case "003"
-                        LoadOneStack(txtReferenceNumber.Text)
-                    Case "004"
-                        LoadOneStack(txtReferenceNumber.Text)
-                    Case "005"
-                        LoadTwoStack(txtReferenceNumber.Text)
-                    Case "006"
-                        LoadTwoStack(txtReferenceNumber.Text)
-                    Case "007"
-                        LoadLoadingRack(txtReferenceNumber.Text)
-                    Case "008"
-                        LoadPondTreatment(txtReferenceNumber.Text)
-                    Case "009"
-                        LoadGasConcentration(txtReferenceNumber.Text)
-                    Case "010"
-                        LoadFlare(txtReferenceNumber.Text)
-                    Case "011"
-                        LoadRata(txtReferenceNumber.Text)
-                    Case "012"
-                        LoadMemo(txtReferenceNumber.Text)
-                    Case "013"
-                        LoadMemo(txtReferenceNumber.Text)
-                    Case "014"
-                        LoadMethod9(txtReferenceNumber.Text)
-                    Case "015"
-                        LoadMethod22(txtReferenceNumber.Text)
-                    Case "016"
-                        LoadMethod9(txtReferenceNumber.Text)
-                    Case "017"
-                        LoadPEMS(txtReferenceNumber.Text)
-                    Case "018"
-                        LoadMemo(txtReferenceNumber.Text)
-                    Case Else
-                        TCDocumentTypes.TabPages.Remove(TPSSCPWork)
-                        LoadDefaultComplianceManager()
-                End Select
-            End If
-            If OtherWitnessingEng <> "0" Then
-                LoadOtherWitnessingEng()
-            End If
+                    If DocumentType <> "" Then
+                        Select Case DocumentType
+                            Case "001"
+                                TCDocumentTypes.TabPages.Remove(TPSSCPWork)
+                                LoadDefaultComplianceManager()
+                            Case "002"
+                                LoadOneStack(txtReferenceNumber.Text)
+                            Case "003"
+                                LoadOneStack(txtReferenceNumber.Text)
+                            Case "004"
+                                LoadOneStack(txtReferenceNumber.Text)
+                            Case "005"
+                                LoadTwoStack(txtReferenceNumber.Text)
+                            Case "006"
+                                LoadTwoStack(txtReferenceNumber.Text)
+                            Case "007"
+                                LoadLoadingRack(txtReferenceNumber.Text)
+                            Case "008"
+                                LoadPondTreatment(txtReferenceNumber.Text)
+                            Case "009"
+                                LoadGasConcentration(txtReferenceNumber.Text)
+                            Case "010"
+                                LoadFlare(txtReferenceNumber.Text)
+                            Case "011"
+                                LoadRata(txtReferenceNumber.Text)
+                            Case "012"
+                                LoadMemo(txtReferenceNumber.Text)
+                            Case "013"
+                                LoadMemo(txtReferenceNumber.Text)
+                            Case "014"
+                                LoadMethod9(txtReferenceNumber.Text)
+                            Case "015"
+                                LoadMethod22(txtReferenceNumber.Text)
+                            Case "016"
+                                LoadMethod9(txtReferenceNumber.Text)
+                            Case "017"
+                                LoadPEMS(txtReferenceNumber.Text)
+                            Case "018"
+                                LoadMemo(txtReferenceNumber.Text)
+                            Case Else
+                                TCDocumentTypes.TabPages.Remove(TPSSCPWork)
+                                LoadDefaultComplianceManager()
+                        End Select
+                    End If
+                    If OtherWitnessingEng <> "0" Then
+                        LoadOtherWitnessingEng()
+                    End If
 
-            If ReportStatus = "True" Or AccountArray(69, 4) = "1" Then 'Add Compliance work if User has 'Special Permission 
-                TCDocumentTypes.TabPages.Add(TPSSCPWork)
-            End If
-            If ConfidentialData.Contains("1") Then
-                If Mid(ConfidentialData, 1, 1) = "1" Then
-                    LoadConfidentialData(ConfidentialData)
-                End If
-            End If
+                    If ReportStatus = "True" Or AccountArray(69, 4) = "1" Then 'Add Compliance work if User has 'Special Permission 
+                        TCDocumentTypes.TabPages.Add(TPSSCPWork)
+                    End If
+                    If ConfidentialData.Contains("1") Then
+                        If Mid(ConfidentialData, 1, 1) = "1" Then
+                            LoadConfidentialData(ConfidentialData)
+                        End If
+                    End If
 
-            lblMemoEntered.Visible = False
-
-            SQL = "Select " & _
-            "* from AIRBranch.ISMPTestReportMemo " & _
-            "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
-
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                If IsDBNull(dr.Item("strReferenceNumber")) Then
                     lblMemoEntered.Visible = False
-                Else
-                    lblMemoEntered.Visible = True
-                End If
-            End While
-            dr.Close()
+
+                    SQL = "Select " & _
+                    "* from AIRBranch.ISMPTestReportMemo " & _
+                    "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
+
+                    cmd = New OracleCommand(SQL, Conn)
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
+                    End If
+                    dr = cmd.ExecuteReader
+                    While dr.Read
+                        If IsDBNull(dr.Item("strReferenceNumber")) Then
+                            lblMemoEntered.Visible = False
+                        Else
+                            lblMemoEntered.Visible = True
+                        End If
+                    End While
+                    dr.Close()
 
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -9624,7 +9734,7 @@ Public Class ISMPTestReports
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
-         
+
     End Sub
     Sub LoadTestNotifications()
         Try
@@ -10363,7 +10473,7 @@ Public Class ISMPTestReports
                 dr.Close()
                 If DocType <> "Non-Exist" Then
                     ClearAll()
-                  
+
                     SQL = "Select " & _
                   "" & DBNameSpace & ".ISMPMaster.strReferenceNumber,  " & _
                   "substr(" & DBNameSpace & ".ISMpMaster.strAIRSnumber, 5) as AIRSNumber,  " & _
@@ -10696,11 +10806,11 @@ Public Class ISMPTestReports
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
-         
+
     End Sub
     Sub OpenMemo()
         Try
-             
+
             ISMPMemoEdit = Nothing
             If ISMPMemoEdit Is Nothing Then ISMPMemoEdit = New ISMPMemo
             ISMPMemoEdit.txtReferenceNumber.Text = Me.txtReferenceNumber.Text
@@ -10710,7 +10820,7 @@ Public Class ISMPTestReports
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
-         
+
     End Sub
     Sub DeleteTestReport()
         Dim Result As DialogResult
@@ -10721,7 +10831,7 @@ Public Class ISMPTestReports
         Dim recExist As Boolean
 
         Try
-             
+
             Result = MessageBox.Show("THIS WILL DELETE THIS TEST REPORT DATA." & vbCrLf & _
                                "If you absolutly sure you want to delete this data.", "Warning for Delete.", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1)
             Select Case Result
@@ -10783,7 +10893,7 @@ Public Class ISMPTestReports
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
-         
+
     End Sub
     Sub SaveStackTest()
         Try
@@ -15346,7 +15456,7 @@ Public Class ISMPTestReports
     End Sub
     Private Sub OpenEnforcement()
         Try
-             
+
             If SSCPSelectEnforcement Is Nothing Then
                 If SSCPSelectEnforcement Is Nothing Then SSCPSelectEnforcement = New SSCPEnforcementSelector
                 SSCPSelectEnforcement.txtAIRSNumber.Text = txtAIRSNumber.Text
@@ -15360,7 +15470,7 @@ Public Class ISMPTestReports
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
-         
+
     End Sub
     Sub LoadConfidentialData(ByVal ConfidentialData As String)
         Try
@@ -17567,7 +17677,7 @@ Public Class ISMPTestReports
                     End If
                 Case "P"
                     If DocumentType = "017" Then
-                       
+
                     End If
                 Case "Q"
                     If DocumentType = "018" Then
@@ -17647,7 +17757,7 @@ Public Class ISMPTestReports
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
-         
+
     End Sub
     Private Sub chbTestReportChangeDueDate_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chbTestReportChangeDueDate.CheckedChanged
         Try
@@ -17661,7 +17771,7 @@ Public Class ISMPTestReports
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
-         
+
     End Sub
     Private Sub chbAcknoledgmentLetterSent_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chbAcknoledgmentLetterSent.CheckedChanged
         Try
@@ -17675,7 +17785,7 @@ Public Class ISMPTestReports
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
-         
+
     End Sub
 #Region "Tool Strip Buttons"
     Private Sub tsbSave_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsbSave.Click
@@ -17700,7 +17810,7 @@ Public Class ISMPTestReports
     End Sub
     Private Sub tsbSearch_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsbSearch.Click
         Try
-             
+
             Dim result As String
 
             result = InputBox("Type in the Reference Number you are searching for.")
@@ -17736,7 +17846,7 @@ Public Class ISMPTestReports
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
-         
+
     End Sub
     Private Sub tsbPrePopulate_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsbPrePopulate.Click
         Try
@@ -17745,7 +17855,7 @@ Public Class ISMPTestReports
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
-         
+
     End Sub
     Private Sub tsbPrint_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsbPrint.Click
         Try
@@ -17769,7 +17879,7 @@ Public Class ISMPTestReports
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
-         
+
     End Sub
     Private Sub tsbResize_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsbResize.Click
         Try
@@ -17790,7 +17900,7 @@ Public Class ISMPTestReports
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
-         
+
     End Sub
     Private Sub tsbMemo_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsbMemo.Click
         Try
@@ -17869,33 +17979,33 @@ Public Class ISMPTestReports
     End Sub
     Private Sub mmiCopy_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiCopy.Click
         Try
-             
+
             SendKeys.Send("^(c)")
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
-         
+
     End Sub
     Private Sub mmiCut_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiCut.Click
         Try
-             
+
             SendKeys.Send("^(x)")
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
-         
+
     End Sub
     Private Sub mmiPaste_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiPaste.Click
         Try
-             
+
             SendKeys.Send("^(v)")
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
-         
+
     End Sub
     Private Sub mmiOpenTestLogNotification_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiOpenTestLogNotification.Click
         Try
@@ -17922,7 +18032,7 @@ Public Class ISMPTestReports
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
-         
+
     End Sub
 #End Region
 #Region "Math Functions"
@@ -20336,7 +20446,7 @@ Public Class ISMPTestReports
                 Catch ex As Exception
 
                 End Try
-                 
+
             End If
         Catch ex As Exception
 
@@ -22782,7 +22892,7 @@ Public Class ISMPTestReports
 #End Region
     Private Sub txtRefMethodPercentRata_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtRefMethodPercentRata.TextChanged
         Try
-             
+
             If txtRefMethodPercentRata.Text <> "" Then
                 txtRefMethodPercentRata.Visible = True
                 lblRefMethodRata.Visible = True
@@ -22807,11 +22917,11 @@ Public Class ISMPTestReports
         Finally
 
         End Try
-         
+
     End Sub
     Private Sub txtApplicableStandardPercentRata_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtApplicableStandardPercentRata.TextChanged
         Try
-             
+
             If txtApplicableStandardPercentRata.Text <> "" Then
                 txtRefMethodPercentRata.Visible = False
                 lblRefMethodRata.Visible = False
@@ -22835,11 +22945,11 @@ Public Class ISMPTestReports
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
-         
+
     End Sub
     Private Sub cboDiluentRata_SelectedValueChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles cboDiluentRata.SelectedValueChanged
         Try
-             
+
             If cboDiluentRata.Text = "" Or cboDiluentRata.Text = " " Then
                 txtRefMethodPercentRata.Visible = True
                 lblRefMethodRata.Visible = True
@@ -22863,11 +22973,11 @@ Public Class ISMPTestReports
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
-         
+
     End Sub
     Private Sub txtPart75Statement_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtPart75Statement.TextChanged
         Try
-             
+
             If txtPart75Statement.Text <> "" Then
                 txtRefMethodPercentRata.Visible = False
                 lblRefMethodRata.Visible = False
@@ -22891,11 +23001,11 @@ Public Class ISMPTestReports
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
-         
+
     End Sub
     Private Sub cboDiluentRata_MouseDown(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles cboDiluentRata.MouseDown
         Try
-             
+
             If ReportStatus = True Then
                 cboDiluentRata.Enabled = False
             Else
@@ -22906,11 +23016,11 @@ Public Class ISMPTestReports
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
-         
+
     End Sub
     Private Sub cboDiluentRata_KeyDown(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles cboDiluentRata.KeyDown
         Try
-             
+
             If ReportStatus = True Then
                 cboDiluentRata.Enabled = False
             Else
@@ -22921,11 +23031,11 @@ Public Class ISMPTestReports
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
-         
+
     End Sub
     Private Sub cboDiluentRata_GotFocus(ByVal sender As Object, ByVal e As System.EventArgs) Handles cboDiluentRata.GotFocus
         Try
-             
+
             If ReportStatus = True Then
                 cboDiluentRata.Enabled = False
             Else
@@ -22936,7 +23046,7 @@ Public Class ISMPTestReports
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
-         
+
     End Sub
     Private Sub btnSaveSSCPData_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSaveSSCPData.Click
         Try
@@ -22951,7 +23061,7 @@ Public Class ISMPTestReports
     End Sub
     Private Sub btnRequestInformation_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnRequestInformation.Click
         Try
-             
+
             SSCPRequest = Nothing
             If SSCPRequest Is Nothing Then SSCPRequest = New SSCPInformationRequest
             SSCPRequest.txtAIRSNumber.Text = Me.txtAirsNumber.Text
@@ -22962,17 +23072,17 @@ Public Class ISMPTestReports
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
-         
+
     End Sub
     Private Sub btnEnforcementProcess_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEnforcementProcess.Click
         Try
-             
+
             OpenEnforcement()
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
-         
+
     End Sub
     Private Sub llbTestNotifiactionNumber_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbTestNotifiactionNumber.LinkClicked
         Try
@@ -23050,8 +23160,8 @@ Public Class ISMPTestReports
         End Try
     End Sub
 
-   
-   
+
+
     Private Sub mmiHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiHelp.Click
         Try
             Help.ShowHelp(Label1, HELP_URL)
