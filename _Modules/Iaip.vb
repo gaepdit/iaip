@@ -28,7 +28,7 @@ Module Iaip
                         End If
                     End While
                 Catch ee As OracleException
-                    MessageBox.Show("The database is currently unavailable.")
+                    MessageBox.Show("Could not connect to the database.")
                     publishedVersionString = "0.0.0.0"
                 End Try
             End Using
