@@ -128,34 +128,51 @@ Public Class ISMPTestReports
 
             daComplianceStatus = New OracleDataAdapter(SQL, conn)
 
-            SQL = "select " & _
-            "case when numUserID = '0' then 'No CC' " & _
-            "else UserName " & _
-            "End UserName,  " & _
-            "numUserId  " & _
-            "from  " & _
-            "(select  " & _
-            "(strLastName|| ', ' ||strFirstName) as UserName,  " & _
-            "airbranch.epduserprofiles.numUserID  " & _
-            "from AIRBranch.EPDUserProfiles, AIRBranch.IAIPPermissions  " & _
-            "where AIRBranch.EPDUserProfiles.numUserId = AIRBranch.IAIPPermissions.numUserID  " & _
-            "and (strIAIPPermissions like '%(28)%' " & _
-            "or strIAIPPermissions like '%(31)%'  " & _
-            "or strIAIPPermissions like '%(33)%'  " & _
-            "or strIAIPPermissions like '%(35)%'  " & _
-            "or strIAIPPermissions like '%(37)%'  " & _
-            "or strIAIPPermissions like '%(39)%'  " & _
-            "or strIAIPPermissions like '%(19)%'  " & _
-            "or strIAIPPermissions like '%(27)%'  " & _
-            "or strIAIPPermissions like '%(21)%'  " & _
-            "or strIAIPPermissions like '%(23)%'  " & _
-            "or strIAIPPermissions like '%(25)%' ) " & _
-            "Union  " & _
-            "select  " & _
-            "distinct(strLastName|| ', ' ||strFirstName) as UserName,  " & _
-            "numUserId  " & _
-            "from AIRBranch.EPDUserProfiles, AIRBranch.ISMPREportInformation " & _
-            "where AIRBranch.EPDUserProfiles.numUserID = AIRBranch.ISMPReportInformation.strCC) "
+            'SQL = "select " & _
+            '"case when numUserID = '0' then 'No CC' " & _
+            '"else UserName " & _
+            '"End UserName,  " & _
+            '"numUserId  " & _
+            '"from  " & _
+            '"(select  " & _
+            '"(strLastName|| ', ' ||strFirstName) as UserName,  " & _
+            '"airbranch.epduserprofiles.numUserID  " & _
+            '"from AIRBranch.EPDUserProfiles, AIRBranch.IAIPPermissions  " & _
+            '"where AIRBranch.EPDUserProfiles.numUserId = AIRBranch.IAIPPermissions.numUserID  " & _
+            '"and (strIAIPPermissions like '%(28)%' " & _
+            '"or strIAIPPermissions like '%(31)%'  " & _
+            '"or strIAIPPermissions like '%(33)%'  " & _
+            '"or strIAIPPermissions like '%(35)%'  " & _
+            '"or strIAIPPermissions like '%(37)%'  " & _
+            '"or strIAIPPermissions like '%(39)%'  " & _
+            '"or strIAIPPermissions like '%(19)%'  " & _
+            '"or strIAIPPermissions like '%(27)%'  " & _
+            '"or strIAIPPermissions like '%(21)%'  " & _
+            '"or strIAIPPermissions like '%(23)%'  " & _
+            '"or strIAIPPermissions like '%(25)%' ) " & _
+            '"Union  " & _
+            '"select  " & _
+            '"distinct(strLastName|| ', ' ||strFirstName) as UserName,  " & _
+            '"numUserId  " & _
+            '"from AIRBranch.EPDUserProfiles, AIRBranch.ISMPREportInformation " & _
+            '"where AIRBranch.EPDUserProfiles.numUserID = AIRBranch.ISMPReportInformation.strCC) "
+
+            SQL = <s><![CDATA[
+SELECT (AIRBranch.EPDUserProfiles.STRLASTNAME
+  || ', '
+  || AIRBranch.EPDUserProfiles.STRFIRSTNAME) AS UserName,
+  AIRBranch.EPDUserProfiles.NUMUSERID
+FROM AIRBranch.EPDUserProfiles,
+  AIRBranch.IAIPPermissions
+WHERE AIRBranch.EPDUserProfiles.NUMUSERID = AIRBranch.IAIPPermissions.NUMUSERID
+AND ((AIRBranch.IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(28)%')
+OR (AIRBranch.IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(19)%')
+OR (AIRBranch.IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(121)%')
+OR (AIRBranch.IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(114)%')
+OR (AIRBranch.IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(141)%'))
+UNION
+SELECT 'None', 0 FROM DUAL ORDER BY USERNAME
+            ]]></s>.Value
 
             daCCList = New OracleDataAdapter(SQL, conn)
 
@@ -229,7 +246,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
   OR AIRBranch.IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(86)%'
   OR AIRBranch.IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(114)%'))
   UNION
-  SELECT ' No Manager', 0 FROM DUAL 
+  SELECT 'None', 0 FROM DUAL 
   ORDER BY ComplianceManager
             ]]></s>.Value
             daComplianceManager = New OracleDataAdapter(SQL, Conn)
@@ -2224,32 +2241,43 @@ SELECT AIRBRANCH.ISMPMaster.STRREFERENCENUMBER,
   AIRBRANCH.ISMPReportInformation.STRCONFIDENTIALDATA,
   CASE
     WHEN AIRBRANCH.ISMPReportInformation.NUMREVIEWINGMANAGER IS NULL
-    THEN 'N/A'
+    THEN 'None'
     WHEN AIRBRANCH.ISMPReportInformation.NUMREVIEWINGMANAGER = '0'
-    THEN 'N/A'
-    ELSE (p1.STRLASTNAME
+    THEN 'None'
+    ELSE (P1.STRLASTNAME
       || ', '
-      || p1.STRFIRSTNAME)
+      || P1.STRFIRSTNAME)
   END UnitManager,
   AIRBRANCH.ISMPReportInformation.STRPRECOMPLIANCESTATUS,
   CASE
     WHEN AIRBRANCH.ISMPReportInformation.STRCOMPLIANCEMANAGER IS NULL
-    THEN 'N/A'
+    THEN 'None'
     WHEN AIRBRANCH.ISMPReportInformation.STRCOMPLIANCEMANAGER = '0'
-    THEN 'N/A'
-    ELSE (p2.STRLASTNAME
+    THEN 'None'
+    ELSE (P2.STRLASTNAME
       || ', '
-      || p2.STRFIRSTNAME)
-  END ComplianceManager
+      || P2.STRFIRSTNAME)
+  END ComplianceManager,
+  CASE
+    WHEN AIRBRANCH.ISMPReportInformation.STRCC IS NULL
+    THEN 'None'
+    WHEN AIRBRANCH.ISMPReportInformation.STRCC = '0'
+    THEN 'None'
+    ELSE (P3.STRLASTNAME
+      || ', '
+      || P3.STRFIRSTNAME)
+  END CCName
 FROM AIRBRANCH.ISMPMaster,
   AIRBRANCH.APBFacilityInformation,
   AIRBRANCH.ISMPReportInformation,
-  AIRBRANCH.EPDUserProfiles p1,
-  AIRBRANCH.EPDUserProfiles p2
-WHERE AIRBRANCH.ISMPMaster.STRAIRSNUMBER = AIRBRANCH.APBFacilityInformation.STRAIRSNUMBER
-AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER             = AIRBRANCH.ISMPReportInformation.STRREFERENCENUMBER
-AND AIRBRANCH.ISMPReportInformation.NUMREVIEWINGMANAGER = p1.NUMUSERID(+)
-AND AIRBRANCH.ISMPReportInformation.STRCOMPLIANCEMANAGER = p2.NUMUSERID(+)
+  AIRBRANCH.EPDUSERPROFILES P1,
+  AIRBRANCH.EPDUSERPROFILES P2,
+  AIRBRANCH.EPDUserProfiles P3
+WHERE AIRBRANCH.ISMPMaster.STRAIRSNUMBER                 = AIRBRANCH.APBFacilityInformation.STRAIRSNUMBER
+AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER              = AIRBRANCH.ISMPReportInformation.STRREFERENCENUMBER
+AND AIRBRANCH.ISMPReportInformation.NUMREVIEWINGMANAGER  = P1.NUMUSERID(+)
+AND AIRBRANCH.ISMPReportInformation.STRCOMPLIANCEMANAGER = P2.NUMUSERID(+)
+AND AIRBRANCH.ISMPReportInformation.STRCC                = P3.NUMUSERID(+)
 AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            = 
             ]]></s>.Value & _
             " '" & RefNumber & "' "
@@ -2410,15 +2438,25 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
                 Else
                     cboComplianceStatus.SelectedValue = dr.Item("strComplianceStatus")
                 End If
-                If IsDBNull(dr.Item("strCC")) Then
+
+                If IsDBNull(dr.Item("strCC")) OrElse dr.Item("strCC") = "0" Then
                     cboccBox.SelectedValue = 0
                 Else
-                    If dr.Item("strCC") = "0" Then
-                        cboccBox.SelectedValue = 0
-                    Else
-                        cboccBox.SelectedValue = dr.Item("strCC")
-                    End If
+                    ' The CCList combo box is filled with names according to a 
+                    ' list of specific IAIP permissions. Previously existing stack
+                    ' tests may have already been assigned to users who no longer have the
+                    ' correct permissions. So we have to add one additional row to the combo
+                    ' box data source for the existing CCList assignment.
+                    Dim CCComboBoxData As DataTable = cboccBox.DataSource
+                    Dim dr2 As DataRow
+                    dr2 = CCComboBoxData.NewRow()
+                    dr2("numUserID") = dr.Item("STRCC")
+                    dr2("UserName") = dr.Item("CCName")
+                    CCComboBoxData.Rows.Add(dr2)
+
+                    cboccBox.SelectedValue = dr.Item("strCC")
                 End If
+
                 If IsDBNull(dr.Item("DaysFromTest")) Then
                     Me.txtDaysfromTestToAPB.Clear()
                 Else
