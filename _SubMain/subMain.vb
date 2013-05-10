@@ -48,7 +48,7 @@ Module subMain
     Friend TodayString As String = Format(Today, DateFormat)
 #End Region
 
-#Region "Old public variables"
+#Region "Existing public variables"
     Public OracleDate As String = Format(Date.Today, "dd-MMM-yyyy")
     Public UserGCode As String
     Public Permissions As String
