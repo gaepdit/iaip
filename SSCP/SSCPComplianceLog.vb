@@ -44,7 +44,12 @@ Public Class SSCPComplianceLog
             clbAirBranchUnits.SelectedItems.Clear()
             clbDistrictOffices.SelectedItems.Clear()
 
-            If AccountArray(4, 1) = "1" Then 'District Only 
+            'If AccountArray(4, 1) = "1" Then 'District Only 
+            If AccountArray(4, 1) = "1" _
+            And Not Permissions.Contains("(28)") _
+            And Not Permissions.Contains("(122)") _
+            And Not Permissions.Contains("(121)") _
+            Then
                 btnAddNewEntry.Visible = False
                 btnDeleteWork.Visible = False
                 btnUndeleteWork.Visible = False
