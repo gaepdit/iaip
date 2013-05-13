@@ -46,9 +46,10 @@ Public Class SSCPComplianceLog
 
             'If AccountArray(4, 1) = "1" Then 'District Only 
             If AccountArray(4, 1) = "1" _
-            And Not Permissions.Contains("(28)") _
-            And Not Permissions.Contains("(122)") _
-            And Not Permissions.Contains("(121)") _
+            And Not Permissions.Contains("(19)") _
+            And Not Permissions.Contains("(113)") _
+            And Not Permissions.Contains("(114)") _
+            And Not Permissions.Contains("(141)") _
             Then
                 btnAddNewEntry.Visible = False
                 btnDeleteWork.Visible = False
