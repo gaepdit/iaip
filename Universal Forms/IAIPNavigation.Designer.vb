@@ -1166,6 +1166,7 @@ Partial Class IAIPNavigation
         Me.dgvWorkViewer.AllowUserToAddRows = False
         Me.dgvWorkViewer.AllowUserToDeleteRows = False
         Me.dgvWorkViewer.AllowUserToOrderColumns = True
+        Me.dgvWorkViewer.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
         Me.dgvWorkViewer.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvWorkViewer.Location = New System.Drawing.Point(118, 61)
         Me.dgvWorkViewer.Name = "dgvWorkViewer"

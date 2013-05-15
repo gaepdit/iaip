@@ -1274,6 +1274,7 @@
     <Compile Include="SSPP\Sub Forms\SSPPAttainmentStatus.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="_Modules\Extensions.vb" />
     <Compile Include="_Modules\Iaip.vb" />
     <Compile Include="_SubMain\subMain.vb">
       <SubType>Code</SubType>

@@ -9038,6 +9038,7 @@ Public Class IAIPNavigation
             End Select
             txtDataGridCount.Text = dgvWorkViewer.RowCount.ToString
 
+            dgvWorkViewer.SanelyResizeColumns()
 
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
