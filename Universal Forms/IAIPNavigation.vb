@@ -3011,7 +3011,9 @@ Public Class IAIPNavigation
 
         End Select
 
-
+        If dgvWorkViewer.Visible = True Then
+            dgvWorkViewer.SanelyResizeColumns()
+        End If
 
     End Sub
 
