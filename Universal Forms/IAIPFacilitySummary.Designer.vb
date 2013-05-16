@@ -2592,7 +2592,7 @@ Partial Class IAIPFacilitySummary
         Me.TCContacts.Controls.Add(Me.TPSSCPContacts)
         Me.TCContacts.Controls.Add(Me.TPGECOContacts)
         Me.TCContacts.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TCContacts.Font = New System.Drawing.Font("Times New Roman", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TCContacts.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TCContacts.HotTrack = True
         Me.TCContacts.Location = New System.Drawing.Point(0, 31)
         Me.TCContacts.Margin = New System.Windows.Forms.Padding(2)
@@ -2620,7 +2620,7 @@ Partial Class IAIPFacilitySummary
         Me.TPStateContacts.Name = "TPStateContacts"
         Me.TPStateContacts.Size = New System.Drawing.Size(658, 377)
         Me.TPStateContacts.TabIndex = 4
-        Me.TPStateContacts.Text = "State Contact(s)"
+        Me.TPStateContacts.Text = "State Contacts"
         Me.TPStateContacts.UseVisualStyleBackColor = True
         '
         'txtDistrictUnit
@@ -2674,7 +2674,7 @@ Partial Class IAIPFacilitySummary
         Me.Label420.Location = New System.Drawing.Point(8, 105)
         Me.Label420.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label420.Name = "Label420"
-        Me.Label420.Size = New System.Drawing.Size(89, 14)
+        Me.Label420.Size = New System.Drawing.Size(87, 13)
         Me.Label420.TabIndex = 6
         Me.Label420.Text = "District Engineer:"
         '
@@ -2711,7 +2711,7 @@ Partial Class IAIPFacilitySummary
         Me.Label378.Location = New System.Drawing.Point(8, 75)
         Me.Label378.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label378.Name = "Label378"
-        Me.Label378.Size = New System.Drawing.Size(191, 14)
+        Me.Label378.Size = New System.Drawing.Size(191, 13)
         Me.Label378.TabIndex = 2
         Me.Label378.Text = "Stationary Source Monitoring Engineer:"
         '
@@ -2721,7 +2721,7 @@ Partial Class IAIPFacilitySummary
         Me.Label377.Location = New System.Drawing.Point(8, 45)
         Me.Label377.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label377.Name = "Label377"
-        Me.Label377.Size = New System.Drawing.Size(191, 14)
+        Me.Label377.Size = New System.Drawing.Size(191, 13)
         Me.Label377.TabIndex = 1
         Me.Label377.Text = "Stationary Source Permitting Engineer: "
         '
@@ -2731,7 +2731,7 @@ Partial Class IAIPFacilitySummary
         Me.Label376.Location = New System.Drawing.Point(8, 15)
         Me.Label376.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label376.Name = "Label376"
-        Me.Label376.Size = New System.Drawing.Size(196, 14)
+        Me.Label376.Size = New System.Drawing.Size(200, 13)
         Me.Label376.TabIndex = 0
         Me.Label376.Text = "Stationary Source Compliance Engineer: "
         '
@@ -2762,7 +2762,7 @@ Partial Class IAIPFacilitySummary
         Me.btnCopyWebSiteContact.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.btnCopyWebSiteContact.Location = New System.Drawing.Point(8, 6)
         Me.btnCopyWebSiteContact.Name = "btnCopyWebSiteContact"
-        Me.btnCopyWebSiteContact.Size = New System.Drawing.Size(165, 24)
+        Me.btnCopyWebSiteContact.Size = New System.Drawing.Size(170, 23)
         Me.btnCopyWebSiteContact.TabIndex = 0
         Me.btnCopyWebSiteContact.Text = "Copy Selected Row to Clipboard"
         Me.btnCopyWebSiteContact.UseVisualStyleBackColor = True
@@ -2814,7 +2814,7 @@ Partial Class IAIPFacilitySummary
         Me.btnCopyPermittingContact.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.btnCopyPermittingContact.Location = New System.Drawing.Point(8, 6)
         Me.btnCopyPermittingContact.Name = "btnCopyPermittingContact"
-        Me.btnCopyPermittingContact.Size = New System.Drawing.Size(165, 24)
+        Me.btnCopyPermittingContact.Size = New System.Drawing.Size(170, 23)
         Me.btnCopyPermittingContact.TabIndex = 0
         Me.btnCopyPermittingContact.Text = "Copy Selected Row to Clipboard"
         Me.btnCopyPermittingContact.UseVisualStyleBackColor = True
@@ -2856,7 +2856,7 @@ Partial Class IAIPFacilitySummary
         Me.btnCopyMointoringContact.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.btnCopyMointoringContact.Location = New System.Drawing.Point(8, 6)
         Me.btnCopyMointoringContact.Name = "btnCopyMointoringContact"
-        Me.btnCopyMointoringContact.Size = New System.Drawing.Size(165, 24)
+        Me.btnCopyMointoringContact.Size = New System.Drawing.Size(170, 23)
         Me.btnCopyMointoringContact.TabIndex = 0
         Me.btnCopyMointoringContact.Text = "Copy Selected Row to Clipboard"
         Me.btnCopyMointoringContact.UseVisualStyleBackColor = True
@@ -2898,7 +2898,7 @@ Partial Class IAIPFacilitySummary
         Me.btnCopyComplianceContact.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.btnCopyComplianceContact.Location = New System.Drawing.Point(8, 6)
         Me.btnCopyComplianceContact.Name = "btnCopyComplianceContact"
-        Me.btnCopyComplianceContact.Size = New System.Drawing.Size(165, 24)
+        Me.btnCopyComplianceContact.Size = New System.Drawing.Size(170, 23)
         Me.btnCopyComplianceContact.TabIndex = 0
         Me.btnCopyComplianceContact.Text = "Copy Selected Row to Clipboard"
         Me.btnCopyComplianceContact.UseVisualStyleBackColor = True
@@ -2939,7 +2939,7 @@ Partial Class IAIPFacilitySummary
         Me.btnCopyGECOContact.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.btnCopyGECOContact.Location = New System.Drawing.Point(8, 6)
         Me.btnCopyGECOContact.Name = "btnCopyGECOContact"
-        Me.btnCopyGECOContact.Size = New System.Drawing.Size(165, 24)
+        Me.btnCopyGECOContact.Size = New System.Drawing.Size(170, 23)
         Me.btnCopyGECOContact.TabIndex = 0
         Me.btnCopyGECOContact.Text = "Copy Selected Row to Clipboard"
         Me.btnCopyGECOContact.UseVisualStyleBackColor = True
@@ -2972,7 +2972,7 @@ Partial Class IAIPFacilitySummary
         Me.TPEmissionInventory.Name = "TPEmissionInventory"
         Me.TPEmissionInventory.Size = New System.Drawing.Size(666, 434)
         Me.TPEmissionInventory.TabIndex = 4
-        Me.TPEmissionInventory.Text = "Emission Inventory (Archive)"
+        Me.TPEmissionInventory.Text = "Emission Inventory"
         Me.TPEmissionInventory.UseVisualStyleBackColor = True
         '
         'GroupBox6

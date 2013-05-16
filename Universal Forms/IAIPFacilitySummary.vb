@@ -375,6 +375,14 @@ Public Class IAIPFacilitySummary
 
             btnEditAirProgramPollutants.Enabled = False
             If TCFacilitySummary.TabPages.Contains(TPContactInformation) = True Then
+                txtSSCPContact.Clear()
+                txtSSCPUnit.Clear()
+                txtSSPPContact.Clear()
+                txtSSPPUnit.Clear()
+                txtISMPContact.Clear()
+                txtISMPUnit.Clear()
+                txtDistrictEngineer.Clear()
+                txtDistrictUnit.Clear()
                 TCFacilitySummary.TabPages.Remove(TPContactInformation)
             End If
             If TCFacilitySummary.TabPages.Contains(TPEmissionInventory) = True Then
