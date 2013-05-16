@@ -230,7 +230,12 @@ Public Class IAIPEditSubParts
     End Sub
     Sub SetPermissions()
         Try
-            If AccountArray(26, 1) = "1" Or AccountArray(26, 2) = "1" Or AccountArray(26, 3) = "1" Or AccountArray(26, 4) = "1" Then
+            If _
+                AccountArray(26, 1) = "1" Or AccountArray(26, 2) = "1" Or _
+                AccountArray(26, 3) = "1" Or AccountArray(26, 4) = "1" Or _
+                Permissions.Contains("(19)") Or Permissions.Contains("(113)") Or _
+                Permissions.Contains("(114)") Or Permissions.Contains("(141)") _
+            Then
             Else
                 TbbSave.Visible = False
                 mmiSave.Visible = False
@@ -250,7 +255,6 @@ Public Class IAIPEditSubParts
                 btnDeleteNESHAPSubpart.Enabled = False
                 btnEditMACT.Enabled = False
                 btnDeleteMACTSubpart.Enabled = False
-
             End If
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
