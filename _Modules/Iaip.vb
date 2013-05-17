@@ -16,12 +16,12 @@ Module Iaip
         Dim publishedVersionString As String = ""
 
         ' Hit up the database for a version string
-        Dim sql As String = "Select strVersionNumber from " & DBNameSpace & ".APBMasterApp where strApplicationName = 'IAIP'"
-        Using dbConn As New OracleConnection(CurrentConnString)
-            Using dbCommand As New OracleCommand(sql, dbConn)
+        Dim query As String = "Select strVersionNumber from " & DBNameSpace & ".APBMasterApp where strApplicationName = 'IAIP'"
+        Using connection As New OracleConnection(CurrentConnString)
+            Using command As New OracleCommand(query, connection)
                 Try
-                    dbConn.Open()
-                    Dim reader As OracleDataReader = dbCommand.ExecuteReader
+                    connection.Open()
+                    Dim reader As OracleDataReader = command.ExecuteReader
                     While reader.Read
                         If Not IsDBNull(reader.Item("strVersionNumber")) Then
                             publishedVersionString = reader.Item("strVersionNumber")
