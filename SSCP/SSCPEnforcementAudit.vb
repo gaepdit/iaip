@@ -36,6 +36,7 @@ Public Class SSCPEnforcementAudit
             If txtStipulatedKey.Text <> "" Then
                 LoadStipulatedPenalties()
             End If
+            ClearStipulatedPenaltyForm()
 
             If AccountArray(48, 3) = "1" Or AccountArray(22, 3) = "1" Then
                 DTPEnforcementResolved.Enabled = True
@@ -318,8 +319,8 @@ Public Class SSCPEnforcementAudit
                 txtPenaltyComments.ReadOnly = False
                 txtCOComments.ReadOnly = False
                 txtStipulatedPenalty.ReadOnly = False
-                btnSaveStipulatePenalty.Enabled = True
-                btnClearStipulated.Enabled = True
+                SaveStipulatedPenaltyButton.Enabled = True
+                ClearStipulatedPenaltyFormButton.Enabled = True
                 txtStipulatedComments.ReadOnly = False
                 dgvStipulatedPenalties.Enabled = True
                 DTPAOExecuted.Enabled = True
@@ -370,8 +371,8 @@ Public Class SSCPEnforcementAudit
                 txtPenaltyComments.ReadOnly = True
                 txtCOComments.ReadOnly = True
                 txtStipulatedPenalty.ReadOnly = True
-                btnSaveStipulatePenalty.Enabled = False
-                btnClearStipulated.Enabled = False
+                SaveStipulatedPenaltyButton.Enabled = False
+                ClearStipulatedPenaltyFormButton.Enabled = False
                 txtStipulatedComments.ReadOnly = True
                 dgvStipulatedPenalties.Enabled = False
                 DTPAOExecuted.Enabled = False
@@ -434,8 +435,8 @@ Public Class SSCPEnforcementAudit
                 txtPenaltyComments.ReadOnly = True
                 txtCOComments.ReadOnly = True
                 txtStipulatedPenalty.ReadOnly = True
-                btnSaveStipulatePenalty.Enabled = False
-                btnClearStipulated.Enabled = False
+                SaveStipulatedPenaltyButton.Enabled = False
+                ClearStipulatedPenaltyFormButton.Enabled = False
                 txtStipulatedComments.ReadOnly = True
                 dgvStipulatedPenalties.Enabled = False
                 DTPAOExecuted.Enabled = False
@@ -474,9 +475,9 @@ Public Class SSCPEnforcementAudit
                     cboStaffResponsible.Enabled = True
                     txtGeneralComments.ReadOnly = False
                     btn45DayZero.Visible = False
-                    btnSaveStipulatePenalty.Visible = False
-                    btnUpdateStipulatedPenalty.Visible = False
-                    btnClearStipulated.Visible = False
+                    SaveStipulatedPenaltyButton.Visible = False
+                    UpdateStipulatedPenaltyButton.Visible = False
+                    ClearStipulatedPenaltyFormButton.Visible = False
                     'btnUploadCO.Visible = False
                     'btnDownloadCO.Visible = False
                     'btnUploadCO.Visible = False
@@ -505,8 +506,8 @@ Public Class SSCPEnforcementAudit
                     txtPenaltyComments.ReadOnly = True
                     txtCOComments.ReadOnly = True
                     txtStipulatedPenalty.ReadOnly = True
-                    btnSaveStipulatePenalty.Enabled = True
-                    btnClearStipulated.Enabled = True
+                    SaveStipulatedPenaltyButton.Enabled = True
+                    ClearStipulatedPenaltyFormButton.Enabled = True
                     txtStipulatedComments.ReadOnly = True
                     dgvStipulatedPenalties.Enabled = False
                     DTPAOExecuted.Enabled = False
@@ -563,8 +564,8 @@ Public Class SSCPEnforcementAudit
                         txtPenaltyComments.ReadOnly = False
                         txtCOComments.ReadOnly = False
                         txtStipulatedPenalty.ReadOnly = False
-                        btnSaveStipulatePenalty.Enabled = True
-                        btnClearStipulated.Enabled = True
+                        SaveStipulatedPenaltyButton.Enabled = True
+                        ClearStipulatedPenaltyFormButton.Enabled = True
                         txtStipulatedComments.ReadOnly = False
                         dgvStipulatedPenalties.Enabled = True
                         DTPAOExecuted.Enabled = True
@@ -646,7 +647,7 @@ Public Class SSCPEnforcementAudit
             Dim AFSAOResolvedNumber As String = ""
             Dim ModifingPerson As String = ""
             Dim ModifingDate As String = ""
-          
+
             If txtEnforcementNumber.Text <> "" And txtEnforcementNumber.Text <> "N/A" Then
                 SQL = "Select * " & _
                 "from " & DBNameSpace & ".SSCP_AuditedEnforcement " & _
@@ -1062,7 +1063,7 @@ Public Class SSCPEnforcementAudit
             Else
                 cboStaffResponsible.SelectedValue = UserGCode
             End If
-          
+
             If NOVSent <> "" Or NOVToUC <> "" Or NOVTOPM <> "" _
                     Or NOVResponseReceived <> "" Or NOVResolvedEnforcement <> "" Or NOVComments <> "" _
                     Or NFALetterSent <> "" Or NFAToUC <> "" Or NFAToPM <> "" Then
@@ -1841,7 +1842,6 @@ Public Class SSCPEnforcementAudit
                 For i = 0 To dgvStipulatedPenalties.RowCount - 1
                     txtStipulatedPenalitiesActionNumber.Text = txtStipulatedPenalitiesActionNumber.Text & _
                     dgvStipulatedPenalties.Item(2, i).Value & ", "
-                    'i += 1
                 Next
             Else
                 dsStipulatedPenalty = New DataSet
@@ -2231,6 +2231,9 @@ Public Class SSCPEnforcementAudit
                     AOComment = ""
                 End If
 
+                'For Each row As DataGridViewRow In dgvStipulatedPenalties.Rows
+                '    StipulatedPenalty = StipulatedPenalty + CDec(row.Cells(0).Value)
+                'Next
                 If IsDBNull(dgvStipulatedPenalties.RowCount.ToString) Then
                     StipulatedPenalty = ""
                 Else
@@ -2321,7 +2324,7 @@ Public Class SSCPEnforcementAudit
                     "'" & CONumber & "', " & _
                     "'" & COResolvedCheck & "', '" & COResolved & "', " & _
                     "'" & COPenaltyAmount & "', '" & Replace(COPenaltyAmountComments, "'", "''") & "', " & _
-                    "'" & Replace(COComment, "'", "''") & "', '" & StipulatedPenalty & "', " & _
+                    "'" & Replace(COComment, "'", "''") & "', '" & StipulatedPenalty.ToString & "', " & _
                     "'" & COResolvedEnforcement & "', " & _
                     "'" & AOExecutedCheck & "', '" & AOExecuted & "', " & _
                     "'" & AOAppealedCheck & "', '" & AOAppealed & "', " & _
@@ -2448,37 +2451,40 @@ Public Class SSCPEnforcementAudit
     End Sub
     Sub SaveStipulatedPenalties()
         Try
-            Dim StipulatedCount As String = ""
+            Dim stipulatedKey As String = ""
             Dim AFSNumber As String = ""
             Dim temp As String = ""
+            Dim query As String
 
             If txtEnforcementNumber.Text <> "" And txtEnforcementNumber.Text <> "N/A" Then
-                SQL = "select strStipulatedPenalty " & _
-                "from " & DBNameSpace & ".SSCP_AuditedEnforcement " & _
-                "where strEnforcementNumber= '" & txtEnforcementNumber.Text & "'"
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
-                End If
-                dr = cmd.ExecuteReader
-                While dr.Read
-                    If IsDBNull(dr.Item("strStipulatedPenalty")) Then
-                        StipulatedCount = ""
-                    Else
-                        StipulatedCount = dr.Item("strStipulatedPenalty")
-                    End If
-                End While
-                dr.Close()
+                query = "SELECT MAX(SSCPENFORCEMENTSTIPULATED.STRENFORCEMENTKEY) AS MaxKey " & _
+                "FROM " & DBNameSpace & ".SSCPENFORCEMENTSTIPULATED " & _
+                "WHERE SSCPENFORCEMENTSTIPULATED.STRENFORCEMENTNUMBER = :enfNumber"
+                Using connection As New OracleConnection(CurrentConnString)
+                    Using command As New OracleCommand(query, connection) With {.CommandType = CommandType.Text}
+                        With command
+                            .Parameters.AddWithValue(":enfNumber", txtEnforcementNumber.Text)
+                        End With
+                        Try
+                            connection.Open()
+                            Dim reader As OracleDataReader = command.ExecuteReader
+                            While reader.Read
+                                If Not IsDBNull(reader.Item("MaxKey")) Then
+                                    stipulatedKey = reader.Item("MaxKey")
+                                Else
+                                    stipulatedKey = "0"
+                                End If
+                            End While
+                        Catch ee As OracleException
+                            MessageBox.Show("Could not connect to the database.")
+                        End Try
+                    End Using
+                End Using
             Else
-                StipulatedCount = ""
+                stipulatedKey = "0"
             End If
 
-            If StipulatedCount = "" Then
-                StipulatedCount = "1"
-            Else
-                StipulatedCount = CStr(CInt(StipulatedCount) + 1)
-            End If
-            txtStipulatedKey.Text = StipulatedCount
+            stipulatedKey = CStr(CInt(stipulatedKey) + 1)
 
             If txtAFSKeyActionNumber.Text <> "" Then
                 SQL = "Select strAFSActionNumber " & _
@@ -2547,26 +2553,33 @@ Public Class SSCPEnforcementAudit
                 dr.Close()
             End If
 
-            SaveEnforcement()
+            If txtEnforcementNumber.Text = "" Or txtEnforcementNumber.Text = "N/A" Then SaveEnforcement()
 
-            SQL = "Insert into " & DBNameSpace & ".SSCPEnforcementStipulated " & _
-            "values " & _
-            "('" & txtEnforcementNumber.Text & "', " & _
-            "'" & StipulatedCount & "', " & _
-            "'" & Replace(txtStipulatedPenalty.Text, "'", "''") & "', " & _
-            "'" & Replace(txtStipulatedComments.Text, "'", "''") & "', " & _
-            "'" & AFSNumber & "', " & _
-            "'" & UserGCode & "', " & _
-            "'" & OracleDate & "') "
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
+            query = "Insert into " & DBNameSpace & ".SSCPEnforcementStipulated " & _
+            "values (:enfNumber,:stipKey,:stipPenalty,:stipComments,:afsNumber,:userGCode,:oracleDate)"
+            Using connection As New OracleConnection(CurrentConnString)
+                Using command As New OracleCommand(query, connection) With {.CommandType = CommandType.Text}
+                    With command
+                        .Parameters.AddWithValue(":enfNumber", txtEnforcementNumber.Text)
+                        .Parameters.AddWithValue(":stipKey", stipulatedKey.ToString)
+                        .Parameters.AddWithValue(":stipPenalty", txtStipulatedPenalty.Text)
+                        .Parameters.AddWithValue(":stipComments", txtStipulatedComments.Text)
+                        .Parameters.AddWithValue(":afsNumber", AFSNumber)
+                        .Parameters.AddWithValue(":userGCode", UserGCode)
+                        .Parameters.AddWithValue(":oracleDate", OracleDate)
+                    End With
+                    Try
+                        connection.Open()
+                        command.ExecuteNonQuery()
+                    Catch ee As OracleException
+                        MessageBox.Show("Could not connect to the database.")
+                    End Try
+                End Using
+            End Using
 
             LoadStipulatedPenalties()
-          
+            SaveEnforcement()
+
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -3458,7 +3471,7 @@ Public Class SSCPEnforcementAudit
 
     End Sub
 
- 
+
     Private Sub btnLinkEnforcement_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnLinkEnforcement.Click
         Try
             OpenChecklist()
@@ -3483,14 +3496,39 @@ Public Class SSCPEnforcementAudit
         End Try
 
     End Sub
-    Private Sub btnSaveStipulatePenalty_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSaveStipulatePenalty.Click
-        Try
+    Private Sub btnSaveStipulatedPenalty_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles SaveStipulatedPenaltyButton.Click
+        If String.IsNullOrEmpty(txtStipulatedPenalty.Text) Then
+            MsgBox("Enter a stipulated penalty amount first.")
+            Exit Sub
+        End If
 
-            SaveStipulatedPenalties()
+        SaveStipulatedPenalties()
+        ClearStipulatedPenaltyForm()
+    End Sub
+    Private Sub DeletePenalty(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles DeletePenaltyButton.Click
 
-        Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        Dim query As String = "Delete from " & DBNameSpace & ".SSCPENforcementStipulated " & _
+        "where strEnforcementNumber = :enfNumber and strEnforcementKey = :enfKey"
+
+        Using connection As New OracleConnection(CurrentConnString)
+            Using command As New OracleCommand(query, connection) With {.CommandType = CommandType.Text}
+                With command
+                    .Parameters.AddWithValue(":enfNumber", txtEnforcementNumber.Text)
+                    .Parameters.AddWithValue(":enfKey", txtStipulatedKey.Text)
+                End With
+
+                Try
+                    connection.Open()
+                    command.ExecuteNonQuery()
+                Catch ee As OracleException
+                    MessageBox.Show("Could not connect to the database.")
+                End Try
+            End Using
+        End Using
+
+        LoadStipulatedPenalties()
+        SaveEnforcement()
+        ClearStipulatedPenaltyForm()
 
     End Sub
     Private Sub dgvStipulatedPenalties_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvStipulatedPenalties.MouseUp
@@ -3507,50 +3545,99 @@ Public Class SSCPEnforcementAudit
 
     End Sub
     Private Sub txtStipulatedKey_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtStipulatedKey.TextChanged
-        Try
+        If txtStipulatedKey.Text <> "" Then
+            Dim success As Boolean = False
 
-            If txtStipulatedKey.Text <> "" Then
-                SQL = "Select " & _
-                "strStipulatedPenalty, strStipulatedPenaltyComments " & _
-                "from " & DBNameSpace & ".SSCPENforcementStipulated " & _
-                "where strEnforcementNumber = '" & txtEnforcementNumber.Text & "' " & _
-                "and strEnforcementKey = '" & txtStipulatedKey.Text & "' "
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
-                End If
-                dr = cmd.ExecuteReader
-                While dr.Read
-                    If IsDBNull(dr.Item("strStipulatedPenalty")) Then
-                        txtStipulatedPenalty.Text = ""
-                    Else
-                        txtStipulatedPenalty.Text = dr.Item("strStipulatedPenalty")
+            Dim query As String = "Select strStipulatedPenalty, strStipulatedPenaltyComments " & _
+            "from " & DBNameSpace & ".SSCPENforcementStipulated " & _
+            "where strEnforcementNumber = :enfNumber and strEnforcementKey = :enfKey"
+
+            Using connection As New OracleConnection(CurrentConnString)
+                Using command As New OracleCommand(query, connection) With {.CommandType = CommandType.Text}
+                    With command
+                        .Parameters.AddWithValue(":enfNumber", txtEnforcementNumber.Text)
+                        .Parameters.AddWithValue(":enfKey", txtStipulatedKey.Text)
+                    End With
+                    Try
+                        connection.Open()
+                        Dim reader As OracleDataReader = command.ExecuteReader
+                        While reader.Read
+                            If IsDBNull(reader.Item("strStipulatedPenalty")) Then
+                                txtStipulatedPenalty.Text = ""
+                            Else
+                                txtStipulatedPenalty.Text = reader.Item("strStipulatedPenalty")
+                            End If
+                            If IsDBNull(reader.Item("strStipulatedPenaltyComments")) Then
+                                txtStipulatedComments.Text = ""
+                            Else
+                                txtStipulatedComments.Text = reader.Item("strStipulatedPenaltyComments")
+                            End If
+                        End While
+                        success = True
+                    Catch ee As OracleException
+                        MessageBox.Show("Could not connect to the database.")
+                    End Try
+                End Using
+            End Using
+
+            If success Then
+                Dim ctrl As Control
+                Dim tag As String
+                For Each ctrl In StipulatedPenalties.Controls
+                    If ctrl.Tag IsNot Nothing Then
+                        tag = ctrl.Tag.ToString
+                        If tag.Contains("GroupExistingStipulatedPenalty") Then
+                            If TypeOf (ctrl) Is Button Then
+                                With ctrl
+                                    .Visible = True
+                                    .Enabled = True
+                                End With
+                            End If
+                        ElseIf tag.Contains("GroupEmptyStipulatedPenalty") Then
+                            If TypeOf (ctrl) Is Button Then
+                                With ctrl
+                                    .Visible = False
+                                    .Enabled = False
+                                End With
+                            End If
+                        End If
                     End If
-                    If IsDBNull(dr.Item("strStipulatedPenaltyComments")) Then
-                        txtStipulatedComments.Text = ""
-                    Else
-                        txtStipulatedComments.Text = dr.Item("strStipulatedPenaltyComments")
-                    End If
-                End While
-                dr.Close()
+                Next
+            Else
+                ClearStipulatedPenaltyForm()
             End If
 
-        Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
+        Else
+            ClearStipulatedPenaltyForm()
+        End If
     End Sub
-    Private Sub btnClearStipulated_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnClearStipulated.Click
-        Try
-
-            txtStipulatedPenalty.Clear()
-            txtStipulatedComments.Clear()
-            txtStipulatedKey.Clear()
-
-        Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
+    Private Sub ClearStipulatedPenaltyForm()
+        Dim ctrl As Control
+        Dim tag As String
+        For Each ctrl In StipulatedPenalties.Controls
+            If ctrl.Tag IsNot Nothing Then
+                tag = ctrl.Tag.ToString
+                If tag.Contains("GroupExistingStipulatedPenalty") Then
+                    If TypeOf (ctrl) Is Button Then
+                        With ctrl
+                            .Visible = False
+                            .Enabled = False
+                        End With
+                    End If
+                ElseIf tag.Contains("GroupEmptyStipulatedPenalty") Then
+                    If TypeOf (ctrl) Is Button Then
+                        With ctrl
+                            .Visible = True
+                            .Enabled = True
+                        End With
+                    End If
+                ElseIf tag.Contains("GroupStipulatedPenaltyInput") Then
+                    If TypeOf (ctrl) Is TextBox Then
+                        ctrl.Text = String.Empty
+                    End If
+                End If
+            End If
+        Next
     End Sub
     Private Sub btnSubmitToUC_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSubmitToUC.Click
         Try
@@ -4018,7 +4105,7 @@ Public Class SSCPEnforcementAudit
         End Try
     End Sub
 
-   
+
     Private Sub btnDownloadCO_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDownloadCO.Click
         Try
             Dim FileName As String
@@ -4636,13 +4723,18 @@ Public Class SSCPEnforcementAudit
         End Try
     End Sub
 
-    Private Sub btnUpdateStipulatedPenalty_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnUpdateStipulatedPenalty.Click
-        Try
-            If txtStipulatedKey.Text = "" Then
-                MsgBox("Please select an existing stipulated penalty first.", MsgBoxStyle.Information, Me.Text)
-                Exit Sub
-            End If
+    Private Sub btnUpdateStipulatedPenalty_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles UpdateStipulatedPenaltyButton.Click
+        If String.IsNullOrEmpty(txtStipulatedKey.Text) Then
+            MsgBox("Select an existing stipulated penalty first.", MsgBoxStyle.Information, Me.Text)
+            Exit Sub
+        End If
 
+        If String.IsNullOrEmpty(txtStipulatedPenalty.Text) Then
+            MsgBox("Enter a stipulated penalty amount first.")
+            Exit Sub
+        End If
+
+        Try
             SaveEnforcement()
 
             SQL = "Update " & DBNameSpace & ".SSCPEnforcementStipulated set " & _
@@ -4659,6 +4751,7 @@ Public Class SSCPEnforcementAudit
             dr.Close()
 
             LoadStipulatedPenalties()
+            ClearStipulatedPenaltyForm()
 
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -4666,8 +4759,8 @@ Public Class SSCPEnforcementAudit
     End Sub
 
     Private Sub btnExportAuditToExcel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnExportAuditToExcel.Click
-         Dim ExcelApp As New Microsoft.Office.Interop.Excel.Application
-         Dim i, j As Integer
+        Dim ExcelApp As New Microsoft.Office.Interop.Excel.Application
+        Dim i, j As Integer
         Try
             If ExcelApp.Visible = False Then
                 ExcelApp.Visible = True
@@ -4706,10 +4799,7 @@ Public Class SSCPEnforcementAudit
         End Try
     End Sub
 
-    Private Sub Panel10_Paint(ByVal sender As System.Object, ByVal e As System.Windows.Forms.PaintEventArgs) Handles Panel10.Paint
-
+    Private Sub btnClearStipulated_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ClearStipulatedPenaltyFormButton.Click
+        ClearStipulatedPenaltyForm()
     End Sub
-
-  
- 
 End Class

@@ -23,9 +23,9 @@ Partial Class SSCPEnforcementAudit
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(SSCPEnforcementAudit))
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
         Me.ToolStrip1 = New System.Windows.Forms.ToolStrip
         Me.tsbSave = New System.Windows.Forms.ToolStripButton
         Me.tsbClear = New System.Windows.Forms.ToolStripButton
@@ -145,24 +145,16 @@ Partial Class SSCPEnforcementAudit
         Me.lblCODownload = New System.Windows.Forms.Label
         Me.Label22 = New System.Windows.Forms.Label
         Me.Label12 = New System.Windows.Forms.Label
-        Me.btnUpdateStipulatedPenalty = New System.Windows.Forms.Button
         Me.DTPCOToUC = New System.Windows.Forms.DateTimePicker
-        Me.Label30 = New System.Windows.Forms.Label
         Me.btnDownloadCO = New System.Windows.Forms.Button
-        Me.btnClearStipulated = New System.Windows.Forms.Button
         Me.txtPenaltyComments = New System.Windows.Forms.TextBox
-        Me.dgvStipulatedPenalties = New System.Windows.Forms.DataGridView
         Me.btnUploadCO = New System.Windows.Forms.Button
+        Me.txtStipulatedKey = New System.Windows.Forms.TextBox
         Me.Label29 = New System.Windows.Forms.Label
         Me.Label21 = New System.Windows.Forms.Label
-        Me.btnSaveStipulatePenalty = New System.Windows.Forms.Button
         Me.txtCONumber = New System.Windows.Forms.TextBox
-        Me.txtStipulatedComments = New System.Windows.Forms.TextBox
         Me.txtCOPenaltyAmount = New System.Windows.Forms.TextBox
-        Me.txtStipulatedKey = New System.Windows.Forms.TextBox
         Me.Label49 = New System.Windows.Forms.Label
-        Me.txtStipulatedPenalty = New System.Windows.Forms.TextBox
-        Me.Label31 = New System.Windows.Forms.Label
         Me.Label28 = New System.Windows.Forms.Label
         Me.Label48 = New System.Windows.Forms.Label
         Me.DTPCOProposed = New System.Windows.Forms.DateTimePicker
@@ -177,6 +169,16 @@ Partial Class SSCPEnforcementAudit
         Me.Label20 = New System.Windows.Forms.Label
         Me.Label18 = New System.Windows.Forms.Label
         Me.DTPCOResolved = New System.Windows.Forms.DateTimePicker
+        Me.StipulatedPenalties = New System.Windows.Forms.GroupBox
+        Me.txtStipulatedPenalty = New System.Windows.Forms.TextBox
+        Me.Label30 = New System.Windows.Forms.Label
+        Me.dgvStipulatedPenalties = New System.Windows.Forms.DataGridView
+        Me.UpdateStipulatedPenaltyButton = New System.Windows.Forms.Button
+        Me.txtStipulatedComments = New System.Windows.Forms.TextBox
+        Me.ClearStipulatedPenaltyFormButton = New System.Windows.Forms.Button
+        Me.Label31 = New System.Windows.Forms.Label
+        Me.DeletePenaltyButton = New System.Windows.Forms.Button
+        Me.SaveStipulatedPenaltyButton = New System.Windows.Forms.Button
         Me.TPAO = New System.Windows.Forms.TabPage
         Me.txtAOComments = New System.Windows.Forms.TextBox
         Me.Panel11 = New System.Windows.Forms.Panel
@@ -245,6 +247,7 @@ Partial Class SSCPEnforcementAudit
         Me.Panel9.SuspendLayout()
         Me.TPCO.SuspendLayout()
         Me.Panel10.SuspendLayout()
+        Me.StipulatedPenalties.SuspendLayout()
         CType(Me.dgvStipulatedPenalties, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TPAO.SuspendLayout()
         Me.Panel11.SuspendLayout()
@@ -347,85 +350,85 @@ Partial Class SSCPEnforcementAudit
         '
         Me.FileToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mmiSave, Me.ToolStripSeparator2, Me.mmiBack})
         Me.FileToolStripMenuItem.Name = "FileToolStripMenuItem"
-        Me.FileToolStripMenuItem.Size = New System.Drawing.Size(35, 20)
+        Me.FileToolStripMenuItem.Size = New System.Drawing.Size(37, 20)
         Me.FileToolStripMenuItem.Text = "File"
         '
         'mmiSave
         '
         Me.mmiSave.Name = "mmiSave"
-        Me.mmiSave.Size = New System.Drawing.Size(109, 22)
+        Me.mmiSave.Size = New System.Drawing.Size(105, 22)
         Me.mmiSave.Text = "Save"
         '
         'ToolStripSeparator2
         '
         Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
-        Me.ToolStripSeparator2.Size = New System.Drawing.Size(106, 6)
+        Me.ToolStripSeparator2.Size = New System.Drawing.Size(102, 6)
         '
         'mmiBack
         '
         Me.mmiBack.Name = "mmiBack"
-        Me.mmiBack.Size = New System.Drawing.Size(109, 22)
+        Me.mmiBack.Size = New System.Drawing.Size(105, 22)
         Me.mmiBack.Text = "Back"
         '
         'EditToolStripMenuItem
         '
         Me.EditToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mmiCut, Me.CopyToolStripMenuItem, Me.PasteToolStripMenuItem, Me.ToolStripSeparator1, Me.ClearToolStripMenuItem})
         Me.EditToolStripMenuItem.Name = "EditToolStripMenuItem"
-        Me.EditToolStripMenuItem.Size = New System.Drawing.Size(37, 20)
+        Me.EditToolStripMenuItem.Size = New System.Drawing.Size(39, 20)
         Me.EditToolStripMenuItem.Text = "Edit"
         '
         'mmiCut
         '
         Me.mmiCut.Name = "mmiCut"
-        Me.mmiCut.Size = New System.Drawing.Size(112, 22)
+        Me.mmiCut.Size = New System.Drawing.Size(108, 22)
         Me.mmiCut.Text = "Cut"
         '
         'CopyToolStripMenuItem
         '
         Me.CopyToolStripMenuItem.Name = "CopyToolStripMenuItem"
-        Me.CopyToolStripMenuItem.Size = New System.Drawing.Size(112, 22)
+        Me.CopyToolStripMenuItem.Size = New System.Drawing.Size(108, 22)
         Me.CopyToolStripMenuItem.Text = "Copy"
         '
         'PasteToolStripMenuItem
         '
         Me.PasteToolStripMenuItem.Name = "PasteToolStripMenuItem"
-        Me.PasteToolStripMenuItem.Size = New System.Drawing.Size(112, 22)
+        Me.PasteToolStripMenuItem.Size = New System.Drawing.Size(108, 22)
         Me.PasteToolStripMenuItem.Text = "Paste"
         '
         'ToolStripSeparator1
         '
         Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
-        Me.ToolStripSeparator1.Size = New System.Drawing.Size(109, 6)
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(105, 6)
         '
         'ClearToolStripMenuItem
         '
         Me.ClearToolStripMenuItem.Name = "ClearToolStripMenuItem"
-        Me.ClearToolStripMenuItem.Size = New System.Drawing.Size(112, 22)
+        Me.ClearToolStripMenuItem.Size = New System.Drawing.Size(108, 22)
         Me.ClearToolStripMenuItem.Text = "Clear"
         '
         'ToolsToolStripMenuItem
         '
         Me.ToolsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mmiDelete, Me.mmiShowAuditHistory})
         Me.ToolsToolStripMenuItem.Name = "ToolsToolStripMenuItem"
-        Me.ToolsToolStripMenuItem.Size = New System.Drawing.Size(44, 20)
+        Me.ToolsToolStripMenuItem.Size = New System.Drawing.Size(46, 20)
         Me.ToolsToolStripMenuItem.Text = "Tools"
         '
         'mmiDelete
         '
         Me.mmiDelete.Name = "mmiDelete"
-        Me.mmiDelete.Size = New System.Drawing.Size(176, 22)
+        Me.mmiDelete.Size = New System.Drawing.Size(180, 22)
         Me.mmiDelete.Text = "Delete"
         '
         'mmiShowAuditHistory
         '
         Me.mmiShowAuditHistory.Name = "mmiShowAuditHistory"
-        Me.mmiShowAuditHistory.Size = New System.Drawing.Size(176, 22)
+        Me.mmiShowAuditHistory.Size = New System.Drawing.Size(180, 22)
         Me.mmiShowAuditHistory.Text = "Show Audit History"
         '
         'HelpToolStripMenuItem
         '
         Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
-        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(40, 20)
+        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(43, 20)
         Me.HelpToolStripMenuItem.Text = "Help"
         '
         'TCEnforcement
@@ -1394,24 +1397,16 @@ Partial Class SSCPEnforcementAudit
         Me.Panel10.Controls.Add(Me.lblCODownload)
         Me.Panel10.Controls.Add(Me.Label22)
         Me.Panel10.Controls.Add(Me.Label12)
-        Me.Panel10.Controls.Add(Me.btnUpdateStipulatedPenalty)
         Me.Panel10.Controls.Add(Me.DTPCOToUC)
-        Me.Panel10.Controls.Add(Me.Label30)
         Me.Panel10.Controls.Add(Me.btnDownloadCO)
-        Me.Panel10.Controls.Add(Me.btnClearStipulated)
         Me.Panel10.Controls.Add(Me.txtPenaltyComments)
-        Me.Panel10.Controls.Add(Me.dgvStipulatedPenalties)
         Me.Panel10.Controls.Add(Me.btnUploadCO)
+        Me.Panel10.Controls.Add(Me.txtStipulatedKey)
         Me.Panel10.Controls.Add(Me.Label29)
         Me.Panel10.Controls.Add(Me.Label21)
-        Me.Panel10.Controls.Add(Me.btnSaveStipulatePenalty)
         Me.Panel10.Controls.Add(Me.txtCONumber)
-        Me.Panel10.Controls.Add(Me.txtStipulatedComments)
         Me.Panel10.Controls.Add(Me.txtCOPenaltyAmount)
-        Me.Panel10.Controls.Add(Me.txtStipulatedKey)
         Me.Panel10.Controls.Add(Me.Label49)
-        Me.Panel10.Controls.Add(Me.txtStipulatedPenalty)
-        Me.Panel10.Controls.Add(Me.Label31)
         Me.Panel10.Controls.Add(Me.Label28)
         Me.Panel10.Controls.Add(Me.Label48)
         Me.Panel10.Controls.Add(Me.DTPCOProposed)
@@ -1426,6 +1421,7 @@ Partial Class SSCPEnforcementAudit
         Me.Panel10.Controls.Add(Me.Label20)
         Me.Panel10.Controls.Add(Me.Label18)
         Me.Panel10.Controls.Add(Me.DTPCOResolved)
+        Me.Panel10.Controls.Add(Me.StipulatedPenalties)
         Me.Panel10.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel10.Location = New System.Drawing.Point(0, 0)
         Me.Panel10.Name = "Panel10"
@@ -1435,7 +1431,7 @@ Partial Class SSCPEnforcementAudit
         'lblCODownload
         '
         Me.lblCODownload.AutoSize = True
-        Me.lblCODownload.Location = New System.Drawing.Point(390, 212)
+        Me.lblCODownload.Location = New System.Drawing.Point(290, 239)
         Me.lblCODownload.Name = "lblCODownload"
         Me.lblCODownload.Size = New System.Drawing.Size(55, 13)
         Me.lblCODownload.TabIndex = 396
@@ -1444,7 +1440,7 @@ Partial Class SSCPEnforcementAudit
         'Label22
         '
         Me.Label22.AutoSize = True
-        Me.Label22.Location = New System.Drawing.Point(315, 212)
+        Me.Label22.Location = New System.Drawing.Point(290, 212)
         Me.Label22.Name = "Label22"
         Me.Label22.Size = New System.Drawing.Size(41, 13)
         Me.Label22.TabIndex = 395
@@ -1453,22 +1449,11 @@ Partial Class SSCPEnforcementAudit
         'Label12
         '
         Me.Label12.AutoSize = True
-        Me.Label12.Location = New System.Drawing.Point(289, 189)
+        Me.Label12.Location = New System.Drawing.Point(263, 189)
         Me.Label12.Name = "Label12"
         Me.Label12.Size = New System.Drawing.Size(100, 13)
         Me.Label12.TabIndex = 394
         Me.Label12.Text = "CO file (PDF ONLY)"
-        '
-        'btnUpdateStipulatedPenalty
-        '
-        Me.btnUpdateStipulatedPenalty.AutoSize = True
-        Me.btnUpdateStipulatedPenalty.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnUpdateStipulatedPenalty.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.btnUpdateStipulatedPenalty.Location = New System.Drawing.Point(705, 81)
-        Me.btnUpdateStipulatedPenalty.Name = "btnUpdateStipulatedPenalty"
-        Me.btnUpdateStipulatedPenalty.Size = New System.Drawing.Size(90, 23)
-        Me.btnUpdateStipulatedPenalty.TabIndex = 393
-        Me.btnUpdateStipulatedPenalty.Text = "Update Penalty"
         '
         'DTPCOToUC
         '
@@ -1482,32 +1467,14 @@ Partial Class SSCPEnforcementAudit
         Me.DTPCOToUC.Size = New System.Drawing.Size(119, 22)
         Me.DTPCOToUC.TabIndex = 385
         '
-        'Label30
-        '
-        Me.Label30.AutoSize = True
-        Me.Label30.Location = New System.Drawing.Point(376, 88)
-        Me.Label30.Name = "Label30"
-        Me.Label30.Size = New System.Drawing.Size(95, 13)
-        Me.Label30.TabIndex = 348
-        Me.Label30.Text = "Stipulated Penalty:"
-        '
         'btnDownloadCO
         '
         Me.btnDownloadCO.BackgroundImage = CType(resources.GetObject("btnDownloadCO.BackgroundImage"), System.Drawing.Image)
         Me.btnDownloadCO.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.btnDownloadCO.Location = New System.Drawing.Point(365, 207)
+        Me.btnDownloadCO.Location = New System.Drawing.Point(265, 234)
         Me.btnDownloadCO.Name = "btnDownloadCO"
         Me.btnDownloadCO.Size = New System.Drawing.Size(24, 23)
         Me.btnDownloadCO.TabIndex = 392
-        '
-        'btnClearStipulated
-        '
-        Me.btnClearStipulated.BackgroundImage = CType(resources.GetObject("btnClearStipulated.BackgroundImage"), System.Drawing.Image)
-        Me.btnClearStipulated.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.btnClearStipulated.Location = New System.Drawing.Point(824, 79)
-        Me.btnClearStipulated.Name = "btnClearStipulated"
-        Me.btnClearStipulated.Size = New System.Drawing.Size(24, 25)
-        Me.btnClearStipulated.TabIndex = 384
         '
         'txtPenaltyComments
         '
@@ -1520,52 +1487,29 @@ Partial Class SSCPEnforcementAudit
         Me.txtPenaltyComments.Size = New System.Drawing.Size(373, 48)
         Me.txtPenaltyComments.TabIndex = 355
         '
-        'dgvStipulatedPenalties
-        '
-        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle4.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvStipulatedPenalties.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle4
-        Me.dgvStipulatedPenalties.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle5.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvStipulatedPenalties.DefaultCellStyle = DataGridViewCellStyle5
-        Me.dgvStipulatedPenalties.Location = New System.Drawing.Point(474, 153)
-        Me.dgvStipulatedPenalties.Name = "dgvStipulatedPenalties"
-        Me.dgvStipulatedPenalties.ReadOnly = True
-        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle6.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvStipulatedPenalties.RowHeadersDefaultCellStyle = DataGridViewCellStyle6
-        Me.dgvStipulatedPenalties.Size = New System.Drawing.Size(374, 129)
-        Me.dgvStipulatedPenalties.TabIndex = 382
-        '
         'btnUploadCO
         '
         Me.btnUploadCO.BackgroundImage = CType(resources.GetObject("btnUploadCO.BackgroundImage"), System.Drawing.Image)
         Me.btnUploadCO.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.btnUploadCO.Location = New System.Drawing.Point(291, 207)
+        Me.btnUploadCO.Location = New System.Drawing.Point(266, 207)
         Me.btnUploadCO.Name = "btnUploadCO"
         Me.btnUploadCO.Size = New System.Drawing.Size(24, 23)
         Me.btnUploadCO.TabIndex = 391
         '
+        'txtStipulatedKey
+        '
+        Me.txtStipulatedKey.Location = New System.Drawing.Point(848, 100)
+        Me.txtStipulatedKey.Name = "txtStipulatedKey"
+        Me.txtStipulatedKey.ReadOnly = True
+        Me.txtStipulatedKey.Size = New System.Drawing.Size(28, 20)
+        Me.txtStipulatedKey.TabIndex = 368
+        Me.txtStipulatedKey.Tag = "GroupStipulatedPenaltyInput"
+        Me.txtStipulatedKey.Visible = False
+        '
         'Label29
         '
         Me.Label29.AutoSize = True
-        Me.Label29.Location = New System.Drawing.Point(371, 28)
+        Me.Label29.Location = New System.Drawing.Point(372, 31)
         Me.Label29.Name = "Label29"
         Me.Label29.Size = New System.Drawing.Size(97, 13)
         Me.Label29.TabIndex = 353
@@ -1574,22 +1518,11 @@ Partial Class SSCPEnforcementAudit
         'Label21
         '
         Me.Label21.AutoSize = True
-        Me.Label21.Location = New System.Drawing.Point(8, 269)
+        Me.Label21.Location = New System.Drawing.Point(11, 275)
         Me.Label21.Name = "Label21"
         Me.Label21.Size = New System.Drawing.Size(74, 13)
         Me.Label21.TabIndex = 359
         Me.Label21.Text = "CO Comments"
-        '
-        'btnSaveStipulatePenalty
-        '
-        Me.btnSaveStipulatePenalty.AutoSize = True
-        Me.btnSaveStipulatePenalty.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnSaveStipulatePenalty.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.btnSaveStipulatePenalty.Location = New System.Drawing.Point(580, 82)
-        Me.btnSaveStipulatePenalty.Name = "btnSaveStipulatePenalty"
-        Me.btnSaveStipulatePenalty.Size = New System.Drawing.Size(99, 23)
-        Me.btnSaveStipulatePenalty.TabIndex = 349
-        Me.btnSaveStipulatePenalty.Text = "Add New Penalty"
         '
         'txtCONumber
         '
@@ -1599,14 +1532,6 @@ Partial Class SSCPEnforcementAudit
         Me.txtCONumber.Size = New System.Drawing.Size(100, 20)
         Me.txtCONumber.TabIndex = 390
         '
-        'txtStipulatedComments
-        '
-        Me.txtStipulatedComments.Location = New System.Drawing.Point(475, 109)
-        Me.txtStipulatedComments.Multiline = True
-        Me.txtStipulatedComments.Name = "txtStipulatedComments"
-        Me.txtStipulatedComments.Size = New System.Drawing.Size(373, 40)
-        Me.txtStipulatedComments.TabIndex = 366
-        '
         'txtCOPenaltyAmount
         '
         Me.txtCOPenaltyAmount.Location = New System.Drawing.Point(475, 4)
@@ -1614,15 +1539,6 @@ Partial Class SSCPEnforcementAudit
         Me.txtCOPenaltyAmount.Name = "txtCOPenaltyAmount"
         Me.txtCOPenaltyAmount.Size = New System.Drawing.Size(100, 20)
         Me.txtCOPenaltyAmount.TabIndex = 354
-        '
-        'txtStipulatedKey
-        '
-        Me.txtStipulatedKey.Location = New System.Drawing.Point(458, 129)
-        Me.txtStipulatedKey.Name = "txtStipulatedKey"
-        Me.txtStipulatedKey.ReadOnly = True
-        Me.txtStipulatedKey.Size = New System.Drawing.Size(10, 20)
-        Me.txtStipulatedKey.TabIndex = 368
-        Me.txtStipulatedKey.Visible = False
         '
         'Label49
         '
@@ -1633,26 +1549,10 @@ Partial Class SSCPEnforcementAudit
         Me.Label49.TabIndex = 389
         Me.Label49.Text = "CO #"
         '
-        'txtStipulatedPenalty
-        '
-        Me.txtStipulatedPenalty.Location = New System.Drawing.Point(474, 84)
-        Me.txtStipulatedPenalty.Name = "txtStipulatedPenalty"
-        Me.txtStipulatedPenalty.Size = New System.Drawing.Size(100, 20)
-        Me.txtStipulatedPenalty.TabIndex = 351
-        '
-        'Label31
-        '
-        Me.Label31.AutoSize = True
-        Me.Label31.Location = New System.Drawing.Point(360, 110)
-        Me.Label31.Name = "Label31"
-        Me.Label31.Size = New System.Drawing.Size(109, 13)
-        Me.Label31.TabIndex = 350
-        Me.Label31.Text = "Stipulated Comments:"
-        '
         'Label28
         '
         Me.Label28.AutoSize = True
-        Me.Label28.Location = New System.Drawing.Point(373, 7)
+        Me.Label28.Location = New System.Drawing.Point(376, 7)
         Me.Label28.Name = "Label28"
         Me.Label28.Size = New System.Drawing.Size(93, 13)
         Me.Label28.TabIndex = 344
@@ -1792,6 +1692,138 @@ Partial Class SSCPEnforcementAudit
         Me.DTPCOResolved.ShowCheckBox = True
         Me.DTPCOResolved.Size = New System.Drawing.Size(119, 22)
         Me.DTPCOResolved.TabIndex = 380
+        '
+        'StipulatedPenalties
+        '
+        Me.StipulatedPenalties.Controls.Add(Me.txtStipulatedPenalty)
+        Me.StipulatedPenalties.Controls.Add(Me.Label30)
+        Me.StipulatedPenalties.Controls.Add(Me.dgvStipulatedPenalties)
+        Me.StipulatedPenalties.Controls.Add(Me.UpdateStipulatedPenaltyButton)
+        Me.StipulatedPenalties.Controls.Add(Me.txtStipulatedComments)
+        Me.StipulatedPenalties.Controls.Add(Me.ClearStipulatedPenaltyFormButton)
+        Me.StipulatedPenalties.Controls.Add(Me.Label31)
+        Me.StipulatedPenalties.Controls.Add(Me.DeletePenaltyButton)
+        Me.StipulatedPenalties.Controls.Add(Me.SaveStipulatedPenaltyButton)
+        Me.StipulatedPenalties.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.StipulatedPenalties.Location = New System.Drawing.Point(475, 82)
+        Me.StipulatedPenalties.Name = "StipulatedPenalties"
+        Me.StipulatedPenalties.Size = New System.Drawing.Size(373, 206)
+        Me.StipulatedPenalties.TabIndex = 397
+        Me.StipulatedPenalties.TabStop = False
+        Me.StipulatedPenalties.Text = "Stipulated Penalties"
+        '
+        'txtStipulatedPenalty
+        '
+        Me.txtStipulatedPenalty.Location = New System.Drawing.Point(58, 18)
+        Me.txtStipulatedPenalty.Name = "txtStipulatedPenalty"
+        Me.txtStipulatedPenalty.Size = New System.Drawing.Size(91, 20)
+        Me.txtStipulatedPenalty.TabIndex = 351
+        Me.txtStipulatedPenalty.Tag = "GroupStipulatedPenaltyInput"
+        '
+        'Label30
+        '
+        Me.Label30.AutoSize = True
+        Me.Label30.Location = New System.Drawing.Point(6, 21)
+        Me.Label30.Name = "Label30"
+        Me.Label30.Size = New System.Drawing.Size(46, 13)
+        Me.Label30.TabIndex = 348
+        Me.Label30.Text = "Amount:"
+        '
+        'dgvStipulatedPenalties
+        '
+        DataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle7.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvStipulatedPenalties.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle7
+        Me.dgvStipulatedPenalties.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle8.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvStipulatedPenalties.DefaultCellStyle = DataGridViewCellStyle8
+        Me.dgvStipulatedPenalties.Location = New System.Drawing.Point(9, 100)
+        Me.dgvStipulatedPenalties.Name = "dgvStipulatedPenalties"
+        Me.dgvStipulatedPenalties.ReadOnly = True
+        DataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle9.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvStipulatedPenalties.RowHeadersDefaultCellStyle = DataGridViewCellStyle9
+        Me.dgvStipulatedPenalties.Size = New System.Drawing.Size(358, 106)
+        Me.dgvStipulatedPenalties.TabIndex = 382
+        '
+        'UpdateStipulatedPenaltyButton
+        '
+        Me.UpdateStipulatedPenaltyButton.AutoSize = True
+        Me.UpdateStipulatedPenaltyButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.UpdateStipulatedPenaltyButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.UpdateStipulatedPenaltyButton.Location = New System.Drawing.Point(155, 16)
+        Me.UpdateStipulatedPenaltyButton.Name = "UpdateStipulatedPenaltyButton"
+        Me.UpdateStipulatedPenaltyButton.Size = New System.Drawing.Size(90, 23)
+        Me.UpdateStipulatedPenaltyButton.TabIndex = 393
+        Me.UpdateStipulatedPenaltyButton.Tag = "GroupExistingStipulatedPenalty"
+        Me.UpdateStipulatedPenaltyButton.Text = "Update Penalty"
+        '
+        'txtStipulatedComments
+        '
+        Me.txtStipulatedComments.Location = New System.Drawing.Point(8, 58)
+        Me.txtStipulatedComments.Multiline = True
+        Me.txtStipulatedComments.Name = "txtStipulatedComments"
+        Me.txtStipulatedComments.Size = New System.Drawing.Size(359, 36)
+        Me.txtStipulatedComments.TabIndex = 366
+        Me.txtStipulatedComments.Tag = "GroupStipulatedPenaltyInput"
+        '
+        'ClearStipulatedPenaltyFormButton
+        '
+        Me.ClearStipulatedPenaltyFormButton.BackgroundImage = CType(resources.GetObject("ClearStipulatedPenaltyFormButton.BackgroundImage"), System.Drawing.Image)
+        Me.ClearStipulatedPenaltyFormButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
+        Me.ClearStipulatedPenaltyFormButton.Location = New System.Drawing.Point(343, 16)
+        Me.ClearStipulatedPenaltyFormButton.Name = "ClearStipulatedPenaltyFormButton"
+        Me.ClearStipulatedPenaltyFormButton.Size = New System.Drawing.Size(24, 23)
+        Me.ClearStipulatedPenaltyFormButton.TabIndex = 384
+        '
+        'Label31
+        '
+        Me.Label31.AutoSize = True
+        Me.Label31.Location = New System.Drawing.Point(6, 41)
+        Me.Label31.Name = "Label31"
+        Me.Label31.Size = New System.Drawing.Size(105, 13)
+        Me.Label31.TabIndex = 350
+        Me.Label31.Text = "Comments (optional):"
+        '
+        'DeletePenaltyButton
+        '
+        Me.DeletePenaltyButton.AutoSize = True
+        Me.DeletePenaltyButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.DeletePenaltyButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.DeletePenaltyButton.Location = New System.Drawing.Point(251, 16)
+        Me.DeletePenaltyButton.Name = "DeletePenaltyButton"
+        Me.DeletePenaltyButton.Size = New System.Drawing.Size(86, 23)
+        Me.DeletePenaltyButton.TabIndex = 349
+        Me.DeletePenaltyButton.Tag = "GroupExistingStipulatedPenalty"
+        Me.DeletePenaltyButton.Text = "Delete Penalty"
+        '
+        'SaveStipulatedPenaltyButton
+        '
+        Me.SaveStipulatedPenaltyButton.AutoSize = True
+        Me.SaveStipulatedPenaltyButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.SaveStipulatedPenaltyButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.SaveStipulatedPenaltyButton.Location = New System.Drawing.Point(155, 16)
+        Me.SaveStipulatedPenaltyButton.Name = "SaveStipulatedPenaltyButton"
+        Me.SaveStipulatedPenaltyButton.Size = New System.Drawing.Size(99, 23)
+        Me.SaveStipulatedPenaltyButton.TabIndex = 349
+        Me.SaveStipulatedPenaltyButton.Tag = "GroupEmptyStipulatedPenalty"
+        Me.SaveStipulatedPenaltyButton.Text = "Add New Penalty"
         '
         'TPAO
         '
@@ -2427,6 +2459,8 @@ Partial Class SSCPEnforcementAudit
         Me.TPCO.PerformLayout()
         Me.Panel10.ResumeLayout(False)
         Me.Panel10.PerformLayout()
+        Me.StipulatedPenalties.ResumeLayout(False)
+        Me.StipulatedPenalties.PerformLayout()
         CType(Me.dgvStipulatedPenalties, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TPAO.ResumeLayout(False)
         Me.TPAO.PerformLayout()
@@ -2557,7 +2591,7 @@ Partial Class SSCPEnforcementAudit
     Friend WithEvents Label47 As System.Windows.Forms.Label
     Friend WithEvents DTPCOToUC As System.Windows.Forms.DateTimePicker
     Friend WithEvents Label30 As System.Windows.Forms.Label
-    Friend WithEvents btnClearStipulated As System.Windows.Forms.Button
+    Friend WithEvents ClearStipulatedPenaltyFormButton As System.Windows.Forms.Button
     Friend WithEvents dgvStipulatedPenalties As System.Windows.Forms.DataGridView
     Friend WithEvents Label20 As System.Windows.Forms.Label
     Friend WithEvents DTPCOResolved As System.Windows.Forms.DateTimePicker
@@ -2575,7 +2609,7 @@ Partial Class SSCPEnforcementAudit
     Friend WithEvents txtCOPenaltyAmount As System.Windows.Forms.TextBox
     Friend WithEvents Label29 As System.Windows.Forms.Label
     Friend WithEvents txtPenaltyComments As System.Windows.Forms.TextBox
-    Friend WithEvents btnSaveStipulatePenalty As System.Windows.Forms.Button
+    Friend WithEvents SaveStipulatedPenaltyButton As System.Windows.Forms.Button
     Friend WithEvents txtStipulatedComments As System.Windows.Forms.TextBox
     Friend WithEvents txtStipulatedKey As System.Windows.Forms.TextBox
     Friend WithEvents txtStipulatedPenalty As System.Windows.Forms.TextBox
@@ -2634,7 +2668,7 @@ Partial Class SSCPEnforcementAudit
     Friend WithEvents btnHideAudit As System.Windows.Forms.Button
     Friend WithEvents btnExportAuditToExcel As System.Windows.Forms.Button
     Friend WithEvents btnREfreshAudit As System.Windows.Forms.Button
-    Friend WithEvents btnUpdateStipulatedPenalty As System.Windows.Forms.Button
+    Friend WithEvents UpdateStipulatedPenaltyButton As System.Windows.Forms.Button
     Friend WithEvents Label12 As System.Windows.Forms.Label
     Friend WithEvents lblCODownload As System.Windows.Forms.Label
     Friend WithEvents Label22 As System.Windows.Forms.Label
@@ -2648,4 +2682,6 @@ Partial Class SSCPEnforcementAudit
     Friend WithEvents Label58 As System.Windows.Forms.Label
     Friend WithEvents btnDownloadAO As System.Windows.Forms.Button
     Friend WithEvents btnUploadAO As System.Windows.Forms.Button
+    Friend WithEvents StipulatedPenalties As System.Windows.Forms.GroupBox
+    Friend WithEvents DeletePenaltyButton As System.Windows.Forms.Button
 End Class
