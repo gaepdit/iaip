@@ -2263,6 +2263,7 @@ Public Class SSCPFCEWork
         Dim FCEComment As String = ""
         Dim FiveYearDate As String = ""
         Dim OneYearDate As String = ""
+        Dim TomorrowDate As String = ""
 
         Dim FCEInspections As String = ""
         Dim FCEPerformanceTests As String = ""
@@ -2279,9 +2280,11 @@ Public Class SSCPFCEWork
         If DTPFCECompleteDate.Text <> "" Then
             FiveYearDate = Format(DTPFCECompleteDate.Value.AddDays(-1825), "dd-MMM-yyyy")
             OneYearDate = Format(DTPFCECompleteDate.Value.AddDays(-365), "dd-MMM-yyyy")
+            TomorrowDate = Format(DTPFCECompleteDate.Value.AddDays(1), "dd-MMM-yyyy")
         Else
             FiveYearDate = Format(Date.Today.AddDays(-1825), "dd-MMM-yyyy")
             OneYearDate = Format(Date.Today.AddDays(-365), "dd-MMM-yyyy")
+            TomorrowDate = Format(Date.Today.AddDays(1), "dd-MMM-yyyy")
         End If
 
 
@@ -2436,7 +2439,8 @@ Public Class SSCPFCEWork
                "ON AIRBRANCH.EPDUSERPROFILES.NUMUSERID = AIRBRANCH.SSCPITEMMASTER.STRRESPONSIBLESTAFF) " & _
                "tblVW_FCE_INSPECTIONDATA " & _
                "where tblVW_FCE_INSPECTIONDATA.strAIRSNumber  = '0413" & txtAirsNumber.Text & "' " & _
-               "and tblVW_FCE_INSPECTIONDATA.datInspectionDate between '" & FiveYearDate & "' and '" & DTPFCECompleteDate.Text & "' " & _
+               "and tblVW_FCE_INSPECTIONDATA.datInspectionDate between '" & FiveYearDate & "' and '" & _
+               TomorrowDate & "' " & _
                "order by datInspectionDate desc "
 
 
@@ -2484,7 +2488,7 @@ Public Class SSCPFCEWork
                 "STRCOMPLIANCESTATUS  " & _
                 "from airbranch.VW_FCE_PerformanceTest " & _
                 "where AIRSNumber  = '" & txtAirsNumber.Text & "'   " & _
-                "and datTestDateStart between '" & FiveYearDate & "' and '" & DTPFCECompleteDate.Text & "' " & _
+                "and datTestDateStart between '" & FiveYearDate & "' and '" & TomorrowDate & "' " & _
                 "order by DATTESTDATESTART desc "
 
                 cmd = New OracleCommand(SQL, Conn)
@@ -2530,7 +2534,7 @@ Public Class SSCPFCEWork
                 "RECEIVEDDATE, REPORTFOLLOWUP, DATCOMPLETEDATE  " & _
                 "from airbranch.VW_FCE_ReportData  " & _
                 "where AIRSNumber  = '" & txtAirsNumber.Text & "' and " & _
-                "to_date(reportstart) between  '" & FiveYearDate & "' and '" & DTPFCECompleteDate.Text & "' " & _
+                "to_date(reportstart) between  '" & FiveYearDate & "' and '" & TomorrowDate & "' " & _
                 "order by reportstart desc "
 
                 cmd = New OracleCommand(SQL, Conn)
@@ -2571,7 +2575,7 @@ Public Class SSCPFCEWork
                 "STRCOMMENTS " & _
                 "from airbranch.VW_FCE_ACCData  " & _
                 "where AIRSNumber  = '" & txtAirsNumber.Text & "' " & _
-                "and to_date(CompleteDate)  between  '" & OneYearDate & "' and '" & DTPFCECompleteDate.Text & "'  " & _
+                "and to_date(CompleteDate)  between  '" & OneYearDate & "' and '" & TomorrowDate & "'  " & _
                 "order by CompleteDate desc "
 
                 cmd = New OracleCommand(SQL, Conn)
@@ -2610,7 +2614,7 @@ Public Class SSCPFCEWork
                 "COMPLAINT_ID, NATURE, RECEIVED_DATE " & _
                 "from V_Complaint_Information " & _
                 "where Facility_ID like '%" & txtAirsNumber.Text & "%' " & _
-                "and RECEIVED_DATE between '" & OneYearDate & "' and '" & DTPFCECompleteDate.Text & "'  "
+                "and RECEIVED_DATE between '" & OneYearDate & "' and '" & TomorrowDate & "'  "
 
                 cmd = New OracleCommand(SQL, Conn)
                 If Conn.State = ConnectionState.Closed Then
@@ -2688,7 +2692,7 @@ Public Class SSCPFCEWork
                 "STRGENERALCOMMENTS " & _
                 "from airbranch.VW_FCE_enforcement  " & _
                 "where AIRSNumber  = '" & txtAirsNumber.Text & "'  " & _
-                "and to_date(discoverydate) between '" & FiveYearDate & "' and '" & DTPFCECompleteDate.Text & "'  " & _
+                "and to_date(discoverydate) between '" & FiveYearDate & "' and '" & TomorrowDate & "'  " & _
                 "order by discoverydate desc "
 
                 cmd = New OracleCommand(SQL, Conn)
