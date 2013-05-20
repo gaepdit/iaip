@@ -1488,15 +1488,7 @@ Public Class SSCPFCEWork
         End Try
 
     End Sub
-    Private Sub TBFCE_ButtonClick(ByVal sender As System.Object, ByVal e As System.Windows.Forms.ToolBarButtonClickEventArgs) Handles TBFCE.ButtonClick
-        Select Case TBFCE.Buttons.IndexOf(e.Button)
-            Case 0
-                SaveFCE()
-            Case 1
-                LoadSSCPFCEReport()
-            Case Else
-        End Select
-    End Sub
+    
 #Region "Data Grid Mouse Up's"
     Private Sub dgrFCEACC_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgrFCEACC.MouseUp
         Dim hti As DataGrid.HitTestInfo = dgrFCEACC.HitTest(e.X, e.Y)
@@ -3050,7 +3042,7 @@ Public Class SSCPFCEWork
 
 #End Region
 
-#Region "Menu"
+#Region "Menu and toolbar"
     Private Sub MenuSave_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MenuSave.Click
         SaveFCE()
     End Sub
@@ -3062,6 +3054,15 @@ Public Class SSCPFCEWork
     End Sub
     Private Sub MenuHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MenuHelp.Click
         OpenHelpUrl(sender)
+    End Sub
+    Private Sub TBFCE_ButtonClick(ByVal sender As System.Object, ByVal e As System.Windows.Forms.ToolBarButtonClickEventArgs) Handles TBFCE.ButtonClick
+        Select Case TBFCE.Buttons.IndexOf(e.Button)
+            Case 0
+                SaveFCE()
+            Case 1
+                LoadSSCPFCEReport()
+            Case Else
+        End Select
     End Sub
 #End Region
 
