@@ -291,31 +291,31 @@ Partial Class SSCPFCEWork
         '
         Me.MenuFile.Index = 0
         Me.MenuFile.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.MenuSave, Me.MenuPrint, Me.MenuClose})
-        Me.MenuFile.Text = "File"
+        Me.MenuFile.Text = "&File"
         '
         'MenuSave
         '
         Me.MenuSave.Index = 0
         Me.MenuSave.Shortcut = System.Windows.Forms.Shortcut.CtrlS
-        Me.MenuSave.Text = "Save"
+        Me.MenuSave.Text = "&Save"
         '
         'MenuPrint
         '
         Me.MenuPrint.Index = 1
         Me.MenuPrint.Shortcut = System.Windows.Forms.Shortcut.CtrlP
-        Me.MenuPrint.Text = "Print"
+        Me.MenuPrint.Text = "&Print"
         '
         'MenuClose
         '
         Me.MenuClose.Index = 2
         Me.MenuClose.Shortcut = System.Windows.Forms.Shortcut.CtrlW
-        Me.MenuClose.Text = "Close"
+        Me.MenuClose.Text = "&Close"
         '
         'MenuHelp
         '
         Me.MenuHelp.Index = 1
         Me.MenuHelp.Shortcut = System.Windows.Forms.Shortcut.F1
-        Me.MenuHelp.Text = "Help"
+        Me.MenuHelp.Text = "&Help"
         '
         'TBFCE
         '
