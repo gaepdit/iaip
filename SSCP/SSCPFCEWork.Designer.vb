@@ -28,19 +28,14 @@ Partial Class SSCPFCEWork
         Me.Panel3 = New System.Windows.Forms.ToolStripStatusLabel
         Me.Image_List_All = New System.Windows.Forms.ImageList(Me.components)
         Me.MainMenu1 = New System.Windows.Forms.MainMenu(Me.components)
-        Me.MenuItem1 = New System.Windows.Forms.MenuItem
-        Me.MmiSave = New System.Windows.Forms.MenuItem
-        Me.MenuItem10 = New System.Windows.Forms.MenuItem
-        Me.MmiBack = New System.Windows.Forms.MenuItem
-        Me.MenuItem2 = New System.Windows.Forms.MenuItem
-        Me.MenuItem3 = New System.Windows.Forms.MenuItem
-        Me.MenuItem4 = New System.Windows.Forms.MenuItem
-        Me.MenuItem5 = New System.Windows.Forms.MenuItem
+        Me.MenuFile = New System.Windows.Forms.MenuItem
+        Me.MenuSave = New System.Windows.Forms.MenuItem
+        Me.MenuPrint = New System.Windows.Forms.MenuItem
+        Me.MenuClose = New System.Windows.Forms.MenuItem
+        Me.MenuHelp = New System.Windows.Forms.MenuItem
         Me.TBFCE = New System.Windows.Forms.ToolBar
         Me.TbbSave = New System.Windows.Forms.ToolBarButton
         Me.TbbPring = New System.Windows.Forms.ToolBarButton
-        Me.TbbEarse = New System.Windows.Forms.ToolBarButton
-        Me.TbbBack = New System.Windows.Forms.ToolBarButton
         Me.txtOrigin = New System.Windows.Forms.TextBox
         Me.txtAirsNumber = New System.Windows.Forms.TextBox
         Me.TCFCEData = New System.Windows.Forms.TabControl
@@ -290,52 +285,37 @@ Partial Class SSCPFCEWork
         '
         'MainMenu1
         '
-        Me.MainMenu1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.MenuItem1, Me.MenuItem2, Me.MenuItem3, Me.MenuItem4, Me.MenuItem5})
+        Me.MainMenu1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.MenuFile, Me.MenuHelp})
         '
-        'MenuItem1
+        'MenuFile
         '
-        Me.MenuItem1.Index = 0
-        Me.MenuItem1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.MmiSave, Me.MenuItem10, Me.MmiBack})
-        Me.MenuItem1.Text = "File"
+        Me.MenuFile.Index = 0
+        Me.MenuFile.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.MenuSave, Me.MenuPrint, Me.MenuClose})
+        Me.MenuFile.Text = "File"
         '
-        'MmiSave
+        'MenuSave
         '
-        Me.MmiSave.Index = 0
-        Me.MmiSave.Text = "Save"
+        Me.MenuSave.Index = 0
+        Me.MenuSave.Text = "Save"
         '
-        'MenuItem10
+        'MenuPrint
         '
-        Me.MenuItem10.Index = 1
-        Me.MenuItem10.Text = "-"
+        Me.MenuPrint.Index = 1
+        Me.MenuPrint.Text = "Print"
         '
-        'MmiBack
+        'MenuClose
         '
-        Me.MmiBack.Index = 2
-        Me.MmiBack.Text = "Return to Navigation"
+        Me.MenuClose.Index = 2
+        Me.MenuClose.Text = "Close"
         '
-        'MenuItem2
+        'MenuHelp
         '
-        Me.MenuItem2.Index = 1
-        Me.MenuItem2.Text = "Edit"
-        '
-        'MenuItem3
-        '
-        Me.MenuItem3.Index = 2
-        Me.MenuItem3.Text = "View"
-        '
-        'MenuItem4
-        '
-        Me.MenuItem4.Index = 3
-        Me.MenuItem4.Text = "Tools"
-        '
-        'MenuItem5
-        '
-        Me.MenuItem5.Index = 4
-        Me.MenuItem5.Text = "Help"
+        Me.MenuHelp.Index = 1
+        Me.MenuHelp.Text = "Help"
         '
         'TBFCE
         '
-        Me.TBFCE.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.TbbSave, Me.TbbPring, Me.TbbEarse, Me.TbbBack})
+        Me.TBFCE.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.TbbSave, Me.TbbPring})
         Me.TBFCE.ButtonSize = New System.Drawing.Size(23, 22)
         Me.TBFCE.DropDownArrows = True
         Me.TBFCE.ImageList = Me.Image_List_All
@@ -354,16 +334,6 @@ Partial Class SSCPFCEWork
         '
         Me.TbbPring.ImageIndex = 56
         Me.TbbPring.Name = "TbbPring"
-        '
-        'TbbEarse
-        '
-        Me.TbbEarse.ImageIndex = 84
-        Me.TbbEarse.Name = "TbbEarse"
-        '
-        'TbbBack
-        '
-        Me.TbbBack.ImageIndex = 2
-        Me.TbbBack.Name = "TbbBack"
         '
         'txtOrigin
         '
@@ -1257,19 +1227,12 @@ Partial Class SSCPFCEWork
     Friend WithEvents Panel3 As System.Windows.Forms.ToolStripStatusLabel
     Friend WithEvents Image_List_All As System.Windows.Forms.ImageList
     Friend WithEvents MainMenu1 As System.Windows.Forms.MainMenu
-    Friend WithEvents MenuItem1 As System.Windows.Forms.MenuItem
-    Friend WithEvents MmiSave As System.Windows.Forms.MenuItem
-    Friend WithEvents MenuItem10 As System.Windows.Forms.MenuItem
-    Friend WithEvents MmiBack As System.Windows.Forms.MenuItem
-    Friend WithEvents MenuItem2 As System.Windows.Forms.MenuItem
-    Friend WithEvents MenuItem3 As System.Windows.Forms.MenuItem
-    Friend WithEvents MenuItem4 As System.Windows.Forms.MenuItem
-    Friend WithEvents MenuItem5 As System.Windows.Forms.MenuItem
+    Friend WithEvents MenuFile As System.Windows.Forms.MenuItem
+    Friend WithEvents MenuSave As System.Windows.Forms.MenuItem
+    Friend WithEvents MenuHelp As System.Windows.Forms.MenuItem
     Friend WithEvents TBFCE As System.Windows.Forms.ToolBar
     Friend WithEvents TbbSave As System.Windows.Forms.ToolBarButton
-    Friend WithEvents TbbPring As System.Windows.Forms.ToolBarButton
-    Friend WithEvents TbbEarse As System.Windows.Forms.ToolBarButton
-    Friend WithEvents TbbBack As System.Windows.Forms.ToolBarButton
+    Friend WithEvents TbbPrint As System.Windows.Forms.ToolBarButton
     Friend WithEvents txtOrigin As System.Windows.Forms.TextBox
     Friend WithEvents txtAirsNumber As System.Windows.Forms.TextBox
     Friend WithEvents TCFCEData As System.Windows.Forms.TabControl
@@ -1349,4 +1312,7 @@ Partial Class SSCPFCEWork
     Friend WithEvents btnPrintTest As System.Windows.Forms.Button
     Friend WithEvents CRViewer As CrystalDecisions.Windows.Forms.CrystalReportViewer
     Friend WithEvents TabPageFCEPrint As System.Windows.Forms.TabPage
+    Friend WithEvents TbbPring As System.Windows.Forms.ToolBarButton
+    Friend WithEvents MenuPrint As System.Windows.Forms.MenuItem
+    Friend WithEvents MenuClose As System.Windows.Forms.MenuItem
 End Class

@@ -51,7 +51,7 @@ Public Class SSCPFCEWork
 
             If AccountArray(50, 1) = "1" Or AccountArray(50, 2) = "1" Or AccountArray(50, 3) = "1" Or AccountArray(50, 4) = "1" Then
             Else
-                MmiSave.Visible = False
+                MenuSave.Visible = False
                 TBFCE.Buttons.Remove(TbbSave)
             End If
 
@@ -1489,24 +1489,13 @@ Public Class SSCPFCEWork
 
     End Sub
     Private Sub TBFCE_ButtonClick(ByVal sender As System.Object, ByVal e As System.Windows.Forms.ToolBarButtonClickEventArgs) Handles TBFCE.ButtonClick
-        Try
-
-            Select Case TBFCE.Buttons.IndexOf(e.Button)
-                Case 0
-                    SaveFCE()
-                Case 1
-                    LoadSSCPFCEReport()
-                    'Print()
-                Case 2
-                    Clear()
-                Case 3
-                    Back()
-                Case Else
-            End Select
-        Catch ex As Exception
-            ErrorReport(txtFCENumber.Text & vbCrLf & ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
+        Select Case TBFCE.Buttons.IndexOf(e.Button)
+            Case 0
+                SaveFCE()
+            Case 1
+                LoadSSCPFCEReport()
+            Case Else
+        End Select
     End Sub
 #Region "Data Grid Mouse Up's"
     Private Sub dgrFCEACC_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgrFCEACC.MouseUp
@@ -1824,25 +1813,7 @@ Public Class SSCPFCEWork
         End Try
 
     End Sub
-    Private Sub MmiSave_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiSave.Click
-        Try
-
-            SaveFCE()
-        Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
-    End Sub
-    Private Sub MmiBack_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiBack.Click
-        Try
-
-            Back()
-        Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
-    End Sub
-
+    
 #End Region
 
 #Region "Functions and Subs"
@@ -2282,58 +2253,6 @@ Public Class SSCPFCEWork
 
 
 #End Region
-
-    Private Sub MenuItem5_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MenuItem5.Click
-        Try
-            Help.ShowHelp(Label10, HELP_URL)
-        Catch ex As Exception
-        End Try
-
-    End Sub
-
-    Private Sub btnPrintTest_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnPrintTest.Click
-        Try
-            'Dim rds As New ReportDataSource
-            'Dim dsFCEPrint_VW_FCE_ACCDATA As New DataSet
-            'Dim da As OracleDataAdapter
-
-            'SQL = "Select * from AIRBranch.VW_FCE_ACCData " & _
-            '"where AIRSNumber = '" & txtAirsNumber.Text & "' "
-
-            'da = New OracleDataAdapter(SQL, conn)
-            'If conn.State = ConnectionState.Closed Then
-            '    conn.Open()
-            'End If
-
-            'da.Fill(dsFCEPrint_VW_FCE_ACCDATA, "dsFCEPrint_VW_FCE_ACCDATA")
-            'rds = New ReportDataSource("dsFCEPrint_VW_FCE_ACCDATA", dsFCEPrint_VW_FCE_ACCDATA.Tables("dsFCEPrint_VW_FCE_ACCDATA"))
-            'rds = New ReportDataSource("FullComplianceEvaluations", dsFCEPrint_VW_FCE_ACCDATA.Tables("VW_FCE_ACCDATA"))
-            'rvFCE.LocalReport.DataSources.Clear()
-            'rvFCE.LocalReport.DataSources.Add(rds)
-            'Me.rvFCE.RefreshReport()
-
-            'dsFCEPrint_VW_FCE_ACCDATA
-
-            'SQL = "Select * from AIRBranch.VW_ATS_ComputerAsset_RP order by Tier1Name, Tier2Name, Tier3name, Tier4Name "
-            'da = New OracleDataAdapter(SQL, conn)
-            'If conn.State = ConnectionState.Closed Then
-            '    conn.Open()
-            'End If
-
-            'da.Fill(VW_ATS_COMPUTERASSETS_RP, "VW_ATS_COMPUTERASSET_RP")
-            'rds = New ReportDataSource("VW_ATS_COMPUTERASSETS_RP", VW_ATS_COMPUTERASSETS_RP.Tables("VW_ATS_COMPUTERASSET_RP"))
-            'rvAssetReports.LocalReport.DataSources.Clear()
-            'rvAssetReports.LocalReport.DataSources.Add(rds)
-
-            'Me.rvAssetReports.RefreshReport()
-
-
-
-        Catch ex As Exception
-
-        End Try
-    End Sub
-
 
 #Region "Change to Printer method"
     Sub LoadSSCPFCEReport()
@@ -2807,7 +2726,7 @@ Public Class SSCPFCEWork
                     EnforcementInfo = "N/A"
                 End If
 
-                EISINFO = "N/A"
+                EISInfo = "N/A"
 
 
                 'Do this at the beginning of every new entry 
@@ -3131,6 +3050,19 @@ Public Class SSCPFCEWork
 
 #End Region
 
-
+#Region "Menu"
+    Private Sub MenuSave_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MenuSave.Click
+        SaveFCE()
+    End Sub
+    Private Sub MenuPrint_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MenuPrint.Click
+        LoadSSCPFCEReport()
+    End Sub
+    Private Sub MenuClose_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MenuClose.Click
+        Me.Close()
+    End Sub
+    Private Sub MenuHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MenuHelp.Click
+        OpenHelpUrl(sender)
+    End Sub
+#End Region
 
 End Class
