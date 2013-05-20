@@ -296,21 +296,25 @@ Partial Class SSCPFCEWork
         'MenuSave
         '
         Me.MenuSave.Index = 0
+        Me.MenuSave.Shortcut = System.Windows.Forms.Shortcut.CtrlS
         Me.MenuSave.Text = "Save"
         '
         'MenuPrint
         '
         Me.MenuPrint.Index = 1
+        Me.MenuPrint.Shortcut = System.Windows.Forms.Shortcut.CtrlP
         Me.MenuPrint.Text = "Print"
         '
         'MenuClose
         '
         Me.MenuClose.Index = 2
+        Me.MenuClose.Shortcut = System.Windows.Forms.Shortcut.CtrlW
         Me.MenuClose.Text = "Close"
         '
         'MenuHelp
         '
         Me.MenuHelp.Index = 1
+        Me.MenuHelp.Shortcut = System.Windows.Forms.Shortcut.F1
         Me.MenuHelp.Text = "Help"
         '
         'TBFCE
