@@ -2322,8 +2322,10 @@ Public Class SSCPFCEWork
             dr = cmd.ExecuteReader
             recExist = dr.Read
             If recExist = True Then
-                ' Show the printout tab
-                TabControlFCE.TabPages.Add(TabPageFCEPrint)
+                ' Show and select the printout tab
+                If Not TabControlFCE.TabPages.Contains(TabPageFCEPrint) Then _
+                    TabControlFCE.TabPages.Add(TabPageFCEPrint)
+                TabControlFCE.SelectedTab = TabPageFCEPrint
 
                 If IsDBNull(dr.Item("strFCEYear")) Then
                     FiscalYear = "N/A"
