@@ -38,7 +38,7 @@ Partial Class SSCPFCEWork
         Me.TbbPring = New System.Windows.Forms.ToolBarButton
         Me.txtOrigin = New System.Windows.Forms.TextBox
         Me.txtAirsNumber = New System.Windows.Forms.TextBox
-        Me.TCFCEData = New System.Windows.Forms.TabControl
+        Me.ReviewDataTabs = New System.Windows.Forms.TabControl
         Me.TPInspections = New System.Windows.Forms.TabPage
         Me.dgrFCEInspections = New System.Windows.Forms.DataGrid
         Me.PanelFCE = New System.Windows.Forms.Panel
@@ -82,15 +82,13 @@ Partial Class SSCPFCEWork
         Me.llbFCEEnforcement = New System.Windows.Forms.LinkLabel
         Me.txtEnforcement = New System.Windows.Forms.TextBox
         Me.Label16 = New System.Windows.Forms.Label
-        Me.GroupBox2 = New System.Windows.Forms.GroupBox
-        Me.btnPrintTest = New System.Windows.Forms.Button
-        Me.GroupBox1 = New System.Windows.Forms.GroupBox
+        Me.FceDataGroup = New System.Windows.Forms.GroupBox
+        Me.OnsiteOrOffsite = New System.Windows.Forms.GroupBox
         Me.rdbFCENoOnsite = New System.Windows.Forms.RadioButton
         Me.rdbFCEOnSite = New System.Windows.Forms.RadioButton
-        Me.TextBox1 = New System.Windows.Forms.TextBox
         Me.cboReviewer = New System.Windows.Forms.ComboBox
         Me.txtFCENumber = New System.Windows.Forms.TextBox
-        Me.GroupBox3 = New System.Windows.Forms.GroupBox
+        Me.CompleteOrIncomplete = New System.Windows.Forms.GroupBox
         Me.rdbFCEIncomplete = New System.Windows.Forms.RadioButton
         Me.rdbFCEComplete = New System.Windows.Forms.RadioButton
         Me.txtFCEComments = New System.Windows.Forms.TextBox
@@ -105,17 +103,17 @@ Partial Class SSCPFCEWork
         Me.DTPFilterStartDate = New System.Windows.Forms.DateTimePicker
         Me.DTPFilterEndDate = New System.Windows.Forms.DateTimePicker
         Me.llbViewFCEData = New System.Windows.Forms.LinkLabel
-        Me.txtFacilityInformation = New System.Windows.Forms.TextBox
-        Me.labReferenceNumber = New System.Windows.Forms.Label
-        Me.Panel4 = New System.Windows.Forms.Panel
-        Me.Panel6 = New System.Windows.Forms.Panel
-        Me.Panel5 = New System.Windows.Forms.Panel
         Me.TabControlFCE = New System.Windows.Forms.TabControl
         Me.TabPageFCEData = New System.Windows.Forms.TabPage
+        Me.FacilityInfoPanel = New System.Windows.Forms.Panel
+        Me.txtFacilityInformation = New System.Windows.Forms.TextBox
+        Me.labReferenceNumber = New System.Windows.Forms.Label
+        Me.ReviewDataGroup = New System.Windows.Forms.GroupBox
+        Me.ReviewDataSelectorPanel = New System.Windows.Forms.Panel
         Me.TabPageFCEPrint = New System.Windows.Forms.TabPage
         Me.CRViewer = New CrystalDecisions.Windows.Forms.CrystalReportViewer
         Me.StatusStrip1.SuspendLayout()
-        Me.TCFCEData.SuspendLayout()
+        Me.ReviewDataTabs.SuspendLayout()
         Me.TPInspections.SuspendLayout()
         CType(Me.dgrFCEInspections, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PanelFCE.SuspendLayout()
@@ -138,14 +136,14 @@ Partial Class SSCPFCEWork
         Me.TPEnforcement.SuspendLayout()
         CType(Me.dgrFCEEnforcement, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PanelEnforcement.SuspendLayout()
-        Me.GroupBox2.SuspendLayout()
-        Me.GroupBox1.SuspendLayout()
-        Me.GroupBox3.SuspendLayout()
-        Me.Panel4.SuspendLayout()
-        Me.Panel6.SuspendLayout()
-        Me.Panel5.SuspendLayout()
+        Me.FceDataGroup.SuspendLayout()
+        Me.OnsiteOrOffsite.SuspendLayout()
+        Me.CompleteOrIncomplete.SuspendLayout()
         Me.TabControlFCE.SuspendLayout()
         Me.TabPageFCEData.SuspendLayout()
+        Me.FacilityInfoPanel.SuspendLayout()
+        Me.ReviewDataGroup.SuspendLayout()
+        Me.ReviewDataSelectorPanel.SuspendLayout()
         Me.TabPageFCEPrint.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -357,22 +355,23 @@ Partial Class SSCPFCEWork
         Me.txtAirsNumber.TabIndex = 239
         Me.txtAirsNumber.Visible = False
         '
-        'TCFCEData
+        'ReviewDataTabs
         '
-        Me.TCFCEData.Controls.Add(Me.TPInspections)
-        Me.TCFCEData.Controls.Add(Me.TPCorrespondance)
-        Me.TCFCEData.Controls.Add(Me.TPTitleVACC)
-        Me.TCFCEData.Controls.Add(Me.TPReports)
-        Me.TCFCEData.Controls.Add(Me.TPISMPSummaryReports)
-        Me.TCFCEData.Controls.Add(Me.TPPerformanceTests)
-        Me.TCFCEData.Controls.Add(Me.TPEnforcement)
-        Me.TCFCEData.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TCFCEData.HotTrack = True
-        Me.TCFCEData.Location = New System.Drawing.Point(0, 31)
-        Me.TCFCEData.Name = "TCFCEData"
-        Me.TCFCEData.SelectedIndex = 0
-        Me.TCFCEData.Size = New System.Drawing.Size(792, 216)
-        Me.TCFCEData.TabIndex = 238
+        Me.ReviewDataTabs.Controls.Add(Me.TPInspections)
+        Me.ReviewDataTabs.Controls.Add(Me.TPCorrespondance)
+        Me.ReviewDataTabs.Controls.Add(Me.TPTitleVACC)
+        Me.ReviewDataTabs.Controls.Add(Me.TPReports)
+        Me.ReviewDataTabs.Controls.Add(Me.TPISMPSummaryReports)
+        Me.ReviewDataTabs.Controls.Add(Me.TPPerformanceTests)
+        Me.ReviewDataTabs.Controls.Add(Me.TPEnforcement)
+        Me.ReviewDataTabs.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.ReviewDataTabs.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ReviewDataTabs.HotTrack = True
+        Me.ReviewDataTabs.Location = New System.Drawing.Point(3, 45)
+        Me.ReviewDataTabs.Name = "ReviewDataTabs"
+        Me.ReviewDataTabs.SelectedIndex = 0
+        Me.ReviewDataTabs.Size = New System.Drawing.Size(857, 207)
+        Me.ReviewDataTabs.TabIndex = 238
         '
         'TPInspections
         '
@@ -381,7 +380,7 @@ Partial Class SSCPFCEWork
         Me.TPInspections.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TPInspections.Location = New System.Drawing.Point(4, 22)
         Me.TPInspections.Name = "TPInspections"
-        Me.TPInspections.Size = New System.Drawing.Size(784, 190)
+        Me.TPInspections.Size = New System.Drawing.Size(849, 181)
         Me.TPInspections.TabIndex = 0
         Me.TPInspections.Text = "Inspections"
         Me.TPInspections.UseVisualStyleBackColor = True
@@ -395,7 +394,7 @@ Partial Class SSCPFCEWork
         Me.dgrFCEInspections.Location = New System.Drawing.Point(0, 39)
         Me.dgrFCEInspections.Name = "dgrFCEInspections"
         Me.dgrFCEInspections.ReadOnly = True
-        Me.dgrFCEInspections.Size = New System.Drawing.Size(784, 151)
+        Me.dgrFCEInspections.Size = New System.Drawing.Size(849, 142)
         Me.dgrFCEInspections.TabIndex = 3
         '
         'PanelFCE
@@ -406,7 +405,7 @@ Partial Class SSCPFCEWork
         Me.PanelFCE.Dock = System.Windows.Forms.DockStyle.Top
         Me.PanelFCE.Location = New System.Drawing.Point(0, 0)
         Me.PanelFCE.Name = "PanelFCE"
-        Me.PanelFCE.Size = New System.Drawing.Size(784, 39)
+        Me.PanelFCE.Size = New System.Drawing.Size(849, 39)
         Me.PanelFCE.TabIndex = 1
         '
         'llbFCEInspections
@@ -443,7 +442,7 @@ Partial Class SSCPFCEWork
         Me.TPCorrespondance.Controls.Add(Me.PanelNotifications)
         Me.TPCorrespondance.Location = New System.Drawing.Point(4, 22)
         Me.TPCorrespondance.Name = "TPCorrespondance"
-        Me.TPCorrespondance.Size = New System.Drawing.Size(784, 190)
+        Me.TPCorrespondance.Size = New System.Drawing.Size(849, 181)
         Me.TPCorrespondance.TabIndex = 3
         Me.TPCorrespondance.Text = "Notifications"
         Me.TPCorrespondance.UseVisualStyleBackColor = True
@@ -455,7 +454,7 @@ Partial Class SSCPFCEWork
         Me.PanelNotifications.Dock = System.Windows.Forms.DockStyle.Fill
         Me.PanelNotifications.Location = New System.Drawing.Point(0, 0)
         Me.PanelNotifications.Name = "PanelNotifications"
-        Me.PanelNotifications.Size = New System.Drawing.Size(784, 190)
+        Me.PanelNotifications.Size = New System.Drawing.Size(849, 181)
         Me.PanelNotifications.TabIndex = 1
         '
         'dgrFCECorrespondance
@@ -466,7 +465,7 @@ Partial Class SSCPFCEWork
         Me.dgrFCECorrespondance.Location = New System.Drawing.Point(0, 40)
         Me.dgrFCECorrespondance.Name = "dgrFCECorrespondance"
         Me.dgrFCECorrespondance.ReadOnly = True
-        Me.dgrFCECorrespondance.Size = New System.Drawing.Size(784, 150)
+        Me.dgrFCECorrespondance.Size = New System.Drawing.Size(849, 141)
         Me.dgrFCECorrespondance.TabIndex = 8
         '
         'PanelFCENotifications
@@ -477,7 +476,7 @@ Partial Class SSCPFCEWork
         Me.PanelFCENotifications.Dock = System.Windows.Forms.DockStyle.Top
         Me.PanelFCENotifications.Location = New System.Drawing.Point(0, 0)
         Me.PanelFCENotifications.Name = "PanelFCENotifications"
-        Me.PanelFCENotifications.Size = New System.Drawing.Size(784, 40)
+        Me.PanelFCENotifications.Size = New System.Drawing.Size(849, 40)
         Me.PanelFCENotifications.TabIndex = 6
         '
         'Label13
@@ -515,7 +514,7 @@ Partial Class SSCPFCEWork
         Me.TPTitleVACC.Controls.Add(Me.PanelFCE3)
         Me.TPTitleVACC.Location = New System.Drawing.Point(4, 22)
         Me.TPTitleVACC.Name = "TPTitleVACC"
-        Me.TPTitleVACC.Size = New System.Drawing.Size(784, 190)
+        Me.TPTitleVACC.Size = New System.Drawing.Size(849, 181)
         Me.TPTitleVACC.TabIndex = 2
         Me.TPTitleVACC.Text = "Title V Annual Certification"
         Me.TPTitleVACC.UseVisualStyleBackColor = True
@@ -528,7 +527,7 @@ Partial Class SSCPFCEWork
         Me.dgrFCEACC.Location = New System.Drawing.Point(0, 40)
         Me.dgrFCEACC.Name = "dgrFCEACC"
         Me.dgrFCEACC.ReadOnly = True
-        Me.dgrFCEACC.Size = New System.Drawing.Size(784, 150)
+        Me.dgrFCEACC.Size = New System.Drawing.Size(849, 141)
         Me.dgrFCEACC.TabIndex = 3
         '
         'PanelFCE3
@@ -539,7 +538,7 @@ Partial Class SSCPFCEWork
         Me.PanelFCE3.Dock = System.Windows.Forms.DockStyle.Top
         Me.PanelFCE3.Location = New System.Drawing.Point(0, 0)
         Me.PanelFCE3.Name = "PanelFCE3"
-        Me.PanelFCE3.Size = New System.Drawing.Size(784, 40)
+        Me.PanelFCE3.Size = New System.Drawing.Size(849, 40)
         Me.PanelFCE3.TabIndex = 1
         '
         'llbFCEACC
@@ -578,7 +577,7 @@ Partial Class SSCPFCEWork
         Me.TPReports.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TPReports.Location = New System.Drawing.Point(4, 22)
         Me.TPReports.Name = "TPReports"
-        Me.TPReports.Size = New System.Drawing.Size(784, 190)
+        Me.TPReports.Size = New System.Drawing.Size(849, 181)
         Me.TPReports.TabIndex = 1
         Me.TPReports.Text = "Reports"
         Me.TPReports.UseVisualStyleBackColor = True
@@ -592,7 +591,7 @@ Partial Class SSCPFCEWork
         Me.dgrFCEReports.Location = New System.Drawing.Point(0, 40)
         Me.dgrFCEReports.Name = "dgrFCEReports"
         Me.dgrFCEReports.ReadOnly = True
-        Me.dgrFCEReports.Size = New System.Drawing.Size(784, 150)
+        Me.dgrFCEReports.Size = New System.Drawing.Size(849, 141)
         Me.dgrFCEReports.TabIndex = 2
         '
         'PanelFCE2
@@ -603,7 +602,7 @@ Partial Class SSCPFCEWork
         Me.PanelFCE2.Dock = System.Windows.Forms.DockStyle.Top
         Me.PanelFCE2.Location = New System.Drawing.Point(0, 0)
         Me.PanelFCE2.Name = "PanelFCE2"
-        Me.PanelFCE2.Size = New System.Drawing.Size(784, 40)
+        Me.PanelFCE2.Size = New System.Drawing.Size(849, 40)
         Me.PanelFCE2.TabIndex = 0
         '
         'llbFCEReports
@@ -641,7 +640,7 @@ Partial Class SSCPFCEWork
         Me.TPISMPSummaryReports.Controls.Add(Me.PanelFCE5)
         Me.TPISMPSummaryReports.Location = New System.Drawing.Point(4, 22)
         Me.TPISMPSummaryReports.Name = "TPISMPSummaryReports"
-        Me.TPISMPSummaryReports.Size = New System.Drawing.Size(784, 190)
+        Me.TPISMPSummaryReports.Size = New System.Drawing.Size(849, 181)
         Me.TPISMPSummaryReports.TabIndex = 4
         Me.TPISMPSummaryReports.Text = "ISMP Summary Reports"
         Me.TPISMPSummaryReports.UseVisualStyleBackColor = True
@@ -655,7 +654,7 @@ Partial Class SSCPFCEWork
         Me.dgrISMPSummaryReports.Location = New System.Drawing.Point(0, 40)
         Me.dgrISMPSummaryReports.Name = "dgrISMPSummaryReports"
         Me.dgrISMPSummaryReports.ReadOnly = True
-        Me.dgrISMPSummaryReports.Size = New System.Drawing.Size(784, 150)
+        Me.dgrISMPSummaryReports.Size = New System.Drawing.Size(849, 141)
         Me.dgrISMPSummaryReports.TabIndex = 4
         '
         'PanelFCE5
@@ -666,7 +665,7 @@ Partial Class SSCPFCEWork
         Me.PanelFCE5.Dock = System.Windows.Forms.DockStyle.Top
         Me.PanelFCE5.Location = New System.Drawing.Point(0, 0)
         Me.PanelFCE5.Name = "PanelFCE5"
-        Me.PanelFCE5.Size = New System.Drawing.Size(784, 40)
+        Me.PanelFCE5.Size = New System.Drawing.Size(849, 40)
         Me.PanelFCE5.TabIndex = 2
         '
         'llbISMPSummaryReports
@@ -704,7 +703,7 @@ Partial Class SSCPFCEWork
         Me.TPPerformanceTests.Controls.Add(Me.PanelPerformanceTests)
         Me.TPPerformanceTests.Location = New System.Drawing.Point(4, 22)
         Me.TPPerformanceTests.Name = "TPPerformanceTests"
-        Me.TPPerformanceTests.Size = New System.Drawing.Size(784, 190)
+        Me.TPPerformanceTests.Size = New System.Drawing.Size(849, 181)
         Me.TPPerformanceTests.TabIndex = 6
         Me.TPPerformanceTests.Text = "PerformanceTest Reviews"
         Me.TPPerformanceTests.UseVisualStyleBackColor = True
@@ -718,7 +717,7 @@ Partial Class SSCPFCEWork
         Me.dgrPerformanceTests.Location = New System.Drawing.Point(0, 40)
         Me.dgrPerformanceTests.Name = "dgrPerformanceTests"
         Me.dgrPerformanceTests.ReadOnly = True
-        Me.dgrPerformanceTests.Size = New System.Drawing.Size(784, 150)
+        Me.dgrPerformanceTests.Size = New System.Drawing.Size(849, 141)
         Me.dgrPerformanceTests.TabIndex = 4
         '
         'PanelPerformanceTests
@@ -729,7 +728,7 @@ Partial Class SSCPFCEWork
         Me.PanelPerformanceTests.Dock = System.Windows.Forms.DockStyle.Top
         Me.PanelPerformanceTests.Location = New System.Drawing.Point(0, 0)
         Me.PanelPerformanceTests.Name = "PanelPerformanceTests"
-        Me.PanelPerformanceTests.Size = New System.Drawing.Size(784, 40)
+        Me.PanelPerformanceTests.Size = New System.Drawing.Size(849, 40)
         Me.PanelPerformanceTests.TabIndex = 2
         '
         'llbPerformanceTests
@@ -767,7 +766,7 @@ Partial Class SSCPFCEWork
         Me.TPEnforcement.Controls.Add(Me.PanelEnforcement)
         Me.TPEnforcement.Location = New System.Drawing.Point(4, 22)
         Me.TPEnforcement.Name = "TPEnforcement"
-        Me.TPEnforcement.Size = New System.Drawing.Size(784, 190)
+        Me.TPEnforcement.Size = New System.Drawing.Size(849, 181)
         Me.TPEnforcement.TabIndex = 5
         Me.TPEnforcement.Text = "Enforcement"
         Me.TPEnforcement.UseVisualStyleBackColor = True
@@ -780,7 +779,7 @@ Partial Class SSCPFCEWork
         Me.dgrFCEEnforcement.Location = New System.Drawing.Point(0, 40)
         Me.dgrFCEEnforcement.Name = "dgrFCEEnforcement"
         Me.dgrFCEEnforcement.ReadOnly = True
-        Me.dgrFCEEnforcement.Size = New System.Drawing.Size(784, 150)
+        Me.dgrFCEEnforcement.Size = New System.Drawing.Size(849, 141)
         Me.dgrFCEEnforcement.TabIndex = 2
         '
         'PanelEnforcement
@@ -791,7 +790,7 @@ Partial Class SSCPFCEWork
         Me.PanelEnforcement.Dock = System.Windows.Forms.DockStyle.Top
         Me.PanelEnforcement.Location = New System.Drawing.Point(0, 0)
         Me.PanelEnforcement.Name = "PanelEnforcement"
-        Me.PanelEnforcement.Size = New System.Drawing.Size(784, 40)
+        Me.PanelEnforcement.Size = New System.Drawing.Size(849, 40)
         Me.PanelEnforcement.TabIndex = 0
         '
         'llbFCEEnforcement
@@ -823,136 +822,119 @@ Partial Class SSCPFCEWork
         Me.Label16.TabIndex = 6
         Me.Label16.Text = "Enforcement Number:"
         '
-        'GroupBox2
+        'FceDataGroup
         '
-        Me.GroupBox2.Controls.Add(Me.btnPrintTest)
-        Me.GroupBox2.Controls.Add(Me.GroupBox1)
-        Me.GroupBox2.Controls.Add(Me.cboReviewer)
-        Me.GroupBox2.Controls.Add(Me.txtFCENumber)
-        Me.GroupBox2.Controls.Add(Me.GroupBox3)
-        Me.GroupBox2.Controls.Add(Me.txtFCEComments)
-        Me.GroupBox2.Controls.Add(Me.Label8)
-        Me.GroupBox2.Controls.Add(Me.DTPFCECompleteDate)
-        Me.GroupBox2.Controls.Add(Me.Label7)
-        Me.GroupBox2.Controls.Add(Me.Label2)
-        Me.GroupBox2.Controls.Add(Me.Label9)
-        Me.GroupBox2.Controls.Add(Me.cboFCEYear)
-        Me.GroupBox2.Dock = System.Windows.Forms.DockStyle.Top
-        Me.GroupBox2.Location = New System.Drawing.Point(3, 103)
-        Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(863, 168)
-        Me.GroupBox2.TabIndex = 237
-        Me.GroupBox2.TabStop = False
-        Me.GroupBox2.Text = "Final Compliance Status"
+        Me.FceDataGroup.Controls.Add(Me.CompleteOrIncomplete)
+        Me.FceDataGroup.Controls.Add(Me.OnsiteOrOffsite)
+        Me.FceDataGroup.Controls.Add(Me.cboReviewer)
+        Me.FceDataGroup.Controls.Add(Me.txtFCENumber)
+        Me.FceDataGroup.Controls.Add(Me.txtFCEComments)
+        Me.FceDataGroup.Controls.Add(Me.Label8)
+        Me.FceDataGroup.Controls.Add(Me.DTPFCECompleteDate)
+        Me.FceDataGroup.Controls.Add(Me.Label7)
+        Me.FceDataGroup.Controls.Add(Me.Label2)
+        Me.FceDataGroup.Controls.Add(Me.Label9)
+        Me.FceDataGroup.Controls.Add(Me.cboFCEYear)
+        Me.FceDataGroup.Dock = System.Windows.Forms.DockStyle.Top
+        Me.FceDataGroup.Location = New System.Drawing.Point(3, 103)
+        Me.FceDataGroup.Name = "FceDataGroup"
+        Me.FceDataGroup.Size = New System.Drawing.Size(863, 126)
+        Me.FceDataGroup.TabIndex = 0
+        Me.FceDataGroup.TabStop = False
+        Me.FceDataGroup.Text = "FCE Entry"
         '
-        'btnPrintTest
+        'OnsiteOrOffsite
         '
-        Me.btnPrintTest.Location = New System.Drawing.Point(782, 137)
-        Me.btnPrintTest.Name = "btnPrintTest"
-        Me.btnPrintTest.Size = New System.Drawing.Size(75, 23)
-        Me.btnPrintTest.TabIndex = 243
-        Me.btnPrintTest.Text = "Print Test"
-        Me.btnPrintTest.UseVisualStyleBackColor = True
-        Me.btnPrintTest.Visible = False
-        '
-        'GroupBox1
-        '
-        Me.GroupBox1.Controls.Add(Me.rdbFCENoOnsite)
-        Me.GroupBox1.Controls.Add(Me.rdbFCEOnSite)
-        Me.GroupBox1.Controls.Add(Me.TextBox1)
-        Me.GroupBox1.Location = New System.Drawing.Point(69, 43)
-        Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(202, 55)
-        Me.GroupBox1.TabIndex = 111
-        Me.GroupBox1.TabStop = False
+        Me.OnsiteOrOffsite.Controls.Add(Me.rdbFCENoOnsite)
+        Me.OnsiteOrOffsite.Controls.Add(Me.rdbFCEOnSite)
+        Me.OnsiteOrOffsite.Location = New System.Drawing.Point(280, 6)
+        Me.OnsiteOrOffsite.Name = "OnsiteOrOffsite"
+        Me.OnsiteOrOffsite.Size = New System.Drawing.Size(166, 62)
+        Me.OnsiteOrOffsite.TabIndex = 3
+        Me.OnsiteOrOffsite.TabStop = False
         '
         'rdbFCENoOnsite
         '
         Me.rdbFCENoOnsite.AutoSize = True
-        Me.rdbFCENoOnsite.Location = New System.Drawing.Point(6, 31)
+        Me.rdbFCENoOnsite.Location = New System.Drawing.Point(6, 42)
         Me.rdbFCENoOnsite.Name = "rdbFCENoOnsite"
-        Me.rdbFCENoOnsite.Size = New System.Drawing.Size(177, 17)
-        Me.rdbFCENoOnsite.TabIndex = 9
-        Me.rdbFCENoOnsite.Text = "FF - No On-site Inspection Done"
+        Me.rdbFCENoOnsite.Size = New System.Drawing.Size(133, 17)
+        Me.rdbFCENoOnsite.TabIndex = 1
+        Me.rdbFCENoOnsite.Text = "FCE without inspection"
         '
         'rdbFCEOnSite
         '
         Me.rdbFCEOnSite.AutoSize = True
-        Me.rdbFCEOnSite.Location = New System.Drawing.Point(6, 8)
+        Me.rdbFCEOnSite.Location = New System.Drawing.Point(6, 19)
         Me.rdbFCEOnSite.Name = "rdbFCEOnSite"
-        Me.rdbFCEOnSite.Size = New System.Drawing.Size(161, 17)
-        Me.rdbFCEOnSite.TabIndex = 8
-        Me.rdbFCEOnSite.Text = "FS - On-site Inspection Done"
-        '
-        'TextBox1
-        '
-        Me.TextBox1.Font = New System.Drawing.Font("Microsoft Sans Serif", 3.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TextBox1.Location = New System.Drawing.Point(168, 8)
-        Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.Size = New System.Drawing.Size(1, 13)
-        Me.TextBox1.TabIndex = 8
+        Me.rdbFCEOnSite.Size = New System.Drawing.Size(152, 17)
+        Me.rdbFCEOnSite.TabIndex = 0
+        Me.rdbFCEOnSite.Text = "FCE with on-site inspection"
         '
         'cboReviewer
         '
         Me.cboReviewer.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cboReviewer.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cboReviewer.Location = New System.Drawing.Point(406, 17)
+        Me.cboReviewer.Location = New System.Drawing.Point(101, 40)
         Me.cboReviewer.Name = "cboReviewer"
         Me.cboReviewer.Size = New System.Drawing.Size(160, 21)
-        Me.cboReviewer.TabIndex = 110
+        Me.cboReviewer.TabIndex = 1
         '
         'txtFCENumber
         '
         Me.txtFCENumber.Enabled = False
         Me.txtFCENumber.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtFCENumber.Location = New System.Drawing.Point(185, 17)
+        Me.txtFCENumber.Location = New System.Drawing.Point(208, 13)
         Me.txtFCENumber.Name = "txtFCENumber"
         Me.txtFCENumber.ReadOnly = True
         Me.txtFCENumber.Size = New System.Drawing.Size(53, 22)
         Me.txtFCENumber.TabIndex = 8
         '
-        'GroupBox3
+        'CompleteOrIncomplete
         '
-        Me.GroupBox3.Controls.Add(Me.rdbFCEIncomplete)
-        Me.GroupBox3.Controls.Add(Me.rdbFCEComplete)
-        Me.GroupBox3.Location = New System.Drawing.Point(618, 12)
-        Me.GroupBox3.Name = "GroupBox3"
-        Me.GroupBox3.Size = New System.Drawing.Size(160, 26)
-        Me.GroupBox3.TabIndex = 7
-        Me.GroupBox3.TabStop = False
-        Me.GroupBox3.Visible = False
+        Me.CompleteOrIncomplete.Controls.Add(Me.rdbFCEIncomplete)
+        Me.CompleteOrIncomplete.Controls.Add(Me.rdbFCEComplete)
+        Me.CompleteOrIncomplete.Location = New System.Drawing.Point(571, 62)
+        Me.CompleteOrIncomplete.Name = "CompleteOrIncomplete"
+        Me.CompleteOrIncomplete.Size = New System.Drawing.Size(87, 58)
+        Me.CompleteOrIncomplete.TabIndex = 5
+        Me.CompleteOrIncomplete.TabStop = False
+        Me.CompleteOrIncomplete.Text = "Deprecated"
+        Me.CompleteOrIncomplete.Visible = False
         '
         'rdbFCEIncomplete
         '
-        Me.rdbFCEIncomplete.Location = New System.Drawing.Point(76, 8)
+        Me.rdbFCEIncomplete.Location = New System.Drawing.Point(6, 41)
         Me.rdbFCEIncomplete.Name = "rdbFCEIncomplete"
         Me.rdbFCEIncomplete.Size = New System.Drawing.Size(78, 16)
         Me.rdbFCEIncomplete.TabIndex = 9
         Me.rdbFCEIncomplete.Text = "Incomplete"
+        Me.rdbFCEIncomplete.Visible = False
         '
         'rdbFCEComplete
         '
         Me.rdbFCEComplete.Checked = True
-        Me.rdbFCEComplete.Location = New System.Drawing.Point(8, 8)
+        Me.rdbFCEComplete.Location = New System.Drawing.Point(6, 19)
         Me.rdbFCEComplete.Name = "rdbFCEComplete"
         Me.rdbFCEComplete.Size = New System.Drawing.Size(72, 16)
         Me.rdbFCEComplete.TabIndex = 8
         Me.rdbFCEComplete.TabStop = True
         Me.rdbFCEComplete.Text = "Complete"
+        Me.rdbFCEComplete.Visible = False
         '
         'txtFCEComments
         '
         Me.txtFCEComments.AcceptsReturn = True
-        Me.txtFCEComments.Location = New System.Drawing.Point(69, 104)
+        Me.txtFCEComments.Location = New System.Drawing.Point(476, 31)
         Me.txtFCEComments.Multiline = True
         Me.txtFCEComments.Name = "txtFCEComments"
-        Me.txtFCEComments.Size = New System.Drawing.Size(709, 56)
-        Me.txtFCEComments.TabIndex = 6
+        Me.txtFCEComments.Size = New System.Drawing.Size(384, 56)
+        Me.txtFCEComments.TabIndex = 4
         '
         'Label8
         '
         Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(8, 104)
+        Me.Label8.Location = New System.Drawing.Point(473, 15)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(59, 13)
         Me.Label8.TabIndex = 5
@@ -963,37 +945,37 @@ Partial Class SSCPFCEWork
         Me.DTPFCECompleteDate.CalendarFont = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.DTPFCECompleteDate.Checked = False
         Me.DTPFCECompleteDate.CustomFormat = "dd-MMM-yyyy"
-        Me.DTPFCECompleteDate.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.DTPFCECompleteDate.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.DTPFCECompleteDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DTPFCECompleteDate.Location = New System.Drawing.Point(406, 48)
+        Me.DTPFCECompleteDate.Location = New System.Drawing.Point(101, 65)
         Me.DTPFCECompleteDate.Name = "DTPFCECompleteDate"
-        Me.DTPFCECompleteDate.Size = New System.Drawing.Size(113, 22)
-        Me.DTPFCECompleteDate.TabIndex = 4
+        Me.DTPFCECompleteDate.Size = New System.Drawing.Size(101, 20)
+        Me.DTPFCECompleteDate.TabIndex = 2
         Me.DTPFCECompleteDate.Value = New Date(2005, 9, 9, 0, 0, 0, 0)
         '
         'Label7
         '
         Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(288, 53)
+        Me.Label7.Location = New System.Drawing.Point(6, 70)
         Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(112, 13)
+        Me.Label7.Size = New System.Drawing.Size(89, 13)
         Me.Label7.TabIndex = 0
-        Me.Label7.Text = "Date FCE Completed: "
+        Me.Label7.Text = "Date Completed: "
         '
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(288, 21)
+        Me.Label2.Location = New System.Drawing.Point(6, 43)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(96, 13)
+        Me.Label2.Size = New System.Drawing.Size(73, 13)
         Me.Label2.TabIndex = 73
-        Me.Label2.Text = "FCE Reviewed By:"
+        Me.Label2.Text = "Reviewed By:"
         Me.Label2.TextAlign = System.Drawing.ContentAlignment.BottomLeft
         '
         'Label9
         '
         Me.Label9.AutoSize = True
-        Me.Label9.Location = New System.Drawing.Point(8, 21)
+        Me.Label9.Location = New System.Drawing.Point(6, 16)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(55, 13)
         Me.Label9.TabIndex = 104
@@ -1002,15 +984,15 @@ Partial Class SSCPFCEWork
         '
         'cboFCEYear
         '
-        Me.cboFCEYear.Location = New System.Drawing.Point(69, 17)
+        Me.cboFCEYear.Location = New System.Drawing.Point(101, 13)
         Me.cboFCEYear.Name = "cboFCEYear"
-        Me.cboFCEYear.Size = New System.Drawing.Size(107, 21)
-        Me.cboFCEYear.TabIndex = 2
+        Me.cboFCEYear.Size = New System.Drawing.Size(101, 21)
+        Me.cboFCEYear.TabIndex = 0
         '
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(168, 7)
+        Me.Label4.Location = New System.Drawing.Point(169, 7)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(55, 13)
         Me.Label4.TabIndex = 109
@@ -1019,7 +1001,7 @@ Partial Class SSCPFCEWork
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(8, 7)
+        Me.Label3.Location = New System.Drawing.Point(3, 7)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(58, 13)
         Me.Label3.TabIndex = 108
@@ -1029,7 +1011,7 @@ Partial Class SSCPFCEWork
         '
         Me.DTPFilterStartDate.CustomFormat = "dd-MMM-yyyy"
         Me.DTPFilterStartDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DTPFilterStartDate.Location = New System.Drawing.Point(72, 5)
+        Me.DTPFilterStartDate.Location = New System.Drawing.Point(67, 3)
         Me.DTPFilterStartDate.Name = "DTPFilterStartDate"
         Me.DTPFilterStartDate.Size = New System.Drawing.Size(96, 20)
         Me.DTPFilterStartDate.TabIndex = 107
@@ -1039,7 +1021,7 @@ Partial Class SSCPFCEWork
         '
         Me.DTPFilterEndDate.CustomFormat = "dd-MMM-yyyy"
         Me.DTPFilterEndDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DTPFilterEndDate.Location = New System.Drawing.Point(224, 5)
+        Me.DTPFilterEndDate.Location = New System.Drawing.Point(230, 3)
         Me.DTPFilterEndDate.Name = "DTPFilterEndDate"
         Me.DTPFilterEndDate.Size = New System.Drawing.Size(96, 20)
         Me.DTPFilterEndDate.TabIndex = 106
@@ -1048,68 +1030,13 @@ Partial Class SSCPFCEWork
         'llbViewFCEData
         '
         Me.llbViewFCEData.AutoSize = True
-        Me.llbViewFCEData.Location = New System.Drawing.Point(320, 7)
+        Me.llbViewFCEData.Location = New System.Drawing.Point(332, 7)
         Me.llbViewFCEData.Name = "llbViewFCEData"
         Me.llbViewFCEData.Size = New System.Drawing.Size(56, 13)
         Me.llbViewFCEData.TabIndex = 105
         Me.llbViewFCEData.TabStop = True
         Me.llbViewFCEData.Text = "View Data"
         Me.llbViewFCEData.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
-        'txtFacilityInformation
-        '
-        Me.txtFacilityInformation.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.txtFacilityInformation.Location = New System.Drawing.Point(107, 6)
-        Me.txtFacilityInformation.Multiline = True
-        Me.txtFacilityInformation.Name = "txtFacilityInformation"
-        Me.txtFacilityInformation.ReadOnly = True
-        Me.txtFacilityInformation.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.txtFacilityInformation.Size = New System.Drawing.Size(742, 83)
-        Me.txtFacilityInformation.TabIndex = 236
-        '
-        'labReferenceNumber
-        '
-        Me.labReferenceNumber.AutoSize = True
-        Me.labReferenceNumber.Location = New System.Drawing.Point(4, 14)
-        Me.labReferenceNumber.Name = "labReferenceNumber"
-        Me.labReferenceNumber.Size = New System.Drawing.Size(97, 13)
-        Me.labReferenceNumber.TabIndex = 235
-        Me.labReferenceNumber.Text = "Facility Information:"
-        Me.labReferenceNumber.TextAlign = System.Drawing.ContentAlignment.BottomLeft
-        '
-        'Panel4
-        '
-        Me.Panel4.Controls.Add(Me.TCFCEData)
-        Me.Panel4.Controls.Add(Me.Panel6)
-        Me.Panel4.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Panel4.Location = New System.Drawing.Point(3, 271)
-        Me.Panel4.Name = "Panel4"
-        Me.Panel4.Size = New System.Drawing.Size(863, 292)
-        Me.Panel4.TabIndex = 241
-        '
-        'Panel6
-        '
-        Me.Panel6.Controls.Add(Me.DTPFilterStartDate)
-        Me.Panel6.Controls.Add(Me.Label3)
-        Me.Panel6.Controls.Add(Me.DTPFilterEndDate)
-        Me.Panel6.Controls.Add(Me.llbViewFCEData)
-        Me.Panel6.Controls.Add(Me.Label4)
-        Me.Panel6.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Panel6.Location = New System.Drawing.Point(0, 0)
-        Me.Panel6.Name = "Panel6"
-        Me.Panel6.Size = New System.Drawing.Size(863, 31)
-        Me.Panel6.TabIndex = 239
-        '
-        'Panel5
-        '
-        Me.Panel5.Controls.Add(Me.txtFacilityInformation)
-        Me.Panel5.Controls.Add(Me.labReferenceNumber)
-        Me.Panel5.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Panel5.Location = New System.Drawing.Point(3, 3)
-        Me.Panel5.Name = "Panel5"
-        Me.Panel5.Size = New System.Drawing.Size(863, 100)
-        Me.Panel5.TabIndex = 242
         '
         'TabControlFCE
         '
@@ -1124,9 +1051,9 @@ Partial Class SSCPFCEWork
         '
         'TabPageFCEData
         '
-        Me.TabPageFCEData.Controls.Add(Me.Panel4)
-        Me.TabPageFCEData.Controls.Add(Me.GroupBox2)
-        Me.TabPageFCEData.Controls.Add(Me.Panel5)
+        Me.TabPageFCEData.Controls.Add(Me.FceDataGroup)
+        Me.TabPageFCEData.Controls.Add(Me.FacilityInfoPanel)
+        Me.TabPageFCEData.Controls.Add(Me.ReviewDataGroup)
         Me.TabPageFCEData.Location = New System.Drawing.Point(4, 22)
         Me.TabPageFCEData.Name = "TabPageFCEData"
         Me.TabPageFCEData.Padding = New System.Windows.Forms.Padding(3)
@@ -1134,6 +1061,63 @@ Partial Class SSCPFCEWork
         Me.TabPageFCEData.TabIndex = 0
         Me.TabPageFCEData.Text = "FCE Data"
         Me.TabPageFCEData.UseVisualStyleBackColor = True
+        '
+        'FacilityInfoPanel
+        '
+        Me.FacilityInfoPanel.Controls.Add(Me.txtFacilityInformation)
+        Me.FacilityInfoPanel.Controls.Add(Me.labReferenceNumber)
+        Me.FacilityInfoPanel.Dock = System.Windows.Forms.DockStyle.Top
+        Me.FacilityInfoPanel.Location = New System.Drawing.Point(3, 3)
+        Me.FacilityInfoPanel.Name = "FacilityInfoPanel"
+        Me.FacilityInfoPanel.Size = New System.Drawing.Size(863, 100)
+        Me.FacilityInfoPanel.TabIndex = 242
+        '
+        'txtFacilityInformation
+        '
+        Me.txtFacilityInformation.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.txtFacilityInformation.Location = New System.Drawing.Point(107, 6)
+        Me.txtFacilityInformation.Multiline = True
+        Me.txtFacilityInformation.Name = "txtFacilityInformation"
+        Me.txtFacilityInformation.ReadOnly = True
+        Me.txtFacilityInformation.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
+        Me.txtFacilityInformation.Size = New System.Drawing.Size(753, 83)
+        Me.txtFacilityInformation.TabIndex = 236
+        '
+        'labReferenceNumber
+        '
+        Me.labReferenceNumber.AutoSize = True
+        Me.labReferenceNumber.Location = New System.Drawing.Point(4, 14)
+        Me.labReferenceNumber.Name = "labReferenceNumber"
+        Me.labReferenceNumber.Size = New System.Drawing.Size(97, 13)
+        Me.labReferenceNumber.TabIndex = 235
+        Me.labReferenceNumber.Text = "Facility Information:"
+        Me.labReferenceNumber.TextAlign = System.Drawing.ContentAlignment.BottomLeft
+        '
+        'ReviewDataGroup
+        '
+        Me.ReviewDataGroup.Controls.Add(Me.ReviewDataSelectorPanel)
+        Me.ReviewDataGroup.Controls.Add(Me.ReviewDataTabs)
+        Me.ReviewDataGroup.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.ReviewDataGroup.Location = New System.Drawing.Point(3, 308)
+        Me.ReviewDataGroup.Name = "ReviewDataGroup"
+        Me.ReviewDataGroup.Size = New System.Drawing.Size(863, 255)
+        Me.ReviewDataGroup.TabIndex = 1
+        Me.ReviewDataGroup.TabStop = False
+        Me.ReviewDataGroup.Text = "Review Facility Data"
+        '
+        'ReviewDataSelectorPanel
+        '
+        Me.ReviewDataSelectorPanel.Controls.Add(Me.Label3)
+        Me.ReviewDataSelectorPanel.Controls.Add(Me.DTPFilterEndDate)
+        Me.ReviewDataSelectorPanel.Controls.Add(Me.DTPFilterStartDate)
+        Me.ReviewDataSelectorPanel.Controls.Add(Me.llbViewFCEData)
+        Me.ReviewDataSelectorPanel.Controls.Add(Me.Label4)
+        Me.ReviewDataSelectorPanel.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.ReviewDataSelectorPanel.Location = New System.Drawing.Point(3, 16)
+        Me.ReviewDataSelectorPanel.Name = "ReviewDataSelectorPanel"
+        Me.ReviewDataSelectorPanel.Size = New System.Drawing.Size(857, 29)
+        Me.ReviewDataSelectorPanel.TabIndex = 3
         '
         'TabPageFCEPrint
         '
@@ -1177,7 +1161,7 @@ Partial Class SSCPFCEWork
         Me.Text = "Full Compliance Evaluation"
         Me.StatusStrip1.ResumeLayout(False)
         Me.StatusStrip1.PerformLayout()
-        Me.TCFCEData.ResumeLayout(False)
+        Me.ReviewDataTabs.ResumeLayout(False)
         Me.TPInspections.ResumeLayout(False)
         CType(Me.dgrFCEInspections, System.ComponentModel.ISupportInitialize).EndInit()
         Me.PanelFCE.ResumeLayout(False)
@@ -1207,18 +1191,18 @@ Partial Class SSCPFCEWork
         CType(Me.dgrFCEEnforcement, System.ComponentModel.ISupportInitialize).EndInit()
         Me.PanelEnforcement.ResumeLayout(False)
         Me.PanelEnforcement.PerformLayout()
-        Me.GroupBox2.ResumeLayout(False)
-        Me.GroupBox2.PerformLayout()
-        Me.GroupBox1.ResumeLayout(False)
-        Me.GroupBox1.PerformLayout()
-        Me.GroupBox3.ResumeLayout(False)
-        Me.Panel4.ResumeLayout(False)
-        Me.Panel6.ResumeLayout(False)
-        Me.Panel6.PerformLayout()
-        Me.Panel5.ResumeLayout(False)
-        Me.Panel5.PerformLayout()
+        Me.FceDataGroup.ResumeLayout(False)
+        Me.FceDataGroup.PerformLayout()
+        Me.OnsiteOrOffsite.ResumeLayout(False)
+        Me.OnsiteOrOffsite.PerformLayout()
+        Me.CompleteOrIncomplete.ResumeLayout(False)
         Me.TabControlFCE.ResumeLayout(False)
         Me.TabPageFCEData.ResumeLayout(False)
+        Me.FacilityInfoPanel.ResumeLayout(False)
+        Me.FacilityInfoPanel.PerformLayout()
+        Me.ReviewDataGroup.ResumeLayout(False)
+        Me.ReviewDataSelectorPanel.ResumeLayout(False)
+        Me.ReviewDataSelectorPanel.PerformLayout()
         Me.TabPageFCEPrint.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
@@ -1226,7 +1210,6 @@ Partial Class SSCPFCEWork
     End Sub
     Friend WithEvents StatusStrip1 As System.Windows.Forms.StatusStrip
     Friend WithEvents ToolStripProgressBar1 As System.Windows.Forms.ToolStripProgressBar
-    Friend WithEvents Panel1 As System.Windows.Forms.ToolStripStatusLabel
     Friend WithEvents Panel2 As System.Windows.Forms.ToolStripStatusLabel
     Friend WithEvents Panel3 As System.Windows.Forms.ToolStripStatusLabel
     Friend WithEvents Image_List_All As System.Windows.Forms.ImageList
@@ -1239,7 +1222,7 @@ Partial Class SSCPFCEWork
     Friend WithEvents TbbPrint As System.Windows.Forms.ToolBarButton
     Friend WithEvents txtOrigin As System.Windows.Forms.TextBox
     Friend WithEvents txtAirsNumber As System.Windows.Forms.TextBox
-    Friend WithEvents TCFCEData As System.Windows.Forms.TabControl
+    Friend WithEvents ReviewDataTabs As System.Windows.Forms.TabControl
     Friend WithEvents TPInspections As System.Windows.Forms.TabPage
     Friend WithEvents dgrFCEInspections As System.Windows.Forms.DataGrid
     Friend WithEvents PanelFCE As System.Windows.Forms.Panel
@@ -1283,40 +1266,39 @@ Partial Class SSCPFCEWork
     Friend WithEvents llbFCEEnforcement As System.Windows.Forms.LinkLabel
     Friend WithEvents txtEnforcement As System.Windows.Forms.TextBox
     Friend WithEvents Label16 As System.Windows.Forms.Label
-    Friend WithEvents GroupBox2 As System.Windows.Forms.GroupBox
-    Friend WithEvents GroupBox1 As System.Windows.Forms.GroupBox
+    Friend WithEvents FceDataGroup As System.Windows.Forms.GroupBox
+    Friend WithEvents OnsiteOrOffsite As System.Windows.Forms.GroupBox
     Friend WithEvents rdbFCENoOnsite As System.Windows.Forms.RadioButton
     Friend WithEvents rdbFCEOnSite As System.Windows.Forms.RadioButton
-    Friend WithEvents TextBox1 As System.Windows.Forms.TextBox
     Friend WithEvents cboReviewer As System.Windows.Forms.ComboBox
     Friend WithEvents Label4 As System.Windows.Forms.Label
     Friend WithEvents txtFCENumber As System.Windows.Forms.TextBox
     Friend WithEvents Label3 As System.Windows.Forms.Label
     Friend WithEvents DTPFilterStartDate As System.Windows.Forms.DateTimePicker
     Friend WithEvents DTPFilterEndDate As System.Windows.Forms.DateTimePicker
-    Friend WithEvents GroupBox3 As System.Windows.Forms.GroupBox
+    Friend WithEvents CompleteOrIncomplete As System.Windows.Forms.GroupBox
     Friend WithEvents rdbFCEIncomplete As System.Windows.Forms.RadioButton
     Friend WithEvents rdbFCEComplete As System.Windows.Forms.RadioButton
     Friend WithEvents txtFCEComments As System.Windows.Forms.TextBox
     Friend WithEvents Label8 As System.Windows.Forms.Label
-    Friend WithEvents DTPFCECompleteDate As System.Windows.Forms.DateTimePicker
     Friend WithEvents Label7 As System.Windows.Forms.Label
     Friend WithEvents Label2 As System.Windows.Forms.Label
     Friend WithEvents Label9 As System.Windows.Forms.Label
     Friend WithEvents cboFCEYear As System.Windows.Forms.ComboBox
     Friend WithEvents llbViewFCEData As System.Windows.Forms.LinkLabel
-    Friend WithEvents txtFacilityInformation As System.Windows.Forms.TextBox
-    Friend WithEvents labReferenceNumber As System.Windows.Forms.Label
-    Friend WithEvents Panel4 As System.Windows.Forms.Panel
-    Friend WithEvents Panel5 As System.Windows.Forms.Panel
-    Friend WithEvents Panel6 As System.Windows.Forms.Panel
     Friend WithEvents TabControlFCE As System.Windows.Forms.TabControl
     Friend WithEvents TabPageFCEData As System.Windows.Forms.TabPage
     Friend WithEvents TabPage2 As System.Windows.Forms.TabPage
-    Friend WithEvents btnPrintTest As System.Windows.Forms.Button
     Friend WithEvents CRViewer As CrystalDecisions.Windows.Forms.CrystalReportViewer
     Friend WithEvents TabPageFCEPrint As System.Windows.Forms.TabPage
     Friend WithEvents TbbPring As System.Windows.Forms.ToolBarButton
     Friend WithEvents MenuPrint As System.Windows.Forms.MenuItem
     Friend WithEvents MenuClose As System.Windows.Forms.MenuItem
+    Friend WithEvents DTPFCECompleteDate As System.Windows.Forms.DateTimePicker
+    Friend WithEvents ReviewDataGroup As System.Windows.Forms.GroupBox
+    Friend WithEvents Panel1 As System.Windows.Forms.ToolStripStatusLabel
+    Friend WithEvents FacilityInfoPanel As System.Windows.Forms.Panel
+    Friend WithEvents txtFacilityInformation As System.Windows.Forms.TextBox
+    Friend WithEvents labReferenceNumber As System.Windows.Forms.Label
+    Friend WithEvents ReviewDataSelectorPanel As System.Windows.Forms.Panel
 End Class
