@@ -33,6 +33,7 @@ Partial Class SSCPFCEWork
         Me.MenuPrint = New System.Windows.Forms.MenuItem
         Me.MenuClose = New System.Windows.Forms.MenuItem
         Me.MenuHelp = New System.Windows.Forms.MenuItem
+        Me.MenuOpenHelp = New System.Windows.Forms.MenuItem
         Me.TBFCE = New System.Windows.Forms.ToolBar
         Me.TbbSave = New System.Windows.Forms.ToolBarButton
         Me.TbbPring = New System.Windows.Forms.ToolBarButton
@@ -83,14 +84,14 @@ Partial Class SSCPFCEWork
         Me.txtEnforcement = New System.Windows.Forms.TextBox
         Me.Label16 = New System.Windows.Forms.Label
         Me.FceDataGroup = New System.Windows.Forms.GroupBox
+        Me.CompleteOrIncomplete = New System.Windows.Forms.GroupBox
+        Me.rdbFCEIncomplete = New System.Windows.Forms.RadioButton
+        Me.rdbFCEComplete = New System.Windows.Forms.RadioButton
         Me.OnsiteOrOffsite = New System.Windows.Forms.GroupBox
         Me.rdbFCENoOnsite = New System.Windows.Forms.RadioButton
         Me.rdbFCEOnSite = New System.Windows.Forms.RadioButton
         Me.cboReviewer = New System.Windows.Forms.ComboBox
         Me.txtFCENumber = New System.Windows.Forms.TextBox
-        Me.CompleteOrIncomplete = New System.Windows.Forms.GroupBox
-        Me.rdbFCEIncomplete = New System.Windows.Forms.RadioButton
-        Me.rdbFCEComplete = New System.Windows.Forms.RadioButton
         Me.txtFCEComments = New System.Windows.Forms.TextBox
         Me.Label8 = New System.Windows.Forms.Label
         Me.DTPFCECompleteDate = New System.Windows.Forms.DateTimePicker
@@ -137,8 +138,8 @@ Partial Class SSCPFCEWork
         CType(Me.dgrFCEEnforcement, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PanelEnforcement.SuspendLayout()
         Me.FceDataGroup.SuspendLayout()
-        Me.OnsiteOrOffsite.SuspendLayout()
         Me.CompleteOrIncomplete.SuspendLayout()
+        Me.OnsiteOrOffsite.SuspendLayout()
         Me.TabControlFCE.SuspendLayout()
         Me.TabPageFCEData.SuspendLayout()
         Me.FacilityInfoPanel.SuspendLayout()
@@ -312,8 +313,15 @@ Partial Class SSCPFCEWork
         'MenuHelp
         '
         Me.MenuHelp.Index = 1
-        Me.MenuHelp.Shortcut = System.Windows.Forms.Shortcut.F1
+        Me.MenuHelp.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.MenuOpenHelp})
+        Me.MenuHelp.ShowShortcut = False
         Me.MenuHelp.Text = "&Help"
+        '
+        'MenuOpenHelp
+        '
+        Me.MenuOpenHelp.Index = 0
+        Me.MenuOpenHelp.Shortcut = System.Windows.Forms.Shortcut.F1
+        Me.MenuOpenHelp.Text = "Online &Help"
         '
         'TBFCE
         '
@@ -843,6 +851,38 @@ Partial Class SSCPFCEWork
         Me.FceDataGroup.TabStop = False
         Me.FceDataGroup.Text = "FCE Entry"
         '
+        'CompleteOrIncomplete
+        '
+        Me.CompleteOrIncomplete.Controls.Add(Me.rdbFCEIncomplete)
+        Me.CompleteOrIncomplete.Controls.Add(Me.rdbFCEComplete)
+        Me.CompleteOrIncomplete.Location = New System.Drawing.Point(571, 62)
+        Me.CompleteOrIncomplete.Name = "CompleteOrIncomplete"
+        Me.CompleteOrIncomplete.Size = New System.Drawing.Size(87, 58)
+        Me.CompleteOrIncomplete.TabIndex = 5
+        Me.CompleteOrIncomplete.TabStop = False
+        Me.CompleteOrIncomplete.Text = "Deprecated"
+        Me.CompleteOrIncomplete.Visible = False
+        '
+        'rdbFCEIncomplete
+        '
+        Me.rdbFCEIncomplete.Location = New System.Drawing.Point(6, 41)
+        Me.rdbFCEIncomplete.Name = "rdbFCEIncomplete"
+        Me.rdbFCEIncomplete.Size = New System.Drawing.Size(78, 16)
+        Me.rdbFCEIncomplete.TabIndex = 9
+        Me.rdbFCEIncomplete.Text = "Incomplete"
+        Me.rdbFCEIncomplete.Visible = False
+        '
+        'rdbFCEComplete
+        '
+        Me.rdbFCEComplete.Checked = True
+        Me.rdbFCEComplete.Location = New System.Drawing.Point(6, 19)
+        Me.rdbFCEComplete.Name = "rdbFCEComplete"
+        Me.rdbFCEComplete.Size = New System.Drawing.Size(72, 16)
+        Me.rdbFCEComplete.TabIndex = 8
+        Me.rdbFCEComplete.TabStop = True
+        Me.rdbFCEComplete.Text = "Complete"
+        Me.rdbFCEComplete.Visible = False
+        '
         'OnsiteOrOffsite
         '
         Me.OnsiteOrOffsite.Controls.Add(Me.rdbFCENoOnsite)
@@ -889,38 +929,6 @@ Partial Class SSCPFCEWork
         Me.txtFCENumber.ReadOnly = True
         Me.txtFCENumber.Size = New System.Drawing.Size(53, 22)
         Me.txtFCENumber.TabIndex = 8
-        '
-        'CompleteOrIncomplete
-        '
-        Me.CompleteOrIncomplete.Controls.Add(Me.rdbFCEIncomplete)
-        Me.CompleteOrIncomplete.Controls.Add(Me.rdbFCEComplete)
-        Me.CompleteOrIncomplete.Location = New System.Drawing.Point(571, 62)
-        Me.CompleteOrIncomplete.Name = "CompleteOrIncomplete"
-        Me.CompleteOrIncomplete.Size = New System.Drawing.Size(87, 58)
-        Me.CompleteOrIncomplete.TabIndex = 5
-        Me.CompleteOrIncomplete.TabStop = False
-        Me.CompleteOrIncomplete.Text = "Deprecated"
-        Me.CompleteOrIncomplete.Visible = False
-        '
-        'rdbFCEIncomplete
-        '
-        Me.rdbFCEIncomplete.Location = New System.Drawing.Point(6, 41)
-        Me.rdbFCEIncomplete.Name = "rdbFCEIncomplete"
-        Me.rdbFCEIncomplete.Size = New System.Drawing.Size(78, 16)
-        Me.rdbFCEIncomplete.TabIndex = 9
-        Me.rdbFCEIncomplete.Text = "Incomplete"
-        Me.rdbFCEIncomplete.Visible = False
-        '
-        'rdbFCEComplete
-        '
-        Me.rdbFCEComplete.Checked = True
-        Me.rdbFCEComplete.Location = New System.Drawing.Point(6, 19)
-        Me.rdbFCEComplete.Name = "rdbFCEComplete"
-        Me.rdbFCEComplete.Size = New System.Drawing.Size(72, 16)
-        Me.rdbFCEComplete.TabIndex = 8
-        Me.rdbFCEComplete.TabStop = True
-        Me.rdbFCEComplete.Text = "Complete"
-        Me.rdbFCEComplete.Visible = False
         '
         'txtFCEComments
         '
@@ -1193,9 +1201,9 @@ Partial Class SSCPFCEWork
         Me.PanelEnforcement.PerformLayout()
         Me.FceDataGroup.ResumeLayout(False)
         Me.FceDataGroup.PerformLayout()
+        Me.CompleteOrIncomplete.ResumeLayout(False)
         Me.OnsiteOrOffsite.ResumeLayout(False)
         Me.OnsiteOrOffsite.PerformLayout()
-        Me.CompleteOrIncomplete.ResumeLayout(False)
         Me.TabControlFCE.ResumeLayout(False)
         Me.TabPageFCEData.ResumeLayout(False)
         Me.FacilityInfoPanel.ResumeLayout(False)
@@ -1301,4 +1309,5 @@ Partial Class SSCPFCEWork
     Friend WithEvents txtFacilityInformation As System.Windows.Forms.TextBox
     Friend WithEvents labReferenceNumber As System.Windows.Forms.Label
     Friend WithEvents ReviewDataSelectorPanel As System.Windows.Forms.Panel
+    Friend WithEvents MenuOpenHelp As System.Windows.Forms.MenuItem
 End Class

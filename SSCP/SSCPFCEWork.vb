@@ -3058,8 +3058,8 @@ Public Class SSCPFCEWork
     Private Sub MenuClose_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MenuClose.Click
         Me.Close()
     End Sub
-    Private Sub MenuHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MenuHelp.Click
-        OpenHelpUrl(sender)
+    Private Sub MenuOpenHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MenuOpenHelp.Click
+        OpenHelpUrl(Me)
     End Sub
     Private Sub TBFCE_ButtonClick(ByVal sender As System.Object, ByVal e As System.Windows.Forms.ToolBarButtonClickEventArgs) Handles TBFCE.ButtonClick
         Select Case TBFCE.Buttons.IndexOf(e.Button)
