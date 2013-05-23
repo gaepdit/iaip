@@ -2171,6 +2171,7 @@
     <None Include="SFX\config.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="changelog.txt" />
     <Content Include="gaSeal.ico" />
     <Content Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>

@@ -1,0 +1,15 @@
+IAIP Changelog
+==============
+
+Version 2.6.2.8
+---------------
+
+Released 21-May-2013
+
++ Improved layout of data grid on Navigation Screen (#20)
+* Fixed: State Contact data not refreshed correctly when loading new facility (#50)
++ Allow all SSCP staff to edit Facility Subparts (#37)
+* Fixed: bug in counting of stipulated penalties (#53)
++ Allow deletion of stipulated penalties (#34)
+* Fixed: FCE did not include work done on the same day as the FCE (#54)
++ Improved FCE form (layout, buttons, menu)
