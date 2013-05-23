@@ -453,21 +453,11 @@ Public Class IAIPLogIn
         End Try
 
     End Sub
-#Region ".EXE Update"
-    Private Sub llbUpdateIAIP_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles UpdateIaipLink.LinkClicked
-        Try
-            Dim URL As String = ""
-
-            URL = "http://airpermit.dnr.state.ga.us/iaip/iaip.exe"
-            System.Diagnostics.Process.Start(URL)
-            Conn.Dispose()
-            End
-        Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
+#Region "Update IAIP"
+    Private Sub UpdateIaipLink_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles UpdateIaipLink.LinkClicked
+        Conn.Dispose()
+        OpenDownloadUrl()
+        Application.Exit()
     End Sub
 #End Region
 #Region "Mouse Actions"
