@@ -21,12 +21,12 @@ Partial Class SSPPApplicationTrackingLog
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(SSPPApplicationTrackingLog))
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle12 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
         Me.MainMenu1 = New System.Windows.Forms.MainMenu(Me.components)
         Me.MmiFile = New System.Windows.Forms.MenuItem
         Me.mmiSave = New System.Windows.Forms.MenuItem
@@ -467,11 +467,11 @@ Partial Class SSPPApplicationTrackingLog
         Me.TPOtherInfo = New System.Windows.Forms.TabPage
         Me.GBSignificationComments = New System.Windows.Forms.GroupBox
         Me.txtSignificantComments = New System.Windows.Forms.TextBox
-        Me.GroupBox9 = New System.Windows.Forms.GroupBox
+        Me.ApplicableRulesGroup = New System.Windows.Forms.GroupBox
         Me.chbPal = New System.Windows.Forms.CheckBox
         Me.chbRuleyy = New System.Windows.Forms.CheckBox
         Me.chbRulett = New System.Windows.Forms.CheckBox
-        Me.chb112 = New System.Windows.Forms.CheckBox
+        Me.chb112g = New System.Windows.Forms.CheckBox
         Me.chbNAANSR = New System.Windows.Forms.CheckBox
         Me.chbPSD = New System.Windows.Forms.CheckBox
         Me.TPTrackingLog = New System.Windows.Forms.TabPage
@@ -564,6 +564,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.Label7 = New System.Windows.Forms.Label
         Me.txtDistrict = New System.Windows.Forms.TextBox
         Me.TCApplicationTrackingLog = New System.Windows.Forms.TabControl
+        Me.chbExpedited = New System.Windows.Forms.CheckBox
         Me.GroupBox2.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
         Me.TPSubPartEditor.SuspendLayout()
@@ -644,7 +645,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.Panel4.SuspendLayout()
         Me.TPOtherInfo.SuspendLayout()
         Me.GBSignificationComments.SuspendLayout()
-        Me.GroupBox9.SuspendLayout()
+        Me.ApplicableRulesGroup.SuspendLayout()
         Me.TPTrackingLog.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.GBOther.SuspendLayout()
@@ -4580,35 +4581,35 @@ Partial Class SSPPApplicationTrackingLog
         Me.dgvInformationRequested.AllowUserToAddRows = False
         Me.dgvInformationRequested.AllowUserToDeleteRows = False
         Me.dgvInformationRequested.AllowUserToOrderColumns = True
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvInformationRequested.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle7.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvInformationRequested.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle7
         Me.dgvInformationRequested.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvInformationRequested.DefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle8.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvInformationRequested.DefaultCellStyle = DataGridViewCellStyle8
         Me.dgvInformationRequested.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvInformationRequested.Location = New System.Drawing.Point(0, 0)
         Me.dgvInformationRequested.Name = "dgvInformationRequested"
         Me.dgvInformationRequested.ReadOnly = True
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvInformationRequested.RowHeadersDefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle9.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvInformationRequested.RowHeadersDefaultCellStyle = DataGridViewCellStyle9
         Me.dgvInformationRequested.Size = New System.Drawing.Size(784, 256)
         Me.dgvInformationRequested.TabIndex = 2
         '
@@ -4780,35 +4781,35 @@ Partial Class SSPPApplicationTrackingLog
         Me.dgvFacilityAppHistory.AllowUserToAddRows = False
         Me.dgvFacilityAppHistory.AllowUserToDeleteRows = False
         Me.dgvFacilityAppHistory.AllowUserToOrderColumns = True
-        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle4.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvFacilityAppHistory.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle4
+        DataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle10.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvFacilityAppHistory.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle10
         Me.dgvFacilityAppHistory.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle5.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvFacilityAppHistory.DefaultCellStyle = DataGridViewCellStyle5
+        DataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle11.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvFacilityAppHistory.DefaultCellStyle = DataGridViewCellStyle11
         Me.dgvFacilityAppHistory.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvFacilityAppHistory.Location = New System.Drawing.Point(0, 0)
         Me.dgvFacilityAppHistory.Name = "dgvFacilityAppHistory"
         Me.dgvFacilityAppHistory.ReadOnly = True
-        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle6.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvFacilityAppHistory.RowHeadersDefaultCellStyle = DataGridViewCellStyle6
+        DataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle12.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle12.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle12.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvFacilityAppHistory.RowHeadersDefaultCellStyle = DataGridViewCellStyle12
         Me.dgvFacilityAppHistory.Size = New System.Drawing.Size(784, 270)
         Me.dgvFacilityAppHistory.TabIndex = 2
         '
@@ -5380,7 +5381,7 @@ Partial Class SSPPApplicationTrackingLog
         'TPOtherInfo
         '
         Me.TPOtherInfo.Controls.Add(Me.GBSignificationComments)
-        Me.TPOtherInfo.Controls.Add(Me.GroupBox9)
+        Me.TPOtherInfo.Controls.Add(Me.ApplicableRulesGroup)
         Me.TPOtherInfo.Location = New System.Drawing.Point(4, 22)
         Me.TPOtherInfo.Name = "TPOtherInfo"
         Me.TPOtherInfo.Size = New System.Drawing.Size(784, 514)
@@ -5409,20 +5410,21 @@ Partial Class SSPPApplicationTrackingLog
         Me.txtSignificantComments.Size = New System.Drawing.Size(628, 108)
         Me.txtSignificantComments.TabIndex = 43
         '
-        'GroupBox9
+        'ApplicableRulesGroup
         '
-        Me.GroupBox9.Controls.Add(Me.chbPal)
-        Me.GroupBox9.Controls.Add(Me.chbRuleyy)
-        Me.GroupBox9.Controls.Add(Me.chbRulett)
-        Me.GroupBox9.Controls.Add(Me.chb112)
-        Me.GroupBox9.Controls.Add(Me.chbNAANSR)
-        Me.GroupBox9.Controls.Add(Me.chbPSD)
-        Me.GroupBox9.Location = New System.Drawing.Point(3, 3)
-        Me.GroupBox9.Name = "GroupBox9"
-        Me.GroupBox9.Size = New System.Drawing.Size(131, 141)
-        Me.GroupBox9.TabIndex = 0
-        Me.GroupBox9.TabStop = False
-        Me.GroupBox9.Text = "Applicable Rule(s)"
+        Me.ApplicableRulesGroup.Controls.Add(Me.chbExpedited)
+        Me.ApplicableRulesGroup.Controls.Add(Me.chbPal)
+        Me.ApplicableRulesGroup.Controls.Add(Me.chbRuleyy)
+        Me.ApplicableRulesGroup.Controls.Add(Me.chbRulett)
+        Me.ApplicableRulesGroup.Controls.Add(Me.chb112g)
+        Me.ApplicableRulesGroup.Controls.Add(Me.chbNAANSR)
+        Me.ApplicableRulesGroup.Controls.Add(Me.chbPSD)
+        Me.ApplicableRulesGroup.Location = New System.Drawing.Point(3, 3)
+        Me.ApplicableRulesGroup.Name = "ApplicableRulesGroup"
+        Me.ApplicableRulesGroup.Size = New System.Drawing.Size(131, 162)
+        Me.ApplicableRulesGroup.TabIndex = 0
+        Me.ApplicableRulesGroup.TabStop = False
+        Me.ApplicableRulesGroup.Text = "Applicable Rule(s)"
         '
         'chbPal
         '
@@ -5457,16 +5459,16 @@ Partial Class SSPPApplicationTrackingLog
         Me.chbRulett.Text = "Rule (tt) RACT"
         Me.chbRulett.UseVisualStyleBackColor = True
         '
-        'chb112
+        'chb112g
         '
-        Me.chb112.AutoSize = True
-        Me.chb112.Enabled = False
-        Me.chb112.Location = New System.Drawing.Point(6, 55)
-        Me.chb112.Name = "chb112"
-        Me.chb112.Size = New System.Drawing.Size(56, 17)
-        Me.chb112.TabIndex = 39
-        Me.chb112.Text = "112(g)"
-        Me.chb112.UseVisualStyleBackColor = True
+        Me.chb112g.AutoSize = True
+        Me.chb112g.Enabled = False
+        Me.chb112g.Location = New System.Drawing.Point(6, 55)
+        Me.chb112g.Name = "chb112g"
+        Me.chb112g.Size = New System.Drawing.Size(56, 17)
+        Me.chb112g.TabIndex = 39
+        Me.chb112g.Text = "112(g)"
+        Me.chb112g.UseVisualStyleBackColor = True
         '
         'chbNAANSR
         '
@@ -6495,6 +6497,16 @@ Partial Class SSPPApplicationTrackingLog
         Me.TCApplicationTrackingLog.Size = New System.Drawing.Size(792, 540)
         Me.TCApplicationTrackingLog.TabIndex = 255
         '
+        'chbExpedited
+        '
+        Me.chbExpedited.AutoSize = True
+        Me.chbExpedited.Location = New System.Drawing.Point(6, 129)
+        Me.chbExpedited.Name = "chbExpedited"
+        Me.chbExpedited.Size = New System.Drawing.Size(105, 17)
+        Me.chbExpedited.TabIndex = 43
+        Me.chbExpedited.Text = "Expedited Permit"
+        Me.chbExpedited.UseVisualStyleBackColor = True
+        '
         'SSPPApplicationTrackingLog
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -6623,8 +6635,8 @@ Partial Class SSPPApplicationTrackingLog
         Me.TPOtherInfo.ResumeLayout(False)
         Me.GBSignificationComments.ResumeLayout(False)
         Me.GBSignificationComments.PerformLayout()
-        Me.GroupBox9.ResumeLayout(False)
-        Me.GroupBox9.PerformLayout()
+        Me.ApplicableRulesGroup.ResumeLayout(False)
+        Me.ApplicableRulesGroup.PerformLayout()
         Me.TPTrackingLog.ResumeLayout(False)
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
@@ -6978,11 +6990,11 @@ Partial Class SSPPApplicationTrackingLog
     Friend WithEvents TPOtherInfo As System.Windows.Forms.TabPage
     Friend WithEvents GBSignificationComments As System.Windows.Forms.GroupBox
     Friend WithEvents txtSignificantComments As System.Windows.Forms.TextBox
-    Friend WithEvents GroupBox9 As System.Windows.Forms.GroupBox
+    Friend WithEvents ApplicableRulesGroup As System.Windows.Forms.GroupBox
     Friend WithEvents chbPal As System.Windows.Forms.CheckBox
     Friend WithEvents chbRuleyy As System.Windows.Forms.CheckBox
     Friend WithEvents chbRulett As System.Windows.Forms.CheckBox
-    Friend WithEvents chb112 As System.Windows.Forms.CheckBox
+    Friend WithEvents chb112g As System.Windows.Forms.CheckBox
     Friend WithEvents chbNAANSR As System.Windows.Forms.CheckBox
     Friend WithEvents chbPSD As System.Windows.Forms.CheckBox
     Friend WithEvents TPTrackingLog As System.Windows.Forms.TabPage
@@ -7176,4 +7188,5 @@ Partial Class SSPPApplicationTrackingLog
     Friend WithEvents txtNAICSCode As System.Windows.Forms.TextBox
     Friend WithEvents Label72 As System.Windows.Forms.Label
     Friend WithEvents chbCDS_RMP As System.Windows.Forms.CheckBox
+    Friend WithEvents chbExpedited As System.Windows.Forms.CheckBox
 End Class

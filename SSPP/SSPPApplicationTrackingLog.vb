@@ -175,14 +175,16 @@ Public Class SSPPApplicationTrackingLog
             chbPSD.Enabled = False
             chbNAANSR.Checked = False
             chbNAANSR.Enabled = False
-            chb112.Checked = False
-            chb112.Enabled = False
+            chb112g.Checked = False
+            chb112g.Enabled = False
             chbRulett.Checked = False
             chbRulett.Enabled = False
             chbRuleyy.Checked = False
             chbRuleyy.Enabled = False
             chbPal.Checked = False
             chbPal.Enabled = False
+            chbExpedited.Checked = False
+            chbExpedited.Enabled = False
 
             'ISMP and SSCP Reviews Tab
             txtISMPComments.Clear()
@@ -1619,7 +1621,7 @@ Public Class SSPPApplicationTrackingLog
             If AccountArray(129, 3) = "1" Or _
               (AccountArray(24, 3) = "1" And AccountArray(3, 4) = "1" And AccountArray(12, 1) = "1" And AccountArray(12, 2) = "0") Or _
               (AccountArray(24, 3) = "1" And AccountArray(12, 1) = "1" And AccountArray(12, 2) = "0" And AccountArray(3, 4) = "0") Then
-                chb112.Enabled = True
+                chb112g.Enabled = True
             End If
             'chbCDS_0
             If AccountArray(129, 3) = "1" Then
@@ -1800,6 +1802,12 @@ Public Class SSPPApplicationTrackingLog
                 (AccountArray(24, 3) = "1" And AccountArray(3, 4) = "1" And AccountArray(12, 1) = "1" And AccountArray(12, 2) = "0") Or _
                 (AccountArray(24, 3) = "1" And AccountArray(12, 1) = "1" And AccountArray(12, 2) = "0" And AccountArray(3, 4) = "0") Then
                 chbPal.Enabled = True
+            End If
+            'chbExpedited
+            If AccountArray(129, 3) = "1" Or _
+                (AccountArray(24, 3) = "1" And AccountArray(3, 4) = "1" And AccountArray(12, 1) = "1" And AccountArray(12, 2) = "0") Or _
+                (AccountArray(24, 3) = "1" And AccountArray(12, 1) = "1" And AccountArray(12, 2) = "0" And AccountArray(3, 4) = "0") Then
+                chbExpedited.Enabled = True
             End If
             'chbPAReady
             If AccountArray(129, 3) = "1" Or _
@@ -3257,10 +3265,11 @@ Public Class SSPPApplicationTrackingLog
                 txtComments.ReadOnly = False
                 chbPSD.Enabled = True
                 chbNAANSR.Enabled = True
-                chb112.Enabled = True
+                chb112g.Enabled = True
                 chbRulett.Enabled = True
                 chbRuleyy.Enabled = True
                 chbPal.Enabled = True
+                chbExpedited.Enabled = True
                 txtSignificantComments.ReadOnly = False
                 DTPReviewSubmitted.Enabled = True
                 DTPReviewSubmitted.Enabled = True
@@ -3403,10 +3412,11 @@ Public Class SSPPApplicationTrackingLog
 
                     chbPSD.Enabled = True
                     chbNAANSR.Enabled = True
-                    chb112.Enabled = True
+                    chb112g.Enabled = True
                     chbRulett.Enabled = True
                     chbRuleyy.Enabled = True
                     chbPal.Enabled = True
+                    chbExpedited.Enabled = True
                     txtSignificantComments.ReadOnly = False
 
                     DTPReviewSubmitted.Enabled = True
@@ -3544,10 +3554,11 @@ Public Class SSPPApplicationTrackingLog
 
                         chbPSD.Enabled = True
                         chbNAANSR.Enabled = True
-                        chb112.Enabled = True
+                        chb112g.Enabled = True
                         chbRulett.Enabled = True
                         chbRuleyy.Enabled = True
                         chbPal.Enabled = True
+                        chbExpedited.Enabled = True
                         txtSignificantComments.ReadOnly = False
                         btnLoadFacilityApplicationHistory.Enabled = True
                         btnAddApplicationToList.Enabled = True
@@ -5350,10 +5361,11 @@ Public Class SSPPApplicationTrackingLog
                         If IsDBNull(dr.Item("strTrackedRules")) Then
                             chbPSD.Checked = False
                             chbNAANSR.Checked = False
-                            chb112.Checked = False
+                            chb112g.Checked = False
                             chbRulett.Checked = False
                             chbRuleyy.Checked = False
                             chbPal.Checked = False
+                            chbExpedited.Checked = False
                         Else
                             If Mid(dr.Item("strTrackedRules"), 1, 1) = "0" Then
                                 chbPSD.Checked = False
@@ -5366,9 +5378,9 @@ Public Class SSPPApplicationTrackingLog
                                 chbNAANSR.Checked = True
                             End If
                             If Mid(dr.Item("strTrackedRules"), 3, 1) = "0" Then
-                                chb112.Checked = False
+                                chb112g.Checked = False
                             Else
-                                chb112.Checked = True
+                                chb112g.Checked = True
                             End If
                             If Mid(dr.Item("strTrackedRules"), 4, 1) = "0" Then
                                 chbRulett.Checked = False
@@ -5384,6 +5396,11 @@ Public Class SSPPApplicationTrackingLog
                                 chbPal.Checked = False
                             Else
                                 chbPal.Checked = True
+                            End If
+                            If Mid(dr.Item("strTrackedRules"), 7, 1) = "0" Then
+                                chbExpedited.Checked = False
+                            Else
+                                chbExpedited.Checked = True
                             End If
                         End If
                         If IsDBNull(dr.Item("strApplicationType")) Then
@@ -6992,7 +7009,7 @@ Public Class SSPPApplicationTrackingLog
                 Else
                     TrackedRules = TrackedRules
                 End If
-                If chb112.Checked = True Then
+                If chb112g.Checked = True Then
                     TrackedRules = Mid(TrackedRules, 1, 2) & "1" & Mid(TrackedRules, 4)
                 Else
                     TrackedRules = TrackedRules
@@ -7009,6 +7026,11 @@ Public Class SSPPApplicationTrackingLog
                 End If
                 If chbPal.Checked = True Then
                     TrackedRules = Mid(TrackedRules, 1, 5) & "1" & Mid(TrackedRules, 7)
+                Else
+                    TrackedRules = TrackedRules
+                End If
+                If chbExpedited.Checked = True Then
+                    TrackedRules = Mid(TrackedRules, 1, 6) & "1" & Mid(TrackedRules, 8)
                 Else
                     TrackedRules = TrackedRules
                 End If
@@ -8239,10 +8261,11 @@ Public Class SSPPApplicationTrackingLog
                     chbHAPsMajor.Enabled = False
                     chbPSD.Enabled = False
                     chbNAANSR.Enabled = False
-                    chb112.Enabled = False
+                    chb112g.Enabled = False
                     chbRulett.Enabled = False
                     chbRuleyy.Enabled = False
                     chbPal.Enabled = False
+                    chbExpedited.Enabled = False
                     txtSignificantComments.ReadOnly = True
 
                     'Facility Application History 
@@ -11808,7 +11831,7 @@ Public Class SSPPApplicationTrackingLog
                     lblEPAWaived.Visible = False
                     DTPEPAEnds.Visible = False
                     lblEPAEnds.Visible = False
-                    If chbPSD.Checked = True Or chbNAANSR.Checked = True Or chb112.Checked = True Then
+                    If chbPSD.Checked = True Or chbNAANSR.Checked = True Or chb112g.Checked = True Then
                         DTPDraftIssued.Visible = True
                         lblDraftIssued.Visible = True
                         DTPDatePNExpires.Visible = True
@@ -11884,7 +11907,7 @@ Public Class SSPPApplicationTrackingLog
         End Try
          
     End Sub
-    Private Sub chb112_CheckedChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles chb112.CheckedChanged
+    Private Sub chb112_CheckedChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles chb112g.CheckedChanged
         Try
              
             If cboApplicationType.Text = "SIP" Then
