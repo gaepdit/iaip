@@ -255,7 +255,7 @@ Partial Class SSPPApplicationLog
         Me.cboSortOrder2.Location = New System.Drawing.Point(162, 113)
         Me.cboSortOrder2.Name = "cboSortOrder2"
         Me.cboSortOrder2.Size = New System.Drawing.Size(121, 21)
-        Me.cboSortOrder2.TabIndex = 27
+        Me.cboSortOrder2.TabIndex = 11
         '
         'cboSort2
         '
@@ -264,7 +264,7 @@ Partial Class SSPPApplicationLog
         Me.cboSort2.Location = New System.Drawing.Point(34, 113)
         Me.cboSort2.Name = "cboSort2"
         Me.cboSort2.Size = New System.Drawing.Size(121, 21)
-        Me.cboSort2.TabIndex = 26
+        Me.cboSort2.TabIndex = 10
         '
         'cboSortOrder1
         '
@@ -273,7 +273,7 @@ Partial Class SSPPApplicationLog
         Me.cboSortOrder1.Location = New System.Drawing.Point(162, 89)
         Me.cboSortOrder1.Name = "cboSortOrder1"
         Me.cboSortOrder1.Size = New System.Drawing.Size(121, 21)
-        Me.cboSortOrder1.TabIndex = 25
+        Me.cboSortOrder1.TabIndex = 9
         '
         'cboSort1
         '
@@ -282,7 +282,7 @@ Partial Class SSPPApplicationLog
         Me.cboSort1.Location = New System.Drawing.Point(34, 89)
         Me.cboSort1.Name = "cboSort1"
         Me.cboSort1.Size = New System.Drawing.Size(121, 21)
-        Me.cboSort1.TabIndex = 24
+        Me.cboSort1.TabIndex = 8
         '
         'cboApplicationStatus
         '
@@ -291,7 +291,7 @@ Partial Class SSPPApplicationLog
         Me.cboApplicationStatus.Location = New System.Drawing.Point(680, 75)
         Me.cboApplicationStatus.Name = "cboApplicationStatus"
         Me.cboApplicationStatus.Size = New System.Drawing.Size(121, 21)
-        Me.cboApplicationStatus.TabIndex = 22
+        Me.cboApplicationStatus.TabIndex = 6
         '
         'cboApplicationUnit
         '
@@ -300,7 +300,7 @@ Partial Class SSPPApplicationLog
         Me.cboApplicationUnit.Location = New System.Drawing.Point(680, 48)
         Me.cboApplicationUnit.Name = "cboApplicationUnit"
         Me.cboApplicationUnit.Size = New System.Drawing.Size(121, 21)
-        Me.cboApplicationUnit.TabIndex = 21
+        Me.cboApplicationUnit.TabIndex = 5
         '
         'cboApplicationType
         '
@@ -309,7 +309,7 @@ Partial Class SSPPApplicationLog
         Me.cboApplicationType.Location = New System.Drawing.Point(680, 21)
         Me.cboApplicationType.Name = "cboApplicationType"
         Me.cboApplicationType.Size = New System.Drawing.Size(121, 21)
-        Me.cboApplicationType.TabIndex = 20
+        Me.cboApplicationType.TabIndex = 4
         '
         'cboFieldType2
         '
@@ -318,7 +318,7 @@ Partial Class SSPPApplicationLog
         Me.cboFieldType2.Location = New System.Drawing.Point(368, 21)
         Me.cboFieldType2.Name = "cboFieldType2"
         Me.cboFieldType2.Size = New System.Drawing.Size(214, 21)
-        Me.cboFieldType2.TabIndex = 15
+        Me.cboFieldType2.TabIndex = 2
         '
         'cboFieldType1
         '
@@ -327,7 +327,7 @@ Partial Class SSPPApplicationLog
         Me.cboFieldType1.Location = New System.Drawing.Point(76, 21)
         Me.cboFieldType1.Name = "cboFieldType1"
         Me.cboFieldType1.Size = New System.Drawing.Size(215, 21)
-        Me.cboFieldType1.TabIndex = 10
+        Me.cboFieldType1.TabIndex = 0
         '
         'Label11
         '
@@ -441,7 +441,7 @@ Partial Class SSPPApplicationLog
         Me.btnOpen.Location = New System.Drawing.Point(300, 111)
         Me.btnOpen.Name = "btnOpen"
         Me.btnOpen.Size = New System.Drawing.Size(102, 23)
-        Me.btnOpen.TabIndex = 30
+        Me.btnOpen.TabIndex = 15
         Me.btnOpen.Text = "View Application"
         '
         'MenuItem4
@@ -468,7 +468,7 @@ Partial Class SSPPApplicationLog
         Me.DTPSearchDate2.Location = New System.Drawing.Point(368, 48)
         Me.DTPSearchDate2.Name = "DTPSearchDate2"
         Me.DTPSearchDate2.Size = New System.Drawing.Size(104, 20)
-        Me.DTPSearchDate2.TabIndex = 16
+        Me.DTPSearchDate2.TabIndex = 3
         Me.DTPSearchDate2.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
         Me.DTPSearchDate2.Visible = False
         '
@@ -485,7 +485,7 @@ Partial Class SSPPApplicationLog
         Me.DTPSearchDate1.Location = New System.Drawing.Point(76, 48)
         Me.DTPSearchDate1.Name = "DTPSearchDate1"
         Me.DTPSearchDate1.Size = New System.Drawing.Size(104, 20)
-        Me.DTPSearchDate1.TabIndex = 11
+        Me.DTPSearchDate1.TabIndex = 1
         Me.DTPSearchDate1.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
         Me.DTPSearchDate1.Visible = False
         '
@@ -494,7 +494,7 @@ Partial Class SSPPApplicationLog
         Me.btnResetSearch.Location = New System.Drawing.Point(383, 75)
         Me.btnResetSearch.Name = "btnResetSearch"
         Me.btnResetSearch.Size = New System.Drawing.Size(77, 23)
-        Me.btnResetSearch.TabIndex = 29
+        Me.btnResetSearch.TabIndex = 14
         Me.btnResetSearch.Text = "Reset Form"
         '
         'btnFind
@@ -502,7 +502,7 @@ Partial Class SSPPApplicationLog
         Me.btnFind.Location = New System.Drawing.Point(300, 75)
         Me.btnFind.Name = "btnFind"
         Me.btnFind.Size = New System.Drawing.Size(77, 23)
-        Me.btnFind.TabIndex = 28
+        Me.btnFind.TabIndex = 13
         Me.btnFind.Text = "Search"
         '
         'txtSearchText2
@@ -510,14 +510,14 @@ Partial Class SSPPApplicationLog
         Me.txtSearchText2.Location = New System.Drawing.Point(368, 48)
         Me.txtSearchText2.Name = "txtSearchText2"
         Me.txtSearchText2.Size = New System.Drawing.Size(214, 20)
-        Me.txtSearchText2.TabIndex = 18
+        Me.txtSearchText2.TabIndex = 3
         '
         'txtSearchText1
         '
         Me.txtSearchText1.Location = New System.Drawing.Point(77, 48)
         Me.txtSearchText1.Name = "txtSearchText1"
         Me.txtSearchText1.Size = New System.Drawing.Size(214, 20)
-        Me.txtSearchText1.TabIndex = 13
+        Me.txtSearchText1.TabIndex = 1
         '
         'chbShowAll
         '
@@ -525,7 +525,7 @@ Partial Class SSPPApplicationLog
         Me.chbShowAll.Location = New System.Drawing.Point(485, 77)
         Me.chbShowAll.Name = "chbShowAll"
         Me.chbShowAll.Size = New System.Drawing.Size(97, 17)
-        Me.chbShowAll.TabIndex = 31
+        Me.chbShowAll.TabIndex = 12
         Me.chbShowAll.Text = "Show All Fields"
         '
         'TBBExit
@@ -541,7 +541,7 @@ Partial Class SSPPApplicationLog
         Me.cboEngineer.Location = New System.Drawing.Point(680, 102)
         Me.cboEngineer.Name = "cboEngineer"
         Me.cboEngineer.Size = New System.Drawing.Size(121, 21)
-        Me.cboEngineer.TabIndex = 23
+        Me.cboEngineer.TabIndex = 7
         '
         'TBBBack
         '
@@ -574,7 +574,7 @@ Partial Class SSPPApplicationLog
         Me.cboSearchText1.Location = New System.Drawing.Point(77, 48)
         Me.cboSearchText1.Name = "cboSearchText1"
         Me.cboSearchText1.Size = New System.Drawing.Size(214, 21)
-        Me.cboSearchText1.TabIndex = 14
+        Me.cboSearchText1.TabIndex = 1
         '
         'cboSearchText2
         '
@@ -584,7 +584,7 @@ Partial Class SSPPApplicationLog
         Me.cboSearchText2.Location = New System.Drawing.Point(368, 48)
         Me.cboSearchText2.Name = "cboSearchText2"
         Me.cboSearchText2.Size = New System.Drawing.Size(214, 21)
-        Me.cboSearchText2.TabIndex = 19
+        Me.cboSearchText2.TabIndex = 3
         '
         'dgvApplicationLog
         '
@@ -607,7 +607,7 @@ Partial Class SSPPApplicationLog
         Me.DTPSearchDate1b.Location = New System.Drawing.Point(187, 48)
         Me.DTPSearchDate1b.Name = "DTPSearchDate1b"
         Me.DTPSearchDate1b.Size = New System.Drawing.Size(104, 20)
-        Me.DTPSearchDate1b.TabIndex = 12
+        Me.DTPSearchDate1b.TabIndex = 1
         Me.DTPSearchDate1b.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
         Me.DTPSearchDate1b.Visible = False
         '
@@ -719,7 +719,7 @@ Partial Class SSPPApplicationLog
         Me.btnExport.Location = New System.Drawing.Point(408, 111)
         Me.btnExport.Name = "btnExport"
         Me.btnExport.Size = New System.Drawing.Size(89, 23)
-        Me.btnExport.TabIndex = 40
+        Me.btnExport.TabIndex = 16
         Me.btnExport.Text = "Export to Excel"
         Me.btnExport.UseVisualStyleBackColor = True
         '
@@ -731,7 +731,7 @@ Partial Class SSPPApplicationLog
         Me.cboMACT1.Location = New System.Drawing.Point(76, 48)
         Me.cboMACT1.Name = "cboMACT1"
         Me.cboMACT1.Size = New System.Drawing.Size(215, 21)
-        Me.cboMACT1.TabIndex = 39
+        Me.cboMACT1.TabIndex = 1
         '
         'cboNSPS1
         '
@@ -741,7 +741,7 @@ Partial Class SSPPApplicationLog
         Me.cboNSPS1.Location = New System.Drawing.Point(77, 48)
         Me.cboNSPS1.Name = "cboNSPS1"
         Me.cboNSPS1.Size = New System.Drawing.Size(214, 21)
-        Me.cboNSPS1.TabIndex = 38
+        Me.cboNSPS1.TabIndex = 1
         '
         'cboMACT2
         '
@@ -751,7 +751,7 @@ Partial Class SSPPApplicationLog
         Me.cboMACT2.Location = New System.Drawing.Point(368, 48)
         Me.cboMACT2.Name = "cboMACT2"
         Me.cboMACT2.Size = New System.Drawing.Size(214, 21)
-        Me.cboMACT2.TabIndex = 37
+        Me.cboMACT2.TabIndex = 3
         '
         'cboNSPS2
         '
@@ -761,7 +761,7 @@ Partial Class SSPPApplicationLog
         Me.cboNSPS2.Location = New System.Drawing.Point(368, 48)
         Me.cboNSPS2.Name = "cboNSPS2"
         Me.cboNSPS2.Size = New System.Drawing.Size(214, 21)
-        Me.cboNSPS2.TabIndex = 36
+        Me.cboNSPS2.TabIndex = 3
         '
         'cboNESHAP2
         '
@@ -771,7 +771,7 @@ Partial Class SSPPApplicationLog
         Me.cboNESHAP2.Location = New System.Drawing.Point(368, 48)
         Me.cboNESHAP2.Name = "cboNESHAP2"
         Me.cboNESHAP2.Size = New System.Drawing.Size(214, 21)
-        Me.cboNESHAP2.TabIndex = 35
+        Me.cboNESHAP2.TabIndex = 3
         '
         'cboNESHAP1
         '
@@ -781,7 +781,7 @@ Partial Class SSPPApplicationLog
         Me.cboNESHAP1.Location = New System.Drawing.Point(77, 48)
         Me.cboNESHAP1.Name = "cboNESHAP1"
         Me.cboNESHAP1.Size = New System.Drawing.Size(214, 21)
-        Me.cboNESHAP1.TabIndex = 34
+        Me.cboNESHAP1.TabIndex = 1
         '
         'cboSIP2
         '
@@ -791,7 +791,7 @@ Partial Class SSPPApplicationLog
         Me.cboSIP2.Location = New System.Drawing.Point(368, 48)
         Me.cboSIP2.Name = "cboSIP2"
         Me.cboSIP2.Size = New System.Drawing.Size(214, 21)
-        Me.cboSIP2.TabIndex = 33
+        Me.cboSIP2.TabIndex = 3
         '
         'cboSIP1
         '
@@ -801,7 +801,7 @@ Partial Class SSPPApplicationLog
         Me.cboSIP1.Location = New System.Drawing.Point(76, 48)
         Me.cboSIP1.Name = "cboSIP1"
         Me.cboSIP1.Size = New System.Drawing.Size(215, 21)
-        Me.cboSIP1.TabIndex = 32
+        Me.cboSIP1.TabIndex = 1
         '
         'DTPSearchDate2b
         '
@@ -810,7 +810,7 @@ Partial Class SSPPApplicationLog
         Me.DTPSearchDate2b.Location = New System.Drawing.Point(478, 48)
         Me.DTPSearchDate2b.Name = "DTPSearchDate2b"
         Me.DTPSearchDate2b.Size = New System.Drawing.Size(104, 20)
-        Me.DTPSearchDate2b.TabIndex = 17
+        Me.DTPSearchDate2b.TabIndex = 3
         Me.DTPSearchDate2b.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
         Me.DTPSearchDate2b.Visible = False
         '
