@@ -48,7 +48,7 @@ Public Class IAIPFacilitySummary
             mmiPrintFacilitySummary.Visible = True
 
             Panel1.Text = pnltemp
-            If UserGCode = "1" Then
+            If (UserGCode = "1" Or UserGCode = "345") Then
                 mmiAddAFS.Visible = True
                 mmiUpdateAFSData.Visible = True
             Else

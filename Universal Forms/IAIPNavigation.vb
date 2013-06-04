@@ -2480,7 +2480,7 @@ Public Class IAIPNavigation
                     ComputerInventory.Show()
                     ComputerInventory.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                 Case "DMU Only Tool" '25
-                    If UserGCode = "1" Then
+                    If (UserGCode = "1" Or UserGCode = "345") Then
                         If DMUOnly Is Nothing Then
                             If DMUOnly Is Nothing Then DMUOnly = New DMUTool
                         Else
@@ -3725,7 +3725,7 @@ Public Class IAIPNavigation
             End If
             If AccountArray(63, 0) Is Nothing Then
             Else
-                If AccountArray(63, 0) = "63" And UserGCode = "1" Then
+                If AccountArray(63, 0) = "63" And (UserGCode = "1" Or UserGCode = "345") Then
                     If AccountArray(63, 1) = "1" Or AccountArray(63, 2) = "1" Or AccountArray(63, 3) = "1" Or AccountArray(63, 4) = "1" Then
                         btnNav25.Text = "DMU Only Tool"
                         btnNav25.Visible = True
