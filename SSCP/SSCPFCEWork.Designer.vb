@@ -342,7 +342,7 @@ Partial Class SSCPFCEWork
         '
         'TbbPring
         '
-        Me.TbbPring.ImageIndex = 56
+        Me.TbbPring.ImageIndex = 19
         Me.TbbPring.Name = "TbbPring"
         '
         'txtOrigin
