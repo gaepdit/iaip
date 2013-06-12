@@ -223,15 +223,15 @@
     <Compile Include="AssemblyInfo.vb">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="_Classes\CodeFile.vb" />
-    <Compile Include="_Classes\DataReaderAdapter.vb">
+    <Compile Include="_MFCode\CodeFile.vb" />
+    <Compile Include="_MFCode\DataReaderAdapter.vb">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="_Classes\email.vb" />
-    <Compile Include="_Classes\ListViewItemComparer.vb">
+    <Compile Include="_MFCode\email.vb" />
+    <Compile Include="_MFCode\ListViewItemComparer.vb">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="_Classes\MRFunctions.vb">
+    <Compile Include="_MFCode\MRFunctions.vb">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="DataSet\dsInventoryReport.Designer.vb">
@@ -1275,7 +1275,7 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="_Modules\Extensions.vb" />
-    <Compile Include="_Modules\Iaip.vb" />
+    <Compile Include="_Modules\App.vb" />
     <Compile Include="_SubMain\subMain.vb">
       <SubType>Code</SubType>
     </Compile>
