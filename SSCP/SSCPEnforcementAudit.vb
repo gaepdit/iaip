@@ -1960,6 +1960,7 @@ Public Class SSCPEnforcementAudit
 
             If AccountArray(48, 2) = "0" And AccountArray(48, 3) = "0" And AccountArray(48, 4) = "0" Then
                 MsgBox("You do not have sufficent permission to save Compliance Events.", MsgBoxStyle.Information, "Compliance Events")
+                Exit Sub
             Else
                 If txtTrackingNumber.Text <> "" Then
                     TrackingNumber = txtTrackingNumber.Text
@@ -1969,7 +1970,7 @@ Public Class SSCPEnforcementAudit
                 If txtAIRSNumber.Text <> "" Then
                     AIRSNumber = txtAIRSNumber.Text
                 Else
-                    MsgBox("There is no AIRS #. An Enforcement Action Cannot be saved without an AIRS #." & _
+                    MsgBox("There is no AIRS #. An Enforcement Action cannot be saved without an AIRS #." & _
                            "No Data Saved", MsgBoxStyle.Exclamation, Me.Text)
                     Exit Sub
                 End If
@@ -3435,7 +3436,7 @@ Public Class SSCPEnforcementAudit
             End If
 
             If EnforcementChecklist Is Nothing Then
-                MsgBox("Current Data SAVED.", MsgBoxStyle.Information, "SSCP Enforcement")
+                MsgBox("Current data saved.", MsgBoxStyle.Information, "SSCP Enforcement")
             End If
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -3645,7 +3646,7 @@ Public Class SSCPEnforcementAudit
             btnSubmitToUC.Visible = False
             SaveEnforcement()
             If EnforcementChecklist Is Nothing Then
-                MsgBox("Current Data SAVED.", MsgBoxStyle.Information, "SSCP Enforcement")
+                MsgBox("Current data saved.", MsgBoxStyle.Information, "SSCP Enforcement")
             End If
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -3654,29 +3655,23 @@ Public Class SSCPEnforcementAudit
     End Sub
     Private Sub btnSubmitEnforcementToEPA_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSubmitEnforcementToEPA.Click
         Try
-            If txtDiscoveryEventNumber.Text <> "" Then
-                SaveAFSInformation()
-            Else
-                Dim Result As DialogResult
+            If txtDiscoveryEventNumber.Text = "" Then
+                Dim result As DialogResult
 
-                Result = MessageBox.Show("There is no linked event for this enforcement action." & vbCrLf & _
+                result = MessageBox.Show("There is no linked event for this enforcement action." & vbCrLf & _
                 "Do you want to submit this enforcement to EPA without an initating action?", "Enforcement", _
-                MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
-                Select Case Result
-                    Case Windows.Forms.DialogResult.Yes
-                        SaveAFSInformation()
+                MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2)
+                Select Case result
                     Case Windows.Forms.DialogResult.No
-                        MsgBox("AFS Data not saved.", MsgBoxStyle.Information, "Enforcement")
-                    Case Windows.Forms.DialogResult.Cancel
-                        MsgBox("AFS Data not saved.", MsgBoxStyle.Information, "Enforcement")
-                    Case Else
-                        MsgBox("AFS Data not saved.", MsgBoxStyle.Information, "Enforcement")
+                        Exit Sub
                 End Select
             End If
+
+            SaveAFSInformation()
             SaveEnforcement()
 
             If EnforcementChecklist Is Nothing Then
-                MsgBox("Current Data SAVED.", MsgBoxStyle.Information, "SSCP Enforcement")
+                MsgBox("Current data saved.", MsgBoxStyle.Information, "SSCP Enforcement")
             End If
 
         Catch ex As Exception
@@ -3805,7 +3800,7 @@ Public Class SSCPEnforcementAudit
                 End If
             End If
             If EnforcementChecklist Is Nothing Then
-                MsgBox("Current Data SAVED.", MsgBoxStyle.Information, "SSCP Enforcement")
+                MsgBox("Current data saved.", MsgBoxStyle.Information, "SSCP Enforcement")
             End If
 
         Catch ex As Exception
