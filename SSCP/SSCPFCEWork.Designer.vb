@@ -302,7 +302,7 @@ Partial Class SSCPFCEWork
         '
         Me.MenuPrint.Index = 1
         Me.MenuPrint.Shortcut = System.Windows.Forms.Shortcut.CtrlP
-        Me.MenuPrint.Text = "&Print"
+        Me.MenuPrint.Text = "&Print Preview"
         '
         'MenuClose
         '
