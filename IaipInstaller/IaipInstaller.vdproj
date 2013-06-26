@@ -525,7 +525,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:IAIP"
         "ProductCode" = "8:{28963560-C586-41CE-A5DE-4F58E66AF96C}"
-        "PackageCode" = "8:{4A4BDE9D-704C-4A07-B5D5-2327B0DA7459}"
+        "PackageCode" = "8:{35DE2B91-65C4-4C45-BBD4-795A8CA1F2C2}"
         "UpgradeCode" = "8:{D332FA62-F3B1-429F-B458-5F445F6846DA}"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
