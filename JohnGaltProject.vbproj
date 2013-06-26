@@ -106,6 +106,11 @@
     <Reference Include="CrystalDecisions.Shared, Version=10.5.3700.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="CrystalDecisions.Windows.Forms, Version=10.5.3700.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.VisualBasic.PowerPacks.Vs, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    <Reference Include="Oracle.DataAccess, Version=2.112.3.0, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\_Tools\Oracle\ODAC_xcopy\Oracle.DataAccess.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System">
       <Name>System</Name>
     </Reference>
@@ -217,7 +222,9 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
-    <None Include="tnsnames.ora" />
+    <Content Include="tnsnames.ora">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <BaseApplicationManifest Include="My Project\app.manifest" />
     <Compile Include="ApplicationEvents.vb" />
     <Compile Include="AssemblyInfo.vb">
@@ -2172,6 +2179,22 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="changelog.txt" />
+    <Content Include="..\_Tools\Oracle\instantclient\oci.dll">
+      <Link>oci.dll</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\_Tools\Oracle\instantclient\orannzsbb11.dll">
+      <Link>orannzsbb11.dll</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\_Tools\Oracle\instantclient\oraociicus11.dll">
+      <Link>oraociicus11.dll</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\_Tools\Oracle\ODAC_xcopy\OraOps11w.dll">
+      <Link>OraOps11w.dll</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="gaSeal.ico" />
     <Content Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
