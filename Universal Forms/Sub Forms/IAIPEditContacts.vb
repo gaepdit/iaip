@@ -2292,7 +2292,7 @@ Public Class IAIPEditContacts
                     "STRMODIFINGPERSON = '" & UserGCode & "', " & _
                     "DATMODIFINGDATE = sysdate,  " & _
                     "STRCONTACTDESCRIPTION = '" & Replace(txtNewDescrption.Text, "'", "''") & "' " & _
-                    "where strAIRSNumber = '" & txtNewAIRSnumber.Text & "' " & _
+                    "where strAIRSnumber = '0413" & txtAIRSNumber.Text & "' " & _
                     "and strKey = '" & txtNewKey.Text & "' "
 
                     cmd = New OracleCommand(SQL, Conn)
@@ -2340,7 +2340,7 @@ Public Class IAIPEditContacts
                        "STRMODIFINGPERSON = '" & UserGCode & "', " & _
                        "DATMODIFINGDATE = sysdate,  " & _
                        "STRCONTACTDESCRIPTION = '" & Replace(txtNewDescrption.Text, "'", "''") & "' " & _
-                       "where strAIRSNumber = '" & txtNewAIRSnumber.Text & "' " & _
+                       "where strAIRSnumber = '0413" & txtAIRSNumber.Text & "' " & _
                        "and strKey = '" & newKey & "' "
                         cmd = New OracleCommand(SQL, Conn)
                         If Conn.State = ConnectionState.Closed Then
@@ -2349,9 +2349,9 @@ Public Class IAIPEditContacts
                         cmd.ExecuteReader()
                     End If
 
-                    LoadContactsDataset("PageLoad")
-                    MsgBox("Data Updated", MsgBoxStyle.Information, Me.Text)
                 End If
+                LoadContactsDataset("PageLoad")
+                MsgBox("Data Updated", MsgBoxStyle.Information, Me.Text)
             End If
 
         Catch ex As Exception
@@ -2455,7 +2455,7 @@ Public Class IAIPEditContacts
                     Select Case newKey
                         Case "10", "20", "30", "50", "60", "70"
                             SQL = "delete airbranch.APBContactInformation " & _
-                            "where strAIRSNumber = '" & txtNewAIRSnumber.Text & "' " & _
+                            "where strAIRSnumber = '0413" & txtAIRSNumber.Text & "' " & _
                             "and strKey = '" & Mid(newKey, 1, 1) & "9' "
 
                             cmd = New OracleCommand(SQL, Conn)
