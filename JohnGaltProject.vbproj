@@ -2277,7 +2277,7 @@
     <PreBuildEvent>
     </PreBuildEvent>
     <PostBuildEvent>"$(TargetDir)IAIP-Updater\7za.exe" a "$(TargetDir)IAIP-Updater\IAIP.7z" "$(TargetDir)JohnGaltProject.exe"
-copy /b "$(TargetDir)IAIP-Updater\7zsd_All.sfx" + "$(TargetDir)IAIP-Updater\config.txt" + "$(TargetDir)IAIP-Updater\IAIP.7z" "$(TargetDir)IAIP-Updater\IAIP_update.exe"
+copy /b "$(TargetDir)IAIP-Updater\7zsd_All.sfx" + "$(TargetDir)IAIP-Updater\config.txt" + "$(TargetDir)IAIP-Updater\IAIP.7z" + "$(TargetDir)oci.dll" + "$(TargetDir)Oracle.DataAccess.dll" + "$(TargetDir)orannzsbb11.dll" + "$(TargetDir)oraociicus11.dll" + "$(TargetDir)OraOps11w.dll" "$(TargetDir)IAIP-Updater\IAIP_update.exe"
 copy "$(TargetDir)IAIP-Updater\IAIP_update.exe" "$(TargetDir)IAIP-Updater\IAIP.exe"
 del "$(TargetDir)IAIP-Updater\IAIP.7z"
 del "$(TargetDir)IAIP-Updater\7za.exe"
