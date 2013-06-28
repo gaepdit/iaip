@@ -2220,6 +2220,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="gaSeal.ico" />
+    <None Include="IAIP-Installer\config.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <Content Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>
@@ -2276,9 +2279,11 @@
   <PropertyGroup>
     <PreBuildEvent>
     </PreBuildEvent>
-    <PostBuildEvent>"$(TargetDir)IAIP-Updater\7za.exe" a "$(TargetDir)IAIP-Updater\IAIP.7z" "$(TargetDir)JohnGaltProject.exe"
-copy /b "$(TargetDir)IAIP-Updater\7zsd_All.sfx" + "$(TargetDir)IAIP-Updater\config.txt" + "$(TargetDir)IAIP-Updater\IAIP.7z" + "$(TargetDir)oci.dll" + "$(TargetDir)Oracle.DataAccess.dll" + "$(TargetDir)orannzsbb11.dll" + "$(TargetDir)oraociicus11.dll" + "$(TargetDir)OraOps11w.dll" "$(TargetDir)IAIP-Updater\IAIP_update.exe"
-copy "$(TargetDir)IAIP-Updater\IAIP_update.exe" "$(TargetDir)IAIP-Updater\IAIP.exe"
+    <PostBuildEvent>"$(TargetDir)IAIP-Updater\7za.exe" a "$(TargetDir)IAIP-Updater\IAIP_Update.7z" "$(TargetDir)JohnGaltProject.exe" -mx=7
+"$(TargetDir)IAIP-Updater\7za.exe" a "$(TargetDir)IAIP-Updater\IAIP.7z" "$(TargetDir)JohnGaltProject.exe" "$(TargetDir)oci.dll" "$(TargetDir)Oracle.DataAccess.dll" "$(TargetDir)orannzsbb11.dll" "$(TargetDir)oraociicus11.dll" "$(TargetDir)OraOps11w.dll" -mx=7
+copy /b "$(TargetDir)IAIP-Updater\7zsd_All.sfx" + "$(TargetDir)IAIP-Updater\config.txt" + "$(TargetDir)IAIP-Updater\IAIP_Update.7z" "$(TargetDir)IAIP-Updater\IAIP_Update.exe"
+copy /b "$(TargetDir)IAIP-Updater\7zsd_All.sfx" + "$(TargetDir)IAIP-Updater\config.txt" + "$(TargetDir)IAIP-Updater\IAIP.7z" "$(TargetDir)IAIP-Updater\IAIP.exe"
+del "$(TargetDir)IAIP-Updater\IAIP_Update.7z"
 del "$(TargetDir)IAIP-Updater\IAIP.7z"
 del "$(TargetDir)IAIP-Updater\7za.exe"
 del "$(TargetDir)IAIP-Updater\7zsd_All.sfx"
