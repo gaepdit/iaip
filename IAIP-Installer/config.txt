@@ -1,0 +1,22 @@
+;!@Install@!UTF-8!
+;
+; You MUST use DOUBLE backslashes in paths:
+InstallPath="C:\\APB"
+;
+; 0 - overwrite all files (default mode)
+OverwriteMode="0"
+;
+; 1 - shows the extraction process, but hides the "Cancel" button and disables the "Close" button (in the window title bar) and [ESC] key on the keyboard.
+GUIMode="1"
+Progress="yes"
+;
+; Dialog box texts:
+Title="Install IAIP"
+BeginPrompt="Install the Integrated Air Information Platform?"
+ExtractTitle="Installing IAIP"
+RunProgram="setup.exe"
+;
+; Deletes the SFX when the process is over:
+SelfDelete="1"
+;
+;!@InstallEnd@!
