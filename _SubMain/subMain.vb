@@ -43,7 +43,7 @@ Module subMain
 
 #Region "New public variables"
     Friend HELP_URL As String = "https://sites.google.com/site/iaipdocs/"
-    Friend DOWNLOAD_URL As String = "http://airpermit.dnr.state.ga.us/iaip/IAIP_update.exe"
+    Friend DOWNLOAD_URL As String = "http://airpermit.dnr.state.ga.us/iaip/IAIP_Update.exe"
     Friend DateFormat As String = "dd-MMM-yyyy"
     Friend Today As Date = DateTime.Today
     Friend TodayString As String = Format(Today, DateFormat)
