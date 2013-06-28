@@ -165,9 +165,6 @@
     <Import Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="SFX\7zsd_All.sfx">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Include="app.config" />
     <None Include="DataSet\dsIAIP10.xsc">
       <DependentUpon>dsIAIP10.xsd</DependentUpon>
@@ -2172,13 +2169,17 @@
     <Service Include="{967B4E0D-AD0C-4609-AB67-0FA40C0206D8}" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="SFX\7za.exe">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    <None Include="..\_Tools\7zsd\7zsd_All.sfx">
+      <Link>SFX\7zsd_All.sfx</Link>
     </None>
     <None Include="SFX\config.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="changelog.txt" />
+    <Content Include="..\_Tools\7za\7za.exe">
+      <Link>SFX\7za.exe</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="..\_Tools\Oracle\instantclient\oci.dll">
       <Link>oci.dll</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -2253,7 +2254,8 @@
     <PreBuildEvent>
     </PreBuildEvent>
     <PostBuildEvent>"$(TargetDir)SFX\7za.exe" a "$(TargetDir)SFX\IAIP.7z" "$(TargetDir)JohnGaltProject.exe"
-copy /b "$(TargetDir)SFX\7zsd_All.sfx" + "$(TargetDir)SFX\config.txt" + "$(TargetDir)SFX\IAIP.7z" "$(TargetDir)SFX\IAIP.exe"
-del "$(TargetDir)SFX\IAIP.7z"</PostBuildEvent>
+copy /b "$(TargetDir)SFX\7zsd_All.sfx" + "$(TargetDir)SFX\config.txt" + "$(TargetDir)SFX\IAIP.7z" "$(TargetDir)SFX\IAIP_update.exe"
+del "$(TargetDir)SFX\IAIP.7z"
+copy "$(TargetDir)SFX\IAIP_update.exe" "$(TargetDir)SFX\IAIP.exe"</PostBuildEvent>
   </PropertyGroup>
 </Project>
