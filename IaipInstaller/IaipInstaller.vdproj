@@ -22,13 +22,13 @@
         "Entry"
         {
         "MsmKey" = "8:_42C5E0B2019BF3E930C3B262AB7293A0"
-        "OwnerKey" = "8:_A2F86C5A4C162033EA7F2DAE9699D15F"
+        "OwnerKey" = "8:_A1FC11660B0D4DC25A0A78BC6C558775"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_42C5E0B2019BF3E930C3B262AB7293A0"
-        "OwnerKey" = "8:_C89783ABABB1DB89F85DB6B42BE63F23"
+        "OwnerKey" = "8:_84CABCD6BF92C14468B0AB9426903ED9"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -39,8 +39,14 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_84CABCD6BF92C14468B0AB9426903ED9"
+        "OwnerKey" = "8:_62050FE5876D4351B63141F6589FBB98"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_9322DF0D2AFA64A9328BEC8DE6E6FEFA"
-        "OwnerKey" = "8:_A2F86C5A4C162033EA7F2DAE9699D15F"
+        "OwnerKey" = "8:_A1FC11660B0D4DC25A0A78BC6C558775"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -51,32 +57,26 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_A2F86C5A4C162033EA7F2DAE9699D15F"
-        "OwnerKey" = "8:_62050FE5876D4351B63141F6589FBB98"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_C89783ABABB1DB89F85DB6B42BE63F23"
+        "MsmKey" = "8:_A1FC11660B0D4DC25A0A78BC6C558775"
         "OwnerKey" = "8:_62050FE5876D4351B63141F6589FBB98"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_D2D2513A870BE97C804DB3E8F760B93F"
-        "OwnerKey" = "8:_A2F86C5A4C162033EA7F2DAE9699D15F"
+        "OwnerKey" = "8:_A1FC11660B0D4DC25A0A78BC6C558775"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_D2D2513A870BE97C804DB3E8F760B93F"
-        "OwnerKey" = "8:_C89783ABABB1DB89F85DB6B42BE63F23"
+        "OwnerKey" = "8:_84CABCD6BF92C14468B0AB9426903ED9"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_DEBEC654F4E2B3A2DA8956081E9AF7E6"
-        "OwnerKey" = "8:_C89783ABABB1DB89F85DB6B42BE63F23"
+        "OwnerKey" = "8:_84CABCD6BF92C14468B0AB9426903ED9"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -94,31 +94,19 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_42C5E0B2019BF3E930C3B262AB7293A0"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_A2F86C5A4C162033EA7F2DAE9699D15F"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_C89783ABABB1DB89F85DB6B42BE63F23"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_E91753B8B282B95A12B885507E6F7771"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_62050FE5876D4351B63141F6589FBB98"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_A1FC11660B0D4DC25A0A78BC6C558775"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_84CABCD6BF92C14468B0AB9426903ED9"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -130,7 +118,19 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_E91753B8B282B95A12B885507E6F7771"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_D2D2513A870BE97C804DB3E8F760B93F"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_42C5E0B2019BF3E930C3B262AB7293A0"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -151,13 +151,21 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+            }
         }
         "Release"
         {
         "DisplayName" = "8:Release"
         "IsDebugOnly" = "11:FALSE"
         "IsReleaseOnly" = "11:TRUE"
-        "OutputFilename" = "8:Release\\IaipInstaller.msi"
+        "OutputFilename" = "8:..\\..\\_Build\\IAIP\\IAIP-Installer\\IaipInstaller.msi"
         "PackageFilesAs" = "3:2"
         "PackageFileSize" = "3:-2147483648"
         "CabType" = "3:1"
@@ -253,6 +261,37 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_84CABCD6BF92C14468B0AB9426903ED9"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:Interop.Microsoft.Office.Interop.Excel, Version=1.7.0.0, Culture=neutral, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_84CABCD6BF92C14468B0AB9426903ED9"
+                    {
+                    "Name" = "8:Interop.Microsoft.Office.Interop.Excel.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:Interop.Microsoft.Office.Interop.Excel.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_7BE259ACB5D34C389CCD3700FC995F86"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_9322DF0D2AFA64A9328BEC8DE6E6FEFA"
             {
             "SourcePath" = "8:MSWORD.OLB"
@@ -304,51 +343,20 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_A2F86C5A4C162033EA7F2DAE9699D15F"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_A1FC11660B0D4DC25A0A78BC6C558775"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
             "AssemblyAsmDisplayName" = "8:Interop.Microsoft.Office.Interop.Word, Version=8.5.0.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_A2F86C5A4C162033EA7F2DAE9699D15F"
+                    "_A1FC11660B0D4DC25A0A78BC6C558775"
                     {
                     "Name" = "8:Interop.Microsoft.Office.Interop.Word.dll"
                     "Attributes" = "3:512"
                     }
                 }
             "SourcePath" = "8:Interop.Microsoft.Office.Interop.Word.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_7BE259ACB5D34C389CCD3700FC995F86"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_C89783ABABB1DB89F85DB6B42BE63F23"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Interop.Microsoft.Office.Interop.Excel, Version=1.7.0.0, Culture=neutral, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_C89783ABABB1DB89F85DB6B42BE63F23"
-                    {
-                    "Name" = "8:Interop.Microsoft.Office.Interop.Excel.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:Interop.Microsoft.Office.Interop.Excel.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_7BE259ACB5D34C389CCD3700FC995F86"
@@ -413,7 +421,7 @@
             "SharedLegacy" = "11:FALSE"
             "PackageAs" = "3:1"
             "Register" = "3:1"
-            "Exclude" = "11:TRUE"
+            "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
@@ -525,7 +533,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:IAIP"
         "ProductCode" = "8:{28963560-C586-41CE-A5DE-4F58E66AF96C}"
-        "PackageCode" = "8:{35DE2B91-65C4-4C45-BBD4-795A8CA1F2C2}"
+        "PackageCode" = "8:{F0F921E6-6D56-458B-9E52-5866702CC5FB}"
         "UpgradeCode" = "8:{D332FA62-F3B1-429F-B458-5F445F6846DA}"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
