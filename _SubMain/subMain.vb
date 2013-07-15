@@ -217,32 +217,32 @@ Module subMain
         End If
         If ErrorMessage.Contains("ORA-12592") Then
             MsgBox("There was a connectivity error with the database." & vbCrLf & "Please run the task that caused this error again to verify the data is correct." & vbCrLf & "If the error presists, try waiting until the internet connection improves or contact the Data Management Unit." & vbCrLf & _
-            "Please contact the Data Management Unit if this error is hindering your work." & vbCrLf & "Sorry for the inconvenance.", _
+            "Please contact the Data Management Unit if this error is hindering your work." & vbCrLf & "Sorry for the inconvenience.", _
             MsgBoxStyle.Information, "Integrated Air Information Platform - ERROR MESSAGE")
             Exit Sub
         End If
 
         If ErrorMessage.Contains("ORA-12545") Or ErrorMessage.Contains("ORA-604") Or ErrorMessage.Contains("ORA-257") Then
             MsgBox("There is no connection to the database at this time." & vbCrLf & "Verify that you currently have an internet connection." & vbCrLf & _
-            "Please contact the Data Management Unit if this error is hindering your work." & vbCrLf & "Sorry for the inconvenance.", _
+            "Please contact the Data Management Unit if this error is hindering your work." & vbCrLf & "Sorry for the inconvenience.", _
             MsgBoxStyle.Information, "Integrated Air Information Platform - ERROR MESSAGE")
             Exit Sub
         End If
         If ErrorMessage.Contains("ORA-03114") Then
             MsgBox("There is no connection to the database at this time." & vbCrLf & "Verify that you currently have an internet connection." & vbCrLf & _
-            "Please contact the Data Management Unit if this error is hindering your work." & vbCrLf & "Sorry for the inconvenance.", _
+            "Please contact the Data Management Unit if this error is hindering your work." & vbCrLf & "Sorry for the inconvenience.", _
             MsgBoxStyle.Information, "Integrated Air Information Platform - ERROR MESSAGE")
             Exit Sub
         End If
         If ErrorMessage.Contains("ORA-1033") Or ErrorMessage.Contains("ORA-01033") Then
             MsgBox("The database is currently undergoing a restart procedure." & vbCrLf & "Please wait 15 minutes and try again." & vbCrLf & _
-            "Please contact the Data Management Unit if this error is hindering your work." & vbCrLf & "Sorry for the inconvenance.", _
+            "Please contact the Data Management Unit if this error is hindering your work." & vbCrLf & "Sorry for the inconvenience.", _
             MsgBoxStyle.Information, "Integrated Air Information Platform - ERROR MESSAGE")
             Exit Sub
         End If
         If ErrorMessage.Contains("ORA-12154") Then
             MsgBox("This PC has a connection error." & vbCrLf & "Please contact the Data Management Unit for assistance." & vbCrLf & _
-             "Sorry for the inconvenance.", _
+             "Sorry for the inconvenience.", _
             MsgBoxStyle.Information, "Integrated Air Information Platform - ERROR MESSAGE")
             Exit Sub
         End If
