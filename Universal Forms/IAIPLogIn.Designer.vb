@@ -283,7 +283,7 @@ Partial Class IAIPLogIn
         Me.Panel1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
         Me.Panel1.Font = New System.Drawing.Font("Times New Roman", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(603, 20)
+        Me.Panel1.Size = New System.Drawing.Size(615, 20)
         Me.Panel1.Spring = True
         Me.Panel1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
@@ -315,9 +315,8 @@ Partial Class IAIPLogIn
         'Panel4
         '
         Me.Panel4.Name = "Panel4"
-        Me.Panel4.Size = New System.Drawing.Size(12, 20)
+        Me.Panel4.Size = New System.Drawing.Size(1, 20)
         Me.Panel4.Spring = True
-        Me.Panel4.Text = "x"
         '
         'IaipPatchLink
         '

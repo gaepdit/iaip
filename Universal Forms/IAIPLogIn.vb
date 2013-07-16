@@ -84,7 +84,7 @@ Public Class IAIPLogIn
     End Sub
 
 #Region "Page Load Functions"
-    Private Sub DisableIaipLogin(Optional ByVal message As String = "")
+    Private Sub DisableLogin(Optional ByVal message As String = "")
         UserID.Enabled = False
         UserPassword.Enabled = False
         LogInButton.Enabled = False
@@ -110,7 +110,7 @@ Public Class IAIPLogIn
         End With
 
         If publishedVersion.ToString = "0.0.0.0" Then
-            DisableIaipLogin("The Platform is currently unavailable. Please check back later. " & _
+            DisableLogin("The Platform is currently unavailable. Please check back later. " & _
                              "If you continue to see this message after two hours, please inform the " & _
                              "Data Management Unit. Thank you.")
             Exit Sub
@@ -121,7 +121,7 @@ Public Class IAIPLogIn
         End If
 
         If IsUpdateMandatory() Then
-            DisableIaipLogin("Your installation of the Platform is out of date and must be updated before you can proceed.")
+            DisableLogin("Your installation of the Platform is out of date and must be updated before you can proceed.")
         End If
     End Sub
     Private Sub ShowUpdateLink(ByVal currentVersion As Version, ByVal publishedVersion As Version)
@@ -140,7 +140,7 @@ Public Class IAIPLogIn
         currentSetting = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Environment", "NLS_LANG", Nothing)
         If currentSetting Is Nothing Or currentSetting <> "AMERICAN" Then
             My.Computer.Registry.SetValue("HKEY_CURRENT_USER\Environment", "NLS_LANG", "AMERICAN")
-            DisableIaipLogin("Language settings have been updated. Please close and restart the Platform.")
+            DisableLogin("Language settings have been updated. Please close and restart the Platform.")
         End If
     End Sub
     Sub FindLogIn()
