@@ -1,9 +1,6 @@
 Imports System.Data.OracleClient
 Imports System.IO
 Imports Microsoft.Win32
-'Imports System.Security
-'Imports System.Security.Cryptography
-'Imports System.Drawing.Drawing2D
 
 Public Class IAIPLogIn
     Dim Paneltemp1 As String
