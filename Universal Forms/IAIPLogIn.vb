@@ -87,7 +87,7 @@ Public Class IAIPLogIn
     Private Sub DisableLogin(Optional ByVal message As String = "")
         UserID.Enabled = False
         UserPassword.Enabled = False
-        LogInButton.Enabled = False
+        LoginButton.Enabled = False
 
         UserIDLabel.ForeColor = SystemColors.GrayText
         PasswordLabel.ForeColor = SystemColors.GrayText
@@ -102,7 +102,7 @@ Public Class IAIPLogIn
         Dim currentVersion As Version = GetCurrentVersion()
         Dim publishedVersion As Version = GetPublishedVersion()
 
-        UpdateIaipLink.Visible = False
+        UpdateLink.Visible = False
 
         With CurrentVersionMessage
             .Text = String.Format("Version: {0}", currentVersion.ToString)
@@ -125,7 +125,7 @@ Public Class IAIPLogIn
         End If
     End Sub
     Private Sub ShowUpdateLink(ByVal currentVersion As Version, ByVal publishedVersion As Version)
-        UpdateIaipLink.Visible = True
+        UpdateLink.Visible = True
         With CurrentVersionMessage
             .Text = String.Format("You are using version: {0}", currentVersion.ToString)
             .Visible = True
@@ -416,7 +416,7 @@ Public Class IAIPLogIn
 
     End Sub
 #End Region
-    Private Sub btnEnter_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles LogInButton.Click
+    Private Sub btnEnter_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles LoginButton.Click
         Try
             LogInCheck()
         Catch ex As Exception
@@ -451,7 +451,7 @@ Public Class IAIPLogIn
 
     End Sub
 #Region "Update IAIP"
-    Private Sub UpdateIaipLink_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles UpdateIaipLink.LinkClicked
+    Private Sub UpdateLink_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles UpdateLink.LinkClicked
         Conn.Dispose()
         OpenDownloadUrl()
         Application.Exit()
@@ -498,18 +498,18 @@ Public Class IAIPLogIn
         End Try
 
     End Sub
-    Private Sub btnEnter_MouseHover(ByVal sender As Object, ByVal e As System.EventArgs) Handles LogInButton.MouseHover
+    Private Sub btnEnter_MouseHover(ByVal sender As Object, ByVal e As System.EventArgs) Handles LoginButton.MouseHover
         Try
 
             Paneltemp1 = Panel1.Text
             Panel1.Text = "If all information is correct enter main console..."
-            ToolTip1.SetToolTip(LogInButton, "If all information is correct enter main console...")
+            ToolTip1.SetToolTip(LoginButton, "If all information is correct enter main console...")
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
     End Sub
-    Private Sub btnEnter_MouseLeave(ByVal sender As Object, ByVal e As System.EventArgs) Handles LogInButton.MouseLeave
+    Private Sub btnEnter_MouseLeave(ByVal sender As Object, ByVal e As System.EventArgs) Handles LoginButton.MouseLeave
         Try
 
             Panel1.Text = "Enter Your User ID..."
@@ -585,7 +585,7 @@ Public Class IAIPLogIn
             mmiTestingEnvior.Checked = True
             UserID.BackColor = Color.Tomato
             UserPassword.BackColor = Color.Tomato
-            LogInButton.BackColor = Color.Tomato
+            LoginButton.BackColor = Color.Tomato
             Conn = New OracleConnection(DevConnString)
             CRLogIn = DEVCRLogIn
             CRPassWord = DEVCRPassWord
@@ -594,7 +594,7 @@ Public Class IAIPLogIn
             mmiTestingEnvior.Checked = False
             UserID.BackColor = Color.White
             UserPassword.BackColor = Color.White
-            LogInButton.BackColor = Color.White
+            LoginButton.BackColor = Color.White
             Conn = New OracleConnection(PrdConnString)
             CRLogIn = PRDCRLogIn
             CRPassWord = PRDCRPassWord
@@ -631,7 +631,7 @@ Public Class IAIPLogIn
             mmiLukeEnviornment.Checked = True
             UserID.BackColor = Color.Black
             UserPassword.BackColor = Color.Black
-            LogInButton.BackColor = Color.Bisque
+            LoginButton.BackColor = Color.Bisque
             Conn = New OracleConnection(PrdConnString)
             CRLogIn = PRDCRLogIn
             CRPassWord = PRDCRPassWord
@@ -640,7 +640,7 @@ Public Class IAIPLogIn
             mmiLukeEnviornment.Checked = False
             UserID.BackColor = Color.White
             UserPassword.BackColor = Color.White
-            LogInButton.BackColor = Color.White
+            LoginButton.BackColor = Color.White
             Conn = New OracleConnection(PrdConnString)
             CRLogIn = PRDCRLogIn
             CRPassWord = PRDCRPassWord

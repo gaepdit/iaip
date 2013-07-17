@@ -40,10 +40,10 @@ Partial Class IAIPLogIn
         Me.UserPassword = New System.Windows.Forms.TextBox
         Me.UserID = New System.Windows.Forms.TextBox
         Me.Label6 = New System.Windows.Forms.Label
-        Me.UpdateIaipLink = New System.Windows.Forms.LinkLabel
+        Me.UpdateLink = New System.Windows.Forms.LinkLabel
         Me.Label2 = New System.Windows.Forms.Label
         Me.Label1 = New System.Windows.Forms.Label
-        Me.LogInButton = New System.Windows.Forms.Button
+        Me.LoginButton = New System.Windows.Forms.Button
         Me.WarningLabel = New System.Windows.Forms.Label
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip
         Me.ProgressBar = New System.Windows.Forms.ToolStripProgressBar
@@ -201,18 +201,18 @@ Partial Class IAIPLogIn
         Me.Label6.TabIndex = 32
         Me.Label6.Text = "Environmental Protection Division"
         '
-        'UpdateIaipLink
+        'UpdateLink
         '
-        Me.UpdateIaipLink.AutoSize = True
-        Me.UpdateIaipLink.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.UpdateIaipLink.Location = New System.Drawing.Point(595, 274)
-        Me.UpdateIaipLink.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.UpdateIaipLink.Name = "UpdateIaipLink"
-        Me.UpdateIaipLink.Size = New System.Drawing.Size(88, 18)
-        Me.UpdateIaipLink.TabIndex = 4
-        Me.UpdateIaipLink.TabStop = True
-        Me.UpdateIaipLink.Text = "Update IAIP "
-        Me.UpdateIaipLink.Visible = False
+        Me.UpdateLink.AutoSize = True
+        Me.UpdateLink.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.UpdateLink.Location = New System.Drawing.Point(595, 274)
+        Me.UpdateLink.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.UpdateLink.Name = "UpdateLink"
+        Me.UpdateLink.Size = New System.Drawing.Size(88, 18)
+        Me.UpdateLink.TabIndex = 4
+        Me.UpdateLink.TabStop = True
+        Me.UpdateLink.Text = "Update IAIP "
+        Me.UpdateLink.Visible = False
         '
         'Label2
         '
@@ -238,13 +238,13 @@ Partial Class IAIPLogIn
         '
         'LogInButton
         '
-        Me.LogInButton.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LogInButton.Location = New System.Drawing.Point(555, 366)
-        Me.LogInButton.Margin = New System.Windows.Forms.Padding(2)
-        Me.LogInButton.Name = "LogInButton"
-        Me.LogInButton.Size = New System.Drawing.Size(88, 31)
-        Me.LogInButton.TabIndex = 2
-        Me.LogInButton.Text = "Log In"
+        Me.LoginButton.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LoginButton.Location = New System.Drawing.Point(555, 366)
+        Me.LoginButton.Margin = New System.Windows.Forms.Padding(2)
+        Me.LoginButton.Name = "LogInButton"
+        Me.LoginButton.Size = New System.Drawing.Size(88, 31)
+        Me.LoginButton.TabIndex = 2
+        Me.LoginButton.Text = "Log In"
         '
         'WarningLabel
         '
@@ -260,17 +260,18 @@ Partial Class IAIPLogIn
         'StatusStrip1
         '
         Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ProgressBar, Me.Panel1, Me.Panel2, Me.Panel3, Me.Panel4})
-        Me.StatusStrip1.Location = New System.Drawing.Point(0, 476)
+        Me.StatusStrip1.Location = New System.Drawing.Point(0, 475)
         Me.StatusStrip1.Name = "StatusStrip1"
         Me.StatusStrip1.Padding = New System.Windows.Forms.Padding(1, 0, 10, 0)
-        Me.StatusStrip1.Size = New System.Drawing.Size(792, 25)
+        Me.StatusStrip1.Size = New System.Drawing.Size(792, 26)
         Me.StatusStrip1.TabIndex = 39
         Me.StatusStrip1.Text = "StatusStrip1"
         '
         'ProgressBar
         '
+        Me.ProgressBar.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!)
         Me.ProgressBar.Name = "ProgressBar"
-        Me.ProgressBar.Size = New System.Drawing.Size(75, 19)
+        Me.ProgressBar.Size = New System.Drawing.Size(75, 20)
         Me.ProgressBar.Step = 15
         Me.ProgressBar.Style = System.Windows.Forms.ProgressBarStyle.Continuous
         '
@@ -281,9 +282,9 @@ Partial Class IAIPLogIn
                     Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
         Me.Panel1.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
         Me.Panel1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
-        Me.Panel1.Font = New System.Drawing.Font("Times New Roman", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Panel1.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(615, 20)
+        Me.Panel1.Size = New System.Drawing.Size(608, 21)
         Me.Panel1.Spring = True
         Me.Panel1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
@@ -294,9 +295,9 @@ Partial Class IAIPLogIn
                     Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
         Me.Panel2.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
         Me.Panel2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
-        Me.Panel2.Font = New System.Drawing.Font("Times New Roman", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Panel2.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(44, 20)
+        Me.Panel2.Size = New System.Drawing.Size(48, 21)
         Me.Panel2.Text = "Hello "
         '
         'Panel3
@@ -306,16 +307,17 @@ Partial Class IAIPLogIn
                     Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
         Me.Panel3.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
         Me.Panel3.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
-        Me.Panel3.Font = New System.Drawing.Font("Times New Roman", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Panel3.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Panel3.Name = "Panel3"
-        Me.Panel3.Size = New System.Drawing.Size(45, 20)
+        Me.Panel3.Size = New System.Drawing.Size(48, 21)
         Me.Panel3.Text = "World"
         Me.Panel3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'Panel4
         '
+        Me.Panel4.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!)
         Me.Panel4.Name = "Panel4"
-        Me.Panel4.Size = New System.Drawing.Size(1, 20)
+        Me.Panel4.Size = New System.Drawing.Size(1, 21)
         Me.Panel4.Spring = True
         '
         'IaipPatchLink
@@ -428,10 +430,10 @@ Partial Class IAIPLogIn
         Me.Controls.Add(Me.UserID)
         Me.Controls.Add(Me.Label6)
         Me.Controls.Add(Me.Label3)
-        Me.Controls.Add(Me.UpdateIaipLink)
+        Me.Controls.Add(Me.UpdateLink)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.Label1)
-        Me.Controls.Add(Me.LogInButton)
+        Me.Controls.Add(Me.LoginButton)
         Me.Controls.Add(Me.PictureStateSeal)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Margin = New System.Windows.Forms.Padding(2)
@@ -458,10 +460,10 @@ Partial Class IAIPLogIn
     Friend WithEvents UserPassword As System.Windows.Forms.TextBox
     Friend WithEvents UserID As System.Windows.Forms.TextBox
     Friend WithEvents Label6 As System.Windows.Forms.Label
-    Friend WithEvents UpdateIaipLink As System.Windows.Forms.LinkLabel
+    Friend WithEvents UpdateLink As System.Windows.Forms.LinkLabel
     Friend WithEvents Label2 As System.Windows.Forms.Label
     Friend WithEvents Label1 As System.Windows.Forms.Label
-    Friend WithEvents LogInButton As System.Windows.Forms.Button
+    Friend WithEvents LoginButton As System.Windows.Forms.Button
     Friend WithEvents WarningLabel As System.Windows.Forms.Label
     Friend WithEvents StatusStrip1 As System.Windows.Forms.StatusStrip
     Friend WithEvents ProgressBar As System.Windows.Forms.ToolStripProgressBar
