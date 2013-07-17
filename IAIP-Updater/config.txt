@@ -1,5 +1,8 @@
 ;!@Install@!UTF-8!
 ;
+; This is the config file that is folded in with the 7zsd file and the 
+; zip file containing updated compenents to create a self-extracting updater.
+;
 ; You MUST use DOUBLE backslashes in paths:
 InstallPath="C:\\APB"
 ;
