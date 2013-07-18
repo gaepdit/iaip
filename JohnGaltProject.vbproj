@@ -2202,10 +2202,10 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="changelog.txt" />
-    <Content Include="..\_Tools\7za\7za.exe">
+    <None Include="..\_Tools\7za\7za.exe">
       <Link>IAIP-Updater\7za.exe</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    </None>
     <Content Include="..\_Tools\Oracle\instantclient\oci.dll">
       <Link>oci.dll</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -2224,8 +2224,8 @@
     </Content>
     <Content Include="gaSeal.ico" />
     <None Include="IAIP-Installer\config.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="IAIP-Updater\Post-build Events.txt" />
     <Content Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>
