@@ -38,15 +38,20 @@ Module App
         Dim fileVersion As FileVersionInfo = FileVersionInfo.GetVersionInfo(thisAssembly.Location)
         Return New Version(fileVersion.FileVersion)
     End Function
-    Public Function GetPublishedVersion() As Version
+    Public Function GetPublishedVersion(Optional ByVal appName As String = AppName) As Version
         ' This is the latest available version as listed in the database
         ' (The database has to be updated by hand by an administrator)
         Dim publishedVersionString As String = ""
 
         ' Hit up the database for a version string
-        Dim query As String = "Select strVersionNumber from " & DBNameSpace & ".APBMasterApp where strApplicationName = 'IAIP'"
+        Dim query As String = "Select strVersionNumber " & _
+            "from " & DBNameSpace & ".APBMasterApp " & _
+            "where strApplicationName = :pAppName"
         Using connection As New OracleConnection(CurrentConnString)
             Using command As New OracleCommand(query, connection)
+                command.CommandType = CommandType.Text
+                command.Parameters.Add(":pAppName", OracleType.VarChar).Value = appName
+
                 Try
                     connection.Open()
                     Dim reader As OracleDataReader = command.ExecuteReader
