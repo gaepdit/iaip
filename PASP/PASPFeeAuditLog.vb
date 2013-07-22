@@ -2445,6 +2445,9 @@ Public Class PASPFeeAuditLog
 
             ClearInvoices()
             ClearAuditData()
+            crFeeStatsAndInvoices.ReportSource = Nothing
+            crFeeStatsAndInvoices.Refresh()
+
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
