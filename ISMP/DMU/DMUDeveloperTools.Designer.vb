@@ -956,7 +956,7 @@ Partial Class DMUDeveloperTools
         '
         'VersionNumberInput
         '
-        Me.VersionNumberInput.Location = New System.Drawing.Point(121, 21)
+        Me.VersionNumberInput.Location = New System.Drawing.Point(170, 21)
         Me.VersionNumberInput.Name = "VersionNumberInput"
         Me.VersionNumberInput.Size = New System.Drawing.Size(87, 20)
         Me.VersionNumberInput.TabIndex = 56
@@ -964,7 +964,7 @@ Partial Class DMUDeveloperTools
         'Label13
         '
         Me.Label13.AutoSize = True
-        Me.Label13.Location = New System.Drawing.Point(124, 44)
+        Me.Label13.Location = New System.Drawing.Point(12, 44)
         Me.Label13.Name = "Label13"
         Me.Label13.Size = New System.Drawing.Size(269, 13)
         Me.Label13.TabIndex = 55
@@ -973,11 +973,11 @@ Partial Class DMUDeveloperTools
         'lblCurrentVersion
         '
         Me.lblCurrentVersion.AutoSize = True
-        Me.lblCurrentVersion.Location = New System.Drawing.Point(209, 24)
+        Me.lblCurrentVersion.Location = New System.Drawing.Point(263, 24)
         Me.lblCurrentVersion.Name = "lblCurrentVersion"
-        Me.lblCurrentVersion.Size = New System.Drawing.Size(85, 13)
+        Me.lblCurrentVersion.Size = New System.Drawing.Size(104, 13)
         Me.lblCurrentVersion.TabIndex = 54
-        Me.lblCurrentVersion.Text = "Current Version: "
+        Me.lblCurrentVersion.Text = "Version Placeholder "
         '
         'UpdateVersionNumber
         '
@@ -985,9 +985,9 @@ Partial Class DMUDeveloperTools
         Me.UpdateVersionNumber.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.UpdateVersionNumber.Location = New System.Drawing.Point(15, 19)
         Me.UpdateVersionNumber.Name = "UpdateVersionNumber"
-        Me.UpdateVersionNumber.Size = New System.Drawing.Size(100, 23)
+        Me.UpdateVersionNumber.Size = New System.Drawing.Size(149, 23)
         Me.UpdateVersionNumber.TabIndex = 52
-        Me.UpdateVersionNumber.Text = "Update Version #"
+        Me.UpdateVersionNumber.Text = "Update Published Version #"
         Me.UpdateVersionNumber.UseVisualStyleBackColor = True
         '
         'TPErrorLog

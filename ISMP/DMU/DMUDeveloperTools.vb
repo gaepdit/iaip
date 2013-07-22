@@ -25,7 +25,7 @@ Public Class DMUDeveloperTools
             LoadPermissions()
             rdbDEVTransfer.Text = conn.DataSource.ToString & " --> DEV "
             rdbTESTTransfer.Text = conn.DataSource.ToString & " --> TEST "
-            lblCurrentVersion.Text = "Current Version: " & String.Format("Version: {0}", My.Application.Info.Version.ToString)
+            lblCurrentVersion.Text = "GetCurrentVersion: " & GetCurrentVersion.ToString & "; GetPublishedVersion: " & GetPublishedVersion.ToString
 
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
