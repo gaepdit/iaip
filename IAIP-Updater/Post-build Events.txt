@@ -1,5 +1,6 @@
 ﻿--- The following is the content of the Post-build events command line:
 
+"$(TargetDir)IAIP-Updater\7za.exe" a "$(TargetDir)IAIP-Installer\IAIP-Installer.zip" "$(TargetDir)IAIP-Installer\IaipInstaller.msi" "$(TargetDir)IAIP-Installer\setup.exe" -mx=7
 "$(TargetDir)IAIP-Updater\7za.exe" a "$(TargetDir)IAIP-Updater\IAIP.update.7z" "$(TargetDir)JohnGaltProject.exe" -mx=7
 "$(TargetDir)IAIP-Updater\7za.exe" a "$(TargetDir)IAIP-Updater\IAIP.all.7z" "$(TargetDir)JohnGaltProject.exe" "$(TargetDir)oci.dll" "$(TargetDir)Oracle.DataAccess.dll" "$(TargetDir)orannzsbb11.dll" "$(TargetDir)oraociicus11.dll" "$(TargetDir)OraOps11w.dll" "$(TargetDir)tnsnames.ora" -mx=7
 copy /b "$(TargetDir)IAIP-Updater\7zsd_All.sfx" + "$(TargetDir)IAIP-Updater\config.txt" + "$(TargetDir)IAIP-Updater\IAIP.update.7z" "$(TargetDir)IAIP-Updater\IAIP.update.exe"
@@ -11,3 +12,5 @@ del "$(TargetDir)IAIP-Updater\7za.exe"
 del "$(TargetDir)IAIP-Updater\7zsd_All.sfx"
 del "$(TargetDir)IAIP-Updater\config.txt"
 del "$(TargetDir)IAIP-Updater\make-sfx.bat"
+del "$(TargetDir)IAIP-Installer\setup.exe"
+del "$(TargetDir)IAIP-Installer\IaipInstaller.msi"

@@ -6,6 +6,10 @@ echo after a successful build. This batch file is only here as backup and is
 echo safe to run if necessary. The text of the post-build event command line 
 echo is copied in "./IAIP-Updater/Post-build Events.txt"
 echo
+echo Note: This batch file only processes the IAIP-Updater folder. 
+echo The Post-build event command line also processes the IAIP-Installer 
+echo folder.
+echo
 echo Creating updater zip file...
 7za.exe a IAIP.update.7z ../JohnGaltProject.exe -mx=7
 echo
