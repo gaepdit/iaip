@@ -2283,7 +2283,7 @@
     <PreBuildEvent>
     </PreBuildEvent>
     <PostBuildEvent>"$(TargetDir)IAIP-Updater\7za.exe" a "$(TargetDir)IAIP-Updater\IAIP.update.7z" "$(TargetDir)JohnGaltProject.exe" -mx=7
-"$(TargetDir)IAIP-Updater\7za.exe" a "$(TargetDir)IAIP-Updater\IAIP.all.7z" "$(TargetDir)JohnGaltProject.exe" "$(TargetDir)oci.dll" "$(TargetDir)Oracle.DataAccess.dll" "$(TargetDir)orannzsbb11.dll" "$(TargetDir)oraociicus11.dll" "$(TargetDir)OraOps11w.dll" -mx=7
+"$(TargetDir)IAIP-Updater\7za.exe" a "$(TargetDir)IAIP-Updater\IAIP.all.7z" "$(TargetDir)JohnGaltProject.exe" "$(TargetDir)oci.dll" "$(TargetDir)Oracle.DataAccess.dll" "$(TargetDir)orannzsbb11.dll" "$(TargetDir)oraociicus11.dll" "$(TargetDir)OraOps11w.dll" "$(TargetDir)tnsnames.ora" -mx=7
 copy /b "$(TargetDir)IAIP-Updater\7zsd_All.sfx" + "$(TargetDir)IAIP-Updater\config.txt" + "$(TargetDir)IAIP-Updater\IAIP.update.7z" "$(TargetDir)IAIP-Updater\IAIP.update.exe"
 copy /b "$(TargetDir)IAIP-Updater\7zsd_All.sfx" + "$(TargetDir)IAIP-Updater\config.txt" + "$(TargetDir)IAIP-Updater\IAIP.all.7z" "$(TargetDir)IAIP-Updater\IAIP_Update.exe"
 copy /b "$(TargetDir)IAIP-Updater\7zsd_All.sfx" + "$(TargetDir)IAIP-Updater\config.txt" + "$(TargetDir)IAIP-Updater\IAIP.all.7z" "$(TargetDir)IAIP-Updater\iaip.exe"
