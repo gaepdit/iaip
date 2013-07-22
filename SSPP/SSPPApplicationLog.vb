@@ -62,6 +62,7 @@ Public Class SSPPApplicationLog
         Try
 
             dgvApplicationLog.Visible = False
+            'dgvApplicationLog.DataSource = dsApplication
             lblMessage.Text = "Loading…"
             lblMessage.Visible = True
 
@@ -790,7 +791,8 @@ Public Class SSPPApplicationLog
         SearchDate2b = DTPSearchDate2b.Text
 
         dsApplication = New DataSet
-        dgvApplicationLog.DataSource = dsApplication
+        'dgvApplicationLog.DataSource = dsApplication
+        ' This line was causing a fatal error when an initial RunSearch returned no results
 
         Try
             If bgwApplicationLog.IsBusy = False Then
@@ -1989,7 +1991,7 @@ Public Class SSPPApplicationLog
 
         If e.Cancelled Then
             dsApplication = New DataSet
-            dgvApplicationLog.DataSource = dsApplication
+            'dgvApplicationLog.DataSource = dsApplication
 
             dgvApplicationLog.Visible = False
             Panel1.Text = "Search canceled"
