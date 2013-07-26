@@ -37,6 +37,7 @@ Public Class DMUStaffTools
     Dim dsAFSVerify As DataSet
     Dim daAFSVerify As OracleDataAdapter
     Dim cmdBuild As OracleCommandBuilder
+    Dim dgvRow As New DataGridViewRow
 
     Private Sub DMUStaffTools_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         Try
@@ -1843,7 +1844,7 @@ Public Class DMUStaffTools
     Private Sub exportSI()
         Try
             Dim ExcelApp As New Microsoft.Office.Interop.Excel.Application
-            Dim ExcelDoc As Microsoft.Office.Interop.Excel.Workbook
+            'Dim ExcelDoc As Microsoft.Office.Interop.Excel.Workbook
             'Dim ExcelApp As Excel.Application = New Excel.ApplicationClass
             Dim col, row As Integer
             Dim x As String
@@ -2737,7 +2738,7 @@ Public Class DMUStaffTools
     End Sub
     Sub ExportEStoExcel()
         Dim ExcelApp As New Microsoft.Office.Interop.Excel.Application
-        Dim ExcelDoc As Microsoft.Office.Interop.Excel.Workbook
+        'Dim ExcelDoc As Microsoft.Office.Interop.Excel.Workbook
         ' Dim ExcelApp As New Excel.Application
         Dim i As Integer
         Dim j As Integer
@@ -6152,7 +6153,7 @@ Public Class DMUStaffTools
     End Sub
     Sub ExportEItoExcel()
         Dim ExcelApp As New Microsoft.Office.Interop.Excel.Application
-        Dim ExcelDoc As Microsoft.Office.Interop.Excel.Workbook
+        'Dim ExcelDoc As Microsoft.Office.Interop.Excel.Workbook
         'Dim ExcelApp As New Excel.Application
         Dim i As Integer
         Dim j As Integer
@@ -9315,7 +9316,7 @@ Public Class DMUStaffTools
     End Sub
     Sub GenerateEISMailOutList()
         Dim FacilitySiteID As String
-        Dim airsNumber As String = "0413" & FacilitySiteID
+        Dim airsNumber As String '= "0413" & FacilitySiteID
         Dim airsYear As String
         Dim FACILITYNAME As String = " "
         Dim CONTACTCOMPANYNAME As String = " "
@@ -9702,7 +9703,7 @@ Public Class DMUStaffTools
 
     Sub ExportEIStoExcel()
         Dim ExcelApp As New Microsoft.Office.Interop.Excel.Application
-        Dim ExcelDoc As Microsoft.Office.Interop.Excel.Workbook
+        'Dim ExcelDoc As Microsoft.Office.Interop.Excel.Workbook
         'Dim ExcelApp As New Excel.Application
         Dim i As Integer
         Dim j As Integer
@@ -12163,7 +12164,7 @@ Public Class DMUStaffTools
 
             Exit Sub
 
-            Dim dgvRow As New DataGridViewRow
+            'Dim dgvRow As New DataGridViewRow
 
             SQL = "select distinct " & _
             "'False' as ID, " & _
@@ -12354,7 +12355,7 @@ Public Class DMUStaffTools
             Exit Sub
 
 
-            Dim dgvRow As New DataGridViewRow
+            'Dim dgvRow As New DataGridViewRow
 
             SQL = "select distinct " & _
             "'False' as ID, " & _
@@ -12539,7 +12540,7 @@ Public Class DMUStaffTools
             Exit Sub
 
            
-            Dim dgvRow As New DataGridViewRow
+            'Dim dgvRow As New DataGridViewRow
 
             SQL = "select distinct " & _
        "'False' as ID, " & _
@@ -12692,7 +12693,7 @@ Public Class DMUStaffTools
 
             Exit Sub
 
-            Dim dgvRow As New DataGridViewRow
+            'Dim dgvRow As New DataGridViewRow
 
             SQL = "select distinct " & _
         "'False' as ID, " & _
@@ -12851,7 +12852,7 @@ Public Class DMUStaffTools
 
             Exit Sub
 
-            Dim dgvRow As New DataGridViewRow
+            'Dim dgvRow As New DataGridViewRow
 
             SQL = "select distinct " & _
              "'False' as ID, " & _
@@ -13014,7 +13015,7 @@ Public Class DMUStaffTools
 
 
 
-            Dim dgvRow As New DataGridViewRow
+            'Dim dgvRow As New DataGridViewRow
 
             SQL = "select distinct " & _
        "'False' as ID, " & _
@@ -13175,7 +13176,7 @@ Public Class DMUStaffTools
 
             Exit Sub
 
-            Dim dgvRow As New DataGridViewRow
+            'Dim dgvRow As New DataGridViewRow
  
 
             'added contact email and name
@@ -13337,7 +13338,7 @@ Public Class DMUStaffTools
 
             Exit Sub
 
-            Dim dgvRow As New DataGridViewRow
+            'Dim dgvRow As New DataGridViewRow
 
             'added contact email and name
             SQL = "select distinct " & _
@@ -13502,7 +13503,7 @@ Public Class DMUStaffTools
 
 
 
-            Dim dgvRow As New DataGridViewRow
+            'Dim dgvRow As New DataGridViewRow
 
          
             SQL = "select distinct " & _
@@ -13661,7 +13662,7 @@ Public Class DMUStaffTools
 
             Exit Sub
 
-            Dim dgvRow As New DataGridViewRow
+            'Dim dgvRow As New DataGridViewRow
  
             SQL = "select distinct " & _
       "'False' as ID, " & _
@@ -13819,7 +13820,7 @@ Public Class DMUStaffTools
 
             Exit Sub
 
-            Dim dgvRow As New DataGridViewRow
+            'Dim dgvRow As New DataGridViewRow
 
             SQL = "select " & _
       "'False' as ID, " & _
@@ -13977,7 +13978,7 @@ Public Class DMUStaffTools
 
             Exit Sub
 
-            Dim dgvRow As New DataGridViewRow
+            'Dim dgvRow As New DataGridViewRow
 
             SQL = "select distinct " & _
       "'False' as ID, " & _
@@ -15927,7 +15928,7 @@ Public Class DMUStaffTools
 
             Exit Sub
 
-            Dim dgvRow As New DataGridViewRow
+            'Dim dgvRow As New DataGridViewRow
 
             SQL = "select distinct " & _
             "'False' as ID, " & _
@@ -16093,7 +16094,7 @@ Public Class DMUStaffTools
 
             Exit Sub
 
-            Dim dgvRow As New DataGridViewRow
+            'Dim dgvRow As New DataGridViewRow
 
             SQL = "select distinct " & _
             "'False' as ID, " & _
@@ -16258,7 +16259,7 @@ Public Class DMUStaffTools
             Exit Sub
 
 
-            Dim dgvRow As New DataGridViewRow
+            'Dim dgvRow As New DataGridViewRow
 
             SQL = "select distinct " & _
             "'False' as ID, " & _
@@ -16423,7 +16424,7 @@ Public Class DMUStaffTools
 
             Exit Sub
 
-            Dim dgvRow As New DataGridViewRow
+            'Dim dgvRow As New DataGridViewRow
 
             SQL = "select distinct " & _
             "'False' as ID, " & _
@@ -16588,7 +16589,7 @@ Public Class DMUStaffTools
             Exit Sub
 
 
-            Dim dgvRow As New DataGridViewRow
+            'Dim dgvRow As New DataGridViewRow
 
             SQL = "select distinct " & _
             "'False' as ID, " & _
@@ -16753,7 +16754,7 @@ Public Class DMUStaffTools
 
             Exit Sub
 
-            Dim dgvRow As New DataGridViewRow
+            'Dim dgvRow As New DataGridViewRow
 
             SQL = "select distinct " & _
             "'False' as ID, " & _
@@ -16920,7 +16921,7 @@ Public Class DMUStaffTools
             Exit Sub
 
 
-            Dim dgvRow As New DataGridViewRow
+            'Dim dgvRow As New DataGridViewRow
 
             SQL = "select distinct " & _
            "'False' as ID, " & _
@@ -17084,7 +17085,7 @@ Public Class DMUStaffTools
             Exit Sub
 
 
-            Dim dgvRow As New DataGridViewRow
+            'Dim dgvRow As New DataGridViewRow
 
             SQL = "select distinct " & _
             "'False' as ID, " & _
@@ -17254,7 +17255,7 @@ Public Class DMUStaffTools
 
             Exit Sub
 
-            Dim dgvRow As New DataGridViewRow
+            'Dim dgvRow As New DataGridViewRow
 
             SQL = "select distinct " & _
             "'False' as ID, " & _
@@ -19180,7 +19181,7 @@ Public Class DMUStaffTools
 
             Exit Sub
 
-            Dim dgvRow As New DataGridViewRow
+            'Dim dgvRow As New DataGridViewRow
 
             SQL = "select distinct " & _
       "'False' as ID, " & _
