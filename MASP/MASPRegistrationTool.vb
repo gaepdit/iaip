@@ -1018,9 +1018,8 @@ Public Class MASPRegistrationTool
 
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
+        Return "False"
     End Function
     Private Sub btnGeneratePasscode_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnGeneratePasscode.Click
         Try
