@@ -43,7 +43,7 @@ Namespace LineCount
                         'File.OpenText(file.FullName)
                         Dim sr As StreamReader = New StreamReader(file.FullName)
                         'file.OpenText(file.FullName)
-                        'loop until the end
+                        'loop through file
                         While Not (sr.ReadLine() Is Nothing)
                             LineCount += 1
                         End While
