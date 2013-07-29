@@ -236,12 +236,12 @@ Partial Class IAIPLogIn
         Me.Label1.TabIndex = 27
         Me.Label1.Text = "Air Protection Branch"
         '
-        'LogInButton
+        'LoginButton
         '
         Me.LoginButton.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LoginButton.Location = New System.Drawing.Point(555, 366)
         Me.LoginButton.Margin = New System.Windows.Forms.Padding(2)
-        Me.LoginButton.Name = "LogInButton"
+        Me.LoginButton.Name = "LoginButton"
         Me.LoginButton.Size = New System.Drawing.Size(88, 31)
         Me.LoginButton.TabIndex = 2
         Me.LoginButton.Text = "Log In"

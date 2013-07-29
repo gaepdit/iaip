@@ -71,7 +71,7 @@ Module subMain
 
 #Region "All Forms"
 #Region "Universal Screens"
-    Public APB110 As IAIPLogIn
+    'Public APB110 As IAIPLogIn
 
     Public NavigationScreen As IAIPNavigation
     Public FacilityLookUpTool As IAIPFacilityLookUpTool
@@ -342,13 +342,15 @@ Module subMain
             Case DialogResult.Yes
                 t2.Enabled = False
             Case DialogResult.No
-                End
+                Conn.Dispose()
+                Application.Exit()
             Case Else
                 t2.Enabled = False
         End Select
     End Sub
     Public Sub TimerFired2(ByVal sender As Object, ByVal e As System.Timers.ElapsedEventArgs)
-        End
+        Conn.Dispose()
+        Application.Exit()
     End Sub
 
 #End Region

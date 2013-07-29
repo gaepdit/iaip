@@ -386,7 +386,7 @@ Public Class IAIPLogIn
                         NavigationScreen.Show()
 
                         ProgressBar.Value = 0
-                        Me.Hide()
+                        Me.Close()
                     Else
                         Panel1.Text = Paneltemp1
 
@@ -423,23 +423,24 @@ Public Class IAIPLogIn
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub Splash_Closing(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
-        If APB110 Is Nothing Then
-            Conn.Dispose()
-            End
-        Else
-        End If
+    'Private Sub Splash_Closing(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
+    '    If APB110 Is Nothing Then
+    '        Conn.Dispose()
+    '        End
+    '    Else
+    '    End If
+    'End Sub
+    Private Sub CloseIaip()
+        Conn.Dispose()
+        Application.Exit()
     End Sub
-    Private Sub Splash_Closed(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Closed
+    Private Sub Form_Closed(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Closed
         If NavigationScreen Is Nothing Then
-            Conn.Dispose()
-            End
-        Else
-
+            CloseIaip()
         End If
     End Sub
     Private Sub MmiExit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiExit.Click
-        End
+        CloseIaip()
     End Sub
     Private Sub MenuItem2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiLogIn.Click
         Try
@@ -451,10 +452,9 @@ Public Class IAIPLogIn
 
     End Sub
 #Region "Update IAIP"
-    Private Sub UpdateLink_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles UpdateLink.LinkClicked
-        Conn.Dispose()
+    Private Sub StartIaipUpdate()
         OpenDownloadUrl()
-        Application.Exit()
+        CloseIaip()
     End Sub
 #End Region
 #Region "Mouse Actions"
@@ -573,11 +573,11 @@ Public Class IAIPLogIn
         End Try
 
     End Sub
-    Private Sub btnExit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
-        Me.Close()
-        Conn.Dispose()
-        End
-    End Sub
+    'Private Sub btnExit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
+    '    Me.Close()
+    '    Conn.Dispose()
+    '    End
+    'End Sub
     Private Sub mmiTestingEnvior_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiTestingEnvior.Click
         mmiTestingDatabase.Checked = False
         mmiLukeEnviornment.Checked = False
@@ -648,32 +648,32 @@ Public Class IAIPLogIn
         End If
 
     End Sub
-    Private Sub IaipPatchLink_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles IaipPatchLink.LinkClicked
-        Try
-            Dim Result As DialogResult
-            Dim URL As String = ""
+    'Private Sub IaipPatchLink_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles IaipPatchLink.LinkClicked
+    '    Try
+    '        Dim Result As DialogResult
+    '        Dim URL As String = ""
 
-            Result = MessageBox.Show("If you are not an Administrator User on this machine click 'Cancel'." & vbCrLf & _
-                       "If you are not sure contact the Data Management Unit.", "IAIP Patch", _
-                       MessageBoxButtons.OKCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
-            Select Case Result
-                Case Windows.Forms.DialogResult.OK
-                    URL = "http://airpermit.dnr.state.ga.us/iaip/iaipPatch.exe"
-                    System.Diagnostics.Process.Start(URL)
-                    Conn.Dispose()
-                    End
-                Case Windows.Forms.DialogResult.Cancel
+    '        Result = MessageBox.Show("If you are not an Administrator User on this machine click 'Cancel'." & vbCrLf & _
+    '                   "If you are not sure contact the Data Management Unit.", "IAIP Patch", _
+    '                   MessageBoxButtons.OKCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
+    '        Select Case Result
+    '            Case Windows.Forms.DialogResult.OK
+    '                URL = "http://airpermit.dnr.state.ga.us/iaip/iaipPatch.exe"
+    '                System.Diagnostics.Process.Start(URL)
+    '                Conn.Dispose()
+    '                End
+    '            Case Windows.Forms.DialogResult.Cancel
 
-                Case Else
+    '            Case Else
 
-            End Select
+    '        End Select
 
-        Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
+    '    Catch ex As Exception
+    '        ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+    '    Finally
 
-        End Try
-    End Sub
+    '    End Try
+    'End Sub
     Private Sub mmiRefreshUserID_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiRefreshUserID.Click
         Try
             DefaultsText = ""
@@ -724,16 +724,7 @@ Public Class IAIPLogIn
         End Try
     End Sub
     Private Sub mmiUpdate_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiUpdate.Click
-        Try
-            Dim URL As String = ""
-            URL = "http://airpermit.dnr.state.ga.us/iaip/iaip.exe"
-            System.Diagnostics.Process.Start(URL)
-            Conn.Dispose()
-            End
-        Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-        End Try
+        DownloadIaipUpdate()
     End Sub
     Private Sub mmiRefreshDefaultLoc_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiRefreshDefaultLoc.Click
         Try
@@ -882,4 +873,7 @@ Public Class IAIPLogIn
         End Try
     End Sub
 
+    Private Sub UpdateLink_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles UpdateLink.LinkClicked
+        StartIaipUpdate()
+    End Sub
 End Class

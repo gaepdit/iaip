@@ -1042,7 +1042,6 @@ Public Class ISMPClosePrint
                 Case Else
                     ISMPCloseAndPrint = Nothing
                     Conn.Dispose()
-                    End
             End Select
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
