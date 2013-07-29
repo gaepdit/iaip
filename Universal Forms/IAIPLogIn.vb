@@ -717,7 +717,7 @@ Public Class IAIPLogIn
         OpenHelpUrl(Me)
     End Sub
     Private Sub mmiUpdate_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiUpdate.Click
-        DownloadIaipUpdate()
+        StartIaipUpdate()
     End Sub
     Private Sub mmiRefreshDefaultLoc_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiRefreshDefaultLoc.Click
         Try
