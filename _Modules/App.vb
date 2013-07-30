@@ -1,13 +1,24 @@
 ﻿Imports System.Reflection
 Imports System.Data.OracleClient
+Imports EQATEC.Analytics.Monitor
 
 Module App
 
+#Region "Application Analytics Monitoring"
+    'Friend monitor As IAnalyticsMonitor = AnalyticsMonitorFactory.CreateMonitor("094F22FFB35C42E9A5D65279634F5028")
+    Friend monitorSettings As IAnalyticsMonitorSettings = AnalyticsMonitorFactory.CreateSettings("094F22FFB35C42E9A5D65279634F5028")
+    Friend monitor As IAnalyticsMonitor
+    ' Don't create the monitor yet. Change settings in MyApplication_Startup, 
+    ' then create & start the monitor there
+#End Region
+
 #Region "URL handling"
     Public Sub OpenHelpUrl(Optional ByVal sender As System.Object = Nothing)
+        monitor.TrackFeature("OpenHelpUrl")
         OpenUrl(HELP_URL, sender)
     End Sub
     Public Sub OpenDownloadUrl(Optional ByVal sender As System.Object = Nothing)
+        monitor.TrackFeature("OpenDownloadUrl")
         OpenUrl(DOWNLOAD_URL, sender)
     End Sub
     Private Sub OpenUrl(ByVal url As String, Optional ByVal sender As System.Object = Nothing)
