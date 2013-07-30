@@ -1,13 +1,15 @@
 ﻿Imports System.Reflection
 Imports System.Data.OracleClient
+Imports System.Collections.Generic
 Imports EQATEC.Analytics.Monitor
 
 Module App
 
 #Region "Application Analytics Monitoring"
-    'Friend monitor As IAnalyticsMonitor = AnalyticsMonitorFactory.CreateMonitor("094F22FFB35C42E9A5D65279634F5028")
-    Friend monitorSettings As IAnalyticsMonitorSettings = AnalyticsMonitorFactory.CreateSettings("094F22FFB35C42E9A5D65279634F5028")
+    ' Using EQATEC.Analytics.Monitor Library
     Friend monitor As IAnalyticsMonitor
+    Friend monitorSettings As IAnalyticsMonitorSettings = AnalyticsMonitorFactory.CreateSettings(AnalyticsApiKey)
+    Friend monitorInstallationInfo As New Dictionary(Of String, String)
     ' Don't create the monitor yet. Change settings in MyApplication_Startup, 
     ' then create & start the monitor there
 #End Region

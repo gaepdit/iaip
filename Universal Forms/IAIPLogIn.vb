@@ -356,6 +356,11 @@ Public Class IAIPLogIn
                             ProfileUpdate.Close()
                             ProfileUpdate = Nothing
                         End If
+
+                        ' Add additional installation meta data for analytics
+                        monitorInstallationInfo.Add("IaipUserName", Replace(UserID.Text.ToLower, "'", "''"))
+                        monitor.SetInstallationInfo(MachineName, monitorInstallationInfo)
+
                         NavigationScreen = Nothing
                         If NavigationScreen Is Nothing Then NavigationScreen = New IAIPNavigation
 

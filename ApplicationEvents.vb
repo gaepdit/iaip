@@ -8,7 +8,6 @@
     ' StartupNextInstance: Raised when launching a single-instance application and the application is already active. 
     ' NetworkAvailabilityChanged: Raised when the network connection is connected or disconnected.
     Partial Friend Class MyApplication
-
         Private Sub MyApplication_Startup(ByVal sender As Object, ByVal e As Microsoft.VisualBasic.ApplicationServices.StartupEventArgs) _
             Handles Me.Startup
 
@@ -16,7 +15,7 @@
             Console.WriteLine("Environment.MachineName: " & Environment.MachineName)
             Console.WriteLine("Environment.UserName: " & Environment.UserName)
 
-            ' EQATEC analytics monitor: variables created in _Modules/App.vb
+            ''' Analytics monitor: variables initially created in _Modules/App.vb
 #If DEBUG Then
             monitorSettings.TestMode = True
 #End If
@@ -24,10 +23,16 @@
             monitor = EQATEC.Analytics.Monitor.AnalyticsMonitorFactory.Create(monitorSettings)
             With monitor
                 .Start()
-                .SetInstallationInfo(Environment.MachineName.ToString)
-                .SetInstallationInfo(Environment.UserName.ToString)
                 .TrackFeatureStart("Startup.Loading")
             End With
+
+            ' Add additional installation meta data for analytics
+            With monitorInstallationInfo
+                .Add("MachineName", Environment.MachineName)
+                .Add("WindowsUserName", Environment.UserName)
+            End With
+            monitor.SetInstallationInfo(MachineName, monitorInstallationInfo)
+
 
             '' Just for fun: sample code for a new way of handling login form
             '' http://visualstudiomagazine.com/articles/2008/08/01/customize-your-application-startup.aspx
