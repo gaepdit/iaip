@@ -26,6 +26,7 @@
                 .Start()
                 .SetInstallationInfo(Environment.MachineName.ToString)
                 .SetInstallationInfo(Environment.UserName.ToString)
+                .TrackFeatureStart("Startup.Loading")
             End With
 
             '' Just for fun: sample code for a new way of handling login form

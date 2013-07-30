@@ -13,8 +13,11 @@ Public Class IAIPLogIn
     Dim APBFolder As String = "C:\APB"
     Dim IaipAvailable As Boolean = True
 
+    Private Sub IAIPLogIn_Shown(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Shown
+        monitor.TrackFeatureStop("Startup.Loading")
+    End Sub
     Private Sub Splash_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        monitor.TrackFeature("Startup." & Me.Name)
+        monitor.TrackFeature("Main." & Me.Name)
         Try
             AddHandler t.Elapsed, AddressOf TimerFired
             t.Enabled = True
@@ -201,6 +204,7 @@ Public Class IAIPLogIn
 
 #Region "Subs and Functions"
     Sub LogInCheck()
+        monitor.TrackFeatureStart("Startup.LoggingIn")
         Try
             Dim EmployeeStatus As String = ""
             Dim PhoneNumber As String = ""
@@ -210,6 +214,7 @@ Public Class IAIPLogIn
             Dim LastName As String = ""
 
             If versionCheck = "Update" Then
+                monitor.TrackFeatureCancel("Startup.LoggingIn")
                 MessageBox.Show("This version of the platform is out of date and must be updated.")
                 Exit Sub
             End If
@@ -402,16 +407,21 @@ Public Class IAIPLogIn
                         UserPassword.Focus()
 
                         ProgressBar.Value = 0
+                        monitor.TrackFeatureCancel("Startup.LoggingIn")
                     End If
+                Else
+                    monitor.TrackFeatureCancel("Startup.LoggingIn")
                 End If
             Else
 
                 ProgressBar.Value = 0
+                monitor.TrackFeatureCancel("Startup.LoggingIn")
                 MsgBox("The User ID and Password provided is not a valid user combination.", MsgBoxStyle.Exclamation, _
                                  "Log In Error")
             End If
 
         Catch ex As Exception
+            monitor.TrackFeatureCancel("Startup.LoggingIn")
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 

@@ -14,8 +14,11 @@ Public Class IAIPNavigation
     Dim WorkUnit As String
     Dim DefaultsText As String = ""
 
+    Private Sub IAIPNavigation_Shown(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Shown
+        monitor.TrackFeatureStop("Startup.LoggingIn")
+    End Sub
     Private Sub APBNavigation_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        monitor.TrackFeature("Startup." & Me.Name)
+        monitor.TrackFeature("Main." & Me.Name)
         Try
             pnl3.Text = OracleDate
             pnl2.Text = UserName
