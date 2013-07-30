@@ -390,6 +390,7 @@ Public Class ISMPAddPollutants
 #End Region
 
     Private Sub ISMPAddPollutants_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Load
+        monitor.TrackFeature("Forms." & Me.Name)
         Try
 
             CreateStatusBar()

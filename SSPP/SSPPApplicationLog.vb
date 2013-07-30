@@ -59,6 +59,7 @@ Public Class SSPPApplicationLog
 
 #Region "Page load/unload procedures"
     Private Sub SSPPApplicationLog_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+        monitor.TrackFeature("Forms." & Me.Name)
         Try
 
             dgvApplicationLog.Visible = False

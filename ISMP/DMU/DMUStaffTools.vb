@@ -40,6 +40,7 @@ Public Class DMUStaffTools
     Dim dgvRow As New DataGridViewRow
 
     Private Sub DMUStaffTools_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+        monitor.TrackFeature("Forms." & Me.Name)
         Try
             Panel1.Text = "Select a Function..."
             Panel2.Text = UserName

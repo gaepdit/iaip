@@ -1300,6 +1300,7 @@ Public Class SSCPInformationRequest
 #End Region
 
     Private Sub SSCPInformationRequest_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Load
+        monitor.TrackFeature("Forms." & Me.Name)
         Try
 
             CreateStatusBar()

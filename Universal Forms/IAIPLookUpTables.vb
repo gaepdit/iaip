@@ -6,7 +6,7 @@ Public Class IAIPLookUpTables
 
 
     Private Sub IAIPLookUpTables_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-
+        monitor.TrackFeature("Forms." & Me.Name)
     End Sub
 
 #Region "ApplicationTypes"

@@ -4,6 +4,11 @@ Imports System.IO
 
 Public Class SSCPManagerProfile
 
+    Private Sub SSCPManagerProfile_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+        monitor.TrackFeature("Forms." & Me.Name)
+        monitor.TrackFeature("Dev." & Me.Name)
+    End Sub
+
     Private Sub MmiHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiHelp.Click
         Try
             Help.ShowHelp(Label1, HELP_URL)
@@ -2047,7 +2052,5 @@ Public Class SSCPManagerProfile
 
     End Sub
 #End Region
-
-
 
 End Class

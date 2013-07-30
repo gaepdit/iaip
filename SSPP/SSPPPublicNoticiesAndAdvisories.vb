@@ -11,6 +11,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
 
 
     Private Sub DevPublicNoticiesAndAdvisories_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+        monitor.TrackFeature("Forms." & Me.Name)
         Try
             Panel1.Text = "Public Advisories Letter Generator"
             Panel2.Text = UserName

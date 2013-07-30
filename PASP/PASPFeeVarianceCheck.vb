@@ -389,6 +389,7 @@ Public Class PASPFeeVarianceCheck
 #End Region
 
     Private Sub PASPFeeVarianceCheck_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+        monitor.TrackFeature("Forms." & Me.Name)
         Try
 
             CreateStatusBar()

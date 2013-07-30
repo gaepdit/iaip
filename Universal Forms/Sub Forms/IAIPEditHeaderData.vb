@@ -12,6 +12,7 @@ Public Class IAIPEditHeaderData
     Dim daHeaderData2 As OracleDataAdapter
 
     Private Sub IAIPEditHeaderData_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+        monitor.TrackFeature("Forms." & Me.Name)
         Try
 
             Panel1.Text = "Select a Function..."

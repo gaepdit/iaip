@@ -17,14 +17,15 @@ Public Class DMUDeveloperTools
     Dim TriggerStatus As String
 
     Private Sub DMUDeveloperTools_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+        monitor.TrackFeature("Forms." & Me.Name)
         Try
             Panel1.Text = "Select a Function..."
             Panel2.Text = UserName
             Panel3.Text = OracleDate
 
             LoadPermissions()
-            rdbDEVTransfer.Text = conn.DataSource.ToString & " --> DEV "
-            rdbTESTTransfer.Text = conn.DataSource.ToString & " --> TEST "
+            rdbDEVTransfer.Text = Conn.DataSource.ToString & " --> DEV "
+            rdbTESTTransfer.Text = Conn.DataSource.ToString & " --> TEST "
             lblCurrentVersion.Text = "GetCurrentVersion: " & GetCurrentVersion.ToString & "; GetPublishedVersion: " & GetPublishedVersion.ToString
 
         Catch ex As Exception

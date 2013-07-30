@@ -16,6 +16,7 @@ Public Class DMUTitleVTools
     Dim EndDate As String
 
     Private Sub DMUTitleVTools_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+        monitor.TrackFeature("Forms." & Me.Name)
         Try
             Panel1.Text = "Select a Function..."
             Panel2.Text = UserName

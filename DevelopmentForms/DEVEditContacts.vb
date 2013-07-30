@@ -5,7 +5,8 @@ Public Class DEVEditContacts
     Dim da As OracleDataAdapter
 
     Private Sub DEVEditContacts_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-
+        monitor.TrackFeature("Forms." & Me.Name)
+        monitor.TrackFeature("Dev." & Me.Name)
     End Sub
 
 

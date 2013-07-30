@@ -8,6 +8,7 @@ Public Class IAIPAFSCompare
     Dim drDSRow As DataRow
 
     Private Sub IAIPAFSCompare_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+        monitor.TrackFeature("Forms." & Me.Name)
         Try
 
             LoadCounty()

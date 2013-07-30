@@ -6,6 +6,7 @@ Imports System.Data.OracleClient
 Public Class PassFailNoShow
 
     Private Sub PassFailNoShow_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+        monitor.TrackFeature("Forms." & Me.Name)
         Dim rpt As New crPassFailNoShow
         'Dim key As String = txtPassFailNoShow.Text
 

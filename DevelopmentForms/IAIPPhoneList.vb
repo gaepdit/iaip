@@ -1,6 +1,8 @@
 ﻿Public Class IAIPPhoneList
 
     Private Sub IAIPPhoneList_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+        monitor.TrackFeature("Forms." & Me.Name)
+        monitor.TrackFeature("Dev." & Me.Name)
         Try
             pnlAirProtection.Enabled = False
             chbAmbientMonitoring.Checked = False

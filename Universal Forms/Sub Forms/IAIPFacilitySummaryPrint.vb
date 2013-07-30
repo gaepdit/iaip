@@ -2,6 +2,7 @@
 Public Class IaipFacilitySummaryPrint
 
     Private Sub IaipFacilitySummaryPrintLoad(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+        monitor.TrackFeature("Forms." & Me.Name)
         FullPrintStartDate.Text = Format(Today.AddMonths(-12), DateFormat)
         FullPrintEndDate.Text = TodayString
     End Sub

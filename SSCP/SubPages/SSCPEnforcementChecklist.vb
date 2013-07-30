@@ -768,6 +768,7 @@ Public Class SSCPEnforcementChecklist
 #End Region
 
     Private Sub SSCPEnforcementChecklist_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+        monitor.TrackFeature("Forms." & Me.Name)
         Try
 
             CreateStatusBar()

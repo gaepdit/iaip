@@ -191,4 +191,7 @@ Public Class IAIPDevelopmentTeam
 
 #End Region
 
+    Private Sub IAIPDevelopmentTeam_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+        monitor.TrackFeature("Forms." & Me.Name)
+    End Sub
 End Class

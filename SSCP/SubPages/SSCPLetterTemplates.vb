@@ -268,6 +268,7 @@ Public Class SSCPLetterTemplates
 #End Region
 
     Private Sub SSCPLetterTemplates_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Load
+        monitor.TrackFeature("Forms." & Me.Name)
         Try
 
             CreateStatusBar()

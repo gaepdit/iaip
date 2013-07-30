@@ -277,6 +277,9 @@ Public Class SSCPFCESelectorTool
 
 #End Region
 
+    Private Sub SSCPFCESelectorTool_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+        monitor.TrackFeature("Forms." & Me.Name)
+    End Sub
 
     Private Sub SSCPFCESelectorTool_Activated(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Activated
         Try
@@ -581,7 +584,4 @@ Public Class SSCPFCESelectorTool
         End Try
 
     End Sub
-
-
-
 End Class

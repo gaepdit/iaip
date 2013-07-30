@@ -6,6 +6,7 @@ Public Class PASPFeesLog
     Dim dtairs As New DataTable
 
     Private Sub PASPFeesLog_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+        monitor.TrackFeature("Forms." & Me.Name)
         Try
             LoadDefaults()
 

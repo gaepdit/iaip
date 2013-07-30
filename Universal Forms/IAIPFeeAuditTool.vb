@@ -5,8 +5,9 @@ Public Class IAIPFeeAuditTool
     Dim da As OracleDataAdapter
 
     Private Sub IAIPFeeAuditTool_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+        monitor.TrackFeature("Forms." & Me.Name)
         Try
-         
+
             cboOperatingStatus.Items.Add("")
             cboOperatingStatus.Items.Add("O-Operating")
             cboOperatingStatus.Items.Add("P-Planned")

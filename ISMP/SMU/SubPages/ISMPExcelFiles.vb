@@ -285,6 +285,7 @@ Public Class ISMPExcelFiles
 
 
     Private Sub ISMPExcelFiles_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Load
+        monitor.TrackFeature("Forms." & Me.Name)
         Try
 
             CreateStatusBar()

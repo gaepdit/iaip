@@ -590,6 +590,7 @@ Public Class ISMPFacilityInfo
 
 
     Private Sub ISMPFacilityInfo_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Load
+        monitor.TrackFeature("Forms." & Me.Name)
         Try
 
             CreateStatusBar()

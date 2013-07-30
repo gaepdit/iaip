@@ -28,6 +28,7 @@ Public Class IAIPQueryGenerator
     Dim daSQLQuery As OracleDataAdapter
 
     Private Sub DevQuerryGenerator_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+        monitor.TrackFeature("Forms." & Me.Name)
         Try
             Panel1.Text = "Select Filter options...."
             Panel2.Text = UserName

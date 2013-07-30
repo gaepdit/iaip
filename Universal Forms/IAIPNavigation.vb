@@ -15,6 +15,7 @@ Public Class IAIPNavigation
     Dim DefaultsText As String = ""
 
     Private Sub APBNavigation_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+        monitor.TrackFeature("Startup." & Me.Name)
         Try
             pnl3.Text = OracleDate
             pnl2.Text = UserName
