@@ -246,7 +246,6 @@
     <Compile Include="_MFCode\DataReaderAdapter.vb">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="_MFCode\email.vb" />
     <Compile Include="_MFCode\ListViewItemComparer.vb">
       <SubType>Code</SubType>
     </Compile>
