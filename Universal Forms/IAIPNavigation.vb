@@ -2493,10 +2493,10 @@ Public Class IAIPNavigation
                     End If
                 Case "Smoke School" '26 
                     If SmokeSchool Is Nothing Then
-                        If SmokeSchool Is Nothing Then SmokeSchool = New ISMPSmokeSchool
+                        If SmokeSchool Is Nothing Then SmokeSchool = New SmokeSchool
                     Else
                         SmokeSchool.Dispose()
-                        SmokeSchool = New ISMPSmokeSchool
+                        SmokeSchool = New SmokeSchool
                     End If
                     SmokeSchool.Show()
                     SmokeSchool.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
