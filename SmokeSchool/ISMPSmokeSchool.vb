@@ -166,8 +166,11 @@ Public Class ISMPSmokeSchool
         Try
             'Load City dropdown boxes
             cboCity.Items.Add("- Select a City -")
+            cboCity.Items.Add("Adel")
             cboCity.Items.Add("Atlanta")
+            cboCity.Items.Add("Cartersville")
             cboCity.Items.Add("Dalton")
+            cboCity.Items.Add("Perry")
             cboCity.Items.Add("Savannah")
             cboCity.Items.Add("Tifton")
             cboCity.Items.Add("Special Venue")
