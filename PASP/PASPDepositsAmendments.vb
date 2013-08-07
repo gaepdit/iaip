@@ -19,6 +19,7 @@ Public Class PASPDepositsAmendments
     Dim dsInvoice As DataSet
 
     Private Sub PASPDepositsAmendments_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+        monitor.TrackFeature("Forms." & Me.Name)
         Try
             pnl1.Text = " "
             pnl2.Text = UserName

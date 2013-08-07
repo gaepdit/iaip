@@ -21,6 +21,7 @@ Public Class PASPFeeReports
     Dim crParameterDiscreteValue As New ParameterDiscreteValue
 
     Private Sub PASPFeeReports_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+        monitor.TrackFeature("Forms." & Me.Name)
         Try
 
             AddProgressBar()

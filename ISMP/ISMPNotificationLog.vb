@@ -12,6 +12,7 @@ Public Class ISMPNotificationLog
     Dim daStaffResponsible As OracleDataAdapter
 
     Private Sub DevNotificationLog_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+        monitor.TrackFeature("Forms." & Me.Name)
         Try
             Panel1.Text = "Select a Function..."
             Panel2.Text = UserName

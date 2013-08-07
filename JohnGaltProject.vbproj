@@ -109,6 +109,7 @@
     <NoWarn>42016,42017,42018,42019,42032</NoWarn>
     <DebugType>full</DebugType>
     <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <DefineTrace>true</DefineTrace>
@@ -119,6 +120,7 @@
     <WarningLevel>1</WarningLevel>
     <NoWarn>42016,42017,42018,42019,42032</NoWarn>
     <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=10.5.3700.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
@@ -127,6 +129,10 @@
     <Reference Include="CrystalDecisions.ReportSource, Version=10.5.3700.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="CrystalDecisions.Shared, Version=10.5.3700.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="CrystalDecisions.Windows.Forms, Version=10.5.3700.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="EQATEC.Analytics.Monitor, Version=3.2.1.0, Culture=neutral, PublicKeyToken=213c7c68adb58a17, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\_Tools\Eqatec\EQATEC.Analytics.Monitor.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.VisualBasic.PowerPacks.Vs, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
     <Reference Include="Oracle.DataAccess, Version=2.112.3.0, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
@@ -165,20 +171,6 @@
     <Reference Include="System.Xml.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
-    <COMReference Include="Excel">
-      <Guid>{00020813-0000-0000-C000-000000000046}</Guid>
-      <VersionMajor>1</VersionMajor>
-      <VersionMinor>3</VersionMinor>
-      <Lcid>0</Lcid>
-      <WrapperTool>tlbimp</WrapperTool>
-    </COMReference>
-    <COMReference Include="Word">
-      <Guid>{00020905-0000-0000-C000-000000000046}</Guid>
-      <VersionMajor>8</VersionMajor>
-      <VersionMinor>1</VersionMinor>
-      <Lcid>0</Lcid>
-      <WrapperTool>tlbimp</WrapperTool>
-    </COMReference>
   </ItemGroup>
   <ItemGroup>
     <Import Include="Microsoft.VisualBasic" />
@@ -256,7 +248,6 @@
     <Compile Include="_MFCode\DataReaderAdapter.vb">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="_MFCode\email.vb" />
     <Compile Include="_MFCode\ListViewItemComparer.vb">
       <SubType>Code</SubType>
     </Compile>
@@ -677,34 +668,34 @@
       <DependentUpon>Letterhead.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ISMP\DMU\DMUDeveloperTools.Designer.vb">
+    <Compile Include="DMU\DMUDeveloperTools.Designer.vb">
       <DependentUpon>DMUDeveloperTools.vb</DependentUpon>
     </Compile>
-    <Compile Include="ISMP\DMU\DMUDeveloperTools.vb">
+    <Compile Include="DMU\DMUDeveloperTools.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ISMP\DMU\DMUStaffTools.Designer.vb">
+    <Compile Include="DMU\DMUStaffTools.Designer.vb">
       <DependentUpon>DMUStaffTools.vb</DependentUpon>
     </Compile>
-    <Compile Include="ISMP\DMU\DMUStaffTools.vb">
+    <Compile Include="DMU\DMUStaffTools.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ISMP\DMU\DMUTitleVTools.Designer.vb">
+    <Compile Include="DMU\DMUTitleVTools.Designer.vb">
       <DependentUpon>DMUTitleVTools.vb</DependentUpon>
     </Compile>
-    <Compile Include="ISMP\DMU\DMUTitleVTools.vb">
+    <Compile Include="DMU\DMUTitleVTools.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ISMP\SMU\ISMPConfidentialData.Designer.vb">
+    <Compile Include="ISMP\ISMPConfidentialData.Designer.vb">
       <DependentUpon>ISMPConfidentialData.vb</DependentUpon>
     </Compile>
-    <Compile Include="ISMP\SMU\ISMPConfidentialData.vb">
+    <Compile Include="ISMP\ISMPConfidentialData.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ISMP\SMU\SubPages\ISMPStaffReports.Designer.vb">
+    <Compile Include="ISMP\SubPages\ISMPStaffReports.Designer.vb">
       <DependentUpon>ISMPStaffReports.vb</DependentUpon>
     </Compile>
-    <Compile Include="ISMP\SMU\SubPages\ISMPStaffReports.vb">
+    <Compile Include="ISMP\SubPages\ISMPStaffReports.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="PASP\PASPFeeAuditLog.Designer.vb">
@@ -779,28 +770,28 @@
     <Compile Include="PASP\PASPWebApplicationUser.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SmokeSchool\ISMPSmokeSchool.Designer.vb">
-      <DependentUpon>ISMPSmokeSchool.vb</DependentUpon>
+    <Compile Include="SmokeSchool\SmokeSchool.Designer.vb">
+      <DependentUpon>SmokeSchool.vb</DependentUpon>
     </Compile>
-    <Compile Include="SmokeSchool\ISMPSmokeSchool.vb">
+    <Compile Include="SmokeSchool\SmokeSchool.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ISMP\SMU\ISMPTestReports.Designer.vb">
+    <Compile Include="ISMP\ISMPTestReports.Designer.vb">
       <DependentUpon>ISMPTestReports.vb</DependentUpon>
     </Compile>
-    <Compile Include="ISMP\SMU\ISMPTestReports.vb">
+    <Compile Include="ISMP\ISMPTestReports.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ISMP\SMU\ISMPMonitoringLog.Designer.vb">
+    <Compile Include="ISMP\ISMPMonitoringLog.Designer.vb">
       <DependentUpon>ISMPMonitoringLog.vb</DependentUpon>
     </Compile>
-    <Compile Include="ISMP\SMU\ISMPMonitoringLog.vb">
+    <Compile Include="ISMP\ISMPMonitoringLog.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ISMP\SMU\ISMPNotificationLog.Designer.vb">
+    <Compile Include="ISMP\ISMPNotificationLog.Designer.vb">
       <DependentUpon>ISMPNotificationLog.vb</DependentUpon>
     </Compile>
-    <Compile Include="ISMP\SMU\ISMPNotificationLog.vb">
+    <Compile Include="ISMP\ISMPNotificationLog.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="SmokeSchool\PassFailNoShow.Designer.vb">
@@ -868,10 +859,10 @@
     <Compile Include="Universal Forms\IAIPQueryGenerator.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ISMP\SMU\ISMPTestFirmComments.Designer.vb">
+    <Compile Include="ISMP\ISMPTestFirmComments.Designer.vb">
       <DependentUpon>ISMPTestFirmComments.vb</DependentUpon>
     </Compile>
-    <Compile Include="ISMP\SMU\ISMPTestFirmComments.vb">
+    <Compile Include="ISMP\ISMPTestFirmComments.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="IAIP-Crystal Reports\Oracle 9.2\DMU\crESinfoByAirsNumber.vb">
@@ -1168,49 +1159,49 @@
       <DependentUpon>SSPPPublicNotice.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ISMP\DMUTool.Designer.vb">
+    <Compile Include="DMU\DMUTool.Designer.vb">
       <DependentUpon>DMUTool.vb</DependentUpon>
     </Compile>
-    <Compile Include="ISMP\DMUTool.vb">
+    <Compile Include="DMU\DMUTool.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ISMP\SMU\ISMPDataManagementTools.Designer.vb">
+    <Compile Include="ISMP\ISMPDataManagementTools.Designer.vb">
       <DependentUpon>ISMPDataManagementTools.vb</DependentUpon>
     </Compile>
-    <Compile Include="ISMP\SMU\ISMPDataManagementTools.vb">
+    <Compile Include="ISMP\ISMPDataManagementTools.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ISMP\SMU\ISMPTestReportAdministrative.Designer.vb">
+    <Compile Include="ISMP\ISMPTestReportAdministrative.Designer.vb">
       <DependentUpon>ISMPTestReportAdministrative.vb</DependentUpon>
     </Compile>
-    <Compile Include="ISMP\SMU\ISMPTestReportAdministrative.vb">
+    <Compile Include="ISMP\ISMPTestReportAdministrative.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ISMP\SMU\ISMPManagersTools.vb">
+    <Compile Include="ISMP\ISMPManagersTools.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ISMP\SMU\ISMPMemo.vb">
+    <Compile Include="ISMP\ISMPMemo.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ISMP\SMU\ISMPReferenceNumber.vb">
+    <Compile Include="ISMP\ISMPReferenceNumber.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ISMP\SMU\ISMPTestMemoViewer.vb">
+    <Compile Include="ISMP\ISMPTestMemoViewer.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ISMP\SMU\SubPages\ISMPAddPollutants.vb">
+    <Compile Include="ISMP\SubPages\ISMPAddPollutants.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ISMP\SMU\SubPages\ISMPAddTestingFirms.vb">
+    <Compile Include="ISMP\SubPages\ISMPAddTestingFirms.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ISMP\SMU\SubPages\ISMPClosePrint.vb">
+    <Compile Include="ISMP\SubPages\ISMPClosePrint.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ISMP\SMU\SubPages\ISMPExcelFiles.vb">
+    <Compile Include="ISMP\SubPages\ISMPExcelFiles.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ISMP\SMU\SubPages\ISMPFacilityInfo.vb">
+    <Compile Include="ISMP\SubPages\ISMPFacilityInfo.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="My Project\Application.Designer.vb">
@@ -1672,23 +1663,23 @@
       <LastGenOutput>Letterhead.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="IAIP-Reports\FullComplianceEvaluations.rdlc" />
-    <EmbeddedResource Include="ISMP\DMU\DMUDeveloperTools.resx">
+    <EmbeddedResource Include="DMU\DMUDeveloperTools.resx">
       <DependentUpon>DMUDeveloperTools.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="ISMP\DMU\DMUStaffTools.resx">
+    <EmbeddedResource Include="DMU\DMUStaffTools.resx">
       <DependentUpon>DMUStaffTools.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="ISMP\DMU\DMUTitleVTools.resx">
+    <EmbeddedResource Include="DMU\DMUTitleVTools.resx">
       <DependentUpon>DMUTitleVTools.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="ISMP\SMU\ISMPConfidentialData.resx">
+    <EmbeddedResource Include="ISMP\ISMPConfidentialData.resx">
       <SubType>Designer</SubType>
       <DependentUpon>ISMPConfidentialData.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ISMP\SMU\SubPages\ISMPStaffReports.resx">
+    <EmbeddedResource Include="ISMP\SubPages\ISMPStaffReports.resx">
       <DependentUpon>ISMPStaffReports.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PASP\PASPFeeAuditLog.resx">
@@ -1733,19 +1724,19 @@
     <EmbeddedResource Include="PASP\PASPWebApplicationUser.resx">
       <DependentUpon>PASPWebApplicationUser.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SmokeSchool\ISMPSmokeSchool.resx">
-      <DependentUpon>ISMPSmokeSchool.vb</DependentUpon>
+    <EmbeddedResource Include="SmokeSchool\SmokeSchool.resx">
+      <DependentUpon>SmokeSchool.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="ISMP\SMU\ISMPTestReports.resx">
+    <EmbeddedResource Include="ISMP\ISMPTestReports.resx">
       <SubType>Designer</SubType>
       <DependentUpon>ISMPTestReports.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ISMP\SMU\ISMPMonitoringLog.resx">
+    <EmbeddedResource Include="ISMP\ISMPMonitoringLog.resx">
       <SubType>Designer</SubType>
       <DependentUpon>ISMPMonitoringLog.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ISMP\SMU\ISMPNotificationLog.resx">
+    <EmbeddedResource Include="ISMP\ISMPNotificationLog.resx">
       <SubType>Designer</SubType>
       <DependentUpon>ISMPNotificationLog.vb</DependentUpon>
     </EmbeddedResource>
@@ -1783,7 +1774,7 @@
       <SubType>Designer</SubType>
       <DependentUpon>IAIPQueryGenerator.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ISMP\SMU\ISMPTestFirmComments.resx">
+    <EmbeddedResource Include="ISMP\ISMPTestFirmComments.resx">
       <SubType>Designer</SubType>
       <DependentUpon>ISMPTestFirmComments.vb</DependentUpon>
     </EmbeddedResource>
@@ -1987,51 +1978,51 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>SSPPPublicNotice.vb</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="ISMP\DMUTool.resx">
+    <EmbeddedResource Include="DMU\DMUTool.resx">
       <SubType>Designer</SubType>
       <DependentUpon>DMUTool.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ISMP\SMU\ISMPDataManagementTools.resx">
+    <EmbeddedResource Include="ISMP\ISMPDataManagementTools.resx">
       <SubType>Designer</SubType>
       <DependentUpon>ISMPDataManagementTools.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ISMP\SMU\ISMPTestReportAdministrative.resx">
+    <EmbeddedResource Include="ISMP\ISMPTestReportAdministrative.resx">
       <SubType>Designer</SubType>
       <DependentUpon>ISMPTestReportAdministrative.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ISMP\SMU\ISMPManagersTools.resx">
+    <EmbeddedResource Include="ISMP\ISMPManagersTools.resx">
       <DependentUpon>ISMPManagersTools.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="ISMP\SMU\ISMPMemo.resx">
+    <EmbeddedResource Include="ISMP\ISMPMemo.resx">
       <DependentUpon>ISMPMemo.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="ISMP\SMU\ISMPReferenceNumber.resx">
+    <EmbeddedResource Include="ISMP\ISMPReferenceNumber.resx">
       <DependentUpon>ISMPReferenceNumber.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="ISMP\SMU\ISMPTestMemoViewer.resx">
+    <EmbeddedResource Include="ISMP\ISMPTestMemoViewer.resx">
       <DependentUpon>ISMPTestMemoViewer.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="ISMP\SMU\SubPages\ISMPAddPollutants.resx">
+    <EmbeddedResource Include="ISMP\SubPages\ISMPAddPollutants.resx">
       <DependentUpon>ISMPAddPollutants.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="ISMP\SMU\SubPages\ISMPAddTestingFirms.resx">
+    <EmbeddedResource Include="ISMP\SubPages\ISMPAddTestingFirms.resx">
       <DependentUpon>ISMPAddTestingFirms.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="ISMP\SMU\SubPages\ISMPClosePrint.resx">
+    <EmbeddedResource Include="ISMP\SubPages\ISMPClosePrint.resx">
       <DependentUpon>ISMPClosePrint.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="ISMP\SMU\SubPages\ISMPExcelFiles.resx">
+    <EmbeddedResource Include="ISMP\SubPages\ISMPExcelFiles.resx">
       <DependentUpon>ISMPExcelFiles.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="ISMP\SMU\SubPages\ISMPFacilityInfo.resx">
+    <EmbeddedResource Include="ISMP\SubPages\ISMPFacilityInfo.resx">
       <DependentUpon>ISMPFacilityInfo.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -2274,6 +2265,40 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="Microsoft.Office.Core">
+      <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>5</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+    </COMReference>
+    <COMReference Include="Microsoft.Office.Interop.Excel">
+      <Guid>{00020813-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>7</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+    </COMReference>
+    <COMReference Include="Microsoft.Office.Interop.Word">
+      <Guid>{00020905-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>8</VersionMajor>
+      <VersionMinor>5</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+    </COMReference>
+    <COMReference Include="VBIDE">
+      <Guid>{0002E157-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>5</VersionMajor>
+      <VersionMinor>3</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+    </COMReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="IAIP-Crystal Reports\Oracle 10.1\ISMP\" />

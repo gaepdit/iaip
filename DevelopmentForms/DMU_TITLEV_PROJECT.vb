@@ -12,6 +12,11 @@ Public Class DMU_TITLEV_PROJECT
     Public GATVdr As Object
     Public GATVdr2 As Object
     Public count As Integer
+
+    Private Sub DMU_TITLEV_PROJECT_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+        monitor.TrackFeature("Forms." & Me.Name)
+        monitor.TrackFeature("Dev." & Me.Name)
+    End Sub
     Private Sub btn_PFW_WAREHOUSEADMIN_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn_PFW_WAREHOUSEADMIN.Click
         Try
             PopulatePFW_WareHouseAdmin()

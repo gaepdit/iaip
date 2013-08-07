@@ -1165,6 +1165,7 @@ Module CodeFile
         Catch ex As Exception
             ErrorReport(ex.ToString(), "CodeFile." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
+        Return ""
     End Function
     Function Update_RES_Event(ByVal Res_EventID As String, _
                            ByVal EventStatusCode As String, ByVal Title As String, _

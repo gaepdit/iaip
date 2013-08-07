@@ -2,6 +2,7 @@
 Public Class IaipFacilitySummaryPrint
 
     Private Sub IaipFacilitySummaryPrintLoad(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+        monitor.TrackFeature("Forms." & Me.Name)
         FullPrintStartDate.Text = Format(Today.AddMonths(-12), DateFormat)
         FullPrintEndDate.Text = TodayString
     End Sub
@@ -16,10 +17,10 @@ Public Class IaipFacilitySummaryPrint
                 sender.Cursor = Cursors.AppStarting
             End If
             PrintOut = New IAIPPrintOut
-            Select Case sender.Name
-                Case ShowBasicReport.Name
+            Select Case sender.Name.ToString
+                Case ShowBasicReport.Name.ToString
                     PrintOut.txtPrintType.Text = "BasicFacilityReport"
-                Case ShowFullReport.Name
+                Case ShowFullReport.Name.ToString
                     PrintOut.txtPrintType.Text = "FullFacilityReport"
                     PrintOut.txtStartDate.Text = FullPrintStartDate.Text
                     PrintOut.txtEndDate.Text = FullPrintEndDate.Text

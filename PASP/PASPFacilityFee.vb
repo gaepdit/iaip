@@ -933,6 +933,7 @@ Public Class PASPFacilityFee
 
 #End Region
     Private Sub PASPFacilityFee_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+        monitor.TrackFeature("Forms." & Me.Name)
         Try
 
             CreateStatusBar()

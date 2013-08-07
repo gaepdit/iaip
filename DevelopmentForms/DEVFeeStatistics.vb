@@ -30,13 +30,16 @@ Public Class DEVFeeStatistics
 
     Private Sub DEVFeeStatistics_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         Try
+            monitor.TrackFeature("Forms." & Me.Name)
+            monitor.TrackFeature("Dev." & Me.Name)
+
             'tspnl1.Text = "Misc Web Tools Loading..."
             'tspnl2.Text = UserName
             'tspnl3.Text = OracleDate
 
             'Web Tab
             pnlDetails.Dock = DockStyle.None
-         
+
             If AccountArray(12, 3) <> "1" Then
                 TCMailoutAndStats.TabPages.Remove(TPNonRespondersReport)
             End If

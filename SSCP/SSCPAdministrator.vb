@@ -10,12 +10,7 @@ Public Class SSCPAdministrator
 
 
     Private Sub SSCPAdministrator_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        Try
-
-
-        Catch ex As Exception
-            ErrorReport(ex.ToString(), "CodeFile." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        monitor.TrackFeature("Forms." & Me.Name)
     End Sub
     Private Sub btnViewAllTV_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnViewAllTV.Click
         Try

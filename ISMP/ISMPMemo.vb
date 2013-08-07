@@ -406,6 +406,7 @@ Public Class ISMPMemo
 #End Region
 
     Private Sub ISMPMemo_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+        monitor.TrackFeature("Forms." & Me.Name)
         Try
             TCISMPMemo.TabPages.Remove(TPFuturePrintOption)
 

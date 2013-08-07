@@ -2,7 +2,7 @@
 'Imports System.Data.OleDb
 'Imports Excel
 
-Public Class ISMPSmokeSchool
+Public Class SmokeSchool
     Public dsSchedule As DataSet
     Public daSchedule As OracleDataAdapter
     Public dsYear As DataSet
@@ -25,6 +25,7 @@ Public Class ISMPSmokeSchool
     Public ErrorFlag As String = "no"
 
     Private Sub ISMPSmokeSchool_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+        monitor.TrackFeature("Forms." & Me.Name)
         Try
             pnl1.Text = " "
             pnl2.Text = UserName
@@ -3779,7 +3780,7 @@ Public Class ISMPSmokeSchool
                     Else
                         run7 = dgvScore3(14, hti.RowIndex).Value
                     End If
-                  
+
                     If IsDBNull(dgvScore3(15, hti.RowIndex).Value) Then
                         run8 = "No Test"
                     Else
@@ -4061,7 +4062,7 @@ Public Class ISMPSmokeSchool
     End Sub
     Private Sub numberOfStudents4()
         Try
-           Dim cnt As Decimal
+            Dim cnt As Decimal
             SQL = "select count(*) as numberOfStudents4 from airbranch.SmokeSchoolStudent "
 
             cmd = New OracleCommand(SQL, Conn)

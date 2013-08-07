@@ -9,6 +9,7 @@ Public Class PASPFeeTools
     Dim feeyear As String = Now.Year
    
     Private Sub PASPFeeTools_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+        monitor.TrackFeature("Forms." & Me.Name)
         Try
             pnl1.Text = " "
             pnl2.Text = UserName
@@ -16,7 +17,7 @@ Public Class PASPFeeTools
             feeyear = Now.AddYears(-1).Year
 
             LoadComboboxes()
-         
+
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try

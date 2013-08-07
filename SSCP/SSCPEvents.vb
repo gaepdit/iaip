@@ -3097,6 +3097,7 @@ Public Class SSCPEvents
 #End Region
 
     Private Sub SSCP_Reports_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+        monitor.TrackFeature("Forms." & Me.Name)
         Dim temp As String = ""
 
         Try

@@ -42,6 +42,8 @@ Module subMain
     Friend DateFormat As String = "dd-MMM-yyyy"
     Friend Today As Date = DateTime.Today
     Friend TodayString As String = Format(Today, DateFormat)
+    Friend AnalyticsApiKey As String = "094F22FFB35C42E9A5D65279634F5028"
+    Friend MachineName As String = Environment.MachineName
 #End Region
 
 #Region "Existing public variables"
@@ -71,7 +73,7 @@ Module subMain
 
 #Region "All Forms"
 #Region "Universal Screens"
-    Public APB110 As IAIPLogIn
+    'Public APB110 As IAIPLogIn
 
     Public NavigationScreen As IAIPNavigation
     Public FacilityLookUpTool As IAIPFacilityLookUpTool
@@ -122,7 +124,7 @@ Module subMain
     Public ISMPConfidential As ISMPConfidentialData
     Public ISMPTestReportsEntry As ISMPTestReports
     Public TestFirmComments As ISMPTestFirmComments
-    Public SmokeSchool As ISMPSmokeSchool
+    Public SmokeSchool As SmokeSchool
     Public DevelopersTools As DMUDeveloperTools
     Public StaffTools As DMUStaffTools
     Public TitleVTools As DMUTitleVTools
@@ -244,12 +246,8 @@ Module subMain
         If ErrorMessage.Contains("Could not load file or assembly 'CrystalDecisions.") Or _
                       ErrorMessage.Contains("Integrated Air Information Platf") Then
             MsgBox("This machine needs to run the Crystal Report Patch." & vbCrLf & _
-                   "The patch is available at http://airpermit.dnr.state.ga.us/iaip/crpatch08.zip" & vbCrLf & _
-                   "If you cannot run the patch please contact the Data Management Unit for assistance" & vbCrLf & _
-                   "The Address has been saved to the clipboard. Ctrl-V will paste it where you want.", _
+                   "Please contact the Data Management Unit for assistance.", _
                     MsgBoxStyle.Information, "Integrated Air Information Platform - ERROR MESSAGE")
-
-            Clipboard.SetDataObject("http://airpermit.dnr.state.ga.us/iaip/crpatch08.zip", True)
             Exit Sub
         End If
         If ErrorMessage.Contains("This BackgroundWorker is currently busy and cannot run multiple tasks concurrently") Then
@@ -342,13 +340,15 @@ Module subMain
             Case DialogResult.Yes
                 t2.Enabled = False
             Case DialogResult.No
-                End
+                Conn.Dispose()
+                Application.Exit()
             Case Else
                 t2.Enabled = False
         End Select
     End Sub
     Public Sub TimerFired2(ByVal sender As Object, ByVal e As System.Timers.ElapsedEventArgs)
-        End
+        Conn.Dispose()
+        Application.Exit()
     End Sub
 
 #End Region

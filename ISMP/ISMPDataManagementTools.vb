@@ -41,11 +41,12 @@ Public Class ISMPDataManagementTools
     Dim cmdBuild As OracleCommandBuilder
 
     Private Sub DEVDataManagementTools_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Load
+        monitor.TrackFeature("Forms." & Me.Name)
         Try
-            
-            panel1.Text = "Select a Function..."
-            panel2.Text = UserName
-            panel3.Text = OracleDate
+
+            Panel1.Text = "Select a Function..."
+            Panel2.Text = UserName
+            Panel3.Text = OracleDate
 
             LoadPermissions()
             loadYear()
@@ -54,15 +55,15 @@ Public Class ISMPDataManagementTools
             loadEIMailOutYear()
             loadEIEnrollmentYear()
             loadESEnrollmentYear()
-            loadEItype()
-            rdbDEVTransfer.Text = conn.DataSource.ToString & " --> DEV "
-            rdbTESTTransfer.Text = conn.DataSource.ToString & " --> TEST "
+            loadEIType()
+            rdbDEVTransfer.Text = Conn.DataSource.ToString & " --> DEV "
+            rdbTESTTransfer.Text = Conn.DataSource.ToString & " --> TEST "
             lblEITypeYear.Text = cboEIMailoutYear.SelectedItem
 
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-          
+
         End Try
          
     End Sub

@@ -11,6 +11,7 @@ Public Class DMUTool
     Dim daTemp As OracleDataAdapter
 
     Private Sub DMUTool_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+        monitor.TrackFeature("Forms." & Me.Name)
         Try
 
             Panel1.Text = "Enter SQL statement above..."

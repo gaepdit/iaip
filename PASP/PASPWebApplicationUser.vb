@@ -15,6 +15,7 @@ Public Class PASPWebApplicationUser
 
 
     Private Sub DevWebApplicationUser_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+        monitor.TrackFeature("Forms." & Me.Name)
         Try
             LoadFacilities()
             LoadEmails()

@@ -14,6 +14,7 @@ Public Class IAIPPermitUploader
     Dim PathName As String
 
     Private Sub IAIPPermitUploader_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+        monitor.TrackFeature("Forms." & Me.Name)
         Try
 
 

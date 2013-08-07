@@ -27,6 +27,7 @@ Public Class PASPInventory
     Dim daGAITQuality As OracleDataAdapter
 
     Private Sub PASPComputerInventory_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+        monitor.TrackFeature("Forms." & Me.Name)
         Try
             'LoadInventoryTypes()
             'LoadTransactionTypes()

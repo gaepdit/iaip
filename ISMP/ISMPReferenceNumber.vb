@@ -164,6 +164,7 @@ Public Class ISMPReferenceNumber
 #End Region
 
     Private Sub ISMPReferenceNumber_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+        monitor.TrackFeature("Forms." & Me.Name)
         Try
 
             CreateStatusBar()

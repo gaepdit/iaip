@@ -759,6 +759,7 @@ Public Class ISMPClosePrint
 
 
     Private Sub ISMPClosePrint_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Load
+        monitor.TrackFeature("Forms." & Me.Name)
         Try
 
             CreateStatusBar()
@@ -1042,7 +1043,6 @@ Public Class ISMPClosePrint
                 Case Else
                     ISMPCloseAndPrint = Nothing
                     Conn.Dispose()
-                    End
             End Select
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)

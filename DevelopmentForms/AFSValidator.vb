@@ -11,13 +11,8 @@ Public Class AFSValidator
     Dim recExist As Boolean
 
     Private Sub AFSValidator_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        Try
-
-        Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
+        monitor.TrackFeature("Forms." & Me.Name)
+        monitor.TrackFeature("Dev." & Me.Name)
     End Sub
     Private Sub btnGet654_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnGet654.Click
         Try

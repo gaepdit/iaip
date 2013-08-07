@@ -20,6 +20,7 @@ Public Class DEVMailoutAndStats
 
 
     Private Sub PASPMailoutAndStats_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+        monitor.TrackFeature("Forms." & Me.Name)
         Try
             pnl2.Text = UserName
             pnl3.Text = OracleDate

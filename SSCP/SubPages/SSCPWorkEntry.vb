@@ -391,6 +391,7 @@ Public Class SSCPWorkEnTry
 #End Region
 
     Private Sub SSCPWorkEnTry_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Load
+        monitor.TrackFeature("Forms." & Me.Name)
         Try
 
             CreateStatusBar()

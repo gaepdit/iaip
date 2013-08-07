@@ -55,7 +55,7 @@ Public Class email
     End Function
     ' Send an email via groupwise.  Hopefully, it will return true for a successful send and False for a
     ' unsuccessful send.
-    Private Function sendGroupWiseEmail(ByVal emailTo, ByVal subject, ByVal message) As Boolean
+    Private Function sendGroupWiseEmail(ByVal emailTo As String, ByVal subject As String, ByVal message As String) As Boolean
         Try
             objMailBox = objAccount.mailbox
             objMessages = objMailBox.Messages

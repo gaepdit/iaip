@@ -39,6 +39,9 @@ Public Class IAIP_EIS_Log
     Dim cmdBuild As OracleCommandBuilder
 
     Private Sub IAIP_EIS_Log_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+        monitor.TrackFeature("Forms." & Me.Name)
+        monitor.TrackFeature("Dev." & Me.Name)
+
         Try
             Panel1.Text = "Select a Function..."
             Panel2.Text = UserName

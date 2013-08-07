@@ -10,6 +10,7 @@ Public Class IAIPFacilityLookUpTool
     Dim dr As OracleDataReader
 
     Private Sub IAIPFacilityLookUpTool_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+        monitor.TrackFeature("Forms." & Me.Name)
         Try
 
             Panel1.Text = "Select a Function..."
@@ -447,9 +448,7 @@ Public Class IAIPFacilityLookUpTool
 
     End Sub
     Private Sub mmiExit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiExit.Click
-        Conn.Dispose()
-        End
-
+        Me.Close()
     End Sub
     Private Sub mmiCut_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiCut.Click
         Try

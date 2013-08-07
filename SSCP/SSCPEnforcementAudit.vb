@@ -20,6 +20,7 @@ Public Class SSCPEnforcementAudit
     Dim daStipulatedPenalty As OracleDataAdapter
 
     Private Sub SSCPEnforcementAudit_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+        monitor.TrackFeature("Forms." & Me.Name)
         Try
             Panel3.Text = OracleDate
             Panel2.Text = UserName

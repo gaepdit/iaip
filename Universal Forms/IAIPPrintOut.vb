@@ -21,6 +21,7 @@ Public Class IAIPPrintOut
     Dim l As Integer
 
     Private Sub IAIPPrintOut_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+        monitor.TrackFeature("Forms." & Me.Name)
 
         Try
 

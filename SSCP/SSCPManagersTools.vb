@@ -63,6 +63,7 @@ Public Class SSCPManagersTools
     Dim da As OracleDataAdapter
 
     Private Sub SSCP_Managers_Tools_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+        monitor.TrackFeature("Forms." & Me.Name)
         Try
 
 

@@ -10,6 +10,7 @@ Public Class IAIPEditContacts
     Dim daContacts As OracleDataAdapter
 
     Private Sub APBAddContacts_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Load
+        monitor.TrackFeature("Forms." & Me.Name)
         Try
 
             Panel1.Text = "Select a Function..."

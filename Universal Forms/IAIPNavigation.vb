@@ -14,7 +14,11 @@ Public Class IAIPNavigation
     Dim WorkUnit As String
     Dim DefaultsText As String = ""
 
+    Private Sub IAIPNavigation_Shown(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Shown
+        monitor.TrackFeatureStop("Startup.LoggingIn")
+    End Sub
     Private Sub APBNavigation_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+        monitor.TrackFeature("Main." & Me.Name)
         Try
             pnl3.Text = OracleDate
             pnl2.Text = UserName
@@ -2489,10 +2493,10 @@ Public Class IAIPNavigation
                     End If
                 Case "Smoke School" '26 
                     If SmokeSchool Is Nothing Then
-                        If SmokeSchool Is Nothing Then SmokeSchool = New ISMPSmokeSchool
+                        If SmokeSchool Is Nothing Then SmokeSchool = New SmokeSchool
                     Else
                         SmokeSchool.Dispose()
-                        SmokeSchool = New ISMPSmokeSchool
+                        SmokeSchool = New SmokeSchool
                     End If
                     SmokeSchool.Show()
                     SmokeSchool.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
@@ -2598,8 +2602,12 @@ Public Class IAIPNavigation
 #End Region
 #Region "Main Menu Items"
     Private Sub NavigationScreen_Closed(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Closed
+        SaveDefaultsText()
+        Conn.Dispose()
+        Application.Exit()
+    End Sub
+    Private Sub SaveDefaultsText()
         Try
-
 
             DefaultsText = ""
             If File.Exists("C:\APB\Defaults.txt") Then
@@ -2622,42 +2630,12 @@ Public Class IAIPNavigation
             Dim writer As StreamWriter = New StreamWriter("C:\APB\Defaults.txt")
             writer.WriteLine(DefaultsText)
             writer.Close()
-
-            Conn.Dispose()
-            End
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
     Private Sub MmiExit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiExit.Click
-
-        DefaultsText = ""
-        If File.Exists("C:\APB\Defaults.txt") Then
-            Dim reader As StreamReader = New StreamReader("C:\APB\Defaults.txt")
-            Do
-                DefaultsText = DefaultsText & reader.ReadLine
-            Loop Until reader.Peek = -1
-            reader.Close()
-        End If
-
-        temp = "StartLocation-(" & NavigationScreen.Location.X.ToString & "," & NavigationScreen.Location.Y.ToString & ")-noitacoLtratS"
-        If DefaultsText.IndexOf("StartLocation-") <> -1 Then
-            DefaultsText = DefaultsText.Replace((Mid(DefaultsText, ((DefaultsText.IndexOf("StartLocation-")) + 1), (DefaultsText.IndexOf("-noitacoLtratS")) - 8)), temp)
-        Else
-            DefaultsText = DefaultsText & vbCrLf & temp
-        End If
-
-        Dim fs As New System.IO.FileStream("C:\APB\Defaults.txt", IO.FileMode.Create, IO.FileAccess.Write)
-        fs.Close()
-        Dim writer As StreamWriter = New StreamWriter("C:\APB\Defaults.txt")
-        writer.WriteLine(DefaultsText)
-        writer.Close()
-
-        Conn.Dispose()
-        End
+        Me.Close()
     End Sub
 
 #End Region

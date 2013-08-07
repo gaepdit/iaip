@@ -37,6 +37,7 @@ Public Class ISMPTestReports
     Dim ControlEquipment As String
 
     Private Sub DevTestReports_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+        monitor.TrackFeature("Forms." & Me.Name)
         Try
             SCTestReports.SplitterDistance = 190
             Panel1.Text = "Select a Function..."

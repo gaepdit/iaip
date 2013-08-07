@@ -21,6 +21,7 @@ Public Class IAIPListTool
     Dim daForms As OracleDataAdapter
 
     Private Sub IAIPListTool_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+        monitor.TrackFeature("Forms." & Me.Name)
         Try
             btnAddBranch.Enabled = False
             btnEditBranch.Enabled = False

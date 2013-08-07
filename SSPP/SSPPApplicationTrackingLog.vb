@@ -46,8 +46,9 @@ Public Class SSPPApplicationTrackingLog
     Dim daSubpart As OracleDataAdapter
 
     Private Sub SSPPPermitTrackingLog_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+        monitor.TrackFeature("Forms." & Me.Name)
         Try
-             
+
             Panel1.Text = "Permit Tracking Application..."
             Panel2.Text = UserName
             Panel3.Text = OracleDate
