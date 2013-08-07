@@ -15,7 +15,7 @@
             Console.WriteLine("Environment.MachineName: " & Environment.MachineName)
             Console.WriteLine("Environment.UserName: " & Environment.UserName)
 
-            ''' Analytics monitor: variables initially created in _Modules/App.vb
+            ' Analytics monitor: variables initially created in _Modules/App.vb
 #If DEBUG Then
             monitorSettings.TestMode = True
 #End If
