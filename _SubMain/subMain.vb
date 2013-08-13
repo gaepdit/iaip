@@ -144,9 +144,9 @@ Module subMain
     Public VarianceTool As PASPFeeVarianceCheck
     Public WebAppUser As PASPWebApplicationUser
     Public DepositsAmendments As PASPDepositsAmendments
-    ' Public MailoutAndStats As DEVMailoutAndStats
-    Public MailoutAndStats As DEVFeeStatistics
-    Public FeeStat As DEVMailoutAndStats
+    Public MailoutAndStats As PASPFeeStatistics
+    'Public MailoutAndStats As DEVMailoutAndStats
+    'Public FeeStat As DEVMailoutAndStats
 
     Public FeeTools As PASPFeeTools
     Public ComputerInventory As PASPInventory

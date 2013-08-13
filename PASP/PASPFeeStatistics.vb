@@ -2,7 +2,7 @@
 Imports CrystalDecisions.Shared
 Imports CrystalDecisions.CrystalReports.Engine
 
-Public Class DEVFeeStatistics
+Public Class PASPFeeStatistics
     Dim SQL, SQL2 As String
     Dim cmd, cmd2 As OracleCommand
     Dim dr, dr2 As OracleDataReader
@@ -31,7 +31,6 @@ Public Class DEVFeeStatistics
     Private Sub DEVFeeStatistics_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         Try
             monitor.TrackFeature("Forms." & Me.Name)
-            monitor.TrackFeature("Dev." & Me.Name)
 
             'tspnl1.Text = "Misc Web Tools Loading..."
             'tspnl2.Text = UserName

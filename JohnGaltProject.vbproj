@@ -269,10 +269,10 @@
     <Compile Include="DevelopmentForms\DEVEditContacts.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DevelopmentForms\DEVFeeStatistics.Designer.vb">
-      <DependentUpon>DEVFeeStatistics.vb</DependentUpon>
+    <Compile Include="PASP\PASPFeeStatistics.Designer.vb">
+      <DependentUpon>PASPFeeStatistics.vb</DependentUpon>
     </Compile>
-    <Compile Include="DevelopmentForms\DEVFeeStatistics.vb">
+    <Compile Include="PASP\PASPFeeStatistics.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="DevelopmentForms\DMU_TITLEV_PROJECT.Designer.vb">
@@ -753,12 +753,6 @@
       <DependentUpon>PASPInventory.vb</DependentUpon>
     </Compile>
     <Compile Include="PASP\PASPInventory.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="PASP\PASPMailoutAndStats.Designer.vb">
-      <DependentUpon>PASPMailoutAndStats.vb</DependentUpon>
-    </Compile>
-    <Compile Include="PASP\PASPMailoutAndStats.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="PASP\PASPModifications.vb">
@@ -1413,8 +1407,8 @@
     <EmbeddedResource Include="DevelopmentForms\DEVEditContacts.resx">
       <DependentUpon>DEVEditContacts.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DevelopmentForms\DEVFeeStatistics.resx">
-      <DependentUpon>DEVFeeStatistics.vb</DependentUpon>
+    <EmbeddedResource Include="PASP\PASPFeeStatistics.resx">
+      <DependentUpon>PASPFeeStatistics.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DevelopmentForms\DMU_TITLEV_PROJECT.resx">
       <DependentUpon>DMU_TITLEV_PROJECT.vb</DependentUpon>
@@ -1714,9 +1708,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PASP\PASPInventory.resx">
       <DependentUpon>PASPInventory.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="PASP\PASPMailoutAndStats.resx">
-      <DependentUpon>PASPMailoutAndStats.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PASP\PASPModifications.resx">
       <DependentUpon>PASPModifications.vb</DependentUpon>
@@ -2302,6 +2293,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="IAIP-Crystal Reports\Oracle 10.1\ISMP\" />
+    <Folder Include="Obsolete\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
   <PropertyGroup>

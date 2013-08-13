@@ -2274,10 +2274,10 @@ Public Class IAIPNavigation
                 Case "Fee Statistics && Reports" ''"Fee Statistics && Mailout" '"Mailout && Statistics" '12
                     ' If NavigationScreen.pnl4.Text = "TESTING ENVIRONMENT" Then
                     If MailoutAndStats Is Nothing Then
-                        If MailoutAndStats Is Nothing Then MailoutAndStats = New DEVFeeStatistics
+                        If MailoutAndStats Is Nothing Then MailoutAndStats = New PASPFeeStatistics
                     Else
                         MailoutAndStats.Dispose()
-                        MailoutAndStats = New DEVFeeStatistics
+                        MailoutAndStats = New PASPFeeStatistics
                     End If
                     MailoutAndStats.Show()
                     MailoutAndStats.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
