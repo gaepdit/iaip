@@ -1,16 +1,25 @@
-﻿--- The following is the content of the Post-build events command line:
-
+﻿REM The following is the content of the Post-build events command line(s):
+REM 
+REM To use, copy the following in its entirety (after the last "start here" line) 
+REM and paste into the box at:
+REM Project → Properties → Compile → Build events… → Post-build event command line:
+REM 
+REM ----- Start here -----
+if $(ConfigurationName) == Debug (
+REM Debug build -----
+) ELSE (
+REM Release build -----
 "$(TargetDir)IAIP-Updater\7za.exe" a "$(TargetDir)IAIP-Installer\IAIP-Installer.zip" "$(TargetDir)IAIP-Installer\IaipInstaller.msi" "$(TargetDir)IAIP-Installer\setup.exe" -mx=7
-"$(TargetDir)IAIP-Updater\7za.exe" a "$(TargetDir)IAIP-Updater\IAIP.update.7z" "$(TargetDir)JohnGaltProject.exe" -mx=7
-"$(TargetDir)IAIP-Updater\7za.exe" a "$(TargetDir)IAIP-Updater\IAIP.all.7z" "$(TargetDir)JohnGaltProject.exe" "$(TargetDir)oci.dll" "$(TargetDir)Oracle.DataAccess.dll" "$(TargetDir)orannzsbb11.dll" "$(TargetDir)oraociicus11.dll" "$(TargetDir)OraOps11w.dll" "$(TargetDir)tnsnames.ora" -mx=7
-copy /b "$(TargetDir)IAIP-Updater\7zsd_All.sfx" + "$(TargetDir)IAIP-Updater\config.txt" + "$(TargetDir)IAIP-Updater\IAIP.update.7z" "$(TargetDir)IAIP-Updater\IAIP.update.exe"
-copy /b "$(TargetDir)IAIP-Updater\7zsd_All.sfx" + "$(TargetDir)IAIP-Updater\config.txt" + "$(TargetDir)IAIP-Updater\IAIP.all.7z" "$(TargetDir)IAIP-Updater\IAIP_Update.exe"
-copy /b "$(TargetDir)IAIP-Updater\7zsd_All.sfx" + "$(TargetDir)IAIP-Updater\config.txt" + "$(TargetDir)IAIP-Updater\IAIP.all.7z" "$(TargetDir)IAIP-Updater\iaip.exe"
-del "$(TargetDir)IAIP-Updater\IAIP.update.7z"
-del "$(TargetDir)IAIP-Updater\IAIP.all.7z"
-del "$(TargetDir)IAIP-Updater\7za.exe"
+"$(TargetDir)IAIP-Updater\7za.exe" a "$(TargetDir)IAIP-Updater\IAIP.update2_6_4.7z" "$(TargetDir)JohnGaltProject.exe" -mx=7
+"$(TargetDir)IAIP-Updater\7za.exe" a "$(TargetDir)IAIP-Updater\IAIP.update.full.7z" "$(TargetDir)JohnGaltProject.exe" "$(TargetDir)*.dll" "$(TargetDir)*.ora" -mx=7
+copy /b "$(TargetDir)IAIP-Updater\7zsd_All.sfx" + "$(TargetDir)IAIP-Updater\config.txt" + "$(TargetDir)IAIP-Updater\IAIP.update2_6_4.7z" "$(TargetDir)IAIP-Updater\IAIP.update2_6_4.exe"
+copy /b "$(TargetDir)IAIP-Updater\7zsd_All.sfx" + "$(TargetDir)IAIP-Updater\config.txt" + "$(TargetDir)IAIP-Updater\IAIP.update.full.7z" "$(TargetDir)IAIP-Updater\IAIP.update.exe"
+copy /b "$(TargetDir)IAIP-Updater\IAIP.update.exe" "$(TargetDir)IAIP-Updater\IAIP_Update.exe"
+copy /b "$(TargetDir)IAIP-Updater\IAIP.update.exe" "$(TargetDir)IAIP-Updater\iaip.exe"
+del "$(TargetDir)IAIP-Updater\IAIP.update.full.7z"
+del "$(TargetDir)IAIP-Updater\IAIP.update2_6_4.7z"
 del "$(TargetDir)IAIP-Updater\7zsd_All.sfx"
 del "$(TargetDir)IAIP-Updater\config.txt"
 del "$(TargetDir)IAIP-Updater\make-sfx.bat"
-del "$(TargetDir)IAIP-Installer\setup.exe"
-del "$(TargetDir)IAIP-Installer\IaipInstaller.msi"
+del "$(TargetDir)IAIP-Updater\7za.exe"
+)
