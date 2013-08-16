@@ -2184,6 +2184,10 @@
       <Link>IAIP-Updater\7zsd_All.sfx</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="README.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="README_DEVELOPERS.md" />
     <None Include="IAIP-Updater\config.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
