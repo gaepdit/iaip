@@ -2492,14 +2492,16 @@ Public Class IAIPNavigation
                         MsgBox("ACCESS DENIED")
                     End If
                 Case "Smoke School" '26 
-                    If SmokeSchool Is Nothing Then
-                        If SmokeSchool Is Nothing Then SmokeSchool = New SmokeSchool
-                    Else
-                        SmokeSchool.Dispose()
-                        SmokeSchool = New SmokeSchool
-                    End If
-                    SmokeSchool.Show()
-                    SmokeSchool.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+                    'If SmokeSchool IsNot Nothing Then
+                    '    SmokeSchool.Dispose()
+                    'End If
+                    'SmokeSchool = New SmokeSchool
+                    With SmokeSchool
+                        .Show()
+                        .WindowState = FormWindowState.Normal
+                        .Activate()
+                        .Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+                    End With
                 Case "AFS Tools"
                     If DevelopersTools Is Nothing Then
                         If DevelopersTools Is Nothing Then DevelopersTools = New DMUDeveloperTools
