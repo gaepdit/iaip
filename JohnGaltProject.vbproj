@@ -2196,21 +2196,21 @@
       <Link>IAIP-Updater\7za.exe</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <Content Include="..\_Tools\Oracle\instantclient\oci.dll">
+    <Content Include="..\_Tools\Oracle\x86\instantclient\oci.dll">
       <Link>oci.dll</Link>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\_Tools\Oracle\instantclient\orannzsbb11.dll">
+    <Content Include="..\_Tools\Oracle\x86\instantclient\orannzsbb11.dll">
       <Link>orannzsbb11.dll</Link>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\_Tools\Oracle\instantclient\oraociicus11.dll">
+    <Content Include="..\_Tools\Oracle\x86\instantclient\oraociicus11.dll">
       <Link>oraociicus11.dll</Link>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\_Tools\Oracle\ODAC_xcopy\OraOps11w.dll">
+    <Content Include="..\_Tools\Oracle\x86\ODAC_xcopy\OraOps11w.dll">
       <Link>OraOps11w.dll</Link>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="gaSeal.ico" />
     <None Include="IAIP-Installer\config.txt">
