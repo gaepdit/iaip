@@ -23,25 +23,25 @@ Changelog
 
 ### 2.6.4.1 (2013-08-16)
 
-* *Smoke School:* Tools were unaccessible. (#110)
+* FIX: *Smoke School* – Tools were unaccessible. (#110)
 
 ### 2.6.4 (2013-08-15)
 
-* *Fees Log:* Added separate Administrative Fee line to invoice. (#98)
-* Added application analytics to gain insight on usage and improve future development.
+* NEW: *Fees Log* – Added separate Administrative Fee line to invoice. (#98)
+* NEW: Added application analytics to gain insight on usage and improve future development.
 * Various minor improvements under the hood.
 
 ### 2.6.3.3 (2013-08-07)
 
-* *Smoke School:* New location added. (#107)
+* NEW: *Smoke School* – New location added. (#107)
 
 ### 2.6.3.2 (2013-07-22)
 
-* *Fee Audit Log:* Previous invoice report still displayed when a new facility is loaded. (#92)
+* FIX: *Fee Audit Log* – Previous invoice report still displayed when a new facility is loaded. (#92)
 
 ### 2.6.3.1 (2013-07-22)
 
-* *Application Log:* Some users unable to display applications. (#76)
+* FIX: *Application Log* – Some users unable to display applications. (#76)
 
 ### 2.6.3 (2013-07-19)
 
