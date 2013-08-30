@@ -15022,7 +15022,7 @@ Public Class SSPPApplicationTrackingLog
             "we will notify you if more information is needed to complete " & _
             "the application so that we can finish our review." & _
             vbNewLine & vbNewLine & _
-            "If your company qualifies as a small business (generally those with less than 100 employees), " & _
+            "If your company qualifies as a small business (generally those with fewer than 100 employees), " & _
             "you may contact our Small Business Environmental Assistance Program at 404/362-4842 for free and " & _
             "confidential permitting assistance." & _
             vbNewLine & vbNewLine & _
