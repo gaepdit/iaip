@@ -8026,13 +8026,15 @@ Public Class IAIPNavigation
                         SQL = "select " & _
                        "to_number(AIRBranch.SSCPItemMaster.strTrackingNumber) as strTrackingNumber,  " & _
                        "substr(AIRBranch.SSCPItemMaster.strAIRSNumber, 5) as AIRSNumber,  " & _
-                       "(strLastName||', '||strFirstName) as Staff,  " & _
+                        " case when AIRBranch.SSCPItemMaster.STRRESPONSIBLESTAFF = 0 then ': No one assigned' " & _
+                        " when AIRBranch.SSCPItemMaster.STRRESPONSIBLESTAFF is null then ': Not assigned' " & _
+                        "Else STRLASTNAME || ', ' || STRFIRSTNAME end AS Staff, " & _
                        "strResponsibleStaff, " & _
                        "to_char(datReceivedDate, 'dd-Mon-yyyy') as DateReceived,  " & _
                        "strFacilityName, StrActivityName    " & _
                        "from AIRBranch.SSCPItemMaster, AIRBranch.EPDUserProfiles,  " & _
                        "AIRBranch.APBFacilityInformation, AIRBranch.LookUPComplianceActivities " & _
-                       "where AIRBranch.EPDUserProfiles.numUserID = " & _
+                       "where AIRBranch.EPDUserProfiles.numUserID(+) = " & _
                                 DBNameSpace & ".SSCPItemMaster.strResponsibleStaff  " & _
                        "and AIRBranch.APBFacilityInformation.strAIRSNumber = " & _
                        DBNameSpace & ".SSCPItemMaster.strAIRSNumber  " & _
@@ -8473,7 +8475,7 @@ Public Class IAIPNavigation
                         "and strUserUnit = " & _
                           "(select strUnitDesc from AIRBranch.LookUpEPDUnits where numUnitCode = '" & UserUnit & "') "
                     End If
-                    If rdbPMView.CheckAlign = True Or UserUnit = "---" Then
+                    If rdbPMView.Checked = True Or UserUnit = "---" Then
                         SQL = "Select AIRBranch.VW_ISMPTestReportViewer.*, strPreComplianceStatus   " & _
                         "from  AIRBranch.VW_ISMPTestReportViewer, AIRBranch.ISMPReportInformation " & _
                         "where AIRBranch.VW_ISMPTestReportViewer.strReferenceNumber = " & _
