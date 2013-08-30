@@ -14980,11 +14980,11 @@ Public Class SSPPApplicationTrackingLog
                 Exit Sub
             End If
 
-            If txtContactEmailAddress.Text <> "" And txtContactEmailAddress.Text.Contains("@") = True Then
-                EmailAddress = txtContactEmailAddress.Text
-            Else
+            If Not IsValidEmail(txtContactEmailAddress.Text) Then
                 MessageBox.Show("Invalid Email Address", "Application Tracking Log", MessageBoxButtons.OKCancel)
                 Exit Sub
+            Else
+                EmailAddress = txtContactEmailAddress.Text
             End If
 
             SQL = "select " & _
@@ -14993,9 +14993,9 @@ Public Class SSPPApplicationTrackingLog
             "from AIRBranch.EPDUserProfiles " & _
             "where numUserID = '" & UserGCode & "' "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -15012,28 +15012,33 @@ Public Class SSPPApplicationTrackingLog
             End While
             dr.Close()
 
-            Subject = "GA Air Application: " & txtApplicationNumber.Text & " dated: " & DTPDateSent.Text
-            Body = "Dear " & txtContactSocialTitle.Text & " " & txtContactLastName.Text & ", " & "%0D%0A" & "%0D%0A" & _
+            Subject = "GA Air Application No. " & txtApplicationNumber.Text & ", dated: " & DTPDateSent.Text
+
+            Body = "Dear " & txtContactSocialTitle.Text & " " & txtContactLastName.Text & ", " & _
+            vbNewLine & vbNewLine & _
             "This is to acknowledge the receipt of your GA Air Quality Permit application for " & txtFacilityName.Text & _
             " (Airs No. " & txtAIRSNumber.Text & ") in " & cboFacilityCity.Text & ", GA. " & _
             "After our initial review of the information and technical data in this application, " & _
             "we will notify you if more information is needed to complete " & _
-            "the application so that we can finish our review." & "%0D%0A" & "%0D%0A" & _
+            "the application so that we can finish our review." & _
+            vbNewLine & vbNewLine & _
             "If your company qualifies as a small business (generally those with less than 100 employees), " & _
             "you may contact our Small Business Environmental Assistance Program at 404/362-4842 for free and " & _
-            "confidential permitting assistance." & "%0D%0A" & "%0D%0A" & _
+            "confidential permitting assistance." & _
+            vbNewLine & vbNewLine & _
             "To track the status of the air quality permit application, log on to Georgia Environmental " & _
             "Protection Division’s Georgia Environmental Connections Online (GECO) at the web address " & _
-            "http://airpermit.dnr.state.ga.us" & _
-            " (registration required) and follow the online instructions." & _
-            "%0D%0A" & "%0D%0A" & _
+            "http://airpermit.dnr.state.ga.us" & "(registration required) and follow the online instructions." & _
+            vbNewLine & vbNewLine & _
             "If you have any questions or concerns regarding your application, please contact me at " & _
             StaffPhone & " or via e-mail at " & StaffEmail & ". Any written correspondence " & _
             "should reference the above application number that has been assigned to this application " & _
             "and the facility's AIRS number."
 
-            System.Diagnostics.Process.Start("mailto:" & EmailAddress & "?subject=" & Subject & "&body=" & _
-                                             Body)
+            'System.Diagnostics.Process.Start("mailto:" & EmailAddress & "?subject=" & Subject & "&body=" & Body)
+
+            SendEmail(EmailAddress, Subject, Body, Me)
+
 
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
