@@ -2,6 +2,7 @@
 Imports System.Data.OracleClient
 Imports System.Collections.Generic
 Imports EQATEC.Analytics.Monitor
+Imports System.Web
 
 Module App
 
@@ -15,15 +16,28 @@ Module App
 #End Region
 
 #Region "URL handling"
-    Public Sub OpenHelpUrl(Optional ByVal sender As System.Object = Nothing)
-        monitor.TrackFeature("OpenHelpUrl")
+    Public Sub SendEmail(ByVal address As String, _
+                         Optional ByVal subject As String = Nothing, _
+                         Optional ByVal body As String = Nothing, _
+                         Optional ByVal sender As Object = Nothing)
+        monitor.TrackFeature("Url.SendEmail")
+
+        If subject IsNot Nothing Then subject = Uri.EscapeDataString(subject)
+        If body IsNot Nothing Then body = Uri.EscapeDataString(body)
+
+        Dim emailUrl As String = String.Format("mailto:{0}?subject={1}&body={2}", address, subject, body)
+
+        OpenUrl(emailUrl, sender)
+    End Sub
+    Public Sub OpenHelpUrl(Optional ByVal sender As Object = Nothing)
+        monitor.TrackFeature("Url.OpenHelpUrl")
         OpenUrl(HELP_URL, sender)
     End Sub
-    Public Sub OpenDownloadUrl(Optional ByVal sender As System.Object = Nothing)
-        monitor.TrackFeature("OpenDownloadUrl")
+    Public Sub OpenDownloadUrl(Optional ByVal sender As Object = Nothing)
+        monitor.TrackFeature("Url.OpenDownloadUrl")
         OpenUrl(DOWNLOAD_URL, sender)
     End Sub
-    Private Sub OpenUrl(ByVal url As String, Optional ByVal sender As System.Object = Nothing)
+    Private Sub OpenUrl(ByVal url As String, Optional ByVal sender As Object = Nothing)
         ' Reference: http://code.logos.com/blog/2008/01/using_processstart_to_link_to.html
         If url Is Nothing Then Exit Sub
 
@@ -42,6 +56,15 @@ Module App
             End If
         End Try
     End Sub
+    Public Function IsValidEmail(ByVal email As String) As Boolean
+        If String.IsNullOrEmpty(email) Then Return False
+        Try
+            Dim testEmail As Net.Mail.MailAddress = New Net.Mail.MailAddress(email)
+        Catch ex As Exception
+            Return False
+        End Try
+        Return True
+    End Function
 #End Region
 
 #Region "Versioning Info"
