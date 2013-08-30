@@ -15028,7 +15028,8 @@ Public Class SSPPApplicationTrackingLog
             vbNewLine & vbNewLine & _
             "To track the status of the air quality permit application, log on to Georgia Environmental " & _
             "Protection Division’s Georgia Environmental Connections Online (GECO) at the web address " & _
-            "http://airpermit.dnr.state.ga.us" & "(registration required) and follow the online instructions." & _
+            "http://airpermit.dnr.state.ga.us" & _
+            " (registration required) and follow the online instructions." & _
             vbNewLine & vbNewLine & _
             "If you have any questions or concerns regarding your application, please contact me at " & _
             StaffPhone & " or via e-mail at " & StaffEmail & ". Any written correspondence " & _
