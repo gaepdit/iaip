@@ -2608,9 +2608,11 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
                         LoadOtherWitnessingEng()
                     End If
 
-                    If ReportStatus = "True" Or AccountArray(69, 4) = "1" Then 'Add Compliance work if User has 'Special Permission 
-                        TCDocumentTypes.TabPages.Add(TPSSCPWork)
-                    End If
+            If ReportStatus = "True" Then 'Or AccountArray(69, 4) = "1" Then 'Add Compliance work if User has 'Special Permission 
+                TCDocumentTypes.TabPages.Add(TPSSCPWork)
+            Else
+                TCDocumentTypes.TabPages.Remove(TPSSCPWork)
+            End If
                     If ConfidentialData.Contains("1") Then
                         If Mid(ConfidentialData, 1, 1) = "1" Then
                             LoadConfidentialData(ConfidentialData)
@@ -10835,7 +10837,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
                         End Select
                     End If
 
-                    TCDocumentTypes.TabPages.Add(TPSSCPWork)
+                    'TCDocumentTypes.TabPages.Add(TPSSCPWork)
 
                 Else
                     MsgBox("The Reference Number " & OldRefNum & " is not a valid value.", MsgBoxStyle.Information, "Test Report")
