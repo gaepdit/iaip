@@ -821,8 +821,7 @@ Public Class ISMPTestReportAdministrative
            "(SELECT " & _
            "CASE " & _
            "WHEN strDistrictResponsible <> 'False' AND strDistrictResponsible IS NOT NULL " & _
-           " THEN '9' " & _
-           "ELSE '0'   " & _
+           "THEN '0' ELSE '0' " & _
            "END ManagerResponsible " & _
            "from " & DBNameSpace & ".LookUPDistricts, " & DBNameSpace & ".LOOKUPDISTRICTINFORMATION,  " & _
            "" & DBNameSpace & ".SSCPDistrictResponsible,     " & _

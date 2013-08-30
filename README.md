@@ -20,6 +20,9 @@ To submit a bug report, send an email to Doug Waldron or just walk on down and t
 
 Changelog
 --------
+### 2.6.4.2
+
+* FIX: *ISMP* – Stack tests for District Offices were cc'ed to Terri Crosby-Vega (#97)
 
 ### 2.6.4.1 (2013-08-16)
 
