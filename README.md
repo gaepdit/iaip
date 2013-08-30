@@ -26,6 +26,7 @@ Changelog
 * FIX: *ISMP* – Try to prevent compliance staff being unassigned inappropriately (#80)
 * NEW: Display unassigned compliance items in the Navigation Screen compliance program view (#80)
 * FIX: Bug in Navigation Screen monitoring test reports program view
+* FIX: *SSPP* – Email body truncated if company name contains an ampersand (#113)
 
 ### 2.6.4.1 (2013-08-16)
 

@@ -2185,7 +2185,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="README.md">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="README_DEVELOPERS.md" />
     <None Include="IAIP-Updater\config.txt">
