@@ -248,6 +248,36 @@
     <Compile Include="AssemblyInfo.vb">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="DevelopmentForms\AFSValidator.Designer.vb">
+      <DependentUpon>AFSValidator.vb</DependentUpon>
+    </Compile>
+    <Compile Include="DevelopmentForms\AFSValidator.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DevelopmentForms\DEVEditContacts.Designer.vb">
+      <DependentUpon>DEVEditContacts.vb</DependentUpon>
+    </Compile>
+    <Compile Include="DevelopmentForms\DEVEditContacts.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DevelopmentForms\IAIPPhoneList.Designer.vb">
+      <DependentUpon>IAIPPhoneList.vb</DependentUpon>
+    </Compile>
+    <Compile Include="DevelopmentForms\IAIPPhoneList.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DevelopmentForms\IAIP_EIS_Log.Designer.vb">
+      <DependentUpon>IAIP_EIS_Log.vb</DependentUpon>
+    </Compile>
+    <Compile Include="DevelopmentForms\IAIP_EIS_Log.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DevelopmentForms\SSCPManagerProfile.Designer.vb">
+      <DependentUpon>SSCPManagerProfile.vb</DependentUpon>
+    </Compile>
+    <Compile Include="DevelopmentForms\SSCPManagerProfile.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="_MFCode\CodeFile.vb" />
     <Compile Include="_MFCode\DataReaderAdapter.vb">
       <SubType>Component</SubType>
@@ -267,46 +297,16 @@
       <DependentUpon>dsInventoryReport.xsd</DependentUpon>
     </Compile>
     <Compile Include="DBLineCount.vb" />
-    <Compile Include="DevelopmentForms\DEVEditContacts.Designer.vb">
-      <DependentUpon>DEVEditContacts.vb</DependentUpon>
-    </Compile>
-    <Compile Include="DevelopmentForms\DEVEditContacts.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="PASP\PASPFeeStatistics.Designer.vb">
       <DependentUpon>PASPFeeStatistics.vb</DependentUpon>
     </Compile>
     <Compile Include="PASP\PASPFeeStatistics.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DevelopmentForms\DMU_TITLEV_PROJECT.Designer.vb">
-      <DependentUpon>DMU_TITLEV_PROJECT.vb</DependentUpon>
-    </Compile>
-    <Compile Include="DevelopmentForms\DMU_TITLEV_PROJECT.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="DevelopmentForms\IAIPPhoneList.Designer.vb">
-      <DependentUpon>IAIPPhoneList.vb</DependentUpon>
-    </Compile>
-    <Compile Include="DevelopmentForms\IAIPPhoneList.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="DevelopmentForms\IAIP_EIS_Log.Designer.vb">
-      <DependentUpon>IAIP_EIS_Log.vb</DependentUpon>
-    </Compile>
-    <Compile Include="DevelopmentForms\IAIP_EIS_Log.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="SSCP\SSCPEnforcementAudit.Designer.vb">
       <DependentUpon>SSCPEnforcementAudit.vb</DependentUpon>
     </Compile>
     <Compile Include="SSCP\SSCPEnforcementAudit.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="DevelopmentForms\SSCPManagerProfile.Designer.vb">
-      <DependentUpon>SSCPManagerProfile.vb</DependentUpon>
-    </Compile>
-    <Compile Include="DevelopmentForms\SSCPManagerProfile.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="DataSet\dsIAIP10.Designer.vb">
@@ -1297,12 +1297,6 @@
     <Compile Include="_SubMain\subMain.vb">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DevelopmentForms\AFSValidator.Designer.vb">
-      <DependentUpon>AFSValidator.vb</DependentUpon>
-    </Compile>
-    <Compile Include="DevelopmentForms\AFSValidator.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Universal Forms\IAIPFacilitySummary.Designer.vb">
       <DependentUpon>IAIPFacilitySummary.vb</DependentUpon>
     </Compile>
@@ -1408,14 +1402,12 @@
     <Compile Include="Universal Forms\Sub Forms\IAIPProfileUpdate.vb">
       <SubType>Form</SubType>
     </Compile>
+    <EmbeddedResource Include="DevelopmentForms\AFSValidator.resx">
+      <DependentUpon>AFSValidator.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="DevelopmentForms\DEVEditContacts.resx">
       <DependentUpon>DEVEditContacts.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="PASP\PASPFeeStatistics.resx">
-      <DependentUpon>PASPFeeStatistics.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DevelopmentForms\DMU_TITLEV_PROJECT.resx">
-      <DependentUpon>DMU_TITLEV_PROJECT.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DevelopmentForms\IAIPPhoneList.resx">
       <DependentUpon>IAIPPhoneList.vb</DependentUpon>
@@ -1424,12 +1416,15 @@
     <EmbeddedResource Include="DevelopmentForms\IAIP_EIS_Log.resx">
       <DependentUpon>IAIP_EIS_Log.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SSCP\SSCPEnforcementAudit.resx">
-      <DependentUpon>SSCPEnforcementAudit.vb</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="DevelopmentForms\SSCPManagerProfile.resx">
       <DependentUpon>SSCPManagerProfile.vb</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PASP\PASPFeeStatistics.resx">
+      <DependentUpon>PASPFeeStatistics.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SSCP\SSCPEnforcementAudit.resx">
+      <DependentUpon>SSCPEnforcementAudit.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FCE_ACC.rdlc" />
     <EmbeddedResource Include="IAIP-Crystal Reports\FacilityBasicPrint.rpt">
@@ -2099,10 +2094,6 @@
       <SubType>Designer</SubType>
       <DependentUpon>SSPPAttainmentStatus.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DevelopmentForms\AFSValidator.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>AFSValidator.vb</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Universal Forms\IAIPFacilitySummary.resx">
       <SubType>Designer</SubType>
       <DependentUpon>IAIPFacilitySummary.vb</DependentUpon>
@@ -2300,7 +2291,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="IAIP-Crystal Reports\Oracle 10.1\ISMP\" />
-    <Folder Include="Obsolete\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
   <PropertyGroup>

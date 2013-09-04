@@ -100,7 +100,7 @@ Module subMain
     Public LookUpTables As IAIPLookUpTables
     Public FacilityCreator As IAIPFacilityCreator
     Public EISLog As IAIP_EIS_Log
-    Public TitleVProject As DMU_TITLEV_PROJECT
+    'Public TitleVProject As DMU_TITLEV_PROJECT
 
 #End Region
 #Region "Ambient Monitoring Screens"

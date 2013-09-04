@@ -8701,20 +8701,20 @@ Public Class DMUTool
     End Sub
 
   
-    Private Sub btnOpenTitleV_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOpenTitleV.Click
-        Try
-            If TitleVProject Is Nothing Then
-                TitleVProject = New DMU_TITLEV_PROJECT
-                TitleVProject.Show()
-            Else
-                TitleVProject.Show()
-                TitleVProject.BringToFront()
-            End If
-            TitleVProject.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
-        Catch ex As Exception
+    'Private Sub btnOpenTitleV_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOpenTitleV.Click
+    '    Try
+    '        If TitleVProject Is Nothing Then
+    '            TitleVProject = New DMU_TITLEV_PROJECT
+    '            TitleVProject.Show()
+    '        Else
+    '            TitleVProject.Show()
+    '            TitleVProject.BringToFront()
+    '        End If
+    '        TitleVProject.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+    '    Catch ex As Exception
 
-        End Try
-    End Sub
+    '    End Try
+    'End Sub
 
   
     Private Sub Button24_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button24.Click
