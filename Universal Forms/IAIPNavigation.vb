@@ -3520,8 +3520,8 @@ Public Class IAIPNavigation
             Else
                 If AccountArray(12, 0) = "12" Then
                     If AccountArray(12, 1) = "1" Or AccountArray(12, 2) = "1" Or AccountArray(12, 3) = "1" Or AccountArray(12, 4) = "1" Then
-                        btnNav6.Text = "Mailout && Statistics"
-                        btnNav6.Text = "Fee Statistics && Mailout"
+                        'btnNav6.Text = "Mailout && Statistics"
+                        'btnNav6.Text = "Fee Statistics && Mailout"
                         btnNav6.Text = "Fee Statistics && Reports"
                         btnNav6.Visible = True
                     End If

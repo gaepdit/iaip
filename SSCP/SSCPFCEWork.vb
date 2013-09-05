@@ -2087,21 +2087,21 @@ Public Class SSCPFCEWork
         End Try
 
     End Sub
-    Sub Print()
-        Try
+    'Sub Print()
+    '    Try
 
-            PrintOut = Nothing
-            If PrintOut Is Nothing Then PrintOut = New IAIPPrintOut
-            PrintOut.txtPrintType.Text = "SSCPFCE"
-            PrintOut.txtAIRSNumber.Text = Me.txtAirsNumber.Text
-            PrintOut.txtOther.Text = Me.txtFCENumber.Text
-            PrintOut.Show()
-            PrintOut.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
-        Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+    '        PrintOut = Nothing
+    '        If PrintOut Is Nothing Then PrintOut = New IAIPPrintOut
+    '        PrintOut.txtPrintType.Text = "SSCPFCE"
+    '        PrintOut.txtAIRSNumber.Text = Me.txtAirsNumber.Text
+    '        PrintOut.txtOther.Text = Me.txtFCENumber.Text
+    '        PrintOut.Show()
+    '        PrintOut.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+    '    Catch ex As Exception
+    '        ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+    '    End Try
 
-    End Sub
+    'End Sub
 #Region "Open Subborting Documents"
     Private Sub llbFCEInspections_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbFCEInspections.LinkClicked
         Try
