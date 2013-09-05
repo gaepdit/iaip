@@ -30,11 +30,11 @@ Module App
         OpenUrl(emailUrl, sender)
     End Sub
     Public Sub OpenHelpUrl(Optional ByVal sender As Object = Nothing)
-        monitor.TrackFeature("Url.OpenHelpUrl")
+        monitor.TrackFeature("Url.OpenHelp")
         OpenUrl(HELP_URL, sender)
     End Sub
     Public Sub OpenDownloadUrl(Optional ByVal sender As Object = Nothing)
-        monitor.TrackFeature("Url.OpenDownloadUrl")
+        monitor.TrackFeature("Url.OpenDownload")
         OpenUrl(DOWNLOAD_URL, sender)
     End Sub
     Private Sub OpenUrl(ByVal url As String, Optional ByVal sender As Object = Nothing)
