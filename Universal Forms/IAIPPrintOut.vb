@@ -71,9 +71,9 @@ Public Class IAIPPrintOut
                 "where strCurrentContact = '1' " & _
                 "and strKey = '1' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -91,9 +91,9 @@ Public Class IAIPPrintOut
                 "where strCurrentContact = '1' " & _
                 "and strKey = '2' "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 While dr.Read
@@ -131,9 +131,9 @@ Public Class IAIPPrintOut
                                 "from " & DBNameSpace & ".VW_SSPP_Acknowledge " & _
                                 "where strApplicationNumber = '" & txtAIRSNumber.Text & "' "
 
-                                da = New OracleDataAdapter(SQL, conn)
-                                If conn.State = ConnectionState.Closed Then
-                                    conn.Open()
+                                da = New OracleDataAdapter(SQL, Conn)
+                                If Conn.State = ConnectionState.Closed Then
+                                    Conn.Open()
                                 End If
                                 ds.EnforceConstraints = False
                                 da.Fill(ds, "VW_SSPP_Acknowledge")
@@ -163,9 +163,9 @@ Public Class IAIPPrintOut
                         "from " & DBNameSpace & ".VW_APBFacilityLocation " & _
                         "where " & DBNameSpace & ".VW_APBFacilityLocation.strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
 
-                        da = New OracleDataAdapter(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        da = New OracleDataAdapter(SQL, Conn)
+                        If Conn.State = ConnectionState.Closed Then
+                            Conn.Open()
                         End If
                         ds.EnforceConstraints = False
                         da.Fill(ds, "VW_APBFacilityLocation")
@@ -175,9 +175,9 @@ Public Class IAIPPrintOut
                         "from " & DBNameSpace & ".VW_APBFacilityHeader " & _
                         "where " & DBNameSpace & ".VW_APBFacilityHeader.strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
 
-                        da = New OracleDataAdapter(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        da = New OracleDataAdapter(SQL, Conn)
+                        If Conn.State = ConnectionState.Closed Then
+                            Conn.Open()
                         End If
                         ds.EnforceConstraints = False
                         da.Fill(ds, "VW_APBFacilityHeader")
@@ -196,9 +196,9 @@ Public Class IAIPPrintOut
                         "from " & DBNameSpace & ".VW_APBFacilityLocation " & _
                         "where " & DBNameSpace & ".VW_APBFacilityLocation.strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
 
-                        da = New OracleDataAdapter(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        da = New OracleDataAdapter(SQL, Conn)
+                        If Conn.State = ConnectionState.Closed Then
+                            Conn.Open()
                         End If
                         ds.EnforceConstraints = False
                         da.Fill(ds, "VW_APBFacilityLocation")
@@ -208,9 +208,9 @@ Public Class IAIPPrintOut
                         "from " & DBNameSpace & ".VW_APBFacilityHeader " & _
                         "where " & DBNameSpace & ".VW_APBFacilityHeader.strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
 
-                        da = New OracleDataAdapter(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        da = New OracleDataAdapter(SQL, Conn)
+                        If Conn.State = ConnectionState.Closed Then
+                            Conn.Open()
                         End If
                         ds.EnforceConstraints = False
                         da.Fill(ds, "VW_APBFacilityHeader")
@@ -221,9 +221,9 @@ Public Class IAIPPrintOut
                         "where " & DBNameSpace & ".VW_AIR_PROGRAM_POLLUTANTS.strAIRSNumber = '0413" & txtAIRSNumber.Text & "' " & _
                         "order by aircode desc "
 
-                        da = New OracleDataAdapter(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        da = New OracleDataAdapter(SQL, Conn)
+                        If Conn.State = ConnectionState.Closed Then
+                            Conn.Open()
                         End If
                         ds.EnforceConstraints = False
                         da.Fill(ds, "VW_AIR_PROGRAM_POLLUTANTS")
@@ -233,9 +233,9 @@ Public Class IAIPPrintOut
                         "From " & DBNameSpace & ".APBContactInformation " & _
                         "where " & DBNameSpace & ".APBContactInformation.strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
 
-                        da = New OracleDataAdapter(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        da = New OracleDataAdapter(SQL, Conn)
+                        If Conn.State = ConnectionState.Closed Then
+                            Conn.Open()
                         End If
                         ds.EnforceConstraints = False
                         da.Fill(ds, "APBContactInformation")
@@ -245,9 +245,9 @@ Public Class IAIPPrintOut
                         "From " & DBNameSpace & ".VW_Report_OLAPUSERS " & _
                         "where " & DBNameSpace & ".VW_Report_OLAPUSERS.strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
 
-                        da = New OracleDataAdapter(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        da = New OracleDataAdapter(SQL, Conn)
+                        If Conn.State = ConnectionState.Closed Then
+                            Conn.Open()
                         End If
                         ds.EnforceConstraints = False
                         da.Fill(ds, "VW_Report_OLAPUSERS")
@@ -257,9 +257,9 @@ Public Class IAIPPrintOut
                         "From " & DBNameSpace & ".VW_REPORT_STATECONTACTS " & _
                         "where " & DBNameSpace & ".VW_REPORT_STATECONTACTS.SSPPAIRS = '0413" & txtAIRSNumber.Text & "' "
 
-                        da = New OracleDataAdapter(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        da = New OracleDataAdapter(SQL, Conn)
+                        If Conn.State = ConnectionState.Closed Then
+                            Conn.Open()
                         End If
                         ds.EnforceConstraints = False
                         da.Fill(ds, "VW_REPORT_STATECONTACTS")
@@ -270,9 +270,9 @@ Public Class IAIPPrintOut
                         "where strAIRSnumber = '0413" & txtAIRSNumber.Text & "' " & _
                         "order by substr(strKey,1,1) desc, substr(strKey, 2,1) desc  "
 
-                        da = New OracleDataAdapter(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        da = New OracleDataAdapter(SQL, Conn)
+                        If Conn.State = ConnectionState.Closed Then
+                            Conn.Open()
                         End If
                         ds.EnforceConstraints = False
                         da.Fill(ds, "APBContactInformation")
@@ -295,9 +295,9 @@ Public Class IAIPPrintOut
                             "(datFinalizedDate is null or datFinalizedDate >= '" & txtEndDate.Text & "'))) " & _
                         "order by datReceivedDate desc "
 
-                        da = New OracleDataAdapter(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        da = New OracleDataAdapter(SQL, Conn)
+                        If Conn.State = ConnectionState.Closed Then
+                            Conn.Open()
                         End If
                         ds.EnforceConstraints = False
                         da.Fill(ds, "VW_Report_SSPP")
@@ -320,9 +320,9 @@ Public Class IAIPPrintOut
                         "(datFinalizedDate is null or datFinalizedDate >= '" & txtEndDate.Text & "'))) " & _
                         "order by datReceivedDate desc "
 
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, Conn)
+                        If Conn.State = ConnectionState.Closed Then
+                            Conn.Open()
                         End If
                         dr = cmd.ExecuteReader
                         While dr.Read
@@ -349,9 +349,9 @@ Public Class IAIPPrintOut
                         "(datCompleteDate is null or datCompleteDate >= '" & txtEndDate.Text & "' ))) " & _
                         "order by datReceivedDate desc, strReferenceNumber desc  "
 
-                        da = New OracleDataAdapter(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        da = New OracleDataAdapter(SQL, Conn)
+                        If Conn.State = ConnectionState.Closed Then
+                            Conn.Open()
                         End If
                         ds.EnforceConstraints = False
                         da.Fill(ds, "VW_REPORT_ISMP")
@@ -371,9 +371,9 @@ Public Class IAIPPrintOut
                         "(datCompleteDate is null or datCompleteDate >= '" & txtEndDate.Text & "' ))) " & _
                         "order by datReceivedDate desc, strReferenceNumber desc  "
 
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, Conn)
+                        If Conn.State = ConnectionState.Closed Then
+                            Conn.Open()
                         End If
                         dr = cmd.ExecuteReader
                         While dr.Read
@@ -397,9 +397,9 @@ Public Class IAIPPrintOut
                         "(datEnforcementFinalized is null or datEnforcementFinalized >= '" & txtEndDate.Text & "'))) " & _
                         "order by datDiscoveryDate desc "
 
-                        da = New OracleDataAdapter(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        da = New OracleDataAdapter(SQL, Conn)
+                        If Conn.State = ConnectionState.Closed Then
+                            Conn.Open()
                         End If
                         ds.EnforceConstraints = False
                         da.Fill(ds, "VW_REPORT_Enforcement")
@@ -424,9 +424,9 @@ Public Class IAIPPrintOut
                         "(datEnforcementFinalized is null or datEnforcementFinalized >= '" & txtEndDate.Text & "'))) " & _
                         "order by datDiscoveryDate desc "
 
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, Conn)
+                        If Conn.State = ConnectionState.Closed Then
+                            Conn.Open()
                         End If
                         dr = cmd.ExecuteReader
                         While dr.Read
@@ -444,9 +444,9 @@ Public Class IAIPPrintOut
                         "and strFCEYear between '" & CDate(txtStartDate.Text).Year.ToString & "' and '" & CDate(txtEndDate.Text).Year.ToString & "' " & _
                         "order by strFCEYear desc "
 
-                        da = New OracleDataAdapter(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        da = New OracleDataAdapter(SQL, Conn)
+                        If Conn.State = ConnectionState.Closed Then
+                            Conn.Open()
                         End If
                         ds.EnforceConstraints = False
                         da.Fill(ds, "VW_REPORT_SSCP_FCE")
@@ -457,9 +457,9 @@ Public Class IAIPPrintOut
                        "and strFCEYear between '" & CDate(txtStartDate.Text).Year.ToString & "' and '" & CDate(txtEndDate.Text).Year.ToString & "' " & _
                        "order by strFCEYear desc "
 
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, Conn)
+                        If Conn.State = ConnectionState.Closed Then
+                            Conn.Open()
                         End If
                         dr = cmd.ExecuteReader
                         While dr.Read
@@ -487,9 +487,9 @@ Public Class IAIPPrintOut
                         "(datCompleteDate is null or datCompleteDate >= '" & txtEndDate.Text & "'))) " & _
                         "order by datReceivedDate desc "
 
-                        da = New OracleDataAdapter(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        da = New OracleDataAdapter(SQL, Conn)
+                        If Conn.State = ConnectionState.Closed Then
+                            Conn.Open()
                         End If
                         ds.EnforceConstraints = False
                         da.Fill(ds, "VW_REPORT_SSCP_EVENT")
@@ -510,9 +510,9 @@ Public Class IAIPPrintOut
                         "(datCompleteDate is null or datCompleteDate >= '" & txtEndDate.Text & "'))) " & _
                         "order by datReceivedDate desc "
 
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, Conn)
+                        If Conn.State = ConnectionState.Closed Then
+                            Conn.Open()
                         End If
                         dr = cmd.ExecuteReader
                         While dr.Read
@@ -545,9 +545,9 @@ Public Class IAIPPrintOut
                          "from " & DBNameSpace & ".ISMPDocumentType, " & DBNameSpace & ".ISMPReportInformation " & _
                          "where " & DBNameSpace & ".ISMPReportInformation.strDocumentType = " & DBNameSpace & ".ISMPDocumentType.strKey and " & _
                          "strReferenceNumber = '" & txtReferenceNumber.Text & "'"
-                        Dim cmd As New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        Dim cmd As New OracleCommand(SQL, Conn)
+                        If Conn.State = ConnectionState.Closed Then
+                            Conn.Open()
                         End If
                         Dim dr As OracleDataReader = cmd.ExecuteReader
                         Dim recExist As Boolean = dr.Read
@@ -607,9 +607,9 @@ Public Class IAIPPrintOut
                          "from " & DBNameSpace & ".ISMPDocumentType, " & DBNameSpace & ".ISMPReportInformation " & _
                          "where " & DBNameSpace & ".ISMPReportInformation.strDocumentType = " & DBNameSpace & ".ISMPDocumentType.strKey and " & _
                          "strReferenceNumber = '" & txtReferenceNumber.Text & "'"
-                        Dim cmd As New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        Dim cmd As New OracleCommand(SQL, Conn)
+                        If Conn.State = ConnectionState.Closed Then
+                            Conn.Open()
                         End If
                         Dim dr As OracleDataReader = cmd.ExecuteReader
                         Dim recExist As Boolean = dr.Read
@@ -676,9 +676,9 @@ Public Class IAIPPrintOut
                     SQL = "Select * from " & DBNameSpace & ".ESSchema " & _
                     "where strConfirmationNbr = '" & txtOther.Text & "' "
 
-                    da = New OracleDataAdapter(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    da = New OracleDataAdapter(SQL, Conn)
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
                     ds.EnforceConstraints = False
                     da.Fill(ds, "ESSchema")
@@ -692,9 +692,9 @@ Public Class IAIPPrintOut
                     SQL = "Select * from " & DBNameSpace & ".ESSchema " & _
                     "where strConfirmationNbr = '" & txtSQLLine.Text & "' "
 
-                    da = New OracleDataAdapter(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    da = New OracleDataAdapter(SQL, Conn)
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
                     ds.EnforceConstraints = False
                     da.Fill(ds, "ESSchema")
@@ -712,9 +712,9 @@ Public Class IAIPPrintOut
                     '    "strDirector, strCommissioner " & _
                     '    "from " & DBNameSpace & ".LookUpAPBManagement "
 
-                    '    da = New OracleDataAdapter(SQL, conn)
-                    '    If conn.State = ConnectionState.Closed Then
-                    '        conn.Open()
+                    '    da = New OracleDataAdapter(SQL, Conn)
+                    '    If Conn.State = ConnectionState.Closed Then
+                    '        Conn.Open()
                     '    End If
                     '    ds.EnforceConstraints = False
                     '    da.Fill(ds, "LookUpAPBManagement")
@@ -724,9 +724,9 @@ Public Class IAIPPrintOut
                     '    "from " & DBNameSpace & ".VW_APBFacilityLocation " & _
                     '    "where " & DBNameSpace & ".VW_APBFacilityLocation.strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
 
-                    '    da = New OracleDataAdapter(SQL, conn)
-                    '    If conn.State = ConnectionState.Closed Then
-                    '        conn.Open()
+                    '    da = New OracleDataAdapter(SQL, Conn)
+                    '    If Conn.State = ConnectionState.Closed Then
+                    '        Conn.Open()
                     '    End If
                     '    ds.EnforceConstraints = False
                     '    da.Fill(ds, "VW_APBFacilityLocation")
@@ -736,9 +736,9 @@ Public Class IAIPPrintOut
                     '    "from " & DBNameSpace & ".VW_APBFacilityHeader " & _
                     '    "where " & DBNameSpace & ".VW_APBFacilityHeader.strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
 
-                    '    da = New OracleDataAdapter(SQL, conn)
-                    '    If conn.State = ConnectionState.Closed Then
-                    '        conn.Open()
+                    '    da = New OracleDataAdapter(SQL, Conn)
+                    '    If Conn.State = ConnectionState.Closed Then
+                    '        Conn.Open()
                     '    End If
                     '    ds.EnforceConstraints = False
                     '    da.Fill(ds, "VW_APBFacilityHeader")
@@ -768,9 +768,9 @@ Public Class IAIPPrintOut
                     "strDirector, strCommissioner " & _
                     "from " & DBNameSpace & ".LookUpAPBManagement "
 
-                    da = New OracleDataAdapter(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    da = New OracleDataAdapter(SQL, Conn)
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
                     ds.EnforceConstraints = False
                     da.Fill(ds, "LookUpAPBManagement")
@@ -780,9 +780,9 @@ Public Class IAIPPrintOut
                     "from " & DBNameSpace & ".VW_APBFacilityLocation " & _
                     "where " & DBNameSpace & ".VW_APBFacilityLocation.strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
 
-                    da = New OracleDataAdapter(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    da = New OracleDataAdapter(SQL, Conn)
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
                     ds.EnforceConstraints = False
                     da.Fill(ds, "VW_APBFacilityLocation")
@@ -792,9 +792,9 @@ Public Class IAIPPrintOut
                     "from " & DBNameSpace & ".VW_APBFacilityHeader " & _
                     "where " & DBNameSpace & ".VW_APBFacilityHeader.strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
 
-                    da = New OracleDataAdapter(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    da = New OracleDataAdapter(SQL, Conn)
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
                     ds.EnforceConstraints = False
                     da.Fill(ds, "VW_APBFacilityHeader")
@@ -805,9 +805,9 @@ Public Class IAIPPrintOut
                     "where " & DBNameSpace & ".VW_AIR_PROGRAM_POLLUTANTS.strAIRSNumber = '0413" & txtAIRSNumber.Text & "' " & _
                     "order by aircode desc "
 
-                    da = New OracleDataAdapter(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    da = New OracleDataAdapter(SQL, Conn)
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
                     ds.EnforceConstraints = False
                     da.Fill(ds, "VW_AIR_PROGRAM_POLLUTANTS")
@@ -817,9 +817,9 @@ Public Class IAIPPrintOut
                     "From " & DBNameSpace & ".APBContactInformation " & _
                     "where " & DBNameSpace & ".APBContactInformation.strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
 
-                    da = New OracleDataAdapter(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    da = New OracleDataAdapter(SQL, Conn)
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
                     ds.EnforceConstraints = False
                     da.Fill(ds, "APBContactInformation")
@@ -829,9 +829,9 @@ Public Class IAIPPrintOut
                     "From " & DBNameSpace & ".VW_Report_OLAPUSERS " & _
                     "where " & DBNameSpace & ".VW_Report_OLAPUSERS.strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
 
-                    da = New OracleDataAdapter(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    da = New OracleDataAdapter(SQL, Conn)
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
                     ds.EnforceConstraints = False
                     da.Fill(ds, "VW_Report_OLAPUSERS")
@@ -841,9 +841,9 @@ Public Class IAIPPrintOut
                     "From " & DBNameSpace & ".VW_REPORT_STATECONTACTS " & _
                     "where " & DBNameSpace & ".VW_REPORT_STATECONTACTS.SSPPAIRS = '0413" & txtAIRSNumber.Text & "' "
 
-                    da = New OracleDataAdapter(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    da = New OracleDataAdapter(SQL, Conn)
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
                     ds.EnforceConstraints = False
                     da.Fill(ds, "VW_REPORT_STATECONTACTS")
@@ -854,9 +854,9 @@ Public Class IAIPPrintOut
                     "where strAIRSnumber = '0413" & txtAIRSNumber.Text & "' " & _
                     "order by substr(strKey,1,1) desc, substr(strKey, 2,1) desc  "
 
-                    da = New OracleDataAdapter(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    da = New OracleDataAdapter(SQL, Conn)
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
                     ds.EnforceConstraints = False
                     da.Fill(ds, "APBContactInformation")
@@ -869,9 +869,9 @@ Public Class IAIPPrintOut
                     "or datReceivedDate between '" & txtStartDate.Text & "' and '" & txtEndDate.Text & "') " & _
                     "order by datReceivedDate desc "
 
-                    da = New OracleDataAdapter(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    da = New OracleDataAdapter(SQL, Conn)
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
                     ds.EnforceConstraints = False
                     da.Fill(ds, "VW_Report_SSPP")
@@ -884,9 +884,9 @@ Public Class IAIPPrintOut
                     "or datReceivedDate between '" & txtStartDate.Text & "' and '" & txtEndDate.Text & "') " & _
                     "order by datReceivedDate desc "
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, Conn)
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     While dr.Read
@@ -913,9 +913,9 @@ Public Class IAIPPrintOut
                     "and (datReceivedDate between '" & txtStartDate.Text & "' and '" & txtEndDate.Text & "') " & _
                     "order by datReceivedDate desc, strReferenceNumber desc  "
 
-                    da = New OracleDataAdapter(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    da = New OracleDataAdapter(SQL, Conn)
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
                     ds.EnforceConstraints = False
                     da.Fill(ds, "VW_REPORT_ISMP")
@@ -926,9 +926,9 @@ Public Class IAIPPrintOut
                     "and (datReceivedDate between '" & txtStartDate.Text & "' and '" & txtEndDate.Text & "') " & _
                     "order by datReceivedDate desc, strReferenceNumber desc  "
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, Conn)
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     While dr.Read
@@ -957,9 +957,9 @@ Public Class IAIPPrintOut
                     "or (datEnforcementFinalized between '" & txtStartDate.Text & "' and '" & txtEndDate.Text & "')) " & _
                     "order by datDiscoveryDate desc "
 
-                    da = New OracleDataAdapter(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    da = New OracleDataAdapter(SQL, Conn)
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
                     ds.EnforceConstraints = False
                     da.Fill(ds, "VW_REPORT_Enforcement")
@@ -972,9 +972,9 @@ Public Class IAIPPrintOut
                     "or (datEnforcementFinalized between '" & txtStartDate.Text & "' and '" & txtEndDate.Text & "')) " & _
                     "order by datDiscoveryDate desc "
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, Conn)
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     While dr.Read
@@ -1001,9 +1001,9 @@ Public Class IAIPPrintOut
                     "and strFCEYear between '" & CDate(txtStartDate.Text).Year.ToString & "' and '" & CDate(txtEndDate.Text).Year.ToString & "' " & _
                     "order by strFCEYear desc "
 
-                    da = New OracleDataAdapter(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    da = New OracleDataAdapter(SQL, Conn)
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
                     ds.EnforceConstraints = False
                     da.Fill(ds, "VW_REPORT_SSCP_FCE")
@@ -1015,9 +1015,9 @@ Public Class IAIPPrintOut
                    "and strFCEYear between '" & CDate(txtStartDate.Text).Year.ToString & "' and '" & CDate(txtEndDate.Text).Year.ToString & "' " & _
                    "order by strFCEYear desc "
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, Conn)
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     While dr.Read
@@ -1045,9 +1045,9 @@ Public Class IAIPPrintOut
                     "or datCompleteDate between '" & txtStartDate.Text & "' and '" & txtEndDate.Text & "') " & _
                     "order by datReceivedDate desc "
 
-                    da = New OracleDataAdapter(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    da = New OracleDataAdapter(SQL, Conn)
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
                     ds.EnforceConstraints = False
                     da.Fill(ds, "VW_REPORT_SSCP_EVENT")
@@ -1059,9 +1059,9 @@ Public Class IAIPPrintOut
                     "or datCompleteDate between '" & txtStartDate.Text & "' and '" & txtEndDate.Text & "') " & _
                     "order by datReceivedDate desc "
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, Conn)
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     While dr.Read
@@ -1109,9 +1109,9 @@ Public Class IAIPPrintOut
                     "where strCurrentContact = '1' " & _
                     "and strKey = '1' "
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, Conn)
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     While dr.Read
@@ -1129,9 +1129,9 @@ Public Class IAIPPrintOut
                     "where strCurrentContact = '1' " & _
                     "and strKey = '2' "
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, Conn)
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     While dr.Read
@@ -1167,9 +1167,9 @@ Public Class IAIPPrintOut
                             "from " & DBNameSpace & ".VW_SSPP_Acknowledge " & _
                             "where strApplicationNumber = '" & txtAIRSNumber.Text & "' "
 
-                            da = New OracleDataAdapter(SQL, conn)
-                            If conn.State = ConnectionState.Closed Then
-                                conn.Open()
+                            da = New OracleDataAdapter(SQL, Conn)
+                            If Conn.State = ConnectionState.Closed Then
+                                Conn.Open()
                             End If
                             ds.EnforceConstraints = False
                             da.Fill(ds, "VW_SSPP_Acknowledge")
@@ -1193,9 +1193,9 @@ Public Class IAIPPrintOut
                             "strDirector, strCommissioner " & _
                             "from " & DBNameSpace & ".LookUpAPBManagement "
 
-                            da = New OracleDataAdapter(SQL, conn)
-                            If conn.State = ConnectionState.Closed Then
-                                conn.Open()
+                            da = New OracleDataAdapter(SQL, Conn)
+                            If Conn.State = ConnectionState.Closed Then
+                                Conn.Open()
                             End If
                             ds.EnforceConstraints = False
                             da.Fill(ds, "LookUpAPBManagement")
@@ -1205,9 +1205,9 @@ Public Class IAIPPrintOut
                             "from " & DBNameSpace & ".VW_APBFacilityLocation " & _
                             "where " & DBNameSpace & ".VW_APBFacilityLocation.strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
 
-                            da = New OracleDataAdapter(SQL, conn)
-                            If conn.State = ConnectionState.Closed Then
-                                conn.Open()
+                            da = New OracleDataAdapter(SQL, Conn)
+                            If Conn.State = ConnectionState.Closed Then
+                                Conn.Open()
                             End If
                             ds.EnforceConstraints = False
                             da.Fill(ds, "VW_APBFacilityLocation")
@@ -1217,9 +1217,9 @@ Public Class IAIPPrintOut
                             "from " & DBNameSpace & ".VW_APBFacilityHeader " & _
                             "where " & DBNameSpace & ".VW_APBFacilityHeader.strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
 
-                            da = New OracleDataAdapter(SQL, conn)
-                            If conn.State = ConnectionState.Closed Then
-                                conn.Open()
+                            da = New OracleDataAdapter(SQL, Conn)
+                            If Conn.State = ConnectionState.Closed Then
+                                Conn.Open()
                             End If
                             ds.EnforceConstraints = False
                             da.Fill(ds, "VW_APBFacilityHeader")
@@ -1238,9 +1238,9 @@ Public Class IAIPPrintOut
                     CRViewer.ReportSource = rpt
                     CRViewer.Refresh()
 
-                    'da = New OracleDataAdapter(SQL, conn)
-                    'If conn.State = ConnectionState.Closed Then
-                    '    conn.Open()
+                    'da = New OracleDataAdapter(SQL, Conn)
+                    'If Conn.State = ConnectionState.Closed Then
+                    '    Conn.Open()
                     'End If
                     'ds.EnforceConstraints = False
                     'da.Fill(ds, "LookUpAPBManagementType")
@@ -1251,9 +1251,9 @@ Public Class IAIPPrintOut
                     '        "from " & DBNameSpace & ".VW_SSPP_Acknowledge " & _
                     '        "where strApplicationNumber = '" & txtAIRSNumber.Text & "' "
 
-                    '        da = New OracleDataAdapter(SQL, conn)
-                    '        If conn.State = ConnectionState.Closed Then
-                    '            conn.Open()
+                    '        da = New OracleDataAdapter(SQL, Conn)
+                    '        If Conn.State = ConnectionState.Closed Then
+                    '            Conn.Open()
                     '        End If
                     '        ds.EnforceConstraints = False
                     '        da.Fill(ds, "VW_SSPP_Acknowledge")
@@ -1269,9 +1269,9 @@ Public Class IAIPPrintOut
                     '"strDirector, strCommissioner " & _
                     '"from " & DBNameSpace & ".LookUpAPBManagement "
 
-                    'da = New OracleDataAdapter(SQL, conn)
-                    'If conn.State = ConnectionState.Closed Then
-                    '    conn.Open()
+                    'da = New OracleDataAdapter(SQL, Conn)
+                    'If Conn.State = ConnectionState.Closed Then
+                    '    Conn.Open()
                     'End If
                     'ds.EnforceConstraints = False
                     'da.Fill(ds, "LookUpAPBManagement")
@@ -1282,9 +1282,9 @@ Public Class IAIPPrintOut
                     '        "from " & DBNameSpace & ".VW_SSPP_Acknowledge " & _
                     '        "where strApplicationNumber = '" & txtAIRSNumber.Text & "' "
 
-                    '        da = New OracleDataAdapter(SQL, conn)
-                    '        If conn.State = ConnectionState.Closed Then
-                    '            conn.Open()
+                    '        da = New OracleDataAdapter(SQL, Conn)
+                    '        If Conn.State = ConnectionState.Closed Then
+                    '            Conn.Open()
                     '        End If
                     '        ds.EnforceConstraints = False
                     '        da.Fill(ds, "VW_SSPP_Acknowledge")
@@ -1419,9 +1419,9 @@ Public Class IAIPPrintOut
            "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = " & DBNameSpace & ".ISMPReportOneStack.strReferenceNumber  " & _
            "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = '" & txtReferenceNumber.Text & "'"
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             recExist = dr.Read
@@ -2189,9 +2189,9 @@ Public Class IAIPPrintOut
                     "from " & DBNameSpace & ".ISMPWitnessingEng, " & DBNameSpace & ".EPDUSerProfiles " & _
                     "where " & DBNameSpace & ".ISMPWitnessingEng.strWitnessingEngineer = " & DBNameSpace & ".EPDUSerProfiles.numUserProfiles  " & _
                     "and strReferenceNumber = '" & Me.txtReferenceNumber.Text & "'  "
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, Conn)
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     WitnessingEngineer2 = ""
@@ -2371,9 +2371,9 @@ Public Class IAIPPrintOut
            "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = " & DBNameSpace & ".ISMPReportOneStack.strReferenceNumber  " & _
            "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = '" & txtReferenceNumber.Text & "'"
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             Dim recExist As Boolean = dr.Read
@@ -3238,9 +3238,9 @@ Public Class IAIPPrintOut
                     "from " & DBNameSpace & ".ISMPWitnessingEng, " & DBNameSpace & ".EPDUserProfiles " & _
                     "where " & DBNameSpace & ".ISMPWitnessingEng.strWitnessingEngineer = " & DBNameSpace & ".EPDUserProfiles.numUserID  " & _
                     "and strReferenceNumber = '" & Me.txtReferenceNumber.Text & "'  "
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, Conn)
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     WitnessingEngineer2 = ""
@@ -3419,9 +3419,9 @@ Public Class IAIPPrintOut
            "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = " & DBNameSpace & ".ISMPReportOneStack.strReferenceNumber  " & _
            "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = '" & txtReferenceNumber.Text & "'"
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             Dim recExist As Boolean = dr.Read
@@ -4369,9 +4369,9 @@ Public Class IAIPPrintOut
                     "from " & DBNameSpace & ".ISMPWitnessingEng, " & DBNameSpace & ".EPDUserProfiles " & _
                     "where " & DBNameSpace & ".ISMPWitnessingEng.strWitnessingEngineer = " & DBNameSpace & ".EPDUserProfiles.numUserID  " & _
                     "and strReferenceNumber = '" & Me.txtReferenceNumber.Text & "'  "
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, Conn)
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     WitnessingEngineer2 = ""
@@ -4565,9 +4565,9 @@ Public Class IAIPPrintOut
            "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = " & DBNameSpace & ".ISMPReportTwoStack.strReferenceNumber  " & _
            "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = '" & txtReferenceNumber.Text & "'"
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
 
@@ -5764,9 +5764,9 @@ Public Class IAIPPrintOut
                     "from " & DBNameSpace & ".ISMPWitnessingEng, " & DBNameSpace & ".EPDUserProfiles " & _
                     "where " & DBNameSpace & ".ISMPWitnessingEng.strWitnessingEngineer = " & DBNameSpace & ".EPDUserProfiles.numUserID  " & _
                     "and strReferenceNumber = '" & Me.txtReferenceNumber.Text & "'  "
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, Conn)
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     WitnessingEngineer2 = ""
@@ -5958,9 +5958,9 @@ Public Class IAIPPrintOut
            "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = " & DBNameSpace & ".ISMPReportTwoStack.strReferenceNumber  " & _
            "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = '" & txtReferenceNumber.Text & "'"
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -7110,9 +7110,9 @@ Public Class IAIPPrintOut
                     "from " & DBNameSpace & ".ISMPWitnessingEng, " & DBNameSpace & ".EPDUserProfiles " & _
                     "where " & DBNameSpace & ".ISMPWitnessingEng.strWitnessingEngineer = " & DBNameSpace & ".EPDUserProfiles.numUserID  " & _
                     "and strReferenceNumber = '" & Me.txtReferenceNumber.Text & "'  "
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, Conn)
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     WitnessingEngineer2 = ""
@@ -7294,9 +7294,9 @@ Public Class IAIPPrintOut
            "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = " & DBNameSpace & ".ISMPReportFlare.strReferenceNumber  " & _
            "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = '" & txtReferenceNumber.Text & "'"
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             recExist = dr.Read
@@ -7895,9 +7895,9 @@ Public Class IAIPPrintOut
                      "from " & DBNameSpace & ".ISMPWitnessingEng, " & DBNameSpace & ".EPDUserProfiles " & _
                      "where " & DBNameSpace & ".ISMPWitnessingEng.strWitnessingEngineer = " & DBNameSpace & ".EPDUserProfiles.numUserID  " & _
                      "and strReferenceNumber = '" & Me.txtReferenceNumber.Text & "'  "
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, Conn)
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     WitnessingEngineer2 = ""
@@ -8075,9 +8075,9 @@ Public Class IAIPPrintOut
            "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = " & DBNameSpace & ".ISMPReportPondAndGas.strReferenceNumber  " & _
            "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = '" & txtReferenceNumber.Text & "'"
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
 
@@ -8780,9 +8780,9 @@ Public Class IAIPPrintOut
                     "from " & DBNameSpace & ".ISMPWitnessingEng, " & DBNameSpace & ".EPDUserProfiles " & _
                     "where " & DBNameSpace & ".ISMPWitnessingEng.strWitnessingEngineer = " & DBNameSpace & ".EPDUserProfiles.numUserID  " & _
                     "and strReferenceNumber = '" & Me.txtReferenceNumber.Text & "'  "
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, Conn)
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     WitnessingEngineer2 = ""
@@ -8959,9 +8959,9 @@ Public Class IAIPPrintOut
            "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = " & DBNameSpace & ".ISMPReportPondAndGas.strReferenceNumber  " & _
            "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = '" & txtReferenceNumber.Text & "'"
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
 
@@ -9694,9 +9694,9 @@ Public Class IAIPPrintOut
                     "from " & DBNameSpace & ".ISMPWitnessingEng, " & DBNameSpace & ".EPDUserProfiles " & _
                     "where " & DBNameSpace & ".ISMPWitnessingEng.strWitnessingEngineer = " & DBNameSpace & ".EPDUserProfiles.numUserID  " & _
                     "and strReferenceNumber = '" & Me.txtReferenceNumber.Text & "'  "
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, Conn)
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     WitnessingEngineer2 = ""
@@ -9867,9 +9867,9 @@ Public Class IAIPPrintOut
            "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = " & DBNameSpace & ".ISMPReportFlare.strReferenceNumber  " & _
            "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = '" & txtReferenceNumber.Text & "'"
           
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
 
@@ -10467,9 +10467,9 @@ Public Class IAIPPrintOut
                     "from " & DBNameSpace & ".ISMPWitnessingEng, " & DBNameSpace & ".EPDUserProfiles " & _
                     "where " & DBNameSpace & ".ISMPWitnessingEng.strWitnessingEngineer = " & DBNameSpace & ".EPDUserProfiles.numUserID  " & _
                     "and strReferenceNumber = '" & Me.txtReferenceNumber.Text & "'  "
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, Conn)
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     WitnessingEngineer2 = ""
@@ -10618,9 +10618,9 @@ Public Class IAIPPrintOut
            "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = " & DBNameSpace & ".ISMPREportMemo.strReferenceNumber  " & _
            "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = '" & txtReferenceNumber.Text & "'"
            
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
 
@@ -10966,9 +10966,9 @@ Public Class IAIPPrintOut
                     "from " & DBNameSpace & ".ISMPWitnessingEng, " & DBNameSpace & ".EPDUserProfiles " & _
                     "where " & DBNameSpace & ".ISMPWitnessingEng.strWitnessingEngineer = " & DBNameSpace & ".EPDUserProfiles.numUserID  " & _
                     "and strReferenceNumber = '" & Me.txtReferenceNumber.Text & "'  "
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, Conn)
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     WitnessingEngineer2 = ""
@@ -11120,9 +11120,9 @@ Public Class IAIPPrintOut
            "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = " & DBNameSpace & ".ISMPREportMemo.strReferenceNumber  " & _
            "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = '" & txtReferenceNumber.Text & "'"
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             recExist = dr.Read
@@ -11487,9 +11487,9 @@ Public Class IAIPPrintOut
                     "from " & DBNameSpace & ".ISMPWitnessingEng, " & DBNameSpace & ".EPDUserProfiles " & _
                     "where " & DBNameSpace & ".ISMPWitnessingEng.strWitnessingEngineer = " & DBNameSpace & ".EPDUserProfiles.numUserID  " & _
                     "and strReferenceNumber = '" & Me.txtReferenceNumber.Text & "'  "
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, Conn)
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     WitnessingEngineer2 = ""
@@ -11659,9 +11659,9 @@ Public Class IAIPPrintOut
            "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = " & DBNameSpace & ".ISMPREportMemo.strReferenceNumber  " & _
            "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = '" & txtReferenceNumber.Text & "'"
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
 
@@ -12205,9 +12205,9 @@ Public Class IAIPPrintOut
                     "from " & DBNameSpace & ".ISMPWitnessingEng, " & DBNameSpace & ".EPDUserProfiles " & _
                     "where " & DBNameSpace & ".ISMPWitnessingEng.strWitnessingEngineer = " & DBNameSpace & ".EPDUserProfiles.numUserID  " & _
                     "and strReferenceNumber = '" & Me.txtReferenceNumber.Text & "'  "
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, Conn)
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     WitnessingEngineer2 = ""
@@ -12368,9 +12368,9 @@ Public Class IAIPPrintOut
            "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = " & DBNameSpace & ".ISMPREportOpacity.strReferenceNumber  " & _
            "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = '" & txtReferenceNumber.Text & "'"
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
 
@@ -12829,9 +12829,9 @@ Public Class IAIPPrintOut
                     "from " & DBNameSpace & ".ISMPWitnessingEng, " & DBNameSpace & ".EPDUserProfiles " & _
                     "where " & DBNameSpace & ".ISMPWitnessingEng.strWitnessingEngineer = " & DBNameSpace & ".EPDUserProfiles.numUserID  " & _
                     "and strReferenceNumber = '" & Me.txtReferenceNumber.Text & "'  "
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, Conn)
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     WitnessingEngineer2 = ""
@@ -12998,9 +12998,9 @@ Public Class IAIPPrintOut
            "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = " & DBNameSpace & ".ISMPREportOpacity.strReferenceNumber  " & _
            "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = '" & txtReferenceNumber.Text & "'"
            
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
 
@@ -13510,9 +13510,9 @@ Public Class IAIPPrintOut
                     "from " & DBNameSpace & ".ISMPWitnessingEng, " & DBNameSpace & ".EPDUserProfiles " & _
                     "where " & DBNameSpace & ".ISMPWitnessingEng.strWitnessingEngineer = " & DBNameSpace & ".EPDUserProfiles.numUserID  " & _
                     "and strReferenceNumber = '" & Me.txtReferenceNumber.Text & "'  "
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, Conn)
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     WitnessingEngineer2 = ""
@@ -13690,9 +13690,9 @@ Public Class IAIPPrintOut
            "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = " & DBNameSpace & ".ISMPREportOpacity.strReferenceNumber  " & _
            "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = '" & txtReferenceNumber.Text & "'"
           
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
 
@@ -14463,9 +14463,9 @@ Public Class IAIPPrintOut
                     "from " & DBNameSpace & ".ISMPWitnessingEng, " & DBNameSpace & ".EPDUserProfiles " & _
                     "where " & DBNameSpace & ".ISMPWitnessingEng.strWitnessingEngineer = " & DBNameSpace & ".EPDUserProfiles.numUserID  " & _
                     "and strReferenceNumber = '" & Me.txtReferenceNumber.Text & "'  "
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, Conn)
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     WitnessingEngineer2 = ""
@@ -14634,9 +14634,9 @@ Public Class IAIPPrintOut
            "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = " & DBNameSpace & ".ISMPReportRATA.strReferenceNumber  " & _
            "and " & DBNameSpace & ".ISMPMaster.strReferenceNumber = '" & txtReferenceNumber.Text & "'"
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             recExist = dr.Read
@@ -15607,9 +15607,9 @@ Public Class IAIPPrintOut
                     "from " & DBNameSpace & ".ISMPWitnessingEng, " & DBNameSpace & ".EPDUserProfiles " & _
                     "where " & DBNameSpace & ".ISMPWitnessingEng.strWitnessingEngineer = " & DBNameSpace & ".EPDUserProfiles.numUserID  " & _
                     "and strReferenceNumber = '" & Me.txtReferenceNumber.Text & "'  "
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
+                    cmd = New OracleCommand(SQL, Conn)
+                    If Conn.State = ConnectionState.Closed Then
+                        Conn.Open()
                     End If
                     dr = cmd.ExecuteReader
                     WitnessingEngineer2 = ""
@@ -15746,10 +15746,10 @@ Public Class IAIPPrintOut
     '        "and strReviewer = numUserID  " & _
     '        "and " & DBNameSpace & ".SSCPFCE.strFCENumber = '" & txtOther.Text & "' "
 
-    '        cmd = New OracleCommand(SQL, conn)
+    '        cmd = New OracleCommand(SQL, Conn)
 
-    '        If conn.State = ConnectionState.Closed Then
-    '            conn.Open()
+    '        If Conn.State = ConnectionState.Closed Then
+    '            Conn.Open()
     '        End If
 
     '        dr = cmd.ExecuteReader
@@ -15850,10 +15850,10 @@ Public Class IAIPPrintOut
     '             "and (strDelete is Null or strDelete <> 'True') " & _
     '            "and " & DBNameSpace & ".SSCPFCEMaster.strFCENumber = '" & txtOther.Text & "' "
 
-    '            cmd = New OracleCommand(SQL, conn)
+    '            cmd = New OracleCommand(SQL, Conn)
 
-    '            If conn.State = ConnectionState.Closed Then
-    '                conn.Open()
+    '            If Conn.State = ConnectionState.Closed Then
+    '                Conn.Open()
     '            End If
 
     '            dr = cmd.ExecuteReader
@@ -15861,10 +15861,10 @@ Public Class IAIPPrintOut
     '            dr.Close()
 
     '            If recExist = True Then
-    '                cmd = New OracleCommand(SQL, conn)
+    '                cmd = New OracleCommand(SQL, Conn)
 
-    '                If conn.State = ConnectionState.Closed Then
-    '                    conn.Open()
+    '                If Conn.State = ConnectionState.Closed Then
+    '                    Conn.Open()
     '                End If
 
     '                dr = cmd.ExecuteReader
@@ -15927,8 +15927,8 @@ Public Class IAIPPrintOut
     '            "and " & DBNameSpace & ".SSCPFCEMaster.strFCENumber = '" & txtOther.Text & "' "
 
 
-    '            If conn.State = ConnectionState.Closed Then
-    '                conn.Open()
+    '            If Conn.State = ConnectionState.Closed Then
+    '                Conn.Open()
     '            End If
 
     '            dr = cmd.ExecuteReader
@@ -15936,10 +15936,10 @@ Public Class IAIPPrintOut
     '            dr.Close()
 
     '            If recExist = True Then
-    '                cmd = New OracleCommand(SQL, conn)
+    '                cmd = New OracleCommand(SQL, Conn)
 
-    '                If conn.State = ConnectionState.Closed Then
-    '                    conn.Open()
+    '                If Conn.State = ConnectionState.Closed Then
+    '                    Conn.Open()
     '                End If
 
     '                dr = cmd.ExecuteReader
@@ -15993,10 +15993,10 @@ Public Class IAIPPrintOut
     '            "and " & DBNameSpace & ".SSCPFCEMaster.strFCENumber = '" & txtOther.Text & "' " & _
     '            "order by datCompleteDate, strTrackingnumber desc "
 
-    '            cmd = New OracleCommand(SQL, conn)
+    '            cmd = New OracleCommand(SQL, Conn)
 
-    '            If conn.State = ConnectionState.Closed Then
-    '                conn.Open()
+    '            If Conn.State = ConnectionState.Closed Then
+    '                Conn.Open()
     '            End If
 
     '            dr = cmd.ExecuteReader
@@ -16004,10 +16004,10 @@ Public Class IAIPPrintOut
     '            dr.Close()
 
     '            If recExist = True Then
-    '                cmd = New OracleCommand(SQL, conn)
+    '                cmd = New OracleCommand(SQL, Conn)
 
-    '                If conn.State = ConnectionState.Closed Then
-    '                    conn.Open()
+    '                If Conn.State = ConnectionState.Closed Then
+    '                    Conn.Open()
     '                End If
 
     '                dr = cmd.ExecuteReader
@@ -16060,10 +16060,10 @@ Public Class IAIPPrintOut
     '            "and " & DBNameSpace & ".SSCPFCEMaster.strFCENumber = '" & txtOther.Text & "' " & _
     '            "order by datCompleteDate, strTrackingNumber desc "
 
-    '            cmd = New OracleCommand(SQL, conn)
+    '            cmd = New OracleCommand(SQL, Conn)
 
-    '            If conn.State = ConnectionState.Closed Then
-    '                conn.Open()
+    '            If Conn.State = ConnectionState.Closed Then
+    '                Conn.Open()
     '            End If
 
     '            dr = cmd.ExecuteReader
@@ -16071,10 +16071,10 @@ Public Class IAIPPrintOut
     '            dr.Close()
 
     '            If recExist = True Then
-    '                cmd = New OracleCommand(SQL, conn)
+    '                cmd = New OracleCommand(SQL, Conn)
 
-    '                If conn.State = ConnectionState.Closed Then
-    '                    conn.Open()
+    '                If Conn.State = ConnectionState.Closed Then
+    '                    Conn.Open()
     '                End If
 
     '                dr = cmd.ExecuteReader
@@ -16398,9 +16398,9 @@ Public Class IAIPPrintOut
                 "where strApplicationNumber = '" & Replace(txtSQLLine.Text, "'", "''") & "' "
             End If
 
-            da = New OracleDataAdapter(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            da = New OracleDataAdapter(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
 
             ds.EnforceConstraints = False
@@ -16413,10 +16413,10 @@ Public Class IAIPPrintOut
             "strSSPPProgramMang " & _
             "from " & DBNameSpace & ".LookUpAPBManagement "
 
-            cmd = New OracleCommand(SQL, conn)
+            cmd = New OracleCommand(SQL, Conn)
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
 
             dr = cmd.ExecuteReader
@@ -16557,9 +16557,9 @@ Public Class IAIPPrintOut
             "strBranchChief " & _
             "from " & DBNameSpace & ".LookUpAPBManagement "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -16591,9 +16591,9 @@ Public Class IAIPPrintOut
             "and numEmployeeStatus = '1' " & _
             "and strIAIPPermissions like '%(42)%'  "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -16637,9 +16637,9 @@ Public Class IAIPPrintOut
             "and numEmployeeStatus = '1' " & _
             "and strIAIPPermissions like '%(45)%'  "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -16672,9 +16672,9 @@ Public Class IAIPPrintOut
             "and strIAIPPermissions like '%(46)%'  " & _
             "order by strLastName "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -16706,9 +16706,9 @@ Public Class IAIPPrintOut
               "and strIAIPPermissions like '%(72)%'  " & _
               "order by strLastName "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
 
@@ -16741,9 +16741,9 @@ Public Class IAIPPrintOut
             "and numEmployeeStatus = '1' " & _
             "and strIAIPPermissions like '%(47)%'  "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -16777,9 +16777,9 @@ Public Class IAIPPrintOut
             "and strIAIPPermissions like '%(48)%'  " & _
             "order by strLastName "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             i = 0
@@ -16820,9 +16820,9 @@ Public Class IAIPPrintOut
              "and numEmployeeStatus = '1' " & _
              "and strIAIPPermissions like '%(49)%'  "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -16855,9 +16855,9 @@ Public Class IAIPPrintOut
             "and strIAIPPermissions like '%(50)%'  " & _
             "order by strLastName "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             i = 0
@@ -16897,9 +16897,9 @@ Public Class IAIPPrintOut
             "and numEmployeeStatus = '1' " & _
             "and strIAIPPermissions like '%(51)%'  "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -16931,9 +16931,9 @@ Public Class IAIPPrintOut
               "and strIAIPPermissions like '%(52)%'  " & _
             "order by strLastName "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             i = 0
@@ -16973,9 +16973,9 @@ Public Class IAIPPrintOut
             "and numEmployeeStatus = '1' " & _
             "and strIAIPPermissions like '%(53)%'  "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -17008,9 +17008,9 @@ Public Class IAIPPrintOut
             "and strIAIPPermissions like '%(54)%'  " & _
             "order by strLastName "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             i = 0
@@ -17051,9 +17051,9 @@ Public Class IAIPPrintOut
             "and numEmployeeStatus = '1' " & _
             "and strIAIPPermissions like '%(55)%'  "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -17087,9 +17087,9 @@ Public Class IAIPPrintOut
             "and strIAIPPermissions like '%(56)%'  " & _
             "order by strLastName "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             i = 0
@@ -17130,9 +17130,9 @@ Public Class IAIPPrintOut
              "and numEmployeeStatus = '1' " & _
              "and strIAIPPermissions like '%(57)%'  "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -17164,9 +17164,9 @@ Public Class IAIPPrintOut
             "and strIAIPPermissions like '%(73)%'  " & _
             "order by strLastName "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -17199,9 +17199,9 @@ Public Class IAIPPrintOut
             "and strIAIPPermissions like '%(58)%'  " & _
             "order by strLastName "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -17235,9 +17235,9 @@ Public Class IAIPPrintOut
            "and strIAIPPermissions like '%(75)%'  " & _
            "order by strLastName "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -17269,9 +17269,9 @@ Public Class IAIPPrintOut
          "and strIAIPPermissions like '%(76)%'  " & _
          "order by strLastName "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -17303,9 +17303,9 @@ Public Class IAIPPrintOut
       "and strIAIPPermissions like '%(74)%'  " & _
       "order by strLastName "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -17336,9 +17336,9 @@ Public Class IAIPPrintOut
             "and numEmployeeStatus = '1' " & _
             "and strIAIPPermissions like '%(59)%'  "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -17372,9 +17372,9 @@ Public Class IAIPPrintOut
             "and strIAIPPermissions like '%(60)%'  " & _
             "order by strLastName "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             i = 0
@@ -17415,9 +17415,9 @@ Public Class IAIPPrintOut
             "and numEmployeeStatus = '1' " & _
             "and strIAIPPermissions like '%(61)%'  "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -17450,9 +17450,9 @@ Public Class IAIPPrintOut
             "and strIAIPPermissions like '%(62)%'  " & _
             "order by strLastName "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             i = 0
@@ -17492,9 +17492,9 @@ Public Class IAIPPrintOut
                 "and numEmployeeStatus = '1' " & _
                 "and strIAIPPermissions like '%(63)%'  "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -17526,9 +17526,9 @@ Public Class IAIPPrintOut
              "and strIAIPPermissions like '%(64)%'  " & _
             "order by strLastName "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             i = 0
@@ -17569,9 +17569,9 @@ Public Class IAIPPrintOut
              "and numEmployeeStatus = '1' " & _
              "and strIAIPPermissions like '%(65)%'  "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -17605,9 +17605,9 @@ Public Class IAIPPrintOut
              "and strIAIPPermissions like '%(66)%'  " & _
             "order by strLastName "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             i = 0
@@ -17647,9 +17647,9 @@ Public Class IAIPPrintOut
             "and numEmployeeStatus = '1' " & _
             "and strIAIPPermissions like '%(67)%'  "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -17682,9 +17682,9 @@ Public Class IAIPPrintOut
              "and strIAIPPermissions like '%(77)%'  " & _
             "order by strLastName "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -17717,9 +17717,9 @@ Public Class IAIPPrintOut
              "and strIAIPPermissions like '%(68)%'  " & _
             "order by strLastName "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             i = 0
@@ -17760,9 +17760,9 @@ Public Class IAIPPrintOut
             "and numEmployeeStatus = '1' " & _
             "and strIAIPPermissions like '%(11)%'  "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -17797,9 +17797,9 @@ Public Class IAIPPrintOut
                 "and strIAIPPermissions like '%(44)%'  " & _
             "order by strLastName "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -17832,9 +17832,9 @@ Public Class IAIPPrintOut
             "and numEmployeeStatus = '1' " & _
             "and strIAIPPermissions like '%(17)%'  "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -17867,9 +17867,9 @@ Public Class IAIPPrintOut
             "and strIAIPPermissions like '%(18)%'  " & _
             "order by strLastName "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -17902,9 +17902,9 @@ Public Class IAIPPrintOut
            "and strIAIPPermissions like '%(70)%'  " & _
            "order by strLastName "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -17937,9 +17937,9 @@ Public Class IAIPPrintOut
           "and strIAIPPermissions like '%(71)%'  " & _
           "order by strLastName "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             i = 0
@@ -17981,9 +17981,9 @@ Public Class IAIPPrintOut
             "and numEmployeeStatus = '1' " & _
             "and strIAIPPermissions like '%(15)%'  "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -18017,9 +18017,9 @@ Public Class IAIPPrintOut
                 "and strIAIPPermissions like '%(16)%'  " & _
             "order by strLastName "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             i = 0
@@ -18060,9 +18060,9 @@ Public Class IAIPPrintOut
              "and numEmployeeStatus = '1' " & _
              "and strIAIPPermissions like '%(12)%'  "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -18095,9 +18095,9 @@ Public Class IAIPPrintOut
             "and (strIAIPPermissions like '%(14)%' or strIAIPPermissions like '%(13)%') " & _
             "order by strLastName "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             i = 0
@@ -18138,9 +18138,9 @@ Public Class IAIPPrintOut
             "and numEmployeeStatus = '1' " & _
             "and strIAIPPermissions like '%(2)%'  "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -18174,9 +18174,9 @@ Public Class IAIPPrintOut
             "and strIAIPPermissions like '%(7)%'  " & _
             "order by strLastName "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -18207,9 +18207,9 @@ Public Class IAIPPrintOut
              "and numEmployeeStatus = '1' " & _
              "and strIAIPPermissions like '%(3)%'  "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -18241,9 +18241,9 @@ Public Class IAIPPrintOut
             "and (strIAIPPermissions like '%(8)%' or strIAIPPermissions like '%(6)%')  " & _
             "order by strLastName "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             i = 0
@@ -18283,9 +18283,9 @@ Public Class IAIPPrintOut
               "and numEmployeeStatus = '1' " & _
               "and strIAIPPermissions like '%(4)%'  "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -18320,9 +18320,9 @@ Public Class IAIPPrintOut
             "and (strIAIPPermissions like '%(9)%' or strIAIPPermissions like '%(5)%')  " & _
             "order by strLastName "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             i = 0
@@ -18363,9 +18363,9 @@ Public Class IAIPPrintOut
             "and numEmployeeStatus = '1' " & _
             "and strIAIPPermissions like '%(69)%'  "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -18397,9 +18397,9 @@ Public Class IAIPPrintOut
            "and strIAIPPermissions like '%(10)%'  " & _
            "order by strLastName "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -18431,9 +18431,9 @@ Public Class IAIPPrintOut
             "and (strIAIPPermissions like '%(43)%' or strIAIPPermissions like '%(1)%')  " & _
             "order by strLastName "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             i = 0
@@ -18474,9 +18474,9 @@ Public Class IAIPPrintOut
              "and numEmployeeStatus = '1' " & _
              "and strIAIPPermissions like '%(19)%'  "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -18508,9 +18508,9 @@ Public Class IAIPPrintOut
             "and strIAIPPermissions like '%(20)%'  " & _
             "order by strLastName "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -18542,9 +18542,9 @@ Public Class IAIPPrintOut
            "and strIAIPPermissions like '%(27)%'  " & _
            "order by strLastName "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -18576,9 +18576,9 @@ Public Class IAIPPrintOut
             "and numEmployeeStatus = '1' " & _
             "and strIAIPPermissions like '%(21)%'  "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -18610,9 +18610,9 @@ Public Class IAIPPrintOut
             "and strIAIPPermissions like '%(22)%'  " & _
             "order by strLastName "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             i = 0
@@ -18652,9 +18652,9 @@ Public Class IAIPPrintOut
             "and numEmployeeStatus = '1' " & _
             "and strIAIPPermissions like '%(23)%'  "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -18688,9 +18688,9 @@ Public Class IAIPPrintOut
             "and strIAIPPermissions like '%(24)%'  " & _
             "order by strLastName "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             i = 0
@@ -18731,9 +18731,9 @@ Public Class IAIPPrintOut
             "and numEmployeeStatus = '1' " & _
             "and strIAIPPermissions like '%(25)%'  "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -18766,9 +18766,9 @@ Public Class IAIPPrintOut
             "and strIAIPPermissions like '%(26)%'  " & _
             "order by strLastName "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             i = 0
@@ -18810,9 +18810,9 @@ Public Class IAIPPrintOut
             "and numEmployeeStatus = '1' " & _
             "and strIAIPPermissions like '%(28)%'  "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -18844,9 +18844,9 @@ Public Class IAIPPrintOut
            "and strIAIPPermissions like '%(30)%'  " & _
            "order by strLastName "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -18879,9 +18879,9 @@ Public Class IAIPPrintOut
             "and  strIAIPPermissions like '%(29)%'  " & _
             "order by strLastName "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -18913,9 +18913,9 @@ Public Class IAIPPrintOut
             "and numEmployeeStatus = '1' " & _
             "and strIAIPPermissions like '%(31)%'  "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -18949,9 +18949,9 @@ Public Class IAIPPrintOut
             "and strIAIPPermissions like '%(32)%'  " & _
             "order by strLastName "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             i = 0
@@ -18993,9 +18993,9 @@ Public Class IAIPPrintOut
                  "and numEmployeeStatus = '1' " & _
                  "and strIAIPPermissions like '%(33)%'  "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -19030,9 +19030,9 @@ Public Class IAIPPrintOut
                 "and strIAIPPermissions like '%(34)%'  " & _
             "order by strLastName "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             i = 0
@@ -19074,9 +19074,9 @@ Public Class IAIPPrintOut
             "and numEmployeeStatus = '1' " & _
             "and strIAIPPermissions like '%(35)%'  "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -19110,9 +19110,9 @@ Public Class IAIPPrintOut
              "and strIAIPPermissions like '%(36)%'  " & _
             "order by strLastName "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             i = 0
@@ -19152,9 +19152,9 @@ Public Class IAIPPrintOut
                 "and numEmployeeStatus = '1' " & _
                 "and strIAIPPermissions like '%(37)%'  "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -19188,9 +19188,9 @@ Public Class IAIPPrintOut
             "and strIAIPPermissions like '%(38)%'  " & _
             "order by strLastName "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             i = 0
@@ -19230,9 +19230,9 @@ Public Class IAIPPrintOut
             "and numEmployeeStatus = '1' " & _
             "and strIAIPPermissions like '%(39)%'  "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             While dr.Read
@@ -19265,9 +19265,9 @@ Public Class IAIPPrintOut
              "and strIAIPPermissions like '%(40)%'  " & _
             "order by strLastName "
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             i = 0
@@ -19348,9 +19348,9 @@ Public Class IAIPPrintOut
                 SQL = txtOther.Text
             End If
 
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
             End If
             dr = cmd.ExecuteReader
             i = 0
