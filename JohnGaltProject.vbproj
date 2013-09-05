@@ -324,7 +324,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>dsIAIP2.xsd</DependentUpon>
     </Compile>
-    <Compile Include="IAIP-Crystal Reports\FacilityBasicPrint.vb">
+    <Compile Include="Reports\FacilityBasicPrint.vb">
       <SubType>Component</SubType>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -582,7 +582,7 @@
       <DependentUpon>crESDataViewer.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="IAIP-Crystal Reports\SubReports\Letterhead.vb">
+    <Compile Include="Reports\Letterhead.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Letterhead.rpt</DependentUpon>
@@ -1163,7 +1163,7 @@
       <DependentUpon>SSCPEnforcementAudit.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FCE_ACC.rdlc" />
-    <EmbeddedResource Include="IAIP-Crystal Reports\FacilityBasicPrint.rpt">
+    <EmbeddedResource Include="Reports\FacilityBasicPrint.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>FacilityBasicPrint.vb</LastGenOutput>
     </EmbeddedResource>
@@ -1335,7 +1335,7 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>crESDataViewer.vb</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="IAIP-Crystal Reports\SubReports\Letterhead.rpt">
+    <EmbeddedResource Include="Reports\Letterhead.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>Letterhead.vb</LastGenOutput>
     </EmbeddedResource>
