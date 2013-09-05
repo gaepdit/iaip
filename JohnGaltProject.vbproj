@@ -1339,7 +1339,6 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>Letterhead.vb</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="IAIP-Reports\FullComplianceEvaluations.rdlc" />
     <EmbeddedResource Include="DMU\DMUDeveloperTools.resx">
       <DependentUpon>DMUDeveloperTools.vb</DependentUpon>
       <SubType>Designer</SubType>
