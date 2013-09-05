@@ -221,32 +221,32 @@ Partial Class IAIPListTool
         'FileToolStripMenuItem
         '
         Me.FileToolStripMenuItem.Name = "FileToolStripMenuItem"
-        Me.FileToolStripMenuItem.Size = New System.Drawing.Size(35, 20)
+        Me.FileToolStripMenuItem.Size = New System.Drawing.Size(37, 20)
         Me.FileToolStripMenuItem.Text = "File"
         '
         'ToolToolStripMenuItem
         '
         Me.ToolToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsbRefreshForm})
         Me.ToolToolStripMenuItem.Name = "ToolToolStripMenuItem"
-        Me.ToolToolStripMenuItem.Size = New System.Drawing.Size(39, 20)
+        Me.ToolToolStripMenuItem.Size = New System.Drawing.Size(41, 20)
         Me.ToolToolStripMenuItem.Text = "Tool"
         '
         'tsbRefreshForm
         '
         Me.tsbRefreshForm.Name = "tsbRefreshForm"
-        Me.tsbRefreshForm.Size = New System.Drawing.Size(150, 22)
+        Me.tsbRefreshForm.Size = New System.Drawing.Size(149, 22)
         Me.tsbRefreshForm.Text = "Refresh Form"
         '
         'EditToolStripMenuItem
         '
         Me.EditToolStripMenuItem.Name = "EditToolStripMenuItem"
-        Me.EditToolStripMenuItem.Size = New System.Drawing.Size(37, 20)
+        Me.EditToolStripMenuItem.Size = New System.Drawing.Size(39, 20)
         Me.EditToolStripMenuItem.Text = "Edit"
         '
         'HelpToolStripMenuItem
         '
         Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
-        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(40, 20)
+        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(43, 20)
         Me.HelpToolStripMenuItem.Text = "Help"
         '
         'SplitContainer1
