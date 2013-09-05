@@ -26,6 +26,7 @@ Public Class PassFailNoShow
             da.Fill(ds, "SmokeSchoolPrintInfo")
 
             rpt = New crPassFailNoShow
+            monitor.TrackFeature("Report." & rpt.ResourceName)
 
             rpt.SetDataSource(ds)
 

@@ -3,6 +3,7 @@ Public Class Roster
     Private Sub Roster_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         monitor.TrackFeature("Forms." & Me.Name)
         Dim rpt As New crRoster
+        monitor.TrackFeature("Report." & rpt.ResourceName)
         Dim location As String = txtLocationTerm.Text
 
         Try

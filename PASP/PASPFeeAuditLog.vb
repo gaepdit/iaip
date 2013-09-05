@@ -4369,7 +4369,7 @@ Public Class PASPFeeAuditLog
     End Sub
     Private Sub btnGenerateInvoice_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnViewPrintableInvoice.Click
         Try
-            Dim rpt As New ReportDocument
+            Dim rpt As New ReportClass
             Dim Director As String = ""
             Dim Commissioner As String = ""
             Dim TotalEmissionFees As String = ""
@@ -4536,6 +4536,7 @@ Public Class PASPFeeAuditLog
 
 
             rpt = New crFS_Invoice
+            monitor.TrackFeature("Report." & rpt.ResourceName)
 
             'Do this just once at the start
             ParameterFields = New CrystalDecisions.Shared.ParameterFields

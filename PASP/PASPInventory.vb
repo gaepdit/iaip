@@ -10,7 +10,7 @@ Public Class PASPInventory
     Dim ReportWhere As String
     Dim Program As String
     Dim Unit As String
-    Dim rpt As ReportDocument
+    Dim rpt As ReportClass
     Dim dsGAITInventory As DataSet
     Dim dsGAITLookUps As DataSet
     Dim dsGAITCategory As DataSet
@@ -2184,6 +2184,8 @@ Public Class PASPInventory
             dr.Close()
 
             rpt = New CRInventoryReport
+            monitor.TrackFeature("Report." & rpt.ResourceName)
+
             rpt.SetDataSource(ds2)
 
             CRInventoryReport.ReportSource = rpt

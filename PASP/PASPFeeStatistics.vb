@@ -22,7 +22,7 @@ Public Class PASPFeeStatistics
     Dim crParameterFieldDefinition As ParameterFieldDefinition
     Dim crParameterValues As New ParameterValues
     Dim crParameterDiscreteValue As New ParameterDiscreteValue
-    Dim rpt As ReportDocument
+    Dim rpt As ReportClass
     Dim progress1 As ProgressStatus
     Dim sb As StatusBar = New StatusBar
     Dim pnl2 As StatusBarPanel = New StatusBarPanel
@@ -3638,6 +3638,7 @@ Public Class PASPFeeStatistics
             progress1.progress = -1
             ds = New DataSet
             rpt = New FacilityFee10
+            monitor.TrackFeature("Report." & rpt.ResourceName)
             SQL = "Select * from " & DBNameSpace & ".VW_Facility_Fee " & _
             "where strAIRSNumber = '0413" & cboAirsNo.SelectedValue & "' "
 
@@ -3679,6 +3680,7 @@ Public Class PASPFeeStatistics
             progress1.progress = -1
             ds = New DataSet
             rpt = New TotalFee10
+            monitor.TrackFeature("Report." & rpt.ResourceName)
 
             SQL = "Select * from " & DBNameSpace & ".VW_Total_fee "
 
@@ -3733,6 +3735,7 @@ Public Class PASPFeeStatistics
             progress1.progress = -1
             ds = New DataSet
             rpt = New FacilityClassification10
+            monitor.TrackFeature("Report." & rpt.ResourceName)
 
             SQL = "Select * from " & DBNameSpace & ".FSCalculations "
             SQL = "Select * from " & DBNameSpace & ".VW_Facility_Class_Counts "
@@ -3806,6 +3809,7 @@ Public Class PASPFeeStatistics
             Else
                 rpt = New FacilityBalancewithZero10
             End If
+            monitor.TrackFeature("Report." & rpt.ResourceName)
 
             'SQL = "SELECT " & _
             '"strFacilityName, " & _
@@ -3937,6 +3941,7 @@ Public Class PASPFeeStatistics
             progress1.progress = -1
             ds = New DataSet
             rpt = New TotalPayment10
+            monitor.TrackFeature("Report." & rpt.ResourceName)
             SQL = "Select * from " & DBNameSpace & ".VW_Total_PAYMENT "
             da = New OracleDataAdapter(SQL, Conn)
             If Conn.State = ConnectionState.Closed Then
@@ -4005,6 +4010,7 @@ Public Class PASPFeeStatistics
             Dim p4 As New ParameterDiscreteValue
 
             rpt = New DepositDataQA10
+            monitor.TrackFeature("Report." & rpt.ResourceName)
 
             SQL = "Select * from " & DBNameSpace & ".FSAddPaid " & _
             "where datPayDate between '" & Format(DateTimePicker1.Value, "dd-MMM-yyyy") & "' and '" & Format(DateTimePicker2.Value, "dd-MMM-yyyy") & "' " & _
@@ -4071,6 +4077,7 @@ Public Class PASPFeeStatistics
             progress1.progress = -1
             ds = New DataSet
             rpt = New DepositData10
+            monitor.TrackFeature("Report." & rpt.ResourceName)
 
             SQL = "Select * from " & DBNameSpace & ".FSAddPaid " & _
             "where datPayDate between '" & Format(DateTimePicker1.Value, "dd-MMM-yyyy") & "' and '" & Format(DateTimePicker2.Value, "dd-MMM-yyyy") & "' "
@@ -4142,6 +4149,7 @@ Public Class PASPFeeStatistics
             progress1.progress = -1
             ds = New DataSet
             rpt = New Bankrupt10
+            monitor.TrackFeature("Report." & rpt.ResourceName)
 
             SQL = "select * from " & DBNameSpace & ".VW_Bankrupt"
             da = New OracleDataAdapter(SQL, Conn)
@@ -4175,6 +4183,7 @@ Public Class PASPFeeStatistics
             progress1.progress = -1
             ds = New DataSet
             rpt = New feeByYear10
+            monitor.TrackFeature("Report." & rpt.ResourceName)
             SQL = "Select * from " & DBNameSpace & ".FeesDue "
 
             da = New OracleDataAdapter(SQL, Conn)
@@ -4213,6 +4222,7 @@ Public Class PASPFeeStatistics
 
             ds = New DataSet
             rpt = New Variance10
+            monitor.TrackFeature("Report." & rpt.ResourceName)
 
             If rdb2005Variance.Checked = True Then
                 SQL = "Select * from " & DBNameSpace & ".FeeVariance " & _
@@ -4345,6 +4355,7 @@ Public Class PASPFeeStatistics
             ds.EnforceConstraints = False
             da.Fill(ds, "FS_Transactions")
             rpt = New DepositQA11
+            monitor.TrackFeature("Report." & rpt.ResourceName)
             rpt.SetDataSource(ds)
 
 
@@ -4426,6 +4437,7 @@ Public Class PASPFeeStatistics
 
             ds = New DataSet
             rpt = New ClassChanged10
+            monitor.TrackFeature("Report." & rpt.ResourceName)
 
             SQL = "select * from " & DBNameSpace & ".VW_Class_Changed"
 
@@ -4502,6 +4514,7 @@ Public Class PASPFeeStatistics
             da.Fill(ds, "VW_NSPS_Status")
 
             rpt = New NSPSStatus10
+            monitor.TrackFeature("Report." & rpt.ResourceName)
             rpt.SetDataSource(ds)
 
 
@@ -4524,6 +4537,7 @@ Public Class PASPFeeStatistics
             progress1.progress = -1
             ds = New DataSet
             rpt = New NSPSStatus1_10
+            monitor.TrackFeature("Report." & rpt.ResourceName)
             SQL = "Select * " & _
             "from " & DBNameSpace & ".VW_NSPS_Status " & _
             "where Strnsps1 = 'YES' " & _
@@ -4557,6 +4571,7 @@ Public Class PASPFeeStatistics
             progress1.progress = -1
             ds = New DataSet
             rpt = New NSPSStatus2_10
+            monitor.TrackFeature("Report." & rpt.ResourceName)
             SQL = "Select * " & _
             "from " & DBNameSpace & ".VW_NSPS_Status " & _
             "where strnsps = 'YES' " & _
@@ -4607,6 +4622,7 @@ Public Class PASPFeeStatistics
             progress1.progress = -1
             ds = New DataSet
             rpt = New NonRespondent10
+            monitor.TrackFeature("Report." & rpt.ResourceName)
 
             SQL = "Select * from " & DBNameSpace & ".VW_NonRespondent " & _
             "where intYear = '" & mtbNonRespondentYear.Text & "' " & _
@@ -4665,6 +4681,7 @@ Public Class PASPFeeStatistics
             progress1.progress = -1
             ds = New DataSet
             rpt = New NoOperate10
+            monitor.TrackFeature("Report." & rpt.ResourceName)
             SQL = "Select * from " & DBNameSpace & ".VW_No_Operate "
 
             da = New OracleDataAdapter(SQL, Conn)
@@ -4709,6 +4726,7 @@ Public Class PASPFeeStatistics
             progress1.progress = -1
             ds = New DataSet
             rpt = New FacilityComments10
+            monitor.TrackFeature("Report." & rpt.ResourceName)
 
             SQL = "Select * from " & DBNameSpace & ".FSPAYANDSUBMIT " & _
             "where strComments is not Null "
@@ -4749,6 +4767,7 @@ Public Class PASPFeeStatistics
             progress1.progress = -1
             ds = New DataSet
             rpt = New FacilityInfo10
+            monitor.TrackFeature("Report." & rpt.ResourceName)
 
             SQL = "Select * from " & DBNameSpace & ".VW_Facility_Info "
 
@@ -4781,6 +4800,7 @@ Public Class PASPFeeStatistics
             progress1.progress = -1
             ds = New DataSet
             rpt = New TrainingReg10
+            monitor.TrackFeature("Report." & rpt.ResourceName)
 
             SQL = "Select * from AIRBranch.VW_Training_reg "
             da = New OracleDataAdapter(SQL, Conn)

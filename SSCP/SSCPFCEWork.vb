@@ -2276,6 +2276,7 @@ Public Class SSCPFCEWork
         Dim EISInfo As String = ""
 
         Dim rpt As New CRFCE3
+        monitor.TrackFeature("Report." & rpt.ResourceName)
         Dim temp As String = ""
 
         If DTPFCECompleteDate.Text <> "" Then

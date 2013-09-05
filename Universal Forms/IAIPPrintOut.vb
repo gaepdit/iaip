@@ -671,6 +671,7 @@ Public Class IAIPPrintOut
                     PrintOutTitleVRenewals()
                 Case "ESPrintOut"
                     rpt = New crESinfoByAirsNumber
+                    monitor.TrackFeature("Report." & rpt.ResourceName)
 
                     SQL = "Select * from " & DBNameSpace & ".ESSchema " & _
                     "where strConfirmationNbr = '" & txtOther.Text & "' "
@@ -686,6 +687,7 @@ Public Class IAIPPrintOut
                     CRViewer.ReportSource = rpt
                 Case "ES Print Out"
                     rpt = New crESDataViewer
+                    monitor.TrackFeature("Report." & rpt.ResourceName)
 
                     SQL = "Select * from " & DBNameSpace & ".ESSchema " & _
                     "where strConfirmationNbr = '" & txtSQLLine.Text & "' "
@@ -1089,6 +1091,7 @@ Public Class IAIPPrintOut
 
                 Case "Letter"
                     rpt = New crAPBPrintOut2
+                    monitor.TrackFeature("Report." & rpt.ResourceName)
 
                     Dim Commissioner As String = ""
                     Dim Director As String = ""
@@ -1311,6 +1314,7 @@ Public Class IAIPPrintOut
 #Region "Test Reports"
     Private Sub LoadOneStackTwoRun()
         Dim rpt As New CROneStackTwoRuns
+        monitor.TrackFeature("Report." & rpt.ResourceName)
 
         Dim ParameterFields As CrystalDecisions.Shared.ParameterFields
         Dim ParameterField As CrystalDecisions.Shared.ParameterField
@@ -2263,6 +2267,7 @@ Public Class IAIPPrintOut
     End Sub      'Complete
     Private Sub LoadOneStackThreeRun()
         Dim rpt As New CROneStackThreeRuns
+        monitor.TrackFeature("Report." & rpt.ResourceName)
 
         Dim ParameterFields As CrystalDecisions.Shared.ParameterFields
         Dim ParameterField As CrystalDecisions.Shared.ParameterField
@@ -3310,6 +3315,7 @@ Public Class IAIPPrintOut
     End Sub    'Complete
     Private Sub LoadOneStackFourRun()
         Dim rpt As New CROneStackFourRuns
+        monitor.TrackFeature("Report." & rpt.ResourceName)
 
         Dim ParameterFields As CrystalDecisions.Shared.ParameterFields
         Dim ParameterField As CrystalDecisions.Shared.ParameterField
@@ -4440,6 +4446,7 @@ Public Class IAIPPrintOut
     End Sub     'Complete
     Private Sub LoadTwoStackStandard()
         Dim rpt As New CRTwoStackStandard
+        monitor.TrackFeature("Report." & rpt.ResourceName)
 
         Dim ParameterFields As CrystalDecisions.Shared.ParameterFields
         Dim ParameterField As CrystalDecisions.Shared.ParameterField
@@ -5835,7 +5842,8 @@ Public Class IAIPPrintOut
     End Sub    'Complete
     Private Sub LoadTwoStackDRE()
         Dim rpt As New CRTwoStackDRE
-      
+        monitor.TrackFeature("Report." & rpt.ResourceName)
+
         Dim ParameterFields As CrystalDecisions.Shared.ParameterFields
         Dim ParameterField As CrystalDecisions.Shared.ParameterField
         Dim spValue As CrystalDecisions.Shared.ParameterDiscreteValue
@@ -7180,7 +7188,8 @@ Public Class IAIPPrintOut
     End Sub         'Complete
     Private Sub LoadLoadingRack()
         Dim rpt As New CRLoadingRack
-      
+        monitor.TrackFeature("Report." & rpt.ResourceName)
+
         Dim ParameterFields As CrystalDecisions.Shared.ParameterFields
         Dim ParameterField As CrystalDecisions.Shared.ParameterField
         Dim spValue As CrystalDecisions.Shared.ParameterDiscreteValue
@@ -7965,6 +7974,7 @@ Public Class IAIPPrintOut
     End Sub         'Complete
     Private Sub LoadPondTreatment()
         Dim rpt As New CRPondTreatment
+        monitor.TrackFeature("Report." & rpt.ResourceName)
 
         Dim ParameterFields As CrystalDecisions.Shared.ParameterFields
         Dim ParameterField As CrystalDecisions.Shared.ParameterField
@@ -8848,6 +8858,7 @@ Public Class IAIPPrintOut
     End Sub       'Complete
     Private Sub LoadGasConcentration()
         Dim rpt As New CRGasConcentration
+        monitor.TrackFeature("Report." & rpt.ResourceName)
 
         Dim ParameterFields As CrystalDecisions.Shared.ParameterFields
         Dim ParameterField As CrystalDecisions.Shared.ParameterField
@@ -9766,6 +9777,7 @@ Public Class IAIPPrintOut
     End Sub    'Complete
     Private Sub LoadFlare()
         Dim rpt As New CRFlare
+        monitor.TrackFeature("Report." & rpt.ResourceName)
 
         Dim ParameterFields As CrystalDecisions.Shared.ParameterFields
         Dim ParameterField As CrystalDecisions.Shared.ParameterField
@@ -10532,6 +10544,7 @@ Public Class IAIPPrintOut
     End Sub               'Complete
     Private Sub LoadMemorandumStandard()
         Dim rpt As New CRMemorandumStandard
+        monitor.TrackFeature("Report." & rpt.ResourceName)
 
         Dim ParameterFields As CrystalDecisions.Shared.ParameterFields
         Dim ParameterField As CrystalDecisions.Shared.ParameterField
@@ -11032,6 +11045,7 @@ Public Class IAIPPrintOut
     End Sub  'Complete
     Private Sub LoadMemorandumToFile()
         Dim rpt As New CRMemorandumToFile
+        monitor.TrackFeature("Report." & rpt.ResourceName)
 
         Dim ParameterFields As CrystalDecisions.Shared.ParameterFields
         Dim ParameterField As CrystalDecisions.Shared.ParameterField
@@ -11552,6 +11566,7 @@ Public Class IAIPPrintOut
     End Sub    'Complete
     Private Sub LoadPTE()
         Dim rpt As New CRMemorandumPTE
+        monitor.TrackFeature("Report." & rpt.ResourceName)
 
         Dim ParameterFields As CrystalDecisions.Shared.ParameterFields
         Dim ParameterField As CrystalDecisions.Shared.ParameterField
@@ -12268,6 +12283,7 @@ Public Class IAIPPrintOut
     End Sub                 'Complete
     Private Sub LoadMethod22()
         Dim rpt As New CRMethod22
+        monitor.TrackFeature("Report." & rpt.ResourceName)
 
         Dim ParameterFields As CrystalDecisions.Shared.ParameterFields
         Dim ParameterField As CrystalDecisions.Shared.ParameterField
@@ -12892,7 +12908,8 @@ Public Class IAIPPrintOut
     End Sub            'Complete
     Private Sub LoadMethod9Single()
         Dim rpt As New CRMethod9Single
-          Dim temp As String
+        monitor.TrackFeature("Report." & rpt.ResourceName)
+        Dim temp As String
 
         Dim ParameterFields As CrystalDecisions.Shared.ParameterFields
         Dim ParameterField As CrystalDecisions.Shared.ParameterField
@@ -13572,6 +13589,7 @@ Public Class IAIPPrintOut
     End Sub       'Complete
     Private Sub LoadMethod9Multi()
         Dim rpt As New CRMethod9Multi
+        monitor.TrackFeature("Report." & rpt.ResourceName)
         Dim temp As String
 
         Dim ParameterFields As CrystalDecisions.Shared.ParameterFields
@@ -14524,6 +14542,7 @@ Public Class IAIPPrintOut
     End Sub        'Complete
     Private Sub LoadRata()
         Dim rpt As New CRRata
+        monitor.TrackFeature("Report." & rpt.ResourceName)
         Dim temp As String
 
         Dim ParameterFields As CrystalDecisions.Shared.ParameterFields
@@ -16352,13 +16371,14 @@ Public Class IAIPPrintOut
         Dim Commissioner As String = ""
         Dim Director As String = ""
         Dim ProgramManager As String = ""
-        Dim rpt As New ReportDocument
+        Dim rpt As New ReportClass
 
         If Oracledll = "2.111.6.20" Then
             rpt = New CRTitleVRenewal10
         Else
             rpt = New CRTitleVRenewal
         End If
+        monitor.TrackFeature("Report." & rpt.ResourceName)
 
         Dim ParameterFields As CrystalDecisions.Shared.ParameterFields
         Dim ParameterField As CrystalDecisions.Shared.ParameterField
@@ -16450,6 +16470,7 @@ Public Class IAIPPrintOut
     Sub OpenOrgChart()
         Try
             Dim rpt As New crOrganizationChart
+            monitor.TrackFeature("Report." & rpt.ResourceName)
             Dim ParameterFields As CrystalDecisions.Shared.ParameterFields
             Dim ParameterField As CrystalDecisions.Shared.ParameterField
             Dim spValue As CrystalDecisions.Shared.ParameterDiscreteValue
@@ -19291,6 +19312,7 @@ Public Class IAIPPrintOut
     Sub OpenPhoneList()
         Try
             Dim rpt As New crAPBPhoneList
+            monitor.TrackFeature("Report." & rpt.ResourceName)
             Dim ParameterFields As CrystalDecisions.Shared.ParameterFields
             Dim ParameterField As CrystalDecisions.Shared.ParameterField
             Dim spValue As CrystalDecisions.Shared.ParameterDiscreteValue

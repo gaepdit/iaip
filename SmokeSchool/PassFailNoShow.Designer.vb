@@ -50,7 +50,7 @@ Partial Class PassFailNoShow
         Me.crPassFailNoShowViewer.Location = New System.Drawing.Point(0, 0)
         Me.crPassFailNoShowViewer.Name = "crPassFailNoShowViewer"
         Me.crPassFailNoShowViewer.SelectionFormula = ""
-        Me.crPassFailNoShowViewer.Size = New System.Drawing.Size(1147, 772)
+        Me.crPassFailNoShowViewer.Size = New System.Drawing.Size(1147, 752)
         Me.crPassFailNoShowViewer.TabIndex = 2
         Me.crPassFailNoShowViewer.ViewTimeSelectionFormula = ""
         '
@@ -65,7 +65,7 @@ Partial Class PassFailNoShow
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1147, 772)
+        Me.ClientSize = New System.Drawing.Size(1147, 752)
         Me.Controls.Add(Me.crPassFailNoShowViewer)
         Me.Controls.Add(Me.txtPassFailNoShow)
         Me.Controls.Add(Me.txtEndDate)
