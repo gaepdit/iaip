@@ -39,7 +39,7 @@ Public Class IAIPPrintOut
         Dim temp As String = ""
         Dim da As OracleDataAdapter
         Dim ds As New dsIAIP10
-        Dim rpt As New ReportDocument
+        Dim rpt As New ReportClass
 
         Try
              
@@ -48,6 +48,8 @@ Public Class IAIPPrintOut
                 'txtPrintType.Text = "FullFacilityReport" Then
 
                 rpt = New crAPBPrintOut2
+                monitor.TrackFeature("Report." & rpt.ResourceName)
+
                 Dim Commissioner As String = ""
                 Dim Director As String = ""
                 Dim PermitCount As String = "0"
@@ -745,6 +747,7 @@ Public Class IAIPPrintOut
                     '    CRViewer.Refresh()
                 Case "FullFacilityReport"
                     rpt = New CRFullPrint
+                    monitor.TrackFeature("Report." & rpt.ResourceName)
 
                     Dim PermitCount As String = "0"
                     Dim MonitoringCount As String = "0"
@@ -1181,6 +1184,7 @@ Public Class IAIPPrintOut
 
                         Case "BasicFacilityReport"
                             rpt = New CRBasicPrint
+                            monitor.TrackFeature("Report." & rpt.ResourceName)
 
                             SQL = "select " & _
                             "strDirector, strCommissioner " & _

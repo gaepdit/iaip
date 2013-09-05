@@ -2469,15 +2469,15 @@ Public Class IAIPNavigation
                     End If
                     FeeTools.Show()
                     FeeTools.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
-                Case "GAIT Inventory"
-                    If ComputerInventory Is Nothing Then
-                        If ComputerInventory Is Nothing Then ComputerInventory = New PASPInventory
-                    Else
-                        ComputerInventory.Dispose()
-                        ComputerInventory = New PASPInventory
-                    End If
-                    ComputerInventory.Show()
-                    ComputerInventory.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+                    'Case "GAIT Inventory"
+                    '    If ComputerInventory Is Nothing Then
+                    '        If ComputerInventory Is Nothing Then ComputerInventory = New PASPInventory
+                    '    Else
+                    '        ComputerInventory.Dispose()
+                    '        ComputerInventory = New PASPInventory
+                    '    End If
+                    '    ComputerInventory.Show()
+                    '    ComputerInventory.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                 Case "DMU Only Tool" '25
                     If (UserGCode = "1" Or UserGCode = "345") Then
                         If DMUOnly Is Nothing Then
@@ -3644,15 +3644,15 @@ Public Class IAIPNavigation
             '        End If
             '    End If
             'End If
-            If AccountArray(127, 0) Is Nothing Then
-            Else
-                If AccountArray(127, 0) = "127" Then
-                    If AccountArray(127, 1) = "1" Or AccountArray(127, 2) = "1" Or AccountArray(127, 3) = "1" Or AccountArray(127, 4) = "1" Then
-                        btnNav27.Text = "GAIT Inventory"
-                        btnNav27.Visible = True
-                    End If
-                End If
-            End If
+            'If AccountArray(127, 0) Is Nothing Then
+            'Else
+            '    If AccountArray(127, 0) = "127" Then
+            '        If AccountArray(127, 1) = "1" Or AccountArray(127, 2) = "1" Or AccountArray(127, 3) = "1" Or AccountArray(127, 4) = "1" Then
+            '            btnNav27.Text = "GAIT Inventory"
+            '            btnNav27.Visible = True
+            '        End If
+            '    End If
+            'End If
             If AccountArray(128, 0) Is Nothing Then
             Else
                 If AccountArray(128, 0) = "128" Then

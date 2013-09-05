@@ -149,7 +149,7 @@ Module subMain
     'Public FeeStat As DEVMailoutAndStats
 
     Public FeeTools As PASPFeeTools
-    Public ComputerInventory As PASPInventory
+    'Public ComputerInventory As PASPInventory
     Public FeeStats As PASPFeeAuditLog
     Public FeesLog As PASPFeesLog
     Public FeeManagement As PASPFeeManagement

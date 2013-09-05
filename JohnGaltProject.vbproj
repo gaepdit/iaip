@@ -420,12 +420,6 @@
       <DependentUpon>DepositQA11.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="IAIP-Crystal Reports\Oracle 10.1\DMU\crESinfoByAirsNumber10.vb">
-      <DependentUpon>crESinfoByAirsNumber10.rpt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <SubType>Component</SubType>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <Compile Include="IAIP-Crystal Reports\Oracle 10.1\crFeeInvoice.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -444,12 +438,6 @@
       <DependentUpon>FeeInvoice.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="IAIP-Crystal Reports\Oracle 10.1\PASP\AuditReport10.vb">
-      <DependentUpon>AuditReport10.rpt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <SubType>Component</SubType>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <Compile Include="IAIP-Crystal Reports\Oracle 10.1\PASP\Bankrupt10.vb">
       <DependentUpon>Bankrupt10.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -461,12 +449,6 @@
       <AutoGen>True</AutoGen>
       <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="IAIP-Crystal Reports\Oracle 10.1\PASP\CRInventoryReport.vb">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CRInventoryReport.rpt</DependentUpon>
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="IAIP-Crystal Reports\Oracle 10.1\PASP\DepositData10.vb">
       <DependentUpon>DepositData10.rpt</DependentUpon>
@@ -751,12 +733,6 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="PASP\PASPFeeVarianceCheck.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="PASP\PASPInventory.Designer.vb">
-      <DependentUpon>PASPInventory.vb</DependentUpon>
-    </Compile>
-    <Compile Include="PASP\PASPInventory.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="PASP\PASPModifications.vb">
@@ -1491,10 +1467,6 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>DepositQA11.vb</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="IAIP-Crystal Reports\Oracle 10.1\DMU\crESinfoByAirsNumber10.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>crESinfoByAirsNumber10.vb</LastGenOutput>
-    </EmbeddedResource>
     <EmbeddedResource Include="IAIP-Crystal Reports\Oracle 10.1\crFeeInvoice.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>crFeeInvoice.vb</LastGenOutput>
@@ -1507,10 +1479,6 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>FeeInvoice.vb</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="IAIP-Crystal Reports\Oracle 10.1\PASP\AuditReport10.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>AuditReport10.vb</LastGenOutput>
-    </EmbeddedResource>
     <EmbeddedResource Include="IAIP-Crystal Reports\Oracle 10.1\PASP\Bankrupt10.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>Bankrupt10.vb</LastGenOutput>
@@ -1518,10 +1486,6 @@
     <EmbeddedResource Include="IAIP-Crystal Reports\Oracle 10.1\PASP\ClassChanged10.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>ClassChanged10.vb</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="IAIP-Crystal Reports\Oracle 10.1\PASP\CRInventoryReport.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>CRInventoryReport.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="IAIP-Crystal Reports\Oracle 10.1\PASP\DepositData10.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
@@ -1704,9 +1668,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PASP\PASPFeeVarianceCheck.resx">
       <DependentUpon>PASPFeeVarianceCheck.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="PASP\PASPInventory.resx">
-      <DependentUpon>PASPInventory.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PASP\PASPModifications.resx">
       <DependentUpon>PASPModifications.vb</DependentUpon>
@@ -2290,6 +2251,7 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="IAIP-Crystal Reports\Oracle 10.1\DMU\" />
     <Folder Include="IAIP-Crystal Reports\Oracle 10.1\ISMP\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
