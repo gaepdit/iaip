@@ -1741,7 +1741,7 @@
     <None Include="IAIP-Updater\config.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="changelog.txt" />
+    <None Include="CHANGELOG.md" />
     <None Include="..\_Tools\7za\7za.exe">
       <Link>IAIP-Updater\7za.exe</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
