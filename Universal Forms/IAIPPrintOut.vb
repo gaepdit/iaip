@@ -182,6 +182,7 @@ Public Class IAIPPrintOut
                         ds.EnforceConstraints = False
                         da.Fill(ds, "VW_APBFacilityHeader")
                     Case "FullFacilityReport"
+                        ' This branch should never get hit (?)
                         'Do this at the beginning of every new entry 
                         ParameterField = New CrystalDecisions.Shared.ParameterField
                         spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
@@ -1184,8 +1185,8 @@ Public Class IAIPPrintOut
                             ParameterFields.Add(ParameterField)
 
 
-
                         Case "BasicFacilityReport"
+                            ' This branch should never get hit (?)
                             rpt = New CRBasicPrint
                             monitor.TrackFeature("Report." & rpt.ResourceName)
 
