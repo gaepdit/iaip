@@ -27,7 +27,7 @@ Public Class IAIPQueryGenerator
     Dim dsSQLQuery As DataSet
     Dim daSQLQuery As OracleDataAdapter
 
-    Private Sub DevQuerryGenerator_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+    Private Sub QueryGenerator_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         monitor.TrackFeature("Forms." & Me.Name)
         Try
             Panel1.Text = "Select Filter options...."
@@ -651,1662 +651,1662 @@ Public Class IAIPQueryGenerator
     End Sub
 #End Region
 #Region "Subs and Functions"
-    Sub GenerateSQL()
-        Try
-            Dim SQLSelect As String = ""
-            Dim SQLFrom As String = ""
-            Dim SQLWhere As String = ""
-            Dim SQLWhereCase1 As String = ""
-            Dim SQLWhereCase2 As String = ""
-            Dim SQLOrder As String = ""
-
-            Dim temp As String = ""
-            Dim temp2 As String = ""
-            Dim temp3 As String = ""
-            Dim temp4 As String = ""
-
-            If txtFacilityAIRSNumberOrder.Text <> "" Or txtFacilityNameOrder.Text <> "" Or _
-            txtFacilityStreet1Order.Text <> "" Or txtFacilityStreet2Order.Text <> "" Or _
-            txtFacilityCityOrder.Text <> "" Or txtFacilityZipCodeOrder.Text <> "" Or _
-            txtFacilityLongitudeOrder.Text <> "" Or txtFacilityLatitudeOrder.Text <> "" Or _
-            txtCountyOrder.Text <> "" Or txtDistrictOrder.Text <> "" Or _
-            txtOperationStatusOrder.Text <> "" Or txtClassificationOrder.Text <> "" Or _
-            txtSICCodeOrder.Text <> "" Or _
-            txtStartUpDateOrder.Text <> "" Or txtShutDownDateOrder.Text <> "" Or _
-            txtCMSUniverseOrder.Text <> "" Or txtPlantDescriptionOrder.Text <> "" Or _
-            txtAPC0Order.Text <> "" Or txtAPC1Order.Text <> "" Or _
-            txtAPC3Order.Text <> "" Or txtAPC4Order.Text <> "" Or _
-            txtAPC6Order.Text <> "" Or txtAPC7Order.Text <> "" Or _
-            txtAPC8Order.Text <> "" Or txtAPC9Order.Text <> "" Or _
-            txtAPCAOrder.Text <> "" Or txtAPCFOrder.Text <> "" Or _
-            txtAPCIOrder.Text <> "" Or txtAPCMOrder.Text <> "" Or _
-            txtAPCVOrder.Text <> "" Then
-
-                If chbAIRSNumber.Checked = True And txtFacilityAIRSNumberOrder.Text <> "0" Then
-                    temp = temp & "-" & txtFacilityAIRSNumberOrder.Text & "-" & DBNameSpace & ".APBFacilityInformation.strAIRSNumber#"
-                End If
-                If Me.chbFacilityName.Checked = True And txtFacilityNameOrder.Text <> "0" Then
-                    temp = temp & "-" & txtFacilityNameOrder.Text & "-strFacilityName#"
-                End If
-                If Me.chbFacilityStreet1.Checked = True And txtFacilityStreet1Order.Text <> "0" Then
-                    temp = temp & "-" & txtFacilityStreet1Order.Text & "-strFacilityStreet1#"
-                End If
-                If Me.chbFacilityStreet2.Checked = True And txtFacilityStreet2Order.Text <> "0" Then
-                    temp = temp & "-" & txtFacilityStreet2Order.Text & "-strFacilityStreet2#"
-                End If
-                If Me.chbFacilityCity.Checked = True And txtFacilityCityOrder.Text <> "0" Then
-                    temp = temp & "-" & txtFacilityCityOrder.Text & "-strFacilityCity#"
-                End If
-                If Me.chbFacilityZipCode.Checked = True And txtFacilityZipCodeOrder.Text <> "0" Then
-                    temp = temp & "-" & txtFacilityZipCodeOrder.Text & "-strFacilityZipCode#"
-                End If
-                If Me.chbFacilityLatitude.Checked = True And txtFacilityLatitudeOrder.Text <> "0" Then
-                    temp = temp & "-" & txtFacilityLatitudeOrder.Text & "-numFacilityLatitude#"
-                End If
-                If Me.chbFacilityLongitude.Checked = True And txtFacilityLongitudeOrder.Text <> "0" Then
-                    temp = temp & "-" & txtFacilityLongitudeOrder.Text & "-numFacilityLongitude#"
-                End If
-                If Me.chbCounty.Checked = True And txtCountyOrder.Text <> "0" Then
-                    temp = temp & "-" & txtCountyOrder.Text & "-strCountyName#"
-                End If
-                If Me.chbDistrict.Checked = True And txtDistrictOrder.Text <> "0" Then
-                    temp = temp & "-" & txtDistrictOrder.Text & "-strDistrictName#"
-                End If
-                If Me.chbOperationStatus.Checked = True And txtOperationStatusOrder.Text <> "0" Then
-                    temp = temp & "-" & txtOperationStatusOrder.Text & "-strOperationalStatus#"
-                End If
-                If Me.chbClassification.Checked = True And txtClassificationOrder.Text <> "0" Then
-                    temp = temp & "-" & txtClassificationOrder.Text & "-strClass#"
-                End If
-                If Me.chbSICCode.Checked = True And txtSICCodeOrder.Text <> "0" Then
-                    temp = temp & "-" & txtSICCodeOrder.Text & "-strSICCode#"
-                End If
-                If Me.chbStartUpDate.Checked = True And txtStartUpDateOrder.Text <> "0" Then
-                    temp = temp & "-" & txtStartUpDateOrder.Text & "-datStartUpDate#"
-                End If
-                If Me.chbShutDownDate.Checked = True And txtShutDownDateOrder.Text <> "0" Then
-                    temp = temp & "-" & txtShutDownDateOrder.Text & "-datShutDownDate#"
-                End If
-                If chbCMSUniverse.Checked = True And txtCMSUniverseOrder.Text <> "0" Then
-                    temp = temp & "-" & txtCMSUniverseOrder.Text & "-strCMSMember#"
-                End If
-                If chbPlantDescription.Checked = True And txtPlantDescriptionOrder.Text <> "0" Then
-                    temp = temp & "-" & txtPlantDescriptionOrder.Text & "-strPlantDescription#"
-                End If
-                If chbAPC0.Checked = True And txtAPC0Order.Text <> "0" Then
-                    temp = temp & "-" & txtAPC0Order.Text & "-APC0#"
-                End If
-                If chbAPC1.Checked = True And txtAPC1Order.Text <> "0" Then
-                    temp = temp & "-" & txtAPC1Order.Text & "-APC1#"
-                End If
-                If chbAPC3.Checked = True And txtAPC3Order.Text <> "0" Then
-                    temp = temp & "-" & txtAPC3Order.Text & "-APC3#"
-                End If
-                If chbAPC4.Checked = True And txtAPC4Order.Text <> "0" Then
-                    temp = temp & "-" & txtAPC4Order.Text & "-APC4#"
-                End If
-                If chbAPC6.Checked = True And txtAPC6Order.Text <> "0" Then
-                    temp = temp & "-" & txtAPC6Order.Text & "-APC6#"
-                End If
-                If chbAPC7.Checked = True And txtAPC7Order.Text <> "0" Then
-                    temp = temp & "-" & txtAPC7Order.Text & "-APC7#"
-                End If
-                If chbAPC8.Checked = True And txtAPC8Order.Text <> "0" Then
-                    temp = temp & "-" & txtAPC8Order.Text & "-APC8#"
-                End If
-                If chbAPC9.Checked = True And txtAPC9Order.Text <> "0" Then
-                    temp = temp & "-" & txtAPC9Order.Text & "-APC9#"
-                End If
-                If chbAPCA.Checked = True And txtAPCAOrder.Text <> "0" Then
-                    temp = temp & "-" & txtAPCAOrder.Text & "-APCA#"
-                End If
-                If chbAPCF.Checked = True And txtAPCFOrder.Text <> "0" Then
-                    temp = temp & "-" & txtAPCFOrder.Text & "-APCF#"
-                End If
-                If chbAPCI.Checked = True And txtAPCIOrder.Text <> "0" Then
-                    temp = temp & "-" & txtAPCIOrder.Text & "-APCI#"
-                End If
-                If chbAPCM.Checked = True And txtAPCMOrder.Text <> "0" Then
-                    temp = temp & "-" & txtAPCMOrder.Text & "-APCM#"
-                End If
-                If chbAPCV.Checked = True And txtAPCVOrder.Text <> "0" Then
-                    temp = temp & "-" & txtAPCVOrder.Text & "-APCV#"
-                End If
-
-                SQLOrder = " Order by "
-
-                If temp.IndexOf("1-") <> -1 Then
-                    temp2 = temp.IndexOf("1-") + 2
-                    temp3 = Mid(temp, (temp2 + 1)).IndexOf("#")
-                    temp4 = Mid(temp, (temp2 + 1), temp3)
-                    SQLOrder = SQLOrder & temp4 & ", "
-                End If
-                If temp.IndexOf("2-") <> -1 Then
-                    temp2 = temp.IndexOf("2-") + 2
-                    temp3 = Mid(temp, (temp2 + 1)).IndexOf("#")
-                    temp4 = Mid(temp, (temp2 + 1), temp3)
-                    SQLOrder = SQLOrder & temp4 & ", "
-                End If
-                If temp.IndexOf("3-") <> -1 Then
-                    temp2 = temp.IndexOf("3-") + 2
-                    temp3 = Mid(temp, (temp2 + 1)).IndexOf("#")
-                    temp4 = Mid(temp, (temp2 + 1), temp3)
-                    SQLOrder = SQLOrder & temp4 & ", "
-                End If
-                If temp.IndexOf("4-") <> -1 Then
-                    temp2 = temp.IndexOf("4-") + 2
-                    temp3 = Mid(temp, (temp2 + 1)).IndexOf("#")
-                    temp4 = Mid(temp, (temp2 + 1), temp3)
-                    SQLOrder = SQLOrder & temp4 & ", "
-                End If
-                If temp.IndexOf("5-") <> -1 Then
-                    temp2 = temp.IndexOf("5-") + 2
-                    temp3 = Mid(temp, (temp2 + 1)).IndexOf("#")
-                    temp4 = Mid(temp, (temp2 + 1), temp3)
-                    SQLOrder = SQLOrder & temp4 & ", "
-                End If
-                If temp.IndexOf("6-") <> -1 Then
-                    temp2 = temp.IndexOf("6-") + 2
-                    temp3 = Mid(temp, (temp2 + 1)).IndexOf("#")
-                    temp4 = Mid(temp, (temp2 + 1), temp3)
-                    SQLOrder = SQLOrder & temp4 & ", "
-                End If
-                If temp.IndexOf("7-") <> -1 Then
-                    temp2 = temp.IndexOf("7-") + 2
-                    temp3 = Mid(temp, (temp2 + 1)).IndexOf("#")
-                    temp4 = Mid(temp, (temp2 + 1), temp3)
-                    SQLOrder = SQLOrder & temp4 & ", "
-                End If
-                If temp.IndexOf("8-") <> -1 Then
-                    temp2 = temp.IndexOf("8-") + 2
-                    temp3 = Mid(temp, (temp2 + 1)).IndexOf("#")
-                    temp4 = Mid(temp, (temp2 + 1), temp3)
-                    SQLOrder = SQLOrder & temp4 & ", "
-                End If
-                If temp.IndexOf("9-") <> -1 Then
-                    temp2 = temp.IndexOf("9-") + 2
-                    temp3 = Mid(temp, (temp2 + 1)).IndexOf("#")
-                    temp4 = Mid(temp, (temp2 + 1), temp3)
-                    SQLOrder = SQLOrder & temp4 & ", "
-                End If
-                If temp.IndexOf("10-") <> -1 Then
-                    temp2 = temp.IndexOf("10-") + 3
-                    temp3 = Mid(temp, (temp2 + 1)).IndexOf("#")
-                    temp4 = Mid(temp, (temp2 + 1), temp3)
-                    SQLOrder = SQLOrder & temp4 & ", "
-                End If
-                If temp.IndexOf("11-") <> -1 Then
-                    temp2 = temp.IndexOf("11-") + 3
-                    temp3 = Mid(temp, (temp2 + 1)).IndexOf("#")
-                    temp4 = Mid(temp, (temp2 + 1), temp3)
-                    SQLOrder = SQLOrder & temp4 & ", "
-                End If
-                If temp.IndexOf("12-") <> -1 Then
-                    temp2 = temp.IndexOf("12-") + 3
-                    temp3 = Mid(temp, (temp2 + 1)).IndexOf("#")
-                    temp4 = Mid(temp, (temp2 + 1), temp3)
-                    SQLOrder = SQLOrder & temp4 & ", "
-                End If
-                If temp.IndexOf("13-") <> -1 Then
-                    temp2 = temp.IndexOf("13-") + 3
-                    temp3 = Mid(temp, (temp2 + 1)).IndexOf("#")
-                    temp4 = Mid(temp, (temp2 + 1), temp3)
-                    SQLOrder = SQLOrder & temp4 & ", "
-                End If
-                If temp.IndexOf("14-") <> -1 Then
-                    temp2 = temp.IndexOf("14-") + 3
-                    temp3 = Mid(temp, (temp2 + 1)).IndexOf("#")
-                    temp4 = Mid(temp, (temp2 + 1), temp3)
-                    SQLOrder = SQLOrder & temp4 & ", "
-                End If
-                If temp.IndexOf("15-") <> -1 Then
-                    temp2 = temp.IndexOf("15-") + 3
-                    temp3 = Mid(temp, (temp2 + 1)).IndexOf("#")
-                    temp4 = Mid(temp, (temp2 + 1), temp3)
-                    SQLOrder = SQLOrder & temp4 & ", "
-                End If
-                If temp.IndexOf("16-") <> -1 Then
-                    temp2 = temp.IndexOf("16-") + 3
-                    temp3 = Mid(temp, (temp2 + 1)).IndexOf("#")
-                    temp4 = Mid(temp, (temp2 + 1), temp3)
-                    SQLOrder = SQLOrder & temp4 & ", "
-                End If
-                If temp.IndexOf("17-") <> -1 Then
-                    temp2 = temp.IndexOf("17-") + 3
-                    temp3 = Mid(temp, (temp2 + 1)).IndexOf("#")
-                    temp4 = Mid(temp, (temp2 + 1), temp3)
-                    SQLOrder = SQLOrder & temp4 & ", "
-                End If
-                If temp.IndexOf("18-") <> -1 Then
-                    temp2 = temp.IndexOf("18-") + 3
-                    temp3 = Mid(temp, (temp2 + 1)).IndexOf("#")
-                    temp4 = Mid(temp, (temp2 + 1), temp3)
-                    SQLOrder = SQLOrder & temp4 & ", "
-                End If
-            Else
-                SQLOrder = ""
-            End If
-
-            If SQLOrder = " Order by " Then
-                SQLOrder = ""
-            Else
-              '  SQLOrder = SQLOrder
-            End If
-
-            If chbAIRSNumber.Checked = True Then
-                SQLSelect = "Select substr(" & DBNameSpace & ".APBFacilityInformation.strAIRSNumber, 5) as strAIRSNumber, "
-                SQLFrom = " From " & DBNameSpace & ".APBMasterAIRS, " & DBNameSpace & ".APBFacilityInformation, "
-                SQLWhere = " Where " & DBNameSpace & ".APBMasterAIRS.strAIRSNumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber "
-                If rdbAIRSNumberOr.Checked = True Then
-                    SQLWhereCase1 = " OR "
-                Else
-                    SQLWhereCase1 = " AND "
-                End If
-                If rdbAIRSNumberEqual.Checked = True Then
-                    SQLWhereCase2 = " Like "
-                Else
-                    SQLWhereCase2 = " Not Like "
-                End If
-
-                If txtAIRSNumberSearch1.Text <> "" Then
-                    SQLWhere = SQLWhere & " and (" & DBNameSpace & ".APBFacilityInformation.strAIRSNumber " & SQLWhereCase2 & " '%" & Replace(txtAIRSNumberSearch1.Text, "'", "''") & "%') "
-                End If
-                If txtAIRSNumberSearch2.Text <> "" Then
-                    If txtAIRSNumberSearch1.Text <> "" Then
-                        SQLWhere = Mid(SQLWhere, 1, (SQLWhere.Length - 2))
-                        SQLWhere = SQLWhere & SQLWhereCase1 & " " & DBNameSpace & ".APBFacilityInformation.strAIRSnumber " & SQLWhereCase2 & " '%" & Replace(txtAIRSNumberSearch2.Text, "'", "''") & "%') "
-                    Else
-                        SQLWhere = SQLWhere & " and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber " & SQLWhereCase2 & " '%" & Replace(txtAIRSNumberSearch2.Text, "'", "''") & "%' "
-                    End If
-                End If
-                If SQLOrder = "" Then
-                    SQLOrder = " Order by " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber, "
-                End If
-            End If
-
-            SQLWhereCase1 = ""
-            SQLWhereCase2 = ""
-
-            If chbFacilityName.Checked = True Then
-                SQLSelect = SQLSelect & " strFacilityName, "
-
-                If SQLFrom.IndexOf("" & DBNameSpace & ".APBFacilityInformation") <> -1 Then
-        '            SQLFrom = SQLFrom
-                Else
-                    SQLFrom = SQLFrom & " " & DBNameSpace & ".APBFacilityInformation, "
-                End If
-
-                If rdbFacilityNameOr.Checked = True Then
-                    SQLWhereCase1 = " OR "
-                Else
-                    SQLWhereCase1 = " AND "
-                End If
-                If rdbFacilityNameEqual.Checked = True Then
-                    SQLWhereCase2 = " Like "
-                Else
-                    SQLWhereCase2 = " Not Like "
-                End If
-
-                If txtFacilityNameSearch1.Text <> "" Then
-                    SQLWhere = SQLWhere & " and (UPPER(strFacilityname) " & SQLWhereCase2 & " Upper('%" & Replace(txtFacilityNameSearch1.Text, "'", "''") & "%')) "
-                End If
-                If txtFacilityNameSearch2.Text <> "" Then
-                    If txtFacilityNameSearch1.Text <> "" Then
-                        SQLWhere = Mid(SQLWhere, 1, (SQLWhere.Length - 2))
-                        SQLWhere = SQLWhere & SQLWhereCase1 & " UPPER(strFacilityname) " & SQLWhereCase2 & " UPPER('%" & Replace(txtFacilityNameSearch2.Text, "'", "''") & "%')) "
-                    Else
-                        SQLWhere = SQLWhere & " and Upper(strFacilityname) " & SQLWhereCase2 & " Upper('%" & Replace(txtFacilityNameSearch2.Text, "'", "''") & "%') "
-                    End If
-
-                End If
-                If SQLOrder = " Order by " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber, " Then
-                    SQLOrder = SQLOrder & " strFacilityName, "
-                End If
-            End If
-
-            SQLWhereCase1 = ""
-            SQLWhereCase2 = ""
-
-            If chbFacilityStreet1.Checked = True Then
-                SQLSelect = SQLSelect & " strFacilityStreet1, "
-
-                If SQLFrom.IndexOf("" & DBNameSpace & ".APBFacilityInformation") <> -1 Then
-                    '         SQLFrom = SQLFrom
-                Else
-                    SQLFrom = SQLFrom & " " & DBNameSpace & ".APBFacilityInformation, "
-                End If
-
-                If rdbFacilityStreet1Or.Checked = True Then
-                    SQLWhereCase1 = " OR "
-                Else
-                    SQLWhereCase1 = " AND "
-                End If
-                If rdbFacilityStreet1Equal.Checked = True Then
-                    SQLWhereCase2 = " Like "
-                Else
-                    SQLWhereCase2 = " Not Like "
-                End If
-
-                If txtFacilityStreet1Search1.Text <> "" Then
-                    SQLWhere = SQLWhere & " and (UPPER(strFacilityStreet1) " & SQLWhereCase2 & " Upper('%" & Replace(txtFacilityStreet1Search1.Text, "'", "''") & "%')) "
-                End If
-                If txtFacilityStreet1Search2.Text <> "" Then
-                    If txtFacilityStreet1Search1.Text <> "" Then
-                        SQLWhere = Mid(SQLWhere, 1, (SQLWhere.Length - 2))
-                        SQLWhere = SQLWhere & SQLWhereCase1 & " UPPER(strFacilityStreet1) " & SQLWhereCase2 & " UPPER('%" & Replace(txtFacilityStreet1Search2.Text, "'", "''") & "%')) "
-                    Else
-                        SQLWhere = SQLWhere & " and Upper(strFacilityStreet1) " & SQLWhereCase2 & " Upper('%" & Replace(txtFacilityStreet1Search2.Text, "'", "''") & "%') "
-                    End If
-                End If
-            End If
-
-            SQLWhereCase1 = ""
-            SQLWhereCase2 = ""
-
-            If chbFacilityStreet2.Checked = True Then
-                SQLSelect = SQLSelect & " case  " & _
-                "when strFacilityStreet2 is Null then ' ' " & _
-                "when strFacilityStreet2 = 'N/A' then ' ' " & _
-                "when strFacilityStreet2 is Not Null then strFacilityStreet2 " & _
-                "end strFacilityStreet2, "
-
-                If SQLFrom.IndexOf("" & DBNameSpace & ".APBFacilityInformation") <> -1 Then
-                    '       SQLFrom = SQLFrom
-                Else
-                    SQLFrom = SQLFrom & " " & DBNameSpace & ".APBFacilityInformation, "
-                End If
-
-                If rdbFacilityStreet2Or.Checked = True Then
-                    SQLWhereCase1 = " OR "
-                Else
-                    SQLWhereCase1 = " AND "
-                End If
-                If rdbFacilityStreet2Equal.Checked = True Then
-                    SQLWhereCase2 = " Like "
-                Else
-                    SQLWhereCase2 = " Not Like "
-                End If
-
-                If txtFacilityStreet2Search1.Text <> "" Then
-                    SQLWhere = SQLWhere & " and (UPPER(strFacilityStreet2) " & SQLWhereCase2 & " Upper('%" & Replace(txtFacilityStreet2Search1.Text, "'", "''") & "%')) "
-                End If
-                If txtFacilityStreet2Search2.Text <> "" Then
-                    If txtFacilityStreet1Search1.Text <> "" Then
-                        SQLWhere = Mid(SQLWhere, 1, (SQLWhere.Length - 2))
-                        SQLWhere = SQLWhere & SQLWhereCase1 & " UPPER(strFacilityStreet2) " & SQLWhereCase2 & " UPPER('%" & Replace(txtFacilityStreet2Search2.Text, "'", "''") & "%')) "
-                    Else
-                        SQLWhere = SQLWhere & " and Upper(strFacilityStreet2) " & SQLWhereCase2 & " Upper('%" & Replace(txtFacilityStreet2Search2.Text, "'", "''") & "%') "
-                    End If
-                End If
-            End If
-
-            SQLWhereCase1 = ""
-            SQLWhereCase2 = ""
-
-            If chbFacilityCity.Checked = True Then
-                SQLSelect = SQLSelect & " strFacilityCity, "
-
-                If SQLFrom.IndexOf("" & DBNameSpace & ".APBFacilityInformation") <> -1 Then
-                    '     SQLFrom = SQLFrom
-                Else
-                    SQLFrom = SQLFrom & " " & DBNameSpace & ".APBFacilityInformation, "
-                End If
-
-                If rdbFacilityCityOr.Checked = True Then
-                    SQLWhereCase1 = " OR "
-                Else
-                    SQLWhereCase1 = " AND "
-                End If
-                If rdbFacilityCityEqual.Checked = True Then
-                    SQLWhereCase2 = " Like "
-                Else
-                    SQLWhereCase2 = " Not Like "
-                End If
-
-                If txtFacilityCitySearch1.Text <> "" Then
-                    SQLWhere = SQLWhere & " and (UPPER(strFacilityCity) " & SQLWhereCase2 & " Upper('%" & Replace(txtFacilityCitySearch1.Text, "'", "''") & "%')) "
-                End If
-                If txtFacilityCitySearch2.Text <> "" Then
-                    If txtFacilityCitySearch1.Text <> "" Then
-                        SQLWhere = Mid(SQLWhere, 1, (SQLWhere.Length - 2))
-                        SQLWhere = SQLWhere & SQLWhereCase1 & " UPPER(strFacilitycity) " & SQLWhereCase2 & " UPPER('%" & Replace(txtFacilityCitySearch2.Text, "'", "''") & "%')) "
-                    Else
-                        SQLWhere = SQLWhere & " and Upper(strFacilitycity) " & SQLWhereCase2 & " Upper('%" & Replace(txtFacilityCitySearch2.Text, "'", "''") & "%') "
-                    End If
-                End If
-            End If
-
-            SQLWhereCase1 = ""
-            SQLWhereCase2 = ""
-
-            If chbFacilityZipCode.Checked = True Then
-                SQLSelect = SQLSelect & " case  " & _
-                "when strFacilityZipCode is Null then ' ' " & _
-                "when strFacilityZipCode = '00000' then ' ' " & _
-                "when strFacilityZipCode is Not Null then strFacilityZipCode " & _
-                "end strFacilityZipCode, "
-
-                If SQLFrom.IndexOf("" & DBNameSpace & ".APBFacilityInformation") <> -1 Then
-                    ' SQLFrom = SQLFrom
-                Else
-                    SQLFrom = SQLFrom & " " & DBNameSpace & ".APBFacilityInformation, "
-                End If
-
-                If rdbFacilityZipCodeOr.Checked = True Then
-                    SQLWhereCase1 = " OR "
-                Else
-                    SQLWhereCase1 = " AND "
-                End If
-                If rdbFacilityZipCodeEqual.Checked = True Then
-                    SQLWhereCase2 = " Like "
-                Else
-                    SQLWhereCase2 = " Not Like "
-                End If
-
-                If txtFacilityZipCodeSearch1.Text <> "" Then
-                    SQLWhere = SQLWhere & " and (UPPER(strFacilityZipCode) " & SQLWhereCase2 & " Upper('%" & Replace(txtFacilityZipCodeSearch1.Text, "'", "''") & "%')) "
-                End If
-                If txtFacilityZipCodeSearch2.Text <> "" Then
-                    If txtFacilityZipCodeSearch1.Text <> "" Then
-                        SQLWhere = Mid(SQLWhere, 1, (SQLWhere.Length - 2))
-                        SQLWhere = SQLWhere & SQLWhereCase1 & " UPPER(strFacilityZipCode) " & SQLWhereCase2 & " UPPER('%" & Replace(txtFacilityZipCodeSearch2.Text, "'", "''") & "%')) "
-                    Else
-                        SQLWhere = SQLWhere & " and Upper(strFacilityZipCode) " & SQLWhereCase2 & " Upper('%" & Replace(txtFacilityZipCodeSearch2.Text, "'", "''") & "%') "
-                    End If
-                End If
-            End If
-
-            SQLWhereCase1 = ""
-            SQLWhereCase2 = ""
-
-            If chbFacilityLatitude.Checked = True Then
-                SQLSelect = SQLSelect & " numFacilityLatitude, "
-
-                If SQLFrom.IndexOf("" & DBNameSpace & ".APBFacilityInformation") <> -1 Then
-                  '  SQLFrom = SQLFrom
-                Else
-                    SQLFrom = SQLFrom & " " & DBNameSpace & ".APBFacilityInformation, "
-                End If
-
-                If txtFacilityLatitudeSearch1.Text <> "" Then
-                    If txtFacilityLatitudeSearch2.Text <> "" Then
-                        SQLWhere = SQLWhere & " and numFacilityLatitude between to_number('" & Replace(txtFacilityLatitudeSearch1.Text, ".", "") & "') and to_Number('" & Replace(txtFacilityLatitudeSearch2.Text, ".", "") & "') "
-                    Else
-                        SQLWhere = SQLWhere & " and numFacilityLatitude = to_number('" & Replace(txtFacilityLatitudeSearch1.Text, ".", "") & "') "
-                    End If
-                Else
-                    If txtFacilityLatitudeSearch2.Text <> "" Then
-                        SQLWhere = SQLWhere & " and numFacilityLatitude = to_number('" & Replace(txtFacilityLatitudeSearch2.Text, ".", "") & "') "
-                    End If
-                End If
-            End If
-
-            SQLWhereCase1 = ""
-            SQLWhereCase2 = ""
-
-            If chbFacilityLongitude.Checked = True Then
-                SQLSelect = SQLSelect & " numFacilityLongitude, "
-
-                If SQLFrom.IndexOf("" & DBNameSpace & ".APBFacilityInformation") <> -1 Then
-                    ' SQLFrom = SQLFrom
-                Else
-                    SQLFrom = SQLFrom & " " & DBNameSpace & ".APBFacilityInformation, "
-                End If
-
-                If txtFacilityLongitudeSearch1.Text <> "" Then
-                    If txtFacilityLongitudeSearch2.Text <> "" Then
-                        SQLWhere = SQLWhere & " and numFacilityLongitude between to_number('" & Replace(txtFacilityLongitudeSearch1.Text, ".", "") & "') and to_Number('" & Replace(txtFacilityLongitudeSearch2.Text, ".", "") & "') "
-                    Else
-                        SQLWhere = SQLWhere & " and numFacilityLongitude = to_number('" & Replace(txtFacilityLongitudeSearch1.Text, ".", "") & "') "
-                    End If
-                Else
-                    If txtFacilityLongitudeSearch2.Text <> "" Then
-                        SQLWhere = SQLWhere & " and numFacilityLongitude = to_number('" & Replace(txtFacilityLongitudeSearch2.Text, ".", "") & "') "
-                    End If
-                End If
-            End If
-
-            SQLWhereCase1 = ""
-            SQLWhereCase2 = ""
-
-            If chbCounty.Checked = True Then
-                SQLSelect = SQLSelect & " strCountyName, "
-
-                If SQLFrom.IndexOf("" & DBNameSpace & ".LookUpCountyInformation") <> -1 Then
-                    'SQLFrom = SQLFrom
-                Else
-                    SQLFrom = SQLFrom & " " & DBNameSpace & ".LookUpCountyInformation, "
-                    SQLWhere = SQLWhere & " and substr(" & DBNameSpace & ".APBFacilityInformation.strAIRSNumber, 5, 3) = " & DBNameSpace & ".LookUpCountyInformation.strCountyCode "
-                End If
-
-                If rdbCountyOr.Checked = True Then
-                    SQLWhereCase1 = " OR "
-                Else
-                    SQLWhereCase1 = " AND "
-                End If
-                If rdbCountyEqual.Checked = True Then
-                    SQLWhereCase2 = " = "
-                Else
-                    SQLWhereCase2 = " <> "
-                End If
-
-                If cboCountySearch1.SelectedIndex <> -1 And cboCountySearch1.SelectedIndex <> 0 Then
-                    SQLWhere = SQLWhere & " and (substr(" & DBNameSpace & ".APBFacilityInformation.strAIRSNumber, 5, 3) " & SQLWhereCase2 & " '" & cboCountySearch1.SelectedValue & "') "
-                End If
-                If cboCountySearch2.SelectedIndex <> -1 And cboCountySearch2.SelectedIndex <> 0 Then
-                    If cboCountySearch1.SelectedIndex <> -1 And cboCountySearch1.SelectedIndex <> 0 Then
-                        SQLWhere = Mid(SQLWhere, 1, (SQLWhere.Length - 2))
-                        SQLWhere = SQLWhere & SQLWhereCase1 & " substr(" & DBNameSpace & ".APBFacilityInformation.strAIRSNumber, 5, 3) " & SQLWhereCase2 & " '" & cboCountySearch2.SelectedValue & "') "
-                    Else
-                        SQLWhere = SQLWhere & " and (substr(" & DBNameSpace & ".APBFacilityInformation.strAIRSNumber, 5, 3) " & SQLWhereCase2 & " '" & cboCountySearch2.SelectedValue & "') "
-                    End If
-                End If
-            End If
-
-            SQLWhereCase1 = ""
-            SQLWhereCase2 = ""
-
-            If chbDistrict.Checked = True Then
-                SQLSelect = SQLSelect & " strDistrictName, "
-
-                If SQLFrom.IndexOf("" & DBNameSpace & ".LookUPDistricts") <> -1 Then
-                    ' SQLFrom = SQLFrom
-                Else
-                    SQLFrom = SQLFrom & " " & DBNameSpace & ".LookUPDistricts, " & DBNameSpace & ".LookUpDistrictInformation, "
-                    SQLWhere = SQLWhere & "and " & DBNameSpace & ".LookUpDistrictInformation.strDistrictCode = " & DBNameSpace & ".LookUPDistricts.strDistrictCode " & _
-                            "and " & DBNameSpace & ".LookUpDistrictInformation.strDistrictCounty = substr(" & DBNameSpace & ".APBFacilityInformation.strAIRSNumber, 5, 3) "
-                End If
-
-                If rdbDistrictOr.Checked = True Then
-                    SQLWhereCase1 = " OR "
-                Else
-                    SQLWhereCase1 = " AND "
-                End If
-                If rdbDistrictEqual.Checked = True Then
-                    SQLWhereCase2 = " = "
-                Else
-                    SQLWhereCase2 = " <> "
-                End If
-
-                If cboDistrictSearch1.SelectedIndex <> -1 And cboDistrictSearch1.SelectedIndex <> 0 Then
-                    SQLWhere = SQLWhere & " and (" & DBNameSpace & ".LookUpDistrictInformation.strDistrictCode " & SQLWhereCase2 & " '" & cboDistrictSearch1.SelectedValue & "') "
-                End If
-                If cboDistrictSearch2.SelectedIndex <> -1 And cboDistrictSearch2.SelectedIndex <> 0 Then
-                    If cboDistrictSearch1.SelectedIndex <> -1 And cboDistrictSearch1.SelectedIndex <> 0 Then
-                        SQLWhere = Mid(SQLWhere, 1, (SQLWhere.Length - 2))
-                        SQLWhere = SQLWhere & SQLWhereCase1 & " " & DBNameSpace & ".LookUpDistrictInformation.strDistrictCode " & SQLWhereCase2 & " '" & cboDistrictSearch2.SelectedValue & "') "
-                    Else
-                        SQLWhere = SQLWhere & " and " & DBNameSpace & ".LookUpDistrictInformation.strDistrictCode " & SQLWhereCase2 & " '" & cboDistrictSearch2.SelectedValue & "') "
-                    End If
-                End If
-            End If
-
-            SQLWhereCase1 = ""
-            SQLWhereCase2 = ""
-
-            If chbOperationStatus.Checked = True Then
-                SQLSelect = SQLSelect & " strOperationalStatus, "
-
-                If SQLFrom.IndexOf("" & DBNameSpace & ".APBHeaderData") <> -1 Then
-                    '  SQLFrom = SQLFrom
-                Else
-                    SQLFrom = SQLFrom & " " & DBNameSpace & ".APBHeaderData, "
-                    SQLWhere = SQLWhere & " and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber "
-                End If
-
-                If rdbOperationalStatusOr.Checked = True Then
-                    SQLWhereCase1 = " OR "
-                Else
-                    SQLWhereCase1 = " AND "
-                End If
-                If rdbOperationStatusEqual.Checked = True Then
-                    SQLWhereCase2 = " = "
-                Else
-                    SQLWhereCase2 = " <> "
-                End If
-
-                If cboOperationStatusSearch1.Text <> " " And cboOperationStatusSearch1.Items.Contains(cboOperationStatusSearch1.Text) Then
-                    SQLWhere = SQLWhere & " and (strOperationalStatus " & SQLWhereCase2 & " '" & Mid(cboOperationStatusSearch1.Text, 1, 1) & "') "
-                End If
-                If cboOperationStatusSearch2.Text <> " " And cboOperationStatusSearch2.Items.Contains(cboOperationStatusSearch2.Text) Then
-                    If cboOperationStatusSearch1.Text <> " " And cboOperationStatusSearch1.Items.Contains(cboOperationStatusSearch1.Text) Then
-                        SQLWhere = Mid(SQLWhere, 1, (SQLWhere.Length - 2))
-                        SQLWhere = SQLWhere & SQLWhereCase1 & " strOperationalStatus " & SQLWhereCase2 & " '" & Mid(cboOperationStatusSearch2.Text, 1, 1) & "') "
-                    Else
-                        SQLWhere = SQLWhere & " and strOperationalStatus " & SQLWhereCase2 & " '" & Mid(cboOperationStatusSearch2.Text, 1, 1) & "' "
-                    End If
-                End If
-            End If
-
-            SQLWhereCase1 = ""
-            SQLWhereCase2 = ""
-
-            If chbClassification.Checked = True Then
-                SQLSelect = SQLSelect & " strClass, "
-
-                If SQLFrom.IndexOf("" & DBNameSpace & ".APBHeaderData") <> -1 Then
-                    ' SQLFrom = SQLFrom
-                Else
-                    SQLFrom = SQLFrom & " " & DBNameSpace & ".APBHeaderData, "
-                    SQLWhere = SQLWhere & " and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber "
-                End If
-
-                If rdbClassificationOr.Checked = True Then
-                    SQLWhereCase1 = " OR "
-                Else
-                    SQLWhereCase1 = " AND "
-                End If
-                If rdbClassificationEqual.Checked = True Then
-                    SQLWhereCase2 = " = "
-                Else
-                    SQLWhereCase2 = " <> "
-                End If
-
-                If cboClassificationSearch1.Text <> " " And cboClassificationSearch1.Items.Contains(cboClassificationSearch1.Text) Then
-                    SQLWhere = SQLWhere & " and (strClass " & SQLWhereCase2 & " '" & cboClassificationSearch1.Text & "') "
-                End If
-                If cboClassificationSearch2.Text <> " " And cboClassificationSearch2.Items.Contains(cboClassificationSearch2.Text) Then
-                    If cboClassificationSearch1.Text <> " " And cboClassificationSearch1.Items.Contains(cboClassificationSearch1.Text) Then
-                        SQLWhere = Mid(SQLWhere, 1, (SQLWhere.Length - 2))
-                        SQLWhere = SQLWhere & SQLWhereCase1 & " strClass " & SQLWhereCase2 & " '" & cboClassificationSearch2.Text & "') "
-                    Else
-                        SQLWhere = SQLWhere & " and strClass " & SQLWhereCase2 & " '" & cboClassificationSearch2.Text & "' "
-                    End If
-                End If
-            End If
-
-            SQLWhereCase1 = ""
-            SQLWhereCase2 = ""
-
-            If chbSICCode.Checked = True Then
-                SQLSelect = SQLSelect & " strSICCode, "
-
-                If SQLFrom.IndexOf("" & DBNameSpace & ".APBHeaderData") <> -1 Then
-                    '      SQLFrom = SQLFrom
-                Else
-                    SQLFrom = SQLFrom & " " & DBNameSpace & ".APBHeaderData, "
-                    SQLWhere = SQLWhere & " and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber "
-                End If
-
-                If rdbSICCodeOr.Checked = True Then
-                    SQLWhereCase1 = " OR "
-                Else
-                    SQLWhereCase1 = " AND "
-                End If
-                If rdbSICCodeEqual.Checked = True Then
-                    SQLWhereCase2 = " Like "
-                Else
-                    SQLWhereCase2 = " Not Like "
-                End If
-
-                If txtSICCodeSearch1.Text <> "" Then
-                    SQLWhere = SQLWhere & " and (UPPER(strSICCode) " & SQLWhereCase2 & " Upper('" & Replace(txtSICCodeSearch1.Text, "'", "''") & "%')) "
-                End If
-                If txtSICCodeSearch2.Text <> "" Then
-                    If txtFacilityCitySearch1.Text <> "" Then
-                        SQLWhere = Mid(SQLWhere, 1, (SQLWhere.Length - 2))
-                        SQLWhere = SQLWhere & SQLWhereCase1 & " UPPER(strSICCode) " & SQLWhereCase2 & " UPPER('" & Replace(txtSICCodeSearch2.Text, "'", "''") & "%')) "
-                    Else
-                        SQLWhere = SQLWhere & " and Upper(strSICCode) " & SQLWhereCase2 & " Upper('" & Replace(txtSICCodeSearch2.Text, "'", "''") & "%') "
-                    End If
-                End If
-            End If
-
-            SQLWhereCase1 = ""
-            SQLWhereCase2 = ""
-
-            If chbStartUpDate.Checked = True Then
-                SQLSelect = SQLSelect & " case  " & _
-                "when datStartUpDate is Null then ' ' " & _
-                "when datStartUpDate is Not Null then to_char(datStartUpDate, 'RRRR-MM-dd') " & _
-                "end datStartUpDate, "
-
-                If SQLFrom.IndexOf("" & DBNameSpace & ".APBHeaderData") <> -1 Then
-                    '      SQLFrom = SQLFrom
-                Else
-                    SQLFrom = SQLFrom & " " & DBNameSpace & ".APBHeaderData, "
-                    SQLWhere = SQLWhere & " and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber "
-                End If
-
-                'If rdbStartUpDateOr.Checked = True Then
-                '    SQLWhereCase1 = " OR "
-                'End If
-                'If rdbStartUpDateAnd.Checked = True Then
-                '    SQLWhereCase1 = " AND "
-                'End If
-                If rdbStartUpDateBetween.Checked = True Then
-                    SQLWhereCase1 = " Between "
-                End If
-
-
-
-                Select Case SQLWhereCase1
-                    Case " Between "
-                        If DTPStartUpDateSearch1.Checked = True Then
-                            SQLWhere = SQLWhere & " and (datStartUpDate " & SQLWhereCase1 & " '" & DTPStartUpDateSearch1.Text & "' and '" & DTPStartUpDateSearch2.Text & "' ) "
-                        End If
-                    Case Else
-                        If DTPStartUpDateSearch1.Checked = True Then
-                            SQLWhere = SQLWhere & " and (datStartUpDate " & SQLWhereCase2 & " '" & DTPStartUpDateSearch1.Text & "') "
-                        End If
-
-                        If DTPStartUpDateSearch2.Checked = True Then
-                            If DTPStartUpDateSearch1.Checked = True Then
-                                SQLWhere = Mid(SQLWhere, 1, (SQLWhere.Length - 2))
-
-                                SQLWhere = SQLWhere & SQLWhereCase1 & " datStartUpDate " & SQLWhereCase2 & " '" & DTPStartUpDateSearch2.Text & "') "
-                            Else
-                                SQLWhere = SQLWhere & " and datStartUpDate " & SQLWhereCase2 & " '" & DTPStartUpDateSearch2.Text & "') "
-                            End If
-                        End If
-                End Select
-            End If
-
-            SQLWhereCase1 = ""
-            SQLWhereCase2 = ""
-
-            If chbShutDownDate.Checked = True Then
-                SQLSelect = SQLSelect & " case  " & _
-                "when datShutDownDate is Null then ' ' " & _
-                "when datShutDownDate is Not Null then to_char(datShutDownDate, 'RRRR-MM-dd') " & _
-                "end datShutDownDate, "
-
-                If SQLFrom.IndexOf("" & DBNameSpace & ".APBHeaderData") <> -1 Then
-                    '       SQLFrom = SQLFrom
-                Else
-                    SQLFrom = SQLFrom & " " & DBNameSpace & ".APBHeaderData, "
-                    SQLWhere = SQLWhere & " and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber "
-                End If
-
-                'If rdbShutDownDateOr.Checked = True Then
-                '    SQLWhereCase1 = " OR "
-                'End If
-                'If rdbShutDownDateAnd.Checked = True Then
-                '    SQLWhereCase1 = " AND "
-                'End If
-                If rdbShutDownDateBetween.Checked = True Then
-                    SQLWhereCase1 = " Between "
-                End If
-
-                'If rdbShutDownDateEqual.Checked = True Then
-                '    SQLWhereCase2 = " = "
-                'Else
-                '    SQLWhereCase2 = " <> "
-                'End If
-
-                Select Case SQLWhereCase1
-                    Case " Between "
-                        If DTPShutDownDateSearch1.Checked = True Then
-                            SQLWhere = SQLWhere & " and (datShutDownDate " & SQLWhereCase1 & " '" & DTPShutDownDateSearch1.Text & "' and '" & DTPStartUpDateSearch2.Text & "' ) "
-                        End If
-                    Case Else
-                        If DTPShutDownDateSearch1.Checked = True Then
-                            SQLWhere = SQLWhere & " and (datShutDownDate " & SQLWhereCase2 & " '" & DTPShutDownDateSearch1.Text & "') "
-                        End If
-
-                        If DTPShutDownDateSearch2.Checked = True Then
-                            If DTPShutDownDateSearch1.Checked = True Then
-                                SQLWhere = Mid(SQLWhere, 1, (SQLWhere.Length - 2))
-
-                                SQLWhere = SQLWhere & SQLWhereCase1 & " datShutDownDate " & SQLWhereCase2 & " '" & DTPShutDownDateSearch2.Text & "') "
-                            Else
-                                SQLWhere = SQLWhere & " and datShutDownDate " & SQLWhereCase2 & " '" & DTPShutDownDateSearch2.Text & "') "
-                            End If
-                        End If
-                End Select
-            End If
-
-            SQLWhereCase1 = ""
-            SQLWhereCase2 = ""
-
-            If chbCMSUniverse.Checked = True Then
-                SQLSelect = SQLSelect & " strCMSMember, "
-
-                If SQLFrom.IndexOf("" & DBNameSpace & ".APBSupplamentalData") <> -1 Then
-                    '      SQLFrom = SQLFrom
-                Else
-                    SQLFrom = SQLFrom & " " & DBNameSpace & ".APBSupplamentalData, "
-                    SQLWhere = SQLWhere & " and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBSupplamentalData.strAIRSNumber "
-                End If
-
-                If rdbCMSUniverseOR.Checked = True Then
-                    SQLWhereCase1 = " OR "
-                Else
-                    SQLWhereCase1 = " AND "
-                End If
-                If rdbCMSUniverseEqual.Checked = True Then
-                    SQLWhereCase2 = " Like "
-                Else
-                    SQLWhereCase2 = " Not Like "
-                End If
-
-                If cboCMSUniverseSearch1.Text <> " " And cboCMSUniverseSearch1.Items.Contains(cboCMSUniverseSearch1.Text) Then
-                    SQLWhere = SQLWhere & " and (strCMSMember " & SQLWhereCase2 & " '" & cboCMSUniverseSearch1.Text & "') "
-                End If
-                If cboCMSUniverseSearch2.Text <> " " And cboCMSUniverseSearch2.Items.Contains(cboCMSUniverseSearch2.Text) Then
-                    If cboCMSUniverseSearch1.Text <> " " And cboCMSUniverseSearch1.Items.Contains(cboCMSUniverseSearch1.Text) Then
-                        SQLWhere = Mid(SQLWhere, 1, (SQLWhere.Length - 2))
-                        SQLWhere = SQLWhere & SQLWhereCase1 & " strCMSMember " & SQLWhereCase2 & " '" & cboCMSUniverseSearch2.Text & "') "
-                    Else
-                        SQLWhere = SQLWhere & " and strCMSMember " & SQLWhereCase2 & " '" & cboCMSUniverseSearch2.Text & "' "
-                    End If
-                End If
-            End If
-
-            SQLWhereCase1 = ""
-            SQLWhereCase2 = ""
-
-            If chbPlantDescription.Checked = True Then
-                SQLSelect = SQLSelect & " case  " & _
-                "when strPlantDescription is Null then ' ' " & _
-                "when strPlantDescription ='N/A' then ' ' " & _
-                "when strPlantDescription is Not Null then strPlantDescription " & _
-                "end strPlantDescription, "
-
-                If SQLFrom.IndexOf("" & DBNameSpace & ".APBHeaderData") <> -1 Then
-                    '        SQLFrom = SQLFrom
-                Else
-                    SQLFrom = SQLFrom & " " & DBNameSpace & ".APBHeaderData, "
-                    SQLWhere = SQLWhere & " and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber "
-                End If
-
-                If rdbPlantDescriptionOR.Checked = True Then
-                    SQLWhereCase1 = " OR "
-                Else
-                    SQLWhereCase1 = " AND "
-                End If
-                If rdbPlantDescriptionEqual.Checked = True Then
-                    SQLWhereCase2 = " Like "
-                Else
-                    SQLWhereCase2 = " Not Like "
-                End If
-
-                If txtPlantDescriptionSearch1.Text <> "" Then
-                    SQLWhere = SQLWhere & " and (UPPER(strPlantDescription) " & SQLWhereCase2 & " Upper('%" & Replace(txtPlantDescriptionSearch1.Text, "'", "''") & "%')) "
-                End If
-                If txtPlantDescriptionSearch2.Text <> "" Then
-                    If txtPlantDescriptionSearch1.Text <> "" Then
-                        SQLWhere = Mid(SQLWhere, 1, (SQLWhere.Length - 2))
-                        SQLWhere = SQLWhere & SQLWhereCase1 & " UPPER(strPlantDescription) " & SQLWhereCase2 & " UPPER('%" & Replace(txtPlantDescriptionSearch2.Text, "'", "''") & "%')) "
-                    Else
-                        SQLWhere = SQLWhere & " and Upper(strPlantDescription) " & SQLWhereCase2 & " Upper('%" & Replace(txtPlantDescriptionSearch2.Text, "'", "''") & "%') "
-                    End If
-                End If
-            End If
-
-            If Me.chbAttainmentStatus.Checked = True Then
-                SQLSelect = SQLSelect & "case " & _
-                            "when substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 2, 1) is Null then '' " & _
-                            "when substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 2, 1) = '1' then '1-Hr Yes' " & _
-                            "Else '' end OneHrYes, " & _
-                            "case " & _
-                            "when substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 2, 1) is Null then '' " & _
-                            "when substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 2, 1) = '2' then '1-Hr Contribute' " & _
-                            "Else '' end OneHrContribute, " & _
-                            "case " & _
-                            "when substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 2, 1) is Null then '' " & _
-                            "when substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 2, 1) = '0' then '1-Hr No' " & _
-                            "Else '' End OneHrNo, " & _
-                            "case " & _
-                            "when substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 2, 1) is Null then '' " & _
-                            "when substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 3, 1) = '1' then '8-Hr Atlanta' " & _
-                            "else '' end EightHrAtlanta, " & _
-                            "case " & _
-                            "when substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 2, 1) is Null then '' " & _
-                            "when substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 3, 1) = '2' then '8-Hr Macon' " & _
-                            "else '' end EightHrMacon, " & _
-                            "case " & _
-                            "when substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 2, 1) is Null then '' " & _
-                            "when substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 3, 1) = '0' then '8-Hr No' " & _
-                            "else '' end EightHrNo, " & _
-                            "case " & _
-                            "when substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 2, 1) is Null then '' " & _
-                            "when substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 4, 1) = '1' then 'PM-2.5 Atlanta' " & _
-                            "else '' end PMAtlanta, " & _
-                            "case " & _
-                            "when substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 2, 1) is Null then '' " & _
-                            "when substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 4, 1) = '2' then 'PM-2.5 Chattanooga' " & _
-                            "else '' end PMChattanooga, " & _
-                            "case " & _
-                            "when substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 2, 1) is Null then '' " & _
-                            "when substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 4, 1) = '3' then 'PM-2.5 Floyd' " & _
-                            "else '' end PMFloyd, " & _
-                            "case " & _
-                            "when substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 2, 1) is Null then '' " & _
-                            "when substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 4, 1) = '4' then 'PM-2.5 Macon' " & _
-                            "else '' end PMMacon, " & _
-                            "case " & _
-                            "when substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 2, 1) is Null then '' " & _
-                            "when substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 4, 1) = '0' then 'PM-2.5 No' " & _
-                            "else '' end PMNo, "
-                If SQLFrom.IndexOf("" & DBNameSpace & ".APBHeaderData") <> -1 Then
-                    '     SQLFrom = SQLFrom
-                Else
-                    SQLFrom = SQLFrom & " " & DBNameSpace & ".APBHeaderData, "
-                    SQLWhere = SQLWhere & " and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber "
-                End If
-            End If
-            If chb1HrYes.Checked = True Then
-                SQLSelect = SQLSelect & "case " & _
-                "when substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 2, 1) is Null then '' " & _
-                "when substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 2, 1) = '1' then '1-Hr Yes' " & _
-                "else '' end OneHrYes, "
-                If SQLFrom.IndexOf("" & DBNameSpace & ".APBHeaderData") <> -1 Then
-                    '      SQLFrom = SQLFrom
-                Else
-                    SQLFrom = SQLFrom & " " & DBNameSpace & ".APBHeaderData, "
-                    SQLWhere = SQLWhere & " and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber "
-                End If
-                If rdb1HrYesEqual.Checked = True Then
-                    SQLWhere = SQLWhere & " and substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 2, 1) = '1' "
-                Else
-                    SQLWhere = SQLWhere & " and (substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 2, 1) <> '1' " & _
-                                          " or " & DBNameSpace & ".APBHeaderData.strAttainmentStatus is Null) "
-                End If
-            End If
-            If chb1HrContribute.Checked = True Then
-                SQLSelect = SQLSelect & "case " & _
-                "when substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 2, 1) is Null then '' " & _
-                "when substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 2, 1) = '2' then '1-Hr Contribute' " & _
-                            "else '' end OneHrContribute, "
-                If SQLFrom.IndexOf("" & DBNameSpace & ".APBHeaderData") <> -1 Then
-                    '        SQLFrom = SQLFrom
-                Else
-                    SQLFrom = SQLFrom & " " & DBNameSpace & ".APBHeaderData, "
-                    SQLWhere = SQLWhere & " and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber "
-                End If
-                If rdb1HrContributeEqual.Checked = True Then
-                    SQLWhere = SQLWhere & " and substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 2, 1) = '2' "
-                Else
-                    SQLWhere = SQLWhere & " and (substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 2, 1) <> '2' " & _
-                                          " or " & DBNameSpace & ".APBHeaderData.strAttainmentStatus is Null) "
-                End If
-            End If
-            If chb1HrNo.Checked = True Then
-                SQLSelect = SQLSelect & "case " & _
-                "when substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 2, 1) is Null then '' " & _
-                "when substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 2, 1) = '0' then '1-Hr No' " & _
-                            "else '' end OneHrNo, "
-                If SQLFrom.IndexOf("" & DBNameSpace & ".APBHeaderData") <> -1 Then
-                    '        SQLFrom = SQLFrom
-                Else
-                    SQLFrom = SQLFrom & " " & DBNameSpace & ".APBHeaderData, "
-                    SQLWhere = SQLWhere & " and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber "
-                End If
-                If rdb1HrNoEqual.Checked = True Then
-                    SQLWhere = SQLWhere & " and substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 2, 1) = '0' "
-                Else
-                    SQLWhere = SQLWhere & " and (substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 2, 1) <> '0' " & _
-                                          " or " & DBNameSpace & ".APBHeaderData.strAttainmentStatus is Null) "
-                End If
-            End If
-            If chb8HrAtlanta.Checked = True Then
-                SQLSelect = SQLSelect & "case " & _
-                "when substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 3, 1) is Null then '' " & _
-                "when substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 3, 1) = '1' then '8-Hr Atlanta' " & _
-                            "else '' end EightHrAtlanta, "
-                If SQLFrom.IndexOf("" & DBNameSpace & ".APBHeaderData") <> -1 Then
-                    '       SQLFrom = SQLFrom
-                Else
-                    SQLFrom = SQLFrom & " " & DBNameSpace & ".APBHeaderData, "
-                    SQLWhere = SQLWhere & " and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber "
-                End If
-                If rdb8HrAtlantaEqual.Checked = True Then
-                    SQLWhere = SQLWhere & " and substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 3, 1) = '1' "
-                Else
-                    SQLWhere = SQLWhere & " and (substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 3, 1) <> '1' " & _
-                                          " or " & DBNameSpace & ".APBHeaderData.strAttainmentStatus is Null) "
-                End If
-            End If
-            If chb8HrMacon.Checked = True Then
-                SQLSelect = SQLSelect & "case " & _
-                "when substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 3, 1) is Null then '' " & _
-                "when substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 3, 1) = '2' then '8-Hr Macon' " & _
-                            "else '' end EightHrMacon, "
-                If SQLFrom.IndexOf("" & DBNameSpace & ".APBHeaderData") <> -1 Then
-                    '        SQLFrom = SQLFrom
-                Else
-                    SQLFrom = SQLFrom & " " & DBNameSpace & ".APBHeaderData, "
-                    SQLWhere = SQLWhere & " and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber "
-                End If
-                If rdb8HrMaconEqual.Checked = True Then
-                    SQLWhere = SQLWhere & " and substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 3, 1) = '2' "
-                Else
-                    SQLWhere = SQLWhere & " and (substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 3, 1) <> '2' " & _
-                                          " or " & DBNameSpace & ".APBHeaderData.strAttainmentStatus is Null) "
-                End If
-            End If
-            If chb8HrNo.Checked = True Then
-                SQLSelect = SQLSelect & "case " & _
-                "when substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 3, 1) is Null then '' " & _
-                "when substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 3, 1) = '0' then '8-Hr No' " & _
-                            "else '' end EightHrNo, "
-                If SQLFrom.IndexOf("" & DBNameSpace & ".APBHeaderData") <> -1 Then
-                    '         SQLFrom = SQLFrom
-                Else
-                    SQLFrom = SQLFrom & " " & DBNameSpace & ".APBHeaderData, "
-                    SQLWhere = SQLWhere & " and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber "
-                End If
-                If rdb8HrNoEqual.Checked = True Then
-                    SQLWhere = SQLWhere & " and substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 3, 1) = '0' "
-                Else
-                    SQLWhere = SQLWhere & " and (substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 3, 1) <> '0' " & _
-                                          " or " & DBNameSpace & ".APBHeaderData.strAttainmentStatus is Null) "
-                End If
-            End If
-            If chbPMAtlanta.Checked = True Then
-                SQLSelect = SQLSelect & "case " & _
-                "when substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 4, 1) is Null then '' " & _
-                "when substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 4, 1) = '1' then 'PM-2.5 Atlanta' " & _
-                            "else '' end PMAtlanta, "
-                If SQLFrom.IndexOf("" & DBNameSpace & ".APBHeaderData") <> -1 Then
-                    '         SQLFrom = SQLFrom
-                Else
-                    SQLFrom = SQLFrom & " " & DBNameSpace & ".APBHeaderData, "
-                    SQLWhere = SQLWhere & " and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber "
-                End If
-                If rdbPMAtlantaEqual.Checked = True Then
-                    SQLWhere = SQLWhere & " and substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 4, 1) = '1' "
-                Else
-                    SQLWhere = SQLWhere & " and (substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 4, 1) <> '1' " & _
-                                          " or " & DBNameSpace & ".APBHeaderData.strAttainmentStatus is Null) "
-                End If
-            End If
-            If chbPMChattanooga.Checked = True Then
-                SQLSelect = SQLSelect & "case " & _
-                "when substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 4, 1) is Null then '' " & _
-                "when substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 4, 1) = '2' then 'PM-2.5 Chattanooga' " & _
-                            "else '' end PMChattanooga, "
-                If SQLFrom.IndexOf("" & DBNameSpace & ".APBHeaderData") <> -1 Then
-                    '           SQLFrom = SQLFrom
-                Else
-                    SQLFrom = SQLFrom & " " & DBNameSpace & ".APBHeaderData, "
-                    SQLWhere = SQLWhere & " and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber "
-                End If
-                If rdbPMChattanoogaEqual.Checked = True Then
-                    SQLWhere = SQLWhere & " and substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 4, 1) = '2' "
-                Else
-                    SQLWhere = SQLWhere & " and (substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 4, 1) <> '2' " & _
-                                          " or " & DBNameSpace & ".APBHeaderData.strAttainmentStatus is Null) "
-                End If
-            End If
-            If chbPMFloyd.Checked = True Then
-                SQLSelect = SQLSelect & "case " & _
-                "when substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 4, 1) is Null then '' " & _
-                "when substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 4, 1) = '3' then 'PM-2.5 Floyd' " & _
-                            "else '' end PMFloyd, "
-                If SQLFrom.IndexOf("" & DBNameSpace & ".APBHeaderData") <> -1 Then
-                    '          SQLFrom = SQLFrom
-                Else
-                    SQLFrom = SQLFrom & " " & DBNameSpace & ".APBHeaderData, "
-                    SQLWhere = SQLWhere & " and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber "
-                End If
-                If rdbPMFloydEqual.Checked = True Then
-                    SQLWhere = SQLWhere & " and substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 4, 1) = '3' "
-                Else
-                    SQLWhere = SQLWhere & " and (substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 4, 1) <> '3' " & _
-                                          " or " & DBNameSpace & ".APBHeaderData.strAttainmentStatus is Null) "
-                End If
-            End If
-            If chbPMMacon.Checked = True Then
-                SQLSelect = SQLSelect & "case " & _
-                "when substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 4, 1) is Null then '' " & _
-                "when substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 4, 1) = '4' then 'PM-2.5 Macon' " & _
-                            "else '' end PMMacon, "
-                If SQLFrom.IndexOf("" & DBNameSpace & ".APBHeaderData") <> -1 Then
-                    '          SQLFrom = SQLFrom
-                Else
-                    SQLFrom = SQLFrom & " " & DBNameSpace & ".APBHeaderData, "
-                    SQLWhere = SQLWhere & " and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber "
-                End If
-                If rdbPMMaconEqual.Checked = True Then
-                    SQLWhere = SQLWhere & " and substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 4, 1) = '4' "
-                Else
-                    SQLWhere = SQLWhere & " and (substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 4, 1) <> '4' " & _
-                                          " or " & DBNameSpace & ".APBHeaderData.strAttainmentStatus is Null) "
-                End If
-            End If
-            If chbPMNo.Checked = True Then
-                SQLSelect = SQLSelect & "case " & _
-                "when substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 4, 1) is Null then '' " & _
-                "when substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 4, 1) = '0' then 'PM-2.5 No' " & _
-                            "else '' end PMNo, "
-                If SQLFrom.IndexOf("" & DBNameSpace & ".APBHeaderData") <> -1 Then
-          '          SQLFrom = SQLFrom
-                Else
-                    SQLFrom = SQLFrom & " " & DBNameSpace & ".APBHeaderData, "
-                    SQLWhere = SQLWhere & " and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber "
-                End If
-                If rdbPMNoEqual.Checked = True Then
-                    SQLWhere = SQLWhere & " and substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 4, 1) = '0' "
-                Else
-                    SQLWhere = SQLWhere & " and (substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 4, 1) <> '0' " & _
-                                          " or " & DBNameSpace & ".APBHeaderData.strAttainmentStatus is Null) "
-                End If
-            End If
-
-            If chbStateProgramCodes.Checked = True Then
-                SQLSelect = SQLSelect & "case " & _
-                "when substr(strStateProgramCodes, 1, 1) is null then '' " & _
-                "when substr(strStateProgramCodes, 1, 1) = '1' then 'NSR/PSD Major' " & _
-                "Else '' end NSRPSD, " & _
-                "case " & _
-                "when substr(strStateProgramCodes, 2, 1) is Null then '' " & _
-                "when substr(strStateProgramCodes, 2, 1) = '1' then 'HAPs Major' " & _
-                "Else '' end HAP, "
-
-                If SQLFrom.IndexOf("" & DBNameSpace & ".APBHeaderData") <> -1 Then
-                   ' SQLFrom = SQLFrom
-                Else
-                    SQLFrom = SQLFrom & " " & DBNameSpace & ".APBHeaderData, "
-                    SQLWhere = SQLWhere & " and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber "
-                End If
-            End If
-
-            If chbNSRPSDMajor.Checked = True Then
-                SQLSelect = SQLSelect & "case " & _
-                "when substr(strStateProgramCodes, 1, 1) is null then '' " & _
-                "when substr(strStateProgramCodes, 1, 1) = '1' then 'NSR/PSD Major' " & _
-                "Else '' end NSRPSD, "
-
-                If SQLFrom.IndexOf("" & DBNameSpace & ".APBHeaderData") <> -1 Then
-                    '   SQLFrom = SQLFrom
-                Else
-                    SQLFrom = SQLFrom & " " & DBNameSpace & ".APBHeaderData, "
-                    SQLWhere = SQLWhere & " and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber "
-                End If
-                If rdbNSRPSDMajorEqual.Checked = True Then
-                    SQLWhere = SQLWhere & " and substr(strStateProgramCodes, 1, 1) = '1' "
-                Else
-                    SQLWhere = SQLWhere & " and (substr(strStateProgramCodes, 1, 1) <> '1' " & _
-                                          " or " & DBNameSpace & ".APBHeaderData.strStateProgramCodes is Null) "
-                End If
-            End If
-
-            If chbHAPMajor.Checked = True Then
-                SQLSelect = SQLSelect & "case " & _
-                "when substr(strStateProgramCodes, 2, 1) is Null then '' " & _
-                "when substr(strStateProgramCodes, 2, 1) = '1' then 'HAPs Major' " & _
-                "Else '' end HAP, "
-
-                If SQLFrom.IndexOf("" & DBNameSpace & ".APBHeaderData") <> -1 Then
-                    '      SQLFrom = SQLFrom
-                Else
-                    SQLFrom = SQLFrom & " " & DBNameSpace & ".APBHeaderData, "
-                    SQLWhere = SQLWhere & " and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber "
-                End If
-                If rdbHAPMajorEqual.Checked = True Then
-                    SQLWhere = SQLWhere & " and substr(strStateProgramCodes, 2, 1) = '1' "
-                Else
-                    SQLWhere = SQLWhere & " and (substr(strStateProgramCodes, 2, 1) <> '1' " & _
-                                          " or " & DBNameSpace & ".APBHeaderData.strStateProgramCodes is Null) "
-                End If
-            End If
-
-            If chbViewAirPrograms.Checked = True Then
-                SQLSelect = SQLSelect & "case when substr(strAirProgramCodes, 1, 1) = '0' then '' " & _
-                            "when substr(strAirProgramCodes, 1, 1) = '1' then '0 - SIP' " & _
-                            "Else '' end APC0, " & _
-                            "case when substr(strAirProgramCodes, 2, 1) = '0' then '' " & _
-                            "when substr(strAirProgramCodes, 2, 1) = '1' then '1 - Federal SIP' " & _
-                            "Else '' end APC1, " & _
-                            "case when substr(strAirProgramCodes, 3, 1) = '0' then '' " & _
-                            "when substr(strAirProgramCodes, 3, 1) = '1' then '3 - Non-Fed' " & _
-                            "Else '' end APC3, " & _
-                            "case when substr(strAirProgramCodes, 4, 1) = '0' then '' " & _
-                            "when substr(strAirProgramCodes, 4, 1) = '1' then '4 - CFC Tracking' " & _
-                            "Else '' end APC4, " & _
-                            "case when substr(strAirProgramCodes, 5, 1) = '0' then '' " & _
-                            "when substr(strAirProgramCodes, 5, 1) = '1' then '6 - PSD' " & _
-                            "Else '' end APC6, " & _
-                            "case when substr(strAirProgramCodes, 6, 1) = '0' then '' " & _
-                            "when substr(strAirProgramCodes, 6, 1) = '1' then '7 - NSR' " & _
-                            "Else '' end APC7, " & _
-                            "case when substr(strAirProgramCodes, 7, 1) = '0' then '' " & _
-                            "when substr(strAirProgramCodes, 7, 1) = '1' then '8 - NESHAP' " & _
-                            "Else '' end APC8, " & _
-                            "case when substr(strAirProgramCodes, 8, 1) = '0' then '' " & _
-                            "when substr(strAirProgramCodes, 8, 1) = '1' then '9 - NSPS' " & _
-                            "Else '' end APC9, " & _
-                            "case when substr(strAirProgramCodes, 9, 1) = '0' then '' " & _
-                            "when substr(strAirProgramCodes, 9, 1) = '1' then 'A - Acid Percipitation' " & _
-                            "Else '' end APCA, " & _
-                            "case when substr(strAirProgramCodes, 10, 1) = '0' then '' " & _
-                            "when substr(strAirProgramCodes, 10, 1) = '1' then 'F - FESHOP' " & _
-                            "Else '' end APCF, " & _
-                            "case when substr(strAirProgramCodes, 11, 1) = '0' then '' " & _
-                            "when substr(strAirProgramCodes, 11, 1) = '1' then 'I - Native American' " & _
-                            "Else '' end APCI, " & _
-                            "case when substr(strAirProgramCodes, 12, 1) = '0' then '' " & _
-                            "when substr(strAirProgramCodes, 12, 1) = '1' then 'M - MACT' " & _
-                            "Else '' end APCM, " & _
-                            "case when substr(strAirProgramCodes, 13, 1) = '0' then '' " & _
-                            "when substr(strAirProgramCodes, 13, 1) = '1' then 'V - Title V' " & _
-                            "Else '' end APCV, "
-                If SQLFrom.IndexOf("" & DBNameSpace & ".APBHeaderData") <> -1 Then
-                    ' SQLFrom = SQLFrom
-                Else
-                    SQLFrom = SQLFrom & " " & DBNameSpace & ".APBHeaderData, "
-                    SQLWhere = SQLWhere & " and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber "
-                End If
-            End If
-
-            If chbAPC0.Checked = True Then
-                SQLSelect = SQLSelect & "case when substr(strAirProgramCodes, 1, 1) = '0' then '' when substr(strAirProgramCodes, 1, 1) = '1' then '0 - SIP' Else '' end APC0, "
-
-                If SQLFrom.IndexOf("" & DBNameSpace & ".APBHeaderData") <> -1 Then
-                    'SQLFrom = SQLFrom
-                Else
-                    SQLFrom = SQLFrom & " " & DBNameSpace & ".APBHeaderData, "
-                    SQLWhere = SQLWhere & " and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber "
-                End If
-                If rdbAPC0Equal.Checked = True Then
-                    SQLWhere = SQLWhere & " and strAirProgramCodes like '1%' "
-                Else
-                    SQLWhere = SQLWhere & " and strAirProgramCodes like '0%' "
-                End If
-            End If
-
-            If chbAPC1.Checked = True Then
-                SQLSelect = SQLSelect & "case when substr(strAirProgramCodes, 2, 1) = '0' then '' when substr(strAirProgramCodes, 2, 1) = '1' then '1 - Federal SIP' Else '' end APC1, "
-
-                If SQLFrom.IndexOf("" & DBNameSpace & ".APBHeaderData") <> -1 Then
-                    '  SQLFrom = SQLFrom
-                Else
-                    SQLFrom = SQLFrom & " " & DBNameSpace & ".APBHeaderData, "
-                    SQLWhere = SQLWhere & " and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber "
-                End If
-                If rdbAPC1Equal.Checked = True Then
-                    SQLWhere = SQLWhere & " and strAirProgramCodes like '_1%' "
-                Else
-                    SQLWhere = SQLWhere & " and strAirProgramCodes like '_0%' "
-                End If
-            End If
-
-            If chbAPC3.Checked = True Then
-                SQLSelect = SQLSelect & "case when substr(strAirProgramCodes, 3, 1) = '0' then '' when substr(strAirProgramCodes, 3, 1) = '1' then '3 - Non-Fed' Else '' end APC3, "
-
-                If SQLFrom.IndexOf("" & DBNameSpace & ".APBHeaderData") <> -1 Then
-                    '  SQLFrom = SQLFrom
-                Else
-                    SQLFrom = SQLFrom & " " & DBNameSpace & ".APBHeaderData, "
-                    SQLWhere = SQLWhere & " and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber "
-                End If
-                If rdbAPC3Equal.Checked = True Then
-                    SQLWhere = SQLWhere & " and strAirProgramCodes like '__1%' "
-                Else
-                    SQLWhere = SQLWhere & " and strAirProgramCodes like '__0%' "
-                End If
-            End If
-
-            If chbAPC4.Checked = True Then
-                SQLSelect = SQLSelect & "case when substr(strAirProgramCodes, 4, 1) = '0' then '' when substr(strAirProgramCodes, 4, 1) = '1' then '4 - CFC Tracking' Else '' end APC4, "
-
-                If SQLFrom.IndexOf("" & DBNameSpace & ".APBHeaderData") <> -1 Then
-                    '   SQLFrom = SQLFrom
-                Else
-                    SQLFrom = SQLFrom & " " & DBNameSpace & ".APBHeaderData, "
-                    SQLWhere = SQLWhere & " and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber "
-                End If
-                If rdbAPC4Equal.Checked = True Then
-                    SQLWhere = SQLWhere & " and strAirProgramCodes like '___1%' "
-                Else
-                    SQLWhere = SQLWhere & " and strAirProgramCodes like '___0%' "
-                End If
-            End If
-
-            If chbAPC6.Checked = True Then
-                SQLSelect = SQLSelect & "case when substr(strAirProgramCodes, 5, 1) = '0' then '' when substr(strAirProgramCodes, 5, 1) = '1' then '6 - PSD' Else '' end APC6, "
-
-                If SQLFrom.IndexOf("" & DBNameSpace & ".APBHeaderData") <> -1 Then
-                '    SQLFrom = SQLFrom
-                Else
-                    SQLFrom = SQLFrom & " " & DBNameSpace & ".APBHeaderData, "
-                    SQLWhere = SQLWhere & " and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber "
-                End If
-                If rdbAPC6Equal.Checked = True Then
-                    SQLWhere = SQLWhere & " and strAirProgramCodes like '____1%' "
-                Else
-                    SQLWhere = SQLWhere & " and strAirProgramCodes like '____0%' "
-                End If
-            End If
-
-            If chbAPC7.Checked = True Then
-                SQLSelect = SQLSelect & "case when substr(strAirProgramCodes, 6, 1) = '0' then '' when substr(strAirProgramCodes, 6, 1) = '1' then '7 - NSR' Else '' end APC7, "
-
-                If SQLFrom.IndexOf("" & DBNameSpace & ".APBHeaderData") <> -1 Then
-                    '  SQLFrom = SQLFrom
-                Else
-                    SQLFrom = SQLFrom & " " & DBNameSpace & ".APBHeaderData, "
-                    SQLWhere = SQLWhere & " and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber "
-                End If
-                If rdbAPC7Equal.Checked = True Then
-                    SQLWhere = SQLWhere & " and strAirProgramCodes like '_____1%' "
-                Else
-                    SQLWhere = SQLWhere & " and strAirProgramCodes like '_____0%' "
-                End If
-            End If
-
-            If chbAPC8.Checked = True Then
-                SQLSelect = SQLSelect & "case when substr(strAirProgramCodes, 7, 1) = '0' then '' when substr(strAirProgramCodes, 7, 1) = '1' then '8 - NESHAP' Else '' end APC8, "
-
-                If SQLFrom.IndexOf("" & DBNameSpace & ".APBHeaderData") <> -1 Then
-                    '  SQLFrom = SQLFrom
-                Else
-                    SQLFrom = SQLFrom & " " & DBNameSpace & ".APBHeaderData, "
-                    SQLWhere = SQLWhere & " and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber "
-                End If
-                If rdbAPC8Equal.Checked = True Then
-                    SQLWhere = SQLWhere & " and strAirProgramCodes like '______1%' "
-                Else
-                    SQLWhere = SQLWhere & " and strAirProgramCodes like '______0%' "
-                End If
-            End If
-
-            If chbAPC9.Checked = True Then
-                SQLSelect = SQLSelect & "case when substr(strAirProgramCodes, 8, 1) = '0' then '' when substr(strAirProgramCodes, 8, 1) = '1' then '9 - NSPS' Else '' end APC9, "
-
-                If SQLFrom.IndexOf("" & DBNameSpace & ".APBHeaderData") <> -1 Then
-                    '   SQLFrom = SQLFrom
-                Else
-                    SQLFrom = SQLFrom & " " & DBNameSpace & ".APBHeaderData, "
-                    SQLWhere = SQLWhere & " and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber "
-                End If
-                If rdbAPC9Equal.Checked = True Then
-                    SQLWhere = SQLWhere & " and strAirProgramCodes like '_______1%' "
-                Else
-                    SQLWhere = SQLWhere & " and strAirProgramCodes like '_______0%' "
-                End If
-            End If
-
-            If chbAPCA.Checked = True Then
-                SQLSelect = SQLSelect & "case when substr(strAirProgramCodes, 9, 1) = '0' then '' when substr(strAirProgramCodes, 9, 1) = '1' then 'A - Acid Percipitation' Else '' end APCA, "
-
-                If SQLFrom.IndexOf("" & DBNameSpace & ".APBHeaderData") <> -1 Then
-                    '   SQLFrom = SQLFrom
-                Else
-                    SQLFrom = SQLFrom & " " & DBNameSpace & ".APBHeaderData, "
-                    SQLWhere = SQLWhere & " and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber "
-                End If
-                If rdbAPCAEqual.Checked = True Then
-                    SQLWhere = SQLWhere & " and strAirProgramCodes like '________1%' "
-                Else
-                    SQLWhere = SQLWhere & " and strAirProgramCodes like '________0%' "
-                End If
-            End If
-
-            If chbAPCF.Checked = True Then
-                SQLSelect = SQLSelect & "case when substr(strAirProgramCodes, 10, 1) = '0' then '' when substr(strAirProgramCodes, 10, 1) = '1' then 'F - FESHOP' Else '' end APCF, "
-
-                If SQLFrom.IndexOf("" & DBNameSpace & ".APBHeaderData") <> -1 Then
-                    '    SQLFrom = SQLFrom
-                Else
-                    SQLFrom = SQLFrom & " " & DBNameSpace & ".APBHeaderData, "
-                    SQLWhere = SQLWhere & " and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber "
-                End If
-                If rdbAPCFEqual.Checked = True Then
-                    SQLWhere = SQLWhere & " and strAirProgramCodes like '_________1%' "
-                Else
-                    SQLWhere = SQLWhere & " and strAirProgramCodes like '_________0%' "
-                End If
-            End If
-
-            If chbAPCI.Checked = True Then
-                SQLSelect = SQLSelect & "case when substr(strAirProgramCodes, 11, 1) = '0' then '' when substr(strAirProgramCodes, 11, 1) = '1' then 'I - Native American' Else '' end APCI, "
-
-                If SQLFrom.IndexOf("" & DBNameSpace & ".APBHeaderData") <> -1 Then
-                    '    SQLFrom = SQLFrom
-                Else
-                    SQLFrom = SQLFrom & " " & DBNameSpace & ".APBHeaderData, "
-                    SQLWhere = SQLWhere & " and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber "
-                End If
-                If rdbAPCIEqual.Checked = True Then
-                    SQLWhere = SQLWhere & " and strAirProgramCodes like '__________1%' "
-                Else
-                    SQLWhere = SQLWhere & " and strAirProgramCodes like '__________0%' "
-                End If
-            End If
-
-            If chbAPCM.Checked = True Then
-                SQLSelect = SQLSelect & "case when substr(strAirProgramCodes, 12, 1) = '0' then '' when substr(strAirProgramCodes, 12, 1) = '1' then 'M - MACT' Else '' end APCM, "
-
-                If SQLFrom.IndexOf("" & DBNameSpace & ".APBHeaderData") <> -1 Then
-                    '      SQLFrom = SQLFrom
-                Else
-                    SQLFrom = SQLFrom & " " & DBNameSpace & ".APBHeaderData, "
-                    SQLWhere = SQLWhere & " and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber "
-                End If
-                If rdbAPCMEqual.Checked = True Then
-                    SQLWhere = SQLWhere & " and strAirProgramCodes like '___________1%' "
-                Else
-                    SQLWhere = SQLWhere & " and strAirProgramCodes like '___________0%' "
-                End If
-            End If
-
-            If chbAPCV.Checked = True Then
-                SQLSelect = SQLSelect & "case when substr(strAirProgramCodes, 13, 1) = '0' then '' when substr(strAirProgramCodes, 13, 1) = '1' then 'V - Title V' Else '' end APCV, "
-
-                If SQLFrom.IndexOf("" & DBNameSpace & ".APBHeaderData") <> -1 Then
-                    '  SQLFrom = SQLFrom
-                Else
-                    SQLFrom = SQLFrom & " " & DBNameSpace & ".APBHeaderData, "
-                    SQLWhere = SQLWhere & " and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber "
-                End If
-                If rdbAPCVEqual.Checked = True Then
-                    SQLWhere = SQLWhere & " and strAirProgramCodes like '____________1%' "
-                Else
-                    SQLWhere = SQLWhere & " and strAirProgramCodes like '____________0%' "
-                End If
-            End If
-
-            If chbAllSubparts.Checked = True Then
-                SQLSelect = SQLSelect & _
-                " case when substr(strSubPartKey, 13, 1) = '0' then strSubPart " & _
-                "end GASIP, " & _
-                "case " & _
-                "when substr(strSubPartKey, 13, 1) = '8' then strSubPart " & _
-                "end Part61, " & _
-                "case " & _
-                "when substr(strSubPartKey, 13, 1) = '9' then strSubPart " & _
-                "end Part60, " & _
-                "case " & _
-                "when substr(strSubPartKey, 13, 1) = 'M' then strSubPart " & _
-                "End Part63, "
-                If SQLFrom.IndexOf("" & DBNameSpace & ".APBSubPartData") <> -1 Then
-                    ' SQLFrom = SQLFrom
-                Else
-                    SQLFrom = SQLFrom & " " & DBNameSpace & ".APBSubPartData, "
-                    SQLWhere = SQLWhere & " and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBSubPartData.strAIRSNumber " & _
-                    " and strSubPart Is not Null and airbranch.apbsubpartdata.active = '1' "
-                End If
-
-            Else
-
-            End If
-
-            SQLWhereCase1 = ""
-            SQLWhereCase2 = ""
-
-            If chbSIP.Checked = True Then
-                SQLSelect = SQLSelect & "case when substr(strSubPartKey, 13, 1) = '1' then strSubPart " & _
-                "End GASIP, "
-
-                If SQLFrom.IndexOf("" & DBNameSpace & ".APBSubPartData") <> -1 Then
-                    ' SQLFrom = SQLFrom
-                Else
-                    SQLFrom = SQLFrom & " " & DBNameSpace & ".APBSubPartData, "
-                    SQLWhere = SQLWhere & " and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBSubPartData.strAIRSNumber " & _
-                    " and strSubPart is Not Null and airbranch.apbsubpartdata.active = '1' "
-                End If
-                'If rdbSubPartOr.Checked = True Then
-                '    SQLWhereCase1 = " OR "
-                'Else
-                '    SQLWhereCase1 = " AND "
-                'End If
-                'If rdbSIPEqual.Checked = True Then
-                '    SQLWhereCase2 = " Like "
-                'Else
-                '    SQLWhereCase2 = " Not Like "
-                'End If
-                'If txtSIPSearch1.Text <> "" Then
-                '    SQLWhere = SQLWhere & " and (strSubPart " & SQLWhereCase2 & " '%" & Replace(txtSIPSearch1.Text, "'", "''") & "%' ) "
-                'End If
-                'If txtSIPSearch2.Text <> "" Then
-                '    If txtSIPSearch1.Text <> "" Then
-                '        SQLWhere = Mid(SQLWhere, 1, (SQLWhere.Length - 2))
-                '        SQLWhere = SQLWhere & SQLWhereCase1 & "strSubPart " & SQLWhereCase2 & " '%" & Replace(txtSIPSearch2.Text, "'", "''") & "%') "
-                '    Else
-                '        SQLWhere = SQLWhere & " and strSubPart " & SQLWhereCase2 & " '%" & Replace(txtSIPSearch2.Text, "'", "''") & "%' "
-                '    End If
-                'End If
-                SQLWhere = SQLWhere & " and (substr(strSubPartKey, 13, 1) = '0' ) "
-            End If
-
-            SQLWhereCase1 = ""
-            SQLWhereCase2 = ""
-
-            If chbPart61Subpart.Checked = True Then
-                SQLSelect = SQLSelect & "case when substr(strSubPartKey, 13, 1) = '8' then strSubPart " & _
-                "End Part61, "
-
-                If SQLFrom.IndexOf("" & DBNameSpace & ".APBSubPartData") <> -1 Then
-                    '   SQLFrom = SQLFrom
-                Else
-                    SQLFrom = SQLFrom & " " & DBNameSpace & ".APBSubPartData, "
-                    SQLWhere = SQLWhere & " and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBSubPartData.strAIRSNumber " & _
-                    " and strSubPart is Not Null and airbranch.apbsubpartdata.active = '1' "
-                End If
-                'If rdbPart61Or.Checked = True Then
-                '    SQLWhereCase1 = " OR "
-                'Else
-                '    SQLWhereCase1 = " AND "
-                'End If
-                If rdbPart61Equal.Checked = True Then
-                    SQLWhereCase2 = " Like "
-                Else
-                    SQLWhereCase2 = " Not Like "
-                End If
-                'If txtPart61Search1.Text <> "" Then
-                '    SQLWhere = SQLWhere & " and (strSubPart " & SQLWhereCase2 & " '%" & Replace(txtPart61Search1.Text, "'", "''") & "%' ) "
-                'End If
-                'If txtPart61Search2.Text <> "" Then
-                '    If txtPart61Search1.Text <> "" Then
-                '        SQLWhere = Mid(SQLWhere, 1, (SQLWhere.Length - 2))
-                '        SQLWhere = SQLWhere & SQLWhereCase1 & "strSubPart " & SQLWhereCase2 & " '%" & Replace(txtPart61Search2.Text, "'", "''") & "%') "
-                '    Else
-                '        SQLWhere = SQLWhere & " and strSubPart " & SQLWhereCase2 & " '%" & Replace(txtPart61Search2.Text, "'", "''") & "%' "
-                '    End If
-                'End If
-                If chbSIP.Checked = True Then
-                    SQLWhere = Mid(SQLWhere, 1, (SQLWhere.Length - 2))
-                    SQLWhere = SQLWhere & " or (substr(strSubPartKey, 13, 1) = '8' )) "
-                Else
-                    SQLWhere = SQLWhere & " and (substr(strSubPartKey, 13, 1) = '8' ) "
-                End If
-            End If
-
-            SQLWhereCase1 = ""
-            SQLWhereCase2 = ""
-
-            If chbPart60Subpart.Checked = True Then
-                SQLSelect = SQLSelect & "case when substr(strSubPartKey, 13, 1) = '9' then strSubPart " & _
-                "End Part60, "
-
-                If SQLFrom.IndexOf("" & DBNameSpace & ".APBSubPartData") <> -1 Then
-                    '  SQLFrom = SQLFrom
-                Else
-                    SQLFrom = SQLFrom & " " & DBNameSpace & ".APBSubPartData, "
-                    SQLWhere = SQLWhere & " and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBSubPartData.strAIRSNumber " & _
-                    " and strSubPart is Not Null and airbranch.apbsubpartdata.active = '1' "
-                End If
-                'If rdbPart60Or.Checked = True Then
-                '    SQLWhereCase1 = " OR "
-                'Else
-                '    SQLWhereCase1 = " AND "
-                'End If
-                If rdbPart60Equal.Checked = True Then
-                    SQLWhereCase2 = " Like "
-                Else
-                    SQLWhereCase2 = " Not Like "
-                End If
-                'If txtPart60Search1.Text <> "" Then
-                '    SQLWhere = SQLWhere & " and (strSubPart " & SQLWhereCase2 & " '%" & Replace(txtPart60Search1.Text, "'", "''") & "%' ) "
-                'End If
-                'If txtPart60Search2.Text <> "" Then
-                '    If txtPart60Search1.Text <> "" Then
-                '        SQLWhere = Mid(SQLWhere, 1, (SQLWhere.Length - 2))
-                '        SQLWhere = SQLWhere & SQLWhereCase1 & "strSubPart " & SQLWhereCase2 & " '%" & Replace(txtPart60Search2.Text, "'", "''") & "%') "
-                '    Else
-                '        SQLWhere = SQLWhere & " and strSubPart " & SQLWhereCase2 & " '%" & Replace(txtPart60Search2.Text, "'", "''") & "%' "
-                '    End If
-                'End If
-                If chbSIP.Checked = True Or chbPart61Subpart.Checked = True Then
-                    SQLWhere = Mid(SQLWhere, 1, (SQLWhere.Length - 2))
-                    SQLWhere = SQLWhere & " or (substr(strSubPartKey, 13, 1) = '9' )) "
-                Else
-                    SQLWhere = SQLWhere & " and (substr(strSubPartKey, 13, 1) = '9' ) "
-                End If
-            End If
-
-            SQLWhereCase1 = ""
-            SQLWhereCase2 = ""
-
-            If chbPart63Subpart.Checked = True Then
-                SQLSelect = SQLSelect & "case when substr(strSubPartKey, 13, 1) = 'M' then strSubPart " & _
-                "End Part63, "
-
-                If SQLFrom.IndexOf("" & DBNameSpace & ".APBSubPartData") <> -1 Then
-                   ' SQLFrom = SQLFrom
-                Else
-                    SQLFrom = SQLFrom & " " & DBNameSpace & ".APBSubPartData, "
-                    SQLWhere = SQLWhere & " and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBSubPartData.strAIRSNumber " & _
-                    " and strSubPart is Not Null and airbranch.apbsubpartdata.active = '1' "
-                End If
-                'If rdbPart63Or.Checked = True Then
-                '    SQLWhereCase1 = " OR "
-                'Else
-                '    SQLWhereCase1 = " AND "
-                'End If
-                If rdbPart63Equal.Checked = True Then
-                    SQLWhereCase2 = " Like "
-                Else
-                    SQLWhereCase2 = " Not Like "
-                End If
-                'If txtPart63Search1.Text <> "" Then
-                '    SQLWhere = SQLWhere & " and (strSubPart " & SQLWhereCase2 & " '%" & Replace(txtPart63Search1.Text, "'", "''") & "%' ) "
-                'End If
-                'If txtPart63Search2.Text <> "" Then
-                '    If txtPart63Search1.Text <> "" Then
-                '        SQLWhere = Mid(SQLWhere, 1, (SQLWhere.Length - 2))
-                '        SQLWhere = SQLWhere & SQLWhereCase1 & "strSubPart " & SQLWhereCase2 & " '%" & Replace(txtPart63Search2.Text, "'", "''") & "%') "
-                '    Else
-                '        SQLWhere = SQLWhere & " and strSubPart " & SQLWhereCase2 & " '%" & Replace(txtPart63Search2.Text, "'", "''") & "%' "
-                '    End If
-                'End If
-                If chbSIP.Checked = True Or chbPart61Subpart.Checked = True Or chbPart60Subpart.Checked = True Then
-                    SQLWhere = Mid(SQLWhere, 1, (SQLWhere.Length - 2))
-                    SQLWhere = SQLWhere & " or (substr(strSubPartKey, 13, 1) = 'M' )) "
-                Else
-                    SQLWhere = SQLWhere & " and (substr(strSubPartKey, 13, 1) = 'M' ) "
-                End If
-            End If
-
-
-
-            SQL = Mid(SQLSelect, 1, (SQLSelect.Length - 2)) & _
-            Mid(SQLFrom, 1, (SQLFrom.Length - 2)) & _
-            SQLWhere & _
-            Mid(SQLOrder, 1, (SQLOrder.Length - 2))
-
-            txtSQLStatement.Text = SQL.ToString()
-
-        Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & ".GenerateSQL")
-        Finally
-
-        End Try
-
-    End Sub
+    'Sub GenerateSQL()
+    '    Try
+    '        Dim SQLSelect As String = ""
+    '        Dim SQLFrom As String = ""
+    '        Dim SQLWhere As String = ""
+    '        Dim SQLWhereCase1 As String = ""
+    '        Dim SQLWhereCase2 As String = ""
+    '        Dim SQLOrder As String = ""
+
+    '        Dim temp As String = ""
+    '        Dim temp2 As String = ""
+    '        Dim temp3 As String = ""
+    '        Dim temp4 As String = ""
+
+    '        If txtFacilityAIRSNumberOrder.Text <> "" Or txtFacilityNameOrder.Text <> "" Or _
+    '        txtFacilityStreet1Order.Text <> "" Or txtFacilityStreet2Order.Text <> "" Or _
+    '        txtFacilityCityOrder.Text <> "" Or txtFacilityZipCodeOrder.Text <> "" Or _
+    '        txtFacilityLongitudeOrder.Text <> "" Or txtFacilityLatitudeOrder.Text <> "" Or _
+    '        txtCountyOrder.Text <> "" Or txtDistrictOrder.Text <> "" Or _
+    '        txtOperationStatusOrder.Text <> "" Or txtClassificationOrder.Text <> "" Or _
+    '        txtSICCodeOrder.Text <> "" Or _
+    '        txtStartUpDateOrder.Text <> "" Or txtShutDownDateOrder.Text <> "" Or _
+    '        txtCMSUniverseOrder.Text <> "" Or txtPlantDescriptionOrder.Text <> "" Or _
+    '        txtAPC0Order.Text <> "" Or txtAPC1Order.Text <> "" Or _
+    '        txtAPC3Order.Text <> "" Or txtAPC4Order.Text <> "" Or _
+    '        txtAPC6Order.Text <> "" Or txtAPC7Order.Text <> "" Or _
+    '        txtAPC8Order.Text <> "" Or txtAPC9Order.Text <> "" Or _
+    '        txtAPCAOrder.Text <> "" Or txtAPCFOrder.Text <> "" Or _
+    '        txtAPCIOrder.Text <> "" Or txtAPCMOrder.Text <> "" Or _
+    '        txtAPCVOrder.Text <> "" Then
+
+    '            If chbAIRSNumber.Checked = True And txtFacilityAIRSNumberOrder.Text <> "0" Then
+    '                temp = temp & "-" & txtFacilityAIRSNumberOrder.Text & "-" & DBNameSpace & ".APBFacilityInformation.strAIRSNumber#"
+    '            End If
+    '            If Me.chbFacilityName.Checked = True And txtFacilityNameOrder.Text <> "0" Then
+    '                temp = temp & "-" & txtFacilityNameOrder.Text & "-strFacilityName#"
+    '            End If
+    '            If Me.chbFacilityStreet1.Checked = True And txtFacilityStreet1Order.Text <> "0" Then
+    '                temp = temp & "-" & txtFacilityStreet1Order.Text & "-strFacilityStreet1#"
+    '            End If
+    '            If Me.chbFacilityStreet2.Checked = True And txtFacilityStreet2Order.Text <> "0" Then
+    '                temp = temp & "-" & txtFacilityStreet2Order.Text & "-strFacilityStreet2#"
+    '            End If
+    '            If Me.chbFacilityCity.Checked = True And txtFacilityCityOrder.Text <> "0" Then
+    '                temp = temp & "-" & txtFacilityCityOrder.Text & "-strFacilityCity#"
+    '            End If
+    '            If Me.chbFacilityZipCode.Checked = True And txtFacilityZipCodeOrder.Text <> "0" Then
+    '                temp = temp & "-" & txtFacilityZipCodeOrder.Text & "-strFacilityZipCode#"
+    '            End If
+    '            If Me.chbFacilityLatitude.Checked = True And txtFacilityLatitudeOrder.Text <> "0" Then
+    '                temp = temp & "-" & txtFacilityLatitudeOrder.Text & "-numFacilityLatitude#"
+    '            End If
+    '            If Me.chbFacilityLongitude.Checked = True And txtFacilityLongitudeOrder.Text <> "0" Then
+    '                temp = temp & "-" & txtFacilityLongitudeOrder.Text & "-numFacilityLongitude#"
+    '            End If
+    '            If Me.chbCounty.Checked = True And txtCountyOrder.Text <> "0" Then
+    '                temp = temp & "-" & txtCountyOrder.Text & "-strCountyName#"
+    '            End If
+    '            If Me.chbDistrict.Checked = True And txtDistrictOrder.Text <> "0" Then
+    '                temp = temp & "-" & txtDistrictOrder.Text & "-strDistrictName#"
+    '            End If
+    '            If Me.chbOperationStatus.Checked = True And txtOperationStatusOrder.Text <> "0" Then
+    '                temp = temp & "-" & txtOperationStatusOrder.Text & "-strOperationalStatus#"
+    '            End If
+    '            If Me.chbClassification.Checked = True And txtClassificationOrder.Text <> "0" Then
+    '                temp = temp & "-" & txtClassificationOrder.Text & "-strClass#"
+    '            End If
+    '            If Me.chbSICCode.Checked = True And txtSICCodeOrder.Text <> "0" Then
+    '                temp = temp & "-" & txtSICCodeOrder.Text & "-strSICCode#"
+    '            End If
+    '            If Me.chbStartUpDate.Checked = True And txtStartUpDateOrder.Text <> "0" Then
+    '                temp = temp & "-" & txtStartUpDateOrder.Text & "-datStartUpDate#"
+    '            End If
+    '            If Me.chbShutDownDate.Checked = True And txtShutDownDateOrder.Text <> "0" Then
+    '                temp = temp & "-" & txtShutDownDateOrder.Text & "-datShutDownDate#"
+    '            End If
+    '            If chbCMSUniverse.Checked = True And txtCMSUniverseOrder.Text <> "0" Then
+    '                temp = temp & "-" & txtCMSUniverseOrder.Text & "-strCMSMember#"
+    '            End If
+    '            If chbPlantDescription.Checked = True And txtPlantDescriptionOrder.Text <> "0" Then
+    '                temp = temp & "-" & txtPlantDescriptionOrder.Text & "-strPlantDescription#"
+    '            End If
+    '            If chbAPC0.Checked = True And txtAPC0Order.Text <> "0" Then
+    '                temp = temp & "-" & txtAPC0Order.Text & "-APC0#"
+    '            End If
+    '            If chbAPC1.Checked = True And txtAPC1Order.Text <> "0" Then
+    '                temp = temp & "-" & txtAPC1Order.Text & "-APC1#"
+    '            End If
+    '            If chbAPC3.Checked = True And txtAPC3Order.Text <> "0" Then
+    '                temp = temp & "-" & txtAPC3Order.Text & "-APC3#"
+    '            End If
+    '            If chbAPC4.Checked = True And txtAPC4Order.Text <> "0" Then
+    '                temp = temp & "-" & txtAPC4Order.Text & "-APC4#"
+    '            End If
+    '            If chbAPC6.Checked = True And txtAPC6Order.Text <> "0" Then
+    '                temp = temp & "-" & txtAPC6Order.Text & "-APC6#"
+    '            End If
+    '            If chbAPC7.Checked = True And txtAPC7Order.Text <> "0" Then
+    '                temp = temp & "-" & txtAPC7Order.Text & "-APC7#"
+    '            End If
+    '            If chbAPC8.Checked = True And txtAPC8Order.Text <> "0" Then
+    '                temp = temp & "-" & txtAPC8Order.Text & "-APC8#"
+    '            End If
+    '            If chbAPC9.Checked = True And txtAPC9Order.Text <> "0" Then
+    '                temp = temp & "-" & txtAPC9Order.Text & "-APC9#"
+    '            End If
+    '            If chbAPCA.Checked = True And txtAPCAOrder.Text <> "0" Then
+    '                temp = temp & "-" & txtAPCAOrder.Text & "-APCA#"
+    '            End If
+    '            If chbAPCF.Checked = True And txtAPCFOrder.Text <> "0" Then
+    '                temp = temp & "-" & txtAPCFOrder.Text & "-APCF#"
+    '            End If
+    '            If chbAPCI.Checked = True And txtAPCIOrder.Text <> "0" Then
+    '                temp = temp & "-" & txtAPCIOrder.Text & "-APCI#"
+    '            End If
+    '            If chbAPCM.Checked = True And txtAPCMOrder.Text <> "0" Then
+    '                temp = temp & "-" & txtAPCMOrder.Text & "-APCM#"
+    '            End If
+    '            If chbAPCV.Checked = True And txtAPCVOrder.Text <> "0" Then
+    '                temp = temp & "-" & txtAPCVOrder.Text & "-APCV#"
+    '            End If
+
+    '            SQLOrder = " Order by "
+
+    '            If temp.IndexOf("1-") <> -1 Then
+    '                temp2 = temp.IndexOf("1-") + 2
+    '                temp3 = Mid(temp, (temp2 + 1)).IndexOf("#")
+    '                temp4 = Mid(temp, (temp2 + 1), temp3)
+    '                SQLOrder = SQLOrder & temp4 & ", "
+    '            End If
+    '            If temp.IndexOf("2-") <> -1 Then
+    '                temp2 = temp.IndexOf("2-") + 2
+    '                temp3 = Mid(temp, (temp2 + 1)).IndexOf("#")
+    '                temp4 = Mid(temp, (temp2 + 1), temp3)
+    '                SQLOrder = SQLOrder & temp4 & ", "
+    '            End If
+    '            If temp.IndexOf("3-") <> -1 Then
+    '                temp2 = temp.IndexOf("3-") + 2
+    '                temp3 = Mid(temp, (temp2 + 1)).IndexOf("#")
+    '                temp4 = Mid(temp, (temp2 + 1), temp3)
+    '                SQLOrder = SQLOrder & temp4 & ", "
+    '            End If
+    '            If temp.IndexOf("4-") <> -1 Then
+    '                temp2 = temp.IndexOf("4-") + 2
+    '                temp3 = Mid(temp, (temp2 + 1)).IndexOf("#")
+    '                temp4 = Mid(temp, (temp2 + 1), temp3)
+    '                SQLOrder = SQLOrder & temp4 & ", "
+    '            End If
+    '            If temp.IndexOf("5-") <> -1 Then
+    '                temp2 = temp.IndexOf("5-") + 2
+    '                temp3 = Mid(temp, (temp2 + 1)).IndexOf("#")
+    '                temp4 = Mid(temp, (temp2 + 1), temp3)
+    '                SQLOrder = SQLOrder & temp4 & ", "
+    '            End If
+    '            If temp.IndexOf("6-") <> -1 Then
+    '                temp2 = temp.IndexOf("6-") + 2
+    '                temp3 = Mid(temp, (temp2 + 1)).IndexOf("#")
+    '                temp4 = Mid(temp, (temp2 + 1), temp3)
+    '                SQLOrder = SQLOrder & temp4 & ", "
+    '            End If
+    '            If temp.IndexOf("7-") <> -1 Then
+    '                temp2 = temp.IndexOf("7-") + 2
+    '                temp3 = Mid(temp, (temp2 + 1)).IndexOf("#")
+    '                temp4 = Mid(temp, (temp2 + 1), temp3)
+    '                SQLOrder = SQLOrder & temp4 & ", "
+    '            End If
+    '            If temp.IndexOf("8-") <> -1 Then
+    '                temp2 = temp.IndexOf("8-") + 2
+    '                temp3 = Mid(temp, (temp2 + 1)).IndexOf("#")
+    '                temp4 = Mid(temp, (temp2 + 1), temp3)
+    '                SQLOrder = SQLOrder & temp4 & ", "
+    '            End If
+    '            If temp.IndexOf("9-") <> -1 Then
+    '                temp2 = temp.IndexOf("9-") + 2
+    '                temp3 = Mid(temp, (temp2 + 1)).IndexOf("#")
+    '                temp4 = Mid(temp, (temp2 + 1), temp3)
+    '                SQLOrder = SQLOrder & temp4 & ", "
+    '            End If
+    '            If temp.IndexOf("10-") <> -1 Then
+    '                temp2 = temp.IndexOf("10-") + 3
+    '                temp3 = Mid(temp, (temp2 + 1)).IndexOf("#")
+    '                temp4 = Mid(temp, (temp2 + 1), temp3)
+    '                SQLOrder = SQLOrder & temp4 & ", "
+    '            End If
+    '            If temp.IndexOf("11-") <> -1 Then
+    '                temp2 = temp.IndexOf("11-") + 3
+    '                temp3 = Mid(temp, (temp2 + 1)).IndexOf("#")
+    '                temp4 = Mid(temp, (temp2 + 1), temp3)
+    '                SQLOrder = SQLOrder & temp4 & ", "
+    '            End If
+    '            If temp.IndexOf("12-") <> -1 Then
+    '                temp2 = temp.IndexOf("12-") + 3
+    '                temp3 = Mid(temp, (temp2 + 1)).IndexOf("#")
+    '                temp4 = Mid(temp, (temp2 + 1), temp3)
+    '                SQLOrder = SQLOrder & temp4 & ", "
+    '            End If
+    '            If temp.IndexOf("13-") <> -1 Then
+    '                temp2 = temp.IndexOf("13-") + 3
+    '                temp3 = Mid(temp, (temp2 + 1)).IndexOf("#")
+    '                temp4 = Mid(temp, (temp2 + 1), temp3)
+    '                SQLOrder = SQLOrder & temp4 & ", "
+    '            End If
+    '            If temp.IndexOf("14-") <> -1 Then
+    '                temp2 = temp.IndexOf("14-") + 3
+    '                temp3 = Mid(temp, (temp2 + 1)).IndexOf("#")
+    '                temp4 = Mid(temp, (temp2 + 1), temp3)
+    '                SQLOrder = SQLOrder & temp4 & ", "
+    '            End If
+    '            If temp.IndexOf("15-") <> -1 Then
+    '                temp2 = temp.IndexOf("15-") + 3
+    '                temp3 = Mid(temp, (temp2 + 1)).IndexOf("#")
+    '                temp4 = Mid(temp, (temp2 + 1), temp3)
+    '                SQLOrder = SQLOrder & temp4 & ", "
+    '            End If
+    '            If temp.IndexOf("16-") <> -1 Then
+    '                temp2 = temp.IndexOf("16-") + 3
+    '                temp3 = Mid(temp, (temp2 + 1)).IndexOf("#")
+    '                temp4 = Mid(temp, (temp2 + 1), temp3)
+    '                SQLOrder = SQLOrder & temp4 & ", "
+    '            End If
+    '            If temp.IndexOf("17-") <> -1 Then
+    '                temp2 = temp.IndexOf("17-") + 3
+    '                temp3 = Mid(temp, (temp2 + 1)).IndexOf("#")
+    '                temp4 = Mid(temp, (temp2 + 1), temp3)
+    '                SQLOrder = SQLOrder & temp4 & ", "
+    '            End If
+    '            If temp.IndexOf("18-") <> -1 Then
+    '                temp2 = temp.IndexOf("18-") + 3
+    '                temp3 = Mid(temp, (temp2 + 1)).IndexOf("#")
+    '                temp4 = Mid(temp, (temp2 + 1), temp3)
+    '                SQLOrder = SQLOrder & temp4 & ", "
+    '            End If
+    '        Else
+    '            SQLOrder = ""
+    '        End If
+
+    '        If SQLOrder = " Order by " Then
+    '            SQLOrder = ""
+    '        Else
+    '          '  SQLOrder = SQLOrder
+    '        End If
+
+    '        If chbAIRSNumber.Checked = True Then
+    '            SQLSelect = "Select substr(" & DBNameSpace & ".APBFacilityInformation.strAIRSNumber, 5) as strAIRSNumber, "
+    '            SQLFrom = " From " & DBNameSpace & ".APBMasterAIRS, " & DBNameSpace & ".APBFacilityInformation, "
+    '            SQLWhere = " Where " & DBNameSpace & ".APBMasterAIRS.strAIRSNumber = " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber "
+    '            If rdbAIRSNumberOr.Checked = True Then
+    '                SQLWhereCase1 = " OR "
+    '            Else
+    '                SQLWhereCase1 = " AND "
+    '            End If
+    '            If rdbAIRSNumberEqual.Checked = True Then
+    '                SQLWhereCase2 = " Like "
+    '            Else
+    '                SQLWhereCase2 = " Not Like "
+    '            End If
+
+    '            If txtAIRSNumberSearch1.Text <> "" Then
+    '                SQLWhere = SQLWhere & " and (" & DBNameSpace & ".APBFacilityInformation.strAIRSNumber " & SQLWhereCase2 & " '%" & Replace(txtAIRSNumberSearch1.Text, "'", "''") & "%') "
+    '            End If
+    '            If txtAIRSNumberSearch2.Text <> "" Then
+    '                If txtAIRSNumberSearch1.Text <> "" Then
+    '                    SQLWhere = Mid(SQLWhere, 1, (SQLWhere.Length - 2))
+    '                    SQLWhere = SQLWhere & SQLWhereCase1 & " " & DBNameSpace & ".APBFacilityInformation.strAIRSnumber " & SQLWhereCase2 & " '%" & Replace(txtAIRSNumberSearch2.Text, "'", "''") & "%') "
+    '                Else
+    '                    SQLWhere = SQLWhere & " and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber " & SQLWhereCase2 & " '%" & Replace(txtAIRSNumberSearch2.Text, "'", "''") & "%' "
+    '                End If
+    '            End If
+    '            If SQLOrder = "" Then
+    '                SQLOrder = " Order by " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber, "
+    '            End If
+    '        End If
+
+    '        SQLWhereCase1 = ""
+    '        SQLWhereCase2 = ""
+
+    '        If chbFacilityName.Checked = True Then
+    '            SQLSelect = SQLSelect & " strFacilityName, "
+
+    '            If SQLFrom.IndexOf("" & DBNameSpace & ".APBFacilityInformation") <> -1 Then
+    '    '            SQLFrom = SQLFrom
+    '            Else
+    '                SQLFrom = SQLFrom & " " & DBNameSpace & ".APBFacilityInformation, "
+    '            End If
+
+    '            If rdbFacilityNameOr.Checked = True Then
+    '                SQLWhereCase1 = " OR "
+    '            Else
+    '                SQLWhereCase1 = " AND "
+    '            End If
+    '            If rdbFacilityNameEqual.Checked = True Then
+    '                SQLWhereCase2 = " Like "
+    '            Else
+    '                SQLWhereCase2 = " Not Like "
+    '            End If
+
+    '            If txtFacilityNameSearch1.Text <> "" Then
+    '                SQLWhere = SQLWhere & " and (UPPER(strFacilityname) " & SQLWhereCase2 & " Upper('%" & Replace(txtFacilityNameSearch1.Text, "'", "''") & "%')) "
+    '            End If
+    '            If txtFacilityNameSearch2.Text <> "" Then
+    '                If txtFacilityNameSearch1.Text <> "" Then
+    '                    SQLWhere = Mid(SQLWhere, 1, (SQLWhere.Length - 2))
+    '                    SQLWhere = SQLWhere & SQLWhereCase1 & " UPPER(strFacilityname) " & SQLWhereCase2 & " UPPER('%" & Replace(txtFacilityNameSearch2.Text, "'", "''") & "%')) "
+    '                Else
+    '                    SQLWhere = SQLWhere & " and Upper(strFacilityname) " & SQLWhereCase2 & " Upper('%" & Replace(txtFacilityNameSearch2.Text, "'", "''") & "%') "
+    '                End If
+
+    '            End If
+    '            If SQLOrder = " Order by " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber, " Then
+    '                SQLOrder = SQLOrder & " strFacilityName, "
+    '            End If
+    '        End If
+
+    '        SQLWhereCase1 = ""
+    '        SQLWhereCase2 = ""
+
+    '        If chbFacilityStreet1.Checked = True Then
+    '            SQLSelect = SQLSelect & " strFacilityStreet1, "
+
+    '            If SQLFrom.IndexOf("" & DBNameSpace & ".APBFacilityInformation") <> -1 Then
+    '                '         SQLFrom = SQLFrom
+    '            Else
+    '                SQLFrom = SQLFrom & " " & DBNameSpace & ".APBFacilityInformation, "
+    '            End If
+
+    '            If rdbFacilityStreet1Or.Checked = True Then
+    '                SQLWhereCase1 = " OR "
+    '            Else
+    '                SQLWhereCase1 = " AND "
+    '            End If
+    '            If rdbFacilityStreet1Equal.Checked = True Then
+    '                SQLWhereCase2 = " Like "
+    '            Else
+    '                SQLWhereCase2 = " Not Like "
+    '            End If
+
+    '            If txtFacilityStreet1Search1.Text <> "" Then
+    '                SQLWhere = SQLWhere & " and (UPPER(strFacilityStreet1) " & SQLWhereCase2 & " Upper('%" & Replace(txtFacilityStreet1Search1.Text, "'", "''") & "%')) "
+    '            End If
+    '            If txtFacilityStreet1Search2.Text <> "" Then
+    '                If txtFacilityStreet1Search1.Text <> "" Then
+    '                    SQLWhere = Mid(SQLWhere, 1, (SQLWhere.Length - 2))
+    '                    SQLWhere = SQLWhere & SQLWhereCase1 & " UPPER(strFacilityStreet1) " & SQLWhereCase2 & " UPPER('%" & Replace(txtFacilityStreet1Search2.Text, "'", "''") & "%')) "
+    '                Else
+    '                    SQLWhere = SQLWhere & " and Upper(strFacilityStreet1) " & SQLWhereCase2 & " Upper('%" & Replace(txtFacilityStreet1Search2.Text, "'", "''") & "%') "
+    '                End If
+    '            End If
+    '        End If
+
+    '        SQLWhereCase1 = ""
+    '        SQLWhereCase2 = ""
+
+    '        If chbFacilityStreet2.Checked = True Then
+    '            SQLSelect = SQLSelect & " case  " & _
+    '            "when strFacilityStreet2 is Null then ' ' " & _
+    '            "when strFacilityStreet2 = 'N/A' then ' ' " & _
+    '            "when strFacilityStreet2 is Not Null then strFacilityStreet2 " & _
+    '            "end strFacilityStreet2, "
+
+    '            If SQLFrom.IndexOf("" & DBNameSpace & ".APBFacilityInformation") <> -1 Then
+    '                '       SQLFrom = SQLFrom
+    '            Else
+    '                SQLFrom = SQLFrom & " " & DBNameSpace & ".APBFacilityInformation, "
+    '            End If
+
+    '            If rdbFacilityStreet2Or.Checked = True Then
+    '                SQLWhereCase1 = " OR "
+    '            Else
+    '                SQLWhereCase1 = " AND "
+    '            End If
+    '            If rdbFacilityStreet2Equal.Checked = True Then
+    '                SQLWhereCase2 = " Like "
+    '            Else
+    '                SQLWhereCase2 = " Not Like "
+    '            End If
+
+    '            If txtFacilityStreet2Search1.Text <> "" Then
+    '                SQLWhere = SQLWhere & " and (UPPER(strFacilityStreet2) " & SQLWhereCase2 & " Upper('%" & Replace(txtFacilityStreet2Search1.Text, "'", "''") & "%')) "
+    '            End If
+    '            If txtFacilityStreet2Search2.Text <> "" Then
+    '                If txtFacilityStreet1Search1.Text <> "" Then
+    '                    SQLWhere = Mid(SQLWhere, 1, (SQLWhere.Length - 2))
+    '                    SQLWhere = SQLWhere & SQLWhereCase1 & " UPPER(strFacilityStreet2) " & SQLWhereCase2 & " UPPER('%" & Replace(txtFacilityStreet2Search2.Text, "'", "''") & "%')) "
+    '                Else
+    '                    SQLWhere = SQLWhere & " and Upper(strFacilityStreet2) " & SQLWhereCase2 & " Upper('%" & Replace(txtFacilityStreet2Search2.Text, "'", "''") & "%') "
+    '                End If
+    '            End If
+    '        End If
+
+    '        SQLWhereCase1 = ""
+    '        SQLWhereCase2 = ""
+
+    '        If chbFacilityCity.Checked = True Then
+    '            SQLSelect = SQLSelect & " strFacilityCity, "
+
+    '            If SQLFrom.IndexOf("" & DBNameSpace & ".APBFacilityInformation") <> -1 Then
+    '                '     SQLFrom = SQLFrom
+    '            Else
+    '                SQLFrom = SQLFrom & " " & DBNameSpace & ".APBFacilityInformation, "
+    '            End If
+
+    '            If rdbFacilityCityOr.Checked = True Then
+    '                SQLWhereCase1 = " OR "
+    '            Else
+    '                SQLWhereCase1 = " AND "
+    '            End If
+    '            If rdbFacilityCityEqual.Checked = True Then
+    '                SQLWhereCase2 = " Like "
+    '            Else
+    '                SQLWhereCase2 = " Not Like "
+    '            End If
+
+    '            If txtFacilityCitySearch1.Text <> "" Then
+    '                SQLWhere = SQLWhere & " and (UPPER(strFacilityCity) " & SQLWhereCase2 & " Upper('%" & Replace(txtFacilityCitySearch1.Text, "'", "''") & "%')) "
+    '            End If
+    '            If txtFacilityCitySearch2.Text <> "" Then
+    '                If txtFacilityCitySearch1.Text <> "" Then
+    '                    SQLWhere = Mid(SQLWhere, 1, (SQLWhere.Length - 2))
+    '                    SQLWhere = SQLWhere & SQLWhereCase1 & " UPPER(strFacilitycity) " & SQLWhereCase2 & " UPPER('%" & Replace(txtFacilityCitySearch2.Text, "'", "''") & "%')) "
+    '                Else
+    '                    SQLWhere = SQLWhere & " and Upper(strFacilitycity) " & SQLWhereCase2 & " Upper('%" & Replace(txtFacilityCitySearch2.Text, "'", "''") & "%') "
+    '                End If
+    '            End If
+    '        End If
+
+    '        SQLWhereCase1 = ""
+    '        SQLWhereCase2 = ""
+
+    '        If chbFacilityZipCode.Checked = True Then
+    '            SQLSelect = SQLSelect & " case  " & _
+    '            "when strFacilityZipCode is Null then ' ' " & _
+    '            "when strFacilityZipCode = '00000' then ' ' " & _
+    '            "when strFacilityZipCode is Not Null then strFacilityZipCode " & _
+    '            "end strFacilityZipCode, "
+
+    '            If SQLFrom.IndexOf("" & DBNameSpace & ".APBFacilityInformation") <> -1 Then
+    '                ' SQLFrom = SQLFrom
+    '            Else
+    '                SQLFrom = SQLFrom & " " & DBNameSpace & ".APBFacilityInformation, "
+    '            End If
+
+    '            If rdbFacilityZipCodeOr.Checked = True Then
+    '                SQLWhereCase1 = " OR "
+    '            Else
+    '                SQLWhereCase1 = " AND "
+    '            End If
+    '            If rdbFacilityZipCodeEqual.Checked = True Then
+    '                SQLWhereCase2 = " Like "
+    '            Else
+    '                SQLWhereCase2 = " Not Like "
+    '            End If
+
+    '            If txtFacilityZipCodeSearch1.Text <> "" Then
+    '                SQLWhere = SQLWhere & " and (UPPER(strFacilityZipCode) " & SQLWhereCase2 & " Upper('%" & Replace(txtFacilityZipCodeSearch1.Text, "'", "''") & "%')) "
+    '            End If
+    '            If txtFacilityZipCodeSearch2.Text <> "" Then
+    '                If txtFacilityZipCodeSearch1.Text <> "" Then
+    '                    SQLWhere = Mid(SQLWhere, 1, (SQLWhere.Length - 2))
+    '                    SQLWhere = SQLWhere & SQLWhereCase1 & " UPPER(strFacilityZipCode) " & SQLWhereCase2 & " UPPER('%" & Replace(txtFacilityZipCodeSearch2.Text, "'", "''") & "%')) "
+    '                Else
+    '                    SQLWhere = SQLWhere & " and Upper(strFacilityZipCode) " & SQLWhereCase2 & " Upper('%" & Replace(txtFacilityZipCodeSearch2.Text, "'", "''") & "%') "
+    '                End If
+    '            End If
+    '        End If
+
+    '        SQLWhereCase1 = ""
+    '        SQLWhereCase2 = ""
+
+    '        If chbFacilityLatitude.Checked = True Then
+    '            SQLSelect = SQLSelect & " numFacilityLatitude, "
+
+    '            If SQLFrom.IndexOf("" & DBNameSpace & ".APBFacilityInformation") <> -1 Then
+    '              '  SQLFrom = SQLFrom
+    '            Else
+    '                SQLFrom = SQLFrom & " " & DBNameSpace & ".APBFacilityInformation, "
+    '            End If
+
+    '            If txtFacilityLatitudeSearch1.Text <> "" Then
+    '                If txtFacilityLatitudeSearch2.Text <> "" Then
+    '                    SQLWhere = SQLWhere & " and numFacilityLatitude between to_number('" & Replace(txtFacilityLatitudeSearch1.Text, ".", "") & "') and to_Number('" & Replace(txtFacilityLatitudeSearch2.Text, ".", "") & "') "
+    '                Else
+    '                    SQLWhere = SQLWhere & " and numFacilityLatitude = to_number('" & Replace(txtFacilityLatitudeSearch1.Text, ".", "") & "') "
+    '                End If
+    '            Else
+    '                If txtFacilityLatitudeSearch2.Text <> "" Then
+    '                    SQLWhere = SQLWhere & " and numFacilityLatitude = to_number('" & Replace(txtFacilityLatitudeSearch2.Text, ".", "") & "') "
+    '                End If
+    '            End If
+    '        End If
+
+    '        SQLWhereCase1 = ""
+    '        SQLWhereCase2 = ""
+
+    '        If chbFacilityLongitude.Checked = True Then
+    '            SQLSelect = SQLSelect & " numFacilityLongitude, "
+
+    '            If SQLFrom.IndexOf("" & DBNameSpace & ".APBFacilityInformation") <> -1 Then
+    '                ' SQLFrom = SQLFrom
+    '            Else
+    '                SQLFrom = SQLFrom & " " & DBNameSpace & ".APBFacilityInformation, "
+    '            End If
+
+    '            If txtFacilityLongitudeSearch1.Text <> "" Then
+    '                If txtFacilityLongitudeSearch2.Text <> "" Then
+    '                    SQLWhere = SQLWhere & " and numFacilityLongitude between to_number('" & Replace(txtFacilityLongitudeSearch1.Text, ".", "") & "') and to_Number('" & Replace(txtFacilityLongitudeSearch2.Text, ".", "") & "') "
+    '                Else
+    '                    SQLWhere = SQLWhere & " and numFacilityLongitude = to_number('" & Replace(txtFacilityLongitudeSearch1.Text, ".", "") & "') "
+    '                End If
+    '            Else
+    '                If txtFacilityLongitudeSearch2.Text <> "" Then
+    '                    SQLWhere = SQLWhere & " and numFacilityLongitude = to_number('" & Replace(txtFacilityLongitudeSearch2.Text, ".", "") & "') "
+    '                End If
+    '            End If
+    '        End If
+
+    '        SQLWhereCase1 = ""
+    '        SQLWhereCase2 = ""
+
+    '        If chbCounty.Checked = True Then
+    '            SQLSelect = SQLSelect & " strCountyName, "
+
+    '            If SQLFrom.IndexOf("" & DBNameSpace & ".LookUpCountyInformation") <> -1 Then
+    '                'SQLFrom = SQLFrom
+    '            Else
+    '                SQLFrom = SQLFrom & " " & DBNameSpace & ".LookUpCountyInformation, "
+    '                SQLWhere = SQLWhere & " and substr(" & DBNameSpace & ".APBFacilityInformation.strAIRSNumber, 5, 3) = " & DBNameSpace & ".LookUpCountyInformation.strCountyCode "
+    '            End If
+
+    '            If rdbCountyOr.Checked = True Then
+    '                SQLWhereCase1 = " OR "
+    '            Else
+    '                SQLWhereCase1 = " AND "
+    '            End If
+    '            If rdbCountyEqual.Checked = True Then
+    '                SQLWhereCase2 = " = "
+    '            Else
+    '                SQLWhereCase2 = " <> "
+    '            End If
+
+    '            If cboCountySearch1.SelectedIndex <> -1 And cboCountySearch1.SelectedIndex <> 0 Then
+    '                SQLWhere = SQLWhere & " and (substr(" & DBNameSpace & ".APBFacilityInformation.strAIRSNumber, 5, 3) " & SQLWhereCase2 & " '" & cboCountySearch1.SelectedValue & "') "
+    '            End If
+    '            If cboCountySearch2.SelectedIndex <> -1 And cboCountySearch2.SelectedIndex <> 0 Then
+    '                If cboCountySearch1.SelectedIndex <> -1 And cboCountySearch1.SelectedIndex <> 0 Then
+    '                    SQLWhere = Mid(SQLWhere, 1, (SQLWhere.Length - 2))
+    '                    SQLWhere = SQLWhere & SQLWhereCase1 & " substr(" & DBNameSpace & ".APBFacilityInformation.strAIRSNumber, 5, 3) " & SQLWhereCase2 & " '" & cboCountySearch2.SelectedValue & "') "
+    '                Else
+    '                    SQLWhere = SQLWhere & " and (substr(" & DBNameSpace & ".APBFacilityInformation.strAIRSNumber, 5, 3) " & SQLWhereCase2 & " '" & cboCountySearch2.SelectedValue & "') "
+    '                End If
+    '            End If
+    '        End If
+
+    '        SQLWhereCase1 = ""
+    '        SQLWhereCase2 = ""
+
+    '        If chbDistrict.Checked = True Then
+    '            SQLSelect = SQLSelect & " strDistrictName, "
+
+    '            If SQLFrom.IndexOf("" & DBNameSpace & ".LookUPDistricts") <> -1 Then
+    '                ' SQLFrom = SQLFrom
+    '            Else
+    '                SQLFrom = SQLFrom & " " & DBNameSpace & ".LookUPDistricts, " & DBNameSpace & ".LookUpDistrictInformation, "
+    '                SQLWhere = SQLWhere & "and " & DBNameSpace & ".LookUpDistrictInformation.strDistrictCode = " & DBNameSpace & ".LookUPDistricts.strDistrictCode " & _
+    '                        "and " & DBNameSpace & ".LookUpDistrictInformation.strDistrictCounty = substr(" & DBNameSpace & ".APBFacilityInformation.strAIRSNumber, 5, 3) "
+    '            End If
+
+    '            If rdbDistrictOr.Checked = True Then
+    '                SQLWhereCase1 = " OR "
+    '            Else
+    '                SQLWhereCase1 = " AND "
+    '            End If
+    '            If rdbDistrictEqual.Checked = True Then
+    '                SQLWhereCase2 = " = "
+    '            Else
+    '                SQLWhereCase2 = " <> "
+    '            End If
+
+    '            If cboDistrictSearch1.SelectedIndex <> -1 And cboDistrictSearch1.SelectedIndex <> 0 Then
+    '                SQLWhere = SQLWhere & " and (" & DBNameSpace & ".LookUpDistrictInformation.strDistrictCode " & SQLWhereCase2 & " '" & cboDistrictSearch1.SelectedValue & "') "
+    '            End If
+    '            If cboDistrictSearch2.SelectedIndex <> -1 And cboDistrictSearch2.SelectedIndex <> 0 Then
+    '                If cboDistrictSearch1.SelectedIndex <> -1 And cboDistrictSearch1.SelectedIndex <> 0 Then
+    '                    SQLWhere = Mid(SQLWhere, 1, (SQLWhere.Length - 2))
+    '                    SQLWhere = SQLWhere & SQLWhereCase1 & " " & DBNameSpace & ".LookUpDistrictInformation.strDistrictCode " & SQLWhereCase2 & " '" & cboDistrictSearch2.SelectedValue & "') "
+    '                Else
+    '                    SQLWhere = SQLWhere & " and " & DBNameSpace & ".LookUpDistrictInformation.strDistrictCode " & SQLWhereCase2 & " '" & cboDistrictSearch2.SelectedValue & "') "
+    '                End If
+    '            End If
+    '        End If
+
+    '        SQLWhereCase1 = ""
+    '        SQLWhereCase2 = ""
+
+    '        If chbOperationStatus.Checked = True Then
+    '            SQLSelect = SQLSelect & " strOperationalStatus, "
+
+    '            If SQLFrom.IndexOf("" & DBNameSpace & ".APBHeaderData") <> -1 Then
+    '                '  SQLFrom = SQLFrom
+    '            Else
+    '                SQLFrom = SQLFrom & " " & DBNameSpace & ".APBHeaderData, "
+    '                SQLWhere = SQLWhere & " and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber "
+    '            End If
+
+    '            If rdbOperationalStatusOr.Checked = True Then
+    '                SQLWhereCase1 = " OR "
+    '            Else
+    '                SQLWhereCase1 = " AND "
+    '            End If
+    '            If rdbOperationStatusEqual.Checked = True Then
+    '                SQLWhereCase2 = " = "
+    '            Else
+    '                SQLWhereCase2 = " <> "
+    '            End If
+
+    '            If cboOperationStatusSearch1.Text <> " " And cboOperationStatusSearch1.Items.Contains(cboOperationStatusSearch1.Text) Then
+    '                SQLWhere = SQLWhere & " and (strOperationalStatus " & SQLWhereCase2 & " '" & Mid(cboOperationStatusSearch1.Text, 1, 1) & "') "
+    '            End If
+    '            If cboOperationStatusSearch2.Text <> " " And cboOperationStatusSearch2.Items.Contains(cboOperationStatusSearch2.Text) Then
+    '                If cboOperationStatusSearch1.Text <> " " And cboOperationStatusSearch1.Items.Contains(cboOperationStatusSearch1.Text) Then
+    '                    SQLWhere = Mid(SQLWhere, 1, (SQLWhere.Length - 2))
+    '                    SQLWhere = SQLWhere & SQLWhereCase1 & " strOperationalStatus " & SQLWhereCase2 & " '" & Mid(cboOperationStatusSearch2.Text, 1, 1) & "') "
+    '                Else
+    '                    SQLWhere = SQLWhere & " and strOperationalStatus " & SQLWhereCase2 & " '" & Mid(cboOperationStatusSearch2.Text, 1, 1) & "' "
+    '                End If
+    '            End If
+    '        End If
+
+    '        SQLWhereCase1 = ""
+    '        SQLWhereCase2 = ""
+
+    '        If chbClassification.Checked = True Then
+    '            SQLSelect = SQLSelect & " strClass, "
+
+    '            If SQLFrom.IndexOf("" & DBNameSpace & ".APBHeaderData") <> -1 Then
+    '                ' SQLFrom = SQLFrom
+    '            Else
+    '                SQLFrom = SQLFrom & " " & DBNameSpace & ".APBHeaderData, "
+    '                SQLWhere = SQLWhere & " and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber "
+    '            End If
+
+    '            If rdbClassificationOr.Checked = True Then
+    '                SQLWhereCase1 = " OR "
+    '            Else
+    '                SQLWhereCase1 = " AND "
+    '            End If
+    '            If rdbClassificationEqual.Checked = True Then
+    '                SQLWhereCase2 = " = "
+    '            Else
+    '                SQLWhereCase2 = " <> "
+    '            End If
+
+    '            If cboClassificationSearch1.Text <> " " And cboClassificationSearch1.Items.Contains(cboClassificationSearch1.Text) Then
+    '                SQLWhere = SQLWhere & " and (strClass " & SQLWhereCase2 & " '" & cboClassificationSearch1.Text & "') "
+    '            End If
+    '            If cboClassificationSearch2.Text <> " " And cboClassificationSearch2.Items.Contains(cboClassificationSearch2.Text) Then
+    '                If cboClassificationSearch1.Text <> " " And cboClassificationSearch1.Items.Contains(cboClassificationSearch1.Text) Then
+    '                    SQLWhere = Mid(SQLWhere, 1, (SQLWhere.Length - 2))
+    '                    SQLWhere = SQLWhere & SQLWhereCase1 & " strClass " & SQLWhereCase2 & " '" & cboClassificationSearch2.Text & "') "
+    '                Else
+    '                    SQLWhere = SQLWhere & " and strClass " & SQLWhereCase2 & " '" & cboClassificationSearch2.Text & "' "
+    '                End If
+    '            End If
+    '        End If
+
+    '        SQLWhereCase1 = ""
+    '        SQLWhereCase2 = ""
+
+    '        If chbSICCode.Checked = True Then
+    '            SQLSelect = SQLSelect & " strSICCode, "
+
+    '            If SQLFrom.IndexOf("" & DBNameSpace & ".APBHeaderData") <> -1 Then
+    '                '      SQLFrom = SQLFrom
+    '            Else
+    '                SQLFrom = SQLFrom & " " & DBNameSpace & ".APBHeaderData, "
+    '                SQLWhere = SQLWhere & " and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber "
+    '            End If
+
+    '            If rdbSICCodeOr.Checked = True Then
+    '                SQLWhereCase1 = " OR "
+    '            Else
+    '                SQLWhereCase1 = " AND "
+    '            End If
+    '            If rdbSICCodeEqual.Checked = True Then
+    '                SQLWhereCase2 = " Like "
+    '            Else
+    '                SQLWhereCase2 = " Not Like "
+    '            End If
+
+    '            If txtSICCodeSearch1.Text <> "" Then
+    '                SQLWhere = SQLWhere & " and (UPPER(strSICCode) " & SQLWhereCase2 & " Upper('" & Replace(txtSICCodeSearch1.Text, "'", "''") & "%')) "
+    '            End If
+    '            If txtSICCodeSearch2.Text <> "" Then
+    '                If txtFacilityCitySearch1.Text <> "" Then
+    '                    SQLWhere = Mid(SQLWhere, 1, (SQLWhere.Length - 2))
+    '                    SQLWhere = SQLWhere & SQLWhereCase1 & " UPPER(strSICCode) " & SQLWhereCase2 & " UPPER('" & Replace(txtSICCodeSearch2.Text, "'", "''") & "%')) "
+    '                Else
+    '                    SQLWhere = SQLWhere & " and Upper(strSICCode) " & SQLWhereCase2 & " Upper('" & Replace(txtSICCodeSearch2.Text, "'", "''") & "%') "
+    '                End If
+    '            End If
+    '        End If
+
+    '        SQLWhereCase1 = ""
+    '        SQLWhereCase2 = ""
+
+    '        If chbStartUpDate.Checked = True Then
+    '            SQLSelect = SQLSelect & " case  " & _
+    '            "when datStartUpDate is Null then ' ' " & _
+    '            "when datStartUpDate is Not Null then to_char(datStartUpDate, 'RRRR-MM-dd') " & _
+    '            "end datStartUpDate, "
+
+    '            If SQLFrom.IndexOf("" & DBNameSpace & ".APBHeaderData") <> -1 Then
+    '                '      SQLFrom = SQLFrom
+    '            Else
+    '                SQLFrom = SQLFrom & " " & DBNameSpace & ".APBHeaderData, "
+    '                SQLWhere = SQLWhere & " and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber "
+    '            End If
+
+    '            'If rdbStartUpDateOr.Checked = True Then
+    '            '    SQLWhereCase1 = " OR "
+    '            'End If
+    '            'If rdbStartUpDateAnd.Checked = True Then
+    '            '    SQLWhereCase1 = " AND "
+    '            'End If
+    '            If rdbStartUpDateBetween.Checked = True Then
+    '                SQLWhereCase1 = " Between "
+    '            End If
+
+
+
+    '            Select Case SQLWhereCase1
+    '                Case " Between "
+    '                    If DTPStartUpDateSearch1.Checked = True Then
+    '                        SQLWhere = SQLWhere & " and (datStartUpDate " & SQLWhereCase1 & " '" & DTPStartUpDateSearch1.Text & "' and '" & DTPStartUpDateSearch2.Text & "' ) "
+    '                    End If
+    '                Case Else
+    '                    If DTPStartUpDateSearch1.Checked = True Then
+    '                        SQLWhere = SQLWhere & " and (datStartUpDate " & SQLWhereCase2 & " '" & DTPStartUpDateSearch1.Text & "') "
+    '                    End If
+
+    '                    If DTPStartUpDateSearch2.Checked = True Then
+    '                        If DTPStartUpDateSearch1.Checked = True Then
+    '                            SQLWhere = Mid(SQLWhere, 1, (SQLWhere.Length - 2))
+
+    '                            SQLWhere = SQLWhere & SQLWhereCase1 & " datStartUpDate " & SQLWhereCase2 & " '" & DTPStartUpDateSearch2.Text & "') "
+    '                        Else
+    '                            SQLWhere = SQLWhere & " and datStartUpDate " & SQLWhereCase2 & " '" & DTPStartUpDateSearch2.Text & "') "
+    '                        End If
+    '                    End If
+    '            End Select
+    '        End If
+
+    '        SQLWhereCase1 = ""
+    '        SQLWhereCase2 = ""
+
+    '        If chbShutDownDate.Checked = True Then
+    '            SQLSelect = SQLSelect & " case  " & _
+    '            "when datShutDownDate is Null then ' ' " & _
+    '            "when datShutDownDate is Not Null then to_char(datShutDownDate, 'RRRR-MM-dd') " & _
+    '            "end datShutDownDate, "
+
+    '            If SQLFrom.IndexOf("" & DBNameSpace & ".APBHeaderData") <> -1 Then
+    '                '       SQLFrom = SQLFrom
+    '            Else
+    '                SQLFrom = SQLFrom & " " & DBNameSpace & ".APBHeaderData, "
+    '                SQLWhere = SQLWhere & " and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber "
+    '            End If
+
+    '            'If rdbShutDownDateOr.Checked = True Then
+    '            '    SQLWhereCase1 = " OR "
+    '            'End If
+    '            'If rdbShutDownDateAnd.Checked = True Then
+    '            '    SQLWhereCase1 = " AND "
+    '            'End If
+    '            If rdbShutDownDateBetween.Checked = True Then
+    '                SQLWhereCase1 = " Between "
+    '            End If
+
+    '            'If rdbShutDownDateEqual.Checked = True Then
+    '            '    SQLWhereCase2 = " = "
+    '            'Else
+    '            '    SQLWhereCase2 = " <> "
+    '            'End If
+
+    '            Select Case SQLWhereCase1
+    '                Case " Between "
+    '                    If DTPShutDownDateSearch1.Checked = True Then
+    '                        SQLWhere = SQLWhere & " and (datShutDownDate " & SQLWhereCase1 & " '" & DTPShutDownDateSearch1.Text & "' and '" & DTPStartUpDateSearch2.Text & "' ) "
+    '                    End If
+    '                Case Else
+    '                    If DTPShutDownDateSearch1.Checked = True Then
+    '                        SQLWhere = SQLWhere & " and (datShutDownDate " & SQLWhereCase2 & " '" & DTPShutDownDateSearch1.Text & "') "
+    '                    End If
+
+    '                    If DTPShutDownDateSearch2.Checked = True Then
+    '                        If DTPShutDownDateSearch1.Checked = True Then
+    '                            SQLWhere = Mid(SQLWhere, 1, (SQLWhere.Length - 2))
+
+    '                            SQLWhere = SQLWhere & SQLWhereCase1 & " datShutDownDate " & SQLWhereCase2 & " '" & DTPShutDownDateSearch2.Text & "') "
+    '                        Else
+    '                            SQLWhere = SQLWhere & " and datShutDownDate " & SQLWhereCase2 & " '" & DTPShutDownDateSearch2.Text & "') "
+    '                        End If
+    '                    End If
+    '            End Select
+    '        End If
+
+    '        SQLWhereCase1 = ""
+    '        SQLWhereCase2 = ""
+
+    '        If chbCMSUniverse.Checked = True Then
+    '            SQLSelect = SQLSelect & " strCMSMember, "
+
+    '            If SQLFrom.IndexOf("" & DBNameSpace & ".APBSupplamentalData") <> -1 Then
+    '                '      SQLFrom = SQLFrom
+    '            Else
+    '                SQLFrom = SQLFrom & " " & DBNameSpace & ".APBSupplamentalData, "
+    '                SQLWhere = SQLWhere & " and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBSupplamentalData.strAIRSNumber "
+    '            End If
+
+    '            If rdbCMSUniverseOR.Checked = True Then
+    '                SQLWhereCase1 = " OR "
+    '            Else
+    '                SQLWhereCase1 = " AND "
+    '            End If
+    '            If rdbCMSUniverseEqual.Checked = True Then
+    '                SQLWhereCase2 = " Like "
+    '            Else
+    '                SQLWhereCase2 = " Not Like "
+    '            End If
+
+    '            If cboCMSUniverseSearch1.Text <> " " And cboCMSUniverseSearch1.Items.Contains(cboCMSUniverseSearch1.Text) Then
+    '                SQLWhere = SQLWhere & " and (strCMSMember " & SQLWhereCase2 & " '" & cboCMSUniverseSearch1.Text & "') "
+    '            End If
+    '            If cboCMSUniverseSearch2.Text <> " " And cboCMSUniverseSearch2.Items.Contains(cboCMSUniverseSearch2.Text) Then
+    '                If cboCMSUniverseSearch1.Text <> " " And cboCMSUniverseSearch1.Items.Contains(cboCMSUniverseSearch1.Text) Then
+    '                    SQLWhere = Mid(SQLWhere, 1, (SQLWhere.Length - 2))
+    '                    SQLWhere = SQLWhere & SQLWhereCase1 & " strCMSMember " & SQLWhereCase2 & " '" & cboCMSUniverseSearch2.Text & "') "
+    '                Else
+    '                    SQLWhere = SQLWhere & " and strCMSMember " & SQLWhereCase2 & " '" & cboCMSUniverseSearch2.Text & "' "
+    '                End If
+    '            End If
+    '        End If
+
+    '        SQLWhereCase1 = ""
+    '        SQLWhereCase2 = ""
+
+    '        If chbPlantDescription.Checked = True Then
+    '            SQLSelect = SQLSelect & " case  " & _
+    '            "when strPlantDescription is Null then ' ' " & _
+    '            "when strPlantDescription ='N/A' then ' ' " & _
+    '            "when strPlantDescription is Not Null then strPlantDescription " & _
+    '            "end strPlantDescription, "
+
+    '            If SQLFrom.IndexOf("" & DBNameSpace & ".APBHeaderData") <> -1 Then
+    '                '        SQLFrom = SQLFrom
+    '            Else
+    '                SQLFrom = SQLFrom & " " & DBNameSpace & ".APBHeaderData, "
+    '                SQLWhere = SQLWhere & " and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber "
+    '            End If
+
+    '            If rdbPlantDescriptionOR.Checked = True Then
+    '                SQLWhereCase1 = " OR "
+    '            Else
+    '                SQLWhereCase1 = " AND "
+    '            End If
+    '            If rdbPlantDescriptionEqual.Checked = True Then
+    '                SQLWhereCase2 = " Like "
+    '            Else
+    '                SQLWhereCase2 = " Not Like "
+    '            End If
+
+    '            If txtPlantDescriptionSearch1.Text <> "" Then
+    '                SQLWhere = SQLWhere & " and (UPPER(strPlantDescription) " & SQLWhereCase2 & " Upper('%" & Replace(txtPlantDescriptionSearch1.Text, "'", "''") & "%')) "
+    '            End If
+    '            If txtPlantDescriptionSearch2.Text <> "" Then
+    '                If txtPlantDescriptionSearch1.Text <> "" Then
+    '                    SQLWhere = Mid(SQLWhere, 1, (SQLWhere.Length - 2))
+    '                    SQLWhere = SQLWhere & SQLWhereCase1 & " UPPER(strPlantDescription) " & SQLWhereCase2 & " UPPER('%" & Replace(txtPlantDescriptionSearch2.Text, "'", "''") & "%')) "
+    '                Else
+    '                    SQLWhere = SQLWhere & " and Upper(strPlantDescription) " & SQLWhereCase2 & " Upper('%" & Replace(txtPlantDescriptionSearch2.Text, "'", "''") & "%') "
+    '                End If
+    '            End If
+    '        End If
+
+    '        If Me.chbAttainmentStatus.Checked = True Then
+    '            SQLSelect = SQLSelect & "case " & _
+    '                        "when substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 2, 1) is Null then '' " & _
+    '                        "when substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 2, 1) = '1' then '1-Hr Yes' " & _
+    '                        "Else '' end OneHrYes, " & _
+    '                        "case " & _
+    '                        "when substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 2, 1) is Null then '' " & _
+    '                        "when substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 2, 1) = '2' then '1-Hr Contribute' " & _
+    '                        "Else '' end OneHrContribute, " & _
+    '                        "case " & _
+    '                        "when substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 2, 1) is Null then '' " & _
+    '                        "when substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 2, 1) = '0' then '1-Hr No' " & _
+    '                        "Else '' End OneHrNo, " & _
+    '                        "case " & _
+    '                        "when substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 2, 1) is Null then '' " & _
+    '                        "when substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 3, 1) = '1' then '8-Hr Atlanta' " & _
+    '                        "else '' end EightHrAtlanta, " & _
+    '                        "case " & _
+    '                        "when substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 2, 1) is Null then '' " & _
+    '                        "when substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 3, 1) = '2' then '8-Hr Macon' " & _
+    '                        "else '' end EightHrMacon, " & _
+    '                        "case " & _
+    '                        "when substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 2, 1) is Null then '' " & _
+    '                        "when substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 3, 1) = '0' then '8-Hr No' " & _
+    '                        "else '' end EightHrNo, " & _
+    '                        "case " & _
+    '                        "when substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 2, 1) is Null then '' " & _
+    '                        "when substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 4, 1) = '1' then 'PM-2.5 Atlanta' " & _
+    '                        "else '' end PMAtlanta, " & _
+    '                        "case " & _
+    '                        "when substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 2, 1) is Null then '' " & _
+    '                        "when substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 4, 1) = '2' then 'PM-2.5 Chattanooga' " & _
+    '                        "else '' end PMChattanooga, " & _
+    '                        "case " & _
+    '                        "when substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 2, 1) is Null then '' " & _
+    '                        "when substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 4, 1) = '3' then 'PM-2.5 Floyd' " & _
+    '                        "else '' end PMFloyd, " & _
+    '                        "case " & _
+    '                        "when substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 2, 1) is Null then '' " & _
+    '                        "when substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 4, 1) = '4' then 'PM-2.5 Macon' " & _
+    '                        "else '' end PMMacon, " & _
+    '                        "case " & _
+    '                        "when substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 2, 1) is Null then '' " & _
+    '                        "when substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 4, 1) = '0' then 'PM-2.5 No' " & _
+    '                        "else '' end PMNo, "
+    '            If SQLFrom.IndexOf("" & DBNameSpace & ".APBHeaderData") <> -1 Then
+    '                '     SQLFrom = SQLFrom
+    '            Else
+    '                SQLFrom = SQLFrom & " " & DBNameSpace & ".APBHeaderData, "
+    '                SQLWhere = SQLWhere & " and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber "
+    '            End If
+    '        End If
+    '        If chb1HrYes.Checked = True Then
+    '            SQLSelect = SQLSelect & "case " & _
+    '            "when substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 2, 1) is Null then '' " & _
+    '            "when substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 2, 1) = '1' then '1-Hr Yes' " & _
+    '            "else '' end OneHrYes, "
+    '            If SQLFrom.IndexOf("" & DBNameSpace & ".APBHeaderData") <> -1 Then
+    '                '      SQLFrom = SQLFrom
+    '            Else
+    '                SQLFrom = SQLFrom & " " & DBNameSpace & ".APBHeaderData, "
+    '                SQLWhere = SQLWhere & " and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber "
+    '            End If
+    '            If rdb1HrYesEqual.Checked = True Then
+    '                SQLWhere = SQLWhere & " and substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 2, 1) = '1' "
+    '            Else
+    '                SQLWhere = SQLWhere & " and (substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 2, 1) <> '1' " & _
+    '                                      " or " & DBNameSpace & ".APBHeaderData.strAttainmentStatus is Null) "
+    '            End If
+    '        End If
+    '        If chb1HrContribute.Checked = True Then
+    '            SQLSelect = SQLSelect & "case " & _
+    '            "when substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 2, 1) is Null then '' " & _
+    '            "when substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 2, 1) = '2' then '1-Hr Contribute' " & _
+    '                        "else '' end OneHrContribute, "
+    '            If SQLFrom.IndexOf("" & DBNameSpace & ".APBHeaderData") <> -1 Then
+    '                '        SQLFrom = SQLFrom
+    '            Else
+    '                SQLFrom = SQLFrom & " " & DBNameSpace & ".APBHeaderData, "
+    '                SQLWhere = SQLWhere & " and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber "
+    '            End If
+    '            If rdb1HrContributeEqual.Checked = True Then
+    '                SQLWhere = SQLWhere & " and substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 2, 1) = '2' "
+    '            Else
+    '                SQLWhere = SQLWhere & " and (substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 2, 1) <> '2' " & _
+    '                                      " or " & DBNameSpace & ".APBHeaderData.strAttainmentStatus is Null) "
+    '            End If
+    '        End If
+    '        If chb1HrNo.Checked = True Then
+    '            SQLSelect = SQLSelect & "case " & _
+    '            "when substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 2, 1) is Null then '' " & _
+    '            "when substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 2, 1) = '0' then '1-Hr No' " & _
+    '                        "else '' end OneHrNo, "
+    '            If SQLFrom.IndexOf("" & DBNameSpace & ".APBHeaderData") <> -1 Then
+    '                '        SQLFrom = SQLFrom
+    '            Else
+    '                SQLFrom = SQLFrom & " " & DBNameSpace & ".APBHeaderData, "
+    '                SQLWhere = SQLWhere & " and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber "
+    '            End If
+    '            If rdb1HrNoEqual.Checked = True Then
+    '                SQLWhere = SQLWhere & " and substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 2, 1) = '0' "
+    '            Else
+    '                SQLWhere = SQLWhere & " and (substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 2, 1) <> '0' " & _
+    '                                      " or " & DBNameSpace & ".APBHeaderData.strAttainmentStatus is Null) "
+    '            End If
+    '        End If
+    '        If chb8HrAtlanta.Checked = True Then
+    '            SQLSelect = SQLSelect & "case " & _
+    '            "when substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 3, 1) is Null then '' " & _
+    '            "when substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 3, 1) = '1' then '8-Hr Atlanta' " & _
+    '                        "else '' end EightHrAtlanta, "
+    '            If SQLFrom.IndexOf("" & DBNameSpace & ".APBHeaderData") <> -1 Then
+    '                '       SQLFrom = SQLFrom
+    '            Else
+    '                SQLFrom = SQLFrom & " " & DBNameSpace & ".APBHeaderData, "
+    '                SQLWhere = SQLWhere & " and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber "
+    '            End If
+    '            If rdb8HrAtlantaEqual.Checked = True Then
+    '                SQLWhere = SQLWhere & " and substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 3, 1) = '1' "
+    '            Else
+    '                SQLWhere = SQLWhere & " and (substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 3, 1) <> '1' " & _
+    '                                      " or " & DBNameSpace & ".APBHeaderData.strAttainmentStatus is Null) "
+    '            End If
+    '        End If
+    '        If chb8HrMacon.Checked = True Then
+    '            SQLSelect = SQLSelect & "case " & _
+    '            "when substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 3, 1) is Null then '' " & _
+    '            "when substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 3, 1) = '2' then '8-Hr Macon' " & _
+    '                        "else '' end EightHrMacon, "
+    '            If SQLFrom.IndexOf("" & DBNameSpace & ".APBHeaderData") <> -1 Then
+    '                '        SQLFrom = SQLFrom
+    '            Else
+    '                SQLFrom = SQLFrom & " " & DBNameSpace & ".APBHeaderData, "
+    '                SQLWhere = SQLWhere & " and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber "
+    '            End If
+    '            If rdb8HrMaconEqual.Checked = True Then
+    '                SQLWhere = SQLWhere & " and substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 3, 1) = '2' "
+    '            Else
+    '                SQLWhere = SQLWhere & " and (substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 3, 1) <> '2' " & _
+    '                                      " or " & DBNameSpace & ".APBHeaderData.strAttainmentStatus is Null) "
+    '            End If
+    '        End If
+    '        If chb8HrNo.Checked = True Then
+    '            SQLSelect = SQLSelect & "case " & _
+    '            "when substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 3, 1) is Null then '' " & _
+    '            "when substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 3, 1) = '0' then '8-Hr No' " & _
+    '                        "else '' end EightHrNo, "
+    '            If SQLFrom.IndexOf("" & DBNameSpace & ".APBHeaderData") <> -1 Then
+    '                '         SQLFrom = SQLFrom
+    '            Else
+    '                SQLFrom = SQLFrom & " " & DBNameSpace & ".APBHeaderData, "
+    '                SQLWhere = SQLWhere & " and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber "
+    '            End If
+    '            If rdb8HrNoEqual.Checked = True Then
+    '                SQLWhere = SQLWhere & " and substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 3, 1) = '0' "
+    '            Else
+    '                SQLWhere = SQLWhere & " and (substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 3, 1) <> '0' " & _
+    '                                      " or " & DBNameSpace & ".APBHeaderData.strAttainmentStatus is Null) "
+    '            End If
+    '        End If
+    '        If chbPMAtlanta.Checked = True Then
+    '            SQLSelect = SQLSelect & "case " & _
+    '            "when substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 4, 1) is Null then '' " & _
+    '            "when substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 4, 1) = '1' then 'PM-2.5 Atlanta' " & _
+    '                        "else '' end PMAtlanta, "
+    '            If SQLFrom.IndexOf("" & DBNameSpace & ".APBHeaderData") <> -1 Then
+    '                '         SQLFrom = SQLFrom
+    '            Else
+    '                SQLFrom = SQLFrom & " " & DBNameSpace & ".APBHeaderData, "
+    '                SQLWhere = SQLWhere & " and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber "
+    '            End If
+    '            If rdbPMAtlantaEqual.Checked = True Then
+    '                SQLWhere = SQLWhere & " and substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 4, 1) = '1' "
+    '            Else
+    '                SQLWhere = SQLWhere & " and (substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 4, 1) <> '1' " & _
+    '                                      " or " & DBNameSpace & ".APBHeaderData.strAttainmentStatus is Null) "
+    '            End If
+    '        End If
+    '        If chbPMChattanooga.Checked = True Then
+    '            SQLSelect = SQLSelect & "case " & _
+    '            "when substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 4, 1) is Null then '' " & _
+    '            "when substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 4, 1) = '2' then 'PM-2.5 Chattanooga' " & _
+    '                        "else '' end PMChattanooga, "
+    '            If SQLFrom.IndexOf("" & DBNameSpace & ".APBHeaderData") <> -1 Then
+    '                '           SQLFrom = SQLFrom
+    '            Else
+    '                SQLFrom = SQLFrom & " " & DBNameSpace & ".APBHeaderData, "
+    '                SQLWhere = SQLWhere & " and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber "
+    '            End If
+    '            If rdbPMChattanoogaEqual.Checked = True Then
+    '                SQLWhere = SQLWhere & " and substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 4, 1) = '2' "
+    '            Else
+    '                SQLWhere = SQLWhere & " and (substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 4, 1) <> '2' " & _
+    '                                      " or " & DBNameSpace & ".APBHeaderData.strAttainmentStatus is Null) "
+    '            End If
+    '        End If
+    '        If chbPMFloyd.Checked = True Then
+    '            SQLSelect = SQLSelect & "case " & _
+    '            "when substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 4, 1) is Null then '' " & _
+    '            "when substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 4, 1) = '3' then 'PM-2.5 Floyd' " & _
+    '                        "else '' end PMFloyd, "
+    '            If SQLFrom.IndexOf("" & DBNameSpace & ".APBHeaderData") <> -1 Then
+    '                '          SQLFrom = SQLFrom
+    '            Else
+    '                SQLFrom = SQLFrom & " " & DBNameSpace & ".APBHeaderData, "
+    '                SQLWhere = SQLWhere & " and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber "
+    '            End If
+    '            If rdbPMFloydEqual.Checked = True Then
+    '                SQLWhere = SQLWhere & " and substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 4, 1) = '3' "
+    '            Else
+    '                SQLWhere = SQLWhere & " and (substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 4, 1) <> '3' " & _
+    '                                      " or " & DBNameSpace & ".APBHeaderData.strAttainmentStatus is Null) "
+    '            End If
+    '        End If
+    '        If chbPMMacon.Checked = True Then
+    '            SQLSelect = SQLSelect & "case " & _
+    '            "when substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 4, 1) is Null then '' " & _
+    '            "when substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 4, 1) = '4' then 'PM-2.5 Macon' " & _
+    '                        "else '' end PMMacon, "
+    '            If SQLFrom.IndexOf("" & DBNameSpace & ".APBHeaderData") <> -1 Then
+    '                '          SQLFrom = SQLFrom
+    '            Else
+    '                SQLFrom = SQLFrom & " " & DBNameSpace & ".APBHeaderData, "
+    '                SQLWhere = SQLWhere & " and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber "
+    '            End If
+    '            If rdbPMMaconEqual.Checked = True Then
+    '                SQLWhere = SQLWhere & " and substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 4, 1) = '4' "
+    '            Else
+    '                SQLWhere = SQLWhere & " and (substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 4, 1) <> '4' " & _
+    '                                      " or " & DBNameSpace & ".APBHeaderData.strAttainmentStatus is Null) "
+    '            End If
+    '        End If
+    '        If chbPMNo.Checked = True Then
+    '            SQLSelect = SQLSelect & "case " & _
+    '            "when substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 4, 1) is Null then '' " & _
+    '            "when substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 4, 1) = '0' then 'PM-2.5 No' " & _
+    '                        "else '' end PMNo, "
+    '            If SQLFrom.IndexOf("" & DBNameSpace & ".APBHeaderData") <> -1 Then
+    '      '          SQLFrom = SQLFrom
+    '            Else
+    '                SQLFrom = SQLFrom & " " & DBNameSpace & ".APBHeaderData, "
+    '                SQLWhere = SQLWhere & " and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber "
+    '            End If
+    '            If rdbPMNoEqual.Checked = True Then
+    '                SQLWhere = SQLWhere & " and substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 4, 1) = '0' "
+    '            Else
+    '                SQLWhere = SQLWhere & " and (substr(" & DBNameSpace & ".APBHeaderData.strAttainmentStatus, 4, 1) <> '0' " & _
+    '                                      " or " & DBNameSpace & ".APBHeaderData.strAttainmentStatus is Null) "
+    '            End If
+    '        End If
+
+    '        If chbStateProgramCodes.Checked = True Then
+    '            SQLSelect = SQLSelect & "case " & _
+    '            "when substr(strStateProgramCodes, 1, 1) is null then '' " & _
+    '            "when substr(strStateProgramCodes, 1, 1) = '1' then 'NSR/PSD Major' " & _
+    '            "Else '' end NSRPSD, " & _
+    '            "case " & _
+    '            "when substr(strStateProgramCodes, 2, 1) is Null then '' " & _
+    '            "when substr(strStateProgramCodes, 2, 1) = '1' then 'HAPs Major' " & _
+    '            "Else '' end HAP, "
+
+    '            If SQLFrom.IndexOf("" & DBNameSpace & ".APBHeaderData") <> -1 Then
+    '               ' SQLFrom = SQLFrom
+    '            Else
+    '                SQLFrom = SQLFrom & " " & DBNameSpace & ".APBHeaderData, "
+    '                SQLWhere = SQLWhere & " and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber "
+    '            End If
+    '        End If
+
+    '        If chbNSRPSDMajor.Checked = True Then
+    '            SQLSelect = SQLSelect & "case " & _
+    '            "when substr(strStateProgramCodes, 1, 1) is null then '' " & _
+    '            "when substr(strStateProgramCodes, 1, 1) = '1' then 'NSR/PSD Major' " & _
+    '            "Else '' end NSRPSD, "
+
+    '            If SQLFrom.IndexOf("" & DBNameSpace & ".APBHeaderData") <> -1 Then
+    '                '   SQLFrom = SQLFrom
+    '            Else
+    '                SQLFrom = SQLFrom & " " & DBNameSpace & ".APBHeaderData, "
+    '                SQLWhere = SQLWhere & " and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber "
+    '            End If
+    '            If rdbNSRPSDMajorEqual.Checked = True Then
+    '                SQLWhere = SQLWhere & " and substr(strStateProgramCodes, 1, 1) = '1' "
+    '            Else
+    '                SQLWhere = SQLWhere & " and (substr(strStateProgramCodes, 1, 1) <> '1' " & _
+    '                                      " or " & DBNameSpace & ".APBHeaderData.strStateProgramCodes is Null) "
+    '            End If
+    '        End If
+
+    '        If chbHAPMajor.Checked = True Then
+    '            SQLSelect = SQLSelect & "case " & _
+    '            "when substr(strStateProgramCodes, 2, 1) is Null then '' " & _
+    '            "when substr(strStateProgramCodes, 2, 1) = '1' then 'HAPs Major' " & _
+    '            "Else '' end HAP, "
+
+    '            If SQLFrom.IndexOf("" & DBNameSpace & ".APBHeaderData") <> -1 Then
+    '                '      SQLFrom = SQLFrom
+    '            Else
+    '                SQLFrom = SQLFrom & " " & DBNameSpace & ".APBHeaderData, "
+    '                SQLWhere = SQLWhere & " and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber "
+    '            End If
+    '            If rdbHAPMajorEqual.Checked = True Then
+    '                SQLWhere = SQLWhere & " and substr(strStateProgramCodes, 2, 1) = '1' "
+    '            Else
+    '                SQLWhere = SQLWhere & " and (substr(strStateProgramCodes, 2, 1) <> '1' " & _
+    '                                      " or " & DBNameSpace & ".APBHeaderData.strStateProgramCodes is Null) "
+    '            End If
+    '        End If
+
+    '        If chbViewAirPrograms.Checked = True Then
+    '            SQLSelect = SQLSelect & "case when substr(strAirProgramCodes, 1, 1) = '0' then '' " & _
+    '                        "when substr(strAirProgramCodes, 1, 1) = '1' then '0 - SIP' " & _
+    '                        "Else '' end APC0, " & _
+    '                        "case when substr(strAirProgramCodes, 2, 1) = '0' then '' " & _
+    '                        "when substr(strAirProgramCodes, 2, 1) = '1' then '1 - Federal SIP' " & _
+    '                        "Else '' end APC1, " & _
+    '                        "case when substr(strAirProgramCodes, 3, 1) = '0' then '' " & _
+    '                        "when substr(strAirProgramCodes, 3, 1) = '1' then '3 - Non-Fed' " & _
+    '                        "Else '' end APC3, " & _
+    '                        "case when substr(strAirProgramCodes, 4, 1) = '0' then '' " & _
+    '                        "when substr(strAirProgramCodes, 4, 1) = '1' then '4 - CFC Tracking' " & _
+    '                        "Else '' end APC4, " & _
+    '                        "case when substr(strAirProgramCodes, 5, 1) = '0' then '' " & _
+    '                        "when substr(strAirProgramCodes, 5, 1) = '1' then '6 - PSD' " & _
+    '                        "Else '' end APC6, " & _
+    '                        "case when substr(strAirProgramCodes, 6, 1) = '0' then '' " & _
+    '                        "when substr(strAirProgramCodes, 6, 1) = '1' then '7 - NSR' " & _
+    '                        "Else '' end APC7, " & _
+    '                        "case when substr(strAirProgramCodes, 7, 1) = '0' then '' " & _
+    '                        "when substr(strAirProgramCodes, 7, 1) = '1' then '8 - NESHAP' " & _
+    '                        "Else '' end APC8, " & _
+    '                        "case when substr(strAirProgramCodes, 8, 1) = '0' then '' " & _
+    '                        "when substr(strAirProgramCodes, 8, 1) = '1' then '9 - NSPS' " & _
+    '                        "Else '' end APC9, " & _
+    '                        "case when substr(strAirProgramCodes, 9, 1) = '0' then '' " & _
+    '                        "when substr(strAirProgramCodes, 9, 1) = '1' then 'A - Acid Percipitation' " & _
+    '                        "Else '' end APCA, " & _
+    '                        "case when substr(strAirProgramCodes, 10, 1) = '0' then '' " & _
+    '                        "when substr(strAirProgramCodes, 10, 1) = '1' then 'F - FESHOP' " & _
+    '                        "Else '' end APCF, " & _
+    '                        "case when substr(strAirProgramCodes, 11, 1) = '0' then '' " & _
+    '                        "when substr(strAirProgramCodes, 11, 1) = '1' then 'I - Native American' " & _
+    '                        "Else '' end APCI, " & _
+    '                        "case when substr(strAirProgramCodes, 12, 1) = '0' then '' " & _
+    '                        "when substr(strAirProgramCodes, 12, 1) = '1' then 'M - MACT' " & _
+    '                        "Else '' end APCM, " & _
+    '                        "case when substr(strAirProgramCodes, 13, 1) = '0' then '' " & _
+    '                        "when substr(strAirProgramCodes, 13, 1) = '1' then 'V - Title V' " & _
+    '                        "Else '' end APCV, "
+    '            If SQLFrom.IndexOf("" & DBNameSpace & ".APBHeaderData") <> -1 Then
+    '                ' SQLFrom = SQLFrom
+    '            Else
+    '                SQLFrom = SQLFrom & " " & DBNameSpace & ".APBHeaderData, "
+    '                SQLWhere = SQLWhere & " and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber "
+    '            End If
+    '        End If
+
+    '        If chbAPC0.Checked = True Then
+    '            SQLSelect = SQLSelect & "case when substr(strAirProgramCodes, 1, 1) = '0' then '' when substr(strAirProgramCodes, 1, 1) = '1' then '0 - SIP' Else '' end APC0, "
+
+    '            If SQLFrom.IndexOf("" & DBNameSpace & ".APBHeaderData") <> -1 Then
+    '                'SQLFrom = SQLFrom
+    '            Else
+    '                SQLFrom = SQLFrom & " " & DBNameSpace & ".APBHeaderData, "
+    '                SQLWhere = SQLWhere & " and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber "
+    '            End If
+    '            If rdbAPC0Equal.Checked = True Then
+    '                SQLWhere = SQLWhere & " and strAirProgramCodes like '1%' "
+    '            Else
+    '                SQLWhere = SQLWhere & " and strAirProgramCodes like '0%' "
+    '            End If
+    '        End If
+
+    '        If chbAPC1.Checked = True Then
+    '            SQLSelect = SQLSelect & "case when substr(strAirProgramCodes, 2, 1) = '0' then '' when substr(strAirProgramCodes, 2, 1) = '1' then '1 - Federal SIP' Else '' end APC1, "
+
+    '            If SQLFrom.IndexOf("" & DBNameSpace & ".APBHeaderData") <> -1 Then
+    '                '  SQLFrom = SQLFrom
+    '            Else
+    '                SQLFrom = SQLFrom & " " & DBNameSpace & ".APBHeaderData, "
+    '                SQLWhere = SQLWhere & " and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber "
+    '            End If
+    '            If rdbAPC1Equal.Checked = True Then
+    '                SQLWhere = SQLWhere & " and strAirProgramCodes like '_1%' "
+    '            Else
+    '                SQLWhere = SQLWhere & " and strAirProgramCodes like '_0%' "
+    '            End If
+    '        End If
+
+    '        If chbAPC3.Checked = True Then
+    '            SQLSelect = SQLSelect & "case when substr(strAirProgramCodes, 3, 1) = '0' then '' when substr(strAirProgramCodes, 3, 1) = '1' then '3 - Non-Fed' Else '' end APC3, "
+
+    '            If SQLFrom.IndexOf("" & DBNameSpace & ".APBHeaderData") <> -1 Then
+    '                '  SQLFrom = SQLFrom
+    '            Else
+    '                SQLFrom = SQLFrom & " " & DBNameSpace & ".APBHeaderData, "
+    '                SQLWhere = SQLWhere & " and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber "
+    '            End If
+    '            If rdbAPC3Equal.Checked = True Then
+    '                SQLWhere = SQLWhere & " and strAirProgramCodes like '__1%' "
+    '            Else
+    '                SQLWhere = SQLWhere & " and strAirProgramCodes like '__0%' "
+    '            End If
+    '        End If
+
+    '        If chbAPC4.Checked = True Then
+    '            SQLSelect = SQLSelect & "case when substr(strAirProgramCodes, 4, 1) = '0' then '' when substr(strAirProgramCodes, 4, 1) = '1' then '4 - CFC Tracking' Else '' end APC4, "
+
+    '            If SQLFrom.IndexOf("" & DBNameSpace & ".APBHeaderData") <> -1 Then
+    '                '   SQLFrom = SQLFrom
+    '            Else
+    '                SQLFrom = SQLFrom & " " & DBNameSpace & ".APBHeaderData, "
+    '                SQLWhere = SQLWhere & " and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber "
+    '            End If
+    '            If rdbAPC4Equal.Checked = True Then
+    '                SQLWhere = SQLWhere & " and strAirProgramCodes like '___1%' "
+    '            Else
+    '                SQLWhere = SQLWhere & " and strAirProgramCodes like '___0%' "
+    '            End If
+    '        End If
+
+    '        If chbAPC6.Checked = True Then
+    '            SQLSelect = SQLSelect & "case when substr(strAirProgramCodes, 5, 1) = '0' then '' when substr(strAirProgramCodes, 5, 1) = '1' then '6 - PSD' Else '' end APC6, "
+
+    '            If SQLFrom.IndexOf("" & DBNameSpace & ".APBHeaderData") <> -1 Then
+    '            '    SQLFrom = SQLFrom
+    '            Else
+    '                SQLFrom = SQLFrom & " " & DBNameSpace & ".APBHeaderData, "
+    '                SQLWhere = SQLWhere & " and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber "
+    '            End If
+    '            If rdbAPC6Equal.Checked = True Then
+    '                SQLWhere = SQLWhere & " and strAirProgramCodes like '____1%' "
+    '            Else
+    '                SQLWhere = SQLWhere & " and strAirProgramCodes like '____0%' "
+    '            End If
+    '        End If
+
+    '        If chbAPC7.Checked = True Then
+    '            SQLSelect = SQLSelect & "case when substr(strAirProgramCodes, 6, 1) = '0' then '' when substr(strAirProgramCodes, 6, 1) = '1' then '7 - NSR' Else '' end APC7, "
+
+    '            If SQLFrom.IndexOf("" & DBNameSpace & ".APBHeaderData") <> -1 Then
+    '                '  SQLFrom = SQLFrom
+    '            Else
+    '                SQLFrom = SQLFrom & " " & DBNameSpace & ".APBHeaderData, "
+    '                SQLWhere = SQLWhere & " and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber "
+    '            End If
+    '            If rdbAPC7Equal.Checked = True Then
+    '                SQLWhere = SQLWhere & " and strAirProgramCodes like '_____1%' "
+    '            Else
+    '                SQLWhere = SQLWhere & " and strAirProgramCodes like '_____0%' "
+    '            End If
+    '        End If
+
+    '        If chbAPC8.Checked = True Then
+    '            SQLSelect = SQLSelect & "case when substr(strAirProgramCodes, 7, 1) = '0' then '' when substr(strAirProgramCodes, 7, 1) = '1' then '8 - NESHAP' Else '' end APC8, "
+
+    '            If SQLFrom.IndexOf("" & DBNameSpace & ".APBHeaderData") <> -1 Then
+    '                '  SQLFrom = SQLFrom
+    '            Else
+    '                SQLFrom = SQLFrom & " " & DBNameSpace & ".APBHeaderData, "
+    '                SQLWhere = SQLWhere & " and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber "
+    '            End If
+    '            If rdbAPC8Equal.Checked = True Then
+    '                SQLWhere = SQLWhere & " and strAirProgramCodes like '______1%' "
+    '            Else
+    '                SQLWhere = SQLWhere & " and strAirProgramCodes like '______0%' "
+    '            End If
+    '        End If
+
+    '        If chbAPC9.Checked = True Then
+    '            SQLSelect = SQLSelect & "case when substr(strAirProgramCodes, 8, 1) = '0' then '' when substr(strAirProgramCodes, 8, 1) = '1' then '9 - NSPS' Else '' end APC9, "
+
+    '            If SQLFrom.IndexOf("" & DBNameSpace & ".APBHeaderData") <> -1 Then
+    '                '   SQLFrom = SQLFrom
+    '            Else
+    '                SQLFrom = SQLFrom & " " & DBNameSpace & ".APBHeaderData, "
+    '                SQLWhere = SQLWhere & " and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber "
+    '            End If
+    '            If rdbAPC9Equal.Checked = True Then
+    '                SQLWhere = SQLWhere & " and strAirProgramCodes like '_______1%' "
+    '            Else
+    '                SQLWhere = SQLWhere & " and strAirProgramCodes like '_______0%' "
+    '            End If
+    '        End If
+
+    '        If chbAPCA.Checked = True Then
+    '            SQLSelect = SQLSelect & "case when substr(strAirProgramCodes, 9, 1) = '0' then '' when substr(strAirProgramCodes, 9, 1) = '1' then 'A - Acid Percipitation' Else '' end APCA, "
+
+    '            If SQLFrom.IndexOf("" & DBNameSpace & ".APBHeaderData") <> -1 Then
+    '                '   SQLFrom = SQLFrom
+    '            Else
+    '                SQLFrom = SQLFrom & " " & DBNameSpace & ".APBHeaderData, "
+    '                SQLWhere = SQLWhere & " and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber "
+    '            End If
+    '            If rdbAPCAEqual.Checked = True Then
+    '                SQLWhere = SQLWhere & " and strAirProgramCodes like '________1%' "
+    '            Else
+    '                SQLWhere = SQLWhere & " and strAirProgramCodes like '________0%' "
+    '            End If
+    '        End If
+
+    '        If chbAPCF.Checked = True Then
+    '            SQLSelect = SQLSelect & "case when substr(strAirProgramCodes, 10, 1) = '0' then '' when substr(strAirProgramCodes, 10, 1) = '1' then 'F - FESHOP' Else '' end APCF, "
+
+    '            If SQLFrom.IndexOf("" & DBNameSpace & ".APBHeaderData") <> -1 Then
+    '                '    SQLFrom = SQLFrom
+    '            Else
+    '                SQLFrom = SQLFrom & " " & DBNameSpace & ".APBHeaderData, "
+    '                SQLWhere = SQLWhere & " and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber "
+    '            End If
+    '            If rdbAPCFEqual.Checked = True Then
+    '                SQLWhere = SQLWhere & " and strAirProgramCodes like '_________1%' "
+    '            Else
+    '                SQLWhere = SQLWhere & " and strAirProgramCodes like '_________0%' "
+    '            End If
+    '        End If
+
+    '        If chbAPCI.Checked = True Then
+    '            SQLSelect = SQLSelect & "case when substr(strAirProgramCodes, 11, 1) = '0' then '' when substr(strAirProgramCodes, 11, 1) = '1' then 'I - Native American' Else '' end APCI, "
+
+    '            If SQLFrom.IndexOf("" & DBNameSpace & ".APBHeaderData") <> -1 Then
+    '                '    SQLFrom = SQLFrom
+    '            Else
+    '                SQLFrom = SQLFrom & " " & DBNameSpace & ".APBHeaderData, "
+    '                SQLWhere = SQLWhere & " and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber "
+    '            End If
+    '            If rdbAPCIEqual.Checked = True Then
+    '                SQLWhere = SQLWhere & " and strAirProgramCodes like '__________1%' "
+    '            Else
+    '                SQLWhere = SQLWhere & " and strAirProgramCodes like '__________0%' "
+    '            End If
+    '        End If
+
+    '        If chbAPCM.Checked = True Then
+    '            SQLSelect = SQLSelect & "case when substr(strAirProgramCodes, 12, 1) = '0' then '' when substr(strAirProgramCodes, 12, 1) = '1' then 'M - MACT' Else '' end APCM, "
+
+    '            If SQLFrom.IndexOf("" & DBNameSpace & ".APBHeaderData") <> -1 Then
+    '                '      SQLFrom = SQLFrom
+    '            Else
+    '                SQLFrom = SQLFrom & " " & DBNameSpace & ".APBHeaderData, "
+    '                SQLWhere = SQLWhere & " and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber "
+    '            End If
+    '            If rdbAPCMEqual.Checked = True Then
+    '                SQLWhere = SQLWhere & " and strAirProgramCodes like '___________1%' "
+    '            Else
+    '                SQLWhere = SQLWhere & " and strAirProgramCodes like '___________0%' "
+    '            End If
+    '        End If
+
+    '        If chbAPCV.Checked = True Then
+    '            SQLSelect = SQLSelect & "case when substr(strAirProgramCodes, 13, 1) = '0' then '' when substr(strAirProgramCodes, 13, 1) = '1' then 'V - Title V' Else '' end APCV, "
+
+    '            If SQLFrom.IndexOf("" & DBNameSpace & ".APBHeaderData") <> -1 Then
+    '                '  SQLFrom = SQLFrom
+    '            Else
+    '                SQLFrom = SQLFrom & " " & DBNameSpace & ".APBHeaderData, "
+    '                SQLWhere = SQLWhere & " and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBHeaderData.strAIRSNumber "
+    '            End If
+    '            If rdbAPCVEqual.Checked = True Then
+    '                SQLWhere = SQLWhere & " and strAirProgramCodes like '____________1%' "
+    '            Else
+    '                SQLWhere = SQLWhere & " and strAirProgramCodes like '____________0%' "
+    '            End If
+    '        End If
+
+    '        If chbAllSubparts.Checked = True Then
+    '            SQLSelect = SQLSelect & _
+    '            " case when substr(strSubPartKey, 13, 1) = '0' then strSubPart " & _
+    '            "end GASIP, " & _
+    '            "case " & _
+    '            "when substr(strSubPartKey, 13, 1) = '8' then strSubPart " & _
+    '            "end Part61, " & _
+    '            "case " & _
+    '            "when substr(strSubPartKey, 13, 1) = '9' then strSubPart " & _
+    '            "end Part60, " & _
+    '            "case " & _
+    '            "when substr(strSubPartKey, 13, 1) = 'M' then strSubPart " & _
+    '            "End Part63, "
+    '            If SQLFrom.IndexOf("" & DBNameSpace & ".APBSubPartData") <> -1 Then
+    '                ' SQLFrom = SQLFrom
+    '            Else
+    '                SQLFrom = SQLFrom & " " & DBNameSpace & ".APBSubPartData, "
+    '                SQLWhere = SQLWhere & " and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBSubPartData.strAIRSNumber " & _
+    '                " and strSubPart Is not Null and airbranch.apbsubpartdata.active = '1' "
+    '            End If
+
+    '        Else
+
+    '        End If
+
+    '        SQLWhereCase1 = ""
+    '        SQLWhereCase2 = ""
+
+    '        If chbSIP.Checked = True Then
+    '            SQLSelect = SQLSelect & "case when substr(strSubPartKey, 13, 1) = '1' then strSubPart " & _
+    '            "End GASIP, "
+
+    '            If SQLFrom.IndexOf("" & DBNameSpace & ".APBSubPartData") <> -1 Then
+    '                ' SQLFrom = SQLFrom
+    '            Else
+    '                SQLFrom = SQLFrom & " " & DBNameSpace & ".APBSubPartData, "
+    '                SQLWhere = SQLWhere & " and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBSubPartData.strAIRSNumber " & _
+    '                " and strSubPart is Not Null and airbranch.apbsubpartdata.active = '1' "
+    '            End If
+    '            'If rdbSubPartOr.Checked = True Then
+    '            '    SQLWhereCase1 = " OR "
+    '            'Else
+    '            '    SQLWhereCase1 = " AND "
+    '            'End If
+    '            'If rdbSIPEqual.Checked = True Then
+    '            '    SQLWhereCase2 = " Like "
+    '            'Else
+    '            '    SQLWhereCase2 = " Not Like "
+    '            'End If
+    '            'If txtSIPSearch1.Text <> "" Then
+    '            '    SQLWhere = SQLWhere & " and (strSubPart " & SQLWhereCase2 & " '%" & Replace(txtSIPSearch1.Text, "'", "''") & "%' ) "
+    '            'End If
+    '            'If txtSIPSearch2.Text <> "" Then
+    '            '    If txtSIPSearch1.Text <> "" Then
+    '            '        SQLWhere = Mid(SQLWhere, 1, (SQLWhere.Length - 2))
+    '            '        SQLWhere = SQLWhere & SQLWhereCase1 & "strSubPart " & SQLWhereCase2 & " '%" & Replace(txtSIPSearch2.Text, "'", "''") & "%') "
+    '            '    Else
+    '            '        SQLWhere = SQLWhere & " and strSubPart " & SQLWhereCase2 & " '%" & Replace(txtSIPSearch2.Text, "'", "''") & "%' "
+    '            '    End If
+    '            'End If
+    '            SQLWhere = SQLWhere & " and (substr(strSubPartKey, 13, 1) = '0' ) "
+    '        End If
+
+    '        SQLWhereCase1 = ""
+    '        SQLWhereCase2 = ""
+
+    '        If chbPart61Subpart.Checked = True Then
+    '            SQLSelect = SQLSelect & "case when substr(strSubPartKey, 13, 1) = '8' then strSubPart " & _
+    '            "End Part61, "
+
+    '            If SQLFrom.IndexOf("" & DBNameSpace & ".APBSubPartData") <> -1 Then
+    '                '   SQLFrom = SQLFrom
+    '            Else
+    '                SQLFrom = SQLFrom & " " & DBNameSpace & ".APBSubPartData, "
+    '                SQLWhere = SQLWhere & " and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBSubPartData.strAIRSNumber " & _
+    '                " and strSubPart is Not Null and airbranch.apbsubpartdata.active = '1' "
+    '            End If
+    '            'If rdbPart61Or.Checked = True Then
+    '            '    SQLWhereCase1 = " OR "
+    '            'Else
+    '            '    SQLWhereCase1 = " AND "
+    '            'End If
+    '            If rdbPart61Equal.Checked = True Then
+    '                SQLWhereCase2 = " Like "
+    '            Else
+    '                SQLWhereCase2 = " Not Like "
+    '            End If
+    '            'If txtPart61Search1.Text <> "" Then
+    '            '    SQLWhere = SQLWhere & " and (strSubPart " & SQLWhereCase2 & " '%" & Replace(txtPart61Search1.Text, "'", "''") & "%' ) "
+    '            'End If
+    '            'If txtPart61Search2.Text <> "" Then
+    '            '    If txtPart61Search1.Text <> "" Then
+    '            '        SQLWhere = Mid(SQLWhere, 1, (SQLWhere.Length - 2))
+    '            '        SQLWhere = SQLWhere & SQLWhereCase1 & "strSubPart " & SQLWhereCase2 & " '%" & Replace(txtPart61Search2.Text, "'", "''") & "%') "
+    '            '    Else
+    '            '        SQLWhere = SQLWhere & " and strSubPart " & SQLWhereCase2 & " '%" & Replace(txtPart61Search2.Text, "'", "''") & "%' "
+    '            '    End If
+    '            'End If
+    '            If chbSIP.Checked = True Then
+    '                SQLWhere = Mid(SQLWhere, 1, (SQLWhere.Length - 2))
+    '                SQLWhere = SQLWhere & " or (substr(strSubPartKey, 13, 1) = '8' )) "
+    '            Else
+    '                SQLWhere = SQLWhere & " and (substr(strSubPartKey, 13, 1) = '8' ) "
+    '            End If
+    '        End If
+
+    '        SQLWhereCase1 = ""
+    '        SQLWhereCase2 = ""
+
+    '        If chbPart60Subpart.Checked = True Then
+    '            SQLSelect = SQLSelect & "case when substr(strSubPartKey, 13, 1) = '9' then strSubPart " & _
+    '            "End Part60, "
+
+    '            If SQLFrom.IndexOf("" & DBNameSpace & ".APBSubPartData") <> -1 Then
+    '                '  SQLFrom = SQLFrom
+    '            Else
+    '                SQLFrom = SQLFrom & " " & DBNameSpace & ".APBSubPartData, "
+    '                SQLWhere = SQLWhere & " and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBSubPartData.strAIRSNumber " & _
+    '                " and strSubPart is Not Null and airbranch.apbsubpartdata.active = '1' "
+    '            End If
+    '            'If rdbPart60Or.Checked = True Then
+    '            '    SQLWhereCase1 = " OR "
+    '            'Else
+    '            '    SQLWhereCase1 = " AND "
+    '            'End If
+    '            If rdbPart60Equal.Checked = True Then
+    '                SQLWhereCase2 = " Like "
+    '            Else
+    '                SQLWhereCase2 = " Not Like "
+    '            End If
+    '            'If txtPart60Search1.Text <> "" Then
+    '            '    SQLWhere = SQLWhere & " and (strSubPart " & SQLWhereCase2 & " '%" & Replace(txtPart60Search1.Text, "'", "''") & "%' ) "
+    '            'End If
+    '            'If txtPart60Search2.Text <> "" Then
+    '            '    If txtPart60Search1.Text <> "" Then
+    '            '        SQLWhere = Mid(SQLWhere, 1, (SQLWhere.Length - 2))
+    '            '        SQLWhere = SQLWhere & SQLWhereCase1 & "strSubPart " & SQLWhereCase2 & " '%" & Replace(txtPart60Search2.Text, "'", "''") & "%') "
+    '            '    Else
+    '            '        SQLWhere = SQLWhere & " and strSubPart " & SQLWhereCase2 & " '%" & Replace(txtPart60Search2.Text, "'", "''") & "%' "
+    '            '    End If
+    '            'End If
+    '            If chbSIP.Checked = True Or chbPart61Subpart.Checked = True Then
+    '                SQLWhere = Mid(SQLWhere, 1, (SQLWhere.Length - 2))
+    '                SQLWhere = SQLWhere & " or (substr(strSubPartKey, 13, 1) = '9' )) "
+    '            Else
+    '                SQLWhere = SQLWhere & " and (substr(strSubPartKey, 13, 1) = '9' ) "
+    '            End If
+    '        End If
+
+    '        SQLWhereCase1 = ""
+    '        SQLWhereCase2 = ""
+
+    '        If chbPart63Subpart.Checked = True Then
+    '            SQLSelect = SQLSelect & "case when substr(strSubPartKey, 13, 1) = 'M' then strSubPart " & _
+    '            "End Part63, "
+
+    '            If SQLFrom.IndexOf("" & DBNameSpace & ".APBSubPartData") <> -1 Then
+    '               ' SQLFrom = SQLFrom
+    '            Else
+    '                SQLFrom = SQLFrom & " " & DBNameSpace & ".APBSubPartData, "
+    '                SQLWhere = SQLWhere & " and " & DBNameSpace & ".APBFacilityInformation.strAIRSNumber = " & DBNameSpace & ".APBSubPartData.strAIRSNumber " & _
+    '                " and strSubPart is Not Null and airbranch.apbsubpartdata.active = '1' "
+    '            End If
+    '            'If rdbPart63Or.Checked = True Then
+    '            '    SQLWhereCase1 = " OR "
+    '            'Else
+    '            '    SQLWhereCase1 = " AND "
+    '            'End If
+    '            If rdbPart63Equal.Checked = True Then
+    '                SQLWhereCase2 = " Like "
+    '            Else
+    '                SQLWhereCase2 = " Not Like "
+    '            End If
+    '            'If txtPart63Search1.Text <> "" Then
+    '            '    SQLWhere = SQLWhere & " and (strSubPart " & SQLWhereCase2 & " '%" & Replace(txtPart63Search1.Text, "'", "''") & "%' ) "
+    '            'End If
+    '            'If txtPart63Search2.Text <> "" Then
+    '            '    If txtPart63Search1.Text <> "" Then
+    '            '        SQLWhere = Mid(SQLWhere, 1, (SQLWhere.Length - 2))
+    '            '        SQLWhere = SQLWhere & SQLWhereCase1 & "strSubPart " & SQLWhereCase2 & " '%" & Replace(txtPart63Search2.Text, "'", "''") & "%') "
+    '            '    Else
+    '            '        SQLWhere = SQLWhere & " and strSubPart " & SQLWhereCase2 & " '%" & Replace(txtPart63Search2.Text, "'", "''") & "%' "
+    '            '    End If
+    '            'End If
+    '            If chbSIP.Checked = True Or chbPart61Subpart.Checked = True Or chbPart60Subpart.Checked = True Then
+    '                SQLWhere = Mid(SQLWhere, 1, (SQLWhere.Length - 2))
+    '                SQLWhere = SQLWhere & " or (substr(strSubPartKey, 13, 1) = 'M' )) "
+    '            Else
+    '                SQLWhere = SQLWhere & " and (substr(strSubPartKey, 13, 1) = 'M' ) "
+    '            End If
+    '        End If
+
+
+
+    '        SQL = Mid(SQLSelect, 1, (SQLSelect.Length - 2)) & _
+    '        Mid(SQLFrom, 1, (SQLFrom.Length - 2)) & _
+    '        SQLWhere & _
+    '        Mid(SQLOrder, 1, (SQLOrder.Length - 2))
+
+    '        txtSQLStatement.Text = SQL.ToString()
+
+    '    Catch ex As Exception
+    '        ErrorReport(ex.ToString(), Me.Name & ".GenerateSQL")
+    '    Finally
+
+    '    End Try
+
+    'End Sub
     Sub GenerateSQL2()
         Try
             Dim MasterSQL As String = ""
@@ -4726,357 +4726,357 @@ Public Class IAIPQueryGenerator
         Finally
         End Try
     End Sub
-    Sub RunSQL()
-        Try
-            dsSQLQuery = New DataSet
+    'Sub RunSQL()
+    '    Try
+    '        dsSQLQuery = New DataSet
 
-            daSQLQuery = New OracleDataAdapter(SQL, Conn)
+    '        daSQLQuery = New OracleDataAdapter(SQL, Conn)
 
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
-            End If
+    '        If Conn.State = ConnectionState.Closed Then
+    '            Conn.Open()
+    '        End If
 
-            daSQLQuery.Fill(dsSQLQuery, "SQLQuery")
-            dgvQueryGenerator.DataSource = dsSQLQuery
-            dgvQueryGenerator.DataMember = "SQLQuery"
+    '        daSQLQuery.Fill(dsSQLQuery, "SQLQuery")
+    '        dgvQueryGenerator.DataSource = dsSQLQuery
+    '        dgvQueryGenerator.DataMember = "SQLQuery"
 
-            dgvQueryGenerator.RowHeadersVisible = False
-            dgvQueryGenerator.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvQueryGenerator.AllowUserToResizeColumns = True
-            dgvQueryGenerator.AllowUserToAddRows = False
-            dgvQueryGenerator.AllowUserToDeleteRows = False
-            dgvQueryGenerator.AllowUserToOrderColumns = True
-            dgvQueryGenerator.AllowUserToResizeRows = True
-            dgvQueryGenerator.Columns("strAIRSNumber").HeaderText = "AIRS #"
-            dgvQueryGenerator.Columns("strAIRSNumber").DisplayIndex = 0
-            dgvQueryGenerator.Columns("strFacilityName").HeaderText = "Facility Name"
-            dgvQueryGenerator.Columns("strFacilityName").DisplayIndex = 1
+    '        dgvQueryGenerator.RowHeadersVisible = False
+    '        dgvQueryGenerator.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
+    '        dgvQueryGenerator.AllowUserToResizeColumns = True
+    '        dgvQueryGenerator.AllowUserToAddRows = False
+    '        dgvQueryGenerator.AllowUserToDeleteRows = False
+    '        dgvQueryGenerator.AllowUserToOrderColumns = True
+    '        dgvQueryGenerator.AllowUserToResizeRows = True
+    '        dgvQueryGenerator.Columns("strAIRSNumber").HeaderText = "AIRS #"
+    '        dgvQueryGenerator.Columns("strAIRSNumber").DisplayIndex = 0
+    '        dgvQueryGenerator.Columns("strFacilityName").HeaderText = "Facility Name"
+    '        dgvQueryGenerator.Columns("strFacilityName").DisplayIndex = 1
 
-            If chbFacilityStreet1.Checked = True Then
-                dgvQueryGenerator.Columns("strFacilityStreet1").HeaderText = "Street Address 1"
-                If txtFacilityStreet1Order.Text <> "" Then
-                    If CInt(txtFacilityStreet1Order.Text) < dgvQueryGenerator.Columns.Count Then
-                        dgvQueryGenerator.Columns("strFacilityStreet1").DisplayIndex = txtFacilityStreet1Order.Text
-                    End If
-                End If
-            End If
-            If chbFacilityStreet2.Checked = True Then
-                dgvQueryGenerator.Columns("strFacilityStreet2").HeaderText = "Street Address 2"
-                If txtFacilityStreet2Order.Text <> "" Then
-                    If CInt(txtFacilityStreet2Order.Text) < dgvQueryGenerator.Columns.Count Then
-                        dgvQueryGenerator.Columns("strFacilityStreet2").DisplayIndex = txtFacilityStreet2Order.Text
-                    End If
-                End If
-            End If
-            If chbFacilityCity.Checked = True Then
-                dgvQueryGenerator.Columns("strFacilityCity").HeaderText = "City"
-                If txtFacilityCityOrder.Text <> "" Then
-                    If CInt(txtFacilityCityOrder.Text) < dgvQueryGenerator.Columns.Count Then
-                        dgvQueryGenerator.Columns("strFacilityCity").DisplayIndex = txtFacilityCityOrder.Text
-                    End If
-                End If
-            End If
-            If chbFacilityZipCode.Checked = True Then
-                dgvQueryGenerator.Columns("strFacilityZipCode").HeaderText = "Zip Code"
-                If txtFacilityZipCodeOrder.Text <> "" Then
-                    If CInt(txtFacilityZipCodeOrder.Text) < dgvQueryGenerator.Columns.Count Then
-                        dgvQueryGenerator.Columns("strFacilityZipCode").DisplayIndex = txtFacilityZipCodeOrder.Text
-                    End If
-                End If
-            End If
-            If chbFacilityLatitude.Checked = True Then
-                dgvQueryGenerator.Columns("numFacilityLatitude").HeaderText = "Latitude"
-                If txtFacilityLatitudeOrder.Text <> "" Then
-                    If CInt(txtFacilityLatitudeOrder.Text) < dgvQueryGenerator.Columns.Count Then
-                        dgvQueryGenerator.Columns("numFacilityLatitude").DisplayIndex = txtFacilityLatitudeOrder.Text
-                    End If
-                End If
-            End If
-            If chbFacilityLongitude.Checked = True Then
-                dgvQueryGenerator.Columns("numFacilityLongitude").HeaderText = "Longitude"
-                If txtFacilityLongitudeOrder.Text <> "" Then
-                    If CInt(txtFacilityLongitudeOrder.Text) < dgvQueryGenerator.Columns.Count Then
-                        dgvQueryGenerator.Columns("numFacilityLongitude").DisplayIndex = txtFacilityLongitudeOrder.Text
-                    End If
-                End If
-            End If
-            If chbCounty.Checked = True Then
-                dgvQueryGenerator.Columns("strCountyName").HeaderText = "County"
-                If txtCountyOrder.Text <> "" Then
-                    If CInt(txtCountyOrder.Text) < dgvQueryGenerator.Columns.Count Then
-                        dgvQueryGenerator.Columns("strCountyName").DisplayIndex = txtCountyOrder.Text
-                    End If
-                End If
-            End If
-            If chbSSCPEngineer.Checked = True Then
-                dgvQueryGenerator.Columns("SSCPEngineer").HeaderText = "Complinace Engineer"
-                If txtSSCPEngineerOrder.Text <> "" Then
-                    If CInt(txtSSCPEngineerOrder.Text) < dgvQueryGenerator.Columns.Count Then
-                        dgvQueryGenerator.Columns("SSCPEngineer").DisplayIndex = txtSSCPEngineerOrder.Text
-                    End If
-                End If
-            End If
-            If chbDistrict.Checked = True Then
-                dgvQueryGenerator.Columns("strDistrictName").HeaderText = "District"
-                If txtDistrictOrder.Text <> "" Then
-                    If CInt(txtDistrictOrder.Text) < dgvQueryGenerator.Columns.Count Then
-                        dgvQueryGenerator.Columns("strDistrictName").DisplayIndex = txtDistrictOrder.Text
-                    End If
-                End If
-            End If
-            If chbOperationStatus.Checked = True Then
-                dgvQueryGenerator.Columns("strOperationalStatus").HeaderText = "Operation Status"
-                If txtOperationStatusOrder.Text <> "" Then
-                    If CInt(txtOperationStatusOrder.Text) < dgvQueryGenerator.Columns.Count Then
-                        dgvQueryGenerator.Columns("strOperationalStatus").DisplayIndex = txtOperationStatusOrder.Text
-                    End If
-                End If
-            End If
-            If chbClassification.Checked = True Then
-                dgvQueryGenerator.Columns("strClass").HeaderText = "Class"
-                If txtClassificationOrder.Text <> "" Then
-                    If CInt(txtClassificationOrder.Text) < dgvQueryGenerator.Columns.Count Then
-                        dgvQueryGenerator.Columns("strClass").DisplayIndex = txtClassificationOrder.Text
-                    End If
-                End If
-            End If
-            If chbSICCode.Checked = True Then
-                dgvQueryGenerator.Columns("strSICCode").HeaderText = "SIC Code"
-                If txtSICCodeOrder.Text <> "" Then
-                    If CInt(txtSICCodeOrder.Text) <= dgvQueryGenerator.Columns.Count Then
-                        dgvQueryGenerator.Columns("strSICCode").DisplayIndex = txtSICCodeOrder.Text
-                    End If
-                End If
-            End If
-            If chbNAICSCode.Checked = True Then
-                dgvQueryGenerator.Columns("strNAICSCode").HeaderText = "NAICS Code"
-                If txtNAICSCodeOrder.Text <> "" Then
-                    If CInt(txtNAICSCodeOrder.Text) <= dgvQueryGenerator.Columns.Count Then
-                        dgvQueryGenerator.Columns("strNAICSCode").DisplayIndex = txtNAICSCodeOrder.Text
-                    End If
-                End If
-            End If
-            If chbStartUpDate.Checked = True Then
-                dgvQueryGenerator.Columns("datStartUpDate").HeaderText = "Start Up Date"
-                If txtStartUpDateOrder.Text <> "" Then
-                    If CInt(txtStartUpDateOrder.Text) < dgvQueryGenerator.Columns.Count Then
-                        dgvQueryGenerator.Columns("datStartUpDate").DisplayIndex = txtStartUpDateOrder.Text
-                    End If
-                End If
-            End If
-            If chbShutDownDate.Checked = True Then
-                dgvQueryGenerator.Columns("datShutDownDate").HeaderText = "Permit Revocation Date"
-                If txtShutDownDateOrder.Text <> "" Then
-                    If CInt(txtShutDownDateOrder.Text) <= dgvQueryGenerator.Columns.Count Then
-                        dgvQueryGenerator.Columns("datShutDownDate").DisplayIndex = txtShutDownDateOrder.Text
-                    End If
-                End If
-            End If
-            If chbCMSUniverse.Checked = True Then
-                dgvQueryGenerator.Columns("strCMSMember").HeaderText = "CMS Status"
-                If txtCMSUniverseOrder.Text <> "" Then
-                    If CInt(txtCMSUniverseOrder.Text) < dgvQueryGenerator.Columns.Count Then
-                        dgvQueryGenerator.Columns("strCMSMember").DisplayIndex = txtCMSUniverseOrder.Text
-                    End If
-                End If
-            End If
-            If chbPlantDescription.Checked = True Then
-                dgvQueryGenerator.Columns("strPlantDescription").HeaderText = "Plant Description"
-                If txtPlantDescriptionOrder.Text <> "" Then
-                    If CInt(txtPlantDescriptionOrder.Text) < dgvQueryGenerator.Columns.Count Then
-                        dgvQueryGenerator.Columns("strPlantDescription").DisplayIndex = txtPlantDescriptionOrder.Text
-                    End If
-                End If
-            End If
+    '        If chbFacilityStreet1.Checked = True Then
+    '            dgvQueryGenerator.Columns("strFacilityStreet1").HeaderText = "Street Address 1"
+    '            If txtFacilityStreet1Order.Text <> "" Then
+    '                If CInt(txtFacilityStreet1Order.Text) < dgvQueryGenerator.Columns.Count Then
+    '                    dgvQueryGenerator.Columns("strFacilityStreet1").DisplayIndex = txtFacilityStreet1Order.Text
+    '                End If
+    '            End If
+    '        End If
+    '        If chbFacilityStreet2.Checked = True Then
+    '            dgvQueryGenerator.Columns("strFacilityStreet2").HeaderText = "Street Address 2"
+    '            If txtFacilityStreet2Order.Text <> "" Then
+    '                If CInt(txtFacilityStreet2Order.Text) < dgvQueryGenerator.Columns.Count Then
+    '                    dgvQueryGenerator.Columns("strFacilityStreet2").DisplayIndex = txtFacilityStreet2Order.Text
+    '                End If
+    '            End If
+    '        End If
+    '        If chbFacilityCity.Checked = True Then
+    '            dgvQueryGenerator.Columns("strFacilityCity").HeaderText = "City"
+    '            If txtFacilityCityOrder.Text <> "" Then
+    '                If CInt(txtFacilityCityOrder.Text) < dgvQueryGenerator.Columns.Count Then
+    '                    dgvQueryGenerator.Columns("strFacilityCity").DisplayIndex = txtFacilityCityOrder.Text
+    '                End If
+    '            End If
+    '        End If
+    '        If chbFacilityZipCode.Checked = True Then
+    '            dgvQueryGenerator.Columns("strFacilityZipCode").HeaderText = "Zip Code"
+    '            If txtFacilityZipCodeOrder.Text <> "" Then
+    '                If CInt(txtFacilityZipCodeOrder.Text) < dgvQueryGenerator.Columns.Count Then
+    '                    dgvQueryGenerator.Columns("strFacilityZipCode").DisplayIndex = txtFacilityZipCodeOrder.Text
+    '                End If
+    '            End If
+    '        End If
+    '        If chbFacilityLatitude.Checked = True Then
+    '            dgvQueryGenerator.Columns("numFacilityLatitude").HeaderText = "Latitude"
+    '            If txtFacilityLatitudeOrder.Text <> "" Then
+    '                If CInt(txtFacilityLatitudeOrder.Text) < dgvQueryGenerator.Columns.Count Then
+    '                    dgvQueryGenerator.Columns("numFacilityLatitude").DisplayIndex = txtFacilityLatitudeOrder.Text
+    '                End If
+    '            End If
+    '        End If
+    '        If chbFacilityLongitude.Checked = True Then
+    '            dgvQueryGenerator.Columns("numFacilityLongitude").HeaderText = "Longitude"
+    '            If txtFacilityLongitudeOrder.Text <> "" Then
+    '                If CInt(txtFacilityLongitudeOrder.Text) < dgvQueryGenerator.Columns.Count Then
+    '                    dgvQueryGenerator.Columns("numFacilityLongitude").DisplayIndex = txtFacilityLongitudeOrder.Text
+    '                End If
+    '            End If
+    '        End If
+    '        If chbCounty.Checked = True Then
+    '            dgvQueryGenerator.Columns("strCountyName").HeaderText = "County"
+    '            If txtCountyOrder.Text <> "" Then
+    '                If CInt(txtCountyOrder.Text) < dgvQueryGenerator.Columns.Count Then
+    '                    dgvQueryGenerator.Columns("strCountyName").DisplayIndex = txtCountyOrder.Text
+    '                End If
+    '            End If
+    '        End If
+    '        If chbSSCPEngineer.Checked = True Then
+    '            dgvQueryGenerator.Columns("SSCPEngineer").HeaderText = "Complinace Engineer"
+    '            If txtSSCPEngineerOrder.Text <> "" Then
+    '                If CInt(txtSSCPEngineerOrder.Text) < dgvQueryGenerator.Columns.Count Then
+    '                    dgvQueryGenerator.Columns("SSCPEngineer").DisplayIndex = txtSSCPEngineerOrder.Text
+    '                End If
+    '            End If
+    '        End If
+    '        If chbDistrict.Checked = True Then
+    '            dgvQueryGenerator.Columns("strDistrictName").HeaderText = "District"
+    '            If txtDistrictOrder.Text <> "" Then
+    '                If CInt(txtDistrictOrder.Text) < dgvQueryGenerator.Columns.Count Then
+    '                    dgvQueryGenerator.Columns("strDistrictName").DisplayIndex = txtDistrictOrder.Text
+    '                End If
+    '            End If
+    '        End If
+    '        If chbOperationStatus.Checked = True Then
+    '            dgvQueryGenerator.Columns("strOperationalStatus").HeaderText = "Operation Status"
+    '            If txtOperationStatusOrder.Text <> "" Then
+    '                If CInt(txtOperationStatusOrder.Text) < dgvQueryGenerator.Columns.Count Then
+    '                    dgvQueryGenerator.Columns("strOperationalStatus").DisplayIndex = txtOperationStatusOrder.Text
+    '                End If
+    '            End If
+    '        End If
+    '        If chbClassification.Checked = True Then
+    '            dgvQueryGenerator.Columns("strClass").HeaderText = "Class"
+    '            If txtClassificationOrder.Text <> "" Then
+    '                If CInt(txtClassificationOrder.Text) < dgvQueryGenerator.Columns.Count Then
+    '                    dgvQueryGenerator.Columns("strClass").DisplayIndex = txtClassificationOrder.Text
+    '                End If
+    '            End If
+    '        End If
+    '        If chbSICCode.Checked = True Then
+    '            dgvQueryGenerator.Columns("strSICCode").HeaderText = "SIC Code"
+    '            If txtSICCodeOrder.Text <> "" Then
+    '                If CInt(txtSICCodeOrder.Text) <= dgvQueryGenerator.Columns.Count Then
+    '                    dgvQueryGenerator.Columns("strSICCode").DisplayIndex = txtSICCodeOrder.Text
+    '                End If
+    '            End If
+    '        End If
+    '        If chbNAICSCode.Checked = True Then
+    '            dgvQueryGenerator.Columns("strNAICSCode").HeaderText = "NAICS Code"
+    '            If txtNAICSCodeOrder.Text <> "" Then
+    '                If CInt(txtNAICSCodeOrder.Text) <= dgvQueryGenerator.Columns.Count Then
+    '                    dgvQueryGenerator.Columns("strNAICSCode").DisplayIndex = txtNAICSCodeOrder.Text
+    '                End If
+    '            End If
+    '        End If
+    '        If chbStartUpDate.Checked = True Then
+    '            dgvQueryGenerator.Columns("datStartUpDate").HeaderText = "Start Up Date"
+    '            If txtStartUpDateOrder.Text <> "" Then
+    '                If CInt(txtStartUpDateOrder.Text) < dgvQueryGenerator.Columns.Count Then
+    '                    dgvQueryGenerator.Columns("datStartUpDate").DisplayIndex = txtStartUpDateOrder.Text
+    '                End If
+    '            End If
+    '        End If
+    '        If chbShutDownDate.Checked = True Then
+    '            dgvQueryGenerator.Columns("datShutDownDate").HeaderText = "Permit Revocation Date"
+    '            If txtShutDownDateOrder.Text <> "" Then
+    '                If CInt(txtShutDownDateOrder.Text) <= dgvQueryGenerator.Columns.Count Then
+    '                    dgvQueryGenerator.Columns("datShutDownDate").DisplayIndex = txtShutDownDateOrder.Text
+    '                End If
+    '            End If
+    '        End If
+    '        If chbCMSUniverse.Checked = True Then
+    '            dgvQueryGenerator.Columns("strCMSMember").HeaderText = "CMS Status"
+    '            If txtCMSUniverseOrder.Text <> "" Then
+    '                If CInt(txtCMSUniverseOrder.Text) < dgvQueryGenerator.Columns.Count Then
+    '                    dgvQueryGenerator.Columns("strCMSMember").DisplayIndex = txtCMSUniverseOrder.Text
+    '                End If
+    '            End If
+    '        End If
+    '        If chbPlantDescription.Checked = True Then
+    '            dgvQueryGenerator.Columns("strPlantDescription").HeaderText = "Plant Description"
+    '            If txtPlantDescriptionOrder.Text <> "" Then
+    '                If CInt(txtPlantDescriptionOrder.Text) < dgvQueryGenerator.Columns.Count Then
+    '                    dgvQueryGenerator.Columns("strPlantDescription").DisplayIndex = txtPlantDescriptionOrder.Text
+    '                End If
+    '            End If
+    '        End If
 
-            If Me.chbAttainmentStatus.Checked = True Then
-                dgvQueryGenerator.Columns("OneHrYes").HeaderText = "1-Hr Yes"
-                dgvQueryGenerator.Columns("OneHrContribute").HeaderText = "1-Hr Contribute"
-                dgvQueryGenerator.Columns("OneHrNo").HeaderText = "1-Hr No"
-                dgvQueryGenerator.Columns("EightHrAtlanta").HeaderText = "8-Hr Atlanta"
-                dgvQueryGenerator.Columns("EightHrMacon").HeaderText = "8-Hr Macon"
-                dgvQueryGenerator.Columns("EightHrNo").HeaderText = "8-Hr No"
-                dgvQueryGenerator.Columns("PMAtlanta").HeaderText = "PM-2.5 Atlanta"
-                dgvQueryGenerator.Columns("PMChattanooga").HeaderText = "PM-2.5 Chattanooga"
-                dgvQueryGenerator.Columns("PMFloyd").HeaderText = "PM-2.5 Floyd"
-                dgvQueryGenerator.Columns("PMMacon").HeaderText = "PM-2.5 Macon"
-                dgvQueryGenerator.Columns("PMNo").HeaderText = "PM-2.5 No"
-            End If
+    '        If Me.chbAttainmentStatus.Checked = True Then
+    '            dgvQueryGenerator.Columns("OneHrYes").HeaderText = "1-Hr Yes"
+    '            dgvQueryGenerator.Columns("OneHrContribute").HeaderText = "1-Hr Contribute"
+    '            dgvQueryGenerator.Columns("OneHrNo").HeaderText = "1-Hr No"
+    '            dgvQueryGenerator.Columns("EightHrAtlanta").HeaderText = "8-Hr Atlanta"
+    '            dgvQueryGenerator.Columns("EightHrMacon").HeaderText = "8-Hr Macon"
+    '            dgvQueryGenerator.Columns("EightHrNo").HeaderText = "8-Hr No"
+    '            dgvQueryGenerator.Columns("PMAtlanta").HeaderText = "PM-2.5 Atlanta"
+    '            dgvQueryGenerator.Columns("PMChattanooga").HeaderText = "PM-2.5 Chattanooga"
+    '            dgvQueryGenerator.Columns("PMFloyd").HeaderText = "PM-2.5 Floyd"
+    '            dgvQueryGenerator.Columns("PMMacon").HeaderText = "PM-2.5 Macon"
+    '            dgvQueryGenerator.Columns("PMNo").HeaderText = "PM-2.5 No"
+    '        End If
 
-            If chb1HrYes.Checked = True Then
-                dgvQueryGenerator.Columns("OneHrYes").HeaderText = "1-Hr Yes"
-            End If
-            If chb1HrNo.Checked = True Then
-                dgvQueryGenerator.Columns("OneHrNo").HeaderText = "1-Hr No"
-            End If
-            If chb1HrContribute.Checked = True Then
-                dgvQueryGenerator.Columns("OneHrContribute").HeaderText = "1-Hr Contribute"
-            End If
-            If chb8HrAtlanta.Checked = True Then
-                dgvQueryGenerator.Columns("EightHrAtlanta").HeaderText = "8-Hr Atlanta"
-            End If
-            If chb8HrMacon.Checked = True Then
-                dgvQueryGenerator.Columns("EightHrMacon").HeaderText = "8-Hr Macon"
-            End If
-            If chb8HrNo.Checked = True Then
-                dgvQueryGenerator.Columns("EightHrNo").HeaderText = "8-Hr No"
-            End If
-            If chbPMAtlanta.Checked = True Then
-                dgvQueryGenerator.Columns("PMAtlanta").HeaderText = "PM-2.5 Atlanta"
-            End If
-            If chbPMChattanooga.Checked = True Then
-                dgvQueryGenerator.Columns("PMChattanooga").HeaderText = "PM-2.5 Chattanooga"
-            End If
-            If chbPMFloyd.Checked = True Then
-                dgvQueryGenerator.Columns("PMFloyd").HeaderText = "PM-2.5 Floyd"
-            End If
-            If chbPMMacon.Checked = True Then
-                dgvQueryGenerator.Columns("PMMacon").HeaderText = "PM-2.5 Macon"
-            End If
-            If chbPMNo.Checked = True Then
-                dgvQueryGenerator.Columns("PMNo").HeaderText = "PM-2.5 No"
-            End If
+    '        If chb1HrYes.Checked = True Then
+    '            dgvQueryGenerator.Columns("OneHrYes").HeaderText = "1-Hr Yes"
+    '        End If
+    '        If chb1HrNo.Checked = True Then
+    '            dgvQueryGenerator.Columns("OneHrNo").HeaderText = "1-Hr No"
+    '        End If
+    '        If chb1HrContribute.Checked = True Then
+    '            dgvQueryGenerator.Columns("OneHrContribute").HeaderText = "1-Hr Contribute"
+    '        End If
+    '        If chb8HrAtlanta.Checked = True Then
+    '            dgvQueryGenerator.Columns("EightHrAtlanta").HeaderText = "8-Hr Atlanta"
+    '        End If
+    '        If chb8HrMacon.Checked = True Then
+    '            dgvQueryGenerator.Columns("EightHrMacon").HeaderText = "8-Hr Macon"
+    '        End If
+    '        If chb8HrNo.Checked = True Then
+    '            dgvQueryGenerator.Columns("EightHrNo").HeaderText = "8-Hr No"
+    '        End If
+    '        If chbPMAtlanta.Checked = True Then
+    '            dgvQueryGenerator.Columns("PMAtlanta").HeaderText = "PM-2.5 Atlanta"
+    '        End If
+    '        If chbPMChattanooga.Checked = True Then
+    '            dgvQueryGenerator.Columns("PMChattanooga").HeaderText = "PM-2.5 Chattanooga"
+    '        End If
+    '        If chbPMFloyd.Checked = True Then
+    '            dgvQueryGenerator.Columns("PMFloyd").HeaderText = "PM-2.5 Floyd"
+    '        End If
+    '        If chbPMMacon.Checked = True Then
+    '            dgvQueryGenerator.Columns("PMMacon").HeaderText = "PM-2.5 Macon"
+    '        End If
+    '        If chbPMNo.Checked = True Then
+    '            dgvQueryGenerator.Columns("PMNo").HeaderText = "PM-2.5 No"
+    '        End If
 
-            If chbStateProgramCodes.Checked = True Then
-                dgvQueryGenerator.Columns("NSRPSD").HeaderText = "NSR/PSD Major"
-                dgvQueryGenerator.Columns("HAP").HeaderText = "HAPs Major"
-            End If
+    '        If chbStateProgramCodes.Checked = True Then
+    '            dgvQueryGenerator.Columns("NSRPSD").HeaderText = "NSR/PSD Major"
+    '            dgvQueryGenerator.Columns("HAP").HeaderText = "HAPs Major"
+    '        End If
 
-            If chbNSRPSDMajor.Checked = True Then
-                dgvQueryGenerator.Columns("NSRPSD").HeaderText = "NSR/PSD Major"
-            End If
-            If chbHAPMajor.Checked = True Then
-                dgvQueryGenerator.Columns("HAP").HeaderText = "HAPs Major"
-            End If
+    '        If chbNSRPSDMajor.Checked = True Then
+    '            dgvQueryGenerator.Columns("NSRPSD").HeaderText = "NSR/PSD Major"
+    '        End If
+    '        If chbHAPMajor.Checked = True Then
+    '            dgvQueryGenerator.Columns("HAP").HeaderText = "HAPs Major"
+    '        End If
 
-            If chbViewAirPrograms.Checked = True Then
-                dgvQueryGenerator.Columns("APC0").HeaderText = "SIP"
-                dgvQueryGenerator.Columns("APC1").HeaderText = "Federal SIP"
-                dgvQueryGenerator.Columns("APC3").HeaderText = "Non-Federal SIP"
-                dgvQueryGenerator.Columns("APC4").HeaderText = "CFC Tracking"
-                dgvQueryGenerator.Columns("APC6").HeaderText = "PSD"
-                dgvQueryGenerator.Columns("APC7").HeaderText = "NSR"
-                dgvQueryGenerator.Columns("APC8").HeaderText = "NESHAP"
-                dgvQueryGenerator.Columns("APC9").HeaderText = "NSPS"
-                dgvQueryGenerator.Columns("APCA").HeaderText = "Acid Rain"
-                dgvQueryGenerator.Columns("APCF").HeaderText = "FESOP"
-                dgvQueryGenerator.Columns("APCI").HeaderText = "Native American"
-                dgvQueryGenerator.Columns("APCM").HeaderText = "MACT"
-                dgvQueryGenerator.Columns("APCV").HeaderText = "Title V"
-            Else
+    '        If chbViewAirPrograms.Checked = True Then
+    '            dgvQueryGenerator.Columns("APC0").HeaderText = "SIP"
+    '            dgvQueryGenerator.Columns("APC1").HeaderText = "Federal SIP"
+    '            dgvQueryGenerator.Columns("APC3").HeaderText = "Non-Federal SIP"
+    '            dgvQueryGenerator.Columns("APC4").HeaderText = "CFC Tracking"
+    '            dgvQueryGenerator.Columns("APC6").HeaderText = "PSD"
+    '            dgvQueryGenerator.Columns("APC7").HeaderText = "NSR"
+    '            dgvQueryGenerator.Columns("APC8").HeaderText = "NESHAP"
+    '            dgvQueryGenerator.Columns("APC9").HeaderText = "NSPS"
+    '            dgvQueryGenerator.Columns("APCA").HeaderText = "Acid Rain"
+    '            dgvQueryGenerator.Columns("APCF").HeaderText = "FESOP"
+    '            dgvQueryGenerator.Columns("APCI").HeaderText = "Native American"
+    '            dgvQueryGenerator.Columns("APCM").HeaderText = "MACT"
+    '            dgvQueryGenerator.Columns("APCV").HeaderText = "Title V"
+    '        Else
 
-                If chbAPC0.Checked = True Then
-                    dgvQueryGenerator.Columns("APC0").HeaderText = "SIP"
-                    If txtAPC0Order.Text <> "" Then
-                        If CInt(txtAPC0Order.Text) < dgvQueryGenerator.Columns.Count Then
-                            dgvQueryGenerator.Columns("APC0").DisplayIndex = txtAPC0Order.Text
-                        End If
-                    End If
-                End If
-                If chbAPC1.Checked = True Then
-                    dgvQueryGenerator.Columns("APC1").HeaderText = "Federal SIP"
-                    If txtAPC1Order.Text <> "" Then
-                        If CInt(txtAPC1Order.Text) < dgvQueryGenerator.Columns.Count Then
-                            dgvQueryGenerator.Columns("APC1").DisplayIndex = txtAPC1Order.Text
-                        End If
-                    End If
-                End If
-                If chbAPC3.Checked = True Then
-                    dgvQueryGenerator.Columns("APC3").HeaderText = "Non-Federal SIP"
-                    If txtAPC3Order.Text <> "" Then
-                        If CInt(txtAPC3Order.Text) < dgvQueryGenerator.Columns.Count Then
-                            dgvQueryGenerator.Columns("APC3").DisplayIndex = txtAPC3Order.Text
-                        End If
-                    End If
-                End If
-                If chbAPC4.Checked = True Then
-                    dgvQueryGenerator.Columns("APC4").HeaderText = "CFC Tracking"
-                    If txtAPC4Order.Text <> "" Then
-                        If CInt(txtAPC4Order.Text) < dgvQueryGenerator.Columns.Count Then
-                            dgvQueryGenerator.Columns("APC4").DisplayIndex = txtAPC4Order.Text
-                        End If
-                    End If
-                End If
-                If chbAPC6.Checked = True Then
-                    dgvQueryGenerator.Columns("APC6").HeaderText = "PSD"
-                    If txtAPC6Order.Text <> "" Then
-                        If CInt(txtAPC6Order.Text) < dgvQueryGenerator.Columns.Count Then
-                            dgvQueryGenerator.Columns("APC6").DisplayIndex = CInt(txtAPC6Order.Text)
-                        End If
-                    End If
-                End If
-                If chbAPC7.Checked = True Then
-                    dgvQueryGenerator.Columns("APC7").HeaderText = "NSR"
-                    If txtAPC7Order.Text <> "" Then
-                        If CInt(txtAPC7Order.Text) < dgvQueryGenerator.Columns.Count Then
-                            dgvQueryGenerator.Columns("APC7").DisplayIndex = txtAPC7Order.Text
-                        End If
-                    End If
-                End If
-                If chbAPC8.Checked = True Then
-                    dgvQueryGenerator.Columns("APC8").HeaderText = "NESHAP"
-                    If txtAPC8Order.Text <> "" Then
-                        If CInt(txtAPC8Order.Text) < dgvQueryGenerator.Columns.Count Then
-                            dgvQueryGenerator.Columns("APC8").DisplayIndex = txtAPC8Order.Text
-                        End If
-                    End If
-                End If
-                If chbAPC9.Checked = True Then
-                    dgvQueryGenerator.Columns("APC9").HeaderText = "NSPS"
-                    If txtAPC9Order.Text <> "" Then
-                        If CInt(txtAPC9Order.Text) < dgvQueryGenerator.Columns.Count Then
-                            dgvQueryGenerator.Columns("APC9").DisplayIndex = txtAPC9Order.Text
-                        End If
-                    End If
-                End If
-                If chbAPCA.Checked = True Then
-                    dgvQueryGenerator.Columns("APCA").HeaderText = "Acid Rain"
-                    If txtAPCAOrder.Text <> "" Then
-                        If CInt(txtAPCAOrder.Text) < dgvQueryGenerator.Columns.Count Then
-                            dgvQueryGenerator.Columns("APCA").DisplayIndex = txtAPCAOrder.Text
-                        End If
-                    End If
-                End If
-                If chbAPCF.Checked = True Then
-                    dgvQueryGenerator.Columns("APCF").HeaderText = "FESOP"
-                    If txtAPCFOrder.Text <> "" Then
-                        If CInt(txtAPCFOrder.Text) < dgvQueryGenerator.Columns.Count Then
-                            dgvQueryGenerator.Columns("APCF").DisplayIndex = txtAPCFOrder.Text
-                        End If
-                    End If
-                End If
-                If chbAPCI.Checked = True Then
-                    dgvQueryGenerator.Columns("APCI").HeaderText = "Native American"
-                    If txtAPCIOrder.Text <> "" Then
-                        If CInt(txtAPCIOrder.Text) < dgvQueryGenerator.Columns.Count Then
-                            dgvQueryGenerator.Columns("APCI").DisplayIndex = txtAPCIOrder.Text
-                        End If
-                    End If
-                End If
-                If chbAPCM.Checked = True Then
-                    dgvQueryGenerator.Columns("APCM").HeaderText = "MACT"
-                    If txtAPCMOrder.Text <> "" Then
-                        If CInt(txtAPCMOrder.Text) < dgvQueryGenerator.Columns.Count Then
-                            dgvQueryGenerator.Columns("APCM").DisplayIndex = txtAPCMOrder.Text
-                        End If
-                    End If
-                End If
-                If chbAPCV.Checked = True Then
-                    dgvQueryGenerator.Columns("APCV").HeaderText = "Title V"
-                    If txtAPCVOrder.Text <> "" Then
-                        If CInt(txtAPCVOrder.Text) < dgvQueryGenerator.Columns.Count Then
-                            dgvQueryGenerator.Columns("APCV").DisplayIndex = CInt(txtAPCVOrder.Text)
-                        End If
-                    End If
-                End If
-            End If
+    '            If chbAPC0.Checked = True Then
+    '                dgvQueryGenerator.Columns("APC0").HeaderText = "SIP"
+    '                If txtAPC0Order.Text <> "" Then
+    '                    If CInt(txtAPC0Order.Text) < dgvQueryGenerator.Columns.Count Then
+    '                        dgvQueryGenerator.Columns("APC0").DisplayIndex = txtAPC0Order.Text
+    '                    End If
+    '                End If
+    '            End If
+    '            If chbAPC1.Checked = True Then
+    '                dgvQueryGenerator.Columns("APC1").HeaderText = "Federal SIP"
+    '                If txtAPC1Order.Text <> "" Then
+    '                    If CInt(txtAPC1Order.Text) < dgvQueryGenerator.Columns.Count Then
+    '                        dgvQueryGenerator.Columns("APC1").DisplayIndex = txtAPC1Order.Text
+    '                    End If
+    '                End If
+    '            End If
+    '            If chbAPC3.Checked = True Then
+    '                dgvQueryGenerator.Columns("APC3").HeaderText = "Non-Federal SIP"
+    '                If txtAPC3Order.Text <> "" Then
+    '                    If CInt(txtAPC3Order.Text) < dgvQueryGenerator.Columns.Count Then
+    '                        dgvQueryGenerator.Columns("APC3").DisplayIndex = txtAPC3Order.Text
+    '                    End If
+    '                End If
+    '            End If
+    '            If chbAPC4.Checked = True Then
+    '                dgvQueryGenerator.Columns("APC4").HeaderText = "CFC Tracking"
+    '                If txtAPC4Order.Text <> "" Then
+    '                    If CInt(txtAPC4Order.Text) < dgvQueryGenerator.Columns.Count Then
+    '                        dgvQueryGenerator.Columns("APC4").DisplayIndex = txtAPC4Order.Text
+    '                    End If
+    '                End If
+    '            End If
+    '            If chbAPC6.Checked = True Then
+    '                dgvQueryGenerator.Columns("APC6").HeaderText = "PSD"
+    '                If txtAPC6Order.Text <> "" Then
+    '                    If CInt(txtAPC6Order.Text) < dgvQueryGenerator.Columns.Count Then
+    '                        dgvQueryGenerator.Columns("APC6").DisplayIndex = CInt(txtAPC6Order.Text)
+    '                    End If
+    '                End If
+    '            End If
+    '            If chbAPC7.Checked = True Then
+    '                dgvQueryGenerator.Columns("APC7").HeaderText = "NSR"
+    '                If txtAPC7Order.Text <> "" Then
+    '                    If CInt(txtAPC7Order.Text) < dgvQueryGenerator.Columns.Count Then
+    '                        dgvQueryGenerator.Columns("APC7").DisplayIndex = txtAPC7Order.Text
+    '                    End If
+    '                End If
+    '            End If
+    '            If chbAPC8.Checked = True Then
+    '                dgvQueryGenerator.Columns("APC8").HeaderText = "NESHAP"
+    '                If txtAPC8Order.Text <> "" Then
+    '                    If CInt(txtAPC8Order.Text) < dgvQueryGenerator.Columns.Count Then
+    '                        dgvQueryGenerator.Columns("APC8").DisplayIndex = txtAPC8Order.Text
+    '                    End If
+    '                End If
+    '            End If
+    '            If chbAPC9.Checked = True Then
+    '                dgvQueryGenerator.Columns("APC9").HeaderText = "NSPS"
+    '                If txtAPC9Order.Text <> "" Then
+    '                    If CInt(txtAPC9Order.Text) < dgvQueryGenerator.Columns.Count Then
+    '                        dgvQueryGenerator.Columns("APC9").DisplayIndex = txtAPC9Order.Text
+    '                    End If
+    '                End If
+    '            End If
+    '            If chbAPCA.Checked = True Then
+    '                dgvQueryGenerator.Columns("APCA").HeaderText = "Acid Rain"
+    '                If txtAPCAOrder.Text <> "" Then
+    '                    If CInt(txtAPCAOrder.Text) < dgvQueryGenerator.Columns.Count Then
+    '                        dgvQueryGenerator.Columns("APCA").DisplayIndex = txtAPCAOrder.Text
+    '                    End If
+    '                End If
+    '            End If
+    '            If chbAPCF.Checked = True Then
+    '                dgvQueryGenerator.Columns("APCF").HeaderText = "FESOP"
+    '                If txtAPCFOrder.Text <> "" Then
+    '                    If CInt(txtAPCFOrder.Text) < dgvQueryGenerator.Columns.Count Then
+    '                        dgvQueryGenerator.Columns("APCF").DisplayIndex = txtAPCFOrder.Text
+    '                    End If
+    '                End If
+    '            End If
+    '            If chbAPCI.Checked = True Then
+    '                dgvQueryGenerator.Columns("APCI").HeaderText = "Native American"
+    '                If txtAPCIOrder.Text <> "" Then
+    '                    If CInt(txtAPCIOrder.Text) < dgvQueryGenerator.Columns.Count Then
+    '                        dgvQueryGenerator.Columns("APCI").DisplayIndex = txtAPCIOrder.Text
+    '                    End If
+    '                End If
+    '            End If
+    '            If chbAPCM.Checked = True Then
+    '                dgvQueryGenerator.Columns("APCM").HeaderText = "MACT"
+    '                If txtAPCMOrder.Text <> "" Then
+    '                    If CInt(txtAPCMOrder.Text) < dgvQueryGenerator.Columns.Count Then
+    '                        dgvQueryGenerator.Columns("APCM").DisplayIndex = txtAPCMOrder.Text
+    '                    End If
+    '                End If
+    '            End If
+    '            If chbAPCV.Checked = True Then
+    '                dgvQueryGenerator.Columns("APCV").HeaderText = "Title V"
+    '                If txtAPCVOrder.Text <> "" Then
+    '                    If CInt(txtAPCVOrder.Text) < dgvQueryGenerator.Columns.Count Then
+    '                        dgvQueryGenerator.Columns("APCV").DisplayIndex = CInt(txtAPCVOrder.Text)
+    '                    End If
+    '                End If
+    '            End If
+    '        End If
 
-        Catch ex As Exception
-            ErrorReport(txtSQLStatement.Text & vbCrLf & ex.ToString(), Me.Name & ".RunSQL")
-        Finally
+    '    Catch ex As Exception
+    '        ErrorReport(txtSQLStatement.Text & vbCrLf & ex.ToString(), Me.Name & ".RunSQL")
+    '    Finally
 
-        End Try
-    End Sub
+    '    End Try
+    'End Sub
     Sub ExportToExcel()
         'Dim ExcelApp As New Excel.Application
         Dim ExcelApp As New Microsoft.Office.Interop.Excel.Application
