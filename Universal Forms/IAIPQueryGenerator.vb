@@ -4340,13 +4340,19 @@ Public Class IAIPQueryGenerator
                 i += 1
             End If
             If chbSSCPEngineer.Checked = True Then
-                dgvQueryGenerator.Columns("SSCPEngineer").HeaderText = "Complinace Engineer"
+                dgvQueryGenerator.Columns("SSCPEngineer").HeaderText = "Compliance Engineer"
                 dgvQueryGenerator.Columns("SSCPEngineer").DisplayIndex = i
                 dgvQueryGenerator.Columns("SSCPEngineer").Width = "150"
                 i += 1
             End If
+            If chbSSCPUnit.Checked = True Then
+                dgvQueryGenerator.Columns("strUnitDesc").HeaderText = "Compliance Unit"
+                dgvQueryGenerator.Columns("strUnitDesc").DisplayIndex = i
+                dgvQueryGenerator.Columns("strUnitDesc").Width = "150"
+                i += 1
+            End If
             If chbDistrict.Checked = True Then
-                dgvQueryGenerator.Columns("strDistrictName").HeaderText = "Distirct"
+                dgvQueryGenerator.Columns("strDistrictName").HeaderText = "District"
                 dgvQueryGenerator.Columns("strDistrictName").DisplayIndex = i
                 dgvQueryGenerator.Columns("strDistrictName").Width = "100"
                 i += 1
@@ -4376,7 +4382,7 @@ Public Class IAIPQueryGenerator
                 i += 1
             End If
             If chbStartUpDate.Checked = True Then
-                dgvQueryGenerator.Columns("datStartUpDate").HeaderText = "Start Up Date"
+                dgvQueryGenerator.Columns("datStartUpDate").HeaderText = "Startup Date"
                 dgvQueryGenerator.Columns("datStartUpDate").DefaultCellStyle.Format = "dd-MMM-yyyy"
                 dgvQueryGenerator.Columns("datStartUpDate").DisplayIndex = i
                 dgvQueryGenerator.Columns("datStartUpDate").Width = "90"
@@ -5077,53 +5083,61 @@ Public Class IAIPQueryGenerator
 
     '    End Try
     'End Sub
+
     Sub ExportToExcel()
-        'Dim ExcelApp As New Excel.Application
-        Dim ExcelApp As New Microsoft.Office.Interop.Excel.Application
-        'Dim ExcelDoc As Microsoft.Office.Interop.Excel.Workbook
-        Dim i, j As Integer
+        If dgvQueryGenerator.RowCount <> 0 Then
+            dgvQueryGenerator.SaveAsExcelFile()
+        End If
 
-        Try
-            If ExcelApp.Visible = False Then
-                ExcelApp.Visible = True
-            End If
-
-            If dgvQueryGenerator.RowCount <> 0 Then
-                With ExcelApp
-                    .SheetsInNewWorkbook = 1
-                    .Workbooks.Add()
-                    .Worksheets(1).Select()
-
-                    'For displaying the column name in the the excel file.
-                    For i = 0 To dgvQueryGenerator.ColumnCount - 1
-                        .Cells(1, i + 1) = dgvQueryGenerator.Columns(i).HeaderText.ToString
-                    Next
-
-                    For i = 0 To dgvQueryGenerator.ColumnCount - 1
-                        For j = 0 To dgvQueryGenerator.RowCount - 1
-                            .Cells(j + 2, i + 1).numberformat = "@"
-                            .Cells(j + 2, i + 1).value = dgvQueryGenerator.Item(i, j).Value.ToString
-                        Next
-                    Next
-
-                End With
-
-                If ExcelApp.Visible = False Then
-                    ExcelApp.Visible = True
-                End If
-            End If
-
-
-        Catch ex As Exception
-            If ex.ToString.Contains("RPC_E_CALL_REJECTED") Then
-                MsgBox("Error in exporting data." & vbCrLf & "Please run the export again.")
-            Else
-                ErrorReport(txtSQLStatement.Text & vbCrLf & ex.ToString(), Me.Name & ".ExportToExcel")
-            End If
-        Finally
-
-        End Try
     End Sub
+
+    'Sub ExportToExcel()
+    '    'Dim ExcelApp As New Excel.Application
+    '    Dim ExcelApp As New Microsoft.Office.Interop.Excel.Application
+    '    'Dim ExcelDoc As Microsoft.Office.Interop.Excel.Workbook
+    '    Dim i, j As Integer
+
+    '    Try
+    '        If ExcelApp.Visible = False Then
+    '            ExcelApp.Visible = True
+    '        End If
+
+    '        If dgvQueryGenerator.RowCount <> 0 Then
+    '            With ExcelApp
+    '                .SheetsInNewWorkbook = 1
+    '                .Workbooks.Add()
+    '                .Worksheets(1).Select()
+
+    '                'For displaying the column name in the the excel file.
+    '                For i = 0 To dgvQueryGenerator.ColumnCount - 1
+    '                    .Cells(1, i + 1) = dgvQueryGenerator.Columns(i).HeaderText.ToString
+    '                Next
+
+    '                For i = 0 To dgvQueryGenerator.ColumnCount - 1
+    '                    For j = 0 To dgvQueryGenerator.RowCount - 1
+    '                        .Cells(j + 2, i + 1).numberformat = "@"
+    '                        .Cells(j + 2, i + 1).value = dgvQueryGenerator.Item(i, j).Value.ToString
+    '                    Next
+    '                Next
+
+    '            End With
+
+    '            If ExcelApp.Visible = False Then
+    '                ExcelApp.Visible = True
+    '            End If
+    '        End If
+
+
+    '    Catch ex As Exception
+    '        If ex.ToString.Contains("RPC_E_CALL_REJECTED") Then
+    '            MsgBox("Error in exporting data." & vbCrLf & "Please run the export again.")
+    '        Else
+    '            ErrorReport(txtSQLStatement.Text & vbCrLf & ex.ToString(), Me.Name & ".ExportToExcel")
+    '        End If
+    '    Finally
+
+    '    End Try
+    'End Sub
     Sub ResetForm()
         Try
             chbAIRSNumber.Checked = True
