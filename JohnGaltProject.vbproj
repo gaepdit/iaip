@@ -187,6 +187,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="CHANGELOG.md" />
     <None Include="DataSet\dsIAIP10.xsc">
       <DependentUpon>dsIAIP10.xsd</DependentUpon>
     </None>
@@ -1028,6 +1029,7 @@
     <Compile Include="SSPP\Sub Forms\SSPPAttainmentStatus.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="_Modules\ExcelExport.vb" />
     <Compile Include="_Modules\Extensions.vb" />
     <Compile Include="_Modules\App.vb" />
     <Compile Include="_SubMain\subMain.vb">
@@ -1741,7 +1743,6 @@
     <None Include="IAIP-Updater\config.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="CHANGELOG.md" />
     <None Include="..\_Tools\7za\7za.exe">
       <Link>IAIP-Updater\7za.exe</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
