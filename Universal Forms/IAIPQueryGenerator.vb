@@ -5089,7 +5089,8 @@ Public Class IAIPQueryGenerator
         Dim dialog As New SaveFileDialog() With {
             .Filter = "Excel File (*.xlsx)|*.xlsx",
             .DefaultExt = ".xlsx",
-            .FileName = "Export_" & System.DateTime.Now.ToString("yyyy-MM-dd-HH.mm.ss") & ".xlsx"
+            .FileName = "Export_" & System.DateTime.Now.ToString("yyyy-MM-dd-HH.mm.ss") & ".xlsx",
+            .InitialDirectory = GetSetting(Setting.ExcelExportLocation)
         }
 
         If dialog.ShowDialog() = DialogResult.OK Then
@@ -5098,6 +5099,7 @@ Public Class IAIPQueryGenerator
             Dim result As Boolean = dgvQueryGenerator.SaveAsExcelFile(dialog.FileName, errorMessage)
 
             If result Then
+                ' TODO: SaveSetting(Setting.ExcelExportLocation, dialog.FileName)
                 System.Diagnostics.Process.Start(dialog.FileName)
             Else
                 MessageBox.Show(errorMessage)
