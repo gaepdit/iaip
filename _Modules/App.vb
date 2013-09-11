@@ -15,6 +15,26 @@ Module App
     ' then create & start the monitor there
 #End Region
 
+#Region "Settings"
+    Friend Enum Setting As Byte
+        ExcelExportLocation
+    End Enum
+
+    Friend Function GetSetting(ByVal whichSetting As Byte) As String
+        Select Case whichSetting
+            Case Setting.ExcelExportLocation
+                ''' TODO: create a user setting to change this default path
+                Return Environment.GetFolderPath(Environment.SpecialFolder.Personal)
+        End Select
+
+        Return Nothing
+    End Function
+
+    Friend Sub SaveSetting(ByVal whichSetting As Byte, ByVal value As String)
+        ''' TODO
+    End Sub
+#End Region
+
 #Region "URL handling"
     Public Sub SendEmail(ByVal address As String, _
                          Optional ByVal subject As String = Nothing, _
