@@ -15,6 +15,7 @@ Module Extensions
         ' Loop through columns & explicitly set column width and undo AutoSizeMode
         Dim currentWidth As Integer
         For Each column As DataGridViewColumn In datagridview.Columns
+            column.AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
             currentWidth = column.Width
             column.AutoSizeMode = DataGridViewAutoSizeColumnMode.None
             column.Width = Math.Min(maxWidth, currentWidth)
