@@ -5084,33 +5084,7 @@ Public Class IAIPQueryGenerator
     'End Sub
 
     Sub ExportToExcel()
-        If dgvQueryGenerator.RowCount = 0 Then Exit Sub
-
-        Dim dialog As New SaveFileDialog() With {
-            .Filter = "Excel File (*.xlsx)|*.xlsx",
-            .DefaultExt = ".xlsx",
-            .FileName = "Export_" & System.DateTime.Now.ToString("yyyy-MM-dd-HH.mm.ss") & ".xlsx",
-            .InitialDirectory = GetSetting(UserSetting.ExcelExportLocation)
-        }
-
-        If dialog.ShowDialog() = DialogResult.OK Then
-            Me.Cursor = Cursors.AppStarting
-            Dim errorMessage As String = ""
-            Dim result As Boolean = dgvQueryGenerator.SaveAsExcelFile(dialog.FileName, errorMessage)
-
-            If result Then
-                If Not Path.GetDirectoryName(dialog.FileName) = dialog.InitialDirectory Then
-                    SaveSetting(UserSetting.ExcelExportLocation, Path.GetDirectoryName(dialog.FileName))
-                End If
-                System.Diagnostics.Process.Start(dialog.FileName)
-            Else
-                MessageBox.Show(errorMessage)
-            End If
-
-            Me.Cursor = Nothing
-        End If
-
-        dialog.Dispose()
+        If dgvQueryGenerator.RowCount > 0 Then ExportDgvToExcel(dgvQueryGenerator, Me)
     End Sub
 
     'Sub ExportToExcel()
@@ -6322,6 +6296,8 @@ Public Class IAIPQueryGenerator
                 txtQueryCount.Text = dsSQLQuery.Tables(0).Rows.Count
 
             End If
+
+            dgvQueryGenerator.SanelyResizeColumns()
 
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & ".btnRunSearch_Click")
