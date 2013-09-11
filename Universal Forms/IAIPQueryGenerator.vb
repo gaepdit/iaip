@@ -1,5 +1,4 @@
 Imports System.Data.OracleClient
-
 Imports System.IO
 
 Public Class IAIPQueryGenerator
@@ -4716,13 +4715,13 @@ Public Class IAIPQueryGenerator
                 If chbPart60Subpart.Checked = True Then
                     dgvQueryGenerator.Columns("Part60").HeaderText = "NSPS"
                     dgvQueryGenerator.Columns("Part60").DisplayIndex = i
-                    dgvQueryGenerator.Columns("Part60").Width = "100"
+                    dgvQueryGenerator.Columns("Part60").Width = 100
                     i += 1
                 End If
                 If chbPart63Subpart.Checked = True Then
                     dgvQueryGenerator.Columns("Part63").HeaderText = "MACT"
                     dgvQueryGenerator.Columns("Part63").DisplayIndex = i
-                    dgvQueryGenerator.Columns("Part63").Width = "100"
+                    dgvQueryGenerator.Columns("Part63").Width = 100
                     i += 1
                 End If
             End If
@@ -5085,10 +5084,29 @@ Public Class IAIPQueryGenerator
     'End Sub
 
     Sub ExportToExcel()
-        If dgvQueryGenerator.RowCount <> 0 Then
-            dgvQueryGenerator.SaveAsExcelFile()
+        If dgvQueryGenerator.RowCount = 0 Then Exit Sub
+
+        Dim dialog As New SaveFileDialog() With {
+            .Filter = "Excel File (*.xlsx)|*.xlsx",
+            .DefaultExt = ".xlsx",
+            .FileName = "Export_" & System.DateTime.Now.ToString("yyyy-MM-dd-HH.mm.ss") & ".xlsx"
+        }
+
+        If dialog.ShowDialog() = DialogResult.OK Then
+            Me.Cursor = Cursors.AppStarting
+            Dim errorMessage As String = ""
+            Dim result As Boolean = dgvQueryGenerator.SaveAsExcelFile(dialog.FileName, errorMessage)
+
+            If result Then
+                System.Diagnostics.Process.Start(dialog.FileName)
+            Else
+                MessageBox.Show(errorMessage)
+            End If
+
+            Me.Cursor = Nothing
         End If
 
+        dialog.Dispose()
     End Sub
 
     'Sub ExportToExcel()
