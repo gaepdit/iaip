@@ -1,10 +1,11 @@
 ﻿Imports System.Runtime.CompilerServices
+Imports System.Runtime.InteropServices
 
 Module Extensions
 
-#Region "Datagridview"
+#Region "DataGridView"
 
-    <Extension()> _
+    <Extension()>
     Public Sub SanelyResizeColumns(ByVal datagridview As DataGridView,
                                       Optional ByVal maxWidth As Integer = 275)
 
@@ -25,39 +26,31 @@ Module Extensions
     End Sub
 
     <Extension()>
-    Public Sub SaveAsExcelFile(ByVal datagridview As DataGridView)
-        If datagridview.RowCount = 0 Then Exit Sub
-        Dim errorMessage As String = ""
+    Public Function SaveAsExcelFile(ByVal dataGridView As DataGridView,
+                                    ByVal fileName As String,
+                                    <Out()> Optional ByRef errorMessage As String = Nothing
+                                                                                    ) As Boolean
         Dim result As Boolean = False
+        errorMessage = ""
+
+        If dataGridView.RowCount = 0 Then Return result
 
         Try
-            Dim dialog As New SaveFileDialog() With {
-                .Filter = "Excel File (*.xlsx)|*.xlsx",
-                .DefaultExt = ".xlsx",
-                .FileName = "Export_" & System.DateTime.Now.ToString("yyyy-MM-dd-HHmmss") & ".xlsx"
-            }
+            Dim dataTable As DataTable = dataGridView.DataSource.Tables(dataGridView.DataMember)
 
-            If dialog.ShowDialog() = DialogResult.OK Then
+            ' Replace column names with the defined column header text
+            For i = 0 To dataGridView.Columns.Count - 1
+                dataTable.Columns(i).ColumnName = dataGridView.Columns(i).HeaderText
+            Next
 
-                Dim dataTable As DataTable = datagridview.DataSource.Tables(datagridview.DataMember)
-
-                For i = 0 To datagridview.Columns.Count - 1
-                    dataTable.Columns(i).ColumnName = datagridview.Columns(i).HeaderText
-                Next
-
-                result = ExportDataTableToExcel(dialog.FileName, dataTable, errorMessage)
-
-                If result Then
-                    System.Diagnostics.Process.Start(dialog.FileName)
-                Else
-                    ErrorReport(errorMessage, datagridview.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-                End If
-            End If
-
+            result = ExportDataTableToExcel(fileName, dataTable, errorMessage)
         Catch ex As Exception
-            ErrorReport(ex.ToString(), datagridview.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            errorMessage = ex.ToString()
+            ErrorReport(ex.ToString(), dataGridView.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
-    End Sub
+
+        Return result
+    End Function
 
 #End Region
 

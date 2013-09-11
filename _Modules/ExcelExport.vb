@@ -35,15 +35,17 @@ Module ExcelExport
     ''' GC.WaitForPendingFinalizers()
     ''' </remarks>
     Public Function ExportDataTableToExcel(ByVal FileName As String,
-                                             ByVal Table As DataTable,
-                                             Optional ByRef ErrorMessage As String = "",
-                                             Optional ByVal SheetName As String = "Sheet1"
+                                           ByVal Table As DataTable,
+                                           <Out()> Optional ByRef ErrorMessage As String = "",
+                                           Optional ByVal SheetName As String = "Sheet1"
                                                                                   ) As Boolean
+
         Dim result As Boolean = False
         Dim excelApp As Excel.Application = Nothing
         Dim excelWorkbook As Excel.Workbook = Nothing
         Dim excelWorksheet As Excel.Worksheet = Nothing
         Dim excelRange As Excel.Range = Nothing
+        ErrorMessage = ""
 
         Try
             ' Create Excel Workbook & Worksheet
