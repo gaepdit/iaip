@@ -159,6 +159,8 @@
     <Reference Include="System.Data.OracleClient" />
     <Reference Include="System.Design" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel.Web" />
     <Reference Include="System.Web.Extensions">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -1032,6 +1034,7 @@
     <Compile Include="_Modules\ExcelExport.vb" />
     <Compile Include="_Modules\Extensions.vb" />
     <Compile Include="_Modules\App.vb" />
+    <Compile Include="_Modules\UserSettings.vb" />
     <Compile Include="_SubMain\subMain.vb">
       <SubType>Code</SubType>
     </Compile>

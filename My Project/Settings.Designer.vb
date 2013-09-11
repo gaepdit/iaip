@@ -97,6 +97,18 @@ Namespace My
                 Return CType(Me("IAIP_conn2"),String)
             End Get
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property SerializedUserSettingsDictionary() As String
+            Get
+                Return CType(Me("SerializedUserSettingsDictionary"),String)
+            End Get
+            Set
+                Me("SerializedUserSettingsDictionary") = value
+            End Set
+        End Property
     End Class
 End Namespace
 

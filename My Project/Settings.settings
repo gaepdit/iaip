@@ -34,5 +34,8 @@
 &lt;/SerializableConnectionString&gt;</DesignTimeValue>
       <Value Profile="(Default)">Provider=MSDAORA;Data Source=PRD;Persist Security Info=True;Password=grapr1l;User ID=airbranch_app_user</Value>
     </Setting>
+    <Setting Name="SerializedUserSettingsDictionary" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
   </Settings>
 </SettingsFile>
