@@ -2391,17 +2391,17 @@ Public Class IAIPQueryGenerator
                 SQLSelect = SQLSelect & _
                 "(strLastName||', '||strFirstName) as SSCPEngineer, "
 
-                If SQLFrom.IndexOf("" & DBNameSpace & ".SSCPInspectionsRequired") <> -1 Then
+                If SQLFrom.IndexOf("" & DBNameSpace & ".VW_SSCP_MOSTRECENTASSIGNMENT") <> -1 Then
                     '   SQLFrom = SQLFrom
                 Else
-                    SQLFrom = SQLFrom & " " & DBNameSpace & ".SSCPInspectionsRequired, "
-                    SQLWhere = SQLWhere & " and " & DBNameSpace & ".APBMasterAIRS.strAIRSnumber = " & DBNameSpace & ".SSCPInspectionsRequired.strAIRSNumber "
+                    SQLFrom = SQLFrom & " " & DBNameSpace & ".VW_SSCP_MOSTRECENTASSIGNMENT, "
+                    SQLWhere = SQLWhere & " and " & DBNameSpace & ".APBMasterAIRS.strAIRSnumber = " & DBNameSpace & ".VW_SSCP_MOSTRECENTASSIGNMENT.strAIRSNumber "
                 End If
                 If SQLFrom.IndexOf("" & DBNameSpace & ".EPDUserProflies") <> -1 Then
                     '  SQLFrom = SQLFrom
                 Else
                     SQLFrom = SQLFrom & " " & DBNameSpace & ".EPDUserProfiles, "
-                    SQLWhere = SQLWhere & " and " & DBNameSpace & ".EPDUserProfiles.numUserID = " & DBNameSpace & ".SSCPInspectionsRequired.numSSCPEngineer "
+                    SQLWhere = SQLWhere & " and " & DBNameSpace & ".EPDUserProfiles.numUserID = " & DBNameSpace & ".VW_SSCP_MOSTRECENTASSIGNMENT.numSSCPEngineer "
                 End If
             End If
 
@@ -3148,18 +3148,17 @@ Public Class IAIPQueryGenerator
                 SQLSelect = SQLSelect & _
                 "strUnitDesc, "
 
-                If SQLFrom.IndexOf("" & DBNameSpace & ".SSCPInspectionsRequired") <> -1 Then
+                If SQLFrom.IndexOf("" & DBNameSpace & ".VW_SSCP_MOSTRECENTASSIGNMENT") <> -1 Then
                     '     SQLFrom = SQLFrom
                 Else
-                    SQLFrom = SQLFrom & " " & DBNameSpace & ".SSCPInspectionsRequired, "
-                    SQLWhere = SQLWhere & " and " & DBNameSpace & ".APBMasterAIRS.strAIRSNumber = " & DBNameSpace & ".SSCPInspectionsRequired.strAIRSNumber (+)  " & _
-                    " and intyear = (select max(intyear) from airbranch.SSCPInspectionsRequired)   "
+                    SQLFrom = SQLFrom & " " & DBNameSpace & ".VW_SSCP_MOSTRECENTASSIGNMENT, "
+                    SQLWhere = SQLWhere & " and " & DBNameSpace & ".APBMasterAIRS.strAIRSNumber = " & DBNameSpace & ".VW_SSCP_MOSTRECENTASSIGNMENT.strAIRSNumber (+)  "
                 End If
                 If SQLFrom.IndexOf("" & DBNameSpace & ".LookUpEPDUnits") <> -1 Then
                     '   SQLFrom = SQLFrom
                 Else
                     SQLFrom = SQLFrom & " " & DBNameSpace & ".LookUpEPDUnits, "
-                    SQLWhere = SQLWhere & " and " & DBNameSpace & ".SSCPInspectionsRequired.numSSCPUnit = " & DBNameSpace & ".LookUpEPDUnits.nuMUnitCode (+) "
+                    SQLWhere = SQLWhere & " and " & DBNameSpace & ".VW_SSCP_MOSTRECENTASSIGNMENT.numSSCPUnit = " & DBNameSpace & ".LookUpEPDUnits.nuMUnitCode (+) "
                 End If
             End If
 
@@ -3380,14 +3379,14 @@ Public Class IAIPQueryGenerator
                     SQLWhereCase2 = " Not Like "
                 End If
                 If cboSSCPEngineerSearch1.SelectedIndex <> -1 And cboSSCPEngineerSearch1.SelectedIndex <> 0 Then
-                    SQLWhere = SQLWhere & " and (" & DBNameSpace & ".SSCPInspectionsRequired.numSSCPEngineer " & SQLWhereCase2 & " '" & cboSSCPEngineerSearch1.SelectedValue & "') "
+                    SQLWhere = SQLWhere & " and (" & DBNameSpace & ".VW_SSCP_MOSTRECENTASSIGNMENT.numSSCPEngineer " & SQLWhereCase2 & " '" & cboSSCPEngineerSearch1.SelectedValue & "') "
                 End If
                 If cboSSCPEngineerSearch2.SelectedIndex <> -1 And cboSSCPEngineerSearch2.SelectedIndex <> 0 Then
                     If cboSSCPEngineerSearch1.SelectedIndex <> -1 And cboSSCPEngineerSearch1.SelectedIndex <> 0 Then
                         SQLWhere = Mid(SQLWhere, 1, (SQLWhere.Length - 2)) & _
-                        " " & SQLWhereCase1 & " " & DBNameSpace & ".SSCPInspectionsRequired.numSSCPEngineer " & SQLWhereCase2 & " '" & cboSSCPEngineerSearch2.SelectedValue & "' ) "
+                        " " & SQLWhereCase1 & " " & DBNameSpace & ".VW_SSCP_MOSTRECENTASSIGNMENT.numSSCPEngineer " & SQLWhereCase2 & " '" & cboSSCPEngineerSearch2.SelectedValue & "' ) "
                     Else
-                        SQLWhere = SQLWhere & " and (" & DBNameSpace & ".SSCPInspectionsRequired.numSSCPEngineer " & SQLWhereCase2 & " '" & cboSSCPEngineerSearch2.SelectedValue & "') "
+                        SQLWhere = SQLWhere & " and (" & DBNameSpace & ".VW_SSCP_MOSTRECENTASSIGNMENT.numSSCPEngineer " & SQLWhereCase2 & " '" & cboSSCPEngineerSearch2.SelectedValue & "') "
                     End If
                 End If
             End If
