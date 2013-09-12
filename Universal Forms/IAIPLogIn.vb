@@ -358,8 +358,10 @@ Public Class IAIPLogIn
                         End If
 
                         ' Add additional installation meta data for analytics
-                        monitorInstallationInfo.Add("IaipUserName", Replace(UserID.Text.ToLower, "'", "''"))
-                        monitor.SetInstallationInfo(MachineName, monitorInstallationInfo)
+                        Dim useridname As String = UserID.Text
+                        ' TODO: Once a workable "User" object is set up, use userID from that instead
+                        monitorInstallationInfo.Add("IaipUserName", useridname)
+                        monitor.SetInstallationInfo(useridname, monitorInstallationInfo)
 
                         NavigationScreen = Nothing
                         If NavigationScreen Is Nothing Then NavigationScreen = New IAIPNavigation
