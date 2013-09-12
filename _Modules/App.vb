@@ -154,12 +154,13 @@ Module App
             sender.Cursor = Cursors.AppStarting
         End If
 
-        Dim dialog As New SaveFileDialog() With {
-            .Filter = "Excel File (*.xlsx)|*.xlsx",
-            .DefaultExt = ".xlsx",
-            .FileName = "Export_" & System.DateTime.Now.ToString("yyyy-MM-dd-HH.mm.ss") & ".xlsx",
+        Dim dialog As New SaveFileDialog()
+        With dialog
+            .Filter = "Excel File (*.xlsx)|*.xlsx"
+            .DefaultExt = ".xlsx"
+            .FileName = "Export_" & System.DateTime.Now.ToString("yyyy-MM-dd-HH.mm.ss") & ".xlsx"
             .InitialDirectory = GetSetting(UserSetting.ExcelExportLocation)
-        }
+        End With
 
         If dialog.ShowDialog() = DialogResult.OK Then
             Dim errorMessage As String = ""

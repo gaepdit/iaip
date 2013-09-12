@@ -5,8 +5,8 @@ Module Extensions
 
 #Region "DataGridView"
 
-    <Extension()>
-    Public Sub SanelyResizeColumns(ByVal datagridview As DataGridView,
+    <Extension()> _
+    Public Sub SanelyResizeColumns(ByVal datagridview As DataGridView, _
                                       Optional ByVal maxWidth As Integer = 275)
 
         ' Resize all columns to fit current content:
@@ -26,10 +26,10 @@ Module Extensions
 
     End Sub
 
-    <Extension()>
-    Public Function SaveAsExcelFile(ByVal dataGridView As DataGridView,
-                                    ByVal fileName As String,
-                                    <Out()> Optional ByRef errorMessage As String = Nothing
+    <Extension()> _
+    Public Function SaveAsExcelFile(ByVal dataGridView As DataGridView, _
+                                    ByVal fileName As String, _
+                                    <Out()> Optional ByRef errorMessage As String = Nothing _
                                                                                     ) As Boolean
         Dim result As Boolean = False
         errorMessage = ""

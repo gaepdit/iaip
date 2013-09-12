@@ -34,10 +34,10 @@ Module ExcelExport
     ''' GC.Collect()
     ''' GC.WaitForPendingFinalizers()
     ''' </remarks>
-    Public Function ExportDataTableToExcel(ByVal FileName As String,
-                                           ByVal Table As DataTable,
-                                           <Out()> Optional ByRef ErrorMessage As String = "",
-                                           Optional ByVal SheetName As String = "Sheet1"
+    Public Function ExportDataTableToExcel(ByVal FileName As String, _
+                                           ByVal Table As DataTable, _
+                                           <Out()> Optional ByRef ErrorMessage As String = "", _
+                                           Optional ByVal SheetName As String = "Sheet1" _
                                                                                   ) As Boolean
 
         Dim result As Boolean = False
