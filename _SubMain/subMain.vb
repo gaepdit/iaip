@@ -44,9 +44,11 @@ Module subMain
     Friend TodayString As String = Format(Today, DateFormat)
     Friend AnalyticsApiKey As String = "094F22FFB35C42E9A5D65279634F5028"
     Friend MachineName As String = Environment.MachineName
+    Friend PublishedVersion As Version = Nothing
+    Friend CurrentVersion As Version = Nothing
 #End Region
 
-#Region "Existing public variables"
+#Region "Old public variables"
     Public OracleDate As String = Format(Date.Today, "dd-MMM-yyyy")
     Public UserGCode As String
     Public Permissions As String
