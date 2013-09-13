@@ -355,7 +355,7 @@ Partial Class SSCPFCEWork
         '
         'txtAirsNumber
         '
-        Me.txtAirsNumber.BackColor = System.Drawing.SystemColors.InactiveCaptionText
+        Me.txtAirsNumber.BackColor = System.Drawing.SystemColors.Control
         Me.txtAirsNumber.Location = New System.Drawing.Point(5, 47)
         Me.txtAirsNumber.Name = "txtAirsNumber"
         Me.txtAirsNumber.ReadOnly = True

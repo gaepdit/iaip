@@ -696,7 +696,7 @@ Partial Class IAIPEditHeaderData
         '
         'txtAirsNumber
         '
-        Me.txtAirsNumber.BackColor = System.Drawing.SystemColors.InactiveCaptionText
+        Me.txtAirsNumber.BackColor = System.Drawing.SystemColors.Control
         Me.txtAirsNumber.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtAirsNumber.Location = New System.Drawing.Point(79, 46)
         Me.txtAirsNumber.MaxLength = 8
@@ -707,7 +707,7 @@ Partial Class IAIPEditHeaderData
         '
         'txtFacilityName
         '
-        Me.txtFacilityName.BackColor = System.Drawing.SystemColors.InactiveCaptionText
+        Me.txtFacilityName.BackColor = System.Drawing.SystemColors.Control
         Me.txtFacilityName.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtFacilityName.Location = New System.Drawing.Point(79, 25)
         Me.txtFacilityName.Name = "txtFacilityName"

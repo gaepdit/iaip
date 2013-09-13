@@ -964,7 +964,7 @@ Me.SuspendLayout
 Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mmiFile, Me.mmiEdit, Me.mmiView, Me.mmiTool, Me.mmiHelp})
 Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
 Me.MenuStrip1.Name = "MenuStrip1"
-Me.MenuStrip1.Size = New System.Drawing.Size(792, 24)
+Me.MenuStrip1.Size = New System.Drawing.Size(790, 24)
 Me.MenuStrip1.TabIndex = 0
 Me.MenuStrip1.Text = "MenuStrip1"
 '
@@ -1074,7 +1074,7 @@ Me.mmiHelp.Text = "Help"
 Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsbSave, Me.tsbSearch, Me.tsbPrePopulate, Me.tsbPrint, Me.tsbClear, Me.tsbResize, Me.tsbMemo, Me.tsbTestLogLink, Me.tsbDelete, Me.tsbBack, Me.tsbConfidentialData})
 Me.ToolStrip1.Location = New System.Drawing.Point(0, 24)
 Me.ToolStrip1.Name = "ToolStrip1"
-Me.ToolStrip1.Size = New System.Drawing.Size(792, 25)
+Me.ToolStrip1.Size = New System.Drawing.Size(790, 25)
 Me.ToolStrip1.TabIndex = 1
 Me.ToolStrip1.Text = "ToolStrip1"
 '
@@ -1180,9 +1180,9 @@ Me.tsbConfidentialData.ToolTipText = "Confidential Data"
 'StatusStrip1
 '
 Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Panel1, Me.Panel2, Me.Panel3})
-Me.StatusStrip1.Location = New System.Drawing.Point(0, 744)
+Me.StatusStrip1.Location = New System.Drawing.Point(0, 742)
 Me.StatusStrip1.Name = "StatusStrip1"
-Me.StatusStrip1.Size = New System.Drawing.Size(792, 22)
+Me.StatusStrip1.Size = New System.Drawing.Size(790, 22)
 Me.StatusStrip1.TabIndex = 2
 Me.StatusStrip1.Text = "StatusStrip1"
 '
@@ -1193,7 +1193,7 @@ Me.Panel1.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorder
             Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom),System.Windows.Forms.ToolStripStatusLabelBorderSides)
 Me.Panel1.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
 Me.Panel1.Name = "Panel1"
-Me.Panel1.Size = New System.Drawing.Size(769, 17)
+Me.Panel1.Size = New System.Drawing.Size(767, 17)
 Me.Panel1.Spring = true
 Me.Panel1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
 '
@@ -1233,8 +1233,8 @@ Me.SCTestReports.Panel1.Controls.Add(Me.GroupBox1)
 Me.SCTestReports.Panel2.AutoScroll = true
 Me.SCTestReports.Panel2.BackColor = System.Drawing.SystemColors.ControlLight
 Me.SCTestReports.Panel2.Controls.Add(Me.TCDocumentTypes)
-Me.SCTestReports.Size = New System.Drawing.Size(792, 695)
-Me.SCTestReports.SplitterDistance = 190
+Me.SCTestReports.Size = New System.Drawing.Size(790, 693)
+Me.SCTestReports.SplitterDistance = 189
 Me.SCTestReports.TabIndex = 1
 '
 'GroupBox1
@@ -1298,7 +1298,7 @@ Me.GroupBox1.Controls.Add(Me.labReferenceNumber)
 Me.GroupBox1.Dock = System.Windows.Forms.DockStyle.Fill
 Me.GroupBox1.Location = New System.Drawing.Point(0, 0)
 Me.GroupBox1.Name = "GroupBox1"
-Me.GroupBox1.Size = New System.Drawing.Size(792, 190)
+Me.GroupBox1.Size = New System.Drawing.Size(790, 189)
 Me.GroupBox1.TabIndex = 0
 Me.GroupBox1.TabStop = false
 Me.GroupBox1.Text = "Report Information "
@@ -1395,7 +1395,7 @@ Me.Label21.Text = "Assigned to ISMP Engineer:"
 '
 'txtAssignedToEngineer
 '
-Me.txtAssignedToEngineer.BackColor = System.Drawing.SystemColors.InactiveCaptionText
+        Me.txtAssignedToEngineer.BackColor = System.Drawing.SystemColors.Control
 Me.txtAssignedToEngineer.Location = New System.Drawing.Point(661, 213)
 Me.txtAssignedToEngineer.Name = "txtAssignedToEngineer"
 Me.txtAssignedToEngineer.ReadOnly = true
@@ -1598,7 +1598,7 @@ Me.Label15.Text = "Compliance Manager:"
 '
 'txtUnitManager
 '
-Me.txtUnitManager.BackColor = System.Drawing.SystemColors.InactiveCaptionText
+        Me.txtUnitManager.BackColor = System.Drawing.SystemColors.Control
 Me.txtUnitManager.Location = New System.Drawing.Point(133, 213)
 Me.txtUnitManager.Name = "txtUnitManager"
 Me.txtUnitManager.ReadOnly = true
@@ -1617,7 +1617,7 @@ Me.Label14.Text = "ISMP Unit Manager:"
 '
 'txtProgramManager
 '
-Me.txtProgramManager.BackColor = System.Drawing.SystemColors.InactiveCaptionText
+        Me.txtProgramManager.BackColor = System.Drawing.SystemColors.Control
 Me.txtProgramManager.Location = New System.Drawing.Point(133, 190)
 Me.txtProgramManager.Name = "txtProgramManager"
 Me.txtProgramManager.ReadOnly = true
@@ -1665,7 +1665,7 @@ Me.Label11.TextAlign = System.Drawing.ContentAlignment.BottomLeft
 '
 'txtCompleteDate
 '
-Me.txtCompleteDate.BackColor = System.Drawing.SystemColors.InactiveCaptionText
+        Me.txtCompleteDate.BackColor = System.Drawing.SystemColors.Control
 Me.txtCompleteDate.Location = New System.Drawing.Point(661, 237)
 Me.txtCompleteDate.Name = "txtCompleteDate"
 Me.txtCompleteDate.ReadOnly = true
@@ -1675,7 +1675,7 @@ Me.txtCompleteDate.TabStop = false
 '
 'txtReceivedByAPB
 '
-Me.txtReceivedByAPB.BackColor = System.Drawing.SystemColors.InactiveCaptionText
+        Me.txtReceivedByAPB.BackColor = System.Drawing.SystemColors.Control
 Me.txtReceivedByAPB.Location = New System.Drawing.Point(661, 190)
 Me.txtReceivedByAPB.Name = "txtReceivedByAPB"
 Me.txtReceivedByAPB.ReadOnly = true
@@ -1713,13 +1713,14 @@ Me.Label28.TextAlign = System.Drawing.ContentAlignment.BottomLeft
 '
 'txtFacilityState
 '
-Me.txtFacilityState.BackColor = System.Drawing.SystemColors.InactiveCaptionText
-Me.txtFacilityState.Location = New System.Drawing.Point(286, 88)
+Me.txtFacilityState.BackColor = System.Drawing.SystemColors.Control
+Me.txtFacilityState.Location = New System.Drawing.Point(286, 92)
 Me.txtFacilityState.Name = "txtFacilityState"
 Me.txtFacilityState.ReadOnly = true
 Me.txtFacilityState.Size = New System.Drawing.Size(32, 20)
 Me.txtFacilityState.TabIndex = 20
 Me.txtFacilityState.TabStop = false
+Me.txtFacilityState.Visible = false
 '
 'txtSourceTested
 '
@@ -1732,8 +1733,8 @@ Me.txtSourceTested.TabIndex = 5
 '
 'txtFacilityCity
 '
-Me.txtFacilityCity.BackColor = System.Drawing.SystemColors.InactiveCaptionText
-Me.txtFacilityCity.Location = New System.Drawing.Point(114, 88)
+Me.txtFacilityCity.BackColor = System.Drawing.SystemColors.Control
+Me.txtFacilityCity.Location = New System.Drawing.Point(115, 92)
 Me.txtFacilityCity.Name = "txtFacilityCity"
 Me.txtFacilityCity.ReadOnly = true
 Me.txtFacilityCity.Size = New System.Drawing.Size(167, 20)
@@ -1742,8 +1743,8 @@ Me.txtFacilityCity.TabStop = false
 '
 'txtFacilityName
 '
-Me.txtFacilityName.BackColor = System.Drawing.SystemColors.InactiveCaptionText
-Me.txtFacilityName.Location = New System.Drawing.Point(114, 64)
+Me.txtFacilityName.BackColor = System.Drawing.SystemColors.Control
+Me.txtFacilityName.Location = New System.Drawing.Point(114, 68)
 Me.txtFacilityName.Name = "txtFacilityName"
 Me.txtFacilityName.ReadOnly = true
 Me.txtFacilityName.Size = New System.Drawing.Size(204, 20)
@@ -1752,8 +1753,8 @@ Me.txtFacilityName.TabStop = false
 '
 'txtAirsNumber
 '
-Me.txtAirsNumber.BackColor = System.Drawing.SystemColors.InactiveCaptionText
-Me.txtAirsNumber.Location = New System.Drawing.Point(114, 40)
+Me.txtAirsNumber.BackColor = System.Drawing.SystemColors.Control
+Me.txtAirsNumber.Location = New System.Drawing.Point(114, 44)
 Me.txtAirsNumber.Name = "txtAirsNumber"
 Me.txtAirsNumber.ReadOnly = true
 Me.txtAirsNumber.Size = New System.Drawing.Size(70, 20)
@@ -1762,8 +1763,8 @@ Me.txtAirsNumber.TabStop = false
 '
 'txtReferenceNumber
 '
-Me.txtReferenceNumber.BackColor = System.Drawing.SystemColors.InactiveCaptionText
-Me.txtReferenceNumber.Location = New System.Drawing.Point(114, 16)
+Me.txtReferenceNumber.BackColor = System.Drawing.SystemColors.Control
+Me.txtReferenceNumber.Location = New System.Drawing.Point(114, 20)
 Me.txtReferenceNumber.Name = "txtReferenceNumber"
 Me.txtReferenceNumber.ReadOnly = true
 Me.txtReferenceNumber.Size = New System.Drawing.Size(70, 20)
@@ -1865,7 +1866,7 @@ Me.TCDocumentTypes.Dock = System.Windows.Forms.DockStyle.Fill
 Me.TCDocumentTypes.Location = New System.Drawing.Point(0, 0)
 Me.TCDocumentTypes.Name = "TCDocumentTypes"
 Me.TCDocumentTypes.SelectedIndex = 0
-Me.TCDocumentTypes.Size = New System.Drawing.Size(792, 501)
+Me.TCDocumentTypes.Size = New System.Drawing.Size(790, 500)
 Me.TCDocumentTypes.TabIndex = 1
 '
 'TPOneStack
@@ -1901,7 +1902,7 @@ Me.TPOneStack.Controls.Add(Me.Label199)
 Me.TPOneStack.Location = New System.Drawing.Point(4, 22)
 Me.TPOneStack.Name = "TPOneStack"
 Me.TPOneStack.Padding = New System.Windows.Forms.Padding(3)
-Me.TPOneStack.Size = New System.Drawing.Size(784, 475)
+Me.TPOneStack.Size = New System.Drawing.Size(782, 474)
 Me.TPOneStack.TabIndex = 0
 Me.TPOneStack.Text = "One Stack"
 Me.TPOneStack.UseVisualStyleBackColor = true
@@ -3478,7 +3479,7 @@ Me.TPLoadingRack.Controls.Add(Me.Label170)
 Me.TPLoadingRack.Location = New System.Drawing.Point(4, 22)
 Me.TPLoadingRack.Name = "TPLoadingRack"
 Me.TPLoadingRack.Padding = New System.Windows.Forms.Padding(3)
-Me.TPLoadingRack.Size = New System.Drawing.Size(784, 475)
+Me.TPLoadingRack.Size = New System.Drawing.Size(782, 474)
 Me.TPLoadingRack.TabIndex = 1
 Me.TPLoadingRack.Text = "Loading Rack"
 Me.TPLoadingRack.UseVisualStyleBackColor = true
@@ -3922,7 +3923,7 @@ Me.TPPondTreatment.Controls.Add(Me.cboMaximumExpectedOperatingCapacityUnitsPond)
 Me.TPPondTreatment.Controls.Add(Me.Label151)
 Me.TPPondTreatment.Location = New System.Drawing.Point(4, 22)
 Me.TPPondTreatment.Name = "TPPondTreatment"
-Me.TPPondTreatment.Size = New System.Drawing.Size(784, 475)
+Me.TPPondTreatment.Size = New System.Drawing.Size(782, 474)
 Me.TPPondTreatment.TabIndex = 2
 Me.TPPondTreatment.Text = "Pulping Process Condensate"
 Me.TPPondTreatment.UseVisualStyleBackColor = true
@@ -4435,7 +4436,7 @@ Me.TPGasConcentration.Controls.Add(Me.Label132)
 Me.TPGasConcentration.Controls.Add(Me.Label133)
 Me.TPGasConcentration.Location = New System.Drawing.Point(4, 22)
 Me.TPGasConcentration.Name = "TPGasConcentration"
-Me.TPGasConcentration.Size = New System.Drawing.Size(784, 475)
+Me.TPGasConcentration.Size = New System.Drawing.Size(782, 474)
 Me.TPGasConcentration.TabIndex = 3
 Me.TPGasConcentration.Text = "Gas Concentration"
 Me.TPGasConcentration.UseVisualStyleBackColor = true
@@ -4943,7 +4944,7 @@ Me.TPFlare.Controls.Add(Me.Label107)
 Me.TPFlare.Controls.Add(Me.Label108)
 Me.TPFlare.Location = New System.Drawing.Point(4, 22)
 Me.TPFlare.Name = "TPFlare"
-Me.TPFlare.Size = New System.Drawing.Size(784, 475)
+Me.TPFlare.Size = New System.Drawing.Size(782, 474)
 Me.TPFlare.TabIndex = 4
 Me.TPFlare.Text = "Flare"
 Me.TPFlare.UseVisualStyleBackColor = true
@@ -5363,7 +5364,7 @@ Me.Label108.TextAlign = System.Drawing.ContentAlignment.BottomLeft
 Me.TPPEMS.AutoScroll = true
 Me.TPPEMS.Location = New System.Drawing.Point(4, 22)
 Me.TPPEMS.Name = "TPPEMS"
-Me.TPPEMS.Size = New System.Drawing.Size(784, 475)
+Me.TPPEMS.Size = New System.Drawing.Size(782, 474)
 Me.TPPEMS.TabIndex = 5
 Me.TPPEMS.Text = "PEM"
 Me.TPPEMS.UseVisualStyleBackColor = true
@@ -5376,7 +5377,7 @@ Me.TPMethodNine.Controls.Add(Me.Label79)
 Me.TPMethodNine.Controls.Add(Me.TCMethodNine)
 Me.TPMethodNine.Location = New System.Drawing.Point(4, 22)
 Me.TPMethodNine.Name = "TPMethodNine"
-Me.TPMethodNine.Size = New System.Drawing.Size(784, 475)
+Me.TPMethodNine.Size = New System.Drawing.Size(782, 474)
 Me.TPMethodNine.TabIndex = 6
 Me.TPMethodNine.Text = "Method 9"
 Me.TPMethodNine.UseVisualStyleBackColor = true
@@ -6344,7 +6345,7 @@ Me.TPMemorandum.Controls.Add(Me.Label117)
 Me.TPMemorandum.Controls.Add(Me.TCMemorandum)
 Me.TPMemorandum.Location = New System.Drawing.Point(4, 22)
 Me.TPMemorandum.Name = "TPMemorandum"
-Me.TPMemorandum.Size = New System.Drawing.Size(784, 475)
+Me.TPMemorandum.Size = New System.Drawing.Size(782, 474)
 Me.TPMemorandum.TabIndex = 7
 Me.TPMemorandum.Text = "Memorandum"
 Me.TPMemorandum.UseVisualStyleBackColor = true
@@ -6820,7 +6821,7 @@ Me.TPRata.Controls.Add(Me.txtApplicableStandardRata)
 Me.TPRata.Controls.Add(Me.Label173)
 Me.TPRata.Location = New System.Drawing.Point(4, 22)
 Me.TPRata.Name = "TPRata"
-Me.TPRata.Size = New System.Drawing.Size(784, 475)
+Me.TPRata.Size = New System.Drawing.Size(782, 474)
 Me.TPRata.TabIndex = 8
 Me.TPRata.Text = "RATA"
 Me.TPRata.UseVisualStyleBackColor = true
@@ -7830,7 +7831,7 @@ Me.TPTwoStack.Controls.Add(Me.cboAllowableEmissionRateUnits1TwoStack)
 Me.TPTwoStack.Controls.Add(Me.cboMaximumExpectedOperatingCapacityUnitsTwoStack)
 Me.TPTwoStack.Location = New System.Drawing.Point(4, 22)
 Me.TPTwoStack.Name = "TPTwoStack"
-Me.TPTwoStack.Size = New System.Drawing.Size(784, 475)
+Me.TPTwoStack.Size = New System.Drawing.Size(782, 474)
 Me.TPTwoStack.TabIndex = 9
 Me.TPTwoStack.Text = "Two Stack"
 Me.TPTwoStack.UseVisualStyleBackColor = true
@@ -9646,7 +9647,7 @@ Me.TPMethodTwentyTwo.Controls.Add(Me.cboMaximumExpectedOperatingCapacityUnitsMet
 Me.TPMethodTwentyTwo.Controls.Add(Me.Label222)
 Me.TPMethodTwentyTwo.Location = New System.Drawing.Point(4, 22)
 Me.TPMethodTwentyTwo.Name = "TPMethodTwentyTwo"
-Me.TPMethodTwentyTwo.Size = New System.Drawing.Size(784, 475)
+Me.TPMethodTwentyTwo.Size = New System.Drawing.Size(782, 474)
 Me.TPMethodTwentyTwo.TabIndex = 10
 Me.TPMethodTwentyTwo.Text = "Method 22"
 Me.TPMethodTwentyTwo.UseVisualStyleBackColor = true
@@ -9888,7 +9889,7 @@ Me.TPSSCPWork.Controls.Add(Me.Label326)
 Me.TPSSCPWork.Controls.Add(Me.txtTestReportDueDate)
 Me.TPSSCPWork.Location = New System.Drawing.Point(4, 22)
 Me.TPSSCPWork.Name = "TPSSCPWork"
-Me.TPSSCPWork.Size = New System.Drawing.Size(784, 475)
+Me.TPSSCPWork.Size = New System.Drawing.Size(782, 474)
 Me.TPSSCPWork.TabIndex = 11
 Me.TPSSCPWork.Text = "Compliance Work"
 Me.TPSSCPWork.UseVisualStyleBackColor = true
@@ -10156,7 +10157,7 @@ Me.txtTestReportDueDate.TabIndex = 397
 '
 Me.AutoScaleDimensions = New System.Drawing.SizeF(6!, 13!)
 Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-Me.ClientSize = New System.Drawing.Size(792, 766)
+Me.ClientSize = New System.Drawing.Size(790, 764)
 Me.Controls.Add(Me.SCTestReports)
 Me.Controls.Add(Me.StatusStrip1)
 Me.Controls.Add(Me.ToolStrip1)

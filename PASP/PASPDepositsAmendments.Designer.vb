@@ -1524,7 +1524,7 @@ Partial Class PASPDepositsAmendments
         '
         Me.btnAddInvoice.AutoSize = True
         Me.btnAddInvoice.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnAddInvoice.BackColor = System.Drawing.SystemColors.InactiveCaptionText
+        Me.btnAddInvoice.BackColor = System.Drawing.SystemColors.Control
         Me.btnAddInvoice.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnAddInvoice.ForeColor = System.Drawing.SystemColors.WindowText
         Me.btnAddInvoice.Location = New System.Drawing.Point(530, 530)
@@ -1923,7 +1923,7 @@ Partial Class PASPDepositsAmendments
         '
         Me.btnAmend.AutoSize = True
         Me.btnAmend.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnAmend.BackColor = System.Drawing.SystemColors.InactiveCaptionText
+        Me.btnAmend.BackColor = System.Drawing.SystemColors.Control
         Me.btnAmend.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnAmend.ForeColor = System.Drawing.SystemColors.WindowText
         Me.btnAmend.Location = New System.Drawing.Point(20, 530)

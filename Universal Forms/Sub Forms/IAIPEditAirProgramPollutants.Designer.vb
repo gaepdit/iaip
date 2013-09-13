@@ -298,7 +298,7 @@ Partial Class IAIPEditAirProgramPollutants
         '
         'txtAirsNumber
         '
-        Me.txtAirsNumber.BackColor = System.Drawing.SystemColors.InactiveCaptionText
+        Me.txtAirsNumber.BackColor = System.Drawing.SystemColors.Control
         Me.txtAirsNumber.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtAirsNumber.Location = New System.Drawing.Point(460, 15)
         Me.txtAirsNumber.MaxLength = 8
@@ -309,7 +309,7 @@ Partial Class IAIPEditAirProgramPollutants
         '
         'txtFacilityName
         '
-        Me.txtFacilityName.BackColor = System.Drawing.SystemColors.InactiveCaptionText
+        Me.txtFacilityName.BackColor = System.Drawing.SystemColors.Control
         Me.txtFacilityName.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtFacilityName.Location = New System.Drawing.Point(89, 15)
         Me.txtFacilityName.Name = "txtFacilityName"

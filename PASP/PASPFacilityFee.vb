@@ -529,7 +529,7 @@ Public Class PASPFacilityFee
         'btnAmend
         '
         Me.btnAmend.AutoSize = True
-        Me.btnAmend.BackColor = System.Drawing.SystemColors.InactiveCaptionText
+        Me.btnAmend.BackColor = System.Drawing.SystemColors.Control
         Me.btnAmend.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnAmend.ForeColor = System.Drawing.SystemColors.WindowText
         Me.btnAmend.Location = New System.Drawing.Point(547, 395)

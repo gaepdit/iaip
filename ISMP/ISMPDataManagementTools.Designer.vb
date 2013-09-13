@@ -4761,7 +4761,7 @@ Me.dgvER.Visible = false
 '
 'txtFacilityNameEITool
 '
-Me.txtFacilityNameEITool.BackColor = System.Drawing.SystemColors.InactiveCaptionText
+Me.txtFacilityNameEITool.BackColor = System.Drawing.SystemColors.Control
 Me.txtFacilityNameEITool.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
 Me.txtFacilityNameEITool.Location = New System.Drawing.Point(82, 6)
 Me.txtFacilityNameEITool.Margin = New System.Windows.Forms.Padding(2)
