@@ -189,7 +189,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="CHANGELOG.md" />
+    <None Include="docs\CHANGELOG.md" />
     <None Include="DataSet\dsIAIP10.xsc">
       <DependentUpon>dsIAIP10.xsd</DependentUpon>
     </None>
@@ -1749,9 +1749,9 @@
       <Link>IAIP-Updater\7zsd_All.sfx</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="README.md">
+    <None Include="docs\README.md">
     </None>
-    <None Include="README_DEVELOPERS.md" />
+    <None Include="docs\README_DEVELOPERS.md" />
     <None Include="IAIP-Updater\config.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
