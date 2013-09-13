@@ -14,6 +14,11 @@ Public Class IAIPLogIn
     Dim IaipAvailable As Boolean = True
 
     Private Sub IAIPLogIn_Shown(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Shown
+        If txtUserID.Enabled Then txtUserID.Focus()
+        If txtUserID.Text <> "" Then
+            If txtUserPassword.Enabled Then txtUserPassword.Focus()
+        End If
+
         monitor.TrackFeatureStop("Startup.Loading")
     End Sub
     Private Sub Splash_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
@@ -55,10 +60,6 @@ Public Class IAIPLogIn
                 End If
             End If
 
-            If Panel1.Text = "Enter your Password....." Then
-                txtUserPassword.Focus()
-            End If
-
             Dim DefaultsText As String = ""
             temp = "SSCPProfile-313000000200000-eliforPPCSS"
             If File.Exists("C:\APB\Defaults.txt") Then
@@ -81,10 +82,7 @@ Public Class IAIPLogIn
 
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
 
 #Region "Page Load Functions"
@@ -540,60 +538,54 @@ Public Class IAIPLogIn
 
     'End Sub
 #End Region
-    Private Sub txtUserID_LostFocus(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtUserID.LostFocus
-        Try
+    'Private Sub txtUserID_LostFocus(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtUserID.LostFocus
+    '    Try
 
-            If txtUserID.Text <> "" Then
-                Panel2.Text = txtUserID.Text
-            End If
-        Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+    '        If txtUserID.Text <> "" Then
+    '            Panel2.Text = txtUserID.Text
+    '        End If
+    '    Catch ex As Exception
+    '        ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+    '    End Try
 
+    'End Sub
+    'Private Sub Splash_Activated(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Activated
+    '    Try
+
+    '        If File.Exists("C:\APB\Defaults.txt") Then
+    '            Panel1.Text = "Enter your Password....."
+    '            txtUserPassword.Focus()
+    '        Else
+    '            txtUserID.Focus()
+    '        End If
+    '        'Panel2.Text = txtUserID.Text
+    '    Catch ex As Exception
+    '        ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+    '    Finally
+
+    '    End Try
+
+    'End Sub
+    Private Sub txtLoginForm_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) _
+        Handles txtUserPassword.KeyPress, txtUserID.KeyPress
+
+        If e.KeyChar = Microsoft.VisualBasic.ChrW(13) Then
+            LogInCheck()
+        End If
     End Sub
-    Private Sub Splash_Activated(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Activated
-        Try
+    'Private Sub txtUserID_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txtUserID.KeyPress
+    '    Try
 
-            If File.Exists("C:\APB\Defaults.txt") Then
-                Panel1.Text = "Enter your Password....."
-                txtUserPassword.Focus()
-            Else
-                txtUserID.Focus()
-            End If
-            Panel2.Text = txtUserID.Text
-        Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
+    '        If e.KeyChar = Microsoft.VisualBasic.ChrW(13) Then
+    '            LogInCheck()
+    '        End If
+    '    Catch ex As Exception
+    '        ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+    '    Finally
 
-        End Try
+    '    End Try
 
-    End Sub
-    Private Sub txtUserPassword_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txtUserPassword.KeyPress
-        Try
-
-            If e.KeyChar = Microsoft.VisualBasic.ChrW(13) Then
-                LogInCheck()
-            End If
-        Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub txtUserID_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txtUserID.KeyPress
-        Try
-
-            If e.KeyChar = Microsoft.VisualBasic.ChrW(13) Then
-                LogInCheck()
-            End If
-        Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
+    'End Sub
     'Private Sub btnExit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
     '    Me.Close()
     '    Conn.Dispose()
@@ -773,119 +765,119 @@ Public Class IAIPLogIn
 
 
 
-    Private Sub Button2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAdjustIntranet.Click
-        Try
+    'Private Sub Button2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAdjustIntranet.Click
+    '    Try
 
-            Dim readValue As String
-            '  conn = New OracleConnection(PRDconnLine)
-            AddHandler t.Elapsed, AddressOf TimerFired
-            t.Enabled = True
+    '        Dim readValue As String
+    '        '  conn = New OracleConnection(PRDconnLine)
+    '        AddHandler t.Elapsed, AddressOf TimerFired
+    '        t.Enabled = True
 
-            readValue = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Internet Settings\ZoneMap\Domains\dnr-tpfs4", "file", Nothing)
+    '        readValue = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Internet Settings\ZoneMap\Domains\dnr-tpfs4", "file", Nothing)
 
-            '\Software\Microsoft\Windows\CurrentVersion\Internet Settings\ZoneMap\Domains\DOMAINNAME
-            If readValue Is Nothing Or readValue <> "1" Then
-                My.Computer.Registry.SetValue("HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Internet Settings\ZoneMap\Domains\dnr-tpfs4", "file", "1", RegistryValueKind.DWord)
-                My.Computer.Registry.SetValue("HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Internet Settings\ZoneMap\Domains\dnr-tpfs4", "*", "1", RegistryValueKind.DWord)
-            End If
+    '        '\Software\Microsoft\Windows\CurrentVersion\Internet Settings\ZoneMap\Domains\DOMAINNAME
+    '        If readValue Is Nothing Or readValue <> "1" Then
+    '            My.Computer.Registry.SetValue("HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Internet Settings\ZoneMap\Domains\dnr-tpfs4", "file", "1", RegistryValueKind.DWord)
+    '            My.Computer.Registry.SetValue("HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Internet Settings\ZoneMap\Domains\dnr-tpfs4", "*", "1", RegistryValueKind.DWord)
+    '        End If
 
-            readValue = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Internet Settings\ZoneMap\Domains\dnr-tpfs5", "file", Nothing)
+    '        readValue = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Internet Settings\ZoneMap\Domains\dnr-tpfs5", "file", Nothing)
 
-            '\Software\Microsoft\Windows\CurrentVersion\Internet Settings\ZoneMap\Domains\DOMAINNAME
-            If readValue Is Nothing Or readValue <> "1" Then
-                My.Computer.Registry.SetValue("HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Internet Settings\ZoneMap\Domains\dnr-tpfs5", "file", "1", RegistryValueKind.DWord)
-            End If
+    '        '\Software\Microsoft\Windows\CurrentVersion\Internet Settings\ZoneMap\Domains\DOMAINNAME
+    '        If readValue Is Nothing Or readValue <> "1" Then
+    '            My.Computer.Registry.SetValue("HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Internet Settings\ZoneMap\Domains\dnr-tpfs5", "file", "1", RegistryValueKind.DWord)
+    '        End If
 
-            Exit Sub
+    '        Exit Sub
 
-        Catch ex As Exception
+    '    Catch ex As Exception
 
-        End Try
-    End Sub
-
-
-
-    Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAddEIS.Click
-        Try
-            ' Exit Sub
-
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
-            End If
-
-            cmd = New OracleCommand("AIRBranch.PD_EIS_Process", Conn)
-            cmd.CommandType = CommandType.StoredProcedure
-
-            cmd.Parameters.Add(New OracleParameter("FACILITYID", OracleType.VarChar)).Value = "03900001"
-            cmd.Parameters.Add(New OracleParameter("PROCID", OracleType.VarChar)).Value = "1"
-            cmd.Parameters.Add(New OracleParameter("EMISSUNITID", OracleType.VarChar)).Value = "500A"
-            cmd.Parameters.Add(New OracleParameter("INVENTORYYEAR", OracleType.Number)).Value = "2011"
-            cmd.Parameters.Add(New OracleParameter("USERUPDATER", OracleType.VarChar)).Value = "217-John Doe"
-
-            cmd.ExecuteNonQuery()
+    '    End Try
+    'End Sub
 
 
-        Catch ex As Exception
 
-        End Try
-    End Sub
+    'Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAddEIS.Click
+    '    Try
+    '        ' Exit Sub
 
-    Private Sub Button3_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDeleteEIS.Click
-        Try
+    '        If Conn.State = ConnectionState.Closed Then
+    '            Conn.Open()
+    '        End If
 
-            SQL = "Delete airbranch.EIS_ProcessRPTPeriodSCP " & _
-            "where FacilitySiteID = '03900001' " & _
-            "and intInventoryYEar = '2011' " & _
-            "and ProcessID = '1' " & _
-            "and EmissionsUnitID = '500A' "
+    '        cmd = New OracleCommand("AIRBranch.PD_EIS_Process", Conn)
+    '        cmd.CommandType = CommandType.StoredProcedure
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
-            End If
-            dr = cmd.ExecuteReader
+    '        cmd.Parameters.Add(New OracleParameter("FACILITYID", OracleType.VarChar)).Value = "03900001"
+    '        cmd.Parameters.Add(New OracleParameter("PROCID", OracleType.VarChar)).Value = "1"
+    '        cmd.Parameters.Add(New OracleParameter("EMISSUNITID", OracleType.VarChar)).Value = "500A"
+    '        cmd.Parameters.Add(New OracleParameter("INVENTORYYEAR", OracleType.Number)).Value = "2011"
+    '        cmd.Parameters.Add(New OracleParameter("USERUPDATER", OracleType.VarChar)).Value = "217-John Doe"
+
+    '        cmd.ExecuteNonQuery()
 
 
-            SQL = "Delete airbranch.EIS_ReportingPeriodEmissions " & _
-            "where FacilitySiteID = '03900001' " & _
-            "and intInventoryYEar = '2011' " & _
-            "and ProcessID = '1' " & _
-            "and EmissionsUnitID = '500A' "
+    '    Catch ex As Exception
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
-            End If
-            dr = cmd.ExecuteReader
+    '    End Try
+    'End Sub
 
-            SQL = "Delete airbranch.EIS_ProcessOperatingdetails " & _
-           "where FacilitySiteID = '03900001' " & _
-           " and intInventoryYEar = '2011' " & _
-           "and ProcessID = '1' " & _
-           "and EmissionsUnitID = '500A' "
+    'Private Sub Button3_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDeleteEIS.Click
+    '    Try
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
-            End If
-            dr = cmd.ExecuteReader
+    '        SQL = "Delete airbranch.EIS_ProcessRPTPeriodSCP " & _
+    '        "where FacilitySiteID = '03900001' " & _
+    '        "and intInventoryYEar = '2011' " & _
+    '        "and ProcessID = '1' " & _
+    '        "and EmissionsUnitID = '500A' "
 
-            SQL = "Delete airbranch.EIS_ProcessReportingPeriod " & _
-            "where FacilitySiteID = '03900001' " & _
-            "and intInventoryYEar = '2011' " & _
-            "and ProcessID = '1' " & _
-            "and EmissionsUnitID = '500A' "
+    '        cmd = New OracleCommand(SQL, Conn)
+    '        If Conn.State = ConnectionState.Closed Then
+    '            Conn.Open()
+    '        End If
+    '        dr = cmd.ExecuteReader
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
-            End If
-            dr = cmd.ExecuteReader
 
-        Catch ex As Exception
+    '        SQL = "Delete airbranch.EIS_ReportingPeriodEmissions " & _
+    '        "where FacilitySiteID = '03900001' " & _
+    '        "and intInventoryYEar = '2011' " & _
+    '        "and ProcessID = '1' " & _
+    '        "and EmissionsUnitID = '500A' "
 
-        End Try
-    End Sub
+    '        cmd = New OracleCommand(SQL, Conn)
+    '        If Conn.State = ConnectionState.Closed Then
+    '            Conn.Open()
+    '        End If
+    '        dr = cmd.ExecuteReader
+
+    '        SQL = "Delete airbranch.EIS_ProcessOperatingdetails " & _
+    '       "where FacilitySiteID = '03900001' " & _
+    '       " and intInventoryYEar = '2011' " & _
+    '       "and ProcessID = '1' " & _
+    '       "and EmissionsUnitID = '500A' "
+
+    '        cmd = New OracleCommand(SQL, Conn)
+    '        If Conn.State = ConnectionState.Closed Then
+    '            Conn.Open()
+    '        End If
+    '        dr = cmd.ExecuteReader
+
+    '        SQL = "Delete airbranch.EIS_ProcessReportingPeriod " & _
+    '        "where FacilitySiteID = '03900001' " & _
+    '        "and intInventoryYEar = '2011' " & _
+    '        "and ProcessID = '1' " & _
+    '        "and EmissionsUnitID = '500A' "
+
+    '        cmd = New OracleCommand(SQL, Conn)
+    '        If Conn.State = ConnectionState.Closed Then
+    '            Conn.Open()
+    '        End If
+    '        dr = cmd.ExecuteReader
+
+    '    Catch ex As Exception
+
+    '    End Try
+    'End Sub
 
     Private Sub UpdateLink_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles UpdateLink.LinkClicked
         StartIaipUpdate()

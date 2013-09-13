@@ -187,7 +187,7 @@ Partial Class IAIPLogIn
         Me.txtUserID.Margin = New System.Windows.Forms.Padding(2)
         Me.txtUserID.Name = "txtUserID"
         Me.txtUserID.Size = New System.Drawing.Size(175, 26)
-        Me.txtUserID.TabIndex = 0
+        Me.txtUserID.TabIndex = 1
         Me.txtUserID.WordWrap = False
         '
         'lblSubTitle
@@ -370,7 +370,7 @@ Partial Class IAIPLogIn
         '
         Me.lblAvailableVersionMessage.AutoSize = True
         Me.lblAvailableVersionMessage.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblAvailableVersionMessage.ForeColor = System.Drawing.SystemColors.InfoText
+        Me.lblAvailableVersionMessage.ForeColor = System.Drawing.Color.RoyalBlue
         Me.lblAvailableVersionMessage.Location = New System.Drawing.Point(467, 415)
         Me.lblAvailableVersionMessage.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.lblAvailableVersionMessage.Name = "lblAvailableVersionMessage"
@@ -383,7 +383,7 @@ Partial Class IAIPLogIn
         '
         Me.lblGeneralMessage.AutoSize = True
         Me.lblGeneralMessage.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblGeneralMessage.ForeColor = System.Drawing.SystemColors.InfoText
+        Me.lblGeneralMessage.ForeColor = System.Drawing.Color.Maroon
         Me.lblGeneralMessage.Location = New System.Drawing.Point(390, 171)
         Me.lblGeneralMessage.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.lblGeneralMessage.Name = "lblGeneralMessage"
