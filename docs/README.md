@@ -15,13 +15,13 @@ Support
 
 For support, please contact [Doug Waldron](tel:404-362-7134) or Brian Gregory of the Data Management Unit.
 
-To submit a bug report, send an email to Doug Waldron or just walk on down and tell him in person. He's nice!
+To submit a bug report, send an email to [Doug Waldron](mailto:douglas.waldron@dnr.state.ga.us) or just walk on down and tell him in person!
 
 
 Changelog
 --------
 
-See [CHANGELOG.md].
+See [Changelog](changelog.html).
 
 
 License
