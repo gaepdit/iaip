@@ -28,6 +28,7 @@ Public Class IAIPQueryGenerator
 
     Private Sub QueryGenerator_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         monitor.TrackFeature("Forms." & Me.Name)
+        lblQueryCount.Text = ""
         Try
             Panel1.Text = "Select Filter options...."
             Panel2.Text = UserName
@@ -2297,8 +2298,6 @@ Public Class IAIPQueryGenerator
     '        SQLWhere & _
     '        Mid(SQLOrder, 1, (SQLOrder.Length - 2))
 
-    '        txtSQLStatement.Text = SQL.ToString()
-
     '    Catch ex As Exception
     '        ErrorReport(ex.ToString(), Me.Name & ".GenerateSQL")
     '    Finally
@@ -4264,8 +4263,6 @@ Public Class IAIPQueryGenerator
                 End If
             End If
 
-            txtSQLStatement.Text = MasterSQL.ToString()
-
             dsSQLQuery = New DataSet
 
             daSQLQuery = New OracleDataAdapter(MasterSQL, Conn)
@@ -4730,357 +4727,6 @@ Public Class IAIPQueryGenerator
         Finally
         End Try
     End Sub
-    'Sub RunSQL()
-    '    Try
-    '        dsSQLQuery = New DataSet
-
-    '        daSQLQuery = New OracleDataAdapter(SQL, Conn)
-
-    '        If Conn.State = ConnectionState.Closed Then
-    '            Conn.Open()
-    '        End If
-
-    '        daSQLQuery.Fill(dsSQLQuery, "SQLQuery")
-    '        dgvQueryGenerator.DataSource = dsSQLQuery
-    '        dgvQueryGenerator.DataMember = "SQLQuery"
-
-    '        dgvQueryGenerator.RowHeadersVisible = False
-    '        dgvQueryGenerator.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-    '        dgvQueryGenerator.AllowUserToResizeColumns = True
-    '        dgvQueryGenerator.AllowUserToAddRows = False
-    '        dgvQueryGenerator.AllowUserToDeleteRows = False
-    '        dgvQueryGenerator.AllowUserToOrderColumns = True
-    '        dgvQueryGenerator.AllowUserToResizeRows = True
-    '        dgvQueryGenerator.Columns("strAIRSNumber").HeaderText = "AIRS #"
-    '        dgvQueryGenerator.Columns("strAIRSNumber").DisplayIndex = 0
-    '        dgvQueryGenerator.Columns("strFacilityName").HeaderText = "Facility Name"
-    '        dgvQueryGenerator.Columns("strFacilityName").DisplayIndex = 1
-
-    '        If chbFacilityStreet1.Checked = True Then
-    '            dgvQueryGenerator.Columns("strFacilityStreet1").HeaderText = "Street Address 1"
-    '            If txtFacilityStreet1Order.Text <> "" Then
-    '                If CInt(txtFacilityStreet1Order.Text) < dgvQueryGenerator.Columns.Count Then
-    '                    dgvQueryGenerator.Columns("strFacilityStreet1").DisplayIndex = txtFacilityStreet1Order.Text
-    '                End If
-    '            End If
-    '        End If
-    '        If chbFacilityStreet2.Checked = True Then
-    '            dgvQueryGenerator.Columns("strFacilityStreet2").HeaderText = "Street Address 2"
-    '            If txtFacilityStreet2Order.Text <> "" Then
-    '                If CInt(txtFacilityStreet2Order.Text) < dgvQueryGenerator.Columns.Count Then
-    '                    dgvQueryGenerator.Columns("strFacilityStreet2").DisplayIndex = txtFacilityStreet2Order.Text
-    '                End If
-    '            End If
-    '        End If
-    '        If chbFacilityCity.Checked = True Then
-    '            dgvQueryGenerator.Columns("strFacilityCity").HeaderText = "City"
-    '            If txtFacilityCityOrder.Text <> "" Then
-    '                If CInt(txtFacilityCityOrder.Text) < dgvQueryGenerator.Columns.Count Then
-    '                    dgvQueryGenerator.Columns("strFacilityCity").DisplayIndex = txtFacilityCityOrder.Text
-    '                End If
-    '            End If
-    '        End If
-    '        If chbFacilityZipCode.Checked = True Then
-    '            dgvQueryGenerator.Columns("strFacilityZipCode").HeaderText = "Zip Code"
-    '            If txtFacilityZipCodeOrder.Text <> "" Then
-    '                If CInt(txtFacilityZipCodeOrder.Text) < dgvQueryGenerator.Columns.Count Then
-    '                    dgvQueryGenerator.Columns("strFacilityZipCode").DisplayIndex = txtFacilityZipCodeOrder.Text
-    '                End If
-    '            End If
-    '        End If
-    '        If chbFacilityLatitude.Checked = True Then
-    '            dgvQueryGenerator.Columns("numFacilityLatitude").HeaderText = "Latitude"
-    '            If txtFacilityLatitudeOrder.Text <> "" Then
-    '                If CInt(txtFacilityLatitudeOrder.Text) < dgvQueryGenerator.Columns.Count Then
-    '                    dgvQueryGenerator.Columns("numFacilityLatitude").DisplayIndex = txtFacilityLatitudeOrder.Text
-    '                End If
-    '            End If
-    '        End If
-    '        If chbFacilityLongitude.Checked = True Then
-    '            dgvQueryGenerator.Columns("numFacilityLongitude").HeaderText = "Longitude"
-    '            If txtFacilityLongitudeOrder.Text <> "" Then
-    '                If CInt(txtFacilityLongitudeOrder.Text) < dgvQueryGenerator.Columns.Count Then
-    '                    dgvQueryGenerator.Columns("numFacilityLongitude").DisplayIndex = txtFacilityLongitudeOrder.Text
-    '                End If
-    '            End If
-    '        End If
-    '        If chbCounty.Checked = True Then
-    '            dgvQueryGenerator.Columns("strCountyName").HeaderText = "County"
-    '            If txtCountyOrder.Text <> "" Then
-    '                If CInt(txtCountyOrder.Text) < dgvQueryGenerator.Columns.Count Then
-    '                    dgvQueryGenerator.Columns("strCountyName").DisplayIndex = txtCountyOrder.Text
-    '                End If
-    '            End If
-    '        End If
-    '        If chbSSCPEngineer.Checked = True Then
-    '            dgvQueryGenerator.Columns("SSCPEngineer").HeaderText = "Complinace Engineer"
-    '            If txtSSCPEngineerOrder.Text <> "" Then
-    '                If CInt(txtSSCPEngineerOrder.Text) < dgvQueryGenerator.Columns.Count Then
-    '                    dgvQueryGenerator.Columns("SSCPEngineer").DisplayIndex = txtSSCPEngineerOrder.Text
-    '                End If
-    '            End If
-    '        End If
-    '        If chbDistrict.Checked = True Then
-    '            dgvQueryGenerator.Columns("strDistrictName").HeaderText = "District"
-    '            If txtDistrictOrder.Text <> "" Then
-    '                If CInt(txtDistrictOrder.Text) < dgvQueryGenerator.Columns.Count Then
-    '                    dgvQueryGenerator.Columns("strDistrictName").DisplayIndex = txtDistrictOrder.Text
-    '                End If
-    '            End If
-    '        End If
-    '        If chbOperationStatus.Checked = True Then
-    '            dgvQueryGenerator.Columns("strOperationalStatus").HeaderText = "Operation Status"
-    '            If txtOperationStatusOrder.Text <> "" Then
-    '                If CInt(txtOperationStatusOrder.Text) < dgvQueryGenerator.Columns.Count Then
-    '                    dgvQueryGenerator.Columns("strOperationalStatus").DisplayIndex = txtOperationStatusOrder.Text
-    '                End If
-    '            End If
-    '        End If
-    '        If chbClassification.Checked = True Then
-    '            dgvQueryGenerator.Columns("strClass").HeaderText = "Class"
-    '            If txtClassificationOrder.Text <> "" Then
-    '                If CInt(txtClassificationOrder.Text) < dgvQueryGenerator.Columns.Count Then
-    '                    dgvQueryGenerator.Columns("strClass").DisplayIndex = txtClassificationOrder.Text
-    '                End If
-    '            End If
-    '        End If
-    '        If chbSICCode.Checked = True Then
-    '            dgvQueryGenerator.Columns("strSICCode").HeaderText = "SIC Code"
-    '            If txtSICCodeOrder.Text <> "" Then
-    '                If CInt(txtSICCodeOrder.Text) <= dgvQueryGenerator.Columns.Count Then
-    '                    dgvQueryGenerator.Columns("strSICCode").DisplayIndex = txtSICCodeOrder.Text
-    '                End If
-    '            End If
-    '        End If
-    '        If chbNAICSCode.Checked = True Then
-    '            dgvQueryGenerator.Columns("strNAICSCode").HeaderText = "NAICS Code"
-    '            If txtNAICSCodeOrder.Text <> "" Then
-    '                If CInt(txtNAICSCodeOrder.Text) <= dgvQueryGenerator.Columns.Count Then
-    '                    dgvQueryGenerator.Columns("strNAICSCode").DisplayIndex = txtNAICSCodeOrder.Text
-    '                End If
-    '            End If
-    '        End If
-    '        If chbStartUpDate.Checked = True Then
-    '            dgvQueryGenerator.Columns("datStartUpDate").HeaderText = "Start Up Date"
-    '            If txtStartUpDateOrder.Text <> "" Then
-    '                If CInt(txtStartUpDateOrder.Text) < dgvQueryGenerator.Columns.Count Then
-    '                    dgvQueryGenerator.Columns("datStartUpDate").DisplayIndex = txtStartUpDateOrder.Text
-    '                End If
-    '            End If
-    '        End If
-    '        If chbShutDownDate.Checked = True Then
-    '            dgvQueryGenerator.Columns("datShutDownDate").HeaderText = "Permit Revocation Date"
-    '            If txtShutDownDateOrder.Text <> "" Then
-    '                If CInt(txtShutDownDateOrder.Text) <= dgvQueryGenerator.Columns.Count Then
-    '                    dgvQueryGenerator.Columns("datShutDownDate").DisplayIndex = txtShutDownDateOrder.Text
-    '                End If
-    '            End If
-    '        End If
-    '        If chbCMSUniverse.Checked = True Then
-    '            dgvQueryGenerator.Columns("strCMSMember").HeaderText = "CMS Status"
-    '            If txtCMSUniverseOrder.Text <> "" Then
-    '                If CInt(txtCMSUniverseOrder.Text) < dgvQueryGenerator.Columns.Count Then
-    '                    dgvQueryGenerator.Columns("strCMSMember").DisplayIndex = txtCMSUniverseOrder.Text
-    '                End If
-    '            End If
-    '        End If
-    '        If chbPlantDescription.Checked = True Then
-    '            dgvQueryGenerator.Columns("strPlantDescription").HeaderText = "Plant Description"
-    '            If txtPlantDescriptionOrder.Text <> "" Then
-    '                If CInt(txtPlantDescriptionOrder.Text) < dgvQueryGenerator.Columns.Count Then
-    '                    dgvQueryGenerator.Columns("strPlantDescription").DisplayIndex = txtPlantDescriptionOrder.Text
-    '                End If
-    '            End If
-    '        End If
-
-    '        If Me.chbAttainmentStatus.Checked = True Then
-    '            dgvQueryGenerator.Columns("OneHrYes").HeaderText = "1-Hr Yes"
-    '            dgvQueryGenerator.Columns("OneHrContribute").HeaderText = "1-Hr Contribute"
-    '            dgvQueryGenerator.Columns("OneHrNo").HeaderText = "1-Hr No"
-    '            dgvQueryGenerator.Columns("EightHrAtlanta").HeaderText = "8-Hr Atlanta"
-    '            dgvQueryGenerator.Columns("EightHrMacon").HeaderText = "8-Hr Macon"
-    '            dgvQueryGenerator.Columns("EightHrNo").HeaderText = "8-Hr No"
-    '            dgvQueryGenerator.Columns("PMAtlanta").HeaderText = "PM-2.5 Atlanta"
-    '            dgvQueryGenerator.Columns("PMChattanooga").HeaderText = "PM-2.5 Chattanooga"
-    '            dgvQueryGenerator.Columns("PMFloyd").HeaderText = "PM-2.5 Floyd"
-    '            dgvQueryGenerator.Columns("PMMacon").HeaderText = "PM-2.5 Macon"
-    '            dgvQueryGenerator.Columns("PMNo").HeaderText = "PM-2.5 No"
-    '        End If
-
-    '        If chb1HrYes.Checked = True Then
-    '            dgvQueryGenerator.Columns("OneHrYes").HeaderText = "1-Hr Yes"
-    '        End If
-    '        If chb1HrNo.Checked = True Then
-    '            dgvQueryGenerator.Columns("OneHrNo").HeaderText = "1-Hr No"
-    '        End If
-    '        If chb1HrContribute.Checked = True Then
-    '            dgvQueryGenerator.Columns("OneHrContribute").HeaderText = "1-Hr Contribute"
-    '        End If
-    '        If chb8HrAtlanta.Checked = True Then
-    '            dgvQueryGenerator.Columns("EightHrAtlanta").HeaderText = "8-Hr Atlanta"
-    '        End If
-    '        If chb8HrMacon.Checked = True Then
-    '            dgvQueryGenerator.Columns("EightHrMacon").HeaderText = "8-Hr Macon"
-    '        End If
-    '        If chb8HrNo.Checked = True Then
-    '            dgvQueryGenerator.Columns("EightHrNo").HeaderText = "8-Hr No"
-    '        End If
-    '        If chbPMAtlanta.Checked = True Then
-    '            dgvQueryGenerator.Columns("PMAtlanta").HeaderText = "PM-2.5 Atlanta"
-    '        End If
-    '        If chbPMChattanooga.Checked = True Then
-    '            dgvQueryGenerator.Columns("PMChattanooga").HeaderText = "PM-2.5 Chattanooga"
-    '        End If
-    '        If chbPMFloyd.Checked = True Then
-    '            dgvQueryGenerator.Columns("PMFloyd").HeaderText = "PM-2.5 Floyd"
-    '        End If
-    '        If chbPMMacon.Checked = True Then
-    '            dgvQueryGenerator.Columns("PMMacon").HeaderText = "PM-2.5 Macon"
-    '        End If
-    '        If chbPMNo.Checked = True Then
-    '            dgvQueryGenerator.Columns("PMNo").HeaderText = "PM-2.5 No"
-    '        End If
-
-    '        If chbStateProgramCodes.Checked = True Then
-    '            dgvQueryGenerator.Columns("NSRPSD").HeaderText = "NSR/PSD Major"
-    '            dgvQueryGenerator.Columns("HAP").HeaderText = "HAPs Major"
-    '        End If
-
-    '        If chbNSRPSDMajor.Checked = True Then
-    '            dgvQueryGenerator.Columns("NSRPSD").HeaderText = "NSR/PSD Major"
-    '        End If
-    '        If chbHAPMajor.Checked = True Then
-    '            dgvQueryGenerator.Columns("HAP").HeaderText = "HAPs Major"
-    '        End If
-
-    '        If chbViewAirPrograms.Checked = True Then
-    '            dgvQueryGenerator.Columns("APC0").HeaderText = "SIP"
-    '            dgvQueryGenerator.Columns("APC1").HeaderText = "Federal SIP"
-    '            dgvQueryGenerator.Columns("APC3").HeaderText = "Non-Federal SIP"
-    '            dgvQueryGenerator.Columns("APC4").HeaderText = "CFC Tracking"
-    '            dgvQueryGenerator.Columns("APC6").HeaderText = "PSD"
-    '            dgvQueryGenerator.Columns("APC7").HeaderText = "NSR"
-    '            dgvQueryGenerator.Columns("APC8").HeaderText = "NESHAP"
-    '            dgvQueryGenerator.Columns("APC9").HeaderText = "NSPS"
-    '            dgvQueryGenerator.Columns("APCA").HeaderText = "Acid Rain"
-    '            dgvQueryGenerator.Columns("APCF").HeaderText = "FESOP"
-    '            dgvQueryGenerator.Columns("APCI").HeaderText = "Native American"
-    '            dgvQueryGenerator.Columns("APCM").HeaderText = "MACT"
-    '            dgvQueryGenerator.Columns("APCV").HeaderText = "Title V"
-    '        Else
-
-    '            If chbAPC0.Checked = True Then
-    '                dgvQueryGenerator.Columns("APC0").HeaderText = "SIP"
-    '                If txtAPC0Order.Text <> "" Then
-    '                    If CInt(txtAPC0Order.Text) < dgvQueryGenerator.Columns.Count Then
-    '                        dgvQueryGenerator.Columns("APC0").DisplayIndex = txtAPC0Order.Text
-    '                    End If
-    '                End If
-    '            End If
-    '            If chbAPC1.Checked = True Then
-    '                dgvQueryGenerator.Columns("APC1").HeaderText = "Federal SIP"
-    '                If txtAPC1Order.Text <> "" Then
-    '                    If CInt(txtAPC1Order.Text) < dgvQueryGenerator.Columns.Count Then
-    '                        dgvQueryGenerator.Columns("APC1").DisplayIndex = txtAPC1Order.Text
-    '                    End If
-    '                End If
-    '            End If
-    '            If chbAPC3.Checked = True Then
-    '                dgvQueryGenerator.Columns("APC3").HeaderText = "Non-Federal SIP"
-    '                If txtAPC3Order.Text <> "" Then
-    '                    If CInt(txtAPC3Order.Text) < dgvQueryGenerator.Columns.Count Then
-    '                        dgvQueryGenerator.Columns("APC3").DisplayIndex = txtAPC3Order.Text
-    '                    End If
-    '                End If
-    '            End If
-    '            If chbAPC4.Checked = True Then
-    '                dgvQueryGenerator.Columns("APC4").HeaderText = "CFC Tracking"
-    '                If txtAPC4Order.Text <> "" Then
-    '                    If CInt(txtAPC4Order.Text) < dgvQueryGenerator.Columns.Count Then
-    '                        dgvQueryGenerator.Columns("APC4").DisplayIndex = txtAPC4Order.Text
-    '                    End If
-    '                End If
-    '            End If
-    '            If chbAPC6.Checked = True Then
-    '                dgvQueryGenerator.Columns("APC6").HeaderText = "PSD"
-    '                If txtAPC6Order.Text <> "" Then
-    '                    If CInt(txtAPC6Order.Text) < dgvQueryGenerator.Columns.Count Then
-    '                        dgvQueryGenerator.Columns("APC6").DisplayIndex = CInt(txtAPC6Order.Text)
-    '                    End If
-    '                End If
-    '            End If
-    '            If chbAPC7.Checked = True Then
-    '                dgvQueryGenerator.Columns("APC7").HeaderText = "NSR"
-    '                If txtAPC7Order.Text <> "" Then
-    '                    If CInt(txtAPC7Order.Text) < dgvQueryGenerator.Columns.Count Then
-    '                        dgvQueryGenerator.Columns("APC7").DisplayIndex = txtAPC7Order.Text
-    '                    End If
-    '                End If
-    '            End If
-    '            If chbAPC8.Checked = True Then
-    '                dgvQueryGenerator.Columns("APC8").HeaderText = "NESHAP"
-    '                If txtAPC8Order.Text <> "" Then
-    '                    If CInt(txtAPC8Order.Text) < dgvQueryGenerator.Columns.Count Then
-    '                        dgvQueryGenerator.Columns("APC8").DisplayIndex = txtAPC8Order.Text
-    '                    End If
-    '                End If
-    '            End If
-    '            If chbAPC9.Checked = True Then
-    '                dgvQueryGenerator.Columns("APC9").HeaderText = "NSPS"
-    '                If txtAPC9Order.Text <> "" Then
-    '                    If CInt(txtAPC9Order.Text) < dgvQueryGenerator.Columns.Count Then
-    '                        dgvQueryGenerator.Columns("APC9").DisplayIndex = txtAPC9Order.Text
-    '                    End If
-    '                End If
-    '            End If
-    '            If chbAPCA.Checked = True Then
-    '                dgvQueryGenerator.Columns("APCA").HeaderText = "Acid Rain"
-    '                If txtAPCAOrder.Text <> "" Then
-    '                    If CInt(txtAPCAOrder.Text) < dgvQueryGenerator.Columns.Count Then
-    '                        dgvQueryGenerator.Columns("APCA").DisplayIndex = txtAPCAOrder.Text
-    '                    End If
-    '                End If
-    '            End If
-    '            If chbAPCF.Checked = True Then
-    '                dgvQueryGenerator.Columns("APCF").HeaderText = "FESOP"
-    '                If txtAPCFOrder.Text <> "" Then
-    '                    If CInt(txtAPCFOrder.Text) < dgvQueryGenerator.Columns.Count Then
-    '                        dgvQueryGenerator.Columns("APCF").DisplayIndex = txtAPCFOrder.Text
-    '                    End If
-    '                End If
-    '            End If
-    '            If chbAPCI.Checked = True Then
-    '                dgvQueryGenerator.Columns("APCI").HeaderText = "Native American"
-    '                If txtAPCIOrder.Text <> "" Then
-    '                    If CInt(txtAPCIOrder.Text) < dgvQueryGenerator.Columns.Count Then
-    '                        dgvQueryGenerator.Columns("APCI").DisplayIndex = txtAPCIOrder.Text
-    '                    End If
-    '                End If
-    '            End If
-    '            If chbAPCM.Checked = True Then
-    '                dgvQueryGenerator.Columns("APCM").HeaderText = "MACT"
-    '                If txtAPCMOrder.Text <> "" Then
-    '                    If CInt(txtAPCMOrder.Text) < dgvQueryGenerator.Columns.Count Then
-    '                        dgvQueryGenerator.Columns("APCM").DisplayIndex = txtAPCMOrder.Text
-    '                    End If
-    '                End If
-    '            End If
-    '            If chbAPCV.Checked = True Then
-    '                dgvQueryGenerator.Columns("APCV").HeaderText = "Title V"
-    '                If txtAPCVOrder.Text <> "" Then
-    '                    If CInt(txtAPCVOrder.Text) < dgvQueryGenerator.Columns.Count Then
-    '                        dgvQueryGenerator.Columns("APCV").DisplayIndex = CInt(txtAPCVOrder.Text)
-    '                    End If
-    '                End If
-    '            End If
-    '        End If
-
-    '    Catch ex As Exception
-    '        ErrorReport(txtSQLStatement.Text & vbCrLf & ex.ToString(), Me.Name & ".RunSQL")
-    '    Finally
-
-    '    End Try
-    'End Sub
 
     Sub ExportToExcel()
         If dgvQueryGenerator.RowCount > 0 Then ExportDgvToExcel(dgvQueryGenerator, Me)
@@ -6289,15 +5935,13 @@ Public Class IAIPQueryGenerator
         Try
             '  GenerateSQL()
             GenerateSQL2()
-            If txtSQLStatement.Text <> "" Then
-                'RunSQL()
 
-                txtQueryCount.Text = dsSQLQuery.Tables(0).Rows.Count
-
-            End If
+            Dim resultsPluralized As String = "result found"
+            If dgvQueryGenerator.RowCount <> 1 Then resultsPluralized = "results found"
+            lblQueryCount.Text = String.Format("{0} {1}", dgvQueryGenerator.RowCount.ToString, resultsPluralized)
 
             dgvQueryGenerator.SanelyResizeColumns()
-
+            
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & ".btnRunSearch_Click")
         Finally
@@ -6499,7 +6143,7 @@ Public Class IAIPQueryGenerator
             dgvQueryGenerator.Columns("IssuanceDate").DisplayIndex = 24
             dgvQueryGenerator.Columns("IssuanceDate").Width = "75"
 
-            txtQueryCount.Text = dgvQueryGenerator.RowCount.ToString
+            lblQueryCount.Text = dgvQueryGenerator.RowCount.ToString
 
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)

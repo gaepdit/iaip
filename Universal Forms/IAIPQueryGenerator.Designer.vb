@@ -23,403 +23,402 @@ Partial Class IAIPQueryGenerator
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(IAIPQueryGenerator))
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
-        Me.mmiFile = New System.Windows.Forms.ToolStripMenuItem()
-        Me.mmiBack = New System.Windows.Forms.ToolStripMenuItem()
-        Me.mmiHelp = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
-        Me.tsbBack = New System.Windows.Forms.ToolStripButton()
-        Me.tsbExport = New System.Windows.Forms.ToolStripButton()
-        Me.tsbSearchQuery = New System.Windows.Forms.ToolStripButton()
-        Me.tsbSaveQuery = New System.Windows.Forms.ToolStripButton()
-        Me.tsbReSizeFilterOptions = New System.Windows.Forms.ToolStripButton()
-        Me.btnReset = New System.Windows.Forms.Button()
-        Me.txtFacilityAIRSNumberOrder = New System.Windows.Forms.TextBox()
-        Me.txtFacilityNameOrder = New System.Windows.Forms.TextBox()
-        Me.txtQueryCount = New System.Windows.Forms.TextBox()
-        Me.Panel6 = New System.Windows.Forms.Panel()
-        Me.rdbFacilityNameNotEqual = New System.Windows.Forms.RadioButton()
-        Me.rdbFacilityNameEqual = New System.Windows.Forms.RadioButton()
-        Me.Panel35 = New System.Windows.Forms.Panel()
-        Me.rdbFacilityNameOr = New System.Windows.Forms.RadioButton()
-        Me.rdbFacilityNameAnd = New System.Windows.Forms.RadioButton()
-        Me.txtFacilityNameSearch2 = New System.Windows.Forms.TextBox()
-        Me.txtFacilityNameSearch1 = New System.Windows.Forms.TextBox()
-        Me.Panel36 = New System.Windows.Forms.Panel()
-        Me.rdbAIRSNumberNotEqual = New System.Windows.Forms.RadioButton()
-        Me.rdbAIRSNumberEqual = New System.Windows.Forms.RadioButton()
-        Me.Panel37 = New System.Windows.Forms.Panel()
-        Me.rdbAIRSNumberOr = New System.Windows.Forms.RadioButton()
-        Me.rdbAIRSNumberAnd = New System.Windows.Forms.RadioButton()
-        Me.txtAIRSNumberSearch2 = New System.Windows.Forms.TextBox()
-        Me.txtAIRSNumberSearch1 = New System.Windows.Forms.TextBox()
-        Me.chbFacilityName = New System.Windows.Forms.CheckBox()
-        Me.chbAIRSNumber = New System.Windows.Forms.CheckBox()
-        Me.Label6 = New System.Windows.Forms.Label()
-        Me.Label3 = New System.Windows.Forms.Label()
-        Me.Label2 = New System.Windows.Forms.Label()
-        Me.Label1 = New System.Windows.Forms.Label()
-        Me.btnRunSearch = New System.Windows.Forms.Button()
-        Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
-        Me.Panel1 = New System.Windows.Forms.ToolStripStatusLabel()
-        Me.Panel2 = New System.Windows.Forms.ToolStripStatusLabel()
-        Me.Panel3 = New System.Windows.Forms.ToolStripStatusLabel()
-        Me.PanelAll = New System.Windows.Forms.Panel()
-        Me.Splitter1 = New System.Windows.Forms.Splitter()
-        Me.dgvQueryGenerator = New System.Windows.Forms.DataGridView()
-        Me.TCQuerryOptions = New System.Windows.Forms.TabControl()
-        Me.TPPhysicalLocation = New System.Windows.Forms.TabPage()
-        Me.Label5 = New System.Windows.Forms.Label()
-        Me.Label4 = New System.Windows.Forms.Label()
-        Me.Panel30 = New System.Windows.Forms.Panel()
-        Me.rdbCountyNotEqual = New System.Windows.Forms.RadioButton()
-        Me.rdbCountyEqual = New System.Windows.Forms.RadioButton()
-        Me.Panel29 = New System.Windows.Forms.Panel()
-        Me.rdbDistrictNotEqual = New System.Windows.Forms.RadioButton()
-        Me.rdbDistrictEqual = New System.Windows.Forms.RadioButton()
-        Me.txtDistrictOrder = New System.Windows.Forms.TextBox()
-        Me.txtCountyOrder = New System.Windows.Forms.TextBox()
-        Me.Panel28 = New System.Windows.Forms.Panel()
-        Me.rdbDistrictOr = New System.Windows.Forms.RadioButton()
-        Me.rdbDistrictAnd = New System.Windows.Forms.RadioButton()
-        Me.Panel27 = New System.Windows.Forms.Panel()
-        Me.rdbCountyOr = New System.Windows.Forms.RadioButton()
-        Me.rdbCountyAnd = New System.Windows.Forms.RadioButton()
-        Me.cboDistrictSearch2 = New System.Windows.Forms.ComboBox()
-        Me.cboDistrictSearch1 = New System.Windows.Forms.ComboBox()
-        Me.cboCountySearch2 = New System.Windows.Forms.ComboBox()
-        Me.cboCountySearch1 = New System.Windows.Forms.ComboBox()
-        Me.chbDistrict = New System.Windows.Forms.CheckBox()
-        Me.chbCounty = New System.Windows.Forms.CheckBox()
-        Me.txtFacilityLatitudeOrder = New System.Windows.Forms.TextBox()
-        Me.Panel17 = New System.Windows.Forms.Panel()
-        Me.rdbFacilityLatitudeBetween = New System.Windows.Forms.RadioButton()
-        Me.txtFacilityLatitudeSearch2 = New System.Windows.Forms.TextBox()
-        Me.txtFacilityLatitudeSearch1 = New System.Windows.Forms.TextBox()
-        Me.txtFacilityLongitudeOrder = New System.Windows.Forms.TextBox()
-        Me.Panel18 = New System.Windows.Forms.Panel()
-        Me.rdbFacilityLongitudeBetween = New System.Windows.Forms.RadioButton()
-        Me.txtFacilityLongitudeSearch2 = New System.Windows.Forms.TextBox()
-        Me.txtFacilityLongitudeSearch1 = New System.Windows.Forms.TextBox()
-        Me.txtFacilityZipCodeOrder = New System.Windows.Forms.TextBox()
-        Me.Panel15 = New System.Windows.Forms.Panel()
-        Me.rdbFacilityZipCodeNotEqual = New System.Windows.Forms.RadioButton()
-        Me.rdbFacilityZipCodeEqual = New System.Windows.Forms.RadioButton()
-        Me.Panel16 = New System.Windows.Forms.Panel()
-        Me.rdbFacilityZipCodeOr = New System.Windows.Forms.RadioButton()
-        Me.rdbFacilityZipCodeAnd = New System.Windows.Forms.RadioButton()
-        Me.txtFacilityZipCodeSearch2 = New System.Windows.Forms.TextBox()
-        Me.txtFacilityZipCodeSearch1 = New System.Windows.Forms.TextBox()
-        Me.txtFacilityCityOrder = New System.Windows.Forms.TextBox()
-        Me.Panel13 = New System.Windows.Forms.Panel()
-        Me.rdbFacilityCityNotEqual = New System.Windows.Forms.RadioButton()
-        Me.rdbFacilityCityEqual = New System.Windows.Forms.RadioButton()
-        Me.Panel14 = New System.Windows.Forms.Panel()
-        Me.rdbFacilityCityOr = New System.Windows.Forms.RadioButton()
-        Me.rdbFacilityCityAnd = New System.Windows.Forms.RadioButton()
-        Me.txtFacilityCitySearch2 = New System.Windows.Forms.TextBox()
-        Me.txtFacilityCitySearch1 = New System.Windows.Forms.TextBox()
-        Me.txtFacilityStreet2Order = New System.Windows.Forms.TextBox()
-        Me.Panel7 = New System.Windows.Forms.Panel()
-        Me.rdbFacilityStreet2NotEqual = New System.Windows.Forms.RadioButton()
-        Me.rdbFacilityStreet2Equal = New System.Windows.Forms.RadioButton()
-        Me.Panel8 = New System.Windows.Forms.Panel()
-        Me.rdbFacilityStreet2Or = New System.Windows.Forms.RadioButton()
-        Me.rdbFacilityStreet2And = New System.Windows.Forms.RadioButton()
-        Me.txtFacilityStreet2Search2 = New System.Windows.Forms.TextBox()
-        Me.txtFacilityStreet2Search1 = New System.Windows.Forms.TextBox()
-        Me.txtFacilityStreet1Order = New System.Windows.Forms.TextBox()
-        Me.Panel4 = New System.Windows.Forms.Panel()
-        Me.rdbFacilityStreet1NotEqual = New System.Windows.Forms.RadioButton()
-        Me.rdbFacilityStreet1Equal = New System.Windows.Forms.RadioButton()
-        Me.Panel5 = New System.Windows.Forms.Panel()
-        Me.rdbFacilityStreet1Or = New System.Windows.Forms.RadioButton()
-        Me.rdbFacilityStreet1And = New System.Windows.Forms.RadioButton()
-        Me.txtFacilityStreet1Search2 = New System.Windows.Forms.TextBox()
-        Me.txtFacilityStreet1Search1 = New System.Windows.Forms.TextBox()
-        Me.chbFacilityLatitude = New System.Windows.Forms.CheckBox()
-        Me.chbFacilityLongitude = New System.Windows.Forms.CheckBox()
-        Me.chbFacilityZipCode = New System.Windows.Forms.CheckBox()
-        Me.chbFacilityCity = New System.Windows.Forms.CheckBox()
-        Me.chbFacilityStreet2 = New System.Windows.Forms.CheckBox()
-        Me.chbFacilityStreet1 = New System.Windows.Forms.CheckBox()
-        Me.TPHeaderInformation = New System.Windows.Forms.TabPage()
-        Me.txtNAICSCodeOrder = New System.Windows.Forms.TextBox()
-        Me.Panel74 = New System.Windows.Forms.Panel()
-        Me.rdbNAICSCodeNotEqual = New System.Windows.Forms.RadioButton()
-        Me.rdbNAICSCodeEqual = New System.Windows.Forms.RadioButton()
-        Me.Panel75 = New System.Windows.Forms.Panel()
-        Me.rdbNAICSCodeOr = New System.Windows.Forms.RadioButton()
-        Me.rdbNAICSCodeAnd = New System.Windows.Forms.RadioButton()
-        Me.txtNAICSCodeSearch2 = New System.Windows.Forms.TextBox()
-        Me.txtNAICSCodeSearch1 = New System.Windows.Forms.TextBox()
-        Me.chbNAICSCode = New System.Windows.Forms.CheckBox()
-        Me.Panel11 = New System.Windows.Forms.Panel()
-        Me.rdbOperationalStatusOr = New System.Windows.Forms.RadioButton()
-        Me.rdbOperationalStatusAnd = New System.Windows.Forms.RadioButton()
-        Me.cboOperationStatusSearch2 = New System.Windows.Forms.ComboBox()
-        Me.cboOperationStatusSearch1 = New System.Windows.Forms.ComboBox()
-        Me.txtOperationStatusOrder = New System.Windows.Forms.TextBox()
-        Me.Panel12 = New System.Windows.Forms.Panel()
-        Me.rdbOperationStatusNotEqual = New System.Windows.Forms.RadioButton()
-        Me.rdbOperationStatusEqual = New System.Windows.Forms.RadioButton()
-        Me.chbOperationStatus = New System.Windows.Forms.CheckBox()
-        Me.cboCMSUniverseSearch2 = New System.Windows.Forms.ComboBox()
-        Me.cboCMSUniverseSearch1 = New System.Windows.Forms.ComboBox()
-        Me.txtPlantDescriptionOrder = New System.Windows.Forms.TextBox()
-        Me.Panel33 = New System.Windows.Forms.Panel()
-        Me.rdbPlantDescriptionNotEqual = New System.Windows.Forms.RadioButton()
-        Me.rdbPlantDescriptionEqual = New System.Windows.Forms.RadioButton()
-        Me.Panel34 = New System.Windows.Forms.Panel()
-        Me.rdbPlantDescriptionOR = New System.Windows.Forms.RadioButton()
-        Me.rdbPlantDescriptionAND = New System.Windows.Forms.RadioButton()
-        Me.txtPlantDescriptionSearch2 = New System.Windows.Forms.TextBox()
-        Me.txtPlantDescriptionSearch1 = New System.Windows.Forms.TextBox()
-        Me.chbPlantDescription = New System.Windows.Forms.CheckBox()
-        Me.txtCMSUniverseOrder = New System.Windows.Forms.TextBox()
-        Me.Panel31 = New System.Windows.Forms.Panel()
-        Me.rdbCMSUniverseNotEqual = New System.Windows.Forms.RadioButton()
-        Me.rdbCMSUniverseEqual = New System.Windows.Forms.RadioButton()
-        Me.Panel32 = New System.Windows.Forms.Panel()
-        Me.rdbCMSUniverseOR = New System.Windows.Forms.RadioButton()
-        Me.rdbCMSUniverseAnd = New System.Windows.Forms.RadioButton()
-        Me.chbCMSUniverse = New System.Windows.Forms.CheckBox()
-        Me.Panel20 = New System.Windows.Forms.Panel()
-        Me.rdbClassificationOr = New System.Windows.Forms.RadioButton()
-        Me.rdbClassificationAnd = New System.Windows.Forms.RadioButton()
-        Me.DTPShutDownDateSearch2 = New System.Windows.Forms.DateTimePicker()
-        Me.DTPShutDownDateSearch1 = New System.Windows.Forms.DateTimePicker()
-        Me.DTPStartUpDateSearch2 = New System.Windows.Forms.DateTimePicker()
-        Me.DTPStartUpDateSearch1 = New System.Windows.Forms.DateTimePicker()
-        Me.txtShutDownDateOrder = New System.Windows.Forms.TextBox()
-        Me.Panel26 = New System.Windows.Forms.Panel()
-        Me.rdbShutDownDateBetween = New System.Windows.Forms.RadioButton()
-        Me.txtSICCodeOrder = New System.Windows.Forms.TextBox()
-        Me.Panel21 = New System.Windows.Forms.Panel()
-        Me.rdbSICCodeNotEqual = New System.Windows.Forms.RadioButton()
-        Me.rdbSICCodeEqual = New System.Windows.Forms.RadioButton()
-        Me.Panel22 = New System.Windows.Forms.Panel()
-        Me.rdbSICCodeOr = New System.Windows.Forms.RadioButton()
-        Me.rdbSICCodeAnd = New System.Windows.Forms.RadioButton()
-        Me.txtSICCodeSearch2 = New System.Windows.Forms.TextBox()
-        Me.txtSICCodeSearch1 = New System.Windows.Forms.TextBox()
-        Me.cboClassificationSearch2 = New System.Windows.Forms.ComboBox()
-        Me.cboClassificationSearch1 = New System.Windows.Forms.ComboBox()
-        Me.txtClassificationOrder = New System.Windows.Forms.TextBox()
-        Me.Panel19 = New System.Windows.Forms.Panel()
-        Me.rdbClassificationNotEqual = New System.Windows.Forms.RadioButton()
-        Me.rdbClassificationEqual = New System.Windows.Forms.RadioButton()
-        Me.txtStartUpDateOrder = New System.Windows.Forms.TextBox()
-        Me.Panel10 = New System.Windows.Forms.Panel()
-        Me.rdbStartUpDateBetween = New System.Windows.Forms.RadioButton()
-        Me.chbShutDownDate = New System.Windows.Forms.CheckBox()
-        Me.chbStartUpDate = New System.Windows.Forms.CheckBox()
-        Me.chbSICCode = New System.Windows.Forms.CheckBox()
-        Me.chbClassification = New System.Windows.Forms.CheckBox()
-        Me.TPHeaderInformation2 = New System.Windows.Forms.TabPage()
-        Me.chbStateProgramCodes = New System.Windows.Forms.CheckBox()
-        Me.chbAttainmentStatus = New System.Windows.Forms.CheckBox()
-        Me.Panel63 = New System.Windows.Forms.Panel()
-        Me.rdbHAPMajorNotEqual = New System.Windows.Forms.RadioButton()
-        Me.rdbHAPMajorEqual = New System.Windows.Forms.RadioButton()
-        Me.Panel62 = New System.Windows.Forms.Panel()
-        Me.rdbNSRPSDMajorNotEqual = New System.Windows.Forms.RadioButton()
-        Me.rdbNSRPSDMajorEqual = New System.Windows.Forms.RadioButton()
-        Me.Panel61 = New System.Windows.Forms.Panel()
-        Me.rdbPMNoNotEqual = New System.Windows.Forms.RadioButton()
-        Me.rdbPMNoEqual = New System.Windows.Forms.RadioButton()
-        Me.Panel60 = New System.Windows.Forms.Panel()
-        Me.rdbPMMaconNotEqual = New System.Windows.Forms.RadioButton()
-        Me.rdbPMMaconEqual = New System.Windows.Forms.RadioButton()
-        Me.Panel59 = New System.Windows.Forms.Panel()
-        Me.rdbPMFloydNotEqual = New System.Windows.Forms.RadioButton()
-        Me.rdbPMFloydEqual = New System.Windows.Forms.RadioButton()
-        Me.Panel58 = New System.Windows.Forms.Panel()
-        Me.rdbPMChattanoogaNotEqual = New System.Windows.Forms.RadioButton()
-        Me.rdbPMChattanoogaEqual = New System.Windows.Forms.RadioButton()
-        Me.Panel57 = New System.Windows.Forms.Panel()
-        Me.rdbPMAtlantaNotEqual = New System.Windows.Forms.RadioButton()
-        Me.rdbPMAtlantaEqual = New System.Windows.Forms.RadioButton()
-        Me.Panel56 = New System.Windows.Forms.Panel()
-        Me.rdb8HrNoNotEqual = New System.Windows.Forms.RadioButton()
-        Me.rdb8HrNoEqual = New System.Windows.Forms.RadioButton()
-        Me.Panel55 = New System.Windows.Forms.Panel()
-        Me.rdb8HrMaconNotEqual = New System.Windows.Forms.RadioButton()
-        Me.rdb8HrMaconEqual = New System.Windows.Forms.RadioButton()
-        Me.Panel54 = New System.Windows.Forms.Panel()
-        Me.rdb8HrAtlantaNotEqual = New System.Windows.Forms.RadioButton()
-        Me.rdb8HrAtlantaEqual = New System.Windows.Forms.RadioButton()
-        Me.Panel53 = New System.Windows.Forms.Panel()
-        Me.rdb1HrContributeNotEqual = New System.Windows.Forms.RadioButton()
-        Me.rdb1HrContributeEqual = New System.Windows.Forms.RadioButton()
-        Me.Panel52 = New System.Windows.Forms.Panel()
-        Me.rdb1HrNoNotEqual = New System.Windows.Forms.RadioButton()
-        Me.rdb1HrNoEqual = New System.Windows.Forms.RadioButton()
-        Me.chbHAPMajor = New System.Windows.Forms.CheckBox()
-        Me.chbNSRPSDMajor = New System.Windows.Forms.CheckBox()
-        Me.Panel51 = New System.Windows.Forms.Panel()
-        Me.rdb1HrYesNotEqual = New System.Windows.Forms.RadioButton()
-        Me.rdb1HrYesEqual = New System.Windows.Forms.RadioButton()
-        Me.chbPMNo = New System.Windows.Forms.CheckBox()
-        Me.chbPMMacon = New System.Windows.Forms.CheckBox()
-        Me.chbPMFloyd = New System.Windows.Forms.CheckBox()
-        Me.chbPMChattanooga = New System.Windows.Forms.CheckBox()
-        Me.chbPMAtlanta = New System.Windows.Forms.CheckBox()
-        Me.chb8HrNo = New System.Windows.Forms.CheckBox()
-        Me.chb8HrMacon = New System.Windows.Forms.CheckBox()
-        Me.chb8HrAtlanta = New System.Windows.Forms.CheckBox()
-        Me.chb1HrContribute = New System.Windows.Forms.CheckBox()
-        Me.chb1HrNo = New System.Windows.Forms.CheckBox()
-        Me.chb1HrYes = New System.Windows.Forms.CheckBox()
-        Me.TPAirProgramCodes = New System.Windows.Forms.TabPage()
-        Me.Label7 = New System.Windows.Forms.Label()
-        Me.Panel70 = New System.Windows.Forms.Panel()
-        Me.rdbAPCOr = New System.Windows.Forms.RadioButton()
-        Me.rdbAPCAnd = New System.Windows.Forms.RadioButton()
-        Me.chbViewAirPrograms = New System.Windows.Forms.CheckBox()
-        Me.txtAPCVOrder = New System.Windows.Forms.TextBox()
-        Me.chbAPC0 = New System.Windows.Forms.CheckBox()
-        Me.Panel50 = New System.Windows.Forms.Panel()
-        Me.rdbAPCVNotEqual = New System.Windows.Forms.RadioButton()
-        Me.rdbAPCVEqual = New System.Windows.Forms.RadioButton()
-        Me.chbAPC1 = New System.Windows.Forms.CheckBox()
-        Me.txtAPCMOrder = New System.Windows.Forms.TextBox()
-        Me.Panel38 = New System.Windows.Forms.Panel()
-        Me.rdbAPC0NotEqual = New System.Windows.Forms.RadioButton()
-        Me.rdbAPC0Equal = New System.Windows.Forms.RadioButton()
-        Me.Panel49 = New System.Windows.Forms.Panel()
-        Me.rdbAPCMNotEqual = New System.Windows.Forms.RadioButton()
-        Me.rdbAPCMEqual = New System.Windows.Forms.RadioButton()
-        Me.txtAPC0Order = New System.Windows.Forms.TextBox()
-        Me.txtAPCIOrder = New System.Windows.Forms.TextBox()
-        Me.Panel39 = New System.Windows.Forms.Panel()
-        Me.rdbAPC1NotEqual = New System.Windows.Forms.RadioButton()
-        Me.rdbAPC1Equal = New System.Windows.Forms.RadioButton()
-        Me.Panel48 = New System.Windows.Forms.Panel()
-        Me.rdbAPCINotEqual = New System.Windows.Forms.RadioButton()
-        Me.rdbAPCIEqual = New System.Windows.Forms.RadioButton()
-        Me.txtAPC1Order = New System.Windows.Forms.TextBox()
-        Me.chbAPCV = New System.Windows.Forms.CheckBox()
-        Me.txtAPCFOrder = New System.Windows.Forms.TextBox()
-        Me.chbAPCM = New System.Windows.Forms.CheckBox()
-        Me.chbAPC3 = New System.Windows.Forms.CheckBox()
-        Me.chbAPCI = New System.Windows.Forms.CheckBox()
-        Me.Panel47 = New System.Windows.Forms.Panel()
-        Me.rdbAPCFNotEqual = New System.Windows.Forms.RadioButton()
-        Me.rdbAPCFEqual = New System.Windows.Forms.RadioButton()
-        Me.chbAPC4 = New System.Windows.Forms.CheckBox()
-        Me.txtAPCAOrder = New System.Windows.Forms.TextBox()
-        Me.Panel40 = New System.Windows.Forms.Panel()
-        Me.rdbAPC3NotEqual = New System.Windows.Forms.RadioButton()
-        Me.rdbAPC3Equal = New System.Windows.Forms.RadioButton()
-        Me.Panel46 = New System.Windows.Forms.Panel()
-        Me.rdbAPCANotEqual = New System.Windows.Forms.RadioButton()
-        Me.rdbAPCAEqual = New System.Windows.Forms.RadioButton()
-        Me.txtAPC3Order = New System.Windows.Forms.TextBox()
-        Me.txtAPC9Order = New System.Windows.Forms.TextBox()
-        Me.Panel41 = New System.Windows.Forms.Panel()
-        Me.rdbAPC4NotEqual = New System.Windows.Forms.RadioButton()
-        Me.rdbAPC4Equal = New System.Windows.Forms.RadioButton()
-        Me.Panel45 = New System.Windows.Forms.Panel()
-        Me.rdbAPC9NotEqual = New System.Windows.Forms.RadioButton()
-        Me.rdbAPC9Equal = New System.Windows.Forms.RadioButton()
-        Me.txtAPC4Order = New System.Windows.Forms.TextBox()
-        Me.txtAPC8Order = New System.Windows.Forms.TextBox()
-        Me.chbAPCF = New System.Windows.Forms.CheckBox()
-        Me.chbAPC6 = New System.Windows.Forms.CheckBox()
-        Me.Panel44 = New System.Windows.Forms.Panel()
-        Me.rdbAPC8NotEqual = New System.Windows.Forms.RadioButton()
-        Me.rdbAPC8Equal = New System.Windows.Forms.RadioButton()
-        Me.chbAPCA = New System.Windows.Forms.CheckBox()
-        Me.chbAPC7 = New System.Windows.Forms.CheckBox()
-        Me.txtAPC7Order = New System.Windows.Forms.TextBox()
-        Me.chbAPC8 = New System.Windows.Forms.CheckBox()
-        Me.Panel43 = New System.Windows.Forms.Panel()
-        Me.rdbAPC7NotEqual = New System.Windows.Forms.RadioButton()
-        Me.rdbAPC7Equal = New System.Windows.Forms.RadioButton()
-        Me.Panel42 = New System.Windows.Forms.Panel()
-        Me.rdbAPC6NotEqual = New System.Windows.Forms.RadioButton()
-        Me.rdbAPC6Equal = New System.Windows.Forms.RadioButton()
-        Me.txtAPC6Order = New System.Windows.Forms.TextBox()
-        Me.chbAPC9 = New System.Windows.Forms.CheckBox()
-        Me.TPSubpartData = New System.Windows.Forms.TabPage()
-        Me.Panel65 = New System.Windows.Forms.Panel()
-        Me.rdbPart60SubPartOr = New System.Windows.Forms.RadioButton()
-        Me.rdbPart60SubPartAnd = New System.Windows.Forms.RadioButton()
-        Me.Panel25 = New System.Windows.Forms.Panel()
-        Me.rdbPart63SubPartOR = New System.Windows.Forms.RadioButton()
-        Me.rdbPart63SubPartAnd = New System.Windows.Forms.RadioButton()
-        Me.Panel9 = New System.Windows.Forms.Panel()
-        Me.rdbPart61SubPartOr = New System.Windows.Forms.RadioButton()
-        Me.rdbPart61SubPartAnd = New System.Windows.Forms.RadioButton()
-        Me.cboPart63Search2 = New System.Windows.Forms.ComboBox()
-        Me.cboPart60Search2 = New System.Windows.Forms.ComboBox()
-        Me.cboPart63Search1 = New System.Windows.Forms.ComboBox()
-        Me.cboPart60Search1 = New System.Windows.Forms.ComboBox()
-        Me.cboPart61Search2 = New System.Windows.Forms.ComboBox()
-        Me.cboPart61Search1 = New System.Windows.Forms.ComboBox()
-        Me.cboSIPSearch2 = New System.Windows.Forms.ComboBox()
-        Me.cboSIPSearch1 = New System.Windows.Forms.ComboBox()
-        Me.Panel23 = New System.Windows.Forms.Panel()
-        Me.rdbSIPNotEqual = New System.Windows.Forms.RadioButton()
-        Me.rdbSIPEqual = New System.Windows.Forms.RadioButton()
-        Me.Panel24 = New System.Windows.Forms.Panel()
-        Me.rdbSIPSubPartOr = New System.Windows.Forms.RadioButton()
-        Me.rdbSIPSubPartAnd = New System.Windows.Forms.RadioButton()
-        Me.chbSIP = New System.Windows.Forms.CheckBox()
-        Me.Panel68 = New System.Windows.Forms.Panel()
-        Me.rdbPart63NotEqual = New System.Windows.Forms.RadioButton()
-        Me.rdbPart63Equal = New System.Windows.Forms.RadioButton()
-        Me.Panel66 = New System.Windows.Forms.Panel()
-        Me.rdbPart60NotEqual = New System.Windows.Forms.RadioButton()
-        Me.rdbPart60Equal = New System.Windows.Forms.RadioButton()
-        Me.Panel64 = New System.Windows.Forms.Panel()
-        Me.rdbPart61NotEqual = New System.Windows.Forms.RadioButton()
-        Me.rdbPart61Equal = New System.Windows.Forms.RadioButton()
-        Me.chbAllSubparts = New System.Windows.Forms.CheckBox()
-        Me.chbPart61Subpart = New System.Windows.Forms.CheckBox()
-        Me.chbPart60Subpart = New System.Windows.Forms.CheckBox()
-        Me.chbPart63Subpart = New System.Windows.Forms.CheckBox()
-        Me.TPComplianceInfo = New System.Windows.Forms.TabPage()
-        Me.Panel76 = New System.Windows.Forms.Panel()
-        Me.rdbDistrictResponsibleFalse = New System.Windows.Forms.RadioButton()
-        Me.rdbDistrictResponsibleTrue = New System.Windows.Forms.RadioButton()
-        Me.chbDistrictResponsible = New System.Windows.Forms.CheckBox()
-        Me.DTPLastFCESearch2 = New System.Windows.Forms.DateTimePicker()
-        Me.DTPLastFCESearch1 = New System.Windows.Forms.DateTimePicker()
-        Me.txtLastFCEOrder = New System.Windows.Forms.TextBox()
-        Me.Panel73 = New System.Windows.Forms.Panel()
-        Me.rdbLastFCEBetween = New System.Windows.Forms.RadioButton()
-        Me.chbLastFCE = New System.Windows.Forms.CheckBox()
-        Me.Panel71 = New System.Windows.Forms.Panel()
-        Me.rdbSSCPUnitOr = New System.Windows.Forms.RadioButton()
-        Me.rdbSSCPUnitAnd = New System.Windows.Forms.RadioButton()
-        Me.cboSSCPUnitSearch2 = New System.Windows.Forms.ComboBox()
-        Me.cboSSCPUnitSearch1 = New System.Windows.Forms.ComboBox()
-        Me.txtSSCPUnitOrder = New System.Windows.Forms.TextBox()
-        Me.Panel72 = New System.Windows.Forms.Panel()
-        Me.rdbSSCPUnitNotEqual = New System.Windows.Forms.RadioButton()
-        Me.rdbSSCPUnitEqual = New System.Windows.Forms.RadioButton()
-        Me.chbSSCPUnit = New System.Windows.Forms.CheckBox()
-        Me.Panel67 = New System.Windows.Forms.Panel()
-        Me.rdbSSCPEngineerOr = New System.Windows.Forms.RadioButton()
-        Me.rdbSSCPEngineerAnd = New System.Windows.Forms.RadioButton()
-        Me.cboSSCPEngineerSearch2 = New System.Windows.Forms.ComboBox()
-        Me.cboSSCPEngineerSearch1 = New System.Windows.Forms.ComboBox()
-        Me.txtSSCPEngineerOrder = New System.Windows.Forms.TextBox()
-        Me.Panel69 = New System.Windows.Forms.Panel()
-        Me.rdbSSCPEngineerNotEqual = New System.Windows.Forms.RadioButton()
-        Me.rdbSSCPEngineerEqual = New System.Windows.Forms.RadioButton()
-        Me.chbSSCPEngineer = New System.Windows.Forms.CheckBox()
-        Me.TPCannedReports = New System.Windows.Forms.TabPage()
-        Me.Label8 = New System.Windows.Forms.Label()
-        Me.btnRunPermitContact = New System.Windows.Forms.Button()
-        Me.GBBasic = New System.Windows.Forms.GroupBox()
-        Me.txtSQLStatement = New System.Windows.Forms.TextBox()
-        Me.bgwQueryGenerator = New System.ComponentModel.BackgroundWorker()
+        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Me.MenuStrip1 = New System.Windows.Forms.MenuStrip
+        Me.mmiFile = New System.Windows.Forms.ToolStripMenuItem
+        Me.mmiBack = New System.Windows.Forms.ToolStripMenuItem
+        Me.mmiHelp = New System.Windows.Forms.ToolStripMenuItem
+        Me.ToolStrip1 = New System.Windows.Forms.ToolStrip
+        Me.tsbBack = New System.Windows.Forms.ToolStripButton
+        Me.tsbExport = New System.Windows.Forms.ToolStripButton
+        Me.tsbSearchQuery = New System.Windows.Forms.ToolStripButton
+        Me.tsbSaveQuery = New System.Windows.Forms.ToolStripButton
+        Me.tsbReSizeFilterOptions = New System.Windows.Forms.ToolStripButton
+        Me.btnReset = New System.Windows.Forms.Button
+        Me.txtFacilityAIRSNumberOrder = New System.Windows.Forms.TextBox
+        Me.txtFacilityNameOrder = New System.Windows.Forms.TextBox
+        Me.Panel6 = New System.Windows.Forms.Panel
+        Me.rdbFacilityNameNotEqual = New System.Windows.Forms.RadioButton
+        Me.rdbFacilityNameEqual = New System.Windows.Forms.RadioButton
+        Me.Panel35 = New System.Windows.Forms.Panel
+        Me.rdbFacilityNameOr = New System.Windows.Forms.RadioButton
+        Me.rdbFacilityNameAnd = New System.Windows.Forms.RadioButton
+        Me.txtFacilityNameSearch2 = New System.Windows.Forms.TextBox
+        Me.txtFacilityNameSearch1 = New System.Windows.Forms.TextBox
+        Me.Panel36 = New System.Windows.Forms.Panel
+        Me.rdbAIRSNumberNotEqual = New System.Windows.Forms.RadioButton
+        Me.rdbAIRSNumberEqual = New System.Windows.Forms.RadioButton
+        Me.Panel37 = New System.Windows.Forms.Panel
+        Me.rdbAIRSNumberOr = New System.Windows.Forms.RadioButton
+        Me.rdbAIRSNumberAnd = New System.Windows.Forms.RadioButton
+        Me.txtAIRSNumberSearch2 = New System.Windows.Forms.TextBox
+        Me.txtAIRSNumberSearch1 = New System.Windows.Forms.TextBox
+        Me.chbFacilityName = New System.Windows.Forms.CheckBox
+        Me.chbAIRSNumber = New System.Windows.Forms.CheckBox
+        Me.Label6 = New System.Windows.Forms.Label
+        Me.Label3 = New System.Windows.Forms.Label
+        Me.Label2 = New System.Windows.Forms.Label
+        Me.Label1 = New System.Windows.Forms.Label
+        Me.btnRunSearch = New System.Windows.Forms.Button
+        Me.StatusStrip1 = New System.Windows.Forms.StatusStrip
+        Me.Panel1 = New System.Windows.Forms.ToolStripStatusLabel
+        Me.Panel2 = New System.Windows.Forms.ToolStripStatusLabel
+        Me.Panel3 = New System.Windows.Forms.ToolStripStatusLabel
+        Me.PanelAll = New System.Windows.Forms.Panel
+        Me.Splitter1 = New System.Windows.Forms.Splitter
+        Me.dgvQueryGenerator = New System.Windows.Forms.DataGridView
+        Me.TCQuerryOptions = New System.Windows.Forms.TabControl
+        Me.TPPhysicalLocation = New System.Windows.Forms.TabPage
+        Me.Label5 = New System.Windows.Forms.Label
+        Me.Label4 = New System.Windows.Forms.Label
+        Me.Panel30 = New System.Windows.Forms.Panel
+        Me.rdbCountyNotEqual = New System.Windows.Forms.RadioButton
+        Me.rdbCountyEqual = New System.Windows.Forms.RadioButton
+        Me.Panel29 = New System.Windows.Forms.Panel
+        Me.rdbDistrictNotEqual = New System.Windows.Forms.RadioButton
+        Me.rdbDistrictEqual = New System.Windows.Forms.RadioButton
+        Me.txtDistrictOrder = New System.Windows.Forms.TextBox
+        Me.txtCountyOrder = New System.Windows.Forms.TextBox
+        Me.Panel28 = New System.Windows.Forms.Panel
+        Me.rdbDistrictOr = New System.Windows.Forms.RadioButton
+        Me.rdbDistrictAnd = New System.Windows.Forms.RadioButton
+        Me.Panel27 = New System.Windows.Forms.Panel
+        Me.rdbCountyOr = New System.Windows.Forms.RadioButton
+        Me.rdbCountyAnd = New System.Windows.Forms.RadioButton
+        Me.cboDistrictSearch2 = New System.Windows.Forms.ComboBox
+        Me.cboDistrictSearch1 = New System.Windows.Forms.ComboBox
+        Me.cboCountySearch2 = New System.Windows.Forms.ComboBox
+        Me.cboCountySearch1 = New System.Windows.Forms.ComboBox
+        Me.chbDistrict = New System.Windows.Forms.CheckBox
+        Me.chbCounty = New System.Windows.Forms.CheckBox
+        Me.txtFacilityLatitudeOrder = New System.Windows.Forms.TextBox
+        Me.Panel17 = New System.Windows.Forms.Panel
+        Me.rdbFacilityLatitudeBetween = New System.Windows.Forms.RadioButton
+        Me.txtFacilityLatitudeSearch2 = New System.Windows.Forms.TextBox
+        Me.txtFacilityLatitudeSearch1 = New System.Windows.Forms.TextBox
+        Me.txtFacilityLongitudeOrder = New System.Windows.Forms.TextBox
+        Me.Panel18 = New System.Windows.Forms.Panel
+        Me.rdbFacilityLongitudeBetween = New System.Windows.Forms.RadioButton
+        Me.txtFacilityLongitudeSearch2 = New System.Windows.Forms.TextBox
+        Me.txtFacilityLongitudeSearch1 = New System.Windows.Forms.TextBox
+        Me.txtFacilityZipCodeOrder = New System.Windows.Forms.TextBox
+        Me.Panel15 = New System.Windows.Forms.Panel
+        Me.rdbFacilityZipCodeNotEqual = New System.Windows.Forms.RadioButton
+        Me.rdbFacilityZipCodeEqual = New System.Windows.Forms.RadioButton
+        Me.Panel16 = New System.Windows.Forms.Panel
+        Me.rdbFacilityZipCodeOr = New System.Windows.Forms.RadioButton
+        Me.rdbFacilityZipCodeAnd = New System.Windows.Forms.RadioButton
+        Me.txtFacilityZipCodeSearch2 = New System.Windows.Forms.TextBox
+        Me.txtFacilityZipCodeSearch1 = New System.Windows.Forms.TextBox
+        Me.txtFacilityCityOrder = New System.Windows.Forms.TextBox
+        Me.Panel13 = New System.Windows.Forms.Panel
+        Me.rdbFacilityCityNotEqual = New System.Windows.Forms.RadioButton
+        Me.rdbFacilityCityEqual = New System.Windows.Forms.RadioButton
+        Me.Panel14 = New System.Windows.Forms.Panel
+        Me.rdbFacilityCityOr = New System.Windows.Forms.RadioButton
+        Me.rdbFacilityCityAnd = New System.Windows.Forms.RadioButton
+        Me.txtFacilityCitySearch2 = New System.Windows.Forms.TextBox
+        Me.txtFacilityCitySearch1 = New System.Windows.Forms.TextBox
+        Me.txtFacilityStreet2Order = New System.Windows.Forms.TextBox
+        Me.Panel7 = New System.Windows.Forms.Panel
+        Me.rdbFacilityStreet2NotEqual = New System.Windows.Forms.RadioButton
+        Me.rdbFacilityStreet2Equal = New System.Windows.Forms.RadioButton
+        Me.Panel8 = New System.Windows.Forms.Panel
+        Me.rdbFacilityStreet2Or = New System.Windows.Forms.RadioButton
+        Me.rdbFacilityStreet2And = New System.Windows.Forms.RadioButton
+        Me.txtFacilityStreet2Search2 = New System.Windows.Forms.TextBox
+        Me.txtFacilityStreet2Search1 = New System.Windows.Forms.TextBox
+        Me.txtFacilityStreet1Order = New System.Windows.Forms.TextBox
+        Me.Panel4 = New System.Windows.Forms.Panel
+        Me.rdbFacilityStreet1NotEqual = New System.Windows.Forms.RadioButton
+        Me.rdbFacilityStreet1Equal = New System.Windows.Forms.RadioButton
+        Me.Panel5 = New System.Windows.Forms.Panel
+        Me.rdbFacilityStreet1Or = New System.Windows.Forms.RadioButton
+        Me.rdbFacilityStreet1And = New System.Windows.Forms.RadioButton
+        Me.txtFacilityStreet1Search2 = New System.Windows.Forms.TextBox
+        Me.txtFacilityStreet1Search1 = New System.Windows.Forms.TextBox
+        Me.chbFacilityLatitude = New System.Windows.Forms.CheckBox
+        Me.chbFacilityLongitude = New System.Windows.Forms.CheckBox
+        Me.chbFacilityZipCode = New System.Windows.Forms.CheckBox
+        Me.chbFacilityCity = New System.Windows.Forms.CheckBox
+        Me.chbFacilityStreet2 = New System.Windows.Forms.CheckBox
+        Me.chbFacilityStreet1 = New System.Windows.Forms.CheckBox
+        Me.TPHeaderInformation = New System.Windows.Forms.TabPage
+        Me.txtNAICSCodeOrder = New System.Windows.Forms.TextBox
+        Me.Panel74 = New System.Windows.Forms.Panel
+        Me.rdbNAICSCodeNotEqual = New System.Windows.Forms.RadioButton
+        Me.rdbNAICSCodeEqual = New System.Windows.Forms.RadioButton
+        Me.Panel75 = New System.Windows.Forms.Panel
+        Me.rdbNAICSCodeOr = New System.Windows.Forms.RadioButton
+        Me.rdbNAICSCodeAnd = New System.Windows.Forms.RadioButton
+        Me.txtNAICSCodeSearch2 = New System.Windows.Forms.TextBox
+        Me.txtNAICSCodeSearch1 = New System.Windows.Forms.TextBox
+        Me.chbNAICSCode = New System.Windows.Forms.CheckBox
+        Me.Panel11 = New System.Windows.Forms.Panel
+        Me.rdbOperationalStatusOr = New System.Windows.Forms.RadioButton
+        Me.rdbOperationalStatusAnd = New System.Windows.Forms.RadioButton
+        Me.cboOperationStatusSearch2 = New System.Windows.Forms.ComboBox
+        Me.cboOperationStatusSearch1 = New System.Windows.Forms.ComboBox
+        Me.txtOperationStatusOrder = New System.Windows.Forms.TextBox
+        Me.Panel12 = New System.Windows.Forms.Panel
+        Me.rdbOperationStatusNotEqual = New System.Windows.Forms.RadioButton
+        Me.rdbOperationStatusEqual = New System.Windows.Forms.RadioButton
+        Me.chbOperationStatus = New System.Windows.Forms.CheckBox
+        Me.cboCMSUniverseSearch2 = New System.Windows.Forms.ComboBox
+        Me.cboCMSUniverseSearch1 = New System.Windows.Forms.ComboBox
+        Me.txtPlantDescriptionOrder = New System.Windows.Forms.TextBox
+        Me.Panel33 = New System.Windows.Forms.Panel
+        Me.rdbPlantDescriptionNotEqual = New System.Windows.Forms.RadioButton
+        Me.rdbPlantDescriptionEqual = New System.Windows.Forms.RadioButton
+        Me.Panel34 = New System.Windows.Forms.Panel
+        Me.rdbPlantDescriptionOR = New System.Windows.Forms.RadioButton
+        Me.rdbPlantDescriptionAND = New System.Windows.Forms.RadioButton
+        Me.txtPlantDescriptionSearch2 = New System.Windows.Forms.TextBox
+        Me.txtPlantDescriptionSearch1 = New System.Windows.Forms.TextBox
+        Me.chbPlantDescription = New System.Windows.Forms.CheckBox
+        Me.txtCMSUniverseOrder = New System.Windows.Forms.TextBox
+        Me.Panel31 = New System.Windows.Forms.Panel
+        Me.rdbCMSUniverseNotEqual = New System.Windows.Forms.RadioButton
+        Me.rdbCMSUniverseEqual = New System.Windows.Forms.RadioButton
+        Me.Panel32 = New System.Windows.Forms.Panel
+        Me.rdbCMSUniverseOR = New System.Windows.Forms.RadioButton
+        Me.rdbCMSUniverseAnd = New System.Windows.Forms.RadioButton
+        Me.chbCMSUniverse = New System.Windows.Forms.CheckBox
+        Me.Panel20 = New System.Windows.Forms.Panel
+        Me.rdbClassificationOr = New System.Windows.Forms.RadioButton
+        Me.rdbClassificationAnd = New System.Windows.Forms.RadioButton
+        Me.DTPShutDownDateSearch2 = New System.Windows.Forms.DateTimePicker
+        Me.DTPShutDownDateSearch1 = New System.Windows.Forms.DateTimePicker
+        Me.DTPStartUpDateSearch2 = New System.Windows.Forms.DateTimePicker
+        Me.DTPStartUpDateSearch1 = New System.Windows.Forms.DateTimePicker
+        Me.txtShutDownDateOrder = New System.Windows.Forms.TextBox
+        Me.Panel26 = New System.Windows.Forms.Panel
+        Me.rdbShutDownDateBetween = New System.Windows.Forms.RadioButton
+        Me.txtSICCodeOrder = New System.Windows.Forms.TextBox
+        Me.Panel21 = New System.Windows.Forms.Panel
+        Me.rdbSICCodeNotEqual = New System.Windows.Forms.RadioButton
+        Me.rdbSICCodeEqual = New System.Windows.Forms.RadioButton
+        Me.Panel22 = New System.Windows.Forms.Panel
+        Me.rdbSICCodeOr = New System.Windows.Forms.RadioButton
+        Me.rdbSICCodeAnd = New System.Windows.Forms.RadioButton
+        Me.txtSICCodeSearch2 = New System.Windows.Forms.TextBox
+        Me.txtSICCodeSearch1 = New System.Windows.Forms.TextBox
+        Me.cboClassificationSearch2 = New System.Windows.Forms.ComboBox
+        Me.cboClassificationSearch1 = New System.Windows.Forms.ComboBox
+        Me.txtClassificationOrder = New System.Windows.Forms.TextBox
+        Me.Panel19 = New System.Windows.Forms.Panel
+        Me.rdbClassificationNotEqual = New System.Windows.Forms.RadioButton
+        Me.rdbClassificationEqual = New System.Windows.Forms.RadioButton
+        Me.txtStartUpDateOrder = New System.Windows.Forms.TextBox
+        Me.Panel10 = New System.Windows.Forms.Panel
+        Me.rdbStartUpDateBetween = New System.Windows.Forms.RadioButton
+        Me.chbShutDownDate = New System.Windows.Forms.CheckBox
+        Me.chbStartUpDate = New System.Windows.Forms.CheckBox
+        Me.chbSICCode = New System.Windows.Forms.CheckBox
+        Me.chbClassification = New System.Windows.Forms.CheckBox
+        Me.TPHeaderInformation2 = New System.Windows.Forms.TabPage
+        Me.chbStateProgramCodes = New System.Windows.Forms.CheckBox
+        Me.chbAttainmentStatus = New System.Windows.Forms.CheckBox
+        Me.Panel63 = New System.Windows.Forms.Panel
+        Me.rdbHAPMajorNotEqual = New System.Windows.Forms.RadioButton
+        Me.rdbHAPMajorEqual = New System.Windows.Forms.RadioButton
+        Me.Panel62 = New System.Windows.Forms.Panel
+        Me.rdbNSRPSDMajorNotEqual = New System.Windows.Forms.RadioButton
+        Me.rdbNSRPSDMajorEqual = New System.Windows.Forms.RadioButton
+        Me.Panel61 = New System.Windows.Forms.Panel
+        Me.rdbPMNoNotEqual = New System.Windows.Forms.RadioButton
+        Me.rdbPMNoEqual = New System.Windows.Forms.RadioButton
+        Me.Panel60 = New System.Windows.Forms.Panel
+        Me.rdbPMMaconNotEqual = New System.Windows.Forms.RadioButton
+        Me.rdbPMMaconEqual = New System.Windows.Forms.RadioButton
+        Me.Panel59 = New System.Windows.Forms.Panel
+        Me.rdbPMFloydNotEqual = New System.Windows.Forms.RadioButton
+        Me.rdbPMFloydEqual = New System.Windows.Forms.RadioButton
+        Me.Panel58 = New System.Windows.Forms.Panel
+        Me.rdbPMChattanoogaNotEqual = New System.Windows.Forms.RadioButton
+        Me.rdbPMChattanoogaEqual = New System.Windows.Forms.RadioButton
+        Me.Panel57 = New System.Windows.Forms.Panel
+        Me.rdbPMAtlantaNotEqual = New System.Windows.Forms.RadioButton
+        Me.rdbPMAtlantaEqual = New System.Windows.Forms.RadioButton
+        Me.Panel56 = New System.Windows.Forms.Panel
+        Me.rdb8HrNoNotEqual = New System.Windows.Forms.RadioButton
+        Me.rdb8HrNoEqual = New System.Windows.Forms.RadioButton
+        Me.Panel55 = New System.Windows.Forms.Panel
+        Me.rdb8HrMaconNotEqual = New System.Windows.Forms.RadioButton
+        Me.rdb8HrMaconEqual = New System.Windows.Forms.RadioButton
+        Me.Panel54 = New System.Windows.Forms.Panel
+        Me.rdb8HrAtlantaNotEqual = New System.Windows.Forms.RadioButton
+        Me.rdb8HrAtlantaEqual = New System.Windows.Forms.RadioButton
+        Me.Panel53 = New System.Windows.Forms.Panel
+        Me.rdb1HrContributeNotEqual = New System.Windows.Forms.RadioButton
+        Me.rdb1HrContributeEqual = New System.Windows.Forms.RadioButton
+        Me.Panel52 = New System.Windows.Forms.Panel
+        Me.rdb1HrNoNotEqual = New System.Windows.Forms.RadioButton
+        Me.rdb1HrNoEqual = New System.Windows.Forms.RadioButton
+        Me.chbHAPMajor = New System.Windows.Forms.CheckBox
+        Me.chbNSRPSDMajor = New System.Windows.Forms.CheckBox
+        Me.Panel51 = New System.Windows.Forms.Panel
+        Me.rdb1HrYesNotEqual = New System.Windows.Forms.RadioButton
+        Me.rdb1HrYesEqual = New System.Windows.Forms.RadioButton
+        Me.chbPMNo = New System.Windows.Forms.CheckBox
+        Me.chbPMMacon = New System.Windows.Forms.CheckBox
+        Me.chbPMFloyd = New System.Windows.Forms.CheckBox
+        Me.chbPMChattanooga = New System.Windows.Forms.CheckBox
+        Me.chbPMAtlanta = New System.Windows.Forms.CheckBox
+        Me.chb8HrNo = New System.Windows.Forms.CheckBox
+        Me.chb8HrMacon = New System.Windows.Forms.CheckBox
+        Me.chb8HrAtlanta = New System.Windows.Forms.CheckBox
+        Me.chb1HrContribute = New System.Windows.Forms.CheckBox
+        Me.chb1HrNo = New System.Windows.Forms.CheckBox
+        Me.chb1HrYes = New System.Windows.Forms.CheckBox
+        Me.TPAirProgramCodes = New System.Windows.Forms.TabPage
+        Me.Label7 = New System.Windows.Forms.Label
+        Me.Panel70 = New System.Windows.Forms.Panel
+        Me.rdbAPCOr = New System.Windows.Forms.RadioButton
+        Me.rdbAPCAnd = New System.Windows.Forms.RadioButton
+        Me.chbViewAirPrograms = New System.Windows.Forms.CheckBox
+        Me.txtAPCVOrder = New System.Windows.Forms.TextBox
+        Me.chbAPC0 = New System.Windows.Forms.CheckBox
+        Me.Panel50 = New System.Windows.Forms.Panel
+        Me.rdbAPCVNotEqual = New System.Windows.Forms.RadioButton
+        Me.rdbAPCVEqual = New System.Windows.Forms.RadioButton
+        Me.chbAPC1 = New System.Windows.Forms.CheckBox
+        Me.txtAPCMOrder = New System.Windows.Forms.TextBox
+        Me.Panel38 = New System.Windows.Forms.Panel
+        Me.rdbAPC0NotEqual = New System.Windows.Forms.RadioButton
+        Me.rdbAPC0Equal = New System.Windows.Forms.RadioButton
+        Me.Panel49 = New System.Windows.Forms.Panel
+        Me.rdbAPCMNotEqual = New System.Windows.Forms.RadioButton
+        Me.rdbAPCMEqual = New System.Windows.Forms.RadioButton
+        Me.txtAPC0Order = New System.Windows.Forms.TextBox
+        Me.txtAPCIOrder = New System.Windows.Forms.TextBox
+        Me.Panel39 = New System.Windows.Forms.Panel
+        Me.rdbAPC1NotEqual = New System.Windows.Forms.RadioButton
+        Me.rdbAPC1Equal = New System.Windows.Forms.RadioButton
+        Me.Panel48 = New System.Windows.Forms.Panel
+        Me.rdbAPCINotEqual = New System.Windows.Forms.RadioButton
+        Me.rdbAPCIEqual = New System.Windows.Forms.RadioButton
+        Me.txtAPC1Order = New System.Windows.Forms.TextBox
+        Me.chbAPCV = New System.Windows.Forms.CheckBox
+        Me.txtAPCFOrder = New System.Windows.Forms.TextBox
+        Me.chbAPCM = New System.Windows.Forms.CheckBox
+        Me.chbAPC3 = New System.Windows.Forms.CheckBox
+        Me.chbAPCI = New System.Windows.Forms.CheckBox
+        Me.Panel47 = New System.Windows.Forms.Panel
+        Me.rdbAPCFNotEqual = New System.Windows.Forms.RadioButton
+        Me.rdbAPCFEqual = New System.Windows.Forms.RadioButton
+        Me.chbAPC4 = New System.Windows.Forms.CheckBox
+        Me.txtAPCAOrder = New System.Windows.Forms.TextBox
+        Me.Panel40 = New System.Windows.Forms.Panel
+        Me.rdbAPC3NotEqual = New System.Windows.Forms.RadioButton
+        Me.rdbAPC3Equal = New System.Windows.Forms.RadioButton
+        Me.Panel46 = New System.Windows.Forms.Panel
+        Me.rdbAPCANotEqual = New System.Windows.Forms.RadioButton
+        Me.rdbAPCAEqual = New System.Windows.Forms.RadioButton
+        Me.txtAPC3Order = New System.Windows.Forms.TextBox
+        Me.txtAPC9Order = New System.Windows.Forms.TextBox
+        Me.Panel41 = New System.Windows.Forms.Panel
+        Me.rdbAPC4NotEqual = New System.Windows.Forms.RadioButton
+        Me.rdbAPC4Equal = New System.Windows.Forms.RadioButton
+        Me.Panel45 = New System.Windows.Forms.Panel
+        Me.rdbAPC9NotEqual = New System.Windows.Forms.RadioButton
+        Me.rdbAPC9Equal = New System.Windows.Forms.RadioButton
+        Me.txtAPC4Order = New System.Windows.Forms.TextBox
+        Me.txtAPC8Order = New System.Windows.Forms.TextBox
+        Me.chbAPCF = New System.Windows.Forms.CheckBox
+        Me.chbAPC6 = New System.Windows.Forms.CheckBox
+        Me.Panel44 = New System.Windows.Forms.Panel
+        Me.rdbAPC8NotEqual = New System.Windows.Forms.RadioButton
+        Me.rdbAPC8Equal = New System.Windows.Forms.RadioButton
+        Me.chbAPCA = New System.Windows.Forms.CheckBox
+        Me.chbAPC7 = New System.Windows.Forms.CheckBox
+        Me.txtAPC7Order = New System.Windows.Forms.TextBox
+        Me.chbAPC8 = New System.Windows.Forms.CheckBox
+        Me.Panel43 = New System.Windows.Forms.Panel
+        Me.rdbAPC7NotEqual = New System.Windows.Forms.RadioButton
+        Me.rdbAPC7Equal = New System.Windows.Forms.RadioButton
+        Me.Panel42 = New System.Windows.Forms.Panel
+        Me.rdbAPC6NotEqual = New System.Windows.Forms.RadioButton
+        Me.rdbAPC6Equal = New System.Windows.Forms.RadioButton
+        Me.txtAPC6Order = New System.Windows.Forms.TextBox
+        Me.chbAPC9 = New System.Windows.Forms.CheckBox
+        Me.TPSubpartData = New System.Windows.Forms.TabPage
+        Me.Panel65 = New System.Windows.Forms.Panel
+        Me.rdbPart60SubPartOr = New System.Windows.Forms.RadioButton
+        Me.rdbPart60SubPartAnd = New System.Windows.Forms.RadioButton
+        Me.Panel25 = New System.Windows.Forms.Panel
+        Me.rdbPart63SubPartOR = New System.Windows.Forms.RadioButton
+        Me.rdbPart63SubPartAnd = New System.Windows.Forms.RadioButton
+        Me.Panel9 = New System.Windows.Forms.Panel
+        Me.rdbPart61SubPartOr = New System.Windows.Forms.RadioButton
+        Me.rdbPart61SubPartAnd = New System.Windows.Forms.RadioButton
+        Me.cboPart63Search2 = New System.Windows.Forms.ComboBox
+        Me.cboPart60Search2 = New System.Windows.Forms.ComboBox
+        Me.cboPart63Search1 = New System.Windows.Forms.ComboBox
+        Me.cboPart60Search1 = New System.Windows.Forms.ComboBox
+        Me.cboPart61Search2 = New System.Windows.Forms.ComboBox
+        Me.cboPart61Search1 = New System.Windows.Forms.ComboBox
+        Me.cboSIPSearch2 = New System.Windows.Forms.ComboBox
+        Me.cboSIPSearch1 = New System.Windows.Forms.ComboBox
+        Me.Panel23 = New System.Windows.Forms.Panel
+        Me.rdbSIPNotEqual = New System.Windows.Forms.RadioButton
+        Me.rdbSIPEqual = New System.Windows.Forms.RadioButton
+        Me.Panel24 = New System.Windows.Forms.Panel
+        Me.rdbSIPSubPartOr = New System.Windows.Forms.RadioButton
+        Me.rdbSIPSubPartAnd = New System.Windows.Forms.RadioButton
+        Me.chbSIP = New System.Windows.Forms.CheckBox
+        Me.Panel68 = New System.Windows.Forms.Panel
+        Me.rdbPart63NotEqual = New System.Windows.Forms.RadioButton
+        Me.rdbPart63Equal = New System.Windows.Forms.RadioButton
+        Me.Panel66 = New System.Windows.Forms.Panel
+        Me.rdbPart60NotEqual = New System.Windows.Forms.RadioButton
+        Me.rdbPart60Equal = New System.Windows.Forms.RadioButton
+        Me.Panel64 = New System.Windows.Forms.Panel
+        Me.rdbPart61NotEqual = New System.Windows.Forms.RadioButton
+        Me.rdbPart61Equal = New System.Windows.Forms.RadioButton
+        Me.chbAllSubparts = New System.Windows.Forms.CheckBox
+        Me.chbPart61Subpart = New System.Windows.Forms.CheckBox
+        Me.chbPart60Subpart = New System.Windows.Forms.CheckBox
+        Me.chbPart63Subpart = New System.Windows.Forms.CheckBox
+        Me.TPComplianceInfo = New System.Windows.Forms.TabPage
+        Me.Panel76 = New System.Windows.Forms.Panel
+        Me.rdbDistrictResponsibleFalse = New System.Windows.Forms.RadioButton
+        Me.rdbDistrictResponsibleTrue = New System.Windows.Forms.RadioButton
+        Me.chbDistrictResponsible = New System.Windows.Forms.CheckBox
+        Me.DTPLastFCESearch2 = New System.Windows.Forms.DateTimePicker
+        Me.DTPLastFCESearch1 = New System.Windows.Forms.DateTimePicker
+        Me.txtLastFCEOrder = New System.Windows.Forms.TextBox
+        Me.Panel73 = New System.Windows.Forms.Panel
+        Me.rdbLastFCEBetween = New System.Windows.Forms.RadioButton
+        Me.chbLastFCE = New System.Windows.Forms.CheckBox
+        Me.Panel71 = New System.Windows.Forms.Panel
+        Me.rdbSSCPUnitOr = New System.Windows.Forms.RadioButton
+        Me.rdbSSCPUnitAnd = New System.Windows.Forms.RadioButton
+        Me.cboSSCPUnitSearch2 = New System.Windows.Forms.ComboBox
+        Me.cboSSCPUnitSearch1 = New System.Windows.Forms.ComboBox
+        Me.txtSSCPUnitOrder = New System.Windows.Forms.TextBox
+        Me.Panel72 = New System.Windows.Forms.Panel
+        Me.rdbSSCPUnitNotEqual = New System.Windows.Forms.RadioButton
+        Me.rdbSSCPUnitEqual = New System.Windows.Forms.RadioButton
+        Me.chbSSCPUnit = New System.Windows.Forms.CheckBox
+        Me.Panel67 = New System.Windows.Forms.Panel
+        Me.rdbSSCPEngineerOr = New System.Windows.Forms.RadioButton
+        Me.rdbSSCPEngineerAnd = New System.Windows.Forms.RadioButton
+        Me.cboSSCPEngineerSearch2 = New System.Windows.Forms.ComboBox
+        Me.cboSSCPEngineerSearch1 = New System.Windows.Forms.ComboBox
+        Me.txtSSCPEngineerOrder = New System.Windows.Forms.TextBox
+        Me.Panel69 = New System.Windows.Forms.Panel
+        Me.rdbSSCPEngineerNotEqual = New System.Windows.Forms.RadioButton
+        Me.rdbSSCPEngineerEqual = New System.Windows.Forms.RadioButton
+        Me.chbSSCPEngineer = New System.Windows.Forms.CheckBox
+        Me.TPCannedReports = New System.Windows.Forms.TabPage
+        Me.Label8 = New System.Windows.Forms.Label
+        Me.btnRunPermitContact = New System.Windows.Forms.Button
+        Me.GBBasic = New System.Windows.Forms.GroupBox
+        Me.bgwQueryGenerator = New System.ComponentModel.BackgroundWorker
+        Me.lblQueryCount = New System.Windows.Forms.Label
         Me.MenuStrip1.SuspendLayout()
         Me.ToolStrip1.SuspendLayout()
         Me.Panel6.SuspendLayout()
@@ -593,9 +592,9 @@ Partial Class IAIPQueryGenerator
         '
         'btnReset
         '
-        Me.btnReset.Location = New System.Drawing.Point(640, 67)
+        Me.btnReset.Location = New System.Drawing.Point(640, 70)
         Me.btnReset.Name = "btnReset"
-        Me.btnReset.Size = New System.Drawing.Size(73, 20)
+        Me.btnReset.Size = New System.Drawing.Size(84, 20)
         Me.btnReset.TabIndex = 16
         Me.btnReset.Text = "Reset Form"
         '
@@ -612,14 +611,6 @@ Partial Class IAIPQueryGenerator
         Me.txtFacilityNameOrder.Name = "txtFacilityNameOrder"
         Me.txtFacilityNameOrder.Size = New System.Drawing.Size(20, 20)
         Me.txtFacilityNameOrder.TabIndex = 14
-        '
-        'txtQueryCount
-        '
-        Me.txtQueryCount.Location = New System.Drawing.Point(640, 40)
-        Me.txtQueryCount.Name = "txtQueryCount"
-        Me.txtQueryCount.ReadOnly = True
-        Me.txtQueryCount.Size = New System.Drawing.Size(53, 20)
-        Me.txtQueryCount.TabIndex = 273
         '
         'Panel6
         '
@@ -819,9 +810,9 @@ Partial Class IAIPQueryGenerator
         '
         'btnRunSearch
         '
-        Me.btnRunSearch.Location = New System.Drawing.Point(640, 12)
+        Me.btnRunSearch.Location = New System.Drawing.Point(640, 15)
         Me.btnRunSearch.Name = "btnRunSearch"
-        Me.btnRunSearch.Size = New System.Drawing.Size(80, 20)
+        Me.btnRunSearch.Size = New System.Drawing.Size(84, 28)
         Me.btnRunSearch.TabIndex = 15
         Me.btnRunSearch.Text = "Run Search"
         '
@@ -837,8 +828,8 @@ Partial Class IAIPQueryGenerator
         'Panel1
         '
         Me.Panel1.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
+                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
+                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
         Me.Panel1.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(773, 17)
@@ -847,8 +838,8 @@ Partial Class IAIPQueryGenerator
         'Panel2
         '
         Me.Panel2.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
+                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
+                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
         Me.Panel2.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
         Me.Panel2.Name = "Panel2"
         Me.Panel2.Size = New System.Drawing.Size(4, 17)
@@ -856,8 +847,8 @@ Partial Class IAIPQueryGenerator
         'Panel3
         '
         Me.Panel3.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
+                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
+                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
         Me.Panel3.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
         Me.Panel3.Name = "Panel3"
         Me.Panel3.Size = New System.Drawing.Size(4, 17)
@@ -886,35 +877,35 @@ Partial Class IAIPQueryGenerator
         '
         'dgvQueryGenerator
         '
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvQueryGenerator.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle7.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvQueryGenerator.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle7
         Me.dgvQueryGenerator.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvQueryGenerator.DefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle8.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvQueryGenerator.DefaultCellStyle = DataGridViewCellStyle8
         Me.dgvQueryGenerator.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvQueryGenerator.Location = New System.Drawing.Point(0, 485)
         Me.dgvQueryGenerator.Name = "dgvQueryGenerator"
         Me.dgvQueryGenerator.ReadOnly = True
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvQueryGenerator.RowHeadersDefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle9.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvQueryGenerator.RowHeadersDefaultCellStyle = DataGridViewCellStyle9
         Me.dgvQueryGenerator.Size = New System.Drawing.Size(796, 105)
         Me.dgvQueryGenerator.TabIndex = 13
         '
@@ -4396,7 +4387,7 @@ Partial Class IAIPQueryGenerator
         Me.Label8.Size = New System.Drawing.Size(175, 39)
         Me.Label8.TabIndex = 1
         Me.Label8.Text = "Report with all facilities" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "- Fee Contact first or Permit if no fee" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "- Last Permi" & _
-    "t Issued" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
+            "t Issued" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
         '
         'btnRunPermitContact
         '
@@ -4411,14 +4402,13 @@ Partial Class IAIPQueryGenerator
         '
         'GBBasic
         '
-        Me.GBBasic.Controls.Add(Me.txtSQLStatement)
+        Me.GBBasic.Controls.Add(Me.lblQueryCount)
         Me.GBBasic.Controls.Add(Me.btnReset)
         Me.GBBasic.Controls.Add(Me.Label6)
         Me.GBBasic.Controls.Add(Me.txtFacilityAIRSNumberOrder)
         Me.GBBasic.Controls.Add(Me.btnRunSearch)
         Me.GBBasic.Controls.Add(Me.txtFacilityNameOrder)
         Me.GBBasic.Controls.Add(Me.Label1)
-        Me.GBBasic.Controls.Add(Me.txtQueryCount)
         Me.GBBasic.Controls.Add(Me.Label2)
         Me.GBBasic.Controls.Add(Me.Panel6)
         Me.GBBasic.Controls.Add(Me.Label3)
@@ -4438,21 +4428,17 @@ Partial Class IAIPQueryGenerator
         Me.GBBasic.TabIndex = 0
         Me.GBBasic.TabStop = False
         '
-        'txtSQLStatement
-        '
-        Me.txtSQLStatement.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.txtSQLStatement.Location = New System.Drawing.Point(699, 39)
-        Me.txtSQLStatement.Multiline = True
-        Me.txtSQLStatement.Name = "txtSQLStatement"
-        Me.txtSQLStatement.ReadOnly = True
-        Me.txtSQLStatement.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.txtSQLStatement.Size = New System.Drawing.Size(1, 1)
-        Me.txtSQLStatement.TabIndex = 274
-        Me.txtSQLStatement.Visible = False
-        '
         'bgwQueryGenerator
         '
+        '
+        'lblQueryCount
+        '
+        Me.lblQueryCount.AutoSize = True
+        Me.lblQueryCount.Location = New System.Drawing.Point(645, 49)
+        Me.lblQueryCount.Name = "lblQueryCount"
+        Me.lblQueryCount.Size = New System.Drawing.Size(31, 13)
+        Me.lblQueryCount.TabIndex = 275
+        Me.lblQueryCount.Text = "Hello"
         '
         'IAIPQueryGenerator
         '
@@ -4653,7 +4639,6 @@ Partial Class IAIPQueryGenerator
     Friend WithEvents btnReset As System.Windows.Forms.Button
     Friend WithEvents txtFacilityAIRSNumberOrder As System.Windows.Forms.TextBox
     Friend WithEvents txtFacilityNameOrder As System.Windows.Forms.TextBox
-    Friend WithEvents txtQueryCount As System.Windows.Forms.TextBox
     Friend WithEvents Panel6 As System.Windows.Forms.Panel
     Friend WithEvents rdbFacilityNameNotEqual As System.Windows.Forms.RadioButton
     Friend WithEvents rdbFacilityNameEqual As System.Windows.Forms.RadioButton
@@ -4890,7 +4875,6 @@ Partial Class IAIPQueryGenerator
     Friend WithEvents rdbOperationStatusNotEqual As System.Windows.Forms.RadioButton
     Friend WithEvents rdbOperationStatusEqual As System.Windows.Forms.RadioButton
     Friend WithEvents chbOperationStatus As System.Windows.Forms.CheckBox
-    Friend WithEvents txtSQLStatement As System.Windows.Forms.TextBox
     Friend WithEvents tsbReSizeFilterOptions As System.Windows.Forms.ToolStripButton
     Friend WithEvents chbViewAirPrograms As System.Windows.Forms.CheckBox
     Friend WithEvents TPHeaderInformation2 As System.Windows.Forms.TabPage
@@ -5035,4 +5019,5 @@ Partial Class IAIPQueryGenerator
     Friend WithEvents rdbDistrictResponsibleFalse As System.Windows.Forms.RadioButton
     Friend WithEvents rdbDistrictResponsibleTrue As System.Windows.Forms.RadioButton
     Friend WithEvents chbDistrictResponsible As System.Windows.Forms.CheckBox
+    Friend WithEvents lblQueryCount As System.Windows.Forms.Label
 End Class
