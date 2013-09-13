@@ -1,6 +1,17 @@
 IAIP Changelog
 ==============
 
+### 2.6.4.6 (2013-09-13)
+
++ NEW: Login form loads an imperceptibly tiny bit faster now
++ FIX: Some data fields were unreadable on Windows 7 (#119)
+
+### 2.6.4.5 (2013-09-13)
+
++ FIX: *Query Generator* produces more relevant results when searching for Compliance Inspector or Compliance Unit (#114)
++ NEW: *Query Generator* – Better formatting of results
++ NEW: *Query Generator* – **HUGE** performance improvement when exporting to Excel
+
 ### 2.6.4.4 (2013-09-09)
 
 + NEW: Added analytics to Crystal Reports to better understand usage of printed reports
