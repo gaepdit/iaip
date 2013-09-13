@@ -140,14 +140,17 @@ Module App
         Dim publishedVersion As Version = GetPublishedVersion()
 
         ' If database has an error, published version will be 0.0.0.0. This will return false.
-        If GetVersionAsBuild(currentVersion).CompareTo(GetVersionAsBuild(publishedVersion)) < 0 Then Return True
-        Return False
+        Return GetVersionAsMajorMinor(currentVersion).CompareTo(GetVersionAsMajorMinor(publishedVersion)) < 0
     End Function
     Private Function GetVersionAsBuild(ByVal v As Version) As Version
-        ' This converst a Version from four components to three
-        If v.Revision = -1 Then Return v
-        ' (A version with fewer than four components gets returned as-is)
+        ' This converts a Version from four components to three
+        If v.Revision = -1 Then Return v ' (A version with fewer than four components gets returned as-is)
         Return New Version(v.Major, v.Minor, v.Build)
+    End Function
+    Private Function GetVersionAsMajorMinor(ByVal v As Version) As Version
+        ' This converts a Version from four components to three
+        If v.Build = -1 Then Return v ' (A version with fewer than three components gets returned as-is)
+        Return New Version(v.Major, v.Minor)
     End Function
 #End Region
 
