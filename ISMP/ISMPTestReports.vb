@@ -2311,6 +2311,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
                 Else
                     txtFacilityState.Text = dr.Item("strFacilityState")
                 End If
+                txtFacilityCity.Text = String.Join(", ", New String() {txtFacilityCity.Text, txtFacilityState.Text})
                 If IsDBNull(dr.Item("strPollutant")) Then
                     cboPollutantDetermined.SelectedValue = 0
                 Else
@@ -10585,6 +10586,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
                         Else
                             txtFacilityState.Text = dr.Item("strFacilityState")
                         End If
+                        txtFacilityCity.Text = String.Join(", ", New String() {txtFacilityCity.Text, txtFacilityState.Text})
                         If IsDBNull(dr.Item("strTestingFirm")) Then
                             cboTestingFirm.SelectedValue = 0
                         Else
@@ -15528,10 +15530,10 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
             End If
             If Mid(ConfidentialData, 5, 1) = "1" Then
                 Me.txtFacilityCity.BackColor = Color.Tomato
-                Me.txtFacilityState.BackColor = Color.Tomato
+                'Me.txtFacilityState.BackColor = Color.Tomato
             Else
                 Me.txtFacilityCity.BackColor = Color.White
-                Me.txtFacilityState.BackColor = Color.White
+                'Me.txtFacilityState.BackColor = Color.White
             End If
             If Mid(ConfidentialData, 6, 1) = "1" Then
                 cboReportType.BackColor = Color.Tomato
