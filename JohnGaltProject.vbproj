@@ -6,7 +6,7 @@
     <ProjectGuid>{B92680E9-391D-4109-993E-53E5B6946E93}</ProjectGuid>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ApplicationIcon>gaSeal.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\Seal_of_Georgia_gold_Win7.ico</ApplicationIcon>
     <AssemblyKeyContainerName>
     </AssemblyKeyContainerName>
     <AssemblyName>JohnGaltProject</AssemblyName>
@@ -1766,7 +1766,6 @@
       <Link>OraOps11w.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="gaSeal.ico" />
     <None Include="IAIP-Installer\config.txt">
     </None>
     <None Include="IAIP-Updater\Post-build Events.txt" />
@@ -1774,6 +1773,7 @@
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>
     </Content>
+    <None Include="Resources\Seal_of_Georgia_gold_Win7.ico" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="BusinessObjects.CrystalReports.10.5">
