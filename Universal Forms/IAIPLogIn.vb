@@ -3,7 +3,7 @@ Imports System.IO
 Imports Microsoft.Win32
 
 Public Class IAIPLogIn
-    Dim Paneltemp1 As String
+    'Dim Paneltemp1 As String
     Dim SQL As String
     Dim cmd As OracleCommand
     Dim dr As OracleDataReader
@@ -26,7 +26,7 @@ Public Class IAIPLogIn
         Try
             AddHandler t.Elapsed, AddressOf TimerFired
             t.Enabled = True
-            Panel3.Text = OracleDate
+            'Panel3.Text = OracleDate
 
             CheckLanguageRegistrySetting()
 
@@ -87,13 +87,32 @@ Public Class IAIPLogIn
 
 #Region "Page Load Functions"
     Private Sub DisableLogin(Optional ByVal message As String = "")
-        txtUserID.Enabled = False
-        txtUserPassword.Enabled = False
-        btnLoginButton.Enabled = False
-        mmiTestingEnvironment.Enabled = False
+        With txtUserID
+            .Enabled = False
+            .Visible = False
+        End With
 
-        lblUserID.Enabled = False
-        lblPassword.Enabled = False
+        With lblUserID
+            .Enabled = False
+            .Visible = False
+        End With
+
+        With txtUserPassword
+            .Enabled = False
+            .Visible = False
+        End With
+
+        With lblPassword
+            .Enabled = False
+            .Visible = False
+        End With
+
+        With btnLoginButton
+            .Enabled = False
+            .Visible = False
+        End With
+
+        mmiTestingEnvironment.Enabled = False
 
         With lblGeneralMessage
             .Text = message
@@ -105,7 +124,7 @@ Public Class IAIPLogIn
         Dim currentVersion As Version = GetCurrentVersion()
         Dim publishedVersion As Version = GetPublishedVersion()
 
-        UpdateLink.Visible = False
+        lnkUpdateLink.Visible = False
 
         With lblCurrentVersionMessage
             .Text = String.Format("Version: {0}", currentVersion.ToString)
@@ -117,20 +136,38 @@ Public Class IAIPLogIn
                          "back later. If you continue to see this message after " & vbNewLine & _
                          "two hours, please inform the Data Management Unit. " & vbNewLine & _
                          "Thank you.")
+            lblCurrentVersionMessage.Location = New Point(337, lblCurrentVersionMessage.Location.Y)
             Exit Sub
-        End If
-
-        If IsUpdateAvailable() Then
-            ShowUpdateLink(currentVersion, publishedVersion)
         End If
 
         If IsUpdateMandatory() Then
             DisableLogin("Your installation of the Platform is out of date " & vbNewLine & _
                          "and must be updated before you can proceed.")
+            ShowUpdateLink(currentVersion, publishedVersion)
+            With lblCurrentVersionMessage
+                .Location = New Point(337, 278)
+                .ForeColor = SystemColors.ControlText
+            End With
+            With lblAvailableVersionMessage
+                .Location = New Point(337, 296)
+                .ForeColor = Color.Maroon
+            End With
+            With lnkUpdateLink
+                .Location = New Point(337, 330)
+                .LinkColor = Color.Red
+            End With
+
+            Exit Sub
         End If
+
+        If IsUpdateAvailable() Then
+            ShowUpdateLink(currentVersion, publishedVersion)
+            lblCurrentVersionMessage.ForeColor = SystemColors.ControlText
+        End If
+
     End Sub
     Private Sub ShowUpdateLink(ByVal currentVersion As Version, ByVal publishedVersion As Version)
-        UpdateLink.Visible = True
+        lnkUpdateLink.Visible = True
         With lblCurrentVersionMessage
             .Text = String.Format("You are using version: {0}", currentVersion.ToString)
             .Visible = True
@@ -206,6 +243,8 @@ Public Class IAIPLogIn
 #Region "Subs and Functions"
     Sub LogInCheck()
         monitor.TrackFeatureStart("Startup.LoggingIn")
+        LoginProgressBar.Visible = True
+        btnLoginButton.Visible = False
         Try
             Dim EmployeeStatus As String = ""
             Dim PhoneNumber As String = ""
@@ -215,17 +254,20 @@ Public Class IAIPLogIn
             Dim LastName As String = ""
 
             If versionCheck = "Update" Then
+                LoginProgressBar.Value = 0
+                LoginProgressBar.Visible = False
+                btnLoginButton.Visible = True
                 monitor.TrackFeatureCancel("Startup.LoggingIn")
                 MessageBox.Show("This version of the platform is out of date and must be updated.")
                 Exit Sub
             End If
 
-            ProgressBar.PerformStep()
-            Paneltemp1 = Panel1.Text
-            Panel1.Text = "Logging In"
+            LoginProgressBar.PerformStep()
+            'Paneltemp1 = Panel1.Text
+            'Panel1.Text = "Logging In"
             If txtUserID.Text <> "" Then
                 If txtUserPassword.Text <> "" Then
-                    ProgressBar.PerformStep()
+                    LoginProgressBar.PerformStep()
                     SQL = "Select " & DBNameSpace & ".EPDUsers.numUserID, " & _
                     "strIAIPPermissions, " & _
                     "(strLastName|| ', ' ||strFirstName) as UserName, " & _
@@ -244,9 +286,9 @@ Public Class IAIPLogIn
                     If Conn.State = ConnectionState.Closed Then
                         Conn.Open()
                     End If
-                    ProgressBar.PerformStep()
+                    LoginProgressBar.PerformStep()
                     dr = cmd.ExecuteReader
-                    ProgressBar.PerformStep()
+                    LoginProgressBar.PerformStep()
                     UserGCode = ""
 
                     While dr.Read
@@ -303,7 +345,7 @@ Public Class IAIPLogIn
                         End If
                     End While
                     dr.Close()
-                    ProgressBar.PerformStep()
+                    LoginProgressBar.PerformStep()
 
                     If UserGCode <> "" And EmployeeStatus = "1" Then
                         If EmailAddress = "" Then
@@ -347,7 +389,9 @@ Public Class IAIPLogIn
                             End If
 
 
-                            ProgressBar.Value = 0
+                            LoginProgressBar.Value = 0
+                            LoginProgressBar.Visible = False
+                            btnLoginButton.Visible = True
 
                             Exit Sub
                         End If
@@ -370,15 +414,15 @@ Public Class IAIPLogIn
                         If File.Exists("C:\APB\Defaults.txt") Then
                         Else
                             DefaultsText = "LogInID-" & txtUserID.Text & "-DInIgoL"
-                            ProgressBar.PerformStep()
+                            LoginProgressBar.PerformStep()
                             Dim fs As New System.IO.FileStream("C:\APB\Defaults.txt", IO.FileMode.Create, IO.FileAccess.Write)
 
                             fs.Close()
-                            ProgressBar.PerformStep()
+                            LoginProgressBar.PerformStep()
                             Dim writer As StreamWriter = New StreamWriter("C:\APB\Defaults.txt")
                             writer.WriteLine(DefaultsText)
                             writer.Close()
-                            ProgressBar.PerformStep()
+                            LoginProgressBar.PerformStep()
                         End If
                         If Me.mmiTestingEnvironment.Checked = True Or mmiTestingDatabase.Checked = True Or mmiLukeEnvironment.Checked = True Then
                             If Me.mmiTestingEnvironment.Checked = True Then
@@ -399,10 +443,12 @@ Public Class IAIPLogIn
                         NavigationScreen.mmiVersion.Text = lblCurrentVersionMessage.Text
                         NavigationScreen.Show()
 
-                        ProgressBar.Value = 0
+                        LoginProgressBar.Value = 0
+                        LoginProgressBar.Visible = False
+                        btnLoginButton.Visible = True
                         Me.Close()
                     Else
-                        Panel1.Text = Paneltemp1
+                        'Panel1.Text = Paneltemp1
 
                         If EmployeeStatus = "0" Then
                             MsgBox("You status as been flagged as inactive." & vbCrLf & "If this is in error please contact your manager.", MsgBoxStyle.Exclamation, _
@@ -414,28 +460,38 @@ Public Class IAIPLogIn
                         txtUserPassword.Clear()
                         txtUserPassword.Focus()
 
-                        ProgressBar.Value = 0
+                        LoginProgressBar.Value = 0
+                        LoginProgressBar.Visible = False
+                        btnLoginButton.Visible = True
                         monitor.TrackFeatureCancel("Startup.LoggingIn")
                     End If
                 Else
+                    LoginProgressBar.Value = 0
+                    LoginProgressBar.Visible = False
+                    btnLoginButton.Visible = True
                     monitor.TrackFeatureCancel("Startup.LoggingIn")
                 End If
             Else
 
-                ProgressBar.Value = 0
+                LoginProgressBar.Value = 0
+                LoginProgressBar.Visible = False
+                btnLoginButton.Visible = True
                 monitor.TrackFeatureCancel("Startup.LoggingIn")
                 MsgBox("The User ID and Password provided is not a valid user combination.", MsgBoxStyle.Exclamation, _
                                  "Log In Error")
             End If
 
         Catch ex As Exception
+            LoginProgressBar.Value = 0
+            LoginProgressBar.Visible = False
+            btnLoginButton.Visible = True
             monitor.TrackFeatureCancel("Startup.LoggingIn")
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
     End Sub
 #End Region
-    Private Sub btnEnter_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnLoginButton.Click
+    Private Sub btnLoginButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnLoginButton.Click
         Try
             LogInCheck()
         Catch ex As Exception
@@ -566,7 +622,7 @@ Public Class IAIPLogIn
     '    End Try
 
     'End Sub
-    Private Sub txtLoginForm_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) _
+    Private Sub LoginForm_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) _
         Handles txtUserPassword.KeyPress, txtUserID.KeyPress
 
         If e.KeyChar = Microsoft.VisualBasic.ChrW(13) Then
@@ -879,7 +935,7 @@ Public Class IAIPLogIn
     '    End Try
     'End Sub
 
-    Private Sub UpdateLink_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles UpdateLink.LinkClicked
+    Private Sub UpdateLink_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lnkUpdateLink.LinkClicked
         StartIaipUpdate()
     End Sub
 
