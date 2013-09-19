@@ -244,7 +244,7 @@ Public Class IAIPLogIn
     Sub LogInCheck()
         monitor.TrackFeatureStart("Startup.LoggingIn")
         LoginProgressBar.Visible = True
-        btnLoginButton.Visible = False
+        btnLoginButton.Visible = True
         Try
             Dim EmployeeStatus As String = ""
             Dim PhoneNumber As String = ""

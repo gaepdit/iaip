@@ -21,7 +21,7 @@ Partial Class IAIPLogIn
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container
         Me.MainMenu1 = New System.Windows.Forms.MainMenu(Me.components)
-        Me.MenuItem1 = New System.Windows.Forms.MenuItem
+        Me.mmiFile = New System.Windows.Forms.MenuItem
         Me.mmiExit = New System.Windows.Forms.MenuItem
         Me.mmiHelp = New System.Windows.Forms.MenuItem
         Me.mmiOnlineHelp = New System.Windows.Forms.MenuItem
@@ -42,7 +42,6 @@ Partial Class IAIPLogIn
         Me.lblTitle = New System.Windows.Forms.Label
         Me.btnLoginButton = New System.Windows.Forms.Button
         Me.lblLicenseLabel = New System.Windows.Forms.Label
-        Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.lnkIaipPatch = New System.Windows.Forms.LinkLabel
         Me.lblCurrentVersionMessage = New System.Windows.Forms.Label
         Me.btnAdjustIntranet = New System.Windows.Forms.Button
@@ -58,13 +57,13 @@ Partial Class IAIPLogIn
         '
         'MainMenu1
         '
-        Me.MainMenu1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.MenuItem1, Me.mmiHelp})
+        Me.MainMenu1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiFile, Me.mmiHelp})
         '
-        'MenuItem1
+        'mmiFile
         '
-        Me.MenuItem1.Index = 0
-        Me.MenuItem1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiExit})
-        Me.MenuItem1.Text = "&File"
+        Me.mmiFile.Index = 0
+        Me.mmiFile.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiExit})
+        Me.mmiFile.Text = "&File"
         '
         'mmiExit
         '
@@ -336,9 +335,10 @@ Partial Class IAIPLogIn
         '
         'LoginProgressBar
         '
-        Me.LoginProgressBar.Location = New System.Drawing.Point(422, 260)
+        Me.LoginProgressBar.Location = New System.Drawing.Point(422, 302)
         Me.LoginProgressBar.Name = "LoginProgressBar"
         Me.LoginProgressBar.Size = New System.Drawing.Size(175, 23)
+        Me.LoginProgressBar.Step = 20
         Me.LoginProgressBar.TabIndex = 46
         Me.LoginProgressBar.Visible = False
         '
@@ -347,7 +347,6 @@ Partial Class IAIPLogIn
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(747, 418)
-        Me.Controls.Add(Me.LoginProgressBar)
         Me.Controls.Add(Me.PictureBox1)
         Me.Controls.Add(Me.lblAvailableVersionMessage)
         Me.Controls.Add(Me.btnDeleteEIS)
@@ -364,8 +363,9 @@ Partial Class IAIPLogIn
         Me.Controls.Add(Me.lblSubTitle)
         Me.Controls.Add(Me.lnkUpdateLink)
         Me.Controls.Add(Me.lblTitle)
-        Me.Controls.Add(Me.btnLoginButton)
         Me.Controls.Add(Me.lblGeneralMessage)
+        Me.Controls.Add(Me.LoginProgressBar)
+        Me.Controls.Add(Me.btnLoginButton)
         Me.Margin = New System.Windows.Forms.Padding(2)
         Me.Menu = Me.MainMenu1
         Me.Name = "IAIPLogIn"
@@ -377,7 +377,7 @@ Partial Class IAIPLogIn
 
     End Sub
     Friend WithEvents MainMenu1 As System.Windows.Forms.MainMenu
-    Friend WithEvents MenuItem1 As System.Windows.Forms.MenuItem
+    Friend WithEvents mmiFile As System.Windows.Forms.MenuItem
     Friend WithEvents mmiExit As System.Windows.Forms.MenuItem
     Friend WithEvents mmiHelp As System.Windows.Forms.MenuItem
     Friend WithEvents lblPassword As System.Windows.Forms.Label
@@ -389,7 +389,6 @@ Partial Class IAIPLogIn
     Friend WithEvents lblTitle As System.Windows.Forms.Label
     Friend WithEvents btnLoginButton As System.Windows.Forms.Button
     Friend WithEvents lblLicenseLabel As System.Windows.Forms.Label
-    Friend WithEvents ToolTip1 As System.Windows.Forms.ToolTip
     Friend WithEvents mmiTestingEnvironment As System.Windows.Forms.MenuItem
     Friend WithEvents lnkIaipPatch As System.Windows.Forms.LinkLabel
     Friend WithEvents mmiRefreshUserID As System.Windows.Forms.MenuItem
