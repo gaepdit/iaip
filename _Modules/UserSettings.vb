@@ -5,29 +5,43 @@ Module UserSettings
 
     Friend Enum UserSetting As Byte
         ExcelExportLocation
+        PermitUploadLocation
     End Enum
 
-    Friend Function GetSetting(ByVal whichSetting As UserSetting) As String
+    Private Function DefaultSetting(ByVal whichSetting As UserSetting) As String
         Select Case whichSetting
-            Case UserSetting.ExcelExportLocation
-                If UserSettingsHelper.KeySettingsDictionary.ContainsKey(whichSetting.ToString) Then
-                    Return UserSettingsHelper.KeySettingsDictionary(whichSetting.ToString)
-                End If
-                Return Environment.GetFolderPath(Environment.SpecialFolder.Personal)
-        End Select
 
-        Return Nothing
+            Case UserSetting.ExcelExportLocation
+                Return Environment.GetFolderPath(Environment.SpecialFolder.Personal)
+
+            Case UserSetting.PermitUploadLocation
+                Return Environment.GetFolderPath(Environment.SpecialFolder.Personal)
+
+            Case Else
+                Return ""
+
+        End Select
+    End Function
+
+
+
+    Friend Function GetSetting(ByVal whichSetting As UserSetting) As String
+        If UserSettingsHelper.KeySettingsDictionary.ContainsKey(whichSetting.ToString) Then
+            Return UserSettingsHelper.KeySettingsDictionary(whichSetting.ToString)
+        Else
+            Return DefaultSetting(whichSetting)
+        End If
     End Function
 
     Friend Sub SaveSetting(ByVal whichSetting As UserSetting, ByVal value As String)
         UserSettingsHelper.KeySettingsDictionary.Add(whichSetting.ToString, value)
     End Sub
 
-    Public Class UserSettingsHelper
+    Private Class UserSettingsHelper
         Private Shared _keySettingsDictionary As Dictionary(Of String, String)
         Private Shared _initLock As Object = New Object()
 
-        Public Shared ReadOnly Property KeySettingsDictionary As Dictionary(Of String, String)
+        Public Shared ReadOnly Property KeySettingsDictionary() As Dictionary(Of String, String)
             Get
                 If (_keySettingsDictionary Is Nothing) Then
                     InitializeDictionary()
