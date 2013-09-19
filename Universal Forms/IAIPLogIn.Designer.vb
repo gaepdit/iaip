@@ -325,7 +325,7 @@ Partial Class IAIPLogIn
         '
         'PictureBox1
         '
-        Me.PictureBox1.Image = Global.JohnGaltProject.My.Resources.Resources.Seal_of_Georgia_gold_256x256x32
+        Me.PictureBox1.Image = Global.JohnGaltProject.My.Resources.Resources.Logo
         Me.PictureBox1.InitialImage = Nothing
         Me.PictureBox1.Location = New System.Drawing.Point(29, 55)
         Me.PictureBox1.Name = "PictureBox1"
