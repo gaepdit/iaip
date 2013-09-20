@@ -1,7 +1,7 @@
 IAIP Changelog
 ==============
 
-### 2.6.5.0 (2013-09-20)
+### 2.6.5.1 (2013-09-20)
 
 + NEW: New icon & logo for Windows 7
 + FIX: *SSPP* – Error message when uploading permit docs (#118)
