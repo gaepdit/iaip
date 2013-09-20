@@ -1,9 +1,14 @@
 IAIP Changelog
 ==============
 
+### 2.6.5.0 (2013-09-20)
+
++ NEW: New icon & logo for Windows 7
++ FIX: *SSPP* – Error message when uploading permit docs (#118)
+
 ### 2.6.4.6 (2013-09-13)
 
-+ NEW: Login form loads an imperceptibly tiny bit faster now
++ NEW: Login form loads imperceptibly faster now
 + FIX: Some data fields were unreadable on Windows 7 (#119)
 
 ### 2.6.4.5 (2013-09-13)
