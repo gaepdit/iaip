@@ -2,8 +2,6 @@ Imports System.Data.OracleClient
 Imports System.IO
 Imports System
 Imports System.Data
-'Imports System.Text
-'Imports Microsoft.Office
 
 Public Class IAIPPermitUploader
     Dim SQL As String
@@ -12,6 +10,8 @@ Public Class IAIPPermitUploader
     Dim recExist As Boolean
     Dim MasterApp As String
     Dim PathName As String
+
+#Region "Form events"
 
     Private Sub IAIPPermitUploader_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         monitor.TrackFeature("Forms." & Me.Name)
@@ -37,11 +37,53 @@ Public Class IAIPPermitUploader
 
     End Sub
 
-#Region "Page Load"
+    Private Sub IAIPPermitUploader_Closing(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
+        Try
+            PermitUploader = Nothing
+            Me.Dispose()
+        Catch ex As Exception
+            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+        Finally
 
+        End Try
+
+    End Sub
 
 #End Region
-#Region "Subs and Functions"
+
+#Region "General tools"
+
+    Private Sub btnFindApplication_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnFindApplication.Click
+        Try
+
+            If txtApplicationNumber.Text <> "" Then
+                FindApplicationInformation()
+            End If
+
+        Catch ex As Exception
+            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+        Finally
+
+        End Try
+
+    End Sub
+
+    Private Sub txtApplicationNumber_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txtApplicationNumber.KeyPress
+        Try
+
+            If e.KeyChar = Microsoft.VisualBasic.ChrW(13) Then
+                If txtApplicationNumber.Text <> "" Then
+                    FindApplicationInformation()
+                End If
+            End If
+        Catch ex As Exception
+            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+        Finally
+
+        End Try
+
+    End Sub
+
     Sub FindApplicationInformation()
         Try
             Dim ZipCode As String = ""
@@ -266,39 +308,7 @@ Public Class IAIPPermitUploader
         End Try
 
     End Sub
-    Sub DisplayPermitPanel()
-        Try
-            '130, 307
-            If TCPermitUploader.TabPages.Contains(TPTV) Then
-                TCPermitUploader.TabPages.Remove(TPTV)
-            End If
-            If TCPermitUploader.TabPages.Contains(TPPSD) Then
-                TCPermitUploader.TabPages.Remove(TPPSD)
-            End If
-            If TCPermitUploader.TabPages.Contains(TPOther) Then
-                TCPermitUploader.TabPages.Remove(TPOther)
-            End If
-            If rdbTitleVPermit.Checked = True Then
-                TCPermitUploader.TabPages.Add(TPTV)
-            Else
-                If rdbPSDPermit.Checked = True Then
-                    TCPermitUploader.TabPages.Add(TPPSD)
-                Else
-                    If rdbOtherPermit.Checked = True Then
-                        TCPermitUploader.TabPages.Add(TPOther)
-                    Else
 
-                    End If
-                End If
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
     Sub ClearForm()
         Try
             txtApplicationNumber.Clear()
@@ -315,6 +325,56 @@ Public Class IAIPPermitUploader
         End Try
 
     End Sub
+
+    Private Sub tbbClear_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tbbClear.Click
+        Try
+            ClearForm()
+        Catch ex As Exception
+            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+        Finally
+
+        End Try
+
+    End Sub
+
+    Private Sub tbbBack_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tbbBack.Click
+        Try
+            PermitUploader = Nothing
+            Me.Close()
+        Catch ex As Exception
+            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+        Finally
+
+        End Try
+
+
+    End Sub
+
+    Private Sub mmiHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiHelp.Click
+        Try
+            Help.ShowHelp(Label1, HELP_URL)
+        Catch ex As Exception
+        End Try
+    End Sub
+
+#End Region
+
+#Region "Save files"
+
+    Private Sub btnUploadFile_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnUploadFile.Click
+        Try
+            SaveFiles()
+            FindApplicationInformation()
+            MsgBox("Done", MsgBoxStyle.Information, "Permit Uploader")
+
+        Catch ex As Exception
+            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+        Finally
+
+        End Try
+
+    End Sub
+
     Sub UploadFile(ByVal FileName As String, ByVal DocLocation As String, ByVal DocxLocation As String, _
                     ByVal PDFLocation As String, ByVal DocOnFile As String)
         Try
@@ -667,6 +727,7 @@ Public Class IAIPPermitUploader
         End Try
 
     End Sub
+
     Sub SaveFiles()
         Try
             Dim doc As String = ""
@@ -1187,246 +1248,11 @@ Public Class IAIPPermitUploader
         End Try
 
     End Sub
-    Sub DownloadFile(ByVal FileName As String, ByVal FileType As String)
-        Try
-            Dim PermitNumber As String = ""
-            Dim path As New SaveFileDialog
-            Dim DestFilePath As String = "N/A"
 
-            If FileType <> "00" Then
-                SQL = "select strApplicationNumber, " & _
-                "strPermitNumber,  " & _
-                "(substr(strPermitNumber,1, 4) ||'-'||substr(strPermitNumber, 5,3) " & _
-                "   ||'-'||substr(strPermitNumber, 8,4)||'-'||substr(strPermitNumber, 12, 1)  " & _
-                "   ||'-'||substr(strPermitNumber, 13, 2) ||'-'||substr(strPermitNumber, 15,1)) as PermitNumber " & _
-                "from " & DBNameSpace & ".SSPPApplicationData  " & _
-                "where strApplicationNumber like '" & MasterApp & "' "
+#End Region
 
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
-                End If
-                dr = cmd.ExecuteReader
-                recExist = dr.Read
-                If recExist = True Then
-                    PermitNumber = dr.Item("PermitNumber")
-                Else
-                    PermitNumber = Mid(FileName, 3)
-                End If
-                dr.Close()
+#Region "Delete files"
 
-                Select Case FileType
-                    Case "10"
-                        path.InitialDirectory = "C:\WINDOWS\Temp"
-                        path.FileName = PermitNumber
-                        path.Filter = "Microsoft Office Work file (*.doc)|.doc"
-                        'path.Filter = "docx files (*.docx)|*.docx"
-                        path.FilterIndex = 1
-                        path.DefaultExt = ".doc"
-                        'path.DefaultExt = ".docx"
-
-                        If path.ShowDialog = Windows.Forms.DialogResult.OK Then
-                            DestFilePath = path.FileName.ToString
-                        Else
-                            DestFilePath = "N/A"
-                        End If
-                        If DestFilePath <> "N/A" Then
-                            If Conn.State = ConnectionState.Closed Then
-                                Conn.Open()
-                            End If
-
-                            SQL = "select " & _
-                            "DocPermitData " & _
-                            "from " & DBNameSpace & ".APBPermits " & _
-                            "where strFileName = '" & FileName & "' "
-
-                            cmd = New OracleCommand(SQL, Conn)
-                            dr = cmd.ExecuteReader
-
-                            dr.Read()
-                            Dim b(dr.GetBytes(0, 0, Nothing, 0, Integer.MaxValue) - 1) As Byte
-                            dr.GetBytes(0, 0, b, 0, b.Length)
-                            dr.Close()
-
-                            Dim fs As New System.IO.FileStream(DestFilePath, IO.FileMode.Create, IO.FileAccess.Write)
-                            fs.Write(b, 0, b.Length)
-                            fs.Close()
-                        End If
-                    Case "01"
-                        path.InitialDirectory = "C:\WINDOWS\Temp"
-                        path.FileName = PermitNumber
-                        path.Filter = "Adobe PDF Files (*.pdf)|.pdf"
-                        path.FilterIndex = 1
-                        path.DefaultExt = ".pdf"
-
-                        If path.ShowDialog = Windows.Forms.DialogResult.OK Then
-                            DestFilePath = path.FileName.ToString
-                        Else
-                            DestFilePath = "N/A"
-                        End If
-
-                        If DestFilePath <> "N/A" Then
-                            If Conn.State = ConnectionState.Closed Then
-                                Conn.Open()
-                            End If
-
-                            SQL = "select " & _
-                            "pdfPermitData " & _
-                            "from " & DBNameSpace & ".APBPermits " & _
-                            "where strFileName = '" & FileName & "' "
-
-                            cmd = New OracleCommand(SQL, Conn)
-                            dr = cmd.ExecuteReader
-
-                            dr.Read()
-                            Dim b(dr.GetBytes(0, 0, Nothing, 0, Integer.MaxValue) - 1) As Byte
-                            dr.GetBytes(0, 0, b, 0, b.Length)
-                            dr.Close()
-
-                            Dim fs As New System.IO.FileStream(DestFilePath, IO.FileMode.Create, IO.FileAccess.Write)
-                            fs.Write(b, 0, b.Length)
-                            fs.Close()
-                        End If
-                    Case "11"
-                        path.InitialDirectory = "C:\WINDOWS\Temp"
-                        path.FileName = PermitNumber
-                        path.Filter = "Microsoft Office Work file (*.doc)|.doc"
-                        path.FilterIndex = 1
-                        path.DefaultExt = ".doc"
-
-                        If path.ShowDialog = Windows.Forms.DialogResult.OK Then
-                            DestFilePath = path.FileName.ToString
-                        Else
-                            DestFilePath = "N/A"
-                        End If
-                        If DestFilePath <> "N/A" Then
-                            If Conn.State = ConnectionState.Closed Then
-                                Conn.Open()
-                            End If
-
-                            SQL = "select " & _
-                            "DocPermitData " & _
-                            "from " & DBNameSpace & ".APBPermits " & _
-                            "where strFileName = '" & FileName & "' "
-
-                            cmd = New OracleCommand(SQL, Conn)
-                            dr = cmd.ExecuteReader
-
-                            dr.Read()
-                            Dim b(dr.GetBytes(0, 0, Nothing, 0, Integer.MaxValue) - 1) As Byte
-                            dr.GetBytes(0, 0, b, 0, b.Length)
-                            dr.Close()
-
-                            Dim fs As New System.IO.FileStream(DestFilePath, IO.FileMode.Create, IO.FileAccess.Write)
-                            fs.Write(b, 0, b.Length)
-                            fs.Close()
-                        End If
-                        path.InitialDirectory = "C:\WINDOWS\Temp"
-                        path.FileName = PermitNumber
-                        path.Filter = "Adobe PDF Files (*.pdf)|.pdf"
-                        path.FilterIndex = 1
-                        path.DefaultExt = ".pdf"
-
-                        If path.ShowDialog = Windows.Forms.DialogResult.OK Then
-                            DestFilePath = path.FileName.ToString
-                        Else
-                            DestFilePath = "N/A"
-                        End If
-
-                        If DestFilePath <> "N/A" Then
-                            If Conn.State = ConnectionState.Closed Then
-                                Conn.Open()
-                            End If
-
-                            SQL = "select " & _
-                            "pdfPermitData " & _
-                            "from " & DBNameSpace & ".APBPermits " & _
-                            "where strFileName = '" & FileName & "' "
-
-                            cmd = New OracleCommand(SQL, Conn)
-                            dr = cmd.ExecuteReader
-
-                            dr.Read()
-                            Dim b(dr.GetBytes(0, 0, Nothing, 0, Integer.MaxValue) - 1) As Byte
-                            dr.GetBytes(0, 0, b, 0, b.Length)
-                            dr.Close()
-
-                            Dim fs As New System.IO.FileStream(DestFilePath, IO.FileMode.Create, IO.FileAccess.Write)
-                            fs.Write(b, 0, b.Length)
-                            fs.Close()
-                        End If
-                    Case Else
-                End Select
-
-                If DestFilePath <> "N/A" Then
-                    Diagnostics.Process.Start(DestFilePath)
-                End If
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-    End Sub
-    Sub CheckApplicationStatus()
-        Try
-            Dim CloseStatus As String = ""
-
-            SQL = "Select datFinalizedDate " & _
-            "from " & DBNameSpace & ".SSPPApplicationMaster " & _
-            "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                If IsDBNull(dr.Item("datFinalizedDate")) Then
-                    CloseStatus = ""
-                Else
-                    CloseStatus = dr.Item("datFinalizedDate")
-                End If
-            End While
-            dr.Close()
-            If CloseStatus <> "" Then
-                btnUploadFile.Enabled = False
-                btnOtherNarrative.Enabled = False
-                btnOtherPermit.Enabled = False
-                btnPSDAppSummary.Enabled = False
-                btnPSDDraftPermit.Enabled = False
-                btnPSDFinalDet.Enabled = False
-                btnPSDFinalPermit.Enabled = False
-                btnPSDHearingNotice.Enabled = False
-                btnPSDPrelimDet.Enabled = False
-                btnPSDPublicNotice.Enabled = False
-                btnTVDraft.Enabled = False
-                btnTVFinal.Enabled = False
-                btnTVNarrative.Enabled = False
-                btnTVPublicNotice.Enabled = False
-            Else
-                btnUploadFile.Enabled = True
-                btnOtherNarrative.Enabled = True
-                btnOtherPermit.Enabled = True
-                btnPSDAppSummary.Enabled = True
-                btnPSDDraftPermit.Enabled = True
-                btnPSDFinalDet.Enabled = True
-                btnPSDFinalPermit.Enabled = True
-                btnPSDHearingNotice.Enabled = True
-                btnPSDPrelimDet.Enabled = True
-                btnPSDPublicNotice.Enabled = True
-                btnTVDraft.Enabled = True
-                btnTVFinal.Enabled = True
-                btnTVNarrative.Enabled = True
-                btnTVPublicNotice.Enabled = True
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-    End Sub
     Sub DeleteFile(ByVal FileType As String)
         Try
             Dim ResultDoc As DialogResult
@@ -1472,59 +1298,35 @@ Public Class IAIPPermitUploader
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
 #End Region
-#Region "Declaration"
-    Private Sub IAIPPermitUploader_Closing(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
+
+#Region "Permit type radio buttons"
+
+    Sub DisplayPermitPanel()
         Try
-            PermitUploader = Nothing
-            Me.Dispose()
-        Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
+            '130, 307
+            If TCPermitUploader.TabPages.Contains(TPTV) Then
+                TCPermitUploader.TabPages.Remove(TPTV)
+            End If
+            If TCPermitUploader.TabPages.Contains(TPPSD) Then
+                TCPermitUploader.TabPages.Remove(TPPSD)
+            End If
+            If TCPermitUploader.TabPages.Contains(TPOther) Then
+                TCPermitUploader.TabPages.Remove(TPOther)
+            End If
+            If rdbTitleVPermit.Checked = True Then
+                TCPermitUploader.TabPages.Add(TPTV)
+            Else
+                If rdbPSDPermit.Checked = True Then
+                    TCPermitUploader.TabPages.Add(TPPSD)
+                Else
+                    If rdbOtherPermit.Checked = True Then
+                        TCPermitUploader.TabPages.Add(TPOther)
+                    Else
 
-        End Try
-
-    End Sub
-    Private Sub tbbClear_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tbbClear.Click
-        Try
-            ClearForm()
-        Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub tbbBack_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tbbBack.Click
-        Try
-            PermitUploader = Nothing
-            Me.Close()
-        Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-
-    End Sub
-    Private Sub btnUploadFile_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnUploadFile.Click
-        Try
-            SaveFiles()
-            FindApplicationInformation()
-            MsgBox("Done", MsgBoxStyle.Information, "Permit Uploader")
-
-        Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub btnFindApplication_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnFindApplication.Click
-        Try
-
-            If txtApplicationNumber.Text <> "" Then
-                FindApplicationInformation()
+                    End If
+                End If
             End If
 
         Catch ex As Exception
@@ -1534,6 +1336,7 @@ Public Class IAIPPermitUploader
         End Try
 
     End Sub
+
     Private Sub rdbTitleVPermit_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles rdbTitleVPermit.CheckedChanged
         Try
             Dim TVNarrative As String = ""
@@ -1596,6 +1399,7 @@ Public Class IAIPPermitUploader
         End Try
 
     End Sub
+
     Private Sub rdbPSDPermit_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles rdbPSDPermit.CheckedChanged
         Try
             Dim PSDAppSummary As String = ""
@@ -1686,6 +1490,7 @@ Public Class IAIPPermitUploader
         End Try
 
     End Sub
+
     Private Sub rdbOtherPermit_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles rdbOtherPermit.CheckedChanged
         Try
             Dim OtherNarrative As String = ""
@@ -1734,6 +1539,11 @@ Public Class IAIPPermitUploader
         End Try
 
     End Sub
+
+#End Region
+
+#Region "Document checkboxes"
+
     Private Sub chbTVNarrative_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chbTVNarrative.CheckedChanged
         Try
 
@@ -3518,1304 +3328,1535 @@ Public Class IAIPPermitUploader
         End Try
 
     End Sub
-    Private Sub btnTVNarrative_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnTVNarrative.Click
+
+#End Region
+
+#Region "Document upload buttons"
+
+    Private Sub UploadButtons_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) _
+    Handles btnOtherNarrative.Click, btnOtherPermit.Click, _
+        btnPSDAppSummary.Click, btnPSDDraftPermit.Click, btnPSDFinalDet.Click, _
+        btnPSDFinalPermit.Click, btnPSDHearingNotice.Click, btnPSDNarrative.Click, _
+        btnPSDPrelimDet.Click, btnPSDPublicNotice.Click, _
+        btnTVDraft.Click, btnTVFinal.Click, btnTVNarrative.Click, btnTVPublicNotice.Click
+
+        Dim dialog As New OpenFileDialog
+
         Try
-            Dim FileName As String = ""
-            Dim path As New OpenFileDialog
-            Dim temp As String = ""
+            dialog.InitialDirectory = GetSetting(UserSetting.PermitUploadLocation)
+            dialog.Filter = "Word files (*.docx, *.doc)|*.docx;*.doc|PDF files (*.pdf)|*.pdf|All files (*.*)|*.*"
+            dialog.FilterIndex = 3
 
-            Dim DefaultsText As String = ""
-            If File.Exists("C:\APB\Defaults.txt") Then
-                Dim reader As StreamReader = New StreamReader("C:\APB\Defaults.txt")
-                Do
-                    DefaultsText = DefaultsText & reader.ReadLine
-                Loop Until reader.Peek = -1
-                reader.Close()
+            If dialog.ShowDialog = Windows.Forms.DialogResult.OK Then
+                If File.Exists(dialog.FileName) Then
 
-                If DefaultsText.IndexOf("LastFile-") <> -1 Then
-                    temp = DefaultsText.IndexOf("LastFile-")
+                    If Not Path.GetDirectoryName(dialog.FileName) = dialog.InitialDirectory Then
+                        SaveSetting(UserSetting.PermitUploadLocation, Path.GetDirectoryName(dialog.FileName))
+                    End If
 
-                    PathName = Mid(DefaultsText, ((DefaultsText.IndexOf("LastFile-")) + 10), ((DefaultsText.IndexOf("-eliFtsaL")) - (DefaultsText.IndexOf("LastFile-") + 9)))
+                    Dim thisButton As Button = DirectCast(sender, Button)
+                    Dim thisControlName As String = thisButton.Name.Replace("btn", "txt")
+                    Dim thisControl As TextBox = Nothing
+
+                    Try
+                        Select Case Path.GetExtension(dialog.FileName).ToUpper
+                            Case ".DOC", ".DOCX"
+                                thisControl = DirectCast(thisButton.Parent.Controls(thisControlName & "Doc"), TextBox)
+                            Case ".PDF"
+                                thisControl = DirectCast(thisButton.Parent.Controls(thisControlName & "PDF"), TextBox)
+                        End Select
+
+                        If thisControl IsNot Nothing Then thisControl.Text = dialog.FileName
+
+                    Catch ex As Exception
+                        MessageBox.Show("There was an error selecting the file. Please contact the DMU.")
+                    End Try
+
                 Else
-                    PathName = ""
+                    MessageBox.Show("Could not read file. Please try again.")
                 End If
-            Else
-                PathName = ""
-            End If
-
-            If PathName = "" Then
-                PathName = "S:\Permit\Permit Documents"
-            End If
-
-            path.InitialDirectory = PathName
-            path.FileName = FileName
-            path.Filter = "Word files (*.doc)|*.doc|pdf files (*.pdf)|*.pdf|All files (*.*)|*.*"
-            path.FilterIndex = 3
-
-            If path.ShowDialog = Windows.Forms.DialogResult.OK Then
-                temp = path.FileName.ToString
-            Else
-                temp = "N/A"
-            End If
-
-            If temp.Length > 3 Then
-                If Mid(temp, (temp.Length - 3)).ToUpper = ".DOC" Or Mid(temp, (temp.Length - 3)).ToUpper = ".PDF" Or _
-                Mid(temp, (temp.Length - 4)).ToUpper = ".DOCX" Then
-                    Select Case Mid(temp, (temp.Length - 3)).ToUpper
-                        Case ".DOC"
-                            txtTVNarrativeDoc.Text = temp
-                        Case "DOCX"
-                            txtTVNarrativeDoc.Text = temp
-                        Case ".PDF"
-                            txtTVNarrativePDF.Text = temp
-                        Case Else
-                    End Select
-                Else
-                End If
-            Else
-            End If
-            PathName = path.FileName.ToString
-            DefaultsText = ""
-
-            temp = "LastFile-" & PathName & "-eliFtsaL"
-            If File.Exists("C:\APB\Defaults.txt") Then
-                Dim reader As StreamReader = New StreamReader("C:\APB\Defaults.txt")
-                Do
-                    DefaultsText = DefaultsText & reader.ReadLine
-                Loop Until reader.Peek = -1
-                reader.Close()
-
-                If DefaultsText.IndexOf("LastFile-") <> -1 Then
-                    DefaultsText = DefaultsText.Replace(Mid(DefaultsText, ((DefaultsText.IndexOf("LastFile-")) + 1), (DefaultsText.IndexOf("-eliFtsaL")) + 9), temp)
-                Else
-                    DefaultsText = DefaultsText & vbCrLf & temp
-                End If
-
-                Dim fs As New System.IO.FileStream("C:\APB\Defaults.txt", IO.FileMode.OpenOrCreate, FileAccess.Write)
-                fs.Close()
-                Dim writer As StreamWriter = New StreamWriter("C:\APB\Defaults.txt")
-                writer.WriteLine(DefaultsText)
-                writer.Close()
-            Else
-                DefaultsText = temp
-                Dim fs As New System.IO.FileStream("C:\APB\Defaults.txt", IO.FileMode.Create, IO.FileAccess.Write)
-                fs.Close()
-                Dim writer As StreamWriter = New StreamWriter("C:\APB\Defaults.txt")
-                writer.WriteLine(DefaultsText)
-                writer.Close()
-            End If
-        Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub btnTVDraft_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnTVDraft.Click
-        Try
-            Dim FileName As String = ""
-            Dim path As New OpenFileDialog
-            Dim temp As String = ""
-
-            Dim DefaultsText As String = ""
-            If File.Exists("C:\APB\Defaults.txt") Then
-                Dim reader As StreamReader = New StreamReader("C:\APB\Defaults.txt")
-                Do
-                    DefaultsText = DefaultsText & reader.ReadLine
-                Loop Until reader.Peek = -1
-                reader.Close()
-
-                If DefaultsText.IndexOf("LastFile-") <> -1 Then
-                    PathName = Mid(DefaultsText, ((DefaultsText.IndexOf("LastFile-")) + 10), ((DefaultsText.IndexOf("-eliFtsaL")) - (DefaultsText.IndexOf("LastFile-") + 9)))
-                Else
-                    PathName = ""
-                End If
-            Else
-                PathName = ""
-            End If
-
-            If PathName = "" Then
-                PathName = "S:\Permit\Permit Documents"
-            End If
-
-            path.InitialDirectory = PathName
-            path.FileName = FileName
-            path.Filter = "Word files (*.doc)|*.doc|pdf files (*.pdf)|*.pdf|All files (*.*)|*.*"
-            path.FilterIndex = 3
-
-            If path.ShowDialog = Windows.Forms.DialogResult.OK Then
-                temp = path.FileName.ToString
-            Else
-                temp = "N/A"
-            End If
-
-            If temp.Length > 3 Then
-                If Mid(temp, (temp.Length - 3)).ToUpper = ".DOC" Or Mid(temp, (temp.Length - 3)).ToUpper = ".PDF" Or _
-                Mid(temp, (temp.Length - 4)).ToUpper = ".DOCX" Then
-                    Select Case Mid(temp, (temp.Length - 3)).ToUpper
-                        Case ".DOC"
-                            txtTVDraftDoc.Text = temp
-                        Case "DOCX"
-                            txtTVDraftDoc.Text = temp
-                        Case ".PDF"
-                            txtTVDraftPDF.Text = temp
-                        Case Else
-                    End Select
-                Else
-                End If
-            Else
-            End If
-            PathName = path.FileName.ToString
-            DefaultsText = ""
-
-            temp = "LastFile-" & PathName & "-eliFtsaL"
-            If File.Exists("C:\APB\Defaults.txt") Then
-                Dim reader As StreamReader = New StreamReader("C:\APB\Defaults.txt")
-                Do
-                    DefaultsText = DefaultsText & reader.ReadLine
-                Loop Until reader.Peek = -1
-                reader.Close()
-
-                If DefaultsText.IndexOf("LastFile-") <> -1 Then
-                    DefaultsText = DefaultsText.Replace(Mid(DefaultsText, ((DefaultsText.IndexOf("LastFile-")) + 1), (DefaultsText.IndexOf("-eliFtsaL")) + 9), temp)
-                Else
-                    DefaultsText = DefaultsText & vbCrLf & temp
-                End If
-
-                Dim fs As New System.IO.FileStream("C:\APB\Defaults.txt", IO.FileMode.OpenOrCreate, FileAccess.Write)
-                fs.Close()
-                Dim writer As StreamWriter = New StreamWriter("C:\APB\Defaults.txt")
-                writer.WriteLine(DefaultsText)
-                writer.Close()
-            Else
-                DefaultsText = temp
-                Dim fs As New System.IO.FileStream("C:\APB\Defaults.txt", IO.FileMode.Create, IO.FileAccess.Write)
-                fs.Close()
-                Dim writer As StreamWriter = New StreamWriter("C:\APB\Defaults.txt")
-                writer.WriteLine(DefaultsText)
-                writer.Close()
-            End If
-        Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub btnTVPublicNotice_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnTVPublicNotice.Click
-        Try
-            Dim FileName As String = ""
-            Dim path As New OpenFileDialog
-            Dim temp As String = ""
-
-            Dim DefaultsText As String = ""
-            If File.Exists("C:\APB\Defaults.txt") Then
-                Dim reader As StreamReader = New StreamReader("C:\APB\Defaults.txt")
-                Do
-                    DefaultsText = DefaultsText & reader.ReadLine
-                Loop Until reader.Peek = -1
-                reader.Close()
-
-                If DefaultsText.IndexOf("LastFile-") <> -1 Then
-                    PathName = Mid(DefaultsText, ((DefaultsText.IndexOf("LastFile-")) + 10), ((DefaultsText.IndexOf("-eliFtsaL")) - (DefaultsText.IndexOf("LastFile-") + 9)))
-                Else
-                    PathName = ""
-                End If
-            Else
-                PathName = ""
-            End If
-
-            If PathName = "" Then
-                PathName = "S:\Permit\Permit Documents"
-            End If
-
-            path.InitialDirectory = PathName
-            path.FileName = FileName
-            path.Filter = "Word files (*.doc)|*.doc|pdf files (*.pdf)|*.pdf|All files (*.*)|*.*"
-            path.FilterIndex = 3
-
-            If path.ShowDialog = Windows.Forms.DialogResult.OK Then
-                temp = path.FileName.ToString
-            Else
-                temp = "N/A"
-            End If
-
-            If temp.Length > 3 Then
-                If Mid(temp, (temp.Length - 3)).ToUpper = ".DOC" Or Mid(temp, (temp.Length - 3)).ToUpper = ".PDF" Or _
-                Mid(temp, (temp.Length - 4)).ToUpper = ".DOCX" Then
-                    Select Case Mid(temp, (temp.Length - 3)).ToUpper
-                        Case ".DOC"
-                            txtTVPublicNoticeDoc.Text = temp
-                        Case "DOCX"
-                            txtTVPublicNoticeDoc.Text = temp
-                        Case ".PDF"
-                            txtTVPublicNoticePDF.Text = temp
-                        Case Else
-                    End Select
-                Else
-                End If
-            Else
-            End If
-            PathName = path.FileName.ToString
-            DefaultsText = ""
-
-            temp = "LastFile-" & PathName & "-eliFtsaL"
-            If File.Exists("C:\APB\Defaults.txt") Then
-                Dim reader As StreamReader = New StreamReader("C:\APB\Defaults.txt")
-                Do
-                    DefaultsText = DefaultsText & reader.ReadLine
-                Loop Until reader.Peek = -1
-                reader.Close()
-
-                If DefaultsText.IndexOf("LastFile-") <> -1 Then
-                    DefaultsText = DefaultsText.Replace(Mid(DefaultsText, ((DefaultsText.IndexOf("LastFile-")) + 1), (DefaultsText.IndexOf("-eliFtsaL")) + 9), temp)
-                Else
-                    DefaultsText = DefaultsText & vbCrLf & temp
-                End If
-
-                Dim fs As New System.IO.FileStream("C:\APB\Defaults.txt", IO.FileMode.OpenOrCreate, FileAccess.Write)
-                fs.Close()
-                Dim writer As StreamWriter = New StreamWriter("C:\APB\Defaults.txt")
-                writer.WriteLine(DefaultsText)
-                writer.Close()
-            Else
-                DefaultsText = temp
-                Dim fs As New System.IO.FileStream("C:\APB\Defaults.txt", IO.FileMode.Create, IO.FileAccess.Write)
-                fs.Close()
-                Dim writer As StreamWriter = New StreamWriter("C:\APB\Defaults.txt")
-                writer.WriteLine(DefaultsText)
-                writer.Close()
-            End If
-        Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub btnTVFinal_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnTVFinal.Click
-        Try
-            Dim FileName As String = ""
-            Dim path As New OpenFileDialog
-            Dim temp As String = ""
-
-            Dim DefaultsText As String = ""
-            If File.Exists("C:\APB\Defaults.txt") Then
-                Dim reader As StreamReader = New StreamReader("C:\APB\Defaults.txt")
-                Do
-                    DefaultsText = DefaultsText & reader.ReadLine
-                Loop Until reader.Peek = -1
-                reader.Close()
-
-                If DefaultsText.IndexOf("LastFile-") <> -1 Then
-                    PathName = Mid(DefaultsText, ((DefaultsText.IndexOf("LastFile-")) + 10), ((DefaultsText.IndexOf("-eliFtsaL")) - (DefaultsText.IndexOf("LastFile-") + 9)))
-                Else
-                    PathName = ""
-                End If
-            Else
-                PathName = ""
-            End If
-
-            If PathName = "" Then
-                PathName = "S:\Permit\Permit Documents"
-            End If
-
-            path.InitialDirectory = PathName
-            path.FileName = FileName
-            path.Filter = "Word files (*.doc)|*.doc|pdf files (*.pdf)|*.pdf|All files (*.*)|*.*"
-            path.FilterIndex = 3
-
-            If path.ShowDialog = Windows.Forms.DialogResult.OK Then
-                temp = path.FileName.ToString
-            Else
-                temp = "N/A"
-            End If
-
-            If temp.Length > 3 Then
-                If Mid(temp, (temp.Length - 3)).ToUpper = ".DOC" Or Mid(temp, (temp.Length - 3)).ToUpper = ".PDF" Or _
-                Mid(temp, (temp.Length - 4)).ToUpper = ".DOCX" Then
-                    Select Case Mid(temp, (temp.Length - 3)).ToUpper
-                        Case ".DOC"
-                            txtTVFinalDoc.Text = temp
-                        Case "DOCX"
-                            txtTVFinalDoc.Text = temp
-                        Case ".PDF"
-                            txtTVFinalPDF.Text = temp
-                        Case Else
-                    End Select
-                Else
-                End If
-            Else
-            End If
-            PathName = path.FileName.ToString
-            DefaultsText = ""
-
-            temp = "LastFile-" & PathName & "-eliFtsaL"
-            If File.Exists("C:\APB\Defaults.txt") Then
-                Dim reader As StreamReader = New StreamReader("C:\APB\Defaults.txt")
-                Do
-                    DefaultsText = DefaultsText & reader.ReadLine
-                Loop Until reader.Peek = -1
-                reader.Close()
-
-                If DefaultsText.IndexOf("LastFile-") <> -1 Then
-                    DefaultsText = DefaultsText.Replace(Mid(DefaultsText, ((DefaultsText.IndexOf("LastFile-")) + 1), (DefaultsText.IndexOf("-eliFtsaL")) + 9), temp)
-                Else
-                    DefaultsText = DefaultsText & vbCrLf & temp
-                End If
-
-                Dim fs As New System.IO.FileStream("C:\APB\Defaults.txt", IO.FileMode.OpenOrCreate, FileAccess.Write)
-                fs.Close()
-                Dim writer As StreamWriter = New StreamWriter("C:\APB\Defaults.txt")
-                writer.WriteLine(DefaultsText)
-                writer.Close()
-            Else
-                DefaultsText = temp
-                Dim fs As New System.IO.FileStream("C:\APB\Defaults.txt", IO.FileMode.Create, IO.FileAccess.Write)
-                fs.Close()
-                Dim writer As StreamWriter = New StreamWriter("C:\APB\Defaults.txt")
-                writer.WriteLine(DefaultsText)
-                writer.Close()
-            End If
-        Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub btnPSDAppSummary_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnPSDAppSummary.Click
-        Try
-            Dim FileName As String = ""
-            Dim path As New OpenFileDialog
-            Dim temp As String = ""
-
-            Dim DefaultsText As String = ""
-            If File.Exists("C:\APB\Defaults.txt") Then
-                Dim reader As StreamReader = New StreamReader("C:\APB\Defaults.txt")
-                Do
-                    DefaultsText = DefaultsText & reader.ReadLine
-                Loop Until reader.Peek = -1
-                reader.Close()
-
-                If DefaultsText.IndexOf("LastFile-") <> -1 Then
-                    PathName = Mid(DefaultsText, ((DefaultsText.IndexOf("LastFile-")) + 10), ((DefaultsText.IndexOf("-eliFtsaL")) - (DefaultsText.IndexOf("LastFile-") + 9)))
-                Else
-                    PathName = ""
-                End If
-            Else
-                PathName = ""
-            End If
-
-            If PathName = "" Then
-                PathName = "S:\Permit\Permit Documents"
-            End If
-
-            path.InitialDirectory = PathName
-            path.FileName = FileName
-            path.Filter = "Word files (*.doc)|*.doc|pdf files (*.pdf)|*.pdf|All files (*.*)|*.*"
-            path.FilterIndex = 3
-
-            If path.ShowDialog = Windows.Forms.DialogResult.OK Then
-                temp = path.FileName.ToString
-            Else
-                temp = "N/A"
-            End If
-
-            If temp.Length > 3 Then
-                If Mid(temp, (temp.Length - 3)).ToUpper = ".DOC" Or Mid(temp, (temp.Length - 3)).ToUpper = ".PDF" Or _
-                Mid(temp, (temp.Length - 4)).ToUpper = ".DOCX" Then
-                    Select Case Mid(temp, (temp.Length - 3)).ToUpper
-                        Case ".DOC"
-                            txtPSDAppSummaryDoc.Text = temp
-                        Case "DOCX"
-                            txtPSDAppSummaryDoc.Text = temp
-                        Case ".PDF"
-                            txtPSDAppSummaryPDF.Text = temp
-                        Case Else
-                    End Select
-                Else
-                End If
-            Else
-            End If
-            PathName = path.FileName.ToString
-            DefaultsText = ""
-
-            temp = "LastFile-" & PathName & "-eliFtsaL"
-            If File.Exists("C:\APB\Defaults.txt") Then
-                Dim reader As StreamReader = New StreamReader("C:\APB\Defaults.txt")
-                Do
-                    DefaultsText = DefaultsText & reader.ReadLine
-                Loop Until reader.Peek = -1
-                reader.Close()
-
-                If DefaultsText.IndexOf("LastFile-") <> -1 Then
-                    DefaultsText = DefaultsText.Replace(Mid(DefaultsText, ((DefaultsText.IndexOf("LastFile-")) + 1), (DefaultsText.IndexOf("-eliFtsaL")) + 9), temp)
-                Else
-                    DefaultsText = DefaultsText & vbCrLf & temp
-                End If
-
-                Dim fs As New System.IO.FileStream("C:\APB\Defaults.txt", IO.FileMode.OpenOrCreate, FileAccess.Write)
-                fs.Close()
-                Dim writer As StreamWriter = New StreamWriter("C:\APB\Defaults.txt")
-                writer.WriteLine(DefaultsText)
-                writer.Close()
-            Else
-                DefaultsText = temp
-                Dim fs As New System.IO.FileStream("C:\APB\Defaults.txt", IO.FileMode.Create, IO.FileAccess.Write)
-                fs.Close()
-                Dim writer As StreamWriter = New StreamWriter("C:\APB\Defaults.txt")
-                writer.WriteLine(DefaultsText)
-                writer.Close()
-            End If
-        Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub btnPSDPrelimDet_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnPSDPrelimDet.Click
-        Try
-            Dim FileName As String = ""
-            Dim path As New OpenFileDialog
-            Dim temp As String = ""
-
-            Dim DefaultsText As String = ""
-            If File.Exists("C:\APB\Defaults.txt") Then
-                Dim reader As StreamReader = New StreamReader("C:\APB\Defaults.txt")
-                Do
-                    DefaultsText = DefaultsText & reader.ReadLine
-                Loop Until reader.Peek = -1
-                reader.Close()
-
-                If DefaultsText.IndexOf("LastFile-") <> -1 Then
-                    PathName = Mid(DefaultsText, ((DefaultsText.IndexOf("LastFile-")) + 10), ((DefaultsText.IndexOf("-eliFtsaL")) - (DefaultsText.IndexOf("LastFile-") + 9)))
-                Else
-                    PathName = ""
-                End If
-            Else
-                PathName = ""
-            End If
-
-            If PathName = "" Then
-                PathName = "S:\Permit\Permit Documents"
-            End If
-
-            path.InitialDirectory = PathName
-            path.FileName = FileName
-            path.Filter = "Word files (*.doc)|*.doc|pdf files (*.pdf)|*.pdf|All files (*.*)|*.*"
-            path.FilterIndex = 3
-
-            If path.ShowDialog = Windows.Forms.DialogResult.OK Then
-                temp = path.FileName.ToString
-            Else
-                temp = "N/A"
-            End If
-
-            If temp.Length > 3 Then
-                If Mid(temp, (temp.Length - 3)).ToUpper = ".DOC" Or Mid(temp, (temp.Length - 3)).ToUpper = ".PDF" Or _
-                Mid(temp, (temp.Length - 4)).ToUpper = ".DOCX" Then
-                    Select Case Mid(temp, (temp.Length - 3)).ToUpper
-                        Case ".DOC"
-                            txtPSDPrelimDetDoc.Text = temp
-                        Case "DOCX"
-                            txtPSDPrelimDetDoc.Text = temp
-                        Case ".PDF"
-                            txtPSDPrelimDetPDF.Text = temp
-                        Case Else
-                    End Select
-                Else
-                End If
-            Else
-            End If
-            PathName = path.FileName.ToString
-            DefaultsText = ""
-
-            temp = "LastFile-" & PathName & "-eliFtsaL"
-            If File.Exists("C:\APB\Defaults.txt") Then
-                Dim reader As StreamReader = New StreamReader("C:\APB\Defaults.txt")
-                Do
-                    DefaultsText = DefaultsText & reader.ReadLine
-                Loop Until reader.Peek = -1
-                reader.Close()
-
-                If DefaultsText.IndexOf("LastFile-") <> -1 Then
-                    DefaultsText = DefaultsText.Replace(Mid(DefaultsText, ((DefaultsText.IndexOf("LastFile-")) + 1), (DefaultsText.IndexOf("-eliFtsaL")) + 9), temp)
-                Else
-                    DefaultsText = DefaultsText & vbCrLf & temp
-                End If
-
-                Dim fs As New System.IO.FileStream("C:\APB\Defaults.txt", IO.FileMode.OpenOrCreate, FileAccess.Write)
-                fs.Close()
-                Dim writer As StreamWriter = New StreamWriter("C:\APB\Defaults.txt")
-                writer.WriteLine(DefaultsText)
-                writer.Close()
-            Else
-                DefaultsText = temp
-                Dim fs As New System.IO.FileStream("C:\APB\Defaults.txt", IO.FileMode.Create, IO.FileAccess.Write)
-                fs.Close()
-                Dim writer As StreamWriter = New StreamWriter("C:\APB\Defaults.txt")
-                writer.WriteLine(DefaultsText)
-                writer.Close()
             End If
 
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-
+            dialog.Dispose()
         End Try
-
     End Sub
-    Private Sub btnPSDNarrative_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnPSDNarrative.Click
+
+#End Region
+
+#Region "Document upload buttons OBSOLETE"
+    'Private Sub btnTVNarrative_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnTVNarrative.Click
+    '    Try
+    '        Dim FileName As String = ""
+    '        Dim path As New OpenFileDialog
+    '        Dim temp As String = ""
+
+    '        Dim DefaultsText As String = ""
+    '        If File.Exists("C:\APB\Defaults.txt") Then
+    '            Dim reader As StreamReader = New StreamReader("C:\APB\Defaults.txt")
+    '            Do
+    '                DefaultsText = DefaultsText & reader.ReadLine
+    '            Loop Until reader.Peek = -1
+    '            reader.Close()
+
+    '            If DefaultsText.IndexOf("LastFile-") <> -1 Then
+    '                temp = DefaultsText.IndexOf("LastFile-")
+
+    '                PathName = Mid(DefaultsText, ((DefaultsText.IndexOf("LastFile-")) + 10), ((DefaultsText.IndexOf("-eliFtsaL")) - (DefaultsText.IndexOf("LastFile-") + 9)))
+    '            Else
+    '                PathName = ""
+    '            End If
+    '        Else
+    '            PathName = ""
+    '        End If
+
+    '        If PathName = "" Then
+    '            PathName = "S:\Permit\Permit Documents"
+    '        End If
+
+    '        path.InitialDirectory = PathName
+    '        path.FileName = FileName
+    '        path.Filter = "Word files (*.doc)|*.doc|pdf files (*.pdf)|*.pdf|All files (*.*)|*.*"
+    '        path.FilterIndex = 3
+
+    '        If path.ShowDialog = Windows.Forms.DialogResult.OK Then
+    '            temp = path.FileName.ToString
+    '        Else
+    '            temp = "N/A"
+    '        End If
+
+    '        If temp.Length > 3 Then
+    '            If Mid(temp, (temp.Length - 3)).ToUpper = ".DOC" Or Mid(temp, (temp.Length - 3)).ToUpper = ".PDF" Or _
+    '            Mid(temp, (temp.Length - 4)).ToUpper = ".DOCX" Then
+    '                Select Case Mid(temp, (temp.Length - 3)).ToUpper
+    '                    Case ".DOC"
+    '                        txtTVNarrativeDoc.Text = temp
+    '                    Case "DOCX"
+    '                        txtTVNarrativeDoc.Text = temp
+    '                    Case ".PDF"
+    '                        txtTVNarrativePDF.Text = temp
+    '                    Case Else
+    '                End Select
+    '            Else
+    '            End If
+    '        Else
+    '        End If
+    '        PathName = path.FileName.ToString
+    '        DefaultsText = ""
+
+    '        temp = "LastFile-" & PathName & "-eliFtsaL"
+    '        If File.Exists("C:\APB\Defaults.txt") Then
+    '            Dim reader As StreamReader = New StreamReader("C:\APB\Defaults.txt")
+    '            Do
+    '                DefaultsText = DefaultsText & reader.ReadLine
+    '            Loop Until reader.Peek = -1
+    '            reader.Close()
+
+    '            If DefaultsText.IndexOf("LastFile-") <> -1 Then
+    '                DefaultsText = DefaultsText.Replace(Mid(DefaultsText, ((DefaultsText.IndexOf("LastFile-")) + 1), (DefaultsText.IndexOf("-eliFtsaL")) + 9), temp)
+    '            Else
+    '                DefaultsText = DefaultsText & vbCrLf & temp
+    '            End If
+
+    '            Dim fs As New System.IO.FileStream("C:\APB\Defaults.txt", IO.FileMode.OpenOrCreate, FileAccess.Write)
+    '            fs.Close()
+    '            Dim writer As StreamWriter = New StreamWriter("C:\APB\Defaults.txt")
+    '            writer.WriteLine(DefaultsText)
+    '            writer.Close()
+    '        Else
+    '            DefaultsText = temp
+    '            Dim fs As New System.IO.FileStream("C:\APB\Defaults.txt", IO.FileMode.Create, IO.FileAccess.Write)
+    '            fs.Close()
+    '            Dim writer As StreamWriter = New StreamWriter("C:\APB\Defaults.txt")
+    '            writer.WriteLine(DefaultsText)
+    '            writer.Close()
+    '        End If
+    '    Catch ex As Exception
+    '        ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+    '    Finally
+
+    '    End Try
+
+    'End Sub
+    'Private Sub btnTVDraft_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnTVDraft.Click
+    '    Try
+    '        Dim FileName As String = ""
+    '        Dim path As New OpenFileDialog
+    '        Dim temp As String = ""
+
+    '        Dim DefaultsText As String = ""
+    '        If File.Exists("C:\APB\Defaults.txt") Then
+    '            Dim reader As StreamReader = New StreamReader("C:\APB\Defaults.txt")
+    '            Do
+    '                DefaultsText = DefaultsText & reader.ReadLine
+    '            Loop Until reader.Peek = -1
+    '            reader.Close()
+
+    '            If DefaultsText.IndexOf("LastFile-") <> -1 Then
+    '                PathName = Mid(DefaultsText, ((DefaultsText.IndexOf("LastFile-")) + 10), ((DefaultsText.IndexOf("-eliFtsaL")) - (DefaultsText.IndexOf("LastFile-") + 9)))
+    '            Else
+    '                PathName = ""
+    '            End If
+    '        Else
+    '            PathName = ""
+    '        End If
+
+    '        If PathName = "" Then
+    '            PathName = "S:\Permit\Permit Documents"
+    '        End If
+
+    '        path.InitialDirectory = PathName
+    '        path.FileName = FileName
+    '        path.Filter = "Word files (*.doc)|*.doc|pdf files (*.pdf)|*.pdf|All files (*.*)|*.*"
+    '        path.FilterIndex = 3
+
+    '        If path.ShowDialog = Windows.Forms.DialogResult.OK Then
+    '            temp = path.FileName.ToString
+    '        Else
+    '            temp = "N/A"
+    '        End If
+
+    '        If temp.Length > 3 Then
+    '            If Mid(temp, (temp.Length - 3)).ToUpper = ".DOC" Or Mid(temp, (temp.Length - 3)).ToUpper = ".PDF" Or _
+    '            Mid(temp, (temp.Length - 4)).ToUpper = ".DOCX" Then
+    '                Select Case Mid(temp, (temp.Length - 3)).ToUpper
+    '                    Case ".DOC"
+    '                        txtTVDraftDoc.Text = temp
+    '                    Case "DOCX"
+    '                        txtTVDraftDoc.Text = temp
+    '                    Case ".PDF"
+    '                        txtTVDraftPDF.Text = temp
+    '                    Case Else
+    '                End Select
+    '            Else
+    '            End If
+    '        Else
+    '        End If
+    '        PathName = path.FileName.ToString
+    '        DefaultsText = ""
+
+    '        temp = "LastFile-" & PathName & "-eliFtsaL"
+    '        If File.Exists("C:\APB\Defaults.txt") Then
+    '            Dim reader As StreamReader = New StreamReader("C:\APB\Defaults.txt")
+    '            Do
+    '                DefaultsText = DefaultsText & reader.ReadLine
+    '            Loop Until reader.Peek = -1
+    '            reader.Close()
+
+    '            If DefaultsText.IndexOf("LastFile-") <> -1 Then
+    '                DefaultsText = DefaultsText.Replace(Mid(DefaultsText, ((DefaultsText.IndexOf("LastFile-")) + 1), (DefaultsText.IndexOf("-eliFtsaL")) + 9), temp)
+    '            Else
+    '                DefaultsText = DefaultsText & vbCrLf & temp
+    '            End If
+
+    '            Dim fs As New System.IO.FileStream("C:\APB\Defaults.txt", IO.FileMode.OpenOrCreate, FileAccess.Write)
+    '            fs.Close()
+    '            Dim writer As StreamWriter = New StreamWriter("C:\APB\Defaults.txt")
+    '            writer.WriteLine(DefaultsText)
+    '            writer.Close()
+    '        Else
+    '            DefaultsText = temp
+    '            Dim fs As New System.IO.FileStream("C:\APB\Defaults.txt", IO.FileMode.Create, IO.FileAccess.Write)
+    '            fs.Close()
+    '            Dim writer As StreamWriter = New StreamWriter("C:\APB\Defaults.txt")
+    '            writer.WriteLine(DefaultsText)
+    '            writer.Close()
+    '        End If
+    '    Catch ex As Exception
+    '        ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+    '    Finally
+
+    '    End Try
+
+    'End Sub
+    'Private Sub btnTVPublicNotice_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnTVPublicNotice.Click
+    '    Try
+    '        Dim FileName As String = ""
+    '        Dim path As New OpenFileDialog
+    '        Dim temp As String = ""
+
+    '        Dim DefaultsText As String = ""
+    '        If File.Exists("C:\APB\Defaults.txt") Then
+    '            Dim reader As StreamReader = New StreamReader("C:\APB\Defaults.txt")
+    '            Do
+    '                DefaultsText = DefaultsText & reader.ReadLine
+    '            Loop Until reader.Peek = -1
+    '            reader.Close()
+
+    '            If DefaultsText.IndexOf("LastFile-") <> -1 Then
+    '                PathName = Mid(DefaultsText, ((DefaultsText.IndexOf("LastFile-")) + 10), ((DefaultsText.IndexOf("-eliFtsaL")) - (DefaultsText.IndexOf("LastFile-") + 9)))
+    '            Else
+    '                PathName = ""
+    '            End If
+    '        Else
+    '            PathName = ""
+    '        End If
+
+    '        If PathName = "" Then
+    '            PathName = "S:\Permit\Permit Documents"
+    '        End If
+
+    '        path.InitialDirectory = PathName
+    '        path.FileName = FileName
+    '        path.Filter = "Word files (*.doc)|*.doc|pdf files (*.pdf)|*.pdf|All files (*.*)|*.*"
+    '        path.FilterIndex = 3
+
+    '        If path.ShowDialog = Windows.Forms.DialogResult.OK Then
+    '            temp = path.FileName.ToString
+    '        Else
+    '            temp = "N/A"
+    '        End If
+
+    '        If temp.Length > 3 Then
+    '            If Mid(temp, (temp.Length - 3)).ToUpper = ".DOC" Or Mid(temp, (temp.Length - 3)).ToUpper = ".PDF" Or _
+    '            Mid(temp, (temp.Length - 4)).ToUpper = ".DOCX" Then
+    '                Select Case Mid(temp, (temp.Length - 3)).ToUpper
+    '                    Case ".DOC"
+    '                        txtTVPublicNoticeDoc.Text = temp
+    '                    Case "DOCX"
+    '                        txtTVPublicNoticeDoc.Text = temp
+    '                    Case ".PDF"
+    '                        txtTVPublicNoticePDF.Text = temp
+    '                    Case Else
+    '                End Select
+    '            Else
+    '            End If
+    '        Else
+    '        End If
+    '        PathName = path.FileName.ToString
+    '        DefaultsText = ""
+
+    '        temp = "LastFile-" & PathName & "-eliFtsaL"
+    '        If File.Exists("C:\APB\Defaults.txt") Then
+    '            Dim reader As StreamReader = New StreamReader("C:\APB\Defaults.txt")
+    '            Do
+    '                DefaultsText = DefaultsText & reader.ReadLine
+    '            Loop Until reader.Peek = -1
+    '            reader.Close()
+
+    '            If DefaultsText.IndexOf("LastFile-") <> -1 Then
+    '                DefaultsText = DefaultsText.Replace(Mid(DefaultsText, ((DefaultsText.IndexOf("LastFile-")) + 1), (DefaultsText.IndexOf("-eliFtsaL")) + 9), temp)
+    '            Else
+    '                DefaultsText = DefaultsText & vbCrLf & temp
+    '            End If
+
+    '            Dim fs As New System.IO.FileStream("C:\APB\Defaults.txt", IO.FileMode.OpenOrCreate, FileAccess.Write)
+    '            fs.Close()
+    '            Dim writer As StreamWriter = New StreamWriter("C:\APB\Defaults.txt")
+    '            writer.WriteLine(DefaultsText)
+    '            writer.Close()
+    '        Else
+    '            DefaultsText = temp
+    '            Dim fs As New System.IO.FileStream("C:\APB\Defaults.txt", IO.FileMode.Create, IO.FileAccess.Write)
+    '            fs.Close()
+    '            Dim writer As StreamWriter = New StreamWriter("C:\APB\Defaults.txt")
+    '            writer.WriteLine(DefaultsText)
+    '            writer.Close()
+    '        End If
+    '    Catch ex As Exception
+    '        ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+    '    Finally
+
+    '    End Try
+
+    'End Sub
+    'Private Sub btnTVFinal_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnTVFinal.Click
+    '    Try
+    '        Dim FileName As String = ""
+    '        Dim path As New OpenFileDialog
+    '        Dim temp As String = ""
+
+    '        Dim DefaultsText As String = ""
+    '        If File.Exists("C:\APB\Defaults.txt") Then
+    '            Dim reader As StreamReader = New StreamReader("C:\APB\Defaults.txt")
+    '            Do
+    '                DefaultsText = DefaultsText & reader.ReadLine
+    '            Loop Until reader.Peek = -1
+    '            reader.Close()
+
+    '            If DefaultsText.IndexOf("LastFile-") <> -1 Then
+    '                PathName = Mid(DefaultsText, ((DefaultsText.IndexOf("LastFile-")) + 10), ((DefaultsText.IndexOf("-eliFtsaL")) - (DefaultsText.IndexOf("LastFile-") + 9)))
+    '            Else
+    '                PathName = ""
+    '            End If
+    '        Else
+    '            PathName = ""
+    '        End If
+
+    '        If PathName = "" Then
+    '            PathName = "S:\Permit\Permit Documents"
+    '        End If
+
+    '        path.InitialDirectory = PathName
+    '        path.FileName = FileName
+    '        path.Filter = "Word files (*.doc)|*.doc|pdf files (*.pdf)|*.pdf|All files (*.*)|*.*"
+    '        path.FilterIndex = 3
+
+    '        If path.ShowDialog = Windows.Forms.DialogResult.OK Then
+    '            temp = path.FileName.ToString
+    '        Else
+    '            temp = "N/A"
+    '        End If
+
+    '        If temp.Length > 3 Then
+    '            If Mid(temp, (temp.Length - 3)).ToUpper = ".DOC" Or Mid(temp, (temp.Length - 3)).ToUpper = ".PDF" Or _
+    '            Mid(temp, (temp.Length - 4)).ToUpper = ".DOCX" Then
+    '                Select Case Mid(temp, (temp.Length - 3)).ToUpper
+    '                    Case ".DOC"
+    '                        txtTVFinalDoc.Text = temp
+    '                    Case "DOCX"
+    '                        txtTVFinalDoc.Text = temp
+    '                    Case ".PDF"
+    '                        txtTVFinalPDF.Text = temp
+    '                    Case Else
+    '                End Select
+    '            Else
+    '            End If
+    '        Else
+    '        End If
+    '        PathName = path.FileName.ToString
+    '        DefaultsText = ""
+
+    '        temp = "LastFile-" & PathName & "-eliFtsaL"
+    '        If File.Exists("C:\APB\Defaults.txt") Then
+    '            Dim reader As StreamReader = New StreamReader("C:\APB\Defaults.txt")
+    '            Do
+    '                DefaultsText = DefaultsText & reader.ReadLine
+    '            Loop Until reader.Peek = -1
+    '            reader.Close()
+
+    '            If DefaultsText.IndexOf("LastFile-") <> -1 Then
+    '                DefaultsText = DefaultsText.Replace(Mid(DefaultsText, ((DefaultsText.IndexOf("LastFile-")) + 1), (DefaultsText.IndexOf("-eliFtsaL")) + 9), temp)
+    '            Else
+    '                DefaultsText = DefaultsText & vbCrLf & temp
+    '            End If
+
+    '            Dim fs As New System.IO.FileStream("C:\APB\Defaults.txt", IO.FileMode.OpenOrCreate, FileAccess.Write)
+    '            fs.Close()
+    '            Dim writer As StreamWriter = New StreamWriter("C:\APB\Defaults.txt")
+    '            writer.WriteLine(DefaultsText)
+    '            writer.Close()
+    '        Else
+    '            DefaultsText = temp
+    '            Dim fs As New System.IO.FileStream("C:\APB\Defaults.txt", IO.FileMode.Create, IO.FileAccess.Write)
+    '            fs.Close()
+    '            Dim writer As StreamWriter = New StreamWriter("C:\APB\Defaults.txt")
+    '            writer.WriteLine(DefaultsText)
+    '            writer.Close()
+    '        End If
+    '    Catch ex As Exception
+    '        ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+    '    Finally
+
+    '    End Try
+
+    'End Sub
+    'Private Sub btnPSDAppSummary_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnPSDAppSummary.Click
+    '    Try
+    '        Dim FileName As String = ""
+    '        Dim path As New OpenFileDialog
+    '        Dim temp As String = ""
+
+    '        Dim DefaultsText As String = ""
+    '        If File.Exists("C:\APB\Defaults.txt") Then
+    '            Dim reader As StreamReader = New StreamReader("C:\APB\Defaults.txt")
+    '            Do
+    '                DefaultsText = DefaultsText & reader.ReadLine
+    '            Loop Until reader.Peek = -1
+    '            reader.Close()
+
+    '            If DefaultsText.IndexOf("LastFile-") <> -1 Then
+    '                PathName = Mid(DefaultsText, ((DefaultsText.IndexOf("LastFile-")) + 10), ((DefaultsText.IndexOf("-eliFtsaL")) - (DefaultsText.IndexOf("LastFile-") + 9)))
+    '            Else
+    '                PathName = ""
+    '            End If
+    '        Else
+    '            PathName = ""
+    '        End If
+
+    '        If PathName = "" Then
+    '            PathName = "S:\Permit\Permit Documents"
+    '        End If
+
+    '        path.InitialDirectory = PathName
+    '        path.FileName = FileName
+    '        path.Filter = "Word files (*.doc)|*.doc|pdf files (*.pdf)|*.pdf|All files (*.*)|*.*"
+    '        path.FilterIndex = 3
+
+    '        If path.ShowDialog = Windows.Forms.DialogResult.OK Then
+    '            temp = path.FileName.ToString
+    '        Else
+    '            temp = "N/A"
+    '        End If
+
+    '        If temp.Length > 3 Then
+    '            If Mid(temp, (temp.Length - 3)).ToUpper = ".DOC" Or Mid(temp, (temp.Length - 3)).ToUpper = ".PDF" Or _
+    '            Mid(temp, (temp.Length - 4)).ToUpper = ".DOCX" Then
+    '                Select Case Mid(temp, (temp.Length - 3)).ToUpper
+    '                    Case ".DOC"
+    '                        txtPSDAppSummaryDoc.Text = temp
+    '                    Case "DOCX"
+    '                        txtPSDAppSummaryDoc.Text = temp
+    '                    Case ".PDF"
+    '                        txtPSDAppSummaryPDF.Text = temp
+    '                    Case Else
+    '                End Select
+    '            Else
+    '            End If
+    '        Else
+    '        End If
+    '        PathName = path.FileName.ToString
+    '        DefaultsText = ""
+
+    '        temp = "LastFile-" & PathName & "-eliFtsaL"
+    '        If File.Exists("C:\APB\Defaults.txt") Then
+    '            Dim reader As StreamReader = New StreamReader("C:\APB\Defaults.txt")
+    '            Do
+    '                DefaultsText = DefaultsText & reader.ReadLine
+    '            Loop Until reader.Peek = -1
+    '            reader.Close()
+
+    '            If DefaultsText.IndexOf("LastFile-") <> -1 Then
+    '                DefaultsText = DefaultsText.Replace(Mid(DefaultsText, ((DefaultsText.IndexOf("LastFile-")) + 1), (DefaultsText.IndexOf("-eliFtsaL")) + 9), temp)
+    '            Else
+    '                DefaultsText = DefaultsText & vbCrLf & temp
+    '            End If
+
+    '            Dim fs As New System.IO.FileStream("C:\APB\Defaults.txt", IO.FileMode.OpenOrCreate, FileAccess.Write)
+    '            fs.Close()
+    '            Dim writer As StreamWriter = New StreamWriter("C:\APB\Defaults.txt")
+    '            writer.WriteLine(DefaultsText)
+    '            writer.Close()
+    '        Else
+    '            DefaultsText = temp
+    '            Dim fs As New System.IO.FileStream("C:\APB\Defaults.txt", IO.FileMode.Create, IO.FileAccess.Write)
+    '            fs.Close()
+    '            Dim writer As StreamWriter = New StreamWriter("C:\APB\Defaults.txt")
+    '            writer.WriteLine(DefaultsText)
+    '            writer.Close()
+    '        End If
+    '    Catch ex As Exception
+    '        ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+    '    Finally
+
+    '    End Try
+
+    'End Sub
+    'Private Sub btnPSDPrelimDet_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnPSDPrelimDet.Click
+    '    Try
+    '        Dim FileName As String = ""
+    '        Dim path As New OpenFileDialog
+    '        Dim temp As String = ""
+
+    '        Dim DefaultsText As String = ""
+    '        If File.Exists("C:\APB\Defaults.txt") Then
+    '            Dim reader As StreamReader = New StreamReader("C:\APB\Defaults.txt")
+    '            Do
+    '                DefaultsText = DefaultsText & reader.ReadLine
+    '            Loop Until reader.Peek = -1
+    '            reader.Close()
+
+    '            If DefaultsText.IndexOf("LastFile-") <> -1 Then
+    '                PathName = Mid(DefaultsText, ((DefaultsText.IndexOf("LastFile-")) + 10), ((DefaultsText.IndexOf("-eliFtsaL")) - (DefaultsText.IndexOf("LastFile-") + 9)))
+    '            Else
+    '                PathName = ""
+    '            End If
+    '        Else
+    '            PathName = ""
+    '        End If
+
+    '        If PathName = "" Then
+    '            PathName = "S:\Permit\Permit Documents"
+    '        End If
+
+    '        path.InitialDirectory = PathName
+    '        path.FileName = FileName
+    '        path.Filter = "Word files (*.doc)|*.doc|pdf files (*.pdf)|*.pdf|All files (*.*)|*.*"
+    '        path.FilterIndex = 3
+
+    '        If path.ShowDialog = Windows.Forms.DialogResult.OK Then
+    '            temp = path.FileName.ToString
+    '        Else
+    '            temp = "N/A"
+    '        End If
+
+    '        If temp.Length > 3 Then
+    '            If Mid(temp, (temp.Length - 3)).ToUpper = ".DOC" Or Mid(temp, (temp.Length - 3)).ToUpper = ".PDF" Or _
+    '            Mid(temp, (temp.Length - 4)).ToUpper = ".DOCX" Then
+    '                Select Case Mid(temp, (temp.Length - 3)).ToUpper
+    '                    Case ".DOC"
+    '                        txtPSDPrelimDetDoc.Text = temp
+    '                    Case "DOCX"
+    '                        txtPSDPrelimDetDoc.Text = temp
+    '                    Case ".PDF"
+    '                        txtPSDPrelimDetPDF.Text = temp
+    '                    Case Else
+    '                End Select
+    '            Else
+    '            End If
+    '        Else
+    '        End If
+    '        PathName = path.FileName.ToString
+    '        DefaultsText = ""
+
+    '        temp = "LastFile-" & PathName & "-eliFtsaL"
+    '        If File.Exists("C:\APB\Defaults.txt") Then
+    '            Dim reader As StreamReader = New StreamReader("C:\APB\Defaults.txt")
+    '            Do
+    '                DefaultsText = DefaultsText & reader.ReadLine
+    '            Loop Until reader.Peek = -1
+    '            reader.Close()
+
+    '            If DefaultsText.IndexOf("LastFile-") <> -1 Then
+    '                DefaultsText = DefaultsText.Replace(Mid(DefaultsText, ((DefaultsText.IndexOf("LastFile-")) + 1), (DefaultsText.IndexOf("-eliFtsaL")) + 9), temp)
+    '            Else
+    '                DefaultsText = DefaultsText & vbCrLf & temp
+    '            End If
+
+    '            Dim fs As New System.IO.FileStream("C:\APB\Defaults.txt", IO.FileMode.OpenOrCreate, FileAccess.Write)
+    '            fs.Close()
+    '            Dim writer As StreamWriter = New StreamWriter("C:\APB\Defaults.txt")
+    '            writer.WriteLine(DefaultsText)
+    '            writer.Close()
+    '        Else
+    '            DefaultsText = temp
+    '            Dim fs As New System.IO.FileStream("C:\APB\Defaults.txt", IO.FileMode.Create, IO.FileAccess.Write)
+    '            fs.Close()
+    '            Dim writer As StreamWriter = New StreamWriter("C:\APB\Defaults.txt")
+    '            writer.WriteLine(DefaultsText)
+    '            writer.Close()
+    '        End If
+
+    '    Catch ex As Exception
+    '        ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+    '    Finally
+
+    '    End Try
+
+    'End Sub
+    'Private Sub btnPSDNarrative_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnPSDNarrative.Click
+    '    Try
+    '        Dim FileName As String = ""
+    '        Dim path As New OpenFileDialog
+    '        Dim temp As String = ""
+
+    '        Dim DefaultsText As String = ""
+    '        If File.Exists("C:\APB\Defaults.txt") Then
+    '            Dim reader As StreamReader = New StreamReader("C:\APB\Defaults.txt")
+    '            Do
+    '                DefaultsText = DefaultsText & reader.ReadLine
+    '            Loop Until reader.Peek = -1
+    '            reader.Close()
+
+    '            If DefaultsText.IndexOf("LastFile-") <> -1 Then
+    '                PathName = Mid(DefaultsText, ((DefaultsText.IndexOf("LastFile-")) + 10), ((DefaultsText.IndexOf("-eliFtsaL")) - (DefaultsText.IndexOf("LastFile-") + 9)))
+    '            Else
+    '                PathName = ""
+    '            End If
+    '        Else
+    '            PathName = ""
+    '        End If
+
+    '        If PathName = "" Then
+    '            PathName = "S:\Permit\Permit Documents"
+    '        End If
+
+    '        path.InitialDirectory = PathName
+    '        path.FileName = FileName
+    '        path.Filter = "Word files (*.doc)|*.doc|pdf files (*.pdf)|*.pdf|All files (*.*)|*.*"
+    '        path.FilterIndex = 3
+
+    '        If path.ShowDialog = Windows.Forms.DialogResult.OK Then
+    '            temp = path.FileName.ToString
+    '        Else
+    '            temp = "N/A"
+    '        End If
+
+    '        If temp.Length > 3 Then
+    '            If Mid(temp, (temp.Length - 3)).ToUpper = ".DOC" Or Mid(temp, (temp.Length - 3)).ToUpper = ".PDF" Or _
+    '            Mid(temp, (temp.Length - 4)).ToUpper = ".DOCX" Then
+    '                Select Case Mid(temp, (temp.Length - 3)).ToUpper
+    '                    Case ".DOC"
+    '                        txtPSDNarrativeDoc.Text = temp
+    '                    Case "DOCX"
+    '                        txtPSDNarrativeDoc.Text = temp
+    '                    Case ".PDF"
+    '                        txtPSDNarrativePDF.Text = temp
+    '                    Case Else
+    '                End Select
+    '            Else
+    '            End If
+    '        Else
+    '        End If
+    '        PathName = path.FileName.ToString
+    '        DefaultsText = ""
+
+    '        temp = "LastFile-" & PathName & "-eliFtsaL"
+    '        If File.Exists("C:\APB\Defaults.txt") Then
+    '            Dim reader As StreamReader = New StreamReader("C:\APB\Defaults.txt")
+    '            Do
+    '                DefaultsText = DefaultsText & reader.ReadLine
+    '            Loop Until reader.Peek = -1
+    '            reader.Close()
+
+    '            If DefaultsText.IndexOf("LastFile-") <> -1 Then
+    '                DefaultsText = DefaultsText.Replace(Mid(DefaultsText, ((DefaultsText.IndexOf("LastFile-")) + 1), (DefaultsText.IndexOf("-eliFtsaL")) + 9), temp)
+    '            Else
+    '                DefaultsText = DefaultsText & vbCrLf & temp
+    '            End If
+
+    '            Dim fs As New System.IO.FileStream("C:\APB\Defaults.txt", IO.FileMode.OpenOrCreate, FileAccess.Write)
+    '            fs.Close()
+    '            Dim writer As StreamWriter = New StreamWriter("C:\APB\Defaults.txt")
+    '            writer.WriteLine(DefaultsText)
+    '            writer.Close()
+    '        Else
+    '            DefaultsText = temp
+    '            Dim fs As New System.IO.FileStream("C:\APB\Defaults.txt", IO.FileMode.Create, IO.FileAccess.Write)
+    '            fs.Close()
+    '            Dim writer As StreamWriter = New StreamWriter("C:\APB\Defaults.txt")
+    '            writer.WriteLine(DefaultsText)
+    '            writer.Close()
+    '        End If
+    '    Catch ex As Exception
+    '        ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+    '    Finally
+
+    '    End Try
+
+    'End Sub
+    'Private Sub btnPSDDraftPermit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnPSDDraftPermit.Click
+    '    Try
+    '        Dim FileName As String = ""
+    '        Dim path As New OpenFileDialog
+    '        Dim temp As String = ""
+
+    '        Dim DefaultsText As String = ""
+    '        If File.Exists("C:\APB\Defaults.txt") Then
+    '            Dim reader As StreamReader = New StreamReader("C:\APB\Defaults.txt")
+    '            Do
+    '                DefaultsText = DefaultsText & reader.ReadLine
+    '            Loop Until reader.Peek = -1
+    '            reader.Close()
+
+    '            If DefaultsText.IndexOf("LastFile-") <> -1 Then
+    '                PathName = Mid(DefaultsText, ((DefaultsText.IndexOf("LastFile-")) + 10), ((DefaultsText.IndexOf("-eliFtsaL")) - (DefaultsText.IndexOf("LastFile-") + 9)))
+    '            Else
+    '                PathName = ""
+    '            End If
+    '        Else
+    '            PathName = ""
+    '        End If
+
+    '        If PathName = "" Then
+    '            PathName = "S:\Permit\Permit Documents"
+    '        End If
+
+    '        path.InitialDirectory = PathName
+    '        path.FileName = FileName
+    '        path.Filter = "Word files (*.doc)|*.doc|pdf files (*.pdf)|*.pdf|All files (*.*)|*.*"
+    '        path.FilterIndex = 3
+
+    '        If path.ShowDialog = Windows.Forms.DialogResult.OK Then
+    '            temp = path.FileName.ToString
+    '        Else
+    '            temp = "N/A"
+    '        End If
+
+    '        If temp.Length > 3 Then
+    '            If Mid(temp, (temp.Length - 3)).ToUpper = ".DOC" Or Mid(temp, (temp.Length - 3)).ToUpper = ".PDF" Or _
+    '            Mid(temp, (temp.Length - 4)).ToUpper = ".DOCX" Then
+    '                Select Case Mid(temp, (temp.Length - 3)).ToUpper
+    '                    Case ".DOC"
+    '                        txtPSDDraftPermitDoc.Text = temp
+    '                    Case "DOCX"
+    '                        txtPSDDraftPermitDoc.Text = temp
+    '                    Case ".PDF"
+    '                        txtPSDDraftPermitPDF.Text = temp
+    '                    Case Else
+    '                End Select
+    '            Else
+    '            End If
+    '        Else
+    '        End If
+    '        PathName = path.FileName.ToString
+    '        DefaultsText = ""
+
+    '        temp = "LastFile-" & PathName & "-eliFtsaL"
+    '        If File.Exists("C:\APB\Defaults.txt") Then
+    '            Dim reader As StreamReader = New StreamReader("C:\APB\Defaults.txt")
+    '            Do
+    '                DefaultsText = DefaultsText & reader.ReadLine
+    '            Loop Until reader.Peek = -1
+    '            reader.Close()
+
+    '            If DefaultsText.IndexOf("LastFile-") <> -1 Then
+    '                DefaultsText = DefaultsText.Replace(Mid(DefaultsText, ((DefaultsText.IndexOf("LastFile-")) + 1), (DefaultsText.IndexOf("-eliFtsaL")) + 9), temp)
+    '            Else
+    '                DefaultsText = DefaultsText & vbCrLf & temp
+    '            End If
+
+    '            Dim fs As New System.IO.FileStream("C:\APB\Defaults.txt", IO.FileMode.OpenOrCreate, FileAccess.Write)
+    '            fs.Close()
+    '            Dim writer As StreamWriter = New StreamWriter("C:\APB\Defaults.txt")
+    '            writer.WriteLine(DefaultsText)
+    '            writer.Close()
+    '        Else
+    '            DefaultsText = temp
+    '            Dim fs As New System.IO.FileStream("C:\APB\Defaults.txt", IO.FileMode.Create, IO.FileAccess.Write)
+    '            fs.Close()
+    '            Dim writer As StreamWriter = New StreamWriter("C:\APB\Defaults.txt")
+    '            writer.WriteLine(DefaultsText)
+    '            writer.Close()
+    '        End If
+    '    Catch ex As Exception
+    '        ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+    '    Finally
+
+    '    End Try
+
+    'End Sub
+    'Private Sub btnPSDPublicNotice_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnPSDPublicNotice.Click
+    '    Try
+    '        Dim FileName As String = ""
+    '        Dim path As New OpenFileDialog
+    '        Dim temp As String = ""
+
+    '        Dim DefaultsText As String = ""
+    '        If File.Exists("C:\APB\Defaults.txt") Then
+    '            Dim reader As StreamReader = New StreamReader("C:\APB\Defaults.txt")
+    '            Do
+    '                DefaultsText = DefaultsText & reader.ReadLine
+    '            Loop Until reader.Peek = -1
+    '            reader.Close()
+
+    '            If DefaultsText.IndexOf("LastFile-") <> -1 Then
+    '                PathName = Mid(DefaultsText, ((DefaultsText.IndexOf("LastFile-")) + 10), ((DefaultsText.IndexOf("-eliFtsaL")) - (DefaultsText.IndexOf("LastFile-") + 9)))
+    '            Else
+    '                PathName = ""
+    '            End If
+    '        Else
+    '            PathName = ""
+    '        End If
+
+    '        If PathName = "" Then
+    '            PathName = "S:\Permit\Permit Documents"
+    '        End If
+
+    '        path.InitialDirectory = PathName
+    '        path.FileName = FileName
+    '        path.Filter = "Word files (*.doc)|*.doc|pdf files (*.pdf)|*.pdf|All files (*.*)|*.*"
+    '        path.FilterIndex = 3
+
+    '        If path.ShowDialog = Windows.Forms.DialogResult.OK Then
+    '            temp = path.FileName.ToString
+    '        Else
+    '            temp = "N/A"
+    '        End If
+
+    '        If temp.Length > 3 Then
+    '            If Mid(temp, (temp.Length - 3)).ToUpper = ".DOC" Or Mid(temp, (temp.Length - 3)).ToUpper = ".PDF" Or _
+    '            Mid(temp, (temp.Length - 4)).ToUpper = ".DOCX" Then
+    '                Select Case Mid(temp, (temp.Length - 3)).ToUpper
+    '                    Case ".DOC"
+    '                        txtPSDPublicNoticeDoc.Text = temp
+    '                    Case "DOCX"
+    '                        txtPSDPublicNoticeDoc.Text = temp
+    '                    Case ".PDF"
+    '                        txtPSDPublicNoticePDF.Text = temp
+    '                    Case Else
+    '                End Select
+    '            Else
+    '            End If
+    '        Else
+    '        End If
+    '        PathName = path.FileName.ToString
+    '        DefaultsText = ""
+
+    '        temp = "LastFile-" & PathName & "-eliFtsaL"
+    '        If File.Exists("C:\APB\Defaults.txt") Then
+    '            Dim reader As StreamReader = New StreamReader("C:\APB\Defaults.txt")
+    '            Do
+    '                DefaultsText = DefaultsText & reader.ReadLine
+    '            Loop Until reader.Peek = -1
+    '            reader.Close()
+
+    '            If DefaultsText.IndexOf("LastFile-") <> -1 Then
+    '                DefaultsText = DefaultsText.Replace(Mid(DefaultsText, ((DefaultsText.IndexOf("LastFile-")) + 1), (DefaultsText.IndexOf("-eliFtsaL")) + 9), temp)
+    '            Else
+    '                DefaultsText = DefaultsText & vbCrLf & temp
+    '            End If
+
+    '            Dim fs As New System.IO.FileStream("C:\APB\Defaults.txt", IO.FileMode.OpenOrCreate, FileAccess.Write)
+    '            fs.Close()
+    '            Dim writer As StreamWriter = New StreamWriter("C:\APB\Defaults.txt")
+    '            writer.WriteLine(DefaultsText)
+    '            writer.Close()
+    '        Else
+    '            DefaultsText = temp
+    '            Dim fs As New System.IO.FileStream("C:\APB\Defaults.txt", IO.FileMode.Create, IO.FileAccess.Write)
+    '            fs.Close()
+    '            Dim writer As StreamWriter = New StreamWriter("C:\APB\Defaults.txt")
+    '            writer.WriteLine(DefaultsText)
+    '            writer.Close()
+    '        End If
+
+    '    Catch ex As Exception
+    '        ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+    '    Finally
+
+    '    End Try
+
+    'End Sub
+    'Private Sub btnPSDHearingNotice_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnPSDHearingNotice.Click
+    '    Try
+    '        Dim FileName As String = ""
+    '        Dim path As New OpenFileDialog
+    '        Dim temp As String = ""
+
+    '        Dim DefaultsText As String = ""
+    '        If File.Exists("C:\APB\Defaults.txt") Then
+    '            Dim reader As StreamReader = New StreamReader("C:\APB\Defaults.txt")
+    '            Do
+    '                DefaultsText = DefaultsText & reader.ReadLine
+    '            Loop Until reader.Peek = -1
+    '            reader.Close()
+
+    '            If DefaultsText.IndexOf("LastFile-") <> -1 Then
+    '                PathName = Mid(DefaultsText, ((DefaultsText.IndexOf("LastFile-")) + 10), ((DefaultsText.IndexOf("-eliFtsaL")) - (DefaultsText.IndexOf("LastFile-") + 9)))
+    '            Else
+    '                PathName = ""
+    '            End If
+    '        Else
+    '            PathName = ""
+    '        End If
+
+    '        If PathName = "" Then
+    '            PathName = "S:\Permit\Permit Documents"
+    '        End If
+
+    '        path.InitialDirectory = PathName
+    '        path.FileName = FileName
+    '        path.Filter = "Word files (*.doc)|*.doc|pdf files (*.pdf)|*.pdf|All files (*.*)|*.*"
+    '        path.FilterIndex = 3
+
+    '        If path.ShowDialog = Windows.Forms.DialogResult.OK Then
+    '            temp = path.FileName.ToString
+    '        Else
+    '            temp = "N/A"
+    '        End If
+
+    '        If temp.Length > 3 Then
+    '            If Mid(temp, (temp.Length - 3)).ToUpper = ".DOC" Or Mid(temp, (temp.Length - 3)).ToUpper = ".PDF" Or _
+    '            Mid(temp, (temp.Length - 4)).ToUpper = ".DOCX" Then
+    '                Select Case Mid(temp, (temp.Length - 3)).ToUpper
+    '                    Case ".DOC"
+    '                        txtPSDHearingNoticeDoc.Text = temp
+    '                    Case "DOCX"
+    '                        txtPSDHearingNoticeDoc.Text = temp
+    '                    Case ".PDF"
+    '                        txtPSDHearingNoticePDF.Text = temp
+    '                    Case Else
+    '                End Select
+    '            Else
+    '            End If
+    '        Else
+    '        End If
+    '        PathName = path.FileName.ToString
+    '        DefaultsText = ""
+
+    '        temp = "LastFile-" & PathName & "-eliFtsaL"
+    '        If File.Exists("C:\APB\Defaults.txt") Then
+    '            Dim reader As StreamReader = New StreamReader("C:\APB\Defaults.txt")
+    '            Do
+    '                DefaultsText = DefaultsText & reader.ReadLine
+    '            Loop Until reader.Peek = -1
+    '            reader.Close()
+
+    '            If DefaultsText.IndexOf("LastFile-") <> -1 Then
+    '                DefaultsText = DefaultsText.Replace(Mid(DefaultsText, ((DefaultsText.IndexOf("LastFile-")) + 1), (DefaultsText.IndexOf("-eliFtsaL")) + 9), temp)
+    '            Else
+    '                DefaultsText = DefaultsText & vbCrLf & temp
+    '            End If
+
+    '            Dim fs As New System.IO.FileStream("C:\APB\Defaults.txt", IO.FileMode.OpenOrCreate, FileAccess.Write)
+    '            fs.Close()
+    '            Dim writer As StreamWriter = New StreamWriter("C:\APB\Defaults.txt")
+    '            writer.WriteLine(DefaultsText)
+    '            writer.Close()
+    '        Else
+    '            DefaultsText = temp
+    '            Dim fs As New System.IO.FileStream("C:\APB\Defaults.txt", IO.FileMode.Create, IO.FileAccess.Write)
+    '            fs.Close()
+    '            Dim writer As StreamWriter = New StreamWriter("C:\APB\Defaults.txt")
+    '            writer.WriteLine(DefaultsText)
+    '            writer.Close()
+    '        End If
+
+    '    Catch ex As Exception
+    '        ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+    '    Finally
+
+    '    End Try
+
+    'End Sub
+    'Private Sub btnPSDFinalDet_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnPSDFinalDet.Click
+    '    Try
+    '        Dim FileName As String = ""
+    '        Dim path As New OpenFileDialog
+    '        Dim temp As String = ""
+
+    '        Dim DefaultsText As String = ""
+    '        If File.Exists("C:\APB\Defaults.txt") Then
+    '            Dim reader As StreamReader = New StreamReader("C:\APB\Defaults.txt")
+    '            Do
+    '                DefaultsText = DefaultsText & reader.ReadLine
+    '            Loop Until reader.Peek = -1
+    '            reader.Close()
+
+    '            If DefaultsText.IndexOf("LastFile-") <> -1 Then
+    '                PathName = Mid(DefaultsText, ((DefaultsText.IndexOf("LastFile-")) + 10), ((DefaultsText.IndexOf("-eliFtsaL")) - (DefaultsText.IndexOf("LastFile-") + 9)))
+    '            Else
+    '                PathName = ""
+    '            End If
+    '        Else
+    '            PathName = ""
+    '        End If
+
+    '        If PathName = "" Then
+    '            PathName = "S:\Permit\Permit Documents"
+    '        End If
+
+    '        path.InitialDirectory = PathName
+    '        path.FileName = FileName
+    '        path.Filter = "Word files (*.doc)|*.doc|pdf files (*.pdf)|*.pdf|All files (*.*)|*.*"
+    '        path.FilterIndex = 3
+
+    '        If path.ShowDialog = Windows.Forms.DialogResult.OK Then
+    '            temp = path.FileName.ToString
+    '        Else
+    '            temp = "N/A"
+    '        End If
+
+    '        If temp.Length > 3 Then
+    '            If Mid(temp, (temp.Length - 3)).ToUpper = ".DOC" Or Mid(temp, (temp.Length - 3)).ToUpper = ".PDF" Or _
+    '            Mid(temp, (temp.Length - 4)).ToUpper = ".DOCX" Then
+    '                Select Case Mid(temp, (temp.Length - 3)).ToUpper
+    '                    Case ".DOC"
+    '                        txtPSDFinalDetDoc.Text = temp
+    '                    Case "DOCX"
+    '                        txtPSDFinalDetDoc.Text = temp
+    '                    Case ".PDF"
+    '                        txtPSDFinalDetPDF.Text = temp
+    '                    Case Else
+    '                End Select
+    '            Else
+    '            End If
+    '        Else
+    '        End If
+    '        PathName = path.FileName.ToString
+    '        DefaultsText = ""
+
+    '        temp = "LastFile-" & PathName & "-eliFtsaL"
+    '        If File.Exists("C:\APB\Defaults.txt") Then
+    '            Dim reader As StreamReader = New StreamReader("C:\APB\Defaults.txt")
+    '            Do
+    '                DefaultsText = DefaultsText & reader.ReadLine
+    '            Loop Until reader.Peek = -1
+    '            reader.Close()
+
+    '            If DefaultsText.IndexOf("LastFile-") <> -1 Then
+    '                DefaultsText = DefaultsText.Replace(Mid(DefaultsText, ((DefaultsText.IndexOf("LastFile-")) + 1), (DefaultsText.IndexOf("-eliFtsaL")) + 9), temp)
+    '            Else
+    '                DefaultsText = DefaultsText & vbCrLf & temp
+    '            End If
+
+    '            Dim fs As New System.IO.FileStream("C:\APB\Defaults.txt", IO.FileMode.OpenOrCreate, FileAccess.Write)
+    '            fs.Close()
+    '            Dim writer As StreamWriter = New StreamWriter("C:\APB\Defaults.txt")
+    '            writer.WriteLine(DefaultsText)
+    '            writer.Close()
+    '        Else
+    '            DefaultsText = temp
+    '            Dim fs As New System.IO.FileStream("C:\APB\Defaults.txt", IO.FileMode.Create, IO.FileAccess.Write)
+    '            fs.Close()
+    '            Dim writer As StreamWriter = New StreamWriter("C:\APB\Defaults.txt")
+    '            writer.WriteLine(DefaultsText)
+    '            writer.Close()
+    '        End If
+
+    '    Catch ex As Exception
+    '        ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+    '    Finally
+
+    '    End Try
+
+    'End Sub
+    'Private Sub btnPSDFinalPermit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnPSDFinalPermit.Click
+    '    Try
+    '        Dim FileName As String = ""
+    '        Dim path As New OpenFileDialog
+    '        Dim temp As String = ""
+
+    '        Dim DefaultsText As String = ""
+    '        If File.Exists("C:\APB\Defaults.txt") Then
+    '            Dim reader As StreamReader = New StreamReader("C:\APB\Defaults.txt")
+    '            Do
+    '                DefaultsText = DefaultsText & reader.ReadLine
+    '            Loop Until reader.Peek = -1
+    '            reader.Close()
+
+    '            If DefaultsText.IndexOf("LastFile-") <> -1 Then
+    '                PathName = Mid(DefaultsText, ((DefaultsText.IndexOf("LastFile-")) + 10), ((DefaultsText.IndexOf("-eliFtsaL")) - (DefaultsText.IndexOf("LastFile-") + 9)))
+    '            Else
+    '                PathName = ""
+    '            End If
+    '        Else
+    '            PathName = ""
+    '        End If
+
+    '        If PathName = "" Then
+    '            PathName = "S:\Permit\Permit Documents"
+    '        End If
+
+    '        path.InitialDirectory = PathName
+    '        path.FileName = FileName
+    '        path.Filter = "Word files (*.doc)|*.doc|pdf files (*.pdf)|*.pdf|All files (*.*)|*.*"
+    '        path.FilterIndex = 3
+
+    '        If path.ShowDialog = Windows.Forms.DialogResult.OK Then
+    '            temp = path.FileName.ToString
+    '        Else
+    '            temp = "N/A"
+    '        End If
+
+    '        If temp.Length > 3 Then
+    '            If Mid(temp, (temp.Length - 3)).ToUpper = ".DOC" Or Mid(temp, (temp.Length - 3)).ToUpper = ".PDF" Or _
+    '            Mid(temp, (temp.Length - 4)).ToUpper = ".DOCX" Then
+    '                Select Case Mid(temp, (temp.Length - 3)).ToUpper
+    '                    Case ".DOC"
+    '                        txtPSDFinalPermitDoc.Text = temp
+    '                    Case "DOCX"
+    '                        txtPSDFinalPermitDoc.Text = temp
+    '                    Case ".PDF"
+    '                        txtPSDFinalPermitPDF.Text = temp
+    '                    Case Else
+    '                End Select
+    '            Else
+    '            End If
+    '        Else
+    '        End If
+    '        PathName = path.FileName.ToString
+    '        DefaultsText = ""
+
+    '        temp = "LastFile-" & PathName & "-eliFtsaL"
+    '        If File.Exists("C:\APB\Defaults.txt") Then
+    '            Dim reader As StreamReader = New StreamReader("C:\APB\Defaults.txt")
+    '            Do
+    '                DefaultsText = DefaultsText & reader.ReadLine
+    '            Loop Until reader.Peek = -1
+    '            reader.Close()
+
+    '            If DefaultsText.IndexOf("LastFile-") <> -1 Then
+    '                DefaultsText = DefaultsText.Replace(Mid(DefaultsText, ((DefaultsText.IndexOf("LastFile-")) + 1), (DefaultsText.IndexOf("-eliFtsaL")) + 9), temp)
+    '            Else
+    '                DefaultsText = DefaultsText & vbCrLf & temp
+    '            End If
+
+    '            Dim fs As New System.IO.FileStream("C:\APB\Defaults.txt", IO.FileMode.OpenOrCreate, FileAccess.Write)
+    '            fs.Close()
+    '            Dim writer As StreamWriter = New StreamWriter("C:\APB\Defaults.txt")
+    '            writer.WriteLine(DefaultsText)
+    '            writer.Close()
+    '        Else
+    '            DefaultsText = temp
+    '            Dim fs As New System.IO.FileStream("C:\APB\Defaults.txt", IO.FileMode.Create, IO.FileAccess.Write)
+    '            fs.Close()
+    '            Dim writer As StreamWriter = New StreamWriter("C:\APB\Defaults.txt")
+    '            writer.WriteLine(DefaultsText)
+    '            writer.Close()
+    '        End If
+
+    '    Catch ex As Exception
+    '        ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+    '    Finally
+
+    '    End Try
+
+    'End Sub
+    'Private Sub btnOtherNarrative_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOtherNarrative.Click
+    '    Try
+    '        Dim FileName As String = ""
+    '        Dim path As New OpenFileDialog
+    '        Dim temp As String = ""
+
+    '        Dim DefaultsText As String = ""
+    '        If File.Exists("C:\APB\Defaults.txt") Then
+    '            Dim reader As StreamReader = New StreamReader("C:\APB\Defaults.txt")
+    '            Do
+    '                DefaultsText = DefaultsText & reader.ReadLine
+    '            Loop Until reader.Peek = -1
+    '            reader.Close()
+
+    '            If DefaultsText.IndexOf("LastFile-") <> -1 Then
+    '                PathName = Mid(DefaultsText, ((DefaultsText.IndexOf("LastFile-")) + 10), ((DefaultsText.IndexOf("-eliFtsaL")) - (DefaultsText.IndexOf("LastFile-") + 9)))
+    '            Else
+    '                PathName = ""
+    '            End If
+    '        Else
+    '            PathName = ""
+    '        End If
+
+    '        If PathName = "" Then
+    '            PathName = "S:\Permit\Permit Documents"
+    '        End If
+
+    '        path.InitialDirectory = PathName
+    '        path.FileName = FileName
+    '        path.Filter = "Word files (*.doc)|*.doc|pdf files (*.pdf)|*.pdf|All files (*.*)|*.*"
+    '        path.FilterIndex = 3
+
+    '        If path.ShowDialog = Windows.Forms.DialogResult.OK Then
+    '            temp = path.FileName.ToString
+    '        Else
+    '            temp = "N/A"
+    '        End If
+
+    '        If temp.Length > 3 Then
+    '            If Mid(temp, (temp.Length - 3)).ToUpper = ".DOC" Or Mid(temp, (temp.Length - 3)).ToUpper = ".PDF" Or _
+    '            Mid(temp, (temp.Length - 4)).ToUpper = ".DOCX" Then
+    '                Select Case Mid(temp, (temp.Length - 3)).ToUpper
+    '                    Case ".DOC"
+    '                        txtOtherNarrativeDoc.Text = temp
+    '                    Case "DOCX"
+    '                        txtOtherNarrativeDoc.Text = temp
+    '                    Case ".PDF"
+    '                        txtOtherNarrativePDF.Text = temp
+    '                    Case Else
+    '                        txtOtherNarrativePDF.Text = ""
+    '                End Select
+    '            Else
+    '            End If
+    '        Else
+    '        End If
+    '        PathName = path.FileName.ToString
+    '        DefaultsText = ""
+
+    '        temp = "LastFile-" & PathName & "-eliFtsaL"
+    '        If File.Exists("C:\APB\Defaults.txt") Then
+    '            Dim reader As StreamReader = New StreamReader("C:\APB\Defaults.txt")
+    '            Do
+    '                DefaultsText = DefaultsText & reader.ReadLine
+    '            Loop Until reader.Peek = -1
+    '            reader.Close()
+
+    '            If DefaultsText.IndexOf("LastFile-") <> -1 Then
+    '                DefaultsText = DefaultsText.Replace(Mid(DefaultsText, ((DefaultsText.IndexOf("LastFile-")) + 1), (DefaultsText.IndexOf("-eliFtsaL")) + 9), temp)
+    '            Else
+    '                DefaultsText = DefaultsText & vbCrLf & temp
+    '            End If
+
+    '            Dim fs As New System.IO.FileStream("C:\APB\Defaults.txt", IO.FileMode.OpenOrCreate, FileAccess.Write)
+    '            fs.Close()
+    '            Dim writer As StreamWriter = New StreamWriter("C:\APB\Defaults.txt")
+    '            writer.WriteLine(DefaultsText)
+    '            writer.Close()
+    '        Else
+    '            DefaultsText = temp
+    '            Dim fs As New System.IO.FileStream("C:\APB\Defaults.txt", IO.FileMode.Create, IO.FileAccess.Write)
+    '            fs.Close()
+    '            Dim writer As StreamWriter = New StreamWriter("C:\APB\Defaults.txt")
+    '            writer.WriteLine(DefaultsText)
+    '            writer.Close()
+    '        End If
+
+    '    Catch ex As Exception
+    '        ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+    '    Finally
+
+    '    End Try
+
+    'End Sub
+    'Private Sub btnOtherPermit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOtherPermit.Click
+    '    Try
+    '        Dim FileName As String = ""
+    '        Dim path As New OpenFileDialog
+    '        Dim temp As String = ""
+
+    '        Dim DefaultsText As String = ""
+    '        If File.Exists("C:\APB\Defaults.txt") Then
+    '            Dim reader As StreamReader = New StreamReader("C:\APB\Defaults.txt")
+    '            Do
+    '                DefaultsText = DefaultsText & reader.ReadLine
+    '            Loop Until reader.Peek = -1
+    '            reader.Close()
+
+    '            If DefaultsText.IndexOf("LastFile-") <> -1 Then
+    '                PathName = Mid(DefaultsText, ((DefaultsText.IndexOf("LastFile-")) + 10), ((DefaultsText.IndexOf("-eliFtsaL")) - (DefaultsText.IndexOf("LastFile-") + 9)))
+    '            Else
+    '                PathName = ""
+    '            End If
+    '        Else
+    '            PathName = ""
+    '        End If
+
+    '        If PathName = "" Then
+    '            PathName = "S:\Permit\Permit Documents"
+    '        End If
+
+    '        path.InitialDirectory = PathName
+    '        path.FileName = FileName
+    '        path.Filter = "Word files (*.doc)|*.doc|pdf files (*.pdf)|*.pdf|All files (*.*)|*.*"
+    '        path.FilterIndex = 3
+
+    '        If path.ShowDialog = Windows.Forms.DialogResult.OK Then
+    '            temp = path.FileName.ToString
+    '        Else
+    '            temp = "N/A"
+    '        End If
+
+    '        If temp.Length > 3 Then
+    '            If Mid(temp, (temp.Length - 3)).ToUpper = ".DOC" Or Mid(temp, (temp.Length - 3)).ToUpper = ".PDF" Or _
+    '            Mid(temp, (temp.Length - 4)).ToUpper = ".DOCX" Then
+    '                Select Case Mid(temp, (temp.Length - 3)).ToUpper
+    '                    Case ".DOC"
+    '                        txtOtherPermitDoc.Text = temp
+    '                    Case "DOCX"
+    '                        txtOtherPermitDoc.Text = temp
+    '                    Case ".PDF"
+    '                        txtOtherPermitPDF.Text = temp
+    '                    Case Else
+    '                End Select
+    '            Else
+    '            End If
+    '        Else
+    '        End If
+    '        PathName = path.FileName.ToString
+    '        DefaultsText = ""
+
+    '        temp = "LastFile-" & PathName & "-eliFtsaL"
+    '        If File.Exists("C:\APB\Defaults.txt") Then
+    '            Dim reader As StreamReader = New StreamReader("C:\APB\Defaults.txt")
+    '            Do
+    '                DefaultsText = DefaultsText & reader.ReadLine
+    '            Loop Until reader.Peek = -1
+    '            reader.Close()
+
+    '            If DefaultsText.IndexOf("LastFile-") <> -1 Then
+    '                DefaultsText = DefaultsText.Replace(Mid(DefaultsText, ((DefaultsText.IndexOf("LastFile-")) + 1), (DefaultsText.IndexOf("-eliFtsaL")) + 9), temp)
+    '            Else
+    '                DefaultsText = DefaultsText & vbCrLf & temp
+    '            End If
+
+    '            Dim fs As New System.IO.FileStream("C:\APB\Defaults.txt", IO.FileMode.OpenOrCreate, FileAccess.Write)
+    '            fs.Close()
+    '            Dim writer As StreamWriter = New StreamWriter("C:\APB\Defaults.txt")
+    '            writer.WriteLine(DefaultsText)
+    '            writer.Close()
+    '        Else
+    '            DefaultsText = temp
+    '            Dim fs As New System.IO.FileStream("C:\APB\Defaults.txt", IO.FileMode.Create, IO.FileAccess.Write)
+    '            fs.Close()
+    '            Dim writer As StreamWriter = New StreamWriter("C:\APB\Defaults.txt")
+    '            writer.WriteLine(DefaultsText)
+    '            writer.Close()
+    '        End If
+    '    Catch ex As Exception
+    '        ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+    '    Finally
+
+    '    End Try
+
+    'End Sub
+#End Region
+
+#Region "Download files"
+
+    Sub DownloadFile(ByVal FileName As String, ByVal FileType As String)
         Try
-            Dim FileName As String = ""
-            Dim path As New OpenFileDialog
-            Dim temp As String = ""
+            Dim PermitNumber As String = ""
+            Dim path As New SaveFileDialog
+            Dim DestFilePath As String = "N/A"
 
-            Dim DefaultsText As String = ""
-            If File.Exists("C:\APB\Defaults.txt") Then
-                Dim reader As StreamReader = New StreamReader("C:\APB\Defaults.txt")
-                Do
-                    DefaultsText = DefaultsText & reader.ReadLine
-                Loop Until reader.Peek = -1
-                reader.Close()
+            If FileType <> "00" Then
+                SQL = "select strApplicationNumber, " & _
+                "strPermitNumber,  " & _
+                "(substr(strPermitNumber,1, 4) ||'-'||substr(strPermitNumber, 5,3) " & _
+                "   ||'-'||substr(strPermitNumber, 8,4)||'-'||substr(strPermitNumber, 12, 1)  " & _
+                "   ||'-'||substr(strPermitNumber, 13, 2) ||'-'||substr(strPermitNumber, 15,1)) as PermitNumber " & _
+                "from " & DBNameSpace & ".SSPPApplicationData  " & _
+                "where strApplicationNumber like '" & MasterApp & "' "
 
-                If DefaultsText.IndexOf("LastFile-") <> -1 Then
-                    PathName = Mid(DefaultsText, ((DefaultsText.IndexOf("LastFile-")) + 10), ((DefaultsText.IndexOf("-eliFtsaL")) - (DefaultsText.IndexOf("LastFile-") + 9)))
-                Else
-                    PathName = ""
+                cmd = New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
-            Else
-                PathName = ""
-            End If
-
-            If PathName = "" Then
-                PathName = "S:\Permit\Permit Documents"
-            End If
-
-            path.InitialDirectory = PathName
-            path.FileName = FileName
-            path.Filter = "Word files (*.doc)|*.doc|pdf files (*.pdf)|*.pdf|All files (*.*)|*.*"
-            path.FilterIndex = 3
-
-            If path.ShowDialog = Windows.Forms.DialogResult.OK Then
-                temp = path.FileName.ToString
-            Else
-                temp = "N/A"
-            End If
-
-            If temp.Length > 3 Then
-                If Mid(temp, (temp.Length - 3)).ToUpper = ".DOC" Or Mid(temp, (temp.Length - 3)).ToUpper = ".PDF" Or _
-                Mid(temp, (temp.Length - 4)).ToUpper = ".DOCX" Then
-                    Select Case Mid(temp, (temp.Length - 3)).ToUpper
-                        Case ".DOC"
-                            txtPSDNarrativeDoc.Text = temp
-                        Case "DOCX"
-                            txtPSDNarrativeDoc.Text = temp
-                        Case ".PDF"
-                            txtPSDNarrativePDF.Text = temp
-                        Case Else
-                    End Select
+                dr = cmd.ExecuteReader
+                recExist = dr.Read
+                If recExist = True Then
+                    PermitNumber = dr.Item("PermitNumber")
                 Else
+                    PermitNumber = Mid(FileName, 3)
                 End If
-            Else
-            End If
-            PathName = path.FileName.ToString
-            DefaultsText = ""
+                dr.Close()
 
-            temp = "LastFile-" & PathName & "-eliFtsaL"
-            If File.Exists("C:\APB\Defaults.txt") Then
-                Dim reader As StreamReader = New StreamReader("C:\APB\Defaults.txt")
-                Do
-                    DefaultsText = DefaultsText & reader.ReadLine
-                Loop Until reader.Peek = -1
-                reader.Close()
+                Select Case FileType
+                    Case "10"
+                        path.InitialDirectory = "C:\WINDOWS\Temp"
+                        path.FileName = PermitNumber
+                        path.Filter = "Microsoft Office Work file (*.doc)|.doc"
+                        'path.Filter = "docx files (*.docx)|*.docx"
+                        path.FilterIndex = 1
+                        path.DefaultExt = ".doc"
+                        'path.DefaultExt = ".docx"
 
-                If DefaultsText.IndexOf("LastFile-") <> -1 Then
-                    DefaultsText = DefaultsText.Replace(Mid(DefaultsText, ((DefaultsText.IndexOf("LastFile-")) + 1), (DefaultsText.IndexOf("-eliFtsaL")) + 9), temp)
-                Else
-                    DefaultsText = DefaultsText & vbCrLf & temp
+                        If path.ShowDialog = Windows.Forms.DialogResult.OK Then
+                            DestFilePath = path.FileName.ToString
+                        Else
+                            DestFilePath = "N/A"
+                        End If
+                        If DestFilePath <> "N/A" Then
+                            If Conn.State = ConnectionState.Closed Then
+                                Conn.Open()
+                            End If
+
+                            SQL = "select " & _
+                            "DocPermitData " & _
+                            "from " & DBNameSpace & ".APBPermits " & _
+                            "where strFileName = '" & FileName & "' "
+
+                            cmd = New OracleCommand(SQL, Conn)
+                            dr = cmd.ExecuteReader
+
+                            dr.Read()
+                            Dim b(dr.GetBytes(0, 0, Nothing, 0, Integer.MaxValue) - 1) As Byte
+                            dr.GetBytes(0, 0, b, 0, b.Length)
+                            dr.Close()
+
+                            Dim fs As New System.IO.FileStream(DestFilePath, IO.FileMode.Create, IO.FileAccess.Write)
+                            fs.Write(b, 0, b.Length)
+                            fs.Close()
+                        End If
+                    Case "01"
+                        path.InitialDirectory = "C:\WINDOWS\Temp"
+                        path.FileName = PermitNumber
+                        path.Filter = "Adobe PDF Files (*.pdf)|.pdf"
+                        path.FilterIndex = 1
+                        path.DefaultExt = ".pdf"
+
+                        If path.ShowDialog = Windows.Forms.DialogResult.OK Then
+                            DestFilePath = path.FileName.ToString
+                        Else
+                            DestFilePath = "N/A"
+                        End If
+
+                        If DestFilePath <> "N/A" Then
+                            If Conn.State = ConnectionState.Closed Then
+                                Conn.Open()
+                            End If
+
+                            SQL = "select " & _
+                            "pdfPermitData " & _
+                            "from " & DBNameSpace & ".APBPermits " & _
+                            "where strFileName = '" & FileName & "' "
+
+                            cmd = New OracleCommand(SQL, Conn)
+                            dr = cmd.ExecuteReader
+
+                            dr.Read()
+                            Dim b(dr.GetBytes(0, 0, Nothing, 0, Integer.MaxValue) - 1) As Byte
+                            dr.GetBytes(0, 0, b, 0, b.Length)
+                            dr.Close()
+
+                            Dim fs As New System.IO.FileStream(DestFilePath, IO.FileMode.Create, IO.FileAccess.Write)
+                            fs.Write(b, 0, b.Length)
+                            fs.Close()
+                        End If
+                    Case "11"
+                        path.InitialDirectory = "C:\WINDOWS\Temp"
+                        path.FileName = PermitNumber
+                        path.Filter = "Microsoft Office Work file (*.doc)|.doc"
+                        path.FilterIndex = 1
+                        path.DefaultExt = ".doc"
+
+                        If path.ShowDialog = Windows.Forms.DialogResult.OK Then
+                            DestFilePath = path.FileName.ToString
+                        Else
+                            DestFilePath = "N/A"
+                        End If
+                        If DestFilePath <> "N/A" Then
+                            If Conn.State = ConnectionState.Closed Then
+                                Conn.Open()
+                            End If
+
+                            SQL = "select " & _
+                            "DocPermitData " & _
+                            "from " & DBNameSpace & ".APBPermits " & _
+                            "where strFileName = '" & FileName & "' "
+
+                            cmd = New OracleCommand(SQL, Conn)
+                            dr = cmd.ExecuteReader
+
+                            dr.Read()
+                            Dim b(dr.GetBytes(0, 0, Nothing, 0, Integer.MaxValue) - 1) As Byte
+                            dr.GetBytes(0, 0, b, 0, b.Length)
+                            dr.Close()
+
+                            Dim fs As New System.IO.FileStream(DestFilePath, IO.FileMode.Create, IO.FileAccess.Write)
+                            fs.Write(b, 0, b.Length)
+                            fs.Close()
+                        End If
+                        path.InitialDirectory = "C:\WINDOWS\Temp"
+                        path.FileName = PermitNumber
+                        path.Filter = "Adobe PDF Files (*.pdf)|.pdf"
+                        path.FilterIndex = 1
+                        path.DefaultExt = ".pdf"
+
+                        If path.ShowDialog = Windows.Forms.DialogResult.OK Then
+                            DestFilePath = path.FileName.ToString
+                        Else
+                            DestFilePath = "N/A"
+                        End If
+
+                        If DestFilePath <> "N/A" Then
+                            If Conn.State = ConnectionState.Closed Then
+                                Conn.Open()
+                            End If
+
+                            SQL = "select " & _
+                            "pdfPermitData " & _
+                            "from " & DBNameSpace & ".APBPermits " & _
+                            "where strFileName = '" & FileName & "' "
+
+                            cmd = New OracleCommand(SQL, Conn)
+                            dr = cmd.ExecuteReader
+
+                            dr.Read()
+                            Dim b(dr.GetBytes(0, 0, Nothing, 0, Integer.MaxValue) - 1) As Byte
+                            dr.GetBytes(0, 0, b, 0, b.Length)
+                            dr.Close()
+
+                            Dim fs As New System.IO.FileStream(DestFilePath, IO.FileMode.Create, IO.FileAccess.Write)
+                            fs.Write(b, 0, b.Length)
+                            fs.Close()
+                        End If
+                    Case Else
+                End Select
+
+                If DestFilePath <> "N/A" Then
+                    Diagnostics.Process.Start(DestFilePath)
                 End If
-
-                Dim fs As New System.IO.FileStream("C:\APB\Defaults.txt", IO.FileMode.OpenOrCreate, FileAccess.Write)
-                fs.Close()
-                Dim writer As StreamWriter = New StreamWriter("C:\APB\Defaults.txt")
-                writer.WriteLine(DefaultsText)
-                writer.Close()
-            Else
-                DefaultsText = temp
-                Dim fs As New System.IO.FileStream("C:\APB\Defaults.txt", IO.FileMode.Create, IO.FileAccess.Write)
-                fs.Close()
-                Dim writer As StreamWriter = New StreamWriter("C:\APB\Defaults.txt")
-                writer.WriteLine(DefaultsText)
-                writer.Close()
             End If
+
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
-
     End Sub
-    Private Sub btnPSDDraftPermit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnPSDDraftPermit.Click
-        Try
-            Dim FileName As String = ""
-            Dim path As New OpenFileDialog
-            Dim temp As String = ""
 
-            Dim DefaultsText As String = ""
-            If File.Exists("C:\APB\Defaults.txt") Then
-                Dim reader As StreamReader = New StreamReader("C:\APB\Defaults.txt")
-                Do
-                    DefaultsText = DefaultsText & reader.ReadLine
-                Loop Until reader.Peek = -1
-                reader.Close()
-
-                If DefaultsText.IndexOf("LastFile-") <> -1 Then
-                    PathName = Mid(DefaultsText, ((DefaultsText.IndexOf("LastFile-")) + 10), ((DefaultsText.IndexOf("-eliFtsaL")) - (DefaultsText.IndexOf("LastFile-") + 9)))
-                Else
-                    PathName = ""
-                End If
-            Else
-                PathName = ""
-            End If
-
-            If PathName = "" Then
-                PathName = "S:\Permit\Permit Documents"
-            End If
-
-            path.InitialDirectory = PathName
-            path.FileName = FileName
-            path.Filter = "Word files (*.doc)|*.doc|pdf files (*.pdf)|*.pdf|All files (*.*)|*.*"
-            path.FilterIndex = 3
-
-            If path.ShowDialog = Windows.Forms.DialogResult.OK Then
-                temp = path.FileName.ToString
-            Else
-                temp = "N/A"
-            End If
-
-            If temp.Length > 3 Then
-                If Mid(temp, (temp.Length - 3)).ToUpper = ".DOC" Or Mid(temp, (temp.Length - 3)).ToUpper = ".PDF" Or _
-                Mid(temp, (temp.Length - 4)).ToUpper = ".DOCX" Then
-                    Select Case Mid(temp, (temp.Length - 3)).ToUpper
-                        Case ".DOC"
-                            txtPSDDraftPermitDoc.Text = temp
-                        Case "DOCX"
-                            txtPSDDraftPermitDoc.Text = temp
-                        Case ".PDF"
-                            txtPSDDraftPermitPDF.Text = temp
-                        Case Else
-                    End Select
-                Else
-                End If
-            Else
-            End If
-            PathName = path.FileName.ToString
-            DefaultsText = ""
-
-            temp = "LastFile-" & PathName & "-eliFtsaL"
-            If File.Exists("C:\APB\Defaults.txt") Then
-                Dim reader As StreamReader = New StreamReader("C:\APB\Defaults.txt")
-                Do
-                    DefaultsText = DefaultsText & reader.ReadLine
-                Loop Until reader.Peek = -1
-                reader.Close()
-
-                If DefaultsText.IndexOf("LastFile-") <> -1 Then
-                    DefaultsText = DefaultsText.Replace(Mid(DefaultsText, ((DefaultsText.IndexOf("LastFile-")) + 1), (DefaultsText.IndexOf("-eliFtsaL")) + 9), temp)
-                Else
-                    DefaultsText = DefaultsText & vbCrLf & temp
-                End If
-
-                Dim fs As New System.IO.FileStream("C:\APB\Defaults.txt", IO.FileMode.OpenOrCreate, FileAccess.Write)
-                fs.Close()
-                Dim writer As StreamWriter = New StreamWriter("C:\APB\Defaults.txt")
-                writer.WriteLine(DefaultsText)
-                writer.Close()
-            Else
-                DefaultsText = temp
-                Dim fs As New System.IO.FileStream("C:\APB\Defaults.txt", IO.FileMode.Create, IO.FileAccess.Write)
-                fs.Close()
-                Dim writer As StreamWriter = New StreamWriter("C:\APB\Defaults.txt")
-                writer.WriteLine(DefaultsText)
-                writer.Close()
-            End If
-        Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub btnPSDPublicNotice_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnPSDPublicNotice.Click
-        Try
-            Dim FileName As String = ""
-            Dim path As New OpenFileDialog
-            Dim temp As String = ""
-
-            Dim DefaultsText As String = ""
-            If File.Exists("C:\APB\Defaults.txt") Then
-                Dim reader As StreamReader = New StreamReader("C:\APB\Defaults.txt")
-                Do
-                    DefaultsText = DefaultsText & reader.ReadLine
-                Loop Until reader.Peek = -1
-                reader.Close()
-
-                If DefaultsText.IndexOf("LastFile-") <> -1 Then
-                    PathName = Mid(DefaultsText, ((DefaultsText.IndexOf("LastFile-")) + 10), ((DefaultsText.IndexOf("-eliFtsaL")) - (DefaultsText.IndexOf("LastFile-") + 9)))
-                Else
-                    PathName = ""
-                End If
-            Else
-                PathName = ""
-            End If
-
-            If PathName = "" Then
-                PathName = "S:\Permit\Permit Documents"
-            End If
-
-            path.InitialDirectory = PathName
-            path.FileName = FileName
-            path.Filter = "Word files (*.doc)|*.doc|pdf files (*.pdf)|*.pdf|All files (*.*)|*.*"
-            path.FilterIndex = 3
-
-            If path.ShowDialog = Windows.Forms.DialogResult.OK Then
-                temp = path.FileName.ToString
-            Else
-                temp = "N/A"
-            End If
-
-            If temp.Length > 3 Then
-                If Mid(temp, (temp.Length - 3)).ToUpper = ".DOC" Or Mid(temp, (temp.Length - 3)).ToUpper = ".PDF" Or _
-                Mid(temp, (temp.Length - 4)).ToUpper = ".DOCX" Then
-                    Select Case Mid(temp, (temp.Length - 3)).ToUpper
-                        Case ".DOC"
-                            txtPSDPublicNoticeDoc.Text = temp
-                        Case "DOCX"
-                            txtPSDPublicNoticeDoc.Text = temp
-                        Case ".PDF"
-                            txtPSDPublicNoticePDF.Text = temp
-                        Case Else
-                    End Select
-                Else
-                End If
-            Else
-            End If
-            PathName = path.FileName.ToString
-            DefaultsText = ""
-
-            temp = "LastFile-" & PathName & "-eliFtsaL"
-            If File.Exists("C:\APB\Defaults.txt") Then
-                Dim reader As StreamReader = New StreamReader("C:\APB\Defaults.txt")
-                Do
-                    DefaultsText = DefaultsText & reader.ReadLine
-                Loop Until reader.Peek = -1
-                reader.Close()
-
-                If DefaultsText.IndexOf("LastFile-") <> -1 Then
-                    DefaultsText = DefaultsText.Replace(Mid(DefaultsText, ((DefaultsText.IndexOf("LastFile-")) + 1), (DefaultsText.IndexOf("-eliFtsaL")) + 9), temp)
-                Else
-                    DefaultsText = DefaultsText & vbCrLf & temp
-                End If
-
-                Dim fs As New System.IO.FileStream("C:\APB\Defaults.txt", IO.FileMode.OpenOrCreate, FileAccess.Write)
-                fs.Close()
-                Dim writer As StreamWriter = New StreamWriter("C:\APB\Defaults.txt")
-                writer.WriteLine(DefaultsText)
-                writer.Close()
-            Else
-                DefaultsText = temp
-                Dim fs As New System.IO.FileStream("C:\APB\Defaults.txt", IO.FileMode.Create, IO.FileAccess.Write)
-                fs.Close()
-                Dim writer As StreamWriter = New StreamWriter("C:\APB\Defaults.txt")
-                writer.WriteLine(DefaultsText)
-                writer.Close()
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub btnPSDHearingNotice_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnPSDHearingNotice.Click
-        Try
-            Dim FileName As String = ""
-            Dim path As New OpenFileDialog
-            Dim temp As String = ""
-
-            Dim DefaultsText As String = ""
-            If File.Exists("C:\APB\Defaults.txt") Then
-                Dim reader As StreamReader = New StreamReader("C:\APB\Defaults.txt")
-                Do
-                    DefaultsText = DefaultsText & reader.ReadLine
-                Loop Until reader.Peek = -1
-                reader.Close()
-
-                If DefaultsText.IndexOf("LastFile-") <> -1 Then
-                    PathName = Mid(DefaultsText, ((DefaultsText.IndexOf("LastFile-")) + 10), ((DefaultsText.IndexOf("-eliFtsaL")) - (DefaultsText.IndexOf("LastFile-") + 9)))
-                Else
-                    PathName = ""
-                End If
-            Else
-                PathName = ""
-            End If
-
-            If PathName = "" Then
-                PathName = "S:\Permit\Permit Documents"
-            End If
-
-            path.InitialDirectory = PathName
-            path.FileName = FileName
-            path.Filter = "Word files (*.doc)|*.doc|pdf files (*.pdf)|*.pdf|All files (*.*)|*.*"
-            path.FilterIndex = 3
-
-            If path.ShowDialog = Windows.Forms.DialogResult.OK Then
-                temp = path.FileName.ToString
-            Else
-                temp = "N/A"
-            End If
-
-            If temp.Length > 3 Then
-                If Mid(temp, (temp.Length - 3)).ToUpper = ".DOC" Or Mid(temp, (temp.Length - 3)).ToUpper = ".PDF" Or _
-                Mid(temp, (temp.Length - 4)).ToUpper = ".DOCX" Then
-                    Select Case Mid(temp, (temp.Length - 3)).ToUpper
-                        Case ".DOC"
-                            txtPSDHearingNoticeDoc.Text = temp
-                        Case "DOCX"
-                            txtPSDHearingNoticeDoc.Text = temp
-                        Case ".PDF"
-                            txtPSDHearingNoticePDF.Text = temp
-                        Case Else
-                    End Select
-                Else
-                End If
-            Else
-            End If
-            PathName = path.FileName.ToString
-            DefaultsText = ""
-
-            temp = "LastFile-" & PathName & "-eliFtsaL"
-            If File.Exists("C:\APB\Defaults.txt") Then
-                Dim reader As StreamReader = New StreamReader("C:\APB\Defaults.txt")
-                Do
-                    DefaultsText = DefaultsText & reader.ReadLine
-                Loop Until reader.Peek = -1
-                reader.Close()
-
-                If DefaultsText.IndexOf("LastFile-") <> -1 Then
-                    DefaultsText = DefaultsText.Replace(Mid(DefaultsText, ((DefaultsText.IndexOf("LastFile-")) + 1), (DefaultsText.IndexOf("-eliFtsaL")) + 9), temp)
-                Else
-                    DefaultsText = DefaultsText & vbCrLf & temp
-                End If
-
-                Dim fs As New System.IO.FileStream("C:\APB\Defaults.txt", IO.FileMode.OpenOrCreate, FileAccess.Write)
-                fs.Close()
-                Dim writer As StreamWriter = New StreamWriter("C:\APB\Defaults.txt")
-                writer.WriteLine(DefaultsText)
-                writer.Close()
-            Else
-                DefaultsText = temp
-                Dim fs As New System.IO.FileStream("C:\APB\Defaults.txt", IO.FileMode.Create, IO.FileAccess.Write)
-                fs.Close()
-                Dim writer As StreamWriter = New StreamWriter("C:\APB\Defaults.txt")
-                writer.WriteLine(DefaultsText)
-                writer.Close()
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub btnPSDFinalDet_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnPSDFinalDet.Click
-        Try
-            Dim FileName As String = ""
-            Dim path As New OpenFileDialog
-            Dim temp As String = ""
-
-            Dim DefaultsText As String = ""
-            If File.Exists("C:\APB\Defaults.txt") Then
-                Dim reader As StreamReader = New StreamReader("C:\APB\Defaults.txt")
-                Do
-                    DefaultsText = DefaultsText & reader.ReadLine
-                Loop Until reader.Peek = -1
-                reader.Close()
-
-                If DefaultsText.IndexOf("LastFile-") <> -1 Then
-                    PathName = Mid(DefaultsText, ((DefaultsText.IndexOf("LastFile-")) + 10), ((DefaultsText.IndexOf("-eliFtsaL")) - (DefaultsText.IndexOf("LastFile-") + 9)))
-                Else
-                    PathName = ""
-                End If
-            Else
-                PathName = ""
-            End If
-
-            If PathName = "" Then
-                PathName = "S:\Permit\Permit Documents"
-            End If
-
-            path.InitialDirectory = PathName
-            path.FileName = FileName
-            path.Filter = "Word files (*.doc)|*.doc|pdf files (*.pdf)|*.pdf|All files (*.*)|*.*"
-            path.FilterIndex = 3
-
-            If path.ShowDialog = Windows.Forms.DialogResult.OK Then
-                temp = path.FileName.ToString
-            Else
-                temp = "N/A"
-            End If
-
-            If temp.Length > 3 Then
-                If Mid(temp, (temp.Length - 3)).ToUpper = ".DOC" Or Mid(temp, (temp.Length - 3)).ToUpper = ".PDF" Or _
-                Mid(temp, (temp.Length - 4)).ToUpper = ".DOCX" Then
-                    Select Case Mid(temp, (temp.Length - 3)).ToUpper
-                        Case ".DOC"
-                            txtPSDFinalDetDoc.Text = temp
-                        Case "DOCX"
-                            txtPSDFinalDetDoc.Text = temp
-                        Case ".PDF"
-                            txtPSDFinalDetPDF.Text = temp
-                        Case Else
-                    End Select
-                Else
-                End If
-            Else
-            End If
-            PathName = path.FileName.ToString
-            DefaultsText = ""
-
-            temp = "LastFile-" & PathName & "-eliFtsaL"
-            If File.Exists("C:\APB\Defaults.txt") Then
-                Dim reader As StreamReader = New StreamReader("C:\APB\Defaults.txt")
-                Do
-                    DefaultsText = DefaultsText & reader.ReadLine
-                Loop Until reader.Peek = -1
-                reader.Close()
-
-                If DefaultsText.IndexOf("LastFile-") <> -1 Then
-                    DefaultsText = DefaultsText.Replace(Mid(DefaultsText, ((DefaultsText.IndexOf("LastFile-")) + 1), (DefaultsText.IndexOf("-eliFtsaL")) + 9), temp)
-                Else
-                    DefaultsText = DefaultsText & vbCrLf & temp
-                End If
-
-                Dim fs As New System.IO.FileStream("C:\APB\Defaults.txt", IO.FileMode.OpenOrCreate, FileAccess.Write)
-                fs.Close()
-                Dim writer As StreamWriter = New StreamWriter("C:\APB\Defaults.txt")
-                writer.WriteLine(DefaultsText)
-                writer.Close()
-            Else
-                DefaultsText = temp
-                Dim fs As New System.IO.FileStream("C:\APB\Defaults.txt", IO.FileMode.Create, IO.FileAccess.Write)
-                fs.Close()
-                Dim writer As StreamWriter = New StreamWriter("C:\APB\Defaults.txt")
-                writer.WriteLine(DefaultsText)
-                writer.Close()
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub btnPSDFinalPermit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnPSDFinalPermit.Click
-        Try
-            Dim FileName As String = ""
-            Dim path As New OpenFileDialog
-            Dim temp As String = ""
-
-            Dim DefaultsText As String = ""
-            If File.Exists("C:\APB\Defaults.txt") Then
-                Dim reader As StreamReader = New StreamReader("C:\APB\Defaults.txt")
-                Do
-                    DefaultsText = DefaultsText & reader.ReadLine
-                Loop Until reader.Peek = -1
-                reader.Close()
-
-                If DefaultsText.IndexOf("LastFile-") <> -1 Then
-                    PathName = Mid(DefaultsText, ((DefaultsText.IndexOf("LastFile-")) + 10), ((DefaultsText.IndexOf("-eliFtsaL")) - (DefaultsText.IndexOf("LastFile-") + 9)))
-                Else
-                    PathName = ""
-                End If
-            Else
-                PathName = ""
-            End If
-
-            If PathName = "" Then
-                PathName = "S:\Permit\Permit Documents"
-            End If
-
-            path.InitialDirectory = PathName
-            path.FileName = FileName
-            path.Filter = "Word files (*.doc)|*.doc|pdf files (*.pdf)|*.pdf|All files (*.*)|*.*"
-            path.FilterIndex = 3
-
-            If path.ShowDialog = Windows.Forms.DialogResult.OK Then
-                temp = path.FileName.ToString
-            Else
-                temp = "N/A"
-            End If
-
-            If temp.Length > 3 Then
-                If Mid(temp, (temp.Length - 3)).ToUpper = ".DOC" Or Mid(temp, (temp.Length - 3)).ToUpper = ".PDF" Or _
-                Mid(temp, (temp.Length - 4)).ToUpper = ".DOCX" Then
-                    Select Case Mid(temp, (temp.Length - 3)).ToUpper
-                        Case ".DOC"
-                            txtPSDFinalPermitDoc.Text = temp
-                        Case "DOCX"
-                            txtPSDFinalPermitDoc.Text = temp
-                        Case ".PDF"
-                            txtPSDFinalPermitPDF.Text = temp
-                        Case Else
-                    End Select
-                Else
-                End If
-            Else
-            End If
-            PathName = path.FileName.ToString
-            DefaultsText = ""
-
-            temp = "LastFile-" & PathName & "-eliFtsaL"
-            If File.Exists("C:\APB\Defaults.txt") Then
-                Dim reader As StreamReader = New StreamReader("C:\APB\Defaults.txt")
-                Do
-                    DefaultsText = DefaultsText & reader.ReadLine
-                Loop Until reader.Peek = -1
-                reader.Close()
-
-                If DefaultsText.IndexOf("LastFile-") <> -1 Then
-                    DefaultsText = DefaultsText.Replace(Mid(DefaultsText, ((DefaultsText.IndexOf("LastFile-")) + 1), (DefaultsText.IndexOf("-eliFtsaL")) + 9), temp)
-                Else
-                    DefaultsText = DefaultsText & vbCrLf & temp
-                End If
-
-                Dim fs As New System.IO.FileStream("C:\APB\Defaults.txt", IO.FileMode.OpenOrCreate, FileAccess.Write)
-                fs.Close()
-                Dim writer As StreamWriter = New StreamWriter("C:\APB\Defaults.txt")
-                writer.WriteLine(DefaultsText)
-                writer.Close()
-            Else
-                DefaultsText = temp
-                Dim fs As New System.IO.FileStream("C:\APB\Defaults.txt", IO.FileMode.Create, IO.FileAccess.Write)
-                fs.Close()
-                Dim writer As StreamWriter = New StreamWriter("C:\APB\Defaults.txt")
-                writer.WriteLine(DefaultsText)
-                writer.Close()
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub btnOtherNarrative_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOtherNarrative.Click
-        Try
-            Dim FileName As String = ""
-            Dim path As New OpenFileDialog
-            Dim temp As String = ""
-
-            Dim DefaultsText As String = ""
-            If File.Exists("C:\APB\Defaults.txt") Then
-                Dim reader As StreamReader = New StreamReader("C:\APB\Defaults.txt")
-                Do
-                    DefaultsText = DefaultsText & reader.ReadLine
-                Loop Until reader.Peek = -1
-                reader.Close()
-
-                If DefaultsText.IndexOf("LastFile-") <> -1 Then
-                    PathName = Mid(DefaultsText, ((DefaultsText.IndexOf("LastFile-")) + 10), ((DefaultsText.IndexOf("-eliFtsaL")) - (DefaultsText.IndexOf("LastFile-") + 9)))
-                Else
-                    PathName = ""
-                End If
-            Else
-                PathName = ""
-            End If
-
-            If PathName = "" Then
-                PathName = "S:\Permit\Permit Documents"
-            End If
-
-            path.InitialDirectory = PathName
-            path.FileName = FileName
-            path.Filter = "Word files (*.doc)|*.doc|pdf files (*.pdf)|*.pdf|All files (*.*)|*.*"
-            path.FilterIndex = 3
-
-            If path.ShowDialog = Windows.Forms.DialogResult.OK Then
-                temp = path.FileName.ToString
-            Else
-                temp = "N/A"
-            End If
-
-            If temp.Length > 3 Then
-                If Mid(temp, (temp.Length - 3)).ToUpper = ".DOC" Or Mid(temp, (temp.Length - 3)).ToUpper = ".PDF" Or _
-                Mid(temp, (temp.Length - 4)).ToUpper = ".DOCX" Then
-                    Select Case Mid(temp, (temp.Length - 3)).ToUpper
-                        Case ".DOC"
-                            txtOtherNarrativeDoc.Text = temp
-                        Case "DOCX"
-                            txtOtherNarrativeDoc.Text = temp
-                        Case ".PDF"
-                            txtOtherNarrativePDF.Text = temp
-                        Case Else
-                            txtOtherNarrativePDF.Text = ""
-                    End Select
-                Else
-                End If
-            Else
-            End If
-            PathName = path.FileName.ToString
-            DefaultsText = ""
-
-            temp = "LastFile-" & PathName & "-eliFtsaL"
-            If File.Exists("C:\APB\Defaults.txt") Then
-                Dim reader As StreamReader = New StreamReader("C:\APB\Defaults.txt")
-                Do
-                    DefaultsText = DefaultsText & reader.ReadLine
-                Loop Until reader.Peek = -1
-                reader.Close()
-
-                If DefaultsText.IndexOf("LastFile-") <> -1 Then
-                    DefaultsText = DefaultsText.Replace(Mid(DefaultsText, ((DefaultsText.IndexOf("LastFile-")) + 1), (DefaultsText.IndexOf("-eliFtsaL")) + 9), temp)
-                Else
-                    DefaultsText = DefaultsText & vbCrLf & temp
-                End If
-
-                Dim fs As New System.IO.FileStream("C:\APB\Defaults.txt", IO.FileMode.OpenOrCreate, FileAccess.Write)
-                fs.Close()
-                Dim writer As StreamWriter = New StreamWriter("C:\APB\Defaults.txt")
-                writer.WriteLine(DefaultsText)
-                writer.Close()
-            Else
-                DefaultsText = temp
-                Dim fs As New System.IO.FileStream("C:\APB\Defaults.txt", IO.FileMode.Create, IO.FileAccess.Write)
-                fs.Close()
-                Dim writer As StreamWriter = New StreamWriter("C:\APB\Defaults.txt")
-                writer.WriteLine(DefaultsText)
-                writer.Close()
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub btnOtherPermit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOtherPermit.Click
-        Try
-            Dim FileName As String = ""
-            Dim path As New OpenFileDialog
-            Dim temp As String = ""
-
-            Dim DefaultsText As String = ""
-            If File.Exists("C:\APB\Defaults.txt") Then
-                Dim reader As StreamReader = New StreamReader("C:\APB\Defaults.txt")
-                Do
-                    DefaultsText = DefaultsText & reader.ReadLine
-                Loop Until reader.Peek = -1
-                reader.Close()
-
-                If DefaultsText.IndexOf("LastFile-") <> -1 Then
-                    PathName = Mid(DefaultsText, ((DefaultsText.IndexOf("LastFile-")) + 10), ((DefaultsText.IndexOf("-eliFtsaL")) - (DefaultsText.IndexOf("LastFile-") + 9)))
-                Else
-                    PathName = ""
-                End If
-            Else
-                PathName = ""
-            End If
-
-            If PathName = "" Then
-                PathName = "S:\Permit\Permit Documents"
-            End If
-
-            path.InitialDirectory = PathName
-            path.FileName = FileName
-            path.Filter = "Word files (*.doc)|*.doc|pdf files (*.pdf)|*.pdf|All files (*.*)|*.*"
-            path.FilterIndex = 3
-
-            If path.ShowDialog = Windows.Forms.DialogResult.OK Then
-                temp = path.FileName.ToString
-            Else
-                temp = "N/A"
-            End If
-
-            If temp.Length > 3 Then
-                If Mid(temp, (temp.Length - 3)).ToUpper = ".DOC" Or Mid(temp, (temp.Length - 3)).ToUpper = ".PDF" Or _
-                Mid(temp, (temp.Length - 4)).ToUpper = ".DOCX" Then
-                    Select Case Mid(temp, (temp.Length - 3)).ToUpper
-                        Case ".DOC"
-                            txtOtherPermitDoc.Text = temp
-                        Case "DOCX"
-                            txtOtherPermitDoc.Text = temp
-                        Case ".PDF"
-                            txtOtherPermitPDF.Text = temp
-                        Case Else
-                    End Select
-                Else
-                End If
-            Else
-            End If
-            PathName = path.FileName.ToString
-            DefaultsText = ""
-
-            temp = "LastFile-" & PathName & "-eliFtsaL"
-            If File.Exists("C:\APB\Defaults.txt") Then
-                Dim reader As StreamReader = New StreamReader("C:\APB\Defaults.txt")
-                Do
-                    DefaultsText = DefaultsText & reader.ReadLine
-                Loop Until reader.Peek = -1
-                reader.Close()
-
-                If DefaultsText.IndexOf("LastFile-") <> -1 Then
-                    DefaultsText = DefaultsText.Replace(Mid(DefaultsText, ((DefaultsText.IndexOf("LastFile-")) + 1), (DefaultsText.IndexOf("-eliFtsaL")) + 9), temp)
-                Else
-                    DefaultsText = DefaultsText & vbCrLf & temp
-                End If
-
-                Dim fs As New System.IO.FileStream("C:\APB\Defaults.txt", IO.FileMode.OpenOrCreate, FileAccess.Write)
-                fs.Close()
-                Dim writer As StreamWriter = New StreamWriter("C:\APB\Defaults.txt")
-                writer.WriteLine(DefaultsText)
-                writer.Close()
-            Else
-                DefaultsText = temp
-                Dim fs As New System.IO.FileStream("C:\APB\Defaults.txt", IO.FileMode.Create, IO.FileAccess.Write)
-                fs.Close()
-                Dim writer As StreamWriter = New StreamWriter("C:\APB\Defaults.txt")
-                writer.WriteLine(DefaultsText)
-                writer.Close()
-            End If
-        Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub txtApplicationNumber_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txtApplicationNumber.KeyPress
-        Try
-
-            If e.KeyChar = Microsoft.VisualBasic.ChrW(13) Then
-                If txtApplicationNumber.Text <> "" Then
-                    FindApplicationInformation()
-                End If
-            End If
-        Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
     Private Sub btnOtherNarrativeDownload_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOtherNarrativeDownload.Click
         Try
             Dim Result As String = ""
@@ -5297,12 +5338,7 @@ Public Class IAIPPermitUploader
 
 #End Region
 
-    Private Sub mmiHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiHelp.Click
-        Try
-            Help.ShowHelp(Label1, HELP_URL)
-        Catch ex As Exception
-        End Try
-    End Sub
+#Region "Delete buttons"
     Private Sub btnDeletePSDAppSummary_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDeletePSDAppSummary.Click
         Try
             DeleteFile("PA")
@@ -5415,81 +5451,144 @@ Public Class IAIPPermitUploader
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+#End Region
+
+#Region "Mystery functions"
+
+    'Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
+    '    Try
+    '        Dim rowCount As String = ""
+    '        Dim FileName As String = ""
+    '        Dim RealLength As String = ""
+    '        Dim docFileLength As String = ""
+
+    '        SQL = "Select " & _
+    '        "rowcount, strFileName, " & _
+    '        "length(docPermitData) as docLength, " & _
+    '        "DocPermitData, " & _
+    '        "strDocFileSize " & _
+    '        "from AIRBranch.APBPermits " & _
+    '        "where strDocFileSize is not Null " & _
+    '        "and length(docPermitData) <> strDocFileSize " & _
+    '        "and strPDFFileSize is  null " & _
+    '        "and strFileName = 'PA-14196'  "
+
+    '        cmd = New OracleCommand(SQL, Conn)
+    '        If Conn.State = ConnectionState.Closed Then
+    '            Conn.Open()
+    '        End If
+    '        dr = cmd.ExecuteReader
+    '        While dr.Read
+    '            If IsDBNull(dr.Item("rowCount")) Then
+    '                rowCount = ""
+    '            Else
+    '                rowCount = dr.Item("rowCount")
+    '            End If
+    '            If IsDBNull(dr.Item("strFileName")) Then
+    '                FileName = ""
+    '            Else
+    '                FileName = dr.Item("strFileName")
+    '            End If
+    '            If IsDBNull(dr.Item("docLength")) Then
+    '                RealLength = ""
+    '            Else
+    '                RealLength = dr.Item("docLength")
+    '            End If
+    '            If IsDBNull(dr.Item("strDocFileSize")) Then
+    '                docFileLength = ""
+    '            Else
+    '                docFileLength = dr.Item("strDocFileSize")
+    '            End If
+
+    '            SQL = "select " & _
+    '            "DocPermitData " & _
+    '            "from " & DBNameSpace & ".APBPermits " & _
+    '            "where strFileName = '" & FileName & "' "
+
+    '            cmd = New OracleCommand(SQL, Conn)
+    '            dr2 = cmd.ExecuteReader
+
+    '            dr2.Read()
+    '            Dim b(dr2.GetBytes(0, 0, Nothing, 0, Integer.MaxValue) - 1) As Byte
+    '            dr2.GetBytes(0, 0, b, 0, b.Length)
+    '            dr2.Close()
+
+    '            Dim fs As New System.IO.FileStream("C:\Temp\tempfile.docx", IO.FileMode.Create, IO.FileAccess.Write)
+    '            fs.Write(b, 0, b.Length)
+    '            fs.Close()
 
 
-  
-    Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
-        Try
-            Dim rowCount As String = ""
-            Dim FileName As String = ""
-            Dim RealLength As String = ""
-            Dim docFileLength As String = ""
-
-            SQL = "Select " & _
-            "rowcount, strFileName, " & _
-            "length(docPermitData) as docLength, " & _
-            "DocPermitData, " & _
-            "strDocFileSize " & _
-            "from AIRBranch.APBPermits " & _
-            "where strDocFileSize is not Null " & _
-            "and length(docPermitData) <> strDocFileSize " & _
-            "and strPDFFileSize is  null " & _
-            "and strFileName = 'PA-14196'  "
-
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                If IsDBNull(dr.Item("rowCount")) Then
-                    rowCount = ""
-                Else
-                    rowCount = dr.Item("rowCount")
-                End If
-                If IsDBNull(dr.Item("strFileName")) Then
-                    FileName = ""
-                Else
-                    FileName = dr.Item("strFileName")
-                End If
-                If IsDBNull(dr.Item("docLength")) Then
-                    RealLength = ""
-                Else
-                    RealLength = dr.Item("docLength")
-                End If
-                If IsDBNull(dr.Item("strDocFileSize")) Then
-                    docFileLength = ""
-                Else
-                    docFileLength = dr.Item("strDocFileSize")
-                End If
-
-                SQL = "select " & _
-                "DocPermitData " & _
-                "from " & DBNameSpace & ".APBPermits " & _
-                "where strFileName = '" & FileName & "' "
-
-                cmd = New OracleCommand(SQL, Conn)
-                dr2 = cmd.ExecuteReader
-
-                dr2.Read()
-                Dim b(dr2.GetBytes(0, 0, Nothing, 0, Integer.MaxValue) - 1) As Byte
-                dr2.GetBytes(0, 0, b, 0, b.Length)
-                dr2.Close()
-
-                Dim fs As New System.IO.FileStream("C:\Temp\tempfile.docx", IO.FileMode.Create, IO.FileAccess.Write)
-                fs.Write(b, 0, b.Length)
-                fs.Close()
 
 
+    '        End While
+    '        dr.Close()
 
+    '        Diagnostics.Process.Start("C:\Temp")
 
-            End While
-            dr.Close()
+    '    Catch ex As Exception
 
-            Diagnostics.Process.Start("C:\Temp")
+    '    End Try
+    'End Sub
 
-        Catch ex As Exception
+    'Sub CheckApplicationStatus()
+    '    Try
+    '        Dim CloseStatus As String = ""
 
-        End Try
-    End Sub
+    '        SQL = "Select datFinalizedDate " & _
+    '        "from " & DBNameSpace & ".SSPPApplicationMaster " & _
+    '        "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
+    '        cmd = New OracleCommand(SQL, Conn)
+    '        If Conn.State = ConnectionState.Closed Then
+    '            Conn.Open()
+    '        End If
+    '        dr = cmd.ExecuteReader
+    '        While dr.Read
+    '            If IsDBNull(dr.Item("datFinalizedDate")) Then
+    '                CloseStatus = ""
+    '            Else
+    '                CloseStatus = dr.Item("datFinalizedDate")
+    '            End If
+    '        End While
+    '        dr.Close()
+    '        If CloseStatus <> "" Then
+    '            btnUploadFile.Enabled = False
+    '            btnOtherNarrative.Enabled = False
+    '            btnOtherPermit.Enabled = False
+    '            btnPSDAppSummary.Enabled = False
+    '            btnPSDDraftPermit.Enabled = False
+    '            btnPSDFinalDet.Enabled = False
+    '            btnPSDFinalPermit.Enabled = False
+    '            btnPSDHearingNotice.Enabled = False
+    '            btnPSDPrelimDet.Enabled = False
+    '            btnPSDPublicNotice.Enabled = False
+    '            btnTVDraft.Enabled = False
+    '            btnTVFinal.Enabled = False
+    '            btnTVNarrative.Enabled = False
+    '            btnTVPublicNotice.Enabled = False
+    '        Else
+    '            btnUploadFile.Enabled = True
+    '            btnOtherNarrative.Enabled = True
+    '            btnOtherPermit.Enabled = True
+    '            btnPSDAppSummary.Enabled = True
+    '            btnPSDDraftPermit.Enabled = True
+    '            btnPSDFinalDet.Enabled = True
+    '            btnPSDFinalPermit.Enabled = True
+    '            btnPSDHearingNotice.Enabled = True
+    '            btnPSDPrelimDet.Enabled = True
+    '            btnPSDPublicNotice.Enabled = True
+    '            btnTVDraft.Enabled = True
+    '            btnTVFinal.Enabled = True
+    '            btnTVNarrative.Enabled = True
+    '            btnTVPublicNotice.Enabled = True
+    '        End If
+
+    '    Catch ex As Exception
+    '        ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+    '    Finally
+
+    '    End Try
+    'End Sub
+
+#End Region
+
 End Class
