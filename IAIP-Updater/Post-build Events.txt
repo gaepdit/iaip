@@ -10,8 +10,8 @@ REM Debug build -----
 ) ELSE (
 REM Release build -----
 "$(TargetDir)IAIP-Updater\7za.exe" a "$(TargetDir)IAIP-Installer\IAIP-Installer.zip" "$(TargetDir)IAIP-Installer\IaipInstaller.msi" "$(TargetDir)IAIP-Installer\setup.exe" -mx=7
-"$(TargetDir)IAIP-Updater\7za.exe" a "$(TargetDir)IAIP-Updater\IAIP.update2_6_4.7z" "$(TargetDir)JohnGaltProject.exe" -mx=7
-"$(TargetDir)IAIP-Updater\7za.exe" a "$(TargetDir)IAIP-Updater\IAIP.update.full.7z" "$(TargetDir)JohnGaltProject.exe" "$(TargetDir)*.dll" "$(TargetDir)*.ora" -mx=7
+"$(TargetDir)IAIP-Updater\7za.exe" a "$(TargetDir)IAIP-Updater\IAIP.update2_6_4.7z" "$(TargetDir)JohnGaltProject.exe" "$(TargetDir)gaSeal.ico" -mx=7
+"$(TargetDir)IAIP-Updater\7za.exe" a "$(TargetDir)IAIP-Updater\IAIP.update.full.7z" "$(TargetDir)JohnGaltProject.exe" "$(TargetDir)*.dll" "$(TargetDir)*.ora" "$(TargetDir)gaSeal.ico" -mx=7
 copy /b "$(TargetDir)IAIP-Updater\7zsd_All.sfx" + "$(TargetDir)IAIP-Updater\config.txt" + "$(TargetDir)IAIP-Updater\IAIP.update2_6_4.7z" "$(TargetDir)IAIP-Updater\IAIP.update2_6_4.exe"
 copy /b "$(TargetDir)IAIP-Updater\7zsd_All.sfx" + "$(TargetDir)IAIP-Updater\config.txt" + "$(TargetDir)IAIP-Updater\IAIP.update.full.7z" "$(TargetDir)IAIP-Updater\IAIP.update.exe"
 copy /b "$(TargetDir)IAIP-Updater\IAIP.update.exe" "$(TargetDir)IAIP-Updater\IAIP_Update.exe"
