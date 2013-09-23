@@ -9,7 +9,7 @@ Imports System.Data
 'Imports System.Data.SqlClient
 
 Public Class ISMPManagersTools
-    Inherits System.Windows.Forms.Form
+    Inherits DefaultForm
     Dim statusBar1 As New StatusBar
     Dim panel1 As New StatusBarPanel
     Dim panel2 As New StatusBarPanel
@@ -5259,7 +5259,7 @@ Public Class ISMPManagersTools
         '
         'ISMPManagersTools
         '
-        Me.AutoScaleBaseSize = New System.Drawing.Size(5, 13)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScroll = True
         Me.AutoScrollMargin = New System.Drawing.Size(10, 10)
         Me.AutoScrollMinSize = New System.Drawing.Size(10, 10)
@@ -5268,7 +5268,6 @@ Public Class ISMPManagersTools
         Me.Controls.Add(Me.SplitterManagersTools)
         Me.Controls.Add(Me.txtProgram)
         Me.Controls.Add(Me.TBManagersTools)
-        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Menu = Me.MainMenu1
         Me.MinimumSize = New System.Drawing.Size(250, 173)
         Me.Name = "ISMPManagersTools"

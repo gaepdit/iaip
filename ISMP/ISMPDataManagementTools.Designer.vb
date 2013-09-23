@@ -1,6 +1,6 @@
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
 Partial Class ISMPDataManagementTools
-    Inherits System.Windows.Forms.Form
+    Inherits DefaultForm
 
     'Form overrides dispose to clean up the component list.
     <System.Diagnostics.DebuggerNonUserCode()> _
@@ -3926,7 +3926,7 @@ Me.lblEIYear.Font = New System.Drawing.Font("Times New Roman", 14.25!, System.Dr
 Me.lblEIYear.ForeColor = System.Drawing.SystemColors.HotTrack
 Me.lblEIYear.Location = New System.Drawing.Point(425, 4)
 Me.lblEIYear.Name = "lblEIYear"
-Me.lblEIYear.Size = New System.Drawing.Size(50, 22)
+Me.lblEIYear.Size = New System.Drawing.Size(48, 22)
 Me.lblEIYear.TabIndex = 1
 Me.lblEIYear.Text = "Year"
 '
@@ -3937,7 +3937,7 @@ Me.Label160.Font = New System.Drawing.Font("Times New Roman", 14.25!, System.Dra
 Me.Label160.ForeColor = System.Drawing.SystemColors.HotTrack
 Me.Label160.Location = New System.Drawing.Point(9, 4)
 Me.Label160.Name = "Label160"
-Me.Label160.Size = New System.Drawing.Size(410, 22)
+Me.Label160.Size = New System.Drawing.Size(407, 22)
 Me.Label160.TabIndex = 0
 Me.Label160.Text = "Emission Inventory Summary for Calendar Year "
 '
@@ -5593,7 +5593,7 @@ Me.lblYear.Font = New System.Drawing.Font("Times New Roman", 14.25!, System.Draw
 Me.lblYear.ForeColor = System.Drawing.SystemColors.HotTrack
 Me.lblYear.Location = New System.Drawing.Point(346, 18)
 Me.lblYear.Name = "lblYear"
-Me.lblYear.Size = New System.Drawing.Size(50, 22)
+Me.lblYear.Size = New System.Drawing.Size(48, 22)
 Me.lblYear.TabIndex = 1
 Me.lblYear.Text = "Year"
 '
@@ -5604,7 +5604,7 @@ Me.Label93.Font = New System.Drawing.Font("Times New Roman", 14.25!, System.Draw
 Me.Label93.ForeColor = System.Drawing.SystemColors.HotTrack
 Me.Label93.Location = New System.Drawing.Point(15, 18)
 Me.Label93.Name = "Label93"
-Me.Label93.Size = New System.Drawing.Size(325, 22)
+Me.Label93.Size = New System.Drawing.Size(322, 22)
 Me.Label93.TabIndex = 0
 Me.Label93.Text = "Emission Statement Summary of Year "
 '
@@ -9778,7 +9778,6 @@ Me.ClientSize = New System.Drawing.Size(1028, 725)
 Me.Controls.Add(Me.TCDMUTools)
 Me.Controls.Add(Me.TBDMUManagementTools)
 Me.Controls.Add(Me.StatusStrip1)
-Me.Icon = CType(resources.GetObject("$this.Icon"),System.Drawing.Icon)
 Me.Menu = Me.MainMenu1
 Me.Name = "ISMPDataManagementTools"
 Me.Text = "ISMP Data Management Tools"

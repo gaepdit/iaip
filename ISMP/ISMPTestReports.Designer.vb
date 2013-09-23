@@ -1,6 +1,6 @@
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
 Partial Class ISMPTestReports
-    Inherits System.Windows.Forms.Form
+    Inherits DefaultForm
 
     'Form overrides dispose to clean up the component list.
     <System.Diagnostics.DebuggerNonUserCode()> _
@@ -972,101 +972,101 @@ Me.MenuStrip1.Text = "MenuStrip1"
 '
 Me.mmiFile.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mmiSave, Me.mmiBack})
 Me.mmiFile.Name = "mmiFile"
-Me.mmiFile.Size = New System.Drawing.Size(35, 20)
+Me.mmiFile.Size = New System.Drawing.Size(37, 20)
 Me.mmiFile.Text = "File"
 '
 'mmiSave
 '
 Me.mmiSave.Name = "mmiSave"
-Me.mmiSave.Size = New System.Drawing.Size(109, 22)
+Me.mmiSave.Size = New System.Drawing.Size(99, 22)
 Me.mmiSave.Text = "Save"
 '
 'mmiBack
 '
 Me.mmiBack.Name = "mmiBack"
-Me.mmiBack.Size = New System.Drawing.Size(109, 22)
+Me.mmiBack.Size = New System.Drawing.Size(99, 22)
 Me.mmiBack.Text = "Back"
 '
 'mmiEdit
 '
 Me.mmiEdit.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mmiCopy, Me.mmiCut, Me.mmiPaste})
 Me.mmiEdit.Name = "mmiEdit"
-Me.mmiEdit.Size = New System.Drawing.Size(37, 20)
+Me.mmiEdit.Size = New System.Drawing.Size(39, 20)
 Me.mmiEdit.Text = "Edit"
 '
 'mmiCopy
 '
 Me.mmiCopy.Name = "mmiCopy"
-Me.mmiCopy.Size = New System.Drawing.Size(112, 22)
+Me.mmiCopy.Size = New System.Drawing.Size(102, 22)
 Me.mmiCopy.Text = "Copy"
 '
 'mmiCut
 '
 Me.mmiCut.Name = "mmiCut"
-Me.mmiCut.Size = New System.Drawing.Size(112, 22)
+Me.mmiCut.Size = New System.Drawing.Size(102, 22)
 Me.mmiCut.Text = "Cut"
 '
 'mmiPaste
 '
 Me.mmiPaste.Name = "mmiPaste"
-Me.mmiPaste.Size = New System.Drawing.Size(112, 22)
+Me.mmiPaste.Size = New System.Drawing.Size(102, 22)
 Me.mmiPaste.Text = "Paste"
 '
 'mmiView
 '
 Me.mmiView.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mmiOpenMemo})
 Me.mmiView.Name = "mmiView"
-Me.mmiView.Size = New System.Drawing.Size(41, 20)
+Me.mmiView.Size = New System.Drawing.Size(44, 20)
 Me.mmiView.Text = "View"
 '
 'mmiOpenMemo
 '
 Me.mmiOpenMemo.Name = "mmiOpenMemo"
-Me.mmiOpenMemo.Size = New System.Drawing.Size(142, 22)
+Me.mmiOpenMemo.Size = New System.Drawing.Size(141, 22)
 Me.mmiOpenMemo.Text = "Open Memo"
 '
 'mmiTool
 '
 Me.mmiTool.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mmiOpenTestLogNotification, Me.mmiOpenExcelFile, Me.mmiPrePopulate, Me.mmiDefaultCompliance, Me.mmiPrintNonConf})
 Me.mmiTool.Name = "mmiTool"
-Me.mmiTool.Size = New System.Drawing.Size(44, 20)
+Me.mmiTool.Size = New System.Drawing.Size(48, 20)
 Me.mmiTool.Text = "Tools"
 '
 'mmiOpenTestLogNotification
 '
 Me.mmiOpenTestLogNotification.Name = "mmiOpenTestLogNotification"
-Me.mmiOpenTestLogNotification.Size = New System.Drawing.Size(226, 22)
+Me.mmiOpenTestLogNotification.Size = New System.Drawing.Size(233, 22)
 Me.mmiOpenTestLogNotification.Text = "Test Log Notification"
 Me.mmiOpenTestLogNotification.ToolTipText = "Open Test Notification"
 '
 'mmiOpenExcelFile
 '
 Me.mmiOpenExcelFile.Name = "mmiOpenExcelFile"
-Me.mmiOpenExcelFile.Size = New System.Drawing.Size(226, 22)
+Me.mmiOpenExcelFile.Size = New System.Drawing.Size(233, 22)
 Me.mmiOpenExcelFile.Text = "Open Excel File"
 '
 'mmiPrePopulate
 '
 Me.mmiPrePopulate.Name = "mmiPrePopulate"
-Me.mmiPrePopulate.Size = New System.Drawing.Size(226, 22)
+Me.mmiPrePopulate.Size = New System.Drawing.Size(233, 22)
 Me.mmiPrePopulate.Text = "Pre-Populate"
 '
 'mmiDefaultCompliance
 '
 Me.mmiDefaultCompliance.Name = "mmiDefaultCompliance"
-Me.mmiDefaultCompliance.Size = New System.Drawing.Size(226, 22)
+Me.mmiDefaultCompliance.Size = New System.Drawing.Size(233, 22)
 Me.mmiDefaultCompliance.Text = "Default Compliance Manager"
 '
 'mmiPrintNonConf
 '
 Me.mmiPrintNonConf.Name = "mmiPrintNonConf"
-Me.mmiPrintNonConf.Size = New System.Drawing.Size(226, 22)
+Me.mmiPrintNonConf.Size = New System.Drawing.Size(233, 22)
 Me.mmiPrintNonConf.Text = "Print Non-Confidential Report"
 '
 'mmiHelp
 '
 Me.mmiHelp.Name = "mmiHelp"
-Me.mmiHelp.Size = New System.Drawing.Size(40, 20)
+Me.mmiHelp.Size = New System.Drawing.Size(44, 20)
 Me.mmiHelp.Text = "Help"
 '
 'ToolStrip1
@@ -1395,7 +1395,7 @@ Me.Label21.Text = "Assigned to ISMP Engineer:"
 '
 'txtAssignedToEngineer
 '
-        Me.txtAssignedToEngineer.BackColor = System.Drawing.SystemColors.Control
+Me.txtAssignedToEngineer.BackColor = System.Drawing.SystemColors.Control
 Me.txtAssignedToEngineer.Location = New System.Drawing.Point(661, 213)
 Me.txtAssignedToEngineer.Name = "txtAssignedToEngineer"
 Me.txtAssignedToEngineer.ReadOnly = true
@@ -1598,7 +1598,7 @@ Me.Label15.Text = "Compliance Manager:"
 '
 'txtUnitManager
 '
-        Me.txtUnitManager.BackColor = System.Drawing.SystemColors.Control
+Me.txtUnitManager.BackColor = System.Drawing.SystemColors.Control
 Me.txtUnitManager.Location = New System.Drawing.Point(133, 213)
 Me.txtUnitManager.Name = "txtUnitManager"
 Me.txtUnitManager.ReadOnly = true
@@ -1617,7 +1617,7 @@ Me.Label14.Text = "ISMP Unit Manager:"
 '
 'txtProgramManager
 '
-        Me.txtProgramManager.BackColor = System.Drawing.SystemColors.Control
+Me.txtProgramManager.BackColor = System.Drawing.SystemColors.Control
 Me.txtProgramManager.Location = New System.Drawing.Point(133, 190)
 Me.txtProgramManager.Name = "txtProgramManager"
 Me.txtProgramManager.ReadOnly = true
@@ -1665,7 +1665,7 @@ Me.Label11.TextAlign = System.Drawing.ContentAlignment.BottomLeft
 '
 'txtCompleteDate
 '
-        Me.txtCompleteDate.BackColor = System.Drawing.SystemColors.Control
+Me.txtCompleteDate.BackColor = System.Drawing.SystemColors.Control
 Me.txtCompleteDate.Location = New System.Drawing.Point(661, 237)
 Me.txtCompleteDate.Name = "txtCompleteDate"
 Me.txtCompleteDate.ReadOnly = true
@@ -1675,7 +1675,7 @@ Me.txtCompleteDate.TabStop = false
 '
 'txtReceivedByAPB
 '
-        Me.txtReceivedByAPB.BackColor = System.Drawing.SystemColors.Control
+Me.txtReceivedByAPB.BackColor = System.Drawing.SystemColors.Control
 Me.txtReceivedByAPB.Location = New System.Drawing.Point(661, 190)
 Me.txtReceivedByAPB.Name = "txtReceivedByAPB"
 Me.txtReceivedByAPB.ReadOnly = true
@@ -6964,7 +6964,7 @@ Me.Label318.ForeColor = System.Drawing.SystemColors.ControlText
 Me.Label318.Location = New System.Drawing.Point(279, 70)
 Me.Label318.Name = "Label318"
 Me.Label318.RightToLeft = System.Windows.Forms.RightToLeft.No
-Me.Label318.Size = New System.Drawing.Size(34, 14)
+Me.Label318.Size = New System.Drawing.Size(33, 14)
 Me.Label318.TabIndex = 572
 Me.Label318.Text = "OMIT:"
 Me.Label318.TextAlign = System.Drawing.ContentAlignment.TopRight
@@ -7355,7 +7355,7 @@ Me.Label312.ForeColor = System.Drawing.SystemColors.ControlText
 Me.Label312.Location = New System.Drawing.Point(33, 330)
 Me.Label312.Name = "Label312"
 Me.Label312.RightToLeft = System.Windows.Forms.RightToLeft.No
-Me.Label312.Size = New System.Drawing.Size(19, 14)
+Me.Label312.Size = New System.Drawing.Size(18, 14)
 Me.Label312.TabIndex = 567
 Me.Label312.Text = "11"
 Me.Label312.TextAlign = System.Drawing.ContentAlignment.TopRight
@@ -7697,7 +7697,7 @@ Me.Label187.ForeColor = System.Drawing.SystemColors.ControlText
 Me.Label187.Location = New System.Drawing.Point(524, 82)
 Me.Label187.Name = "Label187"
 Me.Label187.RightToLeft = System.Windows.Forms.RightToLeft.No
-Me.Label187.Size = New System.Drawing.Size(121, 14)
+Me.Label187.Size = New System.Drawing.Size(118, 14)
 Me.Label187.TabIndex = 546
 Me.Label187.Text = "RELATIVE ACCURACY:"
 Me.Label187.TextAlign = System.Drawing.ContentAlignment.TopRight
@@ -10162,7 +10162,6 @@ Me.Controls.Add(Me.SCTestReports)
 Me.Controls.Add(Me.StatusStrip1)
 Me.Controls.Add(Me.ToolStrip1)
 Me.Controls.Add(Me.MenuStrip1)
-Me.Icon = CType(resources.GetObject("$this.Icon"),System.Drawing.Icon)
 Me.Location = New System.Drawing.Point(25, 0)
 Me.MainMenuStrip = Me.MenuStrip1
 Me.Name = "ISMPTestReports"

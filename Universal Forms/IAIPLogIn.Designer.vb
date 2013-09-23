@@ -1,6 +1,6 @@
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
 Partial Class IAIPLogIn
-    Inherits System.Windows.Forms.Form
+    Inherits DefaultForm
 
     'Form overrides dispose to clean up the component list.
     <System.Diagnostics.DebuggerNonUserCode()> _
@@ -427,7 +427,6 @@ Partial Class IAIPLogIn
         Me.Controls.Add(Me.lblTitle)
         Me.Controls.Add(Me.btnLoginButton)
         Me.Controls.Add(Me.PictureStateSeal)
-        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Margin = New System.Windows.Forms.Padding(2)
         Me.Menu = Me.MainMenu1
         Me.Name = "IAIPLogIn"

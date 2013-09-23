@@ -1,6 +1,6 @@
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
 Partial Class SSPPPublicNoticiesAndAdvisories
-    Inherits System.Windows.Forms.Form
+    Inherits DefaultForm
 
     'Form overrides dispose to clean up the component list.
     <System.Diagnostics.DebuggerNonUserCode()> _
@@ -108,13 +108,13 @@ Partial Class SSPPPublicNoticiesAndAdvisories
         'mmiFile
         '
         Me.mmiFile.Name = "mmiFile"
-        Me.mmiFile.Size = New System.Drawing.Size(35, 20)
+        Me.mmiFile.Size = New System.Drawing.Size(37, 20)
         Me.mmiFile.Text = "File"
         '
         'mmiHelp
         '
         Me.mmiHelp.Name = "mmiHelp"
-        Me.mmiHelp.Size = New System.Drawing.Size(40, 20)
+        Me.mmiHelp.Size = New System.Drawing.Size(44, 20)
         Me.mmiHelp.Text = "Help"
         '
         'StatusStrip1
@@ -674,7 +674,6 @@ Partial Class SSPPPublicNoticiesAndAdvisories
         Me.Controls.Add(Me.ToolStrip1)
         Me.Controls.Add(Me.StatusStrip1)
         Me.Controls.Add(Me.MenuStrip1)
-        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MainMenuStrip = Me.MenuStrip1
         Me.Name = "SSPPPublicNoticiesAndAdvisories"
         Me.Text = "SSPP Public Noticies And Advisories"

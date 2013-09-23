@@ -1,6 +1,6 @@
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
 Partial Class IAIPEditAirProgramPollutants
-    Inherits System.Windows.Forms.Form
+    Inherits DefaultForm
 
     'Form overrides dispose to clean up the component list.
     <System.Diagnostics.DebuggerNonUserCode()> _
@@ -87,50 +87,50 @@ Partial Class IAIPEditAirProgramPollutants
         '
         Me.FileToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mmiSave, Me.mmiBack})
         Me.FileToolStripMenuItem.Name = "FileToolStripMenuItem"
-        Me.FileToolStripMenuItem.Size = New System.Drawing.Size(35, 20)
+        Me.FileToolStripMenuItem.Size = New System.Drawing.Size(37, 20)
         Me.FileToolStripMenuItem.Text = "File"
         '
         'mmiSave
         '
         Me.mmiSave.Name = "mmiSave"
-        Me.mmiSave.Size = New System.Drawing.Size(109, 22)
+        Me.mmiSave.Size = New System.Drawing.Size(99, 22)
         Me.mmiSave.Text = "Save"
         '
         'mmiBack
         '
         Me.mmiBack.Name = "mmiBack"
-        Me.mmiBack.Size = New System.Drawing.Size(109, 22)
+        Me.mmiBack.Size = New System.Drawing.Size(99, 22)
         Me.mmiBack.Text = "Back"
         '
         'EditToolStripMenuItem
         '
         Me.EditToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mmiCut, Me.mmiCopy, Me.mmiPaste})
         Me.EditToolStripMenuItem.Name = "EditToolStripMenuItem"
-        Me.EditToolStripMenuItem.Size = New System.Drawing.Size(37, 20)
+        Me.EditToolStripMenuItem.Size = New System.Drawing.Size(39, 20)
         Me.EditToolStripMenuItem.Text = "Edit"
         '
         'mmiCut
         '
         Me.mmiCut.Name = "mmiCut"
-        Me.mmiCut.Size = New System.Drawing.Size(112, 22)
+        Me.mmiCut.Size = New System.Drawing.Size(102, 22)
         Me.mmiCut.Text = "Cut"
         '
         'mmiCopy
         '
         Me.mmiCopy.Name = "mmiCopy"
-        Me.mmiCopy.Size = New System.Drawing.Size(112, 22)
+        Me.mmiCopy.Size = New System.Drawing.Size(102, 22)
         Me.mmiCopy.Text = "Copy"
         '
         'mmiPaste
         '
         Me.mmiPaste.Name = "mmiPaste"
-        Me.mmiPaste.Size = New System.Drawing.Size(112, 22)
+        Me.mmiPaste.Size = New System.Drawing.Size(102, 22)
         Me.mmiPaste.Text = "Paste"
         '
         'mmiHelp
         '
         Me.mmiHelp.Name = "mmiHelp"
-        Me.mmiHelp.Size = New System.Drawing.Size(40, 20)
+        Me.mmiHelp.Size = New System.Drawing.Size(44, 20)
         Me.mmiHelp.Text = "Help"
         '
         'TSEditAirPrograms
@@ -478,7 +478,6 @@ Partial Class IAIPEditAirProgramPollutants
         Me.Controls.Add(Me.StatusStrip1)
         Me.Controls.Add(Me.TSEditAirPrograms)
         Me.Controls.Add(Me.MenuStrip1)
-        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MainMenuStrip = Me.MenuStrip1
         Me.Name = "IAIPEditAirProgramPollutants"
         Me.Text = "Edit Air Program Pollutants"

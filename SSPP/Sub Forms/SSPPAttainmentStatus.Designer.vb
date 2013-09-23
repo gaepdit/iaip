@@ -1,6 +1,6 @@
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
 Partial Class SSPPAttainmentStatus
-    Inherits System.Windows.Forms.Form
+    Inherits DefaultForm
 
     'Form overrides dispose to clean up the component list.
     <System.Diagnostics.DebuggerNonUserCode()> _
@@ -580,7 +580,6 @@ Partial Class SSPPAttainmentStatus
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.TBAttainmentStatus)
         Me.Controls.Add(Me.StatusStrip1)
-        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Menu = Me.MainMenu1
         Me.Name = "SSPPAttainmentStatus"
         Me.Text = "SSPP Attainment Status"

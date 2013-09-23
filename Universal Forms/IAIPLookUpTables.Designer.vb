@@ -1,6 +1,6 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
 Partial Class IAIPLookUpTables
-    Inherits System.Windows.Forms.Form
+    Inherits DefaultForm
 
     'Form overrides dispose to clean up the component list.
     <System.Diagnostics.DebuggerNonUserCode()> _
@@ -958,7 +958,6 @@ Partial Class IAIPLookUpTables
         Me.ClientSize = New System.Drawing.Size(792, 545)
         Me.Controls.Add(Me.TCLookUpTables)
         Me.Controls.Add(Me.StatusStrip1)
-        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Menu = Me.MainMenu1
         Me.Name = "IAIPLookUpTables"
         Me.Text = "IAIP Look Up Tables"

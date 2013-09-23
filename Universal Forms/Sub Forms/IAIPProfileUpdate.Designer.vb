@@ -1,6 +1,6 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
 Partial Class IAIPProfileUpdate
-    Inherits System.Windows.Forms.Form
+    Inherits DefaultForm
 
     'Form overrides dispose to clean up the component list.
     <System.Diagnostics.DebuggerNonUserCode()> _
@@ -22,7 +22,6 @@ Partial Class IAIPProfileUpdate
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(IAIPProfileUpdate))
         Me.Label1 = New System.Windows.Forms.Label
         Me.txtEmailAddress = New System.Windows.Forms.TextBox
         Me.btnUpdateEmail = New System.Windows.Forms.Button
@@ -30,8 +29,8 @@ Partial Class IAIPProfileUpdate
         Me.lblPhoneNumber = New System.Windows.Forms.Label
         Me.lblValidateIDPassword = New System.Windows.Forms.Label
         Me.pnlEmailAddress = New System.Windows.Forms.Panel
-        Me.btnUpdateAllData = New System.Windows.Forms.Button
         Me.btnUpdatePassword = New System.Windows.Forms.Button
+        Me.btnUpdateAllData = New System.Windows.Forms.Button
         Me.pnlPhoneNumber = New System.Windows.Forms.Panel
         Me.mtbPhoneNumber = New System.Windows.Forms.MaskedTextBox
         Me.Label2 = New System.Windows.Forms.Label
@@ -114,17 +113,6 @@ Partial Class IAIPProfileUpdate
         Me.pnlEmailAddress.Size = New System.Drawing.Size(404, 62)
         Me.pnlEmailAddress.TabIndex = 7
         '
-        'btnUpdateAllData
-        '
-        Me.btnUpdateAllData.AutoSize = True
-        Me.btnUpdateAllData.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnUpdateAllData.Location = New System.Drawing.Point(263, 58)
-        Me.btnUpdateAllData.Name = "btnUpdateAllData"
-        Me.btnUpdateAllData.Size = New System.Drawing.Size(78, 23)
-        Me.btnUpdateAllData.TabIndex = 10
-        Me.btnUpdateAllData.Text = "Update Data"
-        Me.btnUpdateAllData.UseVisualStyleBackColor = True
-        '
         'btnUpdatePassword
         '
         Me.btnUpdatePassword.AutoSize = True
@@ -136,6 +124,17 @@ Partial Class IAIPProfileUpdate
         Me.btnUpdatePassword.Text = "Update Password"
         Me.btnUpdatePassword.UseVisualStyleBackColor = True
         Me.btnUpdatePassword.Visible = False
+        '
+        'btnUpdateAllData
+        '
+        Me.btnUpdateAllData.AutoSize = True
+        Me.btnUpdateAllData.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.btnUpdateAllData.Location = New System.Drawing.Point(263, 58)
+        Me.btnUpdateAllData.Name = "btnUpdateAllData"
+        Me.btnUpdateAllData.Size = New System.Drawing.Size(78, 23)
+        Me.btnUpdateAllData.TabIndex = 10
+        Me.btnUpdateAllData.Text = "Update Data"
+        Me.btnUpdateAllData.UseVisualStyleBackColor = True
         '
         'pnlPhoneNumber
         '
@@ -247,7 +246,6 @@ Partial Class IAIPProfileUpdate
         Me.Controls.Add(Me.pnlUserIDPassword)
         Me.Controls.Add(Me.pnlPhoneNumber)
         Me.Controls.Add(Me.pnlEmailAddress)
-        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "IAIPProfileUpdate"
         Me.Text = "IAIP Profile Update"
         Me.pnlEmailAddress.ResumeLayout(False)

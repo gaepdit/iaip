@@ -1,6 +1,6 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
 Partial Class MASPRegistrationTool
-    Inherits System.Windows.Forms.Form
+    Inherits DefaultForm
 
     'Form overrides dispose to clean up the component list.
     <System.Diagnostics.DebuggerNonUserCode()> _
@@ -23,7 +23,6 @@ Partial Class MASPRegistrationTool
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(MASPRegistrationTool))
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip
         Me.ToolStripProgressBar1 = New System.Windows.Forms.ToolStripProgressBar
         Me.Panel1 = New System.Windows.Forms.ToolStripStatusLabel
@@ -1647,7 +1646,6 @@ Partial Class MASPRegistrationTool
         Me.Controls.Add(Me.TabControl1)
         Me.Controls.Add(Me.StatusStrip1)
         Me.Controls.Add(Me.Panel5)
-        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Menu = Me.MainMenu1
         Me.Name = "MASPRegistrationTool"
         Me.Text = "Registration Tool"

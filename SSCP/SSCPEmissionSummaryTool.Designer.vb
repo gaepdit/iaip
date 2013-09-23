@@ -1,6 +1,6 @@
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
 Partial Class SSCPEmissionSummaryTool
-    Inherits System.Windows.Forms.Form
+    Inherits DefaultForm
 
     'Form overrides dispose to clean up the component list.
     <System.Diagnostics.DebuggerNonUserCode()> _
@@ -19,7 +19,6 @@ Partial Class SSCPEmissionSummaryTool
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(SSCPEmissionSummaryTool))
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip
         Me.pnl1 = New System.Windows.Forms.ToolStripStatusLabel
         Me.pnl2 = New System.Windows.Forms.ToolStripStatusLabel
@@ -229,25 +228,25 @@ Partial Class SSCPEmissionSummaryTool
         '
         Me.FileToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mmiBack})
         Me.FileToolStripMenuItem.Name = "FileToolStripMenuItem"
-        Me.FileToolStripMenuItem.Size = New System.Drawing.Size(35, 20)
+        Me.FileToolStripMenuItem.Size = New System.Drawing.Size(37, 20)
         Me.FileToolStripMenuItem.Text = "File"
         '
         'mmiBack
         '
         Me.mmiBack.Name = "mmiBack"
-        Me.mmiBack.Size = New System.Drawing.Size(107, 22)
+        Me.mmiBack.Size = New System.Drawing.Size(99, 22)
         Me.mmiBack.Text = "Back"
         '
         'EditToolStripMenuItem
         '
         Me.EditToolStripMenuItem.Name = "EditToolStripMenuItem"
-        Me.EditToolStripMenuItem.Size = New System.Drawing.Size(37, 20)
+        Me.EditToolStripMenuItem.Size = New System.Drawing.Size(39, 20)
         Me.EditToolStripMenuItem.Text = "Edit"
         '
         'HelpToolStripMenuItem
         '
         Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
-        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(40, 20)
+        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(44, 20)
         Me.HelpToolStripMenuItem.Text = "Help"
         '
         'SplitContainer1
@@ -686,7 +685,7 @@ Partial Class SSCPEmissionSummaryTool
         Me.lblYear.ForeColor = System.Drawing.SystemColors.HotTrack
         Me.lblYear.Location = New System.Drawing.Point(346, 18)
         Me.lblYear.Name = "lblYear"
-        Me.lblYear.Size = New System.Drawing.Size(50, 22)
+        Me.lblYear.Size = New System.Drawing.Size(48, 22)
         Me.lblYear.TabIndex = 1
         Me.lblYear.Text = "Year"
         '
@@ -697,7 +696,7 @@ Partial Class SSCPEmissionSummaryTool
         Me.Label93.ForeColor = System.Drawing.SystemColors.HotTrack
         Me.Label93.Location = New System.Drawing.Point(15, 18)
         Me.Label93.Name = "Label93"
-        Me.Label93.Size = New System.Drawing.Size(333, 22)
+        Me.Label93.Size = New System.Drawing.Size(330, 22)
         Me.Label93.TabIndex = 0
         Me.Label93.Text = "Emissions Statement Summary of Year "
         '
@@ -1550,7 +1549,6 @@ Partial Class SSCPEmissionSummaryTool
         Me.Controls.Add(Me.TCEmissionTools)
         Me.Controls.Add(Me.StatusStrip1)
         Me.Controls.Add(Me.MenuStrip1)
-        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "SSCPEmissionSummaryTool"
         Me.Text = "Emissions Summary Tool"
         Me.StatusStrip1.ResumeLayout(False)

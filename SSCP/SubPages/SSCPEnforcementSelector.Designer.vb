@@ -1,6 +1,6 @@
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
 Partial Class SSCPEnforcementSelector
-    Inherits System.Windows.Forms.Form
+    Inherits DefaultForm
 
     'Form overrides dispose to clean up the component list.
     <System.Diagnostics.DebuggerNonUserCode()> _
@@ -350,7 +350,6 @@ Partial Class SSCPEnforcementSelector
         Me.Controls.Add(Me.dgvSSCPEnforcement)
         Me.Controls.Add(Me.PanelEnforcement)
         Me.Controls.Add(Me.TBSSCPFCESelector)
-        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Menu = Me.MainMenu1
         Me.Name = "SSCPEnforcementSelector"
         Me.Text = "Enforcement Selector"

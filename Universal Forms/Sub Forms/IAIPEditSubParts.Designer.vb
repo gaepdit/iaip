@@ -1,6 +1,6 @@
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
 Partial Class IAIPEditSubParts
-    Inherits System.Windows.Forms.Form
+    Inherits DefaultForm
 
     'Form overrides dispose to clean up the component list.
     <System.Diagnostics.DebuggerNonUserCode()> _
@@ -1120,7 +1120,6 @@ Partial Class IAIPEditSubParts
         Me.Controls.Add(Me.txtFacilityName)
         Me.Controls.Add(Me.TBEditFacilityLocation)
         Me.Controls.Add(Me.StatusStrip1)
-        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Menu = Me.MainMenu1
         Me.Name = "IAIPEditSubParts"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.Manual

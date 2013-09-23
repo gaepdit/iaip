@@ -1,6 +1,6 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
 Partial Class IaipFacilitySummaryPrint
-    Inherits System.Windows.Forms.Form
+    Inherits DefaultForm
 
     'Form overrides dispose to clean up the component list.
     <System.Diagnostics.DebuggerNonUserCode()> _
@@ -22,7 +22,6 @@ Partial Class IaipFacilitySummaryPrint
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(IaipFacilitySummaryPrint))
         Me.Panel1 = New System.Windows.Forms.Panel
         Me.FacilityName = New System.Windows.Forms.TextBox
         Me.FacilityLabel = New System.Windows.Forms.Label
@@ -169,7 +168,6 @@ Partial Class IaipFacilitySummaryPrint
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(406, 160)
         Me.Controls.Add(Me.Panel1)
-        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "IaipFacilitySummaryPrint"
         Me.Text = "Print Facility Summary"
         Me.Panel1.ResumeLayout(False)

@@ -3,7 +3,7 @@ Imports System.Data.OracleClient
 Imports System.IO
 
 Public Class ISMPDataManagementTools
-    Inherits System.Windows.Forms.Form
+    Inherits DefaultForm
 
     Dim SQL, SQL2, SQL3 As String
     Dim cmd, cmd2, cmd3 As OracleCommand

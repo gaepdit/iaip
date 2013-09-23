@@ -2,7 +2,7 @@ Imports System.Data.OracleClient
 
 
 Public Class SSCPFacAssignment
-    Inherits System.Windows.Forms.Form
+    Inherits DefaultForm
 
     Dim statusBar1 As New StatusBar
     Dim panel1 As New StatusBarPanel
@@ -384,12 +384,11 @@ Public Class SSCPFacAssignment
         '
         'SSCPFacAssignment
         '
-        Me.AutoScaleBaseSize = New System.Drawing.Size(5, 13)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.ClientSize = New System.Drawing.Size(792, 193)
         Me.Controls.Add(Me.PanelFaciltiyAssignmentLower)
         Me.Controls.Add(Me.GBFacilityData)
         Me.Controls.Add(Me.TBFacilityAssignment)
-        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Menu = Me.MainMenu1
         Me.Name = "SSCPFacAssignment"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.Manual

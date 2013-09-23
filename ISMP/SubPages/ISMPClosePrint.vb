@@ -2,7 +2,7 @@ Imports System.Data.OracleClient
 
 
 Public Class ISMPClosePrint
-    Inherits System.Windows.Forms.Form
+    Inherits DefaultForm
     Dim statusBar1 As New StatusBar
     Dim panel1 As New StatusBarPanel
     Dim panel2 As New StatusBarPanel
@@ -109,10 +109,10 @@ Public Class ISMPClosePrint
     Friend WithEvents mmiPrintTestReport As System.Windows.Forms.MenuItem
     <System.Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container
-        Dim resources As System.Resources.ResourceManager = New System.Resources.ResourceManager(GetType(ISMPClosePrint))
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(ISMPClosePrint))
         Me.txtOrigin = New System.Windows.Forms.TextBox
         Me.Image_List_All = New System.Windows.Forms.ImageList(Me.components)
-        Me.MainMenu1 = New System.Windows.Forms.MainMenu
+        Me.MainMenu1 = New System.Windows.Forms.MainMenu(Me.components)
         Me.MenuItem1 = New System.Windows.Forms.MenuItem
         Me.MmiSave = New System.Windows.Forms.MenuItem
         Me.MenuItem10 = New System.Windows.Forms.MenuItem
@@ -187,15 +187,97 @@ Public Class ISMPClosePrint
         Me.txtOrigin.Name = "txtOrigin"
         Me.txtOrigin.Size = New System.Drawing.Size(8, 20)
         Me.txtOrigin.TabIndex = 3
-        Me.txtOrigin.Text = ""
         Me.txtOrigin.Visible = False
         '
         'Image_List_All
         '
-        Me.Image_List_All.ColorDepth = System.Windows.Forms.ColorDepth.Depth16Bit
-        Me.Image_List_All.ImageSize = New System.Drawing.Size(16, 16)
         Me.Image_List_All.ImageStream = CType(resources.GetObject("Image_List_All.ImageStream"), System.Windows.Forms.ImageListStreamer)
         Me.Image_List_All.TransparentColor = System.Drawing.Color.Transparent
+        Me.Image_List_All.Images.SetKeyName(0, "")
+        Me.Image_List_All.Images.SetKeyName(1, "")
+        Me.Image_List_All.Images.SetKeyName(2, "")
+        Me.Image_List_All.Images.SetKeyName(3, "")
+        Me.Image_List_All.Images.SetKeyName(4, "")
+        Me.Image_List_All.Images.SetKeyName(5, "")
+        Me.Image_List_All.Images.SetKeyName(6, "")
+        Me.Image_List_All.Images.SetKeyName(7, "")
+        Me.Image_List_All.Images.SetKeyName(8, "")
+        Me.Image_List_All.Images.SetKeyName(9, "")
+        Me.Image_List_All.Images.SetKeyName(10, "")
+        Me.Image_List_All.Images.SetKeyName(11, "")
+        Me.Image_List_All.Images.SetKeyName(12, "")
+        Me.Image_List_All.Images.SetKeyName(13, "")
+        Me.Image_List_All.Images.SetKeyName(14, "")
+        Me.Image_List_All.Images.SetKeyName(15, "")
+        Me.Image_List_All.Images.SetKeyName(16, "")
+        Me.Image_List_All.Images.SetKeyName(17, "")
+        Me.Image_List_All.Images.SetKeyName(18, "")
+        Me.Image_List_All.Images.SetKeyName(19, "")
+        Me.Image_List_All.Images.SetKeyName(20, "")
+        Me.Image_List_All.Images.SetKeyName(21, "")
+        Me.Image_List_All.Images.SetKeyName(22, "")
+        Me.Image_List_All.Images.SetKeyName(23, "")
+        Me.Image_List_All.Images.SetKeyName(24, "")
+        Me.Image_List_All.Images.SetKeyName(25, "")
+        Me.Image_List_All.Images.SetKeyName(26, "")
+        Me.Image_List_All.Images.SetKeyName(27, "")
+        Me.Image_List_All.Images.SetKeyName(28, "")
+        Me.Image_List_All.Images.SetKeyName(29, "")
+        Me.Image_List_All.Images.SetKeyName(30, "")
+        Me.Image_List_All.Images.SetKeyName(31, "")
+        Me.Image_List_All.Images.SetKeyName(32, "")
+        Me.Image_List_All.Images.SetKeyName(33, "")
+        Me.Image_List_All.Images.SetKeyName(34, "")
+        Me.Image_List_All.Images.SetKeyName(35, "")
+        Me.Image_List_All.Images.SetKeyName(36, "")
+        Me.Image_List_All.Images.SetKeyName(37, "")
+        Me.Image_List_All.Images.SetKeyName(38, "")
+        Me.Image_List_All.Images.SetKeyName(39, "")
+        Me.Image_List_All.Images.SetKeyName(40, "")
+        Me.Image_List_All.Images.SetKeyName(41, "")
+        Me.Image_List_All.Images.SetKeyName(42, "")
+        Me.Image_List_All.Images.SetKeyName(43, "")
+        Me.Image_List_All.Images.SetKeyName(44, "")
+        Me.Image_List_All.Images.SetKeyName(45, "")
+        Me.Image_List_All.Images.SetKeyName(46, "")
+        Me.Image_List_All.Images.SetKeyName(47, "")
+        Me.Image_List_All.Images.SetKeyName(48, "")
+        Me.Image_List_All.Images.SetKeyName(49, "")
+        Me.Image_List_All.Images.SetKeyName(50, "")
+        Me.Image_List_All.Images.SetKeyName(51, "")
+        Me.Image_List_All.Images.SetKeyName(52, "")
+        Me.Image_List_All.Images.SetKeyName(53, "")
+        Me.Image_List_All.Images.SetKeyName(54, "")
+        Me.Image_List_All.Images.SetKeyName(55, "")
+        Me.Image_List_All.Images.SetKeyName(56, "")
+        Me.Image_List_All.Images.SetKeyName(57, "")
+        Me.Image_List_All.Images.SetKeyName(58, "")
+        Me.Image_List_All.Images.SetKeyName(59, "")
+        Me.Image_List_All.Images.SetKeyName(60, "")
+        Me.Image_List_All.Images.SetKeyName(61, "")
+        Me.Image_List_All.Images.SetKeyName(62, "")
+        Me.Image_List_All.Images.SetKeyName(63, "")
+        Me.Image_List_All.Images.SetKeyName(64, "")
+        Me.Image_List_All.Images.SetKeyName(65, "")
+        Me.Image_List_All.Images.SetKeyName(66, "")
+        Me.Image_List_All.Images.SetKeyName(67, "")
+        Me.Image_List_All.Images.SetKeyName(68, "")
+        Me.Image_List_All.Images.SetKeyName(69, "")
+        Me.Image_List_All.Images.SetKeyName(70, "")
+        Me.Image_List_All.Images.SetKeyName(71, "")
+        Me.Image_List_All.Images.SetKeyName(72, "")
+        Me.Image_List_All.Images.SetKeyName(73, "")
+        Me.Image_List_All.Images.SetKeyName(74, "")
+        Me.Image_List_All.Images.SetKeyName(75, "")
+        Me.Image_List_All.Images.SetKeyName(76, "")
+        Me.Image_List_All.Images.SetKeyName(77, "")
+        Me.Image_List_All.Images.SetKeyName(78, "")
+        Me.Image_List_All.Images.SetKeyName(79, "")
+        Me.Image_List_All.Images.SetKeyName(80, "")
+        Me.Image_List_All.Images.SetKeyName(81, "")
+        Me.Image_List_All.Images.SetKeyName(82, "")
+        Me.Image_List_All.Images.SetKeyName(83, "")
+        Me.Image_List_All.Images.SetKeyName(84, "")
         '
         'MainMenu1
         '
@@ -285,16 +367,19 @@ Public Class ISMPClosePrint
         'TbbSave
         '
         Me.TbbSave.ImageIndex = 65
+        Me.TbbSave.Name = "TbbSave"
         Me.TbbSave.ToolTipText = "Save"
         '
         'TbbPrint
         '
         Me.TbbPrint.ImageIndex = 56
+        Me.TbbPrint.Name = "TbbPrint"
         Me.TbbPrint.ToolTipText = "Print"
         '
         'TbbBack
         '
         Me.TbbBack.ImageIndex = 2
+        Me.TbbBack.Name = "TbbBack"
         Me.TbbBack.ToolTipText = "Back"
         '
         'GBFacilityData
@@ -319,14 +404,13 @@ Public Class ISMPClosePrint
         Me.txtAIRSNumber.ReadOnly = True
         Me.txtAIRSNumber.Size = New System.Drawing.Size(72, 20)
         Me.txtAIRSNumber.TabIndex = 144
-        Me.txtAIRSNumber.Text = ""
         '
         'Label1
         '
         Me.Label1.AutoSize = True
         Me.Label1.Location = New System.Drawing.Point(16, 18)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(79, 16)
+        Me.Label1.Size = New System.Drawing.Size(76, 13)
         Me.Label1.TabIndex = 141
         Me.Label1.Text = "Facility Name: "
         '
@@ -337,7 +421,6 @@ Public Class ISMPClosePrint
         Me.txtFacilityName.ReadOnly = True
         Me.txtFacilityName.Size = New System.Drawing.Size(184, 20)
         Me.txtFacilityName.TabIndex = 143
-        Me.txtFacilityName.Text = ""
         '
         'txtReferenceNumber
         '
@@ -346,14 +429,13 @@ Public Class ISMPClosePrint
         Me.txtReferenceNumber.ReadOnly = True
         Me.txtReferenceNumber.Size = New System.Drawing.Size(80, 20)
         Me.txtReferenceNumber.TabIndex = 146
-        Me.txtReferenceNumber.Text = ""
         '
         'Label3
         '
         Me.Label3.AutoSize = True
         Me.Label3.Location = New System.Drawing.Point(368, 18)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(103, 16)
+        Me.Label3.Size = New System.Drawing.Size(100, 13)
         Me.Label3.TabIndex = 145
         Me.Label3.Text = "Reference Number:"
         '
@@ -362,7 +444,7 @@ Public Class ISMPClosePrint
         Me.Label2.AutoSize = True
         Me.Label2.Location = New System.Drawing.Point(16, 42)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(77, 16)
+        Me.Label2.Size = New System.Drawing.Size(75, 13)
         Me.Label2.TabIndex = 142
         Me.Label2.Text = "AIRS Number:"
         '
@@ -371,7 +453,7 @@ Public Class ISMPClosePrint
         Me.Label4.AutoSize = True
         Me.Label4.Location = New System.Drawing.Point(240, 32)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(30, 16)
+        Me.Label4.Size = New System.Drawing.Size(31, 13)
         Me.Label4.TabIndex = 151
         Me.Label4.Text = "Days"
         '
@@ -380,15 +462,15 @@ Public Class ISMPClosePrint
         Me.txtDaysInAPB.Location = New System.Drawing.Point(128, 30)
         Me.txtDaysInAPB.Name = "txtDaysInAPB"
         Me.txtDaysInAPB.ReadOnly = True
+        Me.txtDaysInAPB.Size = New System.Drawing.Size(100, 20)
         Me.txtDaysInAPB.TabIndex = 150
-        Me.txtDaysInAPB.Text = ""
         '
         'Label24
         '
         Me.Label24.AutoSize = True
         Me.Label24.Location = New System.Drawing.Point(24, 32)
         Me.Label24.Name = "Label24"
-        Me.Label24.Size = New System.Drawing.Size(99, 16)
+        Me.Label24.Size = New System.Drawing.Size(96, 13)
         Me.Label24.TabIndex = 149
         Me.Label24.Text = "Total Days in APB:"
         '
@@ -434,7 +516,7 @@ Public Class ISMPClosePrint
         Me.Label17.AutoSize = True
         Me.Label17.Location = New System.Drawing.Point(232, 17)
         Me.Label17.Name = "Label17"
-        Me.Label17.Size = New System.Drawing.Size(70, 16)
+        Me.Label17.Size = New System.Drawing.Size(68, 13)
         Me.Label17.TabIndex = 152
         Me.Label17.Text = "Date Closed:"
         '
@@ -500,7 +582,7 @@ Public Class ISMPClosePrint
         Me.Label7.AutoSize = True
         Me.Label7.Location = New System.Drawing.Point(536, 160)
         Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(38, 16)
+        Me.Label7.Size = New System.Drawing.Size(38, 13)
         Me.Label7.TabIndex = 183
         Me.Label7.Text = "Count:"
         '
@@ -511,7 +593,6 @@ Public Class ISMPClosePrint
         Me.txtTestLinksCount.ReadOnly = True
         Me.txtTestLinksCount.Size = New System.Drawing.Size(40, 20)
         Me.txtTestLinksCount.TabIndex = 182
-        Me.txtTestLinksCount.Text = ""
         '
         'llbEmissionLog
         '
@@ -527,7 +608,6 @@ Public Class ISMPClosePrint
         Me.txtEmissionLog.ReadOnly = True
         Me.txtEmissionLog.Size = New System.Drawing.Size(56, 20)
         Me.txtEmissionLog.TabIndex = 180
-        Me.txtEmissionLog.Text = ""
         '
         'Label18
         '
@@ -542,7 +622,7 @@ Public Class ISMPClosePrint
         Me.Label6.AutoSize = True
         Me.Label6.Location = New System.Drawing.Point(368, 32)
         Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(151, 16)
+        Me.Label6.Size = New System.Drawing.Size(144, 13)
         Me.Label6.TabIndex = 176
         Me.Label6.Text = "Test linked to Emissions Log:"
         '
@@ -553,14 +633,13 @@ Public Class ISMPClosePrint
         Me.txtTestDateEnd.ReadOnly = True
         Me.txtTestDateEnd.Size = New System.Drawing.Size(96, 20)
         Me.txtTestDateEnd.TabIndex = 175
-        Me.txtTestDateEnd.Text = ""
         '
         'Label19
         '
         Me.Label19.AutoSize = True
         Me.Label19.Location = New System.Drawing.Point(312, 58)
         Me.Label19.Name = "Label19"
-        Me.Label19.Size = New System.Drawing.Size(30, 16)
+        Me.Label19.Size = New System.Drawing.Size(31, 13)
         Me.Label19.TabIndex = 173
         Me.Label19.Text = "Days"
         '
@@ -571,7 +650,6 @@ Public Class ISMPClosePrint
         Me.txtTestDateStart.ReadOnly = True
         Me.txtTestDateStart.Size = New System.Drawing.Size(96, 20)
         Me.txtTestDateStart.TabIndex = 172
-        Me.txtTestDateStart.Text = ""
         '
         'txtComplianceStatus
         '
@@ -580,7 +658,6 @@ Public Class ISMPClosePrint
         Me.txtComplianceStatus.ReadOnly = True
         Me.txtComplianceStatus.Size = New System.Drawing.Size(200, 20)
         Me.txtComplianceStatus.TabIndex = 171
-        Me.txtComplianceStatus.Text = ""
         '
         'txtSourceTested
         '
@@ -589,7 +666,6 @@ Public Class ISMPClosePrint
         Me.txtSourceTested.ReadOnly = True
         Me.txtSourceTested.Size = New System.Drawing.Size(200, 20)
         Me.txtSourceTested.TabIndex = 168
-        Me.txtSourceTested.Text = ""
         '
         'txtPollutant
         '
@@ -598,7 +674,6 @@ Public Class ISMPClosePrint
         Me.txtPollutant.ReadOnly = True
         Me.txtPollutant.Size = New System.Drawing.Size(200, 20)
         Me.txtPollutant.TabIndex = 167
-        Me.txtPollutant.Text = ""
         '
         'txtEngineer
         '
@@ -607,7 +682,6 @@ Public Class ISMPClosePrint
         Me.txtEngineer.ReadOnly = True
         Me.txtEngineer.Size = New System.Drawing.Size(40, 20)
         Me.txtEngineer.TabIndex = 166
-        Me.txtEngineer.Text = ""
         '
         'txtUnitManager
         '
@@ -616,7 +690,6 @@ Public Class ISMPClosePrint
         Me.txtUnitManager.ReadOnly = True
         Me.txtUnitManager.Size = New System.Drawing.Size(40, 20)
         Me.txtUnitManager.TabIndex = 165
-        Me.txtUnitManager.Text = ""
         '
         'txtReportType
         '
@@ -625,7 +698,6 @@ Public Class ISMPClosePrint
         Me.txtReportType.ReadOnly = True
         Me.txtReportType.Size = New System.Drawing.Size(200, 20)
         Me.txtReportType.TabIndex = 164
-        Me.txtReportType.Text = ""
         '
         'txtTestReportType
         '
@@ -634,14 +706,13 @@ Public Class ISMPClosePrint
         Me.txtTestReportType.ReadOnly = True
         Me.txtTestReportType.Size = New System.Drawing.Size(200, 20)
         Me.txtTestReportType.TabIndex = 163
-        Me.txtTestReportType.Text = ""
         '
         'Label14
         '
         Me.Label14.AutoSize = True
         Me.Label14.Location = New System.Drawing.Point(24, 128)
         Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(81, 16)
+        Me.Label14.Size = New System.Drawing.Size(80, 13)
         Me.Label14.TabIndex = 162
         Me.Label14.Text = "Source Tested:"
         '
@@ -650,7 +721,7 @@ Public Class ISMPClosePrint
         Me.Label13.AutoSize = True
         Me.Label13.Location = New System.Drawing.Point(24, 152)
         Me.Label13.Name = "Label13"
-        Me.Label13.Size = New System.Drawing.Size(52, 16)
+        Me.Label13.Size = New System.Drawing.Size(51, 13)
         Me.Label13.TabIndex = 161
         Me.Label13.Text = "Pollutant:"
         '
@@ -659,7 +730,7 @@ Public Class ISMPClosePrint
         Me.Label12.AutoSize = True
         Me.Label12.Location = New System.Drawing.Point(24, 200)
         Me.Label12.Name = "Label12"
-        Me.Label12.Size = New System.Drawing.Size(102, 16)
+        Me.Label12.Size = New System.Drawing.Size(98, 13)
         Me.Label12.TabIndex = 160
         Me.Label12.Text = "Compliance Status:"
         '
@@ -668,7 +739,7 @@ Public Class ISMPClosePrint
         Me.Label11.AutoSize = True
         Me.Label11.Location = New System.Drawing.Point(24, 176)
         Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(69, 16)
+        Me.Label11.Size = New System.Drawing.Size(68, 13)
         Me.Label11.TabIndex = 159
         Me.Label11.Text = "Test Date(s):"
         '
@@ -677,7 +748,7 @@ Public Class ISMPClosePrint
         Me.Label9.AutoSize = True
         Me.Label9.Location = New System.Drawing.Point(24, 80)
         Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(70, 16)
+        Me.Label9.Size = New System.Drawing.Size(69, 13)
         Me.Label9.TabIndex = 158
         Me.Label9.Text = "Report Type:"
         '
@@ -686,7 +757,7 @@ Public Class ISMPClosePrint
         Me.Label8.AutoSize = True
         Me.Label8.Location = New System.Drawing.Point(24, 104)
         Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(58, 16)
+        Me.Label8.Size = New System.Drawing.Size(58, 13)
         Me.Label8.TabIndex = 157
         Me.Label8.Text = "Test Type:"
         '
@@ -695,7 +766,7 @@ Public Class ISMPClosePrint
         Me.Label15.AutoSize = True
         Me.Label15.Location = New System.Drawing.Point(24, 56)
         Me.Label15.Name = "Label15"
-        Me.Label15.Size = New System.Drawing.Size(197, 16)
+        Me.Label15.Size = New System.Drawing.Size(190, 13)
         Me.Label15.TabIndex = 153
         Me.Label15.Text = "Total Days for Engineer/Unit Manager:"
         '
@@ -706,7 +777,7 @@ Public Class ISMPClosePrint
         Me.Label5.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Label5.Location = New System.Drawing.Point(8, 8)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(121, 22)
+        Me.Label5.Size = New System.Drawing.Size(122, 19)
         Me.Label5.TabIndex = 152
         Me.Label5.Text = "Test Report Data"
         '
@@ -734,24 +805,27 @@ Public Class ISMPClosePrint
         '
         'ISMPClosePrint
         '
-        Me.AutoScaleBaseSize = New System.Drawing.Size(5, 13)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.ClientSize = New System.Drawing.Size(792, 409)
         Me.Controls.Add(Me.Splitter1)
         Me.Controls.Add(Me.Panel4)
         Me.Controls.Add(Me.GBFacilityData)
         Me.Controls.Add(Me.TBFCE)
         Me.Controls.Add(Me.txtOrigin)
-        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Menu = Me.MainMenu1
         Me.Name = "ISMPClosePrint"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.Manual
         Me.Text = "ISMP Close/Print Test Report"
         Me.GBFacilityData.ResumeLayout(False)
+        Me.GBFacilityData.PerformLayout()
         Me.GBRecordStatus.ResumeLayout(False)
         Me.Panel4.ResumeLayout(False)
         Me.GroupBox2.ResumeLayout(False)
+        Me.GroupBox2.PerformLayout()
         Me.GroupBox1.ResumeLayout(False)
+        Me.GroupBox1.PerformLayout()
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
 

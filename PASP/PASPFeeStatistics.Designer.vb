@@ -1,6 +1,6 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
 Partial Class PASPFeeStatistics
-    Inherits System.Windows.Forms.Form
+    Inherits DefaultForm
 
     'Form overrides dispose to clean up the component list.
     <System.Diagnostics.DebuggerNonUserCode()> _
@@ -22,7 +22,6 @@ Partial Class PASPFeeStatistics
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(PASPFeeStatistics))
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip
         Me.FileToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.EditToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
@@ -396,7 +395,7 @@ Partial Class PASPFeeStatistics
         'HelpToolStripMenuItem
         '
         Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
-        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(43, 20)
+        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(44, 20)
         Me.HelpToolStripMenuItem.Text = "Help"
         '
         'bgwEmails
@@ -2385,7 +2384,7 @@ Partial Class PASPFeeStatistics
         Me.Label7.ForeColor = System.Drawing.SystemColors.HotTrack
         Me.Label7.Location = New System.Drawing.Point(8, 16)
         Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(283, 22)
+        Me.Label7.Size = New System.Drawing.Size(280, 22)
         Me.Label7.TabIndex = 122
         Me.Label7.Text = "Fee Summary for Calendar Year "
         '
@@ -3703,7 +3702,6 @@ Partial Class PASPFeeStatistics
         Me.ClientSize = New System.Drawing.Size(944, 718)
         Me.Controls.Add(Me.TCMailoutAndStats)
         Me.Controls.Add(Me.MenuStrip1)
-        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "PASPFeeStatistics"
         Me.Text = "Fee Statistics and Reports"
         Me.MenuStrip1.ResumeLayout(False)

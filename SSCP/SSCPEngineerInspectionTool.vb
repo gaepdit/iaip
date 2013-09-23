@@ -3,7 +3,7 @@ Imports System.Data.OracleClient
 'Imports Microsoft.Office.Interop
 
 Public Class SSCPEngineerInspectionTool
-    Inherits System.Windows.Forms.Form
+    Inherits DefaultForm
     Dim statusBar1 As New StatusBar
     Dim panel1 As New StatusBarPanel
     Dim panel2 As New StatusBarPanel
@@ -775,7 +775,7 @@ Public Class SSCPEngineerInspectionTool
         Me.TPInspectionTool.Location = New System.Drawing.Point(4, 22)
         Me.TPInspectionTool.Name = "TPInspectionTool"
         Me.TPInspectionTool.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPInspectionTool.Size = New System.Drawing.Size(1184, 691)
+        Me.TPInspectionTool.Size = New System.Drawing.Size(1184, 671)
         Me.TPInspectionTool.TabIndex = 1
         Me.TPInspectionTool.Text = "Inspection Tool"
         Me.TPInspectionTool.UseVisualStyleBackColor = True
@@ -785,7 +785,7 @@ Public Class SSCPEngineerInspectionTool
         Me.Panel5.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel5.Location = New System.Drawing.Point(391, 3)
         Me.Panel5.Name = "Panel5"
-        Me.Panel5.Size = New System.Drawing.Size(790, 685)
+        Me.Panel5.Size = New System.Drawing.Size(790, 665)
         Me.Panel5.TabIndex = 1
         '
         'Panel4
@@ -793,7 +793,7 @@ Public Class SSCPEngineerInspectionTool
         Me.Panel4.Dock = System.Windows.Forms.DockStyle.Left
         Me.Panel4.Location = New System.Drawing.Point(3, 3)
         Me.Panel4.Name = "Panel4"
-        Me.Panel4.Size = New System.Drawing.Size(388, 685)
+        Me.Panel4.Size = New System.Drawing.Size(388, 665)
         Me.Panel4.TabIndex = 0
         '
         'Panel9
@@ -998,11 +998,10 @@ Public Class SSCPEngineerInspectionTool
         '
         'SSCPEngineerInspectionTool
         '
-        Me.AutoScaleBaseSize = New System.Drawing.Size(5, 13)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.ClientSize = New System.Drawing.Size(1192, 725)
         Me.Controls.Add(Me.TabControl1)
         Me.Controls.Add(Me.TBEngineerInspection)
-        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Menu = Me.MainMenu1
         Me.Name = "SSCPEngineerInspectionTool"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.Manual

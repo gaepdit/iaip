@@ -1,6 +1,6 @@
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
 Partial Class IAIPPrintOut
-    Inherits System.Windows.Forms.Form
+    Inherits DefaultForm
 
     'Form overrides dispose to clean up the component list.
     <System.Diagnostics.DebuggerNonUserCode()> _
@@ -295,7 +295,6 @@ Partial Class IAIPPrintOut
         Me.Controls.Add(Me.txtPrintType)
         Me.Controls.Add(Me.txtReferenceNumber)
         Me.Controls.Add(Me.txtProgram)
-        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Location = New System.Drawing.Point(50, 0)
         Me.Margin = New System.Windows.Forms.Padding(2)
         Me.Menu = Me.MainMenu1

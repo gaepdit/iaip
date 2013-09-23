@@ -3,7 +3,7 @@ Imports System.Data.OracleClient
 
 
 Public Class ISMPReferenceNumber
-    Inherits System.Windows.Forms.Form
+    Inherits DefaultForm
     Dim statusBar1 As New StatusBar
     Dim panel1 As New StatusBarPanel
     Dim panel2 As New StatusBarPanel
@@ -51,7 +51,7 @@ Public Class ISMPReferenceNumber
     Friend WithEvents mmiClose As System.Windows.Forms.MenuItem
     <System.Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container
-        Dim resources As System.Resources.ResourceManager = New System.Resources.ResourceManager(GetType(ISMPReferenceNumber))
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(ISMPReferenceNumber))
         Me.Label3 = New System.Windows.Forms.Label
         Me.Label2 = New System.Windows.Forms.Label
         Me.btnReseed = New System.Windows.Forms.Button
@@ -59,7 +59,7 @@ Public Class ISMPReferenceNumber
         Me.TbISMPRefNum = New System.Windows.Forms.ToolBar
         Me.TbbClose = New System.Windows.Forms.ToolBarButton
         Me.Image_List_All = New System.Windows.Forms.ImageList(Me.components)
-        Me.MainMenu1 = New System.Windows.Forms.MainMenu
+        Me.MainMenu1 = New System.Windows.Forms.MainMenu(Me.components)
         Me.MenuItem1 = New System.Windows.Forms.MenuItem
         Me.mmiClose = New System.Windows.Forms.MenuItem
         Me.mmiHelp = New System.Windows.Forms.MenuItem
@@ -82,7 +82,7 @@ Public Class ISMPReferenceNumber
         Me.Label2.Size = New System.Drawing.Size(344, 48)
         Me.Label2.TabIndex = 15
         Me.Label2.Text = "To set the Reference Number for the year, enter in the current year followed by f" & _
-        "our zeros and one.  i.e. 200400001."
+            "our zeros and one.  i.e. 200400001."
         '
         'btnReseed
         '
@@ -98,7 +98,6 @@ Public Class ISMPReferenceNumber
         Me.txtReSeed.Name = "txtReSeed"
         Me.txtReSeed.Size = New System.Drawing.Size(104, 20)
         Me.txtReSeed.TabIndex = 10
-        Me.txtReSeed.Text = ""
         '
         'TbISMPRefNum
         '
@@ -115,13 +114,97 @@ Public Class ISMPReferenceNumber
         'TbbClose
         '
         Me.TbbClose.ImageIndex = 6
+        Me.TbbClose.Name = "TbbClose"
         '
         'Image_List_All
         '
-        Me.Image_List_All.ColorDepth = System.Windows.Forms.ColorDepth.Depth16Bit
-        Me.Image_List_All.ImageSize = New System.Drawing.Size(16, 16)
-        Me.Image_List_All.ImageStream = CType(Resources.GetObject("Image_List_All.ImageStream"), System.Windows.Forms.ImageListStreamer)
+        Me.Image_List_All.ImageStream = CType(resources.GetObject("Image_List_All.ImageStream"), System.Windows.Forms.ImageListStreamer)
         Me.Image_List_All.TransparentColor = System.Drawing.Color.Transparent
+        Me.Image_List_All.Images.SetKeyName(0, "")
+        Me.Image_List_All.Images.SetKeyName(1, "")
+        Me.Image_List_All.Images.SetKeyName(2, "")
+        Me.Image_List_All.Images.SetKeyName(3, "")
+        Me.Image_List_All.Images.SetKeyName(4, "")
+        Me.Image_List_All.Images.SetKeyName(5, "")
+        Me.Image_List_All.Images.SetKeyName(6, "")
+        Me.Image_List_All.Images.SetKeyName(7, "")
+        Me.Image_List_All.Images.SetKeyName(8, "")
+        Me.Image_List_All.Images.SetKeyName(9, "")
+        Me.Image_List_All.Images.SetKeyName(10, "")
+        Me.Image_List_All.Images.SetKeyName(11, "")
+        Me.Image_List_All.Images.SetKeyName(12, "")
+        Me.Image_List_All.Images.SetKeyName(13, "")
+        Me.Image_List_All.Images.SetKeyName(14, "")
+        Me.Image_List_All.Images.SetKeyName(15, "")
+        Me.Image_List_All.Images.SetKeyName(16, "")
+        Me.Image_List_All.Images.SetKeyName(17, "")
+        Me.Image_List_All.Images.SetKeyName(18, "")
+        Me.Image_List_All.Images.SetKeyName(19, "")
+        Me.Image_List_All.Images.SetKeyName(20, "")
+        Me.Image_List_All.Images.SetKeyName(21, "")
+        Me.Image_List_All.Images.SetKeyName(22, "")
+        Me.Image_List_All.Images.SetKeyName(23, "")
+        Me.Image_List_All.Images.SetKeyName(24, "")
+        Me.Image_List_All.Images.SetKeyName(25, "")
+        Me.Image_List_All.Images.SetKeyName(26, "")
+        Me.Image_List_All.Images.SetKeyName(27, "")
+        Me.Image_List_All.Images.SetKeyName(28, "")
+        Me.Image_List_All.Images.SetKeyName(29, "")
+        Me.Image_List_All.Images.SetKeyName(30, "")
+        Me.Image_List_All.Images.SetKeyName(31, "")
+        Me.Image_List_All.Images.SetKeyName(32, "")
+        Me.Image_List_All.Images.SetKeyName(33, "")
+        Me.Image_List_All.Images.SetKeyName(34, "")
+        Me.Image_List_All.Images.SetKeyName(35, "")
+        Me.Image_List_All.Images.SetKeyName(36, "")
+        Me.Image_List_All.Images.SetKeyName(37, "")
+        Me.Image_List_All.Images.SetKeyName(38, "")
+        Me.Image_List_All.Images.SetKeyName(39, "")
+        Me.Image_List_All.Images.SetKeyName(40, "")
+        Me.Image_List_All.Images.SetKeyName(41, "")
+        Me.Image_List_All.Images.SetKeyName(42, "")
+        Me.Image_List_All.Images.SetKeyName(43, "")
+        Me.Image_List_All.Images.SetKeyName(44, "")
+        Me.Image_List_All.Images.SetKeyName(45, "")
+        Me.Image_List_All.Images.SetKeyName(46, "")
+        Me.Image_List_All.Images.SetKeyName(47, "")
+        Me.Image_List_All.Images.SetKeyName(48, "")
+        Me.Image_List_All.Images.SetKeyName(49, "")
+        Me.Image_List_All.Images.SetKeyName(50, "")
+        Me.Image_List_All.Images.SetKeyName(51, "")
+        Me.Image_List_All.Images.SetKeyName(52, "")
+        Me.Image_List_All.Images.SetKeyName(53, "")
+        Me.Image_List_All.Images.SetKeyName(54, "")
+        Me.Image_List_All.Images.SetKeyName(55, "")
+        Me.Image_List_All.Images.SetKeyName(56, "")
+        Me.Image_List_All.Images.SetKeyName(57, "")
+        Me.Image_List_All.Images.SetKeyName(58, "")
+        Me.Image_List_All.Images.SetKeyName(59, "")
+        Me.Image_List_All.Images.SetKeyName(60, "")
+        Me.Image_List_All.Images.SetKeyName(61, "")
+        Me.Image_List_All.Images.SetKeyName(62, "")
+        Me.Image_List_All.Images.SetKeyName(63, "")
+        Me.Image_List_All.Images.SetKeyName(64, "")
+        Me.Image_List_All.Images.SetKeyName(65, "")
+        Me.Image_List_All.Images.SetKeyName(66, "")
+        Me.Image_List_All.Images.SetKeyName(67, "")
+        Me.Image_List_All.Images.SetKeyName(68, "")
+        Me.Image_List_All.Images.SetKeyName(69, "")
+        Me.Image_List_All.Images.SetKeyName(70, "")
+        Me.Image_List_All.Images.SetKeyName(71, "")
+        Me.Image_List_All.Images.SetKeyName(72, "")
+        Me.Image_List_All.Images.SetKeyName(73, "")
+        Me.Image_List_All.Images.SetKeyName(74, "")
+        Me.Image_List_All.Images.SetKeyName(75, "")
+        Me.Image_List_All.Images.SetKeyName(76, "")
+        Me.Image_List_All.Images.SetKeyName(77, "")
+        Me.Image_List_All.Images.SetKeyName(78, "")
+        Me.Image_List_All.Images.SetKeyName(79, "")
+        Me.Image_List_All.Images.SetKeyName(80, "")
+        Me.Image_List_All.Images.SetKeyName(81, "")
+        Me.Image_List_All.Images.SetKeyName(82, "")
+        Me.Image_List_All.Images.SetKeyName(83, "")
+        Me.Image_List_All.Images.SetKeyName(84, "")
         '
         'MainMenu1
         '
@@ -143,21 +226,21 @@ Public Class ISMPReferenceNumber
         Me.mmiHelp.Index = 1
         Me.mmiHelp.Text = "Help"
         '
-        '" & DBNameSpace & ".ISMPReferenceNumber
+        'ISMPReferenceNumber
         '
-        Me.AutoScaleBaseSize = New System.Drawing.Size(5, 13)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.ClientSize = New System.Drawing.Size(352, 225)
         Me.Controls.Add(Me.txtReSeed)
         Me.Controls.Add(Me.TbISMPRefNum)
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.btnReseed)
-        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Menu = Me.MainMenu1
-        Me.Name = "" & DBNameSpace & ".ISMPReferenceNumber"
+        Me.Name = "ISMPReferenceNumber"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.Manual
         Me.Text = "ISMP Reference Number Manager"
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
 

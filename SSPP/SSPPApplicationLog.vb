@@ -1,7 +1,7 @@
 Imports System.Data.OracleClient
 
 Public Class SSPPApplicationLog
-    Inherits System.Windows.Forms.Form
+    Inherits DefaultForm
 
 #Region "Initialize variables"
     ' Local variables

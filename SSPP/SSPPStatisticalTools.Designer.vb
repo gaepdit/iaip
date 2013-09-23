@@ -1,6 +1,6 @@
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
 Partial Class SSPPStatisticalTools
-    Inherits System.Windows.Forms.Form
+    Inherits DefaultForm
 
     'Form overrides dispose to clean up the component list.
     <System.Diagnostics.DebuggerNonUserCode()> _
@@ -3180,7 +3180,6 @@ Partial Class SSPPStatisticalTools
         Me.Controls.Add(Me.TCSSPPTools)
         Me.Controls.Add(Me.TBSSPPStatistics)
         Me.Controls.Add(Me.StatusStrip1)
-        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Menu = Me.MainMenu1
         Me.Name = "SSPPStatisticalTools"
         Me.Text = "SSPP Reports and Statisitcal Tools"

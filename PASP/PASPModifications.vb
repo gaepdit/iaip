@@ -2,7 +2,7 @@ Imports System.Data.OracleClient
 
 
 Public Class PASPModifications
-    Inherits System.Windows.Forms.Form
+    Inherits DefaultForm
     Dim da As OracleDataAdapter
     'Dim feeyear As String
     Dim ds As DataSet
@@ -328,12 +328,11 @@ Public Class PASPModifications
         '
         'PASPModifications
         '
-        Me.AutoScaleBaseSize = New System.Drawing.Size(5, 13)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.ClientSize = New System.Drawing.Size(792, 448)
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.PanelFacility)
         Me.Controls.Add(Me.TBFacilitySummary)
-        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "PASPModifications"
         Me.Text = "PASP Modifications"
         Me.PanelFacility.ResumeLayout(False)

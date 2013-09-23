@@ -2,7 +2,7 @@ Imports System.Data.OracleClient
 
 
 Public Class SSCPEvents
-    Inherits System.Windows.Forms.Form
+    Inherits DefaultForm
     Dim statusBar1 As New StatusBar
     Dim panel1 As New StatusBarPanel
     Dim panel2 As New StatusBarPanel
@@ -3036,7 +3036,7 @@ Public Class SSCPEvents
         '
         'SSCPEvents
         '
-        Me.AutoScaleBaseSize = New System.Drawing.Size(5, 13)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScroll = True
         Me.ClientSize = New System.Drawing.Size(792, 595)
         Me.Controls.Add(Me.PanelSSCPCompliance)
@@ -3044,7 +3044,6 @@ Public Class SSCPEvents
         Me.Controls.Add(Me.txtOrigin)
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.TBSSCPItems)
-        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Menu = Me.MainMenu1
         Me.Name = "SSCPEvents"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.Manual

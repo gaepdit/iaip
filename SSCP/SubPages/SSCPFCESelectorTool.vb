@@ -2,7 +2,7 @@ Imports System.Data.OracleClient
 
 
 Public Class SSCPFCESelectorTool
-    Inherits System.Windows.Forms.Form
+    Inherits DefaultForm
 
     Dim SQL As String
     Dim cmd As OracleCommand
@@ -256,7 +256,7 @@ Public Class SSCPFCESelectorTool
         '
         'SSCPFCESelectorTool
         '
-        Me.AutoScaleBaseSize = New System.Drawing.Size(5, 13)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.ClientSize = New System.Drawing.Size(384, 153)
         Me.Controls.Add(Me.llbOpenFCE)
         Me.Controls.Add(Me.Label3)
@@ -265,7 +265,6 @@ Public Class SSCPFCESelectorTool
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.TBSSCPFCESelector)
-        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Menu = Me.MainMenu1
         Me.Name = "SSCPFCESelectorTool"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.Manual

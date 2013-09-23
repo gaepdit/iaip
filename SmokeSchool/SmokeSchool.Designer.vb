@@ -1,6 +1,6 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
 Partial Class SmokeSchool
-    Inherits System.Windows.Forms.Form
+    Inherits DefaultForm
 
     'Form overrides dispose to clean up the component list.
     <System.Diagnostics.DebuggerNonUserCode()> _
@@ -34,7 +34,6 @@ Partial Class SmokeSchool
         Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
         Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
         Dim DataGridViewCellStyle12 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(SmokeSchool))
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip
         Me.FileToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.mmiClear = New System.Windows.Forms.ToolStripMenuItem
@@ -314,67 +313,67 @@ Partial Class SmokeSchool
         '
         Me.FileToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mmiClear, Me.mmiBack})
         Me.FileToolStripMenuItem.Name = "FileToolStripMenuItem"
-        Me.FileToolStripMenuItem.Size = New System.Drawing.Size(35, 20)
+        Me.FileToolStripMenuItem.Size = New System.Drawing.Size(37, 20)
         Me.FileToolStripMenuItem.Text = "File"
         '
         'mmiClear
         '
         Me.mmiClear.Name = "mmiClear"
-        Me.mmiClear.Size = New System.Drawing.Size(110, 22)
+        Me.mmiClear.Size = New System.Drawing.Size(101, 22)
         Me.mmiClear.Text = "Clear"
         '
         'mmiBack
         '
         Me.mmiBack.Name = "mmiBack"
-        Me.mmiBack.Size = New System.Drawing.Size(110, 22)
+        Me.mmiBack.Size = New System.Drawing.Size(101, 22)
         Me.mmiBack.Text = "Back"
         '
         'EditToolStripMenuItem
         '
         Me.EditToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mmiCut, Me.mmiCopy, Me.mmiPaste})
         Me.EditToolStripMenuItem.Name = "EditToolStripMenuItem"
-        Me.EditToolStripMenuItem.Size = New System.Drawing.Size(37, 20)
+        Me.EditToolStripMenuItem.Size = New System.Drawing.Size(39, 20)
         Me.EditToolStripMenuItem.Text = "Edit"
         '
         'mmiCut
         '
         Me.mmiCut.Name = "mmiCut"
         Me.mmiCut.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.X), System.Windows.Forms.Keys)
-        Me.mmiCut.Size = New System.Drawing.Size(150, 22)
+        Me.mmiCut.Size = New System.Drawing.Size(144, 22)
         Me.mmiCut.Text = "Cut"
         '
         'mmiCopy
         '
         Me.mmiCopy.Name = "mmiCopy"
         Me.mmiCopy.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.C), System.Windows.Forms.Keys)
-        Me.mmiCopy.Size = New System.Drawing.Size(150, 22)
+        Me.mmiCopy.Size = New System.Drawing.Size(144, 22)
         Me.mmiCopy.Text = "Copy"
         '
         'mmiPaste
         '
         Me.mmiPaste.Name = "mmiPaste"
         Me.mmiPaste.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.V), System.Windows.Forms.Keys)
-        Me.mmiPaste.Size = New System.Drawing.Size(150, 22)
+        Me.mmiPaste.Size = New System.Drawing.Size(144, 22)
         Me.mmiPaste.Text = "Paste"
         '
         'ToolToolStripMenuItem
         '
         Me.ToolToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mmiRefreshDropDowns})
         Me.ToolToolStripMenuItem.Name = "ToolToolStripMenuItem"
-        Me.ToolToolStripMenuItem.Size = New System.Drawing.Size(39, 20)
+        Me.ToolToolStripMenuItem.Size = New System.Drawing.Size(43, 20)
         Me.ToolToolStripMenuItem.Text = "Tool"
         '
         'mmiRefreshDropDowns
         '
         Me.mmiRefreshDropDowns.Name = "mmiRefreshDropDowns"
-        Me.mmiRefreshDropDowns.Size = New System.Drawing.Size(185, 22)
+        Me.mmiRefreshDropDowns.Size = New System.Drawing.Size(183, 22)
         Me.mmiRefreshDropDowns.Text = "Refresh Drop-Downs"
         '
         'HelpToolStripMenuItem
         '
         Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
         Me.HelpToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F1
-        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(40, 20)
+        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(44, 20)
         Me.HelpToolStripMenuItem.Text = "Help"
         '
         'StatusStrip1
@@ -2343,7 +2342,7 @@ Partial Class SmokeSchool
         Me.Label40.ForeColor = System.Drawing.Color.Blue
         Me.Label40.Location = New System.Drawing.Point(88, 66)
         Me.Label40.Name = "Label40"
-        Me.Label40.Size = New System.Drawing.Size(487, 24)
+        Me.Label40.Size = New System.Drawing.Size(484, 24)
         Me.Label40.TabIndex = 4
         Me.Label40.Text = "Enter the User's Email Address in the Text Box Below"
         '
@@ -2354,7 +2353,7 @@ Partial Class SmokeSchool
         Me.Label39.ForeColor = System.Drawing.Color.Blue
         Me.Label39.Location = New System.Drawing.Point(171, 20)
         Me.Label39.Name = "Label39"
-        Me.Label39.Size = New System.Drawing.Size(322, 36)
+        Me.Label39.Size = New System.Drawing.Size(319, 36)
         Me.Label39.TabIndex = 3
         Me.Label39.Text = "Activate User Account"
         '
@@ -2372,7 +2371,7 @@ Partial Class SmokeSchool
         Me.Label38.ForeColor = System.Drawing.Color.Blue
         Me.Label38.Location = New System.Drawing.Point(88, 126)
         Me.Label38.Name = "Label38"
-        Me.Label38.Size = New System.Drawing.Size(233, 24)
+        Me.Label38.Size = New System.Drawing.Size(232, 24)
         Me.Label38.TabIndex = 1
         Me.Label38.Text = "Enter the Email Address:"
         '
@@ -2761,11 +2760,11 @@ Partial Class SmokeSchool
         Me.Label1.ForeColor = System.Drawing.Color.Blue
         Me.Label1.Location = New System.Drawing.Point(12, 12)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(467, 19)
+        Me.Label1.Size = New System.Drawing.Size(465, 19)
         Me.Label1.TabIndex = 4
         Me.Label1.Text = "Georgia Visible Emissions Evaluation Certification Training Program"
         '
-        'ISMPSmokeSchool
+        'SmokeSchool
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -2774,8 +2773,7 @@ Partial Class SmokeSchool
         Me.Controls.Add(Me.Panel2)
         Me.Controls.Add(Me.MenuStrip1)
         Me.Controls.Add(Me.StatusStrip1)
-        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
-        Me.Name = "ISMPSmokeSchool"
+        Me.Name = "SmokeSchool"
         Me.Text = "ISMP Smoke School"
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()

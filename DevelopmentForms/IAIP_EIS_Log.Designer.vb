@@ -1,6 +1,6 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
 Partial Class IAIP_EIS_Log
-    Inherits System.Windows.Forms.Form
+    Inherits DefaultForm
 
     'Form overrides dispose to clean up the component list.
     <System.Diagnostics.DebuggerNonUserCode()> _
@@ -1947,7 +1947,7 @@ Partial Class IAIP_EIS_Log
         Me.Label241.ForeColor = System.Drawing.SystemColors.HotTrack
         Me.Label241.Location = New System.Drawing.Point(5, 5)
         Me.Label241.Name = "Label241"
-        Me.Label241.Size = New System.Drawing.Size(321, 22)
+        Me.Label241.Size = New System.Drawing.Size(318, 22)
         Me.Label241.TabIndex = 1
         Me.Label241.Text = "Emission Inventory Summary of Year "
         '
@@ -2104,7 +2104,7 @@ Partial Class IAIP_EIS_Log
         Me.Label267.ForeColor = System.Drawing.SystemColors.HotTrack
         Me.Label267.Location = New System.Drawing.Point(11, 10)
         Me.Label267.Name = "Label267"
-        Me.Label267.Size = New System.Drawing.Size(182, 22)
+        Me.Label267.Size = New System.Drawing.Size(179, 22)
         Me.Label267.TabIndex = 60
         Me.Label267.Text = "Mailout list for Year "
         '
@@ -2367,7 +2367,6 @@ Partial Class IAIP_EIS_Log
         Me.Controls.Add(Me.TCDMUTools)
         Me.Controls.Add(Me.TSDMUStaffTools)
         Me.Controls.Add(Me.StatusStrip1)
-        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Menu = Me.MainMenu1
         Me.Name = "IAIP_EIS_Log"
         Me.Text = "Emission Inventory System Log"

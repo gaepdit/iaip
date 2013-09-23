@@ -1,6 +1,6 @@
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
 Partial Class IAIPEditHeaderData
-    Inherits System.Windows.Forms.Form
+    Inherits DefaultForm
 
     'Form overrides dispose to clean up the component list.
     <System.Diagnostics.DebuggerNonUserCode()> _
@@ -867,7 +867,6 @@ Partial Class IAIPEditHeaderData
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.TBEditHeaderData)
         Me.Controls.Add(Me.StatusStrip1)
-        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Menu = Me.MainMenu1
         Me.Name = "IAIPEditHeaderData"
         Me.Text = "Edit Header Data"

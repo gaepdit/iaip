@@ -1,6 +1,6 @@
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
 Partial Class IAIPEditContacts
-    Inherits System.Windows.Forms.Form
+    Inherits DefaultForm
 
     'Form overrides dispose to clean up the component list.
     <System.Diagnostics.DebuggerNonUserCode()> _
@@ -1385,7 +1385,6 @@ Partial Class IAIPEditContacts
         Me.Controls.Add(Me.TCContactData)
         Me.Controls.Add(Me.TBAddContacts)
         Me.Controls.Add(Me.StatusStrip1)
-        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Menu = Me.MainMenu1
         Me.Name = "IAIPEditContacts"
         Me.Text = "Add/Edit Contact(s) Information"

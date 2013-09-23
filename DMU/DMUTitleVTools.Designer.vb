@@ -1,6 +1,6 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
 Partial Class DMUTitleVTools
-    Inherits System.Windows.Forms.Form
+    Inherits DefaultForm
 
     'Form overrides dispose to clean up the component list.
     <System.Diagnostics.DebuggerNonUserCode()> _
@@ -1613,7 +1613,6 @@ Partial Class DMUTitleVTools
         Me.Controls.Add(Me.TCDMUTools)
         Me.Controls.Add(Me.TSDMUStaffTools)
         Me.Controls.Add(Me.StatusStrip1)
-        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Menu = Me.MainMenu1
         Me.Name = "DMUTitleVTools"
         Me.Text = "DMU Title V Tools"

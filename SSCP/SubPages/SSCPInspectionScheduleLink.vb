@@ -3,7 +3,7 @@ Imports System.Data.OracleClient
 'Imports Microsoft.Office.Interop
 
 Public Class SSCPInspectionscheduleLink
-    Inherits System.Windows.Forms.Form
+    Inherits DefaultForm
     Dim statusBar1 As New StatusBar
     Dim panel1 As New StatusBarPanel
     Dim panel2 As New StatusBarPanel
@@ -362,13 +362,12 @@ Public Class SSCPInspectionscheduleLink
         '
         'SSCPInspectionscheduleLink
         '
-        Me.AutoScaleBaseSize = New System.Drawing.Size(5, 13)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.ClientSize = New System.Drawing.Size(448, 289)
         Me.Controls.Add(Me.dgrScheduledInspections)
         Me.Controls.Add(Me.Splitter1)
         Me.Controls.Add(Me.PanelInspectionSchedule)
         Me.Controls.Add(Me.TBSSCPInspectionScheduleLink)
-        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Menu = Me.MainMenu1
         Me.Name = "SSCPInspectionscheduleLink"
         Me.Text = "Compliance Inspection Schedule Link"

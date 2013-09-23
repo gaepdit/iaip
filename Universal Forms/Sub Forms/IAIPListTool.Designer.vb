@@ -1,6 +1,6 @@
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
 Partial Class IAIPListTool
-    Inherits System.Windows.Forms.Form
+    Inherits DefaultForm
 
     'Form overrides dispose to clean up the component list.
     <System.Diagnostics.DebuggerNonUserCode()> _
@@ -228,13 +228,13 @@ Partial Class IAIPListTool
         '
         Me.ToolToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsbRefreshForm})
         Me.ToolToolStripMenuItem.Name = "ToolToolStripMenuItem"
-        Me.ToolToolStripMenuItem.Size = New System.Drawing.Size(41, 20)
+        Me.ToolToolStripMenuItem.Size = New System.Drawing.Size(43, 20)
         Me.ToolToolStripMenuItem.Text = "Tool"
         '
         'tsbRefreshForm
         '
         Me.tsbRefreshForm.Name = "tsbRefreshForm"
-        Me.tsbRefreshForm.Size = New System.Drawing.Size(149, 22)
+        Me.tsbRefreshForm.Size = New System.Drawing.Size(144, 22)
         Me.tsbRefreshForm.Text = "Refresh Form"
         '
         'EditToolStripMenuItem
@@ -246,7 +246,7 @@ Partial Class IAIPListTool
         'HelpToolStripMenuItem
         '
         Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
-        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(43, 20)
+        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(44, 20)
         Me.HelpToolStripMenuItem.Text = "Help"
         '
         'SplitContainer1
@@ -989,7 +989,6 @@ Partial Class IAIPListTool
         Me.Controls.Add(Me.ToolStrip1)
         Me.Controls.Add(Me.StatusStrip1)
         Me.Controls.Add(Me.MenuStrip1)
-        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "IAIPListTool"
         Me.Text = "IAIP Organization Tool"
         Me.ToolStrip1.ResumeLayout(False)

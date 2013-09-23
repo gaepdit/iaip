@@ -3,7 +3,7 @@ Imports System.Data.OracleClient
 
 
 Public Class ISMPTestMemoViewer
-    Inherits System.Windows.Forms.Form
+    Inherits DefaultForm
     Dim statusBar1 As New StatusBar
     Dim panel1 As New StatusBarPanel
     Dim panel2 As New StatusBarPanel
@@ -564,13 +564,12 @@ Public Class ISMPTestMemoViewer
         '
         'ISMPTestMemoViewer
         '
-        Me.AutoScaleBaseSize = New System.Drawing.Size(5, 13)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.ClientSize = New System.Drawing.Size(950, 638)
         Me.Controls.Add(Me.Splitter1)
         Me.Controls.Add(Me.GBFilterAndSortOption)
         Me.Controls.Add(Me.dgrMemoViewer)
         Me.Controls.Add(Me.TBTestMemoViewer)
-        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Menu = Me.MainMenu1
         Me.Name = "ISMPTestMemoViewer"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.Manual

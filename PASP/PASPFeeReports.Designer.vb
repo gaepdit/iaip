@@ -1,6 +1,6 @@
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
 Partial Class PASPFeeReports
-    Inherits System.Windows.Forms.Form
+    Inherits DefaultForm
 
     'Form overrides dispose to clean up the component list.
     <System.Diagnostics.DebuggerNonUserCode()> _
@@ -19,7 +19,6 @@ Partial Class PASPFeeReports
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(PASPFeeReports))
         Me.tabReport = New System.Windows.Forms.TabControl
         Me.TPFacilitySpecific = New System.Windows.Forms.TabPage
         Me.cboFacilityName = New System.Windows.Forms.ComboBox
@@ -871,13 +870,13 @@ Partial Class PASPFeeReports
         '
         Me.mmiFile.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mmiBack})
         Me.mmiFile.Name = "mmiFile"
-        Me.mmiFile.Size = New System.Drawing.Size(35, 20)
+        Me.mmiFile.Size = New System.Drawing.Size(37, 20)
         Me.mmiFile.Text = "File"
         '
         'mmiBack
         '
         Me.mmiBack.Name = "mmiBack"
-        Me.mmiBack.Size = New System.Drawing.Size(107, 22)
+        Me.mmiBack.Size = New System.Drawing.Size(99, 22)
         Me.mmiBack.Text = "Back"
         '
         'MenuStrip1
@@ -893,7 +892,7 @@ Partial Class PASPFeeReports
         'HelpToolStripMenuItem
         '
         Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
-        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(40, 20)
+        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(44, 20)
         Me.HelpToolStripMenuItem.Text = "Help"
         '
         'PASPFeeReports
@@ -904,7 +903,6 @@ Partial Class PASPFeeReports
         Me.Controls.Add(Me.CRFeesReports)
         Me.Controls.Add(Me.tabReport)
         Me.Controls.Add(Me.MenuStrip1)
-        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MainMenuStrip = Me.MenuStrip1
         Me.Margin = New System.Windows.Forms.Padding(2)
         Me.Name = "PASPFeeReports"

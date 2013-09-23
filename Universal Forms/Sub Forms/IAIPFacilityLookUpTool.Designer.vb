@@ -1,6 +1,6 @@
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
 Partial Class IAIPFacilityLookUpTool
-    Inherits System.Windows.Forms.Form
+    Inherits DefaultForm
 
     'Form overrides dispose to clean up the component list.
     <System.Diagnostics.DebuggerNonUserCode()> _
@@ -781,7 +781,6 @@ Partial Class IAIPFacilityLookUpTool
         Me.Controls.Add(Me.tcSearchOptions)
         Me.Controls.Add(Me.TBWork_Entry)
         Me.Controls.Add(Me.StatusStrip1)
-        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Menu = Me.MainMenu1
         Me.Name = "IAIPFacilityLookUpTool"
         Me.Text = "IAIP Facility Lookup Tool"

@@ -2,7 +2,7 @@ Imports System.Data.OracleClient
 'Imports System.Runtime.InteropServices
 
 Public Class ISMPMemo
-    Inherits System.Windows.Forms.Form
+    Inherits DefaultForm
     Dim statusBar1 As New StatusBar
     Dim panel1 As New StatusBarPanel
     Dim panel2 As New StatusBarPanel
@@ -87,8 +87,8 @@ Public Class ISMPMemo
         Me.TCISMPMemo = New System.Windows.Forms.TabControl
         Me.TPInternalMemo = New System.Windows.Forms.TabPage
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer
-        Me.Panel4 = New System.Windows.Forms.Panel
         Me.TPFuturePrintOption = New System.Windows.Forms.TabPage
+        Me.Panel4 = New System.Windows.Forms.Panel
         Me.TCISMPMemo.SuspendLayout()
         Me.TPInternalMemo.SuspendLayout()
         Me.SplitContainer1.Panel1.SuspendLayout()
@@ -279,7 +279,7 @@ Public Class ISMPMemo
         Me.Label1.ForeColor = System.Drawing.SystemColors.HotTrack
         Me.Label1.Location = New System.Drawing.Point(253, 3)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(221, 22)
+        Me.Label1.Size = New System.Drawing.Size(219, 22)
         Me.Label1.TabIndex = 54
         Me.Label1.Text = "ISMP Test Report Memo"
         '
@@ -356,6 +356,16 @@ Public Class ISMPMemo
         Me.SplitContainer1.SplitterWidth = 10
         Me.SplitContainer1.TabIndex = 54
         '
+        'TPFuturePrintOption
+        '
+        Me.TPFuturePrintOption.Location = New System.Drawing.Point(4, 22)
+        Me.TPFuturePrintOption.Name = "TPFuturePrintOption"
+        Me.TPFuturePrintOption.Padding = New System.Windows.Forms.Padding(3)
+        Me.TPFuturePrintOption.Size = New System.Drawing.Size(942, 554)
+        Me.TPFuturePrintOption.TabIndex = 1
+        Me.TPFuturePrintOption.Text = "Future Print option"
+        Me.TPFuturePrintOption.UseVisualStyleBackColor = True
+        '
         'Panel4
         '
         Me.Panel4.Controls.Add(Me.Label1)
@@ -367,24 +377,13 @@ Public Class ISMPMemo
         Me.Panel4.Size = New System.Drawing.Size(950, 30)
         Me.Panel4.TabIndex = 58
         '
-        'TPFuturePrintOption
-        '
-        Me.TPFuturePrintOption.Location = New System.Drawing.Point(4, 22)
-        Me.TPFuturePrintOption.Name = "TPFuturePrintOption"
-        Me.TPFuturePrintOption.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPFuturePrintOption.Size = New System.Drawing.Size(942, 554)
-        Me.TPFuturePrintOption.TabIndex = 1
-        Me.TPFuturePrintOption.Text = "Future Print option"
-        Me.TPFuturePrintOption.UseVisualStyleBackColor = True
-        '
         'ISMPMemo
         '
-        Me.AutoScaleBaseSize = New System.Drawing.Size(5, 13)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.ClientSize = New System.Drawing.Size(950, 638)
         Me.Controls.Add(Me.TCISMPMemo)
         Me.Controls.Add(Me.Panel4)
         Me.Controls.Add(Me.TBMemo)
-        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Menu = Me.MainMenu1
         Me.Name = "ISMPMemo"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.Manual

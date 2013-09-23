@@ -1,6 +1,6 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
 Partial Class IAIPPhoneList
-    Inherits System.Windows.Forms.Form
+    Inherits DefaultForm
 
     'Form overrides dispose to clean up the component list.
     <System.Diagnostics.DebuggerNonUserCode()> _
@@ -22,7 +22,6 @@ Partial Class IAIPPhoneList
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(IAIPPhoneList))
         Me.btnPrintOutPhoneList = New System.Windows.Forms.Button
         Me.chbAirProtectionBranch = New System.Windows.Forms.CheckBox
         Me.chbDirectorOffice = New System.Windows.Forms.CheckBox
@@ -677,7 +676,6 @@ Partial Class IAIPPhoneList
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1004, 556)
         Me.Controls.Add(Me.Panel1)
-        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "IAIPPhoneList"
         Me.Text = "IAIP Phone List"
         Me.Panel1.ResumeLayout(False)

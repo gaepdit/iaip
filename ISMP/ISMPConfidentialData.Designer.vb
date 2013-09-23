@@ -1,6 +1,6 @@
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
 Partial Class ISMPConfidentialData
-    Inherits System.Windows.Forms.Form
+    Inherits DefaultForm
 
     'Form overrides dispose to clean up the component list.
     <System.Diagnostics.DebuggerNonUserCode()> _
@@ -560,25 +560,25 @@ Partial Class ISMPConfidentialData
         '
         Me.mmiFile.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mmiSave, Me.mmiBack})
         Me.mmiFile.Name = "mmiFile"
-        Me.mmiFile.Size = New System.Drawing.Size(35, 20)
+        Me.mmiFile.Size = New System.Drawing.Size(37, 20)
         Me.mmiFile.Text = "File"
         '
         'mmiSave
         '
         Me.mmiSave.Name = "mmiSave"
-        Me.mmiSave.Size = New System.Drawing.Size(109, 22)
+        Me.mmiSave.Size = New System.Drawing.Size(99, 22)
         Me.mmiSave.Text = "Save"
         '
         'mmiBack
         '
         Me.mmiBack.Name = "mmiBack"
-        Me.mmiBack.Size = New System.Drawing.Size(109, 22)
+        Me.mmiBack.Size = New System.Drawing.Size(99, 22)
         Me.mmiBack.Text = "Back"
         '
         'mmiHelp
         '
         Me.mmiHelp.Name = "mmiHelp"
-        Me.mmiHelp.Size = New System.Drawing.Size(40, 20)
+        Me.mmiHelp.Size = New System.Drawing.Size(44, 20)
         Me.mmiHelp.Text = "Help"
         '
         'TCDocuments
@@ -5548,7 +5548,6 @@ Partial Class ISMPConfidentialData
         Me.Controls.Add(Me.chbWitnessingEngineer)
         Me.Controls.Add(Me.chbTestNotification)
         Me.Controls.Add(Me.chbCC)
-        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Location = New System.Drawing.Point(25, 0)
         Me.Name = "ISMPConfidentialData"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.Manual

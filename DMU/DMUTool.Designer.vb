@@ -1,6 +1,6 @@
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
 Partial Class DMUTool
-    Inherits System.Windows.Forms.Form
+    Inherits DefaultForm
 
     'Form overrides dispose to clean up the component list.
     <System.Diagnostics.DebuggerNonUserCode()> _
@@ -31,6 +31,7 @@ Partial Class DMUTool
         Me.Panel3 = New System.Windows.Forms.ToolStripStatusLabel
         Me.SCDMUTool = New System.Windows.Forms.SplitContainer
         Me.txtSQL = New System.Windows.Forms.TextBox
+        Me.mtbVersionNumber = New System.Windows.Forms.MaskedTextBox
         Me.Label4 = New System.Windows.Forms.Label
         Me.txtEISYear = New System.Windows.Forms.TextBox
         Me.Label3 = New System.Windows.Forms.Label
@@ -76,7 +77,6 @@ Partial Class DMUTool
         Me.btnDeleteEnforcement = New System.Windows.Forms.Button
         Me.btnClearSQL = New System.Windows.Forms.Button
         Me.btnRunSQL = New System.Windows.Forms.Button
-        Me.mtbVersionNumber = New System.Windows.Forms.MaskedTextBox
         Me.ToolStrip1.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
         Me.SCDMUTool.Panel1.SuspendLayout()
@@ -211,6 +211,14 @@ Partial Class DMUTool
         Me.txtSQL.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.txtSQL.Size = New System.Drawing.Size(715, 274)
         Me.txtSQL.TabIndex = 0
+        '
+        'mtbVersionNumber
+        '
+        Me.mtbVersionNumber.Location = New System.Drawing.Point(413, 108)
+        Me.mtbVersionNumber.Mask = "0.0.0.0"
+        Me.mtbVersionNumber.Name = "mtbVersionNumber"
+        Me.mtbVersionNumber.Size = New System.Drawing.Size(46, 20)
+        Me.mtbVersionNumber.TabIndex = 51
         '
         'Label4
         '
@@ -649,14 +657,6 @@ Partial Class DMUTool
         Me.btnRunSQL.Text = "Run SQL "
         Me.btnRunSQL.UseVisualStyleBackColor = True
         '
-        'mtbVersionNumber
-        '
-        Me.mtbVersionNumber.Location = New System.Drawing.Point(413, 108)
-        Me.mtbVersionNumber.Mask = "0.0.0.0"
-        Me.mtbVersionNumber.Name = "mtbVersionNumber"
-        Me.mtbVersionNumber.Size = New System.Drawing.Size(46, 20)
-        Me.mtbVersionNumber.TabIndex = 51
-        '
         'DMUTool
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -665,7 +665,6 @@ Partial Class DMUTool
         Me.Controls.Add(Me.SCDMUTool)
         Me.Controls.Add(Me.StatusStrip1)
         Me.Controls.Add(Me.ToolStrip1)
-        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "DMUTool"
         Me.Text = "DMU Tool"
         Me.ToolStrip1.ResumeLayout(False)

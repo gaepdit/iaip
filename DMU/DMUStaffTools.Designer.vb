@@ -1,6 +1,6 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
 Partial Class DMUStaffTools
-    Inherits System.Windows.Forms.Form
+    Inherits DefaultForm
 
     'Form overrides dispose to clean up the component list.
     <System.Diagnostics.DebuggerNonUserCode()> _
@@ -4300,7 +4300,7 @@ Me.Label241.Font = New System.Drawing.Font("Times New Roman", 14.25!, System.Dra
 Me.Label241.ForeColor = System.Drawing.SystemColors.HotTrack
 Me.Label241.Location = New System.Drawing.Point(5, 5)
 Me.Label241.Name = "Label241"
-Me.Label241.Size = New System.Drawing.Size(321, 22)
+Me.Label241.Size = New System.Drawing.Size(318, 22)
 Me.Label241.TabIndex = 1
 Me.Label241.Text = "Emission Inventory Summary of Year "
 '
@@ -4491,7 +4491,7 @@ Me.Label267.Font = New System.Drawing.Font("Times New Roman", 14.25!, System.Dra
 Me.Label267.ForeColor = System.Drawing.SystemColors.HotTrack
 Me.Label267.Location = New System.Drawing.Point(11, 10)
 Me.Label267.Name = "Label267"
-Me.Label267.Size = New System.Drawing.Size(182, 22)
+Me.Label267.Size = New System.Drawing.Size(179, 22)
 Me.Label267.TabIndex = 60
 Me.Label267.Text = "Mailout list for Year "
 '
@@ -4771,7 +4771,7 @@ Me.Label275.Font = New System.Drawing.Font("Times New Roman", 14.25!, System.Dra
 Me.Label275.ForeColor = System.Drawing.SystemColors.HotTrack
 Me.Label275.Location = New System.Drawing.Point(10, 10)
 Me.Label275.Name = "Label275"
-Me.Label275.Size = New System.Drawing.Size(209, 22)
+Me.Label275.Size = New System.Drawing.Size(206, 22)
 Me.Label275.TabIndex = 62
 Me.Label275.Text = "Enrollment list for Year "
 '
@@ -5807,7 +5807,7 @@ Me.lblYear.Font = New System.Drawing.Font("Times New Roman", 14.25!, System.Draw
 Me.lblYear.ForeColor = System.Drawing.SystemColors.HotTrack
 Me.lblYear.Location = New System.Drawing.Point(346, 18)
 Me.lblYear.Name = "lblYear"
-Me.lblYear.Size = New System.Drawing.Size(50, 22)
+Me.lblYear.Size = New System.Drawing.Size(48, 22)
 Me.lblYear.TabIndex = 1
 Me.lblYear.Text = "Year"
 '
@@ -5818,7 +5818,7 @@ Me.Label93.Font = New System.Drawing.Font("Times New Roman", 14.25!, System.Draw
 Me.Label93.ForeColor = System.Drawing.SystemColors.HotTrack
 Me.Label93.Location = New System.Drawing.Point(15, 18)
 Me.Label93.Name = "Label93"
-Me.Label93.Size = New System.Drawing.Size(325, 22)
+Me.Label93.Size = New System.Drawing.Size(322, 22)
 Me.Label93.TabIndex = 0
 Me.Label93.Text = "Emission Statement Summary of Year "
 '
@@ -9519,7 +9519,7 @@ Me.lblEIYear.Font = New System.Drawing.Font("Times New Roman", 14.25!, System.Dr
 Me.lblEIYear.ForeColor = System.Drawing.SystemColors.HotTrack
 Me.lblEIYear.Location = New System.Drawing.Point(425, 4)
 Me.lblEIYear.Name = "lblEIYear"
-Me.lblEIYear.Size = New System.Drawing.Size(50, 22)
+Me.lblEIYear.Size = New System.Drawing.Size(48, 22)
 Me.lblEIYear.TabIndex = 1
 Me.lblEIYear.Text = "Year"
 '
@@ -9530,7 +9530,7 @@ Me.Label160.Font = New System.Drawing.Font("Times New Roman", 14.25!, System.Dra
 Me.Label160.ForeColor = System.Drawing.SystemColors.HotTrack
 Me.Label160.Location = New System.Drawing.Point(9, 4)
 Me.Label160.Name = "Label160"
-Me.Label160.Size = New System.Drawing.Size(410, 22)
+Me.Label160.Size = New System.Drawing.Size(407, 22)
 Me.Label160.TabIndex = 0
 Me.Label160.Text = "Emission Inventory Summary for Calendar Year "
 '
@@ -10616,7 +10616,6 @@ Me.Controls.Add(Me.TCDMUTools)
 Me.Controls.Add(Me.StatusStrip1)
 Me.Controls.Add(Me.TSDMUStaffTools)
 Me.Controls.Add(Me.Label1)
-Me.Icon = CType(resources.GetObject("$this.Icon"),System.Drawing.Icon)
 Me.Menu = Me.MainMenu1
 Me.Name = "DMUStaffTools"
 Me.Text = "DMU Staff Tools"

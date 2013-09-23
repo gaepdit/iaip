@@ -1,6 +1,6 @@
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
 Partial Class ISMPTestReportAdministrative
-    Inherits System.Windows.Forms.Form
+    Inherits DefaultForm
 
     'Form overrides dispose to clean up the component list.
     <System.Diagnostics.DebuggerNonUserCode()> _
@@ -1427,7 +1427,6 @@ Partial Class ISMPTestReportAdministrative
         Me.Controls.Add(Me.TCTestReports)
         Me.Controls.Add(Me.TBFacilityInfo)
         Me.Controls.Add(Me.StatusStrip1)
-        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Menu = Me.MainMenu1
         Me.Name = "ISMPTestReportAdministrative"
         Me.Text = "ISMP Test Report Administrative"

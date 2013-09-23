@@ -1,6 +1,6 @@
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
 Partial Class IAIPUserAdminTool
-    Inherits System.Windows.Forms.Form
+    Inherits DefaultForm
 
     'Form overrides dispose to clean up the component list.
     <System.Diagnostics.DebuggerNonUserCode()> _
@@ -161,7 +161,7 @@ Partial Class IAIPUserAdminTool
         'FileToolStripMenuItem
         '
         Me.FileToolStripMenuItem.Name = "FileToolStripMenuItem"
-        Me.FileToolStripMenuItem.Size = New System.Drawing.Size(35, 20)
+        Me.FileToolStripMenuItem.Size = New System.Drawing.Size(37, 20)
         Me.FileToolStripMenuItem.Text = "File"
         Me.FileToolStripMenuItem.Visible = False
         '
@@ -169,31 +169,31 @@ Partial Class IAIPUserAdminTool
         '
         Me.ToolToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsmOpenMaintenanceTool, Me.tsbViewOrgChart, Me.mmiViewPhoneList})
         Me.ToolToolStripMenuItem.Name = "ToolToolStripMenuItem"
-        Me.ToolToolStripMenuItem.Size = New System.Drawing.Size(39, 20)
+        Me.ToolToolStripMenuItem.Size = New System.Drawing.Size(43, 20)
         Me.ToolToolStripMenuItem.Text = "Tool"
         '
         'tsmOpenMaintenanceTool
         '
         Me.tsmOpenMaintenanceTool.Name = "tsmOpenMaintenanceTool"
-        Me.tsmOpenMaintenanceTool.Size = New System.Drawing.Size(241, 22)
+        Me.tsmOpenMaintenanceTool.Size = New System.Drawing.Size(245, 22)
         Me.tsmOpenMaintenanceTool.Text = "Open IAIP Organization Tool"
         '
         'tsbViewOrgChart
         '
         Me.tsbViewOrgChart.Name = "tsbViewOrgChart"
-        Me.tsbViewOrgChart.Size = New System.Drawing.Size(241, 22)
+        Me.tsbViewOrgChart.Size = New System.Drawing.Size(245, 22)
         Me.tsbViewOrgChart.Text = "View Current Organization Chart"
         '
         'mmiViewPhoneList
         '
         Me.mmiViewPhoneList.Name = "mmiViewPhoneList"
-        Me.mmiViewPhoneList.Size = New System.Drawing.Size(241, 22)
+        Me.mmiViewPhoneList.Size = New System.Drawing.Size(245, 22)
         Me.mmiViewPhoneList.Text = "View Current Phone List"
         '
         'EditToolStripMenuItem
         '
         Me.EditToolStripMenuItem.Name = "EditToolStripMenuItem"
-        Me.EditToolStripMenuItem.Size = New System.Drawing.Size(37, 20)
+        Me.EditToolStripMenuItem.Size = New System.Drawing.Size(39, 20)
         Me.EditToolStripMenuItem.Text = "Edit"
         Me.EditToolStripMenuItem.Visible = False
         '
@@ -201,14 +201,14 @@ Partial Class IAIPUserAdminTool
         '
         Me.HelpToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HelpOnlineToolStripMenuItem})
         Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
-        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(40, 20)
+        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(44, 20)
         Me.HelpToolStripMenuItem.Text = "Help"
         '
         'HelpOnlineToolStripMenuItem
         '
         Me.HelpOnlineToolStripMenuItem.Name = "HelpOnlineToolStripMenuItem"
         Me.HelpOnlineToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F1
-        Me.HelpOnlineToolStripMenuItem.Size = New System.Drawing.Size(158, 22)
+        Me.HelpOnlineToolStripMenuItem.Size = New System.Drawing.Size(156, 22)
         Me.HelpOnlineToolStripMenuItem.Text = "Help Online"
         '
         'StatusStrip1
@@ -1249,7 +1249,6 @@ Partial Class IAIPUserAdminTool
         Me.Controls.Add(Me.ToolStrip1)
         Me.Controls.Add(Me.StatusStrip1)
         Me.Controls.Add(Me.MenuStrip1)
-        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MainMenuStrip = Me.MenuStrip1
         Me.Name = "IAIPUserAdminTool"
         Me.Text = "IAIP Profile Management"

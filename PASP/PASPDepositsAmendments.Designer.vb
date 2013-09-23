@@ -1,6 +1,6 @@
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
 Partial Class PASPDepositsAmendments
-    Inherits System.Windows.Forms.Form
+    Inherits DefaultForm
 
     'Form overrides dispose to clean up the component list.
     <System.Diagnostics.DebuggerNonUserCode()> _
@@ -19,7 +19,6 @@ Partial Class PASPDepositsAmendments
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(PASPDepositsAmendments))
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip
         Me.FileToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.mmiClear = New System.Windows.Forms.ToolStripMenuItem
@@ -285,67 +284,67 @@ Partial Class PASPDepositsAmendments
         '
         Me.FileToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mmiClear, Me.mmiBack})
         Me.FileToolStripMenuItem.Name = "FileToolStripMenuItem"
-        Me.FileToolStripMenuItem.Size = New System.Drawing.Size(35, 20)
+        Me.FileToolStripMenuItem.Size = New System.Drawing.Size(37, 20)
         Me.FileToolStripMenuItem.Text = "File"
         '
         'mmiClear
         '
         Me.mmiClear.Name = "mmiClear"
-        Me.mmiClear.Size = New System.Drawing.Size(110, 22)
+        Me.mmiClear.Size = New System.Drawing.Size(101, 22)
         Me.mmiClear.Text = "Clear"
         '
         'mmiBack
         '
         Me.mmiBack.Name = "mmiBack"
-        Me.mmiBack.Size = New System.Drawing.Size(110, 22)
+        Me.mmiBack.Size = New System.Drawing.Size(101, 22)
         Me.mmiBack.Text = "Back"
         '
         'EditToolStripMenuItem
         '
         Me.EditToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mmiCut, Me.mmiCopy, Me.mmiPaste})
         Me.EditToolStripMenuItem.Name = "EditToolStripMenuItem"
-        Me.EditToolStripMenuItem.Size = New System.Drawing.Size(37, 20)
+        Me.EditToolStripMenuItem.Size = New System.Drawing.Size(39, 20)
         Me.EditToolStripMenuItem.Text = "Edit"
         '
         'mmiCut
         '
         Me.mmiCut.Name = "mmiCut"
         Me.mmiCut.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.X), System.Windows.Forms.Keys)
-        Me.mmiCut.Size = New System.Drawing.Size(150, 22)
+        Me.mmiCut.Size = New System.Drawing.Size(144, 22)
         Me.mmiCut.Text = "Cut"
         '
         'mmiCopy
         '
         Me.mmiCopy.Name = "mmiCopy"
         Me.mmiCopy.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.C), System.Windows.Forms.Keys)
-        Me.mmiCopy.Size = New System.Drawing.Size(150, 22)
+        Me.mmiCopy.Size = New System.Drawing.Size(144, 22)
         Me.mmiCopy.Text = "Copy"
         '
         'mmiPaste
         '
         Me.mmiPaste.Name = "mmiPaste"
         Me.mmiPaste.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.V), System.Windows.Forms.Keys)
-        Me.mmiPaste.Size = New System.Drawing.Size(150, 22)
+        Me.mmiPaste.Size = New System.Drawing.Size(144, 22)
         Me.mmiPaste.Text = "Paste"
         '
         'ToolToolStripMenuItem
         '
         Me.ToolToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mmiRefreshDropDowns})
         Me.ToolToolStripMenuItem.Name = "ToolToolStripMenuItem"
-        Me.ToolToolStripMenuItem.Size = New System.Drawing.Size(39, 20)
+        Me.ToolToolStripMenuItem.Size = New System.Drawing.Size(43, 20)
         Me.ToolToolStripMenuItem.Text = "Tool"
         '
         'mmiRefreshDropDowns
         '
         Me.mmiRefreshDropDowns.Name = "mmiRefreshDropDowns"
-        Me.mmiRefreshDropDowns.Size = New System.Drawing.Size(185, 22)
+        Me.mmiRefreshDropDowns.Size = New System.Drawing.Size(183, 22)
         Me.mmiRefreshDropDowns.Text = "Refresh Drop-Downs"
         '
         'HelpToolStripMenuItem
         '
         Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
         Me.HelpToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F1
-        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(40, 20)
+        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(44, 20)
         Me.HelpToolStripMenuItem.Text = "Help"
         '
         'TCDepositsAmendments
@@ -2471,7 +2470,6 @@ Partial Class PASPDepositsAmendments
         Me.Controls.Add(Me.TCDepositsAmendments)
         Me.Controls.Add(Me.MenuStrip1)
         Me.Controls.Add(Me.StatusStrip1)
-        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MainMenuStrip = Me.MenuStrip1
         Me.Name = "PASPDepositsAmendments"
         Me.Text = "PASP Deposits"

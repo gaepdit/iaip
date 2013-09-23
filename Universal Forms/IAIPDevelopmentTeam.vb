@@ -1,5 +1,5 @@
 Public Class IAIPDevelopmentTeam
-    Inherits System.Windows.Forms.Form
+    Inherits DefaultForm
 
 #Region " Windows Form Designer generated code "
 
@@ -167,7 +167,7 @@ Public Class IAIPDevelopmentTeam
         '
         'IAIPDevelopmentTeam
         '
-        Me.AutoScaleBaseSize = New System.Drawing.Size(5, 13)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.ClientSize = New System.Drawing.Size(600, 416)
         Me.Controls.Add(Me.Label12)
         Me.Controls.Add(Me.Label11)
@@ -181,7 +181,6 @@ Public Class IAIPDevelopmentTeam
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.Label2)
-        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "IAIPDevelopmentTeam"
         Me.Text = "IAIP Development"
         Me.ResumeLayout(False)

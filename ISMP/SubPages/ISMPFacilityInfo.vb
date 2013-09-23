@@ -2,7 +2,7 @@ Imports System.Data.OracleClient
 
 
 Public Class ISMPFacilityInfo
-    Inherits System.Windows.Forms.Form
+    Inherits DefaultForm
     Dim statusBar1 As New StatusBar
     Dim panel1 As New StatusBarPanel
     Dim panel2 As New StatusBarPanel
@@ -567,12 +567,11 @@ Public Class ISMPFacilityInfo
         '
         'ISMPFacilityInfo
         '
-        Me.AutoScaleBaseSize = New System.Drawing.Size(5, 13)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.ClientSize = New System.Drawing.Size(792, 223)
         Me.Controls.Add(Me.Panel4)
         Me.Controls.Add(Me.GBFacilityData)
         Me.Controls.Add(Me.TBTestReportEntry)
-        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Menu = Me.MainMenu1
         Me.Name = "ISMPFacilityInfo"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.Manual

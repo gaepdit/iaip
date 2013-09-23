@@ -1,6 +1,6 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
 Partial Class IAIPFeeAuditTool
-    Inherits System.Windows.Forms.Form
+    Inherits DefaultForm
 
     'Form overrides dispose to clean up the component list.
     <System.Diagnostics.DebuggerNonUserCode()> _
@@ -22,7 +22,6 @@ Partial Class IAIPFeeAuditTool
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(IAIPFeeAuditTool))
 Me.StatusStrip1 = New System.Windows.Forms.StatusStrip
 Me.pnl1 = New System.Windows.Forms.ToolStripStatusLabel
 Me.pnl2 = New System.Windows.Forms.ToolStripStatusLabel
@@ -956,19 +955,19 @@ Me.MenuStrip1.Text = "MenuStrip1"
 'FileToolStripMenuItem
 '
 Me.FileToolStripMenuItem.Name = "FileToolStripMenuItem"
-Me.FileToolStripMenuItem.Size = New System.Drawing.Size(35, 20)
+Me.FileToolStripMenuItem.Size = New System.Drawing.Size(37, 20)
 Me.FileToolStripMenuItem.Text = "File"
 '
 'EditToolStripMenuItem
 '
 Me.EditToolStripMenuItem.Name = "EditToolStripMenuItem"
-Me.EditToolStripMenuItem.Size = New System.Drawing.Size(37, 20)
+Me.EditToolStripMenuItem.Size = New System.Drawing.Size(39, 20)
 Me.EditToolStripMenuItem.Text = "Edit"
 '
 'HelpToolStripMenuItem
 '
 Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
-Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(40, 20)
+Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(44, 20)
 Me.HelpToolStripMenuItem.Text = "Help"
 '
 'TCNonResponders
@@ -1555,7 +1554,7 @@ Me.TP_Tracking_CY2007.Controls.Add(Me.Panel52)
 Me.TP_Tracking_CY2007.Location = New System.Drawing.Point(4, 22)
 Me.TP_Tracking_CY2007.Name = "TP_Tracking_CY2007"
 Me.TP_Tracking_CY2007.Padding = New System.Windows.Forms.Padding(3)
-Me.TP_Tracking_CY2007.Size = New System.Drawing.Size(770, 623)
+Me.TP_Tracking_CY2007.Size = New System.Drawing.Size(770, 603)
 Me.TP_Tracking_CY2007.TabIndex = 1
 Me.TP_Tracking_CY2007.Text = "CY2007"
 Me.TP_Tracking_CY2007.UseVisualStyleBackColor = true
@@ -1597,7 +1596,7 @@ Me.Panel58.Controls.Add(Me.Label79)
 Me.Panel58.Dock = System.Windows.Forms.DockStyle.Fill
 Me.Panel58.Location = New System.Drawing.Point(3, 35)
 Me.Panel58.Name = "Panel58"
-Me.Panel58.Size = New System.Drawing.Size(764, 585)
+Me.Panel58.Size = New System.Drawing.Size(764, 565)
 Me.Panel58.TabIndex = 4
 '
 'Label37
@@ -2082,7 +2081,7 @@ Me.TP_Tracking_CY2006.Controls.Add(Me.Panel53)
 Me.TP_Tracking_CY2006.Location = New System.Drawing.Point(4, 22)
 Me.TP_Tracking_CY2006.Name = "TP_Tracking_CY2006"
 Me.TP_Tracking_CY2006.Padding = New System.Windows.Forms.Padding(3)
-Me.TP_Tracking_CY2006.Size = New System.Drawing.Size(770, 623)
+Me.TP_Tracking_CY2006.Size = New System.Drawing.Size(770, 603)
 Me.TP_Tracking_CY2006.TabIndex = 2
 Me.TP_Tracking_CY2006.Text = "CY2006"
 Me.TP_Tracking_CY2006.UseVisualStyleBackColor = true
@@ -2124,7 +2123,7 @@ Me.Panel65.Controls.Add(Me.Label97)
 Me.Panel65.Dock = System.Windows.Forms.DockStyle.Fill
 Me.Panel65.Location = New System.Drawing.Point(3, 35)
 Me.Panel65.Name = "Panel65"
-Me.Panel65.Size = New System.Drawing.Size(764, 585)
+Me.Panel65.Size = New System.Drawing.Size(764, 565)
 Me.Panel65.TabIndex = 4
 '
 'Label39
@@ -2609,7 +2608,7 @@ Me.TP_Tracking_CY2005.Controls.Add(Me.Panel54)
 Me.TP_Tracking_CY2005.Location = New System.Drawing.Point(4, 22)
 Me.TP_Tracking_CY2005.Name = "TP_Tracking_CY2005"
 Me.TP_Tracking_CY2005.Padding = New System.Windows.Forms.Padding(3)
-Me.TP_Tracking_CY2005.Size = New System.Drawing.Size(770, 623)
+Me.TP_Tracking_CY2005.Size = New System.Drawing.Size(770, 603)
 Me.TP_Tracking_CY2005.TabIndex = 4
 Me.TP_Tracking_CY2005.Text = "CY2005"
 Me.TP_Tracking_CY2005.UseVisualStyleBackColor = true
@@ -2651,7 +2650,7 @@ Me.Panel72.Controls.Add(Me.Label115)
 Me.Panel72.Dock = System.Windows.Forms.DockStyle.Fill
 Me.Panel72.Location = New System.Drawing.Point(3, 35)
 Me.Panel72.Name = "Panel72"
-Me.Panel72.Size = New System.Drawing.Size(764, 585)
+Me.Panel72.Size = New System.Drawing.Size(764, 565)
 Me.Panel72.TabIndex = 4
 '
 'Label41
@@ -3136,7 +3135,7 @@ Me.TP_Tracking_CY2004.Controls.Add(Me.Panel55)
 Me.TP_Tracking_CY2004.Location = New System.Drawing.Point(4, 22)
 Me.TP_Tracking_CY2004.Name = "TP_Tracking_CY2004"
 Me.TP_Tracking_CY2004.Padding = New System.Windows.Forms.Padding(3)
-Me.TP_Tracking_CY2004.Size = New System.Drawing.Size(770, 623)
+Me.TP_Tracking_CY2004.Size = New System.Drawing.Size(770, 603)
 Me.TP_Tracking_CY2004.TabIndex = 5
 Me.TP_Tracking_CY2004.Text = "CY2004"
 Me.TP_Tracking_CY2004.UseVisualStyleBackColor = true
@@ -3178,7 +3177,7 @@ Me.Panel79.Controls.Add(Me.Label133)
 Me.Panel79.Dock = System.Windows.Forms.DockStyle.Fill
 Me.Panel79.Location = New System.Drawing.Point(3, 35)
 Me.Panel79.Name = "Panel79"
-Me.Panel79.Size = New System.Drawing.Size(764, 585)
+Me.Panel79.Size = New System.Drawing.Size(764, 565)
 Me.Panel79.TabIndex = 4
 '
 'Label43
@@ -3663,7 +3662,7 @@ Me.TP_Tracking_CY2003.Controls.Add(Me.Panel56)
 Me.TP_Tracking_CY2003.Location = New System.Drawing.Point(4, 22)
 Me.TP_Tracking_CY2003.Name = "TP_Tracking_CY2003"
 Me.TP_Tracking_CY2003.Padding = New System.Windows.Forms.Padding(3)
-Me.TP_Tracking_CY2003.Size = New System.Drawing.Size(770, 623)
+Me.TP_Tracking_CY2003.Size = New System.Drawing.Size(770, 603)
 Me.TP_Tracking_CY2003.TabIndex = 6
 Me.TP_Tracking_CY2003.Text = "CY2003"
 Me.TP_Tracking_CY2003.UseVisualStyleBackColor = true
@@ -3705,7 +3704,7 @@ Me.Panel86.Controls.Add(Me.Label151)
 Me.Panel86.Dock = System.Windows.Forms.DockStyle.Fill
 Me.Panel86.Location = New System.Drawing.Point(3, 35)
 Me.Panel86.Name = "Panel86"
-Me.Panel86.Size = New System.Drawing.Size(764, 585)
+Me.Panel86.Size = New System.Drawing.Size(764, 565)
 Me.Panel86.TabIndex = 4
 '
 'Label45
@@ -4190,7 +4189,7 @@ Me.TP_Tracking_CY2002.Controls.Add(Me.Panel57)
 Me.TP_Tracking_CY2002.Location = New System.Drawing.Point(4, 22)
 Me.TP_Tracking_CY2002.Name = "TP_Tracking_CY2002"
 Me.TP_Tracking_CY2002.Padding = New System.Windows.Forms.Padding(3)
-Me.TP_Tracking_CY2002.Size = New System.Drawing.Size(770, 623)
+Me.TP_Tracking_CY2002.Size = New System.Drawing.Size(770, 603)
 Me.TP_Tracking_CY2002.TabIndex = 7
 Me.TP_Tracking_CY2002.Text = "CY2002"
 Me.TP_Tracking_CY2002.UseVisualStyleBackColor = true
@@ -4232,7 +4231,7 @@ Me.Panel93.Controls.Add(Me.Label169)
 Me.Panel93.Dock = System.Windows.Forms.DockStyle.Fill
 Me.Panel93.Location = New System.Drawing.Point(3, 35)
 Me.Panel93.Name = "Panel93"
-Me.Panel93.Size = New System.Drawing.Size(764, 585)
+Me.Panel93.Size = New System.Drawing.Size(764, 565)
 Me.Panel93.TabIndex = 4
 '
 'Label63
@@ -4718,7 +4717,7 @@ Me.TP_Tracking_OtherComments.Controls.Add(Me.Label35)
 Me.TP_Tracking_OtherComments.Location = New System.Drawing.Point(4, 22)
 Me.TP_Tracking_OtherComments.Name = "TP_Tracking_OtherComments"
 Me.TP_Tracking_OtherComments.Padding = New System.Windows.Forms.Padding(3)
-Me.TP_Tracking_OtherComments.Size = New System.Drawing.Size(770, 623)
+Me.TP_Tracking_OtherComments.Size = New System.Drawing.Size(770, 603)
 Me.TP_Tracking_OtherComments.TabIndex = 3
 Me.TP_Tracking_OtherComments.Text = "Other Comments"
 Me.TP_Tracking_OtherComments.UseVisualStyleBackColor = true
@@ -4757,7 +4756,7 @@ Me.TPNonResponders.Controls.Add(Me.Panel1)
 Me.TPNonResponders.Location = New System.Drawing.Point(4, 22)
 Me.TPNonResponders.Name = "TPNonResponders"
 Me.TPNonResponders.Padding = New System.Windows.Forms.Padding(3)
-Me.TPNonResponders.Size = New System.Drawing.Size(784, 655)
+Me.TPNonResponders.Size = New System.Drawing.Size(784, 635)
 Me.TPNonResponders.TabIndex = 0
 Me.TPNonResponders.Text = "Non-Responders"
 Me.TPNonResponders.UseVisualStyleBackColor = true
@@ -4770,7 +4769,7 @@ Me.Panel1.Controls.Add(Me.gbTopData)
 Me.Panel1.Dock = System.Windows.Forms.DockStyle.Fill
 Me.Panel1.Location = New System.Drawing.Point(3, 3)
 Me.Panel1.Name = "Panel1"
-Me.Panel1.Size = New System.Drawing.Size(778, 649)
+Me.Panel1.Size = New System.Drawing.Size(778, 629)
 Me.Panel1.TabIndex = 2
 '
 'TCNonRespondersData
@@ -4784,7 +4783,7 @@ Me.TCNonRespondersData.Dock = System.Windows.Forms.DockStyle.Fill
 Me.TCNonRespondersData.Location = New System.Drawing.Point(0, 425)
 Me.TCNonRespondersData.Name = "TCNonRespondersData"
 Me.TCNonRespondersData.SelectedIndex = 0
-Me.TCNonRespondersData.Size = New System.Drawing.Size(778, 224)
+Me.TCNonRespondersData.Size = New System.Drawing.Size(778, 204)
 Me.TCNonRespondersData.TabIndex = 1
 '
 'TP_CY2008
@@ -4794,7 +4793,7 @@ Me.TP_CY2008.Controls.Add(Me.Panel25)
 Me.TP_CY2008.Location = New System.Drawing.Point(4, 22)
 Me.TP_CY2008.Name = "TP_CY2008"
 Me.TP_CY2008.Padding = New System.Windows.Forms.Padding(3)
-Me.TP_CY2008.Size = New System.Drawing.Size(770, 198)
+Me.TP_CY2008.Size = New System.Drawing.Size(770, 178)
 Me.TP_CY2008.TabIndex = 0
 Me.TP_CY2008.Text = "CY2008"
 Me.TP_CY2008.UseVisualStyleBackColor = true
@@ -4806,7 +4805,7 @@ Me.Panel25.Controls.Add(Me.gbCY2008)
 Me.Panel25.Dock = System.Windows.Forms.DockStyle.Fill
 Me.Panel25.Location = New System.Drawing.Point(3, 3)
 Me.Panel25.Name = "Panel25"
-Me.Panel25.Size = New System.Drawing.Size(764, 192)
+Me.Panel25.Size = New System.Drawing.Size(764, 172)
 Me.Panel25.TabIndex = 3
 '
 'gbCY2008
@@ -7294,7 +7293,7 @@ Me.TPNonPayers.Controls.Add(Me.GroupBox2)
 Me.TPNonPayers.Location = New System.Drawing.Point(4, 22)
 Me.TPNonPayers.Name = "TPNonPayers"
 Me.TPNonPayers.Padding = New System.Windows.Forms.Padding(3)
-Me.TPNonPayers.Size = New System.Drawing.Size(784, 655)
+Me.TPNonPayers.Size = New System.Drawing.Size(784, 635)
 Me.TPNonPayers.TabIndex = 3
 Me.TPNonPayers.Text = "Non-Payers"
 Me.TPNonPayers.UseVisualStyleBackColor = true
@@ -8022,7 +8021,7 @@ Me.TPAuditReport.Controls.Add(Me.Panel101)
 Me.TPAuditReport.Controls.Add(Me.Panel100)
 Me.TPAuditReport.Location = New System.Drawing.Point(4, 22)
 Me.TPAuditReport.Name = "TPAuditReport"
-Me.TPAuditReport.Size = New System.Drawing.Size(784, 655)
+Me.TPAuditReport.Size = New System.Drawing.Size(784, 635)
 Me.TPAuditReport.TabIndex = 2
 Me.TPAuditReport.Text = "Reports"
 Me.TPAuditReport.UseVisualStyleBackColor = true
@@ -8033,7 +8032,7 @@ Me.Panel101.Controls.Add(Me.dgvFeeAuditReport)
 Me.Panel101.Dock = System.Windows.Forms.DockStyle.Fill
 Me.Panel101.Location = New System.Drawing.Point(0, 165)
 Me.Panel101.Name = "Panel101"
-Me.Panel101.Size = New System.Drawing.Size(784, 490)
+Me.Panel101.Size = New System.Drawing.Size(784, 470)
 Me.Panel101.TabIndex = 1
 '
 'dgvFeeAuditReport
@@ -8043,7 +8042,7 @@ Me.dgvFeeAuditReport.Dock = System.Windows.Forms.DockStyle.Fill
 Me.dgvFeeAuditReport.Location = New System.Drawing.Point(0, 0)
 Me.dgvFeeAuditReport.Name = "dgvFeeAuditReport"
 Me.dgvFeeAuditReport.ReadOnly = true
-Me.dgvFeeAuditReport.Size = New System.Drawing.Size(784, 490)
+Me.dgvFeeAuditReport.Size = New System.Drawing.Size(784, 470)
 Me.dgvFeeAuditReport.TabIndex = 0
 '
 'Panel100
@@ -8524,7 +8523,6 @@ Me.Controls.Add(Me.TCNonResponders)
 Me.Controls.Add(Me.StatusStrip1)
 Me.Controls.Add(Me.pnlTop1)
 Me.Controls.Add(Me.MenuStrip1)
-Me.Icon = CType(resources.GetObject("$this.Icon"),System.Drawing.Icon)
 Me.Name = "IAIPFeeAuditTool"
 Me.Text = "IAIP Fee Audit Tool"
 Me.StatusStrip1.ResumeLayout(false)

@@ -1,6 +1,6 @@
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
 Partial Class SSCPManagersTools
-    Inherits System.Windows.Forms.Form
+    Inherits DefaultForm
 
     'Form overrides dispose to clean up the component list.
     <System.Diagnostics.DebuggerNonUserCode()> _
@@ -4571,7 +4571,6 @@ Partial Class SSCPManagersTools
         Me.ClientSize = New System.Drawing.Size(1192, 745)
         Me.Controls.Add(Me.TCManagerTools)
         Me.Controls.Add(Me.TBSSCPManagersTools)
-        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Menu = Me.MainMenu1
         Me.Name = "SSCPManagersTools"
         Me.Text = "Compliance Managers Tools"

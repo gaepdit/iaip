@@ -124,10 +124,9 @@
   <data name="tsbBack.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAG9JREFUOE+1kksO
-        wCAIRLn/palYqwRHhkUlIUY0w+Mj8qNp04pelldVaW62ziFIRVDmSmwKb5kjCbp7ug3fHplIEFi1+0Zm
-        IpAATOFIciSwKbwl5GXc68FHwMpJCRi+S9J3gY6M7gHCLcbomt//8ADgL7ZYudMCQAAAAABJRU5ErkJg
-        gg==
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAB5SURBVDhPxY0LDoAgDEO5/6UnbdlEPgrGxJeMknaF9CU2
+        mGXMDANOha/4nvrHnQnixx1FT3U+0IdirthhOxMmTwWPj5Qd0pqXEb2WnITpKq/3a8UO25kw61DMFTts
+        Z8J0hTcaz3nKI2HuKHqqNy+vKnqq6/J2fielA+Avtljbyw7gAAAAAElFTkSuQmCC
 </value>
   </data>
   <metadata name="StatusStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
@@ -145,64 +144,7 @@
   <metadata name="rdbUnitDateReceived.Locked" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <metadata name="rdbUnitDateCompleted.Locked" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="rdbUnitDateTestStarted.Locked" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="rdbUnitDateReceived.Locked" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>29</value>
   </metadata>
-  <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        AAABAAEAIiIAAAEACAAACgAAFgAAACgAAAAiAAAARAAAAAEACAAAAAAAAAAAAMQOAADEDgAAAAEAAAAA
-        AAAkKjQAdJacAKTO1ABMYmwAfLbEAERqlABUlrwAxObkAJy2vACEzuQAREpMAFx6hABchpQAbLbUAIym
-        pABEaoQAZKa8AFSGrAA0SmQAXJasAKzW5AC8zswAjMbUAGyGlABcpswANDo8AFxyfACcvtQARGJ8AHSW
-        rACc3uwAhL7UAHymvAA8WmwAvN7cAHS2zABMepQAnMbMAJzO5ABMhqQAvNbcADQ6TABcYmwAdL7kAFxy
-        hABUWlwAdL7UADRKXABshowAxN7kALzW1ABsjqQALDJEAISWnAC01twAbJ68AMz2/AB0prQATHKEAGye
-        rAB0xuQAbI6UADxadACsztQApOb0AIzW7ABkeoQAXI6cAHSuxAC03uQAdK7MAHSerAB8rrwAjLbMAFx6
-        lADExsQANEJMACwyNABUanQAlL7EAFyevABkpsQANFJkAJzG1ABcanwATFpkAERSXACMprQANEJUAGyW
-        pABEYnQAlLa8AERylACcvswAhM7sAFSGnABsttwAXJa0ALzO1ACExtwAZK7MADxCRACc1uQAYI6kAGRq
-        bABzvtwAbY6cALzm9AB2nrQAfa7EAEhSZACgxtwARGqMAF6OrAAzOkQATmp8AIS+zABOepwARkpcAM/W
-        1ABPcowArc7cAGZ6jACw3uwAu8bMAGCexABRWmwATHKcAJ/W7ACkvsQAhp6kAJC+zACRrrQAxO70AFSO
-        tAAsKjwAn87cALzm7ABBSlQAW3qMAGyGnACk3vQAXHKMAGuetABcepwAMDI8ADxSbACQtsQAZK7UAF5q
-        dACctsQAlM7kAHy21ACMpqwAVGqEAHSmvABslqwAvNbkAMzOzABscnwAlL7UAMze3ACEtswArMbMAFyG
-        pADM1twAXGJ0AISmtACExuQAfI6UALTm9ACEnqwAjK68AERCTAB0psQArMbUAERCVAB8lqQAVGJ0AFRy
-        lABkhpwAlMbcAHy+3AA8OkQAxMbMACwqNAB8lpwAVGJsAIS2xABclrwAjM7kAGSGlAB0ttQATGqEAGym
-        vABklqwAtNbkAMTOzACUxtQAdIaUAGSmzABkcnwATGJ8AHyWrACMvtQAhKa8AERabAB8tswAVHqUAKTG
-        zABUhqQAxNbcAGRyhAB8vtQAPEpcAHSGjADM3uQAxNbUADQyRAB0nrwAfKa0AFRyhAB8xuQAdI6UAERa
-        dAC0ztQArOb0AJTW7ABseoQAZI6cALze5AB8rswAfJ6sAISuvABkepQAPEJMAGSevABspsQAPFJkAKTG
-        1ABkanwAVFpkAExSXAA8QlQAdJakAExidABMcpQApL7MAIzO7ABchpwAdLbcAGSWtADEztQAjMbcAGyu
-        zACk1uQAS0tLS0tLS0tLS0tLS0tLS3eenktLS0tLS0tLS0tLS0tLSwAAS0tLS0tLS0tLS0u4fKPvU0jc
-        vINd97hLS0tLS0tLS0tLSwAAS0tLS0tLS0tLS54C5Xp+iuvr6+sDv0ivnktLS0tLS0tLSwAAS0tLS0tL
-        S0tLYl1U65GKTYq5Tk3r63Y9g6PFS0tLS0tLSwAAS0tLS0tLS8V5sVVNubkaTetNbrmLGrkZVqd5d0tL
-        S0tLSwAAS0tLS0vFgYLyck1NuYeKh/Pr1k3rNE1NTdrysaNLS0tLSwAAS0tLS0uBKpGRkZGR1hzB0ENh
-        pHjB7tq5uYdNh6liS0tLSwAAS0tLS56CkZVbW6wgz890FnSiokmDorz3UxtTuoqvxUtLSwAAS0tLSyJV
-        kblu6G9mm5vCwpi2wo+uO7wmxmq7uZF65p5LSwAAS0tL/IQpkU251rygviu2aSOYEP6LytXMR9aRkZHr
-        V9NLSwAAS0ueKH6RkZHztIi84wneac+1/n3g9R+bg+VykZGR8T+eSwAAS0vT3ymRkWpZvkhsQUH43u05
-        EL0MmjdtRy7lLE2RctfTSwAAS8UI8nLaTLRr25L0aUH4CTm6+8EdHBz/IdIgk9qRkYpbfAAAS6GCioqR
-        R52FRzN4YQn4CSDfj7NHajrnnPmMk5WRkXK6xQAASyg18YKwWf1tm0joIN4JCWzHwpC/wZpsR2rS+tbx
-        kZHk2QAASzEqrfGKbB620i/L+Qne+h0XffYMPpL/EsFnH867mZW72QAAnubycnLrvI28HdBHN2Rh+5zl
-        pJp1f4vNvzPctnOKitqKKAAAnjZVleuKokD4hvbl7e+gcZzBi0rpg5u80Ea+4yy3kZGK2QAASyJ+NeR2
-        T+IeqF9sbDiJE+Vzhie8qmfv+eOAgPWf17qK0wAASweV8nLaR6qN4/m/5cYuaaSOI7ZpzUOzSmYeJgNN
-        2toqMgAAS9ipcreRc3tAm2d1eDfsj3gPJHHD0HV49ryAY7C32pHX/AAAS3eZCrfyboOXOnj29vb29tB4
-        ePYk0GfDw2pGj/PXdoqZFQAAS57hKqa72osfxqLCyyOY1Zgfz/7+m8PDm0RG4OumdqY/SwAAS0ulhIq3
-        cnLq496cizlkDd48aWR9m2roab1auYqRrVdiSwAAS0ueNpXr16Y0DAmcLL9s/g0YyFFsM+phUL+RbtTa
-        fjbFSwAAS0tL04TkyXLaiuXtiyy05Ww7nLSLv2dcjjSRiqluCHxLSwAAS0tLSyjkinLz63KQEQzKagzl
-        i3PqM9JuNHLrkXZ6NrhLSwAAS0tLS56Zt3IO5HLzwXCk+TP0v2dndeC56/K7u4o2/EtLSwAAS0tLS0sV
-        uuSV85Hr84op1u7g4O7WKYpyKSrzVIT8S0tLSwAAS0tLS0tLoXl6ipHykdSy7pGRTHZVkbtVkeswebhL
-        S0tLSwAAS0tLS0tLS3fmhLvyC3568ZFNi5HxuQp+u6evFUtLS0tLSwAAS0tLS0tLS0u4Yoh6sJGyVrlN
-        irtVkW70b9nFS0tLS0tLSwAAS0tLS0tLS0tLS54/bGosVYqKin7UaoMyxUtLS0tLS0tLSwAAS0tLS0tL
-        S0tLS0tLxRWjo4HRr6NifEtLS0tLS0tLS0tLSwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-        AAA=
-</value>
-  </data>
 </root>

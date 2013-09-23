@@ -1,6 +1,6 @@
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
 Partial Class ISMPMonitoringLog
-    Inherits System.Windows.Forms.Form
+    Inherits DefaultForm
 
     'Form overrides dispose to clean up the component list.
     <System.Diagnostics.DebuggerNonUserCode()> _
@@ -247,51 +247,51 @@ Partial Class ISMPMonitoringLog
         '
         Me.FileToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mmiClear, Me.mmiBack})
         Me.FileToolStripMenuItem.Name = "FileToolStripMenuItem"
-        Me.FileToolStripMenuItem.Size = New System.Drawing.Size(35, 20)
+        Me.FileToolStripMenuItem.Size = New System.Drawing.Size(37, 20)
         Me.FileToolStripMenuItem.Text = "File"
         '
         'mmiClear
         '
         Me.mmiClear.Name = "mmiClear"
-        Me.mmiClear.Size = New System.Drawing.Size(110, 22)
+        Me.mmiClear.Size = New System.Drawing.Size(101, 22)
         Me.mmiClear.Text = "Clear"
         '
         'mmiBack
         '
         Me.mmiBack.Name = "mmiBack"
-        Me.mmiBack.Size = New System.Drawing.Size(110, 22)
+        Me.mmiBack.Size = New System.Drawing.Size(101, 22)
         Me.mmiBack.Text = "Back"
         '
         'EditToolStripMenuItem
         '
         Me.EditToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mmiReset})
         Me.EditToolStripMenuItem.Name = "EditToolStripMenuItem"
-        Me.EditToolStripMenuItem.Size = New System.Drawing.Size(37, 20)
+        Me.EditToolStripMenuItem.Size = New System.Drawing.Size(39, 20)
         Me.EditToolStripMenuItem.Text = "Edit"
         '
         'mmiReset
         '
         Me.mmiReset.Name = "mmiReset"
-        Me.mmiReset.Size = New System.Drawing.Size(113, 22)
+        Me.mmiReset.Size = New System.Drawing.Size(102, 22)
         Me.mmiReset.Text = "Reset"
         '
         'ToolsToolStripMenuItem
         '
         Me.ToolsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mmiReports})
         Me.ToolsToolStripMenuItem.Name = "ToolsToolStripMenuItem"
-        Me.ToolsToolStripMenuItem.Size = New System.Drawing.Size(44, 20)
+        Me.ToolsToolStripMenuItem.Size = New System.Drawing.Size(48, 20)
         Me.ToolsToolStripMenuItem.Text = "Tools"
         '
         'mmiReports
         '
         Me.mmiReports.Name = "mmiReports"
-        Me.mmiReports.Size = New System.Drawing.Size(123, 22)
+        Me.mmiReports.Size = New System.Drawing.Size(114, 22)
         Me.mmiReports.Text = "Reports"
         '
         'mmiHelp
         '
         Me.mmiHelp.Name = "mmiHelp"
-        Me.mmiHelp.Size = New System.Drawing.Size(40, 20)
+        Me.mmiHelp.Size = New System.Drawing.Size(44, 20)
         Me.mmiHelp.Text = "Help"
         '
         'StatusStrip1
@@ -1861,7 +1861,7 @@ Partial Class ISMPMonitoringLog
         Me.TPNotifications.Location = New System.Drawing.Point(4, 22)
         Me.TPNotifications.Name = "TPNotifications"
         Me.TPNotifications.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPNotifications.Size = New System.Drawing.Size(1008, 64)
+        Me.TPNotifications.Size = New System.Drawing.Size(1008, 70)
         Me.TPNotifications.TabIndex = 1
         Me.TPNotifications.Text = "Test Notifications"
         Me.TPNotifications.UseVisualStyleBackColor = True
@@ -1897,7 +1897,7 @@ Partial Class ISMPMonitoringLog
         DataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText
         DataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
         Me.dgvNotificationLog.RowHeadersDefaultCellStyle = DataGridViewCellStyle6
-        Me.dgvNotificationLog.Size = New System.Drawing.Size(1002, 58)
+        Me.dgvNotificationLog.Size = New System.Drawing.Size(1002, 64)
         Me.dgvNotificationLog.TabIndex = 1
         '
         'TPTestFirmComments
@@ -1905,7 +1905,7 @@ Partial Class ISMPMonitoringLog
         Me.TPTestFirmComments.Controls.Add(Me.dgvTestFirmComments)
         Me.TPTestFirmComments.Location = New System.Drawing.Point(4, 22)
         Me.TPTestFirmComments.Name = "TPTestFirmComments"
-        Me.TPTestFirmComments.Size = New System.Drawing.Size(1008, 64)
+        Me.TPTestFirmComments.Size = New System.Drawing.Size(1008, 70)
         Me.TPTestFirmComments.TabIndex = 2
         Me.TPTestFirmComments.Text = "Test Firm Comments"
         Me.TPTestFirmComments.UseVisualStyleBackColor = True
@@ -1941,7 +1941,7 @@ Partial Class ISMPMonitoringLog
         DataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText
         DataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
         Me.dgvTestFirmComments.RowHeadersDefaultCellStyle = DataGridViewCellStyle9
-        Me.dgvTestFirmComments.Size = New System.Drawing.Size(1008, 64)
+        Me.dgvTestFirmComments.Size = New System.Drawing.Size(1008, 70)
         Me.dgvTestFirmComments.TabIndex = 1
         '
         'ISMPMonitoringLog
@@ -1953,7 +1953,6 @@ Partial Class ISMPMonitoringLog
         Me.Controls.Add(Me.ToolStrip1)
         Me.Controls.Add(Me.StatusStrip1)
         Me.Controls.Add(Me.MenuStrip1)
-        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MainMenuStrip = Me.MenuStrip1
         Me.Name = "ISMPMonitoringLog"
         Me.Text = "ISMP Monitoring Log"

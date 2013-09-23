@@ -1,6 +1,6 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
 Partial Class SSPP_FeeContact
-    Inherits System.Windows.Forms.Form
+    Inherits DefaultForm
 
     'Form overrides dispose to clean up the component list.
     <System.Diagnostics.DebuggerNonUserCode()> _
@@ -22,7 +22,6 @@ Partial Class SSPP_FeeContact
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(SSPP_FeeContact))
         Me.Panel1 = New System.Windows.Forms.Panel
         Me.btnLoadDefaultDescription = New System.Windows.Forms.Button
         Me.txtSocialTitle = New System.Windows.Forms.TextBox
@@ -421,7 +420,6 @@ Partial Class SSPP_FeeContact
         Me.ClientSize = New System.Drawing.Size(550, 325)
         Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.Panel2)
-        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "SSPP_FeeContact"
         Me.Text = "SSPP Fee Contact Update"
         Me.Panel1.ResumeLayout(False)

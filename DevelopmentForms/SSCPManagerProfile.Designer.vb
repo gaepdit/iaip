@@ -1,6 +1,6 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
 Partial Class SSCPManagerProfile
-    Inherits System.Windows.Forms.Form
+    Inherits DefaultForm
 
     'Form overrides dispose to clean up the component list.
     <System.Diagnostics.DebuggerNonUserCode()> _
@@ -40,6 +40,7 @@ Partial Class SSCPManagerProfile
         Me.TCUser_Profile_Tool = New System.Windows.Forms.TabControl
         Me.tbSSCP_UC_Facility_Assignment_Profile = New System.Windows.Forms.TabPage
         Me.GroupBox1 = New System.Windows.Forms.GroupBox
+        Me.Label1 = New System.Windows.Forms.Label
         Me.txtDistrictResponsible = New System.Windows.Forms.TextBox
         Me.chbDistrictResponsible = New System.Windows.Forms.CheckBox
         Me.txtCheckBox_Count = New System.Windows.Forms.TextBox
@@ -70,7 +71,6 @@ Partial Class SSCPManagerProfile
         Me.txtAIRS_Number = New System.Windows.Forms.TextBox
         Me.chbSSCP_Unit = New System.Windows.Forms.CheckBox
         Me.Label7 = New System.Windows.Forms.Label
-        Me.Label1 = New System.Windows.Forms.Label
         Me.StatusStrip1.SuspendLayout()
         Me.TCUser_Profile_Tool.SuspendLayout()
         Me.tbSSCP_UC_Facility_Assignment_Profile.SuspendLayout()
@@ -313,6 +313,16 @@ Partial Class SSCPManagerProfile
         Me.GroupBox1.TabIndex = 1
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Facility Assignment Profile"
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Location = New System.Drawing.Point(438, 160)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(39, 13)
+        Me.Label1.TabIndex = 31
+        Me.Label1.Text = "Label1"
+        Me.Label1.Visible = False
         '
         'txtDistrictResponsible
         '
@@ -563,16 +573,6 @@ Partial Class SSCPManagerProfile
         Me.Label7.TabIndex = 0
         Me.Label7.Text = "Choose columns seen and order"
         '
-        'Label1
-        '
-        Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(438, 160)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(39, 13)
-        Me.Label1.TabIndex = 31
-        Me.Label1.Text = "Label1"
-        Me.Label1.Visible = False
-        '
         'SSCPManagerProfile
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -581,7 +581,6 @@ Partial Class SSCPManagerProfile
         Me.Controls.Add(Me.TCUser_Profile_Tool)
         Me.Controls.Add(Me.TBSSPPPermitTrackingLog)
         Me.Controls.Add(Me.StatusStrip1)
-        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Menu = Me.MainMenu1
         Me.Name = "SSCPManagerProfile"
         Me.Text = "SSCP Manager Profile"

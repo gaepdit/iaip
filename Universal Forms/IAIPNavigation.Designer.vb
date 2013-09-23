@@ -1,6 +1,6 @@
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
 Partial Class IAIPNavigation
-    Inherits System.Windows.Forms.Form
+    Inherits DefaultForm
 
     'Form overrides dispose to clean up the component list.
     <System.Diagnostics.DebuggerNonUserCode()> _
@@ -953,16 +953,16 @@ Partial Class IAIPNavigation
         'StatusStrip1
         '
         Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ProgressBar, Me.pnl1, Me.pnl2, Me.pnl3, Me.pnl4, Me.pnl5})
-        Me.StatusStrip1.Location = New System.Drawing.Point(2, 142)
+        Me.StatusStrip1.Location = New System.Drawing.Point(2, 140)
         Me.StatusStrip1.Name = "StatusStrip1"
         Me.StatusStrip1.Padding = New System.Windows.Forms.Padding(1, 0, 10, 0)
-        Me.StatusStrip1.Size = New System.Drawing.Size(670, 22)
+        Me.StatusStrip1.Size = New System.Drawing.Size(670, 24)
         Me.StatusStrip1.TabIndex = 264
         '
         'ProgressBar
         '
         Me.ProgressBar.Name = "ProgressBar"
-        Me.ProgressBar.Size = New System.Drawing.Size(75, 16)
+        Me.ProgressBar.Size = New System.Drawing.Size(75, 18)
         Me.ProgressBar.Style = System.Windows.Forms.ProgressBarStyle.Continuous
         '
         'pnl1
@@ -973,7 +973,7 @@ Partial Class IAIPNavigation
         Me.pnl1.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
         Me.pnl1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
         Me.pnl1.Name = "pnl1"
-        Me.pnl1.Size = New System.Drawing.Size(391, 17)
+        Me.pnl1.Size = New System.Drawing.Size(385, 19)
         Me.pnl1.Spring = True
         Me.pnl1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
@@ -985,7 +985,7 @@ Partial Class IAIPNavigation
         Me.pnl2.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
         Me.pnl2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
         Me.pnl2.Name = "pnl2"
-        Me.pnl2.Size = New System.Drawing.Size(40, 17)
+        Me.pnl2.Size = New System.Drawing.Size(43, 19)
         Me.pnl2.Text = "Name"
         '
         'pnl3
@@ -996,7 +996,7 @@ Partial Class IAIPNavigation
         Me.pnl3.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
         Me.pnl3.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
         Me.pnl3.Name = "pnl3"
-        Me.pnl3.Size = New System.Drawing.Size(35, 17)
+        Me.pnl3.Size = New System.Drawing.Size(35, 19)
         Me.pnl3.Text = "Date"
         '
         'pnl4
@@ -1007,7 +1007,7 @@ Partial Class IAIPNavigation
         Me.pnl4.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
         Me.pnl4.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
         Me.pnl4.Name = "pnl4"
-        Me.pnl4.Size = New System.Drawing.Size(76, 17)
+        Me.pnl4.Size = New System.Drawing.Size(79, 19)
         Me.pnl4.Text = "Environment"
         '
         'pnl5
@@ -1018,7 +1018,7 @@ Partial Class IAIPNavigation
         Me.pnl5.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
         Me.pnl5.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
         Me.pnl5.Name = "pnl5"
-        Me.pnl5.Size = New System.Drawing.Size(40, 17)
+        Me.pnl5.Size = New System.Drawing.Size(40, 19)
         Me.pnl5.Text = "Blank"
         '
         'llbTrackingNumber
@@ -1213,7 +1213,6 @@ Partial Class IAIPNavigation
         Me.Controls.Add(Me.Panel4)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.lblMessageLabel)
-        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Margin = New System.Windows.Forms.Padding(2)
         Me.Menu = Me.MainMenu1
         Me.Name = "IAIPNavigation"

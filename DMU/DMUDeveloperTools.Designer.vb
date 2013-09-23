@@ -1,6 +1,6 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
 Partial Class DMUDeveloperTools
-    Inherits System.Windows.Forms.Form
+    Inherits DefaultForm
 
     'Form overrides dispose to clean up the component list.
     <System.Diagnostics.DebuggerNonUserCode()> _
@@ -1553,7 +1553,7 @@ Partial Class DMUDeveloperTools
         Me.pnlMiscTables.Dock = System.Windows.Forms.DockStyle.Left
         Me.pnlMiscTables.Location = New System.Drawing.Point(1393, 30)
         Me.pnlMiscTables.Name = "pnlMiscTables"
-        Me.pnlMiscTables.Size = New System.Drawing.Size(200, 475)
+        Me.pnlMiscTables.Size = New System.Drawing.Size(200, 474)
         Me.pnlMiscTables.TabIndex = 42
         '
         'chbUpdateEIEU
@@ -1630,7 +1630,7 @@ Partial Class DMUDeveloperTools
         Me.pnlAFSTables.Dock = System.Windows.Forms.DockStyle.Left
         Me.pnlAFSTables.Location = New System.Drawing.Point(1193, 30)
         Me.pnlAFSTables.Name = "pnlAFSTables"
-        Me.pnlAFSTables.Size = New System.Drawing.Size(200, 475)
+        Me.pnlAFSTables.Size = New System.Drawing.Size(200, 474)
         Me.pnlAFSTables.TabIndex = 41
         '
         'chbAllAFSTables
@@ -1739,7 +1739,7 @@ Partial Class DMUDeveloperTools
         Me.pnlSSPPTables.Dock = System.Windows.Forms.DockStyle.Left
         Me.pnlSSPPTables.Location = New System.Drawing.Point(993, 30)
         Me.pnlSSPPTables.Name = "pnlSSPPTables"
-        Me.pnlSSPPTables.Size = New System.Drawing.Size(200, 475)
+        Me.pnlSSPPTables.Size = New System.Drawing.Size(200, 474)
         Me.pnlSSPPTables.TabIndex = 40
         '
         'chbAllSSPPTables
@@ -1872,7 +1872,7 @@ Partial Class DMUDeveloperTools
         Me.pnlSSCPTables.Dock = System.Windows.Forms.DockStyle.Left
         Me.pnlSSCPTables.Location = New System.Drawing.Point(793, 30)
         Me.pnlSSCPTables.Name = "pnlSSCPTables"
-        Me.pnlSSCPTables.Size = New System.Drawing.Size(200, 475)
+        Me.pnlSSCPTables.Size = New System.Drawing.Size(200, 474)
         Me.pnlSSCPTables.TabIndex = 39
         '
         'chbAllSSCPTables
@@ -2130,7 +2130,7 @@ Partial Class DMUDeveloperTools
         Me.pnlSBEAPTables.Dock = System.Windows.Forms.DockStyle.Left
         Me.pnlSBEAPTables.Location = New System.Drawing.Point(593, 30)
         Me.pnlSBEAPTables.Name = "pnlSBEAPTables"
-        Me.pnlSBEAPTables.Size = New System.Drawing.Size(200, 475)
+        Me.pnlSBEAPTables.Size = New System.Drawing.Size(200, 474)
         Me.pnlSBEAPTables.TabIndex = 38
         '
         'chbAllSBEAPTables
@@ -2251,7 +2251,7 @@ Partial Class DMUDeveloperTools
         Me.pnlISMPTables.Dock = System.Windows.Forms.DockStyle.Left
         Me.pnlISMPTables.Location = New System.Drawing.Point(393, 30)
         Me.pnlISMPTables.Name = "pnlISMPTables"
-        Me.pnlISMPTables.Size = New System.Drawing.Size(200, 475)
+        Me.pnlISMPTables.Size = New System.Drawing.Size(200, 474)
         Me.pnlISMPTables.TabIndex = 37
         '
         'chbAllISMPTables
@@ -2495,7 +2495,7 @@ Partial Class DMUDeveloperTools
         Me.pnlHeaderTables.Dock = System.Windows.Forms.DockStyle.Left
         Me.pnlHeaderTables.Location = New System.Drawing.Point(193, 30)
         Me.pnlHeaderTables.Name = "pnlHeaderTables"
-        Me.pnlHeaderTables.Size = New System.Drawing.Size(200, 475)
+        Me.pnlHeaderTables.Size = New System.Drawing.Size(200, 474)
         Me.pnlHeaderTables.TabIndex = 36
         '
         'chbEPDUsers
@@ -2688,7 +2688,7 @@ Partial Class DMUDeveloperTools
         Me.pnlLookUpTables.Dock = System.Windows.Forms.DockStyle.Left
         Me.pnlLookUpTables.Location = New System.Drawing.Point(3, 30)
         Me.pnlLookUpTables.Name = "pnlLookUpTables"
-        Me.pnlLookUpTables.Size = New System.Drawing.Size(190, 475)
+        Me.pnlLookUpTables.Size = New System.Drawing.Size(190, 474)
         Me.pnlLookUpTables.TabIndex = 35
         '
         'chbFSNSPSReason
@@ -3959,7 +3959,6 @@ Partial Class DMUDeveloperTools
         Me.Controls.Add(Me.TCDMUTools)
         Me.Controls.Add(Me.StatusStrip1)
         Me.Controls.Add(Me.TSDMUStaffTools)
-        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Menu = Me.MainMenu1
         Me.Name = "DMUDeveloperTools"
         Me.Text = "AFS Tools"

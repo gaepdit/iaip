@@ -1,6 +1,6 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
 Partial Class ISMPStaffReports
-    Inherits System.Windows.Forms.Form
+    Inherits DefaultForm
 
     'Form overrides dispose to clean up the component list.
     <System.Diagnostics.DebuggerNonUserCode()> _
@@ -32,14 +32,6 @@ Partial Class ISMPStaffReports
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip
         Me.mmiHelp = New System.Windows.Forms.ToolStripMenuItem
         Me.SCStaffReport = New System.Windows.Forms.SplitContainer
-        Me.TCStaffReports = New System.Windows.Forms.TabControl
-        Me.TabPage1 = New System.Windows.Forms.TabPage
-        Me.GroupBox10 = New System.Windows.Forms.GroupBox
-        Me.rdbUnitStatsAll = New System.Windows.Forms.RadioButton
-        Me.Label2 = New System.Windows.Forms.Label
-        Me.rdbUnitDateCompleted = New System.Windows.Forms.RadioButton
-        Me.rdbUnitDateTestStarted = New System.Windows.Forms.RadioButton
-        Me.rdbUnitDateReceived = New System.Windows.Forms.RadioButton
         Me.Panel4 = New System.Windows.Forms.Panel
         Me.llbExportStatsToWord = New System.Windows.Forms.LinkLabel
         Me.llbRunEngineerStatReport = New System.Windows.Forms.LinkLabel
@@ -47,17 +39,25 @@ Partial Class ISMPStaffReports
         Me.Label28 = New System.Windows.Forms.Label
         Me.DTPUnitEnd = New System.Windows.Forms.DateTimePicker
         Me.DTPUnitStart = New System.Windows.Forms.DateTimePicker
+        Me.GroupBox10 = New System.Windows.Forms.GroupBox
+        Me.rdbUnitStatsAll = New System.Windows.Forms.RadioButton
+        Me.Label2 = New System.Windows.Forms.Label
+        Me.rdbUnitDateCompleted = New System.Windows.Forms.RadioButton
+        Me.rdbUnitDateTestStarted = New System.Windows.Forms.RadioButton
+        Me.rdbUnitDateReceived = New System.Windows.Forms.RadioButton
         Me.txtEngineerStatistics = New System.Windows.Forms.TextBox
+        Me.TCStaffReports = New System.Windows.Forms.TabControl
+        Me.TabPage1 = New System.Windows.Forms.TabPage
         Me.ToolStrip1.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
         Me.SCStaffReport.Panel1.SuspendLayout()
         Me.SCStaffReport.Panel2.SuspendLayout()
         Me.SCStaffReport.SuspendLayout()
+        Me.Panel4.SuspendLayout()
+        Me.GroupBox10.SuspendLayout()
         Me.TCStaffReports.SuspendLayout()
         Me.TabPage1.SuspendLayout()
-        Me.GroupBox10.SuspendLayout()
-        Me.Panel4.SuspendLayout()
         Me.SuspendLayout()
         '
         'ToolStrip1
@@ -128,7 +128,7 @@ Partial Class ISMPStaffReports
         'mmiHelp
         '
         Me.mmiHelp.Name = "mmiHelp"
-        Me.mmiHelp.Size = New System.Drawing.Size(40, 20)
+        Me.mmiHelp.Size = New System.Drawing.Size(44, 20)
         Me.mmiHelp.Text = "Help"
         '
         'SCStaffReport
@@ -149,92 +149,6 @@ Partial Class ISMPStaffReports
         Me.SCStaffReport.Size = New System.Drawing.Size(761, 408)
         Me.SCStaffReport.SplitterDistance = 129
         Me.SCStaffReport.TabIndex = 6
-        '
-        'TCStaffReports
-        '
-        Me.TCStaffReports.Controls.Add(Me.TabPage1)
-        Me.TCStaffReports.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TCStaffReports.Location = New System.Drawing.Point(0, 49)
-        Me.TCStaffReports.Name = "TCStaffReports"
-        Me.TCStaffReports.SelectedIndex = 0
-        Me.TCStaffReports.Size = New System.Drawing.Size(775, 440)
-        Me.TCStaffReports.TabIndex = 7
-        '
-        'TabPage1
-        '
-        Me.TabPage1.Controls.Add(Me.SCStaffReport)
-        Me.TabPage1.Location = New System.Drawing.Point(4, 22)
-        Me.TabPage1.Name = "TabPage1"
-        Me.TabPage1.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage1.Size = New System.Drawing.Size(767, 414)
-        Me.TabPage1.TabIndex = 0
-        Me.TabPage1.Text = "Engineer Statistics"
-        Me.TabPage1.UseVisualStyleBackColor = True
-        '
-        'GroupBox10
-        '
-        Me.GroupBox10.Controls.Add(Me.rdbUnitStatsAll)
-        Me.GroupBox10.Controls.Add(Me.Label2)
-        Me.GroupBox10.Controls.Add(Me.rdbUnitDateCompleted)
-        Me.GroupBox10.Controls.Add(Me.rdbUnitDateTestStarted)
-        Me.GroupBox10.Controls.Add(Me.rdbUnitDateReceived)
-        Me.GroupBox10.Dock = System.Windows.Forms.DockStyle.Left
-        Me.GroupBox10.Font = New System.Drawing.Font("Times New Roman", 12.0!, CType(((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Italic) _
-                        Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GroupBox10.Location = New System.Drawing.Point(0, 0)
-        Me.GroupBox10.Name = "GroupBox10"
-        Me.GroupBox10.Size = New System.Drawing.Size(232, 129)
-        Me.GroupBox10.TabIndex = 144
-        Me.GroupBox10.TabStop = False
-        Me.GroupBox10.Text = "Date Bias"
-        '
-        'rdbUnitStatsAll
-        '
-        Me.rdbUnitStatsAll.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.rdbUnitStatsAll.Location = New System.Drawing.Point(8, 88)
-        Me.rdbUnitStatsAll.Name = "rdbUnitStatsAll"
-        Me.rdbUnitStatsAll.Size = New System.Drawing.Size(104, 16)
-        Me.rdbUnitStatsAll.TabIndex = 152
-        Me.rdbUnitStatsAll.Text = "All Test Reports"
-        '
-        'Label2
-        '
-        Me.Label2.AutoSize = True
-        Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(24, 104)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(185, 13)
-        Me.Label2.TabIndex = 153
-        Me.Label2.Text = "(All Dates - Excluding SM23 Archives)"
-        '
-        'rdbUnitDateCompleted
-        '
-        Me.rdbUnitDateCompleted.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.rdbUnitDateCompleted.Location = New System.Drawing.Point(8, 64)
-        Me.rdbUnitDateCompleted.Name = "rdbUnitDateCompleted"
-        Me.rdbUnitDateCompleted.Size = New System.Drawing.Size(144, 24)
-        Me.rdbUnitDateCompleted.TabIndex = 2
-        Me.rdbUnitDateCompleted.Text = "Date Report Completed"
-        '
-        'rdbUnitDateTestStarted
-        '
-        Me.rdbUnitDateTestStarted.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.rdbUnitDateTestStarted.Location = New System.Drawing.Point(8, 16)
-        Me.rdbUnitDateTestStarted.Name = "rdbUnitDateTestStarted"
-        Me.rdbUnitDateTestStarted.Size = New System.Drawing.Size(136, 24)
-        Me.rdbUnitDateTestStarted.TabIndex = 1
-        Me.rdbUnitDateTestStarted.Text = "Date Test Started"
-        '
-        'rdbUnitDateReceived
-        '
-        Me.rdbUnitDateReceived.Checked = True
-        Me.rdbUnitDateReceived.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.rdbUnitDateReceived.Location = New System.Drawing.Point(8, 40)
-        Me.rdbUnitDateReceived.Name = "rdbUnitDateReceived"
-        Me.rdbUnitDateReceived.Size = New System.Drawing.Size(104, 24)
-        Me.rdbUnitDateReceived.TabIndex = 0
-        Me.rdbUnitDateReceived.TabStop = True
-        Me.rdbUnitDateReceived.Text = "Date Received"
         '
         'Panel4
         '
@@ -308,6 +222,71 @@ Partial Class ISMPStaffReports
         Me.DTPUnitStart.TabIndex = 147
         Me.DTPUnitStart.Value = New Date(2005, 8, 23, 0, 0, 0, 0)
         '
+        'GroupBox10
+        '
+        Me.GroupBox10.Controls.Add(Me.rdbUnitStatsAll)
+        Me.GroupBox10.Controls.Add(Me.Label2)
+        Me.GroupBox10.Controls.Add(Me.rdbUnitDateCompleted)
+        Me.GroupBox10.Controls.Add(Me.rdbUnitDateTestStarted)
+        Me.GroupBox10.Controls.Add(Me.rdbUnitDateReceived)
+        Me.GroupBox10.Dock = System.Windows.Forms.DockStyle.Left
+        Me.GroupBox10.Font = New System.Drawing.Font("Times New Roman", 12.0!, CType(((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Italic) _
+                        Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GroupBox10.Location = New System.Drawing.Point(0, 0)
+        Me.GroupBox10.Name = "GroupBox10"
+        Me.GroupBox10.Size = New System.Drawing.Size(232, 129)
+        Me.GroupBox10.TabIndex = 144
+        Me.GroupBox10.TabStop = False
+        Me.GroupBox10.Text = "Date Bias"
+        '
+        'rdbUnitStatsAll
+        '
+        Me.rdbUnitStatsAll.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.rdbUnitStatsAll.Location = New System.Drawing.Point(8, 88)
+        Me.rdbUnitStatsAll.Name = "rdbUnitStatsAll"
+        Me.rdbUnitStatsAll.Size = New System.Drawing.Size(104, 16)
+        Me.rdbUnitStatsAll.TabIndex = 152
+        Me.rdbUnitStatsAll.Text = "All Test Reports"
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label2.Location = New System.Drawing.Point(24, 104)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(185, 13)
+        Me.Label2.TabIndex = 153
+        Me.Label2.Text = "(All Dates - Excluding SM23 Archives)"
+        '
+        'rdbUnitDateCompleted
+        '
+        Me.rdbUnitDateCompleted.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.rdbUnitDateCompleted.Location = New System.Drawing.Point(8, 64)
+        Me.rdbUnitDateCompleted.Name = "rdbUnitDateCompleted"
+        Me.rdbUnitDateCompleted.Size = New System.Drawing.Size(144, 24)
+        Me.rdbUnitDateCompleted.TabIndex = 2
+        Me.rdbUnitDateCompleted.Text = "Date Report Completed"
+        '
+        'rdbUnitDateTestStarted
+        '
+        Me.rdbUnitDateTestStarted.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.rdbUnitDateTestStarted.Location = New System.Drawing.Point(8, 16)
+        Me.rdbUnitDateTestStarted.Name = "rdbUnitDateTestStarted"
+        Me.rdbUnitDateTestStarted.Size = New System.Drawing.Size(136, 24)
+        Me.rdbUnitDateTestStarted.TabIndex = 1
+        Me.rdbUnitDateTestStarted.Text = "Date Test Started"
+        '
+        'rdbUnitDateReceived
+        '
+        Me.rdbUnitDateReceived.Checked = True
+        Me.rdbUnitDateReceived.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.rdbUnitDateReceived.Location = New System.Drawing.Point(8, 40)
+        Me.rdbUnitDateReceived.Name = "rdbUnitDateReceived"
+        Me.rdbUnitDateReceived.Size = New System.Drawing.Size(104, 24)
+        Me.rdbUnitDateReceived.TabIndex = 0
+        Me.rdbUnitDateReceived.TabStop = True
+        Me.rdbUnitDateReceived.Text = "Date Received"
+        '
         'txtEngineerStatistics
         '
         Me.txtEngineerStatistics.AcceptsReturn = True
@@ -320,6 +299,27 @@ Partial Class ISMPStaffReports
         Me.txtEngineerStatistics.Size = New System.Drawing.Size(761, 275)
         Me.txtEngineerStatistics.TabIndex = 157
         '
+        'TCStaffReports
+        '
+        Me.TCStaffReports.Controls.Add(Me.TabPage1)
+        Me.TCStaffReports.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TCStaffReports.Location = New System.Drawing.Point(0, 49)
+        Me.TCStaffReports.Name = "TCStaffReports"
+        Me.TCStaffReports.SelectedIndex = 0
+        Me.TCStaffReports.Size = New System.Drawing.Size(775, 440)
+        Me.TCStaffReports.TabIndex = 7
+        '
+        'TabPage1
+        '
+        Me.TabPage1.Controls.Add(Me.SCStaffReport)
+        Me.TabPage1.Location = New System.Drawing.Point(4, 22)
+        Me.TabPage1.Name = "TabPage1"
+        Me.TabPage1.Padding = New System.Windows.Forms.Padding(3)
+        Me.TabPage1.Size = New System.Drawing.Size(767, 414)
+        Me.TabPage1.TabIndex = 0
+        Me.TabPage1.Text = "Engineer Statistics"
+        Me.TabPage1.UseVisualStyleBackColor = True
+        '
         'ISMPStaffReports
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -329,7 +329,6 @@ Partial Class ISMPStaffReports
         Me.Controls.Add(Me.ToolStrip1)
         Me.Controls.Add(Me.StatusStrip1)
         Me.Controls.Add(Me.MenuStrip1)
-        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "ISMPStaffReports"
         Me.Text = "ISMP Staff Reports"
         Me.ToolStrip1.ResumeLayout(False)
@@ -342,12 +341,12 @@ Partial Class ISMPStaffReports
         Me.SCStaffReport.Panel2.ResumeLayout(False)
         Me.SCStaffReport.Panel2.PerformLayout()
         Me.SCStaffReport.ResumeLayout(False)
-        Me.TCStaffReports.ResumeLayout(False)
-        Me.TabPage1.ResumeLayout(False)
-        Me.GroupBox10.ResumeLayout(False)
-        Me.GroupBox10.PerformLayout()
         Me.Panel4.ResumeLayout(False)
         Me.Panel4.PerformLayout()
+        Me.GroupBox10.ResumeLayout(False)
+        Me.GroupBox10.PerformLayout()
+        Me.TCStaffReports.ResumeLayout(False)
+        Me.TabPage1.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

@@ -1,6 +1,6 @@
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
 Partial Class IAIPDistrictSourceTool
-    Inherits System.Windows.Forms.Form
+    Inherits DefaultForm
 
     'Form overrides dispose to clean up the component list.
     <System.Diagnostics.DebuggerNonUserCode()> _
@@ -604,7 +604,6 @@ Partial Class IAIPDistrictSourceTool
         Me.Controls.Add(Me.TCDistrictSourcesTool)
         Me.Controls.Add(Me.StatusStrip1)
         Me.Controls.Add(Me.TBManagingDistricts)
-        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Menu = Me.MainMenu1
         Me.Name = "IAIPDistrictSourceTool"
         Me.Text = "IAIP District Source Tool"

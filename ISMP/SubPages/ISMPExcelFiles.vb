@@ -11,7 +11,7 @@ Imports System.Data
 'Imports System.Collections
 
 Public Class ISMPExcelFiles
-    Inherits System.Windows.Forms.Form
+    Inherits DefaultForm
 
     Dim statusBar1 As New StatusBar
     Dim panel1 As New StatusBarPanel
@@ -265,12 +265,11 @@ Public Class ISMPExcelFiles
         '
         'ISMPExcelFiles
         '
-        Me.AutoScaleBaseSize = New System.Drawing.Size(5, 13)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.ClientSize = New System.Drawing.Size(792, 266)
         Me.Controls.Add(Me.Splitter1)
         Me.Controls.Add(Me.PanelExcelFile)
         Me.Controls.Add(Me.dgrExcelFiles)
-        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Menu = Me.MainMenu1
         Me.Name = "ISMPExcelFiles"
         Me.Text = "ISMP Excel Files"
