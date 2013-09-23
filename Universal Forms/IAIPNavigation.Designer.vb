@@ -201,7 +201,7 @@ Partial Class IAIPNavigation
         'mmiVersion
         '
         Me.mmiVersion.Index = 1
-        Me.mmiVersion.Text = "Version"
+        Me.mmiVersion.Text = "About"
         '
         'Image_List_All
         '
