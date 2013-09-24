@@ -126,9 +126,9 @@ Partial Class IaipFacilitySummaryPrint
         '
         Me.FullPrintEndDate.CustomFormat = "dd-MMM-yyyy"
         Me.FullPrintEndDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.FullPrintEndDate.Location = New System.Drawing.Point(291, 128)
+        Me.FullPrintEndDate.Location = New System.Drawing.Point(286, 128)
         Me.FullPrintEndDate.Name = "FullPrintEndDate"
-        Me.FullPrintEndDate.Size = New System.Drawing.Size(95, 20)
+        Me.FullPrintEndDate.Size = New System.Drawing.Size(100, 20)
         Me.FullPrintEndDate.TabIndex = 3
         Me.FullPrintEndDate.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
         '
@@ -136,9 +136,9 @@ Partial Class IaipFacilitySummaryPrint
         '
         Me.FullPrintStartDate.CustomFormat = "dd-MMM-yyyy"
         Me.FullPrintStartDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.FullPrintStartDate.Location = New System.Drawing.Point(291, 102)
+        Me.FullPrintStartDate.Location = New System.Drawing.Point(286, 102)
         Me.FullPrintStartDate.Name = "FullPrintStartDate"
-        Me.FullPrintStartDate.Size = New System.Drawing.Size(95, 20)
+        Me.FullPrintStartDate.Size = New System.Drawing.Size(100, 20)
         Me.FullPrintStartDate.TabIndex = 2
         Me.FullPrintStartDate.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
         '
