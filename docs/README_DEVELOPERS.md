@@ -29,7 +29,7 @@ _(It doesn't matter what you name the root directory or the IAIP solution direct
 
 The `_Tools` repository is also on [BitBucket](https://bitbucket.org/dougwaldron/tools-for-vs-projects).
 
-Currently used tools are:
+There are some items in the `_Tools` directory that are not used by the IAIP. Currently required tools are:
 
 * [7za](http://sourceforge.net/projects/sevenzip/files/7-Zip/9.20/) (7-zip command line, version 9.20)
 * [7zSD extra](http://7zsfx.info/en/download.html) (Modified SFX module, 1.5 Release)
