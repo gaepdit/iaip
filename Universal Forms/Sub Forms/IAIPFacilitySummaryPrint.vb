@@ -1,4 +1,4 @@
-﻿'Imports System.Data.OracleClient
+﻿'Imports Oracle.DataAccess.Client
 Public Class IaipFacilitySummaryPrint
 
     Private Sub IaipFacilitySummaryPrintLoad(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load

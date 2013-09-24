@@ -1,6 +1,6 @@
 ﻿Imports System.DateTime
-Imports System.Data.OracleClient
 Imports System.IO
+Imports Oracle.DataAccess.Client
 
 Public Class DMUStaffTools
     Dim daStaff As OracleDataAdapter
@@ -14813,8 +14813,8 @@ Public Class DMUStaffTools
                         cmd = New OracleCommand("AIRBranch.PD_EIS_QASTART", Conn)
                         cmd.CommandType = CommandType.StoredProcedure
 
-                        cmd.Parameters.Add(New OracleParameter("AIRSNUMBER_IN", OracleType.VarChar)).Value = dgvEISStats(1, i).Value
-                        cmd.Parameters.Add(New OracleParameter("INTYEAR_IN", OracleType.Number)).Value = EISConfirm
+                        cmd.Parameters.Add(New OracleParameter("AIRSNUMBER_IN", OracleDbType.Varchar2)).Value = dgvEISStats(1, i).Value
+                        cmd.Parameters.Add(New OracleParameter("INTYEAR_IN", OracleDbType.Decimal)).Value = EISConfirm
 
                         cmd.ExecuteNonQuery()
 
@@ -15470,8 +15470,8 @@ Public Class DMUStaffTools
             cmd = New OracleCommand("AIRBranch.PD_EIS_Data", Conn)
             cmd.CommandType = CommandType.StoredProcedure
 
-            cmd.Parameters.Add(New OracleParameter("AIRSNUM", OracleType.VarChar)).Value = txtEILogSelectedAIRSNumber.Text
-            cmd.Parameters.Add(New OracleParameter("INTYEAR", OracleType.Number)).Value = txtEILogSelectedYear.Text
+            cmd.Parameters.Add(New OracleParameter("AIRSNUM", OracleDbType.Varchar2)).Value = txtEILogSelectedAIRSNumber.Text
+            cmd.Parameters.Add(New OracleParameter("INTYEAR", OracleDbType.Decimal)).Value = txtEILogSelectedYear.Text
 
             cmd.ExecuteNonQuery()
 
@@ -15575,7 +15575,7 @@ Public Class DMUStaffTools
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
- 
+
 
     Private Sub btnUpdateQAData_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnUpdateQAData.Click
         Try
@@ -15716,9 +15716,9 @@ Public Class DMUStaffTools
                 cmd = New OracleCommand("AIRBranch.PD_EIS_QA_Done", Conn)
                 cmd.CommandType = CommandType.StoredProcedure
 
-                cmd.Parameters.Add(New OracleParameter("AIRSNUM", OracleType.VarChar)).Value = txtEILogSelectedAIRSNumber.Text
-                cmd.Parameters.Add(New OracleParameter("INTYEAR", OracleType.Number)).Value = txtEILogSelectedYear.Text
-                cmd.Parameters.Add(New OracleParameter("DATLASTSUBMIT", OracleType.DateTime)).Value = dtpQACompleted.Text
+                cmd.Parameters.Add(New OracleParameter("AIRSNUM", OracleDbType.Varchar2)).Value = txtEILogSelectedAIRSNumber.Text
+                cmd.Parameters.Add(New OracleParameter("INTYEAR", OracleDbType.Decimal)).Value = txtEILogSelectedYear.Text
+                cmd.Parameters.Add(New OracleParameter("DATLASTSUBMIT", OracleDbType.Date)).Value = dtpQACompleted.Text
 
                 cmd.ExecuteNonQuery()
             End If
@@ -15986,7 +15986,7 @@ Public Class DMUStaffTools
  "where AIRBranch.EIS_QAAdmin.inventoryYear = AIRBranch.EIS_Admin.inventoryYEar " & _
  "and AIRBranch.EIS_QAAdmin.facilitysiteID = AIRBranch.EIS_Admin.facilitysiteID)    " & _
  "order by " & DBNameSpace & ".EIS_Admin.facilitysiteid "
-             
+
 
             dgvEISStats.Rows.Clear()
             ds = New DataSet
@@ -18815,7 +18815,7 @@ Public Class DMUStaffTools
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
- 
+
     Private Sub btnLoadEISLog_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnLoadEISLog.Click
         Try
             If mtbEISLogAIRSNumber.Text <> "" And cboEISStatisticsYear.Text.Length = 4 Then
@@ -19158,7 +19158,7 @@ Public Class DMUStaffTools
     End Sub
 
 
-   
+
     Private Sub btnCopyAIRSNumber_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCopyAIRSNumber.Click
         Try
             Clipboard.SetDataObject(Replace(mtbEILogAIRSNumber.Text, "-", ""), True)
@@ -19400,8 +19400,8 @@ Public Class DMUStaffTools
                     cmd.CommandType = CommandType.StoredProcedure
                     temp = dgvEISStats(1, i).Value
 
-                    cmd.Parameters.Add(New OracleParameter("AIRSNUMBER_IN", OracleType.VarChar)).Value = dgvEISStats(1, i).Value
-                    cmd.Parameters.Add(New OracleParameter("INTYEAR_IN", OracleType.Number)).Value = cboEISStatisticsYear.Text
+                    cmd.Parameters.Add(New OracleParameter("AIRSNUMBER_IN", OracleDbType.Varchar2)).Value = dgvEISStats(1, i).Value
+                    cmd.Parameters.Add(New OracleParameter("INTYEAR_IN", OracleDbType.Decimal)).Value = cboEISStatisticsYear.Text
 
                     cmd.ExecuteNonQuery()
 
@@ -19484,7 +19484,7 @@ Public Class DMUStaffTools
            "and AIRbranch.EIS_Admin.FacilitySiteID = AIRBranch.EIS_Mailout.FacilitySiteID (+) " & _
            "and AIRbranch.EIS_Admin.inventoryyear = AIRBranch.EIS_Mailout.intinventoryyear (+) " & _
             "and AIRBranch.EIS_Admin.Active = '1' " & _
-           "and AIRbranch.EIS_Admin.inventoryyear = '" & txtSelectedEISMailout.Text & "'"  
+           "and AIRbranch.EIS_Admin.inventoryyear = '" & txtSelectedEISMailout.Text & "'"
 
             If MailoutStatus = "1" Then
                 SQL = SQL & " and strMailout = '1' "
@@ -19657,8 +19657,8 @@ Public Class DMUStaffTools
             'cmd.CommandType = CommandType.StoredProcedure
             'temp = dgvEISStats(1, i).Value
 
-            'cmd.Parameters.Add(New OracleParameter("AIRSNUM", OracleType.VarChar)).Value = ""
-            'cmd.Parameters.Add(New OracleParameter("INTYEAR", OracleType.Number)).Value = txtSelectedEISMailout.Text
+            'cmd.Parameters.Add(New OracleParameter("AIRSNUM", OracleDbType.Varchar2)).Value = ""
+            'cmd.Parameters.Add(New OracleParameter("INTYEAR", OracleDbType.Decimal)).Value = txtSelectedEISMailout.Text
 
             'cmd.ExecuteNonQuery()
 

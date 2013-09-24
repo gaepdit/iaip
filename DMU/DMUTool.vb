@@ -1,4 +1,4 @@
-Imports System.Data.OracleClient
+Imports Oracle.DataAccess.Client
 Imports System.Data.OleDb
 'Imports System.Data.Odbc
 
@@ -4372,8 +4372,8 @@ Public Class DMUTool
                 cmd = New OracleCommand("AIRBranch.PD_FeeAmendment", Conn)
                 cmd.CommandType = CommandType.StoredProcedure
 
-                cmd.Parameters.Add(New OracleParameter("FeeYear", OracleType.Number)).Value = FeeYear
-                cmd.Parameters.Add(New OracleParameter("AIRSNumber", OracleType.VarChar)).Value = AIRSNumber
+                cmd.Parameters.Add(New OracleParameter("FeeYear", OracleDbType.Decimal)).Value = FeeYear
+                cmd.Parameters.Add(New OracleParameter("AIRSNumber", OracleDbType.Varchar2)).Value = AIRSNumber
 
                 cmd.ExecuteNonQuery()
             End While
@@ -4561,8 +4561,8 @@ Public Class DMUTool
                     cmd = New OracleCommand("AIRBranch.PD_FEE_Status", Conn)
                     cmd.CommandType = CommandType.StoredProcedure
 
-                    cmd.Parameters.Add(New OracleParameter("FeeYear", OracleType.Number)).Value = Feeyear
-                    cmd.Parameters.Add(New OracleParameter("AIRSNumber", OracleType.VarChar)).Value = AIRSNumber
+                    cmd.Parameters.Add(New OracleParameter("FeeYear", OracleDbType.Decimal)).Value = Feeyear
+                    cmd.Parameters.Add(New OracleParameter("AIRSNumber", OracleDbType.Varchar2)).Value = AIRSNumber
 
                     cmd.ExecuteNonQuery()
 
@@ -7099,8 +7099,8 @@ Public Class DMUTool
                     cmd = New OracleCommand("AIRBranch.PD_FEE_Status", Conn)
                     cmd.CommandType = CommandType.StoredProcedure
 
-                    cmd.Parameters.Add(New OracleParameter("FeeYear", OracleType.Number)).Value = FeeYear
-                    cmd.Parameters.Add(New OracleParameter("AIRSNumber", OracleType.VarChar)).Value = "0413" & AIRSNumber
+                    cmd.Parameters.Add(New OracleParameter("FeeYear", OracleDbType.Decimal)).Value = FeeYear
+                    cmd.Parameters.Add(New OracleParameter("AIRSNumber", OracleDbType.Varchar2)).Value = "0413" & AIRSNumber
 
                     cmd.ExecuteNonQuery()
                 End If
@@ -8727,8 +8727,8 @@ Public Class DMUTool
             cmd = New OracleCommand("AIRBranch.PD_EIS_QASTART", Conn)
             cmd.CommandType = CommandType.StoredProcedure
 
-            cmd.Parameters.Add(New OracleParameter("AIRSNUMBER_IN", OracleType.VarChar)).Value = txtEISAIRSNumber.Text
-            cmd.Parameters.Add(New OracleParameter("INTYEAR_IN", OracleType.Number)).Value = txtEISYear.Text
+            cmd.Parameters.Add(New OracleParameter("AIRSNUMBER_IN", OracleDbType.Varchar2)).Value = txtEISAIRSNumber.Text
+            cmd.Parameters.Add(New OracleParameter("INTYEAR_IN", OracleDbType.Decimal)).Value = txtEISYear.Text
 
             cmd.ExecuteNonQuery()
 

@@ -1,4 +1,4 @@
-﻿Imports System.Data.OracleClient
+﻿Imports Oracle.DataAccess.Client
 
 Public Class MASPRegistrationTool
     Dim ds As DataSet

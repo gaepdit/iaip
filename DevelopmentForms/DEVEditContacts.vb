@@ -1,4 +1,4 @@
-﻿Imports System.Data.OracleClient
+﻿Imports Oracle.DataAccess.Client
 
 Public Class DEVEditContacts
     Dim ds As DataSet

@@ -1,5 +1,5 @@
 ﻿Imports System.DateTime
-Imports System.Data.OracleClient
+Imports Oracle.DataAccess.Client
 Imports System.IO
 
 Public Class IAIP_EIS_Log
@@ -4264,8 +4264,8 @@ Public Class IAIP_EIS_Log
             cmd = New OracleCommand("AIRBranch.PD_EIS_Data", Conn)
             cmd.CommandType = CommandType.StoredProcedure
 
-            cmd.Parameters.Add(New OracleParameter("AIRSNUM", OracleType.VarChar)).Value = txtEILogSelectedAIRSNumber.Text
-            cmd.Parameters.Add(New OracleParameter("INTYEAR", OracleType.Number)).Value = txtEILogSelectedYear.Text
+            cmd.Parameters.Add(New OracleParameter("AIRSNUM", OracleDbType.Varchar2)).Value = txtEILogSelectedAIRSNumber.Text
+            cmd.Parameters.Add(New OracleParameter("INTYEAR", OracleDbType.Decimal)).Value = txtEILogSelectedYear.Text
 
             cmd.ExecuteNonQuery()
 
@@ -4551,9 +4551,9 @@ Public Class IAIP_EIS_Log
                 cmd = New OracleCommand("AIRBranch.PD_EIS_QA_Done", Conn)
                 cmd.CommandType = CommandType.StoredProcedure
 
-                cmd.Parameters.Add(New OracleParameter("AIRSNUM", OracleType.VarChar)).Value = txtEILogSelectedAIRSNumber.Text
-                cmd.Parameters.Add(New OracleParameter("INTYEAR", OracleType.Number)).Value = txtEILogSelectedYear.Text
-                cmd.Parameters.Add(New OracleParameter("DATLASTSUBMIT", OracleType.DateTime)).Value = dtpQACompleted.Text
+                cmd.Parameters.Add(New OracleParameter("AIRSNUM", OracleDbType.Varchar2)).Value = txtEILogSelectedAIRSNumber.Text
+                cmd.Parameters.Add(New OracleParameter("INTYEAR", OracleDbType.Decimal)).Value = txtEILogSelectedYear.Text
+                cmd.Parameters.Add(New OracleParameter("DATLASTSUBMIT", OracleDbType.Date)).Value = dtpQACompleted.Text
 
                 cmd.ExecuteNonQuery()
             End If

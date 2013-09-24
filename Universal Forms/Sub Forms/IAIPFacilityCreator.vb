@@ -1,5 +1,5 @@
 Imports System.DateTime
-Imports System.Data.OracleClient
+Imports Oracle.DataAccess.Client
 
 
 Public Class IAIPFacilityCreator

@@ -1,4 +1,4 @@
-﻿Imports System.Data.OracleClient
+﻿Imports Oracle.DataAccess.Client
 
 Public Class SSPP_FeeContact
     Dim SQL As String

@@ -1,4 +1,4 @@
-﻿Imports System.Data.OracleClient
+﻿Imports Oracle.DataAccess.Client
 
 Public Class PASPFeeManagement
     Dim ds As DataSet
@@ -1031,8 +1031,8 @@ Public Class PASPFeeManagement
             cmd = New OracleCommand("AIRBranch.PD_FEE_DATA", Conn)
             cmd.CommandType = CommandType.StoredProcedure
 
-            cmd.Parameters.Add(New OracleParameter("FeeYear", OracleType.Number)).Value = cboAvailableFeeYears.Text
-            cmd.Parameters.Add(New OracleParameter("AIRSNumber", OracleType.VarChar)).Value = ""
+            cmd.Parameters.Add(New OracleParameter("FeeYear", OracleDbType.Decimal)).Value = cboAvailableFeeYears.Text
+            cmd.Parameters.Add(New OracleParameter("AIRSNumber", OracleDbType.Varchar2)).Value = ""
 
             cmd.ExecuteNonQuery()
 
@@ -1232,8 +1232,8 @@ Public Class PASPFeeManagement
                 cmd = New OracleCommand("AIRBranch.PD_FEE_MAILOUT", Conn)
                 cmd.CommandType = CommandType.StoredProcedure
 
-                cmd.Parameters.Add(New OracleParameter("FeeYear", OracleType.Number)).Value = cboAvailableFeeYears.Text
-                cmd.Parameters.Add(New OracleParameter("AIRSNumber", OracleType.VarChar)).Value = ""
+                cmd.Parameters.Add(New OracleParameter("FeeYear", OracleDbType.Decimal)).Value = cboAvailableFeeYears.Text
+                cmd.Parameters.Add(New OracleParameter("AIRSNumber", OracleDbType.Varchar2)).Value = ""
 
                 cmd.ExecuteNonQuery()
 
@@ -1243,8 +1243,8 @@ Public Class PASPFeeManagement
                 cmd = New OracleCommand("AIRBranch.PD_FEE_DATA", Conn)
                 cmd.CommandType = CommandType.StoredProcedure
 
-                cmd.Parameters.Add(New OracleParameter("FeeYear", OracleType.Number)).Value = cboAvailableFeeYears.Text
-                cmd.Parameters.Add(New OracleParameter("AIRSNumber", OracleType.VarChar)).Value = ""
+                cmd.Parameters.Add(New OracleParameter("FeeYear", OracleDbType.Decimal)).Value = cboAvailableFeeYears.Text
+                cmd.Parameters.Add(New OracleParameter("AIRSNumber", OracleDbType.Varchar2)).Value = ""
 
                 cmd.ExecuteNonQuery()
 

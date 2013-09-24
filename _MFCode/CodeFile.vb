@@ -1,6 +1,6 @@
 ﻿Imports System
 Imports System.Security
-Imports System.Data.OracleClient
+Imports Oracle.DataAccess.Client
 
 Module CodeFile
     Function Insert_APBContactInformation(ByVal AIRSNumber As String, ByVal Key As String, _
@@ -576,8 +576,8 @@ Module CodeFile
             cmd = New OracleCommand("AIRBranch.PD_FEE_MAILOUT", Conn)
             cmd.CommandType = CommandType.StoredProcedure
 
-            cmd.Parameters.Add(New OracleParameter("FeeYear", OracleType.Number)).Value = FeeYear
-            cmd.Parameters.Add(New OracleParameter("AIRSNumber", OracleType.VarChar)).Value = "0413" & AIRSNumber
+            cmd.Parameters.Add(New OracleParameter("FeeYear", OracleDbType.Decimal)).Value = FeeYear
+            cmd.Parameters.Add(New OracleParameter("AIRSNumber", OracleDbType.Varchar2)).Value = "0413" & AIRSNumber
 
             cmd.ExecuteNonQuery()
 
@@ -587,8 +587,8 @@ Module CodeFile
             cmd = New OracleCommand("AIRBranch.PD_FEE_DATA", Conn)
             cmd.CommandType = CommandType.StoredProcedure
 
-            cmd.Parameters.Add(New OracleParameter("FeeYear", OracleType.Number)).Value = FeeYear
-            cmd.Parameters.Add(New OracleParameter("AIRSNumber", OracleType.VarChar)).Value = "0413" & AIRSNumber
+            cmd.Parameters.Add(New OracleParameter("FeeYear", OracleDbType.Decimal)).Value = FeeYear
+            cmd.Parameters.Add(New OracleParameter("AIRSNumber", OracleDbType.Varchar2)).Value = "0413" & AIRSNumber
 
             cmd.ExecuteNonQuery()
 
@@ -728,8 +728,8 @@ Module CodeFile
             cmd = New OracleCommand("AIRBranch.PD_FEE_MAILOUT", Conn)
             cmd.CommandType = CommandType.StoredProcedure
 
-            cmd.Parameters.Add(New OracleParameter("FeeYear", OracleType.Number)).Value = FeeYear
-            cmd.Parameters.Add(New OracleParameter("AIRSNumber", OracleType.VarChar)).Value = "0413" & AIRSNumber
+            cmd.Parameters.Add(New OracleParameter("FeeYear", OracleDbType.Decimal)).Value = FeeYear
+            cmd.Parameters.Add(New OracleParameter("AIRSNumber", OracleDbType.Varchar2)).Value = "0413" & AIRSNumber
 
             cmd.ExecuteNonQuery()
 
@@ -739,8 +739,8 @@ Module CodeFile
             cmd = New OracleCommand("AIRBranch.PD_FEE_DATA", Conn)
             cmd.CommandType = CommandType.StoredProcedure
 
-            cmd.Parameters.Add(New OracleParameter("FeeYear", OracleType.Number)).Value = FeeYear
-            cmd.Parameters.Add(New OracleParameter("AIRSNumber", OracleType.VarChar)).Value = "0413" & AIRSNumber
+            cmd.Parameters.Add(New OracleParameter("FeeYear", OracleDbType.Decimal)).Value = FeeYear
+            cmd.Parameters.Add(New OracleParameter("AIRSNumber", OracleDbType.Varchar2)).Value = "0413" & AIRSNumber
 
             cmd.ExecuteNonQuery()
 
@@ -760,8 +760,8 @@ Module CodeFile
             cmd = New OracleCommand("AIRBranch.PD_FEE_Status", Conn)
             cmd.CommandType = CommandType.StoredProcedure
 
-            cmd.Parameters.Add(New OracleParameter("FeeYear", OracleType.Number)).Value = FeeYear
-            cmd.Parameters.Add(New OracleParameter("AIRSNumber", OracleType.VarChar)).Value = "0413" & AIRSNumber
+            cmd.Parameters.Add(New OracleParameter("FeeYear", OracleDbType.Decimal)).Value = FeeYear
+            cmd.Parameters.Add(New OracleParameter("AIRSNumber", OracleDbType.Varchar2)).Value = "0413" & AIRSNumber
 
             cmd.ExecuteNonQuery()
 
@@ -1018,8 +1018,8 @@ Module CodeFile
             cmd = New OracleCommand("AIRBranch.PD_FEE_STATUS", Conn)
             cmd.CommandType = CommandType.StoredProcedure
 
-            cmd.Parameters.Add(New OracleParameter("FeeYear", OracleType.Number)).Value = FeeYear
-            cmd.Parameters.Add(New OracleParameter("AIRSNumber", OracleType.VarChar)).Value = "0413" & AIRSNumber
+            cmd.Parameters.Add(New OracleParameter("FeeYear", OracleDbType.Decimal)).Value = FeeYear
+            cmd.Parameters.Add(New OracleParameter("AIRSNumber", OracleDbType.Varchar2)).Value = "0413" & AIRSNumber
 
             cmd.ExecuteNonQuery()
 

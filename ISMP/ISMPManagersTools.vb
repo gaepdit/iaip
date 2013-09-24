@@ -1,5 +1,5 @@
 'Imports System.DateTime
-Imports System.Data.OracleClient
+Imports Oracle.DataAccess.Client
 Imports System.Windows.Forms
 'Imports Microsoft.Office.Core
 Imports System.IO

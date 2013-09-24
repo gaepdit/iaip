@@ -1,4 +1,4 @@
-﻿Imports System.Data.OracleClient
+﻿Imports Oracle.DataAccess.Client
 Imports CrystalDecisions.Shared
 Imports CrystalDecisions.CrystalReports.Engine
 
@@ -9546,8 +9546,8 @@ Public Class PASPFeeStatistics
                         cmd = New OracleCommand("AIRBranch.PD_FEE_STATUS", Conn)
                         cmd.CommandType = CommandType.StoredProcedure
 
-                        cmd.Parameters.Add(New OracleParameter("FeeYear", OracleType.Number)).Value = cboFeeStatYear.Text
-                        cmd.Parameters.Add(New OracleParameter("AIRSNumber", OracleType.VarChar)).Value = temp
+                        cmd.Parameters.Add(New OracleParameter("FeeYear", OracleDbType.Decimal)).Value = cboFeeStatYear.Text
+                        cmd.Parameters.Add(New OracleParameter("AIRSNumber", OracleDbType.Varchar2)).Value = temp
 
                         cmd.ExecuteNonQuery()
                     End If

@@ -1,4 +1,4 @@
-﻿Imports System.Data.OracleClient
+﻿Imports Oracle.DataAccess.Client
 Imports CrystalDecisions.Shared
 Imports CrystalDecisions.CrystalReports.Engine
 
@@ -4173,8 +4173,8 @@ Public Class PASPFeeAuditLog
                 cmd = New OracleCommand("AIRBranch.PD_FeeAmendment", Conn)
                 cmd.CommandType = CommandType.StoredProcedure
 
-                cmd.Parameters.Add(New OracleParameter("FeeYear", OracleType.Number)).Value = FeeYear
-                cmd.Parameters.Add(New OracleParameter("AIRSNumber", OracleType.VarChar)).Value = "0413" & mtbFeeAdminAIRSNumber.Text
+                cmd.Parameters.Add(New OracleParameter("FeeYear", OracleDbType.Decimal)).Value = FeeYear
+                cmd.Parameters.Add(New OracleParameter("AIRSNumber", OracleDbType.Varchar2)).Value = "0413" & mtbFeeAdminAIRSNumber.Text
 
                 cmd.ExecuteNonQuery()
             End If
@@ -4841,8 +4841,8 @@ Public Class PASPFeeAuditLog
             cmd = New OracleCommand("AIRBranch.PD_FEE_STATUS", Conn)
             cmd.CommandType = CommandType.StoredProcedure
 
-            cmd.Parameters.Add(New OracleParameter("FeeYear", OracleType.Number)).Value = mtbFeeAdminExistingYear.Text
-            cmd.Parameters.Add(New OracleParameter("AIRSNumber", OracleType.VarChar)).Value = "0413" & mtbFeeAdminAIRSNumber.Text
+            cmd.Parameters.Add(New OracleParameter("FeeYear", OracleDbType.Decimal)).Value = mtbFeeAdminExistingYear.Text
+            cmd.Parameters.Add(New OracleParameter("AIRSNumber", OracleDbType.Varchar2)).Value = "0413" & mtbFeeAdminAIRSNumber.Text
 
             cmd.ExecuteNonQuery()
 
@@ -5323,8 +5323,8 @@ Public Class PASPFeeAuditLog
                 cmd = New OracleCommand("AIRBranch.PD_FeeAmendment", Conn)
                 cmd.CommandType = CommandType.StoredProcedure
 
-                cmd.Parameters.Add(New OracleParameter("FeeYear", OracleType.Number)).Value = FeeYear
-                cmd.Parameters.Add(New OracleParameter("AIRSNumber", OracleType.VarChar)).Value = "0413" & mtbFeeAdminAIRSNumber.Text
+                cmd.Parameters.Add(New OracleParameter("FeeYear", OracleDbType.Decimal)).Value = FeeYear
+                cmd.Parameters.Add(New OracleParameter("AIRSNumber", OracleDbType.Varchar2)).Value = "0413" & mtbFeeAdminAIRSNumber.Text
 
                 cmd.ExecuteNonQuery()
 

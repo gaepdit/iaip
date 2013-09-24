@@ -4,7 +4,7 @@ Imports System.Xml
 Imports System.Text
 Imports System.Security.Cryptography
 Imports System.Data
-Imports System.Data.OracleClient
+Imports Oracle.DataAccess.Client
 Imports System.Drawing
 Imports System.Net.Mail
 

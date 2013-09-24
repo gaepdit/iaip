@@ -1,5 +1,5 @@
 ﻿Imports System.Reflection
-Imports System.Data.OracleClient
+Imports Oracle.DataAccess.Client
 Imports System.Collections.Generic
 Imports EQATEC.Analytics.Monitor
 Imports System.Web
@@ -94,7 +94,7 @@ Module App
             Using connection As New OracleConnection(CurrentConnString)
                 Using command As New OracleCommand(query, connection)
                     command.CommandType = CommandType.Text
-                    command.Parameters.Add(":pAppName", OracleType.VarChar).Value = appName
+                    command.Parameters.Add(":pAppName", OracleDbType.Varchar2).Value = appName
 
                     Try
                         connection.Open()

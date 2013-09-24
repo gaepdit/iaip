@@ -1,6 +1,6 @@
 ﻿Imports System
 'Imports System.Security
-Imports System.Data.OracleClient
+Imports Oracle.DataAccess.Client
 'Imports System.IO
 'Imports System.Net.Mail
 

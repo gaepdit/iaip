@@ -1,4 +1,4 @@
-Imports System.Data.OracleClient
+Imports Oracle.DataAccess.Client
 Imports System.IO
 Imports Microsoft.Win32
 
@@ -864,11 +864,11 @@ Public Class IAIPLogIn
     '        cmd = New OracleCommand("AIRBranch.PD_EIS_Process", Conn)
     '        cmd.CommandType = CommandType.StoredProcedure
 
-    '        cmd.Parameters.Add(New OracleParameter("FACILITYID", OracleType.VarChar)).Value = "03900001"
-    '        cmd.Parameters.Add(New OracleParameter("PROCID", OracleType.VarChar)).Value = "1"
-    '        cmd.Parameters.Add(New OracleParameter("EMISSUNITID", OracleType.VarChar)).Value = "500A"
-    '        cmd.Parameters.Add(New OracleParameter("INVENTORYYEAR", OracleType.Number)).Value = "2011"
-    '        cmd.Parameters.Add(New OracleParameter("USERUPDATER", OracleType.VarChar)).Value = "217-John Doe"
+    '        cmd.Parameters.Add(New OracleParameter("FACILITYID", OracleDbType.Varchar2)).Value = "03900001"
+    '        cmd.Parameters.Add(New OracleParameter("PROCID", OracleDbType.Varchar2)).Value = "1"
+    '        cmd.Parameters.Add(New OracleParameter("EMISSUNITID", OracleDbType.Varchar2)).Value = "500A"
+    '        cmd.Parameters.Add(New OracleParameter("INVENTORYYEAR", OracleDbType.Varchar2)).Value = "2011"
+    '        cmd.Parameters.Add(New OracleParameter("USERUPDATER", OracleDbType.Varchar2)).Value = "217-John Doe"
 
     '        cmd.ExecuteNonQuery()
 

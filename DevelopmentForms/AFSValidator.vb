@@ -1,6 +1,6 @@
 Imports System.IO
 Imports System
-Imports System.Data.OracleClient
+Imports Oracle.DataAccess.Client
 
 
 Public Class AFSValidator

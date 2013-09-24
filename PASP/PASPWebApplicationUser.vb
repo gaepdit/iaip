@@ -1,5 +1,5 @@
 
-Imports System.Data.OracleClient
+Imports Oracle.DataAccess.Client
 
 Public Class PASPWebApplicationUser
     Dim SQL As String

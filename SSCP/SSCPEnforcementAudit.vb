@@ -1,4 +1,4 @@
-﻿Imports System.Data.OracleClient
+﻿Imports Oracle.DataAccess.Client
 
 Public Class SSCPEnforcementAudit
     Dim SQL, SQL2, SQL3 As String
@@ -2418,7 +2418,7 @@ Public Class SSCPEnforcementAudit
                 cmd = New OracleCommand("AIRBranch.PD_SSCPEnforcement", Conn)
                 cmd.CommandType = CommandType.StoredProcedure
 
-                cmd.Parameters.Add(New OracleParameter("ENFORCEMENT", OracleType.VarChar)).Value = txtEnforcementNumber.Text
+                cmd.Parameters.Add(New OracleParameter("ENFORCEMENT", OracleDbType.Varchar2)).Value = txtEnforcementNumber.Text
                 cmd.ExecuteNonQuery()
 
                 If cboPollutantStatus.SelectedValue = "" Then
@@ -2465,7 +2465,8 @@ Public Class SSCPEnforcementAudit
                 Using connection As New OracleConnection(CurrentConnString)
                     Using command As New OracleCommand(query, connection) With {.CommandType = CommandType.Text}
                         With command
-                            .Parameters.AddWithValue(":enfNumber", txtEnforcementNumber.Text)
+                            .BindByName = True
+                            .Parameters.Add(":enfNumber", txtEnforcementNumber.Text)
                         End With
                         Try
                             connection.Open()
@@ -2562,13 +2563,14 @@ Public Class SSCPEnforcementAudit
             Using connection As New OracleConnection(CurrentConnString)
                 Using command As New OracleCommand(query, connection) With {.CommandType = CommandType.Text}
                     With command
-                        .Parameters.AddWithValue(":enfNumber", txtEnforcementNumber.Text)
-                        .Parameters.AddWithValue(":stipKey", stipulatedKey.ToString)
-                        .Parameters.AddWithValue(":stipPenalty", txtStipulatedPenalty.Text)
-                        .Parameters.AddWithValue(":stipComments", txtStipulatedComments.Text)
-                        .Parameters.AddWithValue(":afsNumber", AFSNumber)
-                        .Parameters.AddWithValue(":userGCode", UserGCode)
-                        .Parameters.AddWithValue(":oracleDate", OracleDate)
+                        .BindByName = True
+                        .Parameters.Add(":enfNumber", txtEnforcementNumber.Text)
+                        .Parameters.Add(":stipKey", stipulatedKey.ToString)
+                        .Parameters.Add(":stipPenalty", txtStipulatedPenalty.Text)
+                        .Parameters.Add(":stipComments", txtStipulatedComments.Text)
+                        .Parameters.Add(":afsNumber", AFSNumber)
+                        .Parameters.Add(":userGCode", UserGCode)
+                        .Parameters.Add(":oracleDate", OracleDate)
                     End With
                     Try
                         connection.Open()
@@ -3515,8 +3517,9 @@ Public Class SSCPEnforcementAudit
         Using connection As New OracleConnection(CurrentConnString)
             Using command As New OracleCommand(query, connection) With {.CommandType = CommandType.Text}
                 With command
-                    .Parameters.AddWithValue(":enfNumber", txtEnforcementNumber.Text)
-                    .Parameters.AddWithValue(":enfKey", txtStipulatedKey.Text)
+                    .BindByName = True
+                    .Parameters.Add(":enfNumber", txtEnforcementNumber.Text)
+                    .Parameters.Add(":enfKey", txtStipulatedKey.Text)
                 End With
 
                 Try
@@ -3557,8 +3560,9 @@ Public Class SSCPEnforcementAudit
             Using connection As New OracleConnection(CurrentConnString)
                 Using command As New OracleCommand(query, connection) With {.CommandType = CommandType.Text}
                     With command
-                        .Parameters.AddWithValue(":enfNumber", txtEnforcementNumber.Text)
-                        .Parameters.AddWithValue(":enfKey", txtStipulatedKey.Text)
+                        .BindByName = True
+                        .Parameters.Add(":enfNumber", txtEnforcementNumber.Text)
+                        .Parameters.Add(":enfKey", txtStipulatedKey.Text)
                     End With
                     Try
                         connection.Open()

@@ -1,4 +1,4 @@
-Imports System.Data.OracleClient
+Imports Oracle.DataAccess.Client
 Imports System.Security.Cryptography
 Imports System.Text
 Imports System
