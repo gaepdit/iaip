@@ -121,7 +121,7 @@ Module subMain
     Public ISMPExcelFilePage As ISMPExcelFiles
     Public ISMPAddPollutant As ISMPAddPollutants
     Public ISMPAddTestingFirm As ISMPAddTestingFirms
-    Public ISMPDMU As ISMPDataManagementTools
+    'Public ISMPDMU As ISMPDataManagementTools
     Public DMUOnly As DMUTool
     Public ISMPConfidential As ISMPConfidentialData
     Public ISMPTestReportsEntry As ISMPTestReports

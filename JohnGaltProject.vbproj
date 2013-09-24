@@ -907,12 +907,6 @@
     <Compile Include="DMU\DMUTool.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ISMP\ISMPDataManagementTools.Designer.vb">
-      <DependentUpon>ISMPDataManagementTools.vb</DependentUpon>
-    </Compile>
-    <Compile Include="ISMP\ISMPDataManagementTools.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="ISMP\ISMPTestReportAdministrative.Designer.vb">
       <DependentUpon>ISMPTestReportAdministrative.vb</DependentUpon>
     </Compile>
@@ -1544,10 +1538,6 @@
     <EmbeddedResource Include="DMU\DMUTool.resx">
       <SubType>Designer</SubType>
       <DependentUpon>DMUTool.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ISMP\ISMPDataManagementTools.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>ISMPDataManagementTools.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ISMP\ISMPTestReportAdministrative.resx">
       <SubType>Designer</SubType>
