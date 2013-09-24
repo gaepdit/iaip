@@ -4352,7 +4352,7 @@ Public Class SmokeSchool
     End Sub
     Private Sub btnExport_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnExport.Click
         Try
-            export()
+            If dgvRes.RowCount > 0 Then dgvRes.ExportToExcel(Me)
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
