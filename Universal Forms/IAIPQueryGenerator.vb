@@ -4729,7 +4729,7 @@ Public Class IAIPQueryGenerator
     End Sub
 
     Sub ExportToExcel()
-        If dgvQueryGenerator.RowCount > 0 Then ExportDgvToExcel(dgvQueryGenerator, Me)
+        If dgvQueryGenerator.RowCount > 0 Then dgvQueryGenerator.ExportToExcel(Me)
     End Sub
 
     'Sub ExportToExcel()

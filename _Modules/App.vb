@@ -154,46 +154,4 @@ Module App
     End Function
 #End Region
 
-
-#Region "Tools"
-    ' Just the one procedure so far. This is not the best place for this, but couldn't think
-    ' of a better one.
-
-    Public Sub ExportDgvToExcel(ByVal dataGridView As DataGridView, Optional ByVal sender As Object = Nothing)
-        If dataGridView Is Nothing OrElse dataGridView.RowCount = 0 Then Exit Sub
-
-        If sender IsNot Nothing Then
-            sender.Cursor = Cursors.AppStarting
-        End If
-
-        Dim dialog As New SaveFileDialog()
-        With dialog
-            .Filter = "Excel File (*.xlsx)|*.xlsx"
-            .DefaultExt = ".xlsx"
-            .FileName = "Export_" & System.DateTime.Now.ToString("yyyy-MM-dd-HH.mm.ss") & ".xlsx"
-            .InitialDirectory = GetSetting(UserSetting.ExcelExportLocation)
-        End With
-
-        If dialog.ShowDialog() = DialogResult.OK Then
-            Dim errorMessage As String = ""
-            Dim result As Boolean = dataGridView.SaveAsExcelFile(dialog.FileName, errorMessage)
-
-            If result Then
-                If Not Path.GetDirectoryName(dialog.FileName) = dialog.InitialDirectory Then
-                    SaveSetting(UserSetting.ExcelExportLocation, Path.GetDirectoryName(dialog.FileName))
-                End If
-                System.Diagnostics.Process.Start(dialog.FileName)
-            Else
-                MessageBox.Show(errorMessage)
-            End If
-        End If
-
-        dialog.Dispose()
-
-        If sender IsNot Nothing Then
-            sender.Cursor = Nothing
-        End If
-    End Sub
-
-#End Region
 End Module
