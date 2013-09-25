@@ -22,7 +22,7 @@ Partial Class IAIPNavigation
         Me.components = New System.ComponentModel.Container
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(IAIPNavigation))
         Me.MainMenu1 = New System.Windows.Forms.MainMenu(Me.components)
-        Me.MenuItem1 = New System.Windows.Forms.MenuItem
+        Me.mmiFile = New System.Windows.Forms.MenuItem
         Me.mmiExit = New System.Windows.Forms.MenuItem
         Me.MmiView = New System.Windows.Forms.MenuItem
         Me.mmiISMPLists = New System.Windows.Forms.MenuItem
@@ -121,6 +121,9 @@ Partial Class IAIPNavigation
         Me.bgrOpenNewForm = New System.ComponentModel.BackgroundWorker
         Me.bgrFormLoad = New System.ComponentModel.BackgroundWorker
         Me.Panel1 = New System.Windows.Forms.Panel
+        Me.MenuItem4 = New System.Windows.Forms.MenuItem
+        Me.MenuItem1 = New System.Windows.Forms.MenuItem
+        Me.MenuItem5 = New System.Windows.Forms.MenuItem
         Me.Panel4.SuspendLayout()
         Me.GPWorkTool.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
@@ -130,18 +133,19 @@ Partial Class IAIPNavigation
         '
         'MainMenu1
         '
-        Me.MainMenu1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.MenuItem1, Me.MmiView, Me.MenuItem2, Me.mmiHelp})
+        Me.MainMenu1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiFile, Me.MmiView, Me.MenuItem2, Me.mmiHelp})
         '
-        'MenuItem1
+        'mmiFile
         '
-        Me.MenuItem1.Index = 0
-        Me.MenuItem1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiExit})
-        Me.MenuItem1.Text = "File"
+        Me.mmiFile.Index = 0
+        Me.mmiFile.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiExit})
+        Me.mmiFile.Text = "&File"
         '
         'mmiExit
         '
         Me.mmiExit.Index = 0
-        Me.mmiExit.Text = "Exit"
+        Me.mmiExit.Shortcut = System.Windows.Forms.Shortcut.CtrlQ
+        Me.mmiExit.Text = "E&xit"
         '
         'MmiView
         '
@@ -178,30 +182,30 @@ Partial Class IAIPNavigation
         'MenuItem2
         '
         Me.MenuItem2.Index = 2
-        Me.MenuItem2.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiResetPointer})
-        Me.MenuItem2.Text = "Tools"
+        Me.MenuItem2.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.MenuItem4, Me.MenuItem5, Me.mmiResetPointer})
+        Me.MenuItem2.Text = "&Tools"
         '
         'mmiResetPointer
         '
-        Me.mmiResetPointer.Index = 0
+        Me.mmiResetPointer.Index = 1
         Me.mmiResetPointer.Text = "Reset Pointer"
         '
         'mmiHelp
         '
         Me.mmiHelp.Index = 3
-        Me.mmiHelp.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiOnlineHelp, Me.mmiVersion})
-        Me.mmiHelp.Text = "Help"
+        Me.mmiHelp.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiOnlineHelp, Me.MenuItem1, Me.mmiVersion})
+        Me.mmiHelp.Text = "&Help"
         '
         'mmiOnlineHelp
         '
         Me.mmiOnlineHelp.Index = 0
         Me.mmiOnlineHelp.Shortcut = System.Windows.Forms.Shortcut.F1
-        Me.mmiOnlineHelp.Text = "Online Help"
+        Me.mmiOnlineHelp.Text = "Online &Help"
         '
         'mmiVersion
         '
-        Me.mmiVersion.Index = 1
-        Me.mmiVersion.Text = "About"
+        Me.mmiVersion.Index = 2
+        Me.mmiVersion.Text = "&About"
         '
         'Image_List_All
         '
@@ -1202,6 +1206,21 @@ Partial Class IAIPNavigation
         Me.Panel1.TabIndex = 125
         Me.Panel1.Visible = False
         '
+        'MenuItem4
+        '
+        Me.MenuItem4.Index = 0
+        Me.MenuItem4.Text = "&Export list to Excel"
+        '
+        'MenuItem1
+        '
+        Me.MenuItem1.Index = 1
+        Me.MenuItem1.Text = "-"
+        '
+        'MenuItem5
+        '
+        Me.MenuItem5.Index = 1
+        Me.MenuItem5.Text = "-"
+        '
         'IAIPNavigation
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1231,7 +1250,7 @@ Partial Class IAIPNavigation
 
     End Sub
     Friend WithEvents MainMenu1 As System.Windows.Forms.MainMenu
-    Friend WithEvents MenuItem1 As System.Windows.Forms.MenuItem
+    Friend WithEvents mmiFile As System.Windows.Forms.MenuItem
     Friend WithEvents mmiExit As System.Windows.Forms.MenuItem
     Friend WithEvents MmiView As System.Windows.Forms.MenuItem
     Friend WithEvents MenuItem2 As System.Windows.Forms.MenuItem
@@ -1330,4 +1349,7 @@ Partial Class IAIPNavigation
     Friend WithEvents rdbPMView As System.Windows.Forms.RadioButton
     Friend WithEvents rdbUCView As System.Windows.Forms.RadioButton
     Friend WithEvents rdbStaffView As System.Windows.Forms.RadioButton
+    Friend WithEvents MenuItem4 As System.Windows.Forms.MenuItem
+    Friend WithEvents MenuItem5 As System.Windows.Forms.MenuItem
+    Friend WithEvents MenuItem1 As System.Windows.Forms.MenuItem
 End Class

@@ -9033,4 +9033,10 @@ Public Class IAIPNavigation
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
+    Private Sub MenuItem4_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MenuItem4.Click
+        If dgvWorkViewer.RowCount > 0 Then
+            dgvWorkViewer.ExportToExcel(Me)
+        End If
+    End Sub
 End Class
