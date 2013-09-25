@@ -1,6 +1,10 @@
 IAIP Changelog
 ==============
 
+### Next (2013-09-xx)
+
++ NEW: *Smoke School* – Export to Excel works better
+
 ### 2.6.5.1 (2013-09-20)
 
 + NEW: New icon & logo for Windows 7
