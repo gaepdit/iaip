@@ -1939,7 +1939,7 @@ Public Class SSCPInformationRequest
 
     Private Sub mmiHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiHelp.Click
         Try
-            Help.ShowHelp(Label101, HELP_URL)
+            Help.ShowHelp(Label101, HelpUrl)
         Catch ex As Exception
         End Try
 

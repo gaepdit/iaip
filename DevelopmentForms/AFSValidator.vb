@@ -1759,7 +1759,7 @@ Public Class AFSValidator
 
     Private Sub HelpToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles HelpToolStripMenuItem.Click
         Try
-            Help.ShowHelp(Label1, HELP_URL)
+            Help.ShowHelp(Label1, HelpUrl)
         Catch ex As Exception
         End Try
     End Sub

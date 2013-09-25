@@ -1645,7 +1645,7 @@ Public Class SSCPEmissionSummaryTool
     End Sub
     Private Sub HelpToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles HelpToolStripMenuItem.Click
         Try
-            Help.ShowHelp(Label112, HELP_URL)
+            Help.ShowHelp(Label112, HelpUrl)
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try

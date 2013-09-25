@@ -7182,7 +7182,7 @@ Public Class SSCPManagersTools
     End Sub
     Private Sub MmiHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiHelp.Click
         Try
-            Help.ShowHelp(Label1, HELP_URL)
+            Help.ShowHelp(Label1, HelpUrl)
         Catch ex As Exception
         End Try
 

@@ -1488,7 +1488,7 @@ Public Class PASPFeeDeposits
    
     Private Sub mmiHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiHelp.Click
         Try
-            Help.ShowHelp(Label1, HELP_URL)
+            Help.ShowHelp(Label1, HelpUrl)
         Catch ex As Exception
         End Try
 

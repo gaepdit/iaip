@@ -33,6 +33,8 @@ Partial Class IAIPLogIn
         Me.mmiForceUpdate = New System.Windows.Forms.MenuItem
         Me.mmiLukeEnvironment = New System.Windows.Forms.MenuItem
         Me.mmiTestingDatabase = New System.Windows.Forms.MenuItem
+        Me.MenuItem4 = New System.Windows.Forms.MenuItem
+        Me.mmiAbout = New System.Windows.Forms.MenuItem
         Me.lblPassword = New System.Windows.Forms.Label
         Me.lblUserID = New System.Windows.Forms.Label
         Me.txtUserPassword = New System.Windows.Forms.TextBox
@@ -74,7 +76,7 @@ Partial Class IAIPLogIn
         'mmiHelp
         '
         Me.mmiHelp.Index = 1
-        Me.mmiHelp.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiOnlineHelp, Me.MenuItem2, Me.mmiTestingEnvironment, Me.mmiRefreshUserID, Me.mmiRefreshDefaultLoc, Me.MenuItem3, Me.mmiForceUpdate, Me.mmiLukeEnvironment, Me.mmiTestingDatabase})
+        Me.mmiHelp.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiOnlineHelp, Me.MenuItem2, Me.mmiTestingEnvironment, Me.mmiRefreshUserID, Me.mmiRefreshDefaultLoc, Me.MenuItem3, Me.mmiForceUpdate, Me.mmiLukeEnvironment, Me.mmiTestingDatabase, Me.MenuItem4, Me.mmiAbout})
         Me.mmiHelp.Text = "&Help"
         '
         'mmiOnlineHelp
@@ -127,6 +129,16 @@ Partial Class IAIPLogIn
         Me.mmiTestingDatabase.Shortcut = System.Windows.Forms.Shortcut.CtrlShiftT
         Me.mmiTestingDatabase.Text = "Testing Database"
         Me.mmiTestingDatabase.Visible = False
+        '
+        'MenuItem4
+        '
+        Me.MenuItem4.Index = 9
+        Me.MenuItem4.Text = "-"
+        '
+        'mmiAbout
+        '
+        Me.mmiAbout.Index = 10
+        Me.mmiAbout.Text = "&About IAIP"
         '
         'lblPassword
         '
@@ -408,4 +420,6 @@ Partial Class IAIPLogIn
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents PictureBox1 As System.Windows.Forms.PictureBox
     Friend WithEvents LoginProgressBar As System.Windows.Forms.ProgressBar
+    Friend WithEvents MenuItem4 As System.Windows.Forms.MenuItem
+    Friend WithEvents mmiAbout As System.Windows.Forms.MenuItem
 End Class

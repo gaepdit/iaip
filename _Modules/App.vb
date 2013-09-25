@@ -32,11 +32,15 @@ Module App
     End Sub
     Public Sub OpenHelpUrl(Optional ByVal sender As Object = Nothing)
         monitor.TrackFeature("Url.OpenHelp")
-        OpenUrl(HELP_URL, sender)
+        OpenUrl(HelpUrl, sender)
     End Sub
     Public Sub OpenDownloadUrl(Optional ByVal sender As Object = Nothing)
         monitor.TrackFeature("Url.OpenDownload")
-        OpenUrl(DOWNLOAD_URL, sender)
+        OpenUrl(DownloadUrl, sender)
+    End Sub
+    Public Sub OpenAboutUrl(Optional ByVal sender As Object = Nothing)
+        monitor.TrackFeature("Url.OpenAbout")
+        OpenUrl(AboutUrl, sender)
     End Sub
     Private Sub OpenUrl(ByVal url As String, Optional ByVal sender As Object = Nothing)
         ' Reference: http://code.logos.com/blog/2008/01/using_processstart_to_link_to.html

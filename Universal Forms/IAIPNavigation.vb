@@ -2833,23 +2833,22 @@ Public Class IAIPNavigation
         End Try
 
     End Sub
-    Private Sub mmiResetPointer_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiResetPointer.Click
+
+    'Private Sub mmiResetPointer_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiResetPointer.Click
 
 
-    End Sub
-    Private Sub mmiVersion_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiVersion.Click
-        Try
+    'End Sub
 
-            DevelopmentTeam = Nothing
-            If DevelopmentTeam Is Nothing Then DevelopmentTeam = New IAIPDevelopmentTeam
-            DevelopmentTeam.Show()
-            DevelopmentTeam.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
-        Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-
-        End Try
-
-
+    Private Sub mmiAbout_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiAbout.Click
+        OpenAboutUrl(Me)
+        'Try
+        '    DevelopmentTeam = Nothing
+        '    If DevelopmentTeam Is Nothing Then DevelopmentTeam = New IAIPDevelopmentTeam
+        '    DevelopmentTeam.Show()
+        '    DevelopmentTeam.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+        'Catch ex As Exception
+        '    ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+        'End Try
     End Sub
     Private Sub dgvWorkViewer_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvWorkViewer.MouseUp
         Dim hti As DataGridView.HitTestInfo = dgvWorkViewer.HitTest(e.X, e.Y)
@@ -3269,12 +3268,13 @@ Public Class IAIPNavigation
     End Sub
 #End Region
     Private Sub mmiOnlineHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiOnlineHelp.Click
-        Try
-            Help.ShowHelp(Label1, HELP_URL)
-        Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-        End Try
+        OpenHelpUrl(Me)
+        'Try
+        '    Help.ShowHelp(Label1, HelpUrl)
+        'Catch ex As Exception
+        '    ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+        'Finally
+        'End Try
     End Sub
 
 

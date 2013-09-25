@@ -440,7 +440,7 @@ Public Class IAIPLogIn
                         Else
                             NavigationScreen.pnl4.Text = ""
                         End If
-                        NavigationScreen.mmiVersion.Text = lblCurrentVersionMessage.Text
+                        'NavigationScreen.mmiAbout.Text = lblCurrentVersionMessage.Text
                         NavigationScreen.Show()
 
                         LoginProgressBar.Value = 0
@@ -945,5 +945,9 @@ Public Class IAIPLogIn
 
     Private Sub lblPassword_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles lblPassword.Click
         txtUserPassword.Focus()
+    End Sub
+
+    Private Sub mmiAbout_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiAbout.Click
+        OpenAboutUrl(Me)
     End Sub
 End Class

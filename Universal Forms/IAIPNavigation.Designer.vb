@@ -37,7 +37,7 @@ Partial Class IAIPNavigation
         Me.mmiHelp = New System.Windows.Forms.MenuItem
         Me.mmiOnlineHelp = New System.Windows.Forms.MenuItem
         Me.MenuItem1 = New System.Windows.Forms.MenuItem
-        Me.mmiVersion = New System.Windows.Forms.MenuItem
+        Me.mmiAbout = New System.Windows.Forms.MenuItem
         Me.Image_List_All = New System.Windows.Forms.ImageList(Me.components)
         Me.Label1 = New System.Windows.Forms.Label
         Me.llbQuaternaryList = New System.Windows.Forms.LinkLabel
@@ -194,16 +194,18 @@ Partial Class IAIPNavigation
         '
         Me.MenuItem5.Index = 1
         Me.MenuItem5.Text = "-"
+        Me.MenuItem5.Visible = False
         '
         'mmiResetPointer
         '
         Me.mmiResetPointer.Index = 2
         Me.mmiResetPointer.Text = "Reset Pointer"
+        Me.mmiResetPointer.Visible = False
         '
         'mmiHelp
         '
         Me.mmiHelp.Index = 3
-        Me.mmiHelp.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiOnlineHelp, Me.MenuItem1, Me.mmiVersion})
+        Me.mmiHelp.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiOnlineHelp, Me.MenuItem1, Me.mmiAbout})
         Me.mmiHelp.Text = "&Help"
         '
         'mmiOnlineHelp
@@ -217,10 +219,10 @@ Partial Class IAIPNavigation
         Me.MenuItem1.Index = 1
         Me.MenuItem1.Text = "-"
         '
-        'mmiVersion
+        'mmiAbout
         '
-        Me.mmiVersion.Index = 2
-        Me.mmiVersion.Text = "&About"
+        Me.mmiAbout.Index = 2
+        Me.mmiAbout.Text = "&About IAIP"
         '
         'Image_List_All
         '
@@ -1256,7 +1258,7 @@ Partial Class IAIPNavigation
     Friend WithEvents MenuItem2 As System.Windows.Forms.MenuItem
     Friend WithEvents mmiResetPointer As System.Windows.Forms.MenuItem
     Friend WithEvents mmiHelp As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiVersion As System.Windows.Forms.MenuItem
+    Friend WithEvents mmiAbout As System.Windows.Forms.MenuItem
     Friend WithEvents Image_List_All As System.Windows.Forms.ImageList
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents llbTertiaryList As System.Windows.Forms.LinkLabel

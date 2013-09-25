@@ -328,7 +328,7 @@ Public Class ISMPReferenceNumber
     Private Sub mmiHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiHelp.Click
         Try
 
-            Help.ShowHelp(Label2, HELP_URL)
+            Help.ShowHelp(Label2, HelpUrl)
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
