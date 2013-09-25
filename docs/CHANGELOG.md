@@ -3,6 +3,7 @@ IAIP Changelog
 
 ### Next (2013-09-xx)
 
++ NEW: *Navigation Screen* – Added ability to export grid to Excel
 + NEW: *Smoke School* – Export to Excel works better
 
 ### 2.6.5.1 (2013-09-20)
