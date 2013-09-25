@@ -5659,27 +5659,27 @@ Public Class SSCPManagersTools
                 Conn.Open()
             End If
             daStatisticalReport.Fill(dsStatisticalReport, "TotalFacilities")
-            dgvStatistialReports.DataSource = dsStatisticalReport
-            dgvStatistialReports.DataMember = "TotalFacilities"
+            dgvStatisticalReports.DataSource = dsStatisticalReport
+            dgvStatisticalReports.DataMember = "TotalFacilities"
             If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
-            dgvStatistialReports.RowHeadersVisible = False
-            dgvStatistialReports.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvStatistialReports.AllowUserToResizeColumns = True
-            dgvStatistialReports.AllowUserToAddRows = False
-            dgvStatistialReports.AllowUserToDeleteRows = False
-            dgvStatistialReports.AllowUserToOrderColumns = True
-            dgvStatistialReports.AllowUserToResizeRows = True
+            dgvStatisticalReports.RowHeadersVisible = False
+            dgvStatisticalReports.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
+            dgvStatisticalReports.AllowUserToResizeColumns = True
+            dgvStatisticalReports.AllowUserToAddRows = False
+            dgvStatisticalReports.AllowUserToDeleteRows = False
+            dgvStatisticalReports.AllowUserToOrderColumns = True
+            dgvStatisticalReports.AllowUserToResizeRows = True
 
-            dgvStatistialReports.Columns("AIRSNumber").HeaderText = "AIRS #"
-            dgvStatistialReports.Columns("AIRSNumber").DisplayIndex = 0
-            dgvStatistialReports.Columns("strFacilityName").HeaderText = "Facility Name"
-            dgvStatistialReports.Columns("strFacilityName").DisplayIndex = 1
-            dgvStatistialReports.Columns("Username").HeaderText = "Staff Responsible"
-            dgvStatistialReports.Columns("Username").DisplayIndex = 2
+            dgvStatisticalReports.Columns("AIRSNumber").HeaderText = "AIRS #"
+            dgvStatisticalReports.Columns("AIRSNumber").DisplayIndex = 0
+            dgvStatisticalReports.Columns("strFacilityName").HeaderText = "Facility Name"
+            dgvStatisticalReports.Columns("strFacilityName").DisplayIndex = 1
+            dgvStatisticalReports.Columns("Username").HeaderText = "Staff Responsible"
+            dgvStatisticalReports.Columns("Username").DisplayIndex = 2
 
-            txtStatisticalCount.Text = dgvStatistialReports.RowCount.ToString
+            txtStatisticalCount.Text = dgvStatisticalReports.RowCount.ToString
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -5739,29 +5739,29 @@ Public Class SSCPManagersTools
                 Conn.Open()
             End If
             daStatisticalReport.Fill(dsStatisticalReport, "TotalFacilities")
-            dgvStatistialReports.DataSource = dsStatisticalReport
-            dgvStatistialReports.DataMember = "TotalFacilities"
+            dgvStatisticalReports.DataSource = dsStatisticalReport
+            dgvStatisticalReports.DataMember = "TotalFacilities"
             If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
-            dgvStatistialReports.RowHeadersVisible = False
-            dgvStatistialReports.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvStatistialReports.AllowUserToResizeColumns = True
-            dgvStatistialReports.AllowUserToAddRows = False
-            dgvStatistialReports.AllowUserToDeleteRows = False
-            dgvStatistialReports.AllowUserToOrderColumns = True
-            dgvStatistialReports.AllowUserToResizeRows = True
+            dgvStatisticalReports.RowHeadersVisible = False
+            dgvStatisticalReports.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
+            dgvStatisticalReports.AllowUserToResizeColumns = True
+            dgvStatisticalReports.AllowUserToAddRows = False
+            dgvStatisticalReports.AllowUserToDeleteRows = False
+            dgvStatisticalReports.AllowUserToOrderColumns = True
+            dgvStatisticalReports.AllowUserToResizeRows = True
 
-            dgvStatistialReports.Columns("AIRSNumber").HeaderText = "AIRS #"
-            dgvStatistialReports.Columns("AIRSNumber").DisplayIndex = 0
-            dgvStatistialReports.Columns("strFacilityName").HeaderText = "Facility Name"
-            dgvStatistialReports.Columns("strFacilityName").DisplayIndex = 1
-            dgvStatistialReports.Columns("Username").HeaderText = "Staff Responsible"
-            dgvStatistialReports.Columns("Username").DisplayIndex = 2
-            dgvStatistialReports.Columns("strTrackingNumber").HeaderText = "ACC Tracking #"
-            dgvStatistialReports.Columns("strTrackingNumber").DisplayIndex = 3
+            dgvStatisticalReports.Columns("AIRSNumber").HeaderText = "AIRS #"
+            dgvStatisticalReports.Columns("AIRSNumber").DisplayIndex = 0
+            dgvStatisticalReports.Columns("strFacilityName").HeaderText = "Facility Name"
+            dgvStatisticalReports.Columns("strFacilityName").DisplayIndex = 1
+            dgvStatisticalReports.Columns("Username").HeaderText = "Staff Responsible"
+            dgvStatisticalReports.Columns("Username").DisplayIndex = 2
+            dgvStatisticalReports.Columns("strTrackingNumber").HeaderText = "ACC Tracking #"
+            dgvStatisticalReports.Columns("strTrackingNumber").DisplayIndex = 3
 
-            txtStatisticalCount.Text = dgvStatistialReports.RowCount.ToString
+            txtStatisticalCount.Text = dgvStatisticalReports.RowCount.ToString
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -5823,29 +5823,29 @@ Public Class SSCPManagersTools
                 Conn.Open()
             End If
             daStatisticalReport.Fill(dsStatisticalReport, "TotalFacilities")
-            dgvStatistialReports.DataSource = dsStatisticalReport
-            dgvStatistialReports.DataMember = "TotalFacilities"
+            dgvStatisticalReports.DataSource = dsStatisticalReport
+            dgvStatisticalReports.DataMember = "TotalFacilities"
             If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
-            dgvStatistialReports.RowHeadersVisible = False
-            dgvStatistialReports.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvStatistialReports.AllowUserToResizeColumns = True
-            dgvStatistialReports.AllowUserToAddRows = False
-            dgvStatistialReports.AllowUserToDeleteRows = False
-            dgvStatistialReports.AllowUserToOrderColumns = True
-            dgvStatistialReports.AllowUserToResizeRows = True
+            dgvStatisticalReports.RowHeadersVisible = False
+            dgvStatisticalReports.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
+            dgvStatisticalReports.AllowUserToResizeColumns = True
+            dgvStatisticalReports.AllowUserToAddRows = False
+            dgvStatisticalReports.AllowUserToDeleteRows = False
+            dgvStatisticalReports.AllowUserToOrderColumns = True
+            dgvStatisticalReports.AllowUserToResizeRows = True
 
-            dgvStatistialReports.Columns("AIRSNumber").HeaderText = "AIRS #"
-            dgvStatistialReports.Columns("AIRSNumber").DisplayIndex = 0
-            dgvStatistialReports.Columns("strFacilityName").HeaderText = "Facility Name"
-            dgvStatistialReports.Columns("strFacilityName").DisplayIndex = 1
-            dgvStatistialReports.Columns("Username").HeaderText = "Staff Responsible"
-            dgvStatistialReports.Columns("Username").DisplayIndex = 2
-            dgvStatistialReports.Columns("strTrackingNumber").HeaderText = "ACC Tracking #"
-            dgvStatistialReports.Columns("strTrackingNumber").DisplayIndex = 3
+            dgvStatisticalReports.Columns("AIRSNumber").HeaderText = "AIRS #"
+            dgvStatisticalReports.Columns("AIRSNumber").DisplayIndex = 0
+            dgvStatisticalReports.Columns("strFacilityName").HeaderText = "Facility Name"
+            dgvStatisticalReports.Columns("strFacilityName").DisplayIndex = 1
+            dgvStatisticalReports.Columns("Username").HeaderText = "Staff Responsible"
+            dgvStatisticalReports.Columns("Username").DisplayIndex = 2
+            dgvStatisticalReports.Columns("strTrackingNumber").HeaderText = "ACC Tracking #"
+            dgvStatisticalReports.Columns("strTrackingNumber").DisplayIndex = 3
 
-            txtStatisticalCount.Text = dgvStatistialReports.RowCount.ToString
+            txtStatisticalCount.Text = dgvStatisticalReports.RowCount.ToString
 
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -5908,29 +5908,29 @@ Public Class SSCPManagersTools
                 Conn.Open()
             End If
             daStatisticalReport.Fill(dsStatisticalReport, "TotalFacilities")
-            dgvStatistialReports.DataSource = dsStatisticalReport
-            dgvStatistialReports.DataMember = "TotalFacilities"
+            dgvStatisticalReports.DataSource = dsStatisticalReport
+            dgvStatisticalReports.DataMember = "TotalFacilities"
             If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
-            dgvStatistialReports.RowHeadersVisible = False
-            dgvStatistialReports.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvStatistialReports.AllowUserToResizeColumns = True
-            dgvStatistialReports.AllowUserToAddRows = False
-            dgvStatistialReports.AllowUserToDeleteRows = False
-            dgvStatistialReports.AllowUserToOrderColumns = True
-            dgvStatistialReports.AllowUserToResizeRows = True
+            dgvStatisticalReports.RowHeadersVisible = False
+            dgvStatisticalReports.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
+            dgvStatisticalReports.AllowUserToResizeColumns = True
+            dgvStatisticalReports.AllowUserToAddRows = False
+            dgvStatisticalReports.AllowUserToDeleteRows = False
+            dgvStatisticalReports.AllowUserToOrderColumns = True
+            dgvStatisticalReports.AllowUserToResizeRows = True
 
-            dgvStatistialReports.Columns("AIRSNumber").HeaderText = "AIRS #"
-            dgvStatistialReports.Columns("AIRSNumber").DisplayIndex = 0
-            dgvStatistialReports.Columns("strFacilityName").HeaderText = "Facility Name"
-            dgvStatistialReports.Columns("strFacilityName").DisplayIndex = 1
-            dgvStatistialReports.Columns("Username").HeaderText = "Staff Responsible"
-            dgvStatistialReports.Columns("Username").DisplayIndex = 2
-            dgvStatistialReports.Columns("strTrackingNumber").HeaderText = "ACC Tracking #"
-            dgvStatistialReports.Columns("strTrackingNumber").DisplayIndex = 3
+            dgvStatisticalReports.Columns("AIRSNumber").HeaderText = "AIRS #"
+            dgvStatisticalReports.Columns("AIRSNumber").DisplayIndex = 0
+            dgvStatisticalReports.Columns("strFacilityName").HeaderText = "Facility Name"
+            dgvStatisticalReports.Columns("strFacilityName").DisplayIndex = 1
+            dgvStatisticalReports.Columns("Username").HeaderText = "Staff Responsible"
+            dgvStatisticalReports.Columns("Username").DisplayIndex = 2
+            dgvStatisticalReports.Columns("strTrackingNumber").HeaderText = "ACC Tracking #"
+            dgvStatisticalReports.Columns("strTrackingNumber").DisplayIndex = 3
 
-            txtStatisticalCount.Text = dgvStatistialReports.RowCount.ToString
+            txtStatisticalCount.Text = dgvStatisticalReports.RowCount.ToString
 
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -5995,29 +5995,29 @@ Public Class SSCPManagersTools
                 Conn.Open()
             End If
             daStatisticalReport.Fill(dsStatisticalReport, "TotalFacilities")
-            dgvStatistialReports.DataSource = dsStatisticalReport
-            dgvStatistialReports.DataMember = "TotalFacilities"
+            dgvStatisticalReports.DataSource = dsStatisticalReport
+            dgvStatisticalReports.DataMember = "TotalFacilities"
             If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
-            dgvStatistialReports.RowHeadersVisible = False
-            dgvStatistialReports.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvStatistialReports.AllowUserToResizeColumns = True
-            dgvStatistialReports.AllowUserToAddRows = False
-            dgvStatistialReports.AllowUserToDeleteRows = False
-            dgvStatistialReports.AllowUserToOrderColumns = True
-            dgvStatistialReports.AllowUserToResizeRows = True
+            dgvStatisticalReports.RowHeadersVisible = False
+            dgvStatisticalReports.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
+            dgvStatisticalReports.AllowUserToResizeColumns = True
+            dgvStatisticalReports.AllowUserToAddRows = False
+            dgvStatisticalReports.AllowUserToDeleteRows = False
+            dgvStatisticalReports.AllowUserToOrderColumns = True
+            dgvStatisticalReports.AllowUserToResizeRows = True
 
-            dgvStatistialReports.Columns("AIRSNumber").HeaderText = "AIRS #"
-            dgvStatistialReports.Columns("AIRSNumber").DisplayIndex = 0
-            dgvStatistialReports.Columns("strFacilityName").HeaderText = "Facility Name"
-            dgvStatistialReports.Columns("strFacilityName").DisplayIndex = 1
-            dgvStatistialReports.Columns("Username").HeaderText = "Staff Responsible"
-            dgvStatistialReports.Columns("Username").DisplayIndex = 2
-            dgvStatistialReports.Columns("strTrackingNumber").HeaderText = "ACC Tracking #"
-            dgvStatistialReports.Columns("strTrackingNumber").DisplayIndex = 3
+            dgvStatisticalReports.Columns("AIRSNumber").HeaderText = "AIRS #"
+            dgvStatisticalReports.Columns("AIRSNumber").DisplayIndex = 0
+            dgvStatisticalReports.Columns("strFacilityName").HeaderText = "Facility Name"
+            dgvStatisticalReports.Columns("strFacilityName").DisplayIndex = 1
+            dgvStatisticalReports.Columns("Username").HeaderText = "Staff Responsible"
+            dgvStatisticalReports.Columns("Username").DisplayIndex = 2
+            dgvStatisticalReports.Columns("strTrackingNumber").HeaderText = "ACC Tracking #"
+            dgvStatisticalReports.Columns("strTrackingNumber").DisplayIndex = 3
 
-            txtStatisticalCount.Text = dgvStatistialReports.RowCount.ToString
+            txtStatisticalCount.Text = dgvStatisticalReports.RowCount.ToString
 
 
         Catch ex As Exception
@@ -6084,29 +6084,29 @@ Public Class SSCPManagersTools
                 Conn.Open()
             End If
             daStatisticalReport.Fill(dsStatisticalReport, "TotalFacilities")
-            dgvStatistialReports.DataSource = dsStatisticalReport
-            dgvStatistialReports.DataMember = "TotalFacilities"
+            dgvStatisticalReports.DataSource = dsStatisticalReport
+            dgvStatisticalReports.DataMember = "TotalFacilities"
             If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
-            dgvStatistialReports.RowHeadersVisible = False
-            dgvStatistialReports.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvStatistialReports.AllowUserToResizeColumns = True
-            dgvStatistialReports.AllowUserToAddRows = False
-            dgvStatistialReports.AllowUserToDeleteRows = False
-            dgvStatistialReports.AllowUserToOrderColumns = True
-            dgvStatistialReports.AllowUserToResizeRows = True
+            dgvStatisticalReports.RowHeadersVisible = False
+            dgvStatisticalReports.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
+            dgvStatisticalReports.AllowUserToResizeColumns = True
+            dgvStatisticalReports.AllowUserToAddRows = False
+            dgvStatisticalReports.AllowUserToDeleteRows = False
+            dgvStatisticalReports.AllowUserToOrderColumns = True
+            dgvStatisticalReports.AllowUserToResizeRows = True
 
-            dgvStatistialReports.Columns("AIRSNumber").HeaderText = "AIRS #"
-            dgvStatistialReports.Columns("AIRSNumber").DisplayIndex = 0
-            dgvStatistialReports.Columns("strFacilityName").HeaderText = "Facility Name"
-            dgvStatistialReports.Columns("strFacilityName").DisplayIndex = 1
-            dgvStatistialReports.Columns("Username").HeaderText = "Staff Responsible"
-            dgvStatistialReports.Columns("Username").DisplayIndex = 2
-            dgvStatistialReports.Columns("strTrackingNumber").HeaderText = "ACC Tracking #"
-            dgvStatistialReports.Columns("strTrackingNumber").DisplayIndex = 3
+            dgvStatisticalReports.Columns("AIRSNumber").HeaderText = "AIRS #"
+            dgvStatisticalReports.Columns("AIRSNumber").DisplayIndex = 0
+            dgvStatisticalReports.Columns("strFacilityName").HeaderText = "Facility Name"
+            dgvStatisticalReports.Columns("strFacilityName").DisplayIndex = 1
+            dgvStatisticalReports.Columns("Username").HeaderText = "Staff Responsible"
+            dgvStatisticalReports.Columns("Username").DisplayIndex = 2
+            dgvStatisticalReports.Columns("strTrackingNumber").HeaderText = "ACC Tracking #"
+            dgvStatisticalReports.Columns("strTrackingNumber").DisplayIndex = 3
 
-            txtStatisticalCount.Text = dgvStatistialReports.RowCount.ToString
+            txtStatisticalCount.Text = dgvStatisticalReports.RowCount.ToString
 
 
         Catch ex As Exception
@@ -6174,29 +6174,29 @@ Public Class SSCPManagersTools
                 Conn.Open()
             End If
             daStatisticalReport.Fill(dsStatisticalReport, "TotalFacilities")
-            dgvStatistialReports.DataSource = dsStatisticalReport
-            dgvStatistialReports.DataMember = "TotalFacilities"
+            dgvStatisticalReports.DataSource = dsStatisticalReport
+            dgvStatisticalReports.DataMember = "TotalFacilities"
             If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
-            dgvStatistialReports.RowHeadersVisible = False
-            dgvStatistialReports.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvStatistialReports.AllowUserToResizeColumns = True
-            dgvStatistialReports.AllowUserToAddRows = False
-            dgvStatistialReports.AllowUserToDeleteRows = False
-            dgvStatistialReports.AllowUserToOrderColumns = True
-            dgvStatistialReports.AllowUserToResizeRows = True
+            dgvStatisticalReports.RowHeadersVisible = False
+            dgvStatisticalReports.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
+            dgvStatisticalReports.AllowUserToResizeColumns = True
+            dgvStatisticalReports.AllowUserToAddRows = False
+            dgvStatisticalReports.AllowUserToDeleteRows = False
+            dgvStatisticalReports.AllowUserToOrderColumns = True
+            dgvStatisticalReports.AllowUserToResizeRows = True
 
-            dgvStatistialReports.Columns("AIRSNumber").HeaderText = "AIRS #"
-            dgvStatistialReports.Columns("AIRSNumber").DisplayIndex = 0
-            dgvStatistialReports.Columns("strFacilityName").HeaderText = "Facility Name"
-            dgvStatistialReports.Columns("strFacilityName").DisplayIndex = 1
-            dgvStatistialReports.Columns("Username").HeaderText = "Staff Responsible"
-            dgvStatistialReports.Columns("Username").DisplayIndex = 2
-            dgvStatistialReports.Columns("strTrackingNumber").HeaderText = "ACC Tracking #"
-            dgvStatistialReports.Columns("strTrackingNumber").DisplayIndex = 3
+            dgvStatisticalReports.Columns("AIRSNumber").HeaderText = "AIRS #"
+            dgvStatisticalReports.Columns("AIRSNumber").DisplayIndex = 0
+            dgvStatisticalReports.Columns("strFacilityName").HeaderText = "Facility Name"
+            dgvStatisticalReports.Columns("strFacilityName").DisplayIndex = 1
+            dgvStatisticalReports.Columns("Username").HeaderText = "Staff Responsible"
+            dgvStatisticalReports.Columns("Username").DisplayIndex = 2
+            dgvStatisticalReports.Columns("strTrackingNumber").HeaderText = "ACC Tracking #"
+            dgvStatisticalReports.Columns("strTrackingNumber").DisplayIndex = 3
 
-            txtStatisticalCount.Text = dgvStatistialReports.RowCount.ToString
+            txtStatisticalCount.Text = dgvStatisticalReports.RowCount.ToString
 
 
         Catch ex As Exception
@@ -6260,29 +6260,29 @@ Public Class SSCPManagersTools
                 Conn.Open()
             End If
             daStatisticalReport.Fill(dsStatisticalReport, "TotalFacilities")
-            dgvStatistialReports.DataSource = dsStatisticalReport
-            dgvStatistialReports.DataMember = "TotalFacilities"
+            dgvStatisticalReports.DataSource = dsStatisticalReport
+            dgvStatisticalReports.DataMember = "TotalFacilities"
             If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
-            dgvStatistialReports.RowHeadersVisible = False
-            dgvStatistialReports.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvStatistialReports.AllowUserToResizeColumns = True
-            dgvStatistialReports.AllowUserToAddRows = False
-            dgvStatistialReports.AllowUserToDeleteRows = False
-            dgvStatistialReports.AllowUserToOrderColumns = True
-            dgvStatistialReports.AllowUserToResizeRows = True
+            dgvStatisticalReports.RowHeadersVisible = False
+            dgvStatisticalReports.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
+            dgvStatisticalReports.AllowUserToResizeColumns = True
+            dgvStatisticalReports.AllowUserToAddRows = False
+            dgvStatisticalReports.AllowUserToDeleteRows = False
+            dgvStatisticalReports.AllowUserToOrderColumns = True
+            dgvStatisticalReports.AllowUserToResizeRows = True
 
-            dgvStatistialReports.Columns("AIRSNumber").HeaderText = "AIRS #"
-            dgvStatistialReports.Columns("AIRSNumber").DisplayIndex = 0
-            dgvStatistialReports.Columns("strFacilityName").HeaderText = "Facility Name"
-            dgvStatistialReports.Columns("strFacilityName").DisplayIndex = 1
-            dgvStatistialReports.Columns("Username").HeaderText = "Staff Responsible"
-            dgvStatistialReports.Columns("Username").DisplayIndex = 2
-            dgvStatistialReports.Columns("strTrackingNumber").HeaderText = "ACC Tracking #"
-            dgvStatistialReports.Columns("strTrackingNumber").DisplayIndex = 3
+            dgvStatisticalReports.Columns("AIRSNumber").HeaderText = "AIRS #"
+            dgvStatisticalReports.Columns("AIRSNumber").DisplayIndex = 0
+            dgvStatisticalReports.Columns("strFacilityName").HeaderText = "Facility Name"
+            dgvStatisticalReports.Columns("strFacilityName").DisplayIndex = 1
+            dgvStatisticalReports.Columns("Username").HeaderText = "Staff Responsible"
+            dgvStatisticalReports.Columns("Username").DisplayIndex = 2
+            dgvStatisticalReports.Columns("strTrackingNumber").HeaderText = "ACC Tracking #"
+            dgvStatisticalReports.Columns("strTrackingNumber").DisplayIndex = 3
 
-            txtStatisticalCount.Text = dgvStatistialReports.RowCount.ToString
+            txtStatisticalCount.Text = dgvStatisticalReports.RowCount.ToString
 
 
         Catch ex As Exception
@@ -6346,29 +6346,29 @@ Public Class SSCPManagersTools
                 Conn.Open()
             End If
             daStatisticalReport.Fill(dsStatisticalReport, "TotalFacilities")
-            dgvStatistialReports.DataSource = dsStatisticalReport
-            dgvStatistialReports.DataMember = "TotalFacilities"
+            dgvStatisticalReports.DataSource = dsStatisticalReport
+            dgvStatisticalReports.DataMember = "TotalFacilities"
             If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
-            dgvStatistialReports.RowHeadersVisible = False
-            dgvStatistialReports.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvStatistialReports.AllowUserToResizeColumns = True
-            dgvStatistialReports.AllowUserToAddRows = False
-            dgvStatistialReports.AllowUserToDeleteRows = False
-            dgvStatistialReports.AllowUserToOrderColumns = True
-            dgvStatistialReports.AllowUserToResizeRows = True
+            dgvStatisticalReports.RowHeadersVisible = False
+            dgvStatisticalReports.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
+            dgvStatisticalReports.AllowUserToResizeColumns = True
+            dgvStatisticalReports.AllowUserToAddRows = False
+            dgvStatisticalReports.AllowUserToDeleteRows = False
+            dgvStatisticalReports.AllowUserToOrderColumns = True
+            dgvStatisticalReports.AllowUserToResizeRows = True
 
-            dgvStatistialReports.Columns("AIRSNumber").HeaderText = "AIRS #"
-            dgvStatistialReports.Columns("AIRSNumber").DisplayIndex = 0
-            dgvStatistialReports.Columns("strFacilityName").HeaderText = "Facility Name"
-            dgvStatistialReports.Columns("strFacilityName").DisplayIndex = 1
-            dgvStatistialReports.Columns("Username").HeaderText = "Staff Responsible"
-            dgvStatistialReports.Columns("Username").DisplayIndex = 2
-            dgvStatistialReports.Columns("strTrackingNumber").HeaderText = "ACC Tracking #"
-            dgvStatistialReports.Columns("strTrackingNumber").DisplayIndex = 3
+            dgvStatisticalReports.Columns("AIRSNumber").HeaderText = "AIRS #"
+            dgvStatisticalReports.Columns("AIRSNumber").DisplayIndex = 0
+            dgvStatisticalReports.Columns("strFacilityName").HeaderText = "Facility Name"
+            dgvStatisticalReports.Columns("strFacilityName").DisplayIndex = 1
+            dgvStatisticalReports.Columns("Username").HeaderText = "Staff Responsible"
+            dgvStatisticalReports.Columns("Username").DisplayIndex = 2
+            dgvStatisticalReports.Columns("strTrackingNumber").HeaderText = "ACC Tracking #"
+            dgvStatisticalReports.Columns("strTrackingNumber").DisplayIndex = 3
 
-            txtStatisticalCount.Text = dgvStatistialReports.RowCount.ToString
+            txtStatisticalCount.Text = dgvStatisticalReports.RowCount.ToString
 
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -6433,31 +6433,31 @@ Public Class SSCPManagersTools
                 Conn.Open()
             End If
             daStatisticalReport.Fill(dsStatisticalReport, "TotalFacilities")
-            dgvStatistialReports.DataSource = dsStatisticalReport
-            dgvStatistialReports.DataMember = "TotalFacilities"
+            dgvStatisticalReports.DataSource = dsStatisticalReport
+            dgvStatisticalReports.DataMember = "TotalFacilities"
             If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
-            dgvStatistialReports.RowHeadersVisible = False
-            dgvStatistialReports.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvStatistialReports.AllowUserToResizeColumns = True
-            dgvStatistialReports.AllowUserToAddRows = False
-            dgvStatistialReports.AllowUserToDeleteRows = False
-            dgvStatistialReports.AllowUserToOrderColumns = True
-            dgvStatistialReports.AllowUserToResizeRows = True
+            dgvStatisticalReports.RowHeadersVisible = False
+            dgvStatisticalReports.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
+            dgvStatisticalReports.AllowUserToResizeColumns = True
+            dgvStatisticalReports.AllowUserToAddRows = False
+            dgvStatisticalReports.AllowUserToDeleteRows = False
+            dgvStatisticalReports.AllowUserToOrderColumns = True
+            dgvStatisticalReports.AllowUserToResizeRows = True
 
-            dgvStatistialReports.Columns("AIRSNumber").HeaderText = "AIRS #"
-            dgvStatistialReports.Columns("AIRSNumber").DisplayIndex = 0
-            dgvStatistialReports.Columns("strFacilityName").HeaderText = "Facility Name"
-            dgvStatistialReports.Columns("strFacilityName").DisplayIndex = 1
-            dgvStatistialReports.Columns("Username").HeaderText = "Staff Responsible"
-            dgvStatistialReports.Columns("Username").DisplayIndex = 2
-            dgvStatistialReports.Columns("strTrackingNumber").HeaderText = "ACC Tracking #"
-            dgvStatistialReports.Columns("strTrackingNumber").DisplayIndex = 3
-            dgvStatistialReports.Columns("strEnforcementNumber").HeaderText = "Enforcement #"
-            dgvStatistialReports.Columns("strEnforcementNumber").DisplayIndex = 4
+            dgvStatisticalReports.Columns("AIRSNumber").HeaderText = "AIRS #"
+            dgvStatisticalReports.Columns("AIRSNumber").DisplayIndex = 0
+            dgvStatisticalReports.Columns("strFacilityName").HeaderText = "Facility Name"
+            dgvStatisticalReports.Columns("strFacilityName").DisplayIndex = 1
+            dgvStatisticalReports.Columns("Username").HeaderText = "Staff Responsible"
+            dgvStatisticalReports.Columns("Username").DisplayIndex = 2
+            dgvStatisticalReports.Columns("strTrackingNumber").HeaderText = "ACC Tracking #"
+            dgvStatisticalReports.Columns("strTrackingNumber").DisplayIndex = 3
+            dgvStatisticalReports.Columns("strEnforcementNumber").HeaderText = "Enforcement #"
+            dgvStatisticalReports.Columns("strEnforcementNumber").DisplayIndex = 4
 
-            txtStatisticalCount.Text = dgvStatistialReports.RowCount.ToString
+            txtStatisticalCount.Text = dgvStatisticalReports.RowCount.ToString
 
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -6522,29 +6522,29 @@ Public Class SSCPManagersTools
                 Conn.Open()
             End If
             daStatisticalReport.Fill(dsStatisticalReport, "TotalFacilities")
-            dgvStatistialReports.DataSource = dsStatisticalReport
-            dgvStatistialReports.DataMember = "TotalFacilities"
+            dgvStatisticalReports.DataSource = dsStatisticalReport
+            dgvStatisticalReports.DataMember = "TotalFacilities"
             If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
-            dgvStatistialReports.RowHeadersVisible = False
-            dgvStatistialReports.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvStatistialReports.AllowUserToResizeColumns = True
-            dgvStatistialReports.AllowUserToAddRows = False
-            dgvStatistialReports.AllowUserToDeleteRows = False
-            dgvStatistialReports.AllowUserToOrderColumns = True
-            dgvStatistialReports.AllowUserToResizeRows = True
+            dgvStatisticalReports.RowHeadersVisible = False
+            dgvStatisticalReports.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
+            dgvStatisticalReports.AllowUserToResizeColumns = True
+            dgvStatisticalReports.AllowUserToAddRows = False
+            dgvStatisticalReports.AllowUserToDeleteRows = False
+            dgvStatisticalReports.AllowUserToOrderColumns = True
+            dgvStatisticalReports.AllowUserToResizeRows = True
 
-            dgvStatistialReports.Columns("AIRSNumber").HeaderText = "AIRS #"
-            dgvStatistialReports.Columns("AIRSNumber").DisplayIndex = 0
-            dgvStatistialReports.Columns("strFacilityName").HeaderText = "Facility Name"
-            dgvStatistialReports.Columns("strFacilityName").DisplayIndex = 1
-            dgvStatistialReports.Columns("Username").HeaderText = "Staff Responsible"
-            dgvStatistialReports.Columns("Username").DisplayIndex = 2
-            dgvStatistialReports.Columns("strTrackingNumber").HeaderText = "ACC Tracking #"
-            dgvStatistialReports.Columns("strTrackingNumber").DisplayIndex = 3
+            dgvStatisticalReports.Columns("AIRSNumber").HeaderText = "AIRS #"
+            dgvStatisticalReports.Columns("AIRSNumber").DisplayIndex = 0
+            dgvStatisticalReports.Columns("strFacilityName").HeaderText = "Facility Name"
+            dgvStatisticalReports.Columns("strFacilityName").DisplayIndex = 1
+            dgvStatisticalReports.Columns("Username").HeaderText = "Staff Responsible"
+            dgvStatisticalReports.Columns("Username").DisplayIndex = 2
+            dgvStatisticalReports.Columns("strTrackingNumber").HeaderText = "ACC Tracking #"
+            dgvStatisticalReports.Columns("strTrackingNumber").DisplayIndex = 3
 
-            txtStatisticalCount.Text = dgvStatistialReports.RowCount.ToString
+            txtStatisticalCount.Text = dgvStatisticalReports.RowCount.ToString
 
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -6609,29 +6609,29 @@ Public Class SSCPManagersTools
                 Conn.Open()
             End If
             daStatisticalReport.Fill(dsStatisticalReport, "TotalFacilities")
-            dgvStatistialReports.DataSource = dsStatisticalReport
-            dgvStatistialReports.DataMember = "TotalFacilities"
+            dgvStatisticalReports.DataSource = dsStatisticalReport
+            dgvStatisticalReports.DataMember = "TotalFacilities"
             If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
-            dgvStatistialReports.RowHeadersVisible = False
-            dgvStatistialReports.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvStatistialReports.AllowUserToResizeColumns = True
-            dgvStatistialReports.AllowUserToAddRows = False
-            dgvStatistialReports.AllowUserToDeleteRows = False
-            dgvStatistialReports.AllowUserToOrderColumns = True
-            dgvStatistialReports.AllowUserToResizeRows = True
+            dgvStatisticalReports.RowHeadersVisible = False
+            dgvStatisticalReports.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
+            dgvStatisticalReports.AllowUserToResizeColumns = True
+            dgvStatisticalReports.AllowUserToAddRows = False
+            dgvStatisticalReports.AllowUserToDeleteRows = False
+            dgvStatisticalReports.AllowUserToOrderColumns = True
+            dgvStatisticalReports.AllowUserToResizeRows = True
 
-            dgvStatistialReports.Columns("AIRSNumber").HeaderText = "AIRS #"
-            dgvStatistialReports.Columns("AIRSNumber").DisplayIndex = 0
-            dgvStatistialReports.Columns("strFacilityName").HeaderText = "Facility Name"
-            dgvStatistialReports.Columns("strFacilityName").DisplayIndex = 1
-            dgvStatistialReports.Columns("Username").HeaderText = "Staff Responsible"
-            dgvStatistialReports.Columns("Username").DisplayIndex = 2
-            dgvStatistialReports.Columns("strTrackingNumber").HeaderText = "ACC Tracking #"
-            dgvStatistialReports.Columns("strTrackingNumber").DisplayIndex = 3
+            dgvStatisticalReports.Columns("AIRSNumber").HeaderText = "AIRS #"
+            dgvStatisticalReports.Columns("AIRSNumber").DisplayIndex = 0
+            dgvStatisticalReports.Columns("strFacilityName").HeaderText = "Facility Name"
+            dgvStatisticalReports.Columns("strFacilityName").DisplayIndex = 1
+            dgvStatisticalReports.Columns("Username").HeaderText = "Staff Responsible"
+            dgvStatisticalReports.Columns("Username").DisplayIndex = 2
+            dgvStatisticalReports.Columns("strTrackingNumber").HeaderText = "ACC Tracking #"
+            dgvStatisticalReports.Columns("strTrackingNumber").DisplayIndex = 3
 
-            txtStatisticalCount.Text = dgvStatistialReports.RowCount.ToString
+            txtStatisticalCount.Text = dgvStatisticalReports.RowCount.ToString
 
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -6696,29 +6696,29 @@ Public Class SSCPManagersTools
                 Conn.Open()
             End If
             daStatisticalReport.Fill(dsStatisticalReport, "TotalFacilities")
-            dgvStatistialReports.DataSource = dsStatisticalReport
-            dgvStatistialReports.DataMember = "TotalFacilities"
+            dgvStatisticalReports.DataSource = dsStatisticalReport
+            dgvStatisticalReports.DataMember = "TotalFacilities"
             If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
-            dgvStatistialReports.RowHeadersVisible = False
-            dgvStatistialReports.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvStatistialReports.AllowUserToResizeColumns = True
-            dgvStatistialReports.AllowUserToAddRows = False
-            dgvStatistialReports.AllowUserToDeleteRows = False
-            dgvStatistialReports.AllowUserToOrderColumns = True
-            dgvStatistialReports.AllowUserToResizeRows = True
+            dgvStatisticalReports.RowHeadersVisible = False
+            dgvStatisticalReports.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
+            dgvStatisticalReports.AllowUserToResizeColumns = True
+            dgvStatisticalReports.AllowUserToAddRows = False
+            dgvStatisticalReports.AllowUserToDeleteRows = False
+            dgvStatisticalReports.AllowUserToOrderColumns = True
+            dgvStatisticalReports.AllowUserToResizeRows = True
 
-            dgvStatistialReports.Columns("AIRSNumber").HeaderText = "AIRS #"
-            dgvStatistialReports.Columns("AIRSNumber").DisplayIndex = 0
-            dgvStatistialReports.Columns("strFacilityName").HeaderText = "Facility Name"
-            dgvStatistialReports.Columns("strFacilityName").DisplayIndex = 1
-            dgvStatistialReports.Columns("Username").HeaderText = "Staff Responsible"
-            dgvStatistialReports.Columns("Username").DisplayIndex = 2
-            dgvStatistialReports.Columns("strTrackingNumber").HeaderText = "ACC Tracking #"
-            dgvStatistialReports.Columns("strTrackingNumber").DisplayIndex = 3
+            dgvStatisticalReports.Columns("AIRSNumber").HeaderText = "AIRS #"
+            dgvStatisticalReports.Columns("AIRSNumber").DisplayIndex = 0
+            dgvStatisticalReports.Columns("strFacilityName").HeaderText = "Facility Name"
+            dgvStatisticalReports.Columns("strFacilityName").DisplayIndex = 1
+            dgvStatisticalReports.Columns("Username").HeaderText = "Staff Responsible"
+            dgvStatisticalReports.Columns("Username").DisplayIndex = 2
+            dgvStatisticalReports.Columns("strTrackingNumber").HeaderText = "ACC Tracking #"
+            dgvStatisticalReports.Columns("strTrackingNumber").DisplayIndex = 3
 
-            txtStatisticalCount.Text = dgvStatistialReports.RowCount.ToString
+            txtStatisticalCount.Text = dgvStatisticalReports.RowCount.ToString
 
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -6946,34 +6946,34 @@ Public Class SSCPManagersTools
                     Conn.Open()
                 End If
                 daEnforcementPenalties.Fill(dsEnforcementPenalties, "EnforcementPenalties")
-                dgvStatistialReports.DataSource = dsEnforcementPenalties
-                dgvStatistialReports.DataMember = "EnforcementPenalties"
+                dgvStatisticalReports.DataSource = dsEnforcementPenalties
+                dgvStatisticalReports.DataMember = "EnforcementPenalties"
                 If Conn.State = ConnectionState.Open Then
                     'conn.close()
                 End If
-                dgvStatistialReports.RowHeadersVisible = False
-                dgvStatistialReports.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-                dgvStatistialReports.AllowUserToResizeColumns = True
-                dgvStatistialReports.AllowUserToAddRows = False
-                dgvStatistialReports.AllowUserToDeleteRows = False
-                dgvStatistialReports.AllowUserToOrderColumns = True
-                dgvStatistialReports.AllowUserToResizeRows = True
+                dgvStatisticalReports.RowHeadersVisible = False
+                dgvStatisticalReports.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
+                dgvStatisticalReports.AllowUserToResizeColumns = True
+                dgvStatisticalReports.AllowUserToAddRows = False
+                dgvStatisticalReports.AllowUserToDeleteRows = False
+                dgvStatisticalReports.AllowUserToOrderColumns = True
+                dgvStatisticalReports.AllowUserToResizeRows = True
 
-                dgvStatistialReports.Columns("AIRSNumber").HeaderText = "AIRS #"
-                dgvStatistialReports.Columns("AIRSNumber").DisplayIndex = 0
-                dgvStatistialReports.Columns("AIRSNumber").Width = 75
-                dgvStatistialReports.Columns("strFacilityName").HeaderText = "Facility Name"
-                dgvStatistialReports.Columns("strFacilityName").DisplayIndex = 1
-                dgvStatistialReports.Columns("strEnforcementNumber").HeaderText = "Enforcement #"
-                dgvStatistialReports.Columns("strEnforcementNumber").DisplayIndex = 2
-                dgvStatistialReports.Columns("COPenalty").HeaderText = "Penalty Amount"
-                dgvStatistialReports.Columns("COPenalty").DisplayIndex = 3
-                dgvStatistialReports.Columns("StipulatedPenalty").HeaderText = "Stipulated Penalty Totals"
-                dgvStatistialReports.Columns("StipulatedPenalty").DisplayIndex = 4
-                dgvStatistialReports.Columns("datDiscoveryDate").HeaderText = "Discovery Date"
-                dgvStatistialReports.Columns("datDiscoveryDate").DisplayIndex = 5
+                dgvStatisticalReports.Columns("AIRSNumber").HeaderText = "AIRS #"
+                dgvStatisticalReports.Columns("AIRSNumber").DisplayIndex = 0
+                dgvStatisticalReports.Columns("AIRSNumber").Width = 75
+                dgvStatisticalReports.Columns("strFacilityName").HeaderText = "Facility Name"
+                dgvStatisticalReports.Columns("strFacilityName").DisplayIndex = 1
+                dgvStatisticalReports.Columns("strEnforcementNumber").HeaderText = "Enforcement #"
+                dgvStatisticalReports.Columns("strEnforcementNumber").DisplayIndex = 2
+                dgvStatisticalReports.Columns("COPenalty").HeaderText = "Penalty Amount"
+                dgvStatisticalReports.Columns("COPenalty").DisplayIndex = 3
+                dgvStatisticalReports.Columns("StipulatedPenalty").HeaderText = "Stipulated Penalty Totals"
+                dgvStatisticalReports.Columns("StipulatedPenalty").DisplayIndex = 4
+                dgvStatisticalReports.Columns("datDiscoveryDate").HeaderText = "Discovery Date"
+                dgvStatisticalReports.Columns("datDiscoveryDate").DisplayIndex = 5
 
-                txtStatisticalCount.Text = dgvStatistialReports.RowCount.ToString
+                txtStatisticalCount.Text = dgvStatisticalReports.RowCount.ToString
 
             End If
         Catch ex As Exception
@@ -6994,39 +6994,39 @@ Public Class SSCPManagersTools
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub dgvStatistialReports_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvStatistialReports.MouseUp
-        Dim hti As DataGridView.HitTestInfo = dgvStatistialReports.HitTest(e.X, e.Y)
+    Private Sub dgvStatisticalReports_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvStatisticalReports.MouseUp
+        Dim hti As DataGridView.HitTestInfo = dgvStatisticalReports.HitTest(e.X, e.Y)
 
         Try
 
-            If dgvStatistialReports.RowCount > 0 And hti.RowIndex <> -1 Then
-                If dgvStatistialReports.Columns(1).HeaderText = "AIRS #" And dgvStatistialReports.Columns(2).HeaderText = "Enforcement #" Then
-                    txtRecordNumber.Text = dgvStatistialReports(2, hti.RowIndex).Value
+            If dgvStatisticalReports.RowCount > 0 And hti.RowIndex <> -1 Then
+                If dgvStatisticalReports.Columns(1).HeaderText = "AIRS #" And dgvStatisticalReports.Columns(2).HeaderText = "Enforcement #" Then
+                    txtRecordNumber.Text = dgvStatisticalReports(2, hti.RowIndex).Value
                     lblStatisticalRecords.Text = "Enforcement #"
                 Else
-                    If dgvStatistialReports.ColumnCount = 3 Then
-                        txtRecordNumber.Text = dgvStatistialReports(0, hti.RowIndex).Value
+                    If dgvStatisticalReports.ColumnCount = 3 Then
+                        txtRecordNumber.Text = dgvStatisticalReports(0, hti.RowIndex).Value
                         lblStatisticalRecords.Text = "AIRS #"
                     Else
-                        If dgvStatistialReports.ColumnCount = 4 Then
-                            If dgvStatistialReports.Columns(3).HeaderText = "ACC Tracking #" Then
-                                txtRecordNumber.Text = dgvStatistialReports(3, hti.RowIndex).Value
+                        If dgvStatisticalReports.ColumnCount = 4 Then
+                            If dgvStatisticalReports.Columns(3).HeaderText = "ACC Tracking #" Then
+                                txtRecordNumber.Text = dgvStatisticalReports(3, hti.RowIndex).Value
                                 lblStatisticalRecords.Text = "ACC Tracking #"
                             Else
-                                txtRecordNumber.Text = dgvStatistialReports(0, hti.RowIndex).Value
+                                txtRecordNumber.Text = dgvStatisticalReports(0, hti.RowIndex).Value
                                 lblStatisticalRecords.Text = "AIRS #"
                             End If
                         Else
-                            If dgvStatistialReports.ColumnCount = 5 Then
+                            If dgvStatisticalReports.ColumnCount = 5 Then
                                 If hti.ColumnIndex = 3 Then
-                                    txtRecordNumber.Text = dgvStatistialReports(3, hti.RowIndex).Value
+                                    txtRecordNumber.Text = dgvStatisticalReports(3, hti.RowIndex).Value
                                     lblStatisticalRecords.Text = "ACC Tracking #"
                                 Else
-                                    txtRecordNumber.Text = dgvStatistialReports(4, hti.RowIndex).Value
+                                    txtRecordNumber.Text = dgvStatisticalReports(4, hti.RowIndex).Value
                                     lblStatisticalRecords.Text = "Enforcement #"
                                 End If
                             Else
-                                txtRecordNumber.Text = dgvStatistialReports(0, hti.RowIndex).Value
+                                txtRecordNumber.Text = dgvStatisticalReports(0, hti.RowIndex).Value
                                 lblStatisticalRecords.Text = "AIRS #"
                             End If
                         End If
@@ -8845,7 +8845,7 @@ Public Class SSCPManagersTools
                     "'0413" & AIRSNum & "', '" & cboFiscalYear.Text & "', " & _
                     "'" & Eng & "', '" & cboSSCPUnit2.SelectedValue & "', " & _
                     "'" & InspectionRequired & "', '" & FCERequired & "', " & _
-                    "'" & UserGCode & "', '" & OracleDate & "') " 
+                    "'" & UserGCode & "', '" & OracleDate & "') "
                 End If
                 cmd = New OracleCommand(SQL, Conn)
                 If Conn.State = ConnectionState.Closed Then
@@ -8991,7 +8991,7 @@ Public Class SSCPManagersTools
 
             For i = 0 To dgvSelectedFacilityList.Rows.Count - 1
                 AIRSNum = ""
-              '  Eng = ""
+                '  Eng = ""
 
                 AIRSNum = dgvSelectedFacilityList(0, i).Value
 
@@ -9287,8 +9287,8 @@ Public Class SSCPManagersTools
         End Try
     End Sub
 
- 
-    
+
+
     Private Sub btnRunTitleVSearch_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnRunTitleVSearch.Click
         Try
             'Dim StartDate As String = OracleDate
@@ -9456,31 +9456,31 @@ Public Class SSCPManagersTools
                 Conn.Open()
             End If
             daStatisticalReport.Fill(dsStatisticalReport, "TotalFacilities")
-            dgvStatistialReports.DataSource = dsStatisticalReport
-            dgvStatistialReports.DataMember = "TotalFacilities"
+            dgvStatisticalReports.DataSource = dsStatisticalReport
+            dgvStatisticalReports.DataMember = "TotalFacilities"
             If Conn.State = ConnectionState.Open Then
                 'conn.close()
             End If
-            dgvStatistialReports.RowHeadersVisible = False
-            dgvStatistialReports.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvStatistialReports.AllowUserToResizeColumns = True
-            dgvStatistialReports.AllowUserToAddRows = False
-            dgvStatistialReports.AllowUserToDeleteRows = False
-            dgvStatistialReports.AllowUserToOrderColumns = True
-            dgvStatistialReports.AllowUserToResizeRows = True
+            dgvStatisticalReports.RowHeadersVisible = False
+            dgvStatisticalReports.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
+            dgvStatisticalReports.AllowUserToResizeColumns = True
+            dgvStatisticalReports.AllowUserToAddRows = False
+            dgvStatisticalReports.AllowUserToDeleteRows = False
+            dgvStatisticalReports.AllowUserToOrderColumns = True
+            dgvStatisticalReports.AllowUserToResizeRows = True
 
-            dgvStatistialReports.Columns("AIRSNumber").HeaderText = "AIRS #"
-            dgvStatistialReports.Columns("AIRSNumber").DisplayIndex = 0
-            dgvStatistialReports.Columns("strFacilityName").HeaderText = "Facility Name"
-            dgvStatistialReports.Columns("strFacilityName").DisplayIndex = 1
-            dgvStatistialReports.Columns("strFacilityName").Width = 150
-            dgvStatistialReports.Columns("strOperationalStatus").HeaderText = "Op. Status"
-            dgvStatistialReports.Columns("strOperationalStatus").DisplayIndex = 2
-            dgvStatistialReports.Columns("StaffResponsible").HeaderText = "Staff Responsible"
-            dgvStatistialReports.Columns("StaffResponsible").DisplayIndex = 3
-            dgvStatistialReports.Columns("StaffResponsible").Width = 150
+            dgvStatisticalReports.Columns("AIRSNumber").HeaderText = "AIRS #"
+            dgvStatisticalReports.Columns("AIRSNumber").DisplayIndex = 0
+            dgvStatisticalReports.Columns("strFacilityName").HeaderText = "Facility Name"
+            dgvStatisticalReports.Columns("strFacilityName").DisplayIndex = 1
+            dgvStatisticalReports.Columns("strFacilityName").Width = 150
+            dgvStatisticalReports.Columns("strOperationalStatus").HeaderText = "Op. Status"
+            dgvStatisticalReports.Columns("strOperationalStatus").DisplayIndex = 2
+            dgvStatisticalReports.Columns("StaffResponsible").HeaderText = "Staff Responsible"
+            dgvStatisticalReports.Columns("StaffResponsible").DisplayIndex = 3
+            dgvStatisticalReports.Columns("StaffResponsible").Width = 150
 
-            txtStatisticalCount.Text = dgvStatistialReports.RowCount.ToString
+            txtStatisticalCount.Text = dgvStatisticalReports.RowCount.ToString
 
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -9642,5 +9642,11 @@ Public Class SSCPManagersTools
         Finally
 
         End Try
+    End Sub
+
+    Private Sub btnExportToExcel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnExportToExcel.Click
+        If dgvStatisticalReports.RowCount > 0 Then
+            dgvStatisticalReports.ExportToExcel()
+        End If
     End Sub
 End Class

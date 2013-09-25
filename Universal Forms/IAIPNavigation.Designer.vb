@@ -31,9 +31,12 @@ Partial Class IAIPNavigation
         Me.MenuItem3 = New System.Windows.Forms.MenuItem
         Me.mmiResetDefault = New System.Windows.Forms.MenuItem
         Me.MenuItem2 = New System.Windows.Forms.MenuItem
+        Me.MenuItem4 = New System.Windows.Forms.MenuItem
+        Me.MenuItem5 = New System.Windows.Forms.MenuItem
         Me.mmiResetPointer = New System.Windows.Forms.MenuItem
         Me.mmiHelp = New System.Windows.Forms.MenuItem
         Me.mmiOnlineHelp = New System.Windows.Forms.MenuItem
+        Me.MenuItem1 = New System.Windows.Forms.MenuItem
         Me.mmiVersion = New System.Windows.Forms.MenuItem
         Me.Image_List_All = New System.Windows.Forms.ImageList(Me.components)
         Me.Label1 = New System.Windows.Forms.Label
@@ -121,9 +124,6 @@ Partial Class IAIPNavigation
         Me.bgrOpenNewForm = New System.ComponentModel.BackgroundWorker
         Me.bgrFormLoad = New System.ComponentModel.BackgroundWorker
         Me.Panel1 = New System.Windows.Forms.Panel
-        Me.MenuItem4 = New System.Windows.Forms.MenuItem
-        Me.MenuItem1 = New System.Windows.Forms.MenuItem
-        Me.MenuItem5 = New System.Windows.Forms.MenuItem
         Me.Panel4.SuspendLayout()
         Me.GPWorkTool.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
@@ -185,9 +185,19 @@ Partial Class IAIPNavigation
         Me.MenuItem2.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.MenuItem4, Me.MenuItem5, Me.mmiResetPointer})
         Me.MenuItem2.Text = "&Tools"
         '
+        'MenuItem4
+        '
+        Me.MenuItem4.Index = 0
+        Me.MenuItem4.Text = "&Export list to Excel"
+        '
+        'MenuItem5
+        '
+        Me.MenuItem5.Index = 1
+        Me.MenuItem5.Text = "-"
+        '
         'mmiResetPointer
         '
-        Me.mmiResetPointer.Index = 1
+        Me.mmiResetPointer.Index = 2
         Me.mmiResetPointer.Text = "Reset Pointer"
         '
         'mmiHelp
@@ -201,6 +211,11 @@ Partial Class IAIPNavigation
         Me.mmiOnlineHelp.Index = 0
         Me.mmiOnlineHelp.Shortcut = System.Windows.Forms.Shortcut.F1
         Me.mmiOnlineHelp.Text = "Online &Help"
+        '
+        'MenuItem1
+        '
+        Me.MenuItem1.Index = 1
+        Me.MenuItem1.Text = "-"
         '
         'mmiVersion
         '
@@ -1205,21 +1220,6 @@ Partial Class IAIPNavigation
         Me.Panel1.Size = New System.Drawing.Size(674, 28)
         Me.Panel1.TabIndex = 125
         Me.Panel1.Visible = False
-        '
-        'MenuItem4
-        '
-        Me.MenuItem4.Index = 0
-        Me.MenuItem4.Text = "&Export list to Excel"
-        '
-        'MenuItem1
-        '
-        Me.MenuItem1.Index = 1
-        Me.MenuItem1.Text = "-"
-        '
-        'MenuItem5
-        '
-        Me.MenuItem5.Index = 1
-        Me.MenuItem5.Text = "-"
         '
         'IAIPNavigation
         '

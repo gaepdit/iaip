@@ -20,9 +20,9 @@ Partial Class SSCPManagersTools
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(SSCPManagersTools))
         Me.chbALLDates = New System.Windows.Forms.CheckBox
         Me.txtUserSSCPUnit = New System.Windows.Forms.TextBox
@@ -265,8 +265,9 @@ Partial Class SSCPManagersTools
         Me.txtStatisticalCount = New System.Windows.Forms.TextBox
         Me.Label45 = New System.Windows.Forms.Label
         Me.txtRecordNumber = New System.Windows.Forms.TextBox
+        Me.btnExportToExcel = New System.Windows.Forms.Button
         Me.btnViewComplianceRecord = New System.Windows.Forms.Button
-        Me.dgvStatistialReports = New System.Windows.Forms.DataGridView
+        Me.dgvStatisticalReports = New System.Windows.Forms.DataGridView
         Me.TPWatchList = New System.Windows.Forms.TabPage
         Me.dgvWatchList = New System.Windows.Forms.DataGridView
         Me.Panel6 = New System.Windows.Forms.Panel
@@ -463,7 +464,7 @@ Partial Class SSCPManagersTools
         Me.TPACCStats.SuspendLayout()
         Me.TPEnforcement.SuspendLayout()
         Me.TPTitleVRenewals.SuspendLayout()
-        CType(Me.dgvStatistialReports, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.dgvStatisticalReports, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TPWatchList.SuspendLayout()
         CType(Me.dgvWatchList, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel6.SuspendLayout()
@@ -654,7 +655,7 @@ Partial Class SSCPManagersTools
         Me.Splitter2.Dock = System.Windows.Forms.DockStyle.Right
         Me.Splitter2.Location = New System.Drawing.Point(835, 0)
         Me.Splitter2.Name = "Splitter2"
-        Me.Splitter2.Size = New System.Drawing.Size(4, 691)
+        Me.Splitter2.Size = New System.Drawing.Size(4, 671)
         Me.Splitter2.TabIndex = 18
         Me.Splitter2.TabStop = False
         '
@@ -687,7 +688,7 @@ Partial Class SSCPManagersTools
         Me.PanelCMSUniverse.Dock = System.Windows.Forms.DockStyle.Right
         Me.PanelCMSUniverse.Location = New System.Drawing.Point(839, 0)
         Me.PanelCMSUniverse.Name = "PanelCMSUniverse"
-        Me.PanelCMSUniverse.Size = New System.Drawing.Size(345, 691)
+        Me.PanelCMSUniverse.Size = New System.Drawing.Size(345, 671)
         Me.PanelCMSUniverse.TabIndex = 17
         '
         'lblExportToExcelCMSUniverse
@@ -903,7 +904,7 @@ Partial Class SSCPManagersTools
         '
         Me.Splitter4.BackColor = System.Drawing.SystemColors.Highlight
         Me.Splitter4.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.Splitter4.Location = New System.Drawing.Point(0, 222)
+        Me.Splitter4.Location = New System.Drawing.Point(0, 202)
         Me.Splitter4.Name = "Splitter4"
         Me.Splitter4.Size = New System.Drawing.Size(1184, 5)
         Me.Splitter4.TabIndex = 162
@@ -916,7 +917,7 @@ Partial Class SSCPManagersTools
         Me.TPUniverse.Controls.Add(Me.PanelCMSUniverse)
         Me.TPUniverse.Location = New System.Drawing.Point(4, 22)
         Me.TPUniverse.Name = "TPUniverse"
-        Me.TPUniverse.Size = New System.Drawing.Size(1184, 691)
+        Me.TPUniverse.Size = New System.Drawing.Size(1184, 671)
         Me.TPUniverse.TabIndex = 3
         Me.TPUniverse.Text = "CMS Universe"
         Me.TPUniverse.UseVisualStyleBackColor = True
@@ -928,13 +929,13 @@ Partial Class SSCPManagersTools
         Me.dgvCMSUniverse.Location = New System.Drawing.Point(0, 0)
         Me.dgvCMSUniverse.Name = "dgvCMSUniverse"
         Me.dgvCMSUniverse.ReadOnly = True
-        Me.dgvCMSUniverse.Size = New System.Drawing.Size(835, 691)
+        Me.dgvCMSUniverse.Size = New System.Drawing.Size(835, 671)
         Me.dgvCMSUniverse.TabIndex = 20
         '
         'rtbInspectionReport
         '
         Me.rtbInspectionReport.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.rtbInspectionReport.Location = New System.Drawing.Point(0, 227)
+        Me.rtbInspectionReport.Location = New System.Drawing.Point(0, 207)
         Me.rtbInspectionReport.Name = "rtbInspectionReport"
         Me.rtbInspectionReport.Size = New System.Drawing.Size(1184, 464)
         Me.rtbInspectionReport.TabIndex = 7
@@ -947,7 +948,7 @@ Partial Class SSCPManagersTools
         Me.TPStaffReports.Controls.Add(Me.rtbInspectionReport)
         Me.TPStaffReports.Location = New System.Drawing.Point(4, 22)
         Me.TPStaffReports.Name = "TPStaffReports"
-        Me.TPStaffReports.Size = New System.Drawing.Size(1184, 691)
+        Me.TPStaffReports.Size = New System.Drawing.Size(1184, 671)
         Me.TPStaffReports.TabIndex = 2
         Me.TPStaffReports.Text = "Compliance Staff Report(s)"
         Me.TPStaffReports.UseVisualStyleBackColor = True
@@ -969,7 +970,7 @@ Partial Class SSCPManagersTools
         Me.Panel7.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel7.Location = New System.Drawing.Point(0, 0)
         Me.Panel7.Name = "Panel7"
-        Me.Panel7.Size = New System.Drawing.Size(1184, 222)
+        Me.Panel7.Size = New System.Drawing.Size(1184, 202)
         Me.Panel7.TabIndex = 163
         '
         'clbEngineerInspections
@@ -1264,7 +1265,7 @@ Partial Class SSCPManagersTools
         Me.PanelCMSWarning.Dock = System.Windows.Forms.DockStyle.Right
         Me.PanelCMSWarning.Location = New System.Drawing.Point(888, 0)
         Me.PanelCMSWarning.Name = "PanelCMSWarning"
-        Me.PanelCMSWarning.Size = New System.Drawing.Size(296, 691)
+        Me.PanelCMSWarning.Size = New System.Drawing.Size(296, 671)
         Me.PanelCMSWarning.TabIndex = 16
         '
         'txtCMSWarningCount
@@ -1281,7 +1282,7 @@ Partial Class SSCPManagersTools
         Me.dgvCMSWarning.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvCMSWarning.Location = New System.Drawing.Point(0, 0)
         Me.dgvCMSWarning.Name = "dgvCMSWarning"
-        Me.dgvCMSWarning.Size = New System.Drawing.Size(884, 691)
+        Me.dgvCMSWarning.Size = New System.Drawing.Size(884, 671)
         Me.dgvCMSWarning.TabIndex = 33
         '
         'TPCMSWarning
@@ -1291,7 +1292,7 @@ Partial Class SSCPManagersTools
         Me.TPCMSWarning.Controls.Add(Me.PanelCMSWarning)
         Me.TPCMSWarning.Location = New System.Drawing.Point(4, 22)
         Me.TPCMSWarning.Name = "TPCMSWarning"
-        Me.TPCMSWarning.Size = New System.Drawing.Size(1184, 691)
+        Me.TPCMSWarning.Size = New System.Drawing.Size(1184, 671)
         Me.TPCMSWarning.TabIndex = 4
         Me.TPCMSWarning.Text = "CMS Warning"
         Me.TPCMSWarning.UseVisualStyleBackColor = True
@@ -1302,7 +1303,7 @@ Partial Class SSCPManagersTools
         Me.Splitter3.Dock = System.Windows.Forms.DockStyle.Right
         Me.Splitter3.Location = New System.Drawing.Point(884, 0)
         Me.Splitter3.Name = "Splitter3"
-        Me.Splitter3.Size = New System.Drawing.Size(4, 691)
+        Me.Splitter3.Size = New System.Drawing.Size(4, 671)
         Me.Splitter3.TabIndex = 17
         Me.Splitter3.TabStop = False
         '
@@ -1312,7 +1313,7 @@ Partial Class SSCPManagersTools
         Me.TPFacilityAssignments.Controls.Add(Me.GroupBox1)
         Me.TPFacilityAssignments.Location = New System.Drawing.Point(4, 22)
         Me.TPFacilityAssignments.Name = "TPFacilityAssignments"
-        Me.TPFacilityAssignments.Size = New System.Drawing.Size(1184, 691)
+        Me.TPFacilityAssignments.Size = New System.Drawing.Size(1184, 671)
         Me.TPFacilityAssignments.TabIndex = 0
         Me.TPFacilityAssignments.Text = "Facility Assignments"
         Me.TPFacilityAssignments.UseVisualStyleBackColor = True
@@ -1322,7 +1323,7 @@ Partial Class SSCPManagersTools
         Me.lvFacilityList.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lvFacilityList.Location = New System.Drawing.Point(0, 0)
         Me.lvFacilityList.Name = "lvFacilityList"
-        Me.lvFacilityList.Size = New System.Drawing.Size(1184, 386)
+        Me.lvFacilityList.Size = New System.Drawing.Size(1184, 366)
         Me.lvFacilityList.TabIndex = 1
         Me.lvFacilityList.UseCompatibleStateImageBehavior = False
         '
@@ -1332,7 +1333,7 @@ Partial Class SSCPManagersTools
         Me.GroupBox1.Controls.Add(Me.lsbSelectedFacilities)
         Me.GroupBox1.Controls.Add(Me.TCFilterOptions)
         Me.GroupBox1.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.GroupBox1.Location = New System.Drawing.Point(0, 386)
+        Me.GroupBox1.Location = New System.Drawing.Point(0, 366)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Size = New System.Drawing.Size(1184, 305)
         Me.GroupBox1.TabIndex = 1
@@ -1827,7 +1828,7 @@ Partial Class SSCPManagersTools
         Me.TCManagerTools.Location = New System.Drawing.Point(0, 28)
         Me.TCManagerTools.Name = "TCManagerTools"
         Me.TCManagerTools.SelectedIndex = 0
-        Me.TCManagerTools.Size = New System.Drawing.Size(1192, 717)
+        Me.TCManagerTools.Size = New System.Drawing.Size(1192, 697)
         Me.TCManagerTools.TabIndex = 248
         Me.TCManagerTools.TabStop = False
         '
@@ -1838,7 +1839,7 @@ Partial Class SSCPManagersTools
         Me.TPEngineerInspections.Controls.Add(Me.Panel4)
         Me.TPEngineerInspections.Location = New System.Drawing.Point(4, 22)
         Me.TPEngineerInspections.Name = "TPEngineerInspections"
-        Me.TPEngineerInspections.Size = New System.Drawing.Size(1184, 691)
+        Me.TPEngineerInspections.Size = New System.Drawing.Size(1184, 671)
         Me.TPEngineerInspections.TabIndex = 1
         Me.TPEngineerInspections.Text = "Engineer Inspection Scheduler"
         Me.TPEngineerInspections.UseVisualStyleBackColor = True
@@ -1851,7 +1852,7 @@ Partial Class SSCPManagersTools
         Me.dgrInspectionList.Location = New System.Drawing.Point(244, 0)
         Me.dgrInspectionList.Name = "dgrInspectionList"
         Me.dgrInspectionList.ReadOnly = True
-        Me.dgrInspectionList.Size = New System.Drawing.Size(940, 691)
+        Me.dgrInspectionList.Size = New System.Drawing.Size(940, 671)
         Me.dgrInspectionList.TabIndex = 2
         '
         'Splitter1
@@ -1859,7 +1860,7 @@ Partial Class SSCPManagersTools
         Me.Splitter1.BackColor = System.Drawing.SystemColors.ActiveCaption
         Me.Splitter1.Location = New System.Drawing.Point(240, 0)
         Me.Splitter1.Name = "Splitter1"
-        Me.Splitter1.Size = New System.Drawing.Size(4, 691)
+        Me.Splitter1.Size = New System.Drawing.Size(4, 671)
         Me.Splitter1.TabIndex = 1
         Me.Splitter1.TabStop = False
         '
@@ -1876,7 +1877,7 @@ Partial Class SSCPManagersTools
         Me.Panel4.Dock = System.Windows.Forms.DockStyle.Left
         Me.Panel4.Location = New System.Drawing.Point(0, 0)
         Me.Panel4.Name = "Panel4"
-        Me.Panel4.Size = New System.Drawing.Size(240, 691)
+        Me.Panel4.Size = New System.Drawing.Size(240, 671)
         Me.Panel4.TabIndex = 0
         '
         'cboYear
@@ -1901,43 +1902,43 @@ Partial Class SSCPManagersTools
         Me.TPPollutantBubbleUp.Controls.Add(Me.GroupBox5)
         Me.TPPollutantBubbleUp.Location = New System.Drawing.Point(4, 22)
         Me.TPPollutantBubbleUp.Name = "TPPollutantBubbleUp"
-        Me.TPPollutantBubbleUp.Size = New System.Drawing.Size(1184, 691)
+        Me.TPPollutantBubbleUp.Size = New System.Drawing.Size(1184, 671)
         Me.TPPollutantBubbleUp.TabIndex = 5
         Me.TPPollutantBubbleUp.Text = "Pollutant Bubble Up"
         Me.TPPollutantBubbleUp.UseVisualStyleBackColor = True
         '
         'dgvPollutantFacilities
         '
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvPollutantFacilities.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle7.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvPollutantFacilities.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle7
         Me.dgvPollutantFacilities.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvPollutantFacilities.DefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle8.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvPollutantFacilities.DefaultCellStyle = DataGridViewCellStyle8
         Me.dgvPollutantFacilities.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvPollutantFacilities.Location = New System.Drawing.Point(0, 220)
         Me.dgvPollutantFacilities.Name = "dgvPollutantFacilities"
         Me.dgvPollutantFacilities.ReadOnly = True
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvPollutantFacilities.RowHeadersDefaultCellStyle = DataGridViewCellStyle3
-        Me.dgvPollutantFacilities.Size = New System.Drawing.Size(1184, 471)
+        DataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle9.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvPollutantFacilities.RowHeadersDefaultCellStyle = DataGridViewCellStyle9
+        Me.dgvPollutantFacilities.Size = New System.Drawing.Size(1184, 451)
         Me.dgvPollutantFacilities.TabIndex = 1
         '
         'GroupBox5
@@ -2146,7 +2147,7 @@ Partial Class SSCPManagersTools
         Me.TPStatisticalPage.Controls.Add(Me.SCStatisticalReports)
         Me.TPStatisticalPage.Location = New System.Drawing.Point(4, 22)
         Me.TPStatisticalPage.Name = "TPStatisticalPage"
-        Me.TPStatisticalPage.Size = New System.Drawing.Size(1184, 691)
+        Me.TPStatisticalPage.Size = New System.Drawing.Size(1184, 671)
         Me.TPStatisticalPage.TabIndex = 6
         Me.TPStatisticalPage.Text = "Statistical Reports"
         Me.TPStatisticalPage.UseVisualStyleBackColor = True
@@ -2168,9 +2169,10 @@ Partial Class SSCPManagersTools
         Me.SCStatisticalReports.Panel2.Controls.Add(Me.txtStatisticalCount)
         Me.SCStatisticalReports.Panel2.Controls.Add(Me.Label45)
         Me.SCStatisticalReports.Panel2.Controls.Add(Me.txtRecordNumber)
+        Me.SCStatisticalReports.Panel2.Controls.Add(Me.btnExportToExcel)
         Me.SCStatisticalReports.Panel2.Controls.Add(Me.btnViewComplianceRecord)
-        Me.SCStatisticalReports.Panel2.Controls.Add(Me.dgvStatistialReports)
-        Me.SCStatisticalReports.Size = New System.Drawing.Size(1184, 691)
+        Me.SCStatisticalReports.Panel2.Controls.Add(Me.dgvStatisticalReports)
+        Me.SCStatisticalReports.Size = New System.Drawing.Size(1184, 671)
         Me.SCStatisticalReports.SplitterDistance = 615
         Me.SCStatisticalReports.TabIndex = 15
         '
@@ -2186,7 +2188,7 @@ Partial Class SSCPManagersTools
         Me.TCComplianceStaff.Multiline = True
         Me.TCComplianceStaff.Name = "TCComplianceStaff"
         Me.TCComplianceStaff.SelectedIndex = 0
-        Me.TCComplianceStaff.Size = New System.Drawing.Size(262, 310)
+        Me.TCComplianceStaff.Size = New System.Drawing.Size(262, 290)
         Me.TCComplianceStaff.TabIndex = 13
         '
         'TPAdministrative
@@ -2196,7 +2198,7 @@ Partial Class SSCPManagersTools
         Me.TPAdministrative.Location = New System.Drawing.Point(4, 40)
         Me.TPAdministrative.Name = "TPAdministrative"
         Me.TPAdministrative.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPAdministrative.Size = New System.Drawing.Size(254, 266)
+        Me.TPAdministrative.Size = New System.Drawing.Size(254, 246)
         Me.TPAdministrative.TabIndex = 0
         Me.TPAdministrative.Text = "Administrative"
         Me.TPAdministrative.UseVisualStyleBackColor = True
@@ -2209,7 +2211,7 @@ Partial Class SSCPManagersTools
         Me.clbAdministrative.Location = New System.Drawing.Point(3, 3)
         Me.clbAdministrative.Name = "clbAdministrative"
         Me.clbAdministrative.ScrollAlwaysVisible = True
-        Me.clbAdministrative.Size = New System.Drawing.Size(248, 259)
+        Me.clbAdministrative.Size = New System.Drawing.Size(248, 229)
         Me.clbAdministrative.TabIndex = 1
         '
         'TPAirToxics
@@ -2218,7 +2220,7 @@ Partial Class SSCPManagersTools
         Me.TPAirToxics.Location = New System.Drawing.Point(4, 40)
         Me.TPAirToxics.Name = "TPAirToxics"
         Me.TPAirToxics.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPAirToxics.Size = New System.Drawing.Size(254, 266)
+        Me.TPAirToxics.Size = New System.Drawing.Size(254, 246)
         Me.TPAirToxics.TabIndex = 1
         Me.TPAirToxics.Text = "Air Toxics"
         Me.TPAirToxics.UseVisualStyleBackColor = True
@@ -2231,7 +2233,7 @@ Partial Class SSCPManagersTools
         Me.clbAirToxicUnit.Location = New System.Drawing.Point(3, 3)
         Me.clbAirToxicUnit.Name = "clbAirToxicUnit"
         Me.clbAirToxicUnit.ScrollAlwaysVisible = True
-        Me.clbAirToxicUnit.Size = New System.Drawing.Size(248, 259)
+        Me.clbAirToxicUnit.Size = New System.Drawing.Size(248, 229)
         Me.clbAirToxicUnit.TabIndex = 1
         '
         'TPChemicals
@@ -2239,7 +2241,7 @@ Partial Class SSCPManagersTools
         Me.TPChemicals.Controls.Add(Me.clbChemicalsMinerals)
         Me.TPChemicals.Location = New System.Drawing.Point(4, 40)
         Me.TPChemicals.Name = "TPChemicals"
-        Me.TPChemicals.Size = New System.Drawing.Size(254, 266)
+        Me.TPChemicals.Size = New System.Drawing.Size(254, 246)
         Me.TPChemicals.TabIndex = 2
         Me.TPChemicals.Text = "Chemicals/Minerals"
         Me.TPChemicals.UseVisualStyleBackColor = True
@@ -2252,7 +2254,7 @@ Partial Class SSCPManagersTools
         Me.clbChemicalsMinerals.Location = New System.Drawing.Point(0, 0)
         Me.clbChemicalsMinerals.Name = "clbChemicalsMinerals"
         Me.clbChemicalsMinerals.ScrollAlwaysVisible = True
-        Me.clbChemicalsMinerals.Size = New System.Drawing.Size(254, 259)
+        Me.clbChemicalsMinerals.Size = New System.Drawing.Size(254, 244)
         Me.clbChemicalsMinerals.TabIndex = 1
         '
         'TPVOC
@@ -2260,7 +2262,7 @@ Partial Class SSCPManagersTools
         Me.TPVOC.Controls.Add(Me.clbVOCCombustion)
         Me.TPVOC.Location = New System.Drawing.Point(4, 40)
         Me.TPVOC.Name = "TPVOC"
-        Me.TPVOC.Size = New System.Drawing.Size(254, 266)
+        Me.TPVOC.Size = New System.Drawing.Size(254, 246)
         Me.TPVOC.TabIndex = 3
         Me.TPVOC.Text = "VOC/Combustion"
         Me.TPVOC.UseVisualStyleBackColor = True
@@ -2273,7 +2275,7 @@ Partial Class SSCPManagersTools
         Me.clbVOCCombustion.Location = New System.Drawing.Point(0, 0)
         Me.clbVOCCombustion.Name = "clbVOCCombustion"
         Me.clbVOCCombustion.ScrollAlwaysVisible = True
-        Me.clbVOCCombustion.Size = New System.Drawing.Size(254, 259)
+        Me.clbVOCCombustion.Size = New System.Drawing.Size(254, 244)
         Me.clbVOCCombustion.TabIndex = 1
         '
         'TPDistricts
@@ -2281,7 +2283,7 @@ Partial Class SSCPManagersTools
         Me.TPDistricts.Controls.Add(Me.clbDistricts)
         Me.TPDistricts.Location = New System.Drawing.Point(4, 40)
         Me.TPDistricts.Name = "TPDistricts"
-        Me.TPDistricts.Size = New System.Drawing.Size(254, 266)
+        Me.TPDistricts.Size = New System.Drawing.Size(254, 246)
         Me.TPDistricts.TabIndex = 4
         Me.TPDistricts.Text = "Districts"
         Me.TPDistricts.UseVisualStyleBackColor = True
@@ -2294,7 +2296,7 @@ Partial Class SSCPManagersTools
         Me.clbDistricts.Location = New System.Drawing.Point(0, 0)
         Me.clbDistricts.Name = "clbDistricts"
         Me.clbDistricts.ScrollAlwaysVisible = True
-        Me.clbDistricts.Size = New System.Drawing.Size(254, 259)
+        Me.clbDistricts.Size = New System.Drawing.Size(254, 244)
         Me.clbDistricts.TabIndex = 2
         '
         'TCStatisticalTools
@@ -2303,7 +2305,7 @@ Partial Class SSCPManagersTools
         Me.TCStatisticalTools.Controls.Add(Me.TPEnforcement)
         Me.TCStatisticalTools.Controls.Add(Me.TPTitleVRenewals)
         Me.TCStatisticalTools.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.TCStatisticalTools.Location = New System.Drawing.Point(0, 310)
+        Me.TCStatisticalTools.Location = New System.Drawing.Point(0, 290)
         Me.TCStatisticalTools.Name = "TCStatisticalTools"
         Me.TCStatisticalTools.SelectedIndex = 0
         Me.TCStatisticalTools.Size = New System.Drawing.Size(615, 381)
@@ -2902,14 +2904,14 @@ Partial Class SSCPManagersTools
         'lblStatisticalRecords
         '
         Me.lblStatisticalRecords.AutoSize = True
-        Me.lblStatisticalRecords.Location = New System.Drawing.Point(295, 22)
+        Me.lblStatisticalRecords.Location = New System.Drawing.Point(194, 22)
         Me.lblStatisticalRecords.Name = "lblStatisticalRecords"
         Me.lblStatisticalRecords.Size = New System.Drawing.Size(0, 13)
         Me.lblStatisticalRecords.TabIndex = 19
         '
         'txtStatisticalCount
         '
-        Me.txtStatisticalCount.Location = New System.Drawing.Point(47, 18)
+        Me.txtStatisticalCount.Location = New System.Drawing.Point(47, 19)
         Me.txtStatisticalCount.Name = "txtStatisticalCount"
         Me.txtStatisticalCount.ReadOnly = True
         Me.txtStatisticalCount.Size = New System.Drawing.Size(46, 20)
@@ -2926,32 +2928,42 @@ Partial Class SSCPManagersTools
         '
         'txtRecordNumber
         '
-        Me.txtRecordNumber.Location = New System.Drawing.Point(183, 17)
+        Me.txtRecordNumber.Location = New System.Drawing.Point(283, 19)
         Me.txtRecordNumber.Name = "txtRecordNumber"
         Me.txtRecordNumber.Size = New System.Drawing.Size(100, 20)
         Me.txtRecordNumber.TabIndex = 16
         '
+        'btnExportToExcel
+        '
+        Me.btnExportToExcel.AutoSize = True
+        Me.btnExportToExcel.Location = New System.Drawing.Point(406, 17)
+        Me.btnExportToExcel.Name = "btnExportToExcel"
+        Me.btnExportToExcel.Size = New System.Drawing.Size(88, 23)
+        Me.btnExportToExcel.TabIndex = 15
+        Me.btnExportToExcel.Text = "Export to Excel"
+        Me.btnExportToExcel.UseVisualStyleBackColor = True
+        '
         'btnViewComplianceRecord
         '
         Me.btnViewComplianceRecord.AutoSize = True
-        Me.btnViewComplianceRecord.Location = New System.Drawing.Point(99, 16)
+        Me.btnViewComplianceRecord.Location = New System.Drawing.Point(99, 17)
         Me.btnViewComplianceRecord.Name = "btnViewComplianceRecord"
         Me.btnViewComplianceRecord.Size = New System.Drawing.Size(78, 23)
         Me.btnViewComplianceRecord.TabIndex = 15
         Me.btnViewComplianceRecord.Text = "View Record"
         Me.btnViewComplianceRecord.UseVisualStyleBackColor = True
         '
-        'dgvStatistialReports
+        'dgvStatisticalReports
         '
-        Me.dgvStatistialReports.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+        Me.dgvStatisticalReports.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
                     Or System.Windows.Forms.AnchorStyles.Left) _
                     Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.dgvStatistialReports.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvStatistialReports.Location = New System.Drawing.Point(0, 47)
-        Me.dgvStatistialReports.Name = "dgvStatistialReports"
-        Me.dgvStatistialReports.ReadOnly = True
-        Me.dgvStatistialReports.Size = New System.Drawing.Size(565, 644)
-        Me.dgvStatistialReports.TabIndex = 14
+        Me.dgvStatisticalReports.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvStatisticalReports.Location = New System.Drawing.Point(0, 47)
+        Me.dgvStatisticalReports.Name = "dgvStatisticalReports"
+        Me.dgvStatisticalReports.ReadOnly = True
+        Me.dgvStatisticalReports.Size = New System.Drawing.Size(565, 624)
+        Me.dgvStatisticalReports.TabIndex = 14
         '
         'TPWatchList
         '
@@ -2959,7 +2971,7 @@ Partial Class SSCPManagersTools
         Me.TPWatchList.Controls.Add(Me.Panel6)
         Me.TPWatchList.Location = New System.Drawing.Point(4, 22)
         Me.TPWatchList.Name = "TPWatchList"
-        Me.TPWatchList.Size = New System.Drawing.Size(1184, 691)
+        Me.TPWatchList.Size = New System.Drawing.Size(1184, 671)
         Me.TPWatchList.TabIndex = 7
         Me.TPWatchList.Text = "Watch List Facilities"
         Me.TPWatchList.UseVisualStyleBackColor = True
@@ -2971,7 +2983,7 @@ Partial Class SSCPManagersTools
         Me.dgvWatchList.Location = New System.Drawing.Point(0, 100)
         Me.dgvWatchList.Name = "dgvWatchList"
         Me.dgvWatchList.ReadOnly = True
-        Me.dgvWatchList.Size = New System.Drawing.Size(1184, 591)
+        Me.dgvWatchList.Size = New System.Drawing.Size(1184, 571)
         Me.dgvWatchList.TabIndex = 1
         '
         'Panel6
@@ -3200,7 +3212,7 @@ Partial Class SSCPManagersTools
         Me.TPNewFacilityAssignments.Controls.Add(Me.pnlFacilityAssignments)
         Me.TPNewFacilityAssignments.Location = New System.Drawing.Point(4, 22)
         Me.TPNewFacilityAssignments.Name = "TPNewFacilityAssignments"
-        Me.TPNewFacilityAssignments.Size = New System.Drawing.Size(1184, 691)
+        Me.TPNewFacilityAssignments.Size = New System.Drawing.Size(1184, 671)
         Me.TPNewFacilityAssignments.TabIndex = 8
         Me.TPNewFacilityAssignments.Text = "New Facility Assignments"
         Me.TPNewFacilityAssignments.UseVisualStyleBackColor = True
@@ -3228,7 +3240,7 @@ Partial Class SSCPManagersTools
         Me.Panel10.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel10.Location = New System.Drawing.Point(324, 451)
         Me.Panel10.Name = "Panel10"
-        Me.Panel10.Size = New System.Drawing.Size(860, 240)
+        Me.Panel10.Size = New System.Drawing.Size(860, 220)
         Me.Panel10.TabIndex = 420
         '
         'GroupBox9
@@ -3524,7 +3536,7 @@ Partial Class SSCPManagersTools
         Me.Panel9.Dock = System.Windows.Forms.DockStyle.Left
         Me.Panel9.Location = New System.Drawing.Point(0, 451)
         Me.Panel9.Name = "Panel9"
-        Me.Panel9.Size = New System.Drawing.Size(324, 240)
+        Me.Panel9.Size = New System.Drawing.Size(324, 220)
         Me.Panel9.TabIndex = 419
         '
         'TCNewFacilitySearch
@@ -3537,7 +3549,7 @@ Partial Class SSCPManagersTools
         Me.TCNewFacilitySearch.Location = New System.Drawing.Point(0, 0)
         Me.TCNewFacilitySearch.Name = "TCNewFacilitySearch"
         Me.TCNewFacilitySearch.SelectedIndex = 0
-        Me.TCNewFacilitySearch.Size = New System.Drawing.Size(324, 240)
+        Me.TCNewFacilitySearch.Size = New System.Drawing.Size(324, 220)
         Me.TCNewFacilitySearch.TabIndex = 36
         '
         'TabPage1
@@ -3578,7 +3590,7 @@ Partial Class SSCPManagersTools
         Me.TabPage1.Location = New System.Drawing.Point(4, 22)
         Me.TabPage1.Name = "TabPage1"
         Me.TabPage1.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage1.Size = New System.Drawing.Size(316, 214)
+        Me.TabPage1.Size = New System.Drawing.Size(316, 194)
         Me.TabPage1.TabIndex = 0
         Me.TabPage1.Text = "Search && Sort Options"
         Me.TabPage1.UseVisualStyleBackColor = True
@@ -3907,7 +3919,7 @@ Partial Class SSCPManagersTools
         Me.TabPage2.Location = New System.Drawing.Point(4, 22)
         Me.TabPage2.Name = "TabPage2"
         Me.TabPage2.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage2.Size = New System.Drawing.Size(316, 214)
+        Me.TabPage2.Size = New System.Drawing.Size(316, 194)
         Me.TabPage2.TabIndex = 1
         Me.TabPage2.Text = "Manual List"
         Me.TabPage2.UseVisualStyleBackColor = True
@@ -3944,7 +3956,7 @@ Partial Class SSCPManagersTools
         Me.txtManualAIRSNumber.Multiline = True
         Me.txtManualAIRSNumber.Name = "txtManualAIRSNumber"
         Me.txtManualAIRSNumber.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.txtManualAIRSNumber.Size = New System.Drawing.Size(120, 208)
+        Me.txtManualAIRSNumber.Size = New System.Drawing.Size(120, 198)
         Me.txtManualAIRSNumber.TabIndex = 133
         '
         'TabPage3
@@ -3955,7 +3967,7 @@ Partial Class SSCPManagersTools
         Me.TabPage3.Controls.Add(Me.Label60)
         Me.TabPage3.Location = New System.Drawing.Point(4, 22)
         Me.TabPage3.Name = "TabPage3"
-        Me.TabPage3.Size = New System.Drawing.Size(316, 214)
+        Me.TabPage3.Size = New System.Drawing.Size(316, 194)
         Me.TabPage3.TabIndex = 2
         Me.TabPage3.Text = "Unfiltered AIRS #"
         Me.TabPage3.UseVisualStyleBackColor = True
@@ -4002,7 +4014,7 @@ Partial Class SSCPManagersTools
         Me.TPCopyYear.Controls.Add(Me.Label63)
         Me.TPCopyYear.Location = New System.Drawing.Point(4, 22)
         Me.TPCopyYear.Name = "TPCopyYear"
-        Me.TPCopyYear.Size = New System.Drawing.Size(316, 214)
+        Me.TPCopyYear.Size = New System.Drawing.Size(316, 194)
         Me.TPCopyYear.TabIndex = 3
         Me.TPCopyYear.Text = "Copy"
         Me.TPCopyYear.UseVisualStyleBackColor = True
@@ -4300,7 +4312,7 @@ Partial Class SSCPManagersTools
         Me.TPMiscReports.Controls.Add(Me.Panel19)
         Me.TPMiscReports.Location = New System.Drawing.Point(4, 22)
         Me.TPMiscReports.Name = "TPMiscReports"
-        Me.TPMiscReports.Size = New System.Drawing.Size(1184, 691)
+        Me.TPMiscReports.Size = New System.Drawing.Size(1184, 671)
         Me.TPMiscReports.TabIndex = 9
         Me.TPMiscReports.Text = "Misc Reports"
         Me.TPMiscReports.UseVisualStyleBackColor = True
@@ -4312,7 +4324,7 @@ Partial Class SSCPManagersTools
         Me.dgvMiscReport.Location = New System.Drawing.Point(0, 64)
         Me.dgvMiscReport.Name = "dgvMiscReport"
         Me.dgvMiscReport.ReadOnly = True
-        Me.dgvMiscReport.Size = New System.Drawing.Size(1184, 627)
+        Me.dgvMiscReport.Size = New System.Drawing.Size(1184, 607)
         Me.dgvMiscReport.TabIndex = 15
         '
         'Panel19
@@ -4568,7 +4580,7 @@ Partial Class SSCPManagersTools
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.AutoScroll = True
-        Me.ClientSize = New System.Drawing.Size(1192, 745)
+        Me.ClientSize = New System.Drawing.Size(1192, 725)
         Me.Controls.Add(Me.TCManagerTools)
         Me.Controls.Add(Me.TBSSCPManagersTools)
         Me.Menu = Me.MainMenu1
@@ -4628,7 +4640,7 @@ Partial Class SSCPManagersTools
         Me.TPEnforcement.PerformLayout()
         Me.TPTitleVRenewals.ResumeLayout(False)
         Me.TPTitleVRenewals.PerformLayout()
-        CType(Me.dgvStatistialReports, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.dgvStatisticalReports, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TPWatchList.ResumeLayout(False)
         CType(Me.dgvWatchList, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel6.ResumeLayout(False)
@@ -4919,7 +4931,7 @@ Partial Class SSCPManagersTools
     Friend WithEvents llbACCRequiringResubmittal As System.Windows.Forms.LinkLabel
     Friend WithEvents llbACCReporting As System.Windows.Forms.LinkLabel
     Friend WithEvents SCStatisticalReports As System.Windows.Forms.SplitContainer
-    Friend WithEvents dgvStatistialReports As System.Windows.Forms.DataGridView
+    Friend WithEvents dgvStatisticalReports As System.Windows.Forms.DataGridView
     Friend WithEvents txtStatisticalCount As System.Windows.Forms.TextBox
     Friend WithEvents Label45 As System.Windows.Forms.Label
     Friend WithEvents txtRecordNumber As System.Windows.Forms.TextBox
@@ -5084,4 +5096,5 @@ Partial Class SSCPManagersTools
     Friend WithEvents txtMiscReportCount As System.Windows.Forms.TextBox
     Friend WithEvents Label67 As System.Windows.Forms.Label
     Friend WithEvents btnExportMiscToExcel As System.Windows.Forms.Button
+    Friend WithEvents btnExportToExcel As System.Windows.Forms.Button
 End Class
