@@ -1887,8 +1887,8 @@ del "$(TargetDir)IAIP-Updater\IAIP.update2_6_4.7z"
 del "$(TargetDir)IAIP-Updater\config.txt"
 del "$(TargetDir)IAIP-Updater\7zsd_All.sfx"
 del "$(TargetDir)IAIP-Updater\make-sfx.bat"
-C:\Users\dwaldron\AppData\Local\Pandoc\pandoc.exe -f markdown -t html5 -s -o "$(TargetDir)docs\README.html" "$(TargetDir)docs\README.md"
-C:\Users\dwaldron\AppData\Local\Pandoc\pandoc.exe -f markdown -t html5 -s -o "$(TargetDir)docs\CHANGELOG.html" "$(TargetDir)docs\CHANGELOG.md"
+C:\Users\dwaldron\AppData\Local\Pandoc\pandoc.exe -f markdown -t html5 -s -o "$(TargetDir)docs\README.html" -c "$(TargetDir)docs\style.css" "$(TargetDir)docs\README.md"
+C:\Users\dwaldron\AppData\Local\Pandoc\pandoc.exe -f markdown -t html5 -s -o "$(TargetDir)docs\CHANGELOG.html" -c "$(TargetDir)docs\style.css" "$(TargetDir)docs\CHANGELOG.md"
 del "$(TargetDir)docs\*.md"
 )</PostBuildEvent>
   </PropertyGroup>
