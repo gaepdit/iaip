@@ -1,15 +1,22 @@
-﻿REM The following is the content of the Post-build events command line(s):
-REM 
-REM To use, copy the following in its entirety (after the last "start here" line) 
-REM and paste into the box at:
-REM Project → Properties → Compile → Build events… → Post-build event command line:
-REM 
-REM ----- Start here -----
+﻿I made this file because editing these lines is easier here than in the tiny input 
+box for these commands. Nothing in this file gets executed. You have to copy these
+commands into the right place. Follow instructions below. 
+
+— Doug
+
+------------------------------
+
+Here are the Post-build event command line(s) for the main project. To use, copy 
+the following in its entirety (between the "-----" lines) and paste into the box at:
+
+[Project → Properties → Compile → Build events… → Post-build event command line]
+
+----- Start here -----
+
 if $(ConfigurationName) == Debug (
 REM Debug build -----
 ) ELSE (
 REM Release build -----
-"$(TargetDir)IAIP-Updater\7za.exe" a "$(TargetDir)IAIP-Installer\IAIP-Installer.zip" "$(TargetDir)IAIP-Installer\IaipInstaller.msi" "$(TargetDir)IAIP-Installer\setup.exe" -mx=7
 "$(TargetDir)IAIP-Updater\7za.exe" a "$(TargetDir)IAIP-Updater\IAIP.update2_6_4.7z" "$(TargetDir)JohnGaltProject.exe" "$(TargetDir)gaSeal.ico" -mx=7
 "$(TargetDir)IAIP-Updater\7za.exe" a "$(TargetDir)IAIP-Updater\IAIP.update.full.7z" "$(TargetDir)JohnGaltProject.exe" "$(TargetDir)*.dll" "$(TargetDir)*.ora" "$(TargetDir)gaSeal.ico" -mx=7
 copy /b "$(TargetDir)IAIP-Updater\7zsd_All.sfx" + "$(TargetDir)IAIP-Updater\config.txt" + "$(TargetDir)IAIP-Updater\IAIP.update2_6_4.7z" "$(TargetDir)IAIP-Updater\IAIP.update2_6_4.exe"
@@ -18,8 +25,21 @@ copy /b "$(TargetDir)IAIP-Updater\IAIP.update.exe" "$(TargetDir)IAIP-Updater\IAI
 copy /b "$(TargetDir)IAIP-Updater\IAIP.update.exe" "$(TargetDir)IAIP-Updater\iaip.exe"
 del "$(TargetDir)IAIP-Updater\IAIP.update.full.7z"
 del "$(TargetDir)IAIP-Updater\IAIP.update2_6_4.7z"
-del "$(TargetDir)IAIP-Updater\7zsd_All.sfx"
 del "$(TargetDir)IAIP-Updater\config.txt"
+del "$(TargetDir)IAIP-Updater\7zsd_All.sfx"
 del "$(TargetDir)IAIP-Updater\make-sfx.bat"
-del "$(TargetDir)IAIP-Updater\7za.exe"
 )
+
+----- End here -----
+
+And here are the Post-build events command line(s) for the installer project. To use, 
+copy the following in its entirety (between the "-----" lines) and paste into the box at:
+
+[IaipInstaller → Properties (tab) → PostBuildEvent]
+
+----- Start here -----
+
+"$(BuiltOutputPath)..\IAIP-Updater\7za.exe" a "$(BuiltOutputPath)IAIP-Installer.zip" "$(BuiltOutputPath)IaipInstaller.msi" "$(BuiltOutputPath)setup.exe" -mx=7
+del "$(BuiltOutputPath)..\IAIP-Updater\7za.exe"
+
+----- End here -----

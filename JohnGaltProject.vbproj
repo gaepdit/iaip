@@ -1764,9 +1764,7 @@
       <Link>OraOps11w.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="IAIP-Installer\config.txt">
-    </None>
-    <None Include="IAIP-Updater\Post-build Events.txt" />
+    <None Include="docs\Post-build Events.txt" />
     <Content Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>
@@ -1859,6 +1857,7 @@
     <Folder Include="Crystal Reports\Oracle 10.1\ISMP\" />
     <Folder Include="Crystal Reports\Oracle 9.2\PASP\" />
     <Folder Include="Crystal Reports\Oracle 9.2\SSCP\" />
+    <Folder Include="IAIP-Installer\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
   <PropertyGroup>
@@ -1868,7 +1867,6 @@
 REM Debug build -----
 ) ELSE (
 REM Release build -----
-"$(TargetDir)IAIP-Updater\7za.exe" a "$(TargetDir)IAIP-Installer\IAIP-Installer.zip" "$(TargetDir)IAIP-Installer\IaipInstaller.msi" "$(TargetDir)IAIP-Installer\setup.exe" -mx=7
 "$(TargetDir)IAIP-Updater\7za.exe" a "$(TargetDir)IAIP-Updater\IAIP.update2_6_4.7z" "$(TargetDir)JohnGaltProject.exe" "$(TargetDir)gaSeal.ico" -mx=7
 "$(TargetDir)IAIP-Updater\7za.exe" a "$(TargetDir)IAIP-Updater\IAIP.update.full.7z" "$(TargetDir)JohnGaltProject.exe" "$(TargetDir)*.dll" "$(TargetDir)*.ora" "$(TargetDir)gaSeal.ico" -mx=7
 copy /b "$(TargetDir)IAIP-Updater\7zsd_All.sfx" + "$(TargetDir)IAIP-Updater\config.txt" + "$(TargetDir)IAIP-Updater\IAIP.update2_6_4.7z" "$(TargetDir)IAIP-Updater\IAIP.update2_6_4.exe"
@@ -1877,10 +1875,9 @@ copy /b "$(TargetDir)IAIP-Updater\IAIP.update.exe" "$(TargetDir)IAIP-Updater\IAI
 copy /b "$(TargetDir)IAIP-Updater\IAIP.update.exe" "$(TargetDir)IAIP-Updater\iaip.exe"
 del "$(TargetDir)IAIP-Updater\IAIP.update.full.7z"
 del "$(TargetDir)IAIP-Updater\IAIP.update2_6_4.7z"
-del "$(TargetDir)IAIP-Updater\7zsd_All.sfx"
 del "$(TargetDir)IAIP-Updater\config.txt"
+del "$(TargetDir)IAIP-Updater\7zsd_All.sfx"
 del "$(TargetDir)IAIP-Updater\make-sfx.bat"
-del "$(TargetDir)IAIP-Updater\7za.exe"
 )</PostBuildEvent>
   </PropertyGroup>
 </Project>
