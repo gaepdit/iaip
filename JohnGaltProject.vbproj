@@ -188,7 +188,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="docs\CHANGELOG.md" />
+    <None Include="docs\CHANGELOG.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="DataSet\dsIAIP10.xsc">
       <DependentUpon>dsIAIP10.xsd</DependentUpon>
     </None>
@@ -1739,6 +1741,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="docs\README.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="docs\README_DEVELOPERS.md" />
     <None Include="IAIP-Deploy\Deploy-IAIP.bat">
@@ -1884,6 +1887,9 @@ del "$(TargetDir)IAIP-Updater\IAIP.update2_6_4.7z"
 del "$(TargetDir)IAIP-Updater\config.txt"
 del "$(TargetDir)IAIP-Updater\7zsd_All.sfx"
 del "$(TargetDir)IAIP-Updater\make-sfx.bat"
+C:\Users\dwaldron\AppData\Local\Pandoc\pandoc.exe -f markdown -t html5 -s -o "$(TargetDir)docs\README.html" "$(TargetDir)docs\README.md"
+C:\Users\dwaldron\AppData\Local\Pandoc\pandoc.exe -f markdown -t html5 -s -o "$(TargetDir)docs\CHANGELOG.html" "$(TargetDir)docs\CHANGELOG.md"
+REM del "$(TargetDir)docs\*.md"
 )</PostBuildEvent>
   </PropertyGroup>
 </Project>
