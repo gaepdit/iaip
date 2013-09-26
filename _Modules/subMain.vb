@@ -39,8 +39,6 @@ Module subMain
     Friend Const AppName As String = "IAIP"
     Friend HelpUrl As String = "https://sites.google.com/site/iaipdocs/"
     Friend DownloadUrl As String = "http://airpermit.dnr.state.ga.us/iaip/IAIP.update2_6_4.exe"
-    Friend AppPath As String = Path.GetDirectoryName(Application.ExecutablePath)
-    Friend AboutUrl As String = AppPath & "\docs\README.html"
     Friend DateFormat As String = "dd-MMM-yyyy"
     Friend Today As Date = DateTime.Today
     Friend TodayString As String = Format(Today, DateFormat)

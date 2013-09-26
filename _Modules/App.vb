@@ -40,6 +40,8 @@ Module App
     End Sub
     Public Sub OpenAboutUrl(Optional ByVal sender As Object = Nothing)
         monitor.TrackFeature("Url.OpenAbout")
+        Dim AppPath As String = Path.GetDirectoryName(Application.ExecutablePath)
+        Dim AboutUrl As String = AppPath & "\docs\README.html"
         OpenUrl(AboutUrl, sender)
     End Sub
     Private Sub OpenUrl(ByVal url As String, Optional ByVal sender As Object = Nothing)
