@@ -40,7 +40,7 @@ Module UserSettings
     End Sub
 
     ' Adapted from http://stackoverflow.com/a/11801369/212978
-    Private Class UserSettingsHelper
+    Public Class UserSettingsHelper
         Private Shared _keySettingsDictionary As Dictionary(Of String, String)
         Private Shared _initLock As Object = New Object()
 
@@ -54,8 +54,12 @@ Module UserSettings
         End Property
 
         Shared Sub New()
-            AddHandler My.Settings.SettingsLoaded, AddressOf HandleSettingsLoad
-            AddHandler My.Settings.SettingsSaving, AddressOf HandleSettingsSaving
+            Try
+                AddHandler My.Settings.SettingsLoaded, AddressOf HandleSettingsLoad
+                AddHandler My.Settings.SettingsSaving, AddressOf HandleSettingsSaving
+            Catch ex As Exception
+                ErrorReport(ex.ToString(), "UserSettingsHelper>New." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            End Try
         End Sub
 
         Private Shared Sub InitializeDictionary()
