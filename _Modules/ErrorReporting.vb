@@ -1,6 +1,7 @@
 ﻿Imports Oracle.DataAccess.Client
+Imports System.IO
 
-Module ErrorReport
+Module ErrorReporting
 
     Public Sub ErrorReport(ByVal ErrorMessage As String, ByVal ErrorLocation As String)
         Dim SQL As String
