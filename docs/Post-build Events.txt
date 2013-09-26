@@ -17,8 +17,12 @@ if $(ConfigurationName) == Debug (
 REM Debug build -----
 ) ELSE (
 REM Release build -----
-"$(TargetDir)IAIP-Updater\7za.exe" a "$(TargetDir)IAIP-Updater\IAIP.update2_6_4.7z" "$(TargetDir)JohnGaltProject.exe" "$(TargetDir)gaSeal.ico" -mx=7
-"$(TargetDir)IAIP-Updater\7za.exe" a "$(TargetDir)IAIP-Updater\IAIP.update.full.7z" "$(TargetDir)JohnGaltProject.exe" "$(TargetDir)*.dll" "$(TargetDir)*.ora" "$(TargetDir)gaSeal.ico" -mx=7
+C:\Users\dwaldron\AppData\Local\Pandoc\pandoc.exe -f markdown -t html5 -s -o "$(TargetDir)docs\README.html" -c "$(TargetDir)docs\style.css" "$(TargetDir)docs\README.md"
+C:\Users\dwaldron\AppData\Local\Pandoc\pandoc.exe -f markdown -t html5 -s -o "$(TargetDir)docs\CHANGELOG.html" -c "$(TargetDir)docs\style.css" "$(TargetDir)docs\CHANGELOG.md"
+del "$(TargetDir)docs\*.md"
+cd "$TargetDir"
+"$(TargetDir)IAIP-Updater\7za.exe" a "$(TargetDir)IAIP-Updater\IAIP.update2_6_4.7z" "JohnGaltProject.exe" "gaSeal.ico" "docs\*.*" -mx=7
+"$(TargetDir)IAIP-Updater\7za.exe" a "$(TargetDir)IAIP-Updater\IAIP.update.full.7z" "JohnGaltProject.exe" "*.dll" "*.ora" "gaSeal.ico" "docs\*.*" -mx=7
 copy /b "$(TargetDir)IAIP-Updater\7zsd_All.sfx" + "$(TargetDir)IAIP-Updater\config.txt" + "$(TargetDir)IAIP-Updater\IAIP.update2_6_4.7z" "$(TargetDir)IAIP-Updater\IAIP.update2_6_4.exe"
 copy /b "$(TargetDir)IAIP-Updater\7zsd_All.sfx" + "$(TargetDir)IAIP-Updater\config.txt" + "$(TargetDir)IAIP-Updater\IAIP.update.full.7z" "$(TargetDir)IAIP-Updater\IAIP.update.exe"
 copy /b "$(TargetDir)IAIP-Updater\IAIP.update.exe" "$(TargetDir)IAIP-Updater\IAIP_Update.exe"
@@ -28,9 +32,6 @@ del "$(TargetDir)IAIP-Updater\IAIP.update2_6_4.7z"
 del "$(TargetDir)IAIP-Updater\config.txt"
 del "$(TargetDir)IAIP-Updater\7zsd_All.sfx"
 del "$(TargetDir)IAIP-Updater\make-sfx.bat"
-C:\Users\dwaldron\AppData\Local\Pandoc\pandoc.exe -f markdown -t html5 -s -o "$(TargetDir)docs\README.html" -c "$(TargetDir)docs\style.css" "$(TargetDir)docs\README.md"
-C:\Users\dwaldron\AppData\Local\Pandoc\pandoc.exe -f markdown -t html5 -s -o "$(TargetDir)docs\CHANGELOG.html" -c "$(TargetDir)docs\style.css" "$(TargetDir)docs\CHANGELOG.md"
-del "$(TargetDir)docs\*.md"
 )
 
 ----- End here -----
