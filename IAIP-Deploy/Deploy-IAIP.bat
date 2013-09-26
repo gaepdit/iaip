@@ -39,6 +39,7 @@ IF EXIST "S:\ISMP\DMU\Execs\appIAIP" (
 
   IF EXIST "S:\ISMP\DMU\Execs\appIAIP" (
     COPY /y "..\docs\*.*" "S:\ISMP\DMU\Execs\appIAIP\docs"
+    ECHO :
   )
 
 ) ELSE (
@@ -99,7 +100,7 @@ ECHO : Remaining tasks:
 ECHO : 
 ECHO : * Move the update files on the server from /AirPermit/IAIP/new
 ECHO :   to /AirPermit/IAIP (and backup the existing files there)
-EHCO : 
+ECHO : 
 ECHO : * Change the published version number in the Platform AFS tools
 ECHO :
 PAUSE
