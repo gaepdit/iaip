@@ -54,12 +54,8 @@ Module UserSettings
         End Property
 
         Shared Sub New()
-            Try
-                AddHandler My.Settings.SettingsLoaded, AddressOf HandleSettingsLoad
-                AddHandler My.Settings.SettingsSaving, AddressOf HandleSettingsSaving
-            Catch ex As Exception
-                ErrorReport(ex.ToString(), "UserSettingsHelper>New." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-            End Try
+            AddHandler My.Settings.SettingsLoaded, AddressOf HandleSettingsLoad
+            AddHandler My.Settings.SettingsSaving, AddressOf HandleSettingsSaving
         End Sub
 
         Private Shared Sub InitializeDictionary()
