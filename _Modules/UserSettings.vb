@@ -3,11 +3,13 @@ Imports System.Runtime.Serialization
 
 Module UserSettings
 
+    ' Define user settings here
     Friend Enum UserSetting As Byte
         ExcelExportLocation
         PermitUploadLocation
     End Enum
 
+    ' Define default value for above user settings here
     Private Function DefaultSetting(ByVal whichSetting As UserSetting) As String
         Select Case whichSetting
 
@@ -23,8 +25,7 @@ Module UserSettings
         End Select
     End Function
 
-
-
+    ' Public function for retrieving a setting
     Friend Function GetSetting(ByVal whichSetting As UserSetting) As String
         If UserSettingsHelper.KeySettingsDictionary.ContainsKey(whichSetting.ToString) Then
             Return UserSettingsHelper.KeySettingsDictionary(whichSetting.ToString)
@@ -33,10 +34,12 @@ Module UserSettings
         End If
     End Function
 
+    ' Public function for saving a setting
     Friend Sub SaveSetting(ByVal whichSetting As UserSetting, ByVal value As String)
-        UserSettingsHelper.KeySettingsDictionary.Add(whichSetting.ToString, value)
+        UserSettingsHelper.KeySettingsDictionary(whichSetting.ToString) = value
     End Sub
 
+    ' Adapted from http://stackoverflow.com/a/11801369/212978
     Private Class UserSettingsHelper
         Private Shared _keySettingsDictionary As Dictionary(Of String, String)
         Private Shared _initLock As Object = New Object()
