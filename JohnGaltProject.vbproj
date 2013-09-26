@@ -1890,7 +1890,7 @@ C:\Users\dwaldron\AppData\Local\Pandoc\pandoc.exe -f markdown -t html5 -s -o "$(
 C:\Users\dwaldron\AppData\Local\Pandoc\pandoc.exe -f markdown -t html5 -s -o "$(TargetDir)docs\CHANGELOG.html" -c "$(TargetDir)docs\style.css" "$(TargetDir)docs\CHANGELOG.md"
 del "$(TargetDir)docs\*.md"
 cd "$TargetDir"
-"$(TargetDir)IAIP-Updater\7za.exe" a "$(TargetDir)IAIP-Updater\IAIP.update2_6_4.7z" "JohnGaltProject.exe" "gaSeal.ico" "docs\*.*" -mx=7
+"$(TargetDir)IAIP-Updater\7za.exe" a "$(TargetDir)IAIP-Updater\IAIP.update2_6_4.7z" "JohnGaltProject.exe" "gaSeal.ico" "Oracle.DataAccess.dll" "docs\*.*" -mx=7
 "$(TargetDir)IAIP-Updater\7za.exe" a "$(TargetDir)IAIP-Updater\IAIP.update.full.7z" "JohnGaltProject.exe" "*.dll" "*.ora" "gaSeal.ico" "docs\*.*" -mx=7
 copy /b "$(TargetDir)IAIP-Updater\7zsd_All.sfx" + "$(TargetDir)IAIP-Updater\config.txt" + "$(TargetDir)IAIP-Updater\IAIP.update2_6_4.7z" "$(TargetDir)IAIP-Updater\IAIP.update2_6_4.exe"
 copy /b "$(TargetDir)IAIP-Updater\7zsd_All.sfx" + "$(TargetDir)IAIP-Updater\config.txt" + "$(TargetDir)IAIP-Updater\IAIP.update.full.7z" "$(TargetDir)IAIP-Updater\IAIP.update.exe"
