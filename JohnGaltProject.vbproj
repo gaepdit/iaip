@@ -1036,7 +1036,7 @@
     <Compile Include="_Modules\Extensions.vb" />
     <Compile Include="_Modules\App.vb" />
     <Compile Include="_Modules\UserSettings.vb" />
-    <Compile Include="_SubMain\subMain.vb">
+    <Compile Include="_Modules\subMain.vb">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Universal Forms\IAIPFacilitySummary.Designer.vb">
