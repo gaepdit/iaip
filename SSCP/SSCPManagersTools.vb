@@ -70,10 +70,6 @@ Public Class SSCPManagersTools
             CreateStatusBar()
             LoadDataSets()
             LoadComboBoxes()
-            FormatdgrInspectionList()
-
-            LoadInspectionEngineers()
-            LoadComboYear()
 
             DTPStartDate.Value = Format(Date.Today.AddDays(-30), "dd-MMM-yyyy")
             DTPEndDate.Value = OracleDate
@@ -84,7 +80,6 @@ Public Class SSCPManagersTools
 
             TCManagerTools.TabPages.Remove(TPCMSWarning)
             TCManagerTools.TabPages.Remove(TPUniverse)
-            TCManagerTools.TabPages.Remove(TPEngineerInspections)
             TCManagerTools.TabPages.Remove(TPStaffReports)
             TCManagerTools.TabPages.Remove(TPFacilityAssignments)
             TCManagerTools.TabPages.Remove(TPPollutantBubbleUp)
@@ -96,7 +91,6 @@ Public Class SSCPManagersTools
             TCManagerTools.TabPages.Add(TPNewFacilityAssignments)
             'TCManagerTools.TabPages.Add(TPFacilityAssignments)
             TCManagerTools.TabPages.Add(TPStaffReports)
-            ' TCManagerTools.TabPages.Add(TPEngineerInspections)
             TCManagerTools.TabPages.Add(TPUniverse)
             TCManagerTools.TabPages.Add(TPCMSWarning)
             TCManagerTools.TabPages.Add(TPPollutantBubbleUp)
@@ -970,186 +964,6 @@ Public Class SSCPManagersTools
             cboCMSWarningFrequency.Items.Add("A")
             cboCMSWarningFrequency.Items.Add("S")
             cboCMSWarningFrequency.Items.Add("A & S")
-
-        Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
-
-    End Sub
-    Sub FormatdgrInspectionList()
-        Try
-
-            'Formatting our DataGrid
-            Dim objGrid As New DataGridTableStyle
-            Dim objtextcol As New DataGridTextBoxColumn
-
-            objGrid.AlternatingBackColor = Color.WhiteSmoke
-            objGrid.MappingName = "InspectionList"
-            objGrid.RowHeadersVisible = False
-            objGrid.AllowSorting = True
-            objGrid.ReadOnly = True
-
-            '0   
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "InspectionKey"
-            objtextcol.HeaderText = "Inspection Key"
-            objtextcol.Width = 0
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            '1   
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "AIRSNUMBER"
-            objtextcol.HeaderText = "AIRS Number"
-            objtextcol.Format = "N"
-            objtextcol.Width = 80
-            objtextcol.Alignment = HorizontalAlignment.Center
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            '2
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "STRFACILITYNAME"
-            objtextcol.HeaderText = "Facility Name"
-            objtextcol.Width = 200
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            '3
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "STRFACILITYCITY"
-            objtextcol.HeaderText = "Facility City"
-            objtextcol.Width = 150
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            '4
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "STRCOUNTYNAME"
-            objtextcol.HeaderText = "County Name"
-            objtextcol.Width = 100
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            '5
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "ENGINEER"
-            objtextcol.HeaderText = "Engineer"
-            objtextcol.Width = 120
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            '6
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "DATSCHEDULEDATESTART"
-            objtextcol.HeaderText = "Initial Inspection Start"
-            objtextcol.Format = "dd-MMM-yyyy"
-            objtextcol.Width = 130
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            '7
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "DATSCHEDULEDATEEND"
-            objtextcol.HeaderText = "Initial Inspection End"
-            objtextcol.Format = "dd-MMM-yyyy"
-            objtextcol.Width = 130
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            '8
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "DATCURRENTDATESTART"
-            objtextcol.HeaderText = "Current Inspection Start"
-            objtextcol.Format = "dd-MMM-yyyy"
-            objtextcol.Width = 130
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            '9
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "DATCURRENTDATEEND"
-            objtextcol.HeaderText = "Current Inspection End"
-            objtextcol.Format = "dd-MMM-yyyy"
-            objtextcol.Width = 130
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            '10
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "DATACTUALDATESTART"
-            objtextcol.HeaderText = "Actual Inspection Start"
-            objtextcol.Format = "dd-MMM-yyyy"
-            objtextcol.Width = 130
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            '11
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "DATACTUALDATEEND"
-            objtextcol.HeaderText = "Actual Inspection End"
-            objtextcol.Format = "dd-MMM-yyyy"
-            objtextcol.Width = 130
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            'Applying the above formating 
-            dgrInspectionList.TableStyles.Clear()
-            dgrInspectionList.TableStyles.Add(objGrid)
-
-            'Setting the DataGrid Caption, which defines the table title
-            dgrInspectionList.CaptionText = "Inspections Schedule"
-            dgrInspectionList.ColumnHeadersVisible = True
-        Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
-
-    End Sub
-    Sub LoadComboYear()
-        Dim YearValue As Integer = "00"
-        Dim LastYear As String = Date.Today.AddYears(1).Year
-
-        Try
-
-            cboYear.Items.Clear()
-
-            If LastYear.Length = 4 Then
-                LastYear = Mid(LastYear, 3)
-            Else
-                LastYear = "00"
-            End If
-
-            YearValue = CInt(LastYear)
-
-            Do While YearValue <> 0
-                Select Case CStr(YearValue).Length
-                    Case "1"
-                        cboYear.Items.Add("200" & YearValue)
-                    Case "2"
-                        cboYear.Items.Add("20" & YearValue)
-                    Case Else
-                        cboYear.Items.Add(YearValue)
-                End Select
-                YearValue -= 1
-            Loop
-
-            cboYear.Items.Add("2000")
-
-            cboYear.Text = cboYear.Items.Item(0)
-        Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
-
-    End Sub
-    Sub LoadInspectionEngineers()
-        Try
-
-
-            SQL = "select distinct(strLastName||', '||strFirstName) as Engineers, " & _
-            "strLastName  " & _
-            "from " & DBNameSpace & ".EPDUserProfiles, " & DBNameSpace & ".SSCPInspectionTracking " & _
-            "where " & DBNameSpace & ".EPDUserProfiles.numUserID = " & DBNameSpace & ".SSCPInspectionTracking.strInspectingEngineer " & _
-            "order by strLastName  "
-
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                clbEngineerInspections.Items.Add(dr.Item("Engineers"))
-            End While
 
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -3450,200 +3264,7 @@ Public Class SSCPManagersTools
 
 
     End Sub
-    Sub ViewEngineerSchedule()
-        Dim SQLLine As String = ""
-        Dim Engineer As String = ""
-        Dim Year, Year2 As String
 
-        Try
-
-            If cboYear.Items.Contains(cboYear.Text) Then
-                Year = CStr(CInt(cboYear.Text) - 1)
-                Year2 = cboYear.Text
-            Else
-                Year = CStr(CInt(Date.Today.Year) - 1)
-                Year2 = Date.Today.Year
-            End If
-
-            SQL = "Select * from " & _
-            "" & DBNameSpace & ".VW_SSCPManagerInspections "
-
-            For Each Engineer In clbEngineerInspections.CheckedItems
-                SQLLine = SQLLine & " Engineer = '" & Engineer.ToString & "' OR "
-            Next
-
-            Select Case clbEngineerInspections.CheckedItems.Count
-                Case 0
-                    SQL = SQL & " Where DatScheduleDateStart between '01-Oct-" & Year & "' and '30-Sep-" & Year2 & "'"
-
-                Case Else
-                    SQLLine = Mid(SQLLine, 1, (SQLLine.Length - 3))
-                    SQL = SQL & " Where (" & SQLLine & ") and DatScheduleDateStart between '01-Oct-" & Year & "' and '30-Sep-" & Year2 & "'"
-            End Select
-
-            SQL = SQL & " Order by datScheduleDateStart ASC "
-
-            dsInspectionList = New DataSet
-
-            daInspectionList = New OracleDataAdapter(SQL, Conn)
-
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
-            End If
-
-            daInspectionList.Fill(dsInspectionList, "InspectionList")
-            dgrInspectionList.DataSource = dsInspectionList
-            dgrInspectionList.DataMember = "InspectionList"
-
-        Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
-
-    End Sub
-    Sub LockInspectionSchedule()
-        Dim i As Integer
-        Dim count As Integer
-        Dim SQLLine As String = ""
-
-        Try
-
-            If dsInspectionList Is Nothing Then
-                count = 0
-            Else
-                count = Me.BindingContext(dsInspectionList, "InspectionList").Count
-            End If
-
-            For i = 0 To count - 1
-                SQLLine = SQLLine & "InspectionKey = '" & dgrInspectionList.Item(i, 0) & "' Or "
-            Next
-
-            If count <> 0 Then
-                SQLLine = Mid(SQLLine, 1, (SQLLine.Length) - 3)
-
-                SQL = "Update " & DBNameSpace & ".SSCPInspectionTracking set " & _
-                       "strLockSchedule = 'True' " & _
-                       "where (" & SQLLine & " ) "
-
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
-                End If
-
-                dr = cmd.ExecuteReader
-
-                If Conn.State = ConnectionState.Open Then
-                    'conn.close()
-                End If
-
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
-
-    End Sub
-    Sub UnLockInspectionSchedule()
-        Dim i As Integer
-        Dim count As Integer
-        Dim SQLLine As String = ""
-
-        Try
-
-            If dsInspectionList Is Nothing Then
-                count = 0
-            Else
-                count = Me.BindingContext(dsInspectionList, "InspectionList").Count
-            End If
-
-            For i = 0 To count - 1
-                SQLLine = SQLLine & "InspectionKey = '" & dgrInspectionList.Item(i, 0) & "' Or "
-            Next
-
-            If count <> 0 Then
-                SQLLine = Mid(SQLLine, 1, (SQLLine.Length) - 3)
-
-                SQL = "Update " & DBNameSpace & ".SSCPInspectionTracking set " & _
-                       "strLockSchedule = 'False' " & _
-                       "where (" & SQLLine & " ) "
-
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
-                End If
-
-                dr = cmd.ExecuteReader
-
-                If Conn.State = ConnectionState.Open Then
-                    'conn.close()
-                End If
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
-    End Sub
-    Sub ExportToExcel()
-        'Dim ExcelApp As New Excel.Application
-        Dim ExcelApp As New Microsoft.Office.Interop.Excel.Application
-        'Dim ExcelDoc As Microsoft.Office.Interop.Excel.Workbook
-        Dim intRow As Integer
-
-        Try
-
-            If ExcelApp.Visible = False Then
-                ExcelApp.Visible = True
-            End If
-            With ExcelApp
-                .SheetsInNewWorkbook = 1
-                .Workbooks.Add()
-                .Worksheets(1).Select()
-                'For displaying the column name in the the excel file.
-
-                .Cells(1, 1) = "AIRS Number"
-                .Cells(1, 2) = "Facility Name"
-                .Cells(1, 3) = "Facility City"
-                .Cells(1, 4) = "County Name"
-                .Cells(1, 5) = "Engineer"
-                .Cells(1, 6) = "Initial Inspection Start"
-                .Cells(1, 7) = "Initial Inspection End"
-                .Cells(1, 8) = "Current Inspection Start"
-                .Cells(1, 9) = "Current Inspection End"
-                .Cells(1, 10) = "Actual Inspection Start"
-                .Cells(1, 11) = "Actual Inspection End"
-
-                For intRow = 0 To Me.BindingContext(dsInspectionList, "InspectionList").Count - 1
-                    .Cells(intRow + 2, 1).value = dgrInspectionList.Item(intRow, 1)
-                    .Cells(intRow + 2, 2).value = dgrInspectionList.Item(intRow, 2)
-                    .Cells(intRow + 2, 3).value = dgrInspectionList.Item(intRow, 3)
-                    .Cells(intRow + 2, 4).value = dgrInspectionList.Item(intRow, 4)
-                    .Cells(intRow + 2, 5).value = dgrInspectionList.Item(intRow, 5)
-                    .Cells(intRow + 2, 6).value = dgrInspectionList.Item(intRow, 6)
-                    .Cells(intRow + 2, 7).value = dgrInspectionList.Item(intRow, 7)
-                    .Cells(intRow + 2, 8).value = dgrInspectionList.Item(intRow, 8)
-                    .Cells(intRow + 2, 9).value = dgrInspectionList.Item(intRow, 9)
-                    .Cells(intRow + 2, 10).value = dgrInspectionList.Item(intRow, 10)
-                    .Cells(intRow + 2, 11).value = dgrInspectionList.Item(intRow, 11)
-                Next
-
-            End With
-            If ExcelApp.Visible = False Then
-                ExcelApp.Visible = True
-            End If
-        Catch ex As Exception
-            If ex.ToString.Contains("RPC_E_CALL_REJECTED") Then
-                MsgBox("Error in exporting data." & vbCrLf & "Please run the export again.")
-            Else
-                ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-            End If
-        Finally
-
-        End Try
-
-
-    End Sub
     Sub LoadCMSUniverse()
         Dim CMSStatus As String = ""
         'Dim SQLLine As String = ""
@@ -4485,96 +4106,6 @@ Public Class SSCPManagersTools
         End Try
 
     End Sub
-    Sub ExportCMSWarningToExcel()
-        Try
-            'Dim ExcelApp As New Excel.Application
-            Dim ExcelApp As New Microsoft.Office.Interop.Excel.Application
-            'Dim ExcelDoc As Microsoft.Office.Interop.Excel.Workbook
-            Dim i, j As Integer
-
-            If ExcelApp.Visible = False Then
-                ExcelApp.Visible = True
-            End If
-
-            If dgvCMSWarning.RowCount <> 0 Then
-                With ExcelApp
-                    .SheetsInNewWorkbook = 1
-                    .Workbooks.Add()
-                    .Worksheets(1).Select()
-
-                    'For displaying the column name in the the excel file.
-                    For i = 0 To dgvCMSWarning.ColumnCount - 1
-                        .Cells(1, i + 1) = dgvCMSWarning.Columns(i).HeaderText.ToString
-                    Next
-
-                    For i = 0 To dgvCMSWarning.ColumnCount - 1
-                        For j = 0 To dgvCMSWarning.RowCount - 1
-                            .Cells(j + 2, i + 1).numberformat = "@"
-                            .Cells(j + 2, i + 1).value = dgvCMSWarning.Item(i, j).Value.ToString
-                        Next
-                    Next
-                End With
-                If ExcelApp.Visible = False Then
-                    ExcelApp.Visible = True
-                End If
-            End If
-
-        Catch ex As Exception
-            If ex.ToString.Contains("RPC_E_CALL_REJECTED") Then
-                MsgBox("Error in exporting data." & vbCrLf & "Please run the export again.")
-            Else
-                ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-            End If
-        End Try
-    End Sub
-    Sub ExportPollutantsToExcel()
-        'Dim ExcelApp As New Excel.Application
-        Dim ExcelApp As New Microsoft.Office.Interop.Excel.Application
-        'Dim ExcelDoc As Microsoft.Office.Interop.Excel.Workbook
-        Dim i, j As Integer
-
-        Try
-
-            If ExcelApp.Visible = False Then
-                ExcelApp.Visible = True
-            End If
-            If dgvPollutantFacilities.RowCount <> 0 Then
-                With ExcelApp
-                    .SheetsInNewWorkbook = 1
-                    .Workbooks.Add()
-                    .Worksheets(1).Select()
-
-                    'For displaying the column name in the the excel file.
-                    For i = 0 To dgvPollutantFacilities.ColumnCount - 1
-                        .Cells(1, i + 1) = dgvPollutantFacilities.Columns(i).HeaderText.ToString
-                    Next
-
-                    For i = 0 To dgvPollutantFacilities.ColumnCount - 1
-                        For j = 0 To dgvPollutantFacilities.RowCount - 1
-                            .Cells(j + 2, i + 1).numberformat = "@"
-                            .Cells(j + 2, i + 1).value = dgvPollutantFacilities.Item(i, j).Value.ToString
-                        Next
-                    Next
-
-                End With
-                If ExcelApp.Visible = False Then
-                    ExcelApp.Visible = True
-                End If
-            End If
-
-        Catch ex As Exception
-            If ex.ToString.Contains("RPC_E_CALL_REJECTED") Then
-                MsgBox("Error in exporting data." & vbCrLf & "Please run the export again.")
-            Else
-                ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-            End If
-        Finally
-            If Conn.State = ConnectionState.Open Then
-                'conn.close()
-            End If
-        End Try
-
-    End Sub
     Sub PrintStaffReport()
         Try
             'Dim WordApp As New Word.ApplicationClass
@@ -5168,42 +4699,6 @@ Public Class SSCPManagersTools
         End Try
 
     End Sub
-    Private Sub lblViewEngineerSchedule_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lblViewEngineerSchedule.LinkClicked
-        Try
-
-            ViewEngineerSchedule()
-        Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
-    End Sub
-    Private Sub lblLockSchedule_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lblLockSchedule.LinkClicked
-        Try
-
-            LockInspectionSchedule()
-        Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
-    End Sub
-    Private Sub lblUnlockSchedule_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lblUnlockSchedule.LinkClicked
-        Try
-
-            UnLockInspectionSchedule()
-        Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
-    End Sub
-    Private Sub lblExportScheduleToExcel_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lblExportScheduleToExcel.LinkClicked
-        Try
-
-            ExportToExcel()
-        Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
-    End Sub
     Private Sub llbViewCMSUniverse_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbViewCMSUniverse.LinkClicked
         Try
 
@@ -5517,17 +5012,6 @@ Public Class SSCPManagersTools
         End Try
 
     End Sub
-    Private Sub llbExportCMSWarningToExcel_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbExportCMSWarningToExcel.LinkClicked
-        Try
-
-            If txtCMSWarningCount.Text <> "" Or txtCMSWarningCount.Text <> "0" Then
-                ExportCMSWarningToExcel()
-            End If
-        Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
-    End Sub
     Private Sub llbPrintStaffReport_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbPrintStaffReport.LinkClicked
         Try
             If rtbInspectionReport.Text <> "" Then
@@ -5574,17 +5058,6 @@ Public Class SSCPManagersTools
                 End If
             End If
 
-        Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
-    End Sub
-    Private Sub llbExportPollutantsToExcel_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbExportPollutantsToExcel.LinkClicked
-        Try
-
-            If txtCMSWarningCount.Text <> "" Or txtCMSWarningCount.Text <> "0" Then
-                ExportPollutantsToExcel()
-            End If
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -9578,58 +9051,6 @@ Public Class SSCPManagersTools
         End Try
     End Sub
 
-    Private Sub btnExportMiscToExcel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnExportMiscToExcel.Click
-        Try
-            'Dim ExcelApp As New Excel.Application
-            Dim ExcelApp As New Microsoft.Office.Interop.Excel.Application
-            'Dim ExcelDoc As Microsoft.Office.Interop.Excel.Workbook
-            Dim i, j As Integer
-
-            If ExcelApp.Visible = False Then
-                ExcelApp.Visible = True
-            End If
-
-            If dgvMiscReport.RowCount <> 0 Then
-                With ExcelApp
-                    .SheetsInNewWorkbook = 1
-                    .Workbooks.Add()
-                    .Worksheets(1).Select()
-
-                    'For displaying the column name in the the excel file.
-                    For i = 0 To dgvMiscReport.ColumnCount - 1
-                        If IsDBNull(dgvMiscReport.Columns(i).HeaderText.ToString) Then
-                            .Cells(1, i + 1) = "No Header"
-                        Else
-                            .Cells(1, i + 1) = dgvMiscReport.Columns(i).HeaderText.ToString
-                        End If
-                    Next
-
-                    For i = 0 To dgvMiscReport.ColumnCount - 1
-                        For j = 0 To dgvMiscReport.RowCount - 1
-                            If IsDBNull(dgvMiscReport.Item(i, j).Value.ToString) Then
-                                .Cells(j + 2, i + 1).numberformat = "@"
-                                .Cells(j + 2, i + 1).value = "  "
-                            Else
-                                .Cells(j + 2, i + 1).numberformat = "@"
-                                .Cells(j + 2, i + 1).value = dgvMiscReport.Item(i, j).Value.ToString
-                            End If
-
-                        Next
-                    Next
-                End With
-                If ExcelApp.Visible = False Then
-                    ExcelApp.Visible = True
-                End If
-            End If
-
-        Catch ex As Exception
-            If ex.ToString.Contains("RPC_E_CALL_REJECTED") Then
-                MsgBox("Error in exporting data." & vbCrLf & "Please run the export again.")
-            Else
-                ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-            End If
-        End Try
-    End Sub
 
     Private Sub txtManualAIRSNumber_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txtManualAIRSNumber.KeyPress
         Try
@@ -9644,9 +9065,23 @@ Public Class SSCPManagersTools
         End Try
     End Sub
 
+#Region "Export to Excel"
+
     Private Sub btnExportToExcel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnExportToExcel.Click
-        If dgvStatisticalReports.RowCount > 0 Then
-            dgvStatisticalReports.ExportToExcel()
-        End If
+        If dgvStatisticalReports.RowCount > 0 Then dgvStatisticalReports.ExportToExcel()
+    End Sub
+
+    Private Sub btnExportMiscToExcel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnExportMiscToExcel.Click
+        If dgvMiscReport.RowCount > 0 Then dgvMiscReport.ExportToExcel()
+    End Sub
+
+    Private Sub btnExportCmsWarningToExcel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnExportCmsWarningToExcel.Click
+        If dgvCMSUniverse.RowCount > 0 Then dgvCMSWarning.ExportToExcel()
+    End Sub
+
+#End Region
+
+    Private Sub btnExportPollutantsToExcel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnExportPollutantsToExcel.Click
+        If dgvPollutantFacilities.RowCount > 0 Then dgvPollutantFacilities.ExportToExcel()
     End Sub
 End Class

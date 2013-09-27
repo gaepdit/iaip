@@ -20,9 +20,9 @@ Partial Class SSCPManagersTools
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(SSCPManagersTools))
         Me.chbALLDates = New System.Windows.Forms.CheckBox
         Me.txtUserSSCPUnit = New System.Windows.Forms.TextBox
@@ -30,7 +30,6 @@ Partial Class SSCPManagersTools
         Me.Label27 = New System.Windows.Forms.Label
         Me.DTPStartDate = New System.Windows.Forms.DateTimePicker
         Me.Label28 = New System.Windows.Forms.Label
-        Me.llbExportCMSWarningToExcel = New System.Windows.Forms.LinkLabel
         Me.Label10 = New System.Windows.Forms.Label
         Me.llbPrintStaffReport = New System.Windows.Forms.LinkLabel
         Me.Label21 = New System.Windows.Forms.Label
@@ -72,12 +71,6 @@ Partial Class SSCPManagersTools
         Me.rtbInspectionReport = New System.Windows.Forms.RichTextBox
         Me.TPStaffReports = New System.Windows.Forms.TabPage
         Me.Panel7 = New System.Windows.Forms.Panel
-        Me.clbEngineerInspections = New System.Windows.Forms.CheckedListBox
-        Me.lblUnlockSchedule = New System.Windows.Forms.LinkLabel
-        Me.lblLockSchedule = New System.Windows.Forms.LinkLabel
-        Me.lblExportScheduleToExcel = New System.Windows.Forms.LinkLabel
-        Me.Label22 = New System.Windows.Forms.Label
-        Me.lblViewEngineerSchedule = New System.Windows.Forms.LinkLabel
         Me.txtCMSAssignedEngineer2 = New System.Windows.Forms.TextBox
         Me.llbCMSOpenFacilitySummary2 = New System.Windows.Forms.LinkLabel
         Me.txtCMSFacilityName2 = New System.Windows.Forms.TextBox
@@ -103,6 +96,7 @@ Partial Class SSCPManagersTools
         Me.rdbNext60Days = New System.Windows.Forms.RadioButton
         Me.Label30 = New System.Windows.Forms.Label
         Me.PanelCMSWarning = New System.Windows.Forms.Panel
+        Me.btnExportCmsWarningToExcel = New System.Windows.Forms.Button
         Me.txtCMSWarningCount = New System.Windows.Forms.TextBox
         Me.dgvCMSWarning = New System.Windows.Forms.DataGridView
         Me.TPCMSWarning = New System.Windows.Forms.TabPage
@@ -162,17 +156,10 @@ Partial Class SSCPManagersTools
         Me.Label39 = New System.Windows.Forms.Label
         Me.txtAIRSNumberFilter = New System.Windows.Forms.TextBox
         Me.TCManagerTools = New System.Windows.Forms.TabControl
-        Me.TPEngineerInspections = New System.Windows.Forms.TabPage
-        Me.dgrInspectionList = New System.Windows.Forms.DataGrid
-        Me.Splitter1 = New System.Windows.Forms.Splitter
-        Me.Panel4 = New System.Windows.Forms.Panel
-        Me.cboYear = New System.Windows.Forms.ComboBox
-        Me.Label23 = New System.Windows.Forms.Label
         Me.TPPollutantBubbleUp = New System.Windows.Forms.TabPage
         Me.dgvPollutantFacilities = New System.Windows.Forms.DataGridView
         Me.GroupBox5 = New System.Windows.Forms.GroupBox
         Me.txtPollutantCount = New System.Windows.Forms.TextBox
-        Me.llbExportPollutantsToExcel = New System.Windows.Forms.LinkLabel
         Me.txtAIRSNumber = New System.Windows.Forms.TextBox
         Me.btnEditAirProgramPollutants = New System.Windows.Forms.Button
         Me.btnViewFacilities = New System.Windows.Forms.Button
@@ -425,6 +412,7 @@ Partial Class SSCPManagersTools
         Me.MmiHelp = New System.Windows.Forms.MenuItem
         Me.TBSSCPManagersTools = New System.Windows.Forms.ToolBar
         Me.Image_List_All = New System.Windows.Forms.ImageList(Me.components)
+        Me.btnExportPollutantsToExcel = New System.Windows.Forms.Button
         Me.Panel8.SuspendLayout()
         Me.PanelCMSUniverse.SuspendLayout()
         Me.TPUniverse.SuspendLayout()
@@ -444,9 +432,6 @@ Partial Class SSCPManagersTools
         Me.TPSearch.SuspendLayout()
         Me.TPManual.SuspendLayout()
         Me.TCManagerTools.SuspendLayout()
-        Me.TPEngineerInspections.SuspendLayout()
-        CType(Me.dgrInspectionList, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.Panel4.SuspendLayout()
         Me.TPPollutantBubbleUp.SuspendLayout()
         CType(Me.dgvPollutantFacilities, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox5.SuspendLayout()
@@ -556,16 +541,6 @@ Partial Class SSCPManagersTools
         Me.Label28.Size = New System.Drawing.Size(96, 13)
         Me.Label28.TabIndex = 146
         Me.Label28.Text = "Analysis Start Date"
-        '
-        'llbExportCMSWarningToExcel
-        '
-        Me.llbExportCMSWarningToExcel.AutoSize = True
-        Me.llbExportCMSWarningToExcel.Location = New System.Drawing.Point(3, 479)
-        Me.llbExportCMSWarningToExcel.Name = "llbExportCMSWarningToExcel"
-        Me.llbExportCMSWarningToExcel.Size = New System.Drawing.Size(78, 13)
-        Me.llbExportCMSWarningToExcel.TabIndex = 32
-        Me.llbExportCMSWarningToExcel.TabStop = True
-        Me.llbExportCMSWarningToExcel.Text = "Export to Excel"
         '
         'Label10
         '
@@ -973,62 +948,6 @@ Partial Class SSCPManagersTools
         Me.Panel7.Size = New System.Drawing.Size(1184, 202)
         Me.Panel7.TabIndex = 163
         '
-        'clbEngineerInspections
-        '
-        Me.clbEngineerInspections.CheckOnClick = True
-        Me.clbEngineerInspections.Location = New System.Drawing.Point(7, 42)
-        Me.clbEngineerInspections.Name = "clbEngineerInspections"
-        Me.clbEngineerInspections.Size = New System.Drawing.Size(207, 139)
-        Me.clbEngineerInspections.TabIndex = 1
-        '
-        'lblUnlockSchedule
-        '
-        Me.lblUnlockSchedule.AutoSize = True
-        Me.lblUnlockSchedule.Location = New System.Drawing.Point(7, 333)
-        Me.lblUnlockSchedule.Name = "lblUnlockSchedule"
-        Me.lblUnlockSchedule.Size = New System.Drawing.Size(173, 13)
-        Me.lblUnlockSchedule.TabIndex = 5
-        Me.lblUnlockSchedule.TabStop = True
-        Me.lblUnlockSchedule.Text = "Un-Lock Schedule for Current Year"
-        '
-        'lblLockSchedule
-        '
-        Me.lblLockSchedule.AutoSize = True
-        Me.lblLockSchedule.Location = New System.Drawing.Point(7, 312)
-        Me.lblLockSchedule.Name = "lblLockSchedule"
-        Me.lblLockSchedule.Size = New System.Drawing.Size(156, 13)
-        Me.lblLockSchedule.TabIndex = 4
-        Me.lblLockSchedule.TabStop = True
-        Me.lblLockSchedule.Text = "Lock Schedule for Current Year"
-        '
-        'lblExportScheduleToExcel
-        '
-        Me.lblExportScheduleToExcel.AutoSize = True
-        Me.lblExportScheduleToExcel.Location = New System.Drawing.Point(7, 367)
-        Me.lblExportScheduleToExcel.Name = "lblExportScheduleToExcel"
-        Me.lblExportScheduleToExcel.Size = New System.Drawing.Size(126, 13)
-        Me.lblExportScheduleToExcel.TabIndex = 6
-        Me.lblExportScheduleToExcel.TabStop = True
-        Me.lblExportScheduleToExcel.Text = "Export Schedule to Excel"
-        '
-        'Label22
-        '
-        Me.Label22.Location = New System.Drawing.Point(7, 7)
-        Me.Label22.Name = "Label22"
-        Me.Label22.Size = New System.Drawing.Size(183, 31)
-        Me.Label22.TabIndex = 10
-        Me.Label22.Text = "Engineers who have scheduled inspections"
-        '
-        'lblViewEngineerSchedule
-        '
-        Me.lblViewEngineerSchedule.AutoSize = True
-        Me.lblViewEngineerSchedule.Location = New System.Drawing.Point(7, 263)
-        Me.lblViewEngineerSchedule.Name = "lblViewEngineerSchedule"
-        Me.lblViewEngineerSchedule.Size = New System.Drawing.Size(134, 13)
-        Me.lblViewEngineerSchedule.TabIndex = 3
-        Me.lblViewEngineerSchedule.TabStop = True
-        Me.lblViewEngineerSchedule.Text = "View Engineer(s) Schedule"
-        '
         'txtCMSAssignedEngineer2
         '
         Me.txtCMSAssignedEngineer2.Location = New System.Drawing.Point(168, 416)
@@ -1242,7 +1161,7 @@ Partial Class SSCPManagersTools
         '
         'PanelCMSWarning
         '
-        Me.PanelCMSWarning.Controls.Add(Me.llbExportCMSWarningToExcel)
+        Me.PanelCMSWarning.Controls.Add(Me.btnExportCmsWarningToExcel)
         Me.PanelCMSWarning.Controls.Add(Me.Label21)
         Me.PanelCMSWarning.Controls.Add(Me.txtCMSAssignedEngineer2)
         Me.PanelCMSWarning.Controls.Add(Me.llbCMSOpenFacilitySummary2)
@@ -1267,6 +1186,15 @@ Partial Class SSCPManagersTools
         Me.PanelCMSWarning.Name = "PanelCMSWarning"
         Me.PanelCMSWarning.Size = New System.Drawing.Size(296, 671)
         Me.PanelCMSWarning.TabIndex = 16
+        '
+        'btnExportCmsWarningToExcel
+        '
+        Me.btnExportCmsWarningToExcel.Location = New System.Drawing.Point(11, 462)
+        Me.btnExportCmsWarningToExcel.Name = "btnExportCmsWarningToExcel"
+        Me.btnExportCmsWarningToExcel.Size = New System.Drawing.Size(123, 28)
+        Me.btnExportCmsWarningToExcel.TabIndex = 33
+        Me.btnExportCmsWarningToExcel.Text = "Export to Excel"
+        Me.btnExportCmsWarningToExcel.UseVisualStyleBackColor = True
         '
         'txtCMSWarningCount
         '
@@ -1814,7 +1742,6 @@ Partial Class SSCPManagersTools
         '
         'TCManagerTools
         '
-        Me.TCManagerTools.Controls.Add(Me.TPEngineerInspections)
         Me.TCManagerTools.Controls.Add(Me.TPStaffReports)
         Me.TCManagerTools.Controls.Add(Me.TPUniverse)
         Me.TCManagerTools.Controls.Add(Me.TPCMSWarning)
@@ -1832,70 +1759,6 @@ Partial Class SSCPManagersTools
         Me.TCManagerTools.TabIndex = 248
         Me.TCManagerTools.TabStop = False
         '
-        'TPEngineerInspections
-        '
-        Me.TPEngineerInspections.Controls.Add(Me.dgrInspectionList)
-        Me.TPEngineerInspections.Controls.Add(Me.Splitter1)
-        Me.TPEngineerInspections.Controls.Add(Me.Panel4)
-        Me.TPEngineerInspections.Location = New System.Drawing.Point(4, 22)
-        Me.TPEngineerInspections.Name = "TPEngineerInspections"
-        Me.TPEngineerInspections.Size = New System.Drawing.Size(1184, 671)
-        Me.TPEngineerInspections.TabIndex = 1
-        Me.TPEngineerInspections.Text = "Engineer Inspection Scheduler"
-        Me.TPEngineerInspections.UseVisualStyleBackColor = True
-        '
-        'dgrInspectionList
-        '
-        Me.dgrInspectionList.DataMember = ""
-        Me.dgrInspectionList.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.dgrInspectionList.HeaderForeColor = System.Drawing.SystemColors.ControlText
-        Me.dgrInspectionList.Location = New System.Drawing.Point(244, 0)
-        Me.dgrInspectionList.Name = "dgrInspectionList"
-        Me.dgrInspectionList.ReadOnly = True
-        Me.dgrInspectionList.Size = New System.Drawing.Size(940, 671)
-        Me.dgrInspectionList.TabIndex = 2
-        '
-        'Splitter1
-        '
-        Me.Splitter1.BackColor = System.Drawing.SystemColors.ActiveCaption
-        Me.Splitter1.Location = New System.Drawing.Point(240, 0)
-        Me.Splitter1.Name = "Splitter1"
-        Me.Splitter1.Size = New System.Drawing.Size(4, 671)
-        Me.Splitter1.TabIndex = 1
-        Me.Splitter1.TabStop = False
-        '
-        'Panel4
-        '
-        Me.Panel4.Controls.Add(Me.cboYear)
-        Me.Panel4.Controls.Add(Me.Label23)
-        Me.Panel4.Controls.Add(Me.clbEngineerInspections)
-        Me.Panel4.Controls.Add(Me.lblUnlockSchedule)
-        Me.Panel4.Controls.Add(Me.lblLockSchedule)
-        Me.Panel4.Controls.Add(Me.lblExportScheduleToExcel)
-        Me.Panel4.Controls.Add(Me.Label22)
-        Me.Panel4.Controls.Add(Me.lblViewEngineerSchedule)
-        Me.Panel4.Dock = System.Windows.Forms.DockStyle.Left
-        Me.Panel4.Location = New System.Drawing.Point(0, 0)
-        Me.Panel4.Name = "Panel4"
-        Me.Panel4.Size = New System.Drawing.Size(240, 671)
-        Me.Panel4.TabIndex = 0
-        '
-        'cboYear
-        '
-        Me.cboYear.Location = New System.Drawing.Point(20, 222)
-        Me.cboYear.Name = "cboYear"
-        Me.cboYear.Size = New System.Drawing.Size(104, 21)
-        Me.cboYear.TabIndex = 2
-        '
-        'Label23
-        '
-        Me.Label23.AutoSize = True
-        Me.Label23.Location = New System.Drawing.Point(7, 208)
-        Me.Label23.Name = "Label23"
-        Me.Label23.Size = New System.Drawing.Size(117, 13)
-        Me.Label23.TabIndex = 15
-        Me.Label23.Text = "Inspection Year (Fiscal)"
-        '
         'TPPollutantBubbleUp
         '
         Me.TPPollutantBubbleUp.Controls.Add(Me.dgvPollutantFacilities)
@@ -1909,42 +1772,42 @@ Partial Class SSCPManagersTools
         '
         'dgvPollutantFacilities
         '
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvPollutantFacilities.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle4.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvPollutantFacilities.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle4
         Me.dgvPollutantFacilities.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvPollutantFacilities.DefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle5.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvPollutantFacilities.DefaultCellStyle = DataGridViewCellStyle5
         Me.dgvPollutantFacilities.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvPollutantFacilities.Location = New System.Drawing.Point(0, 220)
         Me.dgvPollutantFacilities.Name = "dgvPollutantFacilities"
         Me.dgvPollutantFacilities.ReadOnly = True
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvPollutantFacilities.RowHeadersDefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle6.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvPollutantFacilities.RowHeadersDefaultCellStyle = DataGridViewCellStyle6
         Me.dgvPollutantFacilities.Size = New System.Drawing.Size(1184, 451)
         Me.dgvPollutantFacilities.TabIndex = 1
         '
         'GroupBox5
         '
+        Me.GroupBox5.Controls.Add(Me.btnExportPollutantsToExcel)
         Me.GroupBox5.Controls.Add(Me.txtPollutantCount)
-        Me.GroupBox5.Controls.Add(Me.llbExportPollutantsToExcel)
         Me.GroupBox5.Controls.Add(Me.txtAIRSNumber)
         Me.GroupBox5.Controls.Add(Me.btnEditAirProgramPollutants)
         Me.GroupBox5.Controls.Add(Me.btnViewFacilities)
@@ -1975,16 +1838,6 @@ Partial Class SSCPManagersTools
         Me.txtPollutantCount.ReadOnly = True
         Me.txtPollutantCount.Size = New System.Drawing.Size(56, 20)
         Me.txtPollutantCount.TabIndex = 314
-        '
-        'llbExportPollutantsToExcel
-        '
-        Me.llbExportPollutantsToExcel.AutoSize = True
-        Me.llbExportPollutantsToExcel.Location = New System.Drawing.Point(432, 194)
-        Me.llbExportPollutantsToExcel.Name = "llbExportPollutantsToExcel"
-        Me.llbExportPollutantsToExcel.Size = New System.Drawing.Size(78, 13)
-        Me.llbExportPollutantsToExcel.TabIndex = 313
-        Me.llbExportPollutantsToExcel.TabStop = True
-        Me.llbExportPollutantsToExcel.Text = "Export to Excel"
         '
         'txtAIRSNumber
         '
@@ -4575,6 +4428,15 @@ Partial Class SSCPManagersTools
         Me.Image_List_All.Images.SetKeyName(83, "")
         Me.Image_List_All.Images.SetKeyName(84, "")
         '
+        'btnExportPollutantsToExcel
+        '
+        Me.btnExportPollutantsToExcel.Location = New System.Drawing.Point(435, 189)
+        Me.btnExportPollutantsToExcel.Name = "btnExportPollutantsToExcel"
+        Me.btnExportPollutantsToExcel.Size = New System.Drawing.Size(111, 22)
+        Me.btnExportPollutantsToExcel.TabIndex = 315
+        Me.btnExportPollutantsToExcel.Text = "Export to Excel"
+        Me.btnExportPollutantsToExcel.UseVisualStyleBackColor = True
+        '
         'SSCPManagersTools
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -4614,10 +4476,6 @@ Partial Class SSCPManagersTools
         Me.TPManual.ResumeLayout(False)
         Me.TPManual.PerformLayout()
         Me.TCManagerTools.ResumeLayout(False)
-        Me.TPEngineerInspections.ResumeLayout(False)
-        CType(Me.dgrInspectionList, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.Panel4.ResumeLayout(False)
-        Me.Panel4.PerformLayout()
         Me.TPPollutantBubbleUp.ResumeLayout(False)
         CType(Me.dgvPollutantFacilities, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox5.ResumeLayout(False)
@@ -4702,7 +4560,6 @@ Partial Class SSCPManagersTools
     Friend WithEvents Label27 As System.Windows.Forms.Label
     Friend WithEvents DTPStartDate As System.Windows.Forms.DateTimePicker
     Friend WithEvents Label28 As System.Windows.Forms.Label
-    Friend WithEvents llbExportCMSWarningToExcel As System.Windows.Forms.LinkLabel
     Friend WithEvents Label10 As System.Windows.Forms.Label
     Friend WithEvents llbPrintStaffReport As System.Windows.Forms.LinkLabel
     Friend WithEvents Label21 As System.Windows.Forms.Label
@@ -4742,12 +4599,6 @@ Partial Class SSCPManagersTools
     Friend WithEvents rtbInspectionReport As System.Windows.Forms.RichTextBox
     Friend WithEvents TPStaffReports As System.Windows.Forms.TabPage
     Friend WithEvents Panel7 As System.Windows.Forms.Panel
-    Friend WithEvents clbEngineerInspections As System.Windows.Forms.CheckedListBox
-    Friend WithEvents lblUnlockSchedule As System.Windows.Forms.LinkLabel
-    Friend WithEvents lblLockSchedule As System.Windows.Forms.LinkLabel
-    Friend WithEvents lblExportScheduleToExcel As System.Windows.Forms.LinkLabel
-    Friend WithEvents Label22 As System.Windows.Forms.Label
-    Friend WithEvents lblViewEngineerSchedule As System.Windows.Forms.LinkLabel
     Friend WithEvents txtCMSAssignedEngineer2 As System.Windows.Forms.TextBox
     Friend WithEvents llbCMSOpenFacilitySummary2 As System.Windows.Forms.LinkLabel
     Friend WithEvents txtCMSFacilityName2 As System.Windows.Forms.TextBox
@@ -4827,12 +4678,6 @@ Partial Class SSCPManagersTools
     Friend WithEvents txtAIRSNumberFilter As System.Windows.Forms.TextBox
     Friend WithEvents txtCount As System.Windows.Forms.TextBox
     Friend WithEvents TCManagerTools As System.Windows.Forms.TabControl
-    Friend WithEvents TPEngineerInspections As System.Windows.Forms.TabPage
-    Friend WithEvents dgrInspectionList As System.Windows.Forms.DataGrid
-    Friend WithEvents Splitter1 As System.Windows.Forms.Splitter
-    Friend WithEvents Panel4 As System.Windows.Forms.Panel
-    Friend WithEvents cboYear As System.Windows.Forms.ComboBox
-    Friend WithEvents Label23 As System.Windows.Forms.Label
     Friend WithEvents TbbFind As System.Windows.Forms.ToolBarButton
     Friend WithEvents TbbClear As System.Windows.Forms.ToolBarButton
     Friend WithEvents TbbExit As System.Windows.Forms.ToolBarButton
@@ -4872,7 +4717,6 @@ Partial Class SSCPManagersTools
     Friend WithEvents btnViewFacilities As System.Windows.Forms.Button
     Friend WithEvents btnEditAirProgramPollutants As System.Windows.Forms.Button
     Friend WithEvents txtAIRSNumber As System.Windows.Forms.TextBox
-    Friend WithEvents llbExportPollutantsToExcel As System.Windows.Forms.LinkLabel
     Friend WithEvents txtPollutantCount As System.Windows.Forms.TextBox
     Friend WithEvents TPStatisticalPage As System.Windows.Forms.TabPage
     Friend WithEvents btnRunStatisticalReport As System.Windows.Forms.Button
@@ -5097,4 +4941,6 @@ Partial Class SSCPManagersTools
     Friend WithEvents Label67 As System.Windows.Forms.Label
     Friend WithEvents btnExportMiscToExcel As System.Windows.Forms.Button
     Friend WithEvents btnExportToExcel As System.Windows.Forms.Button
+    Friend WithEvents btnExportCmsWarningToExcel As System.Windows.Forms.Button
+    Friend WithEvents btnExportPollutantsToExcel As System.Windows.Forms.Button
 End Class
