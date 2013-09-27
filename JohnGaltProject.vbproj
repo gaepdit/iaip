@@ -1876,7 +1876,6 @@
     <Folder Include="Crystal Reports\Oracle 10.1\ISMP\" />
     <Folder Include="Crystal Reports\Oracle 9.2\PASP\" />
     <Folder Include="Crystal Reports\Oracle 9.2\SSCP\" />
-    <Folder Include="IAIP-Installer\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
   <PropertyGroup>
