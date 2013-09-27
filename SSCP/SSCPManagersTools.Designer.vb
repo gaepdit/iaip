@@ -20,9 +20,9 @@ Partial Class SSCPManagersTools
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container
-        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle12 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(SSCPManagersTools))
         Me.chbALLDates = New System.Windows.Forms.CheckBox
         Me.txtUserSSCPUnit = New System.Windows.Forms.TextBox
@@ -338,11 +338,6 @@ Partial Class SSCPManagersTools
         Me.txtMiscReportCount = New System.Windows.Forms.TextBox
         Me.Label67 = New System.Windows.Forms.Label
         Me.btnRunComplianceReport = New System.Windows.Forms.Button
-        Me.TbbFind = New System.Windows.Forms.ToolBarButton
-        Me.TbbClear = New System.Windows.Forms.ToolBarButton
-        Me.TbbExit = New System.Windows.Forms.ToolBarButton
-        Me.TbbBack = New System.Windows.Forms.ToolBarButton
-        Me.TbbSave = New System.Windows.Forms.ToolBarButton
         Me.MmiEdit = New System.Windows.Forms.MenuItem
         Me.MmiBack = New System.Windows.Forms.MenuItem
         Me.MainMenu1 = New System.Windows.Forms.MainMenu(Me.components)
@@ -354,7 +349,6 @@ Partial Class SSCPManagersTools
         Me.MenuItem7 = New System.Windows.Forms.MenuItem
         Me.MmiToolbar = New System.Windows.Forms.MenuItem
         Me.MmiHelp = New System.Windows.Forms.MenuItem
-        Me.TBSSCPManagersTools = New System.Windows.Forms.ToolBar
         Me.Image_List_All = New System.Windows.Forms.ImageList(Me.components)
         Me.Panel8.SuspendLayout()
         Me.PanelCMSUniverse.SuspendLayout()
@@ -1182,10 +1176,10 @@ Partial Class SSCPManagersTools
         Me.TCManagerTools.Controls.Add(Me.TPWatchList)
         Me.TCManagerTools.Controls.Add(Me.TPMiscReports)
         Me.TCManagerTools.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TCManagerTools.Location = New System.Drawing.Point(0, 28)
+        Me.TCManagerTools.Location = New System.Drawing.Point(0, 0)
         Me.TCManagerTools.Name = "TCManagerTools"
         Me.TCManagerTools.SelectedIndex = 0
-        Me.TCManagerTools.Size = New System.Drawing.Size(1192, 697)
+        Me.TCManagerTools.Size = New System.Drawing.Size(1192, 725)
         Me.TCManagerTools.TabIndex = 248
         Me.TCManagerTools.TabStop = False
         '
@@ -1202,35 +1196,35 @@ Partial Class SSCPManagersTools
         '
         'dgvPollutantFacilities
         '
-        DataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle7.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvPollutantFacilities.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle7
+        DataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle10.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvPollutantFacilities.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle10
         Me.dgvPollutantFacilities.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle8.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvPollutantFacilities.DefaultCellStyle = DataGridViewCellStyle8
+        DataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle11.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvPollutantFacilities.DefaultCellStyle = DataGridViewCellStyle11
         Me.dgvPollutantFacilities.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvPollutantFacilities.Location = New System.Drawing.Point(0, 220)
         Me.dgvPollutantFacilities.Name = "dgvPollutantFacilities"
         Me.dgvPollutantFacilities.ReadOnly = True
-        DataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle9.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvPollutantFacilities.RowHeadersDefaultCellStyle = DataGridViewCellStyle9
+        DataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle12.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle12.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle12.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvPollutantFacilities.RowHeadersDefaultCellStyle = DataGridViewCellStyle12
         Me.dgvPollutantFacilities.Size = New System.Drawing.Size(1184, 451)
         Me.dgvPollutantFacilities.TabIndex = 1
         '
@@ -2495,7 +2489,7 @@ Partial Class SSCPManagersTools
         Me.TPFacilityAssignments.Controls.Add(Me.pnlFacilityAssignments)
         Me.TPFacilityAssignments.Location = New System.Drawing.Point(4, 22)
         Me.TPFacilityAssignments.Name = "TPFacilityAssignments"
-        Me.TPFacilityAssignments.Size = New System.Drawing.Size(1184, 671)
+        Me.TPFacilityAssignments.Size = New System.Drawing.Size(1184, 699)
         Me.TPFacilityAssignments.TabIndex = 8
         Me.TPFacilityAssignments.Text = "Facility Assignments"
         Me.TPFacilityAssignments.UseVisualStyleBackColor = True
@@ -2523,7 +2517,7 @@ Partial Class SSCPManagersTools
         Me.Panel10.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel10.Location = New System.Drawing.Point(324, 451)
         Me.Panel10.Name = "Panel10"
-        Me.Panel10.Size = New System.Drawing.Size(860, 220)
+        Me.Panel10.Size = New System.Drawing.Size(860, 248)
         Me.Panel10.TabIndex = 420
         '
         'GroupBox9
@@ -2819,7 +2813,7 @@ Partial Class SSCPManagersTools
         Me.Panel9.Dock = System.Windows.Forms.DockStyle.Left
         Me.Panel9.Location = New System.Drawing.Point(0, 451)
         Me.Panel9.Name = "Panel9"
-        Me.Panel9.Size = New System.Drawing.Size(324, 220)
+        Me.Panel9.Size = New System.Drawing.Size(324, 248)
         Me.Panel9.TabIndex = 419
         '
         'TCNewFacilitySearch
@@ -2832,7 +2826,7 @@ Partial Class SSCPManagersTools
         Me.TCNewFacilitySearch.Location = New System.Drawing.Point(0, 0)
         Me.TCNewFacilitySearch.Name = "TCNewFacilitySearch"
         Me.TCNewFacilitySearch.SelectedIndex = 0
-        Me.TCNewFacilitySearch.Size = New System.Drawing.Size(324, 220)
+        Me.TCNewFacilitySearch.Size = New System.Drawing.Size(324, 248)
         Me.TCNewFacilitySearch.TabIndex = 36
         '
         'TabPage1
@@ -2873,7 +2867,7 @@ Partial Class SSCPManagersTools
         Me.TabPage1.Location = New System.Drawing.Point(4, 22)
         Me.TabPage1.Name = "TabPage1"
         Me.TabPage1.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage1.Size = New System.Drawing.Size(316, 194)
+        Me.TabPage1.Size = New System.Drawing.Size(316, 222)
         Me.TabPage1.TabIndex = 0
         Me.TabPage1.Text = "Search && Sort Options"
         Me.TabPage1.UseVisualStyleBackColor = True
@@ -3661,33 +3655,6 @@ Partial Class SSCPManagersTools
         Me.btnRunComplianceReport.Text = "Run Compliance Report"
         Me.btnRunComplianceReport.UseVisualStyleBackColor = True
         '
-        'TbbFind
-        '
-        Me.TbbFind.ImageIndex = 3
-        Me.TbbFind.Name = "TbbFind"
-        '
-        'TbbClear
-        '
-        Me.TbbClear.ImageIndex = 84
-        Me.TbbClear.Name = "TbbClear"
-        '
-        'TbbExit
-        '
-        Me.TbbExit.ImageIndex = 81
-        Me.TbbExit.Name = "TbbExit"
-        Me.TbbExit.Visible = False
-        '
-        'TbbBack
-        '
-        Me.TbbBack.ImageIndex = 2
-        Me.TbbBack.Name = "TbbBack"
-        '
-        'TbbSave
-        '
-        Me.TbbSave.ImageIndex = 65
-        Me.TbbSave.Name = "TbbSave"
-        Me.TbbSave.Visible = False
-        '
         'MmiEdit
         '
         Me.MmiEdit.Index = 1
@@ -3744,18 +3711,6 @@ Partial Class SSCPManagersTools
         '
         Me.MmiHelp.Index = 3
         Me.MmiHelp.Text = "Help"
-        '
-        'TBSSCPManagersTools
-        '
-        Me.TBSSCPManagersTools.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.TbbSave, Me.TbbFind, Me.TbbClear, Me.TbbBack, Me.TbbExit})
-        Me.TBSSCPManagersTools.DropDownArrows = True
-        Me.TBSSCPManagersTools.ImageList = Me.Image_List_All
-        Me.TBSSCPManagersTools.Location = New System.Drawing.Point(0, 0)
-        Me.TBSSCPManagersTools.Name = "TBSSCPManagersTools"
-        Me.TBSSCPManagersTools.ShowToolTips = True
-        Me.TBSSCPManagersTools.Size = New System.Drawing.Size(1192, 28)
-        Me.TBSSCPManagersTools.TabIndex = 249
-        Me.TBSSCPManagersTools.Visible = False
         '
         'Image_List_All
         '
@@ -3854,7 +3809,6 @@ Partial Class SSCPManagersTools
         Me.AutoScroll = True
         Me.ClientSize = New System.Drawing.Size(1192, 725)
         Me.Controls.Add(Me.TCManagerTools)
-        Me.Controls.Add(Me.TBSSCPManagersTools)
         Me.Menu = Me.MainMenu1
         Me.Name = "SSCPManagersTools"
         Me.Text = "Compliance Managers Tools"
@@ -3949,7 +3903,6 @@ Partial Class SSCPManagersTools
         Me.Panel19.ResumeLayout(False)
         Me.Panel19.PerformLayout()
         Me.ResumeLayout(False)
-        Me.PerformLayout()
 
     End Sub
     Friend WithEvents chbALLDates As System.Windows.Forms.CheckBox
@@ -4023,11 +3976,6 @@ Partial Class SSCPManagersTools
     Friend WithEvents TPCMSWarning As System.Windows.Forms.TabPage
     Friend WithEvents Splitter3 As System.Windows.Forms.Splitter
     Friend WithEvents TCManagerTools As System.Windows.Forms.TabControl
-    Friend WithEvents TbbFind As System.Windows.Forms.ToolBarButton
-    Friend WithEvents TbbClear As System.Windows.Forms.ToolBarButton
-    Friend WithEvents TbbExit As System.Windows.Forms.ToolBarButton
-    Friend WithEvents TbbBack As System.Windows.Forms.ToolBarButton
-    Friend WithEvents TbbSave As System.Windows.Forms.ToolBarButton
     Friend WithEvents MmiEdit As System.Windows.Forms.MenuItem
     Friend WithEvents MmiBack As System.Windows.Forms.MenuItem
     Friend WithEvents MainMenu1 As System.Windows.Forms.MainMenu
@@ -4039,7 +3987,6 @@ Partial Class SSCPManagersTools
     Friend WithEvents MenuItem7 As System.Windows.Forms.MenuItem
     Friend WithEvents MmiToolbar As System.Windows.Forms.MenuItem
     Friend WithEvents MmiHelp As System.Windows.Forms.MenuItem
-    Friend WithEvents TBSSCPManagersTools As System.Windows.Forms.ToolBar
     Friend WithEvents Image_List_All As System.Windows.Forms.ImageList
     Friend WithEvents TPPollutantBubbleUp As System.Windows.Forms.TabPage
     Friend WithEvents GroupBox5 As System.Windows.Forms.GroupBox
