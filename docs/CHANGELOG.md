@@ -5,11 +5,11 @@ IAIP Changelog
 
 See the [Readme file](README.html).
 
-## Version 2.6.6.1 <span>(2013-09-26)</span>
+## Version 2.6.6.2 <span>(2013-09-26)</span>
 
 + NEW: *Navigation Screen* – Added ability to export grid to Excel (#58)
 + NEW: *Smoke School* – Export to Excel works better
-+ NEW: *SSCP* – Added Excel export to SSCP Managers statistical Reports tab (#59)
++ NEW: *SSCP* – Added Excel export to SSCP Managers statistical reports tab (#59)
 + NEW: Added new About page and Changelog
 + FIX: *SSPP* – New error message when uploading permit docs (#118)
 
