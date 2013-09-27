@@ -6,12 +6,7 @@ Imports System.IO
 Imports System.Windows.Forms
 
 Public Class SSCPManagersTools
-    Dim statusBar1 As New StatusBar
-    Dim panel1 As New StatusBarPanel
-    Dim panel2 As New StatusBarPanel
-    Dim panel3 As New StatusBarPanel
-    Dim Panel1temp As String
-
+    
     Dim SQL As String
     Dim cmd, cmd2, cmd3 As OracleCommand
     Dim dr, dr2, dr3 As OracleDataReader
@@ -65,8 +60,6 @@ Public Class SSCPManagersTools
         monitor.TrackFeature("Forms." & Me.Name)
         Try
 
-
-            CreateStatusBar()
             LoadDataSets()
             LoadComboBoxes()
 
@@ -127,45 +120,6 @@ Public Class SSCPManagersTools
     End Sub
 
 #Region "Page Load subs"
-    Sub CreateStatusBar()
-        Try
-
-            panel1.Text = "Select a Function..."
-            panel2.Text = UserName
-            panel3.Text = OracleDate
-
-            panel1.AutoSize = StatusBarPanelAutoSize.Spring
-            panel2.AutoSize = StatusBarPanelAutoSize.Contents
-            panel3.AutoSize = StatusBarPanelAutoSize.Contents
-
-            panel1.BorderStyle = StatusBarPanelBorderStyle.Sunken
-            panel2.BorderStyle = StatusBarPanelBorderStyle.Sunken
-            panel3.BorderStyle = StatusBarPanelBorderStyle.Sunken
-
-            panel1.Alignment = HorizontalAlignment.Left
-            panel2.Alignment = HorizontalAlignment.Left
-            panel3.Alignment = HorizontalAlignment.Right
-
-            ' Display panels in the StatusBar control.
-            statusBar1.ShowPanels = True
-
-            ' Add both panels to the StatusBarPanelCollection of the StatusBar.            
-            statusBar1.Panels.Add(panel1)
-            statusBar1.Panels.Add(panel2)
-            statusBar1.Panels.Add(panel3)
-            pnlDistResp1.Visible = False
-            pnlDistResp2.Visible = False
-            cboOpStatus1.Visible = False
-            cboOpStatus2.Visible = False
-
-            ' Add the StatusBar to the form.
-            Me.Controls.Add(statusBar1)
-        Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
-
-    End Sub
     Sub LoadDataSets()
         Try
 
@@ -5116,156 +5070,6 @@ Public Class SSCPManagersTools
     Private Sub btnFilterManualAIRSList_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnFilterManualAIRSList.Click
         Try
             LoadFacilitySearch("Manual")
-            Exit Sub
-            '   Dim SQLLine As String = ""
-            '   Dim TotalText As String = ""
-
-            '   'If chbViewAllFields.Checked = True Then
-            '   '    chbViewAllFields.Checked = False
-            '   'End If
-            '   If chbIgnoreFiscalYear.Checked = True Then
-            '       chbIgnoreFiscalYear.Checked = False
-            '   End If
-
-            '   TotalText = txtManualAIRSNumber.Text
-            '   SQLLine = ""
-
-            '   'SQL = "Select " & _
-            '   '"distinct(substr(" & DBNameSpace & ".VW_SSCP_MT_FacilityAssignment.strAIRSNumber, 5)) as AIRSNumber, strFacilityName, " & _
-            '   '"strFacilityCity, " & _
-            '   '"strCMSMember, " & _
-            '   '"strClass, strOperationalStatus, " & _
-            '   '"LastInspection," & _
-            '   '"LastFCE, " & _
-            '   '"(strLastName||', '||strFirstName) as SSCPEngineer, " & _
-            '   '"strUnitDesc," & _
-            '   '" strDistrictResponsible, " & _
-            '   '"strCountyName " & _
-            '   '"from " & DBNameSpace & ".VW_SSCP_MT_FacilityAssignment, " & _
-            '   '"" & DBNameSpace & ".EPDUserProfiles, " & _
-            '   '"" & DBNameSpace & ".SSCPInspectionsRequired, " & _
-            '   '"" & DBNameSpace & ".LookUpEPDUnits " & _
-            '   '"where " & DBNameSpace & ".SSCPInspectionsRequired.numSSCPEngineer = " & DBNameSpace & ".EPDUserProfiles.numUserID (+) " & _
-            '   '"and " & DBNameSpace & ".SSCPInspectionsRequired.numSSCPUnit = " & DBNameSpace & ".LookUpEPDunits.numUnitCode (+) " & _
-            '   '"and " & DBNameSpace & ".VW_SSCP_MT_FacilityAssignment.strairsnumber = " & DBNameSpace & ".sscpinspectionsrequired.strairsnumber (+) " & _
-            '   '"and intyear = '" & cboFiscalYear.Text & "' "
-
-            '   SQL = "Select " & _
-            '   "substr(" & DBNameSpace & ".VW_SSCP_MT_FacilityAssignment.strAIRSNumber, 5) as AIRSNumber, strFacilityName, " & _
-            '   "strFacilityCity, " & _
-            '   "strCMSMember, " & _
-            '   " strClass, strOperationalStatus, " & _
-            '   " case " & _
-            '   " when strInspectionRequired = 'True' then 'True' " & _
-            '   " when strinspectionrequired = 'False' then 'False' " & _
-            '   " when strInspectionRequired is null then 'False' " & _
-            '   " end InspectionRequired, " & _
-            '   " LastInspection," & _
-            '   "   case " & _
-            '   " when strFCERequired = 'True' then 'True' " & _
-            '   " when strFCERequired = 'False' then 'False' " & _
-            '   " when strFCERequired is null then 'False' " & _
-            '   " end FCERequired, " & _
-            '   "   LastFCE, " & _
-            '   "(strLastName||', '||strFirstName) as SSCPEngineer, " & _
-            '   "  strUnitDesc," & _
-            '   "   strDistrictResponsible, " & _
-            '   "  strCountyName " & _
-            '   " from " & DBNameSpace & ".VW_SSCP_MT_FacilityAssignment, " & _
-            '   "" & DBNameSpace & ".EPDUserProfiles, " & _
-            '   " " & DBNameSpace & ".SSCPInspectionsRequired, " & _
-            '   "" & DBNameSpace & ".LookUpEPDUnits " & _
-            ' " where " & DBNameSpace & ".SSCPInspectionsRequired.numSSCPEngineer = " & DBNameSpace & ".EPDUserProfiles.numUserID (+) " & _
-            '  "and " & DBNameSpace & ".SSCPInspectionsRequired.numSSCPUnit = " & DBNameSpace & ".LookUpEPDunits.numUnitCode (+) " & _
-            '" and " & DBNameSpace & ".VW_SSCP_MT_FacilityAssignment.strairsnumber = " & DBNameSpace & ".sscpinspectionsrequired.strairsnumber (+) " & _
-            '  " and " & DBNameSpace & ".sscpinspectionsrequired.intYear = '" & cboFiscalYear.Text & "' "
-
-            '   Do While TotalText <> ""
-            '       SQLLine = SQLLine & " " & DBNameSpace & ".VW_SSCP_MT_FacilityAssignment.strairsnumber = '0413" & Mid(TotalText, 1, 8) & "' or "
-            '       If TotalText.Length > 10 Then
-            '           TotalText = Microsoft.VisualBasic.Right(TotalText, TotalText.Length - 10)
-            '       Else
-            '           TotalText = ""
-            '       End If
-            '   Loop
-
-            '   If SQLLine <> "" Then
-            '       SQL = SQL & " and ( " & Mid(SQLLine, 1, SQLLine.Length - 4) & " ) "
-            '   End If
-
-            '   ds = New DataSet
-            '   da = New OracleDataAdapter(SQL, conn)
-            '   If conn.State = ConnectionState.Closed Then
-            '       conn.Open()
-            '   End If
-            '   da.Fill(ds, "FacilitySearch")
-            '   dgvFilteredFacilityList.DataSource = ds
-            '   dgvFilteredFacilityList.DataMember = "FacilitySearch"
-
-            '   dgvFilteredFacilityList.RowHeadersVisible = False
-            '   dgvFilteredFacilityList.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            '   dgvFilteredFacilityList.AllowUserToResizeColumns = True
-            '   dgvFilteredFacilityList.AllowUserToAddRows = False
-            '   dgvFilteredFacilityList.AllowUserToDeleteRows = False
-            '   dgvFilteredFacilityList.AllowUserToOrderColumns = True
-            '   dgvFilteredFacilityList.AllowUserToResizeRows = True
-
-            '   'dgvFilteredFacilityList.Columns("AIRSNumber").HeaderText = "AIRS #"
-            '   'dgvFilteredFacilityList.Columns("AIRSNumber").DisplayIndex = 0
-            '   'dgvFilteredFacilityList.Columns("strFacilityName").HeaderText = "Facility Name"
-            '   'dgvFilteredFacilityList.Columns("strFacilityName").DisplayIndex = 1
-            '   'dgvFilteredFacilityList.Columns("strFacilityCity").HeaderText = "City"
-            '   'dgvFilteredFacilityList.Columns("strFacilityCity").DisplayIndex = 2
-            '   'dgvFilteredFacilityList.Columns("strCMSMember").HeaderText = "CMS Status"
-            '   'dgvFilteredFacilityList.Columns("strCMSMember").DisplayIndex = 3
-            '   'dgvFilteredFacilityList.Columns("strClass").HeaderText = "Classification"
-            '   'dgvFilteredFacilityList.Columns("strClass").DisplayIndex = 4
-            '   'dgvFilteredFacilityList.Columns("strOperationalStatus").HeaderText = "Operational Status"
-            '   'dgvFilteredFacilityList.Columns("strOperationalStatus").DisplayIndex = 5
-            '   'dgvFilteredFacilityList.Columns("LastInspection").HeaderText = "Last Inspection"
-            '   'dgvFilteredFacilityList.Columns("LastInspection").DisplayIndex = 6
-            '   'dgvFilteredFacilityList.Columns("LastInspection").DefaultCellStyle.Format = "dd-MMM-yyyy"
-            '   'dgvFilteredFacilityList.Columns("LastFCE").HeaderText = "Last FCE"
-            '   'dgvFilteredFacilityList.Columns("LastFCE").DisplayIndex = 7
-            '   'dgvFilteredFacilityList.Columns("LastFCE").DefaultCellStyle.Format = "dd-MMM-yyyy"
-            '   'dgvFilteredFacilityList.Columns("SSCPEngineer").HeaderText = "SSCP Engineer"
-            '   'dgvFilteredFacilityList.Columns("SSCPEngineer").DisplayIndex = 8
-            '   'dgvFilteredFacilityList.Columns("strUnitDesc").HeaderText = "SSCP Title"
-            '   'dgvFilteredFacilityList.Columns("strUnitDesc").DisplayIndex = 9
-            '   'dgvFilteredFacilityList.Columns("strDistrictResponsible").HeaderText = "District Source"
-            '   'dgvFilteredFacilityList.Columns("strDistrictResponsible").DisplayIndex = 10
-            '   'dgvFilteredFacilityList.Columns("strCountyName").HeaderText = "County"
-            '   'dgvFilteredFacilityList.Columns("strCountyName").DisplayIndex = 11
-
-            '   dgvFilteredFacilityList.Columns("AIRSNumber").HeaderText = "AIRS #"
-            '   dgvFilteredFacilityList.Columns("AIRSNumber").DisplayIndex = 0
-            '   dgvFilteredFacilityList.Columns("strFacilityName").HeaderText = "Facility Name"
-            '   dgvFilteredFacilityList.Columns("strFacilityName").DisplayIndex = 1
-            '   dgvFilteredFacilityList.Columns("strFacilityCity").HeaderText = "City"
-            '   dgvFilteredFacilityList.Columns("strFacilityCity").DisplayIndex = 2
-            '   dgvFilteredFacilityList.Columns("strCMSMember").HeaderText = "Current CMS Status"
-            '   dgvFilteredFacilityList.Columns("strCMSMember").DisplayIndex = 3
-            '   dgvFilteredFacilityList.Columns("strClass").HeaderText = "Current Classification"
-            '   dgvFilteredFacilityList.Columns("strClass").DisplayIndex = 4
-            '   dgvFilteredFacilityList.Columns("strOperationalStatus").HeaderText = "Current Operational Status"
-            '   dgvFilteredFacilityList.Columns("strOperationalStatus").DisplayIndex = 5
-            '   dgvFilteredFacilityList.Columns("LastInspection").HeaderText = "Last Inspection"
-            '   dgvFilteredFacilityList.Columns("LastInspection").DisplayIndex = 6
-            '   dgvFilteredFacilityList.Columns("LastInspection").DefaultCellStyle.Format = "dd-MMM-yyyy"
-            '   dgvFilteredFacilityList.Columns("LastFCE").HeaderText = "Last FCE"
-            '   dgvFilteredFacilityList.Columns("LastFCE").DisplayIndex = 7
-            '   dgvFilteredFacilityList.Columns("LastFCE").DefaultCellStyle.Format = "dd-MMM-yyyy"
-            '   dgvFilteredFacilityList.Columns("SSCPEngineer").HeaderText = "SSCP Engineer"
-            '   dgvFilteredFacilityList.Columns("SSCPEngineer").DisplayIndex = 8
-            '   dgvFilteredFacilityList.Columns("strUnitDesc").HeaderText = "SSCP Title"
-            '   dgvFilteredFacilityList.Columns("strUnitDesc").DisplayIndex = 9
-            '   dgvFilteredFacilityList.Columns("strDistrictResponsible").HeaderText = "District Source"
-            '   dgvFilteredFacilityList.Columns("strDistrictResponsible").DisplayIndex = 10
-            '   dgvFilteredFacilityList.Columns("strCountyName").HeaderText = "County"
-            '   dgvFilteredFacilityList.Columns("strCountyName").DisplayIndex = 11
-
-            '   lblFilteredCount.Text = "Count: " & dgvFilteredFacilityList.Rows.Count.ToString
-            '   chbIgnoreFiscalYear.Checked = True
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try

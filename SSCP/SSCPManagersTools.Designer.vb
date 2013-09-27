@@ -20,10 +20,10 @@ Partial Class SSCPManagersTools
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container
-        Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle12 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(SSCPManagersTools))
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
         Me.chbALLDates = New System.Windows.Forms.CheckBox
         Me.txtUserSSCPUnit = New System.Windows.Forms.TextBox
         Me.DTPEndDate = New System.Windows.Forms.DateTimePicker
@@ -102,6 +102,115 @@ Partial Class SSCPManagersTools
         Me.TPCMSWarning = New System.Windows.Forms.TabPage
         Me.Splitter3 = New System.Windows.Forms.Splitter
         Me.TCManagerTools = New System.Windows.Forms.TabControl
+        Me.TPFacilityAssignments = New System.Windows.Forms.TabPage
+        Me.Panel10 = New System.Windows.Forms.Panel
+        Me.GroupBox9 = New System.Windows.Forms.GroupBox
+        Me.btnSaveFCEReq = New System.Windows.Forms.Button
+        Me.rdbFCENotRequired = New System.Windows.Forms.RadioButton
+        Me.rdbFCERequired = New System.Windows.Forms.RadioButton
+        Me.GroupBox8 = New System.Windows.Forms.GroupBox
+        Me.Label61 = New System.Windows.Forms.Label
+        Me.rdbCMS_None = New System.Windows.Forms.RadioButton
+        Me.btnSaveCMS = New System.Windows.Forms.Button
+        Me.rdbCMS_SM = New System.Windows.Forms.RadioButton
+        Me.rdbCMS_A = New System.Windows.Forms.RadioButton
+        Me.btnClearSSCPUnitAssignment = New System.Windows.Forms.Button
+        Me.btnClearEngineerAssignment = New System.Windows.Forms.Button
+        Me.Label59 = New System.Windows.Forms.Label
+        Me.btnSaveAllSettings = New System.Windows.Forms.Button
+        Me.GroupBox6 = New System.Windows.Forms.GroupBox
+        Me.btnSaveInspectionReq = New System.Windows.Forms.Button
+        Me.rdbInspectionNotRequired = New System.Windows.Forms.RadioButton
+        Me.rdbInspectionRequired = New System.Windows.Forms.RadioButton
+        Me.GroupBox7 = New System.Windows.Forms.GroupBox
+        Me.btnSaveDistResponsible = New System.Windows.Forms.Button
+        Me.rdbDistResponsibleFalse = New System.Windows.Forms.RadioButton
+        Me.rdbDistResponsibleTrue = New System.Windows.Forms.RadioButton
+        Me.btnSaveSSCPUnitAssignment = New System.Windows.Forms.Button
+        Me.Label55 = New System.Windows.Forms.Label
+        Me.Label56 = New System.Windows.Forms.Label
+        Me.btnSaveEngineerResponsibility = New System.Windows.Forms.Button
+        Me.cboSSCPEngineer = New System.Windows.Forms.ComboBox
+        Me.Label57 = New System.Windows.Forms.Label
+        Me.cboSSCPUnit2 = New System.Windows.Forms.ComboBox
+        Me.Label58 = New System.Windows.Forms.Label
+        Me.Panel9 = New System.Windows.Forms.Panel
+        Me.TCNewFacilitySearch = New System.Windows.Forms.TabControl
+        Me.TabPage1 = New System.Windows.Forms.TabPage
+        Me.chbIgnoreFiscalYear = New System.Windows.Forms.CheckBox
+        Me.cboDistrictFilter2 = New System.Windows.Forms.ComboBox
+        Me.cboDistrictFilter1 = New System.Windows.Forms.ComboBox
+        Me.cboCountyFilter2 = New System.Windows.Forms.ComboBox
+        Me.cboCountyFilter1 = New System.Windows.Forms.ComboBox
+        Me.cboCMSMemberFilter2 = New System.Windows.Forms.ComboBox
+        Me.cboCMSMemberFilter1 = New System.Windows.Forms.ComboBox
+        Me.cboClassFilter2 = New System.Windows.Forms.ComboBox
+        Me.cboClassFilter1 = New System.Windows.Forms.ComboBox
+        Me.cboSSCPUnitFilter = New System.Windows.Forms.ComboBox
+        Me.cboSSCPUnitFilter2 = New System.Windows.Forms.ComboBox
+        Me.txtFacSearch1 = New System.Windows.Forms.TextBox
+        Me.cboFilterEngineer1 = New System.Windows.Forms.ComboBox
+        Me.cboOpStatus2 = New System.Windows.Forms.ComboBox
+        Me.cboOpStatus1 = New System.Windows.Forms.ComboBox
+        Me.pnlDistResp2 = New System.Windows.Forms.Panel
+        Me.rdbDistResp2False = New System.Windows.Forms.RadioButton
+        Me.rdbDistResp2True = New System.Windows.Forms.RadioButton
+        Me.cboFilterEngineer2 = New System.Windows.Forms.ComboBox
+        Me.chbViewAllFields = New System.Windows.Forms.CheckBox
+        Me.btnFacilitySearch = New System.Windows.Forms.Button
+        Me.cboFacSearch1 = New System.Windows.Forms.ComboBox
+        Me.Label51 = New System.Windows.Forms.Label
+        Me.txtFacSearch2 = New System.Windows.Forms.TextBox
+        Me.Label52 = New System.Windows.Forms.Label
+        Me.Label53 = New System.Windows.Forms.Label
+        Me.Label50 = New System.Windows.Forms.Label
+        Me.cboSortOrder2 = New System.Windows.Forms.ComboBox
+        Me.Label49 = New System.Windows.Forms.Label
+        Me.cboSort2 = New System.Windows.Forms.ComboBox
+        Me.cboFacSearch2 = New System.Windows.Forms.ComboBox
+        Me.cboSortOrder1 = New System.Windows.Forms.ComboBox
+        Me.cboSort1 = New System.Windows.Forms.ComboBox
+        Me.pnlDistResp1 = New System.Windows.Forms.Panel
+        Me.rdbDistResp1False = New System.Windows.Forms.RadioButton
+        Me.rdbDistResp1True = New System.Windows.Forms.RadioButton
+        Me.TabPage2 = New System.Windows.Forms.TabPage
+        Me.btnClearManualAIRSNum = New System.Windows.Forms.Button
+        Me.btnFilterManualAIRSList = New System.Windows.Forms.Button
+        Me.Label54 = New System.Windows.Forms.Label
+        Me.txtManualAIRSNumber = New System.Windows.Forms.TextBox
+        Me.TabPage3 = New System.Windows.Forms.TabPage
+        Me.btnForceAIRSNumber = New System.Windows.Forms.Button
+        Me.mtbForcedAIRS = New System.Windows.Forms.MaskedTextBox
+        Me.Label60 = New System.Windows.Forms.Label
+        Me.TPCopyYear = New System.Windows.Forms.TabPage
+        Me.chbClearExistingData = New System.Windows.Forms.CheckBox
+        Me.btnCopyYear = New System.Windows.Forms.Button
+        Me.mtbNewYear = New System.Windows.Forms.MaskedTextBox
+        Me.Label64 = New System.Windows.Forms.Label
+        Me.cboExistingYears = New System.Windows.Forms.ComboBox
+        Me.Label63 = New System.Windows.Forms.Label
+        Me.pnlFacilityAssignments = New System.Windows.Forms.Panel
+        Me.Panel11 = New System.Windows.Forms.Panel
+        Me.SplitContainer1 = New System.Windows.Forms.SplitContainer
+        Me.Panel13 = New System.Windows.Forms.Panel
+        Me.Panel14 = New System.Windows.Forms.Panel
+        Me.dgvFilteredFacilityList = New System.Windows.Forms.DataGridView
+        Me.Panel16 = New System.Windows.Forms.Panel
+        Me.btnExportFiltered = New System.Windows.Forms.Button
+        Me.lblFilteredCount = New System.Windows.Forms.Label
+        Me.Panel15 = New System.Windows.Forms.Panel
+        Me.btnSelectFacility = New System.Windows.Forms.Button
+        Me.btnSelectAllFacilities = New System.Windows.Forms.Button
+        Me.btnUnselectAllFacilities = New System.Windows.Forms.Button
+        Me.btnUnselectFacility = New System.Windows.Forms.Button
+        Me.Panel12 = New System.Windows.Forms.Panel
+        Me.dgvSelectedFacilityList = New System.Windows.Forms.DataGridView
+        Me.Panel17 = New System.Windows.Forms.Panel
+        Me.lblSelectedCount = New System.Windows.Forms.Label
+        Me.btnExportSelected = New System.Windows.Forms.Button
+        Me.Panel18 = New System.Windows.Forms.Panel
+        Me.cboFiscalYear = New System.Windows.Forms.ComboBox
+        Me.Label62 = New System.Windows.Forms.Label
         Me.TPPollutantBubbleUp = New System.Windows.Forms.TabPage
         Me.dgvPollutantFacilities = New System.Windows.Forms.DataGridView
         Me.GroupBox5 = New System.Windows.Forms.GroupBox
@@ -222,115 +331,6 @@ Partial Class SSCPManagersTools
         Me.rdbAllNegativeStatus = New System.Windows.Forms.RadioButton
         Me.btnViewWatchListFacilities = New System.Windows.Forms.Button
         Me.lblWatchListCount = New System.Windows.Forms.Label
-        Me.TPFacilityAssignments = New System.Windows.Forms.TabPage
-        Me.Panel10 = New System.Windows.Forms.Panel
-        Me.GroupBox9 = New System.Windows.Forms.GroupBox
-        Me.btnSaveFCEReq = New System.Windows.Forms.Button
-        Me.rdbFCENotRequired = New System.Windows.Forms.RadioButton
-        Me.rdbFCERequired = New System.Windows.Forms.RadioButton
-        Me.GroupBox8 = New System.Windows.Forms.GroupBox
-        Me.Label61 = New System.Windows.Forms.Label
-        Me.rdbCMS_None = New System.Windows.Forms.RadioButton
-        Me.btnSaveCMS = New System.Windows.Forms.Button
-        Me.rdbCMS_SM = New System.Windows.Forms.RadioButton
-        Me.rdbCMS_A = New System.Windows.Forms.RadioButton
-        Me.btnClearSSCPUnitAssignment = New System.Windows.Forms.Button
-        Me.btnClearEngineerAssignment = New System.Windows.Forms.Button
-        Me.Label59 = New System.Windows.Forms.Label
-        Me.btnSaveAllSettings = New System.Windows.Forms.Button
-        Me.GroupBox6 = New System.Windows.Forms.GroupBox
-        Me.btnSaveInspectionReq = New System.Windows.Forms.Button
-        Me.rdbInspectionNotRequired = New System.Windows.Forms.RadioButton
-        Me.rdbInspectionRequired = New System.Windows.Forms.RadioButton
-        Me.GroupBox7 = New System.Windows.Forms.GroupBox
-        Me.btnSaveDistResponsible = New System.Windows.Forms.Button
-        Me.rdbDistResponsibleFalse = New System.Windows.Forms.RadioButton
-        Me.rdbDistResponsibleTrue = New System.Windows.Forms.RadioButton
-        Me.btnSaveSSCPUnitAssignment = New System.Windows.Forms.Button
-        Me.Label55 = New System.Windows.Forms.Label
-        Me.Label56 = New System.Windows.Forms.Label
-        Me.btnSaveEngineerResponsibility = New System.Windows.Forms.Button
-        Me.cboSSCPEngineer = New System.Windows.Forms.ComboBox
-        Me.Label57 = New System.Windows.Forms.Label
-        Me.cboSSCPUnit2 = New System.Windows.Forms.ComboBox
-        Me.Label58 = New System.Windows.Forms.Label
-        Me.Panel9 = New System.Windows.Forms.Panel
-        Me.TCNewFacilitySearch = New System.Windows.Forms.TabControl
-        Me.TabPage1 = New System.Windows.Forms.TabPage
-        Me.chbIgnoreFiscalYear = New System.Windows.Forms.CheckBox
-        Me.cboDistrictFilter2 = New System.Windows.Forms.ComboBox
-        Me.cboDistrictFilter1 = New System.Windows.Forms.ComboBox
-        Me.cboCountyFilter2 = New System.Windows.Forms.ComboBox
-        Me.cboCountyFilter1 = New System.Windows.Forms.ComboBox
-        Me.cboCMSMemberFilter2 = New System.Windows.Forms.ComboBox
-        Me.cboCMSMemberFilter1 = New System.Windows.Forms.ComboBox
-        Me.cboClassFilter2 = New System.Windows.Forms.ComboBox
-        Me.cboClassFilter1 = New System.Windows.Forms.ComboBox
-        Me.cboSSCPUnitFilter = New System.Windows.Forms.ComboBox
-        Me.cboSSCPUnitFilter2 = New System.Windows.Forms.ComboBox
-        Me.txtFacSearch1 = New System.Windows.Forms.TextBox
-        Me.cboFilterEngineer1 = New System.Windows.Forms.ComboBox
-        Me.cboOpStatus2 = New System.Windows.Forms.ComboBox
-        Me.cboOpStatus1 = New System.Windows.Forms.ComboBox
-        Me.pnlDistResp2 = New System.Windows.Forms.Panel
-        Me.rdbDistResp2False = New System.Windows.Forms.RadioButton
-        Me.rdbDistResp2True = New System.Windows.Forms.RadioButton
-        Me.cboFilterEngineer2 = New System.Windows.Forms.ComboBox
-        Me.chbViewAllFields = New System.Windows.Forms.CheckBox
-        Me.btnFacilitySearch = New System.Windows.Forms.Button
-        Me.cboFacSearch1 = New System.Windows.Forms.ComboBox
-        Me.Label51 = New System.Windows.Forms.Label
-        Me.txtFacSearch2 = New System.Windows.Forms.TextBox
-        Me.Label52 = New System.Windows.Forms.Label
-        Me.Label53 = New System.Windows.Forms.Label
-        Me.Label50 = New System.Windows.Forms.Label
-        Me.cboSortOrder2 = New System.Windows.Forms.ComboBox
-        Me.Label49 = New System.Windows.Forms.Label
-        Me.cboSort2 = New System.Windows.Forms.ComboBox
-        Me.cboFacSearch2 = New System.Windows.Forms.ComboBox
-        Me.cboSortOrder1 = New System.Windows.Forms.ComboBox
-        Me.cboSort1 = New System.Windows.Forms.ComboBox
-        Me.pnlDistResp1 = New System.Windows.Forms.Panel
-        Me.rdbDistResp1False = New System.Windows.Forms.RadioButton
-        Me.rdbDistResp1True = New System.Windows.Forms.RadioButton
-        Me.TabPage2 = New System.Windows.Forms.TabPage
-        Me.btnClearManualAIRSNum = New System.Windows.Forms.Button
-        Me.btnFilterManualAIRSList = New System.Windows.Forms.Button
-        Me.Label54 = New System.Windows.Forms.Label
-        Me.txtManualAIRSNumber = New System.Windows.Forms.TextBox
-        Me.TabPage3 = New System.Windows.Forms.TabPage
-        Me.btnForceAIRSNumber = New System.Windows.Forms.Button
-        Me.mtbForcedAIRS = New System.Windows.Forms.MaskedTextBox
-        Me.Label60 = New System.Windows.Forms.Label
-        Me.TPCopyYear = New System.Windows.Forms.TabPage
-        Me.chbClearExistingData = New System.Windows.Forms.CheckBox
-        Me.btnCopyYear = New System.Windows.Forms.Button
-        Me.mtbNewYear = New System.Windows.Forms.MaskedTextBox
-        Me.Label64 = New System.Windows.Forms.Label
-        Me.cboExistingYears = New System.Windows.Forms.ComboBox
-        Me.Label63 = New System.Windows.Forms.Label
-        Me.pnlFacilityAssignments = New System.Windows.Forms.Panel
-        Me.Panel11 = New System.Windows.Forms.Panel
-        Me.SplitContainer1 = New System.Windows.Forms.SplitContainer
-        Me.Panel13 = New System.Windows.Forms.Panel
-        Me.Panel14 = New System.Windows.Forms.Panel
-        Me.dgvFilteredFacilityList = New System.Windows.Forms.DataGridView
-        Me.Panel16 = New System.Windows.Forms.Panel
-        Me.btnExportFiltered = New System.Windows.Forms.Button
-        Me.lblFilteredCount = New System.Windows.Forms.Label
-        Me.Panel15 = New System.Windows.Forms.Panel
-        Me.btnSelectFacility = New System.Windows.Forms.Button
-        Me.btnSelectAllFacilities = New System.Windows.Forms.Button
-        Me.btnUnselectAllFacilities = New System.Windows.Forms.Button
-        Me.btnUnselectFacility = New System.Windows.Forms.Button
-        Me.Panel12 = New System.Windows.Forms.Panel
-        Me.dgvSelectedFacilityList = New System.Windows.Forms.DataGridView
-        Me.Panel17 = New System.Windows.Forms.Panel
-        Me.lblSelectedCount = New System.Windows.Forms.Label
-        Me.btnExportSelected = New System.Windows.Forms.Button
-        Me.Panel18 = New System.Windows.Forms.Panel
-        Me.cboFiscalYear = New System.Windows.Forms.ComboBox
-        Me.Label62 = New System.Windows.Forms.Label
         Me.TPMiscReports = New System.Windows.Forms.TabPage
         Me.dgvMiscReport = New System.Windows.Forms.DataGridView
         Me.Panel19 = New System.Windows.Forms.Panel
@@ -361,27 +361,6 @@ Partial Class SSCPManagersTools
         CType(Me.dgvCMSWarning, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TPCMSWarning.SuspendLayout()
         Me.TCManagerTools.SuspendLayout()
-        Me.TPPollutantBubbleUp.SuspendLayout()
-        CType(Me.dgvPollutantFacilities, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.GroupBox5.SuspendLayout()
-        Me.TPStatisticalPage.SuspendLayout()
-        Me.SCStatisticalReports.Panel1.SuspendLayout()
-        Me.SCStatisticalReports.Panel2.SuspendLayout()
-        Me.SCStatisticalReports.SuspendLayout()
-        Me.TCComplianceStaff.SuspendLayout()
-        Me.TPAdministrative.SuspendLayout()
-        Me.TPAirToxics.SuspendLayout()
-        Me.TPChemicals.SuspendLayout()
-        Me.TPVOC.SuspendLayout()
-        Me.TPDistricts.SuspendLayout()
-        Me.TCStatisticalTools.SuspendLayout()
-        Me.TPACCStats.SuspendLayout()
-        Me.TPEnforcement.SuspendLayout()
-        Me.TPTitleVRenewals.SuspendLayout()
-        CType(Me.dgvStatisticalReports, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.TPWatchList.SuspendLayout()
-        CType(Me.dgvWatchList, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.Panel6.SuspendLayout()
         Me.TPFacilityAssignments.SuspendLayout()
         Me.Panel10.SuspendLayout()
         Me.GroupBox9.SuspendLayout()
@@ -410,6 +389,27 @@ Partial Class SSCPManagersTools
         CType(Me.dgvSelectedFacilityList, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel17.SuspendLayout()
         Me.Panel18.SuspendLayout()
+        Me.TPPollutantBubbleUp.SuspendLayout()
+        CType(Me.dgvPollutantFacilities, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.GroupBox5.SuspendLayout()
+        Me.TPStatisticalPage.SuspendLayout()
+        Me.SCStatisticalReports.Panel1.SuspendLayout()
+        Me.SCStatisticalReports.Panel2.SuspendLayout()
+        Me.SCStatisticalReports.SuspendLayout()
+        Me.TCComplianceStaff.SuspendLayout()
+        Me.TPAdministrative.SuspendLayout()
+        Me.TPAirToxics.SuspendLayout()
+        Me.TPChemicals.SuspendLayout()
+        Me.TPVOC.SuspendLayout()
+        Me.TPDistricts.SuspendLayout()
+        Me.TCStatisticalTools.SuspendLayout()
+        Me.TPACCStats.SuspendLayout()
+        Me.TPEnforcement.SuspendLayout()
+        Me.TPTitleVRenewals.SuspendLayout()
+        CType(Me.dgvStatisticalReports, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.TPWatchList.SuspendLayout()
+        CType(Me.dgvWatchList, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.Panel6.SuspendLayout()
         Me.TPMiscReports.SuspendLayout()
         CType(Me.dgvMiscReport, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel19.SuspendLayout()
@@ -561,7 +561,7 @@ Partial Class SSCPManagersTools
         Me.Splitter2.Dock = System.Windows.Forms.DockStyle.Right
         Me.Splitter2.Location = New System.Drawing.Point(835, 0)
         Me.Splitter2.Name = "Splitter2"
-        Me.Splitter2.Size = New System.Drawing.Size(4, 671)
+        Me.Splitter2.Size = New System.Drawing.Size(4, 699)
         Me.Splitter2.TabIndex = 18
         Me.Splitter2.TabStop = False
         '
@@ -594,7 +594,7 @@ Partial Class SSCPManagersTools
         Me.PanelCMSUniverse.Dock = System.Windows.Forms.DockStyle.Right
         Me.PanelCMSUniverse.Location = New System.Drawing.Point(839, 0)
         Me.PanelCMSUniverse.Name = "PanelCMSUniverse"
-        Me.PanelCMSUniverse.Size = New System.Drawing.Size(345, 671)
+        Me.PanelCMSUniverse.Size = New System.Drawing.Size(345, 699)
         Me.PanelCMSUniverse.TabIndex = 17
         '
         'btnDeleteFacilityFromCms
@@ -809,7 +809,7 @@ Partial Class SSCPManagersTools
         '
         Me.Splitter4.BackColor = System.Drawing.SystemColors.Highlight
         Me.Splitter4.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.Splitter4.Location = New System.Drawing.Point(0, 202)
+        Me.Splitter4.Location = New System.Drawing.Point(0, 230)
         Me.Splitter4.Name = "Splitter4"
         Me.Splitter4.Size = New System.Drawing.Size(1184, 5)
         Me.Splitter4.TabIndex = 162
@@ -822,7 +822,7 @@ Partial Class SSCPManagersTools
         Me.TPUniverse.Controls.Add(Me.PanelCMSUniverse)
         Me.TPUniverse.Location = New System.Drawing.Point(4, 22)
         Me.TPUniverse.Name = "TPUniverse"
-        Me.TPUniverse.Size = New System.Drawing.Size(1184, 671)
+        Me.TPUniverse.Size = New System.Drawing.Size(1184, 699)
         Me.TPUniverse.TabIndex = 3
         Me.TPUniverse.Text = "CMS Universe"
         Me.TPUniverse.UseVisualStyleBackColor = True
@@ -834,13 +834,13 @@ Partial Class SSCPManagersTools
         Me.dgvCMSUniverse.Location = New System.Drawing.Point(0, 0)
         Me.dgvCMSUniverse.Name = "dgvCMSUniverse"
         Me.dgvCMSUniverse.ReadOnly = True
-        Me.dgvCMSUniverse.Size = New System.Drawing.Size(835, 671)
+        Me.dgvCMSUniverse.Size = New System.Drawing.Size(835, 699)
         Me.dgvCMSUniverse.TabIndex = 20
         '
         'rtbInspectionReport
         '
         Me.rtbInspectionReport.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.rtbInspectionReport.Location = New System.Drawing.Point(0, 207)
+        Me.rtbInspectionReport.Location = New System.Drawing.Point(0, 235)
         Me.rtbInspectionReport.Name = "rtbInspectionReport"
         Me.rtbInspectionReport.Size = New System.Drawing.Size(1184, 464)
         Me.rtbInspectionReport.TabIndex = 7
@@ -853,7 +853,7 @@ Partial Class SSCPManagersTools
         Me.TPStaffReports.Controls.Add(Me.rtbInspectionReport)
         Me.TPStaffReports.Location = New System.Drawing.Point(4, 22)
         Me.TPStaffReports.Name = "TPStaffReports"
-        Me.TPStaffReports.Size = New System.Drawing.Size(1184, 671)
+        Me.TPStaffReports.Size = New System.Drawing.Size(1184, 699)
         Me.TPStaffReports.TabIndex = 2
         Me.TPStaffReports.Text = "Compliance Staff Report(s)"
         Me.TPStaffReports.UseVisualStyleBackColor = True
@@ -875,7 +875,7 @@ Partial Class SSCPManagersTools
         Me.Panel7.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel7.Location = New System.Drawing.Point(0, 0)
         Me.Panel7.Name = "Panel7"
-        Me.Panel7.Size = New System.Drawing.Size(1184, 202)
+        Me.Panel7.Size = New System.Drawing.Size(1184, 230)
         Me.Panel7.TabIndex = 163
         '
         'txtCMSAssignedEngineer2
@@ -1114,7 +1114,7 @@ Partial Class SSCPManagersTools
         Me.PanelCMSWarning.Dock = System.Windows.Forms.DockStyle.Right
         Me.PanelCMSWarning.Location = New System.Drawing.Point(888, 0)
         Me.PanelCMSWarning.Name = "PanelCMSWarning"
-        Me.PanelCMSWarning.Size = New System.Drawing.Size(296, 671)
+        Me.PanelCMSWarning.Size = New System.Drawing.Size(296, 699)
         Me.PanelCMSWarning.TabIndex = 16
         '
         'btnExportCmsWarningToExcel
@@ -1140,7 +1140,7 @@ Partial Class SSCPManagersTools
         Me.dgvCMSWarning.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvCMSWarning.Location = New System.Drawing.Point(0, 0)
         Me.dgvCMSWarning.Name = "dgvCMSWarning"
-        Me.dgvCMSWarning.Size = New System.Drawing.Size(884, 671)
+        Me.dgvCMSWarning.Size = New System.Drawing.Size(884, 699)
         Me.dgvCMSWarning.TabIndex = 33
         '
         'TPCMSWarning
@@ -1150,7 +1150,7 @@ Partial Class SSCPManagersTools
         Me.TPCMSWarning.Controls.Add(Me.PanelCMSWarning)
         Me.TPCMSWarning.Location = New System.Drawing.Point(4, 22)
         Me.TPCMSWarning.Name = "TPCMSWarning"
-        Me.TPCMSWarning.Size = New System.Drawing.Size(1184, 671)
+        Me.TPCMSWarning.Size = New System.Drawing.Size(1184, 699)
         Me.TPCMSWarning.TabIndex = 4
         Me.TPCMSWarning.Text = "CMS Warning"
         Me.TPCMSWarning.UseVisualStyleBackColor = True
@@ -1161,7 +1161,7 @@ Partial Class SSCPManagersTools
         Me.Splitter3.Dock = System.Windows.Forms.DockStyle.Right
         Me.Splitter3.Location = New System.Drawing.Point(884, 0)
         Me.Splitter3.Name = "Splitter3"
-        Me.Splitter3.Size = New System.Drawing.Size(4, 671)
+        Me.Splitter3.Size = New System.Drawing.Size(4, 699)
         Me.Splitter3.TabIndex = 17
         Me.Splitter3.TabStop = False
         '
@@ -1182,1305 +1182,6 @@ Partial Class SSCPManagersTools
         Me.TCManagerTools.Size = New System.Drawing.Size(1192, 725)
         Me.TCManagerTools.TabIndex = 248
         Me.TCManagerTools.TabStop = False
-        '
-        'TPPollutantBubbleUp
-        '
-        Me.TPPollutantBubbleUp.Controls.Add(Me.dgvPollutantFacilities)
-        Me.TPPollutantBubbleUp.Controls.Add(Me.GroupBox5)
-        Me.TPPollutantBubbleUp.Location = New System.Drawing.Point(4, 22)
-        Me.TPPollutantBubbleUp.Name = "TPPollutantBubbleUp"
-        Me.TPPollutantBubbleUp.Size = New System.Drawing.Size(1184, 671)
-        Me.TPPollutantBubbleUp.TabIndex = 5
-        Me.TPPollutantBubbleUp.Text = "Pollutant Bubble Up"
-        Me.TPPollutantBubbleUp.UseVisualStyleBackColor = True
-        '
-        'dgvPollutantFacilities
-        '
-        DataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle10.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvPollutantFacilities.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle10
-        Me.dgvPollutantFacilities.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle11.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvPollutantFacilities.DefaultCellStyle = DataGridViewCellStyle11
-        Me.dgvPollutantFacilities.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.dgvPollutantFacilities.Location = New System.Drawing.Point(0, 220)
-        Me.dgvPollutantFacilities.Name = "dgvPollutantFacilities"
-        Me.dgvPollutantFacilities.ReadOnly = True
-        DataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle12.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle12.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle12.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvPollutantFacilities.RowHeadersDefaultCellStyle = DataGridViewCellStyle12
-        Me.dgvPollutantFacilities.Size = New System.Drawing.Size(1184, 451)
-        Me.dgvPollutantFacilities.TabIndex = 1
-        '
-        'GroupBox5
-        '
-        Me.GroupBox5.Controls.Add(Me.btnExportPollutantsToExcel)
-        Me.GroupBox5.Controls.Add(Me.txtPollutantCount)
-        Me.GroupBox5.Controls.Add(Me.txtAIRSNumber)
-        Me.GroupBox5.Controls.Add(Me.btnEditAirProgramPollutants)
-        Me.GroupBox5.Controls.Add(Me.btnViewFacilities)
-        Me.GroupBox5.Controls.Add(Me.chbStatusM)
-        Me.GroupBox5.Controls.Add(Me.chbStatus4)
-        Me.GroupBox5.Controls.Add(Me.chbStatus3)
-        Me.GroupBox5.Controls.Add(Me.chbStatus2)
-        Me.GroupBox5.Controls.Add(Me.chbStatusC)
-        Me.GroupBox5.Controls.Add(Me.chbStatus9)
-        Me.GroupBox5.Controls.Add(Me.chbStatus0)
-        Me.GroupBox5.Controls.Add(Me.chbStatus8)
-        Me.GroupBox5.Controls.Add(Me.chbStatus5)
-        Me.GroupBox5.Controls.Add(Me.chbStatusW)
-        Me.GroupBox5.Controls.Add(Me.chbStatus6)
-        Me.GroupBox5.Controls.Add(Me.chbStatus1)
-        Me.GroupBox5.Controls.Add(Me.chbStatusB)
-        Me.GroupBox5.Dock = System.Windows.Forms.DockStyle.Top
-        Me.GroupBox5.Location = New System.Drawing.Point(0, 0)
-        Me.GroupBox5.Name = "GroupBox5"
-        Me.GroupBox5.Size = New System.Drawing.Size(1184, 220)
-        Me.GroupBox5.TabIndex = 0
-        Me.GroupBox5.TabStop = False
-        '
-        'btnExportPollutantsToExcel
-        '
-        Me.btnExportPollutantsToExcel.Location = New System.Drawing.Point(435, 189)
-        Me.btnExportPollutantsToExcel.Name = "btnExportPollutantsToExcel"
-        Me.btnExportPollutantsToExcel.Size = New System.Drawing.Size(111, 22)
-        Me.btnExportPollutantsToExcel.TabIndex = 315
-        Me.btnExportPollutantsToExcel.Text = "Export to Excel"
-        Me.btnExportPollutantsToExcel.UseVisualStyleBackColor = True
-        '
-        'txtPollutantCount
-        '
-        Me.txtPollutantCount.Location = New System.Drawing.Point(690, 48)
-        Me.txtPollutantCount.Name = "txtPollutantCount"
-        Me.txtPollutantCount.ReadOnly = True
-        Me.txtPollutantCount.Size = New System.Drawing.Size(56, 20)
-        Me.txtPollutantCount.TabIndex = 314
-        '
-        'txtAIRSNumber
-        '
-        Me.txtAIRSNumber.Location = New System.Drawing.Point(190, 191)
-        Me.txtAIRSNumber.Name = "txtAIRSNumber"
-        Me.txtAIRSNumber.Size = New System.Drawing.Size(100, 20)
-        Me.txtAIRSNumber.TabIndex = 312
-        '
-        'btnEditAirProgramPollutants
-        '
-        Me.btnEditAirProgramPollutants.Location = New System.Drawing.Point(5, 189)
-        Me.btnEditAirProgramPollutants.Margin = New System.Windows.Forms.Padding(2)
-        Me.btnEditAirProgramPollutants.Name = "btnEditAirProgramPollutants"
-        Me.btnEditAirProgramPollutants.Size = New System.Drawing.Size(168, 22)
-        Me.btnEditAirProgramPollutants.TabIndex = 311
-        Me.btnEditAirProgramPollutants.Text = "Air Program Pollutants"
-        '
-        'btnViewFacilities
-        '
-        Me.btnViewFacilities.AutoSize = True
-        Me.btnViewFacilities.Location = New System.Drawing.Point(663, 19)
-        Me.btnViewFacilities.Name = "btnViewFacilities"
-        Me.btnViewFacilities.Size = New System.Drawing.Size(83, 23)
-        Me.btnViewFacilities.TabIndex = 13
-        Me.btnViewFacilities.Text = "View Facilities"
-        Me.btnViewFacilities.UseVisualStyleBackColor = True
-        '
-        'chbStatusM
-        '
-        Me.chbStatusM.AutoSize = True
-        Me.chbStatusM.Location = New System.Drawing.Point(435, 134)
-        Me.chbStatusM.Name = "chbStatusM"
-        Me.chbStatusM.Size = New System.Drawing.Size(173, 17)
-        Me.chbStatusM.TabIndex = 12
-        Me.chbStatusM.Text = "M - In Compliance, CEMS Data"
-        Me.chbStatusM.UseVisualStyleBackColor = True
-        '
-        'chbStatus4
-        '
-        Me.chbStatus4.AutoSize = True
-        Me.chbStatus4.Location = New System.Drawing.Point(435, 65)
-        Me.chbStatus4.Name = "chbStatus4"
-        Me.chbStatus4.Size = New System.Drawing.Size(169, 17)
-        Me.chbStatus4.TabIndex = 11
-        Me.chbStatus4.Text = "4 - In Compliance, Certification"
-        Me.chbStatus4.UseVisualStyleBackColor = True
-        '
-        'chbStatus3
-        '
-        Me.chbStatus3.AutoSize = True
-        Me.chbStatus3.Location = New System.Drawing.Point(435, 42)
-        Me.chbStatus3.Name = "chbStatus3"
-        Me.chbStatus3.Size = New System.Drawing.Size(162, 17)
-        Me.chbStatus3.TabIndex = 10
-        Me.chbStatus3.Text = "3 - In Compliance, inspection"
-        Me.chbStatus3.UseVisualStyleBackColor = True
-        '
-        'chbStatus2
-        '
-        Me.chbStatus2.AutoSize = True
-        Me.chbStatus2.Location = New System.Drawing.Point(435, 19)
-        Me.chbStatus2.Name = "chbStatus2"
-        Me.chbStatus2.Size = New System.Drawing.Size(172, 17)
-        Me.chbStatus2.TabIndex = 9
-        Me.chbStatus2.Text = "2 - In Compliance, Source Test"
-        Me.chbStatus2.UseVisualStyleBackColor = True
-        '
-        'chbStatusC
-        '
-        Me.chbStatusC.AutoSize = True
-        Me.chbStatusC.Location = New System.Drawing.Point(435, 111)
-        Me.chbStatusC.Name = "chbStatusC"
-        Me.chbStatusC.Size = New System.Drawing.Size(165, 17)
-        Me.chbStatusC.TabIndex = 8
-        Me.chbStatusC.Text = "C - In Compliance, procedural"
-        Me.chbStatusC.UseVisualStyleBackColor = True
-        '
-        'chbStatus9
-        '
-        Me.chbStatus9.AutoSize = True
-        Me.chbStatus9.Location = New System.Drawing.Point(435, 88)
-        Me.chbStatus9.Name = "chbStatus9"
-        Me.chbStatus9.Size = New System.Drawing.Size(167, 17)
-        Me.chbStatus9.TabIndex = 7
-        Me.chbStatus9.Text = "9 - In Compliance, Shut Down"
-        Me.chbStatus9.UseVisualStyleBackColor = True
-        '
-        'chbStatus0
-        '
-        Me.chbStatus0.AutoSize = True
-        Me.chbStatus0.Location = New System.Drawing.Point(5, 134)
-        Me.chbStatus0.Name = "chbStatus0"
-        Me.chbStatus0.Size = New System.Drawing.Size(212, 17)
-        Me.chbStatus0.TabIndex = 6
-        Me.chbStatus0.Text = "0 - Unknown compliance status (SCAP)"
-        Me.chbStatus0.UseVisualStyleBackColor = True
-        '
-        'chbStatus8
-        '
-        Me.chbStatus8.AutoSize = True
-        Me.chbStatus8.Location = New System.Drawing.Point(5, 111)
-        Me.chbStatus8.Name = "chbStatus8"
-        Me.chbStatus8.Size = New System.Drawing.Size(158, 17)
-        Me.chbStatus8.TabIndex = 5
-        Me.chbStatus8.Text = "8 - No Applicable State Reg"
-        Me.chbStatus8.UseVisualStyleBackColor = True
-        '
-        'chbStatus5
-        '
-        Me.chbStatus5.AutoSize = True
-        Me.chbStatus5.Location = New System.Drawing.Point(240, 19)
-        Me.chbStatus5.Name = "chbStatus5"
-        Me.chbStatus5.Size = New System.Drawing.Size(184, 17)
-        Me.chbStatus5.TabIndex = 4
-        Me.chbStatus5.Text = "5 - Meeting compliance Schedule"
-        Me.chbStatus5.UseVisualStyleBackColor = True
-        '
-        'chbStatusW
-        '
-        Me.chbStatusW.AutoSize = True
-        Me.chbStatusW.Location = New System.Drawing.Point(5, 88)
-        Me.chbStatusW.Name = "chbStatusW"
-        Me.chbStatusW.Size = New System.Drawing.Size(153, 17)
-        Me.chbStatusW.TabIndex = 3
-        Me.chbStatusW.Text = "W - In violation, procedural"
-        Me.chbStatusW.UseVisualStyleBackColor = True
-        '
-        'chbStatus6
-        '
-        Me.chbStatus6.AutoSize = True
-        Me.chbStatus6.Location = New System.Drawing.Point(5, 65)
-        Me.chbStatus6.Name = "chbStatus6"
-        Me.chbStatus6.Size = New System.Drawing.Size(203, 17)
-        Me.chbStatus6.TabIndex = 2
-        Me.chbStatus6.Text = "6 - In violation, Not meeting Schedule"
-        Me.chbStatus6.UseVisualStyleBackColor = True
-        '
-        'chbStatus1
-        '
-        Me.chbStatus1.AutoSize = True
-        Me.chbStatus1.Location = New System.Drawing.Point(5, 42)
-        Me.chbStatus1.Name = "chbStatus1"
-        Me.chbStatus1.Size = New System.Drawing.Size(158, 17)
-        Me.chbStatus1.TabIndex = 1
-        Me.chbStatus1.Text = "1 - In violation, No schedule"
-        Me.chbStatus1.UseVisualStyleBackColor = True
-        '
-        'chbStatusB
-        '
-        Me.chbStatusB.AutoSize = True
-        Me.chbStatusB.Location = New System.Drawing.Point(5, 19)
-        Me.chbStatusB.Name = "chbStatusB"
-        Me.chbStatusB.Size = New System.Drawing.Size(201, 17)
-        Me.chbStatusB.TabIndex = 0
-        Me.chbStatusB.Text = "B - In Violation, procedural & emissions"
-        Me.chbStatusB.UseVisualStyleBackColor = True
-        '
-        'TPStatisticalPage
-        '
-        Me.TPStatisticalPage.Controls.Add(Me.SCStatisticalReports)
-        Me.TPStatisticalPage.Location = New System.Drawing.Point(4, 22)
-        Me.TPStatisticalPage.Name = "TPStatisticalPage"
-        Me.TPStatisticalPage.Size = New System.Drawing.Size(1184, 671)
-        Me.TPStatisticalPage.TabIndex = 6
-        Me.TPStatisticalPage.Text = "Statistical Reports"
-        Me.TPStatisticalPage.UseVisualStyleBackColor = True
-        '
-        'SCStatisticalReports
-        '
-        Me.SCStatisticalReports.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.SCStatisticalReports.Location = New System.Drawing.Point(0, 0)
-        Me.SCStatisticalReports.Name = "SCStatisticalReports"
-        '
-        'SCStatisticalReports.Panel1
-        '
-        Me.SCStatisticalReports.Panel1.Controls.Add(Me.TCComplianceStaff)
-        Me.SCStatisticalReports.Panel1.Controls.Add(Me.TCStatisticalTools)
-        '
-        'SCStatisticalReports.Panel2
-        '
-        Me.SCStatisticalReports.Panel2.Controls.Add(Me.llbViewRecord)
-        Me.SCStatisticalReports.Panel2.Controls.Add(Me.lblStatisticalRecords)
-        Me.SCStatisticalReports.Panel2.Controls.Add(Me.txtStatisticalCount)
-        Me.SCStatisticalReports.Panel2.Controls.Add(Me.Label45)
-        Me.SCStatisticalReports.Panel2.Controls.Add(Me.txtRecordNumber)
-        Me.SCStatisticalReports.Panel2.Controls.Add(Me.btnExportToExcel)
-        Me.SCStatisticalReports.Panel2.Controls.Add(Me.dgvStatisticalReports)
-        Me.SCStatisticalReports.Size = New System.Drawing.Size(1184, 671)
-        Me.SCStatisticalReports.SplitterDistance = 615
-        Me.SCStatisticalReports.TabIndex = 15
-        '
-        'TCComplianceStaff
-        '
-        Me.TCComplianceStaff.Controls.Add(Me.TPAdministrative)
-        Me.TCComplianceStaff.Controls.Add(Me.TPAirToxics)
-        Me.TCComplianceStaff.Controls.Add(Me.TPChemicals)
-        Me.TCComplianceStaff.Controls.Add(Me.TPVOC)
-        Me.TCComplianceStaff.Controls.Add(Me.TPDistricts)
-        Me.TCComplianceStaff.Dock = System.Windows.Forms.DockStyle.Left
-        Me.TCComplianceStaff.Location = New System.Drawing.Point(0, 0)
-        Me.TCComplianceStaff.Multiline = True
-        Me.TCComplianceStaff.Name = "TCComplianceStaff"
-        Me.TCComplianceStaff.SelectedIndex = 0
-        Me.TCComplianceStaff.Size = New System.Drawing.Size(262, 290)
-        Me.TCComplianceStaff.TabIndex = 13
-        '
-        'TPAdministrative
-        '
-        Me.TPAdministrative.Controls.Add(Me.clbAdministrative)
-        Me.TPAdministrative.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TPAdministrative.Location = New System.Drawing.Point(4, 40)
-        Me.TPAdministrative.Name = "TPAdministrative"
-        Me.TPAdministrative.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPAdministrative.Size = New System.Drawing.Size(254, 246)
-        Me.TPAdministrative.TabIndex = 0
-        Me.TPAdministrative.Text = "Administrative"
-        Me.TPAdministrative.UseVisualStyleBackColor = True
-        '
-        'clbAdministrative
-        '
-        Me.clbAdministrative.CheckOnClick = True
-        Me.clbAdministrative.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.clbAdministrative.FormattingEnabled = True
-        Me.clbAdministrative.Location = New System.Drawing.Point(3, 3)
-        Me.clbAdministrative.Name = "clbAdministrative"
-        Me.clbAdministrative.ScrollAlwaysVisible = True
-        Me.clbAdministrative.Size = New System.Drawing.Size(248, 229)
-        Me.clbAdministrative.TabIndex = 1
-        '
-        'TPAirToxics
-        '
-        Me.TPAirToxics.Controls.Add(Me.clbAirToxicUnit)
-        Me.TPAirToxics.Location = New System.Drawing.Point(4, 40)
-        Me.TPAirToxics.Name = "TPAirToxics"
-        Me.TPAirToxics.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPAirToxics.Size = New System.Drawing.Size(254, 246)
-        Me.TPAirToxics.TabIndex = 1
-        Me.TPAirToxics.Text = "Air Toxics"
-        Me.TPAirToxics.UseVisualStyleBackColor = True
-        '
-        'clbAirToxicUnit
-        '
-        Me.clbAirToxicUnit.CheckOnClick = True
-        Me.clbAirToxicUnit.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.clbAirToxicUnit.FormattingEnabled = True
-        Me.clbAirToxicUnit.Location = New System.Drawing.Point(3, 3)
-        Me.clbAirToxicUnit.Name = "clbAirToxicUnit"
-        Me.clbAirToxicUnit.ScrollAlwaysVisible = True
-        Me.clbAirToxicUnit.Size = New System.Drawing.Size(248, 229)
-        Me.clbAirToxicUnit.TabIndex = 1
-        '
-        'TPChemicals
-        '
-        Me.TPChemicals.Controls.Add(Me.clbChemicalsMinerals)
-        Me.TPChemicals.Location = New System.Drawing.Point(4, 40)
-        Me.TPChemicals.Name = "TPChemicals"
-        Me.TPChemicals.Size = New System.Drawing.Size(254, 246)
-        Me.TPChemicals.TabIndex = 2
-        Me.TPChemicals.Text = "Chemicals/Minerals"
-        Me.TPChemicals.UseVisualStyleBackColor = True
-        '
-        'clbChemicalsMinerals
-        '
-        Me.clbChemicalsMinerals.CheckOnClick = True
-        Me.clbChemicalsMinerals.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.clbChemicalsMinerals.FormattingEnabled = True
-        Me.clbChemicalsMinerals.Location = New System.Drawing.Point(0, 0)
-        Me.clbChemicalsMinerals.Name = "clbChemicalsMinerals"
-        Me.clbChemicalsMinerals.ScrollAlwaysVisible = True
-        Me.clbChemicalsMinerals.Size = New System.Drawing.Size(254, 244)
-        Me.clbChemicalsMinerals.TabIndex = 1
-        '
-        'TPVOC
-        '
-        Me.TPVOC.Controls.Add(Me.clbVOCCombustion)
-        Me.TPVOC.Location = New System.Drawing.Point(4, 40)
-        Me.TPVOC.Name = "TPVOC"
-        Me.TPVOC.Size = New System.Drawing.Size(254, 246)
-        Me.TPVOC.TabIndex = 3
-        Me.TPVOC.Text = "VOC/Combustion"
-        Me.TPVOC.UseVisualStyleBackColor = True
-        '
-        'clbVOCCombustion
-        '
-        Me.clbVOCCombustion.CheckOnClick = True
-        Me.clbVOCCombustion.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.clbVOCCombustion.FormattingEnabled = True
-        Me.clbVOCCombustion.Location = New System.Drawing.Point(0, 0)
-        Me.clbVOCCombustion.Name = "clbVOCCombustion"
-        Me.clbVOCCombustion.ScrollAlwaysVisible = True
-        Me.clbVOCCombustion.Size = New System.Drawing.Size(254, 244)
-        Me.clbVOCCombustion.TabIndex = 1
-        '
-        'TPDistricts
-        '
-        Me.TPDistricts.Controls.Add(Me.clbDistricts)
-        Me.TPDistricts.Location = New System.Drawing.Point(4, 40)
-        Me.TPDistricts.Name = "TPDistricts"
-        Me.TPDistricts.Size = New System.Drawing.Size(254, 246)
-        Me.TPDistricts.TabIndex = 4
-        Me.TPDistricts.Text = "Districts"
-        Me.TPDistricts.UseVisualStyleBackColor = True
-        '
-        'clbDistricts
-        '
-        Me.clbDistricts.CheckOnClick = True
-        Me.clbDistricts.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.clbDistricts.FormattingEnabled = True
-        Me.clbDistricts.Location = New System.Drawing.Point(0, 0)
-        Me.clbDistricts.Name = "clbDistricts"
-        Me.clbDistricts.ScrollAlwaysVisible = True
-        Me.clbDistricts.Size = New System.Drawing.Size(254, 244)
-        Me.clbDistricts.TabIndex = 2
-        '
-        'TCStatisticalTools
-        '
-        Me.TCStatisticalTools.Controls.Add(Me.TPACCStats)
-        Me.TCStatisticalTools.Controls.Add(Me.TPEnforcement)
-        Me.TCStatisticalTools.Controls.Add(Me.TPTitleVRenewals)
-        Me.TCStatisticalTools.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.TCStatisticalTools.Location = New System.Drawing.Point(0, 290)
-        Me.TCStatisticalTools.Name = "TCStatisticalTools"
-        Me.TCStatisticalTools.SelectedIndex = 0
-        Me.TCStatisticalTools.Size = New System.Drawing.Size(615, 381)
-        Me.TCStatisticalTools.TabIndex = 14
-        '
-        'TPACCStats
-        '
-        Me.TPACCStats.Controls.Add(Me.llbACCLONTaken)
-        Me.TPACCStats.Controls.Add(Me.llbACCNOVTaken)
-        Me.TPACCStats.Controls.Add(Me.btnRunStatisticalReport)
-        Me.TPACCStats.Controls.Add(Me.llbACCCOTaken)
-        Me.TPACCStats.Controls.Add(Me.llbACCEnforcementTaken)
-        Me.TPACCStats.Controls.Add(Me.DTPSearchDateStart)
-        Me.TPACCStats.Controls.Add(Me.DTPSearchDateEnd)
-        Me.TPACCStats.Controls.Add(Me.llbACCDeviationsNotReported)
-        Me.TPACCStats.Controls.Add(Me.llbACCDeviationsInFinal)
-        Me.TPACCStats.Controls.Add(Me.llbACCDeviationsIncorrectlyReported)
-        Me.TPACCStats.Controls.Add(Me.llbACCDeviationsReportedCorrectly)
-        Me.TPACCStats.Controls.Add(Me.llbACCDeviationsReported)
-        Me.TPACCStats.Controls.Add(Me.llbACCSubmittedLate)
-        Me.TPACCStats.Controls.Add(Me.llbACCRequiringResubmittal)
-        Me.TPACCStats.Controls.Add(Me.llbACCReporting)
-        Me.TPACCStats.Controls.Add(Me.llbViewACCTotalAssigned)
-        Me.TPACCStats.Controls.Add(Me.txtLONTaken)
-        Me.TPACCStats.Controls.Add(Me.Label44)
-        Me.TPACCStats.Controls.Add(Me.txtNOVTaken)
-        Me.TPACCStats.Controls.Add(Me.Label43)
-        Me.TPACCStats.Controls.Add(Me.txtCOTaken)
-        Me.TPACCStats.Controls.Add(Me.Label42)
-        Me.TPACCStats.Controls.Add(Me.txtEnforcementActionTaken)
-        Me.TPACCStats.Controls.Add(Me.Label41)
-        Me.TPACCStats.Controls.Add(Me.txtDeviationsNotPreviouslyReported)
-        Me.TPACCStats.Controls.Add(Me.Label40)
-        Me.TPACCStats.Controls.Add(Me.txtDeviationsReportedInFinal)
-        Me.TPACCStats.Controls.Add(Me.Label38)
-        Me.TPACCStats.Controls.Add(Me.txtDeviationsIncorrectlyReported)
-        Me.TPACCStats.Controls.Add(Me.txtDeviationsCorrectlyReported)
-        Me.TPACCStats.Controls.Add(Me.Label37)
-        Me.TPACCStats.Controls.Add(Me.txtDeviationsReportedInOrigional)
-        Me.TPACCStats.Controls.Add(Me.Label36)
-        Me.TPACCStats.Controls.Add(Me.txtSubmittedLate)
-        Me.TPACCStats.Controls.Add(Me.Label35)
-        Me.TPACCStats.Controls.Add(Me.txtResubmittals)
-        Me.TPACCStats.Controls.Add(Me.Label34)
-        Me.TPACCStats.Controls.Add(Me.txtFacilitiesReporting)
-        Me.TPACCStats.Controls.Add(Me.Label32)
-        Me.TPACCStats.Controls.Add(Me.txtTotalFacilities)
-        Me.TPACCStats.Controls.Add(Me.Label31)
-        Me.TPACCStats.Location = New System.Drawing.Point(4, 22)
-        Me.TPACCStats.Name = "TPACCStats"
-        Me.TPACCStats.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPACCStats.Size = New System.Drawing.Size(607, 355)
-        Me.TPACCStats.TabIndex = 0
-        Me.TPACCStats.Text = "ACC Stats"
-        Me.TPACCStats.UseVisualStyleBackColor = True
-        '
-        'llbACCLONTaken
-        '
-        Me.llbACCLONTaken.AutoSize = True
-        Me.llbACCLONTaken.Location = New System.Drawing.Point(260, 297)
-        Me.llbACCLONTaken.Name = "llbACCLONTaken"
-        Me.llbACCLONTaken.Size = New System.Drawing.Size(30, 13)
-        Me.llbACCLONTaken.TabIndex = 37
-        Me.llbACCLONTaken.TabStop = True
-        Me.llbACCLONTaken.Text = "View"
-        '
-        'llbACCNOVTaken
-        '
-        Me.llbACCNOVTaken.AutoSize = True
-        Me.llbACCNOVTaken.Location = New System.Drawing.Point(260, 276)
-        Me.llbACCNOVTaken.Name = "llbACCNOVTaken"
-        Me.llbACCNOVTaken.Size = New System.Drawing.Size(30, 13)
-        Me.llbACCNOVTaken.TabIndex = 36
-        Me.llbACCNOVTaken.TabStop = True
-        Me.llbACCNOVTaken.Text = "View"
-        '
-        'btnRunStatisticalReport
-        '
-        Me.btnRunStatisticalReport.AutoSize = True
-        Me.btnRunStatisticalReport.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnRunStatisticalReport.Location = New System.Drawing.Point(309, 42)
-        Me.btnRunStatisticalReport.Name = "btnRunStatisticalReport"
-        Me.btnRunStatisticalReport.Size = New System.Drawing.Size(74, 23)
-        Me.btnRunStatisticalReport.TabIndex = 3
-        Me.btnRunStatisticalReport.Text = "Run Search"
-        Me.btnRunStatisticalReport.UseVisualStyleBackColor = True
-        '
-        'llbACCCOTaken
-        '
-        Me.llbACCCOTaken.AutoSize = True
-        Me.llbACCCOTaken.Location = New System.Drawing.Point(260, 255)
-        Me.llbACCCOTaken.Name = "llbACCCOTaken"
-        Me.llbACCCOTaken.Size = New System.Drawing.Size(30, 13)
-        Me.llbACCCOTaken.TabIndex = 35
-        Me.llbACCCOTaken.TabStop = True
-        Me.llbACCCOTaken.Text = "View"
-        '
-        'llbACCEnforcementTaken
-        '
-        Me.llbACCEnforcementTaken.AutoSize = True
-        Me.llbACCEnforcementTaken.Location = New System.Drawing.Point(260, 234)
-        Me.llbACCEnforcementTaken.Name = "llbACCEnforcementTaken"
-        Me.llbACCEnforcementTaken.Size = New System.Drawing.Size(30, 13)
-        Me.llbACCEnforcementTaken.TabIndex = 34
-        Me.llbACCEnforcementTaken.TabStop = True
-        Me.llbACCEnforcementTaken.Text = "View"
-        '
-        'DTPSearchDateStart
-        '
-        Me.DTPSearchDateStart.CustomFormat = "dd-MMM-yyyy"
-        Me.DTPSearchDateStart.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DTPSearchDateStart.Location = New System.Drawing.Point(309, 16)
-        Me.DTPSearchDateStart.Name = "DTPSearchDateStart"
-        Me.DTPSearchDateStart.Size = New System.Drawing.Size(97, 20)
-        Me.DTPSearchDateStart.TabIndex = 6
-        Me.DTPSearchDateStart.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
-        '
-        'DTPSearchDateEnd
-        '
-        Me.DTPSearchDateEnd.CustomFormat = "dd-MMM-yyyy"
-        Me.DTPSearchDateEnd.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DTPSearchDateEnd.Location = New System.Drawing.Point(412, 16)
-        Me.DTPSearchDateEnd.Name = "DTPSearchDateEnd"
-        Me.DTPSearchDateEnd.Size = New System.Drawing.Size(97, 20)
-        Me.DTPSearchDateEnd.TabIndex = 7
-        Me.DTPSearchDateEnd.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
-        '
-        'llbACCDeviationsNotReported
-        '
-        Me.llbACCDeviationsNotReported.AutoSize = True
-        Me.llbACCDeviationsNotReported.Location = New System.Drawing.Point(260, 213)
-        Me.llbACCDeviationsNotReported.Name = "llbACCDeviationsNotReported"
-        Me.llbACCDeviationsNotReported.Size = New System.Drawing.Size(30, 13)
-        Me.llbACCDeviationsNotReported.TabIndex = 33
-        Me.llbACCDeviationsNotReported.TabStop = True
-        Me.llbACCDeviationsNotReported.Text = "View"
-        '
-        'llbACCDeviationsInFinal
-        '
-        Me.llbACCDeviationsInFinal.AutoSize = True
-        Me.llbACCDeviationsInFinal.Location = New System.Drawing.Point(260, 192)
-        Me.llbACCDeviationsInFinal.Name = "llbACCDeviationsInFinal"
-        Me.llbACCDeviationsInFinal.Size = New System.Drawing.Size(30, 13)
-        Me.llbACCDeviationsInFinal.TabIndex = 32
-        Me.llbACCDeviationsInFinal.TabStop = True
-        Me.llbACCDeviationsInFinal.Text = "View"
-        '
-        'llbACCDeviationsIncorrectlyReported
-        '
-        Me.llbACCDeviationsIncorrectlyReported.AutoSize = True
-        Me.llbACCDeviationsIncorrectlyReported.Location = New System.Drawing.Point(260, 161)
-        Me.llbACCDeviationsIncorrectlyReported.Name = "llbACCDeviationsIncorrectlyReported"
-        Me.llbACCDeviationsIncorrectlyReported.Size = New System.Drawing.Size(30, 13)
-        Me.llbACCDeviationsIncorrectlyReported.TabIndex = 31
-        Me.llbACCDeviationsIncorrectlyReported.TabStop = True
-        Me.llbACCDeviationsIncorrectlyReported.Text = "View"
-        '
-        'llbACCDeviationsReportedCorrectly
-        '
-        Me.llbACCDeviationsReportedCorrectly.AutoSize = True
-        Me.llbACCDeviationsReportedCorrectly.Location = New System.Drawing.Point(260, 142)
-        Me.llbACCDeviationsReportedCorrectly.Name = "llbACCDeviationsReportedCorrectly"
-        Me.llbACCDeviationsReportedCorrectly.Size = New System.Drawing.Size(30, 13)
-        Me.llbACCDeviationsReportedCorrectly.TabIndex = 30
-        Me.llbACCDeviationsReportedCorrectly.TabStop = True
-        Me.llbACCDeviationsReportedCorrectly.Text = "View"
-        '
-        'llbACCDeviationsReported
-        '
-        Me.llbACCDeviationsReported.AutoSize = True
-        Me.llbACCDeviationsReported.Location = New System.Drawing.Point(260, 100)
-        Me.llbACCDeviationsReported.Name = "llbACCDeviationsReported"
-        Me.llbACCDeviationsReported.Size = New System.Drawing.Size(30, 13)
-        Me.llbACCDeviationsReported.TabIndex = 29
-        Me.llbACCDeviationsReported.TabStop = True
-        Me.llbACCDeviationsReported.Text = "View"
-        '
-        'llbACCSubmittedLate
-        '
-        Me.llbACCSubmittedLate.AutoSize = True
-        Me.llbACCSubmittedLate.Location = New System.Drawing.Point(260, 79)
-        Me.llbACCSubmittedLate.Name = "llbACCSubmittedLate"
-        Me.llbACCSubmittedLate.Size = New System.Drawing.Size(30, 13)
-        Me.llbACCSubmittedLate.TabIndex = 28
-        Me.llbACCSubmittedLate.TabStop = True
-        Me.llbACCSubmittedLate.Text = "View"
-        '
-        'llbACCRequiringResubmittal
-        '
-        Me.llbACCRequiringResubmittal.AutoSize = True
-        Me.llbACCRequiringResubmittal.Location = New System.Drawing.Point(260, 58)
-        Me.llbACCRequiringResubmittal.Name = "llbACCRequiringResubmittal"
-        Me.llbACCRequiringResubmittal.Size = New System.Drawing.Size(30, 13)
-        Me.llbACCRequiringResubmittal.TabIndex = 27
-        Me.llbACCRequiringResubmittal.TabStop = True
-        Me.llbACCRequiringResubmittal.Text = "View"
-        '
-        'llbACCReporting
-        '
-        Me.llbACCReporting.AutoSize = True
-        Me.llbACCReporting.Location = New System.Drawing.Point(260, 37)
-        Me.llbACCReporting.Name = "llbACCReporting"
-        Me.llbACCReporting.Size = New System.Drawing.Size(30, 13)
-        Me.llbACCReporting.TabIndex = 26
-        Me.llbACCReporting.TabStop = True
-        Me.llbACCReporting.Text = "View"
-        '
-        'llbViewACCTotalAssigned
-        '
-        Me.llbViewACCTotalAssigned.AutoSize = True
-        Me.llbViewACCTotalAssigned.Location = New System.Drawing.Point(260, 16)
-        Me.llbViewACCTotalAssigned.Name = "llbViewACCTotalAssigned"
-        Me.llbViewACCTotalAssigned.Size = New System.Drawing.Size(30, 13)
-        Me.llbViewACCTotalAssigned.TabIndex = 25
-        Me.llbViewACCTotalAssigned.TabStop = True
-        Me.llbViewACCTotalAssigned.Text = "View"
-        '
-        'txtLONTaken
-        '
-        Me.txtLONTaken.Location = New System.Drawing.Point(185, 293)
-        Me.txtLONTaken.Name = "txtLONTaken"
-        Me.txtLONTaken.ReadOnly = True
-        Me.txtLONTaken.Size = New System.Drawing.Size(59, 20)
-        Me.txtLONTaken.TabIndex = 24
-        '
-        'Label44
-        '
-        Me.Label44.AutoSize = True
-        Me.Label44.Location = New System.Drawing.Point(6, 297)
-        Me.Label44.Name = "Label44"
-        Me.Label44.Size = New System.Drawing.Size(29, 13)
-        Me.Label44.TabIndex = 23
-        Me.Label44.Text = "LON"
-        '
-        'txtNOVTaken
-        '
-        Me.txtNOVTaken.Location = New System.Drawing.Point(185, 272)
-        Me.txtNOVTaken.Name = "txtNOVTaken"
-        Me.txtNOVTaken.ReadOnly = True
-        Me.txtNOVTaken.Size = New System.Drawing.Size(59, 20)
-        Me.txtNOVTaken.TabIndex = 22
-        '
-        'Label43
-        '
-        Me.Label43.AutoSize = True
-        Me.Label43.Location = New System.Drawing.Point(6, 276)
-        Me.Label43.Name = "Label43"
-        Me.Label43.Size = New System.Drawing.Size(30, 13)
-        Me.Label43.TabIndex = 21
-        Me.Label43.Text = "NOV"
-        '
-        'txtCOTaken
-        '
-        Me.txtCOTaken.Location = New System.Drawing.Point(185, 251)
-        Me.txtCOTaken.Name = "txtCOTaken"
-        Me.txtCOTaken.ReadOnly = True
-        Me.txtCOTaken.Size = New System.Drawing.Size(59, 20)
-        Me.txtCOTaken.TabIndex = 20
-        '
-        'Label42
-        '
-        Me.Label42.AutoSize = True
-        Me.Label42.Location = New System.Drawing.Point(6, 255)
-        Me.Label42.Name = "Label42"
-        Me.Label42.Size = New System.Drawing.Size(22, 13)
-        Me.Label42.TabIndex = 19
-        Me.Label42.Text = "CO"
-        '
-        'txtEnforcementActionTaken
-        '
-        Me.txtEnforcementActionTaken.Location = New System.Drawing.Point(185, 230)
-        Me.txtEnforcementActionTaken.Name = "txtEnforcementActionTaken"
-        Me.txtEnforcementActionTaken.ReadOnly = True
-        Me.txtEnforcementActionTaken.Size = New System.Drawing.Size(59, 20)
-        Me.txtEnforcementActionTaken.TabIndex = 18
-        '
-        'Label41
-        '
-        Me.Label41.AutoSize = True
-        Me.Label41.Location = New System.Drawing.Point(6, 234)
-        Me.Label41.Name = "Label41"
-        Me.Label41.Size = New System.Drawing.Size(129, 13)
-        Me.Label41.TabIndex = 17
-        Me.Label41.Text = "Enforcement action taken"
-        '
-        'txtDeviationsNotPreviouslyReported
-        '
-        Me.txtDeviationsNotPreviouslyReported.Location = New System.Drawing.Point(185, 209)
-        Me.txtDeviationsNotPreviouslyReported.Name = "txtDeviationsNotPreviouslyReported"
-        Me.txtDeviationsNotPreviouslyReported.ReadOnly = True
-        Me.txtDeviationsNotPreviouslyReported.Size = New System.Drawing.Size(59, 20)
-        Me.txtDeviationsNotPreviouslyReported.TabIndex = 16
-        '
-        'Label40
-        '
-        Me.Label40.AutoSize = True
-        Me.Label40.Location = New System.Drawing.Point(6, 213)
-        Me.Label40.Name = "Label40"
-        Me.Label40.Size = New System.Drawing.Size(167, 13)
-        Me.Label40.TabIndex = 15
-        Me.Label40.Text = "Deviations not previously reported"
-        '
-        'txtDeviationsReportedInFinal
-        '
-        Me.txtDeviationsReportedInFinal.Location = New System.Drawing.Point(185, 188)
-        Me.txtDeviationsReportedInFinal.Name = "txtDeviationsReportedInFinal"
-        Me.txtDeviationsReportedInFinal.ReadOnly = True
-        Me.txtDeviationsReportedInFinal.Size = New System.Drawing.Size(59, 20)
-        Me.txtDeviationsReportedInFinal.TabIndex = 14
-        '
-        'Label38
-        '
-        Me.Label38.AutoSize = True
-        Me.Label38.Location = New System.Drawing.Point(6, 192)
-        Me.Label38.Name = "Label38"
-        Me.Label38.Size = New System.Drawing.Size(132, 13)
-        Me.Label38.TabIndex = 13
-        Me.Label38.Text = "Deviations reported in final"
-        '
-        'txtDeviationsIncorrectlyReported
-        '
-        Me.txtDeviationsIncorrectlyReported.Location = New System.Drawing.Point(185, 157)
-        Me.txtDeviationsIncorrectlyReported.Name = "txtDeviationsIncorrectlyReported"
-        Me.txtDeviationsIncorrectlyReported.ReadOnly = True
-        Me.txtDeviationsIncorrectlyReported.Size = New System.Drawing.Size(59, 20)
-        Me.txtDeviationsIncorrectlyReported.TabIndex = 12
-        '
-        'txtDeviationsCorrectlyReported
-        '
-        Me.txtDeviationsCorrectlyReported.Location = New System.Drawing.Point(185, 138)
-        Me.txtDeviationsCorrectlyReported.Name = "txtDeviationsCorrectlyReported"
-        Me.txtDeviationsCorrectlyReported.ReadOnly = True
-        Me.txtDeviationsCorrectlyReported.Size = New System.Drawing.Size(59, 20)
-        Me.txtDeviationsCorrectlyReported.TabIndex = 11
-        '
-        'Label37
-        '
-        Me.Label37.AutoSize = True
-        Me.Label37.Location = New System.Drawing.Point(6, 130)
-        Me.Label37.Name = "Label37"
-        Me.Label37.Size = New System.Drawing.Size(168, 39)
-        Me.Label37.TabIndex = 10
-        Me.Label37.Text = "No Deviations Reported in original" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "    - Correctly" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "     - Incorrectly"
-        '
-        'txtDeviationsReportedInOrigional
-        '
-        Me.txtDeviationsReportedInOrigional.Location = New System.Drawing.Point(185, 96)
-        Me.txtDeviationsReportedInOrigional.Name = "txtDeviationsReportedInOrigional"
-        Me.txtDeviationsReportedInOrigional.ReadOnly = True
-        Me.txtDeviationsReportedInOrigional.Size = New System.Drawing.Size(59, 20)
-        Me.txtDeviationsReportedInOrigional.TabIndex = 9
-        '
-        'Label36
-        '
-        Me.Label36.AutoSize = True
-        Me.Label36.Location = New System.Drawing.Point(6, 100)
-        Me.Label36.Name = "Label36"
-        Me.Label36.Size = New System.Drawing.Size(151, 13)
-        Me.Label36.TabIndex = 8
-        Me.Label36.Text = "Deviations Reported in original"
-        '
-        'txtSubmittedLate
-        '
-        Me.txtSubmittedLate.Location = New System.Drawing.Point(185, 75)
-        Me.txtSubmittedLate.Name = "txtSubmittedLate"
-        Me.txtSubmittedLate.ReadOnly = True
-        Me.txtSubmittedLate.Size = New System.Drawing.Size(59, 20)
-        Me.txtSubmittedLate.TabIndex = 7
-        '
-        'Label35
-        '
-        Me.Label35.AutoSize = True
-        Me.Label35.Location = New System.Drawing.Point(6, 79)
-        Me.Label35.Name = "Label35"
-        Me.Label35.Size = New System.Drawing.Size(121, 13)
-        Me.Label35.TabIndex = 6
-        Me.Label35.Text = "Facilities Submitted Late"
-        '
-        'txtResubmittals
-        '
-        Me.txtResubmittals.Location = New System.Drawing.Point(185, 54)
-        Me.txtResubmittals.Name = "txtResubmittals"
-        Me.txtResubmittals.ReadOnly = True
-        Me.txtResubmittals.Size = New System.Drawing.Size(59, 20)
-        Me.txtResubmittals.TabIndex = 5
-        '
-        'Label34
-        '
-        Me.Label34.AutoSize = True
-        Me.Label34.Location = New System.Drawing.Point(6, 58)
-        Me.Label34.Name = "Label34"
-        Me.Label34.Size = New System.Drawing.Size(153, 13)
-        Me.Label34.TabIndex = 4
-        Me.Label34.Text = "Facilities Requiring Resubmittal"
-        '
-        'txtFacilitiesReporting
-        '
-        Me.txtFacilitiesReporting.Location = New System.Drawing.Point(185, 33)
-        Me.txtFacilitiesReporting.Name = "txtFacilitiesReporting"
-        Me.txtFacilitiesReporting.ReadOnly = True
-        Me.txtFacilitiesReporting.Size = New System.Drawing.Size(59, 20)
-        Me.txtFacilitiesReporting.TabIndex = 3
-        '
-        'Label32
-        '
-        Me.Label32.AutoSize = True
-        Me.Label32.Location = New System.Drawing.Point(6, 37)
-        Me.Label32.Name = "Label32"
-        Me.Label32.Size = New System.Drawing.Size(96, 13)
-        Me.Label32.TabIndex = 2
-        Me.Label32.Text = "Facilities Reporting"
-        '
-        'txtTotalFacilities
-        '
-        Me.txtTotalFacilities.Location = New System.Drawing.Point(185, 12)
-        Me.txtTotalFacilities.Name = "txtTotalFacilities"
-        Me.txtTotalFacilities.ReadOnly = True
-        Me.txtTotalFacilities.Size = New System.Drawing.Size(59, 20)
-        Me.txtTotalFacilities.TabIndex = 1
-        '
-        'Label31
-        '
-        Me.Label31.AutoSize = True
-        Me.Label31.Location = New System.Drawing.Point(6, 16)
-        Me.Label31.Name = "Label31"
-        Me.Label31.Size = New System.Drawing.Size(157, 13)
-        Me.Label31.TabIndex = 0
-        Me.Label31.Text = "Total Facilities Assigned to Staff"
-        '
-        'TPEnforcement
-        '
-        Me.TPEnforcement.Controls.Add(Me.chbUseEnforcementDateRange)
-        Me.TPEnforcement.Controls.Add(Me.dtpEnforcementStartDate)
-        Me.TPEnforcement.Controls.Add(Me.dtpEnforcementEndDate)
-        Me.TPEnforcement.Controls.Add(Me.Label47)
-        Me.TPEnforcement.Controls.Add(Me.llbViewEnforcements)
-        Me.TPEnforcement.Controls.Add(Me.mtbEnforcementSummary)
-        Me.TPEnforcement.Controls.Add(Me.Label46)
-        Me.TPEnforcement.Controls.Add(Me.btnPenaltySummary)
-        Me.TPEnforcement.Controls.Add(Me.txtEnforcementAIRSNumber)
-        Me.TPEnforcement.Location = New System.Drawing.Point(4, 22)
-        Me.TPEnforcement.Name = "TPEnforcement"
-        Me.TPEnforcement.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPEnforcement.Size = New System.Drawing.Size(607, 355)
-        Me.TPEnforcement.TabIndex = 1
-        Me.TPEnforcement.Text = "Enforcement"
-        Me.TPEnforcement.UseVisualStyleBackColor = True
-        '
-        'chbUseEnforcementDateRange
-        '
-        Me.chbUseEnforcementDateRange.AutoSize = True
-        Me.chbUseEnforcementDateRange.Location = New System.Drawing.Point(28, 44)
-        Me.chbUseEnforcementDateRange.Name = "chbUseEnforcementDateRange"
-        Me.chbUseEnforcementDateRange.Size = New System.Drawing.Size(99, 17)
-        Me.chbUseEnforcementDateRange.TabIndex = 30
-        Me.chbUseEnforcementDateRange.Text = "Use date range"
-        Me.chbUseEnforcementDateRange.UseVisualStyleBackColor = True
-        '
-        'dtpEnforcementStartDate
-        '
-        Me.dtpEnforcementStartDate.CustomFormat = "dd-MMM-yyyy"
-        Me.dtpEnforcementStartDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpEnforcementStartDate.Location = New System.Drawing.Point(130, 44)
-        Me.dtpEnforcementStartDate.Name = "dtpEnforcementStartDate"
-        Me.dtpEnforcementStartDate.Size = New System.Drawing.Size(97, 20)
-        Me.dtpEnforcementStartDate.TabIndex = 28
-        Me.dtpEnforcementStartDate.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
-        '
-        'dtpEnforcementEndDate
-        '
-        Me.dtpEnforcementEndDate.CustomFormat = "dd-MMM-yyyy"
-        Me.dtpEnforcementEndDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpEnforcementEndDate.Location = New System.Drawing.Point(233, 44)
-        Me.dtpEnforcementEndDate.Name = "dtpEnforcementEndDate"
-        Me.dtpEnforcementEndDate.Size = New System.Drawing.Size(97, 20)
-        Me.dtpEnforcementEndDate.TabIndex = 29
-        Me.dtpEnforcementEndDate.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
-        '
-        'Label47
-        '
-        Me.Label47.AutoSize = True
-        Me.Label47.Location = New System.Drawing.Point(300, 14)
-        Me.Label47.Name = "Label47"
-        Me.Label47.Size = New System.Drawing.Size(77, 13)
-        Me.Label47.TabIndex = 27
-        Me.Label47.Text = "Total Penalties"
-        '
-        'llbViewEnforcements
-        '
-        Me.llbViewEnforcements.AutoSize = True
-        Me.llbViewEnforcements.Location = New System.Drawing.Point(528, 14)
-        Me.llbViewEnforcements.Name = "llbViewEnforcements"
-        Me.llbViewEnforcements.Size = New System.Drawing.Size(30, 13)
-        Me.llbViewEnforcements.TabIndex = 26
-        Me.llbViewEnforcements.TabStop = True
-        Me.llbViewEnforcements.Text = "View"
-        '
-        'mtbEnforcementSummary
-        '
-        Me.mtbEnforcementSummary.Location = New System.Drawing.Point(383, 10)
-        Me.mtbEnforcementSummary.Mask = "$0000000000000000000"
-        Me.mtbEnforcementSummary.Name = "mtbEnforcementSummary"
-        Me.mtbEnforcementSummary.PromptChar = Global.Microsoft.VisualBasic.ChrW(32)
-        Me.mtbEnforcementSummary.ReadOnly = True
-        Me.mtbEnforcementSummary.Size = New System.Drawing.Size(140, 20)
-        Me.mtbEnforcementSummary.TabIndex = 3
-        '
-        'Label46
-        '
-        Me.Label46.AutoSize = True
-        Me.Label46.Location = New System.Drawing.Point(6, 14)
-        Me.Label46.Name = "Label46"
-        Me.Label46.Size = New System.Drawing.Size(72, 13)
-        Me.Label46.TabIndex = 2
-        Me.Label46.Text = "AIRS Number"
-        '
-        'btnPenaltySummary
-        '
-        Me.btnPenaltySummary.AutoSize = True
-        Me.btnPenaltySummary.Location = New System.Drawing.Point(190, 9)
-        Me.btnPenaltySummary.Name = "btnPenaltySummary"
-        Me.btnPenaltySummary.Size = New System.Drawing.Size(101, 23)
-        Me.btnPenaltySummary.TabIndex = 1
-        Me.btnPenaltySummary.Text = "Penalty Summary"
-        Me.btnPenaltySummary.UseVisualStyleBackColor = True
-        '
-        'txtEnforcementAIRSNumber
-        '
-        Me.txtEnforcementAIRSNumber.Location = New System.Drawing.Point(84, 10)
-        Me.txtEnforcementAIRSNumber.Name = "txtEnforcementAIRSNumber"
-        Me.txtEnforcementAIRSNumber.Size = New System.Drawing.Size(100, 20)
-        Me.txtEnforcementAIRSNumber.TabIndex = 0
-        '
-        'TPTitleVRenewals
-        '
-        Me.TPTitleVRenewals.Controls.Add(Me.Label66)
-        Me.TPTitleVRenewals.Controls.Add(Me.btnRunTitleVSearch)
-        Me.TPTitleVRenewals.Controls.Add(Me.llbTitleVRenewal)
-        Me.TPTitleVRenewals.Controls.Add(Me.txtTitleVRenewals)
-        Me.TPTitleVRenewals.Controls.Add(Me.Label65)
-        Me.TPTitleVRenewals.Location = New System.Drawing.Point(4, 22)
-        Me.TPTitleVRenewals.Name = "TPTitleVRenewals"
-        Me.TPTitleVRenewals.Size = New System.Drawing.Size(607, 355)
-        Me.TPTitleVRenewals.TabIndex = 2
-        Me.TPTitleVRenewals.Text = "Title V Renewals"
-        Me.TPTitleVRenewals.UseVisualStyleBackColor = True
-        '
-        'Label66
-        '
-        Me.Label66.Location = New System.Drawing.Point(233, 33)
-        Me.Label66.Name = "Label66"
-        Me.Label66.Size = New System.Drawing.Size(350, 97)
-        Me.Label66.TabIndex = 42
-        Me.Label66.Text = "The number of facilities that have not submitted a Title V Renewal Permit applica" & _
-            "tion that are less than 9 months from the 5-year expiration date of the previous" & _
-            " Initial/Renewal TV permit issuance."
-        '
-        'btnRunTitleVSearch
-        '
-        Me.btnRunTitleVSearch.AutoSize = True
-        Me.btnRunTitleVSearch.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnRunTitleVSearch.Location = New System.Drawing.Point(7, 6)
-        Me.btnRunTitleVSearch.Name = "btnRunTitleVSearch"
-        Me.btnRunTitleVSearch.Size = New System.Drawing.Size(74, 23)
-        Me.btnRunTitleVSearch.TabIndex = 41
-        Me.btnRunTitleVSearch.Text = "Run Search"
-        Me.btnRunTitleVSearch.UseVisualStyleBackColor = True
-        '
-        'llbTitleVRenewal
-        '
-        Me.llbTitleVRenewal.AutoSize = True
-        Me.llbTitleVRenewal.Location = New System.Drawing.Point(186, 37)
-        Me.llbTitleVRenewal.Name = "llbTitleVRenewal"
-        Me.llbTitleVRenewal.Size = New System.Drawing.Size(30, 13)
-        Me.llbTitleVRenewal.TabIndex = 40
-        Me.llbTitleVRenewal.TabStop = True
-        Me.llbTitleVRenewal.Text = "View"
-        '
-        'txtTitleVRenewals
-        '
-        Me.txtTitleVRenewals.Location = New System.Drawing.Point(111, 33)
-        Me.txtTitleVRenewals.Name = "txtTitleVRenewals"
-        Me.txtTitleVRenewals.ReadOnly = True
-        Me.txtTitleVRenewals.Size = New System.Drawing.Size(59, 20)
-        Me.txtTitleVRenewals.TabIndex = 39
-        '
-        'Label65
-        '
-        Me.Label65.AutoSize = True
-        Me.Label65.Location = New System.Drawing.Point(20, 37)
-        Me.Label65.Name = "Label65"
-        Me.Label65.Size = New System.Drawing.Size(90, 13)
-        Me.Label65.TabIndex = 38
-        Me.Label65.Text = "Title V Renewals "
-        '
-        'llbViewRecord
-        '
-        Me.llbViewRecord.AutoSize = True
-        Me.llbViewRecord.Location = New System.Drawing.Point(305, 22)
-        Me.llbViewRecord.Name = "llbViewRecord"
-        Me.llbViewRecord.Size = New System.Drawing.Size(68, 13)
-        Me.llbViewRecord.TabIndex = 20
-        Me.llbViewRecord.TabStop = True
-        Me.llbViewRecord.Text = "View Record"
-        '
-        'lblStatisticalRecords
-        '
-        Me.lblStatisticalRecords.AutoSize = True
-        Me.lblStatisticalRecords.Location = New System.Drawing.Point(110, 22)
-        Me.lblStatisticalRecords.Name = "lblStatisticalRecords"
-        Me.lblStatisticalRecords.Size = New System.Drawing.Size(0, 13)
-        Me.lblStatisticalRecords.TabIndex = 19
-        '
-        'txtStatisticalCount
-        '
-        Me.txtStatisticalCount.Location = New System.Drawing.Point(47, 19)
-        Me.txtStatisticalCount.Name = "txtStatisticalCount"
-        Me.txtStatisticalCount.ReadOnly = True
-        Me.txtStatisticalCount.Size = New System.Drawing.Size(46, 20)
-        Me.txtStatisticalCount.TabIndex = 18
-        '
-        'Label45
-        '
-        Me.Label45.AutoSize = True
-        Me.Label45.Location = New System.Drawing.Point(6, 22)
-        Me.Label45.Name = "Label45"
-        Me.Label45.Size = New System.Drawing.Size(38, 13)
-        Me.Label45.TabIndex = 17
-        Me.Label45.Text = "Count:"
-        '
-        'txtRecordNumber
-        '
-        Me.txtRecordNumber.Location = New System.Drawing.Point(199, 19)
-        Me.txtRecordNumber.Name = "txtRecordNumber"
-        Me.txtRecordNumber.Size = New System.Drawing.Size(100, 20)
-        Me.txtRecordNumber.TabIndex = 16
-        '
-        'btnExportToExcel
-        '
-        Me.btnExportToExcel.AutoSize = True
-        Me.btnExportToExcel.Location = New System.Drawing.Point(469, 17)
-        Me.btnExportToExcel.Name = "btnExportToExcel"
-        Me.btnExportToExcel.Size = New System.Drawing.Size(88, 23)
-        Me.btnExportToExcel.TabIndex = 15
-        Me.btnExportToExcel.Text = "Export to Excel"
-        Me.btnExportToExcel.UseVisualStyleBackColor = True
-        '
-        'dgvStatisticalReports
-        '
-        Me.dgvStatisticalReports.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-                    Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.dgvStatisticalReports.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvStatisticalReports.Location = New System.Drawing.Point(0, 47)
-        Me.dgvStatisticalReports.Name = "dgvStatisticalReports"
-        Me.dgvStatisticalReports.ReadOnly = True
-        Me.dgvStatisticalReports.Size = New System.Drawing.Size(565, 624)
-        Me.dgvStatisticalReports.TabIndex = 14
-        '
-        'TPWatchList
-        '
-        Me.TPWatchList.Controls.Add(Me.dgvWatchList)
-        Me.TPWatchList.Controls.Add(Me.Panel6)
-        Me.TPWatchList.Location = New System.Drawing.Point(4, 22)
-        Me.TPWatchList.Name = "TPWatchList"
-        Me.TPWatchList.Size = New System.Drawing.Size(1184, 671)
-        Me.TPWatchList.TabIndex = 7
-        Me.TPWatchList.Text = "Watch List Facilities"
-        Me.TPWatchList.UseVisualStyleBackColor = True
-        '
-        'dgvWatchList
-        '
-        Me.dgvWatchList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvWatchList.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.dgvWatchList.Location = New System.Drawing.Point(0, 108)
-        Me.dgvWatchList.Name = "dgvWatchList"
-        Me.dgvWatchList.ReadOnly = True
-        Me.dgvWatchList.Size = New System.Drawing.Size(1184, 563)
-        Me.dgvWatchList.TabIndex = 1
-        '
-        'Panel6
-        '
-        Me.Panel6.AutoScroll = True
-        Me.Panel6.Controls.Add(Me.btnExportWatchListToExcel)
-        Me.Panel6.Controls.Add(Me.rdbInComplianceCEMSData)
-        Me.Panel6.Controls.Add(Me.rdbInComplianceProcedural)
-        Me.Panel6.Controls.Add(Me.rdbInComplianceShutDown)
-        Me.Panel6.Controls.Add(Me.rdbInComplianceCertification)
-        Me.Panel6.Controls.Add(Me.rdbInComplianceInspection)
-        Me.Panel6.Controls.Add(Me.rdbInComplianceSourceTest)
-        Me.Panel6.Controls.Add(Me.rdbNoApplicableStateReg)
-        Me.Panel6.Controls.Add(Me.rdbMeetingCompliance)
-        Me.Panel6.Controls.Add(Me.rdbUnknownCompliance)
-        Me.Panel6.Controls.Add(Me.rdbInViolationProcedural)
-        Me.Panel6.Controls.Add(Me.rdbInViolationNotMeetingSchedule)
-        Me.Panel6.Controls.Add(Me.rdbInViolationNoSchedule)
-        Me.Panel6.Controls.Add(Me.rdbInViolationProceduralEmissions)
-        Me.Panel6.Controls.Add(Me.rdbAllNegativeStatus)
-        Me.Panel6.Controls.Add(Me.btnViewWatchListFacilities)
-        Me.Panel6.Controls.Add(Me.lblWatchListCount)
-        Me.Panel6.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Panel6.Location = New System.Drawing.Point(0, 0)
-        Me.Panel6.Name = "Panel6"
-        Me.Panel6.Size = New System.Drawing.Size(1184, 108)
-        Me.Panel6.TabIndex = 0
-        '
-        'btnExportWatchListToExcel
-        '
-        Me.btnExportWatchListToExcel.AutoSize = True
-        Me.btnExportWatchListToExcel.Location = New System.Drawing.Point(1088, 78)
-        Me.btnExportWatchListToExcel.Name = "btnExportWatchListToExcel"
-        Me.btnExportWatchListToExcel.Size = New System.Drawing.Size(88, 23)
-        Me.btnExportWatchListToExcel.TabIndex = 315
-        Me.btnExportWatchListToExcel.Text = "Export to Excel"
-        Me.btnExportWatchListToExcel.UseVisualStyleBackColor = True
-        '
-        'rdbInComplianceCEMSData
-        '
-        Me.rdbInComplianceCEMSData.AutoSize = True
-        Me.rdbInComplianceCEMSData.Location = New System.Drawing.Point(864, 35)
-        Me.rdbInComplianceCEMSData.Name = "rdbInComplianceCEMSData"
-        Me.rdbInComplianceCEMSData.Size = New System.Drawing.Size(172, 17)
-        Me.rdbInComplianceCEMSData.TabIndex = 16
-        Me.rdbInComplianceCEMSData.TabStop = True
-        Me.rdbInComplianceCEMSData.Text = "M - In Compliance, CEMS Data"
-        Me.rdbInComplianceCEMSData.UseVisualStyleBackColor = True
-        '
-        'rdbInComplianceProcedural
-        '
-        Me.rdbInComplianceProcedural.AutoSize = True
-        Me.rdbInComplianceProcedural.Location = New System.Drawing.Point(864, 12)
-        Me.rdbInComplianceProcedural.Name = "rdbInComplianceProcedural"
-        Me.rdbInComplianceProcedural.Size = New System.Drawing.Size(165, 17)
-        Me.rdbInComplianceProcedural.TabIndex = 15
-        Me.rdbInComplianceProcedural.TabStop = True
-        Me.rdbInComplianceProcedural.Text = "C - In Compliance, Procedural"
-        Me.rdbInComplianceProcedural.UseVisualStyleBackColor = True
-        '
-        'rdbInComplianceShutDown
-        '
-        Me.rdbInComplianceShutDown.AutoSize = True
-        Me.rdbInComplianceShutDown.Location = New System.Drawing.Point(687, 81)
-        Me.rdbInComplianceShutDown.Name = "rdbInComplianceShutDown"
-        Me.rdbInComplianceShutDown.Size = New System.Drawing.Size(166, 17)
-        Me.rdbInComplianceShutDown.TabIndex = 14
-        Me.rdbInComplianceShutDown.TabStop = True
-        Me.rdbInComplianceShutDown.Text = "9 - In Compliance, Shut Down"
-        Me.rdbInComplianceShutDown.UseVisualStyleBackColor = True
-        '
-        'rdbInComplianceCertification
-        '
-        Me.rdbInComplianceCertification.AutoSize = True
-        Me.rdbInComplianceCertification.Location = New System.Drawing.Point(687, 58)
-        Me.rdbInComplianceCertification.Name = "rdbInComplianceCertification"
-        Me.rdbInComplianceCertification.Size = New System.Drawing.Size(168, 17)
-        Me.rdbInComplianceCertification.TabIndex = 13
-        Me.rdbInComplianceCertification.TabStop = True
-        Me.rdbInComplianceCertification.Text = "4 - In Compliance, Certification"
-        Me.rdbInComplianceCertification.UseVisualStyleBackColor = True
-        '
-        'rdbInComplianceInspection
-        '
-        Me.rdbInComplianceInspection.AutoSize = True
-        Me.rdbInComplianceInspection.Location = New System.Drawing.Point(687, 35)
-        Me.rdbInComplianceInspection.Name = "rdbInComplianceInspection"
-        Me.rdbInComplianceInspection.Size = New System.Drawing.Size(162, 17)
-        Me.rdbInComplianceInspection.TabIndex = 12
-        Me.rdbInComplianceInspection.TabStop = True
-        Me.rdbInComplianceInspection.Text = "3 - In Compliance, Inspection"
-        Me.rdbInComplianceInspection.UseVisualStyleBackColor = True
-        '
-        'rdbInComplianceSourceTest
-        '
-        Me.rdbInComplianceSourceTest.AutoSize = True
-        Me.rdbInComplianceSourceTest.Location = New System.Drawing.Point(687, 12)
-        Me.rdbInComplianceSourceTest.Name = "rdbInComplianceSourceTest"
-        Me.rdbInComplianceSourceTest.Size = New System.Drawing.Size(171, 17)
-        Me.rdbInComplianceSourceTest.TabIndex = 11
-        Me.rdbInComplianceSourceTest.TabStop = True
-        Me.rdbInComplianceSourceTest.Text = "2 - In Compliance, Source Test"
-        Me.rdbInComplianceSourceTest.UseVisualStyleBackColor = True
-        '
-        'rdbNoApplicableStateReg
-        '
-        Me.rdbNoApplicableStateReg.AutoSize = True
-        Me.rdbNoApplicableStateReg.Location = New System.Drawing.Point(467, 58)
-        Me.rdbNoApplicableStateReg.Name = "rdbNoApplicableStateReg"
-        Me.rdbNoApplicableStateReg.Size = New System.Drawing.Size(160, 17)
-        Me.rdbNoApplicableStateReg.TabIndex = 10
-        Me.rdbNoApplicableStateReg.TabStop = True
-        Me.rdbNoApplicableStateReg.Text = "8 - No Applicable State Reg."
-        Me.rdbNoApplicableStateReg.UseVisualStyleBackColor = True
-        '
-        'rdbMeetingCompliance
-        '
-        Me.rdbMeetingCompliance.AutoSize = True
-        Me.rdbMeetingCompliance.Location = New System.Drawing.Point(467, 35)
-        Me.rdbMeetingCompliance.Name = "rdbMeetingCompliance"
-        Me.rdbMeetingCompliance.Size = New System.Drawing.Size(184, 17)
-        Me.rdbMeetingCompliance.TabIndex = 9
-        Me.rdbMeetingCompliance.TabStop = True
-        Me.rdbMeetingCompliance.Text = "5 - Meeting Compliance Schedule"
-        Me.rdbMeetingCompliance.UseVisualStyleBackColor = True
-        '
-        'rdbUnknownCompliance
-        '
-        Me.rdbUnknownCompliance.AutoSize = True
-        Me.rdbUnknownCompliance.Location = New System.Drawing.Point(467, 12)
-        Me.rdbUnknownCompliance.Name = "rdbUnknownCompliance"
-        Me.rdbUnknownCompliance.Size = New System.Drawing.Size(214, 17)
-        Me.rdbUnknownCompliance.TabIndex = 8
-        Me.rdbUnknownCompliance.TabStop = True
-        Me.rdbUnknownCompliance.Text = "0 - Unknown Compliance Status (SCAP)"
-        Me.rdbUnknownCompliance.UseVisualStyleBackColor = True
-        '
-        'rdbInViolationProcedural
-        '
-        Me.rdbInViolationProcedural.AutoSize = True
-        Me.rdbInViolationProcedural.Location = New System.Drawing.Point(257, 81)
-        Me.rdbInViolationProcedural.Name = "rdbInViolationProcedural"
-        Me.rdbInViolationProcedural.Size = New System.Drawing.Size(154, 17)
-        Me.rdbInViolationProcedural.TabIndex = 7
-        Me.rdbInViolationProcedural.TabStop = True
-        Me.rdbInViolationProcedural.Text = "W - In Violation, Procedural"
-        Me.rdbInViolationProcedural.UseVisualStyleBackColor = True
-        '
-        'rdbInViolationNotMeetingSchedule
-        '
-        Me.rdbInViolationNotMeetingSchedule.AutoSize = True
-        Me.rdbInViolationNotMeetingSchedule.Location = New System.Drawing.Point(257, 58)
-        Me.rdbInViolationNotMeetingSchedule.Name = "rdbInViolationNotMeetingSchedule"
-        Me.rdbInViolationNotMeetingSchedule.Size = New System.Drawing.Size(204, 17)
-        Me.rdbInViolationNotMeetingSchedule.TabIndex = 6
-        Me.rdbInViolationNotMeetingSchedule.TabStop = True
-        Me.rdbInViolationNotMeetingSchedule.Text = "6 - In Violation, Not Meeting Schedule"
-        Me.rdbInViolationNotMeetingSchedule.UseVisualStyleBackColor = True
-        '
-        'rdbInViolationNoSchedule
-        '
-        Me.rdbInViolationNoSchedule.AutoSize = True
-        Me.rdbInViolationNoSchedule.Location = New System.Drawing.Point(257, 35)
-        Me.rdbInViolationNoSchedule.Name = "rdbInViolationNoSchedule"
-        Me.rdbInViolationNoSchedule.Size = New System.Drawing.Size(160, 17)
-        Me.rdbInViolationNoSchedule.TabIndex = 5
-        Me.rdbInViolationNoSchedule.TabStop = True
-        Me.rdbInViolationNoSchedule.Text = "1 - In Violation, No Schedule"
-        Me.rdbInViolationNoSchedule.UseVisualStyleBackColor = True
-        '
-        'rdbInViolationProceduralEmissions
-        '
-        Me.rdbInViolationProceduralEmissions.AutoSize = True
-        Me.rdbInViolationProceduralEmissions.Location = New System.Drawing.Point(257, 12)
-        Me.rdbInViolationProceduralEmissions.Name = "rdbInViolationProceduralEmissions"
-        Me.rdbInViolationProceduralEmissions.Size = New System.Drawing.Size(199, 17)
-        Me.rdbInViolationProceduralEmissions.TabIndex = 4
-        Me.rdbInViolationProceduralEmissions.TabStop = True
-        Me.rdbInViolationProceduralEmissions.Text = "B - In Violation, Procedural Emissions"
-        Me.rdbInViolationProceduralEmissions.UseVisualStyleBackColor = True
-        '
-        'rdbAllNegativeStatus
-        '
-        Me.rdbAllNegativeStatus.AutoSize = True
-        Me.rdbAllNegativeStatus.Location = New System.Drawing.Point(111, 12)
-        Me.rdbAllNegativeStatus.Name = "rdbAllNegativeStatus"
-        Me.rdbAllNegativeStatus.Size = New System.Drawing.Size(126, 17)
-        Me.rdbAllNegativeStatus.TabIndex = 3
-        Me.rdbAllNegativeStatus.TabStop = True
-        Me.rdbAllNegativeStatus.Text = "All Negative Statuses"
-        Me.rdbAllNegativeStatus.UseVisualStyleBackColor = True
-        '
-        'btnViewWatchListFacilities
-        '
-        Me.btnViewWatchListFacilities.AutoSize = True
-        Me.btnViewWatchListFacilities.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnViewWatchListFacilities.Location = New System.Drawing.Point(11, 9)
-        Me.btnViewWatchListFacilities.Name = "btnViewWatchListFacilities"
-        Me.btnViewWatchListFacilities.Size = New System.Drawing.Size(83, 23)
-        Me.btnViewWatchListFacilities.TabIndex = 2
-        Me.btnViewWatchListFacilities.Text = "View Facilities"
-        Me.btnViewWatchListFacilities.UseVisualStyleBackColor = True
-        '
-        'lblWatchListCount
-        '
-        Me.lblWatchListCount.AutoSize = True
-        Me.lblWatchListCount.Location = New System.Drawing.Point(8, 83)
-        Me.lblWatchListCount.Name = "lblWatchListCount"
-        Me.lblWatchListCount.Size = New System.Drawing.Size(35, 13)
-        Me.lblWatchListCount.TabIndex = 0
-        Me.lblWatchListCount.Text = "Count"
         '
         'TPFacilityAssignments
         '
@@ -3196,7 +1897,7 @@ Partial Class SSCPManagersTools
         Me.TabPage2.Location = New System.Drawing.Point(4, 22)
         Me.TabPage2.Name = "TabPage2"
         Me.TabPage2.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage2.Size = New System.Drawing.Size(316, 194)
+        Me.TabPage2.Size = New System.Drawing.Size(316, 222)
         Me.TabPage2.TabIndex = 1
         Me.TabPage2.Text = "Manual List"
         Me.TabPage2.UseVisualStyleBackColor = True
@@ -3233,7 +1934,7 @@ Partial Class SSCPManagersTools
         Me.txtManualAIRSNumber.Multiline = True
         Me.txtManualAIRSNumber.Name = "txtManualAIRSNumber"
         Me.txtManualAIRSNumber.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.txtManualAIRSNumber.Size = New System.Drawing.Size(120, 198)
+        Me.txtManualAIRSNumber.Size = New System.Drawing.Size(120, 216)
         Me.txtManualAIRSNumber.TabIndex = 133
         '
         'TabPage3
@@ -3244,7 +1945,7 @@ Partial Class SSCPManagersTools
         Me.TabPage3.Controls.Add(Me.Label60)
         Me.TabPage3.Location = New System.Drawing.Point(4, 22)
         Me.TabPage3.Name = "TabPage3"
-        Me.TabPage3.Size = New System.Drawing.Size(316, 194)
+        Me.TabPage3.Size = New System.Drawing.Size(316, 222)
         Me.TabPage3.TabIndex = 2
         Me.TabPage3.Text = "Unfiltered AIRS #"
         Me.TabPage3.UseVisualStyleBackColor = True
@@ -3291,7 +1992,7 @@ Partial Class SSCPManagersTools
         Me.TPCopyYear.Controls.Add(Me.Label63)
         Me.TPCopyYear.Location = New System.Drawing.Point(4, 22)
         Me.TPCopyYear.Name = "TPCopyYear"
-        Me.TPCopyYear.Size = New System.Drawing.Size(316, 194)
+        Me.TPCopyYear.Size = New System.Drawing.Size(316, 222)
         Me.TPCopyYear.TabIndex = 3
         Me.TPCopyYear.Text = "Copy"
         Me.TPCopyYear.UseVisualStyleBackColor = True
@@ -3583,13 +2284,1312 @@ Partial Class SSCPManagersTools
         Me.Label62.TabIndex = 149
         Me.Label62.Text = "Federal Fiscal Year"
         '
+        'TPPollutantBubbleUp
+        '
+        Me.TPPollutantBubbleUp.Controls.Add(Me.dgvPollutantFacilities)
+        Me.TPPollutantBubbleUp.Controls.Add(Me.GroupBox5)
+        Me.TPPollutantBubbleUp.Location = New System.Drawing.Point(4, 22)
+        Me.TPPollutantBubbleUp.Name = "TPPollutantBubbleUp"
+        Me.TPPollutantBubbleUp.Size = New System.Drawing.Size(1184, 699)
+        Me.TPPollutantBubbleUp.TabIndex = 5
+        Me.TPPollutantBubbleUp.Text = "Pollutant Bubble Up"
+        Me.TPPollutantBubbleUp.UseVisualStyleBackColor = True
+        '
+        'dgvPollutantFacilities
+        '
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvPollutantFacilities.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
+        Me.dgvPollutantFacilities.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvPollutantFacilities.DefaultCellStyle = DataGridViewCellStyle2
+        Me.dgvPollutantFacilities.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.dgvPollutantFacilities.Location = New System.Drawing.Point(0, 220)
+        Me.dgvPollutantFacilities.Name = "dgvPollutantFacilities"
+        Me.dgvPollutantFacilities.ReadOnly = True
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvPollutantFacilities.RowHeadersDefaultCellStyle = DataGridViewCellStyle3
+        Me.dgvPollutantFacilities.Size = New System.Drawing.Size(1184, 479)
+        Me.dgvPollutantFacilities.TabIndex = 1
+        '
+        'GroupBox5
+        '
+        Me.GroupBox5.Controls.Add(Me.btnExportPollutantsToExcel)
+        Me.GroupBox5.Controls.Add(Me.txtPollutantCount)
+        Me.GroupBox5.Controls.Add(Me.txtAIRSNumber)
+        Me.GroupBox5.Controls.Add(Me.btnEditAirProgramPollutants)
+        Me.GroupBox5.Controls.Add(Me.btnViewFacilities)
+        Me.GroupBox5.Controls.Add(Me.chbStatusM)
+        Me.GroupBox5.Controls.Add(Me.chbStatus4)
+        Me.GroupBox5.Controls.Add(Me.chbStatus3)
+        Me.GroupBox5.Controls.Add(Me.chbStatus2)
+        Me.GroupBox5.Controls.Add(Me.chbStatusC)
+        Me.GroupBox5.Controls.Add(Me.chbStatus9)
+        Me.GroupBox5.Controls.Add(Me.chbStatus0)
+        Me.GroupBox5.Controls.Add(Me.chbStatus8)
+        Me.GroupBox5.Controls.Add(Me.chbStatus5)
+        Me.GroupBox5.Controls.Add(Me.chbStatusW)
+        Me.GroupBox5.Controls.Add(Me.chbStatus6)
+        Me.GroupBox5.Controls.Add(Me.chbStatus1)
+        Me.GroupBox5.Controls.Add(Me.chbStatusB)
+        Me.GroupBox5.Dock = System.Windows.Forms.DockStyle.Top
+        Me.GroupBox5.Location = New System.Drawing.Point(0, 0)
+        Me.GroupBox5.Name = "GroupBox5"
+        Me.GroupBox5.Size = New System.Drawing.Size(1184, 220)
+        Me.GroupBox5.TabIndex = 0
+        Me.GroupBox5.TabStop = False
+        '
+        'btnExportPollutantsToExcel
+        '
+        Me.btnExportPollutantsToExcel.Location = New System.Drawing.Point(435, 189)
+        Me.btnExportPollutantsToExcel.Name = "btnExportPollutantsToExcel"
+        Me.btnExportPollutantsToExcel.Size = New System.Drawing.Size(111, 22)
+        Me.btnExportPollutantsToExcel.TabIndex = 315
+        Me.btnExportPollutantsToExcel.Text = "Export to Excel"
+        Me.btnExportPollutantsToExcel.UseVisualStyleBackColor = True
+        '
+        'txtPollutantCount
+        '
+        Me.txtPollutantCount.Location = New System.Drawing.Point(690, 48)
+        Me.txtPollutantCount.Name = "txtPollutantCount"
+        Me.txtPollutantCount.ReadOnly = True
+        Me.txtPollutantCount.Size = New System.Drawing.Size(56, 20)
+        Me.txtPollutantCount.TabIndex = 314
+        '
+        'txtAIRSNumber
+        '
+        Me.txtAIRSNumber.Location = New System.Drawing.Point(190, 191)
+        Me.txtAIRSNumber.Name = "txtAIRSNumber"
+        Me.txtAIRSNumber.Size = New System.Drawing.Size(100, 20)
+        Me.txtAIRSNumber.TabIndex = 312
+        '
+        'btnEditAirProgramPollutants
+        '
+        Me.btnEditAirProgramPollutants.Location = New System.Drawing.Point(5, 189)
+        Me.btnEditAirProgramPollutants.Margin = New System.Windows.Forms.Padding(2)
+        Me.btnEditAirProgramPollutants.Name = "btnEditAirProgramPollutants"
+        Me.btnEditAirProgramPollutants.Size = New System.Drawing.Size(168, 22)
+        Me.btnEditAirProgramPollutants.TabIndex = 311
+        Me.btnEditAirProgramPollutants.Text = "Air Program Pollutants"
+        '
+        'btnViewFacilities
+        '
+        Me.btnViewFacilities.AutoSize = True
+        Me.btnViewFacilities.Location = New System.Drawing.Point(663, 19)
+        Me.btnViewFacilities.Name = "btnViewFacilities"
+        Me.btnViewFacilities.Size = New System.Drawing.Size(83, 23)
+        Me.btnViewFacilities.TabIndex = 13
+        Me.btnViewFacilities.Text = "View Facilities"
+        Me.btnViewFacilities.UseVisualStyleBackColor = True
+        '
+        'chbStatusM
+        '
+        Me.chbStatusM.AutoSize = True
+        Me.chbStatusM.Location = New System.Drawing.Point(435, 134)
+        Me.chbStatusM.Name = "chbStatusM"
+        Me.chbStatusM.Size = New System.Drawing.Size(173, 17)
+        Me.chbStatusM.TabIndex = 12
+        Me.chbStatusM.Text = "M - In Compliance, CEMS Data"
+        Me.chbStatusM.UseVisualStyleBackColor = True
+        '
+        'chbStatus4
+        '
+        Me.chbStatus4.AutoSize = True
+        Me.chbStatus4.Location = New System.Drawing.Point(435, 65)
+        Me.chbStatus4.Name = "chbStatus4"
+        Me.chbStatus4.Size = New System.Drawing.Size(169, 17)
+        Me.chbStatus4.TabIndex = 11
+        Me.chbStatus4.Text = "4 - In Compliance, Certification"
+        Me.chbStatus4.UseVisualStyleBackColor = True
+        '
+        'chbStatus3
+        '
+        Me.chbStatus3.AutoSize = True
+        Me.chbStatus3.Location = New System.Drawing.Point(435, 42)
+        Me.chbStatus3.Name = "chbStatus3"
+        Me.chbStatus3.Size = New System.Drawing.Size(162, 17)
+        Me.chbStatus3.TabIndex = 10
+        Me.chbStatus3.Text = "3 - In Compliance, inspection"
+        Me.chbStatus3.UseVisualStyleBackColor = True
+        '
+        'chbStatus2
+        '
+        Me.chbStatus2.AutoSize = True
+        Me.chbStatus2.Location = New System.Drawing.Point(435, 19)
+        Me.chbStatus2.Name = "chbStatus2"
+        Me.chbStatus2.Size = New System.Drawing.Size(172, 17)
+        Me.chbStatus2.TabIndex = 9
+        Me.chbStatus2.Text = "2 - In Compliance, Source Test"
+        Me.chbStatus2.UseVisualStyleBackColor = True
+        '
+        'chbStatusC
+        '
+        Me.chbStatusC.AutoSize = True
+        Me.chbStatusC.Location = New System.Drawing.Point(435, 111)
+        Me.chbStatusC.Name = "chbStatusC"
+        Me.chbStatusC.Size = New System.Drawing.Size(165, 17)
+        Me.chbStatusC.TabIndex = 8
+        Me.chbStatusC.Text = "C - In Compliance, procedural"
+        Me.chbStatusC.UseVisualStyleBackColor = True
+        '
+        'chbStatus9
+        '
+        Me.chbStatus9.AutoSize = True
+        Me.chbStatus9.Location = New System.Drawing.Point(435, 88)
+        Me.chbStatus9.Name = "chbStatus9"
+        Me.chbStatus9.Size = New System.Drawing.Size(167, 17)
+        Me.chbStatus9.TabIndex = 7
+        Me.chbStatus9.Text = "9 - In Compliance, Shut Down"
+        Me.chbStatus9.UseVisualStyleBackColor = True
+        '
+        'chbStatus0
+        '
+        Me.chbStatus0.AutoSize = True
+        Me.chbStatus0.Location = New System.Drawing.Point(5, 134)
+        Me.chbStatus0.Name = "chbStatus0"
+        Me.chbStatus0.Size = New System.Drawing.Size(212, 17)
+        Me.chbStatus0.TabIndex = 6
+        Me.chbStatus0.Text = "0 - Unknown compliance status (SCAP)"
+        Me.chbStatus0.UseVisualStyleBackColor = True
+        '
+        'chbStatus8
+        '
+        Me.chbStatus8.AutoSize = True
+        Me.chbStatus8.Location = New System.Drawing.Point(5, 111)
+        Me.chbStatus8.Name = "chbStatus8"
+        Me.chbStatus8.Size = New System.Drawing.Size(158, 17)
+        Me.chbStatus8.TabIndex = 5
+        Me.chbStatus8.Text = "8 - No Applicable State Reg"
+        Me.chbStatus8.UseVisualStyleBackColor = True
+        '
+        'chbStatus5
+        '
+        Me.chbStatus5.AutoSize = True
+        Me.chbStatus5.Location = New System.Drawing.Point(240, 19)
+        Me.chbStatus5.Name = "chbStatus5"
+        Me.chbStatus5.Size = New System.Drawing.Size(184, 17)
+        Me.chbStatus5.TabIndex = 4
+        Me.chbStatus5.Text = "5 - Meeting compliance Schedule"
+        Me.chbStatus5.UseVisualStyleBackColor = True
+        '
+        'chbStatusW
+        '
+        Me.chbStatusW.AutoSize = True
+        Me.chbStatusW.Location = New System.Drawing.Point(5, 88)
+        Me.chbStatusW.Name = "chbStatusW"
+        Me.chbStatusW.Size = New System.Drawing.Size(153, 17)
+        Me.chbStatusW.TabIndex = 3
+        Me.chbStatusW.Text = "W - In violation, procedural"
+        Me.chbStatusW.UseVisualStyleBackColor = True
+        '
+        'chbStatus6
+        '
+        Me.chbStatus6.AutoSize = True
+        Me.chbStatus6.Location = New System.Drawing.Point(5, 65)
+        Me.chbStatus6.Name = "chbStatus6"
+        Me.chbStatus6.Size = New System.Drawing.Size(203, 17)
+        Me.chbStatus6.TabIndex = 2
+        Me.chbStatus6.Text = "6 - In violation, Not meeting Schedule"
+        Me.chbStatus6.UseVisualStyleBackColor = True
+        '
+        'chbStatus1
+        '
+        Me.chbStatus1.AutoSize = True
+        Me.chbStatus1.Location = New System.Drawing.Point(5, 42)
+        Me.chbStatus1.Name = "chbStatus1"
+        Me.chbStatus1.Size = New System.Drawing.Size(158, 17)
+        Me.chbStatus1.TabIndex = 1
+        Me.chbStatus1.Text = "1 - In violation, No schedule"
+        Me.chbStatus1.UseVisualStyleBackColor = True
+        '
+        'chbStatusB
+        '
+        Me.chbStatusB.AutoSize = True
+        Me.chbStatusB.Location = New System.Drawing.Point(5, 19)
+        Me.chbStatusB.Name = "chbStatusB"
+        Me.chbStatusB.Size = New System.Drawing.Size(201, 17)
+        Me.chbStatusB.TabIndex = 0
+        Me.chbStatusB.Text = "B - In Violation, procedural & emissions"
+        Me.chbStatusB.UseVisualStyleBackColor = True
+        '
+        'TPStatisticalPage
+        '
+        Me.TPStatisticalPage.Controls.Add(Me.SCStatisticalReports)
+        Me.TPStatisticalPage.Location = New System.Drawing.Point(4, 22)
+        Me.TPStatisticalPage.Name = "TPStatisticalPage"
+        Me.TPStatisticalPage.Size = New System.Drawing.Size(1184, 699)
+        Me.TPStatisticalPage.TabIndex = 6
+        Me.TPStatisticalPage.Text = "Statistical Reports"
+        Me.TPStatisticalPage.UseVisualStyleBackColor = True
+        '
+        'SCStatisticalReports
+        '
+        Me.SCStatisticalReports.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.SCStatisticalReports.Location = New System.Drawing.Point(0, 0)
+        Me.SCStatisticalReports.Name = "SCStatisticalReports"
+        '
+        'SCStatisticalReports.Panel1
+        '
+        Me.SCStatisticalReports.Panel1.Controls.Add(Me.TCComplianceStaff)
+        Me.SCStatisticalReports.Panel1.Controls.Add(Me.TCStatisticalTools)
+        '
+        'SCStatisticalReports.Panel2
+        '
+        Me.SCStatisticalReports.Panel2.Controls.Add(Me.llbViewRecord)
+        Me.SCStatisticalReports.Panel2.Controls.Add(Me.lblStatisticalRecords)
+        Me.SCStatisticalReports.Panel2.Controls.Add(Me.txtStatisticalCount)
+        Me.SCStatisticalReports.Panel2.Controls.Add(Me.Label45)
+        Me.SCStatisticalReports.Panel2.Controls.Add(Me.txtRecordNumber)
+        Me.SCStatisticalReports.Panel2.Controls.Add(Me.btnExportToExcel)
+        Me.SCStatisticalReports.Panel2.Controls.Add(Me.dgvStatisticalReports)
+        Me.SCStatisticalReports.Size = New System.Drawing.Size(1184, 699)
+        Me.SCStatisticalReports.SplitterDistance = 615
+        Me.SCStatisticalReports.TabIndex = 15
+        '
+        'TCComplianceStaff
+        '
+        Me.TCComplianceStaff.Controls.Add(Me.TPAdministrative)
+        Me.TCComplianceStaff.Controls.Add(Me.TPAirToxics)
+        Me.TCComplianceStaff.Controls.Add(Me.TPChemicals)
+        Me.TCComplianceStaff.Controls.Add(Me.TPVOC)
+        Me.TCComplianceStaff.Controls.Add(Me.TPDistricts)
+        Me.TCComplianceStaff.Dock = System.Windows.Forms.DockStyle.Left
+        Me.TCComplianceStaff.Location = New System.Drawing.Point(0, 0)
+        Me.TCComplianceStaff.Multiline = True
+        Me.TCComplianceStaff.Name = "TCComplianceStaff"
+        Me.TCComplianceStaff.SelectedIndex = 0
+        Me.TCComplianceStaff.Size = New System.Drawing.Size(262, 318)
+        Me.TCComplianceStaff.TabIndex = 13
+        '
+        'TPAdministrative
+        '
+        Me.TPAdministrative.Controls.Add(Me.clbAdministrative)
+        Me.TPAdministrative.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TPAdministrative.Location = New System.Drawing.Point(4, 40)
+        Me.TPAdministrative.Name = "TPAdministrative"
+        Me.TPAdministrative.Padding = New System.Windows.Forms.Padding(3)
+        Me.TPAdministrative.Size = New System.Drawing.Size(254, 274)
+        Me.TPAdministrative.TabIndex = 0
+        Me.TPAdministrative.Text = "Administrative"
+        Me.TPAdministrative.UseVisualStyleBackColor = True
+        '
+        'clbAdministrative
+        '
+        Me.clbAdministrative.CheckOnClick = True
+        Me.clbAdministrative.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.clbAdministrative.FormattingEnabled = True
+        Me.clbAdministrative.Location = New System.Drawing.Point(3, 3)
+        Me.clbAdministrative.Name = "clbAdministrative"
+        Me.clbAdministrative.ScrollAlwaysVisible = True
+        Me.clbAdministrative.Size = New System.Drawing.Size(248, 259)
+        Me.clbAdministrative.TabIndex = 1
+        '
+        'TPAirToxics
+        '
+        Me.TPAirToxics.Controls.Add(Me.clbAirToxicUnit)
+        Me.TPAirToxics.Location = New System.Drawing.Point(4, 40)
+        Me.TPAirToxics.Name = "TPAirToxics"
+        Me.TPAirToxics.Padding = New System.Windows.Forms.Padding(3)
+        Me.TPAirToxics.Size = New System.Drawing.Size(254, 246)
+        Me.TPAirToxics.TabIndex = 1
+        Me.TPAirToxics.Text = "Air Toxics"
+        Me.TPAirToxics.UseVisualStyleBackColor = True
+        '
+        'clbAirToxicUnit
+        '
+        Me.clbAirToxicUnit.CheckOnClick = True
+        Me.clbAirToxicUnit.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.clbAirToxicUnit.FormattingEnabled = True
+        Me.clbAirToxicUnit.Location = New System.Drawing.Point(3, 3)
+        Me.clbAirToxicUnit.Name = "clbAirToxicUnit"
+        Me.clbAirToxicUnit.ScrollAlwaysVisible = True
+        Me.clbAirToxicUnit.Size = New System.Drawing.Size(248, 229)
+        Me.clbAirToxicUnit.TabIndex = 1
+        '
+        'TPChemicals
+        '
+        Me.TPChemicals.Controls.Add(Me.clbChemicalsMinerals)
+        Me.TPChemicals.Location = New System.Drawing.Point(4, 40)
+        Me.TPChemicals.Name = "TPChemicals"
+        Me.TPChemicals.Size = New System.Drawing.Size(254, 246)
+        Me.TPChemicals.TabIndex = 2
+        Me.TPChemicals.Text = "Chemicals/Minerals"
+        Me.TPChemicals.UseVisualStyleBackColor = True
+        '
+        'clbChemicalsMinerals
+        '
+        Me.clbChemicalsMinerals.CheckOnClick = True
+        Me.clbChemicalsMinerals.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.clbChemicalsMinerals.FormattingEnabled = True
+        Me.clbChemicalsMinerals.Location = New System.Drawing.Point(0, 0)
+        Me.clbChemicalsMinerals.Name = "clbChemicalsMinerals"
+        Me.clbChemicalsMinerals.ScrollAlwaysVisible = True
+        Me.clbChemicalsMinerals.Size = New System.Drawing.Size(254, 244)
+        Me.clbChemicalsMinerals.TabIndex = 1
+        '
+        'TPVOC
+        '
+        Me.TPVOC.Controls.Add(Me.clbVOCCombustion)
+        Me.TPVOC.Location = New System.Drawing.Point(4, 40)
+        Me.TPVOC.Name = "TPVOC"
+        Me.TPVOC.Size = New System.Drawing.Size(254, 246)
+        Me.TPVOC.TabIndex = 3
+        Me.TPVOC.Text = "VOC/Combustion"
+        Me.TPVOC.UseVisualStyleBackColor = True
+        '
+        'clbVOCCombustion
+        '
+        Me.clbVOCCombustion.CheckOnClick = True
+        Me.clbVOCCombustion.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.clbVOCCombustion.FormattingEnabled = True
+        Me.clbVOCCombustion.Location = New System.Drawing.Point(0, 0)
+        Me.clbVOCCombustion.Name = "clbVOCCombustion"
+        Me.clbVOCCombustion.ScrollAlwaysVisible = True
+        Me.clbVOCCombustion.Size = New System.Drawing.Size(254, 244)
+        Me.clbVOCCombustion.TabIndex = 1
+        '
+        'TPDistricts
+        '
+        Me.TPDistricts.Controls.Add(Me.clbDistricts)
+        Me.TPDistricts.Location = New System.Drawing.Point(4, 40)
+        Me.TPDistricts.Name = "TPDistricts"
+        Me.TPDistricts.Size = New System.Drawing.Size(254, 246)
+        Me.TPDistricts.TabIndex = 4
+        Me.TPDistricts.Text = "Districts"
+        Me.TPDistricts.UseVisualStyleBackColor = True
+        '
+        'clbDistricts
+        '
+        Me.clbDistricts.CheckOnClick = True
+        Me.clbDistricts.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.clbDistricts.FormattingEnabled = True
+        Me.clbDistricts.Location = New System.Drawing.Point(0, 0)
+        Me.clbDistricts.Name = "clbDistricts"
+        Me.clbDistricts.ScrollAlwaysVisible = True
+        Me.clbDistricts.Size = New System.Drawing.Size(254, 244)
+        Me.clbDistricts.TabIndex = 2
+        '
+        'TCStatisticalTools
+        '
+        Me.TCStatisticalTools.Controls.Add(Me.TPACCStats)
+        Me.TCStatisticalTools.Controls.Add(Me.TPEnforcement)
+        Me.TCStatisticalTools.Controls.Add(Me.TPTitleVRenewals)
+        Me.TCStatisticalTools.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.TCStatisticalTools.Location = New System.Drawing.Point(0, 318)
+        Me.TCStatisticalTools.Name = "TCStatisticalTools"
+        Me.TCStatisticalTools.SelectedIndex = 0
+        Me.TCStatisticalTools.Size = New System.Drawing.Size(615, 381)
+        Me.TCStatisticalTools.TabIndex = 14
+        '
+        'TPACCStats
+        '
+        Me.TPACCStats.Controls.Add(Me.llbACCLONTaken)
+        Me.TPACCStats.Controls.Add(Me.llbACCNOVTaken)
+        Me.TPACCStats.Controls.Add(Me.btnRunStatisticalReport)
+        Me.TPACCStats.Controls.Add(Me.llbACCCOTaken)
+        Me.TPACCStats.Controls.Add(Me.llbACCEnforcementTaken)
+        Me.TPACCStats.Controls.Add(Me.DTPSearchDateStart)
+        Me.TPACCStats.Controls.Add(Me.DTPSearchDateEnd)
+        Me.TPACCStats.Controls.Add(Me.llbACCDeviationsNotReported)
+        Me.TPACCStats.Controls.Add(Me.llbACCDeviationsInFinal)
+        Me.TPACCStats.Controls.Add(Me.llbACCDeviationsIncorrectlyReported)
+        Me.TPACCStats.Controls.Add(Me.llbACCDeviationsReportedCorrectly)
+        Me.TPACCStats.Controls.Add(Me.llbACCDeviationsReported)
+        Me.TPACCStats.Controls.Add(Me.llbACCSubmittedLate)
+        Me.TPACCStats.Controls.Add(Me.llbACCRequiringResubmittal)
+        Me.TPACCStats.Controls.Add(Me.llbACCReporting)
+        Me.TPACCStats.Controls.Add(Me.llbViewACCTotalAssigned)
+        Me.TPACCStats.Controls.Add(Me.txtLONTaken)
+        Me.TPACCStats.Controls.Add(Me.Label44)
+        Me.TPACCStats.Controls.Add(Me.txtNOVTaken)
+        Me.TPACCStats.Controls.Add(Me.Label43)
+        Me.TPACCStats.Controls.Add(Me.txtCOTaken)
+        Me.TPACCStats.Controls.Add(Me.Label42)
+        Me.TPACCStats.Controls.Add(Me.txtEnforcementActionTaken)
+        Me.TPACCStats.Controls.Add(Me.Label41)
+        Me.TPACCStats.Controls.Add(Me.txtDeviationsNotPreviouslyReported)
+        Me.TPACCStats.Controls.Add(Me.Label40)
+        Me.TPACCStats.Controls.Add(Me.txtDeviationsReportedInFinal)
+        Me.TPACCStats.Controls.Add(Me.Label38)
+        Me.TPACCStats.Controls.Add(Me.txtDeviationsIncorrectlyReported)
+        Me.TPACCStats.Controls.Add(Me.txtDeviationsCorrectlyReported)
+        Me.TPACCStats.Controls.Add(Me.Label37)
+        Me.TPACCStats.Controls.Add(Me.txtDeviationsReportedInOrigional)
+        Me.TPACCStats.Controls.Add(Me.Label36)
+        Me.TPACCStats.Controls.Add(Me.txtSubmittedLate)
+        Me.TPACCStats.Controls.Add(Me.Label35)
+        Me.TPACCStats.Controls.Add(Me.txtResubmittals)
+        Me.TPACCStats.Controls.Add(Me.Label34)
+        Me.TPACCStats.Controls.Add(Me.txtFacilitiesReporting)
+        Me.TPACCStats.Controls.Add(Me.Label32)
+        Me.TPACCStats.Controls.Add(Me.txtTotalFacilities)
+        Me.TPACCStats.Controls.Add(Me.Label31)
+        Me.TPACCStats.Location = New System.Drawing.Point(4, 22)
+        Me.TPACCStats.Name = "TPACCStats"
+        Me.TPACCStats.Padding = New System.Windows.Forms.Padding(3)
+        Me.TPACCStats.Size = New System.Drawing.Size(607, 355)
+        Me.TPACCStats.TabIndex = 0
+        Me.TPACCStats.Text = "ACC Stats"
+        Me.TPACCStats.UseVisualStyleBackColor = True
+        '
+        'llbACCLONTaken
+        '
+        Me.llbACCLONTaken.AutoSize = True
+        Me.llbACCLONTaken.Location = New System.Drawing.Point(260, 297)
+        Me.llbACCLONTaken.Name = "llbACCLONTaken"
+        Me.llbACCLONTaken.Size = New System.Drawing.Size(30, 13)
+        Me.llbACCLONTaken.TabIndex = 37
+        Me.llbACCLONTaken.TabStop = True
+        Me.llbACCLONTaken.Text = "View"
+        '
+        'llbACCNOVTaken
+        '
+        Me.llbACCNOVTaken.AutoSize = True
+        Me.llbACCNOVTaken.Location = New System.Drawing.Point(260, 276)
+        Me.llbACCNOVTaken.Name = "llbACCNOVTaken"
+        Me.llbACCNOVTaken.Size = New System.Drawing.Size(30, 13)
+        Me.llbACCNOVTaken.TabIndex = 36
+        Me.llbACCNOVTaken.TabStop = True
+        Me.llbACCNOVTaken.Text = "View"
+        '
+        'btnRunStatisticalReport
+        '
+        Me.btnRunStatisticalReport.AutoSize = True
+        Me.btnRunStatisticalReport.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.btnRunStatisticalReport.Location = New System.Drawing.Point(309, 42)
+        Me.btnRunStatisticalReport.Name = "btnRunStatisticalReport"
+        Me.btnRunStatisticalReport.Size = New System.Drawing.Size(74, 23)
+        Me.btnRunStatisticalReport.TabIndex = 3
+        Me.btnRunStatisticalReport.Text = "Run Search"
+        Me.btnRunStatisticalReport.UseVisualStyleBackColor = True
+        '
+        'llbACCCOTaken
+        '
+        Me.llbACCCOTaken.AutoSize = True
+        Me.llbACCCOTaken.Location = New System.Drawing.Point(260, 255)
+        Me.llbACCCOTaken.Name = "llbACCCOTaken"
+        Me.llbACCCOTaken.Size = New System.Drawing.Size(30, 13)
+        Me.llbACCCOTaken.TabIndex = 35
+        Me.llbACCCOTaken.TabStop = True
+        Me.llbACCCOTaken.Text = "View"
+        '
+        'llbACCEnforcementTaken
+        '
+        Me.llbACCEnforcementTaken.AutoSize = True
+        Me.llbACCEnforcementTaken.Location = New System.Drawing.Point(260, 234)
+        Me.llbACCEnforcementTaken.Name = "llbACCEnforcementTaken"
+        Me.llbACCEnforcementTaken.Size = New System.Drawing.Size(30, 13)
+        Me.llbACCEnforcementTaken.TabIndex = 34
+        Me.llbACCEnforcementTaken.TabStop = True
+        Me.llbACCEnforcementTaken.Text = "View"
+        '
+        'DTPSearchDateStart
+        '
+        Me.DTPSearchDateStart.CustomFormat = "dd-MMM-yyyy"
+        Me.DTPSearchDateStart.Format = System.Windows.Forms.DateTimePickerFormat.Custom
+        Me.DTPSearchDateStart.Location = New System.Drawing.Point(309, 16)
+        Me.DTPSearchDateStart.Name = "DTPSearchDateStart"
+        Me.DTPSearchDateStart.Size = New System.Drawing.Size(97, 20)
+        Me.DTPSearchDateStart.TabIndex = 6
+        Me.DTPSearchDateStart.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
+        '
+        'DTPSearchDateEnd
+        '
+        Me.DTPSearchDateEnd.CustomFormat = "dd-MMM-yyyy"
+        Me.DTPSearchDateEnd.Format = System.Windows.Forms.DateTimePickerFormat.Custom
+        Me.DTPSearchDateEnd.Location = New System.Drawing.Point(412, 16)
+        Me.DTPSearchDateEnd.Name = "DTPSearchDateEnd"
+        Me.DTPSearchDateEnd.Size = New System.Drawing.Size(97, 20)
+        Me.DTPSearchDateEnd.TabIndex = 7
+        Me.DTPSearchDateEnd.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
+        '
+        'llbACCDeviationsNotReported
+        '
+        Me.llbACCDeviationsNotReported.AutoSize = True
+        Me.llbACCDeviationsNotReported.Location = New System.Drawing.Point(260, 213)
+        Me.llbACCDeviationsNotReported.Name = "llbACCDeviationsNotReported"
+        Me.llbACCDeviationsNotReported.Size = New System.Drawing.Size(30, 13)
+        Me.llbACCDeviationsNotReported.TabIndex = 33
+        Me.llbACCDeviationsNotReported.TabStop = True
+        Me.llbACCDeviationsNotReported.Text = "View"
+        '
+        'llbACCDeviationsInFinal
+        '
+        Me.llbACCDeviationsInFinal.AutoSize = True
+        Me.llbACCDeviationsInFinal.Location = New System.Drawing.Point(260, 192)
+        Me.llbACCDeviationsInFinal.Name = "llbACCDeviationsInFinal"
+        Me.llbACCDeviationsInFinal.Size = New System.Drawing.Size(30, 13)
+        Me.llbACCDeviationsInFinal.TabIndex = 32
+        Me.llbACCDeviationsInFinal.TabStop = True
+        Me.llbACCDeviationsInFinal.Text = "View"
+        '
+        'llbACCDeviationsIncorrectlyReported
+        '
+        Me.llbACCDeviationsIncorrectlyReported.AutoSize = True
+        Me.llbACCDeviationsIncorrectlyReported.Location = New System.Drawing.Point(260, 161)
+        Me.llbACCDeviationsIncorrectlyReported.Name = "llbACCDeviationsIncorrectlyReported"
+        Me.llbACCDeviationsIncorrectlyReported.Size = New System.Drawing.Size(30, 13)
+        Me.llbACCDeviationsIncorrectlyReported.TabIndex = 31
+        Me.llbACCDeviationsIncorrectlyReported.TabStop = True
+        Me.llbACCDeviationsIncorrectlyReported.Text = "View"
+        '
+        'llbACCDeviationsReportedCorrectly
+        '
+        Me.llbACCDeviationsReportedCorrectly.AutoSize = True
+        Me.llbACCDeviationsReportedCorrectly.Location = New System.Drawing.Point(260, 142)
+        Me.llbACCDeviationsReportedCorrectly.Name = "llbACCDeviationsReportedCorrectly"
+        Me.llbACCDeviationsReportedCorrectly.Size = New System.Drawing.Size(30, 13)
+        Me.llbACCDeviationsReportedCorrectly.TabIndex = 30
+        Me.llbACCDeviationsReportedCorrectly.TabStop = True
+        Me.llbACCDeviationsReportedCorrectly.Text = "View"
+        '
+        'llbACCDeviationsReported
+        '
+        Me.llbACCDeviationsReported.AutoSize = True
+        Me.llbACCDeviationsReported.Location = New System.Drawing.Point(260, 100)
+        Me.llbACCDeviationsReported.Name = "llbACCDeviationsReported"
+        Me.llbACCDeviationsReported.Size = New System.Drawing.Size(30, 13)
+        Me.llbACCDeviationsReported.TabIndex = 29
+        Me.llbACCDeviationsReported.TabStop = True
+        Me.llbACCDeviationsReported.Text = "View"
+        '
+        'llbACCSubmittedLate
+        '
+        Me.llbACCSubmittedLate.AutoSize = True
+        Me.llbACCSubmittedLate.Location = New System.Drawing.Point(260, 79)
+        Me.llbACCSubmittedLate.Name = "llbACCSubmittedLate"
+        Me.llbACCSubmittedLate.Size = New System.Drawing.Size(30, 13)
+        Me.llbACCSubmittedLate.TabIndex = 28
+        Me.llbACCSubmittedLate.TabStop = True
+        Me.llbACCSubmittedLate.Text = "View"
+        '
+        'llbACCRequiringResubmittal
+        '
+        Me.llbACCRequiringResubmittal.AutoSize = True
+        Me.llbACCRequiringResubmittal.Location = New System.Drawing.Point(260, 58)
+        Me.llbACCRequiringResubmittal.Name = "llbACCRequiringResubmittal"
+        Me.llbACCRequiringResubmittal.Size = New System.Drawing.Size(30, 13)
+        Me.llbACCRequiringResubmittal.TabIndex = 27
+        Me.llbACCRequiringResubmittal.TabStop = True
+        Me.llbACCRequiringResubmittal.Text = "View"
+        '
+        'llbACCReporting
+        '
+        Me.llbACCReporting.AutoSize = True
+        Me.llbACCReporting.Location = New System.Drawing.Point(260, 37)
+        Me.llbACCReporting.Name = "llbACCReporting"
+        Me.llbACCReporting.Size = New System.Drawing.Size(30, 13)
+        Me.llbACCReporting.TabIndex = 26
+        Me.llbACCReporting.TabStop = True
+        Me.llbACCReporting.Text = "View"
+        '
+        'llbViewACCTotalAssigned
+        '
+        Me.llbViewACCTotalAssigned.AutoSize = True
+        Me.llbViewACCTotalAssigned.Location = New System.Drawing.Point(260, 16)
+        Me.llbViewACCTotalAssigned.Name = "llbViewACCTotalAssigned"
+        Me.llbViewACCTotalAssigned.Size = New System.Drawing.Size(30, 13)
+        Me.llbViewACCTotalAssigned.TabIndex = 25
+        Me.llbViewACCTotalAssigned.TabStop = True
+        Me.llbViewACCTotalAssigned.Text = "View"
+        '
+        'txtLONTaken
+        '
+        Me.txtLONTaken.Location = New System.Drawing.Point(185, 293)
+        Me.txtLONTaken.Name = "txtLONTaken"
+        Me.txtLONTaken.ReadOnly = True
+        Me.txtLONTaken.Size = New System.Drawing.Size(59, 20)
+        Me.txtLONTaken.TabIndex = 24
+        '
+        'Label44
+        '
+        Me.Label44.AutoSize = True
+        Me.Label44.Location = New System.Drawing.Point(6, 297)
+        Me.Label44.Name = "Label44"
+        Me.Label44.Size = New System.Drawing.Size(29, 13)
+        Me.Label44.TabIndex = 23
+        Me.Label44.Text = "LON"
+        '
+        'txtNOVTaken
+        '
+        Me.txtNOVTaken.Location = New System.Drawing.Point(185, 272)
+        Me.txtNOVTaken.Name = "txtNOVTaken"
+        Me.txtNOVTaken.ReadOnly = True
+        Me.txtNOVTaken.Size = New System.Drawing.Size(59, 20)
+        Me.txtNOVTaken.TabIndex = 22
+        '
+        'Label43
+        '
+        Me.Label43.AutoSize = True
+        Me.Label43.Location = New System.Drawing.Point(6, 276)
+        Me.Label43.Name = "Label43"
+        Me.Label43.Size = New System.Drawing.Size(30, 13)
+        Me.Label43.TabIndex = 21
+        Me.Label43.Text = "NOV"
+        '
+        'txtCOTaken
+        '
+        Me.txtCOTaken.Location = New System.Drawing.Point(185, 251)
+        Me.txtCOTaken.Name = "txtCOTaken"
+        Me.txtCOTaken.ReadOnly = True
+        Me.txtCOTaken.Size = New System.Drawing.Size(59, 20)
+        Me.txtCOTaken.TabIndex = 20
+        '
+        'Label42
+        '
+        Me.Label42.AutoSize = True
+        Me.Label42.Location = New System.Drawing.Point(6, 255)
+        Me.Label42.Name = "Label42"
+        Me.Label42.Size = New System.Drawing.Size(22, 13)
+        Me.Label42.TabIndex = 19
+        Me.Label42.Text = "CO"
+        '
+        'txtEnforcementActionTaken
+        '
+        Me.txtEnforcementActionTaken.Location = New System.Drawing.Point(185, 230)
+        Me.txtEnforcementActionTaken.Name = "txtEnforcementActionTaken"
+        Me.txtEnforcementActionTaken.ReadOnly = True
+        Me.txtEnforcementActionTaken.Size = New System.Drawing.Size(59, 20)
+        Me.txtEnforcementActionTaken.TabIndex = 18
+        '
+        'Label41
+        '
+        Me.Label41.AutoSize = True
+        Me.Label41.Location = New System.Drawing.Point(6, 234)
+        Me.Label41.Name = "Label41"
+        Me.Label41.Size = New System.Drawing.Size(129, 13)
+        Me.Label41.TabIndex = 17
+        Me.Label41.Text = "Enforcement action taken"
+        '
+        'txtDeviationsNotPreviouslyReported
+        '
+        Me.txtDeviationsNotPreviouslyReported.Location = New System.Drawing.Point(185, 209)
+        Me.txtDeviationsNotPreviouslyReported.Name = "txtDeviationsNotPreviouslyReported"
+        Me.txtDeviationsNotPreviouslyReported.ReadOnly = True
+        Me.txtDeviationsNotPreviouslyReported.Size = New System.Drawing.Size(59, 20)
+        Me.txtDeviationsNotPreviouslyReported.TabIndex = 16
+        '
+        'Label40
+        '
+        Me.Label40.AutoSize = True
+        Me.Label40.Location = New System.Drawing.Point(6, 213)
+        Me.Label40.Name = "Label40"
+        Me.Label40.Size = New System.Drawing.Size(167, 13)
+        Me.Label40.TabIndex = 15
+        Me.Label40.Text = "Deviations not previously reported"
+        '
+        'txtDeviationsReportedInFinal
+        '
+        Me.txtDeviationsReportedInFinal.Location = New System.Drawing.Point(185, 188)
+        Me.txtDeviationsReportedInFinal.Name = "txtDeviationsReportedInFinal"
+        Me.txtDeviationsReportedInFinal.ReadOnly = True
+        Me.txtDeviationsReportedInFinal.Size = New System.Drawing.Size(59, 20)
+        Me.txtDeviationsReportedInFinal.TabIndex = 14
+        '
+        'Label38
+        '
+        Me.Label38.AutoSize = True
+        Me.Label38.Location = New System.Drawing.Point(6, 192)
+        Me.Label38.Name = "Label38"
+        Me.Label38.Size = New System.Drawing.Size(132, 13)
+        Me.Label38.TabIndex = 13
+        Me.Label38.Text = "Deviations reported in final"
+        '
+        'txtDeviationsIncorrectlyReported
+        '
+        Me.txtDeviationsIncorrectlyReported.Location = New System.Drawing.Point(185, 157)
+        Me.txtDeviationsIncorrectlyReported.Name = "txtDeviationsIncorrectlyReported"
+        Me.txtDeviationsIncorrectlyReported.ReadOnly = True
+        Me.txtDeviationsIncorrectlyReported.Size = New System.Drawing.Size(59, 20)
+        Me.txtDeviationsIncorrectlyReported.TabIndex = 12
+        '
+        'txtDeviationsCorrectlyReported
+        '
+        Me.txtDeviationsCorrectlyReported.Location = New System.Drawing.Point(185, 138)
+        Me.txtDeviationsCorrectlyReported.Name = "txtDeviationsCorrectlyReported"
+        Me.txtDeviationsCorrectlyReported.ReadOnly = True
+        Me.txtDeviationsCorrectlyReported.Size = New System.Drawing.Size(59, 20)
+        Me.txtDeviationsCorrectlyReported.TabIndex = 11
+        '
+        'Label37
+        '
+        Me.Label37.AutoSize = True
+        Me.Label37.Location = New System.Drawing.Point(6, 130)
+        Me.Label37.Name = "Label37"
+        Me.Label37.Size = New System.Drawing.Size(168, 39)
+        Me.Label37.TabIndex = 10
+        Me.Label37.Text = "No Deviations Reported in original" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "    - Correctly" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "     - Incorrectly"
+        '
+        'txtDeviationsReportedInOrigional
+        '
+        Me.txtDeviationsReportedInOrigional.Location = New System.Drawing.Point(185, 96)
+        Me.txtDeviationsReportedInOrigional.Name = "txtDeviationsReportedInOrigional"
+        Me.txtDeviationsReportedInOrigional.ReadOnly = True
+        Me.txtDeviationsReportedInOrigional.Size = New System.Drawing.Size(59, 20)
+        Me.txtDeviationsReportedInOrigional.TabIndex = 9
+        '
+        'Label36
+        '
+        Me.Label36.AutoSize = True
+        Me.Label36.Location = New System.Drawing.Point(6, 100)
+        Me.Label36.Name = "Label36"
+        Me.Label36.Size = New System.Drawing.Size(151, 13)
+        Me.Label36.TabIndex = 8
+        Me.Label36.Text = "Deviations Reported in original"
+        '
+        'txtSubmittedLate
+        '
+        Me.txtSubmittedLate.Location = New System.Drawing.Point(185, 75)
+        Me.txtSubmittedLate.Name = "txtSubmittedLate"
+        Me.txtSubmittedLate.ReadOnly = True
+        Me.txtSubmittedLate.Size = New System.Drawing.Size(59, 20)
+        Me.txtSubmittedLate.TabIndex = 7
+        '
+        'Label35
+        '
+        Me.Label35.AutoSize = True
+        Me.Label35.Location = New System.Drawing.Point(6, 79)
+        Me.Label35.Name = "Label35"
+        Me.Label35.Size = New System.Drawing.Size(121, 13)
+        Me.Label35.TabIndex = 6
+        Me.Label35.Text = "Facilities Submitted Late"
+        '
+        'txtResubmittals
+        '
+        Me.txtResubmittals.Location = New System.Drawing.Point(185, 54)
+        Me.txtResubmittals.Name = "txtResubmittals"
+        Me.txtResubmittals.ReadOnly = True
+        Me.txtResubmittals.Size = New System.Drawing.Size(59, 20)
+        Me.txtResubmittals.TabIndex = 5
+        '
+        'Label34
+        '
+        Me.Label34.AutoSize = True
+        Me.Label34.Location = New System.Drawing.Point(6, 58)
+        Me.Label34.Name = "Label34"
+        Me.Label34.Size = New System.Drawing.Size(153, 13)
+        Me.Label34.TabIndex = 4
+        Me.Label34.Text = "Facilities Requiring Resubmittal"
+        '
+        'txtFacilitiesReporting
+        '
+        Me.txtFacilitiesReporting.Location = New System.Drawing.Point(185, 33)
+        Me.txtFacilitiesReporting.Name = "txtFacilitiesReporting"
+        Me.txtFacilitiesReporting.ReadOnly = True
+        Me.txtFacilitiesReporting.Size = New System.Drawing.Size(59, 20)
+        Me.txtFacilitiesReporting.TabIndex = 3
+        '
+        'Label32
+        '
+        Me.Label32.AutoSize = True
+        Me.Label32.Location = New System.Drawing.Point(6, 37)
+        Me.Label32.Name = "Label32"
+        Me.Label32.Size = New System.Drawing.Size(96, 13)
+        Me.Label32.TabIndex = 2
+        Me.Label32.Text = "Facilities Reporting"
+        '
+        'txtTotalFacilities
+        '
+        Me.txtTotalFacilities.Location = New System.Drawing.Point(185, 12)
+        Me.txtTotalFacilities.Name = "txtTotalFacilities"
+        Me.txtTotalFacilities.ReadOnly = True
+        Me.txtTotalFacilities.Size = New System.Drawing.Size(59, 20)
+        Me.txtTotalFacilities.TabIndex = 1
+        '
+        'Label31
+        '
+        Me.Label31.AutoSize = True
+        Me.Label31.Location = New System.Drawing.Point(6, 16)
+        Me.Label31.Name = "Label31"
+        Me.Label31.Size = New System.Drawing.Size(157, 13)
+        Me.Label31.TabIndex = 0
+        Me.Label31.Text = "Total Facilities Assigned to Staff"
+        '
+        'TPEnforcement
+        '
+        Me.TPEnforcement.Controls.Add(Me.chbUseEnforcementDateRange)
+        Me.TPEnforcement.Controls.Add(Me.dtpEnforcementStartDate)
+        Me.TPEnforcement.Controls.Add(Me.dtpEnforcementEndDate)
+        Me.TPEnforcement.Controls.Add(Me.Label47)
+        Me.TPEnforcement.Controls.Add(Me.llbViewEnforcements)
+        Me.TPEnforcement.Controls.Add(Me.mtbEnforcementSummary)
+        Me.TPEnforcement.Controls.Add(Me.Label46)
+        Me.TPEnforcement.Controls.Add(Me.btnPenaltySummary)
+        Me.TPEnforcement.Controls.Add(Me.txtEnforcementAIRSNumber)
+        Me.TPEnforcement.Location = New System.Drawing.Point(4, 22)
+        Me.TPEnforcement.Name = "TPEnforcement"
+        Me.TPEnforcement.Padding = New System.Windows.Forms.Padding(3)
+        Me.TPEnforcement.Size = New System.Drawing.Size(607, 355)
+        Me.TPEnforcement.TabIndex = 1
+        Me.TPEnforcement.Text = "Enforcement"
+        Me.TPEnforcement.UseVisualStyleBackColor = True
+        '
+        'chbUseEnforcementDateRange
+        '
+        Me.chbUseEnforcementDateRange.AutoSize = True
+        Me.chbUseEnforcementDateRange.Location = New System.Drawing.Point(28, 44)
+        Me.chbUseEnforcementDateRange.Name = "chbUseEnforcementDateRange"
+        Me.chbUseEnforcementDateRange.Size = New System.Drawing.Size(99, 17)
+        Me.chbUseEnforcementDateRange.TabIndex = 30
+        Me.chbUseEnforcementDateRange.Text = "Use date range"
+        Me.chbUseEnforcementDateRange.UseVisualStyleBackColor = True
+        '
+        'dtpEnforcementStartDate
+        '
+        Me.dtpEnforcementStartDate.CustomFormat = "dd-MMM-yyyy"
+        Me.dtpEnforcementStartDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
+        Me.dtpEnforcementStartDate.Location = New System.Drawing.Point(130, 44)
+        Me.dtpEnforcementStartDate.Name = "dtpEnforcementStartDate"
+        Me.dtpEnforcementStartDate.Size = New System.Drawing.Size(97, 20)
+        Me.dtpEnforcementStartDate.TabIndex = 28
+        Me.dtpEnforcementStartDate.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
+        '
+        'dtpEnforcementEndDate
+        '
+        Me.dtpEnforcementEndDate.CustomFormat = "dd-MMM-yyyy"
+        Me.dtpEnforcementEndDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
+        Me.dtpEnforcementEndDate.Location = New System.Drawing.Point(233, 44)
+        Me.dtpEnforcementEndDate.Name = "dtpEnforcementEndDate"
+        Me.dtpEnforcementEndDate.Size = New System.Drawing.Size(97, 20)
+        Me.dtpEnforcementEndDate.TabIndex = 29
+        Me.dtpEnforcementEndDate.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
+        '
+        'Label47
+        '
+        Me.Label47.AutoSize = True
+        Me.Label47.Location = New System.Drawing.Point(300, 14)
+        Me.Label47.Name = "Label47"
+        Me.Label47.Size = New System.Drawing.Size(77, 13)
+        Me.Label47.TabIndex = 27
+        Me.Label47.Text = "Total Penalties"
+        '
+        'llbViewEnforcements
+        '
+        Me.llbViewEnforcements.AutoSize = True
+        Me.llbViewEnforcements.Location = New System.Drawing.Point(528, 14)
+        Me.llbViewEnforcements.Name = "llbViewEnforcements"
+        Me.llbViewEnforcements.Size = New System.Drawing.Size(30, 13)
+        Me.llbViewEnforcements.TabIndex = 26
+        Me.llbViewEnforcements.TabStop = True
+        Me.llbViewEnforcements.Text = "View"
+        '
+        'mtbEnforcementSummary
+        '
+        Me.mtbEnforcementSummary.Location = New System.Drawing.Point(383, 10)
+        Me.mtbEnforcementSummary.Mask = "$0000000000000000000"
+        Me.mtbEnforcementSummary.Name = "mtbEnforcementSummary"
+        Me.mtbEnforcementSummary.PromptChar = Global.Microsoft.VisualBasic.ChrW(32)
+        Me.mtbEnforcementSummary.ReadOnly = True
+        Me.mtbEnforcementSummary.Size = New System.Drawing.Size(140, 20)
+        Me.mtbEnforcementSummary.TabIndex = 3
+        '
+        'Label46
+        '
+        Me.Label46.AutoSize = True
+        Me.Label46.Location = New System.Drawing.Point(6, 14)
+        Me.Label46.Name = "Label46"
+        Me.Label46.Size = New System.Drawing.Size(72, 13)
+        Me.Label46.TabIndex = 2
+        Me.Label46.Text = "AIRS Number"
+        '
+        'btnPenaltySummary
+        '
+        Me.btnPenaltySummary.AutoSize = True
+        Me.btnPenaltySummary.Location = New System.Drawing.Point(190, 9)
+        Me.btnPenaltySummary.Name = "btnPenaltySummary"
+        Me.btnPenaltySummary.Size = New System.Drawing.Size(101, 23)
+        Me.btnPenaltySummary.TabIndex = 1
+        Me.btnPenaltySummary.Text = "Penalty Summary"
+        Me.btnPenaltySummary.UseVisualStyleBackColor = True
+        '
+        'txtEnforcementAIRSNumber
+        '
+        Me.txtEnforcementAIRSNumber.Location = New System.Drawing.Point(84, 10)
+        Me.txtEnforcementAIRSNumber.Name = "txtEnforcementAIRSNumber"
+        Me.txtEnforcementAIRSNumber.Size = New System.Drawing.Size(100, 20)
+        Me.txtEnforcementAIRSNumber.TabIndex = 0
+        '
+        'TPTitleVRenewals
+        '
+        Me.TPTitleVRenewals.Controls.Add(Me.Label66)
+        Me.TPTitleVRenewals.Controls.Add(Me.btnRunTitleVSearch)
+        Me.TPTitleVRenewals.Controls.Add(Me.llbTitleVRenewal)
+        Me.TPTitleVRenewals.Controls.Add(Me.txtTitleVRenewals)
+        Me.TPTitleVRenewals.Controls.Add(Me.Label65)
+        Me.TPTitleVRenewals.Location = New System.Drawing.Point(4, 22)
+        Me.TPTitleVRenewals.Name = "TPTitleVRenewals"
+        Me.TPTitleVRenewals.Size = New System.Drawing.Size(607, 355)
+        Me.TPTitleVRenewals.TabIndex = 2
+        Me.TPTitleVRenewals.Text = "Title V Renewals"
+        Me.TPTitleVRenewals.UseVisualStyleBackColor = True
+        '
+        'Label66
+        '
+        Me.Label66.Location = New System.Drawing.Point(233, 33)
+        Me.Label66.Name = "Label66"
+        Me.Label66.Size = New System.Drawing.Size(350, 97)
+        Me.Label66.TabIndex = 42
+        Me.Label66.Text = "The number of facilities that have not submitted a Title V Renewal Permit applica" & _
+            "tion that are less than 9 months from the 5-year expiration date of the previous" & _
+            " Initial/Renewal TV permit issuance."
+        '
+        'btnRunTitleVSearch
+        '
+        Me.btnRunTitleVSearch.AutoSize = True
+        Me.btnRunTitleVSearch.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.btnRunTitleVSearch.Location = New System.Drawing.Point(7, 6)
+        Me.btnRunTitleVSearch.Name = "btnRunTitleVSearch"
+        Me.btnRunTitleVSearch.Size = New System.Drawing.Size(74, 23)
+        Me.btnRunTitleVSearch.TabIndex = 41
+        Me.btnRunTitleVSearch.Text = "Run Search"
+        Me.btnRunTitleVSearch.UseVisualStyleBackColor = True
+        '
+        'llbTitleVRenewal
+        '
+        Me.llbTitleVRenewal.AutoSize = True
+        Me.llbTitleVRenewal.Location = New System.Drawing.Point(186, 37)
+        Me.llbTitleVRenewal.Name = "llbTitleVRenewal"
+        Me.llbTitleVRenewal.Size = New System.Drawing.Size(30, 13)
+        Me.llbTitleVRenewal.TabIndex = 40
+        Me.llbTitleVRenewal.TabStop = True
+        Me.llbTitleVRenewal.Text = "View"
+        '
+        'txtTitleVRenewals
+        '
+        Me.txtTitleVRenewals.Location = New System.Drawing.Point(111, 33)
+        Me.txtTitleVRenewals.Name = "txtTitleVRenewals"
+        Me.txtTitleVRenewals.ReadOnly = True
+        Me.txtTitleVRenewals.Size = New System.Drawing.Size(59, 20)
+        Me.txtTitleVRenewals.TabIndex = 39
+        '
+        'Label65
+        '
+        Me.Label65.AutoSize = True
+        Me.Label65.Location = New System.Drawing.Point(20, 37)
+        Me.Label65.Name = "Label65"
+        Me.Label65.Size = New System.Drawing.Size(90, 13)
+        Me.Label65.TabIndex = 38
+        Me.Label65.Text = "Title V Renewals "
+        '
+        'llbViewRecord
+        '
+        Me.llbViewRecord.AutoSize = True
+        Me.llbViewRecord.Location = New System.Drawing.Point(305, 22)
+        Me.llbViewRecord.Name = "llbViewRecord"
+        Me.llbViewRecord.Size = New System.Drawing.Size(68, 13)
+        Me.llbViewRecord.TabIndex = 20
+        Me.llbViewRecord.TabStop = True
+        Me.llbViewRecord.Text = "View Record"
+        '
+        'lblStatisticalRecords
+        '
+        Me.lblStatisticalRecords.AutoSize = True
+        Me.lblStatisticalRecords.Location = New System.Drawing.Point(110, 22)
+        Me.lblStatisticalRecords.Name = "lblStatisticalRecords"
+        Me.lblStatisticalRecords.Size = New System.Drawing.Size(0, 13)
+        Me.lblStatisticalRecords.TabIndex = 19
+        '
+        'txtStatisticalCount
+        '
+        Me.txtStatisticalCount.Location = New System.Drawing.Point(47, 19)
+        Me.txtStatisticalCount.Name = "txtStatisticalCount"
+        Me.txtStatisticalCount.ReadOnly = True
+        Me.txtStatisticalCount.Size = New System.Drawing.Size(46, 20)
+        Me.txtStatisticalCount.TabIndex = 18
+        '
+        'Label45
+        '
+        Me.Label45.AutoSize = True
+        Me.Label45.Location = New System.Drawing.Point(6, 22)
+        Me.Label45.Name = "Label45"
+        Me.Label45.Size = New System.Drawing.Size(38, 13)
+        Me.Label45.TabIndex = 17
+        Me.Label45.Text = "Count:"
+        '
+        'txtRecordNumber
+        '
+        Me.txtRecordNumber.Location = New System.Drawing.Point(199, 19)
+        Me.txtRecordNumber.Name = "txtRecordNumber"
+        Me.txtRecordNumber.Size = New System.Drawing.Size(100, 20)
+        Me.txtRecordNumber.TabIndex = 16
+        '
+        'btnExportToExcel
+        '
+        Me.btnExportToExcel.AutoSize = True
+        Me.btnExportToExcel.Location = New System.Drawing.Point(469, 17)
+        Me.btnExportToExcel.Name = "btnExportToExcel"
+        Me.btnExportToExcel.Size = New System.Drawing.Size(88, 23)
+        Me.btnExportToExcel.TabIndex = 15
+        Me.btnExportToExcel.Text = "Export to Excel"
+        Me.btnExportToExcel.UseVisualStyleBackColor = True
+        '
+        'dgvStatisticalReports
+        '
+        Me.dgvStatisticalReports.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+                    Or System.Windows.Forms.AnchorStyles.Left) _
+                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.dgvStatisticalReports.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvStatisticalReports.Location = New System.Drawing.Point(0, 47)
+        Me.dgvStatisticalReports.Name = "dgvStatisticalReports"
+        Me.dgvStatisticalReports.ReadOnly = True
+        Me.dgvStatisticalReports.Size = New System.Drawing.Size(565, 652)
+        Me.dgvStatisticalReports.TabIndex = 14
+        '
+        'TPWatchList
+        '
+        Me.TPWatchList.Controls.Add(Me.dgvWatchList)
+        Me.TPWatchList.Controls.Add(Me.Panel6)
+        Me.TPWatchList.Location = New System.Drawing.Point(4, 22)
+        Me.TPWatchList.Name = "TPWatchList"
+        Me.TPWatchList.Size = New System.Drawing.Size(1184, 699)
+        Me.TPWatchList.TabIndex = 7
+        Me.TPWatchList.Text = "Watch List Facilities"
+        Me.TPWatchList.UseVisualStyleBackColor = True
+        '
+        'dgvWatchList
+        '
+        Me.dgvWatchList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvWatchList.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.dgvWatchList.Location = New System.Drawing.Point(0, 108)
+        Me.dgvWatchList.Name = "dgvWatchList"
+        Me.dgvWatchList.ReadOnly = True
+        Me.dgvWatchList.Size = New System.Drawing.Size(1184, 591)
+        Me.dgvWatchList.TabIndex = 1
+        '
+        'Panel6
+        '
+        Me.Panel6.AutoScroll = True
+        Me.Panel6.Controls.Add(Me.btnExportWatchListToExcel)
+        Me.Panel6.Controls.Add(Me.rdbInComplianceCEMSData)
+        Me.Panel6.Controls.Add(Me.rdbInComplianceProcedural)
+        Me.Panel6.Controls.Add(Me.rdbInComplianceShutDown)
+        Me.Panel6.Controls.Add(Me.rdbInComplianceCertification)
+        Me.Panel6.Controls.Add(Me.rdbInComplianceInspection)
+        Me.Panel6.Controls.Add(Me.rdbInComplianceSourceTest)
+        Me.Panel6.Controls.Add(Me.rdbNoApplicableStateReg)
+        Me.Panel6.Controls.Add(Me.rdbMeetingCompliance)
+        Me.Panel6.Controls.Add(Me.rdbUnknownCompliance)
+        Me.Panel6.Controls.Add(Me.rdbInViolationProcedural)
+        Me.Panel6.Controls.Add(Me.rdbInViolationNotMeetingSchedule)
+        Me.Panel6.Controls.Add(Me.rdbInViolationNoSchedule)
+        Me.Panel6.Controls.Add(Me.rdbInViolationProceduralEmissions)
+        Me.Panel6.Controls.Add(Me.rdbAllNegativeStatus)
+        Me.Panel6.Controls.Add(Me.btnViewWatchListFacilities)
+        Me.Panel6.Controls.Add(Me.lblWatchListCount)
+        Me.Panel6.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Panel6.Location = New System.Drawing.Point(0, 0)
+        Me.Panel6.Name = "Panel6"
+        Me.Panel6.Size = New System.Drawing.Size(1184, 108)
+        Me.Panel6.TabIndex = 0
+        '
+        'btnExportWatchListToExcel
+        '
+        Me.btnExportWatchListToExcel.AutoSize = True
+        Me.btnExportWatchListToExcel.Location = New System.Drawing.Point(1088, 78)
+        Me.btnExportWatchListToExcel.Name = "btnExportWatchListToExcel"
+        Me.btnExportWatchListToExcel.Size = New System.Drawing.Size(88, 23)
+        Me.btnExportWatchListToExcel.TabIndex = 315
+        Me.btnExportWatchListToExcel.Text = "Export to Excel"
+        Me.btnExportWatchListToExcel.UseVisualStyleBackColor = True
+        '
+        'rdbInComplianceCEMSData
+        '
+        Me.rdbInComplianceCEMSData.AutoSize = True
+        Me.rdbInComplianceCEMSData.Location = New System.Drawing.Point(864, 35)
+        Me.rdbInComplianceCEMSData.Name = "rdbInComplianceCEMSData"
+        Me.rdbInComplianceCEMSData.Size = New System.Drawing.Size(172, 17)
+        Me.rdbInComplianceCEMSData.TabIndex = 16
+        Me.rdbInComplianceCEMSData.TabStop = True
+        Me.rdbInComplianceCEMSData.Text = "M - In Compliance, CEMS Data"
+        Me.rdbInComplianceCEMSData.UseVisualStyleBackColor = True
+        '
+        'rdbInComplianceProcedural
+        '
+        Me.rdbInComplianceProcedural.AutoSize = True
+        Me.rdbInComplianceProcedural.Location = New System.Drawing.Point(864, 12)
+        Me.rdbInComplianceProcedural.Name = "rdbInComplianceProcedural"
+        Me.rdbInComplianceProcedural.Size = New System.Drawing.Size(165, 17)
+        Me.rdbInComplianceProcedural.TabIndex = 15
+        Me.rdbInComplianceProcedural.TabStop = True
+        Me.rdbInComplianceProcedural.Text = "C - In Compliance, Procedural"
+        Me.rdbInComplianceProcedural.UseVisualStyleBackColor = True
+        '
+        'rdbInComplianceShutDown
+        '
+        Me.rdbInComplianceShutDown.AutoSize = True
+        Me.rdbInComplianceShutDown.Location = New System.Drawing.Point(687, 81)
+        Me.rdbInComplianceShutDown.Name = "rdbInComplianceShutDown"
+        Me.rdbInComplianceShutDown.Size = New System.Drawing.Size(166, 17)
+        Me.rdbInComplianceShutDown.TabIndex = 14
+        Me.rdbInComplianceShutDown.TabStop = True
+        Me.rdbInComplianceShutDown.Text = "9 - In Compliance, Shut Down"
+        Me.rdbInComplianceShutDown.UseVisualStyleBackColor = True
+        '
+        'rdbInComplianceCertification
+        '
+        Me.rdbInComplianceCertification.AutoSize = True
+        Me.rdbInComplianceCertification.Location = New System.Drawing.Point(687, 58)
+        Me.rdbInComplianceCertification.Name = "rdbInComplianceCertification"
+        Me.rdbInComplianceCertification.Size = New System.Drawing.Size(168, 17)
+        Me.rdbInComplianceCertification.TabIndex = 13
+        Me.rdbInComplianceCertification.TabStop = True
+        Me.rdbInComplianceCertification.Text = "4 - In Compliance, Certification"
+        Me.rdbInComplianceCertification.UseVisualStyleBackColor = True
+        '
+        'rdbInComplianceInspection
+        '
+        Me.rdbInComplianceInspection.AutoSize = True
+        Me.rdbInComplianceInspection.Location = New System.Drawing.Point(687, 35)
+        Me.rdbInComplianceInspection.Name = "rdbInComplianceInspection"
+        Me.rdbInComplianceInspection.Size = New System.Drawing.Size(162, 17)
+        Me.rdbInComplianceInspection.TabIndex = 12
+        Me.rdbInComplianceInspection.TabStop = True
+        Me.rdbInComplianceInspection.Text = "3 - In Compliance, Inspection"
+        Me.rdbInComplianceInspection.UseVisualStyleBackColor = True
+        '
+        'rdbInComplianceSourceTest
+        '
+        Me.rdbInComplianceSourceTest.AutoSize = True
+        Me.rdbInComplianceSourceTest.Location = New System.Drawing.Point(687, 12)
+        Me.rdbInComplianceSourceTest.Name = "rdbInComplianceSourceTest"
+        Me.rdbInComplianceSourceTest.Size = New System.Drawing.Size(171, 17)
+        Me.rdbInComplianceSourceTest.TabIndex = 11
+        Me.rdbInComplianceSourceTest.TabStop = True
+        Me.rdbInComplianceSourceTest.Text = "2 - In Compliance, Source Test"
+        Me.rdbInComplianceSourceTest.UseVisualStyleBackColor = True
+        '
+        'rdbNoApplicableStateReg
+        '
+        Me.rdbNoApplicableStateReg.AutoSize = True
+        Me.rdbNoApplicableStateReg.Location = New System.Drawing.Point(467, 58)
+        Me.rdbNoApplicableStateReg.Name = "rdbNoApplicableStateReg"
+        Me.rdbNoApplicableStateReg.Size = New System.Drawing.Size(160, 17)
+        Me.rdbNoApplicableStateReg.TabIndex = 10
+        Me.rdbNoApplicableStateReg.TabStop = True
+        Me.rdbNoApplicableStateReg.Text = "8 - No Applicable State Reg."
+        Me.rdbNoApplicableStateReg.UseVisualStyleBackColor = True
+        '
+        'rdbMeetingCompliance
+        '
+        Me.rdbMeetingCompliance.AutoSize = True
+        Me.rdbMeetingCompliance.Location = New System.Drawing.Point(467, 35)
+        Me.rdbMeetingCompliance.Name = "rdbMeetingCompliance"
+        Me.rdbMeetingCompliance.Size = New System.Drawing.Size(184, 17)
+        Me.rdbMeetingCompliance.TabIndex = 9
+        Me.rdbMeetingCompliance.TabStop = True
+        Me.rdbMeetingCompliance.Text = "5 - Meeting Compliance Schedule"
+        Me.rdbMeetingCompliance.UseVisualStyleBackColor = True
+        '
+        'rdbUnknownCompliance
+        '
+        Me.rdbUnknownCompliance.AutoSize = True
+        Me.rdbUnknownCompliance.Location = New System.Drawing.Point(467, 12)
+        Me.rdbUnknownCompliance.Name = "rdbUnknownCompliance"
+        Me.rdbUnknownCompliance.Size = New System.Drawing.Size(214, 17)
+        Me.rdbUnknownCompliance.TabIndex = 8
+        Me.rdbUnknownCompliance.TabStop = True
+        Me.rdbUnknownCompliance.Text = "0 - Unknown Compliance Status (SCAP)"
+        Me.rdbUnknownCompliance.UseVisualStyleBackColor = True
+        '
+        'rdbInViolationProcedural
+        '
+        Me.rdbInViolationProcedural.AutoSize = True
+        Me.rdbInViolationProcedural.Location = New System.Drawing.Point(257, 81)
+        Me.rdbInViolationProcedural.Name = "rdbInViolationProcedural"
+        Me.rdbInViolationProcedural.Size = New System.Drawing.Size(154, 17)
+        Me.rdbInViolationProcedural.TabIndex = 7
+        Me.rdbInViolationProcedural.TabStop = True
+        Me.rdbInViolationProcedural.Text = "W - In Violation, Procedural"
+        Me.rdbInViolationProcedural.UseVisualStyleBackColor = True
+        '
+        'rdbInViolationNotMeetingSchedule
+        '
+        Me.rdbInViolationNotMeetingSchedule.AutoSize = True
+        Me.rdbInViolationNotMeetingSchedule.Location = New System.Drawing.Point(257, 58)
+        Me.rdbInViolationNotMeetingSchedule.Name = "rdbInViolationNotMeetingSchedule"
+        Me.rdbInViolationNotMeetingSchedule.Size = New System.Drawing.Size(204, 17)
+        Me.rdbInViolationNotMeetingSchedule.TabIndex = 6
+        Me.rdbInViolationNotMeetingSchedule.TabStop = True
+        Me.rdbInViolationNotMeetingSchedule.Text = "6 - In Violation, Not Meeting Schedule"
+        Me.rdbInViolationNotMeetingSchedule.UseVisualStyleBackColor = True
+        '
+        'rdbInViolationNoSchedule
+        '
+        Me.rdbInViolationNoSchedule.AutoSize = True
+        Me.rdbInViolationNoSchedule.Location = New System.Drawing.Point(257, 35)
+        Me.rdbInViolationNoSchedule.Name = "rdbInViolationNoSchedule"
+        Me.rdbInViolationNoSchedule.Size = New System.Drawing.Size(160, 17)
+        Me.rdbInViolationNoSchedule.TabIndex = 5
+        Me.rdbInViolationNoSchedule.TabStop = True
+        Me.rdbInViolationNoSchedule.Text = "1 - In Violation, No Schedule"
+        Me.rdbInViolationNoSchedule.UseVisualStyleBackColor = True
+        '
+        'rdbInViolationProceduralEmissions
+        '
+        Me.rdbInViolationProceduralEmissions.AutoSize = True
+        Me.rdbInViolationProceduralEmissions.Location = New System.Drawing.Point(257, 12)
+        Me.rdbInViolationProceduralEmissions.Name = "rdbInViolationProceduralEmissions"
+        Me.rdbInViolationProceduralEmissions.Size = New System.Drawing.Size(199, 17)
+        Me.rdbInViolationProceduralEmissions.TabIndex = 4
+        Me.rdbInViolationProceduralEmissions.TabStop = True
+        Me.rdbInViolationProceduralEmissions.Text = "B - In Violation, Procedural Emissions"
+        Me.rdbInViolationProceduralEmissions.UseVisualStyleBackColor = True
+        '
+        'rdbAllNegativeStatus
+        '
+        Me.rdbAllNegativeStatus.AutoSize = True
+        Me.rdbAllNegativeStatus.Location = New System.Drawing.Point(111, 12)
+        Me.rdbAllNegativeStatus.Name = "rdbAllNegativeStatus"
+        Me.rdbAllNegativeStatus.Size = New System.Drawing.Size(126, 17)
+        Me.rdbAllNegativeStatus.TabIndex = 3
+        Me.rdbAllNegativeStatus.TabStop = True
+        Me.rdbAllNegativeStatus.Text = "All Negative Statuses"
+        Me.rdbAllNegativeStatus.UseVisualStyleBackColor = True
+        '
+        'btnViewWatchListFacilities
+        '
+        Me.btnViewWatchListFacilities.AutoSize = True
+        Me.btnViewWatchListFacilities.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.btnViewWatchListFacilities.Location = New System.Drawing.Point(11, 9)
+        Me.btnViewWatchListFacilities.Name = "btnViewWatchListFacilities"
+        Me.btnViewWatchListFacilities.Size = New System.Drawing.Size(83, 23)
+        Me.btnViewWatchListFacilities.TabIndex = 2
+        Me.btnViewWatchListFacilities.Text = "View Facilities"
+        Me.btnViewWatchListFacilities.UseVisualStyleBackColor = True
+        '
+        'lblWatchListCount
+        '
+        Me.lblWatchListCount.AutoSize = True
+        Me.lblWatchListCount.Location = New System.Drawing.Point(8, 83)
+        Me.lblWatchListCount.Name = "lblWatchListCount"
+        Me.lblWatchListCount.Size = New System.Drawing.Size(35, 13)
+        Me.lblWatchListCount.TabIndex = 0
+        Me.lblWatchListCount.Text = "Count"
+        '
         'TPMiscReports
         '
         Me.TPMiscReports.Controls.Add(Me.dgvMiscReport)
         Me.TPMiscReports.Controls.Add(Me.Panel19)
         Me.TPMiscReports.Location = New System.Drawing.Point(4, 22)
         Me.TPMiscReports.Name = "TPMiscReports"
-        Me.TPMiscReports.Size = New System.Drawing.Size(1184, 671)
+        Me.TPMiscReports.Size = New System.Drawing.Size(1184, 699)
         Me.TPMiscReports.TabIndex = 9
         Me.TPMiscReports.Text = "Misc Reports"
         Me.TPMiscReports.UseVisualStyleBackColor = True
@@ -3601,7 +3601,7 @@ Partial Class SSCPManagersTools
         Me.dgvMiscReport.Location = New System.Drawing.Point(0, 64)
         Me.dgvMiscReport.Name = "dgvMiscReport"
         Me.dgvMiscReport.ReadOnly = True
-        Me.dgvMiscReport.Size = New System.Drawing.Size(1184, 607)
+        Me.dgvMiscReport.Size = New System.Drawing.Size(1184, 635)
         Me.dgvMiscReport.TabIndex = 15
         '
         'Panel19
@@ -3828,33 +3828,6 @@ Partial Class SSCPManagersTools
         CType(Me.dgvCMSWarning, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TPCMSWarning.ResumeLayout(False)
         Me.TCManagerTools.ResumeLayout(False)
-        Me.TPPollutantBubbleUp.ResumeLayout(False)
-        CType(Me.dgvPollutantFacilities, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.GroupBox5.ResumeLayout(False)
-        Me.GroupBox5.PerformLayout()
-        Me.TPStatisticalPage.ResumeLayout(False)
-        Me.SCStatisticalReports.Panel1.ResumeLayout(False)
-        Me.SCStatisticalReports.Panel2.ResumeLayout(False)
-        Me.SCStatisticalReports.Panel2.PerformLayout()
-        Me.SCStatisticalReports.ResumeLayout(False)
-        Me.TCComplianceStaff.ResumeLayout(False)
-        Me.TPAdministrative.ResumeLayout(False)
-        Me.TPAirToxics.ResumeLayout(False)
-        Me.TPChemicals.ResumeLayout(False)
-        Me.TPVOC.ResumeLayout(False)
-        Me.TPDistricts.ResumeLayout(False)
-        Me.TCStatisticalTools.ResumeLayout(False)
-        Me.TPACCStats.ResumeLayout(False)
-        Me.TPACCStats.PerformLayout()
-        Me.TPEnforcement.ResumeLayout(False)
-        Me.TPEnforcement.PerformLayout()
-        Me.TPTitleVRenewals.ResumeLayout(False)
-        Me.TPTitleVRenewals.PerformLayout()
-        CType(Me.dgvStatisticalReports, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.TPWatchList.ResumeLayout(False)
-        CType(Me.dgvWatchList, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.Panel6.ResumeLayout(False)
-        Me.Panel6.PerformLayout()
         Me.TPFacilityAssignments.ResumeLayout(False)
         Me.Panel10.ResumeLayout(False)
         Me.Panel10.PerformLayout()
@@ -3898,6 +3871,33 @@ Partial Class SSCPManagersTools
         Me.Panel17.PerformLayout()
         Me.Panel18.ResumeLayout(False)
         Me.Panel18.PerformLayout()
+        Me.TPPollutantBubbleUp.ResumeLayout(False)
+        CType(Me.dgvPollutantFacilities, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.GroupBox5.ResumeLayout(False)
+        Me.GroupBox5.PerformLayout()
+        Me.TPStatisticalPage.ResumeLayout(False)
+        Me.SCStatisticalReports.Panel1.ResumeLayout(False)
+        Me.SCStatisticalReports.Panel2.ResumeLayout(False)
+        Me.SCStatisticalReports.Panel2.PerformLayout()
+        Me.SCStatisticalReports.ResumeLayout(False)
+        Me.TCComplianceStaff.ResumeLayout(False)
+        Me.TPAdministrative.ResumeLayout(False)
+        Me.TPAirToxics.ResumeLayout(False)
+        Me.TPChemicals.ResumeLayout(False)
+        Me.TPVOC.ResumeLayout(False)
+        Me.TPDistricts.ResumeLayout(False)
+        Me.TCStatisticalTools.ResumeLayout(False)
+        Me.TPACCStats.ResumeLayout(False)
+        Me.TPACCStats.PerformLayout()
+        Me.TPEnforcement.ResumeLayout(False)
+        Me.TPEnforcement.PerformLayout()
+        Me.TPTitleVRenewals.ResumeLayout(False)
+        Me.TPTitleVRenewals.PerformLayout()
+        CType(Me.dgvStatisticalReports, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.TPWatchList.ResumeLayout(False)
+        CType(Me.dgvWatchList, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.Panel6.ResumeLayout(False)
+        Me.Panel6.PerformLayout()
         Me.TPMiscReports.ResumeLayout(False)
         CType(Me.dgvMiscReport, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel19.ResumeLayout(False)
