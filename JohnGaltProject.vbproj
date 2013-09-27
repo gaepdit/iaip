@@ -276,12 +276,6 @@
     <Compile Include="DevelopmentForms\IAIP_EIS_Log.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DevelopmentForms\SSCPManagerProfile.Designer.vb">
-      <DependentUpon>SSCPManagerProfile.vb</DependentUpon>
-    </Compile>
-    <Compile Include="DevelopmentForms\SSCPManagerProfile.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Universal Forms\DefaultForm.Designer.vb">
       <DependentUpon>DefaultForm.vb</DependentUpon>
     </Compile>
@@ -1158,10 +1152,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DevelopmentForms\IAIP_EIS_Log.resx">
       <DependentUpon>IAIP_EIS_Log.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DevelopmentForms\SSCPManagerProfile.resx">
-      <DependentUpon>SSCPManagerProfile.vb</DependentUpon>
-      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="PASP\PASPFeeStatistics.resx">
       <DependentUpon>PASPFeeStatistics.vb</DependentUpon>

@@ -176,7 +176,6 @@ Module subMain
     Public SSCPInspectionsTool As SSCPEngineerInspectionTool
     Public SSCPInspectionscheduleTool As SSCPInspectionscheduleLink
     Public EmissionSummary As SSCPEmissionSummaryTool
-    Public ManagerProfile As SSCPManagerProfile
     Public SSCPAdmin As SSCPAdministrator
     Public InspectionTool As SSCPInspectionTool
 

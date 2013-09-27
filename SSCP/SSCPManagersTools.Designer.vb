@@ -20,9 +20,9 @@ Partial Class SSCPManagersTools
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(SSCPManagersTools))
         Me.chbALLDates = New System.Windows.Forms.CheckBox
         Me.txtUserSSCPUnit = New System.Windows.Forms.TextBox
@@ -101,64 +101,11 @@ Partial Class SSCPManagersTools
         Me.dgvCMSWarning = New System.Windows.Forms.DataGridView
         Me.TPCMSWarning = New System.Windows.Forms.TabPage
         Me.Splitter3 = New System.Windows.Forms.Splitter
-        Me.TPFacilityAssignments = New System.Windows.Forms.TabPage
-        Me.lvFacilityList = New System.Windows.Forms.ListView
-        Me.GroupBox1 = New System.Windows.Forms.GroupBox
-        Me.Panel5 = New System.Windows.Forms.Panel
-        Me.txtFilterType = New System.Windows.Forms.TextBox
-        Me.btnExportDataToExcel = New System.Windows.Forms.Button
-        Me.txtFacilitiesSelected = New System.Windows.Forms.TextBox
-        Me.lblProfileCode = New System.Windows.Forms.Label
-        Me.btnClearResults = New System.Windows.Forms.Button
-        Me.GroupBox3 = New System.Windows.Forms.GroupBox
-        Me.btnSaveInspectionRequirements = New System.Windows.Forms.Button
-        Me.rdbDoesNotRequireInspection = New System.Windows.Forms.RadioButton
-        Me.rdbRequiresAnInspection = New System.Windows.Forms.RadioButton
-        Me.btnCheckAll = New System.Windows.Forms.Button
-        Me.GroupBox2 = New System.Windows.Forms.GroupBox
-        Me.btnSaveDistrictResponsiblity = New System.Windows.Forms.Button
-        Me.rdbNonDistrictSource = New System.Windows.Forms.RadioButton
-        Me.rdbAssignDistrictSource = New System.Windows.Forms.RadioButton
-        Me.Label24 = New System.Windows.Forms.Label
-        Me.btnMakeUnitAssignments = New System.Windows.Forms.Button
-        Me.Label2 = New System.Windows.Forms.Label
-        Me.Label3 = New System.Windows.Forms.Label
-        Me.txtCount = New System.Windows.Forms.TextBox
-        Me.btnMakeEngineerAssignments = New System.Windows.Forms.Button
-        Me.cboEngineer = New System.Windows.Forms.ComboBox
-        Me.Label25 = New System.Windows.Forms.Label
-        Me.cboSSCPUnit = New System.Windows.Forms.ComboBox
-        Me.Label26 = New System.Windows.Forms.Label
-        Me.lsbSelectedFacilities = New System.Windows.Forms.ListBox
-        Me.TCFilterOptions = New System.Windows.Forms.TabControl
-        Me.TPSearch = New System.Windows.Forms.TabPage
-        Me.btnFilterSearchOptions = New System.Windows.Forms.Button
-        Me.cboFilterOption4 = New System.Windows.Forms.ComboBox
-        Me.cboFilterOption2 = New System.Windows.Forms.ComboBox
-        Me.cboFilterOption5 = New System.Windows.Forms.ComboBox
-        Me.cboFilterOption3 = New System.Windows.Forms.ComboBox
-        Me.Label1 = New System.Windows.Forms.Label
-        Me.cboFilterOption1 = New System.Windows.Forms.ComboBox
-        Me.Label4 = New System.Windows.Forms.Label
-        Me.txtSearchText1 = New System.Windows.Forms.TextBox
-        Me.txtSearchText3 = New System.Windows.Forms.TextBox
-        Me.txtSearchText5 = New System.Windows.Forms.TextBox
-        Me.txtSearchText4 = New System.Windows.Forms.TextBox
-        Me.txtSearchText2 = New System.Windows.Forms.TextBox
-        Me.Label33 = New System.Windows.Forms.Label
-        Me.cboSortOption2 = New System.Windows.Forms.ComboBox
-        Me.cboSortOption3 = New System.Windows.Forms.ComboBox
-        Me.cboSortOption1 = New System.Windows.Forms.ComboBox
-        Me.TPManual = New System.Windows.Forms.TabPage
-        Me.lsbAIRSNumber = New System.Windows.Forms.ListBox
-        Me.btnClearManualList = New System.Windows.Forms.Button
-        Me.btnFilterAirsNumbers = New System.Windows.Forms.Button
-        Me.Label39 = New System.Windows.Forms.Label
-        Me.txtAIRSNumberFilter = New System.Windows.Forms.TextBox
         Me.TCManagerTools = New System.Windows.Forms.TabControl
         Me.TPPollutantBubbleUp = New System.Windows.Forms.TabPage
         Me.dgvPollutantFacilities = New System.Windows.Forms.DataGridView
         Me.GroupBox5 = New System.Windows.Forms.GroupBox
+        Me.btnExportPollutantsToExcel = New System.Windows.Forms.Button
         Me.txtPollutantCount = New System.Windows.Forms.TextBox
         Me.txtAIRSNumber = New System.Windows.Forms.TextBox
         Me.btnEditAirProgramPollutants = New System.Windows.Forms.Button
@@ -407,12 +354,9 @@ Partial Class SSCPManagersTools
         Me.MmiClearPage = New System.Windows.Forms.MenuItem
         Me.MenuItem7 = New System.Windows.Forms.MenuItem
         Me.MmiToolbar = New System.Windows.Forms.MenuItem
-        Me.MmiTool = New System.Windows.Forms.MenuItem
-        Me.mmiChangeProfile = New System.Windows.Forms.MenuItem
         Me.MmiHelp = New System.Windows.Forms.MenuItem
         Me.TBSSCPManagersTools = New System.Windows.Forms.ToolBar
         Me.Image_List_All = New System.Windows.Forms.ImageList(Me.components)
-        Me.btnExportPollutantsToExcel = New System.Windows.Forms.Button
         Me.Panel8.SuspendLayout()
         Me.PanelCMSUniverse.SuspendLayout()
         Me.TPUniverse.SuspendLayout()
@@ -423,14 +367,6 @@ Partial Class SSCPManagersTools
         Me.PanelCMSWarning.SuspendLayout()
         CType(Me.dgvCMSWarning, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TPCMSWarning.SuspendLayout()
-        Me.TPFacilityAssignments.SuspendLayout()
-        Me.GroupBox1.SuspendLayout()
-        Me.Panel5.SuspendLayout()
-        Me.GroupBox3.SuspendLayout()
-        Me.GroupBox2.SuspendLayout()
-        Me.TCFilterOptions.SuspendLayout()
-        Me.TPSearch.SuspendLayout()
-        Me.TPManual.SuspendLayout()
         Me.TCManagerTools.SuspendLayout()
         Me.TPPollutantBubbleUp.SuspendLayout()
         CType(Me.dgvPollutantFacilities, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -1235,511 +1171,6 @@ Partial Class SSCPManagersTools
         Me.Splitter3.TabIndex = 17
         Me.Splitter3.TabStop = False
         '
-        'TPFacilityAssignments
-        '
-        Me.TPFacilityAssignments.Controls.Add(Me.lvFacilityList)
-        Me.TPFacilityAssignments.Controls.Add(Me.GroupBox1)
-        Me.TPFacilityAssignments.Location = New System.Drawing.Point(4, 22)
-        Me.TPFacilityAssignments.Name = "TPFacilityAssignments"
-        Me.TPFacilityAssignments.Size = New System.Drawing.Size(1184, 671)
-        Me.TPFacilityAssignments.TabIndex = 0
-        Me.TPFacilityAssignments.Text = "Facility Assignments"
-        Me.TPFacilityAssignments.UseVisualStyleBackColor = True
-        '
-        'lvFacilityList
-        '
-        Me.lvFacilityList.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.lvFacilityList.Location = New System.Drawing.Point(0, 0)
-        Me.lvFacilityList.Name = "lvFacilityList"
-        Me.lvFacilityList.Size = New System.Drawing.Size(1184, 366)
-        Me.lvFacilityList.TabIndex = 1
-        Me.lvFacilityList.UseCompatibleStateImageBehavior = False
-        '
-        'GroupBox1
-        '
-        Me.GroupBox1.Controls.Add(Me.Panel5)
-        Me.GroupBox1.Controls.Add(Me.lsbSelectedFacilities)
-        Me.GroupBox1.Controls.Add(Me.TCFilterOptions)
-        Me.GroupBox1.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.GroupBox1.Location = New System.Drawing.Point(0, 366)
-        Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(1184, 305)
-        Me.GroupBox1.TabIndex = 1
-        Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "Filter and Work"
-        '
-        'Panel5
-        '
-        Me.Panel5.AutoScroll = True
-        Me.Panel5.Controls.Add(Me.txtFilterType)
-        Me.Panel5.Controls.Add(Me.btnExportDataToExcel)
-        Me.Panel5.Controls.Add(Me.txtFacilitiesSelected)
-        Me.Panel5.Controls.Add(Me.lblProfileCode)
-        Me.Panel5.Controls.Add(Me.btnClearResults)
-        Me.Panel5.Controls.Add(Me.GroupBox3)
-        Me.Panel5.Controls.Add(Me.btnCheckAll)
-        Me.Panel5.Controls.Add(Me.GroupBox2)
-        Me.Panel5.Controls.Add(Me.Label24)
-        Me.Panel5.Controls.Add(Me.btnMakeUnitAssignments)
-        Me.Panel5.Controls.Add(Me.Label2)
-        Me.Panel5.Controls.Add(Me.Label3)
-        Me.Panel5.Controls.Add(Me.txtCount)
-        Me.Panel5.Controls.Add(Me.btnMakeEngineerAssignments)
-        Me.Panel5.Controls.Add(Me.cboEngineer)
-        Me.Panel5.Controls.Add(Me.Label25)
-        Me.Panel5.Controls.Add(Me.cboSSCPUnit)
-        Me.Panel5.Controls.Add(Me.Label26)
-        Me.Panel5.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Panel5.Location = New System.Drawing.Point(448, 16)
-        Me.Panel5.Name = "Panel5"
-        Me.Panel5.Size = New System.Drawing.Size(733, 286)
-        Me.Panel5.TabIndex = 150
-        '
-        'txtFilterType
-        '
-        Me.txtFilterType.Location = New System.Drawing.Point(6, 247)
-        Me.txtFilterType.Name = "txtFilterType"
-        Me.txtFilterType.ReadOnly = True
-        Me.txtFilterType.Size = New System.Drawing.Size(20, 20)
-        Me.txtFilterType.TabIndex = 147
-        Me.txtFilterType.TabStop = False
-        Me.txtFilterType.Visible = False
-        '
-        'btnExportDataToExcel
-        '
-        Me.btnExportDataToExcel.AutoSize = True
-        Me.btnExportDataToExcel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnExportDataToExcel.Location = New System.Drawing.Point(367, 5)
-        Me.btnExportDataToExcel.Name = "btnExportDataToExcel"
-        Me.btnExportDataToExcel.Size = New System.Drawing.Size(88, 23)
-        Me.btnExportDataToExcel.TabIndex = 149
-        Me.btnExportDataToExcel.Text = "Export to Excel"
-        Me.btnExportDataToExcel.UseVisualStyleBackColor = True
-        '
-        'txtFacilitiesSelected
-        '
-        Me.txtFacilitiesSelected.Location = New System.Drawing.Point(3, 6)
-        Me.txtFacilitiesSelected.Name = "txtFacilitiesSelected"
-        Me.txtFacilitiesSelected.ReadOnly = True
-        Me.txtFacilitiesSelected.Size = New System.Drawing.Size(46, 20)
-        Me.txtFacilitiesSelected.TabIndex = 145
-        Me.txtFacilitiesSelected.TabStop = False
-        '
-        'lblProfileCode
-        '
-        Me.lblProfileCode.AutoSize = True
-        Me.lblProfileCode.Location = New System.Drawing.Point(514, 226)
-        Me.lblProfileCode.Name = "lblProfileCode"
-        Me.lblProfileCode.Size = New System.Drawing.Size(61, 13)
-        Me.lblProfileCode.TabIndex = 148
-        Me.lblProfileCode.Text = "ProfileCode"
-        Me.lblProfileCode.Visible = False
-        '
-        'btnClearResults
-        '
-        Me.btnClearResults.Location = New System.Drawing.Point(3, 70)
-        Me.btnClearResults.Name = "btnClearResults"
-        Me.btnClearResults.Size = New System.Drawing.Size(80, 20)
-        Me.btnClearResults.TabIndex = 18
-        Me.btnClearResults.Text = "Clear Checks"
-        '
-        'GroupBox3
-        '
-        Me.GroupBox3.Controls.Add(Me.btnSaveInspectionRequirements)
-        Me.GroupBox3.Controls.Add(Me.rdbDoesNotRequireInspection)
-        Me.GroupBox3.Controls.Add(Me.rdbRequiresAnInspection)
-        Me.GroupBox3.Location = New System.Drawing.Point(261, 142)
-        Me.GroupBox3.Name = "GroupBox3"
-        Me.GroupBox3.Size = New System.Drawing.Size(232, 97)
-        Me.GroupBox3.TabIndex = 142
-        Me.GroupBox3.TabStop = False
-        Me.GroupBox3.Text = "Facilties Requiring Inspections this Year"
-        '
-        'btnSaveInspectionRequirements
-        '
-        Me.btnSaveInspectionRequirements.Location = New System.Drawing.Point(7, 60)
-        Me.btnSaveInspectionRequirements.Name = "btnSaveInspectionRequirements"
-        Me.btnSaveInspectionRequirements.Size = New System.Drawing.Size(62, 20)
-        Me.btnSaveInspectionRequirements.TabIndex = 28
-        Me.btnSaveInspectionRequirements.Text = "Save"
-        '
-        'rdbDoesNotRequireInspection
-        '
-        Me.rdbDoesNotRequireInspection.AutoSize = True
-        Me.rdbDoesNotRequireInspection.Location = New System.Drawing.Point(7, 37)
-        Me.rdbDoesNotRequireInspection.Name = "rdbDoesNotRequireInspection"
-        Me.rdbDoesNotRequireInspection.Size = New System.Drawing.Size(212, 17)
-        Me.rdbDoesNotRequireInspection.TabIndex = 27
-        Me.rdbDoesNotRequireInspection.Text = "Does not require an Inspection this year"
-        '
-        'rdbRequiresAnInspection
-        '
-        Me.rdbRequiresAnInspection.AutoSize = True
-        Me.rdbRequiresAnInspection.Location = New System.Drawing.Point(7, 14)
-        Me.rdbRequiresAnInspection.Name = "rdbRequiresAnInspection"
-        Me.rdbRequiresAnInspection.Size = New System.Drawing.Size(178, 17)
-        Me.rdbRequiresAnInspection.TabIndex = 26
-        Me.rdbRequiresAnInspection.Text = "Requires an Inspection this Year"
-        '
-        'btnCheckAll
-        '
-        Me.btnCheckAll.Location = New System.Drawing.Point(3, 36)
-        Me.btnCheckAll.Name = "btnCheckAll"
-        Me.btnCheckAll.Size = New System.Drawing.Size(80, 20)
-        Me.btnCheckAll.TabIndex = 17
-        Me.btnCheckAll.Text = "Check All"
-        '
-        'GroupBox2
-        '
-        Me.GroupBox2.Controls.Add(Me.btnSaveDistrictResponsiblity)
-        Me.GroupBox2.Controls.Add(Me.rdbNonDistrictSource)
-        Me.GroupBox2.Controls.Add(Me.rdbAssignDistrictSource)
-        Me.GroupBox2.Location = New System.Drawing.Point(59, 142)
-        Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(196, 95)
-        Me.GroupBox2.TabIndex = 141
-        Me.GroupBox2.TabStop = False
-        Me.GroupBox2.Text = "Denote District Responsible Source"
-        '
-        'btnSaveDistrictResponsiblity
-        '
-        Me.btnSaveDistrictResponsiblity.Location = New System.Drawing.Point(6, 64)
-        Me.btnSaveDistrictResponsiblity.Name = "btnSaveDistrictResponsiblity"
-        Me.btnSaveDistrictResponsiblity.Size = New System.Drawing.Size(62, 20)
-        Me.btnSaveDistrictResponsiblity.TabIndex = 25
-        Me.btnSaveDistrictResponsiblity.Text = "Save"
-        '
-        'rdbNonDistrictSource
-        '
-        Me.rdbNonDistrictSource.AutoSize = True
-        Me.rdbNonDistrictSource.Location = New System.Drawing.Point(6, 41)
-        Me.rdbNonDistrictSource.Name = "rdbNonDistrictSource"
-        Me.rdbNonDistrictSource.Size = New System.Drawing.Size(138, 17)
-        Me.rdbNonDistrictSource.TabIndex = 24
-        Me.rdbNonDistrictSource.Text = "District Not Responsible"
-        '
-        'rdbAssignDistrictSource
-        '
-        Me.rdbAssignDistrictSource.AutoSize = True
-        Me.rdbAssignDistrictSource.Location = New System.Drawing.Point(6, 18)
-        Me.rdbAssignDistrictSource.Name = "rdbAssignDistrictSource"
-        Me.rdbAssignDistrictSource.Size = New System.Drawing.Size(118, 17)
-        Me.rdbAssignDistrictSource.TabIndex = 23
-        Me.rdbAssignDistrictSource.Text = "District Responsible"
-        '
-        'Label24
-        '
-        Me.Label24.AutoSize = True
-        Me.Label24.Location = New System.Drawing.Point(56, 8)
-        Me.Label24.Name = "Label24"
-        Me.Label24.Size = New System.Drawing.Size(114, 13)
-        Me.Label24.TabIndex = 146
-        Me.Label24.Text = "# of Facilities Selected"
-        '
-        'btnMakeUnitAssignments
-        '
-        Me.btnMakeUnitAssignments.Location = New System.Drawing.Point(462, 115)
-        Me.btnMakeUnitAssignments.Name = "btnMakeUnitAssignments"
-        Me.btnMakeUnitAssignments.Size = New System.Drawing.Size(107, 20)
-        Me.btnMakeUnitAssignments.TabIndex = 22
-        Me.btnMakeUnitAssignments.Text = "Make Assignments"
-        '
-        'Label2
-        '
-        Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(89, 40)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(198, 13)
-        Me.Label2.TabIndex = 137
-        Me.Label2.Text = "Assigned Selected Facilities to Engineer:"
-        '
-        'Label3
-        '
-        Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(89, 99)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(175, 13)
-        Me.Label3.TabIndex = 139
-        Me.Label3.Text = "Assigned Selected Facilities to Unit:"
-        '
-        'txtCount
-        '
-        Me.txtCount.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtCount.Location = New System.Drawing.Point(462, 8)
-        Me.txtCount.Name = "txtCount"
-        Me.txtCount.ReadOnly = True
-        Me.txtCount.Size = New System.Drawing.Size(64, 20)
-        Me.txtCount.TabIndex = 122
-        Me.txtCount.TabStop = False
-        '
-        'btnMakeEngineerAssignments
-        '
-        Me.btnMakeEngineerAssignments.Location = New System.Drawing.Point(462, 70)
-        Me.btnMakeEngineerAssignments.Name = "btnMakeEngineerAssignments"
-        Me.btnMakeEngineerAssignments.Size = New System.Drawing.Size(107, 20)
-        Me.btnMakeEngineerAssignments.TabIndex = 20
-        Me.btnMakeEngineerAssignments.Text = "Make Assignments"
-        '
-        'cboEngineer
-        '
-        Me.cboEngineer.Location = New System.Drawing.Point(202, 70)
-        Me.cboEngineer.Name = "cboEngineer"
-        Me.cboEngineer.Size = New System.Drawing.Size(253, 21)
-        Me.cboEngineer.TabIndex = 19
-        '
-        'Label25
-        '
-        Me.Label25.AutoSize = True
-        Me.Label25.Location = New System.Drawing.Point(102, 70)
-        Me.Label25.Name = "Label25"
-        Me.Label25.Size = New System.Drawing.Size(68, 13)
-        Me.Label25.TabIndex = 127
-        Me.Label25.Text = "Engineer List"
-        '
-        'cboSSCPUnit
-        '
-        Me.cboSSCPUnit.Location = New System.Drawing.Point(202, 115)
-        Me.cboSSCPUnit.Name = "cboSSCPUnit"
-        Me.cboSSCPUnit.Size = New System.Drawing.Size(253, 21)
-        Me.cboSSCPUnit.TabIndex = 21
-        '
-        'Label26
-        '
-        Me.Label26.AutoSize = True
-        Me.Label26.Location = New System.Drawing.Point(102, 119)
-        Me.Label26.Name = "Label26"
-        Me.Label26.Size = New System.Drawing.Size(76, 13)
-        Me.Label26.TabIndex = 130
-        Me.Label26.Text = "SSCP Unit List"
-        '
-        'lsbSelectedFacilities
-        '
-        Me.lsbSelectedFacilities.Dock = System.Windows.Forms.DockStyle.Left
-        Me.lsbSelectedFacilities.Location = New System.Drawing.Point(334, 16)
-        Me.lsbSelectedFacilities.Name = "lsbSelectedFacilities"
-        Me.lsbSelectedFacilities.Size = New System.Drawing.Size(114, 277)
-        Me.lsbSelectedFacilities.TabIndex = 136
-        Me.lsbSelectedFacilities.TabStop = False
-        '
-        'TCFilterOptions
-        '
-        Me.TCFilterOptions.Controls.Add(Me.TPSearch)
-        Me.TCFilterOptions.Controls.Add(Me.TPManual)
-        Me.TCFilterOptions.Dock = System.Windows.Forms.DockStyle.Left
-        Me.TCFilterOptions.Location = New System.Drawing.Point(3, 16)
-        Me.TCFilterOptions.Name = "TCFilterOptions"
-        Me.TCFilterOptions.SelectedIndex = 0
-        Me.TCFilterOptions.Size = New System.Drawing.Size(331, 286)
-        Me.TCFilterOptions.TabIndex = 2
-        '
-        'TPSearch
-        '
-        Me.TPSearch.Controls.Add(Me.btnFilterSearchOptions)
-        Me.TPSearch.Controls.Add(Me.cboFilterOption4)
-        Me.TPSearch.Controls.Add(Me.cboFilterOption2)
-        Me.TPSearch.Controls.Add(Me.cboFilterOption5)
-        Me.TPSearch.Controls.Add(Me.cboFilterOption3)
-        Me.TPSearch.Controls.Add(Me.Label1)
-        Me.TPSearch.Controls.Add(Me.cboFilterOption1)
-        Me.TPSearch.Controls.Add(Me.Label4)
-        Me.TPSearch.Controls.Add(Me.txtSearchText1)
-        Me.TPSearch.Controls.Add(Me.txtSearchText3)
-        Me.TPSearch.Controls.Add(Me.txtSearchText5)
-        Me.TPSearch.Controls.Add(Me.txtSearchText4)
-        Me.TPSearch.Controls.Add(Me.txtSearchText2)
-        Me.TPSearch.Controls.Add(Me.Label33)
-        Me.TPSearch.Controls.Add(Me.cboSortOption2)
-        Me.TPSearch.Controls.Add(Me.cboSortOption3)
-        Me.TPSearch.Controls.Add(Me.cboSortOption1)
-        Me.TPSearch.Location = New System.Drawing.Point(4, 22)
-        Me.TPSearch.Name = "TPSearch"
-        Me.TPSearch.Size = New System.Drawing.Size(323, 260)
-        Me.TPSearch.TabIndex = 0
-        Me.TPSearch.Text = "Search && Sort Options"
-        '
-        'btnFilterSearchOptions
-        '
-        Me.btnFilterSearchOptions.Location = New System.Drawing.Point(200, 177)
-        Me.btnFilterSearchOptions.Name = "btnFilterSearchOptions"
-        Me.btnFilterSearchOptions.Size = New System.Drawing.Size(80, 28)
-        Me.btnFilterSearchOptions.TabIndex = 16
-        Me.btnFilterSearchOptions.Text = "Filter Results"
-        '
-        'cboFilterOption4
-        '
-        Me.cboFilterOption4.Location = New System.Drawing.Point(13, 90)
-        Me.cboFilterOption4.Name = "cboFilterOption4"
-        Me.cboFilterOption4.Size = New System.Drawing.Size(147, 21)
-        Me.cboFilterOption4.TabIndex = 9
-        '
-        'cboFilterOption2
-        '
-        Me.cboFilterOption2.Location = New System.Drawing.Point(13, 49)
-        Me.cboFilterOption2.Name = "cboFilterOption2"
-        Me.cboFilterOption2.Size = New System.Drawing.Size(147, 21)
-        Me.cboFilterOption2.TabIndex = 5
-        '
-        'cboFilterOption5
-        '
-        Me.cboFilterOption5.Location = New System.Drawing.Point(13, 111)
-        Me.cboFilterOption5.Name = "cboFilterOption5"
-        Me.cboFilterOption5.Size = New System.Drawing.Size(147, 21)
-        Me.cboFilterOption5.TabIndex = 11
-        '
-        'cboFilterOption3
-        '
-        Me.cboFilterOption3.Location = New System.Drawing.Point(13, 69)
-        Me.cboFilterOption3.Name = "cboFilterOption3"
-        Me.cboFilterOption3.Size = New System.Drawing.Size(147, 21)
-        Me.cboFilterOption3.TabIndex = 7
-        '
-        'Label1
-        '
-        Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(7, 7)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(68, 13)
-        Me.Label1.TabIndex = 0
-        Me.Label1.Text = "Filter Options"
-        '
-        'cboFilterOption1
-        '
-        Me.cboFilterOption1.Location = New System.Drawing.Point(13, 28)
-        Me.cboFilterOption1.Name = "cboFilterOption1"
-        Me.cboFilterOption1.Size = New System.Drawing.Size(147, 21)
-        Me.cboFilterOption1.TabIndex = 3
-        '
-        'Label4
-        '
-        Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(160, 7)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(65, 13)
-        Me.Label4.TabIndex = 6
-        Me.Label4.Text = "Search Text"
-        '
-        'txtSearchText1
-        '
-        Me.txtSearchText1.Location = New System.Drawing.Point(173, 28)
-        Me.txtSearchText1.Name = "txtSearchText1"
-        Me.txtSearchText1.Size = New System.Drawing.Size(134, 20)
-        Me.txtSearchText1.TabIndex = 4
-        '
-        'txtSearchText3
-        '
-        Me.txtSearchText3.Location = New System.Drawing.Point(173, 69)
-        Me.txtSearchText3.Name = "txtSearchText3"
-        Me.txtSearchText3.Size = New System.Drawing.Size(134, 20)
-        Me.txtSearchText3.TabIndex = 8
-        '
-        'txtSearchText5
-        '
-        Me.txtSearchText5.Location = New System.Drawing.Point(173, 111)
-        Me.txtSearchText5.Name = "txtSearchText5"
-        Me.txtSearchText5.Size = New System.Drawing.Size(134, 20)
-        Me.txtSearchText5.TabIndex = 12
-        '
-        'txtSearchText4
-        '
-        Me.txtSearchText4.Location = New System.Drawing.Point(173, 90)
-        Me.txtSearchText4.Name = "txtSearchText4"
-        Me.txtSearchText4.Size = New System.Drawing.Size(134, 20)
-        Me.txtSearchText4.TabIndex = 10
-        '
-        'txtSearchText2
-        '
-        Me.txtSearchText2.Location = New System.Drawing.Point(173, 49)
-        Me.txtSearchText2.Name = "txtSearchText2"
-        Me.txtSearchText2.Size = New System.Drawing.Size(134, 20)
-        Me.txtSearchText2.TabIndex = 6
-        '
-        'Label33
-        '
-        Me.Label33.AutoSize = True
-        Me.Label33.Location = New System.Drawing.Point(7, 139)
-        Me.Label33.Name = "Label33"
-        Me.Label33.Size = New System.Drawing.Size(65, 13)
-        Me.Label33.TabIndex = 119
-        Me.Label33.Text = "Sort Options"
-        '
-        'cboSortOption2
-        '
-        Me.cboSortOption2.Location = New System.Drawing.Point(13, 180)
-        Me.cboSortOption2.Name = "cboSortOption2"
-        Me.cboSortOption2.Size = New System.Drawing.Size(144, 21)
-        Me.cboSortOption2.TabIndex = 14
-        '
-        'cboSortOption3
-        '
-        Me.cboSortOption3.Location = New System.Drawing.Point(13, 201)
-        Me.cboSortOption3.Name = "cboSortOption3"
-        Me.cboSortOption3.Size = New System.Drawing.Size(144, 21)
-        Me.cboSortOption3.TabIndex = 15
-        '
-        'cboSortOption1
-        '
-        Me.cboSortOption1.Location = New System.Drawing.Point(13, 159)
-        Me.cboSortOption1.Name = "cboSortOption1"
-        Me.cboSortOption1.Size = New System.Drawing.Size(144, 21)
-        Me.cboSortOption1.TabIndex = 13
-        '
-        'TPManual
-        '
-        Me.TPManual.Controls.Add(Me.lsbAIRSNumber)
-        Me.TPManual.Controls.Add(Me.btnClearManualList)
-        Me.TPManual.Controls.Add(Me.btnFilterAirsNumbers)
-        Me.TPManual.Controls.Add(Me.Label39)
-        Me.TPManual.Controls.Add(Me.txtAIRSNumberFilter)
-        Me.TPManual.Location = New System.Drawing.Point(4, 22)
-        Me.TPManual.Name = "TPManual"
-        Me.TPManual.Size = New System.Drawing.Size(323, 260)
-        Me.TPManual.TabIndex = 1
-        Me.TPManual.Text = "Manual List"
-        '
-        'lsbAIRSNumber
-        '
-        Me.lsbAIRSNumber.AllowDrop = True
-        Me.lsbAIRSNumber.Location = New System.Drawing.Point(127, 146)
-        Me.lsbAIRSNumber.Name = "lsbAIRSNumber"
-        Me.lsbAIRSNumber.Size = New System.Drawing.Size(96, 4)
-        Me.lsbAIRSNumber.TabIndex = 130
-        Me.lsbAIRSNumber.Visible = False
-        '
-        'btnClearManualList
-        '
-        Me.btnClearManualList.Location = New System.Drawing.Point(127, 222)
-        Me.btnClearManualList.Name = "btnClearManualList"
-        Me.btnClearManualList.Size = New System.Drawing.Size(100, 28)
-        Me.btnClearManualList.TabIndex = 30
-        Me.btnClearManualList.Text = "Clear Manual List"
-        '
-        'btnFilterAirsNumbers
-        '
-        Me.btnFilterAirsNumbers.Location = New System.Drawing.Point(127, 111)
-        Me.btnFilterAirsNumbers.Name = "btnFilterAirsNumbers"
-        Me.btnFilterAirsNumbers.Size = New System.Drawing.Size(126, 28)
-        Me.btnFilterAirsNumbers.TabIndex = 29
-        Me.btnFilterAirsNumbers.Text = "Filter AIRS Number(s)"
-        '
-        'Label39
-        '
-        Me.Label39.Location = New System.Drawing.Point(127, 7)
-        Me.Label39.Name = "Label39"
-        Me.Label39.Size = New System.Drawing.Size(80, 96)
-        Me.Label39.TabIndex = 127
-        Me.Label39.Text = "Enter one AIRS Number per line.  EXAMPLE                       00100001    001000" & _
-            "02        00100003"
-        '
-        'txtAIRSNumberFilter
-        '
-        Me.txtAIRSNumberFilter.Dock = System.Windows.Forms.DockStyle.Left
-        Me.txtAIRSNumberFilter.Location = New System.Drawing.Point(0, 0)
-        Me.txtAIRSNumberFilter.Multiline = True
-        Me.txtAIRSNumberFilter.Name = "txtAIRSNumberFilter"
-        Me.txtAIRSNumberFilter.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.txtAIRSNumberFilter.Size = New System.Drawing.Size(120, 260)
-        Me.txtAIRSNumberFilter.TabIndex = 124
-        '
         'TCManagerTools
         '
         Me.TCManagerTools.Controls.Add(Me.TPStaffReports)
@@ -1750,7 +1181,6 @@ Partial Class SSCPManagersTools
         Me.TCManagerTools.Controls.Add(Me.TPWatchList)
         Me.TCManagerTools.Controls.Add(Me.TPNewFacilityAssignments)
         Me.TCManagerTools.Controls.Add(Me.TPMiscReports)
-        Me.TCManagerTools.Controls.Add(Me.TPFacilityAssignments)
         Me.TCManagerTools.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TCManagerTools.Location = New System.Drawing.Point(0, 28)
         Me.TCManagerTools.Name = "TCManagerTools"
@@ -1772,35 +1202,35 @@ Partial Class SSCPManagersTools
         '
         'dgvPollutantFacilities
         '
-        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle4.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvPollutantFacilities.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle4
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvPollutantFacilities.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
         Me.dgvPollutantFacilities.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle5.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvPollutantFacilities.DefaultCellStyle = DataGridViewCellStyle5
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvPollutantFacilities.DefaultCellStyle = DataGridViewCellStyle2
         Me.dgvPollutantFacilities.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvPollutantFacilities.Location = New System.Drawing.Point(0, 220)
         Me.dgvPollutantFacilities.Name = "dgvPollutantFacilities"
         Me.dgvPollutantFacilities.ReadOnly = True
-        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle6.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvPollutantFacilities.RowHeadersDefaultCellStyle = DataGridViewCellStyle6
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvPollutantFacilities.RowHeadersDefaultCellStyle = DataGridViewCellStyle3
         Me.dgvPollutantFacilities.Size = New System.Drawing.Size(1184, 451)
         Me.dgvPollutantFacilities.TabIndex = 1
         '
@@ -1830,6 +1260,15 @@ Partial Class SSCPManagersTools
         Me.GroupBox5.Size = New System.Drawing.Size(1184, 220)
         Me.GroupBox5.TabIndex = 0
         Me.GroupBox5.TabStop = False
+        '
+        'btnExportPollutantsToExcel
+        '
+        Me.btnExportPollutantsToExcel.Location = New System.Drawing.Point(435, 189)
+        Me.btnExportPollutantsToExcel.Name = "btnExportPollutantsToExcel"
+        Me.btnExportPollutantsToExcel.Size = New System.Drawing.Size(111, 22)
+        Me.btnExportPollutantsToExcel.TabIndex = 315
+        Me.btnExportPollutantsToExcel.Text = "Export to Excel"
+        Me.btnExportPollutantsToExcel.UseVisualStyleBackColor = True
         '
         'txtPollutantCount
         '
@@ -4270,7 +3709,7 @@ Partial Class SSCPManagersTools
         '
         'MainMenu1
         '
-        Me.MainMenu1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.MmiFile, Me.MmiEdit, Me.MmiView, Me.MmiTool, Me.MmiHelp})
+        Me.MainMenu1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.MmiFile, Me.MmiEdit, Me.MmiView, Me.MmiHelp})
         '
         'MmiFile
         '
@@ -4310,20 +3749,9 @@ Partial Class SSCPManagersTools
         Me.MmiToolbar.Index = 2
         Me.MmiToolbar.Text = "Toolbar"
         '
-        'MmiTool
-        '
-        Me.MmiTool.Index = 3
-        Me.MmiTool.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiChangeProfile})
-        Me.MmiTool.Text = "Tool"
-        '
-        'mmiChangeProfile
-        '
-        Me.mmiChangeProfile.Index = 0
-        Me.mmiChangeProfile.Text = "Change Profile"
-        '
         'MmiHelp
         '
-        Me.MmiHelp.Index = 4
+        Me.MmiHelp.Index = 3
         Me.MmiHelp.Text = "Help"
         '
         'TBSSCPManagersTools
@@ -4428,15 +3856,6 @@ Partial Class SSCPManagersTools
         Me.Image_List_All.Images.SetKeyName(83, "")
         Me.Image_List_All.Images.SetKeyName(84, "")
         '
-        'btnExportPollutantsToExcel
-        '
-        Me.btnExportPollutantsToExcel.Location = New System.Drawing.Point(435, 189)
-        Me.btnExportPollutantsToExcel.Name = "btnExportPollutantsToExcel"
-        Me.btnExportPollutantsToExcel.Size = New System.Drawing.Size(111, 22)
-        Me.btnExportPollutantsToExcel.TabIndex = 315
-        Me.btnExportPollutantsToExcel.Text = "Export to Excel"
-        Me.btnExportPollutantsToExcel.UseVisualStyleBackColor = True
-        '
         'SSCPManagersTools
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -4462,19 +3881,6 @@ Partial Class SSCPManagersTools
         Me.PanelCMSWarning.PerformLayout()
         CType(Me.dgvCMSWarning, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TPCMSWarning.ResumeLayout(False)
-        Me.TPFacilityAssignments.ResumeLayout(False)
-        Me.GroupBox1.ResumeLayout(False)
-        Me.Panel5.ResumeLayout(False)
-        Me.Panel5.PerformLayout()
-        Me.GroupBox3.ResumeLayout(False)
-        Me.GroupBox3.PerformLayout()
-        Me.GroupBox2.ResumeLayout(False)
-        Me.GroupBox2.PerformLayout()
-        Me.TCFilterOptions.ResumeLayout(False)
-        Me.TPSearch.ResumeLayout(False)
-        Me.TPSearch.PerformLayout()
-        Me.TPManual.ResumeLayout(False)
-        Me.TPManual.PerformLayout()
         Me.TCManagerTools.ResumeLayout(False)
         Me.TPPollutantBubbleUp.ResumeLayout(False)
         CType(Me.dgvPollutantFacilities, System.ComponentModel.ISupportInitialize).EndInit()
@@ -4626,57 +4032,6 @@ Partial Class SSCPManagersTools
     Friend WithEvents txtCMSWarningCount As System.Windows.Forms.TextBox
     Friend WithEvents TPCMSWarning As System.Windows.Forms.TabPage
     Friend WithEvents Splitter3 As System.Windows.Forms.Splitter
-    Friend WithEvents TPFacilityAssignments As System.Windows.Forms.TabPage
-    Friend WithEvents lvFacilityList As System.Windows.Forms.ListView
-    Friend WithEvents GroupBox1 As System.Windows.Forms.GroupBox
-    Friend WithEvents txtFilterType As System.Windows.Forms.TextBox
-    Friend WithEvents txtFacilitiesSelected As System.Windows.Forms.TextBox
-    Friend WithEvents Label24 As System.Windows.Forms.Label
-    Friend WithEvents btnCheckAll As System.Windows.Forms.Button
-    Friend WithEvents btnClearResults As System.Windows.Forms.Button
-    Friend WithEvents GroupBox3 As System.Windows.Forms.GroupBox
-    Friend WithEvents btnSaveInspectionRequirements As System.Windows.Forms.Button
-    Friend WithEvents rdbDoesNotRequireInspection As System.Windows.Forms.RadioButton
-    Friend WithEvents rdbRequiresAnInspection As System.Windows.Forms.RadioButton
-    Friend WithEvents GroupBox2 As System.Windows.Forms.GroupBox
-    Friend WithEvents btnSaveDistrictResponsiblity As System.Windows.Forms.Button
-    Friend WithEvents rdbNonDistrictSource As System.Windows.Forms.RadioButton
-    Friend WithEvents rdbAssignDistrictSource As System.Windows.Forms.RadioButton
-    Friend WithEvents btnMakeUnitAssignments As System.Windows.Forms.Button
-    Friend WithEvents Label3 As System.Windows.Forms.Label
-    Friend WithEvents btnMakeEngineerAssignments As System.Windows.Forms.Button
-    Friend WithEvents Label2 As System.Windows.Forms.Label
-    Friend WithEvents lsbSelectedFacilities As System.Windows.Forms.ListBox
-    Friend WithEvents Label26 As System.Windows.Forms.Label
-    Friend WithEvents cboSSCPUnit As System.Windows.Forms.ComboBox
-    Friend WithEvents Label25 As System.Windows.Forms.Label
-    Friend WithEvents cboEngineer As System.Windows.Forms.ComboBox
-    Friend WithEvents TCFilterOptions As System.Windows.Forms.TabControl
-    Friend WithEvents TPSearch As System.Windows.Forms.TabPage
-    Friend WithEvents btnFilterSearchOptions As System.Windows.Forms.Button
-    Friend WithEvents cboFilterOption4 As System.Windows.Forms.ComboBox
-    Friend WithEvents cboFilterOption2 As System.Windows.Forms.ComboBox
-    Friend WithEvents cboFilterOption5 As System.Windows.Forms.ComboBox
-    Friend WithEvents cboFilterOption3 As System.Windows.Forms.ComboBox
-    Friend WithEvents Label1 As System.Windows.Forms.Label
-    Friend WithEvents cboFilterOption1 As System.Windows.Forms.ComboBox
-    Friend WithEvents Label4 As System.Windows.Forms.Label
-    Friend WithEvents txtSearchText1 As System.Windows.Forms.TextBox
-    Friend WithEvents txtSearchText3 As System.Windows.Forms.TextBox
-    Friend WithEvents txtSearchText5 As System.Windows.Forms.TextBox
-    Friend WithEvents txtSearchText4 As System.Windows.Forms.TextBox
-    Friend WithEvents txtSearchText2 As System.Windows.Forms.TextBox
-    Friend WithEvents Label33 As System.Windows.Forms.Label
-    Friend WithEvents cboSortOption2 As System.Windows.Forms.ComboBox
-    Friend WithEvents cboSortOption3 As System.Windows.Forms.ComboBox
-    Friend WithEvents cboSortOption1 As System.Windows.Forms.ComboBox
-    Friend WithEvents TPManual As System.Windows.Forms.TabPage
-    Friend WithEvents lsbAIRSNumber As System.Windows.Forms.ListBox
-    Friend WithEvents btnClearManualList As System.Windows.Forms.Button
-    Friend WithEvents btnFilterAirsNumbers As System.Windows.Forms.Button
-    Friend WithEvents Label39 As System.Windows.Forms.Label
-    Friend WithEvents txtAIRSNumberFilter As System.Windows.Forms.TextBox
-    Friend WithEvents txtCount As System.Windows.Forms.TextBox
     Friend WithEvents TCManagerTools As System.Windows.Forms.TabControl
     Friend WithEvents TbbFind As System.Windows.Forms.ToolBarButton
     Friend WithEvents TbbClear As System.Windows.Forms.ToolBarButton
@@ -4693,8 +4048,6 @@ Partial Class SSCPManagersTools
     Friend WithEvents MmiClearPage As System.Windows.Forms.MenuItem
     Friend WithEvents MenuItem7 As System.Windows.Forms.MenuItem
     Friend WithEvents MmiToolbar As System.Windows.Forms.MenuItem
-    Friend WithEvents MmiTool As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiChangeProfile As System.Windows.Forms.MenuItem
     Friend WithEvents MmiHelp As System.Windows.Forms.MenuItem
     Friend WithEvents TBSSCPManagersTools As System.Windows.Forms.ToolBar
     Friend WithEvents Image_List_All As System.Windows.Forms.ImageList
@@ -4791,11 +4144,8 @@ Partial Class SSCPManagersTools
     Friend WithEvents dtpEnforcementEndDate As System.Windows.Forms.DateTimePicker
     Friend WithEvents lblStatisticalRecords As System.Windows.Forms.Label
     Friend WithEvents chbNoFCE As System.Windows.Forms.CheckBox
-    Friend WithEvents lblProfileCode As System.Windows.Forms.Label
-    Friend WithEvents btnExportDataToExcel As System.Windows.Forms.Button
     Friend WithEvents lblExportToExcelCMSUniverse As System.Windows.Forms.LinkLabel
     Friend WithEvents dgvCMSUniverse As System.Windows.Forms.DataGridView
-    Friend WithEvents Panel5 As System.Windows.Forms.Panel
     Friend WithEvents TPWatchList As System.Windows.Forms.TabPage
     Friend WithEvents dgvWatchList As System.Windows.Forms.DataGridView
     Friend WithEvents Panel6 As System.Windows.Forms.Panel
