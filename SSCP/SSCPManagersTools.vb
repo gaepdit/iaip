@@ -115,8 +115,8 @@ Public Class SSCPManagersTools
                 TCNewFacilitySearch.TabPages.Add(TPCopyYear)
             End If
             If AccountArray(48, 2) = "1" And AccountArray(48, 3) = "0" Then
-                llbAddFacilityToCMS.Visible = False
-                llbDeleteFacilityFromCMS.Visible = False
+                btnAddToCmsUniverse.Visible = False
+                btnDeleteFacilityFromCms.Visible = False
                 Panel8.Visible = False
             End If
 
@@ -2356,18 +2356,16 @@ Public Class SSCPManagersTools
         End Try
 
     End Sub
-    Private Sub llbAddFacilityToCMS_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbAddFacilityToCMS.LinkClicked
+    Private Sub btnAddToCmsUniverse_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles btnAddToCmsUniverse.Click
         Try
-
             AddFacilityToCMS()
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
     End Sub
-    Private Sub llbDeleteFacilityFromCMS_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbDeleteFacilityFromCMS.LinkClicked
+    Private Sub btnDeleteFacilityFromCms_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles btnDeleteFacilityFromCms.Click
         Try
-
             RemoveFacilityFromCMS()
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -2376,7 +2374,6 @@ Public Class SSCPManagersTools
     End Sub
     Private Sub lblRunInspectionReport_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lblRunInspectionReport.LinkClicked
         Try
-
             RunInspectionReport()
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -4093,7 +4090,7 @@ Public Class SSCPManagersTools
         End Try
 
     End Sub
-    Private Sub btnViewComplianceRecord_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnViewComplianceRecord.Click
+    Private Sub llbViewRecord_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles llbViewRecord.LinkClicked
         Try
             If txtRecordNumber.Text <> "" Then
                 Select Case lblStatisticalRecords.Text
@@ -4235,38 +4232,6 @@ Public Class SSCPManagersTools
 
     End Sub
 
-    Private Sub lblExportToExcelCMSUniverse_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lblExportToExcelCMSUniverse.LinkClicked
-        Try
-            'Dim ExcelApp As New Excel.Application
-            Dim ExcelApp As New Microsoft.Office.Interop.Excel.Application
-            'Dim ExcelDoc As Microsoft.Office.Interop.Excel.Workbook
-            Dim i As Integer
-            Dim j As Integer
-
-            If dgvCMSUniverse.RowCount <> 0 Then
-                With ExcelApp
-                    .SheetsInNewWorkbook = 1
-                    .Workbooks.Add()
-                    .Worksheets(1).Select()
-
-                    For i = 0 To dgvCMSUniverse.ColumnCount - 1
-                        .Cells(1, i + 1) = dgvCMSUniverse.Columns(i).HeaderText.ToString
-                    Next
-
-                    For i = 0 To dgvCMSUniverse.ColumnCount - 1
-                        For j = 0 To dgvCMSUniverse.RowCount - 1
-                            .Cells(j + 2, i + 1).numberformat = "@"
-                            .Cells(j + 2, i + 1).value = dgvCMSUniverse.Item(i, j).Value.ToString
-                        Next
-                    Next
-                End With
-                ExcelApp.Visible = True
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
     Private Sub dgvCMSUniverse_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvCMSUniverse.MouseUp
         Try
             Dim hti As DataGridView.HitTestInfo = dgvCMSUniverse.HitTest(e.X, e.Y)
@@ -4373,57 +4338,11 @@ Public Class SSCPManagersTools
             dgvWatchList.Columns("ComplianceStatus").HeaderText = "Compliance Status"
             dgvWatchList.Columns("ComplianceStatus").DisplayIndex = 3
 
-            txtWatchListCount.Text = dgvWatchList.RowCount.ToString
+            lblWatchListCount.Text = "Count: " & dgvWatchList.RowCount.ToString
 
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
-    End Sub
-    Private Sub llbExportWatchList_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbExportWatchList.LinkClicked
-        'Dim ExcelApp As New Excel.Application
-        Dim ExcelApp As New Microsoft.Office.Interop.Excel.Application
-        'Dim ExcelDoc As Microsoft.Office.Interop.Excel.Workbook
-        Dim i, j As Integer
-
-        Try
-
-            If ExcelApp.Visible = False Then
-                ExcelApp.Visible = True
-            End If
-            If dgvWatchList.RowCount <> 0 Then
-                With ExcelApp
-                    .SheetsInNewWorkbook = 1
-                    .Workbooks.Add()
-                    .Worksheets(1).Select()
-
-                    'For displaying the column name in the the excel file.
-                    For i = 0 To dgvWatchList.ColumnCount - 1
-                        .Cells(1, i + 1) = dgvWatchList.Columns(i).HeaderText.ToString
-                    Next
-
-                    For i = 0 To dgvWatchList.ColumnCount - 1
-                        For j = 0 To dgvWatchList.RowCount - 1
-                            .Cells(j + 2, i + 1).numberformat = "@"
-                            .Cells(j + 2, i + 1).value = dgvWatchList.Item(i, j).Value.ToString
-                        Next
-                    Next
-
-                End With
-                If ExcelApp.Visible = False Then
-                    ExcelApp.Visible = True
-                End If
-            End If
-
-        Catch ex As Exception
-            If ex.ToString.Contains("RPC_E_CALL_REJECTED") Then
-                MsgBox("Error in exporting data." & vbCrLf & "Please run the export again.")
-            Else
-                ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-            End If
-        Finally
-
-        End Try
-
     End Sub
     Sub LoadFacilitySearch(ByVal Location As String)
         Try
@@ -5349,94 +5268,6 @@ Public Class SSCPManagersTools
             '   chbIgnoreFiscalYear.Checked = True
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-    Private Sub btnExportFiltered_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnExportFiltered.Click
-        'Dim ExcelApp As New Excel.Application
-        Dim ExcelApp As New Microsoft.Office.Interop.Excel.Application
-        'Dim ExcelDoc As Microsoft.Office.Interop.Excel.Workbook
-        Dim i, j As Integer
-
-        Try
-            If ExcelApp.Visible = False Then
-                ExcelApp.Visible = True
-            End If
-            If dgvFilteredFacilityList.RowCount <> 0 Then
-                With ExcelApp
-                    .SheetsInNewWorkbook = 1
-                    .Workbooks.Add()
-                    .Worksheets(1).Select()
-
-                    'For displaying the column name in the the excel file.
-                    For i = 0 To dgvFilteredFacilityList.ColumnCount - 1
-                        .Cells(1, i + 1) = dgvFilteredFacilityList.Columns(i).HeaderText.ToString
-                    Next
-
-                    For i = 0 To dgvFilteredFacilityList.ColumnCount - 1
-                        For j = 0 To dgvFilteredFacilityList.RowCount - 1
-                            .Cells(j + 2, i + 1).numberformat = "@"
-                            .Cells(j + 2, i + 1).value = dgvFilteredFacilityList.Item(i, j).Value.ToString
-                        Next
-                    Next
-
-                End With
-                If ExcelApp.Visible = False Then
-                    ExcelApp.Visible = True
-                End If
-            End If
-
-        Catch ex As Exception
-            If ex.ToString.Contains("RPC_E_CALL_REJECTED") Then
-                MsgBox("Error in exporting data." & vbCrLf & "Please run the export again.")
-            Else
-                ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-            End If
-        Finally
-
-        End Try
-    End Sub
-    Private Sub btnExportSelected_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnExportSelected.Click
-        'Dim ExcelApp As New Excel.Application
-        Dim ExcelApp As New Microsoft.Office.Interop.Excel.Application
-        'Dim ExcelDoc As Microsoft.Office.Interop.Excel.Workbook
-        Dim i, j As Integer
-
-        Try
-            If ExcelApp.Visible = False Then
-                ExcelApp.Visible = True
-            End If
-            If dgvSelectedFacilityList.RowCount <> 0 Then
-                With ExcelApp
-                    .SheetsInNewWorkbook = 1
-                    .Workbooks.Add()
-                    .Worksheets(1).Select()
-
-                    'For displaying the column name in the the excel file.
-                    For i = 0 To dgvSelectedFacilityList.ColumnCount - 1
-                        .Cells(1, i + 1) = dgvSelectedFacilityList.Columns(i).HeaderText.ToString
-                    Next
-
-                    For i = 0 To dgvSelectedFacilityList.ColumnCount - 1
-                        For j = 0 To dgvSelectedFacilityList.RowCount - 1
-                            .Cells(j + 2, i + 1).numberformat = "@"
-                            .Cells(j + 2, i + 1).value = dgvSelectedFacilityList.Item(i, j).Value.ToString
-                        Next
-                    Next
-
-                End With
-                If ExcelApp.Visible = False Then
-                    ExcelApp.Visible = True
-                End If
-            End If
-
-        Catch ex As Exception
-            If ex.ToString.Contains("RPC_E_CALL_REJECTED") Then
-                MsgBox("Error in exporting data." & vbCrLf & "Please run the export again.")
-            Else
-                ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-            End If
-        Finally
-
         End Try
     End Sub
     Private Sub btnSaveEngineerResponsibility_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSaveEngineerResponsibility.Click
@@ -6590,12 +6421,29 @@ Public Class SSCPManagersTools
     End Sub
 
     Private Sub btnExportCmsWarningToExcel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnExportCmsWarningToExcel.Click
-        If dgvCMSUniverse.RowCount > 0 Then dgvCMSWarning.ExportToExcel()
+        If dgvCMSWarning.RowCount > 0 Then dgvCMSWarning.ExportToExcel()
     End Sub
-
-#End Region
 
     Private Sub btnExportPollutantsToExcel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnExportPollutantsToExcel.Click
         If dgvPollutantFacilities.RowCount > 0 Then dgvPollutantFacilities.ExportToExcel()
     End Sub
+
+    Private Sub btnExportWatchListToExcel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnExportWatchListToExcel.Click
+        If dgvWatchList.RowCount > 0 Then dgvWatchList.ExportToExcel()
+    End Sub
+
+    Private Sub btnExportCmsUniverseToExcel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnExportCmsUniverseToExcel.Click
+        If dgvCMSUniverse.RowCount > 0 Then dgvCMSUniverse.ExportToExcel()
+    End Sub
+
+    Private Sub btnExportFiltered_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnExportFiltered.Click
+        If dgvFilteredFacilityList.RowCount > 0 Then dgvFilteredFacilityList.ExportToExcel()
+    End Sub
+
+    Private Sub btnExportSelected_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnExportSelected.Click
+        If dgvSelectedFacilityList.RowCount > 0 Then dgvSelectedFacilityList.ExportToExcel()
+    End Sub
+
+#End Region
+
 End Class

@@ -41,7 +41,9 @@ Partial Class SSCPManagersTools
         Me.clbEngineers = New System.Windows.Forms.CheckedListBox
         Me.Splitter2 = New System.Windows.Forms.Splitter
         Me.PanelCMSUniverse = New System.Windows.Forms.Panel
-        Me.lblExportToExcelCMSUniverse = New System.Windows.Forms.LinkLabel
+        Me.btnDeleteFacilityFromCms = New System.Windows.Forms.Button
+        Me.btnAddToCmsUniverse = New System.Windows.Forms.Button
+        Me.btnExportCmsUniverseToExcel = New System.Windows.Forms.Button
         Me.txtCMSState = New System.Windows.Forms.TextBox
         Me.txtCMSCount = New System.Windows.Forms.TextBox
         Me.Label8 = New System.Windows.Forms.Label
@@ -58,9 +60,7 @@ Partial Class SSCPManagersTools
         Me.Label12 = New System.Windows.Forms.Label
         Me.Label9 = New System.Windows.Forms.Label
         Me.txtCMSOperationalStatus = New System.Windows.Forms.TextBox
-        Me.llbAddFacilityToCMS = New System.Windows.Forms.LinkLabel
         Me.txtCMSLastFCE = New System.Windows.Forms.TextBox
-        Me.llbDeleteFacilityFromCMS = New System.Windows.Forms.LinkLabel
         Me.txtCMSClassification = New System.Windows.Forms.TextBox
         Me.txtCMSAIRSNumber = New System.Windows.Forms.TextBox
         Me.cboComplianceUnits = New System.Windows.Forms.ComboBox
@@ -195,17 +195,17 @@ Partial Class SSCPManagersTools
         Me.llbTitleVRenewal = New System.Windows.Forms.LinkLabel
         Me.txtTitleVRenewals = New System.Windows.Forms.TextBox
         Me.Label65 = New System.Windows.Forms.Label
+        Me.llbViewRecord = New System.Windows.Forms.LinkLabel
         Me.lblStatisticalRecords = New System.Windows.Forms.Label
         Me.txtStatisticalCount = New System.Windows.Forms.TextBox
         Me.Label45 = New System.Windows.Forms.Label
         Me.txtRecordNumber = New System.Windows.Forms.TextBox
         Me.btnExportToExcel = New System.Windows.Forms.Button
-        Me.btnViewComplianceRecord = New System.Windows.Forms.Button
         Me.dgvStatisticalReports = New System.Windows.Forms.DataGridView
         Me.TPWatchList = New System.Windows.Forms.TabPage
         Me.dgvWatchList = New System.Windows.Forms.DataGridView
         Me.Panel6 = New System.Windows.Forms.Panel
-        Me.llbExportWatchList = New System.Windows.Forms.LinkLabel
+        Me.btnExportWatchListToExcel = New System.Windows.Forms.Button
         Me.rdbInComplianceCEMSData = New System.Windows.Forms.RadioButton
         Me.rdbInComplianceProcedural = New System.Windows.Forms.RadioButton
         Me.rdbInComplianceShutDown = New System.Windows.Forms.RadioButton
@@ -221,8 +221,7 @@ Partial Class SSCPManagersTools
         Me.rdbInViolationProceduralEmissions = New System.Windows.Forms.RadioButton
         Me.rdbAllNegativeStatus = New System.Windows.Forms.RadioButton
         Me.btnViewWatchListFacilities = New System.Windows.Forms.Button
-        Me.txtWatchListCount = New System.Windows.Forms.TextBox
-        Me.Label48 = New System.Windows.Forms.Label
+        Me.lblWatchListCount = New System.Windows.Forms.Label
         Me.TPNewFacilityAssignments = New System.Windows.Forms.TabPage
         Me.Panel10 = New System.Windows.Forms.Panel
         Me.GroupBox9 = New System.Windows.Forms.GroupBox
@@ -529,11 +528,12 @@ Partial Class SSCPManagersTools
         '
         'Panel8
         '
+        Me.Panel8.AutoSize = True
         Me.Panel8.Controls.Add(Me.rdbCMSClassA)
         Me.Panel8.Controls.Add(Me.rdbCMSClassS)
         Me.Panel8.Location = New System.Drawing.Point(24, 344)
         Me.Panel8.Name = "Panel8"
-        Me.Panel8.Size = New System.Drawing.Size(72, 16)
+        Me.Panel8.Size = New System.Drawing.Size(82, 20)
         Me.Panel8.TabIndex = 25
         '
         'rdbCMSClassA
@@ -546,11 +546,12 @@ Partial Class SSCPManagersTools
         '
         'rdbCMSClassS
         '
-        Me.rdbCMSClassS.Location = New System.Drawing.Point(40, 0)
+        Me.rdbCMSClassS.AutoSize = True
+        Me.rdbCMSClassS.Location = New System.Drawing.Point(38, 0)
         Me.rdbCMSClassS.Name = "rdbCMSClassS"
-        Me.rdbCMSClassS.Size = New System.Drawing.Size(32, 16)
+        Me.rdbCMSClassS.Size = New System.Drawing.Size(41, 17)
         Me.rdbCMSClassS.TabIndex = 24
-        Me.rdbCMSClassS.Text = "S"
+        Me.rdbCMSClassS.Text = "SM"
         '
         'clbEngineers
         '
@@ -572,7 +573,9 @@ Partial Class SSCPManagersTools
         '
         'PanelCMSUniverse
         '
-        Me.PanelCMSUniverse.Controls.Add(Me.lblExportToExcelCMSUniverse)
+        Me.PanelCMSUniverse.Controls.Add(Me.btnDeleteFacilityFromCms)
+        Me.PanelCMSUniverse.Controls.Add(Me.btnAddToCmsUniverse)
+        Me.PanelCMSUniverse.Controls.Add(Me.btnExportCmsUniverseToExcel)
         Me.PanelCMSUniverse.Controls.Add(Me.Panel8)
         Me.PanelCMSUniverse.Controls.Add(Me.Label10)
         Me.PanelCMSUniverse.Controls.Add(Me.txtCMSState)
@@ -591,9 +594,7 @@ Partial Class SSCPManagersTools
         Me.PanelCMSUniverse.Controls.Add(Me.Label12)
         Me.PanelCMSUniverse.Controls.Add(Me.Label9)
         Me.PanelCMSUniverse.Controls.Add(Me.txtCMSOperationalStatus)
-        Me.PanelCMSUniverse.Controls.Add(Me.llbAddFacilityToCMS)
         Me.PanelCMSUniverse.Controls.Add(Me.txtCMSLastFCE)
-        Me.PanelCMSUniverse.Controls.Add(Me.llbDeleteFacilityFromCMS)
         Me.PanelCMSUniverse.Controls.Add(Me.txtCMSClassification)
         Me.PanelCMSUniverse.Controls.Add(Me.txtCMSAIRSNumber)
         Me.PanelCMSUniverse.Dock = System.Windows.Forms.DockStyle.Right
@@ -602,15 +603,34 @@ Partial Class SSCPManagersTools
         Me.PanelCMSUniverse.Size = New System.Drawing.Size(345, 671)
         Me.PanelCMSUniverse.TabIndex = 17
         '
-        'lblExportToExcelCMSUniverse
+        'btnDeleteFacilityFromCms
         '
-        Me.lblExportToExcelCMSUniverse.AutoSize = True
-        Me.lblExportToExcelCMSUniverse.Location = New System.Drawing.Point(21, 440)
-        Me.lblExportToExcelCMSUniverse.Name = "lblExportToExcelCMSUniverse"
-        Me.lblExportToExcelCMSUniverse.Size = New System.Drawing.Size(78, 13)
-        Me.lblExportToExcelCMSUniverse.TabIndex = 33
-        Me.lblExportToExcelCMSUniverse.TabStop = True
-        Me.lblExportToExcelCMSUniverse.Text = "Export to Excel"
+        Me.btnDeleteFacilityFromCms.AutoSize = True
+        Me.btnDeleteFacilityFromCms.Location = New System.Drawing.Point(19, 391)
+        Me.btnDeleteFacilityFromCms.Name = "btnDeleteFacilityFromCms"
+        Me.btnDeleteFacilityFromCms.Size = New System.Drawing.Size(177, 23)
+        Me.btnDeleteFacilityFromCms.TabIndex = 28
+        Me.btnDeleteFacilityFromCms.Text = "Delete Facility from CMS Universe"
+        Me.btnDeleteFacilityFromCms.UseVisualStyleBackColor = True
+        '
+        'btnAddToCmsUniverse
+        '
+        Me.btnAddToCmsUniverse.AutoSize = True
+        Me.btnAddToCmsUniverse.Location = New System.Drawing.Point(120, 341)
+        Me.btnAddToCmsUniverse.Name = "btnAddToCmsUniverse"
+        Me.btnAddToCmsUniverse.Size = New System.Drawing.Size(154, 23)
+        Me.btnAddToCmsUniverse.TabIndex = 27
+        Me.btnAddToCmsUniverse.Text = "Add Facility to CMS Universe"
+        Me.btnAddToCmsUniverse.UseVisualStyleBackColor = True
+        '
+        'btnExportCmsUniverseToExcel
+        '
+        Me.btnExportCmsUniverseToExcel.Location = New System.Drawing.Point(11, 639)
+        Me.btnExportCmsUniverseToExcel.Name = "btnExportCmsUniverseToExcel"
+        Me.btnExportCmsUniverseToExcel.Size = New System.Drawing.Size(122, 24)
+        Me.btnExportCmsUniverseToExcel.TabIndex = 26
+        Me.btnExportCmsUniverseToExcel.Text = "Export to Excel"
+        Me.btnExportCmsUniverseToExcel.UseVisualStyleBackColor = True
         '
         'txtCMSState
         '
@@ -751,16 +771,6 @@ Partial Class SSCPManagersTools
         Me.txtCMSOperationalStatus.Size = New System.Drawing.Size(112, 20)
         Me.txtCMSOperationalStatus.TabIndex = 13
         '
-        'llbAddFacilityToCMS
-        '
-        Me.llbAddFacilityToCMS.AutoSize = True
-        Me.llbAddFacilityToCMS.Location = New System.Drawing.Point(112, 344)
-        Me.llbAddFacilityToCMS.Name = "llbAddFacilityToCMS"
-        Me.llbAddFacilityToCMS.Size = New System.Drawing.Size(144, 13)
-        Me.llbAddFacilityToCMS.TabIndex = 5
-        Me.llbAddFacilityToCMS.TabStop = True
-        Me.llbAddFacilityToCMS.Text = "Add Facility to CMS Universe"
-        '
         'txtCMSLastFCE
         '
         Me.txtCMSLastFCE.Location = New System.Drawing.Point(32, 192)
@@ -768,16 +778,6 @@ Partial Class SSCPManagersTools
         Me.txtCMSLastFCE.ReadOnly = True
         Me.txtCMSLastFCE.Size = New System.Drawing.Size(112, 20)
         Me.txtCMSLastFCE.TabIndex = 15
-        '
-        'llbDeleteFacilityFromCMS
-        '
-        Me.llbDeleteFacilityFromCMS.AutoSize = True
-        Me.llbDeleteFacilityFromCMS.Location = New System.Drawing.Point(16, 392)
-        Me.llbDeleteFacilityFromCMS.Name = "llbDeleteFacilityFromCMS"
-        Me.llbDeleteFacilityFromCMS.Size = New System.Drawing.Size(167, 13)
-        Me.llbDeleteFacilityFromCMS.TabIndex = 6
-        Me.llbDeleteFacilityFromCMS.TabStop = True
-        Me.llbDeleteFacilityFromCMS.Text = "Delete Facility from CMS Universe"
         '
         'txtCMSClassification
         '
@@ -1457,12 +1457,12 @@ Partial Class SSCPManagersTools
         '
         'SCStatisticalReports.Panel2
         '
+        Me.SCStatisticalReports.Panel2.Controls.Add(Me.llbViewRecord)
         Me.SCStatisticalReports.Panel2.Controls.Add(Me.lblStatisticalRecords)
         Me.SCStatisticalReports.Panel2.Controls.Add(Me.txtStatisticalCount)
         Me.SCStatisticalReports.Panel2.Controls.Add(Me.Label45)
         Me.SCStatisticalReports.Panel2.Controls.Add(Me.txtRecordNumber)
         Me.SCStatisticalReports.Panel2.Controls.Add(Me.btnExportToExcel)
-        Me.SCStatisticalReports.Panel2.Controls.Add(Me.btnViewComplianceRecord)
         Me.SCStatisticalReports.Panel2.Controls.Add(Me.dgvStatisticalReports)
         Me.SCStatisticalReports.Size = New System.Drawing.Size(1184, 671)
         Me.SCStatisticalReports.SplitterDistance = 615
@@ -2193,10 +2193,20 @@ Partial Class SSCPManagersTools
         Me.Label65.TabIndex = 38
         Me.Label65.Text = "Title V Renewals "
         '
+        'llbViewRecord
+        '
+        Me.llbViewRecord.AutoSize = True
+        Me.llbViewRecord.Location = New System.Drawing.Point(305, 22)
+        Me.llbViewRecord.Name = "llbViewRecord"
+        Me.llbViewRecord.Size = New System.Drawing.Size(68, 13)
+        Me.llbViewRecord.TabIndex = 20
+        Me.llbViewRecord.TabStop = True
+        Me.llbViewRecord.Text = "View Record"
+        '
         'lblStatisticalRecords
         '
         Me.lblStatisticalRecords.AutoSize = True
-        Me.lblStatisticalRecords.Location = New System.Drawing.Point(194, 22)
+        Me.lblStatisticalRecords.Location = New System.Drawing.Point(110, 22)
         Me.lblStatisticalRecords.Name = "lblStatisticalRecords"
         Me.lblStatisticalRecords.Size = New System.Drawing.Size(0, 13)
         Me.lblStatisticalRecords.TabIndex = 19
@@ -2214,13 +2224,13 @@ Partial Class SSCPManagersTools
         Me.Label45.AutoSize = True
         Me.Label45.Location = New System.Drawing.Point(6, 22)
         Me.Label45.Name = "Label45"
-        Me.Label45.Size = New System.Drawing.Size(35, 13)
+        Me.Label45.Size = New System.Drawing.Size(38, 13)
         Me.Label45.TabIndex = 17
-        Me.Label45.Text = "Count"
+        Me.Label45.Text = "Count:"
         '
         'txtRecordNumber
         '
-        Me.txtRecordNumber.Location = New System.Drawing.Point(283, 19)
+        Me.txtRecordNumber.Location = New System.Drawing.Point(199, 19)
         Me.txtRecordNumber.Name = "txtRecordNumber"
         Me.txtRecordNumber.Size = New System.Drawing.Size(100, 20)
         Me.txtRecordNumber.TabIndex = 16
@@ -2228,22 +2238,12 @@ Partial Class SSCPManagersTools
         'btnExportToExcel
         '
         Me.btnExportToExcel.AutoSize = True
-        Me.btnExportToExcel.Location = New System.Drawing.Point(406, 17)
+        Me.btnExportToExcel.Location = New System.Drawing.Point(469, 17)
         Me.btnExportToExcel.Name = "btnExportToExcel"
         Me.btnExportToExcel.Size = New System.Drawing.Size(88, 23)
         Me.btnExportToExcel.TabIndex = 15
         Me.btnExportToExcel.Text = "Export to Excel"
         Me.btnExportToExcel.UseVisualStyleBackColor = True
-        '
-        'btnViewComplianceRecord
-        '
-        Me.btnViewComplianceRecord.AutoSize = True
-        Me.btnViewComplianceRecord.Location = New System.Drawing.Point(99, 17)
-        Me.btnViewComplianceRecord.Name = "btnViewComplianceRecord"
-        Me.btnViewComplianceRecord.Size = New System.Drawing.Size(78, 23)
-        Me.btnViewComplianceRecord.TabIndex = 15
-        Me.btnViewComplianceRecord.Text = "View Record"
-        Me.btnViewComplianceRecord.UseVisualStyleBackColor = True
         '
         'dgvStatisticalReports
         '
@@ -2272,16 +2272,16 @@ Partial Class SSCPManagersTools
         '
         Me.dgvWatchList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvWatchList.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.dgvWatchList.Location = New System.Drawing.Point(0, 100)
+        Me.dgvWatchList.Location = New System.Drawing.Point(0, 108)
         Me.dgvWatchList.Name = "dgvWatchList"
         Me.dgvWatchList.ReadOnly = True
-        Me.dgvWatchList.Size = New System.Drawing.Size(1184, 571)
+        Me.dgvWatchList.Size = New System.Drawing.Size(1184, 563)
         Me.dgvWatchList.TabIndex = 1
         '
         'Panel6
         '
         Me.Panel6.AutoScroll = True
-        Me.Panel6.Controls.Add(Me.llbExportWatchList)
+        Me.Panel6.Controls.Add(Me.btnExportWatchListToExcel)
         Me.Panel6.Controls.Add(Me.rdbInComplianceCEMSData)
         Me.Panel6.Controls.Add(Me.rdbInComplianceProcedural)
         Me.Panel6.Controls.Add(Me.rdbInComplianceShutDown)
@@ -2297,28 +2297,27 @@ Partial Class SSCPManagersTools
         Me.Panel6.Controls.Add(Me.rdbInViolationProceduralEmissions)
         Me.Panel6.Controls.Add(Me.rdbAllNegativeStatus)
         Me.Panel6.Controls.Add(Me.btnViewWatchListFacilities)
-        Me.Panel6.Controls.Add(Me.txtWatchListCount)
-        Me.Panel6.Controls.Add(Me.Label48)
+        Me.Panel6.Controls.Add(Me.lblWatchListCount)
         Me.Panel6.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel6.Location = New System.Drawing.Point(0, 0)
         Me.Panel6.Name = "Panel6"
-        Me.Panel6.Size = New System.Drawing.Size(1184, 100)
+        Me.Panel6.Size = New System.Drawing.Size(1184, 108)
         Me.Panel6.TabIndex = 0
         '
-        'llbExportWatchList
+        'btnExportWatchListToExcel
         '
-        Me.llbExportWatchList.AutoSize = True
-        Me.llbExportWatchList.Location = New System.Drawing.Point(977, 42)
-        Me.llbExportWatchList.Name = "llbExportWatchList"
-        Me.llbExportWatchList.Size = New System.Drawing.Size(78, 13)
-        Me.llbExportWatchList.TabIndex = 314
-        Me.llbExportWatchList.TabStop = True
-        Me.llbExportWatchList.Text = "Export to Excel"
+        Me.btnExportWatchListToExcel.AutoSize = True
+        Me.btnExportWatchListToExcel.Location = New System.Drawing.Point(1088, 78)
+        Me.btnExportWatchListToExcel.Name = "btnExportWatchListToExcel"
+        Me.btnExportWatchListToExcel.Size = New System.Drawing.Size(88, 23)
+        Me.btnExportWatchListToExcel.TabIndex = 315
+        Me.btnExportWatchListToExcel.Text = "Export to Excel"
+        Me.btnExportWatchListToExcel.UseVisualStyleBackColor = True
         '
         'rdbInComplianceCEMSData
         '
         Me.rdbInComplianceCEMSData.AutoSize = True
-        Me.rdbInComplianceCEMSData.Location = New System.Drawing.Point(908, 18)
+        Me.rdbInComplianceCEMSData.Location = New System.Drawing.Point(864, 35)
         Me.rdbInComplianceCEMSData.Name = "rdbInComplianceCEMSData"
         Me.rdbInComplianceCEMSData.Size = New System.Drawing.Size(172, 17)
         Me.rdbInComplianceCEMSData.TabIndex = 16
@@ -2329,7 +2328,7 @@ Partial Class SSCPManagersTools
         'rdbInComplianceProcedural
         '
         Me.rdbInComplianceProcedural.AutoSize = True
-        Me.rdbInComplianceProcedural.Location = New System.Drawing.Point(734, 61)
+        Me.rdbInComplianceProcedural.Location = New System.Drawing.Point(864, 12)
         Me.rdbInComplianceProcedural.Name = "rdbInComplianceProcedural"
         Me.rdbInComplianceProcedural.Size = New System.Drawing.Size(165, 17)
         Me.rdbInComplianceProcedural.TabIndex = 15
@@ -2340,7 +2339,7 @@ Partial Class SSCPManagersTools
         'rdbInComplianceShutDown
         '
         Me.rdbInComplianceShutDown.AutoSize = True
-        Me.rdbInComplianceShutDown.Location = New System.Drawing.Point(734, 41)
+        Me.rdbInComplianceShutDown.Location = New System.Drawing.Point(687, 81)
         Me.rdbInComplianceShutDown.Name = "rdbInComplianceShutDown"
         Me.rdbInComplianceShutDown.Size = New System.Drawing.Size(166, 17)
         Me.rdbInComplianceShutDown.TabIndex = 14
@@ -2351,7 +2350,7 @@ Partial Class SSCPManagersTools
         'rdbInComplianceCertification
         '
         Me.rdbInComplianceCertification.AutoSize = True
-        Me.rdbInComplianceCertification.Location = New System.Drawing.Point(734, 18)
+        Me.rdbInComplianceCertification.Location = New System.Drawing.Point(687, 58)
         Me.rdbInComplianceCertification.Name = "rdbInComplianceCertification"
         Me.rdbInComplianceCertification.Size = New System.Drawing.Size(168, 17)
         Me.rdbInComplianceCertification.TabIndex = 13
@@ -2362,7 +2361,7 @@ Partial Class SSCPManagersTools
         'rdbInComplianceInspection
         '
         Me.rdbInComplianceInspection.AutoSize = True
-        Me.rdbInComplianceInspection.Location = New System.Drawing.Point(559, 61)
+        Me.rdbInComplianceInspection.Location = New System.Drawing.Point(687, 35)
         Me.rdbInComplianceInspection.Name = "rdbInComplianceInspection"
         Me.rdbInComplianceInspection.Size = New System.Drawing.Size(162, 17)
         Me.rdbInComplianceInspection.TabIndex = 12
@@ -2373,7 +2372,7 @@ Partial Class SSCPManagersTools
         'rdbInComplianceSourceTest
         '
         Me.rdbInComplianceSourceTest.AutoSize = True
-        Me.rdbInComplianceSourceTest.Location = New System.Drawing.Point(559, 41)
+        Me.rdbInComplianceSourceTest.Location = New System.Drawing.Point(687, 12)
         Me.rdbInComplianceSourceTest.Name = "rdbInComplianceSourceTest"
         Me.rdbInComplianceSourceTest.Size = New System.Drawing.Size(171, 17)
         Me.rdbInComplianceSourceTest.TabIndex = 11
@@ -2384,7 +2383,7 @@ Partial Class SSCPManagersTools
         'rdbNoApplicableStateReg
         '
         Me.rdbNoApplicableStateReg.AutoSize = True
-        Me.rdbNoApplicableStateReg.Location = New System.Drawing.Point(559, 18)
+        Me.rdbNoApplicableStateReg.Location = New System.Drawing.Point(467, 58)
         Me.rdbNoApplicableStateReg.Name = "rdbNoApplicableStateReg"
         Me.rdbNoApplicableStateReg.Size = New System.Drawing.Size(160, 17)
         Me.rdbNoApplicableStateReg.TabIndex = 10
@@ -2395,7 +2394,7 @@ Partial Class SSCPManagersTools
         'rdbMeetingCompliance
         '
         Me.rdbMeetingCompliance.AutoSize = True
-        Me.rdbMeetingCompliance.Location = New System.Drawing.Point(343, 61)
+        Me.rdbMeetingCompliance.Location = New System.Drawing.Point(467, 35)
         Me.rdbMeetingCompliance.Name = "rdbMeetingCompliance"
         Me.rdbMeetingCompliance.Size = New System.Drawing.Size(184, 17)
         Me.rdbMeetingCompliance.TabIndex = 9
@@ -2406,7 +2405,7 @@ Partial Class SSCPManagersTools
         'rdbUnknownCompliance
         '
         Me.rdbUnknownCompliance.AutoSize = True
-        Me.rdbUnknownCompliance.Location = New System.Drawing.Point(343, 38)
+        Me.rdbUnknownCompliance.Location = New System.Drawing.Point(467, 12)
         Me.rdbUnknownCompliance.Name = "rdbUnknownCompliance"
         Me.rdbUnknownCompliance.Size = New System.Drawing.Size(214, 17)
         Me.rdbUnknownCompliance.TabIndex = 8
@@ -2417,7 +2416,7 @@ Partial Class SSCPManagersTools
         'rdbInViolationProcedural
         '
         Me.rdbInViolationProcedural.AutoSize = True
-        Me.rdbInViolationProcedural.Location = New System.Drawing.Point(343, 15)
+        Me.rdbInViolationProcedural.Location = New System.Drawing.Point(257, 81)
         Me.rdbInViolationProcedural.Name = "rdbInViolationProcedural"
         Me.rdbInViolationProcedural.Size = New System.Drawing.Size(154, 17)
         Me.rdbInViolationProcedural.TabIndex = 7
@@ -2428,7 +2427,7 @@ Partial Class SSCPManagersTools
         'rdbInViolationNotMeetingSchedule
         '
         Me.rdbInViolationNotMeetingSchedule.AutoSize = True
-        Me.rdbInViolationNotMeetingSchedule.Location = New System.Drawing.Point(138, 61)
+        Me.rdbInViolationNotMeetingSchedule.Location = New System.Drawing.Point(257, 58)
         Me.rdbInViolationNotMeetingSchedule.Name = "rdbInViolationNotMeetingSchedule"
         Me.rdbInViolationNotMeetingSchedule.Size = New System.Drawing.Size(204, 17)
         Me.rdbInViolationNotMeetingSchedule.TabIndex = 6
@@ -2439,7 +2438,7 @@ Partial Class SSCPManagersTools
         'rdbInViolationNoSchedule
         '
         Me.rdbInViolationNoSchedule.AutoSize = True
-        Me.rdbInViolationNoSchedule.Location = New System.Drawing.Point(138, 38)
+        Me.rdbInViolationNoSchedule.Location = New System.Drawing.Point(257, 35)
         Me.rdbInViolationNoSchedule.Name = "rdbInViolationNoSchedule"
         Me.rdbInViolationNoSchedule.Size = New System.Drawing.Size(160, 17)
         Me.rdbInViolationNoSchedule.TabIndex = 5
@@ -2450,7 +2449,7 @@ Partial Class SSCPManagersTools
         'rdbInViolationProceduralEmissions
         '
         Me.rdbInViolationProceduralEmissions.AutoSize = True
-        Me.rdbInViolationProceduralEmissions.Location = New System.Drawing.Point(138, 15)
+        Me.rdbInViolationProceduralEmissions.Location = New System.Drawing.Point(257, 12)
         Me.rdbInViolationProceduralEmissions.Name = "rdbInViolationProceduralEmissions"
         Me.rdbInViolationProceduralEmissions.Size = New System.Drawing.Size(199, 17)
         Me.rdbInViolationProceduralEmissions.TabIndex = 4
@@ -2461,7 +2460,7 @@ Partial Class SSCPManagersTools
         'rdbAllNegativeStatus
         '
         Me.rdbAllNegativeStatus.AutoSize = True
-        Me.rdbAllNegativeStatus.Location = New System.Drawing.Point(8, 41)
+        Me.rdbAllNegativeStatus.Location = New System.Drawing.Point(111, 12)
         Me.rdbAllNegativeStatus.Name = "rdbAllNegativeStatus"
         Me.rdbAllNegativeStatus.Size = New System.Drawing.Size(126, 17)
         Me.rdbAllNegativeStatus.TabIndex = 3
@@ -2473,29 +2472,21 @@ Partial Class SSCPManagersTools
         '
         Me.btnViewWatchListFacilities.AutoSize = True
         Me.btnViewWatchListFacilities.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnViewWatchListFacilities.Location = New System.Drawing.Point(8, 9)
+        Me.btnViewWatchListFacilities.Location = New System.Drawing.Point(11, 9)
         Me.btnViewWatchListFacilities.Name = "btnViewWatchListFacilities"
         Me.btnViewWatchListFacilities.Size = New System.Drawing.Size(83, 23)
         Me.btnViewWatchListFacilities.TabIndex = 2
         Me.btnViewWatchListFacilities.Text = "View Facilities"
         Me.btnViewWatchListFacilities.UseVisualStyleBackColor = True
         '
-        'txtWatchListCount
+        'lblWatchListCount
         '
-        Me.txtWatchListCount.Location = New System.Drawing.Point(980, 58)
-        Me.txtWatchListCount.Name = "txtWatchListCount"
-        Me.txtWatchListCount.ReadOnly = True
-        Me.txtWatchListCount.Size = New System.Drawing.Size(100, 20)
-        Me.txtWatchListCount.TabIndex = 1
-        '
-        'Label48
-        '
-        Me.Label48.AutoSize = True
-        Me.Label48.Location = New System.Drawing.Point(939, 61)
-        Me.Label48.Name = "Label48"
-        Me.Label48.Size = New System.Drawing.Size(35, 13)
-        Me.Label48.TabIndex = 0
-        Me.Label48.Text = "Count"
+        Me.lblWatchListCount.AutoSize = True
+        Me.lblWatchListCount.Location = New System.Drawing.Point(8, 83)
+        Me.lblWatchListCount.Name = "lblWatchListCount"
+        Me.lblWatchListCount.Size = New System.Drawing.Size(35, 13)
+        Me.lblWatchListCount.TabIndex = 0
+        Me.lblWatchListCount.Text = "Count"
         '
         'TPNewFacilityAssignments
         '
@@ -3449,7 +3440,7 @@ Partial Class SSCPManagersTools
         '
         Me.btnExportFiltered.AutoSize = True
         Me.btnExportFiltered.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnExportFiltered.Location = New System.Drawing.Point(321, 3)
+        Me.btnExportFiltered.Location = New System.Drawing.Point(444, 5)
         Me.btnExportFiltered.Name = "btnExportFiltered"
         Me.btnExportFiltered.Size = New System.Drawing.Size(88, 23)
         Me.btnExportFiltered.TabIndex = 420
@@ -3459,7 +3450,7 @@ Partial Class SSCPManagersTools
         'lblFilteredCount
         '
         Me.lblFilteredCount.AutoSize = True
-        Me.lblFilteredCount.Location = New System.Drawing.Point(415, 8)
+        Me.lblFilteredCount.Location = New System.Drawing.Point(7, 10)
         Me.lblFilteredCount.Name = "lblFilteredCount"
         Me.lblFilteredCount.Size = New System.Drawing.Size(41, 13)
         Me.lblFilteredCount.TabIndex = 419
@@ -3555,7 +3546,7 @@ Partial Class SSCPManagersTools
         'lblSelectedCount
         '
         Me.lblSelectedCount.AutoSize = True
-        Me.lblSelectedCount.Location = New System.Drawing.Point(105, 8)
+        Me.lblSelectedCount.Location = New System.Drawing.Point(3, 10)
         Me.lblSelectedCount.Name = "lblSelectedCount"
         Me.lblSelectedCount.Size = New System.Drawing.Size(41, 13)
         Me.lblSelectedCount.TabIndex = 418
@@ -3565,7 +3556,7 @@ Partial Class SSCPManagersTools
         '
         Me.btnExportSelected.AutoSize = True
         Me.btnExportSelected.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnExportSelected.Location = New System.Drawing.Point(13, 3)
+        Me.btnExportSelected.Location = New System.Drawing.Point(490, 5)
         Me.btnExportSelected.Name = "btnExportSelected"
         Me.btnExportSelected.Size = New System.Drawing.Size(88, 23)
         Me.btnExportSelected.TabIndex = 421
@@ -3868,6 +3859,7 @@ Partial Class SSCPManagersTools
         Me.Name = "SSCPManagersTools"
         Me.Text = "Compliance Managers Tools"
         Me.Panel8.ResumeLayout(False)
+        Me.Panel8.PerformLayout()
         Me.PanelCMSUniverse.ResumeLayout(False)
         Me.PanelCMSUniverse.PerformLayout()
         Me.TPUniverse.ResumeLayout(False)
@@ -3993,9 +3985,7 @@ Partial Class SSCPManagersTools
     Friend WithEvents Label12 As System.Windows.Forms.Label
     Friend WithEvents Label9 As System.Windows.Forms.Label
     Friend WithEvents txtCMSOperationalStatus As System.Windows.Forms.TextBox
-    Friend WithEvents llbAddFacilityToCMS As System.Windows.Forms.LinkLabel
     Friend WithEvents txtCMSLastFCE As System.Windows.Forms.TextBox
-    Friend WithEvents llbDeleteFacilityFromCMS As System.Windows.Forms.LinkLabel
     Friend WithEvents txtCMSClassification As System.Windows.Forms.TextBox
     Friend WithEvents txtCMSAIRSNumber As System.Windows.Forms.TextBox
     Friend WithEvents cboComplianceUnits As System.Windows.Forms.ComboBox
@@ -4132,7 +4122,6 @@ Partial Class SSCPManagersTools
     Friend WithEvents txtStatisticalCount As System.Windows.Forms.TextBox
     Friend WithEvents Label45 As System.Windows.Forms.Label
     Friend WithEvents txtRecordNumber As System.Windows.Forms.TextBox
-    Friend WithEvents btnViewComplianceRecord As System.Windows.Forms.Button
     Friend WithEvents Label46 As System.Windows.Forms.Label
     Friend WithEvents btnPenaltySummary As System.Windows.Forms.Button
     Friend WithEvents txtEnforcementAIRSNumber As System.Windows.Forms.TextBox
@@ -4144,14 +4133,12 @@ Partial Class SSCPManagersTools
     Friend WithEvents dtpEnforcementEndDate As System.Windows.Forms.DateTimePicker
     Friend WithEvents lblStatisticalRecords As System.Windows.Forms.Label
     Friend WithEvents chbNoFCE As System.Windows.Forms.CheckBox
-    Friend WithEvents lblExportToExcelCMSUniverse As System.Windows.Forms.LinkLabel
     Friend WithEvents dgvCMSUniverse As System.Windows.Forms.DataGridView
     Friend WithEvents TPWatchList As System.Windows.Forms.TabPage
     Friend WithEvents dgvWatchList As System.Windows.Forms.DataGridView
     Friend WithEvents Panel6 As System.Windows.Forms.Panel
     Friend WithEvents btnViewWatchListFacilities As System.Windows.Forms.Button
-    Friend WithEvents txtWatchListCount As System.Windows.Forms.TextBox
-    Friend WithEvents Label48 As System.Windows.Forms.Label
+    Friend WithEvents lblWatchListCount As System.Windows.Forms.Label
     Friend WithEvents rdbAllNegativeStatus As System.Windows.Forms.RadioButton
     Friend WithEvents rdbInViolationProceduralEmissions As System.Windows.Forms.RadioButton
     Friend WithEvents rdbInComplianceProcedural As System.Windows.Forms.RadioButton
@@ -4166,7 +4153,6 @@ Partial Class SSCPManagersTools
     Friend WithEvents rdbInViolationNotMeetingSchedule As System.Windows.Forms.RadioButton
     Friend WithEvents rdbInViolationNoSchedule As System.Windows.Forms.RadioButton
     Friend WithEvents rdbInComplianceCEMSData As System.Windows.Forms.RadioButton
-    Friend WithEvents llbExportWatchList As System.Windows.Forms.LinkLabel
     Friend WithEvents TPNewFacilityAssignments As System.Windows.Forms.TabPage
     Friend WithEvents btnSelectFacility As System.Windows.Forms.Button
     Friend WithEvents btnUnselectFacility As System.Windows.Forms.Button
@@ -4293,4 +4279,9 @@ Partial Class SSCPManagersTools
     Friend WithEvents btnExportToExcel As System.Windows.Forms.Button
     Friend WithEvents btnExportCmsWarningToExcel As System.Windows.Forms.Button
     Friend WithEvents btnExportPollutantsToExcel As System.Windows.Forms.Button
+    Friend WithEvents btnExportCmsUniverseToExcel As System.Windows.Forms.Button
+    Friend WithEvents btnAddToCmsUniverse As System.Windows.Forms.Button
+    Friend WithEvents btnDeleteFacilityFromCms As System.Windows.Forms.Button
+    Friend WithEvents btnExportWatchListToExcel As System.Windows.Forms.Button
+    Friend WithEvents llbViewRecord As System.Windows.Forms.LinkLabel
 End Class
