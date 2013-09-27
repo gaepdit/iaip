@@ -20,9 +20,9 @@ Partial Class SSCPManagersTools
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(SSCPManagersTools))
         Me.chbALLDates = New System.Windows.Forms.CheckBox
         Me.txtUserSSCPUnit = New System.Windows.Forms.TextBox
@@ -222,7 +222,7 @@ Partial Class SSCPManagersTools
         Me.rdbAllNegativeStatus = New System.Windows.Forms.RadioButton
         Me.btnViewWatchListFacilities = New System.Windows.Forms.Button
         Me.lblWatchListCount = New System.Windows.Forms.Label
-        Me.TPNewFacilityAssignments = New System.Windows.Forms.TabPage
+        Me.TPFacilityAssignments = New System.Windows.Forms.TabPage
         Me.Panel10 = New System.Windows.Forms.Panel
         Me.GroupBox9 = New System.Windows.Forms.GroupBox
         Me.btnSaveFCEReq = New System.Windows.Forms.Button
@@ -388,7 +388,7 @@ Partial Class SSCPManagersTools
         Me.TPWatchList.SuspendLayout()
         CType(Me.dgvWatchList, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel6.SuspendLayout()
-        Me.TPNewFacilityAssignments.SuspendLayout()
+        Me.TPFacilityAssignments.SuspendLayout()
         Me.Panel10.SuspendLayout()
         Me.GroupBox9.SuspendLayout()
         Me.GroupBox8.SuspendLayout()
@@ -1173,13 +1173,13 @@ Partial Class SSCPManagersTools
         '
         'TCManagerTools
         '
+        Me.TCManagerTools.Controls.Add(Me.TPFacilityAssignments)
         Me.TCManagerTools.Controls.Add(Me.TPStaffReports)
         Me.TCManagerTools.Controls.Add(Me.TPUniverse)
         Me.TCManagerTools.Controls.Add(Me.TPCMSWarning)
         Me.TCManagerTools.Controls.Add(Me.TPPollutantBubbleUp)
         Me.TCManagerTools.Controls.Add(Me.TPStatisticalPage)
         Me.TCManagerTools.Controls.Add(Me.TPWatchList)
-        Me.TCManagerTools.Controls.Add(Me.TPNewFacilityAssignments)
         Me.TCManagerTools.Controls.Add(Me.TPMiscReports)
         Me.TCManagerTools.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TCManagerTools.Location = New System.Drawing.Point(0, 28)
@@ -1202,35 +1202,35 @@ Partial Class SSCPManagersTools
         '
         'dgvPollutantFacilities
         '
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvPollutantFacilities.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle7.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvPollutantFacilities.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle7
         Me.dgvPollutantFacilities.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvPollutantFacilities.DefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle8.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvPollutantFacilities.DefaultCellStyle = DataGridViewCellStyle8
         Me.dgvPollutantFacilities.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvPollutantFacilities.Location = New System.Drawing.Point(0, 220)
         Me.dgvPollutantFacilities.Name = "dgvPollutantFacilities"
         Me.dgvPollutantFacilities.ReadOnly = True
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvPollutantFacilities.RowHeadersDefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle9.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvPollutantFacilities.RowHeadersDefaultCellStyle = DataGridViewCellStyle9
         Me.dgvPollutantFacilities.Size = New System.Drawing.Size(1184, 451)
         Me.dgvPollutantFacilities.TabIndex = 1
         '
@@ -2488,17 +2488,17 @@ Partial Class SSCPManagersTools
         Me.lblWatchListCount.TabIndex = 0
         Me.lblWatchListCount.Text = "Count"
         '
-        'TPNewFacilityAssignments
+        'TPFacilityAssignments
         '
-        Me.TPNewFacilityAssignments.Controls.Add(Me.Panel10)
-        Me.TPNewFacilityAssignments.Controls.Add(Me.Panel9)
-        Me.TPNewFacilityAssignments.Controls.Add(Me.pnlFacilityAssignments)
-        Me.TPNewFacilityAssignments.Location = New System.Drawing.Point(4, 22)
-        Me.TPNewFacilityAssignments.Name = "TPNewFacilityAssignments"
-        Me.TPNewFacilityAssignments.Size = New System.Drawing.Size(1184, 671)
-        Me.TPNewFacilityAssignments.TabIndex = 8
-        Me.TPNewFacilityAssignments.Text = "New Facility Assignments"
-        Me.TPNewFacilityAssignments.UseVisualStyleBackColor = True
+        Me.TPFacilityAssignments.Controls.Add(Me.Panel10)
+        Me.TPFacilityAssignments.Controls.Add(Me.Panel9)
+        Me.TPFacilityAssignments.Controls.Add(Me.pnlFacilityAssignments)
+        Me.TPFacilityAssignments.Location = New System.Drawing.Point(4, 22)
+        Me.TPFacilityAssignments.Name = "TPFacilityAssignments"
+        Me.TPFacilityAssignments.Size = New System.Drawing.Size(1184, 671)
+        Me.TPFacilityAssignments.TabIndex = 8
+        Me.TPFacilityAssignments.Text = "Facility Assignments"
+        Me.TPFacilityAssignments.UseVisualStyleBackColor = True
         '
         'Panel10
         '
@@ -3901,7 +3901,7 @@ Partial Class SSCPManagersTools
         CType(Me.dgvWatchList, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel6.ResumeLayout(False)
         Me.Panel6.PerformLayout()
-        Me.TPNewFacilityAssignments.ResumeLayout(False)
+        Me.TPFacilityAssignments.ResumeLayout(False)
         Me.Panel10.ResumeLayout(False)
         Me.Panel10.PerformLayout()
         Me.GroupBox9.ResumeLayout(False)
@@ -4153,7 +4153,7 @@ Partial Class SSCPManagersTools
     Friend WithEvents rdbInViolationNotMeetingSchedule As System.Windows.Forms.RadioButton
     Friend WithEvents rdbInViolationNoSchedule As System.Windows.Forms.RadioButton
     Friend WithEvents rdbInComplianceCEMSData As System.Windows.Forms.RadioButton
-    Friend WithEvents TPNewFacilityAssignments As System.Windows.Forms.TabPage
+    Friend WithEvents TPFacilityAssignments As System.Windows.Forms.TabPage
     Friend WithEvents btnSelectFacility As System.Windows.Forms.Button
     Friend WithEvents btnUnselectFacility As System.Windows.Forms.Button
     Friend WithEvents btnSelectAllFacilities As System.Windows.Forms.Button
