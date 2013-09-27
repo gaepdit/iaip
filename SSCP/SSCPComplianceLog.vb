@@ -1682,52 +1682,57 @@ Public Class SSCPComplianceLog
         End Try
 
     End Sub
+
     Sub ExportToExcel()
-        'Dim ExcelApp As New Excel.Application
-        Dim ExcelApp As New Microsoft.Office.Interop.Excel.Application
-        'Dim ExcelDoc As Microsoft.Office.Interop.Excel.Workbook
-        Dim i, j As Integer
+        If dgvWork.RowCount > 0 Then
+            dgvWork.ExportToExcel()
+        End If
 
-        Try
+        ''Dim ExcelApp As New Excel.Application
+        'Dim ExcelApp As New Microsoft.Office.Interop.Excel.Application
+        ''Dim ExcelDoc As Microsoft.Office.Interop.Excel.Workbook
+        'Dim i, j As Integer
 
-            If ExcelApp.Visible = False Then
-                ExcelApp.Visible = True
-            End If
-            If dgvWork.RowCount <> 0 Then
-                With ExcelApp
-                    .SheetsInNewWorkbook = 1
-                    .Workbooks.Add()
-                    .Worksheets(1).Select()
+        'Try
 
-                    'For displaying the column name in the the excel file.
-                    For i = 0 To dgvWork.ColumnCount - 1
-                        .Cells(1, i + 1) = dgvWork.Columns(i).HeaderText.ToString
-                    Next
+        '    If ExcelApp.Visible = False Then
+        '        ExcelApp.Visible = True
+        '    End If
+        '    If dgvWork.RowCount <> 0 Then
+        '        With ExcelApp
+        '            .SheetsInNewWorkbook = 1
+        '            .Workbooks.Add()
+        '            .Worksheets(1).Select()
 
-                    For i = 0 To dgvWork.ColumnCount - 1
-                        For j = 0 To dgvWork.RowCount - 1
-                            .Cells(j + 2, i + 1).numberformat = "@"
-                            .Cells(j + 2, i + 1).value = dgvWork.Item(i, j).Value.ToString
-                        Next
-                    Next
+        '            'For displaying the column name in the the excel file.
+        '            For i = 0 To dgvWork.ColumnCount - 1
+        '                .Cells(1, i + 1) = dgvWork.Columns(i).HeaderText.ToString
+        '            Next
 
-                End With
-                If ExcelApp.Visible = False Then
-                    ExcelApp.Visible = True
-                End If
-            End If
+        '            For i = 0 To dgvWork.ColumnCount - 1
+        '                For j = 0 To dgvWork.RowCount - 1
+        '                    .Cells(j + 2, i + 1).numberformat = "@"
+        '                    .Cells(j + 2, i + 1).value = dgvWork.Item(i, j).Value.ToString
+        '                Next
+        '            Next
 
-        Catch ex As Exception
-            If ex.ToString.Contains("RPC_E_CALL_REJECTED") Then
-                MsgBox("Error in exporting data." & vbCrLf & "Please run the export again.")
-            Else
-                ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-            End If
-        Finally
-            If Conn.State = ConnectionState.Open Then
-                'conn.close()
-            End If
-        End Try
+        '        End With
+        '        If ExcelApp.Visible = False Then
+        '            ExcelApp.Visible = True
+        '        End If
+        '    End If
+
+        'Catch ex As Exception
+        '    If ex.ToString.Contains("RPC_E_CALL_REJECTED") Then
+        '        MsgBox("Error in exporting data." & vbCrLf & "Please run the export again.")
+        '    Else
+        '        ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+        '    End If
+        'Finally
+        '    If Conn.State = ConnectionState.Open Then
+        '        'conn.close()
+        '    End If
+        'End Try
 
     End Sub
 #End Region
@@ -1828,15 +1833,7 @@ Public Class SSCPComplianceLog
 
     End Sub
     Private Sub btnRunFilter_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnRunFilter.Click
-        Try
-
-
-            LoaddgvWork()
-
-        Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
+        LoaddgvWork()
     End Sub
     Private Sub dgvWork_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvWork.MouseUp
         Dim hti As DataGridView.HitTestInfo = dgvWork.HitTest(e.X, e.Y)
@@ -2232,9 +2229,6 @@ Public Class SSCPComplianceLog
         End Try
 
     End Sub
-    Private Sub mmiBack_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiBack.Click
-        Me.Close()
-    End Sub
     Public WriteOnly Property ValueFromFacilityLookUp() As String
         Set(ByVal Value As String)
             txtAIRSNumberFilter.Text = Value
@@ -2245,26 +2239,28 @@ Public Class SSCPComplianceLog
             txtFacilityNameFilter.Text = Value2
         End Set
     End Property
+    Private Sub FacilitySearch()
+        Try
+            If Not FacilityLookUpTool Is Nothing Then
+                FacilityLookUpTool.Dispose()
+            End If
+
+            FacilityLookUpTool = New IAIPFacilityLookUpTool
+            FacilityLookUpTool.Show()
+            FacilityLookUpTool.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+        Catch ex As Exception
+            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+        End Try
+    End Sub
     Private Sub TBWork_EnTry_ButtonClick(ByVal sender As System.Object, ByVal e As System.Windows.Forms.ToolBarButtonClickEventArgs) Handles TBWork_EnTry.ButtonClick
         Try
 
             Select Case TBWork_EnTry.Buttons.IndexOf(e.Button)
                 Case 0
-                    Me.Close()
+                    FacilitySearch()
                 Case 1
-                    If FacilityLookUpTool Is Nothing Then
-                        If FacilityLookUpTool Is Nothing Then FacilityLookUpTool = New IAIPFacilityLookUpTool
-                        FacilityLookUpTool.Show()
-                    Else
-                        FacilityLookUpTool.Dispose()
-                        FacilityLookUpTool = New IAIPFacilityLookUpTool
-                        If FacilityLookUpTool Is Nothing Then FacilityLookUpTool = New IAIPFacilityLookUpTool
-                        FacilityLookUpTool.Show()
-                    End If
-                    FacilityLookUpTool.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
-                Case 2
                     ExportToExcel()
-                Case 3
+                Case 2
                     LoadDefaultSettings()
                 Case Else
             End Select
@@ -2274,30 +2270,13 @@ Public Class SSCPComplianceLog
 
     End Sub
     Private Sub btnDeleteWork_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDeleteWork.Click
-        Try
-
-
-            DeleteWork()
-
-        Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
+        DeleteWork()
     End Sub
     Private Sub btnUndeleteWork_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnUndeleteWork.Click
-        Try
-
-
-            UnDeleteWork()
-
-        Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
+        UnDeleteWork()
     End Sub
     Private Sub txtWorkNumber_Leave(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtWorkNumber.Leave
         Try
-
 
             If txtWorkNumber.Text = "" Then
                 txtAIRSNumber.Clear()
@@ -2311,11 +2290,9 @@ Public Class SSCPComplianceLog
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
-
     End Sub
     Private Sub btnOpenSummary_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOpenSummary.Click
         Try
-
 
             If txtAIRSNumber.Text <> "" And txtAIRSNumber.Text.Length = 8 Then
                 SQL = "Select strAIRSNumber " & _
@@ -2357,12 +2334,6 @@ Public Class SSCPComplianceLog
 
 #End Region
 
-
-
-
-
-
-
     Private Sub chbNotifications_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chbNotifications.CheckedChanged
         Try
             If chbNotifications.Checked = True Then
@@ -2376,14 +2347,6 @@ Public Class SSCPComplianceLog
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
-    End Sub
-
-    Private Sub mmiHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiHelp.Click
-        Try
-            Help.ShowHelp(Label1, HelpUrl)
-        Catch ex As Exception
-        End Try
-
     End Sub
 
     Private Sub rdbIgnoreEngineer_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles rdbIgnoreEngineer.CheckedChanged
@@ -2440,4 +2403,33 @@ Public Class SSCPComplianceLog
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
+#Region "Menu"
+    Private Sub mmiClose_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiClose.Click
+        Me.Close()
+    End Sub
+
+    Private Sub mmiOnlineHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiOnlineHelp.Click
+        OpenHelpUrl(Me)
+    End Sub
+
+    Private Sub mmiExport_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiExport.Click
+        If dgvWork.RowCount > 0 Then
+            dgvWork.ExportToExcel()
+        End If
+    End Sub
+
+    Private Sub mmiClear_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiClear.Click
+        LoadDefaultSettings()
+    End Sub
+
+    Private Sub mmiSearch_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiSearch.Click
+        FacilitySearch()
+    End Sub
+
+    Private Sub mmiRunFilter_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiRunFilter.Click
+        LoaddgvWork()
+    End Sub
+#End Region
+
 End Class

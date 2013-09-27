@@ -24,16 +24,14 @@ Partial Class IAIPNavigation
         Me.MainMenu1 = New System.Windows.Forms.MainMenu(Me.components)
         Me.mmiFile = New System.Windows.Forms.MenuItem
         Me.mmiExit = New System.Windows.Forms.MenuItem
-        Me.MmiView = New System.Windows.Forms.MenuItem
+        Me.mmiView = New System.Windows.Forms.MenuItem
         Me.mmiISMPLists = New System.Windows.Forms.MenuItem
         Me.mmiSSCPLists = New System.Windows.Forms.MenuItem
         Me.mmiSSPPLists = New System.Windows.Forms.MenuItem
         Me.MenuItem3 = New System.Windows.Forms.MenuItem
         Me.mmiResetDefault = New System.Windows.Forms.MenuItem
         Me.MenuItem2 = New System.Windows.Forms.MenuItem
-        Me.MenuItem4 = New System.Windows.Forms.MenuItem
-        Me.MenuItem5 = New System.Windows.Forms.MenuItem
-        Me.mmiResetPointer = New System.Windows.Forms.MenuItem
+        Me.mmiExport = New System.Windows.Forms.MenuItem
         Me.mmiHelp = New System.Windows.Forms.MenuItem
         Me.mmiOnlineHelp = New System.Windows.Forms.MenuItem
         Me.MenuItem1 = New System.Windows.Forms.MenuItem
@@ -133,7 +131,7 @@ Partial Class IAIPNavigation
         '
         'MainMenu1
         '
-        Me.MainMenu1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiFile, Me.MmiView, Me.MenuItem2, Me.mmiHelp})
+        Me.MainMenu1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiFile, Me.mmiView, Me.MenuItem2, Me.mmiHelp})
         '
         'mmiFile
         '
@@ -145,29 +143,29 @@ Partial Class IAIPNavigation
         '
         Me.mmiExit.Index = 0
         Me.mmiExit.Shortcut = System.Windows.Forms.Shortcut.CtrlQ
-        Me.mmiExit.Text = "E&xit"
+        Me.mmiExit.Text = "E&xit IAIP"
         '
-        'MmiView
+        'mmiView
         '
-        Me.MmiView.Index = 1
-        Me.MmiView.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiISMPLists, Me.mmiSSCPLists, Me.mmiSSPPLists, Me.MenuItem3, Me.mmiResetDefault})
-        Me.MmiView.Text = "View"
-        Me.MmiView.Visible = False
+        Me.mmiView.Index = 1
+        Me.mmiView.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiISMPLists, Me.mmiSSCPLists, Me.mmiSSPPLists, Me.MenuItem3, Me.mmiResetDefault})
+        Me.mmiView.Text = "&View"
+        Me.mmiView.Visible = False
         '
         'mmiISMPLists
         '
         Me.mmiISMPLists.Index = 0
-        Me.mmiISMPLists.Text = "ISMP Lists"
+        Me.mmiISMPLists.Text = "&ISMP Lists"
         '
         'mmiSSCPLists
         '
         Me.mmiSSCPLists.Index = 1
-        Me.mmiSSCPLists.Text = "SSCP Lists"
+        Me.mmiSSCPLists.Text = "SS&CP Lists"
         '
         'mmiSSPPLists
         '
         Me.mmiSSPPLists.Index = 2
-        Me.mmiSSPPLists.Text = "SSPP Lists"
+        Me.mmiSSPPLists.Text = "SS&PP Lists"
         '
         'MenuItem3
         '
@@ -177,30 +175,18 @@ Partial Class IAIPNavigation
         'mmiResetDefault
         '
         Me.mmiResetDefault.Index = 4
-        Me.mmiResetDefault.Text = "Reset Default"
+        Me.mmiResetDefault.Text = "&Reset Default"
         '
         'MenuItem2
         '
         Me.MenuItem2.Index = 2
-        Me.MenuItem2.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.MenuItem4, Me.MenuItem5, Me.mmiResetPointer})
+        Me.MenuItem2.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiExport})
         Me.MenuItem2.Text = "&Tools"
         '
-        'MenuItem4
+        'mmiExport
         '
-        Me.MenuItem4.Index = 0
-        Me.MenuItem4.Text = "&Export list to Excel"
-        '
-        'MenuItem5
-        '
-        Me.MenuItem5.Index = 1
-        Me.MenuItem5.Text = "-"
-        Me.MenuItem5.Visible = False
-        '
-        'mmiResetPointer
-        '
-        Me.mmiResetPointer.Index = 2
-        Me.mmiResetPointer.Text = "Reset Pointer"
-        Me.mmiResetPointer.Visible = False
+        Me.mmiExport.Index = 0
+        Me.mmiExport.Text = "&Export list to Excel"
         '
         'mmiHelp
         '
@@ -1254,9 +1240,8 @@ Partial Class IAIPNavigation
     Friend WithEvents MainMenu1 As System.Windows.Forms.MainMenu
     Friend WithEvents mmiFile As System.Windows.Forms.MenuItem
     Friend WithEvents mmiExit As System.Windows.Forms.MenuItem
-    Friend WithEvents MmiView As System.Windows.Forms.MenuItem
+    Friend WithEvents mmiView As System.Windows.Forms.MenuItem
     Friend WithEvents MenuItem2 As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiResetPointer As System.Windows.Forms.MenuItem
     Friend WithEvents mmiHelp As System.Windows.Forms.MenuItem
     Friend WithEvents mmiAbout As System.Windows.Forms.MenuItem
     Friend WithEvents Image_List_All As System.Windows.Forms.ImageList
@@ -1351,7 +1336,6 @@ Partial Class IAIPNavigation
     Friend WithEvents rdbPMView As System.Windows.Forms.RadioButton
     Friend WithEvents rdbUCView As System.Windows.Forms.RadioButton
     Friend WithEvents rdbStaffView As System.Windows.Forms.RadioButton
-    Friend WithEvents MenuItem4 As System.Windows.Forms.MenuItem
-    Friend WithEvents MenuItem5 As System.Windows.Forms.MenuItem
+    Friend WithEvents mmiExport As System.Windows.Forms.MenuItem
     Friend WithEvents MenuItem1 As System.Windows.Forms.MenuItem
 End Class

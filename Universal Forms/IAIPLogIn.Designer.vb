@@ -23,16 +23,17 @@ Partial Class IAIPLogIn
         Me.MainMenu1 = New System.Windows.Forms.MainMenu(Me.components)
         Me.mmiFile = New System.Windows.Forms.MenuItem
         Me.mmiExit = New System.Windows.Forms.MenuItem
-        Me.mmiHelp = New System.Windows.Forms.MenuItem
-        Me.mmiOnlineHelp = New System.Windows.Forms.MenuItem
-        Me.MenuItem2 = New System.Windows.Forms.MenuItem
+        Me.MenuItem1 = New System.Windows.Forms.MenuItem
         Me.mmiTestingEnvironment = New System.Windows.Forms.MenuItem
+        Me.MenuItem2 = New System.Windows.Forms.MenuItem
         Me.mmiRefreshUserID = New System.Windows.Forms.MenuItem
         Me.mmiRefreshDefaultLoc = New System.Windows.Forms.MenuItem
         Me.MenuItem3 = New System.Windows.Forms.MenuItem
         Me.mmiForceUpdate = New System.Windows.Forms.MenuItem
         Me.mmiLukeEnvironment = New System.Windows.Forms.MenuItem
         Me.mmiTestingDatabase = New System.Windows.Forms.MenuItem
+        Me.mmiHelp = New System.Windows.Forms.MenuItem
+        Me.mmiOnlineHelp = New System.Windows.Forms.MenuItem
         Me.MenuItem4 = New System.Windows.Forms.MenuItem
         Me.mmiAbout = New System.Windows.Forms.MenuItem
         Me.lblPassword = New System.Windows.Forms.Label
@@ -59,7 +60,7 @@ Partial Class IAIPLogIn
         '
         'MainMenu1
         '
-        Me.MainMenu1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiFile, Me.mmiHelp})
+        Me.MainMenu1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiFile, Me.MenuItem1, Me.mmiHelp})
         '
         'mmiFile
         '
@@ -71,12 +72,63 @@ Partial Class IAIPLogIn
         '
         Me.mmiExit.Index = 0
         Me.mmiExit.Shortcut = System.Windows.Forms.Shortcut.CtrlQ
-        Me.mmiExit.Text = "E&xit"
+        Me.mmiExit.Text = "E&xit IAIP"
+        '
+        'MenuItem1
+        '
+        Me.MenuItem1.Index = 1
+        Me.MenuItem1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiTestingEnvironment, Me.MenuItem2, Me.mmiRefreshUserID, Me.mmiRefreshDefaultLoc, Me.MenuItem3, Me.mmiForceUpdate, Me.mmiLukeEnvironment, Me.mmiTestingDatabase})
+        Me.MenuItem1.Text = "&Tools"
+        '
+        'mmiTestingEnvironment
+        '
+        Me.mmiTestingEnvironment.Index = 0
+        Me.mmiTestingEnvironment.Shortcut = System.Windows.Forms.Shortcut.CtrlT
+        Me.mmiTestingEnvironment.Text = "&Testing Environment"
+        '
+        'MenuItem2
+        '
+        Me.MenuItem2.Index = 1
+        Me.MenuItem2.Text = "-"
+        '
+        'mmiRefreshUserID
+        '
+        Me.mmiRefreshUserID.Index = 2
+        Me.mmiRefreshUserID.Text = "Refresh Default User"
+        '
+        'mmiRefreshDefaultLoc
+        '
+        Me.mmiRefreshDefaultLoc.Index = 3
+        Me.mmiRefreshDefaultLoc.Text = "Refresh Default Location"
+        '
+        'MenuItem3
+        '
+        Me.MenuItem3.Index = 4
+        Me.MenuItem3.Text = "-"
+        '
+        'mmiForceUpdate
+        '
+        Me.mmiForceUpdate.Index = 5
+        Me.mmiForceUpdate.Text = "Force Update"
+        '
+        'mmiLukeEnvironment
+        '
+        Me.mmiLukeEnvironment.Index = 6
+        Me.mmiLukeEnvironment.Shortcut = System.Windows.Forms.Shortcut.F5
+        Me.mmiLukeEnvironment.Text = "*"
+        Me.mmiLukeEnvironment.Visible = False
+        '
+        'mmiTestingDatabase
+        '
+        Me.mmiTestingDatabase.Index = 7
+        Me.mmiTestingDatabase.Shortcut = System.Windows.Forms.Shortcut.CtrlShiftT
+        Me.mmiTestingDatabase.Text = "Testing Database"
+        Me.mmiTestingDatabase.Visible = False
         '
         'mmiHelp
         '
-        Me.mmiHelp.Index = 1
-        Me.mmiHelp.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiOnlineHelp, Me.MenuItem2, Me.mmiTestingEnvironment, Me.mmiRefreshUserID, Me.mmiRefreshDefaultLoc, Me.MenuItem3, Me.mmiForceUpdate, Me.mmiLukeEnvironment, Me.mmiTestingDatabase, Me.MenuItem4, Me.mmiAbout})
+        Me.mmiHelp.Index = 2
+        Me.mmiHelp.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiOnlineHelp, Me.MenuItem4, Me.mmiAbout})
         Me.mmiHelp.Text = "&Help"
         '
         'mmiOnlineHelp
@@ -85,59 +137,14 @@ Partial Class IAIPLogIn
         Me.mmiOnlineHelp.Shortcut = System.Windows.Forms.Shortcut.F1
         Me.mmiOnlineHelp.Text = "Online &Help "
         '
-        'MenuItem2
-        '
-        Me.MenuItem2.Index = 1
-        Me.MenuItem2.Text = "-"
-        '
-        'mmiTestingEnvironment
-        '
-        Me.mmiTestingEnvironment.Index = 2
-        Me.mmiTestingEnvironment.Shortcut = System.Windows.Forms.Shortcut.CtrlT
-        Me.mmiTestingEnvironment.Text = "&Testing Environment"
-        '
-        'mmiRefreshUserID
-        '
-        Me.mmiRefreshUserID.Index = 3
-        Me.mmiRefreshUserID.Text = "Refresh Default User"
-        '
-        'mmiRefreshDefaultLoc
-        '
-        Me.mmiRefreshDefaultLoc.Index = 4
-        Me.mmiRefreshDefaultLoc.Text = "Refresh Default Location"
-        '
-        'MenuItem3
-        '
-        Me.MenuItem3.Index = 5
-        Me.MenuItem3.Text = "-"
-        '
-        'mmiForceUpdate
-        '
-        Me.mmiForceUpdate.Index = 6
-        Me.mmiForceUpdate.Text = "Force Update"
-        '
-        'mmiLukeEnvironment
-        '
-        Me.mmiLukeEnvironment.Index = 7
-        Me.mmiLukeEnvironment.Shortcut = System.Windows.Forms.Shortcut.F5
-        Me.mmiLukeEnvironment.Text = "*"
-        Me.mmiLukeEnvironment.Visible = False
-        '
-        'mmiTestingDatabase
-        '
-        Me.mmiTestingDatabase.Index = 8
-        Me.mmiTestingDatabase.Shortcut = System.Windows.Forms.Shortcut.CtrlShiftT
-        Me.mmiTestingDatabase.Text = "Testing Database"
-        Me.mmiTestingDatabase.Visible = False
-        '
         'MenuItem4
         '
-        Me.MenuItem4.Index = 9
+        Me.MenuItem4.Index = 1
         Me.MenuItem4.Text = "-"
         '
         'mmiAbout
         '
-        Me.mmiAbout.Index = 10
+        Me.mmiAbout.Index = 2
         Me.mmiAbout.Text = "&About IAIP"
         '
         'lblPassword
@@ -422,4 +429,5 @@ Partial Class IAIPLogIn
     Friend WithEvents LoginProgressBar As System.Windows.Forms.ProgressBar
     Friend WithEvents MenuItem4 As System.Windows.Forms.MenuItem
     Friend WithEvents mmiAbout As System.Windows.Forms.MenuItem
+    Friend WithEvents MenuItem1 As System.Windows.Forms.MenuItem
 End Class

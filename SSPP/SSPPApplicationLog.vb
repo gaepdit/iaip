@@ -71,9 +71,9 @@ Public Class SSPPApplicationLog
             btnResetSearch.Enabled = True
             btnOpen.Enabled = False
             btnExport.Enabled = False
-            MenuResetSearch.Enabled = True
-            MenuOpen.Enabled = False
-            MenuExport.Enabled = False
+            mmiResetSearch.Enabled = True
+            mmiOpen.Enabled = False
+            mmiExport.Enabled = False
 
             Panel1.Text = "Loading…"
             Panel2.Text = UserName
@@ -724,7 +724,7 @@ Public Class SSPPApplicationLog
                 End If
             End If
             If AccountArray(3, 4) = "1" Then
-                MenuNewApplication.Visible = True
+                mmiNewApplication.Visible = True
             End If
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -758,9 +758,9 @@ Public Class SSPPApplicationLog
         btnResetSearch.Enabled = False
         btnOpen.Enabled = False
         btnExport.Enabled = False
-        MenuResetSearch.Enabled = False
-        MenuOpen.Enabled = False
-        MenuExport.Enabled = False
+        mmiResetSearch.Enabled = False
+        mmiOpen.Enabled = False
+        mmiExport.Enabled = False
 
         ' Load form data into variables for use by background worker
         FieldType1 = cboFieldType1.Text
@@ -1984,11 +1984,11 @@ Public Class SSPPApplicationLog
 
         btnFind.Enabled = True
         btnResetSearch.Enabled = True
-        MenuResetSearch.Enabled = True
+        mmiResetSearch.Enabled = True
         btnOpen.Enabled = False
-        MenuOpen.Enabled = False
+        mmiOpen.Enabled = False
         btnExport.Enabled = False
-        MenuExport.Enabled = False
+        mmiExport.Enabled = False
 
         If e.Cancelled Then
             dsApplication = New DataSet
@@ -2154,54 +2154,58 @@ Public Class SSPPApplicationLog
             lblMessage.Visible = False
 
             btnExport.Enabled = True
-            MenuExport.Enabled = True
+            mmiExport.Enabled = True
         End If
     End Sub
 #End Region
 
     Sub ExportToExcel()
-        'Dim ExcelApp As New Excel.Application
-        Dim ExcelApp As New Microsoft.Office.Interop.Excel.Application
-        'Dim ExcelDoc As Microsoft.Office.Interop.Excel.Workbook
-        Dim i, j As Integer
+        If dgvApplicationLog.RowCount > 0 Then
+            dgvApplicationLog.ExportToExcel()
+        End If
 
-        Try
+        ''Dim ExcelApp As New Excel.Application
+        'Dim ExcelApp As New Microsoft.Office.Interop.Excel.Application
+        ''Dim ExcelDoc As Microsoft.Office.Interop.Excel.Workbook
+        'Dim i, j As Integer
 
-            If ExcelApp.Visible = False Then
-                ExcelApp.Visible = True
-            End If
+        'Try
 
-            If dgvApplicationLog.RowCount <> 0 Then
-                With ExcelApp
-                    .SheetsInNewWorkbook = 1
-                    .Workbooks.Add()
-                    .Worksheets(1).Select()
+        '    If ExcelApp.Visible = False Then
+        '        ExcelApp.Visible = True
+        '    End If
 
-                    'For displaying the column name in the the excel file.
-                    For i = 0 To dgvApplicationLog.ColumnCount - 1
-                        .Cells(1, i + 1) = dgvApplicationLog.Columns(i).HeaderText.ToString
-                    Next
+        '    If dgvApplicationLog.RowCount <> 0 Then
+        '        With ExcelApp
+        '            .SheetsInNewWorkbook = 1
+        '            .Workbooks.Add()
+        '            .Worksheets(1).Select()
 
-                    For i = 0 To dgvApplicationLog.ColumnCount - 1
-                        For j = 0 To dgvApplicationLog.RowCount - 1
-                            .Cells(j + 2, i + 1).numberformat = "@"
-                            .Cells(j + 2, i + 1).value = dgvApplicationLog.Item(i, j).Value.ToString
-                        Next
-                    Next
+        '            'For displaying the column name in the the excel file.
+        '            For i = 0 To dgvApplicationLog.ColumnCount - 1
+        '                .Cells(1, i + 1) = dgvApplicationLog.Columns(i).HeaderText.ToString
+        '            Next
 
-                End With
-                If ExcelApp.Visible = False Then
-                    ExcelApp.Visible = True
-                End If
-            End If
+        '            For i = 0 To dgvApplicationLog.ColumnCount - 1
+        '                For j = 0 To dgvApplicationLog.RowCount - 1
+        '                    .Cells(j + 2, i + 1).numberformat = "@"
+        '                    .Cells(j + 2, i + 1).value = dgvApplicationLog.Item(i, j).Value.ToString
+        '                Next
+        '            Next
 
-        Catch ex As Exception
-            If ex.ToString.Contains("RPC_E_CALL_REJECTED") Then
-                MsgBox("Error in exporting data." & vbCrLf & "Please run the export again.")
-            Else
-                ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-            End If
-        End Try
+        '        End With
+        '        If ExcelApp.Visible = False Then
+        '            ExcelApp.Visible = True
+        '        End If
+        '    End If
+
+        'Catch ex As Exception
+        '    If ex.ToString.Contains("RPC_E_CALL_REJECTED") Then
+        '        MsgBox("Error in exporting data." & vbCrLf & "Please run the export again.")
+        '    Else
+        '        ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+        '    End If
+        'End Try
 
     End Sub
 
@@ -3613,7 +3617,7 @@ Public Class SSPPApplicationLog
             Panel1.Text = selectedApp & " – " & _
                 dgvApplicationLog.Rows(e.RowIndex).Cells("strFacilityName").Value
             btnOpen.Enabled = True
-            MenuOpen.Enabled = True
+            mmiOpen.Enabled = True
         End If
 
         ' Only within the cell content of first column (App #)
@@ -3636,42 +3640,32 @@ Public Class SSPPApplicationLog
             Panel1.Text = selectedApp & " – " & _
                 dgvApplicationLog.Rows(e.RowIndex).Cells("strFacilityName").Value
             btnOpen.Enabled = True
-            MenuOpen.Enabled = True
+            mmiOpen.Enabled = True
         End If
     End Sub
 #End Region
 
 #Region "Menu, buttons, and toolbar"
-    Private Sub NewApplication_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MenuNewApplication.Click
+    Private Sub NewApplication_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiNewApplication.Click
         StartNewApplication()
     End Sub
-    Private Sub MenuClose_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MenuClose.Click
+    Private Sub MenuClose_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiClose.Click
         Me.Close()
     End Sub
-    Private Sub MenuOpenHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MenuOpenHelp.Click
+    Private Sub MenuOpenHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiOnlineHelp.Click
         OpenHelpUrl(Me)
     End Sub
-
-    Private Sub Open_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MenuOpen.Click, btnOpen.Click
+    Private Sub Open_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiOpen.Click, btnOpen.Click
         If selectedApp <> "" Then OpenApplication(selectedApp)
     End Sub
-    Private Sub Reset_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MenuResetSearch.Click, btnResetSearch.Click
+    Private Sub Reset_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiResetSearch.Click, btnResetSearch.Click
         LoadDefaults()
     End Sub
-    Private Sub Export_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MenuExport.Click, btnExport.Click
+    Private Sub mmiExport_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiExport.Click, btnExport.Click
         ExportToExcel()
     End Sub
-
     Private Sub Find_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnFind.Click
         RunSearch()
-    End Sub
-    
-    Private Sub AppLogToolbar_ButtonClick(ByVal sender As System.Object, ByVal e As System.Windows.Forms.ToolBarButtonClickEventArgs) Handles AppLogToolbar.ButtonClick
-        Select Case AppLogToolbar.Buttons.IndexOf(e.Button)
-            Case 0
-                ExportToExcel()
-            Case Else
-        End Select
     End Sub
 #End Region
 

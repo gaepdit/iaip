@@ -5957,7 +5957,7 @@ Public Class IAIPQueryGenerator
 
         End Try
     End Sub
-    Private Sub MmiBack_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiBack.Click
+    Private Sub mmiClose_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiClose.Click
         Me.Close()
     End Sub
     Private Sub tsbReSizeFilterOptions_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsbReSizeFilterOptions.Click
@@ -5992,16 +5992,10 @@ Public Class IAIPQueryGenerator
     End Sub
 
     Private Sub tsbExport_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsbExport.Click
-        Try
-            ExportToExcel()
-
-        Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & ".tsbExport_Click")
-        Finally
-        End Try
+        ExportToExcel()
     End Sub
 
-    Private Sub tsbSearchQuery_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsbSearchQuery.Click
+    Private Sub tsbSearchQuery_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsbSearchQuery.Click, OpenSavedSearchToolStripMenuItem.Click
         Try
             LoadDefaults()
         Catch ex As Exception
@@ -6011,7 +6005,7 @@ Public Class IAIPQueryGenerator
         End Try
     End Sub
 
-    Private Sub tsbSaveQuery_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsbSaveQuery.Click
+    Private Sub tsbSaveQuery_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsbSaveQuery.Click, SaveSearchQueryToolStripMenuItem.Click
         Try
             UpdateDefaultSearch()
         Catch ex As Exception
@@ -6021,12 +6015,8 @@ Public Class IAIPQueryGenerator
         End Try
     End Sub
 
-    Private Sub mmiHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiHelp.Click
-        Try
-            Help.ShowHelp(Label1, HelpUrl)
-        Catch ex As Exception
-        End Try
-
+    Private Sub mmiOnlineHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiOnlineHelp.Click
+        OpenHelpUrl(Me)
     End Sub
 
     Private Sub btnRunPermitContact_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnRunPermitContact.Click
@@ -6148,5 +6138,9 @@ Public Class IAIPQueryGenerator
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
+    End Sub
+
+    Private Sub mmiExport_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiExport.Click
+        ExportToExcel()
     End Sub
 End Class

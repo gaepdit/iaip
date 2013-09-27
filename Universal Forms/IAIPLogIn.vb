@@ -782,7 +782,7 @@ Public Class IAIPLogIn
 
         End Try
     End Sub
-    Private Sub mmiOnlineHelp_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiOnlineHelp.Click
+    Private Sub mmiOnlineHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiOnlineHelp.Click
         OpenHelpUrl(Me)
     End Sub
     Private Sub mmiUpdate_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiForceUpdate.Click

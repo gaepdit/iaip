@@ -3269,15 +3269,7 @@ Public Class IAIPNavigation
 #End Region
     Private Sub mmiOnlineHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiOnlineHelp.Click
         OpenHelpUrl(Me)
-        'Try
-        '    Help.ShowHelp(Label1, HelpUrl)
-        'Catch ex As Exception
-        '    ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        'Finally
-        'End Try
     End Sub
-
-
 
     Private Sub llbOpenTestLog_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbOpenTestLog.LinkClicked
         Try
@@ -9034,7 +9026,7 @@ Public Class IAIPNavigation
         End Try
     End Sub
 
-    Private Sub MenuItem4_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MenuItem4.Click
+    Private Sub mmiExport_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiExport.Click
         If dgvWorkViewer.RowCount > 0 Then
             dgvWorkViewer.ExportToExcel(Me)
         End If

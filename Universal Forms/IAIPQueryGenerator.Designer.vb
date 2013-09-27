@@ -23,15 +23,15 @@ Partial Class IAIPQueryGenerator
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(IAIPQueryGenerator))
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip
         Me.mmiFile = New System.Windows.Forms.ToolStripMenuItem
-        Me.mmiBack = New System.Windows.Forms.ToolStripMenuItem
+        Me.mmiClose = New System.Windows.Forms.ToolStripMenuItem
         Me.mmiHelp = New System.Windows.Forms.ToolStripMenuItem
+        Me.mmiOnlineHelp = New System.Windows.Forms.ToolStripMenuItem
         Me.ToolStrip1 = New System.Windows.Forms.ToolStrip
-        Me.tsbBack = New System.Windows.Forms.ToolStripButton
         Me.tsbExport = New System.Windows.Forms.ToolStripButton
         Me.tsbSearchQuery = New System.Windows.Forms.ToolStripButton
         Me.tsbSaveQuery = New System.Windows.Forms.ToolStripButton
@@ -419,6 +419,11 @@ Partial Class IAIPQueryGenerator
         Me.GBBasic = New System.Windows.Forms.GroupBox
         Me.lblQueryCount = New System.Windows.Forms.Label
         Me.bgwQueryGenerator = New System.ComponentModel.BackgroundWorker
+        Me.ToolsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
+        Me.mmiExport = New System.Windows.Forms.ToolStripMenuItem
+        Me.OpenSavedSearchToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
+        Me.SaveSearchQueryToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
+        Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator
         Me.MenuStrip1.SuspendLayout()
         Me.ToolStrip1.SuspendLayout()
         Me.Panel6.SuspendLayout()
@@ -510,7 +515,7 @@ Partial Class IAIPQueryGenerator
         '
         'MenuStrip1
         '
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mmiFile, Me.mmiHelp})
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mmiFile, Me.ToolsToolStripMenuItem, Me.mmiHelp})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Size = New System.Drawing.Size(796, 24)
@@ -519,40 +524,40 @@ Partial Class IAIPQueryGenerator
         '
         'mmiFile
         '
-        Me.mmiFile.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mmiBack})
+        Me.mmiFile.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mmiClose})
         Me.mmiFile.Name = "mmiFile"
         Me.mmiFile.Size = New System.Drawing.Size(37, 20)
-        Me.mmiFile.Text = "File"
+        Me.mmiFile.Text = "&File"
         '
-        'mmiBack
+        'mmiClose
         '
-        Me.mmiBack.Name = "mmiBack"
-        Me.mmiBack.Size = New System.Drawing.Size(99, 22)
-        Me.mmiBack.Text = "Back"
+        Me.mmiClose.Name = "mmiClose"
+        Me.mmiClose.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.W), System.Windows.Forms.Keys)
+        Me.mmiClose.Size = New System.Drawing.Size(152, 22)
+        Me.mmiClose.Text = "&Close"
         '
         'mmiHelp
         '
+        Me.mmiHelp.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mmiOnlineHelp})
         Me.mmiHelp.Name = "mmiHelp"
         Me.mmiHelp.Size = New System.Drawing.Size(44, 20)
-        Me.mmiHelp.Text = "Help"
+        Me.mmiHelp.Text = "&Help"
+        '
+        'mmiOnlineHelp
+        '
+        Me.mmiOnlineHelp.Name = "mmiOnlineHelp"
+        Me.mmiOnlineHelp.ShortcutKeys = System.Windows.Forms.Keys.F1
+        Me.mmiOnlineHelp.Size = New System.Drawing.Size(156, 22)
+        Me.mmiOnlineHelp.Text = "Online &Help"
         '
         'ToolStrip1
         '
-        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsbBack, Me.tsbExport, Me.tsbSearchQuery, Me.tsbSaveQuery, Me.tsbReSizeFilterOptions})
+        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsbExport, Me.tsbSearchQuery, Me.tsbSaveQuery, Me.tsbReSizeFilterOptions})
         Me.ToolStrip1.Location = New System.Drawing.Point(0, 24)
         Me.ToolStrip1.Name = "ToolStrip1"
         Me.ToolStrip1.Size = New System.Drawing.Size(796, 25)
         Me.ToolStrip1.TabIndex = 1
         Me.ToolStrip1.Text = "ToolStrip1"
-        '
-        'tsbBack
-        '
-        Me.tsbBack.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.tsbBack.Image = CType(resources.GetObject("tsbBack.Image"), System.Drawing.Image)
-        Me.tsbBack.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.tsbBack.Name = "tsbBack"
-        Me.tsbBack.Size = New System.Drawing.Size(23, 22)
-        Me.tsbBack.Text = "Back"
         '
         'tsbExport
         '
@@ -877,35 +882,35 @@ Partial Class IAIPQueryGenerator
         '
         'dgvQueryGenerator
         '
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvQueryGenerator.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle7.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvQueryGenerator.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle7
         Me.dgvQueryGenerator.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvQueryGenerator.DefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle8.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvQueryGenerator.DefaultCellStyle = DataGridViewCellStyle8
         Me.dgvQueryGenerator.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvQueryGenerator.Location = New System.Drawing.Point(0, 485)
         Me.dgvQueryGenerator.Name = "dgvQueryGenerator"
         Me.dgvQueryGenerator.ReadOnly = True
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvQueryGenerator.RowHeadersDefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle9.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvQueryGenerator.RowHeadersDefaultCellStyle = DataGridViewCellStyle9
         Me.dgvQueryGenerator.Size = New System.Drawing.Size(796, 105)
         Me.dgvQueryGenerator.TabIndex = 13
         '
@@ -4440,6 +4445,36 @@ Partial Class IAIPQueryGenerator
         'bgwQueryGenerator
         '
         '
+        'ToolsToolStripMenuItem
+        '
+        Me.ToolsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.SaveSearchQueryToolStripMenuItem, Me.OpenSavedSearchToolStripMenuItem, Me.ToolStripSeparator1, Me.mmiExport})
+        Me.ToolsToolStripMenuItem.Name = "ToolsToolStripMenuItem"
+        Me.ToolsToolStripMenuItem.Size = New System.Drawing.Size(48, 20)
+        Me.ToolsToolStripMenuItem.Text = "&Tools"
+        '
+        'mmiExport
+        '
+        Me.mmiExport.Name = "mmiExport"
+        Me.mmiExport.Size = New System.Drawing.Size(152, 22)
+        Me.mmiExport.Text = "&Export to Excel"
+        '
+        'OpenSavedSearchToolStripMenuItem
+        '
+        Me.OpenSavedSearchToolStripMenuItem.Name = "OpenSavedSearchToolStripMenuItem"
+        Me.OpenSavedSearchToolStripMenuItem.Size = New System.Drawing.Size(172, 22)
+        Me.OpenSavedSearchToolStripMenuItem.Text = "&Open Saved Query"
+        '
+        'SaveSearchQueryToolStripMenuItem
+        '
+        Me.SaveSearchQueryToolStripMenuItem.Name = "SaveSearchQueryToolStripMenuItem"
+        Me.SaveSearchQueryToolStripMenuItem.Size = New System.Drawing.Size(172, 22)
+        Me.SaveSearchQueryToolStripMenuItem.Text = "&Save Search Query"
+        '
+        'ToolStripSeparator1
+        '
+        Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(169, 6)
+        '
         'IAIPQueryGenerator
         '
         Me.AcceptButton = Me.btnRunSearch
@@ -4628,10 +4663,9 @@ Partial Class IAIPQueryGenerator
     End Sub
     Friend WithEvents MenuStrip1 As System.Windows.Forms.MenuStrip
     Friend WithEvents mmiFile As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents mmiBack As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mmiClose As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents mmiHelp As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ToolStrip1 As System.Windows.Forms.ToolStrip
-    Friend WithEvents tsbBack As System.Windows.Forms.ToolStripButton
     Friend WithEvents tsbExport As System.Windows.Forms.ToolStripButton
     Friend WithEvents tsbSearchQuery As System.Windows.Forms.ToolStripButton
     Friend WithEvents tsbSaveQuery As System.Windows.Forms.ToolStripButton
@@ -5019,4 +5053,10 @@ Partial Class IAIPQueryGenerator
     Friend WithEvents rdbDistrictResponsibleTrue As System.Windows.Forms.RadioButton
     Friend WithEvents chbDistrictResponsible As System.Windows.Forms.CheckBox
     Friend WithEvents lblQueryCount As System.Windows.Forms.Label
+    Friend WithEvents mmiOnlineHelp As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents ToolsToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mmiExport As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents OpenSavedSearchToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents SaveSearchQueryToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents ToolStripSeparator1 As System.Windows.Forms.ToolStripSeparator
 End Class

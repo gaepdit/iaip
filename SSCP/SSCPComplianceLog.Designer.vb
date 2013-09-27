@@ -23,11 +23,17 @@ Partial Class SSCPComplianceLog
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(SSCPComplianceLog))
         Me.Image_List_All = New System.Windows.Forms.ImageList(Me.components)
         Me.MainMenu1 = New System.Windows.Forms.MainMenu(Me.components)
-        Me.MenuItem1 = New System.Windows.Forms.MenuItem
-        Me.mmiBack = New System.Windows.Forms.MenuItem
+        Me.mmiFile = New System.Windows.Forms.MenuItem
+        Me.mmiClose = New System.Windows.Forms.MenuItem
+        Me.mmiTools = New System.Windows.Forms.MenuItem
+        Me.mmiSearch = New System.Windows.Forms.MenuItem
+        Me.mmiRunFilter = New System.Windows.Forms.MenuItem
+        Me.mmiClear = New System.Windows.Forms.MenuItem
+        Me.MenuItem2 = New System.Windows.Forms.MenuItem
+        Me.mmiExport = New System.Windows.Forms.MenuItem
         Me.mmiHelp = New System.Windows.Forms.MenuItem
+        Me.mmiOnlineHelp = New System.Windows.Forms.MenuItem
         Me.TBWork_EnTry = New System.Windows.Forms.ToolBar
-        Me.tbbBack = New System.Windows.Forms.ToolBarButton
         Me.tbbSearch = New System.Windows.Forms.ToolBarButton
         Me.tbbExportToExcel = New System.Windows.Forms.ToolBarButton
         Me.tbbClear = New System.Windows.Forms.ToolBarButton
@@ -245,27 +251,66 @@ Partial Class SSCPComplianceLog
         '
         'MainMenu1
         '
-        Me.MainMenu1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.MenuItem1, Me.mmiHelp})
+        Me.MainMenu1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiFile, Me.mmiTools, Me.mmiHelp})
         '
-        'MenuItem1
+        'mmiFile
         '
-        Me.MenuItem1.Index = 0
-        Me.MenuItem1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiBack})
-        Me.MenuItem1.Text = "File"
+        Me.mmiFile.Index = 0
+        Me.mmiFile.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiClose})
+        Me.mmiFile.Text = "&File"
         '
-        'mmiBack
+        'mmiClose
         '
-        Me.mmiBack.Index = 0
-        Me.mmiBack.Text = "Back"
+        Me.mmiClose.Index = 0
+        Me.mmiClose.Shortcut = System.Windows.Forms.Shortcut.CtrlW
+        Me.mmiClose.Text = "&Close"
+        '
+        'mmiTools
+        '
+        Me.mmiTools.Index = 1
+        Me.mmiTools.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiSearch, Me.mmiRunFilter, Me.mmiClear, Me.MenuItem2, Me.mmiExport})
+        Me.mmiTools.Text = "&Tools"
+        '
+        'mmiSearch
+        '
+        Me.mmiSearch.Index = 0
+        Me.mmiSearch.Text = "&Facility Search"
+        '
+        'mmiRunFilter
+        '
+        Me.mmiRunFilter.Index = 1
+        Me.mmiRunFilter.Text = "&Run Filter"
+        '
+        'mmiClear
+        '
+        Me.mmiClear.Index = 2
+        Me.mmiClear.Text = "&Clear Form"
+        '
+        'MenuItem2
+        '
+        Me.MenuItem2.Index = 3
+        Me.MenuItem2.Text = "-"
+        '
+        'mmiExport
+        '
+        Me.mmiExport.Index = 4
+        Me.mmiExport.Text = "&Export List to Excel"
         '
         'mmiHelp
         '
-        Me.mmiHelp.Index = 1
-        Me.mmiHelp.Text = "Help"
+        Me.mmiHelp.Index = 2
+        Me.mmiHelp.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiOnlineHelp})
+        Me.mmiHelp.Text = "&Help"
+        '
+        'mmiOnlineHelp
+        '
+        Me.mmiOnlineHelp.Index = 0
+        Me.mmiOnlineHelp.Shortcut = System.Windows.Forms.Shortcut.F1
+        Me.mmiOnlineHelp.Text = "Online &Help"
         '
         'TBWork_EnTry
         '
-        Me.TBWork_EnTry.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.tbbBack, Me.tbbSearch, Me.tbbExportToExcel, Me.tbbClear})
+        Me.TBWork_EnTry.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.tbbSearch, Me.tbbExportToExcel, Me.tbbClear})
         Me.TBWork_EnTry.DropDownArrows = True
         Me.TBWork_EnTry.ImageList = Me.Image_List_All
         Me.TBWork_EnTry.Location = New System.Drawing.Point(0, 0)
@@ -274,25 +319,23 @@ Partial Class SSCPComplianceLog
         Me.TBWork_EnTry.Size = New System.Drawing.Size(1016, 28)
         Me.TBWork_EnTry.TabIndex = 2
         '
-        'tbbBack
-        '
-        Me.tbbBack.ImageIndex = 2
-        Me.tbbBack.Name = "tbbBack"
-        '
         'tbbSearch
         '
         Me.tbbSearch.ImageIndex = 3
         Me.tbbSearch.Name = "tbbSearch"
+        Me.tbbSearch.ToolTipText = "Facility Search"
         '
         'tbbExportToExcel
         '
         Me.tbbExportToExcel.ImageIndex = 14
         Me.tbbExportToExcel.Name = "tbbExportToExcel"
+        Me.tbbExportToExcel.ToolTipText = "Export to Excel"
         '
         'tbbClear
         '
         Me.tbbClear.ImageIndex = 84
         Me.tbbClear.Name = "tbbClear"
+        Me.tbbClear.ToolTipText = "Clear Form"
         '
         'StatusStrip1
         '
@@ -493,7 +536,7 @@ Partial Class SSCPComplianceLog
         'chbLastModifiedDate
         '
         Me.chbLastModifiedDate.AutoSize = True
-        Me.chbLastModifiedDate.Location = New System.Drawing.Point(123, 18)
+        Me.chbLastModifiedDate.Location = New System.Drawing.Point(123, 19)
         Me.chbLastModifiedDate.Name = "chbLastModifiedDate"
         Me.chbLastModifiedDate.Size = New System.Drawing.Size(122, 17)
         Me.chbLastModifiedDate.TabIndex = 33
@@ -503,7 +546,7 @@ Partial Class SSCPComplianceLog
         'chbFilterDates
         '
         Me.chbFilterDates.AutoSize = True
-        Me.chbFilterDates.Location = New System.Drawing.Point(3, 19)
+        Me.chbFilterDates.Location = New System.Drawing.Point(6, 19)
         Me.chbFilterDates.Name = "chbFilterDates"
         Me.chbFilterDates.Size = New System.Drawing.Size(71, 17)
         Me.chbFilterDates.TabIndex = 15
@@ -512,7 +555,7 @@ Partial Class SSCPComplianceLog
         'Label13
         '
         Me.Label13.AutoSize = True
-        Me.Label13.Location = New System.Drawing.Point(133, 38)
+        Me.Label13.Location = New System.Drawing.Point(120, 39)
         Me.Label13.Name = "Label13"
         Me.Label13.Size = New System.Drawing.Size(55, 13)
         Me.Label13.TabIndex = 32
@@ -522,15 +565,15 @@ Partial Class SSCPComplianceLog
         '
         Me.DTPFilterEnd.CustomFormat = "dd-MMM-yyyy"
         Me.DTPFilterEnd.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DTPFilterEnd.Location = New System.Drawing.Point(149, 54)
+        Me.DTPFilterEnd.Location = New System.Drawing.Point(123, 55)
         Me.DTPFilterEnd.Name = "DTPFilterEnd"
-        Me.DTPFilterEnd.Size = New System.Drawing.Size(96, 20)
+        Me.DTPFilterEnd.Size = New System.Drawing.Size(100, 20)
         Me.DTPFilterEnd.TabIndex = 17
         '
         'Label14
         '
         Me.Label14.AutoSize = True
-        Me.Label14.Location = New System.Drawing.Point(21, 38)
+        Me.Label14.Location = New System.Drawing.Point(6, 39)
         Me.Label14.Name = "Label14"
         Me.Label14.Size = New System.Drawing.Size(58, 13)
         Me.Label14.TabIndex = 31
@@ -540,9 +583,9 @@ Partial Class SSCPComplianceLog
         '
         Me.DTPFilterStart.CustomFormat = "dd-MMM-yyyy"
         Me.DTPFilterStart.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DTPFilterStart.Location = New System.Drawing.Point(29, 54)
+        Me.DTPFilterStart.Location = New System.Drawing.Point(9, 55)
         Me.DTPFilterStart.Name = "DTPFilterStart"
-        Me.DTPFilterStart.Size = New System.Drawing.Size(96, 20)
+        Me.DTPFilterStart.Size = New System.Drawing.Size(100, 20)
         Me.DTPFilterStart.TabIndex = 16
         '
         'Label20
@@ -1390,11 +1433,10 @@ Partial Class SSCPComplianceLog
     End Sub
     Friend WithEvents Image_List_All As System.Windows.Forms.ImageList
     Friend WithEvents MainMenu1 As System.Windows.Forms.MainMenu
-    Friend WithEvents MenuItem1 As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiBack As System.Windows.Forms.MenuItem
+    Friend WithEvents mmiFile As System.Windows.Forms.MenuItem
+    Friend WithEvents mmiClose As System.Windows.Forms.MenuItem
     Friend WithEvents mmiHelp As System.Windows.Forms.MenuItem
     Friend WithEvents TBWork_EnTry As System.Windows.Forms.ToolBar
-    Friend WithEvents tbbBack As System.Windows.Forms.ToolBarButton
     Friend WithEvents StatusStrip1 As System.Windows.Forms.StatusStrip
     Friend WithEvents Panel1 As System.Windows.Forms.ToolStripStatusLabel
     Friend WithEvents Panel2 As System.Windows.Forms.ToolStripStatusLabel
@@ -1502,4 +1544,11 @@ Partial Class SSCPComplianceLog
     Friend WithEvents clbDistrictOffices As System.Windows.Forms.CheckedListBox
     Friend WithEvents Label16 As System.Windows.Forms.Label
     Friend WithEvents Label17 As System.Windows.Forms.Label
+    Friend WithEvents mmiOnlineHelp As System.Windows.Forms.MenuItem
+    Friend WithEvents mmiTools As System.Windows.Forms.MenuItem
+    Friend WithEvents mmiRunFilter As System.Windows.Forms.MenuItem
+    Friend WithEvents mmiExport As System.Windows.Forms.MenuItem
+    Friend WithEvents mmiClear As System.Windows.Forms.MenuItem
+    Friend WithEvents mmiSearch As System.Windows.Forms.MenuItem
+    Friend WithEvents MenuItem2 As System.Windows.Forms.MenuItem
 End Class
