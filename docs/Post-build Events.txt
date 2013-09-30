@@ -15,8 +15,8 @@ the following in its entirety (between the "-----" lines) and paste into the box
 
 if $(ConfigurationName) == Debug (
 REM Debug build -----
-C:\Users\dwaldron\AppData\Local\Pandoc\pandoc.exe -f markdown -t html5 -s -o "$(TargetDir)docs\README.html" -c "$(TargetDir)docs\style.css" -A "$(TargetDir)docs\scripts.html" "$(TargetDir)docs\README.md"
-C:\Users\dwaldron\AppData\Local\Pandoc\pandoc.exe -f markdown -t html5 -s -o "$(TargetDir)docs\CHANGELOG.html" -c "$(TargetDir)docs\style.css" "$(TargetDir)docs\CHANGELOG.md"
+REM C:\Users\dwaldron\AppData\Local\Pandoc\pandoc.exe -f markdown -t html5 -s -o "$(TargetDir)docs\README.html" -c "$(TargetDir)docs\style.css" -A "$(TargetDir)docs\scripts.html" "$(TargetDir)docs\README.md"
+REM C:\Users\dwaldron\AppData\Local\Pandoc\pandoc.exe -f markdown -t html5 -s -o "$(TargetDir)docs\CHANGELOG.html" -c "$(TargetDir)docs\style.css" "$(TargetDir)docs\CHANGELOG.md"
 ) ELSE (
 REM Release build -----
 C:\Users\dwaldron\AppData\Local\Pandoc\pandoc.exe -f markdown -t html5 -s -o "$(TargetDir)docs\README.html" -c "$(TargetDir)docs\style.css" -A "$(TargetDir)docs\scripts.html" "$(TargetDir)docs\README.md"
