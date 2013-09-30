@@ -44,10 +44,6 @@ Module subMain
     Friend DateFormat As String = "dd-MMM-yyyy"
     Friend Today As Date = DateTime.Today
     Friend TodayString As String = Format(Today, DateFormat)
-    Friend AnalyticsApiKey As String = "094F22FFB35C42E9A5D65279634F5028"
-    Friend MachineName As String = Environment.MachineName
-    Friend PublishedVersion As Version = Nothing
-    Friend CurrentVersion As Version = Nothing
 #End Region
 
 #Region "Old public variables"

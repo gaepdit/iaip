@@ -189,7 +189,7 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="docs\CHANGELOG.md">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="DataSet\dsIAIP10.xsc">
       <DependentUpon>dsIAIP10.xsd</DependentUpon>
@@ -1732,9 +1732,10 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="docs\README.md">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="docs\README_DEVELOPERS.md" />
+    <None Include="docs\README_DEVELOPERS.md">
+    </None>
     <None Include="IAIP-Deploy\Deploy-IAIP.bat">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -1761,19 +1762,26 @@
       <Link>OraOps11w.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="docs\Post-build Events.txt" />
+    <None Include="docs\Post-build Events.txt">
+    </None>
     <None Include="docs\style.css">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="IAIP-Deploy\ftp-script.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <Content Include="docs\CHANGELOG.html">
+    <None Include="docs\CHANGELOG.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="docs\README.html">
+    </None>
+    <None Include="docs\README.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    </None>
+    <None Include="docs\script.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="docs\scripts.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <Content Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>
@@ -1873,11 +1881,14 @@
     </PreBuildEvent>
     <PostBuildEvent>if $(ConfigurationName) == Debug (
 REM Debug build -----
+C:\Users\dwaldron\AppData\Local\Pandoc\pandoc.exe -f markdown -t html5 -s -o "$(TargetDir)docs\README.html" -c "$(TargetDir)docs\style.css" -A "$(TargetDir)docs\scripts.html" "$(TargetDir)docs\README.md"
+C:\Users\dwaldron\AppData\Local\Pandoc\pandoc.exe -f markdown -t html5 -s -o "$(TargetDir)docs\CHANGELOG.html" -c "$(TargetDir)docs\style.css" "$(TargetDir)docs\CHANGELOG.md"
 ) ELSE (
 REM Release build -----
-C:\Users\dwaldron\AppData\Local\Pandoc\pandoc.exe -f markdown -t html5 -s -o "$(TargetDir)docs\README.html" -c "$(TargetDir)docs\style.css" "$(TargetDir)docs\README.md"
+C:\Users\dwaldron\AppData\Local\Pandoc\pandoc.exe -f markdown -t html5 -s -o "$(TargetDir)docs\README.html" -c "$(TargetDir)docs\style.css" -A "$(TargetDir)docs\scripts.html" "$(TargetDir)docs\README.md"
 C:\Users\dwaldron\AppData\Local\Pandoc\pandoc.exe -f markdown -t html5 -s -o "$(TargetDir)docs\CHANGELOG.html" -c "$(TargetDir)docs\style.css" "$(TargetDir)docs\CHANGELOG.md"
 del "$(TargetDir)docs\*.md"
+del "$(TargetDir)docs\scripts.html"
 cd "$TargetDir"
 "$(TargetDir)IAIP-Updater\7za.exe" a "$(TargetDir)IAIP-Updater\IAIP.update2_6_4.7z" "JohnGaltProject.exe" "gaSeal.ico" "Oracle.DataAccess.dll" "docs\*.*" -mx=7
 "$(TargetDir)IAIP-Updater\7za.exe" a "$(TargetDir)IAIP-Updater\IAIP.update.full.7z" "JohnGaltProject.exe" "*.dll" "*.ora" "gaSeal.ico" "docs\*.*" -mx=7
