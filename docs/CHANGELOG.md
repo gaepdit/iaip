@@ -5,6 +5,11 @@ IAIP Changelog
 
 See the [Readme file](README.html).
 
+## Version Next <span>(2013-xx-xx)</span>
+
++ NEW: *SSCP* – Better Excel export on SSCP Managers Tools & Compliance Log
++ NEW: *SSPP* – Better Excel export on Application Log
+
 ## Version 2.6.6.2 <span>(2013-09-27)</span>
 
 + NEW: *Navigation Screen* – Added ability to export grid to Excel (#58)
