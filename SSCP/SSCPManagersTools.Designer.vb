@@ -2607,7 +2607,7 @@ Partial Class SSCPManagersTools
         Me.TPAirToxics.Location = New System.Drawing.Point(4, 40)
         Me.TPAirToxics.Name = "TPAirToxics"
         Me.TPAirToxics.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPAirToxics.Size = New System.Drawing.Size(254, 246)
+        Me.TPAirToxics.Size = New System.Drawing.Size(254, 274)
         Me.TPAirToxics.TabIndex = 1
         Me.TPAirToxics.Text = "Air Toxics"
         Me.TPAirToxics.UseVisualStyleBackColor = True
@@ -2620,7 +2620,7 @@ Partial Class SSCPManagersTools
         Me.clbAirToxicUnit.Location = New System.Drawing.Point(3, 3)
         Me.clbAirToxicUnit.Name = "clbAirToxicUnit"
         Me.clbAirToxicUnit.ScrollAlwaysVisible = True
-        Me.clbAirToxicUnit.Size = New System.Drawing.Size(248, 229)
+        Me.clbAirToxicUnit.Size = New System.Drawing.Size(248, 259)
         Me.clbAirToxicUnit.TabIndex = 1
         '
         'TPChemicals
@@ -2628,7 +2628,7 @@ Partial Class SSCPManagersTools
         Me.TPChemicals.Controls.Add(Me.clbChemicalsMinerals)
         Me.TPChemicals.Location = New System.Drawing.Point(4, 40)
         Me.TPChemicals.Name = "TPChemicals"
-        Me.TPChemicals.Size = New System.Drawing.Size(254, 246)
+        Me.TPChemicals.Size = New System.Drawing.Size(254, 274)
         Me.TPChemicals.TabIndex = 2
         Me.TPChemicals.Text = "Chemicals/Minerals"
         Me.TPChemicals.UseVisualStyleBackColor = True
@@ -2641,7 +2641,7 @@ Partial Class SSCPManagersTools
         Me.clbChemicalsMinerals.Location = New System.Drawing.Point(0, 0)
         Me.clbChemicalsMinerals.Name = "clbChemicalsMinerals"
         Me.clbChemicalsMinerals.ScrollAlwaysVisible = True
-        Me.clbChemicalsMinerals.Size = New System.Drawing.Size(254, 244)
+        Me.clbChemicalsMinerals.Size = New System.Drawing.Size(254, 274)
         Me.clbChemicalsMinerals.TabIndex = 1
         '
         'TPVOC
@@ -2649,7 +2649,7 @@ Partial Class SSCPManagersTools
         Me.TPVOC.Controls.Add(Me.clbVOCCombustion)
         Me.TPVOC.Location = New System.Drawing.Point(4, 40)
         Me.TPVOC.Name = "TPVOC"
-        Me.TPVOC.Size = New System.Drawing.Size(254, 246)
+        Me.TPVOC.Size = New System.Drawing.Size(254, 274)
         Me.TPVOC.TabIndex = 3
         Me.TPVOC.Text = "VOC/Combustion"
         Me.TPVOC.UseVisualStyleBackColor = True
@@ -2662,7 +2662,7 @@ Partial Class SSCPManagersTools
         Me.clbVOCCombustion.Location = New System.Drawing.Point(0, 0)
         Me.clbVOCCombustion.Name = "clbVOCCombustion"
         Me.clbVOCCombustion.ScrollAlwaysVisible = True
-        Me.clbVOCCombustion.Size = New System.Drawing.Size(254, 244)
+        Me.clbVOCCombustion.Size = New System.Drawing.Size(254, 274)
         Me.clbVOCCombustion.TabIndex = 1
         '
         'TPDistricts
@@ -2670,7 +2670,7 @@ Partial Class SSCPManagersTools
         Me.TPDistricts.Controls.Add(Me.clbDistricts)
         Me.TPDistricts.Location = New System.Drawing.Point(4, 40)
         Me.TPDistricts.Name = "TPDistricts"
-        Me.TPDistricts.Size = New System.Drawing.Size(254, 246)
+        Me.TPDistricts.Size = New System.Drawing.Size(254, 274)
         Me.TPDistricts.TabIndex = 4
         Me.TPDistricts.Text = "Districts"
         Me.TPDistricts.UseVisualStyleBackColor = True
@@ -2683,7 +2683,7 @@ Partial Class SSCPManagersTools
         Me.clbDistricts.Location = New System.Drawing.Point(0, 0)
         Me.clbDistricts.Name = "clbDistricts"
         Me.clbDistricts.ScrollAlwaysVisible = True
-        Me.clbDistricts.Size = New System.Drawing.Size(254, 244)
+        Me.clbDistricts.Size = New System.Drawing.Size(254, 274)
         Me.clbDistricts.TabIndex = 2
         '
         'TCStatisticalTools
