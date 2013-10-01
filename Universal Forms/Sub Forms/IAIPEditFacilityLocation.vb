@@ -366,7 +366,7 @@ Public Class IAIPEditFacilityLocation
                             End If
 
                             SQL = "Update airbranch.EIS_FacilitySite set " & _
-                            "strFacilitySiteName = '" & Replace(txtFacilityName.Text, "'", "''") & "' " & _
+                            "strFacilitySiteName = '" & Replace(txtFacilityName.Text, "'", "''") & "', " & _
                             "strFacilitySiteComment = 'Facility Name updated.', " & _
                             "UpdateUSer = '" & UserName & "', " & _
                             "updateDateTime = sysdate " & _
