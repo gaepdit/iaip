@@ -652,18 +652,28 @@ Public Class IAIPLogIn
         mmiLukeEnvironment.Checked = False
         If mmiTestingEnvironment.Checked = False Then
             mmiTestingEnvironment.Checked = True
-            txtUserID.BackColor = Color.Tomato
-            txtUserPassword.BackColor = Color.Tomato
-            btnLoginButton.BackColor = Color.Tomato
+            TestingEnvironment = True
+
+            'txtUserID.BackColor = Color.Tomato
+            'txtUserPassword.BackColor = Color.Tomato
+            'btnLoginButton.BackColor = Color.Tomato
+            Me.BackColor = Color.PapayaWhip
+            btnLoginButton.Text = "Testing Environment"
+
             Conn = New OracleConnection(DevConnString)
             CRLogIn = DEVCRLogIn
             CRPassWord = DEVCRPassWord
             CurrentConnString = DevConnString
         Else
             mmiTestingEnvironment.Checked = False
-            txtUserID.BackColor = Color.White
-            txtUserPassword.BackColor = Color.White
-            btnLoginButton.BackColor = Color.White
+            TestingEnvironment = False
+
+            'txtUserID.BackColor = Color.White
+            'txtUserPassword.BackColor = Color.White
+            'btnLoginButton.BackColor = Color.White
+            Me.BackColor = SystemColors.Control
+            btnLoginButton.Text = "Log In"
+
             Conn = New OracleConnection(PrdConnString)
             CRLogIn = PRDCRLogIn
             CRPassWord = PRDCRPassWord

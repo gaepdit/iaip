@@ -151,7 +151,7 @@ Partial Class IAIPLogIn
         '
         Me.lblPassword.AutoSize = True
         Me.lblPassword.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblPassword.Location = New System.Drawing.Point(336, 223)
+        Me.lblPassword.Location = New System.Drawing.Point(364, 223)
         Me.lblPassword.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.lblPassword.Name = "lblPassword"
         Me.lblPassword.Size = New System.Drawing.Size(82, 20)
@@ -162,7 +162,7 @@ Partial Class IAIPLogIn
         '
         Me.lblUserID.AutoSize = True
         Me.lblUserID.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblUserID.Location = New System.Drawing.Point(336, 184)
+        Me.lblUserID.Location = New System.Drawing.Point(364, 184)
         Me.lblUserID.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.lblUserID.Name = "lblUserID"
         Me.lblUserID.Size = New System.Drawing.Size(68, 20)
@@ -172,7 +172,7 @@ Partial Class IAIPLogIn
         'txtUserPassword
         '
         Me.txtUserPassword.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtUserPassword.Location = New System.Drawing.Point(422, 220)
+        Me.txtUserPassword.Location = New System.Drawing.Point(450, 220)
         Me.txtUserPassword.Margin = New System.Windows.Forms.Padding(2)
         Me.txtUserPassword.Name = "txtUserPassword"
         Me.txtUserPassword.Size = New System.Drawing.Size(175, 26)
@@ -183,7 +183,7 @@ Partial Class IAIPLogIn
         'txtUserID
         '
         Me.txtUserID.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtUserID.Location = New System.Drawing.Point(422, 181)
+        Me.txtUserID.Location = New System.Drawing.Point(450, 181)
         Me.txtUserID.Margin = New System.Windows.Forms.Padding(2)
         Me.txtUserID.Name = "txtUserID"
         Me.txtUserID.Size = New System.Drawing.Size(175, 26)
@@ -206,7 +206,7 @@ Partial Class IAIPLogIn
         Me.lnkUpdateLink.AutoSize = True
         Me.lnkUpdateLink.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lnkUpdateLink.LinkColor = System.Drawing.Color.MediumBlue
-        Me.lnkUpdateLink.Location = New System.Drawing.Point(419, 382)
+        Me.lnkUpdateLink.Location = New System.Drawing.Point(447, 382)
         Me.lnkUpdateLink.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.lnkUpdateLink.Name = "lnkUpdateLink"
         Me.lnkUpdateLink.Size = New System.Drawing.Size(155, 18)
@@ -229,7 +229,7 @@ Partial Class IAIPLogIn
         'btnLoginButton
         '
         Me.btnLoginButton.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnLoginButton.Location = New System.Drawing.Point(422, 259)
+        Me.btnLoginButton.Location = New System.Drawing.Point(450, 259)
         Me.btnLoginButton.Margin = New System.Windows.Forms.Padding(2)
         Me.btnLoginButton.Name = "btnLoginButton"
         Me.btnLoginButton.Size = New System.Drawing.Size(175, 38)
@@ -266,7 +266,7 @@ Partial Class IAIPLogIn
         Me.lblCurrentVersionMessage.AutoSize = True
         Me.lblCurrentVersionMessage.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblCurrentVersionMessage.ForeColor = System.Drawing.SystemColors.GrayText
-        Me.lblCurrentVersionMessage.Location = New System.Drawing.Point(419, 330)
+        Me.lblCurrentVersionMessage.Location = New System.Drawing.Point(447, 330)
         Me.lblCurrentVersionMessage.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.lblCurrentVersionMessage.Name = "lblCurrentVersionMessage"
         Me.lblCurrentVersionMessage.Size = New System.Drawing.Size(193, 18)
@@ -310,7 +310,7 @@ Partial Class IAIPLogIn
         Me.lblAvailableVersionMessage.AutoSize = True
         Me.lblAvailableVersionMessage.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblAvailableVersionMessage.ForeColor = System.Drawing.Color.RoyalBlue
-        Me.lblAvailableVersionMessage.Location = New System.Drawing.Point(419, 348)
+        Me.lblAvailableVersionMessage.Location = New System.Drawing.Point(447, 348)
         Me.lblAvailableVersionMessage.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.lblAvailableVersionMessage.Name = "lblAvailableVersionMessage"
         Me.lblAvailableVersionMessage.Size = New System.Drawing.Size(201, 18)
@@ -323,7 +323,7 @@ Partial Class IAIPLogIn
         Me.lblGeneralMessage.AutoSize = True
         Me.lblGeneralMessage.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblGeneralMessage.ForeColor = System.Drawing.Color.Maroon
-        Me.lblGeneralMessage.Location = New System.Drawing.Point(337, 185)
+        Me.lblGeneralMessage.Location = New System.Drawing.Point(365, 185)
         Me.lblGeneralMessage.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.lblGeneralMessage.Name = "lblGeneralMessage"
         Me.lblGeneralMessage.Size = New System.Drawing.Size(163, 72)
@@ -354,7 +354,7 @@ Partial Class IAIPLogIn
         '
         'LoginProgressBar
         '
-        Me.LoginProgressBar.Location = New System.Drawing.Point(422, 302)
+        Me.LoginProgressBar.Location = New System.Drawing.Point(450, 302)
         Me.LoginProgressBar.Name = "LoginProgressBar"
         Me.LoginProgressBar.Size = New System.Drawing.Size(175, 23)
         Me.LoginProgressBar.Step = 20

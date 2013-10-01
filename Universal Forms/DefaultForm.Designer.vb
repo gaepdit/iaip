@@ -29,9 +29,9 @@ Partial Class DefaultForm
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(284, 262)
-        Me.Icon = CType(My.Resources.Icon, System.Drawing.Icon)
+        Me.Icon = Global.JohnGaltProject.My.Resources.Resources.Icon
         Me.Name = "DefaultForm"
-        Me.Text = "DefaultForm"
+        Me.Text = "Default Form"
         Me.ResumeLayout(False)
 
     End Sub

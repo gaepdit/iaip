@@ -73,5 +73,12 @@ Namespace My.Resources
                 Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property
+        
+        Friend ReadOnly Property WarningIcon() As System.Drawing.Icon
+            Get
+                Dim obj As Object = ResourceManager.GetObject("WarningIcon", resourceCulture)
+                Return CType(obj,System.Drawing.Icon)
+            End Get
+        End Property
     End Module
 End Namespace

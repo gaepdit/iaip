@@ -44,6 +44,7 @@ Module subMain
     Friend DateFormat As String = "dd-MMM-yyyy"
     Friend Today As Date = DateTime.Today
     Friend TodayString As String = Format(Today, DateFormat)
+    Friend TestingEnvironment As Boolean = False
 #End Region
 
 #Region "Old public variables"
