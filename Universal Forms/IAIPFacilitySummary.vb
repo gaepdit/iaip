@@ -350,7 +350,8 @@ Public Class IAIPFacilitySummary
                     EditContacts.Dispose()
                 End If
                 EditContacts = New IAIPEditContacts
-                EditContacts.txtAIRSNumber.Text = mtbAIRSNumber.Text
+                EditContacts.AirsNumber = mtbAIRSNumber.Text
+                EditContacts.FacilityName = txtFacilityName.Text
                 EditContacts.Show()
                 EditContacts.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
             End If
@@ -4438,41 +4439,7 @@ Public Class IAIPFacilitySummary
         End Try
     End Sub
     Private Sub btnEditContacts_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEditContacts.Click
-        Try
-            If NavigationScreen.pnl4.Text = "TESTING ENVIRONMENT" Then
-                If EditContacts2 Is Nothing Then
-                    If EditContacts2 Is Nothing Then EditContacts2 = New DEVEditContacts
-                    EditContacts2.mtbAIRSNumber.Text = mtbAIRSNumber.Text
-                    EditContacts2.mtbSearchAIRS.Text = mtbAIRSNumber.Text
-                    EditContacts2.Show()
-                Else
-                    EditContacts2.Dispose()
-                    EditContacts2 = DEVEditContacts
-                    If EditContacts2 Is Nothing Then EditContacts2 = DEVEditContacts
-                    EditContacts2.mtbAIRSNumber.Text = mtbAIRSNumber.Text
-                    EditContacts2.mtbSearchAIRS.Text = mtbAIRSNumber.Text
-                    EditContacts2.Show()
-                End If
-                EditContacts2.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
-                EditContacts2.SearchContacts()
-            Else
-                If EditContacts Is Nothing Then
-                    If EditContacts Is Nothing Then EditContacts = New IAIPEditContacts
-                    EditContacts.txtAIRSNumber.Text = mtbAIRSNumber.Text
-                    EditContacts.Show()
-                Else
-                    EditContacts.Dispose()
-                    EditContacts = IAIPEditContacts
-                    If EditContacts Is Nothing Then EditContacts = IAIPEditContacts
-                    EditContacts.txtAIRSNumber.Text = mtbAIRSNumber.Text
-                    EditContacts.Show()
-                End If
-                EditContacts.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        OpenEditContactInformationTool()
     End Sub
 
 #Region "SSCP Menu"

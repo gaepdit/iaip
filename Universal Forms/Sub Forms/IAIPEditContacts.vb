@@ -2,6 +2,28 @@ Imports Oracle.DataAccess.Client
 
 
 Public Class IAIPEditContacts
+
+#Region "Properties"
+    Private _airsNumber As String
+    Public Property AirsNumber() As String
+        Get
+            Return _airsNumber
+        End Get
+        Set(ByVal value As String)
+            _airsNumber = value
+        End Set
+    End Property
+    Private _facilityName As String
+    Public Property FacilityName() As String
+        Get
+            Return _facilityName
+        End Get
+        Set(ByVal value As String)
+            _facilityName = value
+        End Set
+    End Property
+#End Region
+
     Dim SQL As String
     Dim cmd As OracleCommand
     Dim dr As OracleDataReader
@@ -13,12 +35,18 @@ Public Class IAIPEditContacts
 
     Private Sub APBAddContacts_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Load
         monitor.TrackFeature("Forms." & Me.Name)
+        SetHeaderLabels()
         LoadContactsDataset()
     End Sub
 
-    Sub LoadContactsDataset()
+    Private Sub SetHeaderLabels()
+        lblAirsNumber.Text = CInt(AirsNumber).ToString("000-00000")
+        lblFacilityName.Text = FacilityName
+    End Sub
+
+    Private Sub LoadContactsDataset()
         Try
-            If txtAIRSNumber.Text <> "" Then
+            If AirsNumber <> "" Then
 
                 SQL = "Select " & _
                 "case " & _
@@ -56,7 +84,7 @@ Public Class IAIPEditContacts
                  "    ELSE strContactDescription " & _
                  "END as ContactDescription " & _
                  "from " & DBNameSpace & ".APBContactInformation " & _
-                 "where strAIRSnumber = '0413" & txtAIRSNumber.Text & "' " & _
+                 "where strAIRSnumber = '0413" & AirsNumber & "' " & _
                  "order by substr(strKey, 2), strKey "
 
                 dsContacts = New DataSet
@@ -151,9 +179,9 @@ Public Class IAIPEditContacts
 
     Sub NewContactDataLoad()
         Try
-            If txtAIRSNumber.Text <> "" And txtNewKey.Text <> "" Then
+            If AirsNumber <> "" And txtNewKey.Text <> "" Then
                 SQL = "Select * from AIRBranch.APBContactInformation " & _
-                "where strAIRSNumber = '0413" & txtNewAIRSnumber.Text & "' " & _
+                "where strAIRSNumber = '0413" & AirsNumber & "' " & _
                 "and strKey = '" & txtNewKey.Text & "' "
 
                 cmd = New OracleCommand(SQL, Conn)
@@ -287,7 +315,7 @@ Public Class IAIPEditContacts
         Try
 
             If dgvContacts.RowCount > 0 And hti.RowIndex <> -1 Then
-                txtNewAIRSnumber.Text = Mid(dgvContacts(1, hti.RowIndex).Value, 5, 8)
+                AirsNumber = Mid(dgvContacts(1, hti.RowIndex).Value, 5, 8)
                 txtNewKey.Text = Mid(dgvContacts(1, hti.RowIndex).Value, 13)
                 NewContactDataLoad()
                 'txtContactKey.Text = dgvContacts(1, hti.RowIndex).Value
@@ -336,7 +364,7 @@ Public Class IAIPEditContacts
         Try
             Dim newKey As String = ""
 
-            If txtNewAIRSnumber.Text <> "" Then
+            If AirsNumber <> "" Then
                 If rdbNewAmbientContact.Checked = False And rdbNewComplianceContact.Checked = False _
                 And rdbNewDistrictContact.Checked = False And rdbNewEISContact.Checked = False _
                 And rdbNewESContact.Checked = False And rdbNewFeeContact.Checked = False _
@@ -364,7 +392,7 @@ Public Class IAIPEditContacts
                     "STRMODIFINGPERSON = '" & UserGCode & "', " & _
                     "DATMODIFINGDATE = sysdate,  " & _
                     "STRCONTACTDESCRIPTION = '" & Replace(txtNewDescrption.Text, "'", "''") & "' " & _
-                    "where strAIRSnumber = '0413" & txtAIRSNumber.Text & "' " & _
+                    "where strAIRSnumber = '0413" & AirsNumber & "' " & _
                     "and strKey = '" & txtNewKey.Text & "' "
 
                     cmd = New OracleCommand(SQL, Conn)
@@ -412,7 +440,7 @@ Public Class IAIPEditContacts
                        "STRMODIFINGPERSON = '" & UserGCode & "', " & _
                        "DATMODIFINGDATE = sysdate,  " & _
                        "STRCONTACTDESCRIPTION = '" & Replace(txtNewDescrption.Text, "'", "''") & "' " & _
-                       "where strAIRSnumber = '0413" & txtAIRSNumber.Text & "' " & _
+                       "where strAIRSnumber = '0413" & AirsNumber & "' " & _
                        "and strKey = '" & newKey & "' "
                         cmd = New OracleCommand(SQL, Conn)
                         If Conn.State = ConnectionState.Closed Then
@@ -422,7 +450,7 @@ Public Class IAIPEditContacts
                     End If
 
                 End If
-                LoadContactsDataset("PageLoad")
+                LoadContactsDataset()
                 MsgBox("Data Updated", MsgBoxStyle.Information, Me.Text)
             End If
 
@@ -435,7 +463,7 @@ Public Class IAIPEditContacts
         Try
             Dim newKey As String = ""
 
-            If txtNewAIRSnumber.Text <> "" Then
+            If AirsNumber <> "" Then
                 If rdbNewMonitoringContact.Checked = True Then
                     newKey = "10"
                 ElseIf rdbNewComplianceContact.Checked = True Then
@@ -463,7 +491,7 @@ Public Class IAIPEditContacts
                     Select Case newKey
                         Case "10", "20", "30", "50", "60", "70"
                             SQL = "delete airbranch.APBContactInformation " & _
-                            "where strAIRSnumber = '0413" & txtAIRSNumber.Text & "' " & _
+                            "where strAIRSnumber = '0413" & AirsNumber & "' " & _
                             "and strKey = '" & Mid(newKey, 1, 1) & "9' "
 
                             cmd = New OracleCommand(SQL, Conn)
@@ -475,7 +503,7 @@ Public Class IAIPEditContacts
                             SQL = "Update AIRBranch.APBContactInformation set " & _
                             "strKey = substr(strKey, 1,1) || (substr(strKey, 2,1) + 1), " & _
                             "strContactKey = substr(strContactKey, 1, 13) || (substr(strContactKey, 14, 1) + 1) " & _
-                            "where strAIRSNumber = '0413" & txtNewAIRSnumber.Text & "' " & _
+                            "where strAIRSNumber = '0413" & AirsNumber & "' " & _
                             "and strKey like '" & Mid(newKey, 1, 1) & "%' "
                             cmd = New OracleCommand(SQL, Conn)
                             If Conn.State = ConnectionState.Closed Then
@@ -496,7 +524,7 @@ Public Class IAIPEditContacts
                             "STRMODIFINGPERSON, DATMODIFINGDATE,  " & _
                             "STRCONTACTDESCRIPTION)  " & _
                             "(Select  " & _
-                            "'0413" & txtNewAIRSnumber.Text & newKey & "', '0413" & txtNewAIRSnumber.Text & "', " & _
+                            "'0413" & AirsNumber & newKey & "', '0413" & AirsNumber & "', " & _
                             "'" & newKey & "', '" & Replace(txtNewFirstName.Text, "'", "''") & "', " & _
                             "'" & Replace(txtNewLastName.Text, "'", "''") & "',  '" & Replace(txtNewPrefix.Text, "'", "''") & "', " & _
                             " '" & Replace(txtNewSuffix.Text, "'", "''") & "', '" & Replace(txtNewTitle.Text, "'", "''") & "', " & _
@@ -510,7 +538,7 @@ Public Class IAIPEditContacts
                             "from dual  " & _
                             "where not exists (select * from AIRBranch.APBContactInformation  " & _
                             "where strKey = '" & newKey & "' " & _
-                            "and strAIRSNumber = '0413" & txtNewAIRSnumber.Text & "')) "
+                            "and strAIRSNumber = '0413" & AirsNumber & "')) "
 
                             cmd = New OracleCommand(SQL, Conn)
                             If Conn.State = ConnectionState.Closed Then
@@ -532,7 +560,7 @@ Public Class IAIPEditContacts
                             "STRMODIFINGPERSON, DATMODIFINGDATE,  " & _
                             "STRCONTACTDESCRIPTION)  " & _
                             "(Select  " & _
-                            "'0413" & txtNewAIRSnumber.Text & newKey & "', '0413" & txtNewAIRSnumber.Text & "', " & _
+                            "'0413" & AirsNumber & newKey & "', '0413" & AirsNumber & "', " & _
                             "'" & newKey & "', '" & Replace(txtNewFirstName.Text, "'", "''") & "', " & _
                             "'" & Replace(txtNewLastName.Text, "'", "''") & "',  '" & Replace(txtNewPrefix.Text, "'", "''") & "', " & _
                             " '" & Replace(txtNewSuffix.Text, "'", "''") & "', '" & Replace(txtNewTitle.Text, "'", "''") & "', " & _
@@ -546,7 +574,7 @@ Public Class IAIPEditContacts
                             "from dual  " & _
                             "where not exists (select * from AIRBranch.APBContactInformation  " & _
                             "where strKey = '" & newKey & "' " & _
-                            "and strAIRSNumber = '0413" & txtNewAIRSnumber.Text & "')) "
+                            "and strAIRSNumber = '0413" & AirsNumber & "')) "
 
                             cmd = New OracleCommand(SQL, Conn)
                             If Conn.State = ConnectionState.Closed Then
@@ -555,7 +583,7 @@ Public Class IAIPEditContacts
                             cmd.ExecuteReader()
                     End Select
 
-                    LoadContactsDataset("PageLoad")
+                    LoadContactsDataset()
                     MsgBox("Data Inserted", MsgBoxStyle.Information, Me.Text)
                 End If
             End If

@@ -1896,13 +1896,15 @@ Public Class SSCPInformationRequest
 
             If EditContacts Is Nothing Then
                 If EditContacts Is Nothing Then EditContacts = New IAIPEditContacts
-                EditContacts.txtAIRSNumber.Text = txtAIRSNumber.Text
+                EditContacts.AirsNumber = txtAIRSNumber.Text
+                EditContacts.lblFacilityName.Text = ""
                 EditContacts.Show()
             Else
                 EditContacts.Dispose()
                 EditContacts = New IAIPEditContacts
                 If EditContacts Is Nothing Then EditContacts = New IAIPEditContacts
-                EditContacts.txtAIRSNumber.Text = txtAIRSNumber.Text
+                EditContacts.AirsNumber = txtAIRSNumber.Text
+                EditContacts.lblFacilityName.Text = ""
                 EditContacts.Show()
             End If
             EditContacts.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
