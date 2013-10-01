@@ -28,17 +28,13 @@ Partial Class IAIPEditFacilityLocation
         Me.Panel3 = New System.Windows.Forms.ToolStripStatusLabel
         Me.Image_List_All = New System.Windows.Forms.ImageList(Me.components)
         Me.MainMenu1 = New System.Windows.Forms.MainMenu(Me.components)
-        Me.MenuItem1 = New System.Windows.Forms.MenuItem
+        Me.mmiFile = New System.Windows.Forms.MenuItem
         Me.mmiSave = New System.Windows.Forms.MenuItem
-        Me.mmiBack = New System.Windows.Forms.MenuItem
-        Me.MenuItem2 = New System.Windows.Forms.MenuItem
-        Me.mmiCut = New System.Windows.Forms.MenuItem
-        Me.mmiCopy = New System.Windows.Forms.MenuItem
-        Me.mmiPaste = New System.Windows.Forms.MenuItem
+        Me.mmiClose = New System.Windows.Forms.MenuItem
         Me.mmiHelp = New System.Windows.Forms.MenuItem
+        Me.mmiOnlineHelp = New System.Windows.Forms.MenuItem
         Me.TBEditFacilityLocation = New System.Windows.Forms.ToolBar
         Me.TbbSave = New System.Windows.Forms.ToolBarButton
-        Me.TbbBack = New System.Windows.Forms.ToolBarButton
         Me.llbCurrentData = New System.Windows.Forms.LinkLabel
         Me.txtKey = New System.Windows.Forms.TextBox
         Me.dgvFaciltiyInformaitonHistory = New System.Windows.Forms.DataGridView
@@ -202,53 +198,41 @@ Partial Class IAIPEditFacilityLocation
         '
         'MainMenu1
         '
-        Me.MainMenu1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.MenuItem1, Me.MenuItem2, Me.mmiHelp})
+        Me.MainMenu1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiFile, Me.mmiHelp})
         '
-        'MenuItem1
+        'mmiFile
         '
-        Me.MenuItem1.Index = 0
-        Me.MenuItem1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiSave, Me.mmiBack})
-        Me.MenuItem1.Text = "File"
+        Me.mmiFile.Index = 0
+        Me.mmiFile.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiSave, Me.mmiClose})
+        Me.mmiFile.Text = "&File"
         '
         'mmiSave
         '
         Me.mmiSave.Index = 0
-        Me.mmiSave.Text = "Save"
+        Me.mmiSave.Shortcut = System.Windows.Forms.Shortcut.CtrlS
+        Me.mmiSave.Text = "&Save"
         '
-        'mmiBack
+        'mmiClose
         '
-        Me.mmiBack.Index = 1
-        Me.mmiBack.Text = "Back"
-        '
-        'MenuItem2
-        '
-        Me.MenuItem2.Index = 1
-        Me.MenuItem2.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiCut, Me.mmiCopy, Me.mmiPaste})
-        Me.MenuItem2.Text = "Edit"
-        '
-        'mmiCut
-        '
-        Me.mmiCut.Index = 0
-        Me.mmiCut.Text = "Cut"
-        '
-        'mmiCopy
-        '
-        Me.mmiCopy.Index = 1
-        Me.mmiCopy.Text = "Copy"
-        '
-        'mmiPaste
-        '
-        Me.mmiPaste.Index = 2
-        Me.mmiPaste.Text = "Paste"
+        Me.mmiClose.Index = 1
+        Me.mmiClose.Shortcut = System.Windows.Forms.Shortcut.CtrlW
+        Me.mmiClose.Text = "&Close"
         '
         'mmiHelp
         '
-        Me.mmiHelp.Index = 2
-        Me.mmiHelp.Text = "Help"
+        Me.mmiHelp.Index = 1
+        Me.mmiHelp.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiOnlineHelp})
+        Me.mmiHelp.Text = "&Help"
+        '
+        'mmiOnlineHelp
+        '
+        Me.mmiOnlineHelp.Index = 0
+        Me.mmiOnlineHelp.Shortcut = System.Windows.Forms.Shortcut.F1
+        Me.mmiOnlineHelp.Text = "Online &Help"
         '
         'TBEditFacilityLocation
         '
-        Me.TBEditFacilityLocation.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.TbbSave, Me.TbbBack})
+        Me.TBEditFacilityLocation.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.TbbSave})
         Me.TBEditFacilityLocation.ButtonSize = New System.Drawing.Size(23, 22)
         Me.TBEditFacilityLocation.DropDownArrows = True
         Me.TBEditFacilityLocation.ImageList = Me.Image_List_All
@@ -263,12 +247,6 @@ Partial Class IAIPEditFacilityLocation
         Me.TbbSave.ImageIndex = 65
         Me.TbbSave.Name = "TbbSave"
         Me.TbbSave.ToolTipText = "Save"
-        '
-        'TbbBack
-        '
-        Me.TbbBack.ImageIndex = 2
-        Me.TbbBack.Name = "TbbBack"
-        Me.TbbBack.ToolTipText = "Back"
         '
         'llbCurrentData
         '
@@ -303,7 +281,6 @@ Partial Class IAIPEditFacilityLocation
         'txtComments
         '
         Me.txtComments.AcceptsReturn = True
-        Me.txtComments.BackColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.txtComments.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtComments.Location = New System.Drawing.Point(86, 187)
         Me.txtComments.MaxLength = 4000
@@ -345,7 +322,6 @@ Partial Class IAIPEditFacilityLocation
         '
         'txtFacilityName
         '
-        Me.txtFacilityName.BackColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.txtFacilityName.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtFacilityName.Location = New System.Drawing.Point(86, 55)
         Me.txtFacilityName.Name = "txtFacilityName"
@@ -365,7 +341,6 @@ Partial Class IAIPEditFacilityLocation
         '
         'txtStreetAddress
         '
-        Me.txtStreetAddress.BackColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.txtStreetAddress.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtStreetAddress.Location = New System.Drawing.Point(86, 81)
         Me.txtStreetAddress.MaxLength = 250
@@ -375,7 +350,6 @@ Partial Class IAIPEditFacilityLocation
         '
         'txtStreetAddress2
         '
-        Me.txtStreetAddress2.BackColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.txtStreetAddress2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtStreetAddress2.Location = New System.Drawing.Point(86, 107)
         Me.txtStreetAddress2.MaxLength = 250
@@ -437,7 +411,6 @@ Partial Class IAIPEditFacilityLocation
         '
         'txtFacilityCity
         '
-        Me.txtFacilityCity.BackColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.txtFacilityCity.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtFacilityCity.Location = New System.Drawing.Point(86, 133)
         Me.txtFacilityCity.Name = "txtFacilityCity"
@@ -446,7 +419,6 @@ Partial Class IAIPEditFacilityLocation
         '
         'txtFacilityLatitude
         '
-        Me.txtFacilityLatitude.BackColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.txtFacilityLatitude.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtFacilityLatitude.Location = New System.Drawing.Point(86, 159)
         Me.txtFacilityLatitude.MaxLength = 20
@@ -456,7 +428,6 @@ Partial Class IAIPEditFacilityLocation
         '
         'txtFacilityLongitude
         '
-        Me.txtFacilityLongitude.BackColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.txtFacilityLongitude.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtFacilityLongitude.Location = New System.Drawing.Point(267, 159)
         Me.txtFacilityLongitude.MaxLength = 20
@@ -466,7 +437,6 @@ Partial Class IAIPEditFacilityLocation
         '
         'txtFacilityState
         '
-        Me.txtFacilityState.BackColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.txtFacilityState.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtFacilityState.Location = New System.Drawing.Point(231, 133)
         Me.txtFacilityState.MaxLength = 2
@@ -557,17 +527,11 @@ Partial Class IAIPEditFacilityLocation
     Friend WithEvents Panel3 As System.Windows.Forms.ToolStripStatusLabel
     Friend WithEvents Image_List_All As System.Windows.Forms.ImageList
     Friend WithEvents MainMenu1 As System.Windows.Forms.MainMenu
-    Friend WithEvents MenuItem1 As System.Windows.Forms.MenuItem
+    Friend WithEvents mmiFile As System.Windows.Forms.MenuItem
     Friend WithEvents mmiSave As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiBack As System.Windows.Forms.MenuItem
-    Friend WithEvents MenuItem2 As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiCut As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiCopy As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiPaste As System.Windows.Forms.MenuItem
+    Friend WithEvents mmiClose As System.Windows.Forms.MenuItem
     Friend WithEvents mmiHelp As System.Windows.Forms.MenuItem
     Friend WithEvents TBEditFacilityLocation As System.Windows.Forms.ToolBar
-    Friend WithEvents TbbSave As System.Windows.Forms.ToolBarButton
-    Friend WithEvents TbbBack As System.Windows.Forms.ToolBarButton
     Friend WithEvents llbCurrentData As System.Windows.Forms.LinkLabel
     Friend WithEvents txtKey As System.Windows.Forms.TextBox
     Friend WithEvents dgvFaciltiyInformaitonHistory As System.Windows.Forms.DataGridView
@@ -592,4 +556,6 @@ Partial Class IAIPEditFacilityLocation
     Friend WithEvents txtAirsNumber As System.Windows.Forms.TextBox
     Friend WithEvents txtModifingComments As System.Windows.Forms.TextBox
     Friend WithEvents mtbFacilityZipCode As System.Windows.Forms.MaskedTextBox
+    Friend WithEvents mmiOnlineHelp As System.Windows.Forms.MenuItem
+    Friend WithEvents TbbSave As System.Windows.Forms.ToolBarButton
 End Class

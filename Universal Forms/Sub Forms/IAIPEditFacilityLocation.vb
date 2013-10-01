@@ -398,39 +398,9 @@ Public Class IAIPEditFacilityLocation
 
 
     End Sub
-    Sub Back()
-        Try
-
-            EditFacilityLocation = Nothing
-            Me.Close()
-
-        Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-
-    End Sub
 
 #End Region
 #Region "Declaration"
-    Private Sub TBEditFacilityLocation_ButtonClick(ByVal sender As System.Object, ByVal e As System.Windows.Forms.ToolBarButtonClickEventArgs) Handles TBEditFacilityLocation.ButtonClick
-        Try
-
-            Select Case TBEditFacilityLocation.Buttons.IndexOf(e.Button)
-                Case 0
-                    Save()
-                Case 1
-                    Back()
-            End Select
-        Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
     Private Sub APBEditFacilityLocation_Closing(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
         Try
 
@@ -566,72 +536,25 @@ Public Class IAIPEditFacilityLocation
         End Try
 
     End Sub
-#Region "Main Menu"
+#Region "Main Menu and Toolbar"
+
+    Private Sub TBEditFacilityLocation_ButtonClick(ByVal sender As System.Object, ByVal e As System.Windows.Forms.ToolBarButtonClickEventArgs) Handles TBEditFacilityLocation.ButtonClick
+        Select Case TBEditFacilityLocation.Buttons.IndexOf(e.Button)
+            Case 0
+                Save()
+        End Select
+    End Sub
+
     Private Sub mmiSave_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiSave.Click
-        Try
-
-            Save()
-        Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
+        Save()
     End Sub
-    Private Sub mmiBack_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiBack.Click
-        Try
 
-            Back()
-        Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
+    Private Sub mmiClose_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiClose.Click
+        Me.Close()
     End Sub
-    Private Sub mmiCut_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiCut.Click
-        Try
 
-            SendKeys.Send("(^X)")
-        Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub mmiCopy_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiCopy.Click
-        Try
-
-            SendKeys.Send("(^C)")
-        Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub mmiPaste_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiPaste.Click
-        Try
-
-            SendKeys.Send("(^V)")
-        Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub mmiHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiHelp.Click
-        Try
-
-            Help.ShowHelp(Label1, HelpUrl)
-        Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
+    Private Sub mmiOnlineHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiOnlineHelp.Click
+        OpenHelpUrl(Me)
     End Sub
 
 #End Region
@@ -651,4 +574,5 @@ Public Class IAIPEditFacilityLocation
         End Try
 
     End Sub
+
 End Class
