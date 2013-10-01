@@ -23,24 +23,12 @@ Partial Class IAIPEditContacts
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(IAIPEditContacts))
         Me.Image_List_All = New System.Windows.Forms.ImageList(Me.components)
         Me.MainMenu1 = New System.Windows.Forms.MainMenu(Me.components)
-        Me.MenuItem1 = New System.Windows.Forms.MenuItem
-        Me.MmiSave = New System.Windows.Forms.MenuItem
-        Me.MenuItem10 = New System.Windows.Forms.MenuItem
-        Me.MmiBack = New System.Windows.Forms.MenuItem
-        Me.MenuItem2 = New System.Windows.Forms.MenuItem
-        Me.mmiCut = New System.Windows.Forms.MenuItem
-        Me.mmiCopy = New System.Windows.Forms.MenuItem
-        Me.mmiPaste = New System.Windows.Forms.MenuItem
-        Me.MenuItem11 = New System.Windows.Forms.MenuItem
+        Me.mmiFile = New System.Windows.Forms.MenuItem
         Me.mmiClear = New System.Windows.Forms.MenuItem
-        Me.MenuItem3 = New System.Windows.Forms.MenuItem
-        Me.mmiViewEditWebContacts = New System.Windows.Forms.MenuItem
-        Me.mmiViewEditISMPContacts = New System.Windows.Forms.MenuItem
-        Me.mmiViewEditSSCPContacts = New System.Windows.Forms.MenuItem
-        Me.mmiViewEditSSPPContacts = New System.Windows.Forms.MenuItem
-        Me.mmiViewEditAllContact = New System.Windows.Forms.MenuItem
-        Me.mmiPlanningContact = New System.Windows.Forms.MenuItem
+        Me.MenuItem1 = New System.Windows.Forms.MenuItem
+        Me.mmiClose = New System.Windows.Forms.MenuItem
         Me.mmiHelp = New System.Windows.Forms.MenuItem
+        Me.mmiOnlineHelp = New System.Windows.Forms.MenuItem
         Me.ContextMenu1 = New System.Windows.Forms.ContextMenu
         Me.mmiViewEditWebContact = New System.Windows.Forms.MenuItem
         Me.mmiViewEditISMPContact = New System.Windows.Forms.MenuItem
@@ -48,60 +36,7 @@ Partial Class IAIPEditContacts
         Me.mmiViewEditSSPPContact = New System.Windows.Forms.MenuItem
         Me.mmiViewEditAllContacts = New System.Windows.Forms.MenuItem
         Me.mmiViewEditPlanningContacts = New System.Windows.Forms.MenuItem
-        Me.StatusStrip1 = New System.Windows.Forms.StatusStrip
-        Me.ToolStripProgressBar1 = New System.Windows.Forms.ToolStripProgressBar
-        Me.Panel1 = New System.Windows.Forms.ToolStripStatusLabel
-        Me.Panel2 = New System.Windows.Forms.ToolStripStatusLabel
-        Me.Panel3 = New System.Windows.Forms.ToolStripStatusLabel
-        Me.TBAddContacts = New System.Windows.Forms.ToolBar
-        Me.tbbSave = New System.Windows.Forms.ToolBarButton
-        Me.tbbView = New System.Windows.Forms.ToolBarButton
-        Me.tbbClear = New System.Windows.Forms.ToolBarButton
-        Me.tbbBack = New System.Windows.Forms.ToolBarButton
-        Me.txtContactKey = New System.Windows.Forms.TextBox
-        Me.clbContactKey = New System.Windows.Forms.CheckedListBox
-        Me.Label5 = New System.Windows.Forms.Label
-        Me.Label3 = New System.Windows.Forms.Label
-        Me.Label4 = New System.Windows.Forms.Label
-        Me.txtContactFirstName = New System.Windows.Forms.TextBox
-        Me.Label72 = New System.Windows.Forms.Label
-        Me.Label1 = New System.Windows.Forms.Label
-        Me.Label2 = New System.Windows.Forms.Label
-        Me.txtContactPedigree = New System.Windows.Forms.TextBox
-        Me.txtContactLastName = New System.Windows.Forms.TextBox
-        Me.txtContactSocialTitle = New System.Windows.Forms.TextBox
-        Me.Label71 = New System.Windows.Forms.Label
-        Me.txtContactTitle = New System.Windows.Forms.TextBox
-        Me.Label70 = New System.Windows.Forms.Label
-        Me.txtContactPhone1 = New System.Windows.Forms.TextBox
-        Me.txtContactAreaCode1 = New System.Windows.Forms.TextBox
-        Me.Label69 = New System.Windows.Forms.Label
-        Me.txtContactPhone2 = New System.Windows.Forms.TextBox
-        Me.txtContactAreaCode2 = New System.Windows.Forms.TextBox
-        Me.txtContactAreaCode3 = New System.Windows.Forms.TextBox
-        Me.Label68 = New System.Windows.Forms.Label
-        Me.txtContactFax = New System.Windows.Forms.TextBox
-        Me.Label74 = New System.Windows.Forms.Label
-        Me.txtContactCompanyName = New System.Windows.Forms.TextBox
-        Me.Label75 = New System.Windows.Forms.Label
-        Me.txtContactAddress = New System.Windows.Forms.TextBox
-        Me.txtContactAddress2 = New System.Windows.Forms.TextBox
-        Me.txtContactEmail = New System.Windows.Forms.TextBox
-        Me.Label67 = New System.Windows.Forms.Label
-        Me.Label380 = New System.Windows.Forms.Label
-        Me.txtContactDescription = New System.Windows.Forms.TextBox
-        Me.txtContactState = New System.Windows.Forms.TextBox
-        Me.txtContactZipCode = New System.Windows.Forms.TextBox
-        Me.txtContactCity = New System.Windows.Forms.TextBox
-        Me.Label73 = New System.Windows.Forms.Label
-        Me.Label6 = New System.Windows.Forms.Label
-        Me.lblKeySource = New System.Windows.Forms.Label
-        Me.txtAIRSNumber = New System.Windows.Forms.TextBox
         Me.dgvContacts = New System.Windows.Forms.DataGridView
-        Me.btnDeleteContact = New System.Windows.Forms.Button
-        Me.Panel4 = New System.Windows.Forms.Panel
-        Me.TCContactData = New System.Windows.Forms.TabControl
-        Me.TPOldMethod = New System.Windows.Forms.TabPage
         Me.TPNewMethod = New System.Windows.Forms.TabPage
         Me.Panel5 = New System.Windows.Forms.Panel
         Me.Panel6 = New System.Windows.Forms.Panel
@@ -148,14 +83,12 @@ Partial Class IAIPEditContacts
         Me.txtNewSuffix = New System.Windows.Forms.TextBox
         Me.txtNewPrefix = New System.Windows.Forms.TextBox
         Me.txtNewLastName = New System.Windows.Forms.TextBox
-        Me.StatusStrip1.SuspendLayout()
+        Me.TCContactData = New System.Windows.Forms.TabControl
         CType(Me.dgvContacts, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.Panel4.SuspendLayout()
-        Me.TCContactData.SuspendLayout()
-        Me.TPOldMethod.SuspendLayout()
         Me.TPNewMethod.SuspendLayout()
         Me.Panel5.SuspendLayout()
         Me.Panel6.SuspendLayout()
+        Me.TCContactData.SuspendLayout()
         Me.SuspendLayout()
         '
         'Image_List_All
@@ -250,100 +183,41 @@ Partial Class IAIPEditContacts
         '
         'MainMenu1
         '
-        Me.MainMenu1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.MenuItem1, Me.MenuItem2, Me.MenuItem3, Me.mmiHelp})
+        Me.MainMenu1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiFile, Me.mmiHelp})
         '
-        'MenuItem1
+        'mmiFile
         '
-        Me.MenuItem1.Index = 0
-        Me.MenuItem1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.MmiSave, Me.MenuItem10, Me.MmiBack})
-        Me.MenuItem1.Text = "File"
-        '
-        'MmiSave
-        '
-        Me.MmiSave.Index = 0
-        Me.MmiSave.Text = "Save"
-        '
-        'MenuItem10
-        '
-        Me.MenuItem10.Index = 1
-        Me.MenuItem10.Text = "-"
-        '
-        'MmiBack
-        '
-        Me.MmiBack.Index = 2
-        Me.MmiBack.Text = "Back"
-        '
-        'MenuItem2
-        '
-        Me.MenuItem2.Index = 1
-        Me.MenuItem2.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiCut, Me.mmiCopy, Me.mmiPaste, Me.MenuItem11, Me.mmiClear})
-        Me.MenuItem2.Text = "Edit"
-        '
-        'mmiCut
-        '
-        Me.mmiCut.Index = 0
-        Me.mmiCut.Text = "Cut"
-        '
-        'mmiCopy
-        '
-        Me.mmiCopy.Index = 1
-        Me.mmiCopy.Text = "Copy"
-        '
-        'mmiPaste
-        '
-        Me.mmiPaste.Index = 2
-        Me.mmiPaste.Text = "Paste"
-        '
-        'MenuItem11
-        '
-        Me.MenuItem11.Index = 3
-        Me.MenuItem11.Text = "-"
+        Me.mmiFile.Index = 0
+        Me.mmiFile.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiClear, Me.MenuItem1, Me.mmiClose})
+        Me.mmiFile.Text = "&File"
         '
         'mmiClear
         '
-        Me.mmiClear.Index = 4
-        Me.mmiClear.Text = "Clear"
+        Me.mmiClear.Index = 0
+        Me.mmiClear.Text = "Clear &Form"
         '
-        'MenuItem3
+        'MenuItem1
         '
-        Me.MenuItem3.Index = 2
-        Me.MenuItem3.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiViewEditWebContacts, Me.mmiViewEditISMPContacts, Me.mmiViewEditSSCPContacts, Me.mmiViewEditSSPPContacts, Me.mmiViewEditAllContact, Me.mmiPlanningContact})
-        Me.MenuItem3.Text = "Tool"
+        Me.MenuItem1.Index = 1
+        Me.MenuItem1.Text = "-"
         '
-        'mmiViewEditWebContacts
+        'mmiClose
         '
-        Me.mmiViewEditWebContacts.Index = 0
-        Me.mmiViewEditWebContacts.Text = "View/Edit Web Contact(s)"
-        '
-        'mmiViewEditISMPContacts
-        '
-        Me.mmiViewEditISMPContacts.Index = 1
-        Me.mmiViewEditISMPContacts.Text = "View/Edit ISMP Contact(s)"
-        '
-        'mmiViewEditSSCPContacts
-        '
-        Me.mmiViewEditSSCPContacts.Index = 2
-        Me.mmiViewEditSSCPContacts.Text = "View/Edit SSCP Contact(s)"
-        '
-        'mmiViewEditSSPPContacts
-        '
-        Me.mmiViewEditSSPPContacts.Index = 3
-        Me.mmiViewEditSSPPContacts.Text = "View/Edit SSPP Contact(s)"
-        '
-        'mmiViewEditAllContact
-        '
-        Me.mmiViewEditAllContact.Index = 4
-        Me.mmiViewEditAllContact.Text = "View/Edit All Contact(s)"
-        '
-        'mmiPlanningContact
-        '
-        Me.mmiPlanningContact.Index = 5
-        Me.mmiPlanningContact.Text = "View/Edit Planning && Support Contact(s)"
+        Me.mmiClose.Index = 2
+        Me.mmiClose.Shortcut = System.Windows.Forms.Shortcut.CtrlW
+        Me.mmiClose.Text = "&Close"
         '
         'mmiHelp
         '
-        Me.mmiHelp.Index = 3
-        Me.mmiHelp.Text = "Help"
+        Me.mmiHelp.Index = 1
+        Me.mmiHelp.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiOnlineHelp})
+        Me.mmiHelp.Text = "&Help"
+        '
+        'mmiOnlineHelp
+        '
+        Me.mmiOnlineHelp.Index = 0
+        Me.mmiOnlineHelp.Shortcut = System.Windows.Forms.Shortcut.F1
+        Me.mmiOnlineHelp.Text = "Online &Help"
         '
         'ContextMenu1
         '
@@ -379,520 +253,16 @@ Partial Class IAIPEditContacts
         Me.mmiViewEditPlanningContacts.Index = 5
         Me.mmiViewEditPlanningContacts.Text = "View/Edit Planning && Support Contact(s)"
         '
-        'StatusStrip1
-        '
-        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripProgressBar1, Me.Panel1, Me.Panel2, Me.Panel3})
-        Me.StatusStrip1.Location = New System.Drawing.Point(0, 660)
-        Me.StatusStrip1.Name = "StatusStrip1"
-        Me.StatusStrip1.Size = New System.Drawing.Size(792, 22)
-        Me.StatusStrip1.TabIndex = 201
-        Me.StatusStrip1.Text = "StatusStrip1"
-        '
-        'ToolStripProgressBar1
-        '
-        Me.ToolStripProgressBar1.Name = "ToolStripProgressBar1"
-        Me.ToolStripProgressBar1.Size = New System.Drawing.Size(100, 16)
-        '
-        'Panel1
-        '
-        Me.Panel1.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
-        Me.Panel1.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
-        Me.Panel1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
-        Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(667, 17)
-        Me.Panel1.Spring = True
-        Me.Panel1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'Panel2
-        '
-        Me.Panel2.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
-        Me.Panel2.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
-        Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(4, 17)
-        '
-        'Panel3
-        '
-        Me.Panel3.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
-        Me.Panel3.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
-        Me.Panel3.Name = "Panel3"
-        Me.Panel3.Size = New System.Drawing.Size(4, 17)
-        '
-        'TBAddContacts
-        '
-        Me.TBAddContacts.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.tbbSave, Me.tbbView, Me.tbbClear, Me.tbbBack})
-        Me.TBAddContacts.DropDownArrows = True
-        Me.TBAddContacts.ImageList = Me.Image_List_All
-        Me.TBAddContacts.Location = New System.Drawing.Point(0, 0)
-        Me.TBAddContacts.Name = "TBAddContacts"
-        Me.TBAddContacts.ShowToolTips = True
-        Me.TBAddContacts.Size = New System.Drawing.Size(792, 28)
-        Me.TBAddContacts.TabIndex = 202
-        '
-        'tbbSave
-        '
-        Me.tbbSave.ImageIndex = 65
-        Me.tbbSave.Name = "tbbSave"
-        Me.tbbSave.Visible = False
-        '
-        'tbbView
-        '
-        Me.tbbView.DropDownMenu = Me.ContextMenu1
-        Me.tbbView.ImageIndex = 3
-        Me.tbbView.Name = "tbbView"
-        Me.tbbView.Style = System.Windows.Forms.ToolBarButtonStyle.DropDownButton
-        Me.tbbView.Visible = False
-        '
-        'tbbClear
-        '
-        Me.tbbClear.ImageIndex = 84
-        Me.tbbClear.Name = "tbbClear"
-        Me.tbbClear.Visible = False
-        '
-        'tbbBack
-        '
-        Me.tbbBack.ImageIndex = 2
-        Me.tbbBack.Name = "tbbBack"
-        '
-        'txtContactKey
-        '
-        Me.txtContactKey.Location = New System.Drawing.Point(394, 70)
-        Me.txtContactKey.Name = "txtContactKey"
-        Me.txtContactKey.Size = New System.Drawing.Size(16, 20)
-        Me.txtContactKey.TabIndex = 239
-        Me.txtContactKey.Visible = False
-        '
-        'clbContactKey
-        '
-        Me.clbContactKey.CheckOnClick = True
-        Me.clbContactKey.Location = New System.Drawing.Point(465, 19)
-        Me.clbContactKey.Name = "clbContactKey"
-        Me.clbContactKey.Size = New System.Drawing.Size(224, 79)
-        Me.clbContactKey.TabIndex = 237
-        '
-        'Label5
-        '
-        Me.Label5.AutoSize = True
-        Me.Label5.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label5.Location = New System.Drawing.Point(396, 19)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(68, 13)
-        Me.Label5.TabIndex = 236
-        Me.Label5.Text = "Contact Key:"
-        '
-        'Label3
-        '
-        Me.Label3.AutoSize = True
-        Me.Label3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(45, 91)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(61, 13)
-        Me.Label3.TabIndex = 234
-        Me.Label3.Text = "Last Name:"
-        '
-        'Label4
-        '
-        Me.Label4.AutoSize = True
-        Me.Label4.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label4.Location = New System.Drawing.Point(54, 115)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(52, 13)
-        Me.Label4.TabIndex = 235
-        Me.Label4.Text = "Pedigree:"
-        '
-        'txtContactFirstName
-        '
-        Me.txtContactFirstName.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtContactFirstName.Location = New System.Drawing.Point(112, 65)
-        Me.txtContactFirstName.Name = "txtContactFirstName"
-        Me.txtContactFirstName.Size = New System.Drawing.Size(176, 20)
-        Me.txtContactFirstName.TabIndex = 204
-        '
-        'Label72
-        '
-        Me.Label72.AutoSize = True
-        Me.Label72.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label72.Location = New System.Drawing.Point(3, 25)
-        Me.Label72.Name = "Label72"
-        Me.Label72.Size = New System.Drawing.Size(78, 13)
-        Me.Label72.TabIndex = 222
-        Me.Label72.Text = "Contact Name:"
-        '
-        'Label1
-        '
-        Me.Label1.AutoSize = True
-        Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(44, 43)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(62, 13)
-        Me.Label1.TabIndex = 232
-        Me.Label1.Text = "Social Title:"
-        '
-        'Label2
-        '
-        Me.Label2.AutoSize = True
-        Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(44, 67)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(60, 13)
-        Me.Label2.TabIndex = 233
-        Me.Label2.Text = "First Name:"
-        '
-        'txtContactPedigree
-        '
-        Me.txtContactPedigree.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtContactPedigree.Location = New System.Drawing.Point(112, 113)
-        Me.txtContactPedigree.Name = "txtContactPedigree"
-        Me.txtContactPedigree.Size = New System.Drawing.Size(88, 20)
-        Me.txtContactPedigree.TabIndex = 206
-        '
-        'txtContactLastName
-        '
-        Me.txtContactLastName.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtContactLastName.Location = New System.Drawing.Point(112, 89)
-        Me.txtContactLastName.Name = "txtContactLastName"
-        Me.txtContactLastName.Size = New System.Drawing.Size(176, 20)
-        Me.txtContactLastName.TabIndex = 205
-        '
-        'txtContactSocialTitle
-        '
-        Me.txtContactSocialTitle.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtContactSocialTitle.Location = New System.Drawing.Point(112, 41)
-        Me.txtContactSocialTitle.Name = "txtContactSocialTitle"
-        Me.txtContactSocialTitle.Size = New System.Drawing.Size(88, 20)
-        Me.txtContactSocialTitle.TabIndex = 203
-        '
-        'Label71
-        '
-        Me.Label71.AutoSize = True
-        Me.Label71.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label71.Location = New System.Drawing.Point(3, 139)
-        Me.Label71.Name = "Label71"
-        Me.Label71.Size = New System.Drawing.Size(70, 13)
-        Me.Label71.TabIndex = 223
-        Me.Label71.Text = "Contact Title:"
-        '
-        'txtContactTitle
-        '
-        Me.txtContactTitle.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtContactTitle.Location = New System.Drawing.Point(112, 137)
-        Me.txtContactTitle.Name = "txtContactTitle"
-        Me.txtContactTitle.Size = New System.Drawing.Size(256, 20)
-        Me.txtContactTitle.TabIndex = 207
-        '
-        'Label70
-        '
-        Me.Label70.AutoSize = True
-        Me.Label70.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label70.Location = New System.Drawing.Point(391, 133)
-        Me.Label70.Name = "Label70"
-        Me.Label70.Size = New System.Drawing.Size(133, 13)
-        Me.Label70.TabIndex = 225
-        Me.Label70.Text = "Contact Phone Number 1: "
-        '
-        'txtContactPhone1
-        '
-        Me.txtContactPhone1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtContactPhone1.Location = New System.Drawing.Point(567, 129)
-        Me.txtContactPhone1.Name = "txtContactPhone1"
-        Me.txtContactPhone1.Size = New System.Drawing.Size(72, 20)
-        Me.txtContactPhone1.TabIndex = 215
-        '
-        'txtContactAreaCode1
-        '
-        Me.txtContactAreaCode1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtContactAreaCode1.Location = New System.Drawing.Point(530, 129)
-        Me.txtContactAreaCode1.Name = "txtContactAreaCode1"
-        Me.txtContactAreaCode1.Size = New System.Drawing.Size(31, 20)
-        Me.txtContactAreaCode1.TabIndex = 214
-        '
-        'Label69
-        '
-        Me.Label69.AutoSize = True
-        Me.Label69.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label69.Location = New System.Drawing.Point(391, 157)
-        Me.Label69.Name = "Label69"
-        Me.Label69.Size = New System.Drawing.Size(133, 13)
-        Me.Label69.TabIndex = 226
-        Me.Label69.Text = "Contact Phone Number 2: "
-        '
-        'txtContactPhone2
-        '
-        Me.txtContactPhone2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtContactPhone2.Location = New System.Drawing.Point(567, 153)
-        Me.txtContactPhone2.Name = "txtContactPhone2"
-        Me.txtContactPhone2.Size = New System.Drawing.Size(72, 20)
-        Me.txtContactPhone2.TabIndex = 217
-        '
-        'txtContactAreaCode2
-        '
-        Me.txtContactAreaCode2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtContactAreaCode2.Location = New System.Drawing.Point(530, 153)
-        Me.txtContactAreaCode2.Name = "txtContactAreaCode2"
-        Me.txtContactAreaCode2.Size = New System.Drawing.Size(31, 20)
-        Me.txtContactAreaCode2.TabIndex = 216
-        '
-        'txtContactAreaCode3
-        '
-        Me.txtContactAreaCode3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtContactAreaCode3.Location = New System.Drawing.Point(530, 177)
-        Me.txtContactAreaCode3.Name = "txtContactAreaCode3"
-        Me.txtContactAreaCode3.Size = New System.Drawing.Size(31, 20)
-        Me.txtContactAreaCode3.TabIndex = 218
-        '
-        'Label68
-        '
-        Me.Label68.AutoSize = True
-        Me.Label68.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label68.Location = New System.Drawing.Point(391, 181)
-        Me.Label68.Name = "Label68"
-        Me.Label68.Size = New System.Drawing.Size(107, 13)
-        Me.Label68.TabIndex = 227
-        Me.Label68.Text = "Contact Fax Number:"
-        '
-        'txtContactFax
-        '
-        Me.txtContactFax.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtContactFax.Location = New System.Drawing.Point(567, 177)
-        Me.txtContactFax.Name = "txtContactFax"
-        Me.txtContactFax.Size = New System.Drawing.Size(72, 20)
-        Me.txtContactFax.TabIndex = 219
-        '
-        'Label74
-        '
-        Me.Label74.AutoSize = True
-        Me.Label74.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label74.Location = New System.Drawing.Point(3, 163)
-        Me.Label74.Name = "Label74"
-        Me.Label74.Size = New System.Drawing.Size(94, 13)
-        Me.Label74.TabIndex = 224
-        Me.Label74.Text = "Contact Company:"
-        '
-        'txtContactCompanyName
-        '
-        Me.txtContactCompanyName.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtContactCompanyName.Location = New System.Drawing.Point(112, 161)
-        Me.txtContactCompanyName.Name = "txtContactCompanyName"
-        Me.txtContactCompanyName.Size = New System.Drawing.Size(256, 20)
-        Me.txtContactCompanyName.TabIndex = 208
-        '
-        'Label75
-        '
-        Me.Label75.AutoSize = True
-        Me.Label75.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label75.Location = New System.Drawing.Point(3, 187)
-        Me.Label75.Name = "Label75"
-        Me.Label75.Size = New System.Drawing.Size(88, 13)
-        Me.Label75.TabIndex = 229
-        Me.Label75.Text = "Contact Address:"
-        '
-        'txtContactAddress
-        '
-        Me.txtContactAddress.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtContactAddress.Location = New System.Drawing.Point(112, 185)
-        Me.txtContactAddress.Name = "txtContactAddress"
-        Me.txtContactAddress.Size = New System.Drawing.Size(256, 20)
-        Me.txtContactAddress.TabIndex = 209
-        '
-        'txtContactAddress2
-        '
-        Me.txtContactAddress2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtContactAddress2.Location = New System.Drawing.Point(112, 209)
-        Me.txtContactAddress2.Name = "txtContactAddress2"
-        Me.txtContactAddress2.Size = New System.Drawing.Size(256, 20)
-        Me.txtContactAddress2.TabIndex = 210
-        '
-        'txtContactEmail
-        '
-        Me.txtContactEmail.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtContactEmail.Location = New System.Drawing.Point(530, 201)
-        Me.txtContactEmail.Name = "txtContactEmail"
-        Me.txtContactEmail.Size = New System.Drawing.Size(224, 20)
-        Me.txtContactEmail.TabIndex = 220
-        '
-        'Label67
-        '
-        Me.Label67.AutoSize = True
-        Me.Label67.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label67.Location = New System.Drawing.Point(391, 205)
-        Me.Label67.Name = "Label67"
-        Me.Label67.Size = New System.Drawing.Size(75, 13)
-        Me.Label67.TabIndex = 228
-        Me.Label67.Text = "Contact Email:"
-        '
-        'Label380
-        '
-        Me.Label380.AutoSize = True
-        Me.Label380.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label380.Location = New System.Drawing.Point(391, 229)
-        Me.Label380.Name = "Label380"
-        Me.Label380.Size = New System.Drawing.Size(103, 13)
-        Me.Label380.TabIndex = 231
-        Me.Label380.Text = "Contact Description:"
-        '
-        'txtContactDescription
-        '
-        Me.txtContactDescription.AcceptsReturn = True
-        Me.txtContactDescription.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtContactDescription.Location = New System.Drawing.Point(530, 225)
-        Me.txtContactDescription.Multiline = True
-        Me.txtContactDescription.Name = "txtContactDescription"
-        Me.txtContactDescription.Size = New System.Drawing.Size(224, 44)
-        Me.txtContactDescription.TabIndex = 221
-        '
-        'txtContactState
-        '
-        Me.txtContactState.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtContactState.Location = New System.Drawing.Point(263, 233)
-        Me.txtContactState.Name = "txtContactState"
-        Me.txtContactState.Size = New System.Drawing.Size(28, 20)
-        Me.txtContactState.TabIndex = 212
-        '
-        'txtContactZipCode
-        '
-        Me.txtContactZipCode.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtContactZipCode.Location = New System.Drawing.Point(297, 233)
-        Me.txtContactZipCode.Name = "txtContactZipCode"
-        Me.txtContactZipCode.Size = New System.Drawing.Size(71, 20)
-        Me.txtContactZipCode.TabIndex = 213
-        '
-        'txtContactCity
-        '
-        Me.txtContactCity.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtContactCity.Location = New System.Drawing.Point(112, 233)
-        Me.txtContactCity.Name = "txtContactCity"
-        Me.txtContactCity.Size = New System.Drawing.Size(145, 20)
-        Me.txtContactCity.TabIndex = 211
-        '
-        'Label73
-        '
-        Me.Label73.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label73.Location = New System.Drawing.Point(3, 227)
-        Me.Label73.Name = "Label73"
-        Me.Label73.Size = New System.Drawing.Size(112, 32)
-        Me.Label73.TabIndex = 230
-        Me.Label73.Text = "Contact City/State/Zip Code:"
-        '
-        'Label6
-        '
-        Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(3, 3)
-        Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(84, 13)
-        Me.Label6.TabIndex = 241
-        Me.Label6.Text = "Contact Source:"
-        '
-        'lblKeySource
-        '
-        Me.lblKeySource.AutoSize = True
-        Me.lblKeySource.Location = New System.Drawing.Point(85, 3)
-        Me.lblKeySource.Name = "lblKeySource"
-        Me.lblKeySource.Size = New System.Drawing.Size(41, 13)
-        Me.lblKeySource.TabIndex = 240
-        Me.lblKeySource.Text = "Source"
-        '
-        'txtAIRSNumber
-        '
-        Me.txtAIRSNumber.Location = New System.Drawing.Point(6, 46)
-        Me.txtAIRSNumber.Name = "txtAIRSNumber"
-        Me.txtAIRSNumber.Size = New System.Drawing.Size(8, 20)
-        Me.txtAIRSNumber.TabIndex = 242
-        Me.txtAIRSNumber.Visible = False
-        '
         'dgvContacts
         '
         Me.dgvContacts.AllowUserToOrderColumns = True
         Me.dgvContacts.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvContacts.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.dgvContacts.Location = New System.Drawing.Point(0, 359)
+        Me.dgvContacts.Location = New System.Drawing.Point(0, 331)
         Me.dgvContacts.Name = "dgvContacts"
         Me.dgvContacts.ReadOnly = True
-        Me.dgvContacts.Size = New System.Drawing.Size(792, 301)
+        Me.dgvContacts.Size = New System.Drawing.Size(792, 351)
         Me.dgvContacts.TabIndex = 243
-        '
-        'btnDeleteContact
-        '
-        Me.btnDeleteContact.AutoSize = True
-        Me.btnDeleteContact.Location = New System.Drawing.Point(465, 102)
-        Me.btnDeleteContact.Name = "btnDeleteContact"
-        Me.btnDeleteContact.Size = New System.Drawing.Size(133, 23)
-        Me.btnDeleteContact.TabIndex = 244
-        Me.btnDeleteContact.Text = "Delete Selected Contact"
-        Me.btnDeleteContact.UseVisualStyleBackColor = True
-        '
-        'Panel4
-        '
-        Me.Panel4.Controls.Add(Me.Label6)
-        Me.Panel4.Controls.Add(Me.btnDeleteContact)
-        Me.Panel4.Controls.Add(Me.lblKeySource)
-        Me.Panel4.Controls.Add(Me.Label73)
-        Me.Panel4.Controls.Add(Me.txtContactKey)
-        Me.Panel4.Controls.Add(Me.txtAIRSNumber)
-        Me.Panel4.Controls.Add(Me.clbContactKey)
-        Me.Panel4.Controls.Add(Me.txtContactCity)
-        Me.Panel4.Controls.Add(Me.Label5)
-        Me.Panel4.Controls.Add(Me.Label70)
-        Me.Panel4.Controls.Add(Me.txtContactZipCode)
-        Me.Panel4.Controls.Add(Me.txtContactPhone1)
-        Me.Panel4.Controls.Add(Me.txtContactState)
-        Me.Panel4.Controls.Add(Me.txtContactAreaCode1)
-        Me.Panel4.Controls.Add(Me.txtContactAddress2)
-        Me.Panel4.Controls.Add(Me.Label69)
-        Me.Panel4.Controls.Add(Me.Label3)
-        Me.Panel4.Controls.Add(Me.txtContactPhone2)
-        Me.Panel4.Controls.Add(Me.txtContactAddress)
-        Me.Panel4.Controls.Add(Me.txtContactAreaCode2)
-        Me.Panel4.Controls.Add(Me.Label4)
-        Me.Panel4.Controls.Add(Me.txtContactAreaCode3)
-        Me.Panel4.Controls.Add(Me.Label75)
-        Me.Panel4.Controls.Add(Me.Label68)
-        Me.Panel4.Controls.Add(Me.txtContactFirstName)
-        Me.Panel4.Controls.Add(Me.txtContactFax)
-        Me.Panel4.Controls.Add(Me.txtContactCompanyName)
-        Me.Panel4.Controls.Add(Me.txtContactEmail)
-        Me.Panel4.Controls.Add(Me.Label72)
-        Me.Panel4.Controls.Add(Me.Label67)
-        Me.Panel4.Controls.Add(Me.Label74)
-        Me.Panel4.Controls.Add(Me.Label380)
-        Me.Panel4.Controls.Add(Me.Label1)
-        Me.Panel4.Controls.Add(Me.txtContactDescription)
-        Me.Panel4.Controls.Add(Me.txtContactTitle)
-        Me.Panel4.Controls.Add(Me.Label2)
-        Me.Panel4.Controls.Add(Me.Label71)
-        Me.Panel4.Controls.Add(Me.txtContactPedigree)
-        Me.Panel4.Controls.Add(Me.txtContactSocialTitle)
-        Me.Panel4.Controls.Add(Me.txtContactLastName)
-        Me.Panel4.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Panel4.Location = New System.Drawing.Point(3, 3)
-        Me.Panel4.Name = "Panel4"
-        Me.Panel4.Size = New System.Drawing.Size(778, 299)
-        Me.Panel4.TabIndex = 245
-        '
-        'TCContactData
-        '
-        Me.TCContactData.Controls.Add(Me.TPOldMethod)
-        Me.TCContactData.Controls.Add(Me.TPNewMethod)
-        Me.TCContactData.Dock = System.Windows.Forms.DockStyle.Top
-        Me.TCContactData.Location = New System.Drawing.Point(0, 28)
-        Me.TCContactData.Name = "TCContactData"
-        Me.TCContactData.SelectedIndex = 0
-        Me.TCContactData.Size = New System.Drawing.Size(792, 331)
-        Me.TCContactData.TabIndex = 246
-        '
-        'TPOldMethod
-        '
-        Me.TPOldMethod.Controls.Add(Me.Panel4)
-        Me.TPOldMethod.Location = New System.Drawing.Point(4, 22)
-        Me.TPOldMethod.Name = "TPOldMethod"
-        Me.TPOldMethod.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPOldMethod.Size = New System.Drawing.Size(784, 305)
-        Me.TPOldMethod.TabIndex = 0
-        Me.TPOldMethod.UseVisualStyleBackColor = True
         '
         'TPNewMethod
         '
@@ -1376,6 +746,16 @@ Partial Class IAIPEditContacts
         Me.txtNewLastName.Size = New System.Drawing.Size(176, 20)
         Me.txtNewLastName.TabIndex = 205
         '
+        'TCContactData
+        '
+        Me.TCContactData.Controls.Add(Me.TPNewMethod)
+        Me.TCContactData.Dock = System.Windows.Forms.DockStyle.Top
+        Me.TCContactData.Location = New System.Drawing.Point(0, 0)
+        Me.TCContactData.Name = "TCContactData"
+        Me.TCContactData.SelectedIndex = 0
+        Me.TCContactData.Size = New System.Drawing.Size(792, 331)
+        Me.TCContactData.TabIndex = 246
+        '
         'IAIPEditContacts
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1383,110 +763,54 @@ Partial Class IAIPEditContacts
         Me.ClientSize = New System.Drawing.Size(792, 682)
         Me.Controls.Add(Me.dgvContacts)
         Me.Controls.Add(Me.TCContactData)
-        Me.Controls.Add(Me.TBAddContacts)
-        Me.Controls.Add(Me.StatusStrip1)
         Me.Menu = Me.MainMenu1
         Me.Name = "IAIPEditContacts"
         Me.Text = "Add/Edit Contact(s) Information"
-        Me.StatusStrip1.ResumeLayout(False)
-        Me.StatusStrip1.PerformLayout()
         CType(Me.dgvContacts, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.Panel4.ResumeLayout(False)
-        Me.Panel4.PerformLayout()
-        Me.TCContactData.ResumeLayout(False)
-        Me.TPOldMethod.ResumeLayout(False)
         Me.TPNewMethod.ResumeLayout(False)
         Me.Panel5.ResumeLayout(False)
         Me.Panel5.PerformLayout()
         Me.Panel6.ResumeLayout(False)
         Me.Panel6.PerformLayout()
+        Me.TCContactData.ResumeLayout(False)
         Me.ResumeLayout(False)
-        Me.PerformLayout()
 
     End Sub
     Friend WithEvents Image_List_All As System.Windows.Forms.ImageList
     Friend WithEvents MainMenu1 As System.Windows.Forms.MainMenu
-    Friend WithEvents MenuItem1 As System.Windows.Forms.MenuItem
-    Friend WithEvents MmiSave As System.Windows.Forms.MenuItem
-    Friend WithEvents MenuItem10 As System.Windows.Forms.MenuItem
-    Friend WithEvents MmiBack As System.Windows.Forms.MenuItem
-    Friend WithEvents MenuItem2 As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiCut As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiCopy As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiPaste As System.Windows.Forms.MenuItem
-    Friend WithEvents MenuItem11 As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiClear As System.Windows.Forms.MenuItem
-    Friend WithEvents MenuItem3 As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiViewEditWebContacts As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiViewEditISMPContacts As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiViewEditSSCPContacts As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiViewEditSSPPContacts As System.Windows.Forms.MenuItem
+    Friend WithEvents mmiFile As System.Windows.Forms.MenuItem
+    Friend WithEvents mmiClose As System.Windows.Forms.MenuItem
     Friend WithEvents mmiHelp As System.Windows.Forms.MenuItem
     Friend WithEvents ContextMenu1 As System.Windows.Forms.ContextMenu
     Friend WithEvents mmiViewEditWebContact As System.Windows.Forms.MenuItem
     Friend WithEvents mmiViewEditISMPContact As System.Windows.Forms.MenuItem
     Friend WithEvents mmiViewEditSSCPContact As System.Windows.Forms.MenuItem
     Friend WithEvents mmiViewEditSSPPContact As System.Windows.Forms.MenuItem
-    Friend WithEvents StatusStrip1 As System.Windows.Forms.StatusStrip
-    Friend WithEvents ToolStripProgressBar1 As System.Windows.Forms.ToolStripProgressBar
-    Friend WithEvents Panel1 As System.Windows.Forms.ToolStripStatusLabel
-    Friend WithEvents Panel2 As System.Windows.Forms.ToolStripStatusLabel
-    Friend WithEvents Panel3 As System.Windows.Forms.ToolStripStatusLabel
-    Friend WithEvents TBAddContacts As System.Windows.Forms.ToolBar
-    Friend WithEvents tbbSave As System.Windows.Forms.ToolBarButton
-    Friend WithEvents tbbView As System.Windows.Forms.ToolBarButton
-    Friend WithEvents tbbClear As System.Windows.Forms.ToolBarButton
-    Friend WithEvents tbbBack As System.Windows.Forms.ToolBarButton
-    Friend WithEvents txtContactKey As System.Windows.Forms.TextBox
-    Friend WithEvents clbContactKey As System.Windows.Forms.CheckedListBox
-    Friend WithEvents Label5 As System.Windows.Forms.Label
-    Friend WithEvents Label3 As System.Windows.Forms.Label
-    Friend WithEvents Label4 As System.Windows.Forms.Label
-    Friend WithEvents txtContactFirstName As System.Windows.Forms.TextBox
-    Friend WithEvents Label72 As System.Windows.Forms.Label
-    Friend WithEvents Label1 As System.Windows.Forms.Label
-    Friend WithEvents Label2 As System.Windows.Forms.Label
-    Friend WithEvents txtContactPedigree As System.Windows.Forms.TextBox
-    Friend WithEvents txtContactLastName As System.Windows.Forms.TextBox
-    Friend WithEvents txtContactSocialTitle As System.Windows.Forms.TextBox
-    Friend WithEvents Label71 As System.Windows.Forms.Label
-    Friend WithEvents txtContactTitle As System.Windows.Forms.TextBox
-    Friend WithEvents Label70 As System.Windows.Forms.Label
-    Friend WithEvents txtContactPhone1 As System.Windows.Forms.TextBox
-    Friend WithEvents txtContactAreaCode1 As System.Windows.Forms.TextBox
-    Friend WithEvents Label69 As System.Windows.Forms.Label
-    Friend WithEvents txtContactPhone2 As System.Windows.Forms.TextBox
-    Friend WithEvents txtContactAreaCode2 As System.Windows.Forms.TextBox
-    Friend WithEvents txtContactAreaCode3 As System.Windows.Forms.TextBox
-    Friend WithEvents Label68 As System.Windows.Forms.Label
-    Friend WithEvents txtContactFax As System.Windows.Forms.TextBox
-    Friend WithEvents Label74 As System.Windows.Forms.Label
-    Friend WithEvents txtContactCompanyName As System.Windows.Forms.TextBox
-    Friend WithEvents Label75 As System.Windows.Forms.Label
-    Friend WithEvents txtContactAddress As System.Windows.Forms.TextBox
-    Friend WithEvents txtContactAddress2 As System.Windows.Forms.TextBox
-    Friend WithEvents txtContactEmail As System.Windows.Forms.TextBox
-    Friend WithEvents Label67 As System.Windows.Forms.Label
-    Friend WithEvents Label380 As System.Windows.Forms.Label
-    Friend WithEvents txtContactDescription As System.Windows.Forms.TextBox
-    Friend WithEvents txtContactState As System.Windows.Forms.TextBox
-    Friend WithEvents txtContactZipCode As System.Windows.Forms.TextBox
-    Friend WithEvents txtContactCity As System.Windows.Forms.TextBox
-    Friend WithEvents Label73 As System.Windows.Forms.Label
-    Friend WithEvents Label6 As System.Windows.Forms.Label
-    Friend WithEvents lblKeySource As System.Windows.Forms.Label
-    Friend WithEvents txtAIRSNumber As System.Windows.Forms.TextBox
     Friend WithEvents dgvContacts As System.Windows.Forms.DataGridView
-    Friend WithEvents btnDeleteContact As System.Windows.Forms.Button
     Friend WithEvents mmiViewEditAllContacts As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiViewEditAllContact As System.Windows.Forms.MenuItem
     Friend WithEvents mmiViewEditPlanningContacts As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiPlanningContact As System.Windows.Forms.MenuItem
-    Friend WithEvents Panel4 As System.Windows.Forms.Panel
-    Friend WithEvents TCContactData As System.Windows.Forms.TabControl
-    Friend WithEvents TPOldMethod As System.Windows.Forms.TabPage
+    Friend WithEvents mmiOnlineHelp As System.Windows.Forms.MenuItem
+    Friend WithEvents mmiClear As System.Windows.Forms.MenuItem
+    Friend WithEvents MenuItem1 As System.Windows.Forms.MenuItem
     Friend WithEvents TPNewMethod As System.Windows.Forms.TabPage
     Friend WithEvents Panel5 As System.Windows.Forms.Panel
+    Friend WithEvents Panel6 As System.Windows.Forms.Panel
+    Friend WithEvents rdbNewDistrictContact As System.Windows.Forms.RadioButton
+    Friend WithEvents rdbNewPlanningContact As System.Windows.Forms.RadioButton
+    Friend WithEvents rdbNewAmbientContact As System.Windows.Forms.RadioButton
+    Friend WithEvents rdbNewESContact As System.Windows.Forms.RadioButton
+    Friend WithEvents rdbNewPermittingContact As System.Windows.Forms.RadioButton
+    Friend WithEvents rdbNewEISContact As System.Windows.Forms.RadioButton
+    Friend WithEvents rdbNewFeeContact As System.Windows.Forms.RadioButton
+    Friend WithEvents rdbNewComplianceContact As System.Windows.Forms.RadioButton
+    Friend WithEvents rdbNewMonitoringContact As System.Windows.Forms.RadioButton
+    Friend WithEvents btnNewClear As System.Windows.Forms.Button
+    Friend WithEvents btnNewUpdate As System.Windows.Forms.Button
+    Friend WithEvents btnNewSave As System.Windows.Forms.Button
+    Friend WithEvents mtbNewFaxNumber As System.Windows.Forms.MaskedTextBox
+    Friend WithEvents mtbNewPhoneNumber2 As System.Windows.Forms.MaskedTextBox
+    Friend WithEvents mtbNewZipCode As System.Windows.Forms.MaskedTextBox
+    Friend WithEvents mtbNewPhoneNumber As System.Windows.Forms.MaskedTextBox
     Friend WithEvents Label9 As System.Windows.Forms.Label
     Friend WithEvents txtNewKey As System.Windows.Forms.TextBox
     Friend WithEvents txtNewAIRSnumber As System.Windows.Forms.TextBox
@@ -1514,21 +838,5 @@ Partial Class IAIPEditContacts
     Friend WithEvents txtNewSuffix As System.Windows.Forms.TextBox
     Friend WithEvents txtNewPrefix As System.Windows.Forms.TextBox
     Friend WithEvents txtNewLastName As System.Windows.Forms.TextBox
-    Friend WithEvents mtbNewFaxNumber As System.Windows.Forms.MaskedTextBox
-    Friend WithEvents mtbNewPhoneNumber2 As System.Windows.Forms.MaskedTextBox
-    Friend WithEvents mtbNewZipCode As System.Windows.Forms.MaskedTextBox
-    Friend WithEvents mtbNewPhoneNumber As System.Windows.Forms.MaskedTextBox
-    Friend WithEvents btnNewUpdate As System.Windows.Forms.Button
-    Friend WithEvents btnNewSave As System.Windows.Forms.Button
-    Friend WithEvents btnNewClear As System.Windows.Forms.Button
-    Friend WithEvents Panel6 As System.Windows.Forms.Panel
-    Friend WithEvents rdbNewComplianceContact As System.Windows.Forms.RadioButton
-    Friend WithEvents rdbNewMonitoringContact As System.Windows.Forms.RadioButton
-    Friend WithEvents rdbNewDistrictContact As System.Windows.Forms.RadioButton
-    Friend WithEvents rdbNewPlanningContact As System.Windows.Forms.RadioButton
-    Friend WithEvents rdbNewAmbientContact As System.Windows.Forms.RadioButton
-    Friend WithEvents rdbNewESContact As System.Windows.Forms.RadioButton
-    Friend WithEvents rdbNewPermittingContact As System.Windows.Forms.RadioButton
-    Friend WithEvents rdbNewEISContact As System.Windows.Forms.RadioButton
-    Friend WithEvents rdbNewFeeContact As System.Windows.Forms.RadioButton
+    Friend WithEvents TCContactData As System.Windows.Forms.TabControl
 End Class
