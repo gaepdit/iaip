@@ -31,7 +31,6 @@ Public Class IAIPFacilitySummary
             Panel1.Text = ""
             Panel2.Text = UserName
             Panel3.Text = OracleDate
-            TBFacilitySummary.Buttons.Item(0).Visible = False
 
             TCFacilitySummary.TabPages.Remove(TPContactInformation)
             TCFacilitySummary.TabPages.Remove(TPEmissionInventory)
@@ -82,22 +81,18 @@ Public Class IAIPFacilitySummary
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-#Region "Misc Code"
+
     Sub LoadPermissions()
         Try
 
 
             mmiISMP.Visible = False
-            mmiSubISMP.Visible = False
             mmiSSCP.Visible = False
-            mmiSubSSCP.Visible = False
             mmiEditContactInformation.Visible = False
-            mmiSubAddEditContacts.Visible = False
 
             Select Case UserBranch
                 Case "1" 'Air Protection
                     mmiEditContactInformation.Visible = True
-                    mmiSubAddEditContacts.Visible = True
                     Select Case UserProgram
                         Case "1" 'Mobile & Area
 
@@ -105,7 +100,6 @@ Public Class IAIPFacilitySummary
 
                         Case "3" 'ISMP 
                             mmiISMP.Visible = True
-                            mmiSubISMP.Visible = True
 
                             If UserUnit = "---" Then 'Program Manager
                                 mmiISMPNewReport.Visible = True
@@ -114,7 +108,6 @@ Public Class IAIPFacilitySummary
                                 llbClosePrintTestReport.Visible = True
                                 mmiISMPClosePrint.Visible = True
                                 mmiISMPNewReport.Visible = True
-                                mmiEditData.Visible = True
                                 mmiSeperator.Visible = True
                             Else
                                 If AccountArray(17, 3) = "1" Then 'Unit Manager 
@@ -124,7 +117,6 @@ Public Class IAIPFacilitySummary
                                     llbClosePrintTestReport.Visible = False
                                     mmiISMPClosePrint.Visible = False
                                     mmiISMPNewReport.Visible = False
-                                    mmiEditData.Visible = False
                                     mmiSeperator.Visible = False
                                 Else
                                     If AccountArray(68, 3) = "1" Then 'ISMP Administrator
@@ -134,7 +126,6 @@ Public Class IAIPFacilitySummary
                                         llbClosePrintTestReport.Visible = True
                                         mmiISMPClosePrint.Visible = True
                                         mmiISMPNewReport.Visible = True
-                                        mmiEditData.Visible = False
                                         mmiSeperator.Visible = False
                                     Else
                                         If AccountArray(68, 2) = "1" Then 'ISMP Specialist
@@ -144,7 +135,6 @@ Public Class IAIPFacilitySummary
                                             llbClosePrintTestReport.Visible = False
                                             mmiISMPClosePrint.Visible = True
                                             mmiISMPNewReport.Visible = True
-                                            mmiEditData.Visible = False
                                             mmiSeperator.Visible = False
                                         Else
                                             mmiISMPNewReport.Visible = False
@@ -153,7 +143,6 @@ Public Class IAIPFacilitySummary
                                             llbClosePrintTestReport.Visible = False
                                             mmiISMPClosePrint.Visible = False
                                             mmiISMPNewReport.Visible = False
-                                            mmiEditData.Visible = False
                                             mmiSeperator.Visible = False
                                         End If
                                     End If
@@ -161,7 +150,6 @@ Public Class IAIPFacilitySummary
                             End If
                         Case "4" 'SSCP
                             mmiSSCP.Visible = True
-                            mmiSubSSCP.Visible = True
 
                             If UserUnit = "---" Then 'Program Manager 
                                 'mmiSSCPAssignEngineer.Visible = True
@@ -187,8 +175,7 @@ Public Class IAIPFacilitySummary
                                 End If
                             End If
                         Case "5" 'SSPP 
-                            mmiSSPP.Visible = True
-                            mmisubSSPP.Visible = True
+
                         Case "6" 'Ambient 
 
                     End Select
@@ -222,113 +209,22 @@ Public Class IAIPFacilitySummary
 
 
     End Sub
+
     Sub LoadToolBars()
-        Try
+        pnlLocationEditor.Visible = False
+        pnlEditHeaderData.Visible = False
 
-            pnlLocationEditior.Visible = False
-            pnlEditHeaderData.Visible = False
-            pnlEditContactData.Visible = True
-
-            If mmiStandard.Checked = True Then
-                'TBFacilitySummary.Buttons.Item(0).Visible = True
-                TBFacilitySummary.Buttons.Item(1).Visible = True
-                TBFacilitySummary.Buttons.Item(2).Visible = True
-                TBFacilitySummary.Buttons.Item(3).Visible = True
-                TBFacilitySummary.Buttons.Item(4).Visible = True
-                TBFacilitySummary.Buttons.Item(5).Visible = True
-                TBFacilitySummary.Buttons.Item(6).Visible = True
-                TBFacilitySummary.Buttons.Item(7).Visible = False
-            Else
-                TBFacilitySummary.Buttons.Item(0).Visible = False
-                TBFacilitySummary.Buttons.Item(1).Visible = False
-                TBFacilitySummary.Buttons.Item(2).Visible = False
-                TBFacilitySummary.Buttons.Item(3).Visible = False
-                TBFacilitySummary.Buttons.Item(4).Visible = False
-                TBFacilitySummary.Buttons.Item(5).Visible = False
-                TBFacilitySummary.Buttons.Item(6).Visible = False
-                TBFacilitySummary.Buttons.Item(7).Visible = False
-            End If
-
-            'Shows the Edit Data button to PM2's Only
-            If UserUnit = "---" Or AccountArray(22, 3) = "1" Then
-                'TBFacilitySummary.Buttons.Item(0).Visible = True
-                pnlLocationEditior.Visible = True
-                pnlEditHeaderData.Visible = True
-            Else
-                TBFacilitySummary.Buttons.Item(0).Visible = False
-            End If
-
-            If UserProgram = "4" And AccountArray(22, 3) = "1" Then
-                'TBFacilitySummary.Buttons.Item(0).Visible = True
-                pnlLocationEditior.Visible = True
-                pnlEditHeaderData.Visible = True
-            End If
-
-            If mmiSubAddEditContacts.Checked = True Then
-                TBFacilitySummary.Buttons.Item(8).Visible = True
-            Else
-                TBFacilitySummary.Buttons.Item(8).Visible = False
-            End If
-            If mmiSubISMP.Checked = True Then
-                If (UserUnit = "---" And AccountArray(17, 3) = "1") Or AccountArray(68, 3) = "1" Then
-                    TBFacilitySummary.Buttons.Item(9).Visible = True
-                    TBFacilitySummary.Buttons.Item(10).Visible = True
-                End If
-                TBFacilitySummary.Buttons.Item(11).Visible = True
-                TBFacilitySummary.Buttons.Item(12).Visible = False
-                TBFacilitySummary.Buttons.Item(13).Visible = True
-            Else
-                TBFacilitySummary.Buttons.Item(9).Visible = False
-                TBFacilitySummary.Buttons.Item(10).Visible = False
-                TBFacilitySummary.Buttons.Item(11).Visible = False
-                TBFacilitySummary.Buttons.Item(12).Visible = False
-                TBFacilitySummary.Buttons.Item(13).Visible = False
-            End If
-
-            If mmiSubSSCP.Checked = True Then
-                If AccountArray(24, 3) = "1" Then
-                    TBFacilitySummary.Buttons.Item(14).Visible = True
-                End If
-                TBFacilitySummary.Buttons.Item(15).Visible = True
-                TBFacilitySummary.Buttons.Item(16).Visible = True
-            Else
-                TBFacilitySummary.Buttons.Item(14).Visible = False
-                TBFacilitySummary.Buttons.Item(15).Visible = False
-                TBFacilitySummary.Buttons.Item(16).Visible = False
-            End If
-            If mmisubSSPP.Checked = True Then
-                TBFacilitySummary.Buttons.Item(17).Visible = True
-            Else
-                TBFacilitySummary.Buttons.Item(17).Visible = False
-            End If
-
-            If AccountArray(22, 3) = "1" Then
-            Else
-                TBFacilitySummary.Buttons.Item(0).Visible = False
-            End If
-
-            If AccountArray(1, 3) = "1" Then
-                'TBFacilitySummary.Buttons.Item(0).Visible = True
-                pnlLocationEditior.Visible = True
-                pnlEditHeaderData.Visible = True
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
+        If UserUnit = "---" Or AccountArray(22, 3) = "1" Or AccountArray(1, 3) = "1" Then
+            pnlLocationEditor.Visible = True
+            pnlEditHeaderData.Visible = True
+        End If
     End Sub
+
     Sub ClearPage()
-        Try
-            mtbAIRSNumber.Clear()
-            ClearForm()
-
-        Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        ClearForm()
+        mtbAIRSNumber.Clear()
     End Sub
+
     Sub ClearForm()
         Try
             txtFacilityName.Clear()
@@ -415,6 +311,7 @@ Public Class IAIPFacilitySummary
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
     Private Sub IAIPFacilitySummary_Closing(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
         Try
 
@@ -437,501 +334,33 @@ Public Class IAIPFacilitySummary
             mtbAIRSNumber.Text = Value
         End Set
     End Property
-    Private Sub TBFacilitySummary_ButtonClick(ByVal sender As System.Object, ByVal e As System.Windows.Forms.ToolBarButtonClickEventArgs) Handles TBFacilitySummary.ButtonClick
+
+    Private Sub OpenEditContactInformationTool()
         Try
-
-            Select Case TBFacilitySummary.Buttons.IndexOf(e.Button)
-                Case 0
-                    SaveAll()
-                Case 1
-                    If FacilityLookUpTool Is Nothing Then
-                        If FacilityLookUpTool Is Nothing Then FacilityLookUpTool = New IAIPFacilityLookUpTool
-                        FacilityLookUpTool.Show()
-                    Else
-                        FacilityLookUpTool.Dispose()
-                        FacilityLookUpTool = New IAIPFacilityLookUpTool
-                        If FacilityLookUpTool Is Nothing Then FacilityLookUpTool = New IAIPFacilityLookUpTool
-                        FacilityLookUpTool.Show()
-                    End If
-                    FacilityLookUpTool.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
-                Case 2
-                    SendKeys.Send("^X")
-                Case 3
-                    SendKeys.Send("^C")
-                Case 4
-                    SendKeys.Send("^V")
-                Case 5
-                    ClearPage()
-                    mtbAIRSNumber.Clear()
-                Case 6
-                    Me.Hide()
-                Case 7
-                    Me.Close()
-                Case 8
-                    If NavigationScreen.pnl4.Text = "TESTING ENVIRONMENT" Then
-                        If EditContacts2 Is Nothing Then
-                            If EditContacts2 Is Nothing Then EditContacts2 = New DEVEditContacts
-                            EditContacts2.mtbAIRSNumber.Text = mtbAIRSNumber.Text
-                            EditContacts2.Show()
-                        Else
-                            EditContacts2.Dispose()
-                            EditContacts2 = DEVEditContacts
-                            If EditContacts2 Is Nothing Then EditContacts2 = DEVEditContacts
-                            EditContacts2.mtbAIRSNumber.Text = mtbAIRSNumber.Text
-                            EditContacts2.Show()
-                        End If
-                        EditContacts2.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
-                    Else
-                        If EditContacts Is Nothing Then
-                            If EditContacts Is Nothing Then EditContacts = New IAIPEditContacts
-                            EditContacts.txtAIRSNumber.Text = mtbAIRSNumber.Text
-                            EditContacts.Show()
-                        Else
-                            EditContacts.Dispose()
-                            EditContacts = IAIPEditContacts
-                            If EditContacts Is Nothing Then EditContacts = IAIPEditContacts
-                            EditContacts.txtAIRSNumber.Text = mtbAIRSNumber.Text
-                            EditContacts.Show()
-                        End If
-                        EditContacts.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
-                    End If
-
-
-                Case 9
-                    If mtbAIRSNumber.Text.Length <> 8 Then
-                        MsgBox("Please Enter a valid AIRS Number.", MsgBoxStyle.Information, "Facility Summary Warning")
-                    Else
-                        If txtFacilityName.Text = "" Then
-                            MsgBox("Please verify that the AIRS Number is correct", MsgBoxStyle.Information, "Facility Summary")
-                        Else
-                            ISMPTestReportInfo = Nothing
-                            If ISMPTestReportInfo Is Nothing Then ISMPTestReportInfo = New ISMPFacilityInfo
-                            ISMPTestReportInfo.txtAIRSNumber.Text = Me.mtbAIRSNumber.Text
-                            ISMPTestReportInfo.txtFacilityName.Text = Me.txtFacilityName.Text
-                            ISMPTestReportInfo.Show()
-                            ISMPTestReportInfo.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
-                        End If
-                    End If
-                Case 10
-                    If txtReferenceNumber.Text <> "" Then
-                        SQL = "Select " & DBNameSpace & ".ISMPDocumentType.strDocumentType " & _
-                         "from " & DBNameSpace & ".ISMPDocumentType, " & DBNameSpace & ".ISMPReportInformation " & _
-                         "where " & DBNameSpace & ".ISMPReportInformation.strDocumentType = " & DBNameSpace & ".ISMPDocumentType.strKey and " & _
-                         "strReferenceNumber = '" & txtReferenceNumber.Text & "'"
-                        Dim cmd As New OracleCommand(SQL, Conn)
-                        If Conn.State = ConnectionState.Closed Then
-                            Conn.Open()
-                        End If
-                        Dim dr As OracleDataReader = cmd.ExecuteReader
-                        Dim recExist As Boolean = dr.Read
-                        If recExist = True Then
-                            ISMPCloseAndPrint = Nothing
-                            If ISMPCloseAndPrint Is Nothing Then ISMPCloseAndPrint = New ISMPClosePrint
-                            ISMPCloseAndPrint.txtTestReportType.Text = dr.Item("strDocumentType")
-                            ISMPCloseAndPrint.txtReferenceNumber.Text = txtReferenceNumber.Text
-                            ISMPCloseAndPrint.txtAIRSNumber.Text = mtbAIRSNumber.Text
-                            ISMPCloseAndPrint.txtFacilityName.Text = txtFacilityName.Text
-                            ISMPCloseAndPrint.txtOrigin.Text = "Facility Summary"
-                            ISMPCloseAndPrint.Show()
-                            ISMPCloseAndPrint.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
-                        End If
-                    End If
-                Case 11
-                    If mtbAIRSNumber.Text.Length <> 8 Then
-                        MsgBox("Please Enter a valid AIRS Number.", MsgBoxStyle.Information, "Facility Summary Warning")
-                    Else
-                        If txtFacilityName.Text = "" Then
-                            MsgBox("Please verify that the AIRS Number is correct", MsgBoxStyle.Information, "Facility Summary")
-                        Else
-                            DevTestLog = Nothing
-                            If DevTestLog Is Nothing Then DevTestLog = New ISMPNotificationLog
-                            DevTestLog.txtTestNotificationNumber.Text = Me.txtTestingNumber.Text
-                            DevTestLog.Show()
-                            DevTestLog.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
-                        End If
-                    End If
-                Case 12
-                    If mtbAIRSNumber.Text.Length <> 8 Then
-                        MsgBox("Please Enter a valid AIRS Number.", MsgBoxStyle.Information, "Facility Summary Warning")
-                    Else
-                        If txtFacilityName.Text = "" Then
-                            MsgBox("Please verify that the AIRS Number is correct", MsgBoxStyle.Information, "Facility Summary Warning")
-                        Else
-                            MsgBox("UnderConstruction")
-                        End If
-                    End If
-                Case 13
-                    ISMPMemoEdit = Nothing
-                    If ISMPMemoEdit Is Nothing Then ISMPMemoEdit = New ISMPMemo
-                    ISMPMemoEdit.txtReferenceNumber.Text = Me.txtReferenceNumber.Text
-                    ISMPMemoEdit.Show()
-                    ISMPMemoEdit.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
-                Case 14
-                    If mtbAIRSNumber.Text.Length <> 8 Then
-                        MsgBox("Please Enter a valid AIRS Number.", MsgBoxStyle.Information, "Facility Summary Warning")
-                    Else
-                        If txtFacilityName.Text = "" Then
-                            MsgBox("Please verify that the AIRS Number is correct", MsgBoxStyle.Information, "Facility Summary")
-                        Else
-                            SSCPFacAssign = Nothing
-                            If SSCPFacAssign Is Nothing Then SSCPFacAssign = New SSCPFacAssignment
-                            SSCPFacAssign.txtFacilityName.Text = Me.txtFacilityName.Text
-                            SSCPFacAssign.txtAIRSNumber.Text = Me.mtbAIRSNumber.Text
-                            SSCPFacAssign.Show()
-                            SSCPFacAssign.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
-                        End If
-                    End If
-                Case 15
-                    If mtbAIRSNumber.Text.Length <> 8 Then
-                        MsgBox("Please Enter a valid AIRS Number.", MsgBoxStyle.Information, "Facility Summary Warning")
-                    Else
-                        If txtFacilityName.Text = "" Then
-                            MsgBox("Please verify that the AIRS Number is correct", MsgBoxStyle.Information, "Facility Summary Warning")
-                        Else
-                            SSCPEngWork = Nothing
-                            If SSCPEngWork Is Nothing Then SSCPEngWork = New SSCPWorkEnTry
-                            SSCPEngWork.txtFacilityName.Text = Me.txtFacilityName.Text
-                            SSCPEngWork.txtAIRSNumber.Text = Me.mtbAIRSNumber.Text
-                            SSCPEngWork.Show()
-                            SSCPEngWork.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
-                        End If
-                    End If
-                Case 16
-                    ViewFCE()
-                Case 17
-
-                Case 18
-                    If mtbAIRSNumber.Text = "" Or mtbAIRSNumber.Text.Length <> 8 Then
-                        MsgBox("Enter a valid AIRS # first", MsgBoxStyle.Information, "Facility Summary")
-                        Exit Sub
-                    End If
-                    If FacilityPrintOut Is Nothing Then
-                        If FacilityPrintOut Is Nothing Then FacilityPrintOut = New IaipFacilitySummaryPrint
-                        FacilityPrintOut.Show()
-                    Else
-                        FacilityPrintOut.Dispose()
-                        FacilityPrintOut = New IaipFacilitySummaryPrint
-                        If FacilityPrintOut Is Nothing Then FacilityPrintOut = New IaipFacilitySummaryPrint
-                        FacilityPrintOut.Show()
-                    End If
-                    FacilityPrintOut.AirsNumber.Text = mtbAIRSNumber.Text
-                    FacilityPrintOut.FacilityName.Text = txtFacilityName.Text
-
-                    FacilityPrintOut.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
-                Case Else
-                    MsgBox("try clicking again", MsgBoxStyle.Information, "Facility Summary Toolbar Warning")
-            End Select
-
-        Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Sub SaveAll()
-        Try
-
-            If mtbAIRSNumber.Text.Length = 8 And Me.txtFacilityName.Text <> "" Then
-                If (UserUnit = "---" And UserBranch = "1") Or AccountArray(22, 3) = "1" Then
-                    If pnlLocationEditior.Visible = True Then
-                        If EditFacilityLocation Is Nothing Then
-                            EditFacilityLocation = New IAIPEditFacilityLocation
-                            EditFacilityLocation.txtAirsNumber.Text = mtbAIRSNumber.Text
-                            EditFacilityLocation.Show()
-                        Else
-                            EditFacilityLocation.txtAirsNumber.Text = mtbAIRSNumber.Text
-                            EditFacilityLocation.Show()
-                            EditFacilityLocation.BringToFront()
-                        End If
-                        EditFacilityLocation.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
-                    End If
-                End If
-                If (UserUnit = "---" And UserBranch = "1") Or AccountArray(22, 3) = "1" Then
-                    If pnlEditHeaderData.Visible = True Then
-                        If EditHeaderData Is Nothing Then
-                            EditHeaderData = New IAIPEditHeaderData
-                            EditHeaderData.txtAirsNumber.Text = mtbAIRSNumber.Text
-                            EditHeaderData.txtFacilityName.Text = txtFacilityName.Text
-                            EditHeaderData.Show()
-                        Else
-                            EditHeaderData.txtAirsNumber.Text = mtbAIRSNumber.Text
-                            EditHeaderData.txtFacilityName.Text = txtFacilityName.Text
-                            EditHeaderData.Show()
-                            EditHeaderData.BringToFront()
-                        End If
-                        EditHeaderData.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
-                    End If
-                End If
-
-                If pnlEditContactData.Visible = True Then
-                    If NavigationScreen.pnl4.Text = "TESTING ENVIRONMENT" Then
-                        If EditContacts2 Is Nothing Then
-                            If EditContacts2 Is Nothing Then EditContacts2 = New DEVEditContacts
-                            EditContacts2.mtbAIRSNumber.Text = mtbAIRSNumber.Text
-                            EditContacts2.Show()
-                        Else
-                            EditContacts2.Dispose()
-                            EditContacts2 = DEVEditContacts
-                            If EditContacts2 Is Nothing Then EditContacts2 = DEVEditContacts
-                            EditContacts2.mtbAIRSNumber.Text = mtbAIRSNumber.Text
-                            EditContacts2.Show()
-                        End If
-                        EditContacts2.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
-                    Else
-                        If EditContacts Is Nothing Then
-                            If EditContacts Is Nothing Then EditContacts = New IAIPEditContacts
-                            EditContacts.txtAIRSNumber.Text = mtbAIRSNumber.Text
-                            EditContacts.Show()
-                        Else
-                            EditContacts.Dispose()
-                            EditContacts = IAIPEditContacts
-                            If EditContacts Is Nothing Then EditContacts = IAIPEditContacts
-                            EditContacts.txtAIRSNumber.Text = mtbAIRSNumber.Text
-                            EditContacts.Show()
-                        End If
-                        EditContacts.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
-                    End If
-                End If
-
-            End If
-        Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub mmiCut_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiCut.Click
-        Try
-
-            SendKeys.Send("(^X)")
-        Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub mmiCopy_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiCopy.Click
-        Try
-
-            SendKeys.Send("(^C)")
-        Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub mmiPaste_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiPaste.Click
-        Try
-
-            SendKeys.Send("(^V)")
-        Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub mmiHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiHelp.Click
-        Try
-
-            Help.ShowHelp(Label1, HelpUrl)
-        Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub mmiClear_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiClear.Click
-        Try
-
-            ClearPage()
-            mtbAIRSNumber.Clear()
-
-        Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub mmiLookUpTool_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiLookUpTool.Click
-        Try
-
-            If FacilityLookUpTool Is Nothing Then
-                If FacilityLookUpTool Is Nothing Then FacilityLookUpTool = New IAIPFacilityLookUpTool
-                FacilityLookUpTool.Show()
-            Else
-                FacilityLookUpTool.Dispose()
-                FacilityLookUpTool = New IAIPFacilityLookUpTool
-                If FacilityLookUpTool Is Nothing Then FacilityLookUpTool = New IAIPFacilityLookUpTool
-                FacilityLookUpTool.Show()
-            End If
-            FacilityLookUpTool.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
-        Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub mmiISMPAddMemo_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiISMPAddMemo.Click
-        Try
-
-            ISMPMemoEdit = Nothing
-            If ISMPMemoEdit Is Nothing Then ISMPMemoEdit = New ISMPMemo
-            ISMPMemoEdit.txtReferenceNumber.Text = Me.txtReferenceNumber.Text
-            ISMPMemoEdit.Show()
-            ISMPMemoEdit.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
-
-        Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub mmiISMPClosePrint_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiISMPClosePrint.Click
-        Try
-
-            If txtReferenceNumber.Text <> "" Then
-                SQL = "Select " & DBNameSpace & ".ISMPDocumentType.strDocumentType " & _
-                 "from " & DBNameSpace & ".ISMPDocumentType, " & DBNameSpace & ".ISMPReportInformation " & _
-                 "where " & DBNameSpace & ".ISMPReportInformation.strDocumentType = " & DBNameSpace & ".ISMPDocumentType.strKey and " & _
-                 "strReferenceNumber = '" & txtReferenceNumber.Text & "'"
-                Dim cmd As New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
-                End If
-                Dim dr As OracleDataReader = cmd.ExecuteReader
-                Dim recExist As Boolean = dr.Read
-                If recExist = True Then
-                    ISMPCloseAndPrint = Nothing
-                    If ISMPCloseAndPrint Is Nothing Then ISMPCloseAndPrint = New ISMPClosePrint
-                    ISMPCloseAndPrint.txtTestReportType.Text = dr.Item("strDocumentType")
-                    ISMPCloseAndPrint.txtReferenceNumber.Text = txtReferenceNumber.Text
-                    ISMPCloseAndPrint.txtAIRSNumber.Text = mtbAIRSNumber.Text
-                    ISMPCloseAndPrint.txtFacilityName.Text = txtFacilityName.Text
-                    ISMPCloseAndPrint.txtOrigin.Text = "Facility Summary"
-                    ISMPCloseAndPrint.Show()
-                    ISMPCloseAndPrint.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
-                End If
-            End If
-        Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub mmiEditContactInformation_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiEditContactInformation.Click
-        Try
-
             If NavigationScreen.pnl4.Text = "TESTING ENVIRONMENT" Then
-                If EditContacts2 Is Nothing Then
-                    If EditContacts2 Is Nothing Then EditContacts2 = New DEVEditContacts
-                    EditContacts2.mtbAIRSNumber.Text = mtbAIRSNumber.Text
-                    EditContacts2.Show()
-                Else
+                If Not EditContacts2 Is Nothing Then
                     EditContacts2.Dispose()
-                    EditContacts2 = DEVEditContacts
-                    If EditContacts2 Is Nothing Then EditContacts2 = DEVEditContacts
-                    EditContacts2.mtbAIRSNumber.Text = mtbAIRSNumber.Text
-                    EditContacts2.Show()
                 End If
+                EditContacts2 = New DEVEditContacts
+                EditContacts2.mtbAIRSNumber.Text = mtbAIRSNumber.Text
+                EditContacts2.Show()
                 EditContacts2.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
             Else
-                If EditContacts Is Nothing Then
-                    If EditContacts Is Nothing Then EditContacts = New IAIPEditContacts
-                    EditContacts.txtAIRSNumber.Text = mtbAIRSNumber.Text
-                    EditContacts.Show()
-                Else
+                If Not EditContacts Is Nothing Then
                     EditContacts.Dispose()
-                    EditContacts = IAIPEditContacts
-                    If EditContacts Is Nothing Then EditContacts = IAIPEditContacts
-                    EditContacts.txtAIRSNumber.Text = mtbAIRSNumber.Text
-                    EditContacts.Show()
                 End If
+                EditContacts = New IAIPEditContacts
+                EditContacts.txtAIRSNumber.Text = mtbAIRSNumber.Text
+                EditContacts.Show()
                 EditContacts.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
             End If
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
-    Private Sub mmiStandard_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiStandard.Click
+
+    Private Sub OpenFacilityLookupTool()
         Try
-
-            If mmiStandard.Checked = True Then
-                mmiStandard.Checked = False
-            Else
-                mmiStandard.Checked = True
-            End If
-            LoadToolBars()
-        Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub mmiSubISMP_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiSubISMP.Click
-        Try
-
-            If mmiSubISMP.Checked = True Then
-                mmiSubISMP.Checked = False
-            Else
-                mmiSubISMP.Checked = True
-            End If
-            LoadToolBars()
-        Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub mmiSubSSCP_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiSubSSCP.Click
-        Try
-
-            If mmiSubSSCP.Checked = True Then
-                mmiSubSSCP.Checked = False
-            Else
-                mmiSubSSCP.Checked = True
-            End If
-            LoadToolBars()
-        Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub mmiSubAddEditContacts_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiSubAddEditContacts.Click
-        Try
-
-            If mmiSubAddEditContacts.Checked = True Then
-                mmiSubAddEditContacts.Checked = False
-            Else
-                mmiSubAddEditContacts.Checked = True
-            End If
-            LoadToolBars()
-        Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub MmiBack_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiBack.Click
-        Try
-
             If FacilityLookUpTool Is Nothing Then
                 If FacilityLookUpTool Is Nothing Then FacilityLookUpTool = New IAIPFacilityLookUpTool
                 FacilityLookUpTool.Show()
@@ -944,33 +373,9 @@ Public Class IAIPFacilitySummary
             FacilityLookUpTool.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
-    Private Sub mmiEditData_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiEditData.Click
-        Try
 
-            SaveAll()
-        Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub mmisubSSPP_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmisubSSPP.Click
-        Try
-
-            LoadToolBars()
-        Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
     Private Sub mtbAIRSNumber_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles mtbAIRSNumber.KeyPress
         Try
 
@@ -1151,7 +556,7 @@ Public Class IAIPFacilitySummary
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub mmiPrintFacilitySummary_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiPrintFacilitySummary.Click
+    Private Sub OpenFacilitySummaryPrintTool()
         Try
             If mtbAIRSNumber.Text = "" Or mtbAIRSNumber.Text.Length <> 8 Then
                 MsgBox("Enter a valid AIRS # first", MsgBoxStyle.Information, "Facility Summary")
@@ -1175,7 +580,6 @@ Public Class IAIPFacilitySummary
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-#End Region
 
     Sub LoadInitialData()
         Try
@@ -5071,9 +4475,10 @@ Public Class IAIPFacilitySummary
         End Try
     End Sub
 
+#Region "SSCP Menu"
+
     Private Sub mmiSSCPAssignEngineer_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiSSCPAssignEngineer.Click
         Try
-
             If mtbAIRSNumber.Text.Length <> 8 Then
                 MsgBox("Please Enter a valid AIRS Number.", MsgBoxStyle.Information, "Facility Summary Warning")
             Else
@@ -5090,14 +4495,11 @@ Public Class IAIPFacilitySummary
             End If
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
+
     Private Sub mmiSSCPNewWork_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiSSCPNewWork.Click
         Try
-
             If mtbAIRSNumber.Text.Length <> 8 Then
                 MsgBox("Please Enter a valid AIRS Number.", MsgBoxStyle.Information, "Facility Summary Warning")
             Else
@@ -5114,22 +4516,20 @@ Public Class IAIPFacilitySummary
             End If
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
+
     Private Sub mmiSSCPFCE_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiSSCPFCE.Click
         Try
-
             ViewFCE()
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
+
+#End Region
+
+#Region "ISMP Menu"
 
     Private Sub mmiISMPNewReport_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiISMPNewReport.Click
         Try
@@ -5150,15 +4550,41 @@ Public Class IAIPFacilitySummary
             End If
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
+    End Sub
 
+    Private Sub mmiISMPClosePrint_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiISMPClosePrint.Click
+        Try
+            If txtReferenceNumber.Text <> "" Then
+                SQL = "Select " & DBNameSpace & ".ISMPDocumentType.strDocumentType " & _
+                 "from " & DBNameSpace & ".ISMPDocumentType, " & DBNameSpace & ".ISMPReportInformation " & _
+                 "where " & DBNameSpace & ".ISMPReportInformation.strDocumentType = " & DBNameSpace & ".ISMPDocumentType.strKey and " & _
+                 "strReferenceNumber = '" & txtReferenceNumber.Text & "'"
+                Dim cmd As New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
+                End If
+                Dim dr As OracleDataReader = cmd.ExecuteReader
+                Dim recExist As Boolean = dr.Read
+                If recExist = True Then
+                    ISMPCloseAndPrint = Nothing
+                    If ISMPCloseAndPrint Is Nothing Then ISMPCloseAndPrint = New ISMPClosePrint
+                    ISMPCloseAndPrint.txtTestReportType.Text = dr.Item("strDocumentType")
+                    ISMPCloseAndPrint.txtReferenceNumber.Text = txtReferenceNumber.Text
+                    ISMPCloseAndPrint.txtAIRSNumber.Text = mtbAIRSNumber.Text
+                    ISMPCloseAndPrint.txtFacilityName.Text = txtFacilityName.Text
+                    ISMPCloseAndPrint.txtOrigin.Text = "Facility Summary"
+                    ISMPCloseAndPrint.Show()
+                    ISMPCloseAndPrint.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+                End If
+            End If
+        Catch ex As Exception
+            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+        End Try
     End Sub
 
     Private Sub mmiISMPNewLogEnTry_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiISMPNewLogEnTry.Click
         Try
-
             If mtbAIRSNumber.Text.Length <> 8 Then
                 MsgBox("Please Enter a valid AIRS Number.", MsgBoxStyle.Information, "Facility Summary Warning")
             Else
@@ -5174,15 +4600,11 @@ Public Class IAIPFacilitySummary
             End If
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
 
     Private Sub mmiISMPTestLogLink_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiISMPTestLogLink.Click
         Try
-
             If mtbAIRSNumber.Text.Length <> 8 Then
                 MsgBox("Please Enter a valid AIRS Number.", MsgBoxStyle.Information, "Facility Summary Warning")
             Else
@@ -5194,26 +4616,25 @@ Public Class IAIPFacilitySummary
             End If
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
 
-
-    Private Sub mmiNewFacility_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiNewFacility.Click
+    Private Sub mmiISMPAddMemo_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiISMPAddMemo.Click
         Try
-            FacilityCreator = Nothing
-            If FacilityCreator Is Nothing Then FacilityCreator = New IAIPFacilityCreator
-            FacilityCreator.Show()
-            FacilityCreator.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+            ISMPMemoEdit = Nothing
+            If ISMPMemoEdit Is Nothing Then ISMPMemoEdit = New ISMPMemo
+            ISMPMemoEdit.txtReferenceNumber.Text = Me.txtReferenceNumber.Text
+            ISMPMemoEdit.Show()
+            ISMPMemoEdit.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
 
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
         End Try
     End Sub
 
+#End Region
+
+#Region "AFS Updates"
     Private Sub mmiAddAFS_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiAddAFS.Click
         Try
             SQL = "Update " & DBNameSpace & ".AFSFacilityData set " & _
@@ -5445,6 +4866,57 @@ Public Class IAIPFacilitySummary
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+#End Region
 
+#Region "Menu and toolbar"
+
+    Private Sub TBFacilitySummary_ButtonClick(ByVal sender As System.Object, ByVal e As System.Windows.Forms.ToolBarButtonClickEventArgs) Handles TBFacilitySummary.ButtonClick
+        Select Case TBFacilitySummary.Buttons.IndexOf(e.Button)
+            Case 0
+                OpenFacilityLookupTool()
+            Case 1
+                ClearPage()
+            Case 2
+                OpenFacilitySummaryPrintTool()
+        End Select
+    End Sub
+
+    Private Sub mmiFacilityLookup_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiFacilityLookup.Click
+        OpenFacilityLookupTool()
+    End Sub
+
+    Private Sub mmiPrintFacilitySummary_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiPrintFacilitySummary.Click
+        OpenFacilitySummaryPrintTool()
+    End Sub
+
+    Private Sub mmiClear_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiClear.Click
+        ClearPage()
+    End Sub
+
+    Private Sub mmiClose_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiClose.Click
+        If Not FacilityLookUpTool Is Nothing Then FacilityLookUpTool.Dispose()
+        Me.Close()
+    End Sub
+
+    Private Sub mmiEditContactInformation_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiEditContactInformation.Click
+        OpenEditContactInformationTool()
+    End Sub
+
+    Private Sub mmiNewFacility_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiNewFacility.Click
+        Try
+            FacilityCreator = Nothing
+            If FacilityCreator Is Nothing Then FacilityCreator = New IAIPFacilityCreator
+            FacilityCreator.Show()
+            FacilityCreator.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+        Catch ex As Exception
+            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+        End Try
+    End Sub
+
+    Private Sub mmiOnlineHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiOnlineHelp.Click
+        OpenHelpUrl(Me)
+    End Sub
+
+#End Region
 
 End Class

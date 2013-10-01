@@ -35,31 +35,16 @@ Partial Class IAIPFacilitySummary
         Dim DataGridViewCellStyle19 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
         Dim DataGridViewCellStyle20 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
         Me.MainMenu1 = New System.Windows.Forms.MainMenu(Me.components)
-        Me.MenuItem1 = New System.Windows.Forms.MenuItem
-        Me.MmiBack = New System.Windows.Forms.MenuItem
+        Me.mmiFile = New System.Windows.Forms.MenuItem
+        Me.mmiFacilityLookup = New System.Windows.Forms.MenuItem
         Me.mmiPrintFacilitySummary = New System.Windows.Forms.MenuItem
-        Me.MenuItem2 = New System.Windows.Forms.MenuItem
-        Me.mmiCut = New System.Windows.Forms.MenuItem
-        Me.mmiCopy = New System.Windows.Forms.MenuItem
-        Me.mmiPaste = New System.Windows.Forms.MenuItem
-        Me.MenuItem5 = New System.Windows.Forms.MenuItem
         Me.mmiClear = New System.Windows.Forms.MenuItem
-        Me.MenuItem3 = New System.Windows.Forms.MenuItem
-        Me.MenuItem11 = New System.Windows.Forms.MenuItem
-        Me.mmiStandard = New System.Windows.Forms.MenuItem
-        Me.mmiSubISMP = New System.Windows.Forms.MenuItem
-        Me.mmiSubSSCP = New System.Windows.Forms.MenuItem
-        Me.mmisubSSPP = New System.Windows.Forms.MenuItem
-        Me.mmiSubAddEditContacts = New System.Windows.Forms.MenuItem
-        Me.MenuItem4 = New System.Windows.Forms.MenuItem
-        Me.mmiLookUpTool = New System.Windows.Forms.MenuItem
-        Me.MenuItem8 = New System.Windows.Forms.MenuItem
+        Me.MenuItem12 = New System.Windows.Forms.MenuItem
+        Me.mmiClose = New System.Windows.Forms.MenuItem
+        Me.mmiTools = New System.Windows.Forms.MenuItem
         Me.mmiEditContactInformation = New System.Windows.Forms.MenuItem
         Me.mmiSeperator = New System.Windows.Forms.MenuItem
-        Me.mmiEditData = New System.Windows.Forms.MenuItem
-        Me.MenuItem9 = New System.Windows.Forms.MenuItem
         Me.mmiNewFacility = New System.Windows.Forms.MenuItem
-        Me.MenuItem13 = New System.Windows.Forms.MenuItem
         Me.MenuItem14 = New System.Windows.Forms.MenuItem
         Me.mmiAddAFS = New System.Windows.Forms.MenuItem
         Me.mmiUpdateAFSData = New System.Windows.Forms.MenuItem
@@ -75,8 +60,8 @@ Partial Class IAIPFacilitySummary
         Me.mmiSSCPAssignEngineer = New System.Windows.Forms.MenuItem
         Me.mmiSSCPNewWork = New System.Windows.Forms.MenuItem
         Me.mmiSSCPFCE = New System.Windows.Forms.MenuItem
-        Me.mmiSSPP = New System.Windows.Forms.MenuItem
         Me.mmiHelp = New System.Windows.Forms.MenuItem
+        Me.mmiOnlineHelp = New System.Windows.Forms.MenuItem
         Me.TTFacilitySummary = New System.Windows.Forms.ToolTip(Me.components)
         Me.llbViewAll = New System.Windows.Forms.LinkLabel
         Me.txtFacilityName = New System.Windows.Forms.TextBox
@@ -98,24 +83,8 @@ Partial Class IAIPFacilitySummary
         Me.Panel3 = New System.Windows.Forms.ToolStripStatusLabel
         Me.Image_List_All = New System.Windows.Forms.ImageList(Me.components)
         Me.TBFacilitySummary = New System.Windows.Forms.ToolBar
-        Me.tbbSave = New System.Windows.Forms.ToolBarButton
         Me.tbbFind = New System.Windows.Forms.ToolBarButton
-        Me.tbbCut = New System.Windows.Forms.ToolBarButton
-        Me.tbbCopy = New System.Windows.Forms.ToolBarButton
-        Me.tbbPaste = New System.Windows.Forms.ToolBarButton
         Me.tbbClear = New System.Windows.Forms.ToolBarButton
-        Me.tbbBack = New System.Windows.Forms.ToolBarButton
-        Me.tbbExit = New System.Windows.Forms.ToolBarButton
-        Me.tbbAddEditContacts = New System.Windows.Forms.ToolBarButton
-        Me.tbbAddTestReport = New System.Windows.Forms.ToolBarButton
-        Me.tbbCloseTestReport = New System.Windows.Forms.ToolBarButton
-        Me.tbbAddTestLog = New System.Windows.Forms.ToolBarButton
-        Me.tbbLinkTestReport = New System.Windows.Forms.ToolBarButton
-        Me.tbbAddMemo = New System.Windows.Forms.ToolBarButton
-        Me.tbbAssignEngineer = New System.Windows.Forms.ToolBarButton
-        Me.tbbNewComplianceEvent = New System.Windows.Forms.ToolBarButton
-        Me.tbbViewFCE = New System.Windows.Forms.ToolBarButton
-        Me.tbbCDSForm = New System.Windows.Forms.ToolBarButton
         Me.tbbPrint = New System.Windows.Forms.ToolBarButton
         Me.Panel4 = New System.Windows.Forms.Panel
         Me.mtbAIRSNumber = New System.Windows.Forms.MaskedTextBox
@@ -146,7 +115,7 @@ Partial Class IAIPFacilitySummary
         Me.Label11 = New System.Windows.Forms.Label
         Me.txtFacilityLongitude = New System.Windows.Forms.TextBox
         Me.Label12 = New System.Windows.Forms.Label
-        Me.pnlLocationEditior = New System.Windows.Forms.Panel
+        Me.pnlLocationEditor = New System.Windows.Forms.Panel
         Me.btnOpenFacilityLocationEditor = New System.Windows.Forms.Button
         Me.TPHeaderData = New System.Windows.Forms.TabPage
         Me.Panel13 = New System.Windows.Forms.Panel
@@ -367,7 +336,7 @@ Partial Class IAIPFacilitySummary
         Me.TCFacilitySummary.SuspendLayout()
         Me.TPFacilityLocation.SuspendLayout()
         Me.Panel14.SuspendLayout()
-        Me.pnlLocationEditior.SuspendLayout()
+        Me.pnlLocationEditor.SuspendLayout()
         Me.TPHeaderData.SuspendLayout()
         Me.Panel13.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
@@ -450,166 +419,85 @@ Partial Class IAIPFacilitySummary
         '
         'MainMenu1
         '
-        Me.MainMenu1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.MenuItem1, Me.MenuItem2, Me.MenuItem3, Me.MenuItem4, Me.mmiISMP, Me.mmiSSCP, Me.mmiSSPP, Me.mmiHelp})
+        Me.MainMenu1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiFile, Me.mmiTools, Me.mmiISMP, Me.mmiSSCP, Me.mmiHelp})
         '
-        'MenuItem1
+        'mmiFile
         '
-        Me.MenuItem1.Index = 0
-        Me.MenuItem1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.MmiBack, Me.mmiPrintFacilitySummary})
-        Me.MenuItem1.Text = "File"
+        Me.mmiFile.Index = 0
+        Me.mmiFile.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiFacilityLookup, Me.mmiPrintFacilitySummary, Me.mmiClear, Me.MenuItem12, Me.mmiClose})
+        Me.mmiFile.Text = "&File"
         '
-        'MmiBack
+        'mmiFacilityLookup
         '
-        Me.MmiBack.Index = 0
-        Me.MmiBack.Text = "Look Up Facility"
+        Me.mmiFacilityLookup.Index = 0
+        Me.mmiFacilityLookup.Shortcut = System.Windows.Forms.Shortcut.CtrlO
+        Me.mmiFacilityLookup.Text = "Look Up &Facility"
         '
         'mmiPrintFacilitySummary
         '
         Me.mmiPrintFacilitySummary.Index = 1
-        Me.mmiPrintFacilitySummary.Text = "Print Facility Summary"
-        '
-        'MenuItem2
-        '
-        Me.MenuItem2.Index = 1
-        Me.MenuItem2.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiCut, Me.mmiCopy, Me.mmiPaste, Me.MenuItem5, Me.mmiClear})
-        Me.MenuItem2.Text = "Edit"
-        '
-        'mmiCut
-        '
-        Me.mmiCut.Index = 0
-        Me.mmiCut.Text = "Cut"
-        '
-        'mmiCopy
-        '
-        Me.mmiCopy.Index = 1
-        Me.mmiCopy.Text = "Copy"
-        '
-        'mmiPaste
-        '
-        Me.mmiPaste.Index = 2
-        Me.mmiPaste.Text = "Paste"
-        '
-        'MenuItem5
-        '
-        Me.MenuItem5.Index = 3
-        Me.MenuItem5.Text = "-"
+        Me.mmiPrintFacilitySummary.Shortcut = System.Windows.Forms.Shortcut.CtrlP
+        Me.mmiPrintFacilitySummary.Text = "&Print Facility Summary"
         '
         'mmiClear
         '
-        Me.mmiClear.Index = 4
-        Me.mmiClear.Text = "Clear"
+        Me.mmiClear.Index = 2
+        Me.mmiClear.Text = "&Clear Form"
         '
-        'MenuItem3
+        'MenuItem12
         '
-        Me.MenuItem3.Index = 2
-        Me.MenuItem3.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.MenuItem11})
-        Me.MenuItem3.Text = "View"
+        Me.MenuItem12.Index = 3
+        Me.MenuItem12.Text = "-"
         '
-        'MenuItem11
+        'mmiClose
         '
-        Me.MenuItem11.Index = 0
-        Me.MenuItem11.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiStandard, Me.mmiSubISMP, Me.mmiSubSSCP, Me.mmisubSSPP, Me.mmiSubAddEditContacts})
-        Me.MenuItem11.Text = "Toolbar(s)"
+        Me.mmiClose.Index = 4
+        Me.mmiClose.Shortcut = System.Windows.Forms.Shortcut.CtrlW
+        Me.mmiClose.Text = "&Close"
         '
-        'mmiStandard
+        'mmiTools
         '
-        Me.mmiStandard.Checked = True
-        Me.mmiStandard.Index = 0
-        Me.mmiStandard.Text = "Standard"
-        '
-        'mmiSubISMP
-        '
-        Me.mmiSubISMP.Index = 1
-        Me.mmiSubISMP.Text = "ISMP"
-        Me.mmiSubISMP.Visible = False
-        '
-        'mmiSubSSCP
-        '
-        Me.mmiSubSSCP.Index = 2
-        Me.mmiSubSSCP.Text = "SSCP"
-        Me.mmiSubSSCP.Visible = False
-        '
-        'mmisubSSPP
-        '
-        Me.mmisubSSPP.Index = 3
-        Me.mmisubSSPP.Text = "SSPP"
-        Me.mmisubSSPP.Visible = False
-        '
-        'mmiSubAddEditContacts
-        '
-        Me.mmiSubAddEditContacts.Index = 4
-        Me.mmiSubAddEditContacts.Text = "Add/Edit Contact Info."
-        '
-        'MenuItem4
-        '
-        Me.MenuItem4.Index = 3
-        Me.MenuItem4.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiLookUpTool, Me.MenuItem8, Me.mmiEditContactInformation, Me.mmiSeperator, Me.mmiEditData, Me.MenuItem9, Me.mmiNewFacility, Me.MenuItem13, Me.MenuItem14, Me.mmiAddAFS, Me.mmiUpdateAFSData})
-        Me.MenuItem4.Text = "Tools"
-        '
-        'mmiLookUpTool
-        '
-        Me.mmiLookUpTool.Index = 0
-        Me.mmiLookUpTool.Text = "Facility Lookup Tool"
-        '
-        'MenuItem8
-        '
-        Me.MenuItem8.Index = 1
-        Me.MenuItem8.Text = "-"
+        Me.mmiTools.Index = 1
+        Me.mmiTools.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiEditContactInformation, Me.mmiSeperator, Me.mmiNewFacility, Me.MenuItem14, Me.mmiAddAFS, Me.mmiUpdateAFSData})
+        Me.mmiTools.Text = "&Tools"
         '
         'mmiEditContactInformation
         '
-        Me.mmiEditContactInformation.Index = 2
-        Me.mmiEditContactInformation.Text = "Add/Edit Contact Information"
+        Me.mmiEditContactInformation.Index = 0
+        Me.mmiEditContactInformation.Text = "Edit &Contact Information"
         '
         'mmiSeperator
         '
-        Me.mmiSeperator.Index = 3
+        Me.mmiSeperator.Index = 1
         Me.mmiSeperator.Text = "-"
-        '
-        'mmiEditData
-        '
-        Me.mmiEditData.Index = 4
-        Me.mmiEditData.Text = "Managers Data Editiing"
-        Me.mmiEditData.Visible = False
-        '
-        'MenuItem9
-        '
-        Me.MenuItem9.Index = 5
-        Me.MenuItem9.Text = "-"
         '
         'mmiNewFacility
         '
-        Me.mmiNewFacility.Index = 6
-        Me.mmiNewFacility.Text = "Facility Creator Tool"
-        '
-        'MenuItem13
-        '
-        Me.MenuItem13.Index = 7
-        Me.MenuItem13.Text = "-"
-        Me.MenuItem13.Visible = False
+        Me.mmiNewFacility.Index = 2
+        Me.mmiNewFacility.Text = "&Facility Creator Tool"
         '
         'MenuItem14
         '
-        Me.MenuItem14.Index = 8
+        Me.MenuItem14.Index = 3
         Me.MenuItem14.Text = "-"
         '
         'mmiAddAFS
         '
-        Me.mmiAddAFS.Index = 9
+        Me.mmiAddAFS.Index = 4
         Me.mmiAddAFS.Text = "Add All Data to AFS"
         Me.mmiAddAFS.Visible = False
         '
         'mmiUpdateAFSData
         '
-        Me.mmiUpdateAFSData.Index = 10
+        Me.mmiUpdateAFSData.Index = 5
         Me.mmiUpdateAFSData.Text = "Update All Data in AFS"
         Me.mmiUpdateAFSData.Visible = False
         '
         'mmiISMP
         '
-        Me.mmiISMP.Index = 4
+        Me.mmiISMP.Index = 2
         Me.mmiISMP.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiISMPNewReport, Me.mmiISMPClosePrint, Me.MenuItem6, Me.mmiISMPNewLogEnTry, Me.mmiISMPTestLogLink, Me.MenuItem7, Me.mmiISMPAddMemo})
-        Me.mmiISMP.Text = "ISMP"
+        Me.mmiISMP.Text = "&ISMP"
         '
         'mmiISMPNewReport
         '
@@ -648,9 +536,9 @@ Partial Class IAIPFacilitySummary
         '
         'mmiSSCP
         '
-        Me.mmiSSCP.Index = 5
+        Me.mmiSSCP.Index = 3
         Me.mmiSSCP.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiSSCPAssignEngineer, Me.mmiSSCPNewWork, Me.mmiSSCPFCE})
-        Me.mmiSSCP.Text = "SSCP"
+        Me.mmiSSCP.Text = "SS&CP"
         '
         'mmiSSCPAssignEngineer
         '
@@ -667,15 +555,17 @@ Partial Class IAIPFacilitySummary
         Me.mmiSSCPFCE.Index = 2
         Me.mmiSSCPFCE.Text = "View FCE"
         '
-        'mmiSSPP
-        '
-        Me.mmiSSPP.Index = 6
-        Me.mmiSSPP.Text = "SSPP"
-        '
         'mmiHelp
         '
-        Me.mmiHelp.Index = 7
-        Me.mmiHelp.Text = "Help"
+        Me.mmiHelp.Index = 4
+        Me.mmiHelp.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiOnlineHelp})
+        Me.mmiHelp.Text = "&Help"
+        '
+        'mmiOnlineHelp
+        '
+        Me.mmiOnlineHelp.Index = 0
+        Me.mmiOnlineHelp.Shortcut = System.Windows.Forms.Shortcut.F1
+        Me.mmiOnlineHelp.Text = "Online &Help"
         '
         'llbViewAll
         '
@@ -974,7 +864,7 @@ Partial Class IAIPFacilitySummary
         '
         'TBFacilitySummary
         '
-        Me.TBFacilitySummary.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.tbbSave, Me.tbbFind, Me.tbbCut, Me.tbbCopy, Me.tbbPaste, Me.tbbClear, Me.tbbBack, Me.tbbExit, Me.tbbAddEditContacts, Me.tbbAddTestReport, Me.tbbCloseTestReport, Me.tbbAddTestLog, Me.tbbLinkTestReport, Me.tbbAddMemo, Me.tbbAssignEngineer, Me.tbbNewComplianceEvent, Me.tbbViewFCE, Me.tbbCDSForm, Me.tbbPrint})
+        Me.TBFacilitySummary.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.tbbFind, Me.tbbClear, Me.tbbPrint})
         Me.TBFacilitySummary.DropDownArrows = True
         Me.TBFacilitySummary.ImageList = Me.Image_List_All
         Me.TBFacilitySummary.Location = New System.Drawing.Point(0, 0)
@@ -984,124 +874,17 @@ Partial Class IAIPFacilitySummary
         Me.TBFacilitySummary.Size = New System.Drawing.Size(792, 28)
         Me.TBFacilitySummary.TabIndex = 274
         '
-        'tbbSave
-        '
-        Me.tbbSave.ImageIndex = 65
-        Me.tbbSave.Name = "tbbSave"
-        Me.tbbSave.ToolTipText = "Edit Data"
-        Me.tbbSave.Visible = False
-        '
         'tbbFind
         '
         Me.tbbFind.ImageIndex = 3
         Me.tbbFind.Name = "tbbFind"
         Me.tbbFind.ToolTipText = "Search for a Facility"
         '
-        'tbbCut
-        '
-        Me.tbbCut.ImageIndex = 9
-        Me.tbbCut.Name = "tbbCut"
-        Me.tbbCut.ToolTipText = "Cut"
-        '
-        'tbbCopy
-        '
-        Me.tbbCopy.ImageIndex = 8
-        Me.tbbCopy.Name = "tbbCopy"
-        Me.tbbCopy.ToolTipText = "Copy"
-        '
-        'tbbPaste
-        '
-        Me.tbbPaste.ImageIndex = 50
-        Me.tbbPaste.Name = "tbbPaste"
-        Me.tbbPaste.ToolTipText = "Paste"
-        '
         'tbbClear
         '
         Me.tbbClear.ImageIndex = 84
         Me.tbbClear.Name = "tbbClear"
-        Me.tbbClear.ToolTipText = "Clear"
-        '
-        'tbbBack
-        '
-        Me.tbbBack.ImageIndex = 2
-        Me.tbbBack.Name = "tbbBack"
-        Me.tbbBack.ToolTipText = "Back"
-        '
-        'tbbExit
-        '
-        Me.tbbExit.ImageIndex = 81
-        Me.tbbExit.Name = "tbbExit"
-        Me.tbbExit.ToolTipText = "Exit"
-        Me.tbbExit.Visible = False
-        '
-        'tbbAddEditContacts
-        '
-        Me.tbbAddEditContacts.ImageIndex = 52
-        Me.tbbAddEditContacts.Name = "tbbAddEditContacts"
-        Me.tbbAddEditContacts.ToolTipText = "Add/Edit Contact Info."
-        Me.tbbAddEditContacts.Visible = False
-        '
-        'tbbAddTestReport
-        '
-        Me.tbbAddTestReport.ImageIndex = 16
-        Me.tbbAddTestReport.Name = "tbbAddTestReport"
-        Me.tbbAddTestReport.ToolTipText = "Add New Test Report"
-        Me.tbbAddTestReport.Visible = False
-        '
-        'tbbCloseTestReport
-        '
-        Me.tbbCloseTestReport.ImageIndex = 12
-        Me.tbbCloseTestReport.Name = "tbbCloseTestReport"
-        Me.tbbCloseTestReport.ToolTipText = "Close/Print Test Report"
-        Me.tbbCloseTestReport.Visible = False
-        '
-        'tbbAddTestLog
-        '
-        Me.tbbAddTestLog.ImageIndex = 15
-        Me.tbbAddTestLog.Name = "tbbAddTestLog"
-        Me.tbbAddTestLog.ToolTipText = "Add Test Log"
-        Me.tbbAddTestLog.Visible = False
-        '
-        'tbbLinkTestReport
-        '
-        Me.tbbLinkTestReport.ImageIndex = 76
-        Me.tbbLinkTestReport.Name = "tbbLinkTestReport"
-        Me.tbbLinkTestReport.ToolTipText = "Link Test Log and Test Report"
-        Me.tbbLinkTestReport.Visible = False
-        '
-        'tbbAddMemo
-        '
-        Me.tbbAddMemo.ImageIndex = 0
-        Me.tbbAddMemo.Name = "tbbAddMemo"
-        Me.tbbAddMemo.ToolTipText = "Add Memo"
-        Me.tbbAddMemo.Visible = False
-        '
-        'tbbAssignEngineer
-        '
-        Me.tbbAssignEngineer.ImageIndex = 51
-        Me.tbbAssignEngineer.Name = "tbbAssignEngineer"
-        Me.tbbAssignEngineer.ToolTipText = "Assign Compliance Engineer"
-        Me.tbbAssignEngineer.Visible = False
-        '
-        'tbbNewComplianceEvent
-        '
-        Me.tbbNewComplianceEvent.ImageIndex = 16
-        Me.tbbNewComplianceEvent.Name = "tbbNewComplianceEvent"
-        Me.tbbNewComplianceEvent.ToolTipText = "Add New Compliance Event"
-        Me.tbbNewComplianceEvent.Visible = False
-        '
-        'tbbViewFCE
-        '
-        Me.tbbViewFCE.ImageIndex = 18
-        Me.tbbViewFCE.Name = "tbbViewFCE"
-        Me.tbbViewFCE.ToolTipText = "View Full Compliance Evaluation"
-        Me.tbbViewFCE.Visible = False
-        '
-        'tbbCDSForm
-        '
-        Me.tbbCDSForm.ImageIndex = 42
-        Me.tbbCDSForm.Name = "tbbCDSForm"
-        Me.tbbCDSForm.Visible = False
+        Me.tbbClear.ToolTipText = "Clear the Form"
         '
         'tbbPrint
         '
@@ -1200,7 +983,7 @@ Partial Class IAIPFacilitySummary
         'TPFacilityLocation
         '
         Me.TPFacilityLocation.Controls.Add(Me.Panel14)
-        Me.TPFacilityLocation.Controls.Add(Me.pnlLocationEditior)
+        Me.TPFacilityLocation.Controls.Add(Me.pnlLocationEditor)
         Me.TPFacilityLocation.Location = New System.Drawing.Point(4, 22)
         Me.TPFacilityLocation.Name = "TPFacilityLocation"
         Me.TPFacilityLocation.Padding = New System.Windows.Forms.Padding(3)
@@ -1461,14 +1244,14 @@ Partial Class IAIPFacilitySummary
         Me.Label12.Text = "Latitude:"
         Me.Label12.TextAlign = System.Drawing.ContentAlignment.BottomLeft
         '
-        'pnlLocationEditior
+        'pnlLocationEditor
         '
-        Me.pnlLocationEditior.Controls.Add(Me.btnOpenFacilityLocationEditor)
-        Me.pnlLocationEditior.Dock = System.Windows.Forms.DockStyle.Top
-        Me.pnlLocationEditior.Location = New System.Drawing.Point(3, 3)
-        Me.pnlLocationEditior.Name = "pnlLocationEditior"
-        Me.pnlLocationEditior.Size = New System.Drawing.Size(660, 32)
-        Me.pnlLocationEditior.TabIndex = 163
+        Me.pnlLocationEditor.Controls.Add(Me.btnOpenFacilityLocationEditor)
+        Me.pnlLocationEditor.Dock = System.Windows.Forms.DockStyle.Top
+        Me.pnlLocationEditor.Location = New System.Drawing.Point(3, 3)
+        Me.pnlLocationEditor.Name = "pnlLocationEditor"
+        Me.pnlLocationEditor.Size = New System.Drawing.Size(660, 32)
+        Me.pnlLocationEditor.TabIndex = 163
         '
         'btnOpenFacilityLocationEditor
         '
@@ -3963,8 +3746,8 @@ Partial Class IAIPFacilitySummary
         Me.TPFacilityLocation.ResumeLayout(False)
         Me.Panel14.ResumeLayout(False)
         Me.Panel14.PerformLayout()
-        Me.pnlLocationEditior.ResumeLayout(False)
-        Me.pnlLocationEditior.PerformLayout()
+        Me.pnlLocationEditor.ResumeLayout(False)
+        Me.pnlLocationEditor.PerformLayout()
         Me.TPHeaderData.ResumeLayout(False)
         Me.Panel13.ResumeLayout(False)
         Me.Panel13.PerformLayout()
@@ -4073,29 +3856,13 @@ Partial Class IAIPFacilitySummary
 
     End Sub
     Friend WithEvents MainMenu1 As System.Windows.Forms.MainMenu
-    Friend WithEvents MenuItem1 As System.Windows.Forms.MenuItem
-    Friend WithEvents MmiBack As System.Windows.Forms.MenuItem
+    Friend WithEvents mmiFile As System.Windows.Forms.MenuItem
+    Friend WithEvents mmiFacilityLookup As System.Windows.Forms.MenuItem
     Friend WithEvents mmiPrintFacilitySummary As System.Windows.Forms.MenuItem
-    Friend WithEvents MenuItem2 As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiCut As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiCopy As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiPaste As System.Windows.Forms.MenuItem
-    Friend WithEvents MenuItem5 As System.Windows.Forms.MenuItem
     Friend WithEvents mmiClear As System.Windows.Forms.MenuItem
-    Friend WithEvents MenuItem3 As System.Windows.Forms.MenuItem
-    Friend WithEvents MenuItem11 As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiStandard As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiSubISMP As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiSubSSCP As System.Windows.Forms.MenuItem
-    Friend WithEvents mmisubSSPP As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiSubAddEditContacts As System.Windows.Forms.MenuItem
-    Friend WithEvents MenuItem4 As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiLookUpTool As System.Windows.Forms.MenuItem
-    Friend WithEvents MenuItem8 As System.Windows.Forms.MenuItem
+    Friend WithEvents mmiTools As System.Windows.Forms.MenuItem
     Friend WithEvents mmiEditContactInformation As System.Windows.Forms.MenuItem
     Friend WithEvents mmiSeperator As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiEditData As System.Windows.Forms.MenuItem
-    Friend WithEvents MenuItem9 As System.Windows.Forms.MenuItem
     Friend WithEvents mmiISMP As System.Windows.Forms.MenuItem
     Friend WithEvents mmiISMPNewReport As System.Windows.Forms.MenuItem
     Friend WithEvents mmiISMPClosePrint As System.Windows.Forms.MenuItem
@@ -4108,7 +3875,6 @@ Partial Class IAIPFacilitySummary
     Friend WithEvents mmiSSCPAssignEngineer As System.Windows.Forms.MenuItem
     Friend WithEvents mmiSSCPNewWork As System.Windows.Forms.MenuItem
     Friend WithEvents mmiSSCPFCE As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiSSPP As System.Windows.Forms.MenuItem
     Friend WithEvents mmiHelp As System.Windows.Forms.MenuItem
     Friend WithEvents TTFacilitySummary As System.Windows.Forms.ToolTip
     Friend WithEvents StatusStrip1 As System.Windows.Forms.StatusStrip
@@ -4116,24 +3882,8 @@ Partial Class IAIPFacilitySummary
     Friend WithEvents Panel3 As System.Windows.Forms.ToolStripStatusLabel
     Friend WithEvents Image_List_All As System.Windows.Forms.ImageList
     Friend WithEvents TBFacilitySummary As System.Windows.Forms.ToolBar
-    Friend WithEvents tbbSave As System.Windows.Forms.ToolBarButton
-    Friend WithEvents tbbFind As System.Windows.Forms.ToolBarButton
-    Friend WithEvents tbbCut As System.Windows.Forms.ToolBarButton
-    Friend WithEvents tbbCopy As System.Windows.Forms.ToolBarButton
-    Friend WithEvents tbbPaste As System.Windows.Forms.ToolBarButton
-    Friend WithEvents tbbClear As System.Windows.Forms.ToolBarButton
-    Friend WithEvents tbbBack As System.Windows.Forms.ToolBarButton
-    Friend WithEvents tbbExit As System.Windows.Forms.ToolBarButton
-    Friend WithEvents tbbAddEditContacts As System.Windows.Forms.ToolBarButton
-    Friend WithEvents tbbAddTestReport As System.Windows.Forms.ToolBarButton
-    Friend WithEvents tbbCloseTestReport As System.Windows.Forms.ToolBarButton
-    Friend WithEvents tbbAddTestLog As System.Windows.Forms.ToolBarButton
-    Friend WithEvents tbbLinkTestReport As System.Windows.Forms.ToolBarButton
-    Friend WithEvents tbbAddMemo As System.Windows.Forms.ToolBarButton
-    Friend WithEvents tbbAssignEngineer As System.Windows.Forms.ToolBarButton
-    Friend WithEvents tbbNewComplianceEvent As System.Windows.Forms.ToolBarButton
-    Friend WithEvents tbbViewFCE As System.Windows.Forms.ToolBarButton
-    Friend WithEvents tbbCDSForm As System.Windows.Forms.ToolBarButton
+    Friend WithEvents tbbFacilityLookup As System.Windows.Forms.ToolBarButton
+    Friend WithEvents tbbClearForm As System.Windows.Forms.ToolBarButton
     Friend WithEvents Panel4 As System.Windows.Forms.Panel
     Friend WithEvents mtbAIRSNumber As System.Windows.Forms.MaskedTextBox
     Friend WithEvents llbViewAll As System.Windows.Forms.LinkLabel
@@ -4366,7 +4116,7 @@ Partial Class IAIPFacilitySummary
     Friend WithEvents Label14 As System.Windows.Forms.Label
     Friend WithEvents txtBalance As System.Windows.Forms.TextBox
     Friend WithEvents Panel14 As System.Windows.Forms.Panel
-    Friend WithEvents pnlLocationEditior As System.Windows.Forms.Panel
+    Friend WithEvents pnlLocationEditor As System.Windows.Forms.Panel
     Friend WithEvents btnOpenFacilityLocationEditor As System.Windows.Forms.Button
     Friend WithEvents pnlEditHeaderData As System.Windows.Forms.Panel
     Friend WithEvents btnEditHeaderData As System.Windows.Forms.Button
@@ -4385,7 +4135,6 @@ Partial Class IAIPFacilitySummary
     Friend WithEvents dgvInvoices As System.Windows.Forms.DataGridView
     Friend WithEvents mmiAddAFS As System.Windows.Forms.MenuItem
     Friend WithEvents mmiUpdateAFSData As System.Windows.Forms.MenuItem
-    Friend WithEvents MenuItem13 As System.Windows.Forms.MenuItem
     Friend WithEvents Label17 As System.Windows.Forms.Label
     Friend WithEvents txtRMPID As System.Windows.Forms.TextBox
     Friend WithEvents Label18 As System.Windows.Forms.Label
@@ -4399,4 +4148,9 @@ Partial Class IAIPFacilitySummary
     Friend WithEvents Label19 As System.Windows.Forms.Label
     Friend WithEvents ComboBox1 As System.Windows.Forms.ComboBox
     Friend WithEvents MenuItem14 As System.Windows.Forms.MenuItem
+    Friend WithEvents mmiOnlineHelp As System.Windows.Forms.MenuItem
+    Friend WithEvents MenuItem12 As System.Windows.Forms.MenuItem
+    Friend WithEvents mmiClose As System.Windows.Forms.MenuItem
+    Friend WithEvents tbbFind As System.Windows.Forms.ToolBarButton
+    Friend WithEvents tbbClear As System.Windows.Forms.ToolBarButton
 End Class
