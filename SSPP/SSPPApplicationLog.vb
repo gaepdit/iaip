@@ -3649,22 +3649,22 @@ Public Class SSPPApplicationLog
     Private Sub NewApplication_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiNewApplication.Click
         StartNewApplication()
     End Sub
-    Private Sub MenuClose_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiClose.Click
+    Private Sub mmiClose_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiClose.Click
         Me.Close()
     End Sub
-    Private Sub MenuOpenHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiOnlineHelp.Click
+    Private Sub mmiOpenHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiOnlineHelp.Click
         OpenHelpUrl(Me)
     End Sub
-    Private Sub Open_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiOpen.Click, btnOpen.Click
+    Private Sub mmiOpen_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiOpen.Click, btnOpen.Click
         If selectedApp <> "" Then OpenApplication(selectedApp)
     End Sub
-    Private Sub Reset_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiResetSearch.Click, btnResetSearch.Click
+    Private Sub mmiReset_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiResetSearch.Click, btnResetSearch.Click
         LoadDefaults()
     End Sub
     Private Sub mmiExport_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiExport.Click, btnExport.Click
         ExportToExcel()
     End Sub
-    Private Sub Find_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnFind.Click
+    Private Sub btnFind_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnFind.Click
         RunSearch()
     End Sub
 #End Region

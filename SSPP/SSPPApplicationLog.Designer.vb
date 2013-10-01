@@ -29,8 +29,8 @@ Partial Class SSPPApplicationLog
         Me.mmiNewApplication = New System.Windows.Forms.MenuItem
         Me.mmiOpen = New System.Windows.Forms.MenuItem
         Me.mmiResetSearch = New System.Windows.Forms.MenuItem
-        Me.mmiExport = New System.Windows.Forms.MenuItem
         Me.MenuItem8 = New System.Windows.Forms.MenuItem
+        Me.mmiExport = New System.Windows.Forms.MenuItem
         Me.mmiHelp = New System.Windows.Forms.MenuItem
         Me.mmiOnlineHelp = New System.Windows.Forms.MenuItem
         Me.cboSortOrder2 = New System.Windows.Forms.ComboBox
@@ -228,16 +228,16 @@ Partial Class SSPPApplicationLog
         Me.mmiResetSearch.Shortcut = System.Windows.Forms.Shortcut.CtrlR
         Me.mmiResetSearch.Text = "&Reset Search Form"
         '
+        'MenuItem8
+        '
+        Me.MenuItem8.Index = 3
+        Me.MenuItem8.Text = "-"
+        '
         'mmiExport
         '
         Me.mmiExport.Index = 4
         Me.mmiExport.Shortcut = System.Windows.Forms.Shortcut.CtrlE
         Me.mmiExport.Text = "&Export to Excel"
-        '
-        'MenuItem8
-        '
-        Me.MenuItem8.Index = 3
-        Me.MenuItem8.Text = "-"
         '
         'mmiHelp
         '
