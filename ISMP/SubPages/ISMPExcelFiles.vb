@@ -11,7 +11,7 @@ Imports System.Data
 'Imports System.Collections
 
 Public Class ISMPExcelFiles
-    Inherits DefaultForm
+    Inherits BaseForm
 
     Dim statusBar1 As New StatusBar
     Dim panel1 As New StatusBarPanel

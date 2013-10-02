@@ -3,7 +3,7 @@ Imports Oracle.DataAccess.Client
 'Imports Microsoft.Office.Interop
 
 Public Class SSCPEngineerInspectionTool
-    Inherits DefaultForm
+    Inherits BaseForm
     Dim statusBar1 As New StatusBar
     Dim panel1 As New StatusBarPanel
     Dim panel2 As New StatusBarPanel

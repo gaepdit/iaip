@@ -2,7 +2,7 @@ Imports Oracle.DataAccess.Client
 
 
 Public Class SSCPFCESelectorTool
-    Inherits DefaultForm
+    Inherits BaseForm
 
     Dim SQL As String
     Dim cmd As OracleCommand

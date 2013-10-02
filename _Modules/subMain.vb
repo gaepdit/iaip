@@ -88,7 +88,7 @@ Module subMain
     Public EditHeaderData As IAIPEditHeaderData
     Public EditAirProgramPollutants As IAIPEditAirProgramPollutants
     Public EditSubParts As IAIPEditSubParts
-    Public DevelopmentTeam As IAIPDevelopmentTeam
+    'Public DevelopmentTeam As IAIPDevelopmentTeam
     Public IAIPDistrictTool As IAIPDistrictSourceTool
     Public PermitUploader As IAIPPermitUploader
     Public Validator As AFSValidator

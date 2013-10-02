@@ -2,7 +2,7 @@ Imports Oracle.DataAccess.Client
 
 
 Public Class ISMPClosePrint
-    Inherits DefaultForm
+    Inherits BaseForm
     Dim statusBar1 As New StatusBar
     Dim panel1 As New StatusBarPanel
     Dim panel2 As New StatusBarPanel

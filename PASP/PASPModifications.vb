@@ -2,7 +2,7 @@ Imports Oracle.DataAccess.Client
 
 
 Public Class PASPModifications
-    Inherits DefaultForm
+    Inherits BaseForm
     Dim da As OracleDataAdapter
     'Dim feeyear As String
     Dim ds As DataSet

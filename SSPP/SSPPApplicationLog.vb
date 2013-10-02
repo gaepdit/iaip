@@ -1,7 +1,7 @@
 Imports Oracle.DataAccess.Client
 
 Public Class SSPPApplicationLog
-    Inherits DefaultForm
+    Inherits BaseForm
 
 #Region "Initialize variables"
     ' Local variables

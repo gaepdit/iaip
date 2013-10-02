@@ -1,5 +1,5 @@
 Public Class IAIPDevelopmentTeam
-    Inherits DefaultForm
+    Inherits BaseForm
 
 #Region " Windows Form Designer generated code "
 

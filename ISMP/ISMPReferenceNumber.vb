@@ -3,7 +3,7 @@ Imports Oracle.DataAccess.Client
 
 
 Public Class ISMPReferenceNumber
-    Inherits DefaultForm
+    Inherits BaseForm
     Dim statusBar1 As New StatusBar
     Dim panel1 As New StatusBarPanel
     Dim panel2 As New StatusBarPanel
