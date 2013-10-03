@@ -1,4 +1,4 @@
-IAIP Changelog
+IAIP Change Log
 ==============
 
 ## About the IAIP
@@ -32,7 +32,7 @@ See the [Readme file](README.html).
 
 + FIX: *Query Generator* produces more relevant results when searching for Compliance Inspector or Compliance Unit (#114)
 + NEW: *Query Generator* – Better formatting of results
-+ NEW: *Query Generator* – **HUGE** performance improvement when exporting to Excel
++ NEW: *Query Generator* – HUGE performance improvement when exporting to Excel
 
 ## Version 2.6.4.4 <span>(2013-09-09)</span>
 

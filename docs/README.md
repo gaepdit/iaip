@@ -21,10 +21,10 @@ For support, please contact the Data Management Unit:
 Please submit bug reports to Doug Waldron by email or in person.
 
 
-Changelog
+Change Log
 --------
 
-See the [Changelog](CHANGELOG.html).
+See the [Change Log](CHANGELOG.html).
 
 
 License
