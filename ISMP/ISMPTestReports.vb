@@ -546,7 +546,6 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
             End With
 
 
-            'If NavigationScreen.pnl4.Text = "TESTING ENVIRONMENT" Then
             dtISMPUnits.Columns.Add("numUnitCode", GetType(System.String))
             dtISMPUnits.Columns.Add("strUnitDesc", GetType(System.String))
 
@@ -568,29 +567,6 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                 .ValueMember = "numUnitCode"
                 .SelectedValue = 0
             End With
-            'Else
-            '    dtISMPUnits.Columns.Add("strMonitoringUnit", GetType(System.String))
-            '    dtISMPUnits.Columns.Add("strUnitTitle", GetType(System.String))
-
-            '    drNewRow = dtISMPUnits.NewRow()
-            '    drNewRow("strMonitoringUnit") = " "
-            '    drNewRow("strUnitTitle") = " "
-            '    dtISMPUnits.Rows.Add(drNewRow)
-
-            '    For Each drDSRow In dsISMPUnits.Tables("ISMPUnits").Rows()
-            '        drNewRow = dtISMPUnits.NewRow
-            '        drNewRow("strMonitoringUnit") = drDSRow("strMonitoringUnit")
-            '        drNewRow("strUnitTitle") = drDSRow("strUnitTitle")
-            '        dtISMPUnits.Rows.Add(drNewRow)
-            '    Next
-
-            '    With cboISMPUnit
-            '        .DataSource = dtISMPUnits
-            '        .DisplayMember = "strUnitTitle"
-            '        .ValueMember = "strMonitoringUnit"
-            '        .SelectedValue = 0
-            '    End With
-            'End If
 
             dtComplianceManager.Columns.Add("numUserID", GetType(System.String))
             dtComplianceManager.Columns.Add("ComplianceManager", GetType(System.String))
@@ -11026,18 +11002,10 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
             If cboISMPUnit.Text <> " " And cboISMPUnit.Text <> "" Then
                 ReviewingUnit = cboISMPUnit.SelectedValue
                 If ReviewingUnit = "" Then
-                    'If NavigationScreen.pnl4.Text = "TESTING ENVIRONMENT" Then
                     ReviewingUnit = "0"
-                    'Else
-                    'ReviewingUnit = "G"
-                    'End If
                 End If
             Else
-                'If NavigationScreen.pnl4.Text = "TESTING ENVIRONMENT" Then
                 ReviewingUnit = "0"
-                'Else
-                '    ReviewingUnit = "G"
-                'End If
             End If
             If cboComplianceManager.Text <> " " And cboComplianceManager.Text <> "" Then
                 ComplianceManager = cboComplianceManager.SelectedValue

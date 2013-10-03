@@ -337,7 +337,7 @@ Public Class IAIPFacilitySummary
 
     Private Sub OpenEditContactInformationTool()
         Try
-            If NavigationScreen.pnl4.Text = "TESTING ENVIRONMENT" Then
+            If TestingEnvironment Then
                 If Not EditContacts2 Is Nothing Then
                     EditContacts2.Dispose()
                 End If

@@ -3418,7 +3418,7 @@ Public Class SSCPEnforcementAudit
             End If
 
             If TCEnforcement.TabPages.Contains(Me.TPCO) Then
-                If NavigationScreen.pnl4.Text = "TESTING ENVIRONMENT" Then
+                If TestingEnvironment Then
                     If AccountArray(48, 4) = "1" And AccountArray(4, 4) = "0" Then
                     Else
                         If TCEnforcement.TabPages.Contains(Me.TPCO) Then
@@ -3785,7 +3785,7 @@ Public Class SSCPEnforcementAudit
             End If
 
             If TCEnforcement.TabPages.Contains(Me.TPCO) Then
-                If NavigationScreen.pnl4.Text = "TESTING ENVIRONMENT" Then
+                If TestingEnvironment Then
                     If AccountArray(48, 4) = "1" And AccountArray(4, 4) = "0" Then
                     Else
                         If TCEnforcement.TabPages.Contains(Me.TPCO) Then

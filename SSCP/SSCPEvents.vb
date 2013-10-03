@@ -4737,7 +4737,6 @@ Public Class SSCPEvents
 
         Try
 
-            ' If NavigationScreen.pnl4.Text = "TESTING ENVIRONMENT" Then
             If dtpNotificationDate.Checked = True Or dtpNotificationDate.ShowCheckBox = False Then
                 NotificationDue = "False"
                 NotificationDueDate = dtpNotificationDate.Text
@@ -4767,37 +4766,6 @@ Public Class SSCPEvents
             Else
                 NotificationFollowUp = "False"
             End If
-            'Else
-            '    If chbNotificationDueDate.Checked = True Then
-            '        NotificationDue = "True"
-            '        NotificationDueDate = "04-Jul-1776"
-            '    Else
-            '        NotificationDue = "False"
-            '        NotificationDueDate = dtpNotificationDate.Text
-            '    End If
-            '    If chbNotificationDateSent.Checked = True Then
-            '        NotificationSent = "True"
-            '        NotificationSentDate = "04-Jul-1776"
-            '    Else
-            '        NotificationSent = "False"
-            '        NotificationSentDate = dtpNotificationDate2.Text
-            '    End If
-            '    If txtNotificationTypeOther.Text <> "" Then
-            '        NotificationTypeOther = Replace(txtNotificationTypeOther.Text, "'", "''")
-            '    Else
-            '        NotificationTypeOther = "N/A"
-            '    End If
-            '    If txtNotificationComments.Text = "" Then
-            '        NotificationComment = "N/A"
-            '    Else
-            '        NotificationComment = Replace(txtNotificationComments.Text, "'", "''")
-            '    End If
-            '    If rdbNotificationFollowUpYes.Checked = True Then
-            '        NotificationFollowUp = "True"
-            '    Else
-            '        NotificationFollowUp = "False"
-            '    End If
-            'End If
 
             SQL = "Select strTrackingNumber " & _
             "from " & DBNameSpace & ".SSCPNotifications " & _
