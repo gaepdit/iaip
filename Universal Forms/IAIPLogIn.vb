@@ -424,23 +424,22 @@ Public Class IAIPLogIn
                             writer.Close()
                             LoginProgressBar.PerformStep()
                         End If
-                        If Me.mmiTestingEnvironment.Checked = True Or mmiTestingDatabase.Checked = True Or mmiLukeEnvironment.Checked = True Then
-                            If Me.mmiTestingEnvironment.Checked = True Then
+                        If Me.mmiTestingEnvironment.Checked Or mmiTestingDatabase.Checked Or mmiLukeEnvironment.Checked Then
+                            If Me.mmiTestingEnvironment.Checked Then
                                 NavigationScreen.pnl4.Text = "TESTING ENVIRONMENT"
                                 NavigationScreen.pnl4.BackColor = Color.Tomato
                             End If
-                            If mmiTestingDatabase.Checked = True Then
+                            If mmiTestingDatabase.Checked Then
                                 NavigationScreen.pnl4.Text = "TESTING ENVIRONMENT"
                                 NavigationScreen.pnl4.BackColor = Color.Blue
                             End If
-                            If mmiLukeEnvironment.Checked = True Then
+                            If mmiLukeEnvironment.Checked Then
                                 NavigationScreen.pnl4.Text = "TESTING ENVIRONMENT"
                                 NavigationScreen.pnl4.BackColor = Color.Black
                             End If
                         Else
                             NavigationScreen.pnl4.Text = ""
                         End If
-                        'NavigationScreen.mmiAbout.Text = lblCurrentVersionMessage.Text
                         NavigationScreen.Show()
 
                         LoginProgressBar.Value = 0
