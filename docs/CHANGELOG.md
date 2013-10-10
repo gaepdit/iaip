@@ -9,6 +9,7 @@ See the [Readme file](README.html).
 
 + NEW: *SSCP* – Better Excel export on SSCP Managers Tools & Compliance Log
 + NEW: *SSPP* – Better Excel export on Application Log
++ FIX: New EQATEC API key
 
 ## Version 2.6.6.2 <span>(2013-09-27)</span>
 

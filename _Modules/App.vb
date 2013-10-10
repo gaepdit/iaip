@@ -12,7 +12,7 @@ Module App
     Friend MachineName As String = Environment.MachineName
 
     ' Using EQATEC.Analytics.Monitor Library
-    Friend AnalyticsApiKey As String = "094F22FFB35C42E9A5D65279634F5028"
+    Friend AnalyticsApiKey As String = "F635C42ABA7B4DE886EEFCEE31C98000"
     Friend monitor As IAnalyticsMonitor
     Friend monitorSettings As IAnalyticsMonitorSettings = AnalyticsMonitorFactory.CreateSettings(AnalyticsApiKey)
     Friend monitorInstallationInfo As New Dictionary(Of String, String)
