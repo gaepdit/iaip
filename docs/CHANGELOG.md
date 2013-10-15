@@ -1,4 +1,4 @@
-IAIP Change Log
+Integrated Air Information Platform changelog
 ==============
 
 ## About the IAIP
