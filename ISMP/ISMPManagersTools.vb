@@ -5544,7 +5544,8 @@ Public Class ISMPManagersTools
             "and numProgram = '3'  " & _
             "and numUnit <> '14'  " & _
             "and numEmployeeStatus = '1' " & _
-            "and numUserID <> '0' "
+            "and numUserID <> '0' " & _
+            "order by strlastname"
 
             SQL2 = "select strCountyCode, strCountyName from " & DBNameSpace & ".LookUpCountyInformation " & _
             "order by strCountyName"
