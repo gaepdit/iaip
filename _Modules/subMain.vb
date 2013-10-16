@@ -42,7 +42,7 @@ Module subMain
     Friend AppPath As String = Path.GetDirectoryName(Application.ExecutablePath)
     Friend AboutUrl As String = AppPath & "\docs\README.html"
     Friend DateFormat As String = "dd-MMM-yyyy"
-    Friend Today As Date = DateTime.Today
+    Friend Today As Date = Date.Today
     Friend TodayString As String = Format(Today, DateFormat)
     Friend TestingEnvironment As Boolean = False
 #End Region
