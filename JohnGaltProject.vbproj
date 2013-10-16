@@ -289,9 +289,6 @@
     </Compile>
     <Compile Include="_Classes\Document.vb" />
     <Compile Include="_MFCode\CodeFile.vb" />
-    <Compile Include="_MFCode\DataReaderAdapter.vb">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="_MFCode\ListViewItemComparer.vb">
       <SubType>Code</SubType>
     </Compile>
