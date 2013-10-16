@@ -287,6 +287,7 @@
     <Compile Include="Universal Forms\BaseForm.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="_Classes\Document.vb" />
     <Compile Include="_MFCode\CodeFile.vb" />
     <Compile Include="_MFCode\DataReaderAdapter.vb">
       <SubType>Component</SubType>
@@ -1031,6 +1032,7 @@
     <Compile Include="SSPP\Sub Forms\SSPPAttainmentStatus.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="_DB\DB.vb" />
     <Compile Include="_Modules\ErrorReporting.vb" />
     <Compile Include="_Modules\ExcelExport.vb" />
     <Compile Include="_Modules\Extensions.vb" />
@@ -1789,6 +1791,15 @@
     <None Include="gaSeal.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <Compile Include="_Classes\Address.vb" />
+    <Compile Include="_Classes\Facility.vb" />
+    <Compile Include="_Classes\SSPP.ApplicationInfo.vb" />
+    <Compile Include="_Classes\Staff.vb" />
+    <Compile Include="_DB\DAL.Documents.vb" />
+    <Compile Include="_DB\DAL.Lookups.vb" />
+    <Compile Include="_DB\DAL.SSPP.Applications.vb" />
+    <Compile Include="_Modules\FacilityUtility.vb" />
+    <Compile Include="_Modules\Messages.vb" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="BusinessObjects.CrystalReports.10.5">
