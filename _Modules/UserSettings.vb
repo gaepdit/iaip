@@ -7,16 +7,17 @@ Module UserSettings
     Friend Enum UserSetting As Byte
         ExcelExportLocation
         PermitUploadLocation
+        FileDownloadLocation
     End Enum
 
     ' Define default value for above user settings here
     Private Function DefaultSetting(ByVal whichSetting As UserSetting) As String
         Select Case whichSetting
 
-            Case UserSetting.ExcelExportLocation
-                Return Environment.GetFolderPath(Environment.SpecialFolder.Personal)
+            Case UserSetting.ExcelExportLocation, _
+                UserSetting.PermitUploadLocation, _
+                UserSetting.FileDownloadLocation
 
-            Case UserSetting.PermitUploadLocation
                 Return Environment.GetFolderPath(Environment.SpecialFolder.Personal)
 
             Case Else
