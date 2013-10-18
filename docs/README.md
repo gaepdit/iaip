@@ -24,7 +24,7 @@ Please submit bug reports to Doug Waldron.
 Change Log
 ----------
 
-See the [Change Log](CHANGELOG.html).
+See the [change log](CHANGELOG.html).
 
 
 License
