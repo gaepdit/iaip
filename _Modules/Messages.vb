@@ -12,6 +12,7 @@
         If isError Then
             If errorProvider IsNot Nothing AndAlso control IsNot Nothing Then errorProvider.SetError(control, message)
             messageDisplay.ForeColor = Color.Chocolate
+            errorProvider.SetIconAlignment(control, System.Windows.Forms.ErrorIconAlignment.TopLeft)
         Else
             messageDisplay.ForeColor = Color.ForestGreen
         End If
