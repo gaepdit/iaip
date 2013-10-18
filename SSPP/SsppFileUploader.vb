@@ -67,6 +67,8 @@ Public Class SsppFileUploader
         DownloadFailure
         UpdateSuccess
         UpdateFailure
+        DownloadingFile
+        UploadingFile
     End Enum
 
     Private Function GetMessageList() As Specialized.ListDictionary
@@ -84,6 +86,9 @@ Public Class SsppFileUploader
         messageList.Add(MessageType.DownloadFailure, "Error: There was an error saving the file. " & vbNewLine & "Please try again.")
         messageList.Add(MessageType.UpdateFailure, "Error: The selected file was not updated. " & vbNewLine & "Please try again.")
         messageList.Add(MessageType.UpdateSuccess, "Success: The file ""{0}"" was updated.")
+        messageList.Add(MessageType.DownloadingFile, "Downloading {0}. Please wait.")
+        messageList.Add(MessageType.UploadingFile, "Uploading {0}. Please stand by.")
+
         Return messageList
     End Function
     Private MessageList As Specialized.ListDictionary = GetMessageList()
@@ -299,8 +304,9 @@ Public Class SsppFileUploader
     End Sub
 
     Private Sub btnNewFileUpload_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNewFileUpload.Click
-        Dim fileInfo As New FileInfo(NewFile)
+        ClearMessage(lblMessage, EP)
 
+        Dim fileInfo As New FileInfo(NewFile)
         ' Check if file exists
         If Not fileInfo.Exists Then
             DisplayMessage(lblMessage, GetMessage(MessageType.FileNotFound), True, EP, lblMessage)
@@ -329,6 +335,8 @@ Public Class SsppFileUploader
             .FileSize = fileInfo.Length
             .UploadDate = Today
         End With
+
+        DisplayMessage(lblMessage, String.Format(GetMessage(MessageType.UploadingFile), NewPermitDocument.FileName))
 
         Dim result As Boolean = UploadPermitDocument(NewPermitDocument, fileInfo.FullName, Me)
 
@@ -367,7 +375,7 @@ Public Class SsppFileUploader
 #Region "Accept Button"
 
     Private Sub NoAcceptButton(ByVal sender As System.Object, ByVal e As System.EventArgs) _
-    Handles txtApplicationNumber.Leave, txtNewDescription.Leave, txtFileDescription.Leave, ddlUpdateDocumentType.Leave
+    Handles txtApplicationNumber.Leave, txtNewDescription.Leave, txtUpdateDescription.Leave, ddlUpdateDocumentType.Leave
         Me.AcceptButton = Nothing
     End Sub
 
@@ -380,7 +388,7 @@ Public Class SsppFileUploader
     End Sub
 
     Private Sub FileProperties_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) _
-    Handles txtFileDescription.Enter, ddlUpdateDocumentType.Enter
+    Handles txtUpdateDescription.Enter, ddlUpdateDocumentType.Enter
         Me.AcceptButton = btnUpdateFileDescription
     End Sub
 
@@ -390,7 +398,6 @@ Public Class SsppFileUploader
 
     Private Sub dgvFileList_SelectionChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles dgvFileList.SelectionChanged
         If dgvFileList.SelectedRows.Count > 0 Then
-            'Dim SelectedFileID As Integer = Convert.ToInt32(dgvFileList.CurrentRow.Cells("DocumentId").Value)
             EnableFileProperties()
         Else
             DisableFileProperties()
@@ -400,13 +407,14 @@ Public Class SsppFileUploader
     Private Sub EnableFileProperties()
         btnDeleteFile.Enabled = True
         btnDownloadFile.Enabled = True
-        With txtFileDescription
+        With txtUpdateDescription
             .Visible = True
             .Text = dgvFileList.CurrentRow.Cells("Comment").Value
         End With
         With ddlUpdateDocumentType
+            .Enabled = True
             .Visible = True
-            .SelectedValue = dgvFileList.CurrentRow.Cells("DocumentId").Value
+            .SelectedValue = dgvFileList.CurrentRow.Cells("DocumentTypeId").Value
         End With
         With btnUpdateFileDescription
             .Enabled = True
@@ -421,11 +429,14 @@ Public Class SsppFileUploader
     Private Sub DisableFileProperties()
         btnDeleteFile.Enabled = False
         btnDownloadFile.Enabled = False
-        With txtFileDescription
+        With txtUpdateDescription
             .Visible = False
             .Text = ""
         End With
-        ddlUpdateDocumentType.Visible = False
+        With ddlUpdateDocumentType
+            .Enabled = False
+            .Visible = False
+        End With
         With btnUpdateFileDescription
             .Enabled = False
             .Visible = False
@@ -455,18 +466,26 @@ Public Class SsppFileUploader
     End Sub
 
     Private Sub btnDownloadFile_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDownloadFile.Click
+        ClearMessage(lblMessage, EP)
+
         Dim doc As PermitDocument = PermitDocumentFromFileListRow(dgvFileList.CurrentRow)
+        DisplayMessage(lblMessage, String.Format(GetMessage(MessageType.DownloadingFile), doc.FileName))
+
         Dim downloaded As Boolean = DownloadDocument(doc, Me)
-        If Not downloaded Then
+        If downloaded Then
+            ClearMessage(lblMessage, EP)
+        Else
             DisplayMessage(lblMessage, String.Format(GetMessage(MessageType.DownloadFailure), lblSelectedFileName), True, EP)
         End If
     End Sub
 
     Private Sub btnUpdateFileDescription_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnUpdateFileDescription.Click
         Dim doc As PermitDocument = PermitDocumentFromFileListRow(dgvFileList.CurrentRow)
+        doc.Comment = txtUpdateDescription.Text
+        doc.DocumentTypeId = ddlUpdateDocumentType.SelectedValue
         Dim updated As Boolean = UpdatePermitDocument(doc, Me)
         If updated Then
-            DisplayMessage(lblMessage, GetMessage(MessageType.UpdateSuccess))
+            DisplayMessage(lblMessage, String.Format(GetMessage(MessageType.UpdateSuccess), doc.FileName))
             ShowCurrentFiles()
         Else
             DisplayMessage(lblMessage, String.Format(GetMessage(MessageType.UpdateFailure), lblSelectedFileName), True, EP)

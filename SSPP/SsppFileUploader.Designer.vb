@@ -32,7 +32,7 @@ Partial Class SsppFileUploader
         Me.lblNewFileName = New System.Windows.Forms.Label
         Me.btnDownloadFile = New System.Windows.Forms.Button
         Me.btnDeleteFile = New System.Windows.Forms.Button
-        Me.txtFileDescription = New System.Windows.Forms.TextBox
+        Me.txtUpdateDescription = New System.Windows.Forms.TextBox
         Me.btnUpdateFileDescription = New System.Windows.Forms.Button
         Me.lblApplicationNumber = New System.Windows.Forms.Label
         Me.txtApplicationNumber = New System.Windows.Forms.TextBox
@@ -65,7 +65,7 @@ Partial Class SsppFileUploader
         Me.dgvFileList.ReadOnly = True
         Me.dgvFileList.RowHeadersVisible = False
         Me.dgvFileList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvFileList.Size = New System.Drawing.Size(354, 227)
+        Me.dgvFileList.Size = New System.Drawing.Size(419, 220)
         Me.dgvFileList.StandardTab = True
         Me.dgvFileList.TabIndex = 3
         '
@@ -73,7 +73,7 @@ Partial Class SsppFileUploader
         '
         Me.btnChooseNewFile.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnChooseNewFile.Enabled = False
-        Me.btnChooseNewFile.Location = New System.Drawing.Point(207, -1)
+        Me.btnChooseNewFile.Location = New System.Drawing.Point(139, 29)
         Me.btnChooseNewFile.Name = "btnChooseNewFile"
         Me.btnChooseNewFile.Size = New System.Drawing.Size(75, 23)
         Me.btnChooseNewFile.TabIndex = 1
@@ -82,20 +82,18 @@ Partial Class SsppFileUploader
         '
         'ddlNewDocumentType
         '
-        Me.ddlNewDocumentType.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.ddlNewDocumentType.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ddlNewDocumentType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.ddlNewDocumentType.Enabled = False
         Me.ddlNewDocumentType.FormattingEnabled = True
         Me.ddlNewDocumentType.Location = New System.Drawing.Point(58, 0)
         Me.ddlNewDocumentType.Name = "ddlNewDocumentType"
-        Me.ddlNewDocumentType.Size = New System.Drawing.Size(143, 21)
+        Me.ddlNewDocumentType.Size = New System.Drawing.Size(156, 21)
         Me.ddlNewDocumentType.TabIndex = 0
         '
         'lblDocumentTypes
         '
-        Me.lblDocumentTypes.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.lblDocumentTypes.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblDocumentTypes.AutoSize = True
         Me.lblDocumentTypes.Location = New System.Drawing.Point(3, 3)
         Me.lblDocumentTypes.Name = "lblDocumentTypes"
@@ -115,15 +113,16 @@ Partial Class SsppFileUploader
         Me.Panel1.Controls.Add(Me.btnChooseNewFile)
         Me.Panel1.Controls.Add(Me.lblDocumentTypes)
         Me.Panel1.Controls.Add(Me.ddlNewDocumentType)
-        Me.Panel1.Location = New System.Drawing.Point(372, 113)
+        Me.Panel1.Location = New System.Drawing.Point(446, 113)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(285, 312)
+        Me.Panel1.Size = New System.Drawing.Size(217, 278)
         Me.Panel1.TabIndex = 2
         '
         'btnNewFileCancel
         '
+        Me.btnNewFileCancel.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnNewFileCancel.Enabled = False
-        Me.btnNewFileCancel.Location = New System.Drawing.Point(126, 113)
+        Me.btnNewFileCancel.Location = New System.Drawing.Point(58, 150)
         Me.btnNewFileCancel.Name = "btnNewFileCancel"
         Me.btnNewFileCancel.Size = New System.Drawing.Size(75, 23)
         Me.btnNewFileCancel.TabIndex = 4
@@ -133,8 +132,9 @@ Partial Class SsppFileUploader
         '
         'btnNewFileUpload
         '
+        Me.btnNewFileUpload.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnNewFileUpload.Enabled = False
-        Me.btnNewFileUpload.Location = New System.Drawing.Point(207, 113)
+        Me.btnNewFileUpload.Location = New System.Drawing.Point(139, 150)
         Me.btnNewFileUpload.Name = "btnNewFileUpload"
         Me.btnNewFileUpload.Size = New System.Drawing.Size(75, 23)
         Me.btnNewFileUpload.TabIndex = 3
@@ -144,16 +144,18 @@ Partial Class SsppFileUploader
         '
         'txtNewDescription
         '
-        Me.txtNewDescription.Location = New System.Drawing.Point(6, 87)
+        Me.txtNewDescription.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.txtNewDescription.Location = New System.Drawing.Point(6, 124)
         Me.txtNewDescription.Name = "txtNewDescription"
-        Me.txtNewDescription.Size = New System.Drawing.Size(276, 20)
+        Me.txtNewDescription.Size = New System.Drawing.Size(208, 20)
         Me.txtNewDescription.TabIndex = 2
         Me.txtNewDescription.Visible = False
         '
         'lblNewDescription
         '
+        Me.lblNewDescription.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblNewDescription.AutoSize = True
-        Me.lblNewDescription.Location = New System.Drawing.Point(3, 71)
+        Me.lblNewDescription.Location = New System.Drawing.Point(3, 108)
         Me.lblNewDescription.Name = "lblNewDescription"
         Me.lblNewDescription.Size = New System.Drawing.Size(106, 13)
         Me.lblNewDescription.TabIndex = 5
@@ -162,10 +164,11 @@ Partial Class SsppFileUploader
         '
         'lblNewFileName
         '
+        Me.lblNewFileName.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblNewFileName.AutoSize = True
         Me.lblNewFileName.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblNewFileName.ForeColor = System.Drawing.Color.ForestGreen
-        Me.lblNewFileName.Location = New System.Drawing.Point(3, 38)
+        Me.lblNewFileName.Location = New System.Drawing.Point(3, 75)
         Me.lblNewFileName.Name = "lblNewFileName"
         Me.lblNewFileName.Size = New System.Drawing.Size(145, 17)
         Me.lblNewFileName.TabIndex = 4
@@ -176,7 +179,7 @@ Partial Class SsppFileUploader
         '
         Me.btnDownloadFile.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnDownloadFile.Enabled = False
-        Me.btnDownloadFile.Location = New System.Drawing.Point(210, 347)
+        Me.btnDownloadFile.Location = New System.Drawing.Point(275, 340)
         Me.btnDownloadFile.Name = "btnDownloadFile"
         Me.btnDownloadFile.Size = New System.Drawing.Size(75, 23)
         Me.btnDownloadFile.TabIndex = 4
@@ -187,29 +190,28 @@ Partial Class SsppFileUploader
         '
         Me.btnDeleteFile.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnDeleteFile.Enabled = False
-        Me.btnDeleteFile.Location = New System.Drawing.Point(291, 347)
+        Me.btnDeleteFile.Location = New System.Drawing.Point(356, 340)
         Me.btnDeleteFile.Name = "btnDeleteFile"
         Me.btnDeleteFile.Size = New System.Drawing.Size(75, 23)
         Me.btnDeleteFile.TabIndex = 8
         Me.btnDeleteFile.Text = "Delete"
         Me.btnDeleteFile.UseVisualStyleBackColor = True
         '
-        'txtFileDescription
+        'txtUpdateDescription
         '
-        Me.txtFileDescription.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.txtFileDescription.Location = New System.Drawing.Point(12, 376)
-        Me.txtFileDescription.Name = "txtFileDescription"
-        Me.txtFileDescription.Size = New System.Drawing.Size(354, 20)
-        Me.txtFileDescription.TabIndex = 5
-        Me.txtFileDescription.Visible = False
+        Me.txtUpdateDescription.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.txtUpdateDescription.Location = New System.Drawing.Point(12, 371)
+        Me.txtUpdateDescription.Name = "txtUpdateDescription"
+        Me.txtUpdateDescription.Size = New System.Drawing.Size(145, 20)
+        Me.txtUpdateDescription.TabIndex = 5
+        Me.txtUpdateDescription.Visible = False
         '
         'btnUpdateFileDescription
         '
         Me.btnUpdateFileDescription.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnUpdateFileDescription.AutoSize = True
         Me.btnUpdateFileDescription.Enabled = False
-        Me.btnUpdateFileDescription.Location = New System.Drawing.Point(260, 402)
+        Me.btnUpdateFileDescription.Location = New System.Drawing.Point(325, 369)
         Me.btnUpdateFileDescription.Name = "btnUpdateFileDescription"
         Me.btnUpdateFileDescription.Size = New System.Drawing.Size(106, 23)
         Me.btnUpdateFileDescription.TabIndex = 7
@@ -248,17 +250,18 @@ Partial Class SsppFileUploader
         Me.lblAppInfo.ForeColor = System.Drawing.SystemColors.GrayText
         Me.lblAppInfo.Location = New System.Drawing.Point(12, 45)
         Me.lblAppInfo.Name = "lblAppInfo"
-        Me.lblAppInfo.Size = New System.Drawing.Size(354, 65)
+        Me.lblAppInfo.Size = New System.Drawing.Size(270, 65)
         Me.lblAppInfo.TabIndex = 12
         Me.lblAppInfo.Text = "Application Info" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "2" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "3" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "4" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "5"
         '
         'lblMessage
         '
-        Me.lblMessage.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.EP.SetIconAlignment(Me.lblMessage, System.Windows.Forms.ErrorIconAlignment.MiddleLeft)
-        Me.lblMessage.Location = New System.Drawing.Point(372, 13)
+        Me.lblMessage.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.EP.SetIconAlignment(Me.lblMessage, System.Windows.Forms.ErrorIconAlignment.TopLeft)
+        Me.lblMessage.Location = New System.Drawing.Point(313, 13)
         Me.lblMessage.Name = "lblMessage"
-        Me.lblMessage.Size = New System.Drawing.Size(285, 26)
+        Me.lblMessage.Size = New System.Drawing.Size(350, 26)
         Me.lblMessage.TabIndex = 13
         Me.lblMessage.Text = "Message Placeholder" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "2"
         Me.lblMessage.Visible = False
@@ -270,11 +273,12 @@ Partial Class SsppFileUploader
         '
         'lblAppInfo2
         '
-        Me.lblAppInfo2.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.lblAppInfo2.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblAppInfo2.ForeColor = System.Drawing.SystemColors.GrayText
-        Me.lblAppInfo2.Location = New System.Drawing.Point(372, 45)
+        Me.lblAppInfo2.Location = New System.Drawing.Point(313, 45)
         Me.lblAppInfo2.Name = "lblAppInfo2"
-        Me.lblAppInfo2.Size = New System.Drawing.Size(285, 65)
+        Me.lblAppInfo2.Size = New System.Drawing.Size(350, 65)
         Me.lblAppInfo2.TabIndex = 12
         Me.lblAppInfo2.Text = "Application Info" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "2" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "3" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "4" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "5"
         '
@@ -284,7 +288,7 @@ Partial Class SsppFileUploader
         Me.lblSelectedFileName.AutoSize = True
         Me.lblSelectedFileName.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblSelectedFileName.ForeColor = System.Drawing.Color.ForestGreen
-        Me.lblSelectedFileName.Location = New System.Drawing.Point(12, 350)
+        Me.lblSelectedFileName.Location = New System.Drawing.Point(12, 343)
         Me.lblSelectedFileName.Name = "lblSelectedFileName"
         Me.lblSelectedFileName.Size = New System.Drawing.Size(145, 17)
         Me.lblSelectedFileName.TabIndex = 14
@@ -293,24 +297,25 @@ Partial Class SsppFileUploader
         '
         'ddlUpdateDocumentType
         '
-        Me.ddlUpdateDocumentType.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.ddlUpdateDocumentType.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
+                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ddlUpdateDocumentType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.ddlUpdateDocumentType.Enabled = False
         Me.ddlUpdateDocumentType.FormattingEnabled = True
-        Me.ddlUpdateDocumentType.Location = New System.Drawing.Point(111, 403)
+        Me.ddlUpdateDocumentType.Location = New System.Drawing.Point(163, 371)
         Me.ddlUpdateDocumentType.Name = "ddlUpdateDocumentType"
-        Me.ddlUpdateDocumentType.Size = New System.Drawing.Size(143, 21)
+        Me.ddlUpdateDocumentType.Size = New System.Drawing.Size(156, 21)
         Me.ddlUpdateDocumentType.TabIndex = 6
         Me.ddlUpdateDocumentType.Visible = False
         '
         'SsppFileUploader
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
-        Me.ClientSize = New System.Drawing.Size(669, 437)
+        Me.ClientSize = New System.Drawing.Size(675, 404)
         Me.Controls.Add(Me.ddlUpdateDocumentType)
         Me.Controls.Add(Me.btnDeleteFile)
         Me.Controls.Add(Me.btnDownloadFile)
-        Me.Controls.Add(Me.txtFileDescription)
+        Me.Controls.Add(Me.txtUpdateDescription)
         Me.Controls.Add(Me.btnUpdateFileDescription)
         Me.Controls.Add(Me.lblSelectedFileName)
         Me.Controls.Add(Me.lblMessage)
@@ -343,7 +348,7 @@ Partial Class SsppFileUploader
     Friend WithEvents lblNewFileName As System.Windows.Forms.Label
     Friend WithEvents btnDownloadFile As System.Windows.Forms.Button
     Friend WithEvents btnDeleteFile As System.Windows.Forms.Button
-    Friend WithEvents txtFileDescription As System.Windows.Forms.TextBox
+    Friend WithEvents txtUpdateDescription As System.Windows.Forms.TextBox
     Friend WithEvents btnUpdateFileDescription As System.Windows.Forms.Button
     Friend WithEvents lblApplicationNumber As System.Windows.Forms.Label
     Friend WithEvents txtApplicationNumber As System.Windows.Forms.TextBox
