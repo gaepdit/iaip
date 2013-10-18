@@ -49,6 +49,13 @@ Public Class IAIPNavigation
             cboIAIPList.Items.Add("Monitoring Test Notifications")
             cboIAIPList.Items.Add("Permit Applications")
 
+            If TestingEnvironment Then
+                mmiTesting.Visible = True
+                mmiTesting.Enabled = True
+            Else
+                mmiTesting.Visible = False
+                mmiTesting.Enabled = False
+            End If
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
@@ -9030,5 +9037,9 @@ Public Class IAIPNavigation
         If dgvWorkViewer.RowCount > 0 Then
             dgvWorkViewer.ExportToExcel(Me)
         End If
+    End Sub
+
+    Private Sub MenuItem4_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MenuItem4.Click
+        SsppFileUploader.Show()
     End Sub
 End Class

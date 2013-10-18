@@ -36,6 +36,8 @@ Partial Class IAIPNavigation
         Me.mmiOnlineHelp = New System.Windows.Forms.MenuItem
         Me.MenuItem1 = New System.Windows.Forms.MenuItem
         Me.mmiAbout = New System.Windows.Forms.MenuItem
+        Me.mmiTesting = New System.Windows.Forms.MenuItem
+        Me.MenuItem4 = New System.Windows.Forms.MenuItem
         Me.Image_List_All = New System.Windows.Forms.ImageList(Me.components)
         Me.Label1 = New System.Windows.Forms.Label
         Me.llbQuaternaryList = New System.Windows.Forms.LinkLabel
@@ -131,7 +133,7 @@ Partial Class IAIPNavigation
         '
         'MainMenu1
         '
-        Me.MainMenu1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiFile, Me.mmiView, Me.MenuItem2, Me.mmiHelp})
+        Me.MainMenu1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiFile, Me.mmiView, Me.MenuItem2, Me.mmiHelp, Me.mmiTesting})
         '
         'mmiFile
         '
@@ -209,6 +211,18 @@ Partial Class IAIPNavigation
         '
         Me.mmiAbout.Index = 2
         Me.mmiAbout.Text = "&About IAIP"
+        '
+        'mmiTesting
+        '
+        Me.mmiTesting.Index = 4
+        Me.mmiTesting.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.MenuItem4})
+        Me.mmiTesting.Text = "Testing"
+        Me.mmiTesting.Visible = False
+        '
+        'MenuItem4
+        '
+        Me.MenuItem4.Index = 0
+        Me.MenuItem4.Text = "New permit uploader"
         '
         'Image_List_All
         '
@@ -1338,4 +1352,6 @@ Partial Class IAIPNavigation
     Friend WithEvents rdbStaffView As System.Windows.Forms.RadioButton
     Friend WithEvents mmiExport As System.Windows.Forms.MenuItem
     Friend WithEvents MenuItem1 As System.Windows.Forms.MenuItem
+    Friend WithEvents MenuItem4 As System.Windows.Forms.MenuItem
+    Friend WithEvents mmiTesting As System.Windows.Forms.MenuItem
 End Class
