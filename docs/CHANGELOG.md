@@ -1,9 +1,9 @@
-Integrated Air Information Platform changelog
+Integrated Air Information Platform change log
 ==============
 
 ## About the IAIP
 
-See the [Readme file](README.html).
+See the [release notes](README.html).
 
 ## Version 2.6.7 <span>(2013-10-18)</span>
 
