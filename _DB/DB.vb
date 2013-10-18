@@ -53,9 +53,9 @@ Namespace DB
                     command.Parameters.AddRange(parameterArray)
                     Using adapter As New OracleDataAdapter(command)
                         Try
-                            connection.Open()
+                            command.Connection.Open()
                             adapter.Fill(table)
-
+                            command.Connection.Close()
                             Return table
                         Catch ee As OracleException
                             MessageBox.Show("Database error: " & ee.ToString)
@@ -83,17 +83,24 @@ Namespace DB
                     command.Parameters.AddRange(parameterArray)
 
                     Try
-                        Using dr As OracleDataReader = command.ExecuteReader()
-                            dr.Read()
-                            Dim blob As OracleBlob = dr.GetOracleBlob(0)
-                            Dim byteArray(blob.Length) As Byte
-                            blob.Read(byteArray, 0, blob.Length)
+                        command.Connection.Open()
+                        Dim dr As OracleDataReader = command.ExecuteReader()
+                        dr.Read()
 
-                            blob.Dispose()
-                            Return byteArray
-                        End Using
+                        Dim length As Integer = dr.GetBytes(0, 0, Nothing, 0, Integer.MaxValue)
+                        Dim byteArray(length) As Byte
+                        dr.GetBytes(0, 0, byteArray, 0, length)
+
+                        dr.Close()
+                        dr.Dispose()
+                        command.Connection.Close()
+
+                        Return byteArray
                     Catch ee As OracleException
                         MessageBox.Show("Database error: " & ee.ToString)
+                        Return Nothing
+                    Catch ex As Exception
+                        MessageBox.Show("Error: " & ex.ToString)
                         Return Nothing
                     End Try
 
@@ -137,7 +144,7 @@ Namespace DB
                     Dim transaction As OracleTransaction = Nothing
 
                     Try
-                        connection.Open()
+                        command.Connection.Open()
                         transaction = connection.BeginTransaction
                         command.Transaction = transaction
                         Try
@@ -157,6 +164,7 @@ Namespace DB
                             Return False
                         End Try
 
+                        command.Connection.Close()
                     Catch ee As OracleException
                         MessageBox.Show("There was an error connecting to the database.")
                         Return False
