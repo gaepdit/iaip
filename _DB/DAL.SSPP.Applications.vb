@@ -19,8 +19,8 @@ Namespace DAL
             Private Sub FillApplicationInfoFromDataRow(ByVal row As DataRow, ByRef appInfo As ApplicationInfo)
                 Dim address As New Apb.Address
                 With address
-                    .City = row("STRFACILITYCITY")
-                    .State = row("STRFACILITYSTATE")
+                    .City = DB.GetNullable(Of String)(row("STRFACILITYCITY"))
+                    .State = DB.GetNullable(Of String)(row("STRFACILITYSTATE"))
                 End With
 
                 Dim location As New Apb.Location
@@ -30,22 +30,22 @@ Namespace DAL
 
                 Dim facility As New Apb.Facility
                 With facility
-                    .AirsNumber = row("STRAIRSNUMBER")
-                    .Name = row("STRFACILITYNAME")
+                    .AirsNumber = DB.GetNullable(Of String)(row("STRAIRSNUMBER"))
+                    .Name = DB.GetNullable(Of String)(row("STRFACILITYNAME"))
                     .FacilityLocation = location
                 End With
 
                 Dim staff As New Apb.Staff
                 With staff
-                    .FirstName = row("STRFIRSTNAME")
-                    .LastName = row("STRLASTNAME")
+                    .FirstName = DB.GetNullable(Of String)(row("STRFIRSTNAME"))
+                    .LastName = DB.GetNullable(Of String)(row("STRLASTNAME"))
                 End With
 
                 With appInfo
-                    .ApplicationNumber = row("STRAPPLICATIONNUMBER")
-                    .ApplicationType = row("STRAPPLICATIONTYPEDESC")
+                    .ApplicationNumber = DB.GetNullable(Of String)(row("STRAPPLICATIONNUMBER"))
+                    .ApplicationType = DB.GetNullable(Of String)(row("STRAPPLICATIONTYPEDESC"))
                     .DateIssued = Apb.NormalizeDate(DB.GetNullable(Of Date)(row("DATFINALIZEDDATE")))
-                    .PermitType = row("STRPERMITTYPEDESCRIPTION")
+                    .PermitType = DB.GetNullable(Of String)(row("STRPERMITTYPEDESCRIPTION"))
                     .Facility = facility
                     .StaffResponsible = staff
                 End With
@@ -68,10 +68,10 @@ Namespace DAL
                     ON SSPPAPPLICATIONMASTER.STRAIRSNUMBER = APBFACILITYINFORMATION.STRAIRSNUMBER
                     LEFT JOIN LOOKUPPERMITTYPES
                     ON SSPPAPPLICATIONMASTER.STRPERMITTYPE = LOOKUPPERMITTYPES.STRPERMITTYPECODE
-                    INNER JOIN LOOKUPAPPLICATIONTYPES
+                    LEFT JOIN LOOKUPAPPLICATIONTYPES
                     ON SSPPAPPLICATIONMASTER.STRAPPLICATIONTYPE = LOOKUPAPPLICATIONTYPES.STRAPPLICATIONTYPECODE
-                    INNER JOIN EPDUSERPROFILES
-                    ON SSPPAPPLICATIONMASTER.STRSTAFFRESPONSIBLE = EPDUSERPROFILES.NUMUSERID
+                    LEFT JOIN EPDUSERPROFILES
+                    ON SSPPAPPLICATIONMASTER.STRSTAFFRESPONSIBLE     = EPDUSERPROFILES.NUMUSERID
                     WHERE SSPPAPPLICATIONMASTER.STRAPPLICATIONNUMBER = :pID
                 ]]></s>.Value
                 Dim parameter As New OracleParameter("pId", appNumber)
