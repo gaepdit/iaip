@@ -170,8 +170,9 @@ Public Class SsppFileUploader
             End With
             With .Columns("FileSize")
                 .HeaderText = "File Size"
-                .DefaultCellStyle.Format = "N0"
+                .DefaultCellStyle.Format = "fs:1"
                 .DisplayIndex = 3
+                .DefaultCellStyle.FormatProvider = New FileSizeFormatProvider
             End With
             With .Columns("UploadDate")
                 .HeaderText = "Uploaded On"
@@ -490,7 +491,10 @@ Public Class SsppFileUploader
 
 #End Region
 
-    Private Sub ddlNewDocumentType_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ddlNewDocumentType.SelectedIndexChanged
-
+    Private Sub dataGridView_CellFormatting(ByVal sender As Object, ByVal e As DataGridViewCellFormattingEventArgs) Handles dgvFileList.CellFormatting
+        If TypeOf e.CellStyle.FormatProvider Is ICustomFormatter Then
+            e.Value = TryCast(e.CellStyle.FormatProvider.GetFormat(GetType(ICustomFormatter)), ICustomFormatter).Format(e.CellStyle.Format, e.Value, e.CellStyle.FormatProvider)
+            e.FormattingApplied = True
+        End If
     End Sub
 End Class
