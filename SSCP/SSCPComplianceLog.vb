@@ -1522,7 +1522,7 @@ Public Class SSCPComplianceLog
                                 SQL = ""
                         End Select
                     End If
-                Case "Notification"
+                Case "Notification" To "Notification-z"
                     SQL = "Select strTrackingNumber " & _
                     "from " & DBNameSpace & ".SSCPItemMaster " & _
                     "where strTrackingNumber = '" & txtWorkNumber.Text & "' "

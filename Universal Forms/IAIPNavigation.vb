@@ -2279,7 +2279,6 @@ Public Class IAIPNavigation
                     FeeManagement.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
 
                 Case "Fee Statistics && Reports" ''"Fee Statistics && Mailout" '"Mailout && Statistics" '12
-                    ' If NavigationScreen.pnl4.Text = "TESTING ENVIRONMENT" Then
                     If MailoutAndStats Is Nothing Then
                         If MailoutAndStats Is Nothing Then MailoutAndStats = New PASPFeeStatistics
                     Else

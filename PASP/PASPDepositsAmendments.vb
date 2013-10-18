@@ -1480,30 +1480,18 @@ Public Class PASPDepositsAmendments
                 nspsreason = ""
                 For i = 0 To cblNSPSExempt.Items.Count - 1
                     If cblNSPSExempt.GetItemChecked(i) = True Then
-                        'If NavigationScreen.pnl4.Text = "TESTING ENVIRONMENT" Then
                         cblNSPSExempt.SelectedIndex = i
                         nspsreason = nspsreason & cblNSPSExempt.SelectedValue & ","
-                        'Else
-                        '    nspsreason = nspsreason & 1    ' old method of saving data
-                        'End If
                         exemptreasontext = exemptreasontext & cblNSPSExempt.Text & "; "
-                    Else
-                        'If NavigationScreen.pnl4.Text = "TESTING ENVIRONMENT" Then
-
-                        'Else
-                        '    nspsreason = nspsreason & 0 ' old method of saving data
-                        'End If
                     End If
                 Next
             Else
                 exemptnsps = "NO"
             End If
-            'If NavigationScreen.pnl4.Text = "TESTING ENVIRONMENT" Then
             If nspsreason.Length > 1 Then
                 nspsreason = Mid(nspsreason, 1, Len(nspsreason) - 1)
             End If
-            'End If
-
+            
             If nspsreason = "" Then
                 nspsreason = "0"
             End If
@@ -1672,30 +1660,18 @@ Public Class PASPDepositsAmendments
                 nspsreason = ""
                 For i = 0 To cblNSPSExempt.Items.Count - 1
                     If cblNSPSExempt.GetItemChecked(i) = True Then
-                        ' If NavigationScreen.pnl4.Text = "TESTING ENVIRONMENT" Then
                         cblNSPSExempt.SelectedIndex = i
                         nspsreason = nspsreason & cblNSPSExempt.SelectedValue & ","
-                        'Else
-                        '    nspsreason = nspsreason & 1    ' old method of saving data
-                        'End If
                         exemptreasontext = exemptreasontext & cblNSPSExempt.Text & "; "
-                    Else
-                        'If NavigationScreen.pnl4.Text = "TESTING ENVIRONMENT" Then
-
-                        'Else
-                        '    nspsreason = nspsreason & 0  ' old method of saving data
-                        'End If
                     End If
                 Next
             Else
                 exemptnsps = "NO"
             End If
 
-            'If NavigationScreen.pnl4.Text = "TESTING ENVIRONMENT" Then
             If nspsreason.Length > 1 Then
                 nspsreason = Mid(nspsreason, 1, Len(nspsreason) - 1)
             End If
-            ' End If
             If nspsreason = "" Then
                 nspsreason = "0"
             End If

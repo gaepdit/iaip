@@ -70,15 +70,12 @@ Public Class SSPPApplicationTrackingLog
 
             LoadPermissions()
 
-            ' If NavigationScreen.pnl4.Text = "TESTING ENVIRONMENT" Then
             TCApplicationTrackingLog.TabPages.Add(TPSubPartEditor)
             LoadSubPartData()
             SetPermissions()
 
             TCSupParts.TabPages.Remove(TPEditSubParts)
-            '   End If
-
-
+            
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
@@ -8366,7 +8363,6 @@ Public Class SSPPApplicationTrackingLog
 
         Try
              
-            ' If NavigationScreen.pnl4.Text = "TESTING ENVIRONMENT" Then
             If lbLinkApplications.Items.Count > 1 Then
                 MasterApplication = txtApplicationNumber.Text
                 MasterAppType = cboApplicationType.SelectedValue
@@ -8377,9 +8373,9 @@ Public Class SSPPApplicationTrackingLog
                         "strApplicationType " & _
                         "from " & DBNameSpace & ".SSPPApplicationMaster " & _
                         "where strApplicationnumber = '" & lbLinkApplications.Items.Item(i) & "' "
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, Conn)
+                        If Conn.State = ConnectionState.Closed Then
+                            Conn.Open()
                         End If
                         dr = cmd.ExecuteReader
                         While dr.Read
@@ -8422,9 +8418,9 @@ Public Class SSPPApplicationTrackingLog
                 SQL = "Select distinct(strMasterApplication) as MasterApp " & _
                 "from " & DBNameSpace & ".SSPPApplicationLinking " & _
                 "where " & temp
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
+                cmd = New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
                 End If
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -8435,9 +8431,9 @@ Public Class SSPPApplicationTrackingLog
                         SQL = "Select strApplicationNumber " & _
                         "from " & DBNameSpace & ".SSPPApplicationLinking " & _
                         "where strApplicationNumber = '" & lbLinkApplications.Items.Item(i) & "' "
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, Conn)
+                        If Conn.State = ConnectionState.Closed Then
+                            Conn.Open()
                         End If
                         dr = cmd.ExecuteReader
                         recExist = dr.Read
@@ -8452,9 +8448,9 @@ Public Class SSPPApplicationTrackingLog
                             "values " & _
                             "('" & MasterApplication & "', '" & lbLinkApplications.Items.Item(i) & "') "
                         End If
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, Conn)
+                        If Conn.State = ConnectionState.Closed Then
+                            Conn.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Close()
@@ -8465,9 +8461,9 @@ Public Class SSPPApplicationTrackingLog
                         "values " & _
                         "('" & MasterApplication & "', '" & lbLinkApplications.Items.Item(i) & "') "
 
-                        cmd = New OracleCommand(SQL, conn)
-                        If conn.State = ConnectionState.Closed Then
-                            conn.Open()
+                        cmd = New OracleCommand(SQL, Conn)
+                        If Conn.State = ConnectionState.Closed Then
+                            Conn.Open()
                         End If
                         dr = cmd.ExecuteReader
                         dr.Close()
@@ -12047,12 +12043,10 @@ Public Class SSPPApplicationTrackingLog
 
                 FindMasterApp()
 
-                '    If NavigationScreen.pnl4.Text = "TESTING ENVIRONMENT" Then
                 LoadSSPPSIPSubPartInformation()
                 LoadSSPPNSPSSubPartInformation()
                 LoadSSPPNESHAPSubPartInformation()
                 LoadSSPPMACTSubPartInformation()
-                'End If
             End If
 
         Catch ex As Exception
@@ -12083,12 +12077,10 @@ Public Class SSPPApplicationTrackingLog
                 CheckOpenApplications()
                 LoadContactData()
 
-                '    If NavigationScreen.pnl4.Text = "TESTING ENVIRONMENT" Then
                 LoadSSPPSIPSubPartInformation()
                 LoadSSPPNSPSSubPartInformation()
                 LoadSSPPNESHAPSubPartInformation()
                 LoadSSPPMACTSubPartInformation()
-                '    End If
             End If
 
         Catch ex As Exception
