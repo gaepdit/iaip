@@ -71,7 +71,13 @@ Namespace DAL
                 .Add(".tif", "TIFF Image (*.tif, *.tiff)|*.tif;*.tiff")
                 .Add(".tiff", "TIFF Image (*.tif, *.tiff)|*.tif;*.tiff")
             End With
-            Return fileFilters(key)
+
+            If fileFilters.ContainsKey(key) Then
+                Return fileFilters(key)
+            Else
+                Return "*.*|*.*"
+            End If
+
         End Function
 
         Public Function OpenFileFilters() As List(Of String)
