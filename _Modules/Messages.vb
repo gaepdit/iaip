@@ -10,9 +10,11 @@
     ''' <param name="control">The control to attach the error provider to</param>
     Public Sub DisplayMessage(ByVal messageDisplay As Label, ByVal message As String, Optional ByVal isError As Boolean = False, Optional ByVal errorProvider As ErrorProvider = Nothing, Optional ByVal control As Control = Nothing)
         If isError Then
-            If errorProvider IsNot Nothing AndAlso control IsNot Nothing Then errorProvider.SetError(control, message)
             messageDisplay.ForeColor = Color.Chocolate
-            errorProvider.SetIconAlignment(control, System.Windows.Forms.ErrorIconAlignment.TopLeft)
+            If errorProvider IsNot Nothing AndAlso control IsNot Nothing Then
+                errorProvider.SetError(control, message)
+                errorProvider.SetIconAlignment(control, System.Windows.Forms.ErrorIconAlignment.TopLeft)
+            End If
         Else
             messageDisplay.ForeColor = Color.ForestGreen
         End If
