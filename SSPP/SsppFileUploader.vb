@@ -143,6 +143,7 @@ Public Class SsppFileUploader
 
     Private Sub ShowCurrentFiles()
         DisableFileProperties()
+        dgvFileList.DataSource = Nothing
         CurrentFiles = GetPermitDocuments(AppInfo.ApplicationNumber)
         If CurrentFiles.Count > 0 Then
             With dgvFileList
@@ -475,7 +476,7 @@ Public Class SsppFileUploader
         If downloaded Then
             ClearMessage(lblMessage, EP)
         Else
-            DisplayMessage(lblMessage, String.Format(GetMessage(MessageType.DownloadFailure), lblSelectedFileName), True, EP)
+            DisplayMessage(lblMessage, String.Format(GetMessage(MessageType.DownloadFailure), lblSelectedFileName), True, EP, lblMessage)
         End If
     End Sub
 
