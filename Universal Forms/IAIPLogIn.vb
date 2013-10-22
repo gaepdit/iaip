@@ -959,4 +959,8 @@ Public Class IAIPLogIn
     Private Sub mmiAbout_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiAbout.Click
         OpenAboutUrl(Me)
     End Sub
+
+    Private Sub IAIPLogIn_HelpButtonClicked(ByVal sender As System.Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MyBase.HelpButtonClicked
+        OpenAboutUrl(Me)
+    End Sub
 End Class

@@ -365,7 +365,7 @@ Partial Class IAIPLogIn
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(747, 418)
+        Me.ClientSize = New System.Drawing.Size(742, 428)
         Me.Controls.Add(Me.PictureBox1)
         Me.Controls.Add(Me.lblAvailableVersionMessage)
         Me.Controls.Add(Me.btnDeleteEIS)
@@ -385,10 +385,15 @@ Partial Class IAIPLogIn
         Me.Controls.Add(Me.lblGeneralMessage)
         Me.Controls.Add(Me.LoginProgressBar)
         Me.Controls.Add(Me.btnLoginButton)
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
+        Me.HelpButton = True
         Me.Margin = New System.Windows.Forms.Padding(2)
+        Me.MaximizeBox = False
         Me.Menu = Me.MainMenu1
+        Me.MinimizeBox = False
         Me.Name = "IAIPLogIn"
-        Me.StartPosition = System.Windows.Forms.FormStartPosition.Manual
+        Me.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Integrated Air Information Platform"
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
