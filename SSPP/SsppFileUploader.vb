@@ -314,9 +314,11 @@ Public Class SsppFileUploader
             Exit Sub
         End If
 
+        Dim m As String
+
         ' Check if similar document has already been uploaded
         If DocumentTypeAlreadyExists() Then
-            Dim m As String = String.Format(GetMessage(MessageType.DocumentTypeAlreadyExists), ddlNewDocumentType.Text)
+            m = String.Format(GetMessage(MessageType.DocumentTypeAlreadyExists), ddlNewDocumentType.Text)
             m &= vbNewLine & "Would you like to continue? (Both files will be kept.)"
             Dim response As Windows.Forms.DialogResult = MessageBox.Show(m, "Replace File?", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning)
             If response = Windows.Forms.DialogResult.Cancel Then
@@ -337,12 +339,13 @@ Public Class SsppFileUploader
             .UploadDate = Today
         End With
 
-        DisplayMessage(lblMessage, String.Format(GetMessage(MessageType.UploadingFile), NewPermitDocument.FileName))
+        m = String.Format(GetMessage(MessageType.UploadingFile), NewPermitDocument.FileName)
+        DisplayMessage(lblMessage, m)
 
         Dim result As Boolean = UploadPermitDocument(NewPermitDocument, fileInfo.FullName, Me)
 
         If result Then
-            Dim m As String = String.Format(GetMessage(MessageType.UploadSuccess), NewPermitDocument.FileName)
+            m = String.Format(GetMessage(MessageType.UploadSuccess), NewPermitDocument.FileName)
             DisplayMessage(lblMessage, m)
             SaveSetting(UserSetting.PermitUploadLocation, fileInfo.DirectoryName)
         Else
