@@ -2163,50 +2163,6 @@ Public Class SSPPApplicationLog
         If dgvApplicationLog.RowCount > 0 Then
             dgvApplicationLog.ExportToExcel()
         End If
-
-        ''Dim ExcelApp As New Excel.Application
-        'Dim ExcelApp As New Microsoft.Office.Interop.Excel.Application
-        ''Dim ExcelDoc As Microsoft.Office.Interop.Excel.Workbook
-        'Dim i, j As Integer
-
-        'Try
-
-        '    If ExcelApp.Visible = False Then
-        '        ExcelApp.Visible = True
-        '    End If
-
-        '    If dgvApplicationLog.RowCount <> 0 Then
-        '        With ExcelApp
-        '            .SheetsInNewWorkbook = 1
-        '            .Workbooks.Add()
-        '            .Worksheets(1).Select()
-
-        '            'For displaying the column name in the the excel file.
-        '            For i = 0 To dgvApplicationLog.ColumnCount - 1
-        '                .Cells(1, i + 1) = dgvApplicationLog.Columns(i).HeaderText.ToString
-        '            Next
-
-        '            For i = 0 To dgvApplicationLog.ColumnCount - 1
-        '                For j = 0 To dgvApplicationLog.RowCount - 1
-        '                    .Cells(j + 2, i + 1).numberformat = "@"
-        '                    .Cells(j + 2, i + 1).value = dgvApplicationLog.Item(i, j).Value.ToString
-        '                Next
-        '            Next
-
-        '        End With
-        '        If ExcelApp.Visible = False Then
-        '            ExcelApp.Visible = True
-        '        End If
-        '    End If
-
-        'Catch ex As Exception
-        '    If ex.ToString.Contains("RPC_E_CALL_REJECTED") Then
-        '        MsgBox("Error in exporting data." & vbCrLf & "Please run the export again.")
-        '    Else
-        '        ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        '    End If
-        'End Try
-
     End Sub
 
 #Region "Other procedures"
