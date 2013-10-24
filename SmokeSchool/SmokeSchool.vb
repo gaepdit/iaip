@@ -4358,75 +4358,78 @@ Public Class SmokeSchool
         Finally
         End Try
     End Sub
-    Private Sub export()
-        Try
-            'Response.AddHeader("content-disposition", "attachment;filename=EIData.xls")
-            '' Set MIME type to Excel.
-            'Response.ContentType = "application/vnd.ms-excel"
-            '' Remove the charset from the Content-Type header.
-            'Response.Charset = ""
-            Dim ExcelApp As New Microsoft.Office.Interop.Excel.Application
-            'Dim ExcelDoc As Microsoft.Office.Interop.Excel.Workbook
-            'Dim ExcelApp As Excel.Application = New Excel.ApplicationClass
-            Dim col, row As Integer
-            Dim x As String
-            Dim y As String
-            'Dim a As Integer
-            'Dim b As Integer
-            Dim c As Integer
-            Dim d As Integer
-            Dim startRow As Integer = 1
-            Dim location As String = cboSchedule1.SelectedItem
 
-            'load Reservation data into Excel
-            If dgvRes.RowCount <> 0 Then
-
-                ExcelApp.SheetsInNewWorkbook = 1
-                ExcelApp.Workbooks.Add()
-
-                ExcelApp.Cells(startRow, 1).value = location
-
-                ExcelApp.Visible = True
-
-                startRow = startRow + 1
-
-                'For displaying the column name in the the excel file.
-                For col = 0 To dgvRes.ColumnCount - 1
-                    y = dgvRes.Columns(col).HeaderText.ToString
-                    ExcelApp.Cells(startRow, col + 1).value = y
-                Next
-
-                'a = dgvRes.ColumnCount - 1
-                'b = dgvRes.RowCount - 1
-
-                'For col = 0 To dgvEU.RowCount - 1
-                '    For row = 0 To dgvEU.ColumnCount - 1
-                startRow = startRow + 1
-                d = dgvRes.RowCount - 2
-                For row = 0 To d
-
-                    c = dgvRes.ColumnCount - 1
-                    For col = 0 To c
-                        If IsDBNull(dgvRes.Item(col, row).Value.ToString) Then
-                            x = ""
-                        Else
-                            x = dgvRes.Item(col, row).Value.ToString
-                        End If
-                        'x = dgvEU.Item(col, row).Value.ToString
-                        ExcelApp.Cells(startRow, col + 1).value = x
-
-                    Next
-                    startRow = startRow + 1
-                Next
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-        End Try
-
-    End Sub
 #Region "Obsolete Code "
+
+    'Private Sub export()
+    '    Try
+    '        'Response.AddHeader("content-disposition", "attachment;filename=EIData.xls")
+    '        '' Set MIME type to Excel.
+    '        'Response.ContentType = "application/vnd.ms-excel"
+    '        '' Remove the charset from the Content-Type header.
+    '        'Response.Charset = ""
+    '        Dim ExcelApp As New Microsoft.Office.Interop.Excel.Application
+    '        'Dim ExcelDoc As Microsoft.Office.Interop.Excel.Workbook
+    '        'Dim ExcelApp As Excel.Application = New Excel.ApplicationClass
+    '        Dim col, row As Integer
+    '        Dim x As String
+    '        Dim y As String
+    '        'Dim a As Integer
+    '        'Dim b As Integer
+    '        Dim c As Integer
+    '        Dim d As Integer
+    '        Dim startRow As Integer = 1
+    '        Dim location As String = cboSchedule1.SelectedItem
+
+    '        'load Reservation data into Excel
+    '        If dgvRes.RowCount <> 0 Then
+
+    '            ExcelApp.SheetsInNewWorkbook = 1
+    '            ExcelApp.Workbooks.Add()
+
+    '            ExcelApp.Cells(startRow, 1).value = location
+
+    '            ExcelApp.Visible = True
+
+    '            startRow = startRow + 1
+
+    '            'For displaying the column name in the the excel file.
+    '            For col = 0 To dgvRes.ColumnCount - 1
+    '                y = dgvRes.Columns(col).HeaderText.ToString
+    '                ExcelApp.Cells(startRow, col + 1).value = y
+    '            Next
+
+    '            'a = dgvRes.ColumnCount - 1
+    '            'b = dgvRes.RowCount - 1
+
+    '            'For col = 0 To dgvEU.RowCount - 1
+    '            '    For row = 0 To dgvEU.ColumnCount - 1
+    '            startRow = startRow + 1
+    '            d = dgvRes.RowCount - 2
+    '            For row = 0 To d
+
+    '                c = dgvRes.ColumnCount - 1
+    '                For col = 0 To c
+    '                    If IsDBNull(dgvRes.Item(col, row).Value.ToString) Then
+    '                        x = ""
+    '                    Else
+    '                        x = dgvRes.Item(col, row).Value.ToString
+    '                    End If
+    '                    'x = dgvEU.Item(col, row).Value.ToString
+    '                    ExcelApp.Cells(startRow, col + 1).value = x
+
+    '                Next
+    '                startRow = startRow + 1
+    '            Next
+    '        End If
+
+    '    Catch ex As Exception
+    '        ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+    '    Finally
+    '    End Try
+
+    'End Sub
+
     'Private Sub btnMoveWalkupToRes_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
     '    Try
     '        moveWalkupToRes()
@@ -4676,8 +4679,8 @@ Public Class SmokeSchool
 
     'End Sub
 
-
 #End Region
+
     Private Sub btnUpdateIDs_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnUpdateIDs.Click
         Try
             updateUserIDs()
@@ -4849,371 +4852,111 @@ Public Class SmokeSchool
         End Try
     End Sub
 
-    Private Sub btnRunDiplomaReport_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnRunDiplomaReport.Click
-        Try
-            Dim Term As String = ""
-            Dim Location As String = ""
-            Dim SavStart As String = ""
-            Dim SavEnd As String = ""
-            Dim SavExp As String = ""
-            Dim TifStart As String = ""
-            Dim TifEnd As String = ""
-            Dim TifExp As String = ""
-            Dim AtlStart As String = ""
-            Dim AtlEnd As String = ""
-            Dim AtlExp As String = ""
-            Dim SVStart As String = ""
-            Dim SVEnd As String = ""
-            Dim SVExp As String = ""
-            Dim i As Integer = 0
-            Dim LastName As String = ""
-            Dim FirstName As String = ""
-            Dim Cert As Integer = 0
-            Dim CertTemp As String = ""
-            Dim CertNo As String = ""
+    Public Function GetSmokeSchoolClassesByTerm(ByVal year As String, ByVal season As String) As DataTable
+        Dim query As String = "SELECT strLocation, strStartDate, strEndDate " & _
+            " FROM AIRBRANCH.SmokeSchoolSchedule " & _
+            " WHERE stryear = :pYear " & _
+            " AND strTerm   = :pTerm "
 
+        Dim parameters As OracleParameter() = New OracleParameter() { _
+            New OracleParameter("pYear", year), _
+            New OracleParameter("pTerm", season) _
+        }
+
+        Dim dataTable As DataTable = DB.GetDataTable(query, parameters)
+        Return dataTable
+    End Function
+
+    Public Function GetSmokeSchoolPassingGradesByTerm(ByVal year As String, ByVal season As String) As DataTable
+        Dim query As String = "SELECT strLastName, strFirstName, strLocationTerm, " & _
+            " SUBSTR(strlocationterm, instr(strlocationterm, '-', 1, 1)+2) strLocation, " & _
+            " row_number () over (partition BY strlocationterm order by strlastname, strfirstname DESC) CertId " & _
+            " FROM AIRBRANCH.SmokeSchoolScores " & _
+            " WHERE strLocationTerm LIKE :pTerm " & _
+            " AND strPassFailNoShow = 'Pass' " & _
+            " ORDER BY strLocation, strLastName, strfirstname "
+
+        '2013 Fall - %'
+        Dim term As String = year.ToString & " " & season.ToString & " - %"
+        Dim parameter As OracleParameter = New OracleParameter("pTerm", term)
+
+        Dim dataTable As DataTable = DB.GetDataTable(query, parameter)
+        Return dataTable
+    End Function
+
+    Private Sub newbtnRunDiplomaReport_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnRunDiplomaReport.Click
+        Try
+
+            Dim termYear As String
             If cboTermYear.Text <> "-Select a Year-" And IsNumeric(cboTermYear.Text) And cboTermYear.Items.Contains(cboTermYear.Text) Then
+                termYear = cboTermYear.Text
             Else
                 MessageBox.Show("Please select a valid year from the drop down.")
                 Exit Sub
             End If
+
+            Dim termSeason As String
             If rdbSpringTerm.Checked = True Or rdbFallTerm.Checked = True Then
                 If rdbSpringTerm.Checked = True Then
-                    Term = "Spring"
+                    termSeason = "Spring"
                 Else
-                    Term = "Fall"
+                    termSeason = "Fall"
                 End If
             Else
                 MessageBox.Show("Please select a term")
                 Exit Sub
             End If
-            If txtCertNumber.Text <> "" And IsNumeric(txtCertNumber.Text) Then
-                Cert = CInt(txtCertNumber.Text) + 1
-            Else
-                MessageBox.Show("Please enter in a valid Certification Number.")
-                Exit Sub
-            End If
 
-            dgvDiplomas.Rows.Clear()
-            dgvDiplomas.Columns.Clear()
+            Dim dtSmokeSchoolClasses As DataTable = GetSmokeSchoolClassesByTerm(termYear, termSeason)
+            Dim dtSmokeSchoolPassingGrades As DataTable = GetSmokeSchoolPassingGradesByTerm(termYear, termSeason)
 
-            dgvDiplomas.Columns.Add("Count", "User ID")
-            dgvDiplomas.Columns.Add("Last_Name", "Last Name")
-            dgvDiplomas.Columns("Last_Name").Width = 200
-            dgvDiplomas.Columns.Add("First_Name", "First Name")
-            dgvDiplomas.Columns("First_Name").Width = 200
-            dgvDiplomas.Columns.Add("CertNo", "Certification #")
-            dgvDiplomas.Columns.Add("Expiration", "Expiration Date")
-            dgvDiplomas.Columns.Add("Schedule", "Schedule Date")
+            'strLastName, strFirstName, strLocationTerm, strLocation, CertId
+            dtSmokeSchoolPassingGrades.Columns.Add("CertNumber")
+            dtSmokeSchoolPassingGrades.Columns.Add("ExpDate")
+            dtSmokeSchoolPassingGrades.Columns.Add("ClassDates")
 
-            SQL = "Select " & _
-            "strLocation, " & _
-            "strStartDate, strEndDate  " & _
-            "from " & DBNameSpace & ".SmokeSchoolSchedule " & _
-            "where stryear = '" & cboTermYear.Text & "' " & _
-            "and strTerm = '" & Replace(Term, "'", "''") & "' "
-
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                If IsDBNull(dr.Item("strLocation")) Then
+            Dim loc As String
+            Dim endDate As Date
+            Dim startDate As Date
+            For Each row As DataRow In dtSmokeSchoolPassingGrades.Rows
+                loc = row("strLocation")
+                endDate = dtSmokeSchoolClasses.Select("STRLOCATION = '" & loc & "'")(0).Item("STRENDDATE")
+                startDate = dtSmokeSchoolClasses.Select("STRLOCATION = '" & loc & "'")(0).Item("STRSTARTDATE")
+                row.Item("CertNumber") = termYear.ToString & termSeason.Substring(0, 1) & CInt(row.Item("CertId")).ToString("D4") & loc.Substring(0, 3).ToUpper
+                row.Item("ExpDate") = CStr(Format(CDate(endDate).AddMonths(6), "dd-MMM-yyyy"))
+                If endDate = startDate Then
+                    row.Item("ClassDates") = CStr(Format(CDate(startDate), "dd-MMM-yyyy"))
                 Else
-                    Location = dr.Item("strLocation")
-                    Select Case Location
-                        Case "Savannah"
-                            If IsDBNull(dr.Item("strStartDate")) Then
-                            Else
-                                SavStart = dr.Item("strStartDate")
-                            End If
-                            If IsDBNull(dr.Item("strEndDate")) Then
-                            Else
-                                SavEnd = dr.Item("strEndDate")
-                            End If
-                        Case "Tifton"
-                            If IsDBNull(dr.Item("strStartDate")) Then
-                            Else
-                                TifStart = dr.Item("strStartDate")
-                            End If
-                            If IsDBNull(dr.Item("strEndDate")) Then
-                            Else
-                                TifEnd = dr.Item("strEndDate")
-                            End If
-                        Case "Atlanta"
-                            If IsDBNull(dr.Item("strStartDate")) Then
-                            Else
-                                AtlStart = dr.Item("strStartDate")
-                            End If
-                            If IsDBNull(dr.Item("strEndDate")) Then
-                            Else
-                                AtlEnd = dr.Item("strEndDate")
-                            End If
-                        Case "Special Venue"
-                            If IsDBNull(dr.Item("strStartDate")) Then
-                            Else
-                                SVStart = dr.Item("strStartDate")
-                            End If
-                            If IsDBNull(dr.Item("strEndDate")) Then
-                            Else
-                                SVEnd = dr.Item("strEndDate")
-                            End If
-                    End Select
+                    row.Item("ClassDates") = CStr(Format(CDate(startDate), "dd-MMM-yyyy")) & " to " & CStr(Format(CDate(endDate), "dd-MMM-yyyy"))
                 End If
-            End While
-            dr.Close()
+            Next
 
-            If SavEnd <> "" Then
-                SavExp = CStr(Format(CDate(SavEnd).AddMonths(6), "dd-MMM-yyyy"))
-            End If
-            If TifEnd <> "" Then
-                TifExp = CStr(Format(CDate(TifEnd).AddMonths(6), "dd-MMM-yyyy"))
-            End If
-            If AtlEnd <> "" Then
-                AtlExp = CStr(Format(CDate(AtlEnd).AddMonths(6), "dd-MMM-yyyy"))
-            End If
-            If SVEnd <> "" Then
-                SVExp = CStr(Format(CDate(SVEnd).AddMonths(6), "dd-MMM-yyyy"))
-            End If
+            dtSmokeSchoolPassingGrades.Columns("CertId").SetOrdinal(0)
+            dtSmokeSchoolPassingGrades.Columns("strLastName").SetOrdinal(1)
+            dtSmokeSchoolPassingGrades.Columns("strFirstName").SetOrdinal(2)
+            dtSmokeSchoolPassingGrades.Columns("CertNumber").SetOrdinal(3)
+            dtSmokeSchoolPassingGrades.Columns("ExpDate").SetOrdinal(4)
+            dtSmokeSchoolPassingGrades.Columns("ClassDates").SetOrdinal(5)
+            dtSmokeSchoolPassingGrades.Columns.Remove("strLocationTerm")
+            dtSmokeSchoolPassingGrades.Columns.Remove("strLocation")
 
-            'Savannah Class
-            SQL = "select " & _
-            "strLastName, strFirstName  " & _
-            "from " & DBNameSpace & ".SmokeSchoolScores  " & _
-            "where strLocationTerm = '" & cboTermYear.Text & " " & Term & " - Savannah' " & _
-            "and strPassFailNoShow = 'Pass' " & _
-            "order by strLastName "
+            dgvDiplomas.DataSource = dtSmokeSchoolPassingGrades
+            dgvDiplomas.Columns("CertId").HeaderText = "User ID"
+            dgvDiplomas.Columns("strLastName").HeaderText = "Last Name"
+            dgvDiplomas.Columns("strFirstName").HeaderText = "First Name"
+            dgvDiplomas.Columns("CertNumber").HeaderText = "Certification #"
+            dgvDiplomas.Columns("ExpDate").HeaderText = "Expiration Date"
+            dgvDiplomas.Columns("ClassDates").HeaderText = "Schedule Date"
 
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                i += 1
-                If IsDBNull(dr.Item("strLastName")) Then
-                    LastName = ""
-                Else
-                    LastName = dr.Item("strLastName")
-                End If
-                If IsDBNull(dr.Item("strFirstname")) Then
-                    FirstName = ""
-                Else
-                    FirstName = dr.Item("strFirstName")
-                End If
-
-                CertTemp = Cert
-                Cert += 1
-                Select Case CertTemp.Length
-                    Case 1
-                        CertTemp = "000" & CertTemp
-                    Case 2
-                        CertTemp = "00" & CertTemp
-                    Case 3
-                        CertTemp = "0" & CertTemp
-                    Case Else
-                        'CertTemp = CertTemp
-                End Select
-
-                CertNo = cboTermYear.Text & CertTemp & "SAV"
-
-                dgvDiplomas.Rows.Add(i, LastName, FirstName, CertNo, SavExp, SavStart & " - " & SavEnd)
-            End While
-
-            'Tifton
-            SQL = "select " & _
-            "strLastName, strFirstName  " & _
-            "from " & DBNameSpace & ".SmokeSchoolScores  " & _
-            "where strLocationTerm = '" & cboTermYear.Text & " " & Term & " - Tifton' " & _
-            "and strPassFailNoShow = 'Pass' " & _
-            "order by strLastName "
-
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                i += 1
-                If IsDBNull(dr.Item("strLastName")) Then
-                    LastName = ""
-                Else
-                    LastName = dr.Item("strLastName")
-                End If
-                If IsDBNull(dr.Item("strFirstname")) Then
-                    FirstName = ""
-                Else
-                    FirstName = dr.Item("strFirstName")
-                End If
-
-                CertTemp = Cert
-                Cert += 1
-                Select Case CertTemp.Length
-                    Case 1
-                        CertTemp = "000" & CertTemp
-                    Case 2
-                        CertTemp = "00" & CertTemp
-                    Case 3
-                        CertTemp = "0" & CertTemp
-                    Case Else
-                        'CertTemp = CertTemp
-                End Select
-
-                CertNo = cboTermYear.Text & CertTemp & "TIF"
-
-                dgvDiplomas.Rows.Add(i, LastName, FirstName, CertNo, TifExp, TifStart & " - " & TifEnd)
-            End While
-
-
-            SQL = "select " & _
-            "strLastName, strFirstName  " & _
-            "from " & DBNameSpace & ".SmokeSchoolScores  " & _
-            "where strLocationTerm = '" & cboTermYear.Text & " " & Term & " - Atlanta' " & _
-            "and strPassFailNoShow = 'Pass' " & _
-            "order by strLastName "
-
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                i += 1
-                If IsDBNull(dr.Item("strLastName")) Then
-                    LastName = ""
-                Else
-                    LastName = dr.Item("strLastName")
-                End If
-                If IsDBNull(dr.Item("strFirstname")) Then
-                    FirstName = ""
-                Else
-                    FirstName = dr.Item("strFirstName")
-                End If
-
-                CertTemp = Cert
-                Cert += 1
-                Select Case CertTemp.Length
-                    Case 1
-                        CertTemp = "000" & CertTemp
-                    Case 2
-                        CertTemp = "00" & CertTemp
-                    Case 3
-                        CertTemp = "0" & CertTemp
-                    Case Else
-                        'CertTemp = CertTemp
-                End Select
-
-                CertNo = cboTermYear.Text & CertTemp & "ATL"
-
-                dgvDiplomas.Rows.Add(i, LastName, FirstName, CertNo, AtlExp, AtlStart & " - " & AtlEnd)
-            End While
-
-            'Special Venue
-            SQL = "select " & _
-            "strLastName, strFirstName  " & _
-            "from " & DBNameSpace & ".SmokeSchoolScores  " & _
-            "where strLocationTerm = '" & cboTermYear.Text & " " & Term & " - Special Venue' " & _
-            "and strPassFailNoShow = 'Pass' " & _
-            "order by strLastName "
-
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                i += 1
-                If IsDBNull(dr.Item("strLastName")) Then
-                    LastName = ""
-                Else
-                    LastName = dr.Item("strLastName")
-                End If
-                If IsDBNull(dr.Item("strFirstname")) Then
-                    FirstName = ""
-                Else
-                    FirstName = dr.Item("strFirstName")
-                End If
-
-                CertTemp = Cert
-                Cert += 1
-                Select Case CertTemp.Length
-                    Case 1
-                        CertTemp = "000" & CertTemp
-                    Case 2
-                        CertTemp = "00" & CertTemp
-                    Case 3
-                        CertTemp = "0" & CertTemp
-                    Case Else
-                        'CertTemp = CertTemp
-                End Select
-
-                CertNo = cboTermYear.Text & CertTemp & "SV"
-
-                dgvDiplomas.Rows.Add(i, LastName, FirstName, CertNo, SVExp, SVStart & " - " & SVEnd)
-            End While
+            dgvDiplomas.SanelyResizeColumns()
 
             txtDiplomaCount.Text = dgvDiplomas.RowCount.ToString
-
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-    Private Sub btnExportDiploma_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnExportDiploma.Click
-        Try
-            Dim ExcelApp As New Microsoft.Office.Interop.Excel.Application
-            'Dim ExcelDoc As Microsoft.Office.Interop.Excel.Workbook
-            'Dim ExcelApp As New Excel.Application
-            Dim i, j As Integer
-
-            If ExcelApp.Visible = False Then
-                ExcelApp.Visible = True
-            End If
-
-            If dgvDiplomas.RowCount <> 0 Then
-                With ExcelApp
-                    .SheetsInNewWorkbook = 1
-                    .Workbooks.Add()
-                    .Worksheets(1).Select()
-
-                    'For displaying the column name in the the excel file.
-                    For i = 0 To dgvDiplomas.ColumnCount - 1
-                        .Cells(1, i + 1) = dgvDiplomas.Columns(i).HeaderText.ToString
-                    Next
-
-                    For i = 0 To dgvDiplomas.ColumnCount - 1
-                        For j = 0 To dgvDiplomas.RowCount - 2
-                            temp = dgvDiplomas.Item(i, j).Value
-
-                            If temp Is Nothing Then
-                                .Cells(j + 2, i + 1).numberformat = "@"
-                                .Cells(j + 2, i + 1).value = " "
-                            Else
-                                If dgvDiplomas.Item(i, j).Value.ToString = Nothing Then
-                                    .Cells(j + 2, i + 1).numberformat = "@"
-                                    .Cells(j + 2, i + 1).value = " "
-                                Else
-                                    .Cells(j + 2, i + 1).numberformat = "@"
-                                    .Cells(j + 2, i + 1).value = dgvDiplomas.Item(i, j).Value.ToString
-                                End If
-                            End If
-
-                        Next
-                    Next
-                End With
-
-                If ExcelApp.Visible = False Then
-                    ExcelApp.Visible = True
-                End If
-            End If
-
-        Catch ex As Exception
-            If ex.ToString.Contains("RPC_E_CALL_REJECTED") Then
-                MsgBox("Error in exporting data." & vbCrLf & "Please run the export again.")
-            Else
-                ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-            End If
-        End Try
+    Private Sub btnExportDiplomas_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnExportDiplomas.Click
+        If dgvDiplomas.RowCount > 0 Then dgvDiplomas.ExportToExcel(Me)
     End Sub
 End Class
