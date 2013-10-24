@@ -85,15 +85,18 @@ Module Extensions
         Dim dataTable As New DataTable
 
         Try
-            If dgv.DataSource Is Nothing Then
-                dataTable = GetDataTableFromDgv(dgv)
-            Else
+            If TypeOf dgv.DataSource Is DataSet Then
                 dataTable = dgv.DataSource.Tables(dgv.DataMember)
-                ' Replace column names with the defined column header text
-                For i = 0 To dgv.Columns.Count - 1
-                    dataTable.Columns(i).Caption = dgv.Columns(i).HeaderText
-                Next
+            ElseIf TypeOf dgv.DataSource Is DataTable Then
+                dataTable = dgv.DataSource
+            Else
+                dataTable = GetDataTableFromDgv(dgv)
             End If
+
+            ' Replace column names with the defined column header text
+            For i = 0 To dgv.Columns.Count - 1
+                dataTable.Columns(i).Caption = dgv.Columns(i).HeaderText
+            Next
 
             result = ExportDataTableToExcel(fileName, dataTable, errorMessage)
         Catch ex As Exception
@@ -113,7 +116,6 @@ Module Extensions
 
         For Each dgvColumn As DataGridViewColumn In dgv.Columns
             dtColumn = dt.Columns.Add(dgvColumn.Name)
-            dtColumn.Caption = dgvColumn.HeaderText
         Next
 
         For Each dgvRow As DataGridViewRow In dgv.Rows
