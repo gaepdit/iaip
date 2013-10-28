@@ -3418,7 +3418,7 @@ Public Class IAIPPermitUploader
 
                 Select Case FileType
                     Case "10"
-                        path.InitialDirectory = "C:\WINDOWS\Temp"
+                        path.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal)
                         path.FileName = PermitNumber
                         path.Filter = "Microsoft Office Work file (*.doc)|.doc"
                         'path.Filter = "docx files (*.docx)|*.docx"
@@ -3454,7 +3454,7 @@ Public Class IAIPPermitUploader
                             fs.Close()
                         End If
                     Case "01"
-                        path.InitialDirectory = "C:\WINDOWS\Temp"
+                        path.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal)
                         path.FileName = PermitNumber
                         path.Filter = "Adobe PDF Files (*.pdf)|.pdf"
                         path.FilterIndex = 1
@@ -3489,7 +3489,7 @@ Public Class IAIPPermitUploader
                             fs.Close()
                         End If
                     Case "11"
-                        path.InitialDirectory = "C:\WINDOWS\Temp"
+                        path.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal)
                         path.FileName = PermitNumber
                         path.Filter = "Microsoft Office Work file (*.doc)|.doc"
                         path.FilterIndex = 1
@@ -3522,7 +3522,7 @@ Public Class IAIPPermitUploader
                             fs.Write(b, 0, b.Length)
                             fs.Close()
                         End If
-                        path.InitialDirectory = "C:\WINDOWS\Temp"
+                        path.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal)
                         path.FileName = PermitNumber
                         path.Filter = "Adobe PDF Files (*.pdf)|.pdf"
                         path.FilterIndex = 1
