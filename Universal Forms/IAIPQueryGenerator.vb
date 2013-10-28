@@ -5371,15 +5371,15 @@ Public Class IAIPQueryGenerator
                 DefaultsText = DefaultsText & "tnalP"
             End If
 
-            If System.IO.Directory.Exists("C:\APB\SQL") Then
-            Else
-                System.IO.Directory.CreateDirectory("C:\APB\SQL")
-            End If
+            'If System.IO.Directory.Exists("C:\APB\SQL") Then
+            'Else
+            '    System.IO.Directory.CreateDirectory("C:\APB\SQL")
+            'End If
 
             Dim path As New SaveFileDialog
             Dim DestFilePath As String = "N/A"
 
-            path.InitialDirectory = "C:\APB\SQL"
+            path.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal)
             path.DefaultExt = ".txt"
 
             If path.ShowDialog = Windows.Forms.DialogResult.OK Then
@@ -5431,16 +5431,16 @@ Public Class IAIPQueryGenerator
         Try
 
 
-            If System.IO.Directory.Exists("C:\APB\SQL") Then
-            Else
-                System.IO.Directory.CreateDirectory("C:\APB\SQL")
-            End If
+            'If System.IO.Directory.Exists("C:\APB\SQL") Then
+            'Else
+            '    System.IO.Directory.CreateDirectory("C:\APB\SQL")
+            'End If
 
             'Dim path As New SaveFileDialog
             Dim path As New OpenFileDialog
             Dim DestFilePath As String = "N/A"
 
-            path.InitialDirectory = "C:\APB\SQL"
+            path.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal)
             path.DefaultExt = ".txt"
 
             If path.ShowDialog = Windows.Forms.DialogResult.OK Then
