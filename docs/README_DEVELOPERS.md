@@ -41,7 +41,7 @@ There are some items in the `_Tools` directory that are not used by the IAIP. Cu
 + Oracle (ODAC xcopy and instantclient)
 + [Eqatec](http://www.telerik.com/analytics/download/) (Application monitor, version 3.2.1)
 
-To build the readme and changelog docs, you must have [Pandoc](http://johnmacfarlane.net/pandoc/) installed. This script is run as part of the post-build events for Release builds.
+To build the readme and changelog docs, you must have [Pandoc](http://johnmacfarlane.net/pandoc/) installed. This script is run as part of the post-build events for Release builds. **Important: You must change the path in the post-build events to point to your installation of Pandoc.**
 
 Build
 -----
