@@ -542,19 +542,19 @@ Public Class ISMPExcelFiles
 
     End Sub
 
-    Private Sub ISMPExcelFiles_Closing(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
-        Try
+    'Private Sub ISMPExcelFiles_Closing(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
+    '    Try
 
-            ISMPExcelFilePage = Nothing
-        Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-            If Conn.State = ConnectionState.Open Then
-                'conn.close()
-            End If
-        End Try
+    '        'ISMPExcelFilePage = Nothing
+    '    Catch ex As Exception
+    '        ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+    '    Finally
+    '        If Conn.State = ConnectionState.Open Then
+    '            'conn.close()
+    '        End If
+    '    End Try
 
-    End Sub
+    'End Sub
 
     Private Sub MmiBack_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiBack.Click
         Try

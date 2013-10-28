@@ -117,7 +117,7 @@ Module subMain
     Public ISMPMemoEdit As ISMPMemo
     Public DevTestLog As ISMPNotificationLog
     Public ISMPCloseAndPrint As ISMPClosePrint
-    Public ISMPExcelFilePage As ISMPExcelFiles
+    'Public ISMPExcelFilePage As ISMPExcelFiles
     Public ISMPAddPollutant As ISMPAddPollutants
     Public ISMPAddTestingFirm As ISMPAddTestingFirms
     'Public ISMPDMU As ISMPDataManagementTools
