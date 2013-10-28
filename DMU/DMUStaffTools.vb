@@ -10812,7 +10812,7 @@ Public Class DMUStaffTools
     Private Sub btnChangeEmailAddress_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnChangeEmailAddress.Click
         Try
             If txtWebUserID.Text <> "" Then
-                If EmailAddressCheck(txtEditEmail.Text) = True Then
+                If IsValidEmail(txtEditEmail.Text) Then
                     SQL = "Select " & _
                     "numUserID, strUserPassword " & _
                     "from " & DBNameSpace & ".OLAPUserLogIN " & _

@@ -33,18 +33,243 @@ Module MRFunctions
     End Function
 
 
-    Function EmailAddressCheck(ByVal emailAddress As String) As Boolean
-        Dim pattern As String = "^[a-zA-Z][\w\.-]*[a-zA-Z0-9]@[a-zA-Z0-9][\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]$"
-        Dim emailAddressMatch As Match = Regex.Match(emailAddress, pattern)
 
-        If emailAddressMatch.Success Then
-            EmailAddressCheck = True
+
+
+    Sub DisplayReport(ByVal crReport As Object, ByVal TabText As String)
+        Try
+            crReport.DisplayGroupTree = True
+            crReport.DisplayToolbar = True
+            crReport.showrefreshbutton = False
+            crReport.visible = True
+            crReport.DisplayGroupTree = True
+
+            Dim I As Integer
+            Do While I < crReport.Controls.Count
+                If TypeOf (crReport.Controls(I)) Is CrystalDecisions.Windows.Forms.PageView Then
+                    Dim J As Integer
+                    Do While J < crReport.Controls(I).Controls.Count
+                        If CType(crReport.Controls(I).Controls(J), System.Windows.Forms.TabControl).TabPages.Count > 0 Then
+                            'Change the tab text..
+                            CType(crReport.Controls(I).Controls(J), System.Windows.Forms.TabControl).TabPages.Item(0).Text = TabText
+                            Exit Do
+                        End If
+                    Loop
+                    Exit Do
+                Else
+                    crReport.Controls(I).Visible = False
+                End If
+            Loop
+        Catch ex As Exception
+            ErrorReport(ex.ToString(), "MRFunctions.DisplayReport")
+        Finally
+            If Conn.State = ConnectionState.Open Then
+                'conn.close()
+            End If
+        End Try
+
+    End Sub
+
+    Public Class ProgressStatus
+        Inherits StatusBarPanel
+        Private pb As PictureBox = New PictureBox
+        Dim t As Timer = New Timer
+
+        Dim mysb As StatusBar
+        Sub New(ByVal sb As StatusBar)
+            Try
+                mysb = sb
+                pb.Hide()
+
+                'add control
+                sb.Controls.Add(pb)
+                t.Interval = 40 'you can speed it up, if you like!
+                t.Enabled = True
+
+                'add handlers
+                AddHandler sb.DrawItem, AddressOf Reposition
+                AddHandler pb.Paint, AddressOf pb_Paint
+                AddHandler t.Tick, AddressOf t_Tick
+
+                'now animate a init
+                progress = -1
+            Catch ex As Exception
+                ErrorReport(ex.ToString(), "MRFunctions.New(ByVal sb as StatusBar)")
+            Finally
+                If Conn.State = ConnectionState.Open Then
+                    'conn.close()
+                End If
+            End Try
+        End Sub
+        Public Sub Refresh()
+            Me.pb.Refresh()
+        End Sub
+        Private Sub t_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs)
+            pb.Refresh()
+        End Sub
+
+        Dim mybackcolor As Color = Color.Black
+        Private Sub Reposition(ByVal sender As Object, ByVal sbdevent As System.Windows.Forms.StatusBarDrawItemEventArgs)
+            Try
+                pb.Location = New Point(sbdevent.Bounds.X, sbdevent.Bounds.Y)
+                pb.Size = New Size(sbdevent.Bounds.Width, sbdevent.Bounds.Height)
+                pb.Show()
+                mybackcolor = sbdevent.BackColor
+            Catch ex As Exception
+                ErrorReport(ex.ToString(), "MRFunctions.Reposition")
+            Finally
+                If Conn.State = ConnectionState.Open Then
+                    'conn.close()
+                End If
+            End Try
+        End Sub
+
+        Private Sub pb_Paint(ByVal sender As Object, ByVal e As System.Windows.Forms.PaintEventArgs)
+            drawit(e.Graphics, mybackcolor, New RectangleF(0, 0, pb.Width, pb.Height))
+        End Sub
+
+        Dim intprogress As Single
+        Public Property progress() As Single
+            Get
+                Return intprogress
+            End Get
+            Set(ByVal Value As Single)
+                intprogress = Value
+                pb.Refresh()
+            End Set
+        End Property
+        Public Property Animspeed() As Integer
+            Get
+                Return t.Interval
+            End Get
+            Set(ByVal Value As Integer)
+                t.Interval = Value
+            End Set
+        End Property
+
+        Private Sub drawit(ByVal g As Graphics, ByVal backcolor As Color, ByVal bounds As RectangleF)
+            Static tint As Integer
+            Static tz As Integer
+
+            Try
+                Select Case progress
+                    Case -1 'timer
+                        t.Enabled = True
+                        If tz = 0 Then
+                            tint += 5
+                        Else
+                            tint -= 5
+                        End If
+                        If tint > 80 Then tz = 1
+                        If tint < 20 Then tz = 0
+                        Dim gb As LinearGradientBrush = New LinearGradientBrush(bounds, Color.Blue, Color.White, 0, False)
+                        Dim cb As ColorBlend = New ColorBlend(2)
+
+                        Dim p(2) As Single
+                        Dim c(2) As Color
+
+                        c(0) = backcolor 'sbdevent.BackColor
+                        p(0) = 0
+
+                        c(1) = Color.DarkBlue
+                        p(1) = Math.Abs(tint) / 100
+
+                        c(2) = backcolor 'sbdevent.BackColor
+                        p(2) = 1
+
+                        cb.Colors = c
+                        cb.Positions = p
+                        gb.InterpolationColors = cb
+                        g.FillRectangle(gb, bounds)  'sbdevent.Bounds)
+
+                    Case 0 'empty
+                        t.Enabled = False
+                        Dim sgb As SolidBrush = New SolidBrush(backcolor) 'sbdevent.BackColor)
+                        g.FillRectangle(sgb, bounds) ' sbdevent.Bounds)
+
+                    Case Else 'ok!
+                        t.Enabled = False
+                        Dim gb As LinearGradientBrush = New LinearGradientBrush(bounds, Color.Blue, Color.White, 0, False)
+                        Dim cb As ColorBlend = New ColorBlend(3)
+
+                        Dim p(3) As Single
+                        Dim c(3) As Color
+
+                        c(0) = Color.DarkBlue 'sbdevent.BackColor
+                        p(0) = 0
+
+                        c(1) = Color.DarkBlue
+                        p(1) = Math.Abs(progress) / 100
+                        c(2) = backcolor ' sbdevent.BackColor
+                        p(2) = Math.Abs(progress + 10) / 100
+
+
+                        c(3) = backcolor 'sbdevent.BackColor
+                        p(3) = 1
+
+                        cb.Colors = c
+                        cb.Positions = p
+                        gb.InterpolationColors = cb
+                        g.FillRectangle(gb, bounds)  ' sbdevent.Bounds)
+                End Select
+
+            Catch ex As Exception
+                ErrorReport(ex.ToString(), "MRFunctions.drawit")
+            Finally
+                If Conn.State = ConnectionState.Open Then
+                    'conn.close()
+                End If
+            End Try
+        End Sub
+
+
+
+    End Class
+
+
+    ' Hash an input string and return the hash as
+    ' a 32 character hexadecimal string.
+    Function getMd5Hash(ByVal input As String) As String
+        ' Create a new instance of the MD5CryptoServiceProvider object.
+        Dim md5Hasher As New MD5CryptoServiceProvider()
+
+        ' Convert the input string to a byte array and compute the hash.
+        Dim data As Byte() = md5Hasher.ComputeHash(Encoding.Default.GetBytes(input))
+
+        ' Create a new Stringbuilder to collect the bytes
+        ' and create a string.
+        Dim sBuilder As New StringBuilder()
+
+        ' Loop through each byte of the hashed data 
+        ' and format each one as a hexadecimal string.
+        Dim i As Integer
+        For i = 0 To data.Length - 1
+            sBuilder.Append(data(i).ToString("x2"))
+        Next i
+
+        ' Return the hexadecimal string.
+        Return sBuilder.ToString()
+
+    End Function
+
+    ' Verify a hash against a string.
+    Function verifyMd5Hash(ByVal input As String, ByVal hash As String) As Boolean
+        ' Hash the input.
+        Dim hashOfInput As String = getMd5Hash(input)
+
+        ' Create a StringComparer an compare the hashes.
+        Dim comparer As StringComparer = StringComparer.OrdinalIgnoreCase
+
+        If 0 = comparer.Compare(hashOfInput, hash) Then
+            Return True
         Else
-            EmailAddressCheck = False
+            Return False
         End If
+
     End Function
 
 #Region "Code removed"
+
     'Public Class RandomPassword
 
     '    ' Define default min and max password lengths.
@@ -294,272 +519,52 @@ Module MRFunctions
     '    End Function
 
     'End Class
+
+    'Sub SendMail(ByVal myEmailTo As String, ByVal mySubject As String, ByVal myMessage As String)
+    '    Dim objMessages As Object
+    '    Dim objMessage As Object
+    '    Dim objMailBox As Object
+    '    Dim objRecipients As Object
+    '    Dim objRecipient As Object
+    '    Dim objMessageSent As Object
+
+    '    Try
+    '        objMailBox = objAccount.MailBox
+    '        objMessages = objMailBox.Messages
+    '        objMessage = objMessages.Add("GW.MESSAGE.MAIL", "Draft")
+    '        objRecipients = objMessage.Recipients
+
+    '        objRecipient = objRecipients.Add(myEmailTo)
+    '        objMessage.Subject = mySubject
+    '        objMessage.BodyText = myMessage
+
+    '        objMessageSent = objMessage.Send
+
+    '        MessageBox.Show("The new Password has been sent Successfully..." & vbCrLf & vbCrLf & _
+    '                         "To : " & myEmailTo & vbCrLf & vbCrLf & _
+    '                         "Subject : " & mySubject & _
+    '                         "", "Message Sent Successfully", MessageBoxButtons.OK, MessageBoxIcon.Information)
+    '    Catch ex As Exception
+    '        ErrorReport(ex.ToString(), "MRFunctions.SendMail")
+    '    Finally
+    '        If Conn.State = ConnectionState.Open Then
+    '            'conn.close()
+    '        End If
+    '        Beep()   ' Beep after error processing.
+    '    End Try
+    'End Sub
+
+    'Function EmailAddressCheck(ByVal emailAddress As String) As Boolean
+    '    Dim pattern As String = "^[a-zA-Z][\w\.-]*[a-zA-Z0-9]@[a-zA-Z0-9][\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]$"
+    '    Dim emailAddressMatch As Match = Regex.Match(emailAddress, pattern)
+
+    '    If emailAddressMatch.Success Then
+    '        EmailAddressCheck = True
+    '    Else
+    '        EmailAddressCheck = False
+    '    End If
+    'End Function
+
 #End Region
-
-    Sub SendMail(ByVal myEmailTo As String, ByVal mySubject As String, ByVal myMessage As String)
-        Dim objMessages As Object
-        Dim objMessage As Object
-        Dim objMailBox As Object
-        Dim objRecipients As Object
-        Dim objRecipient As Object
-        Dim objMessageSent As Object
-
-        Try
-            objMailBox = objAccount.MailBox
-            objMessages = objMailBox.Messages
-            objMessage = objMessages.Add("GW.MESSAGE.MAIL", "Draft")
-            objRecipients = objMessage.Recipients
-
-            objRecipient = objRecipients.Add(myEmailTo)
-            objMessage.Subject = mySubject
-            objMessage.BodyText = myMessage
-
-            objMessageSent = objMessage.Send
-
-            MessageBox.Show("The new Password has been sent Successfully..." & vbCrLf & vbCrLf & _
-                             "To : " & myEmailTo & vbCrLf & vbCrLf & _
-                             "Subject : " & mySubject & _
-                             "", "Message Sent Successfully", MessageBoxButtons.OK, MessageBoxIcon.Information)
-        Catch ex As Exception
-            ErrorReport(ex.ToString(), "MRFunctions.SendMail")
-        Finally
-            If Conn.State = ConnectionState.Open Then
-                'conn.close()
-            End If
-            Beep()   ' Beep after error processing.
-        End Try
-    End Sub
-
-    Sub DisplayReport(ByVal crReport As Object, ByVal TabText As String)
-        Try
-            crReport.DisplayGroupTree = True
-            crReport.DisplayToolbar = True
-            crReport.showrefreshbutton = False
-            crReport.visible = True
-            crReport.DisplayGroupTree = True
-
-            Dim I As Integer
-            Do While I < crReport.Controls.Count
-                If TypeOf (crReport.Controls(I)) Is CrystalDecisions.Windows.Forms.PageView Then
-                    Dim J As Integer
-                    Do While J < crReport.Controls(I).Controls.Count
-                        If CType(crReport.Controls(I).Controls(J), System.Windows.Forms.TabControl).TabPages.Count > 0 Then
-                            'Change the tab text..
-                            CType(crReport.Controls(I).Controls(J), System.Windows.Forms.TabControl).TabPages.Item(0).Text = TabText
-                            Exit Do
-                        End If
-                    Loop
-                    Exit Do
-                Else
-                    crReport.Controls(I).Visible = False
-                End If
-            Loop
-        Catch ex As Exception
-            ErrorReport(ex.ToString(), "MRFunctions.DisplayReport")
-        Finally
-            If Conn.State = ConnectionState.Open Then
-                'conn.close()
-            End If
-        End Try
-
-    End Sub
-
-    Public Class ProgressStatus
-        Inherits StatusBarPanel
-        Private pb As PictureBox = New PictureBox
-        Dim t As Timer = New Timer
-
-        Dim mysb As StatusBar
-        Sub New(ByVal sb As StatusBar)
-            Try
-                mysb = sb
-                pb.Hide()
-
-                'add control
-                sb.Controls.Add(pb)
-                t.Interval = 40 'you can speed it up, if you like!
-                t.Enabled = True
-
-                'add handlers
-                AddHandler sb.DrawItem, AddressOf Reposition
-                AddHandler pb.Paint, AddressOf pb_Paint
-                AddHandler t.Tick, AddressOf t_Tick
-
-                'now animate a init
-                progress = -1
-            Catch ex As Exception
-                ErrorReport(ex.ToString(), "MRFunctions.New(ByVal sb as StatusBar)")
-            Finally
-                If Conn.State = ConnectionState.Open Then
-                    'conn.close()
-                End If
-            End Try
-        End Sub
-        Public Sub Refresh()
-            Me.pb.Refresh()
-        End Sub
-        Private Sub t_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs)
-            pb.Refresh()
-        End Sub
-
-        Dim mybackcolor As Color = Color.Black
-        Private Sub Reposition(ByVal sender As Object, ByVal sbdevent As System.Windows.Forms.StatusBarDrawItemEventArgs)
-            Try
-                pb.Location = New Point(sbdevent.Bounds.X, sbdevent.Bounds.Y)
-                pb.Size = New Size(sbdevent.Bounds.Width, sbdevent.Bounds.Height)
-                pb.Show()
-                mybackcolor = sbdevent.BackColor
-            Catch ex As Exception
-                ErrorReport(ex.ToString(), "MRFunctions.Reposition")
-            Finally
-                If Conn.State = ConnectionState.Open Then
-                    'conn.close()
-                End If
-            End Try
-        End Sub
-
-        Private Sub pb_Paint(ByVal sender As Object, ByVal e As System.Windows.Forms.PaintEventArgs)
-            drawit(e.Graphics, mybackcolor, New RectangleF(0, 0, pb.Width, pb.Height))
-        End Sub
-
-        Dim intprogress As Single
-        Public Property progress() As Single
-            Get
-                Return intprogress
-            End Get
-            Set(ByVal Value As Single)
-                intprogress = Value
-                pb.Refresh()
-            End Set
-        End Property
-        Public Property Animspeed() As Integer
-            Get
-                Return t.Interval
-            End Get
-            Set(ByVal Value As Integer)
-                t.Interval = Value
-            End Set
-        End Property
-
-        Private Sub drawit(ByVal g As Graphics, ByVal backcolor As Color, ByVal bounds As RectangleF)
-            Static tint As Integer
-            Static tz As Integer
-
-            Try
-                Select Case progress
-                    Case -1 'timer
-                        t.Enabled = True
-                        If tz = 0 Then
-                            tint += 5
-                        Else
-                            tint -= 5
-                        End If
-                        If tint > 80 Then tz = 1
-                        If tint < 20 Then tz = 0
-                        Dim gb As LinearGradientBrush = New LinearGradientBrush(bounds, Color.Blue, Color.White, 0, False)
-                        Dim cb As ColorBlend = New ColorBlend(2)
-
-                        Dim p(2) As Single
-                        Dim c(2) As Color
-
-                        c(0) = backcolor 'sbdevent.BackColor
-                        p(0) = 0
-
-                        c(1) = Color.DarkBlue
-                        p(1) = Math.Abs(tint) / 100
-
-                        c(2) = backcolor 'sbdevent.BackColor
-                        p(2) = 1
-
-                        cb.Colors = c
-                        cb.Positions = p
-                        gb.InterpolationColors = cb
-                        g.FillRectangle(gb, bounds)  'sbdevent.Bounds)
-
-                    Case 0 'empty
-                        t.Enabled = False
-                        Dim sgb As SolidBrush = New SolidBrush(backcolor) 'sbdevent.BackColor)
-                        g.FillRectangle(sgb, bounds) ' sbdevent.Bounds)
-
-                    Case Else 'ok!
-                        t.Enabled = False
-                        Dim gb As LinearGradientBrush = New LinearGradientBrush(bounds, Color.Blue, Color.White, 0, False)
-                        Dim cb As ColorBlend = New ColorBlend(3)
-
-                        Dim p(3) As Single
-                        Dim c(3) As Color
-
-                        c(0) = Color.DarkBlue 'sbdevent.BackColor
-                        p(0) = 0
-
-                        c(1) = Color.DarkBlue
-                        p(1) = Math.Abs(progress) / 100
-                        c(2) = backcolor ' sbdevent.BackColor
-                        p(2) = Math.Abs(progress + 10) / 100
-
-
-                        c(3) = backcolor 'sbdevent.BackColor
-                        p(3) = 1
-
-                        cb.Colors = c
-                        cb.Positions = p
-                        gb.InterpolationColors = cb
-                        g.FillRectangle(gb, bounds)  ' sbdevent.Bounds)
-                End Select
-
-            Catch ex As Exception
-                ErrorReport(ex.ToString(), "MRFunctions.drawit")
-            Finally
-                If Conn.State = ConnectionState.Open Then
-                    'conn.close()
-                End If
-            End Try
-        End Sub
-
-
-
-    End Class
-
-
-    ' Hash an input string and return the hash as
-    ' a 32 character hexadecimal string.
-    Function getMd5Hash(ByVal input As String) As String
-        ' Create a new instance of the MD5CryptoServiceProvider object.
-        Dim md5Hasher As New MD5CryptoServiceProvider()
-
-        ' Convert the input string to a byte array and compute the hash.
-        Dim data As Byte() = md5Hasher.ComputeHash(Encoding.Default.GetBytes(input))
-
-        ' Create a new Stringbuilder to collect the bytes
-        ' and create a string.
-        Dim sBuilder As New StringBuilder()
-
-        ' Loop through each byte of the hashed data 
-        ' and format each one as a hexadecimal string.
-        Dim i As Integer
-        For i = 0 To data.Length - 1
-            sBuilder.Append(data(i).ToString("x2"))
-        Next i
-
-        ' Return the hexadecimal string.
-        Return sBuilder.ToString()
-
-    End Function
-
-    ' Verify a hash against a string.
-    Function verifyMd5Hash(ByVal input As String, ByVal hash As String) As Boolean
-        ' Hash the input.
-        Dim hashOfInput As String = getMd5Hash(input)
-
-        ' Create a StringComparer an compare the hashes.
-        Dim comparer As StringComparer = StringComparer.OrdinalIgnoreCase
-
-        If 0 = comparer.Compare(hashOfInput, hash) Then
-            Return True
-        Else
-            Return False
-        End If
-
-    End Function
 
 End Module
