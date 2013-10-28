@@ -27,7 +27,6 @@ Partial Class IAIPLogIn
         Me.mmiTestingEnvironment = New System.Windows.Forms.MenuItem
         Me.MenuItem2 = New System.Windows.Forms.MenuItem
         Me.mmiRefreshUserID = New System.Windows.Forms.MenuItem
-        Me.mmiRefreshDefaultLoc = New System.Windows.Forms.MenuItem
         Me.MenuItem3 = New System.Windows.Forms.MenuItem
         Me.mmiForceUpdate = New System.Windows.Forms.MenuItem
         Me.mmiLukeEnvironment = New System.Windows.Forms.MenuItem
@@ -77,7 +76,7 @@ Partial Class IAIPLogIn
         'MenuItem1
         '
         Me.MenuItem1.Index = 1
-        Me.MenuItem1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiTestingEnvironment, Me.MenuItem2, Me.mmiRefreshUserID, Me.mmiRefreshDefaultLoc, Me.MenuItem3, Me.mmiForceUpdate, Me.mmiLukeEnvironment, Me.mmiTestingDatabase})
+        Me.MenuItem1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiTestingEnvironment, Me.MenuItem2, Me.mmiRefreshUserID, Me.MenuItem3, Me.mmiForceUpdate, Me.mmiLukeEnvironment, Me.mmiTestingDatabase})
         Me.MenuItem1.Text = "&Tools"
         '
         'mmiTestingEnvironment
@@ -96,31 +95,26 @@ Partial Class IAIPLogIn
         Me.mmiRefreshUserID.Index = 2
         Me.mmiRefreshUserID.Text = "Refresh Default User"
         '
-        'mmiRefreshDefaultLoc
-        '
-        Me.mmiRefreshDefaultLoc.Index = 3
-        Me.mmiRefreshDefaultLoc.Text = "Refresh Default Location"
-        '
         'MenuItem3
         '
-        Me.MenuItem3.Index = 4
+        Me.MenuItem3.Index = 3
         Me.MenuItem3.Text = "-"
         '
         'mmiForceUpdate
         '
-        Me.mmiForceUpdate.Index = 5
+        Me.mmiForceUpdate.Index = 4
         Me.mmiForceUpdate.Text = "Force Update"
         '
         'mmiLukeEnvironment
         '
-        Me.mmiLukeEnvironment.Index = 6
+        Me.mmiLukeEnvironment.Index = 5
         Me.mmiLukeEnvironment.Shortcut = System.Windows.Forms.Shortcut.F5
         Me.mmiLukeEnvironment.Text = "*"
         Me.mmiLukeEnvironment.Visible = False
         '
         'mmiTestingDatabase
         '
-        Me.mmiTestingDatabase.Index = 7
+        Me.mmiTestingDatabase.Index = 6
         Me.mmiTestingDatabase.Shortcut = System.Windows.Forms.Shortcut.CtrlShiftT
         Me.mmiTestingDatabase.Text = "Testing Database"
         Me.mmiTestingDatabase.Visible = False
@@ -418,7 +412,6 @@ Partial Class IAIPLogIn
     Friend WithEvents mmiRefreshUserID As System.Windows.Forms.MenuItem
     Friend WithEvents mmiOnlineHelp As System.Windows.Forms.MenuItem
     Friend WithEvents mmiForceUpdate As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiRefreshDefaultLoc As System.Windows.Forms.MenuItem
     Friend WithEvents lblCurrentVersionMessage As System.Windows.Forms.Label
     Friend WithEvents btnAdjustIntranet As System.Windows.Forms.Button
     Friend WithEvents btnAddEIS As System.Windows.Forms.Button

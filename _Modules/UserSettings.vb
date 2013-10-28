@@ -8,6 +8,7 @@ Module UserSettings
         ExcelExportLocation
         PermitUploadLocation
         FileDownloadLocation
+        PrefillLoginId
     End Enum
 
     ' Define default value for above user settings here
@@ -17,8 +18,10 @@ Module UserSettings
             Case UserSetting.ExcelExportLocation, _
                 UserSetting.PermitUploadLocation, _
                 UserSetting.FileDownloadLocation
-
                 Return Environment.GetFolderPath(Environment.SpecialFolder.Personal)
+
+            Case UserSetting.PrefillLoginId
+                Return ""
 
             Case Else
                 Return ""
