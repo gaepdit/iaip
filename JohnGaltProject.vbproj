@@ -1796,6 +1796,7 @@
     <Compile Include="_DB\DAL.Lookups.vb" />
     <Compile Include="_DB\DAL.SSPP.Applications.vb" />
     <Compile Include="_Modules\FacilityUtility.vb" />
+    <Compile Include="_Modules\MD5.vb" />
     <Compile Include="_Modules\Messages.vb" />
   </ItemGroup>
   <ItemGroup>
