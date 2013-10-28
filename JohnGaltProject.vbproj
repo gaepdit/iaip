@@ -303,7 +303,6 @@
     <Compile Include="DataSet\dsInventoryReport.vb">
       <DependentUpon>dsInventoryReport.xsd</DependentUpon>
     </Compile>
-    <Compile Include="DBLineCount.vb" />
     <Compile Include="PASP\PASPFeeStatistics.Designer.vb">
       <DependentUpon>PASPFeeStatistics.vb</DependentUpon>
     </Compile>
