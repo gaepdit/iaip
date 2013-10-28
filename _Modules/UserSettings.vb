@@ -40,6 +40,11 @@ Module UserSettings
         UserSettingsHelper.KeySettingsDictionary(whichSetting.ToString) = value
     End Sub
 
+    ' Public function for deleting a setting (resetting to default)
+    Friend Sub ResetUserSetting(ByVal whichSetting As UserSetting)
+        UserSettingsHelper.KeySettingsDictionary.Remove(whichSetting.ToString)
+    End Sub
+
     ' Adapted from http://stackoverflow.com/a/11801369/212978
     Public Class UserSettingsHelper
         Private Shared _keySettingsDictionary As Dictionary(Of String, String)
