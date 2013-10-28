@@ -109,7 +109,7 @@ Module ErrorReporting
             Exit Sub
         End If
         Try
-            ErrorMessage = FileVersionInfo.GetVersionInfo("C:\APB\johngaltproject.exe").ProductVersion.ToString & vbCrLf & ErrorMessage
+            ErrorMessage = GetCurrentVersion.ToString & vbCrLf & ErrorMessage
             ErrorMess = Mid(ErrorMessage, 1, 4000)
 
             SQL = "Insert into " & DBNameSpace & ".IAIPErrorLog " & _
