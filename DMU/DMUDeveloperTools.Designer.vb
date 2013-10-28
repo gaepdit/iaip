@@ -66,11 +66,6 @@ Partial Class DMUDeveloperTools
         Me.rdbGenerateStandardFile = New System.Windows.Forms.RadioButton
         Me.btnClearAFSFileGenerator = New System.Windows.Forms.Button
         Me.TPATSTool = New System.Windows.Forms.TabPage
-        Me.GroupBox1 = New System.Windows.Forms.GroupBox
-        Me.btnPopulateStaffList = New System.Windows.Forms.Button
-        Me.Button1 = New System.Windows.Forms.Button
-        Me.btnFillComputerAssets = New System.Windows.Forms.Button
-        Me.btnPopulatePrinterAssets = New System.Windows.Forms.Button
         Me.GroupBox2 = New System.Windows.Forms.GroupBox
         Me.VersionNumberInput = New System.Windows.Forms.TextBox
         Me.Label13 = New System.Windows.Forms.Label
@@ -370,7 +365,6 @@ Partial Class DMUDeveloperTools
         Me.pnlStandardFile.SuspendLayout()
         Me.Panel8.SuspendLayout()
         Me.TPATSTool.SuspendLayout()
-        Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.TPErrorLog.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
@@ -876,7 +870,6 @@ Partial Class DMUDeveloperTools
         '
         'TPATSTool
         '
-        Me.TPATSTool.Controls.Add(Me.GroupBox1)
         Me.TPATSTool.Controls.Add(Me.GroupBox2)
         Me.TPATSTool.Location = New System.Drawing.Point(4, 22)
         Me.TPATSTool.Name = "TPATSTool"
@@ -885,60 +878,6 @@ Partial Class DMUDeveloperTools
         Me.TPATSTool.TabIndex = 13
         Me.TPATSTool.Text = "Misc Tools"
         Me.TPATSTool.UseVisualStyleBackColor = True
-        '
-        'GroupBox1
-        '
-        Me.GroupBox1.Controls.Add(Me.btnPopulateStaffList)
-        Me.GroupBox1.Controls.Add(Me.Button1)
-        Me.GroupBox1.Controls.Add(Me.btnFillComputerAssets)
-        Me.GroupBox1.Controls.Add(Me.btnPopulatePrinterAssets)
-        Me.GroupBox1.Dock = System.Windows.Forms.DockStyle.Top
-        Me.GroupBox1.Location = New System.Drawing.Point(3, 72)
-        Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(778, 220)
-        Me.GroupBox1.TabIndex = 4
-        Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "ATS prepopulate tool (Temp)"
-        '
-        'btnPopulateStaffList
-        '
-        Me.btnPopulateStaffList.AutoSize = True
-        Me.btnPopulateStaffList.Location = New System.Drawing.Point(15, 19)
-        Me.btnPopulateStaffList.Name = "btnPopulateStaffList"
-        Me.btnPopulateStaffList.Size = New System.Drawing.Size(113, 23)
-        Me.btnPopulateStaffList.TabIndex = 0
-        Me.btnPopulateStaffList.Text = "Populate Staff Tools"
-        Me.btnPopulateStaffList.UseVisualStyleBackColor = True
-        '
-        'Button1
-        '
-        Me.Button1.AutoSize = True
-        Me.Button1.Location = New System.Drawing.Point(212, 19)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(159, 23)
-        Me.Button1.TabIndex = 3
-        Me.Button1.Text = "Populate Staff Tools from IAIP"
-        Me.Button1.UseVisualStyleBackColor = True
-        '
-        'btnFillComputerAssets
-        '
-        Me.btnFillComputerAssets.AutoSize = True
-        Me.btnFillComputerAssets.Location = New System.Drawing.Point(15, 60)
-        Me.btnFillComputerAssets.Name = "btnFillComputerAssets"
-        Me.btnFillComputerAssets.Size = New System.Drawing.Size(141, 23)
-        Me.btnFillComputerAssets.TabIndex = 1
-        Me.btnFillComputerAssets.Text = "Populate Computer Assets"
-        Me.btnFillComputerAssets.UseVisualStyleBackColor = True
-        '
-        'btnPopulatePrinterAssets
-        '
-        Me.btnPopulatePrinterAssets.AutoSize = True
-        Me.btnPopulatePrinterAssets.Location = New System.Drawing.Point(15, 99)
-        Me.btnPopulatePrinterAssets.Name = "btnPopulatePrinterAssets"
-        Me.btnPopulatePrinterAssets.Size = New System.Drawing.Size(141, 23)
-        Me.btnPopulatePrinterAssets.TabIndex = 2
-        Me.btnPopulatePrinterAssets.Text = "Populate Printer Assets"
-        Me.btnPopulatePrinterAssets.UseVisualStyleBackColor = True
         '
         'GroupBox2
         '
@@ -3979,8 +3918,6 @@ Partial Class DMUDeveloperTools
         Me.Panel8.ResumeLayout(False)
         Me.Panel8.PerformLayout()
         Me.TPATSTool.ResumeLayout(False)
-        Me.GroupBox1.ResumeLayout(False)
-        Me.GroupBox1.PerformLayout()
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
         Me.TPErrorLog.ResumeLayout(False)
@@ -4352,10 +4289,6 @@ Partial Class DMUDeveloperTools
     Friend WithEvents dgvErrorList As System.Windows.Forms.DataGridView
     Friend WithEvents btnUpdateAllSubParts As System.Windows.Forms.Button
     Friend WithEvents TPATSTool As System.Windows.Forms.TabPage
-    Friend WithEvents btnPopulateStaffList As System.Windows.Forms.Button
-    Friend WithEvents btnFillComputerAssets As System.Windows.Forms.Button
-    Friend WithEvents btnPopulatePrinterAssets As System.Windows.Forms.Button
-    Friend WithEvents Button1 As System.Windows.Forms.Button
     Friend WithEvents mtbAFSAirsNumber As System.Windows.Forms.MaskedTextBox
     Friend WithEvents Label11 As System.Windows.Forms.Label
     Friend WithEvents Label6 As System.Windows.Forms.Label
@@ -4370,7 +4303,6 @@ Partial Class DMUDeveloperTools
     Friend WithEvents rdbAIRSSpecific As System.Windows.Forms.RadioButton
     Friend WithEvents rdbGenerateStandardFile As System.Windows.Forms.RadioButton
     Friend WithEvents rdbBasicData As System.Windows.Forms.RadioButton
-    Friend WithEvents GroupBox1 As System.Windows.Forms.GroupBox
     Friend WithEvents GroupBox2 As System.Windows.Forms.GroupBox
     Friend WithEvents UpdateVersionNumber As System.Windows.Forms.Button
     Friend WithEvents lblCurrentVersion As System.Windows.Forms.Label

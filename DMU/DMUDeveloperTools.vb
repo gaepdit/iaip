@@ -21198,641 +21198,643 @@ Public Class DMUDeveloperTools
         End Try
     End Sub
 
-    Private Sub btnPopulateStaffList_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnPopulateStaffList.Click
-        Try
-            ''''DO NOT DELETE THIS CODE IT WORKS WELL AS A TEMPLATE''' 
-            ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-            'Dim cn As OleDbConnection = New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\APB\EPDStaff2.xlsx; " & _
-            '     "Extended Properties='Excel 12.0;HDR=Yes;IMEX=1'")
-            'Dim cm As OleDbCommand
-            'Dim droledb As OleDbDataReader
+#Region "Prepopulate ATS database"
+    'Private Sub btnPopulateStaffList_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnPopulateStaffList.Click
+    '    Try
+    '        ''''DO NOT DELETE THIS CODE IT WORKS WELL AS A TEMPLATE''' 
+    '        ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+    '        'Dim cn As OleDbConnection = New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\APB\EPDStaff2.xlsx; " & _
+    '        '     "Extended Properties='Excel 12.0;HDR=Yes;IMEX=1'")
+    '        'Dim cm As OleDbCommand
+    '        'Dim droledb As OleDbDataReader
 
-            'cn.Open()
-            'Dim query As String = "Select strFirstName, strLastName from [StaffList$] "
-            'cm = New OleDbCommand(query, cn)
-            'droledb = cm.ExecuteReader
-            'While droledb.Read
-            '    MsgBox(droledb.Item("strFirstName") & " " & droledb.Item("strLastName"))
-            'End While
-            'dr.Close()
-            'cn.Close()
+    '        'cn.Open()
+    '        'Dim query As String = "Select strFirstName, strLastName from [StaffList$] "
+    '        'cm = New OleDbCommand(query, cn)
+    '        'droledb = cm.ExecuteReader
+    '        'While droledb.Read
+    '        '    MsgBox(droledb.Item("strFirstName") & " " & droledb.Item("strLastName"))
+    '        'End While
+    '        'dr.Close()
+    '        'cn.Close()
 
-            Dim StaffFirstName As String = ""
-            Dim StaffLastName As String = ""
-            Dim oledbconn As OleDbConnection
-            Dim oledbdr As OleDbDataReader
-            Dim oledbcmd As OleDbCommand
-            Dim i As Integer = 0
+    '        Dim StaffFirstName As String = ""
+    '        Dim StaffLastName As String = ""
+    '        Dim oledbconn As OleDbConnection
+    '        Dim oledbdr As OleDbDataReader
+    '        Dim oledbcmd As OleDbCommand
+    '        Dim i As Integer = 0
 
-            oledbconn = New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\ATS\EPDStaff2.xlsx; " & _
-                "Extended Properties='Excel 12.0;HDR=Yes;IMEX=1'")
-            oledbconn.Open()
+    '        oledbconn = New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\ATS\EPDStaff2.xlsx; " & _
+    '            "Extended Properties='Excel 12.0;HDR=Yes;IMEX=1'")
+    '        oledbconn.Open()
 
-            SQL = "Select strFirstname, strLastname from [StaffList$] "
-            oledbcmd = New OleDbCommand(SQL, oledbconn)
+    '        SQL = "Select strFirstname, strLastname from [StaffList$] "
+    '        oledbcmd = New OleDbCommand(SQL, oledbconn)
 
-            oledbdr = oledbcmd.ExecuteReader
-            While oledbdr.Read
-                StaffFirstName = ""
-                StaffLastName = ""
+    '        oledbdr = oledbcmd.ExecuteReader
+    '        While oledbdr.Read
+    '            StaffFirstName = ""
+    '            StaffLastName = ""
 
-                If IsDBNull(oledbdr.Item("strFirstName")) Then
-                    StaffFirstName = ""
-                Else
-                    StaffFirstName = oledbdr.Item("strFirstName")
-                End If
-                If IsDBNull(oledbdr.Item("strLastName")) Then
-                    StaffLastName = ""
-                Else
-                    StaffLastName = oledbdr.Item("strLastName")
-                End If
+    '            If IsDBNull(oledbdr.Item("strFirstName")) Then
+    '                StaffFirstName = ""
+    '            Else
+    '                StaffFirstName = oledbdr.Item("strFirstName")
+    '            End If
+    '            If IsDBNull(oledbdr.Item("strLastName")) Then
+    '                StaffLastName = ""
+    '            Else
+    '                StaffLastName = oledbdr.Item("strLastName")
+    '            End If
 
-                SQL = "Insert into airbranch.ATS_StaffProfiles " & _
-                "(NUMSTAFFID, STREMPLOYEEID, " & _
-                "STRFIRSTNAME, STRLASTNAME, " & _
-                "STREMAILADDRESS, STRPHONENUMBER, " & _
-                "TIER1, TIER2, " & _
-                "TIER3, TIER4, " & _
-                "NUMOFFICELOCATION, STROFFICENUMBER, " & _
-                "COMMENTS, ACTIVE, " & _
-                "UPDATEUSER, UPDATEDATETIME, " & _
-                "CREATEDATETIME) " & _
-                "(select " & _
-                "(select case when max(numStaffID) is null then 1 " & _
-                "else (max(numStaffID) + 1) End StaffID from AIRBranch.ATS_StaffProfiles), " & _
-                "'', " & _
-                "'" & Replace(StaffFirstName, "'", "''") & "', '" & Replace(StaffLastName, "'", "''") & "', " & _
-                "'', '', " & _
-                "'', '', '', '', " & _
-                "'', '', " & _
-                "'Initial Population', '1', " & _
-                "'1-Floyd, Michael', sysdate, " & _
-                "sysdate " & _
-                "from dual " & _
-                "where not exists (select * from AIRBranch.ATS_StaffProfiles " & _
-                "where Upper(strFirstName) = '" & Replace(StaffFirstName.ToUpper, "'", "''") & "' " & _
-                "and Upper(strLastName) = '" & Replace(StaffLastName.ToUpper, "'", "''") & "' and rownum = 1 )) "
+    '            SQL = "Insert into airbranch.ATS_StaffProfiles " & _
+    '            "(NUMSTAFFID, STREMPLOYEEID, " & _
+    '            "STRFIRSTNAME, STRLASTNAME, " & _
+    '            "STREMAILADDRESS, STRPHONENUMBER, " & _
+    '            "TIER1, TIER2, " & _
+    '            "TIER3, TIER4, " & _
+    '            "NUMOFFICELOCATION, STROFFICENUMBER, " & _
+    '            "COMMENTS, ACTIVE, " & _
+    '            "UPDATEUSER, UPDATEDATETIME, " & _
+    '            "CREATEDATETIME) " & _
+    '            "(select " & _
+    '            "(select case when max(numStaffID) is null then 1 " & _
+    '            "else (max(numStaffID) + 1) End StaffID from AIRBranch.ATS_StaffProfiles), " & _
+    '            "'', " & _
+    '            "'" & Replace(StaffFirstName, "'", "''") & "', '" & Replace(StaffLastName, "'", "''") & "', " & _
+    '            "'', '', " & _
+    '            "'', '', '', '', " & _
+    '            "'', '', " & _
+    '            "'Initial Population', '1', " & _
+    '            "'1-Floyd, Michael', sysdate, " & _
+    '            "sysdate " & _
+    '            "from dual " & _
+    '            "where not exists (select * from AIRBranch.ATS_StaffProfiles " & _
+    '            "where Upper(strFirstName) = '" & Replace(StaffFirstName.ToUpper, "'", "''") & "' " & _
+    '            "and Upper(strLastName) = '" & Replace(StaffLastName.ToUpper, "'", "''") & "' and rownum = 1 )) "
 
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
-                End If
-                i = i + cmd.ExecuteNonQuery
-            End While
-            oledbdr.Close()
-            oledbconn.Close()
+    '            cmd = New OracleCommand(SQL, Conn)
+    '            If Conn.State = ConnectionState.Closed Then
+    '                Conn.Open()
+    '            End If
+    '            i = i + cmd.ExecuteNonQuery
+    '        End While
+    '        oledbdr.Close()
+    '        oledbconn.Close()
 
-            MsgBox(i.ToString & " Staff Added", MsgBoxStyle.Information, Me.Text)
+    '        MsgBox(i.ToString & " Staff Added", MsgBoxStyle.Information, Me.Text)
 
-            i = 0
-            Dim EmailAddress As String = ""
-            Dim OfficePhone As String = ""
-            Dim Dept As String = ""
-            Dim title As String = ""
+    '        i = 0
+    '        Dim EmailAddress As String = ""
+    '        Dim OfficePhone As String = ""
+    '        Dim Dept As String = ""
+    '        Dim title As String = ""
 
-            oledbconn = New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\ATS\GWExportList2.xlsx; " & _
-             "Extended Properties='Excel 12.0;HDR=Yes;IMEX=1'")
-            oledbconn.Open()
+    '        oledbconn = New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\ATS\GWExportList2.xlsx; " & _
+    '         "Extended Properties='Excel 12.0;HDR=Yes;IMEX=1'")
+    '        oledbconn.Open()
 
-            SQL = "Select strFirstname, strLastname, strEmailAddress, numOfficePhone, " & _
-            "strDept, strTitle from [Sheet1$] "
-            oledbcmd = New OleDbCommand(SQL, oledbconn)
+    '        SQL = "Select strFirstname, strLastname, strEmailAddress, numOfficePhone, " & _
+    '        "strDept, strTitle from [Sheet1$] "
+    '        oledbcmd = New OleDbCommand(SQL, oledbconn)
 
-            oledbdr = oledbcmd.ExecuteReader
-            While oledbdr.Read
-                If IsDBNull(oledbdr.Item("strFirstName")) Then
-                    StaffFirstName = ""
-                Else
-                    StaffFirstName = oledbdr.Item("strFirstName")
-                End If
-                If IsDBNull(oledbdr.Item("strLastName")) Then
-                    StaffLastName = ""
-                Else
-                    StaffLastName = oledbdr.Item("strLastName")
-                End If
-                If IsDBNull(oledbdr.Item("strEmailAddress")) Then
-                    EmailAddress = ""
-                Else
-                    EmailAddress = oledbdr.Item("strEmailAddress")
-                End If
-                If IsDBNull(oledbdr.Item("numOfficePhone")) Then
-                    OfficePhone = ""
-                Else
-                    OfficePhone = Regex.Replace(oledbdr.Item("numOfficePhone"), "[^0-9]", "")
-                End If
-                If IsDBNull(oledbdr.Item("strDept")) Then
-                    Dept = ""
-                Else
-                    Dept = oledbdr.Item("strDept")
-                End If
-                If IsDBNull(oledbdr.Item("strTitle")) Then
-                    title = ""
-                Else
-                    title = oledbdr.Item("strTitle")
-                End If
+    '        oledbdr = oledbcmd.ExecuteReader
+    '        While oledbdr.Read
+    '            If IsDBNull(oledbdr.Item("strFirstName")) Then
+    '                StaffFirstName = ""
+    '            Else
+    '                StaffFirstName = oledbdr.Item("strFirstName")
+    '            End If
+    '            If IsDBNull(oledbdr.Item("strLastName")) Then
+    '                StaffLastName = ""
+    '            Else
+    '                StaffLastName = oledbdr.Item("strLastName")
+    '            End If
+    '            If IsDBNull(oledbdr.Item("strEmailAddress")) Then
+    '                EmailAddress = ""
+    '            Else
+    '                EmailAddress = oledbdr.Item("strEmailAddress")
+    '            End If
+    '            If IsDBNull(oledbdr.Item("numOfficePhone")) Then
+    '                OfficePhone = ""
+    '            Else
+    '                OfficePhone = Regex.Replace(oledbdr.Item("numOfficePhone"), "[^0-9]", "")
+    '            End If
+    '            If IsDBNull(oledbdr.Item("strDept")) Then
+    '                Dept = ""
+    '            Else
+    '                Dept = oledbdr.Item("strDept")
+    '            End If
+    '            If IsDBNull(oledbdr.Item("strTitle")) Then
+    '                title = ""
+    '            Else
+    '                title = oledbdr.Item("strTitle")
+    '            End If
 
-                If StaffFirstName <> "" And StaffLastName <> "" Then
-                    SQL = "Update airbranch.ATS_StaffProfiles set " & _
-                    "strEmailAddress = '" & Replace(EmailAddress, "'", "''") & "', " & _
-                    "strPhoneNumber = '" & Replace(OfficePhone, "'", "''") & "', " & _
-                    "comments = comments|| '-" & Replace(Dept, "'", "''") & " - " & Replace(title, "'", "''") & "' " & _
-                    "where upper(strFirstName) like '" & Replace(StaffFirstName.ToUpper, "'", "''") & "%' " & _
-                    "and upper(strLastname) like '" & Replace(StaffLastName.ToUpper, "'", "''") & "%' "
+    '            If StaffFirstName <> "" And StaffLastName <> "" Then
+    '                SQL = "Update airbranch.ATS_StaffProfiles set " & _
+    '                "strEmailAddress = '" & Replace(EmailAddress, "'", "''") & "', " & _
+    '                "strPhoneNumber = '" & Replace(OfficePhone, "'", "''") & "', " & _
+    '                "comments = comments|| '-" & Replace(Dept, "'", "''") & " - " & Replace(title, "'", "''") & "' " & _
+    '                "where upper(strFirstName) like '" & Replace(StaffFirstName.ToUpper, "'", "''") & "%' " & _
+    '                "and upper(strLastname) like '" & Replace(StaffLastName.ToUpper, "'", "''") & "%' "
 
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
-                    End If
-                    i = i + cmd.ExecuteNonQuery
-                End If
+    '                cmd = New OracleCommand(SQL, Conn)
+    '                If Conn.State = ConnectionState.Closed Then
+    '                    Conn.Open()
+    '                End If
+    '                i = i + cmd.ExecuteNonQuery
+    '            End If
 
-            End While
-            oledbdr.Close()
-            oledbconn.Close()
+    '        End While
+    '        oledbdr.Close()
+    '        oledbconn.Close()
 
-            MsgBox(i.ToString & " Staff Updated", MsgBoxStyle.Information, Me.Text)
-
-
-            Exit Sub
+    '        MsgBox(i.ToString & " Staff Updated", MsgBoxStyle.Information, Me.Text)
 
 
-        Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-    Private Sub btnFillComputerAssets_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnFillComputerAssets.Click
-        Try
-            Dim oledbconn As OleDbConnection
-            Dim oledbdr As OleDbDataReader
-            Dim oledbcmd As OleDbCommand
-            Dim i As Integer = 0
-
-            Dim AssetTag, Category, Manufacturer, Model As String
-            Dim ModelNumber, Quality, SerialNumber, AgencyTag As String
-            Dim GETSSite, DateDeployed, SecondDate, DateSurplused, Comments, StaffAssigned As String
-            Dim FirstName, LastName As String
-
-            oledbconn = New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\ATS\DNRAssetSheet2.xlsx; " & _
-                "Extended Properties='Excel 12.0;HDR=Yes;IMEX=1'")
-            oledbconn.Open()
-
-            SQL = "Select Asset_Tag, Category, Manufacturer, Model, Model_Number, Quality, " & _
-            "Serial_Number, Agency_Tag, GETS_Site, Date_Deployed, Second_Date, Date_Surplused, Comments, Staff_Assigned " & _
-            "from [ComputerAsset$] "
-
-            SQL = "Select * from [ComputerAsset$] where Asset_Tag is not null "
-            oledbcmd = New OleDbCommand(SQL, oledbconn)
-
-            oledbdr = oledbcmd.ExecuteReader
-            While oledbdr.Read
-                If IsDBNull(oledbdr.Item("Asset_Tag")) Then
-                    AssetTag = ""
-                Else
-                    AssetTag = oledbdr.Item("Asset_Tag")
-                End If
-                If IsDBNull(oledbdr.Item("Category")) Then
-                    Category = ""
-                Else
-                    Category = oledbdr.Item("Category")
-                End If
-                If IsDBNull(oledbdr.Item("Manufacturer")) Then
-                    Manufacturer = ""
-                Else
-                    Manufacturer = oledbdr.Item("Manufacturer")
-                End If
-                If IsDBNull(oledbdr.Item("Model")) Then
-                    Model = ""
-                Else
-                    Model = oledbdr.Item("Model")
-                End If
-                If IsDBNull(oledbdr.Item("Model_Number")) Then
-                    ModelNumber = ""
-                Else
-                    ModelNumber = oledbdr.Item("Model_Number")
-                End If
-                If IsDBNull(oledbdr.Item("Quality")) Then
-                    Quality = ""
-                Else
-                    Quality = oledbdr.Item("Quality")
-                End If
-                If IsDBNull(oledbdr.Item("Serial_Number")) Then
-                    SerialNumber = ""
-                Else
-                    SerialNumber = oledbdr.Item("Serial_Number")
-                End If
-                If IsDBNull(oledbdr.Item("Agency_Tag")) Then
-                    AgencyTag = ""
-                Else
-                    AgencyTag = oledbdr.Item("Agency_Tag")
-                End If
-                If IsDBNull(oledbdr.Item("GETS_Site")) Then
-                    GETSSite = ""
-                Else
-                    GETSSite = oledbdr.Item("GETS_Site")
-                End If
-                If IsDBNull(oledbdr.Item("Date_Deployed")) Then
-                    DateDeployed = ""
-                Else
-                    DateDeployed = oledbdr.Item("Date_Deployed")
-                End If
-                If IsDBNull(oledbdr.Item("Second_Date")) Then
-                    SecondDate = ""
-                Else
-                    SecondDate = oledbdr.Item("Second_Date")
-                End If
-                If IsDBNull(oledbdr.Item("Date_Surplused")) Then
-                    DateSurplused = ""
-                Else
-                    DateSurplused = oledbdr.Item("Date_Surplused")
-                End If
-                If IsDBNull(oledbdr.Item("Comments")) Then
-                    Comments = ""
-                Else
-                    Comments = oledbdr.Item("Comments")
-                End If
-                If IsDBNull(oledbdr.Item("Staff_Assigned")) Then
-                    StaffAssigned = ""
-                Else
-                    StaffAssigned = oledbdr.Item("Staff_Assigned")
-                End If
-
-                SQL = "Insert into AIRBranch.ATS_ComputerAssets " & _
-                   "(numComputerAssetID, " & _
-                   "strAssetTag, " & _
-                   "numCategoryId, numManufacturerID, " & _
-                   "numModelID, numModelNumberID, " & _
-                   "numQualityID, strSerialNumber, " & _
-                   "strComputerName, strDNRAssetID, " & _
-                   "numGETSSite, datDeployedDate, " & _
-                   "NUMoTHERTYPE, " & _
-                   "DATOTHERDATE, datSurplusDate, " & _
-                   "strComment, " & _
-                   "Active, UpdateUser, " & _
-                   "UpdateDateTime, CreateDateTime) " & _
-                   "(Select  " & _
-                   "(select case when max(numComputerAssetId) is null then 1 " & _
-                   "else (max(numComputerAssetID) + 1) End AssetID from AIRBranch.ATS_ComputerAssets), " & _
-                   "'" & Replace(AssetTag, "'", "''") & "', " & _
-                   "(Select numID from airbranch.LK_ComputerCategory " & _
-                   "       where Upper(strDesc) = '" & Replace(Category.ToUpper, "'", "''") & "' and rownum = 1 ),  " & _
-                   "(select numId from AIRBranch.LK_ComputerManufacturer " & _
-                   "        where Upper(strDesc) = '" & Replace(Manufacturer.ToUpper, "'", "''") & "' and rownum = 1), " & _
-                   "(select numID from AIRBranch.LK_ComputerModel " & _
-                   "        where upper(strDesc) = '" & Replace(Model.ToUpper, "'", "''") & "' and rownum = 1), " & _
-                   "(select numID from AIRBranch.LK_ComputerModelNumber " & _
-                   "       where upper(strDesc) = '" & Replace(ModelNumber.ToUpper, "'", "''") & "' and rownum = 1), " & _
-                   "(select numID from AIRBranch.LK_ComputerQuality " & _
-                   "       where upper(strDesc) = '" & Replace(Quality.ToUpper, "'", "''") & "' and rownum = 1), " & _
-                   "'" & Replace(SerialNumber, "'", "''") & "', " & _
-                   "'', '" & Replace(AgencyTag, "'", "''") & "', " & _
-                   "'" & GETSSite & "', '" & DateDeployed & "', " & _
-                   "'3', " & _
-                   "'" & SecondDate & "', '" & DateSurplused & "', " & _
-                   "'" & Replace(StaffAssigned & " - " & Comments, "'", "''") & "', " & _
-                   "'1', '1-Floyd, Michael', " & _
-                   "sysdate, sysdate " & _
-                   "from dual " & _
-                   "where not exists (select * from AIRBranch.ATS_ComputerAssets " & _
-                   "where strAssetTag = '" & AssetTag & "')) "
-
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
-                End If
-                i = i + cmd.ExecuteNonQuery
-
-                If StaffAssigned <> "" Then
-                    LastName = Mid(StaffAssigned, 1, (InStr(StaffAssigned, ",") - 1))
-                    FirstName = Replace(StaffAssigned, (LastName & ", "), "")
-
-                    SQL = "Insert into AIRBranch.ATS_StaffAssets " & _
-                       "(numID, StaffID, " & _
-                       "AssetID, AssetType, " & _
-                       "DatInitial, DATTERMINATE, " & _
-                       "Comments, Active, " & _
-                       "UpdateUser, UpdateDateTime, " & _
-                       "CreateDateTime) " & _
-                       "(Select " & _
-                       "AIRBranch.SEQ_ATSSTAFFASSET_ID.nextval, " & _
-                       "(select case when numStaffID is null then null else numStaffID end Staffid " & _
-                       "from airbranch.ATS_StaffProfiles " & _
-                       "where upper(strFirstName) like '" & FirstName.ToUpper & "%' " & _
-                       "and upper(strLastName) Like '" & LastName.ToUpper & "%' and rownum = 1), " & _
-                       "(Select numComputerAssetID from Airbranch.ATS_ComputerAssets " & _
-                       "where strAssetTag = '" & Replace(AssetTag, "'", "''") & "' " & _
-                       "and datDeployedDate = '" & DateDeployed & "' " & _
-                       "and datOtherDate = '" & SecondDate & "' and rownum = 1), " & _
-                       "'ComputerAsset', " & _
-                       "'" & DateDeployed & "', '', " & _
-                       "'Inital Data Transfer', " & _
-                       "'1', '1-Floyd, Michael', " & _
-                       "sysdate, sysdate " & _
-                       "from dual " & _
-                       "where not exists (select * from AIRBranch.ATS_StaffAssets " & _
-                       "where ASSETID = (Select numComputerAssetID from Airbranch.ATS_ComputerAssets " & _
-                       "where strAssetTag = '" & Replace(AssetTag, "'", "''") & "' " & _
-                       "and datDeployedDate = '" & DateDeployed & "' " & _
-                       "and datOtherDate = '" & SecondDate & "' and rownum = 1) and assetType = 'ComputerAsset')) "
-
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
-                    End If
-                    i = i + cmd.ExecuteNonQuery
-                End If
-
-            End While
-            oledbdr.Close()
-            oledbconn.Close()
-
-            MsgBox(i.ToString & " Computers Added", MsgBoxStyle.Information, Me.Text)
-        Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-    Private Sub btnPopulatePrinterAssets_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnPopulatePrinterAssets.Click
-        Try
-            Dim oledbconn As OleDbConnection
-            Dim oledbdr As OleDbDataReader
-            Dim oledbcmd As OleDbCommand
-            Dim i As Integer = 0
-
-            Dim AssetTag, Category, Manufacturer, Model As String
-            Dim ModelNumber, PrinterName, IPAddress, SerialNumber As String
-            Dim GETSSite, DateDeployed, SecondDate, DateSurplused, Comments, StaffAssigned As String
-            Dim FirstName, LastName As String
-
-            oledbconn = New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\ATS\DNRAssetSheet2.xlsx; " & _
-                "Extended Properties='Excel 12.0;HDR=Yes;IMEX=1'")
-            oledbconn.Open()
-
-            SQL = "Select " & _
-            "Asset_Tag, Category, Manufacturer, Model, Model_Number, Printer_Name , " & _
-            "IP_Address, Serial_Number, GETS_Site, Date_Deployed, Second_Date, Date_Surplused, " & _
-            "Comments, Staff_Assigned " & _
-            "from [PrinterAsset$] "
-
-            SQL = "Select * from [PrinterAsset$] where Asset_Tag is not null "
-            oledbcmd = New OleDbCommand(SQL, oledbconn)
-
-            oledbdr = oledbcmd.ExecuteReader
-            While oledbdr.Read
-                If IsDBNull(oledbdr.Item("Asset_Tag")) Then
-                    AssetTag = ""
-                Else
-                    AssetTag = oledbdr.Item("Asset_Tag")
-                End If
-                If IsDBNull(oledbdr.Item("Category")) Then
-                    Category = ""
-                Else
-                    Category = oledbdr.Item("Category")
-                End If
-                If IsDBNull(oledbdr.Item("Manufacturer")) Then
-                    Manufacturer = ""
-                Else
-                    Manufacturer = oledbdr.Item("Manufacturer")
-                End If
-                If IsDBNull(oledbdr.Item("Model")) Then
-                    Model = ""
-                Else
-                    Model = oledbdr.Item("Model")
-                End If
-                If IsDBNull(oledbdr.Item("Model_Number")) Then
-                    ModelNumber = ""
-                Else
-                    ModelNumber = oledbdr.Item("Model_Number")
-                End If
-                If IsDBNull(oledbdr.Item("Printer_Name")) Then
-                    PrinterName = ""
-                Else
-                    PrinterName = oledbdr.Item("Printer_Name")
-                End If
-                If IsDBNull(oledbdr.Item("IP_Address")) Then
-                    IPAddress = ""
-                Else
-                    IPAddress = oledbdr.Item("IP_Address")
-                End If
-                If IsDBNull(oledbdr.Item("Serial_Number")) Then
-                    SerialNumber = ""
-                Else
-                    SerialNumber = oledbdr.Item("Serial_Number")
-                End If
-                If IsDBNull(oledbdr.Item("GETS_Site")) Then
-                    GETSSite = ""
-                Else
-                    GETSSite = oledbdr.Item("GETS_Site")
-                End If
-                If IsDBNull(oledbdr.Item("Date_Deployed")) Then
-                    DateDeployed = ""
-                Else
-                    DateDeployed = oledbdr.Item("Date_Deployed")
-                End If
-                If IsDBNull(oledbdr.Item("Second_Date")) Then
-                    SecondDate = ""
-                Else
-                    SecondDate = oledbdr.Item("Second_Date")
-                End If
-                If IsDBNull(oledbdr.Item("Date_Surplused")) Then
-                    DateSurplused = ""
-                Else
-                    DateSurplused = oledbdr.Item("Date_Surplused")
-                End If
-                If IsDBNull(oledbdr.Item("Comments")) Then
-                    Comments = ""
-                Else
-                    Comments = oledbdr.Item("Comments")
-                End If
-                If IsDBNull(oledbdr.Item("Staff_Assigned")) Then
-                    StaffAssigned = ""
-                Else
-                    StaffAssigned = oledbdr.Item("Staff_Assigned")
-                End If
-
-                SQL = "Insert into AIRBranch.ATS_PrinterAssets " & _
-                   "(numPrinterAssetID, " & _
-                   "strAssetTag, " & _
-                   "numCategoryId, numManufacturerID, " & _
-                   "numModelID, numModelNumberID, " & _
-                   "strSerialNumber, strPrinterName, " & _
-                   "numGETSSite, strIPAddress, " & _
-                   "datDeployedDate, " & _
-                   "NUMoTHERTYPE, " & _
-                   "DATOTHERDATE, datSurplusDate, " & _
-                   "strComment, " & _
-                   "Active, UpdateUser, " & _
-                   "UpdateDateTime, CreateDateTime) " & _
-                   "(Select  " & _
-                   "(select case when max(numPrinterAssetId) is null then 1 " & _
-                   "else (max(numPrinterAssetID) + 1) End AssetID from AIRBranch.ATS_PrinterAssets), " & _
-                   "'" & Replace(AssetTag, "'", "''") & "', " & _
-                   "(Select numID from airbranch.LK_PrinterCategory " & _
-                   "       where Upper(strDesc) = '" & Replace(Category.ToUpper, "'", "''") & "'),  " & _
-                   "(select numId from AIRBranch.LK_PrinterManufacturer " & _
-                   "        where Upper(strDesc) = '" & Replace(Manufacturer.ToUpper, "'", "''") & "'), " & _
-                   "(select numID from AIRBranch.LK_PrinterModel " & _
-                   "        where upper(strDesc) = '" & Replace(Model.ToUpper, "'", "''") & "'), " & _
-                   "(select numID from AIRBranch.LK_PrinterModelNumber " & _
-                   "       where upper(strDesc) = '" & Replace(ModelNumber.ToUpper, "'", "''") & "'), " & _
-                   "'" & Replace(SerialNumber, "'", "''") & "', '" & Replace(PrinterName, "'", "''") & "', " & _
-                   "'" & GETSSite & "', '" & Replace(IPAddress, "'", "''") & "', " & _
-                   "'" & DateDeployed & "', " & _
-                   "'3', " & _
-                   "'" & SecondDate & "', '" & DateSurplused & "', " & _
-                   "'" & Replace(StaffAssigned & " - " & Comments, "'", "''") & "', " & _
-                   "'1', '1-Floyd, Michael', " & _
-                   "sysdate, sysdate " & _
-                   "from dual " & _
-                   "where not exists (select * from AIRBranch.ATS_PrinterAssets " & _
-                   "where strAssetTag = '" & AssetTag & "')) "
-
-                'cmd = New OracleCommand(SQL, conn)
-                'If conn.State = ConnectionState.Closed Then
-                '    conn.Open()
-                'End If
-                'i = i + cmd.ExecuteNonQuery
-
-                If StaffAssigned <> "" Then
-                    LastName = Mid(StaffAssigned, 1, (InStr(StaffAssigned, ",") - 1))
-                    FirstName = Replace(StaffAssigned, (LastName & ", "), "")
-
-                    SQL = "Insert into AIRBranch.ATS_StaffAssets " & _
-                       "(numID, StaffID, " & _
-                       "AssetID, AssetType, " & _
-                       "DatInitial, DATTERMINATE, " & _
-                       "Comments, Active, " & _
-                       "UpdateUser, UpdateDateTime, " & _
-                       "CreateDateTime) " & _
-                       "(Select " & _
-                       "AIRBranch.SEQ_ATSSTAFFASSET_ID.nextval, " & _
-                       "(select case when numStaffID is null then null else numStaffID end Staffid " & _
-                       "from airbranch.ATS_StaffProfiles " & _
-                       "where upper(strFirstName) like '" & FirstName.ToUpper & "%' " & _
-                       "and upper(strLastName) Like '" & LastName.ToUpper & "%' and rownum = 1), " & _
-                       "(Select numPrinterAssetID from Airbranch.ATS_PrinterAssets " & _
-                       "where strAssetTag = '" & Replace(AssetTag, "'", "''") & "' " & _
-                       "and rownum = 1), " & _
-                       "'PrinterAsset', " & _
-                       "'" & DateDeployed & "', '', " & _
-                       "'Inital Data Transfer', " & _
-                       "'1', '1-Floyd, Michael', " & _
-                       "sysdate, sysdate " & _
-                       "from dual " & _
-                       "where not exists (select * from AIRBranch.ATS_StaffAssets " & _
-                       "where ASSETID = (Select numPrinterAssetID from Airbranch.ATS_PrinterAssets " & _
-                       "where strAssetTag = '" & Replace(AssetTag, "'", "''") & "' " & _
-                       "and rownum = 1) and assetType = 'PrinterAsset')) "
-
-                    cmd = New OracleCommand(SQL, conn)
-                    If conn.State = ConnectionState.Closed Then
-                        conn.Open()
-                    End If
-                    i = i + cmd.ExecuteNonQuery
-                End If
-            End While
-            oledbdr.Close()
-            oledbconn.Close()
-
-            MsgBox(i.ToString & " Printers Added", MsgBoxStyle.Information, Me.Text)
-
-        Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-    Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
-        Try
-            Dim Firstname, LastName, EmailAddress, Phone, OfficeNum, EmpStatus As String
-            Dim i As Integer = 0
-
-            SQL = "select " & _
-            "EPDUSerProfiles.strFirstName, " & _
-            "EPDUSerProfiles.strLastName, " & _
-            "EPDUSerProfiles.strEmailAddress, EPDUSerProfiles.strPhone, " & _
-            "'1', '', '', '', " & _
-            "'1', EPDUSerProfiles.strOffice, '', " & _
-            "EPDUSerProfiles.numEmployeeStatus, 'Floyd, Michael', " & _
-            "sysdate, sysdate " & _
-            "from AIRBranch.EPDUSerProfiles " & _
-            "where not exists (select * from airbranch.ATS_StaffProfiles " & _
-            "where upper(ats_staffProfiles.strLastname)  like upper(EPDUSerProfiles.strLastName)||'%' " & _
-            "and upper(ats_staffProfiles.strFirstname) like Upper(EPDUSerProfiles.strFirstName)||'%' ) "
-
-            cmd = New OracleCommand(SQL, conn)
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                If IsDBNull(dr.Item("strFirstName")) Then
-                    Firstname = ""
-                Else
-                    Firstname = dr.Item("strFirstName")
-                End If
-                If IsDBNull(dr.Item("strLastName")) Then
-                    LastName = ""
-                Else
-                    LastName = dr.Item("strLastName")
-                End If
-                If IsDBNull(dr.Item("strEmailAddress")) Then
-                    EmailAddress = ""
-                Else
-                    EmailAddress = dr.Item("strEmailAddress")
-                End If
-                If IsDBNull(dr.Item("strPhone")) Then
-                    Phone = ""
-                Else
-                    Phone = dr.Item("strPhone")
-                End If
-                If IsDBNull(dr.Item("strOffice")) Then
-                    OfficeNum = ""
-                Else
-                    OfficeNum = dr.Item("strOffice")
-                End If
-                If IsDBNull(dr.Item("numEmployeeStatus")) Then
-                    EmpStatus = ""
-                Else
-                    EmpStatus = dr.Item("numEmployeeStatus")
-                End If
-
-                SQL = "Insert into airbranch.ATS_StaffProfiles " & _
-                "(NUMSTAFFID, STREMPLOYEEID, " & _
-                "STRFIRSTNAME, STRLASTNAME, " & _
-                "STREMAILADDRESS, STRPHONENUMBER, " & _
-                "TIER1, TIER2, " & _
-                "TIER3, TIER4, " & _
-                "NUMOFFICELOCATION, STROFFICENUMBER, " & _
-                "COMMENTS, ACTIVE, " & _
-                "UPDATEUSER, UPDATEDATETIME, " & _
-                "CREATEDATETIME) " & _
-                "(select " & _
-                "(select case when max(numStaffID) is null then 1 " & _
-                "else (max(numStaffID) + 1) End StaffID from AIRBranch.ATS_StaffProfiles), " & _
-                "'', " & _
-                "'" & Replace(Firstname, "'", "''") & "', '" & Replace(LastName, "'", "''") & "', " & _
-                "'" & Replace(EmailAddress, "'", "''") & "', '" & Replace(Phone, "'", "''") & "', " & _
-                "'', '', '', '', " & _
-                "'', '" & Replace(OfficeNum, "'", "''") & "', " & _
-                "'Initial Population', '" & EmpStatus & "', " & _
-                "'1-Floyd, Michael', sysdate, " & _
-                "sysdate " & _
-                "from dual " & _
-                "where not exists (select * from AIRBranch.ATS_StaffProfiles " & _
-                "where Upper(strFirstName) = '" & Replace(Firstname.ToUpper, "'", "''") & "' " & _
-                "and Upper(strLastName) = '" & Replace(LastName.ToUpper, "'", "''") & "')) "
-
-                cmd = New OracleCommand(SQL, conn)
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
-                End If
-                i = i + cmd.ExecuteNonQuery
-
-            End While
-            dr.Close()
+    '        Exit Sub
 
 
-        Catch ex As Exception
+    '    Catch ex As Exception
+    '        ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+    '    End Try
+    'End Sub
+    'Private Sub btnFillComputerAssets_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnFillComputerAssets.Click
+    '    Try
+    '        Dim oledbconn As OleDbConnection
+    '        Dim oledbdr As OleDbDataReader
+    '        Dim oledbcmd As OleDbCommand
+    '        Dim i As Integer = 0
 
-        End Try
-    End Sub
+    '        Dim AssetTag, Category, Manufacturer, Model As String
+    '        Dim ModelNumber, Quality, SerialNumber, AgencyTag As String
+    '        Dim GETSSite, DateDeployed, SecondDate, DateSurplused, Comments, StaffAssigned As String
+    '        Dim FirstName, LastName As String
+
+    '        oledbconn = New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\ATS\DNRAssetSheet2.xlsx; " & _
+    '            "Extended Properties='Excel 12.0;HDR=Yes;IMEX=1'")
+    '        oledbconn.Open()
+
+    '        SQL = "Select Asset_Tag, Category, Manufacturer, Model, Model_Number, Quality, " & _
+    '        "Serial_Number, Agency_Tag, GETS_Site, Date_Deployed, Second_Date, Date_Surplused, Comments, Staff_Assigned " & _
+    '        "from [ComputerAsset$] "
+
+    '        SQL = "Select * from [ComputerAsset$] where Asset_Tag is not null "
+    '        oledbcmd = New OleDbCommand(SQL, oledbconn)
+
+    '        oledbdr = oledbcmd.ExecuteReader
+    '        While oledbdr.Read
+    '            If IsDBNull(oledbdr.Item("Asset_Tag")) Then
+    '                AssetTag = ""
+    '            Else
+    '                AssetTag = oledbdr.Item("Asset_Tag")
+    '            End If
+    '            If IsDBNull(oledbdr.Item("Category")) Then
+    '                Category = ""
+    '            Else
+    '                Category = oledbdr.Item("Category")
+    '            End If
+    '            If IsDBNull(oledbdr.Item("Manufacturer")) Then
+    '                Manufacturer = ""
+    '            Else
+    '                Manufacturer = oledbdr.Item("Manufacturer")
+    '            End If
+    '            If IsDBNull(oledbdr.Item("Model")) Then
+    '                Model = ""
+    '            Else
+    '                Model = oledbdr.Item("Model")
+    '            End If
+    '            If IsDBNull(oledbdr.Item("Model_Number")) Then
+    '                ModelNumber = ""
+    '            Else
+    '                ModelNumber = oledbdr.Item("Model_Number")
+    '            End If
+    '            If IsDBNull(oledbdr.Item("Quality")) Then
+    '                Quality = ""
+    '            Else
+    '                Quality = oledbdr.Item("Quality")
+    '            End If
+    '            If IsDBNull(oledbdr.Item("Serial_Number")) Then
+    '                SerialNumber = ""
+    '            Else
+    '                SerialNumber = oledbdr.Item("Serial_Number")
+    '            End If
+    '            If IsDBNull(oledbdr.Item("Agency_Tag")) Then
+    '                AgencyTag = ""
+    '            Else
+    '                AgencyTag = oledbdr.Item("Agency_Tag")
+    '            End If
+    '            If IsDBNull(oledbdr.Item("GETS_Site")) Then
+    '                GETSSite = ""
+    '            Else
+    '                GETSSite = oledbdr.Item("GETS_Site")
+    '            End If
+    '            If IsDBNull(oledbdr.Item("Date_Deployed")) Then
+    '                DateDeployed = ""
+    '            Else
+    '                DateDeployed = oledbdr.Item("Date_Deployed")
+    '            End If
+    '            If IsDBNull(oledbdr.Item("Second_Date")) Then
+    '                SecondDate = ""
+    '            Else
+    '                SecondDate = oledbdr.Item("Second_Date")
+    '            End If
+    '            If IsDBNull(oledbdr.Item("Date_Surplused")) Then
+    '                DateSurplused = ""
+    '            Else
+    '                DateSurplused = oledbdr.Item("Date_Surplused")
+    '            End If
+    '            If IsDBNull(oledbdr.Item("Comments")) Then
+    '                Comments = ""
+    '            Else
+    '                Comments = oledbdr.Item("Comments")
+    '            End If
+    '            If IsDBNull(oledbdr.Item("Staff_Assigned")) Then
+    '                StaffAssigned = ""
+    '            Else
+    '                StaffAssigned = oledbdr.Item("Staff_Assigned")
+    '            End If
+
+    '            SQL = "Insert into AIRBranch.ATS_ComputerAssets " & _
+    '               "(numComputerAssetID, " & _
+    '               "strAssetTag, " & _
+    '               "numCategoryId, numManufacturerID, " & _
+    '               "numModelID, numModelNumberID, " & _
+    '               "numQualityID, strSerialNumber, " & _
+    '               "strComputerName, strDNRAssetID, " & _
+    '               "numGETSSite, datDeployedDate, " & _
+    '               "NUMoTHERTYPE, " & _
+    '               "DATOTHERDATE, datSurplusDate, " & _
+    '               "strComment, " & _
+    '               "Active, UpdateUser, " & _
+    '               "UpdateDateTime, CreateDateTime) " & _
+    '               "(Select  " & _
+    '               "(select case when max(numComputerAssetId) is null then 1 " & _
+    '               "else (max(numComputerAssetID) + 1) End AssetID from AIRBranch.ATS_ComputerAssets), " & _
+    '               "'" & Replace(AssetTag, "'", "''") & "', " & _
+    '               "(Select numID from airbranch.LK_ComputerCategory " & _
+    '               "       where Upper(strDesc) = '" & Replace(Category.ToUpper, "'", "''") & "' and rownum = 1 ),  " & _
+    '               "(select numId from AIRBranch.LK_ComputerManufacturer " & _
+    '               "        where Upper(strDesc) = '" & Replace(Manufacturer.ToUpper, "'", "''") & "' and rownum = 1), " & _
+    '               "(select numID from AIRBranch.LK_ComputerModel " & _
+    '               "        where upper(strDesc) = '" & Replace(Model.ToUpper, "'", "''") & "' and rownum = 1), " & _
+    '               "(select numID from AIRBranch.LK_ComputerModelNumber " & _
+    '               "       where upper(strDesc) = '" & Replace(ModelNumber.ToUpper, "'", "''") & "' and rownum = 1), " & _
+    '               "(select numID from AIRBranch.LK_ComputerQuality " & _
+    '               "       where upper(strDesc) = '" & Replace(Quality.ToUpper, "'", "''") & "' and rownum = 1), " & _
+    '               "'" & Replace(SerialNumber, "'", "''") & "', " & _
+    '               "'', '" & Replace(AgencyTag, "'", "''") & "', " & _
+    '               "'" & GETSSite & "', '" & DateDeployed & "', " & _
+    '               "'3', " & _
+    '               "'" & SecondDate & "', '" & DateSurplused & "', " & _
+    '               "'" & Replace(StaffAssigned & " - " & Comments, "'", "''") & "', " & _
+    '               "'1', '1-Floyd, Michael', " & _
+    '               "sysdate, sysdate " & _
+    '               "from dual " & _
+    '               "where not exists (select * from AIRBranch.ATS_ComputerAssets " & _
+    '               "where strAssetTag = '" & AssetTag & "')) "
+
+    '            cmd = New OracleCommand(SQL, conn)
+    '            If conn.State = ConnectionState.Closed Then
+    '                conn.Open()
+    '            End If
+    '            i = i + cmd.ExecuteNonQuery
+
+    '            If StaffAssigned <> "" Then
+    '                LastName = Mid(StaffAssigned, 1, (InStr(StaffAssigned, ",") - 1))
+    '                FirstName = Replace(StaffAssigned, (LastName & ", "), "")
+
+    '                SQL = "Insert into AIRBranch.ATS_StaffAssets " & _
+    '                   "(numID, StaffID, " & _
+    '                   "AssetID, AssetType, " & _
+    '                   "DatInitial, DATTERMINATE, " & _
+    '                   "Comments, Active, " & _
+    '                   "UpdateUser, UpdateDateTime, " & _
+    '                   "CreateDateTime) " & _
+    '                   "(Select " & _
+    '                   "AIRBranch.SEQ_ATSSTAFFASSET_ID.nextval, " & _
+    '                   "(select case when numStaffID is null then null else numStaffID end Staffid " & _
+    '                   "from airbranch.ATS_StaffProfiles " & _
+    '                   "where upper(strFirstName) like '" & FirstName.ToUpper & "%' " & _
+    '                   "and upper(strLastName) Like '" & LastName.ToUpper & "%' and rownum = 1), " & _
+    '                   "(Select numComputerAssetID from Airbranch.ATS_ComputerAssets " & _
+    '                   "where strAssetTag = '" & Replace(AssetTag, "'", "''") & "' " & _
+    '                   "and datDeployedDate = '" & DateDeployed & "' " & _
+    '                   "and datOtherDate = '" & SecondDate & "' and rownum = 1), " & _
+    '                   "'ComputerAsset', " & _
+    '                   "'" & DateDeployed & "', '', " & _
+    '                   "'Inital Data Transfer', " & _
+    '                   "'1', '1-Floyd, Michael', " & _
+    '                   "sysdate, sysdate " & _
+    '                   "from dual " & _
+    '                   "where not exists (select * from AIRBranch.ATS_StaffAssets " & _
+    '                   "where ASSETID = (Select numComputerAssetID from Airbranch.ATS_ComputerAssets " & _
+    '                   "where strAssetTag = '" & Replace(AssetTag, "'", "''") & "' " & _
+    '                   "and datDeployedDate = '" & DateDeployed & "' " & _
+    '                   "and datOtherDate = '" & SecondDate & "' and rownum = 1) and assetType = 'ComputerAsset')) "
+
+    '                cmd = New OracleCommand(SQL, conn)
+    '                If conn.State = ConnectionState.Closed Then
+    '                    conn.Open()
+    '                End If
+    '                i = i + cmd.ExecuteNonQuery
+    '            End If
+
+    '        End While
+    '        oledbdr.Close()
+    '        oledbconn.Close()
+
+    '        MsgBox(i.ToString & " Computers Added", MsgBoxStyle.Information, Me.Text)
+    '    Catch ex As Exception
+    '        ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+    '    End Try
+    'End Sub
+    'Private Sub btnPopulatePrinterAssets_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnPopulatePrinterAssets.Click
+    '    Try
+    '        Dim oledbconn As OleDbConnection
+    '        Dim oledbdr As OleDbDataReader
+    '        Dim oledbcmd As OleDbCommand
+    '        Dim i As Integer = 0
+
+    '        Dim AssetTag, Category, Manufacturer, Model As String
+    '        Dim ModelNumber, PrinterName, IPAddress, SerialNumber As String
+    '        Dim GETSSite, DateDeployed, SecondDate, DateSurplused, Comments, StaffAssigned As String
+    '        Dim FirstName, LastName As String
+
+    '        oledbconn = New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\ATS\DNRAssetSheet2.xlsx; " & _
+    '            "Extended Properties='Excel 12.0;HDR=Yes;IMEX=1'")
+    '        oledbconn.Open()
+
+    '        SQL = "Select " & _
+    '        "Asset_Tag, Category, Manufacturer, Model, Model_Number, Printer_Name , " & _
+    '        "IP_Address, Serial_Number, GETS_Site, Date_Deployed, Second_Date, Date_Surplused, " & _
+    '        "Comments, Staff_Assigned " & _
+    '        "from [PrinterAsset$] "
+
+    '        SQL = "Select * from [PrinterAsset$] where Asset_Tag is not null "
+    '        oledbcmd = New OleDbCommand(SQL, oledbconn)
+
+    '        oledbdr = oledbcmd.ExecuteReader
+    '        While oledbdr.Read
+    '            If IsDBNull(oledbdr.Item("Asset_Tag")) Then
+    '                AssetTag = ""
+    '            Else
+    '                AssetTag = oledbdr.Item("Asset_Tag")
+    '            End If
+    '            If IsDBNull(oledbdr.Item("Category")) Then
+    '                Category = ""
+    '            Else
+    '                Category = oledbdr.Item("Category")
+    '            End If
+    '            If IsDBNull(oledbdr.Item("Manufacturer")) Then
+    '                Manufacturer = ""
+    '            Else
+    '                Manufacturer = oledbdr.Item("Manufacturer")
+    '            End If
+    '            If IsDBNull(oledbdr.Item("Model")) Then
+    '                Model = ""
+    '            Else
+    '                Model = oledbdr.Item("Model")
+    '            End If
+    '            If IsDBNull(oledbdr.Item("Model_Number")) Then
+    '                ModelNumber = ""
+    '            Else
+    '                ModelNumber = oledbdr.Item("Model_Number")
+    '            End If
+    '            If IsDBNull(oledbdr.Item("Printer_Name")) Then
+    '                PrinterName = ""
+    '            Else
+    '                PrinterName = oledbdr.Item("Printer_Name")
+    '            End If
+    '            If IsDBNull(oledbdr.Item("IP_Address")) Then
+    '                IPAddress = ""
+    '            Else
+    '                IPAddress = oledbdr.Item("IP_Address")
+    '            End If
+    '            If IsDBNull(oledbdr.Item("Serial_Number")) Then
+    '                SerialNumber = ""
+    '            Else
+    '                SerialNumber = oledbdr.Item("Serial_Number")
+    '            End If
+    '            If IsDBNull(oledbdr.Item("GETS_Site")) Then
+    '                GETSSite = ""
+    '            Else
+    '                GETSSite = oledbdr.Item("GETS_Site")
+    '            End If
+    '            If IsDBNull(oledbdr.Item("Date_Deployed")) Then
+    '                DateDeployed = ""
+    '            Else
+    '                DateDeployed = oledbdr.Item("Date_Deployed")
+    '            End If
+    '            If IsDBNull(oledbdr.Item("Second_Date")) Then
+    '                SecondDate = ""
+    '            Else
+    '                SecondDate = oledbdr.Item("Second_Date")
+    '            End If
+    '            If IsDBNull(oledbdr.Item("Date_Surplused")) Then
+    '                DateSurplused = ""
+    '            Else
+    '                DateSurplused = oledbdr.Item("Date_Surplused")
+    '            End If
+    '            If IsDBNull(oledbdr.Item("Comments")) Then
+    '                Comments = ""
+    '            Else
+    '                Comments = oledbdr.Item("Comments")
+    '            End If
+    '            If IsDBNull(oledbdr.Item("Staff_Assigned")) Then
+    '                StaffAssigned = ""
+    '            Else
+    '                StaffAssigned = oledbdr.Item("Staff_Assigned")
+    '            End If
+
+    '            SQL = "Insert into AIRBranch.ATS_PrinterAssets " & _
+    '               "(numPrinterAssetID, " & _
+    '               "strAssetTag, " & _
+    '               "numCategoryId, numManufacturerID, " & _
+    '               "numModelID, numModelNumberID, " & _
+    '               "strSerialNumber, strPrinterName, " & _
+    '               "numGETSSite, strIPAddress, " & _
+    '               "datDeployedDate, " & _
+    '               "NUMoTHERTYPE, " & _
+    '               "DATOTHERDATE, datSurplusDate, " & _
+    '               "strComment, " & _
+    '               "Active, UpdateUser, " & _
+    '               "UpdateDateTime, CreateDateTime) " & _
+    '               "(Select  " & _
+    '               "(select case when max(numPrinterAssetId) is null then 1 " & _
+    '               "else (max(numPrinterAssetID) + 1) End AssetID from AIRBranch.ATS_PrinterAssets), " & _
+    '               "'" & Replace(AssetTag, "'", "''") & "', " & _
+    '               "(Select numID from airbranch.LK_PrinterCategory " & _
+    '               "       where Upper(strDesc) = '" & Replace(Category.ToUpper, "'", "''") & "'),  " & _
+    '               "(select numId from AIRBranch.LK_PrinterManufacturer " & _
+    '               "        where Upper(strDesc) = '" & Replace(Manufacturer.ToUpper, "'", "''") & "'), " & _
+    '               "(select numID from AIRBranch.LK_PrinterModel " & _
+    '               "        where upper(strDesc) = '" & Replace(Model.ToUpper, "'", "''") & "'), " & _
+    '               "(select numID from AIRBranch.LK_PrinterModelNumber " & _
+    '               "       where upper(strDesc) = '" & Replace(ModelNumber.ToUpper, "'", "''") & "'), " & _
+    '               "'" & Replace(SerialNumber, "'", "''") & "', '" & Replace(PrinterName, "'", "''") & "', " & _
+    '               "'" & GETSSite & "', '" & Replace(IPAddress, "'", "''") & "', " & _
+    '               "'" & DateDeployed & "', " & _
+    '               "'3', " & _
+    '               "'" & SecondDate & "', '" & DateSurplused & "', " & _
+    '               "'" & Replace(StaffAssigned & " - " & Comments, "'", "''") & "', " & _
+    '               "'1', '1-Floyd, Michael', " & _
+    '               "sysdate, sysdate " & _
+    '               "from dual " & _
+    '               "where not exists (select * from AIRBranch.ATS_PrinterAssets " & _
+    '               "where strAssetTag = '" & AssetTag & "')) "
+
+    '            'cmd = New OracleCommand(SQL, conn)
+    '            'If conn.State = ConnectionState.Closed Then
+    '            '    conn.Open()
+    '            'End If
+    '            'i = i + cmd.ExecuteNonQuery
+
+    '            If StaffAssigned <> "" Then
+    '                LastName = Mid(StaffAssigned, 1, (InStr(StaffAssigned, ",") - 1))
+    '                FirstName = Replace(StaffAssigned, (LastName & ", "), "")
+
+    '                SQL = "Insert into AIRBranch.ATS_StaffAssets " & _
+    '                   "(numID, StaffID, " & _
+    '                   "AssetID, AssetType, " & _
+    '                   "DatInitial, DATTERMINATE, " & _
+    '                   "Comments, Active, " & _
+    '                   "UpdateUser, UpdateDateTime, " & _
+    '                   "CreateDateTime) " & _
+    '                   "(Select " & _
+    '                   "AIRBranch.SEQ_ATSSTAFFASSET_ID.nextval, " & _
+    '                   "(select case when numStaffID is null then null else numStaffID end Staffid " & _
+    '                   "from airbranch.ATS_StaffProfiles " & _
+    '                   "where upper(strFirstName) like '" & FirstName.ToUpper & "%' " & _
+    '                   "and upper(strLastName) Like '" & LastName.ToUpper & "%' and rownum = 1), " & _
+    '                   "(Select numPrinterAssetID from Airbranch.ATS_PrinterAssets " & _
+    '                   "where strAssetTag = '" & Replace(AssetTag, "'", "''") & "' " & _
+    '                   "and rownum = 1), " & _
+    '                   "'PrinterAsset', " & _
+    '                   "'" & DateDeployed & "', '', " & _
+    '                   "'Inital Data Transfer', " & _
+    '                   "'1', '1-Floyd, Michael', " & _
+    '                   "sysdate, sysdate " & _
+    '                   "from dual " & _
+    '                   "where not exists (select * from AIRBranch.ATS_StaffAssets " & _
+    '                   "where ASSETID = (Select numPrinterAssetID from Airbranch.ATS_PrinterAssets " & _
+    '                   "where strAssetTag = '" & Replace(AssetTag, "'", "''") & "' " & _
+    '                   "and rownum = 1) and assetType = 'PrinterAsset')) "
+
+    '                cmd = New OracleCommand(SQL, conn)
+    '                If conn.State = ConnectionState.Closed Then
+    '                    conn.Open()
+    '                End If
+    '                i = i + cmd.ExecuteNonQuery
+    '            End If
+    '        End While
+    '        oledbdr.Close()
+    '        oledbconn.Close()
+
+    '        MsgBox(i.ToString & " Printers Added", MsgBoxStyle.Information, Me.Text)
+
+    '    Catch ex As Exception
+    '        ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+    '    End Try
+    'End Sub
+    'Private Sub btnPopulateStaffFromIAIP1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnPopulateStaffFromIAIP.Click
+    '    Try
+    '        Dim Firstname, LastName, EmailAddress, Phone, OfficeNum, EmpStatus As String
+    '        Dim i As Integer = 0
+
+    '        SQL = "select " & _
+    '        "EPDUSerProfiles.strFirstName, " & _
+    '        "EPDUSerProfiles.strLastName, " & _
+    '        "EPDUSerProfiles.strEmailAddress, EPDUSerProfiles.strPhone, " & _
+    '        "'1', '', '', '', " & _
+    '        "'1', EPDUSerProfiles.strOffice, '', " & _
+    '        "EPDUSerProfiles.numEmployeeStatus, 'Floyd, Michael', " & _
+    '        "sysdate, sysdate " & _
+    '        "from AIRBranch.EPDUSerProfiles " & _
+    '        "where not exists (select * from airbranch.ATS_StaffProfiles " & _
+    '        "where upper(ats_staffProfiles.strLastname)  like upper(EPDUSerProfiles.strLastName)||'%' " & _
+    '        "and upper(ats_staffProfiles.strFirstname) like Upper(EPDUSerProfiles.strFirstName)||'%' ) "
+
+    '        cmd = New OracleCommand(SQL, conn)
+    '        If conn.State = ConnectionState.Closed Then
+    '            conn.Open()
+    '        End If
+    '        dr = cmd.ExecuteReader
+    '        While dr.Read
+    '            If IsDBNull(dr.Item("strFirstName")) Then
+    '                Firstname = ""
+    '            Else
+    '                Firstname = dr.Item("strFirstName")
+    '            End If
+    '            If IsDBNull(dr.Item("strLastName")) Then
+    '                LastName = ""
+    '            Else
+    '                LastName = dr.Item("strLastName")
+    '            End If
+    '            If IsDBNull(dr.Item("strEmailAddress")) Then
+    '                EmailAddress = ""
+    '            Else
+    '                EmailAddress = dr.Item("strEmailAddress")
+    '            End If
+    '            If IsDBNull(dr.Item("strPhone")) Then
+    '                Phone = ""
+    '            Else
+    '                Phone = dr.Item("strPhone")
+    '            End If
+    '            If IsDBNull(dr.Item("strOffice")) Then
+    '                OfficeNum = ""
+    '            Else
+    '                OfficeNum = dr.Item("strOffice")
+    '            End If
+    '            If IsDBNull(dr.Item("numEmployeeStatus")) Then
+    '                EmpStatus = ""
+    '            Else
+    '                EmpStatus = dr.Item("numEmployeeStatus")
+    '            End If
+
+    '            SQL = "Insert into airbranch.ATS_StaffProfiles " & _
+    '            "(NUMSTAFFID, STREMPLOYEEID, " & _
+    '            "STRFIRSTNAME, STRLASTNAME, " & _
+    '            "STREMAILADDRESS, STRPHONENUMBER, " & _
+    '            "TIER1, TIER2, " & _
+    '            "TIER3, TIER4, " & _
+    '            "NUMOFFICELOCATION, STROFFICENUMBER, " & _
+    '            "COMMENTS, ACTIVE, " & _
+    '            "UPDATEUSER, UPDATEDATETIME, " & _
+    '            "CREATEDATETIME) " & _
+    '            "(select " & _
+    '            "(select case when max(numStaffID) is null then 1 " & _
+    '            "else (max(numStaffID) + 1) End StaffID from AIRBranch.ATS_StaffProfiles), " & _
+    '            "'', " & _
+    '            "'" & Replace(Firstname, "'", "''") & "', '" & Replace(LastName, "'", "''") & "', " & _
+    '            "'" & Replace(EmailAddress, "'", "''") & "', '" & Replace(Phone, "'", "''") & "', " & _
+    '            "'', '', '', '', " & _
+    '            "'', '" & Replace(OfficeNum, "'", "''") & "', " & _
+    '            "'Initial Population', '" & EmpStatus & "', " & _
+    '            "'1-Floyd, Michael', sysdate, " & _
+    '            "sysdate " & _
+    '            "from dual " & _
+    '            "where not exists (select * from AIRBranch.ATS_StaffProfiles " & _
+    '            "where Upper(strFirstName) = '" & Replace(Firstname.ToUpper, "'", "''") & "' " & _
+    '            "and Upper(strLastName) = '" & Replace(LastName.ToUpper, "'", "''") & "')) "
+
+    '            cmd = New OracleCommand(SQL, conn)
+    '            If conn.State = ConnectionState.Closed Then
+    '                conn.Open()
+    '            End If
+    '            i = i + cmd.ExecuteNonQuery
+
+    '        End While
+    '        dr.Close()
+
+
+    '    Catch ex As Exception
+
+    '    End Try
+    'End Sub
+#End Region
 
     Private Sub mtbAFSAirsNumber_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles mtbAFSAirsNumber.TextChanged
         Try
