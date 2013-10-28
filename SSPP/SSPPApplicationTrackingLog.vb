@@ -10604,7 +10604,7 @@ Public Class SSPPApplicationTrackingLog
                 Select Case FileType
                     Case "10"
                         'path.InitialDirectory = My.Computer.FileSystem.SpecialDirectories.Desktop
-                        path.InitialDirectory = "C:\WINDOWS\Temp"
+                        path.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal)
                         path.FileName = FileName
                         path.Filter = "Microsoft Office Work file (*.doc)|.doc"
                         path.FilterIndex = 1
@@ -10639,7 +10639,7 @@ Public Class SSPPApplicationTrackingLog
 
                         End If
                     Case "01"
-                        path.InitialDirectory = "C:\WINDOWS\Temp"
+                        path.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal)
                         path.FileName = FileName
                         path.Filter = "Adobe PDF Files (*.pdf)|.pdf"
                         path.FilterIndex = 1
@@ -10675,7 +10675,7 @@ Public Class SSPPApplicationTrackingLog
 
                         End If
                     Case "11"
-                        path.InitialDirectory = "C:\WINDOWS\Temp"
+                        path.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal)
                         path.FileName = FileName
                         path.Filter = "Microsoft Office Work file (*.doc)|.doc"
                         path.FilterIndex = 1
@@ -10709,7 +10709,7 @@ Public Class SSPPApplicationTrackingLog
                             fs.Close()
 
                         End If
-                        path.InitialDirectory = "C:\WINDOWS\Temp"
+                        path.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal)
                         path.FileName = FileName
                         path.Filter = "Adobe PDF Files (*.pdf)|.pdf"
                         path.FilterIndex = 1

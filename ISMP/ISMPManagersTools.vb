@@ -9291,7 +9291,7 @@ Public Class ISMPManagersTools
             Dim FileName As String = ""
             Dim IDnumber As String = ""
 
-            path.InitialDirectory = "c:\"
+            path.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal)
             path.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*"
             path.FilterIndex = 2
             path.RestoreDirectory = True
@@ -9565,7 +9565,7 @@ Public Class ISMPManagersTools
                 FileName = txtFileName.Text
                 FileName = Mid(FileName, FileName.IndexOf(" - ") + 4)
 
-                path.InitialDirectory = "C:\"
+                path.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal)
                 path.FileName = FileName
                 path.Filter = "Microsoft Office Excel Workbook (.xls)|.xls"
                 path.FilterIndex = 1
