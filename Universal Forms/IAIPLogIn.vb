@@ -3,7 +3,6 @@ Imports System.IO
 Imports Microsoft.Win32
 
 Public Class IAIPLogIn
-    'Dim Paneltemp1 As String
     Dim SQL As String
     Dim cmd As OracleCommand
     Dim dr As OracleDataReader
@@ -24,6 +23,7 @@ Public Class IAIPLogIn
 
         monitor.TrackFeatureStop("Startup.Loading")
     End Sub
+
     Private Sub Splash_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         monitor.TrackFeature("Main." & Me.Name)
         Try
@@ -64,7 +64,6 @@ Public Class IAIPLogIn
         End Try
     End Sub
 
-#Region "Page Load Functions"
     Private Sub DisableLogin(Optional ByVal message As String = "")
         With txtUserID
             .Enabled = False
@@ -90,6 +89,8 @@ Public Class IAIPLogIn
             .Enabled = False
             .Visible = False
         End With
+
+        Me.AcceptButton = Nothing
 
         mmiTestingEnvironment.Enabled = False
 
@@ -165,9 +166,6 @@ Public Class IAIPLogIn
         End If
     End Sub
 
-#End Region
-
-#Region "Subs and Functions"
     Sub LogInCheck()
         monitor.TrackFeatureStart("Startup.LoggingIn")
         LoginProgressBar.Visible = True
@@ -405,7 +403,7 @@ Public Class IAIPLogIn
         End Try
 
     End Sub
-#End Region
+
     Private Sub btnLoginButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnLoginButton.Click
         Try
             LogInCheck()
@@ -413,13 +411,6 @@ Public Class IAIPLogIn
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    'Private Sub Splash_Closing(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
-    '    If APB110 Is Nothing Then
-    '        Conn.Dispose()
-    '        End
-    '    Else
-    '    End If
-    'End Sub
     Private Sub CloseIaip()
         Conn.Dispose()
         Application.Exit()
@@ -432,93 +423,13 @@ Public Class IAIPLogIn
     Private Sub MmiExit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiExit.Click
         CloseIaip()
     End Sub
-    Private Sub MenuItem2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
-        Try
 
-            LogInCheck()
-        Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
-    End Sub
-#Region "Update IAIP"
     Private Sub StartIaipUpdate()
         OpenDownloadUrl()
         CloseIaip()
     End Sub
-#End Region
-#Region "Mouse Actions"
-    'Private Sub txtUserID_MouseHover(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtUserID.MouseHover
-    '    Try
 
-    '        Paneltemp1 = Panel1.Text
-    '        Panel1.Text = "Enter your Log In ID..."
-    '        ToolTip1.SetToolTip(txtUserID, "Enter your Log In ID...")
-    '    Catch ex As Exception
-    '        ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-    '    End Try
-
-    'End Sub
-    'Private Sub txtUserID_MouseLeave(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtUserID.MouseLeave
-    '    Try
-
-    '        Panel1.Text = "Enter Your User ID..."
-    '    Catch ex As Exception
-    '        ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-    '    End Try
-
-    'End Sub
-    'Private Sub txtUserPassword_MouseHover(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtUserPassword.MouseHover
-    '    Try
-
-    '        Paneltemp1 = Panel1.Text
-    '        Panel1.Text = "Enter your Password if your Log In ID is correct..."
-    '        ToolTip1.SetToolTip(txtUserPassword, "Enter your Password if your Log In ID is correct...")
-    '    Catch ex As Exception
-    '        ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-    '    End Try
-
-    'End Sub
-    'Private Sub txtUserPassword_MouseLeave(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtUserPassword.MouseLeave
-    '    Try
-
-    '        Panel1.Text = "Enter Your User ID..."
-    '    Catch ex As Exception
-    '        ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-    '    End Try
-
-    'End Sub
-    'Private Sub btnEnter_MouseHover(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnLoginButton.MouseHover
-    '    Try
-
-    '        Paneltemp1 = Panel1.Text
-    '        Panel1.Text = "If all information is correct enter main console..."
-    '        ToolTip1.SetToolTip(btnLoginButton, "If all information is correct enter main console...")
-    '    Catch ex As Exception
-    '        ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-    '    End Try
-
-    'End Sub
-    'Private Sub btnEnter_MouseLeave(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnLoginButton.MouseLeave
-    '    Try
-
-    '        Panel1.Text = "Enter Your User ID..."
-    '    Catch ex As Exception
-    '        ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-    '    End Try
-
-    'End Sub
-#End Region
-
-    Private Sub LoginForm_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) _
-        Handles txtUserPassword.KeyPress, txtUserID.KeyPress
-
-        If e.KeyChar = Microsoft.VisualBasic.ChrW(13) Then
-            LogInCheck()
-        End If
-    End Sub
-
-    Private Sub mmiTestingEnvior_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiTestingEnvironment.Click
+    Private Sub mmiTestingEnvironment_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiTestingEnvironment.Click
         mmiTestingDatabase.Checked = False
         mmiLukeEnvironment.Checked = False
         If mmiTestingEnvironment.Checked = False Then
@@ -551,6 +462,40 @@ Public Class IAIPLogIn
             CurrentConnString = PrdConnString
         End If
     End Sub
+
+    Private Sub mmiRefreshUserID_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiRefreshUserID.Click
+        ResetUserSetting(UserSetting.PrefillLoginId)
+        txtUserID.Text = ""
+    End Sub
+    Private Sub mmiOnlineHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiOnlineHelp.Click
+        OpenHelpUrl(Me)
+    End Sub
+    Private Sub mmiUpdate_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiForceUpdate.Click
+        StartIaipUpdate()
+    End Sub
+
+    Private Sub UpdateLink_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lnkUpdateLink.LinkClicked
+        StartIaipUpdate()
+    End Sub
+
+    Private Sub lblUserID_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles lblUserID.Click
+        txtUserID.Focus()
+    End Sub
+
+    Private Sub lblPassword_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles lblPassword.Click
+        txtUserPassword.Focus()
+    End Sub
+
+    Private Sub mmiAbout_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiAbout.Click
+        OpenAboutUrl(Me)
+    End Sub
+
+    Private Sub IAIPLogIn_HelpButtonClicked(ByVal sender As System.Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MyBase.HelpButtonClicked
+        OpenAboutUrl(Me)
+    End Sub
+
+#Region "Obsolete code"
+
     'Private Sub mmiTestingDatabase_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles mmiTestingDatabase.Click
     '    'mmiTestingEnvior.Checked = False
     '    'mmiLukeEnviornment.Checked = False
@@ -574,6 +519,7 @@ Public Class IAIPLogIn
     '    '    CRPassWord = PRDCRPassWord
     '    'End If
     'End Sub
+
     'Private Sub mmiLukeEnviornment_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiLukeEnviornment.Click
     '    mmiTestingEnvior.Checked = False
     '    mmiTestingDatabase.Checked = False
@@ -596,8 +542,8 @@ Public Class IAIPLogIn
     '        CRPassWord = PRDCRPassWord
     '        CurrentConnString = PrdConnString
     '    End If
-
     'End Sub
+
     'Private Sub IaipPatchLink_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles IaipPatchLink.LinkClicked
     '    Try
     '        Dim Result As DialogResult
@@ -624,16 +570,6 @@ Public Class IAIPLogIn
 
     '    End Try
     'End Sub
-    Private Sub mmiRefreshUserID_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiRefreshUserID.Click
-        ResetUserSetting(UserSetting.PrefillLoginId)
-        txtUserID.Text = ""
-    End Sub
-    Private Sub mmiOnlineHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiOnlineHelp.Click
-        OpenHelpUrl(Me)
-    End Sub
-    Private Sub mmiUpdate_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiForceUpdate.Click
-        StartIaipUpdate()
-    End Sub
 
     'Private Sub Button2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAdjustIntranet.Click
     '    Try
@@ -664,8 +600,6 @@ Public Class IAIPLogIn
 
     '    End Try
     'End Sub
-
-
 
     'Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAddEIS.Click
     '    Try
@@ -749,23 +683,14 @@ Public Class IAIPLogIn
     '    End Try
     'End Sub
 
-    Private Sub UpdateLink_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lnkUpdateLink.LinkClicked
-        StartIaipUpdate()
-    End Sub
+    'Private Sub LoginForm_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) _
+    '    Handles txtUserPassword.KeyPress, txtUserID.KeyPress
 
-    Private Sub lblUserID_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles lblUserID.Click
-        txtUserID.Focus()
-    End Sub
+    '    If e.KeyChar = Microsoft.VisualBasic.ChrW(13) Then
+    '        LogInCheck()
+    '    End If
+    'End Sub
 
-    Private Sub lblPassword_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles lblPassword.Click
-        txtUserPassword.Focus()
-    End Sub
+#End Region
 
-    Private Sub mmiAbout_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiAbout.Click
-        OpenAboutUrl(Me)
-    End Sub
-
-    Private Sub IAIPLogIn_HelpButtonClicked(ByVal sender As System.Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MyBase.HelpButtonClicked
-        OpenAboutUrl(Me)
-    End Sub
 End Class
