@@ -12,7 +12,7 @@ Public Class IAIPNavigation
     Dim WorkBranch As String
     Dim WorkProgram As String
     Dim WorkUnit As String
-    Dim DefaultsText As String = ""
+    'Dim DefaultsText As String = ""
 
     Private Sub IAIPNavigation_Shown(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Shown
         monitor.TrackFeatureStop("Startup.LoggingIn")
@@ -38,7 +38,11 @@ Public Class IAIPNavigation
             ProgressBar.Value = 0
             IAIPLogIn.Hide()
 
-            Me.Location = New System.Drawing.Point(DefaultX, DefaultY)
+            Dim defaultLocation As Point = GetDefaultLocation()
+            DefaultX = defaultLocation.X
+            DefaultY = defaultLocation.Y
+            Me.Location = New System.Drawing.Point(defaultLocation.X, defaultLocation.Y)
+
             cboIAIPList.Items.Add("Compliance Facilities Assigned")
             cboIAIPList.Items.Add("Compliance Work")
             cboIAIPList.Items.Add("Full Compliance Evaluations - Delinquent")
@@ -62,6 +66,12 @@ Public Class IAIPNavigation
 
         End Try
     End Sub
+
+    Public Function GetDefaultLocation() As Point
+        Dim loc As String = GetUserSetting(UserSetting.NavigationFormLocation)
+        Dim points As String() = Split(loc, ",")
+        Return New Point(points(0), points(1))
+    End Function
 #Region "Page Load Subs and Funcations"
     Sub LoadShortCutData()
         Try
@@ -2610,37 +2620,13 @@ Public Class IAIPNavigation
 #End Region
 #Region "Main Menu Items"
     Private Sub NavigationScreen_Closed(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Closed
-        SaveDefaultsText()
+        SaveLocation()
         Conn.Dispose()
         Application.Exit()
     End Sub
-    Private Sub SaveDefaultsText()
-        Try
-
-            DefaultsText = ""
-            If File.Exists("C:\APB\Defaults.txt") Then
-                Dim reader As StreamReader = New StreamReader("C:\APB\Defaults.txt")
-                Do
-                    DefaultsText = DefaultsText & reader.ReadLine
-                Loop Until reader.Peek = -1
-                reader.Close()
-            End If
-
-            temp = "StartLocation-(" & NavigationScreen.Location.X.ToString & "," & NavigationScreen.Location.Y.ToString & ")-noitacoLtratS"
-            If DefaultsText.IndexOf("StartLocation-") <> -1 Then
-                DefaultsText = DefaultsText.Replace((Mid(DefaultsText, ((DefaultsText.IndexOf("StartLocation-")) + 1), (DefaultsText.IndexOf("-noitacoLtratS")) - 8)), temp)
-            Else
-                DefaultsText = DefaultsText & vbCrLf & temp
-            End If
-
-            Dim fs As New System.IO.FileStream("C:\APB\Defaults.txt", IO.FileMode.Create, IO.FileAccess.Write)
-            fs.Close()
-            Dim writer As StreamWriter = New StreamWriter("C:\APB\Defaults.txt")
-            writer.WriteLine(DefaultsText)
-            writer.Close()
-        Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+    Private Sub SaveLocation()
+        Dim loc As String = Me.Location.X & "," & Me.Location.Y
+        SaveUserSetting(UserSetting.NavigationFormLocation, loc)
     End Sub
     Private Sub MmiExit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiExit.Click
         Me.Close()
