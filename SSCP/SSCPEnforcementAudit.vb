@@ -3875,7 +3875,7 @@ Public Class SSCPEnforcementAudit
             Dim IDnumber As String = ""
 
             If txtEnforcementNumber.Text <> "" And txtEnforcementNumber.Text <> "N/A" Then
-                path.InitialDirectory = "c:\docume~1\%userprofile%\desktop"
+                path.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal)
                 path.Filter = "pdf files ONLY (*.pdf)|*.pdf|All files (*.*)|*.*"
                 path.FilterIndex = 1
                 path.RestoreDirectory = True
@@ -3955,7 +3955,7 @@ Public Class SSCPEnforcementAudit
             Dim IDnumber As String = ""
 
             If txtEnforcementNumber.Text <> "" And txtEnforcementNumber.Text <> "N/A" Then
-                path.InitialDirectory = "c:\docume~1\%userprofile%\desktop"
+                path.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal)
                 path.Filter = "pdf files ONLY (*.pdf)|*.pdf|All files (*.*)|*.*"
                 path.FilterIndex = 1
                 path.RestoreDirectory = True
@@ -4034,7 +4034,7 @@ Public Class SSCPEnforcementAudit
             Dim IDnumber As String = ""
 
             If txtEnforcementNumber.Text <> "" And txtEnforcementNumber.Text <> "N/A" Then
-                path.InitialDirectory = "c:\docume~1\%userprofile%\desktop"
+                path.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal)
                 path.Filter = "pdf files ONLY (*.pdf)|*.pdf|All files (*.*)|*.*"
                 path.FilterIndex = 1
                 path.RestoreDirectory = True
@@ -4141,7 +4141,7 @@ Public Class SSCPEnforcementAudit
 
                 FileName = "CO-" & txtAIRSNumber.Text & " - " & txtFacilityName.Text
 
-                path.InitialDirectory = "c:\docume~1\%userprofile%\desktop"
+                path.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal)
                 path.FileName = FileName
                 path.Filter = "pdf files ONLY(*.pdf)|*.pdf|All files (*.*)|*.*"
                 path.FilterIndex = 1
@@ -4225,7 +4225,7 @@ Public Class SSCPEnforcementAudit
 
                 FileName = "NFA-" & txtAIRSNumber.Text & " - " & txtFacilityName.Text
 
-                path.InitialDirectory = "c:\docume~1\%userprofile%\desktop"
+                path.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal)
                 path.FileName = FileName
                 path.Filter = "pdf files ONLY(*.pdf)|*.pdf|All files (*.*)|*.*"
                 path.FilterIndex = 1
@@ -4307,7 +4307,7 @@ Public Class SSCPEnforcementAudit
 
             FileName = "AO-" & txtAIRSNumber.Text & " - " & txtFacilityName.Text
 
-            path.InitialDirectory = "c:\docume~1\%userprofile%\desktop"
+            path.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal)
             path.FileName = FileName
             path.Filter = "pdf files ONLY(*.pdf)|*.pdf|All files (*.*)|*.*"
             path.FilterIndex = 1
