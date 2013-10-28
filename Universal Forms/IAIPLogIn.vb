@@ -10,7 +10,7 @@ Public Class IAIPLogIn
     Dim recExist As Boolean
     Dim DefaultsText As String = ""
     Dim versionCheck As String = ""
-    Dim APBFolder As String = "C:\APB"
+    Dim IaipFolder As String = Application.StartupPath
     Dim IaipAvailable As Boolean = True
 
     Private Sub IAIPLogIn_Shown(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Shown
@@ -32,11 +32,8 @@ Public Class IAIPLogIn
 
             FindLogIn()
 
-            If File.Exists("C:\APB2\johngaltproject.exe") Then
-                APBFolder = "C:\APB2"
-            End If
-            If File.Exists(APBFolder & "\Oracle.DataAccess.dll") Then
-                Dim version As FileVersionInfo = FileVersionInfo.GetVersionInfo(APBFolder & "\Oracle.DataAccess.dll")
+            If File.Exists(IaipFolder & "\Oracle.DataAccess.dll") Then
+                Dim version As FileVersionInfo = FileVersionInfo.GetVersionInfo(IaipFolder & "\Oracle.DataAccess.dll")
                 'If File.Exists("C:\APB\Oracle.DataAccess.dll") Then
                 'Dim version As FileVersionInfo = FileVersionInfo.GetVersionInfo("C:\APB\Oracle.DataAccess.dll")
                 Oracledll = version.FileVersion.ToString
