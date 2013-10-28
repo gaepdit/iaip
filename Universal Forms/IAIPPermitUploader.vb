@@ -3343,7 +3343,7 @@ Public Class IAIPPermitUploader
         Dim dialog As New OpenFileDialog
 
         Try
-            dialog.InitialDirectory = GetSetting(UserSetting.PermitUploadLocation)
+            dialog.InitialDirectory = GetUserSetting(UserSetting.PermitUploadLocation)
             dialog.Filter = "Word files (*.docx, *.doc)|*.docx;*.doc|PDF files (*.pdf)|*.pdf|All files (*.*)|*.*"
             dialog.FilterIndex = 3
 
@@ -3351,7 +3351,7 @@ Public Class IAIPPermitUploader
                 If File.Exists(dialog.FileName) Then
 
                     If Not Path.GetDirectoryName(dialog.FileName) = dialog.InitialDirectory Then
-                        SaveSetting(UserSetting.PermitUploadLocation, Path.GetDirectoryName(dialog.FileName))
+                        SaveUserSetting(UserSetting.PermitUploadLocation, Path.GetDirectoryName(dialog.FileName))
                     End If
 
                     Dim thisButton As Button = DirectCast(sender, Button)

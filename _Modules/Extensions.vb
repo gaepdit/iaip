@@ -48,7 +48,7 @@ Module Extensions
             .Filter = "Excel File (*.xlsx)|*.xlsx"
             .DefaultExt = ".xlsx"
             .FileName = "Export_" & System.DateTime.Now.ToString("yyyy-MM-dd-HH.mm.ss") & ".xlsx"
-            .InitialDirectory = GetSetting(UserSetting.ExcelExportLocation)
+            .InitialDirectory = GetUserSetting(UserSetting.ExcelExportLocation)
         End With
 
         If dialog.ShowDialog() = DialogResult.OK Then
@@ -57,7 +57,7 @@ Module Extensions
 
             If result Then
                 If Not Path.GetDirectoryName(dialog.FileName) = dialog.InitialDirectory Then
-                    SaveSetting(UserSetting.ExcelExportLocation, Path.GetDirectoryName(dialog.FileName))
+                    SaveUserSetting(UserSetting.ExcelExportLocation, Path.GetDirectoryName(dialog.FileName))
                 End If
                 System.Diagnostics.Process.Start(dialog.FileName)
             Else

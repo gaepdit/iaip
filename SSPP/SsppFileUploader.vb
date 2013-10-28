@@ -305,7 +305,7 @@ Public Class SsppFileUploader
 
     Private Sub btnChooseNewFile_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnChooseNewFile.Click
         Dim openFileDialog As New OpenFileDialog With { _
-            .InitialDirectory = GetSetting(UserSetting.PermitUploadLocation), _
+            .InitialDirectory = GetUserSetting(UserSetting.PermitUploadLocation), _
             .Filter = String.Join("|", OpenFileFilters.ToArray) _
         }
 
@@ -403,7 +403,7 @@ Public Class SsppFileUploader
         If result Then
             m = String.Format(GetMessage(MessageType.UploadSuccess), NewPermitDocument.FileName)
             DisplayMessage(lblMessage, m)
-            SaveSetting(UserSetting.PermitUploadLocation, fileInfo.DirectoryName)
+            SaveUserSetting(UserSetting.PermitUploadLocation, fileInfo.DirectoryName)
         Else
             DisplayMessage(lblMessage, GetMessage(MessageType.UploadFailure), True, EP, lblMessage)
         End If

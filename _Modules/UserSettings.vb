@@ -27,7 +27,7 @@ Module UserSettings
     End Function
 
     ' Public function for retrieving a setting
-    Friend Function GetSetting(ByVal whichSetting As UserSetting) As String
+    Friend Function GetUserSetting(ByVal whichSetting As UserSetting) As String
         If UserSettingsHelper.KeySettingsDictionary.ContainsKey(whichSetting.ToString) Then
             Return UserSettingsHelper.KeySettingsDictionary(whichSetting.ToString)
         Else
@@ -36,7 +36,7 @@ Module UserSettings
     End Function
 
     ' Public function for saving a setting
-    Friend Sub SaveSetting(ByVal whichSetting As UserSetting, ByVal value As String)
+    Friend Sub SaveUserSetting(ByVal whichSetting As UserSetting, ByVal value As String)
         UserSettingsHelper.KeySettingsDictionary(whichSetting.ToString) = value
     End Sub
 

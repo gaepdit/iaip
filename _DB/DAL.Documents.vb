@@ -229,7 +229,7 @@ Namespace DAL
                 .Filter = SaveFileFilters(doc.FileExtension.ToLower)
                 .DefaultExt = doc.FileExtension.ToLower
                 .FileName = doc.FileName
-                .InitialDirectory = GetSetting(UserSetting.FileDownloadLocation)
+                .InitialDirectory = GetUserSetting(UserSetting.FileDownloadLocation)
             End With
 
             Dim dialogAction As DialogResult = dialog.ShowDialog()
@@ -238,7 +238,7 @@ Namespace DAL
                 result = DownloadFile(doc.BinaryFileId, dialog.FileName)
                 If result Then
                     If Not Path.GetDirectoryName(dialog.FileName) = dialog.InitialDirectory Then
-                        SaveSetting(UserSetting.FileDownloadLocation, Path.GetDirectoryName(dialog.FileName))
+                        SaveUserSetting(UserSetting.FileDownloadLocation, Path.GetDirectoryName(dialog.FileName))
                     End If
                     System.Diagnostics.Process.Start("explorer.exe", "/select,""" & dialog.FileName.ToString & """")
                 End If
