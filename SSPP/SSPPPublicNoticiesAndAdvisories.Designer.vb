@@ -350,9 +350,9 @@ Partial Class SSPPPublicNoticiesAndAdvisories
         Me.btnAddToApplicationList.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.btnAddToApplicationList.Location = New System.Drawing.Point(145, 76)
         Me.btnAddToApplicationList.Name = "btnAddToApplicationList"
-        Me.btnAddToApplicationList.Size = New System.Drawing.Size(120, 23)
+        Me.btnAddToApplicationList.Size = New System.Drawing.Size(122, 23)
         Me.btnAddToApplicationList.TabIndex = 4
-        Me.btnAddToApplicationList.Text = "Add to Appication List"
+        Me.btnAddToApplicationList.Text = "Add to Application List"
         Me.btnAddToApplicationList.UseVisualStyleBackColor = True
         '
         'Label1
