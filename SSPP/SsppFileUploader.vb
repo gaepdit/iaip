@@ -85,7 +85,7 @@ Public Class SsppFileUploader
         messageList.Add(MessageType.DocumentTypeAlreadyExists, "A ""{0}"" has already been uploaded for this application.")
         messageList.Add(MessageType.UploadSuccess, "Success: The file ""{0}""" & vbNewLine & "has been uploaded.")
         messageList.Add(MessageType.UploadFailure, "Error: There was an error uploading the file. " & vbNewLine & "Please try again.")
-        messageList.Add(MessageType.FileTooLarge, "The selected file is too large. " & vbNewLine & "Maximum file size is 2GB.")
+        messageList.Add(MessageType.FileTooLarge, "The selected file is too large. " & vbNewLine & "Maximum file size is " & Math.Round(OracleBlob.MaxSize / (1024 ^ 3), 2) & "GB.")
         messageList.Add(MessageType.FileEmpty, "The selected file is empty.")
         messageList.Add(MessageType.DeleteFailure, "Error: The selected file was not deleted. " & vbNewLine & "Please try again.")
         messageList.Add(MessageType.DeleteSuccess, "Success: The file ""{0}"" was deleted.")
