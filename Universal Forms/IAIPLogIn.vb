@@ -7,9 +7,10 @@ Public Class IAIPLogIn
     Dim cmd As OracleCommand
     Dim dr As OracleDataReader
     Dim recExist As Boolean
-    Dim versionCheck As String = ""
     Dim IaipFolder As String = Application.StartupPath
     Dim IaipAvailable As Boolean = True
+
+#Region "Page Load"
 
     Private Sub IAIPLogIn_Shown(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Shown
         If txtUserID.Enabled Then
@@ -24,7 +25,7 @@ Public Class IAIPLogIn
         monitor.TrackFeatureStop("Startup.Loading")
     End Sub
 
-    Private Sub Splash_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+    Private Sub IAIPLogIn_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         monitor.TrackFeature("Main." & Me.Name)
         Try
             CheckLanguageRegistrySetting()
@@ -166,7 +167,11 @@ Public Class IAIPLogIn
         End If
     End Sub
 
-    Sub LogInCheck()
+#End Region
+
+#Region "Login"
+
+    Private Sub LogInCheck()
         monitor.TrackFeatureStart("Startup.LoggingIn")
         LoginProgressBar.Visible = True
         btnLoginButton.Visible = True
@@ -177,15 +182,6 @@ Public Class IAIPLogIn
             Dim ValidateLogInInfo As String = ""
             'Dim FirstName As String = ""
             Dim LastName As String = ""
-
-            If versionCheck = "Update" Then
-                LoginProgressBar.Value = 0
-                LoginProgressBar.Visible = False
-                btnLoginButton.Visible = True
-                monitor.TrackFeatureCancel("Startup.LoggingIn")
-                MessageBox.Show("This version of the platform is out of date and must be updated.")
-                Exit Sub
-            End If
 
             LoginProgressBar.PerformStep()
             'Paneltemp1 = Panel1.Text
@@ -411,6 +407,11 @@ Public Class IAIPLogIn
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
+#End Region
+
+#Region "Close application"
+
     Private Sub CloseIaip()
         Conn.Dispose()
         Application.Exit()
@@ -420,14 +421,42 @@ Public Class IAIPLogIn
             CloseIaip()
         End If
     End Sub
-    Private Sub MmiExit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiExit.Click
+    Private Sub mmiExit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiExit.Click
         CloseIaip()
     End Sub
+
+#End Region
+
+#Region "Update application"
 
     Private Sub StartIaipUpdate()
         OpenDownloadUrl()
         CloseIaip()
     End Sub
+
+    Private Sub mmiUpdate_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiForceUpdate.Click
+        StartIaipUpdate()
+    End Sub
+
+    Private Sub UpdateLink_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lnkUpdateLink.LinkClicked
+        StartIaipUpdate()
+    End Sub
+
+#End Region
+
+#Region "Form usability"
+
+    Private Sub lblUserID_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles lblUserID.Click
+        txtUserID.Focus()
+    End Sub
+
+    Private Sub lblPassword_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles lblPassword.Click
+        txtUserPassword.Focus()
+    End Sub
+
+#End Region
+
+#Region "Menu items"
 
     Private Sub mmiTestingEnvironment_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiTestingEnvironment.Click
         mmiTestingDatabase.Checked = False
@@ -467,23 +496,9 @@ Public Class IAIPLogIn
         ResetUserSetting(UserSetting.PrefillLoginId)
         txtUserID.Text = ""
     End Sub
+
     Private Sub mmiOnlineHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiOnlineHelp.Click
         OpenHelpUrl(Me)
-    End Sub
-    Private Sub mmiUpdate_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiForceUpdate.Click
-        StartIaipUpdate()
-    End Sub
-
-    Private Sub UpdateLink_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lnkUpdateLink.LinkClicked
-        StartIaipUpdate()
-    End Sub
-
-    Private Sub lblUserID_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles lblUserID.Click
-        txtUserID.Focus()
-    End Sub
-
-    Private Sub lblPassword_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles lblPassword.Click
-        txtUserPassword.Focus()
     End Sub
 
     Private Sub mmiAbout_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiAbout.Click
@@ -493,6 +508,8 @@ Public Class IAIPLogIn
     Private Sub IAIPLogIn_HelpButtonClicked(ByVal sender As System.Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MyBase.HelpButtonClicked
         OpenAboutUrl(Me)
     End Sub
+
+#End Region
 
 #Region "Obsolete code"
 
