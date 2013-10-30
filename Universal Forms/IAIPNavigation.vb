@@ -38,10 +38,8 @@ Public Class IAIPNavigation
             ProgressBar.Value = 0
             IAIPLogIn.Hide()
 
-            Dim defaultLocation As Point = GetDefaultLocation()
-            DefaultX = defaultLocation.X
-            DefaultY = defaultLocation.Y
-            Me.Location = New System.Drawing.Point(defaultLocation.X, defaultLocation.Y)
+            GetDefaultLocation()
+            MoveFormToDefaultLocation()
 
             cboIAIPList.Items.Add("Compliance Facilities Assigned")
             cboIAIPList.Items.Add("Compliance Work")
@@ -67,11 +65,13 @@ Public Class IAIPNavigation
         End Try
     End Sub
 
-    Public Function GetDefaultLocation() As Point
+    Public Sub GetDefaultLocation()
         Dim loc As String = GetUserSetting(UserSetting.NavigationFormLocation)
         Dim points As String() = Split(loc, ",")
-        Return New Point(points(0), points(1))
-    End Function
+        Dim defaultLocation As New Point(points(0), points(1))
+        DefaultX = defaultLocation.X
+        DefaultY = defaultLocation.Y
+    End Sub
 #Region "Page Load Subs and Funcations"
     Sub LoadShortCutData()
         Try
@@ -2607,14 +2607,13 @@ Public Class IAIPNavigation
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub DefaultLocation()
+    Sub MoveFormToDefaultLocation()
         Try
-
-            Me.Location = New System.Drawing.Point(DefaultX, DefaultY)
-
+            Me.Location = New Point(DefaultX, DefaultY)
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+
         End Try
+
     End Sub
 
 #End Region
@@ -9026,5 +9025,11 @@ Public Class IAIPNavigation
 
     Private Sub MenuItem4_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MenuItem4.Click
         SsppFileUploader.Show()
+    End Sub
+
+    Private Sub mmiResetForm_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiResetForm.Click
+        ResetUserSetting(UserSetting.NavigationFormLocation)
+        GetDefaultLocation()
+        MoveFormToDefaultLocation()
     End Sub
 End Class

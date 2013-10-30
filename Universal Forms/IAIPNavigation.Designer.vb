@@ -30,10 +30,11 @@ Partial Class IAIPNavigation
         Me.mmiSSPPLists = New System.Windows.Forms.MenuItem
         Me.MenuItem3 = New System.Windows.Forms.MenuItem
         Me.mmiResetDefault = New System.Windows.Forms.MenuItem
-        Me.MenuItem2 = New System.Windows.Forms.MenuItem
+        Me.mmiTools = New System.Windows.Forms.MenuItem
         Me.mmiExport = New System.Windows.Forms.MenuItem
         Me.mmiHelp = New System.Windows.Forms.MenuItem
         Me.mmiOnlineHelp = New System.Windows.Forms.MenuItem
+        Me.mmiResetForm = New System.Windows.Forms.MenuItem
         Me.MenuItem1 = New System.Windows.Forms.MenuItem
         Me.mmiAbout = New System.Windows.Forms.MenuItem
         Me.mmiTesting = New System.Windows.Forms.MenuItem
@@ -133,7 +134,7 @@ Partial Class IAIPNavigation
         '
         'MainMenu1
         '
-        Me.MainMenu1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiFile, Me.mmiView, Me.MenuItem2, Me.mmiHelp, Me.mmiTesting})
+        Me.MainMenu1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiFile, Me.mmiView, Me.mmiTools, Me.mmiHelp, Me.mmiTesting})
         '
         'mmiFile
         '
@@ -179,11 +180,11 @@ Partial Class IAIPNavigation
         Me.mmiResetDefault.Index = 4
         Me.mmiResetDefault.Text = "&Reset Default"
         '
-        'MenuItem2
+        'mmiTools
         '
-        Me.MenuItem2.Index = 2
-        Me.MenuItem2.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiExport})
-        Me.MenuItem2.Text = "&Tools"
+        Me.mmiTools.Index = 2
+        Me.mmiTools.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiExport})
+        Me.mmiTools.Text = "&Tools"
         '
         'mmiExport
         '
@@ -193,7 +194,7 @@ Partial Class IAIPNavigation
         'mmiHelp
         '
         Me.mmiHelp.Index = 3
-        Me.mmiHelp.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiOnlineHelp, Me.MenuItem1, Me.mmiAbout})
+        Me.mmiHelp.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiOnlineHelp, Me.mmiResetForm, Me.MenuItem1, Me.mmiAbout})
         Me.mmiHelp.Text = "&Help"
         '
         'mmiOnlineHelp
@@ -202,14 +203,19 @@ Partial Class IAIPNavigation
         Me.mmiOnlineHelp.Shortcut = System.Windows.Forms.Shortcut.F1
         Me.mmiOnlineHelp.Text = "Online &Help"
         '
+        'mmiResetForm
+        '
+        Me.mmiResetForm.Index = 1
+        Me.mmiResetForm.Text = "&Reset Form Location"
+        '
         'MenuItem1
         '
-        Me.MenuItem1.Index = 1
+        Me.MenuItem1.Index = 2
         Me.MenuItem1.Text = "-"
         '
         'mmiAbout
         '
-        Me.mmiAbout.Index = 2
+        Me.mmiAbout.Index = 3
         Me.mmiAbout.Text = "&About IAIP"
         '
         'mmiTesting
@@ -1255,7 +1261,7 @@ Partial Class IAIPNavigation
     Friend WithEvents mmiFile As System.Windows.Forms.MenuItem
     Friend WithEvents mmiExit As System.Windows.Forms.MenuItem
     Friend WithEvents mmiView As System.Windows.Forms.MenuItem
-    Friend WithEvents MenuItem2 As System.Windows.Forms.MenuItem
+    Friend WithEvents mmiTools As System.Windows.Forms.MenuItem
     Friend WithEvents mmiHelp As System.Windows.Forms.MenuItem
     Friend WithEvents mmiAbout As System.Windows.Forms.MenuItem
     Friend WithEvents Image_List_All As System.Windows.Forms.ImageList
@@ -1354,4 +1360,5 @@ Partial Class IAIPNavigation
     Friend WithEvents MenuItem1 As System.Windows.Forms.MenuItem
     Friend WithEvents MenuItem4 As System.Windows.Forms.MenuItem
     Friend WithEvents mmiTesting As System.Windows.Forms.MenuItem
+    Friend WithEvents mmiResetForm As System.Windows.Forms.MenuItem
 End Class
