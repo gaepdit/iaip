@@ -16,7 +16,7 @@ Module DictionarySettings
 
         If settingsString <> "" Then
             Dim reader As XmlReader = XmlReader.Create(New System.IO.StringReader(settingsString))
-            Dim serializer As New XmlSerializer(GetType(SerializableDictionary(Of String, Object)))
+            Dim serializer As New XmlSerializer(GetType(SerializableDictionary(Of String, String)))
 
             settings = serializer.Deserialize(reader)
         Else
@@ -30,8 +30,12 @@ Module DictionarySettings
     Friend Sub SaveDictionarySetting(ByVal key As String, ByVal settings As SerializableDictionary(Of String, String))
         Dim sb As New System.Text.StringBuilder()
         Using writer As XmlWriter = XmlWriter.Create(sb)
-            Dim serializer As New XmlSerializer(GetType(SerializableDictionary(Of String, Object)))
-            serializer.Serialize(writer, settings)
+            Dim serializer As New XmlSerializer(GetType(SerializableDictionary(Of String, String)))
+            Try
+                serializer.Serialize(writer, settings)
+            Catch ex As Exception
+
+            End Try
         End Using
 
         SettingsHelper.KeySettingsDictionary(key) = sb.ToString

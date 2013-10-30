@@ -39,7 +39,7 @@ Public Class IAIPNavigation
             IAIPLogIn.Hide()
 
             GetDefaultLocation()
-            MoveFormToDefaultLocation()
+            'MoveFormToDefaultLocation()
 
             cboIAIPList.Items.Add("Compliance Facilities Assigned")
             cboIAIPList.Items.Add("Compliance Work")
@@ -2607,14 +2607,14 @@ Public Class IAIPNavigation
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub MoveFormToDefaultLocation()
-        Try
-            Me.Location = New Point(DefaultX, DefaultY)
-        Catch ex As Exception
+    'Sub MoveFormToDefaultLocation()
+    '    Try
+    '        Me.Location = New Point(DefaultX, DefaultY)
+    '    Catch ex As Exception
 
-        End Try
+    '    End Try
 
-    End Sub
+    'End Sub
 
 #End Region
 #Region "Main Menu Items"
@@ -9030,6 +9030,6 @@ Public Class IAIPNavigation
     Private Sub mmiResetForm_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiResetForm.Click
         ResetUserSetting(UserSetting.NavigationFormLocation)
         GetDefaultLocation()
-        MoveFormToDefaultLocation()
+        'MoveFormToDefaultLocation()
     End Sub
 End Class
