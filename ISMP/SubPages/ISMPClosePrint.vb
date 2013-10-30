@@ -1079,7 +1079,7 @@ Public Class ISMPClosePrint
             PrintOut.txtPrintType.Text = "ISMPAIRSForm"
             PrintOut.txtReferenceNumber.Text = Me.txtReferenceNumber.Text
             PrintOut.Show()
-            PrintOut.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+            'PrintOut.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
@@ -1097,7 +1097,7 @@ Public Class ISMPClosePrint
             PrintOut.txtPrintType.Text = "ISMPTestReport"
             PrintOut.txtReferenceNumber.Text = Me.txtReferenceNumber.Text
             PrintOut.Show()
-            PrintOut.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+            'PrintOut.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally

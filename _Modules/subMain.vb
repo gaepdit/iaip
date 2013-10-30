@@ -64,8 +64,8 @@ Module subMain
     Public AccountArray(150, 4) As String
     Public j As Integer
     Public i As Integer
-    Public DefaultX As Integer
-    Public DefaultY As Integer
+    'Public DefaultX As Integer
+    'Public DefaultY As Integer
     Public Oracledll As String
 
     Public t As New System.Timers.Timer(14400000)

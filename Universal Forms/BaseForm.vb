@@ -18,12 +18,10 @@ Public Class BaseForm
     ' On closing the form, save the window state, location, and size
     ' Override this Sub on forms where this would not be useful
     Overridable Sub SaveFormDimensions() Handles Me.FormClosing
-        
-        Dim formSettings As New SerializableDictionary(Of String, String)
-        formSettings = GetDictionarySetting(Me.Name)
+        Dim formSettings As XmlSerializableDictionary(Of String, String) = GetFormSettings(Me.Name)
 
         Dim windowState As FormWindowState = Me.WindowState
-        formSettings("windowState") = windowState
+        formSettings("windowState") = windowState.ToString
 
         If windowState = FormWindowState.Normal Then
             Dim pointConverter As System.ComponentModel.TypeConverter = _
@@ -35,25 +33,27 @@ Public Class BaseForm
             formSettings("size") = sizeConverter.ConvertToString(Me.Size)
         End If
 
-        SaveDictionarySetting(Me.Name, formSettings)
+        SaveFormSettings(Me.Name, formSettings)
     End Sub
 
     Overridable Sub LoadFormDimensions() Handles Me.Load
-        Dim formSettings As New SerializableDictionary(Of String, String)
-        formSettings = GetDictionarySetting(Me.Name)
-        Try
-            If formSettings IsNot Nothing Then
-                Me.WindowState = [Enum].Parse(GetType(FormWindowState), formSettings("windowState"))
-                Dim pointConverter As System.ComponentModel.TypeConverter = _
-                    System.ComponentModel.TypeDescriptor.GetConverter(GetType(Point))
-                Me.Location = pointConverter.ConvertFromString(formSettings("location"))
-                Dim sizeConverter As System.ComponentModel.TypeConverter = _
-                    System.ComponentModel.TypeDescriptor.GetConverter(GetType(Size))
-                Me.Size = sizeConverter.ConvertFromString(formSettings("size"))
-            End If
-        Catch ex As Exception
+        Dim formSettings As XmlSerializableDictionary(Of String, String) = GetFormSettings(Me.Name)
 
-        End Try
+        If formSettings.ContainsKey("windowState") Then
+            Me.WindowState = [Enum].Parse(GetType(FormWindowState), formSettings("windowState"))
+        End If
+
+        If formSettings.ContainsKey("location") Then
+            Dim pointConverter As System.ComponentModel.TypeConverter = _
+                System.ComponentModel.TypeDescriptor.GetConverter(GetType(Point))
+            Me.Location = pointConverter.ConvertFromString(formSettings("location"))
+        End If
+
+        If formSettings.ContainsKey("size") Then
+            Dim sizeConverter As System.ComponentModel.TypeConverter = _
+                System.ComponentModel.TypeDescriptor.GetConverter(GetType(Size))
+            Me.Size = sizeConverter.ConvertFromString(formSettings("size"))
+        End If
     End Sub
 
 #End Region

@@ -568,7 +568,7 @@ Public Class ISMPTestFirmComments
                 If FacilityLookUpTool Is Nothing Then FacilityLookUpTool = New IAIPFacilityLookUpTool
                 FacilityLookUpTool.Show()
             End If
-            FacilityLookUpTool.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+            'FacilityLookUpTool.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally

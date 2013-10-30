@@ -206,7 +206,7 @@ Partial Class IAIPNavigation
         'mmiResetForm
         '
         Me.mmiResetForm.Index = 1
-        Me.mmiResetForm.Text = "&Reset Form Location"
+        Me.mmiResetForm.Text = "&Reset All Forms"
         '
         'MenuItem1
         '

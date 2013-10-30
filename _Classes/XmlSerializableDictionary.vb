@@ -6,7 +6,7 @@ Imports System.Xml.Serialization
 'http://stackoverflow.com/questions/15072953/serializing-lists-with-an-object-serializer
 
 <XmlRoot("dictionary")> _
-Public Class SerializableDictionary(Of TKey, TValue)
+Public Class XmlSerializableDictionary(Of TKey, TValue)
     Inherits Dictionary(Of TKey, TValue)
     Implements IXmlSerializable
 
@@ -29,7 +29,7 @@ Public Class SerializableDictionary(Of TKey, TValue)
                 Dim keySerializer As XmlSerializer = GetTypeSerializer(keyType.AssemblyQualifiedName)
 
                 writer.WriteStartElement("key")
-                If keyType Is GetType(TKey) Then
+                If keyType IsNot GetType(TKey) Then
                     writer.WriteAttributeString("type", keyType.AssemblyQualifiedName)
                 End If
                 keySerializer.Serialize(writer, key)
@@ -41,7 +41,7 @@ Public Class SerializableDictionary(Of TKey, TValue)
                 Dim valueSerializer As XmlSerializer = GetTypeSerializer(valueType.AssemblyQualifiedName)
 
                 writer.WriteStartElement("value")
-                If valueType Is GetType(TValue) Then
+                If valueType IsNot GetType(TValue) Then
                     writer.WriteAttributeString("type", valueType.AssemblyQualifiedName)
                 End If
                 valueSerializer.Serialize(writer, value)

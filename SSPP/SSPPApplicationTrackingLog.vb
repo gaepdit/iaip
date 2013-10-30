@@ -14950,7 +14950,7 @@ Public Class SSPPApplicationTrackingLog
                 PrintOut.txtOther.Text = "SSPP Confirm"
                 PrintOut.txtAIRSNumber.Text = txtApplicationNumber.Text
                 PrintOut.Show()
-                PrintOut.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+                'PrintOut.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                 Exit Sub
             End If
 
