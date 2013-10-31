@@ -48,6 +48,17 @@ Build
 
 The Release build outputs to a directory named `_Build` parallel to the IAIP directory (see diagram above). The Debug build outputs to the `bin` folder in the IAIP solution directory.
 
+### Branches
+
+There are two main branches in the repository: `default` and `stable`
+
++ The `stable` branch is for releases and quick bug fixes
++ Development for future releases occurs on the `default` branch
+
+To get the latest release version, run `hg update stable` and then build.
+
+Other branches may be created for work on new features that are experimental or will take a long time to complete so that these don't intefere with regular releases.
+
 Tips
 ----
 
