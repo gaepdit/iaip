@@ -300,3 +300,11 @@ h2
 {
     font-size: 20px;
 }
+strong.highlight 
+{
+	font-style: normal; 
+	font-weight: normal;
+	background-color: rgb(253, 255, 182); 
+	-webkit-box-shadow: rgb(253, 255, 182) 0px 0px 5px; 
+	box-shadow: rgb(253, 255, 182) 0px 0px 5px; 
+}
