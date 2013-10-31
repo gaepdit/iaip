@@ -1723,7 +1723,7 @@
     <None Include="docs\ABOUT.md">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="docs\README_DEVELOPERS.md">
+    <None Include="README.md">
     </None>
     <None Include="IAIP-Deploy\Deploy-IAIP.bat">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
