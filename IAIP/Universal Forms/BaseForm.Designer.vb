@@ -25,7 +25,7 @@ Partial Class BaseForm
         components = New System.ComponentModel.Container
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.Text = "BaseForm"
-        Me.Icon = Global.JohnGaltProject.My.Resources.Resources.Icon
+        Me.Icon = Global.Iaip.My.Resources.Resources.Icon
 
     End Sub
 End Class

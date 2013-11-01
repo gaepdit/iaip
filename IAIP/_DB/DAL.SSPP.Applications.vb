@@ -1,5 +1,5 @@
 ﻿Imports Oracle.DataAccess.Client
-Imports JohnGaltProject.Apb.SSPP
+Imports Iaip.Apb.SSPP
 
 Namespace DAL
     Namespace SSPP

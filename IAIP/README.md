@@ -11,7 +11,7 @@ This is a special fork to prepare for moving to a [ClickOnce](http://msdn.micros
 
 + ✓ Remove hard-coded file dependencies
 + ✗ Remove installer project ==(Use for installing dummy JohnGaltProject)==
-+ Add dummy replacement for JohnGaltProject to inform user of new installation (with link)
++ Add dummy replacement for JohnGaltProject to inform user of new IAIP installation (with link)
 + Review ClickOnce settings (prerequisites, etc.)
 + Change project name
 + Add code in new project to remove old program

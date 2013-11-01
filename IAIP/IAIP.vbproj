@@ -9,7 +9,7 @@
     <ApplicationIcon>Resources\gaSeal.ico</ApplicationIcon>
     <AssemblyKeyContainerName>
     </AssemblyKeyContainerName>
-    <AssemblyName>JohnGaltProject</AssemblyName>
+    <AssemblyName>IAIP</AssemblyName>
     <AssemblyOriginatorKeyFile>
     </AssemblyOriginatorKeyFile>
     <AssemblyOriginatorKeyMode>None</AssemblyOriginatorKeyMode>
@@ -21,8 +21,8 @@
     <OptionCompare>Binary</OptionCompare>
     <OptionExplicit>On</OptionExplicit>
     <OptionStrict>Off</OptionStrict>
-    <RootNamespace>JohnGaltProject</RootNamespace>
-    <StartupObject>JohnGaltProject.My.MyApplication</StartupObject>
+    <RootNamespace>Iaip</RootNamespace>
+    <StartupObject>Iaip.My.MyApplication</StartupObject>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <MyType>WindowsForms</MyType>
@@ -30,8 +30,8 @@
     </UpgradeBackupLocation>
     <TargetZone>LocalIntranet</TargetZone>
     <GenerateManifests>true</GenerateManifests>
-    <ManifestCertificateThumbprint>0E518423CDADFE878FA90EDD17C4A24F99606758</ManifestCertificateThumbprint>
-    <ManifestKeyFile>JohnGaltProject_TemporaryKey.pfx</ManifestKeyFile>
+    <ManifestCertificateThumbprint>084E709DD77D5FB55A35452778609760E809B03F</ManifestCertificateThumbprint>
+    <ManifestKeyFile>IAIP_TemporaryKey.pfx</ManifestKeyFile>
     <SignManifests>true</SignManifests>
     <IsWebBootstrapper>true</IsWebBootstrapper>
     <OldToolsVersion>2.0</OldToolsVersion>
@@ -129,6 +129,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=10.5.3700.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.Enterprise.Framework, Version=10.5.3700.0, Culture=neutral, PublicKeyToken=692fbea5521e1304" />
+    <Reference Include="CrystalDecisions.Enterprise.InfoStore, Version=10.5.3700.0, Culture=neutral, PublicKeyToken=692fbea5521e1304" />
     <Reference Include="CrystalDecisions.ReportSource, Version=10.5.3700.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="CrystalDecisions.Shared, Version=10.5.3700.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="CrystalDecisions.Windows.Forms, Version=10.5.3700.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
@@ -1716,7 +1718,7 @@
     <None Include="docs\ABOUT.md">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="JohnGaltProject_TemporaryKey.pfx" />
+    <None Include="IAIP_TemporaryKey.pfx" />
     <None Include="README.md">
     </None>
     <None Include="IAIP-Deploy\Deploy-IAIP.bat">

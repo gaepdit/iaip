@@ -290,7 +290,7 @@ Partial Class IAIPLogIn
         '
         'PictureBox1
         '
-        Me.PictureBox1.Image = Global.JohnGaltProject.My.Resources.Resources.Logo
+        Me.PictureBox1.Image = Global.Iaip.My.Resources.Resources.Logo
         Me.PictureBox1.InitialImage = Nothing
         Me.PictureBox1.Location = New System.Drawing.Point(29, 55)
         Me.PictureBox1.Name = "PictureBox1"

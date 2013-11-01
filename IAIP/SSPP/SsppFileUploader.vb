@@ -1,9 +1,9 @@
 ﻿Imports System.IO
 Imports System.Collections.Generic
 Imports System.Text
-Imports JohnGaltProject.Apb.SSPP
-Imports JohnGaltProject.DAL.Documents
-Imports JohnGaltProject.DAL.SSPP
+Imports Iaip.Apb.SSPP
+Imports Iaip.DAL.Documents
+Imports Iaip.DAL.SSPP
 Imports Oracle.DataAccess.Types
 
 
