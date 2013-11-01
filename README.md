@@ -1,7 +1,8 @@
 IAIP Notes for Developers
 =========================
 
-ClickOnce
+ClickOnce Fork
+
 ---
 
 This is a special fork to prepare for moving to a [ClickOnce](http://msdn.microsoft.com/en-us/library/142dbbz4%28v=vs.90%29.aspx) installation process.
