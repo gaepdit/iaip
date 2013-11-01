@@ -9,8 +9,8 @@ Imports System.Runtime.InteropServices
 ' Review the values of the assembly attributes
 
 <Assembly: AssemblyTitle("Integrated Air Information Platform")> 
-<Assembly: AssemblyDescription("GA Air Protection Branch Integrated Database system.")> 
-<Assembly: AssemblyCompany("GA Department of Natural Resources")> 
+<Assembly: AssemblyDescription("GA Air Protection Branch integrated database system.")> 
+<Assembly: AssemblyCompany("State of Georgia")> 
 <Assembly: AssemblyProduct("Integrated Air Information Platform")> 
 <Assembly: AssemblyCopyright("")> 
 <Assembly: AssemblyTrademark("")> 
@@ -29,6 +29,6 @@ Imports System.Runtime.InteropServices
 ' You can specify all the values or you can default the Build and Revision Numbers 
 ' by using the '*' as shown below:
 
-<Assembly: AssemblyVersion("2.6.8.0")> 
+<Assembly: AssemblyVersion("3.0.0.0")> 
 
-<Assembly: AssemblyFileVersionAttribute("2.6.8.0")> 
+<Assembly: AssemblyFileVersionAttribute("3.0.0.0")> 
