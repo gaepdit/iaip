@@ -201,9 +201,6 @@
     <None Include="DataSet\dsIAIP10.xss">
       <DependentUpon>dsIAIP10.xsd</DependentUpon>
     </None>
-    <None Include="IAIP-Updater\make-sfx.bat">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Include="My Project\Settings.settings">
       <CustomToolNamespace>My</CustomToolNamespace>
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -1664,25 +1661,11 @@
     <Service Include="{967B4E0D-AD0C-4609-AB67-0FA40C0206D8}" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\_Tools\7zsd\7zsd_All.sfx">
-      <Link>IAIP-Updater\7zsd_All.sfx</Link>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Include="docs\ABOUT.md">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="IAIP_TemporaryKey.pfx" />
     <None Include="README.md">
-    </None>
-    <None Include="IAIP-Deploy\Deploy-IAIP.bat">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="IAIP-Updater\config.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="..\..\_Tools\7za\7za.exe">
-      <Link>IAIP-Updater\7za.exe</Link>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <Content Include="..\..\_Tools\Oracle\x86\instantclient\oci.dll">
       <Link>oci.dll</Link>
@@ -1704,9 +1687,6 @@
     </None>
     <None Include="docs\style.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="IAIP-Deploy\ftp-script.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="docs\CHANGELOG.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
