@@ -1,6 +1,25 @@
 IAIP Notes for Developers
 =========================
 
+ClickOnce
+---
+
+This is a special fork to prepare for moving to a [ClickOnce](http://msdn.microsoft.com/en-us/library/142dbbz4%28v=vs.90%29.aspx) installation process.
+
+### Pre-deployment:
+
++ ✓ Remove hard-coded file dependencies
++ ✗ Remove installer project ==(Use for installing dummy JohnGaltProject)==
++ Add dummy replacement for JohnGaltProject to inform user of new installation (with link)
++ Review ClickOnce settings (prerequisites, etc.)
++ Change project name
++ Add code in new project to remove old program
++ Remove version checking code
++ Create installation website
+
+### Post-deployment:
+
++ Update wiki
 
 Source Code
 -----------
