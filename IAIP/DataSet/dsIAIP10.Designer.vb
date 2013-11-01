@@ -3556,7 +3556,7 @@ Namespace dsIAIP10TableAdapters
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute()>  _
         Private Sub InitConnection()
             Me._connection = New Global.System.Data.OleDb.OleDbConnection
-            Me._connection.ConnectionString = Global.JohnGaltProject.My.MySettings.Default.ConnectionString
+            Me._connection.ConnectionString = Global.Iaip.My.MySettings.Default.ConnectionString
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute()>  _
@@ -3984,7 +3984,7 @@ Namespace dsIAIP10TableAdapters
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute()>  _
         Private Sub InitConnection()
             Me._connection = New Global.System.Data.OleDb.OleDbConnection
-            Me._connection.ConnectionString = Global.JohnGaltProject.My.MySettings.Default.ConnectionString
+            Me._connection.ConnectionString = Global.Iaip.My.MySettings.Default.ConnectionString
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute()>  _
@@ -4130,7 +4130,7 @@ Namespace dsIAIP10TableAdapters
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute()>  _
         Private Sub InitConnection()
             Me._connection = New Global.System.Data.OleDb.OleDbConnection
-            Me._connection.ConnectionString = Global.JohnGaltProject.My.MySettings.Default.ConnectionString
+            Me._connection.ConnectionString = Global.Iaip.My.MySettings.Default.ConnectionString
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute()>  _

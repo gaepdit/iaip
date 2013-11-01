@@ -162,6 +162,10 @@
     <Reference Include="System.Web.Extensions">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Web.Services, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\windows\assembly\GAC_MSIL\System.Web.Services\2.0.0.0__b03f5f7f11d50a3a\System.Web.Services.dll</HintPath>
+    </Reference>
     <Reference Include="System.Windows.Forms">
       <Name>System.Windows.Forms</Name>
     </Reference>
@@ -196,39 +200,6 @@
     </None>
     <None Include="DataSet\dsIAIP10.xss">
       <DependentUpon>dsIAIP10.xsd</DependentUpon>
-    </None>
-    <None Include="DataSet\dsIAIP.xsc">
-      <DependentUpon>dsIAIP.xsd</DependentUpon>
-    </None>
-    <None Include="DataSet\dsIAIP.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>dsIAIP.Designer.vb</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="DataSet\dsIAIP.xss">
-      <DependentUpon>dsIAIP.xsd</DependentUpon>
-    </None>
-    <None Include="DataSet\dsIAIP2.xsc">
-      <DependentUpon>dsIAIP2.xsd</DependentUpon>
-    </None>
-    <None Include="DataSet\dsIAIP2.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>dsIAIP2.Designer.vb</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="DataSet\dsIAIP2.xss">
-      <DependentUpon>dsIAIP2.xsd</DependentUpon>
-    </None>
-    <None Include="DataSet\dsInventoryReport.xsc">
-      <DependentUpon>dsInventoryReport.xsd</DependentUpon>
-    </None>
-    <None Include="DataSet\dsInventoryReport.xsd">
-      <SubType>Designer</SubType>
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>dsInventoryReport.Designer.vb</LastGenOutput>
-    </None>
-    <None Include="DataSet\dsInventoryReport.xss">
-      <DependentUpon>dsInventoryReport.xsd</DependentUpon>
     </None>
     <None Include="IAIP-Updater\make-sfx.bat">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -290,14 +261,6 @@
     <Compile Include="_MFCode\MRFunctions.vb">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="DataSet\dsInventoryReport.Designer.vb">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>dsInventoryReport.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DataSet\dsInventoryReport.vb">
-      <DependentUpon>dsInventoryReport.xsd</DependentUpon>
-    </Compile>
     <Compile Include="PASP\PASPFeeStatistics.Designer.vb">
       <DependentUpon>PASPFeeStatistics.vb</DependentUpon>
     </Compile>
@@ -314,16 +277,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>dsIAIP10.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DataSet\dsIAIP.Designer.vb">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>dsIAIP.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DataSet\dsIAIP2.Designer.vb">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>dsIAIP2.xsd</DependentUpon>
     </Compile>
     <Compile Include="Reports\FacilityBasicPrint.vb">
       <SubType>Component</SubType>
