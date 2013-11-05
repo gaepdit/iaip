@@ -2310,7 +2310,7 @@ Public Class SSCPManagersTools
         End Try
 
     End Sub
-    Private Sub btnAddToCmsUniverse_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles btnAddToCmsUniverse.Click
+    Private Sub btnAddToCmsUniverse_LinkClicked(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAddToCmsUniverse.Click
         Try
             AddFacilityToCMS()
         Catch ex As Exception
@@ -2318,7 +2318,7 @@ Public Class SSCPManagersTools
         End Try
 
     End Sub
-    Private Sub btnDeleteFacilityFromCms_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles btnDeleteFacilityFromCms.Click
+    Private Sub btnDeleteFacilityFromCms_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDeleteFacilityFromCms.Click
         Try
             RemoveFacilityFromCMS()
         Catch ex As Exception
