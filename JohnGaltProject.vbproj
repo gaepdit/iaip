@@ -1783,7 +1783,6 @@
     <Compile Include="_Classes\Address.vb" />
     <Compile Include="_Classes\Facility.vb" />
     <Compile Include="_Classes\FileSizeFormatProvider.vb" />
-    <Compile Include="_Classes\XmlSerializableDictionary.vb" />
     <Compile Include="_Classes\SettingsHelper.vb" />
     <Compile Include="_Classes\SSPP.ApplicationInfo.vb" />
     <Compile Include="_Classes\Staff.vb" />

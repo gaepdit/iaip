@@ -1,9 +1,10 @@
 Imports Oracle.DataAccess.Client
 Imports System.Security.Cryptography
 Imports System.Text
-Imports System
+'Imports System
 Imports System.IO
-Imports System.Data
+'Imports System.Data
+Imports System.Collections.Generic
 
 Module subMain
 
@@ -45,6 +46,7 @@ Module subMain
     Friend Today As Date = Date.Today
     Friend TodayString As String = Format(Today, DateFormat)
     Friend TestingEnvironment As Boolean = False
+    Friend AllFormSettings As New Dictionary(Of String, Dictionary(Of String, String))
 #End Region
 
 #Region "Old public variables"

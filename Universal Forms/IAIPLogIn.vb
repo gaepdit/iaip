@@ -169,16 +169,6 @@ Public Class IAIPLogIn
 
 #End Region
 
-#Region " Base Form Overrides "
-
-    Overrides Sub SaveFormDimensions()
-    End Sub
-
-    Overrides Sub LoadFormDimensions()
-    End Sub
-
-#End Region
-
 #Region "Login"
 
     Private Sub LogInCheck()

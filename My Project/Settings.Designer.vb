@@ -113,12 +113,12 @@ Namespace My
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.Configuration.DefaultSettingValueAttribute("")>  _
-        Public Property SerializedFormSettingsDictionary() As String
+        Public Property SerializedFormSettings() As String
             Get
-                Return CType(Me("SerializedFormSettingsDictionary"),String)
+                Return CType(Me("SerializedFormSettings"),String)
             End Get
             Set
-                Me("SerializedFormSettingsDictionary") = value
+                Me("SerializedFormSettings") = value
             End Set
         End Property
     End Class

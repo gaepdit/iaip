@@ -63,13 +63,6 @@ Public Class IAIPNavigation
         End Try
     End Sub
 
-    'Public Sub GetDefaultLocation()
-    '    Dim loc As String = GetUserSetting(UserSetting.DefaultFormLocation)
-    '    Dim points As String() = Split(loc, ",")
-    '    Dim defaultLocation As New Point(points(0), points(1))
-    '    DefaultX = defaultLocation.X
-    '    DefaultY = defaultLocation.Y
-    'End Sub
 #Region "Page Load Subs and Funcations"
     Sub LoadShortCutData()
         Try
@@ -147,7 +140,7 @@ Public Class IAIPNavigation
                                 llbTertiaryList.Text = "Open Compliance Work"
                                 llbQuaternaryList.Text = "MACT Sub Parts"
                             End If
-                          
+
                     End Select
                 Case "5"
                     llbPrimaryList.Visible = True
@@ -2607,16 +2600,14 @@ Public Class IAIPNavigation
     End Sub
 
 #End Region
+
 #Region "Main Menu Items"
+
     Private Sub NavigationScreen_Closed(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Closed
-        SaveLocation()
         Conn.Dispose()
         Application.Exit()
     End Sub
-    Private Sub SaveLocation()
-        Dim loc As String = Me.Location.X & "," & Me.Location.Y
-        SaveUserSetting(UserSetting.DefaultFormLocation, loc)
-    End Sub
+
     Private Sub MmiExit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiExit.Click
         Me.Close()
     End Sub

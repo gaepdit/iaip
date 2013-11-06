@@ -1,58 +1,67 @@
-﻿'Imports System.Xml
-'Imports System.Xml.Serialization
+﻿Imports System.Collections.Generic
 
 Public Class BaseForm
 
-#If Not Debug Then
+#Region "Form events"
 
     Private Sub BaseForm_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+
+#If Not Debug Then
         If Not Me.DesignMode Then
             If TestingEnvironment Then Me.Icon = My.Resources.TestingIcon
         End If
-    End Sub
-
 #End If
 
-#Region "Form location and dimensions"
-
-    ' On closing the form, save the window state, location, and size
-    ' Override this Sub on forms where this would not be useful
-    Overridable Sub SaveFormDimensions() Handles Me.FormClosing
-        Dim formSettings As XmlSerializableDictionary(Of String, String) = GetFormSettings(Me.Name)
-
-        Dim windowState As FormWindowState = Me.WindowState
-        formSettings("windowState") = windowState.ToString
-
-        If windowState = FormWindowState.Normal Then
-            Dim pointConverter As System.ComponentModel.TypeConverter = _
-                System.ComponentModel.TypeDescriptor.GetConverter(GetType(Point))
-            formSettings("location") = pointConverter.ConvertToString(Me.Location)
-
-            Dim sizeConverter As System.ComponentModel.TypeConverter = _
-                System.ComponentModel.TypeDescriptor.GetConverter(GetType(Size))
-            formSettings("size") = sizeConverter.ConvertToString(Me.Size)
-        End If
-
-        SaveFormSettings(Me.Name, formSettings)
+        LoadThisFormSettings()
     End Sub
 
-    Overridable Sub LoadFormDimensions() Handles Me.Load
-        Dim formSettings As XmlSerializableDictionary(Of String, String) = GetFormSettings(Me.Name)
+    Private Sub BaseForm_FormClosed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
+        SaveThisFormSettings()
+    End Sub
 
-        If formSettings.ContainsKey("windowState") Then
-            Me.WindowState = [Enum].Parse(GetType(FormWindowState), formSettings("windowState"))
+#End Region
+
+#Region "Form settings - location and dimensions"
+
+    ' On closing the form, save the window state, location, and size
+    ' Override this Sub on individual forms if you need to save different settings
+    Overridable Sub SaveThisFormSettings()
+        Dim formSettings As Dictionary(Of String, String) = GetFormSettings(Me.Name)
+
+        If Me.MaximizeBox OrElse Me.MinimizeBox Then
+            formSettings(FormSetting.WindowState.ToString) = Me.WindowState.ToString
         End If
 
-        If formSettings.ContainsKey("location") Then
+        If Me.WindowState = FormWindowState.Normal AndAlso Me.SizeGripStyle <> Windows.Forms.SizeGripStyle.Hide Then
             Dim pointConverter As System.ComponentModel.TypeConverter = _
                 System.ComponentModel.TypeDescriptor.GetConverter(GetType(Point))
-            Me.Location = pointConverter.ConvertFromString(formSettings("location"))
-        End If
+            formSettings(FormSetting.Location.ToString) = pointConverter.ConvertToString(Me.Location)
 
-        If formSettings.ContainsKey("size") Then
             Dim sizeConverter As System.ComponentModel.TypeConverter = _
                 System.ComponentModel.TypeDescriptor.GetConverter(GetType(Size))
-            Me.Size = sizeConverter.ConvertFromString(formSettings("size"))
+            formSettings(FormSetting.Size.ToString) = sizeConverter.ConvertToString(Me.Size)
+        End If
+
+        If formSettings.Count > 0 Then SaveFormSettings(Me.Name, formSettings)
+    End Sub
+
+    Overridable Sub LoadThisFormSettings()
+        Dim thisFormSettings As Dictionary(Of String, String) = GetFormSettings(Me.Name)
+
+        If thisFormSettings.ContainsKey(FormSetting.WindowState.ToString) Then
+            Me.WindowState = [Enum].Parse(GetType(FormWindowState), thisFormSettings(FormSetting.WindowState.ToString))
+        End If
+
+        If thisFormSettings.ContainsKey(FormSetting.Location.ToString) Then
+            Dim pointConverter As System.ComponentModel.TypeConverter = _
+                System.ComponentModel.TypeDescriptor.GetConverter(GetType(Point))
+            Me.Location = pointConverter.ConvertFromString(thisFormSettings(FormSetting.Location.ToString))
+        End If
+
+        If thisFormSettings.ContainsKey(FormSetting.Size.ToString) Then
+            Dim sizeConverter As System.ComponentModel.TypeConverter = _
+                System.ComponentModel.TypeDescriptor.GetConverter(GetType(Size))
+            Me.Size = sizeConverter.ConvertFromString(thisFormSettings(FormSetting.Size.ToString))
         End If
     End Sub
 
