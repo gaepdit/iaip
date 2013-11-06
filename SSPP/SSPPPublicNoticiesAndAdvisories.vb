@@ -17,7 +17,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
             Panel2.Text = UserName
             Panel3.Text = OracleDate
 
-            Me.WindowState = FormWindowState.Maximized
+            'Me.WindowState = FormWindowState.Maximized
 
             LoadPublicNoticesList()
             TCPublicNotices.TabPages.Remove(TPPublishDocument)

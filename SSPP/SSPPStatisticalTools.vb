@@ -49,7 +49,7 @@ Public Class SSPPStatisticalTools
             LoadSubPartData()
 
 
-            Me.WindowState = FormWindowState.Maximized
+            'Me.WindowState = FormWindowState.Maximized
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally

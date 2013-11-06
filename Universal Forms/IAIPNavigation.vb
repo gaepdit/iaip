@@ -2505,7 +2505,7 @@ Public Class IAIPNavigation
                     'SmokeSchool = New SmokeSchool
                     With SmokeSchool
                         .Show()
-                        .WindowState = FormWindowState.Normal
+                        '.WindowState = FormWindowState.Normal
                         .Activate()
                         '.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                     End With

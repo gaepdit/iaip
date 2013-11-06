@@ -126,7 +126,6 @@ Module subMain
     Public ISMPConfidential As ISMPConfidentialData
     Public ISMPTestReportsEntry As ISMPTestReports
     Public TestFirmComments As ISMPTestFirmComments
-    'Public SmokeSchool As SmokeSchool
     Public DevelopersTools As DMUDeveloperTools
     Public StaffTools As DMUStaffTools
     Public TitleVTools As DMUTitleVTools
