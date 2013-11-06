@@ -1611,7 +1611,7 @@ Public Class SSCPEmissionSummaryTool
                 PrintOut.txtPrintType.Text = "ES Print Out"
                 PrintOut.txtSQLLine.Text = Me.txtConfirmationNumber.Text
                 PrintOut.Show()
-                PrintOut.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+                'PrintOut.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
             End If
 
         Catch ex As Exception

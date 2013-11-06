@@ -1213,7 +1213,7 @@ Public Class ISMPTestReportAdministrative
             PrintOut.txtPrintType.Text = "ISMPAIRSForm"
             PrintOut.txtReferenceNumber.Text = Me.txtReferenceNumber.Text
             PrintOut.Show()
-            PrintOut.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+            'PrintOut.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
@@ -1370,7 +1370,7 @@ Public Class ISMPTestReportAdministrative
                     ISMPTestReportsEntry.txtReferenceNumber.Text = txtReferenceNumber.Text
                     ISMPTestReportsEntry.Show()
                     Me.Hide()
-                    ISMPTestReportsEntry.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+                    'ISMPTestReportsEntry.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                 End If
             End If
         Catch ex As Exception
@@ -1391,7 +1391,7 @@ Public Class ISMPTestReportAdministrative
                 If ISMPMemoEdit Is Nothing Then ISMPMemoEdit = New ISMPMemo
                 ISMPMemoEdit.txtReferenceNumber.Text = Me.txtReferenceNumber.Text
                 ISMPMemoEdit.Show()
-                ISMPMemoEdit.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+                'ISMPMemoEdit.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
             End If
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -2605,7 +2605,7 @@ Public Class ISMPTestReportAdministrative
                 FacilityLookUpTool = New IAIPFacilityLookUpTool
                 If FacilityLookUpTool Is Nothing Then FacilityLookUpTool = New IAIPFacilityLookUpTool
                 FacilityLookUpTool.Show()
-                FacilityLookUpTool.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+                'FacilityLookUpTool.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
             End If
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -2770,7 +2770,7 @@ Public Class ISMPTestReportAdministrative
             PrintOut.txtPrintType.Text = "ISMPAIRSForm"
             PrintOut.txtReferenceNumber.Text = Me.txtReferenceNumber.Text
             PrintOut.Show()
-            PrintOut.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+            'PrintOut.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
@@ -2788,7 +2788,7 @@ Public Class ISMPTestReportAdministrative
             PrintOut.txtPrintType.Text = "ISMPTestReport"
             PrintOut.txtReferenceNumber.Text = Me.txtReferenceNumber.Text
             PrintOut.Show()
-            PrintOut.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+            'PrintOut.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
@@ -2810,7 +2810,7 @@ Public Class ISMPTestReportAdministrative
                 If FacilityLookUpTool Is Nothing Then FacilityLookUpTool = New IAIPFacilityLookUpTool
                 FacilityLookUpTool.Show()
             End If
-            FacilityLookUpTool.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+            'FacilityLookUpTool.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
@@ -2883,7 +2883,7 @@ Public Class ISMPTestReportAdministrative
             ISMPAddTestingFirm = Nothing
             If ISMPAddTestingFirm Is Nothing Then ISMPAddTestingFirm = New ISMPAddTestingFirms
             ISMPAddTestingFirm.Show()
-            ISMPAddTestingFirm.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+            'ISMPAddTestingFirm.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
@@ -2899,7 +2899,7 @@ Public Class ISMPTestReportAdministrative
             ISMPAddPollutant = Nothing
             If ISMPAddPollutant Is Nothing Then ISMPAddPollutant = New ISMPAddPollutants
             ISMPAddPollutant.Show()
-            ISMPAddPollutant.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+            'ISMPAddPollutant.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
@@ -3276,7 +3276,7 @@ Public Class ISMPTestReportAdministrative
                     If ISMPTestReportsEntry Is Nothing Then ISMPTestReportsEntry = New ISMPTestReports
                     ISMPTestReportsEntry.txtReferenceNumber.Text = txtAddTestReportRefNum.Text
                     ISMPTestReportsEntry.Show()
-                    ISMPTestReportsEntry.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+                    'ISMPTestReportsEntry.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                 End If
             End If
         Catch ex As Exception

@@ -344,7 +344,7 @@ Public Class IAIPFacilitySummary
                 EditContacts2 = New DEVEditContacts
                 EditContacts2.mtbAIRSNumber.Text = mtbAIRSNumber.Text
                 EditContacts2.Show()
-                EditContacts2.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+                'EditContacts2.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
             Else
                 If Not EditContacts Is Nothing Then
                     EditContacts.Dispose()
@@ -353,7 +353,7 @@ Public Class IAIPFacilitySummary
                 EditContacts.AirsNumber = mtbAIRSNumber.Text
                 EditContacts.FacilityName = txtFacilityName.Text
                 EditContacts.Show()
-                EditContacts.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+                'EditContacts.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
             End If
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -371,7 +371,7 @@ Public Class IAIPFacilitySummary
                 If FacilityLookUpTool Is Nothing Then FacilityLookUpTool = New IAIPFacilityLookUpTool
                 FacilityLookUpTool.Show()
             End If
-            FacilityLookUpTool.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+            'FacilityLookUpTool.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -575,7 +575,7 @@ Public Class IAIPFacilitySummary
             FacilityPrintOut.AirsNumber.Text = mtbAIRSNumber.Text
             FacilityPrintOut.FacilityName.Text = txtFacilityName.Text
 
-            FacilityPrintOut.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+            'FacilityPrintOut.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
 
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -1240,7 +1240,7 @@ Public Class IAIPFacilitySummary
             If EditAirProgramPollutants Is Nothing Then EditAirProgramPollutants = New IAIPEditAirProgramPollutants
             EditAirProgramPollutants.txtAirsNumber.Text = Me.mtbAIRSNumber.Text
             EditAirProgramPollutants.Show()
-            EditAirProgramPollutants.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+            'EditAirProgramPollutants.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
 
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -1260,7 +1260,7 @@ Public Class IAIPFacilitySummary
                 EditSubParts = New IAIPEditSubParts
             End If
             EditSubParts.Show()
-            EditSubParts.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+            'EditSubParts.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
             If mtbAIRSNumber.Text <> "" Then
                 EditSubParts.txtAIRSNumber.Text = Me.mtbAIRSNumber.Text
             End If
@@ -3250,7 +3250,7 @@ Public Class IAIPFacilitySummary
                         If ISMPTestReportsEntry Is Nothing Then ISMPTestReportsEntry = New ISMPTestReports
                         ISMPTestReportsEntry.txtReferenceNumber.Text = txtReferenceNumber.Text
                         ISMPTestReportsEntry.Show()
-                        ISMPTestReportsEntry.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+                        'ISMPTestReportsEntry.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                     End If
                 Else
                     SQL = "Select strClosed " & _
@@ -3270,7 +3270,7 @@ Public Class IAIPFacilitySummary
                         PrintOut.txtReferenceNumber.Text = txtReferenceNumber.Text
                         PrintOut.txtPrintType.Text = "SSCP"
                         PrintOut.Show()
-                        PrintOut.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+                        'PrintOut.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                     Else
                         MsgBox("This Test Summary has not been completely reviewed by ISMP Engineer", MsgBoxStyle.Information, "Facility Summary")
                     End If
@@ -3307,7 +3307,7 @@ Public Class IAIPFacilitySummary
                     ISMPCloseAndPrint.txtFacilityName.Text = txtFacilityName.Text
                     ISMPCloseAndPrint.txtOrigin.Text = "Facility Summary"
                     ISMPCloseAndPrint.Show()
-                    ISMPCloseAndPrint.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+                    'ISMPCloseAndPrint.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                 End If
             End If
         Catch ex As Exception
@@ -3325,7 +3325,7 @@ Public Class IAIPFacilitySummary
                 If DevTestLog Is Nothing Then DevTestLog = New ISMPNotificationLog
                 DevTestLog.txtTestNotificationNumber.Text = Me.txtTestingNumber.Text
                 DevTestLog.Show()
-                DevTestLog.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+                'DevTestLog.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
             End If
 
         Catch ex As Exception
@@ -3343,7 +3343,7 @@ Public Class IAIPFacilitySummary
                 If ISMPMemoEdit Is Nothing Then ISMPMemoEdit = New ISMPMemo
                 ISMPMemoEdit.txtReferenceNumber.Text = Me.txtReferenceNumber2.Text
                 ISMPMemoEdit.Show()
-                ISMPMemoEdit.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+                'ISMPMemoEdit.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
             End If
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -3563,7 +3563,7 @@ Public Class IAIPFacilitySummary
                 SSCPREports.txtTrackingNumber.Text = txtTrackingNumber.Text
                 SSCPREports.txtOrigin.Text = "Facility Summary"
                 SSCPREports.Show()
-                SSCPREports.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+                'SSCPREports.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
             End If
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -3606,7 +3606,7 @@ Public Class IAIPFacilitySummary
                         End If
                         SSCP_Enforcement.Show()
                     End If
-                    SSCP_Enforcement.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+                    'SSCP_Enforcement.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
 
                 Else
                     MsgBox("Enforcement Number is not in the system.", MsgBoxStyle.Information, "Navigation Screen")
@@ -3701,7 +3701,7 @@ Public Class IAIPFacilitySummary
                     SSCPFCE.txtAirsNumber.Text = Me.mtbAIRSNumber.Text
                     SSCPFCE.txtOrigin.Text = "Facility Summary"
                     SSCPFCE.Show()
-                    SSCPFCE.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+                    'SSCPFCE.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                 End If
             End If
         Catch ex As Exception
@@ -4081,7 +4081,7 @@ Public Class IAIPFacilitySummary
                 PermitTrackingLog.txtApplicationNumber.Text = txtApplicationNumber.Text
                 PermitTrackingLog.LoadApplication()
                 PermitTrackingLog.BringToFront()
-                PermitTrackingLog.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+                'PermitTrackingLog.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
             End If
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -4413,7 +4413,7 @@ Public Class IAIPFacilitySummary
                 EditFacilityLocation.Show()
                 EditFacilityLocation.BringToFront()
             End If
-            EditFacilityLocation.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+            'EditFacilityLocation.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
 
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -4432,7 +4432,7 @@ Public Class IAIPFacilitySummary
                 EditHeaderData.Show()
                 EditHeaderData.BringToFront()
             End If
-            EditHeaderData.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+            'EditHeaderData.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
 
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -4457,7 +4457,7 @@ Public Class IAIPFacilitySummary
                     SSCPFacAssign.txtFacilityName.Text = Me.txtFacilityName.Text
                     SSCPFacAssign.txtAIRSNumber.Text = Me.mtbAIRSNumber.Text
                     SSCPFacAssign.Show()
-                    SSCPFacAssign.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+                    'SSCPFacAssign.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                 End If
             End If
         Catch ex As Exception
@@ -4478,7 +4478,7 @@ Public Class IAIPFacilitySummary
                     SSCPEngWork.txtFacilityName.Text = Me.txtFacilityName.Text
                     SSCPEngWork.txtAIRSNumber.Text = Me.mtbAIRSNumber.Text
                     SSCPEngWork.Show()
-                    SSCPEngWork.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+                    'SSCPEngWork.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                 End If
             End If
         Catch ex As Exception
@@ -4512,7 +4512,7 @@ Public Class IAIPFacilitySummary
                     ISMPTestReportInfo.txtAIRSNumber.Text = Me.mtbAIRSNumber.Text
                     ISMPTestReportInfo.txtFacilityName.Text = Me.txtFacilityName.Text
                     ISMPTestReportInfo.Show()
-                    ISMPTestReportInfo.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+                    'ISMPTestReportInfo.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                 End If
             End If
         Catch ex As Exception
@@ -4542,7 +4542,7 @@ Public Class IAIPFacilitySummary
                     ISMPCloseAndPrint.txtFacilityName.Text = txtFacilityName.Text
                     ISMPCloseAndPrint.txtOrigin.Text = "Facility Summary"
                     ISMPCloseAndPrint.Show()
-                    ISMPCloseAndPrint.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+                    'ISMPCloseAndPrint.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                 End If
             End If
         Catch ex As Exception
@@ -4562,7 +4562,7 @@ Public Class IAIPFacilitySummary
                     If DevTestLog Is Nothing Then DevTestLog = New ISMPNotificationLog
                     DevTestLog.txtTestNotificationNumber.Text = Me.txtTestingNumber.Text
                     DevTestLog.Show()
-                    DevTestLog.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+                    'DevTestLog.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                 End If
             End If
         Catch ex As Exception
@@ -4592,7 +4592,7 @@ Public Class IAIPFacilitySummary
             If ISMPMemoEdit Is Nothing Then ISMPMemoEdit = New ISMPMemo
             ISMPMemoEdit.txtReferenceNumber.Text = Me.txtReferenceNumber.Text
             ISMPMemoEdit.Show()
-            ISMPMemoEdit.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+            'ISMPMemoEdit.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
 
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -4874,7 +4874,7 @@ Public Class IAIPFacilitySummary
             FacilityCreator = Nothing
             If FacilityCreator Is Nothing Then FacilityCreator = New IAIPFacilityCreator
             FacilityCreator.Show()
-            FacilityCreator.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+            'FacilityCreator.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try

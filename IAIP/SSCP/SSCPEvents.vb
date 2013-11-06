@@ -3929,7 +3929,7 @@ Public Class SSCPEvents
                     End If
                     SSCP_Enforcement.Show()
                 End If
-                SSCP_Enforcement.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+                'SSCP_Enforcement.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
 
                 'Me.Dispose()
             Else
@@ -3941,7 +3941,7 @@ Public Class SSCPEvents
                 Else
                     SSCPSelectEnforcement.BringToFront()
                 End If
-                SSCPSelectEnforcement.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+                'SSCPSelectEnforcement.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
             End If
 
 
@@ -7266,7 +7266,7 @@ Public Class SSCPEvents
             SSCPTemplates = Nothing
             If SSCPTemplates Is Nothing Then SSCPTemplates = New SSCPLetterTemplates
             SSCPTemplates.Show()
-            SSCPTemplates.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+            'SSCPTemplates.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
@@ -7302,7 +7302,7 @@ Public Class SSCPEvents
                 SSCPInspectionscheduleTool.txtAIRSNumber.Text = txtAIRSNumber.Text
                 SSCPInspectionscheduleTool.txtInspectionTrackingNumber.Text = txtTrackingNumber.Text
                 SSCPInspectionscheduleTool.Show()
-                SSCPInspectionscheduleTool.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+                'SSCPInspectionscheduleTool.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                 '  If Me.lblInspectionLinked.Visible = True Then
                 ' SSCPInspectionscheduleTool.CheckForLink()
                 'End If
@@ -7342,7 +7342,7 @@ Public Class SSCPEvents
             SSCPRequest.txtAIRSNumber.Text = Me.txtAIRSNumber.Text
             SSCPRequest.txtTrackingNumber.Text = Me.txtTrackingNumber.Text
             SSCPRequest.Show()
-            SSCPRequest.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+            'SSCPRequest.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
@@ -7408,7 +7408,7 @@ Public Class SSCPEvents
                 PrintOut.txtReferenceNumber.Text = Me.txtISMPReferenceNumber.Text
                 PrintOut.txtPrintType.Text = "SSCP"
                 PrintOut.Show()
-                PrintOut.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+                'PrintOut.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
             End If
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)

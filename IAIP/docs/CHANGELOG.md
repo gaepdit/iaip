@@ -5,6 +5,10 @@ Integrated Air Information Platform change log
 
 See the [release notes](README.html).
 
+## Version 2.6.9 <span>(2013-11-05)</span>
+
++ FIX: *SSMP* – Buttons to add or delete facility from CMS universe not working (#138)
+
 ## Version 2.6.8 <span>(2013-10-24)</span>
 
 + FIX: *Smoke School* – Printed diplomas did not include all classes (#132)

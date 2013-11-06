@@ -2755,7 +2755,7 @@ Public Class PASPFeeManagement
                 FeeStats = New PASPFeeAuditLog
             End If
             FeeStats.Show()
-            FeeStats.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+            'FeeStats.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
 
             FeeStats.mtbFeeAdminAIRSNumber.Text = mtbCheckAIRSNumber.Text
             FeeStats.txtFeeAdminFacilityName.Text = txtCheckFacility.Text

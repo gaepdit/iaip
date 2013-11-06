@@ -28,7 +28,7 @@ Public Class IaipFacilitySummaryPrint
             With PrintOut
                 .txtAIRSNumber.Text = AirsNumber.Text
                 .Show()
-                .Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+                '.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
             End With
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
