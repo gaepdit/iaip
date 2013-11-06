@@ -10,7 +10,7 @@ Module FormSettings
         Size
     End Enum
 
-    Friend AllFormSettings As Dictionary(Of String, Dictionary(Of String, String))
+    Friend AllFormSettings As New Dictionary(Of String, Dictionary(Of String, String))
 
     Friend Function GetAllFormSettings() As Dictionary(Of String, Dictionary(Of String, String))
         If My.Settings.SerializedFormSettings <> "" Then
