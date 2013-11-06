@@ -2282,7 +2282,7 @@ Public Class SSCPManagersTools
                 FacilitySummary.Show()
             End If
             FacilitySummary.Show()
-            FacilitySummary.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+            'FacilitySummary.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
             FacilitySummary.mtbAIRSNumber.Text = txtCMSAIRSNumber.Text
             FacilitySummary.LoadInitialData()
 
@@ -2300,10 +2300,10 @@ Public Class SSCPManagersTools
                 FacilitySummary.Show()
             End If
             FacilitySummary.Show()
-            FacilitySummary.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+            'FacilitySummary.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
             FacilitySummary.mtbAIRSNumber.Text = txtCMSAIRSNumber2.Text
             FacilitySummary.LoadInitialData()
-            FacilitySummary.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+            'FacilitySummary.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
 
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -2570,7 +2570,7 @@ Public Class SSCPManagersTools
                 If EditAirProgramPollutants Is Nothing Then EditAirProgramPollutants = New IAIPEditAirProgramPollutants
                 EditAirProgramPollutants.txtAirsNumber.Text = Me.txtAIRSNumber.Text
                 EditAirProgramPollutants.Show()
-                EditAirProgramPollutants.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+                'EditAirProgramPollutants.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
             End If
 
         Catch ex As Exception
@@ -4090,7 +4090,7 @@ Public Class SSCPManagersTools
                         FacilitySummary.mtbAIRSNumber.Text = txtRecordNumber.Text
                         FacilitySummary.Show()
                     End If
-                    FacilitySummary.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+                    'FacilitySummary.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
 
                     FacilitySummary.LoadInitialData()
                 Else
@@ -4137,7 +4137,7 @@ Public Class SSCPManagersTools
                         End If
                         SSCP_Enforcement.Show()
                     End If
-                    SSCP_Enforcement.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+                    'SSCP_Enforcement.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
 
                 Else
                     MsgBox("Enforcement Number is not in the system.", MsgBoxStyle.Information, "SSCP Managers Tools")
@@ -4173,7 +4173,7 @@ Public Class SSCPManagersTools
                         SSCPREports.txtTrackingNumber.Text = txtRecordNumber.Text
                         SSCPREports.Show()
                     End If
-                    SSCPREports.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+                    'SSCPREports.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                 Else
                     MsgBox("Tracking Number is not in the system.", MsgBoxStyle.Information, "SSCP Managers Tools")
                 End If

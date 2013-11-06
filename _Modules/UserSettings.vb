@@ -6,7 +6,6 @@
         PermitUploadLocation
         FileDownloadLocation
         PrefillLoginId
-        NavigationFormLocation
     End Enum
 
     ' Define default value for above user settings here
@@ -17,12 +16,6 @@
                 UserSetting.PermitUploadLocation, _
                 UserSetting.FileDownloadLocation
                 Return Environment.GetFolderPath(Environment.SpecialFolder.Personal)
-
-            Case UserSetting.NavigationFormLocation
-                Return "0,0"
-
-            Case UserSetting.PrefillLoginId
-                Return ""
 
             Case Else
                 Return ""

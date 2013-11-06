@@ -2229,7 +2229,7 @@ Public Class SSPPStatisticalTools
                             FacilitySummary.mtbAIRSNumber.Text = txtRecordNumber.Text
                             FacilitySummary.Show()
                         End If
-                        FacilitySummary.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+                        'FacilitySummary.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
 
                         FacilitySummary.LoadInitialData()
 
@@ -2257,7 +2257,7 @@ Public Class SSPPStatisticalTools
                         PermitTrackingLog.txtApplicationNumber.Text = txtRecordNumber.Text
                         PermitTrackingLog.LoadApplication()
                         PermitTrackingLog.BringToFront()
-                        PermitTrackingLog.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+                        'PermitTrackingLog.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                         PermitTrackingLog.TPTrackingLog.Focus()
                     Else
                         MsgBox("Application Number is not in the system.", MsgBoxStyle.Information, "Statistical Tools Screen")

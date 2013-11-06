@@ -1907,7 +1907,7 @@ Public Class SSCPInformationRequest
                 EditContacts.lblFacilityName.Text = ""
                 EditContacts.Show()
             End If
-            EditContacts.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+            'EditContacts.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
 
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)

@@ -7,6 +7,45 @@ Imports System.IO
 
 Module App
 
+#Region "Startup and shutdown"
+
+    ' MyApplication_Startup -> App.Init()
+    Friend Sub Init()
+
+#If DEBUG Then
+        Console.WriteLine("Me.Startup")
+        Console.WriteLine("Environment.MachineName: " & Environment.MachineName)
+        Console.WriteLine("Environment.UserName: " & Environment.UserName)
+#End If
+
+        ' EQATEC analytics monitor
+        MonitorInit()
+
+        ' Form settings
+        AllFormSettings = GetAllFormSettings()
+
+        '' Just for fun: sample code for a new way of handling login form
+        '' http://visualstudiomagazine.com/articles/2008/08/01/customize-your-application-startup.aspx
+        'Dim frm = New LoginForm
+        'Dim result = frm.ShowDialog
+        'If result <> DialogResult.OK Then
+        '    e.Cancel = True
+        '    Me.HideSplashScreen()
+        'End If
+    End Sub
+
+    ' MyApplication_Shutdown -> App.Finish()
+    Friend Sub Finish()
+
+        ' Form settings
+        SaveAllFormSettings()
+
+        ' EQATEC analytics monitor
+        monitor.Stop()
+    End Sub
+
+#End Region
+
 #Region "Application Analytics Monitoring"
 
     Friend MachineName As String = Environment.MachineName
@@ -17,8 +56,26 @@ Module App
     Friend monitorSettings As IAnalyticsMonitorSettings = AnalyticsMonitorFactory.CreateSettings(AnalyticsApiKey)
     Friend monitorInstallationInfo As New Dictionary(Of String, String)
 
-    ' Don't create the monitor yet. Change settings in MyApplication_Startup, 
-    ' then create & start the monitor there
+    ' Don't create the monitor yet. Run MonitorInit from MyApplication_Startup -> Init()
+    ' MonitorInit will create & start the monitor 
+    Friend Sub MonitorInit()
+#If DEBUG Then
+        monitorSettings.TestMode = True
+#End If
+        monitorSettings.UseSSL = True
+        monitor = EQATEC.Analytics.Monitor.AnalyticsMonitorFactory.Create(monitorSettings)
+        With monitor
+            .Start()
+            .TrackFeatureStart("Startup.Loading")
+        End With
+
+        ' Add additional installation meta data for analytics
+        With monitorInstallationInfo
+            .Add("MachineName", Environment.MachineName)
+            .Add("WindowsUserName", Environment.UserName)
+        End With
+        monitor.SetInstallationInfo(MachineName, monitorInstallationInfo)
+    End Sub
 
 #End Region
 

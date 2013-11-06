@@ -12,7 +12,6 @@ Public Class IAIPNavigation
     Dim WorkBranch As String
     Dim WorkProgram As String
     Dim WorkUnit As String
-    'Dim DefaultsText As String = ""
 
     Private Sub IAIPNavigation_Shown(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Shown
         monitor.TrackFeatureStop("Startup.LoggingIn")
@@ -38,8 +37,7 @@ Public Class IAIPNavigation
             ProgressBar.Value = 0
             IAIPLogIn.Hide()
 
-            GetDefaultLocation()
-            MoveFormToDefaultLocation()
+            'GetDefaultLocation()
 
             cboIAIPList.Items.Add("Compliance Facilities Assigned")
             cboIAIPList.Items.Add("Compliance Work")
@@ -65,13 +63,6 @@ Public Class IAIPNavigation
         End Try
     End Sub
 
-    Public Sub GetDefaultLocation()
-        Dim loc As String = GetUserSetting(UserSetting.NavigationFormLocation)
-        Dim points As String() = Split(loc, ",")
-        Dim defaultLocation As New Point(points(0), points(1))
-        DefaultX = defaultLocation.X
-        DefaultY = defaultLocation.Y
-    End Sub
 #Region "Page Load Subs and Funcations"
     Sub LoadShortCutData()
         Try
@@ -149,7 +140,7 @@ Public Class IAIPNavigation
                                 llbTertiaryList.Text = "Open Compliance Work"
                                 llbQuaternaryList.Text = "MACT Sub Parts"
                             End If
-                          
+
                     End Select
                 Case "5"
                     llbPrimaryList.Visible = True
@@ -1974,7 +1965,7 @@ Public Class IAIPNavigation
                     PermitTrackingLog.txtApplicationNumber.Text = txtApplicationNumber.Text
                     PermitTrackingLog.LoadApplication()
                     PermitTrackingLog.BringToFront()
-                    PermitTrackingLog.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+                    'PermitTrackingLog.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                     PermitTrackingLog.TPTrackingLog.Focus()
 
                 Else
@@ -2028,7 +2019,7 @@ Public Class IAIPNavigation
                         If ISMPTestReportsEntry Is Nothing Then ISMPTestReportsEntry = New ISMPTestReports
                         ISMPTestReportsEntry.txtReferenceNumber.Text = txtReferenceNumber.Text
                         ISMPTestReportsEntry.Show()
-                        ISMPTestReportsEntry.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+                        'ISMPTestReportsEntry.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                     End If
                 Else
                     SQL = "Select strClosed " & _
@@ -2048,7 +2039,7 @@ Public Class IAIPNavigation
                         PrintOut.txtReferenceNumber.Text = txtReferenceNumber.Text
                         PrintOut.txtPrintType.Text = "SSCP"
                         PrintOut.Show()
-                        PrintOut.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+                        'PrintOut.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                     Else
                         MsgBox("This Test Summary has not been completely reviewed by ISMP Engineer", MsgBoxStyle.Information, "Facility Summary")
                     End If
@@ -2093,7 +2084,7 @@ Public Class IAIPNavigation
                         End If
                         SSCP_Enforcement.Show()
                     End If
-                    SSCP_Enforcement.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+                    'SSCP_Enforcement.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
 
                 Else
                     MsgBox("Enforcement Number is not in the system.", MsgBoxStyle.Information, "Navigation Screen")
@@ -2164,7 +2155,7 @@ Public Class IAIPNavigation
                             SSCPREports.txtTrackingNumber.Text = txtTrackingNumber.Text
                             SSCPREports.Show()
                         End If
-                        SSCPREports.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+                        'SSCPREports.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                     End If
                 Else
                     MsgBox("Tracking Number is not in the system.", MsgBoxStyle.Information, "Navigation Screen")
@@ -2205,7 +2196,7 @@ Public Class IAIPNavigation
                         FacilitySummary.mtbAIRSNumber.Text = txtAIRSNumber.Text
                         FacilitySummary.Show()
                     End If
-                    FacilitySummary.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+                    'FacilitySummary.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                     FacilitySummary.LoadInitialData()
 
                 Else
@@ -2231,7 +2222,7 @@ Public Class IAIPNavigation
                         FacilitySummary.Show()
                     End If
                     FacilitySummary.Show()
-                    FacilitySummary.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+                    'FacilitySummary.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                 Case "DMU Tools" '2
                     'If ISMPDMU Is Nothing Then
                     '    If ISMPDMU Is Nothing Then ISMPDMU = New ISMPDataManagementTools
@@ -2250,7 +2241,7 @@ Public Class IAIPNavigation
                         ApplicationLog = New SSPPApplicationLog
                     End If
                     ApplicationLog.Show()
-                    ApplicationLog.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+                    'ApplicationLog.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                 Case "Compliance Log" '4
                     If SSCP_Work Is Nothing Then
                         If SSCP_Work Is Nothing Then SSCP_Work = New SSCPComplianceLog
@@ -2259,7 +2250,7 @@ Public Class IAIPNavigation
                         SSCP_Work = New SSCPComplianceLog
                     End If
                     SSCP_Work.Show()
-                    SSCP_Work.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+                    'SSCP_Work.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                 Case "Monitoring Log" '5
                     If ISMPReportViewer Is Nothing Then
                         If ISMPReportViewer Is Nothing Then ISMPReportViewer = New ISMPMonitoringLog
@@ -2268,7 +2259,7 @@ Public Class IAIPNavigation
                         ISMPReportViewer = New ISMPMonitoringLog
                     End If
                     ISMPReportViewer.Show()
-                    ISMPReportViewer.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+                    'ISMPReportViewer.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                 Case "Fees Log"
                     If FeesLog Is Nothing Then
                         If FeesLog Is Nothing Then FeesLog = New PASPFeesLog
@@ -2277,7 +2268,7 @@ Public Class IAIPNavigation
                         FeesLog = New PASPFeesLog
                     End If
                     FeesLog.Show()
-                    FeesLog.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+                    'FeesLog.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                 Case "Fee Management"
                     If FeeManagement Is Nothing Then
                         If FeeManagement Is Nothing Then FeeManagement = New PASPFeeManagement
@@ -2286,7 +2277,7 @@ Public Class IAIPNavigation
                         FeeManagement = New PASPFeeManagement
                     End If
                     FeeManagement.Show()
-                    FeeManagement.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+                    'FeeManagement.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
 
                 Case "Fee Statistics && Reports" ''"Fee Statistics && Mailout" '"Mailout && Statistics" '12
                     If MailoutAndStats Is Nothing Then
@@ -2296,7 +2287,7 @@ Public Class IAIPNavigation
                         MailoutAndStats = New PASPFeeStatistics
                     End If
                     MailoutAndStats.Show()
-                    MailoutAndStats.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+                    'MailoutAndStats.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
 
                 Case "IAIP Query Generator" '7
                     If DevSQLQuery Is Nothing Then
@@ -2306,7 +2297,7 @@ Public Class IAIPNavigation
                         DevSQLQuery = New IAIPQueryGenerator
                     End If
                     DevSQLQuery.Show()
-                    DevSQLQuery.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+                    'DevSQLQuery.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                 Case "Profile Management"  ' 8
                     If UserAdminTool Is Nothing Then
                         If UserAdminTool Is Nothing Then UserAdminTool = New IAIPUserAdminTool
@@ -2315,7 +2306,7 @@ Public Class IAIPNavigation
                         UserAdminTool = New IAIPUserAdminTool
                     End If
                     UserAdminTool.Show()
-                    UserAdminTool.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+                    'UserAdminTool.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                 Case "Permit File Uploader" '9
                     If PermitUploader Is Nothing Then
                         If PermitUploader Is Nothing Then PermitUploader = New IAIPPermitUploader
@@ -2323,7 +2314,7 @@ Public Class IAIPNavigation
                         PermitUploader.Show()
                     End If
                     PermitUploader.Show()
-                    PermitUploader.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+                    'PermitUploader.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                 Case "District Tools" '10
                     If IAIPDistrictTool Is Nothing Then
                         If IAIPDistrictTool Is Nothing Then IAIPDistrictTool = New IAIPDistrictSourceTool
@@ -2332,7 +2323,7 @@ Public Class IAIPNavigation
                         IAIPDistrictTool = New IAIPDistrictSourceTool
                     End If
                     IAIPDistrictTool.Show()
-                    IAIPDistrictTool.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+                    'IAIPDistrictTool.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                 Case "AFS Validator" '11
                     If Validator Is Nothing Then
                         If Validator Is Nothing Then Validator = New AFSValidator
@@ -2341,7 +2332,7 @@ Public Class IAIPNavigation
                         Validator = New AFSValidator
                     End If
                     Validator.Show()
-                    Validator.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+                    'Validator.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                 Case "Fees Reports" '6
                     If FeesReports Is Nothing Then
                         If FeesReports Is Nothing Then FeesReports = New PASPFeeReports
@@ -2350,7 +2341,7 @@ Public Class IAIPNavigation
                         FeesReports = New PASPFeeReports
                     End If
                     FeesReports.Show()
-                    FeesReports.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+                    'FeesReports.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
 
                 Case "APB Branch Tools" '13
                     If PrintOut Is Nothing Then
@@ -2362,7 +2353,7 @@ Public Class IAIPNavigation
                     PrintOut.txtPrintType.Text = "OrgChart"
 
                     PrintOut.Show()
-                    PrintOut.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+                    'PrintOut.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                 Case "Test Report Information" '14
                     If ISMPFacility Is Nothing Then
                         If ISMPFacility Is Nothing Then ISMPFacility = New ISMPTestReportAdministrative
@@ -2371,7 +2362,7 @@ Public Class IAIPNavigation
                         ISMPFacility = New ISMPTestReportAdministrative
                     End If
                     ISMPFacility.Show()
-                    ISMPFacility.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+                    'ISMPFacility.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                 Case "Memo Viewer" '15
                     If ISMPMemoViewer Is Nothing Then
                         If ISMPMemoViewer Is Nothing Then ISMPMemoViewer = New ISMPTestMemoViewer
@@ -2380,7 +2371,7 @@ Public Class IAIPNavigation
                         ISMPMemoViewer = New ISMPTestMemoViewer
                     End If
                     ISMPMemoViewer.Show()
-                    ISMPMemoViewer.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+                    'ISMPMemoViewer.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                 Case "Ref. Number Management" '16
                     If ISMPRefNum Is Nothing Then
                         If ISMPRefNum Is Nothing Then ISMPRefNum = New ISMPReferenceNumber
@@ -2389,7 +2380,7 @@ Public Class IAIPNavigation
                         ISMPRefNum = New ISMPReferenceNumber
                     End If
                     ISMPRefNum.Show()
-                    ISMPRefNum.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+                    'ISMPRefNum.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                 Case "ISMP Managers" '17
                     If ISMPManagers Is Nothing Then
                         If ISMPManagers Is Nothing Then ISMPManagers = New ISMPManagersTools
@@ -2399,7 +2390,7 @@ Public Class IAIPNavigation
                     End If
                     ISMPManagers.txtProgram.Text = "Industrial Source Monitoring"
                     ISMPManagers.Show()
-                    ISMPManagers.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+                    'ISMPManagers.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                 Case "Deposits" '18
                     If DepositsAmendments Is Nothing Then
                         If DepositsAmendments Is Nothing Then DepositsAmendments = New PASPDepositsAmendments
@@ -2408,7 +2399,7 @@ Public Class IAIPNavigation
                         DepositsAmendments = New PASPDepositsAmendments
                     End If
                     DepositsAmendments.Show()
-                    DepositsAmendments.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+                    'DepositsAmendments.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                 Case "Attainment Status Tool" '19
                     If AttainmentStatus Is Nothing Then
                         If AttainmentStatus Is Nothing Then AttainmentStatus = New SSPPAttainmentStatus
@@ -2417,7 +2408,7 @@ Public Class IAIPNavigation
                         AttainmentStatus = New SSPPAttainmentStatus
                     End If
                     AttainmentStatus.Show()
-                    AttainmentStatus.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+                    'AttainmentStatus.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                 Case "Emissions Summary Tool" '20
                     If EmissionSummary Is Nothing Then
                         If EmissionSummary Is Nothing Then EmissionSummary = New SSCPEmissionSummaryTool
@@ -2426,7 +2417,7 @@ Public Class IAIPNavigation
                         EmissionSummary = New SSCPEmissionSummaryTool
                     End If
                     EmissionSummary.Show()
-                    EmissionSummary.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+                    'EmissionSummary.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                 Case "Inspection Tool" '21
                     MsgBox("This tool is temporary disabled", MsgBoxStyle.Information, Me.Text)
                     Exit Sub
@@ -2438,7 +2429,7 @@ Public Class IAIPNavigation
                         InspectionTool = New SSCPInspectionTool
                     End If
                     InspectionTool.Show()
-                    InspectionTool.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+                    'InspectionTool.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                     Exit Sub
 
 
@@ -2449,7 +2440,7 @@ Public Class IAIPNavigation
                         SSCPInspectionsTool = New SSCPEngineerInspectionTool
                     End If
                     SSCPInspectionsTool.Show()
-                    SSCPInspectionsTool.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+                    'SSCPInspectionsTool.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                 Case "Compliance Managers" '22
                     If ManagersTools Is Nothing Then
                         If ManagersTools Is Nothing Then ManagersTools = New SSCPManagersTools
@@ -2458,7 +2449,7 @@ Public Class IAIPNavigation
                         ManagersTools = New SSCPManagersTools
                     End If
                     ManagersTools.Show()
-                    ManagersTools.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+                    'ManagersTools.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                 Case "PA/PN Report" '23
                     If PublicLetter2 Is Nothing Then
                         If PublicLetter2 Is Nothing Then PublicLetter2 = New SSPPPublicNoticiesAndAdvisories
@@ -2467,7 +2458,7 @@ Public Class IAIPNavigation
                         PublicLetter2 = New SSPPPublicNoticiesAndAdvisories
                     End If
                     PublicLetter2.Show()
-                    PublicLetter2.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+                    'PublicLetter2.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                 Case "SSPP Tools" '24
                     If StatisticalTools Is Nothing Then
                         If StatisticalTools Is Nothing Then StatisticalTools = New SSPPStatisticalTools
@@ -2475,7 +2466,7 @@ Public Class IAIPNavigation
                         StatisticalTools.Show()
                     End If
                     StatisticalTools.Show()
-                    StatisticalTools.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+                    'StatisticalTools.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                 Case "Fee Tools"
                     If FeeTools Is Nothing Then
                         If FeeTools Is Nothing Then FeeTools = New PASPFeeTools
@@ -2484,7 +2475,7 @@ Public Class IAIPNavigation
                         FeeTools = New PASPFeeTools
                     End If
                     FeeTools.Show()
-                    FeeTools.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+                    'FeeTools.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                     'Case "GAIT Inventory"
                     '    If ComputerInventory Is Nothing Then
                     '        If ComputerInventory Is Nothing Then ComputerInventory = New PASPInventory
@@ -2503,7 +2494,7 @@ Public Class IAIPNavigation
                             DMUOnly = New DMUTool
                         End If
                         DMUOnly.Show()
-                        DMUOnly.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+                        'DMUOnly.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                     Else
                         MsgBox("ACCESS DENIED")
                     End If
@@ -2516,7 +2507,7 @@ Public Class IAIPNavigation
                         .Show()
                         .WindowState = FormWindowState.Normal
                         .Activate()
-                        .Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+                        '.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                     End With
                 Case "AFS Tools"
                     If DevelopersTools Is Nothing Then
@@ -2526,7 +2517,7 @@ Public Class IAIPNavigation
                         DevelopersTools = New DMUDeveloperTools
                     End If
                     DevelopersTools.Show()
-                    DevelopersTools.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+                    'DevelopersTools.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                 Case "DMU Staff Tools"
                     If StaffTools Is Nothing Then
                         If StaffTools Is Nothing Then StaffTools = New DMUStaffTools
@@ -2535,7 +2526,7 @@ Public Class IAIPNavigation
                         StaffTools = New DMUStaffTools
                     End If
                     StaffTools.Show()
-                    StaffTools.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+                    'StaffTools.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                 Case "Title V Tools"
                     If TitleVTools Is Nothing Then
                         If TitleVTools Is Nothing Then TitleVTools = New DMUTitleVTools
@@ -2544,7 +2535,7 @@ Public Class IAIPNavigation
                         TitleVTools = New DMUTitleVTools
                     End If
                     TitleVTools.Show()
-                    TitleVTools.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+                    'TitleVTools.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                 Case "AFS Compare Tool"
                     If AFSCompare Is Nothing Then
                         If AFSCompare Is Nothing Then AFSCompare = New IAIPAFSCompare
@@ -2553,7 +2544,7 @@ Public Class IAIPNavigation
                         AFSCompare = New IAIPAFSCompare
                     End If
                     AFSCompare.Show()
-                    AFSCompare.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+                    'AFSCompare.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                 Case "Look Up Tables"
                     If LookUpTables Is Nothing Then
                         If LookUpTables Is Nothing Then LookUpTables = New IAIPLookUpTables
@@ -2562,7 +2553,7 @@ Public Class IAIPNavigation
                         LookUpTables = New IAIPLookUpTables
                     End If
                     LookUpTables.Show()
-                    LookUpTables.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+                    'LookUpTables.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                 Case "Fees Audit Tool"
                     If FeeAuditTool Is Nothing Then
                         If FeeAuditTool Is Nothing Then FeeAuditTool = New IAIPFeeAuditTool
@@ -2571,7 +2562,7 @@ Public Class IAIPNavigation
                         FeeAuditTool = New IAIPFeeAuditTool
                     End If
                     FeeAuditTool.Show()
-                    FeeAuditTool.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+                    'FeeAuditTool.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                 Case "Compliance Admin"
                     If SSCPAdmin Is Nothing Then
                         If SSCPAdmin Is Nothing Then SSCPAdmin = New SSCPAdministrator
@@ -2580,7 +2571,7 @@ Public Class IAIPNavigation
                         SSCPAdmin = New SSCPAdministrator
                     End If
                     SSCPAdmin.Show()
-                    SSCPAdmin.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+                    'SSCPAdmin.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                 Case "Registration Tool"
                     If RegistrationTool Is Nothing Then
                         If RegistrationTool Is Nothing Then RegistrationTool = New MASPRegistrationTool
@@ -2589,7 +2580,7 @@ Public Class IAIPNavigation
                         RegistrationTool = New MASPRegistrationTool
                     End If
                     RegistrationTool.Show()
-                    RegistrationTool.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+                    'RegistrationTool.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                 Case "EIS Log"
                     If EISLog Is Nothing Then
                         If EISLog Is Nothing Then EISLog = New IAIP_EIS_Log
@@ -2598,7 +2589,7 @@ Public Class IAIPNavigation
                         EISLog = New IAIP_EIS_Log
                     End If
                     EISLog.Show()
-                    EISLog.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+                    'EISLog.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                 Case Else
                     MsgBox(Source.ToString, MsgBoxStyle.Information, "IAIP Navigation")
             End Select
@@ -2607,26 +2598,16 @@ Public Class IAIPNavigation
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub MoveFormToDefaultLocation()
-        Try
-            Me.Location = New Point(DefaultX, DefaultY)
-        Catch ex As Exception
-
-        End Try
-
-    End Sub
 
 #End Region
+
 #Region "Main Menu Items"
+
     Private Sub NavigationScreen_Closed(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Closed
-        SaveLocation()
         Conn.Dispose()
         Application.Exit()
     End Sub
-    Private Sub SaveLocation()
-        Dim loc As String = Me.Location.X & "," & Me.Location.Y
-        SaveUserSetting(UserSetting.NavigationFormLocation, loc)
-    End Sub
+
     Private Sub MmiExit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiExit.Click
         Me.Close()
     End Sub
@@ -3273,7 +3254,7 @@ Public Class IAIPNavigation
                 DevTestLog.txtTestNotificationNumber.Text = txtTestLogNumber.Text
                 DevTestLog.Show()
             End If
-            DevTestLog.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+            'DevTestLog.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
             DevTestLog.LoadTestNotification()
 
         Catch ex As Exception
@@ -9028,8 +9009,7 @@ Public Class IAIPNavigation
     End Sub
 
     Private Sub mmiResetForm_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiResetForm.Click
-        ResetUserSetting(UserSetting.NavigationFormLocation)
-        GetDefaultLocation()
-        MoveFormToDefaultLocation()
+        ResetAllFormSettings()
+        Me.Location = New Point(0, 0)
     End Sub
 End Class

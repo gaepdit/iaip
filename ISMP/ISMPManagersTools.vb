@@ -10148,7 +10148,7 @@ Public Class ISMPManagersTools
                     If FacilityLookUpTool Is Nothing Then FacilityLookUpTool = New IAIPFacilityLookUpTool
                     FacilityLookUpTool.Show()
                 End If
-                FacilityLookUpTool.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+                'FacilityLookUpTool.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
             End If
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -11325,7 +11325,7 @@ Public Class ISMPManagersTools
                     If FacilityLookUpTool Is Nothing Then FacilityLookUpTool = New IAIPFacilityLookUpTool
                     FacilityLookUpTool.Show()
                 End If
-                FacilityLookUpTool.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+                'FacilityLookUpTool.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
             End If
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -11618,7 +11618,7 @@ Public Class ISMPManagersTools
                     If ISMPTestReportsEntry Is Nothing Then ISMPTestReportsEntry = New ISMPTestReports
                     ISMPTestReportsEntry.txtReferenceNumber.Text = txtReferenceNumber.Text
                     ISMPTestReportsEntry.Show()
-                    ISMPTestReportsEntry.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+                    'ISMPTestReportsEntry.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                 End If
             End If
         Catch ex As Exception
@@ -12081,7 +12081,7 @@ Public Class ISMPManagersTools
                     If ISMPTestReportsEntry Is Nothing Then ISMPTestReportsEntry = New ISMPTestReports
                     ISMPTestReportsEntry.txtReferenceNumber.Text = txtUnitStatReferenceNumber.Text
                     ISMPTestReportsEntry.Show()
-                    ISMPTestReportsEntry.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+                    'ISMPTestReportsEntry.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                 End If
             End If
 
