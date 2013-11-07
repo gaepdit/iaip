@@ -36,7 +36,9 @@ Module subMain
     Public CRPassWord As String = PRDCRPassWord
 #End Region
 
-#Region "New public variables"
+#Region "App-wide public variables"
+
+#Region "New public variables (by Doug)"
     Friend Const AppName As String = "IAIP"
     Friend HelpUrl As String = "https://sites.google.com/site/iaipdocs/"
     Friend DownloadUrl As String = "http://airpermit.dnr.state.ga.us/iaip/IAIP.update2_6_4.exe"
@@ -71,6 +73,8 @@ Module subMain
 
     Public t As New System.Timers.Timer(14400000)
     Public t2 As New System.Timers.Timer(300000)
+#End Region
+
 #End Region
 
 #Region "All Forms"
@@ -176,6 +180,7 @@ Module subMain
     Public SSCPAdmin As SSCPAdministrator
     Public InspectionTool As SSCPInspectionTool
 
+    Friend NewSscpEnforcementForms As Dictionary(Of String, NewSscpEnforcementAudit)
 #End Region
 #Region "SSPP Screens"
     Public ApplicationLog As SSPPApplicationLog

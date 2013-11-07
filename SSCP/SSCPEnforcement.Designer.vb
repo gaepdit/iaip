@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class SscpEnforcement
+Partial Class NewSscpEnforcementAudit
     Inherits BaseForm
 
     'Form overrides dispose to clean up the component list.
@@ -22,7 +22,7 @@ Partial Class SscpEnforcement
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(SscpEnforcement))
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(NewSscpEnforcementAudit))
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
         Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
@@ -2316,7 +2316,7 @@ Partial Class SscpEnforcement
         Me.txtAIRSNumber.Size = New System.Drawing.Size(104, 20)
         Me.txtAIRSNumber.TabIndex = 1
         '
-        'SSCPEnforcementAudit
+        'NewSscpEnforcementAudit
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -2325,8 +2325,8 @@ Partial Class SscpEnforcement
         Me.Controls.Add(Me.Panel4)
         Me.Controls.Add(Me.ToolStrip1)
         Me.Controls.Add(Me.MenuStrip1)
-        Me.Name = "SSCPEnforcementAudit"
-        Me.Text = "SSCP Enforcement Audit"
+        Me.Name = "NewSscpEnforcementAudit"
+        Me.Text = "New SSCP Enforcement Audit"
         Me.ToolStrip1.ResumeLayout(False)
         Me.ToolStrip1.PerformLayout()
         Me.MenuStrip1.ResumeLayout(False)

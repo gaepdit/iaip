@@ -1,6 +1,8 @@
 ﻿Imports Oracle.DataAccess.Client
 
-Public Class SscpEnforcement
+Public Class NewSscpEnforcementAudit
+
+#Region "Local variables"
     Dim SQL, SQL2, SQL3 As String
     Dim SQL4 As String
     Dim cmd As OracleCommand
@@ -18,18 +20,34 @@ Public Class SscpEnforcement
     Dim daHPV As OracleDataAdapter
     Dim dsStipulatedPenalty As DataSet
     Dim daStipulatedPenalty As OracleDataAdapter
+#End Region
+
+#Region "Properties"
+
+    Public Property EnforcementNumber() As String
+        Get
+            Return _enforcementNumber
+        End Get
+        Set(ByVal value As String)
+            _enforcementNumber = value
+        End Set
+    End Property
+    Private _enforcementNumber As String
+
+#End Region
 
     Private Sub SSCPEnforcementAudit_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         monitor.TrackFeature("Forms." & Me.Name)
         Try
 
             LoadDefaults()
-            Loadcombos()
+            LoadCombos()
 
             btnSubmitEnforcementToEPA.Visible = False
             btnManuallyEnterAFS.Visible = False
             cboStaffResponsible.SelectedValue = UserGCode
 
+            txtEnforcementNumber.Text = Me.EnforcementNumber
             LoadEnforcement()
             If txtStipulatedKey.Text <> "" Then
                 LoadStipulatedPenalties()
@@ -147,7 +165,7 @@ Public Class SscpEnforcement
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub Loadcombos()
+    Sub LoadCombos()
         Dim dtAirPrograms As New DataTable
         Dim dtComplianceStatus As New DataTable
         Dim dtHPV As New DataTable
@@ -1967,10 +1985,10 @@ Public Class SscpEnforcement
                 End If
                 If DTPEnforcementResolved.Checked = True Then
                     EnforcementFinalized = Format(DTPEnforcementResolved.Value, "dd-MMM-yyyy")
-                    enforcementFinalizedCheck = "True"
+                    EnforcementFinalizedCheck = "True"
                 Else
                     EnforcementFinalized = ""
-                    enforcementFinalizedCheck = "False"
+                    EnforcementFinalizedCheck = "False"
                 End If
                 StaffResponsible = cboStaffResponsible.SelectedValue
                 If StaffResponsible = "" Then
@@ -2150,10 +2168,10 @@ Public Class SscpEnforcement
                 End If
                 If DTPCOReceivedfromCompany.Checked = True Then
                     COReceivedCompany = Format(DTPCOReceivedfromCompany.Value, "dd-MMM-yyyy")
-                    COreceivedCompanyCheck = "True"
+                    COReceivedCompanyCheck = "True"
                 Else
                     COReceivedCompany = ""
-                    COreceivedCompanyCheck = "False"
+                    COReceivedCompanyCheck = "False"
                 End If
                 If DTPCOReceivedfromDirector.Checked = True Then
                     COReceivedDirector = Format(DTPCOReceivedfromDirector.Value, "dd-MMM-yyyy")
@@ -3696,12 +3714,10 @@ Public Class SscpEnforcement
     End Sub
     Private Sub DevEnforcement_Disposed(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Disposed
         Try
-            SSCP_Enforcement = Nothing
+            NewSscpEnforcementForms.Remove(Me.EnforcementNumber)
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
-
-
     End Sub
     Private Sub tsbClear_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         Try
