@@ -2222,7 +2222,6 @@ Public Class SSCPFCEWork
                 If SSCP_Enforcement Is Nothing Then
                     If SSCP_Enforcement Is Nothing Then SSCP_Enforcement = New SSCPEnforcementAudit
                     SSCP_Enforcement.txtAIRSNumber.Text = txtAirsNumber.Text
-                    SSCP_Enforcement.txtOrigin.Text = "FCE Tool"
                     If txtEnforcement.Text <> "" Then
                         SSCP_Enforcement.txtEnforcementNumber.Text = txtEnforcement.Text
                     End If
@@ -2230,7 +2229,6 @@ Public Class SSCPFCEWork
                 Else
                     SSCP_Enforcement.BringToFront()
                     SSCP_Enforcement.txtAIRSNumber.Text = txtAirsNumber.Text
-                    SSCP_Enforcement.txtOrigin.Text = "FCE Tool"
                     If txtEnforcement.Text <> "" Then
                         SSCP_Enforcement.txtEnforcementNumber.Text = txtEnforcement.Text
                     End If

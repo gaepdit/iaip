@@ -22,11 +22,8 @@ Public Class SSCPEnforcementAudit
     Private Sub SSCPEnforcementAudit_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         monitor.TrackFeature("Forms." & Me.Name)
         Try
-            Panel3.Text = OracleDate
-            Panel2.Text = UserName
-            Panel1.Text = "Select Enforcement options... "
 
-            LoadDefualts()
+            LoadDefaults()
             Loadcombos()
 
             btnSubmitEnforcementToEPA.Visible = False
@@ -75,7 +72,7 @@ Public Class SSCPEnforcementAudit
     End Sub
 
 #Region "Page Load Functions"
-    Sub LoadDefualts()
+    Sub LoadDefaults()
         Try
             '  TCEnforcement.TabPages.Remove(TPGeneralInfo)
             TCEnforcement.TabPages.Remove(TPLON)
@@ -384,7 +381,6 @@ Public Class SSCPEnforcementAudit
                 mmiSave.Enabled = False
                 mmiSave.Visible = False
                 tsbSave.Visible = False
-                tsbDelete.Visible = False
                 mmiDelete.Visible = False
             End If
 
@@ -448,7 +444,6 @@ Public Class SSCPEnforcementAudit
                 mmiSave.Enabled = False
                 mmiSave.Visible = False
                 tsbSave.Visible = False
-                tsbDelete.Visible = False
                 mmiDelete.Visible = False
 
                 If AccountArray(48, 3) = "1" Then
@@ -519,9 +514,6 @@ Public Class SSCPEnforcementAudit
                     tsbSave.Enabled = True
                     mmiSave.Visible = True
                     mmiSave.Enabled = True
-                    tsbDelete.Visible = False
-                    tsbDelete.Enabled = False
-
 
                 Else
                     If AccountArray(48, 2) = "1" Or AccountArray(48, 3) = "1" Or AccountArray(48, 4) = "1" Then
@@ -577,8 +569,6 @@ Public Class SSCPEnforcementAudit
                         tsbSave.Enabled = True
                         mmiSave.Visible = True
                         mmiSave.Enabled = True
-                        tsbDelete.Visible = True
-                        tsbDelete.Enabled = True
                     End If
                 End If
             End If
@@ -3408,44 +3398,6 @@ Public Class SSCPEnforcementAudit
         End Try
 
     End Sub
-    Private Sub tsbSave_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsbSave.Click
-        Try
-            SaveEnforcement()
-            LoadEnforcement()
-
-            If AccountArray(48, 2) = "1" Or AccountArray(48, 3) = "1" Or AccountArray(48, 4) = "1" Then
-                CheckOpenStatus()
-            End If
-
-            If TCEnforcement.TabPages.Contains(Me.TPCO) Then
-                If TestingEnvironment Then
-                    If AccountArray(48, 4) = "1" And AccountArray(4, 4) = "0" Then
-                    Else
-                        If TCEnforcement.TabPages.Contains(Me.TPCO) Then
-                            btnUploadCO.Visible = True
-                            If Me.txtCONumber.Text <> "" Then
-                                btnDownloadCO.Visible = True
-                                lblCODownload.Visible = True
-                            Else
-                                btnDownloadCO.Visible = False
-                                lblCODownload.Visible = False
-                            End If
-                        End If
-                    End If
-                Else
-                    'btnUploadCO.Visible = False
-                    'btnDownloadCO.Visible = False
-                End If
-            End If
-
-            If EnforcementChecklist Is Nothing Then
-                MsgBox("Current data saved.", MsgBoxStyle.Information, "SSCP Enforcement")
-            End If
-        Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
-    End Sub
     Private Sub txtTrackingNumber_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtTrackingNumber.TextChanged
         Try
             txtDiscoveryEventNumber.Text = txtTrackingNumber.Text
@@ -3751,7 +3703,7 @@ Public Class SSCPEnforcementAudit
 
 
     End Sub
-    Private Sub tsbClear_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsbClear.Click
+    Private Sub tsbClear_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         Try
             ClearEnforcement()
         Catch ex As Exception
@@ -3759,7 +3711,7 @@ Public Class SSCPEnforcementAudit
         End Try
 
     End Sub
-    Private Sub tsbDelete_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsbDelete.Click
+    Private Sub tsbDelete_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         Try
 
             If txtEnforcementNumber.Text <> "" And txtEnforcementNumber.Text <> "N/A" Then
@@ -3771,13 +3723,18 @@ Public Class SSCPEnforcementAudit
         End Try
 
     End Sub
-    Private Sub tsbBack_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsbBack.Click
+    Private Sub tsbBack_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         Me.Dispose()
     End Sub
     Private Sub mmiSave_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiSave.Click
+        SaveClick()
+    End Sub
+    Private Sub tsbSave_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsbSave.Click
+        SaveClick()
+    End Sub
+    Private Sub SaveClick()
         Try
             SaveEnforcement()
-
             LoadEnforcement()
 
             If AccountArray(48, 2) = "1" Or AccountArray(48, 3) = "1" Or AccountArray(48, 4) = "1" Then
@@ -3799,9 +3756,6 @@ Public Class SSCPEnforcementAudit
                             End If
                         End If
                     End If
-                Else
-                    'btnUploadCO.Visible = False
-                    ' btnDownloadCO.Visible = False
                 End If
             End If
             If EnforcementChecklist Is Nothing Then
@@ -3811,9 +3765,8 @@ Public Class SSCPEnforcementAudit
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
-
     End Sub
-    Private Sub mmiBack_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiBack.Click
+    Private Sub mmiBack_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiClose.Click
         Me.Dispose()
     End Sub
     Private Sub mmiDelete_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiDelete.Click
@@ -3823,41 +3776,6 @@ Public Class SSCPEnforcementAudit
                 DeleteEnforcement()
             End If
 
-        Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
-    End Sub
-    Private Sub ClearToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ClearToolStripMenuItem.Click
-        Try
-            ClearEnforcement()
-        Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
-    End Sub
-    Private Sub PasteToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles PasteToolStripMenuItem.Click
-        Try
-
-            SendKeys.Send("(^V)")
-        Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
-    End Sub
-    Private Sub mmiCut_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiCut.Click
-        Try
-
-            SendKeys.Send("(^X)")
-        Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
-    End Sub
-    Private Sub CopyToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CopyToolStripMenuItem.Click
-        Try
-
-            SendKeys.Send("(^C)")
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -4352,13 +4270,6 @@ Public Class SSCPEnforcementAudit
         End If
 
     End Sub
-    Private Sub HelpToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles HelpToolStripMenuItem.Click
-        Try
-            Help.ShowHelp(Label1, HelpUrl)
-        Catch ex As Exception
-        End Try
-
-    End Sub
     Private Sub lvPollutants_ColumnClick(ByVal sender As Object, ByVal e As System.Windows.Forms.ColumnClickEventArgs) Handles lvPollutants.ColumnClick
         Try
 
@@ -4801,5 +4712,9 @@ Public Class SSCPEnforcementAudit
 
     Private Sub btnClearStipulated_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ClearStipulatedPenaltyFormButton.Click
         ClearStipulatedPenaltyForm()
+    End Sub
+
+    Private Sub mmiOnlineHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiOnlineHelp.Click
+        OpenHelpUrl(Me)
     End Sub
 End Class

@@ -965,7 +965,6 @@ Public Class SSCPComplianceLog
                 If SSCP_Enforcement Is Nothing Then
                     If SSCP_Enforcement Is Nothing Then SSCP_Enforcement = SSCPEnforcementAudit
                     SSCP_Enforcement.txtAIRSNumber.Text = txtNewAIRSNumber.Text
-                    SSCP_Enforcement.txtOrigin.Text = "Work Entry"
                     SSCP_Enforcement.Show()
                 Else
                     SSCP_Enforcement.Close()
@@ -973,7 +972,6 @@ Public Class SSCPComplianceLog
                     If SSCP_Enforcement Is Nothing Then SSCP_Enforcement = New SSCPEnforcementAudit
                     SSCP_Enforcement.BringToFront()
                     SSCP_Enforcement.txtAIRSNumber.Text = txtNewAIRSNumber.Text
-                    SSCP_Enforcement.txtOrigin.Text = "Work Entry"
                     SSCP_Enforcement.Show()
                 End If
                 'SSCP_Enforcement.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
@@ -1915,7 +1913,6 @@ Public Class SSCPComplianceLog
                         If SSCP_Enforcement Is Nothing Then SSCP_Enforcement = New SSCPEnforcementAudit
                         SSCP_Enforcement.txtAIRSNumber.Text = txtNewAIRSNumber.Text
                         SSCP_Enforcement.txtEnforcementNumber.Text = txtWorkNumber.Text
-                        SSCP_Enforcement.txtOrigin.Text = "Work Entry"
                         SSCP_Enforcement.Show()
                     Else
                         SSCP_Enforcement.Close()
@@ -1924,7 +1921,6 @@ Public Class SSCPComplianceLog
                         SSCP_Enforcement.BringToFront()
                         SSCP_Enforcement.txtAIRSNumber.Text = txtNewAIRSNumber.Text
                         SSCP_Enforcement.txtEnforcementNumber.Text = txtWorkNumber.Text
-                        SSCP_Enforcement.txtOrigin.Text = "Work Entry"
                         SSCP_Enforcement.Show()
                     End If
                     'SSCP_Enforcement.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)

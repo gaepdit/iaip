@@ -257,7 +257,6 @@ Public Class SSCPEnforcementSelector
                 If SSCP_Enforcement Is Nothing Then
                     If SSCP_Enforcement Is Nothing Then SSCP_Enforcement = New SSCPEnforcementAudit
                     SSCP_Enforcement.txtAIRSNumber.Text = txtAIRSNumber.Text
-                    SSCP_Enforcement.txtOrigin.Text = "Enforcement Selector"
                     If txtEnforcementNumber.Text <> "" Then
                         SSCP_Enforcement.txtEnforcementNumber.Text = txtEnforcementNumber.Text
                     End If
@@ -271,7 +270,6 @@ Public Class SSCPEnforcementSelector
                     If SSCP_Enforcement Is Nothing Then SSCP_Enforcement = New SSCPEnforcementAudit
                     SSCP_Enforcement.BringToFront()
                     SSCP_Enforcement.txtAIRSNumber.Text = txtAIRSNumber.Text
-                    SSCP_Enforcement.txtOrigin.Text = "Enforcement Selector"
                     If txtEnforcementNumber.Text <> "" Then
                         SSCP_Enforcement.txtEnforcementNumber.Text = txtEnforcementNumber.Text
                     End If
