@@ -17,26 +17,30 @@ Public Class NewSscpEnforcementAudit
 #Region "Page load"
 
     Private Sub LoadDocumentTypes()
-
         ' Get list of various Enforcement document types and bind that list to the comboboxes
         DocumentTypes = DAL.GetEnforcementDocumentTypes
-        With ddlNewDocumentType
-            .DataSource = New BindingSource(DocumentTypes, Nothing)
-            .DisplayMember = "Value"
-            .ValueMember = "Key"
-        End With
-        With ddlUpdateDocumentType
-            .DataSource = New BindingSource(DocumentTypes, Nothing)
-            .DisplayMember = "Value"
-            .ValueMember = "Key"
-        End With
 
-        ' When an enforcement doc type is selected, display whether it already exists
-        ' This has to be added after the list is bound (above) or it will trigger
-        '   as each new list item is added to the list.
-        ' (Only do this with the "Add New" panel, but not the "Update" panel)
-        AddHandler ddlNewDocumentType.SelectedIndexChanged, AddressOf ddlDocumentType_SelectedIndexChanged
+        If DocumentTypes.Count > 0 Then
+            With ddlNewDocumentType
+                .DataSource = New BindingSource(DocumentTypes, Nothing)
+                .DisplayMember = "Value"
+                .ValueMember = "Key"
+            End With
+            With ddlUpdateDocumentType
+                .DataSource = New BindingSource(DocumentTypes, Nothing)
+                .DisplayMember = "Value"
+                .ValueMember = "Key"
+            End With
 
+            ' When an enforcement doc type is selected, display whether it already exists
+            ' This has to be added after the list is bound (above) or it will trigger
+            '   as each new list item is added to the list.
+            ' (Only do this with the "Add New" panel, but not the "Update" panel)
+            AddHandler ddlNewDocumentType.SelectedIndexChanged, AddressOf ddlDocumentType_SelectedIndexChanged
+        Else
+            DisableFileUpdate()
+            DisableFileUploader()
+        End If
     End Sub
 
 #End Region
@@ -496,6 +500,7 @@ Public Class NewSscpEnforcementAudit
     Private Sub SSCPEnforcementAudit_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         monitor.TrackFeature("Forms." & Me.Name)
         Try
+            txtEnforcementNumber.Text = Me.EnforcementNumber
 
             LoadDefaults()
             LoadCombos()
@@ -506,7 +511,6 @@ Public Class NewSscpEnforcementAudit
             btnManuallyEnterAFS.Visible = False
             cboStaffResponsible.SelectedValue = UserGCode
 
-            txtEnforcementNumber.Text = Me.EnforcementNumber
             LoadEnforcement()
             If txtStipulatedKey.Text <> "" Then
                 LoadStipulatedPenalties()

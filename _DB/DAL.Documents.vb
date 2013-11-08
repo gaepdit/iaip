@@ -259,7 +259,7 @@ Namespace DAL
         End Function
 
         Public Function DownloadFile(ByVal id As Integer, ByVal path As String) As Boolean
-            Dim query As String = "SELECT IAIP_BINARYFILES.DOCUMENT " & _
+            Dim query As String = "SELECT IAIP_BINARYFILES.BLOBDOCUMENT " & _
                                 " FROM IAIP_BINARYFILES " & _
                                 " WHERE IAIP_BINARYFILES.BINARYFILEID = :pId "
             Dim parameter As OracleParameter = New OracleParameter("pId", id)
@@ -306,7 +306,7 @@ Namespace DAL
 
             queryList.Add( _
                 "INSERT INTO IAIP_BINARYFILES " & _
-                " (BINARYFILEID,STRFILENAME,STRFILEEXTENSION,NUMFILESIZE,DOCUMENT,UPDATEUSER) " & _
+                " (BINARYFILEID,STRFILENAME,STRFILEEXTENSION,NUMFILESIZE,BLOBDOCUMENT,UPDATEUSER) " & _
                 " VALUES (:pBinId,:pFileName,:pFileExt,:pFileSize,:pBinFile,:pUser) " _
             )
             parameters = New OracleParameter() { _
@@ -341,8 +341,8 @@ Namespace DAL
         Public Function UploadEnforcementDocument(ByVal doc As EnforcementDocument, ByVal pathToFile As String, Optional ByVal sender As Object = Nothing) As Boolean
             If doc Is Nothing Then Return False
             Dim metaDataQuery As String = _
-                            "INSERT INTO IAIP_SSPP_PERMITDOCS " & _
-                            " (NUMBINARYFILE,STRAPPLICATIONNUMBER,NUMDOCUMENTTYPE,STRCOMMENT,UPDATEUSER) " & _
+                            "INSERT INTO IAIP_SSCP_ENFORCEMENTDOCS " & _
+                            " (NUMBINARYFILE,STRENFORCEMENTNUMBER,NUMDOCUMENTTYPE,STRCOMMENT,UPDATEUSER) " & _
                             " VALUES (:pBinId,:pMetaDataId,:pDocTypeId,:pComment,:pUser) "
             Dim metaDataId As String = doc.EnforcementNumber
             Return UploadDocument(doc, pathToFile, metaDataQuery, metaDataId, sender)
