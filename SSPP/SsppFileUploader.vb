@@ -34,7 +34,7 @@ Public Class SsppFileUploader
     End Sub
 
     Private Sub LoadDocumentTypes()
-        ' Get list of various Enforcement document types and bind that list to the comboboxes
+        ' Get list of various document types and bind that list to the comboboxes
         DocumentTypes = DAL.GetPermitDocumentTypes
 
         If DocumentTypes.Count > 0 Then
@@ -49,12 +49,13 @@ Public Class SsppFileUploader
                 .ValueMember = "Key"
             End With
 
-            ' When an enforcement doc type is selected, display whether it already exists
+            ' When a doc type is selected, display whether it already exists
             ' This has to be added after the list is bound (above) or it will trigger
             '   as each new list item is added to the list.
             ' (Only do this with the "Add New" panel, but not the "Update" panel)
             AddHandler ddlNewDocumentType.SelectedIndexChanged, AddressOf ddlDocumentType_SelectedIndexChanged
         Else
+            btnFindApplication.Enabled = False
             DisableFileUpdate()
             DisableFileUploader()
         End If

@@ -17,7 +17,7 @@ Public Class NewSscpEnforcementAudit
 #Region "Page load"
 
     Private Sub LoadDocumentTypes()
-        ' Get list of various Enforcement document types and bind that list to the comboboxes
+        ' Get list of various document types and bind that list to the comboboxes
         DocumentTypes = DAL.GetEnforcementDocumentTypes
 
         If DocumentTypes.Count > 0 Then
@@ -32,7 +32,7 @@ Public Class NewSscpEnforcementAudit
                 .ValueMember = "Key"
             End With
 
-            ' When an enforcement doc type is selected, display whether it already exists
+            ' When a doc type is selected, display whether it already exists
             ' This has to be added after the list is bound (above) or it will trigger
             '   as each new list item is added to the list.
             ' (Only do this with the "Add New" panel, but not the "Update" panel)
@@ -351,11 +351,15 @@ Public Class NewSscpEnforcementAudit
     End Sub
 
     Private Function DocumentTypeAlreadyExists() As Boolean
-        Dim index As Integer = ExistingFiles.FindIndex( _
-            Function(doc) _
-                doc.DocumentTypeId = ddlNewDocumentType.SelectedValue _
-        )
-        Return If(index = -1, False, True)
+        Try
+            Dim index As Integer = ExistingFiles.FindIndex( _
+                Function(doc) _
+                    doc.DocumentTypeId = ddlNewDocumentType.SelectedValue _
+            )
+            Return If(index = -1, False, True)
+        Catch ex As Exception
+
+        End Try
     End Function
 
     Private Sub ddlDocumentType_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
