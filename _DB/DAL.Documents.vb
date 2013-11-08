@@ -107,34 +107,37 @@ Namespace DAL
 #Region "Read Enforcement Documents"
         ' Work in progress. Working on SSPP right now. Will need to use that as an example.
 
-        Public Function GetEnforcementDocuments(ByVal enforcementId As String) As Dictionary(Of Integer, EnforcementDocument)
-            Dim enforcementDocuments As Dictionary(Of Integer, EnforcementDocument) = Nothing
-            Dim enforcementDocument As EnforcementDocument = Nothing
+        Public Function GetEnforcementDocuments(ByVal enfNum As String) As List(Of EnforcementDocument)
+            Dim docsList As New List(Of EnforcementDocument)
+            Dim doc As New EnforcementDocument
 
             Dim query As String = <s><![CDATA[
-                SELECT IAIP_BINARYFILES.STRFILENAME,
-                  IAIP_BINARYFILES.STRFILEEXTENSION,
+                SELECT 
+                  IAIP_LK_SSCPDOCUMENTTYPE.STRDOCUMENTTYPE,
+                  IAIP_BINARYFILES.STRFILENAME,
+                  IAIP_SSCP_ENFORCEMENTDOCS.STRCOMMENT,
                   IAIP_BINARYFILES.NUMFILESIZE,
+                  IAIP_BINARYFILES.BINARYFILEID,
+                  IAIP_BINARYFILES.STRFILEEXTENSION,
                   IAIP_SSCP_ENFORCEMENTDOCS.ENFORCEMENTDOCSID,
                   IAIP_SSCP_ENFORCEMENTDOCS.STRENFORCEMENTNUMBER,
-                  IAIP_SSCP_ENFORCEMENTDOCS.NUMDOCUMENTTYPE,
-                  IAIP_SSCP_ENFORCEMENTDOCS.STRCOMMENT,
-                  IAIP_SSCP_ENFORCEMENTDOCS.UPDATEDATE,
-                  IAIP_BINARYFILES.BINARYFILEID
+                  IAIP_SSCP_ENFORCEMENTDOCS.NUMDOCUMENTTYPE
                 FROM IAIP_BINARYFILES
                 INNER JOIN IAIP_SSCP_ENFORCEMENTDOCS
                 ON IAIP_BINARYFILES.BINARYFILEID = IAIP_SSCP_ENFORCEMENTDOCS.NUMBINARYFILE
+                INNER JOIN IAIP_LK_SSCPDOCUMENTTYPE
+                ON IAIP_SSCP_ENFORCEMENTDOCS.NUMDOCUMENTTYPE = IAIP_LK_SSCPDOCUMENTTYPE.DOCUMENTTYPEID
                 WHERE IAIP_SSCP_ENFORCEMENTDOCS.STRENFORCEMENTNUMBER = :pId
             ]]></s>.Value
-            Dim parameter As New OracleParameter("pId", enforcementId)
+            Dim parameter As New OracleParameter("pId", enfNum)
             Dim dataTable As DataTable = DB.GetDataTable(query, parameter)
 
             For Each row As DataRow In dataTable.Rows
-                FillEnforcementDocumentFromDataRow(row, enforcementDocument)
-                enforcementDocuments.Add(row.Item(0), enforcementDocument)
+                FillEnforcementDocumentFromDataRow(row, doc)
+                docsList.Add(doc)
             Next
 
-            Return enforcementDocuments
+            Return docsList
         End Function
 
         Private Sub FillEnforcementDocumentFromDataRow(ByVal row As DataRow, ByRef enfDoc As EnforcementDocument)
@@ -283,8 +286,7 @@ Namespace DAL
 
 #Region "Upload files"
 
-        Public Function UploadPermitDocument(ByVal doc As PermitDocument, ByVal pathToFile As String, Optional ByVal sender As Object = Nothing) As Boolean
-            If doc Is Nothing Then Return False
+        Private Function UploadDocument(ByVal doc As Document, ByVal pathToFile As String, ByVal metaDataQuery As String, ByVal metaDataId As String, Optional ByVal sender As Object = Nothing) As Boolean
             If String.IsNullOrEmpty(pathToFile) Then Return False
 
             If sender IsNot Nothing Then
@@ -295,11 +297,11 @@ Namespace DAL
             ' 1. Get seq value
             ' 2. Upload the binary file, use seq as id
             ' 3. Upload file metadata, including binary file id
-            ' - Commit transaction
+            ' -- Commit transaction
 
             Dim queryList As New List(Of String)
             Dim parametersList As New List(Of OracleParameter())
-            Dim binarySeqId As Integer = GetNextPermitSequenceValue()
+            Dim binarySeqId As Integer = GetNextBinaryFileSequenceValue()
             Dim parameters As OracleParameter()
 
             queryList.Add( _
@@ -317,14 +319,10 @@ Namespace DAL
             }
             parametersList.Add(parameters)
 
-            queryList.Add( _
-                "INSERT INTO IAIP_SSPP_PERMITDOCS " & _
-                " (NUMBINARYFILE,STRAPPLICATIONNUMBER,NUMDOCUMENTTYPE,STRCOMMENT,UPDATEUSER) " & _
-                " VALUES (:pBinId,:pAppNumber,:pDocTypeId,:pComment,:pUser) " _
-            )
+            queryList.Add(metaDataQuery)
             parameters = New OracleParameter() { _
                 New OracleParameter("pBinId", binarySeqId), _
-                New OracleParameter("pAppNumber", doc.ApplicationNumber), _
+                New OracleParameter("pMetaDataId", metaDataId), _
                 New OracleParameter("pDocTypeId", doc.DocumentTypeId), _
                 New OracleParameter("pComment", doc.Comment), _
                 New OracleParameter("pUser", UserGCode) _
@@ -340,7 +338,27 @@ Namespace DAL
             Return result
         End Function
 
-        Private Function GetNextPermitSequenceValue() As Integer
+        Public Function UploadEnforcementDocument(ByVal doc As EnforcementDocument, ByVal pathToFile As String, Optional ByVal sender As Object = Nothing) As Boolean
+            If doc Is Nothing Then Return False
+            Dim metaDataQuery As String = _
+                            "INSERT INTO IAIP_SSPP_PERMITDOCS " & _
+                            " (NUMBINARYFILE,STRAPPLICATIONNUMBER,NUMDOCUMENTTYPE,STRCOMMENT,UPDATEUSER) " & _
+                            " VALUES (:pBinId,:pMetaDataId,:pDocTypeId,:pComment,:pUser) "
+            Dim metaDataId As String = doc.EnforcementNumber
+            Return UploadDocument(doc, pathToFile, metaDataQuery, metaDataId, sender)
+        End Function
+
+        Public Function UploadPermitDocument(ByVal doc As PermitDocument, ByVal pathToFile As String, Optional ByVal sender As Object = Nothing) As Boolean
+            If doc Is Nothing Then Return False
+            Dim metaDataQuery As String = _
+                "INSERT INTO IAIP_SSPP_PERMITDOCS " & _
+                " (NUMBINARYFILE,STRAPPLICATIONNUMBER,NUMDOCUMENTTYPE,STRCOMMENT,UPDATEUSER) " & _
+                " VALUES (:pBinId,:pMetaDataId,:pDocTypeId,:pComment,:pUser) "
+            Dim metaDataId As String = doc.ApplicationNumber
+            Return UploadDocument(doc, pathToFile, metaDataQuery, metaDataId, sender)
+        End Function
+
+        Private Function GetNextBinaryFileSequenceValue() As Integer
             Dim query As String = "SELECT AIRBRANCH.IAIP_BINARYFILES_ID_SEQ.NEXTVAL FROM DUAL"
             Return DB.GetSingleValue(Of Integer)(query)
         End Function
@@ -369,20 +387,33 @@ Namespace DAL
 #End Region
 
 #Region "Update file description"
+        Public Function UpdateEnforcementDocument(ByVal doc As EnforcementDocument, Optional ByVal sender As Object = Nothing) As Boolean
+            If doc Is Nothing Then Return False
+            Dim query As String = _
+                "UPDATE IAIP_SSCP_ENFORCEMENTDOCS " & _
+                " SET NUMDOCUMENTTYPE = :pDocTypeId, " & _
+                " STRCOMMENT = :pComment, " & _
+                " UPDATEUSER = :pUser " & _
+                " WHERE ENFORCEMENTDOCSID = :pDocId "
+            Return UpdateDocument(doc, query, sender)
+        End Function
 
         Public Function UpdatePermitDocument(ByVal doc As PermitDocument, Optional ByVal sender As Object = Nothing) As Boolean
             If doc Is Nothing Then Return False
-
-            If sender IsNot Nothing Then
-                sender.Cursor = Cursors.AppStarting
-            End If
-
             Dim query As String = _
                 "UPDATE IAIP_SSPP_PERMITDOCS " & _
                 " SET NUMDOCUMENTTYPE = :pDocTypeId, " & _
                 " STRCOMMENT = :pComment, " & _
                 " UPDATEUSER = :pUser " & _
                 " WHERE PERMITDOCSID = :pDocId "
+            Return UpdateDocument(doc, query, sender)
+        End Function
+
+        Public Function UpdateDocument(ByVal doc As Document, ByVal query As String, Optional ByVal sender As Object = Nothing) As Boolean
+            If sender IsNot Nothing Then
+                sender.Cursor = Cursors.AppStarting
+            End If
+
             Dim parameters As OracleParameter() = { _
                 New OracleParameter("pDocTypeId", doc.DocumentTypeId), _
                 New OracleParameter("pComment", doc.Comment), _

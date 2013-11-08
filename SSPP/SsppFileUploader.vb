@@ -10,8 +10,8 @@ Imports Oracle.DataAccess.Types
 Public Class SsppFileUploader
 
 #Region "Properties"
-    Private CurrentFiles As List(Of PermitDocument)
-    Private NewFile As String
+    Private ExistingFiles As List(Of PermitDocument)
+    Private NewFileToUpload As String
     Private DocumentTypes As Dictionary(Of Integer, String)
 
     Public Property AppInfo() As ApplicationInfo
@@ -124,7 +124,7 @@ Public Class SsppFileUploader
 
     Private Sub ShowApplication()
         DisplayApplicationInfo()
-        ShowCurrentFiles()
+        LoadExistingDocuments()
         EnableFileUploader()
     End Sub
 
@@ -149,13 +149,17 @@ Public Class SsppFileUploader
         End If
     End Sub
 
-    Private Sub ShowCurrentFiles()
+#End Region
+
+#Region "Display files"
+
+    Private Sub LoadExistingDocuments()
         DisableFileUpdate()
         dgvFileList.DataSource = Nothing
-        CurrentFiles = GetPermitDocuments(AppInfo.ApplicationNumber)
-        If CurrentFiles.Count > 0 Then
+        ExistingFiles = GetPermitDocuments(AppInfo.ApplicationNumber)
+        If ExistingFiles.Count > 0 Then
             With dgvFileList
-                .DataSource = New BindingSource(CurrentFiles, Nothing)
+                .DataSource = New BindingSource(ExistingFiles, Nothing)
                 .Enabled = True
                 .ClearSelection()
             End With
@@ -311,7 +315,7 @@ Public Class SsppFileUploader
 
         If openFileDialog.ShowDialog = Windows.Forms.DialogResult.OK _
         AndAlso openFileDialog.FileName <> "" Then
-            NewFile = Nothing
+            NewFileToUpload = Nothing
             lblNewDescription.Visible = False
             txtNewDescription.Visible = False
             With btnNewFileCancel
@@ -338,7 +342,7 @@ Public Class SsppFileUploader
                     If fileInfo.Length = 0 Then
                         DisplayMessage(lblMessage, GetMessage(MessageType.FileEmpty), True, EP, lblMessage)
                     Else
-                        NewFile = openFileDialog.FileName
+                        NewFileToUpload = openFileDialog.FileName
                         lblNewDescription.Visible = True
                         txtNewDescription.Visible = True
                         With btnNewFileCancel
@@ -363,7 +367,7 @@ Public Class SsppFileUploader
     Private Sub btnNewFileUpload_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNewFileUpload.Click
         ClearMessage(lblMessage, EP)
 
-        Dim fileInfo As New FileInfo(NewFile)
+        Dim fileInfo As New FileInfo(NewFileToUpload)
         ' Check if file exists
         If Not fileInfo.Exists Then
             DisplayMessage(lblMessage, GetMessage(MessageType.FileNotFound), True, EP, lblMessage)
@@ -409,12 +413,12 @@ Public Class SsppFileUploader
         End If
 
         ClearFileUploader()
-        ShowCurrentFiles()
+        LoadExistingDocuments()
 
     End Sub
 
     Private Function DocumentTypeAlreadyExists() As Boolean
-        Dim index As Integer = CurrentFiles.FindIndex( _
+        Dim index As Integer = ExistingFiles.FindIndex( _
             Function(doc) _
                 doc.DocumentTypeId = ddlNewDocumentType.SelectedValue _
         )
@@ -452,7 +456,7 @@ Public Class SsppFileUploader
             If deleted Then
                 m = String.Format(GetMessage(MessageType.DeleteSuccess), lblSelectedFileName.Text)
                 DisplayMessage(lblMessage, m)
-                ShowCurrentFiles()
+                LoadExistingDocuments()
             Else
                 DisplayMessage(lblMessage, String.Format(GetMessage(MessageType.DeleteFailure), lblSelectedFileName), True, EP)
             End If
@@ -481,7 +485,7 @@ Public Class SsppFileUploader
         Dim updated As Boolean = UpdatePermitDocument(doc, Me)
         If updated Then
             DisplayMessage(lblMessage, String.Format(GetMessage(MessageType.UpdateSuccess), doc.FileName))
-            ShowCurrentFiles()
+            LoadExistingDocuments()
         Else
             DisplayMessage(lblMessage, String.Format(GetMessage(MessageType.UpdateFailure), lblSelectedFileName), True, EP)
         End If
