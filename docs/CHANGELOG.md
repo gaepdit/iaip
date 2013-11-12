@@ -5,7 +5,7 @@ Integrated Air Information Platform change log
 
 See the [release notes](README.html).
 
-## Version 2.7.0 <span>(2013)</span>
+## Version 2.6.10 <span>(2013-11-12)</span>
 
 + NEW: Wish the Navigation Screen was bigger? Do you always maximize the Application Log? Now when you move forms around on your screen, the Platform will remember their size and location, so they will be in the same place the next time you open them. Got things a little muddled up? Choose "Reset all forms" from the Help menu on the main Navigation Screen.
 
