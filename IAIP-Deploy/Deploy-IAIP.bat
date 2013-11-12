@@ -18,9 +18,9 @@ GOTO :ask
 
 :deploy
 
-ECHO | 
-ECHO | Deploying...
-ECHO | 
+ECHO ^| 
+ECHO ^| Deploying...
+ECHO ^| 
 
 REM --- Copy files that CopyGATV.bat will look for
 
