@@ -1252,7 +1252,7 @@ Public Class SSCPEnforcementChecklist
             SSCPREports.txtTrackingNumber.Text = txtTrackingNumber.Text
             SSCPREports.txtOrigin.Text = "Enforcement Checklist"
             SSCPREports.Show()
-            SSCPREports.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+            'SSCPREports.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
         End If
 
     End Sub
@@ -1410,7 +1410,7 @@ Public Class SSCPEnforcementChecklist
             If SSCP_Work Is Nothing Then SSCP_Work = New SSCPComplianceLog
             SSCP_Work.txtAIRSNumber.Text = txtAIRSNumber.Text
             SSCP_Work.Show()
-            SSCP_Work.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+            'SSCP_Work.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally

@@ -4046,7 +4046,7 @@ Public Class DMUStaffTools
                 PrintOut.txtPrintType.Text = "ES Print Out"
                 PrintOut.txtSQLLine.Text = Me.txtConfirmationNumber.Text
                 PrintOut.Show()
-                PrintOut.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+                'PrintOut.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
             End If
 
         Catch ex As Exception
@@ -10812,7 +10812,7 @@ Public Class DMUStaffTools
     Private Sub btnChangeEmailAddress_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnChangeEmailAddress.Click
         Try
             If txtWebUserID.Text <> "" Then
-                If EmailAddressCheck(txtEditEmail.Text) = True Then
+                If IsValidEmail(txtEditEmail.Text) Then
                     SQL = "Select " & _
                     "numUserID, strUserPassword " & _
                     "from " & DBNameSpace & ".OLAPUserLogIN " & _

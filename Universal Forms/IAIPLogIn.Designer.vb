@@ -27,7 +27,6 @@ Partial Class IAIPLogIn
         Me.mmiTestingEnvironment = New System.Windows.Forms.MenuItem
         Me.MenuItem2 = New System.Windows.Forms.MenuItem
         Me.mmiRefreshUserID = New System.Windows.Forms.MenuItem
-        Me.mmiRefreshDefaultLoc = New System.Windows.Forms.MenuItem
         Me.MenuItem3 = New System.Windows.Forms.MenuItem
         Me.mmiForceUpdate = New System.Windows.Forms.MenuItem
         Me.mmiLukeEnvironment = New System.Windows.Forms.MenuItem
@@ -45,11 +44,7 @@ Partial Class IAIPLogIn
         Me.lblTitle = New System.Windows.Forms.Label
         Me.btnLoginButton = New System.Windows.Forms.Button
         Me.lblLicenseLabel = New System.Windows.Forms.Label
-        Me.lnkIaipPatch = New System.Windows.Forms.LinkLabel
         Me.lblCurrentVersionMessage = New System.Windows.Forms.Label
-        Me.btnAdjustIntranet = New System.Windows.Forms.Button
-        Me.btnAddEIS = New System.Windows.Forms.Button
-        Me.btnDeleteEIS = New System.Windows.Forms.Button
         Me.lblAvailableVersionMessage = New System.Windows.Forms.Label
         Me.lblGeneralMessage = New System.Windows.Forms.Label
         Me.Label1 = New System.Windows.Forms.Label
@@ -77,7 +72,7 @@ Partial Class IAIPLogIn
         'MenuItem1
         '
         Me.MenuItem1.Index = 1
-        Me.MenuItem1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiTestingEnvironment, Me.MenuItem2, Me.mmiRefreshUserID, Me.mmiRefreshDefaultLoc, Me.MenuItem3, Me.mmiForceUpdate, Me.mmiLukeEnvironment, Me.mmiTestingDatabase})
+        Me.MenuItem1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiTestingEnvironment, Me.MenuItem2, Me.mmiRefreshUserID, Me.MenuItem3, Me.mmiForceUpdate, Me.mmiLukeEnvironment, Me.mmiTestingDatabase})
         Me.MenuItem1.Text = "&Tools"
         '
         'mmiTestingEnvironment
@@ -96,31 +91,26 @@ Partial Class IAIPLogIn
         Me.mmiRefreshUserID.Index = 2
         Me.mmiRefreshUserID.Text = "Refresh Default User"
         '
-        'mmiRefreshDefaultLoc
-        '
-        Me.mmiRefreshDefaultLoc.Index = 3
-        Me.mmiRefreshDefaultLoc.Text = "Refresh Default Location"
-        '
         'MenuItem3
         '
-        Me.MenuItem3.Index = 4
+        Me.MenuItem3.Index = 3
         Me.MenuItem3.Text = "-"
         '
         'mmiForceUpdate
         '
-        Me.mmiForceUpdate.Index = 5
+        Me.mmiForceUpdate.Index = 4
         Me.mmiForceUpdate.Text = "Force Update"
         '
         'mmiLukeEnvironment
         '
-        Me.mmiLukeEnvironment.Index = 6
+        Me.mmiLukeEnvironment.Index = 5
         Me.mmiLukeEnvironment.Shortcut = System.Windows.Forms.Shortcut.F5
         Me.mmiLukeEnvironment.Text = "*"
         Me.mmiLukeEnvironment.Visible = False
         '
         'mmiTestingDatabase
         '
-        Me.mmiTestingDatabase.Index = 7
+        Me.mmiTestingDatabase.Index = 6
         Me.mmiTestingDatabase.Shortcut = System.Windows.Forms.Shortcut.CtrlShiftT
         Me.mmiTestingDatabase.Text = "Testing Database"
         Me.mmiTestingDatabase.Visible = False
@@ -248,19 +238,6 @@ Partial Class IAIPLogIn
         Me.lblLicenseLabel.Text = "This product is licensed to Georgia" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "DNR/EPD/APB employees only"
         Me.lblLicenseLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter
         '
-        'lnkIaipPatch
-        '
-        Me.lnkIaipPatch.AutoSize = True
-        Me.lnkIaipPatch.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lnkIaipPatch.Location = New System.Drawing.Point(26, 382)
-        Me.lnkIaipPatch.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.lnkIaipPatch.Name = "lnkIaipPatch"
-        Me.lnkIaipPatch.Size = New System.Drawing.Size(79, 18)
-        Me.lnkIaipPatch.TabIndex = 40
-        Me.lnkIaipPatch.TabStop = True
-        Me.lnkIaipPatch.Text = "IAIP Patch "
-        Me.lnkIaipPatch.Visible = False
-        '
         'lblCurrentVersionMessage
         '
         Me.lblCurrentVersionMessage.AutoSize = True
@@ -273,37 +250,6 @@ Partial Class IAIPLogIn
         Me.lblCurrentVersionMessage.TabIndex = 38
         Me.lblCurrentVersionMessage.Text = "Current Version Placeholder"
         Me.lblCurrentVersionMessage.Visible = False
-        '
-        'btnAdjustIntranet
-        '
-        Me.btnAdjustIntranet.AutoSize = True
-        Me.btnAdjustIntranet.Location = New System.Drawing.Point(272, 381)
-        Me.btnAdjustIntranet.Name = "btnAdjustIntranet"
-        Me.btnAdjustIntranet.Size = New System.Drawing.Size(83, 23)
-        Me.btnAdjustIntranet.TabIndex = 42
-        Me.btnAdjustIntranet.Text = "adjust intranet"
-        Me.btnAdjustIntranet.UseVisualStyleBackColor = True
-        Me.btnAdjustIntranet.Visible = False
-        '
-        'btnAddEIS
-        '
-        Me.btnAddEIS.Location = New System.Drawing.Point(110, 381)
-        Me.btnAddEIS.Name = "btnAddEIS"
-        Me.btnAddEIS.Size = New System.Drawing.Size(75, 23)
-        Me.btnAddEIS.TabIndex = 43
-        Me.btnAddEIS.Text = "Add EIS"
-        Me.btnAddEIS.UseVisualStyleBackColor = True
-        Me.btnAddEIS.Visible = False
-        '
-        'btnDeleteEIS
-        '
-        Me.btnDeleteEIS.Location = New System.Drawing.Point(191, 381)
-        Me.btnDeleteEIS.Name = "btnDeleteEIS"
-        Me.btnDeleteEIS.Size = New System.Drawing.Size(75, 23)
-        Me.btnDeleteEIS.TabIndex = 44
-        Me.btnDeleteEIS.Text = "Delete EIS"
-        Me.btnDeleteEIS.UseVisualStyleBackColor = True
-        Me.btnDeleteEIS.Visible = False
         '
         'lblAvailableVersionMessage
         '
@@ -363,15 +309,12 @@ Partial Class IAIPLogIn
         '
         'IAIPLogIn
         '
+        Me.AcceptButton = Me.btnLoginButton
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(742, 428)
+        Me.ClientSize = New System.Drawing.Size(742, 414)
         Me.Controls.Add(Me.PictureBox1)
         Me.Controls.Add(Me.lblAvailableVersionMessage)
-        Me.Controls.Add(Me.btnDeleteEIS)
-        Me.Controls.Add(Me.btnAddEIS)
-        Me.Controls.Add(Me.btnAdjustIntranet)
-        Me.Controls.Add(Me.lnkIaipPatch)
         Me.Controls.Add(Me.lblCurrentVersionMessage)
         Me.Controls.Add(Me.lblLicenseLabel)
         Me.Controls.Add(Me.lblPassword)
@@ -414,15 +357,10 @@ Partial Class IAIPLogIn
     Friend WithEvents btnLoginButton As System.Windows.Forms.Button
     Friend WithEvents lblLicenseLabel As System.Windows.Forms.Label
     Friend WithEvents mmiTestingEnvironment As System.Windows.Forms.MenuItem
-    Friend WithEvents lnkIaipPatch As System.Windows.Forms.LinkLabel
     Friend WithEvents mmiRefreshUserID As System.Windows.Forms.MenuItem
     Friend WithEvents mmiOnlineHelp As System.Windows.Forms.MenuItem
     Friend WithEvents mmiForceUpdate As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiRefreshDefaultLoc As System.Windows.Forms.MenuItem
     Friend WithEvents lblCurrentVersionMessage As System.Windows.Forms.Label
-    Friend WithEvents btnAdjustIntranet As System.Windows.Forms.Button
-    Friend WithEvents btnAddEIS As System.Windows.Forms.Button
-    Friend WithEvents btnDeleteEIS As System.Windows.Forms.Button
     Friend WithEvents lblAvailableVersionMessage As System.Windows.Forms.Label
     Friend WithEvents lblGeneralMessage As System.Windows.Forms.Label
     Friend WithEvents MenuItem2 As System.Windows.Forms.MenuItem

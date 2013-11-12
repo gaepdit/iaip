@@ -1,9 +1,10 @@
 Imports Oracle.DataAccess.Client
 Imports System.Security.Cryptography
 Imports System.Text
-Imports System
+'Imports System
 Imports System.IO
-Imports System.Data
+'Imports System.Data
+Imports System.Collections.Generic
 
 Module subMain
 
@@ -40,7 +41,7 @@ Module subMain
     Friend HelpUrl As String = "https://sites.google.com/site/iaipdocs/"
     Friend DownloadUrl As String = "http://airpermit.dnr.state.ga.us/iaip/IAIP.update2_6_4.exe"
     Friend AppPath As String = Path.GetDirectoryName(Application.ExecutablePath)
-    Friend AboutUrl As String = AppPath & "\docs\README.html"
+    Friend AboutUrl As String = AppPath & "\docs\ABOUT.html"
     Friend DateFormat As String = "dd-MMM-yyyy"
     Friend Today As Date = Date.Today
     Friend TodayString As String = Format(Today, DateFormat)
@@ -64,8 +65,8 @@ Module subMain
     Public AccountArray(150, 4) As String
     Public j As Integer
     Public i As Integer
-    Public DefaultX As Integer
-    Public DefaultY As Integer
+    'Public DefaultX As Integer
+    'Public DefaultY As Integer
     Public Oracledll As String
 
     Public t As New System.Timers.Timer(14400000)
@@ -117,7 +118,7 @@ Module subMain
     Public ISMPMemoEdit As ISMPMemo
     Public DevTestLog As ISMPNotificationLog
     Public ISMPCloseAndPrint As ISMPClosePrint
-    Public ISMPExcelFilePage As ISMPExcelFiles
+    'Public ISMPExcelFilePage As ISMPExcelFiles
     Public ISMPAddPollutant As ISMPAddPollutants
     Public ISMPAddTestingFirm As ISMPAddTestingFirms
     'Public ISMPDMU As ISMPDataManagementTools
@@ -125,7 +126,6 @@ Module subMain
     Public ISMPConfidential As ISMPConfidentialData
     Public ISMPTestReportsEntry As ISMPTestReports
     Public TestFirmComments As ISMPTestFirmComments
-    'Public SmokeSchool As SmokeSchool
     Public DevelopersTools As DMUDeveloperTools
     Public StaffTools As DMUStaffTools
     Public TitleVTools As DMUTitleVTools

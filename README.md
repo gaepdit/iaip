@@ -41,12 +41,23 @@ There are some items in the `_Tools` directory that are not used by the IAIP. Cu
 + Oracle (ODAC xcopy and instantclient)
 + [Eqatec](http://www.telerik.com/analytics/download/) (Application monitor, version 3.2.1)
 
-To build the readme and changelog docs, you must have [Pandoc](http://johnmacfarlane.net/pandoc/) installed. This script is run as part of the post-build events for Release builds.
+To build the readme and changelog docs, you must have [Pandoc](http://johnmacfarlane.net/pandoc/) installed. This script is run as part of the post-build events for Release builds. **Important: You must change the path in the post-build events to point to your installation of Pandoc.**
 
 Build
 -----
 
 The Release build outputs to a directory named `_Build` parallel to the IAIP directory (see diagram above). The Debug build outputs to the `bin` folder in the IAIP solution directory.
+
+### Branches
+
+There are two main branches in the repository: `default` and `stable`
+
++ The `stable` branch is for releases and quick bug fixes
++ Development for future releases occurs on the `default` branch
+
+To get the latest release version, run `hg update stable` and then build.
+
+Other branches may be created for work on new features that are experimental or will take a long time to complete so that these don't intefere with regular releases.
 
 Tips
 ----

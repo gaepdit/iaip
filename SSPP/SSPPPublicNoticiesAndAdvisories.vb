@@ -17,7 +17,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
             Panel2.Text = UserName
             Panel3.Text = OracleDate
 
-            Me.WindowState = FormWindowState.Maximized
+            'Me.WindowState = FormWindowState.Maximized
 
             LoadPublicNoticesList()
             TCPublicNotices.TabPages.Remove(TPPublishDocument)
@@ -767,7 +767,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
                     PermitTrackingLog.txtApplicationNumber.Text = txtApplicationNumber.Text
                     PermitTrackingLog.LoadApplication()
                     PermitTrackingLog.BringToFront()
-                    PermitTrackingLog.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+                    'PermitTrackingLog.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                     PermitTrackingLog.TPTrackingLog.Focus()
                 Else
                     MsgBox("Application Number is not in the system.", MsgBoxStyle.Information, "Navigation Screen")
@@ -1528,7 +1528,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
         Try
             Dim FileName As String = ""
             Dim path As New SaveFileDialog
-            Dim DestFilePath As String = "C:\APB\temp.rtf"
+            Dim DestFilePath As String = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) & "\temp.rtf"
             Dim OutPutFile As String = ""
             Dim ReviewingManager As String = ""
             Dim ReviewedDate As String = ""
@@ -1748,7 +1748,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
     End Sub
     Sub OpenOldPAPN()
         Try
-            Dim DestFilePath As String = "C:\APB\temp.rtf"
+            Dim DestFilePath As String = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) & "\temp.rtf"
 
             SQL = "Select " & _
             "strFileName, BatchFile, " & _
@@ -1786,8 +1786,8 @@ Public Class SSPPPublicNoticiesAndAdvisories
                 fs.Write(byteData, 0, ArraySize)
                 fs.Close()
 
-                If File.Exists("C:\APB\temp.rtf") Then
-                    Dim reader As StreamReader = New StreamReader("C:\APB\temp.rtf")
+                If File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Desktop) & "\temp.rtf") Then
+                    Dim reader As StreamReader = New StreamReader(Environment.GetFolderPath(Environment.SpecialFolder.Desktop) & "\temp.rtf")
                     Do
                         rtbPAPNDocument2.Rtf = reader.ReadToEnd
                     Loop Until reader.Peek = -1
@@ -2050,7 +2050,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
         Try
             Dim FileName As String = ""
             Dim path As New SaveFileDialog
-            Dim DestFilePath As String = "C:\APB\temp.rtf"
+            Dim DestFilePath As String = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) & "\temp.rtf"
             Dim OutPutFile As String = ""
             Dim ReviewingManager As String = ""
             Dim ReviewedDate As String = ""

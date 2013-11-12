@@ -849,7 +849,7 @@ Public Class ISMPTestMemoViewer
                     ISMPTestReportsEntry.txtReferenceNumber.Text = txtReferenceNumber.Text
                     ISMPTestReportsEntry.Show()
                     Me.Hide()
-                    ISMPTestReportsEntry.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+                    'ISMPTestReportsEntry.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                 End If
             End If
         Catch ex As Exception
@@ -1015,7 +1015,7 @@ Public Class ISMPTestMemoViewer
             If ISMPMemoEdit Is Nothing Then ISMPMemoEdit = New ISMPMemo
             ISMPMemoEdit.txtReferenceNumber.Text = Me.txtReferenceNumber2.Text
             ISMPMemoEdit.Show()
-            ISMPMemoEdit.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+            'ISMPMemoEdit.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally

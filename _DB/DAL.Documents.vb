@@ -2,6 +2,7 @@
 Imports System.Collections.Generic
 Imports System.IO
 Imports Oracle.DataAccess.Types
+Imports System.Runtime.InteropServices
 
 Namespace DAL
     Module Documents
@@ -214,7 +215,7 @@ Namespace DAL
 
 #Region "Download files"
 
-        Public Function DownloadDocument(ByVal doc As Document, Optional ByVal sender As Object = Nothing) As Boolean
+        Public Function DownloadDocument(ByVal doc As Document, <Out()> Optional ByRef canceled As Boolean = False, Optional ByVal sender As Object = Nothing) As Boolean
             If doc Is Nothing OrElse doc.BinaryFileId = 0 Then Return False
 
             If sender IsNot Nothing Then
@@ -228,18 +229,21 @@ Namespace DAL
                 .Filter = SaveFileFilters(doc.FileExtension.ToLower)
                 .DefaultExt = doc.FileExtension.ToLower
                 .FileName = doc.FileName
-                .InitialDirectory = GetSetting(UserSetting.FileDownloadLocation)
+                .InitialDirectory = GetUserSetting(UserSetting.FileDownloadLocation)
             End With
 
-            If dialog.ShowDialog() = DialogResult.OK Then
-                result = DownloadFile(doc.BinaryFileId, dialog.FileName)
+            Dim dialogAction As DialogResult = dialog.ShowDialog()
 
+            If dialogAction = DialogResult.OK Then
+                result = DownloadFile(doc.BinaryFileId, dialog.FileName)
                 If result Then
                     If Not Path.GetDirectoryName(dialog.FileName) = dialog.InitialDirectory Then
-                        SaveSetting(UserSetting.FileDownloadLocation, Path.GetDirectoryName(dialog.FileName))
+                        SaveUserSetting(UserSetting.FileDownloadLocation, Path.GetDirectoryName(dialog.FileName))
                     End If
                     System.Diagnostics.Process.Start("explorer.exe", "/select,""" & dialog.FileName.ToString & """")
                 End If
+            ElseIf dialogAction = DialogResult.Cancel Then
+                canceled = True
             End If
 
             dialog.Dispose()

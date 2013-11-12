@@ -34,25 +34,32 @@ Public Class SsppFileUploader
     End Sub
 
     Private Sub LoadDocumentTypes()
+
+        ' Get list of various Permit document types and bind that list to the comboboxes
         DocumentTypes = DAL.GetPermitDocumentTypes()
         With ddlNewDocumentType
             .DataSource = New BindingSource(DocumentTypes, Nothing)
             .DisplayMember = "Value"
             .ValueMember = "Key"
         End With
-
-        AddHandler ddlNewDocumentType.SelectedIndexChanged, AddressOf ddlDocumentType_SelectedIndexChanged
-
         With ddlUpdateDocumentType
             .DataSource = New BindingSource(DocumentTypes, Nothing)
             .DisplayMember = "Value"
             .ValueMember = "Key"
         End With
+
+        ' When a permit doc type is selected, display whether it already exists
+        ' This has to be added after the list is bound (above) or it will trigger
+        '   as each new list item is added to the list.
+        ' (Only do this with the "Add New" panel, but the "Update" panel)
+        AddHandler ddlNewDocumentType.SelectedIndexChanged, AddressOf ddlDocumentType_SelectedIndexChanged
+
     End Sub
 
 #End Region
 
 #Region "Messages"
+
     Private Enum MessageType As Byte
         InvalidApplicationNumber
         FileNotFound
@@ -78,7 +85,7 @@ Public Class SsppFileUploader
         messageList.Add(MessageType.DocumentTypeAlreadyExists, "A ""{0}"" has already been uploaded for this application.")
         messageList.Add(MessageType.UploadSuccess, "Success: The file ""{0}""" & vbNewLine & "has been uploaded.")
         messageList.Add(MessageType.UploadFailure, "Error: There was an error uploading the file. " & vbNewLine & "Please try again.")
-        messageList.Add(MessageType.FileTooLarge, "The selected file is too large. " & vbNewLine & "Maximum file size is 2GB.")
+        messageList.Add(MessageType.FileTooLarge, "The selected file is too large. " & vbNewLine & "Maximum file size is " & Math.Round(OracleBlob.MaxSize / (1024 ^ 3), 2) & "GB.")
         messageList.Add(MessageType.FileEmpty, "The selected file is empty.")
         messageList.Add(MessageType.DeleteFailure, "Error: The selected file was not deleted. " & vbNewLine & "Please try again.")
         messageList.Add(MessageType.DeleteSuccess, "Success: The file ""{0}"" was deleted.")
@@ -95,6 +102,7 @@ Public Class SsppFileUploader
     Private Function GetMessage(ByVal key As MessageType) As String
         Return MessageList(key)
     End Function
+
 #End Region
 
 #Region "Application loader"
@@ -142,7 +150,7 @@ Public Class SsppFileUploader
     End Sub
 
     Private Sub ShowCurrentFiles()
-        DisableFileProperties()
+        DisableFileUpdate()
         dgvFileList.DataSource = Nothing
         CurrentFiles = GetPermitDocuments(AppInfo.ApplicationNumber)
         If CurrentFiles.Count > 0 Then
@@ -189,25 +197,73 @@ Public Class SsppFileUploader
         End With
     End Sub
 
-    Private Sub EnableFileUploader()
-        ddlNewDocumentType.Enabled = True
-        btnChooseNewFile.Enabled = True
+    Private Sub dataGridView_CellFormatting(ByVal sender As Object, ByVal e As DataGridViewCellFormattingEventArgs) Handles dgvFileList.CellFormatting
+        If TypeOf e.CellStyle.FormatProvider Is ICustomFormatter Then
+            e.Value = TryCast(e.CellStyle.FormatProvider.GetFormat(GetType(ICustomFormatter)), ICustomFormatter).Format(e.CellStyle.Format, e.Value, e.CellStyle.FormatProvider)
+            e.FormattingApplied = True
+        End If
     End Sub
 
 #End Region
 
-#Region "Clear forms"
+#Region "Enable/Disable Form Areas"
+
+    Private Sub EnableFileUpdate()
+        EnableOrDisableFileUpdate(True)
+    End Sub
+
+    Private Sub DisableFileUpdate()
+        EnableOrDisableFileUpdate(False)
+    End Sub
+
+    Private Sub EnableOrDisableFileUpdate(ByVal enable As Boolean)
+        btnDeleteFile.Enabled = enable
+        btnDownloadFile.Enabled = enable
+        With txtUpdateDescription
+            .Visible = enable
+            .Text = If(enable, dgvFileList.CurrentRow.Cells("Comment").Value, "")
+        End With
+        With lblUpdateDescription
+            .Visible = enable
+        End With
+        With ddlUpdateDocumentType
+            .Enabled = enable
+            .Visible = enable
+            If enable Then .SelectedValue = dgvFileList.CurrentRow.Cells("DocumentTypeId").Value
+        End With
+        With btnUpdateFileDescription
+            .Enabled = enable
+            .Visible = enable
+        End With
+        With lblSelectedFileName
+            .Visible = enable
+            .Text = If(enable, dgvFileList.CurrentRow.Cells("FileName").Value, "")
+        End With
+    End Sub
+
+    Private Sub EnableFileUploader()
+        EnableOrDisableFileUploader(True)
+    End Sub
+
+    Private Sub DisableFileUploader()
+        EnableOrDisableFileUploader(False)
+    End Sub
+
+    Private Sub EnableOrDisableFileUploader(ByVal enable As Boolean)
+        ddlNewDocumentType.Enabled = enable
+        btnChooseNewFile.Enabled = enable
+    End Sub
+
+#End Region
+
+#Region "Clear form sections"
+
     Private Sub ClearForm()
         ClearAppInfo()
         ClearMessage(lblMessage, EP)
         ClearFileList()
         ClearFileUploader()
         DisableFileUploader()
-    End Sub
-
-    Private Sub DisableFileUploader()
-        ddlNewDocumentType.Enabled = False
-        btnChooseNewFile.Enabled = False
     End Sub
 
     Private Sub ClearAppInfo()
@@ -240,16 +296,16 @@ Public Class SsppFileUploader
             .DataSource = Nothing
             .Enabled = False
         End With
-        DisableFileProperties()
+        DisableFileUpdate()
     End Sub
 
 #End Region
 
-#Region "File uploader"
+#Region "New file uploader"
 
     Private Sub btnChooseNewFile_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnChooseNewFile.Click
         Dim openFileDialog As New OpenFileDialog With { _
-            .InitialDirectory = GetSetting(UserSetting.PermitUploadLocation), _
+            .InitialDirectory = GetUserSetting(UserSetting.PermitUploadLocation), _
             .Filter = String.Join("|", OpenFileFilters.ToArray) _
         }
 
@@ -347,7 +403,7 @@ Public Class SsppFileUploader
         If result Then
             m = String.Format(GetMessage(MessageType.UploadSuccess), NewPermitDocument.FileName)
             DisplayMessage(lblMessage, m)
-            SaveSetting(UserSetting.PermitUploadLocation, fileInfo.DirectoryName)
+            SaveUserSetting(UserSetting.PermitUploadLocation, fileInfo.DirectoryName)
         Else
             DisplayMessage(lblMessage, GetMessage(MessageType.UploadFailure), True, EP, lblMessage)
         End If
@@ -365,7 +421,6 @@ Public Class SsppFileUploader
         Return If(index = -1, False, True)
     End Function
 
-
     Private Sub ddlDocumentType_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
         ClearMessage(lblMessage)
         ' Check if similar document has already been uploaded
@@ -376,79 +431,14 @@ Public Class SsppFileUploader
 
 #End Region
 
-#Region "Accept Button"
-
-    Private Sub NoAcceptButton(ByVal sender As System.Object, ByVal e As System.EventArgs) _
-    Handles txtApplicationNumber.Leave, txtNewDescription.Leave, txtUpdateDescription.Leave, ddlUpdateDocumentType.Leave
-        Me.AcceptButton = Nothing
-    End Sub
-
-    Private Sub txtApplicationNumber_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txtApplicationNumber.Enter
-        Me.AcceptButton = btnFindApplication
-    End Sub
-
-    Private Sub txtNewDescription_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txtNewDescription.Enter
-        Me.AcceptButton = btnNewFileUpload
-    End Sub
-
-    Private Sub FileProperties_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) _
-    Handles txtUpdateDescription.Enter, ddlUpdateDocumentType.Enter
-        Me.AcceptButton = btnUpdateFileDescription
-    End Sub
-
-#End Region
-
-#Region "Existing file properties"
+#Region "Existing file Update/Download/Delete"
 
     Private Sub dgvFileList_SelectionChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles dgvFileList.SelectionChanged
         If dgvFileList.SelectedRows.Count > 0 Then
-            EnableFileProperties()
+            EnableFileUpdate()
         Else
-            DisableFileProperties()
+            DisableFileUpdate()
         End If
-    End Sub
-
-    Private Sub EnableFileProperties()
-        btnDeleteFile.Enabled = True
-        btnDownloadFile.Enabled = True
-        With txtUpdateDescription
-            .Visible = True
-            .Text = dgvFileList.CurrentRow.Cells("Comment").Value
-        End With
-        With ddlUpdateDocumentType
-            .Enabled = True
-            .Visible = True
-            .SelectedValue = dgvFileList.CurrentRow.Cells("DocumentTypeId").Value
-        End With
-        With btnUpdateFileDescription
-            .Enabled = True
-            .Visible = True
-        End With
-        With lblSelectedFileName
-            .Visible = True
-            .Text = dgvFileList.CurrentRow.Cells("FileName").Value
-        End With
-    End Sub
-
-    Private Sub DisableFileProperties()
-        btnDeleteFile.Enabled = False
-        btnDownloadFile.Enabled = False
-        With txtUpdateDescription
-            .Visible = False
-            .Text = ""
-        End With
-        With ddlUpdateDocumentType
-            .Enabled = False
-            .Visible = False
-        End With
-        With btnUpdateFileDescription
-            .Enabled = False
-            .Visible = False
-        End With
-        With lblSelectedFileName
-            .Visible = False
-            .Text = ""
-        End With
     End Sub
 
     Private Sub btnDeleteFile_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDeleteFile.Click
@@ -475,8 +465,9 @@ Public Class SsppFileUploader
         Dim doc As PermitDocument = PermitDocumentFromFileListRow(dgvFileList.CurrentRow)
         DisplayMessage(lblMessage, String.Format(GetMessage(MessageType.DownloadingFile), doc.FileName))
 
-        Dim downloaded As Boolean = DownloadDocument(doc, Me)
-        If downloaded Then
+        Dim canceled As Boolean = False
+        Dim downloaded As Boolean = DownloadDocument(doc, canceled, Me)
+        If downloaded Or canceled Then
             ClearMessage(lblMessage, EP)
         Else
             DisplayMessage(lblMessage, String.Format(GetMessage(MessageType.DownloadFailure), lblSelectedFileName), True, EP, lblMessage)
@@ -514,10 +505,26 @@ Public Class SsppFileUploader
 
 #End Region
 
-    Private Sub dataGridView_CellFormatting(ByVal sender As Object, ByVal e As DataGridViewCellFormattingEventArgs) Handles dgvFileList.CellFormatting
-        If TypeOf e.CellStyle.FormatProvider Is ICustomFormatter Then
-            e.Value = TryCast(e.CellStyle.FormatProvider.GetFormat(GetType(ICustomFormatter)), ICustomFormatter).Format(e.CellStyle.Format, e.Value, e.CellStyle.FormatProvider)
-            e.FormattingApplied = True
-        End If
+#Region "Accept Button"
+
+    Private Sub NoAcceptButton(ByVal sender As System.Object, ByVal e As System.EventArgs) _
+    Handles txtApplicationNumber.Leave, txtNewDescription.Leave, txtUpdateDescription.Leave, ddlUpdateDocumentType.Leave
+        Me.AcceptButton = Nothing
     End Sub
+
+    Private Sub txtApplicationNumber_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txtApplicationNumber.Enter
+        Me.AcceptButton = btnFindApplication
+    End Sub
+
+    Private Sub txtNewDescription_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txtNewDescription.Enter
+        Me.AcceptButton = btnNewFileUpload
+    End Sub
+
+    Private Sub FileProperties_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) _
+    Handles txtUpdateDescription.Enter, ddlUpdateDocumentType.Enter
+        Me.AcceptButton = btnUpdateFileDescription
+    End Sub
+
+#End Region
+
 End Class

@@ -2419,7 +2419,7 @@ Public Class PASPFeeManagement
     Private Sub btnChangeEmailAddress_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnChangeEmailAddress.Click
         Try
             If txtWebUserID.Text <> "" Then
-                If EmailAddressCheck(txtEditEmail.Text) = True Then
+                If IsValidEmail(txtEditEmail.Text) Then
                     SQL = "Select " & _
                     "numUserID, strUserPassword " & _
                     "from " & DBNameSpace & ".OLAPUserLogIN " & _
@@ -2755,7 +2755,7 @@ Public Class PASPFeeManagement
                 FeeStats = New PASPFeeAuditLog
             End If
             FeeStats.Show()
-            FeeStats.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+            'FeeStats.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
 
             FeeStats.mtbFeeAdminAIRSNumber.Text = mtbCheckAIRSNumber.Text
             FeeStats.txtFeeAdminFacilityName.Text = txtCheckFacility.Text

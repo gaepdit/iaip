@@ -5391,7 +5391,7 @@ Public Class ISMPManagersTools
             dtpAddTestReportDateReceived.Text = OracleDate
             DTPAddTestReportDateCompleted.Text = OracleDate
 
-            Me.WindowState = FormWindowState.Maximized
+            'Me.WindowState = FormWindowState.Maximized
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
@@ -9291,7 +9291,7 @@ Public Class ISMPManagersTools
             Dim FileName As String = ""
             Dim IDnumber As String = ""
 
-            path.InitialDirectory = "c:\"
+            path.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal)
             path.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*"
             path.FilterIndex = 2
             path.RestoreDirectory = True
@@ -9565,7 +9565,7 @@ Public Class ISMPManagersTools
                 FileName = txtFileName.Text
                 FileName = Mid(FileName, FileName.IndexOf(" - ") + 4)
 
-                path.InitialDirectory = "C:\"
+                path.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal)
                 path.FileName = FileName
                 path.Filter = "Microsoft Office Excel Workbook (.xls)|.xls"
                 path.FilterIndex = 1
@@ -10148,7 +10148,7 @@ Public Class ISMPManagersTools
                     If FacilityLookUpTool Is Nothing Then FacilityLookUpTool = New IAIPFacilityLookUpTool
                     FacilityLookUpTool.Show()
                 End If
-                FacilityLookUpTool.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+                'FacilityLookUpTool.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
             End If
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -11325,7 +11325,7 @@ Public Class ISMPManagersTools
                     If FacilityLookUpTool Is Nothing Then FacilityLookUpTool = New IAIPFacilityLookUpTool
                     FacilityLookUpTool.Show()
                 End If
-                FacilityLookUpTool.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+                'FacilityLookUpTool.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
             End If
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -11618,7 +11618,7 @@ Public Class ISMPManagersTools
                     If ISMPTestReportsEntry Is Nothing Then ISMPTestReportsEntry = New ISMPTestReports
                     ISMPTestReportsEntry.txtReferenceNumber.Text = txtReferenceNumber.Text
                     ISMPTestReportsEntry.Show()
-                    ISMPTestReportsEntry.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+                    'ISMPTestReportsEntry.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                 End If
             End If
         Catch ex As Exception
@@ -12081,7 +12081,7 @@ Public Class ISMPManagersTools
                     If ISMPTestReportsEntry Is Nothing Then ISMPTestReportsEntry = New ISMPTestReports
                     ISMPTestReportsEntry.txtReferenceNumber.Text = txtUnitStatReferenceNumber.Text
                     ISMPTestReportsEntry.Show()
-                    ISMPTestReportsEntry.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+                    'ISMPTestReportsEntry.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                 End If
             End If
 

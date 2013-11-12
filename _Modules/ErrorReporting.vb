@@ -13,18 +13,6 @@ Module ErrorReporting
             UserGCode = "0"
         End If
 
-        If ErrorMessage.Contains("System.UnauthorizedAccessException: Access to the path 'C:\APB\Defaults.txt' is denied.") Then
-            If File.Exists("C:\APB\Defaults.txt") Then
-            Else
-                Dim fs As New System.IO.FileStream("C:\APB\Defaults.txt", IO.FileMode.Create, IO.FileAccess.Write)
-                fs.Close()
-            End If
-            MsgBox("The defualt log in file was corrupted and deleted." & vbCrLf & _
-                   "Restart the platform." & vbCrLf & vbCrLf & _
-                   "If this error persists close the platform and delete the file C:\APB\Defaults.txt", MsgBoxStyle.Information, _
-                   "Integrated Air Information Platform - ERROR MESSAGE")
-            Exit Sub
-        End If
         If ErrorMessage.Contains("ORA-12592") Then
             MsgBox("There was a connectivity error with the database." & vbCrLf & "Please run the task that caused this error again to verify the data is correct." & vbCrLf & "If the error presists, try waiting until the internet connection improves or contact the Data Management Unit." & vbCrLf & _
             "Please contact the Data Management Unit if this error is hindering your work." & vbCrLf & "Sorry for the inconvenience.", _
@@ -92,9 +80,6 @@ Module ErrorReporting
                    "Integrated Air Information Platform - ERROR MESSAGE")
             Exit Sub
         End If
-        If ErrorMessage.Contains("Access to the path 'C:\APB\Defaults.txt' is denied") And ErrorLocation.Contains("NavigationScreen_Closed") Then
-            Exit Sub
-        End If
         If ErrorMessage.Contains("Exception of type 'System.OutOfMemoryException' was thrown") Then
             MsgBox("It appears that this computer has thrown a System.OutOfMemoryException. " & vbCrLf & _
                    "Try freeing up memory by closing any un-needed open computer applications.", MsgBoxStyle.Exclamation, _
@@ -109,7 +94,7 @@ Module ErrorReporting
             Exit Sub
         End If
         Try
-            ErrorMessage = FileVersionInfo.GetVersionInfo("C:\APB\johngaltproject.exe").ProductVersion.ToString & vbCrLf & ErrorMessage
+            ErrorMessage = GetCurrentVersion.ToString & vbCrLf & ErrorMessage
             ErrorMess = Mid(ErrorMessage, 1, 4000)
 
             SQL = "Insert into " & DBNameSpace & ".IAIPErrorLog " & _

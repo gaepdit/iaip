@@ -35,7 +35,7 @@ Public Class ISMPMonitoringLog
             LoadComboBoxes()
             LoadDataSet()
 
-            Me.WindowState = FormWindowState.Maximized
+            'Me.WindowState = FormWindowState.Maximized
             SCMonitoringLog.SplitterDistance = 500
 
 
@@ -944,7 +944,7 @@ Public Class ISMPMonitoringLog
                         If ISMPTestReportsEntry Is Nothing Then ISMPTestReportsEntry = New ISMPTestReports
                         ISMPTestReportsEntry.txtReferenceNumber.Text = txtReferenceNumber.Text
                         ISMPTestReportsEntry.Show()
-                        ISMPTestReportsEntry.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+                        'ISMPTestReportsEntry.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                     End If
                 Else
                     SQL = "Select strClosed " & _
@@ -964,7 +964,7 @@ Public Class ISMPMonitoringLog
                         PrintOut.txtReferenceNumber.Text = txtReferenceNumber.Text
                         PrintOut.txtPrintType.Text = "SSCP"
                         PrintOut.Show()
-                        PrintOut.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+                        'PrintOut.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                     Else
                         MsgBox("This Test Summary has not been completely reviewed by ISMP Engineer", MsgBoxStyle.Information, "Facility Summary")
                     End If
@@ -1320,7 +1320,7 @@ Public Class ISMPMonitoringLog
                 DevTestLog.Show()
             End If
             DevTestLog.LoadTestNotification()
-            DevTestLog.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+            'DevTestLog.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
@@ -1354,7 +1354,7 @@ Public Class ISMPMonitoringLog
             End If
             TestFirmComments.txtCommentID.Text = txtCommentNumber.Text
             TestFirmComments.LoadTestFirmComments()
-            TestFirmComments.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+            'TestFirmComments.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
 
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -1396,7 +1396,7 @@ Public Class ISMPMonitoringLog
                 If FacilityLookUpTool Is Nothing Then FacilityLookUpTool = New IAIPFacilityLookUpTool
                 FacilityLookUpTool.Show()
             End If
-            FacilityLookUpTool.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+            'FacilityLookUpTool.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
@@ -1485,7 +1485,7 @@ Public Class ISMPMonitoringLog
                 If StaffReports Is Nothing Then StaffReports = New ISMPStaffReports
             End If
             StaffReports.Show()
-            StaffReports.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+            'StaffReports.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
 
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
