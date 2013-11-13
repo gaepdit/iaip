@@ -2004,8 +2004,9 @@ Partial Class NewSscpEnforcementAudit
         '
         Me.lblMessage.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
                     Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.lblMessage.BackColor = System.Drawing.SystemColors.InactiveCaption
-        Me.lblMessage.Location = New System.Drawing.Point(252, 290)
+        Me.lblMessage.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
+        Me.lblMessage.ForeColor = System.Drawing.Color.DarkRed
+        Me.lblMessage.Location = New System.Drawing.Point(253, 303)
         Me.lblMessage.Name = "lblMessage"
         Me.lblMessage.Padding = New System.Windows.Forms.Padding(5)
         Me.lblMessage.Size = New System.Drawing.Size(418, 37)

@@ -359,7 +359,7 @@ Namespace DAL
         End Function
 
         Private Function GetNextBinaryFileSequenceValue() As Integer
-            Dim query As String = " SELECT AIRBRANCH.IAIP_BINARYFILES_ID_SEQ.NEXTVAL FROM DUAL "
+            Dim query As String = " SELECT AIRBRANCH.IAIP_BINARYFILES_SEQ.NEXTVAL FROM DUAL "
             Return DB.GetSingleValue(Of Integer)(query)
         End Function
 
