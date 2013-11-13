@@ -94,7 +94,6 @@ Public Class NewSscpEnforcementAudit
 
     Private Sub LoadExistingDocuments()
         DisableFileUpdate()
-        dgvFileList.DataSource = Nothing
         ExistingFiles = GetEnforcementDocuments(Me.EnforcementNumber)
         If ExistingFiles.Count > 0 Then
             With dgvFileList
@@ -103,6 +102,11 @@ Public Class NewSscpEnforcementAudit
                 .ClearSelection()
             End With
             FormatCurrentFileList()
+        Else
+            With dgvFileList
+                .DataSource = Nothing
+                .Enabled = False
+            End With
         End If
     End Sub
 
@@ -201,13 +205,6 @@ Public Class NewSscpEnforcementAudit
 
 #Region "Clear form sections"
 
-    Private Sub ClearForm()
-        ClearMessage(lblMessage, EP)
-        ClearFileList()
-        ClearFileUploader()
-        DisableFileUploader()
-    End Sub
-
     Private Sub ClearFileUploader()
         With lblNewFileName
             .Visible = False
@@ -228,14 +225,6 @@ Public Class NewSscpEnforcementAudit
         End With
     End Sub
 
-    Private Sub ClearFileList()
-        With dgvFileList
-            .DataSource = Nothing
-            .Enabled = False
-        End With
-        DisableFileUpdate()
-    End Sub
-
 #End Region
 
 #Region "New file uploader"
@@ -243,7 +232,7 @@ Public Class NewSscpEnforcementAudit
     Private Sub btnChooseNewFile_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnChooseNewFile.Click
         Dim openFileDialog As New OpenFileDialog With { _
             .InitialDirectory = GetUserSetting(UserSetting.EnforcementUploadLocation), _
-            .Filter = String.Join("|", OpenFileFilters.ToArray) _
+            .Filter = String.Join("|", FileOpenFilters.ToArray) _
         }
 
         If openFileDialog.ShowDialog = Windows.Forms.DialogResult.OK _

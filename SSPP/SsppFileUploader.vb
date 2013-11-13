@@ -315,7 +315,7 @@ Public Class SsppFileUploader
     Private Sub btnChooseNewFile_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnChooseNewFile.Click
         Dim openFileDialog As New OpenFileDialog With { _
             .InitialDirectory = GetUserSetting(UserSetting.PermitUploadLocation), _
-            .Filter = String.Join("|", OpenFileFilters.ToArray) _
+            .Filter = String.Join("|", FileOpenFilters.ToArray) _
         }
 
         If openFileDialog.ShowDialog = Windows.Forms.DialogResult.OK _
