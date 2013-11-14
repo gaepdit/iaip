@@ -159,7 +159,7 @@ Module App
     Private Sub CreateVersionFile()
         If Not VersionFileUpdated Then
             Dim ThisReleaseDate As String = RetrieveLinkerTimestamp(Application.ExecutablePath).ToString("MMMM d, yyyy")
-            Dim ThisVersion As String = GetCurrentVersion.ToString
+            Dim ThisVersion As String = GetCurrentVersionAsBuild.ToString
             Dim VersionFilePath As String = Path.GetDirectoryName(Application.ExecutablePath) & "\docs\version.js"
 
             Dim FileContents As String = _
@@ -214,6 +214,10 @@ Module App
         End If
 
         Return CurrentVersion
+    End Function
+
+    Public Function GetCurrentVersionAsBuild() As Version
+        Return GetVersionAsBuild(GetCurrentVersion)
     End Function
 
     Public Function GetPublishedVersion(Optional ByVal appName As String = AppName) As Version

@@ -3128,7 +3128,6 @@ Public Class PASPFeeStatistics
                     Case "Enforcement"
                         If SSCP_Enforcement Is Nothing Then
                             If SSCP_Enforcement Is Nothing Then SSCP_Enforcement = New SSCPEnforcementAudit
-                            SSCP_Enforcement.txtOrigin.Text = "Nav Screen"
                             If txtFeeComplianceEvent.Text <> "" Then
                                 SSCP_Enforcement.txtEnforcementNumber.Text = txtFeeComplianceEvent.Text
                             End If
@@ -3137,7 +3136,6 @@ Public Class PASPFeeStatistics
                             SSCP_Enforcement.Close()
                             SSCP_Enforcement = Nothing
                             If SSCP_Enforcement Is Nothing Then SSCP_Enforcement = New SSCPEnforcementAudit
-                            SSCP_Enforcement.txtOrigin.Text = "Nav Screen"
                             If txtFeeComplianceEvent.Text <> "" Then
                                 SSCP_Enforcement.txtEnforcementNumber.Text = txtFeeComplianceEvent.Text
                             End If

@@ -108,7 +108,7 @@ Public Class IAIPLogIn
         lnkUpdateLink.Visible = False
 
         With lblCurrentVersionMessage
-            .Text = String.Format("Version: {0}", currentVersion.ToString)
+            .Text = String.Format("Version: {0}", GetCurrentVersionAsBuild.ToString)
             .Visible = True
         End With
 

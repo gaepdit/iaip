@@ -35,7 +35,7 @@ Public Class ISMPMonitoringLog
             LoadComboBoxes()
             LoadDataSet()
 
-            Me.WindowState = FormWindowState.Maximized
+            'Me.WindowState = FormWindowState.Maximized
             SCMonitoringLog.SplitterDistance = 500
 
 

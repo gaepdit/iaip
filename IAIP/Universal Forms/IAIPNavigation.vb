@@ -2069,7 +2069,6 @@ Public Class IAIPNavigation
                 If recExist = True Then
                     If SSCP_Enforcement Is Nothing Then
                         If SSCP_Enforcement Is Nothing Then SSCP_Enforcement = New SSCPEnforcementAudit
-                        SSCP_Enforcement.txtOrigin.Text = "Nav Screen"
                         If txtEnforcementNumber.Text <> "" Then
                             SSCP_Enforcement.txtEnforcementNumber.Text = txtEnforcementNumber.Text
                         End If
@@ -2078,7 +2077,6 @@ Public Class IAIPNavigation
                         SSCP_Enforcement.Close()
                         SSCP_Enforcement = Nothing
                         If SSCP_Enforcement Is Nothing Then SSCP_Enforcement = New SSCPEnforcementAudit
-                        SSCP_Enforcement.txtOrigin.Text = "Nav Screen"
                         If txtEnforcementNumber.Text <> "" Then
                             SSCP_Enforcement.txtEnforcementNumber.Text = txtEnforcementNumber.Text
                         End If
@@ -2505,7 +2503,7 @@ Public Class IAIPNavigation
                     'SmokeSchool = New SmokeSchool
                     With SmokeSchool
                         .Show()
-                        .WindowState = FormWindowState.Normal
+                        '.WindowState = FormWindowState.Normal
                         .Activate()
                         '.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                     End With

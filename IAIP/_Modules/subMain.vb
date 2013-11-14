@@ -46,7 +46,6 @@ Module subMain
     Friend Today As Date = Date.Today
     Friend TodayString As String = Format(Today, DateFormat)
     Friend TestingEnvironment As Boolean = False
-    Friend AllFormSettings As New Dictionary(Of String, Dictionary(Of String, String))
 #End Region
 
 #Region "Old public variables"
@@ -127,7 +126,6 @@ Module subMain
     Public ISMPConfidential As ISMPConfidentialData
     Public ISMPTestReportsEntry As ISMPTestReports
     Public TestFirmComments As ISMPTestFirmComments
-    'Public SmokeSchool As SmokeSchool
     Public DevelopersTools As DMUDeveloperTools
     Public StaffTools As DMUStaffTools
     Public TitleVTools As DMUTitleVTools
