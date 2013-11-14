@@ -514,7 +514,7 @@ Public Class SsppFileUploader
 
 #End Region
 
-#Region "Accept Button"
+#Region "Change Accept Button"
 
     Private Sub NoAcceptButton(ByVal sender As System.Object, ByVal e As System.EventArgs) _
     Handles txtApplicationNumber.Leave, txtNewDescription.Leave, txtUpdateDescription.Leave, ddlUpdateDocumentType.Leave
