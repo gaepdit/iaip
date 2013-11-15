@@ -284,58 +284,10 @@ Public Class SSCPComplianceLog
     End Sub
     Sub LoadDefaultSettings()
         Try
-            If AccountArray(4, 3) = "1" And UserUnit = "---" Then 'Full Access no unit - Program Manager 
-                chbAdministrative.Checked = True
-                chbAIRToxics.Checked = False
-                chbChemicalsMineral.Checked = False
-                chbVOCCombustion.Checked = False
+            If AccountArray(4, 3) = "1" Or AccountArray(4, 4) = "1" Then 'Full Access in unit or District Liaison
                 chbEngineer.Checked = False
             Else
-                If AccountArray(4, 3) = "1" Then 'Full Access in Unit - Unit Manager 
-                    chbEngineer.Checked = False
-                    Select Case UserUnit
-                        Case "30"
-                            chbAIRToxics.Checked = True
-                            chbVOCCombustion.Checked = False
-                            chbChemicalsMineral.Checked = False
-                            chbAdministrative.Checked = False
-                        Case "32"
-                            chbVOCCombustion.Checked = True
-                            chbAIRToxics.Checked = False
-                            chbChemicalsMineral.Checked = False
-                            chbAdministrative.Checked = False
-                        Case "31"
-                            chbChemicalsMineral.Checked = True
-                            chbVOCCombustion.Checked = False
-                            chbAIRToxics.Checked = False
-                            chbAdministrative.Checked = False
-                        Case "---"
-                            chbAdministrative.Checked = True
-                            chbAIRToxics.Checked = False
-                            chbChemicalsMineral.Checked = False
-                            chbVOCCombustion.Checked = False
-                        Case Else
-                            chbAdministrative.Checked = False
-                            chbAIRToxics.Checked = False
-                            chbChemicalsMineral.Checked = False
-                            chbVOCCombustion.Checked = False
-                    End Select
-
-                Else
-                    If AccountArray(4, 4) = "1" Then 'Distirct Liason (Special)
-                        chbAtlanta.Checked = True
-                        chbCartersville.Checked = True
-                        chbBrunswick.Checked = True
-                        chbAthens.Checked = True
-                        chbAlbany.Checked = True
-                        chbAugusta.Checked = True
-                        'chbSouthwest.Checked = True
-                        chbMacon.Checked = True
-                    Else
-                        chbEngineer.Checked = True
-                    End If
-                End If
-
+                chbEngineer.Checked = True
             End If
 
             chbAllWork.Checked = True

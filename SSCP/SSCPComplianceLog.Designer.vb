@@ -62,18 +62,6 @@ Partial Class SSCPComplianceLog
         Me.Label14 = New System.Windows.Forms.Label
         Me.DTPFilterStart = New System.Windows.Forms.DateTimePicker
         Me.Label20 = New System.Windows.Forms.Label
-        Me.GroupBox6 = New System.Windows.Forms.GroupBox
-        Me.chbMacon = New System.Windows.Forms.CheckBox
-        Me.chbAugusta = New System.Windows.Forms.CheckBox
-        Me.chbCartersville = New System.Windows.Forms.CheckBox
-        Me.chbAtlanta = New System.Windows.Forms.CheckBox
-        Me.chbAlbany = New System.Windows.Forms.CheckBox
-        Me.chbAthens = New System.Windows.Forms.CheckBox
-        Me.chbBrunswick = New System.Windows.Forms.CheckBox
-        Me.chbAdministrative = New System.Windows.Forms.CheckBox
-        Me.chbAIRToxics = New System.Windows.Forms.CheckBox
-        Me.chbChemicalsMineral = New System.Windows.Forms.CheckBox
-        Me.chbVOCCombustion = New System.Windows.Forms.CheckBox
         Me.txtWorkCount = New System.Windows.Forms.TextBox
         Me.btnRunFilter = New System.Windows.Forms.Button
         Me.TCComplianceLog = New System.Windows.Forms.TabControl
@@ -146,7 +134,6 @@ Partial Class SSCPComplianceLog
         Me.GBWorkTypes.SuspendLayout()
         Me.GBNotifications.SuspendLayout()
         Me.GBEnforcementDates.SuspendLayout()
-        Me.GroupBox6.SuspendLayout()
         Me.TCComplianceLog.SuspendLayout()
         Me.TPSelectWork.SuspendLayout()
         Me.TPStartNewWork.SuspendLayout()
@@ -380,7 +367,6 @@ Partial Class SSCPComplianceLog
         Me.GroupBox1.Controls.Add(Me.GBWorkTypes)
         Me.GroupBox1.Controls.Add(Me.GBEnforcementDates)
         Me.GroupBox1.Controls.Add(Me.Label20)
-        Me.GroupBox1.Controls.Add(Me.GroupBox6)
         Me.GroupBox1.Controls.Add(Me.txtWorkCount)
         Me.GroupBox1.Controls.Add(Me.btnRunFilter)
         Me.GroupBox1.Controls.Add(Me.TCComplianceLog)
@@ -597,126 +583,6 @@ Partial Class SSCPComplianceLog
         Me.Label20.Size = New System.Drawing.Size(54, 9)
         Me.Label20.TabIndex = 302
         Me.Label20.Text = "Record Count:"
-        '
-        'GroupBox6
-        '
-        Me.GroupBox6.Controls.Add(Me.chbMacon)
-        Me.GroupBox6.Controls.Add(Me.chbAugusta)
-        Me.GroupBox6.Controls.Add(Me.chbCartersville)
-        Me.GroupBox6.Controls.Add(Me.chbAtlanta)
-        Me.GroupBox6.Controls.Add(Me.chbAlbany)
-        Me.GroupBox6.Controls.Add(Me.chbAthens)
-        Me.GroupBox6.Controls.Add(Me.chbBrunswick)
-        Me.GroupBox6.Controls.Add(Me.chbAdministrative)
-        Me.GroupBox6.Controls.Add(Me.chbAIRToxics)
-        Me.GroupBox6.Controls.Add(Me.chbChemicalsMineral)
-        Me.GroupBox6.Controls.Add(Me.chbVOCCombustion)
-        Me.GroupBox6.Location = New System.Drawing.Point(657, 18)
-        Me.GroupBox6.Name = "GroupBox6"
-        Me.GroupBox6.Size = New System.Drawing.Size(100, 17)
-        Me.GroupBox6.TabIndex = 282
-        Me.GroupBox6.TabStop = False
-        Me.GroupBox6.Text = "Compliance Unit(s) and Districts"
-        Me.GroupBox6.Visible = False
-        '
-        'chbMacon
-        '
-        Me.chbMacon.AutoSize = True
-        Me.chbMacon.Location = New System.Drawing.Point(162, 102)
-        Me.chbMacon.Name = "chbMacon"
-        Me.chbMacon.Size = New System.Drawing.Size(162, 17)
-        Me.chbMacon.TabIndex = 22
-        Me.chbMacon.Text = "West Central Distrct (Macon)"
-        '
-        'chbAugusta
-        '
-        Me.chbAugusta.AutoSize = True
-        Me.chbAugusta.Location = New System.Drawing.Point(6, 101)
-        Me.chbAugusta.Name = "chbAugusta"
-        Me.chbAugusta.Size = New System.Drawing.Size(155, 17)
-        Me.chbAugusta.TabIndex = 20
-        Me.chbAugusta.Text = "Northeast District (Augusta)"
-        '
-        'chbCartersville
-        '
-        Me.chbCartersville.AutoSize = True
-        Me.chbCartersville.Location = New System.Drawing.Point(6, 152)
-        Me.chbCartersville.Name = "chbCartersville"
-        Me.chbCartersville.Size = New System.Drawing.Size(165, 17)
-        Me.chbCartersville.TabIndex = 19
-        Me.chbCartersville.Text = "Mountain District (Cartersville)"
-        '
-        'chbAtlanta
-        '
-        Me.chbAtlanta.AutoSize = True
-        Me.chbAtlanta.Location = New System.Drawing.Point(6, 135)
-        Me.chbAtlanta.Name = "chbAtlanta"
-        Me.chbAtlanta.Size = New System.Drawing.Size(147, 17)
-        Me.chbAtlanta.TabIndex = 18
-        Me.chbAtlanta.Text = "Mountain District (Atlanta)"
-        '
-        'chbAlbany
-        '
-        Me.chbAlbany.AutoSize = True
-        Me.chbAlbany.Location = New System.Drawing.Point(162, 85)
-        Me.chbAlbany.Name = "chbAlbany"
-        Me.chbAlbany.Size = New System.Drawing.Size(150, 17)
-        Me.chbAlbany.TabIndex = 17
-        Me.chbAlbany.Text = "Southwest Distrct (Albany)"
-        '
-        'chbAthens
-        '
-        Me.chbAthens.AutoSize = True
-        Me.chbAthens.Location = New System.Drawing.Point(6, 84)
-        Me.chbAthens.Name = "chbAthens"
-        Me.chbAthens.Size = New System.Drawing.Size(147, 17)
-        Me.chbAthens.TabIndex = 16
-        Me.chbAthens.Text = "Northeast Distrct (Athens)"
-        '
-        'chbBrunswick
-        '
-        Me.chbBrunswick.AutoSize = True
-        Me.chbBrunswick.Location = New System.Drawing.Point(6, 118)
-        Me.chbBrunswick.Name = "chbBrunswick"
-        Me.chbBrunswick.Size = New System.Drawing.Size(154, 17)
-        Me.chbBrunswick.TabIndex = 15
-        Me.chbBrunswick.Text = "Coastal District (Brunswick)"
-        '
-        'chbAdministrative
-        '
-        Me.chbAdministrative.AutoSize = True
-        Me.chbAdministrative.Location = New System.Drawing.Point(6, 16)
-        Me.chbAdministrative.Name = "chbAdministrative"
-        Me.chbAdministrative.Size = New System.Drawing.Size(91, 17)
-        Me.chbAdministrative.TabIndex = 11
-        Me.chbAdministrative.Text = "Administrative"
-        '
-        'chbAIRToxics
-        '
-        Me.chbAIRToxics.AutoSize = True
-        Me.chbAIRToxics.Location = New System.Drawing.Point(6, 33)
-        Me.chbAIRToxics.Name = "chbAIRToxics"
-        Me.chbAIRToxics.Size = New System.Drawing.Size(94, 17)
-        Me.chbAIRToxics.TabIndex = 12
-        Me.chbAIRToxics.Text = "Air Toxics Unit"
-        '
-        'chbChemicalsMineral
-        '
-        Me.chbChemicalsMineral.AutoSize = True
-        Me.chbChemicalsMineral.Location = New System.Drawing.Point(6, 50)
-        Me.chbChemicalsMineral.Name = "chbChemicalsMineral"
-        Me.chbChemicalsMineral.Size = New System.Drawing.Size(140, 17)
-        Me.chbChemicalsMineral.TabIndex = 13
-        Me.chbChemicalsMineral.Text = "Chemicals/Minerals Unit"
-        '
-        'chbVOCCombustion
-        '
-        Me.chbVOCCombustion.AutoSize = True
-        Me.chbVOCCombustion.Location = New System.Drawing.Point(6, 67)
-        Me.chbVOCCombustion.Name = "chbVOCCombustion"
-        Me.chbVOCCombustion.Size = New System.Drawing.Size(130, 17)
-        Me.chbVOCCombustion.TabIndex = 14
-        Me.chbVOCCombustion.Text = "VOC/Combustion Unit"
         '
         'txtWorkCount
         '
@@ -1270,7 +1136,7 @@ Partial Class SSCPComplianceLog
         'Label17
         '
         Me.Label17.AutoSize = True
-        Me.Label17.Location = New System.Drawing.Point(208, 119)
+        Me.Label17.Location = New System.Drawing.Point(211, 121)
         Me.Label17.Name = "Label17"
         Me.Label17.Size = New System.Drawing.Size(70, 13)
         Me.Label17.TabIndex = 309
@@ -1279,7 +1145,7 @@ Partial Class SSCPComplianceLog
         'Label16
         '
         Me.Label16.AutoSize = True
-        Me.Label16.Location = New System.Drawing.Point(208, 48)
+        Me.Label16.Location = New System.Drawing.Point(211, 46)
         Me.Label16.Name = "Label16"
         Me.Label16.Size = New System.Drawing.Size(78, 13)
         Me.Label16.TabIndex = 308
@@ -1288,7 +1154,7 @@ Partial Class SSCPComplianceLog
         'clbDistrictOffices
         '
         Me.clbDistrictOffices.CheckOnClick = True
-        Me.clbDistrictOffices.Location = New System.Drawing.Point(218, 137)
+        Me.clbDistrictOffices.Location = New System.Drawing.Point(211, 137)
         Me.clbDistrictOffices.Name = "clbDistrictOffices"
         Me.clbDistrictOffices.Size = New System.Drawing.Size(199, 109)
         Me.clbDistrictOffices.TabIndex = 307
@@ -1296,7 +1162,7 @@ Partial Class SSCPComplianceLog
         'clbAirBranchUnits
         '
         Me.clbAirBranchUnits.CheckOnClick = True
-        Me.clbAirBranchUnits.Location = New System.Drawing.Point(215, 62)
+        Me.clbAirBranchUnits.Location = New System.Drawing.Point(211, 62)
         Me.clbAirBranchUnits.Name = "clbAirBranchUnits"
         Me.clbAirBranchUnits.Size = New System.Drawing.Size(199, 49)
         Me.clbAirBranchUnits.TabIndex = 305
@@ -1311,7 +1177,7 @@ Partial Class SSCPComplianceLog
         Me.Panel5.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel5.Location = New System.Drawing.Point(3, 16)
         Me.Panel5.Name = "Panel5"
-        Me.Panel5.Size = New System.Drawing.Size(414, 25)
+        Me.Panel5.Size = New System.Drawing.Size(414, 24)
         Me.Panel5.TabIndex = 303
         '
         'rdbUseUnits
@@ -1339,7 +1205,7 @@ Partial Class SSCPComplianceLog
         'rdbIgnoreEngineer
         '
         Me.rdbIgnoreEngineer.AutoSize = True
-        Me.rdbIgnoreEngineer.Location = New System.Drawing.Point(3, 5)
+        Me.rdbIgnoreEngineer.Location = New System.Drawing.Point(3, 4)
         Me.rdbIgnoreEngineer.Name = "rdbIgnoreEngineer"
         Me.rdbIgnoreEngineer.Size = New System.Drawing.Size(80, 17)
         Me.rdbIgnoreEngineer.TabIndex = 0
@@ -1359,7 +1225,7 @@ Partial Class SSCPComplianceLog
         Me.chbEngineer.AutoSize = True
         Me.chbEngineer.Checked = True
         Me.chbEngineer.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chbEngineer.Location = New System.Drawing.Point(6, 44)
+        Me.chbEngineer.Location = New System.Drawing.Point(9, 45)
         Me.chbEngineer.Name = "chbEngineer"
         Me.chbEngineer.Size = New System.Drawing.Size(107, 17)
         Me.chbEngineer.TabIndex = 10
@@ -1408,8 +1274,6 @@ Partial Class SSCPComplianceLog
         Me.GBNotifications.ResumeLayout(False)
         Me.GBEnforcementDates.ResumeLayout(False)
         Me.GBEnforcementDates.PerformLayout()
-        Me.GroupBox6.ResumeLayout(False)
-        Me.GroupBox6.PerformLayout()
         Me.TCComplianceLog.ResumeLayout(False)
         Me.TPSelectWork.ResumeLayout(False)
         Me.TPSelectWork.PerformLayout()
@@ -1468,10 +1332,6 @@ Partial Class SSCPComplianceLog
     Friend WithEvents txtWorkNumber As System.Windows.Forms.TextBox
     Friend WithEvents chbFCE As System.Windows.Forms.CheckBox
     Friend WithEvents chbEnforcement As System.Windows.Forms.CheckBox
-    Friend WithEvents GroupBox6 As System.Windows.Forms.GroupBox
-    Friend WithEvents chbAIRToxics As System.Windows.Forms.CheckBox
-    Friend WithEvents chbChemicalsMineral As System.Windows.Forms.CheckBox
-    Friend WithEvents chbVOCCombustion As System.Windows.Forms.CheckBox
     Friend WithEvents chbCompletedWork As System.Windows.Forms.CheckBox
     Friend WithEvents chbOpenWork As System.Windows.Forms.CheckBox
     Friend WithEvents chbDeletedWork As System.Windows.Forms.CheckBox
@@ -1508,7 +1368,6 @@ Partial Class SSCPComplianceLog
     Friend WithEvents DTPDateReceived As System.Windows.Forms.DateTimePicker
     Friend WithEvents lblDateField As System.Windows.Forms.Label
     Friend WithEvents btnRunFilter As System.Windows.Forms.Button
-    Friend WithEvents chbAdministrative As System.Windows.Forms.CheckBox
     Friend WithEvents Label20 As System.Windows.Forms.Label
     Friend WithEvents txtWorkCount As System.Windows.Forms.TextBox
     Friend WithEvents pnlOtherEvents As System.Windows.Forms.Panel
@@ -1524,13 +1383,6 @@ Partial Class SSCPComplianceLog
     Friend WithEvents tbbClear As System.Windows.Forms.ToolBarButton
     Friend WithEvents Label15 As System.Windows.Forms.Label
     Friend WithEvents txtFacilityNameFilter As System.Windows.Forms.TextBox
-    Friend WithEvents chbMacon As System.Windows.Forms.CheckBox
-    Friend WithEvents chbAugusta As System.Windows.Forms.CheckBox
-    Friend WithEvents chbCartersville As System.Windows.Forms.CheckBox
-    Friend WithEvents chbAtlanta As System.Windows.Forms.CheckBox
-    Friend WithEvents chbAlbany As System.Windows.Forms.CheckBox
-    Friend WithEvents chbAthens As System.Windows.Forms.CheckBox
-    Friend WithEvents chbBrunswick As System.Windows.Forms.CheckBox
     Friend WithEvents rdbPerformanceTest As System.Windows.Forms.RadioButton
     Friend WithEvents GBNotifications As System.Windows.Forms.GroupBox
     Friend WithEvents clbNotifications As System.Windows.Forms.CheckedListBox
