@@ -101,7 +101,7 @@ Module Extensions
             result = ExportDataTableToExcel(fileName, dataTable, errorMessage)
         Catch ex As Exception
             errorMessage = ex.ToString()
-            ErrorReport(ex.ToString(), dgv.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, dgv.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
         Return result

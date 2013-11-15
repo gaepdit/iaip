@@ -29,7 +29,7 @@ Public Class DMUDeveloperTools
             lblCurrentVersion.Text = "GetCurrentVersion: " & GetCurrentVersion.ToString & "; GetPublishedVersion: " & GetPublishedVersion.ToString
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub MmiBack_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiBack.Click
@@ -37,7 +37,7 @@ Public Class DMUDeveloperTools
 
             Me.Close()
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -47,7 +47,7 @@ Public Class DMUDeveloperTools
 
             Me.Close()
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -103,7 +103,7 @@ Public Class DMUDeveloperTools
                 '  TCDMUTools.TabPages.Add(TPUpdateDEVTest)
             End If
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -129,7 +129,7 @@ Public Class DMUDeveloperTools
 
            
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
            
         End Try
@@ -212,7 +212,7 @@ Public Class DMUDeveloperTools
             dgrWebErrorList.ColumnHeadersVisible = True
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -236,7 +236,7 @@ Public Class DMUDeveloperTools
             cboCDSClassCode.Items.Add("U - UNDEFINED")
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
           
         End Try
@@ -329,7 +329,7 @@ Public Class DMUDeveloperTools
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -721,7 +721,7 @@ Public Class DMUDeveloperTools
 
             txtAFSBatchFile.Text = txtAFSBatchFile.Text & BatchText
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -1067,7 +1067,7 @@ Public Class DMUDeveloperTools
             txtAFSBatchFile.Text = txtAFSBatchFile.Text & AirProgramPollutantLines
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -1381,7 +1381,7 @@ Public Class DMUDeveloperTools
             txtAFSBatchFile.Text = txtAFSBatchFile.Text & BatchText
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -1698,7 +1698,7 @@ Public Class DMUDeveloperTools
             txtAFSBatchFile.Text = txtAFSBatchFile.Text & BatchText
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -1914,7 +1914,7 @@ Public Class DMUDeveloperTools
             txtAFSBatchFile.Text = txtAFSBatchFile.Text & BatchText
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -2158,7 +2158,7 @@ Public Class DMUDeveloperTools
             txtAFSBatchFile.Text = txtAFSBatchFile.Text & BatchText
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -4075,7 +4075,7 @@ Public Class DMUDeveloperTools
             txtAFSBatchFile.Text = txtAFSBatchFile.Text & BatchText
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -4292,7 +4292,7 @@ Public Class DMUDeveloperTools
             txtAFSBatchFile.Text = txtAFSBatchFile.Text & BatchText
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -4326,7 +4326,7 @@ Public Class DMUDeveloperTools
             txtCDSRegionCode.Text = Region
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -4945,7 +4945,7 @@ Public Class DMUDeveloperTools
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -4992,7 +4992,7 @@ Public Class DMUDeveloperTools
             mtbContactPhoneNumber.Clear()
             mtbContactNumberExtension.Clear()
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -5074,7 +5074,7 @@ Public Class DMUDeveloperTools
 
             End If
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -5124,7 +5124,7 @@ Public Class DMUDeveloperTools
 
             End If
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -5144,7 +5144,7 @@ Public Class DMUDeveloperTools
 
             Me.Dispose()
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
            
         End Try
@@ -5156,7 +5156,7 @@ Public Class DMUDeveloperTools
             FindRegion(txtCDSRegionCode.Text, txtCDSAIRSNumber.Text)
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -5166,7 +5166,7 @@ Public Class DMUDeveloperTools
         Try
             CreateNewFacility()
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -5183,7 +5183,7 @@ Public Class DMUDeveloperTools
             GBAirProgramCodes.Visible = False
             GBContactInformation.Visible = False
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
          
         End Try
@@ -5200,7 +5200,7 @@ Public Class DMUDeveloperTools
             GBAirProgramCodes.Visible = False
             GBContactInformation.Visible = False
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
           
         End Try
@@ -5217,7 +5217,7 @@ Public Class DMUDeveloperTools
             GBAirProgramCodes.Visible = False
             GBContactInformation.Visible = False
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
             
         End Try
@@ -5234,7 +5234,7 @@ Public Class DMUDeveloperTools
             GBFacilityInformation.Visible = False
             GBContactInformation.Visible = False
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
            
         End Try
@@ -5251,7 +5251,7 @@ Public Class DMUDeveloperTools
             GBAirProgramCodes.Visible = False
             GBFacilityInformation.Visible = False
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
           
         End Try
@@ -5289,7 +5289,7 @@ Public Class DMUDeveloperTools
                 llbContactInformation.Enabled = False
             End If
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
          
         End Try
@@ -5300,7 +5300,7 @@ Public Class DMUDeveloperTools
             
             txtMailingAddress.Text = txtCDSStreetAddress.Text
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
          
         End Try
@@ -5311,7 +5311,7 @@ Public Class DMUDeveloperTools
             
             txtMailingCity.Text = txtCDSCity.Text
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
            
         End Try
@@ -5322,7 +5322,7 @@ Public Class DMUDeveloperTools
             txtAFSBatchFile.Clear()
             GenerateBatchFile()
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -5342,7 +5342,7 @@ Public Class DMUDeveloperTools
 
             mtbAFSAirsNumber.Clear()
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -5353,7 +5353,7 @@ Public Class DMUDeveloperTools
             
             ClearCreateFacility()
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
            
         End Try
@@ -5403,7 +5403,7 @@ Public Class DMUDeveloperTools
             Return dtairs
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
             Return Nothing
         Finally
            
@@ -5416,7 +5416,7 @@ Public Class DMUDeveloperTools
             
             Me.Hide()
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
            
         End Try
@@ -5463,7 +5463,7 @@ Public Class DMUDeveloperTools
             cmd.ExecuteNonQuery()
           
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
     End Sub
@@ -5480,7 +5480,7 @@ Public Class DMUDeveloperTools
             NavigationScreen.Show()
             Me.Dispose()
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
           
         End Try
@@ -5493,7 +5493,7 @@ Public Class DMUDeveloperTools
         Try
             LoadErrorLog()
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
            
         End Try
@@ -5526,7 +5526,7 @@ Public Class DMUDeveloperTools
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -5537,7 +5537,7 @@ Public Class DMUDeveloperTools
             
             LoadWegErrorLog()
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
          
         End Try
@@ -5610,7 +5610,7 @@ Public Class DMUDeveloperTools
                 End If
             End If
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
            
         End Try
@@ -5641,7 +5641,7 @@ Public Class DMUDeveloperTools
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
           
         End Try
@@ -5653,7 +5653,7 @@ Public Class DMUDeveloperTools
             mtbMailingZipCode.Text = mtbCDSZipCode.Text
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -6089,7 +6089,7 @@ Public Class DMUDeveloperTools
 
             End If
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
           
         End Try
@@ -6209,7 +6209,7 @@ Public Class DMUDeveloperTools
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub chbAllLookUpTables_CheckedChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles chbAllLookUpTables.CheckedChanged
@@ -6283,7 +6283,7 @@ Public Class DMUDeveloperTools
                 chbLookUpUnits.Enabled = True
             End If
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -6323,7 +6323,7 @@ Public Class DMUDeveloperTools
             chbLookUpTestingFirms.Checked = False
             chbLookUpUnits.Checked = False
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub chbAllHeaderTables_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chbAllHeaderTables.CheckedChanged
@@ -6361,7 +6361,7 @@ Public Class DMUDeveloperTools
 
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub ClearAPBTables()
@@ -6380,7 +6380,7 @@ Public Class DMUDeveloperTools
             chbHBAPBFacilityInformation.Checked = False
             chbHBAPBHeaderData.Checked = False
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub chbAllISMPTables_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chbAllISMPTables.CheckedChanged
@@ -6434,7 +6434,7 @@ Public Class DMUDeveloperTools
                 chbISMPWitnessingEng.Enabled = True
             End If
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub ClearISMPTables()
@@ -6463,7 +6463,7 @@ Public Class DMUDeveloperTools
             chbISMPWitnessingEng.Checked = False
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub chbAllSBEAPTables_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chbAllSBEAPTables.CheckedChanged
@@ -6489,7 +6489,7 @@ Public Class DMUDeveloperTools
                 chbHBSBEAPClients.Enabled = True
             End If
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub ClearSBEAPTables()
@@ -6503,7 +6503,7 @@ Public Class DMUDeveloperTools
             chbHBSBEAPClientData.Checked = False
             chbHBSBEAPClients.Checked = False
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub chbAllSSCPTables_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chbAllSSCPTables.CheckedChanged
@@ -6559,7 +6559,7 @@ Public Class DMUDeveloperTools
                 chbSSCPTestReports.Enabled = True
             End If
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub ClearSSCPTables()
@@ -6588,7 +6588,7 @@ Public Class DMUDeveloperTools
             chbSSCPReportsHistory.Checked = False
             chbSSCPTestReports.Checked = False
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub chbAllSSPPTables_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chbAllSSPPTables.CheckedChanged
@@ -6616,7 +6616,7 @@ Public Class DMUDeveloperTools
                 chbSSPPPublicLetters.Enabled = True
             End If
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub ClearSSPPTables()
@@ -6631,7 +6631,7 @@ Public Class DMUDeveloperTools
             chbSSPPCDS.Checked = False
             chbSSPPPublicLetters.Checked = False
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub chbAllAFSTables_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chbAllAFSTables.CheckedChanged
@@ -6657,7 +6657,7 @@ Public Class DMUDeveloperTools
                 chbAFSSSPPRecords.Enabled = True
             End If
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub ClearAFSTables()
@@ -6671,7 +6671,7 @@ Public Class DMUDeveloperTools
             chbAFSSSCPRecords.Checked = False
             chbAFSSSPPRecords.Checked = False
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub btnClearSelection_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnClearSelection.Click
@@ -6693,7 +6693,7 @@ Public Class DMUDeveloperTools
             ClearSSPPTables()
             ClearAFSTables()
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub btnTransferData_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnTransferData.Click
@@ -6724,7 +6724,7 @@ Public Class DMUDeveloperTools
             bgwTransfer.WorkerSupportsCancellation = True
             bgwTransfer.RunWorkerAsync()
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub bgwTransfer_DoWork(ByVal sender As Object, ByVal e As System.ComponentModel.DoWorkEventArgs) Handles bgwTransfer.DoWork
@@ -20228,7 +20228,7 @@ Public Class DMUDeveloperTools
 
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub MmiHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiHelp.Click
@@ -20628,7 +20628,7 @@ Public Class DMUDeveloperTools
 
             txtAFSBatchFile.Text = txtAFSBatchFile.Text & BatchText
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -20672,7 +20672,7 @@ Public Class DMUDeveloperTools
             If ex.ToString.Contains("RPC_E_CALL_REJECTED") Then
                 MsgBox("Error in exporting data." & vbCrLf & "Please run the export again.")
             Else
-                ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+                ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
             End If
         Finally
         End Try
@@ -20741,7 +20741,7 @@ Public Class DMUDeveloperTools
                 End If
             End If
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -21194,7 +21194,7 @@ Public Class DMUDeveloperTools
 
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -21358,7 +21358,7 @@ Public Class DMUDeveloperTools
 
 
     '    Catch ex As Exception
-    '        ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+    '        ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
     '    End Try
     'End Sub
     'Private Sub btnFillComputerAssets_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnFillComputerAssets.Click
@@ -21548,7 +21548,7 @@ Public Class DMUDeveloperTools
 
     '        MsgBox(i.ToString & " Computers Added", MsgBoxStyle.Information, Me.Text)
     '    Catch ex As Exception
-    '        ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+    '        ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
     '    End Try
     'End Sub
     'Private Sub btnPopulatePrinterAssets_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnPopulatePrinterAssets.Click
@@ -21736,7 +21736,7 @@ Public Class DMUDeveloperTools
     '        MsgBox(i.ToString & " Printers Added", MsgBoxStyle.Information, Me.Text)
 
     '    Catch ex As Exception
-    '        ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+    '        ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
     '    End Try
     'End Sub
     'Private Sub btnPopulateStaffFromIAIP1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnPopulateStaffFromIAIP.Click
@@ -21844,7 +21844,7 @@ Public Class DMUDeveloperTools
                 btnAIRSSpecificRefresh.Enabled = False
             End If
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -22113,7 +22113,7 @@ Public Class DMUDeveloperTools
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -22125,7 +22125,7 @@ Public Class DMUDeveloperTools
             pnlBasicRefresh.Enabled = False
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -22137,7 +22137,7 @@ Public Class DMUDeveloperTools
             pnlBasicRefresh.Enabled = False
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -22149,7 +22149,7 @@ Public Class DMUDeveloperTools
             pnlBasicRefresh.Enabled = False
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -22161,7 +22161,7 @@ Public Class DMUDeveloperTools
             pnlBasicRefresh.Enabled = True
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -22179,7 +22179,7 @@ Public Class DMUDeveloperTools
             dr.Close()
             MsgBox("Version number updated to: " & Replace(VersionNumberInput.Text, "'", "''"), MsgBoxStyle.Information, Me.Name)
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & ".UpdateVersionNumber_Click")
+            ErrorReport(ex, Me.Name & ".UpdateVersionNumber_Click")
         End Try
     End Sub
 End Class
