@@ -324,11 +324,6 @@ Partial Class PASPFeeAuditLog
         Me.Label160 = New System.Windows.Forms.Label
         Me.txtAuditComment = New System.Windows.Forms.TextBox
         Me.Label159 = New System.Windows.Forms.Label
-        Me.Panel37 = New System.Windows.Forms.Panel
-        Me.rdbAudit0 = New System.Windows.Forms.RadioButton
-        Me.rdbAudit3 = New System.Windows.Forms.RadioButton
-        Me.rdbAudit2 = New System.Windows.Forms.RadioButton
-        Me.rdbAudit1 = New System.Windows.Forms.RadioButton
         Me.Label158 = New System.Windows.Forms.Label
         Me.cboStaffResponsible = New System.Windows.Forms.ComboBox
         Me.Label157 = New System.Windows.Forms.Label
@@ -524,7 +519,6 @@ Partial Class PASPFeeAuditLog
         CType(Me.dgvAuditHistory, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel38.SuspendLayout()
         Me.Panel35.SuspendLayout()
-        Me.Panel37.SuspendLayout()
         Me.TPMailoutInformation.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
@@ -3290,7 +3284,6 @@ Partial Class PASPFeeAuditLog
         Me.Panel35.Controls.Add(Me.Label160)
         Me.Panel35.Controls.Add(Me.txtAuditComment)
         Me.Panel35.Controls.Add(Me.Label159)
-        Me.Panel35.Controls.Add(Me.Panel37)
         Me.Panel35.Controls.Add(Me.Label158)
         Me.Panel35.Controls.Add(Me.cboStaffResponsible)
         Me.Panel35.Controls.Add(Me.Label157)
@@ -3468,61 +3461,6 @@ Partial Class PASPFeeAuditLog
         Me.Label159.Size = New System.Drawing.Size(83, 13)
         Me.Label159.TabIndex = 599
         Me.Label159.Text = "Audit Comments"
-        '
-        'Panel37
-        '
-        Me.Panel37.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.Panel37.Controls.Add(Me.rdbAudit0)
-        Me.Panel37.Controls.Add(Me.rdbAudit3)
-        Me.Panel37.Controls.Add(Me.rdbAudit2)
-        Me.Panel37.Controls.Add(Me.rdbAudit1)
-        Me.Panel37.Location = New System.Drawing.Point(253, 298)
-        Me.Panel37.Name = "Panel37"
-        Me.Panel37.Size = New System.Drawing.Size(64, 14)
-        Me.Panel37.TabIndex = 598
-        Me.Panel37.Visible = False
-        '
-        'rdbAudit0
-        '
-        Me.rdbAudit0.AutoSize = True
-        Me.rdbAudit0.Checked = True
-        Me.rdbAudit0.Location = New System.Drawing.Point(3, 3)
-        Me.rdbAudit0.Name = "rdbAudit0"
-        Me.rdbAudit0.Size = New System.Drawing.Size(137, 17)
-        Me.rdbAudit0.TabIndex = 3
-        Me.rdbAudit0.TabStop = True
-        Me.rdbAudit0.Text = "Facility Self Amendment"
-        Me.rdbAudit0.UseVisualStyleBackColor = True
-        '
-        'rdbAudit3
-        '
-        Me.rdbAudit3.AutoSize = True
-        Me.rdbAudit3.Location = New System.Drawing.Point(3, 57)
-        Me.rdbAudit3.Name = "rdbAudit3"
-        Me.rdbAudit3.Size = New System.Drawing.Size(87, 17)
-        Me.rdbAudit3.TabIndex = 2
-        Me.rdbAudit3.Text = "Level 3 Audit"
-        Me.rdbAudit3.UseVisualStyleBackColor = True
-        '
-        'rdbAudit2
-        '
-        Me.rdbAudit2.AutoSize = True
-        Me.rdbAudit2.Location = New System.Drawing.Point(3, 39)
-        Me.rdbAudit2.Name = "rdbAudit2"
-        Me.rdbAudit2.Size = New System.Drawing.Size(87, 17)
-        Me.rdbAudit2.TabIndex = 1
-        Me.rdbAudit2.Text = "Level 2 Audit"
-        Me.rdbAudit2.UseVisualStyleBackColor = True
-        '
-        'rdbAudit1
-        '
-        Me.rdbAudit1.AutoSize = True
-        Me.rdbAudit1.Location = New System.Drawing.Point(3, 21)
-        Me.rdbAudit1.Name = "rdbAudit1"
-        Me.rdbAudit1.Size = New System.Drawing.Size(87, 17)
-        Me.rdbAudit1.TabIndex = 0
-        Me.rdbAudit1.Text = "Level 1 Audit"
-        Me.rdbAudit1.UseVisualStyleBackColor = True
         '
         'Label158
         '
@@ -5169,8 +5107,6 @@ Partial Class PASPFeeAuditLog
         Me.Panel38.PerformLayout()
         Me.Panel35.ResumeLayout(False)
         Me.Panel35.PerformLayout()
-        Me.Panel37.ResumeLayout(False)
-        Me.Panel37.PerformLayout()
         Me.TPMailoutInformation.ResumeLayout(False)
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
@@ -5592,9 +5528,6 @@ Partial Class PASPFeeAuditLog
     Friend WithEvents btnViewPrintableInvoice As System.Windows.Forms.Button
     Friend WithEvents Panel35 As System.Windows.Forms.Panel
     Friend WithEvents pnlFacilityData As System.Windows.Forms.Panel
-    Friend WithEvents Panel37 As System.Windows.Forms.Panel
-    Friend WithEvents rdbAudit2 As System.Windows.Forms.RadioButton
-    Friend WithEvents rdbAudit1 As System.Windows.Forms.RadioButton
     Friend WithEvents Label158 As System.Windows.Forms.Label
     Friend WithEvents cboStaffResponsible As System.Windows.Forms.ComboBox
     Friend WithEvents Label157 As System.Windows.Forms.Label
@@ -5604,7 +5537,6 @@ Partial Class PASPFeeAuditLog
     Friend WithEvents Label160 As System.Windows.Forms.Label
     Friend WithEvents txtAuditComment As System.Windows.Forms.TextBox
     Friend WithEvents Label159 As System.Windows.Forms.Label
-    Friend WithEvents rdbAudit3 As System.Windows.Forms.RadioButton
     Friend WithEvents txtInvoice As System.Windows.Forms.TextBox
     Friend WithEvents Label163 As System.Windows.Forms.Label
     Friend WithEvents btnViewInvoices As System.Windows.Forms.Button
@@ -5629,7 +5561,6 @@ Partial Class PASPFeeAuditLog
     Friend WithEvents Panel38 As System.Windows.Forms.Panel
     Friend WithEvents btnExportAuditToExcel As System.Windows.Forms.Button
     Friend WithEvents btnSelectAuditToEdit As System.Windows.Forms.Button
-    Friend WithEvents rdbAudit0 As System.Windows.Forms.RadioButton
     Friend WithEvents btnEditFeeAudit As System.Windows.Forms.Button
     Friend WithEvents Label171 As System.Windows.Forms.Label
     Friend WithEvents DTPAuditEnd As System.Windows.Forms.DateTimePicker

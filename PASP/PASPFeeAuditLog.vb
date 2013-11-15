@@ -1339,7 +1339,6 @@ Public Class PASPFeeAuditLog
             If mtbFeeAdminAIRSNumber.Text <> "" And mtbFeeAdminExistingYear.Text <> "" Then
                 'txtAuditID.Clear()
                 'cboStaffResponsible.Text = ""
-                'rdbAudit0.Checked = True
                 'txtAuditComment.Clear()
                 'txtAuditEnforcementNumber.Clear()
                 'DTPAuditStart.Text = OracleDate
@@ -4050,18 +4049,6 @@ Public Class PASPFeeAuditLog
             If StaffResponsible = "" Then
                 StaffResponsible = UserGCode
             End If
-            'If rdbAudit3.Checked = True Then
-            '    AuditLevel = "3"
-            'End If
-            'If rdbAudit2.Checked = True Then
-            '    AuditLevel = "2"
-            'End If
-            'If rdbAudit1.Checked = True Then
-            '    AuditLevel = "1"
-            'End If
-            'If rdbAudit0.Checked = True Then
-            '    AuditLevel = "0"
-            'End If
             Select Case cboAuditType.Text
                 Case "Facility Self Amendment"
                     AuditLevel = "0"
@@ -5340,18 +5327,6 @@ Public Class PASPFeeAuditLog
             If StaffResponsible = "" Then
                 StaffResponsible = UserGCode
             End If
-            'If rdbAudit3.Checked = True Then
-            '    AuditLevel = "3"
-            'End If
-            'If rdbAudit2.Checked = True Then
-            '    AuditLevel = "2"
-            'End If
-            'If rdbAudit1.Checked = True Then
-            '    AuditLevel = "1"
-            'End If
-            'If rdbAudit0.Checked = True Then
-            '    AuditLevel = "0"
-            'End If
             Select Case cboAuditType.Text
                 Case "Facility Self Amendment"
                     AuditLevel = "0"
@@ -5514,25 +5489,17 @@ Public Class PASPFeeAuditLog
             dr.Close()
             Select Case AuditLevel
                 Case "0"
-                    'rdbAudit0.Checked = True
                     cboAuditType.Text = "Facility Self Amendment"
                 Case "1"
-                    'rdbAudit1.Checked = True
                     cboAuditType.Text = "Level 1 Audit"
                 Case "2"
-                    'rdbAudit2.Checked = True
                     cboAuditType.Text = "Level 2 Audit"
                 Case "3"
-                    'rdbAudit3.Checked = True
                     cboAuditType.Text = "Level 3 Audit"
                 Case "4"
                     cboAuditType.Text = "Other"
                 Case Else
                     cboAuditType.Text = "Other"
-                    'rdbAudit0.Checked = False
-                    'rdbAudit1.Checked = False
-                    'rdbAudit2.Checked = False
-                    'rdbAudit3.Checked = False
             End Select
 
             SQL = "select * " & _
@@ -5768,7 +5735,6 @@ ClearAuditData
         Try
             txtAuditID.Clear()
             cboStaffResponsible.Text = ""
-            'rdbAudit0.Checked = True
             cboAuditType.Text = ""
             txtAuditComment.Clear()
             txtAuditEnforcementNumber.Clear()
