@@ -1419,7 +1419,7 @@ Partial Class SSCPManagersTools
         Me.btnSaveDistResponsible.Name = "btnSaveDistResponsible"
         Me.btnSaveDistResponsible.Size = New System.Drawing.Size(101, 23)
         Me.btnSaveDistResponsible.TabIndex = 25
-        Me.btnSaveDistResponsible.Text = "Save Distrcit Only"
+        Me.btnSaveDistResponsible.Text = "Save District Only"
         '
         'rdbDistResponsibleFalse
         '
