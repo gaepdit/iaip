@@ -858,9 +858,9 @@ Partial Class PASPFeeAuditLog
         Me.dtpInvoiceDataCreatedDate.CustomFormat = "dd-MMM-yyyy"
         Me.dtpInvoiceDataCreatedDate.Enabled = False
         Me.dtpInvoiceDataCreatedDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpInvoiceDataCreatedDate.Location = New System.Drawing.Point(892, 212)
+        Me.dtpInvoiceDataCreatedDate.Location = New System.Drawing.Point(878, 217)
         Me.dtpInvoiceDataCreatedDate.Name = "dtpInvoiceDataCreatedDate"
-        Me.dtpInvoiceDataCreatedDate.Size = New System.Drawing.Size(86, 20)
+        Me.dtpInvoiceDataCreatedDate.Size = New System.Drawing.Size(100, 20)
         Me.dtpInvoiceDataCreatedDate.TabIndex = 514
         '
         'dtpInvoiceDataDateUpdated
@@ -868,15 +868,15 @@ Partial Class PASPFeeAuditLog
         Me.dtpInvoiceDataDateUpdated.CustomFormat = "dd-MMM-yyyy"
         Me.dtpInvoiceDataDateUpdated.Enabled = False
         Me.dtpInvoiceDataDateUpdated.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpInvoiceDataDateUpdated.Location = New System.Drawing.Point(892, 190)
+        Me.dtpInvoiceDataDateUpdated.Location = New System.Drawing.Point(878, 191)
         Me.dtpInvoiceDataDateUpdated.Name = "dtpInvoiceDataDateUpdated"
-        Me.dtpInvoiceDataDateUpdated.Size = New System.Drawing.Size(86, 20)
+        Me.dtpInvoiceDataDateUpdated.Size = New System.Drawing.Size(100, 20)
         Me.dtpInvoiceDataDateUpdated.TabIndex = 513
         '
         'Label95
         '
         Me.Label95.AutoSize = True
-        Me.Label95.Location = New System.Drawing.Point(812, 194)
+        Me.Label95.Location = New System.Drawing.Point(798, 194)
         Me.Label95.Name = "Label95"
         Me.Label95.Size = New System.Drawing.Size(74, 13)
         Me.Label95.TabIndex = 512
@@ -885,7 +885,7 @@ Partial Class PASPFeeAuditLog
         'Label96
         '
         Me.Label96.AutoSize = True
-        Me.Label96.Location = New System.Drawing.Point(812, 216)
+        Me.Label96.Location = New System.Drawing.Point(798, 220)
         Me.Label96.Name = "Label96"
         Me.Label96.Size = New System.Drawing.Size(70, 13)
         Me.Label96.TabIndex = 511
@@ -933,7 +933,7 @@ Partial Class PASPFeeAuditLog
         Me.dtpInvoiceDataDateInvoiced.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.dtpInvoiceDataDateInvoiced.Location = New System.Drawing.Point(503, 138)
         Me.dtpInvoiceDataDateInvoiced.Name = "dtpInvoiceDataDateInvoiced"
-        Me.dtpInvoiceDataDateInvoiced.Size = New System.Drawing.Size(86, 20)
+        Me.dtpInvoiceDataDateInvoiced.Size = New System.Drawing.Size(100, 20)
         Me.dtpInvoiceDataDateInvoiced.TabIndex = 506
         '
         'Label92
@@ -1361,7 +1361,7 @@ Partial Class PASPFeeAuditLog
         '
         'txtAdminFee
         '
-        Me.txtAdminFee.Location = New System.Drawing.Point(414, 226)
+        Me.txtAdminFee.Location = New System.Drawing.Point(414, 248)
         Me.txtAdminFee.Name = "txtAdminFee"
         Me.txtAdminFee.Size = New System.Drawing.Size(53, 20)
         Me.txtAdminFee.TabIndex = 624
@@ -1369,7 +1369,7 @@ Partial Class PASPFeeAuditLog
         'Label10
         '
         Me.Label10.AutoSize = True
-        Me.Label10.Location = New System.Drawing.Point(358, 230)
+        Me.Label10.Location = New System.Drawing.Point(358, 252)
         Me.Label10.Name = "Label10"
         Me.Label10.Size = New System.Drawing.Size(57, 13)
         Me.Label10.TabIndex = 623
@@ -1379,15 +1379,15 @@ Partial Class PASPFeeAuditLog
         '
         Me.dtpEndDate.CustomFormat = "dd-MMM-yyyy"
         Me.dtpEndDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpEndDate.Location = New System.Drawing.Point(265, 226)
+        Me.dtpEndDate.Location = New System.Drawing.Point(279, 225)
         Me.dtpEndDate.Name = "dtpEndDate"
-        Me.dtpEndDate.Size = New System.Drawing.Size(87, 20)
+        Me.dtpEndDate.Size = New System.Drawing.Size(100, 20)
         Me.dtpEndDate.TabIndex = 622
         '
         'Label7
         '
         Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(236, 230)
+        Me.Label7.Location = New System.Drawing.Point(250, 229)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(26, 13)
         Me.Label7.TabIndex = 621
@@ -1397,15 +1397,15 @@ Partial Class PASPFeeAuditLog
         '
         Me.dtpStartDate.CustomFormat = "dd-MMM-yyyy"
         Me.dtpStartDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpStartDate.Location = New System.Drawing.Point(144, 226)
+        Me.dtpStartDate.Location = New System.Drawing.Point(144, 225)
         Me.dtpStartDate.Name = "dtpStartDate"
-        Me.dtpStartDate.Size = New System.Drawing.Size(86, 20)
+        Me.dtpStartDate.Size = New System.Drawing.Size(100, 20)
         Me.dtpStartDate.TabIndex = 620
         '
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(113, 230)
+        Me.Label3.Location = New System.Drawing.Point(113, 229)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(29, 13)
         Me.Label3.TabIndex = 619
@@ -1511,7 +1511,7 @@ Partial Class PASPFeeAuditLog
         Me.DTPInvoiceDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.DTPInvoiceDate.Location = New System.Drawing.Point(70, 85)
         Me.DTPInvoiceDate.Name = "DTPInvoiceDate"
-        Me.DTPInvoiceDate.Size = New System.Drawing.Size(86, 20)
+        Me.DTPInvoiceDate.Size = New System.Drawing.Size(100, 20)
         Me.DTPInvoiceDate.TabIndex = 424
         '
         'Label170
@@ -1816,7 +1816,7 @@ Partial Class PASPFeeAuditLog
         Me.dtpTransactionCreated.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.dtpTransactionCreated.Location = New System.Drawing.Point(875, 157)
         Me.dtpTransactionCreated.Name = "dtpTransactionCreated"
-        Me.dtpTransactionCreated.Size = New System.Drawing.Size(86, 20)
+        Me.dtpTransactionCreated.Size = New System.Drawing.Size(100, 20)
         Me.dtpTransactionCreated.TabIndex = 537
         '
         'dtpTransactionUpdated
@@ -1826,7 +1826,7 @@ Partial Class PASPFeeAuditLog
         Me.dtpTransactionUpdated.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.dtpTransactionUpdated.Location = New System.Drawing.Point(875, 134)
         Me.dtpTransactionUpdated.Name = "dtpTransactionUpdated"
-        Me.dtpTransactionUpdated.Size = New System.Drawing.Size(86, 20)
+        Me.dtpTransactionUpdated.Size = New System.Drawing.Size(100, 20)
         Me.dtpTransactionUpdated.TabIndex = 536
         '
         'Label119
@@ -1968,7 +1968,7 @@ Partial Class PASPFeeAuditLog
         Me.dtpTransactionDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.dtpTransactionDate.Location = New System.Drawing.Point(334, 59)
         Me.dtpTransactionDate.Name = "dtpTransactionDate"
-        Me.dtpTransactionDate.Size = New System.Drawing.Size(86, 20)
+        Me.dtpTransactionDate.Size = New System.Drawing.Size(100, 20)
         Me.dtpTransactionDate.TabIndex = 6
         '
         'Label110
@@ -3364,9 +3364,9 @@ Partial Class PASPFeeAuditLog
         Me.DTPDateCollectionsCeased.CustomFormat = "dd-MMM-yyyy"
         Me.DTPDateCollectionsCeased.Enabled = False
         Me.DTPDateCollectionsCeased.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DTPDateCollectionsCeased.Location = New System.Drawing.Point(248, 384)
+        Me.DTPDateCollectionsCeased.Location = New System.Drawing.Point(234, 384)
         Me.DTPDateCollectionsCeased.Name = "DTPDateCollectionsCeased"
-        Me.DTPDateCollectionsCeased.Size = New System.Drawing.Size(89, 20)
+        Me.DTPDateCollectionsCeased.Size = New System.Drawing.Size(100, 20)
         Me.DTPDateCollectionsCeased.TabIndex = 611
         '
         'chbEndFeeCollectoins
@@ -3396,7 +3396,7 @@ Partial Class PASPFeeAuditLog
         Me.DTPAuditEnd.Location = New System.Drawing.Point(143, 339)
         Me.DTPAuditEnd.Name = "DTPAuditEnd"
         Me.DTPAuditEnd.ShowCheckBox = True
-        Me.DTPAuditEnd.Size = New System.Drawing.Size(114, 20)
+        Me.DTPAuditEnd.Size = New System.Drawing.Size(116, 20)
         Me.DTPAuditEnd.TabIndex = 608
         '
         'btnEditFeeAudit
@@ -3426,7 +3426,7 @@ Partial Class PASPFeeAuditLog
         Me.DTPAuditStart.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.DTPAuditStart.Location = New System.Drawing.Point(20, 339)
         Me.DTPAuditStart.Name = "DTPAuditStart"
-        Me.DTPAuditStart.Size = New System.Drawing.Size(94, 20)
+        Me.DTPAuditStart.Size = New System.Drawing.Size(100, 20)
         Me.DTPAuditStart.TabIndex = 605
         '
         'txtAuditEnforcementNumber
@@ -3603,7 +3603,7 @@ Partial Class PASPFeeAuditLog
         Me.DTPFSMailOutDateCreated.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.DTPFSMailOutDateCreated.Location = New System.Drawing.Point(667, 344)
         Me.DTPFSMailOutDateCreated.Name = "DTPFSMailOutDateCreated"
-        Me.DTPFSMailOutDateCreated.Size = New System.Drawing.Size(86, 20)
+        Me.DTPFSMailOutDateCreated.Size = New System.Drawing.Size(100, 20)
         Me.DTPFSMailOutDateCreated.TabIndex = 480
         '
         'DTPFSMailOutUpdateDate
@@ -3613,7 +3613,7 @@ Partial Class PASPFeeAuditLog
         Me.DTPFSMailOutUpdateDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.DTPFSMailOutUpdateDate.Location = New System.Drawing.Point(484, 344)
         Me.DTPFSMailOutUpdateDate.Name = "DTPFSMailOutUpdateDate"
-        Me.DTPFSMailOutUpdateDate.Size = New System.Drawing.Size(86, 20)
+        Me.DTPFSMailOutUpdateDate.Size = New System.Drawing.Size(100, 20)
         Me.DTPFSMailOutUpdateDate.TabIndex = 479
         '
         'GroupBox2
@@ -3657,7 +3657,7 @@ Partial Class PASPFeeAuditLog
         Me.dtpShutDownDate.Location = New System.Drawing.Point(91, 168)
         Me.dtpShutDownDate.Name = "dtpShutDownDate"
         Me.dtpShutDownDate.ShowCheckBox = True
-        Me.dtpShutDownDate.Size = New System.Drawing.Size(115, 20)
+        Me.dtpShutDownDate.Size = New System.Drawing.Size(120, 20)
         Me.dtpShutDownDate.TabIndex = 484
         '
         'Label11
@@ -4565,7 +4565,7 @@ Partial Class PASPFeeAuditLog
         Me.dtpLetterMailed.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.dtpLetterMailed.Location = New System.Drawing.Point(479, 77)
         Me.dtpLetterMailed.Name = "dtpLetterMailed"
-        Me.dtpLetterMailed.Size = New System.Drawing.Size(86, 20)
+        Me.dtpLetterMailed.Size = New System.Drawing.Size(100, 20)
         Me.dtpLetterMailed.TabIndex = 491
         '
         'Label9
@@ -4700,7 +4700,7 @@ Partial Class PASPFeeAuditLog
         Me.dtpSubmittalDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.dtpSubmittalDate.Location = New System.Drawing.Point(252, 107)
         Me.dtpSubmittalDate.Name = "dtpSubmittalDate"
-        Me.dtpSubmittalDate.Size = New System.Drawing.Size(86, 20)
+        Me.dtpSubmittalDate.Size = New System.Drawing.Size(100, 20)
         Me.dtpSubmittalDate.TabIndex = 423
         '
         'Label25
@@ -4754,7 +4754,7 @@ Partial Class PASPFeeAuditLog
         Me.dtpEnrollmentInitial.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.dtpEnrollmentInitial.Location = New System.Drawing.Point(479, 53)
         Me.dtpEnrollmentInitial.Name = "dtpEnrollmentInitial"
-        Me.dtpEnrollmentInitial.Size = New System.Drawing.Size(86, 20)
+        Me.dtpEnrollmentInitial.Size = New System.Drawing.Size(100, 20)
         Me.dtpEnrollmentInitial.TabIndex = 448
         '
         'Label22
@@ -4791,7 +4791,7 @@ Partial Class PASPFeeAuditLog
         Me.dtpFSAdminCreateDateTime.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.dtpFSAdminCreateDateTime.Location = New System.Drawing.Point(879, 184)
         Me.dtpFSAdminCreateDateTime.Name = "dtpFSAdminCreateDateTime"
-        Me.dtpFSAdminCreateDateTime.Size = New System.Drawing.Size(86, 20)
+        Me.dtpFSAdminCreateDateTime.Size = New System.Drawing.Size(100, 20)
         Me.dtpFSAdminCreateDateTime.TabIndex = 446
         '
         'mtbFeeAdminAIRSNumber
@@ -4810,7 +4810,7 @@ Partial Class PASPFeeAuditLog
         Me.dtpFSAdminUpdate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.dtpFSAdminUpdate.Location = New System.Drawing.Point(879, 162)
         Me.dtpFSAdminUpdate.Name = "dtpFSAdminUpdate"
-        Me.dtpFSAdminUpdate.Size = New System.Drawing.Size(86, 20)
+        Me.dtpFSAdminUpdate.Size = New System.Drawing.Size(100, 20)
         Me.dtpFSAdminUpdate.TabIndex = 445
         '
         'Panel19
@@ -5040,7 +5040,7 @@ Partial Class PASPFeeAuditLog
         Me.dtpFeeAdminStatusDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.dtpFeeAdminStatusDate.Location = New System.Drawing.Point(705, 133)
         Me.dtpFeeAdminStatusDate.Name = "dtpFeeAdminStatusDate"
-        Me.dtpFeeAdminStatusDate.Size = New System.Drawing.Size(86, 20)
+        Me.dtpFeeAdminStatusDate.Size = New System.Drawing.Size(100, 20)
         Me.dtpFeeAdminStatusDate.TabIndex = 437
         '
         'PASPFeeAuditLog

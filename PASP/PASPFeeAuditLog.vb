@@ -6004,5 +6004,6 @@ ClearAuditData
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
 End Class
 

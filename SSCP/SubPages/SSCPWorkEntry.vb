@@ -318,7 +318,7 @@ Public Class SSCPWorkEnTry
         Me.DTPDateReceived.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.DTPDateReceived.Location = New System.Drawing.Point(125, 6)
         Me.DTPDateReceived.Name = "DTPDateReceived"
-        Me.DTPDateReceived.Size = New System.Drawing.Size(104, 20)
+        Me.DTPDateReceived.Size = New System.Drawing.Size(100, 20)
         Me.DTPDateReceived.TabIndex = 264
         Me.DTPDateReceived.Value = New Date(2005, 3, 24, 0, 0, 0, 0)
         '

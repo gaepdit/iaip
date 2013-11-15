@@ -1811,11 +1811,7 @@ Public Class SSCPFCEWork
 
 #Region "Functions and Subs"
     Sub SaveFCE()
-        Dim temp As String = ""
-
         Try
-
-            temp = txtFCENumber.Text
 
             If AccountArray(50, 2) = "0" And AccountArray(50, 3) = "0" And AccountArray(50, 4) = "0" Then
                 MsgBox("Insufficent permissions to save Full Compliance Evaluations.", MsgBoxStyle.Information, "Full Compliance Evaluation.")

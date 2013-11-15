@@ -860,9 +860,9 @@ Partial Class SSCPComplianceLog
         '
         Me.DTPDateReceived.CustomFormat = "dd-MMM-yyyy"
         Me.DTPDateReceived.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DTPDateReceived.Location = New System.Drawing.Point(117, 23)
+        Me.DTPDateReceived.Location = New System.Drawing.Point(125, 22)
         Me.DTPDateReceived.Name = "DTPDateReceived"
-        Me.DTPDateReceived.Size = New System.Drawing.Size(104, 20)
+        Me.DTPDateReceived.Size = New System.Drawing.Size(100, 20)
         Me.DTPDateReceived.TabIndex = 45
         Me.DTPDateReceived.Value = New Date(2007, 1, 23, 0, 0, 0, 0)
         '

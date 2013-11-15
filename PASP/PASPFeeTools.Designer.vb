@@ -523,7 +523,7 @@ Partial Class PASPFeeTools
         Me.dtpBatchDepositDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.dtpBatchDepositDate.Location = New System.Drawing.Point(547, 4)
         Me.dtpBatchDepositDate.Name = "dtpBatchDepositDate"
-        Me.dtpBatchDepositDate.Size = New System.Drawing.Size(108, 22)
+        Me.dtpBatchDepositDate.Size = New System.Drawing.Size(115, 22)
         Me.dtpBatchDepositDate.TabIndex = 3
         Me.dtpBatchDepositDate.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
         '

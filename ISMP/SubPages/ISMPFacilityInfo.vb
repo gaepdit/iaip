@@ -445,7 +445,7 @@ Public Class ISMPFacilityInfo
         Me.DTPDateReceived.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.DTPDateReceived.Location = New System.Drawing.Point(104, 8)
         Me.DTPDateReceived.Name = "DTPDateReceived"
-        Me.DTPDateReceived.Size = New System.Drawing.Size(104, 20)
+        Me.DTPDateReceived.Size = New System.Drawing.Size(100, 20)
         Me.DTPDateReceived.TabIndex = 234
         Me.ToolTip1.SetToolTip(Me.DTPDateReceived, "Date Test Report received at APB")
         Me.DTPDateReceived.Value = New Date(2005, 3, 24, 0, 0, 0, 0)
@@ -465,7 +465,7 @@ Public Class ISMPFacilityInfo
         Me.DTPTestDateEnd.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.DTPTestDateEnd.Location = New System.Drawing.Point(216, 56)
         Me.DTPTestDateEnd.Name = "DTPTestDateEnd"
-        Me.DTPTestDateEnd.Size = New System.Drawing.Size(104, 20)
+        Me.DTPTestDateEnd.Size = New System.Drawing.Size(100, 20)
         Me.DTPTestDateEnd.TabIndex = 239
         Me.ToolTip1.SetToolTip(Me.DTPTestDateEnd, "End Date of test conducted")
         Me.DTPTestDateEnd.Value = New Date(2005, 2, 25, 0, 0, 0, 0)
@@ -476,7 +476,7 @@ Public Class ISMPFacilityInfo
         Me.DTPTestDateStart.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.DTPTestDateStart.Location = New System.Drawing.Point(104, 56)
         Me.DTPTestDateStart.Name = "DTPTestDateStart"
-        Me.DTPTestDateStart.Size = New System.Drawing.Size(104, 20)
+        Me.DTPTestDateStart.Size = New System.Drawing.Size(100, 20)
         Me.DTPTestDateStart.TabIndex = 238
         Me.ToolTip1.SetToolTip(Me.DTPTestDateStart, "Start Date of test conducted ")
         Me.DTPTestDateStart.Value = New Date(2005, 2, 25, 0, 0, 0, 0)

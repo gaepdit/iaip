@@ -1196,7 +1196,7 @@ Public Class SSCPInformationRequest
         '
         Me.chbRequestInformationDate.Checked = True
         Me.chbRequestInformationDate.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chbRequestInformationDate.Location = New System.Drawing.Point(216, 10)
+        Me.chbRequestInformationDate.Location = New System.Drawing.Point(222, 9)
         Me.chbRequestInformationDate.Name = "chbRequestInformationDate"
         Me.chbRequestInformationDate.Size = New System.Drawing.Size(48, 16)
         Me.chbRequestInformationDate.TabIndex = 120
@@ -1252,7 +1252,7 @@ Public Class SSCPInformationRequest
         Me.DTPDueDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.DTPDueDate.Location = New System.Drawing.Point(112, 8)
         Me.DTPDueDate.Name = "DTPDueDate"
-        Me.DTPDueDate.Size = New System.Drawing.Size(96, 20)
+        Me.DTPDueDate.Size = New System.Drawing.Size(100, 20)
         Me.DTPDueDate.TabIndex = 3
         '
         'SSCPInformationRequest

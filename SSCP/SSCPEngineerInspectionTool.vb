@@ -562,7 +562,7 @@ Public Class SSCPEngineerInspectionTool
         Me.DTPEndDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.DTPEndDate.Location = New System.Drawing.Point(136, 416)
         Me.DTPEndDate.Name = "DTPEndDate"
-        Me.DTPEndDate.Size = New System.Drawing.Size(104, 20)
+        Me.DTPEndDate.Size = New System.Drawing.Size(100, 20)
         Me.DTPEndDate.TabIndex = 154
         Me.DTPEndDate.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
         '
@@ -609,7 +609,7 @@ Public Class SSCPEngineerInspectionTool
         Me.DTPStartDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.DTPStartDate.Location = New System.Drawing.Point(24, 416)
         Me.DTPStartDate.Name = "DTPStartDate"
-        Me.DTPStartDate.Size = New System.Drawing.Size(104, 20)
+        Me.DTPStartDate.Size = New System.Drawing.Size(100, 20)
         Me.DTPStartDate.TabIndex = 146
         Me.DTPStartDate.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
         '

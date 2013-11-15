@@ -370,7 +370,7 @@ Partial Class IAIPEditHeaderData
         '
         Me.Label5.AutoSize = True
         Me.Label5.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label5.Location = New System.Drawing.Point(233, 103)
+        Me.Label5.Location = New System.Drawing.Point(238, 103)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(120, 13)
         Me.Label5.TabIndex = 371
@@ -396,7 +396,7 @@ Partial Class IAIPEditHeaderData
         Me.DTPStartUpDate.Location = New System.Drawing.Point(97, 98)
         Me.DTPStartUpDate.Name = "DTPStartUpDate"
         Me.DTPStartUpDate.ShowCheckBox = True
-        Me.DTPStartUpDate.Size = New System.Drawing.Size(120, 22)
+        Me.DTPStartUpDate.Size = New System.Drawing.Size(135, 22)
         Me.DTPStartUpDate.TabIndex = 369
         Me.DTPStartUpDate.Value = New Date(2006, 11, 3, 0, 0, 0, 0)
         '
@@ -405,10 +405,10 @@ Partial Class IAIPEditHeaderData
         Me.DTPShutdown.CustomFormat = "dd-MMM-yyyy"
         Me.DTPShutdown.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.DTPShutdown.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DTPShutdown.Location = New System.Drawing.Point(353, 98)
+        Me.DTPShutdown.Location = New System.Drawing.Point(364, 98)
         Me.DTPShutdown.Name = "DTPShutdown"
         Me.DTPShutdown.ShowCheckBox = True
-        Me.DTPShutdown.Size = New System.Drawing.Size(124, 22)
+        Me.DTPShutdown.Size = New System.Drawing.Size(135, 22)
         Me.DTPShutdown.TabIndex = 368
         Me.DTPShutdown.Value = New Date(2006, 11, 3, 0, 0, 0, 0)
         '

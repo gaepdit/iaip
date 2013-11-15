@@ -5100,7 +5100,7 @@ Public Class ISMPManagersTools
         Me.DTPAddTestReportDateCompleted.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.DTPAddTestReportDateCompleted.Location = New System.Drawing.Point(345, 176)
         Me.DTPAddTestReportDateCompleted.Name = "DTPAddTestReportDateCompleted"
-        Me.DTPAddTestReportDateCompleted.Size = New System.Drawing.Size(108, 22)
+        Me.DTPAddTestReportDateCompleted.Size = New System.Drawing.Size(110, 22)
         Me.DTPAddTestReportDateCompleted.TabIndex = 6
         Me.DTPAddTestReportDateCompleted.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
         '
@@ -5140,7 +5140,7 @@ Public Class ISMPManagersTools
         Me.dtpAddTestReportDateReceived.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.dtpAddTestReportDateReceived.Location = New System.Drawing.Point(124, 176)
         Me.dtpAddTestReportDateReceived.Name = "dtpAddTestReportDateReceived"
-        Me.dtpAddTestReportDateReceived.Size = New System.Drawing.Size(108, 22)
+        Me.dtpAddTestReportDateReceived.Size = New System.Drawing.Size(110, 22)
         Me.dtpAddTestReportDateReceived.TabIndex = 5
         Me.dtpAddTestReportDateReceived.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
         '

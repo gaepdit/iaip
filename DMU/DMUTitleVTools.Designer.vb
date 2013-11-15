@@ -457,7 +457,7 @@ Partial Class DMUTitleVTools
         Me.DTPPNExpires.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.DTPPNExpires.Location = New System.Drawing.Point(12, 184)
         Me.DTPPNExpires.Name = "DTPPNExpires"
-        Me.DTPPNExpires.Size = New System.Drawing.Size(95, 20)
+        Me.DTPPNExpires.Size = New System.Drawing.Size(100, 20)
         Me.DTPPNExpires.TabIndex = 375
         Me.DTPPNExpires.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
         Me.DTPPNExpires.Visible = False
@@ -468,7 +468,7 @@ Partial Class DMUTitleVTools
         Me.DTPExperationDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.DTPExperationDate.Location = New System.Drawing.Point(12, 249)
         Me.DTPExperationDate.Name = "DTPExperationDate"
-        Me.DTPExperationDate.Size = New System.Drawing.Size(96, 20)
+        Me.DTPExperationDate.Size = New System.Drawing.Size(100, 20)
         Me.DTPExperationDate.TabIndex = 374
         Me.DTPExperationDate.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
         Me.DTPExperationDate.Visible = False
@@ -506,7 +506,7 @@ Partial Class DMUTitleVTools
         Me.DTPNotifiedAppReceived.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.DTPNotifiedAppReceived.Location = New System.Drawing.Point(12, 102)
         Me.DTPNotifiedAppReceived.Name = "DTPNotifiedAppReceived"
-        Me.DTPNotifiedAppReceived.Size = New System.Drawing.Size(95, 20)
+        Me.DTPNotifiedAppReceived.Size = New System.Drawing.Size(100, 20)
         Me.DTPNotifiedAppReceived.TabIndex = 370
         Me.DTPNotifiedAppReceived.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
         Me.DTPNotifiedAppReceived.Visible = False
@@ -659,7 +659,7 @@ Partial Class DMUTitleVTools
         Me.DTPEffectiveDateofPermit.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.DTPEffectiveDateofPermit.Location = New System.Drawing.Point(12, 210)
         Me.DTPEffectiveDateofPermit.Name = "DTPEffectiveDateofPermit"
-        Me.DTPEffectiveDateofPermit.Size = New System.Drawing.Size(96, 20)
+        Me.DTPEffectiveDateofPermit.Size = New System.Drawing.Size(100, 20)
         Me.DTPEffectiveDateofPermit.TabIndex = 353
         Me.DTPEffectiveDateofPermit.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
         Me.DTPEffectiveDateofPermit.Visible = False
@@ -670,7 +670,7 @@ Partial Class DMUTitleVTools
         Me.DTPEPANotifiedPermitOnWeb.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.DTPEPANotifiedPermitOnWeb.Location = New System.Drawing.Point(12, 300)
         Me.DTPEPANotifiedPermitOnWeb.Name = "DTPEPANotifiedPermitOnWeb"
-        Me.DTPEPANotifiedPermitOnWeb.Size = New System.Drawing.Size(95, 20)
+        Me.DTPEPANotifiedPermitOnWeb.Size = New System.Drawing.Size(100, 20)
         Me.DTPEPANotifiedPermitOnWeb.TabIndex = 352
         Me.DTPEPANotifiedPermitOnWeb.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
         Me.DTPEPANotifiedPermitOnWeb.Visible = False
@@ -681,7 +681,7 @@ Partial Class DMUTitleVTools
         Me.DTPFinalOnWeb.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.DTPFinalOnWeb.Location = New System.Drawing.Point(12, 275)
         Me.DTPFinalOnWeb.Name = "DTPFinalOnWeb"
-        Me.DTPFinalOnWeb.Size = New System.Drawing.Size(95, 20)
+        Me.DTPFinalOnWeb.Size = New System.Drawing.Size(100, 20)
         Me.DTPFinalOnWeb.TabIndex = 351
         Me.DTPFinalOnWeb.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
         Me.DTPFinalOnWeb.Visible = False
@@ -692,7 +692,7 @@ Partial Class DMUTitleVTools
         Me.DTPEPAStatesNotified.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.DTPEPAStatesNotified.Location = New System.Drawing.Point(12, 156)
         Me.DTPEPAStatesNotified.Name = "DTPEPAStatesNotified"
-        Me.DTPEPAStatesNotified.Size = New System.Drawing.Size(95, 20)
+        Me.DTPEPAStatesNotified.Size = New System.Drawing.Size(100, 20)
         Me.DTPEPAStatesNotified.TabIndex = 350
         Me.DTPEPAStatesNotified.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
         Me.DTPEPAStatesNotified.Visible = False
@@ -703,7 +703,7 @@ Partial Class DMUTitleVTools
         Me.DTPDraftOnWeb.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.DTPDraftOnWeb.Location = New System.Drawing.Point(12, 130)
         Me.DTPDraftOnWeb.Name = "DTPDraftOnWeb"
-        Me.DTPDraftOnWeb.Size = New System.Drawing.Size(95, 20)
+        Me.DTPDraftOnWeb.Size = New System.Drawing.Size(100, 20)
         Me.DTPDraftOnWeb.TabIndex = 349
         Me.DTPDraftOnWeb.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
         Me.DTPDraftOnWeb.Visible = False
@@ -1051,7 +1051,7 @@ Partial Class DMUTitleVTools
         Me.DTPTitleVRenewalEnd.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.DTPTitleVRenewalEnd.Location = New System.Drawing.Point(167, 42)
         Me.DTPTitleVRenewalEnd.Name = "DTPTitleVRenewalEnd"
-        Me.DTPTitleVRenewalEnd.Size = New System.Drawing.Size(95, 20)
+        Me.DTPTitleVRenewalEnd.Size = New System.Drawing.Size(100, 20)
         Me.DTPTitleVRenewalEnd.TabIndex = 371
         Me.DTPTitleVRenewalEnd.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
         '
@@ -1061,7 +1061,7 @@ Partial Class DMUTitleVTools
         Me.DTPTitleVRenewalStart.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.DTPTitleVRenewalStart.Location = New System.Drawing.Point(33, 42)
         Me.DTPTitleVRenewalStart.Name = "DTPTitleVRenewalStart"
-        Me.DTPTitleVRenewalStart.Size = New System.Drawing.Size(96, 20)
+        Me.DTPTitleVRenewalStart.Size = New System.Drawing.Size(100, 20)
         Me.DTPTitleVRenewalStart.TabIndex = 372
         Me.DTPTitleVRenewalStart.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
         '
