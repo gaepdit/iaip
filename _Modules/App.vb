@@ -1,7 +1,5 @@
 ﻿Imports System.Reflection
 Imports Oracle.DataAccess.Client
-Imports System.Collections.Generic
-Imports EQATEC.Analytics.Monitor
 Imports System.Web
 Imports System.IO
 
@@ -42,39 +40,6 @@ Module App
 
         ' EQATEC analytics monitor
         monitor.Stop()
-    End Sub
-
-#End Region
-
-#Region "Application Analytics Monitoring"
-
-    Friend MachineName As String = Environment.MachineName
-
-    ' Using EQATEC.Analytics.Monitor Library
-    Friend AnalyticsApiKey As String = "F635C42ABA7B4DE886EEFCEE31C98000"
-    Friend monitor As IAnalyticsMonitor
-    Friend monitorSettings As IAnalyticsMonitorSettings = AnalyticsMonitorFactory.CreateSettings(AnalyticsApiKey)
-    Friend monitorInstallationInfo As New Dictionary(Of String, String)
-
-    ' Don't create the monitor yet. Run MonitorInit from MyApplication_Startup -> Init()
-    ' MonitorInit will create & start the monitor 
-    Friend Sub MonitorInit()
-#If DEBUG Then
-        monitorSettings.TestMode = True
-#End If
-        monitorSettings.UseSSL = True
-        monitor = EQATEC.Analytics.Monitor.AnalyticsMonitorFactory.Create(monitorSettings)
-        With monitor
-            .Start()
-            .TrackFeatureStart("Startup.Loading")
-        End With
-
-        ' Add additional installation meta data for analytics
-        With monitorInstallationInfo
-            .Add("MachineName", Environment.MachineName)
-            .Add("WindowsUserName", Environment.UserName)
-        End With
-        monitor.SetInstallationInfo(MachineName, monitorInstallationInfo)
     End Sub
 
 #End Region
