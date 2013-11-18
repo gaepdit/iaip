@@ -7,7 +7,9 @@ See the [release notes](README.html).
 
 ## Version 2.6.x <span>(2013-xx-xx)</span>
 
-+ FIX: Date fields should no longer cut off the last digit of the year on Windows 7.
++ NEW: Added error tracking to analytics
+
++ FIX: Date fields should no longer cut off the last digit of the year on Windows 7
 
 ## Version 2.6.10 <span>(2013-11-12)</span>
 
