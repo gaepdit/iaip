@@ -57,13 +57,13 @@ Module ErrorReporting
             Exit Sub
         End If
         If ErrorMessage.Contains("ORA-03113") Or ErrorMessage.Contains("ORA-12637") Then
-            MsgBox("The platform experianced a connection error." & vbCrLf & "Try reloading the form" & vbCrLf & _
+            MsgBox("The platform experienced a connection error." & vbCrLf & "Try reloading the form" & vbCrLf & _
                    "If the problem persists please contact the Data Management Unit.", MsgBoxStyle.Information, _
                    "Integrated Air Information Platform - ERROR MESSAGE")
             Exit Sub
         End If
         If ErrorMessage.Contains("ORA-12571") Or ErrorMessage.Contains("ORA-01033") Or ErrorMessage.Contains("ORA-12545") Then
-            MsgBox("The platform experianced a connection error." & vbCrLf & "Try reloading the form" & vbCrLf & _
+            MsgBox("The platform experienced a connection error." & vbCrLf & "Try reloading the form" & vbCrLf & _
                    "If the problem persists please contact the Data Management Unit.", MsgBoxStyle.Information, _
                    "Integrated Air Information Platform - ERROR MESSAGE")
             Exit Sub
