@@ -99,7 +99,6 @@ Public Class NewSscpEnforcementAudit
             With dgvFileList
                 .DataSource = New BindingSource(ExistingFiles, Nothing)
                 .Enabled = True
-                .ClearSelection()
             End With
             FormatCurrentFileList()
         Else
@@ -140,7 +139,8 @@ Public Class NewSscpEnforcementAudit
                 .DefaultCellStyle.Format = DateFormat
                 .DisplayIndex = 2
             End With
-            .SanelyResizeColumns()
+            '.SanelyResizeColumns()
+            '.ClearSelection()
         End With
     End Sub
 
@@ -925,7 +925,7 @@ Public Class NewSscpEnforcementAudit
                     DTPEnforcementResolved.Enabled = True
                 End If
             Else
-                If AccountArray(48, 4) = "1" And AccountArray(4, 4) = "0" Then 'Distirct 
+                If AccountArray(48, 4) = "1" And AccountArray(4, 4) = "0" And Not Permissions.Contains("(114)") Then 'District
                     btnEditAirProgramPollutants.Enabled = False
                     cboPollutantStatus.Enabled = False
                     btnSubmitEnforcementToEPA.Enabled = False
@@ -5189,5 +5189,10 @@ Public Class NewSscpEnforcementAudit
 
     Private Sub mmiOnlineHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiOnlineHelp.Click
         OpenHelpUrl(Me)
+    End Sub
+
+    Private Sub dgvFileList_DataBindingComplete(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewBindingCompleteEventArgs) Handles dgvFileList.DataBindingComplete
+        dgvFileList.SanelyResizeColumns()
+        dgvFileList.ClearSelection()
     End Sub
 End Class
