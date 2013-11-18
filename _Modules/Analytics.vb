@@ -20,6 +20,7 @@ Module Analytics
         monitor = AnalyticsMonitorFactory.Create(monitorSettings)
         With monitor
             .Start()
+            .TrackFeatureStart("Runtime")
             .TrackFeatureStart("Startup.Loading")
         End With
 
@@ -29,6 +30,13 @@ Module Analytics
             .Add("WindowsUserName", Environment.UserName)
         End With
         monitor.SetInstallationInfo(Environment.MachineName, monitorInstallationInfo)
+    End Sub
+
+    Public Sub MonitorStop()
+        With monitor
+            .TrackFeatureStop("Runtime")
+            .Stop()
+        End With
     End Sub
 
 End Module

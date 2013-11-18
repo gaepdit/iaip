@@ -30,6 +30,7 @@ Module App
         '    e.Cancel = True
         '    Me.HideSplashScreen()
         'End If
+
     End Sub
 
     ' MyApplication_Shutdown -> App.Finish()
@@ -39,7 +40,8 @@ Module App
         SaveAllFormSettings()
 
         ' EQATEC analytics monitor
-        monitor.Stop()
+        MonitorStop()
+
     End Sub
 
 #End Region
