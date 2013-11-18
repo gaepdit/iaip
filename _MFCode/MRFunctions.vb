@@ -41,7 +41,7 @@ Module MRFunctions
                 End If
             Loop
         Catch ex As Exception
-            ErrorReport(ex.ToString(), "MRFunctions.DisplayReport")
+            ErrorReport(ex, "MRFunctions.DisplayReport")
         Finally
             If Conn.State = ConnectionState.Open Then
                 'conn.close()
@@ -74,7 +74,7 @@ Module MRFunctions
                 'now animate a init
                 progress = -1
             Catch ex As Exception
-                ErrorReport(ex.ToString(), "MRFunctions.New(ByVal sb as StatusBar)")
+                ErrorReport(ex, "MRFunctions.New(ByVal sb as StatusBar)")
             Finally
                 If Conn.State = ConnectionState.Open Then
                     'conn.close()
@@ -96,7 +96,7 @@ Module MRFunctions
                 pb.Show()
                 mybackcolor = sbdevent.BackColor
             Catch ex As Exception
-                ErrorReport(ex.ToString(), "MRFunctions.Reposition")
+                ErrorReport(ex, "MRFunctions.Reposition")
             Finally
                 If Conn.State = ConnectionState.Open Then
                     'conn.close()
@@ -194,7 +194,7 @@ Module MRFunctions
                 End Select
 
             Catch ex As Exception
-                ErrorReport(ex.ToString(), "MRFunctions.drawit")
+                ErrorReport(ex, "MRFunctions.drawit")
             Finally
                 If Conn.State = ConnectionState.Open Then
                     'conn.close()
@@ -237,7 +237,7 @@ Module MRFunctions
     '            Generate = Generate(DEFAULT_MIN_PASSWORD_LENGTH, _
     '                                         DEFAULT_MAX_PASSWORD_LENGTH)
     '        Catch ex As Exception
-    '            ErrorReport(ex.ToString(), "MRFunctions.Generate(No varables)")
+    '            ErrorReport(ex, "MRFunctions.Generate(No varables)")
     '        Finally
     '            If conn.State = ConnectionState.Open Then
     '                'conn.close()
@@ -258,7 +258,7 @@ Module MRFunctions
     '        Try
     '            Generate = Generate(length, length)
     '        Catch ex As Exception
-    '            ErrorReport(ex.ToString(), "MRFunctions.Generate(Length Varable)")
+    '            ErrorReport(ex, "MRFunctions.Generate(Length Varable)")
     '        Finally
     '            If conn.State = ConnectionState.Open Then
     '                'conn.close()
@@ -448,7 +448,7 @@ Module MRFunctions
     '            Generate = New String(password)
 
     '        Catch ex As Exception
-    '            ErrorReport(ex.ToString(), "MRFunctions.Generate(Min/Max Varable")
+    '            ErrorReport(ex, "MRFunctions.Generate(Min/Max Varable")
     '        Finally
     '            If conn.State = ConnectionState.Open Then
     '                'conn.close()
@@ -483,7 +483,7 @@ Module MRFunctions
     '                         "Subject : " & mySubject & _
     '                         "", "Message Sent Successfully", MessageBoxButtons.OK, MessageBoxIcon.Information)
     '    Catch ex As Exception
-    '        ErrorReport(ex.ToString(), "MRFunctions.SendMail")
+    '        ErrorReport(ex, "MRFunctions.SendMail")
     '    Finally
     '        If Conn.State = ConnectionState.Open Then
     '            'conn.close()

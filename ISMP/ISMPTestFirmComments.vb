@@ -44,7 +44,7 @@ Public Class ISMPTestFirmComments
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
@@ -91,7 +91,7 @@ Public Class ISMPTestFirmComments
                 .SelectedIndex = 0
             End With
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
@@ -202,7 +202,7 @@ Public Class ISMPTestFirmComments
 
             End If
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
@@ -223,7 +223,7 @@ Public Class ISMPTestFirmComments
             cboCommentNumber.Items.Clear()
             cboCommentNumber.Text = ""
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
@@ -317,7 +317,7 @@ Public Class ISMPTestFirmComments
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -430,7 +430,7 @@ Public Class ISMPTestFirmComments
             End Select
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
@@ -488,7 +488,7 @@ Public Class ISMPTestFirmComments
                 End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
@@ -499,7 +499,7 @@ Public Class ISMPTestFirmComments
         Try
             SaveCommentData("1")
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
@@ -507,7 +507,7 @@ Public Class ISMPTestFirmComments
         Try
             SaveCommentData("2")
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
@@ -515,7 +515,7 @@ Public Class ISMPTestFirmComments
         Try
             SaveCommentData("3")
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
@@ -537,7 +537,7 @@ Public Class ISMPTestFirmComments
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
@@ -545,7 +545,7 @@ Public Class ISMPTestFirmComments
         Try
             Me.Hide()
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
@@ -553,7 +553,7 @@ Public Class ISMPTestFirmComments
         Try
             Me.Hide()
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
@@ -570,7 +570,7 @@ Public Class ISMPTestFirmComments
             End If
             'FacilityLookUpTool.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
@@ -613,7 +613,7 @@ Public Class ISMPTestFirmComments
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
@@ -670,7 +670,7 @@ Public Class ISMPTestFirmComments
 
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
@@ -693,7 +693,7 @@ Public Class ISMPTestFirmComments
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
@@ -702,7 +702,7 @@ Public Class ISMPTestFirmComments
             LoadHeaderData("Notification")
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
@@ -711,7 +711,7 @@ Public Class ISMPTestFirmComments
             LoadHeaderData("Test Report")
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
@@ -720,7 +720,7 @@ Public Class ISMPTestFirmComments
             LoadHeaderData("AIRS Number")
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
@@ -728,7 +728,7 @@ Public Class ISMPTestFirmComments
         Try
             SaveHeaderData()
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub

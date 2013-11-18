@@ -601,7 +601,7 @@ Public Class ISMPFacilityInfo
             DTPTestDateEnd.Value = Date.Today
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
             If Conn.State = ConnectionState.Open Then
                 'conn.close()
@@ -641,7 +641,7 @@ Public Class ISMPFacilityInfo
             ' Add the StatusBar to the form.
             Me.Controls.Add(statusBar1)
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
             If Conn.State = ConnectionState.Open Then
                 'conn.close()
@@ -670,7 +670,7 @@ Public Class ISMPFacilityInfo
             daTestingFirms.Fill(dsTestingFirms, "TestingFirms")
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
             If Conn.State = ConnectionState.Open Then
                 'conn.close()
@@ -703,7 +703,7 @@ Public Class ISMPFacilityInfo
                 cboTestingFirms.Items.Add(row("strTestingFirm").ToString())
             Next
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
             If Conn.State = ConnectionState.Open Then
                 'conn.close()
@@ -746,7 +746,7 @@ Public Class ISMPFacilityInfo
             cmd.ExecuteReader()
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
             If Conn.State = ConnectionState.Open Then
                 'conn.close()
@@ -993,7 +993,7 @@ Public Class ISMPFacilityInfo
                                 End If
 
                             Catch ex As Exception
-                                ErrorReport(ex.ToString(), "ISMPFacilityInfo.Save(Sub)")
+                                ErrorReport(ex, "ISMPFacilityInfo.Save(Sub)")
                             Finally
                                 If Conn.State = ConnectionState.Open Then
                                     'conn.close()
@@ -1016,7 +1016,7 @@ Public Class ISMPFacilityInfo
 
 
                             Catch ex As Exception
-                                ErrorReport(ex.ToString(), "ISMPFacilityInfo.Save(Sub2)")
+                                ErrorReport(ex, "ISMPFacilityInfo.Save(Sub2)")
                             Finally
                                 If Conn.State = ConnectionState.Open Then
                                     'conn.close()
@@ -1049,7 +1049,7 @@ Public Class ISMPFacilityInfo
             panel1.Text = Paneltemp1
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
             If Conn.State = ConnectionState.Open Then
                 'conn.close()
@@ -1072,7 +1072,7 @@ Public Class ISMPFacilityInfo
             txtReferenceNumber.Clear()
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
             If Conn.State = ConnectionState.Open Then
                 'conn.close()
@@ -1088,7 +1088,7 @@ Public Class ISMPFacilityInfo
             ISMPTestReportInfo = Nothing
             Me.Hide()
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
             If Conn.State = ConnectionState.Open Then
                 'conn.close()
@@ -1107,7 +1107,7 @@ Public Class ISMPFacilityInfo
                 'ISMPMemoEdit.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
             End If
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
             If Conn.State = ConnectionState.Open Then
                 'conn.close()
@@ -1122,7 +1122,7 @@ Public Class ISMPFacilityInfo
 
             ISMPTestReportInfo = Nothing
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
             If Conn.State = ConnectionState.Open Then
                 'conn.close()
@@ -1144,7 +1144,7 @@ Public Class ISMPFacilityInfo
                     Back()
             End Select
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
             If Conn.State = ConnectionState.Open Then
                 'conn.close()
@@ -1159,7 +1159,7 @@ Public Class ISMPFacilityInfo
                 DTPTestDateEnd.Value = DTPTestDateStart.Value
             End If
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
             If Conn.State = ConnectionState.Open Then
                 'conn.close()
@@ -1177,7 +1177,7 @@ Public Class ISMPFacilityInfo
                 DTPTestDateEnd.Value = DTPTestDateEnd.Value
             End If
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
             If Conn.State = ConnectionState.Open Then
                 'conn.close()
@@ -1192,7 +1192,7 @@ Public Class ISMPFacilityInfo
                 DTPTestDateEnd.Value = DTPTestDateStart.Value
             End If
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
             If Conn.State = ConnectionState.Open Then
                 'conn.close()
@@ -1207,7 +1207,7 @@ Public Class ISMPFacilityInfo
 
             Save()
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
             If Conn.State = ConnectionState.Open Then
                 'conn.close()
@@ -1220,7 +1220,7 @@ Public Class ISMPFacilityInfo
 
             Back()
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
             If Conn.State = ConnectionState.Open Then
                 'conn.close()
@@ -1233,7 +1233,7 @@ Public Class ISMPFacilityInfo
 
             SendKeys.Send("(^X)")
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
             If Conn.State = ConnectionState.Open Then
                 'conn.close()
@@ -1246,7 +1246,7 @@ Public Class ISMPFacilityInfo
 
             SendKeys.Send("(^C)")
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
             If Conn.State = ConnectionState.Open Then
                 'conn.close()
@@ -1259,7 +1259,7 @@ Public Class ISMPFacilityInfo
 
             SendKeys.Send("(^V)")
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
             If Conn.State = ConnectionState.Open Then
                 'conn.close()
@@ -1272,7 +1272,7 @@ Public Class ISMPFacilityInfo
 
             Clear()
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
             If Conn.State = ConnectionState.Open Then
                 'conn.close()
@@ -1285,7 +1285,7 @@ Public Class ISMPFacilityInfo
 
             Help.ShowHelp(Label1, HelpUrl)
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
             If Conn.State = ConnectionState.Open Then
                 'conn.close()
@@ -1301,7 +1301,7 @@ Public Class ISMPFacilityInfo
             ISMPAddTestingFirm.Show()
             'ISMPAddTestingFirm.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
             If Conn.State = ConnectionState.Open Then
                 'conn.close()
@@ -1317,7 +1317,7 @@ Public Class ISMPFacilityInfo
             ISMPAddPollutant.Show()
             'ISMPAddPollutant.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
             If Conn.State = ConnectionState.Open Then
                 'conn.close()
@@ -1333,7 +1333,7 @@ Public Class ISMPFacilityInfo
             FillFacilityDataSet()
             FillComboBoxes()
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
             If Conn.State = ConnectionState.Open Then
                 'conn.close()
@@ -1347,7 +1347,7 @@ Public Class ISMPFacilityInfo
 
             OpenMemo()
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
             If Conn.State = ConnectionState.Open Then
                 'conn.close()
@@ -1365,7 +1365,7 @@ Public Class ISMPFacilityInfo
                 txtReferenceNumber.Clear()
             End If
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
             If Conn.State = ConnectionState.Open Then
                 'conn.close()

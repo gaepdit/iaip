@@ -393,7 +393,7 @@ Public Class SSCPInspectionscheduleLink
             LoadInspectionDataset(0)
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
             If Conn.State = ConnectionState.Open Then
                 'conn.close()
@@ -434,7 +434,7 @@ Public Class SSCPInspectionscheduleLink
             ' Add the StatusBar to the form.
             Me.Controls.Add(statusBar1)
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
             If Conn.State = ConnectionState.Open Then
                 'conn.close()
@@ -467,7 +467,7 @@ Public Class SSCPInspectionscheduleLink
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
             If Conn.State = ConnectionState.Open Then
                 'conn.close()
@@ -508,7 +508,7 @@ Public Class SSCPInspectionscheduleLink
             dgrScheduledInspections.DataMember = "ScheduledInspections"
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
             If Conn.State = ConnectionState.Open Then
                 'conn.close()
@@ -569,7 +569,7 @@ Public Class SSCPInspectionscheduleLink
             dgrScheduledInspections.ColumnHeadersVisible = True
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
             If Conn.State = ConnectionState.Open Then
                 'conn.close()
@@ -662,7 +662,7 @@ Public Class SSCPInspectionscheduleLink
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
             If Conn.State = ConnectionState.Open Then
                 'conn.close()
@@ -700,7 +700,7 @@ Public Class SSCPInspectionscheduleLink
                 'End If
             End If
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
             If Conn.State = ConnectionState.Open Then
                 'conn.close()
@@ -720,7 +720,7 @@ Public Class SSCPInspectionscheduleLink
             LoadInspectionDataset(0)
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
             If Conn.State = ConnectionState.Open Then
                 'conn.close()
@@ -734,7 +734,7 @@ Public Class SSCPInspectionscheduleLink
 
             LoadInspectionDataset(0)
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
             If Conn.State = ConnectionState.Open Then
                 'conn.close()
@@ -748,7 +748,7 @@ Public Class SSCPInspectionscheduleLink
 
             LoadInspectionDataset(1)
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
             If Conn.State = ConnectionState.Open Then
                 'conn.close()

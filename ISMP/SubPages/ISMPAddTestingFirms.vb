@@ -591,7 +591,7 @@ Public Class ISMPAddTestingFirms
             LoadDataSet()
             FormatdgrTestingFirms()
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
             If Conn.State = ConnectionState.Open Then
                 'conn.close()
@@ -631,7 +631,7 @@ Public Class ISMPAddTestingFirms
             ' Add the StatusBar to the form.
             Me.Controls.Add(statusBar1)
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
             If Conn.State = ConnectionState.Open Then
                 'conn.close()
@@ -664,7 +664,7 @@ Public Class ISMPAddTestingFirms
             dgrTestingFirms.DataMember = "TestingFirms"
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
             If Conn.State = ConnectionState.Open Then
                 'conn.close()
@@ -774,7 +774,7 @@ Public Class ISMPAddTestingFirms
             dgrTestingFirms.CaptionText = "Testing Firm(s)"
             dgrTestingFirms.ColumnHeadersVisible = True
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
             If Conn.State = ConnectionState.Open Then
                 'conn.close()
@@ -848,7 +848,7 @@ Public Class ISMPAddTestingFirms
             Next
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
             If Conn.State = ConnectionState.Open Then
                 'conn.close()
@@ -915,7 +915,7 @@ Public Class ISMPAddTestingFirms
             txtTestingFirmKey.Text = TestingFirmKey
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
             If Conn.State = ConnectionState.Open Then
                 'conn.close()
@@ -1078,7 +1078,7 @@ Public Class ISMPAddTestingFirms
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
             If Conn.State = ConnectionState.Open Then
                 'conn.close()
@@ -1105,7 +1105,7 @@ Public Class ISMPAddTestingFirms
             txtTestingFirmEmail.Clear()
             chbDeleteTestingFirm.Checked = False
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
             If Conn.State = ConnectionState.Open Then
                 'conn.close()
@@ -1119,7 +1119,7 @@ Public Class ISMPAddTestingFirms
             ISMPAddTestingFirm = Nothing
             Me.Close()
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
             If Conn.State = ConnectionState.Open Then
                 'conn.close()
@@ -1133,7 +1133,7 @@ Public Class ISMPAddTestingFirms
 
             ISMPAddTestingFirm = Nothing
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
             If Conn.State = ConnectionState.Open Then
                 'conn.close()
@@ -1180,7 +1180,7 @@ Public Class ISMPAddTestingFirms
                 End If
             End If
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
             If Conn.State = ConnectionState.Open Then
                 'conn.close()
@@ -1195,7 +1195,7 @@ Public Class ISMPAddTestingFirms
                 LoadTestingFirmInfo()
             End If
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
             If Conn.State = ConnectionState.Open Then
                 'conn.close()
@@ -1210,7 +1210,7 @@ Public Class ISMPAddTestingFirms
 
             Save()
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
             If Conn.State = ConnectionState.Open Then
                 'conn.close()
@@ -1223,7 +1223,7 @@ Public Class ISMPAddTestingFirms
 
             Back()
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
             If Conn.State = ConnectionState.Open Then
                 'conn.close()
@@ -1236,7 +1236,7 @@ Public Class ISMPAddTestingFirms
 
             SendKeys.Send("(^X)")
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
             If Conn.State = ConnectionState.Open Then
                 'conn.close()
@@ -1249,7 +1249,7 @@ Public Class ISMPAddTestingFirms
 
             SendKeys.Send("(^C)")
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
             If Conn.State = ConnectionState.Open Then
                 'conn.close()
@@ -1262,7 +1262,7 @@ Public Class ISMPAddTestingFirms
 
             SendKeys.Send("(^V)")
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
             If Conn.State = ConnectionState.Open Then
                 'conn.close()
@@ -1275,7 +1275,7 @@ Public Class ISMPAddTestingFirms
 
             Clear()
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
             If Conn.State = ConnectionState.Open Then
                 'conn.close()
@@ -1288,7 +1288,7 @@ Public Class ISMPAddTestingFirms
 
             Help.ShowHelp(Label1, HelpUrl)
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
             If Conn.State = ConnectionState.Open Then
                 'conn.close()
@@ -1310,7 +1310,7 @@ Public Class ISMPAddTestingFirms
                     Back()
             End Select
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
             If Conn.State = ConnectionState.Open Then
                 'conn.close()

@@ -416,7 +416,7 @@ Public Class SSCPFacAssignment
             LoadCurrentData()
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -456,7 +456,7 @@ Public Class SSCPFacAssignment
             Me.Controls.Add(statusBar1)
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
     End Sub
@@ -542,7 +542,7 @@ Public Class SSCPFacAssignment
             End With
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -619,7 +619,7 @@ Public Class SSCPFacAssignment
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
 
@@ -706,7 +706,7 @@ Public Class SSCPFacAssignment
             MsgBox("Done")
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
     End Sub
@@ -718,7 +718,7 @@ Public Class SSCPFacAssignment
             rdbInspectionYes.Checked = False
             rdbInspectionNo.Checked = True
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
     End Sub
@@ -728,7 +728,7 @@ Public Class SSCPFacAssignment
             SSCPFacAssign = Nothing
             Me.Hide()
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
     End Sub
@@ -740,7 +740,7 @@ Public Class SSCPFacAssignment
 
             SSCPFacAssign = Nothing
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
     End Sub
@@ -756,7 +756,7 @@ Public Class SSCPFacAssignment
                     Back()
             End Select
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
     End Sub
@@ -765,7 +765,7 @@ Public Class SSCPFacAssignment
 
             Back()
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
     End Sub
@@ -774,7 +774,7 @@ Public Class SSCPFacAssignment
 
             Save()
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
     End Sub
@@ -783,7 +783,7 @@ Public Class SSCPFacAssignment
 
             Clear()
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
     End Sub

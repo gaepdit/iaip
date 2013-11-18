@@ -3,7 +3,12 @@ Imports System.IO
 
 Module ErrorReporting
 
-    Public Sub ErrorReport(ByVal ErrorMessage As String, ByVal ErrorLocation As String)
+    Public Sub ErrorReport(ByVal exc As System.Exception, ByVal ErrorLocation As String)
+        monitor.TrackException(exc, ErrorLocation)
+        ErrorReport(exc.ToString, ErrorLocation)
+    End Sub
+
+    Public Sub ErrorReport(ByVal ErrorMessage As String, ByVal ErrorLocation As String, Optional ByVal exc As System.Exception = Nothing)
         Dim SQL As String
         Dim cmd As OracleCommand
         Dim dr As OracleDataReader

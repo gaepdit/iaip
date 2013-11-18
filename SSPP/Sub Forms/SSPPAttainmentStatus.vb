@@ -25,7 +25,7 @@ Public Class SSPPAttainmentStatus
             Panel3.Text = OracleDate
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
             If Conn.State = ConnectionState.Open Then
                 'conn.close()
@@ -57,7 +57,7 @@ Public Class SSPPAttainmentStatus
             cboNonAttainmentStatus.Text = cboNonAttainmentStatus.Items.Item(0)
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
             If Conn.State = ConnectionState.Open Then
                 'conn.close()
@@ -119,7 +119,7 @@ Public Class SSPPAttainmentStatus
             End With
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
             If Conn.State = ConnectionState.Open Then
                 'conn.close()
@@ -270,7 +270,7 @@ Public Class SSPPAttainmentStatus
 
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
             If Conn.State = ConnectionState.Open Then
                 'conn.close()
@@ -290,7 +290,7 @@ Public Class SSPPAttainmentStatus
             rdbEightHourNo.Checked = True
             rdbPMFineNo.Checked = True
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
             If Conn.State = ConnectionState.Open Then
                 'conn.close()
@@ -390,7 +390,7 @@ Public Class SSPPAttainmentStatus
             dr.Close()
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
             If Conn.State = ConnectionState.Open Then
                 'conn.close()
@@ -489,7 +489,7 @@ Public Class SSPPAttainmentStatus
 
             dr.Close()
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
             If Conn.State = ConnectionState.Open Then
                 'conn.close()
@@ -610,7 +610,7 @@ Public Class SSPPAttainmentStatus
 
             dr.Close()
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
             If Conn.State = ConnectionState.Open Then
                 'conn.close()
@@ -628,7 +628,7 @@ Public Class SSPPAttainmentStatus
             ViewSelectedData()
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
             If Conn.State = ConnectionState.Open Then
                 'conn.close()
@@ -644,7 +644,7 @@ Public Class SSPPAttainmentStatus
 
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
             If Conn.State = ConnectionState.Open Then
                 'conn.close()
@@ -666,7 +666,7 @@ Public Class SSPPAttainmentStatus
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
             If Conn.State = ConnectionState.Open Then
                 'conn.close()
@@ -681,7 +681,7 @@ Public Class SSPPAttainmentStatus
 
             ClearForm()
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
             If Conn.State = ConnectionState.Open Then
                 'conn.close()
@@ -700,7 +700,7 @@ Public Class SSPPAttainmentStatus
 
             MsgBox("Done", MsgBoxStyle.Information, "Attainment Status Update")
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
             If Conn.State = ConnectionState.Open Then
                 'conn.close()
@@ -714,7 +714,7 @@ Public Class SSPPAttainmentStatus
             SaveOneHourChanges()
             MsgBox("Done", MsgBoxStyle.Information, "Attainment Status Update")
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
             If Conn.State = ConnectionState.Open Then
                 'conn.close()
@@ -728,7 +728,7 @@ Public Class SSPPAttainmentStatus
             SaveEightHourChanges()
             MsgBox("Done", MsgBoxStyle.Information, "Attainment Status Update")
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
             If Conn.State = ConnectionState.Open Then
                 'conn.close()
@@ -742,7 +742,7 @@ Public Class SSPPAttainmentStatus
             SavePMFineChanges()
             MsgBox("Done", MsgBoxStyle.Information, "Attainment Status Update")
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
             If Conn.State = ConnectionState.Open Then
                 'conn.close()
@@ -766,7 +766,7 @@ Public Class SSPPAttainmentStatus
             End Select
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
             If Conn.State = ConnectionState.Open Then
                 'conn.close()

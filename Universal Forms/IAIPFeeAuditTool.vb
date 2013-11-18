@@ -48,7 +48,7 @@ Public Class IAIPFeeAuditTool
             Panel35.Visible = False
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub llbNoteChanges_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbNoteChanges.LinkClicked
@@ -64,7 +64,7 @@ Public Class IAIPFeeAuditTool
                 Panel10.Visible = True
             End If
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub llbNoteChanges_CY2008_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbNoteChanges_CY2008.LinkClicked
@@ -80,7 +80,7 @@ Public Class IAIPFeeAuditTool
                 Panel19.Visible = True
             End If
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub llbNoteChanges_CY2007_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbNoteChanges_CY2007.LinkClicked
@@ -96,7 +96,7 @@ Public Class IAIPFeeAuditTool
                 Panel34.Visible = True
             End If
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub llbNoteChanges_CY2006_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbNoteChanges_CY2006.LinkClicked
@@ -112,7 +112,7 @@ Public Class IAIPFeeAuditTool
                 Panel35.Visible = True
             End If
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub ResetForm()
@@ -552,7 +552,7 @@ Public Class IAIPFeeAuditTool
             txtAuditComments.Clear()
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub LoadCY2008()
@@ -767,7 +767,7 @@ Public Class IAIPFeeAuditTool
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub LoadCY2007()
@@ -977,7 +977,7 @@ Public Class IAIPFeeAuditTool
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub LoadCY2006()
@@ -1187,7 +1187,7 @@ Public Class IAIPFeeAuditTool
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub LoadChangeQuestions()
@@ -1242,7 +1242,7 @@ Public Class IAIPFeeAuditTool
             dr.Close()
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub LoadComments()
@@ -1269,7 +1269,7 @@ Public Class IAIPFeeAuditTool
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub LoadDataByAIRS()
@@ -1809,7 +1809,7 @@ Public Class IAIPFeeAuditTool
             LoadComments()
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub LoadNonPayer()
@@ -2214,7 +2214,7 @@ Public Class IAIPFeeAuditTool
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub LoadAuditData()
@@ -3818,7 +3818,7 @@ Public Class IAIPFeeAuditTool
 
         '    End If
         'Catch ex As Exception
-        '    ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+        '    ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         'End Try
     End Sub
 
@@ -3829,7 +3829,7 @@ Public Class IAIPFeeAuditTool
                 txtEditFacilityName.Clear()
             End If
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub txtEditFacilityAddress_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txtEditFacilityAddress.Enter
@@ -3838,7 +3838,7 @@ Public Class IAIPFeeAuditTool
                 txtEditFacilityAddress.Clear()
             End If
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub txtEditFacilityCity_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txtEditFacilityCity.Enter
@@ -3847,7 +3847,7 @@ Public Class IAIPFeeAuditTool
                 txtEditFacilityCity.Clear()
             End If
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub txtEditContactFirstName_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txtEditContactFirstName.Enter
@@ -3856,7 +3856,7 @@ Public Class IAIPFeeAuditTool
                 txtEditContactFirstName.Clear()
             End If
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub txtEditContactLastName_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txtEditContactLastName.Enter
@@ -3865,7 +3865,7 @@ Public Class IAIPFeeAuditTool
                 txtEditContactLastName.Clear()
             End If
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub txtEditContactTitle_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txtEditContactTitle.Enter
@@ -3874,7 +3874,7 @@ Public Class IAIPFeeAuditTool
                 txtEditContactTitle.Clear()
             End If
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub txtEditContactCompany_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txtEditContactCompany.Enter
@@ -3883,7 +3883,7 @@ Public Class IAIPFeeAuditTool
                 txtEditContactCompany.Clear()
             End If
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub txtEditContactAddress_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txtEditContactAddress.Enter
@@ -3892,7 +3892,7 @@ Public Class IAIPFeeAuditTool
                 txtEditContactAddress.Clear()
             End If
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub txtEditContactCity_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txtEditContactCity.Enter
@@ -3901,7 +3901,7 @@ Public Class IAIPFeeAuditTool
                 txtEditContactCity.Clear()
             End If
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub txtEditContactPhoneNumber_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txtEditContactPhoneNumber.Enter
@@ -3910,7 +3910,7 @@ Public Class IAIPFeeAuditTool
                 txtEditContactPhoneNumber.Clear()
             End If
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub txtEditContactEmailAddress_Enter(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtEditContactEmailAddress.Enter
@@ -3920,7 +3920,7 @@ Public Class IAIPFeeAuditTool
                 txtEditContactEmailAddress.Clear()
             End If
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -3990,7 +3990,7 @@ Public Class IAIPFeeAuditTool
             MsgBox("Current Facilty Information Saved.", MsgBoxStyle.Information, "Fee Audit Tool")
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub btnEditContactInfo_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEditContactInfo.Click
@@ -4078,7 +4078,7 @@ Public Class IAIPFeeAuditTool
             End If
             MsgBox("Current Contact Information Saved.", MsgBoxStyle.Information, "Fee Audit Tool")
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub btnSaveCurrentChange_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSaveCurrentChange.Click
@@ -4101,7 +4101,7 @@ Public Class IAIPFeeAuditTool
 
             MsgBox("Comments Saved.", MsgBoxStyle.Information, "Fee Audit Tool")
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub btnSaveOwnershipChanges_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSaveOwnershipChanges.Click
@@ -4128,7 +4128,7 @@ Public Class IAIPFeeAuditTool
                 MsgBox("Ownership Changes Saved.", MsgBoxStyle.Information, "Fee Audit Tool")
             End If
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub btnSaveSourceClassificationChanges_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSaveSourceClassificationChanges.Click
@@ -4157,7 +4157,7 @@ Public Class IAIPFeeAuditTool
 
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub btnSaveComments_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSaveComments.Click
@@ -4177,7 +4177,7 @@ Public Class IAIPFeeAuditTool
                 MsgBox("Additional Comments Saved.", MsgBoxStyle.Information, "Fee Audit Tool")
             End If
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub btnFlagNonResponder_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnFlagNonResponder.Click
@@ -4218,7 +4218,7 @@ Public Class IAIPFeeAuditTool
             MsgBox("Status Saved", MsgBoxStyle.Information, "Fee Audit Tool")
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 #End Region
@@ -4229,7 +4229,7 @@ Public Class IAIPFeeAuditTool
                 txtEditFacilityName_CY2008.Clear()
             End If
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub txtEditFacilityAddress_CY2008_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txtEditFacilityAddress_CY2008.Enter
@@ -4238,7 +4238,7 @@ Public Class IAIPFeeAuditTool
                 txtEditFacilityAddress_CY2008.Clear()
             End If
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub txtEditFacilityCity_CY2008_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txtEditFacilityCity_CY2008.Enter
@@ -4247,7 +4247,7 @@ Public Class IAIPFeeAuditTool
                 txtEditFacilityCity_CY2008.Clear()
             End If
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub txtEditContactFirstName_CY2008_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txtEditContactFirstName_CY2008.Enter
@@ -4256,7 +4256,7 @@ Public Class IAIPFeeAuditTool
                 txtEditContactFirstName_CY2008.Clear()
             End If
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub txtEditContactLastName_CY2008_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txtEditContactLastName_CY2008.Enter
@@ -4265,7 +4265,7 @@ Public Class IAIPFeeAuditTool
                 txtEditContactLastName_CY2008.Clear()
             End If
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub txtEditContactCompany_CY2008_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txtEditContactCompany_CY2008.Enter
@@ -4274,7 +4274,7 @@ Public Class IAIPFeeAuditTool
                 txtEditContactCompany_CY2008.Clear()
             End If
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub txtEditContactAddress_CY2008_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txtEditContactAddress_CY2008.Enter
@@ -4283,7 +4283,7 @@ Public Class IAIPFeeAuditTool
                 txtEditContactAddress_CY2008.Clear()
             End If
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub txtEditContactCity_CY2008_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txtEditContactCity_CY2008.Enter
@@ -4292,7 +4292,7 @@ Public Class IAIPFeeAuditTool
                 txtEditContactCity_CY2008.Clear()
             End If
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -4371,7 +4371,7 @@ Public Class IAIPFeeAuditTool
             End If
             MsgBox("CY_2008 Facilty Information Saved.", MsgBoxStyle.Information, "Fee Audit Tool")
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub btnEditContactInfo_CY2008_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEditContactInfo_CY2008.Click
@@ -4435,7 +4435,7 @@ Public Class IAIPFeeAuditTool
             End If
             MsgBox("CY_2008 Contact Information Saved.", MsgBoxStyle.Information, "Fee Audit Tool")
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub btnSaveCurrentChange_CY2008_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSaveCurrentChange_CY2008.Click
@@ -4459,7 +4459,7 @@ Public Class IAIPFeeAuditTool
             End If
             MsgBox("CY_2008 Comments Saved.", MsgBoxStyle.Information, "Fee Audit Tool")
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 #End Region
@@ -4470,7 +4470,7 @@ Public Class IAIPFeeAuditTool
                 txtEditFacilityName_CY2007.Clear()
             End If
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub txtEditFacilityAddress_CY2007_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txtEditFacilityAddress_CY2007.Enter
@@ -4479,7 +4479,7 @@ Public Class IAIPFeeAuditTool
                 txtEditFacilityAddress_CY2007.Clear()
             End If
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub txtEditFacilityCity_CY2007_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txtEditFacilityCity_CY2007.Enter
@@ -4488,7 +4488,7 @@ Public Class IAIPFeeAuditTool
                 txtEditFacilityCity_CY2007.Clear()
             End If
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub txtEditContactFirstName_CY2007_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txtEditContactFirstName_CY2007.Enter
@@ -4497,7 +4497,7 @@ Public Class IAIPFeeAuditTool
                 txtEditContactFirstName_CY2007.Clear()
             End If
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub txtEditContactLastName_CY2007_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txtEditContactLastName_CY2007.Enter
@@ -4506,7 +4506,7 @@ Public Class IAIPFeeAuditTool
                 txtEditContactLastName_CY2007.Clear()
             End If
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub txtEditContactCompany_CY2007_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txtEditContactCompany_CY2007.Enter
@@ -4515,7 +4515,7 @@ Public Class IAIPFeeAuditTool
                 txtEditContactCompany_CY2007.Clear()
             End If
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub txtEditContactAddress_CY2007_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txtEditContactAddress_CY2007.Enter
@@ -4524,7 +4524,7 @@ Public Class IAIPFeeAuditTool
                 txtEditContactAddress_CY2007.Clear()
             End If
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub txtEditContactCity_CY2007_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txtEditContactCity_CY2007.Enter
@@ -4533,7 +4533,7 @@ Public Class IAIPFeeAuditTool
                 txtEditContactCity_CY2007.Clear()
             End If
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub btnEditFacilityInfo_CY2007_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEditFacilityInfo_CY2007.Click
@@ -4612,7 +4612,7 @@ Public Class IAIPFeeAuditTool
             MsgBox("CY_2007 Facilty Information Saved.", MsgBoxStyle.Information, "Fee Audit Tool")
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub btnEditContactInfo_CY2007_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEditContactInfo_CY2007.Click
@@ -4677,7 +4677,7 @@ Public Class IAIPFeeAuditTool
             End If
             MsgBox("CY_2007 Contact Information Saved.", MsgBoxStyle.Information, "Fee Audit Tool")
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub btnSaveCurrentChange_CY2007_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSaveCurrentChange_CY2007.Click
@@ -4701,7 +4701,7 @@ Public Class IAIPFeeAuditTool
             End If
             MsgBox("CY_2007 Comments Saved.", MsgBoxStyle.Information, "Fee Audit Tool")
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 #End Region
@@ -4712,7 +4712,7 @@ Public Class IAIPFeeAuditTool
                 txtEditFacilityName_CY2006.Clear()
             End If
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub txtEditFacilityAddress_CY2006_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txtEditFacilityAddress_CY2006.Enter
@@ -4721,7 +4721,7 @@ Public Class IAIPFeeAuditTool
                 txtEditFacilityAddress_CY2006.Clear()
             End If
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub txtEditFacilityCity_CY2006_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txtEditFacilityCity_CY2006.Enter
@@ -4730,7 +4730,7 @@ Public Class IAIPFeeAuditTool
                 txtEditFacilityCity_CY2006.Clear()
             End If
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub txtEditContactFirstName_CY2006_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txtEditContactFirstName_CY2006.Enter
@@ -4739,7 +4739,7 @@ Public Class IAIPFeeAuditTool
                 txtEditContactFirstName_CY2006.Clear()
             End If
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub txtEditContactLastName_CY2006_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txtEditContactLastName_CY2006.Enter
@@ -4748,7 +4748,7 @@ Public Class IAIPFeeAuditTool
                 txtEditContactLastName_CY2006.Clear()
             End If
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub txtEditContactCompany_CY2006_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txtEditContactCompany_CY2006.Enter
@@ -4757,7 +4757,7 @@ Public Class IAIPFeeAuditTool
                 txtEditContactCompany_CY2006.Clear()
             End If
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub txtEditContactAddress_CY2006_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txtEditContactAddress_CY2006.Enter
@@ -4766,7 +4766,7 @@ Public Class IAIPFeeAuditTool
                 txtEditContactAddress_CY2006.Clear()
             End If
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub txtEditContactCity_CY2006_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txtEditContactCity_CY2006.Enter
@@ -4775,7 +4775,7 @@ Public Class IAIPFeeAuditTool
                 txtEditContactCity_CY2006.Clear()
             End If
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -4854,7 +4854,7 @@ Public Class IAIPFeeAuditTool
             End If
             MsgBox("CY_2006 Facilty Information Saved.", MsgBoxStyle.Information, "Fee Audit Tool")
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub btnEditContactInfo_CY2006_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEditContactInfo_CY2006.Click
@@ -4919,7 +4919,7 @@ Public Class IAIPFeeAuditTool
             End If
             MsgBox("CY_2006 Contact Information Saved.", MsgBoxStyle.Information, "Fee Audit Tool")
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub btnSaveCurrentChange_CY2006_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSaveCurrentChange_CY2006.Click
@@ -4943,7 +4943,7 @@ Public Class IAIPFeeAuditTool
             End If
             MsgBox("CY_2006 Comments Saved.", MsgBoxStyle.Information, "Fee Audit Tool")
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -5177,7 +5177,7 @@ Public Class IAIPFeeAuditTool
 
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub btnManagerSignOff_CY2008_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnManagerSignOff_CY2008.Click
@@ -5225,7 +5225,7 @@ Public Class IAIPFeeAuditTool
                 MsgBox("Audit information must be Saved first, before you can sign-off.", MsgBoxStyle.Information, "Fee Audit Tool")
             End If
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 #End Region
@@ -5418,7 +5418,7 @@ Public Class IAIPFeeAuditTool
 
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub btnManagerSignOff_CY2007_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnManagerSignOff_CY2007.Click
@@ -5466,7 +5466,7 @@ Public Class IAIPFeeAuditTool
                 MsgBox("Audit information must be Saved first, before you can sign-off.", MsgBoxStyle.Information, "Fee Audit Tool")
             End If
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 #End Region
@@ -5659,7 +5659,7 @@ Public Class IAIPFeeAuditTool
 
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub btnManagerSignOff_CY2006_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnManagerSignOff_CY2006.Click
@@ -5707,7 +5707,7 @@ Public Class IAIPFeeAuditTool
                 MsgBox("Audit information must be Saved first, before you can sign-off.", MsgBoxStyle.Information, "Fee Audit Tool")
             End If
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -5901,7 +5901,7 @@ Public Class IAIPFeeAuditTool
 
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub btnManagerSignOff_CY2005_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnManagerSignOff_CY2005.Click
@@ -5949,7 +5949,7 @@ Public Class IAIPFeeAuditTool
                 MsgBox("Audit information must be Saved first, before you can sign-off.", MsgBoxStyle.Information, "Fee Audit Tool")
             End If
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -6143,7 +6143,7 @@ Public Class IAIPFeeAuditTool
 
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub btnManagerSignOff_CY2004_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnManagerSignOff_CY2004.Click
@@ -6191,7 +6191,7 @@ Public Class IAIPFeeAuditTool
                 MsgBox("Audit information must be Saved first, before you can sign-off.", MsgBoxStyle.Information, "Fee Audit Tool")
             End If
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -6385,7 +6385,7 @@ Public Class IAIPFeeAuditTool
 
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub btnManagerSignOff_CY2003_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnManagerSignOff_CY2003.Click
@@ -6433,7 +6433,7 @@ Public Class IAIPFeeAuditTool
                 MsgBox("Audit information must be Saved first, before you can sign-off.", MsgBoxStyle.Information, "Fee Audit Tool")
             End If
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -6625,7 +6625,7 @@ Public Class IAIPFeeAuditTool
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub btnManagerSignOff_CY2002_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnManagerSignOff_CY2002.Click
@@ -6673,7 +6673,7 @@ Public Class IAIPFeeAuditTool
                 MsgBox("Audit information must be Saved first, before you can sign-off.", MsgBoxStyle.Information, "Fee Audit Tool")
             End If
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -6737,7 +6737,7 @@ Public Class IAIPFeeAuditTool
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub btnNonRespondersData_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNonRespondersData.Click
@@ -7280,7 +7280,7 @@ SQLLine & _
 
             txtCount.Text = dgvFeeAuditReport.RowCount.ToString
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub btnViewFullAuditData_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnViewFullAuditData.Click
@@ -7758,7 +7758,7 @@ SQLLine & _
             txtCount.Text = dgvFeeAuditReport.RowCount.ToString
             '  Exit Sub
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub ExportToExcel()
@@ -7799,7 +7799,7 @@ SQLLine & _
             If ex.ToString.Contains("RPC_E_CALL_REJECTED") Then
                 MsgBox("Error in exporting data." & vbCrLf & "Please run the export again.")
             Else
-                ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+                ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
             End If
         End Try
     End Sub
@@ -8015,7 +8015,7 @@ SQLLine & _
 
             txtCount.Text = dgvFeeAuditReport.RowCount.ToString
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub btnGetEmailAddresses_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnGetEmailAddresses.Click
@@ -8073,7 +8073,7 @@ SQLLine & _
 
             txtCount.Text = dgvFeeAuditReport.RowCount.ToString
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub btnFlagNonPayer_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnFlagNonPayer.Click
@@ -8101,7 +8101,7 @@ SQLLine & _
             MsgBox("Status Saved", MsgBoxStyle.Information, "Fee Audit Tool")
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub btnSearchForData_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSearchForData.Click
@@ -8144,7 +8144,7 @@ SQLLine & _
 
             End If
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub btnSaveNonPayerComments_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSaveNonPayerComments.Click
@@ -8162,7 +8162,7 @@ SQLLine & _
             MsgBox("Comments Saved", MsgBoxStyle.Exclamation, "Fee Audit Tool")
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -8185,7 +8185,7 @@ SQLLine & _
             'txtNonPayerEmail.Text
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -8214,7 +8214,7 @@ SQLLine & _
             MsgBox("Data Saved", MsgBoxStyle.Information, Me.Text)
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -8368,7 +8368,7 @@ SQLLine & _
 
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 

@@ -71,7 +71,7 @@ Public Class PASPFeeStatistics
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
             progress1.progress = 0
         End Try
@@ -134,7 +134,7 @@ Public Class PASPFeeStatistics
             cboStatPayType.Text = cboStatPayType.Items.Item(0)
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
  
@@ -528,7 +528,7 @@ Public Class PASPFeeStatistics
             txtInvoicedBalance.Text = CDec(txtInvoicedBalance.Text).ToString("c")
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub btnViewPaymentDue_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnViewPaymentDue.Click
@@ -676,7 +676,7 @@ Public Class PASPFeeStatistics
             txtCount.Text = dgvDepositsAndPayments.RowCount.ToString
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub bntViewTotalPaid_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles bntViewTotalPaid.Click
@@ -994,7 +994,7 @@ Public Class PASPFeeStatistics
             txtCount.Text = dgvDepositsAndPayments.RowCount.ToString
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub btnViewBalance_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnViewBalance.Click
@@ -1622,7 +1622,7 @@ Public Class PASPFeeStatistics
             txtCount.Text = dgvDepositsAndPayments.RowCount.ToString
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub btnViewSelectedFeeData_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnViewSelectedFeeData.Click
@@ -1638,7 +1638,7 @@ Public Class PASPFeeStatistics
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub LoadSelectedFeeData()
@@ -1958,7 +1958,7 @@ Public Class PASPFeeStatistics
          
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub dgvDepositsAndPayments_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvDepositsAndPayments.MouseUp
@@ -1972,7 +1972,7 @@ Public Class PASPFeeStatistics
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub btnHideResults_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnHideResults.Click
@@ -1984,7 +1984,7 @@ Public Class PASPFeeStatistics
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub btnExportToExcel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnExportToExcel.Click
@@ -2025,7 +2025,7 @@ Public Class PASPFeeStatistics
             If ex.ToString.Contains("RPC_E_CALL_REJECTED") Then
                 MsgBox("Error in exporting data." & vbCrLf & "Please run the export again.")
             Else
-                ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+                ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
             End If
         Finally
         End Try
@@ -2430,7 +2430,7 @@ Public Class PASPFeeStatistics
 
 
 
-            ' ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ' ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub btnRunReport_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnRunReport.Click
@@ -2499,7 +2499,7 @@ Public Class PASPFeeStatistics
             txtFeeCount.Text = dgvLateFeeReport.RowCount.ToString
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub btnCheckforFeesPaid_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCheckforFeesPaid.Click
@@ -2645,7 +2645,7 @@ Public Class PASPFeeStatistics
 
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub btnRemovePaidFacilities_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnRemovePaidFacilities.Click
@@ -2715,7 +2715,7 @@ Public Class PASPFeeStatistics
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub btnViewUnenrolled_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnViewUnenrolled.Click
@@ -2753,7 +2753,7 @@ Public Class PASPFeeStatistics
             txtFeeCount.Text = dgvLateFeeReport.RowCount.ToString
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub dgvLateFeeReport_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvLateFeeReport.MouseUp
@@ -2785,7 +2785,7 @@ Public Class PASPFeeStatistics
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub LoadFeeData()
@@ -3080,7 +3080,7 @@ Public Class PASPFeeStatistics
             txtFeePendingPermitType.Text = PendingAppType
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub btnFeeFacilitySummary_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnFeeFacilitySummary.Click
@@ -3101,7 +3101,7 @@ Public Class PASPFeeStatistics
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub btnFeeViewComplianceEvent_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnFeeViewComplianceEvent.Click
@@ -3191,7 +3191,7 @@ Public Class PASPFeeStatistics
                 End Select
             End If
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub btnFeeViewPermittingEvent_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnFeeViewPermittingEvent.Click
@@ -3212,7 +3212,7 @@ Public Class PASPFeeStatistics
                 PermitTrackingLog.TPTrackingLog.Focus()
             End If
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub btnFeePendingPermittingEvent_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnFeePendingPermittingEvent.Click
@@ -3234,7 +3234,7 @@ Public Class PASPFeeStatistics
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub btnViewData_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnViewData.Click
@@ -3243,7 +3243,7 @@ Public Class PASPFeeStatistics
                 LoadFeeData()
             End If
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub btnExportFeeReport_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnExportFeeReport.Click
@@ -3305,7 +3305,7 @@ Public Class PASPFeeStatistics
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub chbDepositDateSearch_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chbDepositDateSearch.CheckedChanged
@@ -3334,7 +3334,7 @@ Public Class PASPFeeStatistics
                 chbNonZeroBalance.Enabled = True
             End If
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -3422,7 +3422,7 @@ Public Class PASPFeeStatistics
             txtCount.Text = dgvDepositsAndPayments.RowCount.ToString
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 #Region "Fee Reports "
@@ -3463,7 +3463,7 @@ Public Class PASPFeeStatistics
 
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
             If Conn.State = ConnectionState.Open Then
                 'conn.close()
@@ -3531,7 +3531,7 @@ Public Class PASPFeeStatistics
             End With
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
             If Conn.State = ConnectionState.Open Then
                 'conn.close()
@@ -3565,7 +3565,7 @@ Public Class PASPFeeStatistics
             If dr.IsClosed = False Then dr.Close()
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), "PASPFeeReports.LoadComboBoxesD(Sub1)")
+            ErrorReport(ex, "PASPFeeReports.LoadComboBoxesD(Sub1)")
         Finally
             If Conn.State = ConnectionState.Open Then
                 'conn.close()
@@ -3593,7 +3593,7 @@ Public Class PASPFeeStatistics
             Loop While dr.Read
             If dr.IsClosed = False Then dr.Close()
         Catch ex As Exception
-            ErrorReport(ex.ToString(), "PASPFeeReports.LoadComboBoxesD(Sub2)")
+            ErrorReport(ex, "PASPFeeReports.LoadComboBoxesD(Sub2)")
         Finally
             If Conn.State = ConnectionState.Open Then
                 'conn.close()
@@ -3619,7 +3619,7 @@ Public Class PASPFeeStatistics
 
             End Select
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
             If Conn.State = ConnectionState.Open Then
                 'conn.close()
@@ -3662,7 +3662,7 @@ Public Class PASPFeeStatistics
 
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -3721,7 +3721,7 @@ Public Class PASPFeeStatistics
             'DisplayReport(CRFeesReports, "Annual Emission and Fee")
             'CRFeesReports.Refresh()
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -3762,7 +3762,7 @@ Public Class PASPFeeStatistics
             'DisplayReport(CRFeesReports, "Facility Classification Totals")
             'CRFeesReports.Refresh()
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -3788,7 +3788,7 @@ Public Class PASPFeeStatistics
             mtbFacilityBalanceYear.Visible = False
             btnRunBalanceReport.Visible = False
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -3887,7 +3887,7 @@ Public Class PASPFeeStatistics
             CRFeesReports.Refresh()
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -3906,7 +3906,7 @@ Public Class PASPFeeStatistics
             chbFacilityBalance.Enabled = False
             mtbFacilityBalanceYear.Focus()
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
 
@@ -3923,7 +3923,7 @@ Public Class PASPFeeStatistics
             chbFacilityBalance.Enabled = False
             mtbFacilityBalanceYear.Focus()
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -3958,7 +3958,7 @@ Public Class PASPFeeStatistics
 
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
             If Conn.State = ConnectionState.Open Then
                 'conn.close()
@@ -3986,7 +3986,7 @@ Public Class PASPFeeStatistics
             btnRunVarianceReport.Visible = False
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
             If Conn.State = ConnectionState.Open Then
                 'conn.close()
@@ -4059,7 +4059,7 @@ Public Class PASPFeeStatistics
             CRFeesReports.Refresh()
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -4131,7 +4131,7 @@ Public Class PASPFeeStatistics
 
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -4165,7 +4165,7 @@ Public Class PASPFeeStatistics
 
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -4201,7 +4201,7 @@ Public Class PASPFeeStatistics
 
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -4268,7 +4268,7 @@ Public Class PASPFeeStatistics
             CRFeesReports.Refresh()
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
         progress1.progress = 0
@@ -4280,7 +4280,7 @@ Public Class PASPFeeStatistics
             pnlDateRange.Visible = False
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub btnvariance_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnvariance.Click
@@ -4299,7 +4299,7 @@ Public Class PASPFeeStatistics
             Label5.Visible = False
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -4412,7 +4412,7 @@ Public Class PASPFeeStatistics
             CRFeesReports.Refresh()
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -4463,7 +4463,7 @@ Public Class PASPFeeStatistics
             'DisplayReport(CRFeesReports, "Change in Classification")
             'CRFeesReports.Refresh()
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -4485,7 +4485,7 @@ Public Class PASPFeeStatistics
             btnRunNonRespondent.Visible = False
             lblNonRespondant.Visible = False
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
             If Conn.State = ConnectionState.Open Then
                 'conn.close()
@@ -4522,7 +4522,7 @@ Public Class PASPFeeStatistics
             CRFeesReports.Refresh()
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -4556,7 +4556,7 @@ Public Class PASPFeeStatistics
             CRFeesReports.Refresh()
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -4590,7 +4590,7 @@ Public Class PASPFeeStatistics
             CRFeesReports.Refresh()
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -4607,7 +4607,7 @@ Public Class PASPFeeStatistics
 
             NoResponse()
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub NoResponse()
@@ -4641,7 +4641,7 @@ Public Class PASPFeeStatistics
             CRFeesReports.Refresh()
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
 
@@ -4661,7 +4661,7 @@ Public Class PASPFeeStatistics
             btnRunNonRespondent.Visible = True
             lblNonRespondant.Visible = True
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -4706,7 +4706,7 @@ Public Class PASPFeeStatistics
             'DisplayReport(CRFeesReports, "Did Not Operate")
             'CRFeesReports.Refresh()
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -4751,7 +4751,7 @@ Public Class PASPFeeStatistics
             CRFeesReports.Refresh()
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -4785,7 +4785,7 @@ Public Class PASPFeeStatistics
             CRFeesReports.Refresh()
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -4817,7 +4817,7 @@ Public Class PASPFeeStatistics
             CRFeesReports.Refresh()
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -5150,7 +5150,7 @@ Public Class PASPFeeStatistics
 
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -5206,7 +5206,7 @@ Public Class PASPFeeStatistics
             txtFeeStatsCount.Text = dgvFeeStats.RowCount.ToString
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -5263,7 +5263,7 @@ Public Class PASPFeeStatistics
             txtFeeStatsCount.Text = dgvFeeStats.RowCount.ToString
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -5321,7 +5321,7 @@ Public Class PASPFeeStatistics
             txtFeeStatsCount.Text = dgvFeeStats.RowCount.ToString
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -5379,7 +5379,7 @@ Public Class PASPFeeStatistics
             txtFeeStatsCount.Text = dgvFeeStats.RowCount.ToString
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -5438,7 +5438,7 @@ Public Class PASPFeeStatistics
             txtFeeStatsCount.Text = dgvFeeStats.RowCount.ToString
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -5497,7 +5497,7 @@ Public Class PASPFeeStatistics
             txtFeeStatsCount.Text = dgvFeeStats.RowCount.ToString
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -5555,7 +5555,7 @@ Public Class PASPFeeStatistics
             txtFeeStatsCount.Text = dgvFeeStats.RowCount.ToString
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -5614,7 +5614,7 @@ Public Class PASPFeeStatistics
             txtFeeStatsCount.Text = dgvFeeStats.RowCount.ToString
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -5678,7 +5678,7 @@ Public Class PASPFeeStatistics
             txtFeeStatsCount.Text = dgvFeeStats.RowCount.ToString
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -5739,7 +5739,7 @@ Public Class PASPFeeStatistics
             txtFeeStatsCount.Text = dgvFeeStats.RowCount.ToString
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -5801,7 +5801,7 @@ Public Class PASPFeeStatistics
             txtFeeStatsCount.Text = dgvFeeStats.RowCount.ToString
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -5862,7 +5862,7 @@ Public Class PASPFeeStatistics
             txtFeeStatsCount.Text = dgvFeeStats.RowCount.ToString
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -5923,7 +5923,7 @@ Public Class PASPFeeStatistics
             txtFeeStatsCount.Text = dgvFeeStats.RowCount.ToString
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -5981,7 +5981,7 @@ Public Class PASPFeeStatistics
             txtFeeStatsCount.Text = dgvFeeStats.RowCount.ToString
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -6046,7 +6046,7 @@ Public Class PASPFeeStatistics
             txtFeeStatsCount.Text = dgvFeeStats.RowCount.ToString
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -6105,7 +6105,7 @@ Public Class PASPFeeStatistics
             txtFeeStatsCount.Text = dgvFeeStats.RowCount.ToString
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -6164,7 +6164,7 @@ Public Class PASPFeeStatistics
             txtFeeStatsCount.Text = dgvFeeStats.RowCount.ToString
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -6224,7 +6224,7 @@ Public Class PASPFeeStatistics
             txtFeeStatsCount.Text = dgvFeeStats.RowCount.ToString
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -6282,7 +6282,7 @@ Public Class PASPFeeStatistics
             txtFeeStatsCount.Text = dgvFeeStats.RowCount.ToString
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -6341,7 +6341,7 @@ Public Class PASPFeeStatistics
             txtFeeStatsCount.Text = dgvFeeStats.RowCount.ToString
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -6400,7 +6400,7 @@ Public Class PASPFeeStatistics
             txtFeeStatsCount.Text = dgvFeeStats.RowCount.ToString
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -6601,7 +6601,7 @@ Public Class PASPFeeStatistics
             txtFeeStatsCount.Text = dgvFeeStats.RowCount.ToString
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -6748,7 +6748,7 @@ Public Class PASPFeeStatistics
             txtFeeStatsCount.Text = dgvFeeStats.RowCount.ToString
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -6896,7 +6896,7 @@ Public Class PASPFeeStatistics
             txtFeeStatsCount.Text = dgvFeeStats.RowCount.ToString
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -7044,7 +7044,7 @@ Public Class PASPFeeStatistics
             txtFeeStatsCount.Text = dgvFeeStats.RowCount.ToString
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -7193,7 +7193,7 @@ Public Class PASPFeeStatistics
             txtFeeStatsCount.Text = dgvFeeStats.RowCount.ToString
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -7341,7 +7341,7 @@ Public Class PASPFeeStatistics
             txtFeeStatsCount.Text = dgvFeeStats.RowCount.ToString
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -7488,7 +7488,7 @@ Public Class PASPFeeStatistics
             txtFeeStatsCount.Text = dgvFeeStats.RowCount.ToString
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -7636,7 +7636,7 @@ Public Class PASPFeeStatistics
             txtFeeStatsCount.Text = dgvFeeStats.RowCount.ToString
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -7794,7 +7794,7 @@ Public Class PASPFeeStatistics
             txtFeeStatsCount.Text = dgvFeeStats.RowCount.ToString
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -7947,7 +7947,7 @@ Public Class PASPFeeStatistics
             txtFeeStatsCount.Text = dgvFeeStats.RowCount.ToString
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -8099,7 +8099,7 @@ Public Class PASPFeeStatistics
             txtFeeStatsCount.Text = dgvFeeStats.RowCount.ToString
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -8248,7 +8248,7 @@ Public Class PASPFeeStatistics
             txtFeeStatsCount.Text = dgvFeeStats.RowCount.ToString
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -8398,7 +8398,7 @@ Public Class PASPFeeStatistics
             txtFeeStatsCount.Text = dgvFeeStats.RowCount.ToString
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -8544,7 +8544,7 @@ Public Class PASPFeeStatistics
             txtFeeStatsCount.Text = dgvFeeStats.RowCount.ToString
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -8690,7 +8690,7 @@ Public Class PASPFeeStatistics
             txtFeeStatsCount.Text = dgvFeeStats.RowCount.ToString
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -8836,7 +8836,7 @@ Public Class PASPFeeStatistics
             txtFeeStatsCount.Text = dgvFeeStats.RowCount.ToString
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -8982,7 +8982,7 @@ Public Class PASPFeeStatistics
             txtFeeStatsCount.Text = dgvFeeStats.RowCount.ToString
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -9131,7 +9131,7 @@ Public Class PASPFeeStatistics
             txtFeeStatsCount.Text = dgvFeeStats.RowCount.ToString
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -9281,7 +9281,7 @@ Public Class PASPFeeStatistics
             txtFeeStatsCount.Text = dgvFeeStats.RowCount.ToString
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -9432,7 +9432,7 @@ Public Class PASPFeeStatistics
             txtFeeStatsCount.Text = dgvFeeStats.RowCount.ToString
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -9474,7 +9474,7 @@ Public Class PASPFeeStatistics
             If ex.ToString.Contains("RPC_E_CALL_REJECTED") Then
                 MsgBox("Error in exporting data." & vbCrLf & "Please run the export again.")
             Else
-                ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+                ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
             End If
         Finally
         End Try
@@ -9494,7 +9494,7 @@ Public Class PASPFeeStatistics
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -9556,7 +9556,7 @@ Public Class PASPFeeStatistics
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -9837,7 +9837,7 @@ Public Class PASPFeeStatistics
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -9863,7 +9863,7 @@ Public Class PASPFeeStatistics
                 End If
             End If
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -10296,7 +10296,7 @@ Public Class PASPFeeStatistics
         
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -10720,7 +10720,7 @@ Public Class PASPFeeStatistics
 
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
