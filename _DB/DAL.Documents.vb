@@ -84,7 +84,7 @@ Namespace DAL
         Public Function FileOpenFilters() As List(Of String)
             Dim fileFilters As New List(Of String)
             With fileFilters
-                .Add("Common Document Formats (*.docx, *.pdf, *.doc)|*.pdf;*.doc;*.docx")
+                .Add("Common Document Formats (*.docx, *.doc, *.pdf, *.xlsx, *.xls)|*.pdf;*.doc;*.docx;*.xlsx;*.xls")
                 .Add("PDF Documents (*.pdf)|*.pdf")
                 .Add("Word Documents (*.doc, *.docx, *.docm)|*.doc;*.docx;*.docm")
                 .Add("Excel Spreadsheets (*.xls, *.xlsx, *.xlsm, *.xlsb, *.csv)|*.xls;*.xlsx;*.xlsm;*.xlsb; *.csv")
