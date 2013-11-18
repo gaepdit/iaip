@@ -61,7 +61,7 @@ Public Class IAIPLogIn
             VerifyVersion()
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -395,7 +395,7 @@ Public Class IAIPLogIn
             LoginProgressBar.Visible = False
             btnLoginButton.Visible = True
             monitor.TrackFeatureCancel("Startup.LoggingIn")
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
     End Sub
@@ -404,7 +404,7 @@ Public Class IAIPLogIn
         Try
             LogInCheck()
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -582,7 +582,7 @@ Public Class IAIPLogIn
     '        End Select
 
     '    Catch ex As Exception
-    '        ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+    '        ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
     '    Finally
 
     '    End Try

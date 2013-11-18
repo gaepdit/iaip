@@ -23,9 +23,9 @@ Partial Class SSCPEnforcementAudit
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(SSCPEnforcementAudit))
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
         Me.ToolStrip1 = New System.Windows.Forms.ToolStrip
         Me.tsbSave = New System.Windows.Forms.ToolStripButton
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip
@@ -621,7 +621,7 @@ Partial Class SSCPEnforcementAudit
         '
         Me.btn45DayZero.AutoSize = True
         Me.btn45DayZero.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btn45DayZero.Location = New System.Drawing.Point(731, 34)
+        Me.btn45DayZero.Location = New System.Drawing.Point(744, 34)
         Me.btn45DayZero.Name = "btn45DayZero"
         Me.btn45DayZero.Size = New System.Drawing.Size(49, 23)
         Me.btn45DayZero.TabIndex = 368
@@ -637,7 +637,7 @@ Partial Class SSCPEnforcementAudit
         Me.DTPEnforcementResolved.Location = New System.Drawing.Point(8, 209)
         Me.DTPEnforcementResolved.Name = "DTPEnforcementResolved"
         Me.DTPEnforcementResolved.ShowCheckBox = True
-        Me.DTPEnforcementResolved.Size = New System.Drawing.Size(119, 22)
+        Me.DTPEnforcementResolved.Size = New System.Drawing.Size(132, 22)
         Me.DTPEnforcementResolved.TabIndex = 0
         '
         'chbHPV
@@ -651,7 +651,7 @@ Partial Class SSCPEnforcementAudit
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(131, 214)
+        Me.Label1.Location = New System.Drawing.Point(144, 214)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(66, 13)
         Me.Label1.TabIndex = 1
@@ -676,13 +676,13 @@ Partial Class SSCPEnforcementAudit
         Me.DTPDiscoveryDate.Location = New System.Drawing.Point(6, 34)
         Me.DTPDiscoveryDate.Name = "DTPDiscoveryDate"
         Me.DTPDiscoveryDate.ShowCheckBox = True
-        Me.DTPDiscoveryDate.Size = New System.Drawing.Size(119, 22)
+        Me.DTPDiscoveryDate.Size = New System.Drawing.Size(132, 22)
         Me.DTPDiscoveryDate.TabIndex = 2
         '
         'chbAO
         '
         Me.chbAO.AutoSize = True
-        Me.chbAO.Location = New System.Drawing.Point(357, 37)
+        Me.chbAO.Location = New System.Drawing.Point(370, 37)
         Me.chbAO.Name = "chbAO"
         Me.chbAO.Size = New System.Drawing.Size(41, 17)
         Me.chbAO.TabIndex = 352
@@ -692,7 +692,7 @@ Partial Class SSCPEnforcementAudit
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(131, 39)
+        Me.Label2.Location = New System.Drawing.Point(144, 39)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(80, 13)
         Me.Label2.TabIndex = 3
@@ -701,7 +701,7 @@ Partial Class SSCPEnforcementAudit
         'chbCO
         '
         Me.chbCO.AutoSize = True
-        Me.chbCO.Location = New System.Drawing.Point(315, 37)
+        Me.chbCO.Location = New System.Drawing.Point(328, 37)
         Me.chbCO.Name = "chbCO"
         Me.chbCO.Size = New System.Drawing.Size(41, 17)
         Me.chbCO.TabIndex = 351
@@ -717,13 +717,13 @@ Partial Class SSCPEnforcementAudit
         Me.DTPDayZero.Location = New System.Drawing.Point(448, 34)
         Me.DTPDayZero.Name = "DTPDayZero"
         Me.DTPDayZero.ShowCheckBox = True
-        Me.DTPDayZero.Size = New System.Drawing.Size(119, 22)
+        Me.DTPDayZero.Size = New System.Drawing.Size(132, 22)
         Me.DTPDayZero.TabIndex = 4
         '
         'chbNOV
         '
         Me.chbNOV.AutoSize = True
-        Me.chbNOV.Location = New System.Drawing.Point(264, 37)
+        Me.chbNOV.Location = New System.Drawing.Point(277, 37)
         Me.chbNOV.Name = "chbNOV"
         Me.chbNOV.Size = New System.Drawing.Size(49, 17)
         Me.chbNOV.TabIndex = 350
@@ -733,7 +733,7 @@ Partial Class SSCPEnforcementAudit
         'lblDayZero
         '
         Me.lblDayZero.AutoSize = True
-        Me.lblDayZero.Location = New System.Drawing.Point(573, 39)
+        Me.lblDayZero.Location = New System.Drawing.Point(586, 39)
         Me.lblDayZero.Name = "lblDayZero"
         Me.lblDayZero.Size = New System.Drawing.Size(152, 13)
         Me.lblDayZero.TabIndex = 5
@@ -742,7 +742,7 @@ Partial Class SSCPEnforcementAudit
         'chbLON
         '
         Me.chbLON.AutoSize = True
-        Me.chbLON.Location = New System.Drawing.Point(217, 37)
+        Me.chbLON.Location = New System.Drawing.Point(230, 37)
         Me.chbLON.Name = "chbLON"
         Me.chbLON.Size = New System.Drawing.Size(48, 17)
         Me.chbLON.TabIndex = 349
@@ -797,7 +797,7 @@ Partial Class SSCPEnforcementAudit
         '
         'btnSubmitEnforcementToEPA
         '
-        Me.btnSubmitEnforcementToEPA.Location = New System.Drawing.Point(218, 209)
+        Me.btnSubmitEnforcementToEPA.Location = New System.Drawing.Point(225, 209)
         Me.btnSubmitEnforcementToEPA.Name = "btnSubmitEnforcementToEPA"
         Me.btnSubmitEnforcementToEPA.Size = New System.Drawing.Size(183, 23)
         Me.btnSubmitEnforcementToEPA.TabIndex = 345
@@ -827,7 +827,7 @@ Partial Class SSCPEnforcementAudit
         '
         'btnManuallyEnterAFS
         '
-        Me.btnManuallyEnterAFS.Location = New System.Drawing.Point(415, 209)
+        Me.btnManuallyEnterAFS.Location = New System.Drawing.Point(422, 209)
         Me.btnManuallyEnterAFS.Name = "btnManuallyEnterAFS"
         Me.btnManuallyEnterAFS.Size = New System.Drawing.Size(184, 23)
         Me.btnManuallyEnterAFS.TabIndex = 347
@@ -960,13 +960,13 @@ Partial Class SSCPEnforcementAudit
         Me.DTPLONToUC.Location = New System.Drawing.Point(11, 9)
         Me.DTPLONToUC.Name = "DTPLONToUC"
         Me.DTPLONToUC.ShowCheckBox = True
-        Me.DTPLONToUC.Size = New System.Drawing.Size(119, 22)
+        Me.DTPLONToUC.Size = New System.Drawing.Size(132, 22)
         Me.DTPLONToUC.TabIndex = 279
         '
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(425, 40)
+        Me.Label3.Location = New System.Drawing.Point(425, 44)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(103, 13)
         Me.Label3.TabIndex = 282
@@ -978,10 +978,10 @@ Partial Class SSCPEnforcementAudit
         Me.DTPLONResolved.CustomFormat = "dd-MMM-yyyy"
         Me.DTPLONResolved.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.DTPLONResolved.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DTPLONResolved.Location = New System.Drawing.Point(300, 36)
+        Me.DTPLONResolved.Location = New System.Drawing.Point(287, 37)
         Me.DTPLONResolved.Name = "DTPLONResolved"
         Me.DTPLONResolved.ShowCheckBox = True
-        Me.DTPLONResolved.Size = New System.Drawing.Size(119, 22)
+        Me.DTPLONResolved.Size = New System.Drawing.Size(132, 22)
         Me.DTPLONResolved.TabIndex = 281
         '
         'DTPLONSent
@@ -993,13 +993,13 @@ Partial Class SSCPEnforcementAudit
         Me.DTPLONSent.Location = New System.Drawing.Point(11, 37)
         Me.DTPLONSent.Name = "DTPLONSent"
         Me.DTPLONSent.ShowCheckBox = True
-        Me.DTPLONSent.Size = New System.Drawing.Size(119, 22)
+        Me.DTPLONSent.Size = New System.Drawing.Size(132, 22)
         Me.DTPLONSent.TabIndex = 2
         '
         'Label7
         '
         Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(136, 41)
+        Me.Label7.Location = New System.Drawing.Point(149, 43)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(80, 13)
         Me.Label7.TabIndex = 3
@@ -1008,7 +1008,7 @@ Partial Class SSCPEnforcementAudit
         'Label43
         '
         Me.Label43.AutoSize = True
-        Me.Label43.Location = New System.Drawing.Point(136, 13)
+        Me.Label43.Location = New System.Drawing.Point(149, 15)
         Me.Label43.Name = "Label43"
         Me.Label43.Size = New System.Drawing.Size(60, 13)
         Me.Label43.TabIndex = 280
@@ -1127,13 +1127,13 @@ Partial Class SSCPEnforcementAudit
         Me.DTPNOVToUC.Location = New System.Drawing.Point(7, 7)
         Me.DTPNOVToUC.Name = "DTPNOVToUC"
         Me.DTPNOVToUC.ShowCheckBox = True
-        Me.DTPNOVToUC.Size = New System.Drawing.Size(119, 22)
+        Me.DTPNOVToUC.Size = New System.Drawing.Size(132, 22)
         Me.DTPNOVToUC.TabIndex = 372
         '
         'Label46
         '
         Me.Label46.AutoSize = True
-        Me.Label46.Location = New System.Drawing.Point(131, 162)
+        Me.Label46.Location = New System.Drawing.Point(145, 164)
         Me.Label46.Name = "Label46"
         Me.Label46.Size = New System.Drawing.Size(85, 13)
         Me.Label46.TabIndex = 379
@@ -1157,7 +1157,7 @@ Partial Class SSCPEnforcementAudit
         Me.DTPNOVsent.Location = New System.Drawing.Point(7, 67)
         Me.DTPNOVsent.Name = "DTPNOVsent"
         Me.DTPNOVsent.ShowCheckBox = True
-        Me.DTPNOVsent.Size = New System.Drawing.Size(119, 22)
+        Me.DTPNOVsent.Size = New System.Drawing.Size(132, 22)
         Me.DTPNOVsent.TabIndex = 366
         '
         'DTPNFAToPM
@@ -1169,13 +1169,13 @@ Partial Class SSCPEnforcementAudit
         Me.DTPNFAToPM.Location = New System.Drawing.Point(7, 157)
         Me.DTPNFAToPM.Name = "DTPNFAToPM"
         Me.DTPNFAToPM.ShowCheckBox = True
-        Me.DTPNFAToPM.Size = New System.Drawing.Size(119, 22)
+        Me.DTPNFAToPM.Size = New System.Drawing.Size(132, 22)
         Me.DTPNFAToPM.TabIndex = 378
         '
         'Label8
         '
         Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(131, 72)
+        Me.Label8.Location = New System.Drawing.Point(145, 74)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(81, 13)
         Me.Label8.TabIndex = 367
@@ -1184,7 +1184,7 @@ Partial Class SSCPEnforcementAudit
         'Label45
         '
         Me.Label45.AutoSize = True
-        Me.Label45.Location = New System.Drawing.Point(131, 132)
+        Me.Label45.Location = New System.Drawing.Point(145, 134)
         Me.Label45.Name = "Label45"
         Me.Label45.Size = New System.Drawing.Size(84, 13)
         Me.Label45.TabIndex = 377
@@ -1199,7 +1199,7 @@ Partial Class SSCPEnforcementAudit
         Me.DTPNOVResponseReceived.Location = New System.Drawing.Point(7, 97)
         Me.DTPNOVResponseReceived.Name = "DTPNOVResponseReceived"
         Me.DTPNOVResponseReceived.ShowCheckBox = True
-        Me.DTPNOVResponseReceived.Size = New System.Drawing.Size(119, 22)
+        Me.DTPNOVResponseReceived.Size = New System.Drawing.Size(132, 22)
         Me.DTPNOVResponseReceived.TabIndex = 368
         '
         'DTPNFAToUC
@@ -1211,13 +1211,13 @@ Partial Class SSCPEnforcementAudit
         Me.DTPNFAToUC.Location = New System.Drawing.Point(7, 127)
         Me.DTPNFAToUC.Name = "DTPNFAToUC"
         Me.DTPNFAToUC.ShowCheckBox = True
-        Me.DTPNFAToUC.Size = New System.Drawing.Size(119, 22)
+        Me.DTPNFAToUC.Size = New System.Drawing.Size(132, 22)
         Me.DTPNFAToUC.TabIndex = 376
         '
         'Label9
         '
         Me.Label9.AutoSize = True
-        Me.Label9.Location = New System.Drawing.Point(131, 102)
+        Me.Label9.Location = New System.Drawing.Point(145, 104)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(156, 13)
         Me.Label9.TabIndex = 369
@@ -1226,7 +1226,7 @@ Partial Class SSCPEnforcementAudit
         'Label44
         '
         Me.Label44.AutoSize = True
-        Me.Label44.Location = New System.Drawing.Point(131, 42)
+        Me.Label44.Location = New System.Drawing.Point(145, 44)
         Me.Label44.Name = "Label44"
         Me.Label44.Size = New System.Drawing.Size(87, 13)
         Me.Label44.TabIndex = 375
@@ -1241,7 +1241,7 @@ Partial Class SSCPEnforcementAudit
         Me.DTPNFALetterSent.Location = New System.Drawing.Point(7, 187)
         Me.DTPNFALetterSent.Name = "DTPNFALetterSent"
         Me.DTPNFALetterSent.ShowCheckBox = True
-        Me.DTPNFALetterSent.Size = New System.Drawing.Size(119, 22)
+        Me.DTPNFALetterSent.Size = New System.Drawing.Size(132, 22)
         Me.DTPNFALetterSent.TabIndex = 370
         '
         'DTPNOVToPM
@@ -1253,13 +1253,13 @@ Partial Class SSCPEnforcementAudit
         Me.DTPNOVToPM.Location = New System.Drawing.Point(7, 37)
         Me.DTPNOVToPM.Name = "DTPNOVToPM"
         Me.DTPNOVToPM.ShowCheckBox = True
-        Me.DTPNOVToPM.Size = New System.Drawing.Size(119, 22)
+        Me.DTPNOVToPM.Size = New System.Drawing.Size(132, 22)
         Me.DTPNOVToPM.TabIndex = 374
         '
         'Label13
         '
         Me.Label13.AutoSize = True
-        Me.Label13.Location = New System.Drawing.Point(131, 192)
+        Me.Label13.Location = New System.Drawing.Point(145, 194)
         Me.Label13.Name = "Label13"
         Me.Label13.Size = New System.Drawing.Size(109, 13)
         Me.Label13.TabIndex = 371
@@ -1268,7 +1268,7 @@ Partial Class SSCPEnforcementAudit
         'Label26
         '
         Me.Label26.AutoSize = True
-        Me.Label26.Location = New System.Drawing.Point(131, 12)
+        Me.Label26.Location = New System.Drawing.Point(145, 14)
         Me.Label26.Name = "Label26"
         Me.Label26.Size = New System.Drawing.Size(86, 13)
         Me.Label26.TabIndex = 373
@@ -1337,7 +1337,7 @@ Partial Class SSCPEnforcementAudit
         'lblCODownload
         '
         Me.lblCODownload.AutoSize = True
-        Me.lblCODownload.Location = New System.Drawing.Point(290, 239)
+        Me.lblCODownload.Location = New System.Drawing.Point(303, 239)
         Me.lblCODownload.Name = "lblCODownload"
         Me.lblCODownload.Size = New System.Drawing.Size(55, 13)
         Me.lblCODownload.TabIndex = 396
@@ -1346,7 +1346,7 @@ Partial Class SSCPEnforcementAudit
         'Label22
         '
         Me.Label22.AutoSize = True
-        Me.Label22.Location = New System.Drawing.Point(290, 212)
+        Me.Label22.Location = New System.Drawing.Point(303, 212)
         Me.Label22.Name = "Label22"
         Me.Label22.Size = New System.Drawing.Size(41, 13)
         Me.Label22.TabIndex = 395
@@ -1355,7 +1355,7 @@ Partial Class SSCPEnforcementAudit
         'Label12
         '
         Me.Label12.AutoSize = True
-        Me.Label12.Location = New System.Drawing.Point(263, 189)
+        Me.Label12.Location = New System.Drawing.Point(276, 189)
         Me.Label12.Name = "Label12"
         Me.Label12.Size = New System.Drawing.Size(100, 13)
         Me.Label12.TabIndex = 394
@@ -1370,14 +1370,14 @@ Partial Class SSCPEnforcementAudit
         Me.DTPCOToUC.Location = New System.Drawing.Point(7, 6)
         Me.DTPCOToUC.Name = "DTPCOToUC"
         Me.DTPCOToUC.ShowCheckBox = True
-        Me.DTPCOToUC.Size = New System.Drawing.Size(119, 22)
+        Me.DTPCOToUC.Size = New System.Drawing.Size(132, 22)
         Me.DTPCOToUC.TabIndex = 385
         '
         'btnDownloadCO
         '
         Me.btnDownloadCO.BackgroundImage = CType(resources.GetObject("btnDownloadCO.BackgroundImage"), System.Drawing.Image)
         Me.btnDownloadCO.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.btnDownloadCO.Location = New System.Drawing.Point(265, 234)
+        Me.btnDownloadCO.Location = New System.Drawing.Point(278, 234)
         Me.btnDownloadCO.Name = "btnDownloadCO"
         Me.btnDownloadCO.Size = New System.Drawing.Size(24, 23)
         Me.btnDownloadCO.TabIndex = 392
@@ -1397,7 +1397,7 @@ Partial Class SSCPEnforcementAudit
         '
         Me.btnUploadCO.BackgroundImage = CType(resources.GetObject("btnUploadCO.BackgroundImage"), System.Drawing.Image)
         Me.btnUploadCO.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.btnUploadCO.Location = New System.Drawing.Point(266, 207)
+        Me.btnUploadCO.Location = New System.Drawing.Point(279, 207)
         Me.btnUploadCO.Name = "btnUploadCO"
         Me.btnUploadCO.Size = New System.Drawing.Size(24, 23)
         Me.btnUploadCO.TabIndex = 391
@@ -1432,7 +1432,7 @@ Partial Class SSCPEnforcementAudit
         '
         'txtCONumber
         '
-        Me.txtCONumber.Location = New System.Drawing.Point(135, 186)
+        Me.txtCONumber.Location = New System.Drawing.Point(148, 186)
         Me.txtCONumber.MaxLength = 20
         Me.txtCONumber.Name = "txtCONumber"
         Me.txtCONumber.Size = New System.Drawing.Size(100, 20)
@@ -1449,7 +1449,7 @@ Partial Class SSCPEnforcementAudit
         'Label49
         '
         Me.Label49.AutoSize = True
-        Me.Label49.Location = New System.Drawing.Point(98, 189)
+        Me.Label49.Location = New System.Drawing.Point(111, 189)
         Me.Label49.Name = "Label49"
         Me.Label49.Size = New System.Drawing.Size(32, 13)
         Me.Label49.TabIndex = 389
@@ -1467,7 +1467,7 @@ Partial Class SSCPEnforcementAudit
         'Label48
         '
         Me.Label48.AutoSize = True
-        Me.Label48.Location = New System.Drawing.Point(132, 39)
+        Me.Label48.Location = New System.Drawing.Point(145, 39)
         Me.Label48.Name = "Label48"
         Me.Label48.Size = New System.Drawing.Size(79, 13)
         Me.Label48.TabIndex = 388
@@ -1482,7 +1482,7 @@ Partial Class SSCPEnforcementAudit
         Me.DTPCOProposed.Location = New System.Drawing.Point(7, 64)
         Me.DTPCOProposed.Name = "DTPCOProposed"
         Me.DTPCOProposed.ShowCheckBox = True
-        Me.DTPCOProposed.Size = New System.Drawing.Size(119, 22)
+        Me.DTPCOProposed.Size = New System.Drawing.Size(132, 22)
         Me.DTPCOProposed.TabIndex = 372
         '
         'DTPCOToPM
@@ -1494,13 +1494,13 @@ Partial Class SSCPEnforcementAudit
         Me.DTPCOToPM.Location = New System.Drawing.Point(7, 34)
         Me.DTPCOToPM.Name = "DTPCOToPM"
         Me.DTPCOToPM.ShowCheckBox = True
-        Me.DTPCOToPM.Size = New System.Drawing.Size(119, 22)
+        Me.DTPCOToPM.Size = New System.Drawing.Size(132, 22)
         Me.DTPCOToPM.TabIndex = 387
         '
         'Label14
         '
         Me.Label14.AutoSize = True
-        Me.Label14.Location = New System.Drawing.Point(132, 69)
+        Me.Label14.Location = New System.Drawing.Point(145, 69)
         Me.Label14.Name = "Label14"
         Me.Label14.Size = New System.Drawing.Size(149, 13)
         Me.Label14.TabIndex = 373
@@ -1509,7 +1509,7 @@ Partial Class SSCPEnforcementAudit
         'Label47
         '
         Me.Label47.AutoSize = True
-        Me.Label47.Location = New System.Drawing.Point(132, 11)
+        Me.Label47.Location = New System.Drawing.Point(145, 11)
         Me.Label47.Name = "Label47"
         Me.Label47.Size = New System.Drawing.Size(78, 13)
         Me.Label47.TabIndex = 386
@@ -1524,13 +1524,13 @@ Partial Class SSCPEnforcementAudit
         Me.DTPCOReceivedfromDirector.Location = New System.Drawing.Point(7, 124)
         Me.DTPCOReceivedfromDirector.Name = "DTPCOReceivedfromDirector"
         Me.DTPCOReceivedfromDirector.ShowCheckBox = True
-        Me.DTPCOReceivedfromDirector.Size = New System.Drawing.Size(119, 22)
+        Me.DTPCOReceivedfromDirector.Size = New System.Drawing.Size(132, 22)
         Me.DTPCOReceivedfromDirector.TabIndex = 374
         '
         'Label15
         '
         Me.Label15.AutoSize = True
-        Me.Label15.Location = New System.Drawing.Point(132, 129)
+        Me.Label15.Location = New System.Drawing.Point(145, 129)
         Me.Label15.Name = "Label15"
         Me.Label15.Size = New System.Drawing.Size(172, 13)
         Me.Label15.TabIndex = 375
@@ -1545,13 +1545,13 @@ Partial Class SSCPEnforcementAudit
         Me.DTPCOExecuted.Location = New System.Drawing.Point(7, 154)
         Me.DTPCOExecuted.Name = "DTPCOExecuted"
         Me.DTPCOExecuted.ShowCheckBox = True
-        Me.DTPCOExecuted.Size = New System.Drawing.Size(119, 22)
+        Me.DTPCOExecuted.Size = New System.Drawing.Size(132, 22)
         Me.DTPCOExecuted.TabIndex = 376
         '
         'Label16
         '
         Me.Label16.AutoSize = True
-        Me.Label16.Location = New System.Drawing.Point(132, 159)
+        Me.Label16.Location = New System.Drawing.Point(145, 159)
         Me.Label16.Name = "Label16"
         Me.Label16.Size = New System.Drawing.Size(126, 13)
         Me.Label16.TabIndex = 377
@@ -1566,13 +1566,13 @@ Partial Class SSCPEnforcementAudit
         Me.DTPCOReceivedfromCompany.Location = New System.Drawing.Point(7, 94)
         Me.DTPCOReceivedfromCompany.Name = "DTPCOReceivedfromCompany"
         Me.DTPCOReceivedfromCompany.ShowCheckBox = True
-        Me.DTPCOReceivedfromCompany.Size = New System.Drawing.Size(119, 22)
+        Me.DTPCOReceivedfromCompany.Size = New System.Drawing.Size(132, 22)
         Me.DTPCOReceivedfromCompany.TabIndex = 378
         '
         'Label20
         '
         Me.Label20.AutoSize = True
-        Me.Label20.Location = New System.Drawing.Point(132, 217)
+        Me.Label20.Location = New System.Drawing.Point(145, 217)
         Me.Label20.Name = "Label20"
         Me.Label20.Size = New System.Drawing.Size(123, 13)
         Me.Label20.TabIndex = 381
@@ -1581,7 +1581,7 @@ Partial Class SSCPEnforcementAudit
         'Label18
         '
         Me.Label18.AutoSize = True
-        Me.Label18.Location = New System.Drawing.Point(132, 99)
+        Me.Label18.Location = New System.Drawing.Point(145, 99)
         Me.Label18.Name = "Label18"
         Me.Label18.Size = New System.Drawing.Size(144, 13)
         Me.Label18.TabIndex = 379
@@ -1596,7 +1596,7 @@ Partial Class SSCPEnforcementAudit
         Me.DTPCOResolved.Location = New System.Drawing.Point(7, 212)
         Me.DTPCOResolved.Name = "DTPCOResolved"
         Me.DTPCOResolved.ShowCheckBox = True
-        Me.DTPCOResolved.Size = New System.Drawing.Size(119, 22)
+        Me.DTPCOResolved.Size = New System.Drawing.Size(132, 22)
         Me.DTPCOResolved.TabIndex = 380
         '
         'StipulatedPenalties
@@ -1637,34 +1637,34 @@ Partial Class SSCPEnforcementAudit
         '
         'dgvStipulatedPenalties
         '
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvStipulatedPenalties.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle4.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvStipulatedPenalties.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle4
         Me.dgvStipulatedPenalties.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvStipulatedPenalties.DefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle5.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvStipulatedPenalties.DefaultCellStyle = DataGridViewCellStyle5
         Me.dgvStipulatedPenalties.Location = New System.Drawing.Point(9, 100)
         Me.dgvStipulatedPenalties.Name = "dgvStipulatedPenalties"
         Me.dgvStipulatedPenalties.ReadOnly = True
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvStipulatedPenalties.RowHeadersDefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle6.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvStipulatedPenalties.RowHeadersDefaultCellStyle = DataGridViewCellStyle6
         Me.dgvStipulatedPenalties.Size = New System.Drawing.Size(358, 106)
         Me.dgvStipulatedPenalties.TabIndex = 382
         '
@@ -1829,13 +1829,13 @@ Partial Class SSCPEnforcementAudit
         Me.DTPAOExecuted.Location = New System.Drawing.Point(9, 8)
         Me.DTPAOExecuted.Name = "DTPAOExecuted"
         Me.DTPAOExecuted.ShowCheckBox = True
-        Me.DTPAOExecuted.Size = New System.Drawing.Size(119, 22)
+        Me.DTPAOExecuted.Size = New System.Drawing.Size(132, 22)
         Me.DTPAOExecuted.TabIndex = 382
         '
         'Label42
         '
         Me.Label42.AutoSize = True
-        Me.Label42.Location = New System.Drawing.Point(137, 66)
+        Me.Label42.Location = New System.Drawing.Point(147, 68)
         Me.Label42.Name = "Label42"
         Me.Label42.Size = New System.Drawing.Size(149, 13)
         Me.Label42.TabIndex = 387
@@ -1859,13 +1859,13 @@ Partial Class SSCPEnforcementAudit
         Me.DTPAOResolved.Location = New System.Drawing.Point(9, 62)
         Me.DTPAOResolved.Name = "DTPAOResolved"
         Me.DTPAOResolved.ShowCheckBox = True
-        Me.DTPAOResolved.Size = New System.Drawing.Size(119, 22)
+        Me.DTPAOResolved.Size = New System.Drawing.Size(132, 22)
         Me.DTPAOResolved.TabIndex = 386
         '
         'Label32
         '
         Me.Label32.AutoSize = True
-        Me.Label32.Location = New System.Drawing.Point(137, 12)
+        Me.Label32.Location = New System.Drawing.Point(147, 14)
         Me.Label32.Name = "Label32"
         Me.Label32.Size = New System.Drawing.Size(289, 13)
         Me.Label32.TabIndex = 383
@@ -1874,7 +1874,7 @@ Partial Class SSCPEnforcementAudit
         'Label41
         '
         Me.Label41.AutoSize = True
-        Me.Label41.Location = New System.Drawing.Point(137, 38)
+        Me.Label41.Location = New System.Drawing.Point(147, 40)
         Me.Label41.Name = "Label41"
         Me.Label41.Size = New System.Drawing.Size(239, 13)
         Me.Label41.TabIndex = 385
@@ -1889,7 +1889,7 @@ Partial Class SSCPEnforcementAudit
         Me.DTPAOAppealed.Location = New System.Drawing.Point(9, 34)
         Me.DTPAOAppealed.Name = "DTPAOAppealed"
         Me.DTPAOAppealed.ShowCheckBox = True
-        Me.DTPAOAppealed.Size = New System.Drawing.Size(119, 22)
+        Me.DTPAOAppealed.Size = New System.Drawing.Size(132, 22)
         Me.DTPAOAppealed.TabIndex = 384
         '
         'TPAuditHistory

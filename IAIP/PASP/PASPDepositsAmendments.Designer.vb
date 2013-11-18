@@ -310,21 +310,21 @@ Partial Class PASPDepositsAmendments
         '
         Me.mmiCut.Name = "mmiCut"
         Me.mmiCut.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.X), System.Windows.Forms.Keys)
-        Me.mmiCut.Size = New System.Drawing.Size(144, 22)
+        Me.mmiCut.Size = New System.Drawing.Size(152, 22)
         Me.mmiCut.Text = "Cut"
         '
         'mmiCopy
         '
         Me.mmiCopy.Name = "mmiCopy"
         Me.mmiCopy.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.C), System.Windows.Forms.Keys)
-        Me.mmiCopy.Size = New System.Drawing.Size(144, 22)
+        Me.mmiCopy.Size = New System.Drawing.Size(152, 22)
         Me.mmiCopy.Text = "Copy"
         '
         'mmiPaste
         '
         Me.mmiPaste.Name = "mmiPaste"
         Me.mmiPaste.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.V), System.Windows.Forms.Keys)
-        Me.mmiPaste.Size = New System.Drawing.Size(144, 22)
+        Me.mmiPaste.Size = New System.Drawing.Size(152, 22)
         Me.mmiPaste.Text = "Paste"
         '
         'ToolToolStripMenuItem
@@ -481,7 +481,7 @@ Partial Class PASPDepositsAmendments
         Me.DTPBatchDepositDateField.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.DTPBatchDepositDateField.Location = New System.Drawing.Point(292, 51)
         Me.DTPBatchDepositDateField.Name = "DTPBatchDepositDateField"
-        Me.DTPBatchDepositDateField.Size = New System.Drawing.Size(108, 22)
+        Me.DTPBatchDepositDateField.Size = New System.Drawing.Size(114, 22)
         Me.DTPBatchDepositDateField.TabIndex = 57
         Me.DTPBatchDepositDateField.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
         '
@@ -942,7 +942,7 @@ Partial Class PASPDepositsAmendments
         Me.dtpBatchDepositDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.dtpBatchDepositDate.Location = New System.Drawing.Point(564, 4)
         Me.dtpBatchDepositDate.Name = "dtpBatchDepositDate"
-        Me.dtpBatchDepositDate.Size = New System.Drawing.Size(108, 22)
+        Me.dtpBatchDepositDate.Size = New System.Drawing.Size(114, 22)
         Me.dtpBatchDepositDate.TabIndex = 3
         Me.dtpBatchDepositDate.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
         '
@@ -1592,9 +1592,9 @@ Partial Class PASPDepositsAmendments
         Me.DTPAmendmentSubmitted.CustomFormat = "dd-MMM-yyyy"
         Me.DTPAmendmentSubmitted.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.DTPAmendmentSubmitted.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DTPAmendmentSubmitted.Location = New System.Drawing.Point(627, 2)
+        Me.DTPAmendmentSubmitted.Location = New System.Drawing.Point(620, 2)
         Me.DTPAmendmentSubmitted.Name = "DTPAmendmentSubmitted"
-        Me.DTPAmendmentSubmitted.Size = New System.Drawing.Size(108, 22)
+        Me.DTPAmendmentSubmitted.Size = New System.Drawing.Size(115, 22)
         Me.DTPAmendmentSubmitted.TabIndex = 3
         Me.DTPAmendmentSubmitted.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
         '

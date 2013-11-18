@@ -1949,7 +1949,7 @@ Partial Class IAIPPermitUploader
         Me.DTPFinalOnWeb.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.DTPFinalOnWeb.Location = New System.Drawing.Point(573, 48)
         Me.DTPFinalOnWeb.Name = "DTPFinalOnWeb"
-        Me.DTPFinalOnWeb.Size = New System.Drawing.Size(103, 22)
+        Me.DTPFinalOnWeb.Size = New System.Drawing.Size(120, 22)
         Me.DTPFinalOnWeb.TabIndex = 22
         Me.DTPFinalOnWeb.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
         '

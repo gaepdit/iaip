@@ -957,7 +957,7 @@ Partial Class SSCPFCEWork
         Me.DTPFCECompleteDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.DTPFCECompleteDate.Location = New System.Drawing.Point(101, 65)
         Me.DTPFCECompleteDate.Name = "DTPFCECompleteDate"
-        Me.DTPFCECompleteDate.Size = New System.Drawing.Size(101, 20)
+        Me.DTPFCECompleteDate.Size = New System.Drawing.Size(100, 20)
         Me.DTPFCECompleteDate.TabIndex = 2
         Me.DTPFCECompleteDate.Value = New Date(2005, 9, 9, 0, 0, 0, 0)
         '
@@ -1000,7 +1000,7 @@ Partial Class SSCPFCEWork
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(169, 7)
+        Me.Label4.Location = New System.Drawing.Point(173, 7)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(55, 13)
         Me.Label4.TabIndex = 109
@@ -1021,7 +1021,7 @@ Partial Class SSCPFCEWork
         Me.DTPFilterStartDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.DTPFilterStartDate.Location = New System.Drawing.Point(67, 3)
         Me.DTPFilterStartDate.Name = "DTPFilterStartDate"
-        Me.DTPFilterStartDate.Size = New System.Drawing.Size(96, 20)
+        Me.DTPFilterStartDate.Size = New System.Drawing.Size(100, 20)
         Me.DTPFilterStartDate.TabIndex = 107
         Me.DTPFilterStartDate.Value = New Date(2005, 9, 9, 0, 0, 0, 0)
         '
@@ -1029,16 +1029,16 @@ Partial Class SSCPFCEWork
         '
         Me.DTPFilterEndDate.CustomFormat = "dd-MMM-yyyy"
         Me.DTPFilterEndDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DTPFilterEndDate.Location = New System.Drawing.Point(230, 3)
+        Me.DTPFilterEndDate.Location = New System.Drawing.Point(234, 3)
         Me.DTPFilterEndDate.Name = "DTPFilterEndDate"
-        Me.DTPFilterEndDate.Size = New System.Drawing.Size(96, 20)
+        Me.DTPFilterEndDate.Size = New System.Drawing.Size(100, 20)
         Me.DTPFilterEndDate.TabIndex = 106
         Me.DTPFilterEndDate.Value = New Date(2005, 9, 9, 0, 0, 0, 0)
         '
         'llbViewFCEData
         '
         Me.llbViewFCEData.AutoSize = True
-        Me.llbViewFCEData.Location = New System.Drawing.Point(332, 7)
+        Me.llbViewFCEData.Location = New System.Drawing.Point(336, 7)
         Me.llbViewFCEData.Name = "llbViewFCEData"
         Me.llbViewFCEData.Size = New System.Drawing.Size(56, 13)
         Me.llbViewFCEData.TabIndex = 105

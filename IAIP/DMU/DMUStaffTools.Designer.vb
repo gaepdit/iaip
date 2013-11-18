@@ -2755,7 +2755,7 @@ Me.dtpQAStarted.CustomFormat = "dd-MMM-yyyy"
 Me.dtpQAStarted.Format = System.Windows.Forms.DateTimePickerFormat.Custom
 Me.dtpQAStarted.Location = New System.Drawing.Point(113, 39)
 Me.dtpQAStarted.Name = "dtpQAStarted"
-Me.dtpQAStarted.Size = New System.Drawing.Size(111, 20)
+Me.dtpQAStarted.Size = New System.Drawing.Size(120, 20)
 Me.dtpQAStarted.TabIndex = 504
 '
 'chbFIErrors
@@ -2793,7 +2793,7 @@ Me.dtpQAPassed.Format = System.Windows.Forms.DateTimePickerFormat.Custom
 Me.dtpQAPassed.Location = New System.Drawing.Point(113, 65)
 Me.dtpQAPassed.Name = "dtpQAPassed"
 Me.dtpQAPassed.ShowCheckBox = true
-Me.dtpQAPassed.Size = New System.Drawing.Size(111, 20)
+Me.dtpQAPassed.Size = New System.Drawing.Size(120, 20)
 Me.dtpQAPassed.TabIndex = 506
 '
 'Label291
@@ -2830,7 +2830,7 @@ Me.dtpQACompleted.Format = System.Windows.Forms.DateTimePickerFormat.Custom
 Me.dtpQACompleted.Location = New System.Drawing.Point(113, 91)
 Me.dtpQACompleted.Name = "dtpQACompleted"
 Me.dtpQACompleted.ShowCheckBox = true
-Me.dtpQACompleted.Size = New System.Drawing.Size(111, 20)
+Me.dtpQACompleted.Size = New System.Drawing.Size(120, 20)
 Me.dtpQACompleted.TabIndex = 508
 '
 'Label290
@@ -2923,7 +2923,7 @@ Me.dtpDeadlineEIS.Format = System.Windows.Forms.DateTimePickerFormat.Custom
 Me.dtpDeadlineEIS.Location = New System.Drawing.Point(104, 75)
 Me.dtpDeadlineEIS.Name = "dtpDeadlineEIS"
 Me.dtpDeadlineEIS.ShowCheckBox = true
-Me.dtpDeadlineEIS.Size = New System.Drawing.Size(111, 20)
+Me.dtpDeadlineEIS.Size = New System.Drawing.Size(120, 20)
 Me.dtpDeadlineEIS.TabIndex = 537
 '
 'chbOptedOutIncorrectly
@@ -3114,7 +3114,7 @@ Me.dtpEILogDateEnrolled.CustomFormat = "dd-MMM-yyyy"
 Me.dtpEILogDateEnrolled.Format = System.Windows.Forms.DateTimePickerFormat.Custom
 Me.dtpEILogDateEnrolled.Location = New System.Drawing.Point(59, 142)
 Me.dtpEILogDateEnrolled.Name = "dtpEILogDateEnrolled"
-Me.dtpEILogDateEnrolled.Size = New System.Drawing.Size(86, 20)
+Me.dtpEILogDateEnrolled.Size = New System.Drawing.Size(100, 20)
 Me.dtpEILogDateEnrolled.TabIndex = 502
 '
 'Label232
@@ -3130,15 +3130,15 @@ Me.Label232.Text = "Enrolled"
 '
 Me.dtpEILogStatusDateSubmit.CustomFormat = "dd-MMM-yyyy"
 Me.dtpEILogStatusDateSubmit.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-Me.dtpEILogStatusDateSubmit.Location = New System.Drawing.Point(658, 75)
+Me.dtpEILogStatusDateSubmit.Location = New System.Drawing.Point(650, 75)
 Me.dtpEILogStatusDateSubmit.Name = "dtpEILogStatusDateSubmit"
-Me.dtpEILogStatusDateSubmit.Size = New System.Drawing.Size(86, 20)
+Me.dtpEILogStatusDateSubmit.Size = New System.Drawing.Size(100, 20)
 Me.dtpEILogStatusDateSubmit.TabIndex = 500
 '
 'Label229
 '
 Me.Label229.AutoSize = true
-Me.Label229.Location = New System.Drawing.Point(616, 59)
+Me.Label229.Location = New System.Drawing.Point(613, 59)
 Me.Label229.Name = "Label229"
 Me.Label229.Size = New System.Drawing.Size(137, 13)
 Me.Label229.TabIndex = 499

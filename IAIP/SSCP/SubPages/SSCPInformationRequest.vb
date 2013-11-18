@@ -1196,7 +1196,7 @@ Public Class SSCPInformationRequest
         '
         Me.chbRequestInformationDate.Checked = True
         Me.chbRequestInformationDate.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chbRequestInformationDate.Location = New System.Drawing.Point(216, 10)
+        Me.chbRequestInformationDate.Location = New System.Drawing.Point(222, 9)
         Me.chbRequestInformationDate.Name = "chbRequestInformationDate"
         Me.chbRequestInformationDate.Size = New System.Drawing.Size(48, 16)
         Me.chbRequestInformationDate.TabIndex = 120
@@ -1252,7 +1252,7 @@ Public Class SSCPInformationRequest
         Me.DTPDueDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.DTPDueDate.Location = New System.Drawing.Point(112, 8)
         Me.DTPDueDate.Name = "DTPDueDate"
-        Me.DTPDueDate.Size = New System.Drawing.Size(96, 20)
+        Me.DTPDueDate.Size = New System.Drawing.Size(100, 20)
         Me.DTPDueDate.TabIndex = 3
         '
         'SSCPInformationRequest
@@ -1308,7 +1308,7 @@ Public Class SSCPInformationRequest
             DTPDueDate.Text = OracleDate
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
             If Conn.State = ConnectionState.Open Then
                 'conn.close()
@@ -1348,7 +1348,7 @@ Public Class SSCPInformationRequest
             ' Add the StatusBar to the form.
             Me.Controls.Add(statusBar1)
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
             If Conn.State = ConnectionState.Open Then
                 'conn.close()
@@ -1761,7 +1761,7 @@ Public Class SSCPInformationRequest
             TCContactInformation.TabPages.Remove(TPContact9)
             TCContactInformation.TabPages.Remove(TPContact10)
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
             If Conn.State = ConnectionState.Open Then
                 'conn.close()
@@ -1837,7 +1837,7 @@ Public Class SSCPInformationRequest
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
             If Conn.State = ConnectionState.Open Then
                 'conn.close()
@@ -1881,7 +1881,7 @@ Public Class SSCPInformationRequest
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
             If Conn.State = ConnectionState.Open Then
                 'conn.close()
@@ -1910,7 +1910,7 @@ Public Class SSCPInformationRequest
             'EditContacts.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
             If Conn.State = ConnectionState.Open Then
                 'conn.close()
@@ -1929,7 +1929,7 @@ Public Class SSCPInformationRequest
 
             EmailContact()
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
             If Conn.State = ConnectionState.Open Then
                 'conn.close()

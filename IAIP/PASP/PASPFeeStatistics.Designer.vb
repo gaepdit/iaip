@@ -1093,7 +1093,7 @@ Partial Class PASPFeeStatistics
         '
         Me.btnRunDepositReport.AutoSize = True
         Me.btnRunDepositReport.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnRunDepositReport.Location = New System.Drawing.Point(304, 68)
+        Me.btnRunDepositReport.Location = New System.Drawing.Point(311, 68)
         Me.btnRunDepositReport.Name = "btnRunDepositReport"
         Me.btnRunDepositReport.Size = New System.Drawing.Size(72, 23)
         Me.btnRunDepositReport.TabIndex = 404
@@ -1103,7 +1103,7 @@ Partial Class PASPFeeStatistics
         'Label112
         '
         Me.Label112.AutoSize = True
-        Me.Label112.Location = New System.Drawing.Point(202, 53)
+        Me.Label112.Location = New System.Drawing.Point(202, 55)
         Me.Label112.Name = "Label112"
         Me.Label112.Size = New System.Drawing.Size(52, 13)
         Me.Label112.TabIndex = 403
@@ -1112,7 +1112,7 @@ Partial Class PASPFeeStatistics
         'Label111
         '
         Me.Label111.AutoSize = True
-        Me.Label111.Location = New System.Drawing.Point(103, 52)
+        Me.Label111.Location = New System.Drawing.Point(96, 54)
         Me.Label111.Name = "Label111"
         Me.Label111.Size = New System.Drawing.Size(55, 13)
         Me.Label111.TabIndex = 402
@@ -1131,18 +1131,18 @@ Partial Class PASPFeeStatistics
         '
         Me.dtpEndDepositDate.CustomFormat = "dd-MMM-yyyy"
         Me.dtpEndDepositDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpEndDepositDate.Location = New System.Drawing.Point(205, 68)
+        Me.dtpEndDepositDate.Location = New System.Drawing.Point(205, 70)
         Me.dtpEndDepositDate.Name = "dtpEndDepositDate"
-        Me.dtpEndDepositDate.Size = New System.Drawing.Size(93, 20)
+        Me.dtpEndDepositDate.Size = New System.Drawing.Size(100, 20)
         Me.dtpEndDepositDate.TabIndex = 400
         '
         'dtpStartDepositDate
         '
         Me.dtpStartDepositDate.CustomFormat = "dd-MMM-yyyy"
         Me.dtpStartDepositDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpStartDepositDate.Location = New System.Drawing.Point(106, 68)
+        Me.dtpStartDepositDate.Location = New System.Drawing.Point(99, 70)
         Me.dtpStartDepositDate.Name = "dtpStartDepositDate"
-        Me.dtpStartDepositDate.Size = New System.Drawing.Size(96, 20)
+        Me.dtpStartDepositDate.Size = New System.Drawing.Size(100, 20)
         Me.dtpStartDepositDate.TabIndex = 399
         '
         'chbDepositDateSearch

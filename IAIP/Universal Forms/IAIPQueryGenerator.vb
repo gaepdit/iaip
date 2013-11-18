@@ -77,7 +77,7 @@ Public Class IAIPQueryGenerator
             TCQuerryOptions.Size = New Drawing.Size(TCQuerryOptions.Size.Width, 389)
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & ".APBFacilitySummary_Load")
+            ErrorReport(ex, Me.Name & ".APBFacilitySummary_Load")
         Finally
 
         End Try
@@ -173,7 +173,7 @@ Public Class IAIPQueryGenerator
             daSSCPUnit.Fill(dsSSCPUnit, "SSCPUnit")
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & ".LoadDataSets")
+            ErrorReport(ex, Me.Name & ".LoadDataSets")
         Finally
 
         End Try
@@ -644,7 +644,7 @@ Public Class IAIPQueryGenerator
             cboCMSUniverseSearch2.Visible = True
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & ".LoadComboBoxes")
+            ErrorReport(ex, Me.Name & ".LoadComboBoxes")
         Finally
 
         End Try
@@ -2299,7 +2299,7 @@ Public Class IAIPQueryGenerator
     '        Mid(SQLOrder, 1, (SQLOrder.Length - 2))
 
     '    Catch ex As Exception
-    '        ErrorReport(ex.ToString(), Me.Name & ".GenerateSQL")
+    '        ErrorReport(ex, Me.Name & ".GenerateSQL")
     '    Finally
 
     '    End Try
@@ -4723,7 +4723,7 @@ Public Class IAIPQueryGenerator
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & ".GenerateSQL2")
+            ErrorReport(ex, Me.Name & ".GenerateSQL2")
         Finally
         End Try
     End Sub
@@ -4956,7 +4956,7 @@ Public Class IAIPQueryGenerator
             chbPart60Subpart.Checked = False
             chbPart63Subpart.Checked = False
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & ".ResetForm")
+            ErrorReport(ex, Me.Name & ".ResetForm")
         Finally
 
         End Try
@@ -4971,7 +4971,7 @@ Public Class IAIPQueryGenerator
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & ".ResizeFilter")
+            ErrorReport(ex, Me.Name & ".ResizeFilter")
         Finally
 
         End Try
@@ -5399,7 +5399,7 @@ Public Class IAIPQueryGenerator
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & ".UpdateDefaultSearch")
+            ErrorReport(ex, Me.Name & ".UpdateDefaultSearch")
         Finally
 
         End Try
@@ -5924,7 +5924,7 @@ Public Class IAIPQueryGenerator
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & ".FindLogIn")
+            ErrorReport(ex, Me.Name & ".FindLogIn")
         Finally
 
         End Try
@@ -5943,7 +5943,7 @@ Public Class IAIPQueryGenerator
             dgvQueryGenerator.SanelyResizeColumns()
             
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & ".btnRunSearch_Click")
+            ErrorReport(ex, Me.Name & ".btnRunSearch_Click")
         Finally
 
         End Try
@@ -5952,7 +5952,7 @@ Public Class IAIPQueryGenerator
         Try
             ResetForm()
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & ".btnReset_Click")
+            ErrorReport(ex, Me.Name & ".btnReset_Click")
         Finally
 
         End Try
@@ -5966,7 +5966,7 @@ Public Class IAIPQueryGenerator
             ResizeFilter()
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & ".tsbReSizeFilterOptions_Click")
+            ErrorReport(ex, Me.Name & ".tsbReSizeFilterOptions_Click")
         Finally
 
         End Try
@@ -5977,7 +5977,7 @@ Public Class IAIPQueryGenerator
         Try
             LoadDataSets()
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & ".bgwQueryGenerator_DoWork")
+            ErrorReport(ex, Me.Name & ".bgwQueryGenerator_DoWork")
         Finally
         End Try
     End Sub
@@ -5986,7 +5986,7 @@ Public Class IAIPQueryGenerator
             LoadComboBoxes()
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & ".bgwQueryGenerator_RunWorkerCompleted")
+            ErrorReport(ex, Me.Name & ".bgwQueryGenerator_RunWorkerCompleted")
         Finally
         End Try
     End Sub
@@ -5999,7 +5999,7 @@ Public Class IAIPQueryGenerator
         Try
             LoadDefaults()
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & ".tsbSearchQuery_Click")
+            ErrorReport(ex, Me.Name & ".tsbSearchQuery_Click")
         Finally
 
         End Try
@@ -6009,7 +6009,7 @@ Public Class IAIPQueryGenerator
         Try
             UpdateDefaultSearch()
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & ".tsbSaveQuery_Click")
+            ErrorReport(ex, Me.Name & ".tsbSaveQuery_Click")
         Finally
 
         End Try
@@ -6136,7 +6136,7 @@ Public Class IAIPQueryGenerator
             lblQueryCount.Text = dgvQueryGenerator.RowCount.ToString
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 

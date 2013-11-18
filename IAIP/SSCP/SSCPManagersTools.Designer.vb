@@ -439,7 +439,7 @@ Partial Class SSCPManagersTools
         Me.DTPEndDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.DTPEndDate.Location = New System.Drawing.Point(518, 48)
         Me.DTPEndDate.Name = "DTPEndDate"
-        Me.DTPEndDate.Size = New System.Drawing.Size(104, 20)
+        Me.DTPEndDate.Size = New System.Drawing.Size(100, 20)
         Me.DTPEndDate.TabIndex = 5
         Me.DTPEndDate.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
         '
@@ -458,7 +458,7 @@ Partial Class SSCPManagersTools
         Me.DTPStartDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.DTPStartDate.Location = New System.Drawing.Point(398, 48)
         Me.DTPStartDate.Name = "DTPStartDate"
-        Me.DTPStartDate.Size = New System.Drawing.Size(104, 20)
+        Me.DTPStartDate.Size = New System.Drawing.Size(100, 20)
         Me.DTPStartDate.TabIndex = 4
         Me.DTPStartDate.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
         '
@@ -1419,7 +1419,7 @@ Partial Class SSCPManagersTools
         Me.btnSaveDistResponsible.Name = "btnSaveDistResponsible"
         Me.btnSaveDistResponsible.Size = New System.Drawing.Size(101, 23)
         Me.btnSaveDistResponsible.TabIndex = 25
-        Me.btnSaveDistResponsible.Text = "Save Distrcit Only"
+        Me.btnSaveDistResponsible.Text = "Save District Only"
         '
         'rdbDistResponsibleFalse
         '
@@ -2806,7 +2806,7 @@ Partial Class SSCPManagersTools
         Me.DTPSearchDateStart.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.DTPSearchDateStart.Location = New System.Drawing.Point(309, 16)
         Me.DTPSearchDateStart.Name = "DTPSearchDateStart"
-        Me.DTPSearchDateStart.Size = New System.Drawing.Size(97, 20)
+        Me.DTPSearchDateStart.Size = New System.Drawing.Size(100, 20)
         Me.DTPSearchDateStart.TabIndex = 6
         Me.DTPSearchDateStart.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
         '
@@ -2816,7 +2816,7 @@ Partial Class SSCPManagersTools
         Me.DTPSearchDateEnd.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.DTPSearchDateEnd.Location = New System.Drawing.Point(412, 16)
         Me.DTPSearchDateEnd.Name = "DTPSearchDateEnd"
-        Me.DTPSearchDateEnd.Size = New System.Drawing.Size(97, 20)
+        Me.DTPSearchDateEnd.Size = New System.Drawing.Size(100, 20)
         Me.DTPSearchDateEnd.TabIndex = 7
         Me.DTPSearchDateEnd.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
         '
@@ -3157,7 +3157,7 @@ Partial Class SSCPManagersTools
         Me.dtpEnforcementStartDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.dtpEnforcementStartDate.Location = New System.Drawing.Point(130, 44)
         Me.dtpEnforcementStartDate.Name = "dtpEnforcementStartDate"
-        Me.dtpEnforcementStartDate.Size = New System.Drawing.Size(97, 20)
+        Me.dtpEnforcementStartDate.Size = New System.Drawing.Size(100, 20)
         Me.dtpEnforcementStartDate.TabIndex = 28
         Me.dtpEnforcementStartDate.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
         '
@@ -3165,9 +3165,9 @@ Partial Class SSCPManagersTools
         '
         Me.dtpEnforcementEndDate.CustomFormat = "dd-MMM-yyyy"
         Me.dtpEnforcementEndDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpEnforcementEndDate.Location = New System.Drawing.Point(233, 44)
+        Me.dtpEnforcementEndDate.Location = New System.Drawing.Point(236, 44)
         Me.dtpEnforcementEndDate.Name = "dtpEnforcementEndDate"
-        Me.dtpEnforcementEndDate.Size = New System.Drawing.Size(97, 20)
+        Me.dtpEnforcementEndDate.Size = New System.Drawing.Size(100, 20)
         Me.dtpEnforcementEndDate.TabIndex = 29
         Me.dtpEnforcementEndDate.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
         '

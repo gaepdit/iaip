@@ -189,7 +189,7 @@ Partial Class IAIPFacilityCreator
         'CloseToolStripMenuItem
         '
         Me.CloseToolStripMenuItem.Name = "CloseToolStripMenuItem"
-        Me.CloseToolStripMenuItem.Size = New System.Drawing.Size(103, 22)
+        Me.CloseToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
         Me.CloseToolStripMenuItem.Text = "Close"
         '
         'HelpToolStripMenuItem
@@ -1217,7 +1217,7 @@ Partial Class IAIPFacilityCreator
         Me.dtpEndFilter.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.dtpEndFilter.Location = New System.Drawing.Point(360, 3)
         Me.dtpEndFilter.Name = "dtpEndFilter"
-        Me.dtpEndFilter.Size = New System.Drawing.Size(101, 20)
+        Me.dtpEndFilter.Size = New System.Drawing.Size(100, 20)
         Me.dtpEndFilter.TabIndex = 397
         Me.dtpEndFilter.Value = New Date(2005, 8, 23, 0, 0, 0, 0)
         '
@@ -1228,7 +1228,7 @@ Partial Class IAIPFacilityCreator
         Me.dtpStartFilter.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.dtpStartFilter.Location = New System.Drawing.Point(222, 3)
         Me.dtpStartFilter.Name = "dtpStartFilter"
-        Me.dtpStartFilter.Size = New System.Drawing.Size(101, 20)
+        Me.dtpStartFilter.Size = New System.Drawing.Size(100, 20)
         Me.dtpStartFilter.TabIndex = 396
         Me.dtpStartFilter.Value = New Date(2005, 8, 23, 0, 0, 0, 0)
         '
@@ -1338,7 +1338,7 @@ Partial Class IAIPFacilityCreator
         Me.DTPSSPPApproveDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.DTPSSPPApproveDate.Location = New System.Drawing.Point(663, 111)
         Me.DTPSSPPApproveDate.Name = "DTPSSPPApproveDate"
-        Me.DTPSSPPApproveDate.Size = New System.Drawing.Size(101, 20)
+        Me.DTPSSPPApproveDate.Size = New System.Drawing.Size(100, 20)
         Me.DTPSSPPApproveDate.TabIndex = 11
         Me.DTPSSPPApproveDate.Value = New Date(2005, 8, 23, 0, 0, 0, 0)
         '
@@ -1406,7 +1406,7 @@ Partial Class IAIPFacilityCreator
         Me.DTPSSCPApproveDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.DTPSSCPApproveDate.Location = New System.Drawing.Point(316, 111)
         Me.DTPSSCPApproveDate.Name = "DTPSSCPApproveDate"
-        Me.DTPSSCPApproveDate.Size = New System.Drawing.Size(101, 20)
+        Me.DTPSSCPApproveDate.Size = New System.Drawing.Size(100, 20)
         Me.DTPSSCPApproveDate.TabIndex = 6
         Me.DTPSSCPApproveDate.Value = New Date(2005, 8, 23, 0, 0, 0, 0)
         '
