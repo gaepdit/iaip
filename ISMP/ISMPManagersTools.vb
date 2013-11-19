@@ -6930,10 +6930,17 @@ Public Class ISMPManagersTools
                         'AssignDate = AssignDate
                     End If
 
+                    Dim tempUnit As String
+                    If UserUnit = "---" Then
+                        tempUnit = "0"
+                    Else
+                        tempUnit = UserUnit
+                    End If
+
                     SQL = "Update " & DBNameSpace & ".ISMPReportInformation set " & _
                     "strReviewingEngineer = '" & EngineerGCode & "', " & _
                     "datReviewedBYUnitManager = '" & AssignDate & "', " & _
-                    "strReviewingUnit = '" & UserUnit & "', " & _
+                    "strReviewingUnit = '" & tempUnit & "', " & _
                     "numReviewingManager = '" & UserGCode & "', " & _
                     "strPreComplianceStatus = '" & PreCompliance & "' " & _
                     "where " & DBNameSpace & ".ISMPReportInformation.strReferenceNumber = '" & strObject.ToString() & "'"
