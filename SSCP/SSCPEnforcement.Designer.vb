@@ -2002,7 +2002,7 @@ Partial Class NewSscpEnforcementAudit
         '
         'lblMessage
         '
-        Me.lblMessage.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+        Me.lblMessage.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
                     Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblMessage.BackColor = System.Drawing.Color.OldLace
         Me.lblMessage.ForeColor = System.Drawing.Color.DarkRed
@@ -2017,7 +2017,7 @@ Partial Class NewSscpEnforcementAudit
         'pnlAddNew
         '
         Me.pnlAddNew.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+                    Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.pnlAddNew.Controls.Add(Me.btnNewFileCancel)
         Me.pnlAddNew.Controls.Add(Me.btnNewFileUpload)
         Me.pnlAddNew.Controls.Add(Me.txtNewDescription)
@@ -2027,6 +2027,7 @@ Partial Class NewSscpEnforcementAudit
         Me.pnlAddNew.Controls.Add(Me.lblDocumentTypes)
         Me.pnlAddNew.Controls.Add(Me.ddlNewDocumentType)
         Me.pnlAddNew.Location = New System.Drawing.Point(14, 35)
+        Me.pnlAddNew.MinimumSize = New System.Drawing.Size(242, 172)
         Me.pnlAddNew.Name = "pnlAddNew"
         Me.pnlAddNew.Size = New System.Drawing.Size(242, 251)
         Me.pnlAddNew.TabIndex = 17
@@ -2131,7 +2132,7 @@ Partial Class NewSscpEnforcementAudit
         Me.pnlUpdate.Controls.Add(Me.lblSelectedFileName)
         Me.pnlUpdate.Location = New System.Drawing.Point(276, 214)
         Me.pnlUpdate.Name = "pnlUpdate"
-        Me.pnlUpdate.Size = New System.Drawing.Size(419, 73)
+        Me.pnlUpdate.Size = New System.Drawing.Size(572, 73)
         Me.pnlUpdate.TabIndex = 16
         '
         'lblUpdateDescription
@@ -2151,7 +2152,7 @@ Partial Class NewSscpEnforcementAudit
         Me.ddlUpdateDocumentType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.ddlUpdateDocumentType.Enabled = False
         Me.ddlUpdateDocumentType.FormattingEnabled = True
-        Me.ddlUpdateDocumentType.Location = New System.Drawing.Point(166, 52)
+        Me.ddlUpdateDocumentType.Location = New System.Drawing.Point(319, 52)
         Me.ddlUpdateDocumentType.Name = "ddlUpdateDocumentType"
         Me.ddlUpdateDocumentType.Size = New System.Drawing.Size(141, 21)
         Me.ddlUpdateDocumentType.TabIndex = 6
@@ -2161,7 +2162,7 @@ Partial Class NewSscpEnforcementAudit
         '
         Me.btnDeleteFile.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnDeleteFile.Enabled = False
-        Me.btnDeleteFile.Location = New System.Drawing.Point(344, 7)
+        Me.btnDeleteFile.Location = New System.Drawing.Point(497, 7)
         Me.btnDeleteFile.Name = "btnDeleteFile"
         Me.btnDeleteFile.Size = New System.Drawing.Size(75, 23)
         Me.btnDeleteFile.TabIndex = 8
@@ -2172,7 +2173,7 @@ Partial Class NewSscpEnforcementAudit
         '
         Me.btnDownloadFile.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnDownloadFile.Enabled = False
-        Me.btnDownloadFile.Location = New System.Drawing.Point(263, 7)
+        Me.btnDownloadFile.Location = New System.Drawing.Point(416, 7)
         Me.btnDownloadFile.Name = "btnDownloadFile"
         Me.btnDownloadFile.Size = New System.Drawing.Size(75, 23)
         Me.btnDownloadFile.TabIndex = 4
@@ -2185,7 +2186,7 @@ Partial Class NewSscpEnforcementAudit
                     Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.txtUpdateDescription.Location = New System.Drawing.Point(0, 52)
         Me.txtUpdateDescription.Name = "txtUpdateDescription"
-        Me.txtUpdateDescription.Size = New System.Drawing.Size(160, 20)
+        Me.txtUpdateDescription.Size = New System.Drawing.Size(313, 20)
         Me.txtUpdateDescription.TabIndex = 5
         Me.txtUpdateDescription.Visible = False
         '
@@ -2194,7 +2195,7 @@ Partial Class NewSscpEnforcementAudit
         Me.btnUpdateFileDescription.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnUpdateFileDescription.AutoSize = True
         Me.btnUpdateFileDescription.Enabled = False
-        Me.btnUpdateFileDescription.Location = New System.Drawing.Point(313, 50)
+        Me.btnUpdateFileDescription.Location = New System.Drawing.Point(466, 50)
         Me.btnUpdateFileDescription.Name = "btnUpdateFileDescription"
         Me.btnUpdateFileDescription.Size = New System.Drawing.Size(106, 23)
         Me.btnUpdateFileDescription.TabIndex = 7
@@ -2236,12 +2237,13 @@ Partial Class NewSscpEnforcementAudit
         Me.dgvFileList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvFileList.Enabled = False
         Me.dgvFileList.Location = New System.Drawing.Point(276, 35)
+        Me.dgvFileList.MinimumSize = New System.Drawing.Size(300, 55)
         Me.dgvFileList.MultiSelect = False
         Me.dgvFileList.Name = "dgvFileList"
         Me.dgvFileList.ReadOnly = True
         Me.dgvFileList.RowHeadersVisible = False
         Me.dgvFileList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvFileList.Size = New System.Drawing.Size(419, 173)
+        Me.dgvFileList.Size = New System.Drawing.Size(572, 173)
         Me.dgvFileList.StandardTab = True
         Me.dgvFileList.TabIndex = 4
         '
@@ -2619,6 +2621,7 @@ Partial Class NewSscpEnforcementAudit
         Me.Controls.Add(Me.Panel4)
         Me.Controls.Add(Me.ToolStrip1)
         Me.Controls.Add(Me.MenuStrip1)
+        Me.MinimumSize = New System.Drawing.Size(639, 579)
         Me.Name = "NewSscpEnforcementAudit"
         Me.Text = "New SSCP Enforcement Audit"
         Me.ToolStrip1.ResumeLayout(False)
