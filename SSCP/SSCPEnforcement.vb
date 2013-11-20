@@ -67,7 +67,7 @@ Public Class NewSscpEnforcementAudit
     Private Function GetMessageList() As Specialized.ListDictionary
         Dim messageList As New Specialized.ListDictionary
         messageList.Add(MessageType.FileNotFound, "Error: The file cannot be found.")
-        messageList.Add(MessageType.DocumentTypeAlreadyExists, "A ""{0}"" has already been uploaded for this application.")
+        messageList.Add(MessageType.DocumentTypeAlreadyExists, "A ""{0}"" has already been uploaded for this application." & vbNewLine & "Please select a different document type or delete the old one first.")
         messageList.Add(MessageType.UploadSuccess, "Success: The file ""{0}""" & vbNewLine & "has been uploaded.")
         messageList.Add(MessageType.UploadFailure, "Error: There was an error uploading the file. " & vbNewLine & "Please try again.")
         messageList.Add(MessageType.FileTooLarge, "The selected file is too large. " & vbNewLine & "Maximum file size is " & Math.Round(OracleBlob.MaxSize / (1024 ^ 3), 2) & "GB.")
@@ -301,12 +301,8 @@ Public Class NewSscpEnforcementAudit
         ' Check if similar document has already been uploaded
         If DocumentTypeAlreadyExists() Then
             m = String.Format(GetMessage(MessageType.DocumentTypeAlreadyExists), ddlNewDocumentType.Text)
-            m &= vbNewLine & "Would you like to continue? (Both files will be kept.)"
-            Dim response As Windows.Forms.DialogResult = MessageBox.Show(m, "Replace File?", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning)
-            If response = Windows.Forms.DialogResult.Cancel Then
-                DisplayMessage(lblMessage, String.Format(GetMessage(MessageType.DocumentTypeAlreadyExists), ddlNewDocumentType.Text))
-                Exit Sub
-            End If
+            MessageBox.Show(m, "Document Already Exists", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Exit Sub
         End If
 
         ' Create Document object
