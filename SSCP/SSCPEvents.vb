@@ -4032,13 +4032,13 @@ Public Class SSCPEvents
 
                     If cboNotificationType.SelectedValue = "07" Then
                         MsgBox("Malfunctions are no longer saved as notifications." & vbCrLf & _
-                               "Please save this Malfuncation as a Report.", MsgBoxStyle.Exclamation, Me.Text)
+                               "Please save this malfunction as a Report.", MsgBoxStyle.Exclamation, Me.Text)
                         Exit Sub
                     End If
 
                     If cboNotificationType.SelectedValue = "08" Then
                         MsgBox("Deviations are no longer saved as notifications." & vbCrLf & _
-                               "Please save this Deviations as a Report.", MsgBoxStyle.Exclamation, Me.Text)
+                               "Please save this Deviation as a Report.", MsgBoxStyle.Exclamation, Me.Text)
                         Exit Sub
                     End If
 
