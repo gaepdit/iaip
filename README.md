@@ -20,7 +20,10 @@ This is a special fork to prepare for moving to a [ClickOnce](http://msdn.micros
 
 ### Post-deployment:
 
-+ Update wiki
++ Update documentation wiki
+
+Original IAIP Notes for Developers
+=========================
 
 Source Code
 -----------
