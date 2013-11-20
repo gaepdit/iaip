@@ -522,19 +522,6 @@ Public Class NewSscpEnforcementAudit
             If AccountArray(48, 2) = "1" Or AccountArray(48, 3) = "1" Or AccountArray(48, 4) = "1" Then
                 CheckOpenStatus()
             End If
-            If AccountArray(48, 4) = "1" And AccountArray(4, 4) = "0" Then
-            Else
-                If TCEnforcement.TabPages.Contains(Me.TPCO) Then
-                    btnUploadCO.Visible = True
-                    If Me.txtCONumber.Text <> "" Then
-                        btnDownloadCO.Visible = True
-                        lblCODownload.Visible = True
-                    Else
-                        btnDownloadCO.Visible = False
-                        lblCODownload.Visible = False
-                    End If
-                End If
-            End If
 
             If TCEnforcement.TabPages.Contains(TPAuditHistory) Then
                 TCEnforcement.TabPages.Remove(TPAuditHistory)
@@ -4214,23 +4201,6 @@ Public Class NewSscpEnforcementAudit
                 CheckOpenStatus()
             End If
 
-            If TCEnforcement.TabPages.Contains(Me.TPCO) Then
-                If TestingEnvironment Then
-                    If AccountArray(48, 4) = "1" And AccountArray(4, 4) = "0" Then
-                    Else
-                        If TCEnforcement.TabPages.Contains(Me.TPCO) Then
-                            btnUploadCO.Visible = True
-                            If Me.txtCONumber.Text <> "" Then
-                                btnDownloadCO.Visible = True
-                                lblCODownload.Visible = True
-                            Else
-                                btnDownloadCO.Visible = False
-                                lblCODownload.Visible = False
-                            End If
-                        End If
-                    End If
-                End If
-            End If
             If EnforcementChecklist Is Nothing Then
                 MsgBox("Current data saved.", MsgBoxStyle.Information, "SSCP Enforcement")
             End If
