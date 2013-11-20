@@ -496,7 +496,7 @@ Public Class SSCPEnforcementChecklist
         Me.DTPViolationDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.DTPViolationDate.Location = New System.Drawing.Point(104, 126)
         Me.DTPViolationDate.Name = "DTPViolationDate"
-        Me.DTPViolationDate.Size = New System.Drawing.Size(104, 20)
+        Me.DTPViolationDate.Size = New System.Drawing.Size(100, 20)
         Me.DTPViolationDate.TabIndex = 261
         Me.DTPViolationDate.Value = New Date(2005, 5, 13, 0, 0, 0, 0)
         '
@@ -607,7 +607,7 @@ Public Class SSCPEnforcementChecklist
         Me.DTPEndDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.DTPEndDate.Location = New System.Drawing.Point(136, 56)
         Me.DTPEndDate.Name = "DTPEndDate"
-        Me.DTPEndDate.Size = New System.Drawing.Size(96, 20)
+        Me.DTPEndDate.Size = New System.Drawing.Size(100, 20)
         Me.DTPEndDate.TabIndex = 263
         Me.DTPEndDate.Value = New Date(2005, 5, 13, 0, 0, 0, 0)
         '
@@ -618,7 +618,7 @@ Public Class SSCPEnforcementChecklist
         Me.DTPStartDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.DTPStartDate.Location = New System.Drawing.Point(24, 56)
         Me.DTPStartDate.Name = "DTPStartDate"
-        Me.DTPStartDate.Size = New System.Drawing.Size(96, 20)
+        Me.DTPStartDate.Size = New System.Drawing.Size(100, 20)
         Me.DTPStartDate.TabIndex = 262
         Me.DTPStartDate.Value = New Date(2005, 5, 13, 0, 0, 0, 0)
         '
@@ -783,7 +783,7 @@ Public Class SSCPEnforcementChecklist
             DTPViolationDate.Text = OracleDate
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
             If Conn.State = ConnectionState.Open Then
                 'conn.close()
@@ -825,7 +825,7 @@ Public Class SSCPEnforcementChecklist
             Me.Controls.Add(statusBar1)
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
             If Conn.State = ConnectionState.Open Then
                 'conn.close()
@@ -999,7 +999,7 @@ Public Class SSCPEnforcementChecklist
             txtFacilityInformation.Text = txtFacilityInformation.Text & vbCrLf & "Staff Responsible - " & Staff
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
             If Conn.State = ConnectionState.Open Then
                 'conn.close()
@@ -1060,7 +1060,7 @@ Public Class SSCPEnforcementChecklist
             txtFacilityInformation.Text = txtFacilityInformation.Text & AirList
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
             If Conn.State = ConnectionState.Open Then
                 'conn.close()
@@ -1129,7 +1129,7 @@ Public Class SSCPEnforcementChecklist
             dgrComplianceEvents.ColumnHeadersVisible = True
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
             If Conn.State = ConnectionState.Open Then
                 'conn.close()
@@ -1273,7 +1273,7 @@ Public Class SSCPEnforcementChecklist
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
             If Conn.State = ConnectionState.Open Then
                 'conn.close()
@@ -1287,7 +1287,7 @@ Public Class SSCPEnforcementChecklist
 
             FilterWork()
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
             If Conn.State = ConnectionState.Open Then
                 'conn.close()
@@ -1306,7 +1306,7 @@ Public Class SSCPEnforcementChecklist
                 DTPEndDate.Enabled = True
             End If
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
             If Conn.State = ConnectionState.Open Then
                 'conn.close()
@@ -1341,7 +1341,7 @@ Public Class SSCPEnforcementChecklist
                 End If
             End If
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
             If Conn.State = ConnectionState.Open Then
                 'conn.close()
@@ -1354,7 +1354,7 @@ Public Class SSCPEnforcementChecklist
 
             MoveOn()
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
             If Conn.State = ConnectionState.Open Then
                 'conn.close()
@@ -1394,7 +1394,7 @@ Public Class SSCPEnforcementChecklist
 
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
             If Conn.State = ConnectionState.Open Then
                 'conn.close()
@@ -1412,7 +1412,7 @@ Public Class SSCPEnforcementChecklist
             SSCP_Work.Show()
             'SSCP_Work.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
             If Conn.State = ConnectionState.Open Then
                 'conn.close()

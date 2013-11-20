@@ -9946,7 +9946,7 @@ Me.DTPAcknoledgmentLetterSent.CustomFormat = "dd-MMM-yyyy"
 Me.DTPAcknoledgmentLetterSent.Format = System.Windows.Forms.DateTimePickerFormat.Custom
 Me.DTPAcknoledgmentLetterSent.Location = New System.Drawing.Point(542, 63)
 Me.DTPAcknoledgmentLetterSent.Name = "DTPAcknoledgmentLetterSent"
-Me.DTPAcknoledgmentLetterSent.Size = New System.Drawing.Size(96, 20)
+Me.DTPAcknoledgmentLetterSent.Size = New System.Drawing.Size(100, 20)
 Me.DTPAcknoledgmentLetterSent.TabIndex = 506
 Me.DTPAcknoledgmentLetterSent.Value = New Date(2005, 4, 21, 0, 0, 0, 0)
 '
@@ -9999,7 +9999,7 @@ Me.DTPEventCompleteDate.CustomFormat = "dd-MMM-yyyy"
 Me.DTPEventCompleteDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
 Me.DTPEventCompleteDate.Location = New System.Drawing.Point(118, 7)
 Me.DTPEventCompleteDate.Name = "DTPEventCompleteDate"
-Me.DTPEventCompleteDate.Size = New System.Drawing.Size(96, 20)
+Me.DTPEventCompleteDate.Size = New System.Drawing.Size(100, 20)
 Me.DTPEventCompleteDate.TabIndex = 501
 '
 'btnEnforcementProcess
@@ -10094,7 +10094,7 @@ Me.DTPTestReportDueDate.CustomFormat = "dd-MMM-yyyy"
 Me.DTPTestReportDueDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
 Me.DTPTestReportDueDate.Location = New System.Drawing.Point(180, 156)
 Me.DTPTestReportDueDate.Name = "DTPTestReportDueDate"
-Me.DTPTestReportDueDate.Size = New System.Drawing.Size(120, 20)
+Me.DTPTestReportDueDate.Size = New System.Drawing.Size(100, 20)
 Me.DTPTestReportDueDate.TabIndex = 504
 Me.DTPTestReportDueDate.Value = New Date(2005, 4, 21, 0, 0, 0, 0)
 '
@@ -10113,7 +10113,7 @@ Me.DTPTestReportNewDueDate.CustomFormat = "dd-MMM-yyyy"
 Me.DTPTestReportNewDueDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
 Me.DTPTestReportNewDueDate.Location = New System.Drawing.Point(558, 131)
 Me.DTPTestReportNewDueDate.Name = "DTPTestReportNewDueDate"
-Me.DTPTestReportNewDueDate.Size = New System.Drawing.Size(96, 20)
+Me.DTPTestReportNewDueDate.Size = New System.Drawing.Size(100, 20)
 Me.DTPTestReportNewDueDate.TabIndex = 507
 Me.DTPTestReportNewDueDate.Value = New Date(2005, 4, 21, 0, 0, 0, 0)
 '

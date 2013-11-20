@@ -55,7 +55,7 @@
             chbWatershedProtectionRegulatorySupport.Checked = False
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub chbAirProtectionBranch_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chbAirProtectionBranch.CheckedChanged
@@ -79,7 +79,7 @@
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub chbHazardWaste_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chbHazardWaste.CheckedChanged
@@ -98,7 +98,7 @@
                 chbHazardousSitesResponse.Checked = False
             End If
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub chbLandProtectionBranch_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chbLandProtectionBranch.CheckedChanged
@@ -116,7 +116,7 @@
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub chbProgramCoordinationBranch_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chbProgramCoordinationBranch.CheckedChanged
@@ -158,7 +158,7 @@
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub chbWatershedProtectionBranch_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chbWatershedProtectionBranch.CheckedChanged
@@ -194,7 +194,7 @@
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -374,7 +374,7 @@
             'PrintOut.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub

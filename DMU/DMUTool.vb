@@ -19,7 +19,7 @@ Public Class DMUTool
             Panel3.Text = OracleDate
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & ".btnRunSQL_Click")
+            ErrorReport(ex, Me.Name & ".btnRunSQL_Click")
         Finally
 
         End Try
@@ -30,7 +30,7 @@ Public Class DMUTool
             DMUOnly.Dispose()
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & ".btnRunSQL_Click")
+            ErrorReport(ex, Me.Name & ".btnRunSQL_Click")
         Finally
 
         End Try
@@ -40,7 +40,7 @@ Public Class DMUTool
         Try
             txtSQL.Clear()
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & ".btnRunSQL_Click")
+            ErrorReport(ex, Me.Name & ".btnRunSQL_Click")
         Finally
 
         End Try
@@ -64,7 +64,7 @@ Public Class DMUTool
                 End Try
             End If
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & ".btnRunSQL_Click")
+            ErrorReport(ex, Me.Name & ".btnRunSQL_Click")
         Finally
 
         End Try
@@ -187,7 +187,7 @@ Public Class DMUTool
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & ".btnDeleteEnforcement_Click")
+            ErrorReport(ex, Me.Name & ".btnDeleteEnforcement_Click")
         Finally
         End Try
     End Sub
@@ -345,7 +345,7 @@ Public Class DMUTool
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & ".btnDeleteACC_Click")
+            ErrorReport(ex, Me.Name & ".btnDeleteACC_Click")
         Finally
         End Try
 
@@ -365,7 +365,7 @@ Public Class DMUTool
             MsgBox("Version Number Updated.", MsgBoxStyle.Information, Me.Name)
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & ".btnUpdateVersionNumber_Click")
+            ErrorReport(ex, Me.Name & ".btnUpdateVersionNumber_Click")
         End Try
     End Sub
     Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click

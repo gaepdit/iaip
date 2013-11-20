@@ -23,12 +23,17 @@ Partial Class IAIPQueryGenerator
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(IAIPQueryGenerator))
-        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip
         Me.mmiFile = New System.Windows.Forms.ToolStripMenuItem
         Me.mmiClose = New System.Windows.Forms.ToolStripMenuItem
+        Me.ToolsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
+        Me.SaveSearchQueryToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
+        Me.OpenSavedSearchToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
+        Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator
+        Me.mmiExport = New System.Windows.Forms.ToolStripMenuItem
         Me.mmiHelp = New System.Windows.Forms.ToolStripMenuItem
         Me.mmiOnlineHelp = New System.Windows.Forms.ToolStripMenuItem
         Me.ToolStrip1 = New System.Windows.Forms.ToolStrip
@@ -419,11 +424,6 @@ Partial Class IAIPQueryGenerator
         Me.GBBasic = New System.Windows.Forms.GroupBox
         Me.lblQueryCount = New System.Windows.Forms.Label
         Me.bgwQueryGenerator = New System.ComponentModel.BackgroundWorker
-        Me.ToolsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.mmiExport = New System.Windows.Forms.ToolStripMenuItem
-        Me.OpenSavedSearchToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.SaveSearchQueryToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator
         Me.MenuStrip1.SuspendLayout()
         Me.ToolStrip1.SuspendLayout()
         Me.Panel6.SuspendLayout()
@@ -533,8 +533,38 @@ Partial Class IAIPQueryGenerator
         '
         Me.mmiClose.Name = "mmiClose"
         Me.mmiClose.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.W), System.Windows.Forms.Keys)
-        Me.mmiClose.Size = New System.Drawing.Size(152, 22)
+        Me.mmiClose.Size = New System.Drawing.Size(148, 22)
         Me.mmiClose.Text = "&Close"
+        '
+        'ToolsToolStripMenuItem
+        '
+        Me.ToolsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.SaveSearchQueryToolStripMenuItem, Me.OpenSavedSearchToolStripMenuItem, Me.ToolStripSeparator1, Me.mmiExport})
+        Me.ToolsToolStripMenuItem.Name = "ToolsToolStripMenuItem"
+        Me.ToolsToolStripMenuItem.Size = New System.Drawing.Size(48, 20)
+        Me.ToolsToolStripMenuItem.Text = "&Tools"
+        '
+        'SaveSearchQueryToolStripMenuItem
+        '
+        Me.SaveSearchQueryToolStripMenuItem.Name = "SaveSearchQueryToolStripMenuItem"
+        Me.SaveSearchQueryToolStripMenuItem.Size = New System.Drawing.Size(172, 22)
+        Me.SaveSearchQueryToolStripMenuItem.Text = "&Save Search Query"
+        '
+        'OpenSavedSearchToolStripMenuItem
+        '
+        Me.OpenSavedSearchToolStripMenuItem.Name = "OpenSavedSearchToolStripMenuItem"
+        Me.OpenSavedSearchToolStripMenuItem.Size = New System.Drawing.Size(172, 22)
+        Me.OpenSavedSearchToolStripMenuItem.Text = "&Open Saved Query"
+        '
+        'ToolStripSeparator1
+        '
+        Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(169, 6)
+        '
+        'mmiExport
+        '
+        Me.mmiExport.Name = "mmiExport"
+        Me.mmiExport.Size = New System.Drawing.Size(172, 22)
+        Me.mmiExport.Text = "&Export to Excel"
         '
         'mmiHelp
         '
@@ -882,35 +912,35 @@ Partial Class IAIPQueryGenerator
         '
         'dgvQueryGenerator
         '
-        DataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle7.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvQueryGenerator.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle7
+        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle4.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvQueryGenerator.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle4
         Me.dgvQueryGenerator.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle8.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvQueryGenerator.DefaultCellStyle = DataGridViewCellStyle8
+        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle5.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvQueryGenerator.DefaultCellStyle = DataGridViewCellStyle5
         Me.dgvQueryGenerator.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvQueryGenerator.Location = New System.Drawing.Point(0, 485)
         Me.dgvQueryGenerator.Name = "dgvQueryGenerator"
         Me.dgvQueryGenerator.ReadOnly = True
-        DataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle9.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvQueryGenerator.RowHeadersDefaultCellStyle = DataGridViewCellStyle9
+        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle6.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvQueryGenerator.RowHeadersDefaultCellStyle = DataGridViewCellStyle6
         Me.dgvQueryGenerator.Size = New System.Drawing.Size(796, 105)
         Me.dgvQueryGenerator.TabIndex = 13
         '
@@ -1754,7 +1784,7 @@ Partial Class IAIPQueryGenerator
         Me.Panel75.AutoSize = True
         Me.Panel75.Controls.Add(Me.rdbNAICSCodeOr)
         Me.Panel75.Controls.Add(Me.rdbNAICSCodeAnd)
-        Me.Panel75.Location = New System.Drawing.Point(412, 80)
+        Me.Panel75.Location = New System.Drawing.Point(421, 80)
         Me.Panel75.Name = "Panel75"
         Me.Panel75.Size = New System.Drawing.Size(101, 27)
         Me.Panel75.TabIndex = 238
@@ -1781,16 +1811,16 @@ Partial Class IAIPQueryGenerator
         '
         'txtNAICSCodeSearch2
         '
-        Me.txtNAICSCodeSearch2.Location = New System.Drawing.Point(279, 83)
+        Me.txtNAICSCodeSearch2.Location = New System.Drawing.Point(283, 83)
         Me.txtNAICSCodeSearch2.Name = "txtNAICSCodeSearch2"
-        Me.txtNAICSCodeSearch2.Size = New System.Drawing.Size(127, 20)
+        Me.txtNAICSCodeSearch2.Size = New System.Drawing.Size(132, 20)
         Me.txtNAICSCodeSearch2.TabIndex = 236
         '
         'txtNAICSCodeSearch1
         '
         Me.txtNAICSCodeSearch1.Location = New System.Drawing.Point(145, 83)
         Me.txtNAICSCodeSearch1.Name = "txtNAICSCodeSearch1"
-        Me.txtNAICSCodeSearch1.Size = New System.Drawing.Size(127, 20)
+        Me.txtNAICSCodeSearch1.Size = New System.Drawing.Size(132, 20)
         Me.txtNAICSCodeSearch1.TabIndex = 235
         '
         'chbNAICSCode
@@ -1807,7 +1837,7 @@ Partial Class IAIPQueryGenerator
         Me.Panel11.AutoSize = True
         Me.Panel11.Controls.Add(Me.rdbOperationalStatusOr)
         Me.Panel11.Controls.Add(Me.rdbOperationalStatusAnd)
-        Me.Panel11.Location = New System.Drawing.Point(412, 7)
+        Me.Panel11.Location = New System.Drawing.Point(421, 7)
         Me.Panel11.Name = "Panel11"
         Me.Panel11.Size = New System.Drawing.Size(101, 27)
         Me.Panel11.TabIndex = 232
@@ -1836,9 +1866,9 @@ Partial Class IAIPQueryGenerator
         '
         Me.cboOperationStatusSearch2.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cboOperationStatusSearch2.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cboOperationStatusSearch2.Location = New System.Drawing.Point(279, 7)
+        Me.cboOperationStatusSearch2.Location = New System.Drawing.Point(283, 7)
         Me.cboOperationStatusSearch2.Name = "cboOperationStatusSearch2"
-        Me.cboOperationStatusSearch2.Size = New System.Drawing.Size(127, 21)
+        Me.cboOperationStatusSearch2.Size = New System.Drawing.Size(132, 21)
         Me.cboOperationStatusSearch2.TabIndex = 76
         '
         'cboOperationStatusSearch1
@@ -1847,7 +1877,7 @@ Partial Class IAIPQueryGenerator
         Me.cboOperationStatusSearch1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cboOperationStatusSearch1.Location = New System.Drawing.Point(145, 7)
         Me.cboOperationStatusSearch1.Name = "cboOperationStatusSearch1"
-        Me.cboOperationStatusSearch1.Size = New System.Drawing.Size(127, 21)
+        Me.cboOperationStatusSearch1.Size = New System.Drawing.Size(132, 21)
         Me.cboOperationStatusSearch1.TabIndex = 75
         '
         'txtOperationStatusOrder
@@ -1900,9 +1930,9 @@ Partial Class IAIPQueryGenerator
         '
         Me.cboCMSUniverseSearch2.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cboCMSUniverseSearch2.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cboCMSUniverseSearch2.Location = New System.Drawing.Point(279, 157)
+        Me.cboCMSUniverseSearch2.Location = New System.Drawing.Point(283, 157)
         Me.cboCMSUniverseSearch2.Name = "cboCMSUniverseSearch2"
-        Me.cboCMSUniverseSearch2.Size = New System.Drawing.Size(127, 21)
+        Me.cboCMSUniverseSearch2.Size = New System.Drawing.Size(132, 21)
         Me.cboCMSUniverseSearch2.TabIndex = 110
         '
         'cboCMSUniverseSearch1
@@ -1911,7 +1941,7 @@ Partial Class IAIPQueryGenerator
         Me.cboCMSUniverseSearch1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cboCMSUniverseSearch1.Location = New System.Drawing.Point(145, 157)
         Me.cboCMSUniverseSearch1.Name = "cboCMSUniverseSearch1"
-        Me.cboCMSUniverseSearch1.Size = New System.Drawing.Size(127, 21)
+        Me.cboCMSUniverseSearch1.Size = New System.Drawing.Size(132, 21)
         Me.cboCMSUniverseSearch1.TabIndex = 109
         '
         'txtPlantDescriptionOrder
@@ -1956,7 +1986,7 @@ Partial Class IAIPQueryGenerator
         Me.Panel34.AutoSize = True
         Me.Panel34.Controls.Add(Me.rdbPlantDescriptionOR)
         Me.Panel34.Controls.Add(Me.rdbPlantDescriptionAND)
-        Me.Panel34.Location = New System.Drawing.Point(412, 179)
+        Me.Panel34.Location = New System.Drawing.Point(421, 179)
         Me.Panel34.Name = "Panel34"
         Me.Panel34.Size = New System.Drawing.Size(101, 27)
         Me.Panel34.TabIndex = 226
@@ -1983,16 +2013,16 @@ Partial Class IAIPQueryGenerator
         '
         'txtPlantDescriptionSearch2
         '
-        Me.txtPlantDescriptionSearch2.Location = New System.Drawing.Point(279, 182)
+        Me.txtPlantDescriptionSearch2.Location = New System.Drawing.Point(283, 182)
         Me.txtPlantDescriptionSearch2.Name = "txtPlantDescriptionSearch2"
-        Me.txtPlantDescriptionSearch2.Size = New System.Drawing.Size(127, 20)
+        Me.txtPlantDescriptionSearch2.Size = New System.Drawing.Size(132, 20)
         Me.txtPlantDescriptionSearch2.TabIndex = 118
         '
         'txtPlantDescriptionSearch1
         '
         Me.txtPlantDescriptionSearch1.Location = New System.Drawing.Point(145, 182)
         Me.txtPlantDescriptionSearch1.Name = "txtPlantDescriptionSearch1"
-        Me.txtPlantDescriptionSearch1.Size = New System.Drawing.Size(127, 20)
+        Me.txtPlantDescriptionSearch1.Size = New System.Drawing.Size(132, 20)
         Me.txtPlantDescriptionSearch1.TabIndex = 117
         '
         'chbPlantDescription
@@ -2046,7 +2076,7 @@ Partial Class IAIPQueryGenerator
         Me.Panel32.AutoSize = True
         Me.Panel32.Controls.Add(Me.rdbCMSUniverseOR)
         Me.Panel32.Controls.Add(Me.rdbCMSUniverseAnd)
-        Me.Panel32.Location = New System.Drawing.Point(412, 154)
+        Me.Panel32.Location = New System.Drawing.Point(421, 154)
         Me.Panel32.Name = "Panel32"
         Me.Panel32.Size = New System.Drawing.Size(101, 27)
         Me.Panel32.TabIndex = 224
@@ -2085,7 +2115,7 @@ Partial Class IAIPQueryGenerator
         Me.Panel20.AutoSize = True
         Me.Panel20.Controls.Add(Me.rdbClassificationOr)
         Me.Panel20.Controls.Add(Me.rdbClassificationAnd)
-        Me.Panel20.Location = New System.Drawing.Point(412, 32)
+        Me.Panel20.Location = New System.Drawing.Point(421, 32)
         Me.Panel20.Name = "Panel20"
         Me.Panel20.Size = New System.Drawing.Size(101, 27)
         Me.Panel20.TabIndex = 214
@@ -2115,10 +2145,10 @@ Partial Class IAIPQueryGenerator
         Me.DTPShutDownDateSearch2.CustomFormat = "dd-MMM-yyyy"
         Me.DTPShutDownDateSearch2.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.DTPShutDownDateSearch2.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DTPShutDownDateSearch2.Location = New System.Drawing.Point(279, 131)
+        Me.DTPShutDownDateSearch2.Location = New System.Drawing.Point(283, 131)
         Me.DTPShutDownDateSearch2.Name = "DTPShutDownDateSearch2"
         Me.DTPShutDownDateSearch2.ShowCheckBox = True
-        Me.DTPShutDownDateSearch2.Size = New System.Drawing.Size(127, 22)
+        Me.DTPShutDownDateSearch2.Size = New System.Drawing.Size(132, 22)
         Me.DTPShutDownDateSearch2.TabIndex = 105
         Me.DTPShutDownDateSearch2.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
         '
@@ -2130,7 +2160,7 @@ Partial Class IAIPQueryGenerator
         Me.DTPShutDownDateSearch1.Location = New System.Drawing.Point(145, 131)
         Me.DTPShutDownDateSearch1.Name = "DTPShutDownDateSearch1"
         Me.DTPShutDownDateSearch1.ShowCheckBox = True
-        Me.DTPShutDownDateSearch1.Size = New System.Drawing.Size(127, 22)
+        Me.DTPShutDownDateSearch1.Size = New System.Drawing.Size(132, 22)
         Me.DTPShutDownDateSearch1.TabIndex = 104
         Me.DTPShutDownDateSearch1.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
         '
@@ -2139,10 +2169,10 @@ Partial Class IAIPQueryGenerator
         Me.DTPStartUpDateSearch2.CustomFormat = "dd-MMM-yyyy"
         Me.DTPStartUpDateSearch2.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.DTPStartUpDateSearch2.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DTPStartUpDateSearch2.Location = New System.Drawing.Point(279, 106)
+        Me.DTPStartUpDateSearch2.Location = New System.Drawing.Point(283, 106)
         Me.DTPStartUpDateSearch2.Name = "DTPStartUpDateSearch2"
         Me.DTPStartUpDateSearch2.ShowCheckBox = True
-        Me.DTPStartUpDateSearch2.Size = New System.Drawing.Size(127, 22)
+        Me.DTPStartUpDateSearch2.Size = New System.Drawing.Size(132, 22)
         Me.DTPStartUpDateSearch2.TabIndex = 100
         Me.DTPStartUpDateSearch2.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
         '
@@ -2154,7 +2184,7 @@ Partial Class IAIPQueryGenerator
         Me.DTPStartUpDateSearch1.Location = New System.Drawing.Point(145, 106)
         Me.DTPStartUpDateSearch1.Name = "DTPStartUpDateSearch1"
         Me.DTPStartUpDateSearch1.ShowCheckBox = True
-        Me.DTPStartUpDateSearch1.Size = New System.Drawing.Size(127, 22)
+        Me.DTPStartUpDateSearch1.Size = New System.Drawing.Size(132, 22)
         Me.DTPStartUpDateSearch1.TabIndex = 99
         Me.DTPStartUpDateSearch1.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
         '
@@ -2170,7 +2200,7 @@ Partial Class IAIPQueryGenerator
         Me.Panel26.AutoSize = True
         Me.Panel26.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.Panel26.Controls.Add(Me.rdbShutDownDateBetween)
-        Me.Panel26.Location = New System.Drawing.Point(412, 129)
+        Me.Panel26.Location = New System.Drawing.Point(421, 129)
         Me.Panel26.Name = "Panel26"
         Me.Panel26.Size = New System.Drawing.Size(89, 27)
         Me.Panel26.TabIndex = 222
@@ -2228,7 +2258,7 @@ Partial Class IAIPQueryGenerator
         Me.Panel22.AutoSize = True
         Me.Panel22.Controls.Add(Me.rdbSICCodeOr)
         Me.Panel22.Controls.Add(Me.rdbSICCodeAnd)
-        Me.Panel22.Location = New System.Drawing.Point(412, 57)
+        Me.Panel22.Location = New System.Drawing.Point(421, 57)
         Me.Panel22.Name = "Panel22"
         Me.Panel22.Size = New System.Drawing.Size(101, 27)
         Me.Panel22.TabIndex = 216
@@ -2255,25 +2285,25 @@ Partial Class IAIPQueryGenerator
         '
         'txtSICCodeSearch2
         '
-        Me.txtSICCodeSearch2.Location = New System.Drawing.Point(279, 60)
+        Me.txtSICCodeSearch2.Location = New System.Drawing.Point(283, 60)
         Me.txtSICCodeSearch2.Name = "txtSICCodeSearch2"
-        Me.txtSICCodeSearch2.Size = New System.Drawing.Size(127, 20)
+        Me.txtSICCodeSearch2.Size = New System.Drawing.Size(132, 20)
         Me.txtSICCodeSearch2.TabIndex = 92
         '
         'txtSICCodeSearch1
         '
         Me.txtSICCodeSearch1.Location = New System.Drawing.Point(145, 60)
         Me.txtSICCodeSearch1.Name = "txtSICCodeSearch1"
-        Me.txtSICCodeSearch1.Size = New System.Drawing.Size(127, 20)
+        Me.txtSICCodeSearch1.Size = New System.Drawing.Size(132, 20)
         Me.txtSICCodeSearch1.TabIndex = 91
         '
         'cboClassificationSearch2
         '
         Me.cboClassificationSearch2.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cboClassificationSearch2.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cboClassificationSearch2.Location = New System.Drawing.Point(279, 35)
+        Me.cboClassificationSearch2.Location = New System.Drawing.Point(283, 35)
         Me.cboClassificationSearch2.Name = "cboClassificationSearch2"
-        Me.cboClassificationSearch2.Size = New System.Drawing.Size(127, 21)
+        Me.cboClassificationSearch2.Size = New System.Drawing.Size(132, 21)
         Me.cboClassificationSearch2.TabIndex = 84
         '
         'cboClassificationSearch1
@@ -2282,7 +2312,7 @@ Partial Class IAIPQueryGenerator
         Me.cboClassificationSearch1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cboClassificationSearch1.Location = New System.Drawing.Point(145, 35)
         Me.cboClassificationSearch1.Name = "cboClassificationSearch1"
-        Me.cboClassificationSearch1.Size = New System.Drawing.Size(127, 21)
+        Me.cboClassificationSearch1.Size = New System.Drawing.Size(132, 21)
         Me.cboClassificationSearch1.TabIndex = 83
         '
         'txtClassificationOrder
@@ -2334,7 +2364,7 @@ Partial Class IAIPQueryGenerator
         Me.Panel10.AutoSize = True
         Me.Panel10.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.Panel10.Controls.Add(Me.rdbStartUpDateBetween)
-        Me.Panel10.Location = New System.Drawing.Point(412, 104)
+        Me.Panel10.Location = New System.Drawing.Point(421, 104)
         Me.Panel10.Name = "Panel10"
         Me.Panel10.Size = New System.Drawing.Size(89, 27)
         Me.Panel10.TabIndex = 220
@@ -4129,10 +4159,10 @@ Partial Class IAIPQueryGenerator
         Me.DTPLastFCESearch2.CustomFormat = "dd-MMM-yyyy"
         Me.DTPLastFCESearch2.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.DTPLastFCESearch2.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DTPLastFCESearch2.Location = New System.Drawing.Point(281, 63)
+        Me.DTPLastFCESearch2.Location = New System.Drawing.Point(279, 63)
         Me.DTPLastFCESearch2.Name = "DTPLastFCESearch2"
         Me.DTPLastFCESearch2.ShowCheckBox = True
-        Me.DTPLastFCESearch2.Size = New System.Drawing.Size(127, 22)
+        Me.DTPLastFCESearch2.Size = New System.Drawing.Size(132, 22)
         Me.DTPLastFCESearch2.TabIndex = 230
         Me.DTPLastFCESearch2.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
         '
@@ -4144,7 +4174,7 @@ Partial Class IAIPQueryGenerator
         Me.DTPLastFCESearch1.Location = New System.Drawing.Point(141, 63)
         Me.DTPLastFCESearch1.Name = "DTPLastFCESearch1"
         Me.DTPLastFCESearch1.ShowCheckBox = True
-        Me.DTPLastFCESearch1.Size = New System.Drawing.Size(127, 22)
+        Me.DTPLastFCESearch1.Size = New System.Drawing.Size(132, 22)
         Me.DTPLastFCESearch1.TabIndex = 229
         Me.DTPLastFCESearch1.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
         '
@@ -4160,7 +4190,7 @@ Partial Class IAIPQueryGenerator
         Me.Panel73.AutoSize = True
         Me.Panel73.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.Panel73.Controls.Add(Me.rdbLastFCEBetween)
-        Me.Panel73.Location = New System.Drawing.Point(414, 61)
+        Me.Panel73.Location = New System.Drawing.Point(417, 61)
         Me.Panel73.Name = "Panel73"
         Me.Panel73.Size = New System.Drawing.Size(89, 27)
         Me.Panel73.TabIndex = 232
@@ -4190,7 +4220,7 @@ Partial Class IAIPQueryGenerator
         Me.Panel71.AutoSize = True
         Me.Panel71.Controls.Add(Me.rdbSSCPUnitOr)
         Me.Panel71.Controls.Add(Me.rdbSSCPUnitAnd)
-        Me.Panel71.Location = New System.Drawing.Point(414, 33)
+        Me.Panel71.Location = New System.Drawing.Point(417, 33)
         Me.Panel71.Name = "Panel71"
         Me.Panel71.Size = New System.Drawing.Size(101, 27)
         Me.Panel71.TabIndex = 226
@@ -4219,9 +4249,9 @@ Partial Class IAIPQueryGenerator
         '
         Me.cboSSCPUnitSearch2.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cboSSCPUnitSearch2.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cboSSCPUnitSearch2.Location = New System.Drawing.Point(281, 36)
+        Me.cboSSCPUnitSearch2.Location = New System.Drawing.Point(279, 36)
         Me.cboSSCPUnitSearch2.Name = "cboSSCPUnitSearch2"
-        Me.cboSSCPUnitSearch2.Size = New System.Drawing.Size(127, 21)
+        Me.cboSSCPUnitSearch2.Size = New System.Drawing.Size(132, 21)
         Me.cboSSCPUnitSearch2.TabIndex = 224
         '
         'cboSSCPUnitSearch1
@@ -4230,7 +4260,7 @@ Partial Class IAIPQueryGenerator
         Me.cboSSCPUnitSearch1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cboSSCPUnitSearch1.Location = New System.Drawing.Point(141, 36)
         Me.cboSSCPUnitSearch1.Name = "cboSSCPUnitSearch1"
-        Me.cboSSCPUnitSearch1.Size = New System.Drawing.Size(127, 21)
+        Me.cboSSCPUnitSearch1.Size = New System.Drawing.Size(132, 21)
         Me.cboSSCPUnitSearch1.TabIndex = 223
         '
         'txtSSCPUnitOrder
@@ -4284,7 +4314,7 @@ Partial Class IAIPQueryGenerator
         Me.Panel67.AutoSize = True
         Me.Panel67.Controls.Add(Me.rdbSSCPEngineerOr)
         Me.Panel67.Controls.Add(Me.rdbSSCPEngineerAnd)
-        Me.Panel67.Location = New System.Drawing.Point(414, 6)
+        Me.Panel67.Location = New System.Drawing.Point(417, 6)
         Me.Panel67.Name = "Panel67"
         Me.Panel67.Size = New System.Drawing.Size(101, 27)
         Me.Panel67.TabIndex = 220
@@ -4313,9 +4343,9 @@ Partial Class IAIPQueryGenerator
         '
         Me.cboSSCPEngineerSearch2.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cboSSCPEngineerSearch2.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cboSSCPEngineerSearch2.Location = New System.Drawing.Point(281, 9)
+        Me.cboSSCPEngineerSearch2.Location = New System.Drawing.Point(279, 9)
         Me.cboSSCPEngineerSearch2.Name = "cboSSCPEngineerSearch2"
-        Me.cboSSCPEngineerSearch2.Size = New System.Drawing.Size(127, 21)
+        Me.cboSSCPEngineerSearch2.Size = New System.Drawing.Size(132, 21)
         Me.cboSSCPEngineerSearch2.TabIndex = 218
         '
         'cboSSCPEngineerSearch1
@@ -4324,7 +4354,7 @@ Partial Class IAIPQueryGenerator
         Me.cboSSCPEngineerSearch1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cboSSCPEngineerSearch1.Location = New System.Drawing.Point(141, 9)
         Me.cboSSCPEngineerSearch1.Name = "cboSSCPEngineerSearch1"
-        Me.cboSSCPEngineerSearch1.Size = New System.Drawing.Size(127, 21)
+        Me.cboSSCPEngineerSearch1.Size = New System.Drawing.Size(132, 21)
         Me.cboSSCPEngineerSearch1.TabIndex = 217
         '
         'txtSSCPEngineerOrder
@@ -4444,36 +4474,6 @@ Partial Class IAIPQueryGenerator
         '
         'bgwQueryGenerator
         '
-        '
-        'ToolsToolStripMenuItem
-        '
-        Me.ToolsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.SaveSearchQueryToolStripMenuItem, Me.OpenSavedSearchToolStripMenuItem, Me.ToolStripSeparator1, Me.mmiExport})
-        Me.ToolsToolStripMenuItem.Name = "ToolsToolStripMenuItem"
-        Me.ToolsToolStripMenuItem.Size = New System.Drawing.Size(48, 20)
-        Me.ToolsToolStripMenuItem.Text = "&Tools"
-        '
-        'mmiExport
-        '
-        Me.mmiExport.Name = "mmiExport"
-        Me.mmiExport.Size = New System.Drawing.Size(152, 22)
-        Me.mmiExport.Text = "&Export to Excel"
-        '
-        'OpenSavedSearchToolStripMenuItem
-        '
-        Me.OpenSavedSearchToolStripMenuItem.Name = "OpenSavedSearchToolStripMenuItem"
-        Me.OpenSavedSearchToolStripMenuItem.Size = New System.Drawing.Size(172, 22)
-        Me.OpenSavedSearchToolStripMenuItem.Text = "&Open Saved Query"
-        '
-        'SaveSearchQueryToolStripMenuItem
-        '
-        Me.SaveSearchQueryToolStripMenuItem.Name = "SaveSearchQueryToolStripMenuItem"
-        Me.SaveSearchQueryToolStripMenuItem.Size = New System.Drawing.Size(172, 22)
-        Me.SaveSearchQueryToolStripMenuItem.Text = "&Save Search Query"
-        '
-        'ToolStripSeparator1
-        '
-        Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
-        Me.ToolStripSeparator1.Size = New System.Drawing.Size(169, 6)
         '
         'IAIPQueryGenerator
         '

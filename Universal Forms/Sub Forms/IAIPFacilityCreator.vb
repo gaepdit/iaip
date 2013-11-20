@@ -34,7 +34,7 @@ Public Class IAIPFacilityCreator
             TCFacilityTools.TabPages.Add(TPCreateNewFacility)
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
       
     End Sub
@@ -93,7 +93,7 @@ Public Class IAIPFacilityCreator
             'cboCDSClassCode.Items.Add("U - UNDEFINED")
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub LoadPendingFacilities()
@@ -308,7 +308,7 @@ Public Class IAIPFacilityCreator
             txtCountFacilities.Text = dgvVerifyNewFacilities.RowCount.ToString
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub FindRegion(ByVal Region As String, ByVal AIRSNumber As String)
@@ -340,7 +340,7 @@ Public Class IAIPFacilityCreator
             txtCDSRegionCode.Text = Region
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -1025,7 +1025,7 @@ Public Class IAIPFacilityCreator
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub btnPreLoadNewFacility_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnPreLoadNewFacility.Click
@@ -1267,7 +1267,7 @@ Public Class IAIPFacilityCreator
 
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub llbOpenWebpage_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbOpenWebpage.LinkClicked
@@ -1281,7 +1281,7 @@ Public Class IAIPFacilityCreator
             System.Diagnostics.Process.Start(URL)
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub dgvVerifyNewFacilities_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvVerifyNewFacilities.MouseUp
@@ -1358,7 +1358,7 @@ Public Class IAIPFacilityCreator
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
     End Sub
@@ -1636,7 +1636,7 @@ Public Class IAIPFacilityCreator
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub btnSubmitFacilityToAFS_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSubmitFacilityToAFS.Click
@@ -1738,7 +1738,7 @@ Public Class IAIPFacilityCreator
                 MsgBox("Both SSCP and SSPP have to sign off on the new facility before it can be sent to AFS.", MsgBoxStyle.Information, Me.Text)
             End If
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub btnRemoveFromPlatform_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnRemoveFromPlatform.Click
@@ -1872,7 +1872,7 @@ Public Class IAIPFacilityCreator
             MsgBox("Facility Removed from the Platform", MsgBoxStyle.Information, Me.Text)
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub btnSaveSSCPApproval_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSaveSSCPApproval.Click
@@ -1900,7 +1900,7 @@ Public Class IAIPFacilityCreator
             MsgBox("Approval Saved.", MsgBoxStyle.Information, Me.Text)
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub btnSaveSSPPApproval_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSaveSSPPApproval.Click
@@ -1928,7 +1928,7 @@ Public Class IAIPFacilityCreator
             MsgBox("Approval Saved.", MsgBoxStyle.Information, Me.Text)
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub btnValidateFacility_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnValidateFacility.Click
@@ -2024,7 +2024,7 @@ Public Class IAIPFacilityCreator
             txtValidationCount.Text = dgvValidatingAIRS.RowCount.ToString
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub tspClear_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tspClear.Click
@@ -2032,7 +2032,7 @@ Public Class IAIPFacilityCreator
             ClearValidator()
             ClearNewFacility()
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub ClearNewFacility()
@@ -2079,7 +2079,7 @@ Public Class IAIPFacilityCreator
             txtFacilityComments.Clear()
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub ClearValidator()
@@ -2102,14 +2102,14 @@ Public Class IAIPFacilityCreator
             txtValidationCount.Clear()
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub btnClearAIRSNumber_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnClearAIRSNumber.Click
         Try
             txtCDSAIRSNumber.Clear()
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub btnEditFacilityData_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEditFacilityData.Click
@@ -2413,7 +2413,7 @@ Public Class IAIPFacilityCreator
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -2431,7 +2431,7 @@ Public Class IAIPFacilityCreator
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -2441,7 +2441,7 @@ Public Class IAIPFacilityCreator
             LoadPendingFacilities()
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 

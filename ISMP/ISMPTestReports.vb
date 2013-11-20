@@ -77,7 +77,7 @@ Public Class ISMPTestReports
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
@@ -2064,7 +2064,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
             End With
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
@@ -2123,7 +2123,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
             TCDocumentTypes.TabPages.Add(TPSSCPWork)
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
@@ -2617,7 +2617,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
                     dr.Close()
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
@@ -3410,7 +3410,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
             End Select
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
@@ -4602,7 +4602,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
             dr.Close()
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
@@ -4791,7 +4791,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
             End Select
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
@@ -5032,7 +5032,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
             dr.Close()
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
@@ -5273,7 +5273,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
             dr.Close()
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
@@ -5459,7 +5459,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
             dr.Close()
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
@@ -5847,7 +5847,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
             dr.Close()
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
@@ -6053,7 +6053,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
             dr.Close()
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
@@ -6457,7 +6457,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
             dr.Close()
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
@@ -6556,7 +6556,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
             dr.Close()
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
@@ -6576,7 +6576,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
 
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
@@ -9539,7 +9539,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
@@ -9568,7 +9568,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
             dr.Close()
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
@@ -9718,7 +9718,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
@@ -9750,7 +9750,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
 
@@ -9854,7 +9854,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
             dr.Close()
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
@@ -9935,7 +9935,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
@@ -10455,7 +10455,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
             DefaultTabs()
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
@@ -10823,7 +10823,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
 
@@ -10837,7 +10837,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
             ISMPMemoEdit.Show()
             'ISMPMemoEdit.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
 
@@ -10910,7 +10910,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
             End Select
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
 
@@ -11986,7 +11986,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
 
             'End If
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
@@ -12180,7 +12180,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
             MsgBox("SSCP Work Save Complete", MsgBoxStyle.Information, "SSCP Work")
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
@@ -12815,7 +12815,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
             dr.Close()
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
@@ -13637,7 +13637,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
             dr.Close()
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
@@ -13851,7 +13851,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
             dr.Close()
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
@@ -14094,7 +14094,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
             dr.Close()
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
@@ -14336,7 +14336,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
             dr = cmd.ExecuteReader
             dr.Close()
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
@@ -14521,7 +14521,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
             dr.Close()
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
@@ -14889,7 +14889,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
             dr.Close()
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
@@ -15057,7 +15057,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
             dr.Close()
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
@@ -15454,7 +15454,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
             dr.Close()
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
@@ -15462,7 +15462,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
         Try
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
@@ -15479,7 +15479,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
             End If
             'SSCPSelectEnforcement.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
 
@@ -17750,7 +17750,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
 
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
@@ -17766,7 +17766,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
 
@@ -17780,7 +17780,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
 
@@ -17794,7 +17794,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
 
@@ -17816,7 +17816,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
@@ -17855,7 +17855,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
                 End If
             End If
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
 
@@ -17864,7 +17864,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
         Try
             PrePopulate()
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
 
@@ -17878,7 +17878,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
             PrintOut.Show()
             'PrintOut.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
@@ -17888,7 +17888,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
             ClearAll()
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
 
@@ -17909,7 +17909,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
                 End If
             End If
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
 
@@ -17918,7 +17918,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
         Try
             OpenMemo()
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
 
@@ -17937,7 +17937,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
             DevTestLog.LoadTestNotification()
             'DevTestLog.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
@@ -17945,7 +17945,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
         Try
             DeleteTestReport()
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
@@ -17954,7 +17954,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
             ISMPTestReportsEntry = Nothing
             Me.Dispose()
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
@@ -17976,7 +17976,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
@@ -17985,7 +17985,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
             ISMPTestReportsEntry = Nothing
             Me.Dispose()
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
@@ -17994,7 +17994,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
 
             SendKeys.Send("^(c)")
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
 
@@ -18004,7 +18004,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
 
             SendKeys.Send("^(x)")
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
 
@@ -18014,7 +18014,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
 
             SendKeys.Send("^(v)")
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
 
@@ -18033,7 +18033,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
             DevTestLog.LoadTestNotification()
             'DevTestLog.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
@@ -18041,7 +18041,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
         Try
             PrePopulate()
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
 
@@ -18072,7 +18072,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
             txtPollConcAvgOneStackTwoRun.Text = Mid(CStr(temp), 1, x)
 
         Catch ex As Exception
-            ' ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ' ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
@@ -18100,7 +18100,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
             txtPollConcAvgOneStackTwoRun.Text = Mid(CStr(temp), 1, x)
 
         Catch ex As Exception
-            'ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            'ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
@@ -18204,7 +18204,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
             txtPollConcAvgOneStackThreeRun.Text = Mid(CStr(temp), 1, x)
 
         Catch ex As Exception
-            'ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            'ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
@@ -18257,7 +18257,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
             txtPollConcAvgOneStackThreeRun.Text = Mid(CStr(temp), 1, x)
 
         Catch ex As Exception
-            'ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            'ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
@@ -18309,7 +18309,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
             txtPollConcAvgOneStackThreeRun.Text = Mid(CStr(temp), 1, x)
 
         Catch ex As Exception
-            'ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            'ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
@@ -18561,7 +18561,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
             txtPollConcAvgOneStackFourRun.Text = Mid(CStr(temp), 1, x)
 
         Catch ex As Exception
-            'ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            'ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
@@ -18663,7 +18663,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
             txtPollConcAvgOneStackFourRun.Text = Mid(CStr(temp), 1, x)
 
         Catch ex As Exception
-            'ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            'ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
@@ -18765,7 +18765,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
             txtPollConcAvgOneStackFourRun.Text = Mid(CStr(temp), 1, x)
 
         Catch ex As Exception
-            'ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            'ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
@@ -18867,7 +18867,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
             txtPollConcAvgOneStackFourRun.Text = Mid(CStr(temp), 1, x)
 
         Catch ex As Exception
-            'ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            'ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
@@ -20839,7 +20839,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
             txtPollConcAvgTwoStackStandard1.Text = Mid(CStr(temp), 1, x)
 
         Catch ex As Exception
-            'ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            'ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
@@ -20894,7 +20894,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
             txtPollConcAvgTwoStackStandard1.Text = Mid(CStr(temp), 1, x)
 
         Catch ex As Exception
-            'ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            'ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
@@ -20949,7 +20949,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
             txtPollConcAvgTwoStackStandard1.Text = Mid(CStr(temp), 1, x)
 
         Catch ex As Exception
-            'ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            'ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
@@ -22925,7 +22925,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
                 lblRATAPart75.Visible = True
             End If
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -22954,7 +22954,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
                 lblRATAPart75.Visible = True
             End If
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
 
@@ -22982,7 +22982,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
                 lblRATAPart75.Visible = False
             End If
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
 
@@ -23010,7 +23010,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
                 lblRATAPart75.Visible = True
             End If
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
 
@@ -23025,7 +23025,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
             End If
             cboDiluentRata.Enabled = True
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
 
@@ -23040,7 +23040,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
             End If
             cboDiluentRata.Enabled = True
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
 
@@ -23055,7 +23055,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
             End If
             cboDiluentRata.Enabled = True
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
 
@@ -23067,7 +23067,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
@@ -23081,7 +23081,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
             SSCPRequest.Show()
             'SSCPRequest.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
 
@@ -23091,7 +23091,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
 
             OpenEnforcement()
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
 
@@ -23112,7 +23112,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
                 DevTestLog.LoadTestNotification()
             End If
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
@@ -23136,7 +23136,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
@@ -23145,7 +23145,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
             LoadDefaultComplianceManager()
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
@@ -23159,7 +23159,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
             PrintOut.Show()
             'PrintOut.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
@@ -23168,7 +23168,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
         Try
             txtUnitManager.Text = "N/A"
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -23186,7 +23186,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
         Try
             OpenMemo()
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub

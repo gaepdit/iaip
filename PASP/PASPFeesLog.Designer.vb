@@ -234,15 +234,15 @@ Partial Class PASPFeesLog
         '
         Me.dtpEndShutDown.CustomFormat = "dd-MMM-yyyy"
         Me.dtpEndShutDown.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpEndShutDown.Location = New System.Drawing.Point(313, 211)
+        Me.dtpEndShutDown.Location = New System.Drawing.Point(323, 210)
         Me.dtpEndShutDown.Name = "dtpEndShutDown"
-        Me.dtpEndShutDown.Size = New System.Drawing.Size(90, 20)
+        Me.dtpEndShutDown.Size = New System.Drawing.Size(100, 20)
         Me.dtpEndShutDown.TabIndex = 452
         '
         'Label6
         '
         Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(282, 215)
+        Me.Label6.Location = New System.Drawing.Point(292, 214)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(25, 13)
         Me.Label6.TabIndex = 7
@@ -254,7 +254,7 @@ Partial Class PASPFeesLog
         Me.dtpStartShutDown.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.dtpStartShutDown.Location = New System.Drawing.Point(186, 211)
         Me.dtpStartShutDown.Name = "dtpStartShutDown"
-        Me.dtpStartShutDown.Size = New System.Drawing.Size(90, 20)
+        Me.dtpStartShutDown.Size = New System.Drawing.Size(100, 20)
         Me.dtpStartShutDown.TabIndex = 451
         '
         'chbShutdown

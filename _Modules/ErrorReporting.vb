@@ -3,7 +3,12 @@ Imports System.IO
 
 Module ErrorReporting
 
-    Public Sub ErrorReport(ByVal ErrorMessage As String, ByVal ErrorLocation As String)
+    Public Sub ErrorReport(ByVal exc As System.Exception, ByVal ErrorLocation As String)
+        monitor.TrackException(exc, ErrorLocation)
+        ErrorReport(exc.ToString, ErrorLocation)
+    End Sub
+
+    Public Sub ErrorReport(ByVal ErrorMessage As String, ByVal ErrorLocation As String, Optional ByVal exc As System.Exception = Nothing)
         Dim SQL As String
         Dim cmd As OracleCommand
         Dim dr As OracleDataReader
@@ -57,13 +62,13 @@ Module ErrorReporting
             Exit Sub
         End If
         If ErrorMessage.Contains("ORA-03113") Or ErrorMessage.Contains("ORA-12637") Then
-            MsgBox("The platform experianced a connection error." & vbCrLf & "Try reloading the form" & vbCrLf & _
+            MsgBox("The platform experienced a connection error." & vbCrLf & "Try reloading the form" & vbCrLf & _
                    "If the problem persists please contact the Data Management Unit.", MsgBoxStyle.Information, _
                    "Integrated Air Information Platform - ERROR MESSAGE")
             Exit Sub
         End If
         If ErrorMessage.Contains("ORA-12571") Or ErrorMessage.Contains("ORA-01033") Or ErrorMessage.Contains("ORA-12545") Then
-            MsgBox("The platform experianced a connection error." & vbCrLf & "Try reloading the form" & vbCrLf & _
+            MsgBox("The platform experienced a connection error." & vbCrLf & "Try reloading the form" & vbCrLf & _
                    "If the problem persists please contact the Data Management Unit.", MsgBoxStyle.Information, _
                    "Integrated Air Information Platform - ERROR MESSAGE")
             Exit Sub

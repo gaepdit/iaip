@@ -114,7 +114,7 @@ Public Class SSCPManagersTools
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
     End Sub
@@ -321,7 +321,7 @@ Public Class SSCPManagersTools
             dr.Close()
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
     End Sub
@@ -693,7 +693,7 @@ Public Class SSCPManagersTools
             cboOpStatus2.Items.Add("P")
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
 
@@ -873,7 +873,7 @@ Public Class SSCPManagersTools
             End With
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
     End Sub
@@ -1081,7 +1081,7 @@ Public Class SSCPManagersTools
             'txtCMSCount.Text = dsCMSDataSet.Tables.Item(0).Rows.Count
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
 
@@ -1126,7 +1126,7 @@ Public Class SSCPManagersTools
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
 
@@ -1159,7 +1159,7 @@ Public Class SSCPManagersTools
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
 
@@ -1525,7 +1525,7 @@ Public Class SSCPManagersTools
             rtbInspectionReport.Text = Statement
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
 
@@ -1785,7 +1785,7 @@ Public Class SSCPManagersTools
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
     End Sub
@@ -1802,7 +1802,7 @@ Public Class SSCPManagersTools
             WordApp.Visible = True
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub FilterPollutantSearch()
@@ -1949,7 +1949,7 @@ Public Class SSCPManagersTools
             txtPollutantCount.Text = dgvPollutantFacilities.RowCount.ToString
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub RunACCStats()
@@ -2257,7 +2257,7 @@ Public Class SSCPManagersTools
             dr.Close()
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -2269,7 +2269,7 @@ Public Class SSCPManagersTools
 
             LoadCMSUniverse()
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
     End Sub
@@ -2287,7 +2287,7 @@ Public Class SSCPManagersTools
             FacilitySummary.LoadInitialData()
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
     End Sub
@@ -2306,7 +2306,7 @@ Public Class SSCPManagersTools
             'FacilitySummary.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
     End Sub
@@ -2314,7 +2314,7 @@ Public Class SSCPManagersTools
         Try
             AddFacilityToCMS()
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
     End Sub
@@ -2322,7 +2322,7 @@ Public Class SSCPManagersTools
         Try
             RemoveFacilityFromCMS()
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
     End Sub
@@ -2330,7 +2330,7 @@ Public Class SSCPManagersTools
         Try
             RunInspectionReport()
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
     End Sub
@@ -2348,7 +2348,7 @@ Public Class SSCPManagersTools
                 End If
             End If
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub txtCMSAIRSNumber_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtCMSAIRSNumber.TextChanged
@@ -2410,7 +2410,7 @@ Public Class SSCPManagersTools
 
             End If
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
     End Sub
@@ -2476,7 +2476,7 @@ Public Class SSCPManagersTools
                 End If
             End If
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
     End Sub
@@ -2530,7 +2530,7 @@ Public Class SSCPManagersTools
 
             End If
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
 
@@ -2540,7 +2540,7 @@ Public Class SSCPManagersTools
 
             RunCMSWarningReport()
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
     End Sub
@@ -2550,7 +2550,7 @@ Public Class SSCPManagersTools
                 PrintStaffReport()
             End If
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub btnViewFacilities_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnViewFacilities.Click
@@ -2559,7 +2559,7 @@ Public Class SSCPManagersTools
             FilterPollutantSearch()
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub btnEditAirProgramPollutants_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEditAirProgramPollutants.Click
@@ -2574,7 +2574,7 @@ Public Class SSCPManagersTools
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
     End Sub
@@ -2591,7 +2591,7 @@ Public Class SSCPManagersTools
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
     End Sub
@@ -2601,7 +2601,7 @@ Public Class SSCPManagersTools
             RunACCStats()
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 #Region "ACC Subs and Functions"
@@ -2686,7 +2686,7 @@ Public Class SSCPManagersTools
 
             txtStatisticalCount.Text = dgvStatisticalReports.RowCount.ToString
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub ViewACCReporting()
@@ -2768,7 +2768,7 @@ Public Class SSCPManagersTools
 
             txtStatisticalCount.Text = dgvStatisticalReports.RowCount.ToString
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub ViewACCRequiringResubmittal()
@@ -2853,7 +2853,7 @@ Public Class SSCPManagersTools
             txtStatisticalCount.Text = dgvStatisticalReports.RowCount.ToString
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub ViewACCSubmittedLate()
@@ -2938,7 +2938,7 @@ Public Class SSCPManagersTools
             txtStatisticalCount.Text = dgvStatisticalReports.RowCount.ToString
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub ViewACCDeviationsReported()
@@ -3026,7 +3026,7 @@ Public Class SSCPManagersTools
 
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub ViewACCDeviationsReportedCorrectly()
@@ -3115,7 +3115,7 @@ Public Class SSCPManagersTools
 
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub ViewACCDeviationsReportedIncorrectly()
@@ -3205,7 +3205,7 @@ Public Class SSCPManagersTools
 
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub ViewACCDeviationsInFinal()
@@ -3291,7 +3291,7 @@ Public Class SSCPManagersTools
 
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub ViewACCDeviationsNotReported()
@@ -3376,7 +3376,7 @@ Public Class SSCPManagersTools
             txtStatisticalCount.Text = dgvStatisticalReports.RowCount.ToString
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub ViewACCEnforcementTaken()
@@ -3465,7 +3465,7 @@ Public Class SSCPManagersTools
             txtStatisticalCount.Text = dgvStatisticalReports.RowCount.ToString
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub ViewACCCOTaken()
@@ -3552,7 +3552,7 @@ Public Class SSCPManagersTools
             txtStatisticalCount.Text = dgvStatisticalReports.RowCount.ToString
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub ViewACCNOVTaken()
@@ -3639,7 +3639,7 @@ Public Class SSCPManagersTools
             txtStatisticalCount.Text = dgvStatisticalReports.RowCount.ToString
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub ViewACCLONTaken()
@@ -3726,7 +3726,7 @@ Public Class SSCPManagersTools
             txtStatisticalCount.Text = dgvStatisticalReports.RowCount.ToString
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -3739,7 +3739,7 @@ Public Class SSCPManagersTools
             ViewACCTotalAssigned()
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub llbACCReporting_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbACCReporting.LinkClicked
@@ -3748,7 +3748,7 @@ Public Class SSCPManagersTools
             ViewACCReporting()
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub llbACCRequiringResubmittal_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbACCRequiringResubmittal.LinkClicked
@@ -3757,7 +3757,7 @@ Public Class SSCPManagersTools
             ViewACCRequiringResubmittal()
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub llbACCSubmittedLate_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbACCSubmittedLate.LinkClicked
@@ -3766,7 +3766,7 @@ Public Class SSCPManagersTools
             ViewACCSubmittedLate()
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub llbACCDeviationsReported_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbACCDeviationsReported.LinkClicked
@@ -3775,7 +3775,7 @@ Public Class SSCPManagersTools
             ViewACCDeviationsReported()
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub llbACCDeviationsReportedCorrectly_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbACCDeviationsReportedCorrectly.LinkClicked
@@ -3784,7 +3784,7 @@ Public Class SSCPManagersTools
             ViewACCDeviationsReportedCorrectly()
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub llbACCDeviationsIncorrectlyReported_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbACCDeviationsIncorrectlyReported.LinkClicked
@@ -3793,7 +3793,7 @@ Public Class SSCPManagersTools
             ViewACCDeviationsReportedIncorrectly()
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub llbACCDeviationsInFinal_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbACCDeviationsInFinal.LinkClicked
@@ -3802,7 +3802,7 @@ Public Class SSCPManagersTools
             ViewACCDeviationsInFinal()
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub llbACCDeviationsNotReported_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbACCDeviationsNotReported.LinkClicked
@@ -3811,7 +3811,7 @@ Public Class SSCPManagersTools
             ViewACCDeviationsNotReported()
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub llbACCEnforcementTaken_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbACCEnforcementTaken.LinkClicked
@@ -3820,7 +3820,7 @@ Public Class SSCPManagersTools
             ViewACCEnforcementTaken()
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub llbACCCOTaken_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbACCCOTaken.LinkClicked
@@ -3829,7 +3829,7 @@ Public Class SSCPManagersTools
             ViewACCCOTaken()
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub llbACCNOVTaken_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbACCNOVTaken.LinkClicked
@@ -3838,7 +3838,7 @@ Public Class SSCPManagersTools
             ViewACCNOVTaken()
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub llbACCLONTaken_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbACCLONTaken.LinkClicked
@@ -3847,7 +3847,7 @@ Public Class SSCPManagersTools
             ViewACCLONTaken()
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 #End Region
@@ -3910,7 +3910,7 @@ Public Class SSCPManagersTools
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub llbViewEnforcements_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbViewEnforcements.LinkClicked
@@ -3982,7 +3982,7 @@ Public Class SSCPManagersTools
 
             End If
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub chbUseEnforcementDateRange_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chbUseEnforcementDateRange.CheckedChanged
@@ -3996,7 +3996,7 @@ Public Class SSCPManagersTools
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub dgvStatisticalReports_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvStatisticalReports.MouseUp
@@ -4040,7 +4040,7 @@ Public Class SSCPManagersTools
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
     End Sub
@@ -4062,7 +4062,7 @@ Public Class SSCPManagersTools
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub OpenFacilitySummary()
@@ -4101,7 +4101,7 @@ Public Class SSCPManagersTools
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
     End Sub
@@ -4144,7 +4144,7 @@ Public Class SSCPManagersTools
                 End If
             End If
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
     End Sub
@@ -4181,7 +4181,7 @@ Public Class SSCPManagersTools
                 MsgBox("Tracking Number is not in the system.", MsgBoxStyle.Information, "SSCP Managers Tools")
             End If
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
     End Sub
@@ -4203,7 +4203,7 @@ Public Class SSCPManagersTools
 
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub btnViewWatchListFacilities_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnViewWatchListFacilities.Click
@@ -4295,7 +4295,7 @@ Public Class SSCPManagersTools
             lblWatchListCount.Text = "Count: " & dgvWatchList.RowCount.ToString
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub LoadFacilitySearch(ByVal Location As String)
@@ -4687,7 +4687,7 @@ Public Class SSCPManagersTools
             LoadFacilitySearch("Filter")
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub cboFacSearch1_SelectedValueChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles cboFacSearch1.SelectedValueChanged
@@ -4728,7 +4728,7 @@ Public Class SSCPManagersTools
             End Select
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub cboFacSearch2_SelectedValueChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles cboFacSearch2.SelectedValueChanged
@@ -4769,7 +4769,7 @@ Public Class SSCPManagersTools
             End Select
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub btnSelectFacility_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSelectFacility.Click
@@ -4935,7 +4935,7 @@ Public Class SSCPManagersTools
             lblSelectedCount.Text = "Count: " & dgvSelectedFacilityList.Rows.Count.ToString
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub btnSelectAllFacilities_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSelectAllFacilities.Click
@@ -5032,7 +5032,7 @@ Public Class SSCPManagersTools
             lblSelectedCount.Text = "Count: " & dgvSelectedFacilityList.Rows.Count.ToString
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub btnUnselectFacility_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnUnselectFacility.Click
@@ -5044,7 +5044,7 @@ Public Class SSCPManagersTools
             lblSelectedCount.Text = "Count: " & dgvSelectedFacilityList.Rows.Count.ToString
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub btnUnselectAllFacilities_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnUnselectAllFacilities.Click
@@ -5055,7 +5055,7 @@ Public Class SSCPManagersTools
             lblSelectedCount.Text = "Count: " & dgvSelectedFacilityList.Rows.Count.ToString
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub btnClearManualAIRSNum_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnClearManualAIRSNum.Click
@@ -5064,14 +5064,14 @@ Public Class SSCPManagersTools
             txtManualAIRSNumber.Clear()
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub btnFilterManualAIRSList_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnFilterManualAIRSList.Click
         Try
             LoadFacilitySearch("Manual")
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub btnSaveEngineerResponsibility_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSaveEngineerResponsibility.Click
@@ -5136,7 +5136,7 @@ Public Class SSCPManagersTools
             MsgBox("Assignment(s) Completed", MsgBoxStyle.Information, "Managers Tools")
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub btnSaveSSCPUnitAssignment_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSaveSSCPUnitAssignment.Click
@@ -5198,7 +5198,7 @@ Public Class SSCPManagersTools
             MsgBox("Unit Assignment(s) Completed", MsgBoxStyle.Information, "Managers Tools")
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub btnSaveDistResponsible_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSaveDistResponsible.Click
@@ -5327,7 +5327,7 @@ Public Class SSCPManagersTools
             MsgBox("Inspection(s) Completed", MsgBoxStyle.Information, "Managers Tools")
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub btnSaveFCEReq_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSaveFCEReq.Click
@@ -5396,7 +5396,7 @@ Public Class SSCPManagersTools
             MsgBox("FCE(s) Completed", MsgBoxStyle.Information, "Managers Tools")
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub btnSaveAllSettings_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSaveAllSettings.Click
@@ -5518,7 +5518,7 @@ Public Class SSCPManagersTools
             MsgBox("Unit Assignment(s) Completed", MsgBoxStyle.Information, "Managers Tools")
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub btnForceAIRSNumber_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnForceAIRSNumber.Click
@@ -5598,7 +5598,7 @@ Public Class SSCPManagersTools
 
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub btnClearEngineerAssignment_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnClearEngineerAssignment.Click
@@ -5660,7 +5660,7 @@ Public Class SSCPManagersTools
             MsgBox("Assignment(s) Cleared", MsgBoxStyle.Information, "Managers Tools")
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub btnClearSSCPUnitAssignment_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnClearSSCPUnitAssignment.Click
@@ -5719,7 +5719,7 @@ Public Class SSCPManagersTools
             MsgBox("Unit Assignment(s) Completed", MsgBoxStyle.Information, "Managers Tools")
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub btnSaveCMS_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSaveCMS.Click
@@ -5764,7 +5764,7 @@ Public Class SSCPManagersTools
             MsgBox("Compliance Monitoring Strategy Updated", MsgBoxStyle.Information, "Managers Tools")
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub cboFiscalYear_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles cboFiscalYear.TextChanged
@@ -5780,7 +5780,7 @@ Public Class SSCPManagersTools
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub btnCopyYear_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCopyYear.Click
@@ -5905,7 +5905,7 @@ Public Class SSCPManagersTools
             MsgBox("New data entered into desired year.", MsgBoxStyle.Information, Me.Text)
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -5999,7 +5999,7 @@ Public Class SSCPManagersTools
             dr.Close()
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -6105,11 +6105,11 @@ Public Class SSCPManagersTools
             txtStatisticalCount.Text = dgvStatisticalReports.RowCount.ToString
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-     
+
     Private Sub btnRunComplianceReport_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnRunComplianceReport.Click
         Try
             SQL = "select " & _
@@ -6196,7 +6196,7 @@ Public Class SSCPManagersTools
 
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -6208,7 +6208,7 @@ Public Class SSCPManagersTools
                 txtManualAIRSNumber.SelectAll()
             End If
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try

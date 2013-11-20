@@ -208,7 +208,7 @@ Partial Class ISMPStaffReports
         Me.DTPUnitEnd.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.DTPUnitEnd.Location = New System.Drawing.Point(150, 21)
         Me.DTPUnitEnd.Name = "DTPUnitEnd"
-        Me.DTPUnitEnd.Size = New System.Drawing.Size(112, 20)
+        Me.DTPUnitEnd.Size = New System.Drawing.Size(100, 20)
         Me.DTPUnitEnd.TabIndex = 148
         Me.DTPUnitEnd.Value = New Date(2005, 8, 23, 0, 0, 0, 0)
         '
@@ -218,7 +218,7 @@ Partial Class ISMPStaffReports
         Me.DTPUnitStart.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.DTPUnitStart.Location = New System.Drawing.Point(30, 21)
         Me.DTPUnitStart.Name = "DTPUnitStart"
-        Me.DTPUnitStart.Size = New System.Drawing.Size(104, 20)
+        Me.DTPUnitStart.Size = New System.Drawing.Size(100, 20)
         Me.DTPUnitStart.TabIndex = 147
         Me.DTPUnitStart.Value = New Date(2005, 8, 23, 0, 0, 0, 0)
         '

@@ -470,7 +470,7 @@ Partial Class SSPPApplicationLog
         Me.DTPSearchDate2.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.DTPSearchDate2.Location = New System.Drawing.Point(368, 48)
         Me.DTPSearchDate2.Name = "DTPSearchDate2"
-        Me.DTPSearchDate2.Size = New System.Drawing.Size(104, 20)
+        Me.DTPSearchDate2.Size = New System.Drawing.Size(100, 20)
         Me.DTPSearchDate2.TabIndex = 3
         Me.DTPSearchDate2.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
         Me.DTPSearchDate2.Visible = False
@@ -487,7 +487,7 @@ Partial Class SSPPApplicationLog
         Me.DTPSearchDate1.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.DTPSearchDate1.Location = New System.Drawing.Point(76, 48)
         Me.DTPSearchDate1.Name = "DTPSearchDate1"
-        Me.DTPSearchDate1.Size = New System.Drawing.Size(104, 20)
+        Me.DTPSearchDate1.Size = New System.Drawing.Size(100, 20)
         Me.DTPSearchDate1.TabIndex = 1
         Me.DTPSearchDate1.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
         Me.DTPSearchDate1.Visible = False
@@ -580,7 +580,7 @@ Partial Class SSPPApplicationLog
         Me.DTPSearchDate1b.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.DTPSearchDate1b.Location = New System.Drawing.Point(187, 48)
         Me.DTPSearchDate1b.Name = "DTPSearchDate1b"
-        Me.DTPSearchDate1b.Size = New System.Drawing.Size(104, 20)
+        Me.DTPSearchDate1b.Size = New System.Drawing.Size(100, 20)
         Me.DTPSearchDate1b.TabIndex = 1
         Me.DTPSearchDate1b.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
         Me.DTPSearchDate1b.Visible = False
@@ -783,7 +783,7 @@ Partial Class SSPPApplicationLog
         Me.DTPSearchDate2b.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.DTPSearchDate2b.Location = New System.Drawing.Point(478, 48)
         Me.DTPSearchDate2b.Name = "DTPSearchDate2b"
-        Me.DTPSearchDate2b.Size = New System.Drawing.Size(104, 20)
+        Me.DTPSearchDate2b.Size = New System.Drawing.Size(100, 20)
         Me.DTPSearchDate2b.TabIndex = 3
         Me.DTPSearchDate2b.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
         Me.DTPSearchDate2b.Visible = False

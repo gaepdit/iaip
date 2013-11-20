@@ -402,7 +402,7 @@ Partial Class MASPRegistrationTool
         Me.DTPEventEndDate.Location = New System.Drawing.Point(269, 98)
         Me.DTPEventEndDate.Name = "DTPEventEndDate"
         Me.DTPEventEndDate.ShowCheckBox = True
-        Me.DTPEventEndDate.Size = New System.Drawing.Size(107, 20)
+        Me.DTPEventEndDate.Size = New System.Drawing.Size(120, 20)
         Me.DTPEventEndDate.TabIndex = 446
         '
         'btnClearEventManagement
@@ -672,7 +672,7 @@ Partial Class MASPRegistrationTool
         Me.DTPEventDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.DTPEventDate.Location = New System.Drawing.Point(71, 98)
         Me.DTPEventDate.Name = "DTPEventDate"
-        Me.DTPEventDate.Size = New System.Drawing.Size(89, 20)
+        Me.DTPEventDate.Size = New System.Drawing.Size(100, 20)
         Me.DTPEventDate.TabIndex = 3
         '
         'Label5
@@ -1270,7 +1270,7 @@ Partial Class MASPRegistrationTool
         Me.DTPRegDateRegistered.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.DTPRegDateRegistered.Location = New System.Drawing.Point(102, 24)
         Me.DTPRegDateRegistered.Name = "DTPRegDateRegistered"
-        Me.DTPRegDateRegistered.Size = New System.Drawing.Size(147, 20)
+        Me.DTPRegDateRegistered.Size = New System.Drawing.Size(163, 20)
         Me.DTPRegDateRegistered.TabIndex = 460
         '
         'Label31
