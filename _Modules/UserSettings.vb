@@ -4,6 +4,7 @@
     Friend Enum UserSetting As Byte
         ExcelExportLocation
         PermitUploadLocation
+        EnforcementUploadLocation
         FileDownloadLocation
         PrefillLoginId
     End Enum
@@ -14,6 +15,7 @@
 
             Case UserSetting.ExcelExportLocation, _
                 UserSetting.PermitUploadLocation, _
+                UserSetting.EnforcementUploadLocation, _
                 UserSetting.FileDownloadLocation
                 Return Environment.GetFolderPath(Environment.SpecialFolder.Personal)
 

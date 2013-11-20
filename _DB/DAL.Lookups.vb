@@ -6,9 +6,19 @@ Namespace DAL
 
         Public Function GetPermitDocumentTypes() As Dictionary(Of Integer, String)
             Dim query As String = "SELECT DOCUMENTTYPEID, " & _
-                "STRDOCUMENTTYPE " & _
-                "FROM AIRBRANCH.IAIP_LK_SSPPDOCUMENTTYPE " & _
-                "WHERE FACTIVE = 'Y'"
+                " STRDOCUMENTTYPE " & _
+                " FROM AIRBRANCH.IAIP_LK_SSPPDOCUMENTTYPE " & _
+                " WHERE FACTIVE = 'Y' " & _
+                " ORDER BY NUMORDINAL, STRDOCUMENTTYPE "
+            Return GetLookupDictionary(query)
+        End Function
+
+        Public Function GetEnforcementDocumentTypes() As Dictionary(Of Integer, String)
+            Dim query As String = "SELECT DOCUMENTTYPEID, " & _
+                " STRDOCUMENTTYPE " & _
+                " FROM AIRBRANCH.IAIP_LK_SSCPDOCUMENTTYPE " & _
+                " WHERE FACTIVE = 'Y' " & _
+                " ORDER BY NUMORDINAL, STRDOCUMENTTYPE "
             Return GetLookupDictionary(query)
         End Function
 
