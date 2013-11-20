@@ -588,7 +588,7 @@ Partial Class PASPFeeManagement
         'Label19
         '
         Me.Label19.AutoSize = True
-        Me.Label19.Location = New System.Drawing.Point(228, 243)
+        Me.Label19.Location = New System.Drawing.Point(232, 219)
         Me.Label19.Name = "Label19"
         Me.Label19.Size = New System.Drawing.Size(15, 13)
         Me.Label19.TabIndex = 413
@@ -724,9 +724,9 @@ Partial Class PASPFeeManagement
         '
         Me.dtpFeePeriodStart.CustomFormat = "dd-MMM-yyyy"
         Me.dtpFeePeriodStart.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpFeePeriodStart.Location = New System.Drawing.Point(42, 51)
+        Me.dtpFeePeriodStart.Location = New System.Drawing.Point(28, 51)
         Me.dtpFeePeriodStart.Name = "dtpFeePeriodStart"
-        Me.dtpFeePeriodStart.Size = New System.Drawing.Size(86, 20)
+        Me.dtpFeePeriodStart.Size = New System.Drawing.Size(100, 20)
         Me.dtpFeePeriodStart.TabIndex = 5
         '
         'txtAdminFeePercent
@@ -742,7 +742,7 @@ Partial Class PASPFeeManagement
         Me.dtpFeePeriodEnd.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.dtpFeePeriodEnd.Location = New System.Drawing.Point(134, 51)
         Me.dtpFeePeriodEnd.Name = "dtpFeePeriodEnd"
-        Me.dtpFeePeriodEnd.Size = New System.Drawing.Size(89, 20)
+        Me.dtpFeePeriodEnd.Size = New System.Drawing.Size(100, 20)
         Me.dtpFeePeriodEnd.TabIndex = 6
         '
         'Label55
@@ -757,7 +757,7 @@ Partial Class PASPFeeManagement
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(43, 74)
+        Me.Label3.Location = New System.Drawing.Point(27, 74)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(29, 13)
         Me.Label3.TabIndex = 401
@@ -1388,7 +1388,7 @@ Partial Class PASPFeeManagement
         Me.dtpDateMailoutSent.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.dtpDateMailoutSent.Location = New System.Drawing.Point(690, 15)
         Me.dtpDateMailoutSent.Name = "dtpDateMailoutSent"
-        Me.dtpDateMailoutSent.Size = New System.Drawing.Size(86, 20)
+        Me.dtpDateMailoutSent.Size = New System.Drawing.Size(100, 20)
         Me.dtpDateMailoutSent.TabIndex = 467
         '
         'btnViewFacilitiesSubjectToFees

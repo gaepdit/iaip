@@ -48,14 +48,14 @@ Public Class IAIPLookUpTables
             dgvApplicationType.Columns("strApplicationTypeUsed").Width = dgvApplicationType.Width * 0.5
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub btnLoadApplicationTypes_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnLoadApplicationTypes.Click
         Try
             LoadApplicationTypes()
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub dgvApplicationType_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvApplicationType.MouseUp
@@ -83,7 +83,7 @@ Public Class IAIPLookUpTables
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
     End Sub
@@ -95,7 +95,7 @@ Public Class IAIPLookUpTables
             chbActiveAppType.Checked = False
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub btnAddEditAppType_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAddNewAppType.Click
@@ -146,7 +146,7 @@ Public Class IAIPLookUpTables
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub btnEditAppType_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEditAppType.Click
@@ -178,7 +178,7 @@ Public Class IAIPLookUpTables
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub btnDeleteAppType_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDeleteAppType.Click
@@ -226,7 +226,7 @@ Public Class IAIPLookUpTables
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 #End Region
@@ -272,7 +272,7 @@ Public Class IAIPLookUpTables
             LoadAPBManagement()
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub LoadMangementCombo()
@@ -313,7 +313,7 @@ Public Class IAIPLookUpTables
             cboManagementType.Items.Add("PMI SSPP VOC")
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub LoadAPBManagement()
@@ -438,7 +438,7 @@ Public Class IAIPLookUpTables
             dgvLookUpManagement.Columns("strCurrentContact").Visible = False
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub dgvLookUpManagement_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvLookUpManagement.MouseUp
@@ -454,7 +454,7 @@ Public Class IAIPLookUpTables
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub LoadManagementID()
@@ -565,7 +565,7 @@ Public Class IAIPLookUpTables
                 End Select
             End If
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub chbAPBMangementVacant_CheckedChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles chbAPBMangementVacant.CheckedChanged
@@ -576,7 +576,7 @@ Public Class IAIPLookUpTables
 
             End If
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub SaveAPBManagement()
@@ -707,14 +707,14 @@ Public Class IAIPLookUpTables
 
             LoadAPBManagement()
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub btnSaveAPBManagement_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSaveAPBManagement.Click
         Try
             SaveAPBManagement()
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
     End Sub
@@ -726,7 +726,7 @@ Public Class IAIPLookUpTables
             cboManagementType.Text = ""
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub btnViewAllPastTypes_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnViewAllPastTypes.Click
@@ -927,7 +927,7 @@ Public Class IAIPLookUpTables
             dgvLookUpManagement.Columns("strCurrentContact").Visible = False
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 

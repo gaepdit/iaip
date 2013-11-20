@@ -43,7 +43,7 @@ Module CodeFile
             Return True
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), "CodeFile." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, "CodeFile." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
     End Function
@@ -150,7 +150,7 @@ Module CodeFile
             Return True
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), "CodeFile." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, "CodeFile." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
     End Function
@@ -253,7 +253,7 @@ Module CodeFile
             Return True
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), "CodeFile." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, "CodeFile." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Function
     Function Update_FS_FeeRate(ByVal FeeRateID As String, ByVal FeeYear As String, ByVal PeriodStart As String, _
@@ -364,7 +364,7 @@ Module CodeFile
 
             Return True
         Catch ex As Exception
-            ErrorReport(ex.ToString(), "CodeFile." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, "CodeFile." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Function
     Function Insert_FSLK_NSPSReason(ByVal Description As String) As Boolean
@@ -386,7 +386,7 @@ Module CodeFile
             Return True
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), "CodeFile." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, "CodeFile." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Function
     Function Update_FSLK_NSPSReason(ByVal NSPSReasonCode As String, ByVal Description As String, ByVal ActiveStatus As String) As Boolean
@@ -416,7 +416,7 @@ Module CodeFile
             Return True
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), "CodeFile." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, "CodeFile." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Function
     Function Insert_FSLK_NSPSReasonYear(ByVal numFeeYear As String, ByVal NSPSReasonCode As String, ByVal DisplayOrder As String) As Boolean
@@ -435,7 +435,7 @@ Module CodeFile
             dr = cmd.ExecuteReader
             dr.Close()
         Catch ex As Exception
-            ErrorReport(ex.ToString(), "CodeFile." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, "CodeFile." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Function
     Function Update_FSLK_NSPSReasonYear(ByVal numFeeYear As String, ByVal NSPSReasonCode As String, ByVal DisplayOrder As String, _
@@ -458,7 +458,7 @@ Module CodeFile
             dr.Close()
             Return True
         Catch ex As Exception
-            ErrorReport(ex.ToString(), "CodeFile." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, "CodeFile." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Function
     Function Insert_FS_Admin(ByVal FeeYear As String, ByVal AIRSNumber As String, _
@@ -597,7 +597,7 @@ Module CodeFile
             Return True
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), "CodeFile." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, "CodeFile." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Function
     Function Update_FS_Admin(ByVal FeeYear As String, ByVal AIRSNumber As String, _
@@ -674,7 +674,7 @@ Module CodeFile
             Else
                 SQL = SQL & "strComment = '" & Replace(Comment, "'", "''") & "', "
             End If
-           
+
             If SQL = "" Then
                 Return False
             Else
@@ -748,7 +748,7 @@ Module CodeFile
             Return True
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), "CodeFile." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, "CodeFile." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Function
     Function Update_FS_Admin_Status(ByVal FeeYear As String, ByVal AIRSNumber As String) As Boolean
@@ -766,7 +766,7 @@ Module CodeFile
             cmd.ExecuteNonQuery()
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), "CodeFile." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, "CodeFile." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Function
     Function Insert_FS_Mailout(ByVal FeeYear As String, ByVal AIRSNumber As String, _
@@ -840,7 +840,7 @@ Module CodeFile
             Return True
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), "CodeFile." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, "CodeFile." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Function
     Function Update_FS_Mailout(ByVal FeeYear As String, ByVal AIRSNumber As String, _
@@ -989,7 +989,7 @@ Module CodeFile
             Return True
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), "CodeFile." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, "CodeFile." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Function
     Function Validate_FS_Invoices(ByVal FeeYear As String, ByVal AIRSNumber As String) As Boolean
@@ -1026,7 +1026,7 @@ Module CodeFile
             Return True
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), "CodeFile." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, "CodeFile." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Function
     Function Insert_REG_Event(ByVal EventStatusCode As String, ByVal Title As String, _
@@ -1062,7 +1062,7 @@ Module CodeFile
 
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), "CodeFile." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, "CodeFile." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Function
     Function Insert_RES_Event(ByVal EventStatusCode As String, ByVal Title As String, _
@@ -1163,7 +1163,7 @@ Module CodeFile
             Return EventID
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), "CodeFile." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, "CodeFile." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
         Return ""
     End Function
@@ -1327,7 +1327,7 @@ Module CodeFile
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), "CodeFile." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, "CodeFile." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Function
     Function Update_RES_Registration(ByVal RegistrationID As String, ByVal Confirmation As String, _
@@ -1348,7 +1348,7 @@ Module CodeFile
             dr.Close()
             Return True
         Catch ex As Exception
-            ErrorReport(ex.ToString(), "CodeFile." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, "CodeFile." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Function
     Function ValidateNAICS(ByVal NAICSCode As String) As Boolean
@@ -1372,7 +1372,7 @@ Module CodeFile
             dr.Close()
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), "CodeFile." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, "CodeFile." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Function
     Function ValidateSIC(ByVal SICCode As String) As Boolean
@@ -1397,7 +1397,7 @@ Module CodeFile
             dr.Close()
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), "CodeFile." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, "CodeFile." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Function
 

@@ -21,12 +21,12 @@ Partial Class SSPPApplicationTrackingLog
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(SSPPApplicationTrackingLog))
-        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle12 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
         Me.MainMenu1 = New System.Windows.Forms.MainMenu(Me.components)
         Me.MmiFile = New System.Windows.Forms.MenuItem
         Me.mmiSave = New System.Windows.Forms.MenuItem
@@ -4361,7 +4361,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.DTPPNExpires.Location = New System.Drawing.Point(209, 77)
         Me.DTPPNExpires.Name = "DTPPNExpires"
         Me.DTPPNExpires.ShowCheckBox = True
-        Me.DTPPNExpires.Size = New System.Drawing.Size(135, 22)
+        Me.DTPPNExpires.Size = New System.Drawing.Size(120, 22)
         Me.DTPPNExpires.TabIndex = 72
         Me.DTPPNExpires.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
         '
@@ -4438,7 +4438,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.DTPExperationDate.Location = New System.Drawing.Point(209, 248)
         Me.DTPExperationDate.Name = "DTPExperationDate"
         Me.DTPExperationDate.ShowCheckBox = True
-        Me.DTPExperationDate.Size = New System.Drawing.Size(135, 22)
+        Me.DTPExperationDate.Size = New System.Drawing.Size(120, 22)
         Me.DTPExperationDate.TabIndex = 77
         Me.DTPExperationDate.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
         Me.DTPExperationDate.Visible = False
@@ -4462,7 +4462,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.DTPNotifiedAppReceived.Location = New System.Drawing.Point(209, 10)
         Me.DTPNotifiedAppReceived.Name = "DTPNotifiedAppReceived"
         Me.DTPNotifiedAppReceived.ShowCheckBox = True
-        Me.DTPNotifiedAppReceived.Size = New System.Drawing.Size(135, 22)
+        Me.DTPNotifiedAppReceived.Size = New System.Drawing.Size(120, 22)
         Me.DTPNotifiedAppReceived.TabIndex = 70
         Me.DTPNotifiedAppReceived.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
         '
@@ -4505,7 +4505,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.DTPEffectiveDateofPermit.Location = New System.Drawing.Point(209, 205)
         Me.DTPEffectiveDateofPermit.Name = "DTPEffectiveDateofPermit"
         Me.DTPEffectiveDateofPermit.ShowCheckBox = True
-        Me.DTPEffectiveDateofPermit.Size = New System.Drawing.Size(135, 22)
+        Me.DTPEffectiveDateofPermit.Size = New System.Drawing.Size(120, 22)
         Me.DTPEffectiveDateofPermit.TabIndex = 76
         Me.DTPEffectiveDateofPermit.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
         '
@@ -4519,7 +4519,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.DTPEPANotifiedPermitOnWeb.Location = New System.Drawing.Point(209, 173)
         Me.DTPEPANotifiedPermitOnWeb.Name = "DTPEPANotifiedPermitOnWeb"
         Me.DTPEPANotifiedPermitOnWeb.ShowCheckBox = True
-        Me.DTPEPANotifiedPermitOnWeb.Size = New System.Drawing.Size(135, 22)
+        Me.DTPEPANotifiedPermitOnWeb.Size = New System.Drawing.Size(120, 22)
         Me.DTPEPANotifiedPermitOnWeb.TabIndex = 75
         Me.DTPEPANotifiedPermitOnWeb.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
         '
@@ -4533,7 +4533,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.DTPFinalOnWeb.Location = New System.Drawing.Point(209, 141)
         Me.DTPFinalOnWeb.Name = "DTPFinalOnWeb"
         Me.DTPFinalOnWeb.ShowCheckBox = True
-        Me.DTPFinalOnWeb.Size = New System.Drawing.Size(135, 22)
+        Me.DTPFinalOnWeb.Size = New System.Drawing.Size(120, 22)
         Me.DTPFinalOnWeb.TabIndex = 74
         Me.DTPFinalOnWeb.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
         '
@@ -4547,7 +4547,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.DTPEPAStatesNotified.Location = New System.Drawing.Point(209, 109)
         Me.DTPEPAStatesNotified.Name = "DTPEPAStatesNotified"
         Me.DTPEPAStatesNotified.ShowCheckBox = True
-        Me.DTPEPAStatesNotified.Size = New System.Drawing.Size(135, 22)
+        Me.DTPEPAStatesNotified.Size = New System.Drawing.Size(120, 22)
         Me.DTPEPAStatesNotified.TabIndex = 73
         Me.DTPEPAStatesNotified.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
         '
@@ -4561,7 +4561,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.DTPDraftOnWeb.Location = New System.Drawing.Point(209, 45)
         Me.DTPDraftOnWeb.Name = "DTPDraftOnWeb"
         Me.DTPDraftOnWeb.ShowCheckBox = True
-        Me.DTPDraftOnWeb.Size = New System.Drawing.Size(135, 22)
+        Me.DTPDraftOnWeb.Size = New System.Drawing.Size(120, 22)
         Me.DTPDraftOnWeb.TabIndex = 71
         Me.DTPDraftOnWeb.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
         '
@@ -4581,35 +4581,35 @@ Partial Class SSPPApplicationTrackingLog
         Me.dgvInformationRequested.AllowUserToAddRows = False
         Me.dgvInformationRequested.AllowUserToDeleteRows = False
         Me.dgvInformationRequested.AllowUserToOrderColumns = True
-        DataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle7.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvInformationRequested.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle7
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvInformationRequested.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
         Me.dgvInformationRequested.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle8.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvInformationRequested.DefaultCellStyle = DataGridViewCellStyle8
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvInformationRequested.DefaultCellStyle = DataGridViewCellStyle2
         Me.dgvInformationRequested.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvInformationRequested.Location = New System.Drawing.Point(0, 0)
         Me.dgvInformationRequested.Name = "dgvInformationRequested"
         Me.dgvInformationRequested.ReadOnly = True
-        DataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle9.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvInformationRequested.RowHeadersDefaultCellStyle = DataGridViewCellStyle9
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvInformationRequested.RowHeadersDefaultCellStyle = DataGridViewCellStyle3
         Me.dgvInformationRequested.Size = New System.Drawing.Size(784, 256)
         Me.dgvInformationRequested.TabIndex = 2
         '
@@ -4741,7 +4741,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.DTPInformationReceived.Checked = False
         Me.DTPInformationReceived.CustomFormat = "dd-MMM-yyyy"
         Me.DTPInformationReceived.Enabled = False
-        Me.DTPInformationReceived.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.DTPInformationReceived.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.5!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.DTPInformationReceived.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.DTPInformationReceived.Location = New System.Drawing.Point(340, 37)
         Me.DTPInformationReceived.Name = "DTPInformationReceived"
@@ -4756,7 +4756,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.DTPInformationRequested.Checked = False
         Me.DTPInformationRequested.CustomFormat = "dd-MMM-yyyy"
         Me.DTPInformationRequested.Enabled = False
-        Me.DTPInformationRequested.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.DTPInformationRequested.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.5!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.DTPInformationRequested.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.DTPInformationRequested.Location = New System.Drawing.Point(100, 37)
         Me.DTPInformationRequested.Name = "DTPInformationRequested"
@@ -4781,35 +4781,35 @@ Partial Class SSPPApplicationTrackingLog
         Me.dgvFacilityAppHistory.AllowUserToAddRows = False
         Me.dgvFacilityAppHistory.AllowUserToDeleteRows = False
         Me.dgvFacilityAppHistory.AllowUserToOrderColumns = True
-        DataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle10.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvFacilityAppHistory.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle10
+        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle4.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvFacilityAppHistory.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle4
         Me.dgvFacilityAppHistory.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle11.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvFacilityAppHistory.DefaultCellStyle = DataGridViewCellStyle11
+        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle5.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvFacilityAppHistory.DefaultCellStyle = DataGridViewCellStyle5
         Me.dgvFacilityAppHistory.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvFacilityAppHistory.Location = New System.Drawing.Point(0, 0)
         Me.dgvFacilityAppHistory.Name = "dgvFacilityAppHistory"
         Me.dgvFacilityAppHistory.ReadOnly = True
-        DataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle12.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle12.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle12.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvFacilityAppHistory.RowHeadersDefaultCellStyle = DataGridViewCellStyle12
+        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle6.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvFacilityAppHistory.RowHeadersDefaultCellStyle = DataGridViewCellStyle6
         Me.dgvFacilityAppHistory.Size = New System.Drawing.Size(784, 270)
         Me.dgvFacilityAppHistory.TabIndex = 2
         '
@@ -5159,12 +5159,12 @@ Partial Class SSPPApplicationTrackingLog
         Me.DTPISMPReview.Checked = False
         Me.DTPISMPReview.CustomFormat = "dd-MMM-yyyy"
         Me.DTPISMPReview.Enabled = False
-        Me.DTPISMPReview.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.DTPISMPReview.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.5!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.DTPISMPReview.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.DTPISMPReview.Location = New System.Drawing.Point(135, 21)
         Me.DTPISMPReview.Name = "DTPISMPReview"
         Me.DTPISMPReview.ShowCheckBox = True
-        Me.DTPISMPReview.Size = New System.Drawing.Size(129, 22)
+        Me.DTPISMPReview.Size = New System.Drawing.Size(120, 22)
         Me.DTPISMPReview.TabIndex = 52
         Me.DTPISMPReview.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
         '
@@ -5275,12 +5275,12 @@ Partial Class SSPPApplicationTrackingLog
         Me.DTPSSCPReview.Checked = False
         Me.DTPSSCPReview.CustomFormat = "dd-MMM-yyyy"
         Me.DTPSSCPReview.Enabled = False
-        Me.DTPSSCPReview.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.DTPSSCPReview.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.5!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.DTPSSCPReview.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.DTPSSCPReview.Location = New System.Drawing.Point(130, 13)
         Me.DTPSSCPReview.Name = "DTPSSCPReview"
         Me.DTPSSCPReview.ShowCheckBox = True
-        Me.DTPSSCPReview.Size = New System.Drawing.Size(129, 22)
+        Me.DTPSSCPReview.Size = New System.Drawing.Size(120, 22)
         Me.DTPSSCPReview.TabIndex = 47
         Me.DTPSSCPReview.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
         '
@@ -5350,12 +5350,12 @@ Partial Class SSPPApplicationTrackingLog
         Me.DTPReviewSubmitted.Checked = False
         Me.DTPReviewSubmitted.CustomFormat = "dd-MMM-yyyy"
         Me.DTPReviewSubmitted.Enabled = False
-        Me.DTPReviewSubmitted.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.DTPReviewSubmitted.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.5!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.DTPReviewSubmitted.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.DTPReviewSubmitted.Location = New System.Drawing.Point(135, 8)
         Me.DTPReviewSubmitted.Name = "DTPReviewSubmitted"
         Me.DTPReviewSubmitted.ShowCheckBox = True
-        Me.DTPReviewSubmitted.Size = New System.Drawing.Size(129, 22)
+        Me.DTPReviewSubmitted.Size = New System.Drawing.Size(120, 22)
         Me.DTPReviewSubmitted.TabIndex = 44
         Me.DTPReviewSubmitted.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
         '
@@ -5879,12 +5879,12 @@ Partial Class SSPPApplicationTrackingLog
         '
         Me.DTPDateToDO.CustomFormat = "dd-MMM-yyyy"
         Me.DTPDateToDO.Enabled = False
-        Me.DTPDateToDO.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.DTPDateToDO.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.5!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.DTPDateToDO.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DTPDateToDO.Location = New System.Drawing.Point(513, 161)
+        Me.DTPDateToDO.Location = New System.Drawing.Point(518, 161)
         Me.DTPDateToDO.Name = "DTPDateToDO"
         Me.DTPDateToDO.ShowCheckBox = True
-        Me.DTPDateToDO.Size = New System.Drawing.Size(125, 22)
+        Me.DTPDateToDO.Size = New System.Drawing.Size(120, 22)
         Me.DTPDateToDO.TabIndex = 30
         Me.DTPDateToDO.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
         '
@@ -5901,7 +5901,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         Me.DTPDateToBC.CustomFormat = "dd-MMM-yyyy"
         Me.DTPDateToBC.Enabled = False
-        Me.DTPDateToBC.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.DTPDateToBC.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.5!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.DTPDateToBC.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.DTPDateToBC.Location = New System.Drawing.Point(314, 264)
         Me.DTPDateToBC.Name = "DTPDateToBC"
@@ -5923,7 +5923,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         Me.DTPEPAEnds.CustomFormat = "dd-MMM-yyyy"
         Me.DTPEPAEnds.Enabled = False
-        Me.DTPEPAEnds.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.DTPEPAEnds.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.5!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.DTPEPAEnds.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.DTPEPAEnds.Location = New System.Drawing.Point(314, 237)
         Me.DTPEPAEnds.Name = "DTPEPAEnds"
@@ -5945,7 +5945,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         Me.DTPEPAWaived.CustomFormat = "dd-MMM-yyyy"
         Me.DTPEPAWaived.Enabled = False
-        Me.DTPEPAWaived.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.DTPEPAWaived.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.5!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.DTPEPAWaived.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.DTPEPAWaived.Location = New System.Drawing.Point(314, 212)
         Me.DTPEPAWaived.Name = "DTPEPAWaived"
@@ -6211,7 +6211,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         Me.DTPDraftIssued.CustomFormat = "dd-MMM-yyyy"
         Me.DTPDraftIssued.Enabled = False
-        Me.DTPDraftIssued.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.DTPDraftIssued.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.5!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.DTPDraftIssued.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.DTPDraftIssued.Location = New System.Drawing.Point(314, 137)
         Me.DTPDraftIssued.Name = "DTPDraftIssued"
@@ -6224,12 +6224,12 @@ Partial Class SSPPApplicationTrackingLog
         '
         Me.DTPFinalAction.CustomFormat = "dd-MMM-yyyy"
         Me.DTPFinalAction.Enabled = False
-        Me.DTPFinalAction.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.DTPFinalAction.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.5!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.DTPFinalAction.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DTPFinalAction.Location = New System.Drawing.Point(513, 185)
+        Me.DTPFinalAction.Location = New System.Drawing.Point(518, 185)
         Me.DTPFinalAction.Name = "DTPFinalAction"
         Me.DTPFinalAction.ShowCheckBox = True
-        Me.DTPFinalAction.Size = New System.Drawing.Size(125, 22)
+        Me.DTPFinalAction.Size = New System.Drawing.Size(120, 22)
         Me.DTPFinalAction.TabIndex = 31
         Me.DTPFinalAction.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
         '
@@ -6237,7 +6237,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         Me.DTPDateToPM.CustomFormat = "dd-MMM-yyyy"
         Me.DTPDateToPM.Enabled = False
-        Me.DTPDateToPM.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.DTPDateToPM.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.5!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.DTPDateToPM.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.DTPDateToPM.Location = New System.Drawing.Point(314, 113)
         Me.DTPDateToPM.Name = "DTPDateToPM"
@@ -6250,7 +6250,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         Me.DTPDateToUC.CustomFormat = "dd-MMM-yyyy"
         Me.DTPDateToUC.Enabled = False
-        Me.DTPDateToUC.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.DTPDateToUC.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.5!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.DTPDateToUC.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.DTPDateToUC.Location = New System.Drawing.Point(314, 90)
         Me.DTPDateToUC.Name = "DTPDateToUC"
@@ -6264,12 +6264,12 @@ Partial Class SSPPApplicationTrackingLog
         Me.DTPDeadline.CalendarMonthBackground = System.Drawing.SystemColors.Menu
         Me.DTPDeadline.CustomFormat = "dd-MMM-yyyy"
         Me.DTPDeadline.Enabled = False
-        Me.DTPDeadline.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.DTPDeadline.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.5!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.DTPDeadline.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DTPDeadline.Location = New System.Drawing.Point(513, 212)
+        Me.DTPDeadline.Location = New System.Drawing.Point(518, 212)
         Me.DTPDeadline.Name = "DTPDeadline"
         Me.DTPDeadline.ShowCheckBox = True
-        Me.DTPDeadline.Size = New System.Drawing.Size(125, 22)
+        Me.DTPDeadline.Size = New System.Drawing.Size(120, 22)
         Me.DTPDeadline.TabIndex = 32
         Me.DTPDeadline.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
         '
@@ -6277,7 +6277,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         Me.DTPDatePNExpires.CustomFormat = "dd-MMM-yyyy"
         Me.DTPDatePNExpires.Enabled = False
-        Me.DTPDatePNExpires.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.DTPDatePNExpires.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.5!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.DTPDatePNExpires.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.DTPDatePNExpires.Location = New System.Drawing.Point(314, 185)
         Me.DTPDatePNExpires.Name = "DTPDatePNExpires"
@@ -6290,7 +6290,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         Me.DTPDatePAExpires.CustomFormat = "dd-MMM-yyyy"
         Me.DTPDatePAExpires.Enabled = False
-        Me.DTPDatePAExpires.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.DTPDatePAExpires.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.5!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.DTPDatePAExpires.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.DTPDatePAExpires.Location = New System.Drawing.Point(84, 264)
         Me.DTPDatePAExpires.Name = "DTPDatePAExpires"
@@ -6303,7 +6303,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         Me.DTPDateAssigned.CustomFormat = "dd-MMM-yyyy"
         Me.DTPDateAssigned.Enabled = False
-        Me.DTPDateAssigned.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.DTPDateAssigned.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.5!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.DTPDateAssigned.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.DTPDateAssigned.Location = New System.Drawing.Point(84, 137)
         Me.DTPDateAssigned.Name = "DTPDateAssigned"
@@ -6316,7 +6316,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         Me.DTPDateReassigned.CustomFormat = "dd-MMM-yyyy"
         Me.DTPDateReassigned.Enabled = False
-        Me.DTPDateReassigned.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.DTPDateReassigned.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.5!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.DTPDateReassigned.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.DTPDateReassigned.Location = New System.Drawing.Point(84, 161)
         Me.DTPDateReassigned.Name = "DTPDateReassigned"
@@ -6329,7 +6329,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         Me.DTPDateAcknowledge.CustomFormat = "dd-MMM-yyyy"
         Me.DTPDateAcknowledge.Enabled = False
-        Me.DTPDateAcknowledge.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.DTPDateAcknowledge.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.5!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.DTPDateAcknowledge.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.DTPDateAcknowledge.Location = New System.Drawing.Point(84, 185)
         Me.DTPDateAcknowledge.Name = "DTPDateAcknowledge"
@@ -6342,7 +6342,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         Me.DTPDateReceived.CustomFormat = "dd-MMM-yyyy"
         Me.DTPDateReceived.Enabled = False
-        Me.DTPDateReceived.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.DTPDateReceived.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.5!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.DTPDateReceived.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.DTPDateReceived.Location = New System.Drawing.Point(84, 113)
         Me.DTPDateReceived.Name = "DTPDateReceived"
@@ -6354,7 +6354,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         Me.DTPDateSent.CustomFormat = "dd-MMM-yyyy"
         Me.DTPDateSent.Enabled = False
-        Me.DTPDateSent.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.DTPDateSent.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.5!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.DTPDateSent.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.DTPDateSent.Location = New System.Drawing.Point(84, 90)
         Me.DTPDateSent.Name = "DTPDateSent"

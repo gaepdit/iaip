@@ -31,7 +31,7 @@ Public Class IaipFacilitySummaryPrint
                 '.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
             End With
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
             If sender IsNot Nothing Then
                 sender.Cursor = Nothing

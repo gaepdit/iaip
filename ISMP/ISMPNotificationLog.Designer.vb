@@ -184,7 +184,7 @@ Partial Class ISMPNotificationLog
         Me.DTPTestDateStart.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.DTPTestDateStart.Location = New System.Drawing.Point(26, 179)
         Me.DTPTestDateStart.Name = "DTPTestDateStart"
-        Me.DTPTestDateStart.Size = New System.Drawing.Size(97, 20)
+        Me.DTPTestDateStart.Size = New System.Drawing.Size(100, 20)
         Me.DTPTestDateStart.TabIndex = 10
         Me.DTPTestDateStart.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
         '
@@ -194,7 +194,7 @@ Partial Class ISMPNotificationLog
         Me.DTPTestDateEnd.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.DTPTestDateEnd.Location = New System.Drawing.Point(149, 179)
         Me.DTPTestDateEnd.Name = "DTPTestDateEnd"
-        Me.DTPTestDateEnd.Size = New System.Drawing.Size(97, 20)
+        Me.DTPTestDateEnd.Size = New System.Drawing.Size(100, 20)
         Me.DTPTestDateEnd.TabIndex = 11
         Me.DTPTestDateEnd.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
         '
@@ -312,19 +312,19 @@ Partial Class ISMPNotificationLog
         'CutToolStripMenuItem
         '
         Me.CutToolStripMenuItem.Name = "CutToolStripMenuItem"
-        Me.CutToolStripMenuItem.Size = New System.Drawing.Size(102, 22)
+        Me.CutToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
         Me.CutToolStripMenuItem.Text = "Cut"
         '
         'CopyToolStripMenuItem
         '
         Me.CopyToolStripMenuItem.Name = "CopyToolStripMenuItem"
-        Me.CopyToolStripMenuItem.Size = New System.Drawing.Size(102, 22)
+        Me.CopyToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
         Me.CopyToolStripMenuItem.Text = "Copy"
         '
         'PasteToolStripMenuItem
         '
         Me.PasteToolStripMenuItem.Name = "PasteToolStripMenuItem"
-        Me.PasteToolStripMenuItem.Size = New System.Drawing.Size(102, 22)
+        Me.PasteToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
         Me.PasteToolStripMenuItem.Text = "Paste"
         '
         'HelpToolStripMenuItem
@@ -691,7 +691,7 @@ Partial Class ISMPNotificationLog
         Me.DTPTestNotification.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.DTPTestNotification.Location = New System.Drawing.Point(366, 32)
         Me.DTPTestNotification.Name = "DTPTestNotification"
-        Me.DTPTestNotification.Size = New System.Drawing.Size(97, 20)
+        Me.DTPTestNotification.Size = New System.Drawing.Size(100, 20)
         Me.DTPTestNotification.TabIndex = 166
         Me.DTPTestNotification.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
         '
@@ -701,7 +701,7 @@ Partial Class ISMPNotificationLog
         Me.DTPTestPlanReceived.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.DTPTestPlanReceived.Location = New System.Drawing.Point(121, 32)
         Me.DTPTestPlanReceived.Name = "DTPTestPlanReceived"
-        Me.DTPTestPlanReceived.Size = New System.Drawing.Size(97, 20)
+        Me.DTPTestPlanReceived.Size = New System.Drawing.Size(100, 20)
         Me.DTPTestPlanReceived.TabIndex = 165
         Me.DTPTestPlanReceived.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
         Me.DTPTestPlanReceived.Visible = False

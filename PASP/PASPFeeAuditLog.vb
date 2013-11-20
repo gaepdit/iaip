@@ -60,7 +60,7 @@ Public Class PASPFeeAuditLog
             cboAuditType.Items.Add("Other")
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -107,7 +107,7 @@ Public Class PASPFeeAuditLog
             End With
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -153,7 +153,7 @@ Public Class PASPFeeAuditLog
             End With
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub LoadSelectedNSPSExemptions()
@@ -183,7 +183,7 @@ Public Class PASPFeeAuditLog
             dgvEditExemptions.Columns("Description").Width = (dgvEditExemptions.Width * 0.9)
             dgvEditExemptions.Columns("Description").ReadOnly = True
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub ClearAdminData()
@@ -241,7 +241,7 @@ Public Class PASPFeeAuditLog
             DTPFSMailOutDateCreated.Text = OracleDate
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub LoadAdminData()
@@ -765,7 +765,7 @@ Public Class PASPFeeAuditLog
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub LoadFeeInvoiceData()
@@ -1185,7 +1185,7 @@ Public Class PASPFeeAuditLog
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub LoadTransactionData()
@@ -1331,7 +1331,7 @@ Public Class PASPFeeAuditLog
 
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub LoadAuditedData()
@@ -1339,7 +1339,6 @@ Public Class PASPFeeAuditLog
             If mtbFeeAdminAIRSNumber.Text <> "" And mtbFeeAdminExistingYear.Text <> "" Then
                 'txtAuditID.Clear()
                 'cboStaffResponsible.Text = ""
-                'rdbAudit0.Checked = True
                 'txtAuditComment.Clear()
                 'txtAuditEnforcementNumber.Clear()
                 'DTPAuditStart.Text = OracleDate
@@ -2256,7 +2255,7 @@ Public Class PASPFeeAuditLog
 
             End If
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub RefreshAdminStatus()
@@ -2286,7 +2285,7 @@ Public Class PASPFeeAuditLog
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub LoadStaff()
@@ -2353,7 +2352,7 @@ Public Class PASPFeeAuditLog
             End With
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 #End Region
@@ -2363,7 +2362,7 @@ Public Class PASPFeeAuditLog
             EditingToggle(True)
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub EditingToggle(ByVal setState As String)
@@ -2423,7 +2422,7 @@ Public Class PASPFeeAuditLog
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub btnReloadFSData_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnReloadFSData.Click
@@ -2450,7 +2449,7 @@ Public Class PASPFeeAuditLog
             crFeeStatsAndInvoices.Refresh()
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub ClearForm()
@@ -2545,7 +2544,7 @@ Public Class PASPFeeAuditLog
             ClearEditData()
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub btnUpdateFSAdmin_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnUpdateFSAdmin.Click
@@ -2629,7 +2628,7 @@ Public Class PASPFeeAuditLog
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub btnAddFSAdmin_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAddFSAdmin.Click
@@ -2658,7 +2657,7 @@ Public Class PASPFeeAuditLog
 
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub btnRefreshContactData_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnRefreshContactData.Click
@@ -2801,7 +2800,7 @@ Public Class PASPFeeAuditLog
             dr.Close()
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub btnRefreshCurrentFacilityInfo_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnRefreshCurrentFacilityInfo.Click
@@ -2924,7 +2923,7 @@ Public Class PASPFeeAuditLog
             dr.Close()
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub btnMailoutSaveUpdates_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnMailoutSaveUpdates.Click
@@ -3009,7 +3008,7 @@ Public Class PASPFeeAuditLog
             EditingToggle(False)
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub btnGECOViewCurrentContacts_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnGECOViewCurrentContacts.Click
@@ -3118,7 +3117,7 @@ Public Class PASPFeeAuditLog
             txtGECOContactComments.ReadOnly = True
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub btnGECOViewPastContacts_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnGECOViewPastContacts.Click
@@ -3193,7 +3192,7 @@ Public Class PASPFeeAuditLog
             dgvGECOFeeContacts.Columns("CreateDateTime").DefaultCellStyle.Format = "dd-MMM-yyyy"
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub dgvGECOFeeContacts_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvGECOFeeContacts.MouseUp
@@ -3273,7 +3272,7 @@ Public Class PASPFeeAuditLog
 
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub btnGECOOpenForEditing_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnGECOOpenForEditing.Click
@@ -3294,7 +3293,7 @@ Public Class PASPFeeAuditLog
             txtGECOContactComments.ReadOnly = False
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub btnGECOSaveUpdates_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnGECOSaveUpdates.Click
@@ -3384,7 +3383,7 @@ Public Class PASPFeeAuditLog
             Update_FS_Admin_Status(mtbFeeAdminExistingYear.Text, mtbFeeAdminAIRSNumber.Text)
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Function InvoiceCheck(ByVal ValidInvoice As String) As Boolean
@@ -3523,7 +3522,7 @@ Public Class PASPFeeAuditLog
             LoadTransactionData()
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub dgvTransactions_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvTransactions.MouseUp
@@ -3610,7 +3609,7 @@ Public Class PASPFeeAuditLog
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub btnClearTransactions_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnClearTransactions.Click
@@ -3631,7 +3630,7 @@ Public Class PASPFeeAuditLog
             dtpTransactionCreated.Text = OracleDate
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub btnClearEditableTransactionData_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnClearEditableTransactionData.Click
@@ -3650,7 +3649,7 @@ Public Class PASPFeeAuditLog
             dtpTransactionCreated.Text = OracleDate
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub btnTransactionUpdate_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnTransactionUpdate.Click
@@ -3709,7 +3708,7 @@ Public Class PASPFeeAuditLog
             LoadTransactionData()
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub btnTransactionDelete_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnTransactionDelete.Click
@@ -3760,7 +3759,7 @@ Public Class PASPFeeAuditLog
             LoadTransactionData()
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub InvoiceStatusCheck(ByVal invoiceID As String)
@@ -3817,7 +3816,7 @@ Public Class PASPFeeAuditLog
 
             LoadFeeInvoiceData()
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub btnSaveFeeAudit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSaveNewFeeAudit.Click
@@ -4050,18 +4049,6 @@ Public Class PASPFeeAuditLog
             If StaffResponsible = "" Then
                 StaffResponsible = UserGCode
             End If
-            'If rdbAudit3.Checked = True Then
-            '    AuditLevel = "3"
-            'End If
-            'If rdbAudit2.Checked = True Then
-            '    AuditLevel = "2"
-            'End If
-            'If rdbAudit1.Checked = True Then
-            '    AuditLevel = "1"
-            'End If
-            'If rdbAudit0.Checked = True Then
-            '    AuditLevel = "0"
-            'End If
             Select Case cboAuditType.Text
                 Case "Facility Self Amendment"
                     AuditLevel = "0"
@@ -4233,7 +4220,7 @@ Public Class PASPFeeAuditLog
             dgvEditExemptions.Rows.Clear()
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub rdbEditNSPSExemptTrue_CheckedChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles rdbEditNSPSExemptTrue.CheckedChanged
@@ -4340,7 +4327,7 @@ Public Class PASPFeeAuditLog
             Loop
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub dgvEditExemptions_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvEditExemptions.MouseUp
@@ -4363,7 +4350,7 @@ Public Class PASPFeeAuditLog
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
@@ -4669,7 +4656,7 @@ Public Class PASPFeeAuditLog
             crFeeStatsAndInvoices.Refresh()
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
     End Sub
@@ -4736,14 +4723,14 @@ Public Class PASPFeeAuditLog
             dgvInvoices.Columns("strComment").DisplayIndex = 6
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub btnViewInvoices_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnViewInvoices.Click
         Try
             ViewAllInvoices()
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub dgvInvoices_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvInvoices.MouseUp
@@ -4791,7 +4778,7 @@ Public Class PASPFeeAuditLog
 
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub btnAddNewInvoice_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAddNewInvoice.Click
@@ -4855,7 +4842,7 @@ Public Class PASPFeeAuditLog
             MsgBox("New Invoice Added", MsgBoxStyle.Information, Me.Text)
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub btnVOIDInvoice_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnVOIDInvoice.Click
@@ -4918,7 +4905,7 @@ Public Class PASPFeeAuditLog
             MsgBox("Invoice VOIDED", MsgBoxStyle.Information, Me.Text)
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub btnVOIDAllUnpaid_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnVOIDAllUnpaid.Click
@@ -4973,7 +4960,7 @@ Public Class PASPFeeAuditLog
             LoadTransactionData()
             MsgBox("All unpaid Invoices have been VOIDED.", MsgBoxStyle.Exclamation, Me.Text)
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub btnRemoveVOID_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnRemoveVOID.Click
@@ -5004,7 +4991,7 @@ Public Class PASPFeeAuditLog
                 MsgBox("Invoice VOID Status Removed.", MsgBoxStyle.Information, Me.Text)
             End If
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub chbEndFeeCollectoins_CheckStateChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles chbEndFeeCollectoins.CheckStateChanged
@@ -5017,7 +5004,7 @@ Public Class PASPFeeAuditLog
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub btnEditFeeAudit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEditFeeAudit.Click
@@ -5340,18 +5327,6 @@ Public Class PASPFeeAuditLog
             If StaffResponsible = "" Then
                 StaffResponsible = UserGCode
             End If
-            'If rdbAudit3.Checked = True Then
-            '    AuditLevel = "3"
-            'End If
-            'If rdbAudit2.Checked = True Then
-            '    AuditLevel = "2"
-            'End If
-            'If rdbAudit1.Checked = True Then
-            '    AuditLevel = "1"
-            'End If
-            'If rdbAudit0.Checked = True Then
-            '    AuditLevel = "0"
-            'End If
             Select Case cboAuditType.Text
                 Case "Facility Self Amendment"
                     AuditLevel = "0"
@@ -5514,25 +5489,17 @@ Public Class PASPFeeAuditLog
             dr.Close()
             Select Case AuditLevel
                 Case "0"
-                    'rdbAudit0.Checked = True
                     cboAuditType.Text = "Facility Self Amendment"
                 Case "1"
-                    'rdbAudit1.Checked = True
                     cboAuditType.Text = "Level 1 Audit"
                 Case "2"
-                    'rdbAudit2.Checked = True
                     cboAuditType.Text = "Level 2 Audit"
                 Case "3"
-                    'rdbAudit3.Checked = True
                     cboAuditType.Text = "Level 3 Audit"
                 Case "4"
                     cboAuditType.Text = "Other"
                 Case Else
                     cboAuditType.Text = "Other"
-                    'rdbAudit0.Checked = False
-                    'rdbAudit1.Checked = False
-                    'rdbAudit2.Checked = False
-                    'rdbAudit3.Checked = False
             End Select
 
             SQL = "select * " & _
@@ -5713,7 +5680,7 @@ Public Class PASPFeeAuditLog
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub btnExportAuditToExcel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnExportAuditToExcel.Click
@@ -5752,7 +5719,7 @@ Public Class PASPFeeAuditLog
             If ex.ToString.Contains("RPC_E_CALL_REJECTED") Then
                 MsgBox("Error in exporting data." & vbCrLf & "Please run the export again.")
             Else
-                ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+                ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
             End If
         End Try
     End Sub
@@ -5760,7 +5727,7 @@ Public Class PASPFeeAuditLog
         Try
 ClearAuditData
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -5768,7 +5735,6 @@ ClearAuditData
         Try
             txtAuditID.Clear()
             cboStaffResponsible.Text = ""
-            'rdbAudit0.Checked = True
             cboAuditType.Text = ""
             txtAuditComment.Clear()
             txtAuditEnforcementNumber.Clear()
@@ -5806,14 +5772,14 @@ ClearAuditData
             rdbEditNSPSExemptTrue.Checked = False
             rdbEditNSPSExemptFalse.Checked = False
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub btnClearInvoiceData_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnClearInvoiceData.Click
         Try
          ClearInvoices
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub ClearInvoices()
@@ -5826,7 +5792,7 @@ ClearAuditData
             txtPayStatus.Clear()
             txtInvoiceComments.Clear()
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub btnFindTransactions4_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnFindTransactions.Click
@@ -5968,7 +5934,7 @@ ClearAuditData
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -5984,7 +5950,7 @@ ClearAuditData
                 pnlFacilityData2.Enabled = False
             End If
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -6013,7 +5979,7 @@ ClearAuditData
             lblAdminFee.Text = "$" & AdminAmount & " - Admin Fee, Total Due - $ " & CDbl(TotalFee) + CDbl(AdminAmount)
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub btnCheckInvoices_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCheckInvoices.Click
@@ -6022,7 +5988,7 @@ ClearAuditData
             Validate_FS_Invoices(mtbFeeAdminExistingYear.Text, mtbFeeAdminAIRSNumber.Text)
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -6035,8 +6001,9 @@ ClearAuditData
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
 End Class
 

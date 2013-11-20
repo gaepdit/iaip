@@ -24,7 +24,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
             LoadOldPDFs()
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & ".DevPublicNoticiesAndAdvisories_Load")
+            ErrorReport(ex, Me.Name & ".DevPublicNoticiesAndAdvisories_Load")
         Finally
 
         End Try
@@ -129,7 +129,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
             dgvPublicNotice.Columns("strPNPosted").DisplayIndex = 9
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & ".LoadPublicNoticesList")
+            ErrorReport(ex, Me.Name & ".LoadPublicNoticesList")
         Finally
 
         End Try
@@ -155,7 +155,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
             dr.Close()
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & ".LoadOldPDFs")
+            ErrorReport(ex, Me.Name & ".LoadOldPDFs")
         Finally
 
         End Try
@@ -453,7 +453,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & ".CreatePublicNoticeList")
+            ErrorReport(ex, Me.Name & ".CreatePublicNoticeList")
         Finally
 
         End Try
@@ -578,7 +578,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & ".AddToApplicationList")
+            ErrorReport(ex, Me.Name & ".AddToApplicationList")
         Finally
 
         End Try
@@ -683,7 +683,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & ".RemoveFromApplicationList")
+            ErrorReport(ex, Me.Name & ".RemoveFromApplicationList")
         Finally
 
         End Try
@@ -735,7 +735,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & ".FillApplicationList")
+            ErrorReport(ex, Me.Name & ".FillApplicationList")
         Finally
 
         End Try
@@ -775,7 +775,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & ".OpenApplication")
+            ErrorReport(ex, Me.Name & ".OpenApplication")
         Finally
 
         End Try
@@ -1217,7 +1217,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
             FormatReport()
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & ".PreviewReport")
+            ErrorReport(ex, Me.Name & ".PreviewReport")
         Finally
 
         End Try
@@ -1387,7 +1387,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & ".FormatReport")
+            ErrorReport(ex, Me.Name & ".FormatReport")
         Finally
 
         End Try
@@ -1518,7 +1518,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & ".GenerateFileName")
+            ErrorReport(ex, Me.Name & ".GenerateFileName")
         Finally
 
         End Try
@@ -1639,7 +1639,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & ".btnGenerateReport_Click")
+            ErrorReport(ex, Me.Name & ".btnGenerateReport_Click")
         Finally
 
         End Try
@@ -1706,7 +1706,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & ".UpdateApplications")
+            ErrorReport(ex, Me.Name & ".UpdateApplications")
         Finally
 
         End Try
@@ -1740,7 +1740,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
             CRVPublicNotices.ExportReport()
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & ".ExportPDF")
+            ErrorReport(ex, Me.Name & ".ExportPDF")
         Finally
 
         End Try
@@ -1798,7 +1798,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
             dr.Close()
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & ".OpenOldPAPN")
+            ErrorReport(ex, Me.Name & ".OpenOldPAPN")
         Finally
 
         End Try
@@ -1830,7 +1830,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & ".DevPublicNoticiesAndAdvisories_SizeChanged")
+            ErrorReport(ex, Me.Name & ".DevPublicNoticiesAndAdvisories_SizeChanged")
         Finally
 
         End Try
@@ -1841,7 +1841,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
             CreatePublicNoticeList()
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & ".btnPreview_Click")
+            ErrorReport(ex, Me.Name & ".btnPreview_Click")
         Finally
 
         End Try
@@ -1861,7 +1861,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & ".btnEditApplicationList_Click")
+            ErrorReport(ex, Me.Name & ".btnEditApplicationList_Click")
         Finally
 
         End Try
@@ -1875,7 +1875,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & ".btnRemoveFromApplicationList_Click")
+            ErrorReport(ex, Me.Name & ".btnRemoveFromApplicationList_Click")
         Finally
 
         End Try
@@ -1895,7 +1895,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
             PreviewReport()
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & ".btnGeneratePublicNotice_Click")
+            ErrorReport(ex, Me.Name & ".btnGeneratePublicNotice_Click")
         Finally
 
         End Try
@@ -1910,7 +1910,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & ".dgvPublicNotice_MouseUp")
+            ErrorReport(ex, Me.Name & ".dgvPublicNotice_MouseUp")
         Finally
 
         End Try
@@ -1924,7 +1924,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & ".btnOpenApplication_Click")
+            ErrorReport(ex, Me.Name & ".btnOpenApplication_Click")
         Finally
 
         End Try
@@ -1937,7 +1937,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
             PreviewReport()
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & ".btnGeneratePNReport_Click")
+            ErrorReport(ex, Me.Name & ".btnGeneratePNReport_Click")
         Finally
 
         End Try
@@ -1950,7 +1950,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & ".txtApplicationList_SelectedIndexChanged")
+            ErrorReport(ex, Me.Name & ".txtApplicationList_SelectedIndexChanged")
         Finally
 
         End Try
@@ -1961,7 +1961,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
             txtApplicationNumber.Text = lsbPublicNoticies.SelectedItem.ToString
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & ".lsbPublicNoticies_SelectedIndexChanged")
+            ErrorReport(ex, Me.Name & ".lsbPublicNoticies_SelectedIndexChanged")
         Finally
 
         End Try
@@ -1981,7 +1981,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & ".btnPublishPDF_Click")
+            ErrorReport(ex, Me.Name & ".btnPublishPDF_Click")
         Finally
 
         End Try
@@ -1997,7 +1997,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & ".btnOpenPAPN_Click")
+            ErrorReport(ex, Me.Name & ".btnOpenPAPN_Click")
         Finally
 
         End Try
@@ -2030,7 +2030,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
             CRVPublicNotices.ExportReport()
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & ".btnViewOldPDFs_Click")
+            ErrorReport(ex, Me.Name & ".btnViewOldPDFs_Click")
         Finally
 
         End Try
@@ -2041,7 +2041,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
             lsbApplicationList.Items.Clear()
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & ".btnClearPreview_Click")
+            ErrorReport(ex, Me.Name & ".btnClearPreview_Click")
         Finally
 
         End Try
@@ -2162,7 +2162,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
             End If
 
         Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & ".btnClearPreview_Click")
+            ErrorReport(ex, Me.Name & ".btnClearPreview_Click")
         Finally
 
         End Try

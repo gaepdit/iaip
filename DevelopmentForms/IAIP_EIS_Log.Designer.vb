@@ -439,7 +439,7 @@ Partial Class IAIP_EIS_Log
         Me.dtpEISDeadline.Location = New System.Drawing.Point(120, 120)
         Me.dtpEISDeadline.Name = "dtpEISDeadline"
         Me.dtpEISDeadline.ShowCheckBox = True
-        Me.dtpEISDeadline.Size = New System.Drawing.Size(111, 20)
+        Me.dtpEISDeadline.Size = New System.Drawing.Size(116, 20)
         Me.dtpEISDeadline.TabIndex = 525
         Me.dtpEISDeadline.Visible = False
         '
@@ -566,7 +566,7 @@ Partial Class IAIP_EIS_Log
         Me.dtpQAStatus.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.dtpQAStatus.Location = New System.Drawing.Point(672, 8)
         Me.dtpQAStatus.Name = "dtpQAStatus"
-        Me.dtpQAStatus.Size = New System.Drawing.Size(99, 20)
+        Me.dtpQAStatus.Size = New System.Drawing.Size(100, 20)
         Me.dtpQAStatus.TabIndex = 512
         '
         'Label288
@@ -603,7 +603,7 @@ Partial Class IAIP_EIS_Log
         Me.dtpQACompleted.Location = New System.Drawing.Point(120, 94)
         Me.dtpQACompleted.Name = "dtpQACompleted"
         Me.dtpQACompleted.ShowCheckBox = True
-        Me.dtpQACompleted.Size = New System.Drawing.Size(111, 20)
+        Me.dtpQACompleted.Size = New System.Drawing.Size(116, 20)
         Me.dtpQACompleted.TabIndex = 508
         '
         'Label286
@@ -623,7 +623,7 @@ Partial Class IAIP_EIS_Log
         Me.dtpQAPassed.Location = New System.Drawing.Point(120, 68)
         Me.dtpQAPassed.Name = "dtpQAPassed"
         Me.dtpQAPassed.ShowCheckBox = True
-        Me.dtpQAPassed.Size = New System.Drawing.Size(111, 20)
+        Me.dtpQAPassed.Size = New System.Drawing.Size(116, 20)
         Me.dtpQAPassed.TabIndex = 506
         '
         'Label285
@@ -641,7 +641,7 @@ Partial Class IAIP_EIS_Log
         Me.dtpQAStarted.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.dtpQAStarted.Location = New System.Drawing.Point(120, 42)
         Me.dtpQAStarted.Name = "dtpQAStarted"
-        Me.dtpQAStarted.Size = New System.Drawing.Size(111, 20)
+        Me.dtpQAStarted.Size = New System.Drawing.Size(116, 20)
         Me.dtpQAStarted.TabIndex = 504
         '
         'Label284

@@ -487,7 +487,7 @@ Partial Class SSPPPublicNoticiesAndAdvisories
         Me.DTPPADeadline.Location = New System.Drawing.Point(3, 265)
         Me.DTPPADeadline.Name = "DTPPADeadline"
         Me.DTPPADeadline.ShowCheckBox = True
-        Me.DTPPADeadline.Size = New System.Drawing.Size(123, 22)
+        Me.DTPPADeadline.Size = New System.Drawing.Size(125, 22)
         Me.DTPPADeadline.TabIndex = 9
         '
         'Label4

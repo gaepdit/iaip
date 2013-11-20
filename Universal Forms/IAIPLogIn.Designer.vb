@@ -27,6 +27,7 @@ Partial Class IAIPLogIn
         Me.mmiTestingEnvironment = New System.Windows.Forms.MenuItem
         Me.MenuItem2 = New System.Windows.Forms.MenuItem
         Me.mmiRefreshUserID = New System.Windows.Forms.MenuItem
+        Me.mmiResetAllForms = New System.Windows.Forms.MenuItem
         Me.MenuItem3 = New System.Windows.Forms.MenuItem
         Me.mmiForceUpdate = New System.Windows.Forms.MenuItem
         Me.mmiLukeEnvironment = New System.Windows.Forms.MenuItem
@@ -72,7 +73,7 @@ Partial Class IAIPLogIn
         'MenuItem1
         '
         Me.MenuItem1.Index = 1
-        Me.MenuItem1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiTestingEnvironment, Me.MenuItem2, Me.mmiRefreshUserID, Me.MenuItem3, Me.mmiForceUpdate, Me.mmiLukeEnvironment, Me.mmiTestingDatabase})
+        Me.MenuItem1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiTestingEnvironment, Me.MenuItem2, Me.mmiRefreshUserID, Me.mmiResetAllForms, Me.MenuItem3, Me.mmiForceUpdate, Me.mmiLukeEnvironment, Me.mmiTestingDatabase})
         Me.MenuItem1.Text = "&Tools"
         '
         'mmiTestingEnvironment
@@ -91,26 +92,31 @@ Partial Class IAIPLogIn
         Me.mmiRefreshUserID.Index = 2
         Me.mmiRefreshUserID.Text = "Refresh Default User"
         '
+        'mmiResetAllForms
+        '
+        Me.mmiResetAllForms.Index = 3
+        Me.mmiResetAllForms.Text = "&Reset All Forms"
+        '
         'MenuItem3
         '
-        Me.MenuItem3.Index = 3
+        Me.MenuItem3.Index = 4
         Me.MenuItem3.Text = "-"
         '
         'mmiForceUpdate
         '
-        Me.mmiForceUpdate.Index = 4
+        Me.mmiForceUpdate.Index = 5
         Me.mmiForceUpdate.Text = "Force Update"
         '
         'mmiLukeEnvironment
         '
-        Me.mmiLukeEnvironment.Index = 5
+        Me.mmiLukeEnvironment.Index = 6
         Me.mmiLukeEnvironment.Shortcut = System.Windows.Forms.Shortcut.F5
         Me.mmiLukeEnvironment.Text = "*"
         Me.mmiLukeEnvironment.Visible = False
         '
         'mmiTestingDatabase
         '
-        Me.mmiTestingDatabase.Index = 6
+        Me.mmiTestingDatabase.Index = 7
         Me.mmiTestingDatabase.Shortcut = System.Windows.Forms.Shortcut.CtrlShiftT
         Me.mmiTestingDatabase.Text = "Testing Database"
         Me.mmiTestingDatabase.Visible = False
@@ -373,4 +379,5 @@ Partial Class IAIPLogIn
     Friend WithEvents MenuItem4 As System.Windows.Forms.MenuItem
     Friend WithEvents mmiAbout As System.Windows.Forms.MenuItem
     Friend WithEvents MenuItem1 As System.Windows.Forms.MenuItem
+    Friend WithEvents mmiResetAllForms As System.Windows.Forms.MenuItem
 End Class

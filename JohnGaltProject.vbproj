@@ -1153,6 +1153,9 @@
     <EmbeddedResource Include="PASP\PASPFeeStatistics.resx">
       <DependentUpon>PASPFeeStatistics.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="SSCP\SSCPEnforcement.resx">
+      <DependentUpon>SSCPEnforcement.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SSCP\SSCPEnforcementAudit.resx">
       <DependentUpon>SSCPEnforcementAudit.vb</DependentUpon>
     </EmbeddedResource>
@@ -1780,6 +1783,12 @@
     <None Include="gaSeal.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <Compile Include="SSCP\SSCPEnforcement.Designer.vb">
+      <DependentUpon>SSCPEnforcement.vb</DependentUpon>
+    </Compile>
+    <Compile Include="SSCP\SSCPEnforcement.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="_Classes\Address.vb" />
     <Compile Include="_Classes\Facility.vb" />
     <Compile Include="_Classes\FileSizeFormatProvider.vb" />
@@ -1789,6 +1798,7 @@
     <Compile Include="_DB\DAL.Documents.vb" />
     <Compile Include="_DB\DAL.Lookups.vb" />
     <Compile Include="_DB\DAL.SSPP.Applications.vb" />
+    <Compile Include="_Modules\Analytics.vb" />
     <Compile Include="_Modules\FormSettings.vb" />
     <Compile Include="_Modules\FacilityUtility.vb" />
     <Compile Include="_Modules\MD5.vb" />
