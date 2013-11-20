@@ -109,11 +109,6 @@ Partial Class NewSscpEnforcementAudit
         Me.TPNOV = New System.Windows.Forms.TabPage
         Me.txtNOVComments = New System.Windows.Forms.TextBox
         Me.Panel9 = New System.Windows.Forms.Panel
-        Me.lblNFAdownload = New System.Windows.Forms.Label
-        Me.Label56 = New System.Windows.Forms.Label
-        Me.Label57 = New System.Windows.Forms.Label
-        Me.btnDownloadNFA = New System.Windows.Forms.Button
-        Me.btnUploadNFA = New System.Windows.Forms.Button
         Me.DTPNOVToUC = New System.Windows.Forms.DateTimePicker
         Me.Label46 = New System.Windows.Forms.Label
         Me.Label17 = New System.Windows.Forms.Label
@@ -132,13 +127,8 @@ Partial Class NewSscpEnforcementAudit
         Me.TPCO = New System.Windows.Forms.TabPage
         Me.txtCOComments = New System.Windows.Forms.TextBox
         Me.Panel10 = New System.Windows.Forms.Panel
-        Me.lblCODownload = New System.Windows.Forms.Label
-        Me.Label22 = New System.Windows.Forms.Label
-        Me.Label12 = New System.Windows.Forms.Label
         Me.DTPCOToUC = New System.Windows.Forms.DateTimePicker
-        Me.btnDownloadCO = New System.Windows.Forms.Button
         Me.txtPenaltyComments = New System.Windows.Forms.TextBox
-        Me.btnUploadCO = New System.Windows.Forms.Button
         Me.txtStipulatedKey = New System.Windows.Forms.TextBox
         Me.Label29 = New System.Windows.Forms.Label
         Me.Label21 = New System.Windows.Forms.Label
@@ -172,11 +162,6 @@ Partial Class NewSscpEnforcementAudit
         Me.TPAO = New System.Windows.Forms.TabPage
         Me.txtAOComments = New System.Windows.Forms.TextBox
         Me.Panel11 = New System.Windows.Forms.Panel
-        Me.lblDownloadAO = New System.Windows.Forms.Label
-        Me.Label33 = New System.Windows.Forms.Label
-        Me.Label58 = New System.Windows.Forms.Label
-        Me.btnDownloadAO = New System.Windows.Forms.Button
-        Me.btnUploadAO = New System.Windows.Forms.Button
         Me.DTPAOExecuted = New System.Windows.Forms.DateTimePicker
         Me.Label42 = New System.Windows.Forms.Label
         Me.Label25 = New System.Windows.Forms.Label
@@ -1076,11 +1061,6 @@ Partial Class NewSscpEnforcementAudit
         '
         'Panel9
         '
-        Me.Panel9.Controls.Add(Me.lblNFAdownload)
-        Me.Panel9.Controls.Add(Me.Label56)
-        Me.Panel9.Controls.Add(Me.Label57)
-        Me.Panel9.Controls.Add(Me.btnDownloadNFA)
-        Me.Panel9.Controls.Add(Me.btnUploadNFA)
         Me.Panel9.Controls.Add(Me.DTPNOVToUC)
         Me.Panel9.Controls.Add(Me.Label46)
         Me.Panel9.Controls.Add(Me.Label17)
@@ -1101,51 +1081,6 @@ Partial Class NewSscpEnforcementAudit
         Me.Panel9.Name = "Panel9"
         Me.Panel9.Size = New System.Drawing.Size(884, 237)
         Me.Panel9.TabIndex = 380
-        '
-        'lblNFAdownload
-        '
-        Me.lblNFAdownload.AutoSize = True
-        Me.lblNFAdownload.Location = New System.Drawing.Point(375, 215)
-        Me.lblNFAdownload.Name = "lblNFAdownload"
-        Me.lblNFAdownload.Size = New System.Drawing.Size(55, 13)
-        Me.lblNFAdownload.TabIndex = 401
-        Me.lblNFAdownload.Text = "Download"
-        '
-        'Label56
-        '
-        Me.Label56.AutoSize = True
-        Me.Label56.Location = New System.Drawing.Point(300, 215)
-        Me.Label56.Name = "Label56"
-        Me.Label56.Size = New System.Drawing.Size(41, 13)
-        Me.Label56.TabIndex = 400
-        Me.Label56.Text = "Upload"
-        '
-        'Label57
-        '
-        Me.Label57.AutoSize = True
-        Me.Label57.Location = New System.Drawing.Point(274, 192)
-        Me.Label57.Name = "Label57"
-        Me.Label57.Size = New System.Drawing.Size(106, 13)
-        Me.Label57.TabIndex = 399
-        Me.Label57.Text = "NFA file (PDF ONLY)"
-        '
-        'btnDownloadNFA
-        '
-        Me.btnDownloadNFA.BackgroundImage = CType(resources.GetObject("btnDownloadNFA.BackgroundImage"), System.Drawing.Image)
-        Me.btnDownloadNFA.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.btnDownloadNFA.Location = New System.Drawing.Point(350, 210)
-        Me.btnDownloadNFA.Name = "btnDownloadNFA"
-        Me.btnDownloadNFA.Size = New System.Drawing.Size(24, 23)
-        Me.btnDownloadNFA.TabIndex = 398
-        '
-        'btnUploadNFA
-        '
-        Me.btnUploadNFA.BackgroundImage = CType(resources.GetObject("btnUploadNFA.BackgroundImage"), System.Drawing.Image)
-        Me.btnUploadNFA.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.btnUploadNFA.Location = New System.Drawing.Point(276, 210)
-        Me.btnUploadNFA.Name = "btnUploadNFA"
-        Me.btnUploadNFA.Size = New System.Drawing.Size(24, 23)
-        Me.btnUploadNFA.TabIndex = 397
         '
         'DTPNOVToUC
         '
@@ -1329,13 +1264,8 @@ Partial Class NewSscpEnforcementAudit
         '
         'Panel10
         '
-        Me.Panel10.Controls.Add(Me.lblCODownload)
-        Me.Panel10.Controls.Add(Me.Label22)
-        Me.Panel10.Controls.Add(Me.Label12)
         Me.Panel10.Controls.Add(Me.DTPCOToUC)
-        Me.Panel10.Controls.Add(Me.btnDownloadCO)
         Me.Panel10.Controls.Add(Me.txtPenaltyComments)
-        Me.Panel10.Controls.Add(Me.btnUploadCO)
         Me.Panel10.Controls.Add(Me.txtStipulatedKey)
         Me.Panel10.Controls.Add(Me.Label29)
         Me.Panel10.Controls.Add(Me.Label21)
@@ -1363,33 +1293,6 @@ Partial Class NewSscpEnforcementAudit
         Me.Panel10.Size = New System.Drawing.Size(884, 294)
         Me.Panel10.TabIndex = 393
         '
-        'lblCODownload
-        '
-        Me.lblCODownload.AutoSize = True
-        Me.lblCODownload.Location = New System.Drawing.Point(290, 239)
-        Me.lblCODownload.Name = "lblCODownload"
-        Me.lblCODownload.Size = New System.Drawing.Size(55, 13)
-        Me.lblCODownload.TabIndex = 396
-        Me.lblCODownload.Text = "Download"
-        '
-        'Label22
-        '
-        Me.Label22.AutoSize = True
-        Me.Label22.Location = New System.Drawing.Point(290, 212)
-        Me.Label22.Name = "Label22"
-        Me.Label22.Size = New System.Drawing.Size(41, 13)
-        Me.Label22.TabIndex = 395
-        Me.Label22.Text = "Upload"
-        '
-        'Label12
-        '
-        Me.Label12.AutoSize = True
-        Me.Label12.Location = New System.Drawing.Point(263, 189)
-        Me.Label12.Name = "Label12"
-        Me.Label12.Size = New System.Drawing.Size(100, 13)
-        Me.Label12.TabIndex = 394
-        Me.Label12.Text = "CO file (PDF ONLY)"
-        '
         'DTPCOToUC
         '
         Me.DTPCOToUC.Checked = False
@@ -1402,15 +1305,6 @@ Partial Class NewSscpEnforcementAudit
         Me.DTPCOToUC.Size = New System.Drawing.Size(119, 22)
         Me.DTPCOToUC.TabIndex = 385
         '
-        'btnDownloadCO
-        '
-        Me.btnDownloadCO.BackgroundImage = CType(resources.GetObject("btnDownloadCO.BackgroundImage"), System.Drawing.Image)
-        Me.btnDownloadCO.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.btnDownloadCO.Location = New System.Drawing.Point(265, 234)
-        Me.btnDownloadCO.Name = "btnDownloadCO"
-        Me.btnDownloadCO.Size = New System.Drawing.Size(24, 23)
-        Me.btnDownloadCO.TabIndex = 392
-        '
         'txtPenaltyComments
         '
         Me.txtPenaltyComments.AcceptsReturn = True
@@ -1421,15 +1315,6 @@ Partial Class NewSscpEnforcementAudit
         Me.txtPenaltyComments.Name = "txtPenaltyComments"
         Me.txtPenaltyComments.Size = New System.Drawing.Size(373, 48)
         Me.txtPenaltyComments.TabIndex = 355
-        '
-        'btnUploadCO
-        '
-        Me.btnUploadCO.BackgroundImage = CType(resources.GetObject("btnUploadCO.BackgroundImage"), System.Drawing.Image)
-        Me.btnUploadCO.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.btnUploadCO.Location = New System.Drawing.Point(266, 207)
-        Me.btnUploadCO.Name = "btnUploadCO"
-        Me.btnUploadCO.Size = New System.Drawing.Size(24, 23)
-        Me.btnUploadCO.TabIndex = 391
         '
         'txtStipulatedKey
         '
@@ -1786,11 +1671,6 @@ Partial Class NewSscpEnforcementAudit
         '
         'Panel11
         '
-        Me.Panel11.Controls.Add(Me.lblDownloadAO)
-        Me.Panel11.Controls.Add(Me.Label33)
-        Me.Panel11.Controls.Add(Me.Label58)
-        Me.Panel11.Controls.Add(Me.btnDownloadAO)
-        Me.Panel11.Controls.Add(Me.btnUploadAO)
         Me.Panel11.Controls.Add(Me.DTPAOExecuted)
         Me.Panel11.Controls.Add(Me.Label42)
         Me.Panel11.Controls.Add(Me.Label25)
@@ -1803,51 +1683,6 @@ Partial Class NewSscpEnforcementAudit
         Me.Panel11.Name = "Panel11"
         Me.Panel11.Size = New System.Drawing.Size(884, 111)
         Me.Panel11.TabIndex = 388
-        '
-        'lblDownloadAO
-        '
-        Me.lblDownloadAO.AutoSize = True
-        Me.lblDownloadAO.Location = New System.Drawing.Point(536, 85)
-        Me.lblDownloadAO.Name = "lblDownloadAO"
-        Me.lblDownloadAO.Size = New System.Drawing.Size(55, 13)
-        Me.lblDownloadAO.TabIndex = 406
-        Me.lblDownloadAO.Text = "Download"
-        '
-        'Label33
-        '
-        Me.Label33.AutoSize = True
-        Me.Label33.Location = New System.Drawing.Point(461, 85)
-        Me.Label33.Name = "Label33"
-        Me.Label33.Size = New System.Drawing.Size(41, 13)
-        Me.Label33.TabIndex = 405
-        Me.Label33.Text = "Upload"
-        '
-        'Label58
-        '
-        Me.Label58.AutoSize = True
-        Me.Label58.Location = New System.Drawing.Point(435, 62)
-        Me.Label58.Name = "Label58"
-        Me.Label58.Size = New System.Drawing.Size(179, 13)
-        Me.Label58.TabIndex = 404
-        Me.Label58.Text = "Administrative Order file (PDF ONLY)"
-        '
-        'btnDownloadAO
-        '
-        Me.btnDownloadAO.BackgroundImage = CType(resources.GetObject("btnDownloadAO.BackgroundImage"), System.Drawing.Image)
-        Me.btnDownloadAO.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.btnDownloadAO.Location = New System.Drawing.Point(511, 80)
-        Me.btnDownloadAO.Name = "btnDownloadAO"
-        Me.btnDownloadAO.Size = New System.Drawing.Size(24, 23)
-        Me.btnDownloadAO.TabIndex = 403
-        '
-        'btnUploadAO
-        '
-        Me.btnUploadAO.BackgroundImage = CType(resources.GetObject("btnUploadAO.BackgroundImage"), System.Drawing.Image)
-        Me.btnUploadAO.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.btnUploadAO.Location = New System.Drawing.Point(437, 80)
-        Me.btnUploadAO.Name = "btnUploadAO"
-        Me.btnUploadAO.Size = New System.Drawing.Size(24, 23)
-        Me.btnUploadAO.TabIndex = 402
         '
         'DTPAOExecuted
         '
@@ -2767,8 +2602,6 @@ Partial Class NewSscpEnforcementAudit
     Friend WithEvents DTPNOVsent As System.Windows.Forms.DateTimePicker
     Friend WithEvents txtNOVComments As System.Windows.Forms.TextBox
     Friend WithEvents TPCO As System.Windows.Forms.TabPage
-    Friend WithEvents btnDownloadCO As System.Windows.Forms.Button
-    Friend WithEvents btnUploadCO As System.Windows.Forms.Button
     Friend WithEvents txtCONumber As System.Windows.Forms.TextBox
     Friend WithEvents Label49 As System.Windows.Forms.Label
     Friend WithEvents Label48 As System.Windows.Forms.Label
@@ -2853,19 +2686,6 @@ Partial Class NewSscpEnforcementAudit
     Friend WithEvents btnExportAuditToExcel As System.Windows.Forms.Button
     Friend WithEvents btnREfreshAudit As System.Windows.Forms.Button
     Friend WithEvents UpdateStipulatedPenaltyButton As System.Windows.Forms.Button
-    Friend WithEvents Label12 As System.Windows.Forms.Label
-    Friend WithEvents lblCODownload As System.Windows.Forms.Label
-    Friend WithEvents Label22 As System.Windows.Forms.Label
-    Friend WithEvents lblNFAdownload As System.Windows.Forms.Label
-    Friend WithEvents Label56 As System.Windows.Forms.Label
-    Friend WithEvents Label57 As System.Windows.Forms.Label
-    Friend WithEvents btnDownloadNFA As System.Windows.Forms.Button
-    Friend WithEvents btnUploadNFA As System.Windows.Forms.Button
-    Friend WithEvents lblDownloadAO As System.Windows.Forms.Label
-    Friend WithEvents Label33 As System.Windows.Forms.Label
-    Friend WithEvents Label58 As System.Windows.Forms.Label
-    Friend WithEvents btnDownloadAO As System.Windows.Forms.Button
-    Friend WithEvents btnUploadAO As System.Windows.Forms.Button
     Friend WithEvents StipulatedPenalties As System.Windows.Forms.GroupBox
     Friend WithEvents DeletePenaltyButton As System.Windows.Forms.Button
     Friend WithEvents ToolStripSeparator1 As System.Windows.Forms.ToolStripSeparator

@@ -131,40 +131,6 @@
   <metadata name="MenuStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>237, 13</value>
   </metadata>
-  <data name="btnDownloadNFA.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAJdJREFUOE+lUIEN
-        wCAI83Q+dxbajRGnJmvSoNKWjSaYWa9ka48Qdzf42VpwPOJtCRgAXlgZcBKi6R6i6f41uEfI5nc0XRNp
-        TAEQuWaOJMzMQdsAsYbw9yBKrFBAEimA72UHOkdlEyuMTY7K5oxCvT/mrwpNSO9zDViHQBPSOVxUxCe8
-        8TLbWOCK0Lgr4ZcZ+GUG1NyxoLULiU01ky8Bj+IAAAAASUVORK5CYII=
-</value>
-  </data>
-  <data name="btnUploadNFA.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAElJREFUOE9joBb4
-        TyaGg/8NDZiCOABMDUUGYKglyQBsaoeLAUgSODGaOjiASxCLQXogWiEAXQIvJtcAGBikBoAAsmJiMaWA
-        gQEAlnKxdcuJCusAAAAASUVORK5CYII=
-</value>
-  </data>
-  <data name="btnDownloadCO.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAJdJREFUOE+lUIEN
-        wCAI83Q+dxbajRGnJmvSoNKWjSaYWa9ka48Qdzf42VpwPOJtCRgAXlgZcBKi6R6i6f41uEfI5nc0XRNp
-        TAEQuWaOJMzMQdsAsYbw9yBKrFBAEimA72UHOkdlEyuMTY7K5oxCvT/mrwpNSO9zDViHQBPSOVxUxCe8
-        8TLbWOCK0Lgr4ZcZ+GUG1NyxoLULiU01ky8Bj+IAAAAASUVORK5CYII=
-</value>
-  </data>
-  <data name="btnUploadCO.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAElJREFUOE9joBb4
-        TyaGg/8NDZiCOABMDUUGYKglyQBsaoeLAUgSODGaOjiASxCLQXogWiEAXQIvJtcAGBikBoAAsmJiMaWA
-        gQEAlnKxdcuJCusAAAAASUVORK5CYII=
-</value>
-  </data>
   <data name="ClearStipulatedPenaltyFormButton.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
@@ -172,23 +138,6 @@
         wCAMBZ3WnVzBWbqCK7iC5YUkPEssrR/twYGoF01fM9TXWMg+woNRikv7S8KQpTsTftBaE6PY1LvOFLLX
         8MhZ1EYYvfcwNjmkWAbIAkQhrLUuYyCvQ8A/QWhGITMN4RDiXL1FBuyEzHbIbId/kNIJB50fViQSoeYA
         AAAASUVORK5CYII=
-</value>
-  </data>
-  <data name="btnDownloadAO.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAJdJREFUOE+lUIEN
-        wCAI83Q+dxbajRGnJmvSoNKWjSaYWa9ka48Qdzf42VpwPOJtCRgAXlgZcBKi6R6i6f41uEfI5nc0XRNp
-        TAEQuWaOJMzMQdsAsYbw9yBKrFBAEimA72UHOkdlEyuMTY7K5oxCvT/mrwpNSO9zDViHQBPSOVxUxCe8
-        8TLbWOCK0Lgr4ZcZ+GUG1NyxoLULiU01ky8Bj+IAAAAASUVORK5CYII=
-</value>
-  </data>
-  <data name="btnUploadAO.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAElJREFUOE9joBb4
-        TyaGg/8NDZiCOABMDUUGYKglyQBsaoeLAUgSODGaOjiASxCLQXogWiEAXQIvJtcAGBikBoAAsmJiMaWA
-        gQEAlnKxdcuJCusAAAAASUVORK5CYII=
 </value>
   </data>
   <metadata name="Label55.Locked" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
