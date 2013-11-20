@@ -24,16 +24,16 @@ Partial Class IAIPFacilitySummary
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(IAIPFacilitySummary))
-        Dim DataGridViewCellStyle21 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle22 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle23 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle24 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle25 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle26 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle27 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle28 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle29 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle30 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
         Me.MainMenu1 = New System.Windows.Forms.MainMenu(Me.components)
         Me.mmiFile = New System.Windows.Forms.MenuItem
         Me.mmiFacilityLookup = New System.Windows.Forms.MenuItem
@@ -1271,7 +1271,7 @@ Partial Class IAIPFacilitySummary
         Me.TPHeaderData.Location = New System.Drawing.Point(4, 22)
         Me.TPHeaderData.Name = "TPHeaderData"
         Me.TPHeaderData.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPHeaderData.Size = New System.Drawing.Size(666, 434)
+        Me.TPHeaderData.Size = New System.Drawing.Size(666, 413)
         Me.TPHeaderData.TabIndex = 1
         Me.TPHeaderData.Text = "Header Data"
         Me.TPHeaderData.UseVisualStyleBackColor = True
@@ -1307,7 +1307,7 @@ Partial Class IAIPFacilitySummary
         Me.Panel13.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel13.Location = New System.Drawing.Point(3, 34)
         Me.Panel13.Name = "Panel13"
-        Me.Panel13.Size = New System.Drawing.Size(660, 397)
+        Me.Panel13.Size = New System.Drawing.Size(660, 376)
         Me.Panel13.TabIndex = 342
         '
         'btnOpenSubpartEditior
@@ -1898,7 +1898,7 @@ Partial Class IAIPFacilitySummary
         Me.TPFeesData.Controls.Add(Me.Label423)
         Me.TPFeesData.Location = New System.Drawing.Point(4, 22)
         Me.TPFeesData.Name = "TPFeesData"
-        Me.TPFeesData.Size = New System.Drawing.Size(666, 434)
+        Me.TPFeesData.Size = New System.Drawing.Size(666, 413)
         Me.TPFeesData.TabIndex = 3
         Me.TPFeesData.Text = "Fees Data"
         Me.TPFeesData.UseVisualStyleBackColor = True
@@ -2371,7 +2371,7 @@ Partial Class IAIPFacilitySummary
         Me.TPContactInformation.Controls.Add(Me.pnlEditContactData)
         Me.TPContactInformation.Location = New System.Drawing.Point(4, 22)
         Me.TPContactInformation.Name = "TPContactInformation"
-        Me.TPContactInformation.Size = New System.Drawing.Size(666, 434)
+        Me.TPContactInformation.Size = New System.Drawing.Size(666, 413)
         Me.TPContactInformation.TabIndex = 2
         Me.TPContactInformation.Text = "Contact Information "
         Me.TPContactInformation.UseVisualStyleBackColor = True
@@ -2391,7 +2391,7 @@ Partial Class IAIPFacilitySummary
         Me.TCContacts.Margin = New System.Windows.Forms.Padding(2)
         Me.TCContacts.Name = "TCContacts"
         Me.TCContacts.SelectedIndex = 0
-        Me.TCContacts.Size = New System.Drawing.Size(666, 403)
+        Me.TCContacts.Size = New System.Drawing.Size(666, 382)
         Me.TCContacts.TabIndex = 1
         '
         'TPStateContacts
@@ -2411,7 +2411,7 @@ Partial Class IAIPFacilitySummary
         Me.TPStateContacts.Location = New System.Drawing.Point(4, 22)
         Me.TPStateContacts.Margin = New System.Windows.Forms.Padding(2)
         Me.TPStateContacts.Name = "TPStateContacts"
-        Me.TPStateContacts.Size = New System.Drawing.Size(658, 377)
+        Me.TPStateContacts.Size = New System.Drawing.Size(658, 356)
         Me.TPStateContacts.TabIndex = 4
         Me.TPStateContacts.Text = "State Contacts"
         Me.TPStateContacts.UseVisualStyleBackColor = True
@@ -2535,7 +2535,7 @@ Partial Class IAIPFacilitySummary
         Me.TPWebContacts.Location = New System.Drawing.Point(4, 22)
         Me.TPWebContacts.Margin = New System.Windows.Forms.Padding(2)
         Me.TPWebContacts.Name = "TPWebContacts"
-        Me.TPWebContacts.Size = New System.Drawing.Size(658, 377)
+        Me.TPWebContacts.Size = New System.Drawing.Size(658, 356)
         Me.TPWebContacts.TabIndex = 0
         Me.TPWebContacts.Text = "Web Site Contact(s)"
         Me.TPWebContacts.UseVisualStyleBackColor = True
@@ -2544,7 +2544,7 @@ Partial Class IAIPFacilitySummary
         '
         Me.Panel6.Controls.Add(Me.btnCopyWebSiteContact)
         Me.Panel6.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.Panel6.Location = New System.Drawing.Point(0, 342)
+        Me.Panel6.Location = New System.Drawing.Point(0, 321)
         Me.Panel6.Name = "Panel6"
         Me.Panel6.Size = New System.Drawing.Size(658, 35)
         Me.Panel6.TabIndex = 2
@@ -2562,28 +2562,28 @@ Partial Class IAIPFacilitySummary
         '
         'dgvWebSiteContacts
         '
-        DataGridViewCellStyle21.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle21.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle21.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle21.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle21.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle21.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle21.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvWebSiteContacts.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle21
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvWebSiteContacts.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
         Me.dgvWebSiteContacts.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle22.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle22.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle22.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle22.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle22.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle22.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle22.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvWebSiteContacts.DefaultCellStyle = DataGridViewCellStyle22
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvWebSiteContacts.DefaultCellStyle = DataGridViewCellStyle2
         Me.dgvWebSiteContacts.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvWebSiteContacts.Location = New System.Drawing.Point(0, 0)
         Me.dgvWebSiteContacts.Name = "dgvWebSiteContacts"
         Me.dgvWebSiteContacts.ReadOnly = True
-        Me.dgvWebSiteContacts.Size = New System.Drawing.Size(658, 377)
+        Me.dgvWebSiteContacts.Size = New System.Drawing.Size(658, 356)
         Me.dgvWebSiteContacts.TabIndex = 1
         '
         'TPSSPPContacts
@@ -2593,42 +2593,42 @@ Partial Class IAIPFacilitySummary
         Me.TPSSPPContacts.Location = New System.Drawing.Point(4, 22)
         Me.TPSSPPContacts.Margin = New System.Windows.Forms.Padding(2)
         Me.TPSSPPContacts.Name = "TPSSPPContacts"
-        Me.TPSSPPContacts.Size = New System.Drawing.Size(658, 377)
+        Me.TPSSPPContacts.Size = New System.Drawing.Size(658, 356)
         Me.TPSSPPContacts.TabIndex = 1
         Me.TPSSPPContacts.Text = "Permitting Contact(s)"
         Me.TPSSPPContacts.UseVisualStyleBackColor = True
         '
         'dgvSSPPContacts
         '
-        DataGridViewCellStyle23.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle23.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle23.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle23.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle23.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle23.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle23.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvSSPPContacts.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle23
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvSSPPContacts.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle3
         Me.dgvSSPPContacts.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle24.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle24.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle24.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle24.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle24.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle24.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle24.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvSSPPContacts.DefaultCellStyle = DataGridViewCellStyle24
+        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle4.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvSSPPContacts.DefaultCellStyle = DataGridViewCellStyle4
         Me.dgvSSPPContacts.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvSSPPContacts.Location = New System.Drawing.Point(0, 0)
         Me.dgvSSPPContacts.Name = "dgvSSPPContacts"
         Me.dgvSSPPContacts.ReadOnly = True
-        Me.dgvSSPPContacts.Size = New System.Drawing.Size(658, 342)
+        Me.dgvSSPPContacts.Size = New System.Drawing.Size(658, 321)
         Me.dgvSSPPContacts.TabIndex = 2
         '
         'Panel7
         '
         Me.Panel7.Controls.Add(Me.btnCopyPermittingContact)
         Me.Panel7.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.Panel7.Location = New System.Drawing.Point(0, 342)
+        Me.Panel7.Location = New System.Drawing.Point(0, 321)
         Me.Panel7.Name = "Panel7"
         Me.Panel7.Size = New System.Drawing.Size(658, 35)
         Me.Panel7.TabIndex = 3
@@ -2651,42 +2651,42 @@ Partial Class IAIPFacilitySummary
         Me.TPISMPContacts.Location = New System.Drawing.Point(4, 22)
         Me.TPISMPContacts.Margin = New System.Windows.Forms.Padding(2)
         Me.TPISMPContacts.Name = "TPISMPContacts"
-        Me.TPISMPContacts.Size = New System.Drawing.Size(658, 377)
+        Me.TPISMPContacts.Size = New System.Drawing.Size(658, 356)
         Me.TPISMPContacts.TabIndex = 2
         Me.TPISMPContacts.Text = "ISMP Contact(s)"
         Me.TPISMPContacts.UseVisualStyleBackColor = True
         '
         'dgvISMPContacts
         '
-        DataGridViewCellStyle25.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle25.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle25.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle25.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle25.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle25.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle25.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvISMPContacts.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle25
+        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle5.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvISMPContacts.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle5
         Me.dgvISMPContacts.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle26.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle26.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle26.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle26.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle26.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle26.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle26.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvISMPContacts.DefaultCellStyle = DataGridViewCellStyle26
+        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle6.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvISMPContacts.DefaultCellStyle = DataGridViewCellStyle6
         Me.dgvISMPContacts.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvISMPContacts.Location = New System.Drawing.Point(0, 0)
         Me.dgvISMPContacts.Name = "dgvISMPContacts"
         Me.dgvISMPContacts.ReadOnly = True
-        Me.dgvISMPContacts.Size = New System.Drawing.Size(658, 342)
+        Me.dgvISMPContacts.Size = New System.Drawing.Size(658, 321)
         Me.dgvISMPContacts.TabIndex = 3
         '
         'Panel8
         '
         Me.Panel8.Controls.Add(Me.btnCopyMointoringContact)
         Me.Panel8.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.Panel8.Location = New System.Drawing.Point(0, 342)
+        Me.Panel8.Location = New System.Drawing.Point(0, 321)
         Me.Panel8.Name = "Panel8"
         Me.Panel8.Size = New System.Drawing.Size(658, 35)
         Me.Panel8.TabIndex = 4
@@ -2709,42 +2709,42 @@ Partial Class IAIPFacilitySummary
         Me.TPSSCPContacts.Location = New System.Drawing.Point(4, 22)
         Me.TPSSCPContacts.Margin = New System.Windows.Forms.Padding(2)
         Me.TPSSCPContacts.Name = "TPSSCPContacts"
-        Me.TPSSCPContacts.Size = New System.Drawing.Size(658, 377)
+        Me.TPSSCPContacts.Size = New System.Drawing.Size(658, 356)
         Me.TPSSCPContacts.TabIndex = 3
         Me.TPSSCPContacts.Text = "Compliance Contact(s)"
         Me.TPSSCPContacts.UseVisualStyleBackColor = True
         '
         'dgvSSCPContacts
         '
-        DataGridViewCellStyle27.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle27.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle27.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle27.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle27.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle27.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle27.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvSSCPContacts.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle27
+        DataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle7.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvSSCPContacts.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle7
         Me.dgvSSCPContacts.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle28.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle28.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle28.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle28.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle28.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle28.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle28.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvSSCPContacts.DefaultCellStyle = DataGridViewCellStyle28
+        DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle8.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvSSCPContacts.DefaultCellStyle = DataGridViewCellStyle8
         Me.dgvSSCPContacts.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvSSCPContacts.Location = New System.Drawing.Point(0, 0)
         Me.dgvSSCPContacts.Name = "dgvSSCPContacts"
         Me.dgvSSCPContacts.ReadOnly = True
-        Me.dgvSSCPContacts.Size = New System.Drawing.Size(658, 342)
+        Me.dgvSSCPContacts.Size = New System.Drawing.Size(658, 321)
         Me.dgvSSCPContacts.TabIndex = 3
         '
         'Panel9
         '
         Me.Panel9.Controls.Add(Me.btnCopyComplianceContact)
         Me.Panel9.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.Panel9.Location = New System.Drawing.Point(0, 342)
+        Me.Panel9.Location = New System.Drawing.Point(0, 321)
         Me.Panel9.Name = "Panel9"
         Me.Panel9.Size = New System.Drawing.Size(658, 35)
         Me.Panel9.TabIndex = 4
@@ -2766,42 +2766,42 @@ Partial Class IAIPFacilitySummary
         Me.TPGECOContacts.Controls.Add(Me.Panel10)
         Me.TPGECOContacts.Location = New System.Drawing.Point(4, 22)
         Me.TPGECOContacts.Name = "TPGECOContacts"
-        Me.TPGECOContacts.Size = New System.Drawing.Size(658, 377)
+        Me.TPGECOContacts.Size = New System.Drawing.Size(658, 356)
         Me.TPGECOContacts.TabIndex = 5
         Me.TPGECOContacts.Text = "GECO Contact (Online Users)"
         Me.TPGECOContacts.UseVisualStyleBackColor = True
         '
         'dgvGECOContacts
         '
-        DataGridViewCellStyle29.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle29.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle29.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle29.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle29.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle29.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle29.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvGECOContacts.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle29
+        DataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle9.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvGECOContacts.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle9
         Me.dgvGECOContacts.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle30.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle30.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle30.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle30.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle30.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle30.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle30.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvGECOContacts.DefaultCellStyle = DataGridViewCellStyle30
+        DataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle10.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvGECOContacts.DefaultCellStyle = DataGridViewCellStyle10
         Me.dgvGECOContacts.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvGECOContacts.Location = New System.Drawing.Point(0, 0)
         Me.dgvGECOContacts.Name = "dgvGECOContacts"
         Me.dgvGECOContacts.ReadOnly = True
-        Me.dgvGECOContacts.Size = New System.Drawing.Size(658, 342)
+        Me.dgvGECOContacts.Size = New System.Drawing.Size(658, 321)
         Me.dgvGECOContacts.TabIndex = 0
         '
         'Panel10
         '
         Me.Panel10.Controls.Add(Me.btnCopyGECOContact)
         Me.Panel10.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.Panel10.Location = New System.Drawing.Point(0, 342)
+        Me.Panel10.Location = New System.Drawing.Point(0, 321)
         Me.Panel10.Name = "Panel10"
         Me.Panel10.Size = New System.Drawing.Size(658, 35)
         Me.Panel10.TabIndex = 3
@@ -2843,7 +2843,7 @@ Partial Class IAIPFacilitySummary
         Me.TPEmissionInventory.Controls.Add(Me.GroupBox7)
         Me.TPEmissionInventory.Location = New System.Drawing.Point(4, 22)
         Me.TPEmissionInventory.Name = "TPEmissionInventory"
-        Me.TPEmissionInventory.Size = New System.Drawing.Size(666, 434)
+        Me.TPEmissionInventory.Size = New System.Drawing.Size(666, 413)
         Me.TPEmissionInventory.TabIndex = 4
         Me.TPEmissionInventory.Text = "Emission Inventory"
         Me.TPEmissionInventory.UseVisualStyleBackColor = True
@@ -2858,7 +2858,7 @@ Partial Class IAIPFacilitySummary
         Me.GroupBox6.Dock = System.Windows.Forms.DockStyle.Fill
         Me.GroupBox6.Location = New System.Drawing.Point(0, 0)
         Me.GroupBox6.Name = "GroupBox6"
-        Me.GroupBox6.Size = New System.Drawing.Size(666, 214)
+        Me.GroupBox6.Size = New System.Drawing.Size(666, 193)
         Me.GroupBox6.TabIndex = 58
         Me.GroupBox6.TabStop = False
         Me.GroupBox6.Text = "Emission Data after 2009"
@@ -2924,7 +2924,7 @@ Partial Class IAIPFacilitySummary
         Me.GroupBox7.Controls.Add(Me.Label100)
         Me.GroupBox7.Controls.Add(Me.cboEIYear)
         Me.GroupBox7.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.GroupBox7.Location = New System.Drawing.Point(0, 214)
+        Me.GroupBox7.Location = New System.Drawing.Point(0, 193)
         Me.GroupBox7.Name = "GroupBox7"
         Me.GroupBox7.Size = New System.Drawing.Size(666, 220)
         Me.GroupBox7.TabIndex = 59
@@ -3136,7 +3136,7 @@ Partial Class IAIPFacilitySummary
         Me.TPISMPTestingWork.Controls.Add(Me.TCISMPWork)
         Me.TPISMPTestingWork.Location = New System.Drawing.Point(4, 22)
         Me.TPISMPTestingWork.Name = "TPISMPTestingWork"
-        Me.TPISMPTestingWork.Size = New System.Drawing.Size(666, 434)
+        Me.TPISMPTestingWork.Size = New System.Drawing.Size(666, 413)
         Me.TPISMPTestingWork.TabIndex = 5
         Me.TPISMPTestingWork.Text = "ISMP Testing Work"
         Me.TPISMPTestingWork.UseVisualStyleBackColor = True
@@ -3151,7 +3151,7 @@ Partial Class IAIPFacilitySummary
         Me.TCISMPWork.Margin = New System.Windows.Forms.Padding(2)
         Me.TCISMPWork.Name = "TCISMPWork"
         Me.TCISMPWork.SelectedIndex = 0
-        Me.TCISMPWork.Size = New System.Drawing.Size(666, 434)
+        Me.TCISMPWork.Size = New System.Drawing.Size(666, 413)
         Me.TCISMPWork.TabIndex = 6
         '
         'TPTestReports
@@ -3161,7 +3161,7 @@ Partial Class IAIPFacilitySummary
         Me.TPTestReports.Location = New System.Drawing.Point(4, 22)
         Me.TPTestReports.Margin = New System.Windows.Forms.Padding(2)
         Me.TPTestReports.Name = "TPTestReports"
-        Me.TPTestReports.Size = New System.Drawing.Size(658, 408)
+        Me.TPTestReports.Size = New System.Drawing.Size(658, 387)
         Me.TPTestReports.TabIndex = 0
         Me.TPTestReports.Text = "Test Report(s)"
         '
@@ -3172,7 +3172,7 @@ Partial Class IAIPFacilitySummary
         Me.dgvISMPWork.Location = New System.Drawing.Point(0, 30)
         Me.dgvISMPWork.Name = "dgvISMPWork"
         Me.dgvISMPWork.ReadOnly = True
-        Me.dgvISMPWork.Size = New System.Drawing.Size(658, 378)
+        Me.dgvISMPWork.Size = New System.Drawing.Size(658, 357)
         Me.dgvISMPWork.TabIndex = 5
         '
         'PanelISMPWork
@@ -3205,7 +3205,7 @@ Partial Class IAIPFacilitySummary
         Me.TPTestLog.Location = New System.Drawing.Point(4, 22)
         Me.TPTestLog.Margin = New System.Windows.Forms.Padding(2)
         Me.TPTestLog.Name = "TPTestLog"
-        Me.TPTestLog.Size = New System.Drawing.Size(658, 408)
+        Me.TPTestLog.Size = New System.Drawing.Size(658, 387)
         Me.TPTestLog.TabIndex = 1
         Me.TPTestLog.Text = "Test Notification(s)"
         '
@@ -3216,7 +3216,7 @@ Partial Class IAIPFacilitySummary
         Me.dgvISMPTestNotification.Location = New System.Drawing.Point(0, 30)
         Me.dgvISMPTestNotification.Name = "dgvISMPTestNotification"
         Me.dgvISMPTestNotification.ReadOnly = True
-        Me.dgvISMPTestNotification.Size = New System.Drawing.Size(658, 378)
+        Me.dgvISMPTestNotification.Size = New System.Drawing.Size(658, 357)
         Me.dgvISMPTestNotification.TabIndex = 3
         '
         'PanelISMPTestNotification
@@ -3256,7 +3256,7 @@ Partial Class IAIPFacilitySummary
         Me.TPReportMemos.Location = New System.Drawing.Point(4, 22)
         Me.TPReportMemos.Margin = New System.Windows.Forms.Padding(2)
         Me.TPReportMemos.Name = "TPReportMemos"
-        Me.TPReportMemos.Size = New System.Drawing.Size(658, 408)
+        Me.TPReportMemos.Size = New System.Drawing.Size(658, 387)
         Me.TPReportMemos.TabIndex = 2
         Me.TPReportMemos.Text = "Test Report Memo(s)"
         '
@@ -3267,7 +3267,7 @@ Partial Class IAIPFacilitySummary
         Me.dgvISMPMemo.Location = New System.Drawing.Point(0, 30)
         Me.dgvISMPMemo.Name = "dgvISMPMemo"
         Me.dgvISMPMemo.ReadOnly = True
-        Me.dgvISMPMemo.Size = New System.Drawing.Size(658, 378)
+        Me.dgvISMPMemo.Size = New System.Drawing.Size(658, 357)
         Me.dgvISMPMemo.TabIndex = 3
         '
         'PanelISMPMemo
@@ -3305,7 +3305,7 @@ Partial Class IAIPFacilitySummary
         Me.TPComplianceWork.Controls.Add(Me.TCComplianceWork)
         Me.TPComplianceWork.Location = New System.Drawing.Point(4, 22)
         Me.TPComplianceWork.Name = "TPComplianceWork"
-        Me.TPComplianceWork.Size = New System.Drawing.Size(666, 434)
+        Me.TPComplianceWork.Size = New System.Drawing.Size(666, 413)
         Me.TPComplianceWork.TabIndex = 6
         Me.TPComplianceWork.Text = "Compliance Work"
         Me.TPComplianceWork.UseVisualStyleBackColor = True
@@ -3320,7 +3320,7 @@ Partial Class IAIPFacilitySummary
         Me.TCComplianceWork.Margin = New System.Windows.Forms.Padding(2)
         Me.TCComplianceWork.Name = "TCComplianceWork"
         Me.TCComplianceWork.SelectedIndex = 0
-        Me.TCComplianceWork.Size = New System.Drawing.Size(666, 434)
+        Me.TCComplianceWork.Size = New System.Drawing.Size(666, 413)
         Me.TCComplianceWork.TabIndex = 1
         '
         'TPComplianceEvents
@@ -3330,7 +3330,7 @@ Partial Class IAIPFacilitySummary
         Me.TPComplianceEvents.Location = New System.Drawing.Point(4, 22)
         Me.TPComplianceEvents.Margin = New System.Windows.Forms.Padding(2)
         Me.TPComplianceEvents.Name = "TPComplianceEvents"
-        Me.TPComplianceEvents.Size = New System.Drawing.Size(658, 408)
+        Me.TPComplianceEvents.Size = New System.Drawing.Size(658, 387)
         Me.TPComplianceEvents.TabIndex = 0
         Me.TPComplianceEvents.Text = "Compliance Event(s)"
         Me.TPComplianceEvents.UseVisualStyleBackColor = True
@@ -3342,7 +3342,7 @@ Partial Class IAIPFacilitySummary
         Me.dgvSSCPEvents.Location = New System.Drawing.Point(0, 30)
         Me.dgvSSCPEvents.Name = "dgvSSCPEvents"
         Me.dgvSSCPEvents.ReadOnly = True
-        Me.dgvSSCPEvents.Size = New System.Drawing.Size(658, 378)
+        Me.dgvSSCPEvents.Size = New System.Drawing.Size(658, 357)
         Me.dgvSSCPEvents.TabIndex = 3
         '
         'PanelSSCPEvents
@@ -3394,7 +3394,7 @@ Partial Class IAIPFacilitySummary
         Me.TPFCE.Margin = New System.Windows.Forms.Padding(2)
         Me.TPFCE.Name = "TPFCE"
         Me.TPFCE.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.TPFCE.Size = New System.Drawing.Size(658, 408)
+        Me.TPFCE.Size = New System.Drawing.Size(658, 387)
         Me.TPFCE.TabIndex = 1
         Me.TPFCE.Text = "Full Compliance Evaluation(s)"
         Me.TPFCE.UseVisualStyleBackColor = True
@@ -3407,7 +3407,7 @@ Partial Class IAIPFacilitySummary
         Me.dgvFCEData.Name = "dgvFCEData"
         Me.dgvFCEData.ReadOnly = True
         Me.dgvFCEData.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.dgvFCEData.Size = New System.Drawing.Size(658, 378)
+        Me.dgvFCEData.Size = New System.Drawing.Size(658, 357)
         Me.dgvFCEData.TabIndex = 3
         '
         'Panel11
@@ -3459,7 +3459,7 @@ Partial Class IAIPFacilitySummary
         Me.TPEnforcement.Location = New System.Drawing.Point(4, 22)
         Me.TPEnforcement.Margin = New System.Windows.Forms.Padding(2)
         Me.TPEnforcement.Name = "TPEnforcement"
-        Me.TPEnforcement.Size = New System.Drawing.Size(658, 408)
+        Me.TPEnforcement.Size = New System.Drawing.Size(658, 387)
         Me.TPEnforcement.TabIndex = 2
         Me.TPEnforcement.Text = "Enforcement"
         Me.TPEnforcement.UseVisualStyleBackColor = True
@@ -3471,7 +3471,7 @@ Partial Class IAIPFacilitySummary
         Me.dgvSSCPEnforcement.Location = New System.Drawing.Point(0, 30)
         Me.dgvSSCPEnforcement.Name = "dgvSSCPEnforcement"
         Me.dgvSSCPEnforcement.ReadOnly = True
-        Me.dgvSSCPEnforcement.Size = New System.Drawing.Size(658, 378)
+        Me.dgvSSCPEnforcement.Size = New System.Drawing.Size(658, 357)
         Me.dgvSSCPEnforcement.TabIndex = 3
         '
         'PanelSSCPEnforcement
@@ -3520,7 +3520,7 @@ Partial Class IAIPFacilitySummary
         Me.TPPermittingData.Controls.Add(Me.TCPermittingData)
         Me.TPPermittingData.Location = New System.Drawing.Point(4, 22)
         Me.TPPermittingData.Name = "TPPermittingData"
-        Me.TPPermittingData.Size = New System.Drawing.Size(666, 434)
+        Me.TPPermittingData.Size = New System.Drawing.Size(666, 413)
         Me.TPPermittingData.TabIndex = 7
         Me.TPPermittingData.Text = "Permitting Data"
         Me.TPPermittingData.UseVisualStyleBackColor = True
@@ -3535,7 +3535,7 @@ Partial Class IAIPFacilitySummary
         Me.TCPermittingData.Margin = New System.Windows.Forms.Padding(2)
         Me.TCPermittingData.Name = "TCPermittingData"
         Me.TCPermittingData.SelectedIndex = 0
-        Me.TCPermittingData.Size = New System.Drawing.Size(666, 434)
+        Me.TCPermittingData.Size = New System.Drawing.Size(666, 413)
         Me.TCPermittingData.TabIndex = 1
         '
         'TPPermitLog
@@ -3545,7 +3545,7 @@ Partial Class IAIPFacilitySummary
         Me.TPPermitLog.Location = New System.Drawing.Point(4, 22)
         Me.TPPermitLog.Margin = New System.Windows.Forms.Padding(2)
         Me.TPPermitLog.Name = "TPPermitLog"
-        Me.TPPermitLog.Size = New System.Drawing.Size(658, 408)
+        Me.TPPermitLog.Size = New System.Drawing.Size(658, 387)
         Me.TPPermitLog.TabIndex = 0
         Me.TPPermitLog.Text = "Permit Tracking Log"
         Me.TPPermitLog.UseVisualStyleBackColor = True
@@ -3557,7 +3557,7 @@ Partial Class IAIPFacilitySummary
         Me.dgvApplicationLog.Location = New System.Drawing.Point(0, 30)
         Me.dgvApplicationLog.Name = "dgvApplicationLog"
         Me.dgvApplicationLog.ReadOnly = True
-        Me.dgvApplicationLog.Size = New System.Drawing.Size(658, 378)
+        Me.dgvApplicationLog.Size = New System.Drawing.Size(658, 357)
         Me.dgvApplicationLog.TabIndex = 4
         '
         'Panel12
@@ -3606,7 +3606,7 @@ Partial Class IAIPFacilitySummary
         Me.TPActiveRules.Controls.Add(Me.dgvActiveRules)
         Me.TPActiveRules.Location = New System.Drawing.Point(4, 22)
         Me.TPActiveRules.Name = "TPActiveRules"
-        Me.TPActiveRules.Size = New System.Drawing.Size(658, 408)
+        Me.TPActiveRules.Size = New System.Drawing.Size(658, 387)
         Me.TPActiveRules.TabIndex = 1
         Me.TPActiveRules.Text = "Current Applicable Rules"
         Me.TPActiveRules.UseVisualStyleBackColor = True
@@ -3618,7 +3618,7 @@ Partial Class IAIPFacilitySummary
         Me.dgvActiveRules.Location = New System.Drawing.Point(0, 0)
         Me.dgvActiveRules.Name = "dgvActiveRules"
         Me.dgvActiveRules.ReadOnly = True
-        Me.dgvActiveRules.Size = New System.Drawing.Size(658, 408)
+        Me.dgvActiveRules.Size = New System.Drawing.Size(658, 387)
         Me.dgvActiveRules.TabIndex = 5
         '
         'TPRuleHistory
@@ -3626,7 +3626,7 @@ Partial Class IAIPFacilitySummary
         Me.TPRuleHistory.Controls.Add(Me.dgvRuleHistory)
         Me.TPRuleHistory.Location = New System.Drawing.Point(4, 22)
         Me.TPRuleHistory.Name = "TPRuleHistory"
-        Me.TPRuleHistory.Size = New System.Drawing.Size(658, 408)
+        Me.TPRuleHistory.Size = New System.Drawing.Size(658, 387)
         Me.TPRuleHistory.TabIndex = 2
         Me.TPRuleHistory.Text = "Rule Applicabilty History"
         Me.TPRuleHistory.UseVisualStyleBackColor = True
@@ -3638,7 +3638,7 @@ Partial Class IAIPFacilitySummary
         Me.dgvRuleHistory.Location = New System.Drawing.Point(0, 0)
         Me.dgvRuleHistory.Name = "dgvRuleHistory"
         Me.dgvRuleHistory.ReadOnly = True
-        Me.dgvRuleHistory.Size = New System.Drawing.Size(658, 408)
+        Me.dgvRuleHistory.Size = New System.Drawing.Size(658, 387)
         Me.dgvRuleHistory.TabIndex = 5
         '
         'TPPlanningSupportData
@@ -3646,7 +3646,7 @@ Partial Class IAIPFacilitySummary
         Me.TPPlanningSupportData.Controls.Add(Me.TabControl2)
         Me.TPPlanningSupportData.Location = New System.Drawing.Point(4, 22)
         Me.TPPlanningSupportData.Name = "TPPlanningSupportData"
-        Me.TPPlanningSupportData.Size = New System.Drawing.Size(666, 434)
+        Me.TPPlanningSupportData.Size = New System.Drawing.Size(666, 413)
         Me.TPPlanningSupportData.TabIndex = 8
         Me.TPPlanningSupportData.Text = "Financial Data"
         Me.TPPlanningSupportData.UseVisualStyleBackColor = True
@@ -3660,7 +3660,7 @@ Partial Class IAIPFacilitySummary
         Me.TabControl2.Location = New System.Drawing.Point(0, 0)
         Me.TabControl2.Name = "TabControl2"
         Me.TabControl2.SelectedIndex = 0
-        Me.TabControl2.Size = New System.Drawing.Size(666, 434)
+        Me.TabControl2.Size = New System.Drawing.Size(666, 413)
         Me.TabControl2.TabIndex = 1
         '
         'TPFeeData
@@ -3668,7 +3668,7 @@ Partial Class IAIPFacilitySummary
         Me.TPFeeData.Controls.Add(Me.dgvFeeData)
         Me.TPFeeData.Location = New System.Drawing.Point(4, 22)
         Me.TPFeeData.Name = "TPFeeData"
-        Me.TPFeeData.Size = New System.Drawing.Size(658, 408)
+        Me.TPFeeData.Size = New System.Drawing.Size(658, 387)
         Me.TPFeeData.TabIndex = 0
         Me.TPFeeData.Text = "Fee Data"
         Me.TPFeeData.UseVisualStyleBackColor = True
@@ -3680,7 +3680,7 @@ Partial Class IAIPFacilitySummary
         Me.dgvFeeData.Location = New System.Drawing.Point(0, 0)
         Me.dgvFeeData.Name = "dgvFeeData"
         Me.dgvFeeData.ReadOnly = True
-        Me.dgvFeeData.Size = New System.Drawing.Size(658, 408)
+        Me.dgvFeeData.Size = New System.Drawing.Size(658, 387)
         Me.dgvFeeData.TabIndex = 0
         '
         'TPInvoices
@@ -3688,7 +3688,7 @@ Partial Class IAIPFacilitySummary
         Me.TPInvoices.Controls.Add(Me.dgvInvoices)
         Me.TPInvoices.Location = New System.Drawing.Point(4, 22)
         Me.TPInvoices.Name = "TPInvoices"
-        Me.TPInvoices.Size = New System.Drawing.Size(658, 408)
+        Me.TPInvoices.Size = New System.Drawing.Size(658, 387)
         Me.TPInvoices.TabIndex = 2
         Me.TPInvoices.Text = "Invoices"
         Me.TPInvoices.UseVisualStyleBackColor = True
@@ -3700,7 +3700,7 @@ Partial Class IAIPFacilitySummary
         Me.dgvInvoices.Location = New System.Drawing.Point(0, 0)
         Me.dgvInvoices.Name = "dgvInvoices"
         Me.dgvInvoices.ReadOnly = True
-        Me.dgvInvoices.Size = New System.Drawing.Size(658, 408)
+        Me.dgvInvoices.Size = New System.Drawing.Size(658, 387)
         Me.dgvInvoices.TabIndex = 1
         '
         'TPFeeDeposits
@@ -3708,7 +3708,7 @@ Partial Class IAIPFacilitySummary
         Me.TPFeeDeposits.Controls.Add(Me.dgvFeeDeposits)
         Me.TPFeeDeposits.Location = New System.Drawing.Point(4, 22)
         Me.TPFeeDeposits.Name = "TPFeeDeposits"
-        Me.TPFeeDeposits.Size = New System.Drawing.Size(658, 408)
+        Me.TPFeeDeposits.Size = New System.Drawing.Size(658, 387)
         Me.TPFeeDeposits.TabIndex = 1
         Me.TPFeeDeposits.Text = "Fee Deposits"
         Me.TPFeeDeposits.UseVisualStyleBackColor = True
@@ -3720,7 +3720,7 @@ Partial Class IAIPFacilitySummary
         Me.dgvFeeDeposits.Location = New System.Drawing.Point(0, 0)
         Me.dgvFeeDeposits.Name = "dgvFeeDeposits"
         Me.dgvFeeDeposits.ReadOnly = True
-        Me.dgvFeeDeposits.Size = New System.Drawing.Size(658, 408)
+        Me.dgvFeeDeposits.Size = New System.Drawing.Size(658, 387)
         Me.dgvFeeDeposits.TabIndex = 0
         '
         'IAIPFacilitySummary

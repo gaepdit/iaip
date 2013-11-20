@@ -328,6 +328,7 @@ Public Class IAIPLogIn
                         ' TODO: Once a workable "User" object is set up, use userID from that instead
                         monitorInstallationInfo.Add("IaipUserName", useridname)
                         monitor.SetInstallationInfo(useridname, monitorInstallationInfo)
+                        If TestingEnvironment Then monitor.TrackFeature("Main.TestingEnvironment")
 
                         NavigationScreen = Nothing
                         If NavigationScreen Is Nothing Then NavigationScreen = New IAIPNavigation
@@ -495,6 +496,10 @@ Public Class IAIPLogIn
     Private Sub mmiRefreshUserID_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiRefreshUserID.Click
         ResetUserSetting(UserSetting.PrefillLoginId)
         txtUserID.Text = ""
+    End Sub
+
+    Private Sub mmiResetAllForms_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiResetAllForms.Click
+        ResetAllFormSettings()
     End Sub
 
     Private Sub mmiOnlineHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiOnlineHelp.Click

@@ -7,7 +7,11 @@ See the [release notes](README.html).
 
 ## Version 2.6.x <span>(2013-xx-xx)</span>
 
-+ FIX: Date fields should no longer cut off the last digit of the year on Windows 7.
++ NEW: Added error tracking to analytics
++ NEW: "Reset all forms" added to Login screen
+
++ FIX: Last digit of date fields cut off on Windows 7
++ FIX: *ISMP* – Tests assigned by program manager cause Facility Summary to break (#141)
 
 ## Version 2.6.10 <span>(2013-11-12)</span>
 
