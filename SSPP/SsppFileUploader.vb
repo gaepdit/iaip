@@ -35,7 +35,7 @@ Public Class SsppFileUploader
 
     Private Sub LoadDocumentTypes()
         ' Get list of various document types and bind that list to the comboboxes
-        DocumentTypes = DAL.GetPermitDocumentTypes
+        DocumentTypes = DAL.GetPermitDocumentTypesDict
 
         If DocumentTypes.Count > 0 Then
             With ddlNewDocumentType
@@ -393,8 +393,8 @@ Public Class SsppFileUploader
         End If
 
         ' Create Document object
-        Dim NewPermitDocument As New PermitDocument
-        With NewPermitDocument
+        Dim newPermitDocument As New PermitDocument
+        With newPermitDocument
             .ApplicationNumber = AppInfo.ApplicationNumber
             .Comment = txtNewDescription.Text
             .DocumentTypeId = ddlNewDocumentType.SelectedValue
@@ -404,13 +404,13 @@ Public Class SsppFileUploader
             .UploadDate = Today
         End With
 
-        m = String.Format(GetMessage(MessageType.UploadingFile), NewPermitDocument.FileName)
+        m = String.Format(GetMessage(MessageType.UploadingFile), newPermitDocument.FileName)
         DisplayMessage(lblMessage, m)
 
-        Dim result As Boolean = UploadPermitDocument(NewPermitDocument, fileInfo.FullName, Me)
+        Dim result As Boolean = UploadPermitDocument(newPermitDocument, fileInfo.FullName, Me)
 
         If result Then
-            m = String.Format(GetMessage(MessageType.UploadSuccess), NewPermitDocument.FileName)
+            m = String.Format(GetMessage(MessageType.UploadSuccess), newPermitDocument.FileName)
             DisplayMessage(lblMessage, m)
             SaveUserSetting(UserSetting.PermitUploadLocation, fileInfo.DirectoryName)
         Else
@@ -443,7 +443,7 @@ Public Class SsppFileUploader
 #Region "Existing file Update/Download/Delete"
 
     Private Sub dgvFileList_SelectionChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles dgvFileList.SelectionChanged
-        If dgvFileList.SelectedRows.Count > 0 Then
+        If dgvFileList.SelectedRows.Count = 1 Then
             EnableFileUpdate()
         Else
             DisableFileUpdate()

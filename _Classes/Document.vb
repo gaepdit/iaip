@@ -119,3 +119,53 @@ Public Class EnforcementDocument
     End Property
 
 End Class
+
+Public Class EnforcementDocumentType
+
+    Private _documentType As String
+    Public Property DocumentType() As String
+        Get
+            Return _documentType
+        End Get
+        Set(ByVal value As String)
+            _documentType = value
+        End Set
+    End Property
+
+    Private _documentTypeId As Integer
+    Public Property DocumentTypeId() As Integer
+        Get
+            Return _documentTypeId
+        End Get
+        Set(ByVal value As Integer)
+            _documentTypeId = value
+        End Set
+    End Property
+
+    Private _active As Boolean
+    Public Property Active() As Boolean
+        Get
+            Return _active
+        End Get
+        Set(ByVal value As Boolean)
+            _active = value
+        End Set
+    End Property
+
+    Public ReadOnly Property ActiveString() As String
+        Get
+            Return If(_active, "Yes", "No")
+        End Get
+    End Property
+
+    Private _ordinal As Short
+    Public Property Ordinal() As Short
+        Get
+            Return _ordinal
+        End Get
+        Set(ByVal value As Short)
+            _ordinal = value
+        End Set
+    End Property
+
+End Class

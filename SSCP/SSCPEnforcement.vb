@@ -18,7 +18,7 @@ Public Class NewSscpEnforcementAudit
 
     Private Sub LoadDocumentTypes()
         ' Get list of various document types and bind that list to the comboboxes
-        DocumentTypes = DAL.GetEnforcementDocumentTypes
+        DocumentTypes = DAL.GetEnforcementDocumentTypesDict
 
         If DocumentTypes.Count > 0 Then
             With ddlNewDocumentType

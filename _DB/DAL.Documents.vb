@@ -432,6 +432,120 @@ Namespace DAL
 
 #End Region
 
+#Region "Document Types"
+
+        Public Function GetPermitDocumentTypesDict() As Dictionary(Of Integer, String)
+            Dim query As String = "SELECT DOCUMENTTYPEID, " & _
+                " STRDOCUMENTTYPE " & _
+                " FROM AIRBRANCH.IAIP_LK_SSPPDOCUMENTTYPE " & _
+                " WHERE FACTIVE = '" & Boolean.TrueString & "' " & _
+                " ORDER BY NUMORDINAL, STRDOCUMENTTYPE "
+            Return DB.GetLookupDictionary(query)
+        End Function
+
+        Public Function GetEnforcementDocumentTypesDict() As Dictionary(Of Integer, String)
+            Dim query As String = "SELECT DOCUMENTTYPEID, " & _
+                " STRDOCUMENTTYPE " & _
+                " FROM AIRBRANCH.IAIP_LK_SSCPDOCUMENTTYPE " & _
+                " WHERE FACTIVE = '" & Boolean.TrueString & "' " & _
+                " ORDER BY NUMORDINAL, STRDOCUMENTTYPE "
+            Return DB.GetLookupDictionary(query)
+        End Function
+
+        Public Function GetEnforcementDocumentTypes() As List(Of EnforcementDocumentType)
+            Dim docTypesList As New List(Of EnforcementDocumentType)
+            Dim docType As New EnforcementDocumentType
+
+            Dim query As String = "SELECT DOCUMENTTYPEID, " & _
+                " STRDOCUMENTTYPE, " & _
+                " FACTIVE, " & _
+                " NUMORDINAL " & _
+                " FROM AIRBRANCH.IAIP_LK_SSCPDOCUMENTTYPE " & _
+                " ORDER BY NUMORDINAL, STRDOCUMENTTYPE "
+
+            Dim dataTable As DataTable = DB.GetDataTable(query)
+
+            For Each row As DataRow In dataTable.Rows
+                FillEnforcementDocumentTypeFromDataRow(row, docType)
+                docTypesList.Add(docType)
+            Next
+
+            Return docTypesList
+        End Function
+
+        Private Sub FillEnforcementDocumentTypeFromDataRow(ByVal row As DataRow, ByRef d As EnforcementDocumentType)
+            With d
+                .Active = Convert.ToBoolean(row("FACTIVE"))
+                .DocumentType = DB.GetNullable(Of String)(row("STRDOCUMENTTYPE"))
+                .DocumentTypeId = row("DOCUMENTTYPEID")
+                Try
+                    .Ordinal = DB.GetNullable(Of Short?)(row("NUMORDINAL"))
+
+                Catch ex As Exception
+
+                End Try
+            End With
+        End Sub
+
+        Public Function UpdateEnforcementDocumentType(ByVal d As EnforcementDocumentType, Optional ByVal sender As Object = Nothing) As Boolean
+            If d Is Nothing Then Return False
+
+            If sender IsNot Nothing Then
+                sender.Cursor = Cursors.AppStarting
+            End If
+
+            Dim query As String = _
+                " UPDATE IAIP_LK_SSCPDOCUMENTTYPE " & _
+                " SET STRDOCUMENTTYPE  = :pDocType, " & _
+                "   FACTIVE            = :pActive, " & _
+                "   NUMORDINAL         = :pPosition " & _
+                " WHERE DOCUMENTTYPEID = :pId "
+
+            Dim parameters As OracleParameter() = { _
+                New OracleParameter("pDocType", d.DocumentType), _
+                New OracleParameter("pActive", d.Active.ToString), _
+                New OracleParameter("pPosition", d.Ordinal), _
+                New OracleParameter("pId", d.DocumentTypeId) _
+            }
+
+            Dim result As Boolean = DB.RunCommand(query, parameters)
+
+            If sender IsNot Nothing Then
+                sender.Cursor = Nothing
+            End If
+
+            Return result
+        End Function
+
+        Public Function SaveEnforcementDocumentType(ByVal d As EnforcementDocumentType, Optional ByVal sender As Object = Nothing) As Boolean
+            If d Is Nothing Then Return False
+
+            If sender IsNot Nothing Then
+                sender.Cursor = Cursors.AppStarting
+            End If
+
+            Dim query As String = _
+                " INSERT INTO IAIP_LK_SSCPDOCUMENTTYPE " & _
+                " (STRDOCUMENTTYPE, FACTIVE, NUMORDINAL ) " & _
+                " VALUES (:pName, :pActive, :pOrdinal) "
+
+            Dim parameters As OracleParameter() = { _
+                New OracleParameter("pName", d.DocumentType), _
+                New OracleParameter("pActive", d.Active.ToString), _
+                New OracleParameter("pOrdinal", d.Ordinal) _
+            }
+
+            Dim result As Boolean = DB.RunCommand(query, parameters)
+
+            If sender IsNot Nothing Then
+                sender.Cursor = Nothing
+            End If
+
+            Return result
+        End Function
+
+#End Region
+
 #Region "Utilities"
         Private Function ReadByteArrayFromFile(ByVal pathToFile As String) As Byte()
             Dim fs As New FileStream(pathToFile, FileMode.Open, FileAccess.Read)
