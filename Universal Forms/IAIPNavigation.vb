@@ -9035,12 +9035,16 @@ Public Class IAIPNavigation
         End If
     End Sub
 
-    Private Sub MenuItem4_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MenuItem4.Click
+    Private Sub mmiPermitUploader_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiPermitUploader.Click
         SsppFileUploader.Show()
     End Sub
 
     Private Sub mmiResetForm_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiResetForm.Click
         ResetAllFormSettings()
         Me.Location = New Point(0, 0)
+    End Sub
+
+    Private Sub mmiEnforcementUploader_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiEnforcementUploader.Click
+        SscpDocuments.Show()
     End Sub
 End Class

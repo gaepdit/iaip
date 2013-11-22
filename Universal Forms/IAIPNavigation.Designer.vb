@@ -38,7 +38,7 @@ Partial Class IAIPNavigation
         Me.MenuItem1 = New System.Windows.Forms.MenuItem
         Me.mmiAbout = New System.Windows.Forms.MenuItem
         Me.mmiTesting = New System.Windows.Forms.MenuItem
-        Me.MenuItem4 = New System.Windows.Forms.MenuItem
+        Me.mmiPermitUploader = New System.Windows.Forms.MenuItem
         Me.Image_List_All = New System.Windows.Forms.ImageList(Me.components)
         Me.Label1 = New System.Windows.Forms.Label
         Me.llbQuaternaryList = New System.Windows.Forms.LinkLabel
@@ -126,6 +126,7 @@ Partial Class IAIPNavigation
         Me.bgrOpenNewForm = New System.ComponentModel.BackgroundWorker
         Me.bgrFormLoad = New System.ComponentModel.BackgroundWorker
         Me.Panel1 = New System.Windows.Forms.Panel
+        Me.mmiEnforcementUploader = New System.Windows.Forms.MenuItem
         Me.Panel4.SuspendLayout()
         Me.GPWorkTool.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
@@ -222,14 +223,15 @@ Partial Class IAIPNavigation
         'mmiTesting
         '
         Me.mmiTesting.Index = 4
-        Me.mmiTesting.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.MenuItem4})
+        Me.mmiTesting.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiPermitUploader, Me.mmiEnforcementUploader})
         Me.mmiTesting.Text = "Testing"
         Me.mmiTesting.Visible = False
         '
-        'MenuItem4
+        'mmiPermitUploader
         '
-        Me.MenuItem4.Index = 0
-        Me.MenuItem4.Text = "New permit uploader"
+        Me.mmiPermitUploader.Index = 0
+        Me.mmiPermitUploader.Text = "New permit uploader"
+        Me.mmiPermitUploader.Visible = False
         '
         'Image_List_All
         '
@@ -1241,6 +1243,11 @@ Partial Class IAIPNavigation
         Me.Panel1.TabIndex = 125
         Me.Panel1.Visible = False
         '
+        'mmiEnforcementUploader
+        '
+        Me.mmiEnforcementUploader.Index = 1
+        Me.mmiEnforcementUploader.Text = "New enforcement doc uploader"
+        '
         'IAIPNavigation
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1370,8 +1377,9 @@ Partial Class IAIPNavigation
     Friend WithEvents rdbStaffView As System.Windows.Forms.RadioButton
     Friend WithEvents mmiExport As System.Windows.Forms.MenuItem
     Friend WithEvents MenuItem1 As System.Windows.Forms.MenuItem
-    Friend WithEvents MenuItem4 As System.Windows.Forms.MenuItem
+    Friend WithEvents mmiPermitUploader As System.Windows.Forms.MenuItem
     Friend WithEvents mmiTesting As System.Windows.Forms.MenuItem
     Friend WithEvents mmiResetForm As System.Windows.Forms.MenuItem
     Friend WithEvents btnNav40 As System.Windows.Forms.Button
+    Friend WithEvents mmiEnforcementUploader As System.Windows.Forms.MenuItem
 End Class

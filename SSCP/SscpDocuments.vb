@@ -176,6 +176,7 @@ Public Class SscpDocuments
 
 #Region "Enable/Disable Form Regions"
 
+#Region "Document (update/delete/download)"
     Private Sub EnableDocument()
         EnableOrDisableDocument(True)
     End Sub
@@ -193,7 +194,9 @@ Public Class SscpDocuments
             lblDocumentName.Text = dgvDocumentList.CurrentRow.Cells("FileName").Value
         End If
     End Sub
+#End Region
 
+#Region "New Document"
     Private Sub EnableNewDocument()
         EnableOrDisableNewDocument(True)
     End Sub
@@ -203,24 +206,33 @@ Public Class SscpDocuments
     Private Sub EnableOrDisableNewDocument(ByVal enable As Boolean)
         With pnlNewDocument
             .Enabled = enable
-            .Visible = enable
         End With
+        If Not enable Then
+            With pnlNewDocumentDetails
+                .Enabled = False
+                .Visible = False
+            End With
+        End If
     End Sub
+#End Region
 
+#Region "New Document Details"
     Private Sub EnableNewDocumentDetails()
         EnableOrDisableNewDocumentDetails(True)
     End Sub
-
     Private Sub DisableNewDocumentDetails()
         EnableOrDisableNewDocumentDetails(False)
     End Sub
-
     Private Sub EnableOrDisableNewDocumentDetails(ByVal enable As Boolean)
         With pnlNewDocumentDetails
             .Enabled = enable
             .Visible = enable
         End With
+        If Not enable Then
+            txtNewDocumentDescription.Text = ""
+        End If
     End Sub
+#End Region
 
 #End Region
 
