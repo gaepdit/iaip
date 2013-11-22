@@ -46,6 +46,7 @@ Partial Class IAIPNavigation
         Me.llbSecondaryList = New System.Windows.Forms.LinkLabel
         Me.llbPrimaryList = New System.Windows.Forms.LinkLabel
         Me.Panel4 = New System.Windows.Forms.Panel
+        Me.btnNav40 = New System.Windows.Forms.Button
         Me.btnNav39 = New System.Windows.Forms.Button
         Me.btnNav38 = New System.Windows.Forms.Button
         Me.btnNav37 = New System.Windows.Forms.Button
@@ -380,6 +381,7 @@ Partial Class IAIPNavigation
         'Panel4
         '
         Me.Panel4.AutoScroll = True
+        Me.Panel4.Controls.Add(Me.btnNav40)
         Me.Panel4.Controls.Add(Me.btnNav39)
         Me.Panel4.Controls.Add(Me.btnNav38)
         Me.Panel4.Controls.Add(Me.btnNav37)
@@ -425,6 +427,16 @@ Partial Class IAIPNavigation
         Me.Panel4.Name = "Panel4"
         Me.Panel4.Size = New System.Drawing.Size(118, 368)
         Me.Panel4.TabIndex = 117
+        '
+        'btnNav40
+        '
+        Me.btnNav40.Location = New System.Drawing.Point(508, 191)
+        Me.btnNav40.Margin = New System.Windows.Forms.Padding(2)
+        Me.btnNav40.Name = "btnNav40"
+        Me.btnNav40.Size = New System.Drawing.Size(84, 39)
+        Me.btnNav40.TabIndex = 164
+        Me.btnNav40.Text = "Button 40"
+        Me.btnNav40.Visible = False
         '
         'btnNav39
         '
@@ -1361,4 +1373,5 @@ Partial Class IAIPNavigation
     Friend WithEvents MenuItem4 As System.Windows.Forms.MenuItem
     Friend WithEvents mmiTesting As System.Windows.Forms.MenuItem
     Friend WithEvents mmiResetForm As System.Windows.Forms.MenuItem
+    Friend WithEvents btnNav40 As System.Windows.Forms.Button
 End Class

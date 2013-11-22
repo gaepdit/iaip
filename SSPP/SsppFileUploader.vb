@@ -63,54 +63,7 @@ Public Class SsppFileUploader
 
 #End Region
 
-#Region "Messages"
-
-    Private Enum MessageType As Byte
-        InvalidApplicationNumber
-        FileNotFound
-        DocumentTypeAlreadyExists
-        UploadSuccess
-        UploadFailure
-        FileTooLarge
-        FileEmpty
-        DeleteSuccess
-        DeleteFailure
-        ConfirmDelete
-        DownloadFailure
-        UpdateSuccess
-        UpdateFailure
-        DownloadingFile
-        UploadingFile
-    End Enum
-
-    Private Function GetMessageList() As Specialized.ListDictionary
-        Dim messageList As New Specialized.ListDictionary
-        messageList.Add(MessageType.InvalidApplicationNumber, "Error: The application number is not in the system.")
-        messageList.Add(MessageType.FileNotFound, "Error: The file cannot be found.")
-        messageList.Add(MessageType.DocumentTypeAlreadyExists, "A ""{0}"" has already been uploaded for this application.")
-        messageList.Add(MessageType.UploadSuccess, "Success: The file ""{0}""" & vbNewLine & "has been uploaded.")
-        messageList.Add(MessageType.UploadFailure, "Error: There was an error uploading the file. " & vbNewLine & "Please try again.")
-        messageList.Add(MessageType.FileTooLarge, "The selected file is too large. " & vbNewLine & "Maximum file size is " & Math.Round(OracleBlob.MaxSize / (1024 ^ 3), 2) & "GB.")
-        messageList.Add(MessageType.FileEmpty, "The selected file is empty.")
-        messageList.Add(MessageType.DeleteFailure, "Error: The selected file was not deleted. " & vbNewLine & "Please try again.")
-        messageList.Add(MessageType.DeleteSuccess, "Success: The file ""{0}"" was deleted.")
-        messageList.Add(MessageType.ConfirmDelete, "Are you sure you want to delete the file ""{0}""?")
-        messageList.Add(MessageType.DownloadFailure, "Error: There was an error saving the file. " & vbNewLine & "Please try again.")
-        messageList.Add(MessageType.UpdateFailure, "Error: The selected file was not updated. " & vbNewLine & "Please try again.")
-        messageList.Add(MessageType.UpdateSuccess, "Success: The file ""{0}"" was updated.")
-        messageList.Add(MessageType.DownloadingFile, "Downloading {0}. Please wait.")
-        messageList.Add(MessageType.UploadingFile, "Uploading {0}. Please stand by.")
-
-        Return messageList
-    End Function
-    Private MessageList As Specialized.ListDictionary = GetMessageList()
-    Private Function GetMessage(ByVal key As MessageType) As String
-        Return MessageList(key)
-    End Function
-
-#End Region
-
-#Region "Application loader"
+#Region "Application Fetcher"
 
     Private Sub btnFindApplication_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnFindApplication.Click
         ClearForm()
@@ -123,7 +76,7 @@ Public Class SsppFileUploader
             AppInfo = GetApplicationInfo(txtApplicationNumber.Text)
             ShowApplication()
         Else
-            DisplayMessage(lblMessage, GetMessage(MessageType.InvalidApplicationNumber), True, EP, lblMessage)
+            DisplayMessage(lblMessage, GetDocumentMessage(DocumentMessageType.InvalidApplicationNumber), True, EP, lblMessage)
         End If
     End Sub
 
@@ -334,7 +287,7 @@ Public Class SsppFileUploader
 
             Dim fileInfo As New FileInfo(openFileDialog.FileName)
             If Not fileInfo.Exists Then
-                DisplayMessage(lblMessage, GetMessage(MessageType.FileNotFound), True, EP, lblMessage)
+                DisplayMessage(lblMessage, GetDocumentMessage(DocumentMessageType.FileNotFound), True, EP, lblMessage)
             Else
                 With lblNewFileName
                     .Text = openFileDialog.SafeFileName
@@ -342,10 +295,10 @@ Public Class SsppFileUploader
                 End With
 
                 If fileInfo.Length >= OracleBlob.MaxSize Then
-                    DisplayMessage(lblMessage, GetMessage(MessageType.FileTooLarge), True, EP, lblMessage)
+                    DisplayMessage(lblMessage, GetDocumentMessage(DocumentMessageType.FileTooLarge), True, EP, lblMessage)
                 Else
                     If fileInfo.Length = 0 Then
-                        DisplayMessage(lblMessage, GetMessage(MessageType.FileEmpty), True, EP, lblMessage)
+                        DisplayMessage(lblMessage, GetDocumentMessage(DocumentMessageType.FileEmpty), True, EP, lblMessage)
                     Else
                         NewFileToUpload = openFileDialog.FileName
                         lblNewDescription.Visible = True
@@ -375,7 +328,7 @@ Public Class SsppFileUploader
         Dim fileInfo As New FileInfo(NewFileToUpload)
         ' Check if file exists
         If Not fileInfo.Exists Then
-            DisplayMessage(lblMessage, GetMessage(MessageType.FileNotFound), True, EP, lblMessage)
+            DisplayMessage(lblMessage, GetDocumentMessage(DocumentMessageType.FileNotFound), True, EP, lblMessage)
             Exit Sub
         End If
 
@@ -383,11 +336,11 @@ Public Class SsppFileUploader
 
         ' Check if similar document has already been uploaded
         If DocumentTypeAlreadyExists() Then
-            m = String.Format(GetMessage(MessageType.DocumentTypeAlreadyExists), ddlNewDocumentType.Text)
+            m = String.Format(GetDocumentMessage(DocumentMessageType.DocumentTypeAlreadyExists), ddlNewDocumentType.Text)
             m &= vbNewLine & "Would you like to continue? (Both files will be kept.)"
             Dim response As Windows.Forms.DialogResult = MessageBox.Show(m, "Replace File?", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning)
             If response = Windows.Forms.DialogResult.Cancel Then
-                DisplayMessage(lblMessage, String.Format(GetMessage(MessageType.DocumentTypeAlreadyExists), ddlNewDocumentType.Text))
+                DisplayMessage(lblMessage, String.Format(GetDocumentMessage(DocumentMessageType.DocumentTypeAlreadyExists), ddlNewDocumentType.Text))
                 Exit Sub
             End If
         End If
@@ -404,17 +357,17 @@ Public Class SsppFileUploader
             .UploadDate = Today
         End With
 
-        m = String.Format(GetMessage(MessageType.UploadingFile), newPermitDocument.FileName)
+        m = String.Format(GetDocumentMessage(DocumentMessageType.UploadingFile), newPermitDocument.FileName)
         DisplayMessage(lblMessage, m)
 
         Dim result As Boolean = UploadPermitDocument(newPermitDocument, fileInfo.FullName, Me)
 
         If result Then
-            m = String.Format(GetMessage(MessageType.UploadSuccess), newPermitDocument.FileName)
+            m = String.Format(GetDocumentMessage(DocumentMessageType.UploadSuccess), newPermitDocument.FileName)
             DisplayMessage(lblMessage, m)
             SaveUserSetting(UserSetting.PermitUploadLocation, fileInfo.DirectoryName)
         Else
-            DisplayMessage(lblMessage, GetMessage(MessageType.UploadFailure), True, EP, lblMessage)
+            DisplayMessage(lblMessage, GetDocumentMessage(DocumentMessageType.UploadFailure), True, EP, lblMessage)
         End If
 
         ClearFileUploader()
@@ -434,7 +387,7 @@ Public Class SsppFileUploader
         ClearMessage(lblMessage)
         ' Check if similar document has already been uploaded
         If DocumentTypeAlreadyExists() Then
-            DisplayMessage(lblMessage, String.Format(GetMessage(MessageType.DocumentTypeAlreadyExists), ddlNewDocumentType.Text))
+            DisplayMessage(lblMessage, String.Format(GetDocumentMessage(DocumentMessageType.DocumentTypeAlreadyExists), ddlNewDocumentType.Text))
         End If
     End Sub
 
@@ -451,7 +404,7 @@ Public Class SsppFileUploader
     End Sub
 
     Private Sub btnDeleteFile_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDeleteFile.Click
-        Dim m As String = String.Format(GetMessage(MessageType.ConfirmDelete), lblSelectedFileName.Text)
+        Dim m As String = String.Format(GetDocumentMessage(DocumentMessageType.ConfirmDelete), lblSelectedFileName.Text)
         Dim response As Windows.Forms.DialogResult = _
             MessageBox.Show(m, "Delete File?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2)
 
@@ -459,11 +412,11 @@ Public Class SsppFileUploader
             Dim deleted As Boolean = DeleteDocument(dgvFileList.CurrentRow.Cells("BinaryFileId").Value)
 
             If deleted Then
-                m = String.Format(GetMessage(MessageType.DeleteSuccess), lblSelectedFileName.Text)
+                m = String.Format(GetDocumentMessage(DocumentMessageType.DeleteSuccess), lblSelectedFileName.Text)
                 DisplayMessage(lblMessage, m)
                 LoadExistingDocuments()
             Else
-                DisplayMessage(lblMessage, String.Format(GetMessage(MessageType.DeleteFailure), lblSelectedFileName), True, EP)
+                DisplayMessage(lblMessage, String.Format(GetDocumentMessage(DocumentMessageType.DeleteFailure), lblSelectedFileName), True, EP)
             End If
         End If
     End Sub
@@ -472,14 +425,14 @@ Public Class SsppFileUploader
         ClearMessage(lblMessage, EP)
 
         Dim doc As PermitDocument = PermitDocumentFromFileListRow(dgvFileList.CurrentRow)
-        DisplayMessage(lblMessage, String.Format(GetMessage(MessageType.DownloadingFile), doc.FileName))
+        DisplayMessage(lblMessage, String.Format(GetDocumentMessage(DocumentMessageType.DownloadingFile), doc.FileName))
 
         Dim canceled As Boolean = False
         Dim downloaded As Boolean = DownloadDocument(doc, canceled, Me)
         If downloaded Or canceled Then
             ClearMessage(lblMessage, EP)
         Else
-            DisplayMessage(lblMessage, String.Format(GetMessage(MessageType.DownloadFailure), lblSelectedFileName), True, EP, lblMessage)
+            DisplayMessage(lblMessage, String.Format(GetDocumentMessage(DocumentMessageType.DownloadFailure), lblSelectedFileName), True, EP, lblMessage)
         End If
     End Sub
 
@@ -489,10 +442,10 @@ Public Class SsppFileUploader
         doc.DocumentTypeId = ddlUpdateDocumentType.SelectedValue
         Dim updated As Boolean = UpdatePermitDocument(doc, Me)
         If updated Then
-            DisplayMessage(lblMessage, String.Format(GetMessage(MessageType.UpdateSuccess), doc.FileName))
+            DisplayMessage(lblMessage, String.Format(GetDocumentMessage(DocumentMessageType.UpdateSuccess), doc.FileName))
             LoadExistingDocuments()
         Else
-            DisplayMessage(lblMessage, String.Format(GetMessage(MessageType.UpdateFailure), lblSelectedFileName), True, EP)
+            DisplayMessage(lblMessage, String.Format(GetDocumentMessage(DocumentMessageType.UpdateFailure), lblSelectedFileName), True, EP)
         End If
     End Sub
 

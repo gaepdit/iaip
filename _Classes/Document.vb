@@ -1,6 +1,9 @@
 ﻿Imports System.IO
+Imports Oracle.DataAccess.Types
 
 Public Class Document
+
+    Public Shared MaxFileSize As Integer = Math.Min(OracleBlob.MaxSize, 500000000)
 
     Private _documentId As Integer
     Public Property DocumentId() As Integer

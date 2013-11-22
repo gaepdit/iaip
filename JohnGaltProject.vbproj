@@ -1153,6 +1153,9 @@
     <EmbeddedResource Include="PASP\PASPFeeStatistics.resx">
       <DependentUpon>PASPFeeStatistics.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="SSCP\SscpDocuments.resx">
+      <DependentUpon>SscpDocuments.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SSCP\SSCPEnforcement.resx">
       <DependentUpon>SSCPEnforcement.vb</DependentUpon>
     </EmbeddedResource>
@@ -1799,8 +1802,12 @@
     <Compile Include="_Classes\Facility.vb" />
     <Compile Include="_Classes\FileSizeFormatProvider.vb" />
     <Compile Include="_Classes\SettingsHelper.vb" />
-    <Compile Include="_Classes\SSPP.ApplicationInfo.vb" />
+    <Compile Include="_Classes\SSCP.EnforcementInfo.vb" />
+    <Compile Include="_Classes\SSPP.ApplicationInfo.vb">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="_Classes\Staff.vb" />
+    <Compile Include="_DB\DAL.SSCP.Enforcement.vb" />
     <Compile Include="_DB\DAL.Documents.vb" />
     <Compile Include="_DB\DAL.SSPP.Applications.vb" />
     <Compile Include="_Modules\Analytics.vb" />
