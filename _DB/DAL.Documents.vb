@@ -474,6 +474,7 @@ Namespace DAL
         End Function
 
         Private Sub FillEnforcementDocumentTypeFromDataRow(ByVal row As DataRow, ByRef d As EnforcementDocumentType)
+            d = New EnforcementDocumentType
             With d
                 .Active = Convert.ToBoolean(row("FACTIVE"))
                 .DocumentType = DB.GetNullable(Of String)(row("STRDOCUMENTTYPE"))

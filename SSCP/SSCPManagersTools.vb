@@ -6260,9 +6260,10 @@ Public Class SSCPManagersTools
         End If
     End Sub
 
+    Private enfDocumentTypesList As Generic.List(Of EnforcementDocumentType)
     Private Sub LoadEnforcementDocumentTypes()
         ' Get list of various document types and bind that list to the datagridview
-        Dim enfDocumentTypesList As Generic.List(Of EnforcementDocumentType) = DAL.GetEnforcementDocumentTypes
+        enfDocumentTypesList = DAL.GetEnforcementDocumentTypes
 
         If enfDocumentTypesList.Count > 0 Then
             With dgvEnfDocumentTypes
@@ -6280,23 +6281,24 @@ Public Class SSCPManagersTools
 
     Private Sub FormatEnfDocTypeList()
         With dgvEnfDocumentTypes
-            .Columns("DocumentTypeId").Visible = False
-            With .Columns("DocumentType")
-                .HeaderText = "Name"
-                .DisplayIndex = 2
+            With .Columns("DocumentTypeId")
+                .Visible = False
             End With
-            '.Columns("Active").Visible = False
             With .Columns("Active")
                 .HeaderText = "Active"
                 .DisplayIndex = 0
             End With
-            'With .Columns("ActiveString")
-            '    .HeaderText = "Active"
-            '    .DisplayIndex = 2
-            'End With
             With .Columns("Ordinal")
-                .HeaderText = "Position"
+                .HeaderText = "Pos."
                 .DisplayIndex = 1
+                .DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+            End With
+            With .Columns("DocumentType")
+                .HeaderText = "Name"
+                .DisplayIndex = 2
+            End With
+            With .Columns("ActiveString")
+                .Visible = False
             End With
         End With
     End Sub
@@ -6315,13 +6317,15 @@ Public Class SSCPManagersTools
             .Visible = enable
         End With
         If enable Then
-            txtNewName.Text = dgvEnfDocumentTypes.CurrentRow.Cells("DocumentType").Value
-            mtxtNewPosition.Text = dgvEnfDocumentTypes.CurrentRow.Cells("Ordinal").Value
+            txtUpdateName.Text = dgvEnfDocumentTypes.CurrentRow.Cells("DocumentType").Value
+            mtxtUpdatePosition.Text = dgvEnfDocumentTypes.CurrentRow.Cells("Ordinal").Value
             chkUpdateActive.Checked = dgvEnfDocumentTypes.CurrentRow.Cells("Active").Value
         End If
     End Sub
 
-    Private Sub btnAddDocumentType_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAddDocumentType.Click
+    Private Sub btnAddDocumentType_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) _
+    Handles btnAddDocumentType.Click
+
         ' Create Document object
         Dim newEnfDocType As New EnforcementDocumentType
         With newEnfDocType
@@ -6334,7 +6338,7 @@ Public Class SSCPManagersTools
                 For Each row As DataGridViewRow In dgvEnfDocumentTypes.Rows
                     max = Math.Max(row.Cells("Ordinal").Value, max)
                 Next
-                .Ordinal = max
+                .Ordinal = max + 1
             End If
         End With
 
@@ -6359,8 +6363,9 @@ Public Class SSCPManagersTools
         With d
             .Active = chkUpdateActive.Checked
             .DocumentType = txtUpdateName.Text
-            If Integer.TryParse(mtxtUpdatePosition.Text, Nothing) Then
-                .Ordinal = mtxtNewPosition.Text
+            Dim ord As Integer
+            If Integer.TryParse(mtxtUpdatePosition.Text, ord) Then
+                .Ordinal = ord
             End If
         End With
         Dim updated As Boolean = DAL.UpdateEnforcementDocumentType(d, Me)
@@ -6387,6 +6392,11 @@ Public Class SSCPManagersTools
         Else
             DisableEnfDocTypeUpdate()
         End If
+    End Sub
+
+    Private Sub dgvEnfDocumentTypes_DataBindingComplete(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewBindingCompleteEventArgs) Handles dgvEnfDocumentTypes.DataBindingComplete
+        CType(sender, DataGridView).SanelyResizeColumns()
+        CType(sender, DataGridView).ClearSelection()
     End Sub
 
 #Region "Change Accept Button"
