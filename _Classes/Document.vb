@@ -152,11 +152,11 @@ Public Class EnforcementDocumentType
         End Set
     End Property
 
-    Public ReadOnly Property ActiveString() As String
-        Get
-            Return If(_active, "Yes", "No")
-        End Get
-    End Property
+    'Public ReadOnly Property ActiveString() As String
+    '    Get
+    '        Return If(_active, "Yes", "No")
+    '    End Get
+    'End Property
 
     Private _ordinal As Short
     Public Property Ordinal() As Short
