@@ -2596,6 +2596,13 @@ Public Class IAIPNavigation
                     End If
                     EISLog.Show()
                     'EISLog.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+
+                Case "Enforcement Documents"
+                    With SscpDocuments
+                        .Show()
+                        .Activate()
+                    End With
+
                 Case Else
                     MsgBox(Source.ToString, MsgBoxStyle.Information, "IAIP Navigation")
             End Select
@@ -3244,6 +3251,13 @@ Public Class IAIPNavigation
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+    Private Sub btnNav40_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNav40.Click
+        Try
+            OpenNewForm(btnNav40.Text, "")
+        Catch ex As Exception
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+        End Try
+    End Sub
 #End Region
     Private Sub mmiOnlineHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiOnlineHelp.Click
         OpenHelpUrl(Me)
@@ -3744,6 +3758,13 @@ Public Class IAIPNavigation
                     End If
                 End If
             End If
+            If TestingEnvironment AndAlso (Permissions.Contains("(19)") OrElse Permissions.Contains("(20)") _
+            OrElse Permissions.Contains("(21)") OrElse Permissions.Contains("(23)") _
+            OrElse Permissions.Contains("(25)") OrElse Permissions.Contains("(118)")) Then
+                btnNav40.Text = "Enforcement Documents"
+                btnNav40.Visible = True
+            End If
+
             Select Case Permissions
                 Case Is = "(1)"
                     If btnNav1.Visible = True Then
@@ -7726,6 +7747,10 @@ Public Class IAIPNavigation
                 btnNav39.Location = New System.Drawing.Point(12, (12 + 56 * i))
                 i += 1
             End If
+            If btnNav40.Visible = True Then
+                btnNav40.Location = New System.Drawing.Point(12, (12 + 56 * i))
+                i += 1
+            End If
 
             If rdbPMView.Visible = True Then
                 rdbPMView.Checked = True
@@ -9010,12 +9035,16 @@ Public Class IAIPNavigation
         End If
     End Sub
 
-    Private Sub MenuItem4_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MenuItem4.Click
+    Private Sub mmiPermitUploader_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiPermitUploader.Click
         SsppFileUploader.Show()
     End Sub
 
     Private Sub mmiResetForm_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiResetForm.Click
         ResetAllFormSettings()
         Me.Location = New Point(0, 0)
+    End Sub
+
+    Private Sub mmiEnforcementUploader_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiEnforcementUploader.Click
+        SscpDocuments.Show()
     End Sub
 End Class

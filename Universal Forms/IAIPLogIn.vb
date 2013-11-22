@@ -21,7 +21,6 @@ Public Class IAIPLogIn
                 If txtUserPassword.Enabled Then txtUserPassword.Focus()
             End If
         End If
-
         monitor.TrackFeatureStop("Startup.Loading")
     End Sub
 

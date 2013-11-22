@@ -338,6 +338,21 @@ Partial Class SSCPManagersTools
         Me.txtMiscReportCount = New System.Windows.Forms.TextBox
         Me.Label67 = New System.Windows.Forms.Label
         Me.btnRunComplianceReport = New System.Windows.Forms.Button
+        Me.TPDocuments = New System.Windows.Forms.TabPage
+        Me.lblAddNewEnfDocType = New System.Windows.Forms.Label
+        Me.pnlUpdateDocumentType = New System.Windows.Forms.Panel
+        Me.btnUpdateDocumentType = New System.Windows.Forms.Button
+        Me.lblUpdateEnfDocType = New System.Windows.Forms.Label
+        Me.chkUpdateActive = New System.Windows.Forms.CheckBox
+        Me.mtxtUpdatePosition = New System.Windows.Forms.MaskedTextBox
+        Me.txtUpdateName = New System.Windows.Forms.TextBox
+        Me.lblUpdatePosition = New System.Windows.Forms.Label
+        Me.btnAddDocumentType = New System.Windows.Forms.Button
+        Me.mtxtNewPosition = New System.Windows.Forms.MaskedTextBox
+        Me.txtNewName = New System.Windows.Forms.TextBox
+        Me.lblNewPosition = New System.Windows.Forms.Label
+        Me.lblEnfDocumentTypes = New System.Windows.Forms.Label
+        Me.dgvEnfDocumentTypes = New System.Windows.Forms.DataGridView
         Me.MmiEdit = New System.Windows.Forms.MenuItem
         Me.MmiBack = New System.Windows.Forms.MenuItem
         Me.MainMenu1 = New System.Windows.Forms.MainMenu(Me.components)
@@ -413,6 +428,9 @@ Partial Class SSCPManagersTools
         Me.TPMiscReports.SuspendLayout()
         CType(Me.dgvMiscReport, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel19.SuspendLayout()
+        Me.TPDocuments.SuspendLayout()
+        Me.pnlUpdateDocumentType.SuspendLayout()
+        CType(Me.dgvEnfDocumentTypes, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'chbALLDates
@@ -1175,6 +1193,7 @@ Partial Class SSCPManagersTools
         Me.TCManagerTools.Controls.Add(Me.TPStatisticalPage)
         Me.TCManagerTools.Controls.Add(Me.TPWatchList)
         Me.TCManagerTools.Controls.Add(Me.TPMiscReports)
+        Me.TCManagerTools.Controls.Add(Me.TPDocuments)
         Me.TCManagerTools.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TCManagerTools.Location = New System.Drawing.Point(0, 0)
         Me.TCManagerTools.Name = "TCManagerTools"
@@ -3655,6 +3674,158 @@ Partial Class SSCPManagersTools
         Me.btnRunComplianceReport.Text = "Run Compliance Report"
         Me.btnRunComplianceReport.UseVisualStyleBackColor = True
         '
+        'TPDocuments
+        '
+        Me.TPDocuments.Controls.Add(Me.lblAddNewEnfDocType)
+        Me.TPDocuments.Controls.Add(Me.pnlUpdateDocumentType)
+        Me.TPDocuments.Controls.Add(Me.btnAddDocumentType)
+        Me.TPDocuments.Controls.Add(Me.mtxtNewPosition)
+        Me.TPDocuments.Controls.Add(Me.txtNewName)
+        Me.TPDocuments.Controls.Add(Me.lblNewPosition)
+        Me.TPDocuments.Controls.Add(Me.lblEnfDocumentTypes)
+        Me.TPDocuments.Controls.Add(Me.dgvEnfDocumentTypes)
+        Me.TPDocuments.Location = New System.Drawing.Point(4, 22)
+        Me.TPDocuments.Name = "TPDocuments"
+        Me.TPDocuments.Size = New System.Drawing.Size(1184, 699)
+        Me.TPDocuments.TabIndex = 10
+        Me.TPDocuments.Text = "Documents"
+        Me.TPDocuments.UseVisualStyleBackColor = True
+        '
+        'lblAddNewEnfDocType
+        '
+        Me.lblAddNewEnfDocType.AutoSize = True
+        Me.lblAddNewEnfDocType.Location = New System.Drawing.Point(23, 21)
+        Me.lblAddNewEnfDocType.Name = "lblAddNewEnfDocType"
+        Me.lblAddNewEnfDocType.Size = New System.Drawing.Size(51, 13)
+        Me.lblAddNewEnfDocType.TabIndex = 11
+        Me.lblAddNewEnfDocType.Text = "Add New"
+        '
+        'pnlUpdateDocumentType
+        '
+        Me.pnlUpdateDocumentType.Controls.Add(Me.btnUpdateDocumentType)
+        Me.pnlUpdateDocumentType.Controls.Add(Me.lblUpdateEnfDocType)
+        Me.pnlUpdateDocumentType.Controls.Add(Me.chkUpdateActive)
+        Me.pnlUpdateDocumentType.Controls.Add(Me.mtxtUpdatePosition)
+        Me.pnlUpdateDocumentType.Controls.Add(Me.txtUpdateName)
+        Me.pnlUpdateDocumentType.Controls.Add(Me.lblUpdatePosition)
+        Me.pnlUpdateDocumentType.Enabled = False
+        Me.pnlUpdateDocumentType.Location = New System.Drawing.Point(522, 21)
+        Me.pnlUpdateDocumentType.Name = "pnlUpdateDocumentType"
+        Me.pnlUpdateDocumentType.Size = New System.Drawing.Size(160, 173)
+        Me.pnlUpdateDocumentType.TabIndex = 9
+        Me.pnlUpdateDocumentType.Visible = False
+        '
+        'btnUpdateDocumentType
+        '
+        Me.btnUpdateDocumentType.Location = New System.Drawing.Point(3, 95)
+        Me.btnUpdateDocumentType.Name = "btnUpdateDocumentType"
+        Me.btnUpdateDocumentType.Size = New System.Drawing.Size(121, 23)
+        Me.btnUpdateDocumentType.TabIndex = 8
+        Me.btnUpdateDocumentType.Text = "Update"
+        Me.btnUpdateDocumentType.UseVisualStyleBackColor = True
+        '
+        'lblUpdateEnfDocType
+        '
+        Me.lblUpdateEnfDocType.AutoSize = True
+        Me.lblUpdateEnfDocType.Location = New System.Drawing.Point(0, 0)
+        Me.lblUpdateEnfDocType.Name = "lblUpdateEnfDocType"
+        Me.lblUpdateEnfDocType.Size = New System.Drawing.Size(42, 13)
+        Me.lblUpdateEnfDocType.TabIndex = 10
+        Me.lblUpdateEnfDocType.Text = "Update"
+        '
+        'chkUpdateActive
+        '
+        Me.chkUpdateActive.AutoSize = True
+        Me.chkUpdateActive.Location = New System.Drawing.Point(3, 72)
+        Me.chkUpdateActive.Name = "chkUpdateActive"
+        Me.chkUpdateActive.Size = New System.Drawing.Size(56, 17)
+        Me.chkUpdateActive.TabIndex = 7
+        Me.chkUpdateActive.Text = "Active"
+        Me.chkUpdateActive.UseVisualStyleBackColor = True
+        '
+        'mtxtUpdatePosition
+        '
+        Me.mtxtUpdatePosition.Location = New System.Drawing.Point(99, 42)
+        Me.mtxtUpdatePosition.Mask = "##0"
+        Me.mtxtUpdatePosition.Name = "mtxtUpdatePosition"
+        Me.mtxtUpdatePosition.Size = New System.Drawing.Size(25, 20)
+        Me.mtxtUpdatePosition.TabIndex = 5
+        '
+        'txtUpdateName
+        '
+        Me.txtUpdateName.Location = New System.Drawing.Point(3, 16)
+        Me.txtUpdateName.Name = "txtUpdateName"
+        Me.txtUpdateName.Size = New System.Drawing.Size(150, 20)
+        Me.txtUpdateName.TabIndex = 4
+        '
+        'lblUpdatePosition
+        '
+        Me.lblUpdatePosition.AutoSize = True
+        Me.lblUpdatePosition.Location = New System.Drawing.Point(0, 45)
+        Me.lblUpdatePosition.Name = "lblUpdatePosition"
+        Me.lblUpdatePosition.Size = New System.Drawing.Size(93, 13)
+        Me.lblUpdatePosition.TabIndex = 3
+        Me.lblUpdatePosition.Text = "Position (optional):"
+        '
+        'btnAddDocumentType
+        '
+        Me.btnAddDocumentType.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnAddDocumentType.Location = New System.Drawing.Point(26, 89)
+        Me.btnAddDocumentType.Name = "btnAddDocumentType"
+        Me.btnAddDocumentType.Size = New System.Drawing.Size(121, 23)
+        Me.btnAddDocumentType.TabIndex = 8
+        Me.btnAddDocumentType.Text = "Add"
+        Me.btnAddDocumentType.UseVisualStyleBackColor = True
+        '
+        'mtxtNewPosition
+        '
+        Me.mtxtNewPosition.Location = New System.Drawing.Point(122, 63)
+        Me.mtxtNewPosition.Mask = "##0"
+        Me.mtxtNewPosition.Name = "mtxtNewPosition"
+        Me.mtxtNewPosition.Size = New System.Drawing.Size(25, 20)
+        Me.mtxtNewPosition.TabIndex = 5
+        '
+        'txtNewName
+        '
+        Me.txtNewName.Location = New System.Drawing.Point(26, 37)
+        Me.txtNewName.Name = "txtNewName"
+        Me.txtNewName.Size = New System.Drawing.Size(150, 20)
+        Me.txtNewName.TabIndex = 4
+        '
+        'lblNewPosition
+        '
+        Me.lblNewPosition.AutoSize = True
+        Me.lblNewPosition.Location = New System.Drawing.Point(23, 66)
+        Me.lblNewPosition.Name = "lblNewPosition"
+        Me.lblNewPosition.Size = New System.Drawing.Size(93, 13)
+        Me.lblNewPosition.TabIndex = 3
+        Me.lblNewPosition.Text = "Position (optional):"
+        '
+        'lblEnfDocumentTypes
+        '
+        Me.lblEnfDocumentTypes.AutoSize = True
+        Me.lblEnfDocumentTypes.Location = New System.Drawing.Point(190, 21)
+        Me.lblEnfDocumentTypes.Name = "lblEnfDocumentTypes"
+        Me.lblEnfDocumentTypes.Size = New System.Drawing.Size(151, 13)
+        Me.lblEnfDocumentTypes.TabIndex = 1
+        Me.lblEnfDocumentTypes.Text = "Enforcement Document Types"
+        '
+        'dgvEnfDocumentTypes
+        '
+        Me.dgvEnfDocumentTypes.AllowUserToAddRows = False
+        Me.dgvEnfDocumentTypes.AllowUserToDeleteRows = False
+        Me.dgvEnfDocumentTypes.AllowUserToOrderColumns = True
+        Me.dgvEnfDocumentTypes.AllowUserToResizeRows = False
+        Me.dgvEnfDocumentTypes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvEnfDocumentTypes.Location = New System.Drawing.Point(193, 37)
+        Me.dgvEnfDocumentTypes.MultiSelect = False
+        Me.dgvEnfDocumentTypes.Name = "dgvEnfDocumentTypes"
+        Me.dgvEnfDocumentTypes.ReadOnly = True
+        Me.dgvEnfDocumentTypes.RowHeadersVisible = False
+        Me.dgvEnfDocumentTypes.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.dgvEnfDocumentTypes.Size = New System.Drawing.Size(311, 312)
+        Me.dgvEnfDocumentTypes.TabIndex = 0
+        '
         'MmiEdit
         '
         Me.MmiEdit.Index = 1
@@ -3902,6 +4073,11 @@ Partial Class SSCPManagersTools
         CType(Me.dgvMiscReport, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel19.ResumeLayout(False)
         Me.Panel19.PerformLayout()
+        Me.TPDocuments.ResumeLayout(False)
+        Me.TPDocuments.PerformLayout()
+        Me.pnlUpdateDocumentType.ResumeLayout(False)
+        Me.pnlUpdateDocumentType.PerformLayout()
+        CType(Me.dgvEnfDocumentTypes, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -4231,4 +4407,19 @@ Partial Class SSCPManagersTools
     Friend WithEvents btnDeleteFacilityFromCms As System.Windows.Forms.Button
     Friend WithEvents btnExportWatchListToExcel As System.Windows.Forms.Button
     Friend WithEvents llbViewRecord As System.Windows.Forms.LinkLabel
+    Friend WithEvents TPDocuments As System.Windows.Forms.TabPage
+    Friend WithEvents lblEnfDocumentTypes As System.Windows.Forms.Label
+    Friend WithEvents dgvEnfDocumentTypes As System.Windows.Forms.DataGridView
+    Friend WithEvents mtxtNewPosition As System.Windows.Forms.MaskedTextBox
+    Friend WithEvents txtNewName As System.Windows.Forms.TextBox
+    Friend WithEvents lblNewPosition As System.Windows.Forms.Label
+    Friend WithEvents chkUpdateActive As System.Windows.Forms.CheckBox
+    Friend WithEvents btnAddDocumentType As System.Windows.Forms.Button
+    Friend WithEvents btnUpdateDocumentType As System.Windows.Forms.Button
+    Friend WithEvents mtxtUpdatePosition As System.Windows.Forms.MaskedTextBox
+    Friend WithEvents txtUpdateName As System.Windows.Forms.TextBox
+    Friend WithEvents lblUpdatePosition As System.Windows.Forms.Label
+    Friend WithEvents pnlUpdateDocumentType As System.Windows.Forms.Panel
+    Friend WithEvents lblAddNewEnfDocType As System.Windows.Forms.Label
+    Friend WithEvents lblUpdateEnfDocType As System.Windows.Forms.Label
 End Class

@@ -1153,6 +1153,9 @@
     <EmbeddedResource Include="PASP\PASPFeeStatistics.resx">
       <DependentUpon>PASPFeeStatistics.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="SSCP\SscpDocuments.resx">
+      <DependentUpon>SscpDocuments.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SSCP\SSCPEnforcement.resx">
       <DependentUpon>SSCPEnforcement.vb</DependentUpon>
     </EmbeddedResource>
@@ -1783,6 +1786,12 @@
     <None Include="gaSeal.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <Compile Include="SSCP\SscpDocuments.Designer.vb">
+      <DependentUpon>SscpDocuments.vb</DependentUpon>
+    </Compile>
+    <Compile Include="SSCP\SscpDocuments.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="SSCP\SSCPEnforcement.Designer.vb">
       <DependentUpon>SSCPEnforcement.vb</DependentUpon>
     </Compile>
@@ -1793,10 +1802,13 @@
     <Compile Include="_Classes\Facility.vb" />
     <Compile Include="_Classes\FileSizeFormatProvider.vb" />
     <Compile Include="_Classes\SettingsHelper.vb" />
-    <Compile Include="_Classes\SSPP.ApplicationInfo.vb" />
+    <Compile Include="_Classes\SSCP.EnforcementInfo.vb" />
+    <Compile Include="_Classes\SSPP.ApplicationInfo.vb">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="_Classes\Staff.vb" />
+    <Compile Include="_DB\DAL.SSCP.Enforcement.vb" />
     <Compile Include="_DB\DAL.Documents.vb" />
-    <Compile Include="_DB\DAL.Lookups.vb" />
     <Compile Include="_DB\DAL.SSPP.Applications.vb" />
     <Compile Include="_Modules\Analytics.vb" />
     <Compile Include="_Modules\FormSettings.vb" />
