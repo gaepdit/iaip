@@ -93,37 +93,7 @@ Public Class Document
 
 End Class
 
-Public Class PermitDocument
-    Inherits Document
-
-    Private _applicationNumber As String
-    Public Property ApplicationNumber() As String
-        Get
-            Return _applicationNumber
-        End Get
-        Set(ByVal value As String)
-            _applicationNumber = value
-        End Set
-    End Property
-
-End Class
-
-Public Class EnforcementDocument
-    Inherits Document
-
-    Private _enforcementNumber As String
-    Public Property EnforcementNumber() As String
-        Get
-            Return _enforcementNumber
-        End Get
-        Set(ByVal value As String)
-            _enforcementNumber = value
-        End Set
-    End Property
-
-End Class
-
-Public Class EnforcementDocumentType
+Public Class DocumentType
 
     Private _documentType As String
     Public Property DocumentType() As String
@@ -172,3 +142,49 @@ Public Class EnforcementDocumentType
     End Property
 
 End Class
+
+Namespace Apb
+
+    Namespace SSPP
+
+        Public Class PermitDocument
+            Inherits Document
+
+            Private _applicationNumber As String
+            Public Property ApplicationNumber() As String
+                Get
+                    Return _applicationNumber
+                End Get
+                Set(ByVal value As String)
+                    _applicationNumber = value
+                End Set
+            End Property
+
+        End Class
+
+    End Namespace
+
+    Namespace SSCP
+
+        Public Class EnforcementDocument
+            Inherits Document
+
+            Private _enforcementNumber As String
+            Public Property EnforcementNumber() As String
+                Get
+                    Return _enforcementNumber
+                End Get
+                Set(ByVal value As String)
+                    _enforcementNumber = value
+                End Set
+            End Property
+
+        End Class
+
+        Public Class EnforcementDocumentType
+            Inherits DocumentType
+        End Class
+
+    End Namespace
+
+End Namespace

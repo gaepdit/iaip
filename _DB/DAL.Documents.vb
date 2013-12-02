@@ -3,6 +3,8 @@ Imports System.Collections.Generic
 Imports System.IO
 Imports Oracle.DataAccess.Types
 Imports System.Runtime.InteropServices
+Imports JohnGaltProject.Apb.SSCP
+Imports JohnGaltProject.Apb.SSPP
 
 Namespace DAL
     Module Documents
@@ -458,9 +460,9 @@ Namespace DAL
             Return DB.GetLookupDictionary(query)
         End Function
 
-        Public Function GetEnforcementDocumentTypes() As List(Of EnforcementDocumentType)
-            Dim docTypesList As New List(Of EnforcementDocumentType)
-            Dim docType As New EnforcementDocumentType
+        Public Function GetEnforcementDocumentTypes() As List(Of DocumentType)
+            Dim docTypesList As New List(Of DocumentType)
+            Dim docType As New DocumentType
 
             Dim query As String = "SELECT DOCUMENTTYPEID, " & _
                 " STRDOCUMENTTYPE, " & _
@@ -479,8 +481,8 @@ Namespace DAL
             Return docTypesList
         End Function
 
-        Private Sub FillEnforcementDocumentTypeFromDataRow(ByVal row As DataRow, ByRef d As EnforcementDocumentType)
-            d = New EnforcementDocumentType
+        Private Sub FillEnforcementDocumentTypeFromDataRow(ByVal row As DataRow, ByRef d As DocumentType)
+            d = New DocumentType
             With d
                 .Active = Convert.ToBoolean(row("FACTIVE"))
                 .DocumentType = DB.GetNullable(Of String)(row("STRDOCUMENTTYPE"))
@@ -494,7 +496,7 @@ Namespace DAL
             End With
         End Sub
 
-        Public Function UpdateEnforcementDocumentType(ByVal d As EnforcementDocumentType, Optional ByVal sender As Object = Nothing) As Boolean
+        Public Function UpdateEnforcementDocumentType(ByVal d As DocumentType, Optional ByVal sender As Object = Nothing) As Boolean
             If d Is Nothing Then Return False
 
             If sender IsNot Nothing Then
@@ -524,7 +526,7 @@ Namespace DAL
             Return result
         End Function
 
-        Public Function SaveEnforcementDocumentType(ByVal d As EnforcementDocumentType, Optional ByVal sender As Object = Nothing) As Boolean
+        Public Function SaveEnforcementDocumentType(ByVal d As DocumentType, Optional ByVal sender As Object = Nothing) As Boolean
             If d Is Nothing Then Return False
 
             If sender IsNot Nothing Then
