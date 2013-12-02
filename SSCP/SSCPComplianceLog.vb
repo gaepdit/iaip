@@ -2380,4 +2380,16 @@ Public Class SSCPComplianceLog
     End Sub
 #End Region
 
+#Region "Change Accept Button"
+
+    Private Sub pnlFilterPanel_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles pnlFilterPanel.Enter
+        Me.AcceptButton = btnRunFilter
+    End Sub
+
+    Private Sub btnRunFilter_Leave(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnRunFilter.Leave
+        Me.AcceptButton = Nothing
+    End Sub
+
+#End Region
+
 End Class
