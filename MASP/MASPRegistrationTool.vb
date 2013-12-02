@@ -876,6 +876,11 @@ Public Class MASPRegistrationTool
 #Region "Events Management"
     Private Sub btnSaveNewEvent_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSaveNewEvent.Click
         Try
+            If chbEventPasscode.Checked AndAlso chbEventPasscode.Text = "Error" Then
+                MsgBox("Passcode is invalid; please fix.", MsgBoxStyle.Exclamation, "Error")
+                Exit Sub
+            End If
+
             Dim EndDate As String = ""
             If DTPEventEndDate.Checked = True Then
                 EndDate = DTPEventDate.Text
@@ -910,6 +915,11 @@ Public Class MASPRegistrationTool
     End Sub
     Private Sub btnUpdateEvent_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnUpdateEvent.Click
         Try
+            If chbEventPasscode.Checked AndAlso chbEventPasscode.Text = "Error" Then
+                MsgBox("Passcode is invalid; please fix.", MsgBoxStyle.Exclamation, "Error")
+                Exit Sub
+            End If
+
             Dim EndDate As String = ""
             If DTPEventEndDate.Checked = True Then
                 EndDate = DTPEventDate.Text
@@ -924,7 +934,7 @@ Public Class MASPRegistrationTool
                              txtEventEndTime.Text, txtWebsiteURL.Text) = True Then
                 LoadEventList()
 
-                                   MsgBox("Data Saved/Updated", MsgBoxStyle.Information, Me.Text)
+                MsgBox("Data Saved/Updated", MsgBoxStyle.Information, Me.Text)
             Else
                 MsgBox("Data NOT Saved/Updated", MsgBoxStyle.Exclamation, Me.Text)
             End If
@@ -965,79 +975,26 @@ Public Class MASPRegistrationTool
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub GeneratePasscode2(ByVal PassCode As String)
+
+    Public Function GeneratePasscode() As String
         Try
             Dim r As New Random(System.DateTime.Now.Millisecond)
-            temp = r.Next(100000, 999999)
-            temp = "GA" & temp
-
-            SQL = "Select " & _
-            "numRes_EventID " & _
-            "from " & DBNameSpace & ".ReS_Event " & _
-            "where strPasscode = '" & temp & "' "
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
-            End If
-            dr = cmd.ExecuteReader
-            recExist = dr.Read
-            dr.Close()
-            If recExist = True Then
-                PassCode = "False"
+            Dim passcode As String = "GA" & r.Next(100000, 999999)
+            If PasscodeExists(passcode) Then
+                Return GeneratePasscode()
             Else
-                PassCode = temp
+                Return passcode
             End If
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
-    End Sub
-    Public Function GeneratePasscode(ByVal Passcode As String) As String
-        Try
-            temp = ""
-            Dim r As New Random(System.DateTime.Now.Millisecond)
-            temp = r.Next(100000, 999999)
-            temp = "GA" & temp
-
-            SQL = "Select " & _
-            "numRes_EventID " & _
-            "from " & DBNameSpace & ".ReS_Event " & _
-            "where strPasscode = '" & temp & "' "
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
-            End If
-            dr = cmd.ExecuteReader
-            recExist = dr.Read
-            dr.Close()
-            If recExist = True Then
-                temp = "False"
-            Else
-                temp = temp
-            End If
-            Return temp
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-        Return "False"
+        Return "Error"
     End Function
+
     Private Sub btnGeneratePasscode_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnGeneratePasscode.Click
-        Try
-            Dim i As Integer = 0
-            i = 0
-
-            Do Until i <> 0
-                If GeneratePasscode("") <> "False" Then
-                    i = 1
-                End If
-            Loop
-            chbEventPasscode.Text = temp
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        chbEventPasscode.Text = GeneratePasscode()
     End Sub
+
     Private Sub btnClearEventManagement_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnClearEventManagement.Click
         Try
 
@@ -1700,5 +1657,16 @@ Public Class MASPRegistrationTool
     End Function
 
 #End Region
-   
+
+#Region "DAL"
+
+    Public Function PasscodeExists(ByVal id As String) As Boolean
+        Dim query As String = "SELECT 'True' FROM AIRBRANCH.RES_EVENT WHERE ROWNUM=1 AND STRPASSCODE = :pId"
+        Dim parameter As New OracleParameter("pId", id)
+
+        Dim result As String = DB.GetSingleValue(Of String)(query, parameter)
+        Return Convert.ToBoolean(result)
+    End Function
+
+#End Region
 End Class
