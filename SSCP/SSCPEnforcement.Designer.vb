@@ -1892,7 +1892,7 @@ Partial Class NewSscpEnforcementAudit
         Me.btnDocumentDownload.Location = New System.Drawing.Point(460, 50)
         Me.btnDocumentDownload.Name = "btnDocumentDownload"
         Me.btnDocumentDownload.Size = New System.Drawing.Size(112, 23)
-        Me.btnDocumentDownload.TabIndex = 4
+        Me.btnDocumentDownload.TabIndex = 2
         Me.btnDocumentDownload.Text = "Download"
         Me.btnDocumentDownload.UseVisualStyleBackColor = True
         '
@@ -1903,7 +1903,7 @@ Partial Class NewSscpEnforcementAudit
         Me.txtDocumentDescription.Location = New System.Drawing.Point(0, 52)
         Me.txtDocumentDescription.Name = "txtDocumentDescription"
         Me.txtDocumentDescription.Size = New System.Drawing.Size(336, 20)
-        Me.txtDocumentDescription.TabIndex = 5
+        Me.txtDocumentDescription.TabIndex = 0
         '
         'btnDocumentUpdate
         '
@@ -1912,7 +1912,7 @@ Partial Class NewSscpEnforcementAudit
         Me.btnDocumentUpdate.Location = New System.Drawing.Point(342, 50)
         Me.btnDocumentUpdate.Name = "btnDocumentUpdate"
         Me.btnDocumentUpdate.Size = New System.Drawing.Size(112, 23)
-        Me.btnDocumentUpdate.TabIndex = 7
+        Me.btnDocumentUpdate.TabIndex = 1
         Me.btnDocumentUpdate.Text = "Update description"
         Me.btnDocumentUpdate.UseVisualStyleBackColor = True
         '
@@ -1957,7 +1957,7 @@ Partial Class NewSscpEnforcementAudit
         Me.dgvDocumentList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.dgvDocumentList.Size = New System.Drawing.Size(572, 173)
         Me.dgvDocumentList.StandardTab = True
-        Me.dgvDocumentList.TabIndex = 4
+        Me.dgvDocumentList.TabIndex = 0
         '
         'Panel4
         '

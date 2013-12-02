@@ -59,20 +59,20 @@ Partial Class SscpDocuments
         'btnNewDocumentCancel
         '
         Me.btnNewDocumentCancel.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnNewDocumentCancel.Location = New System.Drawing.Point(84, 76)
+        Me.btnNewDocumentCancel.Location = New System.Drawing.Point(164, 76)
         Me.btnNewDocumentCancel.Name = "btnNewDocumentCancel"
         Me.btnNewDocumentCancel.Size = New System.Drawing.Size(75, 23)
-        Me.btnNewDocumentCancel.TabIndex = 4
+        Me.btnNewDocumentCancel.TabIndex = 2
         Me.btnNewDocumentCancel.Text = "Cancel"
         Me.btnNewDocumentCancel.UseVisualStyleBackColor = True
         '
         'btnNewDocumentUpload
         '
         Me.btnNewDocumentUpload.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnNewDocumentUpload.Location = New System.Drawing.Point(165, 76)
+        Me.btnNewDocumentUpload.Location = New System.Drawing.Point(83, 76)
         Me.btnNewDocumentUpload.Name = "btnNewDocumentUpload"
         Me.btnNewDocumentUpload.Size = New System.Drawing.Size(75, 23)
-        Me.btnNewDocumentUpload.TabIndex = 3
+        Me.btnNewDocumentUpload.TabIndex = 1
         Me.btnNewDocumentUpload.Text = "Add this file"
         Me.btnNewDocumentUpload.UseVisualStyleBackColor = True
         '
@@ -126,7 +126,7 @@ Partial Class SscpDocuments
         Me.pnlNewDocument.MinimumSize = New System.Drawing.Size(242, 172)
         Me.pnlNewDocument.Name = "pnlNewDocument"
         Me.pnlNewDocument.Size = New System.Drawing.Size(242, 172)
-        Me.pnlNewDocument.TabIndex = 18
+        Me.pnlNewDocument.TabIndex = 2
         '
         'pnlNewDocumentDetails
         '
@@ -139,7 +139,7 @@ Partial Class SscpDocuments
         Me.pnlNewDocumentDetails.Location = New System.Drawing.Point(0, 56)
         Me.pnlNewDocumentDetails.Name = "pnlNewDocumentDetails"
         Me.pnlNewDocumentDetails.Size = New System.Drawing.Size(242, 116)
-        Me.pnlNewDocumentDetails.TabIndex = 6
+        Me.pnlNewDocumentDetails.TabIndex = 2
         Me.pnlNewDocumentDetails.Visible = False
         '
         'txtNewDocumentDescription
@@ -148,7 +148,7 @@ Partial Class SscpDocuments
         Me.txtNewDocumentDescription.Location = New System.Drawing.Point(7, 50)
         Me.txtNewDocumentDescription.Name = "txtNewDocumentDescription"
         Me.txtNewDocumentDescription.Size = New System.Drawing.Size(233, 20)
-        Me.txtNewDocumentDescription.TabIndex = 2
+        Me.txtNewDocumentDescription.TabIndex = 0
         '
         'lblNewDocumentName
         '
@@ -190,10 +190,10 @@ Partial Class SscpDocuments
         Me.pnlDocument.Controls.Add(Me.btnDocumentUpdate)
         Me.pnlDocument.Controls.Add(Me.lblDocumentName)
         Me.pnlDocument.Enabled = False
-        Me.pnlDocument.Location = New System.Drawing.Point(277, 279)
+        Me.pnlDocument.Location = New System.Drawing.Point(277, 363)
         Me.pnlDocument.Name = "pnlDocument"
-        Me.pnlDocument.Size = New System.Drawing.Size(440, 73)
-        Me.pnlDocument.TabIndex = 21
+        Me.pnlDocument.Size = New System.Drawing.Size(552, 73)
+        Me.pnlDocument.TabIndex = 4
         Me.pnlDocument.Visible = False
         '
         'lblDocumentDescription
@@ -211,28 +211,28 @@ Partial Class SscpDocuments
         Me.ddlDocumentType.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ddlDocumentType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.ddlDocumentType.FormattingEnabled = True
-        Me.ddlDocumentType.Location = New System.Drawing.Point(187, 52)
+        Me.ddlDocumentType.Location = New System.Drawing.Point(299, 52)
         Me.ddlDocumentType.Name = "ddlDocumentType"
         Me.ddlDocumentType.Size = New System.Drawing.Size(141, 21)
-        Me.ddlDocumentType.TabIndex = 6
+        Me.ddlDocumentType.TabIndex = 3
         '
         'btnDocumentDelete
         '
         Me.btnDocumentDelete.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnDocumentDelete.Location = New System.Drawing.Point(365, 7)
+        Me.btnDocumentDelete.Location = New System.Drawing.Point(477, 7)
         Me.btnDocumentDelete.Name = "btnDocumentDelete"
         Me.btnDocumentDelete.Size = New System.Drawing.Size(75, 23)
-        Me.btnDocumentDelete.TabIndex = 8
+        Me.btnDocumentDelete.TabIndex = 1
         Me.btnDocumentDelete.Text = "Delete"
         Me.btnDocumentDelete.UseVisualStyleBackColor = True
         '
         'btnDocumentDownload
         '
         Me.btnDocumentDownload.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnDocumentDownload.Location = New System.Drawing.Point(284, 7)
+        Me.btnDocumentDownload.Location = New System.Drawing.Point(396, 7)
         Me.btnDocumentDownload.Name = "btnDocumentDownload"
         Me.btnDocumentDownload.Size = New System.Drawing.Size(75, 23)
-        Me.btnDocumentDownload.TabIndex = 4
+        Me.btnDocumentDownload.TabIndex = 0
         Me.btnDocumentDownload.Text = "Download"
         Me.btnDocumentDownload.UseVisualStyleBackColor = True
         '
@@ -242,17 +242,17 @@ Partial Class SscpDocuments
                     Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.txtDocumentDescription.Location = New System.Drawing.Point(0, 52)
         Me.txtDocumentDescription.Name = "txtDocumentDescription"
-        Me.txtDocumentDescription.Size = New System.Drawing.Size(181, 20)
-        Me.txtDocumentDescription.TabIndex = 5
+        Me.txtDocumentDescription.Size = New System.Drawing.Size(293, 20)
+        Me.txtDocumentDescription.TabIndex = 2
         '
         'btnDocumentUpdate
         '
         Me.btnDocumentUpdate.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnDocumentUpdate.AutoSize = True
-        Me.btnDocumentUpdate.Location = New System.Drawing.Point(334, 50)
+        Me.btnDocumentUpdate.Location = New System.Drawing.Point(446, 50)
         Me.btnDocumentUpdate.Name = "btnDocumentUpdate"
         Me.btnDocumentUpdate.Size = New System.Drawing.Size(106, 23)
-        Me.btnDocumentUpdate.TabIndex = 7
+        Me.btnDocumentUpdate.TabIndex = 4
         Me.btnDocumentUpdate.Text = "Update description"
         Me.btnDocumentUpdate.UseVisualStyleBackColor = True
         '
@@ -295,9 +295,9 @@ Partial Class SscpDocuments
         Me.dgvDocumentList.ReadOnly = True
         Me.dgvDocumentList.RowHeadersVisible = False
         Me.dgvDocumentList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvDocumentList.Size = New System.Drawing.Size(440, 152)
+        Me.dgvDocumentList.Size = New System.Drawing.Size(552, 236)
         Me.dgvDocumentList.StandardTab = True
-        Me.dgvDocumentList.TabIndex = 19
+        Me.dgvDocumentList.TabIndex = 3
         '
         'btnFindEnforcement
         '
@@ -305,7 +305,7 @@ Partial Class SscpDocuments
         Me.btnFindEnforcement.Location = New System.Drawing.Point(198, 10)
         Me.btnFindEnforcement.Name = "btnFindEnforcement"
         Me.btnFindEnforcement.Size = New System.Drawing.Size(100, 23)
-        Me.btnFindEnforcement.TabIndex = 24
+        Me.btnFindEnforcement.TabIndex = 1
         Me.btnFindEnforcement.Text = "Find Enforcement"
         Me.btnFindEnforcement.UseVisualStyleBackColor = True
         '
@@ -314,7 +314,7 @@ Partial Class SscpDocuments
         Me.txtFindEnforcement.Location = New System.Drawing.Point(125, 12)
         Me.txtFindEnforcement.Name = "txtFindEnforcement"
         Me.txtFindEnforcement.Size = New System.Drawing.Size(67, 20)
-        Me.txtFindEnforcement.TabIndex = 23
+        Me.txtFindEnforcement.TabIndex = 0
         '
         'lblFindEnforcement
         '
@@ -343,7 +343,7 @@ Partial Class SscpDocuments
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(729, 364)
+        Me.ClientSize = New System.Drawing.Size(841, 448)
         Me.Controls.Add(Me.lblEnforcementInfo)
         Me.Controls.Add(Me.btnFindEnforcement)
         Me.Controls.Add(Me.txtFindEnforcement)
