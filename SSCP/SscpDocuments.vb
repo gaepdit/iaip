@@ -11,18 +11,10 @@ Imports Oracle.DataAccess.Types
 Public Class SscpDocuments
 
 #Region "Properties"
-    Private ExistingFiles As List(Of EnforcementDocument)
-    Private NewDocument As String = Nothing
-
-    Public Property EnforcementInfo() As EnforcementInfo
-        Get
-            Return _enforcementInfo
-        End Get
-        Set(ByVal value As EnforcementInfo)
-            _enforcementInfo = value
-        End Set
-    End Property
-    Private _enforcementInfo As EnforcementInfo
+    Private Documents As List(Of EnforcementDocument)
+    Private NewDocumentPath As String = Nothing
+    Private enforcementInfo As EnforcementInfo
+    Private enforcementNumber As String
 #End Region
 
 #Region "Page Load"
@@ -30,7 +22,7 @@ Public Class SscpDocuments
     Private Sub SscpDocuments_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         LoadDocumentTypes()
         ClearEverything()
-        If EnforcementInfo IsNot Nothing Then ShowEnforcement()
+        If enforcementInfo IsNot Nothing Then ShowEnforcement()
     End Sub
 
     Private Sub LoadDocumentTypes()
@@ -71,11 +63,11 @@ Public Class SscpDocuments
     Private Sub FindEnforcement()
         If txtFindEnforcement.Text = "" Then Exit Sub
 
-        EnforcementInfo = Nothing
-        Dim enfNum As String = txtFindEnforcement.Text
-        If Integer.TryParse(enfNum, Nothing) Then
-            If EnforcementExists(enfNum) Then
-                EnforcementInfo = GetEnforcementInfo(enfNum)
+        enforcementInfo = Nothing
+        enforcementNumber = txtFindEnforcement.Text
+        If Integer.TryParse(enforcementNumber, Nothing) Then
+            If EnforcementExists(enforcementNumber) Then
+                enforcementInfo = GetEnforcementInfo(enforcementNumber)
                 ShowEnforcement()
             Else
                 DisplayMessage(lblMessage, GetDocumentMessage(DocumentMessageType.InvalidApplicationNumber), True, EP, lblMessage)
@@ -90,17 +82,17 @@ Public Class SscpDocuments
     End Sub
 
     Private Sub DisplayEnforcementInfo()
-        If EnforcementInfo IsNot Nothing Then
+        If enforcementInfo IsNot Nothing Then
             Dim infoDisplay As New StringBuilder
 
-            Dim airsNum As Integer = CInt(EnforcementInfo.Facility.AirsNumber)
-            infoDisplay.AppendFormat("AIRS # {0:000-00000}: {1}", airsNum, EnforcementInfo.Facility.Name).AppendLine()
-            infoDisplay.AppendLine(EnforcementInfo.Facility.FacilityLocation.Address.ToString)
-            infoDisplay.AppendFormat("Responsible staff: {0}", EnforcementInfo.StaffResponsible).AppendLine()
-            If Not EnforcementInfo.DiscoveryDate Is Nothing Then
-                infoDisplay.AppendFormat("{0}; Discovery Date: {1:dd-MMM-yyyy}", EnforcementInfo.EnforcementTypeCode, EnforcementInfo.DiscoveryDate).AppendLine()
+            Dim airsNum As Integer = CInt(enforcementInfo.Facility.AirsNumber)
+            infoDisplay.AppendFormat("AIRS # {0:000-00000}: {1}", airsNum, enforcementInfo.Facility.Name).AppendLine()
+            infoDisplay.AppendLine(enforcementInfo.Facility.FacilityLocation.Address.ToString)
+            infoDisplay.AppendFormat("Responsible staff: {0}", enforcementInfo.StaffResponsible).AppendLine()
+            If Not enforcementInfo.DiscoveryDate Is Nothing Then
+                infoDisplay.AppendFormat("{0}; Discovery Date: {1:dd-MMM-yyyy}", enforcementInfo.EnforcementTypeCode, enforcementInfo.DiscoveryDate).AppendLine()
             Else
-                infoDisplay.AppendFormat("{0}", EnforcementInfo.EnforcementTypeCode).AppendLine()
+                infoDisplay.AppendFormat("{0}", enforcementInfo.EnforcementTypeCode).AppendLine()
             End If
 
             lblEnforcementInfo.Text = infoDisplay.ToString
@@ -116,10 +108,10 @@ Public Class SscpDocuments
     Private Sub LoadDocuments()
         DisableDocument()
         dgvDocumentList.DataSource = Nothing
-        ExistingFiles = GetEnforcementDocuments(EnforcementInfo.EnforcementNumber)
-        If ExistingFiles.Count > 0 Then
+        Documents = GetEnforcementDocuments(enforcementInfo.EnforcementNumber)
+        If Documents.Count > 0 Then
             With dgvDocumentList
-                .DataSource = New BindingSource(ExistingFiles, Nothing)
+                .DataSource = New BindingSource(Documents, Nothing)
                 .Enabled = True
                 .ClearSelection()
             End With
@@ -251,7 +243,7 @@ Public Class SscpDocuments
     End Sub
 
     Private Sub ClearNewDocument()
-        NewDocument = Nothing
+        NewDocumentPath = Nothing
         DisableNewDocumentDetails()
     End Sub
 
@@ -292,7 +284,7 @@ Public Class SscpDocuments
                     If fileInfo.Length = 0 Then
                         DisplayMessage(lblMessage, GetDocumentMessage(DocumentMessageType.FileEmpty), True, EP, lblMessage)
                     Else
-                        NewDocument = openFileDialog.FileName
+                        NewDocumentPath = openFileDialog.FileName
                         EnableNewDocumentDetails()
                         lblNewDocumentName.Text = openFileDialog.SafeFileName
                         txtNewDocumentDescription.Focus()
@@ -313,7 +305,7 @@ Public Class SscpDocuments
 
     Private Sub btnNewDocumentUpload_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNewDocumentUpload.Click
         ClearMessage(lblMessage, EP)
-        Dim fileInfo As New FileInfo(NewDocument)
+        Dim fileInfo As New FileInfo(NewDocumentPath)
 
         ' Check if file exists
         If Not fileInfo.Exists Then
@@ -333,7 +325,7 @@ Public Class SscpDocuments
         ' Create Document object
         Dim documentToUpload As New EnforcementDocument
         With documentToUpload
-            .EnforcementNumber = EnforcementInfo.EnforcementNumber
+            .EnforcementNumber = enforcementInfo.EnforcementNumber
             .Comment = txtNewDocumentDescription.Text
             .DocumentTypeId = ddlNewDocumentType.SelectedValue
             .DocumentType = ddlNewDocumentType.Text
@@ -364,7 +356,7 @@ Public Class SscpDocuments
 #Region "Document type validation"
 
     Private Function DocumentTypeAlreadyExists() As Boolean
-        Dim index As Integer = ExistingFiles.FindIndex( _
+        Dim index As Integer = Documents.FindIndex( _
             Function(doc) _
                 doc.DocumentTypeId = ddlNewDocumentType.SelectedValue _
         )
