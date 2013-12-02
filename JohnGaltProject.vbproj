@@ -287,7 +287,6 @@
     <Compile Include="Universal Forms\BaseForm.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="_Classes\Document.vb" />
     <Compile Include="_MFCode\CodeFile.vb" />
     <Compile Include="_MFCode\ListViewItemComparer.vb">
       <SubType>Code</SubType>
@@ -1798,15 +1797,20 @@
     <Compile Include="SSCP\SSCPEnforcement.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="_Classes\Address.vb" />
-    <Compile Include="_Classes\Facility.vb" />
-    <Compile Include="_Classes\FileSizeFormatProvider.vb" />
-    <Compile Include="_Classes\SettingsHelper.vb" />
-    <Compile Include="_Classes\SSCP.EnforcementInfo.vb" />
-    <Compile Include="_Classes\SSPP.ApplicationInfo.vb">
+    <Compile Include="_Data Classes\Address.vb" />
+    <Compile Include="_Data Classes\Document.vb">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="_Classes\Staff.vb" />
+    <Compile Include="_Data Classes\Facility.vb" />
+    <Compile Include="_Classes\FileSizeFormatProvider.vb" />
+    <Compile Include="_Classes\SettingsHelper.vb" />
+    <Compile Include="_Data Classes\SSCP.Document.vb" />
+    <Compile Include="_Data Classes\SSCP.EnforcementInfo.vb" />
+    <Compile Include="_Data Classes\SSPP.ApplicationInfo.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="_Data Classes\SSPP.Document.vb" />
+    <Compile Include="_Data Classes\Staff.vb" />
     <Compile Include="_DB\DAL.SSCP.Enforcement.vb" />
     <Compile Include="_DB\DAL.Documents.vb" />
     <Compile Include="_DB\DAL.SSPP.Applications.vb" />
@@ -1899,7 +1903,6 @@
     <Folder Include="Crystal Reports\Oracle 10.1\ISMP\" />
     <Folder Include="Crystal Reports\Oracle 9.2\PASP\" />
     <Folder Include="Crystal Reports\Oracle 9.2\SSCP\" />
-    <Folder Include="_Data Classes\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
   <PropertyGroup>
