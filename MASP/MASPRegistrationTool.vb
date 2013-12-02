@@ -876,6 +876,11 @@ Public Class MASPRegistrationTool
 #Region "Events Management"
     Private Sub btnSaveNewEvent_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSaveNewEvent.Click
         Try
+            If chbEventPasscode.Checked AndAlso chbEventPasscode.Text = "Error" Then
+                MsgBox("Passcode is invalid; please fix.", MsgBoxStyle.Exclamation, "Error")
+                Exit Sub
+            End If
+
             Dim EndDate As String = ""
             If DTPEventEndDate.Checked = True Then
                 EndDate = DTPEventDate.Text
@@ -910,6 +915,11 @@ Public Class MASPRegistrationTool
     End Sub
     Private Sub btnUpdateEvent_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnUpdateEvent.Click
         Try
+            If chbEventPasscode.Checked AndAlso chbEventPasscode.Text = "Error" Then
+                MsgBox("Passcode is invalid; please fix.", MsgBoxStyle.Exclamation, "Error")
+                Exit Sub
+            End If
+
             Dim EndDate As String = ""
             If DTPEventEndDate.Checked = True Then
                 EndDate = DTPEventDate.Text
@@ -924,7 +934,7 @@ Public Class MASPRegistrationTool
                              txtEventEndTime.Text, txtWebsiteURL.Text) = True Then
                 LoadEventList()
 
-                                   MsgBox("Data Saved/Updated", MsgBoxStyle.Information, Me.Text)
+                MsgBox("Data Saved/Updated", MsgBoxStyle.Information, Me.Text)
             Else
                 MsgBox("Data NOT Saved/Updated", MsgBoxStyle.Exclamation, Me.Text)
             End If
@@ -965,79 +975,26 @@ Public Class MASPRegistrationTool
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub GeneratePasscode2(ByVal PassCode As String)
+
+    Public Function GeneratePasscode() As String
         Try
             Dim r As New Random(System.DateTime.Now.Millisecond)
-            temp = r.Next(100000, 999999)
-            temp = "GA" & temp
-
-            SQL = "Select " & _
-            "numRes_EventID " & _
-            "from " & DBNameSpace & ".ReS_Event " & _
-            "where strPasscode = '" & temp & "' "
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
-            End If
-            dr = cmd.ExecuteReader
-            recExist = dr.Read
-            dr.Close()
-            If recExist = True Then
-                PassCode = "False"
+            Dim passcode As String = "GA" & r.Next(100000, 999999)
+            If PasscodeExists(passcode) Then
+                Return GeneratePasscode()
             Else
-                PassCode = temp
+                Return passcode
             End If
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
-    End Sub
-    Public Function GeneratePasscode(ByVal Passcode As String) As String
-        Try
-            temp = ""
-            Dim r As New Random(System.DateTime.Now.Millisecond)
-            temp = r.Next(100000, 999999)
-            temp = "GA" & temp
-
-            SQL = "Select " & _
-            "numRes_EventID " & _
-            "from " & DBNameSpace & ".ReS_Event " & _
-            "where strPasscode = '" & temp & "' "
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
-            End If
-            dr = cmd.ExecuteReader
-            recExist = dr.Read
-            dr.Close()
-            If recExist = True Then
-                temp = "False"
-            Else
-                temp = temp
-            End If
-            Return temp
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-        Return "False"
+        Return "Error"
     End Function
+
     Private Sub btnGeneratePasscode_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnGeneratePasscode.Click
-        Try
-            Dim i As Integer = 0
-            i = 0
-
-            Do Until i <> 0
-                If GeneratePasscode("") <> "False" Then
-                    i = 1
-                End If
-            Loop
-            chbEventPasscode.Text = temp
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        chbEventPasscode.Text = GeneratePasscode()
     End Sub
+
     Private Sub btnClearEventManagement_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnClearEventManagement.Click
         Try
 
@@ -1408,5 +1365,308 @@ Public Class MASPRegistrationTool
         End Try
     End Sub
 
-   
+#Region "Insert/Update event/registration"
+
+    Function Insert_RES_Event(ByVal EventStatusCode As String, ByVal Title As String, _
+                            ByVal Description As String, ByVal StartDateTime As String, _
+                            ByVal EndDateTime As String, ByVal Venue As String, _
+                            ByVal Address As String, ByVal City As String, _
+                            ByVal State As String, ByVal ZipCode As String, _
+                            ByVal Capacity As String, ByVal Notes As String, _
+                            ByVal APBContact As String, _
+                            ByVal WebContact As String, ByVal WebPhoneNumber As String, _
+                            ByVal LogInRequired As String, _
+                            ByVal PassCodeRequired As String, ByVal PassCode As String, _
+                            ByVal Active As String, ByVal EventTime As String, _
+                            ByVal EventEndTime As String, ByVal WebURL As String) As String
+        Try
+            Dim EventID As String = "0"
+
+            If LogInRequired = True Then
+                LogInRequired = "1"
+            Else
+                LogInRequired = "0"
+            End If
+            If PassCodeRequired = "" Then
+                PassCode = "1"
+            Else
+                If PassCodeRequired = False Then
+                    PassCode = "1"
+                Else
+                    PassCode = PassCode
+                End If
+            End If
+            If LogInRequired = True Then
+                LogInRequired = "1"
+            Else
+                LogInRequired = "0"
+            End If
+
+            SQL = "Insert into " & DBNameSpace & ".RES_Event " & _
+                     "(numRes_EventID, numEventStatusCode, " & _
+                     "strUserGCode, strTitle, " & _
+                     "strDescription, datStartDate, " & _
+                     "datEndDate, strVenue, " & _
+                     "numCapacity, strNotes, " & _
+                     "strMultipleregistrations, Active, " & _
+                     "createDateTime, UpdateUser, " & _
+                     "UpdateDateTime, strLogInRequired, " & _
+                     "strPassCode, strAddress, " & _
+                     "strCity, strState, " & _
+                     "numZipCode, numAPBContact, " & _
+                     "numWebPhoneNumber, strEventStartTime, " & _
+                     "strEventEndTime, strWebURL) " & _
+                     "values " & _
+                     "((select " & _
+                     "case when max(numres_eventID) is null then 1 " & _
+                     "else max(numRes_EventID) + 1 End  " & _
+                     "from " & DBNameSpace & ".Res_event), " & _
+                     "'" & Replace(EventStatusCode, "'", "''") & "',  '" & Replace(WebContact, "'", "''") & "', " & _
+                     "'" & Replace(Title, "'", "''") & "', " & _
+                     "'" & Replace(Description, "'", "''") & "', '" & Replace(StartDateTime, "'", "''") & "', " & _
+                     "'" & Replace(EndDateTime, "'", "''") & "', '" & Replace(Venue, "'", "''") & "', " & _
+                     "'" & Replace(Capacity, "'", "''") & "', '" & Replace(Notes, "'", "''") & "', " & _
+                     "'', " & _
+                     "'" & Active & "', " & _
+                     "sysdate, '" & UserGCode & "', " & _
+                     "sysdate, '" & LogInRequired & "', " & _
+                     "'" & Replace(PassCode, "'", "''") & "', '" & Replace(Address, "'", "''") & "', " & _
+                     "'" & Replace(City, "'", "''") & "', '" & Replace(State, "'", "''") & "',  " & _
+                     "'" & ZipCode & "', '" & APBContact & "', " & _
+                     "'" & WebPhoneNumber & "', '" & Replace(EventTime, "'", "''") & "', " & _
+                     "'" & Replace(EventEndTime, "'", "''") & "', '" & Replace(WebURL, "'", "''") & "') "
+
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
+            End If
+            dr = cmd.ExecuteReader
+            dr.Close()
+
+            SQL = "Select " & _
+            "max(numRes_eventID) as EventID " & _
+            "from " & DBNameSpace & ".RES_Event "
+
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
+            End If
+
+            dr = cmd.ExecuteReader
+            While dr.Read
+                If IsDBNull(dr.Item("EventID")) Then
+                    EventID = "0"
+                Else
+                    EventID = dr.Item("EventID")
+                End If
+            End While
+            dr.Close()
+
+            Return EventID
+
+        Catch ex As Exception
+            ErrorReport(ex, "CodeFile." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+        End Try
+        Return ""
+    End Function
+
+    Function Update_RES_Event(ByVal Res_EventID As String, _
+                           ByVal EventStatusCode As String, ByVal Title As String, _
+                           ByVal Description As String, ByVal StartDateTime As String, _
+                           ByVal EndDateTime As String, ByVal Venue As String, _
+                           ByVal Address As String, ByVal City As String, _
+                           ByVal State As String, ByVal ZipCode As String, _
+                           ByVal Capacity As String, ByVal Notes As String, _
+                           ByVal APBContact As String, _
+                           ByVal WebContact As String, ByVal WebPhoneNumber As String, _
+                           ByVal LogInRequired As String, _
+                           ByVal PassCodeRequired As String, ByVal PassCode As String, _
+                           ByVal Active As String, ByVal EventTime As String, _
+                           ByVal EventEndTime As String, ByVal WebURL As String) As Boolean
+        Try
+            SQL = ""
+            If IsDBNull(EventStatusCode) Then
+            Else
+                If EventStatusCode <> "" Then
+                    SQL = "numEventStatusCode = '" & Replace(EventStatusCode, "'", "''") & "', "
+                End If
+            End If
+            If IsDBNull(Title) Then
+            Else
+                If Title <> "" Then
+                    SQL = SQL & "strTitle = '" & Replace(Title, "'", "''") & "', "
+                End If
+            End If
+            If IsDBNull(Description) Then
+            Else
+                If Description <> "" Then
+                    SQL = SQL & "strDescription = '" & Replace(Description, "'", "''") & "', "
+                End If
+            End If
+            If IsDBNull(StartDateTime) Then
+            Else
+                If StartDateTime <> "" Then
+                    SQL = SQL & "datStartDate = '" & Replace(StartDateTime, "'", "''") & "', "
+                End If
+            End If
+            If IsDBNull(EndDateTime) Then
+            Else
+                If EndDateTime <> "" Then
+                    SQL = SQL & "datEndDate = '" & Replace(EndDateTime, "'", "''") & "', "
+                End If
+            End If
+            If IsDBNull(Venue) Then
+            Else
+                If Venue <> "" Then
+                    SQL = SQL & "strVenue = '" & Replace(Venue, "'", "''") & "', "
+                End If
+            End If
+            If IsDBNull(Address) Then
+            Else
+                If Address <> "" Then
+                    SQL = SQL & "strAddress = '" & Replace(Address, "'", "''") & "', "
+                End If
+            End If
+            If IsDBNull(City) Then
+            Else
+                If City <> "" Then
+                    SQL = SQL & "strCity = '" & Replace(City, "'", "''") & "', "
+                End If
+            End If
+            If IsDBNull(State) Then
+            Else
+                If State <> "" Then
+                    SQL = SQL & "strState = '" & Replace(State, "'", "''") & "', "
+                End If
+            End If
+            If IsDBNull(ZipCode) Then
+            Else
+                If ZipCode <> "" Then
+                    SQL = SQL & "numZipCode = '" & Replace(ZipCode, "'", "''") & "', "
+                End If
+            End If
+            If IsDBNull(Capacity) Then
+            Else
+                If Capacity <> "" Then
+                    SQL = SQL & "numCapacity = '" & Replace(Capacity, "'", "''") & "', "
+                End If
+            End If
+            If IsDBNull(Notes) Then
+            Else
+                If Notes <> "" Then
+                    SQL = SQL & "strNotes = '" & Replace(Notes, "'", "''") & "', "
+                End If
+            End If
+            If IsDBNull(APBContact) Then
+            Else
+                If APBContact <> "" Then
+                    SQL = SQL & "numAPBContact = '" & Replace(APBContact, "'", "''") & "', "
+                End If
+            End If
+            If IsDBNull(WebContact) Then
+            Else
+                If WebContact <> "" Then
+                    SQL = SQL & "strUserGCode = '" & Replace(WebContact, "'", "''") & "', "
+                End If
+            End If
+            If IsDBNull(LogInRequired) Then
+                LogInRequired = "0"
+            Else
+                If LogInRequired <> "" Then
+                    If LogInRequired = True Then
+                        LogInRequired = "1"
+                    Else
+                        LogInRequired = "0"
+                    End If
+                    SQL = SQL & "strLogInRequired = '" & Replace(LogInRequired, "'", "''") & "', "
+                Else
+                    LogInRequired = "0"
+                End If
+            End If
+            If IsDBNull(PassCodeRequired) Then
+                SQL = SQL & "strPasscode = '1', "
+            Else
+                If PassCodeRequired = "0" Or PassCode = "" Then
+                    SQL = SQL & "strPasscode = '1', "
+                Else
+                    SQL = SQL & "strPassCode = '" & Replace(PassCode, "'", "''") & "', "
+                End If
+            End If
+            If IsDBNull(EventTime) Then
+            Else
+                If EventTime <> "" Then
+                    SQL = SQL & "strEventStartTime = '" & Replace(EventTime, "'", "''") & "', "
+                End If
+            End If
+            If IsDBNull(EventEndTime) Then
+            Else
+                If EventEndTime <> "" Then
+                    SQL = SQL & "strEventEndTime = '" & Replace(EventEndTime, "'", "''") & "', "
+                End If
+            End If
+            If IsDBNull(WebURL) Then
+            Else
+                If WebURL <> "" Then
+                    SQL = SQL & "strWebURL = '" & Replace(WebURL, "'", "''") & "', "
+                End If
+            End If
+
+            If IsDBNull(Active) Then
+            Else
+                SQL = SQL & "active = '" & Active & "', "
+            End If
+            If SQL <> "" Then
+                SQL = "Update " & DBNameSpace & ".Res_Event set " & _
+                SQL & "updateUser = '" & UserGCode & "', " & _
+                "updateDateTime = '" & OracleDate & "' " & _
+                "where numRes_EventID = '" & Res_EventID & "' "
+                cmd = New OracleCommand(SQL, Conn)
+                If Conn.State = ConnectionState.Closed Then
+                    Conn.Open()
+                End If
+                dr = cmd.ExecuteReader
+                dr.Close()
+                Return True
+            End If
+
+        Catch ex As Exception
+            ErrorReport(ex, "CodeFile." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+        End Try
+    End Function
+
+    Function Update_RES_Registration(ByVal RegistrationID As String, ByVal Confirmation As String, _
+                                     ByVal RegStatusCode As String, ByVal RegDate As String) As Boolean
+        Try
+
+            SQL = "Update " & DBNameSpace & ".Res_Registration set " & _
+            "numREgistrationStatusCode = '" & RegStatusCode & "', " & _
+            "datRegistrationDateTime = '" & RegDate & "' " & _
+            "where numRes_RegistrationID = '" & RegistrationID & "' " & _
+            "and strConfirmationNumber = '" & Confirmation & "' "
+
+            cmd = New OracleCommand(SQL, Conn)
+            If Conn.State = ConnectionState.Closed Then
+                Conn.Open()
+            End If
+            dr = cmd.ExecuteReader
+            dr.Close()
+            Return True
+        Catch ex As Exception
+            ErrorReport(ex, "CodeFile." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+        End Try
+    End Function
+
+#End Region
+
+#Region "DAL"
+
+    Public Function PasscodeExists(ByVal id As String) As Boolean
+        Dim query As String = "SELECT 'True' FROM AIRBRANCH.RES_EVENT WHERE ROWNUM=1 AND STRPASSCODE = :pId"
+        Dim parameter As New OracleParameter("pId", id)
+
+        Dim result As String = DB.GetSingleValue(Of String)(query, parameter)
+        Return Convert.ToBoolean(result)
+    End Function
+
+#End Region
 End Class

@@ -104,7 +104,6 @@ Public Class SSCPEvents
     Friend WithEvents lblNotificationDate As System.Windows.Forms.Label
     Friend WithEvents Panel19 As System.Windows.Forms.Panel
     Friend WithEvents Label64 As System.Windows.Forms.Label
-    Friend WithEvents Label65 As System.Windows.Forms.Label
     Friend WithEvents TCItems As System.Windows.Forms.TabControl
     Friend WithEvents txtPlannedInspectionDate As System.Windows.Forms.TextBox
     Friend WithEvents TBSSCPItems As System.Windows.Forms.ToolBar
@@ -128,29 +127,21 @@ Public Class SSCPEvents
     Friend WithEvents Label67 As System.Windows.Forms.Label
     Friend WithEvents Panel6 As System.Windows.Forms.Panel
     Friend WithEvents Label27 As System.Windows.Forms.Label
-    Friend WithEvents Label30 As System.Windows.Forms.Label
     Friend WithEvents Label31 As System.Windows.Forms.Label
     Friend WithEvents Panel7 As System.Windows.Forms.Panel
     Friend WithEvents Label32 As System.Windows.Forms.Label
-    Friend WithEvents Label33 As System.Windows.Forms.Label
     Friend WithEvents Panel8 As System.Windows.Forms.Panel
     Friend WithEvents Label36 As System.Windows.Forms.Label
-    Friend WithEvents Label37 As System.Windows.Forms.Label
     Friend WithEvents Panel9 As System.Windows.Forms.Panel
     Friend WithEvents Label39 As System.Windows.Forms.Label
-    Friend WithEvents Label40 As System.Windows.Forms.Label
     Friend WithEvents Panel10 As System.Windows.Forms.Panel
     Friend WithEvents Label42 As System.Windows.Forms.Label
-    Friend WithEvents Label43 As System.Windows.Forms.Label
     Friend WithEvents Panel12 As System.Windows.Forms.Panel
     Friend WithEvents Label48 As System.Windows.Forms.Label
-    Friend WithEvents Label49 As System.Windows.Forms.Label
     Friend WithEvents Panel14 As System.Windows.Forms.Panel
     Friend WithEvents Label56 As System.Windows.Forms.Label
-    Friend WithEvents Label57 As System.Windows.Forms.Label
     Friend WithEvents Panel15 As System.Windows.Forms.Panel
     Friend WithEvents Label69 As System.Windows.Forms.Label
-    Friend WithEvents Label70 As System.Windows.Forms.Label
     Friend WithEvents Label44 As System.Windows.Forms.Label
     Friend WithEvents txtACCComments As System.Windows.Forms.TextBox
     Friend WithEvents wrnACCPreviousDeviations As System.Windows.Forms.Label
@@ -222,13 +213,10 @@ Public Class SSCPEvents
     Friend WithEvents txtReportPeriodComments As System.Windows.Forms.TextBox
     Friend WithEvents DTPSentDate As System.Windows.Forms.DateTimePicker
     Friend WithEvents dtpDueDate As System.Windows.Forms.DateTimePicker
-    Friend WithEvents Label58 As System.Windows.Forms.Label
     Friend WithEvents Panel5 As System.Windows.Forms.Panel
     Friend WithEvents rdbReportCompleteYes As System.Windows.Forms.RadioButton
     Friend WithEvents rdbReportCompleteNo As System.Windows.Forms.RadioButton
     Friend WithEvents Label59 As System.Windows.Forms.Label
-    Friend WithEvents Label60 As System.Windows.Forms.Label
-    Friend WithEvents Label61 As System.Windows.Forms.Label
     Friend WithEvents Label62 As System.Windows.Forms.Label
     Friend WithEvents Label63 As System.Windows.Forms.Label
     Friend WithEvents Panel17 As System.Windows.Forms.Panel
@@ -251,13 +239,11 @@ Public Class SSCPEvents
     Friend WithEvents mmiLetterTemplates As System.Windows.Forms.MenuItem
     Friend WithEvents Label34 As System.Windows.Forms.Label
     Friend WithEvents Panel21 As System.Windows.Forms.Panel
-    Friend WithEvents Label41 As System.Windows.Forms.Label
     Friend WithEvents rdbInspectionFollowUpYes As System.Windows.Forms.RadioButton
     Friend WithEvents rdbInspectionFollowUpNo As System.Windows.Forms.RadioButton
     Friend WithEvents Panel22 As System.Windows.Forms.Panel
     Friend WithEvents rdbTestReportFollowUpYes As System.Windows.Forms.RadioButton
     Friend WithEvents rdbTestReportFollowUpNo As System.Windows.Forms.RadioButton
-    Friend WithEvents Label47 As System.Windows.Forms.Label
     Friend WithEvents Label71 As System.Windows.Forms.Label
     Friend WithEvents Panel23 As System.Windows.Forms.Panel
     Friend WithEvents rdbNotificationFollowUpYes As System.Windows.Forms.RadioButton
@@ -362,13 +348,10 @@ Public Class SSCPEvents
         Me.txtReportPeriodComments = New System.Windows.Forms.TextBox
         Me.DTPSentDate = New System.Windows.Forms.DateTimePicker
         Me.dtpDueDate = New System.Windows.Forms.DateTimePicker
-        Me.Label58 = New System.Windows.Forms.Label
         Me.Panel5 = New System.Windows.Forms.Panel
         Me.rdbReportCompleteYes = New System.Windows.Forms.RadioButton
         Me.rdbReportCompleteNo = New System.Windows.Forms.RadioButton
         Me.Label59 = New System.Windows.Forms.Label
-        Me.Label60 = New System.Windows.Forms.Label
-        Me.Label61 = New System.Windows.Forms.Label
         Me.Label62 = New System.Windows.Forms.Label
         Me.Label63 = New System.Windows.Forms.Label
         Me.Panel17 = New System.Windows.Forms.Panel
@@ -399,7 +382,6 @@ Public Class SSCPEvents
         Me.Panel22 = New System.Windows.Forms.Panel
         Me.rdbTestReportFollowUpYes = New System.Windows.Forms.RadioButton
         Me.rdbTestReportFollowUpNo = New System.Windows.Forms.RadioButton
-        Me.Label47 = New System.Windows.Forms.Label
         Me.Label71 = New System.Windows.Forms.Label
         Me.Label38 = New System.Windows.Forms.Label
         Me.DTPTestReportDueDate = New System.Windows.Forms.DateTimePicker
@@ -418,7 +400,6 @@ Public Class SSCPEvents
         Me.Panel21 = New System.Windows.Forms.Panel
         Me.rdbInspectionFollowUpYes = New System.Windows.Forms.RadioButton
         Me.rdbInspectionFollowUpNo = New System.Windows.Forms.RadioButton
-        Me.Label41 = New System.Windows.Forms.Label
         Me.Label34 = New System.Windows.Forms.Label
         Me.Label17 = New System.Windows.Forms.Label
         Me.Label16 = New System.Windows.Forms.Label
@@ -436,7 +417,6 @@ Public Class SSCPEvents
         Me.rdbInspectionFacilityOperatingYes = New System.Windows.Forms.RadioButton
         Me.rdbInspectionFacilityOperatingNo = New System.Windows.Forms.RadioButton
         Me.Label64 = New System.Windows.Forms.Label
-        Me.Label65 = New System.Windows.Forms.Label
         Me.cboInspectionReason = New System.Windows.Forms.ComboBox
         Me.DTPInspectionDateEnd = New System.Windows.Forms.DateTimePicker
         Me.Label24 = New System.Windows.Forms.Label
@@ -476,19 +456,16 @@ Public Class SSCPEvents
         Me.DTPACCReceivedDate = New System.Windows.Forms.DateTimePicker
         Me.chbACCReceivedByAPB = New System.Windows.Forms.CheckBox
         Me.btnACCSubmittals = New System.Windows.Forms.Button
-        Me.Label40 = New System.Windows.Forms.Label
         Me.wrnACCCorrectACC = New System.Windows.Forms.Label
         Me.Panel8 = New System.Windows.Forms.Panel
         Me.rdbACCCorrectACCYes = New System.Windows.Forms.RadioButton
         Me.rdbACCCorrectACCNo = New System.Windows.Forms.RadioButton
         Me.Label36 = New System.Windows.Forms.Label
-        Me.Label37 = New System.Windows.Forms.Label
         Me.wrnACCRO = New System.Windows.Forms.Label
         Me.Panel7 = New System.Windows.Forms.Panel
         Me.rdbACCROYes = New System.Windows.Forms.RadioButton
         Me.rdbACCRONo = New System.Windows.Forms.RadioButton
         Me.Label32 = New System.Windows.Forms.Label
-        Me.Label33 = New System.Windows.Forms.Label
         Me.Label31 = New System.Windows.Forms.Label
         Me.DTPACCPostmarked = New System.Windows.Forms.DateTimePicker
         Me.wrnACCPostmark = New System.Windows.Forms.Label
@@ -496,7 +473,6 @@ Public Class SSCPEvents
         Me.rdbACCPostmarkYes = New System.Windows.Forms.RadioButton
         Me.rdbACCPostmarkNo = New System.Windows.Forms.RadioButton
         Me.Label27 = New System.Windows.Forms.Label
-        Me.Label30 = New System.Windows.Forms.Label
         Me.wrnACCSubmittal = New System.Windows.Forms.Label
         Me.NUPACCSubmittal = New System.Windows.Forms.NumericUpDown
         Me.Label67 = New System.Windows.Forms.Label
@@ -508,25 +484,21 @@ Public Class SSCPEvents
         Me.rdbACCPreviousDeviationsYes = New System.Windows.Forms.RadioButton
         Me.rdbACCPreviousDeviationsNo = New System.Windows.Forms.RadioButton
         Me.Label69 = New System.Windows.Forms.Label
-        Me.Label70 = New System.Windows.Forms.Label
         Me.wrnACCDeviationsReported = New System.Windows.Forms.Label
         Me.Panel14 = New System.Windows.Forms.Panel
         Me.rdbACCDeviationsReportedYes = New System.Windows.Forms.RadioButton
         Me.rdbACCDeviationsReportedNo = New System.Windows.Forms.RadioButton
         Me.Label56 = New System.Windows.Forms.Label
-        Me.Label57 = New System.Windows.Forms.Label
         Me.wrnACCEnforcementNeeded = New System.Windows.Forms.Label
         Me.Panel12 = New System.Windows.Forms.Panel
         Me.rdbACCEnforcementNeededYes = New System.Windows.Forms.RadioButton
         Me.rdbACCEnforcementNeededNo = New System.Windows.Forms.RadioButton
         Me.Label48 = New System.Windows.Forms.Label
-        Me.Label49 = New System.Windows.Forms.Label
         Me.wrnACCCorrect = New System.Windows.Forms.Label
         Me.Panel10 = New System.Windows.Forms.Panel
         Me.rdbACCCorrectYes = New System.Windows.Forms.RadioButton
         Me.rdbACCCorrectNo = New System.Windows.Forms.RadioButton
         Me.Label42 = New System.Windows.Forms.Label
-        Me.Label43 = New System.Windows.Forms.Label
         Me.wrnACCConditions = New System.Windows.Forms.Label
         Me.Panel9 = New System.Windows.Forms.Panel
         Me.rdbACCConditionsYes = New System.Windows.Forms.RadioButton
@@ -1062,11 +1034,8 @@ Public Class SSCPEvents
         Me.Panel4.Controls.Add(Me.txtReportPeriodComments)
         Me.Panel4.Controls.Add(Me.DTPSentDate)
         Me.Panel4.Controls.Add(Me.dtpDueDate)
-        Me.Panel4.Controls.Add(Me.Label58)
         Me.Panel4.Controls.Add(Me.Panel5)
         Me.Panel4.Controls.Add(Me.Label59)
-        Me.Panel4.Controls.Add(Me.Label60)
-        Me.Panel4.Controls.Add(Me.Label61)
         Me.Panel4.Controls.Add(Me.Label62)
         Me.Panel4.Controls.Add(Me.Label63)
         Me.Panel4.Controls.Add(Me.Panel17)
@@ -1095,7 +1064,7 @@ Public Class SSCPEvents
         '
         Me.chbReportReceivedByAPB.AutoSize = True
         Me.chbReportReceivedByAPB.CheckAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.chbReportReceivedByAPB.Location = New System.Drawing.Point(27, 110)
+        Me.chbReportReceivedByAPB.Location = New System.Drawing.Point(24, 115)
         Me.chbReportReceivedByAPB.Name = "chbReportReceivedByAPB"
         Me.chbReportReceivedByAPB.Size = New System.Drawing.Size(122, 17)
         Me.chbReportReceivedByAPB.TabIndex = 302
@@ -1119,7 +1088,7 @@ Public Class SSCPEvents
         Me.wrnReportSubmittal.AutoSize = True
         Me.wrnReportSubmittal.Font = New System.Drawing.Font("Arial", 7.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.wrnReportSubmittal.ForeColor = System.Drawing.Color.Tomato
-        Me.wrnReportSubmittal.Location = New System.Drawing.Point(200, 24)
+        Me.wrnReportSubmittal.Location = New System.Drawing.Point(198, 28)
         Me.wrnReportSubmittal.Name = "wrnReportSubmittal"
         Me.wrnReportSubmittal.Size = New System.Drawing.Size(135, 13)
         Me.wrnReportSubmittal.TabIndex = 108
@@ -1139,18 +1108,18 @@ Public Class SSCPEvents
         'lblResubmittal
         '
         Me.lblResubmittal.AutoSize = True
-        Me.lblResubmittal.Location = New System.Drawing.Point(50, 26)
+        Me.lblResubmittal.Location = New System.Drawing.Point(53, 26)
         Me.lblResubmittal.Name = "lblResubmittal"
-        Me.lblResubmittal.Size = New System.Drawing.Size(90, 13)
+        Me.lblResubmittal.Size = New System.Drawing.Size(93, 13)
         Me.lblResubmittal.TabIndex = 106
-        Me.lblResubmittal.Text = "Submittal Number"
+        Me.lblResubmittal.Text = "Submittal Number:"
         '
         'wrnReportPeriod
         '
         Me.wrnReportPeriod.AutoSize = True
         Me.wrnReportPeriod.Font = New System.Drawing.Font("Arial", 7.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.wrnReportPeriod.ForeColor = System.Drawing.Color.Tomato
-        Me.wrnReportPeriod.Location = New System.Drawing.Point(534, 52)
+        Me.wrnReportPeriod.Location = New System.Drawing.Point(534, 53)
         Me.wrnReportPeriod.Name = "wrnReportPeriod"
         Me.wrnReportPeriod.Size = New System.Drawing.Size(135, 13)
         Me.wrnReportPeriod.TabIndex = 105
@@ -1162,7 +1131,7 @@ Public Class SSCPEvents
         Me.wrnShowDeviation.AutoSize = True
         Me.wrnShowDeviation.Font = New System.Drawing.Font("Arial", 7.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.wrnShowDeviation.ForeColor = System.Drawing.Color.Tomato
-        Me.wrnShowDeviation.Location = New System.Drawing.Point(448, 237)
+        Me.wrnShowDeviation.Location = New System.Drawing.Point(445, 242)
         Me.wrnShowDeviation.Name = "wrnShowDeviation"
         Me.wrnShowDeviation.Size = New System.Drawing.Size(135, 13)
         Me.wrnShowDeviation.TabIndex = 104
@@ -1174,7 +1143,7 @@ Public Class SSCPEvents
         Me.wrnEnforcementNeeded.AutoSize = True
         Me.wrnEnforcementNeeded.Font = New System.Drawing.Font("Arial", 7.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.wrnEnforcementNeeded.ForeColor = System.Drawing.Color.Tomato
-        Me.wrnEnforcementNeeded.Location = New System.Drawing.Point(448, 217)
+        Me.wrnEnforcementNeeded.Location = New System.Drawing.Point(445, 220)
         Me.wrnEnforcementNeeded.Name = "wrnEnforcementNeeded"
         Me.wrnEnforcementNeeded.Size = New System.Drawing.Size(135, 13)
         Me.wrnEnforcementNeeded.TabIndex = 103
@@ -1186,7 +1155,7 @@ Public Class SSCPEvents
         Me.wrnCompleteReport.AutoSize = True
         Me.wrnCompleteReport.Font = New System.Drawing.Font("Arial", 7.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.wrnCompleteReport.ForeColor = System.Drawing.Color.Tomato
-        Me.wrnCompleteReport.Location = New System.Drawing.Point(448, 194)
+        Me.wrnCompleteReport.Location = New System.Drawing.Point(445, 198)
         Me.wrnCompleteReport.Name = "wrnCompleteReport"
         Me.wrnCompleteReport.Size = New System.Drawing.Size(135, 13)
         Me.wrnCompleteReport.TabIndex = 102
@@ -1196,7 +1165,7 @@ Public Class SSCPEvents
         'Label7
         '
         Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(68, 50)
+        Me.Label7.Location = New System.Drawing.Point(77, 54)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(69, 13)
         Me.Label7.TabIndex = 79
@@ -1205,7 +1174,7 @@ Public Class SSCPEvents
         'Label8
         '
         Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(16, 72)
+        Me.Label8.Location = New System.Drawing.Point(24, 75)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(122, 13)
         Me.Label8.TabIndex = 91
@@ -1214,7 +1183,7 @@ Public Class SSCPEvents
         'Label11
         '
         Me.Label11.AutoSize = True
-        Me.Label11.Location = New System.Drawing.Point(53, 138)
+        Me.Label11.Location = New System.Drawing.Point(55, 142)
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(91, 13)
         Me.Label11.TabIndex = 85
@@ -1223,7 +1192,7 @@ Public Class SSCPEvents
         'Label9
         '
         Me.Label9.AutoSize = True
-        Me.Label9.Location = New System.Drawing.Point(34, 170)
+        Me.Label9.Location = New System.Drawing.Point(39, 168)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(107, 13)
         Me.Label9.TabIndex = 83
@@ -1232,7 +1201,7 @@ Public Class SSCPEvents
         'Label15
         '
         Me.Label15.AutoSize = True
-        Me.Label15.Location = New System.Drawing.Point(43, 256)
+        Me.Label15.Location = New System.Drawing.Point(49, 263)
         Me.Label15.Name = "Label15"
         Me.Label15.Size = New System.Drawing.Size(97, 13)
         Me.Label15.TabIndex = 89
@@ -1253,14 +1222,14 @@ Public Class SSCPEvents
         Me.txtReportPeriodComments.MaxLength = 4000
         Me.txtReportPeriodComments.Multiline = True
         Me.txtReportPeriodComments.Name = "txtReportPeriodComments"
-        Me.txtReportPeriodComments.Size = New System.Drawing.Size(368, 32)
+        Me.txtReportPeriodComments.Size = New System.Drawing.Size(376, 32)
         Me.txtReportPeriodComments.TabIndex = 82
         '
         'DTPSentDate
         '
         Me.DTPSentDate.CustomFormat = "dd-MMM-yyyy"
         Me.DTPSentDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DTPSentDate.Location = New System.Drawing.Point(152, 168)
+        Me.DTPSentDate.Location = New System.Drawing.Point(152, 162)
         Me.DTPSentDate.Name = "DTPSentDate"
         Me.DTPSentDate.Size = New System.Drawing.Size(100, 20)
         Me.DTPSentDate.TabIndex = 87
@@ -1275,14 +1244,6 @@ Public Class SSCPEvents
         Me.dtpDueDate.Size = New System.Drawing.Size(100, 20)
         Me.dtpDueDate.TabIndex = 86
         Me.dtpDueDate.Value = New Date(2005, 4, 21, 0, 0, 0, 0)
-        '
-        'Label58
-        '
-        Me.Label58.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Label58.Location = New System.Drawing.Point(152, 250)
-        Me.Label58.Name = "Label58"
-        Me.Label58.Size = New System.Drawing.Size(280, 1)
-        Me.Label58.TabIndex = 101
         '
         'Panel5
         '
@@ -1312,32 +1273,16 @@ Public Class SSCPEvents
         'Label59
         '
         Me.Label59.AutoSize = True
-        Me.Label59.Location = New System.Drawing.Point(152, 194)
+        Me.Label59.Location = New System.Drawing.Point(149, 196)
         Me.Label59.Name = "Label59"
         Me.Label59.Size = New System.Drawing.Size(86, 13)
         Me.Label59.TabIndex = 99
         Me.Label59.Text = "Complete Report"
         '
-        'Label60
-        '
-        Me.Label60.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Label60.Location = New System.Drawing.Point(152, 230)
-        Me.Label60.Name = "Label60"
-        Me.Label60.Size = New System.Drawing.Size(280, 1)
-        Me.Label60.TabIndex = 98
-        '
-        'Label61
-        '
-        Me.Label61.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Label61.Location = New System.Drawing.Point(152, 210)
-        Me.Label61.Name = "Label61"
-        Me.Label61.Size = New System.Drawing.Size(280, 1)
-        Me.Label61.TabIndex = 97
-        '
         'Label62
         '
         Me.Label62.AutoSize = True
-        Me.Label62.Location = New System.Drawing.Point(152, 216)
+        Me.Label62.Location = New System.Drawing.Point(149, 218)
         Me.Label62.Name = "Label62"
         Me.Label62.Size = New System.Drawing.Size(108, 13)
         Me.Label62.TabIndex = 94
@@ -1346,7 +1291,7 @@ Public Class SSCPEvents
         'Label63
         '
         Me.Label63.AutoSize = True
-        Me.Label63.Location = New System.Drawing.Point(152, 236)
+        Me.Label63.Location = New System.Drawing.Point(149, 240)
         Me.Label63.Name = "Label63"
         Me.Label63.Size = New System.Drawing.Size(82, 13)
         Me.Label63.TabIndex = 95
@@ -1356,7 +1301,7 @@ Public Class SSCPEvents
         '
         Me.Panel17.Controls.Add(Me.rdbReportDeviationYes)
         Me.Panel17.Controls.Add(Me.rdbReportDeviationNo)
-        Me.Panel17.Location = New System.Drawing.Point(352, 236)
+        Me.Panel17.Location = New System.Drawing.Point(352, 238)
         Me.Panel17.Name = "Panel17"
         Me.Panel17.Size = New System.Drawing.Size(96, 16)
         Me.Panel17.TabIndex = 96
@@ -1381,7 +1326,7 @@ Public Class SSCPEvents
         '
         Me.Panel18.Controls.Add(Me.rdbReportEnforcementYes)
         Me.Panel18.Controls.Add(Me.rdbReportEnforcementNo)
-        Me.Panel18.Location = New System.Drawing.Point(352, 213)
+        Me.Panel18.Location = New System.Drawing.Point(352, 216)
         Me.Panel18.Name = "Panel18"
         Me.Panel18.Size = New System.Drawing.Size(96, 16)
         Me.Panel18.TabIndex = 93
@@ -1405,7 +1350,7 @@ Public Class SSCPEvents
         'txtReportsGeneralComments
         '
         Me.txtReportsGeneralComments.AcceptsReturn = True
-        Me.txtReportsGeneralComments.Location = New System.Drawing.Point(152, 256)
+        Me.txtReportsGeneralComments.Location = New System.Drawing.Point(152, 260)
         Me.txtReportsGeneralComments.MaxLength = 4000
         Me.txtReportsGeneralComments.Multiline = True
         Me.txtReportsGeneralComments.Name = "txtReportsGeneralComments"
@@ -1480,7 +1425,6 @@ Public Class SSCPEvents
         Me.PanelSSCPCompliance2.Controls.Add(Me.txtTestReportISMPCompleteDate)
         Me.PanelSSCPCompliance2.Controls.Add(Me.Label4)
         Me.PanelSSCPCompliance2.Controls.Add(Me.Panel22)
-        Me.PanelSSCPCompliance2.Controls.Add(Me.Label47)
         Me.PanelSSCPCompliance2.Controls.Add(Me.Label71)
         Me.PanelSSCPCompliance2.Controls.Add(Me.Label38)
         Me.PanelSSCPCompliance2.Controls.Add(Me.DTPTestReportDueDate)
@@ -1633,14 +1577,6 @@ Public Class SSCPEvents
         Me.rdbTestReportFollowUpNo.TabIndex = 20
         Me.rdbTestReportFollowUpNo.Text = "No"
         '
-        'Label47
-        '
-        Me.Label47.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Label47.Location = New System.Drawing.Point(16, 304)
-        Me.Label47.Name = "Label47"
-        Me.Label47.Size = New System.Drawing.Size(235, 1)
-        Me.Label47.TabIndex = 162
-        '
         'Label71
         '
         Me.Label71.AutoSize = True
@@ -1758,7 +1694,6 @@ Public Class SSCPEvents
         Me.Panel11.Controls.Add(Me.lblInspectionLinked)
         Me.Panel11.Controls.Add(Me.lblInspectionScheduleLink)
         Me.Panel11.Controls.Add(Me.Panel21)
-        Me.Panel11.Controls.Add(Me.Label41)
         Me.Panel11.Controls.Add(Me.Label34)
         Me.Panel11.Controls.Add(Me.Label17)
         Me.Panel11.Controls.Add(Me.Label16)
@@ -1774,7 +1709,6 @@ Public Class SSCPEvents
         Me.Panel11.Controls.Add(Me.wrnInspectionOperating)
         Me.Panel11.Controls.Add(Me.Panel19)
         Me.Panel11.Controls.Add(Me.Label64)
-        Me.Panel11.Controls.Add(Me.Label65)
         Me.Panel11.Controls.Add(Me.cboInspectionReason)
         Me.Panel11.Controls.Add(Me.DTPInspectionDateEnd)
         Me.Panel11.Controls.Add(Me.Label24)
@@ -1840,14 +1774,6 @@ Public Class SSCPEvents
         Me.rdbInspectionFollowUpNo.TabIndex = 20
         Me.rdbInspectionFollowUpNo.Text = "No"
         '
-        'Label41
-        '
-        Me.Label41.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Label41.Location = New System.Drawing.Point(8, 320)
-        Me.Label41.Name = "Label41"
-        Me.Label41.Size = New System.Drawing.Size(235, 1)
-        Me.Label41.TabIndex = 82
-        '
         'Label34
         '
         Me.Label34.AutoSize = True
@@ -1860,7 +1786,7 @@ Public Class SSCPEvents
         'Label17
         '
         Me.Label17.AutoSize = True
-        Me.Label17.Location = New System.Drawing.Point(160, 8)
+        Me.Label17.Location = New System.Drawing.Point(157, 8)
         Me.Label17.Name = "Label17"
         Me.Label17.Size = New System.Drawing.Size(32, 13)
         Me.Label17.TabIndex = 9
@@ -1869,7 +1795,7 @@ Public Class SSCPEvents
         'Label16
         '
         Me.Label16.AutoSize = True
-        Me.Label16.Location = New System.Drawing.Point(256, 8)
+        Me.Label16.Location = New System.Drawing.Point(263, 8)
         Me.Label16.Name = "Label16"
         Me.Label16.Size = New System.Drawing.Size(29, 13)
         Me.Label16.TabIndex = 8
@@ -1917,7 +1843,7 @@ Public Class SSCPEvents
         Me.DTPInspectionDateStart.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.DTPInspectionDateStart.Location = New System.Drawing.Point(160, 24)
         Me.DTPInspectionDateStart.Name = "DTPInspectionDateStart"
-        Me.DTPInspectionDateStart.Size = New System.Drawing.Size(90, 20)
+        Me.DTPInspectionDateStart.Size = New System.Drawing.Size(100, 20)
         Me.DTPInspectionDateStart.TabIndex = 3
         Me.DTPInspectionDateStart.Value = New Date(2005, 4, 21, 0, 0, 0, 0)
         '
@@ -1925,7 +1851,7 @@ Public Class SSCPEvents
         '
         Me.cboInspectionComplianceStatus.Location = New System.Drawing.Point(160, 176)
         Me.cboInspectionComplianceStatus.Name = "cboInspectionComplianceStatus"
-        Me.cboInspectionComplianceStatus.Size = New System.Drawing.Size(200, 21)
+        Me.cboInspectionComplianceStatus.Size = New System.Drawing.Size(206, 21)
         Me.cboInspectionComplianceStatus.TabIndex = 15
         '
         'txtWeatherConditions
@@ -1933,7 +1859,7 @@ Public Class SSCPEvents
         Me.txtWeatherConditions.Location = New System.Drawing.Point(160, 96)
         Me.txtWeatherConditions.MaxLength = 100
         Me.txtWeatherConditions.Name = "txtWeatherConditions"
-        Me.txtWeatherConditions.Size = New System.Drawing.Size(192, 20)
+        Me.txtWeatherConditions.Size = New System.Drawing.Size(206, 20)
         Me.txtWeatherConditions.TabIndex = 80
         '
         'wrnInspectionDates
@@ -1941,7 +1867,7 @@ Public Class SSCPEvents
         Me.wrnInspectionDates.AutoSize = True
         Me.wrnInspectionDates.Font = New System.Drawing.Font("Arial", 7.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.wrnInspectionDates.ForeColor = System.Drawing.Color.Tomato
-        Me.wrnInspectionDates.Location = New System.Drawing.Point(360, 27)
+        Me.wrnInspectionDates.Location = New System.Drawing.Point(372, 28)
         Me.wrnInspectionDates.Name = "wrnInspectionDates"
         Me.wrnInspectionDates.Size = New System.Drawing.Size(68, 13)
         Me.wrnInspectionDates.TabIndex = 78
@@ -1953,7 +1879,7 @@ Public Class SSCPEvents
         Me.wrnInspectionComplianceStatus.AutoSize = True
         Me.wrnInspectionComplianceStatus.Font = New System.Drawing.Font("Arial", 7.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.wrnInspectionComplianceStatus.ForeColor = System.Drawing.Color.Tomato
-        Me.wrnInspectionComplianceStatus.Location = New System.Drawing.Point(360, 179)
+        Me.wrnInspectionComplianceStatus.Location = New System.Drawing.Point(372, 181)
         Me.wrnInspectionComplianceStatus.Name = "wrnInspectionComplianceStatus"
         Me.wrnInspectionComplianceStatus.Size = New System.Drawing.Size(135, 13)
         Me.wrnInspectionComplianceStatus.TabIndex = 77
@@ -2006,28 +1932,20 @@ Public Class SSCPEvents
         Me.Label64.TabIndex = 68
         Me.Label64.Text = "Facility Operating"
         '
-        'Label65
-        '
-        Me.Label65.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Label65.Location = New System.Drawing.Point(8, 168)
-        Me.Label65.Name = "Label65"
-        Me.Label65.Size = New System.Drawing.Size(235, 1)
-        Me.Label65.TabIndex = 67
-        '
         'cboInspectionReason
         '
         Me.cboInspectionReason.Location = New System.Drawing.Point(160, 72)
         Me.cboInspectionReason.Name = "cboInspectionReason"
-        Me.cboInspectionReason.Size = New System.Drawing.Size(192, 21)
+        Me.cboInspectionReason.Size = New System.Drawing.Size(206, 21)
         Me.cboInspectionReason.TabIndex = 31
         '
         'DTPInspectionDateEnd
         '
         Me.DTPInspectionDateEnd.CustomFormat = "dd-MMM-yyyy"
         Me.DTPInspectionDateEnd.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DTPInspectionDateEnd.Location = New System.Drawing.Point(259, 24)
+        Me.DTPInspectionDateEnd.Location = New System.Drawing.Point(266, 24)
         Me.DTPInspectionDateEnd.Name = "DTPInspectionDateEnd"
-        Me.DTPInspectionDateEnd.Size = New System.Drawing.Size(93, 20)
+        Me.DTPInspectionDateEnd.Size = New System.Drawing.Size(100, 20)
         Me.DTPInspectionDateEnd.TabIndex = 29
         Me.DTPInspectionDateEnd.Value = New Date(2005, 4, 21, 0, 0, 0, 0)
         '
@@ -2073,7 +1991,7 @@ Public Class SSCPEvents
         Me.txtInspectionGuide.Location = New System.Drawing.Point(160, 120)
         Me.txtInspectionGuide.MaxLength = 100
         Me.txtInspectionGuide.Name = "txtInspectionGuide"
-        Me.txtInspectionGuide.Size = New System.Drawing.Size(192, 20)
+        Me.txtInspectionGuide.Size = New System.Drawing.Size(206, 20)
         Me.txtInspectionGuide.TabIndex = 19
         '
         'Label20
@@ -2098,10 +2016,10 @@ Public Class SSCPEvents
         '
         Me.dtpInspectionTimeEnd.CustomFormat = "HH:mm:ss"
         Me.dtpInspectionTimeEnd.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpInspectionTimeEnd.Location = New System.Drawing.Point(259, 48)
+        Me.dtpInspectionTimeEnd.Location = New System.Drawing.Point(266, 48)
         Me.dtpInspectionTimeEnd.Name = "dtpInspectionTimeEnd"
         Me.dtpInspectionTimeEnd.ShowUpDown = True
-        Me.dtpInspectionTimeEnd.Size = New System.Drawing.Size(93, 20)
+        Me.dtpInspectionTimeEnd.Size = New System.Drawing.Size(100, 20)
         Me.dtpInspectionTimeEnd.TabIndex = 13
         Me.dtpInspectionTimeEnd.Value = New Date(2005, 6, 5, 12, 0, 0, 0)
         '
@@ -2112,7 +2030,7 @@ Public Class SSCPEvents
         Me.dtpInspectionTimeStart.Location = New System.Drawing.Point(160, 48)
         Me.dtpInspectionTimeStart.Name = "dtpInspectionTimeStart"
         Me.dtpInspectionTimeStart.ShowUpDown = True
-        Me.dtpInspectionTimeStart.Size = New System.Drawing.Size(90, 20)
+        Me.dtpInspectionTimeStart.Size = New System.Drawing.Size(100, 20)
         Me.dtpInspectionTimeStart.TabIndex = 12
         Me.dtpInspectionTimeStart.Value = New Date(2005, 6, 5, 12, 0, 0, 0)
         '
@@ -2365,21 +2283,17 @@ Public Class SSCPEvents
         Me.Panel20.Controls.Add(Me.DTPACCReceivedDate)
         Me.Panel20.Controls.Add(Me.chbACCReceivedByAPB)
         Me.Panel20.Controls.Add(Me.btnACCSubmittals)
-        Me.Panel20.Controls.Add(Me.Label40)
         Me.Panel20.Controls.Add(Me.wrnACCCorrectACC)
         Me.Panel20.Controls.Add(Me.Panel8)
         Me.Panel20.Controls.Add(Me.Label36)
-        Me.Panel20.Controls.Add(Me.Label37)
         Me.Panel20.Controls.Add(Me.wrnACCRO)
         Me.Panel20.Controls.Add(Me.Panel7)
         Me.Panel20.Controls.Add(Me.Label32)
-        Me.Panel20.Controls.Add(Me.Label33)
         Me.Panel20.Controls.Add(Me.Label31)
         Me.Panel20.Controls.Add(Me.DTPACCPostmarked)
         Me.Panel20.Controls.Add(Me.wrnACCPostmark)
         Me.Panel20.Controls.Add(Me.Panel6)
         Me.Panel20.Controls.Add(Me.Label27)
-        Me.Panel20.Controls.Add(Me.Label30)
         Me.Panel20.Controls.Add(Me.wrnACCSubmittal)
         Me.Panel20.Controls.Add(Me.NUPACCSubmittal)
         Me.Panel20.Controls.Add(Me.Label67)
@@ -2389,19 +2303,15 @@ Public Class SSCPEvents
         Me.Panel20.Controls.Add(Me.wrnACCPreviousDeviations)
         Me.Panel20.Controls.Add(Me.Panel15)
         Me.Panel20.Controls.Add(Me.Label69)
-        Me.Panel20.Controls.Add(Me.Label70)
         Me.Panel20.Controls.Add(Me.wrnACCDeviationsReported)
         Me.Panel20.Controls.Add(Me.Panel14)
         Me.Panel20.Controls.Add(Me.Label56)
-        Me.Panel20.Controls.Add(Me.Label57)
         Me.Panel20.Controls.Add(Me.wrnACCEnforcementNeeded)
         Me.Panel20.Controls.Add(Me.Panel12)
         Me.Panel20.Controls.Add(Me.Label48)
-        Me.Panel20.Controls.Add(Me.Label49)
         Me.Panel20.Controls.Add(Me.wrnACCCorrect)
         Me.Panel20.Controls.Add(Me.Panel10)
         Me.Panel20.Controls.Add(Me.Label42)
-        Me.Panel20.Controls.Add(Me.Label43)
         Me.Panel20.Controls.Add(Me.wrnACCConditions)
         Me.Panel20.Controls.Add(Me.Panel9)
         Me.Panel20.Controls.Add(Me.Label39)
@@ -2416,7 +2326,7 @@ Public Class SSCPEvents
         Me.DTPACCReceivedDate.CustomFormat = "dd-MMM-yyyy"
         Me.DTPACCReceivedDate.Enabled = False
         Me.DTPACCReceivedDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DTPACCReceivedDate.Location = New System.Drawing.Point(600, 44)
+        Me.DTPACCReceivedDate.Location = New System.Drawing.Point(639, 59)
         Me.DTPACCReceivedDate.Name = "DTPACCReceivedDate"
         Me.DTPACCReceivedDate.Size = New System.Drawing.Size(100, 20)
         Me.DTPACCReceivedDate.TabIndex = 296
@@ -2426,7 +2336,7 @@ Public Class SSCPEvents
         '
         Me.chbACCReceivedByAPB.AutoSize = True
         Me.chbACCReceivedByAPB.CheckAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.chbACCReceivedByAPB.Location = New System.Drawing.Point(475, 47)
+        Me.chbACCReceivedByAPB.Location = New System.Drawing.Point(514, 62)
         Me.chbACCReceivedByAPB.Name = "chbACCReceivedByAPB"
         Me.chbACCReceivedByAPB.Size = New System.Drawing.Size(122, 17)
         Me.chbACCReceivedByAPB.TabIndex = 295
@@ -2445,20 +2355,12 @@ Public Class SSCPEvents
         Me.btnACCSubmittals.TabIndex = 294
         Me.btnACCSubmittals.Text = "Submittal History"
         '
-        'Label40
-        '
-        Me.Label40.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Label40.Location = New System.Drawing.Point(40, 136)
-        Me.Label40.Name = "Label40"
-        Me.Label40.Size = New System.Drawing.Size(320, 1)
-        Me.Label40.TabIndex = 94
-        '
         'wrnACCCorrectACC
         '
         Me.wrnACCCorrectACC.AutoSize = True
         Me.wrnACCCorrectACC.Font = New System.Drawing.Font("Arial", 7.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.wrnACCCorrectACC.ForeColor = System.Drawing.Color.Tomato
-        Me.wrnACCCorrectACC.Location = New System.Drawing.Point(376, 97)
+        Me.wrnACCCorrectACC.Location = New System.Drawing.Point(330, 113)
         Me.wrnACCCorrectACC.Name = "wrnACCCorrectACC"
         Me.wrnACCCorrectACC.Size = New System.Drawing.Size(135, 13)
         Me.wrnACCCorrectACC.TabIndex = 93
@@ -2469,7 +2371,7 @@ Public Class SSCPEvents
         '
         Me.Panel8.Controls.Add(Me.rdbACCCorrectACCYes)
         Me.Panel8.Controls.Add(Me.rdbACCCorrectACCNo)
-        Me.Panel8.Location = New System.Drawing.Point(280, 96)
+        Me.Panel8.Location = New System.Drawing.Point(237, 109)
         Me.Panel8.Name = "Panel8"
         Me.Panel8.Size = New System.Drawing.Size(96, 16)
         Me.Panel8.TabIndex = 92
@@ -2493,26 +2395,18 @@ Public Class SSCPEvents
         'Label36
         '
         Me.Label36.AutoSize = True
-        Me.Label36.Location = New System.Drawing.Point(40, 96)
+        Me.Label36.Location = New System.Drawing.Point(109, 111)
         Me.Label36.Name = "Label36"
         Me.Label36.Size = New System.Drawing.Size(122, 13)
         Me.Label36.TabIndex = 91
         Me.Label36.Text = "Correct ACC forms used:"
-        '
-        'Label37
-        '
-        Me.Label37.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Label37.Location = New System.Drawing.Point(40, 112)
-        Me.Label37.Name = "Label37"
-        Me.Label37.Size = New System.Drawing.Size(320, 1)
-        Me.Label37.TabIndex = 90
         '
         'wrnACCRO
         '
         Me.wrnACCRO.AutoSize = True
         Me.wrnACCRO.Font = New System.Drawing.Font("Arial", 7.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.wrnACCRO.ForeColor = System.Drawing.Color.Tomato
-        Me.wrnACCRO.Location = New System.Drawing.Point(376, 73)
+        Me.wrnACCRO.Location = New System.Drawing.Point(330, 89)
         Me.wrnACCRO.Name = "wrnACCRO"
         Me.wrnACCRO.Size = New System.Drawing.Size(135, 13)
         Me.wrnACCRO.TabIndex = 89
@@ -2523,7 +2417,7 @@ Public Class SSCPEvents
         '
         Me.Panel7.Controls.Add(Me.rdbACCROYes)
         Me.Panel7.Controls.Add(Me.rdbACCRONo)
-        Me.Panel7.Location = New System.Drawing.Point(280, 72)
+        Me.Panel7.Location = New System.Drawing.Point(237, 85)
         Me.Panel7.Name = "Panel7"
         Me.Panel7.Size = New System.Drawing.Size(96, 16)
         Me.Panel7.TabIndex = 88
@@ -2547,24 +2441,16 @@ Public Class SSCPEvents
         'Label32
         '
         Me.Label32.AutoSize = True
-        Me.Label32.Location = New System.Drawing.Point(40, 72)
+        Me.Label32.Location = New System.Drawing.Point(85, 87)
         Me.Label32.Name = "Label32"
         Me.Label32.Size = New System.Drawing.Size(146, 13)
         Me.Label32.TabIndex = 87
         Me.Label32.Text = "Signed by responsible official:"
         '
-        'Label33
-        '
-        Me.Label33.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Label33.Location = New System.Drawing.Point(40, 88)
-        Me.Label33.Name = "Label33"
-        Me.Label33.Size = New System.Drawing.Size(320, 1)
-        Me.Label33.TabIndex = 86
-        '
         'Label31
         '
         Me.Label31.AutoSize = True
-        Me.Label31.Location = New System.Drawing.Point(504, 72)
+        Me.Label31.Location = New System.Drawing.Point(543, 87)
         Me.Label31.Name = "Label31"
         Me.Label31.Size = New System.Drawing.Size(91, 13)
         Me.Label31.TabIndex = 85
@@ -2574,7 +2460,7 @@ Public Class SSCPEvents
         '
         Me.DTPACCPostmarked.CustomFormat = "dd-MMM-yyyy"
         Me.DTPACCPostmarked.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DTPACCPostmarked.Location = New System.Drawing.Point(600, 72)
+        Me.DTPACCPostmarked.Location = New System.Drawing.Point(639, 87)
         Me.DTPACCPostmarked.Name = "DTPACCPostmarked"
         Me.DTPACCPostmarked.Size = New System.Drawing.Size(100, 20)
         Me.DTPACCPostmarked.TabIndex = 84
@@ -2585,7 +2471,7 @@ Public Class SSCPEvents
         Me.wrnACCPostmark.AutoSize = True
         Me.wrnACCPostmark.Font = New System.Drawing.Font("Arial", 7.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.wrnACCPostmark.ForeColor = System.Drawing.Color.Tomato
-        Me.wrnACCPostmark.Location = New System.Drawing.Point(376, 49)
+        Me.wrnACCPostmark.Location = New System.Drawing.Point(330, 65)
         Me.wrnACCPostmark.Name = "wrnACCPostmark"
         Me.wrnACCPostmark.Size = New System.Drawing.Size(135, 13)
         Me.wrnACCPostmark.TabIndex = 83
@@ -2596,7 +2482,7 @@ Public Class SSCPEvents
         '
         Me.Panel6.Controls.Add(Me.rdbACCPostmarkYes)
         Me.Panel6.Controls.Add(Me.rdbACCPostmarkNo)
-        Me.Panel6.Location = New System.Drawing.Point(280, 48)
+        Me.Panel6.Location = New System.Drawing.Point(237, 61)
         Me.Panel6.Name = "Panel6"
         Me.Panel6.Size = New System.Drawing.Size(96, 16)
         Me.Panel6.TabIndex = 82
@@ -2620,26 +2506,18 @@ Public Class SSCPEvents
         'Label27
         '
         Me.Label27.AutoSize = True
-        Me.Label27.Location = New System.Drawing.Point(40, 48)
+        Me.Label27.Location = New System.Drawing.Point(82, 63)
         Me.Label27.Name = "Label27"
         Me.Label27.Size = New System.Drawing.Size(149, 13)
         Me.Label27.TabIndex = 81
         Me.Label27.Text = " ACC postmarked by deadline:"
-        '
-        'Label30
-        '
-        Me.Label30.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Label30.Location = New System.Drawing.Point(40, 64)
-        Me.Label30.Name = "Label30"
-        Me.Label30.Size = New System.Drawing.Size(320, 1)
-        Me.Label30.TabIndex = 80
         '
         'wrnACCSubmittal
         '
         Me.wrnACCSubmittal.AutoSize = True
         Me.wrnACCSubmittal.Font = New System.Drawing.Font("Arial", 7.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.wrnACCSubmittal.ForeColor = System.Drawing.Color.Tomato
-        Me.wrnACCSubmittal.Location = New System.Drawing.Point(192, 27)
+        Me.wrnACCSubmittal.Location = New System.Drawing.Point(148, 24)
         Me.wrnACCSubmittal.Name = "wrnACCSubmittal"
         Me.wrnACCSubmittal.Size = New System.Drawing.Size(135, 13)
         Me.wrnACCSubmittal.TabIndex = 79
@@ -2648,7 +2526,7 @@ Public Class SSCPEvents
         '
         'NUPACCSubmittal
         '
-        Me.NUPACCSubmittal.Location = New System.Drawing.Point(144, 24)
+        Me.NUPACCSubmittal.Location = New System.Drawing.Point(102, 20)
         Me.NUPACCSubmittal.Maximum = New Decimal(New Integer() {99, 0, 0, 0})
         Me.NUPACCSubmittal.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         Me.NUPACCSubmittal.Name = "NUPACCSubmittal"
@@ -2659,7 +2537,7 @@ Public Class SSCPEvents
         'Label67
         '
         Me.Label67.AutoSize = True
-        Me.Label67.Location = New System.Drawing.Point(40, 26)
+        Me.Label67.Location = New System.Drawing.Point(6, 22)
         Me.Label67.Name = "Label67"
         Me.Label67.Size = New System.Drawing.Size(90, 13)
         Me.Label67.TabIndex = 77
@@ -2670,7 +2548,7 @@ Public Class SSCPEvents
         Me.wrnACCDatePostmarked.AutoSize = True
         Me.wrnACCDatePostmarked.Font = New System.Drawing.Font("Arial", 7.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.wrnACCDatePostmarked.ForeColor = System.Drawing.Color.Tomato
-        Me.wrnACCDatePostmarked.Location = New System.Drawing.Point(600, 96)
+        Me.wrnACCDatePostmarked.Location = New System.Drawing.Point(639, 111)
         Me.wrnACCDatePostmarked.Name = "wrnACCDatePostmarked"
         Me.wrnACCDatePostmarked.Size = New System.Drawing.Size(96, 13)
         Me.wrnACCDatePostmarked.TabIndex = 137
@@ -2680,7 +2558,7 @@ Public Class SSCPEvents
         'Label44
         '
         Me.Label44.AutoSize = True
-        Me.Label44.Location = New System.Drawing.Point(40, 216)
+        Me.Label44.Location = New System.Drawing.Point(16, 252)
         Me.Label44.Name = "Label44"
         Me.Label44.Size = New System.Drawing.Size(59, 13)
         Me.Label44.TabIndex = 133
@@ -2689,7 +2567,7 @@ Public Class SSCPEvents
         'txtACCComments
         '
         Me.txtACCComments.AcceptsReturn = True
-        Me.txtACCComments.Location = New System.Drawing.Point(104, 216)
+        Me.txtACCComments.Location = New System.Drawing.Point(81, 249)
         Me.txtACCComments.MaxLength = 4000
         Me.txtACCComments.Multiline = True
         Me.txtACCComments.Name = "txtACCComments"
@@ -2702,7 +2580,7 @@ Public Class SSCPEvents
         Me.wrnACCPreviousDeviations.AutoSize = True
         Me.wrnACCPreviousDeviations.Font = New System.Drawing.Font("Arial", 7.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.wrnACCPreviousDeviations.ForeColor = System.Drawing.Color.Tomato
-        Me.wrnACCPreviousDeviations.Location = New System.Drawing.Point(376, 193)
+        Me.wrnACCPreviousDeviations.Location = New System.Drawing.Point(330, 209)
         Me.wrnACCPreviousDeviations.Name = "wrnACCPreviousDeviations"
         Me.wrnACCPreviousDeviations.Size = New System.Drawing.Size(135, 13)
         Me.wrnACCPreviousDeviations.TabIndex = 131
@@ -2713,7 +2591,7 @@ Public Class SSCPEvents
         '
         Me.Panel15.Controls.Add(Me.rdbACCPreviousDeviationsYes)
         Me.Panel15.Controls.Add(Me.rdbACCPreviousDeviationsNo)
-        Me.Panel15.Location = New System.Drawing.Point(280, 192)
+        Me.Panel15.Location = New System.Drawing.Point(237, 205)
         Me.Panel15.Name = "Panel15"
         Me.Panel15.Size = New System.Drawing.Size(96, 16)
         Me.Panel15.TabIndex = 130
@@ -2737,26 +2615,18 @@ Public Class SSCPEvents
         'Label69
         '
         Me.Label69.AutoSize = True
-        Me.Label69.Location = New System.Drawing.Point(40, 192)
+        Me.Label69.Location = New System.Drawing.Point(16, 207)
         Me.Label69.Name = "Label69"
         Me.Label69.Size = New System.Drawing.Size(215, 13)
         Me.Label69.TabIndex = 129
         Me.Label69.Text = "Reported deviations not previously reported:"
-        '
-        'Label70
-        '
-        Me.Label70.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Label70.Location = New System.Drawing.Point(40, 208)
-        Me.Label70.Name = "Label70"
-        Me.Label70.Size = New System.Drawing.Size(320, 1)
-        Me.Label70.TabIndex = 128
         '
         'wrnACCDeviationsReported
         '
         Me.wrnACCDeviationsReported.AutoSize = True
         Me.wrnACCDeviationsReported.Font = New System.Drawing.Font("Arial", 7.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.wrnACCDeviationsReported.ForeColor = System.Drawing.Color.Tomato
-        Me.wrnACCDeviationsReported.Location = New System.Drawing.Point(376, 169)
+        Me.wrnACCDeviationsReported.Location = New System.Drawing.Point(330, 185)
         Me.wrnACCDeviationsReported.Name = "wrnACCDeviationsReported"
         Me.wrnACCDeviationsReported.Size = New System.Drawing.Size(135, 13)
         Me.wrnACCDeviationsReported.TabIndex = 127
@@ -2767,7 +2637,7 @@ Public Class SSCPEvents
         '
         Me.Panel14.Controls.Add(Me.rdbACCDeviationsReportedYes)
         Me.Panel14.Controls.Add(Me.rdbACCDeviationsReportedNo)
-        Me.Panel14.Location = New System.Drawing.Point(280, 168)
+        Me.Panel14.Location = New System.Drawing.Point(237, 181)
         Me.Panel14.Name = "Panel14"
         Me.Panel14.Size = New System.Drawing.Size(96, 16)
         Me.Panel14.TabIndex = 126
@@ -2791,26 +2661,18 @@ Public Class SSCPEvents
         'Label56
         '
         Me.Label56.AutoSize = True
-        Me.Label56.Location = New System.Drawing.Point(40, 168)
+        Me.Label56.Location = New System.Drawing.Point(126, 183)
         Me.Label56.Name = "Label56"
         Me.Label56.Size = New System.Drawing.Size(105, 13)
         Me.Label56.TabIndex = 125
         Me.Label56.Text = "Reported deviations:"
-        '
-        'Label57
-        '
-        Me.Label57.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Label57.Location = New System.Drawing.Point(40, 184)
-        Me.Label57.Name = "Label57"
-        Me.Label57.Size = New System.Drawing.Size(320, 1)
-        Me.Label57.TabIndex = 124
         '
         'wrnACCEnforcementNeeded
         '
         Me.wrnACCEnforcementNeeded.AutoSize = True
         Me.wrnACCEnforcementNeeded.Font = New System.Drawing.Font("Arial", 7.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.wrnACCEnforcementNeeded.ForeColor = System.Drawing.Color.Tomato
-        Me.wrnACCEnforcementNeeded.Location = New System.Drawing.Point(376, 305)
+        Me.wrnACCEnforcementNeeded.Location = New System.Drawing.Point(330, 229)
         Me.wrnACCEnforcementNeeded.Name = "wrnACCEnforcementNeeded"
         Me.wrnACCEnforcementNeeded.Size = New System.Drawing.Size(135, 13)
         Me.wrnACCEnforcementNeeded.TabIndex = 111
@@ -2821,7 +2683,7 @@ Public Class SSCPEvents
         '
         Me.Panel12.Controls.Add(Me.rdbACCEnforcementNeededYes)
         Me.Panel12.Controls.Add(Me.rdbACCEnforcementNeededNo)
-        Me.Panel12.Location = New System.Drawing.Point(280, 304)
+        Me.Panel12.Location = New System.Drawing.Point(237, 227)
         Me.Panel12.Name = "Panel12"
         Me.Panel12.Size = New System.Drawing.Size(96, 16)
         Me.Panel12.TabIndex = 110
@@ -2845,26 +2707,18 @@ Public Class SSCPEvents
         'Label48
         '
         Me.Label48.AutoSize = True
-        Me.Label48.Location = New System.Drawing.Point(40, 304)
+        Me.Label48.Location = New System.Drawing.Point(122, 227)
         Me.Label48.Name = "Label48"
         Me.Label48.Size = New System.Drawing.Size(109, 13)
         Me.Label48.TabIndex = 109
         Me.Label48.Text = "Enforcement needed:"
-        '
-        'Label49
-        '
-        Me.Label49.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Label49.Location = New System.Drawing.Point(40, 320)
-        Me.Label49.Name = "Label49"
-        Me.Label49.Size = New System.Drawing.Size(320, 1)
-        Me.Label49.TabIndex = 108
         '
         'wrnACCCorrect
         '
         Me.wrnACCCorrect.AutoSize = True
         Me.wrnACCCorrect.Font = New System.Drawing.Font("Arial", 7.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.wrnACCCorrect.ForeColor = System.Drawing.Color.Tomato
-        Me.wrnACCCorrect.Location = New System.Drawing.Point(376, 145)
+        Me.wrnACCCorrect.Location = New System.Drawing.Point(330, 161)
         Me.wrnACCCorrect.Name = "wrnACCCorrect"
         Me.wrnACCCorrect.Size = New System.Drawing.Size(135, 13)
         Me.wrnACCCorrect.TabIndex = 101
@@ -2875,7 +2729,7 @@ Public Class SSCPEvents
         '
         Me.Panel10.Controls.Add(Me.rdbACCCorrectYes)
         Me.Panel10.Controls.Add(Me.rdbACCCorrectNo)
-        Me.Panel10.Location = New System.Drawing.Point(280, 144)
+        Me.Panel10.Location = New System.Drawing.Point(237, 157)
         Me.Panel10.Name = "Panel10"
         Me.Panel10.Size = New System.Drawing.Size(96, 16)
         Me.Panel10.TabIndex = 100
@@ -2899,26 +2753,18 @@ Public Class SSCPEvents
         'Label42
         '
         Me.Label42.AutoSize = True
-        Me.Label42.Location = New System.Drawing.Point(40, 144)
+        Me.Label42.Location = New System.Drawing.Point(115, 159)
         Me.Label42.Name = "Label42"
         Me.Label42.Size = New System.Drawing.Size(116, 13)
         Me.Label42.TabIndex = 99
         Me.Label42.Text = "ACC correctly filled out:"
-        '
-        'Label43
-        '
-        Me.Label43.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Label43.Location = New System.Drawing.Point(40, 160)
-        Me.Label43.Name = "Label43"
-        Me.Label43.Size = New System.Drawing.Size(320, 1)
-        Me.Label43.TabIndex = 98
         '
         'wrnACCConditions
         '
         Me.wrnACCConditions.AutoSize = True
         Me.wrnACCConditions.Font = New System.Drawing.Font("Arial", 7.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.wrnACCConditions.ForeColor = System.Drawing.Color.Tomato
-        Me.wrnACCConditions.Location = New System.Drawing.Point(376, 121)
+        Me.wrnACCConditions.Location = New System.Drawing.Point(330, 137)
         Me.wrnACCConditions.Name = "wrnACCConditions"
         Me.wrnACCConditions.Size = New System.Drawing.Size(135, 13)
         Me.wrnACCConditions.TabIndex = 97
@@ -2929,7 +2775,7 @@ Public Class SSCPEvents
         '
         Me.Panel9.Controls.Add(Me.rdbACCConditionsYes)
         Me.Panel9.Controls.Add(Me.rdbACCConditionsNo)
-        Me.Panel9.Location = New System.Drawing.Point(280, 120)
+        Me.Panel9.Location = New System.Drawing.Point(237, 133)
         Me.Panel9.Name = "Panel9"
         Me.Panel9.Size = New System.Drawing.Size(96, 16)
         Me.Panel9.TabIndex = 96
@@ -2953,7 +2799,7 @@ Public Class SSCPEvents
         'Label39
         '
         Me.Label39.AutoSize = True
-        Me.Label39.Location = New System.Drawing.Point(40, 120)
+        Me.Label39.Location = New System.Drawing.Point(99, 135)
         Me.Label39.Name = "Label39"
         Me.Label39.Size = New System.Drawing.Size(132, 13)
         Me.Label39.TabIndex = 95
@@ -4032,13 +3878,13 @@ Public Class SSCPEvents
 
                     If cboNotificationType.SelectedValue = "07" Then
                         MsgBox("Malfunctions are no longer saved as notifications." & vbCrLf & _
-                               "Please save this Malfuncation as a Report.", MsgBoxStyle.Exclamation, Me.Text)
+                               "Please save this malfunction as a Report.", MsgBoxStyle.Exclamation, Me.Text)
                         Exit Sub
                     End If
 
                     If cboNotificationType.SelectedValue = "08" Then
                         MsgBox("Deviations are no longer saved as notifications." & vbCrLf & _
-                               "Please save this Deviations as a Report.", MsgBoxStyle.Exclamation, Me.Text)
+                               "Please save this Deviation as a Report.", MsgBoxStyle.Exclamation, Me.Text)
                         Exit Sub
                     End If
 
@@ -7307,7 +7153,7 @@ Public Class SSCPEvents
                 ' SSCPInspectionscheduleTool.CheckForLink()
                 'End If
             Else
-            MsgBox("There must be a Tracking Number before you can link the Scheduled Inspection.", MsgBoxStyle.Information, "SSCP Event")
+                MsgBox("There must be a Tracking Number before you can link the Scheduled Inspection.", MsgBoxStyle.Information, "SSCP Event")
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)

@@ -17,13 +17,13 @@ Namespace DAL
             End Function
 
             Private Sub FillApplicationInfoFromDataRow(ByVal row As DataRow, ByRef appInfo As ApplicationInfo)
-                Dim address As New Apb.Address
+                Dim address As New Address
                 With address
                     .City = DB.GetNullable(Of String)(row("STRFACILITYCITY"))
                     .State = DB.GetNullable(Of String)(row("STRFACILITYSTATE"))
                 End With
 
-                Dim location As New Apb.Location
+                Dim location As New Location
                 With location
                     .Address = address
                 End With

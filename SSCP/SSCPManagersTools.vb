@@ -6260,7 +6260,7 @@ Public Class SSCPManagersTools
         End If
     End Sub
 
-    Private enfDocumentTypesList As Generic.List(Of EnforcementDocumentType)
+    Private enfDocumentTypesList As Generic.List(Of DocumentType)
     Private Sub LoadEnforcementDocumentTypes()
         ' Get list of various document types and bind that list to the datagridview
         enfDocumentTypesList = DAL.GetEnforcementDocumentTypes
@@ -6327,7 +6327,7 @@ Public Class SSCPManagersTools
     Handles btnAddDocumentType.Click
 
         ' Create Document object
-        Dim newEnfDocType As New EnforcementDocumentType
+        Dim newEnfDocType As New DocumentType
         With newEnfDocType
             .Active = True
             .DocumentType = txtNewName.Text
@@ -6359,7 +6359,7 @@ Public Class SSCPManagersTools
     End Sub
 
     Private Sub btnUpdateDocumentType_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnUpdateDocumentType.Click
-        Dim d As EnforcementDocumentType = EnforcementDocumentTypeFromFileListRow(dgvEnfDocumentTypes.CurrentRow)
+        Dim d As DocumentType = EnforcementDocumentTypeFromFileListRow(dgvEnfDocumentTypes.CurrentRow)
         With d
             .Active = chkUpdateActive.Checked
             .DocumentType = txtUpdateName.Text
@@ -6375,8 +6375,8 @@ Public Class SSCPManagersTools
         End If
     End Sub
 
-    Private Function EnforcementDocumentTypeFromFileListRow(ByVal row As DataGridViewRow) As EnforcementDocumentType
-        Dim d As New EnforcementDocumentType
+    Private Function EnforcementDocumentTypeFromFileListRow(ByVal row As DataGridViewRow) As DocumentType
+        Dim d As New DocumentType
         With d
             .Active = row.Cells("Active").Value
             .DocumentType = row.Cells("DocumentType").Value

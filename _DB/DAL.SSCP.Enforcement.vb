@@ -3,6 +3,7 @@ Imports JohnGaltProject.Apb.SSCP
 
 Namespace DAL
     Namespace SSCP
+
         Module Enforcement
 
             Public Function EnforcementExists(ByVal id As String) As Boolean
@@ -17,13 +18,13 @@ Namespace DAL
             End Function
 
             Private Sub FillEnforcementInfoFromDataRow(ByVal row As DataRow, ByRef enfInfo As EnforcementInfo)
-                Dim address As New Apb.Address
+                Dim address As New Address
                 With address
                     .City = DB.GetNullable(Of String)(row("STRFACILITYCITY"))
                     .State = DB.GetNullable(Of String)(row("STRFACILITYSTATE"))
                 End With
 
-                Dim location As New Apb.Location
+                Dim location As New Location
                 With location
                     .Address = address
                 End With
@@ -84,5 +85,6 @@ Namespace DAL
             End Function
 
         End Module
+
     End Namespace
 End Namespace

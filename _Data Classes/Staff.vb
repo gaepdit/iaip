@@ -55,6 +55,7 @@
         Public Overrides Function ToString() As String
             Return Convert.ToString(FirstName & Convert.ToString(" ")) & LastName
         End Function
+
     End Class
 
 End Namespace

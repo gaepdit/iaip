@@ -1,5 +1,6 @@
 ﻿Namespace Apb
     Namespace SSPP
+
         Public Class ApplicationInfo
             Public Property Facility() As Facility
                 Get
@@ -56,5 +57,6 @@
             End Property
             Private _staffResponsible As Staff
         End Class
+
     End Namespace
 End Namespace

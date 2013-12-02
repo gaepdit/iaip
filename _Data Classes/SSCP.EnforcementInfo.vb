@@ -1,5 +1,6 @@
 ﻿Namespace Apb
     Namespace SSCP
+
         Public Class EnforcementInfo
 
             Public Property Facility() As Facility
@@ -73,5 +74,6 @@
             End Property
 
         End Class
+
     End Namespace
 End Namespace
