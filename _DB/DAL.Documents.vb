@@ -104,7 +104,7 @@ Namespace DAL
 
 #End Region
 
-#Region "Read Enforcement Documents"
+#Region "Retrieve Enforcement Documents"
 
         Public Function GetEnforcementDocuments(ByVal enfNum As String) As List(Of EnforcementDocument)
             Dim docsList As New List(Of EnforcementDocument)
@@ -133,30 +133,20 @@ Namespace DAL
             Dim dataTable As DataTable = DB.GetDataTable(query, parameter)
 
             For Each row As DataRow In dataTable.Rows
-                FillEnforcementDocumentFromDataRow(row, doc)
+                doc = GetEnforcementDocumentFromDataRow(row)
                 docsList.Add(doc)
             Next
 
             Return docsList
         End Function
 
-        Private Sub FillEnforcementDocumentFromDataRow(ByVal row As DataRow, ByRef enfDoc As EnforcementDocument)
-            enfDoc = New EnforcementDocument
-            FillDocumentFromDataRow(row, CType(enfDoc, EnforcementDocument))
-
-            With enfDoc
-                .DocumentId = CInt(row("ENFORCEMENTDOCSID"))
-                .EnforcementNumber = row("STRENFORCEMENTNUMBER")
-            End With
-        End Sub
-
 #End Region
 
-#Region "Read Permit Documents"
+#Region "Retrieve Permit Documents"
 
         Public Function GetPermitDocuments(ByVal applicationNumber As String) As List(Of PermitDocument)
-            Dim permitDocumentsList As New List(Of PermitDocument)
-            Dim permitDocument As New PermitDocument
+            Dim docsList As New List(Of PermitDocument)
+            Dim doc As New PermitDocument
 
             Dim query As String = <s><![CDATA[
                 SELECT 
@@ -181,26 +171,42 @@ Namespace DAL
             Dim dataTable As DataTable = DB.GetDataTable(query, parameter)
 
             For Each row As DataRow In dataTable.Rows
-                FillPermitDocumentFromDataRow(row, permitDocument)
-                permitDocumentsList.Add(permitDocument)
+                doc = GetPermitDocumentFromDataRow(row)
+                docsList.Add(doc)
             Next
 
-            Return permitDocumentsList
+            Return docsList
         End Function
-
-        Private Sub FillPermitDocumentFromDataRow(ByVal row As DataRow, ByRef permitDoc As PermitDocument)
-            permitDoc = New PermitDocument
-            FillDocumentFromDataRow(row, CType(permitDoc, PermitDocument))
-
-            With permitDoc
-                .DocumentId = CInt(row("PERMITDOCSID"))
-                .ApplicationNumber = row("STRAPPLICATIONNUMBER")
-            End With
-        End Sub
 
 #End Region
 
-#Region "Read Generic Documents"
+#Region "Read Documents from DataRow"
+
+        Private Function GetEnforcementDocumentFromDataRow(ByVal row As DataRow) As EnforcementDocument
+            Dim doc As New EnforcementDocument
+
+            FillDocumentFromDataRow(row, CType(doc, EnforcementDocument))
+
+            With doc
+                .DocumentId = CInt(row("ENFORCEMENTDOCSID"))
+                .EnforcementNumber = row("STRENFORCEMENTNUMBER")
+            End With
+
+            Return doc
+        End Function
+
+        Private Function GetPermitDocumentFromDataRow(ByVal row As DataRow) As PermitDocument
+            Dim doc As New PermitDocument
+
+            FillDocumentFromDataRow(row, CType(doc, PermitDocument))
+
+            With doc
+                .DocumentId = CInt(row("PERMITDOCSID"))
+                .ApplicationNumber = row("STRAPPLICATIONNUMBER")
+            End With
+
+            Return doc
+        End Function
 
         Private Sub FillDocumentFromDataRow(ByVal row As DataRow, ByRef doc As Document)
             With doc
