@@ -22,21 +22,6 @@ Partial Class MASPRegistrationTool
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.components = New System.ComponentModel.Container
-        Me.StatusStrip1 = New System.Windows.Forms.StatusStrip
-        Me.ToolStripProgressBar1 = New System.Windows.Forms.ToolStripProgressBar
-        Me.Panel1 = New System.Windows.Forms.ToolStripStatusLabel
-        Me.Panel2 = New System.Windows.Forms.ToolStripStatusLabel
-        Me.Panel3 = New System.Windows.Forms.ToolStripStatusLabel
-        Me.MainMenu1 = New System.Windows.Forms.MainMenu(Me.components)
-        Me.MmiFile = New System.Windows.Forms.MenuItem
-        Me.mmiSave = New System.Windows.Forms.MenuItem
-        Me.MenuItem1 = New System.Windows.Forms.MenuItem
-        Me.MmiBack = New System.Windows.Forms.MenuItem
-        Me.MmiView = New System.Windows.Forms.MenuItem
-        Me.MenuItem2 = New System.Windows.Forms.MenuItem
-        Me.mmiNewApplication = New System.Windows.Forms.MenuItem
-        Me.MmiHelp = New System.Windows.Forms.MenuItem
         Me.Panel4 = New System.Windows.Forms.Panel
         Me.GroupBox2 = New System.Windows.Forms.GroupBox
         Me.chbGECOlogInRequired = New System.Windows.Forms.CheckBox
@@ -86,7 +71,7 @@ Partial Class MASPRegistrationTool
         Me.Label1 = New System.Windows.Forms.Label
         Me.txtEventID = New System.Windows.Forms.TextBox
         Me.TabControl1 = New System.Windows.Forms.TabControl
-        Me.TPEventOverview = New System.Windows.Forms.TabPage
+        Me.tabEventOverview = New System.Windows.Forms.TabPage
         Me.dgvOverviewRegistrants = New System.Windows.Forms.DataGridView
         Me.Panel9 = New System.Windows.Forms.Panel
         Me.lblNotes = New System.Windows.Forms.TextBox
@@ -120,8 +105,8 @@ Partial Class MASPRegistrationTool
         Me.Label44 = New System.Windows.Forms.Label
         Me.Label45 = New System.Windows.Forms.Label
         Me.Label46 = New System.Windows.Forms.Label
-        Me.TPEventManagement = New System.Windows.Forms.TabPage
-        Me.TPRegistrationManagement = New System.Windows.Forms.TabPage
+        Me.tabEventManagement = New System.Windows.Forms.TabPage
+        Me.tabRegistrationManagement = New System.Windows.Forms.TabPage
         Me.dgvRegistrationManagement = New System.Windows.Forms.DataGridView
         Me.Panel8 = New System.Windows.Forms.Panel
         Me.btnModifyRegistration = New System.Windows.Forms.Button
@@ -166,118 +151,26 @@ Partial Class MASPRegistrationTool
         Me.lblEventTitle = New System.Windows.Forms.Label
         Me.btnViewDetails = New System.Windows.Forms.Button
         Me.lblEVentDate = New System.Windows.Forms.Label
-        Me.Panel6 = New System.Windows.Forms.Panel
+        Me.pnlFilterEvents = New System.Windows.Forms.Panel
         Me.btnFilterEvents = New System.Windows.Forms.Button
         Me.rdbAllEvents = New System.Windows.Forms.RadioButton
         Me.rdbPastEvents = New System.Windows.Forms.RadioButton
         Me.rdbUpcomingEvents = New System.Windows.Forms.RadioButton
-        Me.StatusStrip1.SuspendLayout()
         Me.Panel4.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.TabControl1.SuspendLayout()
-        Me.TPEventOverview.SuspendLayout()
+        Me.tabEventOverview.SuspendLayout()
         CType(Me.dgvOverviewRegistrants, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel9.SuspendLayout()
-        Me.TPEventManagement.SuspendLayout()
-        Me.TPRegistrationManagement.SuspendLayout()
+        Me.tabEventManagement.SuspendLayout()
+        Me.tabRegistrationManagement.SuspendLayout()
         CType(Me.dgvRegistrationManagement, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel8.SuspendLayout()
         Me.Panel5.SuspendLayout()
         CType(Me.dgvRegistrationEvent, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel7.SuspendLayout()
-        Me.Panel6.SuspendLayout()
+        Me.pnlFilterEvents.SuspendLayout()
         Me.SuspendLayout()
-        '
-        'StatusStrip1
-        '
-        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripProgressBar1, Me.Panel1, Me.Panel2, Me.Panel3})
-        Me.StatusStrip1.Location = New System.Drawing.Point(0, 544)
-        Me.StatusStrip1.Name = "StatusStrip1"
-        Me.StatusStrip1.Size = New System.Drawing.Size(792, 22)
-        Me.StatusStrip1.TabIndex = 256
-        Me.StatusStrip1.Text = "StatusStrip1"
-        '
-        'ToolStripProgressBar1
-        '
-        Me.ToolStripProgressBar1.Name = "ToolStripProgressBar1"
-        Me.ToolStripProgressBar1.Size = New System.Drawing.Size(100, 16)
-        '
-        'Panel1
-        '
-        Me.Panel1.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
-        Me.Panel1.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
-        Me.Panel1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
-        Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(667, 17)
-        Me.Panel1.Spring = True
-        Me.Panel1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'Panel2
-        '
-        Me.Panel2.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
-        Me.Panel2.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
-        Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(4, 17)
-        '
-        'Panel3
-        '
-        Me.Panel3.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
-        Me.Panel3.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
-        Me.Panel3.Name = "Panel3"
-        Me.Panel3.Size = New System.Drawing.Size(4, 17)
-        '
-        'MainMenu1
-        '
-        Me.MainMenu1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.MmiFile, Me.MmiView, Me.MenuItem2, Me.MmiHelp})
-        '
-        'MmiFile
-        '
-        Me.MmiFile.Index = 0
-        Me.MmiFile.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiSave, Me.MenuItem1, Me.MmiBack})
-        Me.MmiFile.Text = "File"
-        '
-        'mmiSave
-        '
-        Me.mmiSave.Index = 0
-        Me.mmiSave.Text = "Save"
-        '
-        'MenuItem1
-        '
-        Me.MenuItem1.Index = 1
-        Me.MenuItem1.Text = "-"
-        '
-        'MmiBack
-        '
-        Me.MmiBack.Index = 2
-        Me.MmiBack.Text = "Back"
-        '
-        'MmiView
-        '
-        Me.MmiView.Index = 1
-        Me.MmiView.Text = "View"
-        '
-        'MenuItem2
-        '
-        Me.MenuItem2.Index = 2
-        Me.MenuItem2.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiNewApplication})
-        Me.MenuItem2.Text = "Tools"
-        '
-        'mmiNewApplication
-        '
-        Me.mmiNewApplication.Index = 0
-        Me.mmiNewApplication.Text = "Assign Application No."
-        Me.mmiNewApplication.Visible = False
-        '
-        'MmiHelp
-        '
-        Me.MmiHelp.Index = 3
-        Me.MmiHelp.Text = "Help"
         '
         'Panel4
         '
@@ -285,7 +178,7 @@ Partial Class MASPRegistrationTool
         Me.Panel4.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel4.Location = New System.Drawing.Point(3, 3)
         Me.Panel4.Name = "Panel4"
-        Me.Panel4.Size = New System.Drawing.Size(778, 352)
+        Me.Panel4.Size = New System.Drawing.Size(778, 374)
         Me.Panel4.TabIndex = 257
         '
         'GroupBox2
@@ -339,7 +232,7 @@ Partial Class MASPRegistrationTool
         Me.GroupBox2.Dock = System.Windows.Forms.DockStyle.Fill
         Me.GroupBox2.Location = New System.Drawing.Point(0, 0)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(778, 352)
+        Me.GroupBox2.Size = New System.Drawing.Size(778, 374)
         Me.GroupBox2.TabIndex = 1
         Me.GroupBox2.TabStop = False
         '
@@ -371,9 +264,9 @@ Partial Class MASPRegistrationTool
         '
         'txtWebsiteURL
         '
-        Me.txtWebsiteURL.Location = New System.Drawing.Point(500, 207)
+        Me.txtWebsiteURL.Location = New System.Drawing.Point(464, 207)
         Me.txtWebsiteURL.Name = "txtWebsiteURL"
-        Me.txtWebsiteURL.Size = New System.Drawing.Size(245, 20)
+        Me.txtWebsiteURL.Size = New System.Drawing.Size(281, 20)
         Me.txtWebsiteURL.TabIndex = 450
         '
         'Label47
@@ -381,9 +274,9 @@ Partial Class MASPRegistrationTool
         Me.Label47.AutoSize = True
         Me.Label47.Location = New System.Drawing.Point(413, 211)
         Me.Label47.Name = "Label47"
-        Me.Label47.Size = New System.Drawing.Size(83, 13)
+        Me.Label47.Size = New System.Drawing.Size(49, 13)
         Me.Label47.TabIndex = 449
-        Me.Label47.Text = "Website: http://"
+        Me.Label47.Text = "Website:"
         '
         'Label32
         '
@@ -764,26 +657,26 @@ Partial Class MASPRegistrationTool
         '
         'TabControl1
         '
-        Me.TabControl1.Controls.Add(Me.TPEventOverview)
-        Me.TabControl1.Controls.Add(Me.TPEventManagement)
-        Me.TabControl1.Controls.Add(Me.TPRegistrationManagement)
+        Me.TabControl1.Controls.Add(Me.tabEventOverview)
+        Me.TabControl1.Controls.Add(Me.tabEventManagement)
+        Me.TabControl1.Controls.Add(Me.tabRegistrationManagement)
         Me.TabControl1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TabControl1.Location = New System.Drawing.Point(0, 160)
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
-        Me.TabControl1.Size = New System.Drawing.Size(792, 384)
+        Me.TabControl1.Size = New System.Drawing.Size(792, 406)
         Me.TabControl1.TabIndex = 259
         '
-        'TPEventOverview
+        'tabEventOverview
         '
-        Me.TPEventOverview.Controls.Add(Me.dgvOverviewRegistrants)
-        Me.TPEventOverview.Controls.Add(Me.Panel9)
-        Me.TPEventOverview.Location = New System.Drawing.Point(4, 22)
-        Me.TPEventOverview.Name = "TPEventOverview"
-        Me.TPEventOverview.Size = New System.Drawing.Size(784, 358)
-        Me.TPEventOverview.TabIndex = 3
-        Me.TPEventOverview.Text = "Event Overview"
-        Me.TPEventOverview.UseVisualStyleBackColor = True
+        Me.tabEventOverview.Controls.Add(Me.dgvOverviewRegistrants)
+        Me.tabEventOverview.Controls.Add(Me.Panel9)
+        Me.tabEventOverview.Location = New System.Drawing.Point(4, 22)
+        Me.tabEventOverview.Name = "tabEventOverview"
+        Me.tabEventOverview.Size = New System.Drawing.Size(784, 380)
+        Me.tabEventOverview.TabIndex = 3
+        Me.tabEventOverview.Text = "Event Overview"
+        Me.tabEventOverview.UseVisualStyleBackColor = True
         '
         'dgvOverviewRegistrants
         '
@@ -791,7 +684,7 @@ Partial Class MASPRegistrationTool
         Me.dgvOverviewRegistrants.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvOverviewRegistrants.Location = New System.Drawing.Point(0, 168)
         Me.dgvOverviewRegistrants.Name = "dgvOverviewRegistrants"
-        Me.dgvOverviewRegistrants.Size = New System.Drawing.Size(784, 190)
+        Me.dgvOverviewRegistrants.Size = New System.Drawing.Size(784, 212)
         Me.dgvOverviewRegistrants.TabIndex = 421
         '
         'Panel9
@@ -1123,28 +1016,28 @@ Partial Class MASPRegistrationTool
         Me.Label46.TabIndex = 17
         Me.Label46.Text = "APB Contact:"
         '
-        'TPEventManagement
+        'tabEventManagement
         '
-        Me.TPEventManagement.Controls.Add(Me.Panel4)
-        Me.TPEventManagement.Location = New System.Drawing.Point(4, 22)
-        Me.TPEventManagement.Name = "TPEventManagement"
-        Me.TPEventManagement.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPEventManagement.Size = New System.Drawing.Size(784, 358)
-        Me.TPEventManagement.TabIndex = 0
-        Me.TPEventManagement.Text = "Event Management"
-        Me.TPEventManagement.UseVisualStyleBackColor = True
+        Me.tabEventManagement.Controls.Add(Me.Panel4)
+        Me.tabEventManagement.Location = New System.Drawing.Point(4, 22)
+        Me.tabEventManagement.Name = "tabEventManagement"
+        Me.tabEventManagement.Padding = New System.Windows.Forms.Padding(3)
+        Me.tabEventManagement.Size = New System.Drawing.Size(784, 380)
+        Me.tabEventManagement.TabIndex = 0
+        Me.tabEventManagement.Text = "Event Management"
+        Me.tabEventManagement.UseVisualStyleBackColor = True
         '
-        'TPRegistrationManagement
+        'tabRegistrationManagement
         '
-        Me.TPRegistrationManagement.Controls.Add(Me.dgvRegistrationManagement)
-        Me.TPRegistrationManagement.Controls.Add(Me.Panel8)
-        Me.TPRegistrationManagement.Location = New System.Drawing.Point(4, 22)
-        Me.TPRegistrationManagement.Name = "TPRegistrationManagement"
-        Me.TPRegistrationManagement.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPRegistrationManagement.Size = New System.Drawing.Size(784, 358)
-        Me.TPRegistrationManagement.TabIndex = 1
-        Me.TPRegistrationManagement.Text = "Registration Management"
-        Me.TPRegistrationManagement.UseVisualStyleBackColor = True
+        Me.tabRegistrationManagement.Controls.Add(Me.dgvRegistrationManagement)
+        Me.tabRegistrationManagement.Controls.Add(Me.Panel8)
+        Me.tabRegistrationManagement.Location = New System.Drawing.Point(4, 22)
+        Me.tabRegistrationManagement.Name = "tabRegistrationManagement"
+        Me.tabRegistrationManagement.Padding = New System.Windows.Forms.Padding(3)
+        Me.tabRegistrationManagement.Size = New System.Drawing.Size(784, 380)
+        Me.tabRegistrationManagement.TabIndex = 1
+        Me.tabRegistrationManagement.Text = "Registration Management"
+        Me.tabRegistrationManagement.UseVisualStyleBackColor = True
         '
         'dgvRegistrationManagement
         '
@@ -1152,7 +1045,7 @@ Partial Class MASPRegistrationTool
         Me.dgvRegistrationManagement.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvRegistrationManagement.Location = New System.Drawing.Point(3, 3)
         Me.dgvRegistrationManagement.Name = "dgvRegistrationManagement"
-        Me.dgvRegistrationManagement.Size = New System.Drawing.Size(404, 352)
+        Me.dgvRegistrationManagement.Size = New System.Drawing.Size(404, 374)
         Me.dgvRegistrationManagement.TabIndex = 0
         '
         'Panel8
@@ -1195,7 +1088,7 @@ Partial Class MASPRegistrationTool
         Me.Panel8.Dock = System.Windows.Forms.DockStyle.Right
         Me.Panel8.Location = New System.Drawing.Point(407, 3)
         Me.Panel8.Name = "Panel8"
-        Me.Panel8.Size = New System.Drawing.Size(374, 352)
+        Me.Panel8.Size = New System.Drawing.Size(374, 374)
         Me.Panel8.TabIndex = 1
         '
         'btnModifyRegistration
@@ -1521,7 +1414,7 @@ Partial Class MASPRegistrationTool
         '
         Me.Panel5.Controls.Add(Me.dgvRegistrationEvent)
         Me.Panel5.Controls.Add(Me.Panel7)
-        Me.Panel5.Controls.Add(Me.Panel6)
+        Me.Panel5.Controls.Add(Me.pnlFilterEvents)
         Me.Panel5.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel5.Location = New System.Drawing.Point(0, 0)
         Me.Panel5.Name = "Panel5"
@@ -1585,17 +1478,17 @@ Partial Class MASPRegistrationTool
         Me.lblEVentDate.TabIndex = 5
         Me.lblEVentDate.Text = "Event Date"
         '
-        'Panel6
+        'pnlFilterEvents
         '
-        Me.Panel6.Controls.Add(Me.btnFilterEvents)
-        Me.Panel6.Controls.Add(Me.rdbAllEvents)
-        Me.Panel6.Controls.Add(Me.rdbPastEvents)
-        Me.Panel6.Controls.Add(Me.rdbUpcomingEvents)
-        Me.Panel6.Dock = System.Windows.Forms.DockStyle.Right
-        Me.Panel6.Location = New System.Drawing.Point(686, 0)
-        Me.Panel6.Name = "Panel6"
-        Me.Panel6.Size = New System.Drawing.Size(106, 160)
-        Me.Panel6.TabIndex = 417
+        Me.pnlFilterEvents.Controls.Add(Me.btnFilterEvents)
+        Me.pnlFilterEvents.Controls.Add(Me.rdbAllEvents)
+        Me.pnlFilterEvents.Controls.Add(Me.rdbPastEvents)
+        Me.pnlFilterEvents.Controls.Add(Me.rdbUpcomingEvents)
+        Me.pnlFilterEvents.Dock = System.Windows.Forms.DockStyle.Right
+        Me.pnlFilterEvents.Location = New System.Drawing.Point(686, 0)
+        Me.pnlFilterEvents.Name = "pnlFilterEvents"
+        Me.pnlFilterEvents.Size = New System.Drawing.Size(106, 160)
+        Me.pnlFilterEvents.TabIndex = 417
         '
         'btnFilterEvents
         '
@@ -1644,23 +1537,19 @@ Partial Class MASPRegistrationTool
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(792, 566)
         Me.Controls.Add(Me.TabControl1)
-        Me.Controls.Add(Me.StatusStrip1)
         Me.Controls.Add(Me.Panel5)
-        Me.Menu = Me.MainMenu1
         Me.Name = "MASPRegistrationTool"
         Me.Text = "Registration Tool"
-        Me.StatusStrip1.ResumeLayout(False)
-        Me.StatusStrip1.PerformLayout()
         Me.Panel4.ResumeLayout(False)
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
         Me.TabControl1.ResumeLayout(False)
-        Me.TPEventOverview.ResumeLayout(False)
+        Me.tabEventOverview.ResumeLayout(False)
         CType(Me.dgvOverviewRegistrants, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel9.ResumeLayout(False)
         Me.Panel9.PerformLayout()
-        Me.TPEventManagement.ResumeLayout(False)
-        Me.TPRegistrationManagement.ResumeLayout(False)
+        Me.tabEventManagement.ResumeLayout(False)
+        Me.tabRegistrationManagement.ResumeLayout(False)
         CType(Me.dgvRegistrationManagement, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel8.ResumeLayout(False)
         Me.Panel8.PerformLayout()
@@ -1668,26 +1557,11 @@ Partial Class MASPRegistrationTool
         CType(Me.dgvRegistrationEvent, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel7.ResumeLayout(False)
         Me.Panel7.PerformLayout()
-        Me.Panel6.ResumeLayout(False)
-        Me.Panel6.PerformLayout()
+        Me.pnlFilterEvents.ResumeLayout(False)
+        Me.pnlFilterEvents.PerformLayout()
         Me.ResumeLayout(False)
-        Me.PerformLayout()
 
     End Sub
-    Friend WithEvents StatusStrip1 As System.Windows.Forms.StatusStrip
-    Friend WithEvents ToolStripProgressBar1 As System.Windows.Forms.ToolStripProgressBar
-    Friend WithEvents Panel1 As System.Windows.Forms.ToolStripStatusLabel
-    Friend WithEvents Panel2 As System.Windows.Forms.ToolStripStatusLabel
-    Friend WithEvents Panel3 As System.Windows.Forms.ToolStripStatusLabel
-    Friend WithEvents MainMenu1 As System.Windows.Forms.MainMenu
-    Friend WithEvents MmiFile As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiSave As System.Windows.Forms.MenuItem
-    Friend WithEvents MenuItem1 As System.Windows.Forms.MenuItem
-    Friend WithEvents MmiBack As System.Windows.Forms.MenuItem
-    Friend WithEvents MmiView As System.Windows.Forms.MenuItem
-    Friend WithEvents MenuItem2 As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiNewApplication As System.Windows.Forms.MenuItem
-    Friend WithEvents MmiHelp As System.Windows.Forms.MenuItem
     Friend WithEvents Panel4 As System.Windows.Forms.Panel
     Friend WithEvents GroupBox2 As System.Windows.Forms.GroupBox
     Friend WithEvents Label1 As System.Windows.Forms.Label
@@ -1710,18 +1584,18 @@ Partial Class MASPRegistrationTool
     Friend WithEvents Label9 As System.Windows.Forms.Label
     Friend WithEvents txtEventNotes As System.Windows.Forms.TextBox
     Friend WithEvents TabControl1 As System.Windows.Forms.TabControl
-    Friend WithEvents TPEventManagement As System.Windows.Forms.TabPage
-    Friend WithEvents TPRegistrationManagement As System.Windows.Forms.TabPage
+    Friend WithEvents tabEventManagement As System.Windows.Forms.TabPage
+    Friend WithEvents tabRegistrationManagement As System.Windows.Forms.TabPage
     Friend WithEvents Panel5 As System.Windows.Forms.Panel
     Friend WithEvents dgvRegistrationEvent As System.Windows.Forms.DataGridView
     Friend WithEvents lblEVentDate As System.Windows.Forms.Label
     Friend WithEvents lblEventTitle As System.Windows.Forms.Label
     Friend WithEvents btnViewDetails As System.Windows.Forms.Button
-    Friend WithEvents Panel6 As System.Windows.Forms.Panel
+    Friend WithEvents pnlFilterEvents As System.Windows.Forms.Panel
     Friend WithEvents rdbAllEvents As System.Windows.Forms.RadioButton
     Friend WithEvents rdbPastEvents As System.Windows.Forms.RadioButton
     Friend WithEvents rdbUpcomingEvents As System.Windows.Forms.RadioButton
-    Friend WithEvents TPEventOverview As System.Windows.Forms.TabPage
+    Friend WithEvents tabEventOverview As System.Windows.Forms.TabPage
     Friend WithEvents btnFilterEvents As System.Windows.Forms.Button
     Friend WithEvents Label12 As System.Windows.Forms.Label
     Friend WithEvents txtEventTime As System.Windows.Forms.TextBox

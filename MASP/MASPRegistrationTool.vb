@@ -1,23 +1,67 @@
 ﻿Imports Oracle.DataAccess.Client
+Imports System.Collections.Generic
 
 Public Class MASPRegistrationTool
     Dim ds As DataSet
     Dim da As OracleDataAdapter
 
+#Region "Properties"
+
+    Dim selectedEventId As Decimal
+
+#End Region
+
 
     Private Sub MASPRegistrationTool_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         monitor.TrackFeature("Forms." & Me.Name)
-        Try
 
-            LoadForm()
-            btnGeneratePasscode.Visible = False
-            chbEventPasscode.Text = ""
+        LoadEventContactCombos()
+        LoadForm()
+        LoadEventList()
 
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        btnGeneratePasscode.Visible = False
+        chbEventPasscode.Text = ""
+
     End Sub
 
+#Region "Form combo boxes"
+
+    Private Sub LoadEventContactCombos()
+        Dim staff As DataTable = DAL.GetAllActiveStaffAsDataTable
+
+        Dim nullRow As DataRow = staff.NewRow
+        nullRow("NUMUSERID") = DBNull.Value
+        nullRow("AlphaName") = "Select a contact…"
+        staff.Rows.InsertAt(nullRow, 0)
+
+        Dim webStaff As DataTable = staff.Copy
+
+        If staff.Rows.Count > 0 Then
+            With cboEventContact
+                .DataSource = staff
+                .DisplayMember = "AlphaName"
+                .ValueMember = "NUMUSERID"
+                .SelectedIndex = 0
+            End With
+            With mtbEventPhoneNumber
+                .DataBindings.Add(New Binding("Text", staff, "STRPHONE"))
+            End With
+
+            With cboEventWebContact
+                .DataSource = webStaff
+                .DisplayMember = "AlphaName"
+                .ValueMember = "NUMUSERID"
+                .SelectedIndex = 0
+            End With
+            With mtbEventWebPhoneNumber
+                .DataBindings.Add(New Binding("Text", webStaff, "STRPHONE"))
+            End With
+        Else
+            Me.Enabled = False
+        End If
+    End Sub
+
+#End Region
 
     Sub LoadForm()
         Try
@@ -28,108 +72,7 @@ Public Class MASPRegistrationTool
             Dim drDSRow As DataRow
             Dim drNewRow As DataRow
 
-            SQL = "select " & _
-           "distinct(EPDUser) as EPDUser, numUserID, " & _
-           "strPhone " & _
-           "from " & _
-           "(select " & _
-           "(strLastName ||', '||strFirstName) as EPDUser, " & _
-           "numUserId, strPhone " & _
-           "from " & DBNameSpace & ".EPDUserProfiles " & _
-           "where numEmployeeStatus = '1' " & _
-           "and numBranch = '1' " & _
-           "union " & _
-           "select " & _
-           "(strLastName ||', '||strFirstName) as EPDUser, " & _
-           "numUserId, strPhone " & _
-           "from " & DBNameSpace & ".EPDUserProfiles, " & DBNameSpace & ".res_event  " & _
-           "where " & DBNameSpace & ".EPDUserprofiles.numUserID = " & DBNameSpace & ".REs_Event.numAPBContact " & _
-           "or " & DBNameSpace & ".epduserprofiles.numUseriD = " & DBNameSpace & ".res_event.strUserGCode ) " & _
-           "order by EPDUser "
-
             ds = New DataSet
-            da = New OracleDataAdapter(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
-            End If
-
-            da.Fill(ds, "Contacts")
-
-            cboEventContact.DataBindings.Clear()
-            mtbEventPhoneNumber.DataBindings.Clear()
-
-            If ds.Tables("Contacts").Rows.Count = 0 Then
-                cboEventContact.Text = ""
-                mtbEventPhoneNumber.Text = ""
-            Else
-                dtAPBContact.Columns.Add("EPDUser", GetType(System.String))
-                dtAPBContact.Columns.Add("numUserID", GetType(System.String))
-                dtAPBContact.Columns.Add("strPhone", GetType(System.String))
-
-                drNewRow = dtAPBContact.NewRow()
-                drNewRow("EPDUSer") = " "
-                drNewRow("numUserID") = ""
-                drNewRow("strPhone") = ""
-                dtAPBContact.Rows.Add(drNewRow)
-
-                For Each drDSRow In ds.Tables("Contacts").Rows()
-                    drNewRow = dtAPBContact.NewRow()
-                    drNewRow("EPDUser") = drDSRow("EPDUser")
-                    drNewRow("numUserID") = drDSRow("numUserID")
-                    drNewRow("strPhone") = drDSRow("strPhone")
-                    dtAPBContact.Rows.Add(drNewRow)
-                Next
-
-                With cboEventContact
-                    .DataSource = dtAPBContact
-                    .DisplayMember = "EPDUser"
-                    .ValueMember = "numUserID"
-                    .SelectedValue = 0
-                End With
-                With mtbEventPhoneNumber
-                    .DataBindings.Add(New Binding("Text", dtAPBContact, "strPhone"))
-                End With
-
-            End If
-            mtbEventPhoneNumber.Text = ""
-
-            cboEventWebContact.DataBindings.Clear()
-            mtbEventWebPhoneNumber.DataBindings.Clear()
-
-            If ds.Tables("Contacts").Rows.Count = 0 Then
-                cboEventWebContact.Text = ""
-                mtbEventWebPhoneNumber.Text = ""
-            Else
-                dtWebContact.Columns.Add("EPDUser", GetType(System.String))
-                dtWebContact.Columns.Add("numUserID", GetType(System.String))
-                dtWebContact.Columns.Add("strPhone", GetType(System.String))
-
-
-                drNewRow = dtWebContact.NewRow()
-                drNewRow("EPDUSer") = " "
-                drNewRow("numUserID") = ""
-                drNewRow("strPhone") = ""
-                dtWebContact.Rows.Add(drNewRow)
-
-                For Each drDSRow In ds.Tables("Contacts").Rows()
-                    drNewRow = dtWebContact.NewRow()
-                    drNewRow("EPDUser") = drDSRow("EPDUser")
-                    drNewRow("numUserID") = drDSRow("numUserID")
-                    drNewRow("strPhone") = drDSRow("strPhone")
-                    dtWebContact.Rows.Add(drNewRow)
-                Next
-               
-                With cboEventWebContact
-                    .DataSource = dtWebContact
-                    .DisplayMember = "EPDUser"
-                    .ValueMember = "numUserID"
-                    .SelectedValue = 0
-                End With
-                With mtbEventWebPhoneNumber
-                    .DataBindings.Add(New Binding("Text", dtWebContact, "strPhone"))
-                End With
-
-            End If
 
             SQL = "Select " & _
             "strEventStatus, numREslk_eventStatusID " & _
@@ -199,8 +142,6 @@ Public Class MASPRegistrationTool
                 .ValueMember = "numResLK_RegistrationStatusID"
                 .SelectedValue = 0
             End With
-
-            LoadEventList()
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -468,89 +409,6 @@ Public Class MASPRegistrationTool
             End While
             dr.Close()
 
-            '     SQL = "select " & _
-            '"" & DBNameSpace & ".Res_Registration.numRes_registrationID, " & _
-            '"" & DBNameSpace & ".Res_Event.strTitle,  " & _
-            '"datRegistrationDateTime, " & _
-            '"strConfirmationNumber, strComments, " & _
-            '"numRegistrationStatusCode, " & DBNameSpace & ".Res_Registration.numGECouserID, " & _
-            '"strSalutation, strFirstName, " & _
-            '"strLastName, OlapUserProfile.strTitle, strUserEmail, " & _
-            '"" & DBNameSpace & ".OlapUserProfile.strAddress, " & DBNameSpace & ".OlapUserProfile.strCity, " & _
-            '"" & DBNameSpace & ".OlapUserProfile.strState, strZip, " & _
-            '"strCompanyName, strPhonenumber, " & _
-            '"strFaxNumber, strUserType " & _
-            '"from " & DBNameSpace & ".Res_Registration, " & DBNameSpace & ".OLAPUSERProfile, " & _
-            '"" & DBNameSpace & ".res_event, " & DBNameSpace & ".OLAPUserLogIn  " & _
-            '"where " & DBNameSpace & ".Res_Registration.numGECouserID = " & DBNameSpace & ".OlapUserProfile.numUserID " & _
-            '"and " & DBNameSpace & ".Res_registration.numRes_eventid = " & DBNameSpace & ".Res_Event.numRes_EventId  " & _
-            '"and " & DBNameSpace & ".Res_Registration.numGECouserID = " & DBNameSpace & ".OLAPUserLogIn.numuserid " & _
-            '"and " & DBNameSpace & ".Res_registration.numRes_EventID = '" & txtSelectedEventID.Text & "' "
-
-
-            'ds = New DataSet
-            'da = New OracleDataAdapter(SQL, conn)
-            'If conn.State = ConnectionState.Closed Then
-            '    conn.Open()
-            'End If
-
-            'da.Fill(ds, "Registered")
-            'dgvOverviewRegistrants.DataSource = ds
-            'dgvOverviewRegistrants.DataMember = "Registered"
-
-            'dgvOverviewRegistrants.RowHeadersVisible = False
-            'dgvOverviewRegistrants.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            'dgvOverviewRegistrants.AllowUserToResizeColumns = True
-            'dgvOverviewRegistrants.AllowUserToAddRows = False
-            'dgvOverviewRegistrants.AllowUserToDeleteRows = False
-            'dgvOverviewRegistrants.AllowUserToOrderColumns = True
-            'dgvOverviewRegistrants.AllowUserToResizeRows = True
-
-            'dgvOverviewRegistrants.Columns("numRes_registrationID").HeaderText = "ID"
-            'dgvOverviewRegistrants.Columns("numRes_registrationID").DisplayIndex = 0
-            'dgvOverviewRegistrants.Columns("numRes_registrationID").Width = 40
-
-            'dgvOverviewRegistrants.Columns("strTitle").HeaderText = "ID"
-            'dgvOverviewRegistrants.Columns("strTitle").DisplayIndex = 1
-            'dgvOverviewRegistrants.Columns("datRegistrationDateTime").HeaderText = "Reg. Date"
-            'dgvOverviewRegistrants.Columns("datRegistrationDateTime").DisplayIndex = 2
-            'dgvOverviewRegistrants.Columns("strConfirmationNumber").HeaderText = "Confirmation"
-            'dgvOverviewRegistrants.Columns("strConfirmationNumber").DisplayIndex = 3
-            'dgvOverviewRegistrants.Columns("strComments").HeaderText = "Comments"
-            'dgvOverviewRegistrants.Columns("strComments").DisplayIndex = 4
-            'dgvOverviewRegistrants.Columns("numRegistrationStatusCode").HeaderText = "Status"
-            'dgvOverviewRegistrants.Columns("numRegistrationStatusCode").DisplayIndex = 5
-            'dgvOverviewRegistrants.Columns("numGECouserID").HeaderText = "GEID"
-            'dgvOverviewRegistrants.Columns("numGECouserID").DisplayIndex = 6
-            'dgvOverviewRegistrants.Columns("strSalutation").HeaderText = "Salutation"
-            'dgvOverviewRegistrants.Columns("strSalutation").DisplayIndex = 7
-            'dgvOverviewRegistrants.Columns("strFirstName").HeaderText = "First Name"
-            'dgvOverviewRegistrants.Columns("strFirstName").DisplayIndex = 8
-            'dgvOverviewRegistrants.Columns("strLastName").HeaderText = "Last Name"
-            'dgvOverviewRegistrants.Columns("strLastName").DisplayIndex = 9
-            'dgvOverviewRegistrants.Columns("strTitle").HeaderText = "Title"
-            'dgvOverviewRegistrants.Columns("strTitle").DisplayIndex = 10
-            'dgvOverviewRegistrants.Columns("strUserEmail").HeaderText = "User Email"
-            'dgvOverviewRegistrants.Columns("strUserEmail").DisplayIndex = 11
-            'dgvOverviewRegistrants.Columns("strAddress").HeaderText = "Address"
-            'dgvOverviewRegistrants.Columns("strAddress").DisplayIndex = 12
-            'dgvOverviewRegistrants.Columns("strCity").HeaderText = "City"
-            'dgvOverviewRegistrants.Columns("strCity").DisplayIndex = 13
-            'dgvOverviewRegistrants.Columns("strState").HeaderText = "State"
-            'dgvOverviewRegistrants.Columns("strState").DisplayIndex = 14
-            'dgvOverviewRegistrants.Columns("strZip").HeaderText = "Zip"
-            'dgvOverviewRegistrants.Columns("strZip").DisplayIndex = 15
-            'dgvOverviewRegistrants.Columns("strCompanyName").HeaderText = "Company Name"
-            'dgvOverviewRegistrants.Columns("strCompanyName").DisplayIndex = 16
-            'dgvOverviewRegistrants.Columns("strPhonenumber").HeaderText = "Phone #"
-            'dgvOverviewRegistrants.Columns("strPhonenumber").DisplayIndex = 17
-            'dgvOverviewRegistrants.Columns("strFaxNumber").HeaderText = "Fax #"
-            'dgvOverviewRegistrants.Columns("strFaxNumber").DisplayIndex = 18
-            'dgvOverviewRegistrants.Columns("strUserType").HeaderText = "User Type"
-            'dgvOverviewRegistrants.Columns("strUserType").DisplayIndex = 19
-
-
-
             SQL = "select " & _
          "" & DBNameSpace & ".Res_Registration.numRes_registrationID, " & _
          "" & DBNameSpace & ".Res_Event.strTitle as eventTitle,  " & _
@@ -617,12 +475,6 @@ Public Class MASPRegistrationTool
             dgvOverviewRegistrants.Columns("strPhonenumber").DisplayIndex = 8
             dgvOverviewRegistrants.Columns("strCompanyName").HeaderText = "Company Name"
             dgvOverviewRegistrants.Columns("strCompanyName").DisplayIndex = 9
-
- 
-             
-             
-
- 
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -761,7 +613,6 @@ Public Class MASPRegistrationTool
                 End If
             End While
             dr.Close()
-
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -1136,7 +987,7 @@ Public Class MASPRegistrationTool
                 Else
                     txtRegTitle.Text = dgvRegistrationManagement(15, hti.RowIndex).Value
                 End If
-         
+
 
             End If
 
@@ -1149,8 +1000,8 @@ Public Class MASPRegistrationTool
 
 #End Region
 
-    
-  
+
+
     Private Sub cboEventWebContact_Leave(ByVal sender As Object, ByVal e As System.EventArgs) Handles cboEventWebContact.Leave
         Try
 
@@ -1177,7 +1028,7 @@ Public Class MASPRegistrationTool
             Else
                 MsgBox("Data NOT Saved/Updated", MsgBoxStyle.Exclamation, Me.Text)
             End If
-             
+
         Catch ex As Exception
 
         End Try
@@ -1218,10 +1069,10 @@ Public Class MASPRegistrationTool
         End Try
 
 
-       
+
     End Sub
 
-    
+
     Private Sub btnExportToExcel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnExportToExcel.Click
         Try
             'Dim ExcelApp As New Excel.Application
