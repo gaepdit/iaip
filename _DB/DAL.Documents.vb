@@ -1,8 +1,10 @@
-﻿Imports Oracle.DataAccess.Client
-Imports System.Collections.Generic
+﻿Imports System.Collections.Generic
 Imports System.IO
-Imports Oracle.DataAccess.Types
 Imports System.Runtime.InteropServices
+
+Imports Oracle.DataAccess.Client
+Imports Oracle.DataAccess.Types
+
 Imports JohnGaltProject.Apb.SSCP
 Imports JohnGaltProject.Apb.SSPP
 
@@ -108,10 +110,21 @@ Namespace DAL
 
 #Region "Retrieve Enforcement Documents"
 
-        Public Function GetEnforcementDocuments(ByVal enfNum As String) As List(Of EnforcementDocument)
+        Public Function GetEnforcementDocumentsAsList(ByVal enfNum As String) As List(Of EnforcementDocument)
             Dim docsList As New List(Of EnforcementDocument)
             Dim doc As New EnforcementDocument
 
+            Dim dataTable As DataTable = GetEnforcementDocumentsAsTable(enfNum)
+
+            For Each row As DataRow In dataTable.Rows
+                doc = GetEnforcementDocumentFromDataRow(row)
+                docsList.Add(doc)
+            Next
+
+            Return docsList
+        End Function
+
+        Public Function GetEnforcementDocumentsAsTable(ByVal enfNum As String) As DataTable
             Dim query As String = <s><![CDATA[
                 SELECT 
                   IAIP_LK_SSCPDOCUMENTTYPE.STRDOCUMENTTYPE,
@@ -132,24 +145,28 @@ Namespace DAL
                 WHERE IAIP_SSCP_ENFORCEMENTDOCS.STRENFORCEMENTNUMBER = :pId
             ]]></s>.Value
             Dim parameter As New OracleParameter("pId", enfNum)
-            Dim dataTable As DataTable = DB.GetDataTable(query, parameter)
-
-            For Each row As DataRow In dataTable.Rows
-                doc = GetEnforcementDocumentFromDataRow(row)
-                docsList.Add(doc)
-            Next
-
-            Return docsList
+            Return DB.GetDataTable(query, parameter)
         End Function
 
 #End Region
 
 #Region "Retrieve Permit Documents"
 
-        Public Function GetPermitDocuments(ByVal applicationNumber As String) As List(Of PermitDocument)
+        Public Function GetPermitDocumentsAsList(ByVal applicationNumber As String) As List(Of PermitDocument)
             Dim docsList As New List(Of PermitDocument)
             Dim doc As New PermitDocument
 
+            Dim dataTable As DataTable = GetPermitDocumentsAsDataTable(applicationNumber)
+
+            For Each row As DataRow In dataTable.Rows
+                doc = GetPermitDocumentFromDataRow(row)
+                docsList.Add(doc)
+            Next
+
+            Return docsList
+        End Function
+
+        Public Function GetPermitDocumentsAsDataTable(ByVal applicationNumber As String) As DataTable
             Dim query As String = <s><![CDATA[
                 SELECT 
                   IAIP_LK_SSPPDOCUMENTTYPE.STRDOCUMENTTYPE,
@@ -170,14 +187,7 @@ Namespace DAL
                 WHERE IAIP_SSPP_PERMITDOCS.STRAPPLICATIONNUMBER = :pId
             ]]></s>.Value
             Dim parameter As New OracleParameter("pId", applicationNumber)
-            Dim dataTable As DataTable = DB.GetDataTable(query, parameter)
-
-            For Each row As DataRow In dataTable.Rows
-                doc = GetPermitDocumentFromDataRow(row)
-                docsList.Add(doc)
-            Next
-
-            Return docsList
+            Return DB.GetDataTable(query, parameter)
         End Function
 
 #End Region

@@ -114,7 +114,7 @@ Public Class SsppFileUploader
     Private Sub LoadExistingDocuments()
         DisableFileUpdate()
         dgvFileList.DataSource = Nothing
-        ExistingFiles = GetPermitDocuments(AppInfo.ApplicationNumber)
+        ExistingFiles = GetPermitDocumentsAsList(AppInfo.ApplicationNumber)
         If ExistingFiles.Count > 0 Then
             With dgvFileList
                 .DataSource = New BindingSource(ExistingFiles, Nothing)
