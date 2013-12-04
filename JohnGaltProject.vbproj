@@ -1816,6 +1816,7 @@
     <Compile Include="_DB\DAL.Documents.vb" />
     <Compile Include="_DB\DAL.SSPP.Applications.vb" />
     <Compile Include="_DB\DAL.EventRegistration.vb" />
+    <Compile Include="_DB\DB.Utilities.vb" />
     <Compile Include="_Modules\Analytics.vb" />
     <Compile Include="_Modules\FormSettings.vb" />
     <Compile Include="_Modules\FacilityUtility.vb" />

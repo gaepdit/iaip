@@ -27,19 +27,11 @@ Public Class SscpDocuments
 
     Private Sub LoadDocumentTypes()
         ' Get list of various document types and bind that list to the comboboxes
-        Dim DocumentTypes As Dictionary(Of Integer, String) = DAL.GetEnforcementDocumentTypesDict
+        Dim documentTypes As Dictionary(Of Integer, String) = DAL.GetEnforcementDocumentTypesDict
 
-        If DocumentTypes.Count > 0 Then
-            With ddlNewDocumentType
-                .DataSource = New BindingSource(DocumentTypes, Nothing)
-                .DisplayMember = "Value"
-                .ValueMember = "Key"
-            End With
-            With ddlDocumentType
-                .DataSource = New BindingSource(DocumentTypes, Nothing)
-                .DisplayMember = "Value"
-                .ValueMember = "Key"
-            End With
+        If documentTypes.Count > 0 Then
+            DB.BindDictionaryToComboBox(documentTypes, ddlNewDocumentType)
+            DB.BindDictionaryToComboBox(documentTypes, ddlDocumentType)
 
             ' When a doc type is selected, display whether it already exists
             ' This has to be added after the list is bound (above) or it will trigger

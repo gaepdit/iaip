@@ -452,7 +452,7 @@ Namespace DAL
 
 #Region "Document Types"
 
-        Public Function GetPermitDocumentTypesDict() As Dictionary(Of Integer, String)
+        Public Function GetPermitDocumentTypesAsDictionary() As Dictionary(Of Integer, String)
             Dim query As String = "SELECT DOCUMENTTYPEID, " & _
                 " STRDOCUMENTTYPE " & _
                 " FROM AIRBRANCH.IAIP_LK_SSPPDOCUMENTTYPE " & _

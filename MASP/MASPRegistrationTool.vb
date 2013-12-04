@@ -1,5 +1,6 @@
 ﻿Imports Oracle.DataAccess.Client
 Imports System.Collections.Generic
+Imports JohnGaltProject.DAL.EventRegistration
 
 Public Class MASPRegistrationTool
     Dim ds As DataSet
@@ -15,7 +16,7 @@ Public Class MASPRegistrationTool
     Private Sub MASPRegistrationTool_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         monitor.TrackFeature("Forms." & Me.Name)
 
-        LoadEventContactCombos()
+        LoadComboBoxes()
         LoadForm()
         LoadEventList()
 
@@ -25,6 +26,12 @@ Public Class MASPRegistrationTool
     End Sub
 
 #Region "Form combo boxes"
+
+    Private Sub LoadComboBoxes()
+        LoadEventContactCombos()
+        LoadEventStatusCombo()
+        LoadRegistrationStatusCombo()
+    End Sub
 
     Private Sub LoadEventContactCombos()
         Dim staff As DataTable = DAL.GetAllActiveStaffAsDataTable
@@ -61,9 +68,22 @@ Public Class MASPRegistrationTool
         End If
     End Sub
 
+    Private Sub LoadEventStatusCombo()
+        ' Get list of Event Status types and bind that list to the combobox
+        Dim statuses As Dictionary(Of Integer, String) = GetEventStatusesAsDictionary(True, "Select a status…")
+        If statuses.Count > 0 Then DB.BindDictionaryToComboBox(statuses, cboEventStatus)
+    End Sub
+
+    Private Sub LoadRegistrationStatusCombo()
+        ' Get list of Registration Status types and bind that list to the combobox
+        Dim statuses As Dictionary(Of Integer, String) = GetRegistrationStatusesAsDictionary(True, "Select a status…")
+        If statuses.Count > 0 Then DB.BindDictionaryToComboBox(statuses, cboRegStatus)
+    End Sub
+
 #End Region
 
     Sub LoadForm()
+        ' CONTINUE separating this Sub into individual Combobox Subs
         Try
             Dim dtAPBContact As New DataTable
             Dim dtWebContact As New DataTable
@@ -74,39 +94,6 @@ Public Class MASPRegistrationTool
 
             ds = New DataSet
 
-            SQL = "Select " & _
-            "strEventStatus, numREslk_eventStatusID " & _
-            "from " & DBNameSpace & ".RESLK_EventStatus " & _
-            "where Active = '1' " & _
-            "order by strEventStatus "
-
-            da = New OracleDataAdapter(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
-            End If
-            da.Fill(ds, "EventStatus")
-
-            dtEventStatus.Columns.Add("strEventStatus", GetType(System.String))
-            dtEventStatus.Columns.Add("numREslk_eventStatusID", GetType(System.String))
-
-            drNewRow = dtEventStatus.NewRow()
-            drNewRow("strEventStatus") = " "
-            drNewRow("numREslk_eventStatusID") = ""
-            dtEventStatus.Rows.Add(drNewRow)
-
-            For Each drDSRow In ds.Tables("EventStatus").Rows()
-                drNewRow = dtEventStatus.NewRow()
-                drNewRow("strEventStatus") = drDSRow("strEventStatus")
-                drNewRow("numREslk_eventStatusID") = drDSRow("numREslk_eventStatusID")
-                dtEventStatus.Rows.Add(drNewRow)
-            Next
-
-            With cboEventStatus
-                .DataSource = dtEventStatus
-                .DisplayMember = "strEventStatus"
-                .ValueMember = "numREslk_eventStatusID"
-                .SelectedValue = 0
-            End With
 
 
             SQL = "Select " & _
@@ -504,9 +491,9 @@ Public Class MASPRegistrationTool
             dr = cmd.ExecuteReader
             While dr.Read
                 If IsDBNull(dr.Item("numEventStatusCode")) Then
-                    cboEventStatus.Text = ""
+                    cboEventStatus.SelectedValue = 0
                 Else
-                    cboEventStatus.SelectedValue = dr.Item("numEventStatusCode")
+                    cboEventStatus.SelectedValue = Convert.ToInt32(dr.Item("numEventStatusCode"))
                 End If
                 If IsDBNull(dr.Item("strUserGCode")) Then
                     cboEventWebContact.Text = ""
