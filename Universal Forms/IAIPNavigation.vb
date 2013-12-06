@@ -2579,13 +2579,17 @@ Public Class IAIPNavigation
                     SSCPAdmin.Show()
                     'SSCPAdmin.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                 Case "Registration Tool"
-                    If RegistrationTool Is Nothing Then
-                        If RegistrationTool Is Nothing Then RegistrationTool = New MASPRegistrationTool
-                    Else
-                        RegistrationTool.Dispose()
-                        RegistrationTool = New MASPRegistrationTool
-                    End If
-                    RegistrationTool.Show()
+                    With MASPRegistrationTool
+                        .Show()
+                        .Activate()
+                    End With
+                    'If RegistrationTool Is Nothing Then
+                    '    If RegistrationTool Is Nothing Then RegistrationTool = New MASPRegistrationTool
+                    'Else
+                    '    RegistrationTool.Dispose()
+                    '    RegistrationTool = New MASPRegistrationTool
+                    'End If
+                    'RegistrationTool.Show()
                     'RegistrationTool.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                 Case "EIS Log"
                     If EISLog Is Nothing Then

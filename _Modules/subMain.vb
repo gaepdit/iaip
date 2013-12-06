@@ -138,7 +138,7 @@ Module subMain
 
 #End Region
 #Region "Mobile & Area Screens"
-    Public RegistrationTool As MASPRegistrationTool
+    'Public RegistrationTool As MASPRegistrationTool
 
 #End Region
 #Region "Planning & Support Screens"

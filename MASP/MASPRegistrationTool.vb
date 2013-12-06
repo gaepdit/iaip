@@ -8,22 +8,36 @@ Public Class MASPRegistrationTool
 
 #Region "Properties"
 
-    Dim selectedEventId As Decimal
+    Dim selectedEventId As Decimal?
+    Dim selecting As Boolean = False
 
 #End Region
 
+#Region "Form events"
 
     Private Sub MASPRegistrationTool_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         monitor.TrackFeature("Forms." & Me.Name)
 
         LoadComboBoxes()
-        LoadForm()
         LoadEventList()
+        FormatEventsList()
+
+        lblEventTitle.Text = ""
+        lblEventDate.Text = ""
+        btnViewDetails.Enabled = False
 
         btnGeneratePasscode.Visible = False
         chbEventPasscode.Text = ""
 
     End Sub
+
+    Private Sub MASPRegistrationTool_Shown(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Shown
+        AddHandler rdbEventsFilterFuture.CheckedChanged, AddressOf rdbEventsFilter_CheckedChanged
+        AddHandler rdbEventsFilterPast.CheckedChanged, AddressOf rdbEventsFilter_CheckedChanged
+        AddHandler rdbEventsFilterAll.CheckedChanged, AddressOf rdbEventsFilter_CheckedChanged
+    End Sub
+
+#End Region
 
 #Region "Form combo boxes"
 
@@ -41,8 +55,6 @@ Public Class MASPRegistrationTool
         nullRow("AlphaName") = "Select a contact…"
         staff.Rows.InsertAt(nullRow, 0)
 
-        Dim webStaff As DataTable = staff.Copy
-
         If staff.Rows.Count > 0 Then
             With cboEventContact
                 .DataSource = staff
@@ -54,6 +66,7 @@ Public Class MASPRegistrationTool
                 .DataBindings.Add(New Binding("Text", staff, "STRPHONE"))
             End With
 
+            Dim webStaff As DataTable = staff.Copy
             With cboEventWebContact
                 .DataSource = webStaff
                 .DisplayMember = "AlphaName"
@@ -82,179 +95,102 @@ Public Class MASPRegistrationTool
 
 #End Region
 
-    Sub LoadForm()
-        ' CONTINUE separating this Sub into individual Combobox Subs
+#Region "Events List"
+
+    Private Sub LoadEventList()
         Try
-            Dim dtAPBContact As New DataTable
-            Dim dtWebContact As New DataTable
-            Dim dtEventStatus As New DataTable
-            Dim dtRegistrationStatus As New DataTable
-            Dim drDSRow As DataRow
-            Dim drNewRow As DataRow
+            Dim toDate As Date? = If(rdbEventsFilterPast.Checked, Today, CType(Nothing, Date?))
+            Dim fromDate As Date? = If(rdbEventsFilterFuture.Checked, Today, CType(Nothing, Date?))
 
-            ds = New DataSet
+            Dim events As DataTable = GetEventsAsDataTable(toDate, fromDate)
 
+            dgvEvents.DataSource = events
+        Catch ex As Exception
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+        End Try
+    End Sub
 
+    Private Sub FormatEventsList()
+        With dgvEvents
+            .AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
 
-            SQL = "Select " & _
-            "numResLK_RegistrationStatusID, strRegistrationStatus " & _
-            "from " & DBNameSpace & ".RESLK_RegistrationStatus " & _
-            "where Active = '1' " & _
-            "order by strRegistrationStatus "
-
-            da = New OracleDataAdapter(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
-            End If
-            da.Fill(ds, "RegistrationStatus")
-
-            dtRegistrationStatus.Columns.Add("strRegistrationStatus", GetType(System.String))
-            dtRegistrationStatus.Columns.Add("numResLK_RegistrationStatusID", GetType(System.String))
-
-            drNewRow = dtRegistrationStatus.NewRow()
-            drNewRow("strRegistrationStatus") = " "
-            drNewRow("numResLK_RegistrationStatusID") = ""
-            dtRegistrationStatus.Rows.Add(drNewRow)
-
-            For Each drDSRow In ds.Tables("RegistrationStatus").Rows()
-                drNewRow = dtRegistrationStatus.NewRow()
-                drNewRow("strRegistrationStatus") = drDSRow("strRegistrationStatus")
-                drNewRow("numResLK_RegistrationStatusID") = drDSRow("numResLK_RegistrationStatusID")
-                dtRegistrationStatus.Rows.Add(drNewRow)
-            Next
-
-            With cboRegStatus
-                .DataSource = dtRegistrationStatus
-                .DisplayMember = "strRegistrationStatus"
-                .ValueMember = "numResLK_RegistrationStatusID"
-                .SelectedValue = 0
+            With .Columns("NUMRES_EVENTID")
+                .Visible = False
             End With
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-    Sub LoadEventList()
-        Try
-            SQL = ""
-            If rdbAllEvents.Checked = True Then
-                SQL = "and datStartDate is not null "
-            End If
-            If rdbUpcomingEvents.Checked = True Then
-                SQL = "and datStartDate > sysdate - 1"
-            End If
-            If rdbPastEvents.Checked = True Then
-                SQL = "and datStartDate <= sysdate "
-            End If
-
-            SQL = "Select " & _
-            "numRes_EventID,  " & _
-            "strTitle, strDescription, " & _
-            "datStartDate, strEventStartTime, " & _
-            "strVenue, strNotes " & _
-            "from " & DBNameSpace & ".RES_EVENT " & _
-            "where Active = '1' " & _
-            SQL
-
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
-            End If
-            ds = New DataSet
-            da = New OracleDataAdapter(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
-            End If
-            da.Fill(ds, "Event")
-
-            dgvRegistrationEvent.DataSource = ds
-            dgvRegistrationEvent.DataMember = "Event"
-
-            dgvRegistrationEvent.RowHeadersVisible = False
-            dgvRegistrationEvent.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvRegistrationEvent.AllowUserToResizeColumns = True
-            dgvRegistrationEvent.AllowUserToAddRows = False
-            dgvRegistrationEvent.AllowUserToDeleteRows = False
-            dgvRegistrationEvent.AllowUserToOrderColumns = True
-            dgvRegistrationEvent.AllowUserToResizeRows = True
-
-            dgvRegistrationEvent.Columns("numRes_EventID").HeaderText = "ID"
-            dgvRegistrationEvent.Columns("numRes_EventID").DisplayIndex = 0
-            dgvRegistrationEvent.Columns("numRes_EventID").Width = 40
-            dgvRegistrationEvent.Columns("numRes_EventID").Visible = False
-            dgvRegistrationEvent.Columns("strTitle").HeaderText = "Event Title"
-            dgvRegistrationEvent.Columns("strTitle").DisplayIndex = 1
-            dgvRegistrationEvent.Columns("strDescription").HeaderText = "Description"
-            dgvRegistrationEvent.Columns("strDescription").DisplayIndex = 2
-            dgvRegistrationEvent.Columns("datStartDate").HeaderText = "Event Date"
-            dgvRegistrationEvent.Columns("datStartDate").DisplayIndex = 3
-            dgvRegistrationEvent.Columns("strEventStartTime").HeaderText = "Event Time"
-            dgvRegistrationEvent.Columns("strEventStartTime").DisplayIndex = 4
-            dgvRegistrationEvent.Columns("strVenue").HeaderText = "Venue"
-            dgvRegistrationEvent.Columns("strVenue").DisplayIndex = 5
-            dgvRegistrationEvent.Columns("strNotes").HeaderText = "Notes"
-            dgvRegistrationEvent.Columns("strNotes").DisplayIndex = 6
-            dgvRegistrationEvent.Columns("strNotes").Width = 200
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+            With .Columns("STRTITLE")
+                .HeaderText = "Event"
+                .DisplayIndex = 1
+            End With
+            With .Columns("STRDESCRIPTION")
+                .HeaderText = "Description"
+                .DisplayIndex = 2
+            End With
+            With .Columns("DATSTARTDATE")
+                .HeaderText = "Start Date"
+                .DisplayIndex = 3
+            End With
+            With .Columns("STREVENTSTARTTIME")
+                .HeaderText = "Start Time"
+                .DisplayIndex = 4
+            End With
+            With .Columns("STRVENUE")
+                .HeaderText = "Venue"
+                .DisplayIndex = 5
+            End With
+            With .Columns("STRNOTES")
+                .HeaderText = "Notes"
+                .DisplayIndex = 6
+            End With
+        End With
     End Sub
 
+    Private Sub rdbEventsFilter_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
+        RemoveHandler dgvEvents.SelectionChanged, AddressOf dgvEvents_SelectionChanged
+        LoadEventList()
+    End Sub
 
-    Private Sub btnFilterEvents_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnFilterEvents.Click
+    Private Sub dgvEvents_DataBindingComplete(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewBindingCompleteEventArgs) Handles dgvEvents.DataBindingComplete
+        With dgvEvents
+            .SanelyResizeColumns()
+            .ClearSelection()
+        End With
+        AddHandler dgvEvents.SelectionChanged, AddressOf dgvEvents_SelectionChanged
+    End Sub
+
+    Private Sub dgvEvents_SelectionChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
         Try
 
-            LoadEventList()
+            If dgvEvents.SelectedCells.Count > 0 Then
+                Dim selectedRow As DataGridViewRow = dgvEvents.Rows(dgvEvents.CurrentCell.RowIndex)
 
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-    Private Sub dgvRegistrationEvent_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvRegistrationEvent.MouseUp
-        Try
-            Dim hti As DataGridView.HitTestInfo = dgvRegistrationEvent.HitTest(e.X, e.Y)
-
-            If dgvRegistrationEvent.RowCount > 0 And hti.RowIndex <> -1 Then
-                If IsDBNull(dgvRegistrationEvent(0, hti.RowIndex).Value) Then
-                    Exit Sub
-                Else
-                    txtSelectedEventID.Text = dgvRegistrationEvent(0, hti.RowIndex).Value
-                End If
-                If IsDBNull(dgvRegistrationEvent(1, hti.RowIndex).Value) Then
-                    lblEventTitle.Text = "Event Title "
-                Else
-                    lblEventTitle.Text = "Event Title: " & dgvRegistrationEvent(1, hti.RowIndex).Value
-                End If
-                If IsDBNull(dgvRegistrationEvent(3, hti.RowIndex).Value) Then
-                    lblEVentDate.Text = "Event Date: "
-                Else
-                    lblEVentDate.Text = "Event Date: " & Format(dgvRegistrationEvent(3, hti.RowIndex).Value, "dd-MMM-yyyy")
-                End If
+                selectedEventId = selectedRow.Cells("NUMRES_EVENTID").Value
+                lblEventTitle.Text = selectedRow.Cells("STRTITLE").Value
+                lblEventDate.Text = CType(selectedRow.Cells("DATSTARTDATE").Value, Date).ToString(DateFormat)
+                btnViewDetails.Enabled = True
+            Else
+                selectedEventId = Nothing
+                ClearEventSelection()
+                lblEventTitle.Text = ""
+                lblEventDate.Text = ""
+                btnViewDetails.Enabled = False
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+
         End Try
     End Sub
+
+#End Region
+
+#Region "Load Individual Event Data"
 
     Private Sub btnViewDetails_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnViewDetails.Click
-        Try
-
+        If selectedEventId IsNot Nothing Then
             LoadEventOverview()
-            txtEventID.Text = txtSelectedEventID.Text
-            If txtEventID.Text <> "" Then
-                LoadEventManagement()
-            End If
-            If txtSelectedEventID.Text <> "" Then
-                LoadRegistrationManagement()
-            End If
-
-
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+            LoadEventManagement()
+            LoadRegistrationManagement()
+        End If
     End Sub
-#Region "Load Event Data"
+
     Sub LoadEventOverview()
         Try
 
@@ -273,7 +209,7 @@ Public Class MASPRegistrationTool
                "strEventStartTime, strEventEndTime " & _
                "From " & DBNameSpace & ".RES_Event, " & DBNameSpace & ".RESLK_EVENTStatus " & _
                "where " & DBNameSpace & ".Res_Event.numEventStatusCode = " & DBNameSpace & ".ResLK_EventStatus.numResLK_EventStatusID " & _
-               "and nuMRes_EventID = '" & txtSelectedEventID.Text & "' "
+               "and nuMRes_EventID = '" & selectedEventId & "' "
 
             cmd = New OracleCommand(SQL, Conn)
             If Conn.State = ConnectionState.Closed Then
@@ -360,7 +296,7 @@ Public Class MASPRegistrationTool
             SQL = "Select " & _
             "count(*) as RegNum " & _
             "from " & DBNameSpace & ".Res_registration " & _
-            "where numRes_EventID = '" & txtSelectedEventID.Text & "' " & _
+            "where numRes_EventID = '" & selectedEventId & "' " & _
             "and numRegistrationStatusCode = '1' "
             cmd = New OracleCommand(SQL, Conn)
             If Conn.State = ConnectionState.Closed Then
@@ -379,7 +315,7 @@ Public Class MASPRegistrationTool
             SQL = "Select " & _
             "count(*) as RegNum " & _
             "from " & DBNameSpace & ".Res_registration " & _
-            "where numRes_EventID = '" & txtSelectedEventID.Text & "' " & _
+            "where numRes_EventID = '" & selectedEventId & "' " & _
             "and numRegistrationStatusCode = '2' "
 
             cmd = New OracleCommand(SQL, Conn)
@@ -417,7 +353,7 @@ Public Class MASPRegistrationTool
          "and " & DBNameSpace & ".Res_registration.numRegistrationStatusCode = " & _
          "" & DBNameSpace & ".RESLK_RegistrationStatus.NUMRESLK_REGISTRATIONSTATUSID " & _
          "and " & DBNameSpace & ".Res_Registration.numGECouserID = " & DBNameSpace & ".OLAPUserLogIn.numuserid " & _
-         "and " & DBNameSpace & ".Res_registration.numRes_EventID = '" & txtSelectedEventID.Text & "' "
+         "and " & DBNameSpace & ".Res_registration.numRes_EventID = '" & selectedEventId & "' "
 
             ds = New DataSet
             da = New OracleDataAdapter(SQL, Conn)
@@ -483,7 +419,7 @@ Public Class MASPRegistrationTool
             "strEventStartTime, strEventEndTime, " & _
             "strWebURL " & _
             "From " & DBNameSpace & ".RES_Event " & _
-            "where nuMRes_EventID = '" & txtEventID.Text & "' "
+            "where nuMRes_EventID = '" & selectedEventId & "' "
             cmd = New OracleCommand(SQL, Conn)
             If Conn.State = ConnectionState.Closed Then
                 Conn.Open()
@@ -628,7 +564,7 @@ Public Class MASPRegistrationTool
             "and " & DBNameSpace & ".Res_registration.numRegistrationStatusCode = " & _
             "" & DBNameSpace & ".RESLK_RegistrationStatus.NUMRESLK_REGISTRATIONSTATUSID " & _
             "and " & DBNameSpace & ".Res_Registration.numGECouserID = " & DBNameSpace & ".OLAPUserLogIn.numuserid " & _
-            "and " & DBNameSpace & ".Res_registration.numRes_EventID = '" & txtSelectedEventID.Text & "' "
+            "and " & DBNameSpace & ".Res_registration.numRes_EventID = '" & selectedEventId & "' "
 
             ds = New DataSet
             da = New OracleDataAdapter(SQL, Conn)
@@ -733,7 +669,7 @@ Public Class MASPRegistrationTool
                   MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
             Select Case resultcode
                 Case Windows.Forms.DialogResult.Yes
-                    txtEventID.Text = Insert_RES_Event(cboEventStatus.SelectedValue, txtEventTitle.Text, txtEventDescription.Text, _
+                    Dim newEventId As Decimal = Insert_RES_Event(cboEventStatus.SelectedValue, txtEventTitle.Text, txtEventDescription.Text, _
                                      DTPEventDate.Text, EndDate, txtEventVenue.Text, _
                                      txtEventAddress.Text, txtEventCity.Text, mtbEventState.Text, _
                                      mtbEventZipCode.Text, mtbEventCapacity.Text, txtEventNotes.Text, _
@@ -762,7 +698,7 @@ Public Class MASPRegistrationTool
             If DTPEventEndDate.Checked = True Then
                 EndDate = DTPEventDate.Text
             End If
-            If Update_RES_Event(txtEventID.Text, _
+            If Update_RES_Event(selectedEventId, _
                              cboEventStatus.SelectedValue, txtEventTitle.Text, txtEventDescription.Text, _
                              DTPEventDate.Text, EndDate, txtEventVenue.Text, _
                              txtEventAddress.Text, txtEventCity.Text, mtbEventState.Text, _
@@ -783,7 +719,7 @@ Public Class MASPRegistrationTool
     End Sub
     Private Sub btnDeleteEvent_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDeleteEvent.Click
         Try
-            If Update_RES_Event(txtEventID.Text, _
+            If Update_RES_Event(selectedEventId, _
                                 "", "", "", _
                              "", "", "", _
                              "", "", "", _
@@ -834,36 +770,35 @@ Public Class MASPRegistrationTool
     End Sub
 
     Private Sub btnClearEventManagement_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnClearEventManagement.Click
-        Try
-
-            txtEventID.Clear()
-            txtEventTitle.Clear()
-            txtEventDescription.Clear()
-            DTPEventDate.Text = OracleDate
-            DTPEventEndDate.Text = OracleDate
-            DTPEventEndDate.Checked = False
-            txtEventTime.Clear()
-            chbEventPasscode.Text = ""
-            chbEventPasscode.Checked = False
-            cboEventStatus.Text = ""
-            cboEventContact.Text = ""
-            mtbEventPhoneNumber.Text = ""
-            cboEventWebContact.Text = ""
-            mtbEventWebPhoneNumber.Text = ""
-            txtEventVenue.Clear()
-            txtEventAddress.Clear()
-            txtEventCity.Clear()
-            mtbEventState.Clear()
-            mtbEventZipCode.Clear()
-            mtbEventCapacity.Clear()
-            txtEventNotes.Clear()
-            txtEventEndTime.Clear()
-            txtWebsiteURL.Clear()
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        ClearEventSelection()
     End Sub
+    Private Sub ClearEventSelection()
+        dgvEvents.ClearSelection()
+        ClearEventManagementForm()
+    End Sub
+    Private Sub ClearEventManagementForm()
+        txtEventTitle.Clear()
+        txtEventDescription.Clear()
+        DTPEventDate.Text = OracleDate
+        DTPEventEndDate.Text = OracleDate
+        DTPEventEndDate.Checked = False
+        txtEventTime.Clear()
+        txtEventEndTime.Clear()
+        chbEventPasscode.Text = ""
+        chbEventPasscode.Checked = False
+        cboEventStatus.SelectedIndex = 0
+        cboEventContact.SelectedIndex = 0
+        cboEventWebContact.SelectedIndex = 0
+        txtEventVenue.Clear()
+        txtEventAddress.Clear()
+        txtEventCity.Clear()
+        mtbEventState.Clear()
+        mtbEventZipCode.Clear()
+        mtbEventCapacity.Clear()
+        txtEventNotes.Clear()
+        txtWebsiteURL.Clear()
+    End Sub
+
 #End Region
 #Region "Registration Management"
     Private Sub dgvRegistrationManagement_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvRegistrationManagement.MouseUp
@@ -1507,4 +1442,5 @@ Public Class MASPRegistrationTool
     End Function
 
 #End Region
+
 End Class
