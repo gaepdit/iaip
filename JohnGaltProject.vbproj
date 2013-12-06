@@ -1785,6 +1785,7 @@
     <None Include="gaSeal.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <Compile Include="_Data Classes\Person.vb" />
     <Compile Include="_DB\DAL.Staff.vb" />
     <Compile Include="SSCP\SscpDocuments.Designer.vb">
       <DependentUpon>SscpDocuments.vb</DependentUpon>
