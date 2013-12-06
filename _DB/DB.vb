@@ -17,6 +17,7 @@ Namespace DB
             Using connection As New OracleConnection(CurrentConnString)
                 Using command As New OracleCommand(query, connection)
                     command.CommandType = CommandType.Text
+                    command.BindByName = True
                     command.Parameters.AddRange(parameterArray)
                     Try
                         command.Connection.Open()
@@ -67,6 +68,7 @@ Namespace DB
             Using connection As New OracleConnection(CurrentConnString)
                 Using command As New OracleCommand(query, connection)
                     command.CommandType = CommandType.Text
+                    command.BindByName = True
                     command.Parameters.AddRange(parameterArray)
                     Using adapter As New OracleDataAdapter(command)
                         Try
@@ -75,7 +77,7 @@ Namespace DB
                             command.Connection.Close()
                             Return table
                         Catch ee As OracleException
-                            MessageBox.Show("Database error: " & ee.ToString)
+                            ErrorReport(ee, System.Reflection.MethodBase.GetCurrentMethod.Name)
                             Return Nothing
                         End Try
                     End Using
@@ -95,8 +97,8 @@ Namespace DB
         Public Function GetByteArrayFromBlob(ByVal query As String, ByVal parameterArray As OracleParameter()) As Byte()
             Using connection As New OracleConnection(CurrentConnString)
                 Using command As New OracleCommand(query, connection)
-
                     command.CommandType = CommandType.Text
+                    command.BindByName = True
                     command.Parameters.AddRange(parameterArray)
 
                     Try
@@ -158,6 +160,8 @@ Namespace DB
             Using connection As New OracleConnection(CurrentConnString)
                 Using command As OracleCommand = connection.CreateCommand
                     command.CommandType = CommandType.Text
+                    command.BindByName = True
+
                     Dim transaction As OracleTransaction = Nothing
 
                     Try
