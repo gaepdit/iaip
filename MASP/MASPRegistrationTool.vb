@@ -1,6 +1,7 @@
 ﻿Imports Oracle.DataAccess.Client
 Imports System.Collections.Generic
 Imports JohnGaltProject.DAL.EventRegistration
+Imports JohnGaltProject.Apb.Res
 
 Public Class MASPRegistrationTool
     Dim ds As DataSet
@@ -19,8 +20,7 @@ Public Class MASPRegistrationTool
         monitor.TrackFeature("Forms." & Me.Name)
 
         LoadComboBoxes()
-        LoadEventList()
-        FormatEventsList()
+        LoadEvent()
 
         lblEventTitle.Text = ""
         lblEventDate.Text = ""
@@ -83,7 +83,7 @@ Public Class MASPRegistrationTool
 
     Private Sub LoadEventStatusCombo()
         ' Get list of Event Status types and bind that list to the combobox
-        Dim statuses As Dictionary(Of Integer, String) = GetEventStatusesAsDictionary(True, "Select a status…")
+        Dim statuses As Dictionary(Of Integer, String) = GetResEventStatusesAsDictionary(True, "Select a status…")
         If statuses.Count > 0 Then DB.BindDictionaryToComboBox(statuses, cboEventStatus)
     End Sub
 
@@ -97,14 +97,15 @@ Public Class MASPRegistrationTool
 
 #Region "Events List"
 
-    Private Sub LoadEventList()
+    Private Sub LoadEvent()
         Try
             Dim toDate As Date? = If(rdbEventsFilterPast.Checked, Today, CType(Nothing, Date?))
             Dim fromDate As Date? = If(rdbEventsFilterFuture.Checked, Today, CType(Nothing, Date?))
-
-            Dim events As DataTable = GetEventsAsDataTable(toDate, fromDate)
+            Dim events As DataTable = GetResEventsAsDataTable(toDate, fromDate)
 
             dgvEvents.DataSource = events
+            FormatEventsList()
+
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -146,7 +147,7 @@ Public Class MASPRegistrationTool
 
     Private Sub rdbEventsFilter_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
         RemoveHandler dgvEvents.SelectionChanged, AddressOf dgvEvents_SelectionChanged
-        LoadEventList()
+        LoadEvent()
     End Sub
 
     Private Sub dgvEvents_DataBindingComplete(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewBindingCompleteEventArgs) Handles dgvEvents.DataBindingComplete
@@ -159,10 +160,8 @@ Public Class MASPRegistrationTool
 
     Private Sub dgvEvents_SelectionChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
         Try
-
             If dgvEvents.SelectedCells.Count > 0 Then
                 Dim selectedRow As DataGridViewRow = dgvEvents.Rows(dgvEvents.CurrentCell.RowIndex)
-
                 selectedEventId = selectedRow.Cells("NUMRES_EVENTID").Value
                 lblEventTitle.Text = selectedRow.Cells("STRTITLE").Value
                 lblEventDate.Text = CType(selectedRow.Cells("DATSTARTDATE").Value, Date).ToString(DateFormat)
@@ -191,218 +190,113 @@ Public Class MASPRegistrationTool
         End If
     End Sub
 
-    Sub LoadEventOverview()
+#Region "Event Overview Tab"
+
+    Private Sub LoadEventOverview()
+        LoadEventOverviewDetails()
+        LoadEventOverviewRegistrants()
+    End Sub
+
+    Private Sub LoadEventOverviewDetails()
+        Dim resEvent As ResEvent = GetResEventById(selectedEventId)
+        If resEvent IsNot Nothing Then
+            txtOvEvent.Text = resEvent.Title
+            txtOvDescription.Text = resEvent.Description
+            txtOvEventDateTime.Text = resEvent.StartDate.ToString
+            If resEvent.StartTime IsNot Nothing Then
+                txtOvEventDateTime.Text &= ", " & resEvent.StartTime
+            End If
+            chbOvLoginRequired.Checked = resEvent.LoginRequired
+            txtOvPassCode.Text = resEvent.PassCode
+            txtOvEventStatus.Text = resEvent.EventStatus
+            txtOvEventCapacity.Text = resEvent.Capacity.ToString
+            txtOvVenue.Text = resEvent.Venue & vbCrLf & resEvent.Address.ToString
+            txtOvNotes.Text = resEvent.Notes
+            txtOvWebContact.Text = resEvent.WebContact.ToString
+            txtOvAPBContact.Text = resEvent.Contact.ToString
+        End If
+    End Sub
+
+    Private Sub LoadEventOverviewRegistrants()
         Try
+            Dim registrants As DataTable = GetRegistrantsByEventId(selectedEventId)
 
-            SQL = "Select " & _
-               "numRes_EventID, " & _
-               "strEventStatus, strUserGCode, " & _
-               "strTitle, " & _
-               "" & DBNameSpace & ".Res_Event.strDescription, " & _
-               "datStartDate, datEndDate, " & _
-               "strVenue, " & _
-               "numCapacity, strNotes, " & _
-               "strLoginRequired, strPassCode, " & _
-               "strAddress, strCity, " & _
-               "strState, numZipCode, " & _
-               "numAPBContact, numWebPhoneNumber, " & _
-               "strEventStartTime, strEventEndTime " & _
-               "From " & DBNameSpace & ".RES_Event, " & DBNameSpace & ".RESLK_EVENTStatus " & _
-               "where " & DBNameSpace & ".Res_Event.numEventStatusCode = " & DBNameSpace & ".ResLK_EventStatus.numResLK_EventStatusID " & _
-               "and nuMRes_EventID = '" & selectedEventId & "' "
-
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                If IsDBNull(dr.Item("strTitle")) Then
-                    lblEvent.Text = ""
-                Else
-                    lblEvent.Text = dr.Item("strTitle")
-                End If
-                If IsDBNull(dr.Item("strDescription")) Then
-                    lblDescription.Text = ""
-                Else
-                    lblDescription.Text = dr.Item("strDescription")
-                End If
-                If IsDBNull(dr.Item("datStartDate")) Then
-                    lblEventDateTime.Text = ""
-                Else
-                    lblEventDateTime.Text = dr.Item("datStartDate")
-                End If
-                If IsDBNull(dr.Item("strEventStartTime")) Then
-                Else
-                    lblEventDateTime.Text = lblEventDateTime.Text & " - " & dr.Item("strEventStartTime")
-                End If
-                If IsDBNull(dr.Item("strLogInRequired")) Then
-                    lblLogInRequired.Text = ""
-                Else
-                    If dr.Item("strLogInRequired") = "1" Then
-                        lblLogInRequired.Text = "True"
-                    Else
-                        lblLogInRequired.Text = "False"
-                    End If
-                End If
-                If IsDBNull(dr.Item("strPassCode")) Then
-                    lblPassCode.Text = ""
-                Else
-                    lblPassCode.Text = dr.Item("strPasscode")
-                End If
-                If IsDBNull(dr.Item("strEventStatus")) Then
-                    lblEventStatus.Text = ""
-                Else
-                    lblEventStatus.Text = dr.Item("strEventStatus")
-                End If
-                If IsDBNull(dr.Item("numCapacity")) Then
-                    lblEventCapacity.Text = ""
-                Else
-                    lblEventCapacity.Text = dr.Item("numCapacity")
-                End If
-                If IsDBNull(dr.Item("strVenue")) Then
-                    lblVenue.Text = ""
-                Else
-                    lblVenue.Text = dr.Item("strVenue")
-                End If
-                If IsDBNull(dr.Item("strAddress")) Then
-                    lblVenue.Text = lblVenue.Text
-                Else
-                    lblVenue.Text = lblVenue.Text & vbCrLf & dr.Item("strAddress")
-                End If
-                If IsDBNull(dr.Item("strCity")) Then
-                    lblVenue.Text = lblVenue.Text
-                Else
-                    lblVenue.Text = lblVenue.Text & vbCrLf & dr.Item("strCity")
-                End If
-                If IsDBNull(dr.Item("strState")) Then
-                    lblVenue.Text = lblVenue.Text
-                Else
-                    lblVenue.Text = lblVenue.Text & ", " & dr.Item("strState")
-                End If
-                If IsDBNull(dr.Item("numZipCode")) Then
-                    lblVenue.Text = lblVenue.Text
-                Else
-                    lblVenue.Text = lblVenue.Text & " " & dr.Item("numZipCode")
-                End If
-                If IsDBNull(dr.Item("strNotes")) Then
-                    lblNotes.Text = ""
-                Else
-                    lblNotes.Text = dr.Item("strNotes")
-                End If
-            End While
-            dr.Close()
-
-            SQL = "Select " & _
-            "count(*) as RegNum " & _
-            "from " & DBNameSpace & ".Res_registration " & _
-            "where numRes_EventID = '" & selectedEventId & "' " & _
-            "and numRegistrationStatusCode = '1' "
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                If IsDBNull(dr.Item("RegNum")) Then
-                    lblNumberRegistered.Text = "0"
-                Else
-                    lblNumberRegistered.Text = dr.Item("RegNum")
-                End If
-            End While
-            dr.Close()
-
-            SQL = "Select " & _
-            "count(*) as RegNum " & _
-            "from " & DBNameSpace & ".Res_registration " & _
-            "where numRes_EventID = '" & selectedEventId & "' " & _
-            "and numRegistrationStatusCode = '2' "
-
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                If IsDBNull(dr.Item("RegNum")) Then
-                    lblWaitingList.Text = "0"
-                Else
-                    lblWaitingList.Text = dr.Item("RegNum")
-                End If
-            End While
-            dr.Close()
-
-            SQL = "select " & _
-         "" & DBNameSpace & ".Res_Registration.numRes_registrationID, " & _
-         "" & DBNameSpace & ".Res_Event.strTitle as eventTitle,  " & _
-         "datRegistrationDateTime, " & _
-         " strComments, " & _
-         "STRREGISTRATIONSTATUS,  " & _
-         "  strFirstName, " & _
-         "strLastName, strUserEmail, " & _
-         "  " & _
-         "    " & _
-         "strCompanyName, strPhonenumber  " & _
-         " " & _
-         "  " & _
-         "from " & DBNameSpace & ".Res_Registration, " & DBNameSpace & ".OLAPUSERProfile, " & _
-         "" & DBNameSpace & ".res_event, " & DBNameSpace & ".OLAPUserLogIn,  " & _
-         "" & DBNameSpace & ".RESLK_RegistrationStatus " & _
-         "where " & DBNameSpace & ".Res_Registration.numGECouserID = " & DBNameSpace & ".OlapUserProfile.numUserID " & _
-         "and " & DBNameSpace & ".Res_registration.numRes_eventid = " & DBNameSpace & ".Res_Event.numRes_EventId  " & _
-         "and " & DBNameSpace & ".Res_registration.numRegistrationStatusCode = " & _
-         "" & DBNameSpace & ".RESLK_RegistrationStatus.NUMRESLK_REGISTRATIONSTATUSID " & _
-         "and " & DBNameSpace & ".Res_Registration.numGECouserID = " & DBNameSpace & ".OLAPUserLogIn.numuserid " & _
-         "and " & DBNameSpace & ".Res_registration.numRes_EventID = '" & selectedEventId & "' "
-
-            ds = New DataSet
-            da = New OracleDataAdapter(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
-            End If
-
-            da.Fill(ds, "Registered")
-            dgvOverviewRegistrants.DataSource = ds
-            dgvOverviewRegistrants.DataMember = "Registered"
-
-            dgvOverviewRegistrants.RowHeadersVisible = False
-            dgvRegistrationManagement.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvOverviewRegistrants.AllowUserToResizeColumns = True
-            dgvOverviewRegistrants.AllowUserToAddRows = False
-            dgvOverviewRegistrants.AllowUserToDeleteRows = False
-            dgvOverviewRegistrants.AllowUserToOrderColumns = True
-            dgvOverviewRegistrants.AllowUserToResizeRows = True
-
-
-            dgvOverviewRegistrants.Columns("numRes_registrationID").HeaderText = "ID"
-            dgvOverviewRegistrants.Columns("numRes_registrationID").DisplayIndex = 0
-            dgvOverviewRegistrants.Columns("numRes_registrationID").Width = 40
-            dgvOverviewRegistrants.Columns("numRes_registrationID").Visible = False
-
-            dgvOverviewRegistrants.Columns("EventTitle").HeaderText = "Event Title"
-            dgvOverviewRegistrants.Columns("EventTitle").DisplayIndex = 1
-            dgvOverviewRegistrants.Columns("EventTitle").Visible = False
-            dgvOverviewRegistrants.Columns("datRegistrationDateTime").HeaderText = "Reg. Date"
-            dgvOverviewRegistrants.Columns("datRegistrationDateTime").DisplayIndex = 2
-            dgvOverviewRegistrants.Columns("strFirstName").HeaderText = "First Name"
-            dgvOverviewRegistrants.Columns("strFirstName").DisplayIndex = 3
-            dgvOverviewRegistrants.Columns("strLastName").HeaderText = "Last Name"
-            dgvOverviewRegistrants.Columns("strLastName").DisplayIndex = 4
-            dgvOverviewRegistrants.Columns("strComments").HeaderText = "Comments"
-            dgvOverviewRegistrants.Columns("strComments").DisplayIndex = 5
-            dgvOverviewRegistrants.Columns("STRREGISTRATIONSTATUS").HeaderText = "Registration Status"
-            dgvOverviewRegistrants.Columns("STRREGISTRATIONSTATUS").DisplayIndex = 6
-            dgvOverviewRegistrants.Columns("strUserEmail").HeaderText = "User Email"
-            dgvOverviewRegistrants.Columns("strUserEmail").DisplayIndex = 7
-            dgvOverviewRegistrants.Columns("strPhonenumber").HeaderText = "Phone #"
-            dgvOverviewRegistrants.Columns("strPhonenumber").DisplayIndex = 8
-            dgvOverviewRegistrants.Columns("strCompanyName").HeaderText = "Company Name"
-            dgvOverviewRegistrants.Columns("strCompanyName").DisplayIndex = 9
+            dgvOverviewRegistrants.DataSource = registrants
+            FormatEventOverviewRegistrants()
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
+    Private Sub FormatEventOverviewRegistrants()
+        With dgvOverviewRegistrants
+            .AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
+
+            .Columns("NUMRES_REGISTRATIONID").Visible = False
+            With .Columns("DATREGISTRATIONDATETIME")
+                .HeaderText = "Registration Date"
+                .DisplayIndex = 0
+            End With
+            With .Columns("STRFIRSTNAME")
+                .HeaderText = "First Name"
+                .DisplayIndex = 1
+            End With
+            With .Columns("STRLASTNAME")
+                .HeaderText = "Last Name"
+                .DisplayIndex = 2
+            End With
+            With .Columns("STRCOMMENTS")
+                .HeaderText = "Comments"
+                .DisplayIndex = 3
+            End With
+            With .Columns("STRREGISTRATIONSTATUS")
+                .HeaderText = "Registration Status"
+                .DisplayIndex = 4
+            End With
+            With .Columns("STRUSEREMAIL")
+                .HeaderText = "Email"
+                .DisplayIndex = 5
+            End With
+            With .Columns("STRPHONENUMBER")
+                .HeaderText = "Phone"
+                .DisplayIndex = 6
+            End With
+            With .Columns("STRCOMPANYNAME")
+                .HeaderText = "Company Name"
+                .DisplayIndex = 7
+            End With
+            .Columns("NUMREGISTRATIONSTATUSCODE").Visible = False
+
+        End With
+
+        Dim numRegistered As Integer = 0
+        Dim numWaiting As Integer = 0
+        Dim numCancelled As Integer = 0
+        For Each row As DataGridViewRow In dgvOverviewRegistrants.Rows
+            If row.Cells("NUMREGISTRATIONSTATUSCODE").Value = 1 Then numRegistered += 1
+            If row.Cells("NUMREGISTRATIONSTATUSCODE").Value = 2 Then numWaiting += 1
+            If row.Cells("NUMREGISTRATIONSTATUSCODE").Value = 3 Then numCancelled += 1
+        Next
+        txtOvNumberRegistered.Text = numRegistered.ToString
+        txtOvCancelled.Text = numCancelled.ToString
+        txtOvWaitingList.Text = numWaiting.ToString
+    End Sub
+
+    Private Sub dgvOverviewRegistrants_DataBindingComplete(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewBindingCompleteEventArgs) Handles dgvOverviewRegistrants.DataBindingComplete
+        With dgvOverviewRegistrants
+            .SanelyResizeColumns()
+            .ClearSelection()
+        End With
+    End Sub
+
+#End Region
+
+#Region "Event Management Tab"
+
+
+#End Region
+
     Sub LoadEventManagement()
         Try
             SQL = "Select " & _
@@ -647,6 +541,7 @@ Public Class MASPRegistrationTool
         End Try
     End Sub
 #End Region
+
 #Region "Events Management"
     Private Sub btnSaveNewEvent_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSaveNewEvent.Click
         Try
@@ -676,7 +571,7 @@ Public Class MASPRegistrationTool
                                      cboEventContact.SelectedValue, cboEventWebContact.SelectedValue, mtbEventWebPhoneNumber.Text, _
                                      chbGECOlogInRequired.CheckState, chbEventPasscode.CheckState, chbEventPasscode.Text, "1", txtEventTime.Text, _
                                      txtEventEndTime.Text, txtWebsiteURL.Text)
-                    LoadEventList()
+                    LoadEvent()
 
                     MsgBox("Data Saved/Updated", MsgBoxStyle.Information, Me.Text)
                 Case Else
@@ -706,7 +601,7 @@ Public Class MASPRegistrationTool
                              cboEventContact.SelectedValue, cboEventWebContact.SelectedValue, mtbEventWebPhoneNumber.Text, _
                              chbGECOlogInRequired.CheckState, chbEventPasscode.CheckState, chbEventPasscode.Text, "1", txtEventTime.Text, _
                              txtEventEndTime.Text, txtWebsiteURL.Text) = True Then
-                LoadEventList()
+                LoadEvent()
 
                 MsgBox("Data Saved/Updated", MsgBoxStyle.Information, Me.Text)
             Else
@@ -923,16 +818,10 @@ Public Class MASPRegistrationTool
 #End Region
 
 
-
     Private Sub cboEventWebContact_Leave(ByVal sender As Object, ByVal e As System.EventArgs) Handles cboEventWebContact.Leave
-        Try
-
-            If cboEventWebContact.Items.Contains(cboEventWebContact.Text) = False Then
-                cboEventWebContact.Text = ""
-            End If
-        Catch ex As Exception
-
-        End Try
+        If cboEventWebContact.Items.Contains(cboEventWebContact.Text) = False Then
+            cboEventWebContact.SelectedIndex = 0
+        End If
     End Sub
 
     Private Sub btnModifyRegistration_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnModifyRegistration.Click
@@ -995,47 +884,10 @@ Public Class MASPRegistrationTool
     End Sub
 
 
-    Private Sub btnExportToExcel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnExportToExcel.Click
-        Try
-            'Dim ExcelApp As New Excel.Application
-            Dim ExcelApp As New Microsoft.Office.Interop.Excel.Application
-            ' Dim ExcelDoc As Microsoft.Office.Interop.Excel.Workbook
-            Dim i, j As Integer
-
-            If ExcelApp.Visible = False Then
-                ExcelApp.Visible = True
-            End If
-
-            If dgvOverviewRegistrants.RowCount <> 0 Then
-                With ExcelApp
-                    .SheetsInNewWorkbook = 1
-                    .Workbooks.Add()
-                    .Worksheets(1).Select()
-
-                    'For displaying the column name in the the excel file.
-                    For i = 0 To dgvOverviewRegistrants.ColumnCount - 1
-                        .Cells(1, i + 1) = dgvOverviewRegistrants.Columns(i).HeaderText.ToString
-                    Next
-
-                    For i = 0 To dgvOverviewRegistrants.ColumnCount - 1
-                        For j = 0 To dgvOverviewRegistrants.RowCount - 1
-                            .Cells(j + 2, i + 1).numberformat = "@"
-                            .Cells(j + 2, i + 1).value = dgvOverviewRegistrants.Item(i, j).Value.ToString
-                        Next
-                    Next
-                End With
-                If ExcelApp.Visible = False Then
-                    ExcelApp.Visible = True
-                End If
-            End If
-
-        Catch ex As Exception
-            If ex.ToString.Contains("RPC_E_CALL_REJECTED") Then
-                MsgBox("Error in exporting data." & vbCrLf & "Please run the export again.", MsgBoxStyle.Exclamation, Me.Text)
-            Else
-                ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-            End If
-        End Try
+    Private Sub btnExportRegistrantsToExcel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnExportRegistrantsToExcel.Click
+        If dgvOverviewRegistrants.RowCount > 0 Then
+            dgvOverviewRegistrants.ExportToExcel()
+        End If
     End Sub
 
     Private Sub btnEmailAll_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEmailAll.Click

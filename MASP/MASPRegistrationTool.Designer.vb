@@ -72,21 +72,20 @@ Partial Class MASPRegistrationTool
         Me.tabEventOverview = New System.Windows.Forms.TabPage
         Me.dgvOverviewRegistrants = New System.Windows.Forms.DataGridView
         Me.Panel9 = New System.Windows.Forms.Panel
-        Me.lblNotes = New System.Windows.Forms.TextBox
-        Me.lblVenue = New System.Windows.Forms.TextBox
-        Me.lblAPBContact = New System.Windows.Forms.TextBox
-        Me.lblEventContact = New System.Windows.Forms.TextBox
-        Me.lblWaitingList = New System.Windows.Forms.TextBox
-        Me.lblEventCapacity = New System.Windows.Forms.TextBox
-        Me.lblNumberRegistered = New System.Windows.Forms.TextBox
-        Me.lblEventStatus = New System.Windows.Forms.TextBox
-        Me.lblPassCode = New System.Windows.Forms.TextBox
-        Me.lblLogInRequired = New System.Windows.Forms.TextBox
-        Me.lblEventDateTime = New System.Windows.Forms.TextBox
-        Me.lblEvent = New System.Windows.Forms.TextBox
-        Me.lblDescription = New System.Windows.Forms.TextBox
+        Me.chbOvLoginRequired = New System.Windows.Forms.CheckBox
+        Me.txtOvNotes = New System.Windows.Forms.TextBox
+        Me.txtOvVenue = New System.Windows.Forms.TextBox
+        Me.txtOvAPBContact = New System.Windows.Forms.TextBox
+        Me.txtOvWebContact = New System.Windows.Forms.TextBox
+        Me.txtOvWaitingList = New System.Windows.Forms.TextBox
+        Me.txtOvEventCapacity = New System.Windows.Forms.TextBox
+        Me.txtOvNumberRegistered = New System.Windows.Forms.TextBox
+        Me.txtOvEventStatus = New System.Windows.Forms.TextBox
+        Me.txtOvPassCode = New System.Windows.Forms.TextBox
+        Me.txtOvEventDateTime = New System.Windows.Forms.TextBox
+        Me.txtOvEvent = New System.Windows.Forms.TextBox
+        Me.txtOvDescription = New System.Windows.Forms.TextBox
         Me.txtEmails = New System.Windows.Forms.TextBox
-        Me.Label41 = New System.Windows.Forms.Label
         Me.Label34 = New System.Windows.Forms.Label
         Me.Label35 = New System.Windows.Forms.Label
         Me.btnEmailWaitList = New System.Windows.Forms.Button
@@ -95,7 +94,7 @@ Partial Class MASPRegistrationTool
         Me.Label37 = New System.Windows.Forms.Label
         Me.btnEmailAll = New System.Windows.Forms.Button
         Me.Label38 = New System.Windows.Forms.Label
-        Me.btnExportToExcel = New System.Windows.Forms.Button
+        Me.btnExportRegistrantsToExcel = New System.Windows.Forms.Button
         Me.Label39 = New System.Windows.Forms.Label
         Me.Label40 = New System.Windows.Forms.Label
         Me.Label42 = New System.Windows.Forms.Label
@@ -152,6 +151,8 @@ Partial Class MASPRegistrationTool
         Me.btnViewDetails = New System.Windows.Forms.Button
         Me.lblEventTitle = New System.Windows.Forms.Label
         Me.lblEventDate = New System.Windows.Forms.Label
+        Me.lblCancelled = New System.Windows.Forms.Label
+        Me.txtOvCancelled = New System.Windows.Forms.TextBox
         Me.Panel4.SuspendLayout()
         Me.tabsEventDetails.SuspendLayout()
         Me.tabEventOverview.SuspendLayout()
@@ -655,39 +656,44 @@ Partial Class MASPRegistrationTool
         '
         'dgvOverviewRegistrants
         '
+        Me.dgvOverviewRegistrants.AllowUserToAddRows = False
+        Me.dgvOverviewRegistrants.AllowUserToDeleteRows = False
         Me.dgvOverviewRegistrants.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvOverviewRegistrants.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvOverviewRegistrants.Location = New System.Drawing.Point(0, 168)
         Me.dgvOverviewRegistrants.Name = "dgvOverviewRegistrants"
+        Me.dgvOverviewRegistrants.ReadOnly = True
+        Me.dgvOverviewRegistrants.RowHeadersVisible = False
         Me.dgvOverviewRegistrants.Size = New System.Drawing.Size(784, 218)
         Me.dgvOverviewRegistrants.TabIndex = 421
         '
         'Panel9
         '
-        Me.Panel9.Controls.Add(Me.lblNotes)
-        Me.Panel9.Controls.Add(Me.lblVenue)
-        Me.Panel9.Controls.Add(Me.lblAPBContact)
-        Me.Panel9.Controls.Add(Me.lblEventContact)
-        Me.Panel9.Controls.Add(Me.lblWaitingList)
-        Me.Panel9.Controls.Add(Me.lblEventCapacity)
-        Me.Panel9.Controls.Add(Me.lblNumberRegistered)
-        Me.Panel9.Controls.Add(Me.lblEventStatus)
-        Me.Panel9.Controls.Add(Me.lblPassCode)
-        Me.Panel9.Controls.Add(Me.lblLogInRequired)
-        Me.Panel9.Controls.Add(Me.lblEventDateTime)
-        Me.Panel9.Controls.Add(Me.lblEvent)
-        Me.Panel9.Controls.Add(Me.lblDescription)
+        Me.Panel9.Controls.Add(Me.chbOvLoginRequired)
+        Me.Panel9.Controls.Add(Me.txtOvNotes)
+        Me.Panel9.Controls.Add(Me.txtOvVenue)
+        Me.Panel9.Controls.Add(Me.txtOvAPBContact)
+        Me.Panel9.Controls.Add(Me.txtOvWebContact)
+        Me.Panel9.Controls.Add(Me.txtOvCancelled)
+        Me.Panel9.Controls.Add(Me.txtOvWaitingList)
+        Me.Panel9.Controls.Add(Me.txtOvEventCapacity)
+        Me.Panel9.Controls.Add(Me.txtOvNumberRegistered)
+        Me.Panel9.Controls.Add(Me.txtOvEventStatus)
+        Me.Panel9.Controls.Add(Me.txtOvPassCode)
+        Me.Panel9.Controls.Add(Me.txtOvEventDateTime)
+        Me.Panel9.Controls.Add(Me.txtOvEvent)
+        Me.Panel9.Controls.Add(Me.txtOvDescription)
         Me.Panel9.Controls.Add(Me.txtEmails)
-        Me.Panel9.Controls.Add(Me.Label41)
         Me.Panel9.Controls.Add(Me.Label34)
         Me.Panel9.Controls.Add(Me.Label35)
         Me.Panel9.Controls.Add(Me.btnEmailWaitList)
+        Me.Panel9.Controls.Add(Me.lblCancelled)
         Me.Panel9.Controls.Add(Me.Label36)
         Me.Panel9.Controls.Add(Me.btnEmailRegistrants)
         Me.Panel9.Controls.Add(Me.Label37)
         Me.Panel9.Controls.Add(Me.btnEmailAll)
         Me.Panel9.Controls.Add(Me.Label38)
-        Me.Panel9.Controls.Add(Me.btnExportToExcel)
+        Me.Panel9.Controls.Add(Me.btnExportRegistrantsToExcel)
         Me.Panel9.Controls.Add(Me.Label39)
         Me.Panel9.Controls.Add(Me.Label40)
         Me.Panel9.Controls.Add(Me.Label42)
@@ -701,148 +707,141 @@ Partial Class MASPRegistrationTool
         Me.Panel9.Size = New System.Drawing.Size(784, 168)
         Me.Panel9.TabIndex = 422
         '
-        'lblNotes
+        'chbOvLoginRequired
         '
-        Me.lblNotes.Location = New System.Drawing.Point(464, 90)
-        Me.lblNotes.Multiline = True
-        Me.lblNotes.Name = "lblNotes"
-        Me.lblNotes.ReadOnly = True
-        Me.lblNotes.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.lblNotes.Size = New System.Drawing.Size(303, 41)
-        Me.lblNotes.TabIndex = 436
+        Me.chbOvLoginRequired.AutoCheck = False
+        Me.chbOvLoginRequired.AutoSize = True
+        Me.chbOvLoginRequired.Location = New System.Drawing.Point(11, 82)
+        Me.chbOvLoginRequired.Name = "chbOvLoginRequired"
+        Me.chbOvLoginRequired.Size = New System.Drawing.Size(98, 17)
+        Me.chbOvLoginRequired.TabIndex = 437
+        Me.chbOvLoginRequired.Text = "Login Required"
+        Me.chbOvLoginRequired.UseVisualStyleBackColor = True
         '
-        'lblVenue
+        'txtOvNotes
         '
-        Me.lblVenue.Location = New System.Drawing.Point(464, 43)
-        Me.lblVenue.Multiline = True
-        Me.lblVenue.Name = "lblVenue"
-        Me.lblVenue.ReadOnly = True
-        Me.lblVenue.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.lblVenue.Size = New System.Drawing.Size(303, 46)
-        Me.lblVenue.TabIndex = 435
+        Me.txtOvNotes.Location = New System.Drawing.Point(464, 90)
+        Me.txtOvNotes.Multiline = True
+        Me.txtOvNotes.Name = "txtOvNotes"
+        Me.txtOvNotes.ReadOnly = True
+        Me.txtOvNotes.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
+        Me.txtOvNotes.Size = New System.Drawing.Size(303, 41)
+        Me.txtOvNotes.TabIndex = 436
         '
-        'lblAPBContact
+        'txtOvVenue
         '
-        Me.lblAPBContact.Location = New System.Drawing.Point(494, 23)
-        Me.lblAPBContact.Multiline = True
-        Me.lblAPBContact.Name = "lblAPBContact"
-        Me.lblAPBContact.ReadOnly = True
-        Me.lblAPBContact.Size = New System.Drawing.Size(273, 20)
-        Me.lblAPBContact.TabIndex = 434
+        Me.txtOvVenue.Location = New System.Drawing.Point(464, 43)
+        Me.txtOvVenue.Multiline = True
+        Me.txtOvVenue.Name = "txtOvVenue"
+        Me.txtOvVenue.ReadOnly = True
+        Me.txtOvVenue.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
+        Me.txtOvVenue.Size = New System.Drawing.Size(303, 63)
+        Me.txtOvVenue.TabIndex = 435
         '
-        'lblEventContact
+        'txtOvAPBContact
         '
-        Me.lblEventContact.Location = New System.Drawing.Point(494, 3)
-        Me.lblEventContact.Multiline = True
-        Me.lblEventContact.Name = "lblEventContact"
-        Me.lblEventContact.ReadOnly = True
-        Me.lblEventContact.Size = New System.Drawing.Size(273, 20)
-        Me.lblEventContact.TabIndex = 433
+        Me.txtOvAPBContact.Location = New System.Drawing.Point(508, 23)
+        Me.txtOvAPBContact.Multiline = True
+        Me.txtOvAPBContact.Name = "txtOvAPBContact"
+        Me.txtOvAPBContact.ReadOnly = True
+        Me.txtOvAPBContact.Size = New System.Drawing.Size(259, 20)
+        Me.txtOvAPBContact.TabIndex = 434
         '
-        'lblWaitingList
+        'txtOvWebContact
         '
-        Me.lblWaitingList.Location = New System.Drawing.Point(260, 140)
-        Me.lblWaitingList.Multiline = True
-        Me.lblWaitingList.Name = "lblWaitingList"
-        Me.lblWaitingList.ReadOnly = True
-        Me.lblWaitingList.Size = New System.Drawing.Size(43, 20)
-        Me.lblWaitingList.TabIndex = 432
+        Me.txtOvWebContact.Location = New System.Drawing.Point(508, 3)
+        Me.txtOvWebContact.Multiline = True
+        Me.txtOvWebContact.Name = "txtOvWebContact"
+        Me.txtOvWebContact.ReadOnly = True
+        Me.txtOvWebContact.Size = New System.Drawing.Size(259, 20)
+        Me.txtOvWebContact.TabIndex = 433
         '
-        'lblEventCapacity
+        'txtOvWaitingList
         '
-        Me.lblEventCapacity.Location = New System.Drawing.Point(148, 140)
-        Me.lblEventCapacity.Multiline = True
-        Me.lblEventCapacity.Name = "lblEventCapacity"
-        Me.lblEventCapacity.ReadOnly = True
-        Me.lblEventCapacity.Size = New System.Drawing.Size(43, 20)
-        Me.lblEventCapacity.TabIndex = 431
+        Me.txtOvWaitingList.Location = New System.Drawing.Point(250, 140)
+        Me.txtOvWaitingList.Multiline = True
+        Me.txtOvWaitingList.Name = "txtOvWaitingList"
+        Me.txtOvWaitingList.ReadOnly = True
+        Me.txtOvWaitingList.Size = New System.Drawing.Size(37, 20)
+        Me.txtOvWaitingList.TabIndex = 432
         '
-        'lblNumberRegistered
+        'txtOvEventCapacity
         '
-        Me.lblNumberRegistered.Location = New System.Drawing.Point(77, 140)
-        Me.lblNumberRegistered.Multiline = True
-        Me.lblNumberRegistered.Name = "lblNumberRegistered"
-        Me.lblNumberRegistered.ReadOnly = True
-        Me.lblNumberRegistered.Size = New System.Drawing.Size(43, 20)
-        Me.lblNumberRegistered.TabIndex = 430
+        Me.txtOvEventCapacity.Location = New System.Drawing.Point(130, 140)
+        Me.txtOvEventCapacity.Multiline = True
+        Me.txtOvEventCapacity.Name = "txtOvEventCapacity"
+        Me.txtOvEventCapacity.ReadOnly = True
+        Me.txtOvEventCapacity.Size = New System.Drawing.Size(43, 20)
+        Me.txtOvEventCapacity.TabIndex = 431
         '
-        'lblEventStatus
+        'txtOvNumberRegistered
         '
-        Me.lblEventStatus.Location = New System.Drawing.Point(100, 114)
-        Me.lblEventStatus.Multiline = True
-        Me.lblEventStatus.Name = "lblEventStatus"
-        Me.lblEventStatus.ReadOnly = True
-        Me.lblEventStatus.Size = New System.Drawing.Size(140, 20)
-        Me.lblEventStatus.TabIndex = 429
+        Me.txtOvNumberRegistered.Location = New System.Drawing.Point(75, 140)
+        Me.txtOvNumberRegistered.Multiline = True
+        Me.txtOvNumberRegistered.Name = "txtOvNumberRegistered"
+        Me.txtOvNumberRegistered.ReadOnly = True
+        Me.txtOvNumberRegistered.Size = New System.Drawing.Size(43, 20)
+        Me.txtOvNumberRegistered.TabIndex = 430
         '
-        'lblPassCode
+        'txtOvEventStatus
         '
-        Me.lblPassCode.Location = New System.Drawing.Point(100, 94)
-        Me.lblPassCode.Multiline = True
-        Me.lblPassCode.Name = "lblPassCode"
-        Me.lblPassCode.ReadOnly = True
-        Me.lblPassCode.Size = New System.Drawing.Size(140, 20)
-        Me.lblPassCode.TabIndex = 428
+        Me.txtOvEventStatus.Location = New System.Drawing.Point(85, 106)
+        Me.txtOvEventStatus.Multiline = True
+        Me.txtOvEventStatus.Name = "txtOvEventStatus"
+        Me.txtOvEventStatus.ReadOnly = True
+        Me.txtOvEventStatus.Size = New System.Drawing.Size(140, 20)
+        Me.txtOvEventStatus.TabIndex = 429
         '
-        'lblLogInRequired
+        'txtOvPassCode
         '
-        Me.lblLogInRequired.Location = New System.Drawing.Point(100, 75)
-        Me.lblLogInRequired.Multiline = True
-        Me.lblLogInRequired.Name = "lblLogInRequired"
-        Me.lblLogInRequired.ReadOnly = True
-        Me.lblLogInRequired.Size = New System.Drawing.Size(140, 20)
-        Me.lblLogInRequired.TabIndex = 427
+        Me.txtOvPassCode.Location = New System.Drawing.Point(193, 80)
+        Me.txtOvPassCode.Multiline = True
+        Me.txtOvPassCode.Name = "txtOvPassCode"
+        Me.txtOvPassCode.ReadOnly = True
+        Me.txtOvPassCode.Size = New System.Drawing.Size(140, 20)
+        Me.txtOvPassCode.TabIndex = 428
         '
-        'lblEventDateTime
+        'txtOvEventDateTime
         '
-        Me.lblEventDateTime.Location = New System.Drawing.Point(100, 56)
-        Me.lblEventDateTime.Multiline = True
-        Me.lblEventDateTime.Name = "lblEventDateTime"
-        Me.lblEventDateTime.ReadOnly = True
-        Me.lblEventDateTime.Size = New System.Drawing.Size(287, 20)
-        Me.lblEventDateTime.TabIndex = 426
+        Me.txtOvEventDateTime.Location = New System.Drawing.Point(106, 56)
+        Me.txtOvEventDateTime.Multiline = True
+        Me.txtOvEventDateTime.Name = "txtOvEventDateTime"
+        Me.txtOvEventDateTime.ReadOnly = True
+        Me.txtOvEventDateTime.Size = New System.Drawing.Size(281, 20)
+        Me.txtOvEventDateTime.TabIndex = 426
         '
-        'lblEvent
+        'txtOvEvent
         '
-        Me.lblEvent.Location = New System.Drawing.Point(52, 3)
-        Me.lblEvent.Multiline = True
-        Me.lblEvent.Name = "lblEvent"
-        Me.lblEvent.ReadOnly = True
-        Me.lblEvent.Size = New System.Drawing.Size(335, 20)
-        Me.lblEvent.TabIndex = 425
+        Me.txtOvEvent.Location = New System.Drawing.Point(77, 3)
+        Me.txtOvEvent.Multiline = True
+        Me.txtOvEvent.Name = "txtOvEvent"
+        Me.txtOvEvent.ReadOnly = True
+        Me.txtOvEvent.Size = New System.Drawing.Size(310, 20)
+        Me.txtOvEvent.TabIndex = 425
         '
-        'lblDescription
+        'txtOvDescription
         '
-        Me.lblDescription.Location = New System.Drawing.Point(71, 23)
-        Me.lblDescription.Multiline = True
-        Me.lblDescription.Name = "lblDescription"
-        Me.lblDescription.ReadOnly = True
-        Me.lblDescription.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.lblDescription.Size = New System.Drawing.Size(316, 33)
-        Me.lblDescription.TabIndex = 424
+        Me.txtOvDescription.Location = New System.Drawing.Point(77, 23)
+        Me.txtOvDescription.Multiline = True
+        Me.txtOvDescription.Name = "txtOvDescription"
+        Me.txtOvDescription.ReadOnly = True
+        Me.txtOvDescription.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
+        Me.txtOvDescription.Size = New System.Drawing.Size(310, 33)
+        Me.txtOvDescription.TabIndex = 424
         '
         'txtEmails
         '
-        Me.txtEmails.Location = New System.Drawing.Point(473, 142)
+        Me.txtEmails.Location = New System.Drawing.Point(371, 106)
         Me.txtEmails.Multiline = True
         Me.txtEmails.Name = "txtEmails"
-        Me.txtEmails.Size = New System.Drawing.Size(16, 11)
+        Me.txtEmails.Size = New System.Drawing.Size(38, 20)
         Me.txtEmails.TabIndex = 423
         Me.txtEmails.Visible = False
-        '
-        'Label41
-        '
-        Me.Label41.AutoSize = True
-        Me.Label41.Location = New System.Drawing.Point(8, 79)
-        Me.Label41.Name = "Label41"
-        Me.Label41.Size = New System.Drawing.Size(86, 13)
-        Me.Label41.TabIndex = 421
-        Me.Label41.Text = "Log In Required:"
         '
         'Label34
         '
         Me.Label34.AutoSize = True
-        Me.Label34.Location = New System.Drawing.Point(8, 7)
+        Me.Label34.Location = New System.Drawing.Point(8, 6)
         Me.Label34.Name = "Label34"
         Me.Label34.Size = New System.Drawing.Size(38, 13)
         Me.Label34.TabIndex = 4
@@ -853,15 +852,15 @@ Partial Class MASPRegistrationTool
         Me.Label35.AutoSize = True
         Me.Label35.Location = New System.Drawing.Point(417, 7)
         Me.Label35.Name = "Label35"
-        Me.Label35.Size = New System.Drawing.Size(78, 13)
+        Me.Label35.Size = New System.Drawing.Size(73, 13)
         Me.Label35.TabIndex = 5
-        Me.Label35.Text = "Event Contact:"
+        Me.Label35.Text = "Web Contact:"
         '
         'btnEmailWaitList
         '
         Me.btnEmailWaitList.AutoSize = True
         Me.btnEmailWaitList.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnEmailWaitList.Location = New System.Drawing.Point(687, 140)
+        Me.btnEmailWaitList.Location = New System.Drawing.Point(678, 138)
         Me.btnEmailWaitList.Name = "btnEmailWaitList"
         Me.btnEmailWaitList.Size = New System.Drawing.Size(89, 23)
         Me.btnEmailWaitList.TabIndex = 420
@@ -871,7 +870,7 @@ Partial Class MASPRegistrationTool
         'Label36
         '
         Me.Label36.AutoSize = True
-        Me.Label36.Location = New System.Drawing.Point(195, 147)
+        Me.Label36.Location = New System.Drawing.Point(179, 143)
         Me.Label36.Name = "Label36"
         Me.Label36.Size = New System.Drawing.Size(65, 13)
         Me.Label36.TabIndex = 6
@@ -881,7 +880,7 @@ Partial Class MASPRegistrationTool
         '
         Me.btnEmailRegistrants.AutoSize = True
         Me.btnEmailRegistrants.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnEmailRegistrants.Location = New System.Drawing.Point(580, 140)
+        Me.btnEmailRegistrants.Location = New System.Drawing.Point(571, 138)
         Me.btnEmailRegistrants.Name = "btnEmailRegistrants"
         Me.btnEmailRegistrants.Size = New System.Drawing.Size(101, 23)
         Me.btnEmailRegistrants.TabIndex = 419
@@ -891,7 +890,7 @@ Partial Class MASPRegistrationTool
         'Label37
         '
         Me.Label37.AutoSize = True
-        Me.Label37.Location = New System.Drawing.Point(8, 118)
+        Me.Label37.Location = New System.Drawing.Point(8, 109)
         Me.Label37.Name = "Label37"
         Me.Label37.Size = New System.Drawing.Size(71, 13)
         Me.Label37.TabIndex = 7
@@ -901,7 +900,7 @@ Partial Class MASPRegistrationTool
         '
         Me.btnEmailAll.AutoSize = True
         Me.btnEmailAll.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnEmailAll.Location = New System.Drawing.Point(515, 140)
+        Me.btnEmailAll.Location = New System.Drawing.Point(506, 138)
         Me.btnEmailAll.Name = "btnEmailAll"
         Me.btnEmailAll.Size = New System.Drawing.Size(59, 23)
         Me.btnEmailAll.TabIndex = 418
@@ -911,27 +910,27 @@ Partial Class MASPRegistrationTool
         'Label38
         '
         Me.Label38.AutoSize = True
-        Me.Label38.Location = New System.Drawing.Point(129, 147)
+        Me.Label38.Location = New System.Drawing.Point(116, 143)
         Me.Label38.Name = "Label38"
         Me.Label38.Size = New System.Drawing.Size(16, 13)
         Me.Label38.TabIndex = 8
         Me.Label38.Text = "of"
         '
-        'btnExportToExcel
+        'btnExportRegistrantsToExcel
         '
-        Me.btnExportToExcel.AutoSize = True
-        Me.btnExportToExcel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnExportToExcel.Location = New System.Drawing.Point(420, 140)
-        Me.btnExportToExcel.Name = "btnExportToExcel"
-        Me.btnExportToExcel.Size = New System.Drawing.Size(47, 23)
-        Me.btnExportToExcel.TabIndex = 417
-        Me.btnExportToExcel.Text = "Export"
-        Me.btnExportToExcel.UseVisualStyleBackColor = True
+        Me.btnExportRegistrantsToExcel.AutoSize = True
+        Me.btnExportRegistrantsToExcel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.btnExportRegistrantsToExcel.Location = New System.Drawing.Point(412, 139)
+        Me.btnExportRegistrantsToExcel.Name = "btnExportRegistrantsToExcel"
+        Me.btnExportRegistrantsToExcel.Size = New System.Drawing.Size(88, 23)
+        Me.btnExportRegistrantsToExcel.TabIndex = 417
+        Me.btnExportRegistrantsToExcel.Text = "Export to Excel"
+        Me.btnExportRegistrantsToExcel.UseVisualStyleBackColor = True
         '
         'Label39
         '
         Me.Label39.AutoSize = True
-        Me.Label39.Location = New System.Drawing.Point(8, 98)
+        Me.Label39.Location = New System.Drawing.Point(129, 83)
         Me.Label39.Name = "Label39"
         Me.Label39.Size = New System.Drawing.Size(58, 13)
         Me.Label39.TabIndex = 9
@@ -940,11 +939,11 @@ Partial Class MASPRegistrationTool
         'Label40
         '
         Me.Label40.AutoSize = True
-        Me.Label40.Location = New System.Drawing.Point(8, 147)
+        Me.Label40.Location = New System.Drawing.Point(8, 143)
         Me.Label40.Name = "Label40"
-        Me.Label40.Size = New System.Drawing.Size(66, 13)
+        Me.Label40.Size = New System.Drawing.Size(61, 13)
         Me.Label40.TabIndex = 10
-        Me.Label40.Text = "Registration:"
+        Me.Label40.Text = "Registered:"
         '
         'Label42
         '
@@ -958,7 +957,7 @@ Partial Class MASPRegistrationTool
         'Label43
         '
         Me.Label43.AutoSize = True
-        Me.Label43.Location = New System.Drawing.Point(8, 27)
+        Me.Label43.Location = New System.Drawing.Point(8, 26)
         Me.Label43.Name = "Label43"
         Me.Label43.Size = New System.Drawing.Size(63, 13)
         Me.Label43.TabIndex = 13
@@ -987,9 +986,9 @@ Partial Class MASPRegistrationTool
         Me.Label46.AutoSize = True
         Me.Label46.Location = New System.Drawing.Point(417, 27)
         Me.Label46.Name = "Label46"
-        Me.Label46.Size = New System.Drawing.Size(71, 13)
+        Me.Label46.Size = New System.Drawing.Size(85, 13)
         Me.Label46.TabIndex = 17
-        Me.Label46.Text = "APB Contact:"
+        Me.Label46.Text = "Internal Contact:"
         '
         'tabEventManagement
         '
@@ -1494,6 +1493,24 @@ Partial Class MASPRegistrationTool
         Me.lblEventDate.TabIndex = 5
         Me.lblEventDate.Text = "Event Date"
         '
+        'lblCancelled
+        '
+        Me.lblCancelled.AutoSize = True
+        Me.lblCancelled.Location = New System.Drawing.Point(293, 143)
+        Me.lblCancelled.Name = "lblCancelled"
+        Me.lblCancelled.Size = New System.Drawing.Size(57, 13)
+        Me.lblCancelled.TabIndex = 6
+        Me.lblCancelled.Text = "Cancelled:"
+        '
+        'txtOvCancelled
+        '
+        Me.txtOvCancelled.Location = New System.Drawing.Point(356, 140)
+        Me.txtOvCancelled.Multiline = True
+        Me.txtOvCancelled.Name = "txtOvCancelled"
+        Me.txtOvCancelled.ReadOnly = True
+        Me.txtOvCancelled.Size = New System.Drawing.Size(37, 20)
+        Me.txtOvCancelled.TabIndex = 432
+        '
         'MASPRegistrationTool
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1627,8 +1644,7 @@ Partial Class MASPRegistrationTool
     Friend WithEvents btnEmailWaitList As System.Windows.Forms.Button
     Friend WithEvents btnEmailRegistrants As System.Windows.Forms.Button
     Friend WithEvents btnEmailAll As System.Windows.Forms.Button
-    Friend WithEvents btnExportToExcel As System.Windows.Forms.Button
-    Friend WithEvents Label41 As System.Windows.Forms.Label
+    Friend WithEvents btnExportRegistrantsToExcel As System.Windows.Forms.Button
     Friend WithEvents Label47 As System.Windows.Forms.Label
     Friend WithEvents txtWebsiteURL As System.Windows.Forms.TextBox
     Friend WithEvents Label48 As System.Windows.Forms.Label
@@ -1638,19 +1654,21 @@ Partial Class MASPRegistrationTool
     Friend WithEvents txtRegID As System.Windows.Forms.TextBox
     Friend WithEvents btnModifyRegistration As System.Windows.Forms.Button
     Friend WithEvents txtEmails As System.Windows.Forms.TextBox
-    Friend WithEvents lblDescription As System.Windows.Forms.TextBox
-    Friend WithEvents lblNumberRegistered As System.Windows.Forms.TextBox
-    Friend WithEvents lblEventStatus As System.Windows.Forms.TextBox
-    Friend WithEvents lblPassCode As System.Windows.Forms.TextBox
-    Friend WithEvents lblLogInRequired As System.Windows.Forms.TextBox
-    Friend WithEvents lblEventDateTime As System.Windows.Forms.TextBox
-    Friend WithEvents lblEvent As System.Windows.Forms.TextBox
-    Friend WithEvents lblWaitingList As System.Windows.Forms.TextBox
-    Friend WithEvents lblEventCapacity As System.Windows.Forms.TextBox
-    Friend WithEvents lblAPBContact As System.Windows.Forms.TextBox
-    Friend WithEvents lblEventContact As System.Windows.Forms.TextBox
-    Friend WithEvents lblNotes As System.Windows.Forms.TextBox
-    Friend WithEvents lblVenue As System.Windows.Forms.TextBox
+    Friend WithEvents txtOvDescription As System.Windows.Forms.TextBox
+    Friend WithEvents txtOvNumberRegistered As System.Windows.Forms.TextBox
+    Friend WithEvents txtOvEventStatus As System.Windows.Forms.TextBox
+    Friend WithEvents txtOvPassCode As System.Windows.Forms.TextBox
+    Friend WithEvents txtOvEventDateTime As System.Windows.Forms.TextBox
+    Friend WithEvents txtOvEvent As System.Windows.Forms.TextBox
+    Friend WithEvents txtOvWaitingList As System.Windows.Forms.TextBox
+    Friend WithEvents txtOvEventCapacity As System.Windows.Forms.TextBox
+    Friend WithEvents txtOvAPBContact As System.Windows.Forms.TextBox
+    Friend WithEvents txtOvWebContact As System.Windows.Forms.TextBox
+    Friend WithEvents txtOvNotes As System.Windows.Forms.TextBox
+    Friend WithEvents txtOvVenue As System.Windows.Forms.TextBox
     Friend WithEvents btnViewDetails As System.Windows.Forms.Button
     Friend WithEvents pnlEventTitle As System.Windows.Forms.Panel
+    Friend WithEvents chbOvLoginRequired As System.Windows.Forms.CheckBox
+    Friend WithEvents txtOvCancelled As System.Windows.Forms.TextBox
+    Friend WithEvents lblCancelled As System.Windows.Forms.Label
 End Class
