@@ -1,5 +1,5 @@
-﻿Imports System.IO
-Imports Oracle.DataAccess.Types
+﻿Imports Oracle.DataAccess.Types
+Imports System.IO
 
 Public Class Document
 

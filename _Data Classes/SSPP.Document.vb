@@ -1,25 +1,18 @@
-﻿Imports System.IO
-Imports Oracle.DataAccess.Types
+﻿Namespace Apb.SSPP
 
-Namespace Apb
+    Public Class PermitDocument
+        Inherits Document
 
-    Namespace SSPP
+        Private _applicationNumber As String
+        Public Property ApplicationNumber() As String
+            Get
+                Return _applicationNumber
+            End Get
+            Set(ByVal value As String)
+                _applicationNumber = value
+            End Set
+        End Property
 
-        Public Class PermitDocument
-            Inherits Document
-
-            Private _applicationNumber As String
-            Public Property ApplicationNumber() As String
-                Get
-                    Return _applicationNumber
-                End Get
-                Set(ByVal value As String)
-                    _applicationNumber = value
-                End Set
-            End Property
-
-        End Class
-
-    End Namespace
+    End Class
 
 End Namespace
