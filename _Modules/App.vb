@@ -48,58 +48,44 @@ Module App
 
 #Region "URL handling"
 
-    Public Sub SendEmail(ByVal address As String, _
-                         Optional ByVal subject As String = Nothing, _
-                         Optional ByVal body As String = Nothing, _
-                         Optional ByVal sender As Object = Nothing)
-        monitor.TrackFeature("Url.SendEmail")
-
-        If Not IsValidEmail(address) Then Exit Sub
-
-        If subject IsNot Nothing Then subject = Uri.EscapeDataString(subject)
-        If body IsNot Nothing Then body = Uri.EscapeDataString(body)
-
-        Dim emailUrl As String = String.Format("mailto:{0}?subject={1}&body={2}", address, subject, body)
-
-        OpenUrl(emailUrl, sender)
-    End Sub
-
-    Public Sub OpenHelpUrl(Optional ByVal sender As Object = Nothing)
+    Public Sub OpenHelpUrl(Optional ByVal objectSender As Object = Nothing)
         monitor.TrackFeature("Url.OpenHelp")
-        OpenUrl(HelpUrl, sender)
+        OpenUrl(HelpUrl, objectSender)
     End Sub
 
-    Public Sub OpenDownloadUrl(Optional ByVal sender As Object = Nothing)
+    Public Sub OpenDownloadUrl(Optional ByVal objectSender As Object = Nothing)
         monitor.TrackFeature("Url.OpenDownload")
-        OpenUrl(DownloadUrl, sender)
+        OpenUrl(DownloadUrl, objectSender)
     End Sub
 
-    Public Sub OpenAboutUrl(Optional ByVal sender As Object = Nothing)
+    Public Sub OpenAboutUrl(Optional ByVal objectSender As Object = Nothing)
         monitor.TrackFeature("Url.OpenAbout")
 
         CreateVersionFile()
-        OpenUrl(AboutUrl, sender)
+        OpenUrl(AboutUrl, objectSender)
     End Sub
 
-    Private Sub OpenUrl(ByVal url As String, Optional ByVal sender As Object = Nothing)
+    Public Function OpenUrl(ByVal url As String, Optional ByVal objectSender As Object = Nothing) As Boolean
         ' Reference: http://code.logos.com/blog/2008/01/using_processstart_to_link_to.html
-        If url Is Nothing Then Exit Sub
+        If url Is Nothing Then Exit Function
 
-        If sender IsNot Nothing Then
-            sender.Cursor = Cursors.AppStarting
+        If objectSender IsNot Nothing Then
+            objectSender.Cursor = Cursors.AppStarting
         End If
         Try
             Process.Start(url)
+            Return True
         Catch ee As Exception When _
         TypeOf ee Is System.ComponentModel.Win32Exception OrElse _
         TypeOf ee Is System.ObjectDisposedException OrElse _
         TypeOf ee Is System.IO.FileNotFoundException
+            Return False
         Finally
-            If sender IsNot Nothing Then
-                sender.Cursor = Nothing
+            If objectSender IsNot Nothing Then
+                objectSender.Cursor = Nothing
             End If
         End Try
-    End Sub
+    End Function
 
 #End Region
 

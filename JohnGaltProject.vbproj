@@ -137,6 +137,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\_Tools\Eqatec\EQATEC.Analytics.Monitor.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Office.Interop.Outlook, Version=12.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c" />
     <Reference Include="Microsoft.VisualBasic.PowerPacks.Vs, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
     <Reference Include="Oracle.DataAccess, Version=2.112.3.0, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
@@ -1822,10 +1823,12 @@
     <Compile Include="_DB\DAL.EventRegistration.vb" />
     <Compile Include="_DB\DB.Utilities.vb" />
     <Compile Include="_Modules\Analytics.vb" />
+    <Compile Include="_Modules\Email.vb" />
     <Compile Include="_Modules\FormSettings.vb" />
     <Compile Include="_Modules\FacilityUtility.vb" />
     <Compile Include="_Modules\MD5.vb" />
     <Compile Include="_Modules\Messages.vb" />
+    <Compile Include="_Modules\Email.Outlook.vb" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="BusinessObjects.CrystalReports.10.5">
