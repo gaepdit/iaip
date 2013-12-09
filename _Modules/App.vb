@@ -252,4 +252,12 @@ Module App
 
 #End Region
 
+#Region "String functions"
+
+    Public Function ConcatNonEmptyStrings(ByVal separator As String, ByVal value() As String) As String
+        Return String.Join(separator, Array.FindAll(value, Function(s) Not String.IsNullOrEmpty(s)))
+    End Function
+
+#End Region
+
 End Module
