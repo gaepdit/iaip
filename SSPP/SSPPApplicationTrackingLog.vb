@@ -15030,8 +15030,8 @@ Public Class SSPPApplicationTrackingLog
 
             'System.Diagnostics.Process.Start("mailto:" & EmailAddress & "?subject=" & Subject & "&body=" & Body)
 
-            SendEmail(EmailAddress, Subject, Body, Me)
-
+            Dim recipientsTo As String() = {EmailAddress}
+            CreateEmail(Subject, Body, recipientsTo, objectSender:=Me)
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
