@@ -77,6 +77,7 @@ Partial Class MASPRegistrationTool
         Me.txtOvVenue = New System.Windows.Forms.TextBox
         Me.txtOvAPBContact = New System.Windows.Forms.TextBox
         Me.txtOvWebContact = New System.Windows.Forms.TextBox
+        Me.txtOvCancelled = New System.Windows.Forms.TextBox
         Me.txtOvWaitingList = New System.Windows.Forms.TextBox
         Me.txtOvEventCapacity = New System.Windows.Forms.TextBox
         Me.txtOvNumberRegistered = New System.Windows.Forms.TextBox
@@ -89,6 +90,7 @@ Partial Class MASPRegistrationTool
         Me.Label34 = New System.Windows.Forms.Label
         Me.Label35 = New System.Windows.Forms.Label
         Me.btnEmailWaitList = New System.Windows.Forms.Button
+        Me.lblCancelled = New System.Windows.Forms.Label
         Me.Label36 = New System.Windows.Forms.Label
         Me.btnEmailRegistrants = New System.Windows.Forms.Button
         Me.Label37 = New System.Windows.Forms.Label
@@ -151,8 +153,7 @@ Partial Class MASPRegistrationTool
         Me.btnViewDetails = New System.Windows.Forms.Button
         Me.lblEventTitle = New System.Windows.Forms.Label
         Me.lblEventDate = New System.Windows.Forms.Label
-        Me.lblCancelled = New System.Windows.Forms.Label
-        Me.txtOvCancelled = New System.Windows.Forms.TextBox
+        Me.lblEmail = New System.Windows.Forms.Label
         Me.Panel4.SuspendLayout()
         Me.tabsEventDetails.SuspendLayout()
         Me.tabEventOverview.SuspendLayout()
@@ -347,7 +348,7 @@ Partial Class MASPRegistrationTool
         'Label32
         '
         Me.Label32.AutoSize = True
-        Me.Label32.Location = New System.Drawing.Point(167, 106)
+        Me.Label32.Location = New System.Drawing.Point(178, 106)
         Me.Label32.Name = "Label32"
         Me.Label32.Size = New System.Drawing.Size(101, 13)
         Me.Label32.TabIndex = 447
@@ -385,7 +386,7 @@ Partial Class MASPRegistrationTool
         Me.DTPEventEndDate.Checked = False
         Me.DTPEventEndDate.CustomFormat = "dd-MMM-yyyy"
         Me.DTPEventEndDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DTPEventEndDate.Location = New System.Drawing.Point(270, 102)
+        Me.DTPEventEndDate.Location = New System.Drawing.Point(281, 102)
         Me.DTPEventEndDate.Name = "DTPEventEndDate"
         Me.DTPEventEndDate.ShowCheckBox = True
         Me.DTPEventEndDate.Size = New System.Drawing.Size(120, 20)
@@ -669,6 +670,7 @@ Partial Class MASPRegistrationTool
         '
         'Panel9
         '
+        Me.Panel9.Controls.Add(Me.lblEmail)
         Me.Panel9.Controls.Add(Me.chbOvLoginRequired)
         Me.Panel9.Controls.Add(Me.txtOvNotes)
         Me.Panel9.Controls.Add(Me.txtOvVenue)
@@ -755,6 +757,15 @@ Partial Class MASPRegistrationTool
         Me.txtOvWebContact.ReadOnly = True
         Me.txtOvWebContact.Size = New System.Drawing.Size(259, 20)
         Me.txtOvWebContact.TabIndex = 433
+        '
+        'txtOvCancelled
+        '
+        Me.txtOvCancelled.Location = New System.Drawing.Point(356, 140)
+        Me.txtOvCancelled.Multiline = True
+        Me.txtOvCancelled.Name = "txtOvCancelled"
+        Me.txtOvCancelled.ReadOnly = True
+        Me.txtOvCancelled.Size = New System.Drawing.Size(37, 20)
+        Me.txtOvCancelled.TabIndex = 432
         '
         'txtOvWaitingList
         '
@@ -860,12 +871,21 @@ Partial Class MASPRegistrationTool
         '
         Me.btnEmailWaitList.AutoSize = True
         Me.btnEmailWaitList.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnEmailWaitList.Location = New System.Drawing.Point(678, 138)
+        Me.btnEmailWaitList.Location = New System.Drawing.Point(675, 138)
         Me.btnEmailWaitList.Name = "btnEmailWaitList"
-        Me.btnEmailWaitList.Size = New System.Drawing.Size(89, 23)
+        Me.btnEmailWaitList.Size = New System.Drawing.Size(58, 23)
         Me.btnEmailWaitList.TabIndex = 420
-        Me.btnEmailWaitList.Text = "Email: Wait List"
+        Me.btnEmailWaitList.Text = "Wait List"
         Me.btnEmailWaitList.UseVisualStyleBackColor = True
+        '
+        'lblCancelled
+        '
+        Me.lblCancelled.AutoSize = True
+        Me.lblCancelled.Location = New System.Drawing.Point(293, 143)
+        Me.lblCancelled.Name = "lblCancelled"
+        Me.lblCancelled.Size = New System.Drawing.Size(57, 13)
+        Me.lblCancelled.TabIndex = 6
+        Me.lblCancelled.Text = "Cancelled:"
         '
         'Label36
         '
@@ -880,11 +900,11 @@ Partial Class MASPRegistrationTool
         '
         Me.btnEmailRegistrants.AutoSize = True
         Me.btnEmailRegistrants.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnEmailRegistrants.Location = New System.Drawing.Point(571, 138)
+        Me.btnEmailRegistrants.Location = New System.Drawing.Point(600, 138)
         Me.btnEmailRegistrants.Name = "btnEmailRegistrants"
-        Me.btnEmailRegistrants.Size = New System.Drawing.Size(101, 23)
+        Me.btnEmailRegistrants.Size = New System.Drawing.Size(70, 23)
         Me.btnEmailRegistrants.TabIndex = 419
-        Me.btnEmailRegistrants.Text = "Email: Registrants"
+        Me.btnEmailRegistrants.Text = "Registrants"
         Me.btnEmailRegistrants.UseVisualStyleBackColor = True
         '
         'Label37
@@ -900,11 +920,11 @@ Partial Class MASPRegistrationTool
         '
         Me.btnEmailAll.AutoSize = True
         Me.btnEmailAll.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnEmailAll.Location = New System.Drawing.Point(506, 138)
+        Me.btnEmailAll.Location = New System.Drawing.Point(739, 138)
         Me.btnEmailAll.Name = "btnEmailAll"
-        Me.btnEmailAll.Size = New System.Drawing.Size(59, 23)
+        Me.btnEmailAll.Size = New System.Drawing.Size(28, 23)
         Me.btnEmailAll.TabIndex = 418
-        Me.btnEmailAll.Text = "Email: All"
+        Me.btnEmailAll.Text = "All"
         Me.btnEmailAll.UseVisualStyleBackColor = True
         '
         'Label38
@@ -920,7 +940,7 @@ Partial Class MASPRegistrationTool
         '
         Me.btnExportRegistrantsToExcel.AutoSize = True
         Me.btnExportRegistrantsToExcel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnExportRegistrantsToExcel.Location = New System.Drawing.Point(412, 139)
+        Me.btnExportRegistrantsToExcel.Location = New System.Drawing.Point(423, 138)
         Me.btnExportRegistrantsToExcel.Name = "btnExportRegistrantsToExcel"
         Me.btnExportRegistrantsToExcel.Size = New System.Drawing.Size(88, 23)
         Me.btnExportRegistrantsToExcel.TabIndex = 417
@@ -1493,23 +1513,14 @@ Partial Class MASPRegistrationTool
         Me.lblEventDate.TabIndex = 5
         Me.lblEventDate.Text = "Event Date"
         '
-        'lblCancelled
+        'lblEmail
         '
-        Me.lblCancelled.AutoSize = True
-        Me.lblCancelled.Location = New System.Drawing.Point(293, 143)
-        Me.lblCancelled.Name = "lblCancelled"
-        Me.lblCancelled.Size = New System.Drawing.Size(57, 13)
-        Me.lblCancelled.TabIndex = 6
-        Me.lblCancelled.Text = "Cancelled:"
-        '
-        'txtOvCancelled
-        '
-        Me.txtOvCancelled.Location = New System.Drawing.Point(356, 140)
-        Me.txtOvCancelled.Multiline = True
-        Me.txtOvCancelled.Name = "txtOvCancelled"
-        Me.txtOvCancelled.ReadOnly = True
-        Me.txtOvCancelled.Size = New System.Drawing.Size(37, 20)
-        Me.txtOvCancelled.TabIndex = 432
+        Me.lblEmail.AutoSize = True
+        Me.lblEmail.Location = New System.Drawing.Point(559, 143)
+        Me.lblEmail.Name = "lblEmail"
+        Me.lblEmail.Size = New System.Drawing.Size(35, 13)
+        Me.lblEmail.TabIndex = 438
+        Me.lblEmail.Text = "Email:"
         '
         'MASPRegistrationTool
         '
@@ -1671,4 +1682,5 @@ Partial Class MASPRegistrationTool
     Friend WithEvents chbOvLoginRequired As System.Windows.Forms.CheckBox
     Friend WithEvents txtOvCancelled As System.Windows.Forms.TextBox
     Friend WithEvents lblCancelled As System.Windows.Forms.Label
+    Friend WithEvents lblEmail As System.Windows.Forms.Label
 End Class

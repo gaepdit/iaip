@@ -69,7 +69,7 @@ Namespace DAL
 
 #Region "Event Details"
 
-        Public Function GetResEventById(ByVal id As Integer) As ResEvent
+        Public Function GetResEventByIdAsDataRow(ByVal id As Integer) As DataRow
             Dim query As String = <s><![CDATA[
                 SELECT AIRBRANCH.RES_EVENT.NUMRES_EVENTID,
                   AIRBRANCH.RES_EVENT.ACTIVE,
@@ -115,20 +115,26 @@ Namespace DAL
             Dim dataTable As DataTable = DB.GetDataTable(query, parameter)
             If dataTable Is Nothing Then Return Nothing
 
-            Dim dataRow As DataRow = dataTable.Rows(0)
+            Return dataTable.Rows(0)
+        End Function
+
+        Public Function GetResEventById(ByVal id As Integer) As ResEvent
+            Dim dataRow As DataRow = GetResEventByIdAsDataRow(id)
             Dim resEvent As New ResEvent
-            FillResEventInfoFromDataRow(dataRow, resEvent)
+
+            FillResEventInfoFromDataRow(dataRow, ResEvent)
 
             Return resEvent
         End Function
 
-        Private Sub FillResEventInfoFromDataRow(ByVal row As DataRow, ByRef re As ResEvent)
+        Public Sub FillResEventInfoFromDataRow(ByVal row As DataRow, ByRef re As ResEvent)
             Dim address As New Address
             With address
                 .Street = DB.GetNullable(Of String)(row("STRADDRESS"))
                 .City = DB.GetNullable(Of String)(row("STRCITY"))
                 .State = DB.GetNullable(Of String)(row("STRSTATE"))
-                .PostalCode = Convert.ToString(DB.GetNullable(Of Decimal)(row("NUMZIPCODE")))
+                Dim p As Nullable(Of Decimal) = DB.GetNullable(Of Decimal)(row("NUMZIPCODE"))
+                .PostalCode = If(p, Convert.ToString(p), Nothing)
             End With
 
             Dim contact As New Staff

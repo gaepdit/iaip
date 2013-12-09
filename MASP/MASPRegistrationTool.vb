@@ -10,6 +10,7 @@ Public Class MASPRegistrationTool
 #Region "Properties"
 
     Dim selectedEventId As Decimal?
+    Dim selectedEvent As ResEvent
     Dim selecting As Boolean = False
 
 #End Region
@@ -116,6 +117,7 @@ Public Class MASPRegistrationTool
             .AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
 
             With .Columns("NUMRES_EVENTID")
+                .HeaderText = "ID"
                 .Visible = False
             End With
             With .Columns("STRTITLE")
@@ -184,6 +186,7 @@ Public Class MASPRegistrationTool
 
     Private Sub btnViewDetails_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnViewDetails.Click
         If selectedEventId IsNot Nothing Then
+            selectedEvent = New ResEvent(selectedEventId)
             LoadEventOverview()
             LoadEventManagement()
             LoadRegistrationManagement()
@@ -198,22 +201,22 @@ Public Class MASPRegistrationTool
     End Sub
 
     Private Sub LoadEventOverviewDetails()
-        Dim resEvent As ResEvent = GetResEventById(selectedEventId)
-        If resEvent IsNot Nothing Then
-            txtOvEvent.Text = resEvent.Title
-            txtOvDescription.Text = resEvent.Description
-            txtOvEventDateTime.Text = resEvent.StartDate.ToString
-            If resEvent.StartTime IsNot Nothing Then
-                txtOvEventDateTime.Text &= ", " & resEvent.StartTime
+
+        If selectedEvent IsNot Nothing Then
+            txtOvEvent.Text = selectedEvent.Title
+            txtOvDescription.Text = selectedEvent.Description
+            txtOvEventDateTime.Text = selectedEvent.StartDate.Value.ToString(DateFormat)
+            If selectedEvent.StartTime IsNot Nothing Then
+                txtOvEventDateTime.Text &= ", " & selectedEvent.StartTime
             End If
-            chbOvLoginRequired.Checked = resEvent.LoginRequired
-            txtOvPassCode.Text = resEvent.PassCode
-            txtOvEventStatus.Text = resEvent.EventStatus
-            txtOvEventCapacity.Text = resEvent.Capacity.ToString
-            txtOvVenue.Text = resEvent.Venue & vbCrLf & resEvent.Address.ToString
-            txtOvNotes.Text = resEvent.Notes
-            txtOvWebContact.Text = resEvent.WebContact.ToString
-            txtOvAPBContact.Text = resEvent.Contact.ToString
+            chbOvLoginRequired.Checked = selectedEvent.LoginRequired
+            txtOvPassCode.Text = selectedEvent.PassCode
+            txtOvEventStatus.Text = selectedEvent.EventStatus
+            txtOvEventCapacity.Text = selectedEvent.Capacity.ToString
+            txtOvVenue.Text = selectedEvent.Venue & vbCrLf & selectedEvent.Address.ToString
+            txtOvNotes.Text = selectedEvent.Notes
+            txtOvWebContact.Text = selectedEvent.WebContact.ToString
+            txtOvAPBContact.Text = selectedEvent.Contact.ToString
         End If
     End Sub
 
@@ -233,7 +236,10 @@ Public Class MASPRegistrationTool
         With dgvOverviewRegistrants
             .AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
 
-            .Columns("NUMRES_REGISTRATIONID").Visible = False
+            With .Columns("NUMRES_REGISTRATIONID")
+                .HeaderText = "ID"
+                .Visible = False
+            End With
             With .Columns("DATREGISTRATIONDATETIME")
                 .HeaderText = "Registration Date"
                 .DisplayIndex = 0
@@ -266,7 +272,10 @@ Public Class MASPRegistrationTool
                 .HeaderText = "Company Name"
                 .DisplayIndex = 7
             End With
-            .Columns("NUMREGISTRATIONSTATUSCODE").Visible = False
+            With .Columns("NUMREGISTRATIONSTATUSCODE")
+                .Visible = False
+                .HeaderText = "Status Code"
+            End With
 
         End With
 
@@ -890,105 +899,49 @@ Public Class MASPRegistrationTool
         End If
     End Sub
 
+#Region "Emails"
+
+    Private Sub SendEmail(Optional ByVal whichSet As String = "")
+        Dim subject As String = selectedEvent.Title & " – " & selectedEvent.StartDate
+        Dim body As String = selectedEvent.Title & vbNewLine & vbNewLine & _
+            selectedEvent.Description & vbNewLine & vbNewLine & _
+            "Starts on: " & selectedEvent.StartDate.Value.ToString(DateFormat)
+        If selectedEvent.StartTime IsNot Nothing Then
+            body &= ", " & selectedEvent.StartTime
+        End If
+        body &= vbNewLine & "Venue: " & selectedEvent.Venue & vbNewLine & vbNewLine & _
+            selectedEvent.Address.ToString
+
+        Dim recipientsBCC As List(Of String) = GetCorrectRecipients(whichSet)
+
+        CreateEmail(subject, body, recipientsBCC:=recipientsBCC.ToArray, objectSender:=Me)
+    End Sub
+
+    Private Function GetCorrectRecipients(Optional ByVal statusFilter As String = "") As List(Of String)
+        Dim recipients As New List(Of String)
+
+        For Each row As DataGridViewRow In dgvOverviewRegistrants.Rows
+            If statusFilter = "" OrElse row.Cells("STRREGISTRATIONSTATUS").Value = statusFilter Then
+                recipients.Add(row.Cells("STRUSEREMAIL").Value.ToString)
+            End If
+        Next
+
+        Return recipients
+    End Function
+
     Private Sub btnEmailAll_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEmailAll.Click
-        Try
-            Dim j As Integer
-            Dim Subject As String = ""
-            Dim Body As String = ""
-            Dim EmailAddress As String = ""
-
-            For j = 0 To dgvOverviewRegistrants.RowCount - 1
-                EmailAddress = txtEmails.Text & dgvOverviewRegistrants.Item(7, j).Value.ToString & ", "
-                txtEmails.Text = txtEmails.Text & dgvOverviewRegistrants.Item(7, j).Value.ToString & ", "
-            Next
-            MsgBox("Emails will saved to the clipboard." & vbCrLf & "Paste them into the bbc box by hitting ctrl -V", _
-                   MsgBoxStyle.Information, Me.Text)
-
-            Subject = txtEventTitle.Text & " - " & DTPEventDate.Text
-            Body = txtEventTitle.Text & "%0D%0A" & txtEventDescription.Text & "%0D%0A" & _
-            DTPEventDate.Value & " - " & txtEventTime.Text & "%0D%0A" & _
-            vbCrLf & txtEventVenue.Text & "%0D%0A" & _
-            txtEventAddress.Text & "%0D%0A" & txtEventCity.Text & ", " & mtbEventState.Text & " " & mtbEventZipCode.Text
-
-            System.Diagnostics.Process.Start("mailto: ?subject=" & Subject & "&body=" & _
-                                             Body)
-
-            Clipboard.SetDataObject(EmailAddress, True)
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        SendEmail()
     End Sub
 
     Private Sub btnEmailRegistrants_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEmailRegistrants.Click
-        'Confirmed
-        'Cancelled
-        'Waiting List
-        Try
-            Dim j As Integer
-            Dim Subject As String = ""
-            Dim Body As String = ""
-            Dim EmailAddress As String = ""
-
-            For j = 0 To dgvOverviewRegistrants.RowCount - 1
-                If dgvOverviewRegistrants(4, j).Value.ToString = "Confirmed" Then
-                    EmailAddress = txtEmails.Text & dgvOverviewRegistrants.Item(7, j).Value.ToString & ", "
-                    txtEmails.Text = txtEmails.Text & dgvOverviewRegistrants.Item(7, j).Value.ToString & ", "
-                End If
-            Next
-            MsgBox("Emails will saved to the clipboard." & vbCrLf & "Paste them into the bbc box by hitting ctrl -V", _
-                           MsgBoxStyle.Information, Me.Text)
-
-            Subject = txtEventTitle.Text & " - " & DTPEventDate.Text
-            Body = txtEventTitle.Text & "%0D%0A" & txtEventDescription.Text & "%0D%0A" & _
-            DTPEventDate.Value & " - " & txtEventTime.Text & "%0D%0A" & _
-            vbCrLf & txtEventVenue.Text & "%0D%0A" & _
-            txtEventAddress.Text & "%0D%0A" & txtEventCity.Text & ", " & mtbEventState.Text & " " & mtbEventZipCode.Text
-
-            System.Diagnostics.Process.Start("mailto: ?subject=" & Subject & "&body=" & _
-                                              Body)
-
-            Clipboard.SetDataObject(EmailAddress, True)
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        SendEmail("Confirmed")
     End Sub
 
     Private Sub btnEmailWaitList_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEmailWaitList.Click
-        Try
-
-            Dim j As Integer
-            Dim Subject As String = ""
-            Dim Body As String = ""
-            Dim EmailAddress As String = ""
-
-            For j = 0 To dgvOverviewRegistrants.RowCount - 1
-                If dgvOverviewRegistrants(4, j).Value.ToString = "Waiting List" Then
-                    EmailAddress = txtEmails.Text & dgvOverviewRegistrants.Item(7, j).Value.ToString & ", "
-                    txtEmails.Text = txtEmails.Text & dgvOverviewRegistrants.Item(7, j).Value.ToString & ", "
-                End If
-            Next
-
-            MsgBox("Emails will saved to the clipboard." & vbCrLf & "Paste them into the bbc box by hitting ctrl -V", _
-               MsgBoxStyle.Information, Me.Text)
-
-            Subject = txtEventTitle.Text & " - " & DTPEventDate.Text
-            Body = txtEventTitle.Text & "%0D%0A" & txtEventDescription.Text & "%0D%0A" & _
-            DTPEventDate.Value & " - " & txtEventTime.Text & "%0D%0A" & _
-            vbCrLf & txtEventVenue.Text & "%0D%0A" & _
-            txtEventAddress.Text & "%0D%0A" & txtEventCity.Text & ", " & mtbEventState.Text & " " & mtbEventZipCode.Text
-
-            System.Diagnostics.Process.Start("mailto: ?subject=" & Subject & "&body=" & _
-                                           Body)
-
-            Clipboard.SetDataObject(EmailAddress, True)
-
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        SendEmail("Waiting List")
     End Sub
+
+#End Region
 
 #Region "Insert/Update event/registration"
 

@@ -1,6 +1,17 @@
-﻿Namespace Apb.Res
+﻿Imports JohnGaltProject.DAL.EventRegistration
+Namespace Apb.Res
 
     Public Class ResEvent
+
+        Public Sub New()
+
+        End Sub
+
+        Public Sub New(ByVal id As Integer)
+            Me.EventId = id
+            Dim dataRow As DataRow = GetResEventByIdAsDataRow(id)
+            FillResEventInfoFromDataRow(dataRow, Me)
+        End Sub
 
         Public Property EventId() As Integer
             Get
