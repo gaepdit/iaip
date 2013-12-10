@@ -36,7 +36,7 @@ Namespace DAL
                     .FacilityLocation = location
                 End With
 
-                Dim staff As New Apb.Staff
+                Dim staff As New Staff
                 With staff
                     .FirstName = DB.GetNullable(Of String)(row("STRFIRSTNAME"))
                     .LastName = DB.GetNullable(Of String)(row("STRLASTNAME"))

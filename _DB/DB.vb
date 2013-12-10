@@ -17,6 +17,7 @@ Namespace DB
             Using connection As New OracleConnection(CurrentConnString)
                 Using command As New OracleCommand(query, connection)
                     command.CommandType = CommandType.Text
+                    command.BindByName = True
                     command.Parameters.AddRange(parameterArray)
                     Try
                         command.Connection.Open()
@@ -40,15 +41,16 @@ Namespace DB
 
 #Region "Read (Lookup Dictionary)"
 
-        Public Function GetLookupDictionary(ByVal query As String, Optional ByVal addBlank As Boolean = False) _
+        Public Function GetLookupDictionary(ByVal query As String) _
         As Dictionary(Of Integer, String)
             Dim d As New Dictionary(Of Integer, String)
-            If addBlank Then d.Add(0, "")
 
             Dim dataTable As DataTable = DB.GetDataTable(query)
+
             For Each row As DataRow In dataTable.Rows
                 d.Add(row.Item(0), row(1))
             Next
+
             Return d
         End Function
 
@@ -66,6 +68,7 @@ Namespace DB
             Using connection As New OracleConnection(CurrentConnString)
                 Using command As New OracleCommand(query, connection)
                     command.CommandType = CommandType.Text
+                    command.BindByName = True
                     command.Parameters.AddRange(parameterArray)
                     Using adapter As New OracleDataAdapter(command)
                         Try
@@ -74,7 +77,7 @@ Namespace DB
                             command.Connection.Close()
                             Return table
                         Catch ee As OracleException
-                            MessageBox.Show("Database error: " & ee.ToString)
+                            ErrorReport(ee, System.Reflection.MethodBase.GetCurrentMethod.Name)
                             Return Nothing
                         End Try
                     End Using
@@ -94,8 +97,8 @@ Namespace DB
         Public Function GetByteArrayFromBlob(ByVal query As String, ByVal parameterArray As OracleParameter()) As Byte()
             Using connection As New OracleConnection(CurrentConnString)
                 Using command As New OracleCommand(query, connection)
-
                     command.CommandType = CommandType.Text
+                    command.BindByName = True
                     command.Parameters.AddRange(parameterArray)
 
                     Try
@@ -157,6 +160,8 @@ Namespace DB
             Using connection As New OracleConnection(CurrentConnString)
                 Using command As OracleCommand = connection.CreateCommand
                     command.CommandType = CommandType.Text
+                    command.BindByName = True
+
                     Dim transaction As OracleTransaction = Nothing
 
                     Try
@@ -190,21 +195,6 @@ Namespace DB
 
                 End Using
             End Using
-        End Function
-
-#End Region
-
-#Region "Utilities"
-
-        Public Function GetNullable(Of T)(ByVal obj As Object) As T
-            ' http://stackoverflow.com/a/870771/212978
-            ' http://stackoverflow.com/a/9953399/212978
-            If obj Is Nothing OrElse IsDBNull(obj) Then
-                ' returns the default value for the type
-                Return CType(Nothing, T)
-            Else
-                Return CType(obj, T)
-            End If
         End Function
 
 #End Region

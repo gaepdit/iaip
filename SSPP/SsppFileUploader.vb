@@ -35,7 +35,7 @@ Public Class SsppFileUploader
 
     Private Sub LoadDocumentTypes()
         ' Get list of various document types and bind that list to the comboboxes
-        DocumentTypes = DAL.GetPermitDocumentTypesDict
+        DocumentTypes = DAL.GetPermitDocumentTypesAsDictionary
 
         If DocumentTypes.Count > 0 Then
             With ddlNewDocumentType
@@ -114,7 +114,7 @@ Public Class SsppFileUploader
     Private Sub LoadExistingDocuments()
         DisableFileUpdate()
         dgvFileList.DataSource = Nothing
-        ExistingFiles = GetPermitDocuments(AppInfo.ApplicationNumber)
+        ExistingFiles = GetPermitDocumentsAsList(AppInfo.ApplicationNumber)
         If ExistingFiles.Count > 0 Then
             With dgvFileList
                 .DataSource = New BindingSource(ExistingFiles, Nothing)

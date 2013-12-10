@@ -37,7 +37,7 @@ Public Class NewSscpEnforcementAudit
     Private Sub LoadDocuments()
         DisableDocument()
         dgvDocumentList.DataSource = Nothing
-        ExistingFiles = GetEnforcementDocuments(EnforcementInfo.EnforcementNumber)
+        ExistingFiles = GetEnforcementDocumentsAsList(EnforcementInfo.EnforcementNumber)
         If ExistingFiles.Count > 0 Then
             With dgvDocumentList
                 .DataSource = New BindingSource(ExistingFiles, Nothing)

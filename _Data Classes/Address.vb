@@ -57,9 +57,11 @@
     Private _country As String
 
     Public Overrides Function ToString() As String
-        Dim aLines As String() = {Me.Street, Me.Street2, Convert.ToString((Convert.ToString(Me.City & Convert.ToString(", ")) & Me.State) + " ") & Me.PostalCode}
-        Dim fAddress As String = String.Join(Constants.vbNewLine, Array.FindAll(aLines, Function(s) Not String.IsNullOrEmpty(s)))
-        Return fAddress
+        Dim str As String() = {Me.City, Me.State}
+        Dim cityState As String = ConcatNonEmptyStrings(", ", str)
+        Dim str2 As String() = {Me.Street, Me.Street2, cityState & " " & Me.PostalCode}
+        Dim address As String = ConcatNonEmptyStrings(Constants.vbNewLine, str2)
+        Return address
     End Function
 End Class
 
