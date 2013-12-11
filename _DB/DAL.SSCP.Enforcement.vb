@@ -7,8 +7,10 @@ Namespace DAL
         Module Enforcement
 
             Public Function EnforcementExists(ByVal id As String) As Boolean
+                If id = "" OrElse Not Integer.TryParse(id, Nothing) Then Return False
+
                 Dim query As String = "SELECT '" & Boolean.TrueString & "' " & _
-                    " FROM SSCP_AUDITEDENFORCEMENT " & _
+                    " FROM AIRBRANCH.SSCP_AUDITEDENFORCEMENT " & _
                     " WHERE RowNum = 1 " & _
                     " AND SSCP_AUDITEDENFORCEMENT.STRENFORCEMENTNUMBER = :pId "
                 Dim parameter As New OracleParameter("pId", id)
@@ -66,11 +68,11 @@ Namespace DAL
                       SSCP_AUDITEDENFORCEMENT.STRENFORCEMENTFINALIZED,
                       SSCP_AUDITEDENFORCEMENT.DATENFORCEMENTFINALIZED,
                       SSCP_AUDITEDENFORCEMENT.STRACTIONTYPE
-                    FROM SSCP_AUDITEDENFORCEMENT
-                    LEFT JOIN APBFACILITYINFORMATION
+                    FROM AIRBRANCH.SSCP_AUDITEDENFORCEMENT
+                    LEFT JOIN AIRBRANCH.APBFACILITYINFORMATION
                     ON APBFACILITYINFORMATION.STRAIRSNUMBER = SSCP_AUDITEDENFORCEMENT.STRAIRSNUMBER
-                    LEFT JOIN EPDUSERPROFILES
-                    ON EPDUSERPROFILES.NUMUSERID                       = SSCP_AUDITEDENFORCEMENT.NUMSTAFFRESPONSIBLE
+                    LEFT JOIN AIRBRANCH.EPDUSERPROFILES
+                    ON EPDUSERPROFILES.NUMUSERID = SSCP_AUDITEDENFORCEMENT.NUMSTAFFRESPONSIBLE
                     WHERE SSCP_AUDITEDENFORCEMENT.STRENFORCEMENTNUMBER = :pId
                 ]]></s>.Value
                 Dim parameter As New OracleParameter("pId", id)

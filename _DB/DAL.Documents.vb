@@ -137,10 +137,10 @@ Namespace DAL
                   IAIP_SSCP_ENFORCEMENTDOCS.ENFORCEMENTDOCSID,
                   IAIP_SSCP_ENFORCEMENTDOCS.STRENFORCEMENTNUMBER,
                   IAIP_SSCP_ENFORCEMENTDOCS.NUMDOCUMENTTYPE
-                FROM IAIP_BINARYFILES
-                INNER JOIN IAIP_SSCP_ENFORCEMENTDOCS
+                FROM AIRBRANCH.IAIP_BINARYFILES
+                INNER JOIN AIRBRANCH.IAIP_SSCP_ENFORCEMENTDOCS
                 ON IAIP_BINARYFILES.BINARYFILEID = IAIP_SSCP_ENFORCEMENTDOCS.NUMBINARYFILE
-                INNER JOIN IAIP_LK_SSCPDOCUMENTTYPE
+                INNER JOIN AIRBRANCH.IAIP_LK_SSCPDOCUMENTTYPE
                 ON IAIP_SSCP_ENFORCEMENTDOCS.NUMDOCUMENTTYPE = IAIP_LK_SSCPDOCUMENTTYPE.DOCUMENTTYPEID
                 WHERE IAIP_SSCP_ENFORCEMENTDOCS.STRENFORCEMENTNUMBER = :pId
             ]]></s>.Value
@@ -179,10 +179,10 @@ Namespace DAL
                   IAIP_SSPP_PERMITDOCS.PERMITDOCSID,
                   IAIP_SSPP_PERMITDOCS.STRAPPLICATIONNUMBER,
                   IAIP_SSPP_PERMITDOCS.NUMDOCUMENTTYPE
-                FROM IAIP_BINARYFILES
-                INNER JOIN IAIP_SSPP_PERMITDOCS
+                FROM AIRBRANCH.IAIP_BINARYFILES
+                INNER JOIN AIRBRANCH.IAIP_SSPP_PERMITDOCS
                 ON IAIP_BINARYFILES.BINARYFILEID = IAIP_SSPP_PERMITDOCS.NUMBINARYFILE
-                INNER JOIN IAIP_LK_SSPPDOCUMENTTYPE
+                INNER JOIN AIRBRANCH.IAIP_LK_SSPPDOCUMENTTYPE
                 ON IAIP_SSPP_PERMITDOCS.NUMDOCUMENTTYPE = IAIP_LK_SSPPDOCUMENTTYPE.DOCUMENTTYPEID
                 WHERE IAIP_SSPP_PERMITDOCS.STRAPPLICATIONNUMBER = :pId
             ]]></s>.Value
@@ -278,7 +278,7 @@ Namespace DAL
 
         Public Function DownloadFile(ByVal id As Integer, ByVal path As String) As Boolean
             Dim query As String = " SELECT IAIP_BINARYFILES.BLOBDOCUMENT " & _
-                                " FROM IAIP_BINARYFILES " & _
+                                " FROM AIRBRANCH.IAIP_BINARYFILES " & _
                                 " WHERE IAIP_BINARYFILES.BINARYFILEID = :pId "
             Dim parameter As OracleParameter = New OracleParameter("pId", id)
 
@@ -323,7 +323,7 @@ Namespace DAL
             Dim parameters As OracleParameter()
 
             queryList.Add( _
-                " INSERT INTO IAIP_BINARYFILES " & _
+                " INSERT INTO AIRBRANCH.IAIP_BINARYFILES " & _
                 " (BINARYFILEID,STRFILENAME,STRFILEEXTENSION,NUMFILESIZE,BLOBDOCUMENT,UPDATEUSER) " & _
                 " VALUES (:pBinId,:pFileName,:pFileExt,:pFileSize,:pBinFile,:pUser) " _
             )
@@ -359,7 +359,7 @@ Namespace DAL
         Public Function UploadEnforcementDocument(ByVal doc As EnforcementDocument, ByVal pathToFile As String, Optional ByVal sender As Object = Nothing) As Boolean
             If doc Is Nothing Then Return False
             Dim metaDataQuery As String = _
-                            " INSERT INTO IAIP_SSCP_ENFORCEMENTDOCS " & _
+                            " INSERT INTO AIRBRANCH.IAIP_SSCP_ENFORCEMENTDOCS " & _
                             " (NUMBINARYFILE,STRENFORCEMENTNUMBER,NUMDOCUMENTTYPE,STRCOMMENT,UPDATEUSER) " & _
                             " VALUES (:pBinId,:pMetaDataId,:pDocTypeId,:pComment,:pUser) "
             Dim metaDataId As String = doc.EnforcementNumber
@@ -369,7 +369,7 @@ Namespace DAL
         Public Function UploadPermitDocument(ByVal doc As PermitDocument, ByVal pathToFile As String, Optional ByVal sender As Object = Nothing) As Boolean
             If doc Is Nothing Then Return False
             Dim metaDataQuery As String = _
-                " INSERT INTO IAIP_SSPP_PERMITDOCS " & _
+                " INSERT INTO AIRBRANCH.IAIP_SSPP_PERMITDOCS " & _
                 " (NUMBINARYFILE,STRAPPLICATIONNUMBER,NUMDOCUMENTTYPE,STRCOMMENT,UPDATEUSER) " & _
                 " VALUES (:pBinId,:pMetaDataId,:pDocTypeId,:pComment,:pUser) "
             Dim metaDataId As String = doc.ApplicationNumber
@@ -408,7 +408,7 @@ Namespace DAL
         Public Function UpdateEnforcementDocument(ByVal doc As EnforcementDocument, Optional ByVal sender As Object = Nothing) As Boolean
             If doc Is Nothing Then Return False
             Dim query As String = _
-                " UPDATE IAIP_SSCP_ENFORCEMENTDOCS " & _
+                " UPDATE AIRBRANCH.IAIP_SSCP_ENFORCEMENTDOCS " & _
                 " SET NUMDOCUMENTTYPE = :pDocTypeId, " & _
                 " STRCOMMENT = :pComment, " & _
                 " UPDATEUSER = :pUser " & _
@@ -419,7 +419,7 @@ Namespace DAL
         Public Function UpdatePermitDocument(ByVal doc As PermitDocument, Optional ByVal sender As Object = Nothing) As Boolean
             If doc Is Nothing Then Return False
             Dim query As String = _
-                " UPDATE IAIP_SSPP_PERMITDOCS " & _
+                " UPDATE AIRBRANCH.IAIP_SSPP_PERMITDOCS " & _
                 " SET NUMDOCUMENTTYPE = :pDocTypeId, " & _
                 " STRCOMMENT = :pComment, " & _
                 " UPDATEUSER = :pUser " & _
@@ -514,7 +514,7 @@ Namespace DAL
             End If
 
             Dim query As String = _
-                " UPDATE IAIP_LK_SSCPDOCUMENTTYPE " & _
+                " UPDATE AIRBRANCH.IAIP_LK_SSCPDOCUMENTTYPE " & _
                 " SET STRDOCUMENTTYPE  = :pDocType, " & _
                 "   FACTIVE            = :pActive, " & _
                 "   NUMORDINAL         = :pPosition " & _
@@ -544,7 +544,7 @@ Namespace DAL
             End If
 
             Dim query As String = _
-                " INSERT INTO IAIP_LK_SSCPDOCUMENTTYPE " & _
+                " INSERT INTO AIRBRANCH.IAIP_LK_SSCPDOCUMENTTYPE " & _
                 " (STRDOCUMENTTYPE, FACTIVE, NUMORDINAL ) " & _
                 " VALUES (:pName, :pActive, :pOrdinal) "
 
