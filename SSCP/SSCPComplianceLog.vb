@@ -1,4 +1,5 @@
 Imports Oracle.DataAccess.Client
+Imports System.Collections.Generic
 
 
 Public Class SSCPComplianceLog
@@ -914,19 +915,23 @@ Public Class SSCPComplianceLog
     Sub AddNewEvent()
         Try
             If rdbEnforcementAction.Checked = True Then
-                If SSCP_Enforcement Is Nothing Then
-                    If SSCP_Enforcement Is Nothing Then SSCP_Enforcement = SSCPEnforcementAudit
-                    SSCP_Enforcement.txtAIRSNumber.Text = txtNewAIRSNumber.Text
-                    SSCP_Enforcement.Show()
-                Else
-                    SSCP_Enforcement.Close()
-                    SSCP_Enforcement = Nothing
-                    If SSCP_Enforcement Is Nothing Then SSCP_Enforcement = New SSCPEnforcementAudit
-                    SSCP_Enforcement.BringToFront()
-                    SSCP_Enforcement.txtAIRSNumber.Text = txtNewAIRSNumber.Text
-                    SSCP_Enforcement.Show()
-                End If
-                'SSCP_Enforcement.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+                Dim parameters As New Dictionary(Of String, String)
+                parameters("airsnumber") = txtNewAIRSNumber.Text
+                OpenMultiForm(NewSscpEnforcementAudit, -1, parameters)
+
+                'If SSCP_Enforcement Is Nothing Then
+                '    If SSCP_Enforcement Is Nothing Then SSCP_Enforcement = SSCPEnforcementAudit
+                '    SSCP_Enforcement.txtAIRSNumber.Text = txtNewAIRSNumber.Text
+                '    SSCP_Enforcement.Show()
+                'Else
+                '    SSCP_Enforcement.Close()
+                '    SSCP_Enforcement = Nothing
+                '    If SSCP_Enforcement Is Nothing Then SSCP_Enforcement = New SSCPEnforcementAudit
+                '    SSCP_Enforcement.BringToFront()
+                '    SSCP_Enforcement.txtAIRSNumber.Text = txtNewAIRSNumber.Text
+                '    SSCP_Enforcement.Show()
+                'End If
+                ''SSCP_Enforcement.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
             Else
                 If rdbFCE.Checked = True Then
 
@@ -1902,20 +1907,28 @@ Public Class SSCPComplianceLog
                     End If
                     'SSCPREports.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                 ElseIf InStr(txtTestType.Text, "Enforcement") > 0 Then
-                    If SSCP_Enforcement Is Nothing Then
-                        If SSCP_Enforcement Is Nothing Then SSCP_Enforcement = New SSCPEnforcementAudit
-                        SSCP_Enforcement.txtAIRSNumber.Text = txtNewAIRSNumber.Text
-                        SSCP_Enforcement.txtEnforcementNumber.Text = txtWorkNumber.Text
-                        SSCP_Enforcement.Show()
+                    Dim enfNum As String = txtWorkNumber.Text
+                    If enfNum = "" Then Exit Sub
+                    If DAL.SSCP.EnforcementExists(enfNum) Then
+                        OpenMultiForm(NewSscpEnforcementAudit, enfNum)
                     Else
-                        SSCP_Enforcement.Close()
-                        SSCP_Enforcement = Nothing
-                        If SSCP_Enforcement Is Nothing Then SSCP_Enforcement = New SSCPEnforcementAudit
-                        SSCP_Enforcement.BringToFront()
-                        SSCP_Enforcement.txtAIRSNumber.Text = txtNewAIRSNumber.Text
-                        SSCP_Enforcement.txtEnforcementNumber.Text = txtWorkNumber.Text
-                        SSCP_Enforcement.Show()
+                        MsgBox("Enforcement number is not in the system.", MsgBoxStyle.Information, Me.Text)
                     End If
+
+                    'If SSCP_Enforcement Is Nothing Then
+                    '    If SSCP_Enforcement Is Nothing Then SSCP_Enforcement = New SSCPEnforcementAudit
+                    '    SSCP_Enforcement.txtAIRSNumber.Text = txtNewAIRSNumber.Text
+                    '    SSCP_Enforcement.txtEnforcementNumber.Text = txtWorkNumber.Text
+                    '    SSCP_Enforcement.Show()
+                    'Else
+                    '    SSCP_Enforcement.Close()
+                    '    SSCP_Enforcement = Nothing
+                    '    If SSCP_Enforcement Is Nothing Then SSCP_Enforcement = New SSCPEnforcementAudit
+                    '    SSCP_Enforcement.BringToFront()
+                    '    SSCP_Enforcement.txtAIRSNumber.Text = txtNewAIRSNumber.Text
+                    '    SSCP_Enforcement.txtEnforcementNumber.Text = txtWorkNumber.Text
+                    '    SSCP_Enforcement.Show()
+                    'End If
                     'SSCP_Enforcement.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                 ElseIf InStr(txtTestType.Text, "Full Compliance Evaluation") > 0 Then
                     If SSCPFCE Is Nothing Then

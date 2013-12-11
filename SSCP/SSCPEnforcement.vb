@@ -24,10 +24,19 @@ Public Class NewSscpEnforcementAudit
 
     Public Property EnforcementNumber() As String
         Get
-            Return MyBase.ID
+            If Me.ID = -1 Then
+                Return ""
+            Else
+                Return Me.ID.ToString
+            End If
         End Get
         Set(ByVal value As String)
-            MyBase.ID = value
+            Dim i As Integer = -1
+            If Integer.TryParse(value, i) Then
+                Me.ID = i
+            Else
+                Me.ID = -1
+            End If
         End Set
     End Property
 
@@ -236,6 +245,9 @@ Public Class NewSscpEnforcementAudit
         monitor.TrackFeature("Forms." & Me.Name)
         Try
             txtEnforcementNumber.Text = Me.EnforcementNumber
+            If Parameters IsNot Nothing AndAlso Parameters.ContainsKey("airsnumber") Then
+                txtAIRSNumber.Text = Parameters("airsnumber")
+            End If
 
             LoadDefaults()
             LoadCombos()
@@ -2555,6 +2567,9 @@ Public Class NewSscpEnforcementAudit
                     dr = cmd.ExecuteReader
                     While dr.Read
                         txtEnforcementNumber.Text = dr.Item(0)
+                        If Me.ID = -1 Then
+                            MultiForm(Me.Name).ChangeKey(-1, CInt(txtEnforcementNumber.Text))
+                        End If
                     End While
 
                     dr.Close()

@@ -2059,7 +2059,7 @@ Public Class IAIPNavigation
             If DAL.SSCP.EnforcementExists(enfNum) Then
                 OpenMultiForm(NewSscpEnforcementAudit, enfNum)
             Else
-                MsgBox("Enforcement number is not in the system.", MsgBoxStyle.Information, "Navigation Screen")
+                MsgBox("Enforcement number is not in the system.", MsgBoxStyle.Information, Me.Text)
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -2566,10 +2566,11 @@ Public Class IAIPNavigation
                     'EISLog.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
 
                 Case "Enforcement Documents"
-                    With SscpDocuments
-                        .Show()
-                        .Activate()
-                    End With
+                    OpenForm(SscpDocuments)
+                    'With SscpDocuments
+                    '    .Show()
+                    '    .Activate()
+                    'End With
 
                 Case Else
                     MsgBox(Source.ToString, MsgBoxStyle.Information, "IAIP Navigation")
@@ -2606,13 +2607,7 @@ Public Class IAIPNavigation
 
     End Sub
     Private Sub llbEnforcementRecord_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbEnforcementRecord.LinkClicked
-        Try
-            OpenEnforcement()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-
-        End Try
-
+        OpenEnforcement()
     End Sub
     Private Sub llbOpenApplication_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbOpenApplication.LinkClicked
         Try
@@ -3726,7 +3721,7 @@ Public Class IAIPNavigation
                     End If
                 End If
             End If
-            If TestingEnvironment AndAlso (Permissions.Contains("(19)") OrElse Permissions.Contains("(20)") _
+            If (Permissions.Contains("(19)") OrElse Permissions.Contains("(20)") _
             OrElse Permissions.Contains("(21)") OrElse Permissions.Contains("(23)") _
             OrElse Permissions.Contains("(25)") OrElse Permissions.Contains("(118)")) Then
                 btnNav40.Text = "Enforcement Documents"
