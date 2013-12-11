@@ -3578,7 +3578,7 @@ Public Class IAIPFacilitySummary
             Dim enfNum As String = txtEnforcementNumber.Text
             If enfNum = "" Then Exit Sub
             If DAL.SSCP.EnforcementExists(enfNum) Then
-                OpenMultiForm(NewSscpEnforcementAudit, enfNum)
+                OpenMultiForm(SscpEnforcement, enfNum)
             Else
                 MsgBox("Enforcement number is not in the system.", MsgBoxStyle.Information, Me.Text)
             End If

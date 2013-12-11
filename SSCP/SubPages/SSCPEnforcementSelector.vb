@@ -260,7 +260,7 @@ Public Class SSCPEnforcementSelector
 
                     Dim enfNum As String = txtEnforcementNumber.Text
                     If DAL.SSCP.EnforcementExists(enfNum) Then
-                        OpenMultiForm(NewSscpEnforcementAudit, enfNum)
+                        OpenMultiForm(SscpEnforcement, enfNum)
                     Else
                         MsgBox("Enforcement number is not in the system.", MsgBoxStyle.Information, Me.Text)
                         Exit Sub
@@ -271,7 +271,7 @@ Public Class SSCPEnforcementSelector
                     Dim parameters As New Dictionary(Of String, String)
                     parameters("airsnumber") = txtAIRSNumber.Text
                     If txtTrackingNumber.Text <> "" Then parameters("trackingnumber") = txtTrackingNumber.Text
-                    OpenMultiForm(NewSscpEnforcementAudit, -1, parameters)
+                    OpenMultiForm(SscpEnforcement, -1, parameters)
 
                 End If
 

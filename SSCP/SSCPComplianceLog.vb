@@ -917,7 +917,7 @@ Public Class SSCPComplianceLog
             If rdbEnforcementAction.Checked = True Then
                 Dim parameters As New Dictionary(Of String, String)
                 parameters("airsnumber") = txtNewAIRSNumber.Text
-                OpenMultiForm(NewSscpEnforcementAudit, -1, parameters)
+                OpenMultiForm(SscpEnforcement, -1, parameters)
 
                 'If SSCP_Enforcement Is Nothing Then
                 '    If SSCP_Enforcement Is Nothing Then SSCP_Enforcement = SSCPEnforcementAudit
@@ -1910,7 +1910,7 @@ Public Class SSCPComplianceLog
                     Dim enfNum As String = txtWorkNumber.Text
                     If enfNum = "" Then Exit Sub
                     If DAL.SSCP.EnforcementExists(enfNum) Then
-                        OpenMultiForm(NewSscpEnforcementAudit, enfNum)
+                        OpenMultiForm(SscpEnforcement, enfNum)
                     Else
                         MsgBox("Enforcement number is not in the system.", MsgBoxStyle.Information, Me.Text)
                     End If

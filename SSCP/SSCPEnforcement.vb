@@ -8,7 +8,7 @@ Imports JohnGaltProject.DAL.Documents
 Imports Oracle.DataAccess.Types
 Imports Oracle.DataAccess.Client
 
-Public Class NewSscpEnforcementAudit
+Public Class SscpEnforcement
 
 #Region "Properties"
 
@@ -2087,7 +2087,7 @@ Public Class NewSscpEnforcementAudit
                 parameters("enforcementnumber") = txtEnforcementNumber.Text
             End If
             parameters("trackingnumber") = txtTrackingNumber.Text
-            
+
             OpenSingleForm(SSCPEnforcementChecklist, Me.ID, parameters, True)
 
             'EnforcementChecklist = Nothing

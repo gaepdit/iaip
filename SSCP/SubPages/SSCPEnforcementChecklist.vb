@@ -1329,8 +1329,8 @@ Public Class SSCPEnforcementChecklist
     Private Sub btnLinkEvent_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnLinkEvent.Click
         Try
 
-            If MultiForm(NewSscpEnforcementAudit.Name)(Me.ID) IsNot Nothing Then
-                Dim enf As NewSscpEnforcementAudit = MultiForm(NewSscpEnforcementAudit.Name)(Me.ID)
+            If MultiForm(SscpEnforcement.Name)(Me.ID) IsNot Nothing Then
+                Dim enf As SscpEnforcement = MultiForm(SscpEnforcement.Name)(Me.ID)
                 enf.txtDiscoveryEventNumber.Text = txtTrackingNumber.Text
                 enf.txtTrackingNumber.Text = txtTrackingNumber.Text
                 'enf.SaveEnforcement()
