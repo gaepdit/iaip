@@ -9012,7 +9012,4 @@ Public Class IAIPNavigation
         Me.Location = New Point(0, 0)
     End Sub
 
-    Private Sub mmiEnforcementUploader_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiEnforcementUploader.Click
-        SscpDocuments.Show()
-    End Sub
 End Class
