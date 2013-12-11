@@ -279,8 +279,8 @@ Namespace DAL
         Public Function DownloadFile(ByVal id As Integer, ByVal path As String) As Boolean
             Dim query As String = " SELECT IAIP_BINARYFILES.BLOBDOCUMENT " & _
                                 " FROM AIRBRANCH.IAIP_BINARYFILES " & _
-                                " WHERE IAIP_BINARYFILES.BINARYFILEID = :pId "
-            Dim parameter As OracleParameter = New OracleParameter("pId", id)
+                                " WHERE IAIP_BINARYFILES.BINARYFILEID = :pBinId "
+            Dim parameter As OracleParameter = New OracleParameter("pBinId", id)
 
             Dim byteArray As Byte() = DB.GetByteArrayFromBlob(query, parameter)
 
@@ -394,7 +394,7 @@ Namespace DAL
                 sender.Cursor = Cursors.AppStarting
             End If
 
-            Dim query As String = " DELETE FROM AIRBRANCH.IAIP_BINARYFILES WHERE BINARYFILEID = :pId "
+            Dim query As String = " DELETE FROM AIRBRANCH.IAIP_BINARYFILES WHERE BINARYFILEID = :pBinId "
             Dim parameter As OracleParameter = New OracleParameter("pBinId", id)
 
             Dim result As Boolean = DB.RunCommand(query, parameter)
