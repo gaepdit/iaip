@@ -323,7 +323,7 @@ Public Class SscpDocuments
             .DocumentType = ddlNewDocumentType.Text
             .FileName = fileInfo.Name
             .FileSize = fileInfo.Length
-            .UploadDate = Today
+            .UploadDate = Date.Now
         End With
 
         m = String.Format(GetDocumentMessage(DocumentMessageType.UploadingFile), documentToUpload.FileName)
