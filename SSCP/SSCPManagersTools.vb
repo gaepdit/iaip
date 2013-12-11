@@ -1,9 +1,7 @@
 Imports Oracle.DataAccess.Client
-Imports System
 Imports System.Data
 Imports System.IO
 'Imports System.Text
-Imports System.Windows.Forms
 
 Public Class SSCPManagersTools
     
@@ -69,8 +67,6 @@ Public Class SSCPManagersTools
             dtpEnforcementEndDate.Value = OracleDate
             dtpEnforcementStartDate.Enabled = False
             dtpEnforcementEndDate.Enabled = False
-
-            If Not TestingEnvironment Then TCManagerTools.TabPages.Remove(TPDocuments)
 
             'TCManagerTools.TabPages.Remove(TPCMSWarning)
             'TCManagerTools.TabPages.Remove(TPUniverse)
