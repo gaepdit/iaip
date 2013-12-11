@@ -276,12 +276,6 @@
     <Compile Include="DevelopmentForms\IAIP_EIS_Log.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SSPP\SsppFileUploader.Designer.vb">
-      <DependentUpon>SsppFileUploader.vb</DependentUpon>
-    </Compile>
-    <Compile Include="SSPP\SsppFileUploader.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Universal Forms\BaseForm.Designer.vb">
       <DependentUpon>BaseForm.vb</DependentUpon>
     </Compile>
@@ -1420,9 +1414,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SSCP\SSCPInspectionTool.resx">
       <DependentUpon>SSCPInspectionTool.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SSPP\SsppFileUploader.resx">
-      <DependentUpon>SsppFileUploader.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SSPP\Sub Forms\SSPP_FeeContact.resx">
       <DependentUpon>SSPP_FeeContact.vb</DependentUpon>

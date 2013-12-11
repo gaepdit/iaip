@@ -9004,7 +9004,7 @@ Public Class IAIPNavigation
     End Sub
 
     Private Sub mmiPermitUploader_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiPermitUploader.Click
-        SsppFileUploader.Show()
+        'SsppFileUploader.Show()
     End Sub
 
     Private Sub mmiResetForm_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiResetForm.Click
