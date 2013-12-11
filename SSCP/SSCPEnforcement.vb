@@ -22,6 +22,36 @@ Public Class NewSscpEnforcementAudit
     End Property
     Private _enforcementInfo As EnforcementInfo
 
+    Public Property EnforcementNumber() As String
+        Get
+            Return MyBase.ID
+        End Get
+        Set(ByVal value As String)
+            MyBase.ID = value
+        End Set
+    End Property
+
+#End Region
+
+#Region "Local variables"
+    Dim SQL, SQL2, SQL3 As String
+    Dim SQL4 As String
+    Dim cmd As OracleCommand
+    Dim dr As OracleDataReader
+    Dim recExist As Boolean
+
+    Dim ds As DataSet
+    Dim da As OracleDataAdapter
+
+    Dim dsStaff As DataSet
+    Dim daStaff As OracleDataAdapter
+    Dim dsComplianceStatus As DataSet
+    Dim daComplianceStatus As OracleDataAdapter
+    Dim dsHPV As DataSet
+    Dim daHPV As OracleDataAdapter
+    Dim dsStipulatedPenalty As DataSet
+    Dim daStipulatedPenalty As OracleDataAdapter
+
 #End Region
 
 #Region "Document uploads"
@@ -202,41 +232,6 @@ Public Class NewSscpEnforcementAudit
 
 #End Region ' End Document uploads Region
 
-#Region "Local variables"
-    Dim SQL, SQL2, SQL3 As String
-    Dim SQL4 As String
-    Dim cmd As OracleCommand
-    Dim dr As OracleDataReader
-    Dim recExist As Boolean
-
-    Dim ds As DataSet
-    Dim da As OracleDataAdapter
-
-    Dim dsStaff As DataSet
-    Dim daStaff As OracleDataAdapter
-    Dim dsComplianceStatus As DataSet
-    Dim daComplianceStatus As OracleDataAdapter
-    Dim dsHPV As DataSet
-    Dim daHPV As OracleDataAdapter
-    Dim dsStipulatedPenalty As DataSet
-    Dim daStipulatedPenalty As OracleDataAdapter
-
-#End Region
-
-#Region "Properties"
-
-    Public Property EnforcementNumber() As String
-        Get
-            Return _enforcementNumber
-        End Get
-        Set(ByVal value As String)
-            _enforcementNumber = value
-        End Set
-    End Property
-    Private _enforcementNumber As String
-
-#End Region
-
     Private Sub SSCPEnforcementAudit_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         monitor.TrackFeature("Forms." & Me.Name)
         Try
@@ -280,15 +275,11 @@ Public Class NewSscpEnforcementAudit
 
 #Region "Page Load Functions"
     Private Sub LoadEnforcementInfo()
-        If txtEnforcementNumber.Text = "" Then Exit Sub
-
         EnforcementInfo = Nothing
         Dim enfNum As String = txtEnforcementNumber.Text
-        If Integer.TryParse(enfNum, Nothing) Then
-            If EnforcementExists(enfNum) Then
-                EnforcementInfo = GetEnforcementInfo(enfNum)
-                LoadDocuments()
-            End If
+        If EnforcementExists(enfNum) Then
+            EnforcementInfo = GetEnforcementInfo(enfNum)
+            LoadDocuments()
         End If
     End Sub
 
@@ -3913,13 +3904,6 @@ Public Class NewSscpEnforcementAudit
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
-    End Sub
-    Private Sub DevEnforcement_Disposed(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Disposed
-        Try
-            NewSscpEnforcementForms.Remove(Me.EnforcementNumber)
-        Catch ex As Exception
-            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
     End Sub
     Private Sub tsbClear_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         Try

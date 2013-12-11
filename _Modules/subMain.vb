@@ -180,7 +180,7 @@ Module subMain
     Public SSCPAdmin As SSCPAdministrator
     Public InspectionTool As SSCPInspectionTool
 
-    Friend NewSscpEnforcementForms As Dictionary(Of String, NewSscpEnforcementAudit)
+    'Friend NewSscpEnforcementForms As Dictionary(Of String, NewSscpEnforcementAudit)
 #End Region
 #Region "SSPP Screens"
     Public ApplicationLog As SSPPApplicationLog

@@ -2054,52 +2054,16 @@ Public Class IAIPNavigation
     End Sub
     Sub OpenEnforcement()
         Try
-            If txtEnforcementNumber.Text = "" Then Exit Sub
-            Dim EnfNum As String = txtEnforcementNumber.Text
-            If Integer.TryParse(EnfNum, Nothing) Then
-                SQL = "Select strEnforcementNumber " & _
-                    "from AIRBranch.SSCP_AuditedEnforcement " & _
-                    "where strEnforcementNumber = '" & EnfNum & "' "
-
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
-                End If
-                dr = cmd.ExecuteReader
-                recExist = dr.Read
-                dr.Close()
-
-                If recExist = True Then
-                    If TestingEnvironment Then
-                        If NewSscpEnforcementForms Is Nothing Then NewSscpEnforcementForms = New Dictionary(Of String, NewSscpEnforcementAudit)
-                        If Not NewSscpEnforcementForms.ContainsKey(EnfNum) _
-                            OrElse NewSscpEnforcementForms(EnfNum) Is Nothing _
-                            OrElse NewSscpEnforcementForms(EnfNum).IsDisposed Then
-
-                            NewSscpEnforcementForms(EnfNum) = New NewSscpEnforcementAudit
-                            NewSscpEnforcementForms(EnfNum).EnforcementNumber = EnfNum
-                            NewSscpEnforcementForms(EnfNum).Show()
-                        Else
-                            NewSscpEnforcementForms(EnfNum).Activate()
-                        End If
-                    Else ' Not TestingEnvironment
-                        If SSCP_Enforcement IsNot Nothing AndAlso Not SSCP_Enforcement.IsDisposed Then
-                            SSCP_Enforcement.Close()
-                            SSCP_Enforcement = Nothing
-                        End If
-                        SSCP_Enforcement = New SSCPEnforcementAudit
-                        SSCP_Enforcement.txtEnforcementNumber.Text = txtEnforcementNumber.Text
-                        SSCP_Enforcement.Show()
-                        'SSCP_Enforcement.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
-                    End If ' TestingEnvironment
-                Else
-                    MsgBox("Enforcement Number is not in the system.", MsgBoxStyle.Information, "Navigation Screen")
-                End If
+            Dim enfNum As String = txtEnforcementNumber.Text
+            If enfNum = "" Then Exit Sub
+            If DAL.SSCP.EnforcementExists(enfNum) Then
+                OpenMultiForm(NewSscpEnforcementAudit, enfNum)
+            Else
+                MsgBox("Enforcement number is not in the system.", MsgBoxStyle.Information, "Navigation Screen")
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
-
     End Sub
     Sub OpenSSCPWork()
         Try
