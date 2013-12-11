@@ -40,6 +40,8 @@ Public Class SscpDocuments
             AddHandler ddlNewDocumentType.SelectedIndexChanged, AddressOf ddlDocumentType_SelectedIndexChanged
         Else
             Me.Enabled = False
+            MsgBox("No document types have been added. Please contact an administrator.", MsgBoxStyle.OkOnly, "Error")
+            Me.Dispose()
         End If
     End Sub
 
@@ -256,7 +258,7 @@ Public Class SscpDocuments
     Private Sub btnNewDocumentSelect_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNewDocumentSelect.Click
 
         Dim openFileDialog As New OpenFileDialog With { _
-            .InitialDirectory = GetUserSetting(UserSetting.PermitUploadLocation), _
+            .InitialDirectory = GetUserSetting(UserSetting.EnforcementUploadLocation), _
             .Filter = String.Join("|", FileOpenFilters.ToArray) _
         }
 
