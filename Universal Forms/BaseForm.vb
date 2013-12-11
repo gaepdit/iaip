@@ -2,7 +2,33 @@
 
 Public Class BaseForm
 
+#Region "Properties"
+
+    Private _id As String
+    Public Property ID() As String
+        Get
+            Return _id
+        End Get
+        Set(ByVal value As String)
+            _id = value
+        End Set
+    End Property
+
+#End Region
+
 #Region "Form events"
+
+    Private Sub BaseForm_Disposed(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Disposed
+        Try
+            If MultiForm IsNot Nothing AndAlso _
+            MultiForm.ContainsKey(Me.Name) AndAlso _
+            MultiForm(Me.Name).ContainsKey(Me.ID) Then
+                MultiForm(Me.Name).Remove(Me.ID)
+            End If
+        Catch ex As Exception
+            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+        End Try
+    End Sub
 
     Private Sub BaseForm_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
