@@ -4,13 +4,23 @@ Public Class BaseForm
 
 #Region "Properties"
 
-    Private _id As String
-    Public Property ID() As String
+    Private _id As Integer
+    Public Property ID() As Integer
         Get
             Return _id
         End Get
-        Set(ByVal value As String)
+        Set(ByVal value As Integer)
             _id = value
+        End Set
+    End Property
+
+    Private _parameters As Dictionary(Of String, String)
+    Public Property Parameters() As Dictionary(Of String, String)
+        Get
+            Return _parameters
+        End Get
+        Set(ByVal value As Dictionary(Of String, String))
+            _parameters = value
         End Set
     End Property
 
