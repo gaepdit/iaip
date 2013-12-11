@@ -35,6 +35,11 @@ Public Class BaseForm
             MultiForm(Me.Name).ContainsKey(Me.ID) Then
                 MultiForm(Me.Name).Remove(Me.ID)
             End If
+
+            If SingleForm IsNot Nothing AndAlso _
+            SingleForm.ContainsKey(Me.Name) Then
+                SingleForm.Remove(Me.Name)
+            End If
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try

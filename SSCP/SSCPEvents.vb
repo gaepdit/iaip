@@ -3751,30 +3751,38 @@ Public Class SSCPEvents
         Try
 
             If txtEnforcementNumber.Text <> "" And txtFacilityInformation.Text <> "" Then
-                If SSCP_Enforcement Is Nothing Then
-                    If SSCP_Enforcement Is Nothing Then SSCP_Enforcement = New SSCPEnforcementAudit
-                    SSCP_Enforcement.txtAIRSNumber.Text = txtAIRSNumber.Text
-                    If txtEnforcementNumber.Text <> "" Then
-                        SSCP_Enforcement.txtEnforcementNumber.Text = txtEnforcementNumber.Text
-                    End If
-                    If txtTrackingNumber.Text <> "" Then
-                        SSCP_Enforcement.txtTrackingNumber.Text = txtTrackingNumber.Text
-                    End If
-                    SSCP_Enforcement.Show()
+                Dim enfNum As String = txtEnforcementNumber.Text
+                If DAL.SSCP.EnforcementExists(enfNum) Then
+                    OpenMultiForm(NewSscpEnforcementAudit, enfNum)
                 Else
-                    SSCP_Enforcement.Close()
-                    SSCP_Enforcement = Nothing
-                    If SSCP_Enforcement Is Nothing Then SSCP_Enforcement = New SSCPEnforcementAudit
-                    SSCP_Enforcement.BringToFront()
-                    SSCP_Enforcement.txtAIRSNumber.Text = txtAIRSNumber.Text
-                    If txtEnforcementNumber.Text <> "" Then
-                        SSCP_Enforcement.txtEnforcementNumber.Text = txtEnforcementNumber.Text
-                    End If
-                    If txtTrackingNumber.Text <> "" Then
-                        SSCP_Enforcement.txtTrackingNumber.Text = txtTrackingNumber.Text
-                    End If
-                    SSCP_Enforcement.Show()
+                    MsgBox("Enforcement number is not in the system.", MsgBoxStyle.Information, Me.Text)
                 End If
+
+
+                'If SSCP_Enforcement Is Nothing Then
+                '    If SSCP_Enforcement Is Nothing Then SSCP_Enforcement = New SSCPEnforcementAudit
+                '    SSCP_Enforcement.txtAIRSNumber.Text = txtAIRSNumber.Text
+                '    If txtEnforcementNumber.Text <> "" Then
+                '        SSCP_Enforcement.txtEnforcementNumber.Text = txtEnforcementNumber.Text
+                '    End If
+                '    If txtTrackingNumber.Text <> "" Then
+                '        SSCP_Enforcement.txtTrackingNumber.Text = txtTrackingNumber.Text
+                '    End If
+                '    SSCP_Enforcement.Show()
+                'Else
+                '    SSCP_Enforcement.Close()
+                '    SSCP_Enforcement = Nothing
+                '    If SSCP_Enforcement Is Nothing Then SSCP_Enforcement = New SSCPEnforcementAudit
+                '    SSCP_Enforcement.BringToFront()
+                '    SSCP_Enforcement.txtAIRSNumber.Text = txtAIRSNumber.Text
+                '    If txtEnforcementNumber.Text <> "" Then
+                '        SSCP_Enforcement.txtEnforcementNumber.Text = txtEnforcementNumber.Text
+                '    End If
+                '    If txtTrackingNumber.Text <> "" Then
+                '        SSCP_Enforcement.txtTrackingNumber.Text = txtTrackingNumber.Text
+                '    End If
+                '    SSCP_Enforcement.Show()
+                'End If
                 'SSCP_Enforcement.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
 
                 'Me.Dispose()

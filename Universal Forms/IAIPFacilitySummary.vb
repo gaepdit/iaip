@@ -3575,64 +3575,27 @@ Public Class IAIPFacilitySummary
     Private Sub llbViewSSCPEnforcement_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbViewSSCPEnforcement.LinkClicked
         Try
 
-            If txtEnforcementNumber.Text <> "" Then
-                SQL = "Select strEnforcementNumber " & _
-                "from " & DBNameSpace & ".SSCP_AuditedEnforcement " & _
-                "where strEnforcementNumber = '" & txtEnforcementNumber.Text & "' "
-
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
-                End If
-                dr = cmd.ExecuteReader
-                recExist = dr.Read
-                dr.Close()
-
-                If recExist = True Then
-                    If SSCP_Enforcement Is Nothing Then
-                        If SSCP_Enforcement Is Nothing Then SSCP_Enforcement = New SSCPEnforcementAudit
-                        If txtEnforcementNumber.Text <> "" Then
-                            SSCP_Enforcement.txtEnforcementNumber.Text = txtEnforcementNumber.Text
-                        End If
-                        SSCP_Enforcement.Show()
-                    Else
-                        SSCP_Enforcement.Close()
-                        SSCP_Enforcement = Nothing
-                        If SSCP_Enforcement Is Nothing Then SSCP_Enforcement = New SSCPEnforcementAudit
-                        If txtEnforcementNumber.Text <> "" Then
-                            SSCP_Enforcement.txtEnforcementNumber.Text = txtEnforcementNumber.Text
-                        End If
-                        SSCP_Enforcement.Show()
-                    End If
-                    'SSCP_Enforcement.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
-
-                Else
-                    MsgBox("Enforcement Number is not in the system.", MsgBoxStyle.Information, "Navigation Screen")
-                End If
+            Dim enfNum As String = txtEnforcementNumber.Text
+            If enfNum = "" Then Exit Sub
+            If DAL.SSCP.EnforcementExists(enfNum) Then
+                OpenMultiForm(NewSscpEnforcementAudit, enfNum)
+            Else
+                MsgBox("Enforcement number is not in the system.", MsgBoxStyle.Information, Me.Text)
             End If
-
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
     Private Sub llbViewFCE_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbViewFCE.LinkClicked
         Try
-
             If txtFCEYear.Text <> "" Then
                 ViewFCE()
                 SSCPFCE.cboFCEYear.Text = txtFCEYear.Text
-
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
     Sub ViewFCE()
         Dim AirProgramCodes As String = ""

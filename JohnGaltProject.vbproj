@@ -1409,9 +1409,6 @@
     <EmbeddedResource Include="SSCP\SSCPComplianceLog.resx">
       <DependentUpon>SSCPComplianceLog.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SSCP\SSCPEnforcementAudit.resx">
-      <DependentUpon>SSCPEnforcementAudit.vb</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="SSCP\SSCPInspectionTool.resx">
       <DependentUpon>SSCPInspectionTool.vb</DependentUpon>
     </EmbeddedResource>
@@ -1771,12 +1768,6 @@
     <None Include="gaSeal.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <Compile Include="SSCP\SSCPEnforcementAudit.Designer.vb">
-      <DependentUpon>SSCPEnforcementAudit.vb</DependentUpon>
-    </Compile>
-    <Compile Include="SSCP\SSCPEnforcementAudit.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="_Data Classes\Person.vb" />
     <Compile Include="_Data Classes\Res.ResEvent.vb">
       <SubType>Code</SubType>

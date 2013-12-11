@@ -1,4 +1,5 @@
 Imports Oracle.DataAccess.Client
+Imports System.Collections.Generic
 
 
 Public Class IAIPEditAirProgramPollutants
@@ -632,10 +633,16 @@ Public Class IAIPEditAirProgramPollutants
                     MsgBox("Pollutant added to Air Program Code.", MsgBoxStyle.Information, "Edit Air Program Code Pollutants")
 
                     LoadDataGrid()
-                    If SSCP_Enforcement Is Nothing Then
-                    Else
-                        SSCP_Enforcement.LoadEnforcementPollutants2()
+                    If MultiForm IsNot Nothing AndAlso MultiForm.ContainsKey(NewSscpEnforcementAudit.Name) Then
+                        For Each kvp As KeyValuePair(Of Integer, BaseForm) In MultiForm(NewSscpEnforcementAudit.Name)
+                            Dim enf As NewSscpEnforcementAudit = kvp.Value
+                            enf.LoadEnforcementPollutants2()
+                        Next
                     End If
+
+                    'If SSCP_Enforcement IsNot Nothing Then
+                    '    SSCP_Enforcement.LoadEnforcementPollutants2()
+                    'End If
                 Else
                     MsgBox("No Data Saved", MsgBoxStyle.Exclamation, "Edit Air Program Code Pollutants")
                 End If
@@ -707,10 +714,6 @@ Public Class IAIPEditAirProgramPollutants
             dr = cmd.ExecuteReader
             dr.Close()
 
-            If SSCP_Enforcement Is Nothing Then
-            Else
-                '     SSCP_Enforcement.LoadEnforcementPollutants()
-            End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally

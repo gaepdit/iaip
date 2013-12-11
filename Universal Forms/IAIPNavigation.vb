@@ -2566,7 +2566,7 @@ Public Class IAIPNavigation
                     'EISLog.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
 
                 Case "Enforcement Documents"
-                    OpenForm(SscpDocuments)
+                    OpenSingleForm(SscpDocuments)
                     'With SscpDocuments
                     '    .Show()
                     '    .Activate()

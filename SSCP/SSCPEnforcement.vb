@@ -245,9 +245,8 @@ Public Class NewSscpEnforcementAudit
         monitor.TrackFeature("Forms." & Me.Name)
         Try
             txtEnforcementNumber.Text = Me.EnforcementNumber
-            If Parameters IsNot Nothing AndAlso Parameters.ContainsKey("airsnumber") Then
-                txtAIRSNumber.Text = Parameters("airsnumber")
-            End If
+
+            ParseParameters()
 
             LoadDefaults()
             LoadCombos()
@@ -286,6 +285,14 @@ Public Class NewSscpEnforcementAudit
     End Sub
 
 #Region "Page Load Functions"
+
+    Private Sub ParseParameters()
+        If Parameters IsNot Nothing Then
+            If Parameters.ContainsKey("airsnumber") Then txtAIRSNumber.Text = Parameters("airsnumber")
+            If Parameters.ContainsKey("trackingnumber") Then txtTrackingNumber.Text = Parameters("trackingnumber")
+        End If
+    End Sub
+
     Private Sub LoadEnforcementInfo()
         EnforcementInfo = Nothing
         Dim enfNum As String = txtEnforcementNumber.Text
@@ -2071,28 +2078,44 @@ Public Class NewSscpEnforcementAudit
     Sub OpenChecklist()
         Try
 
-            EnforcementChecklist = Nothing
-            If EnforcementChecklist Is Nothing Then EnforcementChecklist = New SSCPEnforcementChecklist
+            Dim parameters As New Dictionary(Of String, String)
+
             If txtAIRSNumber.Text <> "" Then
-                EnforcementChecklist.txtAIRSNumber.Text = txtAIRSNumber.Text
+                parameters("airsnumber") = txtAIRSNumber.Text
             End If
             If txtEnforcementNumber.Text <> "" And txtEnforcementNumber.Text <> "N/A" Then
-                EnforcementChecklist.txtEnforcementNumber.Text = txtEnforcementNumber.Text
+                parameters("enforcementnumber") = txtEnforcementNumber.Text
             End If
-            If txtTrackingNumber.Text <> "" Then
-                EnforcementChecklist.txtTrackingNumber.Text = txtTrackingNumber.Text
-            End If
+            parameters("trackingnumber") = txtTrackingNumber.Text
+            
+            OpenSingleForm(SSCPEnforcementChecklist, Me.ID, parameters, True)
 
-            EnforcementChecklist.Show()
+            'EnforcementChecklist = Nothing
+            'If EnforcementChecklist Is Nothing Then EnforcementChecklist = New SSCPEnforcementChecklist
+
+            'If txtAIRSNumber.Text <> "" Then
+            '    EnforcementChecklist.txtAIRSNumber.Text = txtAIRSNumber.Text
+            'End If
+            'If txtEnforcementNumber.Text <> "" And txtEnforcementNumber.Text <> "N/A" Then
+            '    EnforcementChecklist.txtEnforcementNumber.Text = txtEnforcementNumber.Text
+            'End If
+            'If txtTrackingNumber.Text <> "" Then
+            '    EnforcementChecklist.txtTrackingNumber.Text = txtTrackingNumber.Text
+            'End If
+
+            'EnforcementChecklist.Show()
             'EnforcementChecklist.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
-
-
     End Sub
     Sub SaveEnforcement()
         Try
+            If SingleForm IsNot Nothing AndAlso SingleForm(SSCPEnforcementChecklist.Name) IsNot Nothing Then
+                MsgBox("Please close the linking tool before saving.", MsgBoxStyle.Exclamation, "SSCP Enforcement")
+                Exit Sub
+            End If
+
             Dim TrackingNumber As String = ""
             Dim AIRSNumber As String = ""
             Dim EnforcementFinalizedCheck As String = ""
@@ -3636,6 +3659,7 @@ Public Class NewSscpEnforcementAudit
         Try
             If txtEnforcementNumber.Text <> "" And txtEnforcementNumber.Text <> "N/A" Then
 
+                If EditAirProgramPollutants IsNot Nothing Then EditAirProgramPollutants.Dispose()
                 EditAirProgramPollutants = Nothing
                 If EditAirProgramPollutants Is Nothing Then EditAirProgramPollutants = New IAIPEditAirProgramPollutants
                 EditAirProgramPollutants.txtAirsNumber.Text = Me.txtAIRSNumber.Text
@@ -3825,19 +3849,26 @@ Public Class NewSscpEnforcementAudit
     End Sub
     Private Sub btnSubmitToUC_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSubmitToUC.Click
         Try
+            If SingleForm IsNot Nothing AndAlso SingleForm(SSCPEnforcementChecklist.Name) IsNot Nothing Then
+                MsgBox("Please close the linking tool before saving.", MsgBoxStyle.Exclamation, "SSCP Enforcement")
+                Exit Sub
+            End If
+
             txtSubmitToUC.Text = "UC"
             btnSubmitToUC.Visible = False
             SaveEnforcement()
-            If EnforcementChecklist Is Nothing Then
-                MsgBox("Current data saved.", MsgBoxStyle.Information, "SSCP Enforcement")
-            End If
+            MsgBox("Current data saved.", MsgBoxStyle.Information, "SSCP Enforcement")
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
-
     End Sub
     Private Sub btnSubmitEnforcementToEPA_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSubmitEnforcementToEPA.Click
         Try
+            If SingleForm IsNot Nothing AndAlso SingleForm(SSCPEnforcementChecklist.Name) IsNot Nothing Then
+                MsgBox("Please close the linking tool before saving.", MsgBoxStyle.Exclamation, "SSCP Enforcement")
+                Exit Sub
+            End If
+
             If txtDiscoveryEventNumber.Text = "" Then
                 Dim result As DialogResult
 
@@ -3852,10 +3883,7 @@ Public Class NewSscpEnforcementAudit
 
             SaveAFSInformation()
             SaveEnforcement()
-
-            If EnforcementChecklist Is Nothing Then
-                MsgBox("Current data saved.", MsgBoxStyle.Information, "SSCP Enforcement")
-            End If
+            MsgBox("Current data saved.", MsgBoxStyle.Information, "SSCP Enforcement")
 
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -3951,6 +3979,11 @@ Public Class NewSscpEnforcementAudit
     End Sub
     Private Sub SaveClick()
         Try
+            If SingleForm IsNot Nothing AndAlso SingleForm(SSCPEnforcementChecklist.Name) IsNot Nothing Then
+                MsgBox("Please close the linking tool before saving.", MsgBoxStyle.Exclamation, "SSCP Enforcement")
+                Exit Sub
+            End If
+
             SaveEnforcement()
             LoadEnforcement()
 
@@ -3958,9 +3991,7 @@ Public Class NewSscpEnforcementAudit
                 CheckOpenStatus()
             End If
 
-            If EnforcementChecklist Is Nothing Then
-                MsgBox("Current data saved.", MsgBoxStyle.Information, "SSCP Enforcement")
-            End If
+            MsgBox("Current data saved.", MsgBoxStyle.Information, "SSCP Enforcement")
 
         Catch ex As Exception
             ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)

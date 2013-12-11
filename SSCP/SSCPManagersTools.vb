@@ -4106,41 +4106,49 @@ Public Class SSCPManagersTools
     Sub OpenEnforcement()
         Try
 
-            If txtRecordNumber.Text <> "" Then
-                SQL = "select strEnforcementNumber " & _
-                "from " & DBNameSpace & ".SSCP_AuditedEnforcement " & _
-                "where strEnforcementNumber = '" & txtRecordNumber.Text & "' "
-
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
-                End If
-                dr = cmd.ExecuteReader
-                recExist = dr.Read
-                dr.Close()
-
-                If recExist = True Then
-                    If SSCP_Enforcement Is Nothing Then
-                        If SSCP_Enforcement Is Nothing Then SSCP_Enforcement = New SSCPEnforcementAudit
-                        If txtRecordNumber.Text <> "" Then
-                            SSCP_Enforcement.txtEnforcementNumber.Text = txtRecordNumber.Text
-                        End If
-                        SSCP_Enforcement.Show()
-                    Else
-                        SSCP_Enforcement.Close()
-                        SSCP_Enforcement = Nothing
-                        If SSCP_Enforcement Is Nothing Then SSCP_Enforcement = New SSCPEnforcementAudit
-                        If txtRecordNumber.Text <> "" Then
-                            SSCP_Enforcement.txtEnforcementNumber.Text = txtRecordNumber.Text
-                        End If
-                        SSCP_Enforcement.Show()
-                    End If
-                    'SSCP_Enforcement.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
-
-                Else
-                    MsgBox("Enforcement Number is not in the system.", MsgBoxStyle.Information, "SSCP Managers Tools")
-                End If
+            Dim enfNum As String = txtRecordNumber.Text
+            If enfNum = "" Then Exit Sub
+            If DAL.SSCP.EnforcementExists(enfNum) Then
+                OpenMultiForm(NewSscpEnforcementAudit, enfNum)
+            Else
+                MsgBox("Enforcement number is not in the system.", MsgBoxStyle.Information, Me.Text)
             End If
+
+            'If txtRecordNumber.Text <> "" Then
+            '    SQL = "select strEnforcementNumber " & _
+            '    "from " & DBNameSpace & ".SSCP_AuditedEnforcement " & _
+            '    "where strEnforcementNumber = '" & txtRecordNumber.Text & "' "
+
+            '    cmd = New OracleCommand(SQL, Conn)
+            '    If Conn.State = ConnectionState.Closed Then
+            '        Conn.Open()
+            '    End If
+            '    dr = cmd.ExecuteReader
+            '    recExist = dr.Read
+            '    dr.Close()
+
+            '    If recExist = True Then
+            '        If SSCP_Enforcement Is Nothing Then
+            '            If SSCP_Enforcement Is Nothing Then SSCP_Enforcement = New SSCPEnforcementAudit
+            '            If txtRecordNumber.Text <> "" Then
+            '                SSCP_Enforcement.txtEnforcementNumber.Text = txtRecordNumber.Text
+            '            End If
+            '            SSCP_Enforcement.Show()
+            '        Else
+            '            SSCP_Enforcement.Close()
+            '            SSCP_Enforcement = Nothing
+            '            If SSCP_Enforcement Is Nothing Then SSCP_Enforcement = New SSCPEnforcementAudit
+            '            If txtRecordNumber.Text <> "" Then
+            '                SSCP_Enforcement.txtEnforcementNumber.Text = txtRecordNumber.Text
+            '            End If
+            '            SSCP_Enforcement.Show()
+            '        End If
+            '        'SSCP_Enforcement.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+
+            '    Else
+            '        MsgBox("Enforcement Number is not in the system.", MsgBoxStyle.Information, "SSCP Managers Tools")
+            '    End If
+            'End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try

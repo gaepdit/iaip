@@ -164,8 +164,7 @@ Module subMain
     Public SSCP_Work As SSCPComplianceLog
     Public ManagersTools As SSCPManagersTools
     Public SSCPREports As SSCPEvents
-    'Public SSCP_Enforcement As SSCPEnforcement
-    Public SSCP_Enforcement As SSCPEnforcementAudit
+    'Public SSCP_Enforcement As SSCPEnforcementAudit
     Public SSCPFCE As SSCPFCEWork
     Public SSCPFacAssign As SSCPFacAssignment
     Public SSCPEngWork As SSCPWorkEnTry
