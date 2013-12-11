@@ -1,9 +1,8 @@
 ﻿Imports System.Collections.Generic
+Imports System.IO
 
 Namespace DB
     Module Utilities
-
-#Region "Utilities"
 
         Public Function GetNullable(Of T)(ByVal obj As Object) As T
             ' http://stackoverflow.com/a/870771/212978
@@ -28,7 +27,16 @@ Namespace DB
             End With
         End Sub
 
-#End Region
+        Public Function ReadByteArrayFromFile(ByVal pathToFile As String) As Byte()
+            Dim fs As New FileStream(pathToFile, FileMode.Open, FileAccess.Read)
+
+            Dim byteArray As Byte() = File.ReadAllBytes(pathToFile)
+
+            fs.Close()
+            fs.Dispose()
+
+            Return byteArray
+        End Function
 
     End Module
 End Namespace

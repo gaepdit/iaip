@@ -332,7 +332,7 @@ Namespace DAL
                 New OracleParameter("pFileName", doc.FileName), _
                 New OracleParameter("pFileExt", doc.FileExtension), _
                 New OracleParameter("pFileSize", doc.FileSize), _
-                New OracleParameter("pBinFile", OracleDbType.Blob, ReadByteArrayFromFile(pathToFile), ParameterDirection.Input), _
+                New OracleParameter("pBinFile", OracleDbType.Blob, DB.ReadByteArrayFromFile(pathToFile), ParameterDirection.Input), _
                 New OracleParameter("pUser", UserGCode) _
             }
             parametersList.Add(parameters)
@@ -561,20 +561,6 @@ Namespace DAL
             End If
 
             Return result
-        End Function
-
-#End Region
-
-#Region "Utilities"
-        Private Function ReadByteArrayFromFile(ByVal pathToFile As String) As Byte()
-            Dim fs As New FileStream(pathToFile, FileMode.Open, FileAccess.Read)
-
-            Dim byteArray As Byte() = File.ReadAllBytes(pathToFile)
-
-            fs.Close()
-            fs.Dispose()
-
-            Return byteArray
         End Function
 
 #End Region
