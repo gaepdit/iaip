@@ -27,6 +27,14 @@ Namespace DB
             End With
         End Sub
 
+        Public Sub BindSortedDictionaryToComboBox(ByVal d As SortedDictionary(Of Integer, String), ByVal c As ComboBox)
+            With c
+                .DataSource = New BindingSource(d, Nothing)
+                .DisplayMember = "Value"
+                .ValueMember = "Key"
+            End With
+        End Sub
+
         Public Function ReadByteArrayFromFile(ByVal pathToFile As String) As Byte()
             Dim fs As New FileStream(pathToFile, FileMode.Open, FileAccess.Read)
 

@@ -8,17 +8,17 @@ Namespace DAL
 
 #Region "Lookups"
 
-        Public Function GetResEventStatusesAsDictionary(Optional ByVal addBlank As Boolean = False, Optional ByVal blankPrompt As String = "") As Dictionary(Of Integer, String)
+        Public Function GetResEventStatusesAsDictionary(Optional ByVal addBlank As Boolean = False, Optional ByVal blankPrompt As String = "") As SortedDictionary(Of Integer, String)
             Dim query As String = " SELECT NUMRESLK_EVENTSTATUSID, STREVENTSTATUS " & _
                 " FROM AIRBRANCH.RESLK_EVENTSTATUS " & _
                 " WHERE ACTIVE = '1' " & _
                 " ORDER BY STREVENTSTATUS "
             Dim d As Dictionary(Of Integer, String) = DB.GetLookupDictionary(query)
             If addBlank Then DB.AddBlankRowToDictionary(d, blankPrompt)
-            Return d
+            Return New SortedDictionary(Of Integer, String)(d)
         End Function
 
-        Public Function GetRegistrationStatusesAsDictionary(Optional ByVal addBlank As Boolean = False, Optional ByVal blankPrompt As String = "") As Dictionary(Of Integer, String)
+        Public Function GetRegistrationStatusesAsDictionary(Optional ByVal addBlank As Boolean = False, Optional ByVal blankPrompt As String = "") As SortedDictionary(Of Integer, String)
             Dim query As String = " SELECT NUMRESLK_REGISTRATIONSTATUSID, " & _
                 " STRREGISTRATIONSTATUS " & _
                 " FROM AIRBRANCH.RESLK_REGISTRATIONSTATUS " & _
@@ -26,7 +26,7 @@ Namespace DAL
                 " ORDER BY STRREGISTRATIONSTATUS "
             Dim d As Dictionary(Of Integer, String) = DB.GetLookupDictionary(query)
             If addBlank Then DB.AddBlankRowToDictionary(d, blankPrompt)
-            Return d
+            Return New SortedDictionary(Of Integer, String)(d)
         End Function
 
 #End Region

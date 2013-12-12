@@ -84,14 +84,14 @@ Public Class MASPRegistrationTool
 
     Private Sub LoadEventStatusCombo()
         ' Get list of Event Status types and bind that list to the combobox
-        Dim statuses As Dictionary(Of Integer, String) = GetResEventStatusesAsDictionary(True, "Select a status…")
-        If statuses.Count > 0 Then DB.BindDictionaryToComboBox(statuses, cboEventStatus)
+        Dim statuses As SortedDictionary(Of Integer, String) = GetResEventStatusesAsDictionary(True, "Select a status…")
+        If statuses.Count > 0 Then DB.BindSortedDictionaryToComboBox(statuses, cboEventStatus)
     End Sub
 
     Private Sub LoadRegistrationStatusCombo()
         ' Get list of Registration Status types and bind that list to the combobox
-        Dim statuses As Dictionary(Of Integer, String) = GetRegistrationStatusesAsDictionary(True, "Select a status…")
-        If statuses.Count > 0 Then DB.BindDictionaryToComboBox(statuses, cboRegStatus)
+        Dim statuses As SortedDictionary(Of Integer, String) = GetRegistrationStatusesAsDictionary(True, "Select a status…")
+        If statuses.Count > 0 Then DB.BindSortedDictionaryToComboBox(statuses, cboRegStatus)
     End Sub
 
 #End Region
