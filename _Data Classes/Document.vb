@@ -1,6 +1,9 @@
-﻿Imports System.IO
+﻿Imports Oracle.DataAccess.Types
+Imports System.IO
 
 Public Class Document
+
+    Public Shared MaxFileSize As Integer = Math.Min(OracleBlob.MaxSize, 500000000)
 
     Private _documentId As Integer
     Public Property DocumentId() As Integer
@@ -90,31 +93,51 @@ Public Class Document
 
 End Class
 
-Public Class PermitDocument
-    Inherits Document
+Public Class DocumentType
 
-    Private _applicationNumber As String
-    Public Property ApplicationNumber() As String
+    Private _documentType As String
+    Public Property DocumentType() As String
         Get
-            Return _applicationNumber
+            Return _documentType
         End Get
         Set(ByVal value As String)
-            _applicationNumber = value
+            _documentType = value
         End Set
     End Property
 
-End Class
-
-Public Class EnforcementDocument
-    Inherits Document
-
-    Private _enforcementNumber As String
-    Public Property EnforcementNumber() As String
+    Private _documentTypeId As Integer
+    Public Property DocumentTypeId() As Integer
         Get
-            Return _enforcementNumber
+            Return _documentTypeId
         End Get
-        Set(ByVal value As String)
-            _enforcementNumber = value
+        Set(ByVal value As Integer)
+            _documentTypeId = value
+        End Set
+    End Property
+
+    Private _active As Boolean
+    Public Property Active() As Boolean
+        Get
+            Return _active
+        End Get
+        Set(ByVal value As Boolean)
+            _active = value
+        End Set
+    End Property
+
+    'Public ReadOnly Property ActiveString() As String
+    '    Get
+    '        Return If(_active, "Yes", "No")
+    '    End Get
+    'End Property
+
+    Private _ordinal As Short
+    Public Property Ordinal() As Short
+        Get
+            Return _ordinal
+        End Get
+        Set(ByVal value As Short)
+            _ordinal = value
         End Set
     End Property
 

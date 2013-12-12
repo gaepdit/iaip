@@ -17,13 +17,13 @@ Namespace DAL
             End Function
 
             Private Sub FillApplicationInfoFromDataRow(ByVal row As DataRow, ByRef appInfo As ApplicationInfo)
-                Dim address As New Apb.Address
+                Dim address As New Address
                 With address
                     .City = DB.GetNullable(Of String)(row("STRFACILITYCITY"))
                     .State = DB.GetNullable(Of String)(row("STRFACILITYSTATE"))
                 End With
 
-                Dim location As New Apb.Location
+                Dim location As New Location
                 With location
                     .Address = address
                 End With
@@ -35,7 +35,7 @@ Namespace DAL
                     .FacilityLocation = location
                 End With
 
-                Dim staff As New Apb.Staff
+                Dim staff As New Staff
                 With staff
                     .FirstName = DB.GetNullable(Of String)(row("STRFIRSTNAME"))
                     .LastName = DB.GetNullable(Of String)(row("STRLASTNAME"))
@@ -63,14 +63,14 @@ Namespace DAL
                       LOOKUPAPPLICATIONTYPES.STRAPPLICATIONTYPEDESC,
                       EPDUSERPROFILES.STRLASTNAME,
                       EPDUSERPROFILES.STRFIRSTNAME
-                    FROM SSPPAPPLICATIONMASTER
-                    LEFT JOIN APBFACILITYINFORMATION
+                    FROM AIRBRANCH.SSPPAPPLICATIONMASTER
+                    LEFT JOIN AIRBRANCH.APBFACILITYINFORMATION
                     ON SSPPAPPLICATIONMASTER.STRAIRSNUMBER = APBFACILITYINFORMATION.STRAIRSNUMBER
-                    LEFT JOIN LOOKUPPERMITTYPES
+                    LEFT JOIN AIRBRANCH.LOOKUPPERMITTYPES
                     ON SSPPAPPLICATIONMASTER.STRPERMITTYPE = LOOKUPPERMITTYPES.STRPERMITTYPECODE
-                    LEFT JOIN LOOKUPAPPLICATIONTYPES
+                    LEFT JOIN AIRBRANCH.LOOKUPAPPLICATIONTYPES
                     ON SSPPAPPLICATIONMASTER.STRAPPLICATIONTYPE = LOOKUPAPPLICATIONTYPES.STRAPPLICATIONTYPECODE
-                    LEFT JOIN EPDUSERPROFILES
+                    LEFT JOIN AIRBRANCH.EPDUSERPROFILES
                     ON SSPPAPPLICATIONMASTER.STRSTAFFRESPONSIBLE     = EPDUSERPROFILES.NUMUSERID
                     WHERE SSPPAPPLICATIONMASTER.STRAPPLICATIONNUMBER = :pID
                 ]]></s>.Value

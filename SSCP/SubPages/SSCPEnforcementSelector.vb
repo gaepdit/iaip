@@ -1,4 +1,5 @@
 Imports Oracle.DataAccess.Client
+Imports System.Collections.Generic
 
 
 Public Class SSCPEnforcementSelector
@@ -254,30 +255,50 @@ Public Class SSCPEnforcementSelector
 
 
             If txtFacilityName.Text <> "" And txtFacilityName.Text <> "Invalid AIRS Number" Then
-                If SSCP_Enforcement Is Nothing Then
-                    If SSCP_Enforcement Is Nothing Then SSCP_Enforcement = New SSCPEnforcementAudit
-                    SSCP_Enforcement.txtAIRSNumber.Text = txtAIRSNumber.Text
-                    If txtEnforcementNumber.Text <> "" Then
-                        SSCP_Enforcement.txtEnforcementNumber.Text = txtEnforcementNumber.Text
+
+                If txtEnforcementNumber.Text <> "" Then
+
+                    Dim enfNum As String = txtEnforcementNumber.Text
+                    If DAL.SSCP.EnforcementExists(enfNum) Then
+                        OpenMultiForm(SscpEnforcement, enfNum)
+                    Else
+                        MsgBox("Enforcement number is not in the system.", MsgBoxStyle.Information, Me.Text)
+                        Exit Sub
                     End If
-                    If txtTrackingNumber.Text <> "" Then
-                        SSCP_Enforcement.txtTrackingNumber.Text = txtTrackingNumber.Text
-                    End If
-                    SSCP_Enforcement.Show()
+
                 Else
-                    SSCP_Enforcement.Close()
-                    SSCP_Enforcement = Nothing
-                    If SSCP_Enforcement Is Nothing Then SSCP_Enforcement = New SSCPEnforcementAudit
-                    SSCP_Enforcement.BringToFront()
-                    SSCP_Enforcement.txtAIRSNumber.Text = txtAIRSNumber.Text
-                    If txtEnforcementNumber.Text <> "" Then
-                        SSCP_Enforcement.txtEnforcementNumber.Text = txtEnforcementNumber.Text
-                    End If
-                    If txtTrackingNumber.Text <> "" Then
-                        SSCP_Enforcement.txtTrackingNumber.Text = txtTrackingNumber.Text
-                    End If
-                    SSCP_Enforcement.Show()
+
+                    Dim parameters As New Dictionary(Of String, String)
+                    parameters("airsnumber") = txtAIRSNumber.Text
+                    If txtTrackingNumber.Text <> "" Then parameters("trackingnumber") = txtTrackingNumber.Text
+                    OpenMultiForm(SscpEnforcement, -1, parameters)
+
                 End If
+
+                'If SSCP_Enforcement Is Nothing Then
+                '    If SSCP_Enforcement Is Nothing Then SSCP_Enforcement = New SSCPEnforcementAudit
+                '    SSCP_Enforcement.txtAIRSNumber.Text = txtAIRSNumber.Text
+                '    If txtEnforcementNumber.Text <> "" Then
+                '        SSCP_Enforcement.txtEnforcementNumber.Text = txtEnforcementNumber.Text
+                '    End If
+                '    If txtTrackingNumber.Text <> "" Then
+                '        SSCP_Enforcement.txtTrackingNumber.Text = txtTrackingNumber.Text
+                '    End If
+                '    SSCP_Enforcement.Show()
+                'Else
+                '    SSCP_Enforcement.Close()
+                '    SSCP_Enforcement = Nothing
+                '    If SSCP_Enforcement Is Nothing Then SSCP_Enforcement = New SSCPEnforcementAudit
+                '    SSCP_Enforcement.BringToFront()
+                '    SSCP_Enforcement.txtAIRSNumber.Text = txtAIRSNumber.Text
+                '    If txtEnforcementNumber.Text <> "" Then
+                '        SSCP_Enforcement.txtEnforcementNumber.Text = txtEnforcementNumber.Text
+                '    End If
+                '    If txtTrackingNumber.Text <> "" Then
+                '        SSCP_Enforcement.txtTrackingNumber.Text = txtTrackingNumber.Text
+                '    End If
+                '    SSCP_Enforcement.Show()
+                'End If
                 'SSCP_Enforcement.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
 
                 Me.Dispose()
@@ -288,12 +309,7 @@ Public Class SSCPEnforcementSelector
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-            If Conn.State = ConnectionState.Open Then
-                'conn.close()
-            End If
         End Try
-
     End Sub
     Sub LoadSSCPEnforcementDataGrid(ByVal Source As String)
         Try

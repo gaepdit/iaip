@@ -45,8 +45,8 @@ Module subMain
     Friend AppPath As String = Path.GetDirectoryName(Application.ExecutablePath)
     Friend AboutUrl As String = AppPath & "\docs\ABOUT.html"
     Friend DateFormat As String = "dd-MMM-yyyy"
-    Friend Today As Date = Date.Today
-    Friend TodayString As String = Format(Today, DateFormat)
+    'Friend Today As Date = Date.Today
+    Friend TodayString As String = Format(Date.Today, DateFormat)
     Friend TestingEnvironment As Boolean = False
 #End Region
 
@@ -138,7 +138,7 @@ Module subMain
 
 #End Region
 #Region "Mobile & Area Screens"
-    Public RegistrationTool As MASPRegistrationTool
+    'Public RegistrationTool As MASPRegistrationTool
 
 #End Region
 #Region "Planning & Support Screens"
@@ -164,8 +164,7 @@ Module subMain
     Public SSCP_Work As SSCPComplianceLog
     Public ManagersTools As SSCPManagersTools
     Public SSCPREports As SSCPEvents
-    'Public SSCP_Enforcement As SSCPEnforcement
-    Public SSCP_Enforcement As SSCPEnforcementAudit
+    'Public SSCP_Enforcement As SSCPEnforcementAudit
     Public SSCPFCE As SSCPFCEWork
     Public SSCPFacAssign As SSCPFacAssignment
     Public SSCPEngWork As SSCPWorkEnTry
@@ -179,8 +178,6 @@ Module subMain
     Public EmissionSummary As SSCPEmissionSummaryTool
     Public SSCPAdmin As SSCPAdministrator
     Public InspectionTool As SSCPInspectionTool
-
-    Friend NewSscpEnforcementForms As Dictionary(Of String, NewSscpEnforcementAudit)
 #End Region
 #Region "SSPP Screens"
     Public ApplicationLog As SSPPApplicationLog

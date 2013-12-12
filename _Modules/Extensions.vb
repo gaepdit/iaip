@@ -1,6 +1,7 @@
 ﻿Imports System.Runtime.CompilerServices
 Imports System.Runtime.InteropServices
 Imports System.IO
+Imports System.Collections.Generic
 
 Module Extensions
 
@@ -130,6 +131,22 @@ Module Extensions
     End Function
 
 #End Region
+
+#End Region
+
+#Region "Dictionary"
+
+    <Extension()> _
+    Public Function ChangeKey(Of TKey, TValue)(ByVal dict As Dictionary(Of TKey, TValue), ByVal oldKey As TKey, ByVal newKey As TKey) As Boolean
+        Dim value As TValue
+
+        If dict.ContainsKey(newKey) Then Return False
+        If Not dict.TryGetValue(oldKey, value) Then Return False
+
+        dict.Remove(oldKey)
+        dict.Add(newKey, value)
+        Return True
+    End Function
 
 #End Region
 
