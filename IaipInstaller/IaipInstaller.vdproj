@@ -45,6 +45,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_509813D036A095F2D065F24CD22978ED"
+        "OwnerKey" = "8:_62050FE5876D4351B63141F6589FBB98"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_62050FE5876D4351B63141F6589FBB98"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -93,6 +99,18 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_FB0C898C5F16E56CD161021D91042C67"
+        "OwnerKey" = "8:_509813D036A095F2D065F24CD22978ED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_FB0C898C5F16E56CD161021D91042C67"
+        "OwnerKey" = "8:_62050FE5876D4351B63141F6589FBB98"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_62050FE5876D4351B63141F6589FBB98"
         "MsmSig" = "8:_UNDEFINED"
@@ -119,6 +137,18 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_2AA3D45EC6009E32428426C3B4DFFE1E"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_509813D036A095F2D065F24CD22978ED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_FB0C898C5F16E56CD161021D91042C67"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -311,6 +341,37 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_509813D036A095F2D065F24CD22978ED"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:Microsoft.Office.Interop.Outlook, Version=12.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c"
+                "ScatterAssemblies"
+                {
+                    "_509813D036A095F2D065F24CD22978ED"
+                    {
+                    "Name" = "8:Microsoft.Office.Interop.Outlook.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:Microsoft.Office.Interop.Outlook.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_7BE259ACB5D34C389CCD3700FC995F86"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_6CC8050D86F57C2E18DFD7657801CC02"
             {
             "AssemblyRegister" = "3:1"
@@ -466,6 +527,37 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_FB0C898C5F16E56CD161021D91042C67"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:office, Version=12.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c"
+                "ScatterAssemblies"
+                {
+                    "_FB0C898C5F16E56CD161021D91042C67"
+                    {
+                    "Name" = "8:office.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:office.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_7BE259ACB5D34C389CCD3700FC995F86"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
         }
         "FileType"
         {
@@ -522,14 +614,14 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:IAIP"
-        "ProductCode" = "8:{BF451AB0-653F-48AB-A82E-230C56CD24FD}"
-        "PackageCode" = "8:{CBEE3BCF-CFA5-4028-9028-F83EF87CD3B3}"
+        "ProductCode" = "8:{61465D80-5EB4-4481-A199-D93C62201A2C}"
+        "PackageCode" = "8:{204CCBAD-540E-4E3B-8375-93898928206B}"
         "UpgradeCode" = "8:{D332FA62-F3B1-429F-B458-5F445F6846DA}"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:TRUE"
-        "ProductVersion" = "8:1.3.0"
+        "ProductVersion" = "8:2.8.0"
         "Manufacturer" = "8:State of Georgia"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
@@ -1071,7 +1163,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_62050FE5876D4351B63141F6589FBB98"
             {
-            "SourcePath" = "8:..\\obj\\x86\\Debug\\JohnGaltProject.exe"
+            "SourcePath" = "8:..\\obj\\x86\\Release\\JohnGaltProject.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_7BE259ACB5D34C389CCD3700FC995F86"
