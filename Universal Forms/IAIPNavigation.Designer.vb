@@ -126,7 +126,6 @@ Partial Class IAIPNavigation
         Me.bgrOpenNewForm = New System.ComponentModel.BackgroundWorker
         Me.bgrFormLoad = New System.ComponentModel.BackgroundWorker
         Me.Panel1 = New System.Windows.Forms.Panel
-        Me.mmiEnforcementUploader = New System.Windows.Forms.MenuItem
         Me.Panel4.SuspendLayout()
         Me.GPWorkTool.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
@@ -223,7 +222,7 @@ Partial Class IAIPNavigation
         'mmiTesting
         '
         Me.mmiTesting.Index = 4
-        Me.mmiTesting.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiPermitUploader, Me.mmiEnforcementUploader})
+        Me.mmiTesting.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiPermitUploader})
         Me.mmiTesting.Text = "Testing"
         Me.mmiTesting.Visible = False
         '
@@ -1243,11 +1242,6 @@ Partial Class IAIPNavigation
         Me.Panel1.TabIndex = 125
         Me.Panel1.Visible = False
         '
-        'mmiEnforcementUploader
-        '
-        Me.mmiEnforcementUploader.Index = 1
-        Me.mmiEnforcementUploader.Text = "New enforcement doc uploader"
-        '
         'IAIPNavigation
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1381,5 +1375,4 @@ Partial Class IAIPNavigation
     Friend WithEvents mmiTesting As System.Windows.Forms.MenuItem
     Friend WithEvents mmiResetForm As System.Windows.Forms.MenuItem
     Friend WithEvents btnNav40 As System.Windows.Forms.Button
-    Friend WithEvents mmiEnforcementUploader As System.Windows.Forms.MenuItem
 End Class

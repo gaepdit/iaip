@@ -2054,52 +2054,16 @@ Public Class IAIPNavigation
     End Sub
     Sub OpenEnforcement()
         Try
-            If txtEnforcementNumber.Text = "" Then Exit Sub
-            Dim EnfNum As String = txtEnforcementNumber.Text
-            If Integer.TryParse(EnfNum, Nothing) Then
-                SQL = "Select strEnforcementNumber " & _
-                    "from AIRBranch.SSCP_AuditedEnforcement " & _
-                    "where strEnforcementNumber = '" & EnfNum & "' "
-
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
-                End If
-                dr = cmd.ExecuteReader
-                recExist = dr.Read
-                dr.Close()
-
-                If recExist = True Then
-                    If TestingEnvironment Then
-                        If NewSscpEnforcementForms Is Nothing Then NewSscpEnforcementForms = New Dictionary(Of String, NewSscpEnforcementAudit)
-                        If Not NewSscpEnforcementForms.ContainsKey(EnfNum) _
-                            OrElse NewSscpEnforcementForms(EnfNum) Is Nothing _
-                            OrElse NewSscpEnforcementForms(EnfNum).IsDisposed Then
-
-                            NewSscpEnforcementForms(EnfNum) = New NewSscpEnforcementAudit
-                            NewSscpEnforcementForms(EnfNum).EnforcementNumber = EnfNum
-                            NewSscpEnforcementForms(EnfNum).Show()
-                        Else
-                            NewSscpEnforcementForms(EnfNum).Activate()
-                        End If
-                    Else ' Not TestingEnvironment
-                        If SSCP_Enforcement IsNot Nothing AndAlso Not SSCP_Enforcement.IsDisposed Then
-                            SSCP_Enforcement.Close()
-                            SSCP_Enforcement = Nothing
-                        End If
-                        SSCP_Enforcement = New SSCPEnforcementAudit
-                        SSCP_Enforcement.txtEnforcementNumber.Text = txtEnforcementNumber.Text
-                        SSCP_Enforcement.Show()
-                        'SSCP_Enforcement.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
-                    End If ' TestingEnvironment
-                Else
-                    MsgBox("Enforcement Number is not in the system.", MsgBoxStyle.Information, "Navigation Screen")
-                End If
+            Dim enfNum As String = txtEnforcementNumber.Text
+            If enfNum = "" Then Exit Sub
+            If DAL.SSCP.EnforcementExists(enfNum) Then
+                OpenMultiForm(SscpEnforcement, enfNum)
+            Else
+                MsgBox("Enforcement number is not in the system.", MsgBoxStyle.Information, Me.Text)
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
-
     End Sub
     Sub OpenSSCPWork()
         Try
@@ -2602,10 +2566,11 @@ Public Class IAIPNavigation
                     'EISLog.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
 
                 Case "Enforcement Documents"
-                    With SscpDocuments
-                        .Show()
-                        .Activate()
-                    End With
+                    OpenSingleForm(SscpDocuments)
+                    'With SscpDocuments
+                    '    .Show()
+                    '    .Activate()
+                    'End With
 
                 Case Else
                     MsgBox(Source.ToString, MsgBoxStyle.Information, "IAIP Navigation")
@@ -2642,13 +2607,7 @@ Public Class IAIPNavigation
 
     End Sub
     Private Sub llbEnforcementRecord_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbEnforcementRecord.LinkClicked
-        Try
-            OpenEnforcement()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-
-        End Try
-
+        OpenEnforcement()
     End Sub
     Private Sub llbOpenApplication_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbOpenApplication.LinkClicked
         Try
@@ -3762,7 +3721,7 @@ Public Class IAIPNavigation
                     End If
                 End If
             End If
-            If TestingEnvironment AndAlso (Permissions.Contains("(19)") OrElse Permissions.Contains("(20)") _
+            If (Permissions.Contains("(19)") OrElse Permissions.Contains("(20)") _
             OrElse Permissions.Contains("(21)") OrElse Permissions.Contains("(23)") _
             OrElse Permissions.Contains("(25)") OrElse Permissions.Contains("(118)")) Then
                 btnNav40.Text = "Enforcement Documents"
@@ -9040,7 +8999,7 @@ Public Class IAIPNavigation
     End Sub
 
     Private Sub mmiPermitUploader_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiPermitUploader.Click
-        SsppFileUploader.Show()
+        'SsppFileUploader.Show()
     End Sub
 
     Private Sub mmiResetForm_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiResetForm.Click
@@ -9048,7 +9007,4 @@ Public Class IAIPNavigation
         Me.Location = New Point(0, 0)
     End Sub
 
-    Private Sub mmiEnforcementUploader_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiEnforcementUploader.Click
-        SscpDocuments.Show()
-    End Sub
 End Class

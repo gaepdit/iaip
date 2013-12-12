@@ -2215,20 +2215,27 @@ Public Class SSCPFCEWork
         Try
 
             If txtEnforcement.Text <> "" Then
-                If SSCP_Enforcement Is Nothing Then
-                    If SSCP_Enforcement Is Nothing Then SSCP_Enforcement = New SSCPEnforcementAudit
-                    SSCP_Enforcement.txtAIRSNumber.Text = txtAirsNumber.Text
-                    If txtEnforcement.Text <> "" Then
-                        SSCP_Enforcement.txtEnforcementNumber.Text = txtEnforcement.Text
-                    End If
-                    SSCP_Enforcement.Show()
+                Dim enfNum As String = txtEnforcement.Text
+                If DAL.SSCP.EnforcementExists(enfNum) Then
+                    OpenMultiForm(SscpEnforcement, enfNum)
                 Else
-                    SSCP_Enforcement.BringToFront()
-                    SSCP_Enforcement.txtAIRSNumber.Text = txtAirsNumber.Text
-                    If txtEnforcement.Text <> "" Then
-                        SSCP_Enforcement.txtEnforcementNumber.Text = txtEnforcement.Text
-                    End If
+                    MsgBox("Enforcement number is not in the system.", MsgBoxStyle.Information, Me.Text)
                 End If
+
+                'If SSCP_Enforcement Is Nothing Then
+                '    If SSCP_Enforcement Is Nothing Then SSCP_Enforcement = New SSCPEnforcementAudit
+                '    SSCP_Enforcement.txtAIRSNumber.Text = txtAirsNumber.Text
+                '    If txtEnforcement.Text <> "" Then
+                '        SSCP_Enforcement.txtEnforcementNumber.Text = txtEnforcement.Text
+                '    End If
+                '    SSCP_Enforcement.Show()
+                'Else
+                '    SSCP_Enforcement.BringToFront()
+                '    SSCP_Enforcement.txtAIRSNumber.Text = txtAirsNumber.Text
+                '    If txtEnforcement.Text <> "" Then
+                '        SSCP_Enforcement.txtEnforcementNumber.Text = txtEnforcement.Text
+                '    End If
+                'End If
                 'SSCP_Enforcement.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
             End If
         Catch ex As Exception

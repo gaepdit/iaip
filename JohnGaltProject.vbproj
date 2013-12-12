@@ -276,12 +276,6 @@
     <Compile Include="DevelopmentForms\IAIP_EIS_Log.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SSPP\SsppFileUploader.Designer.vb">
-      <DependentUpon>SsppFileUploader.vb</DependentUpon>
-    </Compile>
-    <Compile Include="SSPP\SsppFileUploader.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Universal Forms\BaseForm.Designer.vb">
       <DependentUpon>BaseForm.vb</DependentUpon>
     </Compile>
@@ -307,12 +301,6 @@
       <DependentUpon>PASPFeeStatistics.vb</DependentUpon>
     </Compile>
     <Compile Include="PASP\PASPFeeStatistics.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="SSCP\SSCPEnforcementAudit.Designer.vb">
-      <DependentUpon>SSCPEnforcementAudit.vb</DependentUpon>
-    </Compile>
-    <Compile Include="SSCP\SSCPEnforcementAudit.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="DataSet\dsIAIP10.Designer.vb">
@@ -1159,9 +1147,6 @@
     <EmbeddedResource Include="SSCP\SSCPEnforcement.resx">
       <DependentUpon>SSCPEnforcement.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SSCP\SSCPEnforcementAudit.resx">
-      <DependentUpon>SSCPEnforcementAudit.vb</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="FCE_ACC.rdlc" />
     <EmbeddedResource Include="Reports\FacilityBasicPrint.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
@@ -1426,9 +1411,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SSCP\SSCPInspectionTool.resx">
       <DependentUpon>SSCPInspectionTool.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SSPP\SsppFileUploader.resx">
-      <DependentUpon>SsppFileUploader.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SSPP\Sub Forms\SSPP_FeeContact.resx">
       <DependentUpon>SSPP_FeeContact.vb</DependentUpon>
@@ -1824,6 +1806,7 @@
     <Compile Include="_DB\DB.Utilities.vb" />
     <Compile Include="_Modules\Analytics.vb" />
     <Compile Include="_Modules\Email.vb" />
+    <Compile Include="_Modules\FormHandler.vb" />
     <Compile Include="_Modules\FormSettings.vb" />
     <Compile Include="_Modules\FacilityUtility.vb" />
     <Compile Include="_Modules\MD5.vb" />
