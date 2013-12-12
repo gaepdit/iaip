@@ -79,8 +79,12 @@ Public Class SscpDocuments
         If enforcementInfo IsNot Nothing Then
             Dim infoDisplay As New StringBuilder
 
+            infoDisplay.AppendFormat("Enforcement #{0}", enforcementInfo.EnforcementNumber).AppendLine()
             Dim airsNum As Integer = CInt(enforcementInfo.Facility.AirsNumber)
             infoDisplay.AppendFormat("AIRS # {0:000-00000}: {1}", airsNum, enforcementInfo.Facility.Name).AppendLine()
+            lblEnforcementInfo.Text = infoDisplay.ToString
+
+            infoDisplay.Length = 0
             infoDisplay.AppendLine(enforcementInfo.Facility.FacilityLocation.Address.ToString)
             infoDisplay.AppendFormat("Responsible staff: {0}", enforcementInfo.StaffResponsible).AppendLine()
             If Not enforcementInfo.DiscoveryDate Is Nothing Then
@@ -89,7 +93,7 @@ Public Class SscpDocuments
                 infoDisplay.AppendFormat("{0}", enforcementInfo.EnforcementTypeCode).AppendLine()
             End If
 
-            lblEnforcementInfo.Text = infoDisplay.ToString
+            lblEnforcementInfo2.Text = infoDisplay.ToString
         Else
             ClearEnforcementInfo()
         End If
@@ -234,6 +238,7 @@ Public Class SscpDocuments
 
     Private Sub ClearEnforcementInfo()
         lblEnforcementInfo.Text = ""
+        lblEnforcementInfo2.Text = ""
     End Sub
 
     Private Sub ClearNewDocument()

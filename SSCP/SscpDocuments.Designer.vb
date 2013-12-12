@@ -49,6 +49,7 @@ Partial Class SscpDocuments
         Me.lblFindEnforcement = New System.Windows.Forms.Label
         Me.lblEnforcementInfo = New System.Windows.Forms.Label
         Me.EP = New System.Windows.Forms.ErrorProvider(Me.components)
+        Me.lblEnforcementInfo2 = New System.Windows.Forms.Label
         Me.pnlNewDocument.SuspendLayout()
         Me.pnlNewDocumentDetails.SuspendLayout()
         Me.pnlDocument.SuspendLayout()
@@ -327,23 +328,35 @@ Partial Class SscpDocuments
         '
         'lblEnforcementInfo
         '
-        Me.lblEnforcementInfo.ForeColor = System.Drawing.SystemColors.GrayText
+        Me.lblEnforcementInfo.AutoSize = True
         Me.lblEnforcementInfo.Location = New System.Drawing.Point(393, 15)
         Me.lblEnforcementInfo.Name = "lblEnforcementInfo"
-        Me.lblEnforcementInfo.Size = New System.Drawing.Size(367, 65)
+        Me.lblEnforcementInfo.Size = New System.Drawing.Size(88, 26)
         Me.lblEnforcementInfo.TabIndex = 26
-        Me.lblEnforcementInfo.Text = "Enforcement Info" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "2" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "3" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "4" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "5"
+        Me.lblEnforcementInfo.Text = "Enforcement Info" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "2"
         '
         'EP
         '
         Me.EP.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink
         Me.EP.ContainerControl = Me
         '
+        'lblEnforcementInfo2
+        '
+        Me.lblEnforcementInfo2.AutoSize = True
+        Me.lblEnforcementInfo2.ForeColor = System.Drawing.SystemColors.GrayText
+        Me.lblEnforcementInfo2.Location = New System.Drawing.Point(393, 43)
+        Me.lblEnforcementInfo2.MaximumSize = New System.Drawing.Size(367, 0)
+        Me.lblEnforcementInfo2.Name = "lblEnforcementInfo2"
+        Me.lblEnforcementInfo2.Size = New System.Drawing.Size(97, 52)
+        Me.lblEnforcementInfo2.TabIndex = 26
+        Me.lblEnforcementInfo2.Text = "Enforcement Info II" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "2" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "3" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "4"
+        '
         'SscpDocuments
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(841, 448)
+        Me.Controls.Add(Me.lblEnforcementInfo2)
         Me.Controls.Add(Me.lblEnforcementInfo)
         Me.Controls.Add(Me.btnFindEnforcement)
         Me.Controls.Add(Me.txtFindEnforcement)
@@ -394,4 +407,5 @@ Partial Class SscpDocuments
     Friend WithEvents lblEnforcementInfo As System.Windows.Forms.Label
     Friend WithEvents EP As System.Windows.Forms.ErrorProvider
     Friend WithEvents pnlNewDocumentDetails As System.Windows.Forms.Panel
+    Friend WithEvents lblEnforcementInfo2 As System.Windows.Forms.Label
 End Class
