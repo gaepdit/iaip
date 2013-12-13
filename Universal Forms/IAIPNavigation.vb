@@ -2524,14 +2524,14 @@ Public Class IAIPNavigation
                     End If
                     LookUpTables.Show()
                     'LookUpTables.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
-                Case "Fees Audit Tool"
-                    If FeeAuditTool Is Nothing Then
-                        If FeeAuditTool Is Nothing Then FeeAuditTool = New IAIPFeeAuditTool
-                    Else
-                        FeeAuditTool.Dispose()
-                        FeeAuditTool = New IAIPFeeAuditTool
-                    End If
-                    FeeAuditTool.Show()
+                    'Case "Fees Audit Tool"
+                    '    If FeeAuditTool Is Nothing Then
+                    '        If FeeAuditTool Is Nothing Then FeeAuditTool = New IAIPFeeAuditTool
+                    '    Else
+                    '        FeeAuditTool.Dispose()
+                    '        FeeAuditTool = New IAIPFeeAuditTool
+                    '    End If
+                    '    FeeAuditTool.Show()
                     'FeeAuditTool.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                 Case "Compliance Admin"
                     If SSCPAdmin Is Nothing Then
@@ -3664,15 +3664,15 @@ Public Class IAIPNavigation
                     End If
                 End If
             End If
-            If AccountArray(134, 0) Is Nothing Then
-            Else
-                If AccountArray(134, 0) = "134" Then
-                    If AccountArray(134, 1) = "1" Or AccountArray(134, 2) = "1" Or AccountArray(134, 3) = "1" Or AccountArray(134, 4) = "1" Then
-                        btnNav34.Text = "Fees Audit Tool"
-                        btnNav34.Visible = True
-                    End If
-                End If
-            End If
+            'If AccountArray(134, 0) Is Nothing Then
+            'Else
+            '    If AccountArray(134, 0) = "134" Then
+            '        If AccountArray(134, 1) = "1" Or AccountArray(134, 2) = "1" Or AccountArray(134, 3) = "1" Or AccountArray(134, 4) = "1" Then
+            '            btnNav34.Text = "Fees Audit Tool"
+            '            btnNav34.Visible = True
+            '        End If
+            '    End If
+            'End If
             If AccountArray(135, 0) Is Nothing Then
             Else
                 If AccountArray(135, 0) = "135" Then

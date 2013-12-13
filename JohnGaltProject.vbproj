@@ -749,12 +749,6 @@
     <Compile Include="Universal Forms\IAIPLookUpTables.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Universal Forms\IAIPFeeAuditTool.Designer.vb">
-      <DependentUpon>IAIPFeeAuditTool.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Universal Forms\IAIPFeeAuditTool.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Universal Forms\IAIPQueryGenerator.Designer.vb">
       <DependentUpon>IAIPQueryGenerator.vb</DependentUpon>
     </Compile>
@@ -1422,9 +1416,6 @@
     <EmbeddedResource Include="Universal Forms\IAIPLookUpTables.resx">
       <DependentUpon>IAIPLookUpTables.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Universal Forms\IAIPFeeAuditTool.resx">
-      <DependentUpon>IAIPFeeAuditTool.vb</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Universal Forms\IAIPQueryGenerator.resx">
       <SubType>Designer</SubType>
       <DependentUpon>IAIPQueryGenerator.vb</DependentUpon>
@@ -1896,6 +1887,7 @@
     <Folder Include="Crystal Reports\Oracle 10.1\ISMP\" />
     <Folder Include="Crystal Reports\Oracle 9.2\PASP\" />
     <Folder Include="Crystal Reports\Oracle 9.2\SSCP\" />
+    <Folder Include="Obsolete\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
   <PropertyGroup>

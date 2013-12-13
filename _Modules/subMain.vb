@@ -134,7 +134,7 @@ Module subMain
     Public StaffTools As DMUStaffTools
     Public TitleVTools As DMUTitleVTools
     Public StaffReports As ISMPStaffReports
-    Public FeeAuditTool As IAIPFeeAuditTool
+    'Public FeeAuditTool As IAIPFeeAuditTool
 
 #End Region
 #Region "Mobile & Area Screens"
