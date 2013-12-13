@@ -5,6 +5,10 @@ Integrated Air Information Platform change log
 
 See the [release notes](README.html).
 
+## Version 2.8.1 <span>(2013-12-13)</span>
+
++ FIX: Updating IAIP no longer forgets user settings, like login name (sorry about that!) (#152)
+
 ## Version 2.8.0 <span>(2013-12-12)</span>
 
 + NEW: *SSCP* – New enforcement document storage tool. Also, new documents tab on enforcement screen.

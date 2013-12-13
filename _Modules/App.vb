@@ -16,6 +16,12 @@ Module App
         Console.WriteLine("Environment.UserName: " & Environment.UserName)
 #End If
 
+        'Settings
+        If My.Settings.CallUpgrade Then
+            My.Settings.Upgrade()
+            My.Settings.CallUpgrade = False
+        End If
+
         ' EQATEC analytics monitor
         MonitorInit()
 
