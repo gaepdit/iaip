@@ -1,6 +1,6 @@
 open 167.193.56.178
 dwaldron
-Startrek6`
+Startrek7`
 cd /AirPermit/IAIP/new
 put ../IAIP-Installer/IAIP-Installer.zip
 mput ../IAIP-Updater/*.exe
