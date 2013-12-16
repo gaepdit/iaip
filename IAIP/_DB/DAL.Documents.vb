@@ -5,8 +5,8 @@ Imports System.Runtime.InteropServices
 Imports Oracle.DataAccess.Client
 Imports Oracle.DataAccess.Types
 
-Imports JohnGaltProject.Apb.SSCP
-Imports JohnGaltProject.Apb.SSPP
+Imports Iaip.Apb.SSCP
+Imports Iaip.Apb.SSPP
 
 Namespace DAL
     Module Documents

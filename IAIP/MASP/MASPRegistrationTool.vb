@@ -1,7 +1,7 @@
 ﻿Imports Oracle.DataAccess.Client
 Imports System.Collections.Generic
-Imports JohnGaltProject.DAL.EventRegistration
-Imports JohnGaltProject.Apb.Res
+Imports Iaip.DAL.EventRegistration
+Imports Iaip.Apb.Res
 
 Public Class MASPRegistrationTool
     Dim ds As DataSet

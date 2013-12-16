@@ -1,7 +1,7 @@
 ﻿Imports System.Collections.Generic
 Imports Oracle.DataAccess.Client
 Imports Oracle.DataAccess.Types
-Imports JohnGaltProject.Apb.Res
+Imports Iaip.Apb.Res
 
 Namespace DAL
     Module EventRegistration

@@ -1,4 +1,4 @@
-﻿Imports JohnGaltProject.DAL.EventRegistration
+﻿Imports Iaip.DAL.EventRegistration
 Namespace Apb.Res
 
     Public Class ResEvent

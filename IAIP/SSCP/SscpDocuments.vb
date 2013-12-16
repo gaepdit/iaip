@@ -2,9 +2,9 @@
 Imports System.Text
 Imports System.IO
 
-Imports JohnGaltProject.Apb.SSCP
-Imports JohnGaltProject.DAL.SSCP
-Imports JohnGaltProject.DAL.Documents
+Imports Iaip.Apb.SSCP
+Imports Iaip.DAL.SSCP
+Imports Iaip.DAL.Documents
 
 Imports Oracle.DataAccess.Types
 
