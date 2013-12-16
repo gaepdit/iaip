@@ -1,4 +1,5 @@
 ﻿Namespace Apb
+
     Module FacilityUtility
 
         Public Function ValidAirsNumber(ByVal airsNumber As String) As Boolean
@@ -62,4 +63,5 @@
         End Function
 
     End Module
+
 End Namespace

@@ -3125,23 +3125,16 @@ Public Class PASPFeeStatistics
                             SSCPFCE.txtFCENumber.Text = txtFeeComplianceEvent.Text
                         End If
                         'SSCPFCE.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+
                     Case "Enforcement"
-                        If SSCP_Enforcement Is Nothing Then
-                            If SSCP_Enforcement Is Nothing Then SSCP_Enforcement = New SSCPEnforcementAudit
-                            If txtFeeComplianceEvent.Text <> "" Then
-                                SSCP_Enforcement.txtEnforcementNumber.Text = txtFeeComplianceEvent.Text
-                            End If
-                            SSCP_Enforcement.Show()
+                        Dim enfNum As String = txtFeeComplianceEvent.Text
+                        If enfNum = "" Then Exit Sub
+                        If DAL.SSCP.EnforcementExists(enfNum) Then
+                            OpenMultiForm(SscpEnforcement, enfNum)
                         Else
-                            SSCP_Enforcement.Close()
-                            SSCP_Enforcement = Nothing
-                            If SSCP_Enforcement Is Nothing Then SSCP_Enforcement = New SSCPEnforcementAudit
-                            If txtFeeComplianceEvent.Text <> "" Then
-                                SSCP_Enforcement.txtEnforcementNumber.Text = txtFeeComplianceEvent.Text
-                            End If
-                            SSCP_Enforcement.Show()
+                            MsgBox("Enforcement number is not in the system.", MsgBoxStyle.Information, Me.Text)
                         End If
-                        'SSCP_Enforcement.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+
                     Case Else
                         Dim RefNum As String = ""
                         Dim DocType As String = ""

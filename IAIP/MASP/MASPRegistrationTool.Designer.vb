@@ -22,97 +22,81 @@ Partial Class MASPRegistrationTool
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.components = New System.ComponentModel.Container
-        Me.StatusStrip1 = New System.Windows.Forms.StatusStrip
-        Me.ToolStripProgressBar1 = New System.Windows.Forms.ToolStripProgressBar
-        Me.Panel1 = New System.Windows.Forms.ToolStripStatusLabel
-        Me.Panel2 = New System.Windows.Forms.ToolStripStatusLabel
-        Me.Panel3 = New System.Windows.Forms.ToolStripStatusLabel
-        Me.MainMenu1 = New System.Windows.Forms.MainMenu(Me.components)
-        Me.MmiFile = New System.Windows.Forms.MenuItem
-        Me.mmiSave = New System.Windows.Forms.MenuItem
-        Me.MenuItem1 = New System.Windows.Forms.MenuItem
-        Me.MmiBack = New System.Windows.Forms.MenuItem
-        Me.MmiView = New System.Windows.Forms.MenuItem
-        Me.MenuItem2 = New System.Windows.Forms.MenuItem
-        Me.mmiNewApplication = New System.Windows.Forms.MenuItem
-        Me.MmiHelp = New System.Windows.Forms.MenuItem
         Me.Panel4 = New System.Windows.Forms.Panel
-        Me.GroupBox2 = New System.Windows.Forms.GroupBox
         Me.chbGECOlogInRequired = New System.Windows.Forms.CheckBox
-        Me.Label48 = New System.Windows.Forms.Label
-        Me.txtEventEndTime = New System.Windows.Forms.TextBox
         Me.txtWebsiteURL = New System.Windows.Forms.TextBox
+        Me.Label48 = New System.Windows.Forms.Label
         Me.Label47 = New System.Windows.Forms.Label
-        Me.Label32 = New System.Windows.Forms.Label
-        Me.DTPEventEndDate = New System.Windows.Forms.DateTimePicker
+        Me.txtEventTitle = New System.Windows.Forms.TextBox
         Me.btnClearEventManagement = New System.Windows.Forms.Button
+        Me.txtEventEndTime = New System.Windows.Forms.TextBox
         Me.mtbEventPhoneNumber = New System.Windows.Forms.MaskedTextBox
+        Me.Label3 = New System.Windows.Forms.Label
         Me.Label17 = New System.Windows.Forms.Label
+        Me.txtEventDescription = New System.Windows.Forms.TextBox
         Me.cboEventContact = New System.Windows.Forms.ComboBox
+        Me.Label4 = New System.Windows.Forms.Label
         Me.Label18 = New System.Windows.Forms.Label
+        Me.Label32 = New System.Windows.Forms.Label
         Me.btnGeneratePasscode = New System.Windows.Forms.Button
+        Me.txtEventVenue = New System.Windows.Forms.TextBox
         Me.Label16 = New System.Windows.Forms.Label
+        Me.DTPEventEndDate = New System.Windows.Forms.DateTimePicker
         Me.chbEventPasscode = New System.Windows.Forms.CheckBox
-        Me.btnMapEventLocation = New System.Windows.Forms.Button
-        Me.mtbEventZipCode = New System.Windows.Forms.MaskedTextBox
-        Me.mtbEventState = New System.Windows.Forms.MaskedTextBox
-        Me.txtEventCity = New System.Windows.Forms.TextBox
-        Me.Label15 = New System.Windows.Forms.Label
-        Me.txtEventAddress = New System.Windows.Forms.TextBox
-        Me.mtbEventWebPhoneNumber = New System.Windows.Forms.MaskedTextBox
-        Me.Label14 = New System.Windows.Forms.Label
-        Me.cboEventWebContact = New System.Windows.Forms.ComboBox
-        Me.Label13 = New System.Windows.Forms.Label
-        Me.Label12 = New System.Windows.Forms.Label
-        Me.txtEventTime = New System.Windows.Forms.TextBox
         Me.btnDeleteEvent = New System.Windows.Forms.Button
+        Me.Label5 = New System.Windows.Forms.Label
         Me.btnUpdateEvent = New System.Windows.Forms.Button
+        Me.DTPEventDate = New System.Windows.Forms.DateTimePicker
         Me.btnSaveNewEvent = New System.Windows.Forms.Button
+        Me.Label7 = New System.Windows.Forms.Label
         Me.Label9 = New System.Windows.Forms.Label
+        Me.Label8 = New System.Windows.Forms.Label
         Me.txtEventNotes = New System.Windows.Forms.TextBox
         Me.mtbEventCapacity = New System.Windows.Forms.MaskedTextBox
-        Me.Label8 = New System.Windows.Forms.Label
-        Me.Label7 = New System.Windows.Forms.Label
-        Me.DTPEventDate = New System.Windows.Forms.DateTimePicker
-        Me.Label5 = New System.Windows.Forms.Label
-        Me.txtEventVenue = New System.Windows.Forms.TextBox
-        Me.Label4 = New System.Windows.Forms.Label
-        Me.txtEventDescription = New System.Windows.Forms.TextBox
-        Me.Label3 = New System.Windows.Forms.Label
         Me.cboEventStatus = New System.Windows.Forms.ComboBox
+        Me.txtEventTime = New System.Windows.Forms.TextBox
         Me.Label2 = New System.Windows.Forms.Label
-        Me.txtEventTitle = New System.Windows.Forms.TextBox
+        Me.Label12 = New System.Windows.Forms.Label
         Me.Label1 = New System.Windows.Forms.Label
-        Me.txtEventID = New System.Windows.Forms.TextBox
-        Me.TabControl1 = New System.Windows.Forms.TabControl
-        Me.TPEventOverview = New System.Windows.Forms.TabPage
+        Me.Label13 = New System.Windows.Forms.Label
+        Me.cboEventWebContact = New System.Windows.Forms.ComboBox
+        Me.btnMapEventLocation = New System.Windows.Forms.Button
+        Me.Label14 = New System.Windows.Forms.Label
+        Me.mtbEventZipCode = New System.Windows.Forms.MaskedTextBox
+        Me.mtbEventWebPhoneNumber = New System.Windows.Forms.MaskedTextBox
+        Me.mtbEventState = New System.Windows.Forms.MaskedTextBox
+        Me.txtEventAddress = New System.Windows.Forms.TextBox
+        Me.txtEventCity = New System.Windows.Forms.TextBox
+        Me.Label15 = New System.Windows.Forms.Label
+        Me.tabsEventDetails = New System.Windows.Forms.TabControl
+        Me.tabEventOverview = New System.Windows.Forms.TabPage
         Me.dgvOverviewRegistrants = New System.Windows.Forms.DataGridView
         Me.Panel9 = New System.Windows.Forms.Panel
-        Me.lblNotes = New System.Windows.Forms.TextBox
-        Me.lblVenue = New System.Windows.Forms.TextBox
-        Me.lblAPBContact = New System.Windows.Forms.TextBox
-        Me.lblEventContact = New System.Windows.Forms.TextBox
-        Me.lblWaitingList = New System.Windows.Forms.TextBox
-        Me.lblEventCapacity = New System.Windows.Forms.TextBox
-        Me.lblNumberRegistered = New System.Windows.Forms.TextBox
-        Me.lblEventStatus = New System.Windows.Forms.TextBox
-        Me.lblPassCode = New System.Windows.Forms.TextBox
-        Me.lblLogInRequired = New System.Windows.Forms.TextBox
-        Me.lblEventDateTime = New System.Windows.Forms.TextBox
-        Me.lblEvent = New System.Windows.Forms.TextBox
-        Me.lblDescription = New System.Windows.Forms.TextBox
+        Me.chbOvLoginRequired = New System.Windows.Forms.CheckBox
+        Me.txtOvNotes = New System.Windows.Forms.TextBox
+        Me.txtOvVenue = New System.Windows.Forms.TextBox
+        Me.txtOvAPBContact = New System.Windows.Forms.TextBox
+        Me.txtOvWebContact = New System.Windows.Forms.TextBox
+        Me.txtOvCancelled = New System.Windows.Forms.TextBox
+        Me.txtOvWaitingList = New System.Windows.Forms.TextBox
+        Me.txtOvEventCapacity = New System.Windows.Forms.TextBox
+        Me.txtOvNumberRegistered = New System.Windows.Forms.TextBox
+        Me.txtOvEventStatus = New System.Windows.Forms.TextBox
+        Me.txtOvPassCode = New System.Windows.Forms.TextBox
+        Me.txtOvEventDateTime = New System.Windows.Forms.TextBox
+        Me.txtOvEvent = New System.Windows.Forms.TextBox
+        Me.txtOvDescription = New System.Windows.Forms.TextBox
         Me.txtEmails = New System.Windows.Forms.TextBox
-        Me.Label41 = New System.Windows.Forms.Label
         Me.Label34 = New System.Windows.Forms.Label
         Me.Label35 = New System.Windows.Forms.Label
         Me.btnEmailWaitList = New System.Windows.Forms.Button
+        Me.lblCancelled = New System.Windows.Forms.Label
         Me.Label36 = New System.Windows.Forms.Label
         Me.btnEmailRegistrants = New System.Windows.Forms.Button
         Me.Label37 = New System.Windows.Forms.Label
         Me.btnEmailAll = New System.Windows.Forms.Button
         Me.Label38 = New System.Windows.Forms.Label
-        Me.btnExportToExcel = New System.Windows.Forms.Button
+        Me.btnExportRegistrantsToExcel = New System.Windows.Forms.Button
         Me.Label39 = New System.Windows.Forms.Label
         Me.Label40 = New System.Windows.Forms.Label
         Me.Label42 = New System.Windows.Forms.Label
@@ -120,8 +104,8 @@ Partial Class MASPRegistrationTool
         Me.Label44 = New System.Windows.Forms.Label
         Me.Label45 = New System.Windows.Forms.Label
         Me.Label46 = New System.Windows.Forms.Label
-        Me.TPEventManagement = New System.Windows.Forms.TabPage
-        Me.TPRegistrationManagement = New System.Windows.Forms.TabPage
+        Me.tabEventManagement = New System.Windows.Forms.TabPage
+        Me.tabRegistrationManagement = New System.Windows.Forms.TabPage
         Me.dgvRegistrationManagement = New System.Windows.Forms.DataGridView
         Me.Panel8 = New System.Windows.Forms.Panel
         Me.btnModifyRegistration = New System.Windows.Forms.Button
@@ -159,480 +143,346 @@ Partial Class MASPRegistrationTool
         Me.Label19 = New System.Windows.Forms.Label
         Me.Label6 = New System.Windows.Forms.Label
         Me.txtRegEventTitle = New System.Windows.Forms.TextBox
-        Me.Panel5 = New System.Windows.Forms.Panel
-        Me.dgvRegistrationEvent = New System.Windows.Forms.DataGridView
-        Me.Panel7 = New System.Windows.Forms.Panel
-        Me.txtSelectedEventID = New System.Windows.Forms.TextBox
-        Me.lblEventTitle = New System.Windows.Forms.Label
+        Me.pnlEventsAndFilter = New System.Windows.Forms.Panel
+        Me.dgvEvents = New System.Windows.Forms.DataGridView
+        Me.pnlFilterEvents = New System.Windows.Forms.Panel
+        Me.rdbEventsFilterAll = New System.Windows.Forms.RadioButton
+        Me.rdbEventsFilterPast = New System.Windows.Forms.RadioButton
+        Me.rdbEventsFilterFuture = New System.Windows.Forms.RadioButton
+        Me.pnlEventTitle = New System.Windows.Forms.Panel
         Me.btnViewDetails = New System.Windows.Forms.Button
-        Me.lblEVentDate = New System.Windows.Forms.Label
-        Me.Panel6 = New System.Windows.Forms.Panel
-        Me.btnFilterEvents = New System.Windows.Forms.Button
-        Me.rdbAllEvents = New System.Windows.Forms.RadioButton
-        Me.rdbPastEvents = New System.Windows.Forms.RadioButton
-        Me.rdbUpcomingEvents = New System.Windows.Forms.RadioButton
-        Me.StatusStrip1.SuspendLayout()
+        Me.lblEventTitle = New System.Windows.Forms.Label
+        Me.lblEventDate = New System.Windows.Forms.Label
+        Me.lblEmail = New System.Windows.Forms.Label
         Me.Panel4.SuspendLayout()
-        Me.GroupBox2.SuspendLayout()
-        Me.TabControl1.SuspendLayout()
-        Me.TPEventOverview.SuspendLayout()
+        Me.tabsEventDetails.SuspendLayout()
+        Me.tabEventOverview.SuspendLayout()
         CType(Me.dgvOverviewRegistrants, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel9.SuspendLayout()
-        Me.TPEventManagement.SuspendLayout()
-        Me.TPRegistrationManagement.SuspendLayout()
+        Me.tabEventManagement.SuspendLayout()
+        Me.tabRegistrationManagement.SuspendLayout()
         CType(Me.dgvRegistrationManagement, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel8.SuspendLayout()
-        Me.Panel5.SuspendLayout()
-        CType(Me.dgvRegistrationEvent, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.Panel7.SuspendLayout()
-        Me.Panel6.SuspendLayout()
+        Me.pnlEventsAndFilter.SuspendLayout()
+        CType(Me.dgvEvents, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.pnlFilterEvents.SuspendLayout()
+        Me.pnlEventTitle.SuspendLayout()
         Me.SuspendLayout()
-        '
-        'StatusStrip1
-        '
-        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripProgressBar1, Me.Panel1, Me.Panel2, Me.Panel3})
-        Me.StatusStrip1.Location = New System.Drawing.Point(0, 544)
-        Me.StatusStrip1.Name = "StatusStrip1"
-        Me.StatusStrip1.Size = New System.Drawing.Size(792, 22)
-        Me.StatusStrip1.TabIndex = 256
-        Me.StatusStrip1.Text = "StatusStrip1"
-        '
-        'ToolStripProgressBar1
-        '
-        Me.ToolStripProgressBar1.Name = "ToolStripProgressBar1"
-        Me.ToolStripProgressBar1.Size = New System.Drawing.Size(100, 16)
-        '
-        'Panel1
-        '
-        Me.Panel1.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
-        Me.Panel1.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
-        Me.Panel1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
-        Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(667, 17)
-        Me.Panel1.Spring = True
-        Me.Panel1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'Panel2
-        '
-        Me.Panel2.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
-        Me.Panel2.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
-        Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(4, 17)
-        '
-        'Panel3
-        '
-        Me.Panel3.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
-        Me.Panel3.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
-        Me.Panel3.Name = "Panel3"
-        Me.Panel3.Size = New System.Drawing.Size(4, 17)
-        '
-        'MainMenu1
-        '
-        Me.MainMenu1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.MmiFile, Me.MmiView, Me.MenuItem2, Me.MmiHelp})
-        '
-        'MmiFile
-        '
-        Me.MmiFile.Index = 0
-        Me.MmiFile.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiSave, Me.MenuItem1, Me.MmiBack})
-        Me.MmiFile.Text = "File"
-        '
-        'mmiSave
-        '
-        Me.mmiSave.Index = 0
-        Me.mmiSave.Text = "Save"
-        '
-        'MenuItem1
-        '
-        Me.MenuItem1.Index = 1
-        Me.MenuItem1.Text = "-"
-        '
-        'MmiBack
-        '
-        Me.MmiBack.Index = 2
-        Me.MmiBack.Text = "Back"
-        '
-        'MmiView
-        '
-        Me.MmiView.Index = 1
-        Me.MmiView.Text = "View"
-        '
-        'MenuItem2
-        '
-        Me.MenuItem2.Index = 2
-        Me.MenuItem2.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiNewApplication})
-        Me.MenuItem2.Text = "Tools"
-        '
-        'mmiNewApplication
-        '
-        Me.mmiNewApplication.Index = 0
-        Me.mmiNewApplication.Text = "Assign Application No."
-        Me.mmiNewApplication.Visible = False
-        '
-        'MmiHelp
-        '
-        Me.MmiHelp.Index = 3
-        Me.MmiHelp.Text = "Help"
         '
         'Panel4
         '
-        Me.Panel4.Controls.Add(Me.GroupBox2)
+        Me.Panel4.Controls.Add(Me.chbGECOlogInRequired)
+        Me.Panel4.Controls.Add(Me.txtWebsiteURL)
+        Me.Panel4.Controls.Add(Me.Label48)
+        Me.Panel4.Controls.Add(Me.Label47)
+        Me.Panel4.Controls.Add(Me.txtEventTitle)
+        Me.Panel4.Controls.Add(Me.btnClearEventManagement)
+        Me.Panel4.Controls.Add(Me.txtEventEndTime)
+        Me.Panel4.Controls.Add(Me.mtbEventPhoneNumber)
+        Me.Panel4.Controls.Add(Me.Label3)
+        Me.Panel4.Controls.Add(Me.Label17)
+        Me.Panel4.Controls.Add(Me.txtEventDescription)
+        Me.Panel4.Controls.Add(Me.cboEventContact)
+        Me.Panel4.Controls.Add(Me.Label4)
+        Me.Panel4.Controls.Add(Me.Label18)
+        Me.Panel4.Controls.Add(Me.Label32)
+        Me.Panel4.Controls.Add(Me.btnGeneratePasscode)
+        Me.Panel4.Controls.Add(Me.txtEventVenue)
+        Me.Panel4.Controls.Add(Me.Label16)
+        Me.Panel4.Controls.Add(Me.DTPEventEndDate)
+        Me.Panel4.Controls.Add(Me.chbEventPasscode)
+        Me.Panel4.Controls.Add(Me.btnDeleteEvent)
+        Me.Panel4.Controls.Add(Me.Label5)
+        Me.Panel4.Controls.Add(Me.btnUpdateEvent)
+        Me.Panel4.Controls.Add(Me.DTPEventDate)
+        Me.Panel4.Controls.Add(Me.btnSaveNewEvent)
+        Me.Panel4.Controls.Add(Me.Label7)
+        Me.Panel4.Controls.Add(Me.Label9)
+        Me.Panel4.Controls.Add(Me.Label8)
+        Me.Panel4.Controls.Add(Me.txtEventNotes)
+        Me.Panel4.Controls.Add(Me.mtbEventCapacity)
+        Me.Panel4.Controls.Add(Me.cboEventStatus)
+        Me.Panel4.Controls.Add(Me.txtEventTime)
+        Me.Panel4.Controls.Add(Me.Label2)
+        Me.Panel4.Controls.Add(Me.Label12)
+        Me.Panel4.Controls.Add(Me.Label1)
+        Me.Panel4.Controls.Add(Me.Label13)
+        Me.Panel4.Controls.Add(Me.cboEventWebContact)
+        Me.Panel4.Controls.Add(Me.btnMapEventLocation)
+        Me.Panel4.Controls.Add(Me.Label14)
+        Me.Panel4.Controls.Add(Me.mtbEventZipCode)
+        Me.Panel4.Controls.Add(Me.mtbEventWebPhoneNumber)
+        Me.Panel4.Controls.Add(Me.mtbEventState)
+        Me.Panel4.Controls.Add(Me.txtEventAddress)
+        Me.Panel4.Controls.Add(Me.txtEventCity)
+        Me.Panel4.Controls.Add(Me.Label15)
         Me.Panel4.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel4.Location = New System.Drawing.Point(3, 3)
         Me.Panel4.Name = "Panel4"
-        Me.Panel4.Size = New System.Drawing.Size(778, 352)
+        Me.Panel4.Size = New System.Drawing.Size(778, 380)
         Me.Panel4.TabIndex = 257
-        '
-        'GroupBox2
-        '
-        Me.GroupBox2.Controls.Add(Me.chbGECOlogInRequired)
-        Me.GroupBox2.Controls.Add(Me.Label48)
-        Me.GroupBox2.Controls.Add(Me.txtEventEndTime)
-        Me.GroupBox2.Controls.Add(Me.txtWebsiteURL)
-        Me.GroupBox2.Controls.Add(Me.Label47)
-        Me.GroupBox2.Controls.Add(Me.Label32)
-        Me.GroupBox2.Controls.Add(Me.DTPEventEndDate)
-        Me.GroupBox2.Controls.Add(Me.btnClearEventManagement)
-        Me.GroupBox2.Controls.Add(Me.mtbEventPhoneNumber)
-        Me.GroupBox2.Controls.Add(Me.Label17)
-        Me.GroupBox2.Controls.Add(Me.cboEventContact)
-        Me.GroupBox2.Controls.Add(Me.Label18)
-        Me.GroupBox2.Controls.Add(Me.btnGeneratePasscode)
-        Me.GroupBox2.Controls.Add(Me.Label16)
-        Me.GroupBox2.Controls.Add(Me.chbEventPasscode)
-        Me.GroupBox2.Controls.Add(Me.btnMapEventLocation)
-        Me.GroupBox2.Controls.Add(Me.mtbEventZipCode)
-        Me.GroupBox2.Controls.Add(Me.mtbEventState)
-        Me.GroupBox2.Controls.Add(Me.txtEventCity)
-        Me.GroupBox2.Controls.Add(Me.Label15)
-        Me.GroupBox2.Controls.Add(Me.txtEventAddress)
-        Me.GroupBox2.Controls.Add(Me.mtbEventWebPhoneNumber)
-        Me.GroupBox2.Controls.Add(Me.Label14)
-        Me.GroupBox2.Controls.Add(Me.cboEventWebContact)
-        Me.GroupBox2.Controls.Add(Me.Label13)
-        Me.GroupBox2.Controls.Add(Me.Label12)
-        Me.GroupBox2.Controls.Add(Me.txtEventTime)
-        Me.GroupBox2.Controls.Add(Me.btnDeleteEvent)
-        Me.GroupBox2.Controls.Add(Me.btnUpdateEvent)
-        Me.GroupBox2.Controls.Add(Me.btnSaveNewEvent)
-        Me.GroupBox2.Controls.Add(Me.Label9)
-        Me.GroupBox2.Controls.Add(Me.txtEventNotes)
-        Me.GroupBox2.Controls.Add(Me.mtbEventCapacity)
-        Me.GroupBox2.Controls.Add(Me.Label8)
-        Me.GroupBox2.Controls.Add(Me.Label7)
-        Me.GroupBox2.Controls.Add(Me.DTPEventDate)
-        Me.GroupBox2.Controls.Add(Me.Label5)
-        Me.GroupBox2.Controls.Add(Me.txtEventVenue)
-        Me.GroupBox2.Controls.Add(Me.Label4)
-        Me.GroupBox2.Controls.Add(Me.txtEventDescription)
-        Me.GroupBox2.Controls.Add(Me.Label3)
-        Me.GroupBox2.Controls.Add(Me.cboEventStatus)
-        Me.GroupBox2.Controls.Add(Me.Label2)
-        Me.GroupBox2.Controls.Add(Me.txtEventTitle)
-        Me.GroupBox2.Controls.Add(Me.Label1)
-        Me.GroupBox2.Controls.Add(Me.txtEventID)
-        Me.GroupBox2.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.GroupBox2.Location = New System.Drawing.Point(0, 0)
-        Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(778, 352)
-        Me.GroupBox2.TabIndex = 1
-        Me.GroupBox2.TabStop = False
         '
         'chbGECOlogInRequired
         '
         Me.chbGECOlogInRequired.AutoSize = True
-        Me.chbGECOlogInRequired.Location = New System.Drawing.Point(269, 150)
+        Me.chbGECOlogInRequired.Location = New System.Drawing.Point(270, 153)
         Me.chbGECOlogInRequired.Name = "chbGECOlogInRequired"
         Me.chbGECOlogInRequired.Size = New System.Drawing.Size(134, 17)
         Me.chbGECOlogInRequired.TabIndex = 453
         Me.chbGECOlogInRequired.Text = "GECO Log in Required"
         Me.chbGECOlogInRequired.UseVisualStyleBackColor = True
         '
+        'txtWebsiteURL
+        '
+        Me.txtWebsiteURL.Location = New System.Drawing.Point(465, 210)
+        Me.txtWebsiteURL.Name = "txtWebsiteURL"
+        Me.txtWebsiteURL.Size = New System.Drawing.Size(281, 20)
+        Me.txtWebsiteURL.TabIndex = 450
+        '
         'Label48
         '
         Me.Label48.AutoSize = True
-        Me.Label48.Location = New System.Drawing.Point(212, 127)
+        Me.Label48.Location = New System.Drawing.Point(213, 131)
         Me.Label48.Name = "Label48"
         Me.Label48.Size = New System.Drawing.Size(55, 13)
         Me.Label48.TabIndex = 452
         Me.Label48.Text = "End Time:"
         '
-        'txtEventEndTime
-        '
-        Me.txtEventEndTime.Location = New System.Drawing.Point(269, 123)
-        Me.txtEventEndTime.Name = "txtEventEndTime"
-        Me.txtEventEndTime.Size = New System.Drawing.Size(107, 20)
-        Me.txtEventEndTime.TabIndex = 451
-        '
-        'txtWebsiteURL
-        '
-        Me.txtWebsiteURL.Location = New System.Drawing.Point(500, 207)
-        Me.txtWebsiteURL.Name = "txtWebsiteURL"
-        Me.txtWebsiteURL.Size = New System.Drawing.Size(245, 20)
-        Me.txtWebsiteURL.TabIndex = 450
-        '
         'Label47
         '
         Me.Label47.AutoSize = True
-        Me.Label47.Location = New System.Drawing.Point(413, 211)
+        Me.Label47.Location = New System.Drawing.Point(414, 214)
         Me.Label47.Name = "Label47"
-        Me.Label47.Size = New System.Drawing.Size(83, 13)
+        Me.Label47.Size = New System.Drawing.Size(49, 13)
         Me.Label47.TabIndex = 449
-        Me.Label47.Text = "Website: http://"
+        Me.Label47.Text = "Website:"
         '
-        'Label32
+        'txtEventTitle
         '
-        Me.Label32.AutoSize = True
-        Me.Label32.Location = New System.Drawing.Point(166, 102)
-        Me.Label32.Name = "Label32"
-        Me.Label32.Size = New System.Drawing.Size(101, 13)
-        Me.Label32.TabIndex = 447
-        Me.Label32.Text = "End Date (2+ days):"
-        '
-        'DTPEventEndDate
-        '
-        Me.DTPEventEndDate.Checked = False
-        Me.DTPEventEndDate.CustomFormat = "dd-MMM-yyyy"
-        Me.DTPEventEndDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DTPEventEndDate.Location = New System.Drawing.Point(269, 98)
-        Me.DTPEventEndDate.Name = "DTPEventEndDate"
-        Me.DTPEventEndDate.ShowCheckBox = True
-        Me.DTPEventEndDate.Size = New System.Drawing.Size(120, 20)
-        Me.DTPEventEndDate.TabIndex = 446
+        Me.txtEventTitle.Location = New System.Drawing.Point(72, 16)
+        Me.txtEventTitle.Name = "txtEventTitle"
+        Me.txtEventTitle.Size = New System.Drawing.Size(305, 20)
+        Me.txtEventTitle.TabIndex = 1
         '
         'btnClearEventManagement
         '
         Me.btnClearEventManagement.AutoSize = True
         Me.btnClearEventManagement.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnClearEventManagement.Location = New System.Drawing.Point(335, 249)
+        Me.btnClearEventManagement.Location = New System.Drawing.Point(336, 252)
         Me.btnClearEventManagement.Name = "btnClearEventManagement"
-        Me.btnClearEventManagement.Size = New System.Drawing.Size(41, 23)
+        Me.btnClearEventManagement.Size = New System.Drawing.Size(67, 23)
         Me.btnClearEventManagement.TabIndex = 445
-        Me.btnClearEventManagement.Text = "Clear"
+        Me.btnClearEventManagement.Text = "Clear Form"
         Me.btnClearEventManagement.UseVisualStyleBackColor = True
+        '
+        'txtEventEndTime
+        '
+        Me.txtEventEndTime.Location = New System.Drawing.Point(270, 127)
+        Me.txtEventEndTime.Name = "txtEventEndTime"
+        Me.txtEventEndTime.Size = New System.Drawing.Size(107, 20)
+        Me.txtEventEndTime.TabIndex = 451
         '
         'mtbEventPhoneNumber
         '
-        Me.mtbEventPhoneNumber.Location = New System.Drawing.Point(319, 204)
+        Me.mtbEventPhoneNumber.Location = New System.Drawing.Point(320, 207)
         Me.mtbEventPhoneNumber.Mask = "(999) 000-0000"
         Me.mtbEventPhoneNumber.Name = "mtbEventPhoneNumber"
         Me.mtbEventPhoneNumber.ReadOnly = True
         Me.mtbEventPhoneNumber.Size = New System.Drawing.Size(86, 20)
         Me.mtbEventPhoneNumber.TabIndex = 444
         '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Location = New System.Drawing.Point(10, 20)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(61, 13)
+        Me.Label3.TabIndex = 5
+        Me.Label3.Text = "Event Title:"
+        '
         'Label17
         '
         Me.Label17.AutoSize = True
-        Me.Label17.Location = New System.Drawing.Point(263, 208)
+        Me.Label17.Location = New System.Drawing.Point(264, 211)
         Me.Label17.Name = "Label17"
         Me.Label17.Size = New System.Drawing.Size(58, 13)
         Me.Label17.TabIndex = 443
         Me.Label17.Text = "Phone No:"
+        '
+        'txtEventDescription
+        '
+        Me.txtEventDescription.Location = New System.Drawing.Point(72, 45)
+        Me.txtEventDescription.Multiline = True
+        Me.txtEventDescription.Name = "txtEventDescription"
+        Me.txtEventDescription.Size = New System.Drawing.Size(305, 51)
+        Me.txtEventDescription.TabIndex = 2
         '
         'cboEventContact
         '
         Me.cboEventContact.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cboEventContact.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cboEventContact.FormattingEnabled = True
-        Me.cboEventContact.Location = New System.Drawing.Point(112, 204)
+        Me.cboEventContact.Location = New System.Drawing.Point(113, 207)
         Me.cboEventContact.Name = "cboEventContact"
         Me.cboEventContact.Size = New System.Drawing.Size(142, 21)
         Me.cboEventContact.TabIndex = 8
         '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.Location = New System.Drawing.Point(7, 45)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(63, 13)
+        Me.Label4.TabIndex = 7
+        Me.Label4.Text = "Description:"
+        '
         'Label18
         '
         Me.Label18.AutoSize = True
-        Me.Label18.Location = New System.Drawing.Point(-2, 208)
+        Me.Label18.Location = New System.Drawing.Point(-1, 211)
         Me.Label18.Name = "Label18"
         Me.Label18.Size = New System.Drawing.Size(111, 13)
         Me.Label18.TabIndex = 441
         Me.Label18.Text = "APB/Internal Contact:"
         '
+        'Label32
+        '
+        Me.Label32.AutoSize = True
+        Me.Label32.Location = New System.Drawing.Point(178, 106)
+        Me.Label32.Name = "Label32"
+        Me.Label32.Size = New System.Drawing.Size(101, 13)
+        Me.Label32.TabIndex = 447
+        Me.Label32.Text = "End Date (2+ days):"
+        '
         'btnGeneratePasscode
         '
         Me.btnGeneratePasscode.AutoSize = True
         Me.btnGeneratePasscode.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnGeneratePasscode.Location = New System.Drawing.Point(153, 147)
+        Me.btnGeneratePasscode.Location = New System.Drawing.Point(154, 150)
         Me.btnGeneratePasscode.Name = "btnGeneratePasscode"
         Me.btnGeneratePasscode.Size = New System.Drawing.Size(89, 23)
         Me.btnGeneratePasscode.TabIndex = 6
         Me.btnGeneratePasscode.Text = "Generate Code"
         Me.btnGeneratePasscode.UseVisualStyleBackColor = True
         '
+        'txtEventVenue
+        '
+        Me.txtEventVenue.Location = New System.Drawing.Point(465, 42)
+        Me.txtEventVenue.Name = "txtEventVenue"
+        Me.txtEventVenue.Size = New System.Drawing.Size(121, 20)
+        Me.txtEventVenue.TabIndex = 11
+        '
         'Label16
         '
         Me.Label16.AutoSize = True
-        Me.Label16.Location = New System.Drawing.Point(10, 152)
+        Me.Label16.Location = New System.Drawing.Point(11, 155)
         Me.Label16.Name = "Label16"
         Me.Label16.Size = New System.Drawing.Size(57, 13)
         Me.Label16.TabIndex = 439
         Me.Label16.Text = "Passcode:"
         '
+        'DTPEventEndDate
+        '
+        Me.DTPEventEndDate.Checked = False
+        Me.DTPEventEndDate.CustomFormat = "dd-MMM-yyyy"
+        Me.DTPEventEndDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
+        Me.DTPEventEndDate.Location = New System.Drawing.Point(281, 102)
+        Me.DTPEventEndDate.Name = "DTPEventEndDate"
+        Me.DTPEventEndDate.ShowCheckBox = True
+        Me.DTPEventEndDate.Size = New System.Drawing.Size(120, 20)
+        Me.DTPEventEndDate.TabIndex = 446
+        '
         'chbEventPasscode
         '
         Me.chbEventPasscode.AutoSize = True
-        Me.chbEventPasscode.Location = New System.Drawing.Point(71, 150)
+        Me.chbEventPasscode.Location = New System.Drawing.Point(72, 153)
         Me.chbEventPasscode.Name = "chbEventPasscode"
         Me.chbEventPasscode.Size = New System.Drawing.Size(77, 17)
         Me.chbEventPasscode.TabIndex = 5
         Me.chbEventPasscode.Text = "GA123456"
         Me.chbEventPasscode.UseVisualStyleBackColor = True
         '
-        'btnMapEventLocation
-        '
-        Me.btnMapEventLocation.AutoSize = True
-        Me.btnMapEventLocation.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnMapEventLocation.Location = New System.Drawing.Point(698, 82)
-        Me.btnMapEventLocation.Name = "btnMapEventLocation"
-        Me.btnMapEventLocation.Size = New System.Drawing.Size(47, 23)
-        Me.btnMapEventLocation.TabIndex = 16
-        Me.btnMapEventLocation.Text = "Map It"
-        Me.btnMapEventLocation.UseVisualStyleBackColor = True
-        '
-        'mtbEventZipCode
-        '
-        Me.mtbEventZipCode.Location = New System.Drawing.Point(620, 83)
-        Me.mtbEventZipCode.Mask = "00000-9999"
-        Me.mtbEventZipCode.Name = "mtbEventZipCode"
-        Me.mtbEventZipCode.Size = New System.Drawing.Size(68, 20)
-        Me.mtbEventZipCode.TabIndex = 15
-        Me.mtbEventZipCode.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals
-        '
-        'mtbEventState
-        '
-        Me.mtbEventState.Location = New System.Drawing.Point(582, 83)
-        Me.mtbEventState.Mask = "aa"
-        Me.mtbEventState.Name = "mtbEventState"
-        Me.mtbEventState.Size = New System.Drawing.Size(32, 20)
-        Me.mtbEventState.TabIndex = 14
-        Me.mtbEventState.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals
-        '
-        'txtEventCity
-        '
-        Me.txtEventCity.Location = New System.Drawing.Point(464, 83)
-        Me.txtEventCity.Name = "txtEventCity"
-        Me.txtEventCity.Size = New System.Drawing.Size(112, 20)
-        Me.txtEventCity.TabIndex = 13
-        '
-        'Label15
-        '
-        Me.Label15.AutoSize = True
-        Me.Label15.Location = New System.Drawing.Point(414, 64)
-        Me.Label15.Name = "Label15"
-        Me.Label15.Size = New System.Drawing.Size(48, 13)
-        Me.Label15.TabIndex = 433
-        Me.Label15.Text = "Address:"
-        '
-        'txtEventAddress
-        '
-        Me.txtEventAddress.Location = New System.Drawing.Point(464, 61)
-        Me.txtEventAddress.Name = "txtEventAddress"
-        Me.txtEventAddress.Size = New System.Drawing.Size(224, 20)
-        Me.txtEventAddress.TabIndex = 12
-        '
-        'mtbEventWebPhoneNumber
-        '
-        Me.mtbEventWebPhoneNumber.Location = New System.Drawing.Point(674, 15)
-        Me.mtbEventWebPhoneNumber.Mask = "(999) 000-0000"
-        Me.mtbEventWebPhoneNumber.Name = "mtbEventWebPhoneNumber"
-        Me.mtbEventWebPhoneNumber.Size = New System.Drawing.Size(86, 20)
-        Me.mtbEventWebPhoneNumber.TabIndex = 10
-        Me.mtbEventWebPhoneNumber.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals
-        '
-        'Label14
-        '
-        Me.Label14.AutoSize = True
-        Me.Label14.Location = New System.Drawing.Point(618, 19)
-        Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(58, 13)
-        Me.Label14.TabIndex = 430
-        Me.Label14.Text = "Phone No:"
-        '
-        'cboEventWebContact
-        '
-        Me.cboEventWebContact.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
-        Me.cboEventWebContact.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cboEventWebContact.FormattingEnabled = True
-        Me.cboEventWebContact.Location = New System.Drawing.Point(464, 15)
-        Me.cboEventWebContact.Name = "cboEventWebContact"
-        Me.cboEventWebContact.Size = New System.Drawing.Size(142, 21)
-        Me.cboEventWebContact.TabIndex = 9
-        '
-        'Label13
-        '
-        Me.Label13.AutoSize = True
-        Me.Label13.Location = New System.Drawing.Point(389, 19)
-        Me.Label13.Name = "Label13"
-        Me.Label13.Size = New System.Drawing.Size(73, 13)
-        Me.Label13.TabIndex = 427
-        Me.Label13.Text = "Web Contact:"
-        '
-        'Label12
-        '
-        Me.Label12.AutoSize = True
-        Me.Label12.Location = New System.Drawing.Point(36, 127)
-        Me.Label12.Name = "Label12"
-        Me.Label12.Size = New System.Drawing.Size(33, 13)
-        Me.Label12.TabIndex = 426
-        Me.Label12.Text = "Time:"
-        '
-        'txtEventTime
-        '
-        Me.txtEventTime.Location = New System.Drawing.Point(71, 123)
-        Me.txtEventTime.Name = "txtEventTime"
-        Me.txtEventTime.Size = New System.Drawing.Size(121, 20)
-        Me.txtEventTime.TabIndex = 4
-        '
         'btnDeleteEvent
         '
         Me.btnDeleteEvent.AutoSize = True
         Me.btnDeleteEvent.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnDeleteEvent.Location = New System.Drawing.Point(666, 249)
+        Me.btnDeleteEvent.Location = New System.Drawing.Point(667, 252)
         Me.btnDeleteEvent.Name = "btnDeleteEvent"
         Me.btnDeleteEvent.Size = New System.Drawing.Size(79, 23)
         Me.btnDeleteEvent.TabIndex = 21
         Me.btnDeleteEvent.Text = "Delete Event"
         Me.btnDeleteEvent.UseVisualStyleBackColor = True
         '
+        'Label5
+        '
+        Me.Label5.AutoSize = True
+        Me.Label5.Location = New System.Drawing.Point(37, 106)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(33, 13)
+        Me.Label5.TabIndex = 9
+        Me.Label5.Text = "Date:"
+        '
         'btnUpdateEvent
         '
         Me.btnUpdateEvent.AutoSize = True
         Me.btnUpdateEvent.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnUpdateEvent.Location = New System.Drawing.Point(199, 249)
+        Me.btnUpdateEvent.Location = New System.Drawing.Point(200, 252)
         Me.btnUpdateEvent.Name = "btnUpdateEvent"
         Me.btnUpdateEvent.Size = New System.Drawing.Size(122, 23)
         Me.btnUpdateEvent.TabIndex = 20
         Me.btnUpdateEvent.Text = "Update Existing Event"
         Me.btnUpdateEvent.UseVisualStyleBackColor = True
         '
+        'DTPEventDate
+        '
+        Me.DTPEventDate.CustomFormat = "dd-MMM-yyyy"
+        Me.DTPEventDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
+        Me.DTPEventDate.Location = New System.Drawing.Point(72, 102)
+        Me.DTPEventDate.Name = "DTPEventDate"
+        Me.DTPEventDate.Size = New System.Drawing.Size(100, 20)
+        Me.DTPEventDate.TabIndex = 3
+        '
         'btnSaveNewEvent
         '
         Me.btnSaveNewEvent.AutoSize = True
         Me.btnSaveNewEvent.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnSaveNewEvent.Location = New System.Drawing.Point(81, 249)
+        Me.btnSaveNewEvent.Location = New System.Drawing.Point(82, 252)
         Me.btnSaveNewEvent.Name = "btnSaveNewEvent"
         Me.btnSaveNewEvent.Size = New System.Drawing.Size(104, 23)
         Me.btnSaveNewEvent.TabIndex = 19
         Me.btnSaveNewEvent.Text = "Create New Event"
         Me.btnSaveNewEvent.UseVisualStyleBackColor = True
         '
+        'Label7
+        '
+        Me.Label7.AutoSize = True
+        Me.Label7.Location = New System.Drawing.Point(422, 46)
+        Me.Label7.Name = "Label7"
+        Me.Label7.Size = New System.Drawing.Size(41, 13)
+        Me.Label7.TabIndex = 415
+        Me.Label7.Text = "Venue:"
+        '
         'Label9
         '
         Me.Label9.AutoSize = True
-        Me.Label9.Location = New System.Drawing.Point(424, 153)
+        Me.Label9.Location = New System.Drawing.Point(425, 156)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(38, 13)
         Me.Label9.TabIndex = 420
         Me.Label9.Text = "Notes:"
         '
+        'Label8
+        '
+        Me.Label8.AutoSize = True
+        Me.Label8.Location = New System.Drawing.Point(412, 128)
+        Me.Label8.Name = "Label8"
+        Me.Label8.Size = New System.Drawing.Size(51, 13)
+        Me.Label8.TabIndex = 417
+        Me.Label8.Text = "Capacity:"
+        '
         'txtEventNotes
         '
-        Me.txtEventNotes.Location = New System.Drawing.Point(464, 150)
+        Me.txtEventNotes.Location = New System.Drawing.Point(465, 153)
         Me.txtEventNotes.Multiline = True
         Me.txtEventNotes.Name = "txtEventNotes"
         Me.txtEventNotes.Size = New System.Drawing.Size(281, 51)
@@ -640,7 +490,7 @@ Partial Class MASPRegistrationTool
         '
         'mtbEventCapacity
         '
-        Me.mtbEventCapacity.Location = New System.Drawing.Point(464, 120)
+        Me.mtbEventCapacity.Location = New System.Drawing.Point(465, 124)
         Me.mtbEventCapacity.Mask = "00000"
         Me.mtbEventCapacity.Name = "mtbEventCapacity"
         Me.mtbEventCapacity.Size = New System.Drawing.Size(42, 20)
@@ -648,178 +498,204 @@ Partial Class MASPRegistrationTool
         Me.mtbEventCapacity.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals
         Me.mtbEventCapacity.ValidatingType = GetType(Integer)
         '
-        'Label8
-        '
-        Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(411, 124)
-        Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(51, 13)
-        Me.Label8.TabIndex = 417
-        Me.Label8.Text = "Capacity:"
-        '
-        'Label7
-        '
-        Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(421, 42)
-        Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(41, 13)
-        Me.Label7.TabIndex = 415
-        Me.Label7.Text = "Venue:"
-        '
-        'DTPEventDate
-        '
-        Me.DTPEventDate.CustomFormat = "dd-MMM-yyyy"
-        Me.DTPEventDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DTPEventDate.Location = New System.Drawing.Point(71, 98)
-        Me.DTPEventDate.Name = "DTPEventDate"
-        Me.DTPEventDate.Size = New System.Drawing.Size(100, 20)
-        Me.DTPEventDate.TabIndex = 3
-        '
-        'Label5
-        '
-        Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(36, 102)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(33, 13)
-        Me.Label5.TabIndex = 9
-        Me.Label5.Text = "Date:"
-        '
-        'txtEventVenue
-        '
-        Me.txtEventVenue.Location = New System.Drawing.Point(464, 38)
-        Me.txtEventVenue.Name = "txtEventVenue"
-        Me.txtEventVenue.Size = New System.Drawing.Size(121, 20)
-        Me.txtEventVenue.TabIndex = 11
-        '
-        'Label4
-        '
-        Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(6, 41)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(63, 13)
-        Me.Label4.TabIndex = 7
-        Me.Label4.Text = "Description:"
-        '
-        'txtEventDescription
-        '
-        Me.txtEventDescription.Location = New System.Drawing.Point(71, 41)
-        Me.txtEventDescription.Multiline = True
-        Me.txtEventDescription.Name = "txtEventDescription"
-        Me.txtEventDescription.Size = New System.Drawing.Size(305, 51)
-        Me.txtEventDescription.TabIndex = 2
-        '
-        'Label3
-        '
-        Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(9, 16)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(61, 13)
-        Me.Label3.TabIndex = 5
-        Me.Label3.Text = "Event Title:"
-        '
         'cboEventStatus
         '
         Me.cboEventStatus.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cboEventStatus.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cboEventStatus.FormattingEnabled = True
-        Me.cboEventStatus.Location = New System.Drawing.Point(88, 176)
+        Me.cboEventStatus.Location = New System.Drawing.Point(89, 179)
         Me.cboEventStatus.Name = "cboEventStatus"
         Me.cboEventStatus.Size = New System.Drawing.Size(154, 21)
         Me.cboEventStatus.TabIndex = 7
         '
+        'txtEventTime
+        '
+        Me.txtEventTime.Location = New System.Drawing.Point(72, 127)
+        Me.txtEventTime.Name = "txtEventTime"
+        Me.txtEventTime.Size = New System.Drawing.Size(121, 20)
+        Me.txtEventTime.TabIndex = 4
+        '
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(14, 179)
+        Me.Label2.Location = New System.Drawing.Point(15, 182)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(71, 13)
         Me.Label2.TabIndex = 3
         Me.Label2.Text = "Event Status:"
         '
-        'txtEventTitle
+        'Label12
         '
-        Me.txtEventTitle.Location = New System.Drawing.Point(71, 12)
-        Me.txtEventTitle.Name = "txtEventTitle"
-        Me.txtEventTitle.Size = New System.Drawing.Size(305, 20)
-        Me.txtEventTitle.TabIndex = 1
+        Me.Label12.AutoSize = True
+        Me.Label12.Location = New System.Drawing.Point(37, 131)
+        Me.Label12.Name = "Label12"
+        Me.Label12.Size = New System.Drawing.Size(33, 13)
+        Me.Label12.TabIndex = 426
+        Me.Label12.Text = "Time:"
         '
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(6, 235)
+        Me.Label1.Location = New System.Drawing.Point(7, 238)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(52, 13)
         Me.Label1.TabIndex = 1
         Me.Label1.Text = "Event ID:"
         Me.Label1.Visible = False
         '
-        'txtEventID
+        'Label13
         '
-        Me.txtEventID.Location = New System.Drawing.Point(39, 251)
-        Me.txtEventID.Name = "txtEventID"
-        Me.txtEventID.ReadOnly = True
-        Me.txtEventID.Size = New System.Drawing.Size(36, 20)
-        Me.txtEventID.TabIndex = 0
-        Me.txtEventID.Visible = False
+        Me.Label13.AutoSize = True
+        Me.Label13.Location = New System.Drawing.Point(390, 23)
+        Me.Label13.Name = "Label13"
+        Me.Label13.Size = New System.Drawing.Size(73, 13)
+        Me.Label13.TabIndex = 427
+        Me.Label13.Text = "Web Contact:"
         '
-        'TabControl1
+        'cboEventWebContact
         '
-        Me.TabControl1.Controls.Add(Me.TPEventOverview)
-        Me.TabControl1.Controls.Add(Me.TPEventManagement)
-        Me.TabControl1.Controls.Add(Me.TPRegistrationManagement)
-        Me.TabControl1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TabControl1.Location = New System.Drawing.Point(0, 160)
-        Me.TabControl1.Name = "TabControl1"
-        Me.TabControl1.SelectedIndex = 0
-        Me.TabControl1.Size = New System.Drawing.Size(792, 384)
-        Me.TabControl1.TabIndex = 259
+        Me.cboEventWebContact.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.cboEventWebContact.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cboEventWebContact.FormattingEnabled = True
+        Me.cboEventWebContact.Location = New System.Drawing.Point(465, 19)
+        Me.cboEventWebContact.Name = "cboEventWebContact"
+        Me.cboEventWebContact.Size = New System.Drawing.Size(142, 21)
+        Me.cboEventWebContact.TabIndex = 9
         '
-        'TPEventOverview
+        'btnMapEventLocation
         '
-        Me.TPEventOverview.Controls.Add(Me.dgvOverviewRegistrants)
-        Me.TPEventOverview.Controls.Add(Me.Panel9)
-        Me.TPEventOverview.Location = New System.Drawing.Point(4, 22)
-        Me.TPEventOverview.Name = "TPEventOverview"
-        Me.TPEventOverview.Size = New System.Drawing.Size(784, 358)
-        Me.TPEventOverview.TabIndex = 3
-        Me.TPEventOverview.Text = "Event Overview"
-        Me.TPEventOverview.UseVisualStyleBackColor = True
+        Me.btnMapEventLocation.AutoSize = True
+        Me.btnMapEventLocation.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.btnMapEventLocation.Location = New System.Drawing.Point(699, 86)
+        Me.btnMapEventLocation.Name = "btnMapEventLocation"
+        Me.btnMapEventLocation.Size = New System.Drawing.Size(47, 23)
+        Me.btnMapEventLocation.TabIndex = 16
+        Me.btnMapEventLocation.Text = "Map It"
+        Me.btnMapEventLocation.UseVisualStyleBackColor = True
+        '
+        'Label14
+        '
+        Me.Label14.AutoSize = True
+        Me.Label14.Location = New System.Drawing.Point(619, 23)
+        Me.Label14.Name = "Label14"
+        Me.Label14.Size = New System.Drawing.Size(58, 13)
+        Me.Label14.TabIndex = 430
+        Me.Label14.Text = "Phone No:"
+        '
+        'mtbEventZipCode
+        '
+        Me.mtbEventZipCode.Location = New System.Drawing.Point(621, 87)
+        Me.mtbEventZipCode.Mask = "00000-9999"
+        Me.mtbEventZipCode.Name = "mtbEventZipCode"
+        Me.mtbEventZipCode.Size = New System.Drawing.Size(68, 20)
+        Me.mtbEventZipCode.TabIndex = 15
+        Me.mtbEventZipCode.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals
+        '
+        'mtbEventWebPhoneNumber
+        '
+        Me.mtbEventWebPhoneNumber.Location = New System.Drawing.Point(675, 19)
+        Me.mtbEventWebPhoneNumber.Mask = "(999) 000-0000"
+        Me.mtbEventWebPhoneNumber.Name = "mtbEventWebPhoneNumber"
+        Me.mtbEventWebPhoneNumber.Size = New System.Drawing.Size(86, 20)
+        Me.mtbEventWebPhoneNumber.TabIndex = 10
+        Me.mtbEventWebPhoneNumber.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals
+        '
+        'mtbEventState
+        '
+        Me.mtbEventState.Location = New System.Drawing.Point(583, 87)
+        Me.mtbEventState.Mask = "aa"
+        Me.mtbEventState.Name = "mtbEventState"
+        Me.mtbEventState.Size = New System.Drawing.Size(32, 20)
+        Me.mtbEventState.TabIndex = 14
+        Me.mtbEventState.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals
+        '
+        'txtEventAddress
+        '
+        Me.txtEventAddress.Location = New System.Drawing.Point(465, 65)
+        Me.txtEventAddress.Name = "txtEventAddress"
+        Me.txtEventAddress.Size = New System.Drawing.Size(224, 20)
+        Me.txtEventAddress.TabIndex = 12
+        '
+        'txtEventCity
+        '
+        Me.txtEventCity.Location = New System.Drawing.Point(465, 87)
+        Me.txtEventCity.Name = "txtEventCity"
+        Me.txtEventCity.Size = New System.Drawing.Size(112, 20)
+        Me.txtEventCity.TabIndex = 13
+        '
+        'Label15
+        '
+        Me.Label15.AutoSize = True
+        Me.Label15.Location = New System.Drawing.Point(415, 68)
+        Me.Label15.Name = "Label15"
+        Me.Label15.Size = New System.Drawing.Size(48, 13)
+        Me.Label15.TabIndex = 433
+        Me.Label15.Text = "Address:"
+        '
+        'tabsEventDetails
+        '
+        Me.tabsEventDetails.Controls.Add(Me.tabEventOverview)
+        Me.tabsEventDetails.Controls.Add(Me.tabEventManagement)
+        Me.tabsEventDetails.Controls.Add(Me.tabRegistrationManagement)
+        Me.tabsEventDetails.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.tabsEventDetails.Location = New System.Drawing.Point(0, 160)
+        Me.tabsEventDetails.Name = "tabsEventDetails"
+        Me.tabsEventDetails.SelectedIndex = 0
+        Me.tabsEventDetails.Size = New System.Drawing.Size(792, 412)
+        Me.tabsEventDetails.TabIndex = 259
+        '
+        'tabEventOverview
+        '
+        Me.tabEventOverview.Controls.Add(Me.dgvOverviewRegistrants)
+        Me.tabEventOverview.Controls.Add(Me.Panel9)
+        Me.tabEventOverview.Location = New System.Drawing.Point(4, 22)
+        Me.tabEventOverview.Name = "tabEventOverview"
+        Me.tabEventOverview.Size = New System.Drawing.Size(784, 386)
+        Me.tabEventOverview.TabIndex = 3
+        Me.tabEventOverview.Text = "Event Overview"
+        Me.tabEventOverview.UseVisualStyleBackColor = True
         '
         'dgvOverviewRegistrants
         '
+        Me.dgvOverviewRegistrants.AllowUserToAddRows = False
+        Me.dgvOverviewRegistrants.AllowUserToDeleteRows = False
         Me.dgvOverviewRegistrants.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvOverviewRegistrants.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvOverviewRegistrants.Location = New System.Drawing.Point(0, 168)
         Me.dgvOverviewRegistrants.Name = "dgvOverviewRegistrants"
-        Me.dgvOverviewRegistrants.Size = New System.Drawing.Size(784, 190)
+        Me.dgvOverviewRegistrants.ReadOnly = True
+        Me.dgvOverviewRegistrants.RowHeadersVisible = False
+        Me.dgvOverviewRegistrants.Size = New System.Drawing.Size(784, 218)
         Me.dgvOverviewRegistrants.TabIndex = 421
         '
         'Panel9
         '
-        Me.Panel9.Controls.Add(Me.lblNotes)
-        Me.Panel9.Controls.Add(Me.lblVenue)
-        Me.Panel9.Controls.Add(Me.lblAPBContact)
-        Me.Panel9.Controls.Add(Me.lblEventContact)
-        Me.Panel9.Controls.Add(Me.lblWaitingList)
-        Me.Panel9.Controls.Add(Me.lblEventCapacity)
-        Me.Panel9.Controls.Add(Me.lblNumberRegistered)
-        Me.Panel9.Controls.Add(Me.lblEventStatus)
-        Me.Panel9.Controls.Add(Me.lblPassCode)
-        Me.Panel9.Controls.Add(Me.lblLogInRequired)
-        Me.Panel9.Controls.Add(Me.lblEventDateTime)
-        Me.Panel9.Controls.Add(Me.lblEvent)
-        Me.Panel9.Controls.Add(Me.lblDescription)
+        Me.Panel9.Controls.Add(Me.lblEmail)
+        Me.Panel9.Controls.Add(Me.chbOvLoginRequired)
+        Me.Panel9.Controls.Add(Me.txtOvNotes)
+        Me.Panel9.Controls.Add(Me.txtOvVenue)
+        Me.Panel9.Controls.Add(Me.txtOvAPBContact)
+        Me.Panel9.Controls.Add(Me.txtOvWebContact)
+        Me.Panel9.Controls.Add(Me.txtOvCancelled)
+        Me.Panel9.Controls.Add(Me.txtOvWaitingList)
+        Me.Panel9.Controls.Add(Me.txtOvEventCapacity)
+        Me.Panel9.Controls.Add(Me.txtOvNumberRegistered)
+        Me.Panel9.Controls.Add(Me.txtOvEventStatus)
+        Me.Panel9.Controls.Add(Me.txtOvPassCode)
+        Me.Panel9.Controls.Add(Me.txtOvEventDateTime)
+        Me.Panel9.Controls.Add(Me.txtOvEvent)
+        Me.Panel9.Controls.Add(Me.txtOvDescription)
         Me.Panel9.Controls.Add(Me.txtEmails)
-        Me.Panel9.Controls.Add(Me.Label41)
         Me.Panel9.Controls.Add(Me.Label34)
         Me.Panel9.Controls.Add(Me.Label35)
         Me.Panel9.Controls.Add(Me.btnEmailWaitList)
+        Me.Panel9.Controls.Add(Me.lblCancelled)
         Me.Panel9.Controls.Add(Me.Label36)
         Me.Panel9.Controls.Add(Me.btnEmailRegistrants)
         Me.Panel9.Controls.Add(Me.Label37)
         Me.Panel9.Controls.Add(Me.btnEmailAll)
         Me.Panel9.Controls.Add(Me.Label38)
-        Me.Panel9.Controls.Add(Me.btnExportToExcel)
+        Me.Panel9.Controls.Add(Me.btnExportRegistrantsToExcel)
         Me.Panel9.Controls.Add(Me.Label39)
         Me.Panel9.Controls.Add(Me.Label40)
         Me.Panel9.Controls.Add(Me.Label42)
@@ -833,148 +709,150 @@ Partial Class MASPRegistrationTool
         Me.Panel9.Size = New System.Drawing.Size(784, 168)
         Me.Panel9.TabIndex = 422
         '
-        'lblNotes
+        'chbOvLoginRequired
         '
-        Me.lblNotes.Location = New System.Drawing.Point(464, 90)
-        Me.lblNotes.Multiline = True
-        Me.lblNotes.Name = "lblNotes"
-        Me.lblNotes.ReadOnly = True
-        Me.lblNotes.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.lblNotes.Size = New System.Drawing.Size(303, 41)
-        Me.lblNotes.TabIndex = 436
+        Me.chbOvLoginRequired.AutoCheck = False
+        Me.chbOvLoginRequired.AutoSize = True
+        Me.chbOvLoginRequired.Location = New System.Drawing.Point(11, 82)
+        Me.chbOvLoginRequired.Name = "chbOvLoginRequired"
+        Me.chbOvLoginRequired.Size = New System.Drawing.Size(98, 17)
+        Me.chbOvLoginRequired.TabIndex = 437
+        Me.chbOvLoginRequired.Text = "Login Required"
+        Me.chbOvLoginRequired.UseVisualStyleBackColor = True
         '
-        'lblVenue
+        'txtOvNotes
         '
-        Me.lblVenue.Location = New System.Drawing.Point(464, 43)
-        Me.lblVenue.Multiline = True
-        Me.lblVenue.Name = "lblVenue"
-        Me.lblVenue.ReadOnly = True
-        Me.lblVenue.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.lblVenue.Size = New System.Drawing.Size(303, 46)
-        Me.lblVenue.TabIndex = 435
+        Me.txtOvNotes.Location = New System.Drawing.Point(464, 90)
+        Me.txtOvNotes.Multiline = True
+        Me.txtOvNotes.Name = "txtOvNotes"
+        Me.txtOvNotes.ReadOnly = True
+        Me.txtOvNotes.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
+        Me.txtOvNotes.Size = New System.Drawing.Size(303, 41)
+        Me.txtOvNotes.TabIndex = 436
         '
-        'lblAPBContact
+        'txtOvVenue
         '
-        Me.lblAPBContact.Location = New System.Drawing.Point(494, 23)
-        Me.lblAPBContact.Multiline = True
-        Me.lblAPBContact.Name = "lblAPBContact"
-        Me.lblAPBContact.ReadOnly = True
-        Me.lblAPBContact.Size = New System.Drawing.Size(273, 20)
-        Me.lblAPBContact.TabIndex = 434
+        Me.txtOvVenue.Location = New System.Drawing.Point(464, 43)
+        Me.txtOvVenue.Multiline = True
+        Me.txtOvVenue.Name = "txtOvVenue"
+        Me.txtOvVenue.ReadOnly = True
+        Me.txtOvVenue.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
+        Me.txtOvVenue.Size = New System.Drawing.Size(303, 63)
+        Me.txtOvVenue.TabIndex = 435
         '
-        'lblEventContact
+        'txtOvAPBContact
         '
-        Me.lblEventContact.Location = New System.Drawing.Point(494, 3)
-        Me.lblEventContact.Multiline = True
-        Me.lblEventContact.Name = "lblEventContact"
-        Me.lblEventContact.ReadOnly = True
-        Me.lblEventContact.Size = New System.Drawing.Size(273, 20)
-        Me.lblEventContact.TabIndex = 433
+        Me.txtOvAPBContact.Location = New System.Drawing.Point(508, 23)
+        Me.txtOvAPBContact.Multiline = True
+        Me.txtOvAPBContact.Name = "txtOvAPBContact"
+        Me.txtOvAPBContact.ReadOnly = True
+        Me.txtOvAPBContact.Size = New System.Drawing.Size(259, 20)
+        Me.txtOvAPBContact.TabIndex = 434
         '
-        'lblWaitingList
+        'txtOvWebContact
         '
-        Me.lblWaitingList.Location = New System.Drawing.Point(260, 140)
-        Me.lblWaitingList.Multiline = True
-        Me.lblWaitingList.Name = "lblWaitingList"
-        Me.lblWaitingList.ReadOnly = True
-        Me.lblWaitingList.Size = New System.Drawing.Size(43, 20)
-        Me.lblWaitingList.TabIndex = 432
+        Me.txtOvWebContact.Location = New System.Drawing.Point(508, 3)
+        Me.txtOvWebContact.Multiline = True
+        Me.txtOvWebContact.Name = "txtOvWebContact"
+        Me.txtOvWebContact.ReadOnly = True
+        Me.txtOvWebContact.Size = New System.Drawing.Size(259, 20)
+        Me.txtOvWebContact.TabIndex = 433
         '
-        'lblEventCapacity
+        'txtOvCancelled
         '
-        Me.lblEventCapacity.Location = New System.Drawing.Point(148, 140)
-        Me.lblEventCapacity.Multiline = True
-        Me.lblEventCapacity.Name = "lblEventCapacity"
-        Me.lblEventCapacity.ReadOnly = True
-        Me.lblEventCapacity.Size = New System.Drawing.Size(43, 20)
-        Me.lblEventCapacity.TabIndex = 431
+        Me.txtOvCancelled.Location = New System.Drawing.Point(356, 140)
+        Me.txtOvCancelled.Multiline = True
+        Me.txtOvCancelled.Name = "txtOvCancelled"
+        Me.txtOvCancelled.ReadOnly = True
+        Me.txtOvCancelled.Size = New System.Drawing.Size(37, 20)
+        Me.txtOvCancelled.TabIndex = 432
         '
-        'lblNumberRegistered
+        'txtOvWaitingList
         '
-        Me.lblNumberRegistered.Location = New System.Drawing.Point(77, 140)
-        Me.lblNumberRegistered.Multiline = True
-        Me.lblNumberRegistered.Name = "lblNumberRegistered"
-        Me.lblNumberRegistered.ReadOnly = True
-        Me.lblNumberRegistered.Size = New System.Drawing.Size(43, 20)
-        Me.lblNumberRegistered.TabIndex = 430
+        Me.txtOvWaitingList.Location = New System.Drawing.Point(250, 140)
+        Me.txtOvWaitingList.Multiline = True
+        Me.txtOvWaitingList.Name = "txtOvWaitingList"
+        Me.txtOvWaitingList.ReadOnly = True
+        Me.txtOvWaitingList.Size = New System.Drawing.Size(37, 20)
+        Me.txtOvWaitingList.TabIndex = 432
         '
-        'lblEventStatus
+        'txtOvEventCapacity
         '
-        Me.lblEventStatus.Location = New System.Drawing.Point(100, 114)
-        Me.lblEventStatus.Multiline = True
-        Me.lblEventStatus.Name = "lblEventStatus"
-        Me.lblEventStatus.ReadOnly = True
-        Me.lblEventStatus.Size = New System.Drawing.Size(140, 20)
-        Me.lblEventStatus.TabIndex = 429
+        Me.txtOvEventCapacity.Location = New System.Drawing.Point(130, 140)
+        Me.txtOvEventCapacity.Multiline = True
+        Me.txtOvEventCapacity.Name = "txtOvEventCapacity"
+        Me.txtOvEventCapacity.ReadOnly = True
+        Me.txtOvEventCapacity.Size = New System.Drawing.Size(43, 20)
+        Me.txtOvEventCapacity.TabIndex = 431
         '
-        'lblPassCode
+        'txtOvNumberRegistered
         '
-        Me.lblPassCode.Location = New System.Drawing.Point(100, 94)
-        Me.lblPassCode.Multiline = True
-        Me.lblPassCode.Name = "lblPassCode"
-        Me.lblPassCode.ReadOnly = True
-        Me.lblPassCode.Size = New System.Drawing.Size(140, 20)
-        Me.lblPassCode.TabIndex = 428
+        Me.txtOvNumberRegistered.Location = New System.Drawing.Point(75, 140)
+        Me.txtOvNumberRegistered.Multiline = True
+        Me.txtOvNumberRegistered.Name = "txtOvNumberRegistered"
+        Me.txtOvNumberRegistered.ReadOnly = True
+        Me.txtOvNumberRegistered.Size = New System.Drawing.Size(43, 20)
+        Me.txtOvNumberRegistered.TabIndex = 430
         '
-        'lblLogInRequired
+        'txtOvEventStatus
         '
-        Me.lblLogInRequired.Location = New System.Drawing.Point(100, 75)
-        Me.lblLogInRequired.Multiline = True
-        Me.lblLogInRequired.Name = "lblLogInRequired"
-        Me.lblLogInRequired.ReadOnly = True
-        Me.lblLogInRequired.Size = New System.Drawing.Size(140, 20)
-        Me.lblLogInRequired.TabIndex = 427
+        Me.txtOvEventStatus.Location = New System.Drawing.Point(85, 106)
+        Me.txtOvEventStatus.Multiline = True
+        Me.txtOvEventStatus.Name = "txtOvEventStatus"
+        Me.txtOvEventStatus.ReadOnly = True
+        Me.txtOvEventStatus.Size = New System.Drawing.Size(140, 20)
+        Me.txtOvEventStatus.TabIndex = 429
         '
-        'lblEventDateTime
+        'txtOvPassCode
         '
-        Me.lblEventDateTime.Location = New System.Drawing.Point(100, 56)
-        Me.lblEventDateTime.Multiline = True
-        Me.lblEventDateTime.Name = "lblEventDateTime"
-        Me.lblEventDateTime.ReadOnly = True
-        Me.lblEventDateTime.Size = New System.Drawing.Size(287, 20)
-        Me.lblEventDateTime.TabIndex = 426
+        Me.txtOvPassCode.Location = New System.Drawing.Point(193, 80)
+        Me.txtOvPassCode.Multiline = True
+        Me.txtOvPassCode.Name = "txtOvPassCode"
+        Me.txtOvPassCode.ReadOnly = True
+        Me.txtOvPassCode.Size = New System.Drawing.Size(140, 20)
+        Me.txtOvPassCode.TabIndex = 428
         '
-        'lblEvent
+        'txtOvEventDateTime
         '
-        Me.lblEvent.Location = New System.Drawing.Point(52, 3)
-        Me.lblEvent.Multiline = True
-        Me.lblEvent.Name = "lblEvent"
-        Me.lblEvent.ReadOnly = True
-        Me.lblEvent.Size = New System.Drawing.Size(335, 20)
-        Me.lblEvent.TabIndex = 425
+        Me.txtOvEventDateTime.Location = New System.Drawing.Point(106, 56)
+        Me.txtOvEventDateTime.Multiline = True
+        Me.txtOvEventDateTime.Name = "txtOvEventDateTime"
+        Me.txtOvEventDateTime.ReadOnly = True
+        Me.txtOvEventDateTime.Size = New System.Drawing.Size(281, 20)
+        Me.txtOvEventDateTime.TabIndex = 426
         '
-        'lblDescription
+        'txtOvEvent
         '
-        Me.lblDescription.Location = New System.Drawing.Point(71, 23)
-        Me.lblDescription.Multiline = True
-        Me.lblDescription.Name = "lblDescription"
-        Me.lblDescription.ReadOnly = True
-        Me.lblDescription.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.lblDescription.Size = New System.Drawing.Size(316, 33)
-        Me.lblDescription.TabIndex = 424
+        Me.txtOvEvent.Location = New System.Drawing.Point(77, 3)
+        Me.txtOvEvent.Multiline = True
+        Me.txtOvEvent.Name = "txtOvEvent"
+        Me.txtOvEvent.ReadOnly = True
+        Me.txtOvEvent.Size = New System.Drawing.Size(310, 20)
+        Me.txtOvEvent.TabIndex = 425
+        '
+        'txtOvDescription
+        '
+        Me.txtOvDescription.Location = New System.Drawing.Point(77, 23)
+        Me.txtOvDescription.Multiline = True
+        Me.txtOvDescription.Name = "txtOvDescription"
+        Me.txtOvDescription.ReadOnly = True
+        Me.txtOvDescription.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
+        Me.txtOvDescription.Size = New System.Drawing.Size(310, 33)
+        Me.txtOvDescription.TabIndex = 424
         '
         'txtEmails
         '
-        Me.txtEmails.Location = New System.Drawing.Point(473, 142)
+        Me.txtEmails.Location = New System.Drawing.Point(371, 106)
         Me.txtEmails.Multiline = True
         Me.txtEmails.Name = "txtEmails"
-        Me.txtEmails.Size = New System.Drawing.Size(16, 11)
+        Me.txtEmails.Size = New System.Drawing.Size(38, 20)
         Me.txtEmails.TabIndex = 423
         Me.txtEmails.Visible = False
-        '
-        'Label41
-        '
-        Me.Label41.AutoSize = True
-        Me.Label41.Location = New System.Drawing.Point(8, 79)
-        Me.Label41.Name = "Label41"
-        Me.Label41.Size = New System.Drawing.Size(86, 13)
-        Me.Label41.TabIndex = 421
-        Me.Label41.Text = "Log In Required:"
         '
         'Label34
         '
         Me.Label34.AutoSize = True
-        Me.Label34.Location = New System.Drawing.Point(8, 7)
+        Me.Label34.Location = New System.Drawing.Point(8, 6)
         Me.Label34.Name = "Label34"
         Me.Label34.Size = New System.Drawing.Size(38, 13)
         Me.Label34.TabIndex = 4
@@ -985,25 +863,34 @@ Partial Class MASPRegistrationTool
         Me.Label35.AutoSize = True
         Me.Label35.Location = New System.Drawing.Point(417, 7)
         Me.Label35.Name = "Label35"
-        Me.Label35.Size = New System.Drawing.Size(78, 13)
+        Me.Label35.Size = New System.Drawing.Size(73, 13)
         Me.Label35.TabIndex = 5
-        Me.Label35.Text = "Event Contact:"
+        Me.Label35.Text = "Web Contact:"
         '
         'btnEmailWaitList
         '
         Me.btnEmailWaitList.AutoSize = True
         Me.btnEmailWaitList.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnEmailWaitList.Location = New System.Drawing.Point(687, 140)
+        Me.btnEmailWaitList.Location = New System.Drawing.Point(675, 138)
         Me.btnEmailWaitList.Name = "btnEmailWaitList"
-        Me.btnEmailWaitList.Size = New System.Drawing.Size(89, 23)
+        Me.btnEmailWaitList.Size = New System.Drawing.Size(58, 23)
         Me.btnEmailWaitList.TabIndex = 420
-        Me.btnEmailWaitList.Text = "Email: Wait List"
+        Me.btnEmailWaitList.Text = "Wait List"
         Me.btnEmailWaitList.UseVisualStyleBackColor = True
+        '
+        'lblCancelled
+        '
+        Me.lblCancelled.AutoSize = True
+        Me.lblCancelled.Location = New System.Drawing.Point(293, 143)
+        Me.lblCancelled.Name = "lblCancelled"
+        Me.lblCancelled.Size = New System.Drawing.Size(57, 13)
+        Me.lblCancelled.TabIndex = 6
+        Me.lblCancelled.Text = "Cancelled:"
         '
         'Label36
         '
         Me.Label36.AutoSize = True
-        Me.Label36.Location = New System.Drawing.Point(195, 147)
+        Me.Label36.Location = New System.Drawing.Point(179, 143)
         Me.Label36.Name = "Label36"
         Me.Label36.Size = New System.Drawing.Size(65, 13)
         Me.Label36.TabIndex = 6
@@ -1013,17 +900,17 @@ Partial Class MASPRegistrationTool
         '
         Me.btnEmailRegistrants.AutoSize = True
         Me.btnEmailRegistrants.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnEmailRegistrants.Location = New System.Drawing.Point(580, 140)
+        Me.btnEmailRegistrants.Location = New System.Drawing.Point(600, 138)
         Me.btnEmailRegistrants.Name = "btnEmailRegistrants"
-        Me.btnEmailRegistrants.Size = New System.Drawing.Size(101, 23)
+        Me.btnEmailRegistrants.Size = New System.Drawing.Size(70, 23)
         Me.btnEmailRegistrants.TabIndex = 419
-        Me.btnEmailRegistrants.Text = "Email: Registrants"
+        Me.btnEmailRegistrants.Text = "Registrants"
         Me.btnEmailRegistrants.UseVisualStyleBackColor = True
         '
         'Label37
         '
         Me.Label37.AutoSize = True
-        Me.Label37.Location = New System.Drawing.Point(8, 118)
+        Me.Label37.Location = New System.Drawing.Point(8, 109)
         Me.Label37.Name = "Label37"
         Me.Label37.Size = New System.Drawing.Size(71, 13)
         Me.Label37.TabIndex = 7
@@ -1033,37 +920,37 @@ Partial Class MASPRegistrationTool
         '
         Me.btnEmailAll.AutoSize = True
         Me.btnEmailAll.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnEmailAll.Location = New System.Drawing.Point(515, 140)
+        Me.btnEmailAll.Location = New System.Drawing.Point(739, 138)
         Me.btnEmailAll.Name = "btnEmailAll"
-        Me.btnEmailAll.Size = New System.Drawing.Size(59, 23)
+        Me.btnEmailAll.Size = New System.Drawing.Size(28, 23)
         Me.btnEmailAll.TabIndex = 418
-        Me.btnEmailAll.Text = "Email: All"
+        Me.btnEmailAll.Text = "All"
         Me.btnEmailAll.UseVisualStyleBackColor = True
         '
         'Label38
         '
         Me.Label38.AutoSize = True
-        Me.Label38.Location = New System.Drawing.Point(129, 147)
+        Me.Label38.Location = New System.Drawing.Point(116, 143)
         Me.Label38.Name = "Label38"
         Me.Label38.Size = New System.Drawing.Size(16, 13)
         Me.Label38.TabIndex = 8
         Me.Label38.Text = "of"
         '
-        'btnExportToExcel
+        'btnExportRegistrantsToExcel
         '
-        Me.btnExportToExcel.AutoSize = True
-        Me.btnExportToExcel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnExportToExcel.Location = New System.Drawing.Point(420, 140)
-        Me.btnExportToExcel.Name = "btnExportToExcel"
-        Me.btnExportToExcel.Size = New System.Drawing.Size(47, 23)
-        Me.btnExportToExcel.TabIndex = 417
-        Me.btnExportToExcel.Text = "Export"
-        Me.btnExportToExcel.UseVisualStyleBackColor = True
+        Me.btnExportRegistrantsToExcel.AutoSize = True
+        Me.btnExportRegistrantsToExcel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.btnExportRegistrantsToExcel.Location = New System.Drawing.Point(423, 138)
+        Me.btnExportRegistrantsToExcel.Name = "btnExportRegistrantsToExcel"
+        Me.btnExportRegistrantsToExcel.Size = New System.Drawing.Size(88, 23)
+        Me.btnExportRegistrantsToExcel.TabIndex = 417
+        Me.btnExportRegistrantsToExcel.Text = "Export to Excel"
+        Me.btnExportRegistrantsToExcel.UseVisualStyleBackColor = True
         '
         'Label39
         '
         Me.Label39.AutoSize = True
-        Me.Label39.Location = New System.Drawing.Point(8, 98)
+        Me.Label39.Location = New System.Drawing.Point(129, 83)
         Me.Label39.Name = "Label39"
         Me.Label39.Size = New System.Drawing.Size(58, 13)
         Me.Label39.TabIndex = 9
@@ -1072,11 +959,11 @@ Partial Class MASPRegistrationTool
         'Label40
         '
         Me.Label40.AutoSize = True
-        Me.Label40.Location = New System.Drawing.Point(8, 147)
+        Me.Label40.Location = New System.Drawing.Point(8, 143)
         Me.Label40.Name = "Label40"
-        Me.Label40.Size = New System.Drawing.Size(66, 13)
+        Me.Label40.Size = New System.Drawing.Size(61, 13)
         Me.Label40.TabIndex = 10
-        Me.Label40.Text = "Registration:"
+        Me.Label40.Text = "Registered:"
         '
         'Label42
         '
@@ -1090,7 +977,7 @@ Partial Class MASPRegistrationTool
         'Label43
         '
         Me.Label43.AutoSize = True
-        Me.Label43.Location = New System.Drawing.Point(8, 27)
+        Me.Label43.Location = New System.Drawing.Point(8, 26)
         Me.Label43.Name = "Label43"
         Me.Label43.Size = New System.Drawing.Size(63, 13)
         Me.Label43.TabIndex = 13
@@ -1119,32 +1006,32 @@ Partial Class MASPRegistrationTool
         Me.Label46.AutoSize = True
         Me.Label46.Location = New System.Drawing.Point(417, 27)
         Me.Label46.Name = "Label46"
-        Me.Label46.Size = New System.Drawing.Size(71, 13)
+        Me.Label46.Size = New System.Drawing.Size(85, 13)
         Me.Label46.TabIndex = 17
-        Me.Label46.Text = "APB Contact:"
+        Me.Label46.Text = "Internal Contact:"
         '
-        'TPEventManagement
+        'tabEventManagement
         '
-        Me.TPEventManagement.Controls.Add(Me.Panel4)
-        Me.TPEventManagement.Location = New System.Drawing.Point(4, 22)
-        Me.TPEventManagement.Name = "TPEventManagement"
-        Me.TPEventManagement.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPEventManagement.Size = New System.Drawing.Size(784, 358)
-        Me.TPEventManagement.TabIndex = 0
-        Me.TPEventManagement.Text = "Event Management"
-        Me.TPEventManagement.UseVisualStyleBackColor = True
+        Me.tabEventManagement.Controls.Add(Me.Panel4)
+        Me.tabEventManagement.Location = New System.Drawing.Point(4, 22)
+        Me.tabEventManagement.Name = "tabEventManagement"
+        Me.tabEventManagement.Padding = New System.Windows.Forms.Padding(3)
+        Me.tabEventManagement.Size = New System.Drawing.Size(784, 386)
+        Me.tabEventManagement.TabIndex = 0
+        Me.tabEventManagement.Text = "Event Management"
+        Me.tabEventManagement.UseVisualStyleBackColor = True
         '
-        'TPRegistrationManagement
+        'tabRegistrationManagement
         '
-        Me.TPRegistrationManagement.Controls.Add(Me.dgvRegistrationManagement)
-        Me.TPRegistrationManagement.Controls.Add(Me.Panel8)
-        Me.TPRegistrationManagement.Location = New System.Drawing.Point(4, 22)
-        Me.TPRegistrationManagement.Name = "TPRegistrationManagement"
-        Me.TPRegistrationManagement.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPRegistrationManagement.Size = New System.Drawing.Size(784, 358)
-        Me.TPRegistrationManagement.TabIndex = 1
-        Me.TPRegistrationManagement.Text = "Registration Management"
-        Me.TPRegistrationManagement.UseVisualStyleBackColor = True
+        Me.tabRegistrationManagement.Controls.Add(Me.dgvRegistrationManagement)
+        Me.tabRegistrationManagement.Controls.Add(Me.Panel8)
+        Me.tabRegistrationManagement.Location = New System.Drawing.Point(4, 22)
+        Me.tabRegistrationManagement.Name = "tabRegistrationManagement"
+        Me.tabRegistrationManagement.Padding = New System.Windows.Forms.Padding(3)
+        Me.tabRegistrationManagement.Size = New System.Drawing.Size(784, 386)
+        Me.tabRegistrationManagement.TabIndex = 1
+        Me.tabRegistrationManagement.Text = "Registration Management"
+        Me.tabRegistrationManagement.UseVisualStyleBackColor = True
         '
         'dgvRegistrationManagement
         '
@@ -1152,7 +1039,7 @@ Partial Class MASPRegistrationTool
         Me.dgvRegistrationManagement.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvRegistrationManagement.Location = New System.Drawing.Point(3, 3)
         Me.dgvRegistrationManagement.Name = "dgvRegistrationManagement"
-        Me.dgvRegistrationManagement.Size = New System.Drawing.Size(404, 352)
+        Me.dgvRegistrationManagement.Size = New System.Drawing.Size(404, 380)
         Me.dgvRegistrationManagement.TabIndex = 0
         '
         'Panel8
@@ -1195,7 +1082,7 @@ Partial Class MASPRegistrationTool
         Me.Panel8.Dock = System.Windows.Forms.DockStyle.Right
         Me.Panel8.Location = New System.Drawing.Point(407, 3)
         Me.Panel8.Name = "Panel8"
-        Me.Panel8.Size = New System.Drawing.Size(374, 352)
+        Me.Panel8.Size = New System.Drawing.Size(374, 380)
         Me.Panel8.TabIndex = 1
         '
         'btnModifyRegistration
@@ -1517,181 +1404,155 @@ Partial Class MASPRegistrationTool
         Me.txtRegEventTitle.Size = New System.Drawing.Size(247, 20)
         Me.txtRegEventTitle.TabIndex = 427
         '
-        'Panel5
+        'pnlEventsAndFilter
         '
-        Me.Panel5.Controls.Add(Me.dgvRegistrationEvent)
-        Me.Panel5.Controls.Add(Me.Panel7)
-        Me.Panel5.Controls.Add(Me.Panel6)
-        Me.Panel5.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Panel5.Location = New System.Drawing.Point(0, 0)
-        Me.Panel5.Name = "Panel5"
-        Me.Panel5.Size = New System.Drawing.Size(792, 160)
-        Me.Panel5.TabIndex = 260
+        Me.pnlEventsAndFilter.Controls.Add(Me.dgvEvents)
+        Me.pnlEventsAndFilter.Controls.Add(Me.pnlFilterEvents)
+        Me.pnlEventsAndFilter.Controls.Add(Me.pnlEventTitle)
+        Me.pnlEventsAndFilter.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.pnlEventsAndFilter.Location = New System.Drawing.Point(0, 0)
+        Me.pnlEventsAndFilter.Name = "pnlEventsAndFilter"
+        Me.pnlEventsAndFilter.Size = New System.Drawing.Size(792, 160)
+        Me.pnlEventsAndFilter.TabIndex = 260
         '
-        'dgvRegistrationEvent
+        'dgvEvents
         '
-        Me.dgvRegistrationEvent.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvRegistrationEvent.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.dgvRegistrationEvent.Location = New System.Drawing.Point(0, 0)
-        Me.dgvRegistrationEvent.Name = "dgvRegistrationEvent"
-        Me.dgvRegistrationEvent.Size = New System.Drawing.Size(686, 125)
-        Me.dgvRegistrationEvent.TabIndex = 0
+        Me.dgvEvents.AllowUserToAddRows = False
+        Me.dgvEvents.AllowUserToDeleteRows = False
+        Me.dgvEvents.AllowUserToOrderColumns = True
+        Me.dgvEvents.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvEvents.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.dgvEvents.Location = New System.Drawing.Point(0, 0)
+        Me.dgvEvents.MultiSelect = False
+        Me.dgvEvents.Name = "dgvEvents"
+        Me.dgvEvents.ReadOnly = True
+        Me.dgvEvents.RowHeadersVisible = False
+        Me.dgvEvents.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.dgvEvents.Size = New System.Drawing.Size(653, 125)
+        Me.dgvEvents.TabIndex = 0
         '
-        'Panel7
+        'pnlFilterEvents
         '
-        Me.Panel7.Controls.Add(Me.txtSelectedEventID)
-        Me.Panel7.Controls.Add(Me.lblEventTitle)
-        Me.Panel7.Controls.Add(Me.btnViewDetails)
-        Me.Panel7.Controls.Add(Me.lblEVentDate)
-        Me.Panel7.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.Panel7.Location = New System.Drawing.Point(0, 125)
-        Me.Panel7.Name = "Panel7"
-        Me.Panel7.Size = New System.Drawing.Size(686, 35)
-        Me.Panel7.TabIndex = 418
+        Me.pnlFilterEvents.Controls.Add(Me.rdbEventsFilterAll)
+        Me.pnlFilterEvents.Controls.Add(Me.rdbEventsFilterPast)
+        Me.pnlFilterEvents.Controls.Add(Me.rdbEventsFilterFuture)
+        Me.pnlFilterEvents.Dock = System.Windows.Forms.DockStyle.Right
+        Me.pnlFilterEvents.Location = New System.Drawing.Point(653, 0)
+        Me.pnlFilterEvents.Name = "pnlFilterEvents"
+        Me.pnlFilterEvents.Size = New System.Drawing.Size(139, 125)
+        Me.pnlFilterEvents.TabIndex = 417
         '
-        'txtSelectedEventID
+        'rdbEventsFilterAll
         '
-        Me.txtSelectedEventID.Location = New System.Drawing.Point(644, 6)
-        Me.txtSelectedEventID.Name = "txtSelectedEventID"
-        Me.txtSelectedEventID.ReadOnly = True
-        Me.txtSelectedEventID.Size = New System.Drawing.Size(36, 20)
-        Me.txtSelectedEventID.TabIndex = 417
-        Me.txtSelectedEventID.Visible = False
+        Me.rdbEventsFilterAll.Appearance = System.Windows.Forms.Appearance.Button
+        Me.rdbEventsFilterAll.Location = New System.Drawing.Point(9, 79)
+        Me.rdbEventsFilterAll.Name = "rdbEventsFilterAll"
+        Me.rdbEventsFilterAll.Size = New System.Drawing.Size(109, 26)
+        Me.rdbEventsFilterAll.TabIndex = 2
+        Me.rdbEventsFilterAll.Text = "&All Events"
+        Me.rdbEventsFilterAll.UseVisualStyleBackColor = True
+        '
+        'rdbEventsFilterPast
+        '
+        Me.rdbEventsFilterPast.Appearance = System.Windows.Forms.Appearance.Button
+        Me.rdbEventsFilterPast.Location = New System.Drawing.Point(9, 46)
+        Me.rdbEventsFilterPast.Name = "rdbEventsFilterPast"
+        Me.rdbEventsFilterPast.Size = New System.Drawing.Size(109, 27)
+        Me.rdbEventsFilterPast.TabIndex = 1
+        Me.rdbEventsFilterPast.Text = "&Past Events"
+        Me.rdbEventsFilterPast.UseVisualStyleBackColor = True
+        '
+        'rdbEventsFilterFuture
+        '
+        Me.rdbEventsFilterFuture.Appearance = System.Windows.Forms.Appearance.Button
+        Me.rdbEventsFilterFuture.Checked = True
+        Me.rdbEventsFilterFuture.Location = New System.Drawing.Point(9, 12)
+        Me.rdbEventsFilterFuture.Name = "rdbEventsFilterFuture"
+        Me.rdbEventsFilterFuture.Size = New System.Drawing.Size(109, 28)
+        Me.rdbEventsFilterFuture.TabIndex = 0
+        Me.rdbEventsFilterFuture.TabStop = True
+        Me.rdbEventsFilterFuture.Text = "&Upcoming Events"
+        Me.rdbEventsFilterFuture.UseVisualStyleBackColor = True
+        '
+        'pnlEventTitle
+        '
+        Me.pnlEventTitle.Controls.Add(Me.btnViewDetails)
+        Me.pnlEventTitle.Controls.Add(Me.lblEventTitle)
+        Me.pnlEventTitle.Controls.Add(Me.lblEventDate)
+        Me.pnlEventTitle.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.pnlEventTitle.Location = New System.Drawing.Point(0, 125)
+        Me.pnlEventTitle.Name = "pnlEventTitle"
+        Me.pnlEventTitle.Size = New System.Drawing.Size(792, 35)
+        Me.pnlEventTitle.TabIndex = 260
+        '
+        'btnViewDetails
+        '
+        Me.btnViewDetails.Location = New System.Drawing.Point(519, 6)
+        Me.btnViewDetails.Name = "btnViewDetails"
+        Me.btnViewDetails.Size = New System.Drawing.Size(119, 23)
+        Me.btnViewDetails.TabIndex = 4
+        Me.btnViewDetails.Text = "View Event Details"
+        Me.btnViewDetails.UseVisualStyleBackColor = True
         '
         'lblEventTitle
         '
         Me.lblEventTitle.AutoSize = True
-        Me.lblEventTitle.Location = New System.Drawing.Point(3, 10)
+        Me.lblEventTitle.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblEventTitle.Location = New System.Drawing.Point(101, 11)
         Me.lblEventTitle.Name = "lblEventTitle"
-        Me.lblEventTitle.Size = New System.Drawing.Size(58, 13)
+        Me.lblEventTitle.Size = New System.Drawing.Size(69, 13)
         Me.lblEventTitle.TabIndex = 3
         Me.lblEventTitle.Text = "Event Title"
         '
-        'btnViewDetails
+        'lblEventDate
         '
-        Me.btnViewDetails.Location = New System.Drawing.Point(563, 3)
-        Me.btnViewDetails.Name = "btnViewDetails"
-        Me.btnViewDetails.Size = New System.Drawing.Size(75, 23)
-        Me.btnViewDetails.TabIndex = 416
-        Me.btnViewDetails.Text = "View Details"
-        Me.btnViewDetails.UseVisualStyleBackColor = True
+        Me.lblEventDate.AutoSize = True
+        Me.lblEventDate.Location = New System.Drawing.Point(12, 11)
+        Me.lblEventDate.Name = "lblEventDate"
+        Me.lblEventDate.Size = New System.Drawing.Size(61, 13)
+        Me.lblEventDate.TabIndex = 5
+        Me.lblEventDate.Text = "Event Date"
         '
-        'lblEVentDate
+        'lblEmail
         '
-        Me.lblEVentDate.AutoSize = True
-        Me.lblEVentDate.Location = New System.Drawing.Point(314, 9)
-        Me.lblEVentDate.Name = "lblEVentDate"
-        Me.lblEVentDate.Size = New System.Drawing.Size(61, 13)
-        Me.lblEVentDate.TabIndex = 5
-        Me.lblEVentDate.Text = "Event Date"
-        '
-        'Panel6
-        '
-        Me.Panel6.Controls.Add(Me.btnFilterEvents)
-        Me.Panel6.Controls.Add(Me.rdbAllEvents)
-        Me.Panel6.Controls.Add(Me.rdbPastEvents)
-        Me.Panel6.Controls.Add(Me.rdbUpcomingEvents)
-        Me.Panel6.Dock = System.Windows.Forms.DockStyle.Right
-        Me.Panel6.Location = New System.Drawing.Point(686, 0)
-        Me.Panel6.Name = "Panel6"
-        Me.Panel6.Size = New System.Drawing.Size(106, 160)
-        Me.Panel6.TabIndex = 417
-        '
-        'btnFilterEvents
-        '
-        Me.btnFilterEvents.Location = New System.Drawing.Point(10, 75)
-        Me.btnFilterEvents.Name = "btnFilterEvents"
-        Me.btnFilterEvents.Size = New System.Drawing.Size(75, 23)
-        Me.btnFilterEvents.TabIndex = 417
-        Me.btnFilterEvents.Text = "Filter"
-        Me.btnFilterEvents.UseVisualStyleBackColor = True
-        '
-        'rdbAllEvents
-        '
-        Me.rdbAllEvents.AutoSize = True
-        Me.rdbAllEvents.Location = New System.Drawing.Point(3, 52)
-        Me.rdbAllEvents.Name = "rdbAllEvents"
-        Me.rdbAllEvents.Size = New System.Drawing.Size(36, 17)
-        Me.rdbAllEvents.TabIndex = 2
-        Me.rdbAllEvents.Text = "All"
-        Me.rdbAllEvents.UseVisualStyleBackColor = True
-        '
-        'rdbPastEvents
-        '
-        Me.rdbPastEvents.AutoSize = True
-        Me.rdbPastEvents.Location = New System.Drawing.Point(3, 29)
-        Me.rdbPastEvents.Name = "rdbPastEvents"
-        Me.rdbPastEvents.Size = New System.Drawing.Size(82, 17)
-        Me.rdbPastEvents.TabIndex = 1
-        Me.rdbPastEvents.Text = "Past Events"
-        Me.rdbPastEvents.UseVisualStyleBackColor = True
-        '
-        'rdbUpcomingEvents
-        '
-        Me.rdbUpcomingEvents.AutoSize = True
-        Me.rdbUpcomingEvents.Checked = True
-        Me.rdbUpcomingEvents.Location = New System.Drawing.Point(3, 6)
-        Me.rdbUpcomingEvents.Name = "rdbUpcomingEvents"
-        Me.rdbUpcomingEvents.Size = New System.Drawing.Size(73, 17)
-        Me.rdbUpcomingEvents.TabIndex = 0
-        Me.rdbUpcomingEvents.TabStop = True
-        Me.rdbUpcomingEvents.Text = "Upcoming"
-        Me.rdbUpcomingEvents.UseVisualStyleBackColor = True
+        Me.lblEmail.AutoSize = True
+        Me.lblEmail.Location = New System.Drawing.Point(559, 143)
+        Me.lblEmail.Name = "lblEmail"
+        Me.lblEmail.Size = New System.Drawing.Size(35, 13)
+        Me.lblEmail.TabIndex = 438
+        Me.lblEmail.Text = "Email:"
         '
         'MASPRegistrationTool
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(792, 566)
-        Me.Controls.Add(Me.TabControl1)
-        Me.Controls.Add(Me.StatusStrip1)
-        Me.Controls.Add(Me.Panel5)
-        Me.Menu = Me.MainMenu1
+        Me.ClientSize = New System.Drawing.Size(792, 572)
+        Me.Controls.Add(Me.pnlEventsAndFilter)
+        Me.Controls.Add(Me.tabsEventDetails)
         Me.Name = "MASPRegistrationTool"
         Me.Text = "Registration Tool"
-        Me.StatusStrip1.ResumeLayout(False)
-        Me.StatusStrip1.PerformLayout()
         Me.Panel4.ResumeLayout(False)
-        Me.GroupBox2.ResumeLayout(False)
-        Me.GroupBox2.PerformLayout()
-        Me.TabControl1.ResumeLayout(False)
-        Me.TPEventOverview.ResumeLayout(False)
+        Me.Panel4.PerformLayout()
+        Me.tabsEventDetails.ResumeLayout(False)
+        Me.tabEventOverview.ResumeLayout(False)
         CType(Me.dgvOverviewRegistrants, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel9.ResumeLayout(False)
         Me.Panel9.PerformLayout()
-        Me.TPEventManagement.ResumeLayout(False)
-        Me.TPRegistrationManagement.ResumeLayout(False)
+        Me.tabEventManagement.ResumeLayout(False)
+        Me.tabRegistrationManagement.ResumeLayout(False)
         CType(Me.dgvRegistrationManagement, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel8.ResumeLayout(False)
         Me.Panel8.PerformLayout()
-        Me.Panel5.ResumeLayout(False)
-        CType(Me.dgvRegistrationEvent, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.Panel7.ResumeLayout(False)
-        Me.Panel7.PerformLayout()
-        Me.Panel6.ResumeLayout(False)
-        Me.Panel6.PerformLayout()
+        Me.pnlEventsAndFilter.ResumeLayout(False)
+        CType(Me.dgvEvents, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.pnlFilterEvents.ResumeLayout(False)
+        Me.pnlEventTitle.ResumeLayout(False)
+        Me.pnlEventTitle.PerformLayout()
         Me.ResumeLayout(False)
-        Me.PerformLayout()
 
     End Sub
-    Friend WithEvents StatusStrip1 As System.Windows.Forms.StatusStrip
-    Friend WithEvents ToolStripProgressBar1 As System.Windows.Forms.ToolStripProgressBar
-    Friend WithEvents Panel1 As System.Windows.Forms.ToolStripStatusLabel
-    Friend WithEvents Panel2 As System.Windows.Forms.ToolStripStatusLabel
-    Friend WithEvents Panel3 As System.Windows.Forms.ToolStripStatusLabel
-    Friend WithEvents MainMenu1 As System.Windows.Forms.MainMenu
-    Friend WithEvents MmiFile As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiSave As System.Windows.Forms.MenuItem
-    Friend WithEvents MenuItem1 As System.Windows.Forms.MenuItem
-    Friend WithEvents MmiBack As System.Windows.Forms.MenuItem
-    Friend WithEvents MmiView As System.Windows.Forms.MenuItem
-    Friend WithEvents MenuItem2 As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiNewApplication As System.Windows.Forms.MenuItem
-    Friend WithEvents MmiHelp As System.Windows.Forms.MenuItem
     Friend WithEvents Panel4 As System.Windows.Forms.Panel
-    Friend WithEvents GroupBox2 As System.Windows.Forms.GroupBox
     Friend WithEvents Label1 As System.Windows.Forms.Label
-    Friend WithEvents txtEventID As System.Windows.Forms.TextBox
     Friend WithEvents Label2 As System.Windows.Forms.Label
     Friend WithEvents txtEventTitle As System.Windows.Forms.TextBox
     Friend WithEvents Label4 As System.Windows.Forms.Label
@@ -1709,20 +1570,18 @@ Partial Class MASPRegistrationTool
     Friend WithEvents btnSaveNewEvent As System.Windows.Forms.Button
     Friend WithEvents Label9 As System.Windows.Forms.Label
     Friend WithEvents txtEventNotes As System.Windows.Forms.TextBox
-    Friend WithEvents TabControl1 As System.Windows.Forms.TabControl
-    Friend WithEvents TPEventManagement As System.Windows.Forms.TabPage
-    Friend WithEvents TPRegistrationManagement As System.Windows.Forms.TabPage
-    Friend WithEvents Panel5 As System.Windows.Forms.Panel
-    Friend WithEvents dgvRegistrationEvent As System.Windows.Forms.DataGridView
-    Friend WithEvents lblEVentDate As System.Windows.Forms.Label
+    Friend WithEvents tabsEventDetails As System.Windows.Forms.TabControl
+    Friend WithEvents tabEventManagement As System.Windows.Forms.TabPage
+    Friend WithEvents tabRegistrationManagement As System.Windows.Forms.TabPage
+    Friend WithEvents pnlEventsAndFilter As System.Windows.Forms.Panel
+    Friend WithEvents dgvEvents As System.Windows.Forms.DataGridView
+    Friend WithEvents lblEventDate As System.Windows.Forms.Label
     Friend WithEvents lblEventTitle As System.Windows.Forms.Label
-    Friend WithEvents btnViewDetails As System.Windows.Forms.Button
-    Friend WithEvents Panel6 As System.Windows.Forms.Panel
-    Friend WithEvents rdbAllEvents As System.Windows.Forms.RadioButton
-    Friend WithEvents rdbPastEvents As System.Windows.Forms.RadioButton
-    Friend WithEvents rdbUpcomingEvents As System.Windows.Forms.RadioButton
-    Friend WithEvents TPEventOverview As System.Windows.Forms.TabPage
-    Friend WithEvents btnFilterEvents As System.Windows.Forms.Button
+    Friend WithEvents pnlFilterEvents As System.Windows.Forms.Panel
+    Friend WithEvents rdbEventsFilterAll As System.Windows.Forms.RadioButton
+    Friend WithEvents rdbEventsFilterPast As System.Windows.Forms.RadioButton
+    Friend WithEvents rdbEventsFilterFuture As System.Windows.Forms.RadioButton
+    Friend WithEvents tabEventOverview As System.Windows.Forms.TabPage
     Friend WithEvents Label12 As System.Windows.Forms.Label
     Friend WithEvents txtEventTime As System.Windows.Forms.TextBox
     Friend WithEvents mtbEventWebPhoneNumber As System.Windows.Forms.MaskedTextBox
@@ -1742,8 +1601,6 @@ Partial Class MASPRegistrationTool
     Friend WithEvents btnGeneratePasscode As System.Windows.Forms.Button
     Friend WithEvents Label16 As System.Windows.Forms.Label
     Friend WithEvents chbEventPasscode As System.Windows.Forms.CheckBox
-    Friend WithEvents Panel7 As System.Windows.Forms.Panel
-    Friend WithEvents txtSelectedEventID As System.Windows.Forms.TextBox
     Friend WithEvents btnClearEventManagement As System.Windows.Forms.Button
     Friend WithEvents dgvRegistrationManagement As System.Windows.Forms.DataGridView
     Friend WithEvents Panel8 As System.Windows.Forms.Panel
@@ -1798,8 +1655,7 @@ Partial Class MASPRegistrationTool
     Friend WithEvents btnEmailWaitList As System.Windows.Forms.Button
     Friend WithEvents btnEmailRegistrants As System.Windows.Forms.Button
     Friend WithEvents btnEmailAll As System.Windows.Forms.Button
-    Friend WithEvents btnExportToExcel As System.Windows.Forms.Button
-    Friend WithEvents Label41 As System.Windows.Forms.Label
+    Friend WithEvents btnExportRegistrantsToExcel As System.Windows.Forms.Button
     Friend WithEvents Label47 As System.Windows.Forms.Label
     Friend WithEvents txtWebsiteURL As System.Windows.Forms.TextBox
     Friend WithEvents Label48 As System.Windows.Forms.Label
@@ -1809,17 +1665,22 @@ Partial Class MASPRegistrationTool
     Friend WithEvents txtRegID As System.Windows.Forms.TextBox
     Friend WithEvents btnModifyRegistration As System.Windows.Forms.Button
     Friend WithEvents txtEmails As System.Windows.Forms.TextBox
-    Friend WithEvents lblDescription As System.Windows.Forms.TextBox
-    Friend WithEvents lblNumberRegistered As System.Windows.Forms.TextBox
-    Friend WithEvents lblEventStatus As System.Windows.Forms.TextBox
-    Friend WithEvents lblPassCode As System.Windows.Forms.TextBox
-    Friend WithEvents lblLogInRequired As System.Windows.Forms.TextBox
-    Friend WithEvents lblEventDateTime As System.Windows.Forms.TextBox
-    Friend WithEvents lblEvent As System.Windows.Forms.TextBox
-    Friend WithEvents lblWaitingList As System.Windows.Forms.TextBox
-    Friend WithEvents lblEventCapacity As System.Windows.Forms.TextBox
-    Friend WithEvents lblAPBContact As System.Windows.Forms.TextBox
-    Friend WithEvents lblEventContact As System.Windows.Forms.TextBox
-    Friend WithEvents lblNotes As System.Windows.Forms.TextBox
-    Friend WithEvents lblVenue As System.Windows.Forms.TextBox
+    Friend WithEvents txtOvDescription As System.Windows.Forms.TextBox
+    Friend WithEvents txtOvNumberRegistered As System.Windows.Forms.TextBox
+    Friend WithEvents txtOvEventStatus As System.Windows.Forms.TextBox
+    Friend WithEvents txtOvPassCode As System.Windows.Forms.TextBox
+    Friend WithEvents txtOvEventDateTime As System.Windows.Forms.TextBox
+    Friend WithEvents txtOvEvent As System.Windows.Forms.TextBox
+    Friend WithEvents txtOvWaitingList As System.Windows.Forms.TextBox
+    Friend WithEvents txtOvEventCapacity As System.Windows.Forms.TextBox
+    Friend WithEvents txtOvAPBContact As System.Windows.Forms.TextBox
+    Friend WithEvents txtOvWebContact As System.Windows.Forms.TextBox
+    Friend WithEvents txtOvNotes As System.Windows.Forms.TextBox
+    Friend WithEvents txtOvVenue As System.Windows.Forms.TextBox
+    Friend WithEvents btnViewDetails As System.Windows.Forms.Button
+    Friend WithEvents pnlEventTitle As System.Windows.Forms.Panel
+    Friend WithEvents chbOvLoginRequired As System.Windows.Forms.CheckBox
+    Friend WithEvents txtOvCancelled As System.Windows.Forms.TextBox
+    Friend WithEvents lblCancelled As System.Windows.Forms.Label
+    Friend WithEvents lblEmail As System.Windows.Forms.Label
 End Class

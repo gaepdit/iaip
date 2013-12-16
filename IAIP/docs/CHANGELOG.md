@@ -5,17 +5,35 @@ Integrated Air Information Platform change log
 
 See the [release notes](README.html).
 
-## Version 2.6.x <span>(2013-xx-xx)</span>
+## Version 2.8.1 <span>(2013-12-13)</span>
+
++ FIX: Updating IAIP no longer forgets user settings, like login name (sorry about that!) (#152)
+
+## Version 2.8.0 <span>(2013-12-12)</span>
+
++ NEW: *SSCP* – New enforcement document storage tool. Also, new documents tab on enforcement screen.
++ NEW: *SSCP* – Now you can open multiple enforcement screens at once.
++ NEW: *SSCP* – Improved usability on Compliance Log (#144)
++ NEW: Improved usability on event registration tool
+
+
++ FIX: Registration tool email generator not working (#148)
++ FIX: Registration tool View Details button not working (#149)
++ FIX: *SSCP* – Unable to delete enforcement from Compliance Log (#151)
+
+## Version 2.7.0 <span>(2013-11-20)</span>
 
 + NEW: Added error tracking to analytics
 + NEW: "Reset all forms" added to Login screen
 
-+ FIX: Last digit of date fields cut off on Windows 7
+
++ FIX: Last digit of date fields cut off on Windows 7 (#121)
 + FIX: *ISMP* – Tests assigned by program manager cause Facility Summary to break (#141)
 
 ## Version 2.6.10 <span>(2013-11-12)</span>
 
 + NEW: Wish the Navigation Screen was bigger? Do you always maximize the Application Log? Now when you move forms around on your screen, the Platform will remember their size and location, so they will be in the same place the next time you open them. Got things a little muddled up? Choose "Reset all forms" from the Help menu on the main Navigation Screen.
+
 
 + FIX: Improved file saving in some scenarios
 
@@ -34,6 +52,7 @@ See the [release notes](README.html).
 + NEW: Better indication when logging in to Testing Environment
 + NEW: *ISMP* – Alphabetize engineer lists in ISMP managers tools (#129)
 
+
 + FIX: Error when saving contact information (#126)
 + FIX: Error when saving facility location
 + FIX: *SSCP* – Unable to delete notifications in Compliance Log (#133)
@@ -51,11 +70,13 @@ See the [release notes](README.html).
 
 + NEW: New icon & logo for Windows 7
 
+
 + FIX: *SSPP* – Error message when uploading permit docs (#118)
 
 ## Version 2.6.4.6 <span>(2013-09-13)</span>
 
 + NEW: Login form loads imperceptibly faster now
+
 
 + FIX: Some data fields were unreadable on Windows 7 (#119)
 
@@ -64,17 +85,20 @@ See the [release notes](README.html).
 + NEW: *Query Generator* – Better formatting of results
 + NEW: *Query Generator* – HUGE performance improvement when exporting to Excel
 
+
 + FIX: *Query Generator* produces more relevant results when searching for Compliance Inspector or Compliance Unit (#114)
 
 ## Version 2.6.4.4 <span>(2013-09-09)</span>
 
 + NEW: Added analytics to Crystal Reports to better understand usage of printed reports
 
+
 + FIX: *SSPP* – Improved grammar in acknowledgment email
 
 ## Version 2.6.4.3 <span>(2013-08-30)</span>
 
 + NEW: Display unassigned compliance items in the Navigation Screen compliance program view (#80)
+
 
 + FIX: *ISMP* – Stack tests for District Offices were cc'ed to Terri Crosby-Vega (#97)
 + FIX: *ISMP* – Try to prevent compliance staff being unassigned inappropriately (#80)
@@ -113,6 +137,7 @@ See the [release notes](README.html).
 + NEW: Allow all SSCP staff to edit Facility Subparts (#37)
 + NEW: Allow deletion of stipulated penalties (#34)
 + NEW: Improved FCE form (layout, buttons, menu)
+
 
 + FIX: State Contact data not refreshed correctly when loading new facility (#50)
 + FIX: Bug in counting of stipulated penalties (#53)

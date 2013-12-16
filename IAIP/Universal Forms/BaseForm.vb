@@ -2,7 +2,48 @@
 
 Public Class BaseForm
 
+#Region "Properties"
+
+    Private _id As Integer
+    Public Property ID() As Integer
+        Get
+            Return _id
+        End Get
+        Set(ByVal value As Integer)
+            _id = value
+        End Set
+    End Property
+
+    Private _parameters As Dictionary(Of String, String)
+    Public Property Parameters() As Dictionary(Of String, String)
+        Get
+            Return _parameters
+        End Get
+        Set(ByVal value As Dictionary(Of String, String))
+            _parameters = value
+        End Set
+    End Property
+
+#End Region
+
 #Region "Form events"
+
+    Private Sub BaseForm_Disposed(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Disposed
+        Try
+            If MultiForm IsNot Nothing AndAlso _
+            MultiForm.ContainsKey(Me.Name) AndAlso _
+            MultiForm(Me.Name).ContainsKey(Me.ID) Then
+                MultiForm(Me.Name).Remove(Me.ID)
+            End If
+
+            If SingleForm IsNot Nothing AndAlso _
+            SingleForm.ContainsKey(Me.Name) Then
+                SingleForm.Remove(Me.Name)
+            End If
+        Catch ex As Exception
+            ErrorReport(ex.ToString(), Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+        End Try
+    End Sub
 
     Private Sub BaseForm_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 

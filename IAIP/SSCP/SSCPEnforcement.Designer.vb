@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class NewSscpEnforcementAudit
+Partial Class SscpEnforcement
     Inherits BaseForm
 
     'Form overrides dispose to clean up the component list.
@@ -23,7 +23,7 @@ Partial Class NewSscpEnforcementAudit
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(NewSscpEnforcementAudit))
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(SscpEnforcement))
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
         Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
@@ -109,11 +109,6 @@ Partial Class NewSscpEnforcementAudit
         Me.TPNOV = New System.Windows.Forms.TabPage
         Me.txtNOVComments = New System.Windows.Forms.TextBox
         Me.Panel9 = New System.Windows.Forms.Panel
-        Me.lblNFAdownload = New System.Windows.Forms.Label
-        Me.Label56 = New System.Windows.Forms.Label
-        Me.Label57 = New System.Windows.Forms.Label
-        Me.btnDownloadNFA = New System.Windows.Forms.Button
-        Me.btnUploadNFA = New System.Windows.Forms.Button
         Me.DTPNOVToUC = New System.Windows.Forms.DateTimePicker
         Me.Label46 = New System.Windows.Forms.Label
         Me.Label17 = New System.Windows.Forms.Label
@@ -132,13 +127,8 @@ Partial Class NewSscpEnforcementAudit
         Me.TPCO = New System.Windows.Forms.TabPage
         Me.txtCOComments = New System.Windows.Forms.TextBox
         Me.Panel10 = New System.Windows.Forms.Panel
-        Me.lblCODownload = New System.Windows.Forms.Label
-        Me.Label22 = New System.Windows.Forms.Label
-        Me.Label12 = New System.Windows.Forms.Label
         Me.DTPCOToUC = New System.Windows.Forms.DateTimePicker
-        Me.btnDownloadCO = New System.Windows.Forms.Button
         Me.txtPenaltyComments = New System.Windows.Forms.TextBox
-        Me.btnUploadCO = New System.Windows.Forms.Button
         Me.txtStipulatedKey = New System.Windows.Forms.TextBox
         Me.Label29 = New System.Windows.Forms.Label
         Me.Label21 = New System.Windows.Forms.Label
@@ -172,11 +162,6 @@ Partial Class NewSscpEnforcementAudit
         Me.TPAO = New System.Windows.Forms.TabPage
         Me.txtAOComments = New System.Windows.Forms.TextBox
         Me.Panel11 = New System.Windows.Forms.Panel
-        Me.lblDownloadAO = New System.Windows.Forms.Label
-        Me.Label33 = New System.Windows.Forms.Label
-        Me.Label58 = New System.Windows.Forms.Label
-        Me.btnDownloadAO = New System.Windows.Forms.Button
-        Me.btnUploadAO = New System.Windows.Forms.Button
         Me.DTPAOExecuted = New System.Windows.Forms.DateTimePicker
         Me.Label42 = New System.Windows.Forms.Label
         Me.Label25 = New System.Windows.Forms.Label
@@ -192,25 +177,14 @@ Partial Class NewSscpEnforcementAudit
         Me.btnExportAuditToExcel = New System.Windows.Forms.Button
         Me.tabDocuments = New System.Windows.Forms.TabPage
         Me.lblMessage = New System.Windows.Forms.Label
-        Me.pnlAddNew = New System.Windows.Forms.Panel
-        Me.btnNewFileCancel = New System.Windows.Forms.Button
-        Me.btnNewFileUpload = New System.Windows.Forms.Button
-        Me.txtNewDescription = New System.Windows.Forms.TextBox
-        Me.lblNewDescription = New System.Windows.Forms.Label
-        Me.lblNewFileName = New System.Windows.Forms.Label
-        Me.btnChooseNewFile = New System.Windows.Forms.Button
-        Me.lblDocumentTypes = New System.Windows.Forms.Label
-        Me.ddlNewDocumentType = New System.Windows.Forms.ComboBox
-        Me.pnlUpdate = New System.Windows.Forms.Panel
-        Me.lblUpdateDescription = New System.Windows.Forms.Label
-        Me.ddlUpdateDocumentType = New System.Windows.Forms.ComboBox
-        Me.btnDeleteFile = New System.Windows.Forms.Button
-        Me.btnDownloadFile = New System.Windows.Forms.Button
-        Me.txtUpdateDescription = New System.Windows.Forms.TextBox
-        Me.btnUpdateFileDescription = New System.Windows.Forms.Button
-        Me.lblSelectedFileName = New System.Windows.Forms.Label
+        Me.pnlDocument = New System.Windows.Forms.Panel
+        Me.lblDocumentDescription = New System.Windows.Forms.Label
+        Me.btnDocumentDownload = New System.Windows.Forms.Button
+        Me.txtDocumentDescription = New System.Windows.Forms.TextBox
+        Me.btnDocumentUpdate = New System.Windows.Forms.Button
+        Me.lblDocumentName = New System.Windows.Forms.Label
         Me.lblCurrentFiles = New System.Windows.Forms.Label
-        Me.dgvFileList = New System.Windows.Forms.DataGridView
+        Me.dgvDocumentList = New System.Windows.Forms.DataGridView
         Me.Panel4 = New System.Windows.Forms.Panel
         Me.Label55 = New System.Windows.Forms.Label
         Me.txtCounty = New System.Windows.Forms.TextBox
@@ -243,6 +217,26 @@ Partial Class NewSscpEnforcementAudit
         Me.txtEnforcementNumber = New System.Windows.Forms.TextBox
         Me.txtAIRSNumber = New System.Windows.Forms.TextBox
         Me.EP = New System.Windows.Forms.ErrorProvider(Me.components)
+        Me.Label4 = New System.Windows.Forms.Label
+        Me.Panel1 = New System.Windows.Forms.Panel
+        Me.Button1 = New System.Windows.Forms.Button
+        Me.Button2 = New System.Windows.Forms.Button
+        Me.TextBox1 = New System.Windows.Forms.TextBox
+        Me.Label12 = New System.Windows.Forms.Label
+        Me.Label22 = New System.Windows.Forms.Label
+        Me.Button3 = New System.Windows.Forms.Button
+        Me.Label27 = New System.Windows.Forms.Label
+        Me.ComboBox1 = New System.Windows.Forms.ComboBox
+        Me.Panel2 = New System.Windows.Forms.Panel
+        Me.Label33 = New System.Windows.Forms.Label
+        Me.ComboBox2 = New System.Windows.Forms.ComboBox
+        Me.Button4 = New System.Windows.Forms.Button
+        Me.Button5 = New System.Windows.Forms.Button
+        Me.TextBox2 = New System.Windows.Forms.TextBox
+        Me.Button6 = New System.Windows.Forms.Button
+        Me.Label56 = New System.Windows.Forms.Label
+        Me.Label57 = New System.Windows.Forms.Label
+        Me.DataGridView1 = New System.Windows.Forms.DataGridView
         Me.ToolStrip1.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
         Me.TCEnforcement.SuspendLayout()
@@ -265,12 +259,14 @@ Partial Class NewSscpEnforcementAudit
         CType(Me.dgvAuditHistory, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel12.SuspendLayout()
         Me.tabDocuments.SuspendLayout()
-        Me.pnlAddNew.SuspendLayout()
-        Me.pnlUpdate.SuspendLayout()
-        CType(Me.dgvFileList, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.pnlDocument.SuspendLayout()
+        CType(Me.dgvDocumentList, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel4.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         CType(Me.EP, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.Panel1.SuspendLayout()
+        Me.Panel2.SuspendLayout()
+        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'ToolStrip1
@@ -1076,11 +1072,6 @@ Partial Class NewSscpEnforcementAudit
         '
         'Panel9
         '
-        Me.Panel9.Controls.Add(Me.lblNFAdownload)
-        Me.Panel9.Controls.Add(Me.Label56)
-        Me.Panel9.Controls.Add(Me.Label57)
-        Me.Panel9.Controls.Add(Me.btnDownloadNFA)
-        Me.Panel9.Controls.Add(Me.btnUploadNFA)
         Me.Panel9.Controls.Add(Me.DTPNOVToUC)
         Me.Panel9.Controls.Add(Me.Label46)
         Me.Panel9.Controls.Add(Me.Label17)
@@ -1101,51 +1092,6 @@ Partial Class NewSscpEnforcementAudit
         Me.Panel9.Name = "Panel9"
         Me.Panel9.Size = New System.Drawing.Size(884, 237)
         Me.Panel9.TabIndex = 380
-        '
-        'lblNFAdownload
-        '
-        Me.lblNFAdownload.AutoSize = True
-        Me.lblNFAdownload.Location = New System.Drawing.Point(375, 215)
-        Me.lblNFAdownload.Name = "lblNFAdownload"
-        Me.lblNFAdownload.Size = New System.Drawing.Size(55, 13)
-        Me.lblNFAdownload.TabIndex = 401
-        Me.lblNFAdownload.Text = "Download"
-        '
-        'Label56
-        '
-        Me.Label56.AutoSize = True
-        Me.Label56.Location = New System.Drawing.Point(300, 215)
-        Me.Label56.Name = "Label56"
-        Me.Label56.Size = New System.Drawing.Size(41, 13)
-        Me.Label56.TabIndex = 400
-        Me.Label56.Text = "Upload"
-        '
-        'Label57
-        '
-        Me.Label57.AutoSize = True
-        Me.Label57.Location = New System.Drawing.Point(274, 192)
-        Me.Label57.Name = "Label57"
-        Me.Label57.Size = New System.Drawing.Size(106, 13)
-        Me.Label57.TabIndex = 399
-        Me.Label57.Text = "NFA file (PDF ONLY)"
-        '
-        'btnDownloadNFA
-        '
-        Me.btnDownloadNFA.BackgroundImage = CType(resources.GetObject("btnDownloadNFA.BackgroundImage"), System.Drawing.Image)
-        Me.btnDownloadNFA.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.btnDownloadNFA.Location = New System.Drawing.Point(350, 210)
-        Me.btnDownloadNFA.Name = "btnDownloadNFA"
-        Me.btnDownloadNFA.Size = New System.Drawing.Size(24, 23)
-        Me.btnDownloadNFA.TabIndex = 398
-        '
-        'btnUploadNFA
-        '
-        Me.btnUploadNFA.BackgroundImage = CType(resources.GetObject("btnUploadNFA.BackgroundImage"), System.Drawing.Image)
-        Me.btnUploadNFA.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.btnUploadNFA.Location = New System.Drawing.Point(276, 210)
-        Me.btnUploadNFA.Name = "btnUploadNFA"
-        Me.btnUploadNFA.Size = New System.Drawing.Size(24, 23)
-        Me.btnUploadNFA.TabIndex = 397
         '
         'DTPNOVToUC
         '
@@ -1329,13 +1275,8 @@ Partial Class NewSscpEnforcementAudit
         '
         'Panel10
         '
-        Me.Panel10.Controls.Add(Me.lblCODownload)
-        Me.Panel10.Controls.Add(Me.Label22)
-        Me.Panel10.Controls.Add(Me.Label12)
         Me.Panel10.Controls.Add(Me.DTPCOToUC)
-        Me.Panel10.Controls.Add(Me.btnDownloadCO)
         Me.Panel10.Controls.Add(Me.txtPenaltyComments)
-        Me.Panel10.Controls.Add(Me.btnUploadCO)
         Me.Panel10.Controls.Add(Me.txtStipulatedKey)
         Me.Panel10.Controls.Add(Me.Label29)
         Me.Panel10.Controls.Add(Me.Label21)
@@ -1363,33 +1304,6 @@ Partial Class NewSscpEnforcementAudit
         Me.Panel10.Size = New System.Drawing.Size(884, 294)
         Me.Panel10.TabIndex = 393
         '
-        'lblCODownload
-        '
-        Me.lblCODownload.AutoSize = True
-        Me.lblCODownload.Location = New System.Drawing.Point(290, 239)
-        Me.lblCODownload.Name = "lblCODownload"
-        Me.lblCODownload.Size = New System.Drawing.Size(55, 13)
-        Me.lblCODownload.TabIndex = 396
-        Me.lblCODownload.Text = "Download"
-        '
-        'Label22
-        '
-        Me.Label22.AutoSize = True
-        Me.Label22.Location = New System.Drawing.Point(290, 212)
-        Me.Label22.Name = "Label22"
-        Me.Label22.Size = New System.Drawing.Size(41, 13)
-        Me.Label22.TabIndex = 395
-        Me.Label22.Text = "Upload"
-        '
-        'Label12
-        '
-        Me.Label12.AutoSize = True
-        Me.Label12.Location = New System.Drawing.Point(263, 189)
-        Me.Label12.Name = "Label12"
-        Me.Label12.Size = New System.Drawing.Size(100, 13)
-        Me.Label12.TabIndex = 394
-        Me.Label12.Text = "CO file (PDF ONLY)"
-        '
         'DTPCOToUC
         '
         Me.DTPCOToUC.Checked = False
@@ -1402,15 +1316,6 @@ Partial Class NewSscpEnforcementAudit
         Me.DTPCOToUC.Size = New System.Drawing.Size(119, 22)
         Me.DTPCOToUC.TabIndex = 385
         '
-        'btnDownloadCO
-        '
-        Me.btnDownloadCO.BackgroundImage = CType(resources.GetObject("btnDownloadCO.BackgroundImage"), System.Drawing.Image)
-        Me.btnDownloadCO.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.btnDownloadCO.Location = New System.Drawing.Point(265, 234)
-        Me.btnDownloadCO.Name = "btnDownloadCO"
-        Me.btnDownloadCO.Size = New System.Drawing.Size(24, 23)
-        Me.btnDownloadCO.TabIndex = 392
-        '
         'txtPenaltyComments
         '
         Me.txtPenaltyComments.AcceptsReturn = True
@@ -1421,15 +1326,6 @@ Partial Class NewSscpEnforcementAudit
         Me.txtPenaltyComments.Name = "txtPenaltyComments"
         Me.txtPenaltyComments.Size = New System.Drawing.Size(373, 48)
         Me.txtPenaltyComments.TabIndex = 355
-        '
-        'btnUploadCO
-        '
-        Me.btnUploadCO.BackgroundImage = CType(resources.GetObject("btnUploadCO.BackgroundImage"), System.Drawing.Image)
-        Me.btnUploadCO.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.btnUploadCO.Location = New System.Drawing.Point(266, 207)
-        Me.btnUploadCO.Name = "btnUploadCO"
-        Me.btnUploadCO.Size = New System.Drawing.Size(24, 23)
-        Me.btnUploadCO.TabIndex = 391
         '
         'txtStipulatedKey
         '
@@ -1786,11 +1682,6 @@ Partial Class NewSscpEnforcementAudit
         '
         'Panel11
         '
-        Me.Panel11.Controls.Add(Me.lblDownloadAO)
-        Me.Panel11.Controls.Add(Me.Label33)
-        Me.Panel11.Controls.Add(Me.Label58)
-        Me.Panel11.Controls.Add(Me.btnDownloadAO)
-        Me.Panel11.Controls.Add(Me.btnUploadAO)
         Me.Panel11.Controls.Add(Me.DTPAOExecuted)
         Me.Panel11.Controls.Add(Me.Label42)
         Me.Panel11.Controls.Add(Me.Label25)
@@ -1803,51 +1694,6 @@ Partial Class NewSscpEnforcementAudit
         Me.Panel11.Name = "Panel11"
         Me.Panel11.Size = New System.Drawing.Size(884, 111)
         Me.Panel11.TabIndex = 388
-        '
-        'lblDownloadAO
-        '
-        Me.lblDownloadAO.AutoSize = True
-        Me.lblDownloadAO.Location = New System.Drawing.Point(536, 85)
-        Me.lblDownloadAO.Name = "lblDownloadAO"
-        Me.lblDownloadAO.Size = New System.Drawing.Size(55, 13)
-        Me.lblDownloadAO.TabIndex = 406
-        Me.lblDownloadAO.Text = "Download"
-        '
-        'Label33
-        '
-        Me.Label33.AutoSize = True
-        Me.Label33.Location = New System.Drawing.Point(461, 85)
-        Me.Label33.Name = "Label33"
-        Me.Label33.Size = New System.Drawing.Size(41, 13)
-        Me.Label33.TabIndex = 405
-        Me.Label33.Text = "Upload"
-        '
-        'Label58
-        '
-        Me.Label58.AutoSize = True
-        Me.Label58.Location = New System.Drawing.Point(435, 62)
-        Me.Label58.Name = "Label58"
-        Me.Label58.Size = New System.Drawing.Size(179, 13)
-        Me.Label58.TabIndex = 404
-        Me.Label58.Text = "Administrative Order file (PDF ONLY)"
-        '
-        'btnDownloadAO
-        '
-        Me.btnDownloadAO.BackgroundImage = CType(resources.GetObject("btnDownloadAO.BackgroundImage"), System.Drawing.Image)
-        Me.btnDownloadAO.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.btnDownloadAO.Location = New System.Drawing.Point(511, 80)
-        Me.btnDownloadAO.Name = "btnDownloadAO"
-        Me.btnDownloadAO.Size = New System.Drawing.Size(24, 23)
-        Me.btnDownloadAO.TabIndex = 403
-        '
-        'btnUploadAO
-        '
-        Me.btnUploadAO.BackgroundImage = CType(resources.GetObject("btnUploadAO.BackgroundImage"), System.Drawing.Image)
-        Me.btnUploadAO.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.btnUploadAO.Location = New System.Drawing.Point(437, 80)
-        Me.btnUploadAO.Name = "btnUploadAO"
-        Me.btnUploadAO.Size = New System.Drawing.Size(24, 23)
-        Me.btnUploadAO.TabIndex = 402
         '
         'DTPAOExecuted
         '
@@ -1988,10 +1834,9 @@ Partial Class NewSscpEnforcementAudit
         'tabDocuments
         '
         Me.tabDocuments.Controls.Add(Me.lblMessage)
-        Me.tabDocuments.Controls.Add(Me.pnlAddNew)
-        Me.tabDocuments.Controls.Add(Me.pnlUpdate)
+        Me.tabDocuments.Controls.Add(Me.pnlDocument)
         Me.tabDocuments.Controls.Add(Me.lblCurrentFiles)
-        Me.tabDocuments.Controls.Add(Me.dgvFileList)
+        Me.tabDocuments.Controls.Add(Me.dgvDocumentList)
         Me.tabDocuments.Location = New System.Drawing.Point(4, 22)
         Me.tabDocuments.Name = "tabDocuments"
         Me.tabDocuments.Padding = New System.Windows.Forms.Padding(3)
@@ -2002,250 +1847,117 @@ Partial Class NewSscpEnforcementAudit
         '
         'lblMessage
         '
-        Me.lblMessage.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.lblMessage.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.lblMessage.AutoSize = True
         Me.lblMessage.BackColor = System.Drawing.Color.OldLace
         Me.lblMessage.ForeColor = System.Drawing.Color.DarkRed
-        Me.lblMessage.Location = New System.Drawing.Point(277, 303)
+        Me.lblMessage.Location = New System.Drawing.Point(15, 300)
+        Me.lblMessage.MaximumSize = New System.Drawing.Size(550, 0)
         Me.lblMessage.Name = "lblMessage"
         Me.lblMessage.Padding = New System.Windows.Forms.Padding(5)
-        Me.lblMessage.Size = New System.Drawing.Size(418, 37)
+        Me.lblMessage.Size = New System.Drawing.Size(119, 23)
         Me.lblMessage.TabIndex = 18
-        Me.lblMessage.Text = "Message Placeholder" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "2"
+        Me.lblMessage.Text = "Message Placeholder"
         Me.lblMessage.Visible = False
         '
-        'pnlAddNew
+        'pnlDocument
         '
-        Me.pnlAddNew.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-                    Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.pnlAddNew.Controls.Add(Me.btnNewFileCancel)
-        Me.pnlAddNew.Controls.Add(Me.btnNewFileUpload)
-        Me.pnlAddNew.Controls.Add(Me.txtNewDescription)
-        Me.pnlAddNew.Controls.Add(Me.lblNewDescription)
-        Me.pnlAddNew.Controls.Add(Me.lblNewFileName)
-        Me.pnlAddNew.Controls.Add(Me.btnChooseNewFile)
-        Me.pnlAddNew.Controls.Add(Me.lblDocumentTypes)
-        Me.pnlAddNew.Controls.Add(Me.ddlNewDocumentType)
-        Me.pnlAddNew.Location = New System.Drawing.Point(14, 35)
-        Me.pnlAddNew.MinimumSize = New System.Drawing.Size(242, 172)
-        Me.pnlAddNew.Name = "pnlAddNew"
-        Me.pnlAddNew.Size = New System.Drawing.Size(242, 251)
-        Me.pnlAddNew.TabIndex = 17
-        '
-        'btnNewFileCancel
-        '
-        Me.btnNewFileCancel.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnNewFileCancel.Enabled = False
-        Me.btnNewFileCancel.Location = New System.Drawing.Point(83, 150)
-        Me.btnNewFileCancel.Name = "btnNewFileCancel"
-        Me.btnNewFileCancel.Size = New System.Drawing.Size(75, 23)
-        Me.btnNewFileCancel.TabIndex = 4
-        Me.btnNewFileCancel.Text = "Cancel"
-        Me.btnNewFileCancel.UseVisualStyleBackColor = True
-        Me.btnNewFileCancel.Visible = False
-        '
-        'btnNewFileUpload
-        '
-        Me.btnNewFileUpload.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnNewFileUpload.Enabled = False
-        Me.btnNewFileUpload.Location = New System.Drawing.Point(164, 150)
-        Me.btnNewFileUpload.Name = "btnNewFileUpload"
-        Me.btnNewFileUpload.Size = New System.Drawing.Size(75, 23)
-        Me.btnNewFileUpload.TabIndex = 3
-        Me.btnNewFileUpload.Text = "Add this file"
-        Me.btnNewFileUpload.UseVisualStyleBackColor = True
-        Me.btnNewFileUpload.Visible = False
-        '
-        'txtNewDescription
-        '
-        Me.txtNewDescription.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.txtNewDescription.Location = New System.Drawing.Point(6, 124)
-        Me.txtNewDescription.Name = "txtNewDescription"
-        Me.txtNewDescription.Size = New System.Drawing.Size(233, 20)
-        Me.txtNewDescription.TabIndex = 2
-        Me.txtNewDescription.Visible = False
-        '
-        'lblNewDescription
-        '
-        Me.lblNewDescription.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.lblNewDescription.AutoSize = True
-        Me.lblNewDescription.Location = New System.Drawing.Point(3, 108)
-        Me.lblNewDescription.Name = "lblNewDescription"
-        Me.lblNewDescription.Size = New System.Drawing.Size(106, 13)
-        Me.lblNewDescription.TabIndex = 5
-        Me.lblNewDescription.Text = "Description (optional)"
-        Me.lblNewDescription.Visible = False
-        '
-        'lblNewFileName
-        '
-        Me.lblNewFileName.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.lblNewFileName.AutoSize = True
-        Me.lblNewFileName.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblNewFileName.ForeColor = System.Drawing.Color.ForestGreen
-        Me.lblNewFileName.Location = New System.Drawing.Point(3, 76)
-        Me.lblNewFileName.Name = "lblNewFileName"
-        Me.lblNewFileName.Size = New System.Drawing.Size(145, 17)
-        Me.lblNewFileName.TabIndex = 4
-        Me.lblNewFileName.Text = "FileName placeholder"
-        Me.lblNewFileName.Visible = False
-        '
-        'btnChooseNewFile
-        '
-        Me.btnChooseNewFile.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnChooseNewFile.Location = New System.Drawing.Point(164, 29)
-        Me.btnChooseNewFile.Name = "btnChooseNewFile"
-        Me.btnChooseNewFile.Size = New System.Drawing.Size(75, 23)
-        Me.btnChooseNewFile.TabIndex = 1
-        Me.btnChooseNewFile.Text = "Select file"
-        Me.btnChooseNewFile.UseVisualStyleBackColor = True
-        '
-        'lblDocumentTypes
-        '
-        Me.lblDocumentTypes.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.lblDocumentTypes.AutoSize = True
-        Me.lblDocumentTypes.Location = New System.Drawing.Point(3, 3)
-        Me.lblDocumentTypes.Name = "lblDocumentTypes"
-        Me.lblDocumentTypes.Size = New System.Drawing.Size(49, 13)
-        Me.lblDocumentTypes.TabIndex = 3
-        Me.lblDocumentTypes.Text = "Add new"
-        '
-        'ddlNewDocumentType
-        '
-        Me.ddlNewDocumentType.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.ddlNewDocumentType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.ddlNewDocumentType.FormattingEnabled = True
-        Me.ddlNewDocumentType.Location = New System.Drawing.Point(58, 0)
-        Me.ddlNewDocumentType.Name = "ddlNewDocumentType"
-        Me.ddlNewDocumentType.Size = New System.Drawing.Size(181, 21)
-        Me.ddlNewDocumentType.TabIndex = 0
-        '
-        'pnlUpdate
-        '
-        Me.pnlUpdate.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
+        Me.pnlDocument.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
                     Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.pnlUpdate.Controls.Add(Me.lblUpdateDescription)
-        Me.pnlUpdate.Controls.Add(Me.ddlUpdateDocumentType)
-        Me.pnlUpdate.Controls.Add(Me.btnDeleteFile)
-        Me.pnlUpdate.Controls.Add(Me.btnDownloadFile)
-        Me.pnlUpdate.Controls.Add(Me.txtUpdateDescription)
-        Me.pnlUpdate.Controls.Add(Me.btnUpdateFileDescription)
-        Me.pnlUpdate.Controls.Add(Me.lblSelectedFileName)
-        Me.pnlUpdate.Location = New System.Drawing.Point(276, 214)
-        Me.pnlUpdate.Name = "pnlUpdate"
-        Me.pnlUpdate.Size = New System.Drawing.Size(572, 73)
-        Me.pnlUpdate.TabIndex = 16
+        Me.pnlDocument.Controls.Add(Me.lblDocumentDescription)
+        Me.pnlDocument.Controls.Add(Me.btnDocumentDownload)
+        Me.pnlDocument.Controls.Add(Me.txtDocumentDescription)
+        Me.pnlDocument.Controls.Add(Me.btnDocumentUpdate)
+        Me.pnlDocument.Controls.Add(Me.lblDocumentName)
+        Me.pnlDocument.Enabled = False
+        Me.pnlDocument.Location = New System.Drawing.Point(14, 211)
+        Me.pnlDocument.Name = "pnlDocument"
+        Me.pnlDocument.Size = New System.Drawing.Size(572, 73)
+        Me.pnlDocument.TabIndex = 16
+        Me.pnlDocument.Visible = False
         '
-        'lblUpdateDescription
+        'lblDocumentDescription
         '
-        Me.lblUpdateDescription.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.lblUpdateDescription.AutoSize = True
-        Me.lblUpdateDescription.Location = New System.Drawing.Point(0, 36)
-        Me.lblUpdateDescription.Name = "lblUpdateDescription"
-        Me.lblUpdateDescription.Size = New System.Drawing.Size(106, 13)
-        Me.lblUpdateDescription.TabIndex = 6
-        Me.lblUpdateDescription.Text = "Description (optional)"
-        Me.lblUpdateDescription.Visible = False
+        Me.lblDocumentDescription.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.lblDocumentDescription.AutoSize = True
+        Me.lblDocumentDescription.Location = New System.Drawing.Point(0, 36)
+        Me.lblDocumentDescription.Name = "lblDocumentDescription"
+        Me.lblDocumentDescription.Size = New System.Drawing.Size(60, 13)
+        Me.lblDocumentDescription.TabIndex = 6
+        Me.lblDocumentDescription.Text = "Description"
         '
-        'ddlUpdateDocumentType
+        'btnDocumentDownload
         '
-        Me.ddlUpdateDocumentType.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.ddlUpdateDocumentType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.ddlUpdateDocumentType.Enabled = False
-        Me.ddlUpdateDocumentType.FormattingEnabled = True
-        Me.ddlUpdateDocumentType.Location = New System.Drawing.Point(319, 52)
-        Me.ddlUpdateDocumentType.Name = "ddlUpdateDocumentType"
-        Me.ddlUpdateDocumentType.Size = New System.Drawing.Size(141, 21)
-        Me.ddlUpdateDocumentType.TabIndex = 6
-        Me.ddlUpdateDocumentType.Visible = False
+        Me.btnDocumentDownload.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnDocumentDownload.Location = New System.Drawing.Point(460, 50)
+        Me.btnDocumentDownload.Name = "btnDocumentDownload"
+        Me.btnDocumentDownload.Size = New System.Drawing.Size(112, 23)
+        Me.btnDocumentDownload.TabIndex = 2
+        Me.btnDocumentDownload.Text = "Download"
+        Me.btnDocumentDownload.UseVisualStyleBackColor = True
         '
-        'btnDeleteFile
+        'txtDocumentDescription
         '
-        Me.btnDeleteFile.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnDeleteFile.Enabled = False
-        Me.btnDeleteFile.Location = New System.Drawing.Point(497, 7)
-        Me.btnDeleteFile.Name = "btnDeleteFile"
-        Me.btnDeleteFile.Size = New System.Drawing.Size(75, 23)
-        Me.btnDeleteFile.TabIndex = 8
-        Me.btnDeleteFile.Text = "Delete"
-        Me.btnDeleteFile.UseVisualStyleBackColor = True
-        '
-        'btnDownloadFile
-        '
-        Me.btnDownloadFile.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnDownloadFile.Enabled = False
-        Me.btnDownloadFile.Location = New System.Drawing.Point(416, 7)
-        Me.btnDownloadFile.Name = "btnDownloadFile"
-        Me.btnDownloadFile.Size = New System.Drawing.Size(75, 23)
-        Me.btnDownloadFile.TabIndex = 4
-        Me.btnDownloadFile.Text = "Download"
-        Me.btnDownloadFile.UseVisualStyleBackColor = True
-        '
-        'txtUpdateDescription
-        '
-        Me.txtUpdateDescription.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
+        Me.txtDocumentDescription.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
                     Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.txtUpdateDescription.Location = New System.Drawing.Point(0, 52)
-        Me.txtUpdateDescription.Name = "txtUpdateDescription"
-        Me.txtUpdateDescription.Size = New System.Drawing.Size(313, 20)
-        Me.txtUpdateDescription.TabIndex = 5
-        Me.txtUpdateDescription.Visible = False
+        Me.txtDocumentDescription.Location = New System.Drawing.Point(0, 52)
+        Me.txtDocumentDescription.Name = "txtDocumentDescription"
+        Me.txtDocumentDescription.Size = New System.Drawing.Size(336, 20)
+        Me.txtDocumentDescription.TabIndex = 0
         '
-        'btnUpdateFileDescription
+        'btnDocumentUpdate
         '
-        Me.btnUpdateFileDescription.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnUpdateFileDescription.AutoSize = True
-        Me.btnUpdateFileDescription.Enabled = False
-        Me.btnUpdateFileDescription.Location = New System.Drawing.Point(466, 50)
-        Me.btnUpdateFileDescription.Name = "btnUpdateFileDescription"
-        Me.btnUpdateFileDescription.Size = New System.Drawing.Size(106, 23)
-        Me.btnUpdateFileDescription.TabIndex = 7
-        Me.btnUpdateFileDescription.Text = "Update description"
-        Me.btnUpdateFileDescription.UseVisualStyleBackColor = True
-        Me.btnUpdateFileDescription.Visible = False
+        Me.btnDocumentUpdate.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnDocumentUpdate.AutoSize = True
+        Me.btnDocumentUpdate.Location = New System.Drawing.Point(342, 50)
+        Me.btnDocumentUpdate.Name = "btnDocumentUpdate"
+        Me.btnDocumentUpdate.Size = New System.Drawing.Size(112, 23)
+        Me.btnDocumentUpdate.TabIndex = 1
+        Me.btnDocumentUpdate.Text = "Update description"
+        Me.btnDocumentUpdate.UseVisualStyleBackColor = True
         '
-        'lblSelectedFileName
+        'lblDocumentName
         '
-        Me.lblSelectedFileName.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.lblSelectedFileName.AutoSize = True
-        Me.lblSelectedFileName.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblSelectedFileName.ForeColor = System.Drawing.Color.ForestGreen
-        Me.lblSelectedFileName.Location = New System.Drawing.Point(0, 10)
-        Me.lblSelectedFileName.Name = "lblSelectedFileName"
-        Me.lblSelectedFileName.Size = New System.Drawing.Size(145, 17)
-        Me.lblSelectedFileName.TabIndex = 14
-        Me.lblSelectedFileName.Text = "FileName placeholder"
-        Me.lblSelectedFileName.Visible = False
+        Me.lblDocumentName.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.lblDocumentName.AutoSize = True
+        Me.lblDocumentName.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblDocumentName.ForeColor = System.Drawing.Color.ForestGreen
+        Me.lblDocumentName.Location = New System.Drawing.Point(0, 10)
+        Me.lblDocumentName.Name = "lblDocumentName"
+        Me.lblDocumentName.Size = New System.Drawing.Size(145, 17)
+        Me.lblDocumentName.TabIndex = 14
+        Me.lblDocumentName.Text = "FileName placeholder"
         '
         'lblCurrentFiles
         '
         Me.lblCurrentFiles.AutoSize = True
-        Me.lblCurrentFiles.Location = New System.Drawing.Point(276, 19)
+        Me.lblCurrentFiles.Location = New System.Drawing.Point(14, 16)
         Me.lblCurrentFiles.Name = "lblCurrentFiles"
         Me.lblCurrentFiles.Size = New System.Drawing.Size(98, 13)
         Me.lblCurrentFiles.TabIndex = 5
         Me.lblCurrentFiles.Text = "Current Documents"
         '
-        'dgvFileList
+        'dgvDocumentList
         '
-        Me.dgvFileList.AllowUserToAddRows = False
-        Me.dgvFileList.AllowUserToDeleteRows = False
-        Me.dgvFileList.AllowUserToOrderColumns = True
-        Me.dgvFileList.AllowUserToResizeRows = False
-        Me.dgvFileList.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+        Me.dgvDocumentList.AllowUserToAddRows = False
+        Me.dgvDocumentList.AllowUserToDeleteRows = False
+        Me.dgvDocumentList.AllowUserToOrderColumns = True
+        Me.dgvDocumentList.AllowUserToResizeRows = False
+        Me.dgvDocumentList.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
                     Or System.Windows.Forms.AnchorStyles.Left) _
                     Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.dgvFileList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvFileList.Enabled = False
-        Me.dgvFileList.Location = New System.Drawing.Point(276, 35)
-        Me.dgvFileList.MinimumSize = New System.Drawing.Size(300, 55)
-        Me.dgvFileList.MultiSelect = False
-        Me.dgvFileList.Name = "dgvFileList"
-        Me.dgvFileList.ReadOnly = True
-        Me.dgvFileList.RowHeadersVisible = False
-        Me.dgvFileList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvFileList.Size = New System.Drawing.Size(572, 173)
-        Me.dgvFileList.StandardTab = True
-        Me.dgvFileList.TabIndex = 4
+        Me.dgvDocumentList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvDocumentList.Enabled = False
+        Me.dgvDocumentList.Location = New System.Drawing.Point(14, 32)
+        Me.dgvDocumentList.MinimumSize = New System.Drawing.Size(300, 55)
+        Me.dgvDocumentList.MultiSelect = False
+        Me.dgvDocumentList.Name = "dgvDocumentList"
+        Me.dgvDocumentList.ReadOnly = True
+        Me.dgvDocumentList.RowHeadersVisible = False
+        Me.dgvDocumentList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.dgvDocumentList.Size = New System.Drawing.Size(572, 173)
+        Me.dgvDocumentList.StandardTab = True
+        Me.dgvDocumentList.TabIndex = 0
         '
         'Panel4
         '
@@ -2612,6 +2324,253 @@ Partial Class NewSscpEnforcementAudit
         Me.EP.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink
         Me.EP.ContainerControl = Me
         '
+        'Label4
+        '
+        Me.Label4.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
+                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Label4.BackColor = System.Drawing.Color.OldLace
+        Me.Label4.ForeColor = System.Drawing.Color.DarkRed
+        Me.Label4.Location = New System.Drawing.Point(277, 303)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Padding = New System.Windows.Forms.Padding(5)
+        Me.Label4.Size = New System.Drawing.Size(418, 37)
+        Me.Label4.TabIndex = 18
+        Me.Label4.Text = "Message Placeholder" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "2"
+        Me.Label4.Visible = False
+        '
+        'Panel1
+        '
+        Me.Panel1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+                    Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.Panel1.Controls.Add(Me.Button1)
+        Me.Panel1.Controls.Add(Me.Button2)
+        Me.Panel1.Controls.Add(Me.TextBox1)
+        Me.Panel1.Controls.Add(Me.Label12)
+        Me.Panel1.Controls.Add(Me.Label22)
+        Me.Panel1.Controls.Add(Me.Button3)
+        Me.Panel1.Controls.Add(Me.Label27)
+        Me.Panel1.Controls.Add(Me.ComboBox1)
+        Me.Panel1.Location = New System.Drawing.Point(14, 35)
+        Me.Panel1.MinimumSize = New System.Drawing.Size(242, 172)
+        Me.Panel1.Name = "Panel1"
+        Me.Panel1.Size = New System.Drawing.Size(242, 251)
+        Me.Panel1.TabIndex = 17
+        '
+        'Button1
+        '
+        Me.Button1.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Button1.Enabled = False
+        Me.Button1.Location = New System.Drawing.Point(83, 150)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(75, 23)
+        Me.Button1.TabIndex = 4
+        Me.Button1.Text = "Cancel"
+        Me.Button1.UseVisualStyleBackColor = True
+        Me.Button1.Visible = False
+        '
+        'Button2
+        '
+        Me.Button2.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Button2.Enabled = False
+        Me.Button2.Location = New System.Drawing.Point(164, 150)
+        Me.Button2.Name = "Button2"
+        Me.Button2.Size = New System.Drawing.Size(75, 23)
+        Me.Button2.TabIndex = 3
+        Me.Button2.Text = "Add this file"
+        Me.Button2.UseVisualStyleBackColor = True
+        Me.Button2.Visible = False
+        '
+        'TextBox1
+        '
+        Me.TextBox1.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.TextBox1.Location = New System.Drawing.Point(6, 124)
+        Me.TextBox1.Name = "TextBox1"
+        Me.TextBox1.Size = New System.Drawing.Size(233, 20)
+        Me.TextBox1.TabIndex = 2
+        Me.TextBox1.Visible = False
+        '
+        'Label12
+        '
+        Me.Label12.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Label12.AutoSize = True
+        Me.Label12.Location = New System.Drawing.Point(3, 108)
+        Me.Label12.Name = "Label12"
+        Me.Label12.Size = New System.Drawing.Size(106, 13)
+        Me.Label12.TabIndex = 5
+        Me.Label12.Text = "Description (optional)"
+        Me.Label12.Visible = False
+        '
+        'Label22
+        '
+        Me.Label22.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Label22.AutoSize = True
+        Me.Label22.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label22.ForeColor = System.Drawing.Color.ForestGreen
+        Me.Label22.Location = New System.Drawing.Point(3, 76)
+        Me.Label22.Name = "Label22"
+        Me.Label22.Size = New System.Drawing.Size(145, 17)
+        Me.Label22.TabIndex = 4
+        Me.Label22.Text = "FileName placeholder"
+        Me.Label22.Visible = False
+        '
+        'Button3
+        '
+        Me.Button3.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Button3.Location = New System.Drawing.Point(164, 29)
+        Me.Button3.Name = "Button3"
+        Me.Button3.Size = New System.Drawing.Size(75, 23)
+        Me.Button3.TabIndex = 1
+        Me.Button3.Text = "Select file"
+        Me.Button3.UseVisualStyleBackColor = True
+        '
+        'Label27
+        '
+        Me.Label27.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Label27.AutoSize = True
+        Me.Label27.Location = New System.Drawing.Point(3, 3)
+        Me.Label27.Name = "Label27"
+        Me.Label27.Size = New System.Drawing.Size(49, 13)
+        Me.Label27.TabIndex = 3
+        Me.Label27.Text = "Add new"
+        '
+        'ComboBox1
+        '
+        Me.ComboBox1.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.ComboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.ComboBox1.FormattingEnabled = True
+        Me.ComboBox1.Location = New System.Drawing.Point(58, 0)
+        Me.ComboBox1.Name = "ComboBox1"
+        Me.ComboBox1.Size = New System.Drawing.Size(181, 21)
+        Me.ComboBox1.TabIndex = 0
+        '
+        'Panel2
+        '
+        Me.Panel2.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
+                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Panel2.Controls.Add(Me.Label33)
+        Me.Panel2.Controls.Add(Me.ComboBox2)
+        Me.Panel2.Controls.Add(Me.Button4)
+        Me.Panel2.Controls.Add(Me.Button5)
+        Me.Panel2.Controls.Add(Me.TextBox2)
+        Me.Panel2.Controls.Add(Me.Button6)
+        Me.Panel2.Controls.Add(Me.Label56)
+        Me.Panel2.Location = New System.Drawing.Point(276, 214)
+        Me.Panel2.Name = "Panel2"
+        Me.Panel2.Size = New System.Drawing.Size(572, 73)
+        Me.Panel2.TabIndex = 16
+        '
+        'Label33
+        '
+        Me.Label33.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.Label33.AutoSize = True
+        Me.Label33.Location = New System.Drawing.Point(0, 36)
+        Me.Label33.Name = "Label33"
+        Me.Label33.Size = New System.Drawing.Size(106, 13)
+        Me.Label33.TabIndex = 6
+        Me.Label33.Text = "Description (optional)"
+        Me.Label33.Visible = False
+        '
+        'ComboBox2
+        '
+        Me.ComboBox2.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.ComboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.ComboBox2.Enabled = False
+        Me.ComboBox2.FormattingEnabled = True
+        Me.ComboBox2.Location = New System.Drawing.Point(319, 52)
+        Me.ComboBox2.Name = "ComboBox2"
+        Me.ComboBox2.Size = New System.Drawing.Size(141, 21)
+        Me.ComboBox2.TabIndex = 6
+        Me.ComboBox2.Visible = False
+        '
+        'Button4
+        '
+        Me.Button4.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Button4.Enabled = False
+        Me.Button4.Location = New System.Drawing.Point(497, 7)
+        Me.Button4.Name = "Button4"
+        Me.Button4.Size = New System.Drawing.Size(75, 23)
+        Me.Button4.TabIndex = 8
+        Me.Button4.Text = "Delete"
+        Me.Button4.UseVisualStyleBackColor = True
+        '
+        'Button5
+        '
+        Me.Button5.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Button5.Enabled = False
+        Me.Button5.Location = New System.Drawing.Point(416, 7)
+        Me.Button5.Name = "Button5"
+        Me.Button5.Size = New System.Drawing.Size(75, 23)
+        Me.Button5.TabIndex = 4
+        Me.Button5.Text = "Download"
+        Me.Button5.UseVisualStyleBackColor = True
+        '
+        'TextBox2
+        '
+        Me.TextBox2.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
+                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.TextBox2.Location = New System.Drawing.Point(0, 52)
+        Me.TextBox2.Name = "TextBox2"
+        Me.TextBox2.Size = New System.Drawing.Size(313, 20)
+        Me.TextBox2.TabIndex = 5
+        Me.TextBox2.Visible = False
+        '
+        'Button6
+        '
+        Me.Button6.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Button6.AutoSize = True
+        Me.Button6.Enabled = False
+        Me.Button6.Location = New System.Drawing.Point(466, 50)
+        Me.Button6.Name = "Button6"
+        Me.Button6.Size = New System.Drawing.Size(106, 23)
+        Me.Button6.TabIndex = 7
+        Me.Button6.Text = "Update description"
+        Me.Button6.UseVisualStyleBackColor = True
+        Me.Button6.Visible = False
+        '
+        'Label56
+        '
+        Me.Label56.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.Label56.AutoSize = True
+        Me.Label56.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label56.ForeColor = System.Drawing.Color.ForestGreen
+        Me.Label56.Location = New System.Drawing.Point(0, 10)
+        Me.Label56.Name = "Label56"
+        Me.Label56.Size = New System.Drawing.Size(145, 17)
+        Me.Label56.TabIndex = 14
+        Me.Label56.Text = "FileName placeholder"
+        Me.Label56.Visible = False
+        '
+        'Label57
+        '
+        Me.Label57.AutoSize = True
+        Me.Label57.Location = New System.Drawing.Point(276, 19)
+        Me.Label57.Name = "Label57"
+        Me.Label57.Size = New System.Drawing.Size(98, 13)
+        Me.Label57.TabIndex = 5
+        Me.Label57.Text = "Current Documents"
+        '
+        'DataGridView1
+        '
+        Me.DataGridView1.AllowUserToAddRows = False
+        Me.DataGridView1.AllowUserToDeleteRows = False
+        Me.DataGridView1.AllowUserToOrderColumns = True
+        Me.DataGridView1.AllowUserToResizeRows = False
+        Me.DataGridView1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+                    Or System.Windows.Forms.AnchorStyles.Left) _
+                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.DataGridView1.Enabled = False
+        Me.DataGridView1.Location = New System.Drawing.Point(276, 35)
+        Me.DataGridView1.MinimumSize = New System.Drawing.Size(300, 55)
+        Me.DataGridView1.MultiSelect = False
+        Me.DataGridView1.Name = "DataGridView1"
+        Me.DataGridView1.ReadOnly = True
+        Me.DataGridView1.RowHeadersVisible = False
+        Me.DataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.DataGridView1.Size = New System.Drawing.Size(572, 173)
+        Me.DataGridView1.StandardTab = True
+        Me.DataGridView1.TabIndex = 4
+        '
         'NewSscpEnforcementAudit
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -2662,16 +2621,19 @@ Partial Class NewSscpEnforcementAudit
         Me.Panel12.PerformLayout()
         Me.tabDocuments.ResumeLayout(False)
         Me.tabDocuments.PerformLayout()
-        Me.pnlAddNew.ResumeLayout(False)
-        Me.pnlAddNew.PerformLayout()
-        Me.pnlUpdate.ResumeLayout(False)
-        Me.pnlUpdate.PerformLayout()
-        CType(Me.dgvFileList, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.pnlDocument.ResumeLayout(False)
+        Me.pnlDocument.PerformLayout()
+        CType(Me.dgvDocumentList, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel4.ResumeLayout(False)
         Me.Panel4.PerformLayout()
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
         CType(Me.EP, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.Panel1.ResumeLayout(False)
+        Me.Panel1.PerformLayout()
+        Me.Panel2.ResumeLayout(False)
+        Me.Panel2.PerformLayout()
+        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -2767,8 +2729,6 @@ Partial Class NewSscpEnforcementAudit
     Friend WithEvents DTPNOVsent As System.Windows.Forms.DateTimePicker
     Friend WithEvents txtNOVComments As System.Windows.Forms.TextBox
     Friend WithEvents TPCO As System.Windows.Forms.TabPage
-    Friend WithEvents btnDownloadCO As System.Windows.Forms.Button
-    Friend WithEvents btnUploadCO As System.Windows.Forms.Button
     Friend WithEvents txtCONumber As System.Windows.Forms.TextBox
     Friend WithEvents Label49 As System.Windows.Forms.Label
     Friend WithEvents Label48 As System.Windows.Forms.Label
@@ -2853,43 +2813,39 @@ Partial Class NewSscpEnforcementAudit
     Friend WithEvents btnExportAuditToExcel As System.Windows.Forms.Button
     Friend WithEvents btnREfreshAudit As System.Windows.Forms.Button
     Friend WithEvents UpdateStipulatedPenaltyButton As System.Windows.Forms.Button
-    Friend WithEvents Label12 As System.Windows.Forms.Label
-    Friend WithEvents lblCODownload As System.Windows.Forms.Label
-    Friend WithEvents Label22 As System.Windows.Forms.Label
-    Friend WithEvents lblNFAdownload As System.Windows.Forms.Label
-    Friend WithEvents Label56 As System.Windows.Forms.Label
-    Friend WithEvents Label57 As System.Windows.Forms.Label
-    Friend WithEvents btnDownloadNFA As System.Windows.Forms.Button
-    Friend WithEvents btnUploadNFA As System.Windows.Forms.Button
-    Friend WithEvents lblDownloadAO As System.Windows.Forms.Label
-    Friend WithEvents Label33 As System.Windows.Forms.Label
-    Friend WithEvents Label58 As System.Windows.Forms.Label
-    Friend WithEvents btnDownloadAO As System.Windows.Forms.Button
-    Friend WithEvents btnUploadAO As System.Windows.Forms.Button
     Friend WithEvents StipulatedPenalties As System.Windows.Forms.GroupBox
     Friend WithEvents DeletePenaltyButton As System.Windows.Forms.Button
     Friend WithEvents ToolStripSeparator1 As System.Windows.Forms.ToolStripSeparator
     Friend WithEvents mmiOnlineHelp As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents tabDocuments As System.Windows.Forms.TabPage
     Friend WithEvents lblCurrentFiles As System.Windows.Forms.Label
-    Friend WithEvents dgvFileList As System.Windows.Forms.DataGridView
-    Friend WithEvents pnlUpdate As System.Windows.Forms.Panel
-    Friend WithEvents lblUpdateDescription As System.Windows.Forms.Label
-    Friend WithEvents ddlUpdateDocumentType As System.Windows.Forms.ComboBox
-    Friend WithEvents btnDeleteFile As System.Windows.Forms.Button
-    Friend WithEvents btnDownloadFile As System.Windows.Forms.Button
-    Friend WithEvents txtUpdateDescription As System.Windows.Forms.TextBox
-    Friend WithEvents btnUpdateFileDescription As System.Windows.Forms.Button
-    Friend WithEvents lblSelectedFileName As System.Windows.Forms.Label
-    Friend WithEvents pnlAddNew As System.Windows.Forms.Panel
-    Friend WithEvents btnNewFileCancel As System.Windows.Forms.Button
-    Friend WithEvents btnNewFileUpload As System.Windows.Forms.Button
-    Friend WithEvents txtNewDescription As System.Windows.Forms.TextBox
-    Friend WithEvents lblNewDescription As System.Windows.Forms.Label
-    Friend WithEvents lblNewFileName As System.Windows.Forms.Label
-    Friend WithEvents btnChooseNewFile As System.Windows.Forms.Button
-    Friend WithEvents lblDocumentTypes As System.Windows.Forms.Label
-    Friend WithEvents ddlNewDocumentType As System.Windows.Forms.ComboBox
+    Friend WithEvents dgvDocumentList As System.Windows.Forms.DataGridView
+    Friend WithEvents pnlDocument As System.Windows.Forms.Panel
+    Friend WithEvents lblDocumentDescription As System.Windows.Forms.Label
+    Friend WithEvents btnDocumentDownload As System.Windows.Forms.Button
+    Friend WithEvents txtDocumentDescription As System.Windows.Forms.TextBox
+    Friend WithEvents btnDocumentUpdate As System.Windows.Forms.Button
+    Friend WithEvents lblDocumentName As System.Windows.Forms.Label
     Friend WithEvents lblMessage As System.Windows.Forms.Label
     Friend WithEvents EP As System.Windows.Forms.ErrorProvider
+    Friend WithEvents Label4 As System.Windows.Forms.Label
+    Friend WithEvents Panel1 As System.Windows.Forms.Panel
+    Friend WithEvents Button1 As System.Windows.Forms.Button
+    Friend WithEvents Button2 As System.Windows.Forms.Button
+    Friend WithEvents TextBox1 As System.Windows.Forms.TextBox
+    Friend WithEvents Label12 As System.Windows.Forms.Label
+    Friend WithEvents Label22 As System.Windows.Forms.Label
+    Friend WithEvents Button3 As System.Windows.Forms.Button
+    Friend WithEvents Label27 As System.Windows.Forms.Label
+    Friend WithEvents ComboBox1 As System.Windows.Forms.ComboBox
+    Friend WithEvents Panel2 As System.Windows.Forms.Panel
+    Friend WithEvents Label33 As System.Windows.Forms.Label
+    Friend WithEvents ComboBox2 As System.Windows.Forms.ComboBox
+    Friend WithEvents Button4 As System.Windows.Forms.Button
+    Friend WithEvents Button5 As System.Windows.Forms.Button
+    Friend WithEvents TextBox2 As System.Windows.Forms.TextBox
+    Friend WithEvents Button6 As System.Windows.Forms.Button
+    Friend WithEvents Label56 As System.Windows.Forms.Label
+    Friend WithEvents Label57 As System.Windows.Forms.Label
+    Friend WithEvents DataGridView1 As System.Windows.Forms.DataGridView
 End Class

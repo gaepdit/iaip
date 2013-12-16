@@ -1,9 +1,7 @@
 Imports Oracle.DataAccess.Client
-Imports System
 Imports System.Data
 Imports System.IO
 'Imports System.Text
-Imports System.Windows.Forms
 
 Public Class SSCPManagersTools
     
@@ -4108,41 +4106,49 @@ Public Class SSCPManagersTools
     Sub OpenEnforcement()
         Try
 
-            If txtRecordNumber.Text <> "" Then
-                SQL = "select strEnforcementNumber " & _
-                "from " & DBNameSpace & ".SSCP_AuditedEnforcement " & _
-                "where strEnforcementNumber = '" & txtRecordNumber.Text & "' "
-
-                cmd = New OracleCommand(SQL, Conn)
-                If Conn.State = ConnectionState.Closed Then
-                    Conn.Open()
-                End If
-                dr = cmd.ExecuteReader
-                recExist = dr.Read
-                dr.Close()
-
-                If recExist = True Then
-                    If SSCP_Enforcement Is Nothing Then
-                        If SSCP_Enforcement Is Nothing Then SSCP_Enforcement = New SSCPEnforcementAudit
-                        If txtRecordNumber.Text <> "" Then
-                            SSCP_Enforcement.txtEnforcementNumber.Text = txtRecordNumber.Text
-                        End If
-                        SSCP_Enforcement.Show()
-                    Else
-                        SSCP_Enforcement.Close()
-                        SSCP_Enforcement = Nothing
-                        If SSCP_Enforcement Is Nothing Then SSCP_Enforcement = New SSCPEnforcementAudit
-                        If txtRecordNumber.Text <> "" Then
-                            SSCP_Enforcement.txtEnforcementNumber.Text = txtRecordNumber.Text
-                        End If
-                        SSCP_Enforcement.Show()
-                    End If
-                    'SSCP_Enforcement.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
-
-                Else
-                    MsgBox("Enforcement Number is not in the system.", MsgBoxStyle.Information, "SSCP Managers Tools")
-                End If
+            Dim enfNum As String = txtRecordNumber.Text
+            If enfNum = "" Then Exit Sub
+            If DAL.SSCP.EnforcementExists(enfNum) Then
+                OpenMultiForm(SscpEnforcement, enfNum)
+            Else
+                MsgBox("Enforcement number is not in the system.", MsgBoxStyle.Information, Me.Text)
             End If
+
+            'If txtRecordNumber.Text <> "" Then
+            '    SQL = "select strEnforcementNumber " & _
+            '    "from " & DBNameSpace & ".SSCP_AuditedEnforcement " & _
+            '    "where strEnforcementNumber = '" & txtRecordNumber.Text & "' "
+
+            '    cmd = New OracleCommand(SQL, Conn)
+            '    If Conn.State = ConnectionState.Closed Then
+            '        Conn.Open()
+            '    End If
+            '    dr = cmd.ExecuteReader
+            '    recExist = dr.Read
+            '    dr.Close()
+
+            '    If recExist = True Then
+            '        If SSCP_Enforcement Is Nothing Then
+            '            If SSCP_Enforcement Is Nothing Then SSCP_Enforcement = New SSCPEnforcementAudit
+            '            If txtRecordNumber.Text <> "" Then
+            '                SSCP_Enforcement.txtEnforcementNumber.Text = txtRecordNumber.Text
+            '            End If
+            '            SSCP_Enforcement.Show()
+            '        Else
+            '            SSCP_Enforcement.Close()
+            '            SSCP_Enforcement = Nothing
+            '            If SSCP_Enforcement Is Nothing Then SSCP_Enforcement = New SSCPEnforcementAudit
+            '            If txtRecordNumber.Text <> "" Then
+            '                SSCP_Enforcement.txtEnforcementNumber.Text = txtRecordNumber.Text
+            '            End If
+            '            SSCP_Enforcement.Show()
+            '        End If
+            '        'SSCP_Enforcement.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
+
+            '    Else
+            '        MsgBox("Enforcement Number is not in the system.", MsgBoxStyle.Information, "SSCP Managers Tools")
+            '    End If
+            'End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -6247,6 +6253,174 @@ Public Class SSCPManagersTools
     Private Sub btnExportSelected_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnExportSelected.Click
         If dgvSelectedFacilityList.RowCount > 0 Then dgvSelectedFacilityList.ExportToExcel()
     End Sub
+
+#End Region
+
+#Region "Document Types"
+
+    Private Sub TCManagerTools_Selected(ByVal sender As System.Object, ByVal e As System.Windows.Forms.TabControlEventArgs) Handles TCManagerTools.Selected
+        If e.TabPage Is TPDocuments AndAlso dgvEnfDocumentTypes.RowCount = 0 Then
+            LoadEnforcementDocumentTypes()
+        End If
+    End Sub
+
+    Private enfDocumentTypesList As Generic.List(Of DocumentType)
+    Private Sub LoadEnforcementDocumentTypes()
+        ' Get list of various document types and bind that list to the datagridview
+        enfDocumentTypesList = DAL.GetEnforcementDocumentTypes
+
+        If enfDocumentTypesList.Count > 0 Then
+            With dgvEnfDocumentTypes
+                .DataSource = New BindingSource(enfDocumentTypesList, Nothing)
+                .Enabled = True
+            End With
+            FormatEnfDocTypeList()
+        Else
+            With dgvEnfDocumentTypes
+                .DataSource = Nothing
+                .Enabled = False
+            End With
+        End If
+    End Sub
+
+    Private Sub FormatEnfDocTypeList()
+        With dgvEnfDocumentTypes
+            With .Columns("DocumentTypeId")
+                .Visible = False
+            End With
+            With .Columns("Active")
+                .HeaderText = "Active"
+                .DisplayIndex = 0
+            End With
+            With .Columns("Ordinal")
+                .HeaderText = "Pos."
+                .DisplayIndex = 1
+                .DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+            End With
+            With .Columns("DocumentType")
+                .HeaderText = "Name"
+                .DisplayIndex = 2
+            End With
+            'With .Columns("ActiveString")
+            '    .Visible = False
+            'End With
+        End With
+    End Sub
+
+    Private Sub EnableEnfDocTypeUpdate()
+        EnableDisableEnfDocTypeUpdate(True)
+    End Sub
+
+    Private Sub DisableEnfDocTypeUpdate()
+        EnableDisableEnfDocTypeUpdate(False)
+    End Sub
+
+    Private Sub EnableDisableEnfDocTypeUpdate(ByVal enable As Boolean)
+        With pnlUpdateDocumentType
+            .Enabled = enable
+            .Visible = enable
+        End With
+        If enable Then
+            txtUpdateName.Text = dgvEnfDocumentTypes.CurrentRow.Cells("DocumentType").Value
+            mtxtUpdatePosition.Text = dgvEnfDocumentTypes.CurrentRow.Cells("Ordinal").Value
+            chkUpdateActive.Checked = dgvEnfDocumentTypes.CurrentRow.Cells("Active").Value
+        End If
+    End Sub
+
+    Private Sub btnAddDocumentType_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) _
+    Handles btnAddDocumentType.Click
+
+        ' Create Document object
+        Dim newEnfDocType As New DocumentType
+        With newEnfDocType
+            .Active = True
+            .DocumentType = txtNewName.Text
+            If Integer.TryParse(mtxtNewPosition.Text, Nothing) Then
+                .Ordinal = mtxtNewPosition.Text
+            Else
+                Dim max As Integer = 0
+                For Each row As DataGridViewRow In dgvEnfDocumentTypes.Rows
+                    max = Math.Max(row.Cells("Ordinal").Value, max)
+                Next
+                .Ordinal = max + 1
+            End If
+        End With
+
+        Dim saved As Boolean = DAL.SaveEnforcementDocumentType(newEnfDocType, Me)
+
+        ClearNewEnfDocTypesForm()
+        LoadEnforcementDocumentTypes()
+    End Sub
+
+    Private Sub ClearNewEnfDocTypesForm()
+        txtNewName.Text = ""
+        mtxtNewPosition.Text = ""
+    End Sub
+
+    Private Sub ClearUpdateEnfDocTypesForm()
+        txtUpdateName.Text = ""
+        mtxtUpdatePosition.Text = ""
+    End Sub
+
+    Private Sub btnUpdateDocumentType_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnUpdateDocumentType.Click
+        Dim d As DocumentType = EnforcementDocumentTypeFromFileListRow(dgvEnfDocumentTypes.CurrentRow)
+        With d
+            .Active = chkUpdateActive.Checked
+            .DocumentType = txtUpdateName.Text
+            Dim ord As Integer
+            If Integer.TryParse(mtxtUpdatePosition.Text, ord) Then
+                .Ordinal = ord
+            End If
+        End With
+        Dim updated As Boolean = DAL.UpdateEnforcementDocumentType(d, Me)
+        If updated Then
+            ClearUpdateEnfDocTypesForm()
+            LoadEnforcementDocumentTypes()
+        End If
+    End Sub
+
+    Private Function EnforcementDocumentTypeFromFileListRow(ByVal row As DataGridViewRow) As DocumentType
+        Dim d As New DocumentType
+        With d
+            .Active = row.Cells("Active").Value
+            .DocumentType = row.Cells("DocumentType").Value
+            .DocumentTypeId = row.Cells("DocumentTypeId").Value
+            .Ordinal = row.Cells("Ordinal").Value
+        End With
+        Return d
+    End Function
+
+    Private Sub dgvEnfDocumentTypes_SelectionChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles dgvEnfDocumentTypes.SelectionChanged
+        If dgvEnfDocumentTypes.SelectedRows.Count = 1 Then
+            EnableEnfDocTypeUpdate()
+        Else
+            DisableEnfDocTypeUpdate()
+        End If
+    End Sub
+
+    Private Sub dgvEnfDocumentTypes_DataBindingComplete(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewBindingCompleteEventArgs) Handles dgvEnfDocumentTypes.DataBindingComplete
+        CType(sender, DataGridView).SanelyResizeColumns()
+        CType(sender, DataGridView).ClearSelection()
+    End Sub
+
+#Region "Change Accept Button"
+
+    Private Sub NoAcceptButton(ByVal sender As System.Object, ByVal e As System.EventArgs) _
+    Handles txtNewName.Leave, txtUpdateName.Leave, mtxtNewPosition.Leave, mtxtUpdatePosition.Leave
+        Me.AcceptButton = Nothing
+    End Sub
+
+    Private Sub NewEnfDocType_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) _
+    Handles txtNewName.Enter, mtxtNewPosition.Enter
+        Me.AcceptButton = btnAddDocumentType
+    End Sub
+
+    Private Sub UpdateEnfDocType_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) _
+    Handles txtUpdateName.Enter, mtxtUpdatePosition.Enter
+        Me.AcceptButton = btnUpdateDocumentType
+    End Sub
+
+#End Region
 
 #End Region
 

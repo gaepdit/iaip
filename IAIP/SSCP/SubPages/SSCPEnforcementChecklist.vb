@@ -3,11 +3,12 @@ Imports Oracle.DataAccess.Client
 
 Public Class SSCPEnforcementChecklist
     Inherits BaseForm
-    Dim statusBar1 As New StatusBar
-    Dim panel1 As New StatusBarPanel
-    Dim panel2 As New StatusBarPanel
-    Dim panel3 As New StatusBarPanel
-    Dim Paneltemp1 As String
+
+    'Dim statusBar1 As New StatusBar
+    'Dim panel1 As New StatusBarPanel
+    'Dim panel2 As New StatusBarPanel
+    'Dim panel3 As New StatusBarPanel
+    'Dim Paneltemp1 As String
     Dim SQL As String
     Dim cmd, cmd2 As OracleCommand
     Dim dr, dr2 As OracleDataReader
@@ -770,7 +771,9 @@ Public Class SSCPEnforcementChecklist
         monitor.TrackFeature("Forms." & Me.Name)
         Try
 
-            CreateStatusBar()
+            ParseParameters()
+
+            'CreateStatusBar()
             LoadHeader()
 
             FormatDataGridForWorkEnTry()
@@ -784,56 +787,63 @@ Public Class SSCPEnforcementChecklist
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-            If Conn.State = ConnectionState.Open Then
-                'conn.close()
-            End If
         End Try
 
 
     End Sub
 
 #Region "Page Load"
-    Sub CreateStatusBar()
-        Try
+    'Sub CreateStatusBar()
+    '    Try
 
-            panel1.Text = "Select a Function..."
-            panel2.Text = UserName
-            panel3.Text = OracleDate
+    '        panel1.Text = "Select a Function..."
+    '        panel2.Text = UserName
+    '        panel3.Text = OracleDate
 
-            panel1.AutoSize = StatusBarPanelAutoSize.Spring
-            panel2.AutoSize = StatusBarPanelAutoSize.Contents
-            panel3.AutoSize = StatusBarPanelAutoSize.Contents
+    '        panel1.AutoSize = StatusBarPanelAutoSize.Spring
+    '        panel2.AutoSize = StatusBarPanelAutoSize.Contents
+    '        panel3.AutoSize = StatusBarPanelAutoSize.Contents
 
-            panel1.BorderStyle = StatusBarPanelBorderStyle.Sunken
-            panel2.BorderStyle = StatusBarPanelBorderStyle.Sunken
-            panel3.BorderStyle = StatusBarPanelBorderStyle.Sunken
+    '        panel1.BorderStyle = StatusBarPanelBorderStyle.Sunken
+    '        panel2.BorderStyle = StatusBarPanelBorderStyle.Sunken
+    '        panel3.BorderStyle = StatusBarPanelBorderStyle.Sunken
 
-            panel1.Alignment = HorizontalAlignment.Left
-            panel2.Alignment = HorizontalAlignment.Left
-            panel3.Alignment = HorizontalAlignment.Right
+    '        panel1.Alignment = HorizontalAlignment.Left
+    '        panel2.Alignment = HorizontalAlignment.Left
+    '        panel3.Alignment = HorizontalAlignment.Right
 
-            ' Display panels in the StatusBar control.
-            statusBar1.ShowPanels = True
+    '        ' Display panels in the StatusBar control.
+    '        statusBar1.ShowPanels = True
 
-            ' Add both panels to the StatusBarPanelCollection of the StatusBar.            
-            statusBar1.Panels.Add(panel1)
-            statusBar1.Panels.Add(panel2)
-            statusBar1.Panels.Add(panel3)
+    '        ' Add both panels to the StatusBarPanelCollection of the StatusBar.            
+    '        statusBar1.Panels.Add(panel1)
+    '        statusBar1.Panels.Add(panel2)
+    '        statusBar1.Panels.Add(panel3)
 
-            ' Add the StatusBar to the form.
-            Me.Controls.Add(statusBar1)
+    '        ' Add the StatusBar to the form.
+    '        Me.Controls.Add(statusBar1)
 
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-            If Conn.State = ConnectionState.Open Then
-                'conn.close()
+    '    Catch ex As Exception
+    '        ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+    '    End Try
+
+
+    'End Sub
+
+    Private Sub ParseParameters()
+        If Parameters IsNot Nothing Then
+            If Parameters.ContainsKey("airsnumber") Then
+                txtAIRSNumber.Text = Parameters("airsnumber")
             End If
-        End Try
-
-
+            If Parameters.ContainsKey("enforcementnumber") Then
+                txtEnforcementNumber.Text = Parameters("enforcementnumber")
+            End If
+            If Parameters.ContainsKey("trackingnumber") Then
+                txtTrackingNumber.Text = Parameters("trackingnumber")
+            End If
+        End If
     End Sub
+
     Sub LoadHeader()
         Dim ZipCode As String = " "
         Dim EnforcementNumber As String = "N/A"
@@ -876,10 +886,6 @@ Public Class SSCPEnforcementChecklist
                 AddAirProgramCodes(dr.Item("strAirProgramCodes"))
             End If
 
-            If Conn.State = ConnectionState.Open Then
-                'conn.close()
-            End If
-
             If txtEnforcementNumber.Text = "" Then
                 If txtTrackingNumber.Text <> "" Then
                     SQL = "Select strEnforcementNumber " & _
@@ -902,9 +908,6 @@ Public Class SSCPEnforcementChecklist
                         EnforcementNumber = "N/A"
                     End If
                     dr.Close()
-                    If Conn.State = ConnectionState.Open Then
-                        'conn.close()
-                    End If
                 Else
                     EnforcementNumber = "N/A"
                 End If
@@ -933,9 +936,6 @@ Public Class SSCPEnforcementChecklist
                         TrackingNumber = "N/A"
                     End If
                     dr.Close()
-                    If Conn.State = ConnectionState.Open Then
-                        'conn.close()
-                    End If
                 Else
                     TrackingNumber = "N/A"
                 End If
@@ -1000,10 +1000,6 @@ Public Class SSCPEnforcementChecklist
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-            If Conn.State = ConnectionState.Open Then
-                'conn.close()
-            End If
         End Try
 
 
@@ -1061,10 +1057,6 @@ Public Class SSCPEnforcementChecklist
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-            If Conn.State = ConnectionState.Open Then
-                'conn.close()
-            End If
         End Try
 
 
@@ -1130,10 +1122,6 @@ Public Class SSCPEnforcementChecklist
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-            If Conn.State = ConnectionState.Open Then
-                'conn.close()
-            End If
         End Try
 
 
@@ -1238,9 +1226,6 @@ Public Class SSCPEnforcementChecklist
         dgrComplianceEvents.DataSource = dsWorkEnTry
         dgrComplianceEvents.DataMember = "tblWorkEnTry"
 
-        If Conn.State = ConnectionState.Open Then
-            'conn.close()
-        End If
         txtWorkCount.Text = dsWorkEnTry.Tables(0).Rows.Count
 
     End Sub
@@ -1274,12 +1259,7 @@ Public Class SSCPEnforcementChecklist
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-            If Conn.State = ConnectionState.Open Then
-                'conn.close()
-            End If
         End Try
-
 
     End Sub
     Private Sub btnRunFilter_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnRunFilter.Click
@@ -1288,10 +1268,6 @@ Public Class SSCPEnforcementChecklist
             FilterWork()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-            If Conn.State = ConnectionState.Open Then
-                'conn.close()
-            End If
         End Try
 
     End Sub
@@ -1307,10 +1283,6 @@ Public Class SSCPEnforcementChecklist
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-            If Conn.State = ConnectionState.Open Then
-                'conn.close()
-            End If
         End Try
 
     End Sub
@@ -1342,10 +1314,6 @@ Public Class SSCPEnforcementChecklist
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-            If Conn.State = ConnectionState.Open Then
-                'conn.close()
-            End If
         End Try
 
     End Sub
@@ -1355,22 +1323,20 @@ Public Class SSCPEnforcementChecklist
             MoveOn()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-            If Conn.State = ConnectionState.Open Then
-                'conn.close()
-            End If
         End Try
 
     End Sub
     Private Sub btnLinkEvent_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnLinkEvent.Click
         Try
 
-            If SSCP_Enforcement Is Nothing Then
+            If MultiForm(SscpEnforcement.Name)(Me.ID) IsNot Nothing Then
+                Dim enf As SscpEnforcement = MultiForm(SscpEnforcement.Name)(Me.ID)
+                enf.txtDiscoveryEventNumber.Text = txtTrackingNumber.Text
+                enf.txtTrackingNumber.Text = txtTrackingNumber.Text
+                'enf.SaveEnforcement()
+                'enf.LoadEnforcement()
             Else
-                SSCP_Enforcement.txtTrackingNumber.Text = txtTrackingNumber.Text
-                SSCP_Enforcement.txtDiscoveryEventNumber.Text = txtTrackingNumber.Text
-                SSCP_Enforcement.SaveEnforcement()
-                SSCP_Enforcement.LoadEnforcement()
+                Me.Close()
             End If
 
             Dim Result As DialogResult
@@ -1379,26 +1345,10 @@ Public Class SSCPEnforcementChecklist
               "Enforcement Linking Tool", MessageBoxButtons.YesNoCancel, _
                 MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
 
-            Select Case Result
-                Case Windows.Forms.DialogResult.Yes
-                    EnforcementChecklist = Nothing
-                    Me.Close()
-                Case Windows.Forms.DialogResult.No
-
-                Case Windows.Forms.DialogResult.Cancel
-
-                Case Else
-
-            End Select
-
-
+            If Result = Windows.Forms.DialogResult.Yes Then Me.Close()
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-            If Conn.State = ConnectionState.Open Then
-                'conn.close()
-            End If
         End Try
 
     End Sub
@@ -1406,32 +1356,20 @@ Public Class SSCPEnforcementChecklist
         Try
 
             SSCP_Work = Nothing
-            panel1.Text = "Loading Page."
+            'panel1.Text = "Loading Page."
             If SSCP_Work Is Nothing Then SSCP_Work = New SSCPComplianceLog
             SSCP_Work.txtAIRSNumber.Text = txtAIRSNumber.Text
             SSCP_Work.Show()
             'SSCP_Work.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-            If Conn.State = ConnectionState.Open Then
-                'conn.close()
-            End If
         End Try
 
     End Sub
-    Private Sub SSCPEnforcementChecklist_Disposed(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Disposed
-        EnforcementChecklist = Nothing
-    End Sub
+    
 #End Region
 
-
-   
     Private Sub mmiHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiHelp.Click
-        Try
-            Help.ShowHelp(Label1, HelpUrl)
-        Catch ex As Exception
-        End Try
-
+        OpenHelpUrl(Me)
     End Sub
 End Class
