@@ -1118,6 +1118,9 @@
     <Compile Include="Universal Forms\Sub Forms\IAIPProfileUpdate.vb">
       <SubType>Form</SubType>
     </Compile>
+    <EmbeddedResource Include="Crystal Reports\CRViewerForm.resx">
+      <DependentUpon>CRViewerForm.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="DevelopmentForms\AFSValidator.resx">
       <DependentUpon>AFSValidator.vb</DependentUpon>
       <SubType>Designer</SubType>
@@ -1759,6 +1762,12 @@
     <None Include="gaSeal.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <Compile Include="Crystal Reports\CRViewerForm.Designer.vb">
+      <DependentUpon>CRViewerForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Crystal Reports\CRViewerForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="_Data Classes\Person.vb" />
     <Compile Include="_Data Classes\Res.ResEvent.vb">
       <SubType>Code</SubType>
@@ -1887,7 +1896,6 @@
     <Folder Include="Crystal Reports\Oracle 10.1\ISMP\" />
     <Folder Include="Crystal Reports\Oracle 9.2\PASP\" />
     <Folder Include="Crystal Reports\Oracle 9.2\SSCP\" />
-    <Folder Include="Obsolete\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
   <PropertyGroup>
