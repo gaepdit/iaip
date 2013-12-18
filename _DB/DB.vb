@@ -27,12 +27,7 @@ Namespace DB
                         MessageBox.Show("Database error: " & ee.ToString)
                     End Try
 
-                    If result Is Nothing OrElse IsDBNull(result) Then
-                        ' returns the default value for the type
-                        Return CType(Nothing, T)
-                    Else
-                        Return CType(result, T)
-                    End If
+                    Return GetNullable(Of T)(result)
                 End Using
             End Using
         End Function
