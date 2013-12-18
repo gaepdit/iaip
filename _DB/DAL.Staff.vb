@@ -3,7 +3,7 @@
 Namespace DAL
     Module StaffInfo
 
-        Public Function GetStaffInfo(ByVal id As String) As Staff
+        Public Function GetStaffInfoById(ByVal id As String) As Staff
             Dim query As String = "SELECT STRLASTNAME, STRFIRSTNAME, STREMAILADDRESS, STRPHONE, NUMEMPLOYEESTATUS " & _
                 " FROM AIRBRANCH.EPDUSERPROFILES WHERE NUMUSERID = :pId "
 
