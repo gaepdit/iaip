@@ -971,9 +971,6 @@
     <Compile Include="SSCP\SubPages\SSCPInspectionScheduleLink.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SSCP\SubPages\SSCPLetterTemplates.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="SSCP\SubPages\SSCPWorkEntry.vb">
       <SubType>Form</SubType>
     </Compile>
@@ -1597,10 +1594,6 @@
       <DependentUpon>SSCPInspectionScheduleLink.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="SSCP\SubPages\SSCPLetterTemplates.resx">
-      <DependentUpon>SSCPLetterTemplates.vb</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="SSCP\SubPages\SSCPWorkEntry.resx">
       <DependentUpon>SSCPWorkEntry.vb</DependentUpon>
       <SubType>Designer</SubType>
@@ -1768,10 +1761,13 @@
     <Compile Include="Crystal Reports\CRViewerForm.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="_Data Classes\WorkItem.vb" />
     <Compile Include="_Data Classes\Person.vb" />
     <Compile Include="_Data Classes\Res.ResEvent.vb">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="_Data Classes\SSCP.Acc.vb" />
+    <Compile Include="_DB\DAL.Facility.vb" />
     <Compile Include="_DB\DAL.Staff.vb" />
     <Compile Include="SSCP\SscpDocuments.Designer.vb">
       <DependentUpon>SscpDocuments.vb</DependentUpon>
@@ -1896,6 +1892,7 @@
     <Folder Include="Crystal Reports\Oracle 10.1\ISMP\" />
     <Folder Include="Crystal Reports\Oracle 9.2\PASP\" />
     <Folder Include="Crystal Reports\Oracle 9.2\SSCP\" />
+    <Folder Include="Crystal Reports\SSCP\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
   <PropertyGroup>
