@@ -132,11 +132,13 @@ Namespace DB
 #Region "Write (ExecuteNonQuery)"
 
         Public Function RunCommand(ByVal query As String, Optional ByVal parameter As OracleParameter = Nothing, Optional ByRef count As Integer = 0) As Boolean
+            count = 0
             Dim parameterArray As OracleParameter() = {parameter}
             Return RunCommand(query, parameterArray, count)
         End Function
 
         Public Function RunCommand(ByVal query As String, ByVal parameters As OracleParameter(), Optional ByRef count As Integer = 0) As Boolean
+            count = 0
             Dim queryList As New List(Of String)
             queryList.Add(query)
 
@@ -145,14 +147,14 @@ Namespace DB
 
             Dim countList As New List(Of Integer)
 
-            Dim result As Boolean = RunCommandList(queryList, parametersList, countList)
+            Dim result As Boolean = RunCommand(queryList, parametersList, countList)
 
             If result AndAlso countList.Count > 0 Then count = countList(0)
 
             Return result
         End Function
 
-        Public Function RunCommandList(ByVal queryList As List(Of String), ByVal parametersList As List(Of OracleParameter()), Optional ByRef countList As List(Of Integer) = Nothing) As Boolean
+        Public Function RunCommand(ByVal queryList As List(Of String), ByVal parametersList As List(Of OracleParameter()), Optional ByRef countList As List(Of Integer) = Nothing) As Boolean
             If countList Is Nothing Then countList = New List(Of Integer)
             countList.Clear()
             If queryList.Count <> parametersList.Count Then Return False

@@ -351,7 +351,7 @@ Namespace DAL
             }
             parametersList.Add(parameters)
 
-            Dim result As Boolean = DB.RunCommandList(queryList, parametersList)
+            Dim result As Boolean = DB.RunCommand(queryList, parametersList)
 
             If sender IsNot Nothing Then
                 sender.Cursor = Nothing
