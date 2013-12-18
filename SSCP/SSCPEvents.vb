@@ -1,13 +1,9 @@
 Imports Oracle.DataAccess.Client
+Imports System.Collections.Generic
 
 
 Public Class SSCPEvents
     Inherits BaseForm
-    Dim statusBar1 As New StatusBar
-    Dim panel1 As New StatusBarPanel
-    Dim panel2 As New StatusBarPanel
-    Dim panel3 As New StatusBarPanel
-    Dim Paneltemp1 As String
     Dim SQL As String
     Dim cmd As OracleCommand
     Dim dr As OracleDataReader
@@ -33,7 +29,15 @@ Public Class SSCPEvents
     Friend WithEvents Label10 As System.Windows.Forms.Label
     Friend WithEvents txtRMPID As System.Windows.Forms.TextBox
     Friend WithEvents lblRMPID As System.Windows.Forms.Label
+    Friend WithEvents mmiOnlineHelp As System.Windows.Forms.MenuItem
+    Friend WithEvents mmiDelete As System.Windows.Forms.MenuItem
+    Friend WithEvents tbbPrint As System.Windows.Forms.ToolBarButton
+    Friend WithEvents Label25 As System.Windows.Forms.Label
     Dim daStaff As OracleDataAdapter
+
+    Dim ItemIsDeleted As Boolean = False
+    Dim AIRSNumber As String = ""
+    Dim facility As Apb.Facility
 
 #Region " Windows Form Designer generated code "
 
@@ -65,19 +69,12 @@ Public Class SSCPEvents
     'Do not modify it using the code editor.
     Friend WithEvents Image_List_All As System.Windows.Forms.ImageList
     Friend WithEvents MainMenu1 As System.Windows.Forms.MainMenu
-    Friend WithEvents MenuItem1 As System.Windows.Forms.MenuItem
-    Friend WithEvents MmiSave As System.Windows.Forms.MenuItem
+    Friend WithEvents mmiFile As System.Windows.Forms.MenuItem
+    Friend WithEvents mmiSave As System.Windows.Forms.MenuItem
     Friend WithEvents MenuItem10 As System.Windows.Forms.MenuItem
-    Friend WithEvents MmiBack As System.Windows.Forms.MenuItem
-    Friend WithEvents MenuItem9 As System.Windows.Forms.MenuItem
-    Friend WithEvents MmiExit As System.Windows.Forms.MenuItem
-    Friend WithEvents MenuItem2 As System.Windows.Forms.MenuItem
-    Friend WithEvents MenuItem3 As System.Windows.Forms.MenuItem
-    Friend WithEvents MenuItem4 As System.Windows.Forms.MenuItem
+    Friend WithEvents mmiClose As System.Windows.Forms.MenuItem
+    Friend WithEvents mmiTools As System.Windows.Forms.MenuItem
     Friend WithEvents TbbSave As System.Windows.Forms.ToolBarButton
-    Friend WithEvents TbbClear As System.Windows.Forms.ToolBarButton
-    Friend WithEvents TbbDelete As System.Windows.Forms.ToolBarButton
-    Friend WithEvents TbbBack As System.Windows.Forms.ToolBarButton
     Friend WithEvents GroupBox1 As System.Windows.Forms.GroupBox
     Friend WithEvents Label3 As System.Windows.Forms.Label
     Friend WithEvents TPInspection As System.Windows.Forms.TabPage
@@ -106,7 +103,7 @@ Public Class SSCPEvents
     Friend WithEvents Label64 As System.Windows.Forms.Label
     Friend WithEvents TCItems As System.Windows.Forms.TabControl
     Friend WithEvents txtPlannedInspectionDate As System.Windows.Forms.TextBox
-    Friend WithEvents TBSSCPItems As System.Windows.Forms.ToolBar
+    Friend WithEvents tbToolbar As System.Windows.Forms.ToolBar
     Friend WithEvents rdbInspectionFacilityOperatingYes As System.Windows.Forms.RadioButton
     Friend WithEvents rdbInspectionFacilityOperatingNo As System.Windows.Forms.RadioButton
     Friend WithEvents cboInspectionReason As System.Windows.Forms.ComboBox
@@ -233,10 +230,6 @@ Public Class SSCPEvents
     Friend WithEvents Panel16 As System.Windows.Forms.Panel
     Friend WithEvents Panel20 As System.Windows.Forms.Panel
     Friend WithEvents mmiHelp As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiCut As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiCopy As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiPaste As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiLetterTemplates As System.Windows.Forms.MenuItem
     Friend WithEvents Label34 As System.Windows.Forms.Label
     Friend WithEvents Panel21 As System.Windows.Forms.Panel
     Friend WithEvents rdbInspectionFollowUpYes As System.Windows.Forms.RadioButton
@@ -264,7 +257,7 @@ Public Class SSCPEvents
     Friend WithEvents btnRequestInformation As System.Windows.Forms.Button
     Friend WithEvents btnReportMoreOptions As System.Windows.Forms.Button
     Friend WithEvents Label2 As System.Windows.Forms.Label
-    Friend WithEvents DTPAcknoledgmentLetterSent As System.Windows.Forms.DateTimePicker
+    Friend WithEvents DTPAcknowledgmentLetterSent As System.Windows.Forms.DateTimePicker
     Friend WithEvents chbAcknoledgmentLetterSent As System.Windows.Forms.CheckBox
     Friend WithEvents txtRequestInformationDate As System.Windows.Forms.TextBox
     Friend WithEvents Label4 As System.Windows.Forms.Label
@@ -284,32 +277,24 @@ Public Class SSCPEvents
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(SSCPEvents))
         Me.Image_List_All = New System.Windows.Forms.ImageList(Me.components)
         Me.MainMenu1 = New System.Windows.Forms.MainMenu(Me.components)
-        Me.MenuItem1 = New System.Windows.Forms.MenuItem
-        Me.MmiSave = New System.Windows.Forms.MenuItem
+        Me.mmiFile = New System.Windows.Forms.MenuItem
+        Me.mmiSave = New System.Windows.Forms.MenuItem
         Me.MenuItem10 = New System.Windows.Forms.MenuItem
-        Me.MmiBack = New System.Windows.Forms.MenuItem
-        Me.MenuItem9 = New System.Windows.Forms.MenuItem
-        Me.MmiExit = New System.Windows.Forms.MenuItem
-        Me.MenuItem2 = New System.Windows.Forms.MenuItem
-        Me.mmiCut = New System.Windows.Forms.MenuItem
-        Me.mmiCopy = New System.Windows.Forms.MenuItem
-        Me.mmiPaste = New System.Windows.Forms.MenuItem
-        Me.MenuItem3 = New System.Windows.Forms.MenuItem
-        Me.MenuItem4 = New System.Windows.Forms.MenuItem
-        Me.mmiLetterTemplates = New System.Windows.Forms.MenuItem
+        Me.mmiClose = New System.Windows.Forms.MenuItem
+        Me.mmiTools = New System.Windows.Forms.MenuItem
+        Me.mmiDelete = New System.Windows.Forms.MenuItem
         Me.mmiHelp = New System.Windows.Forms.MenuItem
-        Me.TBSSCPItems = New System.Windows.Forms.ToolBar
+        Me.mmiOnlineHelp = New System.Windows.Forms.MenuItem
+        Me.tbToolbar = New System.Windows.Forms.ToolBar
         Me.TbbSave = New System.Windows.Forms.ToolBarButton
-        Me.TbbClear = New System.Windows.Forms.ToolBarButton
-        Me.TbbDelete = New System.Windows.Forms.ToolBarButton
-        Me.TbbBack = New System.Windows.Forms.ToolBarButton
+        Me.tbbPrint = New System.Windows.Forms.ToolBarButton
         Me.GroupBox1 = New System.Windows.Forms.GroupBox
         Me.lblRMPID = New System.Windows.Forms.Label
         Me.txtRMPID = New System.Windows.Forms.TextBox
         Me.Label35 = New System.Windows.Forms.Label
         Me.cboStaffResponsible = New System.Windows.Forms.ComboBox
         Me.chbAcknoledgmentLetterSent = New System.Windows.Forms.CheckBox
-        Me.DTPAcknoledgmentLetterSent = New System.Windows.Forms.DateTimePicker
+        Me.DTPAcknowledgmentLetterSent = New System.Windows.Forms.DateTimePicker
         Me.Label2 = New System.Windows.Forms.Label
         Me.btnRequestInformation = New System.Windows.Forms.Button
         Me.Label1 = New System.Windows.Forms.Label
@@ -453,6 +438,7 @@ Public Class SSCPEvents
         Me.TPACC = New System.Windows.Forms.TabPage
         Me.PanelACC = New System.Windows.Forms.Panel
         Me.Panel20 = New System.Windows.Forms.Panel
+        Me.Label25 = New System.Windows.Forms.Label
         Me.DTPACCReceivedDate = New System.Windows.Forms.DateTimePicker
         Me.chbACCReceivedByAPB = New System.Windows.Forms.CheckBox
         Me.btnACCSubmittals = New System.Windows.Forms.Button
@@ -640,112 +626,80 @@ Public Class SSCPEvents
         '
         'MainMenu1
         '
-        Me.MainMenu1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.MenuItem1, Me.MenuItem2, Me.MenuItem3, Me.MenuItem4, Me.mmiHelp})
+        Me.MainMenu1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiFile, Me.mmiTools, Me.mmiHelp})
         '
-        'MenuItem1
+        'mmiFile
         '
-        Me.MenuItem1.Index = 0
-        Me.MenuItem1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.MmiSave, Me.MenuItem10, Me.MmiBack, Me.MenuItem9, Me.MmiExit})
-        Me.MenuItem1.Text = "File"
+        Me.mmiFile.Index = 0
+        Me.mmiFile.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiSave, Me.MenuItem10, Me.mmiClose})
+        Me.mmiFile.Text = "&File"
         '
-        'MmiSave
+        'mmiSave
         '
-        Me.MmiSave.Index = 0
-        Me.MmiSave.Text = "Save"
+        Me.mmiSave.Index = 0
+        Me.mmiSave.Shortcut = System.Windows.Forms.Shortcut.CtrlS
+        Me.mmiSave.Text = "&Save"
         '
         'MenuItem10
         '
         Me.MenuItem10.Index = 1
         Me.MenuItem10.Text = "-"
         '
-        'MmiBack
+        'mmiClose
         '
-        Me.MmiBack.Index = 2
-        Me.MmiBack.Text = "Back"
+        Me.mmiClose.Index = 2
+        Me.mmiClose.Shortcut = System.Windows.Forms.Shortcut.CtrlW
+        Me.mmiClose.Text = "&Close"
         '
-        'MenuItem9
+        'mmiTools
         '
-        Me.MenuItem9.Index = 3
-        Me.MenuItem9.Text = "-"
+        Me.mmiTools.Index = 1
+        Me.mmiTools.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiDelete})
+        Me.mmiTools.Text = "&Tools"
         '
-        'MmiExit
+        'mmiDelete
         '
-        Me.MmiExit.Index = 4
-        Me.MmiExit.Text = "Exit"
-        '
-        'MenuItem2
-        '
-        Me.MenuItem2.Index = 1
-        Me.MenuItem2.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiCut, Me.mmiCopy, Me.mmiPaste})
-        Me.MenuItem2.Text = "Edit"
-        '
-        'mmiCut
-        '
-        Me.mmiCut.Index = 0
-        Me.mmiCut.Text = "Cut"
-        '
-        'mmiCopy
-        '
-        Me.mmiCopy.Index = 1
-        Me.mmiCopy.Text = "Copy"
-        '
-        'mmiPaste
-        '
-        Me.mmiPaste.Index = 2
-        Me.mmiPaste.Text = "Paste"
-        '
-        'MenuItem3
-        '
-        Me.MenuItem3.Index = 2
-        Me.MenuItem3.Text = "View"
-        '
-        'MenuItem4
-        '
-        Me.MenuItem4.Index = 3
-        Me.MenuItem4.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiLetterTemplates})
-        Me.MenuItem4.Text = "Tools"
-        '
-        'mmiLetterTemplates
-        '
-        Me.mmiLetterTemplates.Index = 0
-        Me.mmiLetterTemplates.Text = "Letter Templates"
+        Me.mmiDelete.Index = 0
+        Me.mmiDelete.Text = "Delete This Item"
         '
         'mmiHelp
         '
-        Me.mmiHelp.Index = 4
-        Me.mmiHelp.Text = "Help"
+        Me.mmiHelp.Index = 2
+        Me.mmiHelp.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiOnlineHelp})
+        Me.mmiHelp.Text = "&Help"
         '
-        'TBSSCPItems
+        'mmiOnlineHelp
         '
-        Me.TBSSCPItems.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.TbbSave, Me.TbbClear, Me.TbbDelete, Me.TbbBack})
-        Me.TBSSCPItems.ButtonSize = New System.Drawing.Size(23, 22)
-        Me.TBSSCPItems.DropDownArrows = True
-        Me.TBSSCPItems.ImageList = Me.Image_List_All
-        Me.TBSSCPItems.Location = New System.Drawing.Point(0, 0)
-        Me.TBSSCPItems.Name = "TBSSCPItems"
-        Me.TBSSCPItems.ShowToolTips = True
-        Me.TBSSCPItems.Size = New System.Drawing.Size(792, 28)
-        Me.TBSSCPItems.TabIndex = 47
+        Me.mmiOnlineHelp.Index = 0
+        Me.mmiOnlineHelp.Shortcut = System.Windows.Forms.Shortcut.F1
+        Me.mmiOnlineHelp.Text = "Online &Help"
+        '
+        'tbToolbar
+        '
+        Me.tbToolbar.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.TbbSave, Me.tbbPrint})
+        Me.tbToolbar.ButtonSize = New System.Drawing.Size(23, 22)
+        Me.tbToolbar.DropDownArrows = True
+        Me.tbToolbar.ImageList = Me.Image_List_All
+        Me.tbToolbar.Location = New System.Drawing.Point(0, 0)
+        Me.tbToolbar.Name = "tbToolbar"
+        Me.tbToolbar.ShowToolTips = True
+        Me.tbToolbar.Size = New System.Drawing.Size(792, 28)
+        Me.tbToolbar.TabIndex = 47
+        Me.tbToolbar.TextAlign = System.Windows.Forms.ToolBarTextAlign.Right
         '
         'TbbSave
         '
         Me.TbbSave.ImageIndex = 65
         Me.TbbSave.Name = "TbbSave"
+        Me.TbbSave.Text = "Save"
+        Me.TbbSave.ToolTipText = "Save (Ctrl-S)"
         '
-        'TbbClear
+        'tbbPrint
         '
-        Me.TbbClear.ImageIndex = 84
-        Me.TbbClear.Name = "TbbClear"
-        '
-        'TbbDelete
-        '
-        Me.TbbDelete.ImageIndex = 13
-        Me.TbbDelete.Name = "TbbDelete"
-        '
-        'TbbBack
-        '
-        Me.TbbBack.ImageIndex = 2
-        Me.TbbBack.Name = "TbbBack"
+        Me.tbbPrint.ImageIndex = 19
+        Me.tbbPrint.Name = "tbbPrint"
+        Me.tbbPrint.Text = "Print"
+        Me.tbbPrint.ToolTipText = "Print Preview (Ctrl-P)"
         '
         'GroupBox1
         '
@@ -754,7 +708,7 @@ Public Class SSCPEvents
         Me.GroupBox1.Controls.Add(Me.Label35)
         Me.GroupBox1.Controls.Add(Me.cboStaffResponsible)
         Me.GroupBox1.Controls.Add(Me.chbAcknoledgmentLetterSent)
-        Me.GroupBox1.Controls.Add(Me.DTPAcknoledgmentLetterSent)
+        Me.GroupBox1.Controls.Add(Me.DTPAcknowledgmentLetterSent)
         Me.GroupBox1.Controls.Add(Me.Label2)
         Me.GroupBox1.Controls.Add(Me.btnRequestInformation)
         Me.GroupBox1.Controls.Add(Me.Label1)
@@ -825,16 +779,16 @@ Public Class SSCPEvents
         Me.chbAcknoledgmentLetterSent.Text = "N/A"
         Me.chbAcknoledgmentLetterSent.Visible = False
         '
-        'DTPAcknoledgmentLetterSent
+        'DTPAcknowledgmentLetterSent
         '
-        Me.DTPAcknoledgmentLetterSent.CustomFormat = "dd-MMM-yyyy"
-        Me.DTPAcknoledgmentLetterSent.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DTPAcknoledgmentLetterSent.Location = New System.Drawing.Point(622, 96)
-        Me.DTPAcknoledgmentLetterSent.Name = "DTPAcknoledgmentLetterSent"
-        Me.DTPAcknoledgmentLetterSent.ShowCheckBox = True
-        Me.DTPAcknoledgmentLetterSent.Size = New System.Drawing.Size(100, 20)
-        Me.DTPAcknoledgmentLetterSent.TabIndex = 118
-        Me.DTPAcknoledgmentLetterSent.Value = New Date(2005, 4, 21, 0, 0, 0, 0)
+        Me.DTPAcknowledgmentLetterSent.CustomFormat = "dd-MMM-yyyy"
+        Me.DTPAcknowledgmentLetterSent.Format = System.Windows.Forms.DateTimePickerFormat.Custom
+        Me.DTPAcknowledgmentLetterSent.Location = New System.Drawing.Point(622, 96)
+        Me.DTPAcknowledgmentLetterSent.Name = "DTPAcknowledgmentLetterSent"
+        Me.DTPAcknowledgmentLetterSent.ShowCheckBox = True
+        Me.DTPAcknowledgmentLetterSent.Size = New System.Drawing.Size(100, 20)
+        Me.DTPAcknowledgmentLetterSent.TabIndex = 118
+        Me.DTPAcknowledgmentLetterSent.Value = New Date(2005, 4, 21, 0, 0, 0, 0)
         '
         'Label2
         '
@@ -2280,6 +2234,7 @@ Public Class SSCPEvents
         'Panel20
         '
         Me.Panel20.AutoScroll = True
+        Me.Panel20.Controls.Add(Me.Label25)
         Me.Panel20.Controls.Add(Me.DTPACCReceivedDate)
         Me.Panel20.Controls.Add(Me.chbACCReceivedByAPB)
         Me.Panel20.Controls.Add(Me.btnACCSubmittals)
@@ -2320,6 +2275,15 @@ Public Class SSCPEvents
         Me.Panel20.Name = "Panel20"
         Me.Panel20.Size = New System.Drawing.Size(769, 367)
         Me.Panel20.TabIndex = 154
+        '
+        'Label25
+        '
+        Me.Label25.AutoSize = True
+        Me.Label25.Location = New System.Drawing.Point(516, 82)
+        Me.Label25.Name = "Label25"
+        Me.Label25.Size = New System.Drawing.Size(161, 13)
+        Me.Label25.TabIndex = 297
+        Me.Label25.Text = "(Applies to original submittal only)"
         '
         'DTPACCReceivedDate
         '
@@ -2450,7 +2414,7 @@ Public Class SSCPEvents
         'Label31
         '
         Me.Label31.AutoSize = True
-        Me.Label31.Location = New System.Drawing.Point(543, 87)
+        Me.Label31.Location = New System.Drawing.Point(543, 113)
         Me.Label31.Name = "Label31"
         Me.Label31.Size = New System.Drawing.Size(91, 13)
         Me.Label31.TabIndex = 85
@@ -2460,7 +2424,7 @@ Public Class SSCPEvents
         '
         Me.DTPACCPostmarked.CustomFormat = "dd-MMM-yyyy"
         Me.DTPACCPostmarked.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DTPACCPostmarked.Location = New System.Drawing.Point(639, 87)
+        Me.DTPACCPostmarked.Location = New System.Drawing.Point(639, 113)
         Me.DTPACCPostmarked.Name = "DTPACCPostmarked"
         Me.DTPACCPostmarked.Size = New System.Drawing.Size(100, 20)
         Me.DTPACCPostmarked.TabIndex = 84
@@ -2548,7 +2512,7 @@ Public Class SSCPEvents
         Me.wrnACCDatePostmarked.AutoSize = True
         Me.wrnACCDatePostmarked.Font = New System.Drawing.Font("Arial", 7.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.wrnACCDatePostmarked.ForeColor = System.Drawing.Color.Tomato
-        Me.wrnACCDatePostmarked.Location = New System.Drawing.Point(639, 111)
+        Me.wrnACCDatePostmarked.Location = New System.Drawing.Point(639, 137)
         Me.wrnACCDatePostmarked.Name = "wrnACCDatePostmarked"
         Me.wrnACCDatePostmarked.Size = New System.Drawing.Size(96, 13)
         Me.wrnACCDatePostmarked.TabIndex = 137
@@ -2889,7 +2853,7 @@ Public Class SSCPEvents
         Me.Controls.Add(Me.Splitter3)
         Me.Controls.Add(Me.txtOrigin)
         Me.Controls.Add(Me.GroupBox1)
-        Me.Controls.Add(Me.TBSSCPItems)
+        Me.Controls.Add(Me.tbToolbar)
         Me.Menu = Me.MainMenu1
         Me.Name = "SSCPEvents"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.Manual
@@ -2948,18 +2912,20 @@ Public Class SSCPEvents
         Try
             temp = txtTrackingNumber.Text
 
+            tbbPrint.Enabled = False
+            tbbPrint.Visible = False
+
             DefaultDateTimePickers()
             Loadcombos()
 
-            CreateStatusBar()
             ShowCorrectTab()
 
             If AccountArray(49, 2) = "1" Or AccountArray(49, 3) = "1" Or AccountArray(49, 4) = "1" Then
-                TBSSCPItems.Visible = True
-                MmiSave.Visible = True
+                tbToolbar.Visible = True
+                mmiSave.Visible = True
             Else
-                TBSSCPItems.Visible = False
-                MmiSave.Visible = False
+                tbToolbar.Visible = False
+                mmiSave.Visible = False
                 btnRequestInformation.Visible = False
                 If txtEnforcementNumber.Text = "" Or txtEnforcementNumber.Text = "N/A" Then
                     btnEnforcementProcess.Visible = False
@@ -2975,36 +2941,6 @@ Public Class SSCPEvents
     End Sub
 
 #Region "Page Load Functions"
-    Sub CreateStatusBar()
-
-        panel1.Text = "Select a Function..."
-        panel2.Text = UserName
-        panel3.Text = OracleDate
-
-        panel1.AutoSize = StatusBarPanelAutoSize.Spring
-        panel2.AutoSize = StatusBarPanelAutoSize.Contents
-        panel3.AutoSize = StatusBarPanelAutoSize.Contents
-
-        panel1.BorderStyle = StatusBarPanelBorderStyle.Sunken
-        panel2.BorderStyle = StatusBarPanelBorderStyle.Sunken
-        panel3.BorderStyle = StatusBarPanelBorderStyle.Sunken
-
-        panel1.Alignment = HorizontalAlignment.Left
-        panel2.Alignment = HorizontalAlignment.Left
-        panel3.Alignment = HorizontalAlignment.Right
-
-        ' Display panels in the StatusBar control.
-        statusBar1.ShowPanels = True
-
-        ' Add both panels to the StatusBarPanelCollection of the StatusBar.            
-        statusBar1.Panels.Add(panel1)
-        statusBar1.Panels.Add(panel2)
-        statusBar1.Panels.Add(panel3)
-
-        ' Add the StatusBar to the form.
-        Me.Controls.Add(statusBar1)
-
-    End Sub
     Sub Loadcombos()
         Dim dtStaff As New DataTable
 
@@ -3012,17 +2948,6 @@ Public Class SSCPEvents
         Dim drDSRow As DataRow
 
         Try
-
-            'SQL = "Select distinct(numUserID), " & _
-            '"(strLastName||', '||strFirstName) as StaffName, " & _
-            '"strLastName " & _
-            '"from " & DBNameSpace & ".EPDUserProfiles, " & DBNameSpace & ".SSCPItemMaster " & _
-            '"where numprogram = '4' " & _
-            '"or numUserID = strResponsibleStaff " & _
-            '"or (numBranch = '5' " & _
-            '"and strLastName = 'District') " & _
-            '"order by strLastName "
-
 
             SQL = "select numuserID, Staff as StaffName, strLastName " & _
             "from AIRBranch.VW_ComplianceStaff "
@@ -3071,7 +2996,6 @@ Public Class SSCPEvents
     Sub ShowCorrectTab()
         Dim EventType As String = ""
         Dim ReceivedDate As String = ""
-        Dim AIRSNumber As String = ""
 
         SQL = "Select * from " & DBNameSpace & ".SSCPItemMaster " & _
         "where strTrackingNumber = '" & txtTrackingNumber.Text & "'"
@@ -3099,17 +3023,18 @@ Public Class SSCPEvents
             Else
                 txtFacilityInformation.Text = "AIRS # - " & Mid(dr.Item("strAIRSNumber"), 5)
                 txtAIRSNumber.Text = Mid(dr.Item("strAIRSNumber"), 5)
+                AIRSNumber = txtAIRSNumber.Text
             End If
             If IsDBNull(dr.Item("datAcknoledgmentLetterSent")) Then
                 'chbAcknoledgmentLetterSent.Checked = True
                 'DTPAcknoledgmentLetterSent.Enabled = False
-                DTPAcknoledgmentLetterSent.Text = OracleDate
-                DTPAcknoledgmentLetterSent.Checked = False
+                DTPAcknowledgmentLetterSent.Text = OracleDate
+                DTPAcknowledgmentLetterSent.Checked = False
             Else
                 'DTPAcknoledgmentLetterSent.Enabled = True
                 'chbAcknoledgmentLetterSent.Checked = False
-                DTPAcknoledgmentLetterSent.Text = Format(dr.Item("datAcknoledgmentlettersent"), "dd-MMM-yyyy")
-                DTPAcknoledgmentLetterSent.Checked = True
+                DTPAcknowledgmentLetterSent.Text = Format(dr.Item("datAcknoledgmentlettersent"), "dd-MMM-yyyy")
+                DTPAcknowledgmentLetterSent.Checked = True
             End If
             If IsDBNull(dr.Item("datInformationRequestDate")) Then
                 txtRequestInformationDate.Text = "N/A"
@@ -3124,7 +3049,8 @@ Public Class SSCPEvents
         End While
 
         Select Case EventType
-            Case "01"
+
+            Case "01" ' Report
                 TCItems.TabPages.Clear()
                 TCItems.TabPages.Add(TPReport)
                 DTPReportReceivedDate.Text = ReceivedDate
@@ -3133,7 +3059,8 @@ Public Class SSCPEvents
                 LoadReport()
                 LoadReportSubmittalDGR()
                 FormatReportsDGR()
-            Case "02"
+
+            Case "02" ' Inspection
                 TCItems.TabPages.Clear()
                 TCItems.TabPages.Add(TPInspection)
                 DTPInspectionDateStart.Text = ReceivedDate
@@ -3141,23 +3068,24 @@ Public Class SSCPEvents
                 LoadHeader()
                 FillInspectionCombos()
                 LoadInspection()
-            Case "03"
+
+            Case "03" ' Test report
                 TCItems.TabPages.Clear()
                 TCItems.TabPages.Add(TPTestReports)
                 txtTestReportReceivedbySSCPDate.Text = ReceivedDate
                 LoadHeader()
                 LoadTestReport()
-            Case "05"
+
+            Case "05" ' Notification
                 TCItems.TabPages.Clear()
                 TCItems.TabPages.Add(TPNotifications)
                 DTPNotificationReceived.Text = ReceivedDate
                 LoadHeader()
                 FillNotificationCombos()
                 LoadNotification()
-
                 btnEnforcementProcess.Visible = False
 
-            Case "04"
+            Case "04" ' ACC
                 TCItems.TabPages.Clear()
                 TCItems.TabPages.Add(TPACC)
                 DTPACCReceivedDate.Text = ReceivedDate
@@ -3166,9 +3094,11 @@ Public Class SSCPEvents
                 LoadACC()
                 LoadACCSubmittalDGR()
                 FormatACCDGR()
-            Case "07"
+                tbbPrint.Enabled = True
+                tbbPrint.Visible = True
+
+            Case "07" ' Risk Management Plan Inspection
                 TCItems.TabPages.Clear()
-                'TPInspection
                 TCItems.TabPages.Add(TPInspection)
                 TPInspection.Text = "Risk Mgmt. Plan Inspection"
                 DTPInspectionDateStart.Text = ReceivedDate
@@ -3176,8 +3106,10 @@ Public Class SSCPEvents
                 LoadHeader()
                 FillInspectionCombos()
                 LoadInspection()
+
             Case Else
                 LoadHeader()
+
         End Select
 
         CheckCompleteDate()
@@ -3256,7 +3188,6 @@ Public Class SSCPEvents
             .SelectedIndex = 0
         End With
 
-
     End Sub
     Sub LoadHeader()
         Dim temp As String
@@ -3294,6 +3225,7 @@ Public Class SSCPEvents
                     DelStatus = dr.Item("strDelete")
                 End If
                 If DelStatus <> "" Then
+                    ItemIsDeleted = True
                     txtFacilityInformation.Text = "FLAGGED AS DELETED"
                 End If
 
@@ -3415,7 +3347,7 @@ Public Class SSCPEvents
     End Sub
     Sub DefaultDateTimePickers()
 
-        DTPAcknoledgmentLetterSent.Value = OracleDate
+        DTPAcknowledgmentLetterSent.Value = OracleDate
         DTPReportPeriodStart.Value = OracleDate
         DTPReportPeriodEnd.Value = OracleDate
         dtpDueDate.Value = OracleDate
@@ -3488,7 +3420,7 @@ Public Class SSCPEvents
     Sub CompleteReport()
         If chbEventComplete.Checked = True Then
             chbAcknoledgmentLetterSent.Enabled = False
-            DTPAcknoledgmentLetterSent.Enabled = False
+            DTPAcknowledgmentLetterSent.Enabled = False
             chbNotificationReceivedByAPB.Enabled = False
             cboStaffResponsible.Enabled = False
 
@@ -3567,7 +3499,7 @@ Public Class SSCPEvents
             rdbACCEnforcementNeededNo.Enabled = False
         Else
             chbAcknoledgmentLetterSent.Enabled = True
-            DTPAcknoledgmentLetterSent.Enabled = True
+            DTPAcknowledgmentLetterSent.Enabled = True
             chbNotificationReceivedByAPB.Enabled = True
             cboStaffResponsible.Enabled = True
 
@@ -3799,58 +3731,6 @@ Public Class SSCPEvents
             End If
 
 
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-
-#End Region
-
-#Region "Back Functions"
-    Sub Back()
-        Try
-
-            Select Case txtOrigin.Text
-                Case "Facility Summary"
-                    SSCPREports = Nothing
-                    Me.Hide()
-                Case "FCE Checklist"
-                    SSCPREports = Nothing
-                    Me.Hide()
-                Case "Work Entry"
-                    BackToSSCPWorkEntry()
-                Case "Enforcement Checklist"
-                    SSCPREports = Nothing
-                    Me.Hide()
-                Case Else
-                    If NavigationScreen Is Nothing Then
-                        NavigationScreen = New IAIPNavigation
-                    End If
-                    NavigationScreen.Show()
-                    SSCPREports = Nothing
-                    Me.Dispose()
-            End Select
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Sub BackToSSCPWorkEntry()
-        Try
-
-            If SSCP_Work Is Nothing Then
-                SSCP_Work = New SSCPComplianceLog
-                SSCP_Work.Show()
-                Me.Hide()
-            Else
-                SSCP_Work.Show()
-                Me.Hide()
-            End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
@@ -4712,8 +4592,8 @@ Public Class SSCPEvents
                     CompleteDate = ""
                 End If
 
-                If DTPAcknoledgmentLetterSent.Checked = True Then
-                    AcknoledgmentLetter = DTPAcknoledgmentLetterSent.Text
+                If DTPAcknowledgmentLetterSent.Checked = True Then
+                    AcknoledgmentLetter = DTPAcknowledgmentLetterSent.Text
                 Else
                     AcknoledgmentLetter = ""
                 End If
@@ -6024,166 +5904,65 @@ Public Class SSCPEvents
 
     End Sub
 #End Region
+
     Sub DeleteSSCPData()
         Try
             If txtEnforcementNumber.Text <> "" And txtEnforcementNumber.Text <> "N/A" Then
                 MsgBox("This Compliance Action is currently linked to an Enforcement Action." & vbCrLf & _
-                      "Disaccociate this action from any enforcement before deleting.", MsgBoxStyle.Exclamation, "SSCP Events")
+                      "Disassociate this action from any enforcement before deleting.", MsgBoxStyle.Exclamation, "SSCP Events")
                 Exit Sub
             End If
 
-            SQL = "Select " & _
-            "strTrackingNumber " & _
-            "from " & DBNameSpace & ".AFSSSCPRecords " & _
-            "where strTrackingNumber = '" & txtTrackingNumber.Text & "' " & _
-            "and strUpDateStatus <> 'A' "
-
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            If MessageBox.Show("Should this work item be deleted?", _
+                               "Confirm Deletion", _
+                               MessageBoxButtons.YesNo, _
+                               MessageBoxIcon.Warning, _
+                               MessageBoxDefaultButton.Button2) = Windows.Forms.DialogResult.No Then
+                Exit Sub
             End If
-            dr = cmd.ExecuteReader
-            recExist = dr.Read
-            dr.Close()
+
+            ' Determine if action has been submitted to EPA
+            Dim query As String = "SELECT '" & Boolean.TrueString & "' " & _
+                " FROM " & DBNameSpace & ".AFSSSCPRECORDS " & _
+                " WHERE RowNum = 1 AND STRUPDATESTATUS  <> 'A' " & _
+                " AND STRTRACKINGNUMBER = :pId "
+            Dim parameter As OracleParameter = New OracleParameter("pId", txtTrackingNumber.Text)
+            recExist = Convert.ToBoolean(DB.GetSingleValue(Of String)(query, parameter))
+
             If recExist = True Then
                 MsgBox("This Compliance Action has already been submitted to EPA and must be manually removed." & vbCrLf & _
                        "Please contact the Data Management Unit (Michael Floyd) with the tracking number to delete this action.", _
-                       MsgBoxStyle.Exclamation, "SSCP Evens")
+                       MsgBoxStyle.Exclamation, "SSCP Events")
                 Exit Sub
             End If
 
-            SQL = "Delete " & DBNameSpace & ".AFSSSCPRecords " & _
-            "where strTrackingNumber = '" & txtTrackingNumber.Text & "' "
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
+            ' Delete record from AFS and mark as deleted in SSCP item master
+            Dim queryList As New List(Of String)
+            Dim parametersList As New List(Of OracleParameter())
+            Dim parameters As OracleParameter()
+
+            query = " DELETE FROM " & DBNameSpace & ".AFSSSCPRECORDS WHERE STRTRACKINGNUMBER = :pId "
+            queryList.Add(query)
+            parameters = New OracleParameter() {New OracleParameter("pId", txtTrackingNumber.Text)}
+            parametersList.Add(parameters)
+
+            query = " UPDATE " & DBNameSpace & ".SSCPITEMMASTER SET STRDELETE = '" & Boolean.TrueString & "' " & _
+                " WHERE STRTRACKINGNUMBER = :pId "
+            queryList.Add(query)
+            parametersList.Add(parameters) ' parameters are same for both queries
+
+            Dim result As Boolean = DB.RunCommand(queryList, parametersList)
+
+            If result Then
+                MsgBox("Compliance Event Deleted.", MsgBoxStyle.Information, "SSCP Events")
+                Me.Close()
+            Else
+                MsgBox("There was an error deleting the event.", MsgBoxStyle.Exclamation, "SSCP Events")
             End If
-            dr = cmd.ExecuteReader
-            dr.Close()
-
-            'If TPReport.Focus = True Then
-            '    SQL = "Delete " & DBNameSpace & ".SSCPReportsHistory " & _
-            '    "where strTrackingNumber = '" & txtTrackingNumber.Text & "' "
-            '    cmd = New OracleCommand(SQL, conn)
-            '    If conn.State = ConnectionState.Closed Then
-            '        conn.Open()
-            '    End If
-            '    dr = cmd.ExecuteReader
-            '    dr.Close()
-
-            '    SQL = "Delete " & DBNameSpace & ".SSCPReports " & _
-            '    "where strTrackingNumber = '" & txtTrackingNumber.Text & "' "
-            '    cmd = New OracleCommand(SQL, conn)
-            '    If conn.State = ConnectionState.Closed Then
-            '        conn.Open()
-            '    End If
-            '    dr = cmd.ExecuteReader
-            '    dr.Close()
-            'End If
-            'If TPInspection.Focus = True Then
-            '    SQL = "Delete " & DBNameSpace & ".SSCPInspections " & _
-            '    "where strTrackingNumber = '" & txtTrackingNumber.Text & "' "
-            '    cmd = New OracleCommand(SQL, conn)
-            '    If conn.State = ConnectionState.Closed Then
-            '        conn.Open()
-            '    End If
-            '    dr = cmd.ExecuteReader
-            '    dr.Close()
-            'End If
-            'If TPACC.Focus = True Then
-            '    SQL = "Delete " & DBNameSpace & ".SSCPACCSHistory " & _
-            '    "where strTrackingNumber = '" & txtTrackingNumber.Text & "' "
-            '    cmd = New OracleCommand(SQL, conn)
-            '    If conn.State = ConnectionState.Closed Then
-            '        conn.Open()
-            '    End If
-            '    dr = cmd.ExecuteReader
-            '    dr.Close()
-
-            '    SQL = "Delete " & DBNameSpace & ".SSCPACCS " & _
-            '    "where strTrackingNumber = '" & txtTrackingNumber.Text & "' "
-            '    cmd = New OracleCommand(SQL, conn)
-            '    If conn.State = ConnectionState.Closed Then
-            '        conn.Open()
-            '    End If
-            '    dr = cmd.ExecuteReader
-            '    dr.Close()
-            'End If
-            'If TPTestReports.Focus = True Then
-            '    SQL = "Delete " & DBNameSpace & ".SSCPTestReports " & _
-            '    "where strTrackingNumber = '" & txtTrackingNumber.Text & "' "
-            '    cmd = New OracleCommand(SQL, conn)
-            '    If conn.State = ConnectionState.Closed Then
-            '        conn.Open()
-            '    End If
-            '    dr = cmd.ExecuteReader
-            '    dr.Close()
-            'End If
-            'If TPNotifications.Focus = True Then
-            '    SQL = "Delete " & DBNameSpace & ".SSCPNotifications " & _
-            '    "where strTrackingNumber = '" & txtTrackingNumber.Text & "' "
-            '    cmd = New OracleCommand(SQL, conn)
-            '    If conn.State = ConnectionState.Closed Then
-            '        conn.Open()
-            '    End If
-            '    dr = cmd.ExecuteReader
-            '    dr.Close()
-            'End If
-
-            'SQL = "Delete " & DBNameSpace & ".SSCPItemMaster " & _
-            '"where strTrackingNumber = '" & txtTrackingNumber.Text & "' "
-
-            SQL = "Update " & DBNameSpace & ".SSCPItemMaster set " & _
-            "strDelete = 'True' " & _
-            "where strTrackingNumber = '" & txtTrackingNumber.Text & "' "
-
-            cmd = New OracleCommand(SQL, Conn)
-            If Conn.State = ConnectionState.Closed Then
-                Conn.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
-
-            MsgBox("Compliance Event Deleted.", MsgBoxStyle.Information, "SSCP Events")
-
-            Back()
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
-    End Sub
-    Private Sub SSCP_Reports_Closing(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
-        Try
-
-            Back()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub TBSSCPItems_ButtonClick(ByVal sender As System.Object, ByVal e As System.Windows.Forms.ToolBarButtonClickEventArgs) Handles TBSSCPItems.ButtonClick
-        Try
-
-            Select Case TBSSCPItems.Buttons.IndexOf(e.Button)
-                Case 0
-                    SaveMaster()
-                Case 1
-
-                Case 2
-                    DeleteSSCPData()
-                Case 3
-                    Back()
-                Case Else
-                    MsgBox("try clicking again")
-            End Select
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
     End Sub
 
 #Region "Validate"
@@ -7058,88 +6837,6 @@ Public Class SSCPEvents
 
     End Sub
 
-#Region "Main Menu Items"
-    Private Sub MmiSave_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiSave.Click
-        Try
-
-            SaveMaster()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub MmiBack_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiBack.Click
-        Try
-
-            Back()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub mmiCut_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiCut.Click
-        Try
-
-            SendKeys.Send("^(x)")
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub mmiCopy_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiCopy.Click
-        Try
-
-            SendKeys.Send("^(c)")
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub mmiPaste_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiPaste.Click
-        Try
-
-            SendKeys.Send("^(v)")
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub mmiLetterTemplates_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiLetterTemplates.Click
-        Try
-
-            SSCPTemplates = Nothing
-            If SSCPTemplates Is Nothing Then SSCPTemplates = New SSCPLetterTemplates
-            SSCPTemplates.Show()
-            'SSCPTemplates.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub mmiHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiHelp.Click
-        Try
-
-            Help.ShowHelp(Label1, HelpUrl)
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-#End Region
 
     Private Sub lblInspectionScheduleLink_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lblInspectionScheduleLink.LinkClicked
         Try
@@ -7348,4 +7045,63 @@ Public Class SSCPEvents
 
         End Try
     End Sub
+
+    Private Sub PrintACC()
+        LoadACC()
+        Dim thisAcc As Apb.SSCP.Acc = LoadAccFromForm()
+
+    End Sub
+
+    Private Function LoadAccFromForm() As Apb.SSCP.Acc
+        Dim thisAcc As New Apb.SSCP.Acc
+
+        With thisAcc
+            .AllTitleVConditionsListed = rdbACCConditionsYes.Checked
+            .Comments = txtACCComments.Text
+            .CorrectFormsUsed = rdbACCCorrectACCYes.Checked
+            .CorrectlyFilledOut = rdbACCCorrectYes.Checked
+            If DTPAcknowledgmentLetterSent.Checked Then .DateAcknowledgmentLetterSent = DTPAcknowledgmentLetterSent.Value
+            If chbEventComplete.Checked Then .DateComplete = DTPEventCompleteDate.Value
+            .DatePostmarked = DTPACCPostmarked.Value
+            .DateReceived = DTPACCReceivedDate.Value
+            .Deleted = ItemIsDeleted
+            .DeviationsReported = rdbACCDeviationsReportedYes.Checked
+            .EnforcementNeeded = rdbACCEnforcementNeededYes.Checked
+            .Facility = DAL.GetFacilityInfoByAirs(AIRSNumber)
+            .SignedByResponsibleOfficial = rdbACCROYes.Checked
+            .StaffResponsible = DAL.GetStaffInfoById(cboStaffResponsible.ValueMember)
+        End With
+
+        Return thisAcc
+    End Function
+
+#Region "Main menu/toolbar"
+
+    Private Sub mmiClose_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiClose.Click
+        Me.Close()
+    End Sub
+
+    Private Sub mmiOnlineHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiOnlineHelp.Click
+        OpenHelpUrl(Me)
+    End Sub
+
+    Private Sub mmiDelete_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiDelete.Click
+        DeleteSSCPData()
+    End Sub
+
+    Private Sub mmiSave_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiSave.Click
+        SaveMaster()
+    End Sub
+
+    Private Sub tbToolbar_ButtonClick(ByVal sender As System.Object, ByVal e As System.Windows.Forms.ToolBarButtonClickEventArgs) Handles tbToolbar.ButtonClick
+        Select Case tbToolbar.Buttons.IndexOf(e.Button)
+            Case 0
+                SaveMaster()
+            Case 1
+                PrintACC()
+        End Select
+    End Sub
+
+#End Region
+
 End Class
