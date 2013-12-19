@@ -1,6 +1,6 @@
 ﻿Namespace Apb
 
-    Public Class WorkItem
+    Public MustInherit Class WorkItem
 
         Public Property TrackingNumber() As String
             Get
