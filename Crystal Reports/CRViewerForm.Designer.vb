@@ -31,6 +31,7 @@ Partial Class CRViewerForm
         Me.CRViewerControl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.CRViewerControl.DisplayGroupTree = False
         Me.CRViewerControl.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.CRViewerControl.EnableDrillDown = False
         Me.CRViewerControl.Location = New System.Drawing.Point(0, 0)
         Me.CRViewerControl.Name = "CRViewerControl"
         Me.CRViewerControl.SelectionFormula = ""
