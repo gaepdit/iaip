@@ -1118,6 +1118,11 @@
     <EmbeddedResource Include="Crystal Reports\CRViewerForm.resx">
       <DependentUpon>CRViewerForm.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Crystal Reports\SSCP\AccMemo.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>AccMemo.vb</LastGenOutput>
+      <CustomToolNamespace>CR.Reports</CustomToolNamespace>
+    </EmbeddedResource>
     <EmbeddedResource Include="DevelopmentForms\AFSValidator.resx">
       <DependentUpon>AFSValidator.vb</DependentUpon>
       <SubType>Designer</SubType>
@@ -1762,6 +1767,14 @@
     <Compile Include="Crystal Reports\CRViewerForm.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Crystal Reports\SSCP\CrAcc.vb" />
+    <Compile Include="Crystal Reports\SSCP\AccMemo.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AccMemo.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="_Classes\CollectionHelper.vb" />
     <Compile Include="_Data Classes\WorkItem.vb" />
     <Compile Include="_Data Classes\Person.vb" />
     <Compile Include="_Data Classes\Res.ResEvent.vb">
@@ -1893,7 +1906,6 @@
     <Folder Include="Crystal Reports\Oracle 10.1\ISMP\" />
     <Folder Include="Crystal Reports\Oracle 9.2\PASP\" />
     <Folder Include="Crystal Reports\Oracle 9.2\SSCP\" />
-    <Folder Include="Crystal Reports\SSCP\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
   <PropertyGroup>
