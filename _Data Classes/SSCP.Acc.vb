@@ -18,6 +18,16 @@ Namespace Apb.SSCP
             End Get
         End Property
 
+        Public Property AccReportingYear() As Integer
+            Get
+                Return _accReportingYear
+            End Get
+            Set(ByVal value As Integer)
+                _accReportingYear = value
+            End Set
+        End Property
+        Private _accReportingYear As Integer
+
         Public Property SubmittalNumber() As Integer
             Get
                 Return _submittalNumber
@@ -37,6 +47,16 @@ Namespace Apb.SSCP
             End Set
         End Property
         Private _datePostmarked As Date
+
+        Public Property PostmarkedByDeadline() As Boolean
+            Get
+                Return _correctFormsUsed
+            End Get
+            Set(ByVal value As Boolean)
+                _postmarkedByDeadline = value
+            End Set
+        End Property
+        Private _postmarkedByDeadline As Boolean
 
         Public Property SignedByResponsibleOfficial() As Boolean
             Get
