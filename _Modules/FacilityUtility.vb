@@ -2,7 +2,7 @@
 
     Module FacilityUtility
 
-        Public Function ValidAirsNumber(ByVal airsNumber As String) As Boolean
+        Public Function IsAirsNumberValid(ByVal airsNumber As String) As Boolean
             ' Valid AIRS numbers are in the form 000-00000 or 04-13-000-0000
             ' (with or without the dashes)
 
@@ -32,7 +32,7 @@
             ' Return value indicates whether the conversion succeeded.
 
             ' First, validate the raw AIRS number
-            If Not ValidAirsNumber(airsNumber) Then Return False
+            If Not IsAirsNumberValid(airsNumber) Then Return False
 
             ' If okay, then remove spaces and dashes
             Dim a As String = airsNumber.Replace("-", "").Replace(" ", "")
@@ -46,7 +46,7 @@
             End If
 
             ' Revalidate just in case (shouldn't ever fail?)
-            If Not ValidAirsNumber(a) Then Return False
+            If Not IsAirsNumberValid(a) Then Return False
 
             ' Replace referenced variable with converted result and return
             airsNumber = a
