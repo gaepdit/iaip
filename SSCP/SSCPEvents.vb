@@ -2320,7 +2320,7 @@ Public Class SSCPEvents
         Me.Panel20.Location = New System.Drawing.Point(0, 0)
         Me.Panel20.Name = "Panel20"
         Me.Panel20.Size = New System.Drawing.Size(769, 367)
-        Me.Panel20.TabIndex = 154
+        Me.Panel20.TabIndex = 0
         '
         'dtpAccReportingYear
         '
@@ -2331,7 +2331,7 @@ Public Class SSCPEvents
         Me.dtpAccReportingYear.ShowCheckBox = True
         Me.dtpAccReportingYear.ShowUpDown = True
         Me.dtpAccReportingYear.Size = New System.Drawing.Size(70, 20)
-        Me.dtpAccReportingYear.TabIndex = 298
+        Me.dtpAccReportingYear.TabIndex = 13
         '
         'Label25
         '
@@ -2350,7 +2350,7 @@ Public Class SSCPEvents
         Me.DTPACCReceivedDate.Location = New System.Drawing.Point(639, 59)
         Me.DTPACCReceivedDate.Name = "DTPACCReceivedDate"
         Me.DTPACCReceivedDate.Size = New System.Drawing.Size(100, 20)
-        Me.DTPACCReceivedDate.TabIndex = 296
+        Me.DTPACCReceivedDate.TabIndex = 15
         Me.DTPACCReceivedDate.Value = New Date(2005, 4, 21, 0, 0, 0, 0)
         '
         'chbACCReceivedByAPB
@@ -2360,7 +2360,7 @@ Public Class SSCPEvents
         Me.chbACCReceivedByAPB.Location = New System.Drawing.Point(514, 62)
         Me.chbACCReceivedByAPB.Name = "chbACCReceivedByAPB"
         Me.chbACCReceivedByAPB.Size = New System.Drawing.Size(122, 17)
-        Me.chbACCReceivedByAPB.TabIndex = 295
+        Me.chbACCReceivedByAPB.TabIndex = 14
         Me.chbACCReceivedByAPB.Text = "Received by GEPD:"
         Me.chbACCReceivedByAPB.UseVisualStyleBackColor = True
         '
@@ -2373,7 +2373,7 @@ Public Class SSCPEvents
         Me.btnACCSubmittals.Location = New System.Drawing.Point(0, 0)
         Me.btnACCSubmittals.Name = "btnACCSubmittals"
         Me.btnACCSubmittals.Size = New System.Drawing.Size(74, 19)
-        Me.btnACCSubmittals.TabIndex = 294
+        Me.btnACCSubmittals.TabIndex = 17
         Me.btnACCSubmittals.Text = "Submittal History"
         '
         'wrnACCCorrectACC
@@ -2395,14 +2395,14 @@ Public Class SSCPEvents
         Me.Panel8.Location = New System.Drawing.Point(236, 89)
         Me.Panel8.Name = "Panel8"
         Me.Panel8.Size = New System.Drawing.Size(96, 16)
-        Me.Panel8.TabIndex = 92
+        Me.Panel8.TabIndex = 4
         '
         'rdbACCCorrectACCYes
         '
         Me.rdbACCCorrectACCYes.Location = New System.Drawing.Point(0, 0)
         Me.rdbACCCorrectACCYes.Name = "rdbACCCorrectACCYes"
         Me.rdbACCCorrectACCYes.Size = New System.Drawing.Size(48, 16)
-        Me.rdbACCCorrectACCYes.TabIndex = 19
+        Me.rdbACCCorrectACCYes.TabIndex = 0
         Me.rdbACCCorrectACCYes.Text = "Yes"
         '
         'rdbACCCorrectACCNo
@@ -2441,14 +2441,14 @@ Public Class SSCPEvents
         Me.Panel7.Location = New System.Drawing.Point(236, 65)
         Me.Panel7.Name = "Panel7"
         Me.Panel7.Size = New System.Drawing.Size(96, 16)
-        Me.Panel7.TabIndex = 88
+        Me.Panel7.TabIndex = 3
         '
         'rdbACCROYes
         '
         Me.rdbACCROYes.Location = New System.Drawing.Point(0, 0)
         Me.rdbACCROYes.Name = "rdbACCROYes"
         Me.rdbACCROYes.Size = New System.Drawing.Size(48, 16)
-        Me.rdbACCROYes.TabIndex = 19
+        Me.rdbACCROYes.TabIndex = 0
         Me.rdbACCROYes.Text = "Yes"
         '
         'rdbACCRONo
@@ -2484,7 +2484,7 @@ Public Class SSCPEvents
         Me.DTPACCPostmarked.Location = New System.Drawing.Point(639, 113)
         Me.DTPACCPostmarked.Name = "DTPACCPostmarked"
         Me.DTPACCPostmarked.Size = New System.Drawing.Size(100, 20)
-        Me.DTPACCPostmarked.TabIndex = 84
+        Me.DTPACCPostmarked.TabIndex = 16
         Me.DTPACCPostmarked.Value = New Date(2007, 1, 25, 0, 0, 0, 0)
         '
         'wrnACCPostmark
@@ -2506,14 +2506,14 @@ Public Class SSCPEvents
         Me.Panel6.Location = New System.Drawing.Point(236, 41)
         Me.Panel6.Name = "Panel6"
         Me.Panel6.Size = New System.Drawing.Size(96, 16)
-        Me.Panel6.TabIndex = 82
+        Me.Panel6.TabIndex = 2
         '
         'rdbACCPostmarkYes
         '
         Me.rdbACCPostmarkYes.Location = New System.Drawing.Point(0, 0)
         Me.rdbACCPostmarkYes.Name = "rdbACCPostmarkYes"
         Me.rdbACCPostmarkYes.Size = New System.Drawing.Size(48, 16)
-        Me.rdbACCPostmarkYes.TabIndex = 19
+        Me.rdbACCPostmarkYes.TabIndex = 0
         Me.rdbACCPostmarkYes.Text = "Yes"
         '
         'rdbACCPostmarkNo
@@ -2561,7 +2561,7 @@ Public Class SSCPEvents
         Me.NUPACCSubmittal.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         Me.NUPACCSubmittal.Name = "NUPACCSubmittal"
         Me.NUPACCSubmittal.Size = New System.Drawing.Size(40, 20)
-        Me.NUPACCSubmittal.TabIndex = 78
+        Me.NUPACCSubmittal.TabIndex = 0
         Me.NUPACCSubmittal.Value = New Decimal(New Integer() {1, 0, 0, 0})
         '
         'Label67
@@ -2603,14 +2603,14 @@ Public Class SSCPEvents
         Me.txtACCComments.Name = "txtACCComments"
         Me.txtACCComments.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.txtACCComments.Size = New System.Drawing.Size(384, 80)
-        Me.txtACCComments.TabIndex = 132
+        Me.txtACCComments.TabIndex = 12
         '
         'wrnACCPreviousDeviations
         '
         Me.wrnACCPreviousDeviations.AutoSize = True
         Me.wrnACCPreviousDeviations.Font = New System.Drawing.Font("Arial", 7.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.wrnACCPreviousDeviations.ForeColor = System.Drawing.Color.Tomato
-        Me.wrnACCPreviousDeviations.Location = New System.Drawing.Point(329, 212)
+        Me.wrnACCPreviousDeviations.Location = New System.Drawing.Point(329, 188)
         Me.wrnACCPreviousDeviations.Name = "wrnACCPreviousDeviations"
         Me.wrnACCPreviousDeviations.Size = New System.Drawing.Size(135, 13)
         Me.wrnACCPreviousDeviations.TabIndex = 131
@@ -2621,17 +2621,17 @@ Public Class SSCPEvents
         '
         Me.Panel15.Controls.Add(Me.rdbACCPreviousDeviationsYes)
         Me.Panel15.Controls.Add(Me.rdbACCPreviousDeviationsNo)
-        Me.Panel15.Location = New System.Drawing.Point(236, 208)
+        Me.Panel15.Location = New System.Drawing.Point(236, 184)
         Me.Panel15.Name = "Panel15"
         Me.Panel15.Size = New System.Drawing.Size(96, 16)
-        Me.Panel15.TabIndex = 130
+        Me.Panel15.TabIndex = 8
         '
         'rdbACCPreviousDeviationsYes
         '
         Me.rdbACCPreviousDeviationsYes.Location = New System.Drawing.Point(0, 0)
         Me.rdbACCPreviousDeviationsYes.Name = "rdbACCPreviousDeviationsYes"
         Me.rdbACCPreviousDeviationsYes.Size = New System.Drawing.Size(48, 16)
-        Me.rdbACCPreviousDeviationsYes.TabIndex = 19
+        Me.rdbACCPreviousDeviationsYes.TabIndex = 0
         Me.rdbACCPreviousDeviationsYes.Text = "Yes"
         '
         'rdbACCPreviousDeviationsNo
@@ -2645,7 +2645,7 @@ Public Class SSCPEvents
         'Label69
         '
         Me.Label69.AutoSize = True
-        Me.Label69.Location = New System.Drawing.Point(15, 210)
+        Me.Label69.Location = New System.Drawing.Point(15, 186)
         Me.Label69.Name = "Label69"
         Me.Label69.Size = New System.Drawing.Size(215, 13)
         Me.Label69.TabIndex = 129
@@ -2656,7 +2656,7 @@ Public Class SSCPEvents
         Me.wrnACCDeviationsReported.AutoSize = True
         Me.wrnACCDeviationsReported.Font = New System.Drawing.Font("Arial", 7.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.wrnACCDeviationsReported.ForeColor = System.Drawing.Color.Tomato
-        Me.wrnACCDeviationsReported.Location = New System.Drawing.Point(329, 188)
+        Me.wrnACCDeviationsReported.Location = New System.Drawing.Point(329, 164)
         Me.wrnACCDeviationsReported.Name = "wrnACCDeviationsReported"
         Me.wrnACCDeviationsReported.Size = New System.Drawing.Size(135, 13)
         Me.wrnACCDeviationsReported.TabIndex = 127
@@ -2667,17 +2667,17 @@ Public Class SSCPEvents
         '
         Me.Panel14.Controls.Add(Me.rdbACCDeviationsReportedYes)
         Me.Panel14.Controls.Add(Me.rdbACCDeviationsReportedNo)
-        Me.Panel14.Location = New System.Drawing.Point(236, 184)
+        Me.Panel14.Location = New System.Drawing.Point(236, 160)
         Me.Panel14.Name = "Panel14"
         Me.Panel14.Size = New System.Drawing.Size(96, 16)
-        Me.Panel14.TabIndex = 126
+        Me.Panel14.TabIndex = 7
         '
         'rdbACCDeviationsReportedYes
         '
         Me.rdbACCDeviationsReportedYes.Location = New System.Drawing.Point(0, 0)
         Me.rdbACCDeviationsReportedYes.Name = "rdbACCDeviationsReportedYes"
         Me.rdbACCDeviationsReportedYes.Size = New System.Drawing.Size(48, 16)
-        Me.rdbACCDeviationsReportedYes.TabIndex = 19
+        Me.rdbACCDeviationsReportedYes.TabIndex = 0
         Me.rdbACCDeviationsReportedYes.Text = "Yes"
         '
         'rdbACCDeviationsReportedNo
@@ -2691,7 +2691,7 @@ Public Class SSCPEvents
         'Label56
         '
         Me.Label56.AutoSize = True
-        Me.Label56.Location = New System.Drawing.Point(125, 186)
+        Me.Label56.Location = New System.Drawing.Point(125, 162)
         Me.Label56.Name = "Label56"
         Me.Label56.Size = New System.Drawing.Size(105, 13)
         Me.Label56.TabIndex = 125
@@ -2730,14 +2730,14 @@ Public Class SSCPEvents
         Me.pnlACCResubmittalRequested.Location = New System.Drawing.Point(236, 232)
         Me.pnlACCResubmittalRequested.Name = "pnlACCResubmittalRequested"
         Me.pnlACCResubmittalRequested.Size = New System.Drawing.Size(164, 20)
-        Me.pnlACCResubmittalRequested.TabIndex = 110
+        Me.pnlACCResubmittalRequested.TabIndex = 10
         '
         'rdbACCResubmittalRequestedYes
         '
         Me.rdbACCResubmittalRequestedYes.Location = New System.Drawing.Point(0, 0)
         Me.rdbACCResubmittalRequestedYes.Name = "rdbACCResubmittalRequestedYes"
         Me.rdbACCResubmittalRequestedYes.Size = New System.Drawing.Size(48, 16)
-        Me.rdbACCResubmittalRequestedYes.TabIndex = 19
+        Me.rdbACCResubmittalRequestedYes.TabIndex = 0
         Me.rdbACCResubmittalRequestedYes.Text = "Yes"
         '
         'rdbACCResubmittalRequestedUnknown
@@ -2746,7 +2746,7 @@ Public Class SSCPEvents
         Me.rdbACCResubmittalRequestedUnknown.Location = New System.Drawing.Point(90, 0)
         Me.rdbACCResubmittalRequestedUnknown.Name = "rdbACCResubmittalRequestedUnknown"
         Me.rdbACCResubmittalRequestedUnknown.Size = New System.Drawing.Size(71, 17)
-        Me.rdbACCResubmittalRequestedUnknown.TabIndex = 20
+        Me.rdbACCResubmittalRequestedUnknown.TabIndex = 30
         Me.rdbACCResubmittalRequestedUnknown.Text = "Unknown"
         Me.rdbACCResubmittalRequestedUnknown.Visible = False
         '
@@ -2765,14 +2765,14 @@ Public Class SSCPEvents
         Me.Panel12.Location = New System.Drawing.Point(236, 256)
         Me.Panel12.Name = "Panel12"
         Me.Panel12.Size = New System.Drawing.Size(96, 16)
-        Me.Panel12.TabIndex = 110
+        Me.Panel12.TabIndex = 11
         '
         'rdbACCEnforcementNeededYes
         '
         Me.rdbACCEnforcementNeededYes.Location = New System.Drawing.Point(0, 0)
         Me.rdbACCEnforcementNeededYes.Name = "rdbACCEnforcementNeededYes"
         Me.rdbACCEnforcementNeededYes.Size = New System.Drawing.Size(48, 16)
-        Me.rdbACCEnforcementNeededYes.TabIndex = 19
+        Me.rdbACCEnforcementNeededYes.TabIndex = 0
         Me.rdbACCEnforcementNeededYes.Text = "Yes"
         '
         'rdbACCEnforcementNeededNo
@@ -2806,7 +2806,7 @@ Public Class SSCPEvents
         Me.wrnACCAllDeviationsReported.AutoSize = True
         Me.wrnACCAllDeviationsReported.Font = New System.Drawing.Font("Arial", 7.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.wrnACCAllDeviationsReported.ForeColor = System.Drawing.Color.Tomato
-        Me.wrnACCAllDeviationsReported.Location = New System.Drawing.Point(406, 166)
+        Me.wrnACCAllDeviationsReported.Location = New System.Drawing.Point(406, 211)
         Me.wrnACCAllDeviationsReported.Name = "wrnACCAllDeviationsReported"
         Me.wrnACCAllDeviationsReported.Size = New System.Drawing.Size(135, 13)
         Me.wrnACCAllDeviationsReported.TabIndex = 101
@@ -2831,17 +2831,17 @@ Public Class SSCPEvents
         Me.pnlACCAllDeviationsReported.Controls.Add(Me.rdbACCAllDeviationsReportedYes)
         Me.pnlACCAllDeviationsReported.Controls.Add(Me.rdbACCAllDeviationsReportedUnknown)
         Me.pnlACCAllDeviationsReported.Controls.Add(Me.rdbACCAllDeviationsReportedNo)
-        Me.pnlACCAllDeviationsReported.Location = New System.Drawing.Point(236, 162)
+        Me.pnlACCAllDeviationsReported.Location = New System.Drawing.Point(236, 207)
         Me.pnlACCAllDeviationsReported.Name = "pnlACCAllDeviationsReported"
         Me.pnlACCAllDeviationsReported.Size = New System.Drawing.Size(161, 24)
-        Me.pnlACCAllDeviationsReported.TabIndex = 100
+        Me.pnlACCAllDeviationsReported.TabIndex = 9
         '
         'rdbACCAllDeviationsReportedYes
         '
         Me.rdbACCAllDeviationsReportedYes.Location = New System.Drawing.Point(0, 0)
         Me.rdbACCAllDeviationsReportedYes.Name = "rdbACCAllDeviationsReportedYes"
         Me.rdbACCAllDeviationsReportedYes.Size = New System.Drawing.Size(48, 16)
-        Me.rdbACCAllDeviationsReportedYes.TabIndex = 19
+        Me.rdbACCAllDeviationsReportedYes.TabIndex = 0
         Me.rdbACCAllDeviationsReportedYes.Text = "Yes"
         '
         'rdbACCAllDeviationsReportedUnknown
@@ -2850,7 +2850,7 @@ Public Class SSCPEvents
         Me.rdbACCAllDeviationsReportedUnknown.Location = New System.Drawing.Point(87, 0)
         Me.rdbACCAllDeviationsReportedUnknown.Name = "rdbACCAllDeviationsReportedUnknown"
         Me.rdbACCAllDeviationsReportedUnknown.Size = New System.Drawing.Size(71, 17)
-        Me.rdbACCAllDeviationsReportedUnknown.TabIndex = 20
+        Me.rdbACCAllDeviationsReportedUnknown.TabIndex = 30
         Me.rdbACCAllDeviationsReportedUnknown.Text = "Unknown"
         Me.rdbACCAllDeviationsReportedUnknown.Visible = False
         '
@@ -2870,14 +2870,14 @@ Public Class SSCPEvents
         Me.Panel10.Location = New System.Drawing.Point(236, 137)
         Me.Panel10.Name = "Panel10"
         Me.Panel10.Size = New System.Drawing.Size(96, 16)
-        Me.Panel10.TabIndex = 100
+        Me.Panel10.TabIndex = 6
         '
         'rdbACCCorrectYes
         '
         Me.rdbACCCorrectYes.Location = New System.Drawing.Point(0, 0)
         Me.rdbACCCorrectYes.Name = "rdbACCCorrectYes"
         Me.rdbACCCorrectYes.Size = New System.Drawing.Size(48, 16)
-        Me.rdbACCCorrectYes.TabIndex = 19
+        Me.rdbACCCorrectYes.TabIndex = 0
         Me.rdbACCCorrectYes.Text = "Yes"
         '
         'rdbACCCorrectNo
@@ -2891,7 +2891,7 @@ Public Class SSCPEvents
         'lblACCAllDeviationsReported
         '
         Me.lblACCAllDeviationsReported.AutoSize = True
-        Me.lblACCAllDeviationsReported.Location = New System.Drawing.Point(81, 164)
+        Me.lblACCAllDeviationsReported.Location = New System.Drawing.Point(81, 209)
         Me.lblACCAllDeviationsReported.Name = "lblACCAllDeviationsReported"
         Me.lblACCAllDeviationsReported.Size = New System.Drawing.Size(149, 13)
         Me.lblACCAllDeviationsReported.TabIndex = 99
@@ -2925,14 +2925,14 @@ Public Class SSCPEvents
         Me.Panel9.Location = New System.Drawing.Point(236, 113)
         Me.Panel9.Name = "Panel9"
         Me.Panel9.Size = New System.Drawing.Size(96, 16)
-        Me.Panel9.TabIndex = 96
+        Me.Panel9.TabIndex = 5
         '
         'rdbACCConditionsYes
         '
         Me.rdbACCConditionsYes.Location = New System.Drawing.Point(0, 0)
         Me.rdbACCConditionsYes.Name = "rdbACCConditionsYes"
         Me.rdbACCConditionsYes.Size = New System.Drawing.Size(48, 16)
-        Me.rdbACCConditionsYes.TabIndex = 19
+        Me.rdbACCConditionsYes.TabIndex = 0
         Me.rdbACCConditionsYes.Text = "Yes"
         '
         'rdbACCConditionsNo
@@ -2972,7 +2972,8 @@ Public Class SSCPEvents
         Me.DGRACCResubmittal.ReadOnly = True
         Me.DGRACCResubmittal.RowHeadersVisible = False
         Me.DGRACCResubmittal.Size = New System.Drawing.Size(10, 367)
-        Me.DGRACCResubmittal.TabIndex = 20
+        Me.DGRACCResubmittal.TabIndex = 18
+        Me.DGRACCResubmittal.TabStop = False
         '
         'txtOrigin
         '
@@ -7005,6 +7006,11 @@ Public Class SSCPEvents
                 wrnACCAllDeviationsReported.Visible = False
             Else
                 wrnACCAllDeviationsReported.Visible = True
+                If rdbACCAllDeviationsReportedUnknown.Visible Then
+                    wrnACCAllDeviationsReported.Location = New Point(406, wrnACCAllDeviationsReported.Location.Y)
+                Else
+                    wrnACCAllDeviationsReported.Location = New Point(329, wrnACCAllDeviationsReported.Location.Y)
+                End If
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -7016,6 +7022,11 @@ Public Class SSCPEvents
                 wrnACCResubmittalRequested.Visible = False
             Else
                 wrnACCResubmittalRequested.Visible = True
+                If rdbACCResubmittalRequestedUnknown.Visible Then
+                    wrnACCResubmittalRequested.Location = New Point(406, wrnACCResubmittalRequested.Location.Y)
+                Else
+                    wrnACCResubmittalRequested.Location = New Point(329, wrnACCResubmittalRequested.Location.Y)
+                End If
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
