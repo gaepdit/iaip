@@ -576,7 +576,7 @@
       <DependentUpon>crESDataViewer.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Reports\Letterhead.vb">
+    <Compile Include="Crystal Reports\Letterhead.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Letterhead.rpt</DependentUpon>
@@ -1314,9 +1314,10 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>crESDataViewer.vb</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Reports\Letterhead.rpt">
+    <EmbeddedResource Include="Crystal Reports\Letterhead.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>Letterhead.vb</LastGenOutput>
+      <CustomToolNamespace>CR.Reports</CustomToolNamespace>
     </EmbeddedResource>
     <EmbeddedResource Include="DMU\DMUDeveloperTools.resx">
       <DependentUpon>DMUDeveloperTools.vb</DependentUpon>
