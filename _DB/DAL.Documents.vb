@@ -125,25 +125,24 @@ Namespace DAL
         End Function
 
         Public Function GetEnforcementDocumentsAsTable(ByVal enfNum As String) As DataTable
-            Dim query As String = <s><![CDATA[
-                SELECT 
-                  IAIP_LK_SSCPDOCUMENTTYPE.STRDOCUMENTTYPE,
-                  IAIP_BINARYFILES.STRFILENAME,
-                  IAIP_SSCP_ENFORCEMENTDOCS.CREATEDATE,
-                  IAIP_SSCP_ENFORCEMENTDOCS.STRCOMMENT,
-                  IAIP_BINARYFILES.NUMFILESIZE,
-                  IAIP_BINARYFILES.BINARYFILEID,
-                  IAIP_BINARYFILES.STRFILEEXTENSION,
-                  IAIP_SSCP_ENFORCEMENTDOCS.ENFORCEMENTDOCSID,
-                  IAIP_SSCP_ENFORCEMENTDOCS.STRENFORCEMENTNUMBER,
-                  IAIP_SSCP_ENFORCEMENTDOCS.NUMDOCUMENTTYPE
-                FROM AIRBRANCH.IAIP_BINARYFILES
-                INNER JOIN AIRBRANCH.IAIP_SSCP_ENFORCEMENTDOCS
-                ON IAIP_BINARYFILES.BINARYFILEID = IAIP_SSCP_ENFORCEMENTDOCS.NUMBINARYFILE
-                INNER JOIN AIRBRANCH.IAIP_LK_SSCPDOCUMENTTYPE
-                ON IAIP_SSCP_ENFORCEMENTDOCS.NUMDOCUMENTTYPE = IAIP_LK_SSCPDOCUMENTTYPE.DOCUMENTTYPEID
-                WHERE IAIP_SSCP_ENFORCEMENTDOCS.STRENFORCEMENTNUMBER = :pId
-            ]]></s>.Value
+            Dim query As String = _
+                " SELECT " & _
+                "   IAIP_LK_SSCPDOCUMENTTYPE.STRDOCUMENTTYPE, " & _
+                "   IAIP_BINARYFILES.STRFILENAME, " & _
+                "   IAIP_SSCP_ENFORCEMENTDOCS.CREATEDATE, " & _
+                "   IAIP_SSCP_ENFORCEMENTDOCS.STRCOMMENT, " & _
+                "   IAIP_BINARYFILES.NUMFILESIZE, " & _
+                "   IAIP_BINARYFILES.BINARYFILEID, " & _
+                "   IAIP_BINARYFILES.STRFILEEXTENSION, " & _
+                "   IAIP_SSCP_ENFORCEMENTDOCS.ENFORCEMENTDOCSID, " & _
+                "   IAIP_SSCP_ENFORCEMENTDOCS.STRENFORCEMENTNUMBER, " & _
+                "   IAIP_SSCP_ENFORCEMENTDOCS.NUMDOCUMENTTYPE " & _
+                " FROM " & DBNameSpace & ".IAIP_BINARYFILES " & _
+                " INNER JOIN " & DBNameSpace & ".IAIP_SSCP_ENFORCEMENTDOCS " & _
+                " ON IAIP_BINARYFILES.BINARYFILEID = IAIP_SSCP_ENFORCEMENTDOCS.NUMBINARYFILE " & _
+                " INNER JOIN " & DBNameSpace & ".IAIP_LK_SSCPDOCUMENTTYPE " & _
+                " ON IAIP_SSCP_ENFORCEMENTDOCS.NUMDOCUMENTTYPE = IAIP_LK_SSCPDOCUMENTTYPE.DOCUMENTTYPEID " & _
+                " WHERE IAIP_SSCP_ENFORCEMENTDOCS.STRENFORCEMENTNUMBER = :pId "
             Dim parameter As New OracleParameter("pId", enfNum)
             Return DB.GetDataTable(query, parameter)
         End Function

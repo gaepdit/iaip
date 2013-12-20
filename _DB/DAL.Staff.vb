@@ -4,8 +4,8 @@ Namespace DAL
     Module StaffInfo
 
         Public Function GetStaffInfoById(ByVal id As String) As Staff
-            Dim query As String = "SELECT STRLASTNAME, STRFIRSTNAME, STREMAILADDRESS, STRPHONE, NUMEMPLOYEESTATUS " & _
-                " FROM AIRBRANCH.EPDUSERPROFILES WHERE NUMUSERID = :pId "
+            Dim query As String = "SELECT NUMUSERID, STRLASTNAME, STRFIRSTNAME, STREMAILADDRESS, STRPHONE, NUMEMPLOYEESTATUS " & _
+                " FROM " & DBNameSpace & ".EPDUSERPROFILES WHERE NUMUSERID = :pId "
 
             Dim parameter As New OracleParameter("pId", id)
 
@@ -32,14 +32,13 @@ Namespace DAL
 
         Public Function GetAllActiveStaffAsDataTable(Optional ByVal branch As Integer = 1) As DataTable
             ' Default to Air Branch if no branch code is provided
-            Dim query As String = <s><![CDATA[
-                SELECT NUMUSERID, STRLASTNAME, STRFIRSTNAME, STREMAILADDRESS, STRPHONE, NUMEMPLOYEESTATUS,
-                    (STRLASTNAME || ', ' || STRFIRSTNAME) AS AlphaName
-                FROM AIRBRANCH.EPDUSERPROFILES
-                WHERE NUMEMPLOYEESTATUS = 1
-                AND NUMBRANCH           = :pBranch
-                ORDER BY STRLASTNAME, STRFIRSTNAME
-                ]]></s>.Value
+            Dim query As String = _
+                " SELECT NUMUSERID, STRLASTNAME, STRFIRSTNAME, STREMAILADDRESS, STRPHONE, NUMEMPLOYEESTATUS, " & _
+                "     (STRLASTNAME || ', ' || STRFIRSTNAME) AS AlphaName " & _
+                " FROM " & DBNameSpace & ".EPDUSERPROFILES " & _
+                " WHERE NUMEMPLOYEESTATUS = 1 " & _
+                " AND NUMBRANCH           = :pBranch " & _
+                " ORDER BY STRLASTNAME, STRFIRSTNAME "
             Dim parameter As New OracleParameter("pBranch", branch)
 
             Return DB.GetDataTable(query, parameter)
