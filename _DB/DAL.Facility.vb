@@ -4,7 +4,7 @@ Imports JohnGaltProject.Apb
 Namespace DAL
     Module FacilityInfo
 
-        Public Function GetFacilityInfoByAirs(ByVal id As String) As Facility
+        Public Function GetFacilityInfoByAirsAsDataRow(ByVal id As String) As DataRow
             If Not NormalizeAirsNumber(id, True) Then Return Nothing
 
             Dim query As String = "SELECT APBFACILITYINFORMATION.STRAIRSNUMBER, " & _
@@ -35,12 +35,17 @@ Namespace DAL
             Dim dataTable As DataTable = DB.GetDataTable(query, parameter)
             If dataTable Is Nothing Then Return Nothing
 
-            Dim dataRow As DataRow = dataTable.Rows(0)
-            Dim facility As New Facility
-            FillFacilityInfoFromDataRow(dataRow, facility)
+            Return dataTable.Rows(0)
+        End Function
 
+        Public Function GetFacilityInfoByAirs(ByVal id As String) As Facility
+            Dim dataRow As DataRow = GetFacilityInfoByAirsAsDataRow(id)
+            Dim facility As New Facility
+
+            FillFacilityInfoFromDataRow(dataRow, facility)
             Return facility
         End Function
+
 
         Private Sub FillFacilityInfoFromDataRow(ByVal row As DataRow, ByRef facility As Facility)
             Dim address As New Address
