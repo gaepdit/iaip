@@ -128,6 +128,26 @@ Namespace Apb.SSCP
         End Property
         Private _enforcementNeeded As Boolean
 
+        Public Property AllDeviationsReported() As Boolean
+            Get
+                Return _allDeviationsReported
+            End Get
+            Set(ByVal value As Boolean)
+                _allDeviationsReported = value
+            End Set
+        End Property
+        Private _allDeviationsReported As Boolean
+
+        Public Property ResubmittalRequested() As Boolean
+            Get
+                Return _resubmittalRequested
+            End Get
+            Set(ByVal value As Boolean)
+                _resubmittalRequested = value
+            End Set
+        End Property
+        Private _resubmittalRequested As Boolean
+
     End Class
 
 End Namespace

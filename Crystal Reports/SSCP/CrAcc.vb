@@ -5,6 +5,7 @@
 
         Public Sub New(ByVal acc As Apb.SSCP.Acc)
             Me.AccReportingYear = acc.AccReportingYear
+            Me.AllDeviationsReported = acc.AllDeviationsReported
             Me.AllTitleVConditionsListed = acc.AllTitleVConditionsListed
             Me.Comments = acc.Comments
             Me.CorrectFormsUsed = acc.CorrectFormsUsed
@@ -17,6 +18,7 @@
             Me.DeviationsReported = acc.DeviationsReported
             Me.EnforcementNeeded = acc.EnforcementNeeded
             Me.Facility = acc.Facility
+            Me.ResubmittalRequested = acc.ResubmittalRequested
             Me.SignedByResponsibleOfficial = acc.SignedByResponsibleOfficial
             Me.StaffResponsible = acc.StaffResponsible
             Me.SubmittalNumber = acc.SubmittalNumber
