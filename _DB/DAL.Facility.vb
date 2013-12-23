@@ -5,7 +5,7 @@ Namespace DAL
     Module FacilityInfo
 
         Public Function GetFacilityInfoByAirsAsDataRow(ByVal id As String) As DataRow
-            If Not NormalizeAirsNumber(id, True) Then Return Nothing
+            If Not Apb.Facility.NormalizeAirsNumber(id, True) Then Return Nothing
 
             Dim query As String = "SELECT APBFACILITYINFORMATION.STRAIRSNUMBER, " & _
                 "   APBFACILITYINFORMATION.STRFACILITYNAME, " & _
