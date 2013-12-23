@@ -1,5 +1,7 @@
 ﻿Namespace CR.Data
 
+    ' This class flattens the Apb.SSCP.Acc class so Crystal Reports (VS 2008) can see all the properties
+    ' Newer versions of Crystal Reports reportedly can view multi-level classes
     Public Class CrAcc
         Inherits Apb.SSCP.Acc
 
@@ -35,7 +37,7 @@
 
         Public ReadOnly Property FacilityAirsNumber() As String
             Get
-                Return Me.Facility.AirsNumber
+                Return Me.Facility.AirsNumberFormatted
             End Get
         End Property
 
