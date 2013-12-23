@@ -168,7 +168,7 @@ Module subMain
     Public SSCPFCE As SSCPFCEWork
     Public SSCPFacAssign As SSCPFacAssignment
     Public SSCPEngWork As SSCPWorkEnTry
-    Public SSCPTemplates As SSCPLetterTemplates
+    'Public SSCPTemplates As SSCPLetterTemplates
     Public SSCPRequest As SSCPInformationRequest
     Public SSCPFCESelector As SSCPFCESelectorTool
     Public SSCPSelectEnforcement As SSCPEnforcementSelector

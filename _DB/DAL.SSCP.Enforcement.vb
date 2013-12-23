@@ -10,7 +10,7 @@ Namespace DAL
                 If id = "" OrElse Not Integer.TryParse(id, Nothing) Then Return False
 
                 Dim query As String = "SELECT '" & Boolean.TrueString & "' " & _
-                    " FROM AIRBRANCH.SSCP_AUDITEDENFORCEMENT " & _
+                    " FROM " & DBNameSpace & ".SSCP_AUDITEDENFORCEMENT " & _
                     " WHERE RowNum = 1 " & _
                     " AND SSCP_AUDITEDENFORCEMENT.STRENFORCEMENTNUMBER = :pId "
                 Dim parameter As New OracleParameter("pId", id)
@@ -56,25 +56,24 @@ Namespace DAL
             End Sub
 
             Public Function GetEnforcementInfo(ByVal id As String) As EnforcementInfo
-                Dim query As String = <s><![CDATA[
-                    SELECT SSCP_AUDITEDENFORCEMENT.STRENFORCEMENTNUMBER,
-                      SSCP_AUDITEDENFORCEMENT.STRAIRSNUMBER,
-                      APBFACILITYINFORMATION.STRFACILITYNAME,
-                      APBFACILITYINFORMATION.STRFACILITYCITY,
-                      APBFACILITYINFORMATION.STRFACILITYSTATE,
-                      EPDUSERPROFILES.STRFIRSTNAME,
-                      EPDUSERPROFILES.STRLASTNAME,
-                      SSCP_AUDITEDENFORCEMENT.DATDISCOVERYDATE,
-                      SSCP_AUDITEDENFORCEMENT.STRENFORCEMENTFINALIZED,
-                      SSCP_AUDITEDENFORCEMENT.DATENFORCEMENTFINALIZED,
-                      SSCP_AUDITEDENFORCEMENT.STRACTIONTYPE
-                    FROM AIRBRANCH.SSCP_AUDITEDENFORCEMENT
-                    LEFT JOIN AIRBRANCH.APBFACILITYINFORMATION
-                    ON APBFACILITYINFORMATION.STRAIRSNUMBER = SSCP_AUDITEDENFORCEMENT.STRAIRSNUMBER
-                    LEFT JOIN AIRBRANCH.EPDUSERPROFILES
-                    ON EPDUSERPROFILES.NUMUSERID = SSCP_AUDITEDENFORCEMENT.NUMSTAFFRESPONSIBLE
-                    WHERE SSCP_AUDITEDENFORCEMENT.STRENFORCEMENTNUMBER = :pId
-                ]]></s>.Value
+                Dim query As String = _
+                    " SELECT SSCP_AUDITEDENFORCEMENT.STRENFORCEMENTNUMBER, " & _
+                    "   SSCP_AUDITEDENFORCEMENT.STRAIRSNUMBER, " & _
+                    "   APBFACILITYINFORMATION.STRFACILITYNAME, " & _
+                    "   APBFACILITYINFORMATION.STRFACILITYCITY, " & _
+                    "   APBFACILITYINFORMATION.STRFACILITYSTATE, " & _
+                    "   EPDUSERPROFILES.STRFIRSTNAME, " & _
+                    "   EPDUSERPROFILES.STRLASTNAME, " & _
+                    "   SSCP_AUDITEDENFORCEMENT.DATDISCOVERYDATE, " & _
+                    "   SSCP_AUDITEDENFORCEMENT.STRENFORCEMENTFINALIZED, " & _
+                    "   SSCP_AUDITEDENFORCEMENT.DATENFORCEMENTFINALIZED, " & _
+                    "   SSCP_AUDITEDENFORCEMENT.STRACTIONTYPE " & _
+                    " FROM " & DBNameSpace & ".SSCP_AUDITEDENFORCEMENT " & _
+                    " LEFT JOIN " & DBNameSpace & ".APBFACILITYINFORMATION " & _
+                    " ON APBFACILITYINFORMATION.STRAIRSNUMBER = SSCP_AUDITEDENFORCEMENT.STRAIRSNUMBER " & _
+                    " LEFT JOIN " & DBNameSpace & ".EPDUSERPROFILES " & _
+                    " ON EPDUSERPROFILES.NUMUSERID = SSCP_AUDITEDENFORCEMENT.NUMSTAFFRESPONSIBLE " & _
+                    " WHERE SSCP_AUDITEDENFORCEMENT.STRENFORCEMENTNUMBER = :pId "
                 Dim parameter As New OracleParameter("pId", id)
                 Dim dataTable As DataTable = DB.GetDataTable(query, parameter)
                 If dataTable Is Nothing Then Return Nothing

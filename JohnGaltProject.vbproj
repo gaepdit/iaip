@@ -576,7 +576,7 @@
       <DependentUpon>crESDataViewer.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Reports\Letterhead.vb">
+    <Compile Include="Crystal Reports\Letterhead.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Letterhead.rpt</DependentUpon>
@@ -971,9 +971,6 @@
     <Compile Include="SSCP\SubPages\SSCPInspectionScheduleLink.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SSCP\SubPages\SSCPLetterTemplates.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="SSCP\SubPages\SSCPWorkEntry.vb">
       <SubType>Form</SubType>
     </Compile>
@@ -1118,6 +1115,14 @@
     <Compile Include="Universal Forms\Sub Forms\IAIPProfileUpdate.vb">
       <SubType>Form</SubType>
     </Compile>
+    <EmbeddedResource Include="Crystal Reports\CRViewerForm.resx">
+      <DependentUpon>CRViewerForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Crystal Reports\SSCP\AccMemo.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>AccMemo.vb</LastGenOutput>
+      <CustomToolNamespace>CR.Reports</CustomToolNamespace>
+    </EmbeddedResource>
     <EmbeddedResource Include="DevelopmentForms\AFSValidator.resx">
       <DependentUpon>AFSValidator.vb</DependentUpon>
       <SubType>Designer</SubType>
@@ -1314,9 +1319,10 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>crESDataViewer.vb</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Reports\Letterhead.rpt">
+    <EmbeddedResource Include="Crystal Reports\Letterhead.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>Letterhead.vb</LastGenOutput>
+      <CustomToolNamespace>CR.Reports</CustomToolNamespace>
     </EmbeddedResource>
     <EmbeddedResource Include="DMU\DMUDeveloperTools.resx">
       <DependentUpon>DMUDeveloperTools.vb</DependentUpon>
@@ -1594,10 +1600,6 @@
       <DependentUpon>SSCPInspectionScheduleLink.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="SSCP\SubPages\SSCPLetterTemplates.resx">
-      <DependentUpon>SSCPLetterTemplates.vb</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="SSCP\SubPages\SSCPWorkEntry.resx">
       <DependentUpon>SSCPWorkEntry.vb</DependentUpon>
       <SubType>Designer</SubType>
@@ -1759,10 +1761,27 @@
     <None Include="gaSeal.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <Compile Include="Crystal Reports\CRViewerForm.Designer.vb">
+      <DependentUpon>CRViewerForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Crystal Reports\CRViewerForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Crystal Reports\SSCP\CrAcc.vb" />
+    <Compile Include="Crystal Reports\SSCP\AccMemo.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AccMemo.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="_Classes\CollectionHelper.vb" />
+    <Compile Include="_Data Classes\WorkItem.vb" />
     <Compile Include="_Data Classes\Person.vb" />
     <Compile Include="_Data Classes\Res.ResEvent.vb">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="_Data Classes\SSCP.Acc.vb" />
+    <Compile Include="_DB\DAL.Facility.vb" />
     <Compile Include="_DB\DAL.Staff.vb" />
     <Compile Include="SSCP\SscpDocuments.Designer.vb">
       <DependentUpon>SscpDocuments.vb</DependentUpon>
@@ -1887,7 +1906,6 @@
     <Folder Include="Crystal Reports\Oracle 10.1\ISMP\" />
     <Folder Include="Crystal Reports\Oracle 9.2\PASP\" />
     <Folder Include="Crystal Reports\Oracle 9.2\SSCP\" />
-    <Folder Include="Obsolete\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
   <PropertyGroup>

@@ -2,7 +2,7 @@
 
     Module FacilityUtility
 
-        Public Function ValidAirsNumber(ByVal airsNumber As String) As Boolean
+        Public Function IsAirsNumberValid(ByVal airsNumber As String) As Boolean
             ' Valid AIRS numbers are in the form 000-00000 or 04-13-000-0000
             ' (with or without the dashes)
 
@@ -32,25 +32,36 @@
             ' Return value indicates whether the conversion succeeded.
 
             ' First, validate the raw AIRS number
-            If Not ValidAirsNumber(airsNumber) Then Return False
+            If Not IsAirsNumberValid(airsNumber) Then Return False
 
             ' If okay, then remove spaces and dashes
-            Dim a As String = airsNumber.Replace("-", "").Replace(" ", "")
+            airsNumber = airsNumber.Replace("-", "").Replace(" ", "")
 
             If expand Then
                 ' Expand the short form to the long form
-                a = If(a.Length = 8, "0413", "") & a
+                If airsNumber.Length = 8 Then airsNumber = "0413" & airsNumber
             Else
                 ' Contract the long form to the short form
-                If a.Length = 12 Then a = a.Remove(0, 4)
+                If airsNumber.Length = 12 Then airsNumber = airsNumber.Remove(0, 4)
             End If
 
-            ' Revalidate just in case (shouldn't ever fail?)
-            If Not ValidAirsNumber(a) Then Return False
-
-            ' Replace referenced variable with converted result and return
-            airsNumber = a
             Return True
+        End Function
+
+        Public Function FormatAirsNumber(ByVal airsNumber As String, Optional ByVal expand As Boolean = False) As String
+            ' Converts a string representation of an AIRS number to the "000-00000" form 
+            ' (eight numerals, one dash).
+            '
+            ' If 'expand' is True, then the AIRS number is expanded to the "04-13-000-00000"
+            ' form (12 numerals, dashes added, beginning with "04-13").
+
+            If Not NormalizeAirsNumber(airsNumber, expand) Then Return Nothing
+            If expand Then
+                Return Mid(airsNumber, 1, 2) & "-" & Mid(airsNumber, 3, 2) & "-" & _
+                    Mid(airsNumber, 5, 3) & "-" & Mid(airsNumber, 8, 5)
+            Else
+                Return Mid(airsNumber, 1, 3) & "-" & Mid(airsNumber, 4, 5)
+            End If
         End Function
 
         Public Function NormalizeDate(ByVal d As Date?) As Date?
