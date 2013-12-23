@@ -318,12 +318,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>dsIAIP2.xsd</DependentUpon>
     </Compile>
-    <Compile Include="Reports\FacilityBasicPrint.vb">
-      <SubType>Component</SubType>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>FacilityBasicPrint.rpt</DependentUpon>
-    </Compile>
     <Compile Include="Crystal Reports\Oracle 10.1\crFS_Invoice.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1147,10 +1141,6 @@
       <DependentUpon>SSCPEnforcement.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FCE_ACC.rdlc" />
-    <EmbeddedResource Include="Reports\FacilityBasicPrint.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>FacilityBasicPrint.vb</LastGenOutput>
-    </EmbeddedResource>
     <EmbeddedResource Include="Crystal Reports\Oracle 10.1\crFS_Invoice.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>crFS_Invoice.vb</LastGenOutput>
