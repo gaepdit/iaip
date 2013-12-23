@@ -19,6 +19,13 @@
             End Set
         End Property
         Private _airsNumber As String
+
+        Public ReadOnly Property AirsNumberFormatted() As String
+            Get
+                Return FormatAirsNumber(AirsNumber)
+            End Get
+        End Property
+
         Public Property Name() As String
             Get
                 Return _name
@@ -42,6 +49,7 @@
             End Set
         End Property
         Private _facilityLocation As Location
+
         Public Property MailingAddress() As Address
             Get
                 Return _mailingAddress
