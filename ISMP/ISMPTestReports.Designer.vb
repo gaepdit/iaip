@@ -9986,18 +9986,17 @@ Me.txtEnforcementNumber.TabIndex = 412
 'chbEventComplete
 '
 Me.chbEventComplete.AutoSize = true
-Me.chbEventComplete.CheckAlign = System.Drawing.ContentAlignment.MiddleRight
-Me.chbEventComplete.Location = New System.Drawing.Point(8, 9)
+Me.chbEventComplete.Location = New System.Drawing.Point(11, 10)
 Me.chbEventComplete.Name = "chbEventComplete"
-Me.chbEventComplete.Size = New System.Drawing.Size(102, 17)
+Me.chbEventComplete.Size = New System.Drawing.Size(73, 17)
 Me.chbEventComplete.TabIndex = 500
-Me.chbEventComplete.Text = "Date Completed"
+Me.chbEventComplete.Text = "Complete:"
 '
 'DTPEventCompleteDate
 '
 Me.DTPEventCompleteDate.CustomFormat = "dd-MMM-yyyy"
 Me.DTPEventCompleteDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-Me.DTPEventCompleteDate.Location = New System.Drawing.Point(118, 7)
+Me.DTPEventCompleteDate.Location = New System.Drawing.Point(84, 9)
 Me.DTPEventCompleteDate.Name = "DTPEventCompleteDate"
 Me.DTPEventCompleteDate.Size = New System.Drawing.Size(100, 20)
 Me.DTPEventCompleteDate.TabIndex = 501

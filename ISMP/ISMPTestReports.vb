@@ -9662,7 +9662,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
                 chbTestReportChangeDueDate.Checked = False
                 'DTPAcknoledgmentLetterSent.Visible = False
                 'chbAcknoledgmentLetterSent.Checked = False
-                DTPEventCompleteDate.Visible = False
+                DTPEventCompleteDate.Enabled = False
 
                 If AccountArray(69, 4) = "1" Then
                     If chbEventComplete.Checked = False Then
@@ -9734,8 +9734,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
                 chbTestReportChangeDueDate.Enabled = False
                 DTPTestReportDueDate.Enabled = False
                 DTPTestReportNewDueDate.Enabled = False
-                DTPEventCompleteDate.Visible = False
-                DTPEventCompleteDate.Visible = True
+                DTPEventCompleteDate.Enabled = True
             Else
                 cboStaffResponsible.Enabled = True
                 txtTestReportComments.ReadOnly = False
@@ -9746,7 +9745,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
                 chbTestReportChangeDueDate.Enabled = True
                 DTPTestReportDueDate.Enabled = True
                 DTPTestReportNewDueDate.Enabled = True
-                DTPEventCompleteDate.Visible = False
+                DTPEventCompleteDate.Enabled = False
             End If
 
         Catch ex As Exception
@@ -17758,10 +17757,10 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
     Private Sub chbEventComplete_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chbEventComplete.CheckedChanged
         Try
             If chbEventComplete.Checked = True Then
-                DTPEventCompleteDate.Visible = True
+                DTPEventCompleteDate.Enabled = True
                 CloseSSCPWork(True)
             Else
-                DTPEventCompleteDate.Visible = False
+                DTPEventCompleteDate.Enabled = False
                 CloseSSCPWork(False)
             End If
 
@@ -23192,4 +23191,7 @@ AND AIRBRANCH.ISMPMaster.STRREFERENCENUMBER            =
     End Sub
 
 
+    Private Sub DTPEventCompleteDate_ValueChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles DTPEventCompleteDate.ValueChanged
+
+    End Sub
 End Class

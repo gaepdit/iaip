@@ -109,7 +109,6 @@ Public Class SSCPEvents
     Friend WithEvents Button1 As System.Windows.Forms.Button
     Friend WithEvents TextBox6 As System.Windows.Forms.TextBox
     Friend WithEvents ListView1 As System.Windows.Forms.ListView
-    Friend WithEvents Label26 As System.Windows.Forms.Label
     Friend WithEvents TPTestReports As System.Windows.Forms.TabPage
     Friend WithEvents TPNotifications As System.Windows.Forms.TabPage
     Friend WithEvents TPACC As System.Windows.Forms.TabPage
@@ -321,7 +320,6 @@ Public Class SSCPEvents
         Me.chbEventComplete = New System.Windows.Forms.CheckBox
         Me.DTPEventCompleteDate = New System.Windows.Forms.DateTimePicker
         Me.txtTrackingNumber = New System.Windows.Forms.TextBox
-        Me.Label26 = New System.Windows.Forms.Label
         Me.Label3 = New System.Windows.Forms.Label
         Me.txtFacilityInformation = New System.Windows.Forms.TextBox
         Me.txtEventInformation = New System.Windows.Forms.TextBox
@@ -757,7 +755,6 @@ Public Class SSCPEvents
         Me.GroupBox1.Controls.Add(Me.chbEventComplete)
         Me.GroupBox1.Controls.Add(Me.DTPEventCompleteDate)
         Me.GroupBox1.Controls.Add(Me.txtTrackingNumber)
-        Me.GroupBox1.Controls.Add(Me.Label26)
         Me.GroupBox1.Controls.Add(Me.Label3)
         Me.GroupBox1.Controls.Add(Me.txtFacilityInformation)
         Me.GroupBox1.Controls.Add(Me.txtEventInformation)
@@ -897,17 +894,17 @@ Public Class SSCPEvents
         'chbEventComplete
         '
         Me.chbEventComplete.AutoSize = True
-        Me.chbEventComplete.Location = New System.Drawing.Point(210, 98)
+        Me.chbEventComplete.Location = New System.Drawing.Point(11, 98)
         Me.chbEventComplete.Name = "chbEventComplete"
-        Me.chbEventComplete.Size = New System.Drawing.Size(70, 17)
+        Me.chbEventComplete.Size = New System.Drawing.Size(73, 17)
         Me.chbEventComplete.TabIndex = 108
-        Me.chbEventComplete.Text = "Complete"
+        Me.chbEventComplete.Text = "Complete:"
         '
         'DTPEventCompleteDate
         '
         Me.DTPEventCompleteDate.CustomFormat = "dd-MMM-yyyy"
         Me.DTPEventCompleteDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DTPEventCompleteDate.Location = New System.Drawing.Point(104, 96)
+        Me.DTPEventCompleteDate.Location = New System.Drawing.Point(84, 96)
         Me.DTPEventCompleteDate.Name = "DTPEventCompleteDate"
         Me.DTPEventCompleteDate.Size = New System.Drawing.Size(100, 20)
         Me.DTPEventCompleteDate.TabIndex = 107
@@ -920,15 +917,6 @@ Public Class SSCPEvents
         Me.txtTrackingNumber.Size = New System.Drawing.Size(12, 20)
         Me.txtTrackingNumber.TabIndex = 105
         Me.txtTrackingNumber.Visible = False
-        '
-        'Label26
-        '
-        Me.Label26.AutoSize = True
-        Me.Label26.Location = New System.Drawing.Point(12, 99)
-        Me.Label26.Name = "Label26"
-        Me.Label26.Size = New System.Drawing.Size(80, 13)
-        Me.Label26.TabIndex = 104
-        Me.Label26.Text = "Complete Date:"
         '
         'Label3
         '
