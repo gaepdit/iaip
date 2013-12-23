@@ -2,13 +2,14 @@
 
 Imports CrystalDecisions.CrystalReports.Engine
 Imports CrystalDecisions.Shared
+Imports CrystalDecisions.Windows.Forms
 
 Public Class CRViewerForm
 
 #Region "Properties"
 
     Private _crReportDocument As ReportDocument
-    Public Property CRDocumentSource() As ReportDocument
+    Public Property CRReportDocument() As ReportDocument
         Get
             Return _crReportDocument
         End Get
@@ -39,41 +40,62 @@ Public Class CRViewerForm
         ' This call is required by the Windows Form Designer.
         InitializeComponent()
         ' Add any initialization after the InitializeComponent() call.
-        Me.CRDocumentSource = reportDocument
-        Me.CRDocumentSource.SetDataSource(dataSource)
+        Me.CRReportDocument = reportDocument
+        Me.CRReportDocument.SetDataSource(dataSource)
     End Sub
 
     Public Sub New(ByVal reportDocument As ReportDocument, ByVal dataSource As DataSet)
         ' This call is required by the Windows Form Designer.
         InitializeComponent()
         ' Add any initialization after the InitializeComponent() call.
-        Me.CRDocumentSource = reportDocument
-        Me.CRDocumentSource.SetDataSource(dataSource)
+        Me.CRReportDocument = reportDocument
+        Me.CRReportDocument.SetDataSource(dataSource)
     End Sub
 
     Public Sub New(ByVal reportDocument As ReportDocument, ByVal dataSource As IDataReader)
         ' This call is required by the Windows Form Designer.
         InitializeComponent()
         ' Add any initialization after the InitializeComponent() call.
-        Me.CRDocumentSource = reportDocument
-        Me.CRDocumentSource.SetDataSource(dataSource)
+        Me.CRReportDocument = reportDocument
+        Me.CRReportDocument.SetDataSource(dataSource)
     End Sub
 
     Private Sub CrystalReportViewerForm_FormClosed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
-        CRDocumentSource.Close()
+        CRReportDocument.Close()
     End Sub
 
     Private Sub CrystalReportViewerForm_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-        SetTitle()
-        ConfigureCrystalReports()
+        SetFormTitle("Report Preview: " & Me.Title)
+        CRSetDocumentSource(CRViewerControl, CRReportDocument)
+        CRViewerTabs(Me.CRViewerControl, False)
     End Sub
 
-    Private Sub SetTitle()
-        If Title IsNot Nothing Then Me.Text = "Report Preview: " & Title
+    Private Sub SetFormTitle(ByVal title As String)
+        If title IsNot Nothing Then Me.Text = title
     End Sub
 
-    Private Sub ConfigureCrystalReports()
-        If CRDocumentSource IsNot Nothing Then CRViewerControl.ReportSource = CRDocumentSource
+    Private Sub CRSetDocumentSource(ByVal viewer As CrystalReportViewer, ByVal document As ReportDocument)
+        If document IsNot Nothing AndAlso viewer IsNot Nothing Then viewer.ReportSource = document
+    End Sub
+
+    Private Sub CRViewerTabs(ByVal viewer As CrystalReportViewer, ByVal visible As Boolean)
+        ' http://bloggingabout.net/blogs/jschreuder/archive/2005/08/03/8760.aspx
+        If viewer IsNot Nothing Then
+            For Each control As Control In viewer.Controls
+                If TypeOf control Is PageView Then
+                    Dim tab As TabControl = DirectCast(DirectCast(control, PageView).Controls(0), TabControl)
+                    If Not visible Then
+                        tab.ItemSize = New Size(0, 1)
+                        tab.SizeMode = TabSizeMode.Fixed
+                        tab.Appearance = TabAppearance.Buttons
+                    Else
+                        tab.ItemSize = New Size(67, 18)
+                        tab.SizeMode = TabSizeMode.Normal
+                        tab.Appearance = TabAppearance.Normal
+                    End If
+                End If
+            Next
+        End If
     End Sub
 
 End Class
