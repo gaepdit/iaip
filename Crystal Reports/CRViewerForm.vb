@@ -8,12 +8,12 @@ Public Class CRViewerForm
 
 #Region "Properties"
 
-    Private _crReportDocument As ReportDocument
-    Public Property CRReportDocument() As ReportDocument
+    Private _crReportDocument As ReportClass
+    Public Property CRReportDocument() As ReportClass
         Get
             Return _crReportDocument
         End Get
-        Set(ByVal value As ReportDocument)
+        Set(ByVal value As ReportClass)
             _crReportDocument = value
         End Set
     End Property
@@ -30,13 +30,15 @@ Public Class CRViewerForm
 
 #End Region
 
+#Region "Constructors"
+
     Public Sub New()
         ' This call is required by the Windows Form Designer.
         InitializeComponent()
         ' Add any initialization after the InitializeComponent() call.
     End Sub
 
-    Public Sub New(ByVal reportDocument As ReportDocument, ByVal dataSource As DataTable)
+    Public Sub New(ByVal reportDocument As ReportClass, ByVal dataSource As DataTable)
         ' This call is required by the Windows Form Designer.
         InitializeComponent()
         ' Add any initialization after the InitializeComponent() call.
@@ -44,7 +46,7 @@ Public Class CRViewerForm
         Me.CRReportDocument.SetDataSource(dataSource)
     End Sub
 
-    Public Sub New(ByVal reportDocument As ReportDocument, ByVal dataSource As DataSet)
+    Public Sub New(ByVal reportDocument As ReportClass, ByVal dataSource As DataSet)
         ' This call is required by the Windows Form Designer.
         InitializeComponent()
         ' Add any initialization after the InitializeComponent() call.
@@ -52,13 +54,17 @@ Public Class CRViewerForm
         Me.CRReportDocument.SetDataSource(dataSource)
     End Sub
 
-    Public Sub New(ByVal reportDocument As ReportDocument, ByVal dataSource As IDataReader)
+    Public Sub New(ByVal reportDocument As ReportClass, ByVal dataSource As IDataReader)
         ' This call is required by the Windows Form Designer.
         InitializeComponent()
         ' Add any initialization after the InitializeComponent() call.
         Me.CRReportDocument = reportDocument
         Me.CRReportDocument.SetDataSource(dataSource)
     End Sub
+
+#End Region
+
+#Region "Form events"
 
     Private Sub CrystalReportViewerForm_FormClosed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
         CRReportDocument.Close()
@@ -70,11 +76,13 @@ Public Class CRViewerForm
         CRViewerTabs(Me.CRViewerControl, False)
     End Sub
 
+#End Region
+
     Private Sub SetFormTitle(ByVal title As String)
         If title IsNot Nothing Then Me.Text = title
     End Sub
 
-    Private Sub CRSetDocumentSource(ByVal viewer As CrystalReportViewer, ByVal document As ReportDocument)
+    Private Sub CRSetDocumentSource(ByVal viewer As CrystalReportViewer, ByVal document As ReportClass)
         If document IsNot Nothing AndAlso viewer IsNot Nothing Then viewer.ReportSource = document
     End Sub
 
