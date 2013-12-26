@@ -534,12 +534,6 @@
       <DependentUpon>crPassFailNoShow.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Crystal Reports\Oracle 10.1\SmokeSchool\crRoster.vb">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>crRoster.rpt</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Crystal Reports\Oracle 10.1\SSCP\CRFCE3.vb">
       <DependentUpon>CRFCE3.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -694,12 +688,6 @@
       <DependentUpon>PassFailNoShow.vb</DependentUpon>
     </Compile>
     <Compile Include="SmokeSchool\PassFailNoShow.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="SmokeSchool\Roster.designer.vb">
-      <DependentUpon>Roster.vb</DependentUpon>
-    </Compile>
-    <Compile Include="SmokeSchool\Roster.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="My Project\Settings.Designer.vb">
@@ -1112,6 +1100,11 @@
     <EmbeddedResource Include="Crystal Reports\CRViewerForm.resx">
       <DependentUpon>CRViewerForm.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Crystal Reports\SmokeSchool\SmokeSchoolRoster.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>SmokeSchoolRoster.vb</LastGenOutput>
+      <CustomToolNamespace>CR.Reports</CustomToolNamespace>
+    </EmbeddedResource>
     <EmbeddedResource Include="Crystal Reports\SSCP\AccMemo.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>AccMemo.vb</LastGenOutput>
@@ -1285,10 +1278,6 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>crPassFailNoShow.vb</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\Oracle 10.1\SmokeSchool\crRoster.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>crRoster.vb</LastGenOutput>
-    </EmbeddedResource>
     <EmbeddedResource Include="Crystal Reports\Oracle 10.1\SSCP\CRFCE3.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>CRFCE3.vb</LastGenOutput>
@@ -1387,10 +1376,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SmokeSchool\PassFailNoShow.resx">
       <DependentUpon>PassFailNoShow.vb</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SmokeSchool\Roster.resx">
-      <DependentUpon>Roster.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="SSCP\SSCPAdministrator.resx">
@@ -1757,6 +1742,12 @@
     <Compile Include="Crystal Reports\CRViewerForm.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Crystal Reports\SmokeSchool\SmokeSchoolRoster.vb">
+      <DependentUpon>SmokeSchoolRoster.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Crystal Reports\SSCP\CrAcc.vb" />
     <Compile Include="Crystal Reports\SSCP\AccMemo.vb">
       <AutoGen>True</AutoGen>
@@ -1764,6 +1755,9 @@
       <DependentUpon>AccMemo.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Crystal Reports\SmokeSchool\CrSmokeSchoolRoster.vb">
+    </Compile>
+    <Compile Include="_DB\DAL.SmokeSchoolRoster.vb" />
     <Compile Include="_Classes\CollectionHelper.vb" />
     <Compile Include="_Data Classes\WorkItem.vb" />
     <Compile Include="_Data Classes\Person.vb" />

@@ -336,21 +336,21 @@ Partial Class SmokeSchool
         '
         Me.mmiCut.Name = "mmiCut"
         Me.mmiCut.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.X), System.Windows.Forms.Keys)
-        Me.mmiCut.Size = New System.Drawing.Size(152, 22)
+        Me.mmiCut.Size = New System.Drawing.Size(144, 22)
         Me.mmiCut.Text = "Cut"
         '
         'mmiCopy
         '
         Me.mmiCopy.Name = "mmiCopy"
         Me.mmiCopy.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.C), System.Windows.Forms.Keys)
-        Me.mmiCopy.Size = New System.Drawing.Size(152, 22)
+        Me.mmiCopy.Size = New System.Drawing.Size(144, 22)
         Me.mmiCopy.Text = "Copy"
         '
         'mmiPaste
         '
         Me.mmiPaste.Name = "mmiPaste"
         Me.mmiPaste.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.V), System.Windows.Forms.Keys)
-        Me.mmiPaste.Size = New System.Drawing.Size(152, 22)
+        Me.mmiPaste.Size = New System.Drawing.Size(144, 22)
         Me.mmiPaste.Text = "Paste"
         '
         'ToolToolStripMenuItem
@@ -949,6 +949,7 @@ Partial Class SmokeSchool
         '
         'cboSchedule1
         '
+        Me.cboSchedule1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboSchedule1.FormattingEnabled = True
         Me.cboSchedule1.Location = New System.Drawing.Point(17, 50)
         Me.cboSchedule1.Name = "cboSchedule1"
