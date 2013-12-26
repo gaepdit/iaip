@@ -1,5 +1,6 @@
 ﻿Option Strict On
 
+Imports System.Collections.Generic
 Imports CrystalDecisions.CrystalReports.Engine
 Imports CrystalDecisions.Shared
 Imports CrystalDecisions.Windows.Forms
@@ -28,6 +29,16 @@ Public Class CRViewerForm
         End Set
     End Property
 
+    Private _crParameters As Dictionary(Of String, String)
+    Public Property CRParameters() As Dictionary(Of String, String)
+        Get
+            Return _crParameters
+        End Get
+        Set(ByVal value As Dictionary(Of String, String))
+            _crParameters = value
+        End Set
+    End Property
+
 #End Region
 
 #Region "Constructors"
@@ -38,28 +49,31 @@ Public Class CRViewerForm
         ' Add any initialization after the InitializeComponent() call.
     End Sub
 
-    Public Sub New(ByVal reportDocument As ReportClass, ByVal dataSource As DataTable)
+    Public Sub New(ByVal reportDocument As ReportClass, ByVal dataSource As DataTable, Optional ByVal parameters As Dictionary(Of String, String) = Nothing)
         ' This call is required by the Windows Form Designer.
         InitializeComponent()
         ' Add any initialization after the InitializeComponent() call.
         Me.CRReportDocument = reportDocument
         Me.CRReportDocument.SetDataSource(dataSource)
+        Me.CRParameters = parameters
     End Sub
 
-    Public Sub New(ByVal reportDocument As ReportClass, ByVal dataSource As DataSet)
+    Public Sub New(ByVal reportDocument As ReportClass, ByVal dataSource As DataSet, Optional ByVal parameters As Dictionary(Of String, String) = Nothing)
         ' This call is required by the Windows Form Designer.
         InitializeComponent()
         ' Add any initialization after the InitializeComponent() call.
         Me.CRReportDocument = reportDocument
         Me.CRReportDocument.SetDataSource(dataSource)
+        Me.CRParameters = parameters
     End Sub
 
-    Public Sub New(ByVal reportDocument As ReportClass, ByVal dataSource As IDataReader)
+    Public Sub New(ByVal reportDocument As ReportClass, ByVal dataSource As IDataReader, Optional ByVal parameters As Dictionary(Of String, String) = Nothing)
         ' This call is required by the Windows Form Designer.
         InitializeComponent()
         ' Add any initialization after the InitializeComponent() call.
         Me.CRReportDocument = reportDocument
         Me.CRReportDocument.SetDataSource(dataSource)
+        Me.CRParameters = parameters
     End Sub
 
 #End Region
@@ -74,9 +88,10 @@ Public Class CRViewerForm
         monitor.TrackFeature("Forms." & Me.Name)
         monitor.TrackFeature("Report." & CRReportDocument.ResourceName)
 
-        SetFormTitle("Report Preview: " & Me.Title)
-        CRSetDocumentSource(CRViewerControl, CRReportDocument)
-        CRViewerTabs(Me.CRViewerControl, False)
+        If Me.Title IsNot Nothing Then SetFormTitle("Report Preview: " & Me.Title)
+        If Me.CRReportDocument IsNot Nothing Then CRSetDocumentSource(CRViewerControl, Me.CRReportDocument)
+        If Me.CRParameters IsNot Nothing Then CRSetParameters(Me.CRReportDocument, Me.CRParameters)
+        CRViewerTabs(CRViewerControl, False)
     End Sub
 
 #End Region
@@ -87,6 +102,19 @@ Public Class CRViewerForm
 
     Private Sub CRSetDocumentSource(ByVal viewer As CrystalReportViewer, ByVal document As ReportClass)
         If document IsNot Nothing AndAlso viewer IsNot Nothing Then viewer.ReportSource = document
+    End Sub
+
+    Private Sub CRSetParameters(ByVal document As ReportClass, ByVal parameters As Dictionary(Of String, String))
+        Dim fieldDefinitions As ParameterFieldDefinitions = document.DataDefinition.ParameterFields
+        Dim parameterValues As ParameterValues = New ParameterValues()
+
+        For Each parameter As KeyValuePair(Of String, String) In parameters
+            Dim discreteValue As ParameterDiscreteValue = New ParameterDiscreteValue()
+            discreteValue.Value = parameter.Value
+            parameterValues.Add(discreteValue)
+            Dim fieldDefinition As ParameterFieldDefinition = fieldDefinitions(parameter.Key)
+            fieldDefinition.ApplyCurrentValues(parameterValues)
+        Next
     End Sub
 
     Private Sub CRViewerTabs(ByVal viewer As CrystalReportViewer, ByVal visible As Boolean)
