@@ -88,7 +88,7 @@ Module subMain
 
     Public DevSQLQuery As IAIPQueryGenerator
     Public EditContacts As IAIPEditContacts
-    Public EditContacts2 As DEVEditContacts
+    'Public EditContacts2 As DEVEditContacts
     Public EditFacilityLocation As IAIPEditFacilityLocation
     Public EditHeaderData As IAIPEditHeaderData
     Public EditAirProgramPollutants As IAIPEditAirProgramPollutants
