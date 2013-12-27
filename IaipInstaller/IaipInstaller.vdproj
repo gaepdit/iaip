@@ -614,14 +614,14 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:IAIP"
-        "ProductCode" = "8:{FCD8E231-907E-4538-80F0-97C785477024}"
-        "PackageCode" = "8:{C952E140-3FE6-48B2-9864-548401F3269B}"
+        "ProductCode" = "8:{FF5424C2-2C39-482E-A61C-89DDE287A061}"
+        "PackageCode" = "8:{F1D118A2-2DD3-4214-9A85-E8AAEF774707}"
         "UpgradeCode" = "8:{D332FA62-F3B1-429F-B458-5F445F6846DA}"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:TRUE"
-        "ProductVersion" = "8:2.8.1"
+        "ProductVersion" = "8:2.8.2"
         "Manufacturer" = "8:State of Georgia"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
@@ -1163,7 +1163,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_62050FE5876D4351B63141F6589FBB98"
             {
-            "SourcePath" = "8:..\\obj\\x86\\Release\\JohnGaltProject.exe"
+            "SourcePath" = "8:..\\obj\\x86\\Debug\\JohnGaltProject.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_7BE259ACB5D34C389CCD3700FC995F86"
