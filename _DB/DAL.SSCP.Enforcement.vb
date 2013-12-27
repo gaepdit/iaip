@@ -12,11 +12,29 @@ Namespace DAL
                 Dim query As String = "SELECT '" & Boolean.TrueString & "' " & _
                     " FROM " & DBNameSpace & ".SSCP_AUDITEDENFORCEMENT " & _
                     " WHERE RowNum = 1 " & _
-                    " AND SSCP_AUDITEDENFORCEMENT.STRENFORCEMENTNUMBER = :pId "
+                    " AND STRENFORCEMENTNUMBER = :pId "
                 Dim parameter As New OracleParameter("pId", id)
 
                 Dim result As String = DB.GetSingleValue(Of String)(query, parameter)
                 Return Convert.ToBoolean(result)
+            End Function
+
+            Public Function EnforcementExistsForTrackingNumber(ByVal id As String, ByRef enfNumber As String) As Boolean
+                If id = "" OrElse Not Integer.TryParse(id, Nothing) Then Return False
+
+                Dim query As String = " SELECT STRENFORCEMENTNUMBER " & _
+                    " FROM " & DBNameSpace & ".SSCP_AUDITEDENFORCEMENT " & _
+                    " WHERE STRTRACKINGNUMBER = :pId "
+                Dim parameter As New OracleParameter("pId", id)
+
+                Dim result As String = DB.GetSingleValue(Of String)(query, parameter)
+
+                If result Is Nothing Then
+                    Return False
+                Else
+                    enfNumber = result
+                    Return True
+                End If
             End Function
 
             Private Sub FillEnforcementInfoFromDataRow(ByVal row As DataRow, ByRef enfInfo As EnforcementInfo)
