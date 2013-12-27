@@ -4,6 +4,16 @@ Imports JohnGaltProject.Apb
 Namespace DAL
     Module FacilityInfo
 
+        Public Function GetFacilityNameByAirs(ByVal id As String) As String
+            If Not Apb.Facility.NormalizeAirsNumber(id, True) Then Return Nothing
+
+            Dim query As String = "SELECT STRFACILITYNAME " & _
+                " FROM AIRBRANCH.APBFACILITYINFORMATION " & _
+                " WHERE STRAIRSNUMBER = :pId"
+            Dim parameter As New OracleParameter("pId", id)
+            Return DB.GetSingleValue(Of String)(query, parameter)
+        End Function
+
         Public Function GetFacilityInfoByAirsAsDataRow(ByVal id As String) As DataRow
             If Not Apb.Facility.NormalizeAirsNumber(id, True) Then Return Nothing
 
