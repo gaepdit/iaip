@@ -86,9 +86,9 @@ Module subMain
     Public PrintOut As IAIPPrintOut
     Public FacilitySummary As IAIPFacilitySummary
 
-    Public DevSQLQuery As IAIPQueryGenerator
+    Public QueryGenerator As IAIPQueryGenerator
     Public EditContacts As IAIPEditContacts
-    Public EditContacts2 As DEVEditContacts
+    'Public EditContacts2 As DEVEditContacts
     Public EditFacilityLocation As IAIPEditFacilityLocation
     Public EditHeaderData As IAIPEditHeaderData
     Public EditAirProgramPollutants As IAIPEditAirProgramPollutants
@@ -134,7 +134,7 @@ Module subMain
     Public StaffTools As DMUStaffTools
     Public TitleVTools As DMUTitleVTools
     Public StaffReports As ISMPStaffReports
-    Public FeeAuditTool As IAIPFeeAuditTool
+    'Public FeeAuditTool As IAIPFeeAuditTool
 
 #End Region
 #Region "Mobile & Area Screens"
@@ -168,10 +168,10 @@ Module subMain
     Public SSCPFCE As SSCPFCEWork
     Public SSCPFacAssign As SSCPFacAssignment
     Public SSCPEngWork As SSCPWorkEnTry
-    Public SSCPTemplates As SSCPLetterTemplates
+    'Public SSCPTemplates As SSCPLetterTemplates
     Public SSCPRequest As SSCPInformationRequest
     Public SSCPFCESelector As SSCPFCESelectorTool
-    Public SSCPSelectEnforcement As SSCPEnforcementSelector
+    'Public SSCPSelectEnforcement As SSCPEnforcementSelector
     Public EnforcementChecklist As SSCPEnforcementChecklist
     Public SSCPInspectionsTool As SSCPEngineerInspectionTool
     Public SSCPInspectionscheduleTool As SSCPInspectionscheduleLink

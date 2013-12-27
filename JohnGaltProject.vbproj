@@ -252,16 +252,10 @@
     <Compile Include="AssemblyInfo.vb">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DevelopmentForms\AFSValidator.Designer.vb">
+    <Compile Include="DMU\AFSValidator.Designer.vb">
       <DependentUpon>AFSValidator.vb</DependentUpon>
     </Compile>
-    <Compile Include="DevelopmentForms\AFSValidator.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="DevelopmentForms\DEVEditContacts.Designer.vb">
-      <DependentUpon>DEVEditContacts.vb</DependentUpon>
-    </Compile>
-    <Compile Include="DevelopmentForms\DEVEditContacts.vb">
+    <Compile Include="DMU\AFSValidator.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="DevelopmentForms\IAIPPhoneList.Designer.vb">
@@ -270,10 +264,10 @@
     <Compile Include="DevelopmentForms\IAIPPhoneList.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DevelopmentForms\IAIP_EIS_Log.Designer.vb">
+    <Compile Include="DMU\IAIP_EIS_Log.Designer.vb">
       <DependentUpon>IAIP_EIS_Log.vb</DependentUpon>
     </Compile>
-    <Compile Include="DevelopmentForms\IAIP_EIS_Log.vb">
+    <Compile Include="DMU\IAIP_EIS_Log.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Universal Forms\BaseForm.Designer.vb">
@@ -317,12 +311,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>dsIAIP2.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="Reports\FacilityBasicPrint.vb">
-      <SubType>Component</SubType>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>FacilityBasicPrint.rpt</DependentUpon>
     </Compile>
     <Compile Include="Crystal Reports\Oracle 10.1\crFS_Invoice.vb">
       <AutoGen>True</AutoGen>
@@ -540,12 +528,6 @@
       <DependentUpon>crPassFailNoShow.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Crystal Reports\Oracle 10.1\SmokeSchool\crRoster.vb">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>crRoster.rpt</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Crystal Reports\Oracle 10.1\SSCP\CRFCE3.vb">
       <DependentUpon>CRFCE3.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -576,7 +558,7 @@
       <DependentUpon>crESDataViewer.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Reports\Letterhead.vb">
+    <Compile Include="Crystal Reports\Letterhead.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Letterhead.rpt</DependentUpon>
@@ -702,12 +684,6 @@
     <Compile Include="SmokeSchool\PassFailNoShow.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SmokeSchool\Roster.designer.vb">
-      <DependentUpon>Roster.vb</DependentUpon>
-    </Compile>
-    <Compile Include="SmokeSchool\Roster.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="My Project\Settings.Designer.vb">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
@@ -747,12 +723,6 @@
       <DependentUpon>IAIPLookUpTables.vb</DependentUpon>
     </Compile>
     <Compile Include="Universal Forms\IAIPLookUpTables.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Universal Forms\IAIPFeeAuditTool.Designer.vb">
-      <DependentUpon>IAIPFeeAuditTool.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Universal Forms\IAIPFeeAuditTool.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Universal Forms\IAIPQueryGenerator.Designer.vb">
@@ -977,9 +947,6 @@
     <Compile Include="SSCP\SubPages\SSCPInspectionScheduleLink.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SSCP\SubPages\SSCPLetterTemplates.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="SSCP\SubPages\SSCPWorkEntry.vb">
       <SubType>Form</SubType>
     </Compile>
@@ -1124,18 +1091,28 @@
     <Compile Include="Universal Forms\Sub Forms\IAIPProfileUpdate.vb">
       <SubType>Form</SubType>
     </Compile>
-    <EmbeddedResource Include="DevelopmentForms\AFSValidator.resx">
+    <EmbeddedResource Include="Crystal Reports\CRViewerForm.resx">
+      <DependentUpon>CRViewerForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Crystal Reports\SmokeSchool\SmokeSchoolRoster.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>SmokeSchoolRoster.vb</LastGenOutput>
+      <CustomToolNamespace>CR.Reports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Crystal Reports\SSCP\AccMemo.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>AccMemo.vb</LastGenOutput>
+      <CustomToolNamespace>CR.Reports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DMU\AFSValidator.resx">
       <DependentUpon>AFSValidator.vb</DependentUpon>
       <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DevelopmentForms\DEVEditContacts.resx">
-      <DependentUpon>DEVEditContacts.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DevelopmentForms\IAIPPhoneList.resx">
       <DependentUpon>IAIPPhoneList.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="DevelopmentForms\IAIP_EIS_Log.resx">
+    <EmbeddedResource Include="DMU\IAIP_EIS_Log.resx">
       <DependentUpon>IAIP_EIS_Log.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PASP\PASPFeeStatistics.resx">
@@ -1148,10 +1125,6 @@
       <DependentUpon>SSCPEnforcement.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FCE_ACC.rdlc" />
-    <EmbeddedResource Include="Reports\FacilityBasicPrint.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>FacilityBasicPrint.vb</LastGenOutput>
-    </EmbeddedResource>
     <EmbeddedResource Include="Crystal Reports\Oracle 10.1\crFS_Invoice.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>crFS_Invoice.vb</LastGenOutput>
@@ -1296,10 +1269,6 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>crPassFailNoShow.vb</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\Oracle 10.1\SmokeSchool\crRoster.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>crRoster.vb</LastGenOutput>
-    </EmbeddedResource>
     <EmbeddedResource Include="Crystal Reports\Oracle 10.1\SSCP\CRFCE3.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>CRFCE3.vb</LastGenOutput>
@@ -1320,9 +1289,10 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>crESDataViewer.vb</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Reports\Letterhead.rpt">
+    <EmbeddedResource Include="Crystal Reports\Letterhead.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>Letterhead.vb</LastGenOutput>
+      <CustomToolNamespace>CR.Reports</CustomToolNamespace>
     </EmbeddedResource>
     <EmbeddedResource Include="DMU\DMUDeveloperTools.resx">
       <DependentUpon>DMUDeveloperTools.vb</DependentUpon>
@@ -1399,10 +1369,6 @@
       <DependentUpon>PassFailNoShow.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="SmokeSchool\Roster.resx">
-      <DependentUpon>Roster.vb</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="SSCP\SSCPAdministrator.resx">
       <DependentUpon>SSCPAdministrator.vb</DependentUpon>
     </EmbeddedResource>
@@ -1421,9 +1387,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Universal Forms\IAIPLookUpTables.resx">
       <DependentUpon>IAIPLookUpTables.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Universal Forms\IAIPFeeAuditTool.resx">
-      <DependentUpon>IAIPFeeAuditTool.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Universal Forms\IAIPQueryGenerator.resx">
       <SubType>Designer</SubType>
@@ -1603,10 +1566,6 @@
       <DependentUpon>SSCPInspectionScheduleLink.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="SSCP\SubPages\SSCPLetterTemplates.resx">
-      <DependentUpon>SSCPLetterTemplates.vb</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="SSCP\SubPages\SSCPWorkEntry.resx">
       <DependentUpon>SSCPWorkEntry.vb</DependentUpon>
       <SubType>Designer</SubType>
@@ -1768,10 +1727,36 @@
     <None Include="gaSeal.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <Compile Include="Crystal Reports\CRViewerForm.Designer.vb">
+      <DependentUpon>CRViewerForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Crystal Reports\CRViewerForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Crystal Reports\SmokeSchool\SmokeSchoolRoster.vb">
+      <DependentUpon>SmokeSchoolRoster.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Crystal Reports\SSCP\CrAcc.vb" />
+    <Compile Include="Crystal Reports\SSCP\AccMemo.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AccMemo.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Crystal Reports\SmokeSchool\CrSmokeSchoolRoster.vb">
+    </Compile>
+    <Compile Include="_DB\DAL.SmokeSchoolRoster.vb" />
+    <Compile Include="_Classes\CollectionHelper.vb" />
+    <Compile Include="_Data Classes\WorkItem.vb" />
     <Compile Include="_Data Classes\Person.vb" />
     <Compile Include="_Data Classes\Res.ResEvent.vb">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="_Data Classes\SSCP.Acc.vb" />
+    <Compile Include="_DB\DAL.Facility.vb" />
     <Compile Include="_DB\DAL.Staff.vb" />
     <Compile Include="SSCP\SscpDocuments.Designer.vb">
       <DependentUpon>SscpDocuments.vb</DependentUpon>
@@ -1808,7 +1793,6 @@
     <Compile Include="_Modules\Email.vb" />
     <Compile Include="_Modules\FormHandler.vb" />
     <Compile Include="_Modules\FormSettings.vb" />
-    <Compile Include="_Modules\FacilityUtility.vb" />
     <Compile Include="_Modules\MD5.vb" />
     <Compile Include="_Modules\Messages.vb" />
     <Compile Include="_Modules\Email.Outlook.vb" />

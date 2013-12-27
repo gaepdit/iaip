@@ -22,12 +22,6 @@ Partial Class AFSValidator
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(AFSValidator))
-        Me.MenuStrip1 = New System.Windows.Forms.MenuStrip
-        Me.FileToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.HelpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.ToolStrip1 = New System.Windows.Forms.ToolStrip
-        Me.ToolStripButton1 = New System.Windows.Forms.ToolStripButton
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer
         Me.Label1 = New System.Windows.Forms.Label
         Me.Button1 = New System.Windows.Forms.Button
@@ -74,8 +68,6 @@ Partial Class AFSValidator
         Me.TabControl2 = New System.Windows.Forms.TabControl
         Me.TabPage3 = New System.Windows.Forms.TabPage
         Me.TabPage4 = New System.Windows.Forms.TabPage
-        Me.MenuStrip1.SuspendLayout()
-        Me.ToolStrip1.SuspendLayout()
         Me.SplitContainer1.Panel1.SuspendLayout()
         Me.SplitContainer1.Panel2.SuspendLayout()
         Me.SplitContainer1.SuspendLayout()
@@ -118,49 +110,10 @@ Partial Class AFSValidator
         Me.TabControl2.SuspendLayout()
         Me.SuspendLayout()
         '
-        'MenuStrip1
-        '
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileToolStripMenuItem, Me.HelpToolStripMenuItem})
-        Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
-        Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(800, 24)
-        Me.MenuStrip1.TabIndex = 0
-        Me.MenuStrip1.Text = "MenuStrip1"
-        '
-        'FileToolStripMenuItem
-        '
-        Me.FileToolStripMenuItem.Name = "FileToolStripMenuItem"
-        Me.FileToolStripMenuItem.Size = New System.Drawing.Size(37, 20)
-        Me.FileToolStripMenuItem.Text = "File"
-        '
-        'HelpToolStripMenuItem
-        '
-        Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
-        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(44, 20)
-        Me.HelpToolStripMenuItem.Text = "Help"
-        '
-        'ToolStrip1
-        '
-        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripButton1})
-        Me.ToolStrip1.Location = New System.Drawing.Point(0, 24)
-        Me.ToolStrip1.Name = "ToolStrip1"
-        Me.ToolStrip1.Size = New System.Drawing.Size(800, 25)
-        Me.ToolStrip1.TabIndex = 1
-        Me.ToolStrip1.Text = "ToolStrip1"
-        '
-        'ToolStripButton1
-        '
-        Me.ToolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.ToolStripButton1.Image = CType(resources.GetObject("ToolStripButton1.Image"), System.Drawing.Image)
-        Me.ToolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.ToolStripButton1.Name = "ToolStripButton1"
-        Me.ToolStripButton1.Size = New System.Drawing.Size(23, 22)
-        Me.ToolStripButton1.Text = "ToolStripButton1"
-        '
         'SplitContainer1
         '
         Me.SplitContainer1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.SplitContainer1.Location = New System.Drawing.Point(0, 49)
+        Me.SplitContainer1.Location = New System.Drawing.Point(0, 0)
         Me.SplitContainer1.Name = "SplitContainer1"
         Me.SplitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal
         '
@@ -175,8 +128,8 @@ Partial Class AFSValidator
         'SplitContainer1.Panel2
         '
         Me.SplitContainer1.Panel2.Controls.Add(Me.TCAFSFiles)
-        Me.SplitContainer1.Size = New System.Drawing.Size(800, 535)
-        Me.SplitContainer1.SplitterDistance = 65
+        Me.SplitContainer1.Size = New System.Drawing.Size(800, 584)
+        Me.SplitContainer1.SplitterDistance = 70
         Me.SplitContainer1.TabIndex = 2
         '
         'Label1
@@ -232,7 +185,7 @@ Partial Class AFSValidator
         Me.TCAFSFiles.Location = New System.Drawing.Point(0, 0)
         Me.TCAFSFiles.Name = "TCAFSFiles"
         Me.TCAFSFiles.SelectedIndex = 0
-        Me.TCAFSFiles.Size = New System.Drawing.Size(800, 466)
+        Me.TCAFSFiles.Size = New System.Drawing.Size(800, 510)
         Me.TCAFSFiles.TabIndex = 1
         '
         'TPHeaderData
@@ -241,7 +194,7 @@ Partial Class AFSValidator
         Me.TPHeaderData.Location = New System.Drawing.Point(4, 22)
         Me.TPHeaderData.Name = "TPHeaderData"
         Me.TPHeaderData.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPHeaderData.Size = New System.Drawing.Size(792, 440)
+        Me.TPHeaderData.Size = New System.Drawing.Size(792, 484)
         Me.TPHeaderData.TabIndex = 0
         Me.TPHeaderData.Text = "Header Data"
         Me.TPHeaderData.UseVisualStyleBackColor = True
@@ -260,7 +213,7 @@ Partial Class AFSValidator
         Me.TCHeaderData.Location = New System.Drawing.Point(3, 3)
         Me.TCHeaderData.Name = "TCHeaderData"
         Me.TCHeaderData.SelectedIndex = 0
-        Me.TCHeaderData.Size = New System.Drawing.Size(786, 434)
+        Me.TCHeaderData.Size = New System.Drawing.Size(786, 478)
         Me.TCHeaderData.TabIndex = 1
         '
         'TPFacilityNames
@@ -269,7 +222,7 @@ Partial Class AFSValidator
         Me.TPFacilityNames.Location = New System.Drawing.Point(4, 22)
         Me.TPFacilityNames.Name = "TPFacilityNames"
         Me.TPFacilityNames.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPFacilityNames.Size = New System.Drawing.Size(778, 408)
+        Me.TPFacilityNames.Size = New System.Drawing.Size(778, 452)
         Me.TPFacilityNames.TabIndex = 0
         Me.TPFacilityNames.Text = "Facility Names"
         Me.TPFacilityNames.UseVisualStyleBackColor = True
@@ -281,7 +234,7 @@ Partial Class AFSValidator
         Me.dgvFacilityName.Location = New System.Drawing.Point(3, 3)
         Me.dgvFacilityName.Name = "dgvFacilityName"
         Me.dgvFacilityName.ReadOnly = True
-        Me.dgvFacilityName.Size = New System.Drawing.Size(772, 402)
+        Me.dgvFacilityName.Size = New System.Drawing.Size(772, 446)
         Me.dgvFacilityName.TabIndex = 0
         '
         'TPAddressData
@@ -651,14 +604,8 @@ Partial Class AFSValidator
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(800, 584)
         Me.Controls.Add(Me.SplitContainer1)
-        Me.Controls.Add(Me.ToolStrip1)
-        Me.Controls.Add(Me.MenuStrip1)
         Me.Name = "AFSValidator"
         Me.Text = "AFS Validator"
-        Me.MenuStrip1.ResumeLayout(False)
-        Me.MenuStrip1.PerformLayout()
-        Me.ToolStrip1.ResumeLayout(False)
-        Me.ToolStrip1.PerformLayout()
         Me.SplitContainer1.Panel1.ResumeLayout(False)
         Me.SplitContainer1.Panel1.PerformLayout()
         Me.SplitContainer1.Panel2.ResumeLayout(False)
@@ -702,14 +649,8 @@ Partial Class AFSValidator
         Me.TPPermittingData.PerformLayout()
         Me.TabControl2.ResumeLayout(False)
         Me.ResumeLayout(False)
-        Me.PerformLayout()
 
     End Sub
-    Friend WithEvents MenuStrip1 As System.Windows.Forms.MenuStrip
-    Friend WithEvents FileToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents HelpToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents ToolStrip1 As System.Windows.Forms.ToolStrip
-    Friend WithEvents ToolStripButton1 As System.Windows.Forms.ToolStripButton
     Friend WithEvents SplitContainer1 As System.Windows.Forms.SplitContainer
     Friend WithEvents btnLoadData As System.Windows.Forms.Button
     Friend WithEvents txt654File As System.Windows.Forms.TextBox

@@ -10,7 +10,7 @@ Namespace DAL
 
         Public Function GetResEventStatusesAsDictionary(Optional ByVal addBlank As Boolean = False, Optional ByVal blankPrompt As String = "") As SortedDictionary(Of Integer, String)
             Dim query As String = " SELECT NUMRESLK_EVENTSTATUSID, STREVENTSTATUS " & _
-                " FROM AIRBRANCH.RESLK_EVENTSTATUS " & _
+                " FROM " & DBNameSpace & ".RESLK_EVENTSTATUS " & _
                 " WHERE ACTIVE = '1' " & _
                 " ORDER BY STREVENTSTATUS "
             Dim d As Dictionary(Of Integer, String) = DB.GetLookupDictionary(query)
@@ -21,7 +21,7 @@ Namespace DAL
         Public Function GetRegistrationStatusesAsDictionary(Optional ByVal addBlank As Boolean = False, Optional ByVal blankPrompt As String = "") As SortedDictionary(Of Integer, String)
             Dim query As String = " SELECT NUMRESLK_REGISTRATIONSTATUSID, " & _
                 " STRREGISTRATIONSTATUS " & _
-                " FROM AIRBRANCH.RESLK_REGISTRATIONSTATUS " & _
+                " FROM " & DBNameSpace & ".RESLK_REGISTRATIONSTATUS " & _
                 " WHERE ACTIVE = '1' " & _
                 " ORDER BY STRREGISTRATIONSTATUS "
             Dim d As Dictionary(Of Integer, String) = DB.GetLookupDictionary(query)
@@ -35,23 +35,22 @@ Namespace DAL
 
         Public Function GetResEventsAsDataTable(ByVal toDate As Nullable(Of Date), ByVal fromDate As Nullable(Of Date)) As DataTable
             Try
-                Dim query As String = <s><![CDATA[
-                    SELECT AIRBRANCH.RES_EVENT.NUMRES_EVENTID,
-                        AIRBRANCH.RES_EVENT.STRTITLE,
-                        AIRBRANCH.RES_EVENT.STRDESCRIPTION,
-                        AIRBRANCH.RES_EVENT.DATSTARTDATE,
-                        AIRBRANCH.RES_EVENT.STREVENTSTARTTIME,
-                        AIRBRANCH.RES_EVENT.STRVENUE,
-                        AIRBRANCH.RES_EVENT.STRNOTES
-                    FROM AIRBRANCH.RES_EVENT
-                    WHERE AIRBRANCH.RES_EVENT.DATSTARTDATE       IS NOT NULL
-                    AND (TRUNC(AIRBRANCH.RES_EVENT.DATSTARTDATE) >= TRUNC(:pFromDate)
-                    OR :pFromDate                                IS NULL)
-                    AND (TRUNC(AIRBRANCH.RES_EVENT.DATSTARTDATE) <= TRUNC(:pToDate)
-                    OR :pToDate                                  IS NULL)
-                    AND AIRBRANCH.RES_EVENT.ACTIVE                = '1'
-                    ORDER BY AIRBRANCH.RES_EVENT.DATSTARTDATE
-                ]]></s>.Value
+                Dim query As String = _
+                    " SELECT RES_EVENT.NUMRES_EVENTID, " & _
+                    "     RES_EVENT.STRTITLE, " & _
+                    "     RES_EVENT.STRDESCRIPTION, " & _
+                    "     RES_EVENT.DATSTARTDATE, " & _
+                    "     RES_EVENT.STREVENTSTARTTIME, " & _
+                    "     RES_EVENT.STRVENUE, " & _
+                    "     RES_EVENT.STRNOTES " & _
+                    " FROM " & DBNameSpace & ".RES_EVENT " & _
+                    " WHERE " & DBNameSpace & ".RES_EVENT.DATSTARTDATE       IS NOT NULL " & _
+                    " AND (TRUNC(" & DBNameSpace & ".RES_EVENT.DATSTARTDATE) >= TRUNC(:pFromDate) " & _
+                    " OR :pFromDate                                IS NULL) " & _
+                    " AND (TRUNC(" & DBNameSpace & ".RES_EVENT.DATSTARTDATE) <= TRUNC(:pToDate) " & _
+                    " OR :pToDate                                  IS NULL) " & _
+                    " AND " & DBNameSpace & ".RES_EVENT.ACTIVE                = '1' " & _
+                    " ORDER BY " & DBNameSpace & ".RES_EVENT.DATSTARTDATE "
 
                 Dim parameters As OracleParameter() = { _
                     New OracleParameter("pFromDate", OracleDbType.Date, fromDate, ParameterDirection.Input), _
@@ -70,45 +69,44 @@ Namespace DAL
 #Region "Event Details"
 
         Public Function GetResEventByIdAsDataRow(ByVal id As Integer) As DataRow
-            Dim query As String = <s><![CDATA[
-                SELECT AIRBRANCH.RES_EVENT.NUMRES_EVENTID,
-                  AIRBRANCH.RES_EVENT.ACTIVE,
-                  AIRBRANCH.RESLK_EVENTSTATUS.STREVENTSTATUS,
-                  AIRBRANCH.RES_EVENT.STRUSERGCODE,
-                  AIRBRANCH.RES_EVENT.STRTITLE,
-                  AIRBRANCH.RES_EVENT.STRDESCRIPTION,
-                  AIRBRANCH.RES_EVENT.DATSTARTDATE,
-                  AIRBRANCH.RES_EVENT.DATENDDATE,
-                  AIRBRANCH.RES_EVENT.STRVENUE,
-                  AIRBRANCH.RES_EVENT.NUMCAPACITY,
-                  AIRBRANCH.RES_EVENT.STRNOTES,
-                  AIRBRANCH.RES_EVENT.STRLOGINREQUIRED,
-                  AIRBRANCH.RES_EVENT.STRPASSCODE,
-                  AIRBRANCH.RES_EVENT.STRADDRESS,
-                  AIRBRANCH.RES_EVENT.STRCITY,
-                  AIRBRANCH.RES_EVENT.STRSTATE,
-                  AIRBRANCH.RES_EVENT.NUMZIPCODE,
-                  AIRBRANCH.RES_EVENT.NUMAPBCONTACT,
-                  AIRBRANCH.RES_EVENT.NUMWEBPHONENUMBER,
-                  AIRBRANCH.RES_EVENT.STREVENTSTARTTIME,
-                  AIRBRANCH.RES_EVENT.STREVENTENDTIME,
-                  EP1.STRLASTNAME,
-                  EP1.STRFIRSTNAME,
-                  EP1.STRPHONE,
-                  EP1.STREMAILADDRESS,
-                  EP2.STRLASTNAME     AS STRLASTNAME2,
-                  EP2.STRFIRSTNAME    AS STRFIRSTNAME2,
-                  EP2.STREMAILADDRESS AS STREMAILADDRESS2,
-                  EP2.STRPHONE        AS STRPHONE2
-                FROM AIRBRANCH.RES_EVENT,
-                  AIRBRANCH.RESLK_EVENTSTATUS,
-                  AIRBRANCH.EPDUSERPROFILES EP2,
-                  AIRBRANCH.EPDUSERPROFILES EP1
-                WHERE AIRBRANCH.RES_EVENT.NUMEVENTSTATUSCODE = AIRBRANCH.RESLK_EVENTSTATUS.NUMRESLK_EVENTSTATUSID(+)
-                AND AIRBRANCH.RES_EVENT.STRUSERGCODE         = EP2.NUMUSERID(+)
-                AND AIRBRANCH.RES_EVENT.NUMAPBCONTACT        = EP1.NUMUSERID(+)
-                AND AIRBRANCH.RES_EVENT.NUMRES_EVENTID      = :pId
-            ]]></s>.Value
+            Dim query As String = _
+                " SELECT RES_EVENT.NUMRES_EVENTID, " & _
+                "   RES_EVENT.ACTIVE, " & _
+                "   RESLK_EVENTSTATUS.STREVENTSTATUS, " & _
+                "   RES_EVENT.STRUSERGCODE, " & _
+                "   RES_EVENT.STRTITLE, " & _
+                "   RES_EVENT.STRDESCRIPTION, " & _
+                "   RES_EVENT.DATSTARTDATE, " & _
+                "   RES_EVENT.DATENDDATE, " & _
+                "   RES_EVENT.STRVENUE, " & _
+                "   RES_EVENT.NUMCAPACITY, " & _
+                "   RES_EVENT.STRNOTES, " & _
+                "   RES_EVENT.STRLOGINREQUIRED, " & _
+                "   RES_EVENT.STRPASSCODE, " & _
+                "   RES_EVENT.STRADDRESS, " & _
+                "   RES_EVENT.STRCITY, " & _
+                "   RES_EVENT.STRSTATE, " & _
+                "   RES_EVENT.NUMZIPCODE, " & _
+                "   RES_EVENT.NUMAPBCONTACT, " & _
+                "   RES_EVENT.NUMWEBPHONENUMBER, " & _
+                "   RES_EVENT.STREVENTSTARTTIME, " & _
+                "   RES_EVENT.STREVENTENDTIME, " & _
+                "   EP1.STRLASTNAME, " & _
+                "   EP1.STRFIRSTNAME, " & _
+                "   EP1.STRPHONE, " & _
+                "   EP1.STREMAILADDRESS, " & _
+                "   EP2.STRLASTNAME     AS STRLASTNAME2, " & _
+                "   EP2.STRFIRSTNAME    AS STRFIRSTNAME2, " & _
+                "   EP2.STREMAILADDRESS AS STREMAILADDRESS2, " & _
+                "   EP2.STRPHONE        AS STRPHONE2 " & _
+                " FROM " & DBNameSpace & ".RES_EVENT, " & _
+                "   " & DBNameSpace & ".RESLK_EVENTSTATUS, " & _
+                "   " & DBNameSpace & ".EPDUSERPROFILES EP2, " & _
+                "   " & DBNameSpace & ".EPDUSERPROFILES EP1 " & _
+                " WHERE " & DBNameSpace & ".RES_EVENT.NUMEVENTSTATUSCODE = " & DBNameSpace & ".RESLK_EVENTSTATUS.NUMRESLK_EVENTSTATUSID(+) " & _
+                " AND " & DBNameSpace & ".RES_EVENT.STRUSERGCODE         = EP2.NUMUSERID(+) " & _
+                " AND " & DBNameSpace & ".RES_EVENT.NUMAPBCONTACT        = EP1.NUMUSERID(+) " & _
+                " AND " & DBNameSpace & ".RES_EVENT.NUMRES_EVENTID      = :pId "
 
             Dim parameter As New OracleParameter("pId", id)
 
@@ -181,26 +179,25 @@ Namespace DAL
 #Region "Event Registrants"
 
         Public Function GetRegistrantsByEventId(ByVal id As Integer) As DataTable
-            Dim query As String = <s><![CDATA[
-                SELECT AIRBRANCH.RES_REGISTRATION.NUMRES_REGISTRATIONID,
-                  AIRBRANCH.RES_REGISTRATION.DATREGISTRATIONDATETIME,
-                  AIRBRANCH.RES_REGISTRATION.STRCOMMENTS,
-                  AIRBRANCH.RESLK_REGISTRATIONSTATUS.STRREGISTRATIONSTATUS,
-                  AIRBRANCH.OLAPUSERPROFILE.STRFIRSTNAME,
-                  AIRBRANCH.OLAPUSERPROFILE.STRLASTNAME,
-                  AIRBRANCH.OLAPUSERLOGIN.STRUSEREMAIL,
-                  AIRBRANCH.OLAPUSERPROFILE.STRCOMPANYNAME,
-                  AIRBRANCH.OLAPUSERPROFILE.STRPHONENUMBER,
-                  AIRBRANCH.RES_REGISTRATION.NUMREGISTRATIONSTATUSCODE
-                FROM AIRBRANCH.RES_REGISTRATION,
-                  AIRBRANCH.OLAPUSERPROFILE,
-                  AIRBRANCH.OLAPUSERLOGIN,
-                  AIRBRANCH.RESLK_REGISTRATIONSTATUS
-                WHERE AIRBRANCH.RES_REGISTRATION.NUMGECOUSERID           = AIRBRANCH.OLAPUSERPROFILE.NUMUSERID
-                AND AIRBRANCH.RES_REGISTRATION.NUMREGISTRATIONSTATUSCODE = AIRBRANCH.RESLK_REGISTRATIONSTATUS.NUMRESLK_REGISTRATIONSTATUSID
-                AND AIRBRANCH.RES_REGISTRATION.NUMGECOUSERID             = AIRBRANCH.OLAPUSERLOGIN.NUMUSERID
-                AND AIRBRANCH.RES_REGISTRATION.NUMRES_EVENTID           = :pId
-            ]]></s>.Value
+            Dim query As String = _
+                " SELECT RES_REGISTRATION.NUMRES_REGISTRATIONID, " & _
+                "   RES_REGISTRATION.DATREGISTRATIONDATETIME, " & _
+                "   RES_REGISTRATION.STRCOMMENTS, " & _
+                "   RESLK_REGISTRATIONSTATUS.STRREGISTRATIONSTATUS, " & _
+                "   OLAPUSERPROFILE.STRFIRSTNAME, " & _
+                "   OLAPUSERPROFILE.STRLASTNAME, " & _
+                "   OLAPUSERLOGIN.STRUSEREMAIL, " & _
+                "   OLAPUSERPROFILE.STRCOMPANYNAME, " & _
+                "   OLAPUSERPROFILE.STRPHONENUMBER, " & _
+                "   RES_REGISTRATION.NUMREGISTRATIONSTATUSCODE " & _
+                " FROM " & DBNameSpace & ".RES_REGISTRATION, " & _
+                "   " & DBNameSpace & ".OLAPUSERPROFILE, " & _
+                "   " & DBNameSpace & ".OLAPUSERLOGIN, " & _
+                "   " & DBNameSpace & ".RESLK_REGISTRATIONSTATUS " & _
+                " WHERE " & DBNameSpace & ".RES_REGISTRATION.NUMGECOUSERID           = " & DBNameSpace & ".OLAPUSERPROFILE.NUMUSERID " & _
+                " AND " & DBNameSpace & ".RES_REGISTRATION.NUMREGISTRATIONSTATUSCODE = " & DBNameSpace & ".RESLK_REGISTRATIONSTATUS.NUMRESLK_REGISTRATIONSTATUSID " & _
+                " AND " & DBNameSpace & ".RES_REGISTRATION.NUMGECOUSERID             = " & DBNameSpace & ".OLAPUSERLOGIN.NUMUSERID " & _
+                " AND " & DBNameSpace & ".RES_REGISTRATION.NUMRES_EVENTID           = :pId "
 
             Dim parameter As New OracleParameter("pId", id)
 

@@ -4,6 +4,7 @@ Imports System.IO
 Namespace DB
     Module Utilities
 
+        <DebuggerStepThrough()> _
         Public Function GetNullable(Of T)(ByVal obj As Object) As T
             ' http://stackoverflow.com/a/870771/212978
             ' http://stackoverflow.com/a/9953399/212978

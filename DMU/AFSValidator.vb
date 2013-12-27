@@ -12,7 +12,6 @@ Public Class AFSValidator
 
     Private Sub AFSValidator_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         monitor.TrackFeature("Forms." & Me.Name)
-        monitor.TrackFeature("Dev." & Me.Name)
     End Sub
     Private Sub btnGet654_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnGet654.Click
         Try
@@ -1754,13 +1753,6 @@ Public Class AFSValidator
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
-        End Try
-    End Sub
-
-    Private Sub HelpToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles HelpToolStripMenuItem.Click
-        Try
-            Help.ShowHelp(Label1, HelpUrl)
-        Catch ex As Exception
         End Try
     End Sub
 End Class

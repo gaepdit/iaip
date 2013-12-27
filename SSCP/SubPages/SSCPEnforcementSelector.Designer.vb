@@ -219,7 +219,7 @@ Partial Class SSCPEnforcementSelector
         Me.btnViewAllEnforcements.Name = "btnViewAllEnforcements"
         Me.btnViewAllEnforcements.Size = New System.Drawing.Size(135, 23)
         Me.btnViewAllEnforcements.TabIndex = 163
-        Me.btnViewAllEnforcements.Text = "View All Enforcement(s)"
+        Me.btnViewAllEnforcements.Text = "View All Enforcement"
         '
         'txtEnforcementCount
         '
@@ -251,7 +251,7 @@ Partial Class SSCPEnforcementSelector
         Me.btnOpenEnforcements.Name = "btnOpenEnforcements"
         Me.btnOpenEnforcements.Size = New System.Drawing.Size(176, 23)
         Me.btnOpenEnforcements.TabIndex = 159
-        Me.btnOpenEnforcements.Text = "View All Open Enforcement(s)"
+        Me.btnOpenEnforcements.Text = "View All Open Enforcement"
         '
         'btnOpenEnforcement
         '

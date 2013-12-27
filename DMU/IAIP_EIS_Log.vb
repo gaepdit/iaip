@@ -40,7 +40,6 @@ Public Class IAIP_EIS_Log
 
     Private Sub IAIP_EIS_Log_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         monitor.TrackFeature("Forms." & Me.Name)
-        monitor.TrackFeature("Dev." & Me.Name)
 
         Try
             Panel1.Text = "Select a Function..."
