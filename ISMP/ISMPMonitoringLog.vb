@@ -17,7 +17,7 @@ Public Class ISMPMonitoringLog
     Dim dsPollutants As DataSet
     Dim daPollutants As OracleDataAdapter
 
-    Private Sub DevMonitoringLog_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+    Private Sub ISMPMonitoringLog_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         monitor.TrackFeature("Forms." & Me.Name)
         Try
 
