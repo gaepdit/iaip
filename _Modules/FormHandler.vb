@@ -30,16 +30,12 @@ Module FormHandler
 
         Dim name As String = formClass.Name
 
-        If closeFirst AndAlso SingleForm.ContainsKey(name) _
-        AndAlso SingleForm(name) IsNot Nothing _
-        AndAlso Not SingleForm(name).IsDisposed Then
+        If closeFirst AndAlso SingleFormIsOpen(name) Then
             SingleForm(name).Dispose()
             SingleForm.Remove(name)
         End If
 
-        If Not SingleForm.ContainsKey(name) _
-        OrElse SingleForm(name) Is Nothing _
-        OrElse SingleForm(name).IsDisposed Then
+        If Not SingleFormIsOpen(name) Then
             SingleForm(name) = Activator.CreateInstance(formClass.GetType)
         End If
 
@@ -49,5 +45,16 @@ Module FormHandler
         SingleForm(name).Show()
         SingleForm(name).Activate()
     End Sub
+
+    Public Function SingleFormIsOpen(ByVal formClass As BaseForm) As Boolean
+        Return SingleFormIsOpen(formClass.Name)
+    End Function
+
+    Public Function SingleFormIsOpen(ByVal formName As String) As Boolean
+        Return (SingleForm IsNot Nothing _
+        AndAlso SingleForm.ContainsKey(formName) _
+        AndAlso SingleForm(formName) IsNot Nothing _
+        AndAlso Not SingleForm(formName).IsDisposed)
+    End Function
 
 End Module
