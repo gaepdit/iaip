@@ -14,6 +14,9 @@ See the [release notes](README.html).
 + FIX: *ISMP/SSCP* – Clarified layout on Test Report compliance tab (#153)
 + FIX: Smoke School Roster not printing (#120)
 + FIX: *SSCP* – Unable to link enforcement event or save enforcement (#158)
++ FIX: *SSCP* – "Add/Edit Enforcement Process" button on Compliance Event form is broken (#156)
++ FIX: *SSCP* – Compliance Log fields obscured at small screen sizes (#155)
++ FIX: *ISMP* – Some forms crashing after being resized (#157) (May still affect other forms)
 
 ## Version 2.8.1 <span>(2013-12-13)</span>
 
