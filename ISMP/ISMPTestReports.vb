@@ -39,7 +39,11 @@ Public Class ISMPTestReports
     Private Sub ISMPTestReports_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         monitor.TrackFeature("Forms." & Me.Name)
         Try
-            SCTestReports.SplitterDistance = 190
+            Me.Height = Math.Max(Me.Height, 200)
+            Dim defaultSplitterDistance As Integer = 190
+            SCTestReports.SplitterDistance = Math.Min(SCTestReports.Height - SCTestReports.Panel2MinSize, _
+                Math.Max(defaultSplitterDistance, SCTestReports.Panel1MinSize))
+
             Panel1.Text = "Select a Function..."
             Panel2.Text = UserName
             Panel3.Text = OracleDate
