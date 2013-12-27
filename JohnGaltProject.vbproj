@@ -252,10 +252,10 @@
     <Compile Include="AssemblyInfo.vb">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DevelopmentForms\AFSValidator.Designer.vb">
+    <Compile Include="DMU\AFSValidator.Designer.vb">
       <DependentUpon>AFSValidator.vb</DependentUpon>
     </Compile>
-    <Compile Include="DevelopmentForms\AFSValidator.vb">
+    <Compile Include="DMU\AFSValidator.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="DevelopmentForms\IAIPPhoneList.Designer.vb">
@@ -1104,7 +1104,7 @@
       <LastGenOutput>AccMemo.vb</LastGenOutput>
       <CustomToolNamespace>CR.Reports</CustomToolNamespace>
     </EmbeddedResource>
-    <EmbeddedResource Include="DevelopmentForms\AFSValidator.resx">
+    <EmbeddedResource Include="DMU\AFSValidator.resx">
       <DependentUpon>AFSValidator.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
