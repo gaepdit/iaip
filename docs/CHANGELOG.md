@@ -8,6 +8,7 @@ See the [release notes](README.html).
 ## Version 2.8.2 <span>(2013-12-27)</span>
 
 + NEW: *SSCP* – ACC review memos are now automatically generated
++ NEW: Improved Smoke School roster
 
 
 + FIX: *PASP* – Removed obsolete Fee Audit Tool (#134)
