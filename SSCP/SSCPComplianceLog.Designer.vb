@@ -305,7 +305,7 @@ Partial Class SSCPComplianceLog
         Me.TBWork_EnTry.Location = New System.Drawing.Point(0, 0)
         Me.TBWork_EnTry.Name = "TBWork_EnTry"
         Me.TBWork_EnTry.ShowToolTips = True
-        Me.TBWork_EnTry.Size = New System.Drawing.Size(1016, 28)
+        Me.TBWork_EnTry.Size = New System.Drawing.Size(831, 28)
         Me.TBWork_EnTry.TabIndex = 2
         '
         'tbbSearch
@@ -329,9 +329,9 @@ Partial Class SSCPComplianceLog
         'StatusStrip1
         '
         Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Panel1, Me.Panel2, Me.Panel3})
-        Me.StatusStrip1.Location = New System.Drawing.Point(0, 687)
+        Me.StatusStrip1.Location = New System.Drawing.Point(0, 666)
         Me.StatusStrip1.Name = "StatusStrip1"
-        Me.StatusStrip1.Size = New System.Drawing.Size(1016, 22)
+        Me.StatusStrip1.Size = New System.Drawing.Size(831, 22)
         Me.StatusStrip1.TabIndex = 3
         Me.StatusStrip1.Text = "StatusStrip1"
         '
@@ -342,7 +342,7 @@ Partial Class SSCPComplianceLog
                     Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
         Me.Panel1.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(993, 17)
+        Me.Panel1.Size = New System.Drawing.Size(824, 17)
         Me.Panel1.Spring = True
         Me.Panel1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
@@ -371,7 +371,7 @@ Partial Class SSCPComplianceLog
         Me.GroupBox1.Dock = System.Windows.Forms.DockStyle.Top
         Me.GroupBox1.Location = New System.Drawing.Point(0, 28)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(1016, 430)
+        Me.GroupBox1.Size = New System.Drawing.Size(831, 430)
         Me.GroupBox1.TabIndex = 4
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Filter and Sort Option"
@@ -388,7 +388,7 @@ Partial Class SSCPComplianceLog
         Me.pnlFilterPanel.Controls.Add(Me.GBEngineer)
         Me.pnlFilterPanel.Location = New System.Drawing.Point(4, 16)
         Me.pnlFilterPanel.Name = "pnlFilterPanel"
-        Me.pnlFilterPanel.Size = New System.Drawing.Size(759, 417)
+        Me.pnlFilterPanel.Size = New System.Drawing.Size(593, 417)
         Me.pnlFilterPanel.TabIndex = 303
         '
         'GBWorkTypes
@@ -405,7 +405,7 @@ Partial Class SSCPComplianceLog
         Me.GBWorkTypes.Controls.Add(Me.chbACCs)
         Me.GBWorkTypes.Location = New System.Drawing.Point(2, 96)
         Me.GBWorkTypes.Name = "GBWorkTypes"
-        Me.GBWorkTypes.Size = New System.Drawing.Size(208, 310)
+        Me.GBWorkTypes.Size = New System.Drawing.Size(198, 310)
         Me.GBWorkTypes.TabIndex = 2
         Me.GBWorkTypes.TabStop = False
         Me.GBWorkTypes.Text = "Work Type"
@@ -425,9 +425,9 @@ Partial Class SSCPComplianceLog
         Me.GBNotifications.Controls.Add(Me.clbNotifications)
         Me.GBNotifications.Enabled = False
         Me.GBNotifications.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.GBNotifications.Location = New System.Drawing.Point(16, 173)
+        Me.GBNotifications.Location = New System.Drawing.Point(8, 173)
         Me.GBNotifications.Name = "GBNotifications"
-        Me.GBNotifications.Size = New System.Drawing.Size(186, 133)
+        Me.GBNotifications.Size = New System.Drawing.Size(183, 133)
         Me.GBNotifications.TabIndex = 9
         Me.GBNotifications.TabStop = False
         Me.GBNotifications.Text = "Notification Types"
@@ -438,7 +438,7 @@ Partial Class SSCPComplianceLog
         Me.clbNotifications.FormattingEnabled = True
         Me.clbNotifications.Location = New System.Drawing.Point(6, 20)
         Me.clbNotifications.Name = "clbNotifications"
-        Me.clbNotifications.Size = New System.Drawing.Size(172, 109)
+        Me.clbNotifications.Size = New System.Drawing.Size(169, 109)
         Me.clbNotifications.TabIndex = 0
         '
         'chbFCE
@@ -522,9 +522,9 @@ Partial Class SSCPComplianceLog
         Me.GBEnforcementDates.Controls.Add(Me.DTPFilterEnd)
         Me.GBEnforcementDates.Controls.Add(Me.Label14)
         Me.GBEnforcementDates.Controls.Add(Me.DTPFilterStart)
-        Me.GBEnforcementDates.Location = New System.Drawing.Point(494, 265)
+        Me.GBEnforcementDates.Location = New System.Drawing.Point(441, 260)
         Me.GBEnforcementDates.Name = "GBEnforcementDates"
-        Me.GBEnforcementDates.Size = New System.Drawing.Size(251, 83)
+        Me.GBEnforcementDates.Size = New System.Drawing.Size(144, 147)
         Me.GBEnforcementDates.TabIndex = 5
         Me.GBEnforcementDates.TabStop = False
         Me.GBEnforcementDates.Text = "Date Bias"
@@ -532,7 +532,7 @@ Partial Class SSCPComplianceLog
         'chbLastModifiedDate
         '
         Me.chbLastModifiedDate.AutoSize = True
-        Me.chbLastModifiedDate.Location = New System.Drawing.Point(123, 19)
+        Me.chbLastModifiedDate.Location = New System.Drawing.Point(9, 120)
         Me.chbLastModifiedDate.Name = "chbLastModifiedDate"
         Me.chbLastModifiedDate.Size = New System.Drawing.Size(122, 17)
         Me.chbLastModifiedDate.TabIndex = 2
@@ -542,7 +542,7 @@ Partial Class SSCPComplianceLog
         'chbFilterDates
         '
         Me.chbFilterDates.AutoSize = True
-        Me.chbFilterDates.Location = New System.Drawing.Point(6, 19)
+        Me.chbFilterDates.Location = New System.Drawing.Point(9, 19)
         Me.chbFilterDates.Name = "chbFilterDates"
         Me.chbFilterDates.Size = New System.Drawing.Size(71, 17)
         Me.chbFilterDates.TabIndex = 0
@@ -551,7 +551,7 @@ Partial Class SSCPComplianceLog
         'Label13
         '
         Me.Label13.AutoSize = True
-        Me.Label13.Location = New System.Drawing.Point(120, 39)
+        Me.Label13.Location = New System.Drawing.Point(6, 78)
         Me.Label13.Name = "Label13"
         Me.Label13.Size = New System.Drawing.Size(55, 13)
         Me.Label13.TabIndex = 32
@@ -561,7 +561,7 @@ Partial Class SSCPComplianceLog
         '
         Me.DTPFilterEnd.CustomFormat = "dd-MMM-yyyy"
         Me.DTPFilterEnd.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DTPFilterEnd.Location = New System.Drawing.Point(123, 55)
+        Me.DTPFilterEnd.Location = New System.Drawing.Point(9, 94)
         Me.DTPFilterEnd.Name = "DTPFilterEnd"
         Me.DTPFilterEnd.Size = New System.Drawing.Size(100, 20)
         Me.DTPFilterEnd.TabIndex = 3
@@ -588,7 +588,7 @@ Partial Class SSCPComplianceLog
         '
         Me.Label20.AutoSize = True
         Me.Label20.Font = New System.Drawing.Font("Microsoft Sans Serif", 6.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label20.Location = New System.Drawing.Point(106, 5)
+        Me.Label20.Location = New System.Drawing.Point(92, 8)
         Me.Label20.Name = "Label20"
         Me.Label20.Size = New System.Drawing.Size(54, 9)
         Me.Label20.TabIndex = 302
@@ -596,7 +596,7 @@ Partial Class SSCPComplianceLog
         '
         'txtWorkCount
         '
-        Me.txtWorkCount.Location = New System.Drawing.Point(162, -1)
+        Me.txtWorkCount.Location = New System.Drawing.Point(152, 1)
         Me.txtWorkCount.Name = "txtWorkCount"
         Me.txtWorkCount.ReadOnly = True
         Me.txtWorkCount.Size = New System.Drawing.Size(48, 20)
@@ -619,7 +619,7 @@ Partial Class SSCPComplianceLog
         Me.GroupBox5.Controls.Add(Me.chbDeletedWork)
         Me.GroupBox5.Location = New System.Drawing.Point(2, 26)
         Me.GroupBox5.Name = "GroupBox5"
-        Me.GroupBox5.Size = New System.Drawing.Size(206, 68)
+        Me.GroupBox5.Size = New System.Drawing.Size(198, 68)
         Me.GroupBox5.TabIndex = 1
         Me.GroupBox5.TabStop = False
         Me.GroupBox5.Text = "Open/Closed/Deleted"
@@ -662,9 +662,9 @@ Partial Class SSCPComplianceLog
         Me.GroupBox7.Controls.Add(Me.Label9)
         Me.GroupBox7.Controls.Add(Me.txtTrackingNumberFilter)
         Me.GroupBox7.Controls.Add(Me.txtAIRSNumberFilter)
-        Me.GroupBox7.Location = New System.Drawing.Point(222, 259)
+        Me.GroupBox7.Location = New System.Drawing.Point(206, 260)
         Me.GroupBox7.Name = "GroupBox7"
-        Me.GroupBox7.Size = New System.Drawing.Size(266, 138)
+        Me.GroupBox7.Size = New System.Drawing.Size(229, 146)
         Me.GroupBox7.TabIndex = 4
         Me.GroupBox7.TabStop = False
         Me.GroupBox7.Text = "Misc. "
@@ -683,7 +683,7 @@ Partial Class SSCPComplianceLog
         Me.txtFacilityNameFilter.Location = New System.Drawing.Point(119, 110)
         Me.txtFacilityNameFilter.MaxLength = 8
         Me.txtFacilityNameFilter.Name = "txtFacilityNameFilter"
-        Me.txtFacilityNameFilter.Size = New System.Drawing.Size(129, 20)
+        Me.txtFacilityNameFilter.Size = New System.Drawing.Size(100, 20)
         Me.txtFacilityNameFilter.TabIndex = 4
         '
         'Label12
@@ -700,7 +700,7 @@ Partial Class SSCPComplianceLog
         Me.txtFCENumberFilter.Location = New System.Drawing.Point(119, 84)
         Me.txtFCENumberFilter.MaxLength = 8
         Me.txtFCENumberFilter.Name = "txtFCENumberFilter"
-        Me.txtFCENumberFilter.Size = New System.Drawing.Size(129, 20)
+        Me.txtFCENumberFilter.Size = New System.Drawing.Size(100, 20)
         Me.txtFCENumberFilter.TabIndex = 3
         '
         'Label10
@@ -717,7 +717,7 @@ Partial Class SSCPComplianceLog
         Me.txtEnforcementNumberFilter.Location = New System.Drawing.Point(119, 61)
         Me.txtEnforcementNumberFilter.MaxLength = 8
         Me.txtEnforcementNumberFilter.Name = "txtEnforcementNumberFilter"
-        Me.txtEnforcementNumberFilter.Size = New System.Drawing.Size(129, 20)
+        Me.txtEnforcementNumberFilter.Size = New System.Drawing.Size(100, 20)
         Me.txtEnforcementNumberFilter.TabIndex = 2
         '
         'Label11
@@ -743,7 +743,7 @@ Partial Class SSCPComplianceLog
         Me.txtTrackingNumberFilter.Location = New System.Drawing.Point(119, 37)
         Me.txtTrackingNumberFilter.MaxLength = 8
         Me.txtTrackingNumberFilter.Name = "txtTrackingNumberFilter"
-        Me.txtTrackingNumberFilter.Size = New System.Drawing.Size(129, 20)
+        Me.txtTrackingNumberFilter.Size = New System.Drawing.Size(100, 20)
         Me.txtTrackingNumberFilter.TabIndex = 1
         '
         'txtAIRSNumberFilter
@@ -751,7 +751,7 @@ Partial Class SSCPComplianceLog
         Me.txtAIRSNumberFilter.Location = New System.Drawing.Point(119, 14)
         Me.txtAIRSNumberFilter.MaxLength = 8
         Me.txtAIRSNumberFilter.Name = "txtAIRSNumberFilter"
-        Me.txtAIRSNumberFilter.Size = New System.Drawing.Size(129, 20)
+        Me.txtAIRSNumberFilter.Size = New System.Drawing.Size(100, 20)
         Me.txtAIRSNumberFilter.TabIndex = 0
         '
         'GBEngineer
@@ -763,9 +763,9 @@ Partial Class SSCPComplianceLog
         Me.GBEngineer.Controls.Add(Me.Panel5)
         Me.GBEngineer.Controls.Add(Me.clbEngineer)
         Me.GBEngineer.Controls.Add(Me.chbEngineer)
-        Me.GBEngineer.Location = New System.Drawing.Point(222, -1)
+        Me.GBEngineer.Location = New System.Drawing.Point(206, 1)
         Me.GBEngineer.Name = "GBEngineer"
-        Me.GBEngineer.Size = New System.Drawing.Size(420, 257)
+        Me.GBEngineer.Size = New System.Drawing.Size(379, 253)
         Me.GBEngineer.TabIndex = 3
         Me.GBEngineer.TabStop = False
         Me.GBEngineer.Text = "Staff Search Criteria"
@@ -773,7 +773,7 @@ Partial Class SSCPComplianceLog
         'Label17
         '
         Me.Label17.AutoSize = True
-        Me.Label17.Location = New System.Drawing.Point(211, 121)
+        Me.Label17.Location = New System.Drawing.Point(191, 121)
         Me.Label17.Name = "Label17"
         Me.Label17.Size = New System.Drawing.Size(70, 13)
         Me.Label17.TabIndex = 5
@@ -782,7 +782,7 @@ Partial Class SSCPComplianceLog
         'Label16
         '
         Me.Label16.AutoSize = True
-        Me.Label16.Location = New System.Drawing.Point(211, 46)
+        Me.Label16.Location = New System.Drawing.Point(191, 46)
         Me.Label16.Name = "Label16"
         Me.Label16.Size = New System.Drawing.Size(78, 13)
         Me.Label16.TabIndex = 3
@@ -791,17 +791,17 @@ Partial Class SSCPComplianceLog
         'clbDistrictOffices
         '
         Me.clbDistrictOffices.CheckOnClick = True
-        Me.clbDistrictOffices.Location = New System.Drawing.Point(211, 137)
+        Me.clbDistrictOffices.Location = New System.Drawing.Point(191, 137)
         Me.clbDistrictOffices.Name = "clbDistrictOffices"
-        Me.clbDistrictOffices.Size = New System.Drawing.Size(199, 109)
+        Me.clbDistrictOffices.Size = New System.Drawing.Size(179, 109)
         Me.clbDistrictOffices.TabIndex = 6
         '
         'clbAirBranchUnits
         '
         Me.clbAirBranchUnits.CheckOnClick = True
-        Me.clbAirBranchUnits.Location = New System.Drawing.Point(211, 62)
+        Me.clbAirBranchUnits.Location = New System.Drawing.Point(191, 62)
         Me.clbAirBranchUnits.Name = "clbAirBranchUnits"
-        Me.clbAirBranchUnits.Size = New System.Drawing.Size(199, 49)
+        Me.clbAirBranchUnits.Size = New System.Drawing.Size(179, 49)
         Me.clbAirBranchUnits.TabIndex = 4
         '
         'Panel5
@@ -814,13 +814,13 @@ Partial Class SSCPComplianceLog
         Me.Panel5.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel5.Location = New System.Drawing.Point(3, 16)
         Me.Panel5.Name = "Panel5"
-        Me.Panel5.Size = New System.Drawing.Size(414, 24)
+        Me.Panel5.Size = New System.Drawing.Size(373, 24)
         Me.Panel5.TabIndex = 0
         '
         'rdbUseUnits
         '
         Me.rdbUseUnits.AutoSize = True
-        Me.rdbUseUnits.Location = New System.Drawing.Point(202, 4)
+        Me.rdbUseUnits.Location = New System.Drawing.Point(186, 4)
         Me.rdbUseUnits.Name = "rdbUseUnits"
         Me.rdbUseUnits.Size = New System.Drawing.Size(134, 17)
         Me.rdbUseUnits.TabIndex = 2
@@ -831,7 +831,7 @@ Partial Class SSCPComplianceLog
         '
         Me.rdbUseEngineer.AutoSize = True
         Me.rdbUseEngineer.Checked = True
-        Me.rdbUseEngineer.Location = New System.Drawing.Point(91, 4)
+        Me.rdbUseEngineer.Location = New System.Drawing.Point(89, 4)
         Me.rdbUseEngineer.Name = "rdbUseEngineer"
         Me.rdbUseEngineer.Size = New System.Drawing.Size(91, 17)
         Me.rdbUseEngineer.TabIndex = 1
@@ -854,7 +854,7 @@ Partial Class SSCPComplianceLog
         Me.clbEngineer.CheckOnClick = True
         Me.clbEngineer.Location = New System.Drawing.Point(6, 62)
         Me.clbEngineer.Name = "clbEngineer"
-        Me.clbEngineer.Size = New System.Drawing.Size(199, 184)
+        Me.clbEngineer.Size = New System.Drawing.Size(179, 184)
         Me.clbEngineer.TabIndex = 2
         '
         'chbEngineer
@@ -873,10 +873,10 @@ Partial Class SSCPComplianceLog
         Me.TCComplianceLog.Controls.Add(Me.TPSelectWork)
         Me.TCComplianceLog.Controls.Add(Me.TPStartNewWork)
         Me.TCComplianceLog.Dock = System.Windows.Forms.DockStyle.Right
-        Me.TCComplianceLog.Location = New System.Drawing.Point(763, 16)
+        Me.TCComplianceLog.Location = New System.Drawing.Point(596, 16)
         Me.TCComplianceLog.Name = "TCComplianceLog"
         Me.TCComplianceLog.SelectedIndex = 0
-        Me.TCComplianceLog.Size = New System.Drawing.Size(250, 411)
+        Me.TCComplianceLog.Size = New System.Drawing.Size(232, 411)
         Me.TCComplianceLog.TabIndex = 1
         '
         'TPSelectWork
@@ -900,7 +900,7 @@ Partial Class SSCPComplianceLog
         Me.TPSelectWork.Location = New System.Drawing.Point(4, 22)
         Me.TPSelectWork.Name = "TPSelectWork"
         Me.TPSelectWork.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPSelectWork.Size = New System.Drawing.Size(242, 385)
+        Me.TPSelectWork.Size = New System.Drawing.Size(224, 385)
         Me.TPSelectWork.TabIndex = 0
         Me.TPSelectWork.Text = "Select Work Entry "
         Me.TPSelectWork.UseVisualStyleBackColor = True
@@ -909,7 +909,7 @@ Partial Class SSCPComplianceLog
         '
         Me.btnOpenSummary.AutoSize = True
         Me.btnOpenSummary.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnOpenSummary.Location = New System.Drawing.Point(135, 68)
+        Me.btnOpenSummary.Location = New System.Drawing.Point(122, 61)
         Me.btnOpenSummary.Name = "btnOpenSummary"
         Me.btnOpenSummary.Size = New System.Drawing.Size(95, 23)
         Me.btnOpenSummary.TabIndex = 3
@@ -919,7 +919,7 @@ Partial Class SSCPComplianceLog
         'btnUndeleteWork
         '
         Me.btnUndeleteWork.AutoSize = True
-        Me.btnUndeleteWork.Location = New System.Drawing.Point(141, 303)
+        Me.btnUndeleteWork.Location = New System.Drawing.Point(128, 297)
         Me.btnUndeleteWork.Name = "btnUndeleteWork"
         Me.btnUndeleteWork.Size = New System.Drawing.Size(89, 23)
         Me.btnUndeleteWork.TabIndex = 9
@@ -929,7 +929,7 @@ Partial Class SSCPComplianceLog
         'btnDeleteWork
         '
         Me.btnDeleteWork.AutoSize = True
-        Me.btnDeleteWork.Location = New System.Drawing.Point(22, 303)
+        Me.btnDeleteWork.Location = New System.Drawing.Point(9, 297)
         Me.btnDeleteWork.Name = "btnDeleteWork"
         Me.btnDeleteWork.Size = New System.Drawing.Size(77, 23)
         Me.btnDeleteWork.TabIndex = 8
@@ -940,7 +940,7 @@ Partial Class SSCPComplianceLog
         '
         Me.btnSelectWork.AutoSize = True
         Me.btnSelectWork.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnSelectWork.Location = New System.Drawing.Point(145, 23)
+        Me.btnSelectWork.Location = New System.Drawing.Point(122, 22)
         Me.btnSelectWork.Name = "btnSelectWork"
         Me.btnSelectWork.Size = New System.Drawing.Size(72, 23)
         Me.btnSelectWork.TabIndex = 1
@@ -958,7 +958,7 @@ Partial Class SSCPComplianceLog
         '
         'txtFacilityCounty
         '
-        Me.txtFacilityCounty.Location = New System.Drawing.Point(22, 248)
+        Me.txtFacilityCounty.Location = New System.Drawing.Point(9, 245)
         Me.txtFacilityCounty.Name = "txtFacilityCounty"
         Me.txtFacilityCounty.ReadOnly = True
         Me.txtFacilityCounty.Size = New System.Drawing.Size(208, 20)
@@ -966,7 +966,7 @@ Partial Class SSCPComplianceLog
         '
         'txtWorkNumber
         '
-        Me.txtWorkNumber.Location = New System.Drawing.Point(22, 24)
+        Me.txtWorkNumber.Location = New System.Drawing.Point(9, 24)
         Me.txtWorkNumber.Name = "txtWorkNumber"
         Me.txtWorkNumber.ReadOnly = True
         Me.txtWorkNumber.Size = New System.Drawing.Size(100, 20)
@@ -975,7 +975,7 @@ Partial Class SSCPComplianceLog
         'Label7
         '
         Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(6, 232)
+        Me.Label7.Location = New System.Drawing.Point(6, 229)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(75, 13)
         Me.Label7.TabIndex = 244
@@ -984,7 +984,7 @@ Partial Class SSCPComplianceLog
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(6, 88)
+        Me.Label3.Location = New System.Drawing.Point(6, 86)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(70, 13)
         Me.Label3.TabIndex = 236
@@ -992,7 +992,7 @@ Partial Class SSCPComplianceLog
         '
         'txtFacilityCity
         '
-        Me.txtFacilityCity.Location = New System.Drawing.Point(22, 208)
+        Me.txtFacilityCity.Location = New System.Drawing.Point(9, 205)
         Me.txtFacilityCity.Name = "txtFacilityCity"
         Me.txtFacilityCity.ReadOnly = True
         Me.txtFacilityCity.Size = New System.Drawing.Size(208, 20)
@@ -1000,7 +1000,7 @@ Partial Class SSCPComplianceLog
         '
         'txtFacilityName
         '
-        Me.txtFacilityName.Location = New System.Drawing.Point(22, 104)
+        Me.txtFacilityName.Location = New System.Drawing.Point(9, 102)
         Me.txtFacilityName.Name = "txtFacilityName"
         Me.txtFacilityName.ReadOnly = True
         Me.txtFacilityName.Size = New System.Drawing.Size(208, 20)
@@ -1009,7 +1009,7 @@ Partial Class SSCPComplianceLog
         'Label6
         '
         Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(6, 192)
+        Me.Label6.Location = New System.Drawing.Point(6, 189)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(59, 13)
         Me.Label6.TabIndex = 242
@@ -1018,7 +1018,7 @@ Partial Class SSCPComplianceLog
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(6, 51)
+        Me.Label2.Location = New System.Drawing.Point(6, 47)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(72, 13)
         Me.Label2.TabIndex = 238
@@ -1026,7 +1026,7 @@ Partial Class SSCPComplianceLog
         '
         'txtTestType
         '
-        Me.txtTestType.Location = New System.Drawing.Point(22, 144)
+        Me.txtTestType.Location = New System.Drawing.Point(9, 141)
         Me.txtTestType.Name = "txtTestType"
         Me.txtTestType.ReadOnly = True
         Me.txtTestType.Size = New System.Drawing.Size(208, 20)
@@ -1034,7 +1034,7 @@ Partial Class SSCPComplianceLog
         '
         'txtAIRSNumber
         '
-        Me.txtAIRSNumber.Location = New System.Drawing.Point(22, 67)
+        Me.txtAIRSNumber.Location = New System.Drawing.Point(9, 63)
         Me.txtAIRSNumber.Name = "txtAIRSNumber"
         Me.txtAIRSNumber.ReadOnly = True
         Me.txtAIRSNumber.Size = New System.Drawing.Size(100, 20)
@@ -1043,7 +1043,7 @@ Partial Class SSCPComplianceLog
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(6, 128)
+        Me.Label1.Location = New System.Drawing.Point(6, 125)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(60, 13)
         Me.Label1.TabIndex = 240
@@ -1061,7 +1061,7 @@ Partial Class SSCPComplianceLog
         Me.TPStartNewWork.Location = New System.Drawing.Point(4, 22)
         Me.TPStartNewWork.Name = "TPStartNewWork"
         Me.TPStartNewWork.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPStartNewWork.Size = New System.Drawing.Size(242, 385)
+        Me.TPStartNewWork.Size = New System.Drawing.Size(224, 385)
         Me.TPStartNewWork.TabIndex = 1
         Me.TPStartNewWork.Text = "Start New Work"
         Me.TPStartNewWork.UseVisualStyleBackColor = True
@@ -1075,15 +1075,15 @@ Partial Class SSCPComplianceLog
         Me.pnlOtherEvents.Controls.Add(Me.LabEventDescription)
         Me.pnlOtherEvents.Controls.Add(Me.DTPDateReceived)
         Me.pnlOtherEvents.Controls.Add(Me.lblDateField)
-        Me.pnlOtherEvents.Location = New System.Drawing.Point(3, 216)
+        Me.pnlOtherEvents.Location = New System.Drawing.Point(0, 216)
         Me.pnlOtherEvents.Name = "pnlOtherEvents"
-        Me.pnlOtherEvents.Size = New System.Drawing.Size(236, 137)
+        Me.pnlOtherEvents.Size = New System.Drawing.Size(217, 137)
         Me.pnlOtherEvents.TabIndex = 2
         Me.pnlOtherEvents.Visible = False
         '
         'txtTrackingNumber
         '
-        Me.txtTrackingNumber.Location = New System.Drawing.Point(17, 22)
+        Me.txtTrackingNumber.Location = New System.Drawing.Point(9, 25)
         Me.txtTrackingNumber.Name = "txtTrackingNumber"
         Me.txtTrackingNumber.ReadOnly = True
         Me.txtTrackingNumber.Size = New System.Drawing.Size(80, 20)
@@ -1092,7 +1092,7 @@ Partial Class SSCPComplianceLog
         'Label8
         '
         Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(1, 57)
+        Me.Label8.Location = New System.Drawing.Point(6, 58)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(93, 13)
         Me.Label8.TabIndex = 275
@@ -1101,7 +1101,7 @@ Partial Class SSCPComplianceLog
         'lblOtherNumber
         '
         Me.lblOtherNumber.AutoSize = True
-        Me.lblOtherNumber.Location = New System.Drawing.Point(1, 4)
+        Me.lblOtherNumber.Location = New System.Drawing.Point(6, 9)
         Me.lblOtherNumber.Name = "lblOtherNumber"
         Me.lblOtherNumber.Size = New System.Drawing.Size(92, 13)
         Me.lblOtherNumber.TabIndex = 279
@@ -1109,14 +1109,14 @@ Partial Class SSCPComplianceLog
         '
         'cboEvent
         '
-        Me.cboEvent.Location = New System.Drawing.Point(17, 75)
+        Me.cboEvent.Location = New System.Drawing.Point(9, 78)
         Me.cboEvent.Name = "cboEvent"
-        Me.cboEvent.Size = New System.Drawing.Size(208, 21)
+        Me.cboEvent.Size = New System.Drawing.Size(198, 21)
         Me.cboEvent.TabIndex = 2
         '
         'LabEventDescription
         '
-        Me.LabEventDescription.Location = New System.Drawing.Point(21, 104)
+        Me.LabEventDescription.Location = New System.Drawing.Point(10, 102)
         Me.LabEventDescription.Name = "LabEventDescription"
         Me.LabEventDescription.Size = New System.Drawing.Size(204, 29)
         Me.LabEventDescription.TabIndex = 3
@@ -1126,7 +1126,7 @@ Partial Class SSCPComplianceLog
         '
         Me.DTPDateReceived.CustomFormat = "dd-MMM-yyyy"
         Me.DTPDateReceived.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DTPDateReceived.Location = New System.Drawing.Point(125, 22)
+        Me.DTPDateReceived.Location = New System.Drawing.Point(107, 25)
         Me.DTPDateReceived.Name = "DTPDateReceived"
         Me.DTPDateReceived.Size = New System.Drawing.Size(100, 20)
         Me.DTPDateReceived.TabIndex = 1
@@ -1135,7 +1135,7 @@ Partial Class SSCPComplianceLog
         'lblDateField
         '
         Me.lblDateField.AutoSize = True
-        Me.lblDateField.Location = New System.Drawing.Point(101, 5)
+        Me.lblDateField.Location = New System.Drawing.Point(104, 8)
         Me.lblDateField.Name = "lblDateField"
         Me.lblDateField.Size = New System.Drawing.Size(103, 13)
         Me.lblDateField.TabIndex = 277
@@ -1147,9 +1147,9 @@ Partial Class SSCPComplianceLog
         Me.Panel4.Controls.Add(Me.rdbOther)
         Me.Panel4.Controls.Add(Me.rdbFCE)
         Me.Panel4.Controls.Add(Me.rdbEnforcementAction)
-        Me.Panel4.Location = New System.Drawing.Point(22, 132)
+        Me.Panel4.Location = New System.Drawing.Point(9, 132)
         Me.Panel4.Name = "Panel4"
-        Me.Panel4.Size = New System.Drawing.Size(173, 84)
+        Me.Panel4.Size = New System.Drawing.Size(208, 84)
         Me.Panel4.TabIndex = 1
         '
         'rdbPerformanceTest
@@ -1199,7 +1199,7 @@ Partial Class SSCPComplianceLog
         'btnAddNewEntry
         '
         Me.btnAddNewEntry.AutoSize = True
-        Me.btnAddNewEntry.Location = New System.Drawing.Point(22, 359)
+        Me.btnAddNewEntry.Location = New System.Drawing.Point(9, 359)
         Me.btnAddNewEntry.Name = "btnAddNewEntry"
         Me.btnAddNewEntry.Size = New System.Drawing.Size(88, 23)
         Me.btnAddNewEntry.TabIndex = 3
@@ -1216,7 +1216,7 @@ Partial Class SSCPComplianceLog
         '
         'txtFacilityInformation
         '
-        Me.txtFacilityInformation.Location = New System.Drawing.Point(22, 62)
+        Me.txtFacilityInformation.Location = New System.Drawing.Point(9, 62)
         Me.txtFacilityInformation.Multiline = True
         Me.txtFacilityInformation.Name = "txtFacilityInformation"
         Me.txtFacilityInformation.ReadOnly = True
@@ -1236,7 +1236,7 @@ Partial Class SSCPComplianceLog
         '
         'txtNewAIRSNumber
         '
-        Me.txtNewAIRSNumber.Location = New System.Drawing.Point(22, 23)
+        Me.txtNewAIRSNumber.Location = New System.Drawing.Point(9, 23)
         Me.txtNewAIRSNumber.MaxLength = 8
         Me.txtNewAIRSNumber.Name = "txtNewAIRSNumber"
         Me.txtNewAIRSNumber.Size = New System.Drawing.Size(208, 20)
@@ -1249,7 +1249,7 @@ Partial Class SSCPComplianceLog
         Me.dgvWork.Location = New System.Drawing.Point(0, 458)
         Me.dgvWork.Name = "dgvWork"
         Me.dgvWork.ReadOnly = True
-        Me.dgvWork.Size = New System.Drawing.Size(1016, 229)
+        Me.dgvWork.Size = New System.Drawing.Size(831, 208)
         Me.dgvWork.TabIndex = 5
         '
         'Splitter1
@@ -1258,7 +1258,7 @@ Partial Class SSCPComplianceLog
         Me.Splitter1.Dock = System.Windows.Forms.DockStyle.Top
         Me.Splitter1.Location = New System.Drawing.Point(0, 458)
         Me.Splitter1.Name = "Splitter1"
-        Me.Splitter1.Size = New System.Drawing.Size(1016, 5)
+        Me.Splitter1.Size = New System.Drawing.Size(831, 5)
         Me.Splitter1.TabIndex = 6
         Me.Splitter1.TabStop = False
         '
@@ -1267,7 +1267,7 @@ Partial Class SSCPComplianceLog
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.AutoScroll = True
-        Me.ClientSize = New System.Drawing.Size(1016, 709)
+        Me.ClientSize = New System.Drawing.Size(831, 688)
         Me.Controls.Add(Me.Splitter1)
         Me.Controls.Add(Me.dgvWork)
         Me.Controls.Add(Me.GroupBox1)
