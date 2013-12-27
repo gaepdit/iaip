@@ -1075,10 +1075,10 @@ Partial Class SSCPComplianceLog
         Me.pnlOtherEvents.Controls.Add(Me.LabEventDescription)
         Me.pnlOtherEvents.Controls.Add(Me.DTPDateReceived)
         Me.pnlOtherEvents.Controls.Add(Me.lblDateField)
-        Me.pnlOtherEvents.Location = New System.Drawing.Point(9, 247)
+        Me.pnlOtherEvents.Location = New System.Drawing.Point(3, 216)
         Me.pnlOtherEvents.Name = "pnlOtherEvents"
-        Me.pnlOtherEvents.Size = New System.Drawing.Size(236, 157)
-        Me.pnlOtherEvents.TabIndex = 43
+        Me.pnlOtherEvents.Size = New System.Drawing.Size(236, 137)
+        Me.pnlOtherEvents.TabIndex = 2
         Me.pnlOtherEvents.Visible = False
         '
         'txtTrackingNumber
@@ -1118,7 +1118,7 @@ Partial Class SSCPComplianceLog
         '
         Me.LabEventDescription.Location = New System.Drawing.Point(21, 104)
         Me.LabEventDescription.Name = "LabEventDescription"
-        Me.LabEventDescription.Size = New System.Drawing.Size(204, 41)
+        Me.LabEventDescription.Size = New System.Drawing.Size(204, 29)
         Me.LabEventDescription.TabIndex = 3
         Me.LabEventDescription.Visible = False
         '
@@ -1150,7 +1150,7 @@ Partial Class SSCPComplianceLog
         Me.Panel4.Location = New System.Drawing.Point(22, 132)
         Me.Panel4.Name = "Panel4"
         Me.Panel4.Size = New System.Drawing.Size(173, 84)
-        Me.Panel4.TabIndex = 38
+        Me.Panel4.TabIndex = 1
         '
         'rdbPerformanceTest
         '
@@ -1199,10 +1199,10 @@ Partial Class SSCPComplianceLog
         'btnAddNewEntry
         '
         Me.btnAddNewEntry.AutoSize = True
-        Me.btnAddNewEntry.Location = New System.Drawing.Point(22, 221)
+        Me.btnAddNewEntry.Location = New System.Drawing.Point(22, 359)
         Me.btnAddNewEntry.Name = "btnAddNewEntry"
         Me.btnAddNewEntry.Size = New System.Drawing.Size(88, 23)
-        Me.btnAddNewEntry.TabIndex = 2
+        Me.btnAddNewEntry.TabIndex = 3
         Me.btnAddNewEntry.Text = "&Add New Entry"
         '
         'Label5
@@ -1222,7 +1222,8 @@ Partial Class SSCPComplianceLog
         Me.txtFacilityInformation.ReadOnly = True
         Me.txtFacilityInformation.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.txtFacilityInformation.Size = New System.Drawing.Size(208, 64)
-        Me.txtFacilityInformation.TabIndex = 1
+        Me.txtFacilityInformation.TabIndex = 100
+        Me.txtFacilityInformation.TabStop = False
         '
         'Label4
         '
