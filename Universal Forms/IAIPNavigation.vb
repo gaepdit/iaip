@@ -2260,13 +2260,13 @@ Public Class IAIPNavigation
                     'MailoutAndStats.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
 
                 Case "IAIP Query Generator" '7
-                    If DevSQLQuery Is Nothing Then
-                        If DevSQLQuery Is Nothing Then DevSQLQuery = New IAIPQueryGenerator
+                    If QueryGenerator Is Nothing Then
+                        If QueryGenerator Is Nothing Then QueryGenerator = New IAIPQueryGenerator
                     Else
-                        DevSQLQuery.Dispose()
-                        DevSQLQuery = New IAIPQueryGenerator
+                        QueryGenerator.Dispose()
+                        QueryGenerator = New IAIPQueryGenerator
                     End If
-                    DevSQLQuery.Show()
+                    QueryGenerator.Show()
                     'DevSQLQuery.Location = New System.Drawing.Point(DefaultX + 25, DefaultY)
                 Case "Profile Management"  ' 8
                     If UserAdminTool Is Nothing Then

@@ -86,7 +86,7 @@ Module subMain
     Public PrintOut As IAIPPrintOut
     Public FacilitySummary As IAIPFacilitySummary
 
-    Public DevSQLQuery As IAIPQueryGenerator
+    Public QueryGenerator As IAIPQueryGenerator
     Public EditContacts As IAIPEditContacts
     'Public EditContacts2 As DEVEditContacts
     Public EditFacilityLocation As IAIPEditFacilityLocation
